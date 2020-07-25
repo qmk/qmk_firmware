@@ -235,11 +235,21 @@ bool onehand_type_char(KEYCODE_t ch,bool long_press) {
             break;
         case KC_L:
             if( _onehand.mod_shift || long_press ) {
+                send_keycode(ch,2);
+            }
+            else {
+                send_keycode(KC_N,2);
+                send_keycode(KC_O,2);
+            }
+            break;
+        case KC_W:
+            if( _onehand.mod_shift || long_press ) {
                 send_keycode(KC_W,2);
                 send_keycode(KC_O,2);
             }
             else {
-                send_keycode(ch,2);
+                send_keycode(KC_W,2);
+                //send_keycode(KC_A,2);
             }
             break;
         default:
@@ -387,22 +397,6 @@ void IM_ONEHAND_enable(uint8_t modef) {
 }
 
 
-bool check_dbltap(uint16_t keycode) {
-    static uint16_t prev_key = 0;
-    static tick_t prev_tick = 0;
-
-    tick_t now = timer_read();
-    bool ret = false;
-    if( prev_key == keycode && elapsed_time(now,prev_tick)<DBLTAP_TERM ) {
-        ret = true;
-    }
-
-    prev_key = keycode;
-    prev_tick = now;
-
-    return ret;
-}
-
 /*
 tick_t check_pressing_time(uint16_t keycode,bool press) {
     static uint8_t keyct = 0;
@@ -449,7 +443,7 @@ bool process_ONEHAND(uint16_t keycode, keyrecord_t *record) {
             if( pressed ) {
                 bool dbltap = check_dbltap(keycode);
                 switch(keycode) {
-                    case KC_RSFT:
+                    case KX__SFT:
                         switch( _onehand.mod_shift ) {
                         case 0:
                             _onehand.mod_shift++;
@@ -458,7 +452,7 @@ bool process_ONEHAND(uint16_t keycode, keyrecord_t *record) {
                             _onehand.mod_shift = 2 * dbltap;
                         }
                     break;
-                    case KC_RCTL:
+                    case KX__CTL:
                         switch( _onehand.mod_ctl ) {
                         case 0:
                             _onehand.mod_ctl++;
@@ -467,7 +461,7 @@ bool process_ONEHAND(uint16_t keycode, keyrecord_t *record) {
                             _onehand.mod_ctl = 2 * dbltap;
                         }
                     break;
-                    case KC_RALT:
+                    case KX__ALT:
                         switch( _onehand.mod_alt ) {
                         case 0:
                             _onehand.mod_alt++;
@@ -476,7 +470,7 @@ bool process_ONEHAND(uint16_t keycode, keyrecord_t *record) {
                             _onehand.mod_alt = 2 * dbltap;
                         }
                     break;
-                    case KC_RGUI:
+                    case KX__GUI:
                         switch( _onehand.mod_gui ) {
                         case 0:
                             _onehand.mod_gui++;

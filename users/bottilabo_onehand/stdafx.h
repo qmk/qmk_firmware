@@ -5,6 +5,15 @@
  */
 
 #pragma once
+
+
+#ifndef DBLTAP_TERM
+#define DBLTAP_TERM 200
+#endif
+    
+
+
+
 //
 typedef struct {
     void (*enable)(uint8_t modef);
@@ -81,3 +90,4 @@ inline uint16_t elapsed_time(uint16_t a,uint16_t b) {
         return (uint16_t)( ((uint32_t)a) + 65535 - b);
 }
 
+bool check_dbltap(uint16_t keycode);

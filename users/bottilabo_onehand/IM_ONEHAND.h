@@ -45,10 +45,6 @@ uint16_t onehand_transkeycode_keycode(uint16_t kc);
 #define ONEHAND_TERM 33
 #endif
     
-#ifndef DBLTAP_TERM
-#define DBLTAP_TERM 200
-#endif
-    
 #ifndef LONGPRESS_TERM
 #define LONGPRESS_TERM 200
 #endif

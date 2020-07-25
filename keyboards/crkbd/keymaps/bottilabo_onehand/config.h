@@ -60,7 +60,7 @@
 
 
 #define LED_HIGH  96
-#define LED_MID   32
-#define LED_LOW    4
+#define LED_MID   16
+#define LED_LOW    2
 
 
