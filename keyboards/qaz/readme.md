@@ -1,6 +1,6 @@
 # QAZ 
 
-![QAZ](https://i.imgur.com/kmxDneo.png)
+![QAZ](https://i.imgur.com/kmxDneol.png)
 
 QAZ is a careful exercise in minimalism, leveraging advanced QMK magic like combos, tapdances and mod layers to unlock complete functionality while remaining oddly familiar. 
 Throw it in your fanny pack and hop on your fixed gear and away you go. QAZ is cheap, hip, and effective with all the keyboardy features you expect, including the ability to type numbers- should you choose to add them to your layout. 
