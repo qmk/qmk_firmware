@@ -501,7 +501,6 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
     // キーを押し続けていて今離したら、レイヤーをオフに切り替えます。
-    // If the key was held down and now is released then switch off the layer
     if (ql_tap_state.state == SINGLE_HOLD) {
         layer_off(_MY_LAYER);
     }
