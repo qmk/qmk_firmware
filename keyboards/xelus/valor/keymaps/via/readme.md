@@ -1,2 +1,2 @@
-# The VIA Praxis Layout
+# The VIA Valor Layout
 

@@ -1,2 +1,2 @@
-# The Default Praxis Layout
+# The Default Valor Layout
 
