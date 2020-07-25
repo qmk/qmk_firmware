@@ -85,6 +85,10 @@ extern keymap_config_t keymap_config;
 #    include "raw_hid.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
@@ -264,6 +268,66 @@ static void Console_Task(void) {
 #endif
 
 /*******************************************************************************
+ * Joystick
+ ******************************************************************************/
+#ifdef JOYSTICK_ENABLE
+void send_joystick_packet(joystick_t *joystick) {
+    uint8_t timeout = 255;
+
+    joystick_report_t r = {
+#    if JOYSTICK_AXES_COUNT > 0
+        .axes = {joystick->axes[0],
+
+#        if JOYSTICK_AXES_COUNT >= 2
+                 joystick->axes[1],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
+                 joystick->axes[2],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
+                 joystick->axes[3],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
+                 joystick->axes[4],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
+                 joystick->axes[5],
+#        endif
+        },
+#    endif  // JOYSTICK_AXES_COUNT>0
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+        .buttons = {joystick->buttons[0],
+
+#        if JOYSTICK_BUTTON_COUNT > 8
+                    joystick->buttons[1],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
+                    joystick->buttons[2],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
+                    joystick->buttons[3],
+#        endif
+        }
+#    endif  // JOYSTICK_BUTTON_COUNT>0
+    };
+
+    /* Select the Joystick Report Endpoint */
+    Endpoint_SelectEndpoint(JOYSTICK_IN_EPNUM);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    /* Write Joystick Report Data */
+    Endpoint_Write_Stream_LE(&r, sizeof(joystick_report_t), NULL);
+
+    /* Finalize the stream transfer to send the last packet */
+    Endpoint_ClearIN();
+}
+#endif
+
+/*******************************************************************************
  * USB Events
  ******************************************************************************/
 /*
@@ -410,6 +474,9 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_NOTIFICATION_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, 1);
     ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_BULK, CDC_EPSIZE, 1);
     ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, CDC_EPSIZE, 1);
+#endif
+#ifdef JOYSTICK_ENABLE
+    ConfigSuccess &= ENDPOINT_CONFIG(JOYSTICK_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, JOYSTICK_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 }
 

@@ -277,6 +277,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
 #endif
+#ifdef JOYSTICK_ENABLE
+            process_joystick(keycode, record) &&
+#endif
             true)) {
         return false;
     }
