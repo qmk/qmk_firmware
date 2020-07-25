@@ -150,6 +150,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif
 
+#if !defined(OLED_I2C_TIMEOUT)
+#    define OLED_I2C_TIMEOUT 100
+#endif
+
 // OLED Rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,
