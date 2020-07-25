@@ -6,7 +6,7 @@ A simple macropad for the beginners.
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
 * Hardware Supported: quick7, Pro Micro (ATmega32U4)
-* Hardware Availability: (Under Preparation)
+* Hardware Availability: [yushakobo Shop](https://yushakobo.jp/shop/quick7/)
 
 Make example for this keyboard (after setting up your build environment):
 
