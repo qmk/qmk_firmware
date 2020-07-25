@@ -7,8 +7,7 @@
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Sneakbox
-#define PRODUCT         Sneakbox AliceClone
-#define DESCRIPTION     Sneakbox AliceClone
+#define PRODUCT         AliceClone
 
 /*Bootmagic boot button, set to topmost, leftmost key */
 #define BOOTMAGIC_LITE_ROW	2
