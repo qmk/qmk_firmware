@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 
-#define PRODUCT         Dactyl-Manuform (Ergodox)
+#define PRODUCT         Dactyl Manuform 5x7 (78 keys)
 
 /* key matrix size */
 // Rows are doubled-up
@@ -37,3 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 12
+#define TAPPING_TOGGLE 2
