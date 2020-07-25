@@ -220,6 +220,18 @@ COMPILEFLAGS += -fno-common
 COMPILEFLAGS += -fshort-wchar
 COMPILEFLAGS += $(THUMBFLAGS)
 
+# FPU options default (Cortex-M4 and Cortex-M7 single precision).
+USE_FPU_OPT ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+
+# FPU-related options
+USE_FPU ?= no
+ifneq ($(USE_FPU),no)
+  COMPILEFLAGS += $(USE_FPU_OPT)
+  OPT_DEFS += -DCORTEX_USE_FPU=TRUE
+else
+  OPT_DEFS += -DCORTEX_USE_FPU=FALSE
+endif
+
 CFLAGS += $(COMPILEFLAGS)
 
 ASFLAGS += $(THUMBFLAGS)
@@ -233,7 +245,6 @@ LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
-LDFLAGS += --specs=nano.specs
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
@@ -241,22 +252,6 @@ OPT_DEFS += -DPROTOCOL_CHIBIOS
 OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
 MCUFLAGS = -mcpu=$(MCU)
-
-# FPU options default (Cortex-M4 and Cortex-M7 single precision).
-ifeq ($(USE_FPU_OPT),)
-  USE_FPU_OPT = -mfloat-abi=$(USE_FPU) -mfpu=fpv4-sp-d16 -fsingle-precision-constant
-endif
-
-# FPU-related options
-ifeq ($(USE_FPU),)
-  USE_FPU = no
-endif
-ifneq ($(USE_FPU),no)
-  OPT    += $(USE_FPU_OPT)
-  OPT_DEFS  += -DCORTEX_USE_FPU=TRUE
-else
-  OPT_DEFS  += -DCORTEX_USE_FPU=FALSE
-endif
 
 DEBUG = gdb
 

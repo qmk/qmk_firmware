@@ -19,7 +19,8 @@ function install_avr {
     mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
     rm avr8-gnu-toolchain/bin/make.exe
     rm avr-gcc-8.3.0-x86-mingw.zip
-    pacman --needed --disable-download-timeout -S mingw-w64-x86_64-avrdude
+
+    pacman --needed --disable-download-timeout -S mingw-w64-x86_64-avrdude mingw-w64-x86_64-bootloadhid
 }
 
 function install_arm {

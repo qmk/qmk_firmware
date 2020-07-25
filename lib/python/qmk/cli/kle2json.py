@@ -69,7 +69,7 @@ def kle2json(cli):
     # Replace layout in keyboard json
     keyboard = keyboard.replace('"LAYOUT_JSON_HERE"', layout)
     # Write our info.json
-    file = open(out_path + "/info.json", "w")
+    file = open(out_path / "info.json", "w")
     file.write(keyboard)
     file.close()
     cli.log.info('Wrote out {fg_cyan}%s/info.json', out_path)
