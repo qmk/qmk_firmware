@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x3536
+#define PRODUCT_ID      0x3436
 #define DEVICE_VER      0x0001
 #define DESCRIPTION     A split keyboard for the cheap makers
 
