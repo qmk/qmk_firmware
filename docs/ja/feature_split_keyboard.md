@@ -1,8 +1,8 @@
 # 分割キーボード
 
 <!---
-  original document:0.9.5:docs/feature_split_keyboard.md
-  git diff 0.9.5 HEAD -- docs/feature_split_keyboard.md | cat
+  original document:0.9.43:docs/feature_split_keyboard.md
+  git diff 0.9.43 HEAD -- docs/feature_split_keyboard.md | cat
 -->
 
 QMK ファームウェアリポジトリの多くのキーボードは、"分割"キーボードです。それらは2つのコントローラを使います — 1つは USB に接続し、もう1つは TRRS または同様のケーブルを介してシリアルまたは I<sup>2</sup>C 接続で接続します。
@@ -94,6 +94,24 @@ SPLIT_TRANSPORT = custom
 ```
 
 これは指定されたピンを読み込みます。high の場合、コントローラはそれを左側だと仮定し、low の場合、それは右側であると仮定します。
+
+#### マトリックスピンによる左右の設定
+
+左右を決定するためにコントローラのキーマトリックスピンを読むようにファームウェアを設定することができます。これを行うには、以下を `config.h` ファイルに追加します:
+
+```c
+#define SPLIT_HAND_MATRIX_GRID D0, F1
+```
+
+最初のピンは出力ピンで、2つ目は入力ピンです。
+
+キーマトリックスに未使用の交点があるキーボードがあります。この設定は、左右の決定にこれらの未使用の交点の1つを使用します。
+
+通常、ダイオードが交点に接続されている場合、左側と判断されます。次の定義を追加すると、右側と判断されます。
+
+```c
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+```
 
 #### EEPROM による左右の設定
 

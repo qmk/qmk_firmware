@@ -115,7 +115,7 @@ def test_list_keymaps_no_keyboard_found():
 def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json')
     check_returncode(result, 0)
-    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT(KC_A)};\n\n'
+    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
 
 
 def test_info():
@@ -132,7 +132,7 @@ def test_info_keyboard_render():
     check_returncode(result)
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
-    assert 'Layout:' in result.stdout
+    assert 'Layouts:' in result.stdout
     assert 'k0' in result.stdout
 
 
@@ -149,6 +149,6 @@ def test_info_matrix_render():
     check_returncode(result)
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
-    assert 'LAYOUT' in result.stdout
+    assert 'LAYOUT_ortho_1x1' in result.stdout
     assert '│0A│' in result.stdout
-    assert 'Matrix for "LAYOUT"' in result.stdout
+    assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout

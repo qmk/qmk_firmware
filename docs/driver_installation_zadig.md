@@ -23,7 +23,7 @@ Zadig will automatically detect the bootloader device. You may sometimes need to
 
 !> If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
 
-If the arrow appears green, select the driver, and click **Install Driver**. The `libusb-win32` driver will usually work for AVR, and `WinUSB` for ARM, but if you still cannot flash the board, try installing a different driver from the list. For flashing a USBaspLoader device via command line with msys2, the `libusbk` driver is recommended, otherwise `libusb-win32` will work fine if you are using QMK Toolbox for flashing.
+If the arrow appears green, select the driver, and click **Install Driver**. The `libusb-win32` driver will usually work for AVR, and `WinUSB` for ARM, but if you still cannot flash the board, try installing a different driver from the list. USBAspLoader devices must use the `libusbK` driver.
 
 ![Zadig with a bootloader driver correctly installed](https://i.imgur.com/b8VgXzx.png)
 
