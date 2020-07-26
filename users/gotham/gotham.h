@@ -9,6 +9,10 @@
 #include "wrappers.h"
 #include "process_records.h"
 
+#ifdef COMBO_ENABLE
+#    include "combos.h"
+#endif
+
 #ifdef OLED_DRIVER_ENABLE
 #    include "oled_utils.h"
 #endif

@@ -5,3 +5,4 @@ RGBLIGHT_ENABLE        = no
 OLED_DRIVER_ENABLE     = yes
 OLED_ANIMATIONS_ENABLE = yes
 THUMBSTICK_ENABLE  	   = yes
+COMBO_ENABLE           = yes

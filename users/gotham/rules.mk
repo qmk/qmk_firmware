@@ -7,6 +7,10 @@ ifneq ($(PLATFORM),CHIBIOS)
     LTO_ENABLE        = yes
 endif
 
+ifeq ($(COMBO_ENABLE), yes)
+    SRC += $(USER_PATH)/combos.c
+endif
+
 ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
 	SRC += $(USER_PATH)/oled_utils.c
 	ifeq ($(strip $(OLED_ANIMATIONS_ENABLE)), yes)
