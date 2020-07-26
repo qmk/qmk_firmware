@@ -5,7 +5,7 @@ In mission to fill my Cherry 1800 case. So I continue developing 1800 PCB (ASH-1
 ![ASH-XIIX](https://i.imgur.com/I962jyW.jpg)
 
 * Keyboard Maintainer: [sh_xguitar](https://github.com/sh-xguitar)
-* Keyboard Specification: ATmega32u4, 5P TH MINI USB, JST-PH 5P, RESET BUTTON, Larger ISP Header.
+* Keyboard Specification: ATmega32u4, 5P TH MINI USB, JST-PH 5P, Larger ISP Header.
 * Hardware Availability: Sold in Indonesia only
 
 Make example for this keyboard (after setting up your build environment):
