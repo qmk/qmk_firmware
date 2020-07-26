@@ -1,15 +1,17 @@
-# ek65
+# Eniigma Keyboards ek65
 
-![ek65](imgur.com image replace me!)
+![ek65](https://i.imgur.com/lmZYr1Pl.jpg)
 
-A short description of the keyboard/project
+A 65% PCB with symmetrical bottom row layout, JST daughterboard support, designed for use with Eniigma Keyboards products.
 
-* Keyboard Maintainer: [adamws](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+![layout](https://i.imgur.com/FNYcAEP.png)
+
+* Keyboard Maintainer: [eniigmakeyboards](https://github.com/eniigmakeyboards) and [adamws](https://github.com/adamws)
+* Hardware Supported: Vertigo PCB/case
+* Hardware Availability: On the [Eniigma Keyboards website](https://eniigmakeyboards.com)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ek65:default
+    make eniigmakeyboards/ek65:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
