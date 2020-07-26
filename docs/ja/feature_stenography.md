@@ -15,7 +15,7 @@ Plover は全ての標準的な QWERTY キーボードで動作しますが、�
 
 QMK で Plover を使うには、NKRO を有効にし、標準レイアウト以外のレイアウトの場合はオプションでレイアウトを調整します。複数のキーを押しやすくするために、なんらかの速記フレンドリなキーキャップを購入することもできます。
 
-## Steno プロトコルを使った Plover :id=plover-with-steno-protocol
+## 速記プロトコルを使った Plover :id=plover-with-steno-protocol
 
 Plover は幾つかの速記マシンの言語も理解します。QMK はこれらの言語の内2つの言語、TX Bolt と GeminiPR を話すことができます。レイアウトの例は `planck/keymaps/steno` で見つけることができます。
 
