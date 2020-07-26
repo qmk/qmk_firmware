@@ -1,4 +1,7 @@
+#pragma once
 
+#include "dactyl_manuform.h"
+#include "quantum.h"
 #define LAYOUT_78key( \
     L11, L12, L13, L14, L15, L16, L17,      \
     L21, L22, L23, L24, L25, L26, L27,      \
