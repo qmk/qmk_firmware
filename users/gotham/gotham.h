@@ -36,6 +36,7 @@ enum userspace_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _MOUSE,
 };
 
 void          keyboard_pre_init_keymap(void);

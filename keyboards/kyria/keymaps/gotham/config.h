@@ -23,6 +23,17 @@
 // Speed up slave half startup
 #define SPLIT_USB_TIMEOUT 1000
 
+#ifdef MOUSEKEY_ENABLE
+#    define MOUSEKEY_DELAY 	           200 // Delay between pressing a movement key and cursor movement
+#    define MOUSEKEY_INTERVAL          16  // Time between cursor movements
+#    define MOUSEKEY_MAX_SPEED         8   // Maximum cursor speed at which acceleration stops
+#    define MOUSEKEY_TIME_TO_MAX       10  // Time until maximum cursor speed is reached
+#    define MOUSEKEY_WHEEL_DELAY       200 // Delay between pressing a wheel key and wheel movement
+#    define MOUSEKEY_WHEEL_INTERVAL    150 // Time between wheel movements
+#    define MOUSEKEY_WHEEL_MAX_SPEED   8   // Maximum number of scroll steps per scroll action
+#    define MOUSEKEY_WHEEL_TIME_TO_MAX 40  // Time until maximum scroll speed is reached
+#endif
+
 #ifdef OLED_DRIVER_ENABLE
 #    define OLED_DISPLAY_128X64
 
@@ -39,10 +50,8 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_KNIGHT
 #    define RGBLIGHT_LED_MAP \
         { 0, 1, 2, 9, 8, 7, 4, 3, 5, 6, 19, 18, 17, 10, 11, 12, 15, 16, 14, 13 }  // Orients Kyria LEDs to a circle around both halves.
 #endif

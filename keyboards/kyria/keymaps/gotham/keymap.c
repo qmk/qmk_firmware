@@ -44,9 +44,9 @@ enum encoder_names {
   ) \
   LAYOUT_wrapper( \
       KC_ESC,   K01,          K02,  K03,  K04,  K05,                                        K06,  K07,  K08,  K09,  K0A,          KC_BSLS, \
-      KC_LSFT,  LSFT_T(K11),  K12,  K13,  K14,  K15,                                        K16,  K17,  K18,  K19,  RSFT_T(K1A),  KC_QUOT, \
-      KC_LCTL,  LCTL_T(K21),  K22,  K23,  K24,  K25, KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  RCTL_T(K2A),  KC_MINS, \
-                       ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL, EN_LOWR, BK_RAIS, KC_DEL, ENC_MODE_R \
+      KC_LSFT,  RSFT_T(K11),  K12,  K13,  K14,  K15,                                        K16,  K17,  K18,  K19,  RSFT_T(K1A),  RSFT_T(KC_QUOT), \
+      KC_LCTL,  RCTL_T(K21),  K22,  K23,  K24,  K25, KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  RCTL_T(K2A),  RCTL_T(KC_MINS), \
+              ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL,  EN_LOWR, BK_RAIS, MS_DEL, ENC_MODE_R \
     )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
@@ -84,35 +84,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_GAME] = LAYOUT_wrapper(
-      LT(_GAMENUM, KC_ESC),  __________________GAME_L1__________________,                                   _________________QWERTY_R1_________________, KC_BSLS,
-      LT(_GAMENUM, KC_LSFT), __________________GAME_L2__________________,                                   _________________QWERTY_R2_________________, KC_RSFT,
-      LT(_GAMENUM, KC_LCTL), __________________GAME_L3__________________, KC_NO, _______,  TMB_MODE, KC_NO, _________________QWERTY_R3_________________, KC_RCTL,
-                         ENC_MODE_L, KC_LALT, KC_SPC, LT(_GAMENUM, KC_TAB), MO(_GAMENUM),  KC_EQL, KC_ENT, KC_BSPC, KC_DEL, ENC_MODE_R
+      LT(_GAMENUM, KC_ESC),  __________________GAME_L1__________________,                                      _________________QWERTY_R1_________________, KC_BSLS,
+      LT(_GAMENUM, KC_LSFT), __________________GAME_L2__________________,                                      _________________QWERTY_R2_________________, KC_RSFT,
+      LT(_GAMENUM, KC_LCTL), __________________GAME_L3__________________, _______, _______,  _______, _______, _________________QWERTY_R3_________________, KC_RCTL,
+                           ENC_MODE_L, KC_LALT, KC_SPC, LT(_GAMENUM, KC_TAB), MO(_GAMENUM),  KC_EQL, KC_ENT, KC_BSPC, KC_DEL, ENC_MODE_R
     ),
 
     [_GAMENUM] = LAYOUT_wrapper(
-      _______,  KC_NO,  KC_1,   KC_2,   KC_3,   KC_NO,                                      KC_NO,  KC_F1,  KC_F2,  KC_F3,  KC_F10, KC_NO,
-      _______,  KC_0,   KC_4,   KC_5,   KC_6,   KC_NO,                                      KC_NO,  KC_F4,  KC_F5,  KC_F6,  KC_F11, _______,
-      _______,  KC_NO,  KC_7,   KC_8,   KC_9,   KC_NO,  KC_NO,  KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_F7,  KC_F8,  KC_F9,  KC_F12, _______,
-                          _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______
+      _______,   KC_NO,   KC_1,    KC_2,    KC_3,    KC_NO,                                          KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F10,  KC_NO,
+      _______,   KC_0,    KC_4,    KC_5,    KC_6,    KC_NO,                                          KC_NO,   KC_F4,   KC_F5,   KC_F6,   KC_F11,  _______,
+      _______,   KC_NO,   KC_7,    KC_8,    KC_9,    KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_F7,   KC_F8,   KC_F9,   KC_F12,  _______,
+                                 _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______
     ),
 
-    [_LOWER] = LAYOUT_kyria_base_wrapper(
-        _________________LOWER_L1__________________, _________________LOWER_R1__________________,
-        _________________LOWER_L2__________________, _________________LOWER_R2__________________,
-        _________________LOWER_L3__________________, _________________LOWER_R3__________________
+    [_LOWER] = LAYOUT_wrapper(
+      _______,  _________________LOWER_L1__________________,                                        _________________LOWER_R1__________________,  _______,
+      _______,  _________________LOWER_L2__________________,                                        _________________LOWER_R2__________________,  _______,
+      _______,  _________________LOWER_L3__________________, _______, _______,    _______, _______, _________________LOWER_R3__________________,  _______,
+                                  _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
     ),
 
-    [_RAISE] = LAYOUT_kyria_base_wrapper(
-        _________________RAISE_L1__________________, _________________RAISE_R1__________________,
-        _________________RAISE_L2__________________, _________________RAISE_R2__________________,
-        _________________RAISE_L3__________________, _________________RAISE_R3__________________
+    [_RAISE] = LAYOUT_wrapper(
+      _______,  _________________RAISE_L1__________________,                                        _________________RAISE_R1__________________,  _______,
+      _______,  _________________RAISE_L2__________________,                                        _________________RAISE_R2__________________,  _______,
+      _______,  _________________RAISE_L3__________________, _______, _______,    _______, _______, _________________RAISE_R3__________________,  _______,
+                                  _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
     ),
 
-    [_ADJUST] = LAYOUT_kyria_base_wrapper(
-        _________________ADJUST_L1_________________, _________________ADJUST_R1_________________,
-        _________________ADJUST_L2_________________, _________________ADJUST_R2_________________,
-        _________________ADJUST_L3_________________, _________________ADJUST_R3_________________
+    [_ADJUST] = LAYOUT_wrapper(
+      _______,  _________________ADJUST_L1_________________,                                        _________________ADJUST_R1_________________,  _______,
+      _______,  _________________ADJUST_L2_________________,                                        _________________ADJUST_R2_________________,  _______,
+      _______,  _________________ADJUST_L3_________________, _______, _______,    _______, _______, _________________ADJUST_R3_________________,  _______,
+                                  _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
+    ),
+
+    [_MOUSE] = LAYOUT_kyria_base_wrapper(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   __________________MOUSE1___________________,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   __________________MOUSE2___________________,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   __________________MOUSE3___________________
     ),
 };
 // clang-format on
@@ -166,7 +175,9 @@ void render_status_main(void) {
     if (IS_LAYER_ON(_ADJUST) || timer_elapsed(oled_info_timer) <= OLED_INFO_TIMEOUT) {
         if (!oled_showing_info) {
             oled_clear();
+#        ifdef OLED_ANIM_STARFIELD
             set_starfield_center();
+#        endif
             oled_showing_info = true;
         }
         render_layout();

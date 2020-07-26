@@ -41,6 +41,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define BK_RAIS LT(_RAISE, KC_BSPC)
 #define EN_RAIS LT(_RAISE, KC_ENTER)
 
+#define MS_DEL LT(_MOUSE, KC_DEL)
+
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
 #define OS_LSFT OSM(MOD_LSFT)

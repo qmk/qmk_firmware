@@ -88,10 +88,12 @@ For instance Tap/Hold for Control on all of the layouts
 
 #define ________________VIM_ARROWS_________________       KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______
 
-#define __________________NAV_L1___________________       _______, KC_PGUP, KC_LEFT, KC_UP,   KC_RIGHT
-#define __________________NAV_L2___________________       _______, KC_PGDN, KC_HOME, KC_DOWN, KC_END
-#define __________________NAV_R1___________________       KC_PGUP, KC_LEFT, KC_UP,   KC_RIGHT, _______
-#define __________________NAV_R2___________________       KC_PGDN, KC_HOME, KC_DOWN, KC_END,   _______
+#define ___________________NAV1____________________      KC_PGUP, KC_LEFT, KC_UP,   KC_RIGHT, KC_PGUP
+#define ___________________NAV2____________________      KC_PGDN, KC_HOME, KC_DOWN, KC_END,   KC_PGDN
+
+#define __________________MOUSE1___________________      KC_NO,   KC_BTN4, KC_BTN3, KC_BTN5, KC_NO
+#define __________________MOUSE2___________________      KC_WH_U, KC_MS_L, KC_MS_U, KC_MS_R, KC_WH_U
+#define __________________MOUSE3___________________      KC_WH_D, KC_BTN1, KC_MS_D, KC_BTN2, KC_WH_D
 
 /*
  * Layers
@@ -111,8 +113,8 @@ For instance Tap/Hold for Control on all of the layouts
 #define _________________RAISE_L3__________________       KC_PSCR, KC_SLCK, KC_BRK,  _______, _______
 
 #define _________________RAISE_R1__________________       ________________NUMBER_RIGHT_______________
-#define _________________RAISE_R2__________________       __________________NAV_R1___________________
-#define _________________RAISE_R3__________________       __________________NAV_R2___________________
+#define _________________RAISE_R2__________________       ___________________NAV1____________________
+#define _________________RAISE_R3__________________       ___________________NAV2____________________
 
 
 #define _________________ADJUST_L1_________________       __________________FN_LEFT__________________
