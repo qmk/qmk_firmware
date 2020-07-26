@@ -13,8 +13,8 @@ QMK には、マイクロコントローラに依存しない GPIO 制御抽象�
 
 | 関数 | 説明 | 古い AVR の例 | 古い ChibiOS/ARM の例 |
 |------------------------|--------------------------------------------------|-------------------------------------------------|-------------------------------------------------|
-| `setPinInput(pin)` | ピンを高インピーダンスの入力として設定 (High-Z) | `DDRB &= ~(1<<2)` | `palSetLineMode(pin, PAL_MODE_INPUT)` |
-| `setPinInputHigh(pin)` | ピンを組み込みの組み込みのプルアップ抵抗の入力として設定 | `DDRB &= ~(1<<2); PORTB \|= (1<<2)` | `palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)` |
+| `setPinInput(pin)` | ピンを高インピーダンス(High-Z)の入力として設定 | `DDRB &= ~(1<<2)` | `palSetLineMode(pin, PAL_MODE_INPUT)` |
+| `setPinInputHigh(pin)` | ピンを組み込みのプルアップ抵抗の入力として設定 | `DDRB &= ~(1<<2); PORTB \|= (1<<2)` | `palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)` |
 | `setPinInputLow(pin)` | ピンを組み込みのプルダウン抵抗の入力として設定 | N/A (AVR ではサポートされません) | `palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)` |
 | `setPinOutput(pin)` | ピンを出力として設定 | `DDRB \|= (1<<2)` | `palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)` |
 | `writePinHigh(pin)` | ピンを出力と仮定して、ピンレベルを high に設定 | `PORTB \|= (1<<2)` | `palSetLine(pin)` |
