@@ -18,3 +18,6 @@
 
 // place overrides here
 #define TAPPING_TOGGLE 2
+
+// time for long press
+#define TAPPING_TERM 200

@@ -112,10 +112,13 @@ switch (keycode) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
             /*
-            長押し時に入力キャンセルする場合はこれ
+            長押し時に入力キャンセルする場合
             if (lower_pressed && (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM)) {
-            */
+
+            長押しキャンセルなしの場合
             if (lower_pressed) {
+            */
+            if (lower_pressed && (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM)) {
                 register_code(KC_LANG1); // for macOS
                 register_code(KC_HENK);
                 unregister_code(KC_HENK);
