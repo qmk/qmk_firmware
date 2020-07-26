@@ -43,10 +43,10 @@ enum encoder_names {
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-      KC_ESC,   K01,  K02,  K03,  K04,  K05,                                           K06,  K07,  K08,  K09,  K0A,  KC_BSLS, \
-      KC_LSFT,  K11,  K12,  K13,  K14,  K15,                                           K16,  K17,  K18,  K19,  K1A,  RSFT_T(KC_QUOT), \
-      KC_LCTL,  K21,  K22,  K23,  K24,  K25,  KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  K2A,  RCTL_T(KC_MINS), \
-                ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL, EN_LOWR, BK_RAIS, KC_DEL, ENC_MODE_R \
+      KC_ESC,   K01,          K02,  K03,  K04,  K05,                                        K06,  K07,  K08,  K09,  K0A,          KC_BSLS, \
+      KC_LSFT,  LSFT_T(K11),  K12,  K13,  K14,  K15,                                        K16,  K17,  K18,  K19,  RSFT_T(K1A),  KC_QUOT, \
+      KC_LCTL,  LCTL_T(K21),  K22,  K23,  K24,  K25, KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  RCTL_T(K2A),  KC_MINS, \
+                       ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL, EN_LOWR, BK_RAIS, KC_DEL, ENC_MODE_R \
     )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
@@ -84,10 +84,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_GAME] = LAYOUT_wrapper(
-      LT(_GAMENUM, KC_T), __________________GAME_L1__________________,                                   _________________QWERTY_R1_________________, KC_BSLS,
-      LT(_GAMENUM, KC_G), __________________GAME_L2__________________,                                   _________________QWERTY_R2_________________, KC_RSFT,
-      LT(_GAMENUM, KC_B), __________________GAME_L3__________________, KC_NO, _______,  TMB_MODE, KC_NO, _________________QWERTY_R3_________________, KC_RCTL,
-                      ENC_MODE_L, KC_LALT, KC_SPC, LT(_GAMENUM, KC_TAB), MO(_GAMENUM),  KC_EQL, KC_ENT, KC_BSPC, KC_DEL, ENC_MODE_R
+      LT(_GAMENUM, KC_ESC),  __________________GAME_L1__________________,                                   _________________QWERTY_R1_________________, KC_BSLS,
+      LT(_GAMENUM, KC_LSFT), __________________GAME_L2__________________,                                   _________________QWERTY_R2_________________, KC_RSFT,
+      LT(_GAMENUM, KC_LCTL), __________________GAME_L3__________________, KC_NO, _______,  TMB_MODE, KC_NO, _________________QWERTY_R3_________________, KC_RCTL,
+                         ENC_MODE_L, KC_LALT, KC_SPC, LT(_GAMENUM, KC_TAB), MO(_GAMENUM),  KC_EQL, KC_ENT, KC_BSPC, KC_DEL, ENC_MODE_R
     ),
 
     [_GAMENUM] = LAYOUT_wrapper(
