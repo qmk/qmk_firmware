@@ -159,14 +159,15 @@ ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
     TMK_COMMON_DEFS += -DSHARED_EP_ENABLE
 endif
 
-ifeq ($(strip $(LTO_ENABLE)), yes)
-    LINK_TIME_OPTIMIZATION_ENABLE = yes
+VALID_LTO_TYPES := yes no
+ifneq ($(filter $(LINK_TIME_OPTIMIZATION_ENABLE),$(VALID_LTO_TYPES)),)
+    LTO_ENABLE = $(strip $(LINK_TIME_OPTIMIZATION_ENABLE))
 endif
 
-ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
+ifeq ($(strip $(LTO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
         $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LINK_TIME_OPTIMIZATION_ENABLE = no.)
+        $(info If unsure, set LTO_ENABLE = no.)
     endif
     EXTRAFLAGS += -flto
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATION_ENABLE
