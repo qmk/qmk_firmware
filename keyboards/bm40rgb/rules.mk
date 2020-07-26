@@ -25,3 +25,6 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 KEY_LOCK_ENABLE = no 	   # Enable KC_LOCK support
+
+LAYOUTS = ortho_4x12 planck_mit
+LAYOUTS_HAS_RGB = yes
