@@ -22,28 +22,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		RESET,     KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_LEFT,    KC_RGHT, 
 		KC_TRNS,   KC_TRNS,                     KC_TRNS, KC_TRNS,                                KC_TRNS, KC_TRNS,                                             KC_TRNS),
 };
+
 void encoder_update_user(uint8_t index, bool clockwise) 
 {
     if (index == 0) 
 	{ /* First encoder */
-        	if (clockwise) 
-		{
+        	if (clockwise) {
             		tap_code(KC_DOWN);
-        	} 
-		else 
-		{
+            } 
+		    else {
             		tap_code(KC_UP);
         	}
-        } 
+    } 
     else if (index == 1) 
 	{ /* Second encoder */  
-        	if (clockwise) 
-		{
+        	if (clockwise) {
             		tap_code(KC_DOWN);
         	} 
-		else 
-		{
+		else {
             		tap_code(KC_UP);
-        	}
-    	}
+        }
+    }
 }
