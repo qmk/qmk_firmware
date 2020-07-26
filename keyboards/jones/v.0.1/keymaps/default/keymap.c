@@ -217,25 +217,25 @@ switch (keycode) {
 }
 
 // レイヤー切り替えにともなって、インジケータLEDを発光
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//   #ifdef RGBLIGHT_ENABLE
-//     switch (get_highest_layer(state)) {
-//     case _LOWER:
-//           rgblight_sethsv_at(HSV_CYAN,0);
-//           break;
-//     case _RAISE:
-//           rgblight_sethsv_at(HSV_RED,0);
-//         break;
-//     case _ADJUST:
-//           rgblight_sethsv_at(HSV_GREEN,0);
-//         break;
-//     default: //  for any other layers, or the default layer
-//           rgblight_sethsv(0,0,0);
-//         break;
-//     }
-//   #endif
-//   return state;
-// }
+layer_state_t layer_state_set_user(layer_state_t state) {
+  #ifdef RGBLIGHT_ENABLE
+    switch (get_highest_layer(state)) {
+    case _LOWER:
+          rgblight_sethsv_at(HSV_CYAN,0);
+          break;
+    case _RAISE:
+          rgblight_sethsv_at(HSV_RED,0);
+        break;
+    case _ADJUST:
+          rgblight_sethsv_at(HSV_GREEN,0);
+        break;
+    default: //  for any other layers, or the default layer
+          rgblight_sethsv(0,0,0);
+        break;
+    }
+  #endif
+  return state;
+}
 
 #ifdef RGBLIGHT_LAYERS
 // Light LEDs 1 in cyan when keyboard layer 1 is active
