@@ -15,15 +15,15 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _COLMAK 1
-#define _NUM 2
-#define _NAV 3
-#define _SYM 4
-#define _MISC 5
-#define _ADJUST 6
-
-#define ___x___ KC_NO
+enum layer_names {
+  _QWERTY,
+  _COLMAK,
+  _NUM,
+  _NAV,
+  _SYM,
+  _MISC,
+  _ADJUST
+};
 
 #define MY_SPC  LT(_NAV, KC_SPC)
 #define MY_ENT  LT(_NUM, KC_ENT)
@@ -129,10 +129,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        | |        |________|
 //                                               |________| |________|
     [_NUM] = LAYOUT_split_3x5_3(
-     KC_F1,   KC_F2,   KC_F3,   KC_F4,   ___x___,                    KC_PLUS, KC_7,    KC_8,    KC_9,    KC_SLSH,
-     KC_F5,   KC_F6,   KC_F7,   KC_F8,   ___x___,                    KC_COMM, KC_4,    KC_5,    KC_6,    KC_DOT,
-     KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___x___,                    KC_MINS, KC_1,    KC_2,    KC_3,    KC_ASTR,
-                                ___x___, _______, ___x___,  _______, _______, KC_0
+     KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX,                    KC_PLUS, KC_7,    KC_8,    KC_9,    KC_SLSH,
+     KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX,                    KC_COMM, KC_4,    KC_5,    KC_6,    KC_DOT,
+     KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                    KC_MINS, KC_1,    KC_2,    KC_3,    KC_ASTR,
+                                XXXXXXX, _______, XXXXXXX,  _______, _______, KC_0
     ),
 //   Navigation        ________                                                          ________
 //            ________|     OS |________                                        ________|   PgUp |________ 
@@ -151,10 +151,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|        
     [_NAV] = LAYOUT_split_3x5_3(                                      
-      OS_GUI,  OS_ALT,  OS_CTL,  OS_SFT,  ___x___,                    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR,
-      KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, ___x___,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_INS,
-      ___x___, ___x___, ___x___, ___x___, ___x___,                    ___x___, AS_TAB,  A_TAB,   ___x___, ___x___,
-                                 _______, _______, _______,  ___x___, _______, ___x___
+      OS_GUI,  OS_ALT,  OS_CTL,  OS_SFT,  XXXXXXX,                    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR,
+      KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_INS,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, AS_TAB,  A_TAB,   XXXXXXX, XXXXXXX,
+                                 _______, _______, _______,  XXXXXXX, _______, XXXXXXX
       ),
 //   Symbol            ________                                                          ________
 //            ________|      { |________                                        ________|        |________ 
@@ -174,8 +174,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                               |________|  |________|                             
 //                                                            
     [_SYM] = LAYOUT_split_3x5_3(
-         KC_LT,   KC_GT,   KC_LCBR, KC_RCBR, KC_GRV,                   ___x___, ___x___, ___x___, ___x___, KC_NUPI,
-         KC_ASTR, KC_HASH, KC_LPRN, KC_RPRN, KC_CIRC,                  KC_UNDS, KC_MINS, ___x___, KC_AMPR, KC_PIPE,
+         KC_LT,   KC_GT,   KC_LCBR, KC_RCBR, KC_GRV,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUPI,
+         KC_ASTR, KC_HASH, KC_LPRN, KC_RPRN, KC_CIRC,                  KC_UNDS, KC_MINS, XXXXXXX, KC_AMPR, KC_PIPE,
          KC_NUBS, KC_DLR,  KC_LBRC, KC_RBRC, KC_DQUO,                  KC_EQL,  KC_PLUS, _______, KC_PERC, KC_NUHS,
                                     KC_QUES, KC_QUOT, KC_AT,  KC_COMM, KC_DOT,  KC_EXLM 
         ),
@@ -197,9 +197,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                               |________|  |________|
 //
     [_MISC] = LAYOUT_split_3x5_3(
-        LTGT,    LTGTC,   CBR,     CBR,     GRV,                        ___x___, ___x___, ___x___, ___x___, ___x___,
-        ___x___, ___x___, PRN,     PRN,     ___x___,                    ___x___, ___x___, ___x___, ___x___, ___x___,
-        ___x___, ___x___, BRC,     BRC,     ___x___,                    ___x___, ___x___, ___x___, _______, ___x___,
+        LTGT,    LTGTC,   CBR,     CBR,     GRV,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, PRN,     PRN,     XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, BRC,     BRC,     XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX,
                                    QUESSPC, QUOT,    DQUOT,    COMMSPC, DOTSPC,  EXLMSPC
         ),
 //   Adjust            ________                                                          ________
@@ -219,10 +219,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
     [_ADJUST] = LAYOUT_split_3x5_3(
-        ___x___, WOKE,    EEP_RST, RESET,   ___x___,                     ___x___, ___x___, ___x___, ___x___, ___x___, 
-        ___x___, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,                     ___x___, QWERTY,  COLEMAK, ___x___, ___x___, 
-        ___x___, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,                     ___x___, ___x___, ___x___, ___x___, ___x___, 
-                                   ___x___, ___x___, ___x___,   ___x___, ___x___, ___x___
+        XXXXXXX, WOKE,    EEP_RST, RESET,   XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+        XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,                     XXXXXXX, QWERTY,  COLEMAK, XXXXXXX, XXXXXXX, 
+        XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+                                   XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX
         ),
 };
 
