@@ -15,10 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
-// #ifdef RGBLIGHT_ENABLE
-// #include "rgblight.h"
-// extern rgblight_config_t rgblight_config;
-// #endif
+#ifdef RGBLIGHT_ENABLE
+#include "rgblight.h"
+extern rgblight_config_t rgblight_config;
+#endif
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
@@ -236,13 +236,15 @@ switch (keycode) {
 //   #endif
 //   return state;
 // }
+
+#ifdef RGBLIGHT_LAYERS
 // Light LEDs 1 in cyan when keyboard layer 1 is active
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_CYAN}
+    {0, 1, HSV_CYAN}
 );
 // Light LEDs 1 in red when keyboard layer 2 is active
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_RED}
+    {0, 1, HSV_RED}
 );
 // Light LEDs 1 in green when keyboard layer 3 is active
 const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -266,7 +268,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
     return state;
 }
-
+#endif
 
 // ロータリーエンコーダ
 // void encoder_update_user(uint8_t index, bool clockwise) {
