@@ -1,6 +1,6 @@
 # Eniigma Keyboards ek65
 
-![ek65](https://i.imgur.com/lmZYr1Pl.jpg)
+![ek65](https://imgur.com/a/767zdHW)
 
 A 65% PCB with symmetrical bottom row layout, JST daughterboard support, designed for use with Eniigma Keyboards products.
 
