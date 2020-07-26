@@ -13,14 +13,14 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 * リファクタリングツール
 * 自動ビルド (コマンドラインは不要)
 * Git 用のグラフィカルなフロントエンド
-* デバッグ、コードフォーマット、呼び出し構造の表示などの多くのツール
+* デバッグ、コードフォーマット、呼び出し階層の表示などの多くのツール
 
 このページの目的は、QMK ファームウェアを開発するために VS Code をセットアップする方法を文章化することです。
 
 このガイドは Windows および Ubuntu 18.04 で必要な全てを構成する方法を説明します。
 
 # VS Code のセットアップ
-はじめに、全てのビルドツールをセットアップし、QMK ファームウェアをクローンする必要があります。まだ設定していない場合は、[Newbs Getting Started Guide](ja/newbs_getting_started.md)に進んでください。
+はじめに、全てのビルドツールをセットアップし、QMK ファームウェアをクローンする必要があります。まだ設定していない場合は、[セットアップ](ja/newbs_getting_started.md)に進んでください。
 
 ## Windows
 
@@ -38,7 +38,7 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 
 * [Git Credential Manager for Windows](https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases) (オプション)
 
-   このソフトウェアは、git 証明書、MFA、パーソナルアクセストークン生成のためのセキュアストレージを提供することで、Git のサポートを提供します。
+   このソフトウェアは、git 証明書、MFA、パーソナルアクセストークン生成のためのセキュアストレージを提供することで、Git のより良いサポートを提供します。
 
    これは厳密には必要ありませんが、お勧めします。
 
@@ -48,7 +48,7 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 1. [VS Code](https://code.visualstudio.com/) に進み、インストーラをダウンロードします
 2. インストーラを実行します
 
-この部分は非常に簡単です。ただし、正しく構成されていることを確認するために、しなければならない幾つかの設定があります。
+この項は非常に簡単です。ただし、正しく構成されていることを確認するために、しなければならない幾つかの設定があります。
 
 ### VS Code の設定
 
@@ -61,7 +61,7 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 ?> また、`.vscode` フォルダ に `extensions.json` および `settings.json` ファイルがあるはずです。
 
 
-次に、VSCode に統合ターミナルとして表示されるように、MSYS2 ウィンドウを設定します。これには多くの利点があります。ほとんどの場合で、エラー上で Ctrl +クリックするとこれらのファイルにジャンプできます。これによりデバッグがはるかに簡単になります。また、他のウィンドウへジャンプする必要が無いという点でも優れています。
+次に、VSCode に統合ターミナルとして表示されるように、MSYS2 ウィンドウを設定します。これには多くの利点があります。ほとんどの場合で、エラー上で Ctrl + クリックするとこれらのファイルにジャンプできます。これによりデバッグがはるかに簡単になります。また、他のウィンドウへジャンプする必要が無いという点でも優れています。
 
 1. <kbd><kbd>File</kbd> > <kbd>Preferences ></kbd> > <kbd>Settings</kbd> をクリックします </kbd>
 2. 右上の <kbd>{}</kbd> ボタンをクリックし、`settings.json` ファイルを開きます。
@@ -81,7 +81,7 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
  }
    ```
 
-   ここに既に設定がある場合は、最初と最後の中括弧の間に全てを追加します。
+   ここに既に設定がある場合は、最初と最後の波括弧の間に全てを追加します。
 
 ?> MSYS2 を別のフォルダにインストールした場合は、`terminal.integrated.shell.windows` のパスをシステムの正しいパスに変更する必要があります。
 
@@ -104,18 +104,18 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 
 * [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) -
 これは QMK ファームウェアで Git を簡単に使用できる Git 関連ツールを多数インスールします。
-* [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) - _[オプション]_ -  QMK コーディング規約にコードを維持するのに役立ちます。
+* [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) - _[オプション]_ -  QMK コーディング規約にコードを準拠させるのに役立ちます。
 * [Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2) - _[オプション]_ - これはネストされたコードを参照しやすくするために、コード内の括弧を色分けします。
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[オプション]_ - VS Code の markdown プレビューを GithHub のようにします。
-* [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[オプション]_ - この拡張により、他の誰かがあなたのワークスペースにアクセスし(あるいは、あなたが他の誰かのワークスペースにアクセスし)、手伝うことができます あなたが問題を抱えており、他の誰かの助けが必要な場合に便利です。
+* [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[オプション]_ - この拡張により、他の誰かがあなたのワークスペースにアクセスし(あるいは、あなたが他の誰かのワークスペースにアクセスし)、手伝うことができます。あなたが問題を抱えており、他の誰かの助けが必要な場合に便利です。
 * [VIM Keymap](https://marketplace.visualstudio.com/items?itemName=GiuseppeCesarano.vim-keymap) - _[オプション]_ - VIM スタイルのキーバインドを好む人向け。これには他のオプションもあります。
 * [Travis CI Status](https://marketplace.visualstudio.com/items?itemName=felixrieseberg.vsc-travis-ci-status) - _[オプション]_ - セットアップした場合、現在の Travis CI の状態を表示します。
 
 いずれかの拡張機能をインストールしたら、再起動します。
 
-# QMK のために VS Code を設定
+# QMK 用の VS Code の設定
 1. <kbd><kbd>File</kbd> > <kbd>Open Folder</kbd></kbd> をクリックします
-2. GitHub をクローンした QMK ファームウェアフォルダを開きます。
+2. GitHub からクローンした QMK ファームウェアフォルダを開きます。
 3. <kbd><kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd> をクリックします
 
 これで、VS Code で QMK ファームウェアをコーディングする準備ができました。
