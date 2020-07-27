@@ -24,7 +24,7 @@
          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_INS,  KC_TRNS,  KC_HOME,
         /* shift     \       Z         X        C       V       B       N      M        ,        .        /        shift     up      pg dn*/
          KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS,  KC_RSFT, KC_VOLU,  KC_END,
-        /* ctrl     win      alt     encoder                  space      encoder        alt      fn       ctrl      left     down     right*/
+        /* ctrl     win      alt                              space                     alt      fn       ctrl      left     down     right*/
          KC_LCTL, KC_LGUI, KC_LALT,                          KC_TRNS,                 KC_RALT, KC_TRNS, KC_RCTL,  KC_TRNS, KC_VOLD,  KC_TRNS)
    };
 
