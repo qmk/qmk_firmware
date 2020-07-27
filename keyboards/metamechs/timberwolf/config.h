@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x5754 // TW
 #define DEVICE_VER 0x0001
 #define MANUFACTURER MetaMechs
-#define PRODUCT MetaMechs Timber Wolf
-#define DESCRIPTION MetaMechs Timber Wolf
+#define PRODUCT Timber Wolf
 
 /* key matrix size */
 #define MATRIX_COLS 9
