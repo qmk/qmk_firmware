@@ -246,12 +246,13 @@ ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
     VAPTH += $(SERIAL_PATH)
 endif
 
-ifneq ($(strip $(VARIABLE_TRACE)),)
+VARIABLE_TRACE ?= no
+ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c
     OPT_DEFS += -DNUM_TRACED_VARIABLES=$(strip $(VARIABLE_TRACE))
-ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
-    OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
-endif
+    ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
+        OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
+    endif
 endif
 
 ifeq ($(strip $(LCD_ENABLE)), yes)
