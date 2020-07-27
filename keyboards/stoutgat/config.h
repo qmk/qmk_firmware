@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER TKW
 #define PRODUCT stoutgat
-#define DESCRIPTION A 65% ISO/ANSI with dual encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -40,17 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define NO_UART 1
-#define USB_MAX_POWER_CONSUMPTION 500
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
-
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
