@@ -30,9 +30,9 @@ void keyboard_post_init_user(void) {
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {         // First encoder - top left
     if (clockwise) {
-      tap_code(KC_UP);
+      tap_code(KC_RIGHT);
     } else {
-      tap_code(KC_DOWN);
+      tap_code(KC_LEFT);
     }
   } else if (index == 1) {  // Second encoder - top right
     if (clockwise) {
