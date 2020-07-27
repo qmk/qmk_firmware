@@ -14,14 +14,14 @@ QMK には、マイクロコントローラに依存しない GPIO 制御抽象�
 | 関数 | 説明 | 古い AVR の例 | 古い ChibiOS/ARM の例 |
 |------------------------|--------------------------------------------------|-------------------------------------------------|-------------------------------------------------|
 | `setPinInput(pin)` | ピンを高インピーダンス(High-Z)の入力として設定 | `DDRB &= ~(1<<2)` | `palSetLineMode(pin, PAL_MODE_INPUT)` |
-| `setPinInputHigh(pin)` | ピンを組み込みのプルアップ抵抗の入力として設定 | `DDRB &= ~(1<<2); PORTB \|= (1<<2)` | `palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)` |
-| `setPinInputLow(pin)` | ピンを組み込みのプルダウン抵抗の入力として設定 | N/A (AVR ではサポートされません) | `palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)` |
+| `setPinInputHigh(pin)` | ピンを組み込みのプルアップ抵抗付きの入力として設定 | `DDRB &= ~(1<<2); PORTB \|= (1<<2)` | `palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)` |
+| `setPinInputLow(pin)` | ピンを組み込みのプルダウン抵抗付きの入力として設定 | N/A (AVR ではサポートされません) | `palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)` |
 | `setPinOutput(pin)` | ピンを出力として設定 | `DDRB \|= (1<<2)` | `palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)` |
-| `writePinHigh(pin)` | ピンを出力と仮定して、ピンレベルを high に設定 | `PORTB \|= (1<<2)` | `palSetLine(pin)` |
-| `writePinLow(pin)` | ピンを出力と仮定して、ピンレベルを low に設定 | `PORTB &= ~(1<<2)` | `palClearLine(pin)` |
-| `writePin(pin, level)` | ピンを出力と仮定して、ピンレベルを設定 | `(level) ? PORTB \|= (1<<2) : PORTB &= ~(1<<2)` | `(level) ? palSetLine(pin) : palClearLine(pin)` |
+| `writePinHigh(pin)` | ピンレベルを high に設定 (ピンを出力として設定してあると仮定) | `PORTB \|= (1<<2)` | `palSetLine(pin)` |
+| `writePinLow(pin)` | ピンレベルを low に設定 (ピンを出力として設定してあると仮定) | `PORTB &= ~(1<<2)` | `palClearLine(pin)` |
+| `writePin(pin, level)` | ピンレベルを設定 (ピンを出力として設定してあると仮定) | `(level) ? PORTB \|= (1<<2) : PORTB &= ~(1<<2)` | `(level) ? palSetLine(pin) : palClearLine(pin)` |
 | `readPin(pin)` | ピンのレベルを返す | `_SFR_IO8(pin >> 4) & _BV(pin & 0xF)` | `palReadLine(pin)` |
-| `togglePin(pin)` | ピンを出力と仮定して、ピンレベルを反転 | `PORTB ^= (1<<2)` | `palToggleLine(pin)` |
+| `togglePin(pin)` | ピンレベルを反転 (ピンを出力として設定してあると仮定) | `PORTB ^= (1<<2)` | `palToggleLine(pin)` |
 
 ## 高度な設定 :id=advanced-settings
 
