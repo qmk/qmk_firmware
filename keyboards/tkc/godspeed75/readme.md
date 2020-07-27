@@ -6,7 +6,7 @@ The Key Company GodSpeed75 is a  is a 75% top mount keyboard featuring a USB-C d
 
 * Keyboard Maintainer: [Terry Mathews](https://github.com/TerryMathews/)
 * Hardware Supported: TKC GodSpeed75
-* Hardware Availability: [TheKey.Company](https://thekey.company/collections/candybar)
+* Hardware Availability: [TheKey.Company](https://thekey.company/products/godspeed75)
 
 Make example for this keyboard (after setting up your build environment):
 
