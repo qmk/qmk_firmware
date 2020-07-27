@@ -50,7 +50,7 @@ However, USB cables, SATA cables, and even just 4 wires have been known to be us
 
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0 (aka PDO or pin 3) between the two Pro Micros. 
 
-?> Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
+Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
 
 ![serial wiring](https://i.imgur.com/C3D1GAQ.png)
 
@@ -216,7 +216,7 @@ This option enables synchronization of the RGB Light modes between the controlle
 
 This sets how many LEDs are directly connected to each controller.  The first number is the left side, and the second number is the right side.  
 
-?> This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
+This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
 
 
 ```c
@@ -224,7 +224,7 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 ```
 This option changes the startup behavior to detect an active USB connection when delegating master/slave. If this operation times out, then the half is assume to be a slave. This is the default behavior for ARM, and required for AVR Teensy boards (due to hardware limitations).
 
-?> This setting will stop the ability to demo using battery packs.
+This setting will stop the ability to demo using battery packs.
 
 ```c
 #define SPLIT_USB_TIMEOUT 2000
