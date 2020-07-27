@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "houndstooth.h"
+#include "barleycorn.h"
 
 void keyboard_pre_init_user(void) {
   // Set our LED pins as output

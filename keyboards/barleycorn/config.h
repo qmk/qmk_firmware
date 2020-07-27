@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x4749
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         Houndstooth
+#define PRODUCT         Barleycorn
 #define DESCRIPTION     A f-row less compact 1800 kit with only through hole components
 
 /* key matrix size */

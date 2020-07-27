@@ -1,6 +1,6 @@
-# Houndstooth
+# Barleycorn
 
-![houndstooth](https://yiancar-designs.com/wp-content/uploads/2019/06/IMG_20190625_233619.jpg)
+![Barleycorn](https://yiancar-designs.com/wp-content/uploads/2019/06/IMG_20190625_233619.jpg)
 
 A f-row less compact 1800 kit with only through hole components.
 
@@ -10,11 +10,11 @@ Hardware Availability: https://mykeyboard.eu/, https://novelkeys.xyz, https://me
 
 Make example for this keyboard (after setting up your build environment):
 
-    make houndstooth:default
+    make barleycorn:default
 
 Flashing example for this keyboard:
 
-    make houndstooth:default:flash
+    make barleycorn:default:flash
 
 Bootloader:
 use usbasploader HSGW's my repository.
