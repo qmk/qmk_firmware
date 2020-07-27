@@ -2,10 +2,11 @@
 
 ![stoutgat](https://i.imgur.com/CfWa5AG.jpg?1)
 
-A short description of the keyboard/project
+An ISO through hole component 65% keyboard with dual encoders. Uses the ATMega32A.
+Inspired by the cftkb Discipline.
 
 * Keyboard Maintainer: [Thys de Wet](https://github.com/vattern)
-* Hardware Supported: Stoutgat PCBS , running ATMega32A
+* Hardware Supported: Stoutgat PCBs , running ATMega32A
 * Hardware Availability: https://github.com/vattern/stoutgat
 
 Make example for this keyboard (after setting up your build environment):
