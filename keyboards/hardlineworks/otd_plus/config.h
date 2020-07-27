@@ -7,8 +7,7 @@
 #define PRODUCT_ID      0x0087  // "TKL"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Hardlineworks
-#define PRODUCT         otd plus
-#define DESCRIPTION     TKL Mechanical Keyboard
+#define PRODUCT         OTD-PLUS
 
 /* key matrix size */
 #define MATRIX_ROWS 12
