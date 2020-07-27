@@ -1,4 +1,4 @@
-# キーの登録方法とコンピュータによる解釈
+# キーが登録され、コンピュータで解釈される仕組み
 
 <!---
   original document: 0.9.32:docs/how_keyboards_work.md
