@@ -26,8 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    kleshwong
 #define PRODUCT         ks63
-// defined in subfolder
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -80,5 +78,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT
 #define USE_SERIAL
-
 
