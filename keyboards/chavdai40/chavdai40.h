@@ -1,5 +1,4 @@
-#ifndef _CHAVDAI40_H_
-#define _CHAVDAI40_H_
+#pragma once
 
 #define XXX KC_NO
 
@@ -31,4 +30,3 @@
     { k38, k39, XXX, XXX, XXX, k41, XXX, XXX, XXX, k43, k44, XXX, XXX }  \
 }
 
-#endif
