@@ -9,18 +9,18 @@
 
 このキーコードと `OSM()` が受け付けるモディファイアは、`KC_` ではなく、`MOD_` の接頭辞が付いています:
 
-| モディファイア | 説明 |
-|----------|----------------------------------------|
-| `MOD_LCTL` | 左 Control |
-| `MOD_LSFT` | 左 Shift |
-| `MOD_LALT` | 左 Alt |
-| `MOD_LGUI` | 左 GUI (Windows/Command/Meta キー) |
-| `MOD_RCTL` | 右 Control |
-| `MOD_RSFT` | 右 Shift |
-| `MOD_RALT` | 右 Alt (AltGr) |
-| `MOD_RGUI` | 右 GUI (Windows/Command/Meta キー) |
-| `MOD_HYPR` | Hyper (左 Control、左 Shift、左 Alt、左 GUI) |
-| `MOD_MEH` | Meh (左 Control、左 Shift、左 Alt) |
+| モディファイア |  説明                                        |
+|----------------|----------------------------------------------|
+|  `MOD_LCTL`    | 左 Control                                   |
+|  `MOD_LSFT`    | 左 Shift                                     |
+|  `MOD_LALT`    | 左 Alt                                       |
+|  `MOD_LGUI`    | 左 GUI (Windows/Command/Meta キー)           |
+|  `MOD_RCTL`    | 右 Control                                   |
+|  `MOD_RSFT`    | 右 Shift                                     |
+|  `MOD_RALT`    | 右 Alt (AltGr)                               |
+|  `MOD_RGUI`    | 右 GUI (Windows/Command/Meta キー)           |
+|  `MOD_HYPR`    | Hyper (左 Control、左 Shift、左 Alt、左 GUI) |
+|  `MOD_MEH`     | Meh (左 Control、左 Shift、左 Alt)           |
 
 以下のようにそれらを OR することで、これらを組み合わせることができます:
 
@@ -32,23 +32,23 @@ MT(MOD_LCTL | MOD_LSFT, KC_ESC)
 
 便利なように、QMK はキーマップで一般的な組み合わせをよりコンパクトにするためのモッドタップショートカットを含んでいます:
 
-| キー | エイリアス | 説明 |
-|------------|-----------------------------------------------------------------|-------------------------------------------------------|
-| `LCTL_T(kc)` | `CTL_T(kc)` | 押したままの場合は左 Control、タップした場合は `kc` |
-| `LSFT_T(kc)` | `SFT_T(kc)` | 押したままの場合は左 Shift、タップした場合は `kc` |
-| `LALT_T(kc)` | `LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)` | 押したままの場合は左 Alt、タップした場合は `kc` |
+| キー         | エイリアス                  | 説明                                                        |
+|--------------|-----------------------------|-------------------------------------------------------------|
+| `LCTL_T(kc)` | `CTL_T(kc)`                 | 押したままの場合は左 Control、タップした場合は `kc`         |
+| `LSFT_T(kc)` | `SFT_T(kc)`                 | 押したままの場合は左 Shift、タップした場合は `kc`           |
+| `LALT_T(kc)` | `LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                            | 押したままの場合は左 Alt、タップした場合は `kc` |
 | `LGUI_T(kc)` | `LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)` | 押したままの場合は左 GUI、タップした場合は `kc` |
-| `RCTL_T(kc)` |  | 押したままの場合は右 Control、タップした場合は `kc` |
-| `RSFT_T(kc)` |  | 押したままの場合は右 Shift、タップした場合は `kc` |
-| `RALT_T(kc)` | `ROPT_T(kc)`, `ALGR_T(kc)` | 押したままの場合は右 Alt、タップした場合は `kc` |
-| `RGUI_T(kc)` | `RCMD_T(kc)`, `RWIN_T(kc)` | 押したままの場合は右 GUI、タップした場合は `kc` |
-| `SGUI_T(kc)` | `SCMD_T(kc)`, `SWIN_T(kc)` | 押したままの場合は左 Shift と左 GUI、タップした場合は `kc` |
-| `LCA_T(kc)` |  | 押したままの場合は左 Control と左 Alt、タップした場合は `kc` |
-| `LCAG_T(kc)` |  | 押したままの場合は左 Control、左 Alt と左 GUI、タップした場合は `kc` |
-| `RCAG_T(kc)` |  | 押したままの場合は右 Control、右 Alt と右 GUI、タップした場合は `kc` |
-| `C_S_T(kc)` |  | 押したままの場合は左 Control と左 Shift、タップした場合は `kc` |
-| `MEH_T(kc)` |  | 押したままの場合は左 Control、左 Shift と左 Alt、タップした場合は `kc` |
-| `HYPR_T(kc)` | `ALL_T(kc)` | 押したままの場合は左 Control、左 Shift、左 Alt と左 GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
+| `RCTL_T(kc)` |                             | 押したままの場合は右 Control、タップした場合は `kc`         |
+| `RSFT_T(kc)` |                             | 押したままの場合は右 Shift、タップした場合は `kc`           |
+| `RALT_T(kc)` | `ROPT_T(kc)`, `ALGR_T(kc)`  | 押したままの場合は右 Alt、タップした場合は `kc`             |
+| `RGUI_T(kc)` | `RCMD_T(kc)`, `RWIN_T(kc)`  | 押したままの場合は右 GUI、タップした場合は `kc`             |
+| `SGUI_T(kc)` | `SCMD_T(kc)`, `SWIN_T(kc)`  | 押したままの場合は左 Shift と左 GUI、タップした場合は `kc`             |
+| `LCA_T(kc)`  |                             | 押したままの場合は左 Control と左 Alt、タップした場合は `kc`           |
+| `LCAG_T(kc)` |                             | 押したままの場合は左 Control、左 Alt と左 GUI、タップした場合は `kc`   |
+| `RCAG_T(kc)` |                             | 押したままの場合は右 Control、右 Alt と右 GUI、タップした場合は `kc`   |
+| `C_S_T(kc)`  |                             | 押したままの場合は左 Control と左 Shift、タップした場合は `kc`         |
+| `MEH_T(kc)`  |                             | 押したままの場合は左 Control、左 Shift と左 Alt、タップした場合は `kc` |
+| `HYPR_T(kc)` | `ALL_T(kc)`  | 押したままの場合は左 Control、左 Shift、左 Alt と左 GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
 
 ## 注意事項
 
