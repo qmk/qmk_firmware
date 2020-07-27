@@ -2,8 +2,8 @@
     "keyboard_name": "stoutgat",
     "url": "https://github.com/vattern/stoutgat",
     "maintainer": "Thys de Wet",
-    "width": 15,
-    "height": 5,
+    "width": 16,
+    "height": 6,
     "layouts": {
         "LAYOUT": {
             "layout": [
