@@ -33,7 +33,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t raw_matrix[MATRIX_ROWS];  //raw values
-static matrix_row_t matrix[MATRIX_ROWS];  //debounced values
+// static matrix_row_t matrix[MATRIX_ROWS];  //debounced values
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
