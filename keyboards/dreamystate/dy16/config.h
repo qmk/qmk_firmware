@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Dreamystate Keyboard
 #define PRODUCT         Dreamystate Dy16 Keyboard  // show in Bluetooth and other devices management menu
-#define DESCRIPTION     Dy16
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -234,5 +233,4 @@
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
-
 
