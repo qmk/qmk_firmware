@@ -8,8 +8,8 @@ A handwired 63 keys split keyboard compatible with Default 60% layout. Let you k
 * Hardware Supported: Arduino ProMicro
 * Assembling Guide: [ks63](https://github.com/klesh/ks63)
 
-Compile with qmk cli (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb handwired/ks63 -km default
+    make handwired/ks63:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
