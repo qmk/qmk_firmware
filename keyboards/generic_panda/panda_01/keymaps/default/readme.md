@@ -1,4 +1,4 @@
-![panda_01 layout image](https://imgur.com/a/fFcx4Pv)
+![panda_01 layout image](https://i.imgur.com/fPBUDMT.png)
 
 # The default keymap for Panda_01
 
