@@ -48,4 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* /1* ws2812 RGB LED *1/ */
 /* #undef RGB_DI_PIN */
 /* #define RGB_DI_PIN D3 */
-#define BACKLIGHT_PIN D3
+/* #define BACKLIGHT_PIN D3 */

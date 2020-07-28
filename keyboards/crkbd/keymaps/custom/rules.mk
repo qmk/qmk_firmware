@@ -12,4 +12,4 @@ SRC +=  ./lib/glcdfont.c \
 # MOUSEKEY_ENABLE = yes
 # GBLIGHT_ENABLE = yes# Enable WS2812 RGB underlight.
 # BACKLIGHT_ENABLE = yes# Enable keyboard backlight functionality
-BACKLIGHT_PIN = D3# Enable keyboard backlight functionality
+# BACKLIGHT_PIN = D3# Enable keyboard backlight functionality
