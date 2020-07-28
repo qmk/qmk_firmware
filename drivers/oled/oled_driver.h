@@ -151,8 +151,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 typedef struct __attribute__((__packed__)) {
-    uint8_t     *current_element;
-    uint16_t    remaining_element_count;
+    uint8_t  *current_element;
+    uint16_t remaining_element_count;
 } oled_buffer_reader_t;
 
 // OLED Rotation enum values are flags
