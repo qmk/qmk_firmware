@@ -21,6 +21,8 @@
 enum {
   BASE = 0,
   FUNCTION,
+  ALTERNATE,
+  LAST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,6 +68,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_STEP, _______, _______, XXXXXXX,          _______, _______, _______, XXXXXXX,
     _______, _______, _______,                   _______,                        _______, _______, MO(FUNCTION), _______,                  _______, XXXXXXX, _______, _______
   ),
+  [ALTERNATE] = LAYOUT_all(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   XXXXXXX, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, XXXXXXX,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______,          _______, _______, _______, _______,
+    _______, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_STEP, _______, _______, XXXXXXX,          _______, _______, _______, XXXXXXX,
+    _______, _______, _______,                   _______,                        _______, _______, MO(FUNCTION), _______,                  _______, XXXXXXX, _______, _______
+  ),
+    [LAST] = LAYOUT_all(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   XXXXXXX, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, XXXXXXX,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______,          _______, _______, _______, _______,
+    _______, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_STEP, _______, _______, XXXXXXX,          _______, _______, _______, XXXXXXX,
+    _______, _______, _______,                   _______,                        _______, _______, MO(FUNCTION), _______,                  _______, XXXXXXX, _______, _______
+  ),
 };
 
 #ifdef OLED_DRIVER_ENABLE
@@ -80,6 +96,12 @@ void oled_task_user(void) {
             break;
         case FUNCTION:
             oled_write_P(PSTR("Function\n"), false);
+            break;
+		case ALTERNATE:
+            oled_write_P(PSTR("Alternate\n"), false);
+            break;
+		case LAST:
+            oled_write_P(PSTR("Last\n"), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
