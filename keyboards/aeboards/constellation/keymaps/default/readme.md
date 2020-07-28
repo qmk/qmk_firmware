@@ -1,2 +1,2 @@
-# The Default Aegis Layout
+# The Default Constellation Layout
 

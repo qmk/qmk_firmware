@@ -15,3 +15,5 @@
  */
 
 // Nothing to see here, move along... ;-)
+
+#include "constellation.h"
