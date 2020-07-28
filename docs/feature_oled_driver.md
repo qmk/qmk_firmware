@@ -88,7 +88,7 @@ static void fade_display(void) {
     //Define the reader structure
     oled_buffer_reader_t reader;
     uint8_t buff_char;
-    if(random() % 30==0) {
+    if (random() % 30 == 0) {
         srand(timer_read());
         // Fetch a pointer for the buffer byte at index 0. The return structure
         // will have the pointer and the number of bytes remaining from this
