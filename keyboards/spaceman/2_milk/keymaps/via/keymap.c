@@ -4,20 +4,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       [0] = LAYOUT(
           KC_Z,
           KC_X
-          ),
-
+      ),
       [1] = LAYOUT(
-      KC_TRNS,
-      KC_TRNS
+          _______,
+          _______
       ),
-
       [2] = LAYOUT(
-      KC_TRNS,
-      KC_TRNS
+          _______,
+          _______
       ),
-
       [3] = LAYOUT(
-      KC_TRNS,
-      KC_TRNS
+          _______,
+          _______
       )
 };
