@@ -19,19 +19,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0xA7A5
+#define PRODUCT_ID      0x1565
 #define DEVICE_VER      0x0001
 #define MANUFACTURER CannonKeys
-#define PRODUCT Atlas
-#define DESCRIPTION Atlas Keyboard
+#define PRODUCT Instant65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 12
+#define MATRIX_COLS 15
 
-#define MATRIX_COL_PINS { A2, A1, A0, F1, F0, C15, C14, C13, B9, A15, A10, A9 }
-#define MATRIX_ROW_PINS { A8, B14, B12, B4, B3 }
+#define MATRIX_COL_PINS { A8, C13, B9, B8, B7, B6, B5, B4, B3, A7, A5, A4, A3, A2, A1 }
+#define MATRIX_ROW_PINS { A14, A15, A0, B1, B0 }
 #define DIODE_DIRECTION COL2ROW
+
+#define BACKLIGHT_PIN           A6
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
+#define BACKLIGHT_LEVELS 6
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -45,12 +52,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLIGHT_ANIMATIONS
-
-
-#define WS2812_SPI SPID2
 #define RGB_DI_PIN B15
-#define RGBLED_NUM 22
+#define RGBLED_NUM 20
+#define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
+
 
 /*
  * Feature disable options
