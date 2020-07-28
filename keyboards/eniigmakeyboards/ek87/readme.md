@@ -4,7 +4,7 @@
 
 A highly compatible TKL PCB with JST daughterboard support, designed for use with all tenkeyless Eniigma Keyboards products.
 
-![layout](https://camo.githubusercontent.com/162a2319afb84b534add9278dd5f577208f8b0da/68747470733a2f2f692e696d6775722e636f6d2f464e59634145502e706e67)
+![layout](https://i.imgur.com/FNYcAEP.png)
 
 * Keyboard Maintainer: [eniigmakeyboards](https://github.com/eniigmakeyboards) and [adamws](https://github.com/adamws)
 * Hardware Supported: Infinitum PCB/case, all future Eniigma Keyboards TKL products
