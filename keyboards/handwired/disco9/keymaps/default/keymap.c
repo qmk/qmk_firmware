@@ -18,10 +18,17 @@
 #include "joystick.h"
 #include "pointing_device.h"
 
+#define JOYSTICK_SPEED 30
+
 enum layers {
     DEFAULT,
     RAISE,
     LOWER
+};
+
+enum custom_keycodes {
+    KC_DEC = SAFE_RANGE,
+    KC_INC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -36,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_SPI, RGB_SPD, KC_NO
     ),
     [LOWER] = LAYOUT(
-        KC_NO, KC_NO,   KC_NO,
-        KC_NO, RGB_MOD, RGB_TOG,
-        KC_NO, KC_NO,   KC_NO
+        KC_DEC, KC_INC,  KC_NO,
+        KC_NO,  RGB_MOD, RGB_TOG,
+        KC_NO,  KC_NO,   KC_NO
     )
 };
 
@@ -46,13 +53,80 @@ void keyboard_post_init_user (void) {
     rgb_matrix_enable_noeeprom();
 }
 
+void rgb_matrix_increase_flags (void) {
+    switch (rgb_matrix_get_flags()) {
+      case LED_FLAG_ALL: {
+          rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+          rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      case LED_FLAG_UNDERGLOW: {
+          rgb_matrix_set_flags(LED_FLAG_NONE);
+          rgb_matrix_disable_noeeprom();
+      }
+        break;
+      default: {
+          rgb_matrix_set_flags(LED_FLAG_ALL);
+          rgb_matrix_enable_noeeprom();
+      }
+        break;
+    }
+}
+
+void rgb_matrix_decrease_flags (void) {
+    switch (rgb_matrix_get_flags()) {
+      case LED_FLAG_ALL: {
+          rgb_matrix_set_flags(LED_FLAG_NONE);
+          rgb_matrix_disable_noeeprom();
+      }
+        break;
+      case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+          rgb_matrix_set_flags(LED_FLAG_ALL);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      case LED_FLAG_UNDERGLOW: {
+          rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      default: {
+          rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+          rgb_matrix_enable_noeeprom();
+      }
+        break;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+          case KC_DEC:
+            rgb_matrix_decrease_flags();
+            return false;
+          case KC_INC:
+            rgb_matrix_increase_flags();
+            return false;
+        }
+    }
+    return true;
+}
+
 void matrix_scan_user (void) {
-    joystick_report_t joy = joystick_get_report();
     report_mouse_t r = pointing_device_get_report();
+    joystick_report_t joy = joystick_get_report();
 
-    r.x = joy.x * 30;
-    r.y = joy.y * 30;
+    r.x = joy.x * JOYSTICK_SPEED;
+    r.y = joy.y * JOYSTICK_SPEED;
 
-    pointing_device_set_report(r);
-    pointing_device_send();
+    /* pointing_device_send is fairly slow so call only if needed */
+    if (r.x >= 1 || r.x <= -1 || r.y >= 1 || r.y <= -1) {
+        pointing_device_set_report(r);
+        pointing_device_send();
+    }
 }

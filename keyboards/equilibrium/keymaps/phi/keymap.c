@@ -22,12 +22,13 @@ enum layer_numbers {
 #define KC_D_MOUS LT(MOUSE, KC_D)
 #define KC_F_CUR  LT(CURSOR, KC_F)
 #define KC_EN_RAI LT(RAISE, KC_ENT)
-#define KC_L1_FN  LT(FUNCTION, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_ES_ALT LALT_T(KC_ESC)
 #define KC_WEEL   MO(WHEEL)
 #define KC_MOUSE  MO(MOUSE)
+#define KC_FUNC   MO(FUNCTION)
 #define KC_BASE   TO(BASE)
+#define KC_DSCO   LCTL(LSFT(LALT(KC_N)))
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------+------+------+------+------+------+------|
         LSFT , Z    , X    , C    , V    , B    , N    , M    , COMM , DOT  , SLSH , \
 //    `------+------+------+------+------+------+------+------+------+------+------'
-                         ____ ,ES_ALT, SPC  ,EN_RAI, BSPC, ____   \
+                         DSCO ,ES_ALT, SPC  ,EN_RAI, FUNC, ____   \
 //                     `------+------+------+------+------+------'
 ),
 
@@ -71,15 +72,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------+------+------+------+------+------+------|
     ____ , TILD , ____ , LCBR , LPRN , LBRC , RBRC , RPRN , RCBR , ____ , PIPE , PLUS , \
 //|------+------+------+------+------+------+------+------+------+------+------+------|
-        ____ , EXLM , AT   , HASH , DLR  , PERC , CIRC , AMPR , ASTR , ____ , BSLS , \
+        ____ , ____ , ____ , ____ , ____ , ____ , ____ , ____ , ____ , ____ , BSLS , \
 //    `------+------+------+------+------+------+------+------+------+------+------'
-                         ____ ,L2_ALT,L1_FN , ____ , ____ , ____   \
+                         ____ ,L2_ALT,LANG1 , ____ , ____ , ____   \
 //                     `------+------+------+------+------+------'
 ),
 
 [FUNCTION] = LAYOUT_kc( \
 //,-----------------------------------------------------------------------------------.
-    ____ , F1   , F2   , F3   , F4   , F5   , F6   , F7   , F8   , F9   , PSCR , ____ , \
+    BSPC , F1   , F2   , F3   , F4   , F5   , F6   , F7   , F8   , F9   , PSCR , ____ , \
 //|------+------+------+------+------+------+------+------+------+------+------+------|
     ____ , TOGG , H_UP , S_UP , V_UP , LGUI , HOME , PGDN , PGUP , END  , ____ , ____ , \
 //|------+------+------+------+------+------+------+------+------+------+------+------|
