@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 Obosob <obosob@riseup.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
