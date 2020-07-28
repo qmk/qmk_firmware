@@ -16,10 +16,10 @@
 
 // Push Pull or Open Drain Configuration
 // Default Push Pull
-#ifndef WS2812_OUTPUT_MODE_OPEN_DRAIN
-    #define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_PUSHPULL
+#ifndef WS2812_EXTERNAL_PULLUP
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_PUSHPULL
 #else
-    #define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
 #endif
 
 #define NUMBER_NOPS 6
@@ -51,7 +51,7 @@
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
 // to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
-#define RES 10000  // Width of the low gap between bits to cause a frame to latch
+#define RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
 
 void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
@@ -74,9 +74,13 @@ void sendByte(uint8_t byte) {
     }
 }
 
+<<<<<<< HEAD
 void ws2812_init(void) {
     palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
  }
+=======
+void ws2812_init(void) { palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE); }
+>>>>>>> master
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {

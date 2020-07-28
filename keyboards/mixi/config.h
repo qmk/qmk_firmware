@@ -21,8 +21,8 @@
     { C6, F7, B6 } \
 }
 
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
+#define ENCODERS_PAD_A { D7, B1 }
+#define ENCODERS_PAD_B { E6, B3 }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
