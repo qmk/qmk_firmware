@@ -37,8 +37,6 @@ SUPPORTED_MCUS = {
     # 'MK20DX128'
     # 'MK20DX256'
     # 'MKL26Z64'
-    'STM32F042': 'stm32', # cortex-m0
     'STM32F072': 'stm32', # cortex-m0
-    'STM32F103': 'stm32', # cortex-m3
     'STM32F303': 'stm32'  # cortex-m4
 }
