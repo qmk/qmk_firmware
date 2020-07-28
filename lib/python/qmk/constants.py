@@ -30,13 +30,6 @@ SUPPORTED_MCUS = {
     'atmega32u2': 'avr',
     'atmega32u4': 'avr',
     'attiny85': 'ps2avrgb',
-    # 'cortex-m0',
-    # 'cortex-m0plus'
-    # 'cortex-m3'
-    # 'cortex-m4'
-    # 'MK20DX128'
-    # 'MK20DX256'
-    # 'MKL26Z64'
-    'STM32F072': 'stm32', # cortex-m0
-    'STM32F303': 'stm32'  # cortex-m4
+    'STM32F072': 'stm32',
+    'STM32F303': 'stm32'
 }
