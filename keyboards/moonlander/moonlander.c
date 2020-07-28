@@ -387,6 +387,11 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{6,5}, {5,5}, {4,5}, {3,5}, {2,5}, {1,5},{0,5}},
 };
 // clang-format on
+
+void keyboard_post_init_kb(void) {
+    rgb_matrix_enable_noeeprom();
+    keyboard_post_init_user();
+}
 #endif
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
@@ -441,4 +446,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
     }
     return process_record_user(keycode, record);
+}
+
+void matrix_init_kb(void) {
+    keyboard_config.raw = eeconfig_read_kb();
+
+#ifdef RGB_MATRIX_ENABLE
+    if (keyboard_config.rgb_matrix_enable) {
+        rgb_matrix_set_flags(LED_FLAG_ALL);
+    } else {
+        rgb_matrix_set_flags(LED_FLAG_NONE);
+    }
+#endif
+}
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    keyboard_config.raw = 0;
+    keyboard_config.rgb_matrix_enable = true;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
