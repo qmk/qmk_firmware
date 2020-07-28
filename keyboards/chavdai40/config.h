@@ -11,7 +11,6 @@
 
 /* usb power settings */
 #define USB_MAX_POWER_CONSUMPTION 100
-#define USB_DEVICE_POWER 100
 
 /* key matrix size */
 #define MATRIX_ROWS 4
