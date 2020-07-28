@@ -2,12 +2,12 @@
 RGB_MATRIX_EFFECT(HUE_PENDULUM)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-//Change huedelta to adjust range of hue change. 0-255.
-//Looks better with a low value and slow speed for subtle change.
-//Hue Pendulum - color changes in a wave to the right before reversing direction
+// Change huedelta to adjust range of hue change. 0-255.
+// Looks better with a low value and slow speed for subtle change.
+// Hue Pendulum - color changes in a wave to the right before reversing direction
 static HSV HUE_PENDULUM_math(HSV hsv, uint8_t i, uint8_t time) {
-	uint8_t huedelta = 12;
-    hsv.h = hsv.h + scale8(abs8(sin8(time) + (g_led_config.point[i].x) - 128) * 2, huedelta);
+    uint8_t huedelta = 12;
+    hsv.h            = hsv.h + scale8(abs8(sin8(time) + (g_led_config.point[i].x) - 128) * 2, huedelta);
     return hsv;
 }
 
