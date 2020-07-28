@@ -1,6 +1,6 @@
 # Panda_01
 
-![Panda_01](https://imgur.com/a/fFcx4Pv)
+![Panda_01](https://i.imgur.com/fPBUDMT.png)
 
 *A short description of the keyboard/project*
 
