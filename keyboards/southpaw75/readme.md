@@ -5,7 +5,7 @@ Southpaw75
 
 60% with southpaw numpad.
 
-* Keyboard Maintainer: [Kelvin Hall](https://github.com/kelvinhall05/) [u/kelvinh_27](https://www.reddit.com/user/kelvinh_27)
+* Keyboard Maintainer: [kelvinhall05](https://github.com/kelvinhall05/)
 * Hardware Supported: Southpaw75 Pro Micro PCB
 * Hardware Availability: (https://github.com/kelvinhall05)
 
