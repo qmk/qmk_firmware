@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER ASH
 #define PRODUCT      XIIX
-#define DESCRIPTION Cherry G80/G81 1800 replacement PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 12
