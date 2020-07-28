@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x0002
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Eniigma Keyboards
-#define PRODUCT Eniigma Keyboards ek65
-#define DESCRIPTION Eniigma Keyboards ek65
+#define PRODUCT ek65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
