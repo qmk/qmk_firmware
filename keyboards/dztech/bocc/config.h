@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    BOCC
 #define PRODUCT         BOCC
-#define DESCRIPTION     BOCC Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
