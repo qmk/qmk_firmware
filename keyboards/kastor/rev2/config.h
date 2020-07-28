@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 #define SOFT_SERIAL_PIN D2
+#define DIODE_DIRECTION COL2ROW
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
