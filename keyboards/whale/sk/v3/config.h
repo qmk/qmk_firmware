@@ -26,9 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION Hackable split keyboard/QMK
 
 /* key matrix size */
-/* Notice: HALF of col on the slave side */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
+/* Notice: HALF of row on the slave side */
+#define MATRIX_ROWS 12
+#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments

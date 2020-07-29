@@ -2,6 +2,8 @@
 
 #include "sk.h"
 
+#include "quantum.h"
+
 #define LAYOUT_all( \
     L00, L01, L02, L03, L04, L05, L06, L46,     R46, R06, R05, R04, R03, R02, R01, R00, \
        L10, L11, L12, L13, L14, L15, L16,         R16, R15, R14, R13, R12, R11, R10, \
