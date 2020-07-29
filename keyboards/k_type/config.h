@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID    0x1C11
 #define PRODUCT_ID   0xB04D
 #define DEVICE_VER   0x0001
-#define MANUFACTURER Input Club
-#define PRODUCT      K-Type
+#define MANUFACTURER Input:Club
+#define PRODUCT      K-Type (QMK)
 
 /* key matrix size */
 #define MATRIX_ROWS 10
