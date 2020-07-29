@@ -1,6 +1,6 @@
 # stoutgat
 
-![stoutgat](https://i.imgur.com/CfWa5AG.jpg?1)
+![stoutgat](https://i.imgur.com/CfWa5AGl.jpg?1)
 
 An ISO through hole component 65% keyboard with dual encoders. Uses the ATMega32A.
 Inspired by the cftkb Discipline.
