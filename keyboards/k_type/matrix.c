@@ -108,9 +108,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 break;
         }
 
-        if (current_matrix[row] != data) {
-            changed = true;
-        }
+        changed |= current_matrix[row] != data;
     }
 
     return changed;
