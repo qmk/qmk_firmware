@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Neil Brian Ramirez
 #define PRODUCT [n]2
-#define DESCRIPTION A 2-key pcb
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -92,4 +91,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
