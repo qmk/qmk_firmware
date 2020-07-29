@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x4B4E // KN-Kanu
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Mechlovin
-#define PRODUCT         Mechlovin Kanu
-#define DESCRIPTION     Mechlovin Kanu 
+#define PRODUCT         Kanu
 
 /* key matrix size */
 #define MATRIX_ROWS 5
