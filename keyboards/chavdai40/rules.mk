@@ -1,7 +1,8 @@
 # MCU name
 MCU = STM32F042
 
-# change yes to no to disable
+# Build Options
+#   change yes to no to disable
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
