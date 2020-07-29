@@ -73,6 +73,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         // read col data: { PTD5, PTD6, PTD7, PTC1, PTC2, PTC3, PTC4, PTC5, PTC6, PTC7 }
         data = ((palReadPort(GPIOC) & 0xFEUL) << 2) |
                ((palReadPort(GPIOD) & 0xE0UL) >> 5);
+        changed |= current_matrix[row] != data;
+        current_matrix[row] = data;
 
         // un-strobe row
         switch (row) {
@@ -107,8 +109,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 palClearPad(GPIOD, 4);
                 break;
         }
-
-        changed |= current_matrix[row] != data;
     }
 
     return changed;
