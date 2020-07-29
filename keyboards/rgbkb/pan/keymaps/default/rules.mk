@@ -6,7 +6,7 @@
 # To keep things clean and tidy, as well as make upgrades easier, only place overrides from the defaults in this file.
 
 # Processor choice= comment out either line 9 or 10.
-ATmega32A = yes
+#ATmega32A = yes
 # ProtonC = yes
 
 # RGB layout selection

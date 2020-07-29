@@ -6,14 +6,14 @@ Ortho or Staggered DIY kit with RGB
 
 * Keyboard Maintainer: [RGBKB](https://github.com/RGBKB)
 * Hardware Supported: Pan, atmega32a or Proton-C
-* Hardware Availability: [cftkb.com](https://www.rgbkb.net/), [GitHub](https://github.com/RGBKB/Keyboard-files/tree/master/Pan)
+* Hardware Availability: [rgbkb.net](https://www.rgbkb.net/), [GitHub](https://github.com/RGBKB/Keyboard-files/tree/master/Pan)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make rgbkb/pan:default
+    qmk compile -kb rgbkb/pan/rev1_atmega -km default
 
-Flashing example for this keyboard:
+If you are using the Proton-C:
 
-    make rgbkb/pan:default:flash
+    qmk compile -kb rgbkb/pan/rev1_stm32 -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
