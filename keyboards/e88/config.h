@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pink Labs
 #define PRODUCT         Bliss
-#define DESCRIPTION     A TKL
 
 /* key matrix size */
 #define MATRIX_ROWS 6
