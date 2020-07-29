@@ -21,7 +21,7 @@
 // entirely and just use numbers.
 
 #define _MA 0 //Main layer
-#define _FN 1 //Main layer
+#define _FN 1 //Function layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MA] = LAYOUT_all(
