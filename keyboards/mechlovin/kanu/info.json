@@ -83,7 +83,6 @@
             ]
         },        
         "LAYOUT_iso": {
-            "key_count": 69,
             "layout": [
                 {"label":"K00 (B0,B5)", "x":0, "y":0},
                 {"label":"K01 (B0,B6)", "x":1, "y":0},
@@ -157,7 +156,6 @@
             ]
         },
         "LAYOUT_ansi": {
-            "key_count": 67,
             "layout": [
                 {"label":"K00 (B0,B5)", "x":0, "y":0},
                 {"label":"K01 (B0,B6)", "x":1, "y":0},
