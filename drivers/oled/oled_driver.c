@@ -82,14 +82,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_CMD 0x00
 #define I2C_DATA 0x40
 #if defined(__AVR__)
-// already defined on ARM
-#    define I2C_TIMEOUT 100
-#    define I2C_TRANSMIT_P(data) i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
+#    define I2C_TRANSMIT_P(data) i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), OLED_I2C_TIMEOUT)
 #else  // defined(__AVR__)
-#    define I2C_TRANSMIT_P(data) i2c_transmit((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
+#    define I2C_TRANSMIT_P(data) i2c_transmit((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), OLED_I2C_TIMEOUT)
 #endif  // defined(__AVR__)
-#define I2C_TRANSMIT(data) i2c_transmit((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
-#define I2C_WRITE_REG(mode, data, size) i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), mode, data, size, I2C_TIMEOUT)
+#define I2C_TRANSMIT(data) i2c_transmit((OLED_DISPLAY_ADDRESS << 1), &data[0], sizeof(data), OLED_I2C_TIMEOUT)
+#define I2C_WRITE_REG(mode, data, size) i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), mode, data, size, OLED_I2C_TIMEOUT)
 
 #define HAS_FLAGS(bits, flags) ((bits & flags) == flags)
 
@@ -460,6 +458,19 @@ void oled_write_raw(const char *data, uint16_t size) {
         oled_buffer[i] = data[i];
         oled_dirty |= (1 << (i / OLED_BLOCK_SIZE));
     }
+}
+
+void oled_write_pixel(uint8_t x, uint8_t y, bool on) {
+    if (x >= OLED_DISPLAY_WIDTH || y >= OLED_DISPLAY_HEIGHT) {
+        return;
+    }
+    uint16_t index = x + (y / 8) * OLED_DISPLAY_WIDTH;
+    if (on) {
+        oled_buffer[index] |= (1 << (y % 8));
+    } else {
+        oled_buffer[index] &= ~(1 << (y % 8));
+    }
+    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
 }
 
 #if defined(__AVR__)
