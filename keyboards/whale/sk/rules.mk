@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = v3
+DEFAULT_FOLDER = whale/sk/v3
