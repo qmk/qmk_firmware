@@ -84,27 +84,27 @@ void rgb_matrix_indicators_user(void) {
 uint32_t layer_state_set_user(uint32_t state)
 {
   // if on layer 1, turn on L1 LED, otherwise off.
-    if (biton32(state) == 0) {
+    if (get_highest_layer(state) == 0) {
         rgb_matrix_set_color(1, 255, 0, 0);
     } else {
         rgb_matrix_set_color(1, 0, 0, 0);
     }
   // if on layer 2, turn on L2 LED, otherwise off.
-    if (biton32(state) == 1) {
+    if (get_highest_layer(state) == 1) {
         rgb_matrix_set_color(0, 255, 0, 0);
     } else {
         rgb_matrix_set_color(0, 0, 0, 0);
     }
 
   // if on layer 3, turn on L3 LED, otherwise off.
-    if (biton32(state) == 2) {
+    if (get_highest_layer(state) == 2) {
         rgb_matrix_set_color(3, 255, 0, 0);
     } else {
         rgb_matrix_set_color(3, 0, 0, 0);
     }
 
   // if on layer 4, turn on L4 LED, otherwise off.
-    if (biton32(state) == 3) {
+    if (get_highest_layer(state) == 3) {
         rgb_matrix_set_color(2, 255, 0, 0);
     } else {
         rgb_matrix_set_color(2, 0, 0, 0);
