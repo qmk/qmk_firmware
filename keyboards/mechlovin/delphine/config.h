@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x4D4C
 #define MANUFACTURER    Mechlovin
 #define PRODUCT         Mechlovin Delphine
-#define DESCRIPTION     Mechlovin Delphine
 
 /* key matrix size */
 #define MATRIX_ROWS 6
