@@ -9,7 +9,7 @@
 #   define RGBLIGHT_SLEEP
 #endif
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE) && !defined(RGBLIGHT_LAYERS)
 #   define RGB_THEME_ENABLE
 #endif
 
