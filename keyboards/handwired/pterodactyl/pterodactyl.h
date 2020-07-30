@@ -1,5 +1,4 @@
-#ifndef PTERODACTYL_H
-#define PTERODACTYL_H
+#pragma once
 
 #include "quantum.h"
 #include <stdint.h>
@@ -62,7 +61,6 @@ void init_expander(void);
     { k4B, k4A, k49, k48, k47, k58,      k53, k44, k43, k42, k41, k40 }, \
     { k56, k5B, k57, k5A, k59, KC_NO,  KC_NO, k52, k51, k54, k50, k55 }, \
    }
-#endif
   /* for future comers:
    * the weird ass ordering here is because the dactyl/ergo/etc are wired for the
    * chip to be in the right side, mine is not built that way.
