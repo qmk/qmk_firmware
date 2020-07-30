@@ -8,6 +8,9 @@ A simple macropad for the beginners.
 * Hardware Supported: quick7, Pro Micro (ATmega32U4)
 * Hardware Availability: [yushakobo Shop](https://yushakobo.jp/shop/quick7/)
 
+## How to build
+* Build guide available [here](https://github.com/yushakobo/build-documents/blob/master/Quick7/Buildguide-en.md). (Japanese build guide is [here](https://github.com/yushakobo/build-documents/blob/master/Quick7/BuildGuide.md).)
+
 Make example for this keyboard (after setting up your build environment):
 
     make yushakobo/quick7:default
