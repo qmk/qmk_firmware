@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Yugo-M
-#define PRODUCT         IBM Model M
+#define MANUFACTURER    IBM
+#define PRODUCT         Model M
 #define DESCRIPTION     QMK-powered IBM Model M
 
 /* Address for jumping to bootloader on STM32 chips. */
@@ -51,6 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4, A3 }
 #define UNUSED_PINS { A0, A1, A2, A10, A13, B9, C13, C14, C15 }
 
+
+
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
@@ -59,6 +61,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed (5 is default) */
 #define DEBOUNCE 5
+
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
+
 
 /*
  * Force NKRO

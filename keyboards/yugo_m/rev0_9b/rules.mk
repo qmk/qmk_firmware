@@ -14,5 +14,5 @@ NKRO_ENABLE = no	      # USB Nkey Rollover
 AUDIO_ENABLE = no
 
 # project specific files
-SRC =	led.c
-# LAYOUTS += layout_1 layout_2
+# SRC =	led.c
+LAYOUTS = default
