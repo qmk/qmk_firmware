@@ -16,7 +16,6 @@
 
 #include "timberwolf.h"
 
-
 bool led_update_kb(led_t led_state) {
     bool runDefault = led_update_user(led_state);
 	if(runDefault) {
