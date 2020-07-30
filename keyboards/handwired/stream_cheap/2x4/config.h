@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kyle Hart
 #define PRODUCT         stream_cheap
-#define DESCRIPTION     stream cheap
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -26,6 +25,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Tap dancing params */
-#define TAPPING_TERM 250
