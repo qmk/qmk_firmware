@@ -48,7 +48,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 
 ### `update_tri_layer_state(state, x, y, z)`
-もう1つの関数は `update_tri_layer_state(state, x, y, z)` です。この関数は [`layer_state_set_*` 関数](custom_quantum_functions.md#layer-change-code)から呼び出されることを意図しています。これは、キーコードを使ってレイヤーを変更するたびに、これがチェックされることを意味します。したがって、`LT(layer, kc)` を使ってレイヤーを変更すると、同じレイヤーチェックが引き起こされます。
+もう1つの関数は `update_tri_layer_state(state, x, y, z)` です。この関数は [`layer_state_set_*` 関数](ja/custom_quantum_functions.md#layer-change-code)から呼び出されることを意図しています。これは、キーコードを使ってレイヤーを変更するたびに、これがチェックされることを意味します。したがって、`LT(layer, kc)` を使ってレイヤーを変更すると、同じレイヤーチェックが引き起こされます。
 
 このメソッドの注意点は、`x` および `y` レイヤーをオンにしないと、`z` レイヤーにアクセスできないことです。レイヤー `z` のみをアクティブにしようとすると、このコードが実行され、使用前にレイヤー `z` がオフになるからです。
 
@@ -76,7 +76,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 これを使うには、`set_single_persistent_default_layer(layer)` を使います。レイヤーに名前が定義されている場合は、代わりにそれを使うことができます (_QWERTY、_DVORAK、_COLEMAK など)。
 
-これは、デフォルトレイヤーを設定し、永続設定が更新され、もし [Audio](feature_audio.md) がキーボードで有効でデフォルトレイヤーのサウンドセットがある場合は、曲を再生します。
+これは、デフォルトレイヤーを設定し、永続設定が更新され、もし [Audio](ja/feature_audio.md) がキーボードで有効でデフォルトレイヤーのサウンドセットがある場合は、曲を再生します。
 
 デフォルトレイヤーの音を設定するには、以下のように `config.h` ファイルに定義する必要があります。
 
