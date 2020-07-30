@@ -17,21 +17,21 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = LAYOUT(
+  [0] = LAYOUT_ortho_5x4(
     KC_A, KC_B,  KC_C,  KC_D,
     KC_E, KC_F,  KC_G,  KC_H,
     KC_I, KC_J,  KC_K,  KC_L,
     KC_M, KC_N,  KC_O,  KC_P,
     KC_Q, KC_R,  KC_S,  KC_T
   ),
-  [1] = LAYOUT(
+  [1] = LAYOUT_ortho_5x4(
     KC_TRNS, KC_TRNS  ,  RESET,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
   ),
-  [2] = LAYOUT(
+  [2] = LAYOUT_ortho_5x4(
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
   ),
 
-  [3] = LAYOUT(
+  [3] = LAYOUT_ortho_5x4(
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
@@ -47,4 +47,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
   )
 };
-
