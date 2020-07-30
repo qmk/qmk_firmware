@@ -27,7 +27,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case TST_STRING:
             if (record->event.pressed) {
-                SEND_STRING("12345"SS_TAP(X_ENTER));
+                SEND_STRING("12345\n");
             }
             break;
 
