@@ -1,6 +1,6 @@
 # Dreamystate Dy16 Keyboard
 
-![Dy16Photo](https://i.imgur.com/jpnMay9.jpeg)
+![Dy16Photo](https://i.imgur.com/jpnMay9m.jpeg)``
 More: [Imgur](https://imgur.com/gallery/6tu9KdA).
 
 A 16 key macropad, with USB C, RGB light and Buzzer、 Encoder in the future.
