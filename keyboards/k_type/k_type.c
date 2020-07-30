@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "k_type.h"
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, B_1,  A_1,  C_1  },
     { 0, B_2,  A_2,  C_2  },
@@ -180,3 +181,4 @@ led_config_t g_led_config = {
       //1, 1, 1,          4,          1, 1, 1, 1,    1, 1, 1
     }
 };
+#endif
