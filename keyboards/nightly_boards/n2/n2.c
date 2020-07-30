@@ -1,4 +1,4 @@
-/* Copyright 2020 Croktopus
+/* Copyright 2020 Neil Brian Ramirez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,16 +14,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "timberwolf.h"
+#include "n2.h"
 
-bool led_update_kb(led_t led_state) {
-    bool runDefault = led_update_user(led_state);
-    if(runDefault) {
-        if (led_state.caps_lock) {
-            backlight_level_noeeprom(get_backlight_level());
-        } else {
-            backlight_set(0);
-        }
-    }
-    return runDefault;
-}
