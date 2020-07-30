@@ -4,6 +4,7 @@
     "keyboard_name": "Kudox Keyboard Columner",
     "layouts": {
         "LAYOUT": {
+            "key_count": 66,
             "layout": [
                 {"label":"Esc", "x":0, "y":0.5, "w":1.25},
                 {"label":"1", "x":1.25, "y":0.5},
