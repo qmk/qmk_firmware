@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "printf.h"
 
 void led_set_kb(uint8_t usb_led) {
-    // printf("led_set_kb(%d)\n", usb_led);
+    printf("led_set_kb(%d)\n", usb_led);
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         // Turn NumLock on
         palSetPad(GPIOA, 2);
