@@ -12,11 +12,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 // Consolidated Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QM_MAKE: //
+        case QM_MAKE: // Sends 'qmk compile' or 'qmk flash'
             if (record->event.pressed) {
                 bool flash = false;
         // If is a keyboard and auto-flash is not set in rules.mk,
-        // then Shift will trigger the :flash target
+        // then Shift will trigger the flash command
         #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
                 uint8_t temp_mod = get_mods();
                 uint8_t temp_osm = get_oneshot_mods();
@@ -30,7 +30,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_make_command(flash);
             }
             break;
-        case QM_FLSH: // Sends Make command with :flash target
+        case QM_FLSH: // Sends flash command instead of compile
             if (record->event.pressed) {
                 clear_mods();
                 clear_oneshot_mods();
@@ -124,25 +124,32 @@ void matrix_scan_cmd_tab(void) {
 /**
  * Send Make Command
  *
- * Sends 'make keyboard:keymap command to compile firmware
- * Adds :flash target and resets keyboard, if flash_bootloader set to true
- * Sends FORCE_LAYOUT parameter if built with FORCE_LAYOUT
+ * Sends 'qmk compile -kb keyboard -km keymap' command to compile firmware
+ * Uses 'qmk flash' and resets keyboard, if flash_bootloader set to true
+ * Sends CTPC and/or FORCE_LAYOUT parameters if built with those options
  */
 void send_make_command(bool flash_bootloader) {
-    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+#ifdef FORCE_LAYOUT // Add layout string if built with FORCE_LAYOUT
+    SEND_STRING("FORCE_LAYOUT=" FORCE_LAYOUT " ");
+#endif
+#ifdef CONVERT_TO_PROTON_C // Add CTPC if built with CONVERT_TO_PROTON_C
+    SEND_STRING("CTPC=yes ");
+#endif
+    SEND_STRING("qmk ");
     if (flash_bootloader) {
-#if defined(KEYBOARD_massdrop_alt) // only run for Massdrop ALT
+#ifndef KEYBOARD_massdrop // Don't run flash for Massdrop boards
+        SEND_STRING("flash ");
+    } else {
+#endif
+        SEND_STRING("compile ");
+    }
+    SEND_STRING("-kb " QMK_KEYBOARD " ");
+    SEND_STRING("-km " QMK_KEYMAP);
+    if (flash_bootloader) {
+#if defined(KEYBOARD_massdrop) // only run for Massdrop boards
         SEND_STRING(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP);
-#else // use universal flash command
-        SEND_STRING(":flash");
 #endif
     }
-#if defined(FORCE_LAYOUT) // Add layout string if built with FORCE_LAYOUT
-    SEND_STRING(" FORCE_LAYOUT=" FORCE_LAYOUT);
-#endif
-#if defined(CONVERT_TO_PROTON_C) // Add CTPC if built with CONVERT_TO_PROTON_C
-    SEND_STRING(" CTPC=yes");
-#endif
     SEND_STRING(SS_TAP(X_ENTER));
     if (flash_bootloader) {
         reset_keyboard();
