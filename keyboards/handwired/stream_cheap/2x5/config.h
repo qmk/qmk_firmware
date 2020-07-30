@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kyle Hart
 #define PRODUCT         stream_cheap
-#define DESCRIPTION     stream cheap
 
 /* key matrix size */
 #define MATRIX_ROWS 2
