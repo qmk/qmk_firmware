@@ -1,7 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-```suggestion
 # Bootloader selection
 BOOTLOADER = caterina
 
