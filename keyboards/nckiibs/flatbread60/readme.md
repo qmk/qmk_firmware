@@ -1,10 +1,10 @@
 # flatbread60
 
-![flatbread60](imgur.com image replace me!)
+![flatbread60](https://i.imgur.com/kIPP0JK.jpg)
 
 This is a custom PCB made by a hobbiest, and it has an ortholinear 60 key layout. Flatbread60 supports Pro Micro and its wireless variants, such as Blue Micro. A battery switch slot and extra pinout is on the board.  
 
-* Keyboard Maintainer: [noclew](https://github.com/yourusername)
+* Keyboard Maintainer: [noclew](https://github.com/noclew)
 * Hardware Supported: flatbread60 PCB
 * Hardware Availability: Not commercially available, but the board fabricaion file will be uploaded in the near future.
 
