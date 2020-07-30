@@ -59,9 +59,8 @@ void matrix_scan_cmd_tab(void);
 #define RWD_CMD   RCMD_T(KC_MPRV)      // Tap Right Command for Prev Track
 #define PLY_CMD   RCMD_T(KC_MPLY)      // Tap Right Command for Play/Pause
 #define FFD_OPT   ROPT_T(KC_MNXT)      // Tap Right Option for Next Track
-#define PLY_FN1   LT(1, KC_MPLY)       // Tap Fn for Play/Pause
-#define PLY_FN2   LT(2, KC_MPLY)       // Tap Fn2 for Play/Pause
-#define PLY_MCO   LT(_MACRO, KC_MPLY)  // Tap MacroFn for Play/Pause
+#define PLY_FN1   LT(_FN1, KC_MPLY)    // Tap Fn for Play/Pause
+#define PLY_FN2   LT(_FN2, KC_MPLY)    // Tap Fn2 for Play/Pause
 #define MUT_SFT   RSFT_T(KC_MUTE)      // Tap Right Shift for Mute
 /**
  * Arrow Mod-Tap
@@ -125,15 +124,6 @@ void matrix_scan_cmd_tab(void);
 #define MC_WH_D   KC_WH_U              // Mouse Wheel Down
 #define MC_WH_L   KC_WH_R              // Mouse Wheel Left
 #define MC_WH_R   KC_WH_L              // Mouse Wheel Right
-
-// Macropad Defines
-#if defined(IS_MACROPAD)
-// Macropad Default Layer keycodes
-#define DF_REDR   DF(_REEDER)          // Set Default Layer to Reeder shortcuts
-#define DF_MEDA   DF(_MEDIA)           // Set Default Layer to Media controls
-#define DF_NAVI   DF(_NAVI)            // Set Default Layer to Navigation shortcuts
-#define DF_KBNR   DF(_KARABINER)       // Set Default Layer to Basic Macro keys
-#endif
 
 // RGB Theme
 #define RGB_THM   RGB_THEME_FORWARD    // Cycle next RGB_THEME

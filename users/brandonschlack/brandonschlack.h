@@ -13,19 +13,11 @@
 
 /* TODO Layer Names */
 enum bs_layers {
-#if !defined(IS_MACROPAD) // Keyboard Layers
     _BASE = 0,
-    _FN1 = 1,
-    _FN2,
-    _MACRO,
-#else // Macropad Layers
-    _REEDER = 0,
-    _MEDIA,
-    _NAVI,
-    _KARABINER,
-#endif
     KEYMAP_LAYERS, // Add more layers in keymaps
     /* Protected Layer */
+    _FN1 = 11,
+    _FN2 = 12,
     _AUDIO = 13, // 13: Audio controls
     _LIGHT = 14, // 14: Backlight/RGB controls
     _ADJUST = 15 // 15: Change keyboard settings
