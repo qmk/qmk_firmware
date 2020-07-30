@@ -23,11 +23,6 @@ enum layer_names {
     _EMOJI
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    KC_TOGGLE_OLED = SAFE_RANGE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_all(
         KC_ESC, KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_HOME,      KC_END, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL,
