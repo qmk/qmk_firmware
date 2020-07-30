@@ -34,7 +34,8 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
    4. `Choosing HTTPS transport backend` については、どちらのオプションでも問題ありません。
    5. `Checkout as-is, commit Unix-style line endings` オプションを選択します。QMK ファームウェアは Unix スタイルのコミットを使います。
    6. 追加のオプションについては、デフォルトのオプションをそのままにします。
-   このソフトウェアは、VS Code での Git サポートに必要です。これを含めないことも可能ですが、これを使う方が簡単です。
+
+  このソフトウェアは、VS Code での Git サポートに必要です。これを含めないことも可能ですが、これを使う方が簡単です。
 
 * [Git Credential Manager for Windows](https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases) (オプション)
 
@@ -63,23 +64,23 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 
 次に、VSCode に統合ターミナルとして表示されるように、MSYS2 ウィンドウを設定します。これには多くの利点があります。ほとんどの場合で、エラー上で Ctrl + クリックするとこれらのファイルにジャンプできます。これによりデバッグがはるかに簡単になります。また、他のウィンドウへジャンプする必要が無いという点でも優れています。
 
-1. <kbd><kbd>File</kbd> > <kbd>Preferences ></kbd> > <kbd>Settings</kbd> をクリックします </kbd>
+1. <kbd><kbd>File</kbd> > <kbd>Preferences ></kbd> > <kbd>Settings</kbd> </kbd> をクリックします。
 2. 右上の <kbd>{}</kbd> ボタンをクリックし、`settings.json` ファイルを開きます。
 3. ファイルの内容を以下のように設定します:
 
    ```json
    {
-     "terminal.integrated.shell.windows": "C:\\msys64\\usr\\bin\\bash.exe",
-     "terminal.integrated.env.windows": {
-         "MSYSTEM": "MINGW64",
-         "CHERE_INVOKING": "1"
-     },
-     "terminal.integrated.shellArgs.windows": [
-         "--login"
-     ],
-     "terminal.integrated.cursorStyle": "line"
- }
-   ```
+        "terminal.integrated.shell.windows": "C:\\msys64\\usr\\bin\\bash.exe",
+        "terminal.integrated.env.windows": {
+            "MSYSTEM": "MINGW64",
+            "CHERE_INVOKING": "1"
+        },
+        "terminal.integrated.shellArgs.windows": [
+            "--login"
+        ],
+        "terminal.integrated.cursorStyle": "line"
+    }
+    ```
 
    ここに既に設定がある場合は、最初と最後の波括弧の間に全てを追加します。
 
