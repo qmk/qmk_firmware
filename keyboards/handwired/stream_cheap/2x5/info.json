@@ -6,7 +6,6 @@
     "height": 2,
     "layouts": {
         "LAYOUT_2x5": {
-			"key_count":10,
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
