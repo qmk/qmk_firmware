@@ -20,10 +20,11 @@ have not released the key after the `AUTO_SHIFT_TIMEOUT` period, then a shifted
 version of the key is emitted. If the time is less than the `AUTO_SHIFT_TIMEOUT`
 time, or you press another key, then the normal state is emitted.
 
-If you hold the key down, it will repeat the shifted key.  If you want to repeat
-the normal key, then tap it once then immediately (within `TAPPING_TERM`) hold
-it down again.  The ability to repeat the normal key like this will be disabled
-if `TAPPING_FORCE_HOLD` is set.
+If `AUTO_SHIFT_REPEAT` is defined, there is keyrepeat support. Holding the key
+down will repeat the shifted key, though this can be disabled with
+`AUTO_SHIFT_NO_AUTO_REPEAT`. If you want to repeat the normal key, then tap it
+once then immediately (within `TAPPING_TERM`) hold it down again (this works
+with the shifted value as well if auto-repeat is disabled).
 
 ## Are There Limitations to Auto Shift?
 
@@ -34,6 +35,11 @@ other characters you wanted shifted, but were not. This simply comes down to
 practice. As we get in a hurry, we think we have hit the key long enough for a
 shifted version, but we did not. On the other hand, we may think we are tapping
 the keys, but really we have held it for a little longer than anticipated.
+
+Additionally, with keyrepeat the desired shift state can get mixed up. It will
+always 'belong' to the last key pressed. For example, keyrepeating a capital
+and then tapping something lowercase (whether or not it's an Auto Shift key)
+will result in the capital's *key* still being held, but shift not.
 
 ## How Do I Enable Auto Shift?
 
@@ -102,6 +108,14 @@ Do not Auto Shift numeric keys, zero through nine.
 ### NO_AUTO_SHIFT_ALPHA (simple define)
 
 Do not Auto Shift alpha characters, which include A through Z.
+
+### AUTO_SHIFT_REPEAT (simple define)
+
+Enables keyrepeat.
+
+### AUTO_SHIFT_NO_AUTO_REPEAT (simple define)
+
+Disables automatically keyrepeating when `AUTO_SHIFT_TIMEOUT` is exceeded.
 
 ## Using Auto Shift Setup
 

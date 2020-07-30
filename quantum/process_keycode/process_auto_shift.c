@@ -56,7 +56,7 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 #    endif
-#    ifndef AUTO_SHIFT_NO_REPEAT
+#    ifdef AUTO_SHIFT_REPEAT
     const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
 #        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
     if (!autoshift_flags.lastshifted) {
@@ -111,7 +111,7 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
             add_weak_mods(MOD_BIT(KC_LSFT));
             register_code(autoshift_lastkey);
             autoshift_flags.lastshifted = true;
-#    if !defined(AUTO_SHIFT_NO_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
+#    if defined(AUTO_SHIFT_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
             if (matrix_trigger) {
                 // Prevents release.
                 return;
