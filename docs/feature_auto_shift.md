@@ -34,6 +34,8 @@ Yes, unfortunately.
    for a shifted version, but we did not. On the other hand, we may think we are
    tapping the keys, but really we have held it for a little longer than
    anticipated.
+3. Auto Shift does not apply to Tap Hold keys.  For automatic shifting of Tap Hold
+   keys see [Retro Shift](tap_hold.md#retro-shift).
 
 ## How Do I Enable Auto Shift?
 

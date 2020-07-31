@@ -179,6 +179,26 @@ Holding and releasing a dual function key without pressing another key will resu
 
 For instance, holding and releasing `LT(2, KC_SPACE)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPACE` instead.
 
+## Retro Shift
+
+Holding and releasing a Tap Hold key without pressing another key will result in only the hold. With Retro Shift enabled this action will also produce a shifted version of the tap keycode on release.
+
+This is a supplement to [Auto Shift](feature_auto_shift.md), which does not support Tap Hold.  Auto Shift is not required to be enabled, but for consistency it should be enabled and configured with the Auto Shift timeout matching the tapping term.  Retro Shift applies to the same tap keycodes as Auto Shift and uses the Auto Shift options `NO_AUTO_SHIFT_SPECIAL`, `NO_AUTO_SHIFT_NUMERIC`, `NO_AUTO_SHIFT_ALPHA`, and `AUTO_SHIFT_MODIFIERS` if defined.
+
+Retro Shift does not require [Retro Tapping](#retro-tapping) to be enabled, and if both are enabled Retro Tapping will only apply if the tap keycode is not matched by Retro Shift.
+
+To enable Retro Shift, add the following to your `config.h`:
+
+```c
+#define RETRO_SHIFT
+```
+
+If `RETRO_SHIFT` is defined to a value, hold times greater than that value will not produce a tap on release.  This enables modifiers to be held for combining with mouse clicks without generating taps on release.  For example:
+
+```c
+#define RETRO_SHIFT 500
+```
+
 ## Why do we include the key record for the per key functions? 
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that. 
