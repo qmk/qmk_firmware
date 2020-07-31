@@ -4,8 +4,6 @@
 
 A 65% PCB with symmetrical bottom row layout, JST daughterboard support, designed for use with Eniigma Keyboards products.
 
-![layout](https://i.imgur.com/s6DI5vu.png)
-
 * Keyboard Maintainer: [eniigmakeyboards](https://github.com/eniigmakeyboards) and [adamws](https://github.com/adamws)
 * Hardware Supported: Vertigo PCB/case
 * Hardware Availability: On the [Eniigma Keyboards website](https://eniigmakeyboards.com)
