@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0003
 #define MANUFACTURER Whale Mo
 #define PRODUCT Splite Keyboard v3
-#define DESCRIPTION Hackable split keyboard/QMK
 
 /* key matrix size */
 /* Notice: HALF of row on the slave side */
