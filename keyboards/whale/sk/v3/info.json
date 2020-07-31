@@ -725,7 +725,7 @@
                 }
             ]
         },
-        "RIGHT_HALF_ONLY": {
+        "LAYOUT_right_half_only": {
             "layout": [
                 {
                     "label": "End",
