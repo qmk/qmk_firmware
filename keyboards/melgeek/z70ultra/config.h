@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MelGeek
 #define PRODUCT         Z70Ultra
-#define DESCRIPTION     Z70Ultra ARM RGB keyboard
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -36,4 +35,3 @@
 #define DRIVER_1_LED_TOTAL 69
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 6
-
