@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case TST_STRING:
             if (record->event.pressed) {
-                SEND_STRING("12345"SS_TAP(X_ENTER));
+                SEND_STRING("12345\n");
             }
             break;
 
@@ -53,5 +53,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// [THIRD_LAYER] = LAYOUT_2x5(KC_Q, KC_W, KC_E, KC_R, KC_T,
 	// 						KC_Y, KC_U, KC_L, KC_P,TO(0))
 };
-
 
