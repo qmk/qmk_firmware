@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev0_9b.h"
+#include "model_m_101.h"
 
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
@@ -35,25 +35,25 @@ void led_init_ports() {
 void led_set_kb(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         // Turn NumLock on
-        palSetPad(GPIOA, 2);
+        palClearPad(GPIOA, 2);
     } else {
         // Turn NumLock off
-        palClearPad(GPIOA, 2);
+        palSetPad(GPIOA, 2);
     }
 
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         // Turn CapsLock on
-        palSetPad(GPIOA, 1);
+        palClearPad(GPIOA, 1);
     } else {
         // Turn CapsLock off
-        palClearPad(GPIOA, 1);
+        palSetPad(GPIOA, 1);
     }
 
     if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
         // Turn ScrollLock on
-        palSetPad(GPIOA, 0);
+        palClearPad(GPIOA, 0);
     } else {
         // Turn ScrollLock off
-        palClearPad(GPIOA, 0);
+        palSetPad(GPIOA, 0);
     }
 }
