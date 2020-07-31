@@ -1,11 +1,18 @@
-## Introduction
+# Knife66
 
-This is the QMK firmware repository for the Knife66
+![Knife66](https://i.imgur.com/p7G2g81.png)
 
-## How to compile
+*This is a replacement board for the CA66 keyboard*
 
-After setting up your build environment, you can compile the Austin default keymap by using:
+* Keyboard Maintainer: [afewyards](https://github.com/afewyards)
+* Hardware Availability: [Geekhack](https://geekhack.org/index.php?topic=107331.0)
+
+Make example for this keyboard (after setting up your build environment):
 
     make misterknife/knife66:default
+
+Flashing example for this keyboard:
+
+    make misterknife/knife66:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
