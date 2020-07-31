@@ -6,12 +6,6 @@ Everything concerning the OLED is in `oled.c`.
 
 
 Todos:
-- [ ] Replicate the layers from the configurator
-    - [ ] copy qwerty to layers 1 and 2
-    - [ ] Base (dren)
-    - [ ] ...
-    - [ ] Layer 2: Fallback, including "normal" thumb modifiers
-    - [ ] 
 - [ ] Simple OLED stuff
 
 Ideas:
@@ -19,3 +13,4 @@ Ideas:
 - Add window management and navigation keys (and choose software side)
 - use tri layer for F-keys and such
 - show layout on OLED (just one :/ )
+- configure PERMISSIVE_HOLD_PER_KEY

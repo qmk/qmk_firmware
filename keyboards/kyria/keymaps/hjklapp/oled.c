@@ -57,18 +57,27 @@ static void render_status(void) {
         case _BASE:
             oled_write_P(PSTR("Base\n"), false);
             break;
-        case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+        case _ALT:
+            oled_write_P(PSTR("Alternative\n"), false);
             break;
-        // case _LOWER:
-        //     oled_write_P(PSTR("Lower\n"), false);
-        //     break;
-        // case _RAISE:
-        //     oled_write_P(PSTR("Raise\n"), false);
-        //     break;
-        // case _ADJUST:
-        //     oled_write_P(PSTR("Adjust\n"), false);
-        //     break;
+        case _QWERTY:
+            oled_write_P(PSTR("Qwerty\n"), false);
+            break;
+        case _SYMBOLS:
+            oled_write_P(PSTR("Symbols\n"), false);
+            break;
+        case _NAVIGATION:
+            oled_write_P(PSTR("Navigation\n"), false);
+            break;
+        case _VISUALSTUDIO:
+            oled_write_P(PSTR("VisualStudio\n"), false);
+            break;
+        case _MOUSE:
+            oled_write_P(PSTR("Mouse\n"), false);
+            break;
+        case _FUNCTIONKEYS:
+            oled_write_P(PSTR("Function Keys\n"), false);
+            break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
     }
