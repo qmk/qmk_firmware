@@ -16,6 +16,18 @@
 
 #pragma once
 
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT
+
+// Permissive hold allows the key presses to be registered before the tapping term has expired.
+// Per key configuration is used to disable the permissive hold feature from the home row modifiers.
+// #define PERMISSIVE_HOLD_PER_KEY
+// Until I know how to configure permissive hol per key, isable it
+#undef PERMISSIVE_HOLD
+
+// todo: this does what? It is the time until a keypress is sent to the computer. Key combinations need to be pressed within that time.
+#define TAPPING_TERM 175
+
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif
