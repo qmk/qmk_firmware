@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MisterKnife
 #define PRODUCT         Knife66
-#define DESCRIPTION     Knife66 Keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -48,6 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
