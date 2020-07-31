@@ -1,6 +1,6 @@
 # kanu
 
-![kanu](https://i.imgur.com/8JoH7wA.jpg)
+![kanu](https://i.imgur.com/8JoH7wAl.jpg)
 
 Kanu PCB, compatible Canoe keyboard V1.
 
