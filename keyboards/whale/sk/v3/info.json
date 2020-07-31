@@ -6,7 +6,7 @@
     "height": 8,
     "key_count": 84,
     "layouts": {
-        "DEFAULT": {
+        "LAYOUT_all": {
             "layout": [
                 {
                     "label": "Esc",
