@@ -1,0 +1,15 @@
+sourceRoot: ../../../../../tools/ftl/processors/boards/stm32f0xx/templates
+outputRoot: ..
+dataRoot: .
+
+freemarkerLinks: {
+    lib: ../../../../../tools/ftl/libs
+}
+
+data : {
+  doc1:xml (
+    board.chcfg
+    {
+    }
+  )
+}
