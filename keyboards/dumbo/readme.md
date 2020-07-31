@@ -1,6 +1,6 @@
 # Dumbo
 
-![Dumbo](https://i.imgur.com/EEqCZsg.jpg)
+![Dumbo](https://i.imgur.com/EEqCZsgl.jpg)
 
 Inspired by the corne, kyria and chimera ergo 42, the dumbo is a split keyboard ready for a comfortable future (read: bluetooth and ergo).
 

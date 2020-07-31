@@ -18,11 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x25E3
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    trip_trap
-#define PRODUCT         Dumbo keyboard
-#define DESCRIPTION     Split 40 percent ergonomic keyboard
+#define PRODUCT         Dumbo
 
 /* key matrix size */
 /* Rows are doubled up */
