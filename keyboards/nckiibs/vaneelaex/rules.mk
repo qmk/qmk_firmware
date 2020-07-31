@@ -19,5 +19,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-# FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-# HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
