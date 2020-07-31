@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,   KC_O,     KC_P,
    KC_GA,  KC_AS,  KC_CD,  KC_SF,   KC_G,   KC_H,  KC_SJ,   KC_CK,  KC_AL, KC_GSCLN,
     KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M, KC_COMM, KC_DOT,  KC_SLSH,
-                 KC_LCTL, KC_NAV_ENT, KC_RGUI, KC_NUM_SPC, , KC_RCTL
+                 KC_LCTL, KC_NAV_ENT, KC_RGUI, KC_NUM_SPC, KC_RCTL
   ),
 
   [_NUM_SYM] = LAYOUT_33_split_space(
