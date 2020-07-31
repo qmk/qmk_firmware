@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGB_MATRIX_ENABLE
 // Turn off SDB
-void keyboard_post_init_kb() {
+void keyboard_pre_init_kb() {
     palSetPadMode(GPIOB, 16, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPad(GPIOB, 16);
 }
