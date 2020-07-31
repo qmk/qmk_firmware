@@ -46,7 +46,7 @@
     {L50, L51, L52, L53, L54, L55, L56 } \
 }
 
-#define RIGHT_HALF_ONLY( \
+#define LAYOUT_right_half_only( \
     R46, R06, R05, R04, R03, R02, R01, R00, \
      R16, R15, R14, R13, R12, R11, R10, \
       R26, R25, R24, R23, R22, R21, R20, \
