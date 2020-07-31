@@ -3,6 +3,8 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#    define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 
 // i2c_master defines
 #    define I2C1_SCL 0 // A2 on pinout = B0
