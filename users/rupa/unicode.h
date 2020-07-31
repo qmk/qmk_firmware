@@ -1,5 +1,4 @@
 #pragma once
-#include "quantum.h"
 #include "rupa.h"
 
 #if defined(UNICODEMAP_ENABLE)
