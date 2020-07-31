@@ -484,7 +484,7 @@
                 }
             ]
         },
-        "LEFT_HALF_ONLY": {
+        "LAYOUT_left_half_only": {
             "layout": [
                 {
                     "label": "Esc",
