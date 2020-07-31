@@ -15,12 +15,12 @@
  */
 #include "tnln95.h"
 
-void matrix_init_kb(void) {
+void keyboard_pre_init_kb(void) {
     setPinOutput(B1);
     setPinOutput(B2);
     setPinOutput(B3);
 
-    matrix_init_user();
+    keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
