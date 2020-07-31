@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x1213
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kyle Hart
-#define PRODUCT         stream_cheap
+#define PRODUCT         Stream Cheap 2x3
 
 /* key matrix size */
 #define MATRIX_ROWS 2

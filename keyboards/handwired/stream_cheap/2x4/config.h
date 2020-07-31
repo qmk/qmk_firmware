@@ -4,10 +4,10 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1213
+#define PRODUCT_ID      0x1214
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kyle Hart
-#define PRODUCT         stream_cheap
+#define PRODUCT         Stream Cheap 2x4
 
 /* key matrix size */
 #define MATRIX_ROWS 2

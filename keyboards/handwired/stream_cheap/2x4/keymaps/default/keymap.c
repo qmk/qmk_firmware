@@ -35,9 +35,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [NORMAL_LAYER] = LAYOUT_2x4(VS_COMMENT, VS_UNCOMMENT, TST_STRING, KC_4,
-							KC_5, KC_6, KC_7, TO(1)),
-	[SECOND_LAYER] = LAYOUT_2x4(KC_A, KC_B, KC_C, KC_D,
-							KC_E, KC_F, KC_G, TO(0))
+    [NORMAL_LAYER] = LAYOUT_ortho_2x4(
+        VS_COMMENT, VS_UNCOMMENT, TST_STRING, KC_4,
+        KC_5,       KC_6,         KC_7,       TO(1)
+    ),
+    [SECOND_LAYER] = LAYOUT_ortho_2x4(
+        KC_A, KC_B, KC_C, KC_D,
+        KC_E, KC_F, KC_G, TO(0)
+    )
 };

@@ -44,13 +44,17 @@ enum layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [NORMAL_LAYER] = LAYOUT_2x5(VS_COMMENT, VS_UNCOMMENT, LOCK, TST_STRING, KC_F5,
-							                  KC_F9, KC_F10, KC_F11, KC_F12, TO(1)),
-	[SECOND_LAYER] = LAYOUT_2x5(KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MSTP,
-							                CUT, COPY, PASTE, FIND,TO(0))
-              // ,
-	// [THIRD_LAYER] = LAYOUT_2x5(KC_Q, KC_W, KC_E, KC_R, KC_T,
-	// 						KC_Y, KC_U, KC_L, KC_P,TO(0))
+    [NORMAL_LAYER] = LAYOUT_ortho_2x5(
+        VS_COMMENT, VS_UNCOMMENT, LOCK, TST_STRING, KC_F5,
+        KC_F9, KC_F10, KC_F11, KC_F12, TO(1)
+    ),
+    [SECOND_LAYER] = LAYOUT_ortho_2x5(
+        KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MSTP,
+        CUT,     COPY,    PASTE,   FIND,    TO(0)
+    )
+    // ,
+    // [THIRD_LAYER] = LAYOUT_ortho_2x5(
+    //      KC_Q, KC_W, KC_E, KC_R, KC_T,
+    //      KC_Y, KC_U, KC_L, KC_P, TO(0)
+    // )
 };
-
