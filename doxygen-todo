@@ -1,6 +1,5 @@
 tmk_core/protocol
 tmk_core/protocol/chibios
-tmk_core/protocol/iwrap
 tmk_core/protocol/lufa
 tmk_core/protocol/midi
 tmk_core/protocol/midi/bytequeue
