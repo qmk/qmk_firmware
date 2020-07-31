@@ -43,8 +43,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
 int retro_tapping_counter = 0;
+#endif
+
+#ifdef RETRO_SHIFT
+#    include "quantum.h"
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
@@ -71,7 +75,7 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
         retro_tapping_counter++;
 #endif
     }
@@ -106,6 +110,11 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
+#    ifdef RETRO_SHIFT
+        if (event.pressed) {
+            retro_shift_set_time(&event);
+        }
+#    endif
     action_tapping_process(record);
 #else
     process_record(&record);
@@ -681,7 +690,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || defined(RETRO_SHIFT)
     if (!is_tap_action(action)) {
         retro_tapping_counter = 0;
     } else {
@@ -694,11 +703,15 @@ void process_action(keyrecord_t *record, action_t action) {
                 retro_tapping_counter = 0;
             } else {
                 if (
-#        ifdef RETRO_TAPPING_PER_KEY
+#        if defined(RETRO_TAPPING_PER_KEY) && !defined(RETRO_SHIFT)
                     get_retro_tapping(get_event_keycode(record->event, false), record) &&
 #        endif
                     retro_tapping_counter == 2) {
+#        ifdef RETRO_SHIFT
+                    process_auto_shift(action.layer_tap.code, record);
+#        else
                     tap_code(action.layer_tap.code);
+#        endif
                 }
                 retro_tapping_counter = 0;
             }

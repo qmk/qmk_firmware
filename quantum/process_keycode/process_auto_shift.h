@@ -23,6 +23,7 @@
 #endif
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
+void retro_shift_set_time(keyevent_t *event);
 
 void     autoshift_enable(void);
 void     autoshift_disable(void);

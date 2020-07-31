@@ -21,9 +21,11 @@
 
 #    include "process_auto_shift.h"
 
-static uint16_t autoshift_time    = 0;
-static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
-static uint16_t autoshift_lastkey = KC_NO;
+static uint16_t autoshift_time     = 0;
+static uint16_t retroshift_time    = 0;
+static uint16_t autoshift_timeout  = AUTO_SHIFT_TIMEOUT;
+static uint16_t autoshift_lastkey  = KC_NO;
+static uint16_t retroshift_lastkey = KC_NO;
 static struct {
     // Whether autoshift is enabled.
     bool enabled : 1;
@@ -51,29 +53,41 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
     }
 #    endif
 #    ifdef AUTO_SHIFT_REPEAT
-    const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
-#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
-    if (!autoshift_flags.lastshifted) {
+#        ifdef RETRO_SHIFT
+    if (retroshift_lastkey == KC_NO) {
 #        endif
-        if (elapsed < TAPPING_TERM && keycode == autoshift_lastkey) {
-            // Allow a tap-then-hold for keyrepeat.
-            if (!autoshift_flags.lastshifted) {
-                register_code(autoshift_lastkey);
-            } else {
-                // Simulate pressing the shift key.
-                add_weak_mods(MOD_BIT(KC_LSFT));
-                register_code(autoshift_lastkey);
-            }
-            return false;
-        }
+        const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
 #        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
+        if (!autoshift_flags.lastshifted) {
+#        endif
+            if (elapsed < TAPPING_TERM && keycode == autoshift_lastkey) {
+                // Allow a tap-then-hold for keyrepeat.
+                if (!autoshift_flags.lastshifted) {
+                    register_code(autoshift_lastkey);
+                } else {
+                    // Simulate pressing the shift key.
+                    add_weak_mods(MOD_BIT(KC_LSFT));
+                    register_code(autoshift_lastkey);
+                }
+                return false;
+            }
+#        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
+        }
+#        endif
+#        ifdef RETRO_SHIFT
     }
 #        endif
 #    endif
 
+#    ifdef RETRO_SHIFT
+    if (retroshift_lastkey == KC_NO) {
+#    endif
     // Record the keycode so we can simulate it later.
     autoshift_lastkey           = keycode;
     autoshift_time              = now;
+#        ifdef RETRO_SHIFT
+    }
+#        endif
     autoshift_flags.in_progress = true;
 
 #    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
@@ -95,15 +109,24 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
         // Process the auto-shiftable key.
         autoshift_flags.in_progress = false;
 
+#    ifdef RETRO_SHIFT
+        if (retroshift_lastkey != KC_NO) {
+            if ((RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(now, retroshift_time) > (RETRO_SHIFT + 0)) {
+                return;
+            }
+            autoshift_time = retroshift_time;
+            autoshift_lastkey = retroshift_lastkey;
+        }
+#    endif
         // Time since the initial press was recorded.
         const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
         if (elapsed < autoshift_timeout) {
-            register_code(autoshift_lastkey);
+            register_code(autoshift_lastkey & 0xFF);
             autoshift_flags.lastshifted = false;
         } else {
             // Simulate pressing the shift key.
             add_weak_mods(MOD_BIT(KC_LSFT));
-            register_code(autoshift_lastkey);
+            register_code(autoshift_lastkey & 0xFF);
             autoshift_flags.lastshifted = true;
 #    if defined(AUTO_SHIFT_REPEAT) && !defined(AUTO_SHIFT_NO_AUTO_REPEAT)
             if (matrix_trigger) {
@@ -120,7 +143,7 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
         del_weak_mods(MOD_BIT(KC_LSFT));
     } else {
         // Release after keyrepeat.
-        unregister_code(keycode);
+        unregister_code(keycode & 0xFF);
         if (keycode == autoshift_lastkey) {
             // This will only fire when the key was the last auto-shiftable
             // pressed. That prevents aaaaBBBB then releasing a from unshifting
@@ -140,7 +163,7 @@ static void autoshift_end(uint16_t keycode, uint16_t now, bool matrix_trigger) {
  *  to be released.
  */
 void autoshift_matrix_scan(void) {
-    if (autoshift_flags.in_progress) {
+    if (autoshift_flags.in_progress && retroshift_lastkey == KC_NO) {
         const uint16_t now     = timer_read();
         const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
         if (elapsed >= autoshift_timeout) {
@@ -183,6 +206,22 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     const uint16_t now = timer_read();
 
     if (record->event.pressed) {
+#    ifdef RETRO_SHIFT
+        if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+#        ifdef RETRO_TAPPING_PER_KEY
+            if (!get_retro_tapping(get_event_keycode(record->event, false), record)) {
+                return true;
+            }
+#        endif
+            if (autoshift_flags.in_progress) {
+                autoshift_end(KC_NO, now, false);
+            }
+            retroshift_lastkey = keycode;
+        } else if (retroshift_lastkey != KC_NO) {
+            retroshift_lastkey = KC_NO;
+            autoshift_flags.in_progress = false;
+        }
+#    endif
         if (autoshift_flags.in_progress) {
             // Evaluate previous key if there is one. Doing this elsewhere is
             // more complicated and easier to break.
@@ -191,7 +230,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         // For pressing another key while keyrepeating shifted autoshift.
         del_weak_mods(MOD_BIT(KC_LSFT));
 
-        switch (keycode) {
+        switch (keycode & 0xFF) {
             case KC_ASTG:
                 autoshift_toggle();
                 return true;
@@ -216,8 +255,15 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    endif
         }
     }
+#    if defined(RETRO_TAPPING_PER_KEY) && defined(RETRO_SHIFT)
+    else if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        if (!get_retro_tapping(get_event_keycode(record->event, false), record)) {
+            return true;
+        }
+    }
+#    endif
 
-    switch (keycode) {
+    switch (keycode & 0xFF) {
 #    ifndef NO_AUTO_SHIFT_ALPHA
         case KC_A ... KC_Z:
 #    endif
@@ -239,4 +285,10 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+// event still passed as all places that call this have it; if event->time
+// can be fixed a timer read can be avoided.
+void retro_shift_set_time(keyevent_t *event) {
+    retroshift_time = timer_read();
+    // keyrepeat check
+}
 #endif

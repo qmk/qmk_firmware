@@ -198,7 +198,27 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-## Why do we include the key record for the per key functions?
+## Retro Shift
+
+Holding and releasing a Tap Hold key without pressing another key will result in only the hold. With Retro Shift enabled this action will also produce a shifted version of the tap keycode on release.
+
+This is a supplement to [Auto Shift](feature_auto_shift.md), which does not support Tap Hold.  Auto Shift will be enabled automatically if it is not already, but you should read the Auto Shift documentation and configure the Auto Shift timeout matching the tapping term.  All additional Auto Shift defines are respected, including keyrepeat.
+
+Retro Shift does not require [Retro Tapping](#retro-tapping) to be enabled, and if both are enabled the state of Retro Tapping will only apply if the tap keycode is not matched by Auto Shift. `RETRO_TAPPING_PER_KEY`, however, is checked before Retro Shift if defined.
+
+To enable Retro Shift, add the following to your `config.h`:
+
+```c
+#define RETRO_SHIFT
+```
+
+If `RETRO_SHIFT` is defined to a value, hold times greater than that value will not produce a tap on release.  This enables modifiers to be held for combining with mouse clicks without generating taps on release.  For example:
+
+```c
+#define RETRO_SHIFT 500
+```
+
+## Why do we include the key record for the per key functions? 
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.
 

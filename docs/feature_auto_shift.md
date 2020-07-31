@@ -30,16 +30,17 @@ with the shifted value as well if auto-repeat is disabled).
 
 Yes, unfortunately.
 
-You will have characters that are shifted when you did not intend on shifting, and
-other characters you wanted shifted, but were not. This simply comes down to
-practice. As we get in a hurry, we think we have hit the key long enough for a
-shifted version, but we did not. On the other hand, we may think we are tapping
-the keys, but really we have held it for a little longer than anticipated.
-
-Additionally, with keyrepeat the desired shift state can get mixed up. It will
-always 'belong' to the last key pressed. For example, keyrepeating a capital
-and then tapping something lowercase (whether or not it's an Auto Shift key)
-will result in the capital's *key* still being held, but shift not.
+1. You will have characters that are shifted when you did not intend on shifting, and
+   other characters you wanted shifted, but were not. This simply comes down to
+   practice. As we get in a hurry, we think we have hit the key long enough for a
+   shifted version, but we did not. On the other hand, we may think we are tapping
+   the keys, but really we have held it for a little longer than anticipated.
+2. Additionally, with keyrepeat the desired shift state can get mixed up. It will
+   always 'belong' to the last key pressed. For example, keyrepeating a capital
+   and then tapping something lowercase (whether or not it's an Auto Shift key)
+   will result in the capital's *key* still being held, but shift not.
+3. Auto Shift does not apply to Tap Hold keys. For automatic shifting of Tap Hold
+   keys see [Retro Shift](tap_hold.md#retro-shift).
 
 ## How Do I Enable Auto Shift?
 
