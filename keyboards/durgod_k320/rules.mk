@@ -13,8 +13,8 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #
 EXTRAKEY_ENABLE = yes              # Audio control and System control
 NKRO_ENABLE = yes                  # USB Nkey Rollover
+BOOTMAGIC_ENABLE = lite            # BOOTMAGIC lite configuration
 BACKLIGHT_ENABLE = no              # No keyboard backlight functionality
-BOOTMAGIC_ENABLE = no              # No BOOTMAGIC configuration
 MOUSEKEY_ENABLE = no               # No Mouse keys
 CONSOLE_ENABLE = no                # No Console for debug
 COMMAND_ENABLE = no                # No Commands for debug and configuration
