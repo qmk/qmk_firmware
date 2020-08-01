@@ -52,9 +52,10 @@ Or, if you see this sort of message for a Pro Micro based controller:
 You're likely going to need to ISP flash your board/device to get it working again. 
 あなたのボード/デバイスを再び動作させるには、ISP 書き込みが必要になるかもしれません。
 
-## Hardware Needed
+## 必要なハードウェア Hardware Needed
 
 You'll need one of the following to actually perform the ISP flashing (followed by the protocol they use):
+実際にISPの書き込みを行うには、以下のいずれかが必要になります（その後に使用するプロトコルが続きます）。
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
@@ -63,28 +64,37 @@ You'll need one of the following to actually perform the ISP flashing (followed 
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
 
 There are other devices that can be used to ISP flash, but these are the main ones.  Also, all product links are to the official versions. You can source them elsewhere. 
+ISP書き込みに使用できるデバイスは他にもありますが、これらが主なものです。 また、すべての製品リンクは公式バージョンへのものです。他の場所で入手することができます。
 
 You'll also need something to wire your "ISP Programmer" to the device that you're programming.  Some PCBs may have ISP headers that you can use directly, but this often isn't the case, so you'll likely need to solder to the controller itself or to different switches or other components. 
+また、"ISP Programmer" をプログラミングするデバイスに配線するためのものも必要になります。
+PCB の中には ISP ヘッダを直接使用できるものもありますが、そうではない場合が多いので、コントローラ自体にハンダ付けするか、別のスイッチや他のコンポーネントにハンダ付けする必要があるでしょう。
 
-### The ISP Firmware 
+### ISP ファームウェア The ISP Firmware
 
 The Teensy and Pro Micro controllers will need you to flash the ISP firmware to the controllers before you can use them as an ISP programmer.  The rest of the hardware should come preprogrammed.  So, for these controllers, download the correct hex file, and flash it first. 
+Teensy と Pro Micro のコントローラを ISP プログラマとして使用するには、コントローラに ISP ファームウェアを書き込む必要があります。
+それ以外のハードウェアは、あらかじめプログラムされているはずです。
+そのため、これらのコントローラの場合は、正しいヘキサファイルをダウンロードしてから書き込んでください。
 
 * Teensy 2.0: [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) (`B0`)
 * Pro Micro: [`util/pro_micro_ISP_B6_10.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_micro_ISP_B6_10.hex) (`10/B6`)
 
-Once you've flashed your controller, you won't need this hex file anymore. 
+Once you've flashed your controller, you won't need this hex file anymore.
+コントローラに書き込んだら、このヘキサファイルはもう必要ありません。
 
-## Software Needed
+## 必要なソフトウェア Software Neede
 
 The QMK Toolbox can be used for most (all) of this.  
+QMK ツールボックスは、このほとんど（すべて）に使用することができます。
 
 However, you can grab the [Teensy Loader](https://www.pjrc.com/teensy/loader.html) to flash your Teensy 2.0 board, if you are using that. Or you can use `avrdude` (installed as part of `qmk_install.sh`), or [AVRDUDESS](https://blog.zakkemble.net/avrdudess-a-gui-for-avrdude/) (for Windows) to flash the Pro Micro, and the ISP flashing. 
+[Teensy Loader](https:/www.pjrc.comteensyloader.html) を使えば、Teensy 2.0 ボードに書き込むことができます。あるいは、`avrdude` (`qmk_install.sh` の一部としてインストールされています) や、[AVRDUDESS](https:/blog.zakkemble.netavrdudess-a-gui-for-avrdude)(Windows用) を使って、Pro Micro に書き込んだり、ISPを書き込んだりすることができます。
 
-
-## Wiring
+## 配線 Wiring
 
 This is pretty straight-forward - we'll be connecting like-things to like-things in the following manner.
+これは非常に簡単です。次のようにして、相互に対応するものを接続します。
 
 ### SparkFun Pocket AVR
 
@@ -105,6 +115,7 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
     Teensy GND <-> Keyboard GND
     
 !> Note that the B0 pin on the Teensy is wired to the RESET/RST pin on the keyboard's controller.  ***DO NOT*** wire the RESET pin on the Teensy to the RESET on the keyboard. 
+!> Teensy の B0 ピンはキーボードのコントローラの RESET/RST ピンと配線されています。 Teensy の RESETピンをキーボードの RESET に配線しないでください。
 
 ### Pro Micro
 
@@ -116,17 +127,20 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
     Pro Micro GND      <-> Keyboard GND
 
 !> Note that the 10/B6 pin on the Pro Micro is wired to the RESET/RST pin on the keyboard's controller.  ***DO NOT*** wire the RESET pin on the Pro Micro to the RESET on the keyboard. 
+!> Pro Micro の 10/B6 ピンはキーボードのコントローラの RESET/RST ピンに配線されています。 Pro Micro の RESET ピンをキーボードの RESET に配線しないでください。
 
-
-## Flashing Your Keyboard 
+## キーボードの書き込み Flashing Your Keyboard
 
 After you have your ISP programmer set up, and wired to your keyboard, it's time to flash your keyboard.  
+ISP プログラマをセットアップして、キーボードに接続したら、キーボードに書き込みをします。
 
-### The Bootloader File
+### ブートローダファイル The Bootloader File
 
 The simplest and quickest way to get things back to normal is to flash only a bootloader to the keyboard. Once this is done, you can connect the keyboard normally and flash the keyboard like you normally would. 
+一番簡単で手っ取り早い方法は、キーボードにブートローダだけ書き込むことです。これが終れば、普通にキーボードを接続して、普通にキーボードに書き込みできるようになります。
 
 You can find the stock bootloaders in the [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util). Be sure to flash the correct bootloader for your chip:
+標準のブートローダは[`util/` フォルダー]（https://github.com/qmk/qmk_firmware/tree/master/util）にあります。 チップの正しいブートローダを書き込んでください:
 
 * **Atmel DFU**
   * [ATmega16U4](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega16u4_1.0.1.hex)
@@ -140,6 +154,8 @@ You can find the stock bootloaders in the [`util/` folder](https://github.com/qm
   * [ATmega32A](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_ps2avrgb_bootloadhid_1.0.1.hex)
 
 If you're not sure what your board uses, look in the `rules.mk` file for the keyboard in QMK. The `MCU` and `BOOTLOADER` lines will have the value you need. It may differ between different versions of the board.
+お使いのボードが何を使っているかわからない場合は、QMKのキーボード用の `rules.mk` ファイルを見てください。
+`MCU` と `BOOTLOADER` の行には必要な値が書かれています。これはボードのバージョンによって異なるかもしれません。
 
 ### Production Techniques
 
@@ -261,6 +277,7 @@ To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your 
 
 If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](http://www.engbedded.com/fusecalc/) to find a better value for you.
 
-## Help 
+## Help
 
 If you have any questions/problems, feel free to [open an issue](https://github.com/qmk/qmk_firmware/issues/new)!
+ご質問・ご不明な点がありましたら、お気軽に[open an issue](https://github.com/qmk/qmk_firmware/issues/new)まで!
