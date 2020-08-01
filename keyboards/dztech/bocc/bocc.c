@@ -1,4 +1,5 @@
 #include "bocc.h"
+
 void matrix_init_kb(void) {
     setPinOutput(E6);
     matrix_init_user();
