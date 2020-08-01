@@ -18,7 +18,9 @@
 void keyboard_pre_init_kb(void) {
     setPinOutput(B1);
     setPinOutput(B2);
-    setPinOutput(B3);
+    /* I will add function to these later */
+    // setPinOutput(B3);
+    // setPinOutput(E2);
 
     keyboard_pre_init_user();
 }

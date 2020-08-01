@@ -1,6 +1,6 @@
 # POM Keyboards - TNLN95
 
-![TNLN95 Layout Image](https://imgur.com/nIefJ0mp)
+![TNLN95 Layout Image](https://imgur.com/a/G4EfLta)
 
 ### Default TNLN95 Layout
 
