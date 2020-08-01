@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x6770 // gp generic_panda
-#define PRODUCT_ID   0x0000
+#define PRODUCT_ID   0x6501 // 65_01
 #define DEVICE_VER   0x0001
 #define MANUFACTURER generic_panda
 #define PRODUCT      generic_panda panda65_01
