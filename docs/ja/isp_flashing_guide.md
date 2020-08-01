@@ -7,14 +7,19 @@
 -->
 
 ISP flashing (also known as ICSP flashing) is the process of programming a microcontroller directly.  This allows you to replace the bootloader, or change the "fuses" on the controller, which control a number of hardware- and software-related functions, such as the speed of the controller, how it boots, and other options.  
+ISP 書き込み(ICSP 書き込みと呼ぶ場合もあります)とは、マイクロコントローラーを直接プログラミングするプロセスです。
+これにより、ブートローダを交換したり、コントローラの「ヒューズ」を変更したりすることができ、コントローラの速度や起動方法、その他のオプションなど、多くのハードウェアおよびソフトウェア関連の機能を制御します。
 
 The main use of ISP flashing for QMK is flashing or replacing the bootloader on your AVR-based controller (Pro Micros, or V-USB chips).  
+QMK の ISP 書き込みの主な用途は、AVRベースのコントローラ（Pro Micros、またはV-USBチップ）のブートローダの書き込みまたは交換です。
 
 ?> This is only for programming AVR based boards, such as the Pro Micro or other ATmega controllers.  It is not for Arm controllers, such as the Proton C. 
+?> これは Pro Micro や他の ATmega コントローラなどの AVR ベースのボードをプログラミングするためだけのものです。 Proton C などの Arm コントローラには使用できません。
 
-## Dealing with Corrupted Bootloaders
+## 破損したブートローダーの取り扱い Dealing with Corrupted Bootloaders
 
 If you're having trouble flashing/erasing your board, and running into cryptic error messages like any of the following for a DFU based controller:
+ボードの書き込み/消去で問題が発生し、DFU ベースのコントローラで次のような不可解なエラーメッセージが表示される場合：
 
     libusb: warning [darwin_transfer_status] transfer error: timed out
     dfu.c:844: -ETIMEDOUT: Transfer timed out, NAK 0xffffffc4 (-60)
@@ -34,6 +39,7 @@ If you're having trouble flashing/erasing your board, and running into cryptic e
     commands.c:360: Error writing memory data. (err -4)
 
 Or, if you see this sort of message for a Pro Micro based controller:
+または、Pro Micro ベースのコントローラに対して次のようなメッセージが表示された場合：
 
     avrdude: butterfly_recv(): programmer is not responding
     avrdude: butterfly_recv(): programmer is not responding
@@ -44,6 +50,7 @@ Or, if you see this sort of message for a Pro Micro based controller:
 
 
 You're likely going to need to ISP flash your board/device to get it working again. 
+あなたのボード/デバイスを再び動作させるには、ISP 書き込みが必要になるかもしれません。
 
 ## Hardware Needed
 
