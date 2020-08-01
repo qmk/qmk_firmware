@@ -11,12 +11,22 @@ Layer 1 : Media control and Key Modifier for Virtual Desktop navagation
   - Fn + P   To Mail Client
   - Fn + G   To Launch Web Browswer / Nagivate to Homepage
   - Fn + C   To Launch My Computer
+  - Fn + T   Launch Task Manager
+  - Fn + F   Find in Files ( Notepad ++ )
 
 - Windows's Virtual Desktop Navigation
   - Fn + Ins    To add New Virtual Desktop
   - Fn + Del    To Delete / Remove Current Virtual Desktop
   - Fn + PgUp   Navigate to the Next Virtual Desktop
   - Fn + PgDn   Navigate to the Previous Virtual Desktop
+  
+- Windows ShortKeys
+  - Fn + Left  Snap Windows to Left
+  - Fn + Right Snap Windows to Right
+  - Fn + Up    Maximize the Window
+  - Fn + Down  Minimize the desktop window
+  - Fn + Home  Select from Cursor to Home
+  - Fn + End   Select from Cursor to End
   
 Layer 2 : Mainly for Windows Sleep and Shutdown
 -----------------------------------------------

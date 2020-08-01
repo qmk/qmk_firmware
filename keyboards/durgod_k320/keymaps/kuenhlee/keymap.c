@@ -25,6 +25,15 @@
 #define KC_DDTP LGUI(LCTL(KC_F4))     // Deleting / Removing Current Virtual Desktop
 #define KC_NDTP LGUI(LCTL(KC_RGHT))   // Navigate to the Next Virtual Desktop
 #define KC_PDTP LGUI(LCTL(KC_LEFT))   // Navigate to the Previous Virtual Desktop
+#define KC_WINL LGUI(KC_LEFT)         // Snap Windows to Left
+#define KC_WINR LGUI(KC_RGHT)         // Snap Windows to Right
+#define KC_WINU LGUI(KC_UP)           // Maximize the Window
+#define KC_WIND LGUI(KC_DOWN)         // Minimize the desktop window
+#define KC_TASK LCTL(LSFT(KC_ESC))    // Launch Task Manager
+
+#define KC_FIND LCTL(LSFT(KC_F))      // Find In Files
+#define KC_STOP LCTL(LSFT(KC_HOME))   // Select from Cursor to Home
+#define KC_SEND LCTL(LSFT(KC_END))    // Select from Cursor to End
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -112,11 +121,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FL] = LAYOUT_ansi_tkl( /* First Layer */
       KC_TRNS,  KC_MPLY,  KC_MSTP,  KC_MRWD,  KC_MFFD,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_CALC,  XXXXXXX,  XXXXXXX,  XXXXXXX,  \
       XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,		        XXXXXXX,	KC_PDTP,  \
-      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  KC_MSEL,  XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_ADTP,  XXXXXXX,  \
-      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_WHOM,  XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,	          KC_DDTP,	XXXXXXX,  KC_NDTP,  \
-      XXXXXXX,	          XXXXXXX,	XXXXXXX,	KC_MYCM,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_MAIL,  XXXXXXX,	XXXXXXX,  XXXXXXX,	          KC_MENU,	XXXXXXX,  XXXXXXX,  \
-      XXXXXXX,	XXXXXXX,	XXXXXXX,				                        XXXXXXX,				                        MO(_SL),	KC_TRNS,	MO(_UL),  XXXXXXX,	XXXXXXX,	XXXXXXX,  \
-                                                                                                                                                            XXXXXXX   \
+      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_TASK,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  KC_MSEL,  XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_ADTP,  KC_STOP,  \
+      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_FIND,	KC_WHOM,  XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,	          KC_DDTP,	KC_SEND,  KC_NDTP,  \
+      XXXXXXX,	          XXXXXXX,	XXXXXXX,	KC_MYCM,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_MAIL,  XXXXXXX,	XXXXXXX,  XXXXXXX,	          KC_MENU,	XXXXXXX,  KC_WINU,  \
+      XXXXXXX,	XXXXXXX,	XXXXXXX,				                        XXXXXXX,				                        MO(_SL),	KC_TRNS,	MO(_UL),  XXXXXXX,	KC_WINL,	KC_WIND,  \
+                                                                                                                                                            KC_WINR   \
   ),
 
   [_SL] = LAYOUT_ansi_tkl( /* Second Layer */
