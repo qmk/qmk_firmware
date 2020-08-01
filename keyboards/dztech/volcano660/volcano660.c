@@ -5,6 +5,7 @@ void matrix_init_kb(void) {
     setPinOutput(D2); 
     matrix_init_user();
 }
+
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
