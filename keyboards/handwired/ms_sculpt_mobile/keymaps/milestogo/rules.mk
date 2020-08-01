@@ -9,10 +9,9 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover 
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+BLUETOOTH_ENABLE = no       # Enable Bluetooth
 ifeq ($(strip $(KEYBOARD)), handwired/ms_sculpt_mobile/8x18_arm)
 	RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
 endif

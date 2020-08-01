@@ -1,23 +1,8 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
-*
-* |ESC | F1 | F2 | F3 | F4 | F5 | F6 | f7 | F8 | F9 | F10| F11| F12|Vol-|Vol+|Mute|
-*  -------------------------------------------------------------------------------'
-* |  ~ |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del |
-* --------------------------------------------------------------------------
-* | tab  |  q |  w |  e |  r |  t |  y |  u |  i |  o |  p |  [ |  ] |  \   |     |
-*  -------------------------------------------------------------------------------'
-* | caps  |  a |  s |  d |  f |  g |  h |  j |  k |  l |  ; |  ' | enter     |PgUp|
-* --------------------------------------------------------------------------------
-* |Lsft    |  z |  x |  c |  v |  b |  n |  m |  , |  . |  / |      Rsft| Up| PgDn|
-* ---------------------------------------------------------------------------------
-* |Lctl   |Lgui  |Lalt |       Space          |Ralt  |  FN |  Rctl |Left|Down|Rght|
-* ---------------------------------------------------------------------------------
-*/
-
-  [0] = MATRIX_TESTING_LAYOUT( \
+  [0] = LAYOUT_FULLMATRIX_8x18( \
+		    
   KC_A,  KC_B,   KC_C,   KC_D,   KC_E,   KC_F,   KC_G,   KC_H,   KC_I,   KC_J,   KC_K,   KC_L,   KC_M,   KC_N,   KC_O,   KC_P,      KC_Q,   KC_R,\
   KC_A,  KC_B,   KC_C,   KC_D,   KC_E,   KC_F,   KC_G,   KC_H,   KC_I,   KC_J,   KC_K,   KC_L,   KC_M,   KC_N,   KC_O,   KC_P,      KC_Q,   KC_R,\
   KC_A,  KC_B,   KC_C,   KC_D,   KC_E,   KC_F,   KC_G,   KC_H,   KC_I,   KC_J,   KC_K,   KC_L,   KC_M,   KC_N,   KC_O,   KC_P,      KC_Q,   KC_R,\

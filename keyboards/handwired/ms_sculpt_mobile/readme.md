@@ -77,7 +77,8 @@ Make examples for this keyboard (after setting up your build environment):
      dfu-util -d 1eaf:0003 -a 2 -D ./handwired_ms_sculpt_mobie_8x18_arm_keymap.bin (using arduino botloader)
 
     to use the original handwired teensy 2++ version
-    	make handwired/ms_sculpt_mobile/handwired:default
-    to use the ASTAR mini mcu, add ASTAR=1 to the make options in the handwired rules.mk. 
+    	make handwired/ms_sculpt_mobile/teensypp:default
+    to use the ASTAR mini mcu, or any other 32u4 board with 18 IO pins, 
+    	make handwired/ms_sculpt_mobile/astar:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

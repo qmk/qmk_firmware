@@ -47,7 +47,7 @@
 }
 
 // dummy keymap for finding all locations. Use the matrix keymap & hid listen to find keys
-#define MATRIX_TESTING_LAYOUT( \
+#define LAYOUT_FULLMATRIX_8x18( \
         k0A, k0B, k0C, k0D, k0E, k0F, k0G, k0H, k0I, k0, k0J, k0K, k0L, k0M, k0N, k0O, k0P, k0Q,\
         k1A, k1B, k1C, k1D, k1E, k1F, k1G, k1H, k1I, k1, k1J, k1K, k1L, k1M, k1N, k1O, k1P, k1Q,\
         k2A, k2B, k2C, k2D, k2E, k2F, k2G, k2H, k2I, k2, k2J, k2K, k2L, k2M, k2N, k2O, k2P, k2Q,\

@@ -7,10 +7,7 @@
 #define DEVICE_VER      0x0001
 
 #define MANUFACTURER "QMK"
-#define USBSTR_MANUFACTURER    'Q', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', '\xc6', '\x00'
 #define PRODUCT "8x18"
-#define USBSTR_PRODUCT         'C', '\x00', 'h', '\x00', 'i', '\x00', 'b', '\x00', 'i', '\x00', 'O', '\x00', 'S', '\x00', ' ', '\x00', 'Q', '\x00', 'M', '\x00', 'K', '\x00'
-#define DESCRIPTION "QMK keyboard firmware with ChibiOS"
 
 /* key matrix size */
 #define MATRIX_ROWS 8
