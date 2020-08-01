@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DZTECH
 #define PRODUCT         VOLCANO660
-#define DESCRIPTION     VOLCANO660 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
