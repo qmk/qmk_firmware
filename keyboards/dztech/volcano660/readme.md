@@ -1,4 +1,4 @@
-#volcano660
+# Volcano660
 
 * Keyboard Maintainer: DZTECH
 * Hardware Supported: DZTECH
