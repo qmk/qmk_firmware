@@ -19,3 +19,5 @@ BLUETOOTH_ENABLE = no          # Enable Bluetooth
 AUDIO_ENABLE = no              # Audio output
 RGB_MATRIX_ENABLE = IS31FL3741 # Use RGB matrix
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
+
+LAYOUTS = 65_ansi_blocker
