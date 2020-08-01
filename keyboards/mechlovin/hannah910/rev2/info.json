@@ -81,7 +81,7 @@
                 {"label":"K4E (B4,D3)", "x":15, "y":4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_65_iso_blocker_split_bs": {
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
@@ -154,7 +154,7 @@
                 {"label":"K4E", "x":15, "y":4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
