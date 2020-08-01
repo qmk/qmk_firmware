@@ -17,4 +17,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-LINK_ITME_OPTIMIZATION_ENABLE = yes #reduce firmware size
+FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
