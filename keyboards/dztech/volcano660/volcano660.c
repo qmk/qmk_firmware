@@ -1,4 +1,5 @@
 #include "volcano660.h"
+
 void matrix_init_kb(void) {
     setPinOutput(D0);
     setPinOutput(D1);
