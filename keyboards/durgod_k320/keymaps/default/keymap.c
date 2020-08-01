@@ -20,14 +20,17 @@
 #define _FL     1u
 #define _SL     2u
 
-#define KC_ADTP LGUI(LCTL(KC_D))
-#define KC_DDTP LGUI(LCTL(KC_F4))
-#define KC_NDTP LGUI(LCTL(KC_RGHT))
-#define KC_PDTP LGUI(LCTL(KC_LEFT))
-
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  KC_TGUI = SAFE_RANGE  // Toggle between GUI Lock or Unlock
+  KC_TGUI = SAFE_RANGE  // Toggle between GUI Lock or Unlock. Currently NOT implemented.
+};
+
+enum unicode_names {
+  TBD,
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+  [TBD]   = 0x0000, // NULL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,15 +46,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FL] = LAYOUT_ansi_tkl( /* First Layer */
       KC_TRNS,  KC_MPLY,  KC_MSTP,  KC_MRWD,  KC_MFFD,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_CALC,  XXXXXXX,  XXXXXXX,  XXXXXXX,  \
-      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,		        XXXXXXX,	KC_PDTP,  \
-      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  KC_MSEL,  XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_ADTP,  XXXXXXX,  \
-      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_WHOM,  XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,	          KC_DDTP,	XXXXXXX,  KC_NDTP,  \
-      XXXXXXX,	          XXXXXXX,	XXXXXXX,	KC_MYCM,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_MAIL,  XXXXXXX,	XXXXXXX,  XXXXXXX,	          KC_MENU,	XXXXXXX,  XXXXXXX,  \
+      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,		        XXXXXXX,	XXXXXXX,  \
+      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  KC_MSEL,  XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  \
+      XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  KC_WHOM,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,	          XXXXXXX,	XXXXXXX,  XXXXXXX,  \
+      XXXXXXX,	          XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	KC_MAIL,  XXXXXXX,	XXXXXXX,  XXXXXXX,	          XXXXXXX,	XXXXXXX,  XXXXXXX,  \
       XXXXXXX,	XXXXXXX,	XXXXXXX,				                        XXXXXXX,				                        MO(_SL),	KC_TRNS,	XXXXXXX,  XXXXXXX,	XXXXXXX,	XXXXXXX,  \
                                                                                                                                                             XXXXXXX   \
   ),
 
-  [_SL] = LAYOUT_ansi_tkl( /* Second Layer */
+  [_SL] = LAYOUT_ansi_tkl( /* Second / System Layer */
       XXXXXXX,  KC_SLEP,  XXXXXXX,  XXXXXXX,  KC_PWR,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  \
       XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,		        XXXXXXX,	XXXXXXX,  \
       XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,  XXXXXXX,  \
@@ -77,6 +80,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
+  set_unicode_input_mode(UC_WINC);
 }
 
 void matrix_scan_user(void) {

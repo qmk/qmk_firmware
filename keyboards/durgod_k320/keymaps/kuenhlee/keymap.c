@@ -21,10 +21,10 @@
 #define _SL     2u  // Just for System Related
 #define _UL     3u  // Unicode Map
 
-#define KC_ADTP LGUI(LCTL(KC_D))
-#define KC_DDTP LGUI(LCTL(KC_F4))
-#define KC_NDTP LGUI(LCTL(KC_RGHT))
-#define KC_PDTP LGUI(LCTL(KC_LEFT))
+#define KC_ADTP LGUI(LCTL(KC_D))      // Adding New Virtual Desktop
+#define KC_DDTP LGUI(LCTL(KC_F4))     // Deleting / Removing Current Virtual Desktop
+#define KC_NDTP LGUI(LCTL(KC_RGHT))   // Navigate to the Next Virtual Desktop
+#define KC_PDTP LGUI(LCTL(KC_LEFT))   // Navigate to the Previous Virtual Desktop
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
