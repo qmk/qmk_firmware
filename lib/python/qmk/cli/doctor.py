@@ -169,7 +169,7 @@ def check_udev_rules():
         'bootloadhid': {_deprecated_udev_rule("16c0", "05df")},
         'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'}
     }
-   
+
     # Get configuration options of all config files
     current_rules = set()
     for udev_dir in udev_dir_list:
