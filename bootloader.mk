@@ -27,6 +27,7 @@
 # qmk-dfu        QMK DFU (LUFA + blinkenlight)
 # bootloadHID    HIDBootFlash compatible (ATmega32A)
 # USBasp         USBaspLoader (ATmega328P)
+# kiibohd        Input:Club Kiibohd bootloader (only used on their boards)
 #
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
@@ -88,6 +89,18 @@ ifeq ($(strip $(BOOTLOADER)), lufa-ms)
     OPT_DEFS += -DBOOTLOADER_MS
     BOOTLOADER_SIZE = 6144
     FIRMWARE_FORMAT = bin
+endif
+ifeq ($(strip $(BOOTLOADER)), kiibohd)
+    OPT_DEFS += -DBOOTLOADER_KIIBOHD
+    ifeq ($(strip $(MCU)), MK20DX128)
+        MCU_LDSCRIPT = MK20DX128BLDR4
+    endif
+    ifeq ($(strip $(MCU)), MK20DX256)
+        MCU_LDSCRIPT = MK20DX256BLDR8
+    endif
+
+    DFU_ARGS = -d 1C11:B007
+    DFU_SUFFIX_ARGS = -v 1C11 -p B007
 endif
 
 ifdef BOOTLOADER_SIZE
