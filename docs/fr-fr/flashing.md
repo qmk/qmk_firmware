@@ -26,7 +26,6 @@ Méthodes de flash compatibles :
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (interface graphique recommandé)
 * [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` avec QMK (outil en ligne de commande recommandé)
-* [Atmel's Flip](http://www.microchip.com/developmenttools/productdetails.aspx?partno=flip) (non recommandé)
 
 Ordre des actions :
 

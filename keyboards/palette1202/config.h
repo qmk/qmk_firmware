@@ -41,6 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Encoders */
 #define ENCODERS_PAD_A { F4, F6 }
 #define ENCODERS_PAD_B { F5, F7 }
+#define ENCODER_RESOLUTION 2
+// if you want to reverse encoder direction
+// #define ENCODER_DIRECTION_FLIP
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

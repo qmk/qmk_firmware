@@ -40,7 +40,7 @@ def new_keymap(cli):
         exit(1)
 
     # create user directory with default keymap files
-    shutil.copytree(str(keymap_path_default), str(keymap_path_new), symlinks=True)
+    shutil.copytree(keymap_path_default, keymap_path_new, symlinks=True)
 
     # end message to user
     cli.log.info("%s keymap directory created in: %s", keymap, keymap_path_new)
