@@ -10,7 +10,6 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover 
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output on port C6
-UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 ifeq ($(strip $(KEYBOARD)), handwired/ms_sculpt_mobile/8x18_arm)
 	RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
