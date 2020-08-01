@@ -80,7 +80,7 @@
                 {"x":15, "y":4}
             ]
         },
-        "LAYOUT_split_space": {
+        "LAYOUT_ansi_split_space": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
