@@ -203,7 +203,7 @@ def check_udev_rules():
         'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
         'tmk': {_deprecated_udev_rule("feed")}
     }
-   
+
     # Get configuration options of all config files
     current_rules = set()
     for udev_dir in udev_dirs:
