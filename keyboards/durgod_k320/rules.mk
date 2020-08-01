@@ -11,12 +11,13 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 # Build Options
 #   comment out to disable the options.
 #
-EXTRAKEY_ENABLE = yes              # Audio control and System control
-NKRO_ENABLE = yes                  # USB Nkey Rollover
-BOOTMAGIC_ENABLE = lite            # BOOTMAGIC lite configuration
-BACKLIGHT_ENABLE = no              # No keyboard backlight functionality
-MOUSEKEY_ENABLE = no               # No Mouse keys
-CONSOLE_ENABLE = no                # No Console for debug
-COMMAND_ENABLE = no                # No Commands for debug and configuration
-AUDIO_ENABLE = no                  # No Audio output
-NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
+EXTRAKEY_ENABLE   = yes         # Audio control and System control
+NKRO_ENABLE       = yes         # USB Nkey Rollover
+BOOTMAGIC_ENABLE  = lite        # BOOTMAGIC lite configuration
+UNICODEMAP_ENABLE = yes         # Enable Unicode Map
+BACKLIGHT_ENABLE  = no          # No keyboard backlight functionality
+MOUSEKEY_ENABLE   = no          # No Mouse keys
+CONSOLE_ENABLE    = no          # No Console for debug
+COMMAND_ENABLE    = no          # No Commands for debug and configuration
+AUDIO_ENABLE      = no          # No Audio output
+NO_USB_STARTUP_CHECK = no       # Disable initialization only when usb is plugged in
