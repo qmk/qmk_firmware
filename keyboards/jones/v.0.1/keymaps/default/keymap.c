@@ -22,7 +22,8 @@ extern rgblight_config_t rgblight_config;
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
-    _QWERTY = 0,
+    _MAC = 0,
+    _WIN,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -30,7 +31,8 @@ enum layer_number {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
+  MAC = SAFE_RANGE,
+  WIN,
   LOWER,
   RAISE,
   ADJUST,
@@ -49,14 +51,21 @@ enum custom_keycodes {
 #define C_A     LCTL(KC_A)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT(
+    [_MAC] = LAYOUT(
     KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,  \
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,KC_LBRC,KC_RBRC, \
     KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_ENT,         KC_QUOT, \
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,        LOWER,   \
     RAISE,  ALT_US, KC_LGUI,SP_SFT,                                 SP_RAI, KC_LGUI,KC_LALT,LOWER,          KC_MUTE  \
     ),
-    [_LOWER] = LAYOUT(
+    [_WIN] = LAYOUT(
+    KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,  \
+    KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,KC_LBRC,KC_RBRC, \
+    KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_ENT,         KC_QUOT, \
+    KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,        LOWER,   \
+    RAISE,  KC_LGUI,KC_LALT,SP_SFT,                                 SP_RAI, KC_LALT,KC_APP, LOWER,          KC_MUTE  \
+    ),
+        [_LOWER] = LAYOUT(
     _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_UP,  KC_END, KC_VOLU, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_LEFT,KC_RGHT,        KC_VOLD, \
@@ -72,9 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
-    _______,RGB_HUI,RGB_SAI,RGB_VAI,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______, \
-    _______,RGB_HUD,RGB_SAD,RGB_VAD,_______,_______,_______,_______,_______,RGB_TOG,RGB_MOD,_______,        _______, \
-    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______, \
+    _______,_______,DF(_WIN),_______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______, \
+    _______,_______,_______,_______,_______,_______,_______,_______,RGB_M_P,RGB_TOG,RGB_MOD,_______,        _______, \
+    _______,_______,_______,_______,_______,_______,_______,DF(_MAC),_______,_______,_______,_______,        _______, \
     _______,_______,_______,_______,                                _______,_______,_______,_______,        _______  \
     )
 };
