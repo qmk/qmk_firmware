@@ -23,7 +23,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Riblee
 #define PRODUCT Handwired F401
-#define DESCRIPTION A custom 50% keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
