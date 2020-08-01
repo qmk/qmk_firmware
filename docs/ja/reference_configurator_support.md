@@ -10,7 +10,7 @@
 
 ## Configurator がキーボードを理解する方法
 
-Configurator がキーボードをどのように理解するかを理解するには、最初にレイアウトマクロを理解する必要があります。この演習では、17キーの numpad PCB を仮定します。これを `numpad` と呼びます。
+Configurator がキーボードをどのように理解するかを理解するには、最初にレイアウトマクロを理解する必要があります。この演習では、17キーのテンキー PCB を想定します。これを `numpad` と呼びます。
 
 ```
 |---------------|
@@ -74,13 +74,13 @@ QMK は `KC_NO` を使って、スイッチマトリックス内のスイッチ�
 
 !> ユーザの混乱を防ぐために、`KC_NO` を使うことをお勧めします。
 
-レイアウトマクロは、キーボードに17個のキーがあり、それぞれが4列の5行に配置されていることを Configurator に伝えます。スイッチの位置は、0から始まる `k<row><column>` という名前が付けられています。キーマップからキーコードを受け取る上部セクションと、マトリックス内の各キーの位置を指定する下部セクションとが一致する限り、名前自体は実際には問題ありません。
+レイアウトマクロは、キーボードに17個のキーがあり、それぞれが4列の5行に配置されていることを Configurator に伝えます。スイッチの位置は、0から始まる `k<row><column>` という名前が付けられています。キーマップからキーコードを受け取る上部セクションと、マトリックス内の各キーの位置を指定する下部セクションとが一致する限り、名前自体は実際には問題ではありません。
 
-物理キーボードに似た方法でキーボードを表示するには、キーボーとの物理的な位置とサイズをスイッチマトリックスに関連付ける方法を Configurator に伝える JSON ファイルを作成する必要があります。
+物理キーボードに似た方法でキーボードを表示するには、キーボードとの物理的な位置とサイズをスイッチマトリックスに関連付ける方法を Configurator に伝える JSON ファイルを作成する必要があります。
 
 ## JSON ファイルのビルド
 
-JSON ファイルをビルドする最も簡単な方法は、[Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) ("KLE") でレイアウトを作成することです。この Raw Data を Configurator が読み出し使用する JSON ファイルに変換する QMK tool に入れます。KLE は nampad レイアウトをデフォルトで開くため、Getting Started の指示を削除し、残っているものを使います。
+JSON ファイルをビルドする最も簡単な方法は、[Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) ("KLE") でレイアウトを作成することです。この Raw Data を QMK tool に入れて、Configurator が読み出し使用する JSON ファイルに変換します。KLE は nampad レイアウトをデフォルトで開くため、Getting Started の説明を削除し、残りを使います。
 
 レイアウトが望み通りのものになったら、KLE の Raw Data タブに移動し、内容をコピーします:
 
@@ -135,25 +135,25 @@ JSON ファイルをビルドする最も簡単な方法は、[Keyboard Layout E
 `layouts` オブジェクトはキーボードの物理レイアウトを表すデータを含みます。オブジェクト `LAYOUT` は `numpad.h` のレイアウトマクロの名前と一致する必要があります。`LAYOUT` オブジェクト自身には `layout` という名前のオブジェクトがあります。このオブジェクトはキーボードの物理キーごとに以下の形式の1つの JSON オブジェクトを含みます:
 
 ```
-  The name of the key. Configurator では表示されません。
+  キーの名前。Configurator では表示されません。
   |
-  |                   The key's X-axis location, in key units from the
-  |                   | keyboard's left edge.
+  |                   キーのX軸方向の位置。
+  |                   | キーボードの左端からのキー単位。
   |                   |
-  |                   |      The key's Y-axis location, in key units from
-  |                   |      | the keyboard's top (rear-facing) edge.
+  |                   |      キーの Y 軸方向の位置。
+  |                   |      | キーボードの上端(奥側)からのキー単位。
   ↓                   ↓      ↓
 {"label":"Num Lock", "x":0, "y":0},
 ```
 
 一部のオブジェクトは `"w"` および `"h"` キーを持ちます。これらはそれぞれキーの幅と高さを表します。
 
-?> For more on the `info.json` files, see [`info.json` Format](ja/reference_info_json.md).
+?> `info.json` ファイルの詳細については、[`info.json` 形式](ja/reference_info_json.md) を参照してください。
 
 
 ## Configurator がキーをプログラムする方法
 
-Configurator の API は、指定されたレイアウトマクロと JSON ファイルを使って、特定のキーに順番に関連付けられた各ビジュアルオブジェクトを持つキーボードのビジュアル表現を作成します:
+Configurator の API は、指定されたレイアウトマクロと JSON ファイルを使って、順番に特定のキーに関連付けられた各ビジュアルオブジェクトを持つキーボードのビジュアル表現を作成します:
 
 | レイアウトマクロのキー | 使用される JSON オブジェクト |
 :---: | :----
@@ -175,28 +175,28 @@ Configurator の API は、指定されたレイアウトマクロと JSON フ�
 | k40 | {"label":"0", "x":0, "y":4, "w":2} |
 | k42 | {"label":".", "x":2, "y":4} |
 
-ユーザが Configurator で左上のキーを選択し、Num Lock を割り当てると、Configurator はキーマップを作成する時に最初のキーとして `KC_NLCK` を持つキーマップを作成します。`label` キーは使われません; それらは `info.json` ファイルをデバッグする時に特定のキーを識別するためのユーザの参照のためだけのものです。
+ユーザが Configurator で左上のキーを選択し、Num Lock を割り当てると、Configurator は最初のキーとして `KC_NLCK` を持つキーマップを作成し、同様にキーマップが作成されます。`label` キーは使われません; それらは `info.json` ファイルをデバッグする時に特定のキーを識別するためのユーザの参照のためだけのものです。
 
 
 ## 問題と危険
 
-現在のところ、Configurator はキーの回転または ISO Enter などの長方形ではないキーをサポートしません。さらに、"行" &mdash; から垂直方向にオフセットされているキー、顕著な例として [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) のような1800レイアウト上の矢印キー &mdash; は、 `info.json` ファイルの貢献者によって調整されていない場合は、KLE-to-JSON コンバータを混乱させます。
+現在のところ、Configurator はキーの回転または ISO Enter などの長方形ではないキーをサポートしません。さらに、"行" &mdash; から垂直方向にずれているキー、顕著な例として [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) のような1800レイアウト上の矢印キー &mdash; は、 `info.json` ファイルの貢献者によって調整されていない場合は、KLE-to-JSON コンバータを混乱させます。
 
 ### 回避策
 
-#### 表方形ではないキー
+#### 長方形ではないキー
 
 ISO Enter キーについては、QMK custom は幅 1.25u、高さ 2u の長方形のキーとして表示し、右端が英数字キーブロックの右端に揃うように配置されます。
 
 ![](https://i.imgur.com/JKngtTw.png)
 *QMK Configurator によって描画される標準 ISO レイアウトの60%キーボード。*
 
-#### 垂直方向のオフセットキー
+#### 垂直方向にずれたキー
 
-垂直方向のオフセットキーについては、オフセットされていないかのようにKLEで配置し、変換された JSON ファイルで必要に応じて Y 値を編集します。
+垂直方向にずれたキーについては、ずれていないかのように KLE で配置し、変換された JSON ファイルで必要に応じて Y 値を編集します。
 
 ![](https://i.imgur.com/fmDvDzR.png)
-*矢印キーに適用される垂直方向のオフセットを持たない、Keyboard Layout Editor で描画された1800レイアウトのキーボード。*
+*矢印キーに適用される垂直方向のずれのない、Keyboard Layout Editor で描画された1800レイアウトのキーボード。*
 
 ![](https://i.imgur.com/8beYMBR.png)
-*キーボードの JSON ファイルで矢印キーを垂直方向にオフセットするために必要な変更を示す、Unix の diff ファイル。*
+*キーボードの JSON ファイルで矢印キーを垂直方向にずらすために必要な変更を示す、Unix の diff ファイル。*
