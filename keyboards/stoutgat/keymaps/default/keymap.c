@@ -66,9 +66,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             default:
                 if (clockwise) {
-                    tap_code16(A(KC_TAB));
+                    tap_code16(KC_VOLU);
                 } else {
-                    tap_code16(A(S(KC_TAB)));
+                    tap_code16(KC_VOLD);
                 }
                 break;
         }
