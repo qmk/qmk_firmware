@@ -29,10 +29,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
 
-#define MATRIX_ROW_PINS { B7, D0, D1, D5, C7 }
-#define MATRIX_COL_PINS { F7, F6, F5, F4 }
-#define UNUSED_PINS
-
 /* Keyboard Matrix Assignments
  *
  * Change this to how you wired your keyboard
@@ -41,6 +37,9 @@
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
 */
+#define MATRIX_ROW_PINS { B7, D0, D1, D5, C7 }
+#define MATRIX_COL_PINS { F7, F6, F5, F4 }
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
