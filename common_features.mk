@@ -391,6 +391,17 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
+MATRIX_DEMUX ?= no
+
+ifeq ($(strip $(MATRIX_DEMUX)), yes)
+    ifneq ($(strip $(CUSTOM_MATRIX)), lite)
+        $(error MATRIX_DEMUX only works with CUSTOM_MATRIX set to lite)
+    else
+        OPT_DEFS += -DMATRIX_DEMUX
+        SRC += $(QUANTUM_DIR)/matrix_demux.c
+    endif
+endif
+
 DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
 # Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
 DEBOUNCE_TYPE?= sym_g
