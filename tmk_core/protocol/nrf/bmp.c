@@ -323,7 +323,10 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
 
     case BLE_ADVERTISING_STOP:
       bmp_indicator_set(INDICATOR_TURN_OFF, 0);
-      sleep_enter_counter = 1;
+
+      if (!is_usb_connected()) {
+          sleep_enter_counter = 1;
+      }
       break;
 
     case BLE_CONNECTED:
