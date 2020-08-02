@@ -47,3 +47,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
   )
 };
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+  uint8_t layer = biton32(layer_state);
+  if (index == 0) /* Right encoder */ {
+    if (clockwise) {
+      register_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 3
+      }));
+      unregister_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 3
+      }));
+    } else {
+      register_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 2
+      }));
+      unregister_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 2
+      }));
+    }
+  } else if (index == 1) /* Left encoder */ {
+    if (clockwise) {
+      register_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 1
+      }));
+      unregister_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 1
+      }));
+    } else {
+      register_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 0
+      }));
+      unregister_code(keymap_key_to_keycode(layer, (keypos_t) {.row = 4, .col = 0
+      }));
+    }
+  }
+}
