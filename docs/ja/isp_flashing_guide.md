@@ -140,7 +140,7 @@ The simplest and quickest way to get things back to normal is to flash only a bo
 一番簡単で手っ取り早い方法は、キーボードにブートローダだけ書き込むことです。これが終れば、普通にキーボードを接続して、普通にキーボードに書き込みできるようになります。
 
 You can find the stock bootloaders in the [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util). Be sure to flash the correct bootloader for your chip:
-標準のブートローダは[`util/` フォルダー]（https://github.com/qmk/qmk_firmware/tree/master/util）にあります。 チップの正しいブートローダを書き込んでください:
+標準のブートローダは[`util/` フォルダー](https://github.com/qmk/qmk_firmware/tree/master/util) にあります。 チップの正しいブートローダを書き込んでください:
 
 * **Atmel DFU**
   * [ATmega16U4](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega16u4_1.0.1.hex)
@@ -160,26 +160,37 @@ If you're not sure what your board uses, look in the `rules.mk` file for the key
 ### Production Techniques
 
 If you'd like to flash both the bootloader **and** the regular firmware at the same time, there are two options to do so.  Manually, or with the `:production` target when compiling. 
+ブートローダと通常のファームウェアを同時に書き込みたい場合、2 つの方法があります。 手動で行うか、コンパイル時に `:production` ターゲットを使って行うかです。
 
-To do this manually: 
+To do this manually:
+手動で行うには:
 
 1. Open the original firmware .hex file in a text editor
+1. オリジナルのファームウェアの .hex ファイルをテキストエディタで開きます
 2. Remove the last line (which should be `:00000001FF` - this is an EOF message)
+2. 最後の行を削除してください。(`:00000001FF` - これは EOF メッセージです)
 3. Copy the entire bootloader's contents onto a new line (with no empty lines between) and paste it at the end of the original file
+3. ブートローダの内容全体を新しい行にコピーして(行間に空行を入れないように)、元のファイルの最後に貼り付けてください。
 4. Save it as a new file by naming it `<keyboard>_<keymap>_production.hex`
+4. これを新しいファイルとして `<keyboard>_<keymap>_production.hex` という名前で保存します。
 
 ?> It's possible to use other bootloaders here in the same way, but __you need a bootloader__, otherwise you'll have to use ISP again to write new firmware to your keyboard.
+?> ここでは他のブートローダも同じように使うことができますが、__ブートローダが必要で__、そうしないとまた ISP を使ってキーボードに新しいファームウェアを書き込まなければならなくなります。
 
 #### Create QMK DFU Bootloader and Production images
+#### QMK DFU ブートローダとプロダクションイメージの作成
 
-You can create the firmware, the QMK DFU Bootloader and the production firmware images for the board using the `:production` target when compiling.  Once this is done, you'll see three files: 
+You can create the firmware, the QMK DFU Bootloader and the production firmware images for the board using the `:production` target when compiling.  Once this is done, you'll see three files:
+コンパイル時に `:production` ターゲットを使用して、ボード用のファームウェア、QMK DFU ブートローダ、プロダクションファームウェアイメージを作成することができます。 これが完了すると、3つのファイルが表示されます:
 * `<keyboard>_<keymap>.hex`
 * `<keyboard>_<keymap>_bootloader.hex`
 * `<keyboard>_<keymap>_production.hex`
 
 The QMK DFU bootloader has only really been tested on `atmega32u4` controllers (such as the AVR based Planck boards, and the Pro Micro), and hasn't been tested on other controllers.  However, it will definitely not work on V-USB controllers, such as the `atmega32a` or `atmega328p`.
+QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの Planck ボードや Pro Micro など) でしかテストされておらず、他のコントローラではテストされていません。 しかし、`atmega32a` や `atmega328p` のような V-USB コントローラでは間違いなく動作しません。
 
 You can flash either the bootloader or the production firmware file. The production firmware file will take a lot longer to flash, since it's flashing a lot more data. 
+ブートローダかプロダクションファームウェアファイルのどちらかを書き込むことができます。プロダクションファームウェアファイルの方が、より多くのデータを書き込むので、書き込みに時間がかかります。
 
 ?> Note: You should stay with the same bootloader. If you're using DFU already, switching to QMK DFU is fine. But flashing QMK DFU onto a Pro Micro, for instance, has additional steps needed.
 
@@ -199,7 +210,7 @@ If you want to change bootloader types, You'll need to use the command line.
 
 If the verification and fuse checks are ok, you're done! Your board may restart automatically, otherwise, unplug your Teensy and plug in your keyboard - you can leave your Teensy wired to your keyboard while testing things, but it's recommended that you desolder it/remove the wiring once you're sure everything works.
 
-### Command Line
+### コマンドライン Command Line
 
 Open a terminal (`cmd` on Windows, for instance) and navigate to your where your modified .hex file is. We'll pretend this file is called `main.hex`, and that your Teensy 2.0 is on the `COM3` port - if you're unsure, you can open your Device Manager, and look for `Ports > USB Serial Device`. Use that COM port here. You can confirm it's the right port with:
 
@@ -240,7 +251,7 @@ If you're using a SparkFun PocketAVR Programmer, or another USB Tiny based ISP p
 
     avrdude -c usbtiny -P usb -p atmega32u4
 
-#### Advanced: Changing Fuses
+#### 上級者向け: ヒューズの交換 Advanced: Changing Fuses
 
 If you're switching bootloaders, such as flashing QMK DFU on a Pro Micro, you will need to change the fuses, in additional to flashing the bootloader hex file.  This is because `caterina` (the Pro Micro bootloader) and `dfu` handle the startup routines differently, and that behavior is controlled by the fuses.  
 
@@ -277,7 +288,7 @@ To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your 
 
 If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](http://www.engbedded.com/fusecalc/) to find a better value for you.
 
-## Help
+## ヘルプ Help
 
 If you have any questions/problems, feel free to [open an issue](https://github.com/qmk/qmk_firmware/issues/new)!
 ご質問・ご不明な点がありましたら、お気軽に[open an issue](https://github.com/qmk/qmk_firmware/issues/new)まで!
