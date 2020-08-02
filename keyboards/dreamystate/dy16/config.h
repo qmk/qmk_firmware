@@ -73,6 +73,32 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
+/* Audio output
+ * 
+ * STARTUP_SONG // plays when the keyboard starts up (audio.c)
+ * GOODBYE_SONG // plays when you press the RESET key (quantum.c)
+ * AG_NORM_SONG // plays when you press AG_NORM (quantum.c)
+ * AG_SWAP_SONG // plays when you press AG_SWAP (quantum.c)
+ * CG_NORM_SONG // plays when you press CG_NORM (quantum.c)
+ * CG_SWAP_SONG // plays when you press CG_SWAP (quantum.c)
+ * MUSIC_ON_SONG // plays when music mode is activated (process_music.c)
+ * MUSIC_OFF_SONG // plays when music mode is deactivated (process_music.c)
+ * CHROMATIC_SONG // plays when the chromatic music mode is selected (process_music.c)
+ * GUITAR_SONG // plays when the guitar music mode is selected (process_music.c)
+ * VIOLIN_SONG // plays when the violin music mode is selected (process_music.c)
+ * MAJOR_SONG // plays when the major music mode is selected (process_music.c)
+*/
+#ifdef AUDIO_ENABLE
+  #define AUDIO_VOICES
+  #define C6_AUDIO
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
+
+/* Encoder output*/
+#define ENCODERS_PAD_A { D4,B6 }
+#define ENCODERS_PAD_B { D6,C7 }
+#define ENCODER_RESOLUTION 4
+
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
