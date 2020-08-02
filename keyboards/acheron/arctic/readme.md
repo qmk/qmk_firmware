@@ -22,7 +22,7 @@ The possible layouts consist of a fixed 7U bottom row, with possibility of using
 
 See the [AcheronDocs](https://gondolindrim.github.io/AcheronDocs/arctic/intro.html) page for the ArcticPCB full documentation. You can also check the KiCad PCB files at the [ArcticPCB GitHub repository](https://github.com/Gondolindrim/ArcticPCB).
 
-Before using the files for personal or commercial use, please read the [Acheron Open-Hardware License V1.2](https://gondolindrim.github.io/AcheronDocs/license/license.html) under which the Austin PCB is published.
+Before using the files for personal or commercial use, please read the [Acheron Open-Hardware License V1.2](https://gondolindrim.github.io/AcheronDocs/license/license.html) under which the Arctic PCB is published.
 
 ## How to compile
 
@@ -30,7 +30,7 @@ After setting up your build environment, you can compile the Arctic default keym
 
     make acheron/arctic:default
 
-Alternatively you can compile the Tsanga layout using:
+Alternatively you can compile the Tsangan layout using:
 
     make acheron/arctic:tsangan
 
