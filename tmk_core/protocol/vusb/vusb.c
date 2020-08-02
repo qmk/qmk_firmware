@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/wdt.h>
 #include <util/delay.h>
 #include <stdint.h>
-#include "usbdrv.h"
+#include <usbdrv/usbdrv.h>
 #include "usbconfig.h"
 #include "host.h"
 #include "report.h"
@@ -290,12 +290,12 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
         if (rq->bRequest == USBRQ_HID_GET_REPORT) {
             debug("GET_REPORT:");
             /* we only have one report type, so don't look at wValue */
-            usbMsgPtr = (void *)&keyboard_report;
+            usbMsgPtr = (usbMsgPtr_t)&keyboard_report;
             return sizeof(keyboard_report);
         } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
             debug("GET_IDLE: ");
             // debug_hex(vusb_idle_rate);
-            usbMsgPtr = &vusb_idle_rate;
+            usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
             return 1;
         } else if (rq->bRequest == USBRQ_HID_SET_IDLE) {
             vusb_idle_rate = rq->wValue.bytes[1];
@@ -815,29 +815,29 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
     */
     switch (rq->wValue.bytes[1]) {
         case USBDESCR_DEVICE:
-            usbMsgPtr = (unsigned char *)&usbDeviceDescriptor;
+            usbMsgPtr = (usbMsgPtr_t)&usbDeviceDescriptor;
             len       = sizeof(usbDeviceDescriptor_t);
             break;
         case USBDESCR_CONFIG:
-            usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor;
+            usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor;
             len       = sizeof(usbConfigurationDescriptor_t);
             break;
         case USBDESCR_STRING:
             switch (rq->wValue.bytes[0]) {
                 case 0:
-                    usbMsgPtr = (unsigned char *)&usbStringDescriptorZero;
+                    usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorZero;
                     len       = usbStringDescriptorZero.header.bLength;
                     break;
                 case 1:  // iManufacturer
-                    usbMsgPtr = (unsigned char *)&usbStringDescriptorManufacturer;
+                    usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorManufacturer;
                     len       = usbStringDescriptorManufacturer.header.bLength;
                     break;
                 case 2:  // iProduct
-                    usbMsgPtr = (unsigned char *)&usbStringDescriptorProduct;
+                    usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorProduct;
                     len       = usbStringDescriptorProduct.header.bLength;
                     break;
                 case 3:  // iSerialNumber
-                    usbMsgPtr = (unsigned char *)&usbStringDescriptorSerial;
+                    usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorSerial;
                     len       = usbStringDescriptorSerial.header.bLength;
                     break;
             }
@@ -845,24 +845,24 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
         case USBDESCR_HID:
             switch (rq->wValue.bytes[0]) {
                 case KEYBOARD_INTERFACE:
-                    usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.keyboardHID;
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.keyboardHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #if defined(RAW_ENABLE)
                 case RAW_INTERFACE:
-                    usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.rawHID;
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.rawHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
                 case MOUSE_EXTRA_INTERFACE:
-                    usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.mouseExtraHID;
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.mouseExtraHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
 #if defined(CONSOLE_ENABLE)
                 case CONSOLE_INTERFACE:
-                    usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.consoleHID;
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.consoleHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
@@ -872,24 +872,24 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
             /* interface index */
             switch (rq->wIndex.word) {
                 case KEYBOARD_INTERFACE:
-                    usbMsgPtr = (unsigned char *)keyboard_hid_report;
+                    usbMsgPtr = (usbMsgPtr_t)keyboard_hid_report;
                     len       = sizeof(keyboard_hid_report);
                     break;
 #if defined(RAW_ENABLE)
                 case RAW_INTERFACE:
-                    usbMsgPtr = (unsigned char *)raw_hid_report;
+                    usbMsgPtr = (usbMsgPtr_t)raw_hid_report;
                     len       = sizeof(raw_hid_report);
                     break;
 #endif
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
                 case MOUSE_EXTRA_INTERFACE:
-                    usbMsgPtr = (unsigned char *)mouse_extra_hid_report;
+                    usbMsgPtr = (usbMsgPtr_t)mouse_extra_hid_report;
                     len       = sizeof(mouse_extra_hid_report);
                     break;
 #endif
 #if defined(CONSOLE_ENABLE)
                 case CONSOLE_INTERFACE:
-                    usbMsgPtr = (unsigned char *)console_hid_report;
+                    usbMsgPtr = (usbMsgPtr_t)console_hid_report;
                     len       = sizeof(console_hid_report);
                     break;
 #endif

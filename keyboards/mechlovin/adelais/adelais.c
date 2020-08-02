@@ -62,7 +62,7 @@ bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
         writePin(B2, led_state.caps_lock);
         writePin(B9, led_state.scroll_lock);
-        writePin(C12, led_state.num_lock);
+        writePin(C15, led_state.num_lock);
     }
 
     return true;
