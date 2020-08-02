@@ -4,7 +4,7 @@
 
 More: [Imgur](https://imgur.com/gallery/6tu9KdA).
 
-A 16 key macropad, with USB C, RGB light and Buzzer、 Encoder in the future.
+A 16 key macropad, with USB C, RGB light and Buzzer. Encoder in the future.
 
 * Keyboard Maintainer: Dreamystate
 * Hardware Supported: Dy16 PCB 
