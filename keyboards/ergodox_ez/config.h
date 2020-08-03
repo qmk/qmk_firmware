@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ERGODOX_EZ_CONFIG_H
-#define ERGODOX_EZ_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -25,9 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1307
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ErgoDox EZ
+#define MANUFACTURER    ZSA Technology Labs Inc
 #define PRODUCT         ErgoDox EZ
-#define DESCRIPTION     QMK keyboard firmware for Ergodox EZ
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -39,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_TIME_TO_MAX    60
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
+
+#define DEBOUNCE 30
 
 #define TAPPING_TOGGLE  1
 
@@ -73,17 +73,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D7
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 15     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 255
 #define RGBLIGHT_VAL_STEP 12
 
+// Pick one of the modes
+// Defaults to 15 mirror, for legacy behavior
+
+// #define ERGODOX_LED_15 // Addresses 15 LEDs, but same position on both halves
+// #define ERGODOX_LED_15_MIRROR // Addresses 15 LEDs, but are mirrored
+// #define ERGODOX_LED_30 // Addresses all 30 LED individually
+
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
 
-#define RGBW_BB_TWI
+#define RGBW
 
-#define RGBW 1
+#define RGBLIGHT_SLEEP
 
 /*
  * The debounce filtering reports a key/switch change directly,
@@ -108,6 +114,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_1_LED_TOTAL 24
 #define DRIVER_2_LED_TOTAL 24
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+
+#define RGB_MATRIX_LED_PROCESS_LIMIT 5
+#define RGB_MATRIX_LED_FLUSH_LIMIT 26
+
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 // #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */
@@ -136,5 +147,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
-
-#endif

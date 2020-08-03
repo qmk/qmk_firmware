@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
         KC_TAB,     M(KC_Q),  M(KC_W), M(KC_E), M(KC_R), M(KC_T), KC_LBRC,
         M(KC_CAPS), M(KC_A),  M(KC_S), M(KC_D), M(KC_F), M(KC_G),
-        KC_LSFT,    M(KC_Z),  M(KC_X), M(KC_C), M(KC_V), M(KC_B), KC_FN0,
+        KC_LSFT,    M(KC_Z),  M(KC_X), M(KC_C), M(KC_V), M(KC_B), MO(SYMB),
         KC_LCTL,    KC_LALT,  KC_LGUI, KC_LEFT, KC_RGHT,
                                                          KC_TRNS, KC_FN1,
                                                                   KC_HOME,
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,     KC_7,     KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
         KC_RBRC,    M(KC_Y),  M(KC_U), M(KC_I), M(KC_O), M(KC_P), KC_BSLS,
                     M(KC_H),  M(KC_J), M(KC_K), M(KC_L), KC_SCLN, KC_QUOT,
-        KC_FN0,     M(KC_N),  M(KC_M), KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+        MO(SYMB),   M(KC_N),  M(KC_M), KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                               KC_DOWN, KC_UP,   KC_RCTL, KC_RGUI, KC_RALT,
         KC_RALT,    KC_RCTL,
         KC_PGUP,
@@ -148,12 +148,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    ACTION_LAYER_MOMENTARY(SYMB),               // FN0 - Momentary Layer 1 (Symbols)
-    ACTION_LAYER_ON(SYMB,ON_RELEASE),           // FN1 - Enable Layer 1 (Symbols)
-    ACTION_LAYER_ON(MDIA,ON_RELEASE),           // FN2 - Enable Layer 2 (Media)
-    ACTION_LAYER_OFF(SYMB,ON_RELEASE),          // FN3 - Disable Layer 1 (Symbols)
-    ACTION_LAYER_OFF(MDIA,ON_RELEASE),          // FN4 - Disable Layer 2 (MMedia)
-    ACTION_LAYER_MOMENTARY(MDIA)                // FN5 - Momentary Layer 2 (Mdia)
+    [1] = ACTION_LAYER_ON(SYMB,ON_RELEASE),           // FN1 - Enable Layer 1 (Symbols)
+    [2] = ACTION_LAYER_ON(MDIA,ON_RELEASE),           // FN2 - Enable Layer 2 (Media)
+    [3] = ACTION_LAYER_OFF(SYMB,ON_RELEASE),          // FN3 - Disable Layer 1 (Symbols)
+    [4] = ACTION_LAYER_OFF(MDIA,ON_RELEASE),          // FN4 - Disable Layer 2 (MMedia)
 };
 
 

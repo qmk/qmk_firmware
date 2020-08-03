@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -140,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |RGB ON| HUE+ | SAT+ | VAL+ | Mac  |             | Win  |  -   |   =  |Print |ScLock|Pause |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      | MODE | HUE- | SAT- | VAL- |      |             |      |      |      |      |      |      |
+   * |MODE R| MODE | HUE- | SAT- | VAL- |      |             |      |      |      |      |PageUp|      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |      |      | EISU | EISU | EISU |             | KANA | KANA | Home |PageDn|PageUp| End  |
    * `-----------------------------------------'             `-----------------------------------------'
@@ -148,13 +147,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
     [_ADJUST] =  LAYOUT_ortho_4x12( \
       _______, RESET,   RGBRST,  _______, _______, _______,                   _______, QWERTY,  COLEMAK, DVORAK,  _______, KC_INS, \
       _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SLCK, KC_PAUS,\
-      _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, _______, _______,\
-      _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KC_HOME, KC_PGDN, KC_PGUP, KC_END\
+      RGB_RMOD,RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,\
+      _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KANA,    KC_HOME, KC_PGDN, KC_END\
       )
 };
 
 // define variables for reactive RGB
-bool TOG_STATUS = false;  
+bool TOG_STATUS = false;
 
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
@@ -212,7 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-  
+
     case RAISE:
       if (record->event.pressed) {
         //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -245,16 +244,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
+
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
+    case RGB_RMOD:
+      #if defined(RGBLIGHT_ENABLE)
+        if (record->event.pressed) {
+          rgblight_mode_noeeprom(RGB_current_config.mode);
+          rgblight_step_reverse();
+          RGB_current_config.mode = rgblight_config.mode;
+        }
+      return false;
+      #endif
+      break;
+
     case RGB_MOD:
-      #ifdef RGBLIGHT_ENABLE
+      #if defined(RGBLIGHT_ENABLE)
         if (record->event.pressed) {
           rgblight_mode_noeeprom(RGB_current_config.mode);
           rgblight_step();
           RGB_current_config.mode = rgblight_config.mode;
         }
-      #endif
       return false;
+      #endif
       break;
 
     case EISU:
@@ -302,5 +313,3 @@ void matrix_init_user(void) {
       RGB_current_config = rgblight_config;
     #endif
 }
-
-

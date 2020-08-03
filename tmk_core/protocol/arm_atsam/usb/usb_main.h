@@ -47,57 +47,55 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-//Enters the application in low power mode
-//Callback called when USB host sets USB line in suspend state
+// Enters the application in low power mode
+// Callback called when USB host sets USB line in suspend state
 void main_suspend_action(void);
 
-//Called by UDD when the USB line exit of suspend state
+// Called by UDD when the USB line exit of suspend state
 void main_resume_action(void);
 
-//Called when a start of frame is received on USB line
+// Called when a start of frame is received on USB line
 void main_sof_action(void);
 
-//Called by UDC when USB Host request to enable remote wakeup
+// Called by UDC when USB Host request to enable remote wakeup
 void main_remotewakeup_enable(void);
 
-//Called by UDC when USB Host request to disable remote wakeup
+// Called by UDC when USB Host request to disable remote wakeup
 void main_remotewakeup_disable(void);
 
-
-#ifdef KBD
 extern volatile bool main_b_kbd_enable;
-bool main_kbd_enable(void);
-void main_kbd_disable(void);
-#endif //KBD
+bool                 main_kbd_enable(void);
+void                 main_kbd_disable(void);
 
-#ifdef NKRO
+#ifdef NKRO_ENABLE
 extern volatile bool main_b_nkro_enable;
-bool main_nkro_enable(void);
-void main_nkro_disable(void);
-#endif //NKRO
+bool                 main_nkro_enable(void);
+void                 main_nkro_disable(void);
+#endif  // NKRO_ENABLE
 
-#ifdef EXK
+#ifdef EXTRAKEY_ENABLE
 extern volatile bool main_b_exk_enable;
-bool main_exk_enable(void);
-void main_exk_disable(void);
-#endif //EXK
+bool                 main_exk_enable(void);
+void                 main_exk_disable(void);
+#endif  // EXTRAKEY_ENABLE
 
-#ifdef CON
+#ifdef CONSOLE_ENABLE
 extern volatile bool main_b_con_enable;
-bool main_con_enable(void);
-void main_con_disable(void);
-#endif //CON
+bool                 main_con_enable(void);
+void                 main_con_disable(void);
+#endif  // CONSOLE_ENABLE
 
-#ifdef MOU
+#ifdef MOUSE_ENABLE
 extern volatile bool main_b_mou_enable;
-bool main_mou_enable(void);
-void main_mou_disable(void);
-#endif //MOU
+bool                 main_mou_enable(void);
+void                 main_mou_disable(void);
+#endif  // MOUSE_ENABLE
 
-#ifdef RAW
+#ifdef RAW_ENABLE
 extern volatile bool main_b_raw_enable;
-bool main_raw_enable(void);
-void main_raw_disable(void);
-#endif //RAW
+bool                 main_raw_enable(void);
+void                 main_raw_disable(void);
+void                 main_raw_receive(uint8_t *buffer, uint8_t len);
+#endif  // RAW_ENABLE
 
-#endif // _MAIN_H_
+#endif  // _MAIN_H_

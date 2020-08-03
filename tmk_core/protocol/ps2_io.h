@@ -1,7 +1,6 @@
 #ifndef PS2_IO_H
 #define PS2_IO_H
 
-
 void clock_init(void);
 void clock_lo(void);
 void clock_hi(void);

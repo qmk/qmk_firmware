@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F0, B6, B5 }
 #define UNUSED_PINS { B0, D0, D1, D2, D4, D6, D7, F1, F4, F5, F6, F7 }
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN C6
@@ -125,11 +125,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-/* key combination for magic key command */
-/*#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)*/
-
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
@@ -207,39 +202,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-/*
- * HD44780 LCD Display Configuration
- */
-/*
-#define LCD_LINES           2     //< number of visible lines of the display
-#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
-#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
-#if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
-#endif
-*/
-
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
 
-#define NUMBER_OF_ENCODERS 3
 #define ENCODERS_PAD_A { B2, B3, D5 }
 #define ENCODERS_PAD_B { B1, B7, B4 }
 #define ENCODER_RESOLUTION 2

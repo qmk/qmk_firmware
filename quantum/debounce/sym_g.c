@@ -20,38 +20,33 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #include "timer.h"
 #include "quantum.h"
 #ifndef DEBOUNCE
-  #define DEBOUNCE 5
+#    define DEBOUNCE 5
 #endif
 
-void debounce_init(uint8_t num_rows) {}
+void        debounce_init(uint8_t num_rows) {}
 static bool debouncing = false;
 
 #if DEBOUNCE > 0
 static uint16_t debouncing_time;
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed)
-{
-  if (changed) {
-    debouncing = true;
-    debouncing_time = timer_read();
-  }
-
-  if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
-    for (int i = 0; i < num_rows; i++) {
-      cooked[i] = raw[i];
+void            debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+    if (changed) {
+        debouncing      = true;
+        debouncing_time = timer_read();
     }
-    debouncing = false;
-  }
+
+    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
+        for (int i = 0; i < num_rows; i++) {
+            cooked[i] = raw[i];
+        }
+        debouncing = false;
+    }
 }
-#else //no debouncing.
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed)
-{
-  for (int i = 0; i < num_rows; i++) {
-    cooked[i] = raw[i];
-  }
+#else  // no debouncing.
+void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+    for (int i = 0; i < num_rows; i++) {
+        cooked[i] = raw[i];
+    }
 }
 #endif
 
-bool debounce_active(void) {
-  return debouncing;
-}
-
+bool debounce_active(void) { return debouncing; }

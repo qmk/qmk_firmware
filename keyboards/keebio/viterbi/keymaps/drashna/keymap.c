@@ -1,29 +1,19 @@
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
-extern keymap_config_t keymap_config;
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-
-
 // Fillers to make layering more clear
-#define LMACRO   OSL(_MACROS)
-#define DIABLO   TG(_DIABLO)
-#define GAMEPAD  TG(_GAMEPAD)
-#define MEDIA    TT(_MEDIA)
+#define DIABLO TG(_DIABLO)
+#define GAMEPAD TG(_GAMEPAD)
+#define MEDIA TT(_MEDIA)
 
-
-//enum more_custom_keycodes {
+// enum more_custom_keycodes {
 //  KC_P00 = NEW_SAFE_RANGE
 //};
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMLOCK] = LAYOUT_ortho_5x7(
-      LMACRO,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,
+      KC_NO,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,
       MEDIA,   KC_CALC, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PAST,
       KC_HOME, KC_DEL,  KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,
       KC_END,  KC_UP,   KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_PPLS,
@@ -39,21 +29,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_GAMEPAD] = LAYOUT_ortho_5x7(  // Game pad layout designed primarily for Overwatch
-      LMACRO,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4,
+      KC_NO,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4,
       MEDIA,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
       KC_Z,    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
       KC_Y,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
       KC_F1,   KC_U,    KC_I,    KC_Y,    KC_V,    KC_SPC,  KC_V
   ),
-
-  [_MACROS] = LAYOUT_ortho_5x7(
-      LMACRO,      KC_OVERWATCH,GAMEPAD,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_C9,       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_SYMM,     KC_TORB,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_GLHF,     KC_GOODGAME, KC_GGEZ,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_SALT,     KC_MORESALT, KC_SALTHARD, KC_JUSTGAME, KC_AIM,      XXXXXXX,     KC_PENT
-  ),
-
 
   [_MEDIA] = LAYOUT_ortho_5x7(
       KC_MAKE, KC_RESET,MU_TOG,  AU_ON,   AU_OFF,  CK_TOGG, RGB_SAD,
@@ -65,32 +46,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
-
-
+// clang-format on
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-
-  //switch (keycode) {
-  //case KC_P00:
-  //  if (!record->event.pressed) {
-  //    tap(KC_KP_0);
-  //    tap(KC_KP_0);
-  //  }
-  //  return false;
-  //  break;
-  //}
-  return true;
+    // switch (keycode) {
+    // case KC_P00:
+    //  if (!record->event.pressed) {
+    //    tap(KC_KP_0);
+    //    tap(KC_KP_0);
+    //  }
+    //  return false;
+    //  break;
+    //}
+    return true;
 }
 
-
-
-
 void matrix_init_keymap(void) {
-  #ifndef CONVERT_TO_PROTON_C
+#ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
     writePinHigh(D5);
 
     setPinOutput(B0);
     writePinHigh(B0);
-  #endif
+#endif
 }

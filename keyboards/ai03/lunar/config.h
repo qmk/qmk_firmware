@@ -211,56 +211,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-/*
- * HD44780 LCD Display Configuration
- */
-/*
-#define LCD_LINES           2     //< number of visible lines of the display
-#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
-#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
-#if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
-#endif
-*/
-
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
-
-/* VIA Configurator Compatibility */
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR = DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 635
-// DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE = 1024 - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 389
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16

@@ -21,16 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "bluetooth.h"
 
-void bluefruit_keyboard_print_report(report_keyboard_t *report)
-{
+void bluefruit_keyboard_print_report(report_keyboard_t *report) {
     if (!debug_keyboard) return;
-    dprintf("keys: "); for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) { debug_hex8(report->keys[i]); dprintf(" "); }
-    dprintf(" mods: "); debug_hex8(report->mods);
-    dprintf(" reserved: "); debug_hex8(report->reserved); 
+    dprintf("keys: ");
+    for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        debug_hex8(report->keys[i]);
+        dprintf(" ");
+    }
+    dprintf(" mods: ");
+    debug_hex8(report->mods);
+    dprintf(" reserved: ");
+    debug_hex8(report->reserved);
     dprintf("\n");
 }
 
-void bluefruit_serial_send(uint8_t data)
-{
-    serial_send(data);
-}
+void bluefruit_serial_send(uint8_t data) { serial_send(data); }

@@ -26,13 +26,15 @@
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 6
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, C6, D7 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2 ,B6 }
 // #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6} //uncomment this line and comment line above if you need to reverse left-to-right key order
+
+#define DIODE_DIRECTION COL2ROW
 
 /* define tapping term */
 #define TAPPING_TERM 120
@@ -51,9 +53,10 @@
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 70
+#define RGBLED_NUM 36
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 35, 35 }    // Number of LEDs
+#define RGBLED_SPLIT { 18, 18 }    // Number of LEDs
+#define RGBLIGHT_LIMIT_VAL 100
 
 #define SOFT_SERIAL_PIN D2
 #define SELECT_SOFT_SERIAL_SPEED 1

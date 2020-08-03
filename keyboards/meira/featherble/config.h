@@ -40,9 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define B5_AUDIO
 #define AUDIO_VOICES
 
-#define CATERINA_BOOTLOADER
-
- 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 //#define BACKLIGHT_LEVELS 3

@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NHL] = LAYOUT_ergodox(
         // left hand
         KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-        KC_NO,      KC_PGUP,KC_BSPC,KC_UP,  KC_DELT,KC_PGDN,KC_NO,
+        KC_NO,      KC_PGUP,KC_BSPC,KC_UP,  KC_DEL, KC_PGDN,KC_NO,
         KC_NO,      KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END,
         KC_NO,      KC_ESC, KC_TAB, KC_INS, KC_ENT, KC_UNDO,KC_TRNS,
         KC_NO,      KC_NO,  KC_TRNS,KC_NO,  KC_TRNS,

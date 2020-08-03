@@ -20,22 +20,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 
 #ifdef DEBUG_ACTION
-#include "debug.h"
+#    include "debug.h"
 #else
-#include "nodebug.h"
+#    include "nodebug.h"
 #endif
-
 
 #ifndef NO_ACTION_MACRO
 
-#define MACRO_READ()  (macro = MACRO_GET(macro_p++))
+#    define MACRO_READ() (macro = MACRO_GET(macro_p++))
 /** \brief Action Macro Play
  *
  * FIXME: Needs doc
  */
-void action_macro_play(const macro_t *macro_p)
-{
-    macro_t macro = END;
+void action_macro_play(const macro_t *macro_p) {
+    macro_t macro    = END;
     uint8_t interval = 0;
 
     if (!macro_p) return;
@@ -64,7 +62,10 @@ void action_macro_play(const macro_t *macro_p)
             case WAIT:
                 MACRO_READ();
                 dprintf("WAIT(%u)\n", macro);
-                { uint8_t ms = macro; while (ms--) wait_ms(1); }
+                {
+                    uint8_t ms = macro;
+                    while (ms--) wait_ms(1);
+                }
                 break;
             case INTERVAL:
                 interval = MACRO_READ();
@@ -76,14 +77,17 @@ void action_macro_play(const macro_t *macro_p)
                 break;
             case 0x84 ... 0xF3:
                 dprintf("UP(%02X)\n", macro);
-                unregister_code(macro&0x7F);
+                unregister_code(macro & 0x7F);
                 break;
             case END:
             default:
                 return;
         }
         // interval
-        { uint8_t ms = interval; while (ms--) wait_ms(1); }
+        {
+            uint8_t ms = interval;
+            while (ms--) wait_ms(1);
+        }
     }
 }
 #endif

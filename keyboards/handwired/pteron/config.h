@@ -24,6 +24,3 @@
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5  // 5 is default
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS

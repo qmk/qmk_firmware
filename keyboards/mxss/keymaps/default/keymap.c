@@ -15,23 +15,24 @@
  */
 #include QMK_KEYBOARD_H
 
+hs_set caps_color = { .hue = 0, .sat = 255 };
+
 // Colors for layers
 // Format: {hue, saturation}
 // {0, 0} to turn off the LED
 // Add additional rows to handle more layers
-const hs_set layer_colors[] = {
-    [0] = {0,     0},  // Color for Layer 0
-    [1] = {86,    255},  // Color for Layer 1
-    [2] = {36,    255},  // Color for Layer 2
-    [3] = {185,   255},  // Color for Layer 3
+hs_set layer_colors[4] = {
+    [0] = {.hue = 0,     .sat = 0},  // Color for Layer 0
+    [1] = {.hue = 86,    .sat = 255},  // Color for Layer 1
+    [2] = {.hue = 36,    .sat = 255},  // Color for Layer 2
+    [3] = {.hue = 185,   .sat = 255},  // Color for Layer 3
 };
-const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
+size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 // Use NEW_SAFE_RANGE to define new custom keycodes in order to not overwrite the ones used for front LED control
 enum custom_keycodes {
-  MY_KEYCODE = NEW_SAFE_RANGE, 
+  MY_KEYCODE = NEW_SAFE_RANGE,
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT( /* Base */
@@ -39,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
     KC_CAPSLOCK, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
     KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
-    KC_LCTL, KC_LGUI, KC_LALT,           KC_SPACE,           KC_RALT, MO(1), KC_LEFT, KC_DOWN, KC_RGHT 
+    KC_LCTL, KC_LGUI, KC_LALT,           KC_SPACE,           KC_RALT, MO(1), KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
     LAYOUT( /* L1 */
@@ -50,22 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, RGB_HUD, RGB_SAD, RGB_HUI
 ),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 

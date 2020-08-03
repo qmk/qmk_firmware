@@ -4,14 +4,18 @@
 
 ps2avrGB based number-pad sold fully assembled by YMDK on Aliexpress.
 
-Keyboard Maintainer: [QMK Community](https://github.com/qmk)  
-Hardware Supported: Atmega32A
-Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-Programmable-Cherry-MX-Kailh-Gateron-Switches-Mechanical-Keyboard-Numpad-Free-shipping/32812732361.html)
+* Keyboard Maintainer: [QMK Community](https://github.com/qmk)
+* Hardware Supported: Atmega32A
+* Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-Programmable-Cherry-MX-Kailh-Gateron-Switches-Mechanical-Keyboard-Numpad-Free-shipping/32812732361.html)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk_np21:default:program
+    make ymdk_np21:default
 
-Plugging the board in while pressing 'Top Left Key' (USB on top) will force it to boot bootloader without loading the firmware.
+Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-The code for NP21 is a minor edit of jj40.
+    make ymdk_np21:default:flash
+
+**Reset Key**: Hold down the 'Top Left Key' (USB on top) while plugging in the keyboard.
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

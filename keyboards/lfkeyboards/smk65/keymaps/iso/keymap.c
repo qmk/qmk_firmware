@@ -59,16 +59,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [5] = ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN5 - Toggle audio click
   };
 
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
-
 void matrix_init_user(void) {
 
 }

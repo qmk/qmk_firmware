@@ -16,16 +16,16 @@
 #include "qwiic.h"
 
 void qwiic_init(void) {
-  #ifdef QWIIC_JOYSTIIC_ENABLE
+#ifdef QWIIC_JOYSTIIC_ENABLE
     joystiic_init();
-  #endif
-  #ifdef QWIIC_MICRO_OLED_ENABLE
+#endif
+#ifdef QWIIC_MICRO_OLED_ENABLE
     micro_oled_init();
-  #endif
+#endif
 }
 
 void qwiic_task(void) {
-  #ifdef QWIIC_JOYSTIIC_ENABLE
+#ifdef QWIIC_JOYSTIIC_ENABLE
     joystiic_task();
-  #endif
+#endif
 }

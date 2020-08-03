@@ -34,6 +34,8 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 ,B6 }
 // #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define tapping term */
 #define TAPPING_TERM 120
 
@@ -54,6 +56,7 @@
 #define RGBLED_NUM 80
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 40, 40 }    // Number of LEDs
+#define RGBLIGHT_LIMIT_VAL 100
 
 #define SOFT_SERIAL_PIN D2
 #define SELECT_SOFT_SERIAL_SPEED 1

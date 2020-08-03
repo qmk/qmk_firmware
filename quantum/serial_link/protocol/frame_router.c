@@ -28,26 +28,22 @@ SOFTWARE.
 
 static bool is_master;
 
-void router_set_master(bool master) {
-   is_master = master;
-}
+void router_set_master(bool master) { is_master = master; }
 
-void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size){
+void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size) {
     if (is_master) {
         if (link == DOWN_LINK) {
-            transport_recv_frame(data[size-1], data, size - 1);
+            transport_recv_frame(data[size - 1], data, size - 1);
         }
-    }
-    else {
+    } else {
         if (link == UP_LINK) {
-            if (data[size-1] & 1) {
+            if (data[size - 1] & 1) {
                 transport_recv_frame(0, data, size - 1);
             }
-            data[size-1] >>= 1;
+            data[size - 1] >>= 1;
             validator_send_frame(DOWN_LINK, data, size);
-        }
-        else {
-            data[size-1]++;
+        } else {
+            data[size - 1]++;
             validator_send_frame(UP_LINK, data, size);
         }
     }
@@ -59,8 +55,7 @@ void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) {
             data[size] = 1;
             validator_send_frame(UP_LINK, data, size + 1);
         }
-    }
-    else {
+    } else {
         if (is_master) {
             data[size] = destination;
             validator_send_frame(DOWN_LINK, data, size + 1);

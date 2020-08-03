@@ -8,7 +8,6 @@ A 60% PCB with USB C, RGB underglow, backlighting, hotswappable switches, and a 
 
 Keyboard Maintainer: [Bubnick](https://github.com/bubnick)  
 Hardware Supported: 1up60hte 60% PCB  
-
 Hardware Availability: [1upkeyboards.com](https://www.1upkeyboards.com/shop/controllers/1up-rgb-60-pcb-hte/)
 
 Make example for this keyboard (after setting up your build environment):

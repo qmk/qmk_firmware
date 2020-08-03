@@ -67,7 +67,7 @@ enum custom_keycodes {
 #define KC_LSLB   LSFT(KC_LBRC)
 #define ___       _______
 
-#if HELIX_ROWS == 5
+#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
@@ -496,9 +496,9 @@ static void render_logo(struct CharacterMatrix *matrix) {
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
     0};
   matrix_write(matrix, logo);
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_ANIMATIONS)
+#ifdef RGBLIGHT_ENABLE
   char buf[30];
-  if(rgblight_config.enable) {
+  if (RGBLIGHT_MODES > 1 && rgblight_config.enable) {
       snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
                rgblight_config.mode,
                rgblight_config.hue/RGBLIGHT_HUE_STEP,

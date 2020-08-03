@@ -146,7 +146,7 @@ void rgb_matrix_indicators_user(void)
 			break;
 
 		case _RGB: {
-			HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+			HSV hsv = { rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v };
 			HSV hui = hsv;
 			HSV hud = hsv;
 			HSV sai = hsv;
