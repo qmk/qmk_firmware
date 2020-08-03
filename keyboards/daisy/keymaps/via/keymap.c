@@ -20,7 +20,8 @@
 enum layer_names {
     _BL,
     _LW,
-    _RS
+    _RS,
+    _EM
 };
 
 #define LOWER MO(_LW)
@@ -79,5 +80,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_END,  KC_PGDN,          _______,
         _______,          RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI, BL_STEP, _______,
         _______, _______, _______,                   _______, _______,                   _______, _______, _______
+    ),
+
+    /* Empty 4th layer for VIA
+     * ┌───┬───┬───┬───┬───┬───┬───┐───┌───┬───┐───┬───┐
+     * |   |   |   |   |   |   |   |   |   |   |   |   |
+     * └───┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐──└┬──┴┬──┴┐──┴───┤
+     * │    │   │   │   │   │   │   │   │   │   │      │
+     * ├────└─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴───┴───┴───┴─┐────┤
+     * │      │   │   │   │   │   │   │   │   │   │    │
+     * ├────┬─└───┴───┴───┴───┴───┴───┴───┴───┴───┘────┤
+     * │    │   │    │        │          │    │   │    │
+     * └────┴───┴────┴────────┴──────────┴────┴───┴────┘
+     */
+    [_EM] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
