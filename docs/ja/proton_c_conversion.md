@@ -1,4 +1,4 @@
-# Proton C を使う様に、キーボードを変換する Converting a board to use the Proton C
+# キーボードを Proton C を使うように変更 Converting a board to use the Proton C
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
@@ -112,5 +112,5 @@ You can also make use of several new pins on the extended portion of the Proton 
 5. `A13` and `A14` are used for hardware debugging (SWD). You can also use them for GPIO, but should use them last.
 5. `A13` と `A14` ピンはハードウェアデバッグ (SWD) に使用されます。GPIO にも使えますが、最後に使ってください。
 6. Short RESET to 3.3v (pull high) to reboot the MCU. This does not enter bootloader mode like a Pro Micro, it only resets the MCU.
-6. RESET を 3.3V とショート(プルアップ)してと MCU をリブートします。これは Pro Micro のようにブートローダモードにはならず、MCU をリセットするだけです。
+6. RESET を 3.3V とショート(プルアップ)して MCU をリブートします。これは Pro Micro のようにブートローダモードにはならず、MCU をリセットするだけです。
 
