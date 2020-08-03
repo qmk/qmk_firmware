@@ -77,16 +77,14 @@
 #define slup S(A(KC_UP))   // Previous unread in Slack
 #define sldn S(A(KC_DOWN)) // Next unread in Slack
 
-#define ctl1 C(KC_1)
-#define ctl2 C(KC_2)
-#define ctl3 C(KC_3)
-#define ctl4 C(KC_4)
-#define ctl5 C(KC_5)
-#define ctl6 C(KC_6)
-#define ctl7 C(KC_7)
-#define ctl8 C(KC_8)
-#define ctl9 C(KC_9)
-#define ctl0 C(KC_0)
+#define ctl1 C(KC_1) // Desktop 1 (6 with shift)
+#define ctl2 C(KC_2) // Desktop 2 (7 with shift)
+#define ctl3 C(KC_3) // Desktop 3 (8 with shift)
+#define ctl4 C(KC_4) // Desktop 4 (9 with shift)
+#define ctl5 C(KC_5) // Desktop 5 (10 with shift)
+#define ctl6 C(KC_6) // Screenshot
+#define ctl7 C(KC_7) // Brightness up
+#define ctl8 C(KC_8) // Brightness down
 
 #define f1 KC_F1
 #define f2 KC_F2
@@ -182,17 +180,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, ctl1, ctl2, ctl3, ctl4, xxxx, xxxx, home,   up,  end, ctl7, caps,
-         del, ctl5, slup, tabl, tabr, xxxx, xxxx, left, down, rght, ctl8, xxxx,
-        ____, ctl6, sldn, back,  fwd, xxxx, xxxx, pgdn, pgup, ctl0, ctl9, ____,
+         esc, ctl1, ctl2, ctl3, ctl4, ctl5, ctl6, home,   up,  end, xxxx, xxxx,
+         del, play, volu, tabl, tabr, slup, ctl7, left, down, rght, caps, xxxx,
+        ____, mute, vold, back,  fwd, sldn, ctl8, pgdn, pgup, xxxx, xxxx, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
     [FUNC] = LAYOUT_planck_grid(
-        rset,   f1,   f2,   f3,   f4,   f5,   f6,   f7,   f8,   f9,  f10, volu,
-        powr,  f11,  f12,  f13,  f14,  f15,  f16,  f17,  f18,  f19,  f20, vold,
+        rset,   f7,   f5,   f3,   f1,   f9,   f8,  f10,   f2,   f4,   f6, xxxx,
+        xxxx,  f17,  f15,  f13,  f11,  f19,  f18,  f20,  f12,  f14,  f16, xxxx,
         ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ____,
-        ____, ____, ____, ____, prev, mute, play, next, ____, ____, ____, ____
+        ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 };
 
@@ -205,13 +203,13 @@ bool send_string_if_keydown(
             uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
             if (shifts) {
                 del_mods(shifts);
-                SEND_STRING(shifted);
+                send_string(shifted);
                 add_mods(shifts);
             } else {
-                SEND_STRING(unshifted);
+                send_string(unshifted);
             }
         } else {
-            SEND_STRING(unshifted);
+            send_string(unshifted);
         }
     }
     return true;
@@ -241,7 +239,7 @@ bool smart_cmd(keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Override the defualt auto shifted symbols to use SEND_STRING See
+        // Override the defualt auto shifted symbols to use send_string See
         // https://github.com/qmk/qmk_firmware/issues/4072
         case ampr:
             return send_string_if_keydown(record, "&", NULL);
