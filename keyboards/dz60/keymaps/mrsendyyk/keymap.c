@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------------'
    */
 
-	[1] = LAYOUT_60_b_ansi(KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL, KC_BRIU, KC_NO, KC_NO, KC_END, RESET, KC_NO, KC_NO, KC_NO, KC_INS, KC_NO, KC_PSCR, KC_NO, KC_NO, KC_EJCT, KC_BRID, KC_NO, KC_SLCK, KC_NO, KC_NO, KC_NO, KC_HOME, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MUTE, KC_VOLU, KC_NO, KC_NO, KC_CALC, KC_NO, KC_NO, KC_NO, KC_MAIL, KC_NO, KC_NO, KC_NO, KC_PGUP, KC_PAUS, KC_VOLD, KC_MRWD, KC_MFFD, KC_MPLY, KC_MPLY, KC_MPLY, KC_MSTP, KC_TRNS, KC_MPRV, KC_PGDN, KC_MNXT)
+	[1] = LAYOUT_60_b_ansi(KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL, KC_BRIU, _______, _______, KC_END, RESET, _______, _______, _______, KC_INS, _______, KC_PSCR, _______, _______, KC_EJCT, KC_BRID, _______, KC_SLCK, _______, _______, _______, KC_HOME, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLU, _______, _______, KC_CALC, _______, _______, _______, KC_MAIL, _______, _______, _______, KC_PGUP, KC_PAUS, KC_VOLD, KC_MRWD, KC_MFFD, KC_MPLY, KC_MPLY, KC_MPLY, KC_MSTP, KC_TRNS, KC_MPRV, KC_PGDN, KC_MNXT)
 };
 
 void keyboard_post_init_user(void) {
