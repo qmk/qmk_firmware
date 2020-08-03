@@ -1,6 +1,6 @@
 # Splite Keyboard
 
-![Split Keyboard Default Layout](https://github.com/ncwhale/Keyboard_Design/raw/master/Splite-Keyboard-v3/Keyboar-layout.png)
+![Split Keyboard Default Layout](https://github.com/ncwhale/Keyboard_Design/raw/master/Splite-Keyboard-v3/Keyboard-layout.png)
 
 A splite keyboard (7x6x2) made by Whale Mo.
 
