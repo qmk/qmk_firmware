@@ -1,11 +1,12 @@
 # Kabe Don 980
 
+![Kabe Don 980](http://qungz.photo.store.qq.com/qun-qungz/V53LJWsQ407RKV3X7gmf3M0Ih23R00WB/V5bCQA1OTY5NTEwNjOx0B5fOCOlAQ!!/800?w5=2133&h5=1599&rf=viewer_421)
+
 A mechanical keyboard PCB in the same layout as the Leopold FC980M, sold by Kabe Don Peripherals on Taobao.  
 This PCB  use Kailh hot swap sockets. 
 KabeDon980  Includes RGB   Underglow.
 Aluminium Alloy and Translucent Case.
 
- Includes RGB underglow, backlight and an aluminium, brass and nylon case.
 Keyboard Maintainer:  [370490639](https://github.com/370490639) 
 Hardware Supported: Kabe Don 980  
 Hardware Availability: [Kabe Don 980](https://item.taobao.com/item.htm?spm=a1z10.1-c.w4023-17458066155.8.81406bd0J97pHX&id=614156027788)
