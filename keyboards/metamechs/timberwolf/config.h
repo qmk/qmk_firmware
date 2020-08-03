@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER MetaMechs
 #define PRODUCT Timber Wolf
-#define DESCRIPTION Timber Wolf
 
 /* key matrix size */
 #define MATRIX_COLS 9
@@ -63,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlighting code used for caps lock indicator */
 #define BACKLIGHT_PIN C6
-#define BACKLIGHT_LEVELS 9
+#define BACKLIGHT_LEVELS 16
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 // #define LOCKING_SUPPORT_ENABLE
