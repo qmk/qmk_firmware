@@ -107,11 +107,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_ortho_4x12( \
-  KC_GRV,  _______, _______, KC_MS_U, _______, KC_LCBR, KC_RCBR, _______, KC_WH_U, _______, _______, KC_DEL, \
-  KC_DEL,  _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_LPRN, KC_RPRN, KC_BTN1, KC_WH_D, KC_BTN2, _______, KC_BSLS, \
-  _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_MUTE, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+[_RAISE] = LAYOUT_ortho_4x12(
+  KC_GRV,  _______, _______, KC_MS_U, _______, KC_LCBR, KC_RCBR, _______, KC_WH_U, _______, _______, KC_DEL,
+  KC_DEL,  _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_LPRN, KC_RPRN, KC_BTN1, KC_WH_D, KC_BTN2, _______, KC_BSLS,
+  _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_MUTE, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* Adjust (Lower + Raise)
