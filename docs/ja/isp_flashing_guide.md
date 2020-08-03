@@ -193,16 +193,21 @@ You can flash either the bootloader or the production firmware file. The product
 ブートローダかプロダクションファームウェアファイルのどちらかを書き込むことができます。プロダクションファームウェアファイルの方が、より多くのデータを書き込むので、書き込みに時間がかかります。
 
 ?> Note: You should stay with the same bootloader. If you're using DFU already, switching to QMK DFU is fine. But flashing QMK DFU onto a Pro Micro, for instance, has additional steps needed.
+注意：同じブートローダを使用しつづけるべきです。すでに DFU を使用している場合は、QMK DFU に切り替えても問題ありません。しかし、例えば Pro Micro に QMK DFU をフラッシュするには、追加の手順が必要になります。
 
 ## Flashing Your Bootloader/Production File
+## ブートローダ/プロダクションファイルの書き込み
 
 Make sure your keyboard is unplugged from any device, and plug in your ISP Programmer.
+キーボードがどのデバイスにも接続されていないことを確認し、ISP プログラマを接続してください。
 
 If you want to change bootloader types, You'll need to use the command line. 
+ブートローダの種類を変更したい場合は、コマンドラインを使用する必要があります。
 
 ### QMK Toolbox
 
 1. `AVRISP device connected` or `USB Tiny device connected` will show up in yellow
+1. 'AVRISP device connected' または `USB Tiny device connected` が黄色で表示されます。
 2. Select the correct bootloader/production .hex file with the `Open` dialog (spaces can't be in the path)
 3. Be sure the correct `Microcontroller` option for the keyboard you're flashing (not the ISP programmer) is selected
 4. Hit `Flash`
