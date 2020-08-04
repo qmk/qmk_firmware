@@ -42,3 +42,4 @@
     { R30, R31, R32  }, \
 }
 
+#define LAYOUT LAYOUT_split_3x5_3
