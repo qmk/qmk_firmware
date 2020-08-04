@@ -22,8 +22,6 @@ enum layer_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
     DVORAK,
-
-    BACKLIT,
 };
 
 // Defines the keycodes used by our macros in process_record_user
