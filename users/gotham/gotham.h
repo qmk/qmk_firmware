@@ -32,6 +32,7 @@ enum userspace_layers {
     _WORKMAN,
     _NORMAN,
     _GAME,
+    _GAMENAV,
     _GAMENUM,
     _LOWER,
     _RAISE,

@@ -20,6 +20,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
 #define TG_GAME TG(_GAME)
+#define TG_GNAV TG(_GAMENAV)
 #define MO_GNUM MO(_GAMENUM)
 
 #define QWERTY KC_QWERTY

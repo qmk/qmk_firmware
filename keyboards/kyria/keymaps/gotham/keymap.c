@@ -46,7 +46,7 @@ enum encoder_names {
       KC_ESC,   K01,          K02,  K03,  K04,  K05,                                        K06,  K07,  K08,  K09,  K0A,          KC_BSLS, \
       KC_LSFT,  RSFT_T(K11),  K12,  K13,  K14,  K15,                                        K16,  K17,  K18,  K19,  RSFT_T(K1A),  RSFT_T(KC_QUOT), \
       KC_LCTL,  RCTL_T(K21),  K22,  K23,  K24,  K25, KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  RCTL_T(K2A),  RCTL_T(KC_MINS), \
-              ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL,  EN_LOWR, BK_RAIS, MS_DEL, ENC_MODE_R \
+                       ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL,   EN_LOWR,  BK_RAIS, MS_DEL, ENC_MODE_R \
     )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
@@ -87,7 +87,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LT(_GAMENUM, KC_ESC),  __________________GAME_L1__________________,                                      _________________QWERTY_R1_________________, KC_BSLS,
       LT(_GAMENUM, KC_LSFT), __________________GAME_L2__________________,                                      _________________QWERTY_R2_________________, KC_RSFT,
       LT(_GAMENUM, KC_LCTL), __________________GAME_L3__________________, _______, _______,  _______, _______, _________________QWERTY_R3_________________, KC_RCTL,
-                           ENC_MODE_L, KC_LALT, KC_SPC, LT(_GAMENUM, KC_TAB), MO(_GAMENUM),  KC_EQL, KC_ENT, KC_BSPC, KC_DEL, ENC_MODE_R
+                           ENC_MODE_L, KC_LALT, KC_SPC, LT(_GAMENUM, KC_TAB), MO(_GAMENUM),  KC_EQL, KC_ENT, TG_GNAV, KC_DEL, ENC_MODE_R
+    ),
+
+    [_GAMENAV] = LAYOUT_wrapper(
+      _______, _______, _______,  _______,  _______,  _______,                                        _______, _______, KC_UP,   _______, _______,  _______,
+      _______, _______, _______,  _______,  _______,  _______,                                        _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______,  _______,
+      _______, _______, _______,  _______,  _______,  _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,  _______,
+                                    _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
     ),
 
     [_GAMENUM] = LAYOUT_wrapper(

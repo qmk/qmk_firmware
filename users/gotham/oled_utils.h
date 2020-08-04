@@ -30,6 +30,7 @@
 #    define OLED_STR_WORKMAN "Workman"
 #    define OLED_CHAR_COUNTORMAN "Norman"
 #    define OLED_STR_GAME "Game"
+#    define OLED_STR_GAMENAV "Arrows"
 #    define OLED_STR_GAMENUM "Numbers"
 
 #    define OLED_STR_LAYER "Layer: "
@@ -60,6 +61,7 @@
 #    define OLED_STR_WORKMAN "Wkmn"
 #    define OLED_CHAR_COUNTORMAN "Norm"
 #    define OLED_STR_GAME "Game"
+#    define OLED_STR_GAMENAV "Nav"
 #    define OLED_STR_GAMENUM "Num"
 
 #    define OLED_STR_LAYER "Lyr: "

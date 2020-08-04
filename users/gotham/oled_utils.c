@@ -18,6 +18,7 @@ const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
     [_WORKMAN] = OLED_STR_WORKMAN,
     [_NORMAN]  = OLED_CHAR_COUNTORMAN,
     [_GAME]    = OLED_STR_GAME,
+    [_GAMENAV] = OLED_STR_GAMENAV,
     [_GAMENUM] = OLED_STR_GAMENUM,
     [_LOWER]   = OLED_STR_LOWER,
     [_RAISE]   = OLED_STR_RAISE,
@@ -123,7 +124,7 @@ void render_keyboard_info(void) {
 void render_layout(void) {
     oled_write_P(PSTR(OLED_STR_LAYOUT), false);
     uint32_t layer = get_highest_layer(layer_state);
-    layer          = ((layer == _GAME) || (layer == _GAMENUM)) ? _GAME : get_highest_layer(default_layer_state);
+    layer          = ((layer == _GAME) || (layer == _GAMENUM) || (layer == _GAMENAV)) ? _GAME : get_highest_layer(default_layer_state);
     oled_write_ln_P(layer_names[layer], false);
 }
 
