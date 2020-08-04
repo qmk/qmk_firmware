@@ -100,8 +100,3 @@ KC_KP_SLASH,    KC_KP_ASTERISK, KC_KP_DOT,      KC_0,   _______, _______, ______
 )
 
 };
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  state = update_tri_layer_state(state, _RAISE, _LOWER, _FN);
-  return state;
-}

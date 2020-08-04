@@ -16,26 +16,19 @@
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _QWERTY,
-    _COLEMAK,
-    _DVORAK,
-    _LOWER,
-    _RAISE,
-    _ADJUST
-};
+enum layer_names { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
 
 enum layer_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    DVORAK,
 
-  BACKLIT,
+    BACKLIT,
 };
 
 // Defines the keycodes used by our macros in process_record_user
-#define LOWER   MO(_LOWER)
-#define RAISE   MO(_RAISE)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE
@@ -174,39 +167,39 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        PORTE &= ~(1<<6);
-      } else {
-        unregister_code(KC_RSFT);
-        PORTE |= (1<<6);
-      }
-      return false;
-      break;
-  }
-  return true;
+    switch (keycode) {
+        case QWERTY:
+            if (record->event.pressed) {
+                print("mode just switched to qwerty and this is a huge string\n");
+                set_single_persistent_default_layer(_QWERTY);
+            }
+            return false;
+            break;
+        case COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
+            }
+            return false;
+            break;
+        case DVORAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_DVORAK);
+            }
+            return false;
+            break;
+        case BACKLIT:
+            if (record->event.pressed) {
+                register_code(KC_RSFT);
+#ifdef BACKLIGHT_ENABLE
+                backlight_step();
+#endif
+                PORTE &= ~(1 << 6);
+            } else {
+                unregister_code(KC_RSFT);
+                PORTE |= (1 << 6);
+            }
+            return false;
+            break;
+    }
+    return true;
 }

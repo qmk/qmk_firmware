@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0x9906
 #define PRODUCT_ID 0x0000
 #define DEVICE_VER 0x0001
-#define MANUFACTURER noclew
+#define MANUFACTURER nckiibs
 #define PRODUCT Flatbread60
 
 /* key matrix size */

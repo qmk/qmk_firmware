@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0x9906
 #define PRODUCT_ID 0x0002
 #define DEVICE_VER 0x0001
-#define MANUFACTURER noclew
+#define MANUFACTURER nckiibs
 #define PRODUCT VaneelaEx
 #define DESCRIPTION A Semi-staggered 40 keyboard with number keys
 
