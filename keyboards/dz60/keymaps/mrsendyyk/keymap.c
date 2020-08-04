@@ -53,11 +53,10 @@ void keyboard_post_init_user(void) {
 // RGB Underglow as a Caps Lock Indicator
 
 void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 2); PORTB &= ~(1 << 2);
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        writePinLow(B2);
         rgblight_setrgb(100, 255, 100);
     } else {
-        DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
         rgblight_setrgb(0, 0, 0);
     }
 }
