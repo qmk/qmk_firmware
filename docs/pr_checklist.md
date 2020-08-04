@@ -15,7 +15,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
         - a board designer naming their keyboard with uppercase letters is not enough justification
 - Valid license headers on all `*.c` and `*.h` source files
     - GPL2/GPL3 recommended for consistency
-    - Other licenses are permitted, however the must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged.
+    - Other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged.
 - QMK codebase "best practices" followed
     - This is not an exhaustive list, and will likely get amended as time goes by
     - `#pragma once` instead of `#ifndef` include guards in header files
