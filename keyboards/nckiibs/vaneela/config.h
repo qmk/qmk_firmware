@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0x9906
 #define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0001
-#define MANUFACTURER nckiibs
+#define MANUFACTURER noclew
 #define PRODUCT Vaneela
 #define DESCRIPTION A semi-staggered 60 keyboard
 
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { F6, F7, B3, B2, B6 }
-#define MATRIX_COL_PINS { 0[]0[[[]]], F5, B5, B4, E6, D7, C6, D4, D0, D1, D2, D3 }
+#define MATRIX_COL_PINS { F4, F5, B5, B4, E6, D7, C6, D4, D0, D1, D2, D3 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
