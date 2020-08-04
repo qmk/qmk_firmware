@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 #define TAP_CODE_DELAY 10
-#define ENCODER_RESOLUTION 4
 
 #define MATRIX_ROW_PINS { D1, D0, A0, A1, A2 }
 #define MATRIX_COL_PINS { D6, D5, D7, C0, C1, C2, C3, C4, C5, C6, C7, A7, A6, A5, A4 }
