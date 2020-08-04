@@ -26,30 +26,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_HOME, KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,  \
         KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC, \
         KC_PGDN, HY_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  \
-                 KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  PLY_FN1, KC_RSFT, KC_SLSH, \
+                 KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LOWER,   KC_RSFT, KC_SLSH, \
                  KC_LOPT,          KC_LCMD,     SPC_RAI,       KC_LCTL,          SPC_RAI,           KC_RCMD,                   KC_ROPT \
     ),
-    [_FN1] = LAYOUT_all( \
+    [_LOWER] = LAYOUT_all( \
         KC_MUTE, QM_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MC_LHPD, MC_SLPD, \
-        KC_VOLU, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_HOME, KC_UP,   KC_END,  KC_DELT, \
+        KC_VOLU, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_PGUP, KC_HOME, KC_END,  KC_DELT, \
         KC_VOLD, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, KC_MPRV, KC_MNXT, KC_PGDN, KC_UP,            KC_MPLY, \
                  _______, RGB_LYR, RGB_THM, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, _______, RGT_SFT, KC_DOWN, \
                  _______,          _______,     _______,      _______,          _______,          _______,                   _______ \
 
     ),
-    [_FN2] = LAYOUT_all( \
+    [_RAISE] = LAYOUT_all( \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
+        _______, _______, _______, _______, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, _______, _______, _______, _______,          _______, \
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
                  _______,          _______,     _______,      _______,          _______,          _______,                   _______ \
 
     ),
     [_ADJUST] = LAYOUT_all( \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
-                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, QM_MAKE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, _______, _______, _______, _______,          _______, \
+                 _______, RGB_LYR, RGB_THM, _______, EEP_RST, RESET,   RESET,   _______, _______, _______, _______, _______, _______, _______, \
                  _______,          _______,     _______,      _______,          _______,          _______,                   _______ \
 
     )
@@ -142,20 +142,20 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
     switch (get_highest_layer(state)) {
-    case _FN1:
-        top = 1;
-        break;
-    case _FN2:
-        middle = 1;
-        break;
-    case _ADJUST:
-        top = 1;
-        middle = 1;
-        break;
-    default: //  for any other layers, or the default layer
-        break;
+        case _LOWER:
+            top = 1;
+            break;
+        case _RAISE:
+            middle = 1;
+            break;
+        case _ADJUST:
+            top = 1;
+            middle = 1;
+            break;
+        default: //  for any other layers, or the default layer
+            break;
     }
-  return state;
+    return state;
 }
 
 // override kb level function
