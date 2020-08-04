@@ -43,6 +43,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - `info.json`
     - valid URL
     - valid maintainer
+    - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
 - `readme.md`
     - standard template should be present
     - flash command has `:flash` at end
@@ -101,7 +102,7 @@ Also, specific to ChibiOS:
 
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
 - Prefer layer `enum`s to `#define`s
-- Require custom keycode `enum`s to `#define`s, staring with first ` = SAFE_RANGE`
+- Require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
 - Terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous
 - Some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
