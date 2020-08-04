@@ -1,8 +1,8 @@
 # マクロ
 
 <!---
-  original document: 0.8.169:docs/feature_macros.md
-  git diff 0.8.169 HEAD -- docs/feature_macros.md | cat
+  original document: 0.9.43:docs/feature_macros.md
+  git diff 0.9.43 HEAD -- docs/feature_macros.md | cat
 -->
 
 マクロにより、1つのキーを押すだけで複数のキーストロークを送信することができます。QMK にはマクロを定義し使う方法が幾つかあります。これらはなんでもすることができます: よく使うフレーズの入力、コピーペースト、反復的なゲームの動き、あるいはコードを書くことさえ手助けします。
@@ -11,34 +11,34 @@
 
 ## 新しい方法: `SEND_STRING()` と `process_record_user`
 
-単語またはフレーズを入力するキーが欲しい時があります。最も一般的な状況のために `SEND_STRING()` を提供しています。これは文字列(つまり、文字のシーケンス)を入力します。簡単にキーコードに変換することができる全ての ASCII 文字がサポートされています (例えば、`\n\t`)。
+単語またはフレーズを入力するキーが欲しい時があります。最も一般的な状況のために `SEND_STRING()` を提供しています。これは文字列(つまり、文字のシーケンス)を入力します。簡単にキーコードに変換することができる全ての ASCII 文字がサポートされています (例えば、`qmk 123\n\t`)。
 
 以下は2キーのキーボードのための `keymap.c` の例です:
 
 ```c
 enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
+    QMKBEST = SAFE_RANGE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
     case QMKBEST:
-      if (record->event.pressed) {
-        // キーコード QMKBEST が押された時
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // キーコード QMKBEST が放された時
-      }
-      break;
-
-  }
-  return true;
+        if (record->event.pressed) {
+            // キーコード QMKBEST が押された時
+            SEND_STRING("QMK is the best thing ever!");
+        } else {
+            // キーコード QMKBEST が放された時
+        }
+        break;
+    }
+    return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = {
-    {QMKBEST, KC_ESC}
-  }
+    [0] = {
+        {QMKBEST, KC_ESC},
+        // ...
+    },
 };
 ```
 
@@ -54,42 +54,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ```c
 enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL,
-  MY_OTHER_MACRO
+    QMKBEST = SAFE_RANGE,
+    QMKURL,
+    MY_OTHER_MACRO,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
     case QMKBEST:
-      if (record->event.pressed) {
-        // キーコード QMKBEST が押された時
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // キーコード QMKBEST が放された時
-      }
-      break;
+        if (record->event.pressed) {
+            // キーコード QMKBEST が押された時
+            SEND_STRING("QMK is the best thing ever!");
+        } else {
+            // キーコード QMKBEST が放された時
+        }
+        break;
+
     case QMKURL:
-      if (record->event.pressed) {
-        // キーコード QMKURL が押された場合
-        SEND_STRING("https://qmk.fm/\n");
-      } else {
-        // キーコード QMKURL が放された場合
-      }
-      break;
+        if (record->event.pressed) {
+            // キーコード QMKURL が押された場合
+            SEND_STRING("https://qmk.fm/\n");
+        } else {
+            // キーコード QMKURL が放された場合
+        }
+        break;
+
     case MY_OTHER_MACRO:
-      if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("ac")); // 全てを選択しコピーします
-      }
-      break;
-  }
-  return true;
+        if (record->event.pressed) {
+           SEND_STRING(SS_LCTL("ac")); // 全てを選択しコピーします
+        }
+        break;
+    }
+    return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = {
-    {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
-  }
+    [0] = {
+        {MY_CUSTOM_MACRO, MY_OTHER_MACRO},
+        // ...
+    },
 };
 ```
 
