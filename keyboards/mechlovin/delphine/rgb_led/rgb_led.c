@@ -75,14 +75,14 @@ led_config_t g_led_config = { {
   4,          0,          1,          1,          4,
 } };
 
-void rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_kb(void) {
         if (host_keyboard_led_state().num_lock) {
             rgb_matrix_set_color(4, 255, 255, 255);
         }
 }
 
-uint32_t layer_state_set_user(uint32_t state)
-{
+__attribute__((weak))
+layer_state_t layer_state_set_user(layer_state_t state) {
   // if on layer 1, turn on L1 LED, otherwise off.
     if (get_highest_layer(state) == 0) {
         rgb_matrix_set_color(1, 255, 0, 0);
