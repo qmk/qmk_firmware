@@ -46,6 +46,8 @@ uint16_t rawY;
 uint16_t distX;
 uint16_t distY;
 uint16_t thumbstickLogTimer;
+uint16_t get_raw_x(void);
+uint16_t get_raw_y(void);
 #endif
 
 typedef enum { THUMBSTICK_MODE_MOUSE = 0, THUMBSTICK_MODE_ARROWS, THUMBSTICK_MODE_SCROLL, _THUMBSTICK_MODE_COUNT } thumbstick_mode_t;

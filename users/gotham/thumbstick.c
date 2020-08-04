@@ -40,6 +40,11 @@ void thumbstick_init_user(void) {
     thumbstick_init_keymap();
 }
 
+#if defined THUMBSTICK_DEBUG
+uint16_t get_raw_x(void) { return rawX; }
+uint16_t get_raw_y(void) { return rawY; }
+#endif
+
 bool thumbstick_update(report_mouse_t* report) {
     if (timer_elapsed(thumbstickTimer) > THUMBSTICK_TIMEOUT) {
         // Only read pins on the half where the thumbstick is attached
