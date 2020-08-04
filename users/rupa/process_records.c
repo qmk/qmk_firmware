@@ -50,7 +50,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (is_pressed && translator != NULL) {
                 return script_mode_translate(translator, is_shifted, keycode);
             }
-            return true;
     }
     return process_record_keymap(keycode, record);
 }
