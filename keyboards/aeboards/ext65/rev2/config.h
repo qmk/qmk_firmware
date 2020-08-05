@@ -22,8 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0xA652 // AEboards EXT65 Rev2
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         AEboards Ext65 Rev2
-#define DESCRIPTION     AEboards Ext65 Rev2
+#define PRODUCT         Ext65 Rev2
 
 /* key matrix size */
 /* key matrix size */
