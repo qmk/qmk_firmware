@@ -280,18 +280,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case EXLMSPC:
             if (record->event.pressed) {
-                register_code(KC_LSFT);
-                tap_code(KC_1);
-                unregister_code(KC_LSFT);
+                tap_code16(KC_EXLM);
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
             }
             return false;
         case QUESSPC:
             if (record->event.pressed) {
-                register_code(KC_LSFT);
-                tap_code(KC_SLSH);
-                unregister_code(KC_LSFT);
+                tap_code16(KC_QUES);
                 tap_code(KC_SPC);
                 set_oneshot_mods(MOD_LSFT);
             }
@@ -305,19 +301,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case DQUOT:
             if (record->event.pressed) {
-                register_code(KC_LSFT);
-                tap_code(KC_2);
-                tap_code(KC_2);
-                unregister_code(KC_LSFT);
+                tap_code16(KC_DQUO);
+                tap_code16(KC_DQUO);
                 tap_code(KC_LEFT);
             }
             return false;
         case PRN:
             if (record->event.pressed) {
-                register_code(KC_LSFT);
-                tap_code(KC_9);
-                tap_code(KC_0);
-                unregister_code(KC_LSFT);
+                tap_code16(KC_LPRN);
+                tap_code16(KC_RPRN);
                 tap_code(KC_LEFT);
             }
             return false;
@@ -330,10 +322,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case CBR:
             if (record->event.pressed) {
-                register_code(KC_LSFT);
-                tap_code(KC_LBRC);
-                tap_code(KC_RBRC);
-                unregister_code(KC_LSFT);
+                tap_code16(KC_LCBR);
+                tap_code16(KC_RCBR);
                 tap_code(KC_LEFT);
             }
             return false;
