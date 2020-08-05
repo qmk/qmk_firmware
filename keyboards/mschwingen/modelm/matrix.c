@@ -39,7 +39,7 @@ static uint8_t modelm_spi_read(void) {
     // set 4MHz SPI clock
     SPSR = 0;
     SPCR = _BV(SPE) | _BV(MSTR) | _BV(CPOL);
-    SPDR = 0x55;  // Dummy
+    SPDR = 0x00;  // Dummy
 
     uint16_t timeout_timer = timer_read();
     while (!(SPSR & _BV(SPIF))) {
