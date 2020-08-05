@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    mschwingen
 #define PRODUCT         IBM Model M 101/102
-#define DESCRIPTION     www.schwingen.org
 
 /* key matrix size */
 #define MATRIX_ROWS 16
