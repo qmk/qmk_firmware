@@ -1,6 +1,6 @@
 # ASH-XIIX
 
-![ASH-XIIX](https://i.imgur.com/KJk9dDol.jpg)
+![ASH-XIIX](https://i.imgur.com/KJk9dDo.jpg)
 
 In mission to fill my Cherry 1800 case. So I continue developing 1800 PCB (ASH-1800) to fit G80-1800 case. It has some update to make ASH-XIIX more user friendly.
 
