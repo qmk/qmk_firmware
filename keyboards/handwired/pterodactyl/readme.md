@@ -1,39 +1,19 @@
 # Dactyl
 
-See https://github.com/adereth/dactyl-keyboard
+![%KEYBOARD%](imgur.com image replace me!)
 
-The Dactyl uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
+*A short description of the keyboard/project*
 
-Linux users need to modify udev rules as described on the [Teensy
-Linux page].  Some distributions provide a binary, maybe called
-`teensy-loader-cli`.
+* Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)
+* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Availability: *Links to where you can find this hardware*
 
-[Teensy Linux page]: https://www.pjrc.com/teensy/loader_linux.html
+Make example for this keyboard (after setting up your build environment):
 
-To flash the firmware:
+    make handwired/pterodactyl:default
 
-  - Build the firmware with `make handwired/dactyl:<keymapname>`, for example `make handwired/dactyl:default`
-  - This will result in a hex file called `handwired_dactyl_<keymapname>.hex`, e.g.
-    `handwired_dactyl_default.hex`
+Flashing example for this keyboard:
 
-  - Start the teensy loader.
+    make handwired/pterodactyl:default:flash
 
-  - Load the .hex file into it.
-
-  - Put the Teensy in firmware-loading mode:
-    * If your current layout has a RESET key, press it.
-    * If you lack a RESET key, press the reset button on the Teensy board itself.
-
-  - Click the button in the Teensy app to download the firmware.
-
-To flash with ´teensy-loader-cli´:
-
-  - Build the firmware as above
-
-  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_<keymapname>.hex`
-
-  - If you like, you can do both at once: `make handwired/dactyl:<keymapname>:teensy`
-
-  - Put the Teensy in firmware-loading mode:
-    * If your current layout has a RESET key, press it.
-    * If you lack a RESET key, press the reset button on the Teensy board itself.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
