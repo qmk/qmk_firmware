@@ -23,7 +23,7 @@
 #define PRODUCT_ID   0x0002
 #define DEVICE_VER   0x0001
 #define MANUFACTURER ZTBoards
-#define PRODUCT      ZTBoards Noon
+#define PRODUCT      Noon
 
 /* key matrix size */
 #define MATRIX_ROWS 5
