@@ -16,9 +16,9 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _BL0, 
-    _BL1, 
-    _FL, 
+    _BL0,
+    _BL1,
+    _FL,
     _MS
 };
 
