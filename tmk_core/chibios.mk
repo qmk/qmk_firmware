@@ -324,7 +324,7 @@ bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(PROGRAM_CMD)
-else ifeq ($(strip $(BOOTLOADER)),dfu)
+else ifeq ($(strip $(BOOTLOADER)),kiibohd)
 	$(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)
