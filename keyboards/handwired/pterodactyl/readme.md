@@ -1,12 +1,14 @@
 # Dactyl
 
-![%KEYBOARD%](imgur.com image replace me!)
+![](https://cdn.zappy.app/65bacc35e1fbeb19ba02d42d80bddb9b.png)
 
-*A short description of the keyboard/project*
+A bluetooth fork of the dactyl
 
-* Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [myoung34](https://github.com/myoung34)
+* Hardware Supported:
+  * [Feather 32u4](https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le)
+* Hardware Availability:
+  * [Feather 32u4](https://www.amazon.com/Adafruit-Feather-32u4-Bluefruit-ADA2829/dp/B01GJR9MNI)
 
 Make example for this keyboard (after setting up your build environment):
 
