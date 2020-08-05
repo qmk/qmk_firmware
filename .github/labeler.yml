@@ -7,7 +7,7 @@ core:
 keymap:
   - users/**/*
   - layouts/**/*
-  - keyboards/**/keymap/**/*
+  - keyboards/**/keymaps/**/*
 cli:
   - bin/qmk
   - requirements.txt
