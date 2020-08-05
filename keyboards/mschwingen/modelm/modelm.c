@@ -152,7 +152,7 @@ static void led_update_rgb(void) {
 }
 
 bool led_update_kb(led_t state) {
-    uprintf("LED Update: %d %d %d", led_state.num_lock, led_state.caps_lock, led_state.scroll_lock);
+    dprintf("LED Update: %d %d %d", led_state.num_lock, led_state.caps_lock, led_state.scroll_lock);
     led_state = state;
     led_update_rgb();
 
@@ -177,14 +177,14 @@ void update_layer_leds(void) {
     }
     old_layer         = layer;
     old_default_layer = default_layer;
-    uprintf("Layer change: %d %d", default_layer, layer);
+    dprintf("Layer change: %d %d", default_layer, layer);
     led_update_rgb();
 }
 
 /*****************************************************************************/
 #else  // classic LEDs on GPIO
 bool led_update_kb(led_t led_state) {
-    uprintf("LED Update: %d %d %d", led_state.num_lock, led_state.caps_lock, led_state.scroll_lock);
+    dprintf("LED Update: %d %d %d", led_state.num_lock, led_state.caps_lock, led_state.scroll_lock);
 
     if (led_update_user(led_state)) {
         if (!isRecording) writePin(MODELM_LED_NUMLOCK, !led_state.num_lock);
