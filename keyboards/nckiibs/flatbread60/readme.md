@@ -1,6 +1,6 @@
 # flatbread60
 
-![flatbread60](https://i.imgur.com/kIPP0JK.jpg)
+![flatbread60](https://i.imgur.com/kIPP0JKl.jpg)
 
 This is a custom PCB made by a hobbiest, and it has an ortholinear 60 key layout. Flatbread60 supports Pro Micro and its wireless variants, such as Blue Micro. A battery switch slot and extra pinout is on the board.  
 

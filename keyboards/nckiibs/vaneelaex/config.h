@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER nckiibs
 #define PRODUCT VaneelaEx
-#define DESCRIPTION A Semi-staggered 40 keyboard with number keys
 
 /* key matrix size */
 #define MATRIX_ROWS 6

@@ -1,1 +1,1 @@
-# The default keymap for waffle60
+# The default keymap for flatbread60
