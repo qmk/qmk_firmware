@@ -1,6 +1,6 @@
 # Vaneela
 
-![vaneela](https://i.imgur.com/wp64G8v.jpg)
+![vaneela](https://i.imgur.com/wp64G8vl.jpg)
 
 This is a semi-staggered 5x12 keyboard made by a hobbist. Vaneela runs on Pro Micro and its compatible variants, such as elite-C. In matrix wise, it has the same key layout as other 5 x 12 ortholinear boards. 
 

@@ -1,6 +1,6 @@
 # Vaneela Ex
 
-![vaneelEx](https://i.imgur.com/5QmJLbj.jpg)
+![vaneelEx](https://i.imgur.com/5QmJLbjl.jpg)
 
 Vaneela Ex is a custom keyboard made by a hobbist. It has a semi-staggered layout with an optional 4x4 keys on the left or right.
 Vaneela Ex supports Pro Micro and its compatible variants, such as elite-C.
