@@ -19,7 +19,10 @@
 #define XXXXXX KC_NO
 
 enum layers {
-  _BL0 = 0, _BL1, _FL, _MS
+    _BL0, 
+    _BL1, 
+    _FL, 
+    _MS
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -88,5 +91,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   return true;
 }
-
 
