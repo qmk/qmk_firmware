@@ -5,9 +5,9 @@ it corresponds to the colemak-dh layout.
 
 To customize, upload the json file to qmk configurator
 
+- `keymap_qwerty.json`: qwerty layout
 - `keymap_colemak.json`: colemak layout
 - `keymap_colemak_dh.json`: colemak-dh layout
-- `keymap_qwerty.json`: qwerty layout
 
 Make the modification via the web interface, "compile" and download "keymap only".
 Then place the generated `keymap.c` in this folder.
@@ -15,7 +15,7 @@ Then place the generated `keymap.c` in this folder.
 To flush the firmware, connect your keyboard and run
 
 ```
-make niu_mini:nosarthur:dtu
+make niu_mini:nosarthur:dfu
 ```
 in the `qmk_firmware` source folder.
 There will be some prompts saying no device is found. Click the reset button in
