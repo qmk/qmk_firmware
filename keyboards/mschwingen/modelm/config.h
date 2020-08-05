@@ -21,7 +21,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x558E
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    mschwingen
 #define PRODUCT         IBM Model M 101/102
