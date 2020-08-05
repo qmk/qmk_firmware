@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0xB07D
 #define DEVICE_VER 0x0002
-#define MANUFACTURER LifeIsOnTheWire
-#define PRODUCT PostageBoard
 
 /* key matrix size */
 
