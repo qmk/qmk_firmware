@@ -1,4 +1,4 @@
-# Dactyl
+# Pterodactyl
 
 ![](https://cdn.zappy.app/65bacc35e1fbeb19ba02d42d80bddb9b.png)
 
