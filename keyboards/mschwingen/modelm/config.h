@@ -20,12 +20,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x0000
+#define PRODUCT_ID      0x558e // echo -n "mschwingen IBM Model M 101/102" | shasum | cut -c1-4
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    mschwingen
 #define PRODUCT         IBM Model M 101/102
-#define DESCRIPTION     www.schwingen.org
 
 /* key matrix size */
 #define MATRIX_ROWS 16
