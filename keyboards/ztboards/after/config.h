@@ -24,7 +24,6 @@
 #define DEVICE_VER   0x0001
 #define MANUFACTURER ZTBoards
 #define PRODUCT      ZTBoards After
-#define DESCRIPTION  ZTBoards After
 
 /* key matrix size */
 #define MATRIX_ROWS 5
