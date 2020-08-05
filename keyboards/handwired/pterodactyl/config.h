@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    myoung34
 #define PRODUCT         Pterodactyl
-#define DESCRIPTION     An ortholinear, split, bluetooth, 3D-curved keyboard with thumb clusters.
 
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 6
