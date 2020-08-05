@@ -2,7 +2,7 @@
 
 ![Vega](https://i.imgur.com/7ZcCqwP.png)
 
-A typical 65% keyboard  
+A typical 65% keyboard
 
 * Keyboard Maintainer: [ai03](https://github.com/ai03-2725)
 * Hardware Supported: Vega PCBs, both solderable and hotswap
