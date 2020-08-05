@@ -58,7 +58,7 @@ const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 // ------------------------------------------
 
 #if defined(RGB_DISABLE_AFTER_TIMEOUT) && !defined(RGB_DISABLE_TIMEOUT)
-#    define RGB_DISABLE_TIMEOUT (RGB_DISABLE_AFTER_TIMEOUT * 1200)
+#    define RGB_DISABLE_TIMEOUT (RGB_DISABLE_AFTER_TIMEOUT * 1200UL)
 #endif
 
 #ifndef RGB_DISABLE_TIMEOUT
