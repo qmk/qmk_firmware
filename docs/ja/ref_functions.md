@@ -1,8 +1,8 @@
 # キーボードをより良くするための便利なコア関数のリスト
 
 <!---
-  original document: 0.9.46:docs/ref_functions.md
-  git diff 0.9.46 HEAD -- docs/ref_functions.md | cat
+  original document: 0.9.47:docs/ref_functions.md
+  git diff 0.9.47 HEAD -- docs/ref_functions.md | cat
 -->
 
 QMK には信じられないほど便利な、またあなたが望んでいた機能を少し追加する隠された関数がたくさんあります。特定の機能に固有の関数はそれぞれの機能のページにあるため、ここには含まれていません。
@@ -31,7 +31,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -41,7 +40,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     }
   return true;
 }
