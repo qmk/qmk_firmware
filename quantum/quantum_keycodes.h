@@ -543,6 +543,7 @@ enum quantum_keycodes {
 #define LSA(kc) (QK_LSFT | QK_LALT | (kc))
 #define RSA(kc) (QK_RSFT | QK_RALT | (kc))
 #define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define SAGR(kc) RSA(kc)
 
 #define MOD_HYPR 0xF
 #define MOD_MEH 0x7
@@ -769,6 +770,7 @@ enum quantum_keycodes {
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Alt + Left Shift, used for vertical text selection and keyboard language-switching
 #define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Alt + Shift, used by many locales for special characters
 #define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)  // Right Control + Shift, used by some locales for special characters
+#define SAGR_T(kc) RSA_T(kc)    // Shift + Alt Gr nickname
 
 #define ALL_T(kc) HYPR_T(kc)
 
