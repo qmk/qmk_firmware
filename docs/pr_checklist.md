@@ -76,12 +76,13 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
     - `QMKBEST`/`QMKURL` removed (sheesh)
-    - lower/raise should prefer (instead of massive switch statement with layer_on/off) if no "direct to adjust" keycode:
+    - If using `MO(_LOWER)` and `MO(_RAISE)` keycodes or equivalent, and the keymap has an adjust layer when holding both keys -- if the keymap has no "direct-to-adjust" keycode (such as `MO(_ADJUST)`) then you should prefer to write...
         ```
         layer_state_t layer_state_set_user(layer_state_t state) {
           return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-      }
+        }
         ```
+        ...instead of manually handling `layer_on()`, `update_tri_layer()` inside the keymap's `process_record_user()`.
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
     - standard layouts preferred in these keymaps, if possible
