@@ -4,7 +4,6 @@
     "keyboard_name": "Kudox Keyboard Rev2",
     "layouts": {
         "LAYOUT": {
-            "key_count": 66,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
