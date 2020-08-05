@@ -33,7 +33,7 @@ SRC +=	$(COMMON_DIR)/uart.c
 
 OPT_DEFS += -DSLEEP_LED_ENABLE # we need our own sleep callbacks to turn of WS2812 LEDs
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 ifeq ($(strip $(UART_DEBUG)), yes)
     OPT_DEFS += -DUART_DEBUG
