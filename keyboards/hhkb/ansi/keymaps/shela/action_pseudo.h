@@ -16,23 +16,12 @@
 
 #pragma once
 
-#include "../../config.h"
+#define SHIFT_BIT_SIZE (0xE7 / 8 + 1) /* 1bit per 1key */
+#define IS_LSFT(kc) ((QK_LSFT & (kc)) == QK_LSFT)
 
-/* USB Device descriptor parameter */
-#undef VENDOR_ID
-#define VENDOR_ID 0x0853
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x0100
-#undef DEVICE_VER
-#define DEVICE_VER 0x0102
-#undef MANUFACTURER
-#define MANUFACTURER Topre Corporation
-#undef PRODUCT
-#define PRODUCT HHKB Professional
+void     action_pseudo_process(keyrecord_t *, uint8_t, const uint16_t (*)[2]);
+uint16_t convert_keycode(const uint16_t (*)[2], uint16_t, bool);
 
-#undef TAPPING_TERM
-#define TAPPING_TERM 210
-#define SPFN_TAPPING_TERM 190 /* SpaceFN tapping term */
-
-#define ONESHOT_TAP_TOGGLE 3
-#define ONESHOT_TIMEOUT 2000
+uint8_t get_shift_bit(uint16_t);
+void    add_shift_bit(uint16_t);
+void    del_shift_bit(uint16_t);
