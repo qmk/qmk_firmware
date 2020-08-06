@@ -148,13 +148,13 @@ typedef struct {
 // 順序なし
 typedef struct {
   uint32_t key;
-  char kana[5];
+  char kana[7];
 } naginata_keymap;
 
 // 順序なしロング
 typedef struct {
   uint32_t key;
-  char kana[15];
+  char kana[22];
 } naginata_keymap_long;
 
 // 順序なしUNICODE
