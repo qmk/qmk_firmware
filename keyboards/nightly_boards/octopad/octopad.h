@@ -26,10 +26,13 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_all( \
-  k00, k01, k02, k03, k04, \
-  k10, k11, k12, k13, k14 \
+#define LAYOUT( \
+    E00A, K04,   E00B,  E01A, K14,  E01B, \
+    K00,  K01,   K02,   K03,    \
+    K10,  K11,   K12,   K13    \
+\
 ) { \
-  { k00, k01, k02, k03, k04 }, \
-  { k10, k11, k12, k13, k14 } \
+    { K00,   K01,   K02,    K03,    K04   }, \
+    { K10,   K11,   K12,    K13,    K14   }, \
+    { E00A,  E00B,  E01A,   E01B,   KC_NO }  \
 }
