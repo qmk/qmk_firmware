@@ -6,9 +6,6 @@
 #ifndef UNICODE_ENABLE
 #    define UC(x) KC_NO
 #endif
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
 
 enum more_custom_keycodes {
     KC_SWAP_NUM = NEW_SAFE_RANGE,
@@ -374,17 +371,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 #    endif
 #endif
     }
-    // switch (keycode) {
-    //  case KC_P00:
-    //    if (!record->event.pressed) {
-    //      register_code(KC_KP_0);
-    //      unregister_code(KC_KP_0);
-    //      register_code(KC_KP_0);
-    //      unregister_code(KC_KP_0);
-    //    }
-    //    return false;
-    //    break;
-    //}
     return true;
 }
 
@@ -457,7 +443,8 @@ void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change)
 #    endif
     {
-        switch (get_highest_layer(layer_state)) {
+        bool mods_enabled = IS_LAYER_ON(_MODS);
+        switch (get_highest_layer(layer_state|default_layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
@@ -473,36 +460,30 @@ void rgb_matrix_indicators_user(void) {
             case _ADJUST:
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
-            default: {
-                bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (get_highest_layer(default_layer_state)) {
-                    case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                }
+            case _QWERTY:
+                rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
-            }
+            case _COLEMAK:
+                rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _DVORAK:
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _WORKMAN:
+                rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _NORMAN:
+                rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _MALTRON:
+                rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _EUCALYN:
+                rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _CARPLAX:
+                rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
         }
     }
 }
