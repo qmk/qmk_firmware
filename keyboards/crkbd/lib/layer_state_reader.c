@@ -5,6 +5,7 @@
 
 // in the future, should use (1U<<_LAYER_NAME) instead, but needs to be moved to keymap,c
 #define L_BASE 0
+#define L_GAMING 1
 #define L_LOWER 2
 #define L_RAISE 4
 #define L_ADJUST 8
@@ -17,6 +18,9 @@ const char *read_layer_state(void) {
   {
   case L_BASE:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+    break;
+  case L_GAMING:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Gaming");
     break;
   case L_RAISE:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
