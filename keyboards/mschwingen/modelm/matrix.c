@@ -35,21 +35,6 @@ static uint16_t row_bits[MATRIX_ROWS] = {
 
 static const pin_t col_pins[MATRIX_COLS] = {D1, D4, D7, B4, F7, F6, F5, F4};
 
-static uint8_t modelm_spi_read(void) {
-    // set 4MHz SPI clock
-    SPSR = 0;
-    SPCR = _BV(SPE) | _BV(MSTR) | _BV(CPOL);
-    SPDR = 0x00;  // Dummy
-
-    uint16_t timeout_timer = timer_read();
-    while (!(SPSR & _BV(SPIF))) {
-        if ((timer_read() - timeout_timer) >= SPI_TIMEOUT) {
-            return SPI_STATUS_TIMEOUT;
-        }
-    }
-    return SPDR;
-}
-
 static void select_col(uint8_t col) {
     setPinOutput(col_pins[col]);
     writePinLow(col_pins[col]);
@@ -74,8 +59,8 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     writePinLow(SR_LOAD_PIN);
     writePinHigh(SR_LOAD_PIN);
 
-    row_data = modelm_spi_read() << 8;
-    row_data |= modelm_spi_read();
+    row_data = spi_read() << 8;
+    row_data |= spi_read();
 
 #if DEBUG
     phex(~row_data);
@@ -109,7 +94,13 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     return matrix_changed;
 }
 
-void matrix_init_custom(void) { unselect_cols(); }
+void matrix_init_custom(void) {
+    unselect_cols();
+    
+    // set 4MHz SPI clock
+    SPSR = 0;
+    SPCR = _BV(SPE) | _BV(MSTR) | _BV(CPOL);
+}
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
