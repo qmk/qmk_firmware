@@ -25,7 +25,7 @@ void render_layout_state(void) {
   oled_write_P(PSTR("Layout: "), false);
   switch (biton32(default_layer_state)) {
       case _COLEMAK:
-        oled_write_P(PSTR("Colemak"), false);
+        oled_write_P(PSTR("Gaming"), false);
         break;
       case _DVORAK:
         oled_write_P(PSTR("Dvorak"), false);
