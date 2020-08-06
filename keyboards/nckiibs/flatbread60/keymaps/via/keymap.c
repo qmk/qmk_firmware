@@ -15,14 +15,13 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _LOWER,
-    _RAISE,
-    _FN
-};
+enum layer_names { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
 
+enum layer_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    DVORAK,
+};
 
 // Defines the keycodes used by our macros in process_record_user
 #define LOWER MO(_LOWER)
@@ -142,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Reset| Debug|      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |      |      |AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      | rgb  |rgb M | Hue  |brt + |brt - |sat + |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -152,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_5x12( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
   _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______,
+  _______, _______, _______, _______, _______, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______,
   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_VAI, RGB_VAD, RGB_SAI, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
