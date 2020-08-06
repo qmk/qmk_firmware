@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0001
+#define VENDOR_ID 0x068C
+#define PRODUCT_ID 0x0002
 #define DEVICE_VER 0x0001
-#define MANUFACTURER ELMOSPACE
-#define PRODUCT ELMOPAD
+#define MANUFACTURER kb-elmo
+#define PRODUCT ElmoPad
 
 /* key matrix size */
 #define MATRIX_ROWS 6
