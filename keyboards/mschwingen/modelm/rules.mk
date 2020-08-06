@@ -39,4 +39,4 @@ ifeq ($(strip $(UART_DEBUG)), yes)
     OPT_DEFS += -DUART_DEBUG
 endif
 
-DEFAULT_FOLDER=mschwingen/modelm/led_wired
+DEFAULT_FOLDER = mschwingen/modelm/led_wired
