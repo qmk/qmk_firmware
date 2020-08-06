@@ -2,7 +2,7 @@
 
 userspace_config_t userspace_config;
 
-#define boboysdadda_UNICODE_MODE 1
+#define boboysdadda_UNICODE_MODE 4
 
 void bootmagic_lite(void) {
     matrix_scan();

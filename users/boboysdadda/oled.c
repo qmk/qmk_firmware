@@ -1,5 +1,8 @@
 #include "boboysdadda.h"
 
+char wpm_str[10];
+uint16_t wpm_graph_timer = 0;
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master()) {
     return OLED_ROTATION_270;  // flips the display 270 degrees if master
@@ -95,14 +98,8 @@ void render_default_layer_state(void) {
         case _QWERTY:
             oled_write_P(PSTR(" QRTY"), false);
             break;
-        case _COLEMAK:
-            oled_write_P(PSTR(" COLE"), false);
-            break;
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
-            break;
-        case _WORKMAN:
-            oled_write_P(PSTR(" WRKM"), false);
             break;
     }
 }
@@ -131,10 +128,6 @@ void render_status_secondary(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
-        oled_off();
-        return;
-    }
 #if !defined(SPLIT_KEYBOARD)
     else {
         oled_on();

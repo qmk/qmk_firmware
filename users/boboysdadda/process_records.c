@@ -1,4 +1,4 @@
-#include boboysdadda.h
+#include "boboysdadda.h"
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
@@ -18,7 +18,7 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
             SEND_STRING(SS_LCTL("v"));
         }
         break;
-    #ifdef UNICODE_ENABLE
+#ifdef UNICODE_ENABLE
         case UC_FLIP:  // (ノಠ痊ಠ)ノ彡┻━┻
             if (record->event.pressed) {
                 send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
@@ -39,11 +39,7 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
                 send_unicode_string("ಠ_ಠ");
             }
             break;
-    #endif
+#endif
     }
-    return process_record_keymap(keycode, record) &&
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-           process_record_user_rgb(keycode, record) &&
-#endif  // RGBLIGHT_ENABLE
-           process_record_secrets(keycode, record);
+    return process_record_keymap(keycode, record);
 }

@@ -16,6 +16,7 @@ enum userspace_layers {
     _DVORAK,
     _LOWER,
     _RAISE,
+    _ADJUST,
 
 };
 
