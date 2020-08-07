@@ -10,7 +10,7 @@
         KC_GRV,         K01, K02, K03, K04, K05,                    K06, K07, K08, K09, K0A, KC_BSPC,  \
         KC_TAB,         K11, K12, K13, K14, K15,                    K16, K17, K18, K19, K1A, KC_DEL, \
         LSFT_T(KC_ESC), K21, K22, K23, K24, K25,                    K26, K27, K28, K29, K2A, KC_QUOT, \
-        KC_LCTRL,       K31, K32, K33, K34, K35, KC_LBRC, KC_LEAD,  K36, K37, K38, K39, K3A, KC_ENT, \
+        KC_LCTRL,       K31, K32, K33, K34, K35, CP_PST,  KC_LEAD,  K36, K37, K38, K39, K3A, KC_ENT, \
                         KC_LGUI, KC_LALT, LOWER, KC_SPC,  KC_ENT,   RAISE, DM_PLY1, DM_PLY2           \
     )
 #define LAYOUT_lily58_base_wrapper(...) LAYOUT_lily58_base(__VA_ARGS__)

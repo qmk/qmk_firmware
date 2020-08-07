@@ -41,7 +41,7 @@
 
 #define _________________LOWER_L1__________________         UC_FLIP, UC_TABL, UC_SHRG, UC_DISA, XXXXXXX
 #define _________________LOWER_L2__________________         KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX
-#define _________________LOWER_L3__________________         KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX
+#define _________________LOWER_L3__________________         KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX
 #define _________________LOWER_L4__________________         ___________________BLANK___________________
 
 #define _________________LOWER_R1__________________         ___________________BLANK___________________

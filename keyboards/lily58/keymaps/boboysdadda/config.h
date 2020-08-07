@@ -47,10 +47,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // Encoder
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F5 }
-#define ENCODER_RESOLUTION 4
-#define ENCODER_DIRECTION_FLIP
+// #define ENCODERS_PAD_A { F4 }
+// #define ENCODERS_PAD_B { F5 }
+// #define ENCODER_RESOLUTION 4
+// #define ENCODER_DIRECTION_FLIP
 
 // Underglow
 /*
