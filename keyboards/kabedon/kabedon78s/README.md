@@ -2,9 +2,9 @@
 
 This is a special-shaped keyboard with smaller keyboard and more functions,Includes RGB LEDs  Underglow
 
-*Keyboard Maintainer:  [370490639](https://github.com/370490639)
-*Hardware Supported: Kabe Don 78s
-*Hardware Availability: Kabe Don 78S
+* Keyboard Maintainer:  [370490639](https://github.com/370490639)
+* Hardware Supported: Kabe Don 78s
+* Hardware Availability: Kabe Don 78S
 
 Make example for this keyboard (after setting up your build environment):
 
