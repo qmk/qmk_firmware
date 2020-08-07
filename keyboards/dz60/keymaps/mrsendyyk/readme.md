@@ -1,7 +1,7 @@
 # Sendy YK's Keymap
 ---
 
-KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as a Caps Lock, Num Lock, and Layer Indicator
+KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
 
 ### Default [0]
 ```
