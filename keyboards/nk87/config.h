@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x4E4B
+#define PRODUCT_ID      0x4E4C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NK87
@@ -128,11 +128,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Each value is for a row, bit 0 is column 0
 // Alpha=0 Mod=1
 // Rows are shifted one down, F-row cannot be dynamically modified at the moment.
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b0110000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_1 0b0100000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0110000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0111000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0111111000000111
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b1110000000000000
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_1 0b1100000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0010000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b1001000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b1111100000000111
 
 #define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }

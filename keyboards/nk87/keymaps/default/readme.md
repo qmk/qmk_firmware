@@ -1,6 +1,8 @@
-The default keymap for NK65. VIA support disabled.
+The default keymap for NK87. VIA support disabled.
 =========================================================
 
-![Layout image](https://i.imgur.com/DL0CjJO.png)
+![Layer 0](https://i.imgur.com/nw29fvc.png)
+Fn Layer:
+![Layer 1](https://i.imgur.com/SyijLFt.png)
 
-Default layer is normal ANSI 65%
+Default layer is normal ANSI TKL

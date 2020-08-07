@@ -21,9 +21,9 @@
 #include "drivers/issi/is31fl3733.h"
 
 /* Indicator LEDS are part of the LED driver
- * Top LED is blue only. LED driver 2 RGB 7 Green channel
- * Middle LED is blue and red. LED driver 2 RGB 6 Red and Blue channel
- * Bottom LED is red only LED driver 2 RGB 6 Green channel.
+ * Top LED is blue only. LED driver 2 RGB 63 Blue channel
+ * Middle LED is blue and red. LED driver 2 RGB 63 Red and Green channel
+ * Bottom LED is red only LED driver 2 RGB 48 Blue channel.
  */
 uint8_t CAPS = 0;
 uint8_t FN1 = 0;
