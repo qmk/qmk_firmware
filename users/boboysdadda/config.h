@@ -109,3 +109,11 @@
 #endif
 
 #define OLED_FONT_H "users/curry/glcdfont.c"
+
+// Encoder
+#if defined(ENCODER_ENABLE)
+#   define ENCODERS_PAD_A { F4 }
+#   define ENCODERS_PAD_B { F5 }
+#   define ENCODER_RESOLUTION 4
+#   define ENCODER_DIRECTION_FLIP
+#endif

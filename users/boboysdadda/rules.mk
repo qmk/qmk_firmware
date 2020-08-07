@@ -30,6 +30,11 @@ endif
 ifeq ($(strip $(LEADER_ENABLE)), yes)
     SRC += leader.c
 endif
+
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    SRC += encoder.c
+endif
+
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_lighting_user.c
     ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
