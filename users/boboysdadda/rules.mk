@@ -32,7 +32,7 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
-    SRC += encoder.c
+    SRC += encoder_stuff.c
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)

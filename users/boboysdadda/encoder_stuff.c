@@ -1,5 +1,5 @@
 #include "boboysdadda.h"
-#include "encoder.h"
+#include "encoder_stuff.h"
 
 void encoder_update_user(uint8_t index, bool clockwise) {
   uint8_t layer = biton32(layer_state);
