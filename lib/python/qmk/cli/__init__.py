@@ -7,6 +7,7 @@ import sys
 from milc import cli
 
 from . import cformat
+from . import chibios
 from . import compile
 from . import config
 from . import docs
