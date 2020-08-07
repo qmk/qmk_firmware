@@ -1,9 +1,9 @@
 # Sendy YK's Keymap
 ---
 
-KBDfans DZ60 ANSI with Arrow also RGB Underglow as a Caps Lock Indicator
+KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as a Caps Lock, Num Lock, and Layer Indicator
 
-### Qwerty [0]
+### Default [0]
 ```
 ,-----------------------------------------------------------------------------------------.
 | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  | Backspace |
@@ -14,7 +14,7 @@ KBDfans DZ60 ANSI with Arrow also RGB Underglow as a Caps Lock Indicator
 |-----------------------------------------------------------------------------------------+
 | Shift      |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  RShift  |  Up |  /  |
 |-----------------------------------------------------------------------------------------+
-| Ctrl  |  OS  | Alt  |              Space                 | RAlt | Fn  |Left |Down |Right|
+| Ctrl  |  OS  | Alt  |              Space                 | RAlt |NL/Fn|Left |Down |Right|
 `-----------------------------------------------------------------------------------------'
 ```
 
@@ -33,10 +33,20 @@ KBDfans DZ60 ANSI with Arrow also RGB Underglow as a Caps Lock Indicator
 `-----------------------------------------------------------------------------------------'
 ```
 
-### RGB Underglow as a Caps Lock Indicator
-
-Set in `mrsendyyk/keymap.c` in the `led_set_user` function.
-
+### Fn Layer [2] (Keyboard Settings)
+```
+,-----------------------------------------------------------------------------------------.
+|     |     |     |     |     |     |     |     |     |     |     |     |     |           |
+|-----------------------------------------------------------------------------------------+
+|        |R Tog|R Mo+|Hue +|Hue -|Sat +|Sat -|Bri +|Bri -|     |     |     |     |        |
+|-----------------------------------------------------------------------------------------+
+|         |     |     |     |     |     |     |     |     |     |     |     |             |
+|-----------------------------------------------------------------------------------------+
+|            |     |     |     |BL - |B Tog|BL +|B Cyc|      |     |          |     |     |
+|-----------------------------------------------------------------------------------------+
+|       |      |      |                                    |      |     |     |     |     |
+`-----------------------------------------------------------------------------------------'
+```
 ---
 
 Make example for this keyboard (after setting up your build environment):
