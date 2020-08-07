@@ -82,7 +82,7 @@ def migrate_chconf_h(to_override, outfile):
         print("#define %s %s" % (override[0], override[1]), file=outfile)
         print("", file=outfile)
 
-    print("#include_next \"chconf.h\"\n", file=outfile)
+    print("#include_next <chconf.h>\n", file=outfile)
 
 
 def migrate_halconf_h(to_override, outfile):
@@ -92,13 +92,13 @@ def migrate_halconf_h(to_override, outfile):
         print("#define %s %s" % (override[0], override[1]), file=outfile)
         print("", file=outfile)
 
-    print("#include_next \"halconf.h\"\n", file=outfile)
+    print("#include_next <halconf.h>\n", file=outfile)
 
 
 def migrate_mcuconf_h(to_override, outfile):
     print(fileHeader.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
 
-    print("#include_next \"mcuconf.h\"\n", file=outfile)
+    print("#include_next <mcuconf.h>\n", file=outfile)
 
     for override in to_override:
         print("#undef %s" % (override[0]), file=outfile)
