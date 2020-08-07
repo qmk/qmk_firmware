@@ -1,7 +1,7 @@
 Southpaw75
 ===
 
-![Southpaw75](https://imgur.com/a/dzjpDv9)
+![Southpaw75](https://i.imgur.com/BBXclH1l.jpg)
 
 60% with southpaw numpad.
 
