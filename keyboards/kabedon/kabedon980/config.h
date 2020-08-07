@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3938 //98
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kabe_Don
-#define PRODUCT         Kabe Don 980
-#define DESCRIPTION     KabeDon980
+#define PRODUCT         980
+
 
 /* key matrix size */
 #define MATRIX_ROWS 10
