@@ -70,7 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef PRODUCT
 #define PRODUCT Drashna Hacked Corne Keyboard
 
-#define OLED_FONT_H "keyboards/crkbd/keymaps/drashna/glcdfont.c"
+#define OLED_FONT_H "layouts/community/split_3x6_3/drashna/glcdfont.c"
 // #define OLED_FONT_WIDTH 5
 // #define OLED_FONT_HEIGHT 7
 
