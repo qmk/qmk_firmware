@@ -10,10 +10,10 @@ enum macro_id {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
-    KC_Q,          KC_W,    KC_D,     KC_F,           KC_K,                                              KC_J,             KC_U,            KC_R,     KC_L,     KC_SCLN,
-    LT(ETC,KC_A),  KC_S,    KC_E,     KC_T,           KC_G,                                              KC_Y,             KC_N,            KC_I,     KC_O,     KC_H,
-    SFT_T(KC_Z),   KC_X,    KC_C,     KC_V,           KC_B,                                              KC_P,             KC_M,            KC_COMM,  KC_DOT,   SFT_T(KC_SLSH),
-    KC_GRV,        KC_DEL,  KC_LALT,  GUI_T(KC_TAB),  LT(SYMB,KC_BSPC),  CTL_T(KC_ESC),  SFT_T(KC_ENT),  LT(SYMB,KC_SPC),  GUI_T(KC_LEFT),  KC_DOWN,  KC_UP,    LCAG_T(KC_RGHT)
+    KC_Q,          KC_W,    KC_D,     KC_F,           KC_K,                                              KC_J,             KC_U,            KC_R,            KC_L,     KC_SCLN,
+    LT(ETC,KC_A),  KC_S,    KC_E,     KC_T,           KC_G,                                              KC_Y,             KC_N,            KC_I,            KC_O,     KC_H,
+    SFT_T(KC_Z),   KC_X,    KC_C,     KC_V,           KC_B,                                              KC_P,             KC_M,            KC_COMM,         KC_DOT,   SFT_T(KC_SLSH),
+    KC_GRV,        KC_DEL,  KC_LALT,  GUI_T(KC_TAB),  LT(SYMB,KC_BSPC),  CTL_T(KC_ESC),  SFT_T(KC_ENT),  LT(SYMB,KC_SPC),  GUI_T(KC_LEFT),  ALT_T(KC_DOWN),  KC_UP,    LCAG_T(KC_RGHT)
   ),
 
   [SYMB] = LAYOUT(
