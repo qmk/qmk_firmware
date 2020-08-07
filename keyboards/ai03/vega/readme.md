@@ -1,6 +1,6 @@
 # Vega
 
-![Vega](https://i.imgur.com/7ZcCqwP.png)
+![Vega](https://i.imgur.com/7ZcCqwPl.png)
 
 A typical 65% keyboard
 
