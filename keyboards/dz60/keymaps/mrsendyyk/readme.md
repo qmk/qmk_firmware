@@ -1,4 +1,4 @@
-# Sendy YK's Keymap
+# LAYOUT 60 ANSI Arrow mrsendyyk
 ---
 
 KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
@@ -27,7 +27,7 @@ KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and La
 |-----------------------------------------------------------------------------------------+
 | Bri Down|     | S L |     |     |     | Home|     |     |     |     |     |    Mute     |
 |-----------------------------------------------------------------------------------------+
-| Vol +      |     |     | Calc|     |     |     | Mail|     |     |          |Pg U |Pause|
+| Vol +      |     |     | Calc|     |     |Num L| Mail|     |     |          |Pg U |Pause|
 |-----------------------------------------------------------------------------------------+
 | Vol - | Rwd  | F Fd |                 Play               | M Stp|     | Prev| Pg D| Next|
 `-----------------------------------------------------------------------------------------'
