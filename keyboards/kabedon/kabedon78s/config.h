@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kabe_Don
 #define PRODUCT         78S
-#define DESCRIPTION     KabeDon78S
 
 /* key matrix size */
 #define MATRIX_ROWS 6
