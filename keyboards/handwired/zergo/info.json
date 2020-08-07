@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "", 
+    "keyboard_name": "zergo", 
     "url": "", 
-    "maintainer": "qmk", 
+    "maintainer": "greenjack", 
     "width": 15, 
-    "height": 6.25, 
+    "height": 6, 
     "layouts": {
         "LAYOUT": {
             "layout": [
