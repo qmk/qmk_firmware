@@ -15,10 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
-#include "paw3204.h"
-#include "pointing_device.h"
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT_all(
@@ -50,49 +46,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______,                           _______, _______,                                           _______, _______, _______
     )
 };
-
-void matrix_init_user(void) {
-#ifdef POINTING_DEVICE_ENABLE
-    init_paw3204();
-#endif
-}
-
-report_mouse_t mouse_rep;
-
-void matrix_scan_user(void) {
-#ifdef POINTING_DEVICE_ENABLE
-    static int  cnt;
-    static bool paw_ready;
-    if (cnt++ % 50 == 0) {
-        uint8_t pid = read_pid_paw3204();
-        if (pid == 0x30) {
-            dprint("paw3204 OK\n");
-            paw_ready = true;
-        } else {
-            dprintf("paw3204 NG:%d\n", pid);
-            paw_ready = false;
-        }
-    }
-
-    if (paw_ready) {
-        uint8_t stat;
-        int8_t x, y;
-
-        read_paw3204(&stat, &x, &y);
-        mouse_rep.buttons = 0;
-        mouse_rep.h       = 0;
-        mouse_rep.v       = 0;
-        mouse_rep.x       = x;
-        mouse_rep.y       = y;
-
-        if (cnt % 10 == 0) {
-            dprintf("stat:%3d x:%4d y:%4d\n", stat, mouse_rep.x, mouse_rep.y);
-        }
-
-        if (stat & 0x80) {
-            pointing_device_set_report(mouse_rep);
-        }
-    }
-#endif
-}
-
