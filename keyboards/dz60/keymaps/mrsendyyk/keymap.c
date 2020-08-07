@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
-// LAYOUT 60 ANSI Arrow mrsendyyk
 // KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
+// LAYOUT 60 ANSI Arrow mrsendyyk
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
