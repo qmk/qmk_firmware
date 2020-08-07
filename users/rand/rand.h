@@ -35,7 +35,7 @@ uint16_t encoder_rotated_timer;
 
 #define _QWERTY 0
 #define _DVORAK 1
-#define _COLEMAK 2
+#define _GAMING 2
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 5
@@ -60,7 +60,7 @@ uint16_t encoder_rotated_timer;
 #define _____________________QWERTY_L2______________________ T_ESC, KC_A, KC_S, KC_D, KC_F, KC_G
 #define _____________________QWERTY_L3______________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
 
-#define _____________________QWERTY_R1______________________ T_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC
+#define _____________________QWERTY_R1______________________ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC
 #define _____________________QWERTY_R2______________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT
 #define _____________________QWERTY_R3______________________ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT
 
@@ -72,13 +72,13 @@ uint16_t encoder_rotated_timer;
 #define _____________________DVORAK_R2______________________ KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLSH
 #define _____________________DVORAK_R3______________________ KC_B, KC_M, KC_W, KC_V, KC_Z, MT_EQL
 
-#define _____________________COLEMAK_L1_____________________ T_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G
-#define _____________________COLEMAK_L2_____________________ T_ESC, KC_A, KC_R, KC_S, KC_T, KC_D
-#define _____________________COLEMAK_L3_____________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
+#define _____________________GAMING_L1_____________________ T_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T
+#define _____________________GAMING_L2_____________________ KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G
+#define _____________________GAMING_L3_____________________ KC_N, KC_Z, KC_X, KC_C, KC_V, KC_B
 
-#define _____________________COLEMAK_R1_____________________ KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSLS
-#define _____________________COLEMAK_R2_____________________ KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT
-#define _____________________COLEMAK_R3_____________________ KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, MT_EQL
+#define _____________________GAMING_R1_____________________ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC
+#define _____________________GAMING_R2_____________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT
+#define _____________________GAMING_R3_____________________ KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT
 
 #define _____________________NUM_LEFT_______________________ T_GRV, KC_1, KC_2, KC_3, KC_4, KC_5
 #define _____________________NUM_RIGHT______________________ KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC
@@ -92,12 +92,12 @@ uint16_t encoder_rotated_timer;
 #define _____________________SYM_LEFT_______________________ KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC
 #define _____________________SYM_RIGHT______________________ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL
 
-#define _____________________LOWER_L1_______________________ M_XXX2, M_XXX3, _________MEDIA_1_________, K_CSCN
-#define _____________________LOWER_L2_______________________ M_XXX4, M_XXX5, _________MEDIA_2_________, XXXXXXX
-#define _____________________LOWER_L3_______________________ KC_LSFT, M_SHFT, _________MEDIA_3_________, T_LBRC
+#define _____________________LOWER_L1_______________________ M_XXX2, M_XXX3, XXXXXXX, XXXXXXX, XXXXXXX, K_CSCN
+#define _____________________LOWER_L2_______________________ T_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _____________________LOWER_L3_______________________ KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define _____________________LOWER_R1_______________________ _______________NAV_1______________, XXXXXXX, K_MDSH
-#define _____________________LOWER_R2_______________________ _______________NAV_2______________, K_LOCK, XXXXXXX
+#define _____________________LOWER_R2_______________________ XXXXXXX, KC_LCBR, KC_RCBR, KC_QUES, KC_PLUS, KC_PIPE
 #define _____________________LOWER_R3_______________________ XXXXXXX, _______________NAV_1______________, KC_ENT
 
 #define _____________________ADJUST_L1______________________ M_MAKE, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -111,10 +111,10 @@ uint16_t encoder_rotated_timer;
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
-  #define _____________________ADJUST_R1______________________ RGB_TOG, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY
+  #define _____________________ADJUST_R1______________________ RGB_TOG, XXXXXXX, XXXXXXX, GAMING,  DVORAK, QWERTY
   #define _____________________ADJUST_R3______________________ RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #else
-  #define _____________________ADJUST_R1______________________ XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY
+  #define _____________________ADJUST_R1______________________ XXXXXXX, XXXXXXX, XXXXXXX, GAMING,  DVORAK, QWERTY
   #define _____________________ADJUST_R3______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #endif
 #define _____________________ADJUST_R2______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -134,8 +134,8 @@ uint16_t encoder_rotated_timer;
 #define _____________MOD_LEFT_____________ KC_LALT, T_GUI, KC_LCTL, LT_RAI
 #define _____________MOD_RIGHT____________ LT_LOW, KC_BSPC, MT_DEL, T_CPAP
 
-#define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
-#define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
+#define _______GAMING_LEFT_______ KC_SPC, LT_RAI, LT_LOW
+#define _______GAMING_RIGHT______ T_GUI, LT_LOW, KC_LALT
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
 
 #if defined(KEYBOARD_crkbd_rev1) || defined(KEYBOARD_kyria_rev1)

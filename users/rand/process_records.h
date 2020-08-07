@@ -5,7 +5,7 @@ enum custom_keycodes {
   // Layer Macros
   QWERTY = SAFE_RANGE,
   DVORAK,
-  COLEMAK,
+  GAMING,
   // Custom Macros
   M_PYNV,
   M_SHFT,
