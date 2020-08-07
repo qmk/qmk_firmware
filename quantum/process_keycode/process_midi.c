@@ -128,10 +128,9 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MI_VELD:
             if (record->event.pressed && midi_config.velocity > 0) {
-                if (midi_config.velocity > 12 ) {
+                if (midi_config.velocity > 12) {
                     midi_config.velocity -= 13;
-                }
-                else {
+                } else {
                     midi_config.velocity = 0;
                 }
 
@@ -140,10 +139,9 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MI_VELU:
             if (record->event.pressed && midi_config.velocity < 127) {
-                if (midi_config.velocity < 115 ) {
+                if (midi_config.velocity < 115) {
                     midi_config.velocity += 13;
-                }
-                else {
+                } else {
                     midi_config.velocity = 127;
                 }
                 dprintf("midi velocity %d\n", midi_config.velocity);
