@@ -4,7 +4,7 @@ A drop-in replacement controller for the CM Quickfire Rapid. Not for the Quickfi
 
 * Keyboard Maintainer: [Maartenwut](https://github.com/Maartenwut)
 * Hardware Supported: Quackfire controller
-* Hardware Availability: none
+* Hardware Availability: [Open source on GitHub]https://github.com/Maartenwut/quackfire-controller
 
 ## Flashing
 
