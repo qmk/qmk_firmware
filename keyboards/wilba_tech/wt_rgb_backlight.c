@@ -1402,8 +1402,13 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 {
 #if defined(RGB_BACKLIGHT_M6_B)
     IS31FL3218_set_color( index, red, green, blue );
-#elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA65) || defined(RGB_BACKLIGHT_NK87)
+#elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA65)
     IS31FL3733_set_color( index, red, green, blue );
+#elif defined(RGB_BACKLIGHT_NK87)
+    // This is done to avoid indicator LEDs being set
+    if (( index != 63+64-1 ) && ( index != 48+64-1 )) {
+        IS31FL3733_set_color( index, red, green, blue );
+    }
 #elif defined(RGB_BACKLIGHT_DAWN60)
     if( index < DRIVER_LED_TOTAL ) {
         IS31FL3731_set_color( index, red, green, blue );
@@ -1422,10 +1427,17 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 {
 #if defined(RGB_BACKLIGHT_M6_B)
     IS31FL3218_set_color_all( red, green, blue );
-#elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA65) || defined(RGB_BACKLIGHT_NK87)
+#elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA65)
     // This is done to avoid indicator LEDs being set
     for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
         IS31FL3733_set_color(i, red, green, blue);
+    }
+#elif defined(RGB_BACKLIGHT_NK87)
+    // This is done to avoid indicator LEDs being set
+    for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
+        if (( i != 63+64-1 ) && ( i != 48+64-1 )) {
+            IS31FL3733_set_color(i, red, green, blue);
+        }
     }
 #elif defined(RGB_BACKLIGHT_DAWN60)
     IS31FL3731_set_color_all( red, green, blue );
@@ -2513,10 +2525,10 @@ void backlight_init_drivers(void)
                           ( (index >= 38+64-1) && (index <= 40+64-1) ) ||
                           ( (index >= 42+64-1) && (index <= 44+64-1) ) ||
                           ( (index >= 46+64-1) && (index <= 48+64-1) ) ||
-                          ( index == 50-1 )   ||
-                          ( index == 54-1 )   ||
-                          ( index == 58-1 )   ||
-                          ( index == 62-1 ) );
+                          ( index == 50+64-1 )   ||
+                          ( index == 54+64-1 )   ||
+                          ( index == 58+64-1 )   ||
+                          ( index == 62+64-1 ) );
         // This only caches it for later
         IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
     }
