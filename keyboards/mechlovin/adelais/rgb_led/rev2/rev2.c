@@ -126,11 +126,7 @@ void rgb_matrix_indicators_user(void) {
 
 #endif
 
-#ifndef RAW_ENABLE
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#else
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#endif
   if (record->event.pressed) {
     switch(keycode) {
     #ifdef RGBLIGHT_ENABLE

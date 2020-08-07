@@ -1,3 +1,3 @@
 
 
-DEFAULT_FOLDER = mechlovin/adelais/rgb_led/rev2
+DEFAULT_FOLDER = mechlovin/adelais/rgb_led/rev1

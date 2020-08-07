@@ -2,7 +2,6 @@
 
 #define PRODUCT_ID   0xAEC1
 #define PRODUCT      Adelais En Ciel
-#define DESCRIPTION  Team.Mechlovin Adelais En Ciel
 
 #define DRIVER_LED_TOTAL 91
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

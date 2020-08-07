@@ -1,8 +1,7 @@
 #pragma once
 
 #define PRODUCT_ID   0xAEC2
-#define PRODUCT      Adelais En Ciel Rev2
-#define DESCRIPTION  Team.Mechlovin Adelais En Ciel Rev2
+#define PRODUCT      Adelais En Ciel Rev2  
 
 #define RGBLED_NUM      23
 #define RGBLIGHT_ANIMATIONS
