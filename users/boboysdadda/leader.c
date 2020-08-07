@@ -9,6 +9,9 @@ void matrix_scan_user(void) {
         has_ran_yet = true;
         startup_user();
     }
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+    matrix_scan_rgb();
+#endif  // RGBLIGHT_ENABLE
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();

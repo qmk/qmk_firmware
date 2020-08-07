@@ -1,15 +1,44 @@
 #pragma once
+
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "eeprom.h"
 #include "wrappers.h"
 #include "process_records.h"
 
+#if defined(TAP_DANCE_ENABLE)
+#    include "tap_dances.h"
+#endif  // TAP_DANCE_ENABLE
+
+#if defined(RGB_MATRIX_ENABLE)
+#   include "rgb_matrix_user.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+#   include "rgb_lighting_user.h"
+#endif
+
 #if defined(KEYBOARD_lily58_rev1) & defined(PROTOCOL_LUFA)
 #    include "lufa.h"
 #    include "split_util.h"
 #endif
 
+#if defined(TAP_DANCE_ENABLE)
+#    include "tap_dances.h"
+#endif  // TAP_DANCE_ENABLE
+
+#if defined(RGB_MATRIX_ENABLE)
+#   include "rgb_matrix_user.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+#   include "rgb_lighting_user.h"
+#endif
+
+#if defined(KEYBOARD_lily58_rev1) & defined(PROTOCOL_LUFA)
+#    include "lufa.h"
+#    include "split_util.h"
+#endif
 /* Define layer names */
 enum userspace_layers {
     _QWERTY  = 0,
@@ -17,6 +46,7 @@ enum userspace_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _MODS,
 
 };
 

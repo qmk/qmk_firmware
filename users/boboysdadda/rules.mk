@@ -30,6 +30,21 @@ endif
 ifeq ($(strip $(LEADER_ENABLE)), yes)
     SRC += leader.c
 endif
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+    SRC += rgb_lighting_user.c
+    ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
+        OPT_DEFS += -DINDICATOR_LIGHTS
+    endif
+    ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
+        OPT_DEFS += -DRGBLIGHT_TWINKLE
+    endif
+    ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
+        OPT_DEFS += -DRGBLIGHT_NOEEPROM
+    endif
+    ifeq ($(strip $(RGBLIGHT_STARTUP_ANIMATION)), yes)
+        OPT_DEFS += -DRGBLIGHT_STARTUP_ANIMATION
+    endif
+endif
 
 # At least until build.mk or the like drops, this is here to prevent
 # VUSB boards from enabling NKRO, as they do not support it. Ideally

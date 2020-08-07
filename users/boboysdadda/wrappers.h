@@ -60,4 +60,12 @@
 #define _________________RAISE_R3__________________         KC_F11,  KC_MINS,  KC_EQL,  KC_LBRC, KC_RBRC
 #define _________________RAISE_R4__________________         KC_F12,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX
 
+#define _________________ADJUST_L1_________________         RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
+#define _________________ADJUST_L2_________________         MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM
+#define _________________ADJUST_L3_________________         RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T
+
+#define _________________ADJUST_R1_________________         KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
+#define _________________ADJUST_R2_________________         CG_SWAP, QWERTY,  _______, DVORAK,  _______
+#define _________________ADJUST_R3_________________         MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
+
 // clang-format on
