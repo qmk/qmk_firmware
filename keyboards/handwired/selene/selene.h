@@ -18,6 +18,9 @@
 
 #include "quantum.h"
 
+#define NUM_LOCK_PIN A0
+#define CAPS_LOCK_PIN A2
+#define SCROLL_LOCK_PIN A1
 
 #define LAYOUT( \
 	K000,       K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, K016, K017, K018, K019, K020, \

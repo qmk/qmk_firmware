@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Bpendragon
 #define PRODUCT         Selene
-#define DESCRIPTION     A 109 key ANSI keyboard
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 21
@@ -33,7 +32,6 @@
 #define UNUSED_PINS
 #define RGB_DI_PIN A3
 #define RGBLED_NUM 50
-#define DYNAMIC_KEYCAP_LAYER_COUNT 4
 
 
 /* COL2ROW or ROW2COL */
