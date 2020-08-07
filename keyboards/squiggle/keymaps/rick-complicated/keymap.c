@@ -189,9 +189,7 @@ void matrix_scan_user() {
     leader_end();
 
     SEQ_ONE_KEY(KC_U) {
-      SEND_STRING(":luvu:");
-      register_code(KC_ENT);
-      unregister_code(KC_ENT);
+      SEND_STRING(":luvu:\n");
     }
   }
 }
