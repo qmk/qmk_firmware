@@ -1,6 +1,6 @@
 # Wabi
 
-![Wabi](https://i.imgur.com/cCyv5jF.jpg)
+![Wabi](https://i.imgur.com/cCyv5jFl.jpg)
 
 A conjoined-split 60% ortholinear amoeba handwire made by Ross Montsinger with 104-keycap sets in mind.
 
