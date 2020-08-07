@@ -7,9 +7,9 @@ This PCB  use Kailh hot swap sockets.
 KabeDon980  Includes RGB   Underglow.
 Aluminium Alloy and Translucent Case.
 
-*Keyboard Maintainer:  [370490639](https://github.com/370490639)
-*Hardware Supported: Kabe Don 980
-*Hardware Availability: [Kabe Don 980](https://item.taobao.com/item.htm?spm=a1z10.1-c.w4023-17458066155.8.81406bd0J97pHX&id=614156027788)
+* Keyboard Maintainer:  [370490639](https://github.com/370490639)
+* Hardware Supported: Kabe Don 980
+* Hardware Availability: [Kabe Don 980](https://item.taobao.com/item.htm?spm=a1z10.1-c.w4023-17458066155.8.81406bd0J97pHX&id=614156027788)
 
 Make example for this keyboard (after setting up your build environment):
 
