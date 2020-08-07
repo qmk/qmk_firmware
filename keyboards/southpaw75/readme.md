@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [kelvinhall05](https://github.com/kelvinhall05/)
 * Hardware Supported: Southpaw75 Pro Micro PCB
-* Hardware Availability: (https://github.com/kelvinhall05)
+* Hardware Availability: https://github.com/kelvinhall05/southpaw75
 
 Make example for this keyboard (after setting up your build environment):
 
