@@ -4,7 +4,7 @@
 
 A hand wired 2x3 macropad with a rotary encoder at the upper right corner.
 
-Keyboard Maintainer: [GhostSeven](https://github.com/ghostseven)  
+Keyboard Maintainer: [Dwin17](https://www.thingiverse.com/dwin17) (Hardware) [GhostSeven](https://github.com/ghostseven) (QMK Firmware)
 Hardware Supported: Pro Micro, Elite-C, Proton C   
 Hardware Availability: [Thingiverse](https://www.thingiverse.com/thing:4416966)
 
