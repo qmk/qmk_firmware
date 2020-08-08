@@ -2,6 +2,7 @@
 ---
 
 KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
+LAYOUT_60_ANSI_Arrow_mrsendyyk
 
 ### Default [0]
 ```
