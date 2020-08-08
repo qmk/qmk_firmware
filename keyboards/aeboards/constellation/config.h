@@ -23,8 +23,7 @@
 #define PRODUCT_ID      0x065C // 65 - Constellation
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         Constellation
-#define DESCRIPTION     Constellation
+#define PRODUCT         AEboards Constellation
 
 /* key matrix size */
 #define MATRIX_ROWS 5
