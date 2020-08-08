@@ -1,16 +1,27 @@
-#include "nguyenvietyen.h"
+#include "matrix.h"
 
-static matrix_row_t read_row(uint8_t row);
-static void         unselect_rows(void);
-static void         select_rows(uint8_t row);
+static matrix_row_t read_row(uint8_t row) {
+    matrix_io_delay();  // without this wait read unstable value.
+
+    // keypad and program buttons
+    if (row == 12) {
+        return ~(readPin(B4) | (readPin(B5) << 1) | 0b11111100);
+    }
+
+    return ~(readPin(B6) | readPin(B2) << 1 | readPin(B3) << 2 | readPin(B1) << 3 | readPin(F7) << 4 | readPin(F6) << 5 | readPin(F5) << 6 | readPin(F4) << 7);
+}
+
+static void unselect_rows(void) {
+    // set A,B,C,G to 0
+    PORTD &= 0xF0;
+}
+
+static void select_rows(uint8_t row) {
+    // set A,B,C,G to row value
+    PORTD |= (0x0F & row);
+}
 
 void matrix_init_custom(void) {
-    // output low (leds)
-    setPinOutput(D7);  // Keypad LED
-    setPinOutput(C6);  // ScrLock LED
-    setPinOutput(D4);  // NumLock LED
-    setPinOutput(E6);  // CapsLock LED
-
     // output low (multiplexers)
     setPinOutput(D0);
     setPinOutput(D1);
@@ -48,25 +59,4 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     }
 
     return matrix_has_changed;
-}
-
-static matrix_row_t read_row(uint8_t row) {
-    matrix_io_delay();  // without this wait read unstable value.
-
-    // keypad and program buttons
-    if (row == 12) {
-        return ~(readPin(B4) | (readPin(B5) << 1) | 0b11111100);
-    }
-
-    return ~(readPin(B6) | readPin(B2) << 1 | readPin(B3) << 2 | readPin(B1) << 3 | readPin(F7) << 4 | readPin(F6) << 5 | readPin(F5) << 6 | readPin(F4) << 7);
-}
-
-static void unselect_rows(void) {
-    // set A,B,C,G to 0
-    PORTD &= 0xF0;
-}
-
-static void select_rows(uint8_t row) {
-    // set A,B,C,G to row value
-    PORTD |= (0x0F & row);
 }
