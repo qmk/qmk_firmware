@@ -1,7 +1,8 @@
 #include QMK_KEYBOARD_H
 
-// LAYOUT Numpad 5x4 mrsendyyk
+// Sendy YK's Keymap
 // ai03 Design Studio Soyuz Numpad 5x4
+// LAYOUT_Numpad_5x4_mrsendyyk
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
