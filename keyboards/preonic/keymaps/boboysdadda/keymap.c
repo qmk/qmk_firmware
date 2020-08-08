@@ -11,7 +11,7 @@
         KC_TAB,          K11,     K12,     K13,     K14,     K15,   K16,    K17,    K18,   K19,     K1A,     KC_DEL, \
         LSFT_T(KC_ESC),  K21,     K22,     K23,     K24,     K25,   K26,    K27,    K28,   K29,     K2A,     KC_QUOT, \
         KC_LCTRL,        K31,     K32,     K33,     K34,     K35,   K36,    K37,    K38,   K39,     K3A,     KC_ENT, \
-        CP_PST,          KC_LEAD, KC_LGUI, KC_LALT, LOWER, KC_SPC, RAISE, DM_PLY1, DM_PLY2, _______, _______ \
+        CP_PST,          KC_LEAD, KC_LGUI, KC_LALT, LOWER,      KC_SPC,     RAISE, DM_PLY1, DM_PLY2, _______, _______ \
     )
 #define LAYOUT_preonic_base_wrapper(...) LAYOUT_preonic_base(__VA_ARGS__)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
