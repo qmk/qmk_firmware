@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "split_util.h"
 
 enum layers {
     _QWERTY,
@@ -6,11 +7,6 @@ enum layers {
     _LOWER,
     _ADJUST
 };
-
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
 
 #define KC_CTSC RCTL_T(KC_SCLN)
 #define LOWER_SPC LT(_LOWER, KC_SPC)
