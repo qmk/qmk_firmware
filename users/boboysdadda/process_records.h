@@ -21,7 +21,14 @@ enum userspace_custom_keycodes {
     KC_DT4,
     KC_MAKE,            // Run keyboard's customized make command
     KC_RGB_T,           // Toggles RGB Layer Indication mode
-    RGB_IDL,  
+    RGB_IDL, 
+    KC_SEC1, 
+    KC_SEC2, 
+    KC_SEC3, 
+    KC_SEC4, 
+    KC_SEC5,
+    KC_RST,
+    VRSN,
     NEW_SAFE_RANGE
 };
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
