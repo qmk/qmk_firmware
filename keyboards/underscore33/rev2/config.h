@@ -60,6 +60,3 @@
    #define RGBLIGHT_ANIMATIONS
 #endif
 
-/* Combos */
-#define COMBO_COUNT 5
-#define COMBO_TERM 50

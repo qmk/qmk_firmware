@@ -1,14 +1,6 @@
 # MCU name
 MCU = atmega32u2
 
-# Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
@@ -23,4 +15,4 @@ NKRO_ENABLE = yes            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = no
-COMBO_ENABLE = yes
+
