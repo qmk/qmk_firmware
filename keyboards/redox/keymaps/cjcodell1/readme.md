@@ -1,1 +1,1 @@
-# The default keymap for Redox
+# The Default Redox Layout
