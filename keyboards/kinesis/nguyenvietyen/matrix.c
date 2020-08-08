@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "quantum.h"
 
 static matrix_row_t read_row(uint8_t row) {
     matrix_io_delay();  // without this wait read unstable value.
