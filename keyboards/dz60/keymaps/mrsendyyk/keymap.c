@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+// Sendy YK's Keymap
 // KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
 // LAYOUT 60 ANSI Arrow mrsendyyk
 
