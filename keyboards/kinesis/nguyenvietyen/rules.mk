@@ -1,5 +1,3 @@
-CUSTOM_MATRIX = lite
-
 # MCU name
 MCU = atmega32u4
 
@@ -13,8 +11,6 @@ BOOTMAGIC_ENABLE = no
 COMMAND_ENABLE = yes
 NKRO_ENABLE = yes
 CUSTOM_MATRIX = lite
-
-# Project specific files
 SRC += matrix.c
 
 # experimentally determined to be sufficient :)

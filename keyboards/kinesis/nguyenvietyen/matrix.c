@@ -51,7 +51,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 }
 
 static matrix_row_t read_row(uint8_t row) {
-    _delay_us(30);  // without this wait read unstable value.
+    matrix_io_delay();  // without this wait read unstable value.
 
     // keypad and program buttons
     if (row == 12) {
