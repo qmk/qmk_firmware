@@ -16,16 +16,21 @@ jobs:
       with:
         fetch-depth: 0
 
+    - uses: trilom/file-changes-action@v1.2.3
+      id: file_changes
+      with:
+        output: '\n'
+
     - name: Print info
       run: |
         git rev-parse --short HEAD
         echo ${{ github.event.pull_request.base.sha }}
-        git diff --name-only ${{ github.event.pull_request.base.sha }}...
+        echo '${{ steps.file_changes.outputs.files}}'
 
     - name: Run qmk info
       shell: 'bash {0}'
       run: |
-        QMK_CHANGES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...)
+        QMK_CHANGES=$(echo -e '${{ steps.file_changes.outputs.files}}')
         QMK_KEYBOARDS=$(qmk list-keyboards)
 
         exit_code=0
