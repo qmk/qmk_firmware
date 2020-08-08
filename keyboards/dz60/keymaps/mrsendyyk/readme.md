@@ -1,4 +1,4 @@
-# LAYOUT 60 ANSI Arrow mrsendyyk
+# Sendy YK's Layout
 ---
 
 KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
