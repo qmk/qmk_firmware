@@ -1,10 +1,10 @@
-# microdox
+# Microdox
 
-![boardsource 5x12](https://i.imgur.com/xuNxpgh.jpg)
+![boardsource Microdox](https://i.imgur.com/AliShkv.jpg)
 
 * Keyboard Maintainer: [Boardsource](https://github.com/daysgobye) 
 * Hardware Supported: microdox v1
-* Hardware Availability: this keyboard is available from the [Boardsource store](https://boardsource.xyz/store/5ecb822386879c9a0c22db84)
+* Hardware Availability: this keyboard is available from the [Boardsource store](https://boardsource.xyz/store/5f2e7e4a2902de7151494f92)
 
 Make example for this keyboard (after setting up your build environment):
 
