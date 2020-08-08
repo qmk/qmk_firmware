@@ -9,6 +9,5 @@ void eeconfig_init_kb(void) {
 #endif
 #endif
 
-    eeconfig_update_kb(0);
     eeconfig_init_user();
 }
