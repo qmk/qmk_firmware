@@ -1,6 +1,6 @@
 # BM60 RGB ISO
 
-![BM60 RGB ISO](https://imgur.com/a/9QLfOaH)
+![BM60 RGB ISO](https://i.imgur.com/i3gk2vq.jpg)
 
 A 60% ISO hotswap inswitch RGB keyboard.
 
