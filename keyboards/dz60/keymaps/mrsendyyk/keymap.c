@@ -2,7 +2,7 @@
 
 // Sendy YK's Keymap
 // KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
-// LAYOUT 60 ANSI Arrow mrsendyyk
+// LAYOUT_60_ANSI_Arrow_mrsendyyk
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
