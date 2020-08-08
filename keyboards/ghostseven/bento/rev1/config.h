@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x1133
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0xDAD3
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    GhostSeven
 #define PRODUCT         Bento Macropad Rev. 1
