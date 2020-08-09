@@ -41,7 +41,7 @@ Proton C には1つのオンボード LED(C13)しかなく、デフォルトで�
 |--------------------------------------|------------------------------------------------------------------------------------|
 | [オーディオ](ja/feature_audio.md)      | 有効                                                                      |
 | [RGB ライト](ja/feature_rgblight.md)  | 無効                                                                       |
-| [バックライト](feature_backlight.md)   | ARMが自動コンフィギュレーションを提供できるようになるまで、[タスク駆動 PWM](ja/(feature_backlight.md#software-pwm-driver))が強制されます |
+| [バックライト](feature_backlight.md)   | ARM が自動コンフィギュレーションを提供できるようになるまで、[タスク駆動 PWM](ja/(feature_backlight.md#software-pwm-driver))が強制されます |
 | USB ホスト (例えば USB-USB コンバータ)   | 未サポート (USB ホストコードは AVR 固有のもので、現在 ARM ではサポートされていません。 |
 | [分割キーボード](ja/feature_split_keyboard.md) | 部分的 - 有効にする機能に大きく依存する                                 |
 
