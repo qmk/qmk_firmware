@@ -17,15 +17,15 @@
 |-----------------------------------------------------------------------------------------+
 |Caps Lock|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
 |-----------------------------------------------------------------------------------------+
-| Shift      |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  RShift  | Up  |  /  |
+| L Shift    |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  R Shift | Up  |  /  |
 |-----------------------------------------------------------------------------------------+
-| Ctrl  |  OS  | Alt  |              Space                 | RAlt | Fn  |Left |Down |Right|
+| L Ctr |  OS  | Alt  |              Space                  |R Alt|R Ctr|Left |Down |Right|
 `-----------------------------------------------------------------------------------------'
 ```
 
 ### Layer [1]
 
-(Press & Hold `Fn` Key)
+(Press & Hold `R Ctr` Key)
 
 ```
 ,-----------------------------------------------------------------------------------------.
@@ -43,7 +43,7 @@
 
 ### Layer [2]
 
-(Press & Hold `RAlt` Key)
+(Press & Hold `R Alt` Key)
 
 ```
 ,-----------------------------------------------------------------------------------------.
@@ -64,7 +64,7 @@
 [dz60/keymaps/mrsendyyk/keymap.c](https://github.com/qmk/qmk_firmware/blob/master/keyboards/dz60/keymaps/mrsendyyk/keymap.c)
 
 1. Caps Lock Indicator `rgblight_setrgb(255, 110, 0)`
-2. Num Lock Indicator (Press & Hold `Fn` Key + Press `N` Key) `rgblight_setrgb(100, 255, 100)`
+2. Num Lock Indicator (Press & Hold `R Ctr` Key + Press `N` Key) `rgblight_setrgb(100, 255, 100)`
 3. Layer Indicator `rgblight_setrgb(225, 8, 0)`
 
 ---

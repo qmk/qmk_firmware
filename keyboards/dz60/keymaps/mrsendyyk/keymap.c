@@ -12,9 +12,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------------------------------------+
    * |Caps Lock|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
    * |-----------------------------------------------------------------------------------------+
-   * | Shift      |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  RShift  | Up  |  /  |
+   * | Left Shift |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  R Shift | Up  |  /  |
    * |-----------------------------------------------------------------------------------------+
-   * | Ctrl  |  OS  | Alt  |              Space                 | RAlt | Fn  |Left |Down |Right|
+   * | L Ctl |  OS  |L Alt |              Space                  |R Alt|R Ctl|Left |Down |Right|
    * `-----------------------------------------------------------------------------------------'
    */
 
@@ -22,9 +22,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
                                        KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
                                        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, KC_SLSH,
-                                       KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, LT(2, KC_RALT), MO(1), KC_LEFT, KC_DOWN, KC_RGHT),
+                                       KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, LT(2, KC_RALT), LT(1, KC_RCTL), KC_LEFT, KC_DOWN, KC_RGHT),
 
-  /* Layer [1] (Press & Hold `Fn` Key)
+  /* Layer [1] (Press & Hold `R Ctl` Key)
    * ,-----------------------------------------------------------------------------------------.
    * | ` ~ |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |  Delete   |
    * |-----------------------------------------------------------------------------------------+
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_VOLU, _______, _______, KC_CALC, _______, _______, KC_NLCK, KC_MAIL, _______, _______, _______, KC_PGUP, KC_PAUS,
                                        KC_VOLD, KC_MRWD, KC_MFFD, KC_MPLY, KC_MSTP, KC_TRNS, KC_MPRV, KC_PGDN, KC_MNXT),
 
-  /* Layer [2] (Press & Hold `RAlt` Key)
+  /* Layer [2] (Press & Hold `R Alt` Key)
    * ,-----------------------------------------------------------------------------------------.
    * |     |     |     |     |     |     |     |     |     |     |     |     |     |           |
    * |-----------------------------------------------------------------------------------------+
@@ -72,7 +72,7 @@ void keyboard_post_init_user(void) {
 
 // RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
 
-void update_led(void) { // Num Lock Indicator (Press & Hold `Fn` Key + Press `N` Key)
+void update_led(void) { // Num Lock Indicator (Press & Hold `R Ctl` Key + Press `N` Key)
   if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) {
     rgblight_setrgb(100, 255, 100);
   }
@@ -84,10 +84,10 @@ void led_set_user(uint8_t usb_led) {
     rgblight_setrgb(255, 110, 0);
   } else { // Layer Indicator
       switch (biton32(layer_state)) {
-        case 1: // Layer [1] Indicator (Press & Hold `Fn` Key)
+        case 1: // Layer [1] Indicator (Press & Hold `R Ctl` Key)
           rgblight_setrgb(225, 8, 0);
           break;
-        case 2: // Layer [2] Indicator (Press & Hold `RAlt` Key)
+        case 2: // Layer [2] Indicator (Press & Hold `R Alt` Key)
           rgblight_setrgb(225, 8, 0);
           break;
         default: // Layer [0] Indicator
