@@ -1,6 +1,6 @@
 # Microdox
 
-![boardsource Microdox](https://i.imgur.com/AliShkv.jpg)
+![boardsource Microdox](https://i.imgur.com/AliShkvl.jpg)
 
 * Keyboard Maintainer: [Boardsource](https://github.com/daysgobye) 
 * Hardware Supported: microdox v1
