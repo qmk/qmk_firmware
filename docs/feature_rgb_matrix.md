@@ -159,15 +159,16 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 ## Flags :id=flags
 
-|Define                              |Description                                |
-|------------------------------------|-------------------------------------------|
-|`#define HAS_FLAGS(bits, flags)`    |Returns true if `bits` has all `flags` set.|
-|`#define HAS_ANY_FLAGS(bits, flags)`|Returns true if `bits` has any `flags` set.|
-|`#define LED_FLAG_NONE      0x00`   |If this LED has no flags.                  |
-|`#define LED_FLAG_ALL       0xFF`   |If this LED has all flags.                 |
-|`#define LED_FLAG_MODIFIER  0x01`   |If the Key for this LED is a modifier.     |
-|`#define LED_FLAG_UNDERGLOW 0x02`   |If the LED is for underglow.               |
-|`#define LED_FLAG_KEYLIGHT  0x04`   |If the LED is for key backlight.           |
+|Define                      |Value |Description                                      |
+|----------------------------|------|-------------------------------------------------|
+|`HAS_FLAGS(bits, flags)`    |*n/a* |Evaluates to `true` if `bits` has all `flags` set|
+|`HAS_ANY_FLAGS(bits, flags)`|*n/a* |Evaluates to `true` if `bits` has any `flags` set|
+|`LED_FLAG_NONE`             |`0x00`|If this LED has no flags                         |
+|`LED_FLAG_ALL`              |`0xFF`|If this LED has all flags                        |
+|`LED_FLAG_MODIFIER`         |`0x01`|If the LED is on a modifier key                  |
+|`LED_FLAG_UNDERGLOW`        |`0x02`|If the LED is for underglow                      |
+|`LED_FLAG_KEYLIGHT`         |`0x04`|If the LED is for key backlight                  |
+|`LED_FLAG_INDICATOR`        |`0x08`|If the LED is for keyboard state indication      |
 
 ## Keycodes :id=keycodes
 
