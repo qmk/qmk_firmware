@@ -58,7 +58,6 @@ MCU = STM32F303
 * `BOOTLOADER`
 * `EXTRA_FLAGS`
 
-Finally convert all pin assignments in `config.h` to the stm32 equivalents.
 最後に、`config.h`のすべてのピン割り当てを STM32 上の同等のものに変換します。
 
 | Pro Micro 左側| Proton C 左側 | | Proton C 右側 | Pro Micro 右側 |
