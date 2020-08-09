@@ -11,7 +11,7 @@ Proton C は Pro Micro の差し替え可能品であるため、簡単に使用
 
 ## 自動で変換
 
-QMK で現在サポートされているボードが Pro Micro（または互換ボード）を使用しており、Proton C を使用したい場合は、以下のように make 引数に `CONVERT_TO_PROTON_C=yes` (または `CTPC=yes`) を追加することでファームウェアを生成することができます。
+QMK で現在サポートされているキーボードが Pro Micro（または互換ボード）を使用しており、Proton C を使用したい場合は、以下のように make 引数に `CONVERT_TO_PROTON_C=yes` (または `CTPC=yes`) を追加することでファームウェアを生成することができます。
 
     make 40percentclub/mf68:default CTPC=yes
 
@@ -96,4 +96,3 @@ Finally convert all pin assignments in `config.h` to the stm32 equivalents.
 4. `A5` ピンは、スピーカーと共有されています。
 5. `A13` と `A14` ピンはハードウェアデバッグ (SWD) に使用されます。GPIO にも使えますが、最後に使ってください。
 6. RESET を 3.3V とショート(プルアップ)して MCU をリブートします。これは Pro Micro のようにブートローダモードにはならず、MCU をリセットするだけです。
-
