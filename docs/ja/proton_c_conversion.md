@@ -29,7 +29,7 @@ QMK で現在サポートされているキーボードが Pro Micro（または
 
 `PORTB/DDRB` などが定義されていないというエラーが発生した場合は、ARM と AVR の両方で機能する [GPIO Controls](ja/internals_gpio_control.md) を使用するようにキーボードのコードを変換する必要があります。これは AVR ビルドにまったく影響を与えません。
 
-Proton C には1つのオンボードLED(C13)しかなく、デフォルトでは TXLED(D5) がそれにマップされています。代わりに RXLED(B0) をそれにマッピングしたい場合は、`config.h` に次のように追加してください。
+Proton C には1つのオンボード LED(C13)しかなく、デフォルトでは TXLED(D5) がそれにマップされています。代わりに RXLED(B0) をそれにマッピングしたい場合は、`config.h` に次のように追加してください。
 
     #define CONVERT_TO_PROTON_C_RXLED
 
