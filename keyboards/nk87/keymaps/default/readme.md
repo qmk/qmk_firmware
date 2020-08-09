@@ -1,5 +1,4 @@
-The default keymap for NK87. VIA support disabled.
-=========================================================
+# The default keymap for NK87
 
 ![Layer 0](https://i.imgur.com/nw29fvc.png)
 Fn Layer:
