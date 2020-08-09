@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #ifdef PS2_USE_USART
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
