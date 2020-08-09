@@ -5,7 +5,7 @@
 
 [dz60/dz60.h](https://github.com/qmk/qmk_firmware/blob/master/keyboards/dz60/dz60.h)
 
- #define LAYOUT_60_ANSI_Arrow_mrsendyyk
+    #define LAYOUT_60_ANSI_Arrow_mrsendyyk
 
 ### Layer [0]
 
