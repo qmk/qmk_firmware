@@ -11,6 +11,12 @@ void led_init_ports() {
     setPinOutput(C6);  // ScrLock LED
     setPinOutput(D4);  // NumLock LED
     setPinOutput(E6);  // CapsLock LED
+
+    // turn all LEDs off by default
+    writePin(D7, 1);
+    writePin(C6, 1);
+    writePin(D4, 1);
+    writePin(E6, 1);
 }
 
 bool led_update_kb(led_t led_state) {
