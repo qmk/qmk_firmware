@@ -1,12 +1,10 @@
 #include QMK_KEYBOARD_H
 
-// Sendy YK's Keymap
-// KBDfans DZ60 ANSI Arrow Layout with RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
-// LAYOUT_60_ANSI_Arrow_mrsendyyk
+// KBDfans DZ60 ANSI Arrow Layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Default [0]
+  /* Layer [0]
    * ,-----------------------------------------------------------------------------------------.
    * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  | Backspace |
    * |-----------------------------------------------------------------------------------------+
@@ -14,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------------------------------------+
    * |Caps Lock|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
    * |-----------------------------------------------------------------------------------------+
-   * | Shift      |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  RShift  |  Up |  /  |
+   * | Shift      |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  RShift  | Up  |  /  |
    * |-----------------------------------------------------------------------------------------+
    * | Ctrl  |  OS  | Alt  |              Space                 | RAlt | Fn  |Left |Down |Right|
    * `-----------------------------------------------------------------------------------------'
@@ -26,17 +24,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, KC_SLSH,
                                        KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, LT(2, KC_RALT), MO(1), KC_LEFT, KC_DOWN, KC_RGHT),
 
-  /* Fn Layer [1]
+  /* Layer [1] (Press & Hold `Fn` Key)
    * ,-----------------------------------------------------------------------------------------.
    * | ` ~ |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |  Delete   |
    * |-----------------------------------------------------------------------------------------+
-   * | Bri Up |     |     | End | Rst |     |     |     | Ins |     | P Sc|     |     | Eject  |
+   * | Bri Up |     |     | End |Reset|     |     |     | Ins |     |Pr Sc|     |     | Eject  |
    * |-----------------------------------------------------------------------------------------+
-   * | Bri Down|     | Sc L|     |     |     | Home|     |     |     |     |     |    Mute     |
+   * | Bri Down|     |Sc L |     |     |     |Home |     |     |     |     |     |    Mute     |
    * |-----------------------------------------------------------------------------------------+
    * | Vol +      |     |     | Calc|     |     |Num L| Mail|     |     |          |Pg U |Pause|
    * |-----------------------------------------------------------------------------------------+
-   * | Vol - | Rwd  | F Fd |                 Play               | M Stp|     | Prev| Pg D| Next|
+   * | Vol - | Rwd  | F Fd |                 Play               |M Stp |     |Prev |Pg D |Next |
    * `-----------------------------------------------------------------------------------------'
    */
 
@@ -46,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_VOLU, _______, _______, KC_CALC, _______, _______, KC_NLCK, KC_MAIL, _______, _______, _______, KC_PGUP, KC_PAUS,
                                        KC_VOLD, KC_MRWD, KC_MFFD, KC_MPLY, KC_MSTP, KC_TRNS, KC_MPRV, KC_PGDN, KC_MNXT),
 
-  /* Fn Layer [2] (Keyboard Settings)
+  /* Layer [2] (Press & Hold `RAlt` Key)
    * ,-----------------------------------------------------------------------------------------.
    * |     |     |     |     |     |     |     |     |     |     |     |     |     |           |
    * |-----------------------------------------------------------------------------------------+
@@ -72,9 +70,9 @@ void keyboard_post_init_user(void) {
   rgblight_sethsv_noeeprom(0, 0, 0);
 };
 
-// RGB Underglow Indicator (Caps Lock, Num Lock, and Layer)
+// RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
 
-void update_led(void) { // Num Lock Indicator
+void update_led(void) { // Num Lock Indicator (Press & Hold `Fn` Key + Press `N` Key)
   if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) {
     rgblight_setrgb(100, 255, 100);
   }
@@ -86,13 +84,13 @@ void led_set_user(uint8_t usb_led) {
     rgblight_setrgb(255, 110, 0);
   } else { // Layer Indicator
       switch (biton32(layer_state)) {
-        case 1: // Fn Layer
+        case 1: // Layer [1] Indicator (Press & Hold `Fn` Key)
           rgblight_setrgb(225, 8, 0);
           break;
-        case 2: // Fn Layer (Keyboard Settings)
+        case 2: // Layer [2] Indicator (Press & Hold `RAlt` Key)
           rgblight_setrgb(225, 8, 0);
           break;
-        default:
+        default: // Layer [0] Indicator
           rgblight_setrgb(0, 0, 0);
           break;
       }
@@ -103,4 +101,4 @@ void led_set_user(uint8_t usb_led) {
 uint32_t layer_state_set_user(uint32_t state) {
   update_led();
   return state;
-}
+};
