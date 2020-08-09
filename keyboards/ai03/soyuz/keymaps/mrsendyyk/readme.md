@@ -25,7 +25,7 @@
 
 ### Layer [1]
 
-(Press & Hold Right `.` Key)
+Press & Hold Right `.` Key
 
 ```
 ,-----------------------.
