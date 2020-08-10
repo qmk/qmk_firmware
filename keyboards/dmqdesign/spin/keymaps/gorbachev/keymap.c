@@ -15,8 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-enum layers
-{
+enum layers {
   _NUMPAD,
   _RGB,
   _MACRO
@@ -25,8 +24,6 @@ enum layers
 enum custom_keycodes {
     HELLO_WORLD = SAFE_RANGE,
 };
-
-uint8_t currentLayer;
 
 //The below layers are intentionally empty in order to give a good starting point for how to configure multiple layers.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
-        switch (currentLayer) {     //break each encoder update into a switch statement for the current layer
+        switch (get_highest_layer(state)) {     //break each encoder update into a switch statement for the current layer
             case _NUMPAD:
                 if (clockwise) {
                     tap_code(KC_DOWN);
@@ -90,7 +87,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 1) { /* Second encoder */
-        switch (currentLayer) {
+        switch (get_highest_layer(state)) {
             case _NUMPAD:
                 if (clockwise) {
                     tap_code(KC_PGDN);
@@ -114,7 +111,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 2) { /* Third encoder */
-        switch (currentLayer) {
+        switch (get_highest_layer(state)) {
             case _NUMPAD:
                 if (clockwise) {
                     tap_code(KC_VOLU);
@@ -141,9 +138,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) { //This will run every time the layer is updated
-    currentLayer = get_highest_layer(state);
-
-    switch (currentLayer) {
+    switch (get_highest_layer(state)) {
         case _NUMPAD:
             setrgb(RGB_WHITE, &led[0]); //Set the top LED to white for the bottom layer
             setrgb(0, 0, 0, &led[1]);
