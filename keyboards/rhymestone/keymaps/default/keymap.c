@@ -178,12 +178,6 @@ void oled_task_user(void) {
 
 #endif
 
-static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-
-  pressed ? layer_on(layer1) : layer_off(layer1);
-  IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   UPDATE_KEY_STATUS(keycode, record);
@@ -191,11 +185,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool result = false;
   switch (keycode) {
     case LOWER:
-      update_change_layer(record->event.pressed, _LOWER, _RAISE, _ADJUST);
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+      } else {
+        layer_off(_LOWER);
+      }
+
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
       break;
     case RAISE:
-      update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
-        break;
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+      } else {
+        layer_off(_RAISE);
+      }
+
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      break;
     case KANJI:
       if (record->event.pressed) {
         if (keymap_config.swap_lalt_lgui == false) {
