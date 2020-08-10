@@ -14,6 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+//#pragma once
+#undef VENDOR_ID
+#undef PRODUCT_ID
+
+#define VENDOR_ID 0x4233
+#define PRODUCT_ID 0x0001
 
 // place overrides here
