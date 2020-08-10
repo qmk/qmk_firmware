@@ -34,6 +34,6 @@
 
 ## Build The Firmware
 
-You will need to build the firmware. To do so go back to your terminal window and run the compile command:
+You will need to build the firmware. To do so go to your terminal window and run the compile command:
 
     qmk compile -kb maartenwut/eon65 -km mrsendyyk
