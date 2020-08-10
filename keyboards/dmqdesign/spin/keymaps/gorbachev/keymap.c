@@ -63,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
-        switch (get_highest_layer(state)) {     //break each encoder update into a switch statement for the current layer
+        switch (get_highest_layer(layer_state)) {     //break each encoder update into a switch statement for the current layer
             case _NUMPAD:
                 if (clockwise) {
                     tap_code(KC_DOWN);
@@ -87,7 +87,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 1) { /* Second encoder */
-        switch (get_highest_layer(state)) {
+        switch (get_highest_layer(layer_state)) {
             case _NUMPAD:
                 if (clockwise) {
                     tap_code(KC_PGDN);
@@ -111,7 +111,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 2) { /* Third encoder */
-        switch (get_highest_layer(state)) {
+        switch (get_highest_layer(layer_state)) {
             case _NUMPAD:
                 if (clockwise) {
                     tap_code(KC_VOLU);
