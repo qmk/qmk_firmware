@@ -21,8 +21,9 @@
     { C6, F7, B6 } \
 }
 
-#define ENCODERS_PAD_A { D7, B3 }
-#define ENCODERS_PAD_B { E6, B1 }
+#define ENCODER_DIRECTION_FLIP
+#define ENCODERS_PAD_A { E6, B1 }
+#define ENCODERS_PAD_B { D7, B3 }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
