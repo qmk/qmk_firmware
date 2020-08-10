@@ -1,6 +1,5 @@
 #pragma once
 
-#define PRODUCT_ID   0xAD01
 #define PRODUCT      Adelais
 #define DESCRIPTION  Team.Mechlovin Adelais
 
