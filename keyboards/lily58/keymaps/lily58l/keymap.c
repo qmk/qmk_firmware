@@ -117,10 +117,10 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
+void keyboard_post_init_user(void) {
+#    ifdef RGBLIGHT_ENABLE
+    RGB_current_mode = rgblight_get_mode();
+#    endif
 }
 
 //SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
