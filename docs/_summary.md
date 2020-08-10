@@ -111,6 +111,7 @@
     * [Velocikey](feature_velocikey.md)
 
 * Developing QMK
+  * [PR Checklist](pr_checklist.md)
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
