@@ -1,9 +1,13 @@
-# Sendy YK's Keymap
----
+# [Sendy YK](https://github.com/mrsendyyk)'s Keymap
 
-KBDfans DZ60 ANSI with Arrow also RGB Underglow as a Caps Lock Indicator
+## KBDfans DZ60 ANSI Arrow Layout
 
-### Qwerty [0]
+[dz60/dz60.h](https://github.com/qmk/qmk_firmware/blob/master/keyboards/dz60/dz60.h)
+
+    #define LAYOUT_60_ANSI_Arrow_mrsendyyk
+
+### Layer [0]
+
 ```
 ,-----------------------------------------------------------------------------------------.
 | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  | Backspace |
@@ -12,30 +16,55 @@ KBDfans DZ60 ANSI with Arrow also RGB Underglow as a Caps Lock Indicator
 |-----------------------------------------------------------------------------------------+
 |Caps Lock|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
 |-----------------------------------------------------------------------------------------+
-| Shift      |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  RShift  |  Up |  /  |
+| L Shift    |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  R Shift | Up  |  /  |
 |-----------------------------------------------------------------------------------------+
-| Ctrl  |  OS  | Alt  |              Space                 | RAlt | Fn  |Left |Down |Right|
+| L Ctr |  OS  | Alt  |              Space                  |R Alt|R Ctr|Left |Down |Right|
 `-----------------------------------------------------------------------------------------'
 ```
 
-### Fn Layer [1]
+### Layer [1]
+
+Press & Hold `R Ctr` Key
+
 ```
 ,-----------------------------------------------------------------------------------------.
 | ` ~ |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |  Delete   |
 |-----------------------------------------------------------------------------------------+
-| Bri Up |     |     | End | Rst |     |     |     | Ins |     | P Sc|     |     | Eject  |
+| Bri Up |     |     | End |Reset|     |     |     | Ins |     |Pr Sc|     |     | Eject  |
 |-----------------------------------------------------------------------------------------+
-| Bri Down|     | S L |     |     |     | Home|     |     |     |     |     |    Mute     |
+| Bri Down|     |Sc L |     |     |     | Home|     |     |     |     |     |    Mute     |
 |-----------------------------------------------------------------------------------------+
-| Vol +      |     |     | Calc|     |     |     | Mail|     |     |          |Pg U |Pause|
+| Vol +      |     |     |Calc |     |     |Num L| Mail|     |     |          |Pg U |Pause|
 |-----------------------------------------------------------------------------------------+
-| Vol - | Rwd  | F Fd |                 Play               | M Stp|     | Prev| Pg D| Next|
+| Vol - | Rwd  | F Fd |                 Play               |M Stp |     |Prev |Pg D |Next |
 `-----------------------------------------------------------------------------------------'
 ```
 
-### RGB Underglow as a Caps Lock Indicator
+### Layer [2]
 
-Set in `mrsendyyk/keymap.c` in the `led_set_user` function.
+Press & Hold `R Alt` Key
+
+```
+,-----------------------------------------------------------------------------------------.
+|     |     |     |     |     |     |     |     |     |     |     |     |     |           |
+|-----------------------------------------------------------------------------------------+
+|        |R Tog|R Mo+|Hue +|Hue -|Sat +|Sat -|Bri +|Bri -|     |     |     |     |        |
+|-----------------------------------------------------------------------------------------+
+|         |     |     |     |     |     |     |     |     |     |     |     |             |
+|-----------------------------------------------------------------------------------------+
+|            |     |     |     |BL - |B Tog|BL +|B Cyc|      |     |          |     |     |
+|-----------------------------------------------------------------------------------------+
+|       |      |      |                                    |      |     |     |     |     |
+`-----------------------------------------------------------------------------------------'
+```
+
+## RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
+
+[dz60/keymaps/mrsendyyk/keymap.c](https://github.com/qmk/qmk_firmware/blob/master/keyboards/dz60/keymaps/mrsendyyk/keymap.c)
+
+1. Caps Lock Indicator `rgblight_setrgb(255, 110, 0)`
+2. Num Lock Indicator (Press & Hold `R Ctr` Key + Press `N` Key) `rgblight_setrgb(100, 255, 100)`
+3. Layer Indicator `rgblight_setrgb(225, 8, 0)`
 
 ---
 
