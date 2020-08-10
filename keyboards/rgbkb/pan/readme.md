@@ -10,10 +10,10 @@ Ortho or Staggered DIY kit with RGB
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb rgbkb/pan/rev1_atmega -km default
+    make rgbkb/pan/rev1/32a:default
 
 If you are using the Proton-C:
 
-    qmk compile -kb rgbkb/pan/rev1_stm32 -km default
+    make rgbkb/pan/rev1_proton_c:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

@@ -1,28 +1,3 @@
-# Processor choice= comment out either line 2 or 3.
-# ATmega32A = yes
-# ProtonC = yes
-
-
-
-# MCU name
-# MCU = atmega32a
-
-# Processor frequency
-# F_CPU = 16000000
-
-# Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
-# BOOTLOADER = USBasp
-
-# disable debug code
-OPT_DEFS = -DDEBUG_LEVEL=0
-
 # Build Options
 #   change yes to no to disable
 #
@@ -50,4 +25,5 @@ OLED_DRIVER_ENABLE    = yes
 RGB_ENCODERS          = yes    # For RGB encoders, solder on both WS2811 chips
 STAGGERED_LAYOUT      = no     # If you soldered R1-A12 and R4-A12, enable this.
 
-# DEFAULT_FOLDER = rgbkb/pan/rev1_atmega
+# Default to revision 1
+DEFAULT_FOLDER = rgbkb/pan/rev1
