@@ -68,25 +68,28 @@ void keyboard_post_init_user(void) {
   rgblight_sethsv_noeeprom(0, 0, 0);
 };
 
-// RGB Underglow as Caps Lock, Num Lock, and Layer Indicator
+// RGB Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
-void update_led(void) { // Num Lock Indicator (Press & Hold Right `Ctrl` Key + Press `N` Key)
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) {
-    rgblight_setrgb(100, 255, 100);
+void update_led(void) {
+  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { // Num Lock Indicator (Press & Hold Right `Ctrl` Key + Press `N` Key)
+    rgblight_setrgb(225, 8, 0);
+  }
+  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { // Scroll Lock Indicator (Press & Hold Right `Ctrl` Key + Press `S` Key)
+    rgblight_setrgb(0, 100, 255);
   }
 };
 
 void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) { // Caps Lock Indicator
     writePinLow(B2);
-    rgblight_setrgb(255, 110, 0);
+    rgblight_setrgb(100, 255, 100);
   } else { // Layer Indicator
       switch (biton32(layer_state)) {
         case 1: // Layer [1] Indicator (Press & Hold Right `Ctrl` Key)
-          rgblight_setrgb(225, 8, 0);
+          rgblight_setrgb(255, 110, 0);
           break;
         case 2: // Layer [2] Indicator (Press & Hold Right `Alt` Key)
-          rgblight_setrgb(225, 8, 0);
+          rgblight_setrgb(255, 110, 0);
           break;
         default: // Layer [0] Indicator
           rgblight_setrgb(0, 0, 0);

@@ -1,5 +1,7 @@
 # [Sendy YK](https://mr.sendyyk.com)'s Keymap
 
+With RGB Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
+
 ### Layer [0]
 
 ```
