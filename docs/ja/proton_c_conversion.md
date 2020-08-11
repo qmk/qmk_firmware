@@ -87,7 +87,7 @@ MCU = STM32F303
 | `A8` | | `A13`<sup>5</sup> (SWDIO) |
 | `A15` | | RESET<sup>6</sup> |
 
-ノート:
+注釈:
 
 1. Pro Micro の Vcc は 3.3V または 5V にすることができます。
 2. Proton C のオンボード LED は、Pro Micro のように2つはありません、1つだけです。Pro Micro には、RX LED(`D5`) と TX LED(`B0`)があります。
