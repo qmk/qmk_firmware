@@ -2,8 +2,8 @@
     "version": 1,
     "notes": "",
     "author": "Jan Christoph Ebersbach",
-    "keyboard": "dactyl_manuform/5x6_5/default",
-    "keymap": "dactyl_manuform_5x6_5_default",
+    "keyboard": "handwired/dactyl_manuform/5x6_5",
+    "keymap": "default",
     "layout": "LAYOUT_5x6_5",
     "layers": [
         [
