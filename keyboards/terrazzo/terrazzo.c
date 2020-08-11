@@ -95,6 +95,10 @@ void terrazzo_step_mode_reverse(void) {
     }
 }
 
+void terrazzo_mode_off(void) {
+    terrazzo_effect = TERRAZZO_NONE;
+}
+
 void terrazzo_render(void) {
     // led_matrix_set_index_value(terrazzo_led_index, 5);
     switch(terrazzo_effect) {
@@ -122,9 +126,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         // #ifdef TYPE_ANIMATE
         switch(keycode) {
+            case TZ_NXT:
+                terrazzo_step_mode();
+                return true;
+            case TZ_PRV:
+                terrazzo_step_mode_reverse();
+                return true;
+            case TZ_OFF:
+                terrazzo_mode_off();
+                return true;
+            // Reverse animation on backspace
             case KC_BSPC:
                 terrazzo_scroll_pixel(0);
                 return true;
+            // Any keycode increments counter
             default:
               terrazzo_scroll_pixel(1);
               break;

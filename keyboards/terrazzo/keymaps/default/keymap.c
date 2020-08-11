@@ -2,14 +2,6 @@
 #include "terrazzo.h"
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-  ANI_UP = SAFE_RANGE,
-  ANI_DN,
-  MODE,
-  ENC_BTN,
-  SPD
-};
-
 enum layers {
 	_QWERTY,
 	_RAISE,
@@ -18,7 +10,6 @@ enum layers {
 	_FN
 };
 
-#define KC_CESC CTL_T(KC_ESC)
 #define LOWERSP LT(_LOWER, KC_SPC)
 #define RAISESP LT(_RAISE, KC_SPC)
 #define SFTSLSH MT(MOD_RSFT, KC_SLSH)
@@ -26,10 +17,10 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
-		  ENC_BTN, KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_BSPC,
-	    ANI_UP,  KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,            KC_ENT,
-	    ANI_DN,  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,          SFTSLSH, 
-	    MODE,             KC_LGUI, KC_RALT,          LOWERSP,          RAISESP,          MO(_NAV), MO(_FN)
+		  KC_MUTE, KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_BSPC,
+	    TZ_NXT,  KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,            KC_ENT,
+	    TZ_PRV,  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,          SFTSLSH, 
+	    TZ_OFF,           KC_LGUI, KC_RALT,          LOWERSP,          RAISESP,          MO(_NAV), MO(_FN)
   ),
   
   [_RAISE] = LAYOUT(
@@ -47,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT(
-      _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, KC_UP,   _______,  _______, _______,
+      _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, _______,
 	    _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT,          _______,
 	    _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           _______, 
 	    _______,          _______, _______,          _______,          _______,          _______, _______
@@ -55,35 +46,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN] = LAYOUT(
 		  _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, _______,
-		  _______, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_F11,  KC_F12,          _______, 
+		  _______, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,          _______, 
 		  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,         CG_TOGG, 
 		  _______,          RESET,   _______,          _______,          _______,          _______, _______
   )
 };
 
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    if (record->event.pressed) {
-        switch(keycode) {
-            case ANI_UP:
-                terrazzo_step_mode();
-                return true;
-            case ANI_DN:
-                terrazzo_step_mode_reverse();
-                return true;
-            case MODE:
-                dprint("LED MODE\n");
-                return true;
-        }
-    }
-    return true;
-}
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     terrazzo_scroll_pixel(clockwise);
@@ -97,8 +65,4 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
         break;
     }   
-}
-
-void keyboard_post_init_user(void) {
-  // debug_enable=true;
 }

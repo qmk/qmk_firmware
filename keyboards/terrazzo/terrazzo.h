@@ -2,6 +2,8 @@
 
 #include "quantum.h"
 
+// Default staggered layout
+// Bottom row: 1u 1.5u 2.25u 2.75u 1.5u 1u
 #define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K55, \
@@ -19,7 +21,8 @@
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, } \
 }
 
-//  R   Esc   Q    W    E    R    T    Y    U    I    O    P    Back
+// Default ortho layout
+// Bottom row: 1u 1u 1u 2u 2u 1u 1u 1u
 #define LAYOUT_ortho( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K54, K55, \
@@ -37,8 +40,9 @@
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, } \
 }
 
-
-#define LAYOUT_ortho_2u( \
+// MIT ortho layout
+// Bottom row: 1u 1u 1u 1u 2u 1u 1u 1u 1u
+#define LAYOUT_ortho_mit( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K54, K55, \
     K20, K21, K22, K23, K24, K25, K50, K51, K52, K53, K43, K44, K45, \
@@ -55,6 +59,8 @@
     { KC_NO, KC_NO, KC_NO, KC_NO, K84, K85, } \
 }
 
+// All 1u ortho layout
+// Bottom row: 1u 1u 1u 1u 1u 1u 1u 1u 1u 1u
 #define LAYOUT_ortho_all( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K54, K55, \
@@ -86,9 +92,16 @@ enum terrazzo_matrix_effects {
     TERRAZZO_EFFECT_MAX
 };
 
+enum terrazzo_keycodes {
+  TZ_NXT = SAFE_RANGE,
+  TZ_PRV,
+  TZ_OFF
+};
+
 void terrazzo_render(void);
 void terrazzo_set_pixel(uint8_t x, uint8_t y, uint8_t value);
 void terrazzo_draw_at(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t image[]);
 void terrazzo_scroll_pixel(bool clockwise);
 void terrazzo_step_mode(void);
 void terrazzo_step_mode_reverse(void);
+void terrazzo_mode_off(void);
