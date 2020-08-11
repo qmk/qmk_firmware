@@ -1,0 +1,15 @@
+#include QMK_KEYBOARD_H
+
+#if defined MAPPING_BIG
+//do nothing.
+#else
+const matrix_row_t matrix_mask[MATRIX_ROWS] =
+{
+  0b0000000001111111,
+  0b0000000001111111,
+  0b0000000001011110,
+  0b0000000001111111,	
+  0b0000000001111100,
+  0b0000000001111000,
+};
+#endif
