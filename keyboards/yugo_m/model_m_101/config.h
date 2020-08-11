@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
+#define MATRIX_HAS_GHOST
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed (5 is default) */
 #define DEBOUNCE 5
