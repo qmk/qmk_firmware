@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x6501 // 65_01
 #define DEVICE_VER   0x0001
 #define MANUFACTURER generic_panda
-#define PRODUCT      generic_panda panda65_01
-#define DESCRIPTION  panda65_01 things are going well
+#define PRODUCT      panda65_01
 
 /* key matrix size */
 #define MATRIX_ROWS 5

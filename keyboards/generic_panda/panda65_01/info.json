@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "Panda_01",
-    "url": "",
+    "keyboard_name": "Panda65_01",
+    "url": "https://github.com/JesseLeung97/qmk_firmware/tree/master/keyboards/generic_panda/panda65_01",
     "maintainer": "generic_panda",
     "width": 16,
     "height": 5,
