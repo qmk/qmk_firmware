@@ -1,12 +1,11 @@
-# Panda_01
+# Panda65_01
 
 ![Panda_01](https://i.imgur.com/fPBUDMT.png)
 
-*A short description of the keyboard/project*
 
 * Keyboard Maintainer: [generic_panda](https://github.com/jesseleung97)
-* Hardware Supported: panda_01 pcb
-* Hardware Availability: 
+* Hardware Supported: panda65_01 pcb
+* Hardware Availability: panda65-01 acrylic case designed by Alec
 
 Make example for this keyboard (after setting up your build environment):
 
