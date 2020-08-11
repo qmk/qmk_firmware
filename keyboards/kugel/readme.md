@@ -1,6 +1,6 @@
 # kugel
 
-A keyboard with samll track ball.
+A keyboard with small track ball.
 
 Keyboard Maintainer: [sekigon-gonnoc](https://github.com/sekigon-gonnoc)  
 Hardware Supported: BLE Micro Pro
