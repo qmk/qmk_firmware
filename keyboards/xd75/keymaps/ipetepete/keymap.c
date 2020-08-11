@@ -27,7 +27,6 @@ enum layers{
 
 enum keycodes{
   QWERTY = SAFE_RANGE,
-  FUNC,
   LO,
   UP,
   SPCFN,
