@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ZERGO_H
-#define ZERGO_H
+#pragma once
 
 #include "quantum.h"
 
@@ -34,5 +33,3 @@
 	{ K400,  K401,  K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  K412,  K413 }, \
 	{ K500,  K501,  K502,  K503,  KC_NO, K505,  K506,  K507,  KC_NO, K509,  KC_NO, K511,  K512,  K513 }  \
 }
-
-#endif
