@@ -2,7 +2,7 @@
 
 60% Keyboard with numpad on the left side. 
 
-* Keyboard Maintainer: [Drewguy](https://github.com/drewguy), [MechMerlin](https://github.com/mechmerlin)
+* Keyboard Maintainer: [Drewpyun](https://github.com/drewpyun), [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Southpaw75
 * Hardware Availability: [HolySwitch Co.](https://holyswitch.co/collections/group-buys/products/southpaw75)
 
