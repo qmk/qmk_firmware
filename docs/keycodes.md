@@ -420,7 +420,7 @@ See also: [Mod-Tap](mod_tap.md)
 |`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped                |
 |`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped              |
 |`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped           |
-|`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (Alt Gr) when held, `kc` when tapped|
+|`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
 |`RCS_T(kc)`  |                                                                 |Right Control and Right Shift when held, `kc` when tapped     |
 |`LCAG_T(kc)` |                                                                 |Left Control, Alt and GUI when held, `kc` when tapped         |
 |`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
