@@ -15,10 +15,10 @@
 
 ## サポートされるドライバの型
 
-|  | AVR | ARM |
+|                   | AVR                | ARM                |
 |-------------------|--------------------|--------------------|
-| bit bang | :heavy_check_mark: | :heavy_check_mark: |
-| USART Half-duplex |  | :heavy_check_mark: |
+| bit bang          | :heavy_check_mark: | :heavy_check_mark: |
+| USART Half-duplex |                    | :heavy_check_mark: |
 
 ## ドライバ設定
 
