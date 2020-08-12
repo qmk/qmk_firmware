@@ -394,7 +394,7 @@ See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 |`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`                |
 |`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`              |
 |`LSA(kc)` |                               |Hold Left Shift and Left Alt and press `kc`           |
-|`RSA(kc)` |`SAGR(kc)`                     |Hold Right Shift and Right Alt (Alt Gr) and press `kc`|
+|`RSA(kc)` |`SAGR(kc)`                     |Hold Right Shift and Right Alt (AltGr) and press `kc` |
 |`RCS(kc)` |                               |Hold Right Control and Right Shift and press `kc`     |
 |`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`         |
 |`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`       |
