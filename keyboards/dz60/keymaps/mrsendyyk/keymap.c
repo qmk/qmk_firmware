@@ -74,7 +74,7 @@ void update_led(void) {
   if (host_keyboard_led_state().num_lock) { // Num Lock Indicator (Press & Hold Right `Ctrl` Key + Press `N` Key)
     rgblight_setrgb(225, 8, 0);
   }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { // Scroll Lock Indicator (Press & Hold Right `Ctrl` Key + Press `S` Key)
+  if (host_keyboard_led_state().scroll_lock) { // Scroll Lock Indicator (Press & Hold Right `Ctrl` Key + Press `S` Key)
     rgblight_setrgb(0, 100, 255);
   }
 };
