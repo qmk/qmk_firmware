@@ -1,11 +1,10 @@
-CONSTELLATION
-===
+# CONSTELLATION
 
 A gasket 65% keyboard by [aeboards](https://aeboards.com/)
 
-Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)  
-Hardware Supported: CONSTELLATION
-Hardware Availability: Custom keyboard group buys
+* Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)
+* Hardware Supported: CONSTELLATION
+* Hardware Availability: Custom keyboard group buys
 
 Make example for this keyboard (after setting up your build environment):
 
