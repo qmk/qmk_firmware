@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define PRODUCT_ID   0xD0C2
 #define DEVICE_VER   0x0001
 #define MANUFACTURER rate
 #define PRODUCT      pistachio
@@ -78,4 +78,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
