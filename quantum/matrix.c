@@ -67,6 +67,24 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 #elif defined(DIODE_DIRECTION)
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInputHigh(row_pins[x]);
+    }
+}
+
+static void unselect_cols(void) {
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        setPinInputHigh(col_pins[x]);
+    }
+}
+
+static void init_pins(void) {
+    unselect_cols();
+    unselect_rows();
+}
+
 #    if (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) {
@@ -75,19 +93,6 @@ static void select_row(uint8_t row) {
 }
 
 static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
-
-static void unselect_rows(void) {
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
-    }
-}
-
-static void init_pins(void) {
-    unselect_rows();
-    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
-    }
-}
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Start with a clear matrix row
@@ -125,19 +130,6 @@ static void select_col(uint8_t col) {
 }
 
 static void unselect_col(uint8_t col) { setPinInputHigh(col_pins[col]); }
-
-static void unselect_cols(void) {
-    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
-    }
-}
-
-static void init_pins(void) {
-    unselect_cols();
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
-    }
-}
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     bool matrix_changed = false;
