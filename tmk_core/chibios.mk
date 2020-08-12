@@ -318,12 +318,14 @@ ifneq ("$(SERIAL)","")
 endif
 
 ST_LINK_ARGS ?=
+ST_FLASH_ARGS ?=
 
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
 ST_LINK_CLI ?= st-link_cli
+ST_FLASH ?= st-flash
 
 define EXEC_DFU_UTIL
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
@@ -356,6 +358,9 @@ dfu-util-split-right: dfu-util
 
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
+
+st-flash: $(BUILD_DIR)/$(TARGET).hex sizeafter
+	$(ST_FLASH) $(ST_FLASH_ARGS) --reset --format ihex write $(BUILD_DIR)/$(TARGET).hex
 
 
 # Autodetect teensy loader
