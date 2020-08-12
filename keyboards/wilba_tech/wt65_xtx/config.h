@@ -22,8 +22,7 @@
 #define PRODUCT_ID      0x001E // PCB #30
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT65-XT
-#define DESCRIPTION     wilba.tech WT65-XT
+#define PRODUCT         wilba.tech WT65-XTX
 
 /* key matrix size */
 #define MATRIX_ROWS 5
