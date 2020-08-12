@@ -16,10 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
-
 enum layer_names {
     _QWERTY = 0,
     _FN
