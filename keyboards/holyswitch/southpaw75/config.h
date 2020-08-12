@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x484F // "HO" short for Holy Switch
+#define PRODUCT_ID      0x5350 // "SP" short for Southpaw
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    drewguy
 #define PRODUCT         southpaw default
@@ -41,6 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
+
+//                         0   1   2   3   4   5   6   7   8
 #define MATRIX_ROW_PINS { B2, F0, C6, D4, D3, F1, D2, B5, D5 }
 #define MATRIX_COL_PINS { B6, F7, F6, F5, F4, D0, D1, D7, B4 }
 
