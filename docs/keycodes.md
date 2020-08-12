@@ -415,7 +415,7 @@ See also: [Mod-Tap](mod_tap.md)
 |`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                          |
 |`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped                     |
 |`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                       |
-|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt (Alt Gr) when held, `kc` when tapped                |
+|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt (AltGr) when held, `kc` when tapped                 |
 |`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
 |`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped                |
 |`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped              |
