@@ -84,7 +84,7 @@ void led_set_user(uint8_t usb_led) {
     writePinLow(B2);
     rgblight_setrgb(100, 255, 100);
   } else { // Layer Indicator
-      switch (biton32(layer_state)) {
+      switch (get_highest_layer(layer_state)) {
         case 1: // Layer [1] Indicator (Press & Hold Right `Ctrl` Key)
           rgblight_setrgb(255, 110, 0);
           break;
