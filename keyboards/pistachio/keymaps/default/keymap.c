@@ -1,4 +1,3 @@
-#include "keymap_jp.h"
 /* Copyright 2020 rate
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_jp.h"
 
 #ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
