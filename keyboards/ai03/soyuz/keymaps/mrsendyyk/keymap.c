@@ -20,27 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                 KC_P7, KC_P8, KC_P9,
 									 KC_P4, KC_P5, KC_P6, KC_PPLS,
 									 KC_P1, KC_P2, KC_P3,
-									 KC_P0, KC_PDOT, KC_PENT),
-
-/* Layer [1] (Press & Hold `Num Lock` Key)
-   * ,-------------------.
-   * |    |    |    |    |
-   * |-------------------+
-   * |    |    |    |    |
-   * |--------------|    |
-   * |Rst |    |    |    |
-   * |-------------------+
-   * |    |    |    |    |
-   * |--------------|    |
-   * |         |    |    |
-   * `-------------------'
-   */
-
-  [1] = LAYOUT_5x4(KC_TRNS, _______, _______, _______,
-	                 _______, _______, _______,
-									 RESET, _______, _______, _______,
-									 _______, _______, _______,
-									 _______, _______, _______)
+									 KC_P0, KC_PDOT, KC_PENT)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -57,4 +37,4 @@ void matrix_scan_user(void) {
 
 void led_set_user(uint8_t usb_led) {
 
-};
+}
