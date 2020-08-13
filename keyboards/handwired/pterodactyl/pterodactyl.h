@@ -5,25 +5,6 @@
 #include <stdbool.h>
 #include "i2c_master.h"
 
-#define I2C_ADDR        0b0100000
-#define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )
-#define I2C_ADDR_READ   ( (I2C_ADDR<<1) | I2C_READ  )
-#define IODIRA          0x00            // i/o direction register
-#define IODIRB          0x01
-#define GPPUA           0x0C            // GPIO pull-up resistor register
-#define GPPUB           0x0D
-#define GPIOA           0x12            // general purpose i/o port register (write modifies OLAT)
-#define GPIOB           0x13
-#define OLATA           0x14            // output latch register
-#define OLATB           0x15
-
-extern uint8_t expander_status;
-extern uint8_t expander_input_pin_mask;
-extern bool i2c_initialized;
-
-void init_pterodactyl(void);
-void init_expander(void);
-
 /*
  *   LEFT HAND: LINES 38-45
  *  RIGHT HAND: LINES 47-54
