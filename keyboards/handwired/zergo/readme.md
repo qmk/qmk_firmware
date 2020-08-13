@@ -1,6 +1,7 @@
 # zErgo
 
+![Planck](https://lh3.googleusercontent.com/y-z66iXknvw6NUR7dYSD0pqEzS_YcUY1eeUxXIX6ykBaw96hTr9HVJhMjrqovKBk4wiFp3zjCd20uDD2ZS-wmAf5ByYj1uT2d9Q1QQZsRiLAJP57m8HIWZD0LJk8vHtPnkvpnv9Vwedy6AWTRlRP5MFqSIbGuv12COR8lFDK0g2JE74yxc8tPwM1H1gMux8aB2Q1N_QBeLYvOMoMO4LeHiV0yYFehY_lq1ukuwgNLH3AkHYPXU5Mz8iEGympeDy8Wi3qKEP12lUk6Lp5MouQoP8nx-Y2DdcWBKEypb-CWs0iuZEwlxS0SfXFvJmmgNeX6Jej7OWsz2YlEOE6a8E4eUurzyFQwxzVyYLkSJPhsMNdFolvEEtSUh5wYTquQbupjse_Mt5UdvC57dipC-KMOEd3xQq7zZ66lcSGhOL4l_oooCPMmiz-DySczlxQUM21jX193yL9UJSaCCEyAjwT0S8LZwQk3_Sy1FJVoedOGefN0hkijvxjz6oOvGNeOe0jwirEHx4mLRqlk9dNNgTVk4bMY_Lcv1n9DYiuxpy7N37wnnLh4bDT0F7RT6664Ne93Ov2NXlLH6-r553FPO-fg4QYzLVytDe07hWeVWqxmnG-TnysPEeacaE7MXoo_Tsni_qCHXO45c2-cdlvsSSUnypGlxuIkpGXhPyIOuZfAZb_AcZXucBIcAZ5=w821-h348-no?authuser=0)
+
 A compact 70% (15x6) keyboard inspired by the Katana60 project, but with F keys and adopted for the Russian layout.
 
 * Keyboard Maintainer: [Greenjack](https://github.com/greenjack-z)
-* Hardware Supported: Teensy 2.0++
