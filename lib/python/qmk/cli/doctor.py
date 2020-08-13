@@ -3,6 +3,7 @@
 Check out the user's QMK environment and make sure it's ready to compile.
 """
 import platform
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -50,6 +51,16 @@ def _deprecated_udev_rule(vid, pid=None):
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", MODE:="0666"' % vid
 
 
+def parse_gcc_version(version):
+    m = re.match(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?", version)
+
+    return {
+        'major': int(m.group(1)),
+        'minor': int(m.group(2)) if m.group(2) else 0,
+        'patch': int(m.group(3)) if m.group(3) else 0
+    }
+
+
 def check_arm_gcc_version():
     """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
     """
@@ -66,8 +77,8 @@ def check_avr_gcc_version():
     if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
         version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
 
-        major, minor, rest = version_number.split('.', 2)
-        if int(major) > 8:
+        parsed_version = parse_gcc_version(version_number)
+        if parsed_version['major'] > 8:
             cli.log.error('We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
             return False
 

@@ -111,6 +111,7 @@
     * [Velocikey](feature_velocikey.md)
 
 * Developing QMK
+  * [PR Checklist](pr_checklist.md)
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
@@ -145,6 +146,7 @@
 
   * Hardware Platform Development
     * Arm/ChibiOS
+      * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference

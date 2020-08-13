@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x4B48 //KH for Keyhive
+#define PRODUCT_ID      0x4D50 // MP
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KeyHive
 #define PRODUCT         maypad

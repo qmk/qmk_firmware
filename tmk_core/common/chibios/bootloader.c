@@ -44,7 +44,7 @@ void enter_bootloader_mode_if_requested(void) {
 #elif defined(KL2x) || defined(K20x) /* STM32_BOOTLOADER_ADDRESS */
 /* Kinetis */
 
-#    if defined(KIIBOHD_BOOTLOADER)
+#    if defined(BOOTLOADER_KIIBOHD)
 /* Kiibohd Bootloader (MCHCK and Infinity KB) */
 #        define SCB_AIRCR_VECTKEY_WRITEMAGIC 0x05FA0000
 const uint8_t sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff";
@@ -54,14 +54,14 @@ void          bootloader_jump(void) {
     SCB->AIRCR = SCB_AIRCR_VECTKEY_WRITEMAGIC | SCB_AIRCR_SYSRESETREQ_Msk;
 }
 
-#    else /* defined(KIIBOHD_BOOTLOADER) */
+#    else /* defined(BOOTLOADER_KIIBOHD) */
 /* Default for Kinetis - expecting an ARM Teensy */
 #        include "wait.h"
 void bootloader_jump(void) {
     wait_ms(100);
     __BKPT(0);
 }
-#    endif /* defined(KIIBOHD_BOOTLOADER) */
+#    endif /* defined(BOOTLOADER_KIIBOHD) */
 
 #else /* neither STM32 nor KINETIS */
 __attribute__((weak)) void bootloader_jump(void) {}
