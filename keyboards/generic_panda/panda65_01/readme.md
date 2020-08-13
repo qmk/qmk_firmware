@@ -2,7 +2,6 @@
 
 ![Panda_01](https://i.imgur.com/fPBUDMT.png)
 
-
 * Keyboard Maintainer: [generic_panda](https://github.com/jesseleung97)
 * Hardware Supported: panda65_01 pcb
 * Hardware Availability: [panda65-01 acrylic case designed by Alec:](https://onedrive.live.com/?authkey=%21AA8d6frZ0woiaV4&id=DC069E9FB0BC8004%21155830&cid=DC069E9FB0BC8004) 
@@ -10,10 +9,6 @@
 Make example for this keyboard's default keymap (after setting up your build environment):
 
     make Panda65_01:default
-
-Make example for this keyboard's VIA keymap (after setting up your build environment):
-    
-    make Panda65_01:via
 
 Flashing example for this keyboard:
 
