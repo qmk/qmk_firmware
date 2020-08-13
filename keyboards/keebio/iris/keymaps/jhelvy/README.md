@@ -1,7 +1,1 @@
-# jhelvy Keymap for [Iris Rev 2](https://docs.keeb.io/iris-build-guide/)
-
-## Keymap
-
-This is a custom keymap with the following layout:
-
-<img src="https://github.com/jhelvy/qmkJsonConverter/raw/master/keymaps/keebio_iris_rev2_jhelvy.png" width="800">
+Keymap for jhelvy's [Iris Rev 2](https://github.com/jhelvy/iris-rev2)

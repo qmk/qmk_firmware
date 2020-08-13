@@ -1,7 +1,7 @@
 # レイヤー :id=layers
 
 <!---
-  original document: 0.9.20:docs/feature_layers.md
+  original document: 0.9.43:docs/feature_layers.md
   git diff 0.9.43 HEAD -- docs/feature_layers.md | cat
 -->
 
