@@ -1,7 +1,5 @@
 # [Sendy YK](https://mr.sendyyk.com)'s Keymap
 
-### Layer [0]
-
 ```
 ,-------------------.
 |Nm L|/   |*   |-   |
