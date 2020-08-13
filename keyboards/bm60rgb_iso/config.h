@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
 #define PRODUCT         bm60hsrgb-iso
-#define DESCRIPTION     A 60% ISO hotswap inswitch rgb board
 
 /* key matrix size */
 #define MATRIX_ROWS 5
