@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    GreenJack
 #define PRODUCT         zErgo
-#define DESCRIPTION     QMK keyboard firmware for zErgo
 
 /* key matrix size */
 #define MATRIX_ROWS 6
