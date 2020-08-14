@@ -42,13 +42,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // #define MATRIX_ROW_PINS { D1, D0, D4, C6, D7, E6 }
 // #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B4, B5 }
-#define MATRIX_ROW_PINS { B5, B4, E6, D7, C6, D4 }
-#define MATRIX_COL_PINS { B1, F7, F6, F5, F4, B3, B2, B6, D0, D1 }
-#define MATRIX_ROW_PINS_RIGHT { D1, D0, D4, C6, D7, E6 }
+#define MATRIX_ROW_PINS \
+    { B5, B4, E6, D7, C6, D4 }
+#define MATRIX_COL_PINS \
+    { B1, F7, F6, F5, F4, B3, B2, B6, D0, D1 }
+#define MATRIX_ROW_PINS_RIGHT \
+    { D1, D0, D4, C6, D7, E6 }
 // F1 is an unused dummy pin to match the # of COLs used. B5 will be used for Audio.
 // B7, C7 are unused dummy pin to match the # of COLs used. B6, B4 will be used for Encoder.
 // #define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2, B6, B4, F1 }
-#define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2, C7, B7, F1 }
+#define MATRIX_COL_PINS_RIGHT \
+    { F4, F5, F6, F7, B1, B3, B2, C7, B7, F1 }
 // #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -81,16 +85,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 
- #define RGBLED_NUM 123
- // Do not define "RGBLED_SPLIT" since the # of LEDs on both sides are not equal.
- // Instead, LED data is tranferred from right side to the left via TRRS cable.
+#    define RGBLED_NUM 123
+// Do not define "RGBLED_SPLIT" since the # of LEDs on both sides are not equal.
+// Instead, LED data is tranferred from right side to the left via TRRS cable.
 
- #define RGBLIGHT_LIMIT_VAL 100
- // #define RGBLIGHT_LAYERS
+#    define RGBLIGHT_LIMIT_VAL 100
+// #define RGBLIGHT_LAYERS
 
- #ifndef HSV_BLACK
-     #define HSV_BLACK  0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
- #endif
+#    ifndef HSV_BLACK
+#        define HSV_BLACK 0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
+#    endif
 
  /* All the animations have to be disabled so as not to overwrite the LED setting when keys are pressed. */
  // #ifndef AUDIO_ENABLE
@@ -208,16 +212,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
- #define B5_AUDIO  // use EX1 = PB5 = PIN9 as Audio output
- // #define DAC_SAMPLE_MAX 32768U
- #define DAC_SAMPLE_MAX 65535U
- // #define AUDIO_CLICKY
- #define NO_MUSIC_MODE
- // #define STARTUP_SONG SONG(FANTASIE_IMPROMPTU)
- // #define STARTUP_SONG SONG(NOCTURNE_OP_9_NO_1)
- // #define STARTUP_SONG SONG(USSR_ANTHEM)
- // #define STARTUP_SONG SONG(CAMPANELLA)
-
+#    define B5_AUDIO  // use EX1 = PB5 = PIN9 as Audio output
+// #define DAC_SAMPLE_MAX 32768U
+#    define DAC_SAMPLE_MAX 65535U
+// #define AUDIO_CLICKY
+#    define NO_MUSIC_MODE
+// #define STARTUP_SONG SONG(FANTASIE_IMPROMPTU)
+// #define STARTUP_SONG SONG(NOCTURNE_OP_9_NO_1)
+// #define STARTUP_SONG SONG(USSR_ANTHEM)
+// #define STARTUP_SONG SONG(CAMPANELLA)
 #endif
 
 /*
@@ -248,10 +251,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Encoder options
  */
 #ifdef ENCODER_ENABLE
-  #define ENCODERS_PAD_A { C7 }  // dummy
-  #define ENCODERS_PAD_B { B7 }  // dummy
-  #define ENCODERS_PAD_A_RIGHT { B4 }
-  #define ENCODERS_PAD_B_RIGHT { B6 }
-  #define ENCODER_RESOLUTION 4
-  #define TAP_CODE_DELAY 10
-#endif // ENCODER_ENABLE
+#    define ENCODERS_PAD_A \
+        { C7 }  // dummy
+#    define ENCODERS_PAD_B \
+        { B7 }  // dummy
+#    define ENCODERS_PAD_A_RIGHT \
+        { B4 }
+#    define ENCODERS_PAD_B_RIGHT \
+        { B6 }
+#    define ENCODER_RESOLUTION 4
+#    define TAP_CODE_DELAY 10
+#endif  // ENCODER_ENABLE

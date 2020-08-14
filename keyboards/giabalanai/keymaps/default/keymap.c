@@ -43,15 +43,15 @@
 #define FN_MUTE LT(_FN, KC_MUTE)
 
 #ifdef RGBLIGHT_ENABLE
-  //Following line allows macro to read current RGB settings
-  extern rgblight_config_t rgblight_config;
-  rgblight_config_t RGB_current_config;
+// Following line allows macro to read current RGB settings
+extern rgblight_config_t rgblight_config;
+rgblight_config_t        RGB_current_config;
 
-  // to indecate MUTE ON/OFF status with a LED.
-  bool myMUTEstat = false;
+// to indecate MUTE ON/OFF status with a LED.
+bool myMUTEstat = false;
 
-  /* used to specify there is no LED on the keylocation. */
-  #define NO_LED 255
+/* used to specify there is no LED on the keylocation. */
+#    define NO_LED 255
 
   /* Conversion map from keylocation (MATRIX_ROWS x2(split) x MATRIX_COLS) to led IDs.
     led IDs are the number starts "0" from upper left corner of left side,
@@ -60,44 +60,44 @@
 
     Note that the conversion from physical LED serial alighment to
       the led IDs is done with RGBLIGHT_LED_MAP beforehand.                          */
-  const uint8_t PROGMEM convert_key_to_led[] =
-  {
-    0,      12,    24,    36,    48,      11,    23,    35,     47,     59, \
-    1,      13,    25,    37,    49,      10,    22,    34,     46,     58, \
-    2,      14,    26,    38,    50,      9,     21,    33,     45,     57, \
-    3,      15,    27,    39,    51,      8,     20,    32,     44,     56, \
-    4,      16,    28,    40,    52,      7,     19,    31,     43,     55, \
-    5,      17,    29,    41,    53,      6,     18,    30,     42,     54, \
-    \
-    85,     86,    87,    88,    89,      90,    91,    NO_LED, NO_LED, NO_LED, \
-    98,     99,    100,   101,   102,     103,   104,   NO_LED, NO_LED, NO_LED, \
-    NO_LED, 111,   112,   113,   114,     115,   116,   NO_LED, NO_LED, NO_LED, \
-    NO_LED, 97,    96,    95,    94,      93,    92,    NO_LED, NO_LED, NO_LED, \
-    NO_LED, 110,   109,   108,   107,     106,   105,   NO_LED, NO_LED, NO_LED, \
-    NO_LED, 122,   121,   120,   119,     118,   117,   NO_LED, NO_LED, NO_LED \
-  };
+const uint8_t PROGMEM convert_key_to_led[] =
+{
+  0,      12,    24,    36,    48,      11,    23,    35,     47,     59, \
+  1,      13,    25,    37,    49,      10,    22,    34,     46,     58, \
+  2,      14,    26,    38,    50,      9,     21,    33,     45,     57, \
+  3,      15,    27,    39,    51,      8,     20,    32,     44,     56, \
+  4,      16,    28,    40,    52,      7,     19,    31,     43,     55, \
+  5,      17,    29,    41,    53,      6,     18,    30,     42,     54, \
+  \
+  85,     86,    87,    88,    89,      90,    91,    NO_LED, NO_LED, NO_LED, \
+  98,     99,    100,   101,   102,     103,   104,   NO_LED, NO_LED, NO_LED, \
+  NO_LED, 111,   112,   113,   114,     115,   116,   NO_LED, NO_LED, NO_LED, \
+  NO_LED, 97,    96,    95,    94,      93,    92,    NO_LED, NO_LED, NO_LED, \
+  NO_LED, 110,   109,   108,   107,     106,   105,   NO_LED, NO_LED, NO_LED, \
+  NO_LED, 122,   121,   120,   119,     118,   117,   NO_LED, NO_LED, NO_LED \
+};
 
-  /* Top 2 rows on the right side (LED:60-84) are
-     duplicates of the bottom 2 rows (LED:85-122).
-     LED:97 = Encoder,
-     LED:110 don't have a duplicate on the top row,
-     LED:72 is used when r20 is pressed (not a duplicate) */
-  const uint8_t PROGMEM convert_key_to_led2[] =
-  {
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    \
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    60,     61,     62,     63,     64,       65,     66,     NO_LED, NO_LED, NO_LED, \
-    72,     73,     74,     75,     76,       77,     78,     NO_LED, NO_LED, NO_LED, \
-    NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-    NO_LED, NO_LED, 71,     70,     69,       68,     67,     NO_LED, NO_LED, NO_LED, \
-    NO_LED, 84,     83,     82,     81,       80,     79,     NO_LED, NO_LED, NO_LED \
-  };
+/* Top 2 rows on the right side (LED:60-84) are
+   duplicates of the bottom 2 rows (LED:85-122).
+   LED:97 = Encoder,
+   LED:110 don't have a duplicate on the top row,
+   LED:72 is used when r20 is pressed (not a duplicate) */
+const uint8_t PROGMEM convert_key_to_led2[] =
+{
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  60,     61,     62,     63,     64,       65,     66,     NO_LED, NO_LED, NO_LED, \
+  72,     73,     74,     75,     76,       77,     78,     NO_LED, NO_LED, NO_LED, \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
+  NO_LED, NO_LED, 71,     70,     69,       68,     67,     NO_LED, NO_LED, NO_LED, \
+  NO_LED, 84,     83,     82,     81,       80,     79,     NO_LED, NO_LED, NO_LED \
+};
 
 #endif
 
@@ -124,7 +124,7 @@ enum custom_keycodes {
     MI_CH_Fr,
     MI_CH_Fsr,
     MI_CH_Gbr = MI_CH_Fsr,
-    MI_CH_Gr ,
+    MI_CH_Gr,
     MI_CH_Gsr,
     MI_CH_Abr = MI_CH_Gsr,
     MI_CH_Ar,
@@ -144,7 +144,7 @@ enum custom_keycodes {
     MI_CH_F,
     MI_CH_Fs,
     MI_CH_Gb = MI_CH_Fs,
-    MI_CH_G ,
+    MI_CH_G,
     MI_CH_Gs,
     MI_CH_Ab = MI_CH_Gs,
     MI_CH_A,
@@ -273,105 +273,101 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGBLIGHT_ENABLE
-  void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
+void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
     if (keylocation == NO_LED) {
-      return; // do nothing.
+        return;  // do nothing.
     }
 
     if (record->event.pressed) {
-      rgblight_sethsv_at(hue, sat, val, keylocation);
-    }else{
-      rgblight_sethsv_at(HSV_BLACK, keylocation);
+        rgblight_sethsv_at(hue, sat, val, keylocation);
+    } else {
+        rgblight_sethsv_at(HSV_BLACK, keylocation);
     }
-  }
-#endif //RGBLIGHT_ENABLE
+}
+#endif  // RGBLIGHT_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t root_note = MIDI_INVALID_NOTE; // Starting value for the root note of each chord
+    uint16_t root_note = MIDI_INVALID_NOTE;  // Starting value for the root note of each chord
 
-  #ifdef RGBLIGHT_ENABLE
-    // prepare for turning on LEDs when keys are pressed.
-    uint8_t r = record->event.key.row;
-    uint8_t c = record->event.key.col;
-    uint8_t keylocation = convert_key_to_led[MATRIX_COLS*r+c];
-    uint8_t keylocation2 = convert_key_to_led2[MATRIX_COLS*r+c];
-  #endif //RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
+    /* prepare for turning on LEDs when keys are pressed. */
+    uint8_t r            = record->event.key.row;
+    uint8_t c            = record->event.key.col;
+    uint8_t keylocation  = convert_key_to_led[MATRIX_COLS * r + c];
+    uint8_t keylocation2 = convert_key_to_led2[MATRIX_COLS * r + c];
+#endif  // RGBLIGHT_ENABLE
 
     switch (keycode) {
         // MIDI Chord Keycodes, on the left side.
-        case MI_CH_Cr ... MI_CH_Br: // Root Notes
-          	root_note = keycode - MI_CH_Cr + MI_C_1;
-          	process_midi(root_note, record);
-          	process_midi(root_note - 12, record); // -1 Octave
-          	process_midi(root_note + 12, record); // +1 Octave
-            #ifdef RGBLIGHT_ENABLE
-              // if (record->event.pressed) {
-              //   rgblight_sethsv_at(HSV_GOLDENROD, keylocation);
-              // }else{
-              //   rgblight_sethsv_at(HSV_BLACK, keylocation);
-              // }
-              keylight_manager(record, HSV_GOLDENROD, keylocation);
-            #endif
-          	break;
+        case MI_CH_Cr ... MI_CH_Br:  // Root Notes
+            root_note = keycode - MI_CH_Cr + MI_C_1;
+            process_midi(root_note, record);
+            process_midi(root_note - 12, record);  // -1 Octave
+            process_midi(root_note + 12, record);  // +1 Octave
+#ifdef RGBLIGHT_ENABLE
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+#endif
+            break;
 
-        case MI_CH_C ... MI_CH_B: // Major Chords
-          	root_note = keycode - MI_CH_C + MI_C_1;
-          	process_midi(root_note, record);
-          	process_midi(root_note + 4, record); // Major Third Note
-          	process_midi(root_note + 7, record); // Fifth Note
-            #ifdef RGBLIGHT_ENABLE
-              keylight_manager(record, HSV_GOLDENROD, keylocation);
-            #endif
-          	break;
+        case MI_CH_C ... MI_CH_B:  // Major Chords
+            root_note = keycode - MI_CH_C + MI_C_1;
+            process_midi(root_note, record);
+            process_midi(root_note + 4, record);  // Major Third Note
+            process_midi(root_note + 7, record);  // Fifth Note
+#ifdef RGBLIGHT_ENABLE
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+#endif
+            break;
 
-        case MI_CH_Cm ... MI_CH_Bm: // Minor Chord
-          	root_note = keycode - MI_CH_Cm + MI_C_1;
-          	process_midi(root_note, record);
-          	process_midi(root_note + 3, record); // Minor Third Note
-          	process_midi(root_note + 7, record); // Fifth Note
-            #ifdef RGBLIGHT_ENABLE
-              keylight_manager(record, HSV_GOLDENROD, keylocation);
-            #endif
-          	break;
+        case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
+            root_note = keycode - MI_CH_Cm + MI_C_1;
+            process_midi(root_note, record);
+            process_midi(root_note + 3, record);  // Minor Third Note
+            process_midi(root_note + 7, record);  // Fifth Note
+#ifdef RGBLIGHT_ENABLE
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+#endif
+            break;
 
-        case MI_CH_CDom7 ... MI_CH_BDom7: // Dominant 7th Chord
-          	root_note = keycode - MI_CH_CDom7 + MI_C_1;
-          	process_midi(root_note, record);
-          	process_midi(root_note + 4, record); // Major Third Note
-          	process_midi(root_note + 10, record); // Minor Seventh Note
-            #ifdef RGBLIGHT_ENABLE
-              keylight_manager(record, HSV_GOLDENROD, keylocation);
-            #endif
-          	break;
+        case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
+            root_note = keycode - MI_CH_CDom7 + MI_C_1;
+            process_midi(root_note, record);
+            process_midi(root_note + 4, record);   // Major Third Note
+            process_midi(root_note + 10, record);  // Minor Seventh Note
+#ifdef RGBLIGHT_ENABLE
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+#endif
+            break;
 
-        case MI_CH_CDim7 ... MI_CH_BDim7: // Diminished 7th Chord
-          	root_note = keycode - MI_CH_CDim7 + MI_C_1; // Changed from "+ MI_C" to "+ MI_C_1" since there is "root_note - 3" below.
-          	process_midi(root_note, record);
-          	process_midi(root_note + 3, record); // Minor Third Note
-          	process_midi(root_note - 3, record); // Diminished 7th Note
-            #ifdef RGBLIGHT_ENABLE
-              keylight_manager(record, HSV_GOLDENROD, keylocation);
-            #endif
-          	break;
+        case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
+            root_note = keycode - MI_CH_CDim7 + MI_C_1;  // Changed from "+ MI_C" to "+ MI_C_1" since there is "root_note - 3" below.
+            process_midi(root_note, record);
+            process_midi(root_note + 3, record);  // Minor Third Note
+            process_midi(root_note - 3, record);  // Diminished 7th Note
+#ifdef RGBLIGHT_ENABLE
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+#endif
+            break;
 
-        // Keycodes on the right side.
-        #ifdef RGBLIGHT_ENABLE
-          case MIDI_TONE_MIN ... MIDI_TONE_MAX: // notes on the right side.
-              keylight_manager(record, HSV_GOLDENROD, keylocation);
-              keylight_manager(record, HSV_GOLDENROD, keylocation2);
-              break;
+            // Keycodes on the right side.
 
-          case KC_MUTE:
-              if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+        case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side.
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            keylight_manager(record, HSV_GOLDENROD, keylocation2);
+            break;
+
+        case KC_MUTE:
+            if (record->event.pressed) {
                 myMUTEstat = !myMUTEstat;
                 if (myMUTEstat) {
-                  rgblight_sethsv_at(HSV_GOLDENROD, keylocation);
+                    rgblight_sethsv_at(HSV_GOLDENROD, keylocation);
                 } else {
-                  rgblight_sethsv_at(HSV_BLACK, keylocation);
+                    rgblight_sethsv_at(HSV_BLACK, keylocation);
                 }
-              }
-              break;
-        #endif
+            }
+            break;
+#endif
     }
     return true;
 }
@@ -386,4 +382,4 @@ void encoder_update_user(int8_t index, bool clockwise) {
         }
     }
 }
-#endif // ENCODER_ENABLE
+#endif  // ENCODER_ENABLE
