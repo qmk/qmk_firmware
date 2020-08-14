@@ -26,6 +26,7 @@ Designed and built in Felton, CA, Clueboards keyboard emphasize quality and loca
 * [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; A powerful split mechanical keyboard.
 * [Planck EZ](/keyboards/planck/ez) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine, which ships fully assembled with a two-year warranty.
 
+
 ## Community-supported QMK Keyboards
 
 These keyboards are part of the QMK repository, but their manufacturers are not official maintainers of the repository.
