@@ -15,3 +15,22 @@
  */
 
 #include "rar.h"
+
+void keyboard_pre_init_kb(void) {
+    // Set our LED pins as output.
+    setPinOutput(B1);
+    setPinOutput(B3);
+
+    keyboard_pre_init_user();
+}
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+
+    if (res) {
+        writePin(B1, led_state.caps_lock);
+        writePin(B3, led_state.scroll_lock);
+    }
+
+    return res;
+}
