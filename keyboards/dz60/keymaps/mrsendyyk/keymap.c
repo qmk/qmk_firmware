@@ -68,7 +68,7 @@ void keyboard_post_init_user(void) {
   rgblight_sethsv_noeeprom(0, 0, 0);
 };
 
-// RGB Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator.
+// RGB Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
 void update_led(void) {
   if (host_keyboard_led_state().num_lock) { // Num Lock Indicator (Press & Hold Right `Ctrl` Key + Press `N` Key)
