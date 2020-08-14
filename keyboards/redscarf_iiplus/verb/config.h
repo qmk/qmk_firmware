@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RedScarf
 #define PRODUCT         RedScarfII+
-#define DESCRIPTION     QMK Firmware for the RedScarf II+
 
 /* key matrix size */
 #define MATRIX_ROWS 6

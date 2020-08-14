@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maartenwut
 #define PRODUCT         Eon95
-#define DESCRIPTION     A 95% PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 12

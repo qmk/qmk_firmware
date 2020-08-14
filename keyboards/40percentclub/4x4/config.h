@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x4444
 #define MANUFACTURER    di0ib
 #define PRODUCT         The 4x4 Keyboard
-#define DESCRIPTION     A modular compact keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Flehrad
 #define PRODUCT         Snagpad
-#define DESCRIPTION     A Pro Micro-Powered 5x4 macropad/numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5

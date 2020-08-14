@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
 #define PRODUCT         DZ60
-#define DESCRIPTION     DZ60 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

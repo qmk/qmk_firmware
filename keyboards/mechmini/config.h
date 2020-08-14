@@ -23,6 +23,5 @@
 #define PRODUCT_ID      0xCA40
 #define MANUFACTURER    MECHKEYS
 #define PRODUCT         Mechmini
-#define DESCRIPTION     40% modular keyboard
 
 #endif

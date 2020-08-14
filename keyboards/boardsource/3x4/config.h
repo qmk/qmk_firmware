@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Boardsource
 #define PRODUCT         3x4
-#define DESCRIPTION     Little macro pad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

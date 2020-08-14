@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Space City Keyboards
 #define PRODUCT         OSA
-#define DESCRIPTION     PCB for the OSA (A no longer open source version of the TGR Alice)
 
 /* key matrix size */
 #define MATRIX_ROWS 10

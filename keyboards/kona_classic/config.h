@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Dangerous Parts
 #define PRODUCT         Kona Classic
-#define DESCRIPTION     QMK keyboard firmware for Kona Classic
 
 /* key matrix size */
 #define MATRIX_ROWS 5

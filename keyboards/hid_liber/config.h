@@ -26,7 +26,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    "bpiphany"
 #define PRODUCT         "HIDLiberation"
-#define DESCRIPTION     "HID Liberation powered by QMK"
 
 /* key matrix size */
 #define MATRIX_ROWS 18

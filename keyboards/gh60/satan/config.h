@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    SATAN
 #define PRODUCT         GH60 Satan
-#define DESCRIPTION     60% keyboard with backlight and WS2812 support
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    UK Keyboards
 #define PRODUCT         UK78
-#define DESCRIPTION     QMK keyboard firmware for UK78
 
 /* key matrix size */
 #define MATRIX_ROWS 5

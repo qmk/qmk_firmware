@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    1up Keyboards
 #define PRODUCT         Four Banger
-#define DESCRIPTION     2x2 grid
 
 /* key matrix size */
 #define MATRIX_ROWS 2

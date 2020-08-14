@@ -24,7 +24,6 @@
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Exclusive / E-Team
 #define PRODUCT      E6.5
-#define DESCRIPTION  E6.5 QMK PCB(LED)
 
 /* key matrix size */
 #define MATRIX_ROWS 5

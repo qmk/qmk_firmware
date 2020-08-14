@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER HnahKB
 #define PRODUCT VN66
-#define DESCRIPTION A compact keyboard for VNMK
 
 /* key matrix size */
 #define MATRIX_ROWS 5

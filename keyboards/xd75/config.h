@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    xiudi
 #define PRODUCT         XD75
-#define DESCRIPTION     XD75Re 15x5 ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

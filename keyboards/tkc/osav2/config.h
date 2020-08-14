@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    The Key Company
 #define PRODUCT         OSA v2
-#define DESCRIPTION     QMK keyboard firmware for TKC OSA v2 (One Sweet Alice)
 
 /* key matrix size */
 #define MATRIX_ROWS 10

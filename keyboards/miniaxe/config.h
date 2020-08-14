@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ENDO Katsuhiro
 #define PRODUCT         MiniAxe
-#define DESCRIPTION     Yet another split keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

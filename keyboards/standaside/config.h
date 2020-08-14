@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Fate Everywhere
 #define PRODUCT         Stand Aside
-#define DESCRIPTION     A compact 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

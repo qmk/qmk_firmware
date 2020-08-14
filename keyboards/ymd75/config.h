@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MANUFACTURER    YMDK
 #define PRODUCT         YMD75 / MT84
-#define DESCRIPTION     75% Keyboard
 
 
 #define BACKLIGHT_PIN D4

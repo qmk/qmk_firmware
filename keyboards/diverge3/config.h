@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    UniKeyboard
 #define PRODUCT         diverge3
-#define DESCRIPTION     Split 72 key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10

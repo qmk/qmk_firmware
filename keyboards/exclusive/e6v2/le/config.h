@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Exclusive / E-Team
 #define PRODUCT         E6-V2 LE
-#define DESCRIPTION     E6-V2 LE QMK PCB (Mid-Port)
 
 /* key matrix size */
 #define MATRIX_ROWS 5

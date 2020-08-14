@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x1912			// 2019.12
 #define MANUFACTURER    SiRius
 #define PRODUCT         SiRius Uni660
-#define DESCRIPTION     SiRius Uni660
 
 /* key matrix size */
 #define MATRIX_ROWS 5

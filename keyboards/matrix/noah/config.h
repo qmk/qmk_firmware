@@ -11,7 +11,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER matrix
 #define PRODUCT NOAH
-#define DESCRIPTION 65% keybaord of the Matrix abel family
 
 /* key matrix size */
 #define MATRIX_ROWS 5

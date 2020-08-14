@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         CrawlPad
-#define DESCRIPTION     ATX Keycrawl 2017
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SheuBox
 #define PRODUCT         Fallacy
-#define DESCRIPTION     Aluminum Alice Clone
 
 /* key matrix size
  */

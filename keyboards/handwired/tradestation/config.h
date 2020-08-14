@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Flehrad
 #define PRODUCT         Trade Station
- #define DESCRIPTION     A Pro Micro-powered macropad layout by Didier Luximon. 1/8U gap space top two rows and 1/4U gap between 2U bottom two rows.
 
 /* key matrix size */
 #define MATRIX_ROWS 4

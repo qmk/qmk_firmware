@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER Ian Sterling
 
 #undef DESCRIPTION
-#define DESCRIPTION A column-staggered split ortholinear keyboard
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS

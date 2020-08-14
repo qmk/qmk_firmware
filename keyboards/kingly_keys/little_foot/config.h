@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kingly-Keys
 #define PRODUCT         The Little Foot
-#define DESCRIPTION     A Mighty Small, 45-Percent, Ortholinear Keyboard.
 
 /* key matrix size */
 #define MATRIX_ROWS 5

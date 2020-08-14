@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    inachie
 #define PRODUCT         paladin64
-#define DESCRIPTION     Paladin64 ALPS 64 keyboard with trackpoint and underglow
 
 /* key matrix size */
 #define MATRIX_ROWS 8

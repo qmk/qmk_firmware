@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Keycapsss
 #define PRODUCT         O4L:5x12
-#define DESCRIPTION     A 60 key ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER JMWS
 #define PRODUCT JM60 RGB Keyboard(QMK)
-#define DESCRIPTION QMK keyboard firmware for JM60 RGB Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

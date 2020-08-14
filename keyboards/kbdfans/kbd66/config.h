@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
 #define PRODUCT         KBD66
-#define DESCRIPTION     QMK keyboard firmware for KBD66
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Luciano M
 #define PRODUCT         Meson
-#define DESCRIPTION     3x14 split keyboard with two thumb keys per side
 
 /* key matrix size */
 #define MATRIX_ROWS 8 // 4 rows each half

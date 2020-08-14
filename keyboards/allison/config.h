@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER protoTypist
 #define PRODUCT Allison
-#define DESCRIPTION A custom luxurious 60 with F-row and Macro
 
 /* key matrix size */
 #define MATRIX_ROWS 6

@@ -6,7 +6,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    DZTECH
 #define PRODUCT         DZ60RGB_WKL
-#define DESCRIPTION     DZ60 AVR RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

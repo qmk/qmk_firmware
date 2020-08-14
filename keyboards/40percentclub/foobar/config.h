@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0F00
 #define MANUFACTURER    di0ib
 #define PRODUCT         The foobar Keyboard
-#define DESCRIPTION     A split 30 key keyboard
 
 #define USE_SERIAL
 

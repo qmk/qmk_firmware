@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Geekboards
 #define PRODUCT         Geekboards Tester
-#define DESCRIPTION     Geekboards 8-keys macropad
 
 
 #define MATRIX_ROWS 2

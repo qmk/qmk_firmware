@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Handwired
 #define PRODUCT         Tritium Numpad
-#define DESCRIPTION     QMK keyboard firmware for handwired numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 6

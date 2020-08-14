@@ -26,7 +26,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    大橘子外设 (Large orange peripherals)
 #define PRODUCT         Org60
-#define DESCRIPTION     Org60 Keyboard PCB by 大橘子外设 (Large orange peripherals)
 
 /* key matrix size */
 #define MATRIX_ROWS 5

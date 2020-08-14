@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    YANG
 #define PRODUCT         YD68v2
-#define DESCRIPTION     65% board with Bluetooth
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -12,4 +12,3 @@
 #define DEVICE_VER 0x0068
 #define MANUFACTURER 68Keys.io
 #define PRODUCT The 68Keys.io Keyboard
-#define DESCRIPTION A 68 keys mechanical keyboard

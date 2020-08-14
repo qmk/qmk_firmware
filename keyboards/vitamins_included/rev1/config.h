@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameters */
 #define DEVICE_VER      0x0001
-#define DESCRIPTION     A split keyboard for the cheapish makers
 
 /* key matrix size */
 // Rows are doubled-up

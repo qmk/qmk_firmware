@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    foostan
 #define PRODUCT         Corne Keyboard (crkbd)
-#define DESCRIPTION     A split keyboard with 3x6 vertically staggered keys and 3 thumb keys
 
 /* key matrix size */
 // Rows are doubled-up

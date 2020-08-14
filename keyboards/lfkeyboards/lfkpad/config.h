@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LFKeyboards
 #define PRODUCT         LFKPad 21
-#define DESCRIPTION     QMK keyboard firmware for LFKPad
 
 /* key matrix size */
 #define MATRIX_ROWS 6

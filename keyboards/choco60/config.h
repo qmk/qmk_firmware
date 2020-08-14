@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Naoto Takai
 #define PRODUCT         choco60
-#define DESCRIPTION     A 60% split keyboard for programmers.
 
 /* key matrix size */
 #define MATRIX_ROWS 10

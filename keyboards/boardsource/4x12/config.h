@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Boardsource
 #define PRODUCT         4x12
-#define DESCRIPTION     40 percent ortho keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4

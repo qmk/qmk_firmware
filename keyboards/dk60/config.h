@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define DEVICE_VER      0x0001
     #define MANUFACTURER    DARKOU
     #define PRODUCT         DK60
-    #define DESCRIPTION     QMK keyboard firmware for DK60 support
 
     /* key matrix size */
     #define MATRIX_ROWS 5

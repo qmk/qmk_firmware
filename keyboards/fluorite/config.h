@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ihotsuno
 #define PRODUCT         fluorite
-#define DESCRIPTION     Fluorite is a chaotic keyboard consisting of staggered rows, staggered columns, and ortholinear.
 
 /* key matrix size */
 #define MATRIX_ROWS 16

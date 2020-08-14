@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maartenwut
 #define PRODUCT         Eon87
-#define DESCRIPTION     A TKL PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 6

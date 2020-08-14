@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Team.Mechlovin
 #define PRODUCT      Hannah60 RGB
-#define DESCRIPTION  Team.Mechlovin Hannah60 RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

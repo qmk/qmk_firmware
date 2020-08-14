@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER          1
 #define MANUFACTURER        QMK
 #define PRODUCT             5291 keyboard converter
-#define DESCRIPTION         5291 keyboard converter
 
 #define MATRIX_ROWS         24
 #define MATRIX_COLS         4

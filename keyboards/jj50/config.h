@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         JJ50
-#define DESCRIPTION     A compact 50% (5x12) ortholinear keyboard
 
 /* matrix size */
 #define MATRIX_ROWS 5

@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Quadcube
 #define PRODUCT TGR-910
-#define DESCRIPTION 65% Keyboard
 
 #define RGBLED_NUM 19
 

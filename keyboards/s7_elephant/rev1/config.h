@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    jacky
 #define PRODUCT         S7 Elephant
-#define DESCRIPTION     A high-end 70% custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
 #define PRODUCT         kbd6x
-#define DESCRIPTION     Dual USB-C Tsangan Hot Swap PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

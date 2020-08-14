@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         XD96
-#define DESCRIPTION     KPrepublic XD96
 
 /* key matrix size */
 #define MATRIX_ROWS 6

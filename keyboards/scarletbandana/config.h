@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         Scarlet Bandana Version IV mark.2
-#define DESCRIPTION     65% with macro keys
 
 /* key matrix size */
 #define MATRIX_ROWS 5

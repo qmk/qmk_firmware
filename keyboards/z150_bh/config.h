@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    blindassassin111
 #define PRODUCT         Z-150 PCB
-#define DESCRIPTION     Replacement for Zenith Z-150 PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

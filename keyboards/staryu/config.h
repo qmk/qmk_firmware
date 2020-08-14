@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0205
 #define MANUFACTURER    K.T.E.C.
 #define PRODUCT         Staryu
-#define DESCRIPTION     5-key macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 2

@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
 #define PRODUCT         Dawn60
-#define DESCRIPTION     Dawn60
 
 // key matrix size
 #define MATRIX_ROWS 5

@@ -25,7 +25,6 @@
 #undef PRODUCT
 #define PRODUCT         Mechmini 2
 #undef DESCRIPTION
-#define DESCRIPTION     40% modular keyboard
 
 /* key matrix size */
 #undef MATRIX_COLS

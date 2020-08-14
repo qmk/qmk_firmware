@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER TGR
 #define PRODUCT Tris
-#define DESCRIPTION Numpad by TGR
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4

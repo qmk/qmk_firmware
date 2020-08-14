@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
 #define PRODUCT         AEboards Ext65
-#define DESCRIPTION     AEboards Ext65
 
 /* key matrix size */
 #define MATRIX_ROWS 10

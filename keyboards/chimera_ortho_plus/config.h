@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    unknown
 #define PRODUCT         Chimera Ortho Plus
-#define DESCRIPTION     q.m.k. keyboard firmware for Chimera Ortho Plus
 
 /* key matrix size */
 #define MATRIX_ROWS 6

@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #ifndef DESCRIPTION
-#define DESCRIPTION     QMK keyboard firmware for Ergodox EZ
 #endif
 
 #define USB_MAX_POWER_CONSUMPTION 500

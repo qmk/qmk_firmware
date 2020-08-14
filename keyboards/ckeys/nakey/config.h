@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    cKeys
 #define PRODUCT         naKey
-#define DESCRIPTION     The cKeys through hole ten key pad
 
 /* key matrix size */
 #define MATRIX_ROWS 5

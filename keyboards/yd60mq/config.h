@@ -7,7 +7,6 @@
 #define PRODUCT_ID      0x6060
 #define MANUFACTURER    YMDK
 #define PRODUCT         YD60MQ
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

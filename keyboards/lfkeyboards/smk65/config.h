@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LFKeyboards
 #define PRODUCT         SMK65v2
-#define DESCRIPTION     QMK keyboard firmware for SMK65
 
 // RevA
 // #define DIODE_DIRECTION COL2ROW

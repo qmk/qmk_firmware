@@ -1,7 +1,6 @@
 #pragma once
 
 #define PRODUCT      Adelais
-#define DESCRIPTION  Team.Mechlovin Adelais
 
 #define BACKLIGHT_PIN B0
 #define BACKLIGHT_BREATHING

@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Zygomorph
-#define DESCRIPTION     "RGB, thin, ortholinear"
 
 /* Select hand configuration */
 #define EE_HANDS

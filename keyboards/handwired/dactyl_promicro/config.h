@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 //#define MANUFACTURER    tshort
 // defined in subfolder
-#define DESCRIPTION     A split keyboard
 
 /* mouse config */
 #define MOUSEKEY_INTERVAL       20

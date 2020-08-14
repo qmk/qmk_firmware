@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    1upkeyboards
 #define PRODUCT         super16
-#define DESCRIPTION     A 4x4 custom macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 4

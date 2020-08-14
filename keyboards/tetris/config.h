@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fengz
 #define PRODUCT         Tetris
-#define DESCRIPTION     Planck mit
 
 /* key matrix size */
 #define MATRIX_ROWS 5

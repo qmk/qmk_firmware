@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    hineybush
 #define PRODUCT         hineyG80
-#define DESCRIPTION     QMK-powered PCB for Cherry G80/81-1800 Boards
 
 /* key matrix size */
 #define MATRIX_ROWS 12

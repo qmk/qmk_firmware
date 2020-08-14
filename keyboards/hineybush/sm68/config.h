@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER hineybush keyboards
 #define PRODUCT sm68
-#define DESCRIPTION PCB for switchmod keyboards projects
 
 /* key matrix size */
 #define MATRIX_ROWS 5

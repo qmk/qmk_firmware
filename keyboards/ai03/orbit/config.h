@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    ai03 Keyboard Designs
 #define PRODUCT         Orbit
-#define DESCRIPTION     Split ergonomic keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10 // Double rows for split keyboards. Orbit has 5, so define 10

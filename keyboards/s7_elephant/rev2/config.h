@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Jacky
 #define PRODUCT         Jacky S7 Elephant Rev 2
-#define DESCRIPTION     A high-end 70% custom keyboard
 
 /* Don't remove this without also removing LTO_ENABLE=yes in rules.mk */
 #define NO_ACTION_MACRO

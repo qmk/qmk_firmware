@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Unikeyboard
 #define PRODUCT         Felix
-#define DESCRIPTION     4x5 number/macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 5

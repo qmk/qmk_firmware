@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maartenwut
 #define PRODUCT         OmronTKL
-#define DESCRIPTION     A TKL PCB for Omron switches
 
 /* key matrix size */
 #define MATRIX_ROWS 6

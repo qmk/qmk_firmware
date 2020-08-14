@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MILLER
 #define PRODUCT         GM862
-#define DESCRIPTION     GM862 AVR RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

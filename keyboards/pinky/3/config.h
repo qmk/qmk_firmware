@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    tamanishi
 #define PRODUCT         Pinky
-#define DESCRIPTION     A split keyboard with 3 or 4 x7 vertically staggered keys and 4 thumb keys
 
 /* key matrix size */
 // Rows are doubled-up

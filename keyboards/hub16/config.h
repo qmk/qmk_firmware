@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Josh Johnson
 #define PRODUCT Hub16
-#define DESCRIPTION Macro Pad with USB Hub and Encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 5

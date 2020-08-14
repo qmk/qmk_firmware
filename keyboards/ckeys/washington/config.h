@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER merlin04
 #define PRODUCT Washington Macropad
-#define DESCRIPTION Washington State shaped macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

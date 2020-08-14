@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maartenwut
 #define PRODUCT         Ortho
-#define DESCRIPTION     Handwired ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

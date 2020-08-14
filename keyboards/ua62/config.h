@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER NaCly
 #define PRODUCT UA62
-#define DESCRIPTION A Keyboard Used for Input.
 
 /* key matrix size */
 #define MATRIX_ROWS 5

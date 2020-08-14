@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Worldspawn00
 #define PRODUCT         PAIN27
-#define DESCRIPTION     A 27-key Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3

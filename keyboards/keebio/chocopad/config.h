@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Chocopad
-#define DESCRIPTION     4x4 macropad using Kailh Choc low-profile switches
 
 /* key matrix size */
 #define MATRIX_ROWS 4

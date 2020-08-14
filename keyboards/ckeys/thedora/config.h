@@ -24,7 +24,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER ckeys
 #define PRODUCT thedora
-#define DESCRIPTION A board for keyboard exploration.
 
 #define ENCODERS_PAD_A { B13 }
 #define ENCODERS_PAD_B { B15 }

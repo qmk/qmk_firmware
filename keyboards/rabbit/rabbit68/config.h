@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Kai Eckert
 #define PRODUCT Rabbit68
-#define DESCRIPTION An ortholinear 68 keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER Xiaomi
 #define PRODUCT MK02
-#define DESCRIPTION Yuemi Pro MK02
 
 /* key matrix size */
 #define MATRIX_ROWS 6

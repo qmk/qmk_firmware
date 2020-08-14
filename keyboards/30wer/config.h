@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    8o7wer
 #define PRODUCT         30wer
-#define DESCRIPTION     Gherkin style construction 30% staggered pcb kit
 
 /* key matrix size */
 #define MATRIX_ROWS 3
