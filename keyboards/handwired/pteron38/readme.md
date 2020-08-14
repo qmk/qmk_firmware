@@ -1,8 +1,10 @@
 # Pteron38
 
+![Pteron38](https://imgur.com/gallery/tP2EQNW)
+
 An ergonomic keyboard heavily inspired by the [Atreus](https://github.com/technomancy/atreus), [Iris](https://github.com/keebio/iris-case) and [Atreis](https://github.com/dekonnection/atreis) keyboards. More info and files for laser cutting plates and case are in the [Pteron repository](https://github.com/FSund/pteron-keyboard).
 
-* Keyboard Maintainer:  [Filip Sund](https://github.com/FSund) FIXME
+* Keyboard Maintainer:  [Fidel Coria](https://github.com/fidelcoria)
 * Hardware Supported: Elite C
 * Hardware Availability: Handwired, no PCB's available (for now)
 
