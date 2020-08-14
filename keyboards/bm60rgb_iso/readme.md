@@ -4,7 +4,7 @@
 
 A 60% ISO hotswap inswitch RGB keyboard.
 
-* Keyboard Maintainer: [markva](https://github.com/solid44)
+* Keyboard Maintainer: [markva](https://github.com/markva)
 * Hardware Supported: BM60 RGB ISO
 * Hardware Availability: [KP Republic](https://kprepublic.com/products/bm60-rgb-iso-uk-eu-rgb-60-hot-swappable-pcb-qmk-firmware-rgb-underglow-type-c)
 
