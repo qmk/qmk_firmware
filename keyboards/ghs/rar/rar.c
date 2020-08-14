@@ -16,12 +16,12 @@
 
 #include "rar.h"
 
-void keyboard_pre_init_user(void) {
-    // Call the keyboard pre init code.
-
+void keyboard_pre_init_kb(void) {
     // Set our LED pins as output.
     setPinOutput(B1);
     setPinOutput(B3);
+
+    keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
