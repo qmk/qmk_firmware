@@ -1,4 +1,4 @@
-# DZ60 60% MECHANICAL KEYBOARD PCB 
+# DZ60 60% MECHANICAL KEYBOARD PCB
 
 ![dz60](https://cdn.shopify.com/s/files/1/1473/3902/files/c_1.jpg?v=1565747037)
 
