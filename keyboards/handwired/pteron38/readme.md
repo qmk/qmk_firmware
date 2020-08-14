@@ -1,11 +1,9 @@
 # Pteron38
 
-![Pteron38]() FIXME
-
 An ergonomic keyboard heavily inspired by the [Atreus](https://github.com/technomancy/atreus), [Iris](https://github.com/keebio/iris-case) and [Atreis](https://github.com/dekonnection/atreis) keyboards. More info and files for laser cutting plates and case are in the [Pteron repository](https://github.com/FSund/pteron-keyboard).
 
 * Keyboard Maintainer:  [Filip Sund](https://github.com/FSund) FIXME
-* Hardware Supported: Pro Micro
+* Hardware Supported: Elite C
 * Hardware Availability: Handwired, no PCB's available (for now)
 
 Make example for this keyboard (after setting up your build environment):
