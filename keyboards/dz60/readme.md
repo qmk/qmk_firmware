@@ -8,9 +8,7 @@ A Customizable 60% Mechanical Keyboard PCB.
 * Hardware Supported: DZ60
 * Hardware Availability: [KBDfans](https://kbdfans.com/collections/60/products/dz60-60-pcb)
 
-
 ![support_layout](https://cdn.shopify.com/s/files/1/1473/3902/files/1_03_abb48769-9486-44bd-a761-7cd39d7e1bda.jpg?v=1498974452)
-
 
 Build the firmware:
 
