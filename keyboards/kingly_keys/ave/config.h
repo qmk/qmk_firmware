@@ -25,7 +25,7 @@
 #define PRODUCT_ID      0x1225
 #define DEVICE_VER      0x0011
 #define MANUFACTURER    Kingly-Keys
-#define PRODUCT         "The Ave (Avenue)"
+#define PRODUCT         "The Ave."
 #define DESCRIPTION     "A compact battlestation"
 
 /* key matrix size */
