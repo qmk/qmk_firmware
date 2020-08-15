@@ -2,7 +2,7 @@
 
 `LAYOUT_60_ansi_arrows` with RGB underglow as Caps Lock, Num Lock, Scroll Lock, and layer indicator.
 
-### Layer [0]
+### [0]
 
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -18,7 +18,7 @@
 └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
 ```
 
-### Layer [1]
+### [1]
 
 Press and hold *right* **Ctl** key.
 
@@ -37,7 +37,7 @@ Press and hold *right* **Ctl** key.
    */
 ```
 
-### Layer [2]
+### [2]
 
 Press and hold *right* **Alt** key.
 
