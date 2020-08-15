@@ -158,6 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
+  // index 1 == minion side
   if (index == 1) {
     if (clockwise) {
       tap_code(KC_VOLD);
