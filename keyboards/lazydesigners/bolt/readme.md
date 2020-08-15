@@ -4,7 +4,7 @@
 
 A 40% ergo keyboard designed and produced by [LAZYDESIGNERS](http://lazydesigners.cn).
 
-Keyboard Maintainer: [LAZYDESIGNERS]
+Keyboard Maintainer: [LAZYDESIGNERS](https://github.com/jackytrabbit)
 
 Hardware Supported: Bolt
 
