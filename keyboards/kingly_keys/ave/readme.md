@@ -1,6 +1,6 @@
 # The Ave. (Avenue)
 
-![ave-img-1](https://i.imgur.com/qnxNjvy.jpg)
+![ave-img-1](https://i.imgur.com/l5ah6uM.png)
 
 ====
 
