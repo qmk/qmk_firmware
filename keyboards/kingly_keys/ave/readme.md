@@ -4,7 +4,7 @@
 
 ====
 
-"A compact battlestation"
+"A compact battlestation."
 
 - Keyboard Maintainer: [The-Royal](https://github.com/the-royal)
 - Hardware Supported: Rev10.0 Avenue PCBs *(Ortholinear & Staggered)*

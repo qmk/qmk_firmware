@@ -26,7 +26,7 @@
 #define DEVICE_VER      0x0011
 #define MANUFACTURER    Kingly-Keys
 #define PRODUCT         "The Ave."
-#define DESCRIPTION     "A compact battlestation"
+#define DESCRIPTION     "A compact battlestation."
 
 /* key matrix size */
 #define MATRIX_ROWS 5
