@@ -60,7 +60,6 @@
         },
 
         "LAYOUT_planck_mit": {
-            "key_count": 47,
             "layout": [
                 {"label":"K00 (B3,B6)", "x":0, "y":0},
                 {"label":"K01 (B3,C6)", "x":1, "y":0},
