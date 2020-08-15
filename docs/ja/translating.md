@@ -1,11 +1,11 @@
-# 翻訳を追加する方法
+# QMK ドキュメントを翻訳する
 
 <!---
   original document: 0.9.51:docs/translating.md
   git diff 0.9.51 HEAD -- docs/translating.md | cat
 -->
 
-ルートフォルダ (`docs/`) にある全てのファイルは英語でなければなりません - 他の全ての言語は、ISO 639-1 言語コードと、それに続く`-`と適切な国コードのサブフォルダにある必要があります。[一般的なもののリストはここで見つかります](https://www.andiamo.co.uk/resources/iso-language-codes/)。このフォルダが存在しない場合、作成することができます。翻訳された各ファイルは英語バージョンと同じ名前でなければなりません。そうすれば正常に元の状態に戻すことができます。
+ルートフォルダ (`docs/`) にある全てのファイルは英語でなければなりません - 他の全ての言語は、ISO 639-1 言語コードと、それに続く`-`と関連する国コードのサブフォルダにある必要があります。[一般的なもののリストはここで見つかります](https://www.andiamo.co.uk/resources/iso-language-codes/)。このフォルダが存在しない場合、作成することができます。翻訳された各ファイルは英語バージョンと同じ名前でなければなりません。そうすれば正常に元の状態に戻すことができます。
 
 `_summary.md` ファイルはこのフォルダの中に存在し、各ファイルへのリンクのリスト、翻訳された名前、言語フォルダに続くリンクが含まれている必要があります。
 
@@ -24,7 +24,7 @@
 新しい言語の翻訳が完了したら、以下のファイルも修正する必要があります:
 
 * [`docs/_langs.md`](https://github.com/qmk/qmk_firmware/blob/master/docs/_langs.md)
-各行は、[GitHub emoji shortcode](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#country-flag) の形式で国フラグと、それに続く独自の言語で表される名前を含む必要があります。
+各行は、[GitHub emoji shortcode](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#country-flag) の形式で国フラグと、それに続く言語で表される名前を含む必要があります。
 
   ```markdown
    - [:cn: 中文](/zh-cn/)
@@ -53,7 +53,7 @@
   ],
   ```
 
-## Previewing the Translations
+## 翻訳のプレビュー
 
 ドキュメントのローカルインスタンスをセットアップする方法については、[ドキュメントのプレビュー](ja/contributing.md#previewing-the-documentation)を見てください - 右上の "Translations" メニューから新しい言語を選択することができるはずです。
 
