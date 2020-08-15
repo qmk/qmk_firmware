@@ -20,7 +20,7 @@
 
 ### Layer [1]
 
-Press and hold *right* **Ctrl** key.
+Press and hold *right* **Ctl** key.
 
 ```
    * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
