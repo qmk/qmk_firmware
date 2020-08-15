@@ -124,7 +124,7 @@ static void timerCallback(void) {
         uint16_t raw;
         struct {
             uint16_t count : 8;
-            uint8_t  dummmy : 1;
+            uint8_t  dummy : 1;
             uint8_t  index : 7;
         } pwm;
     } timer = {.raw = 0};
