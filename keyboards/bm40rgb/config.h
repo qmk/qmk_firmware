@@ -21,11 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0xCBC2
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    KP Republic
-#define PRODUCT         KP Republic BM40HSRGB
-#define DESCRIPTION     QMK Firmware: BM40HSRGB
+#define MANUFACTURER    KPRepublic
+#define PRODUCT         BM40HSRGB
 
 /* key matrix size */
 #define MATRIX_ROWS 4

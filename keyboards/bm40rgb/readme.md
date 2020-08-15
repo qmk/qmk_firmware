@@ -8,16 +8,6 @@ An ortholinear 40% hotswap keyboard with per-key RGB in-switch LEDs and RGB Back
 
 [![](https://rgoulter.com/images/keyboards/bm40rgb/bm40rgb.jpg)](https://rgoulter.com/images/keyboards/bm40rgb/bm40rgb_large.jpg)
 
-Default layout:
-
-[![](https://rgoulter.com/images/keyboards/bm40rgb-default-keymap.png)](http://www.keyboard-layout-editor.com/#/gists/27b44fbd9eb7e41c56febe06f0d8589e)
-
-Supported layouts:
-
-* `ortho_4x12`
-
-* `planck_mit`
-
 Make example for this keyboard (after setting up your build environment):
 
     make bm40rgb:default

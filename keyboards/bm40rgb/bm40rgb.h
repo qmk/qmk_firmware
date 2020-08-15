@@ -43,4 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B }, \
 }
 
-#define LAYOUT LAYOUT_ortho_4x12
+#define LAYOUT_all LAYOUT_ortho_4x12
