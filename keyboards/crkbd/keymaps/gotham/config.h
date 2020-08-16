@@ -9,8 +9,6 @@
 #define USE_SERIAL_PD2
 
 #define IGNORE_MOD_TAP_INTERRUPT
-#define PERMISSIVE_HOLD
-#define TAPPING_TERM 250
 
 #define NO_ACTION_ONESHOT
 
@@ -26,7 +24,7 @@
 
 #ifdef RGBLIGHT_ENABLE
 #    undef RGBLED_NUM
-#    define RGBLED_NUM 6
+#    define RGBLED_NUM 42
 #    define RGBLIGHT_LIMIT_VAL 150
 #    define RGBLIGHT_HUE_STEP 16
 #    define RGBLIGHT_SAT_STEP 32
