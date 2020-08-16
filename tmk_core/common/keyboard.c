@@ -240,7 +240,15 @@ void keyboard_init(void) {
     qwiic_init();
 #endif
 #ifdef OLED_DRIVER_ENABLE
-    oled_init(OLED_ROTATION_0);
+    if (is_keyboard_master()){
+#       ifndef OLED_NO_DISPLAY_ON_MASTER
+        oled_init(OLED_ROTATION_0);
+#       endif
+    } else {
+#       ifndef OLED_NO_DISPLAY_ON_SLAVE
+        led_init(OLED_ROTATION_0);
+#       endif
+    }
 #endif
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();

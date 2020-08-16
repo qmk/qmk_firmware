@@ -499,6 +499,9 @@ void oled_write_raw_P(const char *data, uint16_t size) {
 #endif  // defined(__AVR__)
 
 bool oled_on(void) {
+    if (!oled_initialized) {
+        return false;
+    }
 #if OLED_TIMEOUT > 0
     oled_timeout = timer_read32() + OLED_TIMEOUT;
 #endif
@@ -515,6 +518,10 @@ bool oled_on(void) {
 }
 
 bool oled_off(void) {
+    if (!oled_initialized) {
+        return oled_active;
+    }
+
     static const uint8_t PROGMEM display_off[] = {I2C_CMD, DISPLAY_OFF};
     if (oled_active) {
         if (I2C_TRANSMIT_P(display_off) != I2C_STATUS_SUCCESS) {
