@@ -6,9 +6,8 @@
 #define VENDOR_ID       0x445A  // "DZ"
 #define PRODUCT_ID      0x2260
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFans
-#define PRODUCT         DZ60
-#define DESCRIPTION     DZ60 Keyboard
+#define MANUFACTURER    KBDfans
+#define PRODUCT         DZ60 REV 60% MECHANICAL KEYBOARD PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
