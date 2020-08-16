@@ -10,39 +10,28 @@
 **********************/
 enum layer_names {
     // BASE LAYERS
-        // SHORT CODES
-    _QWERTY = 0,
-        _QW = _QWERTY,
-    _DVORAK,
-        _DV = _DVORAK,
-    _COLEMAK,
-        _CM = _COLEMAK,
-    _QUAKE2,
-        _Q2 = _QUAKE2,
-    _QUAKE2_DVORAK,
-        _QD = _QUAKE2_DVORAK,
-    _QUAKE2_CONSOLE,
-        _QC = _QUAKE2_CONSOLE,
+    _QW,  // QWERTY
+    _DV,  // Dvorak
+    _CM,  // Colemak
+    // QUAKE 2 OVERLAYS
+    _Q2,  // Quake 2
+    _QD,  // Quake 2 Dvorak
+    _QC,  // Quake 2 Console
     // FUNCTION LAYERS
-    _FUNC,
-        _FN = _FUNC,
-    _FUNCQ2,
-        _FQ = _FUNCQ2,
+    _FN,  // Function
+    _FQ,  // Quake 2 Function
     // OTHER LAYERS
-    _NUMPAD,
-        _NP = _NUMPAD,
-    _MACROS,
-        _MA = _MACROS,
-    _SYSTEM,
-        _SY = _SYSTEM,
+    _NP,  // Numpad
+    _MA,  // Macros
+    _SY,  // System
 };
 
 
 // KEYCODE DEFINITIONS
 #define NO_CHNG KC_TRNS // Note for me for keys I need to leave as Pass-through
 
-#define FN_CAPS LT(_FUNC, KC_CAPS)    // _FUNC when held, Caps Lock when tapped
-#define Q2_CAPS LT(_FUNCQ2, KC_CAPS)  // _FUNCQ2 when held, Caps Lock when tapped
+#define FN_CAPS LT(_FN, KC_CAPS)  // Function Layer when held, Caps Lock when tapped
+#define Q2_CAPS LT(_FQ, KC_CAPS)  // Quake 2 Function Layer when held, Caps Lock when tapped
 
 #define CTL_GRV MT(MOD_LCTL, KC_GRV)  // Left Control when held, Grave accent when tapped
 
@@ -50,12 +39,8 @@ enum layer_names {
 // MACRO DEFINITIONS
 enum custom_keycodes {
     F_CAPS = SAFE_RANGE,
-    T_L3DED,
     G_PUSH,
     G_FTCH,
-    G_COMM,
-    G_RST,
-    G_C10R,
     G_BRCH,
     SIGNA,
     GO_Q2,
@@ -83,11 +68,6 @@ bool macroMode = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         // these are our macros!
-        case T_L3DED:
-            if (record->event.pressed) {
-                SEND_STRING("lavak3DED ");
-            };
-            return false;
         case G_PUSH:
             if (record->event.pressed) {
                 SEND_STRING("git push origin ");
@@ -103,11 +83,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             };
             return false;
-        case G_COMM:
-            if (record->event.pressed) {
-                SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
-            };
-            return false;
         case G_BRCH:
             if (record->event.pressed) {
                 if ( get_mods() & MOD_MASK_SHIFT ) {
@@ -120,44 +95,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case SIGNA:
             if (record->event.pressed) {
-                SEND_STRING("\\- @noroadsleft" SS_TAP(X_ENTER));
+                SEND_STRING("\\- @noroadsleft\n");
             };
             return false;
         case GO_Q2:
             if (record->event.pressed) {
-                //default_layer_set(_QWERTY);
-                layer_move(_QWERTY); // TO(_QWERTY);
-                layer_on(_QUAKE2);
-                //layer_off(_SYSTEM);
+                //default_layer_set(_QW);
+                layer_move(_QW); // TO(_QW);
+                layer_on(_Q2);
+                //layer_off(_SY);
             };
             return false;
         case Q2_ON:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_ENTER));
-                layer_on(_DVORAK);
-                layer_on(_QUAKE2_DVORAK);
+                layer_on(_DV);
+                layer_on(_QD);
             };
             return false;
         case Q2_OFF:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_ENTER));
-                layer_move(_QWERTY); // TO(_QWERTY);
-                layer_on(_QUAKE2);
+                layer_move(_QW); // TO(_QW);
+                layer_on(_Q2);
             };
             return false;
         case Q2_ESC:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_ESCAPE));
-                layer_move(_QWERTY); // TO(_QWERTY);
-                layer_on(_QUAKE2);
+                layer_move(_QW); // TO(_QW);
+                layer_on(_Q2);
             };
             return false;
         case Q2_GRV:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_GRAVE));
-                layer_on(_DVORAK);
-                layer_on(_QUAKE2_DVORAK);
-                layer_on(_QUAKE2_CONSOLE);
+                layer_on(_DV);
+                layer_on(_QD);
+                layer_on(_QC);
             };
             return false;
         case M_SALL:
@@ -308,7 +283,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ****************/
 
     /* QWERTY */
-    [_QWERTY] = LAYOUT_60_ansi(
+    [_QW] = LAYOUT_60_ansi(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
@@ -317,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Dvorak */
-    [_DVORAK] = LAYOUT_60_ansi(
+    [_DV] = LAYOUT_60_ansi(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC,
         KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS,
         FN_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,          KC_ENT,
@@ -326,7 +301,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Colemak */
-    [_COLEMAK] = LAYOUT_60_ansi(
+    [_CM] = LAYOUT_60_ansi(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,
         FN_CAPS, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,          KC_ENT,
@@ -339,7 +314,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *********************/
 
     /* Quake 2 */
-    [_QUAKE2] = LAYOUT_60_ansi(
+    [_Q2] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         Q2_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_ON,
@@ -347,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, MO(_FQ), _______
     ),
 
-    [_QUAKE2_DVORAK] = LAYOUT_60_ansi(
+    [_QD] = LAYOUT_60_ansi(
         Q2_ESC,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         Q2_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_OFF,
@@ -355,7 +330,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, MO(_FQ), _______
     ),
 
-    [_QUAKE2_CONSOLE] = LAYOUT_60_ansi(
+    [_QC] = LAYOUT_60_ansi(
         Q2_ESC,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         Q2_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_ENT,
@@ -368,7 +343,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ********************/
 
     /* Fn layer */
-    [_FUNC] = LAYOUT_60_ansi(
+    [_FN] = LAYOUT_60_ansi(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
         _______, KC_CALC, KC_APP,  _______, _______, _______, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_PSCR, KC_SLCK, KC_PAUS,
         NO_CHNG, M_SALL,  _______, _______, _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          KC_PENT,
@@ -377,7 +352,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Quake 2 Fn layer */
-    [_FUNCQ2] = LAYOUT_60_ansi(
+    [_FQ] = LAYOUT_60_ansi(
         Q2_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
         _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_PSCR, KC_SLCK, KC_PAUS,
         NO_CHNG, _______, _______, _______, _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          KC_ENT,
@@ -390,7 +365,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *****************/
 
     /* Numpad layer */
-    [_NUMPAD] = LAYOUT_60_ansi(
+    [_NP] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, _______, _______, _______,
         _______, _______, _______, _______, KC_E,    KC_F,    _______, KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_PSLS, KC_PEQL, _______,
         _______, _______, _______, _______, KC_C,    KC_D,    _______, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, KC_PMNS,          KC_PENT,
@@ -399,16 +374,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Macro layer */
-    [_MACROS] = LAYOUT_60_ansi(
+    [_MA] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DM_REC2, _______,
         _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, DM_PLY1, DM_PLY2, DM_RSTP,
-        _______, _______, _______, G_FTCH,  G_COMM,  _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, G_FTCH,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______,          _______, _______, _______, _______, G_BRCH,  SIGNA,   _______, _______, _______, _______,          _______,
         _______, _______, _______,                            _______,                            _______, _______, NO_CHNG, _______
     ),
 
     /* System layer */
-    [_SYSTEM] = LAYOUT_60_ansi(
+    [_SY] = LAYOUT_60_ansi(
         TG(_SY), TO(_QW), TO(_DV), TO(_CM), GO_Q2,   XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, VRSN,    XXXXXXX,
         XXXXXXX, XXXXXXX, M_MDSWP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
