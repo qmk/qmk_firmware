@@ -56,6 +56,10 @@ void oled_task_user(void) {
 #endif
 ```
 
+## Using Single Display On Split Keyboards
+
+If you have a oled display enabled in your code, but do not have it connected to your keyboard you will experience lagging in registering keypresses. This usually happens if you have a split keyboard and decide to put a display on only one side. Defining either `OLED_NO_DISPLAY_ON_MASTER` or `OLED_NO_DISPLAY_ON_SLAVE` will disable the oled display on one side.
+
 ## Logo Example
 
 In the default font, certain ranges of characters are reserved for a QMK logo. To render this logo to the OLED screen, use the following code example:
