@@ -81,6 +81,7 @@ For instance Tap/Hold for Control on all of the layouts
 */
 
 #define ___________________BLANK___________________       _______, _______, _______, _______, _______
+#define ___________________KC_NO___________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 #define __________________FN_LEFT__________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
@@ -110,7 +111,7 @@ For instance Tap/Hold for Control on all of the layouts
 
 #define _________________RAISE_L1__________________       ________________NUMBER_LEFT________________
 #define _________________RAISE_L2__________________       _______, _______, KC_VOLU, KC_VOLD, KC_MUTE
-#define _________________RAISE_L3__________________       KC_PSCR, KC_SLCK, KC_BRK,  _______, _______
+#define _________________RAISE_L3__________________       KC_PSCR, KC_SLCK, KC_BRK,  KC_INS,  _______
 
 #define _________________RAISE_R1__________________       ________________NUMBER_RIGHT_______________
 #define _________________RAISE_R2__________________       ___________________NAV1____________________

@@ -22,6 +22,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define TG_GAME TG(_GAME)
 #define TG_GNAV TG(_GAMENAV)
 #define MO_GNUM MO(_GAMENUM)
+#define GN_ESC LT(_GAMENUM, KC_ESC)
+#define GN_TAB LT(_GAMENUM, KC_TAB)
 
 #define QWERTY KC_QWERTY
 #define COLEMAK KC_COLEMAK
@@ -29,6 +31,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define WORKMAN KC_WORKMAN
 #define DVORAK KC_DVORAK
 
+#define CTL_EQL MT(MOD_LCTL, KC_EQL)
 #define SF_QUOT MT(MOD_RSFT, KC_QUOT)
 #define CT_MINS MT(MOD_RCTL, KC_MINS)
 
