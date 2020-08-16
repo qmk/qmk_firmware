@@ -1,6 +1,6 @@
 # [Sendy YK](https://mr.sendyyk.com)'s Keymap
 
-`LAYOUT_numpad_5x4`
+`LAYOUT_ortho_5x4`
 
 ### [0]
 
