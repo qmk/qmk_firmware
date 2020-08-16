@@ -34,7 +34,6 @@ void encoder_mode_next(uint8_t index) { encoder_mode_set(index, (encoder_mode_ge
 
 void encoder_mode_previous(uint8_t index) { encoder_mode_set(index, (encoder_mode_get(index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT); }
 
-#ifdef SPLIT_KEYBOARD
 void encoder_get_modes_raw(encoder_mode_t* target_list) {
 #    ifdef SPLIT_KEYBOARD
     memcpy(target_list, encoder_modes, sizeof(encoder_mode_t) * NUMBER_OF_ENCODERS * 2);
@@ -51,79 +50,24 @@ void encoder_set_modes_raw(encoder_mode_t* source_list) {
 #    endif
 }
 
-void encoder_mode_hand_set(encoder_hand_t hand, uint8_t index, encoder_mode_t mode) {
-    index += (hand == ENCODER_HAND_RIGHT) * NUMBER_OF_ENCODERS;
-    encoder_modes[index] = mode;
-}
-
-encoder_mode_t encoder_mode_hand_get(encoder_hand_t hand, uint8_t index) {
-    index += (hand == ENCODER_HAND_RIGHT) * NUMBER_OF_ENCODERS;
-    return encoder_modes[index];
-}
-
-void encoder_mode_hand_next(encoder_hand_t hand, uint8_t index) { encoder_mode_hand_set(hand, index, (encoder_mode_hand_get(hand, index) + 1) % _ENC_MODE_COUNT); }
-
-void encoder_mode_hand_previous(encoder_hand_t hand, uint8_t index) { encoder_mode_hand_set(hand, index, (encoder_mode_hand_get(hand, index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT); }
-#endif
-
-void encoder_action_volume(uint8_t clockwise) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-}
-
-void encoder_action_word_nav(uint8_t clockwise) {
-    if (clockwise) {
-        tap_code16(C(KC_RIGHT));
-    } else {
-        tap_code16(C(KC_LEFT));
-    }
-}
-
-void encoder_action_left_right(uint8_t clockwise) {
-    if (clockwise) {
-        tap_code(KC_RIGHT);
-    } else {
-        tap_code(KC_LEFT);
-    }
-}
-
-void encoder_action_up_down(uint8_t clockwise) {
-    if (clockwise) {
-        tap_code(KC_UP);
-    } else {
-        tap_code(KC_DOWN);
-    }
-}
-
-void encoder_action_paging(uint8_t clockwise) {
-    if (clockwise) {
-        tap_code(KC_PGUP);
-    } else {
-        tap_code(KC_PGDN);
-    }
-}
-
 void encoder_action(encoder_mode_t mode, uint8_t clockwise) {
     switch (mode) {
         case ENC_MODE_VOLUME:
-            encoder_action_volume(clockwise);
+            tap_code(clockwise ? KC_VOLU : KC_VOLD);
             break;
         case ENC_MODE_WORD_NAV:
-            encoder_action_word_nav(clockwise);
+            tap_code16(clockwise ? C(KC_RIGHT) : C(KC_LEFT));
             break;
         case ENC_MODE_LEFT_RIGHT:
-            encoder_action_left_right(clockwise);
+            tap_code(clockwise ? KC_RIGHT : KC_LEFT);
             break;
         case ENC_MODE_UP_DOWN:
-            encoder_action_up_down(clockwise);
+            tap_code(clockwise ? KC_UP : KC_DOWN);
             break;
         case ENC_MODE_PAGING:
-            encoder_action_paging(clockwise);
+            tap_code(clockwise ? KC_PGUP : KC_PGDN);
             break;
         default:
-            encoder_action_volume(clockwise);
+            tap_code(clockwise ? KC_VOLU : KC_VOLD);
     }
 }

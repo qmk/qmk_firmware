@@ -41,21 +41,7 @@ encoder_mode_t encoder_mode_get(uint8_t index);
 void encoder_mode_next(uint8_t index);
 void encoder_mode_previous(uint8_t index);
 
-#ifdef SPLIT_KEYBOARD
 void encoder_get_modes_raw(encoder_mode_t* target_list);
 void encoder_set_modes_raw(encoder_mode_t* source_list);
-
-void           encoder_mode_hand_set(encoder_hand_t hand, uint8_t index, encoder_mode_t mode);
-encoder_mode_t encoder_mode_hand_get(encoder_hand_t hand, uint8_t index);
-
-void encoder_mode_hand_next(encoder_hand_t hand, uint8_t index);
-void encoder_mode_hand_previous(encoder_hand_t hand, uint8_t index);
-#endif
-
-void encoder_action_volume(uint8_t clockwise);
-void encoder_action_word_nav(uint8_t clockwise);
-void encoder_action_left_right(uint8_t clockwise);
-void encoder_action_up_down(uint8_t clockwise);
-void encoder_action_paging(uint8_t clockwise);
 
 void encoder_action(encoder_mode_t mode, uint8_t clockwise);

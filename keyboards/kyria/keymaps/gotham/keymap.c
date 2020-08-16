@@ -23,7 +23,7 @@ enum custom_keycodes {
     TMB_MODE,
 };
 
-enum encoder_names {
+enum encoder_offsets {
     ENCODER_LEFT = 0,
     ENCODER_RIGHT,
 };
@@ -43,10 +43,10 @@ enum encoder_names {
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-      KC_ESC,   K01,          K02,  K03,  K04,  K05,                                        K06,  K07,  K08,  K09,  K0A,          KC_BSLS, \
-      KC_LSFT,  RSFT_T(K11),  K12,  K13,  K14,  K15,                                        K16,  K17,  K18,  K19,  RSFT_T(K1A),  RSFT_T(KC_QUOT), \
-      KC_LCTL,  RCTL_T(K21),  K22,  K23,  K24,  K25, KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  RCTL_T(K2A),  RCTL_T(KC_MINS), \
-                       ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL,   EN_LOWR,  BK_RAIS, MS_DEL, ENC_MODE_R \
+      ALT_ESC,  K01,  K02,  K03,  K04,  K05,                                        K06,  K07,  K08,  K09,  K0A,  KC_BSLS, \
+      KC_LSFT,  K11,  K12,  K13,  K14,  K15,                                        K16,  K17,  K18,  K19,  K1A,  RSFT_T(KC_QUOT), \
+      CTL_EQL,  K21,  K22,  K23,  K24,  K25, KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  K2A,  RCTL_T(KC_MINS), \
+                       ENC_MODE_L, KC_LGUI, SP_LOWR, TB_RAIS, KC_LCTL,  KC_EQL,   EN_LOWR,  BK_RAIS, MS_DEL, ENC_MODE_R \
     )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
@@ -235,21 +235,19 @@ bool process_record_keymap_oled(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 void encoder_init_keymap(void) {
-    encoder_mode_hand_set(ENCODER_HAND_LEFT, 0, ENC_MODE_VOLUME);
-    encoder_mode_hand_set(ENCODER_HAND_RIGHT, 0, ENC_MODE_LEFT_RIGHT);
+    encoder_mode_set(ENCODER_HAND_LEFT, ENC_MODE_VOLUME);
+    encoder_mode_set(ENCODER_HAND_RIGHT, ENC_MODE_LEFT_RIGHT);
 }
 
 bool process_record_keymap_encoder(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case ENC_MODE_L:
-                encoder_mode_hand_next(ENCODER_HAND_LEFT, 0);
+                encoder_mode_next(ENCODER_HAND_LEFT);
                 return false;
-                break;
             case ENC_MODE_R:
-                encoder_mode_hand_previous(ENCODER_HAND_RIGHT, 0);
+                encoder_mode_next(ENCODER_HAND_RIGHT);
                 return false;
-                break;
         }
     }
     return true;
