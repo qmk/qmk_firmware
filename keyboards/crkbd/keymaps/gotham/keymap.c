@@ -29,10 +29,10 @@ enum crkbd_keybodes {
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-    KC_ESC,   K01,  K02,  K03,  K04,  K05,    K06,  K07,  K08,  K09,  K0A,  KC_BSLS, \
+    ALT_ESC,  K01,  K02,  K03,  K04,  K05,    K06,  K07,  K08,  K09,  K0A,  KC_BSLS, \
     KC_LSFT,  K11,  K12,  K13,  K14,  K15,    K16,  K17,  K18,  K19,  K1A,  RSFT_T(KC_QUOT), \
-    CTL_EQL,  K21,  K22,  K23,  K24,  K25,    K26,  K27,  K28,  K29,  K2A,  LT(_ADJUST, KC_MINS), \
-                KC_LALT, SP_LOWR, TB_RAIS,    EN_LOWR,  BK_RAIS, MS_DEL \
+    CTL_EQL,  K21,  K22,  K23,  K24,  K25,    K26,  K27,  K28,  K29,  K2A,  RCTL_T(KC_MINS), \
+                KC_LGUI, SP_LOWR, TB_RAIS,    EN_LOWR,  BK_RAIS, MS_DEL \
   )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
@@ -128,8 +128,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
         rgb_by_layer(layer);
     }
 #endif
-    return state;
-    // return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {

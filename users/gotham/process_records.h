@@ -31,6 +31,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define WORKMAN KC_WORKMAN
 #define DVORAK KC_DVORAK
 
+#define ALT_ESC MT(MOD_LALT, KC_ESC)
 #define CTL_EQL MT(MOD_LCTL, KC_EQL)
 #define SF_QUOT MT(MOD_RSFT, KC_QUOT)
 #define CT_MINS MT(MOD_RCTL, KC_MINS)

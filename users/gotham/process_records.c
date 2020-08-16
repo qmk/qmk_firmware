@@ -9,8 +9,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #endif  // KEYLOGGER_ENABLE
     if (process_record_keymap(keycode, record)
-#ifdef OLED_DRIVER_ENABLE
+#if defined OLED_DRIVER_ENABLE
+    #ifndef DISABLE_USERSPACE_OLED
         && process_record_user_oled(keycode, record)
+    #endif
 #endif
 #ifdef ENCODER_ENABLE
         && process_record_user_encoder(keycode, record)
