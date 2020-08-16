@@ -1,6 +1,6 @@
 # GH80-3700
 
-![GH80-3700](https://i.imgur.com/xMCzb8v.jpg)
+![GH80-3700](https://i.imgur.com/xMCzb8vl.jpg)
 
 ## Support
 * Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)
