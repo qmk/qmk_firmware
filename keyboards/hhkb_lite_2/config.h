@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    PFU
 #define PRODUCT         HHKB Lite 2
-#define DESCRIPTION     keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
