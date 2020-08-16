@@ -92,6 +92,10 @@ extern layer_state_t layer_state;
 #    include "process_backlight.h"
 #endif
 
+#ifdef COMPOSE_ENABLE
+#    include "process_compose.h"
+#endif
+
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
 #endif

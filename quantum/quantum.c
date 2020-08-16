@@ -250,6 +250,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
             process_unicode_common(keycode, record) &&
 #endif
+#ifdef COMPOSE_ENABLE
+            process_compose(keycode, record) &&
+#endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif

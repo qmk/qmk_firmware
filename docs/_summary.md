@@ -61,6 +61,7 @@
 
   * Advanced Keycodes
     * [Command](feature_command.md)
+    * [Compose Key](feature_compose_key.md)
     * [Dynamic Macros](feature_dynamic_macros.md)
     * [Grave Escape](feature_grave_esc.md)
     * [Leader Key](feature_leader_key.md)

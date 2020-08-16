@@ -549,6 +549,11 @@ enum quantum_keycodes {
     JS_BUTTON31,
     JS_BUTTON_MAX = JS_BUTTON31,
 
+    // Compose key
+    #ifdef COMPOSE_ENABLE
+    COMPOSE,
+    #endif
+
     // always leave at the end
     SAFE_RANGE
 };

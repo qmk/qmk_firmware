@@ -23,6 +23,7 @@ static matrix_row_t matrix[MATRIX_ROWS] = {};
 void matrix_init(void) {
     clear_all_keys();
     matrix_init_quantum();
+    matrix_init_user();
 }
 
 uint8_t matrix_scan(void) {

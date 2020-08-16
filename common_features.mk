@@ -534,6 +534,11 @@ ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
     OPT_DEFS += -DKEY_LOCK_ENABLE
 endif
 
+ifeq ($(strip $(COMPOSE_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_compose.c
+    OPT_DEFS += -DCOMPOSE_ENABLE
+endif
+
 ifeq ($(strip $(LEADER_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
     OPT_DEFS += -DLEADER_ENABLE

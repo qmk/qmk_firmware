@@ -1,4 +1,4 @@
-/* Copyright 2017 Fred Sundvik
+/* Copyright 2020 Google LLC
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
  */
 
 #include "quantum.h"
+#include <stdio.h>
 
 // Don't rearrange keys as existing tests might rely on the order
 // Col2, Row 0 has to be KC_NO, because tests rely on it
@@ -27,7 +28,7 @@ const uint16_t PROGMEM
             [0] =
                 {
                     // 0    1      2      3        4        5        6       7            8      9
-                    {KC_A, KC_B, KC_NO, KC_LSFT, KC_RSFT, KC_LCTL, COMBO1, SFT_T(KC_P), M(0), KC_NO},
+                    {KC_A, KC_B, KC_NO, KC_LSFT, KC_RSFT, KC_LCTL, COMBO1, SFT_T(KC_P), M(0), COMPOSE},
                     {KC_EQL, KC_PLUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
                     {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
                     {KC_C, KC_D, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
@@ -43,3 +44,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     return MACRO_NONE;
 };
+
+void matrix_init_user(void) {
+    declare_compose_seq((uint64_t[]){KC_A, KC_B}, 2, "ccc");
+    declare_compose_seq((uint64_t[]){KC_A, KC_EQL}, 2, "123");
+}
+
+void compose_start(void) {
+    send_string("s");
+}
+
+void compose_end(bool valid_sequence) {
+    if (valid_sequence) {
+        send_string("v");
+    } else {
+        send_string("e");
+    }
+}
