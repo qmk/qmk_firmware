@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -8,8 +10,8 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Shanduur
-#define PRODUCT         vagrant-10
-#define DESCRIPTION     10-key macropad
+#define PRODUCT         vagrant_10
+#define DESCRIPTION     macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 4
