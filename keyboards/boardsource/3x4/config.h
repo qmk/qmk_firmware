@@ -6,7 +6,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xF7E0
-#define PRODUCT_ID      0x0412
+#define PRODUCT_ID      0x0413
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Boardsource
 #define PRODUCT         3x4
