@@ -1,9 +1,12 @@
 #include QMK_KEYBOARD_H
 
-#define HOME 0
-#define MODS 1
-#define MODS2 2
-#define OTHER 3
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    HOME,
+    MODS,
+    MODS2,
+    OTHER
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[HOME] = LAYOUT(
