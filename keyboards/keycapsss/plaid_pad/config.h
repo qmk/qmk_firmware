@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xAF12
+#define VENDOR_ID 0x7983
+#define PRODUCT_ID 0x7070   //  8-bit ASCII for PP
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Keycapsss
 #define PRODUCT Plaid-Pad
