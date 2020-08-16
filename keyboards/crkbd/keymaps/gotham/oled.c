@@ -25,31 +25,49 @@ void render_qmk_logo(void) {
 // 5x2 Keyboard, Controller logos
 
 void render_keyboard(void) {
-    static const char PROGMEM font_keyboard[11] = {0xb6, 0xb7, 0xb8, 0xb9, 0xba, 0xd6, 0xd7, 0xd8, 0xd9, 0xda, 0};
+    static const char PROGMEM font_keyboard[11] = {0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0xda, 0xdb, 0xdc, 0xdd, 0xde, 0};
     oled_write_P(font_keyboard, false);
 };
 
-void render_kb_split(void) {
-    static const char PROGMEM font_kb_split[11] = {0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0xda, 0xdb, 0xdc, 0xdd, 0xde, 0};
-    oled_write_P(font_kb_split, false);
+void render_controller(void) {
+    static const char PROGMEM font_controller[11] = {0xb5, 0xb6, 0xb7, 0xb8, 0xb9, 0xd5, 0xd6, 0xd7, 0xd8, 0xd9, 0};
+    oled_write_P(font_controller, false);
 };
+
+void render_device(void) {
+    if (IS_LAYER_ON(_GAME)) {
+        render_controller();
+    } else {
+        render_keyboard();
+    }
+}
 
 // 5x1 Layer indicator
 
 void render_layer(void) {
-    static const char PROGMEM font_layer[4][6] = {
-        {0x85, 0x86, 0x87, 0x88, 0x89, 0},
-        {0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0},
-        {0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0},
-        {0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0},
+    static const char PROGMEM font_layer[7][6] = {
+        {0x85, 0x86, 0x87, 0x88, 0x89, 0}, // Base
+        {0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0}, // Lower
+        {0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0}, // Raise
+        {0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0}, // Adjust
+        {0x9a, 0x98, 0x99, 0x9d, 0x9e, 0}, // Mouse
+        "NUMBR", // Game Number
+        "ARROW", // Game Nav
     };
     uint8_t layer = 0;
-    if (layer_state_is(_LOWER)) {
+    uint32_t highest_layer = get_highest_layer(layer_state);
+    if (highest_layer == _LOWER) {
         layer = 1;
-    } else if (layer_state_is(_RAISE)) {
+    } else if (highest_layer == _RAISE) {
         layer = 2;
-    } else if (layer_state_is(_ADJUST)) {
+    } else if (highest_layer == _ADJUST) {
         layer = 3;
+    } else if (highest_layer == _MOUSE) {
+        layer = 4;
+    } else if (highest_layer == _GAMENUM) {
+        layer = 5;
+    } else if (highest_layer == _GAMENAV) {
+        layer = 6;
     }
     oled_write_P(font_layer[layer], false);
 };
@@ -188,13 +206,20 @@ void render_keylogger_status(void) {
 
 void render_prompt(void) {
     bool blink = (timer_read() % 1000) < 500;
+    uint32_t highest_layer = get_highest_layer(layer_state);
 
-    if (layer_state_is(_LOWER)) {
+    if (highest_layer == _LOWER) {
         oled_write_ln_P(blink ? PSTR("> lo_") : PSTR("> lo "), false);
-    } else if (layer_state_is(_RAISE)) {
+    } else if (highest_layer == _RAISE) {
         oled_write_ln_P(blink ? PSTR("> hi_") : PSTR("> hi "), false);
-    } else if (layer_state_is(_ADJUST)) {
+    } else if (highest_layer == _ADJUST) {
         oled_write_ln_P(blink ? PSTR("> aj_") : PSTR("> aj "), false);
+    } else if (highest_layer == _GAME) {
+        oled_write_ln_P(blink ? PSTR("> Gm_") : PSTR("> Gm "), false);
+    } else if (highest_layer == _GAMENUM) {
+        oled_write_ln_P(blink ? PSTR("> GN_") : PSTR("> GN "), false);
+    } else if (highest_layer == _GAMENAV) {
+        oled_write_ln_P(blink ? PSTR("> GA_") : PSTR("> GA "), false);
     } else {
         oled_write_ln_P(blink ? PSTR("> _  ") : PSTR(">    "), false);
     }
@@ -204,7 +229,7 @@ void render_status_secondary(void) {
     oled_write_ln("", false);
     oled_write_ln("", false);
 
-    render_kb_split();
+    render_device();
 
     oled_write_ln("", false);
     oled_write_ln("", false);
@@ -217,7 +242,7 @@ void render_status_secondary(void) {
     oled_write_ln("", false);
 
     #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE) || defined(AUDIO_ENABLE)
-        layer_state_is(_ADJUST) ? render_feature_status() : render_mod_status();
+        (get_highest_layer(layer_state) == _ADJUST) ? render_feature_status() : render_mod_status();
     #else
         render_mod_status();
     #endif
