@@ -57,6 +57,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define ENCODERS_PAD_B { B2, B6 }
 
 #define ENCODER_RESOLUTION 4
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
