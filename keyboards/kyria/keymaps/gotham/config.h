@@ -30,7 +30,7 @@
 #        undef OLED_CUSTOM_TIMEOUT
 #        define OLED_CUSTOM_TIMEOUT 30000
 #    endif
-#    define OLED_INFO_TIMEOUT 1000
+#    define OLED_INFO_TIMEOUT 2000
 
 #    define OLED_ANIM_STARFIELD
 #    define OLED_ANIM_STARFIELD_WANDER
