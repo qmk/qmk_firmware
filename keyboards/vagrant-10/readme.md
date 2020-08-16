@@ -2,7 +2,7 @@
 
 This is (yet another) simple and small macropad.
 
-![HERE WILL BE IMAGE SOMETIME SOON]()
+![Hello](https://raw.githubusercontent.com/Sho-Keebs/Vagrant-10/master/doc/vag.jpg)
 
 Keyboard Maintainer [Shanduur](https://github.com/Shanduur)
 

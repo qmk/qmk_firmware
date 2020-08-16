@@ -1,8 +1,8 @@
 {
   "keyboard_name": "Vagrant-10", 
-  "url": "", 
+  "url": "https://github.com/Sho-Keebs/Vagrant-10", 
   "maintainer": "Shanduur", 
-  "bootloader": "", 
+  "bootloader": "caterina", 
   "width": 10, 
   "height": 3, 
   "layouts": {
