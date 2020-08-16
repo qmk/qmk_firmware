@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x88B2
-#define PRODUCT_ID      0x88b2
+#define PRODUCT_ID      0x88B2
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    PFU
 #define PRODUCT         HHKB Lite 2
@@ -27,4 +27,4 @@
 
 /* Bootmagic keys are non-standard because of matrix */
 #define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COL 9
+#define BOOTMAGIC_LITE_COLUMN 9
