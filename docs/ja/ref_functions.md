@@ -115,8 +115,8 @@ static uint16_t key_timer;
 key_timer = timer_read();
 
 if (timer_elapsed(key_timer) < 100) {
-  // 100ms 未満が経過した場合に何かを行う
+  // 経過時間が 100ms 未満の場合に何かを行う
 } else {
-  // 100ms 以上が経過した場合に何かを行う
+  // 経過時間が 100ms 以上の場合に何かを行う
 }
 ```
