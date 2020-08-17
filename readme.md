@@ -9,8 +9,9 @@ This purpose of this fork is maintain a clean repo that only contains the keyboa
 
 ## Supported Keyboards
 
-* [Planck](/keyboards/planck/ez)
 * [ErgoDox EZ](/keyboards/ergodox_ez/)
+* [Planck EZ](/keyboards/planck/ez)
+* [Moonlander Mark I](/keyboards/moonlander)
 
 ## Maintainers
 
