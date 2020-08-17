@@ -14,4 +14,4 @@ After setting up your build environment, you will need to build the firmware. To
 
     qmk compile -kb dz60 -km default
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs).
