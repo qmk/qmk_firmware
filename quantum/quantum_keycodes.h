@@ -540,6 +540,10 @@ enum quantum_keycodes {
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LSA(kc) (QK_LSFT | QK_LALT | (kc))
+#define RSA(kc) (QK_RSFT | QK_RALT | (kc))
+#define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define SAGR(kc) RSA(kc)
 
 #define MOD_HYPR 0xF
 #define MOD_MEH 0x7
@@ -763,6 +767,11 @@ enum quantum_keycodes {
 #define SCMD_T(kc) SGUI_T(kc)
 #define SWIN_T(kc) SGUI_T(kc)
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
+#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
+#define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt
+#define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)  // Right Control + Shift
+#define SAGR_T(kc) RSA_T(kc)
+
 #define ALL_T(kc) HYPR_T(kc)
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
