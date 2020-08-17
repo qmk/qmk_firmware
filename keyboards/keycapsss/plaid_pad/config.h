@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x7983
-#define PRODUCT_ID 0x7070   //  8-bit ASCII for PP
+#define PRODUCT_ID 0x5050 // "PP"
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Keycapsss
 #define PRODUCT Plaid-Pad
