@@ -56,27 +56,6 @@ enum custom_keycodes {
     QMKURL
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
-    }
-    return true;
-}
 
 /*
 void matrix_init_user(void) {
@@ -133,6 +112,7 @@ void render_status(void) {
 
 }
 
+//Credits to u/Pop-X- for letting me use his keymap as reference
 // WPM-responsive animation stuff here
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 40 // below this wpm value your animation will idle
