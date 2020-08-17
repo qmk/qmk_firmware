@@ -142,34 +142,6 @@ enum custom_keycodes {
 #define VS_BM_TOGGLE LCTL(LALT(KC_K))
 #define VS_BM_LABEL LCTL(LALT(KC_B))
 
-// visual studio code shortcuts
-#define VS_FILE LCTL(KC_P)
-#define VS_LINE LCTL(KC_G)
-#define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
-#define VS_DEFINITION KC_F12
-#define VS_IMPLEMENTATION LCTL(KC_F12)
-#define VS_REFERENCES LSFT(KC_F12)
-#define VS_BACK LALT(KC_LEFT)
-#define VS_BRACKET LCTL(LSFT(KC_BSLS))
-#define VS_TABLEFT LCTL(KC_PGUP)
-#define VS_TABRIGHT LCTL(KC_PGDN)
-#define VS_CLOSETAB LCTL(KC_W)
-#define VS_CLOSEPANEL LCTL(LSFT(KC_W))
-#define VS_TERMINAL LCTL(KC_GRAVE)
-#define VS_BUILD LCTL(LSFT(KC_B))
-#define VS_COMMANDS LCTL(LSFT(KC_P))
-#define VS_CMT_BLOCK LSFT(LALT(KC_A))
-#define VS_CMT_LINE LCTL(KC_SLSH)
-#define VS_DEL_LINE LCTL(LSFT(KC_K))
-#define VS_COPYLINEDOWN LSFT(LALT(KC_DOWN))
-// visual studio bookmark commands
-#define VS_BM_LIST LCTL(LALT(KC_L))
-#define VS_BM_LISTALL LCTL(LALT(KC_A))
-#define VS_BM_PREV LCTL(LALT(KC_P))
-#define VS_BM_NEXT LCTL(LALT(KC_N))
-#define VS_BM_TOGGLE LCTL(LALT(KC_K))
-#define VS_BM_LABEL LCTL(LALT(KC_B))
-
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
         case MACRO_NAME:\
@@ -392,32 +364,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, AS_DEL_LINE, KC_TRNS
-  ),
-
-    // vscode shortcuts shortcuts
-  [VSCODE] = LAYOUT_ergodox(
-       // left hand
-       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
-       VS_CMT_LINE,  VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
-                     VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_BM_LIST,          VS_BM_LISTALL,   VS_BM_TOGGLE,
-                                       // bottom row
-                                       VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, VS_DEL_LINE, KC_TRNS
   ),
 
     // vscode shortcuts shortcuts
