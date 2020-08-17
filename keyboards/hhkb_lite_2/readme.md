@@ -7,9 +7,13 @@ by PFU, identified by model numbers PD-KB200W/U or PD-KB200B/U. It
 uses the replacement Teensy 2.0 board from [my other
 project](https://github.com/thirteen37/HHKB-Lite-2-Teensy).
 
-Compile and flash this firmware (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
-    qmk flash -kb hhkb_lite_2 -km default
+    make hhkb_lite_2:default
+
+Flashing example for this keyboard:
+
+    make hhkb_lite_2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
