@@ -11,20 +11,8 @@ MCU = atmega32u4
 #   atmega32a    bootloadHID
 BOOTLOADER = atmel-dfu
 
+# Build Options: (Change yes to no to disable)
 
-# If you don't know the bootloader type, then you can specify the
-# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
-#   Teensy halfKay      512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
-
-# Build Options
-#   change yes to no to disable
-#
 BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
