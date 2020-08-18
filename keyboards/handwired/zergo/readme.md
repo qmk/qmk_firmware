@@ -5,7 +5,7 @@
 A compact 70% (15x6) keyboard inspired by the Katana60 project, but with F keys and adopted for the Russian layout.
 
 * Keyboard Maintainer: [Greenjack](https://github.com/greenjack-z)
-* Hardware Supported: own zErgo PCB for unique layout + chineese clone of Teensy 2.0++ controller.
+* Hardware Supported: zErgo PCB, Teensy 2.0++
 * Hardware Availability: protoptype self made hardware
 
 Make example for this keyboard (after setting up your build environment):
