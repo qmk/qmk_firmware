@@ -39,6 +39,7 @@
 
 #define DF_BASE DF(_BASE)
 #define DF_QWER DF(_QWERTY)
+#define DF_COLE DF(_COLEMAK)
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE LT(_FN, KC_MUTE)
 
@@ -104,8 +105,9 @@ const uint8_t PROGMEM convert_key_to_led2[] =
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,    // MIDI
-    _QWERTY,  // just in case
+    _BASE,     //  MIDI
+    _QWERTY,   //  just in case
+    _COLEMAK,  //  just in case
     _FN
 };
 
@@ -228,12 +230,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_CH_GDom7,  MI_CH_DDom7,  MI_CH_ADom7,  MI_CH_EDom7,  MI_CH_BDom7, MI_CH_FsDom7, \
     MI_CH_GDim7,  MI_CH_DDim7,  MI_CH_ADim7,  MI_CH_EDim7,  MI_CH_BDim7, MI_CH_FsDim7, \
     \
-    MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5,  FN_MUTE, \
-    MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4,  MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,  \
-    MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5  \
+    MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  FN_MUTE, \
+    MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4,  \
+    MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4  \
+    //
+    // MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5,  FN_MUTE,
+    // MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4,  MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
+    // MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5
   ),
 
-  /* Fn */
+  /* QWERTY */
   [_QWERTY] = LAYOUT_wrapper( \
     KC_GESC, _________________NUMBER_L__________________, \
     KC_TAB,  _________________QWERTY_L1_________________, \
@@ -252,6 +258,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
   ),
 
+  /* COLEMAK */
+  [_COLEMAK] = LAYOUT_wrapper( \
+    _______, _________________NUMBER_L__________________, \
+    _______, _________________COLEMAK_L1________________, \
+    _______, _________________COLEMAK_L2________________, \
+    _______, _________________COLEMAK_L3________________, \
+    _______, _______, _______, _______, _______, _______, \
+    \
+    _________________NUMBER_R__________________, _______, \
+    _________________COLEMAK_R1________________, _______, \
+    _________________COLEMAK_R2________________, _______, \
+    _________________COLEMAK_R3________________, _______, \
+    _______, _______, _______, _______, _______, _______, \
+    \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+  ),
+
+
   /* Fn */
   [_FN] = LAYOUT( \
     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
@@ -268,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     \
     DF_BASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
     DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+    DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
   )
 };
 
@@ -300,17 +326,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
-            root_note = keycode - MI_CH_Cr + MI_C_1;
+            root_note = keycode - MI_CH_Cr + MI_C;
             process_midi(root_note, record);
-            process_midi(root_note - 12, record);  // -1 Octave
-            process_midi(root_note + 12, record);  // +1 Octave
+            process_midi(root_note + 12, record);  // -1 Octave
+            process_midi(root_note + 24, record);  // +1 Octave
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
             break;
 
         case MI_CH_C ... MI_CH_B:  // Major Chords
-            root_note = keycode - MI_CH_C + MI_C_1;
+            root_note = keycode - MI_CH_C + MI_C;
             process_midi(root_note, record);
             process_midi(root_note + 4, record);  // Major Third Note
             process_midi(root_note + 7, record);  // Fifth Note
@@ -320,7 +346,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
-            root_note = keycode - MI_CH_Cm + MI_C_1;
+            root_note = keycode - MI_CH_Cm + MI_C;
             process_midi(root_note, record);
             process_midi(root_note + 3, record);  // Minor Third Note
             process_midi(root_note + 7, record);  // Fifth Note
@@ -330,7 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
-            root_note = keycode - MI_CH_CDom7 + MI_C_1;
+            root_note = keycode - MI_CH_CDom7 + MI_C;
             process_midi(root_note, record);
             process_midi(root_note + 4, record);   // Major Third Note
             process_midi(root_note + 10, record);  // Minor Seventh Note
@@ -340,10 +366,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
-            root_note = keycode - MI_CH_CDim7 + MI_C_1;  // Changed from "+ MI_C" to "+ MI_C_1" since there is "root_note - 3" below.
+            root_note = keycode - MI_CH_CDim7 + MI_C;
             process_midi(root_note, record);
             process_midi(root_note + 3, record);  // Minor Third Note
-            process_midi(root_note - 3, record);  // Diminished 7th Note
+            process_midi(root_note + 6, record);  // Diminished 5th Note
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -361,9 +387,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 myMUTEstat = !myMUTEstat;
                 if (myMUTEstat) {
-                    rgblight_sethsv_at(HSV_GOLDENROD, keylocation);
+                    //  Use keylocation2 for MUTE button LED.
+                    rgblight_sethsv_at(HSV_GOLDENROD, keylocation2);
                 } else {
-                    rgblight_sethsv_at(HSV_BLACK, keylocation);
+                    //  Use keylocation2 for MUTE button LED.                   
+                    rgblight_sethsv_at(HSV_BLACK, keylocation2);
                 }
             }
             break;
