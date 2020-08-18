@@ -21,11 +21,6 @@ MCU_LDSCRIPT = MK20DX128BLDR4
 #   - MCHCK_K20 for Infinity KB
 BOARD = MCHCK_K20
 
-# Vector table for application
-# 0x00000000-0x00001000 area is occupied by bootlaoder.*/
-# The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
-
 BOOTLOADER = dfu
 
 # Build Options
