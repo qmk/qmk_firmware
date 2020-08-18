@@ -1,6 +1,11 @@
 static struct {
   int semicolon;
+  bool mods;
 } tap_state = {0};
+
+void tap_dance_semicolon_each(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.mods |= get_mods();
+}
 
 // Send semi-colon + enter on two taps
 void tap_dance_semicolon_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -15,7 +20,7 @@ void tap_dance_semicolon_reset(qk_tap_dance_state_t *state, void *user_data) {
   switch (tap_state.semicolon) {
     case SINGLE_TAP: case DOUBLE_HOLD: unregister_code(KC_SCLN); break;
     case DOUBLE_TAP: {
-      if (get_mods()) {
+      if (tap_state.mods) {
         SEND_STRING(";;"); // send normal when mods are pressed
       }
       else {
