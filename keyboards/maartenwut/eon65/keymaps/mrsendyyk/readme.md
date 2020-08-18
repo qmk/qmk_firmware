@@ -1,9 +1,7 @@
 # [Sendy YK](https://mr.sendyyk.com)'s Keymap
-
 `LAYOUT_65_ansi_blocker`
 
-### [0]
-
+### Default Layer [0]
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
 │Esc│1  │2  │3  │4  │5  │6  │7  │8  │9  │0  │-  │=  │Bspc   │Del│
@@ -18,11 +16,10 @@
 └────┴────┴────┴────────────────────────┴────┴────┴┴┴───┴───┴───┘
 ```
 
-### [1]
-
+### Fn Layer [1]
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
-│   │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│       │   │
+│`  │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│       │   │
 ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
 │Bri+ │   │   │End│Rst│   │   │   │Ins│   │P S│   │   │Eject│   │
 ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
@@ -35,9 +32,7 @@
 ```
 
 ## Build The Firmware
-
 You will need to build the firmware. To do so go to your terminal window and run the compile command:
 
     qmk compile -kb maartenwut/eon65 -km mrsendyyk
-
 See [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs).
