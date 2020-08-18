@@ -6,7 +6,7 @@ A compact 70% (15x6) keyboard inspired by the Katana60 project, but with F keys 
 
 * Keyboard Maintainer: [Greenjack](https://github.com/greenjack-z)
 * Hardware Supported: zErgo PCB, Teensy 2.0++
-* Hardware Availability: protoptype self made hardware
+* Hardware Availability: prototype self-made hardware
 
 Make example for this keyboard (after setting up your build environment):
 
