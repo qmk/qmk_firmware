@@ -1,4 +1,4 @@
-/* Copyright 2020 AKiwiKeebs92
+/* Copyright 2020 KiwiKeebs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,24 +13,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _FN
-};
+#pragma once
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_BASE] = LAYOUT(
-        KC_TAB, KC_SPC, KC_SPC,\
-        KC_A,   KC_1,   MO(_FN),    KC_AUDIO_MUTE\
-    ),
-    [_FN] = LAYOUT(
-        KC_5, KC_6, KC_7,\
-        KC_B,   KC_2,   KC_3,    KC_4\
-    )
-};
+#include "quantum.h"
 
+/* This is a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+#define LAYOUT( \
+    k00, k01, k02, \
+    k03, k04, k05, k06    \
+) { \
+    { k00, k01, k02 }, \
+    { k03, k04, k05, k06 }  \
+}
 

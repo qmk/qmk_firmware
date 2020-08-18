@@ -1,4 +1,4 @@
-/* Copyright 2020 AKiwiKeebs92
+/* Copyright 2020 KiwiKeebs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,15 +13,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#include "KiwiKeebs.h"
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE,
+    _FN
+};
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_AUDIO_VOL_UP);
-        } else {
-            tap_code(KC_AUDIO_VOL_DOWN);
-        }
-    }
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* Base */
+    [_BASE] = LAYOUT(
+        KC_TAB, KC_SPC, KC_SPC,\
+        KC_A,   KC_1,   MO(_FN),    KC_AUDIO_MUTE\
+    ),
+    [_FN] = LAYOUT(
+        KC_5, KC_6, KC_7,\
+        KC_B,   KC_2,   KC_3,    KC_4\
+    )
+};
+
+
