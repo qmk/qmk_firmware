@@ -16,3 +16,4 @@
 
 // Nothing to see here, move along... ;-)
 
+#include "valor.h"

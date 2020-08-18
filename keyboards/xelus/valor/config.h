@@ -23,8 +23,7 @@
 #define PRODUCT_ID      0x5652 // Valor "VR"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Valor
-#define DESCRIPTION     Valor
+#define PRODUCT         Xelus Valor
 
 /* key matrix size */
 #define MATRIX_ROWS 5
