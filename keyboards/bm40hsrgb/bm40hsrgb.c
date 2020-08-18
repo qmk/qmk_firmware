@@ -15,6 +15,7 @@
  */
 #include "bm40hsrgb.h"
 
+#if defined(RGB_MATRIX_ENABLE)
 led_config_t g_led_config = {
     {
         // Key Matrix to LED Index
@@ -38,3 +39,4 @@ led_config_t g_led_config = {
         2, 2, 2, 2, 2, 2
     }
 };
+#endif
