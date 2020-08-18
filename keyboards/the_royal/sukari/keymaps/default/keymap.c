@@ -62,15 +62,15 @@ void dip_switch_update_user(uint8_t index, bool active) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default Layer
      * ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
-     * │Tab │ Q  │ W  │ E  │ R  │ T  │ Y  │ U  │ I  │ O  │ P  │ -  │
+     * │ESC │ Q  │ W  │ E  │ R  │ T  │ Y  │ U  │ I  │ O  │ P  │ -  │
      * ├────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┤
-     * │Tab │ Q  │ W  │ E  │ R  │ T  │ Y  │ U  │ I  │ O  │ P  │BkSp│
+     * │TAB │ Q  │ W  │ E  │ R  │ T  │ Y  │ U  │ I  │ O  │ P  │BKSP│
      * ├────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┤
-     * │LCtl│ A  │ S  │ D  │ F  │ G  │ H  │ J  │ K  │ L  │ ;  │ '  │
+     * │CAPS│ A  │ S  │ D  │ F  │ G  │ H  │ J  │ K  │ L  │ ;  │ '  │
      * ├────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┤
-     * │LSft│ Z  │ X  │ C  │ V  │ B  │ N  │ M  │ ,  │ .  │ /  │Entr│
+     * │LSFT│ Z  │ X  │ C  │ V  │ B  │ N  │ M  │ ,  │ .  │ /  │ENTR│
      * ├────┼────┴──┬─┴────┴────┴────┴────┴────┴────┴─┬──┴────┼────┤
-     * │Del │ LGui  │   Tap = Space // Hold = LOWER   │ Raise │Lowr│
+     * │LCTL│ LGUI  │   Tap = SPACE // Hold = LOWER   │ RAISE │OTHR│
      * └────┴───────┴─────────────────────────────────┴───────┴────┘
      */
 
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,     KC_9,     KC_0,      KC_MINUS,
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,      KC_BSPC,
     KC_CAPS,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,   KC_QUOT,
-    KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,   KC_ENT,
+    KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,   KC_ENTER,
     KC_LCTL,      KC_LALT,                      LT(_LOWER, KC_SPACE),                        RAISE,         OTHER
 ),
 
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,      KC_9,     KC_0,      KC_MINUS,
     KC_TAB,    KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,     KC_P,      KC_BSPC,
     KC_LCTL,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,      KC_L,     KC_SCLN,   KC_QUOT,
-    KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT,   KC_SLSH,   KC_ENT,
+    KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT,   KC_SLSH,   KC_ENTER,
     KC_DEL,       KC_LALT,                       KC_SPACE,                             KC_LEFT,        KC_RIGHT
 )
 
