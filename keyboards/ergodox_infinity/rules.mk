@@ -13,11 +13,6 @@ MCU = MK20DX256
 #   - MK20DX256BLDR8 for Infinity ErgoDox with Kiibohd bootloader
 MCU_LDSCRIPT = MK20DX256BLDR8
 
-# Vector table for application
-# 0x00000000-0x00001000 area is occupied by bootlaoder.*/
-# The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
-
 BOOTLOADER = dfu
 
 # Build Options
