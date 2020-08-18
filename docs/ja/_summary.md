@@ -132,7 +132,7 @@
       * [WS2812 ドライバ](ja/ws2812_driver.md)
       * [EEPROM ドライバ](ja/eeprom_driver.md)
       * [シリアル ドライバ](ja/serial_driver.md)
-    * [GPIO コントロール](ja/internals_gpio_control.md)
+    * [GPIO 制御](ja/internals_gpio_control.md)
     * [キーボード ガイドライン](ja/hardware_keyboard_guidelines.md)
 
   * Python 開発
