@@ -1,4 +1,4 @@
-Function96
+# Function96
 ===
 
 This Function96 is a passion project of JTM. It's meant to give the user the maximum usability of the space allocated by the keyboard while also giving the option of using the numpad.
