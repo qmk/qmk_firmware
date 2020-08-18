@@ -24,12 +24,12 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        KC_TAB, KC_SPC, KC_SPC,\
-        KC_A,   KC_1,   MO(_FN),    KC_AUDIO_MUTE\
+        KC_DELETE, KC_HOME, LT(_FN,KC_END),\
+        KC_MEDIA_PREV_TRACK,   KC_MEDIA_PLAY_PAUSE,   KC_MEDIA_NEXT_TRACK,    KC_AUDIO_MUTE\
     ),
     [_FN] = LAYOUT(
-        KC_5, KC_6, KC_7,\
-        KC_B,   KC_2,   KC_3,    KC_4\
+        KC_1, KC_UP, ,\
+        KC_LEFT,   KC_DOWN,   KC_RIGHT,    KC_AUDIO_MUTE\
     )
 };
 
