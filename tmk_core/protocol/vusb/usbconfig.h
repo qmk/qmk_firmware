@@ -31,7 +31,7 @@ section at the end of this file).
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
 #ifndef USB_CFG_DMINUS_BIT
-#define USB_CFG_DMINUS_BIT              3
+#define USB_CFG_DMINUS_BIT      3
 #endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
