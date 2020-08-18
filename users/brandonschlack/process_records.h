@@ -42,6 +42,7 @@ void matrix_scan_cmd_tab(void);
 #define SF_BSLS   RSFT_T(KC_BSLS)      // Tap Right Shift for Back Slash (\)
 /* Layer Aliases */
 #define FN_LYR    MO(_FN1)             // Hold for FN Layer
+#define FN2_LYR   MO(_FN2)             // Hold for FN2 Layer
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
 #define SPC_LWR   LT(_LOWER, KC_SPC)   // Tap for Space, Hold for LOWER Layer
 #define SPC_RAI   LT(_RAISE, KC_SPC)   // Tap for Space, Hold for RAISE Layer
