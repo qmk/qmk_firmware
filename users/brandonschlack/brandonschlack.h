@@ -44,3 +44,17 @@ void suspend_wakeup_init_keymap(void);
 void matrix_scan_keymap(void);
 layer_state_t default_layer_state_set_keymap(layer_state_t state);
 layer_state_t layer_state_set_keymap(layer_state_t state);
+bool led_update_keymap(led_t led_state);
+
+#ifdef STOPLIGHT_LED
+typedef struct {
+    bool     is_active :1;
+    uint8_t  index     :7;
+    uint16_t timer     :16;
+} stoplight_led_t;
+
+void led_stoplight_start(void);
+void led_stoplight_set(pin_t pin);
+void led_stoplight_end(void);
+void matrix_scan_led_stoplight(void);
+#endif
