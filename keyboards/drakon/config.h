@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER jagdpietr
 #define PRODUCT drakon
-#define DESCRIPTION Custom 60% with OLED and ALPS Encoder
 
 /* key matrix size */
 #define MATRIX_ROWS 6
