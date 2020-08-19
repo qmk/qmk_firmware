@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 // START - Layer & Basic Declarations ----------
 enum layer_names {
