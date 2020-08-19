@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kiwikeebsmacro.h"
+#include "macro.h"
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
