@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  ~   |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  (   |  )   | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  é   |  ò   |  à   |
+ * |Enter |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  é   |  ò   |  à   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F6  |  F7  |  F8  |  F9  |      |NUMPAD|   §  |   ±  |  {   |  }   |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_ortho_4x12(
     IT_TILDE, IT_EXLM, IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR,    IT_ASTR, IT_LPRN,    IT_RPRN, KC_DEL,
-    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_EQL,  S(IT_EACC), IT_OACC, IT_AACC,
+    KC_ENT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_EQL,  S(IT_EACC), IT_OACC, IT_AACC,
     _______,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   _______, NUMPAD,  S(IT_UACC), IT_PLMN, IT_LCBR,    IT_RCBR, IT_PIPE,
     _______,  _______, _______, _______, _______, _______, _______, _______,    KC_MNXT, KC_VOLD,    KC_VOLU, KC_MPLY
 ),
