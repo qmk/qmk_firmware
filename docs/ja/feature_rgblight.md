@@ -62,7 +62,7 @@ QMKはRGBではなく、[HSV色空間](https://ja.wikipedia.org/wiki/HSV%E8%89%B
 |`RGB_MODE_KNIGHT`  |`RGB_M_K` |「ナイトライダー」アニメーション                                       |
 |`RGB_MODE_XMAS`    |`RGB_M_X` |クリスマスアニメーション                                            |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |静的グラデーションアニメーション                                       |
-|`RGB_MODE_RGBTEST` |`RGB_M_T` |                                |
+|`RGB_MODE_RGBTEST` |`RGB_M_T` |RGBテストアニメーション                                |
 
 !> 標準では、RGB照明と[RGBマトリクス](feature_rgb_matrix.md)を同時に使用していると、キーコードは両方に機能します。特定の機能に対して`*_DISABLE_KEYCODES`オプションを定義することで、キーコードを無効化できます。
 
