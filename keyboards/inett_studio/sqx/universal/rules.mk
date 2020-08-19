@@ -24,7 +24,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes 			# USB Nkey Rollover
 UNICODE_ENABLE = no         # Unicode
-RGBLIGHT_ENABLE = no        # Use RGB underglow light
+RGBLIGHT_ENABLE = yes        # Use RGB underglow light
 RGB_MATRIX_ENABLE = yes     # Use RGB per key light
 
-LAYOUTS = 60_ansi 60_hhkb 60_iso 60_ansi_split_bs_rshift
+LTO_ENABLE = yes			# Reducing firmware size
