@@ -18,16 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "config_common.h"
 #define VENDOR_ID       0x7C88 // "hw" = haierwangwei2005
-#define PRODUCT_ID      0x7C99 // "9b" = 9bleoledhub
+#define PRODUCT_ID      0x7C99 // "10b" = 10bleoledhub
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    haierwangwei2005
-#define PRODUCT         9bleoledhub
+#define PRODUCT         10bleoledhub
 #define DESCRIPTION     OLED BLE HUB pad
 
 /* key matrix size */
-#define MATRIX_ROWS 3
+#define MATRIX_ROWS 4
 #define MATRIX_COLS 3
-#define MATRIX_ROW_PINS { F6, F5, F4 }
+#define MATRIX_ROW_PINS { F6, F5, F4, F1 }
 #define MATRIX_COL_PINS { D6, D7, B5 }
 #define UNUSED_PINS
 
