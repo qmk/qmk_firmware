@@ -8,6 +8,8 @@ A unique, tweakable 65% keyboard kit built by nullbits. [More info at nullbits.c
 * Hardware Supported: NIBBLE Rev1, Pro Micro comaptible MCUs.
 * Hardware Availability: [nullbits.co](https://nullbits.co/)
 
+Note: If you are seeing issues with MacOS and keyboard hangs after sleep, make sure `NO_USB_STARTUP_CHECK = yes` is set in your rules.mk.
+
 Make example for this keyboard (after setting up your build environment):
 
     make nullbitsco/nibble:default
