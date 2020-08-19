@@ -7,7 +7,7 @@ This is the 60% ANSI Arrow keyboard layout.
 A keyboard's `.h` file needs to have `LAYOUT_60_ansi_arrow` defined
 ```c
 /* 
- * LAYOUT_60_ansi_arrows
+ * LAYOUT_60_ansi_arrow
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
  * │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0a │0b │0c │0e     │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
