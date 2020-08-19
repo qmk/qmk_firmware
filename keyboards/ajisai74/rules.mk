@@ -23,4 +23,4 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = ajisai74/rev1
+DEFAULT_FOLDER = ajisai74
