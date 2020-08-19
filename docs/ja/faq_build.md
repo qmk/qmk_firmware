@@ -1,8 +1,8 @@
 # よくあるビルドの質問
 
 <!---
-  original document: 0.9.10:docs/faq_build.md
-  git diff 0.9.10 HEAD -- docs/faq_build.md | cat
+  original document: 0.9.43:docs/faq_build.md
+  git diff 0.9.43 HEAD -- docs/faq_build.md | cat
 -->
 
 このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
@@ -57,7 +57,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uacc
 
 **注意:** 古い(1.12以前の) ModemManager では、フィルタリングは厳密なモードではない場合にのみ動作し、以下のコマンドはその設定を更新することができます。
 ```console
-sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
+printf '[Service]\nExecStart=\nExecStart=/usr/sbin/ModemManager --filter-policy=default' | sudo tee /etc/systemd/system/ModemManager.service.d/policy.conf
 sudo systemctl daemon-reload
 sudo systemctl restart ModemManager
 ```
