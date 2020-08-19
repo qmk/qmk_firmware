@@ -1,1 +1,1 @@
-# The default keymap for drakon
+# The Winkeyless keymap for drakon
