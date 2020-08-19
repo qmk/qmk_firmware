@@ -28,8 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MEDIA_PREV_TRACK,   KC_MEDIA_PLAY_PAUSE,   KC_MEDIA_NEXT_TRACK,    KC_AUDIO_MUTE
     ),
     [_FN] = LAYOUT(
-        KC_1, KC_UP, ,
+        KC_1, KC_UP, _______,
         KC_LEFT,   KC_DOWN,   KC_RIGHT,    _______
     )
 };
-
