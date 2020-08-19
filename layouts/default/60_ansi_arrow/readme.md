@@ -1,5 +1,5 @@
-# 60_ansi_arrows
-`LAYOUT_60_ansi_arrows`
+# 60_ansi_arrow
+`LAYOUT_60_ansi_arrow`
 
 ### Default Layer [0]
 
