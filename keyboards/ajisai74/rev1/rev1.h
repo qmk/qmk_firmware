@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ajisai74.h"
-
 #include "quantum.h"
 
 /*
