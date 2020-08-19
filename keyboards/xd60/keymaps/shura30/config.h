@@ -1,3 +1,5 @@
+#pragma once
+
 /* Changes the number of taps required for layer toggle*/
 #define TAPPING_TOGGLE 3
 
