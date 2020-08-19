@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * │Vol-│Rwd │F FD│           Play         │Stp│   │Prv│P D│Nxt│
    * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
    */
-	 [1] = LAYOUT_60_ansi_arrows(KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
+	 [1] = LAYOUT_60_ansi_arrow(KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
                                  KC_BRIU, KC_TRNS, KC_TRNS, KC_END, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS, KC_TRNS, KC_PSCR, KC_TRNS, KC_TRNS, KC_EJCT,
                                  KC_BRID, KC_TRNS, KC_SLCK, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE,
                                  KC_VOLU, KC_TRNS, KC_TRNS, KC_CALC, KC_TRNS, KC_TRNS, KC_NLCK, KC_MAIL, KC_TRNS, KC_TRNS, KC_PAUS, KC_PGUP, KC_TRNS,
