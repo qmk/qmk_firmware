@@ -22,14 +22,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                               KC_NO,
                                            LT(SYMB,KC_BSPC),  CTL_T(KC_ESC),  KC_NO,
 
-    KC_NO,    KC_NO,  KC_NO,          KC_NO,    KC_NO,    KC_NO,    KC_NO,
-    KC_VOLU,  KC_J,   KC_U,           KC_R,     KC_L,     KC_SCLN,  KC_BSLS,
-              KC_Y,   KC_N,           KC_I,     KC_O,     KC_H,     KC_QUOT,
-    KC_VOLD,  KC_P,   KC_M,           KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-                      GUI_T(KC_TAB),  KC_LEFT,  KC_DOWN,  KC_UP,    LCAG_T(KC_RGHT),
-    KC_NO,  KC_NO,
+    KC_NO,    KC_NO,  KC_NO,          KC_NO,           KC_NO,    KC_NO,    KC_NO,
+    KC_VOLU,  KC_J,   KC_U,           KC_R,            KC_L,     KC_SCLN,  KC_BSLS,
+              KC_Y,   KC_N,           KC_I,            KC_O,     KC_H,     KC_QUOT,
+    KC_VOLD,  KC_P,   KC_M,           KC_COMM,         KC_DOT,   KC_SLSH,  KC_RSFT,
+                      GUI_T(KC_TAB),  ALT_T(KC_LEFT),  KC_DOWN,  KC_UP,    LCAG_T(KC_RGHT),
+    KC_WAKE,  KC_PWR,
     KC_NO,
-    KC_NO,  SFT_T(KC_ENT),  LT(SYMB,KC_SPC)
+    KC_NO,    SFT_T(KC_ENT),  LT(SYMB,KC_SPC)
 ),
 
 [SYMB] = LAYOUT_ergodox(
