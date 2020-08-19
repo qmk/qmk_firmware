@@ -3,7 +3,7 @@
  */
 #include QMK_KEYBOARD_H
 
-enum planck_layers {
+enum layer_names {
   _DEFAULT,
   _ALTERNATE,
   _FN,
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* RGB Layer
      * ,-----------------------------------------------------------------------------------------.
-     * |     |      |     |     |     |     |     |     |     |     |     |     |     |     |    |
+     * | RST |      |     |     |     |     |     |     |     |     |     |     |     |     |    |
      * |-----------------------------------------------------------------------------------------+
      * |        |R_TOG|R_MOD|RRMOD|R_HUI|R_HUD|R_SAI|R_SAD|R_VAI|R_VAD|R_SPI|R_SPD|     |        |
      * |-----------------------------------------------------------------------------------------+
@@ -85,29 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *         `-------------------------------------------------------------------------´
      */
     [_RGB] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, KC_TRNS, KC_TRNS,
         KC_TRNS, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, BL_TOGG, BL_STEP, BL_ON, BL_OFF, BL_INC, BL_DEC, BL_BRTG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, DF(_DEFAULT), DF(_ALTERNATE), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch (id)
-    {
-    case 0:
-        if (record->event.pressed)
-        {
-            register_code(KC_RSFT);
-        }
-        else
-        {
-            unregister_code(KC_RSFT);
-        }
-        break;
-    }
-    return MACRO_NONE;
 };
