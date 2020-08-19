@@ -195,7 +195,7 @@ void keyboard_post_init_user(void) {
   #endif // RGBLIGHT_ENABLE
 }
 
-// RGB Indicator Customization(cont.):
+// RGB Indicator Customization: (cont.)
 uint32_t layer_state_set_user(uint32_t state){
     #ifdef RGBLIGHT_ENABLE
         uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
