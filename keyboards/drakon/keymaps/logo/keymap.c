@@ -48,48 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )    
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
-    }
-    return true;
-}
-
-/*
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
-
 void encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_VOLU);
