@@ -1,8 +1,8 @@
 # RGB照明
 
 <!---
-  original document: 0.9.52:docs/feature_oled_driver.md
-  git diff 0.9.52 HEAD -- docs/feature_oled_driver.md | cat
+  original document: 0.9.52:docs/feature_rgblight.md
+  git diff 0.9.52 HEAD -- docs/feature_rgblight.md | cat
 -->
 
 QMKにはキーボードに設置したRGB LEDを制御する機能があります。LEDをキーボードの底面に設置することが多いため、一般に*アンダーグロー*と呼ばれており、透明なケースと組み合わせると、綺麗な拡散効果が得られます。
