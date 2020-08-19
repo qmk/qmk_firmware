@@ -1,4 +1,4 @@
-# [Sendy YK](https://mr.sendyyk.com)'s Keymap
+# [Sendy YK](https://mr.sendyyk.com)'s 60_ansi_arrow Keymap
 `LAYOUT_60_ansi_arrow` with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer indicator.
 
 ### Default Layer [0]
@@ -48,9 +48,3 @@ Press and hold *right* **Alt** key.
 │    │    │    │                        │   │   │   │   │   │
 └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
 ```
-
-## Build The Firmware
-You will need to build the firmware. To do so go to your terminal window and run the compile command:
-
-    qmk compile -kb dz60 -km mrsendyyk
-See [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs).
