@@ -4,11 +4,15 @@
 
 A 6 Key PCB with Rotary Encoder Knob + Button made from solid CNC aluminium.
 
-Keyboard Maintainer: [AKiwi92](https://github.com/akiwi92)
-Hardware Supported: KiwiKeebs MacroBoard V1.0
-Hardware Availability: [reddit.com](https://www.reddit.com/r/mechmarket/comments/ibijrd/ic_kiwikeebs_6key_macroboard_rotary_encoder_diy/)
+* Keyboard Maintainer: [AKiwi92](https://github.com/akiwi92)
+* Hardware Supported: KiwiKeebs MacroBoard V1.0
+* Hardware Availability: [reddit.com](https://www.reddit.com/r/mechmarket/comments/ibijrd/ic_kiwikeebs_6key_macroboard_rotary_encoder_diy/)
 
 Make example for this keyboard (after setting up your build environment):
+
+    make kiwikeebsmacro:default
+
+Flashing example for this keyboard:
 
     make kiwikeebsmacro:default:flash
 
