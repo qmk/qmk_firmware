@@ -1,6 +1,3 @@
-#ifndef USERSPACE
-#define USERSPACE
-
 #pragma once
 #include QMK_KEYBOARD_H
 
@@ -49,5 +46,3 @@ void          suspend_wakeup_init_keymap(void);
 layer_state_t layer_state_set_keymap(layer_state_t state);
 layer_state_t default_layer_state_set_keymap(layer_state_t state);
 bool          led_update_keymap(led_t led_state);
-
-#endif
