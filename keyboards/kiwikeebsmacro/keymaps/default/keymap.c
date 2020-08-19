@@ -29,8 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT(
         KC_1, KC_UP, ,
-        KC_LEFT,   KC_DOWN,   KC_RIGHT,    KC_AUDIO_MUTE
+        KC_LEFT,   KC_DOWN,   KC_RIGHT,    _______
     )
 };
-
 
