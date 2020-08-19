@@ -26,7 +26,7 @@
 #undef PERMISSIVE_HOLD
 
 // todo: this does what? It is the time until a keypress is sent to the computer. Key combinations need to be pressed within that time.
-#define TAPPING_TERM 175
+#define TAPPING_TERM 125
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
