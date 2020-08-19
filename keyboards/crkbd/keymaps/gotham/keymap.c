@@ -9,10 +9,7 @@
 #    include "rgb.c"
 #endif
 
-enum crkbd_keybodes {
-  RGBRST = NEW_SAFE_RANGE
-};
-
+enum crkbd_keybodes { RGBRST = NEW_SAFE_RANGE };
 
 /*
  * The `LAYOUT_crkbd_base` macro is a template to allow the use of identical

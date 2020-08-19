@@ -10,9 +10,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // KEYLOGGER_ENABLE
     if (process_record_keymap(keycode, record)
 #if defined OLED_DRIVER_ENABLE
-    #ifndef DISABLE_USERSPACE_OLED
+#    ifndef DISABLE_USERSPACE_OLED
         && process_record_user_oled(keycode, record)
-    #endif
+#    endif
 #endif
 #ifdef ENCODER_ENABLE
         && process_record_user_encoder(keycode, record)

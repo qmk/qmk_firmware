@@ -41,8 +41,8 @@ void thumbstick_init_user(void) {
 }
 
 #if defined THUMBSTICK_DEBUG
-uint16_t get_raw_x(void) { return rawX; }
-uint16_t get_raw_y(void) { return rawY; }
+uint16_t    get_raw_x(void) { return rawX; }
+uint16_t    get_raw_y(void) { return rawY; }
 #endif
 
 bool thumbstick_update(report_mouse_t* report) {

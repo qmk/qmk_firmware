@@ -3,18 +3,9 @@
 #include QMK_KEYBOARD_H
 #include "gotham.h"
 
-enum dactyl_5x6_keycodes {
-    KC_EX1 = NEW_SAFE_RANGE,
-    KC_EX2,
-    EX_MODE
-};
+enum dactyl_5x6_keycodes { KC_EX1 = NEW_SAFE_RANGE, KC_EX2, EX_MODE };
 
-enum extra_key_modes {
-    MODE_SCROLL = 0,
-    MODE_ARROWS_LR,
-    MODE_ARROWS_UD,
-    __MODE_LAST
-};
+enum extra_key_modes { MODE_SCROLL = 0, MODE_ARROWS_LR, MODE_ARROWS_UD, __MODE_LAST };
 
 static uint8_t extra_key_mode = MODE_SCROLL;
 /*
@@ -148,48 +139,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+layer_state_t layer_state_set_keymap(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
     switch (keycode) {
-      case EX_MODE:
-        if (pressed) {
-          extra_key_mode = (extra_key_mode + 1) % __MODE_LAST;
-        }
-        break;
-      case KC_EX1:
-        switch (extra_key_mode) {
-          case MODE_SCROLL:
-            pressed ? register_code(KC_MS_WH_DOWN) : unregister_code(KC_MS_WH_DOWN);
+        case EX_MODE:
+            if (pressed) {
+                extra_key_mode = (extra_key_mode + 1) % __MODE_LAST;
+            }
             break;
-          case MODE_ARROWS_LR:
-            pressed ? register_code(KC_LEFT) : unregister_code(KC_LEFT);
+        case KC_EX1:
+            switch (extra_key_mode) {
+                case MODE_SCROLL:
+                    pressed ? register_code(KC_MS_WH_DOWN) : unregister_code(KC_MS_WH_DOWN);
+                    break;
+                case MODE_ARROWS_LR:
+                    pressed ? register_code(KC_LEFT) : unregister_code(KC_LEFT);
+                    break;
+                case MODE_ARROWS_UD:
+                    pressed ? register_code(KC_DOWN) : unregister_code(KC_DOWN);
+                    break;
+                default:
+                    pressed ? register_code(KC_LEFT) : unregister_code(KC_LEFT);
+            }
             break;
-          case MODE_ARROWS_UD:
-            pressed ? register_code(KC_DOWN) : unregister_code(KC_DOWN);
+        case KC_EX2:
+            switch (extra_key_mode) {
+                case MODE_SCROLL:
+                    pressed ? register_code(KC_MS_WH_UP) : unregister_code(KC_MS_WH_UP);
+                    break;
+                case MODE_ARROWS_LR:
+                    pressed ? register_code(KC_RIGHT) : unregister_code(KC_RIGHT);
+                    break;
+                case MODE_ARROWS_UD:
+                    pressed ? register_code(KC_UP) : unregister_code(KC_UP);
+                    break;
+                default:
+                    pressed ? register_code(KC_RIGHT) : unregister_code(KC_RIGHT);
+            }
             break;
-          default:
-            pressed ? register_code(KC_LEFT) : unregister_code(KC_LEFT);
-        }
-        break;
-      case KC_EX2:
-        switch (extra_key_mode) {
-          case MODE_SCROLL:
-            pressed ? register_code(KC_MS_WH_UP) : unregister_code(KC_MS_WH_UP);
-            break;
-          case MODE_ARROWS_LR:
-            pressed ? register_code(KC_RIGHT) : unregister_code(KC_RIGHT);
-            break;
-          case MODE_ARROWS_UD:
-            pressed ? register_code(KC_UP) : unregister_code(KC_UP);
-            break;
-          default:
-            pressed ? register_code(KC_RIGHT) : unregister_code(KC_RIGHT);
-        }
-        break;
     }
     return true;
 }

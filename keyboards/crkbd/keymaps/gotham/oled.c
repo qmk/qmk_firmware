@@ -46,15 +46,15 @@ void render_device(void) {
 
 void render_layer(void) {
     static const char PROGMEM font_layer[7][6] = {
-        {0x85, 0x86, 0x87, 0x88, 0x89, 0}, // Base
-        {0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0}, // Lower
-        {0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0}, // Raise
-        {0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0}, // Adjust
-        {0x9a, 0x98, 0x99, 0x9d, 0x9e, 0}, // Mouse
-        "NUMBR", // Game Number
-        "ARROW", // Game Nav
+        {0x85, 0x86, 0x87, 0x88, 0x89, 0},  // Base
+        {0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0},  // Lower
+        {0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0},  // Raise
+        {0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0},  // Adjust
+        {0x9a, 0x98, 0x99, 0x9d, 0x9e, 0},  // Mouse
+        "NUMBR",                            // Game Number
+        "ARROW",                            // Game Nav
     };
-    uint8_t layer = 0;
+    uint8_t  layer         = 0;
     uint32_t highest_layer = get_highest_layer(layer_state);
     if (highest_layer == _LOWER) {
         layer = 1;

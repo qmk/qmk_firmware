@@ -155,9 +155,7 @@ layer_state_t default_layer_state_set_keymap(layer_state_t state) {
 }
 
 #ifdef THUMBSTICK_ENABLE
-void thumbstick_init_keymap(void) {
-    thumbstick_mode_set(THUMBSTICK_MODE_SCROLL);
-}
+void thumbstick_init_keymap(void) { thumbstick_mode_set(THUMBSTICK_MODE_SCROLL); }
 
 bool process_record_keymap_thumbstick(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

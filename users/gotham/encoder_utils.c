@@ -35,19 +35,19 @@ void encoder_mode_next(uint8_t index) { encoder_mode_set(index, (encoder_mode_ge
 void encoder_mode_previous(uint8_t index) { encoder_mode_set(index, (encoder_mode_get(index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT); }
 
 void encoder_get_modes_raw(encoder_mode_t* target_list) {
-#    ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD
     memcpy(target_list, encoder_modes, sizeof(encoder_mode_t) * NUMBER_OF_ENCODERS * 2);
-#    else
+#else
     memcpy(target_list, encoder_modes, sizeof(encoder_mode_t) * NUMBER_OF_ENCODERS);
-#    endif
+#endif
 }
 
 void encoder_set_modes_raw(encoder_mode_t* source_list) {
-#    ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD
     memcpy(encoder_modes, source_list, sizeof(encoder_mode_t) * NUMBER_OF_ENCODERS * 2);
-#    else
+#else
     memcpy(encoder_modes, source_list, sizeof(encoder_mode_t) * NUMBER_OF_ENCODERS);
-#    endif
+#endif
 }
 
 void encoder_action(encoder_mode_t mode, uint8_t clockwise) {
