@@ -1,4 +1,10 @@
 # OLEDドライバー
+
+<!---
+  original document: 0.9.52:docs/feature_oled_driver.md
+  git diff 0.9.52 HEAD -- docs/feature_oled_driver.md | cat
+-->
+
 ## サポートされるハードウェア
 
 OLEDモジュールはSSD1306もしくはSH1106が搭載されたICを、I2Cを通じて使用します。

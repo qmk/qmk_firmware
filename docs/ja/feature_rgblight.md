@@ -1,5 +1,10 @@
 # RGB照明
 
+<!---
+  original document: 0.9.52:docs/feature_oled_driver.md
+  git diff 0.9.52 HEAD -- docs/feature_oled_driver.md | cat
+-->
+
 QMKにはキーボードに設置したRGB LEDを制御する機能があります。LEDをキーボードの底面に設置することが多いため、一般に*アンダーグロー*と呼ばれており、透明なケースと組み合わせると、綺麗な拡散効果が得られます。
 
 ![Planck with RGB Underglow](https://raw.githubusercontent.com/qmk/qmk_firmware/3774a7fcdab5544fc787f4c200be05fcd417e31f/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
