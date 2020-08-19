@@ -27,7 +27,7 @@ RGBLIGHT_ENABLE = yes
 |---------------|---------------------------------------------------------------------------------------------------------|
 |`RGB_DI_PIN`   |LEDに接続するデータピン                                                            |
 |`RGBLED_NUM`   |接続するLEDの数                                                                             |
-|`RGBLED_SPLIT` |(任意)分割キーボードにおける、個別の`RGB_DI_PIN`に直接つながっているLEDの数。|
+|`RGBLED_SPLIT` |(オプション)分割キーボードにおける、個別の`RGB_DI_PIN`に直接つながっているLEDの数。|
 
 後述のキーコードを使用することで、任意のRGB照明に変更することができます。
 
@@ -38,8 +38,8 @@ QMKはRGBではなく、[HSV色空間](https://ja.wikipedia.org/wiki/HSV%E8%89%B
 <img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
 **Hue** を変更すると円を回る<br>
-**Saturation** を変更すると、円の中央ないしは外へと向かい、色の強度に影響する。 <br>
-**Value** を変更すると明るさが変わる。<br>
+**Saturation** を変更すると、円の中央ないしは外へと向かい、色の強度に影響する<br>
+**Value** を変更すると明るさが変わる<br>
 
 ## キーコード
 
@@ -210,7 +210,7 @@ const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 // 必要に応じて追加...
 ```
 
-これらのレイヤーは`RGBLIGHT_LAYERS_LIST`マクロによってひとつにまとめ、キーボードの初期化時に`rgblight_layers`変数に代入します。最大8つまで定義でき、それ以上のレイヤーは無視されます。異なる照明レイヤーが重なっている場合は、配列順で後のレイヤーが優先されます。
+これらのレイヤーは`RGBLIGHT_LAYERS_LIST`マクロによってひとつにまとめ、キーボードの初期化時に`rgblight_layers`変数に代入します。上限を超えるレイヤーは無視されます。異なる照明レイヤーが重なっている場合は、配列順で後のレイヤーが優先されます。
 
 ```c
 // レイヤーの配列を定義。後のレイヤーが優先される
