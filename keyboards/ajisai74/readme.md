@@ -1,4 +1,4 @@
-# 7skb
+# AJisai74
 
 ![ajisai74](https://cdn-ak.f.st-hatena.com/images/fotolife/S/Salicylic_acid3/20200812/20200812214740.png)
 
