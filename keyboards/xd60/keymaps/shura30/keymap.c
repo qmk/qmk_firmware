@@ -23,12 +23,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO, KC_NO,   KC_NO,                                KC_NO,                               KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO)
 };
 
-
-// Loop
-void matrix_scan_user(void) {
-  // Empty
-};
-
 const rgblight_segment_t PROGMEM my_0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 6, HSV_CYAN},
 	{6, 6, HSV_BLUE}
