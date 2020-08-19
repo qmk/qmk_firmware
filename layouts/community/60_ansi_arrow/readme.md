@@ -1,4 +1,4 @@
-# 60_ansi_arrows
+# 60_ansi_arrow
 This is the 60% ANSI Arrow keyboard layout. 
 
 ## Requirements
