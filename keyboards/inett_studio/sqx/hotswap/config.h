@@ -12,7 +12,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    iNETT Studio
 #define PRODUCT         SQUARE.X
-#define DESCRIPTION     60% keyboard from the Square series
 
 /* key matrix size */
 #define MATRIX_ROWS 5

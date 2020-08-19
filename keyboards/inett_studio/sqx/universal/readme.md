@@ -1,10 +1,10 @@
-# SQUARE.X keyboard from the iNETT Studio
+# iNETT Studio SQUARE.X universal
 
-An 60% keybaord from the iNETT studio's square series
+A 60% keyboard from the iNETT Studio's SQUARE series.
 
-Keyboard Maintainer: [astro](https://github.com/yulei)  
-Hardware Supported: SQX Keyboard
-Hardware Availability: [GH GB](https://geekhack.org/index.php?topic=107062.0)
+* Keyboard Maintainer: [astro](https://github.com/yulei)  
+* Hardware Supported: SQUARE.X universal
+* Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=107062.0)
 
 Make example for this keyboard (after setting up your build environment):
 
