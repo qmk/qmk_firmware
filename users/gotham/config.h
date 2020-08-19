@@ -11,6 +11,31 @@
 #endif
 
 #ifdef MOUSEKEY_ENABLE
+#    ifdef MOUSEKEY_DELAY
+#        undef MOUSEKEY_DELAY
+#    endif
+#    ifdef MOUSEKEY_INTERVAL
+#        undef MOUSEKEY_INTERVAL
+#    endif
+#    ifdef MOUSEKEY_MAX_SPEED
+#        undef MOUSEKEY_MAX_SPEED
+#    endif
+#    ifdef MOUSEKEY_TIME_TO_MAX
+#        undef MOUSEKEY_TIME_TO_MAX
+#    endif
+#    ifdef MOUSEKEY_WHEEL_DELAY
+#        undef MOUSEKEY_WHEEL_DELAY
+#    endif
+#    ifdef MOUSEKEY_WHEEL_INTERVAL
+#        undef MOUSEKEY_WHEEL_INTERVAL
+#    endif
+#    ifdef MOUSEKEY_WHEEL_MAX_SPEED
+#        undef MOUSEKEY_WHEEL_MAX_SPEED
+#    endif
+#    ifdef MOUSEKEY_WHEEL_TIME_TO_MAX
+#        undef MOUSEKEY_WHEEL_TIME_TO_MAX
+#    endif
+
 #    define MOUSEKEY_DELAY 	           200 // Delay between pressing a movement key and cursor movement
 #    define MOUSEKEY_INTERVAL          8   // Time between cursor movements
 #    define MOUSEKEY_MAX_SPEED         8   // Maximum cursor speed at which acceleration stops
