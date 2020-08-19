@@ -57,49 +57,49 @@ enum layer_names {
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_QWERTY] = LAYOUT_default(
+	[_QWERTY] = LAYOUT(
         GUI_E,   ESC_ADJ, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL, KC_DEL,
         GUI_R,   TB_CTSF, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,     KC_BSPC,
                  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLGRV,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT,
                  KC_LGUI,          IMOF_AL,     LOWER,        SPC_CTL,     RAISE,        ENT_SFT, IMON_AL,                   KC_RCTL
     ),
 
-	[_LOWER] = LAYOUT_default(
+	[_LOWER] = LAYOUT(
         _______, _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, _______,
         _______, _______, _______, KC_F2,   KC_F5,   KC_F10,  KC_GRV,  KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,     _______,
                  _______, _______, _______, _______, _______, KC_TILD, _______, KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
                  _______,          _______,     _______,      _______,     _______,      _______, _______,                   _______
     ),
 
-	[_RAISE] = LAYOUT_default(
+	[_RAISE] = LAYOUT(
         _______, _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,      _______,
                  _______, _______, _______, _______, _______, _______, KC_HOME, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, _______, _______,
                  _______,          _______,     _______,      _______,     _______,      _______, _______,                   _______
     ),
 
-	[_PSEUDO_US] = LAYOUT_default(
+	[_PSEUDO_US] = LAYOUT(
         _______, _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    _______, _______,
         _______, _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    JIS2US,      _______,
                  _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    JP_ZHTG, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, JIS2US,
                  _______,          _______,     P_LOWER,      _______,     P_RAISE,      _______, _______,                   _______
     ),
 
-	[_PSEUDO_US_LOWER] = LAYOUT_default(
+	[_PSEUDO_US_LOWER] = LAYOUT(
         _______, _______, JP_EXLM, JP_AT,   JP_HASH, JP_DLR,  JP_PERC, JP_CIRC, JP_AMPR, JP_ASTR, JP_LPRN, JP_RPRN, _______, _______,
         _______, _______, _______, KC_F2,   KC_F5,   KC_F10,  JP_GRV,  JP_BSLS, JP_MINS, JP_EQL,  JP_LBRC, JP_RBRC,     _______,
                  _______, _______, _______, _______, _______, JP_TILD, _______, JP_PIPE, JP_UNDS, JP_PLUS, JP_LCBR, JP_RCBR, _______,
                  _______,          _______,     _______,      _______,     _______,      _______, _______,                   _______
     ),
 
-	[_PSEUDO_US_RAISE] = LAYOUT_default(
+	[_PSEUDO_US_RAISE] = LAYOUT(
         _______, _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,      _______,
                  _______, _______, _______, _______, _______, _______, KC_HOME, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, _______, _______,
                  _______,          _______,     _______,      _______,     _______,      _______, _______,                   _______
     ),
 
-	[_ADJUST] = LAYOUT_default(
+	[_ADJUST] = LAYOUT(
         RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         _______, _______, _______, _______, QWERTY,  PSEU_US, CTALDEL, _______, _______, _______, _______, _______,     _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
