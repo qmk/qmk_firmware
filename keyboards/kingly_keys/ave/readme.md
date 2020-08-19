@@ -2,8 +2,6 @@
 
 ![ave-img-1](https://i.imgur.com/l5ah6uM.png)
 
-====
-
 A Compact Battlestation.
 
 - Keyboard Maintainer: [The-Royal](https://github.com/the-royal)
