@@ -1,1 +1,1 @@
-# The default keymap for drakon
+# The logo keymap for drakon
