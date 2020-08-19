@@ -5,7 +5,7 @@
 10 BLE OLED HUB
 
 * Keyboard Maintainer: [haierwangwei2005](https://github.com/haierwangwei2005)
-* Hardware Availability: https://github.com/haierwangwei2005/9bleoled-hub
+* Hardware Availability: https://github.com/haierwangwei2005/10bleoled-hub
 
 Make example for this keyboard (after setting up your build environment):
 
