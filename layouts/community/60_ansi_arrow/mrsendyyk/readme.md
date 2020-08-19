@@ -1,5 +1,5 @@
 # [Sendy YK](https://mr.sendyyk.com)'s 60_ansi_arrow Keymap
-`LAYOUT_60_ansi_arrows` with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer indicator.
+`LAYOUT_60_ansi_arrow` with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer indicator.
 
 ### Default Layer [0]
 
