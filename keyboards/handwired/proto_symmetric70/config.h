@@ -41,14 +41,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-//#define MATRIX_COL_PINS { F4, F5, F6, F7, F4, F5, F6, F7,  B6, B2, B3, B1, B6, B2, B3, B1 }
-
-//left check
-//#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6,  B6,B6,B6,B6,B6,B6,B6,B6 }
-//right check
-#define MATRIX_COL_PINS { B6,B6,B6,B6,B6,B6,B6,B6, B6,B2,B3,B1,F7,F6,F5,F4  }
-#define MATRIX_COL_SELECT  B5  /* 74HC157 ~A/B pin */
+#define MATRIX_COL_PINS { F4,F4,F5,F5, F6,F6,F7,F7,  B6,B6,B2,B2, B3,B3,B1,B1 }
 #define UNUSED_PINS
+
+#define MATRIX_MUL_SEL  {  0, 1, 0, 1,  0, 1, 0, 1,   1, 0, 1, 0,  1, 0, 1, 0 }
+/* use 74HC157: quadruple 2-line to 1-line data selectors / multiplexers */
+#define MATRIX_MUL_SELECT  B5 /* 74HC157 pin1:~A/B */
+#define MATRIX_MUL_SELECT_DELAY 4
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

@@ -26,6 +26,9 @@ static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#ifdef MATRIX_MUL_SELECT
+static const pin_t col_sel[MATRIX_COLS] = MATRIX_MUL_SEL;
+#endif
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -83,6 +86,10 @@ static void unselect_rows(void) {
 }
 
 static void init_pins(void) {
+#ifdef MATRIX_MUL_SELECT
+    setPinOutput(MATRIX_MUL_SELECT);
+    writePinLow(MATRIX_MUL_SELECT);
+#endif
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         setPinInputHigh(col_pins[x]);
@@ -100,6 +107,10 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
+#ifdef MATRIX_MUL_SELECT
+        writePin(MATRIX_MUL_SELECT,col_sel[col_index]);
+        __builtin_avr_delay_cycles(MATRIX_MUL_SELECT_DELAY);
+#endif
         uint8_t pin_state = readPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin

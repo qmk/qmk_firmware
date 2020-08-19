@@ -16,15 +16,6 @@
 
 #include "proto_symmetric70.h"
 
-void matrix_init_kb(void) {
-    setPinOutput(MATRIX_COL_SELECT);
-    writePinLow(MATRIX_COL_SELECT);
-}
-
-void matrix_scan_kb(void) {
-    //wait_ms(100);
-}
-
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
   debug_enable=true;
