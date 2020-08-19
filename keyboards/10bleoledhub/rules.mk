@@ -12,12 +12,8 @@ MCU = atmega32u4
 BOOTLOADER = caterina
 F_CPU = 8000000
 
-
 # Feather uses the caterina bootloader
 OPT_DEFS += -DBOOTLOADER_SIZE=4096 -DCATERINA_BOOTLOADER
-
-
-
 
 # Build Options
 #   change yes to no to disable
@@ -38,11 +34,9 @@ BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality on B7 by de
 
 MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
-
 AUDIO_ENABLE = no           # Audio output on port C6
 BLUETOOTH = AdafruitBLE
 LAYOUTS = 666
-RGBLIGHT_ENABLE = yes
-
+RGBLIGHT_ENABLE = no
 OLED_DRIVER_ENABLE = yes
 ENCODER_ENABLE = yes
