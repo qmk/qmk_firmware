@@ -1,3 +1,5 @@
+PRINTF_PATH = $(LIB_PATH)/printf
+
 COMMON_DIR = common
 PLATFORM_COMMON_DIR = $(COMMON_DIR)/$(PLATFORM_KEY)
 
@@ -10,6 +12,7 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_util.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
+	$(COMMON_DIR)/sendchar_null.c \
 	$(COMMON_DIR)/util.c \
 	$(COMMON_DIR)/eeconfig.c \
 	$(COMMON_DIR)/report.c \
@@ -20,7 +23,12 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 ifeq ($(PLATFORM),AVR)
   TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
 else ifeq ($(PLATFORM),CHIBIOS)
-  TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
+  TMK_COMMON_SRC += $(PRINTF_PATH)/printf.c
+  TMK_COMMON_DEFS += -DPRINTF_DISABLE_SUPPORT_FLOAT
+  TMK_COMMON_DEFS += -DPRINTF_DISABLE_SUPPORT_EXPONENTIAL
+  TMK_COMMON_DEFS += -DPRINTF_DISABLE_SUPPORT_LONG_LONG
+  TMK_COMMON_DEFS += -DPRINTF_DISABLE_SUPPORT_PTRDIFF_T
+  VPATH += $(PRINTF_PATH)
 else ifeq ($(PLATFORM),ARM_ATSAM)
   TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 endif
@@ -91,8 +99,12 @@ ifeq ($(strip $(COMMAND_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DNKRO_ENABLE
-    SHARED_EP_ENABLE = yes
+    ifneq ($(PROTOCOL),VUSB)
+        TMK_COMMON_DEFS += -DNKRO_ENABLE
+        SHARED_EP_ENABLE = yes
+    else
+        $(info NKRO is not currently supported on V-USB, and has been disabled.)
+    endif
 endif
 
 ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
@@ -103,10 +115,6 @@ ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
     TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
     TMK_COMMON_DEFS += -DSLEEP_LED_ENABLE
     TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
-endif
-
-ifeq ($(strip $(NO_UART)), yes)
-    TMK_COMMON_DEFS += -DNO_UART
 endif
 
 ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)

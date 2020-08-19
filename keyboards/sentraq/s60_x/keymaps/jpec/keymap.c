@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define KC_MO1 MO(1)
 #define KC_SPFN LT(1, KC_SPC)
+#define KC_SDEL S(KC_DEL)
+#define KC_CINS C(KC_INS)
+#define KC_SINS S(KC_INS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Layout 0: Default Layer
@@ -57,19 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		ESC,  F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  F11,  F12,  TRNS, DEL,  \
 		TRNS, MPRV, MPLY, MNXT, MSTP, TRNS, TRNS, PGUP, UP,   PGDN, TRNS, SLCK, PAUS, INS,  \
 		TRNS, VOLD, MUTE, VOLU, TRNS, TRNS, HOME, LEFT, DOWN, RGHT, END,  TRNS, TRNS, PENT, \
-		TRNS, TRNS, PSCR, FN2,  FN3,  FN4,  CALC, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CAPS, TRNS, \
+		TRNS, TRNS, PSCR, SDEL, CINS, SINS, CALC, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CAPS, TRNS, \
 		TRNS, TRNS, TRNS,             TRNS,                         TRNS, TRNS, TRNS, TRNS),
 };
-
-/*
-* Fn action definition
-*/
-const uint16_t PROGMEM fn_actions[] = {
-	[2] = ACTION_MODS_KEY(MOD_LSFT, KC_DEL),    /* Cut  */
-	[3] = ACTION_MODS_KEY(MOD_LCTL, KC_INS),    /* Copy  */
-	[4] = ACTION_MODS_KEY(MOD_LSFT, KC_INS),    /* Paste */
-};
-
 
 void matrix_init_user(void) {
 

@@ -158,12 +158,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_SLEEP_LED      Z
 
 // Audio Click
-#define AUDIO_CLICKY
+//#define AUDIO_CLICKY
 
 // Music Mode Polyphony
 // NOTE: Must change polyphony_rate to a number higher than 0 in voices.c
-#define AUDIO_VOICES
-#define PITCH_STANDARD_A 880.0f
+//#define AUDIO_VOICES
+//#define PITCH_STANDARD_A 880.0f
 
 // Mouse keys
 #define MOUSEKEY_DELAY          0

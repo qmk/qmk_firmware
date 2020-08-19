@@ -6,27 +6,28 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
+* [2020 May 30](ChangeLog/20200530.md)
 * [2020 Feb 29](ChangeLog/20200229.md)
 * [2019 Aug 30](ChangeLog/20190830.md)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for May 30, 2020.
+The next Breaking Change is scheduled for Aug 29, 2020.
 
 ### Important Dates
 
-* [x] 2020 Feb 29 - `future` is created. It will be rebased weekly.
-* [ ] 2020 May 2 - `future` closed to new PR's.
-* [ ] 2020 May 2 - Call for testers.
-* [ ] 2020 May 28 - `master` is locked, no PR's merged.
-* [ ] 2020 May 30 - Merge `future` to `master`.
-* [ ] 2020 May 30 - `master` is unlocked. PR's can be merged again.
+* [x] 2020 May 30 - `develop` is created. It will be rebased weekly.
+* [ ] 2020 Aug 1 - `develop` closed to new PR's.
+* [ ] 2020 Aug 1 - Call for testers.
+* [ ] 2020 Aug 27 - `master` is locked, no PR's merged.
+* [ ] 2020 Aug 29 - Merge `develop` to `master`.
+* [ ] 2020 Aug 29 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
-To see a list of breaking change candidates you can look at the [`breaking_change` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Abreaking_change+is%3Apr). New changes might be added between now and when `future` is closed, and a PR with that label applied is not guaranteed to be merged.
+To see a list of breaking change candidates you can look at the [`breaking_change` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Abreaking_change+is%3Apr). New changes might be added between now and when `develop` is closed, and a PR with that label applied is not guaranteed to be merged.
 
-If you want your breaking change to be included in this round you need to create a PR with the `breaking_change` label and have it accepted before `future` closes. After `future` closes no new breaking changes will be accepted.
+If you want your breaking change to be included in this round you need to create a PR with the `breaking_change` label and have it accepted before `develop` closes. After `develop` closes no new breaking changes will be accepted.
 
 Criteria for acceptance:
 
@@ -37,9 +38,9 @@ Criteria for acceptance:
 
 This section documents various processes we use when running the Breaking Changes process.
 
-## Rebase `future` from `master`
+## Rebase `develop` from `master`
 
-This is run every Friday while `future` is open.
+This is run every Friday while `develop` is open.
 
 Process:
 
@@ -47,31 +48,31 @@ Process:
 cd qmk_firmware
 git checkout master
 git pull --ff-only
-git checkout future
+git checkout develop
 git rebase master
 git push --force
 ```
 
-## Creating the `future` branch
+## Creating the `develop` branch
 
-This happens immediately after the previous `future` branch is merged.
+This happens immediately after the previous `develop` branch is merged.
 
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
     * [ ] `git pull --ff-only`
-    * [ ] `git checkout -b future`
+    * [ ] `git checkout -b develop`
     * [ ] Edit `readme.md`
         * [ ] Add a big notice at the top that this is a testing branch.
         * [ ] Include a link to this document
     * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
     * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
     * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
-    * [ ] `git push origin future`
+    * [ ] `git push origin develop`
     * [ ] `git push --tags`
 
 ## 4 Weeks Before Merge
 
-* `future` is now closed to new PR's, only fixes for current PR's may be merged
+* `develop` is now closed to new PR's, only fixes for current PR's may be merged
 * Post call for testers
     * [ ] Discord
     * [ ] GitHub PR
@@ -94,15 +95,15 @@ This happens immediately after the previous `future` branch is merged.
 ## Day Of Merge
 
 * `qmk_firmware` git commands
-    * [ ] `git checkout future`
+    * [ ] `git checkout develop`
     * [ ] `git pull --ff-only`
     * [ ] `git rebase origin/master`
     * [ ] Edit `readme.md`
-        * [ ] Remove the notes about `future`
+        * [ ] Remove the notes about `develop`
     * [ ] Roll up the ChangeLog into one file.
     * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
-    * [ ] `git push origin future`
-* Github Actions
-    * [ ] Create a PR for `future`
+    * [ ] `git push origin develop`
+* GitHub Actions
+    * [ ] Create a PR for `develop`
     * [ ] Make sure travis comes back clean
-    * [ ] Merge `future` PR
+    * [ ] Merge `develop` PR

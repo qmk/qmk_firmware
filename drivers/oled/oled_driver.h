@@ -150,6 +150,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif
 
+#if !defined(OLED_I2C_TIMEOUT)
+#    define OLED_I2C_TIMEOUT 100
+#endif
+
 typedef struct __attribute__((__packed__)) {
     uint8_t  *current_element;
     uint16_t remaining_element_count;
@@ -214,6 +218,10 @@ oled_buffer_reader_t oled_read_raw(uint16_t start_index);
 
 void oled_write_raw(const char *data, uint16_t size);
 void oled_write_raw_byte(const char data, uint16_t index);
+
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position

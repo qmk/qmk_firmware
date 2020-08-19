@@ -46,7 +46,7 @@ FORMAT = ihex
 # Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
-OPT = s
+OPT ?= s
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
@@ -396,6 +396,12 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+dump_vars: ERROR_IF_EMPTY=""
+dump_vars: ERROR_IF_NONBOOL=""
+dump_vars: ERROR_IF_UNSET=""
+dump_vars:
+	@$(foreach V,$(sort $(.VARIABLES)),$(if $(filter-out environment% default automatic,$(origin $V)),$(info $V=$($V))))
+
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
@@ -436,7 +442,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 
 # Listing of phony targets.
-.PHONY : all finish sizebefore sizeafter qmkversion \
+.PHONY : all dump_vars finish sizebefore sizeafter qmkversion \
 gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu dfu-ee dfu-start \

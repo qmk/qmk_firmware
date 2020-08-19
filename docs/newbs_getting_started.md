@@ -41,34 +41,44 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 You will need to install MSYS2, Git, and the QMK CLI.
 
-* Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
-* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
+Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org). Close any open MSYS terminals and open a new MinGW 64-bit terminal. **NOTE: This is *not* the same as the MSYS terminal that opens when installation is completed.**
 
-After opening a new MSYS2 MinGW 64-bit terminal, make sure `pacman` is up to date with:
+Then, run the following:
 
-    pacman -Syu
-
-You may be asked to close and reopen the window. Do this and keep running the above command until it says `there is nothing to do`. Then run the following:
-
-    pacman -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
+    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
     python3 -m pip install qmk
 
 ### macOS
 
 You will need to install Homebrew. Follow the instructions on the [Homebrew homepage](https://brew.sh).
 
-After Homebrew is installed run these commands:
+After Homebrew is installed run this command:
 
-    brew tap qmk/qmk
-    brew install qmk
+    brew install qmk/qmk/qmk
 
 ### Linux
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `apt-get install git python3 && python3 -m pip install qmk`
-* Fedora / Red Hat / CentOS: `yum install git python3 && python3 -m pip install qmk`
-* Arch: `yay -S qmk` (or use any other AUR Helper)
+* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
+* Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
+* Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
+
+Install the global CLI to bootstrap your system:
+
+`python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
+
+### FreeBSD
+
+You will need to install Git and Python. It's possible that you already have both, but if not, run the following commands to install them:
+
+    pkg install git python3
+
+Make sure that `$HOME/.local/bin` is added to your `$PATH` so that locally install Python packages are available.
+
+Once installed, you can install QMK CLI:
+
+    python3 -m pip install --user qmk
 
 ## 3. Run QMK Setup :id=set-up-qmk
 
@@ -77,6 +87,18 @@ After installing QMK you can set it up with this command:
     qmk setup
 
 In most situations you will want to answer Yes to all of the prompts.
+
+?>**Note on Debian, Ubuntu and their derivatives**:
+It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
+This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
+Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
+Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
+
+?>**Note on FreeBSD**:
+It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
+base system using `pkg`. However the installation will probably fail when run as an unprivileged user.
+To manually install the base dependencies, run `./util/qmk_install.sh` either as `root`, or with `sudo`.
+Once that completes, re-run `qmk setup` to complete the setup and checks.
 
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
@@ -108,7 +130,7 @@ Most people new to QMK only have 1 keyboard. You can set this keyboard as your d
 
     qmk config user.keyboard=clueboard/66/rev4
 
-You can also set your default keymap name. Most people use their github username here, and we recommend that you do too.
+You can also set your default keymap name. Most people use their GitHub username here, and we recommend that you do too.
 
     qmk config user.keymap=<github_username>
 
