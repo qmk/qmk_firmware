@@ -50,6 +50,7 @@
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS rgblight_status.change_flags |= (RGBLIGHT_STATUS_CHANGE_MODE | RGBLIGHT_STATUS_CHANGE_HSVS)
 #    define RGBLIGHT_SPLIT_SET_CHANGE_LAYERS rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_LAYERS
 #    define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
+#    define RGBLIGHT_SPLIT_SET_CHANGE_REACTIVE_LED_MAP rgblight_status.change_flags |= RGBLIGHT_STATUS_SET_CHANGE_REACTIVE_LED_MAP
 #    define RGBLIGHT_SPLIT_ANIMATION_TICK rgblight_status.change_flags |= RGBLIGHT_STATUS_ANIMATION_TICK
 #else
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODE
@@ -769,10 +770,24 @@ void rgblight_clear_change_flags(void) { rgblight_status.change_flags = 0; }
 void rgblight_get_syncinfo(rgblight_syncinfo_t *syncinfo) {
     syncinfo->config = rgblight_config;
     syncinfo->status = rgblight_status;
+#    ifdef RGBLIGHT_EFFECT_REACTIVE
+    for (int i = 0; i < RGBLED_NUM; i++) {
+        syncinfo->reactive_led_map[i] = reactive_led_map[i];
+    }
+#    endif
 }
 
 /* for split keyboard slave side */
 void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
+#    ifdef RGBLIGHT_EFFECT_REACTIVE
+    if (syncinfo->status.change_flags & RGBLIGHT_STATUS_SET_CHANGE_REACTIVE_LED_MAP) {
+        // wait for the potential race condition to be over
+        wait_ms(10);
+        for (int i = 0; i < RGBLED_NUM; i++) {
+            reactive_led_map[i] = syncinfo->reactive_led_map[i];
+        }
+    }
+#    endif
 #    ifdef RGBLIGHT_LAYERS
     if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_LAYERS) {
         rgblight_status.enabled_layer_mask = syncinfo->status.enabled_layer_mask;
@@ -1319,6 +1334,9 @@ void update_reactive_led_map(int index, bool pressed) {
     bool before = reactive_led_map[index];
     if (index >= 0 && index <= RGBLED_NUM && before != pressed) {
         reactive_led_map[index] = pressed;
+#    ifdef RGBLIGHT_SPLIT
+        RGBLIGHT_SPLIT_SET_CHANGE_REACTIVE_LED_MAP;
+#    endif
     }
 }
 

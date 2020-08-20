@@ -407,10 +407,14 @@ void rgblight_timer_toggle(void);
 #        define RGBLIGHT_STATUS_CHANGE_TIMER (1 << 2)
 #        define RGBLIGHT_STATUS_ANIMATION_TICK (1 << 3)
 #        define RGBLIGHT_STATUS_CHANGE_LAYERS (1 << 4)
+#        define RGBLIGHT_STATUS_SET_CHANGE_REACTIVE_LED_MAP (1 << 5)
 
 typedef struct _rgblight_syncinfo_t {
     rgblight_config_t config;
     rgblight_status_t status;
+#        ifdef RGBLIGHT_EFFECT_REACTIVE
+    bool reactive_led_map[RGBLED_NUM];
+#        endif
 } rgblight_syncinfo_t;
 
 /* for split keyboard master side */
