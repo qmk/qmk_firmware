@@ -5,7 +5,6 @@
 
 
 // to build this keymap
-// source ~/qmk_utils/activate_wsl.sh
 // make ergodox_ez:dvorak_42_key:teensy
 // flashing from rpi:
 // sudo teensy_loader_cli -v -w .build/ergodox_ez_dvorak_42_key.hex --mcu atmega32u4

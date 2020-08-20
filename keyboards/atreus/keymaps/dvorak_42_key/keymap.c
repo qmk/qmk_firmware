@@ -78,11 +78,8 @@ enum custom_keycodes {
 
 };
 
-// building instructions:
-// make atreus:dvorak_42_key
-
-// flashing instructions:
-// avrdude -p atmega32u4 -c avr109 -U flash:w:atreus_astar_dvorak_42_key.hex  -P COM15
+// building/flashing instructions:
+// make atreus/astar:dvorak_42_key:flash
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
@@ -138,7 +135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // windows 10 workspace shortcuts
     case W10_TASKVIEW:
         tap_code16(G(KC_TAB));
-        return true;    
+        return true;
         break;
     case W10_WORKSPACE_LEFT:
         tap_code16(G(C(KC_LEFT)));
@@ -146,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case W10_WORKSPACE_RIGHT:
         tap_code16(G(C(KC_RIGHT)));
-        break;      
+        break;
 	}
   }
 
