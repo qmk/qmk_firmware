@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├───┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤   ├───┤
      * │Tab │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ' │Enter │   │PgD│
      * ├────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴──┬───┘   ├───┤
-     * │LShift│ Z │ X │ C │ V │ B │ N │ M │ , │ . │Sft/│ ┌───┐ │TO3│
+     * │LShift│ Z │ X │ C │ V │ B │ N │ M │ , │ . │Sft/│ ┌───┐ │CAP│
      * ├────┬─┴─┬─┴──┬┴───┴───┴─┬─┴───┴──┬┴───┼───┴┬───┘ │ ↑ │ └───┘
      * │LCtl│OS │LAlt│    Fn    │  Space │RAlt│ Ln │ ┌───┼───┼───┐
      * └────┴───┴────┴──────────┴────────┴────┴────┘ │ ← │ ↓ │ → │
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] = LAYOUT_split_space(
         _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,  KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,  KC_RBRC,  KC_BSLS,   _______,             KC_HOME,
         _______,  KC_1,     KC_2,     KC_3,     KC_4,    KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,          KC_ENTER,                  KC_END,
-        _______,  KC_LPRN,  KC_RPRN,  KC_SCLN,  KC_DOT,  _______,  KC_MINS,  KC_PLUS,  KC_ASTR,  KC_SLSH,  KC_EQL,                     _______,      KC_NO,
+        _______,  KC_LPRN,  KC_RPRN,  KC_SCLN,  KC_DOT,  _______,  KC_MINS,  KC_PLUS,  KC_ASTR,  KC_SLSH,  KC_EQL,                     _______,      _______,
         _______,  _______,  _______,                _______,            _______,            _______,       _______,          _______,  _______,   _______
     ),
 
