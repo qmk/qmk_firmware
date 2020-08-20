@@ -108,6 +108,10 @@ LED_TYPE led[RGBLED_NUM];
 rgblight_segment_t const *const *rgblight_layers = NULL;
 #endif
 
+#ifdef RGBLIGHT_EFFECT_REACTIVE
+bool reactive_led_map[RGBLED_NUM];
+#endif
+
 rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
@@ -577,7 +581,7 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
     rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
 }
 
-#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE)
+#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE) || defined(RGBLIGHT_EFFECT_REACTIVE)
 
 static uint8_t get_interval_time(const uint8_t *default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
     return
@@ -939,6 +943,12 @@ void rgblight_task(void) {
             effect_func   = (effect_func_t)rgblight_effect_twinkle;
         }
 #    endif
+#    ifdef RGBLIGHT_EFFECT_REACTIVE
+        else if (rgblight_status.base_mode == RGBLIGHT_MODE_REACTIVE) {
+            interval_time = get_interval_time(&RGBLED_REACTIVE_INTERVALS[delta % 3], 5, 50);
+            effect_func   = (effect_func_t)rgblight_effect_reactive;
+        }
+#    endif
         if (animation_status.restart) {
             animation_status.restart    = false;
             animation_status.last_timer = timer_read() - interval_time - 1;
@@ -1294,6 +1304,74 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
             // This LED is off, and was NOT selected to start brightening
         }
 
+        LED_TYPE *ledp = led + i + rgblight_ranges.effect_start_pos;
+        sethsv(c->h, c->s, c->v, ledp);
+    }
+
+    rgblight_set();
+}
+#endif
+
+#ifdef RGBLIGHT_EFFECT_REACTIVE
+__attribute__((weak)) const uint8_t RGBLED_REACTIVE_INTERVALS[] PROGMEM = {25, 10, 5};
+
+void update_reactive_led_map(int index, bool pressed) {
+    bool before = reactive_led_map[index];
+    if (index >= 0 && index <= RGBLED_NUM && before != pressed) {
+        reactive_led_map[index] = pressed;
+    }
+}
+
+typedef struct PACKED {
+    HSV     hsv;
+    uint8_t life;
+} ReactiveState;
+
+static ReactiveState led_reactive_state[RGBLED_NUM];
+
+void rgblight_effect_reactive(animation_status_t *anim) {
+    bool random_color = anim->delta / 3;
+    bool restart      = anim->pos == 0;
+    anim->pos         = 1;
+
+    for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
+        ReactiveState *t = &(led_reactive_state[i]);
+        HSV *          c = &(t->hsv);
+        if (restart) {
+            // Restart
+            t->life  = 0;
+            t->hsv.v = 0;
+        } else if (t->life) {
+            // This LED is already on
+            if (reactive_led_map[i]) {
+                // and it stays on
+            } else {
+                // dimming as no key above it is pressed
+                t->life--;
+                uint8_t on = t->life;
+                c->v       = (uint16_t)rgblight_config.val * on / RGBLIGHT_EFFECT_REACTIVE_LIFE;
+                if (!random_color) {
+                    c->h = rgblight_config.hue;
+                    c->s = rgblight_config.sat;
+                }
+            }
+        }
+        if (reactive_led_map[i]) {
+            // This LED is off, but should light up now as the keys above it are pressed
+            if (random_color) {
+                if (t->life) {
+                    // keep the existing random color
+                } else {
+                    c->h = rand() % 0xFF;
+                    c->s = (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2);
+                }
+            } else {
+                c->h = rgblight_config.hue;
+                c->s = rgblight_config.sat;
+            }
+            c->v    = rgblight_config.val;
+            t->life = RGBLIGHT_EFFECT_REACTIVE_LIFE;
+        }
         LED_TYPE *ledp = led + i + rgblight_ranges.effect_start_pos;
         sethsv(c->h, c->s, c->v, ledp);
     }
