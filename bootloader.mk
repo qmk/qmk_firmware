@@ -68,7 +68,7 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
         BOOTLOADER_SIZE = 512
     endif
     ifeq ($(strip $(MCU)), at90usb1286)
-        BOOTLOADER_SIZE = 2048
+        BOOTLOADER_SIZE = 1024
     endif
 endif
 ifeq ($(strip $(BOOTLOADER)), caterina)
