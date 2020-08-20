@@ -225,7 +225,7 @@ void render_status(void) {
 
   // Render to mode icon
   static const char os_logo[][2][3] PROGMEM  ={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-  if(mode_windows==false){
+  if(keymap_config.swap_lalt_lgui==false){
     oled_write_P(os_logo[0][0], false);
     oled_write_P(PSTR("\n"), false);
     oled_write_P(os_logo[0][1], false);

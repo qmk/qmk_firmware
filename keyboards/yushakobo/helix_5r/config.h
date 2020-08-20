@@ -108,7 +108,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Custom font */
-#define OLED_FONT_H "keyboards/yushakobo/helix_type_r/common/glcdfont.c"
+#define OLED_FONT_H "keyboards/yushakobo/helix_5r/common/glcdfont.c"
 
 /* Encorder */
 #define ENCODERS_PAD_A { B6 }
