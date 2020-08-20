@@ -24,4 +24,4 @@ Centered around the home row and the use of mouse keys, this configuration focus
 
 Here is the image of my keymap:
 
-![Default](https://imgur.com/a/C3dXAp2)
+![Default](https://imgur.com/x6VgH9Z)
