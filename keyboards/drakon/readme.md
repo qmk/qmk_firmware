@@ -1,6 +1,6 @@
 # drakon
 
-![drakon](acrylic: https://imgur.com/a/fZsWorF ; alucase: https://imgur.com/a/0LnnEC0)
+![drakon](https://i.imgur.com/J5PkdURl.jpg)
 
 60% keyboard with OLED and 4-directional press Encoder
 
