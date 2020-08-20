@@ -5,6 +5,5 @@ COMMAND_ENABLE = no
 RGBLIGHT_ENABLE = no
 TAP_DANCE_ENABLE=yes
 
-
-#Beginning debugging process for LT() and permissive hold
+# Debugging
 CONSOLE_ENABLE = yes
