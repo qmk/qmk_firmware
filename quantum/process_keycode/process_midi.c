@@ -41,12 +41,12 @@ static int8_t   midi_modulation_step;
 static uint16_t midi_modulation_timer;
 midi_config_t   midi_config;
 
-inline uint8_t compute_velocity(uint8_t setting) { return (setting + 1) * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN + 1)); }
+inline uint8_t compute_velocity(uint8_t setting) { return setting * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN)); }
 
 void midi_init(void) {
     midi_config.octave              = MI_OCT_2 - MIDI_OCTAVE_MIN;
     midi_config.transpose           = 0;
-    midi_config.velocity            = (compute_velocity(MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN));
+    midi_config.velocity            = 127;
     midi_config.channel             = 0;
     midi_config.modulation_interval = 8;
 
