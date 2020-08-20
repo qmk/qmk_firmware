@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_space(
         KC_ESC,   KC_Q,     KC_W,    KC_E,  KC_R,  KC_T,  KC_Y,  KC_U,  KC_I,     KC_O,    KC_P,      KC_DEL, KC_BSPC,         KC_PGUP,
         KC_TAB,   KC_A,     KC_S,    KC_D,  KC_F,  KC_G,  KC_H,  KC_J,  KC_K,     KC_L,    KC_QUOTE,      KC_ENT,              KC_PGDN,
-        KC_LSFT,  KC_Z,     KC_X,    KC_C,  KC_V,  KC_B,  KC_N,  KC_M,  KC_COMM,  KC_DOT,  RS_SLS,                 KC_UP,      TO(_GAME),
+        KC_LSFT,  KC_Z,     KC_X,    KC_C,  KC_V,  KC_B,  KC_N,  KC_M,  KC_COMM,  KC_DOT,  RS_SLS,                 KC_UP,      KC_CAPS,
         KC_LCTL,  KC_LGUI,  KC_LALT,          MO(_FN),      KC_SPACE,        KC_RALT,      MO(_LN),       KC_LEFT, KC_DOWN, KC_RIGHT
     ),
     /* Main Numbers, Symbols & Function Layer (MOMENTARY)
