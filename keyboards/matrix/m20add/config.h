@@ -20,6 +20,31 @@
 #define GET_PORT(pp) (((pp) >> 8) & 0xFF)
 #define GET_PIN(pp) ((pp) & 0xFF)
 
+#define ROW1_MASK 0x80
+#define ROW2_MASK 0x40
+#define ROW3_MASK 0x01
+#define ROW4_MASK 0x04
+#define ROW5_MASK 0x10
+#define ROW6_MASK 0x20
+#define ROW_PORT TCA6424_PORT2
+
+#define COL1_MASK 0x02
+#define COL2_MASK 0x80
+#define COL3_MASK 0x40
+#define COL4_MASK 0x20
+#define COL5_MASK 0x10
+#define COL6_MASK 0x08
+#define COL7_MASK 0x04
+#define COL8_MASK 0x02
+#define COL9_MASK 0x01
+#define COL10_MASK 0x80
+#define COL11_MASK 0x40
+#define COL12_MASK 0x20
+#define COL13_MASK 0x10
+#define COL14_MASK 0x08
+#define COL15_MASK 0x04
+#define COL16_MASK 0x02
+
 #define MATRIX_ROW_PINS { \
     DEF_PIN(TCA6424_PORT2, 7), \
     DEF_PIN(TCA6424_PORT2, 6), \

@@ -5,6 +5,7 @@
 #include "m20add.h"
 #include "tca6424.h"
 #include "rgb_ring.h"
+#include "i2c_master.h"
 
 void set_pin(uint16_t pin)
 {
@@ -50,6 +51,25 @@ bool led_update_kb(led_t led_state) {
         led_state.scroll_lock ? set_pin(scroll_lock_pin) : clear_pin(scroll_lock_pin);
     }
     return res;
+}
+
+// override the default implementation to avoid re-initialization
+void i2c_init(void)
+{
+    static bool initialized = false;
+    if (initialized) {
+        return;
+    } else {
+        initialized = true;
+    }
+
+    // Try releasing special pins for a short time
+    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
+    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
+
+    chThdSleepMilliseconds(10);
+    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
 }
 
 #define REBOOT_MAGIC 0x41544B42
