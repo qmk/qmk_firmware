@@ -11,7 +11,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER MATRIX
 #define PRODUCT 8XV2.0 Additional
-#define DESCRIPTION Matrix 8XV2.0 Additional keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6

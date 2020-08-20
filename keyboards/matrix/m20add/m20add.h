@@ -7,7 +7,7 @@
 #include "quantum.h"
 
 
-#define LAYOUT_tkl_iso( \
+#define LAYOUT_tkl_iso_tsangan( \
     K000,       K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,          K013, K014, K015, \
   \
 	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113,          K114, K115, K116, \
@@ -24,7 +24,7 @@
 	{ K500,  K501,  K502, KC_NO, KC_NO, KC_NO,  K503, KC_NO,  K504,  K505,  K506,  K507,  K508, KC_NO, K509,KC_NO}, \
 }
 
-#define LAYOUT_tkl_ansi( \
+#define LAYOUT_tkl_ansi_tsangan( \
     K000,       K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,          K013, K014, K015, \
   \
 	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113,          K114, K115, K116, \
