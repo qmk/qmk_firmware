@@ -68,15 +68,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_HUE_STEP 10
   #define RGBLIGHT_SAT_STEP 17
   #define RGBLIGHT_VAL_STEP 17
-  #define RGBLIGHT_LIMIT_VAL 127 /* The maximum brightness level */
+  #define RGBLIGHT_LIMIT_VAL 50 /* The maximum brightness level */
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== Lighting Layers ==*/
-#define RGBLIGHT_LAYERS
+  /*== Lighting Layers ==*/
+  #define RGBLIGHT_LAYERS
   // #define RGBLIGHT_MAX_LAYERS 2
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-/*== all animations enable ==*/
+  /*== all animations enable ==*/
   // #define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
+  /*== or choose animations ==*/
   // #define RGBLIGHT_EFFECT_BREATHING
   // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -84,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // #define RGBLIGHT_EFFECT_KNIGHT
   // #define RGBLIGHT_EFFECT_CHRISTMAS
   // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_EFFECT_RGB_TEST
+  // #define RGBLIGHT_EFFECT_RGB_TEST
   // #define RGBLIGHT_EFFECT_ALTERNATING
   // /*== customize breathing effect ==*/
   // /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
