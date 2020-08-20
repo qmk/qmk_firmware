@@ -54,6 +54,8 @@ IN DEVELOPMENT
 
 /* Base layer
 
+    LATCHED:
+
     |-----------------------------------------------------------------------------------------------|
     | Rotary|   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | Panic |
     |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
@@ -64,9 +66,24 @@ IN DEVELOPMENT
     | HYPER | Super |  Meta |  Ctrl | LOWER |     Space     | RAISE |   Lt  |   Dn  |   Up  |   Rt  |
     |-----------------------------------------------------------------------------------------------|
 
+    UNLATCHED:
+
+    |-----------------------------------------------------------------------------------------------|
+    | Rotary|   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | Panic |
+    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    |  Esc  |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |   '   |
+    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    |  Tab  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   | Enter |
+    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    |  < >  |  { }  |  [ ]  |  ( )  | LOWER |     Space     | RAISE |   Lt  |   Dn  |   Up  |   Rt  |
+    |-----------------------------------------------------------------------------------------------|
+
     *
-    * Left-side modifiers latched
-    * Left-side modifiers unlatched in other layers but still active (exception: HYPER)
+    * Can be in one of 2 modes
+    * Each mode has it's own LOWER and RAISE layers
+    * Mode 1 - code mode (default)
+    * Mode 2 - navigation
+    *
     *
 
 */
@@ -86,12 +103,14 @@ IN DEVELOPMENT
     |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
     |       |       |       |       |       |       |       |       |       |       |       |       |
     |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-    | Reset | LOWER3| LOWER2| LOWER1| LOWER |      BASE     | RAISE | RAISE1| RAISE2| RAISE3|       |
+    | Reset | latch | LOWER2| LOWER1| MODE1 |      BASE     | MODE2 | RAISE1| RAISE2|       |       |
     |-----------------------------------------------------------------------------------------------|
 
     *
     * Only layer with inactive left-side modifiers
     * Right above base layer
+    *
+    * Latch key: toggles modifiers latch
     *
     * Vol key: change hardware audio volume and toggle mute
     * Empty keys: left for software implementation
@@ -118,8 +137,7 @@ IN DEVELOPMENT
     |-----------------------------------------------------------------------------------------------|
 
     *
-    * Each non-layer keypress moves to previous layer (exception: rotary, arrow keys, enter, panic, numbers?)
-    * RAISE always moves to RAISE1
+    * Each non-layer keypress moves to BASE (exception: rotary, arrow keys, enter, panic, numbers?)
     *
 
 */
@@ -130,31 +148,7 @@ IN DEVELOPMENT
     ALT_ESC, _______, _______, _______,   TD(RAISE), SPC_CAPS, SPC_CAPS, TD(LOWER), _______, _______, _______, KC_RGUI
 ),
 
-/* Lower II - coding
-
-    |-----------------------------------------------------------------------------------------------|
-    | Rotary|   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | Panic |
-    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-    |  Esc  |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |   '   |
-    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-    |  Tab  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   | Enter |
-    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-    |  < >  |  { }  |  [ ]  |  ( )  | LOWER |     Space     | RAISE |   Lt  |   Dn  |   Up  |   Rt  |
-    |-----------------------------------------------------------------------------------------------|
-
-    *
-    * RAISE always moves to RAISE1
-    *
-
-*/
-[_LOWER2] = LAYOUT_planck_grid(
-    ROTARY,  KC_Q,      KC_W,    KC_E,    KC_R,      KC_T,     KC_Y,     KC_U,      KC_I,    KC_O,    KC_P,    BSPC_DEL,
-    CTL_TAB, KC_A,      KC_S,    KC_D,    KC_F,      KC_G,     KC_H,     KC_J,      KC_K,    KC_L,    KC_SCLN, KC_ENT,
-    KC_LSPO, KC_Z,      KC_X,    KC_C,    KC_V,      KC_B,     KC_N,     KC_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    ALT_ESC, _______, _______, _______,   TD(RAISE), SPC_CAPS, SPC_CAPS, TD(LOWER), _______, _______, _______, KC_RGUI
-),
-
-/* Lower III - command snippets
+/* Raise I - command snippets
 
     |-----------------------------------------------------------------------------------------------|
     | Rotary|       |       |       |       |       |       |       |       |       | g push|       |
@@ -168,36 +162,8 @@ IN DEVELOPMENT
 
     *
     * DO NOT INCLUDE DESTRUCTIVE COMMANDS
-    * Each non-layer keypress moves to layer LOWER2 (exception: rotary, arrow keys, enter)
+    * Each non-layer keypress moves to BASE (exception: rotary, arrow keys, enter)
     * Stand-alone non-destructive commands are executed instantly (e.g. git status)
-    * RAISE always moves to RAISE1
-    *
-
-*/
-[_LOWER3] = LAYOUT_planck_grid(
-    ROTARY,  KC_Q,      KC_W,    KC_E,    KC_R,      KC_T,     KC_Y,     KC_U,      KC_I,    KC_O,    KC_P,    BSPC_DEL,
-    CTL_TAB, KC_A,      KC_S,    KC_D,    KC_F,      KC_G,     KC_H,     KC_J,      KC_K,    KC_L,    KC_SCLN, KC_ENT,
-    KC_LSPO, KC_Z,      KC_X,    KC_C,    KC_V,      KC_B,     KC_N,     KC_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    ALT_ESC, _______, _______, _______,   TD(RAISE), SPC_CAPS, SPC_CAPS, TD(LOWER), _______, _______, _______, KC_RGUI
-),
-
-/* RAISE I - functions and dynamic macros
-
-    |-----------------------------------------------------------------------------------------------|
-    | Rotary|  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  |       |
-    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-    |       |  F11  |  F12  |  F13  |  F14  |  F15  |  F16  |  F17  |  F18  |  F19  |  F20  |       |
-    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-    |       |       |       |       |       |       |       |       |       |       |       |       |
-    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-    |       |       |       |       | LOWER |      BASE     | RAISE |       |       |       |       |
-    |-----------------------------------------------------------------------------------------------|
-
-    *
-    * Each non-layer keypress moves to previous layer (exception: rotary)
-    * LOWER always moves to LOWER1
-    *
-    * TODO: Add dynamic macro to this layer
     *
 
 */
@@ -208,7 +174,7 @@ IN DEVELOPMENT
     ALT_ESC, _______, _______, _______,   TD(RAISE), SPC_CAPS, SPC_CAPS, TD(LOWER), _______, _______, _______, KC_RGUI
 ),
 
-/* Raise II - navigation
+/* Lower II - navigation
 
     |-----------------------------------------------------------------------------------------------|
     | Rotary| L Ck  |  M up |  R ck |       |       |       |       | Ctrl- | S up  | Ctrl+ |       |
@@ -221,7 +187,33 @@ IN DEVELOPMENT
     |-----------------------------------------------------------------------------------------------|
 
     *
-    * LOWER always moves to LOWER1
+    *
+    *
+
+*/
+[_LOWER2] = LAYOUT_planck_grid(
+    ROTARY,  KC_Q,      KC_W,    KC_E,    KC_R,      KC_T,     KC_Y,     KC_U,      KC_I,    KC_O,    KC_P,    BSPC_DEL,
+    CTL_TAB, KC_A,      KC_S,    KC_D,    KC_F,      KC_G,     KC_H,     KC_J,      KC_K,    KC_L,    KC_SCLN, KC_ENT,
+    KC_LSPO, KC_Z,      KC_X,    KC_C,    KC_V,      KC_B,     KC_N,     KC_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+    ALT_ESC, _______, _______, _______,   TD(RAISE), SPC_CAPS, SPC_CAPS, TD(LOWER), _______, _______, _______, KC_RGUI
+),
+
+/* Raise II - functions and dynamic macros
+
+    |-----------------------------------------------------------------------------------------------|
+    | Rotary|  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  |       |
+    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    |       |  F11  |  F12  |  F13  |  F14  |  F15  |  F16  |  F17  |  F18  |  F19  |  F20  |       |
+    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    |       |       |       |       |       |       |       |       |       |       |       |       |
+    |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+    |       |       |       |       | LOWER |      BASE     | RAISE |       |       |       |       |
+    |-----------------------------------------------------------------------------------------------|
+
+    *
+    * Each non-layer keypress moves to BASE (exception: rotary)
+    *
+    * TODO: Add dynamic macro to this layer
     *
 
 */
