@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [11] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_HYPR,        KC_ACL2,        KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_UP,          KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_HYPR,        KC_NO,          KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_UP,          KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_LSHIFT,      KC_LCTRL,       KC_LALT,        KC_NO,          KC_NO,                                                                          KC_NO,          KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_NO,          MT(MOD_LGUI | MOD_LCTL,KC_NO),  KC_NO, KC_NO,   KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [12] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_HYPR,        KC_NO,          KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_MS_WH_UP,    KC_NO,          KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_NO,          KC_LGUI,        KC_HYPR,        KC_ACL2,        KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_MS_WH_UP,    KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_LSHIFT,      KC_LCTRL,       KC_LALT,        KC_NO,          KC_NO,                                                                          KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_RIGHT, KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_NO,          MT(MOD_LGUI | MOD_LCTL,KC_NO),  MO(14), KC_NO,  KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -260,7 +260,18 @@ uint32_t layer_state_set_user(uint32_t state) {
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted && state->pressed && state->interrupting_keycode == KC_MS_BTN1) {return SINGLE_HOLD;}
-    else if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
+    if (state->interrupted && state->pressed && state->interrupting_keycode == 22273) {return SINGLE_HOLD;}
+    if (state->interrupted && state->pressed && state->interrupting_keycode == 22272) {return SINGLE_HOLD;}
+    if (state->interrupted && state->pressed && state->interrupting_keycode == KC_TAB) {return SINGLE_HOLD;}
+    else if (state->interrupted || !state->pressed) {
+        // if (state->interrupted) {
+        //     print("interrupted\n");
+        //     uprintf("Shift: %u\n", KC_LSHIFT);
+        //     uprintf("Control: %u\n", KC_LCTRL);
+        //     uprintf("%u\n",state->interrupting_keycode);
+        // }
+        return SINGLE_TAP;
+    }
     else { return SINGLE_HOLD; }
   }
   else { return 2; } // any number higher than the maximum state value you return above
@@ -281,9 +292,13 @@ void ctrlto12_finished (qk_tap_dance_state_t *state, void *user_data) {
       layer_on(12);
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22273 || state->interrupting_keycode == 43)) {
+        register_mods(MOD_BIT(KC_LCTRL));
+        break;
+      }
       register_mods(MOD_BIT(KC_LCTRL)); // for a layer-tap key, use `layer_on(_MY_LAYER)` here
       if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
-          register_code16(LCTL(KC_MS_BTN1));
+        register_code16(LCTL(KC_MS_BTN1));
       }
       break;
   }
@@ -294,9 +309,13 @@ void ctrlto12_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP:
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22273 || state->interrupting_keycode == 43) ) {
+        unregister_mods(MOD_BIT(KC_LCTRL));
+        break;
+      }
       unregister_mods(MOD_BIT(KC_LCTRL)); // for a layer-tap key, use `layer_off(_MY_LAYER)` here
       if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
-          unregister_code16(LCTL(KC_MS_BTN1));
+        unregister_code16(LCTL(KC_MS_BTN1));
       }
       break;
   }
@@ -309,9 +328,13 @@ void shiftto13_finished (qk_tap_dance_state_t *state, void *user_data) {
       layer_on(13);
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22272 || state->interrupting_keycode == 43) ) {
+        register_mods(MOD_BIT(KC_LSHIFT));
+        break;
+      }
       register_mods(MOD_BIT(KC_LSHIFT)); // for a layer-tap key, use `layer_on(_MY_LAYER)` here
       if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
-          register_code16(LSFT(KC_MS_BTN1));
+        register_code16(LSFT(KC_MS_BTN1));
       }
       break;
   }
@@ -322,9 +345,13 @@ void shiftto13_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP:
       break;
     case SINGLE_HOLD:
+      if (state->interrupted && (state->interrupting_keycode == 22272 || state->interrupting_keycode == 43) ) {
+        unregister_mods(MOD_BIT(KC_LSHIFT));
+        break;
+      }
       unregister_mods(MOD_BIT(KC_LSHIFT)); // for a layer-tap key, use `layer_off(_MY_LAYER)` here
       if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
-          unregister_code16(LSFT(KC_MS_BTN1));
+        unregister_code16(LSFT(KC_MS_BTN1));
       }
       break;
   }
@@ -339,7 +366,7 @@ void altto11_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LALT)); // for a layer-tap key, use `layer_on(_MY_LAYER)` here
       if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
-          register_code16(LALT(KC_MS_BTN1));
+        register_code16(LALT(KC_MS_BTN1));
       }
       break;
   }
@@ -352,7 +379,7 @@ void altto11_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       unregister_mods(MOD_BIT(KC_LALT)); // for a layer-tap key, use `layer_off(_MY_LAYER)` here
       if (state->interrupted && state->interrupting_keycode == KC_MS_BTN1) {
-          unregister_code16(LALT(KC_MS_BTN1));
+        unregister_code16(LALT(KC_MS_BTN1));
       }
       break;
   }
