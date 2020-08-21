@@ -6,7 +6,6 @@
   "height": 5.5,
   "layouts": {
      "LAYOUT_staggered": {
-      "key_count": 51,
         "layout": [
          {"label":"k001", "x":0.00, "y":0.00},
          {"label":"k002", "x":1.50, "y":0.00},
@@ -62,7 +61,6 @@
        ]
      },
      "LAYOUT_staggered_big_boy": {
-      "key_count": 49,
         "layout": [
          {"label":"k001", "x":0.00, "y":0.00},
          {"label":"k002", "x":1.50, "y":0.00},
