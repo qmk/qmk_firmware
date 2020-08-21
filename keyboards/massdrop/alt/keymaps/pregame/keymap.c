@@ -103,9 +103,9 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
     // Enable or disable debugging
-    debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
+    debug_enable=false;
+    debug_matrix=false;
+    debug_keyboard=false;
     //rgb_enabled_flag = true;          // Initially, keyboard RGB is enabled. Change to false config.h initializes RGB disabled.
 };
 
