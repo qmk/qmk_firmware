@@ -16,7 +16,7 @@
  */
 
 #pragma once
-
+#include "annepro2.h"
 #include "quantum.h"
 
 #define OVERRIDE __attribute__ ((noinline))
@@ -31,4 +31,11 @@ enum AP2KeyCodes {
     KC_AP2_BT_UNPAIR,
     KC_AP2_USB,
     AP2_SAFE_RANGE,
+};
+
+enum custom_keys {
+    KC_AP_LED_ON = AP2_SAFE_RANGE,
+    KC_AP_LED_OFF,
+    KC_AP_LED_NEXT_PROFILE,
+    KC_AP_LED_PREV_PROFILE
 };
