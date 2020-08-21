@@ -47,6 +47,10 @@ __attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user
  * FIXME: needs doc
  */
 void suspend_power_down(void) {
+#ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#endif
+
     // TODO: figure out what to power down and how
     // shouldn't power down TPM/FTM if we want a breathing LED
     // also shouldn't power down USB
