@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Bachoo
 #define PRODUCT         Nemui
-#define DESCRIPTION     Nemui Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
