@@ -9,19 +9,19 @@
  *   LEFT HAND: LINES 38-45
  *  RIGHT HAND: LINES 47-54
  */
-#define LAYOUT_pterodactyl(                                                  \
-                                                                        \
+#define LAYOUT_pterodactyl(                                              \
+                                                                         \
     k00,k01,k02,k03,k04,k05,                    k06,k07,k08,k09,k0A,k0B, \
     k10,k11,k12,k13,k14,k15,                    k16,k17,k18,k19,k1A,k1B, \
     k20,k21,k22,k23,k24,k25,                    k26,k27,k28,k29,k2A,k2B, \
     k30,k31,k32,k33,k34,k35,                    k36,k37,k38,k39,k3A,k3B, \
-    k40,k41,k42,k43,k44,k53,                    k58,k47,k48,k49,k4A,k4B, \
+    k40,k41,k42,k43,k44,                            k47,k48,k49,k4A,k4B, \
                             k55,k50,    k5B,k56,                         \
                                 k54,    k57,                             \
-                            k52,k51,    k5A,k59 )                        \
-                                                                        \
-   /* matrix positions */                                               \
-   {                                                                    \
+                       k53, k52,k51,    k5A,k59,k58 )                    \
+                                                                         \
+   /* matrix positions */                                                \
+   {                                                                     \
     { k0B, k0A, k09, k08, k07, k06,      k05, k04, k03, k02, k01, k00 }, \
     { k1B, k1A, k19, k18, k17, k16,      k15, k14, k13, k12, k11, k10 }, \
     { k2B, k2A, k29, k28, k27, k26,      k25, k24, k23, k22, k21, k20 }, \
