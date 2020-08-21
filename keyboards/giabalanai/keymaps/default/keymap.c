@@ -49,9 +49,6 @@
 extern rgblight_config_t rgblight_config;
 rgblight_config_t        RGB_current_config;
 
-// to indecate MUTE ON/OFF status with a LED.
-bool myMUTEstat = false;
-
 /* used to specify there is no LED on the keylocation. */
 #    define NO_LED 255
 
@@ -299,10 +296,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+
+#ifdef RGBLIGHT_ENABLE
 void keyboard_post_init_user(void) {
     // Reset LED off
     rgblight_sethsv(HSV_BLACK);
+#ifdef RGBLIGHT_EFFECT_TWINKLE
+    rgblight_sethsv(30, 50, 40);
+    rgblight_mode(RGBLIGHT_MODE_TWINKLE+3);
+#endif
 };
+#endif
+
 
 #ifdef RGBLIGHT_ENABLE
 void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
@@ -400,20 +405,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // case KC_MUTE:
         case FN_MUTE:
             keylight_manager(record, HSV_GOLDENROD, keylocation);
-// #ifdef CONSOLE_ENABLE
-//             uprintf("myMUTEstat: %u\n", myMUTEstat);
-//             uprintf("r=%d, c=%d, keyloc=%d, keyloc2=%d, matrix_col x r + c = %d\n", r, c, keylocation, keylocation2, MATRIX_COLS * r + c);
-// #endif
-//             if (record->event.pressed) {
-//                 myMUTEstat = !myMUTEstat;
-//                 if (myMUTEstat) {
-//                     //  Use keylocation for MUTE button LED.
-//                     rgblight_sethsv_at(HSV_GOLDENROD, keylocation);
-//                 } else {
-//                     //  Use keylocation for MUTE button LED.
-//                     rgblight_sethsv_at(HSV_BLACK, keylocation);
-//                 }
-//             }
             break;
 #endif
     }

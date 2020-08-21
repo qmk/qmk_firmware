@@ -96,18 +96,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define HSV_BLACK 0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
 #    endif
 
- /* All the animations have to be disabled so as not to overwrite the LED setting when keys are pressed. */
- // #ifndef AUDIO_ENABLE
- //  #define RGBLIGHT_EFFECT_KNIGHT
- //  #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 15
- //  #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 60
- //  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
- //  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
- // #endif
-
- // These two effects consume 1334 bytes.
- // #define RGBLIGHT_EFFECT_TWINKLE
- // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+// By default, LEDs of the buttons which are pressed turn on.
+// #    define RGBLIGHT_EFFECT_TWINKLE
 
 
 // RGBLIGHT LED MAP
