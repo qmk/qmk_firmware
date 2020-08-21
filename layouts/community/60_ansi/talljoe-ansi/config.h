@@ -1,5 +1,20 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+/* Copyright 2020 Joseph Wasson
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#pragma once
 
 #include QMK_KEYBOARD_CONFIG_H
 
@@ -18,5 +33,3 @@
     K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C,                \
     K40, K41, K42,           K46,           K48, K49,      K4B, K4C                 \
 )
-
-#endif //CONFIG_USER_H
