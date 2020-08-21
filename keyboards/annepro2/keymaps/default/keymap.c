@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "annepro2.h"
+#include "qmk_ap2_led.h"
 
 enum anne_pro_layers {
   _BASE_LAYER,
@@ -109,12 +110,16 @@ layer_state_t layer_state_set_user(layer_state_t layer) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_AP_LED_OFF:
-            if (record->event.pressed)
+            if (record->event.pressed) {
                 annepro2LedDisable();
+                annepro2LedPrevProfile();
+            }
             return false;
         case KC_AP_LED_ON:
-            if (record->event.pressed)
+            if (record->event.pressed) {
                 annepro2LedEnable();
+                annepro2LedNextProfile();
+            }
             return false;
         default:
             break;
