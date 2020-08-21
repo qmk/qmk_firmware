@@ -103,7 +103,7 @@
     * [DIP スイッチ](ja/feature_dip_switch.md)
     * [エンコーダ](ja/feature_encoders.md)
     * [触覚フィードバック](ja/feature_haptic_feedback.md)
-    * [Proton C 規約](ja/proton_c_conversion.md)
+    * [Proton C 変換](ja/proton_c_conversion.md)
     * [PS/2 マウス](ja/feature_ps2_mouse.md)
     * [分割キーボード](ja/feature_split_keyboard.md)
     * [速記](ja/feature_stenography.md)
@@ -111,6 +111,7 @@
     * [Velocikey](ja/feature_velocikey.md)
 
 * QMK の開発
+  * [PR チェックリスト](ja/pr_checklist.md)
   * 互換性を破る変更/Breaking changes
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
@@ -131,7 +132,7 @@
       * [WS2812 ドライバ](ja/ws2812_driver.md)
       * [EEPROM ドライバ](ja/eeprom_driver.md)
       * [シリアル ドライバ](ja/serial_driver.md)
-    * [GPIO コントロール](ja/internals_gpio_control.md)
+    * [GPIO 制御](ja/internals_gpio_control.md)
     * [キーボード ガイドライン](ja/hardware_keyboard_guidelines.md)
 
   * Python 開発
