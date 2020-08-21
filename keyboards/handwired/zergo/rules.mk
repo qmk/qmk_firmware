@@ -3,7 +3,6 @@ MCU = at90usb1286
 
 # Bootloader selection
 BOOTLOADER = halfkay
-BOOTLOADER_SIZE = 2048
 
 # Build Options
 #   change yes to no to disable
