@@ -14,7 +14,7 @@
 #endif
 
 #ifdef USE_MATRIX_I2C
-#  include "i2c.h"
+#  include "i2c_master.h"
 #else
 #  include "split_scomm.h"
 #endif
@@ -81,7 +81,7 @@ __attribute__((weak)) bool has_usb(void) {
 static void keyboard_master_setup(void) {
 
 #ifdef USE_MATRIX_I2C
-    i2c_master_init();
+    i2c_init();
 #else
     serial_master_init();
 #endif

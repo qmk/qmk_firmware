@@ -68,10 +68,11 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-__attribute__((weak))
-void matrix_init_user(void) {}
-
 void matrix_init_kb(void) {
+
+#ifdef KEYBOARD_crkbd_rev1_common
+    is_master = (uint8_t)is_keyboard_master();
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
     if (!isLeftHand) {
@@ -107,3 +108,9 @@ void matrix_init_kb(void) {
 #endif
     matrix_init_user();
 }
+
+#ifdef SSD1306OLED
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  return process_record_gfx(keycode,record) && process_record_user(keycode, record);
+}
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 
 #ifdef KEYBOARD_crkbd_rev1
-  #include "rev1.h"
+#    include "rev1.h"
 #endif
+
+#include "quantum.h"
