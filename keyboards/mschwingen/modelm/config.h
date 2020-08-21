@@ -69,15 +69,15 @@
 #define MODELM_LED2 B6
 #define MODELM_LED3 D0
 
-#if defined MODELM_LEDS_WIRED
+#if defined(KEYBOARD_mschwingen_modelm_led_wired)
 # define MODELM_LED_CAPSLOCK  MODELM_LED1
 # define MODELM_LED_SCROLLOCK MODELM_LED2
 # define MODELM_LED_NUMLOCK   MODELM_LED3
-#elif defined MODELM_LEDS_FFC
+#elif defined(KEYBOARD_mschwingen_modelm_led_ffc)
 # define MODELM_LED_CAPSLOCK  MODELM_LED2
 # define MODELM_LED_SCROLLOCK MODELM_LED3
 # define MODELM_LED_NUMLOCK   MODELM_LED1
-#elif defined MODELM_LEDS_WS2812
+#elif defined(KEYBOARD_mschwingen_modelm_led_ws2812)
 #else
 # error one of MODELM_LEDS_FFC, MODELM_LEDS_WIRED or MODELM_LEDS_WS2812 must be set!
 #endif
