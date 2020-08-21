@@ -9,11 +9,6 @@ enum anne_pro_layers {
   _FN_LAYER,
 };
 
-enum custom_keys {
-    KC_AP_LED_ON = AP2_SAFE_RANGE,
-    KC_AP_LED_OFF,
-};
-
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE_LAYER] = KEYMAP( /* Base */
     KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL,   KC_BSPC,
@@ -57,27 +52,4 @@ void matrix_scan_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t layer) {
     return layer;
-}
-
-/*!
- * @returns false   processing for this keycode has been completed.
- */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_AP_LED_OFF:
-            if (record->event.pressed) {
-                annepro2LedDisable();
-                annepro2LedPrevProfile();
-            }
-            return false;
-        case KC_AP_LED_ON:
-            if (record->event.pressed) {
-                annepro2LedEnable();
-                annepro2LedNextProfile();
-            }
-            return false;
-        default:
-            break;
-    }
-    return true;
 }
