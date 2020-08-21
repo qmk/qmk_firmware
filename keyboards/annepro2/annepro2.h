@@ -32,8 +32,3 @@ enum AP2KeyCodes {
     KC_AP2_USB,
     AP2_SAFE_RANGE,
 };
-
-void annepro2LedDisable(void);
-void annepro2LedEnable(void);
-void annepro2LedUpdate(uint8_t row, uint8_t col);
-void annepro2LedUpdateRow(uint8_t row);

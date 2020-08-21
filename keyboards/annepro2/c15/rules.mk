@@ -2,7 +2,8 @@
 SRC = \
 	matrix.c \
 	hardfault_handler.c \
-	annepro2_ble.c
+	annepro2_ble.c \
+    qmk_ap2_led.c
 
 LAYOUTS +=
 

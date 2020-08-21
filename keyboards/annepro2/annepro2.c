@@ -2,7 +2,6 @@
 #include "hal.h"
 #include "annepro2.h"
 #include "annepro2_ble.h"
-#include "qmk_ap2_led.h"
 
 static const SerialConfig ledUartConfig = {
   .speed = 115200,
@@ -36,41 +35,12 @@ void OVERRIDE keyboard_post_init_kb(void) {
     // Start BLE UART
     sdStart(&SD1, &bleUartConfig);
     annepro2_ble_startup();
+
+    keyboard_post_init_user();
 }
 
 void OVERRIDE matrix_init_kb(void) {
     matrix_init_user();
-}
-
-void annepro2LedDisable(void)
-{
-    sdPut(&SD0, CMD_LED_OFF);
-}
-
-void annepro2LedEnable(void)
-{
-    sdPut(&SD0, CMD_LED_ON);
-}
-
-void annepro2LedUpdate(uint8_t row, uint8_t col)
-{
-    sdPut(&SD0, CMD_LED_SET);
-    sdPut(&SD0, row);
-    sdPut(&SD0, col);
-    sdWrite(&SD0, (uint8_t *)&annepro2LedMatrix[row * MATRIX_COLS + col], sizeof(uint16_t));
-}
-
-void annepro2LedUpdateRow(uint8_t row)
-{
-    sdPut(&SD0, CMD_LED_SET_ROW);
-    sdPut(&SD0, row);
-    sdWrite(&SD0, (uint8_t *)&annepro2LedMatrix[row * MATRIX_COLS], sizeof(uint16_t) * MATRIX_COLS);
-}
-
-bool OVERRIDE led_update_kb(led_t status) {
-    annepro2LedMatrix[2 * MATRIX_COLS] = status.caps_lock ? 0x4FF : 0;
-    annepro2LedUpdate(2, 0);
-    return led_update_user(status);
 }
 
 /*!
