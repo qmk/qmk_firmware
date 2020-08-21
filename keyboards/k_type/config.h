@@ -28,6 +28,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10
 
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+ */
+#define MATRIX_ROW_PINS { D5, D6, D7, C1, C2, C3, C4, C5, C6, C7 }
+#define MATRIX_COL_PINS { B2, B3, B18, B19, C0, C8, C9, D0, D1, D4 }
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -88,5 +105,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
-
-#define KIIBOHD_BOOTLOADER
