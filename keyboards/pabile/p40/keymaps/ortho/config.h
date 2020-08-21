@@ -1,5 +1,5 @@
 
-#include "../../config.h"
+#pragma once 
 
 /* pin-out for PCB v2 */
 #undef MATRIX_ROW_PINS
