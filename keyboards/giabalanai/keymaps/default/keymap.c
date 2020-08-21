@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include <print.h>
 
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
@@ -280,28 +281,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT( \
+    DF_BASE,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
+    DF_QWER,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
+    DF_COLE,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
+    \
     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
     \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    \
-    DF_BASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-    DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
   )
+};
+
+void keyboard_post_init_user(void) {
+    // Reset LED off
+    rgblight_sethsv(HSV_BLACK);
 };
 
 #ifdef RGBLIGHT_ENABLE
 void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
     if (keylocation == NO_LED) {
         return;  // do nothing.
+#ifdef CONSOLE_ENABLE
+        uprintf("keylight_manager, NO_LED\n");
+#endif
     }
 
     if (record->event.pressed) {
@@ -319,8 +328,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* prepare for turning on LEDs when keys are pressed. */
     uint8_t r            = record->event.key.row;
     uint8_t c            = record->event.key.col;
-    uint8_t keylocation  = convert_key_to_led[MATRIX_COLS * r + c];
-    uint8_t keylocation2 = convert_key_to_led2[MATRIX_COLS * r + c];
+    // uint8_t keylocation  = convert_key_to_led[MATRIX_COLS * r + c];
+    // uint8_t keylocation2 = convert_key_to_led2[MATRIX_COLS * r + c];
+    uint8_t keylocation  = pgm_read_byte(&convert_key_to_led[MATRIX_COLS * r + c]);
+    uint8_t keylocation2 = pgm_read_byte(&convert_key_to_led2[MATRIX_COLS * r + c]);
 #endif  // RGBLIGHT_ENABLE
 
     switch (keycode) {
@@ -381,27 +392,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side.
             keylight_manager(record, HSV_GOLDENROD, keylocation);
             keylight_manager(record, HSV_GOLDENROD, keylocation2);
+#ifdef CONSOLE_ENABLE
+            uprintf("r=%d, c=%d, keyloc=%d, keyloc2=%d, matrix_col x r + c = %d\n", r, c, keylocation, keylocation2, MATRIX_COLS * r + c);
+#endif
             break;
 
-        case KC_MUTE:
-            if (record->event.pressed) {
-                myMUTEstat = !myMUTEstat;
-                if (myMUTEstat) {
-                    //  Use keylocation2 for MUTE button LED.
-                    rgblight_sethsv_at(HSV_GOLDENROD, keylocation2);
-                } else {
-                    //  Use keylocation2 for MUTE button LED.                   
-                    rgblight_sethsv_at(HSV_BLACK, keylocation2);
-                }
-            }
+        // case KC_MUTE:
+        case FN_MUTE:
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+// #ifdef CONSOLE_ENABLE
+//             uprintf("myMUTEstat: %u\n", myMUTEstat);
+//             uprintf("r=%d, c=%d, keyloc=%d, keyloc2=%d, matrix_col x r + c = %d\n", r, c, keylocation, keylocation2, MATRIX_COLS * r + c);
+// #endif
+//             if (record->event.pressed) {
+//                 myMUTEstat = !myMUTEstat;
+//                 if (myMUTEstat) {
+//                     //  Use keylocation for MUTE button LED.
+//                     rgblight_sethsv_at(HSV_GOLDENROD, keylocation);
+//                 } else {
+//                     //  Use keylocation for MUTE button LED.
+//                     rgblight_sethsv_at(HSV_BLACK, keylocation);
+//                 }
+//             }
             break;
 #endif
     }
+    // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif
     return true;
 }
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(int8_t index, bool clockwise) {
+#ifdef CONSOLE_ENABLE
+    uprintf("encoder_update_user, index = %d, clockwise = %u\n", index, clockwise);
+#endif
     if (index == 1) { /* An encoder on the right side */
         if (clockwise) {
             tap_code(KC_VOLU);
