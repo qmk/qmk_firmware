@@ -56,7 +56,7 @@ uint16_t encoder_rotated_timer;
 #define MT_EQL MT(MOD_RSFT, KC_EQL) 
 
 // Layout blocks
-#define _____________________QWERTY_L1______________________ T_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T
+#define _____________________QWERTY_L1______________________ KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T
 #define _____________________QWERTY_L2______________________ T_ESC, KC_A, KC_S, KC_D, KC_F, KC_G
 #define _____________________QWERTY_L3______________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
 
