@@ -21,11 +21,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1307
+#define VENDOR_ID       0x3297
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ZSA Technology Labs Inc
-#define PRODUCT         ErgoDox EZ
+
+#if defined(RGB_MATRIX_ENABLE)
+#    define PRODUCT_ID      0x4976
+#    define PRODUCT         ErgoDox EZ Glow
+#elif defined(RGBLIGHT_ENABLE)
+#    define PRODUCT_ID      0x4975
+#    define PRODUCT         ErgoDox EZ Shine
+#else
+#    define PRODUCT_ID      0x4974
+#    define PRODUCT         ErgoDox EZ Glow
+#endif
 
 /* key matrix size */
 #define MATRIX_ROWS 14
