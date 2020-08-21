@@ -18,7 +18,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 For the per key RGB version of this keyboard, you want to use the "glow" subdirectory. For example: 
 
-    make planck/ez/glow:defaultrrr
+    make planck/ez/glow:default
 
 ## Planck EZ Configuration (from Oryx)
 
