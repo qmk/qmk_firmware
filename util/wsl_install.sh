@@ -4,7 +4,7 @@ util_dir=$(dirname "$0")
 dir=$(cd -P -- "$util_dir" && pwd -P)
 pushd "$dir";
 
-mount_point=$(df ${dir} | tail -1 | cut -d' ' -f 1);
+mount_point=$(df "${dir}" | tail -1 | awk '{print $1}')
 valid_windows_mount="^[A-Z]:\\\\$"
 
 if [[ ! $mount_point =~ $valid_windows_mount ]];
