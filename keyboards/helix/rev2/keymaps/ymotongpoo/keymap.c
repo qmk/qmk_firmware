@@ -49,6 +49,33 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
+/*
+const rgblight_segment_t PROGMEM _default_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_CYAN},
+    {1, 5, HSV_GREEN},
+    {6, 1, HSV_CYAN},
+    {7, 5, HSV_GREEN},
+    {8, 1, HSV_CYAN},
+    {9, 5, HSV_GREEN},
+    {18, 6, HSV_CYAN},
+);
+
+const rgblight_segment_t PROGMEM _lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 5, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM _raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 5, HSV_PURPLE}
+);
+
+const rgblight_segment_t* const PROGMEM rgblight_layers[] = RGBLIGHT_LAYERS_LIST(
+    _default_layer,
+    _lower_layer,
+    _raise_layer
+);
+*/
+
+
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 #define _COPY    LCTL(KC_C)
@@ -277,6 +304,11 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;
+
+void keyboard_post_init_user(void) {
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+}
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
