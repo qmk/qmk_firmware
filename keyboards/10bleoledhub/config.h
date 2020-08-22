@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    haierwangwei2005
 #define PRODUCT         10bleoledhub
-#define DESCRIPTION     OLED BLE HUB pad
 
 /* key matrix size */
 #define MATRIX_ROWS 4
