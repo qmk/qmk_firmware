@@ -1,7 +1,7 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
-Copyright 2015 ZSA Technoloyg Labs Inc (@zsa)
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
 Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
 
 This program is free software: you can redistribute it and/or modify
