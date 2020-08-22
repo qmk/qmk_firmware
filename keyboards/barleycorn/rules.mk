@@ -1,6 +1,3 @@
-SRC = matrix.c \
-      i2c_master.c
-
 # MCU name
 MCU = atmega328p
 
@@ -25,3 +22,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = lite
+
+SRC = matrix.c \
+      i2c_master.c

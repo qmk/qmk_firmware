@@ -1,6 +1,6 @@
 # Barleycorn
 
-![Barleycorn](https://yiancar-designs.com/wp-content/uploads/2019/06/IMG_20190625_233619.jpg)
+![Barleycorn](https://i.imgur.com/vi3L1HY.png)
 
 A f-row less compact 1800 kit with only through hole components.
 
