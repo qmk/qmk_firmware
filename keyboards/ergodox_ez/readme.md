@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make ergodox_ez:default:flash
     
-For the ErgoDox EZ Shing, and Glow, use one of the following: 
+For the ErgoDox EZ Shine, and Glow, use one of the following: 
 
     make ergodox_ez/shine:default:flash
     make ergodox_ez/glow:default:flash
