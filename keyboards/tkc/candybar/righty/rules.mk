@@ -5,7 +5,7 @@ MCU = STM32F072
 #   comment out to disable the options.
 #
 # EXTRAFLAGS+=-flto
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = lite  # Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
