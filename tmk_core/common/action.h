@@ -29,7 +29,7 @@ extern "C" {
 #endif
 
 /* Disable macro and function features when LTO is enabled, since they break */
-#ifdef LINK_TIME_OPTIMIZATION_ENABLE
+#ifdef LTO_ENABLE
 #    ifndef NO_ACTION_MACRO
 #        define NO_ACTION_MACRO
 #    endif

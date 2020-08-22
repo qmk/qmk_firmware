@@ -324,11 +324,9 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
     ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
-* `LINK_TIME_OPTIMIZATION_ENABLE`
+* `LTO_ENABLE`
   * Enables Link Time Optimization (LTO) when compiling the keyboard.  This makes the process take longer, but it can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).
 However, this will automatically disable the legacy TMK Macros and Functions features, as these break when LTO is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`.  (Note: This does not affect QMK [Macros](feature_macros.md) and [Layers](feature_layers.md).)
-* `LTO_ENABLE`
-  * Has the same meaning as `LINK_TIME_OPTIMIZATION_ENABLE`.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`.
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
