@@ -2,6 +2,7 @@
 #include "hal.h"
 #include "annepro2.h"
 #include "annepro2_ble.h"
+#include "qmk_ap2_led.h"
 
 static const SerialConfig ledUartConfig = {
   .speed = 115200,
@@ -52,21 +53,45 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP2_BT1:
                 annepro2_ble_broadcast(0);
                 return false;
+
             case KC_AP2_BT2:
                 annepro2_ble_broadcast(1);
                 return false;
+
             case KC_AP2_BT3:
                 annepro2_ble_broadcast(2);
                 return false;
+
             case KC_AP2_BT4:
                 annepro2_ble_broadcast(3);
                 return false;
+
             case KC_AP2_USB:
                 annepro2_ble_disconnect();
                 return false;
+
             case KC_AP2_BT_UNPAIR:
                 annepro2_ble_unpair();
                 return false;
+
+            case KC_AP_LED_OFF:
+                annepro2LedPrevProfile();
+                annepro2LedDisable();
+                return false;
+
+            case KC_AP_LED_ON:
+                annepro2LedNextProfile();
+                annepro2LedEnable();
+                return false;
+
+            case KC_AP_LED_NEXT_PROFILE:
+                annepro2LedNextProfile();
+                return false;
+
+            case KC_AP_LED_PREV_PROFILE:
+               annepro2LedPrevProfile();
+               return false;
+
             default:
                 break;
         }
