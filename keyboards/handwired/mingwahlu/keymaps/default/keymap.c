@@ -1,4 +1,4 @@
-/* Copyright 2020 GhostSeven <work@ghost7.com>
+/* Copyright 2020 mingwahlu
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
