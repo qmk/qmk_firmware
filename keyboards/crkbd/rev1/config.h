@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM 12  // Number of LEDs
+#    define RGBLIGHT_SPLIT
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
