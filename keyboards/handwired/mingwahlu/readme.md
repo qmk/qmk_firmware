@@ -1,12 +1,22 @@
-# mingPlanck
-# mingWahlu aug 19 202
-![mingPlanck](imgur.com image replace me!)
+# mingwahlu
+# mingWahlu aug 19 2020
+![mingwahlu](https://imgur.com/a/qWw0s43)
 
 *A short description of the keyboard/project*
+This is a hand wired keyboard using an Ardiuno pro micro and a 3d printed case. To reinforce the mirco usb please apply a dab of super glue on the port.
+
 
 * Keyboard Maintainer: [mingwahlu](https://github.com/tan00060)
+
 * Hardware Supported: *The PCBs, controllers supported*
+
+Ardiuno Pro Micro ATmega32U4
+
 * Hardware Availability: *Links to where you can find this hardware*
+
+Case can be found here - https://www.thingiverse.com/thing:3080812.
+Ardiuno pro micro can be found here - https://www.amazon.ca/KeeYees-ATmega32U4-Development-Microcontroller-Bootloader/dp/B07FXCTVQP/ref=sr_1_3?dchild=1&keywords=arduino+pro+micro&qid=1598072684&sr=8-3
+
 
 Make example for this keyboard (after setting up your build environment):
 
