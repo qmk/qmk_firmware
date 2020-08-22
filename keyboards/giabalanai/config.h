@@ -231,8 +231,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - Virtual sustain, portamento, and modulation wheel
    - etc.
 */
-#define MIDI_ADVANCED
-#define MIDI_TONE_KEYCODE_OCTAVES 5
+#ifdef MIDI_ENABLE
+#    define MIDI_ADVANCED
+#    define MIDI_TONE_KEYCODE_OCTAVES 5
+#endif  //  MIDI_ENABLE
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1

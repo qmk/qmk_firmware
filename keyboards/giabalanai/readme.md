@@ -5,8 +5,8 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [3araht](https://github.com/3araht)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Giabalanai keyboard, a split keyboard mainly work as MIDI keyboard.
+* Hardware Availability: Distribution methods is under consideration.
 
 Make example for this keyboard (after setting up your build environment):
 
