@@ -12,8 +12,8 @@
 #include <avr/wdt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
-#include "usbdrv.h"
-#include "oddebug.h"
+#include <usbdrv/usbdrv.h>
+#include <usbdrv/oddebug.h>
 #include "vusb.h"
 #include "keyboard.h"
 #include "host.h"
@@ -21,11 +21,22 @@
 #include "uart.h"
 #include "debug.h"
 #include "suspend.h"
+#include "wait.h"
+#include "sendchar.h"
+
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
 
 #define UART_BAUD_RATE 115200
+
+#ifdef CONSOLE_ENABLE
+void console_task(void);
+#endif
+
+#ifdef RAW_ENABLE
+void raw_hid_task(void);
+#endif
 
 /* This is from main.c of USBaspLoader */
 static void initForUsbConnectivity(void) {
@@ -39,10 +50,9 @@ static void initForUsbConnectivity(void) {
         _delay_ms(1);
     }
     usbDeviceConnect();
-    sei();
 }
 
-void usb_remote_wakeup(void) {
+static void usb_remote_wakeup(void) {
     cli();
 
     int8_t ddr_orig = USBDDR;
@@ -59,6 +69,23 @@ void usb_remote_wakeup(void) {
     sei();
 }
 
+/** \brief Setup USB
+ *
+ * FIXME: Needs doc
+ */
+static void setup_usb(void) {
+    // debug("initForUsbConnectivity()\n");
+    initForUsbConnectivity();
+
+    // for Console_Task
+    print_set_sendchar(sendchar);
+}
+
+/** \brief Main
+ *
+ * FIXME: Needs doc
+ */
+int main(void) __attribute__((weak));
 int main(void) {
     bool suspended = false;
 #if USB_COUNT_SOF
@@ -76,8 +103,10 @@ int main(void) {
     keyboard_setup();
 
     host_set_driver(vusb_driver());
-    debug("initForUsbConnectivity()\n");
-    initForUsbConnectivity();
+    setup_usb();
+    sei();
+
+    wait_ms(50);
 
     keyboard_init();
 #ifdef SLEEP_LED_ENABLE
@@ -120,17 +149,25 @@ int main(void) {
         if (!suspended) {
             usbPoll();
 
-            // TODO: configuration process is incosistent. it sometime fails.
+            // TODO: configuration process is inconsistent. it sometime fails.
             // To prevent failing to configure NOT scan keyboard during configuration
             if (usbConfiguration && usbInterruptIsReady()) {
                 keyboard_task();
             }
             vusb_transfer_keyboard();
+
 #ifdef RAW_ENABLE
             usbPoll();
 
             if (usbConfiguration && usbInterruptIsReady3()) {
                 raw_hid_task();
+            }
+#endif
+#ifdef CONSOLE_ENABLE
+            usbPoll();
+
+            if (usbConfiguration && usbInterruptIsReady3()) {
+                console_task();
             }
 #endif
         } else if (suspend_wakeup_condition()) {
