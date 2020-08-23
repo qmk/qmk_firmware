@@ -1,4 +1,4 @@
-#include "dz60.h"
+#include QMK_KEYBOARD_H
 
 //Layers
 #define _DEFAULT 0
