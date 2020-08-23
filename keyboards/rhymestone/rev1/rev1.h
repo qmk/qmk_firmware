@@ -30,7 +30,7 @@
 #ifndef FLIP_HALF
 // Standard Keymap
 // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
-#define LAYOUT( \
+#define LAYOUT_ortho_4x10( \
   L00, L01, L02, L03, L04, R00, R01, R02, R03, R04, \
   L10, L11, L12, L13, L14, R10, R11, R12, R13, R14, \
   L20, L21, L22, L23, L24, R20, R21, R22, R23, R24, \
@@ -49,7 +49,7 @@
 #else
 // Keymap with right side flipped
 // (TRRS jack on both halves are to the right)
-#define LAYOUT( \
+#define LAYOUT_ortho_4x10( \
   L00, L01, L02, L03, L04, R00, R01, R02, R03, R04, \
   L10, L11, L12, L13, L14, R10, R11, R12, R13, R14, \
   L20, L21, L22, L23, L24, R20, R21, R22, R23, R24, \
@@ -68,9 +68,9 @@
 #endif
 
 #ifdef USE_HASHTWENTY // The HashTwenty is Alpha version of The Rhymestone
-#undef LAYOUT
+#undef LAYOUT_ortho_4x10
 // HashTwenty layout
-#define LAYOUT( \
+#define LAYOUT_ortho_4x10( \
   L00, L01, L02, L03, L04, R00, R01, R02, R03, R04, \
   L10, L11, L12, L13, L14, R10, R11, R12, R13, R14, \
   L20, L21, L22, L23, L24, R20, R21, R22, R23, R24, \
@@ -87,3 +87,5 @@
     { R30, R31, R32, R33, R34 }, \
   }
 #endif
+
+#define LAYOUT LAYOUT_ortho_4x10

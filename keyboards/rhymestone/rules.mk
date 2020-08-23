@@ -22,3 +22,5 @@ AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 
 DEFAULT_FOLDER = rhymestone/rev1
+
+LAYOUTS = ortho_4x10
