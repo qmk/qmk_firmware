@@ -133,19 +133,19 @@ static void render_encoder_state(void) {
     bool adjust = layer_state_is(_ADJUST);
 
     if(lower){ 
-      oled_write_P(PSTR("APPSW"), left_encoder_rotated);
-      oled_slash_separator();
-      oled_write_P(PSTR("UPDN"), right_encoder_rotated);
-    } else if(raise){ 
-      oled_write_P(PSTR("PGUD"), left_encoder_rotated);
-      oled_slash_separator();
-      oled_write_P(PSTR("TABSW"), right_encoder_rotated);
-    } else if(adjust){ 
-      oled_write_P(PSTR("RHUE"), left_encoder_rotated);
+      oled_write_P(PSTR("TABSW"), left_encoder_rotated);
       oled_slash_separator();
       oled_write_P(PSTR("RBRI"), right_encoder_rotated);
+    } else if(raise){ 
+      oled_write_P(PSTR("NULL"), left_encoder_rotated);
+      oled_slash_separator();
+      oled_write_P(PSTR("BRI"), right_encoder_rotated);
+    } else if(adjust){ 
+      oled_write_P(PSTR("NULL"), left_encoder_rotated);
+      oled_slash_separator();
+      oled_write_P(PSTR("RHUE"), right_encoder_rotated);
     } else { 
-      oled_write_P(PSTR("BRI"), left_encoder_rotated);
+      oled_write_P(PSTR("APPSW"), left_encoder_rotated);
       oled_slash_separator();
       oled_write_P(PSTR("VOL"), right_encoder_rotated);
     }

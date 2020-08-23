@@ -5,10 +5,16 @@
 #if defined(OLED_DRIVER_ENABLE) & !defined(KEYBOARD_kyria_rev1)
 
 static uint32_t oled_timer = 0;
-extern uint8_t is_master;
+#ifdef KEYBOARD_crkbd_rev1 // TODO: Ask QMK Gods. Could be 'is_master' is still used in CRKBD code?
+extern uint8_t  is_master;
+#endif 
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+#ifdef KEYBOARD_crkbd_rev1 // TODO: Ask QMK Gods. Could be 'is_master' is still used in CRKBD code?
   if (is_master) {
+#else
+  if (is_keyboard_master()) {
+#endif 
     return OLED_ROTATION_0;
   }
   return OLED_ROTATION_180;
@@ -86,26 +92,30 @@ static void render_logo(void) {
       0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
       0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
       0};
-
+ 
   oled_write_P(qmk_logo, false);
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 15000) {
-        oled_off();
-        return;
-    }
-    #ifndef SPLIT_KEYBOARD
-    else { oled_on(); }
-    #endif
-
-    if (is_master) {
-        render_status();
-    } else {
-        render_logo();
-        oled_write_P(PSTR("\n"), false);
-        oled_scroll_left();
-    }
+#ifdef OLED_DISABLE_TIMEOUT
+  if (timer_elapsed32(oled_timer) > 15000) {
+      oled_off();
+      return;
+  }
+  else { oled_on(); }
+#endif 
+  
+#ifdef KEYBOARD_crkbd_rev1 // TODO: Ask QMK Gods. Could be 'is_master' is still used in CRKBD code?
+  if (is_master) {
+#else
+  if (is_keyboard_master()) {
+#endif 
+      render_status();
+  } else {
+      render_logo();
+      oled_write_P(PSTR("\n"), false);
+      oled_scroll_left();
+  }
 }
 
 #endif

@@ -46,6 +46,9 @@ uint16_t encoder_rotated_timer;
 #define K_CSCN LGUI(LCTL(LSFT(KC_4))) // Copy a portion of the screen to the clipboard
 #define K_CPRF LGUI(LSFT(KC_M)) //  Cmd + Shift + M. Used for switching Google Chrome profiles
 #define K_MDSH LSFT(LALT(KC_MINS))
+#define K_TPREV LCTL(LSFT(KC_TAB)) // Previous Tab
+#define K_TNEXT LCTL(KC_TAB) // Next Tab
+#define K_CTAB LGUI(KC_TAB) // CMD + Tab
 
 // Layer Keys
 #define LT_LOW LT(_LOWER, KC_ENT)
@@ -135,7 +138,7 @@ uint16_t encoder_rotated_timer;
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
 
-#if defined(KEYBOARD_crkbd_rev1) || defined(KEYBOARD_kyria_rev1)
+#if defined(KEYBOARD_crkbd_rev1)
   #define ________MOD_LEFT_________ T_GUI, KC_LCTL, LT_RAI
   #define ________MOD_RIGHT________ LT_LOW, KC_BSPC, MT_DEL
 #else

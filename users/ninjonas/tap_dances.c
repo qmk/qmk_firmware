@@ -51,7 +51,7 @@ void copy_paste_app_finished (qk_tap_dance_state_t *state, void *user_data) {
     case TRIPLE_TAP: 
       SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
       wait_ms(250);
-      SEND_STRING("itunes\n");
+      SEND_STRING("spotify\n");
       break;
   }
 }

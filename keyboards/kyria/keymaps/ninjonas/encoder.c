@@ -19,61 +19,57 @@
 void left_encoder_cw(void) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
-            tap_code16(LGUI(KC_TAB));
+            tap_code16(LCTL(KC_TAB));
             break;
         case _RAISE:
-            tap_code(KC_PGDN);
             break;
         case _ADJUST:
-            rgblight_decrease_hue();
             break;
         default:
-            tap_code(KC_BRID);
+            tap_code16(LGUI(KC_TAB));
             break;
         }
 }
 void left_encoder_acw(void) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
-            tap_code16(SGUI(KC_TAB));
-            break;
-        case _RAISE:
-            tap_code(KC_PGUP);
-            break;
-        case _ADJUST:
-            rgblight_increase_hue();
-            break;
-        default:
-            tap_code(KC_BRIU);
-            break;
-        }
-}
-void right_encoder_cw(void) {
-    switch (get_highest_layer(layer_state)) {
-        case _LOWER:
-            tap_code(KC_DOWN);
-            break;
-        case _RAISE:
             tap_code16(LCTL(LSFT(KC_TAB)));
             break;
+        case _RAISE:
+            break;
         case _ADJUST:
-            rgblight_decrease_val();
             break;
         default:
-            tap_code(KC_VOLD);
+            tap_code16(SGUI(KC_TAB));
             break;
         }
 }
 void right_encoder_acw(void) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
-            tap_code(KC_UP);
+            rgblight_decrease_val();
             break;
         case _RAISE:
-            tap_code16(LCTL(KC_TAB));
+            tap_code(KC_BRID);
             break;
         case _ADJUST:
+            rgblight_decrease_hue();
+            break;
+        default:
+            tap_code(KC_VOLD);
+            break;
+        }
+}
+void right_encoder_cw(void) {
+    switch (get_highest_layer(layer_state)) {
+        case _LOWER:
             rgblight_increase_val();
+            break;
+        case _RAISE:
+            tap_code(KC_BRIU);
+            break;
+        case _ADJUST:
+            rgblight_increase_hue();
             break;
         default:
             tap_code(KC_VOLU);
@@ -82,6 +78,7 @@ void right_encoder_acw(void) {
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
+    clockwise = !clockwise; // Negating. Kyria encoder is going the opposite way
     encoder_rotated_timer = timer_read();
     if (index == 0) {
         left_encoder_rotated = true;
