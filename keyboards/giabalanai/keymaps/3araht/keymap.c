@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <print.h>
+#include "print.h"
 
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
@@ -61,19 +61,19 @@ rgblight_config_t        RGB_current_config;
       the led IDs is done with RGBLIGHT_LED_MAP beforehand.                          */
 const uint8_t PROGMEM convert_key_to_led[] =
 {
-  0,      12,    24,    36,    48,      11,    23,    35,     47,     59, \
-  1,      13,    25,    37,    49,      10,    22,    34,     46,     58, \
-  2,      14,    26,    38,    50,      9,     21,    33,     45,     57, \
-  3,      15,    27,    39,    51,      8,     20,    32,     44,     56, \
-  4,      16,    28,    40,    52,      7,     19,    31,     43,     55, \
-  5,      17,    29,    41,    53,      6,     18,    30,     42,     54, \
-  \
-  85,     86,    87,    88,    89,      90,    91,    NO_LED, NO_LED, NO_LED, \
-  98,     99,    100,   101,   102,     103,   104,   NO_LED, NO_LED, NO_LED, \
-  NO_LED, 111,   112,   113,   114,     115,   116,   NO_LED, NO_LED, NO_LED, \
-  NO_LED, 97,    96,    95,    94,      93,    92,    NO_LED, NO_LED, NO_LED, \
-  NO_LED, 110,   109,   108,   107,     106,   105,   NO_LED, NO_LED, NO_LED, \
-  NO_LED, 122,   121,   120,   119,     118,   117,   NO_LED, NO_LED, NO_LED \
+  0,      12,    24,    36,    48,      11,    23,    35,     47,     59,
+  1,      13,    25,    37,    49,      10,    22,    34,     46,     58,
+  2,      14,    26,    38,    50,      9,     21,    33,     45,     57,
+  3,      15,    27,    39,    51,      8,     20,    32,     44,     56,
+  4,      16,    28,    40,    52,      7,     19,    31,     43,     55,
+  5,      17,    29,    41,    53,      6,     18,    30,     42,     54,
+
+  85,     86,    87,    88,    89,      90,    91,    NO_LED, NO_LED, NO_LED,
+  98,     99,    100,   101,   102,     103,   104,   NO_LED, NO_LED, NO_LED,
+  NO_LED, 111,   112,   113,   114,     115,   116,   NO_LED, NO_LED, NO_LED,
+  NO_LED, 97,    96,    95,    94,      93,    92,    NO_LED, NO_LED, NO_LED,
+  NO_LED, 110,   109,   108,   107,     106,   105,   NO_LED, NO_LED, NO_LED,
+  NO_LED, 122,   121,   120,   119,     118,   117,   NO_LED, NO_LED, NO_LED
 };
 
 /* Top 2 rows on the right side (LED:60-84) are
@@ -83,19 +83,19 @@ const uint8_t PROGMEM convert_key_to_led[] =
    LED:72 is used when r20 is pressed (not a duplicate) */
 const uint8_t PROGMEM convert_key_to_led2[] =
 {
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  \
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  60,     61,     62,     63,     64,       65,     66,     NO_LED, NO_LED, NO_LED, \
-  72,     73,     74,     75,     76,       77,     78,     NO_LED, NO_LED, NO_LED, \
-  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, \
-  NO_LED, NO_LED, 71,     70,     69,       68,     67,     NO_LED, NO_LED, NO_LED, \
-  NO_LED, 84,     83,     82,     81,       80,     79,     NO_LED, NO_LED, NO_LED \
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+  60,     61,     62,     63,     64,       65,     66,     NO_LED, NO_LED, NO_LED,
+  72,     73,     74,     75,     76,       77,     78,     NO_LED, NO_LED, NO_LED,
+  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,
+  NO_LED, NO_LED, 71,     70,     69,       68,     67,     NO_LED, NO_LED, NO_LED,
+  NO_LED, 84,     83,     82,     81,       80,     79,     NO_LED, NO_LED, NO_LED
 };
 
 #endif
@@ -215,80 +215,80 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Base */
-  [_BASE] = LAYOUT( \
-    MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr, \
-    MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C, \
-    MI_CH_Dbm,    MI_CH_Abm,    MI_CH_Ebm,    MI_CH_Bbm,    MI_CH_Fm,    MI_CH_Cm,    \
-    MI_CH_DbDom7, MI_CH_AbDom7, MI_CH_EbDom7, MI_CH_BbDom7, MI_CH_FDom7, MI_CH_CDom7, \
-    MI_CH_DbDim7, MI_CH_AbDim7, MI_CH_EbDim7, MI_CH_BbDim7, MI_CH_FDim7, MI_CH_CDim7, \
-    \
-    MI_CH_Gr,     MI_CH_Dr,     MI_CH_Ar,     MI_CH_Er,     MI_CH_Br,    MI_CH_Fsr, \
-    MI_CH_G,      MI_CH_D,      MI_CH_A,      MI_CH_E,      MI_CH_B,     MI_CH_Fs, \
-    MI_CH_Gm,     MI_CH_Dm,     MI_CH_Am,     MI_CH_Em,     MI_CH_Bm,    MI_CH_Fsm, \
-    MI_CH_GDom7,  MI_CH_DDom7,  MI_CH_ADom7,  MI_CH_EDom7,  MI_CH_BDom7, MI_CH_FsDom7, \
-    MI_CH_GDim7,  MI_CH_DDim7,  MI_CH_ADim7,  MI_CH_EDim7,  MI_CH_BDim7, MI_CH_FsDim7, \
-    \
-    MI_Ab, MI_B,  MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  FN_MUTE, \
-    MI_G,  MI_Bb, MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  \
-    MI_Fs, MI_A,  MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3  \
+  [_BASE] = LAYOUT(
+    MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr,
+    MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C,
+    MI_CH_Dbm,    MI_CH_Abm,    MI_CH_Ebm,    MI_CH_Bbm,    MI_CH_Fm,    MI_CH_Cm,
+    MI_CH_DbDom7, MI_CH_AbDom7, MI_CH_EbDom7, MI_CH_BbDom7, MI_CH_FDom7, MI_CH_CDom7,
+    MI_CH_DbDim7, MI_CH_AbDim7, MI_CH_EbDim7, MI_CH_BbDim7, MI_CH_FDim7, MI_CH_CDim7,
+
+    MI_CH_Gr,     MI_CH_Dr,     MI_CH_Ar,     MI_CH_Er,     MI_CH_Br,    MI_CH_Fsr,
+    MI_CH_G,      MI_CH_D,      MI_CH_A,      MI_CH_E,      MI_CH_B,     MI_CH_Fs,
+    MI_CH_Gm,     MI_CH_Dm,     MI_CH_Am,     MI_CH_Em,     MI_CH_Bm,    MI_CH_Fsm,
+    MI_CH_GDom7,  MI_CH_DDom7,  MI_CH_ADom7,  MI_CH_EDom7,  MI_CH_BDom7, MI_CH_FsDom7,
+    MI_CH_GDim7,  MI_CH_DDim7,  MI_CH_ADim7,  MI_CH_EDim7,  MI_CH_BDim7, MI_CH_FsDim7,
+
+    MI_Ab, MI_B,  MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  FN_MUTE,
+    MI_G,  MI_Bb, MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
+    MI_Fs, MI_A,  MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3
   ),
 
   /* QWERTY */
-  [_QWERTY] = LAYOUT_wrapper( \
-    KC_GESC, _________________NUMBER_L__________________, \
-    KC_TAB,  _________________QWERTY_L1_________________, \
-    KC_CAPS, _________________QWERTY_L2_________________, \
-    KC_LSFT, _________________QWERTY_L3_________________, \
-    KC_LCTL, KC_LGUI, KC_LALT, KC_LANG2, KC_SPC,  KC_SPC, \
-    \
-    _________________NUMBER_R__________________, KC_BSPC, \
-    _________________QWERTY_R1_________________, KC_DEL, \
-    _________________QWERTY_R2_________________, KC_ENT, \
-    _________________QWERTY_R3_________________, KC_RSFT, \
-    KC_SPC, KC_SPC, KC_LANG1, KC_RALT,  KC_RGUI, KC_RCTRL, \
-    \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+  [_QWERTY] = LAYOUT_wrapper(
+    KC_GESC, _________________NUMBER_L__________________,
+    KC_TAB,  _________________QWERTY_L1_________________,
+    KC_CAPS, _________________QWERTY_L2_________________,
+    KC_LSFT, _________________QWERTY_L3_________________,
+    KC_LCTL, KC_LGUI, KC_LALT, KC_LANG2, KC_SPC,  KC_SPC,
+
+    _________________NUMBER_R__________________, KC_BSPC,
+    _________________QWERTY_R1_________________, KC_DEL,
+    _________________QWERTY_R2_________________, KC_ENT,
+    _________________QWERTY_R3_________________, KC_RSFT,
+    KC_SPC, KC_SPC, KC_LANG1, KC_RALT,  KC_RGUI, KC_RCTRL,
+
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
   /* COLEMAK */
-  [_COLEMAK] = LAYOUT_wrapper( \
-    _______, _________________NUMBER_L__________________, \
-    _______, _________________COLEMAK_L1________________, \
-    _______, _________________COLEMAK_L2________________, \
-    _______, _________________COLEMAK_L3________________, \
-    _______, _______, _______, _______, _______, _______, \
-    \
-    _________________NUMBER_R__________________, _______, \
-    _________________COLEMAK_R1________________, _______, \
-    _________________COLEMAK_R2________________, _______, \
-    _________________COLEMAK_R3________________, _______, \
-    _______, _______, _______, _______, _______, _______, \
-    \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+  [_COLEMAK] = LAYOUT_wrapper(
+    _______, _________________NUMBER_L__________________,
+    _______, _________________COLEMAK_L1________________,
+    _______, _________________COLEMAK_L2________________,
+    _______, _________________COLEMAK_L3________________,
+    _______, _______, _______, _______, _______, _______,
+
+    _________________NUMBER_R__________________, _______,
+    _________________COLEMAK_R1________________, _______,
+    _________________COLEMAK_R2________________, _______,
+    _________________COLEMAK_R3________________, _______,
+    _______, _______, _______, _______, _______, _______,
+
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
 
   /* Fn */
-  [_FN] = LAYOUT( \
-    DF_BASE,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    DF_QWER,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    DF_COLE,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, \
-    \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+  [_FN] = LAYOUT(
+    DF_BASE,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    DF_QWER,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    DF_COLE,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
 

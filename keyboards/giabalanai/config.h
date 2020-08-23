@@ -40,20 +40,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-// #define MATRIX_ROW_PINS { D1, D0, D4, C6, D7, E6 }
-// #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B4, B5 }
-#define MATRIX_ROW_PINS \
-    { B5, B4, E6, D7, C6, D4 }
-#define MATRIX_COL_PINS \
-    { B1, F7, F6, F5, F4, B3, B2, B6, D0, D1 }
-#define MATRIX_ROW_PINS_RIGHT \
-    { D1, D0, D4, C6, D7, E6 }
-// F1 is an unused dummy pin to match the # of COLs used. B5 will be used for Audio.
-// B7, C7 are unused dummy pin to match the # of COLs used. B6, B4 will be used for Encoder.
-// #define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2, B6, B4, F1 }
-#define MATRIX_COL_PINS_RIGHT \
-    { F4, F5, F6, F7, B1, B3, B2, C7, B7, F1 }
-// #define UNUSED_PINS
+#define MATRIX_ROW_PINS { B5, B4, E6, D7, C6, D4 }
+#define MATRIX_COL_PINS { B1, F7, F6, F5, F4, B3, B2, B6, D0, D1 }
+#define MATRIX_ROW_PINS_RIGHT { D1, D0, D4, C6, D7, E6 }
+#define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2, C7, B7, F1 }
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -120,23 +111,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
    59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48 \
    }
-
-   // #define RGBLIGHT_LED_MAP {
-   //   0,   1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  11,
-   //   12,
-   //   25,  24,  23,  22,  21,  20,  19,  18,  17,  16,  15,  14,  13,
-   //   26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  37,
-   //   50,  49,  48,  47,  46,  45,  44,  43,  42,  41,  40,  39,  38,
-   //   51,  52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,
-   //
-   //   63,  64,  65,  66,  67,  68,  69,  70,  71,  72,  73,  74,
-   //   75,  76,  77,  78,  79,  80,  81,  82,  83,  84,  85,  86,
-   //   87,  88,  89,  90,  91,  92,  93,  94,  95,  96,  97,  98,
-   //   99,  100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
-   //   111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122
-   //   }
-
-
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -243,14 +217,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Encoder options
  */
 #ifdef ENCODER_ENABLE
-#    define ENCODERS_PAD_A \
-        { C7 }  // dummy
-#    define ENCODERS_PAD_B \
-        { B7 }  // dummy
-#    define ENCODERS_PAD_A_RIGHT \
-        { B4 }
-#    define ENCODERS_PAD_B_RIGHT \
-        { B6 }
+#    define ENCODERS_PAD_A { C7 }  // dummy
+#    define ENCODERS_PAD_B { B7 }  // dummy
+#    define ENCODERS_PAD_A_RIGHT { B4 }
+#    define ENCODERS_PAD_B_RIGHT { B6 }
 #    define ENCODER_RESOLUTION 4
 #    define TAP_CODE_DELAY 10
 #endif  // ENCODER_ENABLE
