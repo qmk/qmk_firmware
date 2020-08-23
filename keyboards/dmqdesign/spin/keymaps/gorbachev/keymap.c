@@ -212,11 +212,11 @@ void rgblight_get_mode_name(uint8_t mode, size_t bufsize, char *buf) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	#ifdef LEFT_HAND
-		return OLED_ROTATION_180;
-	#else
-		return OLED_ROTATION_0;
-	#endif
+#ifdef LEFT_HAND
+    return OLED_ROTATION_180;
+#else
+    return OLED_ROTATION_0;
+#endif
 }
 
 void oled_task_user(void) {
