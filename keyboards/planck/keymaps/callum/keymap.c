@@ -46,20 +46,40 @@
 #define n8 KC_8
 #define n9 KC_9
 
+#define ampr KC_AMPR
+#define astr KC_ASTR
+#define at KC_AT
+#define bsls KC_BSLS
 #define bspc KC_BSPC
 #define caps KC_CAPS
+#define circ KC_CIRC
 #define comm KC_COMM
 #define dash A(KC_MINS) // en-dash (–); or with shift: em-dash (—)
+#define del KC_DEL
+#define dlr KC_DLR
+#define dot KC_DOT
+#define ent KC_ENT
+#define eql KC_EQL
+#define esc KC_ESC
+#define exlm KC_EXLM
+#define grv KC_GRV
+#define hash KC_HASH
+#define lbrc KC_LBRC
+#define lcbr KC_LCBR
+#define lprn KC_LPRN
+#define mins KC_MINS
+#define perc KC_PERC
+#define pipe KC_PIPE
+#define plus KC_PLUS
+#define quot KC_QUOT
+#define rbrc KC_RBRC
+#define rcbr KC_RCBR
+#define rprn KC_RPRN
 #define scln KC_SCLN
 #define slsh KC_SLSH
 #define spc KC_SPC
 #define tab KC_TAB
-#define del KC_DEL
-#define dot KC_DOT
-#define ent KC_ENT
-#define mins KC_MINS
-#define quot KC_QUOT
-#define esc KC_ESC
+#define tild KC_TILD
 
 #define down KC_DOWN
 #define home G(KC_LEFT)
@@ -77,16 +97,14 @@
 #define slup S(A(KC_UP))   // Previous unread in Slack
 #define sldn S(A(KC_DOWN)) // Next unread in Slack
 
-#define ctl1 C(KC_1)
-#define ctl2 C(KC_2)
-#define ctl3 C(KC_3)
-#define ctl4 C(KC_4)
-#define ctl5 C(KC_5)
-#define ctl6 C(KC_6)
-#define ctl7 C(KC_7)
-#define ctl8 C(KC_8)
-#define ctl9 C(KC_9)
-#define ctl0 C(KC_0)
+#define ctl1 C(KC_1) // Desktop 1 (6 with shift)
+#define ctl2 C(KC_2) // Desktop 2 (7 with shift)
+#define ctl3 C(KC_3) // Desktop 3 (8 with shift)
+#define ctl4 C(KC_4) // Desktop 4 (9 with shift)
+#define ctl5 C(KC_5) // Desktop 5 (10 with shift)
+#define ctl6 C(KC_6) // Screenshot
+#define ctl7 C(KC_7) // Brightness up
+#define ctl8 C(KC_8) // Brightness down
 
 #define f1 KC_F1
 #define f2 KC_F2
@@ -136,30 +154,8 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-    // ASCII
-    ampr = SAFE_RANGE,
-    astr,
-    at,
-    bsls,
-    circ,
-    dlr,
-    eql,
-    exlm,
-    grv,
-    hash,
-    lbrc,
-    lcbr,
-    lprn,
-    perc,
-    pipe,
-    plus,
-    rbrc,
-    rcbr,
-    rprn,
-    tild,
-
     // Curly quotes
-    lcqt,
+    lcqt = SAFE_RANGE,
     rcqt,
 
     // "Smart" mods
@@ -182,17 +178,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, ctl1, ctl2, ctl3, ctl4, xxxx, xxxx, home,   up,  end, ctl7, caps,
-         del, ctl5, slup, tabl, tabr, xxxx, xxxx, left, down, rght, ctl8, xxxx,
-        ____, ctl6, sldn, back,  fwd, xxxx, xxxx, pgdn, pgup, ctl0, ctl9, ____,
+         esc, ctl1, ctl2, ctl3, ctl4, ctl5, ctl6, home,   up,  end, xxxx, xxxx,
+         del, play, volu, tabl, tabr, slup, ctl7, left, down, rght, caps, xxxx,
+        ____, mute, vold, back,  fwd, sldn, ctl8, pgdn, pgup, xxxx, xxxx, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
     [FUNC] = LAYOUT_planck_grid(
-        rset,   f1,   f2,   f3,   f4,   f5,   f6,   f7,   f8,   f9,  f10, volu,
-        powr,  f11,  f12,  f13,  f14,  f15,  f16,  f17,  f18,  f19,  f20, vold,
+        rset,   f7,   f5,   f3,   f1,   f9,   f8,  f10,   f2,   f4,   f6, xxxx,
+        xxxx,  f17,  f15,  f13,  f11,  f19,  f18,  f20,  f12,  f14,  f16, xxxx,
         ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ____,
-        ____, ____, ____, ____, prev, mute, play, next, ____, ____, ____, ____
+        ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 };
 
@@ -205,13 +201,13 @@ bool send_string_if_keydown(
             uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
             if (shifts) {
                 del_mods(shifts);
-                SEND_STRING(shifted);
+                send_string(shifted);
                 add_mods(shifts);
             } else {
-                SEND_STRING(unshifted);
+                send_string(unshifted);
             }
         } else {
-            SEND_STRING(unshifted);
+            send_string(unshifted);
         }
     }
     return true;
@@ -241,49 +237,6 @@ bool smart_cmd(keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Override the defualt auto shifted symbols to use SEND_STRING See
-        // https://github.com/qmk/qmk_firmware/issues/4072
-        case ampr:
-            return send_string_if_keydown(record, "&", NULL);
-        case astr:
-            return send_string_if_keydown(record, "*", NULL);
-        case at:
-            return send_string_if_keydown(record, "@", NULL);
-        case bsls:
-            return send_string_if_keydown(record, "\\", NULL);
-        case circ:
-            return send_string_if_keydown(record, "^", NULL);
-        case dlr:
-            return send_string_if_keydown(record, "$", NULL);
-        case eql:
-            return send_string_if_keydown(record, "=", NULL);
-        case exlm:
-            return send_string_if_keydown(record, "!", NULL);
-        case grv:
-            return send_string_if_keydown(record, "`", NULL);
-        case hash:
-            return send_string_if_keydown(record, "#", NULL);
-        case lbrc:
-            return send_string_if_keydown(record, "[", NULL);
-        case lcbr:
-            return send_string_if_keydown(record, "{", NULL);
-        case lprn:
-            return send_string_if_keydown(record, "(", NULL);
-        case perc:
-            return send_string_if_keydown(record, "%", NULL);
-        case pipe:
-            return send_string_if_keydown(record, "|", NULL);
-        case plus:
-            return send_string_if_keydown(record, "+", NULL);
-        case rbrc:
-            return send_string_if_keydown(record, "]", NULL);
-        case rcbr:
-            return send_string_if_keydown(record, "}", NULL);
-        case rprn:
-            return send_string_if_keydown(record, ")", NULL);
-        case tild:
-            return send_string_if_keydown(record, "~", NULL);
-
         // The macOS shortcuts for curly quotes are horrible, so this rebinds
         // them so that shift toggles single–double instead of left–right, and
         // then both varieties of left quote can share one key, and both
