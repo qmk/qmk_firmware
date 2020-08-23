@@ -115,6 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     /* For any layer other than default, save current RGB state and switch to layer-based RGB */
     if (layer_state_cmp(state, 0)) {
@@ -125,7 +126,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
         rgb_by_layer(layer);
     }
 #endif
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return state;
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
