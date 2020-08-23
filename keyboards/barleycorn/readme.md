@@ -2,7 +2,7 @@
 
 ![Barleycorn](https://i.imgur.com/vi3L1HYl.png)
 
-A f-row less compact 1800 kit with only through hole components.
+An f-row less compact 1800 kit with only through hole components.
 
 * Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
 * Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/yiancar/gingham_pcb)
