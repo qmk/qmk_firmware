@@ -62,7 +62,7 @@ enum tap_dances{
 enum {
     SINGLE_TAP = 1,
     SINGLE_HOLD,
-    DOUBLE_TAP
+    TRIPLE_TAP
 };
 
 // Declare the functions to be used with your tap dance key(s)
@@ -416,7 +416,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 // ESCキーの動作を、次のようにする設定
 // シングルタップ：ESC
 // シングルタップしてホールド：NUMレイヤー
-// ダブルタップ：Numレイヤーをトグル
+// トリプルタップ：Numレイヤーをトグル
+// NOTE:ESCを連打（＝タブルタップ）して、Numレイヤーになるのを防止するためトリプルに。
 
 typedef struct {
     bool is_press_action;
@@ -425,10 +426,10 @@ typedef struct {
 
 // Determine the current tap dance state
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
+    if (state->count < 3) {
         if (!state->pressed) return SINGLE_TAP;
         else return SINGLE_HOLD;
-    } else if (state->count == 2) return DOUBLE_TAP;
+    } else if (state->count == 3) return TRIPLE_TAP;
     else return 8;
 }
 
@@ -448,7 +449,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_HOLD:
             layer_on(_NUM);
             break;
-        case DOUBLE_TAP:
+        case TRIPLE_TAP:
             // Check to see if the layer is already set
             if (layer_state_is(_NUM)) {
                 // If already set, then switch it off
