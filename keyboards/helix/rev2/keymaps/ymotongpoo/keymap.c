@@ -49,7 +49,6 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-/*
 const rgblight_segment_t PROGMEM _default_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_CYAN},
     {1, 5, HSV_GREEN},
@@ -73,8 +72,6 @@ const rgblight_segment_t* const PROGMEM rgblight_layers[] = RGBLIGHT_LAYERS_LIST
     _lower_layer,
     _raise_layer
 );
-*/
-
 
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
