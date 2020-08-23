@@ -35,7 +35,6 @@ enum custom_keycodes {
 #define SC_ACLS             LALT(KC_F4)
 #define SC_CCLS             LCTL(KC_F4)
 
-#define TG_NKRO             MAGIC_TOGGLE_NKRO
 #define OS_SHFT             OSM(MOD_LSFT)
 
 #define ________________    _______, _______

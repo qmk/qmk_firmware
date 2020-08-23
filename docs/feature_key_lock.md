@@ -16,7 +16,7 @@ First, enable Key Lock by setting `KEY_LOCK_ENABLE = yes` in your `rules.mk`. Th
 
 ## Caveats
 
-Key Lock is only able to hold standard action keys and [One Shot modifier](feature_advanced_keycodes.md#one-shot-keys) keys (for example, if you have your Shift defined as `OSM(KC_LSFT)`).
+Key Lock is only able to hold standard action keys and [One Shot modifier](one_shot_keys.md) keys (for example, if you have your Shift defined as `OSM(KC_LSFT)`).
 This does not include any of the QMK special functions (except One Shot modifiers), or shifted versions of keys such as `KC_LPRN`. If it's in the [Basic Keycodes](keycodes_basic.md) list, it can be held.
 
 Switching layers will not cancel the Key Lock.

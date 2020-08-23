@@ -213,12 +213,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               backlight_step();
             #endif
             #ifdef __AVR__
-            PORTE &= ~(1<<6);
+            writePinLow(E6);
             #endif
           } else {
             unregister_code(KC_RSFT);
             #ifdef __AVR__
-            PORTE |= (1<<6);
+            writePinHigh(E6);
             #endif
           }
           return false;

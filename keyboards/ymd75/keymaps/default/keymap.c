@@ -82,12 +82,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
             case P_MACRO:
-                SEND_STRING(SS_DOWN(X_LALT));
-                SEND_STRING(SS_TAP(X_KP_1));
-                SEND_STRING(SS_TAP(X_KP_5));
-                SEND_STRING(SS_TAP(X_KP_6));
-                SEND_STRING(SS_UP(X_LALT));
-                return false; break;
+                register_code(KC_LALT);
+                tap_code(KC_KP_1);
+                tap_code(KC_KP_5);
+                tap_code(KC_KP_6);
+                unregister_code(KC_LALT);
+                return false;
         }
     }
     return true;

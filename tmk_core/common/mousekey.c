@@ -1,19 +1,19 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright 2011 Jun Wako <wakojun@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include <stdint.h>
 #include "keycode.h"
@@ -39,6 +39,9 @@ static uint16_t       last_timer      = 0;
 
 #ifndef MK_3_SPEED
 
+static uint16_t last_timer_c = 0;
+static uint16_t last_timer_w = 0;
+
 /*
  * Mouse keys  acceleration algorithm
  *  http://en.wikipedia.org/wiki/Mouse_keys
@@ -56,8 +59,14 @@ uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 /* ramp used to reach maximum pointer speed (NOT SUPPORTED) */
 // int8_t mk_curve = 0;
 /* wheel params */
+/* milliseconds between the initial key press and first repeated motion event (0-2550) */
+uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY / 10;
+/* milliseconds between repeated motion events (0-255) */
+uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+
+#    ifndef MK_COMBINED
 
 static uint8_t move_unit(void) {
     uint16_t unit;
@@ -95,34 +104,95 @@ static uint8_t wheel_unit(void) {
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
+#    else /* #ifndef MK_COMBINED */
+
+static uint8_t move_unit(void) {
+    uint16_t unit;
+    if (mousekey_accel & (1 << 0)) {
+        unit = 1;
+    } else if (mousekey_accel & (1 << 1)) {
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / 2;
+    } else if (mousekey_accel & (1 << 2)) {
+        unit = MOUSEKEY_MOVE_MAX;
+    } else if (mousekey_repeat == 0) {
+        unit = MOUSEKEY_MOVE_DELTA;
+    } else if (mousekey_repeat >= mk_time_to_max) {
+        unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
+    } else {
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+    }
+    return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
+}
+
+static uint8_t wheel_unit(void) {
+    uint16_t unit;
+    if (mousekey_accel & (1 << 0)) {
+        unit = 1;
+    } else if (mousekey_accel & (1 << 1)) {
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / 2;
+    } else if (mousekey_accel & (1 << 2)) {
+        unit = MOUSEKEY_WHEEL_MAX;
+    } else if (mousekey_repeat == 0) {
+        unit = MOUSEKEY_WHEEL_DELTA;
+    } else if (mousekey_repeat >= mk_wheel_time_to_max) {
+        unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
+    } else {
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
+    }
+    return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
+}
+
+#    endif /* #ifndef MK_COMBINED */
+
 void mousekey_task(void) {
-    if (timer_elapsed(last_timer) < (mousekey_repeat ? mk_interval : mk_delay * 10)) {
-        return;
-    }
-    if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0) {
-        return;
-    }
-    if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
-    if (mouse_report.x > 0) mouse_report.x = move_unit();
-    if (mouse_report.x < 0) mouse_report.x = move_unit() * -1;
-    if (mouse_report.y > 0) mouse_report.y = move_unit();
-    if (mouse_report.y < 0) mouse_report.y = move_unit() * -1;
-    /* diagonal move [1/sqrt(2)] */
-    if (mouse_report.x && mouse_report.y) {
-        mouse_report.x = times_inv_sqrt2(mouse_report.x);
-        if (mouse_report.x == 0) {
-            mouse_report.x = 1;
+    // report cursor and scroll movement independently
+    report_mouse_t const tmpmr = mouse_report;
+    if ((mouse_report.x || mouse_report.y) && timer_elapsed(last_timer_c) > (mousekey_repeat ? mk_interval : mk_delay * 10)) {
+        if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
+        mouse_report.v = 0;
+        mouse_report.h = 0;
+        if (mouse_report.x > 0) mouse_report.x = move_unit();
+        if (mouse_report.x < 0) mouse_report.x = move_unit() * -1;
+        if (mouse_report.y > 0) mouse_report.y = move_unit();
+        if (mouse_report.y < 0) mouse_report.y = move_unit() * -1;
+        /* diagonal move [1/sqrt(2)] */
+        if (mouse_report.x && mouse_report.y) {
+            mouse_report.x = times_inv_sqrt2(mouse_report.x);
+            if (mouse_report.x == 0) {
+                mouse_report.x = 1;
+            }
+            mouse_report.y = times_inv_sqrt2(mouse_report.y);
+            if (mouse_report.y == 0) {
+                mouse_report.y = 1;
+            }
         }
-        mouse_report.y = times_inv_sqrt2(mouse_report.y);
-        if (mouse_report.y == 0) {
-            mouse_report.y = 1;
-        }
+        mousekey_send();
+        last_timer_c = last_timer;
+        mouse_report = tmpmr;
     }
-    if (mouse_report.v > 0) mouse_report.v = wheel_unit();
-    if (mouse_report.v < 0) mouse_report.v = wheel_unit() * -1;
-    if (mouse_report.h > 0) mouse_report.h = wheel_unit();
-    if (mouse_report.h < 0) mouse_report.h = wheel_unit() * -1;
-    mousekey_send();
+    if ((mouse_report.v || mouse_report.h) && timer_elapsed(last_timer_w) > (mousekey_repeat ? mk_wheel_interval : mk_wheel_delay * 10)) {
+        if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+        if (mouse_report.v > 0) mouse_report.v = wheel_unit();
+        if (mouse_report.v < 0) mouse_report.v = wheel_unit() * -1;
+        if (mouse_report.h > 0) mouse_report.h = wheel_unit();
+        if (mouse_report.h < 0) mouse_report.h = wheel_unit() * -1;
+        /* diagonal move [1/sqrt(2)] */
+        if (mouse_report.v && mouse_report.h) {
+            mouse_report.v = times_inv_sqrt2(mouse_report.v);
+            if (mouse_report.v == 0) {
+                mouse_report.v = 1;
+            }
+            mouse_report.h = times_inv_sqrt2(mouse_report.h);
+            if (mouse_report.h == 0) {
+                mouse_report.h = 1;
+            }
+        }
+        mousekey_send();
+        last_timer_w = last_timer;
+        mouse_report = tmpmr;
+    }
 }
 
 void mousekey_on(uint8_t code) {

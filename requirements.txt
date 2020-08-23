@@ -3,3 +3,4 @@
 appdirs
 argcomplete
 colorama
+hjson

@@ -6,6 +6,11 @@ CONSOLE_ENABLE        = no  # Console for debug(+400)
 EXTRAKEY_ENABLE       = no
 SLEEP_LED_ENABLE      = no  # Breathing sleep LED during USB suspend
 API_SYSEX_ENABLE      = no
+SPACE_CADET_ENABLE    = no
+LEADER_ENABLE         = no
+DYNAMIC_MACRO_ENABLE  = yes
+
+LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 ifeq ($(strip $(KEYBOARD)), planck/rev3)
 	AUDIO_ENABLE	  = no

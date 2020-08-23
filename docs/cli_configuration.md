@@ -4,7 +4,7 @@ This document explains how `qmk config` works.
 
 # Introduction
 
-Configuration for QMK CLI is a key/value system. Each key consists of a subcommand and an argument name separated by a period. This allows for a straightforward and direct translation between config keys and the arguments they set.
+Configuration for the QMK CLI is a key/value system. Each key consists of a subcommand and an argument name separated by a period. This allows for a straightforward and direct translation between config keys and the arguments they set.
 
 ## Simple Example
 
@@ -108,7 +108,7 @@ compile.keymap: skully -> None
 |-----|---------------|-------------|
 | user.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
 | user.keymap | None | The keymap name (Example: `default`) |
-| user.name | None | The user's github username. |
+| user.name | None | The user's GitHub username. |
 
 # All Configuration Options
 

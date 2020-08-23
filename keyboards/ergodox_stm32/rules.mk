@@ -1,24 +1,11 @@
-SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
-
-CFLAGS += "-Wno-error=deprecated"
-
-MCU_FAMILY = STM32
-MCU_SERIES = STM32F1xx
+# MCU name
+MCU = STM32F103
 
 MCU_LDSCRIPT = stm32f103_bootloader
-
-MCU_STARTUP = stm32f1xx
-
 BOARD = ERGODOX_STM32_BOARD
 
-MCU = cortex-m3
-
-ARMV = 7
-
-OPT_DEFS =
-
-EXTRAFLAGS=-O0 -g
+CFLAGS += "-Wno-error=deprecated"
+EXTRAFLAGS = -O0 -g
 
 BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no	# Mouse keys
@@ -30,3 +17,9 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 UNICODE_ENABLE   = yes # Unicode
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
+
+SRC += matrix.c
+QUANTUM_LIB_SRC += i2c_master.c
