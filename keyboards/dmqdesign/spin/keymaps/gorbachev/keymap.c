@@ -208,7 +208,7 @@ static const char *ANIMATION_NAMES[] = {
 };
 
 void rgblight_get_mode_name(uint8_t mode, size_t bufsize, char *buf) {
-	snprintf(buf, bufsize, "%-25s", ANIMATION_NAMES[mode]);
+    snprintf(buf, bufsize, "%-25s", ANIMATION_NAMES[mode]);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
