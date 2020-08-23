@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLED_NUM
 #define RGBLED_NUM 50
 #define RGBLED_SPLIT {25, 25}
-
-#define RGBLIGHT_MAX_LAYERS 32
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_MAX_LAYERS 8
 
 #define LED_LAYOUT( \
     L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, \
@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 #define RGBLIGHT_LED_MAP LED_LAYOUT( \
-   0,  1,  2,  3,  4,  5,            37, 36, 35, 34, 33, 32, \
-   6,  7,  8,  9, 10, 11,            43, 42, 41, 40, 39, 38, \
-  12, 13, 14, 15, 16, 17,            49, 48, 47, 46, 45, 44, \
-  18, 19, 20, 21, 22, 23, 24,    56, 55, 54, 53, 52, 51, 50)
+   0,  1,  2,  3,  4,  5,            30, 29, 28, 27, 26, 25, \
+   6,  7,  8,  9, 10, 11,            36, 35, 34, 33, 32, 31, \
+  12, 13, 14, 15, 16, 17,            42, 41, 40, 39, 38, 37, \
+  18, 19, 20, 21, 22, 23, 24,    49, 48, 47, 46, 45, 44, 43)
