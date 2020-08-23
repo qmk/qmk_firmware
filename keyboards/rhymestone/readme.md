@@ -1,6 +1,6 @@
 # Rhymestone
 
-![Rhymestone](https://github.com/marksard/Keyboards/raw/master/_image/20181214-PC140125.jpg)  
+![Rhymestone](https://github.com/marksard/Keyboards/blob/7950099e0679a6626dc9f77a70b8c6616d7030cf/_image/_rhymestone.jpg)  
 
 This is 40 keys split Ortholinear keyboard.  
 
