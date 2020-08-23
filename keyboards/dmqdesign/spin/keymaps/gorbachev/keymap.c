@@ -238,10 +238,10 @@ void oled_task_user(void) {
             oled_write_ln_P(PSTR("Undefined"), false);
     }
 
-	static char rgb_mode_name[30];
-	rgblight_get_mode_name(rgblight_get_mode(), sizeof(rgb_mode_name), rgb_mode_name);
+    static char rgb_mode_name[30];
+    rgblight_get_mode_name(rgblight_get_mode(), sizeof(rgb_mode_name), rgb_mode_name);
 
     oled_write_P(PSTR("Mode: "), false);
-	oled_write_ln(rgb_mode_name, false);
+    oled_write_ln(rgb_mode_name, false);
 }
 #endif
