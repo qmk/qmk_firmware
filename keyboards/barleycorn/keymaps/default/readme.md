@@ -1,5 +1,4 @@
-The default keymap for Barleycorn
-==================================
+# The default keymap for Barleycorn
 
 ![Layer 0](https://i.imgur.com/cU9lzz3.png)
 
