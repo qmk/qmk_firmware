@@ -53,6 +53,7 @@ typedef struct {
 } sequencer_config_t;
 
 extern sequencer_config_t sequencer_config;
+extern uint8_t            sequencer_active_tracks;
 
 bool is_sequencer_on(void);
 void sequencer_toggle(void);
