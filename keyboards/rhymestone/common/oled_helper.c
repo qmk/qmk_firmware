@@ -5,13 +5,32 @@
 
 void render_logo(void) {
 
-  const char logo_buf[]={
+  static const char PROGMEM logo_buf[]={
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
     0};
 
-  oled_write(logo_buf, false);
+  oled_write_P(logo_buf, false);
+}
+
+void render_lock_status(void) {
+
+  // Host Keyboard LED Status
+  led_t led_state = host_keyboard_led_state();
+
+  oled_write_P(PSTR("Lock:"), false);
+  if (led_state.num_lock) {
+    oled_write_P(PSTR("Num "), false);
+  }
+  if (led_state.caps_lock) {
+    oled_write_P(PSTR("Caps "), false);
+  }
+  if (led_state.scroll_lock) {
+    oled_write_P(PSTR("Scrl"), false);
+  }
+
+  oled_write_P(PSTR("\n"), false);
 }
 
 static char keylog_buf[24] = "Key state ready.\n";
@@ -36,22 +55,6 @@ void update_key_status(uint16_t keycode, keyrecord_t *record) {
 void render_key_status(void) {
 
   oled_write(keylog_buf, false);
-}
-
-static char lock_buf[24] = "Lock state ready.\n";
-void update_lock_status(void) {
-
-  led_t led_state = host_keyboard_led_state();
-  char *num_lock = led_state.num_lock ? "Num" : "";
-  char *caps_lock = led_state.caps_lock ? "Caps" : "";
-  char *scrl_lock = led_state.scroll_lock ? "Scrl" : "";
-  snprintf(lock_buf, sizeof(lock_buf) - 1, "Lock:%s %s %s\n",
-          num_lock, caps_lock, scrl_lock);
-}
-
-void render_lock_status(void) {
-
-  oled_write(lock_buf, false);
 }
 
 #ifdef RGBLIGHT_ENABLE

@@ -151,7 +151,6 @@ static inline void render_status(void) {
   UPDATE_LED_STATUS();
   RENDER_LED_STATUS();
   render_keymap_status();
-  UPDATE_LOCK_STATUS();
   RENDER_LOCK_STATUS();
   RENDER_KEY_STATUS();
 }
