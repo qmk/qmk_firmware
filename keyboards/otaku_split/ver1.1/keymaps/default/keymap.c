@@ -17,8 +17,8 @@
 #include QMK_KEYBOARD_H
 
 enum layers{
-	BASE=0,
-	CURSOR
+    BASE,
+    CURSOR
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
