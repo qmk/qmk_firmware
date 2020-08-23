@@ -16,9 +16,9 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-  _NUMPAD,
-  _RGB,
-  _MACRO
+    _NUMPAD,
+    _RGB,
+    _MACRO
 };
 
 enum custom_keycodes {
