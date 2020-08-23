@@ -108,16 +108,21 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 void suspend_power_down_kb(void)
 {
+#ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_suspend_state(true);
+#endif
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void)
 {
+#ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_suspend_state(false);
+#endif
     suspend_wakeup_init_user();
 }
 
+#ifdef RGB_MATRIX_ENABLE
 __attribute__ ((weak))
 void rgb_matrix_indicators_user(void)
 {
@@ -126,6 +131,4 @@ void rgb_matrix_indicators_user(void)
         rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
     }
 }
-
-
-
+#endif
