@@ -2,6 +2,7 @@
 #include "hal.h"
 #include "annepro2.h"
 #include "annepro2_ble.h"
+#include "spi_master.h"
 #include "qmk_ap2_led.h"
 
 static const SerialConfig ledUartConfig = {
@@ -26,6 +27,9 @@ uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS] = {
 };
 
 void OVERRIDE keyboard_pre_init_kb(void) {
+#if HAL_USE_SPI == TRUE
+    spi_init();
+#endif
 }
 
 void OVERRIDE keyboard_post_init_kb(void) {
@@ -33,9 +37,20 @@ void OVERRIDE keyboard_post_init_kb(void) {
     sdStart(&SD0, &ledUartConfig);
     sdWrite(&SD0, ledMcuWakeup, 11);
 
+    // wait to receive response from wakeup
+    wait_ms(15);
+
+    // loop to clear out receive buffer from shine wakeup
+    while(!sdGetWouldBlock(&SD0))
+        sdGet(&SD0);
+
     // Start BLE UART
     sdStart(&SD1, &bleUartConfig);
     annepro2_ble_startup();
+
+    // Give the send uart thread some time to
+    // send out the queue before we read back
+    wait_ms(5);
 
     keyboard_post_init_user();
 }
@@ -77,20 +92,21 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP_LED_OFF:
                 annepro2LedPrevProfile();
                 annepro2LedDisable();
-                return false;
+                break;
 
             case KC_AP_LED_ON:
                 annepro2LedNextProfile();
                 annepro2LedEnable();
-                return false;
+                break;
 
             case KC_AP_LED_NEXT_PROFILE:
                 annepro2LedNextProfile();
-                return false;
+                break;
 
             case KC_AP_LED_PREV_PROFILE:
                annepro2LedPrevProfile();
-               return false;
+                break;
+
 
             default:
                 break;

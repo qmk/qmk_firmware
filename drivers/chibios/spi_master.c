@@ -32,6 +32,10 @@ __attribute__((weak)) void spi_init(void) {
     palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
     palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
     palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+#elif defined(HT32_SPI_USE_SPI1) || defined(HT32_SPI_USE_SPI2)
+    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_HT32_MODE_AF(SPI_SCK_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_HT32_MODE_AF(SPI_MOSI_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_HT32_MODE_AF(SPI_MISO_PAL_MODE) | PAL_MODE_OUTPUT_PUSHPULL);
 #else
     palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
     palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
@@ -53,12 +57,36 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         return false;
     }
 
+#if defined(HT32_SPI_USE_SPI1) || defined(HT32_SPI_USE_SPI2)
+    spiConfig.cr0 = SPI_CR0_SELOEN;
+    spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
+
+    if (lsbFirst) {
+        spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
+    }
+
+    switch (mode) {
+    case 0:
+        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
+        break;
+    case 1:
+        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE1;
+        break;
+    case 2:
+        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE2;
+        break;
+    case 3:
+        spiConfig.cr1 |= SPI_CR1_FORMAT_MODE3;
+        break;
+    }
+
+    spiConfig.cpr = (roundedDivisor - 1) >> 1;
+#else
     spiConfig.cr1 = 0;
 
     if (lsbFirst) {
         spiConfig.cr1 |= SPI_CR1_LSBFIRST;
     }
-
     switch (mode) {
         case 0:
             break;
@@ -98,6 +126,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             spiConfig.cr1 |= SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0;
             break;
     }
+#endif
 
     currentSlavePin  = slavePin;
     spiConfig.ssport = PAL_PORT(slavePin);
