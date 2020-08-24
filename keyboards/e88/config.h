@@ -23,7 +23,8 @@
 #define PRODUCT_ID      0x0187
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pink Labs
-#define PRODUCT         Bliss
+#define PRODUCT         e88
+#define DESCRIPTION     e88 PCB for Bliss F13 TKL
 
 /* key matrix size */
 #define MATRIX_ROWS 6
