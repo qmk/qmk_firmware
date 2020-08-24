@@ -60,6 +60,31 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
+#if defined(ANNEPRO2_EEPROM)
+// SPI Config
+#define SPI_DRIVER SPID1
+#define SPI_SCK_PIN A0
+#define SPI_SCK_PAL_MODE 5
+#define SPI_MOSI_PIN A1
+#define SPI_MOSI_PAL_MODE 5
+#define SPI_MISO_PIN A2
+#define SPI_MISO_PAL_MODE 5
+// EEPROM Config for W25X20CL
+#define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A3
+#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 16
+#define EXTERNAL_EEPROM_BYTE_COUNT 1024 // 262144
+#define EXTERNAL_EEPROM_PAGE_SIZE 256
+#define EXTERNAL_EEPROM_ADDRESS_SIZE 3
+#define EXTERNAL_EEPROM_SPI_LSBFIRST false
+#define EXTERNAL_EEPROM_SPI_MODE 3
+// HAL Config
+#define HAL_USE_SPI TRUE
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+// MCU Config
+#define HT32_SPI_USE_SPI1 TRUE
+#define HT32_SPI1_IRQ_PRIORITY 9
+#endif
+
 /* number of backlight levels */
 // #define BACKLIGHT_LEVELS 10
 
