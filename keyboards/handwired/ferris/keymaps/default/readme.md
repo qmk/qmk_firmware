@@ -23,7 +23,7 @@ On tapping the keys, our base layer is qwerty with space on the right homing thu
 In this layer, the non-homing-thumb positions have 0 and 1. I recommend modifying this to some frequently accessed shortcut such as copy/paste, previous/next tab or anything that makes most sense in your own workflow. O and 1 are place-holders and make it easy to troubleshoot that all keys are working properly before soldering in the switches.
 The reason I recommend convenience shortcuts instead of more commonly used keys like tab or meta is that unhoming of the thumbs was a frequent source of typos for me when I used more than one thumb key frequently in the context of typing.
 
-Despite being missing on this layer, "meta", "tab", "esc" and such are accessible from any othe layer: see Layer 7.
+Despite being missing on this layer, "meta", "tab", "esc" and such are accessible from any other layer: see Layer 7.
 
 The behaviour of some keys differ when held:
 * Both homing pinkies behave as shift.
