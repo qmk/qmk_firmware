@@ -15,10 +15,11 @@
  */
 #include "barleycorn.h"
 
-void keyboard_pre_init_user(void) {
-  // Set our LED pins as output
-  setPinOutput(B5);
-  setPinOutput(C0);
+void keyboard_pre_init_kb(void) {
+    // Set our LED pins as output
+    setPinOutput(B5);
+    setPinOutput(C0);
+    keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
