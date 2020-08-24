@@ -21,3 +21,5 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes     # Use RGB per key light
 
 LTO_ENABLE = yes            # Reducing firmware size
+
+LAYOUTS = 60_ansi 60_hhkb 60_iso 60_ansi_split_bs_rshift 60_tsangan_hhkb

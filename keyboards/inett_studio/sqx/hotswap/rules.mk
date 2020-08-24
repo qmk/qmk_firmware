@@ -23,3 +23,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 LTO_ENABLE = yes            # Reducing firmware size
+
+LAYOUTS = 60_tsangan_hhkb
