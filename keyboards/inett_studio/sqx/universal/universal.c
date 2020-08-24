@@ -145,35 +145,33 @@ led_config_t g_led_config = {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
-        #ifdef RGBLIGHT_ENABLE
-            #ifdef RGB_MATRIX_ENABLE
-            case KC_F16: // toggle rgb matrix
-                rgb_matrix_toggle();
-                return false;
-            case KC_F17:
-                rgb_matrix_step();
-                return false;
-            case KC_F18:
-                rgb_matrix_increase_hue();
-                return false;
-            case KC_F20:
-                rgb_matrix_decrease_hue();
-                return false;
-            case KC_F21:
-                rgb_matrix_increase_sat();
-                return false;
-            case KC_F22:
-                rgb_matrix_decrease_sat();
-                return false;
-            case KC_F23:
-                rgb_matrix_increase_val();
-                return false;
-            case KC_F24:
-                rgb_matrix_decrease_val();
-                return false;
-            #endif
-        #endif
-            default:
+#if USE_DEFAULT_MATRIX_KEYCODES
+        case RGB_MATRIX_TOGGLE: // toggle rgb matrix
+            rgb_matrix_toggle();
+            return false;
+        case RGB_MATRIX_STEP:
+            rgb_matrix_step();
+            return false;
+        case RGB_MATRIX_INC_HUE:
+            rgb_matrix_increase_hue();
+            return false;
+        case RGB_MATRIX_DEC_HUE:
+            rgb_matrix_decrease_hue();
+            return false;
+        case RGB_MATRIX_INC_SAT:
+            rgb_matrix_increase_sat();
+            return false;
+        case RGB_MATRIX_DEC_SAT:
+            rgb_matrix_decrease_sat();
+            return false;
+        case RGB_MATRIX_INC_VAL:
+            rgb_matrix_increase_val();
+            return false;
+        case RGB_MATRIX_DEC_VAL:
+            rgb_matrix_decrease_val();
+            return false;
+#endif
+        default:
             break;
         }
     }

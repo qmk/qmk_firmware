@@ -97,3 +97,39 @@
     {k30, KC_NO, k32,   k33,   k34,   k35, k36, k37,   k38,   k39, k3a, k3b,   k3c, k3d}, \
     {k40,   k42, k43, KC_NO, KC_NO, KC_NO, k47, k07, KC_NO, KC_NO, k48, k49,   k4a, k4b}  \
 }
+
+
+#ifdef RGBLIGHT_ENABLE
+    #ifdef RGB_MATRIX_ENABLE
+        #ifndef USE_DEFAULT_MATRIX_KEYCODES
+            #define USE_DEFAULT_MATRIX_KEYCODES 1
+        #endif
+    #endif
+#endif
+
+#if USE_DEFAULT_MATRIX_KEYCODES
+    #ifndef RGB_MATRIX_TOGGLE
+    #define RGB_MATRIX_TOGGLE   KC_F16
+    #endif
+    #ifndef RGB_MATRIX_STEP
+    #define RGB_MATRIX_STEP     KC_F17
+    #endif
+    #ifndef RGB_MATRIX_INC_HUE
+    #define RGB_MATRIX_INC_HUE  KC_F18
+    #endif
+    #ifndef RGB_MATRIX_DEC_HUE
+    #define RGB_MATRIX_DEC_HUE  KC_F19
+    #endif
+    #ifndef RGB_MATRIX_INC_SAT
+    #define RGB_MATRIX_INC_SAT  KC_F20
+    #endif
+    #ifndef RGB_MATRIX_DEC_SAT
+    #define RGB_MATRIX_DEC_SAT  KC_F21
+    #endif
+    #ifndef RGB_MATRIX_INC_VAL
+    #define RGB_MATRIX_INC_VAL  KC_F22
+    #endif
+    #ifndef RGB_MATRIX_DEC_VAL
+    #define RGB_MATRIX_DEC_VAL  KC_F23
+    #endif
+#endif
