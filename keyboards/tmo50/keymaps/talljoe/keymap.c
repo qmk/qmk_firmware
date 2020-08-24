@@ -14,7 +14,7 @@ bool process_indicator_led_user(uint32_t state){
 void matrix_scan_keymap(void) {
   uint32_t lights = WHITE;
 
-  switch(biton32(layer_state))
+  switch(get_highest_layer(layer_state))
   {
     case _NAV:
       lights |= YELLOW;
@@ -26,7 +26,7 @@ void matrix_scan_keymap(void) {
       lights |= RED;
       break;
     default: {
-      uint32_t default_layer = biton32(default_layer_state);
+      uint8_t default_layer = get_highest_layer(default_layer_state);
       lights = 0; // no white LED by default.
       if(default_layer & 1)
         lights |= YELLOW;
