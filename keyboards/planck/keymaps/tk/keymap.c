@@ -52,16 +52,6 @@ enum keycodes {
 
 };
 
-#define MOD1 MOD_HYPR // column 0
-#define MOD2 MOD_LGUI // column 1
-#define MOD3 MOD_LALT // column 2
-#define MOD4 MOD_LCTL // column 3
-
-#define MT_BK_P MT(MOD4, BK_P)
-#define MT_BK_S MT(MOD3, BK_S)
-#define MT_BK_C MT(MOD2, BK_C)
-#define MT_BK_A MT(MOD1, BK_A)
-
 #define MT_TAB  MT(MOD_LSFT, KC_TAB)
 #define MT_GESC MT(MOD_LSFT, KC_GESC)
 
@@ -132,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______,
     OSM(MOD_LSFT), _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______, _______,
-    OSM(MOD1), OSM(MOD2), OSM(MOD3), OSM(MOD4), _______, _______, _______, _______, _______, _______, _______, _______
+    OSM(MOD_HYPR), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 
@@ -439,7 +429,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     */
 
     bool l_key = (keycode == L_BK_P || keycode == L_BK_S || keycode == L_BK_C || keycode == L_BK_A);
-    bool r_key = !l_key;                        // whether keycode is on right side
+    bool r_key = !l_key;
+
+    // TODO: if left key and it is held then apply modifier
 
     // brackets mode
     if ((l_key && lbk_mode) || (r_key && rbk_mode)) {
@@ -495,22 +487,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     else if (l_key) {
         if (keycode == L_BK_P) {
             if (record->event.pressed) {
-                tap_code16(KC_1);
+                set_oneshot_mods(MOD_LCTL);
+                register_code(KC_LCTL);
+            }
+            else {
+                unregister_code(KC_LCTL);
             }
         }
         else if (keycode == L_BK_S) {
             if (record->event.pressed) {
-                tap_code16(KC_2);
+                set_oneshot_mods(MOD_LALT);
+                register_code(KC_LALT);
+            }
+            else {
+                unregister_code(KC_LALT);
             }
         }
         else if (keycode == L_BK_C) {
             if (record->event.pressed) {
-                tap_code16(KC_3);
+                set_oneshot_mods(MOD_LGUI);
+                register_code(KC_LGUI);
+            }
+            else {
+                unregister_code(KC_LGUI);
             }
         }
         else if (keycode == L_BK_A) {
             if (record->event.pressed) {
-                tap_code16(KC_4);
+                set_oneshot_mods(MOD_HYPR);
+                register_code16(KC_HYPR);
+            }
+            else {
+                unregister_code16(KC_HYPR);
             }
         }
     }
