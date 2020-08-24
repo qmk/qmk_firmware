@@ -28,18 +28,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 // #define SPLIT_HAND_PIN
 // #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
+// #define MASTER_RIGHT//
+#define EE_HANDS
 
 /* Set tapping toggle */
 #define TAPPING_TOGGLE 3
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
 
 // Combo abilities
-#define COMBO_COUNT 1
+// #define COMBO_COUNT 1
 
 // apparantly I'm a fast typist
 #define PERMISSIVE_HOLD
+
+#define LEADER_TIMEOUT 300
 
 /* Fix Grave Escape key breaking app switching in MacOS */
 #define GRAVE_ESC_GUI_OVERRIDE
@@ -49,10 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLED_NUM
 #define RGBLED_NUM 12
+#define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 6, 6 }
 // #define RGB_DI_PIN D3
 
-#define RGBLIGHT_ANIMATIONS
+// #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
