@@ -115,11 +115,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #endif
 
-#ifndef RAW_ENABLE
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#else
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#endif
+    if (!process_record_user(keycode, record)) { return false; }
+    
   if (record->event.pressed) {
     switch(keycode) {
         #ifdef RGB_MATRIX_ENABLE
