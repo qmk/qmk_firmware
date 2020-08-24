@@ -99,15 +99,7 @@
 }
 
 
-#ifdef RGBLIGHT_ENABLE
-    #ifdef RGB_MATRIX_ENABLE
-        #ifndef USE_DEFAULT_MATRIX_KEYCODES
-            #define USE_DEFAULT_MATRIX_KEYCODES 1
-        #endif
-    #endif
-#endif
-
-#if USE_DEFAULT_MATRIX_KEYCODES
+#if USE_CUSTOM_MATRIX_KEYCODES
     #ifndef RGB_MATRIX_TOGGLE
     #define RGB_MATRIX_TOGGLE   KC_F16
     #endif

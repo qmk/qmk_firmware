@@ -24,15 +24,7 @@
     {k40,   k42, k43, KC_NO, KC_NO, KC_NO, k47, k07, KC_NO, KC_NO, KC_NO, k49,   k4a, k4b}  \
 }
 
-#ifdef RGBLIGHT_ENABLE
-    #ifdef RGB_MATRIX_ENABLE
-        #ifndef USE_DEFAULT_MATRIX_KEYCODES
-            #define USE_DEFAULT_MATRIX_KEYCODES 1
-        #endif
-    #endif
-#endif
-
-#if USE_DEFAULT_MATRIX_KEYCODES
+#if USE_CUSTOM_MATRIX_KEYCODES
     #ifndef RGB_MATRIX_TOGGLE
     #define RGB_MATRIX_TOGGLE   KC_F16
     #endif
