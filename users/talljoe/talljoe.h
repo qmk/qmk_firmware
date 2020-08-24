@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 #include "tapdance/tapdance.h"
 #include "macros.h"
 

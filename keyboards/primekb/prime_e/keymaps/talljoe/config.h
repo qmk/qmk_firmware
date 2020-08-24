@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
 #define SPACE_COUNT 2
 
 #define TEMPLATE(                                                                   \
