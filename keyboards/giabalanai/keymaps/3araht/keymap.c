@@ -297,9 +297,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_user(void) {
     // Reset LED off
     rgblight_sethsv(HSV_BLACK);
-#    ifdef RGBLIGHT_EFFECT_TWINKLE
+#    if defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE)
     rgblight_sethsv(30, 50, 40);
+#        ifdef RGBLIGHT_EFFECT_KNIGHT
+    rgblight_mode(RGBLIGHT_MODE_KNIGHT);
+#        elif defined(RGBLIGHT_EFFECT_TWINKLE)
     rgblight_mode(RGBLIGHT_MODE_TWINKLE+3);
+#        endif
 #    endif
 };
 
@@ -390,9 +394,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MIDI_TONE_MIN ... MIDI_TONE_MAX:  // notes on the right side.
             keylight_manager(record, HSV_GOLDENROD, keylocation);
             keylight_manager(record, HSV_GOLDENROD, keylocation2);
-#    ifdef CONSOLE_ENABLE
-            uprintf("r=%d, c=%d, keyloc=%d, keyloc2=%d, matrix_col x r + c = %d\n", r, c, keylocation, keylocation2, MATRIX_COLS * r + c);
-#    endif
             break;
 
         // case KC_MUTE:
@@ -404,6 +405,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    uprintf("r=%d, c=%d, keyloc=%d, keyloc2=%d, matrix_col x r + c = %d\n", r, c, keylocation, keylocation2, MATRIX_COLS * r + c);
 #endif
     return true;
 }

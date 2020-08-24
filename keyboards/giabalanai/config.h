@@ -77,7 +77,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 
 #    define RGBLED_NUM 123
-// Do not define "RGBLED_SPLIT" since the # of LEDs on both sides are not equal.
+// Do not define "RGBLED_SPLIT" since somehow it doesn't work well yet.
+// Even thhough "#define RGBLED_SPLIT { 60, 63 }" was set, LEDs on the sub keyboad side didn't turn on.
+// Not sure but rgblight_sethsv_at() might not support RGBLED_SPLIT yet.
 // Instead, LED data is tranferred from right side to the left via TRRS cable.
 
 #    define RGBLIGHT_LIMIT_VAL 100
@@ -89,6 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // By default, LEDs of the buttons which are pressed turn on.
 // #    define RGBLIGHT_EFFECT_TWINKLE
+// #    define RGBLIGHT_EFFECT_KNIGHT
 
 
 // RGBLIGHT LED MAP
@@ -97,11 +100,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //     Right 2nd .. 5th row(13, 12, 13, 12 LEDs)
 //     Left 1st .. 5th row (12 LEDs x 5 rows)
 
- #define RGBLIGHT_LED_MAP { \
+#ifdef MASTER_LEFT
+#    define RGBLIGHT_LED_MAP { \
+   11,  10,  9,   8,   7,   6,   5,   4,   3,   2,   1,   0,  \
+   12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23, \
+   35,  34,  33,  32,  31,  30,  29,  28,  27,  26,  25,  24, \
+   36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
+   59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48, \
+   \
    60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71, \
    97,  \
    84,  83,  82,  81,  80,  79,  78,  77,  76,  75,  74,  73,  72, \
    85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,  96,  \
+   110, 109, 108, 107, 106, 105, 104, 103, 102, 101, 100, 99,  98, \
+   111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122 \
+   }
+#    endif
+#ifdef MASTER_RIGHT
+#    define RGBLIGHT_LED_MAP { \
+   60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71, \
+   97, \
+   84,  83,  82,  81,  80,  79,  78,  77,  76,  75,  74,  73,  72, \
+   85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,  96, \
    110, 109, 108, 107, 106, 105, 104, 103, 102, 101, 100, 99,  98, \
    111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, \
    \
@@ -109,8 +129,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23, \
    35,  34,  33,  32,  31,  30,  29,  28,  27,  26,  25,  24, \
    36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
-   59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48 \
+   59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48  \
    }
+#    endif
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
