@@ -1,3 +1,5 @@
+MCU_ORIG := $(MCU)
+
 ifneq ($(findstring MKL26Z64, $(MCU)),)
   # Cortex version
   MCU = cortex-m0plus
