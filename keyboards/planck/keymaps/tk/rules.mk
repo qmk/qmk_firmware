@@ -1,5 +1,7 @@
 SRC += muse.c
 
-COMMAND_ENABLE = no
+AUDIO_ENABLE = yes
 
 ENCODER_ENABLE = yes
+
+COMMAND_ENABLE = no
