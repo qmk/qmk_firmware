@@ -7,7 +7,7 @@ This is the 60% ANSI Arrow keyboard layout.
 
 A keyboard's `.h` file needs to have `LAYOUT_60_ansi_arrow` defined
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/tofu-60%25-keyboard/assets/dz60_layout_60_ansi_arrow.jpg)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/tofu_60_keyboard/assets/dz60_layout_60_ansi_arrow.jpg)
 
 ```c
 #define LAYOUT_60_ansi_arrow( \
