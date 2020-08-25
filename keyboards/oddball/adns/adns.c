@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "spi_master.h"
 #include "quantum.h"
 #include "adns9800_srom_A6.h"
-#include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
 #include "adns.h"
 
 // registers
@@ -66,32 +66,28 @@
 #define REG_SROM_Load_Burst                      0x62
 #define REG_Pixel_Burst                          0x64
 
-// pins
-#define NCS B0
+#define ADNS_SPI_MODE 3
+#define ADNS_SPI_DIVISOR 8
 
 extern const uint16_t firmware_length;
 extern const uint8_t firmware_data[];
 
-void adns_begin(void){
-    writePinLow(NCS);
-}
-
-void adns_end(void){
-    writePinHigh(NCS);
+void adns_spi_start(void){
+    spi_start(SPI_SS_PIN, false, ADNS_SPI_MODE, ADNS_SPI_DIVISOR);
 }
 
 void adns_write(uint8_t reg_addr, uint8_t data){
 
-    adns_begin();
+    adns_spi_start();
 
     //send address of the register, with MSBit = 1 to indicate it's a write
-    SPI_TransferByte(reg_addr | 0x80 );
-    SPI_TransferByte(data);
+    spi_write(reg_addr | 0x80 );
+    spi_write(data);
 
     // tSCLK-NCS for write operation
     wait_us(20);
 
-    adns_end();
+    spi_stop();
 
     // tSWW/tSWR (=120us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
     wait_us(100);
@@ -99,16 +95,16 @@ void adns_write(uint8_t reg_addr, uint8_t data){
 
 uint8_t adns_read(uint8_t reg_addr){
 
-    adns_begin();
+    adns_spi_start();
 
     // send adress of the register, with MSBit = 0 to indicate it's a read
-    SPI_TransferByte(reg_addr & 0x7f );
-    uint8_t data = SPI_TransferByte(0);
+    spi_write(reg_addr & 0x7f );
+    uint8_t data = spi_read();
 
     // tSCLK-NCS for read operation is 120ns
     wait_us(1);
 
-    adns_end();
+    spi_stop();
 
     //  tSRW/tSRR (=20us) minus tSCLK-NCS
     wait_us(19);
@@ -118,20 +114,9 @@ uint8_t adns_read(uint8_t reg_addr){
 
 void adns_init() {
 
-    // mode 3
-    SPI_Init(
-        SPI_SPEED_FCPU_DIV_8 |
-        SPI_ORDER_MSB_FIRST |
-        SPI_SCK_LEAD_FALLING |
-        SPI_SAMPLE_TRAILING |
-        SPI_MODE_MASTER);
+    setPinOutput(SPI_SS_PIN);
 
-    setPinOutput(NCS);
-
-    // reset serial port
-    adns_end();
-    adns_begin();
-    adns_end();
+    spi_init();
 
     // reboot
     adns_write(REG_Power_Up_Reset, 0x5a);
@@ -161,21 +146,21 @@ void adns_init() {
     adns_write(REG_SROM_Enable, 0x18);
 
     // write the SROM file (=firmware data)
-    adns_begin();
+    adns_spi_start();
 
     // write burst destination adress
-    SPI_TransferByte(REG_SROM_Load_Burst | 0x80);
+    spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
 
     // send all bytes of the firmware
     unsigned char c;
     for(int i = 0; i < firmware_length; i++){
         c = (unsigned char)pgm_read_byte(firmware_data + i);
-        SPI_TransferByte(c);
+        spi_write(c);
         wait_us(15);
     }
 
-    adns_end();
+    spi_stop();
 
     wait_ms(10);
 
@@ -216,30 +201,30 @@ report_adns_t adns_get_report(void) {
 
     report_adns_t report = {0, 0};
 
-    adns_begin();
+    adns_spi_start();
 
     // start burst mode
-    SPI_TransferByte(REG_Motion_Burst & 0x7f);
+    spi_write(REG_Motion_Burst & 0x7f);
 
     // motion register
-    uint8_t motion = SPI_TransferByte(0);
+    uint8_t motion = spi_read();
 
     if(motion & 0x80) {
 
         // clear observation register
-        SPI_TransferByte(0);
+        spi_read();
 
         // delta registers
-        uint8_t delta_x_l = SPI_TransferByte(0);
-        uint8_t delta_x_h = SPI_TransferByte(0);
-        uint8_t delta_y_l = SPI_TransferByte(0);
-        uint8_t delta_y_h = SPI_TransferByte(0);
+        uint8_t delta_x_l = spi_read();
+        uint8_t delta_x_h = spi_read();
+        uint8_t delta_y_l = spi_read();
+        uint8_t delta_y_h = spi_read();
 
         report.x = convertDeltaToInt(delta_x_h, delta_x_l);
         report.y = convertDeltaToInt(delta_y_h, delta_y_l);
     }
 
-    adns_end();
+    spi_stop();
 
     return report;
 }

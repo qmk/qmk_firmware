@@ -37,3 +37,4 @@ SPLIT_KEYBOARD = yes
 # Add trackball support
 POINTING_DEVICE_ENABLE = yes
 SRC += adns/adns.c
+SRC += spi_master.c
