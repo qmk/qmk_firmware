@@ -77,7 +77,6 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // [TD_GRV_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_ESC),
     [TD_Y_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_LBRC),
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_LBRC_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
@@ -85,22 +84,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 #define ESC_NUM TD(TD_ESC_NUM)
-// #define ESC_NUM LT(_NUM, KC_ESC)
-// #define GRV_ESC TD(TD_GRV_ESC)
 #define Y_LBRC  TD(TD_Y_LBRC)
 #define S_CAP   TD(TD_LSFT_CAPS)
 #define L_R_BRC TD(TD_LBRC_RBRC)
-//#define TG_NUM  TT(_NUM)
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
 #define SP_ADJ  LT(_ADJUST, KC_SPC)
 #define SP_GUI  MT(MOD_LGUI, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-// #define ZERO_NR LT(_NUM_RAISE, KC_P0)
 #define S_SLS   RSFT_T(KC_SLSH)
 #define C_SCLN  RCTL_T(KC_SCLN)
-// #define RAI_OP  LALT_T(IME_US)
 #define C_E     LCTL(KC_E)
 #define C_A     LCTL(KC_A)
 
@@ -170,14 +164,6 @@ static uint16_t alt_jp_pressed_time = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 switch (keycode) {
-    // case TG_NUM:
-    //   if (record->event.pressed) {
-    //     if (IS_LAYER_ON(_NUM)) {
-    //     } else {
-    //     }
-    //   }
-    //   return true;
-    //   break;
     case MAC: // Write default layer to EEPROM
         if (record->event.pressed) {
             set_single_persistent_default_layer(_MAC);
@@ -391,7 +377,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    // TODO change color when CAPS Lock is enebled
     rgblight_set_layer_state(0, layer_state_cmp(state, _MAC));
     rgblight_set_layer_state(1, layer_state_cmp(state, _WIN));
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
