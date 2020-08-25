@@ -35,12 +35,6 @@ enum layer_names {
 #define LOCK LGUI(KC_L)
 #define MAC_LCK LGUI(LCTL(KC_Q))
 
-#define MODS_SHIFT (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-#define MODS_ALT (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-#define MODS_GUI (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
-#define MODS_ANY (MODS_CTRL|MODS_ALT|MODS_GUI)
-
 #define LAYER MO(_LAYER)
 #define FUNCT MO(_FUNCT)
 
@@ -100,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keyboard_report->mods & MODS_ANY) {
+    if (get_mods() & MOD_MASK_CAG) {
         if (record->event.pressed) {
             layer_on(_MOD_LAYER);
         } else {
@@ -109,8 +103,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (record->event.pressed) {
-        if (keycode == KC_BSPC && keyboard_report->mods & MODS_ALT) {
-            SEND_STRING(SS_TAP(X_DELETE));
+        if (keycode == KC_BSPC && (get_mods() & MOD_MASK_ALT)) {
+            tap_code(KC_DEL);
             return false;
         }
     }
