@@ -304,6 +304,12 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
         SRC += ws2812.c
     else
         SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+
+        ifeq ($(strip $(PLATFORM)), CHIBIOS)
+            ifeq ($(strip $(WS2812_DRIVER)), pwm)
+                OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
+            endif
+        endif
     endif
 
     # add extra deps
