@@ -336,7 +336,9 @@ void rgblight_increase_val_noeeprom(void);
 void rgblight_decrease_val(void);
 void rgblight_decrease_val_noeeprom(void);
 void rgblight_increase_speed(void);
+void rgblight_increase_speed_noeeprom(void);
 void rgblight_decrease_speed(void);
+void rgblight_decrease_speed_noeeprom(void);
 void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 
