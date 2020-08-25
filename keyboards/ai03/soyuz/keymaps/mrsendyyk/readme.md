@@ -2,7 +2,7 @@
 
 `LAYOUT_numpad_5x4`
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz_numpad/assets/ai03_soyuz_mrsendyyk.jpg)
+![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/ai03_soyuz_numpad/assets/ai03_soyuz_mrsendyyk.jpg)
 
 ## Build The Firmware
 
