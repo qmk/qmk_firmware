@@ -61,8 +61,9 @@ enum tap_dances{
 // for toggle layer by ESC
 enum {
     SINGLE_TAP = 1,
-    SINGLE_HOLD,
-    TRIPLE_TAP
+    DOUBLE_TAP,
+    TRIPLE_TAP,
+    TAP_HOLD,
 };
 
 // Declare the functions to be used with your tap dance key(s)
@@ -426,9 +427,12 @@ typedef struct {
 
 // Determine the current tap dance state
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count < 3) {
+    if (state->count == 1) {
         if (!state->pressed) return SINGLE_TAP;
-        else return SINGLE_HOLD;
+        else return TAP_HOLD;
+    } else if (state->count == 2) {
+        if (!state->pressed) return DOUBLE_TAP;
+        else return TAP_HOLD;
     } else if (state->count == 3) return TRIPLE_TAP;
     else return 8;
 }
