@@ -81,8 +81,8 @@ STM32 MCUs allows a variety of pins to be configured as I2C pins depending on th
 |--------------------------|----------------------------------------------------------------------------------------------|---------|
 | `I2C1_SCL_BANK`          | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SCL                                  | `GPIOB` |
 | `I2C1_SDA_BANK`          | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SDA                                  | `GPIOB` |
-| `I2C1_SCL`               | The pin number for the SCL pin (0-9)                                                         | `6`     |
-| `I2C1_SDA`               | The pin number for the SDA pin (0-9)                                                         | `7`     |
+| `I2C1_SCL`               | The pin number for the SCL pin (0-15)                                                        | `6`     |
+| `I2C1_SDA`               | The pin number for the SDA pin (0-15)                                                        | `7`     |
 | `I2C1_BANK` (deprecated) | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`), superceded by `I2C1_SCL_BANK`, `I2C1_SDA_BANK` | `GPIOB` |
 
 The ChibiOS I2C driver configuration depends on STM32 MCU:
