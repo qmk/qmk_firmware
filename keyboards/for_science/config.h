@@ -18,11 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0001
+#define PRODUCT_ID      0xF22C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Peej
 #define PRODUCT         For Science
-#define DESCRIPTION     A 100x100mm 5x4+3 split keyboard
 
 /* key matrix size */
 // Rows are doubled-up
