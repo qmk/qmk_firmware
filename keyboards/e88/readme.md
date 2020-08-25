@@ -2,6 +2,8 @@
 
 ![pink labs logo](https://cdn.shopify.com/s/files/1/0302/4198/0548/files/logo_x60.png?v=1579122787)
 
+A tenkeyless PCB featuring the DK Saver layout, as designed for the Bliss keyboard by Pink Labs.
+
 * Maintainer: [elli](https://github.com/2-n)
 * Hardware Supported: e88 f13 PCB (proto and final rev)
 * Hardware Availability: [labs.pink](http://www.labs.pink/)
