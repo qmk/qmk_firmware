@@ -371,10 +371,8 @@ Use these to enable or disable building certain features. The more you have enab
   * MIDI controls
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH_ENABLE`
-  * Legacy option to Enable Bluetooth with the Adafruit EZ-Key HID. See BLUETOOTH
 * `BLUETOOTH`
-  * Current options are AdafruitEzKey, AdafruitBLE, RN42
+  * Current options are AdafruitBLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`
