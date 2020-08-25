@@ -2,11 +2,7 @@
 
 The keyboard can be made to be recognized as a joystick HID device by the operating system.
 
-This is enabled by adding the following to `rules.mk`:
-
-```makefile
-JOYSTICK_ENABLE = yes
-```
+This is enabled by adding `JOYSTICK_ENABLE` to `rules.mk`. You can set this value to `analog`, `digital`, or `no`.
 
 !> Joystick support is not currently available on V-USB devices.
 
@@ -22,7 +18,7 @@ or send gamepad reports based on values computed by the keyboard.
 To use analog input you must first enable it in `rules.mk`:
 
 ```makefile
-ANALOG_JOYSTICK_ENABLE = yes
+JOYSTICK_ENABLE = analog
 ```
 
 An analog device such as a potentiometer found on a gamepad's analog axes is based on a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
