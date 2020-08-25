@@ -14,7 +14,7 @@ enum layers {
 #define RALTDEL RALT_T(KC_DEL)
 
 static bool is_ctl_pressed;
-static bool is_tab_pressed;
+static bool is_esc_pressed;
 static bool is_bspc_pressed;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -90,8 +90,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LCTL:
       is_ctl_pressed = record->event.pressed;
       break;
-    case KC_TAB:
-      is_tab_pressed = record->event.pressed;
+    case KC_ESC:
+      is_esc_pressed = record->event.pressed;
       break;
     case KC_BSPC:
       is_bspc_pressed = record->event.pressed;
@@ -101,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
-  if (is_ctl_pressed && is_tab_pressed && is_bspc_pressed) {
+  if (is_ctl_pressed && is_esc_pressed && is_bspc_pressed) {
     reset_keyboard();
   }
 }
