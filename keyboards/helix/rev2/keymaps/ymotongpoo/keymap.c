@@ -31,25 +31,29 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
-  BACKLIT,
-  EISU,
-  KANA,
-  RGBRST
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    ADJUST,
+    BACKLIT,
+    RGBRST,
+    OSMODE,
+    COPY,
+    CUT,
+    PASTE
 };
 
 enum macro_keycodes {
-  KC_SAMPLEMACRO,
+    KC_SAMPLEMACRO,
+};
+
+enum os_mode {
+    _WIN = 0,
+    _MAC
 };
 
 //Macros
-#define M_SAMPLE M(KC_SAMPLEMACRO)
-#define _COPY    LCTL(KC_C)
-#define _PASTE   LCTL(KC_V)
-
+#define M_SAMPLE    M(KC_SAMPLEMACRO)
 
 #if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI, KC_LGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
    //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      ADJUST,  _PASTE,  _COPY,   KC_LALT, RAISE,   LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
+      ADJUST,  PASTE,   COPY,    KC_LALT, RAISE,   LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
       ),
 
   // Lower
@@ -78,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
       _______, _______, _______, _______, _______, _______,                   KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TILD,\
   //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      _______, _______, _______, _______, _______, _______, _______, KC_GRV,  KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,\
+      _______, CUT,     COPY,    PASTE,   _______, _______, _______, KC_GRV,  KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,\
   //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
       ),
@@ -132,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
    //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      ADJUST,  _PASTE,  KC_LALT, KC_LGUI, RAISE,   LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
+      ADJUST,  PASTE,   COPY,    KC_LGUI, KC_LALT, RAISE,   LOWER,   KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
       ),
 
   [_LOWER] = LAYOUT( \
@@ -143,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_GRV, \
   //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+      _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
       ),
 
   // Raise
@@ -153,9 +157,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
       _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, CUT,     COPY,    PASTE,   _______,                   _______, _______, _______, _______, _______, _______, \
   //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+      _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
       ),
 
   // Adjust (Lower + Raise)
@@ -163,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
        _______, RESET,   RGBRST,  _______, _______, _______,                   _______, _______, _______, _______, _______, KC_DEL, \
     //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-       _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, _______, _______, _______, _______, _______, \
+       _______, _______, OSMODE,  AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, _______, _______, _______, _______, _______, \
     //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
        _______, _______, _______, _______, _______, _______,                   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
     //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
@@ -188,40 +192,38 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 bool TOG_STATUS = false;
 int RGB_current_mode;
 
-
-// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
 const rgblight_segment_t PROGMEM rgb_default_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_GREEN},
+    {0, 1, HSV_GREEN}, // left
     {6, 1, HSV_GREEN},
     {12, 1, HSV_GREEN},
-    {18, 4, HSV_GREEN},
-    {22, 2, HSV_CHARTREUSE},
-    {24, 1, HSV_PURPLE},
+    {18, 5, HSV_GREEN},
+    {23, 2, HSV_CHARTREUSE},
 
-    {25, 1, HSV_GREEN},
+    {25, 1, HSV_GREEN}, // right
     {31, 1, HSV_GREEN},
     {37, 1, HSV_GREEN},
-    {43, 4, HSV_WHITE},
+    {43, 1, HSV_CHARTREUSE},
+    {44, 4, HSV_WHITE},
     {48, 2, HSV_PURPLE}
 );
 
-// Light LEDs 11 & 12 in purple when keyboard layer 2 is active
 const rgblight_segment_t PROGMEM rgb_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 5, HSV_PINK},
+    {1, 5, HSV_PINK}, // left
     {6, 12, HSV_CORAL},
 
-    {26, 5, HSV_PINK},
+    {26, 5, HSV_PINK}, // right
     {31, 12, HSV_AZURE},
-    {43, 4, HSV_BLUE}
+    {43, 6, HSV_BLUE}
 );
 
 const rgblight_segment_t PROGMEM rgb_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 5, HSV_CORAL},
+    {1, 5, HSV_CORAL}, // left
     {7, 4, HSV_WHITE},
+    {14, 3, HSV_PINK},
 
-    {26, 5, HSV_CORAL},
-    {32, 4, HSV_WHITE},
-    {43, 4, HSV_BLUE}
+    {26, 5, HSV_CORAL}, // right
+    {33, 4, HSV_WHITE},
+    {43, 6, HSV_BLUE}
 );
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -260,6 +262,30 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   } else {
     layer_off(layer3);
   }
+}
+
+int OS_current_mode = _WIN;
+
+void os_shortcut(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (OS_current_mode == _WIN) {
+            tap_code16(LCTL(keycode));
+        } else {
+            tap_code16(LGUI(keycode));
+        }
+    }
+}
+
+void send_copy_key(keyrecord_t *record) {
+    os_shortcut(KC_C, record);
+}
+
+void send_cut_key(keyrecord_t *record) {
+    os_shortcut(KC_X, record);
+}
+
+void send_paste_key(keyrecord_t *record) {
+    os_shortcut(KC_V, record);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -338,30 +364,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       return false;
       break;
-    case EISU:
-      if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
-        }else{
-          SEND_STRING(SS_LALT("`"));
-        }
-      } else {
-        unregister_code(KC_LANG2);
-      }
-      return false;
-      break;
-    case KANA:
-      if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
-        }else{
-          SEND_STRING(SS_LALT("`"));
-        }
-      } else {
-        unregister_code(KC_LANG1);
-      }
-      return false;
-      break;
     case RGBRST:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
@@ -371,6 +373,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
+    case OSMODE:
+        if (record->event.pressed) {
+            if (OS_current_mode == _WIN) {
+                OS_current_mode = _MAC;
+            } else {
+                OS_current_mode = _WIN;
+            }
+        }
+        return false;
+        break;
+    case COPY:
+        send_copy_key(record);
+        break;
+    case CUT:
+        send_cut_key(record);
+        break;
+    case PASTE:
+        send_paste_key(record);
+        break;
   }
   return true;
 }
