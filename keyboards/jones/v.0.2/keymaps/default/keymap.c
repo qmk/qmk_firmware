@@ -150,9 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
-            _______,_______,DF(_WIN),_______,RESET, _______,_______,_______,_______,_______,_______,_______,_______,_______, \
+            _______,_______,WIN,    _______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______, \
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,RGB_M_P,RGB_TOG,RGB_MOD,_______, \
-    _______,_______,_______,_______,_______,_______,_______,_______,_______,TG(_NUM),DF(_MAC),_______,_______,_______,_______, \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,TG(_NUM),MAC,    _______,_______,_______,_______, \
             _______,_______,_______,_______,_______,        _______,         _______,_______,_______,_______,_______,_______  \
     )
 };
@@ -178,6 +178,18 @@ switch (keycode) {
     //   }
     //   return true;
     //   break;
+    case MAC: // Write default layer to EEPROM
+        if (record->event.pressed) {
+            set_single_persistent_default_layer(_MAC);
+        }
+        return false;
+        break;
+    case WIN: // Write default layer to EEPROM
+        if (record->event.pressed) {
+            set_single_persistent_default_layer(_WIN);
+        }
+        return false;
+        break;
     case LOWER:
         if (record->event.pressed) {
             lower_pressed = true;
