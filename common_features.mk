@@ -540,5 +540,9 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     OPT_DEFS += -DJOYSTICK_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
+endif
+
+ifeq ($(strip $(ANALOG_JOYSTICK_ENABLE)), yes)
+    OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
     SRC += analog.c
 endif

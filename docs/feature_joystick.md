@@ -19,6 +19,12 @@ or send gamepad reports based on values computed by the keyboard.
 
 ### Analog Input
 
+To use analog input you must first enable it in `rules.mk`:
+
+```makefile
+ANALOG_JOYSTICK_ENABLE = yes
+```
+
 An analog device such as a potentiometer found on a gamepad's analog axes is based on a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
 It is composed of three connectors linked to the ground, the power input and power output (usually the middle one). The power output holds the voltage that varies based on the position of the cursor,
 which value will be read using your MCU's [ADC](https://en.wikipedia.org/wiki/Analog-to-digital_converter).
@@ -75,7 +81,7 @@ You assign a value by writing to `joystick_status.axes[axis_index]` a signed 8-b
 The following example writes two axes based on keypad presses, with `KC_P5` as a precision modifier:
 
 ```c
-#ifdef JOYSTICK_ENABLE
+#ifdef ANALOG_JOYSTICK_ENABLE
 static uint8_t precision_val = 70;
 static uint8_t axesFlags = 0;
 enum axes {
@@ -89,7 +95,7 @@ enum axes {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-#ifdef JOYSTICK_ENABLE
+#ifdef ANALOG_JOYSTICK_ENABLE
         // virtual joystick
 #    if JOYSTICK_AXES_COUNT > 1
         case KC_P8:
