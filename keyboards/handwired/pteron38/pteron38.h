@@ -2,7 +2,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_split_3x5_4( \
     K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, \
     K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, \
     K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, \

@@ -1,11 +1,11 @@
 {
-  "keyboard_name": "pteron",
+  "keyboard_name": "pteron38",
   "url": "",
-  "maintainer": "FSund",
+  "maintainer": "fidelcoria",
   "width": 17,
   "height": 5.95,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_split_3x5_4": {
       "layout": [
         {"label":"K101", "x":1, "y":1.75},
         {"label":"K102", "x":2, "y":1.25},

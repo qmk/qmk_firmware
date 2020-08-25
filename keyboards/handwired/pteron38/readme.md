@@ -1,6 +1,6 @@
 # Pteron38
 
-![Pteron38](https://i.imgur.com/75030ba.jpg)
+![Pteron38](https://i.imgur.com/75030bal.jpg)
 
 An ergonomic keyboard heavily inspired by the [Atreus](https://github.com/technomancy/atreus), [Iris](https://github.com/keebio/iris-case) and [Atreis](https://github.com/dekonnection/atreis) keyboards. More info and files for laser cutting plates and case are in the [Pteron repository](https://github.com/FSund/pteron-keyboard).
 
