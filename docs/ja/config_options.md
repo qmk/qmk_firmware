@@ -369,10 +369,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * MIDI 制御
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH_ENABLE`
-  * Adafruit EZ-Key HID で Bluetooth を有効にするレガシーオプション。BLUETOOTH を見てください
 * `BLUETOOTH`
-  * 現在のオプションは、AdafruitEzKey、AdafruitBLE、RN42
+  * 現在のオプションは、AdafruitBLE、RN42
 * `SPLIT_KEYBOARD`
   * 分割キーボード (let's split や bakingpy のキーボードのようなデュアル MCU) のサポートを有効にし、quantum/split_common にある全ての必要なファイルをインクルードします
 * `CUSTOM_MATRIX`
