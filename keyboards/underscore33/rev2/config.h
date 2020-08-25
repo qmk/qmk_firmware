@@ -19,7 +19,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x7431
-#define PRODUCT_ID 0x0002
+#define PRODUCT_ID 0x3302 // _33 rev2
 #define DEVICE_VER 0x0002
 #define MANUFACTURER tominabox1
 #define PRODUCT underscore33
