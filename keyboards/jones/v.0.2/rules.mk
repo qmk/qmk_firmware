@@ -9,7 +9,6 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-#BOOTLOADER = caterina
 BOOTLOADER = atmel-dfu
 
 # Build Options

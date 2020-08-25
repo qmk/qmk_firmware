@@ -1,12 +1,13 @@
-# jones
+# Jones
 
-![jones](https://github.com/jpskenn/Jones/blob/master/assets/IMG_1546.jpeg)
+![Jones](https://github.com/jpskenn/Jones/raw/master/assets/IMG_1546.jpeg)
 
-A short description of the keyboard/project
+[Jones](https://github.com/jpskenn/Jones) is a Row-staggered 60% keyboard with gapless R2-R3 row.  
+GH60 case compatible PCB and keyplate.
 
 * Keyboard Maintainer: [Takeshi Nishio](https://github.com/jpskenn)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Hardware Supported: Jones PCB
+* Hardware Availability: [PCB & Keyplate](https://github.com/jpskenn/Jones)
 
 Make example for this keyboard (after setting up your build environment):
 

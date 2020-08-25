@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
+#define PRODUCT_ID 0x175A
 #define DEVICE_VER 0x0001
-#define MANUFACTURER Takeshi Nishio
-#define PRODUCT jones
-#define DESCRIPTION A custom keyboard
+#define MANUFACTURER jpskenn
+#define PRODUCT Jones
+#define DESCRIPTION Row-staggered 60% keyboard with gapless R2-R3 row.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_HUE_STEP 10
   #define RGBLIGHT_SAT_STEP 17
   #define RGBLIGHT_VAL_STEP 17
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+  #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== Lighting Layers ==*/
 #define RGBLIGHT_LAYERS
