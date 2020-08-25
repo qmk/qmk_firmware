@@ -2,8 +2,6 @@
 
 `LAYOUT_numpad_5x4`
 
-### Default Layer [0]
-
 ![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz_numpad/assets/ai03_soyuz_keymap.jpg)
 
 ## Build The Firmware
