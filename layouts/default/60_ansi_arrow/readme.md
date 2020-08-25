@@ -1,5 +1,5 @@
 # 60_ansi_arrow
-`LAYOUT_60_ansi_arrow`
+`LAYOUT_60_ansi_arrow` with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer indicator.
 
 ### Default Layer [0]
 
