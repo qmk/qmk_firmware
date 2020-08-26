@@ -18,24 +18,11 @@
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
+//#define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define USE_SERIAL_PD2
+//#define USE_SERIAL
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 180
-
-// Selection of RGBLIGHT MODE to use.
-#if defined(LED_ANIMATIONS)
-   //#define RGBLIGHT_EFFECT_BREATHING
-   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-   //#define RGBLIGHT_EFFECT_SNAKE
-   #define RGBLIGHT_EFFECT_KNIGHT
-   //#define RGBLIGHT_EFFECT_CHRISTMAS
-   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-   //#define RGBLIGHT_EFFECT_RGB_TEST
-   //#define RGBLIGHT_EFFECT_ALTERNATING
-#endif

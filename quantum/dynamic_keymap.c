@@ -20,28 +20,53 @@
 #include "progmem.h"  // to read default from flash
 #include "quantum.h"  // for send_string()
 #include "dynamic_keymap.h"
+#include "via.h"  // for default VIA_EEPROM_ADDR_END
 
-#ifdef DYNAMIC_KEYMAP_ENABLE
+#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#endif
 
-#    ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
+#ifndef DYNAMIC_KEYMAP_MACRO_COUNT
+#    define DYNAMIC_KEYMAP_MACRO_COUNT 16
+#endif
+
+// This is the default EEPROM max address to use for dynamic keymaps.
+// The default is the ATmega32u4 EEPROM max address.
+// Explicitly override it if the keyboard uses a microcontroller with
+// more EEPROM *and* it makes sense to increase it.
+#ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
+#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
+#endif
+
+// If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
+// default it start after VIA_EEPROM_CUSTOM_ADDR+VIA_EEPROM_CUSTOM_SIZE
+#ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
+#    ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
+#        define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+#    else
 #        error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
 #    endif
+#endif
 
-#    ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#        error DYNAMIC_KEYMAP_LAYER_COUNT not defined
-#    endif
+// Dynamic macro starts after dynamic keymaps
+#ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
+#endif
 
-#    ifndef DYNAMIC_KEYMAP_MACRO_COUNT
-#        error DYNAMIC_KEYMAP_MACRO_COUNT not defined
-#    endif
+// Sanity check that dynamic keymaps fit in available EEPROM
+// If there's not 100 bytes available for macros, then something is wrong.
+// The keyboard should override DYNAMIC_KEYMAP_LAYER_COUNT to reduce it,
+// or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
+// more than the default.
+#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR < 100
+#    error Dynamic keymaps are configured to use more EEPROM than is available.
+#endif
 
-#    ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#        error DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR not defined
-#    endif
-
-#    ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE
-#        error DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE not defined
-#    endif
+// Dynamic macros are stored after the keymaps and use what is available
+// up to and including DYNAMIC_KEYMAP_EEPROM_MAX_ADDR.
+#ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + 1)
+#endif
 
 uint8_t dynamic_keymap_get_layer_count(void) { return DYNAMIC_KEYMAP_LAYER_COUNT; }
 
@@ -185,9 +210,9 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++p;
     }
 
-    // Send the macro string one or two chars at a time
-    // by making temporary 1 or 2 char strings
-    char data[3] = {0, 0, 0};
+    // Send the macro string one or three chars at a time
+    // by making temporary 1 or 3 char strings
+    char data[4] = {0, 0, 0, 0};
     // We already checked there was a null at the end of
     // the buffer, so this cannot go past the end
     while (1) {
@@ -198,15 +223,15 @@ void dynamic_keymap_macro_send(uint8_t id) {
             break;
         }
         // If the char is magic (tap, down, up),
-        // add the next char (key to use) and send a 2 char string.
+        // add the next char (key to use) and send a 3 char string.
         if (data[0] == SS_TAP_CODE || data[0] == SS_DOWN_CODE || data[0] == SS_UP_CODE) {
-            data[1] = eeprom_read_byte(p++);
-            if (data[1] == 0) {
+            data[1] = data[0];
+            data[0] = SS_QMK_PREFIX;
+            data[2] = eeprom_read_byte(p++);
+            if (data[2] == 0) {
                 break;
             }
         }
         send_string(data);
     }
 }
-
-#endif  // DYNAMIC_KEYMAP_ENABLE

@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef FULLHAND_ENABLE
   #define FULLHAND_LEDS 24
+#elif SF_ENABLE
+  #define FULLHAND_LEDS 38
 #else
   #define FULLHAND_LEDS 0
 #endif

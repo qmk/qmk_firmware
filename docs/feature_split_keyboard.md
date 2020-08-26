@@ -8,8 +8,19 @@ QMK Firmware has a generic implementation that is usable by any board, as well a
 
 For this, we will mostly be talking about the generic implementation used by the Let's Split and other keyboards. 
 
-!> ARM is not yet supported for Split Keyboards.  Progress is being made, but we are not quite there, yet. 
+!> ARM is not yet fully supported for Split Keyboards and has many limitations. Progress is being made, but we have not yet reached 100% feature parity.
 
+
+## Compatibility Overview
+
+| Transport                    | AVR                | ARM                |
+|------------------------------|--------------------|--------------------|
+| ['serial'](serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
+| I2C                          | :heavy_check_mark: |                    |
+
+Notes:
+
+1. Both hardware and software limitations are detailed within the [driver documentation](serial_driver.md).
 
 ## Hardware Configuration
 
@@ -47,7 +58,7 @@ The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0 (aka PDO or p
 
 The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0/pin 3 and PD1/pin 2, respectively) between the two Pro Micros. 
 
-The pull-up resistors may be placed on either half. It is also possible to use 4 resistors and have the pull-ups in both halves, but this is unnecessary in simple use cases.
+The pull-up resistors may be placed on either half. If you wish to use the halves independently, it is also possible to use 4 resistors and have the pull-ups in both halves.
 
 ![I2C wiring](https://i.imgur.com/Hbzhc6E.png)
 
@@ -78,6 +89,24 @@ You can configure the firmware to read a pin on the controller to determine hand
 ```
 
 This will read the specified pin. If it's high, then the controller assumes it is the left hand, and if it's low, it's assumed to be the right side. 
+
+#### Handedness by Matrix Pin
+
+You can configure the firmware to read key matrix pins on the controller to determine handedness.  To do this, add the following to your `config.h` file:
+
+```c
+#define SPLIT_HAND_MATRIX_GRID D0, F1
+```
+
+The first pin is the output pin and the second is the input pin.
+
+Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handness.
+
+Normally, when a diode is connected to an intersection, it is judged to be left. If you add the following definition, it will be judged to be right.
+
+```c
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+```
 
 #### Handedness by EEPROM
 
@@ -198,9 +227,14 @@ This option changes the startup behavior to detect an active USB connection when
 ?> This setting will stop the ability to demo using battery packs.
 
 ```c
-#define SPLIT_USB_TIMEOUT 2500
+#define SPLIT_USB_TIMEOUT 2000
 ```
 This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`.
+
+```c
+#define SPLIT_USB_TIMEOUT_POLL 10
+```
+This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
 ## Additional Resources
 

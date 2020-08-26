@@ -4,51 +4,45 @@ QMK supports temporary macros created on the fly. We call these Dynamic Macros. 
 
 You can store one or two macros and they may have a combined total of 128 keypresses. You can increase this size at the cost of RAM.
 
-To enable them, first add a new element to the end of your `keycodes` enum — `DYNAMIC_MACRO_RANGE`:
+To enable them, first include `DYNAMIC_MACRO_ENABLE = yes` in your `rules.mk`. Then, add the following keys to your keymap:
 
-```c
-enum keycodes {
-	QWERTY = SAFE_RANGE,
-	COLEMAK,
-	DVORAK,
-	PLOVER,
-	LOWER,
-	RAISE,
-	BACKLIT,
-	EXT_PLV,
-	DYNAMIC_MACRO_RANGE,
-};
-```
+|Key               |Alias     |Description                                        |
+|------------------|----------|---------------------------------------------------|
+|`DYN_REC_START1`  |`DM_REC1` |Start recording Macro 1                            |
+|`DYN_REC_START2`  |`DM_REC2` |Start recording Macro 2                            |
+|`DYN_MACRO_PLAY1` |`DM_PLY1` |Replay Macro 1                                     |
+|`DYN_MACRO_PLAY2` |`DM_PLY2` |Replay Macro 2                                     |
+|`DYN_REC_STOP`    |`DM_RSTP` |Finish the macro that is currently being recorded. |
 
-Your `keycodes` enum may have a slightly different name. You must add `DYNAMIC_MACRO_RANGE` as the last element because `dynamic_macros.h` will add some more keycodes after it.
+That should be everything necessary. 
 
-Below it, include the `dynamic_macro.h` header:
+To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. 
 
-```c
-	#include "dynamic_macro.h"`
-```
+To finish the recording, press the `DYN_REC_STOP` layer button. You can also press `DYN_REC_START1` or `DYN_REC_START2` again to stop the recording.
 
-Add the following keys to your keymap:
+To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
 
-* `DYN_REC_START1` — start recording the macro 1,
-* `DYN_REC_START2` — start recording the macro 2,
-* `DYN_MACRO_PLAY1` — replay the macro 1,
-* `DYN_MACRO_PLAY2` — replay the macro 2,
-* `DYN_REC_STOP` — finish the macro that is currently being recorded.
+It is possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.  You can disable this completely by defining `DYNAMIC_MACRO_NO_NESTING`  in your `config.h` file.
 
-Add the following code to the very beginning of your `process_record_user()` function:
+?> For the details about the internals of the dynamic macros, please read the comments in the `process_dynamic_macro.h` and `process_dynamic_macro.c` files.
 
-```c
-	if (!process_record_dynamic_macro(keycode, record)) {
-		return false;
-	}
-```
+## Customization 
 
-That should be everything necessary. To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. To finish the recording, press the `DYN_REC_STOP` layer button. To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
+There are a number of options added that should allow some additional degree of customization
 
-Note that it's possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.
+|Define                      |Default         |Description                                                                                                      |
+|----------------------------|----------------|-----------------------------------------------------------------------------------------------------------------|
+|`DYNAMIC_MACRO_SIZE`        |128             |Sets the amount of memory that Dynamic Macros can use. This is a limited resource, dependent on the controller.  |
+|`DYNAMIC_MACRO_USER_CALL`   |*Not defined*   |Defining this falls back to using the user `keymap.c` file to trigger the macro behavior.                        |
+|`DYNAMIC_MACRO_NO_NESTING`  |*Not Defined*   |Defining this disables the ability to call a macro from another macro (nested macros).                           | 
 
-For users of the earlier versions of dynamic macros: It is still possible to finish the macro recording using just the layer modifier used to access the dynamic macro keys, without a dedicated `DYN_REC_STOP` key. If you want this behavior back, use the following snippet instead of the one above:
+
+If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by adding the `DYNAMIC_MACRO_SIZE` define in your `config.h` (default value: 128; please read the comments for it in the header).
+
+
+### DYNAMIC_MACRO_USER_CALL
+
+For users of the earlier versions of dynamic macros: It is still possible to finish the macro recording using just the layer modifier used to access the dynamic macro keys, without a dedicated `DYN_REC_STOP` key. If you want this behavior back, add `#define DYNAMIC_MACRO_USER_CALL` to your `config.h` and insert the following snippet at the beginning of your `process_record_user()` function:
 
 ```c
 	uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
@@ -58,6 +52,15 @@ For users of the earlier versions of dynamic macros: It is still possible to fin
 	}
 ```
 
-If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 128; please read the comments for it in the header).
+### User Hooks
 
-For the details about the internals of the dynamic macros, please read the comments in the `dynamic_macro.h` header.
+There are a number of hooks that you can use to add custom functionality and feedback options to Dynamic Macro feature.  This allows for some additional degree of customization. 
+
+Note, that direction indicates which macro it is, with `1` being Macro 1, `-1` being Macro 2, and 0 being no macro. 
+
+* `dynamic_macro_record_start_user(void)` - Triggered when you start recording a macro.
+* `dynamic_macro_play_user(int8_t direction)` - Triggered when you play back a macro.
+* `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record)` - Triggered on each keypress while recording a macro.
+* `dynamic_macro_record_end_user(int8_t direction)` - Triggered when the macro recording is stopped. 
+
+Additionally, you can call `dynamic_macro_led_blink()` to flash the backlights if that feature is enabled. 

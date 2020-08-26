@@ -16,75 +16,22 @@
 
 #include "exent.h"
 
-#ifdef RGBLIGHT_ENABLE
-
-#    include <string.h>
-#    include "i2c_master.h"
-#    include "rgblight.h"
-
-extern rgblight_config_t rgblight_config;
-
-void matrix_init_kb(void) {
-    i2c_init();
-    // call user level keymaps, if any
-    matrix_init_user();
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
 }
 
-// custom RGB driver
-void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        memset(led, 0, 3 * RGBLED_NUM);
+void led_init_ports(void) {
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D6);
+}
+
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(D0, led_state.num_lock);
+        writePin(D1, led_state.caps_lock);
+        writePin(D6, led_state.scroll_lock);
     }
-
-    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+    return true;
 }
-
-bool rgb_init = false;
-
-void matrix_scan_kb(void) {
-    // if LEDs were previously on before poweroff, turn them back on
-    if (rgb_init == false && rgblight_config.enable) {
-        i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-        rgb_init = true;
-    }
-
-    rgblight_task();
-    matrix_scan_user();
-}
-
-#endif
-
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
-/*
-
-void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-
-  matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  // put your per-action keyboard code here
-  // runs for every action, just before processing by the firmware
-
-  return process_record_user(keycode, record);
-}
-
-void led_set_kb(uint8_t usb_led) {
-  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-  led_set_user(usb_led);
-}
-
-*/

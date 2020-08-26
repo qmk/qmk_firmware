@@ -5,7 +5,7 @@ If you've ever used Vim, you know what a Leader key is. If not, you're about to 
 That's what `KC_LEAD` does. Here's an example:
 
 1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
-2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `KC_LEAD` key.  Specifically, when you press the `KC_LEAD` key, you only have a certain amount of time to complete the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not sent, so you may want to keep this value low. .  
+2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `KC_LEAD` key.  Specifically, when you press the `KC_LEAD` key, you only have a certain amount of time to complete the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not sent, so you may want to keep this value low.  
    * By default, this timeout is how long after pressing `KC_LEAD` to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.  This allows you to maintain a low value here, but still be able to use the longer sequences.   To enable this option, add `#define LEADER_PER_KEY_TIMING` to your `config.h`.
 3. Within your `matrix_scan_user` function, add something like this:
 
@@ -22,10 +22,10 @@ void matrix_scan_user(void) {
       SEND_STRING("QMK is awesome.");
     }
     SEQ_TWO_KEYS(KC_D, KC_D) {
-      SEND_STRING(SS_LCTRL("a")SS_LCTRL("c"));
+      SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
     }
     SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
-      SEND_STRING("https://start.duckduckgo.com"SS_TAP(X_ENTER));
+      SEND_STRING("https://start.duckduckgo.com\n");
     }
     SEQ_TWO_KEYS(KC_A, KC_S) {
       register_code(KC_LGUI);
@@ -74,9 +74,9 @@ SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
 
 ## Strict Key Processing
 
-By default, the Leader Key feature will filter the keycode out of [`Mod-Tap`](feature_advanced_keycodes.md#mod-tap) and [`Layer Tap`](feature_advanced_keycodes.md#switching-and-toggling-layers) functions when checking for the Leader sequences. That means if you're using `LT(3, KC_A)`, it will pick this up as `KC_A` for the sequence, rather than `LT(3, KC_A)`, giving a more expected behavior for newer users.
+By default, the Leader Key feature will filter the keycode out of [`Mod-Tap`](mod_tap.md) and [`Layer Tap`](feature_layers.md#switching-and-toggling-layers) functions when checking for the Leader sequences. That means if you're using `LT(3, KC_A)`, it will pick this up as `KC_A` for the sequence, rather than `LT(3, KC_A)`, giving a more expected behavior for newer users.
 
-While, this may be fine for most, if you want to specify the whole keycode (eg, `LT(3, KC_A)` from the example above) in the sequence, you can enable this by added `#define LEADER_KEY_STRICT_KEY_PROCESSING` to your `config.h` file.  This well then disable the filtering, and you'll need to specify the whole keycode.
+While, this may be fine for most, if you want to specify the whole keycode (eg, `LT(3, KC_A)` from the example above) in the sequence, you can enable this by added `#define LEADER_KEY_STRICT_KEY_PROCESSING` to your `config.h` file.  This will then disable the filtering, and you'll need to specify the whole keycode.
 
 ## Customization 
 
@@ -115,11 +115,11 @@ void matrix_scan_user(void) {
 
     SEQ_ONE_KEY(KC_E) {
       // Anything you can do in a macro.
-      SEND_STRING(SS_LCTRL(SS_LSFT("t")));
+      SEND_STRING(SS_LCTL(SS_LSFT("t")));
       did_leader_succeed = true;
     } else 
     SEQ_TWO_KEYS(KC_E, KC_D) {
-      SEND_STRING(SS_LGUI("r")"cmd"SS_TAP(KC_ENTER)SS_LCTRL("c"));
+      SEND_STRING(SS_LGUI("r") "cmd\n" SS_LCTL("c"));
       did_leader_succeed = true;
     }
     leader_end();

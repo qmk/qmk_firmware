@@ -34,13 +34,13 @@ enum userspace_custom_keycodes {
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define ADJUST MO(_ADJUST)
+#define LOWER   MO(_LOWER)
+#define RAISE   MO(_RAISE)
+#define ADJUST  MO(_ADJUST)
 #define TG_MODS TG(_MODS)
 #define TG_GAME TG(_GAMEPAD)
-#define OS_LWR OSL(_LOWER)
-#define OS_RSE OSL(_RAISE)
+#define OS_LWR  OSL(_LOWER)
+#define OS_RSE  OSL(_RAISE)
 
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
@@ -48,13 +48,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
 
-#define QWERTY KC_QWERTY
-#define DVORAK KC_DVORAK
+#define QWERTY  KC_QWERTY
+#define DVORAK  KC_DVORAK
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
 
 #define KC_RESET RESET
-#define KC_RST KC_RESET
+#define KC_RST   KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
 #    define KC_C1R3 SH_T(KC_TAB)
@@ -81,7 +81,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define OS_RCTL OSM(MOD_RCTL)
 #define OS_LALT OSM(MOD_LALT)
 #define OS_RALT OSM(MOD_RALT)
-#define OS_MEH OSM(MOD_MEH)
+#define OS_MEH  OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
 #define ALT_APP ALT_T(KC_APP)

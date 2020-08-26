@@ -32,7 +32,15 @@ All cKeys PCBs are open source. However, this one has not been posted yet becaus
 
 If you want to reflash the pre-installed firmware, use the `.bin` file for Proton C. Flash with the QMK Toolbox or via the command line.
 
-Building for Proton C: `make ckeys/thedora:default`
+**Building for Proton C:**
+`make ckeys/thedora:default`
+
+**Search for Bootloader Device:**
+`make ckeys/thedora:default:flash`
+You will begin seeing output of the host searching for the bootloader device, `ERROR: Bootloader not found. Trying again in 5s.`
+
+**Enter DFU-Bootloader Mode:**
+Reset the controller. Press [ADMIN](https://ckeys.org/slides/exboard/assets/player/keynotedhtmlplayer#21) + [RESET](https://ckeys.org/slides/exboard/assets/player/keynotedhtmlplayer#25) or, if accessible, press the reset button on the Proton C microcontroller. 
 
 ## Default Layout
 

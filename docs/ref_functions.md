@@ -2,13 +2,13 @@
 
 There are a lot of hidden functions in QMK that are incredible useful, or may add a bit of functionality that you've been wanting.  Functions that are specific to certain features are not included here, as those will be on their respective feature page.
 
-## (OLKB) Tri Layers
+## (OLKB) Tri Layers :id=olkb-tri-layers
 
 There are actually separate functions that you can use there, depending on what you're after.
 
 ### `update_tri_layer(x, y, z)`
 
-The first is the `update_tri_layer(x, y, z)` function.   This function check to see if layers `x` and `y` are both on. If they are both on, then it runs on layer `z`.  Otherwise, if both `x` and `y` are not both on (either only one is, or neither is), then it runs off layer `z`.
+The first is the `update_tri_layer(x, y, z)` function.   This function check to see if layers `x` and `y` are both on. If they are both on, then it turns on layer `z`.  Otherwise, if both `x` and `y` are not both on (either only one is, or neither is), then it turns off layer `z`.
 
 This function is useful if you want to create specific keys that have this functionality, but other layer keycodes won't do this.
 
@@ -26,7 +26,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -36,14 +35,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     }
   return true;
 }
 ```
 
 ### `update_tri_layer_state(state, x, y, z)`
-The other function is `update_tri_layer_state(state, x, y, z)`.  This function is meant to be called from they [`layer_state_set_*` functions](custom_quantum_functions.md#layer-change-code).  This means that any time that you use a keycode to change the layer, this will be checked.  So you could use `LT(layer, kc)` to change the layer and it will trigger the same layer check.
+The other function is `update_tri_layer_state(state, x, y, z)`.  This function is meant to be called from the [`layer_state_set_*` functions](custom_quantum_functions.md#layer-change-code).  This means that any time that you use a keycode to change the layer, this will be checked.  So you could use `LT(layer, kc)` to change the layer and it will trigger the same layer check.
 
 The caveat to this method is that you cannot access the `z` layer without having `x` and `y` layers on, since if you try to activate just layer `z`, it will run this code and turn off layer `z` before you could use it.
 

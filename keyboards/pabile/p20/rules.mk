@@ -34,4 +34,4 @@ UNICODE_ENABLE = yes        # Unicode
 IOS_DEVICE_ENABLE = no      # connect to IOS Device
 ENCODER_ENABLE = yes
 
-LAYOUTS = ortho_5x4
+LAYOUTS = ortho_5x4 numpad_5x4
