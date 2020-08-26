@@ -7,7 +7,7 @@
 
 ### Fn Layer [1]
 
-Press and hold **Ctrl** key.
+Press and hold *right* **Ctrl** key.
 
 ![Fn Layer [1]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_1.jpg)
 
