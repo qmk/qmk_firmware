@@ -37,7 +37,7 @@ void keyboard_post_init_user(void) {
         }
      /* Scroll Lock Indicator */
         if (host_keyboard_led_state().scroll_lock) {
-          rgblight_setrgb(0, 100, 255);
+          rgblight_setrgb(241, 190, 72);
         }
    }
 
