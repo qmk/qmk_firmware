@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Exclusive
 #define PRODUCT E8.5 Hotswap PCB
-#define DESCRIPTION A custom TKL keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 11
