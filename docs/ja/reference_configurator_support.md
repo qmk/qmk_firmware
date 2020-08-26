@@ -180,7 +180,7 @@ Configurator の API は、指定されたレイアウトマクロと JSON フ�
 
 ## 問題と危険
 
-現在のところ、Configurator はキーの回転または ISO Enter などの長方形ではないキーをサポートしません。さらに、"行" &mdash; から垂直方向にずれているキー、顕著な例として [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) のような1800レイアウト上の矢印キー &mdash; は、 `info.json` ファイルの貢献者によって調整されていない場合は、KLE-to-JSON コンバータを混乱させます。
+現在のところ、Configurator はキーの回転または ISO Enter などの長方形ではないキーをサポートしません。さらに、"行"から垂直方向にずれているキー、&mdash; 顕著な例として [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) のような1800レイアウト上の矢印キー &mdash; は、 `info.json` ファイルの貢献者によって調整されていない場合は、KLE-to-JSON コンバータを混乱させます。
 
 ### 回避策
 
