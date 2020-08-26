@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Use I2C or Serial, not both */
-
 #define USE_SERIAL
 // #define USE_I2C
 
@@ -26,34 +25,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 
 /* Select hand configuration */
-// #define SPLIT_HAND_PIN
-// #define MASTER_LEFT
-// #define MASTER_RIGHT//
 #define EE_HANDS
+
+/** ================
+ *    Save Space
+ * ================ **/
+// Disable Macro's and Functions to save space
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+// Disable space wasting music mode
+#define NO_MUSIC_MODE
 
 /* Set tapping toggle */
 #define TAPPING_TOGGLE 3
 #define TAPPING_TERM 150
 
-// Combo abilities
-// #define COMBO_COUNT 1
-
 // apparantly I'm a fast typist
 #define PERMISSIVE_HOLD
 
-#define LEADER_TIMEOUT 300
-
 /* Fix Grave Escape key breaking app switching in MacOS */
 #define GRAVE_ESC_GUI_OVERRIDE
-
-// Disable space wasting music mode
-#define NO_MUSIC_MODE
 
 #undef RGBLED_NUM
 #define RGBLED_NUM 12
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 6, 6 }
-// #define RGB_DI_PIN D3
 
 // #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 8
