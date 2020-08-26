@@ -1,0 +1,1 @@
+#define PRODUCT_ID 0xE851 // E8.5 Hotswap
