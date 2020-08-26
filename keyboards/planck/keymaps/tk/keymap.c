@@ -11,6 +11,13 @@
     ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 */
 
+#define LCTL_MASK (get_mods() & MOD_BIT(KC_LCTL))
+#define RCTL_MASK (get_mods() & MOD_BIT(KC_RCTL))
+#define CTL_MASK  (LCTL_MASK || RCTL_MASK)
+#define LSFT_MASK (get_mods() & MOD_BIT(KC_LSFT))
+#define RSFT_MASK (get_mods() & MOD_BIT(KC_RSFT))
+#define SFT_MASK  (LSFT_MASK || RSFT_MASK)
+
 // Layers
 
 enum planck_layers {
@@ -24,15 +31,35 @@ enum planck_layers {
 };
 
 #define BASE TO(_BASE)
+#define R_MODES OSL(_ROTOR)
 
-#define RAISE OSL(_RAISE1)
-#define LOWER OSL(_LOWER1)
+#define LOWER1 OSL(_LOWER1)
+#define RAISE1 OSL(_RAISE1)
+#define LOWER2 OSL(_LOWER2)
+#define RAISE2 OSL(_RAISE2)
+
+// Rotary encoder states
+
+enum encoder_states {
+    VOLUME,     // volume up/down, toggle mute
+    MEDIA,      // media next/previous, play/pause
+    BRIGHTNESS, // brightness up/down
+    SCROLL_V,   // scroll up/down, middle click
+    SCROLL_H,   // scroll right/left, middle click
+    ARROW_V,    // arrow up/down
+    ARROW_H,    // arrow left/right
+};
+
+enum encoder_states rotary_state = VOLUME;
 
 // Custom keycodes
 
 enum keycodes {
     ROTARY = SAFE_RANGE,
     PANIC,                  // backspace on tap, delete on tap with any modifier
+
+    // rotary adjustment
+    R_VOL, R_MEDIA, R_BRI, R_SC_V, R_SC_H, R_AR_V, R_AR_H,
 
     // command-line macros
     CLEAR,      // [clear terminal line]
@@ -45,9 +72,9 @@ enum keycodes {
     VIM_WQ,     // [ESC]:wq
 
     // bracket mode
-    TG_LBK, TG_RBK,                 // toggle left-side and right-side brackets
+    LBK_TG, RBK_TG,                 // toggle left-side and right-side brackets
     LBK_P, LBK_S, LBK_C, LBK_A,     // left-side brackets
-    RBK_P, RBK_S, RBK_C, RBA_A,     // right-side brackets
+    RBK_P, RBK_S, RBK_C, RBK_A,     // right-side brackets
 
 };
 
@@ -60,35 +87,27 @@ enum keycodes {
 static bool lbk_mode = false;   // left-side bracket mode
 static bool rbk_mode = false;   // right-side bracket mode
 
-// Rotary encoder states
-
-enum encoder_states {
-    VOLUME,
-    MEDIA,      // media next/previous, play/pause
-    BRIGHTNESS,
-    SCROLL_V,   // scroll up/down, middle click
-    SCROLL_H,   // scroll right/left, middle click
-};
-
-enum encoder_states rotary_state = VOLUME;
-
 // Audio songs
 
 #ifdef AUDIO_ENABLE
     // layer toggle songs
     float base_song[][2]            = SONG(QWERTY_SOUND);
-    float bk_activate_song[][2]     = SONG(BK_ACTIVATE);
-    float bk_deactivate_song[][2]   = SONG(BK_DEACTIVATE);
+    float bk_activate_song[][2]     = SONG(MARIO_COIN);
+    float bk_deactivate_song[][2]   = SONG(BUZZ);
 
-    // special keycode songs
-    float caps_on_song[][2]         = SONG(CAPS_ON_SOUND);
-    float caps_off_song[][2]        = SONG(CAPS_OFF_SOUND);
-    float save_song[][2]            = SONG(SAVE_SOUND);
-    float copy_song[][2]            = SONG(COPY_SOUND);
-    float paste_song[][2]           = SONG(PASTE_SOUND);
-    float cut_song[][2]             = SONG(CUT_SOUND);
-    float undo_song[][2]            = SONG(UNDO_SOUND);
-    float redo_song[][2]            = SONG(REDO_SOUND);
+    // keycode songs
+    float valid_rotary_song[][2]    = SONG(COIN);
+    float invalid_rotary_song[][2]  = SONG(BUZZ);
+
+    // shortcut songs
+    float caps_on_song[][2]         = SONG(MARIO_CAVE_1);
+    float caps_off_song[][2]        = SONG(MARIO_CAVE_2);
+    float save_song[][2]            = SONG(MARIO_ONEUP);
+    float copy_song[][2]            = SONG(PICK_UP);
+    float paste_song[][2]           = SONG(PUT_DOWN);
+    float cut_song[][2]             = SONG(MARIO_CAVE_2);
+    float undo_song[][2]            = SONG(NO_SOUND);
+    float redo_song[][2]            = SONG(NO_SOUND);
 #endif
 
 
@@ -113,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |  Esc  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   |   '   |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        | HYPER | Super |  Meta |  Ctrl | LOWER |     Space     | RAISE |   Lt  |   Dn  |   Up  |   Rt  |
+        | HYPER | Super |  Meta |  Ctrl | LOWER1|     Space     | RAISE1|   Lt  |   Dn  |   Up  |   Rt  |
         |-----------------------------------------------------------------------------------------------|
 
         Left-side bracket mode:                                         Right-side bracket mode:
@@ -133,16 +152,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 
     [_BASE] = LAYOUT_planck_grid(
-        ROTARY,  KC_Q,    KC_W,    KC_E,   KC_R,  KC_T,     KC_Y,     KC_U,  KC_I,    KC_O,    KC_P,    PANIC,
-        SH_TAB,  KC_A,    KC_S,    KC_D,   KC_F,  KC_G,     KC_H,     KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        SH_ESC,  KC_Z,    KC_X,    KC_C,   KC_V,  KC_B,     KC_N,     KC_M,  KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
-        LBK_A,   LBK_C,   LBK_S,   LBK_P,  LOWER, KC_SPACE, KC_SPACE, RAISE, RBK_P,   RBK_S,   RBK_C,   RBA_A
+        ROTARY,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    PANIC,
+        SH_TAB,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        SH_ESC,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
+        LBK_A,   LBK_C,   LBK_S,   LBK_P,  LOWER1, KC_SPACE, KC_SPACE, RAISE1, RBK_P,   RBK_S,   RBK_C,   RBK_A
     ),
 
     /* Hyper layer
 
         |-----------------------------------------------------------------------------------------------|
-        | Audio |       |       |       |       |       |       |       |       |       |       |       |
+        | ROTARY|       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         | Reset |       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
@@ -159,22 +178,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     */
     [_HYPER] = LAYOUT_planck_grid(
-        _______, H(KC_Q), H(KC_W), H(KC_E), H(KC_R), H(KC_T), H(KC_Y), H(KC_U), H(KC_I),    H(KC_O),   H(KC_P),    KC_SLEP,
+        R_MODES, H(KC_Q), H(KC_W), H(KC_E), H(KC_R), H(KC_T), H(KC_Y), H(KC_U), H(KC_I),    H(KC_O),   H(KC_P),    KC_SLEP,
         RESET,   H(KC_A), H(KC_S), H(KC_D), H(KC_F), H(KC_G), H(KC_H), H(KC_J), H(KC_K),    H(KC_L),   H(KC_SCLN), _______,
         KC_CAPS, H(KC_Z), H(KC_X), H(KC_C), H(KC_V), H(KC_B), H(KC_N), H(KC_M), H(KC_COMM), H(KC_DOT), H(KC_SLSH), KC_CAPS,
-        _______, _______, _______, _______, TG_LBK,  BASE,    BASE,    TG_RBK,  _______,    _______,   _______,    KC_SLEP
+        _______, _______, _______, _______, LBK_TG,  BASE,    BASE,    RBK_TG,  _______,    _______,   _______,    KC_SLEP
     ),
 
-    /* Rotary - rotary encoder mode and volume
+    /* Rotary - rotary encoder mode
 
         |-----------------------------------------------------------------------------------------------|
         |       |       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |scrll v|       |scrll h|       |       |       |       |       |       |
+        |       |       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |  vol  | bright|       | media |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |       |       |       |       |       |      BASE     |       |scrll h|scrll v|arrow v|arrow h|
         |-----------------------------------------------------------------------------------------------|
 
         *
@@ -183,10 +202,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     */
     [_ROTOR] = LAYOUT_planck_grid(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, R_VOL,   R_BRI,   XXXXXXX, R_MEDIA, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, _______, _______, _______, _______, BASE,    BASE,    _______, R_SC_H,  R_SC_V,  R_AR_V,  R_AR_H
     ),
 
     /* Raise I - symbols
@@ -198,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |   \   |   |   |   `   |   ~   |   '   |   "   |   _   |   -   |   +   |   =   |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |       |       |       |       | LOWER1|      BASE     | RAISE2|       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
         *
@@ -210,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
         _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
         _______, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,  _______,
-        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
+        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    RAISE2,   _______, _______, _______, _______
     ),
 
     /* Lower I - command-line macros
@@ -222,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       | g cmt |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       | LOWER |      BASE     | RAISE |       |       |       |       |
+        |       |       |       |       | LOWER2|      BASE     | RAISE1|       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
         *
@@ -237,19 +256,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, VIM_WQ,  _______, _______, _______, _______, _______, _______, _______, _______, GT_PUSH,   CLEAR,
         _______, GT_ADD,  GT_STAT, DOTFILE, _______, _______, _______, _______, _______, GT_PULL, _______, _______,
         _______, _______, _______,  GT_CMT, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
+        _______, _______, _______, _______, LOWER2,  BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
 
     /* Lower II - navigation
 
         |-----------------------------------------------------------------------------------------------|
-        |       |  L Ck |  M up |  R ck |       |       |       |       | Ctrl- | S up  | Ctrl+ |       |
+v        |       |  L Ck |  M up |  R ck |       |       |       |       | Ctrl- | S up  | Ctrl+ |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |  M lt |  M dn |  M rt |       |       |       |       | S lt  | S dn  | S rt  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       | LOWER |      BASE     | RAISE |       |       |       |       |
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
         *
@@ -258,10 +277,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     */
     [_LOWER2] = LAYOUT_planck_grid(
+        _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______, _______, _______, _______, KC_WH_U, _______, _______,
+        _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
     ),
 
     /* Raise II - functions and dynamic macros
@@ -273,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       | LOWER |      BASE     | RAISE |       |       |       |       |
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
         *
@@ -287,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
     ),
 
 };
@@ -312,7 +331,8 @@ void keypress(bool pressed, uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static bool panic_del = false;     // PANIC in delete-mode
+    static bool panic_del = false;      // PANIC in delete-mode
+    static bool caps_active = false;
 
     switch (keycode) {
 
@@ -326,7 +346,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case PANIC:
             if (record->event.pressed) {
-                if (get_mods() & (MOD_BIT(KC_LSFT))) {
+                if (LSFT_MASK) {
                     unregister_code(KC_LSFT);
                     register_code(KC_DEL);
                     panic_del = true;
@@ -346,6 +366,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case KC_SPACE:
+            if (get_mods() && record->event.pressed) {
+                unregister_code(KC_SPACE);
+                return false;
+            }
+            break;
+        case LBK_TG:
+            if (record->event.pressed) {
+                lbk_mode = !lbk_mode;
+            }
+            break;
+        case RBK_TG:
+            if (record->event.pressed) {
+                rbk_mode = !rbk_mode;
+            }
+            break;
+        case KC_CAPS:
+            if (record->event.pressed) {
+                caps_active = !caps_active;
+            }
+            break;
+
+        // rotary encoder
+
+        case R_VOL:
+            if (record->event.pressed) {
+                rotary_state = VOLUME;
+            }
+            break;
+        case R_MEDIA:
+            if (record->event.pressed) {
+                rotary_state = MEDIA;
+            }
+            break;
+        case R_BRI:
+            if (record->event.pressed) {
+                rotary_state = BRIGHTNESS;
+            }
+            break;
+        case R_SC_V:
+            if (record->event.pressed) {
+                rotary_state = SCROLL_V;
+            }
+            break;
+        case R_SC_H:
+            if (record->event.pressed) {
+                rotary_state = SCROLL_H;
+            }
+            break;
+        case R_AR_V:
+            if (record->event.pressed) {
+                rotary_state = ARROW_V;
+            }
+            break;
+        case R_AR_H:
+            if (record->event.pressed) {
+                rotary_state = ARROW_H;
+            }
+            break;
         case ROTARY:
             if (record->event.pressed) {
                 if (rotary_state == VOLUME) {
@@ -359,24 +438,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case TG_LBK:
-            if (record->event.pressed) {
-                lbk_mode = !lbk_mode;
-            }
-            break;
-        case TG_RBK:
-            if (record->event.pressed) {
-                rbk_mode = !rbk_mode;
-            }
-            break;
-        case KC_SPACE:
-            if (get_mods() && record->event.pressed) {
-                unregister_code(KC_SPACE);
-            }
-            break;
-        case KC_CAPS:
-            // TODO: toggle internal state
-            break;
 
         /*
         ███    ███  █████   ██████ ██████   ██████  ███████ 
@@ -440,67 +501,81 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     */
 
     #ifdef AUDIO_ENABLE
-        bool LCTL_MASK = (get_mods() & MOD_BIT(KC_LCTL));
-        bool RCTL_MASK = (get_mods() & MOD_BIT(KC_RCTL));
-        bool CTL_MASK  = LCTL_MASK || RCTL_MASK;
-
-        switch (keycode) {
-            case KC_S: // CTRL+S
-                if (record->event.pressed && CTL_MASK) {
-                    PLAY_SONG(save_song);
-                }
-                break;
-            case KC_C: // CTRL+C
-                if (record->event.pressed && CTL_MASK) {
-                    PLAY_SONG(copy_song);
-                }
-                break;
-            case KC_V: // CTRL+V
-                if (record->event.pressed && CTL_MASK) {
-                    PLAY_SONG(paste_song);
-                }
-                break;
-            case KC_X: // CTRL+X
-                if (record->event.pressed && CTL_MASK) {
-                    PLAY_SONG(cut_song);
-                }
-                break;
-            case KC_Z: // CTRL+Z
-                if (record->event.pressed && CTL_MASK) {
-                    PLAY_SONG(undo_song);
-                }
-                break;
-            case KC_Y: // CTRL+Y
-                if (record->event.pressed && CTL_MASK) {
-                    PLAY_SONG(redo_song);
-                }
-                break;
-            case KC_CAPS:
-                if (record->event.pressed) { // TODO: sound based on internal state
-                    PLAY_SONG(caps_on_song);
-                }
-                break;
-            case TG_LBK:
-                if (record->event.pressed) {
+        if (record->event.pressed) {
+            switch (keycode) {
+                case KC_S: // CTRL+S
+                    if (CTL_MASK) {
+                        PLAY_SONG(save_song);
+                    }
+                    break;
+                case KC_C: // CTRL+C
+                    if (CTL_MASK) {
+                        PLAY_SONG(copy_song);
+                    }
+                    break;
+                case KC_V: // CTRL+V
+                    if (CTL_MASK) {
+                        PLAY_SONG(paste_song);
+                    }
+                    break;
+                case KC_X: // CTRL+X
+                    if (CTL_MASK) {
+                        PLAY_SONG(cut_song);
+                    }
+                    break;
+                case KC_Z: // CTRL+Z
+                    if (CTL_MASK) {
+                        PLAY_SONG(undo_song);
+                    }
+                    break;
+                case KC_Y: // CTRL+Y
+                    if (CTL_MASK) {
+                        PLAY_SONG(redo_song);
+                    }
+                    break;
+                case KC_CAPS:
+                    if (caps_active) {
+                        PLAY_SONG(caps_on_song);
+                    }
+                    else {
+                        PLAY_SONG(caps_off_song);
+                    }
+                    break;
+                case LBK_TG:
                     if (lbk_mode) {
                         PLAY_SONG(bk_activate_song);
                     }
                     else{
                         PLAY_SONG(bk_deactivate_song);
                     }
-                }
-                break;
-            case TG_RBK:
-                if (record->event.pressed) {
+                    break;
+                case RBK_TG:
                     if (rbk_mode) {
                         PLAY_SONG(bk_activate_song);
                     }
                     else {
                         PLAY_SONG(bk_deactivate_song);
                     }
-                }
-                break;
-        };
+                    break;
+
+                // rotary encoder
+
+                case R_VOL:
+                case R_MEDIA:
+                case R_BRI:
+                case R_SC_V:
+                case R_SC_H:
+                case R_AR_V:
+                case R_AR_H:
+                    PLAY_SONG(valid_rotary_song);
+                    break;
+
+                default:
+                    if (IS_LAYER_ON(_ROTOR)) {
+                        PLAY_SONG(invalid_rotary_song);
+                    }
+            };
+        }
     #endif
 
     /*
@@ -512,7 +587,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     */
 
     bool lbk_key = (keycode == LBK_P || keycode == LBK_S || keycode == LBK_C || keycode == LBK_A);
-    bool rbk_key = (keycode == RBK_P || keycode == RBK_S || keycode == RBK_C || keycode == RBA_A);
+    bool rbk_key = (keycode == RBK_P || keycode == RBK_S || keycode == RBK_C || keycode == RBK_A);
 
     // left-side held modifiers
     if (lbk_key && /* TODO: key is held */ false) {
@@ -537,9 +612,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // brackets mode
     else if ((lbk_key && lbk_mode) || (rbk_key && rbk_mode)) {
-        bool LSFT_MASK = (get_mods() & MOD_BIT(KC_LSFT));
-        bool RSFT_MASK = (get_mods() & MOD_BIT(KC_RSFT));
-
         // closed brackets
         if ((rbk_key && rbk_mode && lbk_mode) || LSFT_MASK || RSFT_MASK) {
             if (LSFT_MASK) {
@@ -558,10 +630,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else if (keycode == LBK_C || keycode == RBK_C) {
                 keypress(record->event.pressed, KC_RCBR);
             }
-            else if (keycode == LBK_A || keycode == RBA_A) {
+            else if (keycode == LBK_A || keycode == RBK_A) {
                 keypress(record->event.pressed, KC_RABK);
             }
 
+            //TODO: persistent modifier memory using linked list
             if (LSFT_MASK) {
                 register_code(KC_LSFT);
             }
@@ -580,7 +653,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else if (keycode == LBK_C || keycode == RBK_C) {
                 keypress(record->event.pressed, KC_LCBR);
             }
-            else if (keycode == LBK_A || keycode == RBA_A) {
+            else if (keycode == LBK_A || keycode == RBK_A) {
                 keypress(record->event.pressed, KC_LABK);
             }
         }
@@ -608,7 +681,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         else if (keycode == LBK_A) {
             if (record->event.pressed) {
-                layer_on(_HYPER);           // TODO: keep HYPER on if no key pressed while held
+                layer_on(_HYPER);           // TODO: keep HYPER on if no key pressed while held (i.e. OSL)
             }
             else {
                 layer_off(_HYPER);
@@ -627,7 +700,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         else if (keycode == RBK_C) {
             keypress(record->event.pressed, KC_UP);
         }
-        else if (keycode == RBA_A) {
+        else if (keycode == RBK_A) {
             keypress(record->event.pressed, KC_RIGHT);
         }
     }
@@ -681,18 +754,38 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             break;
         case SCROLL_V:
             if (clockwise) {
-                tap_code(KC_WH_U);
+                tap_code(KC_PGDN);
             }
             else {
-                tap_code(KC_WH_D);
+                tap_code(KC_PGUP);
             }
             break;
         case SCROLL_H:
             if (clockwise) {
-                tap_code(KC_WH_R);
+                for (int i=0; i<5; i++) {
+                    tap_code(KC_WH_R);
+                }
             }
             else {
-                tap_code(KC_WH_L);
+                for (int i=0; i<5; i++) {
+                    tap_code(KC_WH_L);
+                }
+            }
+            break;
+        case ARROW_V:
+            if (clockwise) {
+                tap_code(KC_DOWN);
+            }
+            else {
+                tap_code(KC_UP);
+            }
+            break;
+        case ARROW_H:
+            if (clockwise) {
+                tap_code(KC_RIGHT);
+            }
+            else {
+                tap_code(KC_LEFT);
             }
             break;
     }
