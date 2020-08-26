@@ -2,8 +2,7 @@
 #include "quantum.h"
 
 enum custom_keycodes {
-    EPRM = SAFE_RANGE,
-    RGB_SLD,
+    RGB_SLD = SAFE_RANGE,
     ALT_TAB,
     QWERTY,
     SYM,
