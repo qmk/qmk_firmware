@@ -42,6 +42,7 @@
 #ifndef WS2812_BYTE_ORDER
 #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
 #endif
+
 typedef struct PACKED {
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
     uint8_t g;
@@ -53,6 +54,7 @@ typedef struct PACKED {
     uint8_t b;
 #endif
 } cRGB;
+
 typedef cRGB RGB;
 
 // WS2812 specific layout
