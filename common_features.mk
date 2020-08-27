@@ -536,9 +536,18 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+JOYSTICK_ENABLE ?= no
+ifneq ($(strip $(JOYSTICK_ENABLE)), no)
     OPT_DEFS += -DJOYSTICK_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), analog)
+    OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
     SRC += analog.c
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
+    OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
 endif
