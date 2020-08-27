@@ -1,9 +1,6 @@
 /* 
- * Based on:
- * Sendy YK's LAYOUT_60_ansi_arrow
+ * Based on Sendy YK's 60% ANSI Arrow Layout and Keymap
  * https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/info.json
- * and
- * Sendy YK's Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)
  * https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c
  * 
  * https://github.com/mrsendyyk
