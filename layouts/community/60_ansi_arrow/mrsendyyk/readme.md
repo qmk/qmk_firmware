@@ -5,7 +5,7 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
 
 ![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_layout_60_ansi_arrow.png)
 
-## Sendy YK's Keymap
+## [Sendy YK's Keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/dz60/keymaps/mrsendyyk)
 
 ### Default Layer [0]
 
