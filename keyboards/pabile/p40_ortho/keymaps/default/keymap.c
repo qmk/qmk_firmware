@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_F11,  KC_F12,  KC_NO,   KC_NO, KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,
     KC_CAPS, KC_PSCR, KC_SLCK, KC_PAUS, KC_NO, KC_NLCK, KC_NO, KC_VOLD, KC_VOLU, KC_MUTE,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO),
-  [3] = LAYOUT_default(
+  [3] = LAYOUT_ortho_4x10(
     KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_INS,  KC_PGUP, KC_UP,   KC_PGDN, KC_DEL,
     KC_TAB,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_END,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
