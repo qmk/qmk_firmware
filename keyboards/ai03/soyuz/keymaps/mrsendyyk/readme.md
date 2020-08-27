@@ -1,6 +1,4 @@
-# [Sendy YK](https://mr.sendyyk.com)'s Keymap
-
-`LAYOUT_numpad_5x4`
+# [Sendy YK's Keymap](https://github.com/mrsendyyk/my_qmk/tree/master/ai03_soyuz_numpad)
 
 ![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/ai03_soyuz_numpad/assets/ai03_soyuz_mrsendyyk.png)
 
