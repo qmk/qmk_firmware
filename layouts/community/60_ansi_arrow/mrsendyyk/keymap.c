@@ -29,7 +29,7 @@ void keyboard_post_init_user(void) {
   rgblight_sethsv_noeeprom(0, 0, 0);
 }
 
-/* RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer indicator */
+/* RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator */
    void update_led(void) {
      /* Num Lock Indicator */
         if (host_keyboard_led_state().num_lock) {
