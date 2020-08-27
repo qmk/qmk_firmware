@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "oneshot.h"
-#include "switcher.h"
+#include "swapper.h"
 
 #define HOME G(KC_LEFT)
 #define END G(KC_RGHT)
@@ -108,11 +108,11 @@ oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_switcher(
+    update_swapper(
         &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
         keycode, record
     );
-    update_switcher(
+    update_swapper(
         &sw_lang_active, KC_LCTL, KC_SPC, SW_LANG,
         keycode, record
     );

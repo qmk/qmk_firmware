@@ -1,6 +1,6 @@
-#include "switcher.h"
+#include "swapper.h"
 
-void update_switcher(
+void update_swapper(
     bool *active,
     uint16_t cmdish,
     uint16_t tabish,
