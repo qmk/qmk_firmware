@@ -99,7 +99,6 @@
         },
 
         "LAYOUT_ansi_tsangan": {
-            "key_count": 87,
             "layout": [
                 {"label":"K00 (E6,D0)", "x":0, "y":0},
                 {"label":"K01 (E6,D1)", "x":1.25, "y":0},
