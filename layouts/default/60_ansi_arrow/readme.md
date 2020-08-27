@@ -1,11 +1,11 @@
-# [LAYOUT_60_ansi_arrow and Sendy YK's Keymap](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
-With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator.
+# 60_ansi_arrow and Keymap
+This is the 60% ANSI Arrow Layout and Keymap, based on Sendy YK's [60% ANSI Arrow Layout](https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/info.json) and [Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c).
 
-## LAYOUT_60_ansi_arrow
+## 60% ANSI Arrow
 
 ![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_layout_60_ansi_arrow.png)
 
-## Sendy YK's Keymap
+## Keymap
 
 ### Default Layer [0]
 
@@ -23,9 +23,9 @@ Press and hold *right* **Alt** key.
 
 ![Fn Layer [2]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_2.png)
 
-## RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
+### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
-### Caps Lock Indicator
+#### Caps Lock Indicator
 
 ```c
 /* Caps Lock Indicator */
@@ -35,7 +35,7 @@ Press and hold *right* **Alt** key.
    }
 ```
 
-### Num Lock Indicator
+#### Num Lock Indicator
 
 ```c
 /* Num Lock Indicator */
@@ -44,7 +44,7 @@ Press and hold *right* **Alt** key.
    }
 ```
 
-### Scroll Lock Indicator
+#### Scroll Lock Indicator
 ```c
 /* Scroll Lock Indicator */
    if (host_keyboard_led_state().scroll_lock) {
@@ -52,7 +52,7 @@ Press and hold *right* **Alt** key.
    }
 ```
 
-### Layer Indicator
+#### Layer Indicator
 
 ```c
 /* Layer Indicator */
