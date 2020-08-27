@@ -1,9 +1,11 @@
 # NoStab63
 
-\*As the name implies, this keyboard has no stabilizers and instead shortens all the keys to a size that is also normally found in its row. For example the space bar was shortened down into 4 keys, all of which are 1.25u, which is the size of the command keys on the bottom.
+![Final Product](https://imgur.com/rkuWpKd)
 
-\*It uses the proton C, which was a complete pain to work with, but extremely satisfying once it worked.
+A stabless keyboard with a numpad in the middle. It has a normal row stagger and 4 1.25 thumb keys replacing the space bar.
 
-\*This build also has the EC11 rotary encoder.
+Keyboard Maintainer: [Santy](https://github.com/santy81855)
 
-\*I decided to go caseless since this will just be a backup keyboard.
+Hardware Supported: Proton C
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
