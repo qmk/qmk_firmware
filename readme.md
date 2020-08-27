@@ -21,7 +21,7 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 # Update Process
 
 1. Check out branch from ZSA's master branch:
-    1. `git remote add zsa https://github.com/ErgoDox-EZ/qmk_firmware.git`
+    1. `git remote add zsa https://github.com/zsa/qmk_firmware.git`
     2. `git fetch --all`
     3. `git checkout -B branchname zsa/master`
     4. `git push -u zsa branchname`
