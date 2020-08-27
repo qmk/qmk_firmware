@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pabile
 #define PRODUCT         P42 Keyboard
-#define DESCRIPTION     42-Key Ortho-linear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
