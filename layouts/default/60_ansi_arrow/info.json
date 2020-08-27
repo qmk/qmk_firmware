@@ -1,6 +1,6 @@
 {
     "keyboard_name": "60% ANSI Arrow Layout",
-    "url": "https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/layout.json",
+    "url": "https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/info.json",
     "maintainer": "https://github.com/mrsendyyk",
     "width": 15,
     "height": 5,
