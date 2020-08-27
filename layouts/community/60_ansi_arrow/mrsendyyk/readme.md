@@ -1,4 +1,4 @@
-# [LAYOUT_60_ansi_arrow and Sendy YK's Keymap](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+# LAYOUT_60_ansi_arrow and Sendy YK's Keymap
 With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator.
 
 ## LAYOUT_60_ansi_arrow
