@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+#include "oneshot.h"
+#include "switcher.h"
+
 #define HOME G(KC_LEFT)
 #define END G(KC_RGHT)
 #define FWD G(KC_RBRC)
@@ -87,140 +90,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// Implements cmd-tab like behaviour on a single key. On first tap of trigger
-// cmdish is held and tabish is tapped -- cmdish then remains held until some
-// other key is hit or released. For example:
-//
-//     trigger, trigger, a -> cmd down, tab, tab, cmd up, a
-//     nav down, trigger, nav up -> nav down, cmd down, tab, cmd up, nav up
-//
-// This behaviour is useful for more than just cmd-tab, hence: cmdish, tabish.
-void update_switcher(
-    bool *active,
-    uint16_t cmdish,
-    uint16_t tabish,
-    uint16_t trigger,
-    uint16_t keycode,
-    keyrecord_t *record
-) {
-    if (keycode == trigger) {
-        if (record->event.pressed) {
-            if (!*active) {
-                *active = true;
-                register_code(cmdish);
-            }
-            register_code(tabish);
-        } else {
-            unregister_code(tabish);
-            // Don't unregister cmdish until some other key is hit or released.
-        }
-    } else if (*active) {
-        unregister_code(cmdish);
-        *active = false;
-    }
-}
-
-bool is_layer(uint16_t keycode) {
+bool is_oneshot_cancel_key(uint16_t keycode) {
     return keycode == LA_SYM || keycode == LA_NAV;
 }
 
-bool is_mod(uint16_t keycode) {
-    return keycode == KC_LSFT || keycode == OS_SHFT ||
+bool is_oneshot_ignored_key(uint16_t keycode) {
+    return keycode == LA_SYM || keycode == LA_NAV || keycode == KC_LSFT ||
         keycode == OS_CTRL || keycode == OS_ALT || keycode == OS_CMD;
 }
 
-typedef enum {
-    up_unqueued,
-    up_queued,
-    down_unused,
-    down_used,
-} oneshot_state;
+bool sw_win_active = false;
+bool sw_lang_active = false;
 
-// Custom oneshot mod implementation that doesn't rely on timers. If a mod is
-// used while it is held it will be unregistered on keyup as normal, otherwise
-// it will be queued and only released after the next non-mod keyup.
-//
-// Queued mods can be carried to lower layers but not to higher layers. Given
-// higher layers all have the full complement of modifier keys we never need to
-// carry a queued mod to a higher layer, so tapping a layer key becomes a
-// convenient way to cancel queued mods.
-void update_oneshot(
-    oneshot_state *state,
-    uint16_t mod,
-    uint16_t trigger,
-    uint16_t keycode,
-    keyrecord_t *record
-) {
-    if (keycode == trigger) {
-        if (record->event.pressed) {
-            // Trigger keydown
-            if (*state == up_unqueued) {
-                register_code(mod);
-            }
-            *state = down_unused;
-        } else {
-            // Trigger keyup
-            switch (*state) {
-            case down_unused:
-                // If we didn't use the mod while trigger was held, queue it.
-                *state = up_queued;
-                break;
-            case down_used:
-                // If we did use the mod while trigger was held, unregister it.
-                *state = up_unqueued;
-                unregister_code(mod);
-                break;
-            default:
-                break;
-            }
-        }
-    } else {
-        if (record->event.pressed) {
-            if (is_layer(keycode) && *state != up_unqueued) {
-                // Cancel oneshot on layer keydown, there's no reason to carry
-                // mods to a higher layer so this is a convenient way of
-                // clearing unused oneshots.
-                *state = up_unqueued;
-                unregister_code(mod);
-            }
-        } else {
-            if (!is_layer(keycode) && !is_mod(keycode)) {
-                // On non-layer, non-mod keyup, consider the oneshot used.
-                // Don't touch the oneshot state on layer or mod keyup, so that
-                // they stack with other mods, and can be carried to lower
-                // layers.
-                switch (*state) {
-                case down_unused:
-                    *state = down_used;
-                    break;
-                case up_queued:
-                    *state = up_unqueued;
-                    unregister_code(mod);
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-    }
-}
-
-bool swin_active = false;
-bool slan_active = false;
-
-oneshot_state osft_state = up_unqueued;
-oneshot_state octl_state = up_unqueued;
-oneshot_state oalt_state = up_unqueued;
-oneshot_state ocmd_state = up_unqueued;
+oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_ctrl_state = os_up_unqueued;
+oneshot_state os_alt_state = os_up_unqueued;
+oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_switcher(&swin_active, KC_LGUI, KC_TAB, SW_WIN, keycode, record);
-    update_switcher(&slan_active, KC_LCTL, KC_SPC, SW_LANG, keycode, record);
+    update_switcher(
+        &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
+        keycode, record
+    );
+    update_switcher(
+        &sw_lang_active, KC_LCTL, KC_SPC, SW_LANG,
+        keycode, record
+    );
 
-    update_oneshot(&osft_state, KC_LSFT, OS_SHFT, keycode, record);
-    update_oneshot(&octl_state, KC_LCTL, OS_CTRL, keycode, record);
-    update_oneshot(&oalt_state, KC_LALT, OS_ALT, keycode, record);
-    update_oneshot(&ocmd_state, KC_LCMD, OS_CMD, keycode, record);
+    update_oneshot(
+        &os_shft_state, KC_LSFT, OS_SHFT,
+        keycode, record
+    );
+    update_oneshot(
+        &os_ctrl_state, KC_LCTL, OS_CTRL,
+        keycode, record
+    );
+    update_oneshot(
+        &os_alt_state, KC_LALT, OS_ALT,
+        keycode, record
+    );
+    update_oneshot(
+        &os_cmd_state, KC_LCMD, OS_CMD,
+        keycode, record
+    );
 
     return true;
 }
