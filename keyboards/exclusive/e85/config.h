@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0x4558 // EX
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Exclusive
-#define PRODUCT E8.5 Hotswap PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 11
