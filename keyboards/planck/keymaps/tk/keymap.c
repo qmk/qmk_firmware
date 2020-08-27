@@ -590,13 +590,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // left-side held modifiers
     if (lbk_key && /* TODO: key is held */ false) {
         if (keycode == LBK_P) {
-            keypress(record->event.pressed, KC_LCTL);
+            keypress(record->event.pressed, KC_LGUI);
         }
         else if (keycode == LBK_S) {
             keypress(record->event.pressed, KC_LALT);
         }
         else if (keycode == LBK_C) {
-            keypress(record->event.pressed, KC_LGUI);
+            keypress(record->event.pressed, KC_LCTL);
         }
         else if (keycode == LBK_A) {
             if (record->event.pressed) {
@@ -661,9 +661,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     else if (lbk_key) {
         if (keycode == LBK_P) {
             if (record->event.pressed) {
-                set_oneshot_mods(MOD_LCTL);
+                set_oneshot_mods(MOD_LGUI);
             }
-            keypress(record->event.pressed, KC_LCTL);
+            keypress(record->event.pressed, KC_LGUI);
         }
         else if (keycode == LBK_S) {
             if (record->event.pressed) {
@@ -673,9 +673,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         else if (keycode == LBK_C) {
             if (record->event.pressed) {
-                set_oneshot_mods(MOD_LGUI);
+                set_oneshot_mods(MOD_LCTL);
             }
-            keypress(record->event.pressed, KC_LGUI);
+            keypress(record->event.pressed, KC_LCTL);
         }
         else if (keycode == LBK_A) {
             if (record->event.pressed) {
