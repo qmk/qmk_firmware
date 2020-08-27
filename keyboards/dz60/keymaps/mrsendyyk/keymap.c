@@ -1,3 +1,11 @@
+/* 
+ * Based on Sendy YK's 60% ANSI Arrow Layout and Keymap
+ * https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/info.json
+ * https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c
+ * 
+ * https://github.com/mrsendyyk
+ */
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {  
