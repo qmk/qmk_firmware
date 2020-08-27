@@ -36,13 +36,23 @@
 #    define LED_TYPE RGB
 #endif
 
-// WS2812 specific layout
+// only set if using WS2812B-2020, fixes LED bit order
+// If define is not set, the red and green are reversed
+#ifdef LED_TYPE_WS2812B_2020
+// WS2812B-2020 specific layout
+typedef struct PACKED {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} cRGB;
+#else // WS2812C
 typedef struct PACKED {
     uint8_t g;
     uint8_t r;
     uint8_t b;
 } cRGB;
 
+#endif
 typedef cRGB RGB;
 
 // WS2812 specific layout
