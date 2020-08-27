@@ -28,14 +28,14 @@ The default setting is 280 µs, which should work for most cases, but this can b
 #define WS2812_TRST_US 80
 ```
 
-### LED Type - WS2812B-2020
+### Addressable LED byte order
 
 The WS2812B-2020 addressable LED has a physically different layout with reversed internal red and green LEDs. 
-This causes the two LEDs to swap colors without correction and display the wrong color.
-The default setting allows other addressable LEDs to work properly with the correct byte structure (G[7-0]R[7-0]G[7-0]), however the WS2812B-2020 needs the green and red bytes reversed.
+Without correction, this causes the two internal LEDs to swap colors and display the wrong color.
+The default setting GRB allows other addressable LEDs to work properly with the correct byte structure (G[7-0]R[7-0]G[7-0]), however the WS2812B-2020 needs the green and red bytes reversed.
 
 ```c
-#define LED_TYPE_WS2812B_2020
+#define WS2812_BYTE_ORDER
 ```
 
 ### Bitbang
