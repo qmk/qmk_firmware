@@ -7,6 +7,3 @@
 \*This build also has the EC11 rotary encoder.
 
 \*I decided to go caseless since this will just be a backup keyboard.
-
-![Final Build](images/Final.jpg)
-![My "Don't care matrix"](images/Matrix.jpg)
