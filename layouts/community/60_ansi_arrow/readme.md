@@ -1,5 +1,5 @@
 # 60_ansi_arrow
-This is the 60% ANSI Arrow keyboard layout. 
+This is [the 60% ANSI Arrow keyboard layout](https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/layout.json).
 
 ## Requirements
 
