@@ -1,4 +1,4 @@
-# Sendy YK's 60_ansi_arrow Layout & Keymap
+# Sendy YK's 60_ansi_arrow Layout and Keymap
 
 This is [`LAYOUT_60_ansi_arrow`](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/layout.json) and [Sendy YK's Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c).
 
