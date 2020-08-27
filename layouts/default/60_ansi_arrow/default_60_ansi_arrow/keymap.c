@@ -1,3 +1,9 @@
+/* 
+ * Based on Sendy YK's Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)
+ * https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c
+ * https://github.com/mrsendyyk
+ */
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {  
