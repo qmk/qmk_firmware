@@ -55,9 +55,11 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="16C0", ATTRS{idProduct}=="05DC", TAG+="uacc
 # Atmel SAM-BA (Massdrop)
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB" ATTRS{idProduct}=="6124" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 # Caterina (Pro Micro)
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Spark Fun Electronics
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1FFB" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Pololu Electronics
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Arduino SA
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Adafruit Industries LLC
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # dog hunter AG
 ```
 
 Once added, run the following:

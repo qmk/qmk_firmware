@@ -174,8 +174,10 @@ def check_udev_rules():
             _udev_rule("03EB", "6124")
         },
         'caterina': {
-            _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Sparkfun
+            _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Spark Fun Electronics
+            _udev_rule("1FFB", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pololu Electronics
             _udev_rule("2341", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Arduino SA
+            _udev_rule("239A", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Adafruit Industries LLC
             _udev_rule("2A03", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"')   # dog hunter AG
         }
     }
