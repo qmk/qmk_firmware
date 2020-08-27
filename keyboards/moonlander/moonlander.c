@@ -184,6 +184,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             break;
         case 3:
             ML_LED_3(1);
+            ML_LED_6(1);
             break;
         case 4:
             ML_LED_4(1);
