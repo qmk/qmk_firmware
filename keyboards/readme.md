@@ -38,6 +38,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Atreus](/keyboards/atreus) &mdash; Made by Technomancy.
 * [Bantam44](/keyboards/bantam44) &mdash; It is a 44-key 40% staggered keyboard.
 * [DataHand](/keyboards/handwired/datahand) &mdash; DataHand keyboard converted to use a Teensy board.
+* [DZ60 60% Mechanical Keyboard PCB](/keyboards/dz60) &mdash; A Customizable 60% Mechanical Keyboard PCB.
 * [Ergodox Infinity](/keyboards/ergodox_infinity) - Ergonomic Split Keyboard by Input Club.
 * [GH60](/keyboards/gh60) &mdash; A 60% Geekhack community-driven project.
 * [GON NerD](/keyboards/gonnerd) &mdash; Korean custom 60% PCB
@@ -46,7 +47,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [JD45](/keyboards/jd45) &mdash; Another Geekhack community project, designed by jdcarpe.
 * [JJ40](/keyboards/jj40) &mdash; ps2avrGB based ortholinear sold by KPrepublic
 * [JJ50](/keyboards/jj50) &mdash; A compact 50% (5x12) ortholinear keyboard sold by KPrepublic.
-* [KBD75](/keyboards/kbd75) &mdash; A 75% keyboard made by made by KBDFans.
+* [KBD75](/keyboards/kbdfans/kbd75) &mdash; A 75% keyboard made by made by KBDFans.
 * [KC60](/keyboards/kc60) &mdash; A programmable Chinese-made keyboard, lost in the mists of time.
 * [Kinesis Advantage](/keyboards/kinesis) &mdash; Contoured ergonomic keyboard by Kinesis Computer Ergonomics.
 * [KMAC](/keyboards/kmac) &mdash; Korean custom keyboard.
