@@ -15,3 +15,4 @@
  */
 
 #define PRODUCT_ID 0xE852 // E8.5 Soldered
+#define PRODUCT E8.5 Soldered PCB
