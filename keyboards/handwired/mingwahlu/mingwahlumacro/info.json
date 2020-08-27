@@ -1,7 +1,7 @@
 {
     "name":"mingwahlumacro",
     "vendorId":"0x000A",
-    "productId":"0x00AC",
+    "productId":"0xACAD",
     "lighting":"none",
     "matrix":{
       "rows":2,
