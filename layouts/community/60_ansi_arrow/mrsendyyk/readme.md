@@ -1,31 +1,31 @@
 # [LAYOUT_60_ansi_arrow and Sendy YK's Keymap](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
 `LAYOUT_60_ansi_arrow` with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator.
 
-## [LAYOUT_60_ansi_arrow](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+## LAYOUT_60_ansi_arrow
 
 ![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_layout_60_ansi_arrow.png)
 
-## [Sendy YK's Keymap](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+## Sendy YK's Keymap
 
-### [Default Layer [0]](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+### Default Layer [0]
 
 ![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_0.png)
 
-### [Fn Layer [1]](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+### Fn Layer [1]
 
 Press and hold *right* **Ctrl** key.
 
 ![Fn Layer [1]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_1.png)
 
-### [Fn Layer [2]](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+### Fn Layer [2]
 
 Press and hold *right* **Alt** key.
 
 ![Fn Layer [2]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_2.png)
 
-## [RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+## RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
-### [Caps Lock Indicator](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+### Caps Lock Indicator
 
 ```c
 /* Caps Lock Indicator */
@@ -35,7 +35,7 @@ Press and hold *right* **Alt** key.
    }
 ```
 
-### [Num Lock Indicator](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+### Num Lock Indicator
 
 ```c
 /* Num Lock Indicator */
@@ -44,7 +44,7 @@ Press and hold *right* **Alt** key.
    }
 ```
 
-### [Scroll Lock Indicator](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+### Scroll Lock Indicator
 ```c
 /* Scroll Lock Indicator */
    if (host_keyboard_led_state().scroll_lock) {
@@ -52,7 +52,7 @@ Press and hold *right* **Alt** key.
    }
 ```
 
-### [Layer Indicator](https://github.com/mrsendyyk/my_qmk/tree/master/kbdfans_tofu_60_keyboard)
+### Layer Indicator
 
 ```c
 /* Layer Indicator */
