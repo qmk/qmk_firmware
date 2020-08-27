@@ -1,12 +1,12 @@
-# Sendy YK's 60_ansi_arrow Layout and Keymap
+# Sendy YK's 60% ANSI Arrow Layout and Keymap
 
-This is [`LAYOUT_60_ansi_arrow`](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/layout.json) and [Sendy YK's Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c).
+This is Sendy YK's [60% ANSI Arrow Layout](https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/info.json) and [Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c).
 
-## LAYOUT_60_ansi_arrow
+## 60% ANSI Arrow Layout
 
 ![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_layout_60_ansi_arrow.png)
 
-## Sendy YK's Keymap
+## Keymap
 
 ### Default Layer [0]
 
