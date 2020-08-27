@@ -35,7 +35,7 @@ Without correction, this causes the two internal LEDs to swap colors and display
 The default setting GRB allows other addressable LEDs to work properly with the correct byte structure (G[7-0]R[7-0]G[7-0]), however the WS2812B-2020 needs the green and red bytes reversed.
 
 ```c
-#define WS2812_BYTE_ORDER RGB
+#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 ```
 
 ### Bitbang
