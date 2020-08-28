@@ -1,5 +1,5 @@
 # mingwahlu
-# mingWahlu aug 19 2020
+
 ![mingwahlu](https://imgur.com/a/qWw0s43)
 
 *A short description of the keyboard/project*
