@@ -22,6 +22,14 @@
 #    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
 #endif
 
+// WS2812 Byte Order
+#define WS2812_BYTE_ORDER_RGB 0
+#define WS2812_BYTE_ORDER_GRB 1
+
+#ifndef WS2812_BYTE_ORDER
+#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
+#endif
+
 #define NUMBER_NOPS 6
 #define CYCLES_PER_SEC (STM32_SYSCLK / NUMBER_NOPS * NOP_FUDGE)
 #define NS_PER_SEC (1000000000L)  // Note that this has to be SIGNED since we want to be able to check for negative values of derivatives
@@ -89,9 +97,16 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 
     for (uint8_t i = 0; i < leds; i++) {
         // WS2812 protocol dictates grb order
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
         sendByte(ledarray[i].g);
         sendByte(ledarray[i].r);
         sendByte(ledarray[i].b);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+        sendByte(ledarray[i].r);
+        sendByte(ledarray[i].g);
+        sendByte(ledarray[i].b);
+#endif
+
 #ifdef RGBW
         sendByte(ledarray[i].w);
 #endif
