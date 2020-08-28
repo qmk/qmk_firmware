@@ -2,7 +2,7 @@
 
 <!---
   original document: 0.9.57:docs/keycodes.md
-  git diff 0.8.147 HEAD -- docs/keycodes.md | cat
+  git diff 0.9.57 HEAD -- docs/keycodes.md | cat
 -->
 
 [キーマップ](ja/keymap.md) のそれぞれのキーを定義するときは、明確な定義が必要です。このページは、QMK で使えるキーコードに相当するシンボルについて記述しています。
