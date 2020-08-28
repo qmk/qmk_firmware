@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
- * Author: (C) 2019 by Jos Boersema
+ * Author: © 2019, 2020 by Jos Boersema
  *
  */
 
@@ -23,483 +23,327 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "./unicode_macros.h"
+#include "./unicode_weurope.h"
 
-// Two easy to change spots on the Unicode keymap
-// ƒ (best configured in keymap.c)
-#ifndef UNICODE_CURRENCY // Prior optional definition in keymap.c
-    #define UNICODE_CURRENCY 0x0192 // Hex number. The unicode hex number for position ƒ in the default keymap.
-#endif
-#ifndef UNICODE_CURRENCY_DESCRAMBLE // Prior optional definition in keymap.c
-    #define UNICODE_CURRENCY_DESCRAMBLE "0192"
-        // need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
-        // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set (see keymap.c)
-#endif
+// Definition of ƒ (Dutch currency symbol).
+// Best changed in user_config.h, if you like a Euro symbol instead.
+//
+# ifndef UNICODE_CURRENCY // Prior optional definition in user_config.h
+#     define UNICODE_CURRENCY 0x0192 // Hex number. The unicode hex number for position ƒ in the default keymap.
+# endif
+
+//
 // 🛠
-#define CS_USER_DEFINED 0x1F6E0 // Hammer & wrench (place holder).
-#define CS_USER_DEFINED_DESCRAMBLE "1y6d0" // String. Same, but for 'descramble'. If you change this, you
-        // need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
-        // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set (see keymap.c)
+#define CS_USER_DEFINED 0x1F6E0 // Hammer & wrench (place holder). 
 
-// Descramble Unicode functions, for layouts _DDA, _DDD
-// This function sends the leader codes that are common to most/all accented characters,
-// in an effort to reduce memory use, and/or to simplify the code. The "f" becomes "u"
-// when the computer side remaps the input to Dvorak (which problem is what 'descramble' deals with).
-void unicode_lead_00 ( void ) { 
-    SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00" ) ; // lead-in for Unicode on Linux
+#define DIV10POINT TRUE // suggest to function write_number, to divide by 10 and print as a fraction: N.N
+
+// Converts integer value to Unicode. Also handles 'descramble' Unicode mode for BASES_DVORAK_DESCRAMBLE.
+// Unicode is a hexadecimal string (character) representation of the value, with a pre- and post-fix.
+void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted) {
+
+    long unsigned int input; // which argument to work on
+    char output[10] ; // will hold the ascii for output
+    int index; // count backwards 'to left' in the string
+    long unsigned int bitmove; // move computation to next digit.
+    long unsigned int work; // temporary value for computation
+
+
+    // What to work on
+    if(shift_ison) input = shifted; // Trying to get everything possible here in this function, to reduce firmware size.
+    else input = unshifted;
+
+    //if (input < 0) input *= -1; // positive value
+
+    // Take the hex value 4 bits at a time, starting with the least significant, convert to ascii, store
+    index = 9;
+    output[index] = '\0'; // terminator
+    bitmove = 0x1; 
+    while ((work = (input / bitmove)) && (index >= 0)) {
+        index --;
+        work &= 0xF; 
+        if (work < 0xA){  // numbers
+            output[index] = work + 0x30; // pad to ASCII
+        }else{            // alphas
+# ifdef BASES_DVORAK_DESCRAMBLE // Do the letter descramble if needed.
+            if(_FULL_ == alternate){ // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+                if (0xA == work) output[index] = 'a';
+                if (0xB == work) output[index] = 'n';
+                if (0xC == work) output[index] = 'i';
+                if (0xD == work) output[index] = 'h';
+                if (0xE == work) output[index] = 'd';
+                if (0xF == work) output[index] = 'y';
+            }else{
+                output[index] = work - 9 + 0x40; // normal mode
+            }
+# else // The above is not relevant for anything else.
+            output[index] = work - 9 + 0x40; // normal mode
+# endif
+        }
+        bitmove *= 0x10; // next digit
+    }
+
+    // Put character(s) out in correct mode
+# ifdef BASES_DVORAK_DESCRAMBLE // Do the letter descramble if needed.
+    if (_FULL_ == alternate) { // This is the special 'descramble' output mode for a computer already set to Dvorak
+
+        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux, 'descramble' mode
+        send_string (output + index); // pointer to argument with formatted string
+        SEND_STRING ( " " ) ; // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
+
+    }else{
+        // normal QMK Unicode output mode
+        send_unicode_hex_string (output + index);  // pointer argument
+    }
+
+# else
+    send_unicode_hex_string (output + index);  // pointer argument
+# endif
+
+} 
+
+
+// Wrapper for unicode keys that do have the same on shift.
+void unicode_hex2output_single (long unsigned int either) {
+    unicode_hex2output (either, either) ;
 }
 
 
-// Same as above, but without first two zeroes 
-void unicode_lead ( void ) { 
-    SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux
-}
-
-
-// Tail end of unicode input.
-void unicode_tail ( void ) { 
-    SEND_STRING ( " " ) ; // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
-}
-
-
-
-    /* These are the accented characters of most/all western European Nations.
-     * Using the Unicode input system
-     */
-enum unicode_names { // See below under 'unicode map' for meaning
-    // For normal Dvorak BASE layer set:
-    CAEL_BI,
-    CAEU_BI,
-    CAL_ACU,
-    CAL_CAR,
-    CAL_DIA,
-    CAL_GRA,
-    CAL_RNG,
-    CAU_ACU,
-    CAU_CAR,
-    CAU_DIA,
-    CAU_GRA,
-    CAU_RNG,
-    CCL_CDL,
-    CCU_CDL,
-    CEL_ACU,
-    CEL_CAR,
-    CEL_DIA,
-    CEL_GRA,
-    CEU_ACU,
-    CEU_CAR,
-    CEU_DIA,
-    CEU_GRA,
-    CEX_INV,
-    CIJL_BI,
-    CIJU_BI,
-    CIL_ACU,
-    CIL_CAR, 
-    CIL_DIA,
-    CIL_GRA,
-    CIU_ACU,
-    CIU_CAR,
-    CIU_DIA,
-    CIU_GRA,
-    CN_0SUB,
-    CN_0SUP,
-    CN_1SUB,
-    CN_1SUP,
-    CN_2SUB,
-    CN_2SUP,
-    CN_3SUB,
-    CN_3SUP,
-    CN_4SUB,
-    CN_4SUP,
-    CN_5SUB,
-    CN_5SUP,
-    CN_6SUB,
-    CN_6SUP,
-    CN_7SUB,
-    CN_7SUP,
-    CN_8SUB,
-    CN_8SUP,
-    CN_9SUB,
-    CN_9SUP,
-    CNL_TLD,
-    CNU_TLD,
-    COEL_BI,
-    COEU_BI,
-    COL_ACU,
-    COL_CAR,
-    COL_DIA,
-    COL_GRA,
-    COL_STK,
-    COU_ACU,
-    COU_CAR,
-    COU_DIA,
-    COU_GRA,
-    COU_STK,
-    CQU_INV,
-    CS_BULLET,
-    CS_CCBRA,
-    CS_CDABRA,
-    CS_CENT,
-    CS_CIRCLE,
-    CS_CPSUB,
-    CS_CPSUP,
-    CS_CURREN,
-    CS_DARROW,
-    CS_DEGREE,
-    CS_DQUH,
-    CS_DQUHR,
-    CS_DQUL,
-    CS_ELLIPS,
-    CS_FLEUR,
-    CS_HEART,
-    CS_HHORI,
-    CS_HHORID,
-    CS_LARROW,
-    CS_LGULDEN,
-    CS_LHORI,
-    CS_LHORID,
-    CSL_SHP,
-    CS_MIDDOT,
-    CS_NONE,
-    CS_OCBRA,
-    CS_ODABRA,
-    CS_OPSUB,
-    CS_OPSUP,
-    CS_PARA,
-    CS_PLMI,
-    CS_POUND,
-    CS_RARROW,
-    CS_SAD_,
-    CS_SMIL,
-    CS_SQIG,
-    CS_THDN,
-    CS_THUP,
-    CS_UARROW,
-    CS_USER,
-    CS_YAYS,
-    CUL_ACU,
-    CUL_CAR,
-    CUL_DIA,
-    CUL_GRA,
-    CUU_ACU,
-    CUU_CAR,
-    CUU_DIA,
-    CUU_GRA,
-    CYL_ACU,
-    CYL_DIA,
-    CYU_ACU,
-    CYU_DIA,
-};
-
+// Required by QMK Unicode
 const uint32_t PROGMEM unicode_map[] = {
 
-    [CS_USER] = CS_USER_DEFINED, // Remaining free spot; making it easy to configure on top of this fdile.
-
-    // a lower case variants
-    [CAL_ACU] = 0x00e1, // 'C' for Costum 'A' for a, 'L' for lower, "ACU" for acute: á
-    [CAL_CAR] = 0x00e2, //      ''              ''        ''        "CAR" for caret: â
-    [CAL_DIA] = 0x00e4, //      ''              ''        ''        "DIA" for diaereses: ä
-    [CAL_GRA] = 0x00e0, //      ''              ''        ''        "GRA" for grave: à
-      // A upper case variants
-    [CAU_ACU] = 0x00c1, //      ''              ''   'U' for upper, "ACU" for acute: Á
-    [CAU_CAR] = 0x00c2, //      ''              ''        ''        "CAR" for caret: Â
-    [CAU_DIA] = 0x00c4, //      ''              ''        ''        "DIA" for diaereses: Ä
-    [CAU_GRA] = 0x00c0, //      ''              ''        ''        "GRA" for grave: À
-
-    // A with ring (Scandinavia)
-    [CAL_RNG] = 0x00e5, //      ''        'A' for a, 'L' for lower, "RNG" for Ring: å
-    [CAU_RNG] = 0x00c5, //      ''             ''    'U' for upper,        ''     : Å
-
-    // AE (French)          
-    [CAEL_BI] = 0x00e6, //        ''        "AE" for ae, 'L' for lower        ''              : æ
-    [CAEU_BI] = 0x00c6, //        ''              ''     'U' for upper,       ''              : Æ
-
-    // OE (French)
-    [COEL_BI] = 0x0153, //        ''        "AO" for ao, 'L' for lower, "BI" for two-character: œ
-    [COEU_BI] = 0x0152, //        ''              ''     'U' for upper,       ''              ; Œ
-
-    // C with cedilla
-    [CCL_CDL] = 0x00e7, //      ''        'C' for c, 'L' for lower, "CDL" for cedilla: ç 
-    [CCU_CDL] = 0x00c7, //      ''             ''    'U' for upper,        ''        : Ç
-
-    // e lower case variants
-    [CEL_ACU] = 0x00e9, // 'C' for Costum 'E' for e, 'L' for lower, "ACU" for acute: é
-    [CEL_CAR] = 0x00ea, //      ''              ''        ''        "CAR" for caret: ê
-    [CEL_DIA] = 0x00eb, //      ''              ''        ''        "DIA" for diaereses: ë
-    [CEL_GRA] = 0x00e8, //      ''              ''        ''        "GRA" for grave: è
-      // E upper case variants
-    [CEU_ACU] = 0x00c9, //      ''              ''   'U' for uuper, "ACU" for acute: É
-    [CEU_CAR] = 0x00ca, //      ''              ''        ''        "CAR" for caret: Ê
-    [CEU_DIA] = 0x00cb, //      ''              ''        ''        "DIA" for diaereses: Ë
-    [CEU_GRA] = 0x00c8, //      ''              ''        ''        "GRA" for grave: È
-    
-    // i lower case variants
-    [CIL_ACU] = 0x00ed, //      ''         'I' for i, 'L' for lower, "ACU" for acute: í
-    [CIL_CAR] = 0x00ee, //      ''              ''         ''        "CAR" for caret: î
-    [CIL_DIA] = 0x00ef, //      ''              ''         ''        "DIA" for diaereses: ï
-    [CIL_GRA] = 0x00ec, //      ''              ''         ''        "GRA" for grave: ì
-      // I upper case variants
-    [CIU_ACU] = 0x00cd, //      ''              ''    'U' for upper, "ACU" for acute: Í
-    [CIU_CAR] = 0x00ce, //      ''              ''         ''        "CAR" for caret: Î
-    [CIU_DIA] = 0x00cf, //      ''              ''         ''        "DIA" for diaereses: Ï
-    [CIU_GRA] = 0x00cc, //      ''              ''         ''        "GRA" for grave: Ì
-
-    // N with tilde
-    [CNL_TLD] = 0x00f1, //      ''        'N' for n, 'L' for lower, "TLD" for tilde: ñ
-    [CNU_TLD] = 0x00d1, //      ''             ''    'U' for upper,        ''      : Ñ
-
-    //Spanish additional symbols:
-    [CEX_INV] = 0x00a1, //      ''        "EX" for exclamation mark, "INV" for inverted: ¡
-    [CQU_INV] = 0x00bf, //      ''        "QU" for question mark,           ''         : ¿
-    
-    // o lower case variants
-    [COL_ACU] = 0x00f3, // 'C' for Costum 'O' for a, 'L' for lower, "ACU" for acute: ó
-    [COL_CAR] = 0x00f4, //      ''              ''        ''        "CAR" for caret: ô
-    [COL_DIA] = 0x00f6, //      ''              ''        ''        "DIA" for diaereses: ö
-    [COL_GRA] = 0x00f2, //      ''              ''        ''        "GRA" for grave: ò
-      // O upper case variants
-    [COU_ACU] = 0x00d3, //      ''              ''   'U' for upper, "ACU" for acute: Ó
-    [COU_CAR] = 0x00d4, //      ''              ''        ''        "CAR" for caret: Ô
-    [COU_DIA] = 0x00d6, //      ''              ''        ''        "DIA" for diaereses: Ö
-    [COU_GRA] = 0x00d2, //      ''              ''        ''        "GRA" for grave: Ò
-                            
-    // O with stroke (Scandinavia)
-    [COL_STK] = 0x00f8, //      ''        'O' for o, 'L' for lower, "STK" for Stroke: ø
-    [COU_STK] = 0x00d8, //      ''             ''    'U' for upper,        ''       : Ø
-
-    // u lower case variants
-    [CUL_ACU] = 0x00fa, // 'C' for Costum 'U' for a, 'L' for lower, "ACU" for acute: ú
-    [CUL_CAR] = 0x00fb, //      ''              ''        ''        "CAR" for caret: û
-    [CUL_DIA] = 0x00fc, //      ''              ''        ''        "DIA" for diaereses: ü
-    [CUL_GRA] = 0x00f9, //      ''              ''        ''        "GRA" for grave: ù
-      // U upper case variants
-    [CUU_ACU] = 0x00da, //      ''              ''   'U' for upper, "ACU" for acute: Ú
-    [CUU_CAR] = 0x00db, //      ''              ''        ''        "CAR" for caret: Û
-    [CUU_DIA] = 0x00dc, //      ''              ''        ''        "DIA" for diaereses: Ü
-    [CUU_GRA] = 0x00d9, //      ''              ''        ''        "GRA" for grave: Ù
-
-    // Y with acute
-    [CYL_ACU] = 0x00fd, //      ''        'Y' for y, 'L' for lower, "ACU" for Acute: ý
-    [CYU_ACU] = 0x00dd, //      ''             ''    'U' for upper,        ''      : Ý
-    // Y with diaereses
-    [CYL_DIA] = 0x00ff, //      ''        'Y' for y, 'L' for lower, "DIA" for Diareses: ÿ
-    [CYU_DIA] = 0x0178, //      ''             ''    'U' for upper,        ''         : Ÿ
-
-    // Dutch IJ 
-    [CIJL_BI] = 0x0133, //      ''        'IJ' for ij, 'L' for lower, BI for two-character: ĳ
-    [CIJU_BI] = 0x0132, //      ''              ''   , 'U' for upper      ''              : Ĳ
-
-    //German:
-     // sharp s 
-    [CSL_SHP] = 0x00df, //      ''         'S' for s, 'L' for lower, "SHP" for sharp: ß
-  
-    // Some Unicode symbols that might be handy
-      // Happy symbols:
-    [CS_THUP] = 0x1f44d, //      ''         'S' for symbol,  "THUP"  for <thumb up> 👍 
-    [CS_SMIL] = 0x1f642, //      ''              ''          "SMIL"  for <smile> 🙂 
-    [CS_YAYS] = 0x1f603, //      ''              ''          "YAYS"  for <big smile>  😃 
-  
-      //Sad symbols
-    [CS_SAD_] = 0x1f641, //      ''              ''          "SAD_"   for  <sad face>  🙁 
-    [CS_SQIG] = 0x2368,  //      ''              ''          "SQIG"  for "Squiggly" face <sad>  ⍨
-    [CS_THDN] = 0x1f44e, //      ''              ''          "THDN"  for <thumb down>  👎 
-
-     // Unusual parenthesis types
-    [CS_OCBRA] = 0x300c, //      ''              ''          "O" for opening, "C" for corner, "BRA" for bracket:「
-    [CS_CCBRA] = 0x300d, //      ''              ''          "C" for closing,                                  : 」
-    [CS_ODABRA] = 0x300a, //     ''              ''          "O" for opening, "D" for double, "A" for angled, "BRA" for bracket:《
-    [CS_CDABRA] = 0x300b, //     ''              ''          "C" for closing,      ''              ''                ''        : 》
-
-     // currency
-    [CS_LGULDEN] = UNICODE_CURRENCY, //    ''              ''          "L" for lower, "GULDEN" for guilder: ƒ
-                // ^ special case for easy user configuration
-    [CS_CURREN] = 0x00A4, //     ''              ''          "CURREN" for currency, 'any currency' symbol: ¤
-    [CS_POUND] = 0x00A3, //      ''              ''          "POUND" for pound: £
-    [CS_CENT] = 0x00A2, //       ''              ''          "CENT" for cent: ¢
-    [CS_NONE] = 0x2205, //       ''              ''          "NONE" for empty-set / no-solution: ∅ 
-    
-     // circle and dots
-    [CS_CIRCLE] = 0x3007, //      ''              ''          "CIRCLE" for circle: 〇
-    [CS_DEGREE] = 0x00B0, //      ''              ''          "DEGREE" for degree: °
-    [CS_MIDDOT] = 0x00B7, //      ''              ''          "MIDDOT" for mid dot: ·
-    [CS_BULLET] = 0x2022, //      ''              ''          "BULLET" for bullet: •
-    [CS_ELLIPS] = 0x2026, //      ''              ''          "ELLIPS" for bullet: …
-
-     // super and sub script numbers
-    [CN_0SUB] =  0x2080, //       ''     , N for number, "SUB" for sub-script or "SUP" for super-script:₀
-    [CN_0SUP] =  0x2070, //       ''     ,    ''       ,                           ''                  :⁰
-    [CN_1SUB] =  0x2081, //       ''     ,    ''       ,        ''                                     :₁
-    [CN_1SUP] =  0x00B9, //       ''     ,    ''       ,                           ''                  :¹
-    [CN_2SUB] =  0x2082, //       ''     ,    ''       ,        ''                                     :₂
-    [CN_2SUP] =  0x00B2, //       ''     ,    ''       ,                           ''                  :²
-    [CN_3SUB] =  0x2083, //       ''     ,    ''       ,        ''                                     :₃
-    [CN_3SUP] =  0x00B3, //       ''     ,    ''       ,                           ''                  :³
-    [CN_4SUB] =  0x2084, //       ''     ,    ''       ,        ''                                     :₄
-    [CN_4SUP] =  0x2074, //       ''     ,    ''       ,                           ''                  :⁴
-    [CN_5SUB] =  0x2085, //       ''     ,    ''       ,        ''                                     :₅
-    [CN_5SUP] =  0x2075, //       ''     ,    ''       ,                           ''                  :⁵
-    [CN_6SUB] =  0x2086, //       ''     ,    ''       ,        ''                                     :₆
-    [CN_6SUP] =  0x2076, //       ''     ,    ''       ,                           ''                  :⁶
-    [CN_7SUB] =  0x2087, //       ''     ,    ''       ,        ''                                     :₇
-    [CN_7SUP] =  0x2077, //       ''     ,    ''       ,                           ''                  :⁷
-    [CN_8SUB] =  0x2088, //       ''     ,    ''       ,        ''                                     :₈
-    [CN_8SUP] =  0x2078, //       ''     ,    ''       ,                           ''                  :⁸
-    [CN_9SUB] =  0x2089, //       ''     ,    ''       ,        ''                                     :₉
-    [CN_9SUP] =  0x2079, //       ''     ,    ''       ,                           ''                  :⁹
-    [CS_OPSUB] = 0x208D, //       ''     , S for symbol,        ''                                     :₍
-    [CS_OPSUP] = 0x207D, //       ''     ,    ''       ,                           ''                  :⁽
-    [CS_CPSUB] = 0x208E, //       ''     ,    ''       ,        ''                                     :₎
-    [CS_CPSUP] = 0x207E, //       ''     ,    ''       ,                           ''                  :⁾
-
-    // Symbols from Dutch typewriter, other Dutch 
-    [CS_PARA] = 0x00A7,  //       ''     , S for symbol, "PARA" for paragraaf: §
-    [CS_PLMI] = 0x00B1,  //       ''     ,    ''       , "PLMI" for plus-minus; ±
-    // English and Dutch quotations
-    [CS_DQUL] = 0x201E,  //       ''     ,    ''       , "D" for double, "QU" for quote, "L" for low: „
-    [CS_DQUH] = 0x201D,  //       ''     ,    ''       ,      ''       ,       ,,      , "H" for high: ”
-    [CS_DQUHR] = 0x201C, //       ''     ,    ''       ,      ''       ,       ,,      , "H" for high, "R" for reverse: “
-#ifndef CHECKBOXES_ON_POINT
-    // pointers
-    [CS_LARROW] = 0x2B98, //      ''     ,    ''       , "L" for Left, "ARROW" for arrow: ⮘
-    [CS_UARROW] = 0x2B99, //      ''     ,    ''       , "U" for UP,            ''      : ⮙
-    [CS_RARROW] = 0x2B9A, //      ''     ,    ''       , "R" for Right,         ''      : ⮚
-    [CS_DARROW] = 0x2B9B, //      ''     ,    ''       , "D" for Down,          ''      : ⮛
-#endif
-#ifdef CHECKBOXES_ON_POINT
-    // checkboxes
-    [CS_LARROW] = 0x02610, //      ''     ,    ''       ,                                : ☐ 
-    [CS_UARROW] = 0x02612, //      ''     ,    ''       ,                                : ☒ 
-    [CS_RARROW] = 0x02611, //      ''     ,    ''       ,                                : ☑ 
-    [CS_DARROW] = 0x1F5F9, //      ''     ,    ''       ,                                : 🗹
-#endif
-    // ornamental, heart
-    [CS_FLEUR] = 0x2766, //       ''     ,    ''       , "FLEUR" for fleur (flower): ❦
-    [CS_HEART] = 0x2665, //       ''     ,    ''       ' "HEART" for heart: ♥
-
-    [CS_LHORI] = 0x2500, //       ''     ,    ''       ' "L" for light, "HORI" for horizontal: ─
-    [CS_HHORI] = 0x2501, //       ''     ,    ''       ' "H" for heavy,         ''           : ━
-    [CS_LHORID] = 0x2504,//       ''     ,    ''       ' "L" for light,         ''           , "D" for dashes: ┄
-    [CS_HHORID] = 0x2505,//       ''     ,    ''       ' "H" for heavy,         ''           , "D" for dashes: ┅
 };
 
+// Macro name definitions. The Unicode layers _ACC, _DRA and _BON are defined here,
+// because the Unicode map system does not have enough space (at time of this programming, year 2020).
 enum custom_keycodes {
-// Macros, allowing the upper left button to switch to either _LTR base layer, or the _DDL descramble base layer.
-// Allowing the upper left button to switch to either _LTR base layer, or the _DDL descramble base layer.
-// Same on _FUN layer key toggles. That way the whole board works the same, with the use of descramble or not.
-// Descramble is set on/half/off in the _FUN layer. The word "base" is used to avoid "default," because the default
-// layer system call DF()is not being used.
+
+    // Macro, allowing the upper left button to switch to either _DEF_BASE base layer, or the _ALT_BASE base layer.
+    // Alternate is set on/half/off in the _RAR layer. The word "base" is used to avoid "default," because the default
+    // layer system call DF() is not being used.
     CTO_BASE = SAFE_RANGE, // 'C' for costum, "TO" for to, "BASE" for chosen base layer
-    // BASE_NORMAL and BASE_DD_HALF are discontinued, but if you like one key to go to a mode 
-    // .. you can re-instate the code.
-    //BASE_NORMAL,                   // "BASE" for base layer, "_LTR" for that layer
-    BASE_DESCRMBL, // New: cycles    //         ''             "_DDL" for that layer 
-    //BASE_DD_HAlF,                  //         ''             "_DDL" for that layer
-    CTO_NUMS, // activates number-symbols layer
-    CTO_FUNC,
-    CTO_MOVE,
-    CTO_RARE,
-    CTO_REVE,
-    CTO_ACCE,
-    CTO_DRAW,
-    CHOLTAP_ACCE,
-    CHOLTAP_RSHFT,
-    CHOLTAP_LSHFT,
-    CHOLTAP_LAYR,
-// Special macro to make F-keys one-shot or not.
-    _FUN_STAY,
-// Layer toggle to be guaranteed on up-key.
-    _MOV_UP,
-// These macros protect the critical keys like 'Power' from accidental press.
-    C_KC_PWR, 
-    C_KC_WAKE,
-    C_KC_SLEP,
-    C_KC_PAUS,
-// Toggles leds on/off. Note that RGB_TOG is a build-in keycode, to toggle the other led.
-    LEDS_ON,
-// These keys can be pressed together for a separate layer (like 'adjust layer' on the Planck).
+
+    BASE_DESCRMBL, // cycles modes: use _DEF_BASE, _ALT_BASE. For DVORAK_DESCRAMBLE compile option, there is a third mode.
+
+    CTO_NUMS, // activates number-symbols layer, taking into account the dual layout mode
+    CTO_ACCE, //             accented        '' 
+    CTO_DRAW, //             drawings        ''
+
+# ifndef CHOLTAP_ACCE_NOP
+    CHOLTAP_ACCE, // Go to accented layer, or others in combination with other keys.
+#endif 
+
+// Keys can be pressed together for a separate layer (like 'adjust layer' on the Planck).
     DUO_HOLD,
 
-#ifndef QWERTY_DVORAK 
-       // .... v .... v .... v .... v .... v .... v .... v .... v .... v .... v 
-// For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
-// the assigned key to end up doing other stuff besides what we have defined in this file.
-// The below are the same as above for the normal maps, but there is not upper/lower case
-// because that is handled by noting the state of Shift. These are merely keycodes that refer
-// to their macro, which then refers to the above Unicode map version and then recode that.
-// UN_OE_BI refers to the values in COEL_BI and COEU_BI, recodes them and gives as output, etc.
-// (These lists are sorted.)
-    UN_A_ACU,
-    UN_A_CAR,
-    UN_A_DIA,
-    UN_AE_BI,
-    UN_A_GRA,
-    UN_A_RNG,
-    UN_C_CDL,
-    UN_E_ACU,
-    UN_E_CAR,
-    UN_E_DIA,
-    UN_E_GRA,
-    //UN_EX_INV,
-    UN_I_ACU,
-    UN_I_CAR,
-    UN_I_DIA,
-    UN_I_GRA,
-    UN_IJ_BI,
-    UN_N_0SUBP,
-    UN_N_1SUBP,
-    UN_N_2SUBP,
-    UN_N_3SUBP,
-    UN_N_4SUBP,
-    UN_N_5SUBP,
-    UN_N_6SUBP,
-    UN_N_7SUBP,
-    UN_N_8SUBP,
-    UN_N_9SUBP,
-    UN_N_TLD,
-    UN_O_ACU,
-    UN_O_CAR,
-    UN_O_DIA,
-    UN_OE_BI,
-    UN_O_GRA,
-    UN_O_STK,
-    UN_QU_INV,
-    UN_S_BULLET,
-    UN_S_CCBRA,
-    UN_S_CDABRA,
-    UN_S_CIRCLE,
-    UN_S_CPSUBP,   
-    UN_S_CURREN,
-    UN_S_DEGREE,
-    UN_S_DQUH,
-    UN_S_DQUL,
-    UN_S_ELLIPS,
-    UN_S_FLEUR,
-    UN_S_LARROW,
-    UN_S_MIDDOT,
-    UN_S_NONE,
-    UN_S_OCBRA,
-    UN_S_ODABRA,
-    UN_S_OPSUBP,
-    UN_S_PLMI,
-    UN_S_PLUSMIN,
-    UN_S_RARROW,
-    UN_S_SHP,
-    UN_S_SMIL,
-    UN_S_THUP,
-    UN_U_ACU,
-    UN_U_CAR,
-    UN_U_DIA,
-    UN_U_GRA,
-    UN_Y_ACU,
-    UN_Y_DIA,
-#endif // QWERTY_DVORAK .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ 
+    CHOLTAP_RSHFT, // Go to _FUN layer, or shift modifier.
+    CHOLTAP_LSHFT, // Go to <configurable> layer, or shift modifier.
+    CHOLTAP_LAYR,  // Go to _RAR layer, or right arrow 
+
+// Special macro to make F-keys one-shot or not.
+    _FUN_STAY,
+
+// Layer toggle to be guaranteed on up-key, therefore macro definition here.
+    _MOV_UP,
+
+// These macros protect the critical keys like 'Power' from accidental press, by needing Shift to be pressed.
+    C_KC_PWR,  // Powers computer off.
+    C_KC_WAKE,
+    C_KC_SLEP, // sleep computer
+    C_KC_PAUS, // pauze computer
+
+// Toggles side leds on/off. Note that RGB_TOG is a build-in keycode, which toggles the breathing led.
+    LEDS_ON,
+
+// Typing speed measuring 
+    SPEED_TOG,
+    SPEED_REPORT,
+
+// Word/character counting
+    COUNT_TOG,     // starts word counting
+    COUNT_REPORT,  // writes to the computer as if typing, gives count report
+    COUNT_WORDMIN, // reduces the word count
+    COUNT_NULL,    // resets count to zero
+    LT__MOV__KC_ENT, // move to layer _MOV, or <enter>
+
+// The _ACC layer, additional Unicode.
+# ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
+    XP_ACC_AA ,
+    XP_ACC_AB ,
+    XP_ACC_AC ,
+    XP_ACC_AD ,
+    XP_ACC_AE ,
+    XP_ACC_AF ,
+    XP_ACC_AG ,
+    XP_ACC_AH ,
+    XP_ACC_AI ,
+    XP_ACC_AJ ,
+    XP_ACC_BA ,
+    XP_ACC_BB ,
+    XP_ACC_BC ,
+    XP_ACC_BD ,
+    XP_ACC_BE ,
+    XP_ACC_BF ,
+    XP_ACC_BG ,
+    XP_ACC_BH ,
+    XP_ACC_BI ,
+    XP_ACC_BJ ,// XP_ACC_BK , // no 'BK' key definition on this layer
+    XP_ACC_CA ,
+    XP_ACC_CB ,
+    XP_ACC_CC ,
+    XP_ACC_CD ,
+    XP_ACC_CE ,
+    XP_ACC_CF ,
+    XP_ACC_CG ,
+    XP_ACC_CH ,
+    XP_ACC_CI ,
+    XP_ACC_CJ ,
+# endif // REMOVE_ACC 
+
+# ifndef REMOVE_DRA // This cuts out the whole _DRA layer
+// The _DRA layer, additional Unicode.
+    XP_DRA_AA ,
+    XP_DRA_AB ,
+    XP_DRA_AC ,
+    XP_DRA_AD ,
+    XP_DRA_AE ,
+    XP_DRA_AF ,
+    XP_DRA_AG ,
+    XP_DRA_AH ,
+    XP_DRA_AI ,
+    XP_DRA_AJ ,
+    XP_DRA_BA ,
+    XP_DRA_BB ,
+    XP_DRA_BC ,
+    XP_DRA_BD ,
+    XP_DRA_BE ,
+    XP_DRA_BF ,
+    XP_DRA_BG ,
+    XP_DRA_BH ,
+    XP_DRA_BI ,
+    XP_DRA_BJ ,// XP_DRA_BK , // no 'BK' key definition on this layer
+    XP_DRA_CA ,
+    XP_DRA_CB ,
+    XP_DRA_CC ,
+    XP_DRA_CD ,
+    XP_DRA_CE ,
+    XP_DRA_CF ,
+# endif // REMOVE_DRA
+    XP_DRA_CG , // Needed for ☑ on Unicode tester key in _RAR
+# ifndef REMOVE_DRA // This cuts out the whole _DRA layer
+    XP_DRA_CH ,
+    XP_DRA_CI ,
+    XP_DRA_CJ ,
+# endif // REMOVE_DRA
+
+// The _BON layer, additional Unicode.
+# ifndef REMOVE_BON // Removes this layer entirely, if set.
+    XP_BON_AA ,
+    XP_BON_AB ,
+    XP_BON_AC ,
+    XP_BON_AD ,
+    XP_BON_AE ,
+    XP_BON_AF ,
+    XP_BON_AG ,
+    XP_BON_AH ,
+    XP_BON_AI ,
+    XP_BON_AJ ,
+    XP_BON_BA ,
+    XP_BON_BB ,
+    XP_BON_BC ,
+    XP_BON_BD ,
+    XP_BON_BE ,
+    XP_BON_BF ,
+    XP_BON_BG ,
+    XP_BON_BH ,
+    XP_BON_BI ,
+    XP_BON_BJ ,
+    XP_BON_BK ,
+    XP_BON_CA ,
+    XP_BON_CB ,
+    XP_BON_CC ,
+    XP_BON_CD ,
+    XP_BON_CE ,
+    XP_BON_CF ,
+    XP_BON_CG ,
+    XP_BON_CH ,
+    XP_BON_CI ,
+    XP_BON_CJ ,
+# endif // REMOVE_BON 
 };
 
-
-// Process the user input, as far as special costumization within this source file is concerned.
-// The special layer switching keys.
-// The Unicode system to work with descramble.
-// pre-existing function
+// Pre-existing function, called for every key up and down.
+// This function is sortof the hub of the whole thing.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    // User input for the word count menu
+    if (sizecount_menu) {
+         if (record->event.pressed) { // key down
+
+             switch (keycode) {
+                 case KC_0: // read in how many is maximum
+                     sizecount_max = (sizecount_max * 10);
+                     break;
+
+                 case KC_1:
+                     sizecount_max = (sizecount_max * 10) + 1;
+                     break;
+
+                 case KC_2:
+                     sizecount_max = (sizecount_max * 10) + 2;
+                     break;
+
+                 case KC_3:
+                     sizecount_max = (sizecount_max * 10) + 3;
+                     break;
+
+                 case KC_4:
+                     sizecount_max = (sizecount_max * 10) + 4;
+                     break;
+
+                 case KC_5:
+                     sizecount_max = (sizecount_max * 10) + 5;
+                     break;
+
+                 case KC_6:
+                     sizecount_max = (sizecount_max * 10) + 6;
+                     break;
+
+                 case KC_7:
+                     sizecount_max = (sizecount_max * 10) + 7;
+                     break;
+
+                 case KC_8:
+                     sizecount_max = (sizecount_max * 10) + 8;
+                     break;
+
+                 case KC_9:
+                     sizecount_max = (sizecount_max * 10) + 9;
+                     break;
+
+                 case KC_C: // count characters
+                     sizecount_max_type = SIZECOUNT_CHAR;
+                     sizecount_menu = FALSE;
+                     break;
+
+                 case KC_W: // count words
+                     sizecount_max_type = SIZECOUNT_WORD;
+                     sizecount_menu = FALSE;
+                     break;
+
+                 // Anything else ends menu input.
+                 case KC_DOT:
+                 case KC_ESC:
+                     sizecount_menu = FALSE; // break out
+                     break;
+
+             }
+             if (!sizecount_menu) { // end
+                     send_string ("->");
+                     write_number (sizecount_max, FALSE);  // just indicate something
+             }
+         }
+    }
 
     // Go back to base-layer after pressing an F-key, on key-up to avoid BASE key activation
     if ((_fun_stay == FALSE) && // 
@@ -508,828 +352,1753 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         ((keycode >= KC_F13) && (keycode <= KC_F24)))) {  // assumes keycodes 1-12 and 13-24 are consequtive, which seems likely, although using 1-24 failed (probably not consequtive)
          // Go back to base layer
          if (!(record->event.pressed)) { // key up
-             if (descramble) { // 
-                 layer_move (_DDL); 
-             } else {
-                 layer_move (_LTR);
+             if (alternate) { // 
+                 layer_move (_ALT_BASE); 
+             }else{
+                 layer_move (_DEF_BASE);
              }
         }
     }
 
-    // Detect if right shift was pressed in isolation
+    // Detect if right shift was pressed in isolation, by seeing if another key was pressed during the time
+    // the right shift key was held down.
     if (isolate_trigger) { // speed: hoping this statement to execute a little quicker overall, than the next 
         if ((keycode != CHOLTAP_RSHFT)   // not right shift up
              &&
             (keycode != CHOLTAP_LSHFT)) { // not left shift up
-            isolate_trigger = FALSE;
+            isolate_trigger = FALSE; // another key was pressed
         }
     }
 
-
-    // Layer switching:
+    // This block contains the complex macros, which should not count in speed counting or word/character counting,
+    // because they aren't typed characters.
     switch (keycode) {
 
-    // Shift detection system.
-    // Following ... Disused again, because it turned out 'one shot' like
-    // Unicode input. Shift detection copied from.
-    // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
-    //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+        // Typing speed measuring
+        case SPEED_TOG: // Toggle speed measuring on/off
+            if (record->event.pressed) { // key down
+                if (speed_measure) {
+                    speed_measure = FALSE;
+                    rgblight_sethsv_noeeprom (HSV_PURPLE); // indicates stop (_RAR color)
+                }else{
+                    // initialization of measurements
+                    speed_measure = TRUE; // activates
+                    speed = 0; // start at 0 k/s 
+                    speed_countdown = SPEED_COUNTDOWN; // reset, speed is measured in batches of keypresses
+                    speed_counttime = timer_read32 ();// get current time
+                    speed_add = 0;// speed average accumulator, it keeps adding the *speed* of each batch to this total
+                    speed_batches = 0; // divider for speed_add to get the average
 
-            // Re-instated ...
-           // /* Crude but self contained shift detection.
-        // Record state of shift
+                    // set middle led
+                    rgblight_sethsv_noeeprom (HSV_WHITE); // indicates start
+                }
+                isolate_rgblight_set ();
+            }
+            break; 
+
+        case SPEED_REPORT: // Report the current typing speed by writing it, as if typing
+            if (record->event.pressed) { // down
+                short added = 5; // This counts how many characters the report itself is adding into the current text,
+                                 // to later delete it from the character count for text-size counting.
+              
+                if (speed_measure) {
+
+# ifdef WORDS_PER_MINUTE
+
+                    // The speed is recorded as an accumulation of keystrokes-per-second, times 10 for added precision.
+                    // This will be converted into words-per-minute by dividing by 5 characters for a word including
+                    // blank space and punctuation, and multiplied by 60 for seconds per minute. ⁶⁰/₅ = 12. Multiplied
+                    // by 12 is the simple conversion.
+                    send_string ("<"); // +1 character written // analogue to '<POWER>'
+                    added += write_number ((long int)((speed*12)/10), FALSE); // writes the speed 
+                    send_string ("wpm"); // +3 character written
+                    if (0 != speed_batches) {
+                        long int average_times_ten ;
+                        average_times_ten =(long int) ((speed_add * 12) / speed_batches); // *12 converts k/s to wpm
+
+                        send_string (";"); // +①   ''       
+                        added += write_number (average_times_ten / 10, FALSE); // writes the average speed, cannot use decimal because precision is not there
+                        send_string ("wpm"); // +③
+                        added += write_number ((long int) speed_batches, FALSE); // amount of batches
+                        send_string ("x"); // +①
+                        added += 9 + write_number ((long int) SPEED_COUNTDOWN, FALSE); // amount of batches
+                        send_string ("keys"); // +④ = ⑨
+           
+                        speed_led ( (int) (average_times_ten / 12));// on report, show the average
+                                                                         // we need to convert back to k/s now
+                    }
+
+# else // keystrokes per second, k/s
+
+                    send_string ("<"); // +1 character written // analogue to '<POWER>'
+                    added += write_number ((long int)(speed/10), FALSE); // writes the speed 
+                    send_string ("k/s"); // +3 character written
+                    if (0 != speed_batches) {
+                        long int average_times_ten ;
+                        average_times_ten =(long int) (speed_add / speed_batches);
+
+                        send_string (";"); // +①   ''       
+                        added += write_number (average_times_ten, DIV10POINT); // writes the average speed 
+                        send_string ("k/s"); // +③
+                        added += write_number ((long int) speed_batches, FALSE); // amount of batches
+                        send_string ("x"); // +①
+                        added += 9 + write_number ((long int) SPEED_COUNTDOWN, FALSE); // amount of batches
+                        send_string ("keys"); // +④ = ⑨
+           
+                        speed_led ( (int) average_times_ten );// on report, show the average. speed_led divides by 10
+                    }
+
+# endif
+
+                    send_string (">"); // +1 = 5
+                    if (sizecount_measure) sizecount_chars += added;   // the user is expected to hit <backspace>
+                }else{
+                    send_string ("<Soff>"); // indicates off
+                    if (sizecount_measure) sizecount_chars += 5;  // user: <backspace>, to take it down again
+                }
+
+                key_timer = timer_read ();
+
+            }else{ // key up
+                // This use of the key is for callibrating your colors; it is difficult otherwise to see.
+                // This is not part of normal usage, therefore it is kept bare bones to reduce firmware size
+                if (timer_elapsed (key_timer) > 999) { // held for one second
+                    speed += 10;
+                    write_number ((long int)(speed/10), FALSE); // writes the speed 
+                    speed_led (speed); // update led
+                }
+            }
+            break;
+
+        case COUNT_TOG: // Toggle start/stop text size measuring
+            if (record->event.pressed) { // key down
+
+                key_timer = timer_read ();
+
+            }else{ // up
+                if (timer_elapsed (key_timer) < 500) { // held for less than half a second (tapped)
+                    if (sizecount_measure) {
+
+                        sizecount_measure = FALSE;
+                        rgblight_sethsv_noeeprom (HSV_PURPLE); // indicates stop (color of _RAR)
+                        isolate_rgblight_set ();
+
+                    }else{
+
+                        sizecount_measure = TRUE; // start counting
+                        sizecount_word = FALSE; // detect double blanks. leading blanks are not a word
+
+                        if (0 == sizecount_max) {
+                            rgblight_sethsv_noeeprom (HSV_BLUE); // indicates start/activated, but only without maximum set
+                            isolate_rgblight_set (); // .. if maximum set, led goes green to red.
+                        }else{
+                            rgblight_sethsv_noeeprom (HSV_GREEN); // indicates start/activated, but only without maximum set
+                            isolate_rgblight_set (); // .. if maximum set, led goes green to red.
+                        }
+                    }
+                }else{ // held longer
+                    sizecount_menu = TRUE;
+                    send_string ("<Nc|w>"); // Menu: N amount, c|w character|word counting. Input is a number then ‛c’ or ‛w’
+                    sizecount_max = 0;
+                }
+            }
+            break;
+
+        case COUNT_NULL: // Sets the count to zero, which allows on/off to have a suspend/resume 
+            if (record->event.pressed) { // key up
+                sizecount_blanks = 0; // 
+                sizecount_chars = 0;
+                rgblight_sethsv_noeeprom (HSV_CYAN); // indicates reset
+                isolate_rgblight_set ();
+            }
+            break;
+
+        case COUNT_REPORT: // Report the current typing speed 
+            if (record->event.pressed) {
+                // We assume the user is writing a report in its active document, and then likely deleting it.
+                short added = 0; // This counts how much characters the report adds into the user document.
+
+                if (sizecount_measure) {
+                    send_string ("<"); // + 1 and ① characters (1 is one logical stream, ① another)
+                    if (0 == sizecount_max) { // no size counting maximum, print both characters and words
+
+                        added += write_number (sizecount_chars, FALSE); // returns how many characters where printed
+                        send_string ("c;"); // + 2
+                        added += write_number (sizecount_blanks, FALSE) + 5; // adds here
+                        send_string ("w>"); // + 2 = 5
+
+                    }else{ // Only show the one for which the maximum is set, don't throw off that mental focus
+                        if (SIZECOUNT_WORD == sizecount_max_type ) {
+
+                            added += write_number (sizecount_blanks, FALSE) + 3;
+                            send_string ("w>"); // + ② = ③
+
+                        }else{ // characters
+
+                            added += write_number (sizecount_chars, FALSE) + 3; // returns how many characters where printed
+                            send_string ("c>"); // + ② = ③
+
+                        }
+                        // add current maximum setting
+                        send_string ("["); // + 1
+                        added += write_number (sizecount_max, FALSE) + 3; 
+                        if (SIZECOUNT_WORD == sizecount_max_type) send_string ("w]"); // + 2
+                        else                                      send_string ("c]"); // + 2
+                    }
+                    sizecount_chars += added; // Account for the written characters in the report itself.
+
+                }else{ // no size counting, also here: keep the report terse
+                     send_string ("<Coff>"); // indicates off (no need to add to count, since counting is off)
+                }
+            }
+            break;
+
+        // This allows the user to manually remove word counts, when he has deleted a word.
+        // This is not needed for character count, because <backspace> counts as minus.
+        case COUNT_WORDMIN: // Take down one word in the word-count.
+            if (record->event.pressed) { // down
+                key_timer = timer_read ();
+            }else{ // up
+                if (timer_elapsed (key_timer) < 500) { // held for less than half a second (tapped)
+                    sizecount_blanks--;
+                }else{
+                    sizecount_blanks -= 10;
+                }
+            }
+            break;
+
+    // Shift detection system.
+                                                  // Disused because it turned out 'one shot' like Unicode input. Shift detection copied from.
+                                                  // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
+                                                  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+
+        // Crude but self contained in this source file shift detection.
         // ... right shift
         case KC_RSFT:
         // + ... left shift
         case KC_LSFT:
             if (record->event.pressed) { // key down
                 shift_ison = 1; // shift depressed
-            } else { // key up
+            }else{ // key up
                 shift_ison = 0; // shift released
             }
-          break;
+            // There are macros on Shift who also alter this variable.
+            break;
 
-        //   Setting the descramble mode
-        /*  // Discrete keys for switching descramble, but discontinued for sake of physical keyspace
-        case BASE_NORMAL: // User wants to switch to normal input BASE key pointing 
+        case BASE_DESCRMBL: // Switching through the default/alternate BASE modes, and Descramble for that Dvorak compile
             if (record->event.pressed) {
                 ;
-            } else { // key up
-                descramble = _NORMAL_; // off  
-                indicate_scramble (); // Help user with indicator
-            }
-            break;           
-        case BASE_DD_HAlF: // User wants to switch to descramble BASE key pointing, but retain normal Unicode coding
-            if (record->event.pressed) {
-                ;
-            } else { // key up
-                descramble = _HALF_;// on
-                indicate_scramble (); 
-            }
-            break; */
-        case BASE_DESCRMBL: // Switching through the descramble modes
-            if (record->event.pressed) {
-                ;
-            } else { // key up
+            }else{ // key up
+
                 // Cycles through the modes
-#ifndef QWERTY_DVORAK // normal version Dvorak+Dvorak-descramble
-                if (_NORMAL_ == descramble) {
-                    descramble = _FULL_;// all descramble layers
-                } else if (_HALF_ == descramble) {
-                    descramble = _NORMAL_;// normal layers
-                } else { // _FULL_ == descramble
-                    descramble = _HALF_;// with normal Unicode layers
+# ifdef BASES_DVORAK_DESCRAMBLE // version Dvorak+Dvorak-descramble has 3 modes
+                if (_NORMAL_ == alternate) {
+                    alternate = _FULL_;// alternate layers
+                } else if (_HALF_ == alternate) {
+                    alternate = _NORMAL_;// normal layers
+                }else{ // _FULL_ == alternate
+                    alternate = _HALF_;// alternate layers, without 'descramble' recomputing Unicode
                 }
-#endif
-#ifdef QWERTY_DVORAK // The 'full descramble' is used for plain Dvorak here, which has better led colors.
-                     // The #defines cause the _FULL_ descramble to point to the normal Unicode layers.
-                if (_NORMAL_ == descramble) {
-                    descramble = _FULL_;// all descramble layers
-                } else {
-                    descramble = _NORMAL_;// normal layers
+# else          // Only switching the BASE layers between alterante and default
+
+                if (_NORMAL_ == alternate) {
+                    alternate = _FULL_;// alternate base layers
+                }else{
+                    alternate = _NORMAL_;// default base layers
                 } 
-#endif
+# endif
+
                 indicate_scramble ();  // activate led change 
             }
             break; 
 
         //     Switching to layers:
+
         case CTO_BASE:
-        // User pressed upper/left button (escape from a layer to BASE layer)
+        // User pressed upper/left button, while not on BASE layer: ‛escape’ from a layer to BASE layer.
+        // On BASE itself, that key is <Escape>.
             if (record->event.pressed) { // key down
                 ;
             }
             else { // key up
-                if (descramble) { // go to the descramble version (bit of a hack maybe, but all descramble
-                       // ... modes are non-zero, and all use _DDL layer)
-                    layer_move (_DDL); // activates descrambled num-sys layer
-                } else {
-                    layer_move (_LTR); // activates normal num-sys layer
+                if (alternate) { // go to the alternate version (bit of a hack maybe, but all alternate
+                       // ... modes are non-zero)
+                    layer_move (_ALT_BASE); 
+                }else{
+                    layer_move (_DEF_BASE); 
                 }
             } 
             break;
+
         case CTO_NUMS: // activates number-symbols layer
-                // It seems best to first enable the chosen layer on key-down, then stop others on key-up.
-                // Alternatives gave some issues. Other keymaps seem to do it this way (IIRC).
             if (record->event.pressed) { // key down
-                ;
+                ; 
             }
-            else { // key up
-                if (descramble) { // go to the descramble version
-                    layer_move (_DDN); // activates descrambled num-sys layer
-                } else {
-                    layer_move (_NSY); // activates normal num-sys layer
+            else { // key up, so that upon key down the target layer isn't already activated, triggering that key on up
+                if (alternate) { // go to the alternate version
+                    layer_move (_ALT_NSY); 
+                }else{
+                    layer_move (_DEF_NSY); 
                 }
             } 
-                      // These '_NSY and _DDN' layers do not have the below
-                      // #ifdef QWERTY_DVORAK system, because they are not Unicode,
-                      // and those layers are switched by their re-definition in ./qwerty_dvorak.c
-                      // The alternate layer is in use with QWERTY_DVORAK set.
             break; 
+
         case CTO_ACCE: // Unicode layer
             if (record->event.pressed) { // key down
                 ;
             }
             else { // key up
-#ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
-                if (_FULL_ == descramble) { // go to the descramble version
-                    layer_move (_DDA); // activates descrambled accented layer
-                } else {
-                    layer_move (_ACC); // activates normal accented layer
-                }
-#endif
-#ifdef QWERTY_DVORAK // alternative layout: Qwerty with Dvorak on 'descramble'
-                     // The 'full descramble' becomes Dvorak standard, hence normal _ACC layer.
+
+# ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
                 layer_move (_ACC); // activates normal accented layer
-#endif
+# else
+#     ifdef _ACC_KEY_ALT_LAYER
+                layer_move (_ACC_KEY_ALT_LAYER); // Alternative layer user configuration
+#     endif
+# endif
+
             }
             break; 
+
         case CTO_DRAW: // Unicode layer
             if (record->event.pressed) { // key down
                 ;
             }
             else { // key up
-#ifndef QWERTY_DVORAK 
-                if (_FULL_ == descramble) { // go to the descramble version
-                    layer_move (_DDD); // activates descrambled drawings layer
-                } else {
-                    layer_move (_DRA); // activates normal drawings layer
-                }
-#endif
-#ifdef QWERTY_DVORAK 
-                layer_move (_DRA); // activates normal drawings layer
-#endif
+
+# ifndef REMOVE_DRA // This cuts out the whole _DRA layer.
+                layer_move (_DRA); // activates normal accented layer
+# else
+#     ifdef _DRA_KEY_ALT_LAYER
+                layer_move (_DRA_KEY_ALT_LAYER); // Alternative layer user configuration
+#     endif
+# endif
             } 
-            break; 
-        // These two are a simulated LT(layer,kc), layer-tap. 
-        // Double-tap-hold functionality: not done, but holding _NSY layer gives a normal Del there
-        // They switch what layer to use depending on 'descramble'
+          break; 
+
+        // The below are a simulated LT(layer,kc), layer-tap. 
+        // Double-tap-hold repeater functionality: not done. 
+        // They switch what layer to use depending on 'alternate' variable
         // Basically it starts the right layer on key down, goes back to base layer on key up,
-        // and throws in a keypress if tapped.
-        case CHOLTAP_ACCE: //LT ( _DDA , KC_DEL ) or to _ACC, depending ...
+        // and throws in a keypress as well if tapped.
+        // It also integrates with DUO_HOLD, to reach the _BON layer.
+
+# ifndef CHOLTAP_ACCE_NOP // When this key has been eviscerated, this macro becomes useless
+        case CHOLTAP_ACCE: // Works with DUO_HOLD macro to activate one of several layers.
             if (record->event.pressed) { // key down
-                 key_timer = timer_read ();
-#ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
-                 if (_FULL_ == descramble) {
-                     layer_move (_DDA); // activates descrambled drawings layer
-                 } else {
-                     layer_move (_ACC); // activates normal drawings layer
-                 }
-#endif
-#ifdef QWERTY_DVORAK // alternative layout: Qwerty with Dvorak on 'descramble'
-                     // The 'full descramble' becomes Dvorak standard, hence normal _ACC layer.
-                 layer_move (_ACC); // activates descrambled drawings layer
-#endif
-            } else { // key up
-                 // Go back to base layer
-                 if (descramble) { // 
-                     layer_move (_DDL); 
-                 } else {
-                     layer_move (_LTR);
-                 }
-                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
-                     SEND_STRING (SS_TAP (X_DEL));
-                 }
+                key_timer = timer_read ();
+
+                duo_press_acc_bon ++; // This signals to the two DUO_HOLD keys, whether a move to _BON is desired.
+
+                if (duo_press_nsy_dra) { // One or more of the DUO_HOLD layer keys was already pressed; move to _BON
+
+#     ifndef REMOVE_BON // Removes this layer entirely, if set.
+                    layer_move (_BON); // Bonus Unicode layer
+#     else
+#         ifdef _BON_KEY_ALT_LAYER
+                    layer_move (_BON_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif 
+
+                }else{ // pressed in isolation
+
+#     ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
+                    layer_move (_ACC); // Accented layer
+#     else
+#         ifdef _ACC_KEY_ALT_LAYER
+                    layer_move (_ACC_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif 
+
+                }
+            }else{ // key up
+
+                duo_press_acc_bon --;
+
+                if (1 == duo_press_nsy_dra) { // One DUO_HOLD layer keys is still pressed; move to numbers/symbols
+
+                    if (_FULL_ == alternate) {
+                        layer_move (_ALT_NSY); 
+                    }else{
+                        layer_move (_DEF_NSY); 
+                    }
+                }else if (2 == duo_press_nsy_dra) { // Two of the DUO_HOLD layer keys are still pressed: move to _DRA
+
+#     ifndef REMOVE_DRA // This cuts out the whole _DRA layer.
+                    layer_move (_DRA); // activates normal accented layer
+#     else
+#         ifdef _DRA_KEY_ALT_LAYER
+                    layer_move (_DRA_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif
+
+                }else{
+                    if (alternate) { // No _DEF_NSY layer keys remain pressed; Go back to base layer
+                        layer_move (_ALT_BASE); 
+                    }else{
+                        layer_move (_DEF_BASE);
+                    }
+                }
+
+                if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                    SEND_STRING (SS_TAP (X_DEL));
+                }
             }
             break;
-        case CHOLTAP_LAYR: //LT ( _DDD , KC_RIGHT ), or to _DRA, depending ...
+# endif // CHOLTAP_ACCE_NOP
+
+        case CHOLTAP_LAYR: //to _RAR on hold, otherwise a keycode
             if (record->event.pressed) { // key down
-                 key_timer = timer_read ();
-                 layer_move (_RAR); // activates descrambled drawings layer
-            } else { // key up
+                key_timer = timer_read ();
+                layer_move (_RAR); // activates descrambled drawings layer
+            }else{ // key up
                  // Go back to base layer
-                 if (descramble) { // 
-                     layer_move (_DDL); 
-                 } else {
-                     layer_move (_LTR);
+                 if (speed_measure) speed_led (speed); // The _RAR layer overwrites the middle led, 
+                   //.. for use with alternate _HALF_ led colors (middle); thus needs to be set back to speed
+                   // led color upon leaving.
+
+                 if (alternate) { 
+                     layer_move (_ALT_BASE); 
+                 }else{
+                     layer_move (_DEF_BASE);
                  }
+
                  if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
                      SEND_STRING (SS_TAP (X_RIGHT));
                  }
             }
             break;
 
-        //   When held the key is shift. When tapped it is computed if the tap is short enough,
-        // and if no other key was pressed, in which case: shift-up and a toggle to the _FUN layer.
-        // The timing is meant to be able to undo an erroneous shift press just by holding longer,
-        // and the test if another key was pressed is to prevent an erroneous detection when typing
-        // very fast, also because _FUN can cause havock in a program with its F-keys.
-        //   The reason for this on shift is to isolate GUI, where _FUN was previously
-        // located. No alternative tapping function with GUI because some systems do not treat GUI
-        // purely as a modifier. Since its a tap anyway, _FUN can fit away from the thumb-hold row.
-        case CHOLTAP_RSHFT: // When tapped it toggles the _FUN layer, when held it is Shift
+# ifndef DUO_HOLD_BASIC
+        // This is the normal 'big' version, dealing with switching between _DEF_NSY/_ALT_NSY, _ACC, _DRA and _BON, in 
+        // .. conjunction with the CHOLTAP_ACCE macro.
+        case DUO_HOLD: // The macro around the split space-bar. Both keys come to this macro.
             if (record->event.pressed) { // key down
-                key_timer = timer_read ();
-                SEND_STRING (SS_DOWN (X_RSFT)); 
-                isolate_trigger = TRUE; // keep track of whether another key gets pressed.
-            } else { // key up
-                SEND_STRING (SS_UP (X_RSFT)); 
-                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
-                    if (isolate_trigger) { // no other key was hit since key down 
-                        layer_move (_FUN); // activates function layer as a toggle
+
+                duo_press_nsy_dra ++; // simple way to keep track of how many are pressed
+
+                if (duo_press_acc_bon){ // Preceded by holding the _ACC/_BON layer switch key: move to _BON
+
+#     ifndef REMOVE_BON // Removes this layer entirely, if set.
+                    layer_move (_BON); // Bonus Unicode layer
+#     else
+#         ifdef _BON_KEY_ALT_LAYER
+                    layer_move (_BON_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif 
+
+                }else if (1 == duo_press_nsy_dra) { // This is the first press of either of the DUO_HOLD keys on BASE
+
+                    if (_NORMAL_ == alternate) {
+                        layer_move (_DEF_NSY); 
+                    }else{
+                        layer_move (_ALT_NSY); 
                     }
-                 }
+                }
+                else if (2 == duo_press_nsy_dra) { // both are pressed
+
+#     ifndef REMOVE_DRA // This cuts out the whole _DRA layer.
+                    layer_move (_DRA); // activates normal accented layer
+#     else
+#         ifdef _DRA_KEY_ALT_LAYER
+                    layer_move (_DRA_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif
+                }
+
+            }else{ // key up
+
+                duo_press_nsy_dra --; 
+
+                if (1 == duo_press_nsy_dra) {
+                    if (duo_press_acc_bon){ // Still holding the _ACC/_BON layer switch key, and one DUO_HOLD keys
+
+#     ifndef REMOVE_BON // Removes this layer entirely, if set.
+                    layer_move (_BON); // Bonus Unicode layer
+#     else
+#         ifdef _BON_KEY_ALT_LAYER
+                    layer_move (_BON_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif 
+
+                    }else{
+                        if (_NORMAL_ == alternate) { 
+                            layer_move (_DEF_NSY); 
+                        }else{
+                            layer_move (_ALT_NSY); 
+                        }
+                    }
+                }
+                else { // Has to be zero.
+                    if (duo_press_acc_bon){ // Still holding the _ACC/_BON layer switch key, but zero DUO_HOLD layer keys
+
+#     ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
+                        layer_move (_ACC); // Accented layer
+#     else
+#         ifdef _ACC_KEY_ALT_LAYER
+                        layer_move (_ACC_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif 
+
+                    }else{
+                         if (alternate) { // Back to letters
+                            layer_move (_ALT_BASE); 
+                         }else{
+                            layer_move (_DEF_BASE);
+                         }
+                    }
+                }
             }
             break;
-        // The left-shift version of the above keycode.
+# else
+        // This is the eviscerated version, compiled when all Unicode layers _ACC, _DRA, _BON are cut, and layer key
+        // .. combinations have not been assigned other uses.
+        case DUO_HOLD: // The macro for the keys around the split space-bar. Both keys come to this macro.
+            if (record->event.pressed) { // key down
+
+                duo_press_nsy_dra ++; // simple way to keep track of how many are pressed
+
+                if (0 != duo_press_nsy_dra) { // One or more of the DUO_HOLD keys is pressed
+                    if (_NORMAL_ == alternate) {
+                        layer_move (_DEF_NSY); 
+                    }else{
+                        layer_move (_ALT_NSY); 
+                    }
+                }
+            }else{ // key up
+
+                duo_press_nsy_dra --; 
+
+                if (0 == duo_press_nsy_dra) { // None of the DUO_HOLD keys remains pressed
+                    if (alternate) { // Back to letters
+                       layer_move (_ALT_BASE); 
+                    }else{
+                       layer_move (_DEF_BASE);
+                    }
+                }
+            }
+            break;
+# endif // DUO_HOLD_BASIC
+
+        //   When held the key is shift. When tapped it is computed if the tap is short enough,
+        // and if no other key was pressed, in which case: right-shift-up is a toggle to the _FUN layer.
+        // The timing is meant to be able to undo an erroneous shift press just by holding longer,
+        // and the test if another key was pressed is to prevent an erroneous detection when typing
+        // very fast.
+        //   The reason for this on shift is to isolate GUI, where _FUN was previously more easily
+        // located. No alternative tapping function with GUI because some systems do not treat GUI
+        // purely as a modifier it seems. Since it is a toggle anyway, _FUN can fit away from the thumb-hold row.
+        case CHOLTAP_RSHFT: // When tapped it toggles the _FUN layer, when held it is Shift
+
+            if (record->event.pressed) { // key down
+
+                key_timer = timer_read ();
+                SEND_STRING (SS_DOWN (X_RSFT)); 
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed until key-up
+
+            }else{ // key up
+
+                SEND_STRING (SS_UP (X_RSFT)); 
+                if (isolate_trigger) { // no other key was hit since key down 
+
+                    layer_move (_FUN); // activates function layer as a toggle
+
+                }
+            }
+            break;
+
+        // The left-shift version of the above keycode. User can configure something (_PAD is default)
         case CHOLTAP_LSHFT: // When tapped it toggles the _MOV layer, when held it is Shift
                             // _RAR was the first idea, but some of its keys are too dangerous regarding accidents.
             if (record->event.pressed) { // key down
+
                 key_timer = timer_read ();
                 SEND_STRING (SS_DOWN (X_LSFT)); 
                 // This key is re-used, for speed and because using both shifts is useless,
                 // .. thus very rare, and also not a usage problem if it occured.
                 isolate_trigger = TRUE; // keep track of whether another key gets pressed.
-            } else { // key up
-                SEND_STRING (SS_UP (X_LSFT)); 
-                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
-                    if (isolate_trigger) { // no other key was hit since key down 
-#ifdef LSHIFT_LAYER_RAR
-                        layer_move (_RAR); // activates function layer as a toggle
-#endif
-#ifdef LSHIFT_LAYER_MOV
-                        layer_move (_MOV); // activates function layer as a toggle
-#endif
-#ifdef LSHIFT_LAYER_DRA
-                        layer_move (_DRA); // activates function layer as a toggle
-#endif
-#ifdef LSHIFT_LAYER_ACC
-                        layer_move (_ACC); // activates function layer as a toggle
-#endif
-#ifdef LSHIFT_LAYER_PAD
-                        layer_move (_PAD); // activates function layer as a toggle
-#endif
 
+            }else{ // key up
+
+                SEND_STRING (SS_UP (X_LSFT)); 
+                if (isolate_trigger) { // no other key was hit since key down 
+
+                    // Held medium long: _PAD, long: _MOV.
+                    // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
+                    // all by the left hand, when the right hand is on the mouse.
+                    if ((timer_elapsed (key_timer) <= 500)) { // tapped medium-long (milliseconds)
+
+# ifdef LSHIFT_LAYER_RAR
+                        layer_move (_RAR);
+# endif
+
+# ifdef LSHIFT_LAYER_MOV
+                        layer_move (_MOV); 
+# endif
+ 
+# ifdef LSHIFT_LAYER_DRA
+#     ifndef REMOVE_DRA // This cuts out the whole _DRA layer.
+                        layer_move (_DRA); // activates normal accented layer
+#     else
+#         ifdef _DRA_KEY_ALT_LAYER
+                        layer_move (_DRA_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif
+# endif
+
+# ifdef LSHIFT_LAYER_ACC
+#     ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
+                        layer_move (_ACC);
+#     else
+#         ifdef _ACC_KEY_ALT_LAYER
+                        layer_move (_ACC_KEY_ALT_LAYER); // Alternative layer user configuration
+#         endif
+#     endif
+# endif
+
+# ifdef LSHIFT_LAYER_PAD
+                        layer_move (_PAD); 
+# endif
+
+                    } else if (timer_elapsed (key_timer) > 500) { // held for that many milliseconds, or longer
+                        layer_move (_MOV); 
                     }
-                 }
-            }
-            break;
-        case DUO_HOLD:
-            if (record->event.pressed) { // key down
-                 duo_press ++; // simple way to keep track of how many are pressed
-                 if (1 == duo_press) {
-                     if (_NORMAL_ == descramble) { // In all 'descramble' modes to the 'descramble' layer of numbers/symbols
-                         layer_move (_NSY); // activates normal numbers/symbols
-                     } else {
-                         layer_move (_DDN); // activates 'descramble' version
-                     }
-                 }
-                 else if (2 == duo_press) { // both are pressed
-#ifndef QWERTY_DVORAK  // The _DDD layer is not even compiled in this compile version
-                     if (_FULL_ == descramble) { 
-                         layer_move (_DDD); // activates Linux 'descramble' layer
-                     } else {
-                         layer_move (_DRA); // activates normal Unicode layer
-                     }
-#endif
-#ifdef QWERTY_DVORAK 
-                     layer_move (_DRA); // activates normal Unicode layer
-#endif
-                 }
-            } else { // key up
-                 duo_press --; 
-                 if (1 == duo_press) {
-                     if (_NORMAL_ == descramble) { // In all 'descramble' modes to the 'descramble' layer of numbers/symbols
-                         layer_move (_NSY); // activates normal numbers/symbols
-                     } else {
-                         layer_move (_DDN); // activates 'descramble' version
-                     }
-                 }
-                 else { // Has to be zero. Back to letters
-                     if (descramble) { // 
-                         layer_move (_DDL); 
-                     } else {
-                         layer_move (_LTR);
-                     }
-                 }
-            }
-            break;
-        case _FUN_STAY: // causes the f-keys to *not* return _FUN layer to BASE
-            if (record->event.pressed) { // key down
-                if (_fun_stay == FALSE) { // cycles, so it becomes permament until altered
-                    _fun_stay = TRUE;
-                } else {
-                    _fun_stay = FALSE;
                 }
             }
             break;
-#ifdef MOREKEY2_ARROW_CLUSTER
-        case _MOV_UP: // To be sure it activates on up key, and not trigger the _MOV layer on up-key.
+
+        case _FUN_STAY: // toggles if the f-keys return _FUN layer to BASE after one press
             if (record->event.pressed) { // key down
-            } else { // key up
+
+                if (_fun_stay == FALSE) { 
+                    _fun_stay = TRUE;
+                }else{
+                    _fun_stay = FALSE;
+                }
+                indicate_fun_stay (); // leds
+            }
+            break;
+
+# ifdef MOREKEY2_ARROW_CLUSTER
+
+        case _MOV_UP: // To be sure it activates on up key, and not already has triggered the _MOV layer during up-key.
+            if (record->event.pressed) { // key down
+               ;
+            }else{ // key up
                layer_move (_MOV);
             }
             break;
-#endif
+# endif
 
-        // These keys are so dangerous that they are behind a shift lock.
-        // Although the layer is already a bit hard to reach, the media keys might be used.
+        // These keys are so disruptive on an erroneous key press, that they are behind a shift lock.
+        // When used unshifted, they print a memory aid string: their name.
         case C_KC_PWR: 
             if (record->event.pressed) { // key down
                 if (shift_ison) { 
                     SEND_STRING (SS_TAP (X_PWR)); 
+                }else{
+                    SEND_STRING ("<POWER>"); // Memory aid
                 }
             }
             break;
+
         case C_KC_WAKE:
             if (record->event.pressed) { // key down
                 if (shift_ison) { 
                     SEND_STRING (SS_TAP (X_WAKE)); 
+                }else{
+                    SEND_STRING ("<WAKE>"); // Memory aid
                 }
             }
             break;
+
         case C_KC_SLEP:
             if (record->event.pressed) { // key down
                 if (shift_ison) { 
                     SEND_STRING (SS_TAP (X_SLEP)); 
+                }else{
+                    SEND_STRING ("<SLEEP>"); // Memory aid
                 }
             }
             break;
+
         case C_KC_PAUS:
             if (record->event.pressed) { // key down
                 if (shift_ison) { 
                     SEND_STRING (SS_TAP (X_PAUS)); 
+                }else{
+                    SEND_STRING ("<PAUSE>"); // Memory aid
                 }
             }
             break;
 
-        case LEDS_ON: // Toggles leds on or off
+        case LEDS_ON: // Toggles left/right leds on or off
             if (record->event.pressed) { // key down
                 if (leds_on == FALSE) { 
                     leds_on = TRUE;
-                    leds_show_off ();
-                } else {
+                }else{
                     leds_on = FALSE;
-                    leds_show_off ();
                 }
             }
             break;
-     
-#ifndef QWERTY_DVORAK 
-       // .... v .... v .... v .... v .... v .... v .... v .... v .... v .... v 
 
-        // Unicode macros for descramble mode.
-        // The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
-        // However it seems SEND_STRING cannot take a variable.
-        // It seems that it has to be a hardcoded constant. 
-        // The table of 'descramble' conversion of the ASCII representation of hex values is:
-        // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y (computer side maps to Dvorak, before interpreting the value)
-        
-        // 'a' variants (basic)
-        case UN_A_ACU:
+        // Some keycodes treated specially for the two counting systems (speed, text size)
+        // Deletions:
+        case KC_BSPC: // non-counting speed
+        case KC_DEL: // non-counting speed
             if (record->event.pressed) { // key down
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i1"); } else { SEND_STRING ("d1"); }  // áÁ
-                unicode_tail ();
+                if (sizecount_measure) sizecount_chars--; // minus count for text size (removed a character)
             }
-          break;
-        case UN_A_CAR:
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i2"); } else { SEND_STRING ("d2"); } // âÂ
-                unicode_tail ();
-            }
-          break;
-        case UN_A_DIA:
-            if (record->event.pressed) {
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i4"); } else { SEND_STRING ("d4"); } // äÄ
-                unicode_tail ();
-            }
-          break;
-        case UN_A_GRA:
-            if (record->event.pressed) {
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i0"); } else { SEND_STRING ("d0"); } // àÀ
-                unicode_tail ();
-            }
-          break;
-        case UN_A_RNG:
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i5"); } else { SEND_STRING ("d5"); } // åÅ
-                unicode_tail ();
-            }
-          break;
-        case UN_AE_BI: 
-            if (record->event.pressed) {
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i6"); } else { SEND_STRING ("d6"); } // æÆ
-                unicode_tail ();
-            }
-          break;
-        case UN_OE_BI: 
+            break;
+
+        // White space for counting words
+        case LT__MOV__KC_ENT: // We want to count the <enter> for word-counts, sadly this looses the key repetition of LT(…)
             if (record->event.pressed) { // key down
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("0152"); } else { SEND_STRING ("0153"); } // œŒ
-                unicode_tail ();
-            }
-          break;
-        case UN_C_CDL: 
-            if (record->event.pressed) {
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i7"); } else { SEND_STRING ("d7"); } // çÇ
-                unicode_tail ();
-            }
-          break;
-        case UN_E_ACU: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i9"); } else { SEND_STRING ("d9"); } // éÉ
-                unicode_tail ();
-            }
-          break;
-        case UN_E_CAR: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("ia"); } else { SEND_STRING ("da"); } // êÊ
-                unicode_tail ();
-            }
-          break;
-        case UN_E_DIA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("in"); } else { SEND_STRING ("dn"); } // ëË
-                unicode_tail ();
-            }
-          break;
-        case UN_E_GRA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("i8"); } else { SEND_STRING ("d8"); } // èÈ
-                unicode_tail ();
-            }
-          break;
-        case UN_I_ACU: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("ih"); } else { SEND_STRING ("dh"); } // íÍ
-                unicode_tail ();
-            }
-          break;
-        case UN_I_CAR: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("id"); } else { SEND_STRING ("dd"); } // îÎ
-                unicode_tail ();
-            }
-          break;
-        case UN_I_DIA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("iy"); } else { SEND_STRING ("dy"); } // ïÏ
-                unicode_tail ();
-            }
-          break;
-        case UN_I_GRA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("ii"); } else { SEND_STRING ("di"); } // ìÌ
-                unicode_tail ();
-            }
-          break;
-        case UN_N_TLD: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("h1"); } else { SEND_STRING ("y1"); } // ñÑ
-                unicode_tail ();
-            }
-          break;
-          /*
-        case UN_EX_INV: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                SEND_STRING ("a1"); // ¡
-                unicode_tail ();
-            }
-          break;
-          */
-        case UN_QU_INV: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("a1"); } else { SEND_STRING ("ny"); } // 
-                unicode_tail ();
-            }
-          break;
-        case UN_O_ACU: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("h3"); } else { SEND_STRING ("y3"); } // óÓ
-                unicode_tail ();
-            }
-          break;
-        case UN_O_CAR: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("h4"); } else { SEND_STRING ("y4"); } // ôÔ
-                unicode_tail ();
-            }
-          break;
-        case UN_O_DIA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("h6"); } else { SEND_STRING ("y6"); } // öÖ
-                unicode_tail ();
-            }
-          break;
-        case UN_O_GRA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("h2"); } else { SEND_STRING ("y2"); } // òÒ
-                unicode_tail ();
-            }
-          break;
-        case UN_O_STK: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("h8"); } else { SEND_STRING ("y8"); } // øØ
-                unicode_tail ();
-            }
-          break;
-        case UN_S_SHP: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                SEND_STRING ("hy"); // ß
-                unicode_tail ();
-            }
-          break;
-        case UN_U_ACU: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("ha"); } else { SEND_STRING ("ya"); } // úÚ
-                unicode_tail ();
-            }
-          break;
-        case UN_U_CAR: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("hn"); } else { SEND_STRING ("yn"); } // ûÛ
-                unicode_tail ();
-            }
-          break;
-        case UN_U_DIA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("hi"); } else { SEND_STRING ("yi"); } // üÜ
-                unicode_tail ();
-            }
-          break;
-        case UN_U_GRA: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("h9"); } else { SEND_STRING ("y9"); } // ùÙ
-                unicode_tail ();
-            }
-          break;
-        case UN_Y_ACU: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("hh"); } else { SEND_STRING ("yh"); } // ýÝ
-                unicode_tail ();
-            }
-          break;
-        case UN_Y_DIA: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("0178"); } else { SEND_STRING ("00yy"); } // ÿŸ
-                unicode_tail ();
-            }
-          break;
-        case UN_IJ_BI: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("0132"); } else { SEND_STRING ("0133"); } // ĳĲ
-                unicode_tail ();
-            }
-          break;
-        case UN_S_THUP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("1y44d"); } else { SEND_STRING ("1y44h"); } // 👎👍
-                unicode_tail ();
-            }
-          break;
-        case UN_S_SMIL: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("1y641"); } else { SEND_STRING ("1y642"); } // 🙂🙁
-                unicode_tail ();
-            }
-          break;
-        case UN_S_OCBRA: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2500"); } else { SEND_STRING ("300i"); } // 「
-                unicode_tail ();
-            }
-          break;
-        case UN_S_CCBRA: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2501"); } else { SEND_STRING ("300h"); } //  」
-                unicode_tail ();
-            }
-          break;
-        case UN_S_ODABRA: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2504"); } else { SEND_STRING ("300a"); } //  《┄
-                unicode_tail ();
-            }
-          break;
-        case UN_S_CDABRA: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2505"); } else { SEND_STRING ("300n"); } //  》┅
-                unicode_tail ();
-            }
-          break;
-        case UN_S_PLUSMIN: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING (UNICODE_CURRENCY_DESCRAMBLE); } else { SEND_STRING ("00n1"); } // ƒ±
-                                            // ^ special case for easy user configuration
-                unicode_tail ();
-            }
-          break;
-        case UN_S_CURREN: 
-            if (record->event.pressed) { 
-                unicode_lead_00 ();
-                if (shift_ison) { SEND_STRING ("a3"); } else { SEND_STRING ("a4"); } // £ ¤
-                unicode_tail ();
-            }
-          break;
-        case UN_S_NONE: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("00a2"); } else { SEND_STRING ("2205"); } // ∅ ¢
-                unicode_tail ();
-            }
-          break;
 
-        case UN_S_DEGREE: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("3007"); } else { SEND_STRING ("00n0"); } // 〇°
-                unicode_tail ();
-            }
-          break;
-        case UN_S_BULLET: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("00a7"); } else { SEND_STRING ("2022"); } // §•
-                unicode_tail ();
-            }
-          break;
-        case UN_S_ELLIPS: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("00n7"); } else { SEND_STRING ("2026"); } // ·…
-                unicode_tail ();
-            }
-          break;
-        // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
-     // super and sub script numbers
-        case UN_N_0SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2080"); } else { SEND_STRING ("2070"); } // ₀⁰
-                unicode_tail ();
-            }
-          break;
+                key_timer = timer_read ();
+                layer_move (_MOV);
 
-        case UN_N_1SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2081"); } else { SEND_STRING ("00n9"); } // ₁¹
-                unicode_tail ();
+            }else{ // key up
+                 if (alternate) { // Back to letters
+                     layer_move (_ALT_BASE); 
+                 }else{
+                     layer_move (_DEF_BASE);
+                 }
+                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                     send_string ("\n");
+                     if (sizecount_measure) {
+                         sizecount_chars++;
+
+                         if (sizecount_word) sizecount_blanks++; // count a word
+                         sizecount_word = FALSE; // don't count immediately next blank as a word
+                     }
+                 }
             }
-          break;
-        case UN_N_2SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2082"); } else { SEND_STRING ("00n2"); } // ₂²
-                unicode_tail ();
+            break;
+
+        // Word counting
+        case KC_SPC:
+            if (record->event.pressed) { // key down
+                if (sizecount_measure) {
+                    sizecount_chars++;
+
+                    if (sizecount_word) sizecount_blanks++; // count a word
+                    sizecount_word = FALSE; // don't count immediately next blank as a word
+                }
             }
-          break;
-        case UN_N_3SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2083"); } else { SEND_STRING ("00n3"); } // ₃³
-                unicode_tail ();
+            break;
+
+        // These are excluded from counting for text size/speed, they prevent the “default“ in the case statement to execute.
+
+        case KC_LEFT:
+        case KC_UP:
+        case KC_DOWN:
+        case KC_RIGHT:
+        case KC_PGUP:
+        case KC_PGDN:
+        case KC_HOME:
+        case KC_END:
+        case LALT_T ( KC_LEFT ):
+            if (speed_measure) speed_countdown++; // Navigation could be integral to someone typing and correcting mistakes,
+                                                  // but those keys don't add any text.
+        // Mouse movement is discounted in both speed and text size
+        case KC_WH_L:
+        case KC_WH_D:
+        case KC_WH_U:
+        case KC_WH_R:
+        case KC_MS_L:
+        case KC_MS_D:
+        case KC_MS_U:
+        case KC_MS_R:
+        case KC_BTN1:
+        case KC_BTN5:
+        case KC_BTN4:
+        case KC_BTN3:
+        case KC_BTN2:
+            break;
+
+
+        default: // If something else, it is a speed- and text measurement counting key
+            if (record->event.pressed) { // key down
+                if (speed_measure) speed_countdown--;
+                if (sizecount_measure) sizecount_chars++; 
             }
-          break;
-        case UN_N_4SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2084"); } else { SEND_STRING ("2074"); } // ₄⁴
-                unicode_tail ();
+    }
+
+    // If speed measuring is on, count keypresses
+    // The idea is to more/less follow common standard with typing speed counting: shift is not counted,
+    // layer-switching or its equivalent is neither. Arrows are not counted. 
+    if (speed_measure) {
+        if (record->event.pressed) { // key down
+
+            if (0 >= speed_countdown) {
+
+                // key presses per second, but times ten for added precision of one digit
+                speed = (int) ( (SPEED_COUNTDOWN * 10) / ((timer_read32 () - speed_counttime) / 1000) ); // counts time in ms
+                speed_led (speed); // updates led
+
+                // record for average
+                if (0 < (speed/10)) { // ignore 0 k/s batches, we assume the typer took a break
+                    speed_batches++; 
+                    speed_add += speed; 
+                }
+
+                // reset for next batch
+                speed_countdown = SPEED_COUNTDOWN; // reset
+                speed_counttime = timer_read32 ();
             }
-          break;
-        case UN_N_5SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2085"); } else { SEND_STRING ("2075"); } // ₅⁵
-                unicode_tail ();
+        }
+    }
+
+    // For word-counting, ignore double blanks
+    if (sizecount_measure) {
+        if (record->event.pressed) { 
+            bool within = TRUE; // When text size is maximized, this indicates we are not yet at that maximum.
+            unsigned short size_fraction; // Used to compute led color as a fraction of a set maximum which is already typed.
+
+            // ignoring blanks wordcount
+            if ((keycode != KC_SPC)
+                 &&
+                (keycode != KC_TAB) // This is ok, but a tab on BASE layer combo with Control, is not caught by this XXX (problem ignored, I never write Tab in a text worth counting)
+                 &&
+                (keycode != LT__MOV__KC_ENT)
+                 &&
+                (keycode != LT__MOV__KC_ENT)) {
+
+                sizecount_word = TRUE; // current key is not a blank, so we set this trigger for next key press
             }
-          break;
-        case UN_N_6SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2086"); } else { SEND_STRING ("2076"); } // ₆⁶
-                unicode_tail ();
+
+            // computing maximum count effects: leds
+            if (0 != sizecount_max) { 
+
+                if (SIZECOUNT_WORD == sizecount_max_type) {
+                    if (sizecount_blanks > sizecount_max) within = FALSE;
+                }else{ // count chars
+                    if (sizecount_chars > sizecount_max) within = FALSE;
+                }
+                // led colors
+                if (within) { // green to red middle led
+                    if (SIZECOUNT_WORD == sizecount_max_type) {
+                        if (sizecount_blanks) // no x/0
+                            size_fraction = (90 * sizecount_blanks) / sizecount_max; 
+                    }else{
+                        if (sizecount_chars) // no x/0
+                            size_fraction = (90 * sizecount_chars) / sizecount_max;
+                    } 
+                    rgblight_sethsv_noeeprom (90 - size_fraction , 255, 255); // green to red, full saturation, full lit
+                
+                }else{ // when at or over the limit: blink led red/white
+                    if ((KC_BSPC != keycode) 
+                         && (KC_DEL != keycode) // User already deleting, doubling is confusing
+                         && (CHOLTAP_LAYR != keycode)) { // This brings up the _RAR layer, to access the Count settings.
+
+                        SEND_STRING (SS_TAP(X_BSPC)); // refuses to type further, the user is stopped from typing to make it obvious
+
+                    }
+                    if (sizecount_chars & 0x1) { // flip by every keypress
+                        rgblight_sethsv_noeeprom (HSV_RED);
+                    }else{
+                        rgblight_sethsv_noeeprom (HSV_WHITE); 
+                    }
+                }
+                rgblight_set (); // only center led is altered, no need to go through isolate_rgblight_set()
             }
-          break;
-        case UN_N_7SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2087"); } else { SEND_STRING ("2077"); } // ₇⁷
-                unicode_tail ();
+        }
+    }
+
+    // Simple macros, printing a character.
+    switch (keycode) {
+
+        /* _ACC layer definitions. */
+
+   // ------------------------- row 4
+
+# ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
+        case XP_ACC_AA: // because a 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CAL_ACU, CAU_ACU);//  á Á
             }
-          break;
-        case UN_N_8SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2088"); } else { SEND_STRING ("2078"); } // ₈⁸
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AB: // because o (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (COL_ACU, COU_ACU);// ó Ó
             }
-          break;
-        case UN_N_9SUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2089"); } else { SEND_STRING ("2079"); } // ₉⁹
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AC: // because e (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CEL_ACU, CEU_ACU);// é É
             }
-          break;
-        case UN_S_OPSUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("208h"); } else { SEND_STRING ("207h"); } // ₍⁽
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AD: // because u (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CUL_ACU, CUU_ACU);// ú Ú
             }
-          break;
-        case UN_S_CPSUBP: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("208d"); } else { SEND_STRING ("207d"); } // ₎⁾
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AE: // because i (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CIL_ACU, CIU_ACU);// í Í 
             }
-          break;
-        case UN_S_DQUL: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("201i"); } else { SEND_STRING ("201d"); } // „“
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AF: // Because near Y 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CYL_ACU, CYU_ACU);// ý Ý
             }
-          break;
-        case UN_S_DQUH: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING (CS_USER_DEFINED_DESCRAMBLE); } else { SEND_STRING ("201h"); } // 🛠”
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AG: // because near Y 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CIJL_BI, CIJU_BI);// ĳ Ĳ
             }
-          break;
-#ifndef CHECKBOXES_ON_POINT
-        case UN_S_LARROW: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2n99"); } else { SEND_STRING ("2n98"); } // ⮙⮘ 
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AH: // because c (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CCL_CDL, CCU_CDL);// ç Ç
             }
-          break;
-        case UN_S_RARROW: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2n9n"); } else { SEND_STRING ("2n9a");  } // ⮛⮚
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AI: // because ring-finger left is o (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (COL_STK, COU_STK);// ø Ø
             }
-          break;
-#endif
-#ifdef CHECKBOXES_ON_POINT
-        case UN_S_LARROW: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("02612"); } else { SEND_STRING ("02610"); } // ☒  ☐
-                unicode_tail ();
+            break;
+
+        case XP_ACC_AJ: // because pinky finger left is a 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CAL_RNG, CAU_RNG);// å Å
             }
-          break;
-        case UN_S_RARROW: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("1y5y9"); } else { SEND_STRING ("02611");  } // ☑  🗹  
-                unicode_tail ();
+            break;
+
+   // ------------------------- row 3
+        case XP_ACC_BA: // because a 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CAL_DIA, CAU_DIA);// ä Ä
             }
-          break;
-#endif
-        case UN_S_FLEUR: 
-            if (record->event.pressed) { 
-                unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2665"); } else { SEND_STRING ("2766"); } // ♥❦
-                unicode_tail ();
+            break;
+
+        case XP_ACC_BB: // because o (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (COL_DIA, COU_DIA);// ö Ö
             }
-          break;
-#endif // QWERTY_DVORAK .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ 
-     }
-     return true;
-        // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+            break;
+
+        case XP_ACC_BC: // because e (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CEL_DIA, CEU_DIA);// ë Ë
+            }
+            break;
+
+        case XP_ACC_BD: // because u (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CUL_DIA, CUU_DIA);// ü Ü
+            }
+            break;
+
+        case XP_ACC_BE: // because i
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CIL_DIA, CIU_DIA);// ï Ï
+            }
+            break;
+
+        case XP_ACC_BF: // because near y
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CYL_DIA, CYU_DIA);// ÿ Ÿ
+            }
+            break;
+
+        case XP_ACC_BG: // because vague logic about other hand having ae near on similar fingers
+            if (record->event.pressed) { // key down
+                unicode_hex2output (COEL_BI, COEU_BI);// œ Œ
+            }
+            break;
+
+        case XP_ACC_BH: // because near œ, toward the side of a (pinky)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CAEL_BI, CAEU_BI);// æ Æ
+            }
+            break;
+
+        case XP_ACC_BI: // because n
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CNL_TLD, CNU_TLD);// ñ Ñ
+            }
+            break;
+
+        case XP_ACC_BJ: // because s
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CSL_SHP, CSL_SHP);// ß ß
+            }
+            break;
+
+   // ------------------------- row 2
+        case XP_ACC_CA: // because a
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CAL_GRA, CAU_GRA);//à À
+            }
+            break;
+
+        case XP_ACC_CB: // because o (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (COL_GRA, COU_GRA);// ò Ò
+            }
+            break;
+
+        case XP_ACC_CC: // because e (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CEL_GRA, CEU_GRA);// è È
+            }
+            break;
+
+        case XP_ACC_CD: // because u (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CUL_GRA, CUU_GRA);// ù Ù
+            }
+            break;
+
+        case XP_ACC_CE: // because i (Dvorak)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CIL_GRA, CIU_GRA);// ì Ì
+            }
+            break;
+
+        case XP_ACC_CF: // because other hand same finger i
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CIL_CAR, CIU_CAR);// î Î
+            }
+            break;
+
+        case XP_ACC_CG: // because  other hand same finger u 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CUL_CAR, CUU_CAR);// û Û
+            }
+            break;
+
+        case XP_ACC_CH: // because  other hand same finger e 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CEL_CAR, CEU_CAR);// ê Ê
+            }
+            break;
+
+        case XP_ACC_CI: // because  other hand same finger o 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (COL_CAR, COU_CAR);// ô Ô
+            }
+            break;
+
+        case XP_ACC_CJ: // because  other hand same finger a 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CAL_CAR, CAU_CAR);// â Â
+            }
+            break;
+
+# endif // REMOVE_ACC // This cuts out the whole _ACC layer.
+
+
+        /* _DRA layer definitions. */
+
+
+# ifndef REMOVE_DRA // This cuts out the whole _DRA layer
+   // ------------------------- row 4
+        case XP_DRA_AA: // because '", the opening „“ at the ‛open’ of the keyboard (left/up)
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_DQUHR, CS_DQUL);// “ „
+#     else
+                unicode_hex2output_single (CS_DQUHR);// “
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AB: // because to the right of opening “, ≤ on <
+            if (record->event.pressed) { // key down
+
+#    ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_DQUH, CS_ELTHAN);// ” ≤
+#    else
+                unicode_hex2output_single (CS_DQUH);// ”
+#    endif
+
+            }
+            break;
+
+        case XP_DRA_AC: // because this is where the £ is on an English keyboard, on 'any' money symbols ¤; ≥ on >
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_POUND, CS_EGTHAN);// £ ≥
+#     else
+                unicode_hex2output_single (CS_POUND);// £
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AD: // because ∅ looks like ¢, and ¢ (cent) is on $ (money) ?
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_NONE, CS_CENT);// ∅ ¢
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AE: // because percentages %‰‱ and money ƒ are numerical ?
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_PLMI, CS_LGULDEN);// ± ƒ
+#     else
+                unicode_hex2output_single (CS_PLMI);// ±
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AF: // Because left of 🙂, on top of ★
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_FLEUR, CS_HEART);// ❦ ♥
+#     else
+                unicode_hex2output_single (CS_HEART);// ♥
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AG: // because 😊 ⍨ 
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_SMIL, CS_SAD_);// 🙂 🙁
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AH: // because «no reason», next to 😊 (emoticons)
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_THUP, CS_THDN);// 👍 👎
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AI: // because (
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_OPSUP, CS_OPSUB);// ⁽ ₍
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_AJ: // because )
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_4THROW
+                unicode_hex2output (CS_CPSUP, CS_CPSUB);// ⁾ ₎
+#     endif
+
+            }
+            break;
+
+   // ------------------------- row 3
+        case XP_DRA_BA: // because 1
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_1SUP, CN_1SUB);// ¹ ₁
+#     else
+                unicode_hex2output_single (CN_1SUP);// ¹ 
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BB: // because 2
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_2SUP, CN_2SUB);// ² ₂
+#     else
+                unicode_hex2output_single (CN_2SUP);// ²
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BC: // because 3
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_3SUP, CN_3SUB);// ³ ₃
+#     else
+                unicode_hex2output_single (CN_3SUP);// ³
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BD: // because 4
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_4SUP, CN_4SUB);// ⁴ ₄
+#     else
+                unicode_hex2output_single (CN_4SUP);// ⁴
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BE: // because 5
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_5SUP, CN_5SUB);// ⁵ ₅
+#     else
+                unicode_hex2output_single (CN_5SUP);// ⁵
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BF: // because 6
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_6SUP, CN_6SUB);// ⁶ ₆
+#     else
+                unicode_hex2output_single (CN_6SUP);// ⁶
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BG: // because 7
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_7SUP, CN_7SUB);// ⁷ ₇
+#     else
+                unicode_hex2output_single (CN_7SUP);// ⁷
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BH: // because 8
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_8SUP, CN_8SUB);// ⁸ ₈
+#     else
+                unicode_hex2output_single (CN_8SUP);// ⁸
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BI: // because 9
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_9SUP, CN_9SUB);// ⁹ ₉
+#     else
+                unicode_hex2output_single (CN_9SUP);// ⁹
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_BJ: // because 0
+            if (record->event.pressed) { // key down
+
+#     ifdef SUB_SCRIPT_NUMS 
+                unicode_hex2output (CN_0SUP, CN_0SUB);// ⁰ ₀
+#     else
+                unicode_hex2output_single (CN_0SUP);// ⁰
+#     endif
+
+            }
+            break;
+
+   // ------------------------- row 2
+        case XP_DRA_CA: // because [
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_OCBRA, CB_HHORI);// 「 ━
+#     else
+                unicode_hex2output_single (CB_HHORI);// ━
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_CB: // because ]
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_CCBRA, CB_LHORI);// 」 ─
+#     else
+                unicode_hex2output_single (CB_LHORI);// ─
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_CC: // because «no reason»
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_DEGREE, CS_CIRCLE);// ° 〇
+#     else
+                unicode_hex2output_single (CS_DEGREE);// °
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_CD: // because «no reason»
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_BULLET, CS_PARA);// • §
+#     else
+                unicode_hex2output_single (CS_BULLET);// •
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_CE: // because «no reason»
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_ELLIPS, CS_MIDDOT);// … ·
+#     else
+                unicode_hex2output_single (CS_ELLIPS);// … 
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_CF: // because «no reason» (+ resembles ‛☒’ ?), ✗
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CS_CHECK_B, CS_CHECK_N);// ☐ ☒
+            }
+            break;
+# endif
+
+        // This one must be included for _RAR layer
+        case XP_DRA_CG: // because next to ✗ ☐ ☒
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_CHECK_Y, CS_CHECK_H);// ☑ 🗹
+#     else
+                unicode_hex2output_single (CS_CHECK_Y);// ☑ 
+#     endif
+
+            }
+            break;
+
+# ifndef REMOVE_DRA // This cuts out the whole _DRA layer
+        case XP_DRA_CH: // because ?
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CQU_INV, CEX_INV);// ¿ ¡
+            }
+            break;
+
+        case XP_DRA_CI: // because {, ┄ «no reason» (opposite side from ━)
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_ODABRA, CB_LHORID);// 《 ┄ 
+#     else
+                unicode_hex2output_single (CB_LHORID);// ┄ 
+#     endif
+
+            }
+            break;
+
+        case XP_DRA_CJ: // because }, ┅ «no reason» (opposite side from ─)
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_DRA_2NDROW
+                unicode_hex2output (CS_CDABRA, CB_HHORID);// 》 ┅
+#     else
+                unicode_hex2output_single (CB_HHORID);// ┅
+#     endif
+            }
+            break;
+#endif // REMOVE_DRA
+
+
+        /* _BON layer definitions. Due to running out of X(…), XP(…) space.*/
+
+   // ------------------------- row 4
+# ifndef REMOVE_BON // Removes this layer entirely, if set.
+        case XP_BON_AA: // because of ' "
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_BON_4THROW
+                unicode_hex2output (CS_HQUOSB, CS_USER_DEFINED);// ‛ 🛠
+#     else
+                unicode_hex2output_single (CS_HQUOSB);// ‛ 
+#     endif
+
+            }
+            break;
+
+        case XP_BON_AB: // because of <, because "WASD" on _MOV
+   //  0x2019, single quotation mark: ’
+   // 0x2B06 arrow up: ⬆
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CS_HQUOSE, CS_ARR_UP);// ’ ⬆
+            }
+            break;
+
+        case XP_BON_AC: // because of >
+   // 0x00A4 any currency symbol: ¤
+   // 0x1F12F  Copyleft: 🄯 (means free to copy, see also © for not free to copy.)
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_BON_4THROW
+            unicode_hex2output (CS_CURREN, CS_COPYL);// ¤ 🄯 
+#     else
+            unicode_hex2output_single (CS_CURREN);// ¤
+#     endif
+
+            }
+            break;
+
+        case XP_BON_AD: // because $ and ¢ can be about money, and money is often added together
+                        // because … no reason, left over space.
+   //  0x2211,  summation: ∑
+   //  0xA9, copyright: ©
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_BON_4THROW
+            unicode_hex2output (CS_CUMMU, CS_COPY);// ∑ ©
+#     else
+            unicode_hex2output_single (CS_CUMMU);// ∑
+#     endif
+
+            }
+            break;
+
+        case XP_BON_AE: // because % for percent
+   //  0x2030,//  promille: ‰
+   //  0x2031,//  pro ten thousandth: ‱
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_BON_4THROW
+                unicode_hex2output (CS_PROM, CS_PROTT);// ‰ ‱
+#     else
+                unicode_hex2output_single (CS_PROM);// ‰
+#     endif
+
+            }
+            break;
+
+        case XP_BON_AF: // Because ♥ is a star, ❦ and stars can be used as bullet points
+   //  0x2605, star: ★
+   //  0x066D, star small: ٭
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_BON_4THROW
+                unicode_hex2output (CS_STARB, CS_STARL);// ★ ٭
+#     else
+                unicode_hex2output_single (CS_STARB);// ★
+#     endif
+
+            }
+            break;
+
+        case XP_BON_AG: // because of 🙂 🙁
+   //  0x1f60A,// <smile> ^^  😊
+   //  0x2368,//  "Squiggly" face <sad>  ⍨
+
+#     ifdef FULL_BON_4THROW
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CS_SMILP, CS_SQUIG);// 😊 ⍨
+            }
+#     endif
+
+            break;
+
+        case XP_BON_AH: // because * also for multiply, because asterisk *
+   //  0x00D7,//  multiply: ×
+   //  0x20F0     high asterisk:  ⃰(this thing seems to behave a bit weird in vim(1) or terminal)
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_BON_4THROW
+                unicode_hex2output (CS_MULT, CS_ASTL);// ×  ⃰
+#     else
+                unicode_hex2output_single (CS_MULT);// × 
+#     endif
+
+            }
+            break;
+
+        case XP_BON_AI: // because ø sort of seems to divide something, and √ also does that, and close to ⁻⁺ (exponential)
+   //  0x221A,//  square root: √
+            if (record->event.pressed) { // key down
+
+#     ifdef FULL_BON_4THROW
+            unicode_hex2output_single (CS_SQRT);// √ 
+#     endif
+
+            }
+            break;
+
+        case XP_BON_AJ: // because å points in the circle where this exponential minus goes, and it is right/"up" on the board
+                        // because ⁻⁺ belong together
+   //  0x207B,//  exponential minus sign: ⁻
+   //  0x207A,//  exponential plus: ⁺
+
+#     ifdef FULL_BON_4THROW
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CS_EXPMIN, CS_EXPPLS);// ⁻ ⁺
+            }
+#     endif
+
+            break;
+
+   // ------------------------- row 3
+        case XP_BON_BA: // because 1, because "WASD" on _MOV (depending on setup)
+   //  0x2460,   "1" : ①
+   //  0x2B05, arrow left: ⬅
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CN_1CIRC, CS_ARR_LE);// ① ⬅
+            }
+            break;
+
+        case XP_BON_BB: // because 2, because "WASD" on _MOV (depending)
+   //  0x2461,   "2" : ② 
+   //  0x2B07, arrow down: ⬇
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CN_2CIRC, CS_ARR_DN);// ② ⬇
+            }
+            break;
+
+        case XP_BON_BC: // because 3, because "WASD" on _MOV (depending)
+   //  0x2462,   "3" : ③
+   //  0x27A1, arrow right: ➡
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CN_3CIRC, CS_ARR_RI);// ③ ➡
+            }
+            break;
+
+        case XP_BON_BD: // because 4, because ┏ forms a box with the other box drawings to the right/down
+   //  0x2463,   "4" : ④
+   //  0x250F, box drawing heavy: ┏
+            if (record->event.pressed) { // key down
+
+#     ifdef BOX_DRAWINGS
+                unicode_hex2output (CN_4CIRC, CB_C_RIDN);// ④ ┏
+#     else
+                unicode_hex2output_single (CN_4CIRC);// ④
+#     endif
+
+            }
+            break;
+
+        case XP_BON_BE: // because 5, because ┓ forms a box
+   //  0x2513,box drawing heavy: ┓
+            if (record->event.pressed) { // key down
+
+#     ifdef BOX_DRAWINGS
+                unicode_hex2output (CN_5CIRC, CB_C_LEDN);// ⑤ ┓
+#     else
+                unicode_hex2output_single (CN_5CIRC);// ⑤ 
+#     endif
+
+            }
+            break;
+
+        case XP_BON_BF: // because 6, because ┃ continues box block
+   //  0x2465,   "6" : ⑥
+   //  0x2503, box drawing heavy: ┃
+            if (record->event.pressed) { // key down
+
+#     ifdef BOX_DRAWINGS
+                unicode_hex2output (CN_6CIRC, CB_VE);// ⑥ ┃
+#     else
+                unicode_hex2output_single (CN_6CIRC);// ⑥ 
+#     endif
+
+            }
+            break;
+
+        case XP_BON_BG: // because 7, because ┇ continues box block
+   //  0x2466,   "7" : ⑦
+   //  0x2507,    dotted line verticle (heavy): ┇
+            if (record->event.pressed) { // key down
+
+#     ifdef BOX_DRAWINGS
+                unicode_hex2output (CN_7CIRC, CB_VE_DOT);// ⑦ ┇
+#     else
+                unicode_hex2output_single (CN_7CIRC);// ⑦ 
+#     endif
+
+            }
+            break;
+
+        case XP_BON_BH: // because 8, ╋ because 8 also has a crossing line in it
+   //  0x254B, crossing lines: ╋
+   //  0x2467,   "8" : ⑨
+            if (record->event.pressed) { // key down
+
+#     ifdef BOX_DRAWINGS
+                unicode_hex2output (CN_8CIRC, CB_VE_BI);// ⑧ ╋
+#     else
+                unicode_hex2output_single (CN_8CIRC);// ⑧ 
+#     endif
+
+            }
+            break;
+
+        case XP_BON_BI: // because 9
+   //  0x2468,   "9" : ⑨
+   //  0x2513,box drawing heavy: ┓
+            if (record->event.pressed) { // key down
+
+                unicode_hex2output_single (CN_9CIRC);// ⑨ 
+
+            }
+            break;
+
+        case XP_BON_BJ: // because 0, because a "0" can also be a symbol for infinity, round & round
+   //  0x24EA,   "0" : ⓪
+   //  0x221E,//  infinity:∞
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CN_0CIRC, CS_INFIN);// ⓪ ∞
+            }
+            break;
+
+        case XP_BON_BK: // because -, because ~
+   //  0x2014,// dash: — (might not render differently than a hyphen - in some applications. Dash is longer).
+   //  0x2248,// about equal to: ≈
+            if (record->event.pressed) { // key down
+                unicode_hex2output (CS_DASH, CS_ABOUT);// — ≈
+            }
+            break;
+
+   // ------------------------- row 2
+        case XP_BON_CA: // because 1 above, because 「[
+   //  0x2039, opening single corner quotation: ‹
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_GUILSLE);//  ‹
+            }
+            break;
+
+        case XP_BON_CB: // because 2 above, because 」]
+   //  0x203A, closing sinle corner quotation: ›
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_GUILSRI);//  ›
+            }
+            break;
+
+        case XP_BON_CC: // because 3 above, because / (division)
+   //  0x00F7,//  division: ÷
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_DIVI);//  ÷
+            }
+            break;
+
+        case XP_BON_CD: // because 4 above, ┗ because forms box
+   //  0x261E, hand bullet point: ☞
+   //  0x2517, box drawing heavy: ┗
+            if (record->event.pressed) { // key down
+#    ifdef BOX_DRAWINGS
+                unicode_hex2output (CS_FINGER, CB_C_RIUP);//  ☞ ┗
+#    else
+                unicode_hex2output_single (CS_FINGER);//  ☞
+#    endif
+
+            }
+            break;
+
+        case XP_BON_CE: // because 5 above, because =, ┛ because forms box
+   //  0x2260,//  inequal: ≠
+   //  0x251B, box drawing heavy: ┛
+            if (record->event.pressed) { // key down
+
+#    ifdef BOX_DRAWINGS
+                unicode_hex2output (CS_UNEQL, CB_C_LEUP);//  ≠ ┛
+#    else
+                unicode_hex2output_single (CS_UNEQL);//  ≠
+#    endif
+
+            }
+            break;
+
+        case XP_BON_CF: // because ☒ , ┣ box drawings block, some place
+   //  0x2717, cross mark: ✗ (complements ✓)
+   //  0x2523, box drawing: ┣
+            if (record->event.pressed) { // key down
+
+#    ifdef BOX_DRAWINGS
+                unicode_hex2output (CS_BOTCH, CB_VE_RI);//  ✗ ┣
+#    else
+                unicode_hex2output_single (CS_BOTCH);//  ✗ 
+#    endif
+
+            }
+            break;
+
+        case XP_BON_CG: // because 7 above, because ☑ 🗹 , ┫ complements with key to its left
+   //  0x2713, checkmark: ✓ 
+   //  0x252B, box drawing: ┫
+
+            if (record->event.pressed) { // key down
+#    ifdef BOX_DRAWINGS
+                unicode_hex2output (CS_CHECK, CB_VE_LE);//  ✓ ┫
+#    else
+                unicode_hex2output_single (CS_CHECK);//  ✓
+#    endif
+
+            }
+            break;
+
+        case XP_BON_CH: // because 8 above, because ¡ (inverted exclamation mark)
+   //  0x26A0,//  alert: ⚠
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_ALERT);//  ⚠
+            }
+            break;
+
+        case XP_BON_CI: // because 9 above, because 《
+   //  0xAB, French quotation opening: «
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_GUILLE);//  «
+            }
+            break;
+
+        case XP_BON_CJ: // because 0 above, because 》
+   //  0xBB, French quotation closing: »
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (CS_GUILRI);//  »
+            }
+            break;
+
+# endif // REMOVE_BON 
+    }
+
+    return true;
 };

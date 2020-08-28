@@ -1,0 +1,425 @@
+/*
+ * License (GPL):
+  
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ * © 2019,2020 by Jos Boersema
+ *
+ */
+
+// --------------------------------------v---------------------------------------
+//                                 Configuration:
+// --------------------------------------v---------------------------------------
+
+     // (For the non-coders: “_Remove_” means to place ‛//’ in front. The rest of the line becomes a comment.
+     //                      “_Activate_”   means to *remove* the two ‛//’ in front, now it is part of the program.
+     //                      /* ... */ is also a way to remove code “...” from being compiled, same as ‛//’.)
+      
+
+        /*                        Base layers
+         *
+         * Here you can define what base layer(s) you want. Normally the base layer is a
+         * letters layer, with an accompanying numbers/symbols layer. One base layer with
+         * its numbers layer normally contains a layout such as: Dvorak, Qwerty, Colemak, etc. 
+         *
+         * In this dual-layout system you can have a second layout like Dvorak, Qwerty, Colemak, 
+         * on the alternate base layer with its alternate numbers/symbols layer. You can switch
+         * between them with a key on _RAR layer.
+         *
+         */
+#define BASES_DVORAK_DESCRAMBLE // _Activate_ to have a normal Dvorak on the default base layer,
+                               // and Dvorak which works on a computer which is already set to Dvorak on alternate.
+                               // The readme is in:          ./bases_dvorak_descramble.md
+                               // This layout is defined in: ./bases_dvorak_descramble.c
+                               // There could be further configuration options in this file.
+//#define BASES_QWERTY_DVORAK // _Activate_ to have Qwerty on default base layer, and Dvorak on alternate base layer.
+                               // The readme is in:          ./bases_qwerty_dvorak.md
+                               // This layout is defined in: ./bases_qwerty_dvorak.c
+                               // There could be further configuration options in this file.
+                               //
+// //#define BASES_YOUR_KEYMAP_NAME // You can define your own default and alternate base layers, and hook them
+                                    // into the code with a #define like this. Change “YOUR_KEYMAP_NAME” to your liking.
+                                    // Look in ./keymap.c under
+                                    /********************        What base layers to use:        **************/
+                                    // Then #include your keymap C code file ./bases_YOUR_KEYMAP_NAME.c there as an option.
+                                    // If it could be generally useful: add a readme and consider a pull request on QMK github 👍.
+
+
+        /*                        Startup layer
+         *
+         * You can define which of the two BASE layers is on when powering up the keyboard.
+         */
+//#define STARTUP_ALTERNATE // Example: For BASES_QWERTY_DVORAK defined: _remove_ is startup in Qwerty, _active_ is
+                          //              startup in Dvorak
+
+
+        /*                        How many hardware keys 1st row
+         *
+         * Define how many keys your keyboard has. */
+         // Default               (12x12x12x8 keys):  _remove_ both ->> 
+         //'Arrow'                (12x12x12x9 keys):  _activate_ only ->
+//#define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right. 
+                            // This hardware layout is called 'Arrow'.
+         //'Command' 'South paw'  (12x12x12x9 keys):  _activate_ only ->
+//#define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
+         //'Arrow' + 'South paw'  (12x12x12x10 keys): _activate_ both <<-
+         //
+        /*                        Defining the additional key for 'Arrow' ('Command') layout
+         *
+         * You can create an arrow-cluster with your additional MORE_key2 hardware key.
+         * To do this on the BASE layer would hurt standard Dvorak/Qwerty. There might be a ./bases_* option
+         * for Qwerty with arrows on the BASE layer.
+         * Either way: this new key can toggle to _MOV layer, with the key that on the _MOV layer becomes the down-arrow,
+         * in the middle of an arrow cluster in a triangle format. To do that, uncomment MOREKEY2_ARROW_CLUSTER.
+         * The keys that are by default defined on those keys on _MOV layer, will now be overwritten (they are not typically
+         * that much used there, with navigation cluster combinations).
+         *
+         * Arrow cluster for 'arrow' layout: _activate_ MOREKEY2_ARROW_CLUSTER and _activate_ #define MORE_key2 _MOV_UP
+         * No arrow cluster for 'arrow' layout: _remove_ MOREKEY2_ARROW_CLUSTER, and set MORE_key2 to whatever you want.
+         */
+#define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is ignored if MORE_KEY__ARROW is not defined.
+                             // This will cost you 'Right Alt' and 'GUI' on the _MOV layer.
+#define MOREKEY2_ADD_NAVIGATION // Additional navigation keys around arrow cluster MOREKEY2_ARROW_CLUSTER. Ignored if MOREKEY2_ARROW_CLUSTER is not defined.
+                                // Note: this will cause mouse buttons 'BTN4' and 'BTN5' on the _MOV layer to be moved.
+        /*
+         * Define the key you want on the additional key (leave it to _MOV_UP if you want an arrow cluster): */
+#define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
+//#define MORE_key2 <...your choice...> // Right side additional key.
+        //
+        /*                         Defining the additional key for 'South paw' (or called 'Command')
+         * Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
+         */
+#define MORE_key1_BASE KC__XGUI // Configure here what this key is on the BASE layers
+#define MORE_key1      KC_DEL  // Configure here what this key is on all other layers
+        /*
+         * (For adding even more hardware keys (other keyboards), see below under (TRANSMINIVAN_LEFTSIDE, etc).
+         */
+
+
+        /*                        Navigation cluster configuration
+         * 
+         * _Activate_ below line to use a "WASD" type layout (on the spot where WASD is in Qwerty).
+         * _Remove_ if you prefer a flat type layout, with arrows in a row, on the right hand.
+         */
+#define ARROWS_TRIANGLE // Implies mouse is also similarly in a triangle.
+        /*
+         *                        VI editor arrows
+         *
+         * Vi is a famous editor, with its own peculiar text cursor movement arrangement.
+         * This option modifies the flat arrows layout on the right hand, to be like the HJKL (in Qwerty, but it works
+         * for any layout you like to compile here) arrows in the editor vi(1).
+         * The arrows on the additional MOREKEY2_ARROW_CLUSTER also get harmonized to be like vi as well: Left/Down/Up/Right.
+         */
+//#define VI_SWITCHERYDOO //  You have to _remove_ ARROWS_TRIANGLE, or this gets ignored.
+
+
+        /*                        GUI left/right 
+         *
+         * _Activate_ below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
+         * and RGUI where LGUI is.
+         */
+#define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
+
+
+        /*                        'Left Shift' key on BASE layer, activates layer ...
+         *
+         * _Activate_ one of the below lines, determining where L-shift tap-toggles to on the 
+         * BASE layer. Default is _PAD, which otherwise can only be reached through _FUN.
+         */
+//#define LSHIFT_LAYER_RAR // Be warned and don't hold it against me if you accidentally hit 'Power' at the wrong moment.
+//#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle. 
+                         // _MOV is the least dangerous layer to accidentally activate.
+//#define LSHIFT_LAYER_DRA // _DRA is also the least easy to access layer normally, on pinky which is sortof wrong.
+                         // This would help alleviate it.
+//#define LSHIFT_LAYER_ACC // If typing a lot of these in a row
+#define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender(1) for example).
+
+
+        /*                        Alternate currency symbol
+         *
+         * _Activate_ the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA layer).
+         */
+//#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
+
+       /*                         Check boxes or Pointers
+        *
+        * You can have these symbols (checkboxes):  ☐  ☒  ☑  🗹
+        *                     or these (pointers):  ⮘  ⮙  ⮚  ⮛
+        */
+
+//#define POINT_ON_CHECKBOXES // _Activate_ to get arrows, _remove_ to get checkboxes on _DRA layer.
+
+
+       /*                         Speed measuring
+        *
+        */
+//#define SPEED_INIT // _Activate_ for default speed measuring on, _remove_ to set off at startup.
+       /*
+        * Led color configuration. You can see the speed you have configured below directly on the keyboard,
+        * after you compiled and flashed it.
+        * Set speed measuring to <off>.
+        * Hold the 'Report' key for one second, then release. The keyboard prints a number, which is the
+        * amount of characters per second for which that color is then being shown. Hold it again for
+        * a second, and it increments. Toggle speed measuring on/off to restart.
+        * You can play with the below settings until you like the result.
+        *
+        * The default values (8, 160 respectively) are starting at blue, avoiding confusion with default
+        * cyan for BASE layer, going to purple and further avoiding confusion with text size counting.
+        * Very fast typers could reach red, and then it goes further to yellow, etc.
+        */
+#define SPEED_COUNTDOWN 25 // After how many keypresses to update the effect(s).
+#define SPEED_HUE_STEP 8 // For each key/sec faster, the hue value of HSV goes this step further.
+#define SPEED_HUE_START 160 // The starting hue for 0 k/s (0 = 255 = red).
+       /*
+        * Speed report in words-per-minute (wpm) rather than keystrokes-per-second (k/s). wpm = k/s * ⁶⁰/₅ = k/s * 12
+        */
+#define WORDS_PER_MINUTE // _Activate_ to get speed report in words-per-minute, _remove_ to get it in keystrokes-per-second (k/s).
+
+
+       /*                         Text size counting
+        *
+        */
+//#define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
+
+
+       /*                         Middle led BASE layer: last layer color
+        *
+        * It is a bit wacky that in the BASE layer the middle led shows the last active layer. Here you
+        * can stop this behavior. This results in the same middle led behavior, given for when the side
+        * leds are set off: one special color for the BASE layer (cyan) on middle led.
+        */
+#define MIDLED_BASELAYER_CONSTANT // _Activate_ for one color on middle led for BASE layer, _remove_ to show last layer color
+
+
+       /*                         Firmware size / bloat / clutter reductions
+        *
+        * Removing one or more of the Unicode layers _ACC (accented characters), _DRA and/or _BON (various Unicode).
+        *
+        * Removes the _ACC layer, optionally redirect its key. This can save some 750 bytes. 
+        */
+//#define REMOVE_ACC // _Activate_ to strip out the _ACC layer, _remove_ to have the _ACC layer.
+        /* Unless REMOVE_ACC is _active_, the next defines which redirect the _ACC key(s) are ignored. */
+//#define _ACC_KEY_ALT_LAYER _BON // _Activate_ to make the key(s) that normally goes to _ACC, go to _BON instead.
+//#define _ACC_KEY_ALT_LAYER _DRA // _Activate_ to make the key(s) that normally goes to _ACC, go to _DRA instead.
+       /*
+        *
+        * Removes the _DRA layer, optionally redirect its key. Also saves some 750 bytes.
+        */
+//#define REMOVE_DRA // _Activate_ to strip out the _DRA layer, _remove_ to have the _DRA layer.
+       /* Unless REMOVE_DRA is _active_, the next defines which redirect the _DRA key(s) are ignored. */
+//#define _DRA_KEY_ALT_LAYER _ACC // _Activate_ to make the key(s) that normally goes to _ACC, go to _ACC instead.
+//#define _DRA_KEY_ALT_LAYER _BON // _Activate_ to make the key(s) that normally goes to _ACC, go to _BON instead.
+       /*
+        *
+        * Removes the _BON layer, optionally redirect its key. Also saves some 750 bytes.
+        */
+//#define REMOVE_BON // _Activate_ to strip out the _BON layer, _remove_ to have the _BON layer.
+       /* Unless REMOVE_BON is _active_, the next defines which redirect the _BON key(s) are ignored. */
+//#define _BON_KEY_ALT_LAYER _ACC // _Activate_ to make the key(s) that normally goes to _BON, go to _ACC instead.
+//#define _BON_KEY_ALT_LAYER _DRA // _Activate_ to make the key(s) that normally goes to _BON, go to _DRA instead.
+       /*
+        *
+        * The below cut out an amount of symbols on a given layer, to simplify and/or reduce firmware size a little.
+        */
+//#define ALL_DRA_BON_EVISCERATIONS // _Activate_ this to _remove_ the below all at once. (Seems to save only ±114 bytes)
+                                    //
+#define BOX_DRAWINGS // _Activate_ to get box drawings on _BON. Horizontal lines (━─┄┅) on _DRA are not affected.
+                   // Affected on rows 2 and 3: ┣┫┏┗┃┇┛┓
+                   // Full, 3rd row, boxdr.:  Ctrl   ① ⬅   ② ⬇   ③ ➡  ④ ┏  ⑤  ┓  ⑥ ┃  ⑦ ┇   ⑧ ╋  ⑨    ⓪ ∞   — 
+                   // Full, 2nd row, boxdr.:  LSht   ‹     ›     ÷    ☞ ┗  ≠  ┛  ✗ ┣  ✓ ┫   ⚠    «    »     RSht
+                   //
+                   // 3rd row, no boxdrawing: Ctrl   ① ⬅   ② ⬇   ③ ➡  ④    ⑤     ⑥    ⑦     ⑧    ⑨    ⓪ ∞   — 
+                   // 2nd row, no boxdrawing: LSht   ‹     ›     ÷    ☞    ≠     ✗    ✓     ⚠    «    »     RSht
+                   //
+#define SUB_SCRIPT_NUMS // _Activate_ to get subscript numbers (₁₂₃…₀) on _DRA.
+                      // Affected on row 3: ₁₂₃₄₅₆₇₈₉₀
+                      // Thinned out 3rd row: xxx   ¹     ²     ³    ⁴    ⁵    ⁶     ⁷     ⁸     ⁹     ⁰   xxx
+                      // Full 3rd row:        xxx   ¹₁    ²₂    ³₃   ⁴₄   ⁵₅   ⁶₆    ⁷₇    ⁸₈    ⁹₉    ⁰₀  xxx
+                      //
+#define FULL_DRA_2NDROW // _Activate_ to have symbols on all unshifted + shifted positions on _DRA, 2nd row.
+                      // Affected: 「 」 〇 § · 🗹  《 》
+                      // Full 2nd row:        LSht  「━   」─   °〇  •§   …·   ☐ ☒   ☑ 🗹   ¿¡ 《┄   》┅    Rsht
+                      // Thinned out 2nd row: LSht  ━     ─     °    •    …    ☐ ☑   ☑     ¿¡  ┄    ┅      RSht
+                      //
+#define FULL_DRA_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _DRA, 4th row.
+                      // Affected 4th row: „ ≤ ≥ ∅ ¢ ƒ ❦ 🙂 🙁 👍 👎 ⁽ ₍ ⁾ ₎
+                      // Full 4th row:        BASE  “„    ”≤    £≥   ∅ ¢  ±ƒ   ❦ ♥   🙂🙁  👍👎 ⁽₍   ⁾₎    Bkspc
+                      // Thinned out 4th row: BASE  “     ”     £         ±    ♥                           Bkspc
+                      //
+#define FULL_BON_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _BON, 4th row.
+                        // Affected 4th row: 🛠 ¤ ∑ ‱ ٭ 😊 ⍨  ⃰ ⁻ ⁺ 🄯 ©
+                        // Full 4th row:        BASE  ‛🛠   ’⬆    ¤ 🄯   ∑ ©  ‰‱   ★٭   😊⍨    × ⃰   √    ⁻⁺    Bkspc
+                        // Thinned out 4th row: BASE  ‛     ’⬆               ‰    ★           ×               Bkspc
+                        //
+
+
+       /*                         ⚠ ≠ Minivan
+        *
+        * This section is for when you want to flash this keymap unto a board with more
+        * keys than the Minivan has. 
+        *
+        *       Trans-Minivan keymap: 12x12x12x11, 12x12x12x12 keys
+        *                                        • Example board: Planck (12x12x12x12)
+        *
+        * It is assumed that you enabled MORE_KEY__ARROW and
+        * MORE_KEY__COMMAND, to get to 12x12x12x10 keys. With this you
+        * can get to one or two more keys on row 1, without manually
+        * editing all layers.
+        *
+        * FIXME: not been compiled or tested for any boards.
+        */
+//#define TRANSMINIVAN_LEFTSIDE // _Activate_ to get yet one more key on the left side row 1
+//#define TRANSMINIVAN_RIGHTSIDE // _Activate_ to get yet one more key on the right side row 1
+//#define TRANSMINIVAN_LAYOUT ....... // Set this to something with the needed amount of keycodes.
+                          // Your values are inserted here: [ _LTR ] = LAYOUT_redefined (
+                          //                                           ^^^^^^^^^^^^^^^^ (throughout all layers)
+
+
+// --------------------------------------^---------------------------------------
+//            Below here no more comfortable configuration options.....
+//            There may be configuration options in the layout ./bases_....c file you chose.
+// --------------------------------------^---------------------------------------
+
+
+
+
+
+// The below sets some things up based on the above #defines.
+
+
+// Prevent likely erroneous configuration. If no 'Arrow' hardware layout, then not patching in an arrow cluster.
+# if !defined(MORE_KEY__ARROW) && defined(MOREKEY2_ARROW_CLUSTER)
+#     undef MOREKEY2_ARROW_CLUSTER
+# endif
+
+# if !defined(MORE_KEY__ARROW) && defined(MOREKEY2_ADD_NAVIGATION)
+#     undef MOREKEY2_ADD_NAVIGATION
+# endif
+# if !defined(MOREKEY2_ARROW_CLUSTER) && defined(MOREKEY2_ADD_NAVIGATION)
+#     undef MOREKEY2_ADD_NAVIGATION // Only navigation keys, when the are arrows defined.
+# endif
+
+// When choosing 'triangle' arrows, then they go left. Not 'triangle' arrows, than right.
+# ifdef ARROWS_TRIANGLE
+         /* _Activate_ below line to put the arrows on the left, comment out to have arrows right. */
+#     define ARROWS_LEFT // Implies mouse is right
+# endif
+
+
+// Set up user GUI choice:
+# ifndef SWITCH_GUIS
+#     define KC__XGUI KC_LGUI // Name logic is alphabetic order left to right …X (…) …Y in layout definitions..
+#     define KC__YGUI KC_RGUI // .. meaning KC__XGUI is left on the keymap, KC__YGUI is right.
+# endif
+
+# ifdef SWITCH_GUIS
+#     define KC__XGUI KC_RGUI
+#     define KC__YGUI KC_LGUI
+# endif
+
+
+// Define the layout macro for the amount of hardware keys.
+// These for Minivan are defined up in the code tree.
+# if !defined(MORE_KEY__COMMAND) && !defined(MORE_KEY__ARROW)
+#     define LAYOUT_redefined LAYOUT                // Default (8 keys on 1st row)
+# endif
+
+# if !defined(MORE_KEY__COMMAND) && defined(MORE_KEY__ARROW)
+#     define LAYOUT_redefined LAYOUT_arrow          // Additional key 1st row on the right. 'Arrow'
+# endif
+
+# if defined(MORE_KEY__COMMAND) && !defined(MORE_KEY__ARROW)
+#     define LAYOUT_redefined LAYOUT_command        // Additional key 1st row on the left. 'Command'
+# endif
+
+# if defined(MORE_KEY__COMMAND) && defined(MORE_KEY__ARROW)
+#     define LAYOUT_redefined LAYOUT_arrow_command  // Additional keys 1st row both left and right. 'Arrow' + 'Command'
+# endif
+
+# ifdef TRANSMINIVAN_LAYOUT 
+#     undef LAYOUT_redefined
+#     define LAYOUT_redefined TRANSMINIVAN_LAYOUT
+# endif
+
+
+// Process user config setting for speed measuring
+# ifdef SPEED_INIT
+#     define SPEED_INIT_VALUE TRUE
+# else
+#     define SPEED_INIT_VALUE FALSE
+# endif
+// Process user config setting for text size measuring
+# ifdef COUNT_INIT
+#     define COUNT_INIT_VALUE TRUE
+# else
+#     define COUNT_INIT_VALUE FALSE
+# endif
+
+
+// Get all key reductions at once
+# ifdef ALL_DRA_BON_EVISCERATIONS
+#     ifdef BOX_DRAWINGS   
+#         undef BOX_DRAWINGS   
+#     endif
+
+#     ifdef SUB_SCRIPT_NUMS
+#         undef SUB_SCRIPT_NUMS
+#     endif
+
+#     ifdef FULL_DRA_2NDROW
+#         undef FULL_DRA_2NDROW
+#     endif
+
+#     ifdef FULL_DRA_4THROW
+#         undef FULL_DRA_4THROW
+#     endif
+
+#     ifdef FULL_BON_4THROW
+#         undef FULL_BON_4THROW
+#     endif
+# endif
+
+// This resolves compiling “TO (_BON)” on the _FUN layer.
+# ifdef REMOVE_BON // _Activate_ to strip out the _BON layer, _remove_ to have the _BON layer.
+#     undef _BON
+#     ifdef _BON_KEY_ALT_LAYER
+#         define _BON _BON_KEY_ALT_LAYER  // To what user wants
+#     else
+#         define _BON _FUN                // void behavior
+#     endif
+# endif
+
+// If the _ACC layer hold key has no function anymore because the layers _ACC and _BON to which it
+// switches have been removed, and no alternative use been set, that key reverts to being KC_DEL,
+// and the whole macro CHOLTAP_ACCE it normally activates gets cut.
+# if  defined(REMOVE_ACC) \
+  && !defined(_ACC_KEY_ALT_LAYER) \
+  &&  defined(REMOVE_BON) \
+  && !defined(_BON_KEY_ALT_LAYER)
+#     define CHOLTAP_ACCE KC_DEL // replaces in the keymap
+#     define CHOLTAP_ACCE_NOP    // cuts CHOLTAP_ACCE out of macros
+# endif
+
+// Here all Unicode layers _ACC, _DRA and _BON have been removed, and none of their key(s) has
+// been re-assigned to a useful purpose. That makes that whole system redundant, so it is simplified.
+# if  defined(REMOVE_ACC) \
+  && !defined(_ACC_KEY_ALT_LAYER) \
+  &&  defined(REMOVE_DRA) \
+  && !defined(_DRA_KEY_ALT_LAYER) \
+  &&  defined(REMOVE_BON) \
+  && !defined(_BON_KEY_ALT_LAYER)
+#     define CHOLTAP_ACCE KC_DEL // replaces in the keymap
+#     define CHOLTAP_ACCE_NOP    // cuts CHOLTAP_ACCE out of macros
+#     define DUO_HOLD_BASIC   // cuts out the long DUO_HOLD macro, replaces it with a simple 'descramble'-aware hold(_NSY/_DDN) 
+# endif
