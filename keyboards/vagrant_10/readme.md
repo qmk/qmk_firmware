@@ -1,6 +1,6 @@
 # Vagrant 10
 
-![Planck](https://raw.githubusercontent.com/Sho-Keebs/Vagrant-10/master/doc/vag.jpg)
+![Vagrant 10](https://raw.githubusercontent.com/Sho-Keebs/Vagrant-10/master/doc/vag.jpg)
 
 This is (yet another) simple and small macropad.
 
