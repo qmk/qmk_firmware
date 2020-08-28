@@ -1,7 +1,7 @@
 # mingnumpad
 
-![mingnumpad assembled](https://imgur.com/50zzoPy)
-![mingnumpad insides](https://imgur.com/a/F38zpAO)
+![mingnumpad assembled](https://i.imgur.com/50zzoPy.jpg)
+![mingnumpad insides](https://i.imgur.com/RZ7BMlZ.jpg)
 
 
 *A short description of the keyboard/project*
