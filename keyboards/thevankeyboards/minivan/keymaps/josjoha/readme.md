@@ -32,7 +32,8 @@ Available dual layouts (basic letters)
 
       • Dvorak² (normal Dvorak, and Dvorak for a computer already set to Dvorak).
 
-For the layers in the Dvorak² version, see ➡ ![bases_qwerty dvorak.md](./bases_qwerty_dvorak.md) ⬅
+For the layers in the Dvorak² version, see ➡ ![bases_dvorak_descramble.md](./bases_dvorak_descramble.md) ⬅
+
 
       • Qwerty and Dvorak
 
@@ -116,7 +117,7 @@ Led colors for layers
                   show the color of the last layer that was active.
             • ⁽²⁾ The colors are reversed blue/low-white/green when numlock is on. 
                   Left led color memory aid: same as either numbers or movement layer for numlock on/off.
-r           • ⁽³⁾ The colors are reversed to orange/red/red when set to de-activate after one F-key press.
+            • ⁽³⁾ The colors are reversed to orange/red/red when set to de-activate after one F-key press.
             • ⁽⁴⁾ The colors are reversed purple/purple/white, indicating which of the two base layers
                   is active (see below).
             • Middle led: Breathing effect. When not breathing, keyboard is not working normally with the computer.
