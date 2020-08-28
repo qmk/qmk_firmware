@@ -94,7 +94,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 #ifdef OLED_DRIVER_ENABLE
-extern rgblight_config_t rgblight_config;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;  // flips the display 270 degrees
