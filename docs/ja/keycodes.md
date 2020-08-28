@@ -1,490 +1,502 @@
-# Keycodes Overview
+# キーコードの概要
 
-When defining a [keymap](keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.
+<!---
+  original document: 0.9.57:docs/keycodes.md
+  git diff 0.8.147 HEAD -- docs/keycodes.md | cat
+-->
 
-This is a reference only. Each group of keys links to the page documenting their functionality in more detail.
+[キーマップ](ja/keymap.md) のそれぞれのキーを定義するときは、明確な定義が必要です。このページは、QMK で使えるキーコードに相当するシンボルについて記述しています。
 
-## Basic Keycodes :id=basic-keycodes
+このページはリファレンスのみです。それぞれのキーの種類毎のリンク先のページに、それぞれのキーの機能についてもっと詳細に記載しています。
 
-See also: [Basic Keycodes](keycodes_basic.md)
+## 基本的なキーコード :id=basic-keycodes
 
-|Key                    |Aliases                       |Description                                    |Windows      |macOS        |Linux<sup>1</sup>|
-|-----------------------|------------------------------|-----------------------------------------------|-------------|-------------|-----------------|
-|`KC_NO`                |`XXXXXXX`                     |Ignore this key (NOOP)                         |*N/A*        |*N/A*        |*N/A*            |
-|`KC_TRANSPARENT`       |`KC_TRNS`, `_______`          |Use the next lowest non-transparent key        |*N/A*        |*N/A*        |*N/A*            |
-|`KC_A`                 |                              |`a` and `A`                                    |✔            |✔            |✔                |
-|`KC_B`                 |                              |`b` and `B`                                    |✔            |✔            |✔                |
-|`KC_C`                 |                              |`c` and `C`                                    |✔            |✔            |✔                |
-|`KC_D`                 |                              |`d` and `D`                                    |✔            |✔            |✔                |
-|`KC_E`                 |                              |`e` and `E`                                    |✔            |✔            |✔                |
-|`KC_F`                 |                              |`f` and `F`                                    |✔            |✔            |✔                |
-|`KC_G`                 |                              |`g` and `G`                                    |✔            |✔            |✔                |
-|`KC_H`                 |                              |`h` and `H`                                    |✔            |✔            |✔                |
-|`KC_I`                 |                              |`i` and `I`                                    |✔            |✔            |✔                |
-|`KC_J`                 |                              |`j` and `J`                                    |✔            |✔            |✔                |
-|`KC_K`                 |                              |`k` and `K`                                    |✔            |✔            |✔                |
-|`KC_L`                 |                              |`l` and `L`                                    |✔            |✔            |✔                |
-|`KC_M`                 |                              |`m` and `M`                                    |✔            |✔            |✔                |
-|`KC_N`                 |                              |`n` and `N`                                    |✔            |✔            |✔                |
-|`KC_O`                 |                              |`o` and `O`                                    |✔            |✔            |✔                |
-|`KC_P`                 |                              |`p` and `P`                                    |✔            |✔            |✔                |
-|`KC_Q`                 |                              |`q` and `Q`                                    |✔            |✔            |✔                |
-|`KC_R`                 |                              |`r` and `R`                                    |✔            |✔            |✔                |
-|`KC_S`                 |                              |`s` and `S`                                    |✔            |✔            |✔                |
-|`KC_T`                 |                              |`t` and `T`                                    |✔            |✔            |✔                |
-|`KC_U`                 |                              |`u` and `U`                                    |✔            |✔            |✔                |
-|`KC_V`                 |                              |`v` and `V`                                    |✔            |✔            |✔                |
-|`KC_W`                 |                              |`w` and `W`                                    |✔            |✔            |✔                |
-|`KC_X`                 |                              |`x` and `X`                                    |✔            |✔            |✔                |
-|`KC_Y`                 |                              |`y` and `Y`                                    |✔            |✔            |✔                |
-|`KC_Z`                 |                              |`z` and `Z`                                    |✔            |✔            |✔                |
-|`KC_1`                 |                              |`1` and `!`                                    |✔            |✔            |✔                |
-|`KC_2`                 |                              |`2` and `@`                                    |✔            |✔            |✔                |
-|`KC_3`                 |                              |`3` and `#`                                    |✔            |✔            |✔                |
-|`KC_4`                 |                              |`4` and `$`                                    |✔            |✔            |✔                |
-|`KC_5`                 |                              |`5` and `%`                                    |✔            |✔            |✔                |
-|`KC_6`                 |                              |`6` and `^`                                    |✔            |✔            |✔                |
-|`KC_7`                 |                              |`7` and `&`                                    |✔            |✔            |✔                |
-|`KC_8`                 |                              |`8` and `*`                                    |✔            |✔            |✔                |
-|`KC_9`                 |                              |`9` and `(`                                    |✔            |✔            |✔                |
-|`KC_0`                 |                              |`0` and `)`                                    |✔            |✔            |✔                |
-|`KC_ENTER`             |`KC_ENT`                      |Return (Enter)                                 |✔            |✔            |✔                |
-|`KC_ESCAPE`            |`KC_ESC`                      |Escape                                         |✔            |✔            |✔                |
-|`KC_BSPACE`            |`KC_BSPC`                     |Delete (Backspace)                             |✔            |✔            |✔                |
-|`KC_TAB`               |                              |Tab                                            |✔            |✔            |✔                |
-|`KC_SPACE`             |`KC_SPC`                      |Spacebar                                       |✔            |✔            |✔                |
-|`KC_MINUS`             |`KC_MINS`                     |`-` and `_`                                    |✔            |✔            |✔                |
-|`KC_EQUAL`             |`KC_EQL`                      |`=` and `+`                                    |✔            |✔            |✔                |
-|`KC_LBRACKET`          |`KC_LBRC`                     |`[` and `{`                                    |✔            |✔            |✔                |
-|`KC_RBRACKET`          |`KC_RBRC`                     |`]` and `}`                                    |✔            |✔            |✔                |
-|`KC_BSLASH`            |`KC_BSLS`                     |`\` and `\|`                                   |✔            |✔            |✔                |
-|`KC_NONUS_HASH`        |`KC_NUHS`                     |Non-US `#` and `~`                             |✔            |✔            |✔                |
-|`KC_SCOLON`            |`KC_SCLN`                     |`;` and `:`                                    |✔            |✔            |✔                |
-|`KC_QUOTE`             |`KC_QUOT`                     |`'` and `"`                                    |✔            |✔            |✔                |
-|`KC_GRAVE`             |`KC_GRV`, `KC_ZKHK`           |<code>&#96;</code> and `~`, JIS Zenkaku/Hankaku|✔            |✔            |✔                |
-|`KC_COMMA`             |`KC_COMM`                     |`,` and `<`                                    |✔            |✔            |✔                |
-|`KC_DOT`               |                              |`.` and `>`                                    |✔            |✔            |✔                |
-|`KC_SLASH`             |`KC_SLSH`                     |`/` and `?`                                    |✔            |✔            |✔                |
-|`KC_CAPSLOCK`          |`KC_CLCK`, `KC_CAPS`          |Caps Lock                                      |✔            |✔            |✔                |
-|`KC_F1`                |                              |F1                                             |✔            |✔            |✔                |
-|`KC_F2`                |                              |F2                                             |✔            |✔            |✔                |
-|`KC_F3`                |                              |F3                                             |✔            |✔            |✔                |
-|`KC_F4`                |                              |F4                                             |✔            |✔            |✔                |
-|`KC_F5`                |                              |F5                                             |✔            |✔            |✔                |
-|`KC_F6`                |                              |F6                                             |✔            |✔            |✔                |
-|`KC_F7`                |                              |F7                                             |✔            |✔            |✔                |
-|`KC_F8`                |                              |F8                                             |✔            |✔            |✔                |
-|`KC_F9`                |                              |F9                                             |✔            |✔            |✔                |
-|`KC_F10`               |                              |F10                                            |✔            |✔            |✔                |
-|`KC_F11`               |                              |F11                                            |✔            |✔            |✔                |
-|`KC_F12`               |                              |F12                                            |✔            |✔            |✔                |
-|`KC_PSCREEN`           |`KC_PSCR`                     |Print Screen                                   |✔            |✔<sup>2</sup>|✔                |
-|`KC_SCROLLLOCK`        |`KC_SLCK`, `KC_BRMD`          |Scroll Lock, Brightness Down (macOS)           |✔            |✔<sup>2</sup>|✔                |
-|`KC_PAUSE`             |`KC_PAUS`, `KC_BRK`, `KC_BRMU`|Pause, Brightness Up (macOS)                   |✔            |✔<sup>2</sup>|✔                |
-|`KC_INSERT`            |`KC_INS`                      |Insert                                         |✔            |             |✔                |
-|`KC_HOME`              |                              |Home                                           |✔            |✔            |✔                |
-|`KC_PGUP`              |                              |Page Up                                        |✔            |✔            |✔                |
-|`KC_DELETE`            |`KC_DEL`                      |Forward Delete                                 |✔            |✔            |✔                |
-|`KC_END`               |                              |End                                            |✔            |✔            |✔                |
-|`KC_PGDOWN`            |`KC_PGDN`                     |Page Down                                      |✔            |✔            |✔                |
-|`KC_RIGHT`             |`KC_RGHT`                     |Right Arrow                                    |✔            |✔            |✔                |
-|`KC_LEFT`              |                              |Left Arrow                                     |✔            |✔            |✔                |
-|`KC_DOWN`              |                              |Down Arrow                                     |✔            |✔            |✔                |
-|`KC_UP`                |                              |Up Arrow                                       |✔            |✔            |✔                |
-|`KC_NUMLOCK`           |`KC_NLCK`                     |Keypad Num Lock and Clear                      |✔            |✔            |✔                |
-|`KC_KP_SLASH`          |`KC_PSLS`                     |Keypad `/`                                     |✔            |✔            |✔                |
-|`KC_KP_ASTERISK`       |`KC_PAST`                     |Keypad `*`                                     |✔            |✔            |✔                |
-|`KC_KP_MINUS`          |`KC_PMNS`                     |Keypad `-`                                     |✔            |✔            |✔                |
-|`KC_KP_PLUS`           |`KC_PPLS`                     |Keypad `+`                                     |✔            |✔            |✔                |
-|`KC_KP_ENTER`          |`KC_PENT`                     |Keypad Enter                                   |✔            |✔            |✔                |
-|`KC_KP_1`              |`KC_P1`                       |Keypad `1` and End                             |✔            |✔            |✔                |
-|`KC_KP_2`              |`KC_P2`                       |Keypad `2` and Down Arrow                      |✔            |✔            |✔                |
-|`KC_KP_3`              |`KC_P3`                       |Keypad `3` and Page Down                       |✔            |✔            |✔                |
-|`KC_KP_4`              |`KC_P4`                       |Keypad `4` and Left Arrow                      |✔            |✔            |✔                |
-|`KC_KP_5`              |`KC_P5`                       |Keypad `5`                                     |✔            |✔            |✔                |
-|`KC_KP_6`              |`KC_P6`                       |Keypad `6` and Right Arrow                     |✔            |✔            |✔                |
-|`KC_KP_7`              |`KC_P7`                       |Keypad `7` and Home                            |✔            |✔            |✔                |
-|`KC_KP_8`              |`KC_P8`                       |Keypad `8` and Up Arrow                        |✔            |✔            |✔                |
-|`KC_KP_9`              |`KC_P9`                       |Keypad `9` and Page Up                         |✔            |✔            |✔                |
-|`KC_KP_0`              |`KC_P0`                       |Keypad `0` and Insert                          |✔            |✔            |✔                |
-|`KC_KP_DOT`            |`KC_PDOT`                     |Keypad `.` and Delete                          |✔            |✔            |✔                |
-|`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` and `\|`                            |✔            |✔            |✔                |
-|`KC_APPLICATION`       |`KC_APP`                      |Application (Windows Context Menu Key)         |✔            |             |✔                |
-|`KC_POWER`             |                              |System Power                                   |             |✔<sup>3</sup>|✔                |
-|`KC_KP_EQUAL`          |`KC_PEQL`                     |Keypad `=`                                     |✔            |✔            |✔                |
-|`KC_F13`               |                              |F13                                            |✔            |✔            |✔                |
-|`KC_F14`               |                              |F14                                            |✔            |✔            |✔                |
-|`KC_F15`               |                              |F15                                            |✔            |✔            |✔                |
-|`KC_F16`               |                              |F16                                            |✔            |✔            |✔                |
-|`KC_F17`               |                              |F17                                            |✔            |✔            |✔                |
-|`KC_F18`               |                              |F18                                            |✔            |✔            |✔                |
-|`KC_F19`               |                              |F19                                            |✔            |✔            |✔                |
-|`KC_F20`               |                              |F20                                            |✔            |             |✔                |
-|`KC_F21`               |                              |F21                                            |✔            |             |✔                |
-|`KC_F22`               |                              |F22                                            |✔            |             |✔                |
-|`KC_F23`               |                              |F23                                            |✔            |             |✔                |
-|`KC_F24`               |                              |F24                                            |✔            |             |✔                |
-|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                        |            |             |✔                |
-|`KC_HELP`              |                              |Help                                           |            |             |✔                |
-|`KC_MENU`              |                              |Menu                                           |            |             |✔                |
-|`KC_SELECT`            |`KC_SLCT`                     |Select                                         |            |             |✔                |
-|`KC_STOP`              |                              |Stop                                           |            |             |✔                |
-|`KC_AGAIN`             |`KC_AGIN`                     |Again                                          |            |             |✔                |
-|`KC_UNDO`              |                              |Undo                                           |            |             |✔                |
-|`KC_CUT`               |                              |Cut                                            |            |             |✔                |
-|`KC_COPY`              |                              |Copy                                           |            |             |✔                |
-|`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |            |             |✔                |
-|`KC_FIND`              |                              |Find                                           |            |             |✔                |
-|`KC__MUTE`             |                              |Mute                                           |             |✔            |✔                |
-|`KC__VOLUP`            |                              |Volume Up                                      |             |✔            |✔                |
-|`KC__VOLDOWN`          |                              |Volume Down                                    |             |✔            |✔                |
-|`KC_LOCKING_CAPS`      |`KC_LCAP`                     |Locking Caps Lock                              |✔            |✔            |                 |
-|`KC_LOCKING_NUM`       |`KC_LNUM`                     |Locking Num Lock                               |✔            |✔            |                 |
-|`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Locking Scroll Lock                            |✔            |✔            |                 |
-|`KC_KP_COMMA`          |`KC_PCMM`                     |Keypad `,`                                     |             |             |✔                |
-|`KC_KP_EQUAL_AS400`    |                              |Keypad `=` on AS/400 keyboards                 |             |             |                 |
-|`KC_INT1`              |`KC_RO`                       |JIS `\` and `_`                                |✔            |             |✔                |
-|`KC_INT2`              |`KC_KANA`                     |JIS Katakana/Hiragana                          |✔            |             |✔                |
-|`KC_INT3`              |`KC_JYEN`                     |JIS `¥` and `\|`                               |✔            |             |✔                |
-|`KC_INT4`              |`KC_HENK`                     |JIS Henkan                                     |✔            |             |✔                |
-|`KC_INT5`              |`KC_MHEN`                     |JIS Muhenkan                                   |✔            |             |✔                |
-|`KC_INT6`              |                              |JIS Numpad `,`                                 |             |             |✔                |
-|`KC_INT7`              |                              |International 7                                |             |             |                 |
-|`KC_INT8`              |                              |International 8                                |             |             |                 |
-|`KC_INT9`              |                              |International 9                                |             |             |                 |
-|`KC_LANG1`             |`KC_HAEN`                     |Hangul/English                                 |             |             |✔                |
-|`KC_LANG2`             |`KC_HANJ`                     |Hanja                                          |             |             |✔                |
-|`KC_LANG3`             |                              |JIS Katakana                                   |             |             |✔                |
-|`KC_LANG4`             |                              |JIS Hiragana                                   |             |             |✔                |
-|`KC_LANG5`             |                              |JIS Zenkaku/Hankaku                            |             |             |✔                |
-|`KC_LANG6`             |                              |Language 6                                     |             |             |                 |
-|`KC_LANG7`             |                              |Language 7                                     |             |             |                 |
-|`KC_LANG8`             |                              |Language 8                                     |             |             |                 |
-|`KC_LANG9`             |                              |Language 9                                     |             |             |                 |
-|`KC_ALT_ERASE`         |`KC_ERAS`                     |Alternate Erase                                |             |             |                 |
-|`KC_SYSREQ`            |                              |SysReq/Attention                               |             |             |                 |
-|`KC_CANCEL`            |                              |Cancel                                         |             |             |                 |
-|`KC_CLEAR`             |`KC_CLR`                      |Clear                                          |             |             |✔                |
-|`KC_PRIOR`             |                              |Prior                                          |             |             |                 |
-|`KC_RETURN`            |                              |Return                                         |             |             |                 |
-|`KC_SEPARATOR`         |                              |Separator                                      |             |             |                 |
-|`KC_OUT`               |                              |Out                                            |             |             |                 |
-|`KC_OPER`              |                              |Oper                                           |             |             |                 |
-|`KC_CLEAR_AGAIN`       |                              |Clear/Again                                    |             |             |                 |
-|`KC_CRSEL`             |                              |CrSel/Props                                    |             |             |                 |
-|`KC_EXSEL`             |                              |ExSel                                          |             |             |                 |
-|`KC_LCTRL`             |`KC_LCTL`                     |Left Control                                   |✔            |✔            |✔                |
-|`KC_LSHIFT`            |`KC_LSFT`                     |Left Shift                                     |✔            |✔            |✔                |
-|`KC_LALT`              |`KC_LOPT`                     |Left Alt (Option)                              |✔            |✔            |✔                |
-|`KC_LGUI`              |`KC_LCMD`, `KC_LWIN`          |Left GUI (Windows/Command/Meta key)            |✔            |✔            |✔                |
-|`KC_RCTRL`             |`KC_RCTL`                     |Right Control                                  |✔            |✔            |✔                |
-|`KC_RSHIFT`            |`KC_RSFT`                     |Right Shift                                    |✔            |✔            |✔                |
-|`KC_RALT`              |`KC_ROPT`, `KC_ALGR`          |Right Alt (Option/AltGr)                       |✔            |✔            |✔                |
-|`KC_RGUI`              |`KC_RCMD`, `KC_RWIN`          |Right GUI (Windows/Command/Meta key)           |✔            |✔            |✔                |
-|`KC_SYSTEM_POWER`      |`KC_PWR`                      |System Power Down                              |✔            |✔<sup>3</sup>|✔                |
-|`KC_SYSTEM_SLEEP`      |`KC_SLEP`                     |System Sleep                                   |✔            |✔<sup>3</sup>|✔                |
-|`KC_SYSTEM_WAKE`       |`KC_WAKE`                     |System Wake                                    |             |✔<sup>3</sup>|✔                |
-|`KC_AUDIO_MUTE`        |`KC_MUTE`                     |Mute                                           |✔            |✔            |✔                |
-|`KC_AUDIO_VOL_UP`      |`KC_VOLU`                     |Volume Up                                      |✔            |✔<sup>4</sup>|✔                |
-|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`                     |Volume Down                                    |✔            |✔<sup>4</sup>|✔                |
-|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`                     |Next Track                                     |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`                     |Previous Track                                 |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_STOP`        |`KC_MSTP`                     |Stop Track                                     |✔            |             |✔                |
-|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`                     |Play/Pause Track                               |✔            |✔            |✔                |
-|`KC_MEDIA_SELECT`      |`KC_MSEL`                     |Launch Media Player                            |✔            |             |✔                |
-|`KC_MEDIA_EJECT`       |`KC_EJCT`                     |Eject                                          |             |✔            |✔                |
-|`KC_MAIL`              |                              |Launch Mail                                    |✔            |             |✔                |
-|`KC_CALCULATOR`        |`KC_CALC`                     |Launch Calculator                              |✔            |             |✔                |
-|`KC_MY_COMPUTER`       |`KC_MYCM`                     |Launch My Computer                             |✔            |             |✔                |
-|`KC_WWW_SEARCH`        |`KC_WSCH`                     |Browser Search                                 |✔            |             |✔                |
-|`KC_WWW_HOME`          |`KC_WHOM`                     |Browser Home                                   |✔            |             |✔                |
-|`KC_WWW_BACK`          |`KC_WBAK`                     |Browser Back                                   |✔            |             |✔                |
-|`KC_WWW_FORWARD`       |`KC_WFWD`                     |Browser Forward                                |✔            |             |✔                |
-|`KC_WWW_STOP`          |`KC_WSTP`                     |Browser Stop                                   |✔            |             |✔                |
-|`KC_WWW_REFRESH`       |`KC_WREF`                     |Browser Refresh                                |✔            |             |✔                |
-|`KC_WWW_FAVORITES`     |`KC_WFAV`                     |Browser Favorites                              |✔            |             |✔                |
-|`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`                     |Next Track                                     |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_REWIND`      |`KC_MRWD`                     |Previous Track                                 |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
-|`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |Brightness Up                                  |✔            |✔            |✔                |
-|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |Brightness Down                                |✔            |✔            |✔                |
+[基本的なキーコード](ja/keycodes_basic.md) も見てください。
 
-<sup>1. The Linux kernel HID driver recognizes [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c), but the default bindings depend on the DE/WM.</sup><br/>
-<sup>2. Treated as F13-F15.</sup><br/>
-<sup>3. Must be held for about three seconds, and will display a prompt instead.</sup><br/>
-<sup>4. Holding Shift+Option allows for finer control of volume level.</sup><br/>
-<sup>5. Skips the entire track in iTunes when tapped, seeks within the current track when held.</sup><br/>
-<sup>6. WMP does not recognize the Rewind key, but both alter playback speed in VLC.</sup>
+?> 訳注: 以下の説明は、OS のキーボード配列の設定が「US」の場合のものです。OS のキーボード配列の設定が「JIS」の場合、一部のキーは下の表と異なる文字が入力されます。例えば、`KC_LBRC` は、OS のキーボード配列の設定が US であれば「`[` または `{`」が入力されますが、JIS の場合「`@` または ```」が入力されます。
+?> これは、OS がキーボードから送信されたキーコードを解釈する際に、キーボード配列の設定によって対応する文字を変えるためです。もし、OS のキーボード配列の設定を JIS にする場合、`#include "keymap_jp.h"` を `keymap.c` に追加すると`JP_AT` のような JIS キーボードのキーキャップに対応したキーを指定できます。
 
-## Quantum Keycodes :id=quantum-keycodes
+|Key                    |Aliases                       |Description                              |Windows      |macOS        |Linux<sup>1</sup>|
+|-----------------------|------------------------------|-----------------------------------------|-------------|-------------|-----------------|
+|`KC_NO`                |`XXXXXXX`                     |このキーを無視します。 (NOOP)            |*N/A*        |*N/A*        |*N/A*            |
+|`KC_TRANSPARENT`       |`KC_TRNS`, `_______`          |直下のレイヤーの非透過キーを使う         |*N/A*        |*N/A*        |*N/A*            |
+|`KC_A`                 |                              |`a` と `A`                               |✔           |✔            |✔                |
+|`KC_B`                 |                              |`b` と `B`                               |✔           |✔            |✔                |
+|`KC_C`                 |                              |`c` と `C`                               |✔           |✔            |✔                |
+|`KC_D`                 |                              |`d` と `D`                               |✔           |✔            |✔                |
+|`KC_E`                 |                              |`e` と `E`                               |✔           |✔            |✔                |
+|`KC_F`                 |                              |`f` と `F`                               |✔           |✔            |✔                |
+|`KC_G`                 |                              |`g` と `G`                               |✔           |✔            |✔                |
+|`KC_H`                 |                              |`h` と `H`                               |✔           |✔            |✔                |
+|`KC_I`                 |                              |`i` と `I`                               |✔           |✔            |✔                |
+|`KC_J`                 |                              |`j` と `J`                               |✔           |✔            |✔                |
+|`KC_K`                 |                              |`k` と `K`                               |✔           |✔            |✔                |
+|`KC_L`                 |                              |`l` と `L`                               |✔           |✔            |✔                |
+|`KC_M`                 |                              |`m` と `M`                               |✔           |✔            |✔                |
+|`KC_N`                 |                              |`n` と `N`                               |✔           |✔            |✔                |
+|`KC_O`                 |                              |`o` と `O`                               |✔           |✔            |✔                |
+|`KC_P`                 |                              |`p` と `P`                               |✔           |✔            |✔                |
+|`KC_Q`                 |                              |`q` と `Q`                               |✔           |✔            |✔                |
+|`KC_R`                 |                              |`r` と `R`                               |✔           |✔            |✔                |
+|`KC_S`                 |                              |`s` と `S`                               |✔           |✔            |✔                |
+|`KC_T`                 |                              |`t` と `T`                               |✔           |✔            |✔                |
+|`KC_U`                 |                              |`u` と `U`                               |✔           |✔            |✔                |
+|`KC_V`                 |                              |`v` と `V`                               |✔           |✔            |✔                |
+|`KC_W`                 |                              |`w` と `W`                               |✔           |✔            |✔                |
+|`KC_X`                 |                              |`x` と `X`                               |✔           |✔            |✔                |
+|`KC_Y`                 |                              |`y` と `Y`                               |✔           |✔            |✔                |
+|`KC_Z`                 |                              |`z` と `Z`                               |✔           |✔            |✔                |
+|`KC_1`                 |                              |`1` と `!`                               |✔           |✔            |✔                |
+|`KC_2`                 |                              |`2` と `@`                               |✔           |✔            |✔                |
+|`KC_3`                 |                              |`3` と `#`                               |✔           |✔            |✔                |
+|`KC_4`                 |                              |`4` と `$`                               |✔           |✔            |✔                |
+|`KC_5`                 |                              |`5` と `%`                               |✔           |✔            |✔                |
+|`KC_6`                 |                              |`6` と `^`                               |✔           |✔            |✔                |
+|`KC_7`                 |                              |`7` と `&`                               |✔           |✔            |✔                |
+|`KC_8`                 |                              |`8` と `*`                               |✔           |✔            |✔                |
+|`KC_9`                 |                              |`9` と `(`                               |✔           |✔            |✔                |
+|`KC_0`                 |                              |`0` と `)`                               |✔           |✔            |✔                |
+|`KC_ENTER`             |`KC_ENT`                      |Return (Enter)                           |✔           |✔            |✔                |
+|`KC_ESCAPE`            |`KC_ESC`                      |Escape                                   |✔           |✔            |✔                |
+|`KC_BSPACE`            |`KC_BSPC`                     |Delete (Backspace)                       |✔           |✔            |✔                |
+|`KC_TAB`               |                              |Tab                                      |✔           |✔            |✔                |
+|`KC_SPACE`             |`KC_SPC`                      |Spacebar                                 |✔           |✔            |✔                |
+|`KC_MINUS`             |`KC_MINS`                     |`-` と `_`                               |✔           |✔            |✔                |
+|`KC_EQUAL`             |`KC_EQL`                      |`=` と `+`                               |✔           |✔            |✔                |
+|`KC_LBRACKET`          |`KC_LBRC`                     |`[` と `{`                               |✔           |✔            |✔                |
+|`KC_RBRACKET`          |`KC_RBRC`                     |`]` と `}`                               |✔           |✔            |✔                |
+|`KC_BSLASH`            |`KC_BSLS`                     |`\` と `\|`                              |✔           |✔            |✔                |
+|`KC_NONUS_HASH`        |`KC_NUHS`                     |Non-US `#` and `~`                       |✔           |✔            |✔                |
+|`KC_SCOLON`            |`KC_SCLN`                     |`;` と `:`                               |✔           |✔            |✔                |
+|`KC_QUOTE`             |`KC_QUOT`                     |`'` と `"`                               |✔           |✔            |✔                |
+|`KC_GRAVE`             |`KC_GRV`, `KC_ZKHK`           |<code>&#96;</code> と `~`, JIS 全角/半角 |✔           |✔            |✔                |
+|`KC_COMMA`             |`KC_COMM`                     |`,` と `<`                               |✔           |✔            |✔                |
+|`KC_DOT`               |                              |`.` と `>`                               |✔           |✔            |✔                |
+|`KC_SLASH`             |`KC_SLSH`                     |`/` と `?`                               |✔           |✔            |✔                |
+|`KC_CAPSLOCK`          |`KC_CLCK`, `KC_CAPS`          |Caps Lock                                |✔           |✔            |✔                |
+|`KC_F1`                |                              |F1                                       |✔           |✔            |✔                |
+|`KC_F2`                |                              |F2                                       |✔           |✔            |✔                |
+|`KC_F3`                |                              |F3                                       |✔           |✔            |✔                |
+|`KC_F4`                |                              |F4                                       |✔           |✔            |✔                |
+|`KC_F5`                |                              |F5                                       |✔           |✔            |✔                |
+|`KC_F6`                |                              |F6                                       |✔           |✔            |✔                |
+|`KC_F7`                |                              |F7                                       |✔           |✔            |✔                |
+|`KC_F8`                |                              |F8                                       |✔           |✔            |✔                |
+|`KC_F9`                |                              |F9                                       |✔           |✔            |✔                |
+|`KC_F10`               |                              |F10                                      |✔           |✔            |✔                |
+|`KC_F11`               |                              |F11                                      |✔           |✔            |✔                |
+|`KC_F12`               |                              |F12                                      |✔           |✔            |✔                |
+|`KC_PSCREEN`           |`KC_PSCR`                     |Print Screen                             |✔           |✔<sup>2</sup>|✔                |
+|`KC_SCROLLLOCK`        |`KC_SLCK`, `KC_BRMD`          |Scroll Lock, 画面の明るさダウン (macOS)  |✔           |✔<sup>2</sup>|✔                |
+|`KC_PAUSE`             |`KC_PAUS`, `KC_BRK`, `KC_BRMU`|Pause, 画面の明るさアップ (macOS)        |✔           |✔<sup>2</sup>|✔                |
+|`KC_INSERT`            |`KC_INS`                      |Insert                                   |✔           |             |✔                |
+|`KC_HOME`              |                              |Home                                     |✔           |✔            |✔                |
+|`KC_PGUP`              |                              |Page Up                                  |✔           |✔            |✔                |
+|`KC_DELETE`            |`KC_DEL`                      |Forward Delete                           |✔           |✔            |✔                |
+|`KC_END`               |                              |End                                      |✔           |✔            |✔                |
+|`KC_PGDOWN`            |`KC_PGDN`                     |Page Down                                |✔           |✔            |✔                |
+|`KC_RIGHT`             |`KC_RGHT`                     |右矢印                                   |✔           |✔            |✔                |
+|`KC_LEFT`              |                              |左矢印                                   |✔           |✔            |✔                |
+|`KC_DOWN`              |                              |下矢印                                   |✔           |✔            |✔                |
+|`KC_UP`                |                              |上矢印                                   |✔           |✔            |✔                |
+|`KC_NUMLOCK`           |`KC_NLCK`                     |テンキー Num Lock and Clear              |✔           |✔            |✔                |
+|`KC_KP_SLASH`          |`KC_PSLS`                     |テンキー `/`                             |✔           |✔            |✔                |
+|`KC_KP_ASTERISK`       |`KC_PAST`                     |テンキー `*`                             |✔           |✔            |✔                |
+|`KC_KP_MINUS`          |`KC_PMNS`                     |テンキー `-`                             |✔           |✔            |✔                |
+|`KC_KP_PLUS`           |`KC_PPLS`                     |テンキー `+`                             |✔           |✔            |✔                |
+|`KC_KP_ENTER`          |`KC_PENT`                     |テンキー Enter                           |✔           |✔            |✔                |
+|`KC_KP_1`              |`KC_P1`                       |テンキー `1` と End                      |✔           |✔            |✔                |
+|`KC_KP_2`              |`KC_P2`                       |テンキー `2` と Down Arrow               |✔           |✔            |✔                |
+|`KC_KP_3`              |`KC_P3`                       |テンキー `3` と Page Down                |✔           |✔            |✔                |
+|`KC_KP_4`              |`KC_P4`                       |テンキー `4` と Left Arrow               |✔           |✔            |✔                |
+|`KC_KP_5`              |`KC_P5`                       |テンキー `5`                             |✔           |✔            |✔                |
+|`KC_KP_6`              |`KC_P6`                       |テンキー `6` と Right Arrow              |✔           |✔            |✔                |
+|`KC_KP_7`              |`KC_P7`                       |テンキー `7` と Home                     |✔           |✔            |✔                |
+|`KC_KP_8`              |`KC_P8`                       |テンキー `8` と Up Arrow                 |✔           |✔            |✔                |
+|`KC_KP_9`              |`KC_P9`                       |テンキー `9` と Page Up                  |✔           |✔            |✔                |
+|`KC_KP_0`              |`KC_P0`                       |テンキー `0` と Insert                   |✔           |✔            |✔                |
+|`KC_KP_DOT`            |`KC_PDOT`                     |テンキー `.` と Delete                   |✔           |✔            |✔                |
+|`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` と `\|`                       |✔           |✔            |✔                |
+|`KC_APPLICATION`       |`KC_APP`                      |アプリケーションキー (Windows コンテキストメニューキー)  |✔            |             |✔                |
+|`KC_POWER`             |                              |System Power                             |             |✔<sup>3</sup>|✔                |
+|`KC_KP_EQUAL`          |`KC_PEQL`                     |テンキー `=`                             |✔           |✔            |✔                |
+|`KC_F13`               |                              |F13                                      |✔           |✔            |✔                |
+|`KC_F14`               |                              |F14                                      |✔           |✔            |✔                |
+|`KC_F15`               |                              |F15                                      |✔           |✔            |✔                |
+|`KC_F16`               |                              |F16                                      |✔           |✔            |✔                |
+|`KC_F17`               |                              |F17                                      |✔           |✔            |✔                |
+|`KC_F18`               |                              |F18                                      |✔           |✔            |✔                |
+|`KC_F19`               |                              |F19                                      |✔           |✔            |✔                |
+|`KC_F20`               |                              |F20                                      |✔           |             |✔                |
+|`KC_F21`               |                              |F21                                      |✔           |             |✔                |
+|`KC_F22`               |                              |F22                                      |✔           |             |✔                |
+|`KC_F23`               |                              |F23                                      |✔           |             |✔                |
+|`KC_F24`               |                              |F24                                      |✔           |             |✔                |
+|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                  |             |             |✔                |
+|`KC_HELP`              |                              |Help                                     |             |             |✔                |
+|`KC_MENU`              |                              |Menu                                     |             |             |✔                |
+|`KC_SELECT`            |`KC_SLCT`                     |Select                                   |             |             |✔                |
+|`KC_STOP`              |                              |Stop                                     |             |             |✔                |
+|`KC_AGAIN`             |`KC_AGIN`                     |Again                                    |             |             |✔                |
+|`KC_UNDO`              |                              |アンドゥ                                 |             |             |✔                |
+|`KC_CUT`               |                              |カット                                   |             |             |✔                |
+|`KC_COPY`              |                              |コピー                                   |             |             |✔                |
+|`KC_PASTE`             |`KC_PSTE`                     |ペースト                                 |             |             |✔                |
+|`KC_FIND`              |                              |検索                                     |             |             |✔                |
+|`KC__MUTE`             |                              |ミュート                                 |             |✔            |✔                |
+|`KC__VOLUP`            |                              |音量アップ                               |             |✔            |✔                |
+|`KC__VOLDOWN`          |                              |音量ダウン                               |             |✔            |✔                |
+|`KC_LOCKING_CAPS`      |`KC_LCAP`                     |Locking Caps Lock                        |✔           |✔            |                 |
+|`KC_LOCKING_NUM`       |`KC_LNUM`                     |Locking Num Lock                         |✔           |✔            |                 |
+|`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Locking Scroll Lock                      |✔           |✔            |                 |
+|`KC_KP_COMMA`          |`KC_PCMM`                     |テンキー `,`                             |             |             |✔                |
+|`KC_KP_EQUAL_AS400`    |                              |テンキー `=` on AS/400 keyboards         |             |             |                 |
+|`KC_INT1`              |`KC_RO`                       |JIS `\` と `_`                           |✔           |             |✔                |
+|`KC_INT2`              |`KC_KANA`                     |JIS カナ/かな                            |✔           |             |✔                |
+|`KC_INT3`              |`KC_JYEN`                     |JIS `¥` と `\|`                          |✔           |             |✔                |
+|`KC_INT4`              |`KC_HENK`                     |JIS 変換                                 |✔           |             |✔                |
+|`KC_INT5`              |`KC_MHEN`                     |JIS 無変換                               |✔           |             |✔                |
+|`KC_INT6`              |                              |JIS テンキー `,`                         |             |             |✔                |
+|`KC_INT7`              |                              |International 7                          |             |             |                 |
+|`KC_INT8`              |                              |International 8                          |             |             |                 |
+|`KC_INT9`              |                              |International 9                          |             |             |                 |
+|`KC_LANG1`             |`KC_HAEN`                     |ハングル/英語                            |             |             |✔                |
+|`KC_LANG2`             |`KC_HANJ`                     |韓文漢字                                 |             |             |✔                |
+|`KC_LANG3`             |                              |JIS カタカナ                             |             |             |✔                |
+|`KC_LANG4`             |                              |JIS ひらがな                             |             |             |✔                |
+|`KC_LANG5`             |                              |JIS 全角/半角                            |             |             |✔                |
+|`KC_LANG6`             |                              |Language 6                               |             |             |                 |
+|`KC_LANG7`             |                              |Language 7                               |             |             |                 |
+|`KC_LANG8`             |                              |Language 8                               |             |             |                 |
+|`KC_LANG9`             |                              |Language 9                               |             |             |                 |
+|`KC_ALT_ERASE`         |`KC_ERAS`                     |Alternate Erase                          |             |             |                 |
+|`KC_SYSREQ`            |                              |SysReq/Attention                         |             |             |                 |
+|`KC_CANCEL`            |                              |Cancel                                   |             |             |                 |
+|`KC_CLEAR`             |`KC_CLR`                      |Clear                                    |             |             |✔                |
+|`KC_PRIOR`             |                              |Prior                                    |             |             |                 |
+|`KC_RETURN`            |                              |Return                                   |             |             |                 |
+|`KC_SEPARATOR`         |                              |Separator                                |             |             |                 |
+|`KC_OUT`               |                              |Out                                      |             |             |                 |
+|`KC_OPER`              |                              |Oper                                     |             |             |                 |
+|`KC_CLEAR_AGAIN`       |                              |Clear/Again                              |             |             |                 |
+|`KC_CRSEL`             |                              |CrSel/Props                              |             |             |                 |
+|`KC_EXSEL`             |                              |ExSel                                    |             |             |                 |
+|`KC_LCTRL`             |`KC_LCTL`                     |左 Control                               |✔           |✔            |✔                |
+|`KC_LSHIFT`            |`KC_LSFT`                     |左 Shift                                 |✔           |✔            |✔                |
+|`KC_LALT`              |`KC_LOPT`                     |左 Alt (Option)                          |✔           |✔            |✔                |
+|`KC_LGUI`              |`KC_LCMD`, `KC_LWIN`          |左 GUI (Windows/Command/Meta key)        |✔           |✔            |✔                |
+|`KC_RCTRL`             |`KC_RCTL`                     |右 Control                               |✔           |✔            |✔                |
+|`KC_RSHIFT`            |`KC_RSFT`                     |右 Shift                                 |✔           |✔            |✔                |
+|`KC_RALT`              |`KC_ROPT`, `KC_ALGR`          |右 Alt (Option/AltGr)                    |✔           |✔            |✔                |
+|`KC_RGUI`              |`KC_RCMD`, `KC_RWIN`          |右 GUI (Windows/Command/Meta key)        |✔           |✔            |✔                |
+|`KC_SYSTEM_POWER`      |`KC_PWR`                      |システム電源オフ                         |✔           |✔<sup>3</sup>|✔                |
+|`KC_SYSTEM_SLEEP`      |`KC_SLEP`                     |システムスリープ                         |✔           |✔<sup>3</sup>|✔                |
+|`KC_SYSTEM_WAKE`       |`KC_WAKE`                     |システムスリープ解除                     |             |✔<sup>3</sup>|✔                |
+|`KC_AUDIO_MUTE`        |`KC_MUTE`                     |ミュート                                 |✔           |✔            |✔                |
+|`KC_AUDIO_VOL_UP`      |`KC_VOLU`                     |音量アップ                               |✔           |✔<sup>4</sup>|✔                |
+|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`                     |音量ダウン                               |✔           |✔<sup>4</sup>|✔                |
+|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`                     |次の曲へ                                 |✔           |✔<sup>5</sup>|✔                |
+|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`                     |前の曲へ                                 |✔           |✔<sup>5</sup>|✔                |
+|`KC_MEDIA_STOP`        |`KC_MSTP`                     |再生停止                                 |✔           |             |✔                |
+|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`                     |再生/一時停止                            |✔           |✔            |✔                |
+|`KC_MEDIA_SELECT`      |`KC_MSEL`                     |Media Player 起動                        |✔           |             |✔                |
+|`KC_MEDIA_EJECT`       |`KC_EJCT`                     |イジェクト                               |             |✔            |✔                |
+|`KC_MAIL`              |                              |メール起動                               |✔           |             |✔                |
+|`KC_CALCULATOR`        |`KC_CALC`                     |電卓起動                                 |✔           |             |✔                |
+|`KC_MY_COMPUTER`       |`KC_MYCM`                     |マイコンピュータを開く                   |✔           |             |✔                |
+|`KC_WWW_SEARCH`        |`KC_WSCH`                     |ブラウザ検索                             |✔           |             |✔                |
+|`KC_WWW_HOME`          |`KC_WHOM`                     |ブラウザホーム画面                       |✔           |             |✔                |
+|`KC_WWW_BACK`          |`KC_WBAK`                     |ブラウザ戻る                             |✔           |             |✔                |
+|`KC_WWW_FORWARD`       |`KC_WFWD`                     |ブラウザ進む                             |✔           |             |✔                |
+|`KC_WWW_STOP`          |`KC_WSTP`                     |ブラウザ読み込み中止                     |✔           |             |✔                |
+|`KC_WWW_REFRESH`       |`KC_WREF`                     |ブラウザ再読み込み                       |✔           |             |✔                |
+|`KC_WWW_FAVORITES`     |`KC_WFAV`                     |ブラウザお気に入り                       |✔           |             |✔                |
+|`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`                     |次の曲へ                                 |✔           |✔<sup>5</sup>|✔                |
+|`KC_MEDIA_REWIND`      |`KC_MRWD`                     |前の曲へ                                 |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |画面の明るさアップ                       |✔            |✔            |✔                |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |画面の明るさダウン                       |✔            |✔            |✔                |
 
-See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
+<sup>1. Linux カーネル HID ドライバは [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c) を識別しますが、デフォルトの関連付けは デスクトップ環境/ウィンドウマネージャによって決まります。</sup><br/>
+<sup>2. F13-F15 として取り扱われます。</sup><br/>
+<sup>3. 約3秒間押していると、プロンプトが表示されます。</sup><br/>
+<sup>4. Shift と Option を押していると、細かいボリュームレベルのコントロールが可能になります。</sup><br/>
+<sup>5. iTunes では、タップすると1曲全体がスキップされます。押していると曲の中で早送り/巻き戻しになります。</sup><br/>
+<sup>6. Windows Media Player は巻き戻しキーを識別しませんが、VLC では早送り/巻き戻しキーで再生速度が変更されます。</sup>
 
-|Key           |Aliases  |Description                                            |
-|--------------|---------|-------------------------------------------------------|
-|`RESET`       |         |Put the keyboard into bootloader mode for flashing     |
-|`DEBUG`       |         |Toggle debug mode                                      |
-|`EEPROM_RESET`|`EEP_RST`|Reinitializes the keyboard's EEPROM (persistent memory)|
+## Quantum キーコード :id=quantum-keycodes
 
-## Audio Keys :id=audio-keys
+[Quantum キーコード](ja/quantum_keycodes.md#qmk-keycodes) も見てください。
 
-See also: [Audio](feature_audio.md)
+|キー          |エイリアス |説明                                                     |
+|--------------|-----------|---------------------------------------------------------|
+|`RESET`       |           |書き込みのためにキーボードをブートローダーモードにします |
+|`DEBUG`       |           |デバッグモードを切り替えます                             |
+|`EEPROM_RESET`|`EEP_RST`  |キーボードの EEPROM (不揮発メモリ) を再初期化します      |
 
-|Key             |Aliases  |Description                       |
-|----------------|---------|----------------------------------|
-|`AU_ON`         |         |Turns on Audio Feature            |
-|`AU_OFF`        |         |Turns off Audio Feature           |
-|`AU_TOG`        |         |Toggles Audio state               |
-|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
-|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
-|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
-|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
-|`MU_ON`         |         |Turns on Music Mode               |
-|`MU_OFF`        |         |Turns off Music Mode              |
-|`MU_TOG`        |         |Toggles Music Mode                |
-|`MU_MOD`        |         |Cycles through the music modes    |
+## オーディオ :id=audio-keys
 
-## Backlighting :id=backlighting
+[オーディオ](ja/feature_audio.md) も見てください。
 
-See also: [Backlighting](feature_backlight.md)
+|キー            |エイリアス  |説明                                   |
+|----------------|------------|---------------------------------------|
+|`AU_ON`         |            |オーディオモードオン                   |
+|`AU_OFF`        |            |オーディオモードオフ                   |
+|`AU_TOG`        |            |オーディオの状態を切り替えます         |
+|`CLICKY_TOGGLE` |`CK_TOGG`   |オーディオクリックモードを切り替えます |
+|`CLICKY_UP`     |`CK_UP`     |クリック音の周波数を増やします         |
+|`CLICKY_DOWN`   |`CK_DOWN`   |クリック音の周波数を減らします         |  
+|`CLICKY_RESET`  |`CK_RST`    |周波数をデフォルトに再設定します       |
+|`MU_ON`         |            |音楽モードをオンにします               |
+|`MU_OFF`        |            |音楽モードをオフにします               |
+|`MU_TOG`        |            |音楽モードを切り替えます               |
+|`MU_MOD`        |            |音楽モードを循環します                 |
 
-|Key      |Description                               |
-|---------|------------------------------------------|
-|`BL_TOGG`|Turn the backlight on or off              |
-|`BL_STEP`|Cycle through backlight levels            |
-|`BL_ON`  |Set the backlight to max brightness       |
-|`BL_OFF` |Turn the backlight off                    |
-|`BL_INC` |Increase the backlight level              |
-|`BL_DEC` |Decrease the backlight level              |
-|`BL_BRTG`|Toggle backlight breathing                |
+## バックライト :id=backlighting
 
-## Bootmagic :id=bootmagic
+[バックライト](ja/feature_backlight.md) も見てください。
 
-See also: [Bootmagic](feature_bootmagic.md)
+|キー     |説明                                 |
+|---------|-------------------------------------|
+|`BL_TOGG`|バックライトをオンあるいはオフにする |
+|`BL_STEP`|バックライトレベルを循環する         |
+|`BL_ON`  |バックライトを最大輝度にセットする   |
+|`BL_OFF` |バックライトをオフにする             |
+|`BL_INC` |バックライトのレベルを上げる         |
+|`BL_DEC` |バックライトのレベルを下げる         |
+|`BL_BRTG`|バックライトの明滅動作を切り替える   |
 
-|Key                               |Aliases  |Description                                                               |
-|----------------------------------|---------|--------------------------------------------------------------------------|
-|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |`CL_SWAP`|Swap Caps Lock and Left Control                                           |
-|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |`CL_NORM`|Unswap Caps Lock and Left Control                                         |
-|`MAGIC_CAPSLOCK_TO_CONTROL`       |`CL_CTRL`|Treat Caps Lock as Control                                                |
-|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |`CL_CAPS`|Stop treating Caps Lock as Control                                        |
-|`MAGIC_SWAP_LCTL_LGUI`            |`LCG_SWP`|Swap Left Control and GUI                                                 |
-|`MAGIC_UNSWAP_LCTL_LGUI`          |`LCG_NRM`|Unswap Left Control and GUI                                               |
-|`MAGIC_SWAP_RCTL_RGUI`            |`RCG_SWP`|Swap Right Control and GUI                                                |
-|`MAGIC_UNSWAP_RCTL_RGUI`          |`RCG_NRM`|Unswap Right Control and GUI                                              |
-|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Control and GUI on both sides                                        |
-|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Control and GUI on both sides                                      |
-|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Control and GUI swap on both sides                                 |
-|`MAGIC_SWAP_LALT_LGUI`            |`LAG_SWP`|Swap Left Alt and GUI                                                     |
-|`MAGIC_UNSWAP_LALT_LGUI`          |`LAG_NRM`|Unswap Left Alt and GUI                                                   |
-|`MAGIC_SWAP_RALT_RGUI`            |`RAG_SWP`|Swap Right Alt and GUI                                                    |
-|`MAGIC_UNSWAP_RALT_RGUI`          |`RAG_NRM`|Unswap Right Alt and GUI                                                  |
-|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides                                            |
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides                                          |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides                                     |
-|`MAGIC_NO_GUI`                    |`GUI_OFF`|Disable the GUI keys                                                      |
-|`MAGIC_UNNO_GUI`                  |`GUI_ON` |Enable the GUI keys                                                       |
-|`MAGIC_SWAP_GRAVE_ESC`            |`GE_SWAP`|Swap <code>&#96;</code> and Escape                                        |
-|`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
-|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
-|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|`BS_NORM`|Unswap `\` and Backspace                                                  |
-|`MAGIC_HOST_NKRO`                 |`NK_ON`  |Enable N-key rollover                                                     |
-|`MAGIC_UNHOST_NKRO`               |`NK_OFF` |Disable N-key rollover                                                    |
-|`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Toggle N-key rollover                                                     |
-|`MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
-|`MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
+## ブートマジック :id=bootmagic
 
-## Bluetooth :id=bluetooth
+[ブートマジック](feature_bootmagic.md) も見てください。
 
-See also: [Bluetooth](feature_bluetooth.md)
+| キー                               | エイリアス| 説明                                                  |
+|------------------------------------|-----------|-------------------------------------------------------|
+| `MAGIC_SWAP_CONTROL_CAPSLOCK`      | `CL_SWAP` | Caps Lock と左コントロールの入れ替え                  |
+| `MAGIC_UNSWAP_CONTROL_CAPSLOCK`    | `CL_NORM` | Caps Lock と左コントロールの入れ替えの解除            |
+| `MAGIC_CAPSLOCK_TO_CONTROL`        | `CL_CTRL` | Caps Lock をコントロールとして扱う                    |
+| `MAGIC_UNCAPSLOCK_TO_CONTROL`      | `CL_CAPS` | Caps Lock をコントロールとして扱うことを止める        |
+| `MAGIC_SWAP_LCTL_LGUI`             | `LCG_SWP` | 左コントロールと GUI の入れ替え                       |
+| `MAGIC_UNSWAP_LCTL_LGUI`           | `LCG_NRM` | 左コントロールと GUI の入れ替えを解除                 |
+| `MAGIC_SWAP_RCTL_RGUI`             | `RCG_SWP` | 右コントロールと GUI の入れ替え                       |
+| `MAGIC_UNSWAP_RCTL_RGUI`           | `RCG_NRM` | 右コントロールと GUI の入れ替えを解除                 |
+| `MAGIC_SWAP_CTL_GUI`               | `CG_SWAP` | 両側のコントロールと GUI の入れ替え                   |
+| `MAGIC_UNSWAP_CTL_GUI`             | `CG_NORM` | 両側のコントロールと GUI の入れ替えを解除             |
+| `MAGIC_TOGGLE_CTL_GUI`             | `CG_TOGG` | 両側のコントロールと GUI の入れ替えの切り替え         |
+| `MAGIC_SWAP_LALT_LGUI`             | `LAG_SWP` | 左 Alt と GUI の入れ替え                              |
+| `MAGIC_UNSWAP_LALT_LGUI`           | `LAG_NRM` | 左 Alt と GUI の入れ替えを解除                        |
+| `MAGIC_SWAP_RALT_RGUI`             | `RAG_SWP` | 右 Alt と GUI の入れ替え                              |
+| `MAGIC_UNSWAP_RALT_RGUI`           | `RAG_NRM` | 右 Alt と GUI の入れ替えを解除                        |
+| `MAGIC_SWAP_ALT_GUI`               | `AG_SWAP` | 両側の Alt と GUI の入れ替え                          |
+| `MAGIC_UNSWAP_ALT_GUI`             | `AG_NORM` | 両側の Alt と GUI の入れ替えを解除                    |
+| `MAGIC_TOGGLE_ALT_GUI`             | `AG_TOGG` | 両側の Alt と GUI の入れ替えの切り替え                |
+| `MAGIC_NO_GUI`                     | `GUI_OFF` | GUI キーを無効にする                                  |
+| `MAGIC_UNNO_GUI`                   | `GUI_ON`  | GUI キーを有効にする                                  |
+| `MAGIC_SWAP_GRAVE_ESC`             | `GE_SWAP` | <code>&#96;</code> とエスケープの入れ替え             |
+| `MAGIC_UNSWAP_GRAVE_ESC`           | `GE_NORM` | <code>&#96;</code> とエスケープの入れ替えを解除       |
+| `MAGIC_SWAP_BACKSLASH_BACKSPACE`   | `BS_SWAP` | `\` とバックスペースを入れ替え                        |
+| `MAGIC_UNSWAP_BACKSLASH_BACKSPACE` | `BS_NORM` | `\` とバックスペースの入れ替えを解除する              |
+| `MAGIC_HOST_NKRO`                  | `NK_ON`   | N キーロールオーバーを有効にする                      |
+| `MAGIC_UNHOST_NKRO`                | `NK_OFF`  | N キーロールオーバーを無効にする                      |
+| `MAGIC_TOGGLE_NKRO`                | `NK_TOGG` | N キーロールオーバーの有効・無効を切り替え            |
+| `MAGIC_EE_HANDS_LEFT`              | `EH_LEFT` | 分割キーボードのマスター側を左手に設定(`EE_HANDS` 用) |
+| `MAGIC_EE_HANDS_RIGHT`             | `EH_RGHT` | 分割キーボードのマスター側を右手に設定(`EE_HANDS` 用) |
 
-|Key       |Description                                   |
-|----------|----------------------------------------------|
-|`OUT_AUTO`|Automatically switch between USB and Bluetooth|
-|`OUT_USB` |USB only                                      |
-|`OUT_BT`  |Bluetooth only                                |
+## ブルートゥース :id=bluetooth
 
-## Dynamic Macros :id=dynamic-macros
+[ブルートゥース](ja/feature_bluetooth.md) も見てください。
 
-See also: [Dynamic Macros](feature_dynamic_macros.md)
 
-|Key              |Aliases  |Description                                       |
-|-----------------|---------|--------------------------------------------------|
-|`DYN_REC_START1` |`DM_REC1`|Start recording Macro 1                           |
-|`DYN_REC_START2` |`DM_REC2`|Start recording Macro 2                           |
-|`DYN_MACRO_PLAY1`|`DM_PLY1`|Replay Macro 1                                    |
-|`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
-|`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
+|キー      |説明                                  |
+|----------|--------------------------------------|
+|`OUT_AUTO`|USB と Bluetooth を自動的に切り替える |
+|`OUT_USB` |USB のみ                              |
+|`OUT_BT`  |Bluetooth のみ                        |
 
-## Grave Escape :id=grave-escape
+## 動的マクロ :id=dynamic-macros
 
-See also: [Grave Escape](feature_grave_esc.md)
+[動的マクロ](ja/feature_dynamic_macros.md) も見てください。 
 
-|Key        |Aliases  |Description                                                       |
+|キー             |エイリアス  |説明                              |
+|-----------------|---------|-------------------------------------|
+|`DYN_REC_START1` |`DM_REC1`|マクロ 1 の記録を開始します          |
+|`DYN_REC_START2` |`DM_REC2`|マクロ 2 の記録を開始します          |
+|`DYN_MACRO_PLAY1`|`DM_PLY1`|マクロ 1 を再生します                |
+|`DYN_MACRO_PLAY2`|`DM_PLY2`|マクロ 2 を再生します                |
+|`DYN_REC_STOP`   |`DM_RSTP`|現在記録中のマクロの記録を終了します |
+
+## グレイブエスケープ :id=grave-escape
+
+[グレイブエスケープ](ja/feature_grave_esc.md) も見てください。
+
+|キー       |エイリアス  |説明                                                       |
 |-----------|---------|------------------------------------------------------------------|
-|`GRAVE_ESC`|`KC_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+|`GRAVE_ESC`|`KC_GESC`|押された場合に Escape。Shift あるいは GUI が押されたままの場合は <code>&#96;</code>|
 
-## Key Lock :id=key-lock
+## キーロック :id=key-lock
 
-See also: [Key Lock](feature_key_lock.md)
+[キーロック](ja/feature_key_lock.md) も見てください。
 
-|Key      |Description                                                   |
-|---------|--------------------------------------------------------------|
-|`KC_LOCK`|Hold down the next key pressed, until the key is pressed again|
+|キー     |説明                                              |
+|---------|--------------------------------------------------|
+|`KC_LOCK`|キーが再び押されるまで次のキーを押したままにする |
 
-## Layer Switching :id=layer-switching
+## レイヤー切り替え :id=layer-switching
 
-See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
+[レイヤー切り替え](ja/feature_layers.md#switching-and-toggling-layers) も見てください。
 
-|Key             |Description                                                                       |
-|----------------|----------------------------------------------------------------------------------|
-|`DF(layer)`     |Set the base (default) layer                                                      |
-|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys.md) for details. |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap.md).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
-|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
-|`TG(layer)`     |Toggle `layer` on or off                                                          |
-|`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
-|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
+|キー            |説明                                                                                                                                  |
+|----------------|--------------------------------------------------------------------------------------------------------------------------------------|
+|`DF(layer)`     |指定されたレイヤーを土台 (デフォルト) レイヤーに設定する |
+|`MO(layer)`     |キーを押したら一時的に `layer` を切り替える。(切り替え先のレイヤーには `KC_TRNS` が必要です) |
+|`OSL(layer)`    |次のキーが押されるまで、一時的にレイヤーをアクティブにします。詳細は [One Shot Keys](https://docs.qmk.fm/#/ja/one_shot_keys) のとおり。 |
+|`LM(layer, mod)`|モディファイア mod がアクティブな状態で (MO のように) 一時的にレイヤーをアクティブにします。ここでは、`mod` は mods_bit のことです。Mods については [こちら](https://docs.qmk.fm/#/ja/mod_tap) で見ることができます。実装例: `LM(LAYER_1, MOD_LALT)` |
+|`LT(layer, kc)` |押していると `layer` になり、タップすると `kc` になります。 |
+|`TG(layer)`     |`layer` のオン・オフを切り替え |
+|`TO(layer)`     |`layer` をオンにして、他のレイヤーをオフにしますが、デフォルトレイヤーは例外です。 |
+|`TT(layer)`     |複数回タップしない限り `MO` のように動作し、複数回タップすると `layer` をオンにトグルします。 |
 
-## Leader Key :id=leader-key
+## リーダーキー :id=leader-key
 
-See also: [Leader Key](feature_leader_key.md)
+[リーダーキー](ja/feature_leader_key.md) も見てください。
 
-|Key      |Description             |
-|---------|------------------------|
-|`KC_LEAD`|Begins a leader sequence|
+|キー     |説明                           |
+|---------|-------------------------------|
+|`KC_LEAD`|リーダーキーのシーケンスを開始 |
 
-## Mouse Keys :id=mouse-keys
+## マウスキー :id=mouse-keys
 
-See also: [Mouse Keys](feature_mouse_keys.md)
+[マウスキー](ja/feature_mouse_keys.md) も見てください。
 
-|Key             |Aliases  |Description                |
-|----------------|---------|---------------------------|
-|`KC_MS_UP`      |`KC_MS_U`|Mouse Cursor Up            |
-|`KC_MS_DOWN`    |`KC_MS_D`|Mouse Cursor Down          |
-|`KC_MS_LEFT`    |`KC_MS_L`|Mouse Cursor Left          |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Mouse Cursor Right         |
-|`KC_MS_BTN1`    |`KC_BTN1`|Mouse Button 1             |
-|`KC_MS_BTN2`    |`KC_BTN2`|Mouse Button 2             |
-|`KC_MS_BTN3`    |`KC_BTN3`|Mouse Button 3             |
-|`KC_MS_BTN4`    |`KC_BTN4`|Mouse Button 4             |
-|`KC_MS_BTN5`    |`KC_BTN5`|Mouse Button 5             |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Mouse Wheel Up             |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Mouse Wheel Down           |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Mouse Wheel Left           |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Mouse Wheel Right          |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set mouse acceleration to 0|
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
+|キー            |エイリアス  |説明                  |
+|----------------|---------|-------------------------|
+|`KC_MS_UP`      |`KC_MS_U`|カーソルを上に移動       |
+|`KC_MS_DOWN`    |`KC_MS_D`|カーソルを下に移動       |
+|`KC_MS_LEFT`    |`KC_MS_L`|カーソルを左に移動       |
+|`KC_MS_RIGHT`   |`KC_MS_R`|カーソルを右に移動       |
+|`KC_MS_BTN1`    |`KC_BTN1`|ボタン1を押す            |
+|`KC_MS_BTN2`    |`KC_BTN2`|ボタン2を押す            |
+|`KC_MS_BTN3`    |`KC_BTN3`|ボタン3を押す            |
+|`KC_MS_BTN4`    |`KC_BTN4`|ボタン4を押す            |
+|`KC_MS_BTN5`    |`KC_BTN5`|ボタン5を押す            |
+|`KC_MS_WH_UP`   |`KC_WH_U`|ホイールを向こう側に回転 |
+|`KC_MS_WH_DOWN` |`KC_WH_D`|ホイールを手前側に回転   |
+|`KC_MS_WH_LEFT` |`KC_WH_L`|ホイールを左に倒す       |
+|`KC_MS_WH_RIGHT`|`KC_WH_R`|ホイールを右に倒す       |
+|`KC_MS_ACCEL0`  |`KC_ACL0`|速度を0に設定            |
+|`KC_MS_ACCEL1`  |`KC_ACL1`|速度を1に設定            |
+|`KC_MS_ACCEL2`  |`KC_ACL2`|速度を2に設定            |
 
-## Modifiers :id=modifiers
+## 修飾キー :id=modifiers
 
-See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
+[修飾キー](ja/feature_advanced_keycodes.md#modifier-keys) も見てください。
 
-|Key       |Aliases                        |Description                                           |
-|----------|-------------------------------|------------------------------------------------------|
-|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                      |
-|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                        |
-|`LALT(kc)`|`A(kc)`, `LOPT(kc)`            |Hold Left Alt and press `kc`                          |
-|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                          |
-|`RCTL(kc)`|                               |Hold Right Control and press `kc`                     |
-|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                       |
-|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt (AltGr) and press `kc`                 |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                         |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`                |
-|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`              |
-|`LSA(kc)` |                               |Hold Left Shift and Left Alt and press `kc`           |
-|`RSA(kc)` |`SAGR(kc)`                     |Hold Right Shift and Right Alt (AltGr) and press `kc` |
-|`RCS(kc)` |                               |Hold Right Control and Right Shift and press `kc`     |
-|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`         |
-|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`       |
-|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`  |
-|`KC_MEH`  |                               |Left Control, Shift and Alt                           |
-|`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                      |
+| キー       | エイリアス                      | 説明                                                                |
+|------------|---------------------------------|---------------------------------------------------------------------|
+| `LCTL(kc)` | `C(kc)`                         | 左 Control を押しながら `kc` を押します。                           |
+| `LSFT(kc)` | `S(kc)`                         | 左 Shift を押しながら `kc` を押します。                             |
+| `LALT(kc)` | `A(kc)`, `LOPT(kc)`             | 左 Alt を押しながら `kc`を押します。                                |
+| `LGUI(kc)` | `G(kc)`, `LCMD(kc)`, `LWIN(kc)` | 左 GUI を押しながら `kc` を押します。                               |
+| `RCTL(kc)` |                                 | 右 Control を押しながら `kc` を押します。                           |
+| `RSFT(kc)` |                                 | 右 Shift を押しながら `kc` を押します。                             |
+| `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`          | 右 Alt を押しながら `kc` を押します。                               |
+| `RGUI(kc)` | `RCMD(kc)`, `LWIN(kc)`          | 右 GUI を押しながら `kc` を押します。                               |
+| `SGUI(kc)` | `SCMD(kc)`, `SWIN(kc)`          | 左 Shift と左 GUI を押しながら `kc` を押します。                    |
+| `LCA(kc)`  |                                 | 左 Control と左 Alt を押しながら `kc` を押します。                  |
+| `LSA(kc)`  |                                 | 左 Shift と左 Alt を押しながら `kc` を押します。                    |
+| `RSA(kc)`  |`SAGR(kc)`                       | 右 Shift と右 Alt を押しながら `kc` を押します。                    |
+| `RCS(kc)`  |                                 | 右 Control と右 Shift を押しながら `kc` を押します。                |
+| `LCAG(kc)` |                                 | 左 Control、左 Alt、左 GUI を押しながら `kc` を押します。           |
+| `RCA(kc)`  |                                 | 左 Control と左 Alt を押しながら `kc` を押します。                  |
+| `RCAG(kc)` |                                 | 左 Control、左 Alt、左 GUI を押しながら `kc` を押します。           |
+| `MEH(kc)`  |                                 | 左 Control、左 Shift、左 Alt を押しながら `kc` を押します。         |
+| `HYPR(kc)` |                                 | 左 Control、左 Shift、左 Alt、左 GUI を押しながら `kc` を押します。 |
+| `KC_MEH`   |                                 | 左 Control, Shift と Alt                                            |
+| `KC_HYPR`  |                                 | 左 Control, Shift, Alt と GUI                                       |
 
-## Mod-Tap Keys :id=mod-tap-keys
 
-See also: [Mod-Tap](mod_tap.md)
+## モッドタップキー :id=mod-tap-keys
 
-|Key          |Aliases                                                          |Description                                                   |
-|-------------|-----------------------------------------------------------------|--------------------------------------------------------------|
-|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                             |
-|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                      |
-|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                        |
-|`LALT_T(kc)` |`LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                          |
-|`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                          |
-|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped                     |
-|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                       |
-|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt (AltGr) when held, `kc` when tapped                 |
-|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
-|`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped                |
-|`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped              |
-|`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped           |
-|`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
-|`RCS_T(kc)`  |                                                                 |Right Control and Right Shift when held, `kc` when tapped     |
-|`LCAG_T(kc)` |                                                                 |Left Control, Alt and GUI when held, `kc` when tapped         |
-|`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
-|`C_S_T(kc)`  |                                                                 |Left Control and Shift when held, `kc` when tapped            |
-|`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
-|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+[モッドタップキー](ja/mod_tap.md) も見てください。
+
+|キー          |エイリアス                                                         | 説明                                                                   |
+|--------------|-------------------------------------------------------------------|------------------------------------------------------------------------|
+| `MT(mod, kc)`|                                                                   |タップすると `kc`、押していると `mod`                                   |
+| `LCTL_T(kc)` | `CTL_T(kc)`                                                       | 押したままの場合は左 Control、タップした場合は `kc`                    |
+| `LSFT_T(kc)` | `SFT_T(kc)`                                                       | 押したままの場合は左 Shift、タップした場合は `kc`                      |
+| `LALT_T(kc)` | `LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                            | 押したままの場合は左 Alt、タップした場合は `kc`                        |
+| `LGUI_T(kc)` | `LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)` | 押したままの場合は左 GUI、タップした場合は `kc`                        |
+| `RCTL_T(kc)` |                                                                   | 押したままの場合は右 Control、タップした場合は `kc`                    |
+| `RSFT_T(kc)` |                                                                   | 押したままの場合は右 Shift、タップした場合は `kc`                      |
+| `RALT_T(kc)` | `ROPT_T(kc)`, `ALGR_T(kc)`                                        | 押したままの場合は右 Alt、タップした場合は `kc`                        |
+| `RGUI_T(kc)` | `RCMD_T(kc)`, `RWIN_T(kc)`                                        | 押したままの場合は右 GUI、タップした場合は `kc`                        |
+| `SGUI_T(kc)` | `SCMD_T(kc)`, `SWIN_T(kc)`                                        | 押したままの場合は左 Shift と左 GUI、タップした場合は `kc`             |
+| `LCA_T(kc)`  |                                                                   | 押したままの場合は左 Control と左 Alt、タップした場合は `kc`           |
+| `LSA_T(kc)`  |                                                                   | 押したままの場合は左 Control、左 Alt と左 GUI、タップした場合は `kc`   |
+| `RCA_T(kc)`  |`SAGR_T(kc)`                                                       | 押したままの場合は右 Control、右 Alt と右 GUI、タップした場合は `kc`   |
+| `RCS_T(kc)`  |                                                                   | 押したままの場合は右 Control と Shift 、タップした場合は `kc`          | 
+| `LCAG_T(kc)` |                                                                   | 押したままの場合は左 Control、左 Alt、左 GUI 、タップした場合は `kc`   |
+| `RCAG_T(kc)` |                                                                   | 押したままの場合は右 Control、右 Alt、右 GUI 、タップした場合は `kc`   |
+| `C_S_T(kc)`  |                                                                   | 押したままの場合は左 Control と左 Shift、タップした場合は `kc`         |
+| `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、左 Shift と左 Alt、タップした場合は `kc` |
+| `HYPR_T(kc)` | `ALL_T(kc)`                                                       | 押したままの場合は左 Control、左 Shift、左 Alt と左 GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
 
 ## RGB Lighting :id=rgb-lighting
 
-See also: [RGB Lighting](feature_rgblight.md)
+[RGB ライト](ja/feature_rgblight.md) も見てください。
 
-|Key                |Aliases   |Description                                                         |
-|-------------------|----------|--------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                       |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
-|`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
-|`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
-|`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
-|`RGB_MODE_SWIRL`   |`RGB_M_SW`|Swirl animation mode                                                |
-|`RGB_MODE_SNAKE`   |`RGB_M_SN`|Snake animation mode                                                |
-|`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
-|`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
-|`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
-|`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
+|キー               |エイリアス|説明                                                                 |
+|-------------------|----------|---------------------------------------------------------------------|
+|`RGB_TOG`          |          |RGB ライトのオン・オフを切り替え                                     |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |RGB モードを順送りで変更し、Shift を押していると逆順で変更します。   |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|RGB モードを逆順で変更し、Shift を押していると順送りで変更します。   |
+|`RGB_HUI`          |          |色相 (HUE) を増加させ、Shift を押していると減少させます。            |
+|`RGB_HUD`          |          |色相 (HUE) を減少させ、Shift を押していると増加させます。            |
+|`RGB_SAI`          |          |彩度 (SAT) を増加させ、Shift を押していると減少させます。            |
+|`RGB_SAD`          |          |彩度 (SAT) を減少させ、Shift を押していると増加させます。            |
+|`RGB_VAI`          |          |明度 (VAI/brightness) を増加させ、Shift を押していると減少させます。 |
+|`RGB_VAD`          |          |明度 (VAI/brightness) を減少させ、Shift を押していると増加させます。 |
+|`RGB_MODE_PLAIN`   |`RGB_M_P `|(動き無し) モードに固定します                                        |
+|`RGB_MODE_BREATHE` |`RGB_M_B` |明滅アニメーションモード                                             |
+|`RGB_MODE_RAINBOW` |`RGB_M_R` |レインボーアニメーションモード                                       |
+|`RGB_MODE_SWIRL`   |`RGB_M_SW`|渦巻アニメーションモード                                             |
+|`RGB_MODE_SNAKE`   |`RGB_M_SN`|スネークアニメーションモード                                         |
+|`RGB_MODE_KNIGHT`  |`RGB_M_K` |"ナイトライダー" アニメーションモード                                |
+|`RGB_MODE_XMAS`    |`RGB_M_X` |クリスマスアニメーションモード                                       |
+|`RGB_MODE_GRADIENT`|`RGB_M_G` |固定諧調アニメーションモード                                         |
+|`RGB_MODE_RGBTEST` |`RGB_M_T` |赤、青、緑のテストアニメーションモード                               |
 
-## RGB Matrix Lighting :id=rgb-matrix-lighting
+## RGB マトリックス :id=rgb-lighting
 
-See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
+[RGB マトリックス](ja/feature_rgb_matrix.md) も見てください。
 
-|Key                |Aliases   |Description                                                                           |
-|-------------------|----------|--------------------------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
-|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
-|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+|キー               |エイリアス|説明                                                                                                    |
+|-------------------|----------|--------------------------------------------------------------------------------------------------------|
+|`RGB_TOG`          |          |RGB ライトのオン・オフを切り替え                                                                        |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |RGB モードを順送りで変更し、Shift を押していると逆順で変更します。                                      |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|RGB モードを逆順で変更し、Shift を押していると順送りで変更します。                                      |
+|`RGB_HUI`          |          |色相 (HUE) を増加させ、Shift を押していると減少させます。                                               |
+|`RGB_HUD`          |          |色相 (HUE) を減少させ、Shift を押していると増加させます。                                               |
+|`RGB_SAI`          |          |彩度 (SAT) を増加させ、Shift を押していると減少させます。                                               |
+|`RGB_SAD`          |          |彩度 (SAT) を減少させ、Shift を押していると増加させます。                                               |
+|`RGB_VAI`          |          |明度 (VAI/brightness) を増加させ、Shift を押していると減少させます。                                    |
+|`RGB_VAD`          |          |明度 (VAI/brightness) を減少させ、Shift を押していると増加させます。                                    |
+|`RGB_SPI`          |          |エフェクトのスピードを増加 (EEPROM はまだサポートしていません) させ、Shift を押していると減少させます。 |
+|`RGB_SPD`          |          |エフェクトのスピードを減少 (EEPROM はまだサポートしていません) させ、Shift を押していると増加させます。 |
 
-## Thermal Printer :id=thermal-printer
+## 感熱式プリンタ :id=thermal-printer
 
-See also: [Thermal Printer](feature_thermal_printer.md)
+[感熱式プリンタ](ja/feature_thermal_printer.md) も見てください。
 
-|Key        |Description                             |
-|-----------|----------------------------------------|
-|`PRINT_ON` |Start printing everything the user types|
-|`PRINT_OFF`|Stop printing everything the user types |
+|キー       |説明                             |
+|-----------|---------------------------------|
+|`PRINT_ON` |ユーザが入力した全ての印刷を開始 |
+|`PRINT_OFF`|ユーザが入力した全ての印刷を停止 |
 
-## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
+## US ANSI シフトキー :id=us-ansi-shifted-symbols
 
-See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
+[US ANSI シフトキー](ja/keycodes_us_ansi_shifted.md) も見てください。
 
-|Key                     |Aliases            |Description|
+|キー                    |エイリアス            |説明|
 |------------------------|-------------------|-----------|
 |`KC_TILDE`              |`KC_TILD`          |`~`        |
 |`KC_EXCLAIM`            |`KC_EXLM`          |`!`        |
@@ -508,57 +520,57 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## One Shot Keys :id=one-shot-keys
+## ワンショットキー :id=one-shot-keys
 
-See also: [One Shot Keys](one_shot_keys.md)
+[ワンショットキー](one_shot_keys.md) も見てください。
 
-|Key         |Description                       |
-|------------|----------------------------------|
-|`OSM(mod)`  |Hold `mod` for one keypress       |
-|`OSL(layer)`|Switch to `layer` for one keypress|
+|キー        |説明                            |
+|------------|--------------------------------|
+|`OSM(mod)`  |一度押すと `mod` をホールドする |
+|`OSL(layer)`|一度押すと `layer` に切り替える |
 
 ## Space Cadet :id=space-cadet
 
-See also: [Space Cadet](feature_space_cadet.md)
+[Space Cadet](ja/feature_space_cadet.md) も見てください。
 
-|Key        |Description                             |
-|-----------|----------------------------------------|
-|`KC_LCPO`  |Left Control when held, `(` when tapped |
-|`KC_RCPC`  |Right Control when held, `)` when tapped|
-|`KC_LSPO`  |Left Shift when held, `(` when tapped   |
-|`KC_RSPC`  |Right Shift when held, `)` when tapped  |
-|`KC_LAPO`  |Left Alt when held, `(` when tapped     |
-|`KC_RAPC`  |Right Alt when held, `)` when tapped    |
-|`KC_SFTENT`|Right Shift when held, Enter when tapped|
+|キー       |説明                                         |
+|-----------|---------------------------------------------|
+|`KC_LCPO`  |タップすると `(`、押していると左コントロール |
+|`KC_RCPC`  |タップすると `)`、押していると右コントロール |
+|`KC_LSPO`  |タップすると `(`、押していると左シフト       |
+|`KC_RSPC`  |タップすると `)`、押していると右シフト       |
+|`KC_LAPO`  |タップすると `(`、押していると左Alt          |
+|`KC_RAPC`  |タップすると `)`、押していると右Alt          |
+|`KC_SFTENT`|タップするとエンター、押していると右シフト   |
 
-## Swap Hands :id=swap-hands
+## スワップハンド :id=swap-hands
 
-See also: [Swap Hands](feature_swap_hands.md)
+[スワップハンド](ja/feature_swap_hands.md) も見てください。
 
-|Key        |Description                                                              |
-|-----------|-------------------------------------------------------------------------|
-|`SH_T(key)`|Sends `key` with a tap; momentary swap when held.                        |
-|`SW_ON`    |Turns on swapping and leaves it on.                                      |
-|`SW_OFF`   |Turn off swapping and leaves it off. Good for returning to a known state.|
-|`SH_MON`   |Swaps hands when pressed, returns to normal when released (momentary).   |
-|`SH_MOFF`  |Momentarily turns off swap.                                              |
-|`SH_TG`    |Toggles swap on and off with every key press.                            |
-|`SH_TT`    |Toggles with a tap; momentary when held.                                 |
-|`SH_OS`    |One shot swap hands: toggle while pressed or until next key press.       |
+|キー         |説明                                                                              |
+|-------------|----------------------------------------------------------------------------------|
+| `SH_T(key)` | タップで `key` を送信する。押している時の一時的な入れ替え。                      |
+| `SH_ON`     | 入れ替えをオンにして、そのままにする。                                           |
+| `SH_OFF`    | 入れ替えをオフにして、そのままにする。既知の状態に戻るのに適しています。         |
+| `SH_MON`    | 押すとスワップハンドし、放すと通常に戻る (一時的)。                              |
+| `SH_MOFF`   | 一時的に入れ替えをオフする。                                                     |
+| `SH_TG`     | キーを押すたびに入れ替えのオンとオフを切り替える。                               |
+| `SH_TT`     | タップで切り替える。押されている時の一時的なもの。                               |
+| `SH_OS`     | ワンショットスワップハンド: 押されている時あるいは次のキーを押すまで切り替える。 |
 
-## Unicode Support :id=unicode-support
+## ユニコードサポート :id=unicode-support
 
-See also: [Unicode Support](feature_unicode.md)
+[ユニコードサポート](ja/feature_unicode.md) も見てください。
 
-|Key                   |Aliases  |Description                                                     |
-|----------------------|---------|----------------------------------------------------------------|
-|`UC(c)`               |         |Send Unicode code point `c`                                     |
-|`X(i)`                |         |Send Unicode code point at index `i` in `unicode_map`           |
-|`XP(i, j)`            |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
-|`UNICODE_MODE_FORWARD`|`UC_MOD` |Cycle through selected input modes                              |
-|`UNICODE_MODE_REVERSE`|`UC_RMOD`|Cycle through selected input modes in reverse                   |
-|`UNICODE_MODE_MAC`    |`UC_M_MA`|Switch to macOS input                                           |
-|`UNICODE_MODE_LNX`    |`UC_M_LN`|Switch to Linux input                                           |
-|`UNICODE_MODE_WIN`    |`UC_M_WI`|Switch to Windows input                                         |
-|`UNICODE_MODE_BSD`    |`UC_M_BS`|Switch to BSD input (not implemented)                           |
-|`UNICODE_MODE_WINC`   |`UC_M_WC`|Switch to Windows input using WinCompose                        |
+|キー                  |エイリアス  |説明                                                                |
+|----------------------|---------|-----------------------------------------------------------------------|
+|`UC(c)`               |         |コードポイント `c` のユニコードを送信                                 |
+|`X(i)`                |         |`unicode_map` のインデックス `i` のユニコードを送信                   |
+|`XP(i, j)`            |         |インデックス `i` または `j` (Shift/Capsが有効なら) のユニコードを送信 |
+|`UNICODE_MODE_FORWARD`|`UC_MOD` |以下のユニコード入力方式を順送りで選択                                |
+|`UNICODE_MODE_REVERSE`|`UC_RMOD`|以下のユニコード入力方式を逆順で選択                                  |
+|`UNICODE_MODE_OSX`    |`UC_M_OS`|ユニコード入力方式を macOS 方式に切り替え                             |
+|`UNICODE_MODE_LNX`    |`UC_M_LN`|ユニコード入力方式を Linux 方式に切り替え                             |
+|`UNICODE_MODE_WIN`    |`UC_M_WI`|ユニコード入力方式を Windows 方式に切り替え                           |
+|`UNICODE_MODE_BSD`    |`UC_M_BS`|ユニコード入力方式を BSD 方式に切り替え                               |
+|`UNICODE_MODE_WINC`   |`UC_M_WC`|ユニコード入力方式を WindCompose 方式に切り替え                       |
