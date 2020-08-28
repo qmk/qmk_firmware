@@ -219,7 +219,7 @@
 <sup>1. Linux カーネル HID ドライバは [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c) を識別しますが、デフォルトの関連付けは デスクトップ環境/ウィンドウマネージャによって決まります。</sup><br/>
 <sup>2. F13-F15 として取り扱われます。</sup><br/>
 <sup>3. 約3秒間押していると、プロンプトが表示されます。</sup><br/>
-<sup>4. Shift と Option を押していると、細かいボリュームレベルのコントロールが可能になります。</sup><br/>
+<sup>4. Shift と Option を押していると、ボリュームレベルの細かいコントロールが可能になります。</sup><br/>
 <sup>5. iTunes では、タップすると1曲全体がスキップされます。押していると曲の中で早送り/巻き戻しになります。</sup><br/>
 <sup>6. Windows Media Player は巻き戻しキーを識別しませんが、VLC では早送り/巻き戻しキーで再生速度が変更されます。</sup>
 
@@ -233,7 +233,7 @@
 |`DEBUG`       |           |デバッグモードを切り替えます                             |
 |`EEPROM_RESET`|`EEP_RST`  |キーボードの EEPROM (不揮発メモリ) を再初期化します      |
 
-## オーディオ :id=audio-keys
+## オーディオキー :id=audio-keys
 
 [オーディオ](ja/feature_audio.md) も見てください。
 
@@ -267,7 +267,7 @@
 
 ## ブートマジック :id=bootmagic
 
-[ブートマジック](feature_bootmagic.md) も見てください。
+[ブートマジック](ja/feature_bootmagic.md) も見てください。
 
 | キー                               | エイリアス| 説明                                                  |
 |------------------------------------|-----------|-------------------------------------------------------|
@@ -349,10 +349,10 @@
 |`DF(layer)`     |指定されたレイヤーを土台 (デフォルト) レイヤーに設定する |
 |`MO(layer)`     |キーを押したら一時的に `layer` を切り替える。(切り替え先のレイヤーには `KC_TRNS` が必要です) |
 |`OSL(layer)`    |次のキーが押されるまで、一時的にレイヤーをアクティブにします。詳細は [One Shot Keys](https://docs.qmk.fm/#/ja/one_shot_keys) のとおり。 |
-|`LM(layer, mod)`|モディファイア mod がアクティブな状態で (MO のように) 一時的にレイヤーをアクティブにします。ここでは、`mod` は mods_bit のことです。Mods については [こちら](https://docs.qmk.fm/#/ja/mod_tap) で見ることができます。実装例: `LM(LAYER_1, MOD_LALT)` |
+|`LM(layer, mod)`|`mod` がアクティブな状態で (MO のように) 一時的にレイヤーをアクティブにします。ここでは、`mod` は mods_bit のことです。Mods については [こちら](https://docs.qmk.fm/#/ja/mod_tap) で見ることができます。実装例: `LM(LAYER_1, MOD_LALT)` |
 |`LT(layer, kc)` |押していると `layer` になり、タップすると `kc` になります。 |
 |`TG(layer)`     |`layer` のオン・オフを切り替え |
-|`TO(layer)`     |`layer` をオンにして、他のレイヤーをオフにしますが、デフォルトレイヤーは例外です。 |
+|`TO(layer)`     |`layer` をオンにして、デフォルトレイヤーを除く他のレイヤーをオフにします。 |
 |`TT(layer)`     |複数回タップしない限り `MO` のように動作し、複数回タップすると `layer` をオンにトグルします。 |
 
 ## リーダーキー :id=leader-key
@@ -390,28 +390,26 @@
 
 [修飾キー](ja/feature_advanced_keycodes.md#modifier-keys) も見てください。
 
-| キー       | エイリアス                      | 説明                                                                |
-|------------|---------------------------------|---------------------------------------------------------------------|
-| `LCTL(kc)` | `C(kc)`                         | 左 Control を押しながら `kc` を押します。                           |
-| `LSFT(kc)` | `S(kc)`                         | 左 Shift を押しながら `kc` を押します。                             |
-| `LALT(kc)` | `A(kc)`, `LOPT(kc)`             | 左 Alt を押しながら `kc`を押します。                                |
-| `LGUI(kc)` | `G(kc)`, `LCMD(kc)`, `LWIN(kc)` | 左 GUI を押しながら `kc` を押します。                               |
-| `RCTL(kc)` |                                 | 右 Control を押しながら `kc` を押します。                           |
-| `RSFT(kc)` |                                 | 右 Shift を押しながら `kc` を押します。                             |
-| `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`          | 右 Alt を押しながら `kc` を押します。                               |
-| `RGUI(kc)` | `RCMD(kc)`, `LWIN(kc)`          | 右 GUI を押しながら `kc` を押します。                               |
-| `SGUI(kc)` | `SCMD(kc)`, `SWIN(kc)`          | 左 Shift と左 GUI を押しながら `kc` を押します。                    |
-| `LCA(kc)`  |                                 | 左 Control と左 Alt を押しながら `kc` を押します。                  |
-| `LSA(kc)`  |                                 | 左 Shift と左 Alt を押しながら `kc` を押します。                    |
-| `RSA(kc)`  |`SAGR(kc)`                       | 右 Shift と右 Alt を押しながら `kc` を押します。                    |
-| `RCS(kc)`  |                                 | 右 Control と右 Shift を押しながら `kc` を押します。                |
-| `LCAG(kc)` |                                 | 左 Control、左 Alt、左 GUI を押しながら `kc` を押します。           |
-| `RCA(kc)`  |                                 | 左 Control と左 Alt を押しながら `kc` を押します。                  |
-| `RCAG(kc)` |                                 | 左 Control、左 Alt、左 GUI を押しながら `kc` を押します。           |
-| `MEH(kc)`  |                                 | 左 Control、左 Shift、左 Alt を押しながら `kc` を押します。         |
-| `HYPR(kc)` |                                 | 左 Control、左 Shift、左 Alt、左 GUI を押しながら `kc` を押します。 |
-| `KC_MEH`   |                                 | 左 Control, Shift と Alt                                            |
-| `KC_HYPR`  |                                 | 左 Control, Shift, Alt と GUI                                       |
+| キー       | エイリアス                      | 説明                                                          |
+|------------|---------------------------------|---------------------------------------------------------------|
+| `LCTL(kc)` | `C(kc)`                         | 左 Control を押しながら `kc` を押します。                     |
+| `LSFT(kc)` | `S(kc)`                         | 左 Shift を押しながら `kc` を押します。                       |
+| `LALT(kc)` | `A(kc)`, `LOPT(kc)`             | 左 Alt を押しながら `kc`を押します。                          |
+| `LGUI(kc)` | `G(kc)`, `LCMD(kc)`, `LWIN(kc)` | 左 GUI を押しながら `kc` を押します。                         |
+| `RCTL(kc)` |                                 | 右 Control を押しながら `kc` を押します。                     |
+| `RSFT(kc)` |                                 | 右 Shift を押しながら `kc` を押します。                       |
+| `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`          | 右 Alt を押しながら `kc` を押します。                         |
+| `RGUI(kc)` | `RCMD(kc)`, `LWIN(kc)`          | 右 GUI を押しながら `kc` を押します。                         |
+| `SGUI(kc)` | `SCMD(kc)`, `SWIN(kc)`          | 左 Shift と GUI を押しながら `kc` を押します。                |
+| `LCA(kc)`  |                                 | 左 Control と Alt を押しながら `kc` を押します。              |
+| `LSA(kc)`  |                                 | 左 Shift と左 Alt を押しながら `kc` を押します。              |
+| `RSA(kc)`  |`SAGR(kc)`                       | 右 Shift と右 Alt (AltGr)  を押しながら `kc` を押します。     |
+| `RCS(kc)`  |                                 | 右 Control と右 Shift を押しながら `kc` を押します。          |
+| `LCAG(kc)` |                                 | 左 Control、Alt と GUI を押しながら `kc` を押します。         |
+| `MEH(kc)`  |                                 | 左 Control、Shift と Alt を押しながら `kc` を押します。       |
+| `HYPR(kc)` |                                 | 左 Control、Shift、 Alt と GUI を押しながら `kc` を押します。 |
+| `KC_MEH`   |                                 | 左 Control, Shift と Alt                                      |
+| `KC_HYPR`  |                                 | 左 Control, Shift, Alt と GUI                                 |
 
 
 ## モッドタップキー :id=mod-tap-keys
@@ -427,18 +425,18 @@
 | `LGUI_T(kc)` | `LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)` | 押したままの場合は左 GUI、タップした場合は `kc`                        |
 | `RCTL_T(kc)` |                                                                   | 押したままの場合は右 Control、タップした場合は `kc`                    |
 | `RSFT_T(kc)` |                                                                   | 押したままの場合は右 Shift、タップした場合は `kc`                      |
-| `RALT_T(kc)` | `ROPT_T(kc)`, `ALGR_T(kc)`                                        | 押したままの場合は右 Alt、タップした場合は `kc`                        |
+| `RALT_T(kc)` | `ROPT_T(kc)`, `ALGR_T(kc)`                                        | 押したままの場合は右 Alt (AltGr) 、タップした場合は `kc`               |
 | `RGUI_T(kc)` | `RCMD_T(kc)`, `RWIN_T(kc)`                                        | 押したままの場合は右 GUI、タップした場合は `kc`                        |
-| `SGUI_T(kc)` | `SCMD_T(kc)`, `SWIN_T(kc)`                                        | 押したままの場合は左 Shift と左 GUI、タップした場合は `kc`             |
-| `LCA_T(kc)`  |                                                                   | 押したままの場合は左 Control と左 Alt、タップした場合は `kc`           |
-| `LSA_T(kc)`  |                                                                   | 押したままの場合は左 Control、左 Alt と左 GUI、タップした場合は `kc`   |
-| `RCA_T(kc)`  |`SAGR_T(kc)`                                                       | 押したままの場合は右 Control、右 Alt と右 GUI、タップした場合は `kc`   |
-| `RCS_T(kc)`  |                                                                   | 押したままの場合は右 Control と Shift 、タップした場合は `kc`          | 
-| `LCAG_T(kc)` |                                                                   | 押したままの場合は左 Control、左 Alt、左 GUI 、タップした場合は `kc`   |
-| `RCAG_T(kc)` |                                                                   | 押したままの場合は右 Control、右 Alt、右 GUI 、タップした場合は `kc`   |
+| `SGUI_T(kc)` | `SCMD_T(kc)`, `SWIN_T(kc)`                                        | 押したままの場合は左 Shift と GUI、タップした場合は `kc`               |
+| `LCA_T(kc)`  |                                                                   | 押したままの場合は左 Control と Alt、タップした場合は `kc`             |
+| `LSA_T(kc)`  |                                                                   | 押したままの場合は左 Shift と左 Alt、タップした場合は `kc`             |
+| `RSA_T(kc)`  |`SAGR_T(kc)`                                                       | 押したままの場合は右 Shift と右 Alt (AltGr) 、タップした場合は `kc`    |
+| `RCS_T(kc)`  |                                                                   | 押したままの場合は右 Control と右 Shift、タップした場合は `kc`         | 
+| `LCAG_T(kc)` |                                                                   | 押したままの場合は左 Control、Alt と GUI、タップした場合は `kc`        |
+| `RCAG_T(kc)` |                                                                   | 押したままの場合は右 Control、Alt と GUI、タップした場合は `kc`        |
 | `C_S_T(kc)`  |                                                                   | 押したままの場合は左 Control と左 Shift、タップした場合は `kc`         |
-| `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、左 Shift と左 Alt、タップした場合は `kc` |
-| `HYPR_T(kc)` | `ALL_T(kc)`                                                       | 押したままの場合は左 Control、左 Shift、左 Alt と左 GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
+| `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、Shift と Alt、タップした場合は `kc`      |
+| `HYPR_T(kc)` | `ALL_T(kc)`                                                       | 押したままの場合は左 Control、Shift、Alt と GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
 
 ## RGB Lighting :id=rgb-lighting
 
@@ -533,15 +531,15 @@
 
 [Space Cadet](ja/feature_space_cadet.md) も見てください。
 
-|キー       |説明                                         |
-|-----------|---------------------------------------------|
-|`KC_LCPO`  |タップすると `(`、押していると左コントロール |
-|`KC_RCPC`  |タップすると `)`、押していると右コントロール |
-|`KC_LSPO`  |タップすると `(`、押していると左シフト       |
-|`KC_RSPC`  |タップすると `)`、押していると右シフト       |
-|`KC_LAPO`  |タップすると `(`、押していると左Alt          |
-|`KC_RAPC`  |タップすると `)`、押していると右Alt          |
-|`KC_SFTENT`|タップするとエンター、押していると右シフト   |
+|キー       |説明                                       |
+|-----------|-------------------------------------------|
+|`KC_LCPO`  |タップすると `(`、押していると左 Control   |
+|`KC_RCPC`  |タップすると `)`、押していると右 Control   |
+|`KC_LSPO`  |タップすると `(`、押していると左 Shift     |
+|`KC_RSPC`  |タップすると `)`、押していると右 Shift     |
+|`KC_LAPO`  |タップすると `(`、押していると左 Alt       |
+|`KC_RAPC`  |タップすると `)`、押していると右 Alt       |
+|`KC_SFTENT`|タップするとエンター、押していると右 Shift |
 
 ## スワップハンド :id=swap-hands
 
@@ -562,15 +560,15 @@
 
 [ユニコードサポート](ja/feature_unicode.md) も見てください。
 
-|キー                  |エイリアス  |説明                                                                |
-|----------------------|---------|-----------------------------------------------------------------------|
-|`UC(c)`               |         |コードポイント `c` のユニコードを送信                                 |
-|`X(i)`                |         |`unicode_map` のインデックス `i` のユニコードを送信                   |
-|`XP(i, j)`            |         |インデックス `i` または `j` (Shift/Capsが有効なら) のユニコードを送信 |
-|`UNICODE_MODE_FORWARD`|`UC_MOD` |以下のユニコード入力方式を順送りで選択                                |
-|`UNICODE_MODE_REVERSE`|`UC_RMOD`|以下のユニコード入力方式を逆順で選択                                  |
-|`UNICODE_MODE_OSX`    |`UC_M_OS`|ユニコード入力方式を macOS 方式に切り替え                             |
-|`UNICODE_MODE_LNX`    |`UC_M_LN`|ユニコード入力方式を Linux 方式に切り替え                             |
-|`UNICODE_MODE_WIN`    |`UC_M_WI`|ユニコード入力方式を Windows 方式に切り替え                           |
-|`UNICODE_MODE_BSD`    |`UC_M_BS`|ユニコード入力方式を BSD 方式に切り替え                               |
-|`UNICODE_MODE_WINC`   |`UC_M_WC`|ユニコード入力方式を WindCompose 方式に切り替え                       |
+|キー                  |エイリアス |説明                                                                  |
+|----------------------|-----------|----------------------------------------------------------------------|
+|`UC(c)`               |           |コードポイント `c` のユニコードを送信                                 |
+|`X(i)`                |           |`unicode_map` のインデックス `i` のユニコードを送信                   |
+|`XP(i, j)`            |           |Shift/Capsが有効なら、インデックス `i` または `j` のユニコードを送信  |
+|`UNICODE_MODE_FORWARD`|`UC_MOD`   |ユニコード入力方式を順送りで選択                                      |
+|`UNICODE_MODE_REVERSE`|`UC_RMOD`  |ユニコード入力方式を逆順で選択                                        |
+|`UNICODE_MODE_OSX`    |`UC_M_OS`  |ユニコード入力方式を macOS 方式に切り替え                             |
+|`UNICODE_MODE_LNX`    |`UC_M_LN`  |ユニコード入力方式を Linux 方式に切り替え                             |
+|`UNICODE_MODE_WIN`    |`UC_M_WI`  |ユニコード入力方式を Windows 方式に切り替え                           |
+|`UNICODE_MODE_BSD`    |`UC_M_BS`  |ユニコード入力方式を BSD 方式に切り替え (実装されていません)          |
+|`UNICODE_MODE_WINC`   |`UC_M_WC`  |ユニコード入力方式を WinCompose を使う Windows 方式に切り替え         |
