@@ -91,12 +91,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
-    return keycode == LA_SYM || keycode == LA_NAV;
+    switch (keycode) {
+    case LA_SYM:
+    case LA_NAV:
+        return true;
+    default:
+        return false;
+    }
 }
 
 bool is_oneshot_ignored_key(uint16_t keycode) {
-    return keycode == LA_SYM || keycode == LA_NAV || keycode == KC_LSFT ||
-        keycode == OS_CTRL || keycode == OS_ALT || keycode == OS_CMD;
+    switch (keycode) {
+    case LA_SYM:
+    case LA_NAV:
+    case KC_LSFT:
+    case OS_SHFT:
+    case OS_CTRL:
+    case OS_ALT:
+    case OS_CMD:
+        return true;
+    default:
+        return false;
+    }
 }
 
 bool sw_win_active = false;
