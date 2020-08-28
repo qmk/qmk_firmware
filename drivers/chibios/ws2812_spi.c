@@ -32,6 +32,14 @@
 #    endif
 #endif
 
+// WS2812 Byte Order
+#define WS2812_BYTE_ORDER_RGB 0
+#define WS2812_BYTE_ORDER_GRB 1
+
+#ifndef WS2812_BYTE_ORDER
+#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
+#endif
+
 #define BYTES_FOR_LED_BYTE 4
 #define NB_COLORS 3
 #define BYTES_FOR_LED (BYTES_FOR_LED_BYTE * NB_COLORS)
@@ -62,9 +70,15 @@ static uint8_t get_protocol_eq(uint8_t data, int pos) {
 static void set_led_color_rgb(LED_TYPE color, int pos) {
     uint8_t* tx_start = &txbuf[PREAMBLE_SIZE];
 
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.g, j);
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.r, j);
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);    
+#endif
 }
 
 void ws2812_init(void) {
