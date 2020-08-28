@@ -1,6 +1,5 @@
 #include "stanrc85.h"
 
-static uint8_t top = 0;
 static uint8_t middle = 0;
 static uint8_t bottom = 0;
 
@@ -35,22 +34,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
-    // Boot up "fanfare"
-    top = 1;
-    writePin(INDICATOR_PIN_0, !top);
-    wait_ms(200);
-    top = 0;
-    writePin(INDICATOR_PIN_0, !top);
-    middle = 1;
-    writePin(INDICATOR_PIN_1, !middle);
-    wait_ms(200);
-    middle = 0;
-    writePin(INDICATOR_PIN_1, !middle);
-    bottom = 1;
-    writePin(INDICATOR_PIN_2, !bottom);
-    wait_ms(200);
-    bottom = 0;
-    writePin(INDICATOR_PIN_2, !bottom);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
