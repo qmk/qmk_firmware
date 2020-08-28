@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    The Key Company
 #define PRODUCT         SP111
-#define DESCRIPTION     Southpaw Split Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6*2
