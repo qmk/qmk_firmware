@@ -139,10 +139,3 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
-
-
-
-## FLIP 不工作
-### `AtLibUsbDfu.dll` 未找到
-从设备管理器中删除当前驱动程序并在设备管理器重新安装一个FLIP提供的程序。
-http://imgur.com/a/bnwzy

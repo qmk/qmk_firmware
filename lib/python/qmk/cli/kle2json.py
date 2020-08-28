@@ -26,7 +26,7 @@ class CustomJSONEncoder(json.JSONEncoder):
 
 @cli.argument('filename', help='The KLE raw txt to convert')
 @cli.argument('-f', '--force', action='store_true', help='Flag to overwrite current info.json')
-@cli.subcommand('Convert a KLE layout to a Configurator JSON')
+@cli.subcommand('Convert a KLE layout to a Configurator JSON', hidden=False if cli.config.user.developer else True)
 def kle2json(cli):
     """Convert a KLE layout to QMK's layout format.
     """  # If filename is a path
@@ -37,12 +37,12 @@ def kle2json(cli):
         file_path = Path(os.environ['ORIG_CWD'], cli.args.filename)
     # Check for valid file_path for more graceful failure
     if not file_path.exists():
-        return cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', str(file_path))
+        return cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
     out_path = file_path.parent
     raw_code = file_path.open().read()
     # Check if info.json exists, allow overwrite with force
     if Path(out_path, "info.json").exists() and not cli.args.force:
-        cli.log.error('File {fg_cyan}%s/info.json{style_reset_all} already exists, use -f or --force to overwrite.', str(out_path))
+        cli.log.error('File {fg_cyan}%s/info.json{style_reset_all} already exists, use -f or --force to overwrite.', out_path)
         return False
     try:
         # Convert KLE raw to x/y coordinates (using kle2xy package from skullydazed)
@@ -69,7 +69,7 @@ def kle2json(cli):
     # Replace layout in keyboard json
     keyboard = keyboard.replace('"LAYOUT_JSON_HERE"', layout)
     # Write our info.json
-    file = open(str(out_path) + "/info.json", "w")
+    file = open(out_path / "info.json", "w")
     file.write(keyboard)
     file.close()
-    cli.log.info('Wrote out {fg_cyan}%s/info.json', str(out_path))
+    cli.log.info('Wrote out {fg_cyan}%s/info.json', out_path)

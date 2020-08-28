@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         AEK64
 #define DESCRIPTION     QMK keyboard firmware for AEK64 handwired
 
-/* Define the backlight */
-/*#define BACKLIGHT_ON_STATE 1*/
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14

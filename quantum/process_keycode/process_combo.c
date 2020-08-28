@@ -20,8 +20,8 @@
 #ifndef COMBO_VARIABLE_LEN
 __attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {};
 #else
-extern combo_t key_combos[];
-extern int     COMBO_LEN;
+extern combo_t  key_combos[];
+extern int      COMBO_LEN;
 #endif
 
 __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
@@ -146,7 +146,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     }
 #ifndef COMBO_VARIABLE_LEN
     for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
-#else 
+#else
     for (current_combo_index = 0; current_combo_index < COMBO_LEN; ++current_combo_index) {
 #endif
         combo_t *combo = &key_combos[current_combo_index];

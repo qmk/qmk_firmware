@@ -459,7 +459,7 @@ enum quantum_keycodes {
 
     UNICODE_MODE_FORWARD,
     UNICODE_MODE_REVERSE,
-    UNICODE_MODE_OSX,
+    UNICODE_MODE_MAC,
     UNICODE_MODE_LNX,
     UNICODE_MODE_WIN,
     UNICODE_MODE_BSD,
@@ -521,13 +521,15 @@ enum quantum_keycodes {
 #define LSFT(kc) (QK_LSFT | (kc))
 #define LALT(kc) (QK_LALT | (kc))
 #define LGUI(kc) (QK_LGUI | (kc))
+#define LOPT(kc) LALT(kc)
 #define LCMD(kc) LGUI(kc)
 #define LWIN(kc) LGUI(kc)
 #define RCTL(kc) (QK_RCTL | (kc))
 #define RSFT(kc) (QK_RSFT | (kc))
 #define RALT(kc) (QK_RALT | (kc))
-#define ALGR(kc) RALT(kc)
 #define RGUI(kc) (QK_RGUI | (kc))
+#define ALGR(kc) RALT(kc)
+#define ROPT(kc) RALT(kc)
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
 
@@ -538,6 +540,10 @@ enum quantum_keycodes {
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LSA(kc) (QK_LSFT | QK_LALT | (kc))
+#define RSA(kc) (QK_RSFT | QK_RALT | (kc))
+#define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define SAGR(kc) RSA(kc)
 
 #define MOD_HYPR 0xF
 #define MOD_MEH 0x7
@@ -736,8 +742,11 @@ enum quantum_keycodes {
 
 #define LALT_T(kc) MT(MOD_LALT, kc)
 #define RALT_T(kc) MT(MOD_RALT, kc)
-#define ALT_T(kc) LALT_T(kc)
+#define LOPT_T(kc) LALT_T(kc)
+#define ROPT_T(kc) RALT_T(kc)
 #define ALGR_T(kc) RALT_T(kc)
+#define ALT_T(kc) LALT_T(kc)
+#define OPT_T(kc) LOPT_T(kc)
 
 #define LGUI_T(kc) MT(MOD_LGUI, kc)
 #define RGUI_T(kc) MT(MOD_RGUI, kc)
@@ -758,6 +767,11 @@ enum quantum_keycodes {
 #define SCMD_T(kc) SGUI_T(kc)
 #define SWIN_T(kc) SGUI_T(kc)
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
+#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
+#define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt
+#define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)  // Right Control + Shift
+#define SAGR_T(kc) RSA_T(kc)
+
 #define ALL_T(kc) HYPR_T(kc)
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
@@ -777,7 +791,9 @@ enum quantum_keycodes {
 #define UC_MOD UNICODE_MODE_FORWARD
 #define UC_RMOD UNICODE_MODE_REVERSE
 
-#define UC_M_OS UNICODE_MODE_OSX
+#define UC_M_MA UNICODE_MODE_MAC
+#define UNICODE_MODE_OSX UNICODE_MODE_MAC  // Deprecated alias
+#define UC_M_OS UNICODE_MODE_MAC           // Deprecated alias
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
@@ -787,6 +803,7 @@ enum quantum_keycodes {
 #    define SH_T(kc) (QK_SWAP_HANDS | (kc))
 #    define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
 #    define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+#    define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
 #    define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
 #    define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
 #    define SH_ON (QK_SWAP_HANDS | OP_SH_ON)

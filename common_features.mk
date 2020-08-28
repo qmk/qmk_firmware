@@ -70,7 +70,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
-VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c
+VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
   $(error EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
@@ -85,6 +85,11 @@ else
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
     QUANTUM_LIB_SRC += i2c_master.c
     SRC += eeprom_driver.c eeprom_i2c.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), spi)
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
+    COMMON_VPATH += $(DRIVER_PATH)/eeprom
+    QUANTUM_LIB_SRC += spi_master.c
+    SRC += eeprom_driver.c eeprom_spi.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
@@ -139,7 +144,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -200,6 +205,13 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
     QUANTUM_LIB_SRC += i2c_master.c
 endif
 
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3741)
+    OPT_DEFS += -DIS31FL3741 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3741.c
+    QUANTUM_LIB_SRC += i2c_master.c
+endif
+
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
     OPT_DEFS += -DWS2812
     WS2812_DRIVER_REQUIRED := yes
@@ -234,12 +246,13 @@ ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
     VAPTH += $(SERIAL_PATH)
 endif
 
-ifneq ($(strip $(VARIABLE_TRACE)),)
+VARIABLE_TRACE ?= no
+ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c
     OPT_DEFS += -DNUM_TRACED_VARIABLES=$(strip $(VARIABLE_TRACE))
-ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
-    OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
-endif
+    ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
+        OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
+    endif
 endif
 
 ifeq ($(strip $(LCD_ENABLE)), yes)

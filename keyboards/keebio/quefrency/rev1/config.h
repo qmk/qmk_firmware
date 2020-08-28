@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x1257
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
-#define PRODUCT         Quefrency
+#define PRODUCT         Quefrency Rev. 1
 #define DESCRIPTION     Split 60/65 percent staggered keyboard
 
 /* key matrix size */
@@ -55,3 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16    // Number of LEDs
+
+// Set 65% column (option 1) and Macro (option 2) on by default
+#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x60

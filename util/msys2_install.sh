@@ -2,25 +2,18 @@
 
 dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 download_dir=~/qmk_utils
-avrtools=avr8-gnu-toolchain
 armtools=gcc-arm-none-eabi
-installflip=false
 util_dir=$(dirname "$0")
 
-echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed --noconfirm --disable-download-timeout -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip mingw-w64-x86_64-python3-pip msys/unzip
+echo "Installing dependencies needed for the installation"
+pacman --needed --noconfirm --disable-download-timeout -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang git mingw-w64-x86_64-python3-pip unzip
 
 source "$dir/win_shared_install.sh"
 
 function install_avr {
-    rm -f -r "$avrtools"
-    wget "https://blog.zakkemble.net/download/avr-gcc-8.3.0-x86-mingw.zip"
-    echo "Extracting AVR toolchain..."
-    unzip -q -d . avr-gcc-8.3.0-x86-mingw.zip
-    mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
-    rm avr8-gnu-toolchain/bin/make.exe
-    rm avr-gcc-8.3.0-x86-mingw.zip
-    pacman --needed --disable-download-timeout -S mingw-w64-x86_64-avrdude
+    pacman --needed --noconfirm --disable-download-timeout -S \
+        mingw-w64-x86_64-avr-binutils mingw-w64-x86_64-avr-gcc mingw-w64-x86_64-avr-libc \
+        mingw-w64-x86_64-avrdude mingw-w64-x86_64-bootloadhid mingw-w64-x86_64-dfu-programmer mingw-w64-x86_64-teensy-loader-cli
 }
 
 function install_arm {
@@ -29,38 +22,13 @@ function install_arm {
     echo "Extracting ARM toolchain..."
     unzip -q -d gcc-arm-none-eabi gcc-arm-none-eabi-8-2019-q3-update-win32.zip
     rm gcc-arm-none-eabi-8-2019-q3-update-win32.zip
-}
 
-function extract_flip {
-    rm -f -r flip
-    7z -oflip x FlipInstaller.exe
+    pacman --needed --noconfirm --disable-download-timeout -S mingw-w64-x86_64-dfu-util
 }
 
 pushd "$download_dir"
 
-if [ -f "FlipInstaller.exe" ]; then
-    echo
-    echo "Extracting flip"
-    extract_flip
-fi
-
-if [ ! -d "$avrtools" ]; then
-    echo
-    echo "The AVR toolchain is not installed."
-    echo "This is needed for building AVR based keyboards."
-    install_avr
-else
-    while true; do
-        echo
-        echo "The AVR toolchain is already installed"
-        read -p "Do you want to reinstall? (Y/N) " res
-        case $res in
-            [Yy]* ) install_avr; break;;
-            [Nn]* ) break;;
-            * ) echo "Invalid answer";;
-        esac
-    done
-fi
+install_avr
 
 if [ ! -d "$armtools" ]; then
     echo

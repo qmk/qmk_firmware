@@ -111,7 +111,7 @@ void via_init(void) {
     if (via_eeprom_is_valid()) {
     } else {
         // This resets the layout options
-        via_set_layout_options(0);
+        via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
         // This resets the keymaps in EEPROM to what is in flash.
         dynamic_keymap_reset();
         // This resets the macros in EEPROM to nothing.
