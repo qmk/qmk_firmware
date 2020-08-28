@@ -80,7 +80,7 @@ enum keycodes {
 
 #define H(kc) HYPR(kc)
 
-#define SH_TAB  MT(MOD_LSFT, KC_TAB)
+#define CT_TAB  MT(MOD_LCTL, KC_TAB)
 #define SH_ESC  MT(MOD_LSFT, KC_ESC)
 #define SH_QUOT MT(MOD_RSFT, KC_QUOT)
 
@@ -92,8 +92,8 @@ static bool rbk_mode = false;   // right-side bracket mode
 #ifdef AUDIO_ENABLE
     // layer toggle songs
     float base_song[][2]            = SONG(QWERTY_SOUND);
-    float bk_activate_song[][2]     = SONG(MARIO_COIN);
-    float bk_deactivate_song[][2]   = SONG(BUZZ);
+    float bk_activate_song[][2]     = SONG(MARIO_JUMP_SMALL);
+    float bk_deactivate_song[][2]   = SONG(MARIO_JUMP_SMALL);
 
     // keycode songs
     float valid_rotary_song[][2]    = SONG(COIN);
@@ -105,9 +105,9 @@ static bool rbk_mode = false;   // right-side bracket mode
     float save_song[][2]            = SONG(MARIO_ONEUP);
     float copy_song[][2]            = SONG(PICK_UP);
     float paste_song[][2]           = SONG(PUT_DOWN);
-    float cut_song[][2]             = SONG(MARIO_CAVE_2);
-    float undo_song[][2]            = SONG(NO_SOUND);
-    float redo_song[][2]            = SONG(NO_SOUND);
+    float cut_song[][2]             = SONG(MARIO_PIPE);
+    float undo_song[][2]            = SONG(MARIO_KICK);
+    float redo_song[][2]            = SONG(MARIO_COIN);
 #endif
 
 
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         *
         * Bracket keys:     Open bracket on tap, close bracket on tap with SHIFT held.
                             If both bracket modes active, right-side brackets are closed by default.
-        * TAB:              Esc on tap, ` on tap with SHIFT or CTRL held. ***TODO
+        * TAB:              Esc on tap, CTRL on hold, ` on tap with SHIFT or CTRL held. ***TODO
         * PANIC:            Backspace on tap, delete on tap with SHIFT held.
         * ESC and ':        SHIFT on hold.
         *
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT_planck_grid(
         ROTARY,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    PANIC,
-        SH_TAB,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        CT_TAB,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
         SH_ESC,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
         LBK_A,   LBK_C,   LBK_S,   LBK_P,  LOWER1, KC_SPACE, KC_SPACE, RAISE1, RBK_P,   RBK_S,   RBK_C,   RBK_A
     ),
@@ -208,55 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, BASE,    BASE,    _______, R_SC_H,  R_SC_V,  R_AR_V,  R_AR_H
     ),
 
-    /* Lower I - symbols
-
-        |-----------------------------------------------------------------------------------------------|
-        |       |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |   (   |   )   |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |   \   |   |   |   `   |   ~   |   '   |   "   |   _   |   -   |   +   |   =   |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       | LOWER2|      BASE     | RAISE1|       |       |       |       |
-        |-----------------------------------------------------------------------------------------------|
-
-        *
-        * Each non-layer keypress moves to BASE (exception: rotary, arrow keys, numbers?)
-        *
-
-    */
-    [_LOWER1] = LAYOUT_planck_grid(
-        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-        _______, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,  _______,
-        _______, _______, _______, _______, LOWER2,  BASE,    BASE,    RAISE1,   _______, _______, _______, _______
-    ),
-
-    /* Raise I - arrow keys and function layer
-
-        |-----------------------------------------------------------------------------------------------|
-        |       |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |  Esc  |  F11  |  F12  |  F13  |  F14  |  F15  |       | Left  | Down  |  Up   | Right |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |  F16  |  F17  |  F18  |  F19  |  F20  |       |       |       |       |       |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       | LOWER1|      BASE     | RAISE2|       |       |       |       |
-        |-----------------------------------------------------------------------------------------------|
-
-        *
-        *
-        *
-
-    */
-    [_RAISE1] = LAYOUT_planck_grid(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
-        _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
-        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    RAISE2,  _______, _______, _______,  _______
-    ),
-
-    /* Lower II - command-line macros
+    /* Lower I - command-line macros
 
         |-----------------------------------------------------------------------------------------------|
         |       | wq vim|       |       |       |       |       |       |       |       | g push| clear |
@@ -265,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       | g cmt |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |      BASE     | RAISE1|       |       |       |       |
+        |       |       |       |       | LOWER2|      BASE     | RAISE1|       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
         *
@@ -276,21 +228,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         *
 
     */
-    [_LOWER2] = LAYOUT_planck_grid(
+    [_LOWER1] = LAYOUT_planck_grid(
         _______, VIM_WQ,  _______, _______, _______, _______, _______, _______, _______, _______, GT_PUSH,   CLEAR,
         _______, GT_ADD,  GT_STAT, DOTFILE, _______, _______, _______, _______, _______, GT_PULL, _______, _______,
         _______, _______, _______,  GT_CMT, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
+        _______, _______, _______, _______, LOWER2,  BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
 
-    /* RAISE II - navigation
+    /* Raise I - symbols
 
         |-----------------------------------------------------------------------------------------------|
-v       |       |  L Ck |  M up |  R ck |       |       |       |       | Ctrl- | S up  | Ctrl+ |       |
+        |       |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |   (   |   )   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |   \   |   |   |   `   |   ~   |   '   |   "   |   _   |   -   |   +   |   =   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       | LOWER1|      BASE     | RAISE2|       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+        *
+        * Each non-layer keypress moves to BASE (exception: rotary, arrow keys, numbers?)
+        *
+
+    */
+    [_RAISE1] = LAYOUT_planck_grid(
+        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+        _______, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,  _______,
+        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    RAISE2,   _______, _______, _______, _______
+    ),
+
+    /* Lower II - navigation
+
+        |-----------------------------------------------------------------------------------------------|
+        |       |  L Ck |  M up |  R ck |       |       |       |       | Ctrl- | S up  | Ctrl+ |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |  M lt |  M dn |  M rt |       |       |       |       | S lt  | S dn  | S rt  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |       |       |       |       |       |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |       |      BASE     | RAISE1|       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+        *
+        *
+        *
+
+    */
+    [_LOWER2] = LAYOUT_planck_grid(
+        _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______, _______, _______, _______, KC_WH_U, _______, _______,
+        _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
+    ),
+
+    /* Raise II - arrow keys and function layer
+
+        |-----------------------------------------------------------------------------------------------|
+        |       |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |  Esc  |  F11  |  F12  |  F13  |  F14  |  F15  |       | Left  | Down  |  Up   | Right |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |  F16  |  F17  |  F18  |  F19  |  F20  |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       | LOWER1|      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
@@ -301,10 +301,10 @@ v       |       |  L Ck |  M up |  R ck |       |       |       |       | Ctrl- 
 
     */
     [_RAISE2] = LAYOUT_planck_grid(
-        _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______, _______, _______, _______, KC_WH_U, _______, _______,
-        _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    _______, _______, _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
+        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    _______, _______, _______, _______,  _______
     ),
 
 };
@@ -680,10 +680,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         else if (keycode == LBK_A) {
             if (record->event.pressed) {
                 layer_on(_HYPER);           // TODO: keep HYPER on if no key pressed while held (i.e. OSL)
-                set_oneshot_layer(_HYPER, ONESHOT_START);
+                //set_oneshot_layer(_HYPER, ONESHOT_START);
             }
             else {
-                clear_oneshot_layer_state(ONESHOT_PRESSED);
+                layer_off(_HYPER);
+                //clear_oneshot_layer_state(ONESHOT_PRESSED);
             }
         }
     }
