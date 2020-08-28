@@ -5,13 +5,13 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 enum layers {
-  _BL = 0,
-  _NV,
-  _FN
+    _BL,
+    _NV,
+    _FN
 };
 
 enum custom_keycodes {
-  KC_DBL0 = SAFE_RANGE,
+    KC_DBL0 = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
