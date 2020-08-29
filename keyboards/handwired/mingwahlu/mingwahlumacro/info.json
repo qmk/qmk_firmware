@@ -1,12 +1,9 @@
 {
     "name": "mingwahlumacro",
-    "vendorId": "0xFDDD",
-    "productId": "0xACAD",
-    "lighting": "none",
-    "matrix": {
-        "rows": 2,
-        "cols": 4
-    },
+    "url": "",
+    "maintainer": "mingwahlu",
+    "width": 4,
+    "height": 2,
     "layouts": {
         "key_count": 8,
         "LAYOUT": [
