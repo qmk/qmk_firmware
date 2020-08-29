@@ -6,9 +6,7 @@
 This is a handwired numpad using an Arduino Pro Micro and a 3D printed case from thingiverse.
 
 * Keyboard Maintainer: [mingwahlu](https://github.com/tan00060)
-
 * Hardware Supported: Ardiuno Pro Micro ATmega32U4: [ArdiunoProMicro](https://www.amazon.ca/KeeYees-ATmega32U4-Development-Microcontroller-Bootloader/dp/B07FXCTVQP/ref=sr_1_3?dchild=1&keywords=arduino+pro+micro&qid=1598072684&sr=8-3)
-
 * Hardware Availability: 3D Print of the numpad case: [Numpad](https://www.thingiverse.com/thing:3393103)
 
 Make example for this keyboard (after setting up your build environment):
