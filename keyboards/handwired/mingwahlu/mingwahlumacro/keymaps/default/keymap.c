@@ -67,50 +67,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case M_NUTS:
             if (record->event.pressed) {
-                SEND_STRING("hello, mingwahlu!");
+                SEND_STRING("hello, mingwahlu!\n");
                 tap_code(KC_ENTER);
             } else {
             }
             break;
         case M_UMARUBM:
             if(record->event.pressed) {
-                SEND_STRING("https://imgur.com/NvKoahR" SS_TAP(X_ENTER));
+                SEND_STRING("https://imgur.com/NvKoahR\n");
             } else {
             }
             break;
         case M_UMARUEAT:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/ramen-slurp-anime-umaru-cute-gif-16722331" SS_TAP(X_ENTER));
+                SEND_STRING("https://tenor.com/view/ramen-slurp-anime-umaru-cute-gif-16722331\n");
             } else {
             }
             break;
         case M_UMARUMAD:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/anime-umaru-mad-cute-small-girl-gif-5169671" SS_TAP(X_ENTER));
+                SEND_STRING("https://tenor.com/view/anime-umaru-mad-cute-small-girl-gif-5169671\n");
             } else {
             }
             break;
         case M_UMARUHAPPY:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/umaru-gif-4927713" SS_TAP(X_ENTER));
+                SEND_STRING("https://tenor.com/view/umaru-gif-4927713\n");
             } else {
             }
             break;
         case M_UMARUSAD:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/umaru-crying-tears-gif-5497252" SS_TAP(X_ENTER));
+                SEND_STRING("https://tenor.com/view/umaru-crying-tears-gif-5497252\n");
             } else {
             }
             break;
         case M_UMARUGAME:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/mash-buttons-press-himouto-umaru-chan-anime-gif-17872461" SS_TAP(X_ENTER));
+                SEND_STRING("https://tenor.com/view/mash-buttons-press-himouto-umaru-chan-anime-gif-17872461\n");
             } else {
             }
             break;
         case M_UMARUSLEEP:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/umaru-himouto-sleeping-dreaming-gif-4769761" SS_TAP(X_ENTER));
+                SEND_STRING("https://tenor.com/view/umaru-himouto-sleeping-dreaming-gif-4769761\n");
             } else {
             }
             break;
