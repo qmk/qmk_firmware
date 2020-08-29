@@ -29,21 +29,11 @@ void keyboard_pre_init_user(void) {
 
 __attribute__((weak)) bool led_set_keymap(uint8_t usb_led) { return false; }
 
-void led_set_user(uint8_t usb_led) {
-
-  if (led_set_keymap(usb_led)) return;
-
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(D1);
-  }
-  else {
-    writePinLow(D1);
-  }
-
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinHigh(D2);
-  }
-  else {
-    writePinLow(D2);
-  }
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(D2, led_state.num_lock);
+        writePin(D1, led_state.caps_lock);
+    }
+    return res;
 }
