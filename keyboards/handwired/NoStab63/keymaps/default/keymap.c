@@ -12,12 +12,12 @@ enum layers {
 };
 
 enum unicode_names {
-  SE_AA_HIGH,
-  SE_AE_HIGH,
-  SE_OE_HIGH,
-  SE_AA_LOW,
-  SE_AE_LOW,
-  SE_OE_LOW,
+    SE_AA_HIGH,
+    SE_AE_HIGH,
+    SE_OE_HIGH,
+    SE_AA_LOW,
+    SE_AE_LOW,
+    SE_OE_LOW,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
