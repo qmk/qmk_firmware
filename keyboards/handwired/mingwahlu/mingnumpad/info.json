@@ -1,6 +1,6 @@
 {
     "name":"mingnumpad",
-    "vendorId":"0x000A",
+    "vendorId":"0xFDDD",
     "productId":"0x00AD",
     "lighting":"none",
     "matrix":{
