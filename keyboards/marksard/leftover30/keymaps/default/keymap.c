@@ -130,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
     case RGB_MOD:
         if (record->event.pressed) {
-        rgblight_mode(RGB_current_mode);
+        rgblight_mode_noeeprom(RGB_current_mode);
         rgblight_step();
         RGB_current_mode = rgblight_get_mode();
         }
