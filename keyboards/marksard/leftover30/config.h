@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER marksard
 #define PRODUCT leftover30
-#define DESCRIPTION A 30% mini keyboard
 
 /* Encoder */
 #define ENCODERS_PAD_A { F4 }
