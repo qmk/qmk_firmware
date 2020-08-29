@@ -9,7 +9,7 @@
     },
     "layouts": {
         "key_count": 47,
-        "layout": [{
+        "LAYOUT": [{
                 "label": "k00",
                 "x": 0,
                 "y": 0
