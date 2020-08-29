@@ -1,9 +1,10 @@
 #include "annepro2.h"
 #include <stdint.h>
 #include <print.h>
-#include <string.h>
 #include "qmk_ap2_led.h"
+#ifdef ANNEPRO2_C18
 #include "eeprom_w25x20cl.h"
+#endif
 
 // layout using eeprom and bidir-comms to keep user led settings persistent
 
@@ -64,7 +65,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, RSFT_T(KC_UP),
-        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_RGUI, LT(KC_RALT, KC_LEFT), LT(_FN1_LAYER, KC_DOWN), RCTL_T(KC_RGHT)),
+        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_RGUI, LT(_FN2_LAYER, KC_LEFT), LT(_FN1_LAYER, KC_DOWN), RCTL_T(KC_RGHT)),
     /*
   * Layer _FN1_LAYER
   * ,-----------------------------------------------------------------------------------------.
@@ -148,6 +149,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
  */
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
+#ifdef ANNEPRO2_C18
     switch (keycode) {
     case KC_AP_LED_OFF:
         if (record->event.pressed) {
@@ -171,6 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     default:
         break;
     }
+#endif
     return true;
 }
 
@@ -182,6 +185,7 @@ void keyboard_post_init_user(void)
     //debug_keyboard=true;
     //debug_mouse=true;
 
+#ifdef ANNEPRO2_C18
     // Read the user config from EEPROM
     eeprom_read((void*)&user_config, 0, sizeof(user_config_t));
 
@@ -194,8 +198,6 @@ void keyboard_post_init_user(void)
         eeprom_write((void*)&user_config, 0, sizeof(user_config_t));
     }
 
-    numProfiles = annepro2LedGetNumProfiles();
-
     if (user_config.leds_on) {
         // send profile before so that we don't get a flicker on startup
         annepro2LedSetProfile(user_config.leds_profile);
@@ -203,4 +205,7 @@ void keyboard_post_init_user(void)
     } else {
         annepro2LedDisable();
     }
+#endif
+
+    numProfiles = annepro2LedGetNumProfiles();
 }
