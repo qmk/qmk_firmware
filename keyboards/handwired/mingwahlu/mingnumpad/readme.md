@@ -3,8 +3,6 @@
 ![mingnumpad assembled](https://i.imgur.com/50zzoPy.jpg)
 ![mingnumpad insides](https://i.imgur.com/RZ7BMlZ.jpg)
 
-
-*A short description of the keyboard/project*
 This is a handwired numpad using an Arduino Pro Micro and a 3D printed case from thingiverse.
 
 * Keyboard Maintainer: [mingwahlu](https://github.com/tan00060)
@@ -15,10 +13,10 @@ This is a handwired numpad using an Arduino Pro Micro and a 3D printed case from
 
 Make example for this keyboard (after setting up your build environment):
 
-    make make handwired/mingwahlu/mingnumpad:via
+    make handwired/mingwahlu/mingnumpad:default
 
 Flashing example for this keyboard:
 
-    make make handwired/mingwahlu/mingnumpad:via:flash
+    make handwired/mingwahlu/mingnumpad:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
