@@ -1,21 +1,14 @@
 #pragma once
 
-#define XXX KC_NO
-
-#define LAYOUT_callum(                                          \
-    L00, L01, L02, L03, L04,                                    \
-    L10, L11, L12, L13, L14,                                    \
-    L20, L21, L22, L23, L24,                                    \
-                   LT0, LT1,                                    \
-                                                                \
-    R00, R01, R02, R03, R04,                                    \
-    R10, R11, R12, R13, R14,                                    \
-    R20, R21, R22, R23, R24,                                    \
-    RT0, RT1                                                    \
-)                                                               \
-LAYOUT_ortho_4x12(                                              \
-    L00, L01, L02, L03, L04, XXX, XXX, R00, R01, R02, R03, R04, \
-    L10, L11, L12, L13, L14, XXX, XXX, R10, R11, R12, R13, R14, \
-    L20, L21, L22, L23, L24, XXX, XXX, R20, R21, R22, R23, R24, \
-    XXX, XXX, XXX, LT0, LT1, XXX, XXX, RT0, RT1, XXX, XXX, XXX  \
+#define LAYOUT_callum(                                                                  \
+    KEY00, KEY01, KEY02, KEY03, KEY04,               KEY05, KEY06, KEY07, KEY08, KEY09, \
+    KEY10, KEY11, KEY12, KEY13, KEY14,               KEY15, KEY16, KEY17, KEY18, KEY19, \
+    KEY20, KEY21, KEY22, KEY23, KEY24,               KEY25, KEY26, KEY27, KEY28, KEY29, \
+                         KEY30, KEY31,               KEY32, KEY33                       \
+)                                                                                       \
+LAYOUT_ortho_4x12(                                                                      \
+    KEY00, KEY01, KEY02, KEY03, KEY04, KC_NO, KC_NO, KEY05, KEY06, KEY07, KEY08, KEY09, \
+    KEY10, KEY11, KEY12, KEY13, KEY14, KC_NO, KC_NO, KEY15, KEY16, KEY17, KEY18, KEY19, \
+    KEY20, KEY21, KEY22, KEY23, KEY24, KC_NO, KC_NO, KEY25, KEY26, KEY27, KEY28, KEY29, \
+    KC_NO, KC_NO, KC_NO, KEY30, KEY31, KC_NO, KC_NO, KEY32, KEY33, KC_NO, KC_NO, KC_NO  \
 )
