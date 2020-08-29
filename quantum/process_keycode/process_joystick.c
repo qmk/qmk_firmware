@@ -17,8 +17,7 @@ bool process_joystick(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-__attribute__((weak))
-void joystick_task(void) {
+__attribute__((weak)) void joystick_task(void) {
     if (process_joystick_analogread() && (joystick_status.status & JS_UPDATED)) {
         send_joystick_packet(&joystick_status);
         joystick_status.status &= ~JS_UPDATED;
@@ -47,16 +46,11 @@ uint16_t savePinState(pin_t pin) {
     return ((PORTx_ADDRESS(pin) >> pinNumber) & 0x1) << 1 | ((DDRx_ADDRESS(pin) >> pinNumber) & 0x1);
 #elif defined(PROTOCOL_CHIBIOS)
     /*
-    The pin configuration is backed up in the following format : 
+    The pin configuration is backed up in the following format :
  bit  15    9  8   7   6  5  4   3     2    1 0
       |unused|ODR|IDR|PUPDR|OSPEEDR|OTYPER|MODER|
     */
-    return  (( PAL_PORT(pin)->MODER   >> (2*PAL_PAD(pin))) & 0x3)
-          | (((PAL_PORT(pin)->OTYPER  >> (1*PAL_PAD(pin))) & 0x1) << 2) 
-          | (((PAL_PORT(pin)->OSPEEDR >> (2*PAL_PAD(pin))) & 0x3) << 3)
-          | (((PAL_PORT(pin)->PUPDR   >> (2*PAL_PAD(pin))) & 0x3) << 5)
-          | (((PAL_PORT(pin)->IDR     >> (1*PAL_PAD(pin))) & 0x1) << 7)
-          | (((PAL_PORT(pin)->ODR     >> (1*PAL_PAD(pin))) & 0x1) << 8);
+    return ((PAL_PORT(pin)->MODER >> (2 * PAL_PAD(pin))) & 0x3) | (((PAL_PORT(pin)->OTYPER >> (1 * PAL_PAD(pin))) & 0x1) << 2) | (((PAL_PORT(pin)->OSPEEDR >> (2 * PAL_PAD(pin))) & 0x3) << 3) | (((PAL_PORT(pin)->PUPDR >> (2 * PAL_PAD(pin))) & 0x3) << 5) | (((PAL_PORT(pin)->IDR >> (1 * PAL_PAD(pin))) & 0x1) << 7) | (((PAL_PORT(pin)->ODR >> (1 * PAL_PAD(pin))) & 0x1) << 8);
 #else
     return 0;
 #endif
@@ -68,12 +62,12 @@ void restorePinState(pin_t pin, uint16_t restoreState) {
     PORTx_ADDRESS(pin) = (PORTx_ADDRESS(pin) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
     DDRx_ADDRESS(pin)  = (DDRx_ADDRESS(pin) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
 #elif defined(PROTOCOL_CHIBIOS)
-    PAL_PORT(pin)->MODER  =  (PAL_PORT(pin)->MODER   & ~(0x3<< (2*PAL_PAD(pin)))) | (restoreState & 0x3)     << (2*PAL_PAD(pin));
-    PAL_PORT(pin)->OTYPER =  (PAL_PORT(pin)->OTYPER  & ~(0x1<< (1*PAL_PAD(pin)))) | ((restoreState>>2) & 0x1) << (1*PAL_PAD(pin));
-    PAL_PORT(pin)->OSPEEDR=  (PAL_PORT(pin)->OSPEEDR & ~(0x3<< (2*PAL_PAD(pin)))) | ((restoreState>>3) & 0x3) << (2*PAL_PAD(pin));
-    PAL_PORT(pin)->PUPDR  =  (PAL_PORT(pin)->PUPDR   & ~(0x3<< (2*PAL_PAD(pin)))) | ((restoreState>>5) & 0x3) << (2*PAL_PAD(pin));
-    PAL_PORT(pin)->IDR    =  (PAL_PORT(pin)->IDR     & ~(0x1<< (1*PAL_PAD(pin)))) | ((restoreState>>7) & 0x1) << (1*PAL_PAD(pin));
-    PAL_PORT(pin)->ODR    =  (PAL_PORT(pin)->ODR     & ~(0x1<< (1*PAL_PAD(pin)))) | ((restoreState>>8) & 0x1) << (1*PAL_PAD(pin));
+    PAL_PORT(pin)->MODER   = (PAL_PORT(pin)->MODER & ~(0x3 << (2 * PAL_PAD(pin)))) | (restoreState & 0x3) << (2 * PAL_PAD(pin));
+    PAL_PORT(pin)->OTYPER  = (PAL_PORT(pin)->OTYPER & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 2) & 0x1) << (1 * PAL_PAD(pin));
+    PAL_PORT(pin)->OSPEEDR = (PAL_PORT(pin)->OSPEEDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 3) & 0x3) << (2 * PAL_PAD(pin));
+    PAL_PORT(pin)->PUPDR   = (PAL_PORT(pin)->PUPDR & ~(0x3 << (2 * PAL_PAD(pin)))) | ((restoreState >> 5) & 0x3) << (2 * PAL_PAD(pin));
+    PAL_PORT(pin)->IDR     = (PAL_PORT(pin)->IDR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 7) & 0x1) << (1 * PAL_PAD(pin));
+    PAL_PORT(pin)->ODR     = (PAL_PORT(pin)->ODR & ~(0x1 << (1 * PAL_PAD(pin)))) | ((restoreState >> 8) & 0x1) << (1 * PAL_PAD(pin));
 #else
     return;
 #endif
@@ -132,21 +126,21 @@ bool process_joystick_analogread_quantum() {
         int16_t axis_val = joystick_axes[axis_index].mid_digit;
 #    endif
 
-        //test the converted value against the lower range
-        int32_t ref = joystick_axes[axis_index].mid_digit;
-        int32_t range = joystick_axes[axis_index].min_digit;
-        int32_t ranged_val = ((axis_val - ref) * -127) / (range - ref) ;
+        // test the converted value against the lower range
+        int32_t ref        = joystick_axes[axis_index].mid_digit;
+        int32_t range      = joystick_axes[axis_index].min_digit;
+        int32_t ranged_val = ((axis_val - ref) * -127) / (range - ref);
 
         if (ranged_val > 0) {
-            //the value is in the higher range
-            range = joystick_axes[axis_index].max_digit;
+            // the value is in the higher range
+            range      = joystick_axes[axis_index].max_digit;
             ranged_val = ((axis_val - ref) * 127) / (range - ref);
         }
-        
-        //clamp the result in the valid range
+
+        // clamp the result in the valid range
         ranged_val = ranged_val < -127 ? -127 : ranged_val;
         ranged_val = ranged_val > 127 ? 127 : ranged_val;
-        
+
         if (ranged_val != joystick_status.axes[axis_index]) {
             joystick_status.axes[axis_index] = ranged_val;
             joystick_status.status |= JS_UPDATED;
