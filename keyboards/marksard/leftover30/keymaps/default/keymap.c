@@ -168,9 +168,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
         else if (IS_LAYER_ON(_LOWER)) {
           if (clockwise) {
-            SEND_STRING(SS_LCTL("y"));
+            tap_code16(LCTL(KC_Y));
           } else {
-            SEND_STRING(SS_LCTL("z"));
+            tap_code16(LCTL(KC_Z));
           }
         }
         else if (IS_LAYER_ON(_RAISE)) {
