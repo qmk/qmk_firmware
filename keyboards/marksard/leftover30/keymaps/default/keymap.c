@@ -177,7 +177,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           if (clockwise) {
             SEND_STRING(SS_DOWN(X_LSFT)SS_TAP(X_DOWN)SS_UP(X_LSFT));
           } else {
-            SEND_STRING(SS_DOWN(X_LSFT)SS_TAP(X_UP)SS_UP(X_LSFT));
+            tap_code16(S(KC_UP));
           }
         }
         else {
