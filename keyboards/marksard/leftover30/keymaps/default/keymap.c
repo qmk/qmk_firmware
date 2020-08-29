@@ -171,7 +171,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
         else if (IS_LAYER_ON(_RAISE)) {
           if (clockwise) {
-            SEND_STRING(SS_DOWN(X_LSFT)SS_TAP(X_DOWN)SS_UP(X_LSFT));
+            tap_code16(S(KC_DOWN));
           } else {
             tap_code16(S(KC_UP));
           }
