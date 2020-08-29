@@ -1,5 +1,4 @@
 # 60_ansi_arrow and Keymap
-This is the 60% ANSI Arrow Layout and Keymap, based on Sendy YK's [60% ANSI Arrow Layout](https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/info.json) and [Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c).
 
 ## 60% ANSI Arrow
 
