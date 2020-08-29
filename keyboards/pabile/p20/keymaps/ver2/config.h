@@ -1,4 +1,4 @@
-#include "../../config.h"
+#pragma once
 
 /* pins for PCB v2 */
 #undef MATRIX_ROW_PINS
