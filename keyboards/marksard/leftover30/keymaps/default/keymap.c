@@ -185,7 +185,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 void keyboard_post_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
-    RGB_current_mode = rgblight_config.mode;
+    RGB_current_mode = rgblight_get_mode();
   #endif
 }
 
