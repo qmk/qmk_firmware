@@ -68,7 +68,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_NUTS:
             if (record->event.pressed) {
                 SEND_STRING("hello, mingwahlu!\n");
-                tap_code(KC_ENTER);
             } else {
             }
             break;
