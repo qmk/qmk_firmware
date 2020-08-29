@@ -41,34 +41,34 @@ void autoshift_flush(void) {
 }
 
 void autoshift_on(uint16_t keycode) {
-  autoshift_time    = timer_read();
-  autoshift_lastkey = keycode;
+    autoshift_time    = timer_read();
+    autoshift_lastkey = keycode;
 }
 
 void autoshift_toggle(void) {
-  if (autoshift_enabled) {
-    autoshift_enabled = false;
-    autoshift_flush();
-  } else {
-    autoshift_enabled = true;
-  }
+    if (autoshift_enabled) {
+        autoshift_enabled = false;
+        autoshift_flush();
+    } else {
+        autoshift_enabled = true;
+    }
 }
 
 void autoshift_enable(void) { autoshift_enabled = true; }
 void autoshift_disable(void) {
-  autoshift_enabled = false;
-  autoshift_flush();
+    autoshift_enabled = false;
+    autoshift_flush();
 }
 
-#ifndef AUTO_SHIFT_NO_SETUP
+#    ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
-  char display[8];
+    char display[8];
 
-  snprintf(display, 8, "\n%d\n", autoshift_timeout);
+    snprintf(display, 8, "\n%d\n", autoshift_timeout);
 
-  send_string((const char *)display);
+    send_string((const char *)display);
 }
-#endif
+#    endif
 
 bool get_autoshift_state(void) { return autoshift_enabled; }
 
@@ -79,7 +79,6 @@ void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-
             case KC_ASTG:
                 autoshift_toggle();
                 return true;
@@ -92,10 +91,10 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                 return true;
 
 #    ifndef AUTO_SHIFT_NO_SETUP
-                case KC_ASUP:
+            case KC_ASUP:
                 autoshift_timeout += 5;
                 return true;
-                case KC_ASDN:
+            case KC_ASDN:
                 autoshift_timeout -= 5;
                 return true;
 

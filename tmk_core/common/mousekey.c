@@ -33,8 +33,8 @@ inline int8_t times_inv_sqrt2(int8_t x) {
 
 static report_mouse_t mouse_report = {0};
 static void           mousekey_debug(void);
-static uint8_t        mousekey_accel  = 0;
-static uint8_t        mousekey_repeat = 0;
+static uint8_t        mousekey_accel        = 0;
+static uint8_t        mousekey_repeat       = 0;
 static uint8_t        mousekey_wheel_repeat = 0;
 
 #ifndef MK_3_SPEED
@@ -225,7 +225,6 @@ void mousekey_on(uint8_t code) {
         mousekey_accel |= (1 << 1);
     else if (code == KC_MS_ACCEL2)
         mousekey_accel |= (1 << 2);
-
 }
 
 void mousekey_off(uint8_t code) {
@@ -284,10 +283,10 @@ uint16_t        w_intervals[mkspd_COUNT] = {MK_W_INTERVAL_UNMOD, MK_W_INTERVAL_0
 void mousekey_task(void) {
     // report cursor and scroll movement independently
     report_mouse_t const tmpmr = mouse_report;
-    mouse_report.x = 0;
-    mouse_report.y = 0;
-    mouse_report.v = 0;
-    mouse_report.h = 0;
+    mouse_report.x             = 0;
+    mouse_report.y             = 0;
+    mouse_report.v             = 0;
+    mouse_report.h             = 0;
 
     if ((tmpmr.x || tmpmr.y) && timer_elapsed(last_timer_c) > c_intervals[mk_speed]) {
         mouse_report.x = tmpmr.x;
@@ -421,10 +420,10 @@ void mousekey_send(void) {
 }
 
 void mousekey_clear(void) {
-    mouse_report    = (report_mouse_t){};
-    mousekey_repeat = 0;
+    mouse_report          = (report_mouse_t){};
+    mousekey_repeat       = 0;
     mousekey_wheel_repeat = 0;
-    mousekey_accel  = 0;
+    mousekey_accel        = 0;
 }
 
 static void mousekey_debug(void) {
