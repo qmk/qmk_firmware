@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFANS
 #define PRODUCT         MAJA_SOLDERED
-#define DESCRIPTION     MAJA SOLDERED keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -43,4 +42,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
