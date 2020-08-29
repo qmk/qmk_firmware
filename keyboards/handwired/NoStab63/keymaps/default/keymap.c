@@ -2,13 +2,13 @@
 
 enum layers {
     _DVORAK,
-	_CAMILA,
+    _CAMILA,
     _NUMBER,
     _FN1,
     _ARROW,
     _LSHIFT,
     _RSHIFT,
-	_GAMING,
+    _GAMING,
 };
 
 enum unicode_names {
