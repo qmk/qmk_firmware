@@ -124,7 +124,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (keymap_config.swap_lalt_lgui == false) {
           register_code(KC_LANG2);
         } else {
-          SEND_STRING(SS_LALT("`"));
+          register_code16(A(KC_GRV));
         }
       } else {
         unregister_code(KC_LANG2);
