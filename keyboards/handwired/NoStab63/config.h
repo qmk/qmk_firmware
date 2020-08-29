@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Santy
 #define PRODUCT         NoStab63
-#define DESCRIPTION     An Ergonomic Stabless Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
