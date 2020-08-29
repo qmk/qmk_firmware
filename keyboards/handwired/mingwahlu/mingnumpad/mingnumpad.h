@@ -26,18 +26,22 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
+
+#define ___ KC_NO
+
+
+#define LAYOUT_numpad_6x4( \
     k00, k01, k02, K03,\
     k10, k11, K12, K13,\
-    K20, K21, K22,\
+    K20, K21, K22,     \
     K30, K31, K32, K33,\
-    K40, K41, K42,\
-    K50, K51, K52, K53 \
+    K40, K41, K42,     \
+    K50,      K52, K53  \
 ) { \
     { k00, k01, k02, K03 }, \
     { k10, k11, K12, K13 }, \
-    { K20, K21, K22 }, \
+    { K20, K21, K22, ___ }, \
     { K30, K31, K32, K33 }, \
-    { K40, K41, K42 }, \
-    { K50, KC_NO, K51, K52 }  \
+    { K40, K41, K42, ___ }, \
+    { K50, ___, K52, K53 }  \
 }

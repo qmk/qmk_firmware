@@ -26,13 +26,6 @@ enum custom_keycodes {
     QMKBEST = SAFE_RANGE,
     QMKURL,
     M_NUTS,
-    M_RESET,
-    M_CLOSETAB,
-    M_REOPENTAB,
-    M_NEWTAB,
-    M_SWITCHTABS,
-    M_ALTTAB,
-    M_ALTF4,
     M_UMARUBM,
     M_UMARUEAT,
     M_UMARUMAD,
@@ -49,8 +42,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         M_UMARUEAT, M_UMARUGAME, M_UMARUBM, M_UMARUSLEEP
     ),
     [_FN] = LAYOUT(
-        M_ALTF4, KC_F5, M_NUTS, MO(_FN),
-        M_CLOSETAB, M_REOPENTAB, M_NEWTAB, M_SWITCHTABS
+        LALT(KC_F4), KC_F5, RESET, MO(_FN),
+        LCTL(KC_W), C(S(KC_T)), LCTL(KC_T), LALT(KC_TAB)
     )
 };
 
@@ -74,108 +67,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case M_NUTS:
             if (record->event.pressed) {
-                SEND_STRING("deeznuts");
+                SEND_STRING("hello, mingwahlu!");
                 tap_code(KC_ENTER);
             } else {
-            }
-            break;
-        case M_RESET:
-            if (record->event.pressed) {
-                reset_keyboard();
-            } else {
-            }
-            break;
-        case M_CLOSETAB:
-            if(record->event.pressed) {
-                SEND_STRING(SS_LCTL("w"));
-            } else {
-
-            }
-            break;
-        case M_REOPENTAB:
-            if(record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LSFT("t")));
-            } else {
-
-            }
-            break;
-        case M_NEWTAB:
-            if(record->event.pressed) {
-                SEND_STRING(SS_LCTL("t"));
-            } else {
-
-            }
-            break;
-        case M_SWITCHTABS:
-            if(record->event.pressed) {
-                register_code(KC_LCTL);
-                tap_code(KC_TAB);
-            } else {
-               unregister_code(KC_LCTL);
-            }
-            break;
-        case M_ALTTAB:
-            if(record->event.pressed) {
-                register_code(KC_LALT);
-                tap_code(KC_TAB);
-            } else {
-                unregister_code(KC_LALT);
-            }
-            break;
-        case M_ALTF4:
-            if(record->event.pressed) {
-                register_code(KC_LALT);
-                tap_code(KC_F4);
-            } else {
-               unregister_code(KC_LALT);
             }
             break;
         case M_UMARUBM:
             if(record->event.pressed) {
-                SEND_STRING("https://imgur.com/NvKoahR");
-                tap_code(KC_ENTER);
+                SEND_STRING("https://imgur.com/NvKoahR" SS_TAP(X_ENTER));
             } else {
             }
             break;
         case M_UMARUEAT:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/ramen-slurp-anime-umaru-cute-gif-16722331");
-                tap_code(KC_ENTER);
+                SEND_STRING("https://tenor.com/view/ramen-slurp-anime-umaru-cute-gif-16722331" SS_TAP(X_ENTER));
             } else {
             }
             break;
         case M_UMARUMAD:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/anime-umaru-mad-cute-small-girl-gif-5169671");
-                tap_code(KC_ENTER);
+                SEND_STRING("https://tenor.com/view/anime-umaru-mad-cute-small-girl-gif-5169671" SS_TAP(X_ENTER));
             } else {
             }
             break;
         case M_UMARUHAPPY:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/umaru-gif-4927713");
-                tap_code(KC_ENTER);
+                SEND_STRING("https://tenor.com/view/umaru-gif-4927713" SS_TAP(X_ENTER));
             } else {
             }
             break;
         case M_UMARUSAD:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/umaru-crying-tears-gif-5497252");
-                tap_code(KC_ENTER);
+                SEND_STRING("https://tenor.com/view/umaru-crying-tears-gif-5497252" SS_TAP(X_ENTER));
             } else {
             }
             break;
         case M_UMARUGAME:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/mash-buttons-press-himouto-umaru-chan-anime-gif-17872461");
-                tap_code(KC_ENTER);
+                SEND_STRING("https://tenor.com/view/mash-buttons-press-himouto-umaru-chan-anime-gif-17872461" SS_TAP(X_ENTER));
             } else {
             }
             break;
         case M_UMARUSLEEP:
             if(record->event.pressed) {
-                SEND_STRING("https://tenor.com/view/umaru-himouto-sleeping-dreaming-gif-4769761");
-                tap_code(KC_ENTER);
+                SEND_STRING("https://tenor.com/view/umaru-himouto-sleeping-dreaming-gif-4769761" SS_TAP(X_ENTER));
             } else {
             }
             break;

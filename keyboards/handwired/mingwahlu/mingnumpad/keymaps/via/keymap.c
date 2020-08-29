@@ -17,39 +17,39 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT(
+    [0] = LAYOUT_numpad_6x4(
         KC_AUDIO_MUTE, KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN, MO(1),
         KC_NUMLOCK, KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,
         KC_KP_7, KC_KP_8, KC_KP_9,
         KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_PLUS,
         KC_KP_1, KC_KP_2, KC_KP_3,
-        KC_KP_0, KC_KP_DOT, KC_KP_ENTER, KC_A
+        KC_KP_0, KC_KP_DOT, KC_KP_ENTER
     ),
 
-    [1] = LAYOUT(
+    [1] = LAYOUT_numpad_6x4(
         RESET, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
-    [2] = LAYOUT(
+    [2] = LAYOUT_numpad_6x4(
         RESET, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        KC_TRNS, KC_TRNS, KC_TRNS
     ),
 
-    [3] = LAYOUT(
+    [3] = LAYOUT_numpad_6x4(
         RESET, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        KC_TRNS, KC_TRNS, KC_TRNS
     ),
 };
