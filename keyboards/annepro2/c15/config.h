@@ -26,6 +26,7 @@
 #define DESCRIPTION     Anne Pro 2 with QMK
 #define NAME_SLUG       "annepro2"
 
+#define ANNEPRO2_C15
 
 // key matrix size
 #define MATRIX_ROWS 5
