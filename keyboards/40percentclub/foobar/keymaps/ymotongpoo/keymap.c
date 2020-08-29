@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [FN4] = LAYOUT_ortho_3x10(
     _______, _______, _______, _______, _______, KC_GRV,  KC_TILD, KC_QUOT, _______, _______,
-    _______, _______, _______, _______, _______, KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,
+    _______, _______, _______, KC_ESC,  _______, KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,
     _______, _______, _______, _______, _______, KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
   ),
 
@@ -84,7 +84,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
 }
 
 void matrix_scan_user(void) {
