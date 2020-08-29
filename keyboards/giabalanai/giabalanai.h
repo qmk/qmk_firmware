@@ -27,17 +27,11 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    l00, l01, l02, l03, l04, l05, \
-    l10, l11, l12, l13, l14, l15, \
-    l20, l21, l22, l23, l24, l25, \
-    l30, l31, l32, l33, l34, l35, \
-    l40, l41, l42, l43, l44, l45, \
-    \
-    l06, l07, l08, l09, l0a, l0b, \
-    l16, l17, l18, l19, l1a, l1b, \
-    l26, l27, l28, l29, l2a, l2b, \
-    l36, l37, l38, l39, l3a, l3b, \
-    l46, l47, l48, l49, l4a, l4b, \
+    l00, l01, l02, l03, l04, l05, l06, l07, l08, l09, l0a, l0b, \
+    l10, l11, l12, l13, l14, l15, l16, l17, l18, l19, l1a, l1b, \
+    l20, l21, l22, l23, l24, l25, l26, l27, l28, l29, l2a, l2b, \
+    l30, l31, l32, l33, l34, l35, l36, l37, l38, l39, l3a, l3b, \
+    l40, l41, l42, l43, l44, l45, l46, l47, l48, l49, l4a, l4b, \
     \
     r00, r01, r02, r03, r04, r05, r06, r07, r08, r09, r0a, r0b, renc, \
     r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r1a, r1b, r1c,  \
