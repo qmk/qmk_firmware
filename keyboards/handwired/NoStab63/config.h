@@ -3,11 +3,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-<<<<<<< HEAD
-#define VENDOR_ID       0x0000
-=======
 #define VENDOR_ID       0xFEED
->>>>>>> 4291fa68390067549e51bb52195ec9cabf6153cb
 #define PRODUCT_ID      0x1707
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Santy
