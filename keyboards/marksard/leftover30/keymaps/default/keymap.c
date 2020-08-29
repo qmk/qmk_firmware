@@ -190,21 +190,8 @@ void keyboard_post_init_user(void) {
 }
 
 // for exsample customize of LED inducator
-// bool led_set_keymap(uint8_t usb_led) {
-
-//     if (IS_LAYER_ON(_LOWER)) {
-//         writePinHigh(D2);
-//     }
-//     else {
-//        writePinLow(D2);
-//     }
-
-//     if (IS_LAYER_ON(_RAISE)) {
-//         writePinHigh(D1);
-//     }
-//     else {
-//         writePinLow(D1);
-//     }
-
-//     return true;
+// bool led_update_user(led_t led_state) {
+//     writePin(D2, IS_LAYER_ON(_LOWER));
+//     writePin(D1, IS_LAYER_ON(_RAISE));
+//     return false;
 // }

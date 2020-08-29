@@ -27,8 +27,6 @@ void keyboard_pre_init_user(void) {
   setPinOutput(D2);
 }
 
-__attribute__((weak)) bool led_set_keymap(uint8_t usb_led) { return false; }
-
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
