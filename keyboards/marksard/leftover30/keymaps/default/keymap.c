@@ -21,17 +21,17 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 enum layer_number {
-  _BASE = 0,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
+    _BASE,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
 enum custom_keycodes {
-  RGBRST = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  KANJI,
+    RGBRST = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    KANJI,
 };
 
 // #define KC_ESAD  LT(_ADJUST, KC_ESC)
