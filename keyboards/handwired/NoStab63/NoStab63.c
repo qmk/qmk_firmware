@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Copyright 2020 Santiago Garcia
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,3 +16,7 @@
  */
 
 #include "nostab63.h"
+=======
+#include "NoStab63.h"
+
+>>>>>>> 4291fa68390067549e51bb52195ec9cabf6153cb
