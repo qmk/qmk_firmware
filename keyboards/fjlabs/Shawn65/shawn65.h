@@ -7,9 +7,9 @@
  *   GPIO pads
  *   0 F7 Capslock LED
  */
-inline void gh60_caps_led_on(void)      { setPinOutput(F7); writePinLow(F7); }
+inline void shawn65_caps_led_on(void)      { setPinOutput(F7); writePinLow(F7); }
 
-inline void gh60_caps_led_off(void)     { setPinInput(F7); }
+inline void shawn65_caps_led_off(void)     { setPinInput(F7); }
 
 
 /* Shawn65 Keymap Definitions */
