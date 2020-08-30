@@ -58,3 +58,15 @@ void annepro2LedPrevProfile()
 {
   sdPut(&SD0, CMD_LED_PREV_PROFILE);
 }
+
+void annepro2LedSetMask(uint8_t key)
+{
+  sdPut(&SD0, CMD_LED_SET_MASK);
+  sdPut(&SD0, key);
+}
+
+void annepro2LedClearMask(uint8_t key)
+{
+  sdPut(&SD0, CMD_LED_CLEAR_MASK);
+  sdPut(&SD0, key);
+}
