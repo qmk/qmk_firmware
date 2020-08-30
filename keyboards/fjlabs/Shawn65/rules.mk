@@ -6,7 +6,7 @@ MCU = atmega32u4
 #	  16MHz since these boards use an 8MHz  crystal in the
 #	  interest of reducing overall power consumption. No change
 #	  in overall performance is expected from this choice.
-F_CPU = 8000000 
+F_CPU = 8000000
 
 # Bootloader selection
 #   Teensy       halfkay
