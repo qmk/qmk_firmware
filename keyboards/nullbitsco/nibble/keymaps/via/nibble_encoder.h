@@ -16,7 +16,7 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 
 #define EEPROM_ENABLED_ENCODER_MODES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 #define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)
