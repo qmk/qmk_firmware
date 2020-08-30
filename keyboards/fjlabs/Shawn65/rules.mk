@@ -29,4 +29,4 @@ NKRO_ENABLE = yes			# USB Nkey Rollover - if this doesn't work, see here: https:
 RGBLIGHT_ENABLE = yes		# Enable RGB Underglow support
 
 
-LAYOUTS = 65_default
+LAYOUTS = 65_ansi
