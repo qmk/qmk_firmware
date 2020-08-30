@@ -19,28 +19,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
-
-/* Not applicable
-void matrix_scan_user(void) {
-
-//Layer LED indicators
-    uint32_t layer = layer_state;
-
-    if (layer & (1<<1)) {
-        gh60_wasd_leds_on();
-        gh60_fn_led_on();
-    } else {
-        gh60_wasd_leds_off();
-        gh60_fn_led_off();
-    }
-
-    if (layer & (1<<2)) {
-        gh60_poker_leds_on();
-        gh60_esc_led_on();
-    } else {
-        gh60_poker_leds_off();
-        gh60_esc_led_off();
-    }
-
-};
-*/
