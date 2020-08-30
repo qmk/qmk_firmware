@@ -5,7 +5,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // I apparently soldered in my switches on the wrong sides of the boards, so this is mirrored
 
-  [_BASE_MAC] = LAYOUT_split_3x6_3( \
+  [_BASE_MAC] = LAYOUT_split_3x6_3(
     KC_SCLN, KC_P,    O_CTL,   I_ALT,   U_GUI,   KC_Y,               KC_T,    R_GUI,   E_ALT,   W_CTL,   KC_Q,    KC_BSPC,
     KC_QUOT, MINSCTL, L_ALT,   K_GUI,   J_SFT,   KC_H,               KC_G,    F_SFT,   D_GUI,   S_ALT,   A_CTL,   KC_CAPS,
     KC_ENT,  KC_SLSH, KC_DOT,  KC_COMM, KC_M,    KC_N,               KC_B,    KC_V,    KC_C,    KC_X,    KC_Z,    NAVLOCK,
@@ -53,4 +53,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______,   _______, _______, _______
   ),
 };
-
