@@ -2,6 +2,7 @@
 """
 import re
 import sys
+import os
 
 from qmk.constants import QMK_FIRMWARE
 from qmk.path import normpath
@@ -109,6 +110,7 @@ def migrate_mcuconf_h(to_override, outfile):
 @cli.argument('-i', '--input', type=normpath, arg_only=True, help='Specify input config file.')
 @cli.argument('-r', '--reference', type=normpath, arg_only=True, help='Specify the reference file to compare against')
 @cli.argument('-o', '--overwrite', arg_only=True, action='store_true', help='Overwrites the input file during migration.')
+@cli.argument('-d', '--delete', arg_only=True, action='store_true', help='If the file has no overrides, migration will delete the input file.')
 @cli.subcommand('Generates a migrated ChibiOS configuration file, as a result of comparing the input against a reference')
 def chibios_confmigrate(cli):
     """Generates a usable ChibiOS replacement configuration file, based on a fully-defined conf and a reference config.
@@ -131,6 +133,8 @@ def chibios_confmigrate(cli):
 
     if len(to_override) == 0:
         eprint('No overrides found! If there were no missing keys above, it should be safe to delete the input file.')
+        if cli.args.delete:
+            os.remove(cli.args.input)
     else:
         eprint('Overrides found:')
         for override in to_override:
