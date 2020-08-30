@@ -13,25 +13,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "bitc_led.h"
+#pragma once
 
-void set_bitc_LED(uint8_t mode) {
-    switch(mode) {
-        case LED_ON:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_HIGH);
-        break;
+#include "nibble_encoder.h"
+#include "via.h"
+#include "raw_hid.h"
+#include "dynamic_keymap.h"
+#include "tmk_core/common/eeprom.h"
 
-        case LED_DIM:
-            setPinInput(PIN_LED);
-        break;
+enum nibble_keyboard_value_id {
+  id_encoder_modes = 0x80,
+  id_unused_mode_1,
+  id_encoder_custom,
+  id_unused_mode_2
+};
 
-        case LED_OFF:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_LOW);
-        break;
+// Encoder Behavior
+extern uint8_t encoder_value,
+  encoder_mode,
+  enabled_encoder_modes;
 
-        default:
-        break;
-    }
-}
+void raw_hid_receive_kb(uint8_t *data, uint8_t length),
+  encoder_update_kb(uint8_t index, bool clockwise),
+  custom_config_load(void),
+  via_init_kb(void);

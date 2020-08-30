@@ -1,4 +1,20 @@
+/* Copyright 2020 Jay Greco
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include QMK_KEYBOARD_H
+#include "via_extras.h"
 
 #define _BASE     0
 #define _VIA1     1
@@ -69,9 +85,8 @@ void map_via_keycode(uint16_t * keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef VIA_ENABLE
-    map_via_keycode(&keycode);
-  #endif
+  map_via_keycode(&keycode);
+  // Send keystrokes to host keyboard, if connected (see readme)
   process_record_remote_kb(keycode, record);
   switch(keycode) {
     case PROG:
@@ -133,12 +148,13 @@ return true;
 }
 
 void matrix_init_user(void) {
+  // Initialize remote keyboard, if connected (see readme)
   matrix_init_remote_kb();
 }
 
 void matrix_scan_user(void) {
+  // Scan and parse keystrokes from remote keyboard, if connected (see readme)
   matrix_scan_remote_kb();
-
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 1000) {
       unregister_code(KC_LALT);

@@ -1,4 +1,5 @@
-/* Copyright 2018 Jack Humbert
+/* Copyright 2020 Jay Greco
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -40,6 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Send keystrokes to host keyboard, if connected (see readme)
   process_record_remote_kb(keycode, record);
   switch(keycode) {
     case KC_CUST: //custom macro
@@ -71,10 +73,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 return true;
 }
 
+// RGB config, for changing RGB settings on non-VIA firmwares
+void change_RGB(bool clockwise) {
+    bool shift = get_mods() & MOD_MASK_SHIFT;
+    bool alt = get_mods() & MOD_MASK_ALT;
+    bool ctrl = get_mods() & MOD_MASK_CTRL;
+
+    if (clockwise) {
+        if (alt) {
+            rgblight_increase_hue();
+        } else if (ctrl) {
+            rgblight_increase_val();
+        } else if (shift) {
+            rgblight_increase_sat();
+        } else {
+            rgblight_step();
+        }
+
+  } else {
+      if (alt) {
+            rgblight_decrease_hue();
+        } else if (ctrl) {
+            rgblight_decrease_val();
+        } else if (shift) {
+            rgblight_decrease_sat();
+        } else {
+            rgblight_step_reverse();
+        }
+    } 
+}
+
+void encoder_update_kb(uint8_t index, bool clockwise) {
+  if (layer_state_is(1)) {
+    //change RGB settings
+    change_RGB(clockwise);
+  }
+  else {
+    if (clockwise) {
+      tap_code(KC_VOLU);
+  } else {
+      tap_code(KC_VOLD);
+    }  
+  }
+}
+
 void matrix_init_user(void) {
+  // Initialize remote keyboard, if connected (see readme)
   matrix_init_remote_kb();
 }
 
 void matrix_scan_user(void) {
+  // Scan and parse keystrokes from remote keyboard, if connected (see readme)
   matrix_scan_remote_kb();
 }

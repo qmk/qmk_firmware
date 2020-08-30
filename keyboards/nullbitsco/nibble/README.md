@@ -10,6 +10,8 @@ A unique, tweakable 65% keyboard kit built by nullbits. [More info at nullbits.c
 
 Note: If you are seeing issues with MacOS and keyboard hangs after sleep, make sure `NO_USB_STARTUP_CHECK = yes` is set in your rules.mk.
 
+Adds experimental "Remote Keyboard" functionality, which forwards keystrokes from an external macropad, keyboard, or numpad over UART/TRRS, removing the need for an additional USB connection. 
+
 Make example for this keyboard (after setting up your build environment):
 
     make nullbitsco/nibble:default

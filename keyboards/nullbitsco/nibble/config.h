@@ -1,4 +1,4 @@
-/* Copyright 2018 Jack Humbert
+/* Copyright 2020 Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,11 @@
 
 #include "config_common.h"
 
-/* Used to set master for remote KB if VUSB detect doesn't work. */
-// #define KEYBOARD_MASTER
+/* Used to set host for remote KB if VUSB detect doesn't work. */
+// #define KEYBOARD_HOST // Force host mode
+// #define KEYBOARD_REMOTE // Force remote mode
+
+// Workaround for freezing after MacOS sleep
 #define NO_USB_STARTUP_CHECK
 
 /* USB Device descriptor parameter */
@@ -28,7 +31,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    nullbits
 #define PRODUCT         NIBBLE
-#define DESCRIPTION     QMK keyboard firmware
 
 /* key matrix size */
 #define MATRIX_ROWS 5
