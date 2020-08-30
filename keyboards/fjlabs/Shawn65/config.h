@@ -65,7 +65,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B0
 #define RGBLED_NUM 24
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_LAYER_BLINK
+/* #define RGBLIGHT_LAYER_BLINK*/
 
 /* Define less important options */
 #define USB_MAX_POWER_CONSUMPTION 500
