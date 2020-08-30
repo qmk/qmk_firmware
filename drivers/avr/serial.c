@@ -20,7 +20,7 @@
 
 #ifdef SOFT_SERIAL_PIN
 
-#    ifdef __AVR_ATmega32U4__
+#    if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__)
 // if using ATmega32U4 I2C, can not use PD0 and PD1 in soft serial.
 #        ifdef USE_AVR_I2C
 #            if SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1
@@ -52,7 +52,7 @@
 #                define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
 #                define SERIAL_PIN_INTERRUPT INT3_vect
 #            endif
-#        elif SOFT_SERIAL_PIN == E6
+#        elif defined(__AVR_ATmega32U4__) && SOFT_SERIAL_PIN == E6
 #            define EIMSK_BIT _BV(INT6)
 #            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
 #            define SERIAL_PIN_INTERRUPT INT6_vect
@@ -61,7 +61,7 @@
 #        endif
 
 #    else
-#        error serial.c now support ATmega32U4 only
+#        error serial.c now support ATmega32U4 and ATmega32U2 only
 #    endif
 
 #    define ALWAYS_INLINE __attribute__((always_inline))
