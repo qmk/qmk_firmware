@@ -17,11 +17,7 @@
 #pragma once
 
 // place overrides here
-#define MASTER_LEFT
-//#define MASTER_RIGHT
 #define PERMISSIVE_HOLD
-#define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 10
-#define RGBLED_SPLIT {5, 5}
-#define RGBLIGHT_SPLIT
+#define RGBLIGHT_ANIMATIONS
