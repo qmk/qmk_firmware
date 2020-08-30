@@ -7,7 +7,7 @@
  *   GPIO pads
  *   0 F7 Capslock LED
  */
-inline void shawn65_caps_led_on(void)      { setPinOutput(F7); writePinLow(F7); }
+inline void shawn65_caps_led_on(void)      { setPinOutput(F7); writePinHigh(F7); }
 
 inline void shawn65_caps_led_off(void)     { setPinInput(F7); }
 

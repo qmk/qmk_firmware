@@ -1,10 +1,12 @@
 # Microcontroller Options
 MCU = atmega32u4
-#F_CPU = 16000000 # Using an 8MHz crystal instead of 16MHz
-ARCH = AVR8
-F_USB = $(F_CPU)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+# Processor frequency.
+#     Overwrite the default processor frequency of
+#	  16MHz since these boards use an 8MHz  crystal in the
+#	  interest of reducing overall power consumption. No change
+#	  in overall performance is expected from this choice.
+F_CPU = 8000000 
 
 # Bootloader selection
 #   Teensy       halfkay
