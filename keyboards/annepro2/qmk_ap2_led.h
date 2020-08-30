@@ -9,6 +9,8 @@
 #define CMD_LED_PREV_PROFILE                0x7
 #define CMD_LED_GET_PROFILE                 0x8
 #define CMD_LED_GET_NUM_PROFILES            0x9
+#define CMD_LED_SET_MASK                    0xA
+#define CMD_LED_CLEAR_MASK                  0xB
 
 void annepro2LedDisable(void);
 void annepro2LedEnable(void);
@@ -19,3 +21,5 @@ uint8_t annepro2LedGetProfile(void);
 uint8_t annepro2LedGetNumProfiles(void);
 void annepro2LedNextProfile(void);
 void annepro2LedPrevProfile(void);
+void annepro2LedSetMask(uint8_t key);
+void annepro2LedClearMask(uint8_t key);

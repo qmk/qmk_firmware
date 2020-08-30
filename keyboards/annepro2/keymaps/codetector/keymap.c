@@ -9,6 +9,9 @@ enum anne_pro_layers {
   _FN_LAYER,
 };
 
+// This is ROW*MATRIX_COLS + COL
+#define CAPS_LOCATION (MATRIX_COLS * 2 + 0)
+
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
   * Layer _BASE_LAYER
@@ -130,4 +133,13 @@ void matrix_scan_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t layer) {
     return layer;
+}
+
+bool led_update_user(led_t leds) {
+  if (leds.caps_lock) {
+    annepro2LedSetMask(CAPS_LOCATION);
+  } else {
+    annepro2LedClearMask(CAPS_LOCATION);
+  }
+  return true;
 }
