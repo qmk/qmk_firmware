@@ -39,7 +39,7 @@ void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t n
 }
 
 void pre_encoder_mode_change(void) {
-	dprintf("Changing encoder mode.\n", encoder_mode);
+	dprintf("Changing encoder mode: %u\n", encoder_mode);
 }
 
 void post_encoder_mode_change(void) {
