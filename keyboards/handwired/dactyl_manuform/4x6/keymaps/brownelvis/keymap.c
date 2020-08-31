@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 
 
-#define _BASE 0
-#define _RAISE 1
-#define _LOWER 2
+enum layers {
+    _BASE,
+    _RAISE,
+    _LOWER,
+};
 
 // Fillers to make layering more clear
 
