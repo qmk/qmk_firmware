@@ -9,7 +9,6 @@ enum layers {
 
 // Fillers to make layering more clear
 
-#define ____ KC_TRNS
 
 #define SFT_ESC  SFT_T(KC_ESC)
 #define CTL_BSPC CTL_T(KC_BSPC)
