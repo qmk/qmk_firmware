@@ -167,7 +167,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RGB_MATRIX_DEC_VAL:
             rgb_matrix_decrease_val();
             return false;
-    #endif
 #endif
             default:
             break;
