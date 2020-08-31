@@ -7,7 +7,7 @@
 
 このページは最初に基本を紹介し、そして、QMK に習熟するために必要な全ての概念を理解するように導くことで、QMK の知識を構築するのに役立ちます。
 
-# 最初のトピック
+# 初級トピック
 
 他に何も読んでいない場合は、このセクションのドキュメントを読んでください。[QMK 初心者ガイド](ja/newbs.md)を読み終わると、基本的なキーマップを作成し、それをコンパイルし、キーボードに書き込みできるようになっているはずです。残りのドキュメントはこれらの基本的な知識を具体的に肉付けします。
 
@@ -32,9 +32,9 @@
    * [オーディオ](ja/feature_audio.md)
    * 電飾
       * [バックライト](ja/feature_backlight.md)
-      * [LED マトリクス](ja/feature_led_matrix.md)
+      * [LED マトリックス](ja/feature_led_matrix.md)
       * [RGB ライト](ja/feature_rgblight.md)
-      * [RGB マトリクス](ja/feature_rgb_matrix.md)
+      * [RGB マトリックス](ja/feature_rgb_matrix.md)
    * [タップホールド設定](ja/tap_hold.md)
 * **キーマップについてさらに学ぶ**
    * [キーマップ](ja/keymap.md)
