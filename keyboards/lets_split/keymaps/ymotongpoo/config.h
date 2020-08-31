@@ -30,7 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 // #define USE_I2C
 
+#define RGBLED_NUM 12
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_ANIMATIONS
+
 /* Select hand configuration */
 // #define MASTER_LEFT
+#undef MASTER_LEFT
 #define MASTER_RIGHT
-// #define EE_HANDS
