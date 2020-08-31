@@ -119,7 +119,7 @@
 #define DV_CIRC S(DV_GRV)  // ^ (dead)
 #define DV_ASTR S(DV_PLUS) // *
 // Row 3
-#define DV_DIAE S(DV_GRV)  // ¨ (dead)
+#define DV_DIAE S(ES_ACUT)  // ¨ (dead)
 // Row 4
 #define DV_RABK S(DV_LABK) // >
 #define DV_UNDS S(DV_MINS) // _
