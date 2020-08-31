@@ -145,8 +145,7 @@ led_config_t g_led_config = {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
-#if USE_DEFAULT_MATRIX_KEYCODES
-    #ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_DISABLE_KEYCODES)
         case RGB_MATRIX_TOGGLE: // toggle rgb matrix
             rgb_matrix_toggle();
             return false;
@@ -171,7 +170,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RGB_MATRIX_DEC_VAL:
             rgb_matrix_decrease_val();
             return false;
-    #endif
 #endif
         default:
             break;
