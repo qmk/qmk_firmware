@@ -16,12 +16,8 @@
 #include QMK_KEYBOARD_H
 #include "./common/oled_helper.h"
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 enum layer_number {
-  _BASE = 0,
+  _BASE,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -206,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (keymap_config.swap_lalt_lgui == false) {
           register_code(KC_LANG2);
         } else {
-          SEND_STRING(SS_LALT("`"));
+          register_code16(A(KC_GRV));
         }
       } else {
         unregister_code(KC_LANG2);
