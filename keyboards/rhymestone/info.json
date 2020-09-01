@@ -5,7 +5,7 @@
     "width": 11,
     "height": 4,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_4x10": {
             "layout": [
                 {
                     "label": "Q",
