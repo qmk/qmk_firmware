@@ -6,7 +6,7 @@ An Alice-compatible PCB with hotswap, and pushbutton rotary encoder socket place
 
 * Keyboard Maintainer: [mujimanic](https://github.com/mujimanic)
 * Hardware Supported: Any Alice-layout case.
-* Hardware Availability: Retail
+* Hardware Availability: [sneakbox.design](https://sneakbox.design/products/sneakbox-alice-hotswap-pcbs)
 
 Make example for this keyboard (after setting up your build environment):
 
