@@ -52,7 +52,7 @@
 #                define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
 #                define SERIAL_PIN_INTERRUPT INT3_vect
 #            endif
-#        elif defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) && SOFT_SERIAL_PIN == E6
+#        elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) && SOFT_SERIAL_PIN == E6
 #            define EIMSK_BIT _BV(INT6)
 #            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
 #            define SERIAL_PIN_INTERRUPT INT6_vect
