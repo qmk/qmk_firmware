@@ -56,39 +56,40 @@ void keyboard_post_init_user(void) {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
 /*
- * ,-----------------------,
- * |  E1 |  E2 |  E3 |  E4 |
- * |-----+-----+-----+-----|
- * |     |     |     |  E3 |
- * |-----+-----+-----+-----|
- * |     |     |     |  E2 |
- * |-----+-----+-----+-----|
- * |     |     |     |  E1 |
- * `-----------------------'
+Rev1.1                      Rev1
+,-----------------------,   ,-----------------------,
+|  E1 |  E2 |  E3 |  E4 |   |  E1 |     |     |  E2 |
+|-----+-----+-----+-----|   |-----+-----+-----+-----|
+|     |     |     |  E3 |   |     |     |     |     |
+|-----+-----+-----+-----|   |-----+-----+-----+-----|
+|     |     |     |  E2 |   |     |     |     |     |
+|-----+-----+-----+-----|   |-----+-----+-----+-----|
+|     |     |     |  E1 |   |     |     |     |     |
+`-----------------------'   `-----------------------'
  */
 
-  // First encoder
+  // First encoder (E1)
   if (index == 0) {
     if (clockwise) {
       tap_code(KC_F21);
     } else {
       tap_code(KC_F22);
     }
-  // Second encoder
+  // Second encoder (E2)
   } else if (index == 1) {
     if (clockwise) {
       tap_code(KC_F23);
     } else {
       tap_code(KC_F24);
     }
-  // Third encoder
+  // Third encoder (E3)
   } else if (index == 2) {
     if (clockwise) {
       tap_code(KC_RGHT);
     } else {
       tap_code(KC_LEFT);
     }
-  // Forth encoder
+  // Forth encoder (E4)
   } else if (index == 3) {
     if (clockwise) {
       tap_code(KC_DOWN);
