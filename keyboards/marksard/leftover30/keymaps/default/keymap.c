@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
 enum layer_number {
     _BASE,
     _LOWER,
@@ -109,8 +108,6 @@ uint16_t get_tapping_term(uint16_t keycode) {
   }
 }
 
-int RGB_current_mode;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   bool result = false;
@@ -127,19 +124,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 #ifdef RGBLIGHT_ENABLE
-    //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
-    case RGB_MOD:
-        if (record->event.pressed) {
-        rgblight_mode_noeeprom(RGB_current_mode);
-        rgblight_step();
-        RGB_current_mode = rgblight_get_mode();
-        }
-    break;
     case RGBRST:
         if (record->event.pressed) {
-        eeconfig_update_rgblight_default();
-        rgblight_enable();
-        RGB_current_mode = rgblight_get_mode();
+          eeconfig_update_rgblight_default();
+          rgblight_enable();
         }
     break;
 #endif
@@ -163,30 +151,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           }
         }
         else if (IS_LAYER_ON(_LOWER)) {
-          if (clockwise) {
-            tap_code16(LCTL(KC_Y));
-          } else {
-            tap_code16(LCTL(KC_Z));
-          }
+          tap_code16((clockwise == true) ? LCTL(KC_Y) : LCTL(KC_Z));
         }
         else if (IS_LAYER_ON(_RAISE)) {
-          if (clockwise) {
-            tap_code16(S(KC_DOWN));
-          } else {
-            tap_code16(S(KC_UP));
-          }
+          tap_code16((clockwise == true) ? S(KC_DOWN) : S(KC_UP));
         }
         else {
           tap_code((clockwise == true) ? KC_WH_D : KC_WH_U);
         }
 
     }
-}
-
-void keyboard_post_init_user(void) {
-  #ifdef RGBLIGHT_ENABLE
-    RGB_current_mode = rgblight_get_mode();
-  #endif
 }
 
 // for exsample customize of LED inducator
