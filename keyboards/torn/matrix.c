@@ -22,7 +22,7 @@
 #include "print.h"
 
 #define SPLIT_MATRIX_COLS (MATRIX_COLS / 2)
-#define SECONDARY_ROW_OFFSET (MATRIX_ROWS / 2);
+#define SECONDARY_ROW_OFFSET (MATRIX_ROWS / 2)
 
 static const pin_t    row_pins[MATRIX_ROWS]                 = MATRIX_ROW_PINS;
 static const pin_t    col_pins[SPLIT_MATRIX_COLS]           = MATRIX_COL_PINS;

@@ -35,8 +35,6 @@
 }
 // clang-format on
 
-bool torn_oled_process_record_kb(uint16_t keycode, keyrecord_t *record);
-
 void torn_set_led(uint8_t led, bool on);
 
 void secondary_encoder_read(void);

@@ -26,7 +26,6 @@
 #define DEVICE_VER 0x0000
 #define MANUFACTURER richard.titmuss
 #define PRODUCT Torn
-#define DESCRIPTION A split keyboard with through hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 4
