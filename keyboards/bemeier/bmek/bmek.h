@@ -65,6 +65,3 @@ enum customKeycodes {
     { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, K3E }, \
     { XXX, K41, K42, K43, XXX, K45, XXX, XXX, K48, XXX, K4A, K4B, XXX, XXX, XXX }  \
 }
-
-#define KEYMAP LAYOUT_all_67
-#define LAYOUT LAYOUT_all_67
