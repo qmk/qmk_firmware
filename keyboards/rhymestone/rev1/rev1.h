@@ -87,5 +87,3 @@
     { R30, R31, R32, R33, R34 }, \
   }
 #endif
-
-#define LAYOUT LAYOUT_ortho_4x10
