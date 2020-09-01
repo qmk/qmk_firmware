@@ -61,7 +61,7 @@
 #        endif
 
 #    else
-#        error serial.c now support ATmega32U4 and ATmega32U2 only
+#        error serial.c currently only supports ATmegaxxU2 and ATmegaxxU4
 #    endif
 
 #    define ALWAYS_INLINE __attribute__((always_inline))
