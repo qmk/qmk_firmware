@@ -28,17 +28,46 @@ void keyboard_post_init_user(void) {
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {         // First encoder - top left
+/*
+Rev1.1                      Rev1
+,-----------------------,   ,-----------------------,
+|  E1 |  E2 |  E3 |  E4 |   |  E1 |     |     |  E2 |
+|-----+-----+-----+-----|   |-----+-----+-----+-----|
+|     |     |     |  E3 |   |     |     |     |     |
+|-----+-----+-----+-----|   |-----+-----+-----+-----|
+|     |     |     |  E2 |   |     |     |     |     |
+|-----+-----+-----+-----|   |-----+-----+-----+-----|
+|     |     |     |  E1 |   |     |     |     |     |
+`-----------------------'   `-----------------------'
+ */
+
+  // First encoder (E1)
+  if (index == 0) {
     if (clockwise) {
-      tap_code(KC_RIGHT);
+      tap_code(KC_F21);
+    } else {
+      tap_code(KC_F22);
+    }
+  // Second encoder (E2)
+  } else if (index == 1) {
+    if (clockwise) {
+      tap_code(KC_F23);
+    } else {
+      tap_code(KC_F24);
+    }
+  // Third encoder (E3)
+  } else if (index == 2) {
+    if (clockwise) {
+      tap_code(KC_RGHT);
     } else {
       tap_code(KC_LEFT);
     }
-  } else if (index == 1) {  // Second encoder - top right
+  // Forth encoder (E4)
+  } else if (index == 3) {
     if (clockwise) {
-      tap_code(KC_UP);
-    } else {
       tap_code(KC_DOWN);
+    } else {
+      tap_code(KC_UP);
     }
   }
 }
