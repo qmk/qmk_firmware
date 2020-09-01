@@ -60,7 +60,7 @@ int COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
 #define COMB BLANK
 #define SUBS A_ACTI
 #define TOGG A_TOGG
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
 #include "combos.def"
     }

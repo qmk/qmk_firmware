@@ -142,6 +142,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
 #ifdef GRAVE_ESC_ENABLE
 #    include "process_grave_esc.h"
 #endif
