@@ -114,15 +114,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KANJI:
       if (record->event.pressed) {
-        if (keymap_config.swap_lalt_lgui == false) {
-          register_code(KC_LANG2);
-        } else {
-          register_code16(A(KC_GRV));
-        }
+          register_code16(keymap_config.swap_lalt_lgui ? A(KC_GRV) : KC_LANG2);
       } else {
-        unregister_code(KC_LANG2);
+          unregister_code16(keymap_config.swap_lalt_lgui ? A(KC_GRV) : KC_LANG2);
       }
-      break;
+    break;
 #ifdef RGBLIGHT_ENABLE
     case RGBRST:
         if (record->event.pressed) {
@@ -144,19 +140,14 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (IS_LAYER_ON(_ADJUST)) {
           if (clockwise) {
               rgblight_increase_hue_noeeprom();
-          }
-          else
-          {
+          } else {
               rgblight_decrease_hue_noeeprom();
           }
-        }
-        else if (IS_LAYER_ON(_LOWER)) {
+        } else if (IS_LAYER_ON(_LOWER)) {
           tap_code16((clockwise == true) ? LCTL(KC_Y) : LCTL(KC_Z));
-        }
-        else if (IS_LAYER_ON(_RAISE)) {
+        } else if (IS_LAYER_ON(_RAISE)) {
           tap_code16((clockwise == true) ? S(KC_DOWN) : S(KC_UP));
-        }
-        else {
+        } else {
           tap_code((clockwise == true) ? KC_WH_D : KC_WH_U);
         }
 
