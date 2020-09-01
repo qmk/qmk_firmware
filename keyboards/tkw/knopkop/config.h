@@ -18,11 +18,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5A56
-#define PRODUCT_ID      0x0048
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tkw
-#define PRODUCT         knopkop 65% with RGB and dual encoders
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x7811
+#define DEVICE_VER 0x0002
+#define MANUFACTURER TKW
+#define PRODUCT Stoutgat 65% with RGB and dual encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -38,20 +38,23 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-// #define MATRIX_COL_PINS { B15, B10, B0, A5, A4, A3 }
-// #define MATRIX_ROW_PINS { A10, A15, B3, B4 }
-#define MATRIX_COL_PINS { B13,B12,A8,A4,A15,B3,B4,B5,B6,B7,B8,B9,C14,C15,A0 }
-#define MATRIX_ROW_PINS { B14,B15,A3,A2,A1 }
+//working pins
+// #define MATRIX_COL_PINS { B13,B12,A8,A4,A15,B3,B4,B5,B6,B7,B8,B9,C14,C15,A0 }
+// #define MATRIX_ROW_PINS { B14,B15,A3,A2,A1 }
+
+#define MATRIX_COL_PINS { B0, A7, A6, A5, A4, A3, A1, A0, C15, C14, C13, A15, B3, B4, B5}
+#define MATRIX_ROW_PINS { B6, A2, B7, B9, B8 }
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_IO_DELAY 5
+#define TAP_CODE_DELAY 10
 
-#define ENCODERS_PAD_A { A5 ,A7}
-#define ENCODERS_PAD_B { A6,B0 }
+#define ENCODERS_PAD_A { B14, B12}
+#define ENCODERS_PAD_B { B15, B13 }
 
 #define RGB_DI_PIN B1
-#define RGBLED_NUM 48
+#define RGBLED_NUM 13
 #define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_ANIMATIONS
 
