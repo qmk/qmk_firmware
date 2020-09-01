@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ), [1] = LAYOUT_all_67(
 /* Function Layer 1: Nav
 ┌─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│RESET│ │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │    │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │ INS │ DEL │
+│ RST │ │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │    │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │ INS │ DEL │
 ├─────┤ ├─────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┘  ┌─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴─────┤
 │     │ │       │ END │  ^  │HOME │PGUP │     │      │     │     │     │     │ |>  │ <<  │ >>  │       │
 ├─────┤ ├───────┴┬────┴┬────┴┬────┴┬────┴┬────┴┐     └─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴───────┤
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   │     │      │                │     │                │      │     │
                   └─────┴──────┴────────────────┘     └────────────────┴──────┴─────┘
 */
-  BM_RST, _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_INS,  KC_DEL,
+ RESET,   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_INS,  KC_DEL,
  _______, _______,    KC_END,   KC_UP, KC_HOME, KC_PGUP, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY, KC_MPRV, KC_MNXT,  _______,
  _______, _______,    KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX,          KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_VOLD, KC_VOLU,        _______,
  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, TG(4), XXXXXXX, XXXXXXX, TG(2), XXXXXXX, XXXXXXX, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_RGHT)), KC_MUTE, _______,  _______,
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ), [4] = LAYOUT_all_67(
 /* Function Layer 4: Firmware Config
 ┌─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│RESET│ │     │     │     │     │     │     │     │    │     │     │     │     │     │     │     │     │
+│ RST │ │     │     │     │     │     │     │     │    │     │     │     │     │     │     │     │     │
 ├─────┤ ├─────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┘  ┌─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴───┬─┴─────┤
 │     │ │       │ RGB │RGB+ │RGB- │HUE+ │HUE- │      │     │     │     │     │     │     │     │       │
 ├─────┤ ├───────┴┬────┴┬────┴┬────┴┬────┴┬────┴┐     └─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴───────┤
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   │     │      │                │     │                │      │     │
                   └─────┴──────┴────────────────┘     └────────────────┴──────┴─────┘
 */
- BM_RST,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+ RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
  XXXXXXX, XXXXXXX,  RGB_TOG, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,
  XXXXXXX, XXXXXXX,    XXXXXXX, RGB_SPI, RGB_SPD, RGB_SAI, RGB_SAD,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX,
  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   TG(4), RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______,

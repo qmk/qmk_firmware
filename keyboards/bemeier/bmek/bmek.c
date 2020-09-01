@@ -15,16 +15,6 @@
  */
 #include "bmek.h"
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case BM_RST:  // RESET KEYBOARD
-            if (record->event.pressed) break;
-            for (int i = 0; i < RGBLED_NUM; i++) {
-                rgblight_sethsv_at(255, 255, 255, i);
-            }
-            reset_keyboard();
-            break;
-    }
-
-    return process_record_user(keycode, record);
+void shutdown_user() {
+    rgblight_setrgb(255, 0, 0);
 }

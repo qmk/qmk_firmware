@@ -29,11 +29,6 @@
     #include "rev3.h"
 #endif
 
-enum customKeycodes {
-    BM_RST = 0x5F80, //using USER00 for via compatibility actually breaks stuff in via
-    NEW_SAFE_RANGE
-};
-
 #define XXX KC_NO  // makes the switch matrix easier to read
 
 // This layout is supported by all revisions
