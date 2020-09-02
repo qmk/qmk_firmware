@@ -230,7 +230,8 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_SCALING_0);
 
-        for (int i = 0; i < 180; ++i) {
+        // CS1_SW1 to CS30_SW6 are on PG2
+        for (int i = CS1_SW1; i <= CS30_SW6; ++i) {
             IS31FL3741_write_register(addr, i, g_scaling_registers[0][i]);
         }
 
@@ -238,8 +239,9 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
         IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_SCALING_1);
 
-        for (int i = 0; i < 171; ++i) {
-            IS31FL3741_write_register(addr, i, g_scaling_registers[0][180 + i]);
+        // CS1_SW7 to CS39_SW9 are on PG3
+        for (int i = CS1_SW7; i <= CS39_SW9; ++i) {
+            IS31FL3741_write_register(addr, i - CS1_SW7, g_scaling_registers[0][i]);
         }
 
         g_scaling_registers_update_required[index] = false;
