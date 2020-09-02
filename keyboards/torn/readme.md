@@ -7,7 +7,7 @@ The split keyboard kit made by through hole components only.
 The design has been inspired by the Corne, Plaid and Discipline keyboards.
 
 * Keyboard Maintainer: [rtitmuss](https://github.com/rtitmuss)
-* Hardware Supported: TORN, atmega32p
+* Hardware Supported: TORN, atmega328p
 * Hardware Availability: [GitHub](https://github.com/rtitmuss/torn)
 
 Make example for this keyboard (after setting up your build environment):
