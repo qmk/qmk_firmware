@@ -20,7 +20,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM ab_combo[] = { KC_F1, KC_F3, COMBO_END };
-const uint16_t PROGMEM ja_combo[] = { KC_F2, KC_F3, COMBO_END };
+const uint16_t PROGMEM ja_combo[] = { KC_F2, KC_F4, COMBO_END };
 const uint16_t PROGMEM jr_combo[] = { KC_F1, KC_F2, COMBO_END };
 const uint16_t PROGMEM rb_combo[] = { KC_F3, KC_F4, COMBO_END };
 const uint16_t PROGMEM wombo_combo[] = { KC_F1, KC_F4, KC_F3, KC_F2, COMBO_END };
