@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT( \
     KC_DELT, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP, MC_SLPD, \
     _______, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_LEFT, KC_RGHT,          KC_MPLY, \
-    SF_CAPS,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, KC_VOLD, KC_END,  KC_DOWN, KC_PGDN, _______, \
+    SF_CAPS,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, _______, KC_END,  KC_DOWN, KC_PGDN, _______, \
              _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
 ),
 /* Raise
@@ -47,11 +47,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │││││    │    │                        │    │││││
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
-
+/*
 [_RAISE] = LAYOUT( \
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_SCLN,          KC_QUOT, \
     _______,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LBRC, KC_RBRC, BSL_LWR, \
+             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
+), */
+/* Raise
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+ * │~ `│ F1│ F2│ F3│ F4│{ [│} ]│& 7│* 8│( 9│) 0│   │
+ * ├───┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
+ * │    │ F5│ F6│ F7│ F8│_ -│ + │$ 4│% 5│^ 6│   " '│
+ * ├────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬────┤
+ * │      │ F9│F10│F11│F12│+ =│! 1│@ 2│# 3│: ;│|\Lw│
+ * ├┬┬┬┬──┴─┬─┴──┬┴───┴───┴───┴───┴───┴───┼───┴┬┬┬┬┤
+ * │││││    │    │                        │    │││││
+ * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
+ */
+[_RAISE] = LAYOUT( \
+    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_LBRC, KC_RBRC, KC_7,    KC_8,    KC_9,    KC_0,    _______, \
+    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_MINS, KC_PLUS, KC_4,    KC_5,    KC_6,             KC_QUOT, \
+    _______,          KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_SCLN, BSL_LWR, \
              _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
 ),
 /* Adjust/Macro
