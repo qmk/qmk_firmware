@@ -5,7 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [
                 { "x":0, "y":0 },
                 { "x":1, "y":0 },
@@ -76,7 +76,7 @@
                 { "x":13.75, "y":4, "w":1.25 }
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 { "x":0, "y":0 },
                 { "x":1, "y":0 },
@@ -145,7 +145,7 @@
                 { "x":13.75, "y":4, "w":1.25 }
             ]
         },
-        "LAYOUT_tsangan_hhkb": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 { "x":0, "y":0 },
                 { "x":1, "y":0 },
