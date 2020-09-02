@@ -1341,57 +1341,57 @@ void update_reactive_led_map(int index, bool pressed) {
 }
 
 typedef struct PACKED {
-    HSV     hsv;
+    HSV     base_hsv;
+    HSV     displayed_hsv;
     uint8_t life;
 } ReactiveState;
 
 static ReactiveState led_reactive_state[RGBLED_NUM];
 
 void rgblight_effect_reactive(animation_status_t *anim) {
-    bool random_color = anim->delta / 3;
-    bool restart      = anim->pos == 0;
-    anim->pos         = 1;
+    bool similar_color = (anim->delta / 3) && (anim->delta < 7);
+    bool random_color  = anim->delta / 6;
+    bool restart       = anim->pos == 0;
+    anim->pos          = 1;
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
-        ReactiveState *t = &(led_reactive_state[i]);
-        HSV *          c = &(t->hsv);
-        if (restart) {
-            // Restart
-            t->life  = 0;
-            t->hsv.v = 0;
-        } else if (t->life) {
-            // This LED is already on
-            if (reactive_led_map[i]) {
-                // and it stays on
-            } else {
-                // dimming as no key above it is pressed
-                t->life--;
-                uint8_t on = t->life;
-                c->v       = (uint16_t)rgblight_config.val * on / RGBLIGHT_EFFECT_REACTIVE_LIFE;
-                if (!random_color) {
-                    c->h = rgblight_config.hue;
-                    c->s = rgblight_config.sat;
-                }
-            }
+        ReactiveState *t  = &(led_reactive_state[i]);
+        HSV *          bc = &(t->base_hsv);
+        HSV *          dc = &(t->displayed_hsv);
+        if (restart || rgblight_config.sat != bc->s || rgblight_config.hue != bc->h) {
+            // Restart or config update
+            t->life = 0;
         }
         if (reactive_led_map[i]) {
-            // This LED is off, but should light up now as the keys above it are pressed
-            if (random_color) {
-                if (t->life) {
-                    // keep the existing random color
+            // This LED should light up now as the keys above it are pressed
+            if (!t->life) {
+                // This LED is currently OFF, so we can assign a color to it
+                if (random_color) {
+                    dc->h = rand() % 0xFF;
+                    dc->s = (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2);
+                } else if (similar_color) {
+                    dc->h = rgblight_config.hue + ((rand() % RGBLIGHT_EFFECT_REACTIVE_FLUCTUATION_BITS) * (rand() & 1));
+                    dc->s = rgblight_config.sat;
                 } else {
-                    c->h = rand() % 0xFF;
-                    c->s = (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2);
+                    dc->h = rgblight_config.hue;
+                    dc->s = rgblight_config.sat;
                 }
-            } else {
-                c->h = rgblight_config.hue;
-                c->s = rgblight_config.sat;
             }
-            c->v    = rgblight_config.val;
+            // Saving the base config to detect update
+            bc->h = rgblight_config.hue;
+            bc->s = rgblight_config.sat;
+            // This LED is just activated, so it should have full life
+            dc->v   = rgblight_config.val;
             t->life = RGBLIGHT_EFFECT_REACTIVE_LIFE;
+        } else if (t->life) {
+            // This LED is already on, but it needs to be dimmed as it's no longer activated
+            t->life--;
+            uint8_t on = t->life;
+            dc->v      = (uint16_t)rgblight_config.val * on / RGBLIGHT_EFFECT_REACTIVE_LIFE;
         }
+
         LED_TYPE *ledp = led + i + rgblight_ranges.effect_start_pos;
-        sethsv(c->h, c->s, c->v, ledp);
+        sethsv(dc->h, dc->s, dc->v, ledp);
     }
 
     rgblight_set();

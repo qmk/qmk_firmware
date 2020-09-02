@@ -66,11 +66,14 @@
 |       41        | RGBLIGHT_MODE_TWINKLE + 4         |
 |       42        | RGBLIGHT_MODE_TWINKLE + 5         |
 |       42        | RGBLIGHT_MODE_REACTIVE            |
-|       42        | RGBLIGHT_MODE_REACTIVE + 1        |
-|       42        | RGBLIGHT_MODE_REACTIVE + 2        |
-|       42        | RGBLIGHT_MODE_REACTIVE + 3        |
-|       42        | RGBLIGHT_MODE_REACTIVE + 4        |
-|       42        | RGBLIGHT_MODE_REACTIVE + 5        |
+|       43        | RGBLIGHT_MODE_REACTIVE + 1        |
+|       44        | RGBLIGHT_MODE_REACTIVE + 2        |
+|       45        | RGBLIGHT_MODE_REACTIVE + 3        |
+|       46        | RGBLIGHT_MODE_REACTIVE + 4        |
+|       47        | RGBLIGHT_MODE_REACTIVE + 5        |
+|       48        | RGBLIGHT_MODE_REACTIVE + 6        |
+|       49        | RGBLIGHT_MODE_REACTIVE + 7        |
+|       50        | RGBLIGHT_MODE_REACTIVE + 8        |
 |-----------------|-----------------------------------|
  *****/
 
@@ -167,6 +170,10 @@ enum RGBLIGHT_EFFECT_MODE {
 
 #    ifndef RGBLIGHT_EFFECT_REACTIVE_LIFE
 #        define RGBLIGHT_EFFECT_REACTIVE_LIFE 75
+#    endif
+
+#    ifndef RGBLIGHT_EFFECT_REACTIVE_FLUCTUATION_BITS
+#        define RGBLIGHT_EFFECT_REACTIVE_FLUCTUATION_BITS 0b1100
 #    endif
 
 #    ifndef RGBLIGHT_HUE_STEP
