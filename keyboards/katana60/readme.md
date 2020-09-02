@@ -5,7 +5,7 @@
 A 60% keyboard with a symmetrical staggered layout, sold by CandyKeys.com.
 
 Keyboard Maintainer: [Baris Tosun](https://github.com/rominronin)  
-Hardware Supported: Katana60 PCB v1, Teensy 2.0  
+Hardware Supported: Katana60 PCB v1, Katana60 PCB v2, Teensy 2.0  
 Hardware Availability: [CandyKeys.com](https://CandyKeys.com)
 
 Make example for this keyboard (after setting up your build environment):
