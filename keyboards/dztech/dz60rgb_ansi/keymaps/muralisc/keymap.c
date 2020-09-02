@@ -79,20 +79,20 @@ void highlight_layer1(void){
     // Reset
     rgb_matrix_set_color(14, 0x99, 0x99, 0xFF);
     // Pause + Slck + PrScr
-    rgb_matrix_set_color(15, 0xFF, 0x99, 0x99);
-    rgb_matrix_set_color(16, 0xFF, 0x99, 0x99);
-    rgb_matrix_set_color(17, 0xFF, 0x99, 0x99);
+    rgb_matrix_set_color(15, 0xFF, 0x99, 0x00);
+    rgb_matrix_set_color(16, 0xFF, 0x99, 0x00);
+    rgb_matrix_set_color(17, 0xFF, 0x99, 0x00);
     // Pgup, Home
-    rgb_matrix_set_color(29, 0x00, 0x99, 0x00);
-    rgb_matrix_set_color(30, 0x00, 0x99, 0x00);
+    rgb_matrix_set_color(39, 0x00, 0x99, 0x00);
+    rgb_matrix_set_color(24, 0x00, 0x99, 0x00);
     // hjkl
     rgb_matrix_set_color(31, 0x00, 0x00, 0xFF);
     rgb_matrix_set_color(32, 0x00, 0x00, 0xFF);
     rgb_matrix_set_color(33, 0x00, 0x00, 0xFF);
     rgb_matrix_set_color(34, 0x00, 0x00, 0xFF);
     // PgDwn, End
-    rgb_matrix_set_color(42, 0x00, 0x99, 0x00);
-    rgb_matrix_set_color(43, 0x00, 0x99, 0x00);
+    rgb_matrix_set_color(36, 0x00, 0x99, 0x00);
+    rgb_matrix_set_color(46, 0x00, 0x99, 0x00);
 }
 
 void highlight_layer2(void){
@@ -114,6 +114,21 @@ void highlight_layer2(void){
     rgb_matrix_set_color(32, 0xFF, 0x99, 0x00);
 }
 
+void highlight_layer3(void) {
+    int ins_key_block[9] = {25, 24, 23, 38, 37, 36, 50, 49, 48};
+    for(int i  = 0; i < 9; i++) {
+      rgb_matrix_set_color(ins_key_block[i], 0x00, 0x99, 0x00);
+    }
+    int num_key_block[9] = {20, 19, 18, 33, 32, 31, 45, 44, 43};
+    for(int i  = 0; i < 9; i++) {
+      rgb_matrix_set_color(num_key_block[i], 0x00, 0x09, 0x09);
+    }
+    int easy_arrow_keys[4] = {41, 55, 54, 53};
+    for(int i  = 0; i < 4; i++) {
+      rgb_matrix_set_color(easy_arrow_keys[i], 0x09, 0x00, 0x09);
+    }
+}
+
 void rgb_matrix_indicators_user(void) {
 	  uint8_t this_led = host_keyboard_leds();
       if (!g_suspend_state) {
@@ -123,7 +138,9 @@ void rgb_matrix_indicators_user(void) {
           case 2:
             highlight_layer2(); break;
           case 3:
-            rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+            rgb_matrix_layer_helper(0x03, 0x03, 0x00);
+            highlight_layer3();
+            break;
           default:
             break;
         }
