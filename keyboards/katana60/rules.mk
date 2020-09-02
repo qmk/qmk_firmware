@@ -1,6 +1,8 @@
 # MCU name
 MCU = atmega32u4
 
+DEFAULT_FOLDER = katana60/rev2
+
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
