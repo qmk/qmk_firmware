@@ -12,10 +12,6 @@
     #include "6x6.h"
 #elif KEYBOARD_handwired_dactyl_manuform_dmote_62key
     #include "62key.h"
-#elif KEYBOARD_handwired_dactyl_manuform_tightyl
-    #include "tightyl.h"
-#elif KEYBOARD_handwired_dactyl_manuform_5x6b
-    #include "5x6b.h"
 #endif
 
 #include "quantum.h"
