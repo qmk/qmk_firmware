@@ -52,6 +52,7 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP: // Ctl + Alt + Del to unlock workstation
+    tap_code16(KC_CAD);
     #if defined(HAS_INDICATORS)
       led_user = 0;
       writePin(INDICATOR_PIN_0, !led_user);
@@ -60,11 +61,11 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
       wait_ms(200);
       writePin(INDICATOR_PIN_2, !led_user);
     #endif      
-      tap_code16(KC_CAD);
       break;
     case SINGLE_HOLD:
       break;
     case DOUBLE_TAP: //Lock workstation
+    tap_code16(KC_LOCK);
     #if defined(HAS_INDICATORS)
       led_user = 1;
       writePin(INDICATOR_PIN_2, !led_user);
@@ -73,7 +74,6 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
       wait_ms(200);
       writePin(INDICATOR_PIN_0, !led_user);
     #endif    
-      tap_code16(KC_LOCK);
       break;
   }
 }
