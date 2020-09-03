@@ -124,7 +124,7 @@
 #define ______________________LOWER_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
 
-/* MIT Layout (Mouse)
+/* Mouse Layer
  *
  *  The mouse layer adds keys to use the keyboard like a mouse.
  *
@@ -149,7 +149,7 @@
 #define ______________________MOUSE_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ______________________MOUSE_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
-/* MIT Layout (Git)
+/* Git Layer
  *
  *  The macro layer that has common git commands.
  *
@@ -175,7 +175,7 @@
 #define _______________________GIT_R4______________________  _______,   _______,        _______,      _______,    XXXXXXX,   XXXXXXX
 
 
-/* MIT Layout (Convenience)
+/* Convenience Layer
  *
  *  The Convenience layer adds miscellaneous chords to the keyboard.
  *
