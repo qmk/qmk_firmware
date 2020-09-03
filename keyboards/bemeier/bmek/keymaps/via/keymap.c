@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-   [0] = LAYOUT_all_67(
+   [0] = LAYOUT_all(
 /* Default layer
 ┌─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │ F13 │ │ ESC │  1  │  2  │  3  │  4  │  5  │  6  │    │  7  │  8  │  9  │  0  │  -  │  =  │  \  │  `  │
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F15, KC_LCTL,       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,         KC_ENT,
   KC_F16, KC_LSFT,  KC_GRV,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,    MO(1),
                      KC_LGUI, KC_LALT,                KC_SPC,           LT(1, KC_SPC),          KC_RALT, KC_RCTL
-), [1] = LAYOUT_all_67(
+), [1] = LAYOUT_all(
 /* Function Layer 1: Nav
 ┌─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │ RST │ │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │    │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │ INS │ DEL │
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, _______,    KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX,          KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_VOLD, KC_VOLU,        _______,
  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, TG(4), XXXXXXX, XXXXXXX, TG(2), XXXXXXX, XXXXXXX, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_RGHT)), KC_MUTE, _______,  _______,
                      _______, _______,               _______,                 _______,          _______, _______
-), [2] = LAYOUT_all_67(
+), [2] = LAYOUT_all(
 /* Function Layer 2: Numpad example
 ┌─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │     │ │     │     │     │     │     │     │     │    │  7  │  8  │  9  │  0  │  -  │  +  │     │     │
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, _______,    _______, _______, _______, _______, _______,          KC_KP_1, KC_KP_2, KC_KP_3, XXXXXXX, _______, _______,        KC_PENT,
  _______, _______, _______, _______, _______, _______, _______, _______,   TG(2), KC_KP_0, KC_PDOT, _______, _______, _______, _______,  _______,
                      _______, _______,               _______,                 _______,          _______, _______
-), [3] = LAYOUT_all_67(
+), [3] = LAYOUT_all(
 /* Function Layer 3
 ┌─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐    ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │     │ │     │     │     │     │     │     │     │    │     │     │     │     │     │     │     │     │
