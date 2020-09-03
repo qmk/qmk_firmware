@@ -23,7 +23,7 @@
 #include <stdbool.h>
 
 typedef struct is31_led {
-    uint8_t driver : 2;
+    uint8_t  driver : 2;
     uint16_t r;
     uint16_t g;
     uint16_t b;
@@ -51,15 +51,15 @@ void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t
 
 void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
 
-#define CS1_SW1  0x00
-#define CS2_SW1  0x01
-#define CS3_SW1  0x02
-#define CS4_SW1  0x03
-#define CS5_SW1  0x04
-#define CS6_SW1  0x05
-#define CS7_SW1  0x06
-#define CS8_SW1  0x07
-#define CS9_SW1  0x08
+#define CS1_SW1 0x00
+#define CS2_SW1 0x01
+#define CS3_SW1 0x02
+#define CS4_SW1 0x03
+#define CS5_SW1 0x04
+#define CS6_SW1 0x05
+#define CS7_SW1 0x06
+#define CS8_SW1 0x07
+#define CS9_SW1 0x08
 #define CS10_SW1 0x09
 #define CS11_SW1 0x0A
 #define CS12_SW1 0x0B
@@ -82,15 +82,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW1 0x1C
 #define CS30_SW1 0x1D
 
-#define CS1_SW2  0x1E
-#define CS2_SW2  0x1F
-#define CS3_SW2  0x20
-#define CS4_SW2  0x21
-#define CS5_SW2  0x22
-#define CS6_SW2  0x23
-#define CS7_SW2  0x24
-#define CS8_SW2  0x25
-#define CS9_SW2  0x26
+#define CS1_SW2 0x1E
+#define CS2_SW2 0x1F
+#define CS3_SW2 0x20
+#define CS4_SW2 0x21
+#define CS5_SW2 0x22
+#define CS6_SW2 0x23
+#define CS7_SW2 0x24
+#define CS8_SW2 0x25
+#define CS9_SW2 0x26
 #define CS10_SW2 0x27
 #define CS11_SW2 0x28
 #define CS12_SW2 0x29
@@ -113,15 +113,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW2 0x3A
 #define CS30_SW2 0x3B
 
-#define CS1_SW3  0x3C
-#define CS2_SW3  0x3D
-#define CS3_SW3  0x3E
-#define CS4_SW3  0x3F
-#define CS5_SW3  0x40
-#define CS6_SW3  0x41
-#define CS7_SW3  0x42
-#define CS8_SW3  0x43
-#define CS9_SW3  0x44
+#define CS1_SW3 0x3C
+#define CS2_SW3 0x3D
+#define CS3_SW3 0x3E
+#define CS4_SW3 0x3F
+#define CS5_SW3 0x40
+#define CS6_SW3 0x41
+#define CS7_SW3 0x42
+#define CS8_SW3 0x43
+#define CS9_SW3 0x44
 #define CS10_SW3 0x45
 #define CS11_SW3 0x46
 #define CS12_SW3 0x47
@@ -144,15 +144,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW3 0x58
 #define CS30_SW3 0x59
 
-#define CS1_SW4  0x5A
-#define CS2_SW4  0x5B
-#define CS3_SW4  0x5C
-#define CS4_SW4  0x5D
-#define CS5_SW4  0x5E
-#define CS6_SW4  0x5F
-#define CS7_SW4  0x60
-#define CS8_SW4  0x61
-#define CS9_SW4  0x62
+#define CS1_SW4 0x5A
+#define CS2_SW4 0x5B
+#define CS3_SW4 0x5C
+#define CS4_SW4 0x5D
+#define CS5_SW4 0x5E
+#define CS6_SW4 0x5F
+#define CS7_SW4 0x60
+#define CS8_SW4 0x61
+#define CS9_SW4 0x62
 #define CS10_SW4 0x63
 #define CS11_SW4 0x64
 #define CS12_SW4 0x65
@@ -175,15 +175,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW4 0x76
 #define CS30_SW4 0x77
 
-#define CS1_SW5  0x78
-#define CS2_SW5  0x79
-#define CS3_SW5  0x7A
-#define CS4_SW5  0x7B
-#define CS5_SW5  0x7C
-#define CS6_SW5  0x7D
-#define CS7_SW5  0x7E
-#define CS8_SW5  0x7F
-#define CS9_SW5  0x80
+#define CS1_SW5 0x78
+#define CS2_SW5 0x79
+#define CS3_SW5 0x7A
+#define CS4_SW5 0x7B
+#define CS5_SW5 0x7C
+#define CS6_SW5 0x7D
+#define CS7_SW5 0x7E
+#define CS8_SW5 0x7F
+#define CS9_SW5 0x80
 #define CS10_SW5 0x81
 #define CS11_SW5 0x82
 #define CS12_SW5 0x83
@@ -206,15 +206,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW5 0x94
 #define CS30_SW5 0x95
 
-#define CS1_SW6  0x96
-#define CS2_SW6  0x97
-#define CS3_SW6  0x98
-#define CS4_SW6  0x99
-#define CS5_SW6  0x9A
-#define CS6_SW6  0x9B
-#define CS7_SW6  0x9C
-#define CS8_SW6  0x9D
-#define CS9_SW6  0x9E
+#define CS1_SW6 0x96
+#define CS2_SW6 0x97
+#define CS3_SW6 0x98
+#define CS4_SW6 0x99
+#define CS5_SW6 0x9A
+#define CS6_SW6 0x9B
+#define CS7_SW6 0x9C
+#define CS8_SW6 0x9D
+#define CS9_SW6 0x9E
 #define CS10_SW6 0x9F
 #define CS11_SW6 0xA0
 #define CS12_SW6 0xA1
@@ -237,15 +237,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW6 0xB2
 #define CS30_SW6 0xB3
 
-#define CS1_SW7  0xB4
-#define CS2_SW7  0xB5
-#define CS3_SW7  0xB6
-#define CS4_SW7  0xB7
-#define CS5_SW7  0xB8
-#define CS6_SW7  0xB9
-#define CS7_SW7  0xBA
-#define CS8_SW7  0xBB
-#define CS9_SW7  0xBC
+#define CS1_SW7 0xB4
+#define CS2_SW7 0xB5
+#define CS3_SW7 0xB6
+#define CS4_SW7 0xB7
+#define CS5_SW7 0xB8
+#define CS6_SW7 0xB9
+#define CS7_SW7 0xBA
+#define CS8_SW7 0xBB
+#define CS9_SW7 0xBC
 #define CS10_SW7 0xBD
 #define CS11_SW7 0xBE
 #define CS12_SW7 0xBF
@@ -268,15 +268,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW7 0xD0
 #define CS30_SW7 0xD1
 
-#define CS1_SW8  0xD2
-#define CS2_SW8  0xD3
-#define CS3_SW8  0xD4
-#define CS4_SW8  0xD5
-#define CS5_SW8  0xD6
-#define CS6_SW8  0xD7
-#define CS7_SW8  0xD8
-#define CS8_SW8  0xD9
-#define CS9_SW8  0xDA
+#define CS1_SW8 0xD2
+#define CS2_SW8 0xD3
+#define CS3_SW8 0xD4
+#define CS4_SW8 0xD5
+#define CS5_SW8 0xD6
+#define CS6_SW8 0xD7
+#define CS7_SW8 0xD8
+#define CS8_SW8 0xD9
+#define CS9_SW8 0xDA
 #define CS10_SW8 0xDB
 #define CS11_SW8 0xDC
 #define CS12_SW8 0xDD
@@ -299,15 +299,15 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS29_SW8 0xEE
 #define CS30_SW8 0xEF
 
-#define CS1_SW9  0xF0
-#define CS2_SW9  0xF1
-#define CS3_SW9  0xF2
-#define CS4_SW9  0xF3
-#define CS5_SW9  0xF4
-#define CS6_SW9  0xF5
-#define CS7_SW9  0xF6
-#define CS8_SW9  0xF7
-#define CS9_SW9  0xF8
+#define CS1_SW9 0xF0
+#define CS2_SW9 0xF1
+#define CS3_SW9 0xF2
+#define CS4_SW9 0xF3
+#define CS5_SW9 0xF4
+#define CS6_SW9 0xF5
+#define CS7_SW9 0xF6
+#define CS8_SW9 0xF7
+#define CS9_SW9 0xF8
 #define CS10_SW9 0xF9
 #define CS11_SW9 0xFA
 #define CS12_SW9 0xFB
@@ -419,4 +419,3 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS37_SW9 0x15C
 #define CS38_SW9 0x15D
 #define CS39_SW9 0x15E
-

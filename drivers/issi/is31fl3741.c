@@ -78,7 +78,6 @@ bool    g_scaling_registers_update_required[DRIVER_COUNT] = {false};
 
 uint8_t g_scaling_registers[DRIVER_COUNT][ISSI_MAX_LEDS];
 
-
 void IS31FL3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
     g_twi_transfer_buffer[1] = data;
@@ -174,7 +173,7 @@ void IS31FL3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         g_pwm_buffer[led.driver][led.r] = red;
         g_pwm_buffer[led.driver][led.g] = green;
         g_pwm_buffer[led.driver][led.b] = blue;
-        g_pwm_buffer_update_required = true;
+        g_pwm_buffer_update_required    = true;
     }
 }
 
@@ -253,4 +252,3 @@ void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t
     g_scaling_registers[pled->driver][pled->g] = green;
     g_scaling_registers[pled->driver][pled->b] = blue;
 }
-
