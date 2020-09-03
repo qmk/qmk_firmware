@@ -278,30 +278,30 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-static void render_rgbled_status(bool full) {
-#ifdef RGBLIGHT_ENABLE
-  char buf[30];
-  if (RGBLIGHT_MODES > 1 && rgblight_config.enable) {
-      if (full) {
-          snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
-                   rgblight_config.mode,
-                   rgblight_config.hue/RGBLIGHT_HUE_STEP,
-                   rgblight_config.sat/RGBLIGHT_SAT_STEP,
-                   rgblight_config.val/RGBLIGHT_VAL_STEP);
-      } else {
-          snprintf(buf, sizeof(buf), "[%2d] ",rgblight_config.mode);
-      }
-      oled_write(buf, false);
-  }
-#endif
-}
+//static void render_rgbled_status(bool full) {
+//#ifdef RGBLIGHT_ENABLE
+//  char buf[30];
+//  if (RGBLIGHT_MODES > 1 && rgblight_config.enable) {
+//      if (full) {
+//          snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
+//                   rgblight_config.mode,
+//                   rgblight_config.hue/RGBLIGHT_HUE_STEP,
+//                   rgblight_config.sat/RGBLIGHT_SAT_STEP,
+//                   rgblight_config.val/RGBLIGHT_VAL_STEP);
+//      } else {
+//          snprintf(buf, sizeof(buf), "[%2d] ",rgblight_config.mode);
+//      }
+//      oled_write(buf, false);
+//  }
+//#endif
+//}
 
 void oled_task_user(void) {
   if(is_keyboard_master()){
     render_status();
   }else{
     render_logo();
-    render_rgbled_status(true);
+//    render_rgbled_status(true);
   }
 }
 #endif
