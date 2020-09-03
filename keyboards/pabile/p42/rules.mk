@@ -22,5 +22,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 IOS_DEVICE_ENABLE = no      # connect to IOS Device
-
-LAYOUTS = ortho_default
