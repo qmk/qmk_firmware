@@ -1,14 +1,13 @@
-# Exclusive E8.5 Hotswap
+# Exclusive E8.5 Soldered
 
-Custom PCBs for Exclusive E8.5. 
+Soldered PCB for Exclusive E8.5.  
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [rebeccaby](https://github.com/rebeccaby)
-* Hardware Supported: E8.5 Hotswap/Soldered, atmega32u4
+* Hardware Supported: E8.5 Soldered, atmega32u4
 * Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=103520)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make exclusive/e85/hotswap:default
     make exclusive/e85/soldered:default
 
 **Reset Key**: The board can be reset by shorting the two holes underneath the PCB, or pressing the reset button on the reverse side. 
