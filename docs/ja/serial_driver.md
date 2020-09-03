@@ -5,7 +5,7 @@
   git diff 0.9.51 HEAD -- docs/serial_drive.md | cat
 -->
 
-このドライバは[分割キーボード](ja/feature_split_keyboard.md) 機能を強化します。
+このドライバは[分割キーボード](ja/feature_split_keyboard.md) 機能に使います。
 
 ?> この文章でのシリアルは、UART/USART/RS485/RS232 規格の実装ではなく、**一度に1ビットの情報を送信するもの**として読まれるべきです。
 
