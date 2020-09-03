@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x626d // BeMeier
-#define PRODUCT_ID 0x656b // ErgonimicKeyboard
+#define VENDOR_ID 0x626D // BeMeier
+#define PRODUCT_ID 0x656B // ErgonomicKeyboard
 #define MANUFACTURER Bemeier
 #define PRODUCT BMEK
 

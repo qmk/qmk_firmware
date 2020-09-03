@@ -19,5 +19,3 @@ NKRO_ENABLE           = yes
 RGBLIGHT_ENABLE       = yes
 AUDIO_ENABLE          = no
 LTO_ENABLE            = yes
-
-DEFAULT_FOLDER = bemeier/bmek/rev3
