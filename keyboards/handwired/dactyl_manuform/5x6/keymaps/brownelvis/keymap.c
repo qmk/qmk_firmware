@@ -4,7 +4,7 @@
 
 
 enum layers {
-    _BASE,
+    _QWERTY,
     _LOWER,
     _RAISE,
     _SYS,
