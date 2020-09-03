@@ -1,6 +1,6 @@
 # Pandamic
 
-A TKL with F13 that uses Ai03's unified daughter board
+A southpaw 65% mechanical keyboard with rotary encoder support
 
 * Keyboard Maintainer: Swiftrax
 * Hardware Supported: Pandamic
