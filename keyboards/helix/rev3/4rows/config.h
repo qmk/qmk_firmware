@@ -22,14 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x3265 //yushakobo
-#define PRODUCT_ID 0x0003 //Helix Type-R
+#define PRODUCT_ID 0x0004 //Helix Type-R 4rows
 #define DEVICE_VER 0x0001
 #define MANUFACTURER yushakobo
 #define PRODUCT Helix Type-R
 #define DESCRIPTION A split keyboard for beginners
 
 /* key matrix size */
-#define MATRIX_ROWS 10
+#define MATRIX_ROWS 8
 #define MATRIX_COLS 7
 
 /*
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+#define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 #define UNUSED_PINS
 
@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 
 #define RGB_DI_PIN D3
-#define RGBLED_NUM 64 // Number of LEDs
+#define RGBLED_NUM 50 // Number of LEDs
 
 #ifdef RGB_MATRIX_ENABLE
   #define DRIVER_LED_TOTAL RGBLED_NUM
@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_SPLIT
-  #define RGBLED_SPLIT { 32, 32 }
+  #define RGBLED_SPLIT { 25, 25 }
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
 //   #define RGBLIGHT_VAL_STEP 8
