@@ -2,7 +2,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_default( \
       k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, \
       k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, \
       k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210,\
