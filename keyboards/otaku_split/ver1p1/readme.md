@@ -6,14 +6,12 @@
 
 This is JP layout based split keyboards.
 
-
-
-Keyboard Maintainer: [takashiski](https://github.com/takashiski)  
-Hardware Supported: promicro(atmega32u4) on Otaku Split rev.1 PCB  
-Hardware Availability: https://skyhigh-works.booth.pm/items/1398595
+* Keyboard Maintainer: [takashiski](https://github.com/takashiski)
+* Hardware Supported: promicro(atmega32u4) on Otaku Split rev. 1.1 PCB
+* Hardware Availability: https://skyhigh-works.booth.pm/items/1398595
 
 Make example for this keyboard (after setting up your build environment):
 
-    make otaku_split/rev1:default
+    make otaku_split/rev1p1:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
