@@ -192,10 +192,10 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 
-ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
-ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
-    $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
-endif
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+    ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_MATRIX_TYPES)),)
+        $(error "$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
+    endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
 ifneq (,$(filter $(MCU), atmega16u2 atmega32u2))
     # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
@@ -206,51 +206,47 @@ endif
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
-endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-	RGB_MATRIX_ENABLE := IS31FL3731
-endif
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3731)
+        OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/issi
+        SRC += is31fl3731.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
-    COMMON_VPATH += $(DRIVER_PATH)/issi
-    SRC += is31fl3731.c
-    QUANTUM_LIB_SRC += i2c_master.c
-endif
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3733)
+        OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/issi
+        SRC += is31fl3733.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
-    COMMON_VPATH += $(DRIVER_PATH)/issi
-    SRC += is31fl3733.c
-    QUANTUM_LIB_SRC += i2c_master.c
-endif
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3737)
+        OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/issi
+        SRC += is31fl3737.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
-    OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
-    COMMON_VPATH += $(DRIVER_PATH)/issi
-    SRC += is31fl3737.c
-    QUANTUM_LIB_SRC += i2c_master.c
-endif
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3741)
+        OPT_DEFS += -DIS31FL3741 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/issi
+        SRC += is31fl3741.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3741)
-    OPT_DEFS += -DIS31FL3741 -DSTM32_I2C -DHAL_USE_I2C=TRUE
-    COMMON_VPATH += $(DRIVER_PATH)/issi
-    SRC += is31fl3741.c
-    QUANTUM_LIB_SRC += i2c_master.c
-endif
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
+        OPT_DEFS += -DWS2812
+        WS2812_DRIVER_REQUIRED := yes
+    endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
-    OPT_DEFS += -DWS2812
-    WS2812_DRIVER_REQUIRED := yes
-endif
+    ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
+        OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
+    endif
 
-ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
-    OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
-endif
-
-ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
-    OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
+    ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
+        OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
+    endif
 endif
 
 ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
