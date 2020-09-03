@@ -5,8 +5,8 @@
 A 30% mini keyboard.
 
 * Keyboard Maintainer: [marksard](https://github.com/marksard)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Hardware Supported: LEFTOVER30 PCB (with Pro Micro)
+* Hardware Availability: [Mark's Garage](https://marksard.booth.pm/)
 
 Make example for this keyboard (after setting up your build environment):
 
