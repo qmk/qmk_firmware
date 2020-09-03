@@ -1,5 +1,7 @@
 #include "rev2.h"
 
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
+
 #ifdef OLED_DRIVER_ENABLE
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
