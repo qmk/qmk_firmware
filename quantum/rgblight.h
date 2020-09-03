@@ -142,7 +142,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
-#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000
+#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 40
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
@@ -336,7 +336,9 @@ void rgblight_increase_val_noeeprom(void);
 void rgblight_decrease_val(void);
 void rgblight_decrease_val_noeeprom(void);
 void rgblight_increase_speed(void);
+void rgblight_increase_speed_noeeprom(void);
 void rgblight_decrease_speed(void);
+void rgblight_decrease_speed_noeeprom(void);
 void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 

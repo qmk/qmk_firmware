@@ -160,8 +160,6 @@ See the ST datasheet for your particular MCU to determine these values. Unless y
 
 Currently only hardware PWM is supported, not timer assisted, and does not provide automatic configuration.
 
-?> Backlight support for STM32F072 has had limited testing, so YMMV. If unsure, set `BACKLIGHT_ENABLE = no` in your `rules.mk`.
-
 ### Software PWM Driver :id=software-pwm-driver
 
 In this mode, PWM is "emulated" while running other keyboard tasks. It offers maximum hardware compatibility without extra platform configuration. The tradeoff is the backlight might jitter when the keyboard is busy. To enable, add this to your `rules.mk`:

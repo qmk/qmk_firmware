@@ -45,4 +45,4 @@ SRC += rgbsps.c
 SRC += analog.c
 SRC += matrix.c
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes

@@ -424,7 +424,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // 那么立刻更新层颜色
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 对于所有的RGB代码 (see quantum_keycodes.h, L400 可以参考)
         if (record->event.pressed) { //本句失能层指示，假设你改变了这个…你要把它禁用
             if (user_config.rgb_layer_change) {        // 仅当使能时
