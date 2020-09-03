@@ -123,6 +123,13 @@ typedef struct {
     USB_Descriptor_Endpoint_t  CDC_DataOutEndpoint;
     USB_Descriptor_Endpoint_t  CDC_DataInEndpoint;
 #endif
+
+#ifdef JOYSTICK_ENABLE
+    // Joystick HID Interface
+    USB_Descriptor_Interface_t Joystick_Interface;
+    USB_HID_Descriptor_HID_t   Joystick_HID;
+    USB_Descriptor_Endpoint_t  Joystick_INEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
@@ -164,6 +171,9 @@ enum usb_interfaces {
     CDI_INTERFACE,
 #endif
 
+#if defined(JOYSTICK_ENABLE)
+    JOYSTICK_INTERFACE,
+#endif
     TOTAL_INTERFACES
 };
 
@@ -212,17 +222,16 @@ enum usb_endpoints {
 #ifdef MIDI_ENABLE
     MIDI_STREAM_IN_EPNUM  = NEXT_EPNUM,
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
-#    define MIDI_STREAM_IN_EPADDR (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
-#    define MIDI_STREAM_OUT_EPADDR (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
 #endif
 
 #ifdef VIRTSER_ENABLE
     CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
     CDC_IN_EPNUM           = NEXT_EPNUM,
     CDC_OUT_EPNUM          = NEXT_EPNUM,
-#    define CDC_NOTIFICATION_EPADDR (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
-#    define CDC_IN_EPADDR (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
-#    define CDC_OUT_EPADDR (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
+#endif
+#ifdef JOYSTICK_ENABLE
+    JOYSTICK_IN_EPNUM  = NEXT_EPNUM,
+    JOYSTICK_OUT_EPNUM = NEXT_EPNUM,
 #endif
 };
 
@@ -248,6 +257,7 @@ enum usb_endpoints {
 #define MIDI_STREAM_EPSIZE 64
 #define CDC_NOTIFICATION_EPSIZE 8
 #define CDC_EPSIZE 16
+#define JOYSTICK_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
 #endif

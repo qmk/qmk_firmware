@@ -11,7 +11,7 @@
  #      yes, no  +1500
  #      yes, yes +3200
  #      no,  yes +400
-LINK_TIME_OPTIMIZATION_ENABLE = no  # if firmware size over limit, try this option
+LTO_ENABLE = no  # if firmware size over limit, try this option
 
 # Helix Spacific Build Options
 # you can uncomment and edit follows 7 Variables

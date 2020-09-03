@@ -218,6 +218,8 @@
 #        define B15 PAL_LINE(GPIOB, 15)
 #        define B16 PAL_LINE(GPIOB, 16)
 #        define B17 PAL_LINE(GPIOB, 17)
+#        define B18 PAL_LINE(GPIOB, 18)
+#        define B19 PAL_LINE(GPIOB, 19)
 #        define C0 PAL_LINE(GPIOC, 0)
 #        define C1 PAL_LINE(GPIOC, 1)
 #        define C2 PAL_LINE(GPIOC, 2)
