@@ -12,6 +12,6 @@ ESDF cluster), and RGB controls in the function layer (on the arrow/nav keys).
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/Wmx1hfx.png)
+![Function layer layout](https://i.imgur.com/Fzshl0F.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/59636898946da51f91fb290f8e078b4d))

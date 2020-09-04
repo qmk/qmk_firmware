@@ -26,7 +26,7 @@ where some things are disabled to save space as well.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xCDCD
+#define VENDOR_ID  0x7844 // "XD"
 #define PRODUCT_ID 0x0404
 #define DEVICE_VER 0x0001
 // Note: unsure about manufacturer
@@ -75,6 +75,6 @@ further optimizations can be done on that side.
 
 /* disable action features */
 // #define NO_ACTION_ONESHOT // 462 bytes <- this needs to be un-commented out if Link Time Optimization is disabled, otherwise file is too large
-// The two below are implicit since we use LINK_TIME_OPTIMIZATION_ENABLE (in rules.mk)
+// The two below are implicit since we use LTO_ENABLE (in rules.mk)
 // #define NO_ACTION_MACRO
 // #define NO_ACTION_FUNCTION

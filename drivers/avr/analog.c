@@ -38,7 +38,7 @@ int16_t analogRead(uint8_t pin) {
     // clang-format on
     if (pin >= 12) return 0;
     return adc_read(pgm_read_byte(pin_to_mux + pin));
-#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega328P__)
+#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
     if (pin >= 8) return 0;
     return adc_read(pin);
 #else
@@ -85,7 +85,7 @@ uint8_t pinToMux(pin_t pin) {
         case A6: return _BV(MUX2) | _BV(MUX1);  // ADC6
         case A7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0);  // ADC7
         default: return _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0);  // 0V
-#elif defined(__AVR_ATmega328P__)
+#elif defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
         case C0: return 0;  // ADC0
         case C1: return _BV(MUX0);  // ADC1
         case C2: return _BV(MUX1);  // ADC2
@@ -97,10 +97,11 @@ uint8_t pinToMux(pin_t pin) {
 #endif
             // clang-format on
     }
+    return 0;
 }
 
 int16_t adc_read(uint8_t mux) {
-    uint8_t low;
+    uint16_t low;
 
     // Enable ADC and configure prescaler
     ADCSRA = _BV(ADEN) | ADC_PRESCALER;
@@ -128,5 +129,10 @@ int16_t adc_read(uint8_t mux) {
     // Must read LSB first
     low = ADCL;
     // Must read MSB only once!
-    return (ADCH << 8) | low;
+    low |= (ADCH << 8);
+
+    // turn off the ADC
+    ADCSRA &= ~(1 << ADEN);
+
+    return low;
 }

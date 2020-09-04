@@ -22,9 +22,6 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c
-    ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
-        OPT_DEFS += -DINDICATOR_LIGHTS
-    endif
     ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
         OPT_DEFS += -DRGBLIGHT_TWINKLE
     endif
@@ -61,4 +58,11 @@ endif
 
 ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     SRC += oled_stuff.c
+endif
+
+ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
+    POINTING_DEVICE_ENABLE := yes
+    OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
+    SRC += pimoroni_trackball.c
+    QUANTUM_LIB_SRC += i2c_master.c
 endif
