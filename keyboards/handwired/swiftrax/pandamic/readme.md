@@ -2,9 +2,9 @@
 
 A southpaw 65% mechanical keyboard with rotary encoder support
 
-* Keyboard Maintainer: Swiftrax
+* Keyboard Maintainer: [Swiftrax](https://github.com/swiftrax)
 * Hardware Supported: Pandamic
-* Hardware Availability: https://github.com/swiftrax
+* Hardware Availability: [GitHub.com](https://github.com/swiftrax/Pandamic)
 
 Make example for this keyboard (after setting up your build environment):
 
