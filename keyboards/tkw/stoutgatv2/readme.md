@@ -1,6 +1,6 @@
 # stoutgat v2
 
-![stoutgatv2]()
+![stoutgatv2](https://i.imgur.com/CCiP2Ffm.jpg)
 
 ARM 65% mechanical keyboard with RGB underglow and dual encoders.
 
