@@ -7,7 +7,7 @@
 #define PRODUCT_ID 0x5050 // "PP"
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Keycapsss
-#define PRODUCT Plaid-Pad
+// #define PRODUCT Plaid-Pad
 #define DESCRIPTION 4x4 numpad with through hole components
 
 /* key matrix size */
@@ -16,10 +16,6 @@
 
 #define MATRIX_ROW_PINS { C0, C1, C2, C3 }
 #define MATRIX_COL_PINS { B0, D7, D6, D5 }
-#define UNUSED_PINS     { }
-
-#define ENCODERS_PAD_A { D1, B2, B4, D4 }
-#define ENCODERS_PAD_B { D0, B1, B3, B5 }
 
 #define ENCODER_RESOLUTION 4
 
