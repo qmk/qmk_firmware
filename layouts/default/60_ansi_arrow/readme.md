@@ -1,6 +1,6 @@
-# 60_ansi_arrow and Keymap
+# 60_ansi_arrow
 
-## 60% ANSI Arrow
+## `LAYOUT_60_ansi_arrow`
 
 ![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_layout_60_ansi_arrow.png)
 
