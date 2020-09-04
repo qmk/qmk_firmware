@@ -2,35 +2,10 @@
   "version": 1,
   "notes": "",
   "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
-  "keyboard": "stoutgat",
+  "keyboard": "stoutgatv2",
   "keymap": "thys",
   "layout": "LAYOUT_encoder",
-  "encoders": [
-    {
-      "layers": [
-        {
-          "cw": "C(KC_C)",
-          "ccw": "C(KC_V)"
-        },
-        {
-          "cw": "KC_VOLD",
-          "ccw": "KC_VOLU"
-        }
-      ]
-    },
-    {
-      "layers": [
-        {
-          "cw": "C(KC_RGHT)",
-          "ccw": "C(KC_LEFT)"
-        },
-        {
-          "cw": "C(KC_Z)",
-          "ccw": "C(KC_Y)"
-        }
-      ]
-    }
-  ],
+
   "layers": [
     [
       "KC_ESC",
