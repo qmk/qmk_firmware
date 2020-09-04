@@ -1,17 +1,16 @@
 # Bluetooth
 
 <!---
-  original document: 5d5ff80:docs/feature_bluetooth.md
-  git diff 5d5ff80 HEAD -- docs/feature_bluetooth.md | cat
+  original document: 0.9.0:docs/feature_bluetooth.md
+  git diff 0.9.0 HEAD -- docs/feature_bluetooth.md | cat
 -->
 
 ## Bluetooth の既知のサポートハードウェア
 
-現在のところ Bluetooth のサポートは AVR ベースのチップに限られます。Bluetooth 2.1 については、QMK は RN-42 モジュールと、Bluefruit EZ-Key をサポートしますが、後者はもう生産されていません。より最近の BLE プロトコルについては、現在のところ Adafruit Bluefruit SPI Friend のみが直接サポートされています。iOS デバイスに接続するには、BLE が必要です。iOS はマウス入力をサポートしないことに注意してください。
+現在のところ Bluetooth のサポートは AVR ベースのチップに限られます。Bluetooth 2.1 については、QMK は RN-42 モジュールをサポートします。より最近の BLE プロトコルについては、現在のところ Adafruit Bluefruit SPI Friend のみが直接サポートされています。iOS デバイスに接続するには、BLE が必要です。iOS はマウス入力をサポートしないことに注意してください。
 
 | ボード | Bluetooth プロトコル | 接続タイプ | rules.mk | Bluetooth チップ |
 |----------------------------------------------------------------|----------------------------|----------------|---------------------------|--------------|
-| [Adafruit EZ-Key HID](https://www.adafruit.com/product/1535) | Bluetooth Classic | UART | `BLUETOOTH = AdafruitEZKey` |  |
 | Roving Networks RN-42 (Sparkfun Bluesmirf) | Bluetooth Classic | UART | `BLUETOOTH = RN42` | RN-42 |
 | [Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633) | Bluetooth Low Energy | SPI | `BLUETOOTH = AdafruitBLE` | nRF51822 |
 
@@ -29,16 +28,11 @@
 
 Bluefruit UART friend は SPI friend に変換することができますが、これにはMDBT40 チップへの直接の再書き込みとはんだ付けが[必要です](https://github.com/qmk/qmk_firmware/issues/2274)。
 
-## Adafruit EZ-Key hid
-これには[ハードウェアの変更](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts)が必要ですが、Makefile を使って有効にすることができます。ファームウェアは引き続き USB 経由で文字を出力するため、コンピュータ経由で充電する場合は注意してください。任意にオフにするために Bluefruit 上にスイッチを持つことは理にかなっています。
-
-
 <!-- FIXME: Document bluetooth support more completely. -->
 ## Bluetooth の Rules.mk オプション
 これらのうちの1つだけを使ってください
 * BLUETOOTH_ENABLE = yes (レガシーオプション)
 * BLUETOOTH = RN42
-* BLUETOOTH = AdafruitEZKey
 * BLUETOOTH = AdafruitBLE
 
 ## Bluetooth キーコード

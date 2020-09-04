@@ -23,6 +23,25 @@
 #ifndef WS2812_DMA_CHANNEL
 #    define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP
 #endif
+#if (STM32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_DMAMUX_ID)
+#    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
+#endif
+
+// Push Pull or Open Drain Configuration
+// Default Push Pull
+#ifndef WS2812_EXTERNAL_PULLUP
+#    if defined(USE_GPIOV1)
+#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#    else
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#    endif
+#else
+#    if defined(USE_GPIOV1)
+#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#    else
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#    endif
+#endif
 
 #ifndef WS2812_PWM_TARGET_PERIOD
 //#    define WS2812_PWM_TARGET_PERIOD 800000 // Original code is 800k...?
@@ -37,11 +56,10 @@
 /**
  * @brief   Number of bit-periods to hold the data line low at the end of a frame
  *
- * The reset period for each frame must be at least 50 uS; so we add in 50 bit-times
- * of zeroes at the end. (50 bits)*(1.25 uS/bit) = 62.5 uS, which gives us some
- * slack in the timing requirements
+ * The reset period for each frame is defined in WS2812_TRST_US.
+ * Calculate the number of zeroes to add at the end assuming 1.25 uS/bit:
  */
-#define WS2812_RESET_BIT_N (50)
+#define WS2812_RESET_BIT_N (1000 * WS2812_TRST_US / 1250)
 #define WS2812_COLOR_BIT_N (RGBLED_NUM * 24)                   /**< Number of data bits */
 #define WS2812_BIT_N (WS2812_COLOR_BIT_N + WS2812_RESET_BIT_N) /**< Total number of bits in a frame */
 
@@ -142,11 +160,7 @@ void ws2812_init(void) {
     for (i = 0; i < WS2812_COLOR_BIT_N; i++) ws2812_frame_buffer[i] = WS2812_DUTYCYCLE_0;      // All color bits are zero duty cycle
     for (i = 0; i < WS2812_RESET_BIT_N; i++) ws2812_frame_buffer[i + WS2812_COLOR_BIT_N] = 0;  // All reset bits are zero
 
-#if defined(USE_GPIOV1)
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-#else
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
-#endif
+    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
 
     // PWM Configuration
     //#pragma GCC diagnostic ignored "-Woverride-init"  // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
@@ -166,12 +180,17 @@ void ws2812_init(void) {
 
     // Configure DMA
     // dmaInit(); // Joe added this
-    dmaStreamAlloc(WS2812_DMA_STREAM - STM32_DMA1_STREAM1, 10, NULL, NULL);
+    dmaStreamAlloc(WS2812_DMA_STREAM - STM32_DMA_STREAM(0), 10, NULL, NULL);
     dmaStreamSetPeripheral(WS2812_DMA_STREAM, &(WS2812_PWM_DRIVER.tim->CCR[WS2812_PWM_CHANNEL - 1]));  // Ziel ist der An-Zeit im Cap-Comp-Register
     dmaStreamSetMemory0(WS2812_DMA_STREAM, ws2812_frame_buffer);
     dmaStreamSetTransactionSize(WS2812_DMA_STREAM, WS2812_BIT_N);
     dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
     // M2P: Memory 2 Periph; PL: Priority Level
+
+#if (STM32_DMA_SUPPORTS_DMAMUX == TRUE)
+    // If the MCU has a DMAMUX we need to assign the correct resource
+    dmaSetRequestSource(WS2812_DMA_STREAM, WS2812_DMAMUX_ID);
+#endif
 
     // Start DMA
     dmaStreamEnable(WS2812_DMA_STREAM);

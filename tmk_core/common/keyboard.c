@@ -53,6 +53,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
+#endif
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif
@@ -71,6 +74,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -85,6 +91,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef VIA_ENABLE
 #    include "via.h"
+#endif
+#ifdef DIP_SWITCH_ENABLE
+#    include "dip_switch.h"
 #endif
 
 // Only enable this if console is enabled to print to
@@ -256,6 +265,9 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
+#ifdef ENCODER_ENABLE
+    encoder_init();
+#endif
 #ifdef STENO_ENABLE
     steno_init();
 #endif
@@ -269,6 +281,10 @@ void keyboard_init(void) {
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
 #endif
+#ifdef DIP_SWITCH_ENABLE
+    dip_switch_init();
+#endif
+
     keyboard_post_init_kb(); /* Always keep this last */
 }
 
@@ -352,6 +368,10 @@ MATRIX_LOOP_END:
 #    endif
 #endif
 
+#ifdef ENCODER_ENABLE
+    encoder_read();
+#endif
+
 #ifdef QWIIC_ENABLE
     qwiic_task();
 #endif
@@ -401,6 +421,10 @@ MATRIX_LOOP_END:
     if (velocikey_enabled()) {
         velocikey_decelerate();
     }
+#endif
+
+#ifdef JOYSTICK_ENABLE
+    joystick_task();
 #endif
 
     // update LED

@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: c9e3fa6f7:docs/hardware_drivers.md
-  git diff c9e3fa6f7 HEAD -- docs/hardware_drivers.md | cat
+  original document: 0.9.0:docs/hardware_drivers.md
+  git diff 0.9.0 HEAD -- docs/hardware_drivers.md | cat
 -->
 
 QMK はたくさんの異なるハードウェアで使われています。最も一般的な MCU とマトリックス構成をサポートしていますが、キーボードへ他のハードウェアを追加し制御するためのドライバーもいくつか用意されています。例えば、マウスやポインティングデバイス、分割キーボード用の IO エキスパンダ、Bluetooth モジュール、LCD、OLED、TFT 液晶などがあります。

@@ -43,6 +43,44 @@
  `-----------------------------------------'             `-----------------------------------------'
 ```
 
+ ### Lower
+```
+ ,-----------------------------------------.             ,-----------------------------------------.
+ |   ~  |   !  |   @  |   #  |   $  |   %  |             |   ^  |   &  |   *  |   (  |   )  |      |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |      |      |      |      |      |             |   -  |   _  |   +  |   {  |   }  |  |   |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |      |      |      |      |      |             |      |      |      | Home | End  |      |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |      |      |      |      |      |             |      |      | Next | Vol- | Vol+ | Play |
+ `-----------------------------------------'             `-----------------------------------------'
+```
+
+### RAISE
+```
+ ,-----------------------------------------.             ,-----------------------------------------.
+ |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Del  |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |   -  |   =  |   [  |   ]  |  \   |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |  F7  |  F8  |  F9  |  F10 |  F11 |             |  F12 |      |      |      |      |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |      |      |      |      |      |             |      |      | Next | Vol- | Vol+ | Play |
+ `-----------------------------------------'             `-----------------------------------------'
+```
+
+### Adjust (Lower + Raise)
+```
+ ,-----------------------------------------.             ,-----------------------------------------.
+ |      | Reset|RGBRST|Aud on|Audoff|      |             |      |Qwerty|Colemk|Dvorak|      | Ins  |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |RGB ON| HUE+ | SAT+ | VAL+ | Mac  |             | Win  |  -   |   =  |Print |ScLock|Pause |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |MODE R|RGBMOD| HUE- | SAT- | VAL- |      |             |      |      |      |      |PageUp|      |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ |      |      |      | EISU | EISU | EISU |             | KANA | KANA | KANA | Home |PageDn| End  |
+ `-----------------------------------------'             `-----------------------------------------'
+```
 
 ## コンパイルの仕方
 
@@ -76,7 +114,7 @@ $ make zinc:default:clean
 ```
 # Zinc keyboard 'default' keymap: convenient command line option
 make ZINC=<options> zinc:defualt
-#    option= back | under | na | ios
+#    option= back | under | both | cont | na | ios
 #    ex.
 #      make ZINC=under    zinc:defualt
 #      make ZINC=under,ios zinc:defualt
@@ -85,16 +123,16 @@ make ZINC=<options> zinc:defualt
 #      make ZINC=back,ios zinc:default
 ```
 
-あるいは`qmk_firmware/keyboards/zinc/rev1/keymaps/default/rules.mk` の以下の部分を直接編集して機能を有効化してください。
+あるいは`qmk_firmware/keyboards/zinc/rev1/keymaps/~/rules.mk` の以下の部分を直接編集して機能を有効化してください。
 
 ```
 # Zinc keyboard customize
 LED_BACK_ENABLE = no        # LED backlight (Enable SK6812mini backlight)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight)
+LED_BOTH_ENABLE = no        # LED backlight and underglow
+LED_RGB_CONT = no           # LED continuous backlight or/and underglow between left Zinc and right Zinc
 LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-
-
 ```
 
 ## RGB backlight を有効にする
