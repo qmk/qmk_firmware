@@ -1,6 +1,7 @@
 #pragma once
 
-#define PRODUCT Plaid-Pad Rev1.1
+#define PRODUCT Plaid-Pad Rev2
+#define DEVICE_VER 0x0002
 
 #define UNUSED_PINS     { }
 
