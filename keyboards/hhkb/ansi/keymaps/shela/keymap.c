@@ -406,6 +406,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case PSE_FN:
+            if (record->event.pressed) {
+                if (l_pressed && !l_long_pressed) {
+                    register_code(l_inner);
+                    l_long_pressed = true;
+                }
+                if (r_pressed && !r_long_pressed) {
+                    register_code(r_inner);
+                    r_long_pressed = true;
+                }
+            }
             action_pseudo_process(record, base_layer, keymap_jis2us);
             return false;
         default:
