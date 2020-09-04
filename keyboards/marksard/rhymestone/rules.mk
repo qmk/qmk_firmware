@@ -22,6 +22,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = rhymestone/rev1
+DEFAULT_FOLDER = marksard/rhymestone/rev1
 
 LAYOUTS = ortho_4x10
