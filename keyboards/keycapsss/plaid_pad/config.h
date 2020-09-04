@@ -8,7 +8,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Keycapsss
 // #define PRODUCT Plaid-Pad
-#define DESCRIPTION 4x4 numpad with through hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 4
