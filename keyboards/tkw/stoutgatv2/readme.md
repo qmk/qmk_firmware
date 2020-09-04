@@ -6,7 +6,7 @@ ARM 65% mechanical keyboard with RGB underglow and dual encoders.
 
 * Keyboard Maintainer: [vattern](https://github.com/vattern)
 * Hardware Supported: f411 blackpill
-* Hardware Availability: [repo](https://github.com/vattern/stoutgatv2)
+* Hardware Availability: [stoutgatv2](https://github.com/vattern/stoutgatv2)
 
 Make example for this keyboard (after setting up your build environment):
 
