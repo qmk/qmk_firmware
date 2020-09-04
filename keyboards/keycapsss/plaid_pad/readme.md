@@ -18,6 +18,14 @@ Rev1.1                      Rev1
 |     |     |     |  E1 |   |     |     |     |     |
 `-----------------------'   `-----------------------'
 ```  
+
+- Encoder E1 performs a tap on `KC_F17` and `KC_F18`.
+- Encoder E2 performs a tap on `KC_F19` and `KC_F20`.
+- Encoder E3 performs a tap on `KC_F21` and `KC_F22`.
+- Encoder E4 performs a tap on `KC_F23` and `KC_F24`.
+
+*The F17-F24 keys are intended to be customized via [Karabiner-Elements (OSX)](https://github.com/pqrs-org/Karabiner-Elements), or [AutoHotkey](https://github.com/Lexikos/AutoHotkey_L) (WIN)*
+
 It's a great companion to the Plaid keyboard by [hsgw](https://github.com/hsgw/) and heavily inspired by it.
 * Keyboard Maintainer: BenRoe [GitHub](https://github.com/BenRoe) / [Twitter](https://twitter.com/keycapsss)
 * Hardware Supported: ATmega328P with VUSB ([see Bootloader section](#Bootloader))

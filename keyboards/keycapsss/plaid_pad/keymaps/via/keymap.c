@@ -71,30 +71,30 @@ Rev1.1                      Rev1
   // First encoder (E1)
   if (index == 0) {
     if (clockwise) {
-      tap_code(KC_F21);
+      tap_code(KC_F17);
     } else {
-      tap_code(KC_F22);
+      tap_code(KC_F18);
     }
   // Second encoder (E2)
   } else if (index == 1) {
     if (clockwise) {
-      tap_code(KC_F23);
+      tap_code(KC_F19);
     } else {
-      tap_code(KC_F24);
+      tap_code(KC_F20);
     }
   // Third encoder (E3)
   } else if (index == 2) {
     if (clockwise) {
-      tap_code(KC_RGHT);
+      tap_code(KC_F21);
     } else {
-      tap_code(KC_LEFT);
+      tap_code(KC_F22);
     }
   // Forth encoder (E4)
   } else if (index == 3) {
     if (clockwise) {
-      tap_code(KC_DOWN);
+      tap_code(KC_F23);
     } else {
-      tap_code(KC_UP);
+      tap_code(KC_F24);
     }
   }
 }
