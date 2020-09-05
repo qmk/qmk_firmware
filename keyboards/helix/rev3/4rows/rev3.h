@@ -52,7 +52,7 @@
   L20, L21, L22, L23, L24, L25,           R20, R21, R22, R23, R24, R25, \
   L30, L31, L32, L33, L34, L35, L36, R36, R30, R31, R32, R33, R34, R35 \
   ) \
-  LAYOUT( \
+  LAYOUT4( \
     KC_##L00, KC_##L01, KC_##L02, KC_##L03, KC_##L04, KC_##L05, KC_##R00, KC_##R01, KC_##R02, KC_##R03, KC_##R04, KC_##R05, \
     KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15, KC_##R10, KC_##R11, KC_##R12, KC_##R13, KC_##R14, KC_##R15, \
     KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##R20, KC_##R21, KC_##R22, KC_##R23, KC_##R24, KC_##R25, \
