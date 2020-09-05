@@ -66,12 +66,24 @@
   L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, \
   L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75  \
   ) \
-  LAYOUT_full( \
-    L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, \
-    L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, \
-    L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, \
-    L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N, K_N  \
-  )
+  { \
+    { L45, L44, L43, L42, L41, L40 }, \
+    { L55, L54, L53, L52, L51, L50 }, \
+    { L65, L64, L63, L62, L61, L60 }, \
+    { L75, L74, L73, L72, L71, L70 }, \
+    { L05, L04, L03, L02, L01, L00 }, \
+    { L15, L14, L13, L12, L11, L10 }, \
+    { L25, L24, L23, L22, L21, L20 }, \
+    { L35, L34, L33, L32, L31, L30 }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+  }
 //////////////////////////////////////////////////////////////////////////////
 
 
@@ -85,12 +97,24 @@
   L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, R60, R61, R62, R63, R64, \
   L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, R70, R71, R72, R73, R74, L75  \
   ) \
-  LAYOUT_full( \
-    L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R44, R43, R42, R41, R40, \
-    L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R54, R53, R52, R51, R50, \
-    L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R64, R63, R62, R61, R60, \
-    L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R74, R73, R72, R71, R70  \
-  )
+  { \
+    { L45, L44, L43, L42, L41, L40 }, \
+    { L55, L54, L53, L52, L51, L50 }, \
+    { L65, L64, L63, L62, L61, L60 }, \
+    { L75, L74, L73, L72, L71, L70 }, \
+    { L05, L04, L03, L02, L01, L00 }, \
+    { L15, L14, L13, L12, L11, L10 }, \
+    { L25, L24, L23, L22, L21, L20 }, \
+    { L35, L34, L33, L32, L31, L30 }, \
+    { K_N, R44, R43, R42, R41, R40 }, \
+    { K_N, R54, R53, R52, R51, R50 }, \
+    { K_N, R64, R63, R62, R61, R60 }, \
+    { K_N, R74, R73, R72, R71, R70 }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+    { K_N, K_N, K_N, K_N, K_N, K_N }, \
+  }
 
 // When use right hand side of the Rhymestone.
 #ifdef RHYMESTONE_RIGHTHAND
