@@ -27,3 +27,8 @@
 
 #define GPIO_STATE_LOW  0
 #define GPIO_STATE_HIGH 1
+
+void
+  set_big_LED_r(uint8_t mode),
+  set_big_LED_g(uint8_t mode),
+  set_big_LED_b(uint8_t mode);
