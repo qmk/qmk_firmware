@@ -23,10 +23,13 @@
 // Per key configuration is used to disable the permissive hold feature from the home row modifiers.
 // #define PERMISSIVE_HOLD_PER_KEY
 // Until I know how to configure permissive hol per key, isable it
-#undef PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 
-// todo: this does what? It is the time until a keypress is sent to the computer. Key combinations need to be pressed within that time.
-#define TAPPING_TERM 125
+//  The tapping term defines for how long in milliseconds you need to hold a key before the tap becomes a hold.
+#define TAPPING_TERM 250
+
+// only holding and releasing a modifier without pressing another key sends the tapped key of the modifier.
+#define RETRO_TAPPING
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
