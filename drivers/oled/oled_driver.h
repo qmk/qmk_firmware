@@ -294,3 +294,7 @@ uint8_t oled_max_chars(void);
 
 // Returns the maximum number of lines that will fit on the oled
 uint8_t oled_max_lines(void);
+
+// Set whether newline and carriage return should be interpreted when writing,
+// or if the character from the font should be written instead.
+void oled_interpret_newline(bool interpret);

@@ -106,6 +106,7 @@ uint8_t         oled_rotation_width = 0;
 uint8_t         oled_scroll_speed   = 0;  // this holds the speed after being remapped to ssd1306 internal values
 uint8_t         oled_scroll_start   = 0;
 uint8_t         oled_scroll_end     = 7;
+bool            oled_interpret_char = true;
 #if OLED_TIMEOUT > 0
 uint32_t oled_timeout;
 #endif
@@ -369,16 +370,18 @@ void oled_advance_char(void) {
 
 // Main handler that writes character data to the display buffer
 void oled_write_char(const char data, bool invert) {
-    // Advance to the next line if newline
-    if (data == '\n') {
-        // Old source wrote ' ' until end of line...
-        oled_advance_page(true);
-        return;
-    }
+    if (oled_interpret_char) {
+        // Advance to the next line if newline
+        if (data == '\n') {
+            // Old source wrote ' ' until end of line...
+            oled_advance_page(true);
+            return;
+        }
 
-    if (data == '\r') {
-        oled_advance_page(false);
-        return;
+        if (data == '\r') {
+            oled_advance_page(false);
+            return;
+        }
     }
 
     // copy the current render buffer to check for dirty after
@@ -612,6 +615,10 @@ uint8_t oled_max_lines(void) {
         return OLED_DISPLAY_HEIGHT / OLED_FONT_HEIGHT;
     }
     return OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT;
+}
+
+void oled_interpret_newline(bool interpret) {
+    oled_interpret_char = interpret;
 }
 
 void oled_task(void) {

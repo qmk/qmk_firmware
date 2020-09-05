@@ -459,6 +459,11 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/oled
     QUANTUM_LIB_SRC += i2c_master.c
     SRC += oled_driver.c
+
+    ifeq ($(strip $(OLED_CONTROL_ENABLE)), yes)
+        OPT_DEFS += -DOLED_CONTROL_ENABLE
+        SRC += oledctrl.c
+    endif
 endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk

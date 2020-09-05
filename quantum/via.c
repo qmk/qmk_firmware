@@ -385,8 +385,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
         default: {
             // The command ID is not known
-            // Return the unhandled state
-            *command_id = id_unhandled;
+            // Let the keyboard-level code handle it, or return the unhandled state
+            raw_hid_receive_kb(data, length);
             break;
         }
     }

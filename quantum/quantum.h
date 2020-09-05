@@ -162,6 +162,10 @@ extern layer_state_t layer_state;
 #    include "haptic.h"
 #endif
 
+#ifdef OLED_CONTROL_ENABLE
+#    include "oledctrl.h"
+#endif
+
 #ifdef OLED_DRIVER_ENABLE
 #    include "oled_driver.h"
 #endif

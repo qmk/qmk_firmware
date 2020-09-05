@@ -21,6 +21,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
+#if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+#    include "oledctrl.h"
+#endif
+
 #if defined(USE_I2C)
 
 #    include "i2c_master.h"
@@ -38,6 +42,9 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+    oledctrl_syncinfo_t oledctrl_sync;
+#    endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -47,6 +54,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
+#    define I2C_OLED_START offsetof(I2C_slave_buffer_t, oledctrl_sync)
 
 #    define TIMEOUT 100
 
@@ -91,6 +99,16 @@ bool transport_master(matrix_row_t matrix[]) {
         }
     }
 #    endif
+
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+    if (oledctrl_is_msg_pending()) {
+        oledctrl_syncinfo_t oledctrl_sync;
+        oledctrl_get_syncinfo(&oledctrl_sync);
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_OLED_START, (void *)&oledctrl_sync, sizeof(oledctrl_sync), TIMEOUT) >= 0) {
+            oledctrl_clear_msg_pending();
+        }
+    }
+#    endif
     return true;
 }
 
@@ -117,6 +135,13 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef WPM_ENABLE
     set_current_wpm(i2c_buffer->current_wpm);
+#    endif
+
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+    if (i2c_buffer->oledctrl_sync[0] != 0) {
+        oledctrl_update_sync(&i2c_buffer->oledctrl_sync);
+        i2c_buffer->oledctrl_sync[0] = 0;
+    }
 #    endif
 }
 
@@ -164,6 +189,15 @@ volatile Serial_rgblight_t serial_rgblight = {};
 uint8_t volatile status_rgblight           = 0;
 #    endif
 
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+typedef struct _Serial_oledctrl_t {
+    oledctrl_syncinfo_t oledctrl_sync;
+} Serial_oledctrl_t;
+
+volatile Serial_oledctrl_t serial_oledctrl = {};
+uint8_t volatile status_oledctrl           = 0;
+#    endif
+
 volatile Serial_s2m_buffer_t serial_s2m_buffer = {};
 volatile Serial_m2s_buffer_t serial_m2s_buffer = {};
 uint8_t volatile status0                       = 0;
@@ -172,6 +206,9 @@ enum serial_transaction_id {
     GET_SLAVE_MATRIX = 0,
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     PUT_RGBLIGHT,
+#    endif
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+    PUT_OLEDCTRL,
 #    endif
 };
 
@@ -188,6 +225,12 @@ SSTD_t transactions[] = {
     [PUT_RGBLIGHT] =
         {
             (uint8_t *)&status_rgblight, sizeof(serial_rgblight), (uint8_t *)&serial_rgblight, 0, NULL  // no slave to master transfer
+        },
+#    endif
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+    [PUT_OLEDCTRL] =
+        {
+            (uint8_t *)&status_oledctrl, sizeof(serial_oledctrl), (uint8_t *)&serial_oledctrl, 0, NULL  // no slave to master transfer
         },
 #    endif
 };
@@ -251,6 +294,15 @@ bool transport_master(matrix_row_t matrix[]) {
     // Write wpm to slave
     serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
+
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+    if (oledctrl_is_msg_pending()) {
+        oledctrl_get_syncinfo((oledctrl_syncinfo_t *)&serial_oledctrl.oledctrl_sync);
+        if (soft_serial_transaction(PUT_OLEDCTRL) == TRANSACTION_END) {
+            oledctrl_clear_msg_pending();
+        }
+    }
+#    endif
     return true;
 }
 
@@ -270,6 +322,13 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
+#    endif
+
+#    if defined(OLED_CONTROL_ENABLE) && defined(OLEDCTRL_SPLIT)
+    if (status_oledctrl == TRANSACTION_ACCEPTED) {
+        oledctrl_update_sync((oledctrl_syncinfo_t *)&serial_oledctrl.oledctrl_sync);
+        status_oledctrl = TRANSACTION_END;
+    }
 #    endif
 }
 
