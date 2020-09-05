@@ -151,8 +151,8 @@
 // Row 4
 #define CA_LDAQ ALGR(CA_X)    // «
 #define CA_RDAQ ALGR(CA_C)    // »
-#define CA_LABK ALGR(CA_DOT)  // <
-#define CA_RABK ALGR(CA_COMM) // >
+#define CA_LABK ALGR(CA_COMM) // <
+#define CA_RABK ALGR(CA_DOT)  // >
 
 /* Right Ctrl symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
