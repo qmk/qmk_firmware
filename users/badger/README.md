@@ -9,7 +9,7 @@ Mac layer:  Mostly the same as the default layer, except that the ESC key maps t
 
 ### MOVE layer
 OS-specific convenience shortcuts.  Macros are defined to make it easier to adapt these to other operating systems.  The macros also help maintain the spacing that helps with the readability of the layers in source control.  
-  
+
 The main goal of the MOVE layer is to manage window move and resize, and jump to a specific virtual desktop.  The other function is to expose VIM-style move keys as arrow keys to other applications.  Some keys from ADJUST layer are also redefined here.
 
 Care was taken to keep the tiling and virtual desktop shortcuts as similar as possible between Linux and MacOS in this MOVE layer.  The most notable difference is that I haven't found a good way to do corner tiling in Linux the way that it's supported in MacOS Rectangle.
