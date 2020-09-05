@@ -1,4 +1,8 @@
-# A multi-OS keyboard layout with support for both Linux (KDE) MacOS-specific QWERTY layouts for 1UP 60% RGB by [BlueTufa](https://github.com/BlueTufa)
+# A multi-OS keyboard layout with support for both Linux (KDE) MacOS-specific QWERTY layouts for many 60-ish% keyboards (
+
+## Author: [BlueTufa](https://github.com/BlueTufa)
+
+> Supported Keyboards: 1up RGB and HTE, Clueboard 66, dztech 60 RGB, and partial support for Preonic and Planck ortholinear keyboards.
 
 ## Layouts
 
@@ -19,5 +23,7 @@ REMINDER: The 9-key left-hand pattern requires the installation of the MacOS rec
 `brew cask install rectangle`
 
 ### ADJUST layer
-Access to all function keys as well as media controls and Quantum and keyboard settings.  Some useful OS action keys are defined here as well.  
+Access to function keys as well as media controls and keyboard settings.  Some useful OS action keys are defined here as well.  
 
+### Config layer
+Access to Quantum keyboard controls as well as RGB configuration.  If audio is supported it would belong in this layer as well.
