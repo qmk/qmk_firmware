@@ -165,31 +165,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ______________________MOUSE_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ______________________MOUSE_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
-/* Git Layer
- *
- *  The macro layer that has common git commands.
- *
- * ,-----------------------------------.  ,-----------------------------------.
- * |     |Chery| Show|Rebas|Reset| Tag |  |     | Pull| Init|Rmote| Push|     |
- * |-----------------------------------|  |-----------------------------------|
- * |     | Add |Sttus| Diff|Fetch| Grep|  |Stash|     |ChkOt| Log |     |     |
- * |-----------------------------------|  |-----------------------------------|
- * |     |     |     |Comit| Move|Brnch|  |     |Merge|     |     |     |     |
- * |-----------------------------------|  |-----------------------------------|
- * |     |     |     |     |     |     |  |     |     |     |     |     |     |
- * `-----------------------------------'  `-----------------------------------'
- */
-
-#define _______________________GIT_L1______________________  XXXXXXX,   MC_cherrypick,  MC_show,      MC_rebase,  MC_reset,  MC_tag
-#define _______________________GIT_L2______________________  _______,   MC_add,         MC_status,    MC_diff,    MC_fetch,  MC_grep
-#define _______________________GIT_L3______________________  _______,   XXXXXXX,        XXXXXXX,      MC_commit,  MC_mv,     MC_branch
-#define _______________________GIT_L4______________________  _______,   _______,        _______,      _______,    _______,   _______
-
-#define _______________________GIT_R1______________________  XXXXXXX,   MC_pull,        MC_init,      MC_remote,  MC_push,   XXXXXXX
-#define _______________________GIT_R2______________________  MC_stash,  XXXXXXX,        MC_checkout,  MC_log,     XXXXXXX,   XXXXXXX
-#define _______________________GIT_R3______________________  XXXXXXX,   MC_merge,       XXXXXXX,      XXXXXXX,    XXXXXXX,   _______
-#define _______________________GIT_R4______________________  _______,   _______,        _______,      _______,    XXXXXXX,   XXXXXXX
-
 /* Convenience Layer
  *
  *  The Convenience layer adds miscellaneous chords to the keyboard.
