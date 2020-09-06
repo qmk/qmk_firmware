@@ -32,6 +32,12 @@ Additionally, the resolution, which defines how many pulses the encoder register
 #define ENCODER_RESOLUTION 4
 ```
 
+It can also be defined per-encoder, by instead defining:
+
+```c
+#define ENCODER_RESOLUTIONS { 4, 2 }
+```
+
 ## Split Keyboards
 
 If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout for the right half like this:
