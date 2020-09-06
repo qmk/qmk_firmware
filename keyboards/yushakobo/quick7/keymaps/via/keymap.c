@@ -18,7 +18,9 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _FUNC1
+    _FUNC1,
+    _VIA1,
+    _VIA2
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -37,6 +39,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET,   KC_TRNS, RGB_TOG,
         KC_HOME, KC_VOLU, KC_END,
         KC_MPRV, KC_VOLD, KC_MNXT
+    ),
+    [_VIA1] = LAYOUT(
+        YUSHAURL,XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX
+    ),
+    [_VIA2] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
