@@ -121,8 +121,8 @@
 
 #define emji LCMD(LCTL(KC_SPC))
 #define hypr OSM(MOD_HYPR)
-#define brup KC_BRIU
-#define brdn KC_BRID
+#define brup KC_BRMU
+#define brdn KC_BRMD
 #define escf LT(FUNC,KC_ESC)
 
 extern keymap_config_t keymap_config;
