@@ -22,7 +22,7 @@ enum custom_layers {
     _RS,     // Raise
     _LW,     // Lower
     _MS,     // Mouse
-    _GT,     // Git
+    _WT,     // Windows Terminal
     _CN,     // Convenience
     _GG,     // General Gaming
     _CS      // Counter-Strike: Global Offensive
