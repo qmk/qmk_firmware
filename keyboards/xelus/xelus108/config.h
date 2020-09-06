@@ -19,15 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5845  // XE
-#define PRODUCT_ID      0x5887  // X-87
+#define PRODUCT_ID      0x0108  // X-108
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Xelus87
-#define DESCRIPTION     Xelus87
+#define PRODUCT         Xelus108
+#define DESCRIPTION     Xelus108
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 17
+#define MATRIX_COLS 21
 
 #define MATRIX_ROW_PINS { B4, B3, A15, A3, B9, B8 }
 #define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4 }
