@@ -15,16 +15,16 @@
  */
 #include QMK_KEYBOARD_H
 
-// Windows based definitions.
+// MacOS based definitions.
 #define K_SPCFN LT(SYMB, KC_SPACE) // Tap for space, hold for symbols layer
-#define K_PRVWD LCTL(KC_LEFT)      // Previous word
-#define K_NXTWD LCTL(KC_RIGHT)     // Next word
-#define K_LSTRT KC_HOME            // Start of line
-#define K_LEND  KC_END             // End of line
-#define UNDO    LCTL(KC_Z)         // UNDO
-#define CUT     LCTL(KC_X)         // CUT
-#define COPY    LCTL(KC_C)         // COPY
-#define PASTE   LCTL(KC_V)         // PASTE
+#define K_PRVWD LALT(KC_LEFT)      // Previous word
+#define K_NXTWD LALT(KC_RIGHT)     // Next word
+#define K_LSTRT LGUI(KC_LEFT)      // Start of line
+#define K_LEND  LGUI(KC_RIGHT)     // End of line
+#define UNDO    LGUI(KC_Z)         // UNDO
+#define CUT     LGUI(KC_X)         // CUT
+#define COPY    LGUI(KC_C)         // COPY
+#define PASTE   LGUI(KC_V)         // PASTE
 
 
 #define BASE 0 // Default
@@ -34,11 +34,11 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT( /* Base */
-  KC_ESC,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    DF(1),   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,          KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-  MO(3),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME,          KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_DEL,  KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  MO(2),   KC_LCTL, KC_LGUI, KC_LALT,                   KC_BSPC, KC_ENT,  K_SPCFN,          KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,MO(2)
+  KC_ESC,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    DF(1),   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_PLUS,
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_LBRC,          KC_RBRC, KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, KC_BSPC,
+  MO(3),   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_HOME,          KC_PGUP, KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_END,  KC_DEL,  KC_PGDN, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  MO(2),   KC_LCTL, KC_LALT, KC_LGUI,                   KC_BSPC, KC_ENT,  K_SPCFN,          KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,MO(2)
     ),
 [NUMB] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, DF(0),   KC_PSLS, KC_PAST, KC_PMNS, _______, _______, _______, _______,
@@ -63,6 +63,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 
 };
+
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_LAYER_TAP_KEY(CURS, KC_BSPC),
+    [1] = ACTION_LAYER_TAP_KEY(SYMB, KC_SPACE),
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  // MACRODOWN only works in this function
+      switch(id) {
+        case 0:
+          if (record->event.pressed) {
+            register_code(KC_RSFT);
+          } else {
+            unregister_code(KC_RSFT);
+          }
+        break;
+      }
+    return MACRO_NONE;
+};
+
 
 void matrix_init_user(void) {
 
