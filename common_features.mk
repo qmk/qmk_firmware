@@ -246,12 +246,13 @@ ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
     VAPTH += $(SERIAL_PATH)
 endif
 
-ifneq ($(strip $(VARIABLE_TRACE)),)
+VARIABLE_TRACE ?= no
+ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c
     OPT_DEFS += -DNUM_TRACED_VARIABLES=$(strip $(VARIABLE_TRACE))
-ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
-    OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
-endif
+    ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
+        OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
+    endif
 endif
 
 ifeq ($(strip $(LCD_ENABLE)), yes)
@@ -263,7 +264,7 @@ ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
     BACKLIGHT_DRIVER := custom
 endif
 
-VALID_BACKLIGHT_TYPES := pwm software custom
+VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
 BACKLIGHT_DRIVER ?= pwm
@@ -303,6 +304,12 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
         SRC += ws2812.c
     else
         SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+
+        ifeq ($(strip $(PLATFORM)), CHIBIOS)
+            ifeq ($(strip $(WS2812_DRIVER)), pwm)
+                OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
+            endif
+        endif
     endif
 
     # add extra deps
@@ -527,4 +534,20 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
         OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
     endif
+endif
+
+JOYSTICK_ENABLE ?= no
+ifneq ($(strip $(JOYSTICK_ENABLE)), no)
+    OPT_DEFS += -DJOYSTICK_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
+    SRC += $(QUANTUM_DIR)/joystick.c
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), analog)
+    OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
+    SRC += analog.c
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
+    OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
 endif
