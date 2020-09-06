@@ -81,8 +81,7 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
     }
 
     clear_keyboard();
-
-    layer_state = saved_layer_state;
+    layer_state_set(saved_layer_state);
 
     dynamic_macro_play_user(direction);
 }
@@ -96,11 +95,11 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
  * @param direction[in]  Either +1 or -1, which way to iterate the buffer.
  * @param record[in]     The current keypress.
  */
-void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_pointer, keyrecord_t *macro2_end, int8_t direction, keyrecord_t *record) {
+bool dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_pointer, keyrecord_t *macro2_end, int8_t direction, keyrecord_t *record) {
     /* If we've just started recording, ignore all the key releases. */
     if (!record->event.pressed && *macro_pointer == macro_buffer) {
         dprintln("dynamic macro: ignoring a leading key-up event");
-        return;
+        return false;
     }
 
     /* The other end of the other macro is the last buffer element it
@@ -114,6 +113,7 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
     }
 
     dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
+    return true;
 }
 
 /**
@@ -211,6 +211,8 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 case DYN_MACRO_PLAY2:
                     dynamic_macro_play(r_macro_buffer, r_macro_end, -1);
                     return false;
+                case DYN_REC_STOP:
+                    return false;
             }
         }
     } else {
@@ -219,10 +221,8 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
             case DYN_REC_START1:
             case DYN_REC_START2:
             case DYN_REC_STOP:
-                /* Stop the macro recording. */
-                if (record->event.pressed ^ (keycode != DYN_REC_STOP)) { /* Ignore the initial release
-                                                                          * just after the recording
-                                                                          * starts for DYN_REC_STOP. */
+                /* Stop the macro recording on key release. Either way, don't record it. */
+                if (!record->event.pressed) {
                     switch (macro_id) {
                         case 1:
                             dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
@@ -244,14 +244,10 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 /* Store the key in the macro buffer and process it normally. */
                 switch (macro_id) {
                     case 1:
-                        dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
-                        break;
+                        return dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
                     case 2:
-                        dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
-                        break;
+                        return dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
                 }
-                return true;
-                break;
         }
     }
 
