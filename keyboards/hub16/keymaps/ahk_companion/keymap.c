@@ -1,9 +1,25 @@
+/*
+Copyright 2019 Josh Johnson
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include QMK_KEYBOARD_H
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 static uint32_t rgb_preview_timer = 0;
 #endif
-extern rgblight_config_t rgblight_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //Layer 0 - Base Layer (F13 to F24, and One Shot Layer 1,2,3 or Toggle Layer 4)
@@ -86,10 +102,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 		my_layer4_layer,
         my_layer5_layer
 	);
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
