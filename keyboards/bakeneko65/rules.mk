@@ -21,4 +21,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = 65_ansi_split_bs 65_ansi 65_ansi_split_bs_2_right_mods 65_ansi_2_right_mods
+LAYOUTS = 65_ansi
