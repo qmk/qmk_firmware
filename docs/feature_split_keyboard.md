@@ -48,7 +48,7 @@ However, USB cables, SATA cables, and even just 4 wires have been known to be us
 
 ### Serial Wiring
 
-The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0/D1/D2/D3 (aka PDO/PD1/PD2/PD3) between the two Pro Micros. 
+The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0/D1/D2/D3 (aka PD0/PD1/PD2/PD3) between the two Pro Micros. 
 
 ?> Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
 
