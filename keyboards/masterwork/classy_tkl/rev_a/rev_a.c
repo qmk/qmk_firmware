@@ -56,4 +56,4 @@ bool led_update_kb(led_t led_state) {
         writePin(CAPS_PIN, led_state.caps_lock);
         writePin(SCROLL_PIN, led_state.scroll_lock);
     }
-    return res
+    return res;
