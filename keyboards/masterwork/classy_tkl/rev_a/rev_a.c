@@ -50,20 +50,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 */
 
-void led_set_kb(uint8_t usb_led) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(CAPS_PIN);
-    } else {
-        writePinLow(CAPS_PIN);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(CAPS_PIN, led_state.caps_lock);
+        writePin(SCROLL_PIN, led_state.scroll_lock);
     }
-
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinHigh(SCROLL_PIN);
-    } else {
-        writePinLow(SCROLL_PIN);
-    }
-
-    led_set_user(usb_led);
-}
+    return res
