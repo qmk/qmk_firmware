@@ -48,11 +48,12 @@ However, USB cables, SATA cables, and even just 4 wires have been known to be us
 
 ### Serial Wiring
 
-The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0 (aka PDO or pin 3) between the two Pro Micros. 
+The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0/D1/D2/D3 (aka PD0/PD1/PD2/PD3) between the two Pro Micros. 
 
 ?> Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
 
-![serial wiring](https://i.imgur.com/C3D1GAQ.png)
+<img alt="sk-pd0-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296488-28e9ad80-ef70-11ea-98be-c40cb48a0319.JPG" width="48%"/>
+<img alt="sk-pd2-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296490-2d15cb00-ef70-11ea-801f-5ace313013e6.JPG" width="48%"/>
 
 ### I<sup>2</sup>C Wiring
 
@@ -60,7 +61,7 @@ The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0
 
 The pull-up resistors may be placed on either half. If you wish to use the halves independently, it is also possible to use 4 resistors and have the pull-ups in both halves.
 
-![I2C wiring](https://i.imgur.com/Hbzhc6E.png)
+<img alt="sk-i2c-connection-mono" src="https://user-images.githubusercontent.com/2170248/92297182-92b98580-ef77-11ea-9d7d-d6033914af43.JPG" width="50%"/>
 
 ## Firmware Configuration
 
