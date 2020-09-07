@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "", 
+    "keyboard_name": "t111", 
     "url": "", 
-    "maintainer": "qmk", 
+    "maintainer": "DmNosachev", 
     "width": 21.75, 
     "height": 6.5, 
     "layouts": {
