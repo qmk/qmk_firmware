@@ -1,12 +1,17 @@
 # giabalanai
 
-![giabalanai](imgur.com image replace me!)
+<p align=center>
+<img width="700" alt="giabalanai_logo" src="https://github.com/3araht/giabalanai/blob/master/pictures/giabalanai_logo.png">
+</p>
+
+![giabalanai overview](https://github.com/3araht/giabalanai/blob/master/pictures/giabalanai_overview.jpg)
+
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [3araht](https://github.com/3araht)
-* Hardware Supported: Giabalanai keyboard, a split keyboard mainly work as MIDI keyboard.
-* Hardware Availability: Distribution methods is under consideration.
+* Hardware Supported: giabalanai keyboard, a split keyboard mainly work as MIDI keyboard.
+* Hardware Availability: The keyboard kit is available [here](https://yushakobo.jp/shop/consign_giabalanai/).
 
 Make example for this keyboard (after setting up your build environment):
 

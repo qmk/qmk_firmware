@@ -29,15 +29,18 @@
 #define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
-#define DF_BASE DF(_BASE)
+#define DFCBASE DF(_C_SYSTEM_BASE)
+#define DFBBASE DF(_FAKE_B_SYSTEM)
+
 #define DF_QWER DF(_QWERTY)
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE LT(_FN, KC_MUTE)
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,     //  MIDI
-    _QWERTY,   //  just in case
+    _C_SYSTEM_BASE,  //  MIDI C-system
+    _FAKE_B_SYSTEM,  //  MIDI fake B-system doesn't have correct assignments on top two rows. The bottom 3 rows are B-system.
+    _QWERTY,         //  just in case
     _FN
 };
 
@@ -146,8 +149,8 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* Base */
-  [_BASE] = LAYOUT(
+  /* C-system Base */
+  [_C_SYSTEM_BASE] = LAYOUT(
     MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr,    MI_CH_Gr,    MI_CH_Dr,    MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,
     MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C,     MI_CH_G,     MI_CH_D,     MI_CH_A,     MI_CH_E,     MI_CH_B,     MI_CH_Fs,
     MI_CH_Dbm,    MI_CH_Abm,    MI_CH_Ebm,    MI_CH_Bbm,    MI_CH_Fm,    MI_CH_Cm,    MI_CH_Gm,    MI_CH_Dm,    MI_CH_Am,    MI_CH_Em,    MI_CH_Bm,    MI_CH_Fsm,
@@ -157,6 +160,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_Ab, MI_B,  MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  FN_MUTE,
     MI_G,  MI_Bb, MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
     MI_Fs, MI_A,  MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3
+  ),
+
+  /* fake B-system */
+  [_FAKE_B_SYSTEM] = LAYOUT(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+
+    MI_A,    MI_C_1, MI_Eb_1, MI_Gb_1, MI_A_1, MI_C_2,  MI_Eb_2, MI_Gb_2, MI_A_2, MI_C_3,  MI_Eb_3, MI_Gb_3, _______,
+    MI_G,    MI_Bb,  MI_Db_1, MI_E_1,  MI_G_1, MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2, MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
+    XXXXXXX, MI_Ab,  MI_B,    MI_D_1,  MI_F_1, MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2, MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3
   ),
 
   /* QWERTY */
@@ -174,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT(
-    DF_BASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    DFCBASE, DFBBASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
