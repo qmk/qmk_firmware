@@ -1,39 +1,42 @@
 # PR checklists
 
-This is a non-exhaustive checklist of what the QMK collaborators will be checking when reviewing submitted PRs.
+This is a non-exhaustive checklist of what the QMK Collaborators will be checking when reviewing submitted PRs.
 
-If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on Discord.
+If there are any inconsistencies with these recommendations, you're best off [creating an issue](https://github.com/qmk/qmk_firmware/issues/new) against this document, or getting in touch with a QMK Collaborator on [Discord](https://discord.gg/Uq7gcHh).
 
 ## General PRs
 
 - PR should be submitted using a non-`master` branch on the source repository
-    - This does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
-    - If submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](https://docs.qmk.fm/#/newbs_git_using_your_master_branch) page after merging -- (end of this document will contain the contents of the message)
-- Newly-added directories and filenames must be lowercase
-    - This rule may be relaxed if upstream sources originally had uppercase characters (e.g. ChibiOS, or imported files from other repositories etc.)
-    - If there is enough justification (i.e. consistency with existing core files etc.) this can be relaxed
+    - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
+    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](https://docs.qmk.fm/#/newbs_git_using_your_master_branch) page after merging -- (end of this document will contain the contents of the message)
+- newly-added directories and filenames must be lowercase
+    - this rule may be relaxed if upstream sources originally had uppercase characters (e.g. ChibiOS, or imported files from other repositories etc.)
+    - if there is enough justification (i.e. consistency with existing core files etc.) this can be relaxed
         - a board designer naming their keyboard with uppercase letters is not enough justification
-- Valid license headers on all `*.c` and `*.h` source files
+- valid license headers on all `*.c` and `*.h` source files
     - GPL2/GPL3 recommended for consistency
-    - Other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged.
-- QMK codebase "best practices" followed
-    - This is not an exhaustive list, and will likely get amended as time goes by
+    - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged.
+- QMK Codebase "best practices" followed
+    - this is not an exhaustive list, and will likely get amended as time goes by
     - `#pragma once` instead of `#ifndef` include guards in header files
-    - No "old-school" GPIO/I2C/SPI functions used -- must use QMK abstractions unless justifiable (and laziness is not valid justification)
-    - Timing abstractions should be followed too:
+    - no "old-school" GPIO/I2C/SPI functions used -- must use QMK abstractions unless justifiable (and laziness is not valid justification)
+    - timing abstractions should be followed too:
         - `wait_ms()` instead of `_delay_ms()` (remove `#include <util/delay.h>` too)
         - `timer_read()` and `timer_read32()` etc. -- see [timer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/timer.h) for the timing APIs
-    - If you think a new abstraction is useful, you're encouraged to:
+    - if you think a new abstraction is useful, you're encouraged to:
         - prototype it in your own keyboard until it's feature-complete
         - discuss it with QMK Collaborators on Discord
         - refactor it as a separate core change
         - remove your specific copy in your board
+- rebase and fix all merge conflicts before opening the PR (in case you need help or advice, reach out to QMK Collaborators on Discord)
 
-## Core PRs
+## Keymap PRs
 
-- Must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
-- Other notes TBD
-    - Core is a lot more subjective given the breadth of posted changes
+- `#include QMK_KEYBOARD_H` preferred to including specific board files
+- prefer layer `enum`s to `#define`s
+- require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
+- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous
+- some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
 ## Keyboard PRs
 
@@ -48,12 +51,14 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - standard template should be present
     - flash command has `:flash` at end
     - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
+    - clear instructions on how to reset the board into bootloader mode
+    - a picture about the keyboard and preferably about the PCB, too
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
-    - No `(-/+size)` comments related to enabling features
-    - Remove the list of alternate bootloaders if one has been specified
-    - No re-definitions of the default MCU parameters if same value, when compared to the equivalent MCU in [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/quantum/mcu_selection.mk)
+    - no `(-/+size)` comments related to enabling features
+    - remove the list of alternate bootloaders if one has been specified
+    - no re-definitions of the default MCU parameters if same value, when compared to the equivalent MCU in [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/quantum/mcu_selection.mk)
 - keyboard `config.h`
     - don't repeat `MANUFACTURER` in the `PRODUCT` value
     - no `#define DESCRIPTION`
@@ -71,12 +76,12 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - `keyboard.h`
     - `#include "quantum.h"` appears at the top
     - `LAYOUT` macros should use standard definitions if applicable
-        - Use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
+        - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
     - `QMKBEST`/`QMKURL` removed (sheesh)
-    - If using `MO(_LOWER)` and `MO(_RAISE)` keycodes or equivalent, and the keymap has an adjust layer when holding both keys -- if the keymap has no "direct-to-adjust" keycode (such as `MO(_ADJUST)`) then you should prefer to write...
+    - if using `MO(_LOWER)` and `MO(_RAISE)` keycodes or equivalent, and the keymap has an adjust layer when holding both keys -- if the keymap has no "direct-to-adjust" keycode (such as `MO(_ADJUST)`) then you should prefer to write...
         ```
         layer_state_t layer_state_set_user(layer_state_t state) {
           return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -90,22 +95,20 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 
 Also, specific to ChibiOS:
-- **Strong** preference to using existing ChibiOS board definitions.
-    - A lot of the time, an equivalent Nucleo board can be used with a different flash size or slightly different model in the same family
-        - Example: For an STM32L082KZ, given the similarity to an STM32L073RZ, you can use `BOARD = ST_NUCLEO64_L073RZ` in rules.mk
+- **strong** preference to using existing ChibiOS board definitions.
+    - a lot of the time, an equivalent Nucleo board can be used with a different flash size or slightly different model in the same family
+        - example: For an STM32L082KZ, given the similarity to an STM32L073RZ, you can use `BOARD = ST_NUCLEO64_L073RZ` in rules.mk
     - QMK is migrating to not having custom board definitions if at all possible, due to the ongoing maintenance burden when upgrading ChibiOS
-- If a board definition is unavoidable, `board.c` must have a standard `__early_init()` (as per normal ChibiOS board defs) and an empty `boardInit()`:
+- if a board definition is unavoidable, `board.c` must have a standard `__early_init()` (as per normal ChibiOS board defs) and an empty `boardInit()`:
     - see Arm/ChibiOS [early initialization](https://docs.qmk.fm/#/platformdev_chibios_earlyinit?id=board-init)
     - `__early_init()` should be replaced by either `early_hardware_init_pre()` or `early_hardware_init_post()` as appropriate
     - `boardInit()` should be migrated to `board_init()`
 
-## Keymap PRs
+## Core PRs
 
-- `#include QMK_KEYBOARD_H` preferred to including specific board files
-- Prefer layer `enum`s to `#define`s
-- Require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
-- Terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous
-- Some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
+- must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
+- other notes TBD
+    - core is a lot more subjective given the breadth of posted changes
 
 ---
 

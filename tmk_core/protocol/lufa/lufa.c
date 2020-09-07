@@ -53,7 +53,6 @@
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
-#include "outputselect.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -66,10 +65,11 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef BLUETOOTH_ENABLE
+#    include "outputselect.h"
 #    ifdef MODULE_ADAFRUIT_BLE
 #        include "adafruit_ble.h"
 #    else
-#        include "bluetooth.h"
+#        include "../serial.h"
 #    endif
 #endif
 
@@ -85,10 +85,54 @@ extern keymap_config_t keymap_config;
 #    include "raw_hid.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
+// https://cdn.sparkfun.com/datasheets/Wireless/Bluetooth/bluetooth_cr_UG-v1.0r.pdf#G7.663734
+static inline uint16_t CONSUMER2RN42(uint16_t usage) {
+    switch (usage) {
+        case AC_HOME:
+            return 0x0001;
+        case AL_EMAIL:
+            return 0x0002;
+        case AC_SEARCH:
+            return 0x0004;
+        case AL_KEYBOARD_LAYOUT:
+            return 0x0008;
+        case AUDIO_VOL_UP:
+            return 0x0010;
+        case AUDIO_VOL_DOWN:
+            return 0x0020;
+        case AUDIO_MUTE:
+            return 0x0040;
+        case TRANSPORT_PLAY_PAUSE:
+            return 0x0080;
+        case TRANSPORT_NEXT_TRACK:
+            return 0x0100;
+        case TRANSPORT_PREV_TRACK:
+            return 0x0200;
+        case TRANSPORT_STOP:
+            return 0x0400;
+        case TRANSPORT_EJECT:
+            return 0x0800;
+        case TRANSPORT_FAST_FORWARD:
+            return 0x1000;
+        case TRANSPORT_REWIND:
+            return 0x2000;
+        case TRANSPORT_STOP_EJECT:
+            return 0x4000;
+        case AL_LOCAL_BROWSER:
+            return 0x8000;
+        default:
+            return 0;
+    }
+}
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
-static uint8_t keyboard_led_stats = 0;
+static uint8_t keyboard_led_state = 0;
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -103,30 +147,30 @@ host_driver_t  lufa_driver = {
 };
 
 #ifdef VIRTSER_ENABLE
+// clang-format off
+
 USB_ClassInfo_CDC_Device_t cdc_device = {
-    .Config =
-        {
-            .ControlInterfaceNumber = CCI_INTERFACE,
-            .DataINEndpoint =
-                {
-                    .Address = CDC_IN_EPADDR,
-                    .Size    = CDC_EPSIZE,
-                    .Banks   = 1,
-                },
-            .DataOUTEndpoint =
-                {
-                    .Address = CDC_OUT_EPADDR,
-                    .Size    = CDC_EPSIZE,
-                    .Banks   = 1,
-                },
-            .NotificationEndpoint =
-                {
-                    .Address = CDC_NOTIFICATION_EPADDR,
-                    .Size    = CDC_NOTIFICATION_EPSIZE,
-                    .Banks   = 1,
-                },
+    .Config = {
+        .ControlInterfaceNumber = CCI_INTERFACE,
+        .DataINEndpoint = {
+            .Address            = (CDC_IN_EPNUM | ENDPOINT_DIR_IN),
+            .Size               = CDC_EPSIZE,
+            .Banks              = 1
         },
+        .DataOUTEndpoint = {
+            .Address            = (CDC_OUT_EPNUM | ENDPOINT_DIR_OUT),
+            .Size               = CDC_EPSIZE,
+            .Banks              = 1
+        },
+        .NotificationEndpoint = {
+            .Address            = (CDC_NOTIFICATION_EPNUM | ENDPOINT_DIR_IN),
+            .Size               = CDC_NOTIFICATION_EPSIZE,
+            .Banks              = 1
+        }
+    }
 };
+
+// clang-format on
 #endif
 
 #ifdef RAW_ENABLE
@@ -254,12 +298,76 @@ static void Console_Task(void) {
     // fill empty bank
     while (Endpoint_IsReadWriteAllowed()) Endpoint_Write_8(0);
 
-    // flash senchar packet
+    // flush sendchar packet
     if (Endpoint_IsINReady()) {
         Endpoint_ClearIN();
     }
 
     Endpoint_SelectEndpoint(ep);
+}
+#endif
+
+/*******************************************************************************
+ * Joystick
+ ******************************************************************************/
+#ifdef JOYSTICK_ENABLE
+void send_joystick_packet(joystick_t *joystick) {
+    uint8_t timeout = 255;
+
+    joystick_report_t r = {
+#    if JOYSTICK_AXES_COUNT > 0
+        .axes =
+            {
+                joystick->axes[0],
+
+#        if JOYSTICK_AXES_COUNT >= 2
+                joystick->axes[1],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
+                joystick->axes[2],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
+                joystick->axes[3],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
+                joystick->axes[4],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
+                joystick->axes[5],
+#        endif
+            },
+#    endif  // JOYSTICK_AXES_COUNT>0
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+        .buttons =
+            {
+                joystick->buttons[0],
+
+#        if JOYSTICK_BUTTON_COUNT > 8
+                joystick->buttons[1],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
+                joystick->buttons[2],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
+                joystick->buttons[3],
+#        endif
+            }
+#    endif  // JOYSTICK_BUTTON_COUNT>0
+    };
+
+    /* Select the Joystick Report Endpoint */
+    Endpoint_SelectEndpoint(JOYSTICK_IN_EPNUM);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    /* Write Joystick Report Data */
+    Endpoint_Write_Stream_LE(&r, sizeof(joystick_report_t), NULL);
+
+    /* Finalize the stream transfer to send the last packet */
+    Endpoint_ClearIN();
 }
 #endif
 
@@ -370,45 +478,51 @@ void EVENT_USB_Device_StartOfFrame(void) {
 void EVENT_USB_Device_ConfigurationChanged(void) {
     bool ConfigSuccess = true;
 
-    /* Setup Keyboard HID Report Endpoints */
 #ifndef KEYBOARD_SHARED_EP
-    ConfigSuccess &= ENDPOINT_CONFIG(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup keyboard report endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((KEYBOARD_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, KEYBOARD_EPSIZE, 1);
 #endif
 
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-    /* Setup Mouse HID Report Endpoint */
-    ConfigSuccess &= ENDPOINT_CONFIG(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup mouse report endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MOUSE_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, MOUSE_EPSIZE, 1);
 #endif
 
 #ifdef SHARED_EP_ENABLE
-    /* Setup Shared HID Report Endpoint */
-    ConfigSuccess &= ENDPOINT_CONFIG(SHARED_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, SHARED_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup shared report endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((SHARED_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, SHARED_EPSIZE, 1);
 #endif
 
 #ifdef RAW_ENABLE
-    /* Setup Raw HID Report Endpoints */
-    ConfigSuccess &= ENDPOINT_CONFIG(RAW_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, RAW_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= ENDPOINT_CONFIG(RAW_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT, RAW_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup raw HID endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
 #endif
 
 #ifdef CONSOLE_ENABLE
-    /* Setup Console HID Report Endpoints */
-    ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup console endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CONSOLE_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, CONSOLE_EPSIZE, 1);
 #    if 0
-    ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-                                     CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CONSOLE_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, CONSOLE_EPSIZE, 1);
 #    endif
 #endif
 
 #ifdef MIDI_ENABLE
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup MIDI stream endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
 #endif
 
 #ifdef VIRTSER_ENABLE
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_OUT_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_IN_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup virtual serial endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_NOTIFICATION_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_BULK, CDC_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, CDC_EPSIZE, 1);
+#endif
+
+#ifdef JOYSTICK_ENABLE
+    /* Setup joystick endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((JOYSTICK_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, JOYSTICK_EPSIZE, 1);
 #endif
 }
 
@@ -472,10 +586,10 @@ void EVENT_USB_Device_ControlRequest(void) {
                             uint8_t report_id = Endpoint_Read_8();
 
                             if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
-                                keyboard_led_stats = Endpoint_Read_8();
+                                keyboard_led_state = Endpoint_Read_8();
                             }
                         } else {
-                            keyboard_led_stats = Endpoint_Read_8();
+                            keyboard_led_state = Endpoint_Read_8();
                         }
 
                         Endpoint_ClearOUT();
@@ -545,7 +659,7 @@ void EVENT_USB_Device_ControlRequest(void) {
  *
  * FIXME: Needs doc
  */
-static uint8_t keyboard_leds(void) { return keyboard_led_stats; }
+static uint8_t keyboard_leds(void) { return keyboard_led_state; }
 
 /** \brief Send Keyboard
  *
@@ -553,35 +667,29 @@ static uint8_t keyboard_leds(void) { return keyboard_led_stats; }
  */
 static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
 
 #ifdef BLUETOOTH_ENABLE
+    uint8_t where = where_to_send();
+
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #    ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
 #    elif MODULE_RN42
-        bluefruit_serial_send(0xFD);
-        bluefruit_serial_send(0x09);
-        bluefruit_serial_send(0x01);
-        bluefruit_serial_send(report->mods);
-        bluefruit_serial_send(report->reserved);
+        serial_send(0xFD);
+        serial_send(0x09);
+        serial_send(0x01);
+        serial_send(report->mods);
+        serial_send(report->reserved);
         for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            bluefruit_serial_send(report->keys[i]);
-        }
-#    else
-        bluefruit_serial_send(0xFD);
-        bluefruit_serial_send(report->mods);
-        bluefruit_serial_send(report->reserved);
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            bluefruit_serial_send(report->keys[i]);
+            serial_send(report->keys[i]);
         }
 #    endif
     }
-#endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
+#endif
 
     /* Select the Keyboard Report Endpoint */
     uint8_t ep   = KEYBOARD_IN_EPNUM;
@@ -617,30 +725,31 @@ static void send_keyboard(report_keyboard_t *report) {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
 
 #    ifdef BLUETOOTH_ENABLE
+    uint8_t where = where_to_send();
+
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #        ifdef MODULE_ADAFRUIT_BLE
         // FIXME: mouse buttons
         adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
 #        else
-        bluefruit_serial_send(0xFD);
-        bluefruit_serial_send(0x00);
-        bluefruit_serial_send(0x03);
-        bluefruit_serial_send(report->buttons);
-        bluefruit_serial_send(report->x);
-        bluefruit_serial_send(report->y);
-        bluefruit_serial_send(report->v);  // should try sending the wheel v here
-        bluefruit_serial_send(report->h);  // should try sending the wheel h here
-        bluefruit_serial_send(0x00);
+        serial_send(0xFD);
+        serial_send(0x00);
+        serial_send(0x03);
+        serial_send(report->buttons);
+        serial_send(report->x);
+        serial_send(report->y);
+        serial_send(report->v);  // should try sending the wheel v here
+        serial_send(report->h);  // should try sending the wheel h here
+        serial_send(0x00);
 #        endif
     }
-#    endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
+#    endif
 
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
@@ -695,9 +804,9 @@ static void send_system(uint16_t data) {
  */
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
+#    ifdef BLUETOOTH_ENABLE
     uint8_t where = where_to_send();
 
-#    ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #        ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_consumer_key(data, 0);
@@ -706,32 +815,18 @@ static void send_consumer(uint16_t data) {
         if (data == last_data) return;
         last_data       = data;
         uint16_t bitmap = CONSUMER2RN42(data);
-        bluefruit_serial_send(0xFD);
-        bluefruit_serial_send(0x03);
-        bluefruit_serial_send(0x03);
-        bluefruit_serial_send(bitmap & 0xFF);
-        bluefruit_serial_send((bitmap >> 8) & 0xFF);
-#        else
-        static uint16_t last_data = 0;
-        if (data == last_data) return;
-        last_data       = data;
-        uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
-        bluefruit_serial_send(0xFD);
-        bluefruit_serial_send(0x00);
-        bluefruit_serial_send(0x02);
-        bluefruit_serial_send((bitmap >> 8) & 0xFF);
-        bluefruit_serial_send(bitmap & 0xFF);
-        bluefruit_serial_send(0x00);
-        bluefruit_serial_send(0x00);
-        bluefruit_serial_send(0x00);
-        bluefruit_serial_send(0x00);
+        serial_send(0xFD);
+        serial_send(0x03);
+        serial_send(0x03);
+        serial_send(bitmap & 0xFF);
+        serial_send((bitmap >> 8) & 0xFF);
 #        endif
     }
-#    endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
+#    endif
 
     send_extra(REPORT_ID_CONSUMER, data);
 #endif
@@ -808,24 +903,25 @@ ERROR_EXIT:
  ******************************************************************************/
 
 #ifdef MIDI_ENABLE
+// clang-format off
+
 USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface = {
-    .Config =
-        {
-            .StreamingInterfaceNumber = AS_INTERFACE,
-            .DataINEndpoint =
-                {
-                    .Address = MIDI_STREAM_IN_EPADDR,
-                    .Size    = MIDI_STREAM_EPSIZE,
-                    .Banks   = 1,
-                },
-            .DataOUTEndpoint =
-                {
-                    .Address = MIDI_STREAM_OUT_EPADDR,
-                    .Size    = MIDI_STREAM_EPSIZE,
-                    .Banks   = 1,
-                },
+    .Config = {
+        .StreamingInterfaceNumber = AS_INTERFACE,
+        .DataINEndpoint = {
+            .Address              = (MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN),
+            .Size                 = MIDI_STREAM_EPSIZE,
+            .Banks                = 1
         },
+        .DataOUTEndpoint = {
+            .Address              = (MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_OUT),
+            .Size                 = MIDI_STREAM_EPSIZE,
+            .Banks                = 1
+        }
+    }
 };
+
+// clang-format on
 
 void send_midi_packet(MIDI_EventPacket_t *event) { MIDI_Device_SendEventPacket(&USB_MIDI_Interface, event); }
 
@@ -945,7 +1041,7 @@ int main(void) {
     setup_usb();
     sei();
 
-#if defined(MODULE_ADAFRUIT_EZKEY) || defined(MODULE_RN42)
+#if defined(MODULE_RN42)
     serial_init();
 #endif
 
