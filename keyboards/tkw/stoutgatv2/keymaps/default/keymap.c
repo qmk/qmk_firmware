@@ -1,7 +1,9 @@
 #include QMK_KEYBOARD_H
 
-#define _BL 0
-#define _FL 1
+enun layers {
+    _BL,
+    _FL,
+};
 
 
 
