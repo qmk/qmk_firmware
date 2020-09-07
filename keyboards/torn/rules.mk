@@ -18,9 +18,8 @@ ENCODER_ENABLE = yes        # Enable rotary encoder
 OLED_DRIVER_ENABLE = yes
 CUSTOM_MATRIX = lite
 
-SRC += \
-    i2c_master.c \
-    matrix.c \
+SRC += matrix.c \
     mcp23018.c \
     torn_encoder.c \
     torn_oled.c
+QUANTUM_LIB_SRC += i2c_master.c
