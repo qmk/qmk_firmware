@@ -28,8 +28,8 @@ LTO_ENABLE = yes            # Link-time optimization
 CUSTOM_MATRIX = lite        # Lite custom matrix 
 
 # Project specific files
-SRC += matrix.c
-SRC += bitc_led.c
-SRC += big_led.c
-SRC += remote_kb.c
-SRC += tmk_core/common/uart.c
+SRC += matrix.c \
+       bitc_led.c \
+       big_led.c \
+       remote_kb.c \
+       tmk_core/common/uart.c
