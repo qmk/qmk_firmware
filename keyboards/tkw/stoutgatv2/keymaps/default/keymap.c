@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-enun layers {
+enum layers {
     _BL,
     _FL,
 };
