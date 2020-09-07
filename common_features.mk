@@ -264,7 +264,7 @@ ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
     BACKLIGHT_DRIVER := custom
 endif
 
-VALID_BACKLIGHT_TYPES := pwm software custom
+VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
 BACKLIGHT_DRIVER ?= pwm
@@ -304,6 +304,12 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
         SRC += ws2812.c
     else
         SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+
+        ifeq ($(strip $(PLATFORM)), CHIBIOS)
+            ifeq ($(strip $(WS2812_DRIVER)), pwm)
+                OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
+            endif
+        endif
     endif
 
     # add extra deps
@@ -391,9 +397,20 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
+# Support for translating old names to new names:
+ifeq ($(strip $(DEBOUNCE_TYPE)),sym_g)
+    DEBOUNCE_TYPE:=sym_defer_g
+else ifeq ($(strip $(DEBOUNCE_TYPE)),eager_pk)
+    DEBOUNCE_TYPE:=sym_eager_pk
+else ifeq ($(strip $(DEBOUNCE_TYPE)),sym_pk)
+    DEBOUNCE_TYPE:=sym_defer_pk
+else ifeq ($(strip $(DEBOUNCE_TYPE)),eager_pr)
+    DEBOUNCE_TYPE:=sym_eager_pr
+endif
+
 DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
 # Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
-DEBOUNCE_TYPE?= sym_g
+DEBOUNCE_TYPE?= sym_defer_g
 ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
     QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
 endif
@@ -528,4 +545,20 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
         OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
     endif
+endif
+
+JOYSTICK_ENABLE ?= no
+ifneq ($(strip $(JOYSTICK_ENABLE)), no)
+    OPT_DEFS += -DJOYSTICK_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
+    SRC += $(QUANTUM_DIR)/joystick.c
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), analog)
+    OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
+    SRC += analog.c
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
+    OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
 endif

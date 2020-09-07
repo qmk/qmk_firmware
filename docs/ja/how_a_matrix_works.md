@@ -101,4 +101,4 @@
 - [Deskthority の記事](https://deskthority.net/wiki/Keyboard_matrix)
 - [Dave Dribin による Keyboard Matrix Help (2000)](https://www.dribin.org/dave/keyboard/one_html/)
 - [PCBheaven による How Key Matrices Works](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (アニメーションの例)
-- [キーボードの仕組み - QMK ドキュメント](how_keyboards_work.md)
+- [キーボードの仕組み - QMK ドキュメント](ja/how_keyboards_work.md)
