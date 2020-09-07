@@ -22,7 +22,7 @@
 #define PRODUCT_ID 0x7811
 #define DEVICE_VER 0x0002
 #define MANUFACTURER TKW
-#define PRODUCT Stoutgat 65% with RGB and dual encoders
+#define PRODUCT Stoutgat 65%
 
 /* key matrix size */
 #define MATRIX_ROWS 5
