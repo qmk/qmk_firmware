@@ -25,8 +25,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case DBLZERO:
         if (record->event.pressed) {
-            SEND_STRING("00");
-        } else {
+            tap_code(KC_P0);
+            tap_code(KC_P0);
         }
         break;
     }
