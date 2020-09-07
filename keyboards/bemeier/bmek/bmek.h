@@ -17,16 +17,12 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_bemeier_bmek_rev1
-    #include "rev1.h"
-#endif
-
-#ifdef KEYBOARD_bemeier_bmek_rev2
-    #include "rev2.h"
-#endif
-
-#ifdef KEYBOARD_bemeier_bmek_rev3
-    #include "rev3.h"
+#if defined(KEYBOARD_bemeier_bmek_rev1)
+#    include "rev1.h"
+#elif defined(KEYBOARD_bemeier_bmek_rev2)
+#    include "rev2.h"
+#elif defined(KEYBOARD_bemeier_bmek_rev3)
+#    include "rev3.h"
 #endif
 
 #define XXX KC_NO  // makes the switch matrix easier to read

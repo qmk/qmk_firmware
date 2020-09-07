@@ -16,5 +16,7 @@
 #include "bmek.h"
 
 void shutdown_user() {
+#ifdef RGBLIGHT_ENABLE
     rgblight_setrgb(255, 0, 0);
+#endif
 }
