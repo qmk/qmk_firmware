@@ -66,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 int RGB_current_mode;
 
 void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
+#ifdef RGBLIGHT_ENABLE
+    RGB_current_mode = rgblight_config.mode;
+#endif
 }
 
 //SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
