@@ -1,1 +1,0 @@
-SRC += nchristus.c

@@ -1,7 +1,23 @@
-#ifndef USERSPACE
-#define USERSPACE
+/*
+Copyright 2020 Nick Christus <nick.christus@hey.com> @nchristus
 
-#include "quantum.h"
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
+
+#include QMK_KEYBOARD_H
 
 // Define layer names
 enum userspace_layers {
@@ -12,8 +28,6 @@ enum userspace_layers {
   _FNCTN,
   _ADJST
 };
-
-#define KC_RST KC_RESET
 
 // CTRL / ESC
 #define CTL_ESC CTL_T(KC_ESC)
@@ -71,5 +85,3 @@ enum userspace_layers {
 
 #define _________________RAISE_R1__________________       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
 #define _________________RAISE_R2__________________       KC_UNDS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE
-
-#endif
