@@ -5,6 +5,7 @@ import json
 import re
 import shlex
 import subprocess
+import os
 from functools import lru_cache
 from pathlib import Path
 from subprocess import check_output
@@ -95,13 +96,17 @@ def compiledb(cli):
         cli.log.error('Could not determine keymap!')
 
     if command:
+        # remove any environment variable overrides which could trip us up
+        env = os.environ.copy()
+        env.pop("MAKEFLAGS", None)
+
         # re-use same executable as the main make invocation (might be gmake)
         clean_command = [command[0], 'clean']
         cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
-        subprocess.run(clean_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(clean_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env)
 
         cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
-        proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
         db = parse_make_n(proc.stdout)
         res = proc.wait()
         if res != 0:
