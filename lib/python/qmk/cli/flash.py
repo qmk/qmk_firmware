@@ -4,6 +4,7 @@ You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
 import subprocess
+from argparse import FileType
 
 from milc import cli
 
@@ -26,6 +27,7 @@ def print_bootloader_help():
     cli.echo('\tdfu-util-split-left')
     cli.echo('\tdfu-util-split-right')
     cli.echo('\tst-link-cli')
+    cli.echo('\tst-flash')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 

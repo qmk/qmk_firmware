@@ -9,6 +9,7 @@ from milc import cli
 from . import cformat
 from . import compile
 from . import config
+from . import docs
 from . import doctor
 from . import flash
 from . import hello

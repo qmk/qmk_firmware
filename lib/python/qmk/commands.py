@@ -7,6 +7,7 @@ import subprocess
 import shlex
 import shutil
 
+from milc import cli
 import qmk.keymap
 
 
@@ -37,7 +38,7 @@ def create_make_command(keyboard, keymap, target=None):
     return [make_cmd, ':'.join(make_args)]
 
 
-def compile_configurator_json(configurator_filename, bootloader=None):
+def compile_configurator_json(user_keymap, bootloader=None):
     """Convert a configurator export JSON file into a C file
 
     Args:
@@ -52,9 +53,6 @@ def compile_configurator_json(configurator_filename, bootloader=None):
 
         A command to run to compile and flash the C file.
     """
-    # Parse the configurator json
-    user_keymap = parse_configurator_json(configurator_filename)
-
     # Write the keymap C file
     qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'])
 
@@ -85,5 +83,7 @@ def run(command, *args, **kwargs):
         safecmd = map(shlex.quote, command)
         safecmd = ' '.join(safecmd)
         command = [os.environ['SHELL'], '-c', safecmd]
+
+    cli.log.debug('Running command: %s', command)
 
     return subprocess.run(command, *args, **kwargs)
