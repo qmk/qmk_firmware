@@ -4,13 +4,12 @@
 #include "layout_macros.h"
 
 #define BASE 0
-#define CODE 1 // code layer
-#define CODEFLOW 2
-#define SYMB 3
-#define MDIA 4 // media keys
-#define VIM  5
-#define GAME 6
-#define GAME_ARROW 7
+#define CODEFLOW 1
+#define SYMB 2
+#define MDIA 3 // media keys
+#define VIM 4
+#define GAME 5
+#define GAME_ARROW 6
 
 // Tap dance config shared between my keyboards
 enum tap_dance_declarations {
