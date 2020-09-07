@@ -2,9 +2,9 @@
 
 //Layers
 enum layer_names {
-	_QWERTY,
-	_FN,
-	_MEDIA,
+    _QWERTY,
+    _FN,
+    _MEDIA,
 };
 
 //Custom Keymap Definitions
