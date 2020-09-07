@@ -68,9 +68,15 @@ void encoder_init(void) {
     if (!isLeftHand) {
         const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
         const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+#    if defined(ENCODER_RESOLUTIONS_RIGHT)
+        const uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
+#    endif
         for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
             encoders_pad_a[i] = encoders_pad_a_right[i];
             encoders_pad_b[i] = encoders_pad_b_right[i];
+#    if defined(ENCODER_RESOLUTIONS_RIGHT)
+            encoder_resolutions[i] = encoder_resolutions_right[i];
+#    endif
         }
     }
 #endif
