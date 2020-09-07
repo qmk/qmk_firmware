@@ -17,9 +17,10 @@
 #include "bitc_led.h"
 
 // Use Bit-C LED to show CAPS LOCK status
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK))
-        set_bitc_LED(LED_DIM);
-    else
-        set_bitc_LED(LED_OFF);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        set_bitc_LED(led_state.capslock ? LED_DIM : LED_OFF);
+    }
+    return res;
 }
