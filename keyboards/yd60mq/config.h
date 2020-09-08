@@ -5,6 +5,7 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x258A
 #define PRODUCT_ID      0x0033
+#define VERSION         0x0001
 #define MANUFACTURER    YMDK
 #define PRODUCT         YD60MQ
 #define DESCRIPTION     Keyboard
