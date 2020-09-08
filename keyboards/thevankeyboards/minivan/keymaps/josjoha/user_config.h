@@ -26,6 +26,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      //                      “_Activate_”   means to *remove* the two ‛//’ in front, now it is part of the program.
      //                      /* ... */ is also a way to remove code “...” from being compiled, same as ‛//’.)
       
+        /*                        Letters / Numbers & Symbols layouts
+         *
+         * Here you can configure what letters layer (BASE layer), and number&symbols layer you
+         * want. This is a dual layout system, so you can choose a second pair as well. You can
+         * switch between them with a key on the _RAR layer. All the other layers are the same,
+         * regardless of your choice in letter/number&symbol layers.
+         *
+         * The letters layer is the BASE layer, from which you also reach all other layers.
+         * The letters it has is the alphabet in its simplest form: abcdefghijklmnopqrstuvwxyz.
+         * The numbers & symbols layer has what you find on any regular keyboard: 123… !@#… []/…
+         * The numbers & symbols layer is made to fit the Letters layer, due to small differences
+         * between layouts like Qwerty and Dvorak (in this case the symbols ‛-’, ‛/’, ‛?’, and ‛_’).
+         *
+         * Example: A Qwerty letters layer, with a fitting numbers & symbols layer, as ‛Default’.
+         *          A Dvorak letters layer, with a fitting numbers & symbols layer, as ‛Alternate’.
+         *
+         * You will be asked to configure one layout as ‛Default’ and another as ‛Alternate’.
+         *
+         * A bases layout may have locally re-defined one or more of the common layers. If you
+         * choose two bases layouts who re-define the same common layer locally, you will need
+         * to choose either one by commenting out the other.
+         */
+         //
+         //                        * Dvorak *
+         //                  (a regular Dvorak layout)
+         // _Activate_ one of these two, _remove_ the other.
+  #define BASE_DVORAK__DEF_BASE   // _Activate_ if you want Dvorak on the ‛Default’ spot
+//#define BASE_DVORAK__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
+         //
+         //                        * Dvorak descramble mode *
+         //           (Dvorak for a computer already remapping to Dvorak)
+         // This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
+  #define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
+         //
+         //                        * Qwerty *
+         //                  (a regular Qwerty layout)
+         // _Activate_ one of these two, _remove_ the other.
+//#define BASE_QWERTY__DEF_BASE   // _Activate_ if you want Qwerty on the ‛Default’ spot
+//#define BASE_QWERTY__ALT_BASE // _Activate_ if you want Qwerty on the ‛Alternate’ spot
 
         /*                        Base layers
          *
@@ -38,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * between them with a key on _RAR layer.
          *
          */
-#define BASES_DVORAK_DESCRAMBLE // _Activate_ to have a normal Dvorak on the default base layer,
+//  #define DVORAK_DESCRAMBLE_HALF // _Activate_ to have a normal Dvorak on the default base layer,
                                // and Dvorak which works on a computer which is already set to Dvorak on alternate.
                                // The readme is in:          ./bases_dvorak_descramble.md
                                // This layout is defined in: ./bases_dvorak_descramble.c
@@ -61,7 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * You can define which of the two BASE layers is on when powering up the keyboard.
          */
 //#define STARTUP_ALTERNATE // Example: For BASES_QWERTY_DVORAK defined: _remove_ is startup in Qwerty, _active_ is
-                          //              startup in Dvorak
+                            //              startup in Dvorak
 
 
         /*                        How many hardware keys 1st row
@@ -88,20 +127,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Arrow cluster for 'arrow' layout: _activate_ MOREKEY2_ARROW_CLUSTER and _activate_ #define MORE_key2 _MOV_UP
          * No arrow cluster for 'arrow' layout: _remove_ MOREKEY2_ARROW_CLUSTER, and set MORE_key2 to whatever you want.
          */
-#define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is ignored if MORE_KEY__ARROW is not defined.
+  #define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is ignored if MORE_KEY__ARROW is not defined.
                              // This will cost you 'Right Alt' and 'GUI' on the _MOV layer.
-#define MOREKEY2_ADD_NAVIGATION // Additional navigation keys around arrow cluster MOREKEY2_ARROW_CLUSTER. Ignored if MOREKEY2_ARROW_CLUSTER is not defined.
+  #define MOREKEY2_ADD_NAVIGATION // Additional navigation keys around arrow cluster MOREKEY2_ARROW_CLUSTER. Ignored if MOREKEY2_ARROW_CLUSTER is not defined.
                                 // Note: this will cause mouse buttons 'BTN4' and 'BTN5' on the _MOV layer to be moved.
         /*
          * Define the key you want on the additional key (leave it to _MOV_UP if you want an arrow cluster): */
-#define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
+  #define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
 //#define MORE_key2 <...your choice...> // Right side additional key.
         //
         /*                         Defining the additional key for 'South paw' (or called 'Command')
          * Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
          */
-#define MORE_key1_BASE KC__XGUI // Configure here what this key is on the BASE layers
-#define MORE_key1      KC_DEL  // Configure here what this key is on all other layers
+  #define MORE_key1_BASE KC__XGUI // Configure here what this key is on the BASE layers
+  #define MORE_key1      KC_DEL  // Configure here what this key is on all other layers
         /*
          * (For adding even more hardware keys (other keyboards), see below under (TRANSMINIVAN_LEFTSIDE, etc).
          */
@@ -112,7 +151,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * _Activate_ below line to use a "WASD" type layout (on the spot where WASD is in Qwerty).
          * _Remove_ if you prefer a flat type layout, with arrows in a row, on the right hand.
          */
-#define ARROWS_TRIANGLE // Implies mouse is also similarly in a triangle.
+  #define ARROWS_TRIANGLE // Implies mouse is also similarly in a triangle.
         /*
          *                        VI editor arrows
          *
@@ -129,7 +168,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * _Activate_ below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
          * and RGUI where LGUI is.
          */
-#define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
+  #define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
 
 
         /*                        'Left Shift' key on BASE layer, activates layer ...
@@ -143,7 +182,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LSHIFT_LAYER_DRA // _DRA is also the least easy to access layer normally, on pinky which is sortof wrong.
                          // This would help alleviate it.
 //#define LSHIFT_LAYER_ACC // If typing a lot of these in a row
-#define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender(1) for example).
+  #define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender(1) for example).
 
 
         /*                        Alternate currency symbol
@@ -178,19 +217,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * cyan for BASE layer, going to purple and further avoiding confusion with text size counting.
         * Very fast typers could reach red, and then it goes further to yellow, etc.
         */
-#define SPEED_COUNTDOWN 25 // After how many keypresses to update the effect(s).
-#define SPEED_HUE_STEP 8 // For each key/sec faster, the hue value of HSV goes this step further.
-#define SPEED_HUE_START 160 // The starting hue for 0 k/s (0 = 255 = red).
+  #define SPEED_COUNTDOWN 25 // After how many keypresses to update the effect(s).
+  #define SPEED_HUE_STEP 8 // For each key/sec faster, the hue value of HSV goes this step further.
+  #define SPEED_HUE_START 160 // The starting hue for 0 k/s (0 = 255 = red).
        /*
         * Speed report in words-per-minute (wpm) rather than keystrokes-per-second (k/s). wpm = k/s * ⁶⁰/₅ = k/s * 12
         */
-#define WORDS_PER_MINUTE // _Activate_ to get speed report in words-per-minute, _remove_ to get it in keystrokes-per-second (k/s).
+  #define WORDS_PER_MINUTE // _Activate_ to get speed report in words-per-minute, _remove_ to get it in keystrokes-per-second (k/s).
 
 
        /*                         Text size counting
         *
         */
-//#define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
+  #define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
 
 
        /*                         Middle led BASE layer: last layer color
@@ -199,7 +238,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * can stop this behavior. This results in the same middle led behavior, given for when the side
         * leds are set off: one special color for the BASE layer (cyan) on middle led.
         */
-#define MIDLED_BASELAYER_CONSTANT // _Activate_ for one color on middle led for BASE layer, _remove_ to show last layer color
+  #define MIDLED_BASELAYER_CONSTANT // _Activate_ for one color on middle led for BASE layer, _remove_ to show last layer color
 
 
        /*                         Firmware size / bloat / clutter reductions
@@ -234,7 +273,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         */
 //#define ALL_DRA_BON_EVISCERATIONS // _Activate_ this to _remove_ the below all at once. (Seems to save only ±114 bytes)
                                     //
-#define BOX_DRAWINGS // _Activate_ to get box drawings on _BON. Horizontal lines (━─┄┅) on _DRA are not affected.
+  #define BOX_DRAWINGS // _Activate_ to get box drawings on _BON. Horizontal lines (━─┄┅) on _DRA are not affected.
                    // Affected on rows 2 and 3: ┣┫┏┗┃┇┛┓
                    // Full, 3rd row, boxdr.:  Ctrl   ① ⬅   ② ⬇   ③ ➡  ④ ┏  ⑤  ┓  ⑥ ┃  ⑦ ┇   ⑧ ╋  ⑨    ⓪ ∞   — 
                    // Full, 2nd row, boxdr.:  LSht   ‹     ›     ÷    ☞ ┗  ≠  ┛  ✗ ┣  ✓ ┫   ⚠    «    »     RSht
@@ -242,22 +281,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                    // 3rd row, no boxdrawing: Ctrl   ① ⬅   ② ⬇   ③ ➡  ④    ⑤     ⑥    ⑦     ⑧    ⑨    ⓪ ∞   — 
                    // 2nd row, no boxdrawing: LSht   ‹     ›     ÷    ☞    ≠     ✗    ✓     ⚠    «    »     RSht
                    //
-#define SUB_SCRIPT_NUMS // _Activate_ to get subscript numbers (₁₂₃…₀) on _DRA.
+  #define SUB_SCRIPT_NUMS // _Activate_ to get subscript numbers (₁₂₃…₀) on _DRA.
                       // Affected on row 3: ₁₂₃₄₅₆₇₈₉₀
                       // Thinned out 3rd row: xxx   ¹     ²     ³    ⁴    ⁵    ⁶     ⁷     ⁸     ⁹     ⁰   xxx
                       // Full 3rd row:        xxx   ¹₁    ²₂    ³₃   ⁴₄   ⁵₅   ⁶₆    ⁷₇    ⁸₈    ⁹₉    ⁰₀  xxx
                       //
-#define FULL_DRA_2NDROW // _Activate_ to have symbols on all unshifted + shifted positions on _DRA, 2nd row.
+  #define FULL_DRA_2NDROW // _Activate_ to have symbols on all unshifted + shifted positions on _DRA, 2nd row.
                       // Affected: 「 」 〇 § · 🗹  《 》
                       // Full 2nd row:        LSht  「━   」─   °〇  •§   …·   ☐ ☒   ☑ 🗹   ¿¡ 《┄   》┅    Rsht
                       // Thinned out 2nd row: LSht  ━     ─     °    •    …    ☐ ☑   ☑     ¿¡  ┄    ┅      RSht
                       //
-#define FULL_DRA_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _DRA, 4th row.
+  #define FULL_DRA_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _DRA, 4th row.
                       // Affected 4th row: „ ≤ ≥ ∅ ¢ ƒ ❦ 🙂 🙁 👍 👎 ⁽ ₍ ⁾ ₎
                       // Full 4th row:        BASE  “„    ”≤    £≥   ∅ ¢  ±ƒ   ❦ ♥   🙂🙁  👍👎 ⁽₍   ⁾₎    Bkspc
                       // Thinned out 4th row: BASE  “     ”     £         ±    ♥                           Bkspc
                       //
-#define FULL_BON_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _BON, 4th row.
+  #define FULL_BON_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _BON, 4th row.
                         // Affected 4th row: 🛠 ¤ ∑ ‱ ٭ 😊 ⍨  ⃰ ⁻ ⁺ 🄯 ©
                         // Full 4th row:        BASE  ‛🛠   ’⬆    ¤ 🄯   ∑ ©  ‰‱   ★٭   😊⍨    × ⃰   √    ⁻⁺    Bkspc
                         // Thinned out 4th row: BASE  ‛     ’⬆               ‰    ★           ×               Bkspc
@@ -297,6 +336,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // The below sets some things up based on the above #defines.
 
+// This triggers the compilation of special _HALF_ descramble mode, where you access
+// the Unicode layers without passing them through the descramble system (middle led
+// lit on _RAR_ when cycling through the base layers with ‛Other Base’ key).
+# ifdef BASE_DVORAK_DESCRAMBLE__ALT_BASE
+#     define DVORAK_DESCRAMBLE_HALF
+# endif
 
 // Prevent likely erroneous configuration. If no 'Arrow' hardware layout, then not patching in an arrow cluster.
 # if !defined(MORE_KEY__ARROW) && defined(MOREKEY2_ARROW_CLUSTER)

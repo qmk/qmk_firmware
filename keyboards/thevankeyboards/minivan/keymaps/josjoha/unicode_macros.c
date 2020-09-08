@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIV10POINT TRUE // suggest to function write_number, to divide by 10 and print as a fraction: N.N
 
-// Converts integer value to Unicode. Also handles 'descramble' Unicode mode for BASES_DVORAK_DESCRAMBLE.
+// Converts integer value to Unicode. Also handles 'descramble' Unicode mode for DVORAK_DESCRAMBLE_HALF.
 // Unicode is a hexadecimal string (character) representation of the value, with a pre- and post-fix.
 void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted) {
 
@@ -65,7 +65,7 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
         if (work < 0xA){  // numbers
             output[index] = work + 0x30; // pad to ASCII
         }else{            // alphas
-# ifdef BASES_DVORAK_DESCRAMBLE // Do the letter descramble if needed.
+# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
             if(_FULL_ == alternate){ // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
                 if (0xA == work) output[index] = 'a';
                 if (0xB == work) output[index] = 'n';
@@ -84,7 +84,7 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
     }
 
     // Put character(s) out in correct mode
-# ifdef BASES_DVORAK_DESCRAMBLE // Do the letter descramble if needed.
+# ifdef DVORAK_DESCRAMBLE_HALF // Do the letter descramble if needed.
     if (_FULL_ == alternate) { // This is the special 'descramble' output mode for a computer already set to Dvorak
 
         SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux, 'descramble' mode
@@ -591,7 +591,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }else{ // key up
 
                 // Cycles through the modes
-# ifdef BASES_DVORAK_DESCRAMBLE // version Dvorak+Dvorak-descramble has 3 modes
+# ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate layers
                 } else if (_HALF_ == alternate) {

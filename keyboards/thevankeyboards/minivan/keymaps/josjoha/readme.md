@@ -30,20 +30,23 @@ separate readme file, see immediately below.
 Available dual layouts (basic letters)
 --------------------------------------
 
-      • Dvorak² (normal Dvorak, and Dvorak for a computer already set to Dvorak).
+      • Dvorak (regular Dvorak).
 
-For the layers in the Dvorak² version, see ➡ ![bases_dvorak_descramble.md](./bases_dvorak_descramble.md) ⬅
+For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak.md) ⬅
 
+      • Dvorak² (regular Dvorak for a computer already set to Dvorak).
 
-      • Qwerty and Dvorak
+For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](./base_dvorak_descramble.md) ⬅
 
-For the layers in the Qwerty+Dvorak version, see ➡ ![bases_qwerty dvorak.md](./bases_qwerty_dvorak.md) ⬅
+      • Qwerty
+
+For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
 Main features 
 -------------
 
-     • Dual layout. Several dual layouts to choose from (example: Qwerty
-       and Dvorak dual layout).
+     • Dual layout. Several layouts to choose from (example: Qwerty
+       and Dvorak dual layout). Easy to add more layouts.
      • Expanded character set. western European accented characters
        (ëøßœç…); sub- super-script numbers (¹₂…) quite a few additional
        symbols 《 ± • ☑  ❦ √ ┣ ≠ 》
@@ -72,7 +75,7 @@ with `./bases_…` (links below).
 
         • Default Letters / BASE                   ┓
         • Default Numbers-symbols                  ┃
-                                                   ┣ ./bases_….c/md files
+                                                   ┣ ./base_….c/md files
               • Alternate Letters / BASE           ┃
               • Alternate numbers-symbols layout   ┛
 
@@ -86,15 +89,16 @@ with `./bases_…` (links below).
 
 ![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_va.jpg)
 
-A layout defined in `./bases_…` can have the common layers re-defined
+A layout defined in `./base_…` can have the common layers re-defined
 from what is detailed in _this_ file that you read now. The re-defined
 layer will be the same one for both the ‛default’ and ‛alternate’ layouts
 in the dual layout system. 
 
-Example: if a layout defined in ./bases….c/md redefines the `_ACC`
-layer there to have Russian letters, you will reach that same Russian
-letter layer from either of the two BASE layers in the dual layout
-(one is for instance Qwerty, the other Dvorak).
+Example: if a layout defined in ./base….c/md redefines the `_ACC`
+layer there to have French accented letters in better places for French,
+you will reach that same French adapted `_ACC` layer from either of
+the two BASE layers in the dual layout (one is for instance Qwerty,
+the other Dvorak).
 
 
 Led colors for layers
@@ -297,7 +301,7 @@ Compile options
 Layers (text)
 =============
  
-         Layer _DEF_BASE (Letters layer, see ./bases* files for what comes on ‛__’)
+         Layer _DEF_BASE (Letters layer, see ./base* files for what comes on ‛__’)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
@@ -336,7 +340,7 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
 
 - - -
 
-     Layer _DEF_NSY (Numbers and SYmbols, ./bases* files for what comes on ‛__’)
+     Layer _DEF_NSY (Numbers and SYmbols, ./base* files for what comes on ‛__’)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
@@ -878,17 +882,18 @@ the same. `YOUR_KEYMAP` stands for a name you choose. You would be
 re-defining both the ‛Default’ and ‛Alternate’ layer pairs, for your new 
 dual layout.
 
-     ① Make a file named: `./bases_YOUR_KEYMAP.c`), with at least 
-       those four layers. It is probably best to copy one of the existing 
-       `./bases_....c` files. Edit it to how you like it to be.
+     ① Make a file named: `./base_YOUR_KEYMAP.c`), with at least 
+       those two layers: _..._BASE and _..._NSY. It is probably best to
+       copy one of the existing `./base_....c` files, and edit that.
 
      ② Add a #define to `./user_config.h`:
-       #define BASES_YOUR_KEYMAP 
+       #define BASE_YOUR_KEYMAP__DEF_BASE
+       #define BASE_YOUR_KEYMAP__ALT_BASE
        Under the topic ‛Base layers’ there is a comment to help you.
 
      ③ Edit ./keymap.c to have your new file #included, using your just defined
        preprocessor element. Close to the other #includes is a comment there to
-       help you. Look just under the line with:
+       help you. Look just under the line with this, in ./keymap.c:
 
        const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -901,34 +906,38 @@ dual layout.
 
 Now you have integrated your base layers alternative. To compile it:
 
-     ④ _Activate_ your #define BASES_YOUR_KEYMAP in `./user_config.h`,
-       _remove_ any other base layers from being defined.
+     ④ _Activate_ your #define BASES_YOUR_KEYMAP__DEF_BASE or 
+       BASES_YOUR_KEYMAP__ALT_BASE in `./user_config.h`,
+       _Remove_ any other base layers from being defined on the
+       same spot _DEF_BASE or _ALT_BASE to prevent a conflict.
 
-     ⑤ Compile and flash to your keyboard.
+     ⑤ Check Pre-processing with:
+       > gcc -E keymap.c | less
 
-You can redefine any layer in your new `./bases_YOUR_KEYMAP.c`, not
-merely the two base layer(s) with their number/symbol layer. You can do
-that by setting one or more of the `BASESFILE_LAYER_...` defines in 
-your own `./bases_YOUR_KEYMAP.c` file. See at the top of an existing 
-`./bases_....c` file for clues, in the configuration block at the top.
+     ⑥ Compile and flash to your keyboard.
+
+You can redefine any layer in your new `./base_YOUR_KEYMAP.c`
+You can do that by setting one or more of the `BASESFILE_LAYER_...` defines in 
+your own `./base_YOUR_KEYMAP.c` file. See near the top of an existing 
+`./base_....c` file for clues.
 `_ACC` in particular is a layer meant to augment a keymap with special 
 characters for a given language/layout in the base layer(s).
 
-Example: do the above for your `./bases_YOUR_KEYMAP.c` file. Re-arrange
-keys on `_DEF/ALT_BASE` and `_DEF/ALT_NSY` to suit ... French.
+Example: Having done the above points ① ➡ ④ for a `./base_YOUR_KEYMAP.c` file. 
+Re-arrange keys on `_ACC` to suit ... French.
 
-     ⑥ In your `./keymap_YOUR_KEYMAP.c`:
+     ⑦ In your `./base_YOUR_KEYMAP.c`:
        #define `BASESFILE_LAYER_ACC`
-       The `_ACC` in ./keymap.c will be ignored.
+       The `_ACC` in ./keymap.c will now be ignored.
 
-Now you can re-define `_ACC` in your own file. 
+You can re-define `_ACC` in your own file. 
 
-     ⑦ Copy an existing `_ACC` layer into `./keymap_YOUR_KEYMAP.c` 
-       and edit it so that French characters like ‛Ç’ ‛«»’, ‛œ’, ‛æ’,
-       ‛ô’, ‛é’ etc. are in positions that you want. You can look in
+     ⑧ Copy an existing `_ACC` layer into `./base_YOUR_KEYMAP.c` 
+       Edit it so that French characters like ‛Ç’ ‛«»’, ‛œ’, ‛æ’,
+       ‛ô’, ‛é’ etc. are in positions that work best. You can look in
        `unicode_weurope.h` to find some Unicode points already defined.
 
-     ⑧ Compile and flash to your keyboard.
+     ⑨ Compile and flash to your keyboard.
 
 
 Eviscerations
@@ -955,10 +964,10 @@ Trouble shooting
   flashing the value of a user option ends up in a different state than
   you expected.
 
-  Leds not working: try going to `_RAR` layer, and hit the key MLeds and SLeds,
+  • Leds not working: try going to `_RAR` layer, and hit the key MLeds and SLeds,
   which switch Leds on/off.
 
-  Unicode is chaos: try going to `_RAR` layer, and hit the Unicode operating
+  • Unicode is chaos: try going to `_RAR` layer, and hit the Unicode operating
   system buttons.
 
 

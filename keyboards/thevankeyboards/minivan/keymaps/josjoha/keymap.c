@@ -115,8 +115,8 @@ enum {
 enum {
     _NORMAL_, // BASE layer is _DEF_BASE
     _FULL_,   // BASE layer is _ALT_BASE
-# ifdef BASES_DVORAK_DESCRAMBLE // not used with other keymaps
-    _HALF_,   // BASE layer is _ALT_BASE For BASES_DVORAK_DESCRAMBLE keymap: does *not* re-compute letters in Unicode
+# ifdef DVORAK_DESCRAMBLE_HALF // not used with other keymaps
+    _HALF_,   // BASE layer is _ALT_BASE For DVORAK_DESCRAMBLE_HALF keymap: does *not* re-compute letters in Unicode
               // This is for different Unicode encodings than “Control+U+HEX” (Linux). It will go through what is set on _RAR
 # endif
 };
@@ -311,7 +311,7 @@ void indicate_scramble (void) {
         led2r = 100; // purple
         led2b = 100;
     }
-#     ifdef BASES_DVORAK_DESCRAMBLE // not used with other keymaps
+#     ifdef DVORAK_DESCRAMBLE_HALF // not used with other keymaps
       else if (_HALF_ == alternate) { // alternate mode, 1 (normal unicode)
         led0r = 100; // purple
         led0b = 100;
@@ -491,23 +491,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /********************        What base layers to use:        **************/
 
-# if   defined(BASES_DVORAK_DESCRAMBLE)
+//                         * Dvorak *
+# if defined(BASE_DVORAK__DEF_BASE) || defined(BASE_DVORAK__ALT_BASE)
+#     include "./base_dvorak.c" // Regular Dvorak.
+# endif
 
-#     include "./bases_dvorak_descramble.c" // Both Dvorak: once normal, once to type Dvorak on a computer already set to Dvorak.
+//                         * Dvorak descramble *
+# if defined(BASE_DVORAK_DESCRAMBLE__ALT_BASE) // only for ‛Alternate’ base
+#     include "./base_dvorak_descramble.c" // Dvorak for when computer is already remapping to Dvorak.
+# endif
 
-# elif defined(BASES_QWERTY_DVORAK)
+//                         * Qwerty *
+# if defined(BASE_QWERTY__DEF_BASE) || defined(BASE_QWERTY__ALT_BASE)
+#     include "./base_qwerty.c" // Regular Dvorak.
+# endif
 
-#     include "./bases_qwerty_dvorak.c" // This file contains the Qwerty + Dvorak keymaps.
 
-// // ⬇ insert your ./bases_YOUR_KEYMAP.c #include here:
+// // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
 
-//# elif defined(BASES_YOUR_KEYMAP_NAME)
-
-//#     include "./bases_......c" // ...
+// # if defined(BASE_YOUR_KEYMAP__DEF_BASE) || defined(BASE_YOUR_KEYMAP__ALT_BASE)
+// #     include "./base_YOUR_KEYMAP.c" // Regular Dvorak.
+// # endif
 
 // // ⬆
 
-# endif
+//# endif
 
 
         // See the ./bases_*.c file for definition of _DEF_BASE, _DEF_NSY, _ALT_BASE, _ALT_NSY layers, selected in ./user_config.h

@@ -22,6 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                 Configuration:
 // --------------------------------------v---------------------------------------
 
+// --------------------------------------^---------------------------------------
+//            Below here no more comfortable configuration options.....
+// --------------------------------------^---------------------------------------
+
+
         /*                            Redefine a layer in this file
          *
          * _Activate_ one or more of the below BASESFILE_LAYER_..., to redefine the layer
@@ -37,11 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BASESFILE_LAYER_RAR 
 // #define BASESFILE_LAYER_FUN 
 
-// --------------------------------------^---------------------------------------
-//            Below here no more comfortable configuration options.....
-// --------------------------------------^---------------------------------------
-
-
         /*  ⬇ */
 
     /* Layer _DEF_BASE: Qwerty, normal BASE layer and 'default' layer
@@ -50,7 +50,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      *   space is not dual use (most ued key), neither is hyphen.
      */ 
 
+// Process user configuration wrt ‛Default’ or ‛Alternative’ spot for this layout.
+# if   defined(BASE_QWERTY__DEF_BASE)
     [ _DEF_BASE ] = LAYOUT_redefined (
+# elif defined(BASE_QWERTY__ALT_BASE)
+    [ _ALT_BASE ] = LAYOUT_redefined (
+# endif
 
 /*
      Layer _DEF_BASE (Letters). This is standard Qwerty (#define BASES_QWERTY_DVORAK set.)
@@ -113,73 +118,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /* ⬆⬇ */
 
-    /* Layer _ALT_BASE: (standard Dvorak) 
-     *
-     */
-
-    [ _ALT_BASE ] = LAYOUT_redefined (
-
-/*
-     Layer _ALT_BASE This is a standard Dvorak layer (#define BASES_QWERTY_DVORAK set.)
-                                                  | Right hand
-         <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2> 
-         -o-                                     <|>                                   ... //(to) BASE access
-         Esc        '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
-         Tab+LCtl   aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-         LSht+_PAD  ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN  // _FUN _MOV tap
-             +_MOV⁵                               |
-     ---------------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _ALT_NSY(_DRA)  Enter+_MOV| Space  _ALT_NSY(_DRA) LGUI    Right;_RAR 
-               hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
-               hold₍₂₎  ^-┃-----------------------+--------^ ┃                          // ₁₎ both = _DRA
-               ┗━━━━━━━━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
-     <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
-          ^³                                                                   ^⁴   // Optional more keys
-
-
- */
-//                                                   
-//
-//      <pink2            , <pinky  , <ring   , <midd  , <indx, <ind|, indx>, inde>, midd>, ring>, pink>, pink2>        ,
-//      -*-               ,         ,         ,        ,      ,    <|,>     ,      ,      ,      ,      , -!-           ,
-        KC_ESC            , KC_QUOT , KC_COMM , KC_DOT , KC_P , KC_Y , KC_F , KC_G , KC_C , KC_R , KC_L , KC_BSPC       ,
-        LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS       ,
-        CHOLTAP_LSHFT     , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , CHOLTAP_RSHFT ,
-//      -----------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) 
-
-# ifdef TRANSMINIVAN_LEFTSIDE
-                           , MO ( _PAD )
-# endif
-
-# ifdef MORE_KEY__COMMAND
-                           , MORE_key1_BASE
-# endif
-
-                           , CHOLTAP_ACCE , DUO_HOLD , LT__MOV__KC_ENT , KC_SPC , DUO_HOLD , KC__YGUI
-
-# ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                      , MO ( _FUN )
-# endif
-
-# ifdef MORE_KEY__ARROW
-                                                                                                      , MORE_key2  
-# endif
-
-                                                                                                      , CHOLTAP_LAYR
-//                         ,              ,          ,               <|,>       ,          ,          ,
-//      <1           ±  ±  , <2           , <3       , <4             |, 4>     , 3>       , 2>       , ±  ±  1>
-
-                      ),
-
-        /* ⬆⬇ */
-
     /* Layer _DEF_NSY: Numbers and symbols, to work with the Qwerty base layer above.
      *          Off hand Number input (-.Bksp ent (shft)tab).
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
+// Process user configuration wrt ‛Default’ or ‛Alternative’ spot for this layout.
+# if   defined(BASE_QWERTY__DEF_BASE)
     [ _DEF_NSY ] = LAYOUT_redefined (
+# elif defined(BASE_QWERTY__ALT_BASE)
+    [ _ALT_NSY ] = LAYOUT_redefined (
+# endif
 
 /*
      Layer _DEF_NSY (Numbers and SYmbols). This fits the above Qwerty layer _DEF_BASE (#define BASES_QWERTY_DVORAK set.)
@@ -230,62 +179,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       ),
 
         /* ⬆⬇ */
-
-    /* Layer _ALT_NSY: Numbers/Symbols for the Dvorak layer. Exactly the same as normal version 
-     * (without #define BASES_QWERTY_DVORAK set) _DEF_NSY.
-     *
-     */
-    // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
-
-    [ _ALT_NSY ] = LAYOUT_redefined (
-
-/*
-     Layer _ALT_NSY (Dvorak numbers/symbols). Fits above _ALT_BASE Dvorak (with #define BASES_QWERTY_DVORAK set.)
-    
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
-              -*-                          <|>                                  //(toggle) Access on _FUN
-     BASE     !     @     #     $     %     | ^     &     *     (    )       Del
-     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   [{    ]}    /?    \|    =+    | +     |     ?     {     }  `~+RSht // limitation prevents ~
-     ---------------------------------------------------------------------------
-     Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
-                     -*-       <|>    -*-                                         //(hold) Access on _DEF_BASE
-       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-*/
-//
-//
-//      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
-//                         , -*-     ,         ,         ,         ,       <|,>        ,         ,         ,         ,         ,                    ,
-        CTO_BASE           , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL             ,
-        LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_SLSH , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
-//      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) 
-
-# ifdef TRANSMINIVAN_LEFTSIDE
-                           , XXXXXXX
-# endif
-
-# ifdef MORE_KEY__COMMAND
-                           , MORE_key1  
-# endif
-
-                           , _______ , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI
-
-# ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                        , XXXXXXX
-# endif
-
-# ifdef MORE_KEY__ARROW
-                                                                                        , MORE_key2  
-# endif
-
-                                                                                        , RALT_T ( KC_RGHT )
-//                         ,        , -*-      ,      <|,>       , -*-      ,           ,
-//      <1    ± ±          , <2     , <3       , <4    |, 4>     , 3>       , 2>        ,  ± ±  1>
-
-                      ),
-
-        /* ⬆⬇ */
-
-        // See ./keymap.c for rest of layers
