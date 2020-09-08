@@ -328,7 +328,20 @@ void keyboard_post_init_keymap(void) {
 void shutdown_keymap(void) {
     trackball_set_rgbw(RGB_RED, 0x00);
 }
+
+static bool mouse_button_one, trackball_button_one;
+
+void trackball_check_click(bool pressed, report_mouse_t* mouse) {
+    if (mouse_button_one | pressed) {
+        mouse->buttons |= MOUSE_BTN1;
+    } else {
+        mouse->buttons &= ~MOUSE_BTN1;
+    }
+    trackball_button_one = pressed;
+}
 #endif
+
+
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -371,19 +384,17 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             run_trackball_cleanup();
             break;
-#if     !defined(MOUSEKEY_ENABLE) && defined(POINTING_DEVICE_ENABLE)
-        case KC_BTN1 ... KC_BTN3:
-        {
-            report_mouse_t currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= (1 << (keycode - KC_BTN1));  // this is defined in report.h
-            } else {
-                currentReport.buttons &= ~(1 << (keycode - KC_BTN1));
-            }
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
-            break;
-        }
+#if !defined(MOUSEKEY_ENABLE)
+                    case KC_MS_BTN1:
+                        mouse_button_one = record->event.pressed;
+                        trackball_register_button(mouse_button_one | trackball_button_one, MOUSE_BTN1);
+                        break;
+                    case KC_MS_BTN2:
+                        trackball_register_button(record->event.pressed, MOUSE_BTN2);
+                        break;
+                    case KC_MS_BTN3:
+                        trackball_register_button(record->event.pressed, MOUSE_BTN3);
+                        break;
 #    endif
 #endif
     }
