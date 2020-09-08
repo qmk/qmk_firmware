@@ -49,23 +49,37 @@
 
     #define MARIO_KICK          S__NOTE(_AS5), E__NOTE(_REST), S__NOTE(_F6)
 
-    #define MARIO_STUMP         // todo
+    #define MARIO_STOMP         // todo
 
     #define MARIO_GAMEOVER      // todo
 
-    #define MARIO_POWERUP       // todo
+    #define MARIO_POWERUP       S__NOTE(_C6),  T__NOTE(_G5),  T__NOTE(_C6),  T__NOTE(_E6),  \
+                                T__NOTE(_G6),  T__NOTE(_C7),  T__NOTE(_G6),  S__NOTE(_GS5), \
+                                T__NOTE(_C6),  T__NOTE(_DS6), T__NOTE(_GS6), T__NOTE(_DS6), \
+                                T__NOTE(_GS6), T__NOTE(_C7),  T__NOTE(_DS7), T__NOTE(_GS7), \
+                                T__NOTE(_DS7), S__NOTE(_AS5), T__NOTE(_D6),  T__NOTE(_F6),  \
+                                T__NOTE(_AS6), T__NOTE(_F6),  T__NOTE(_AS6), T__NOTE(_D7),  \
+                                T__NOTE(_F7), T__NOTE(_AS7), T__NOTE(_F7)
 
     #define MARIO_POWERUP_BLOCK // todo
 
-    #define MARIO_FIREBALL      // todo
+    #define MARIO_FIREBALL      T__NOTE(_G4), T__NOTE(_G5), T__NOTE(_G6), T__NOTE(_G7)
 
-    #define MARIO_BUMP          // todo
+    #define MARIO_BUMP          W__NOTE(_G5),  W__NOTE(_FS5), W__NOTE(_F5),  W__NOTE(_E5), \
+                                W__NOTE(_DS5), W__NOTE(_D5),  W__NOTE(_CS5), W__NOTE(_C5), \
+                                S__NOTE(_CS5), W__NOTE(_D5),  W__NOTE(_DS5), W__NOTE(_E5)
 
     #define MARIO_DAMAGE        // todo
 
-    #define MARIO_DEATH         // todo
+    #define NOTE_A5SEMI         905.79f
+    #define NOTE_AS5SEMI        959.65f
+    #define NOTE_B5SEMI         1016.71f
 
-                                // todo : fix
+                                // todo - fix
+    #define MARIO_DEATH         TD_NOTE(_AS5), T__NOTE(_A5SEMI), TD_NOTE(_B5), T__NOTE(_AS5SEMI), \
+                                TD_NOTE(_C6), T__NOTE(_B5SEMI), X__NOTE(_GS5), TD_NOTE(_G5)
+
+                                // todo - fix
     #define MARIO_JUMP_SMALL    T__NOTE(_A6), \
                                 TD_NOTE(_A5), X__NOTE(_AS5), X__NOTE(_B5),                \
                                 X__NOTE(_C6), X__NOTE(_CS6), X__NOTE(_D6), X__NOTE(_DS6), \
@@ -77,7 +91,7 @@
 
     // real songs
 
-    #define PINK_PANTHER        Q__NOTE(_CS6), QD_NOTE(_D6), Q__NOTE(_REST), Q__NOTE(_DS6), W__NOTE(_E6)
+    #define PINK_PANTHER        Q__NOTE(_CS5), QD_NOTE(_D5), Q__NOTE(_REST), Q__NOTE(_DS5), W__NOTE(_E5)
 
     #define STILL_DRE           QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
                                 QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
@@ -105,5 +119,5 @@
 
     // override default songs
     #define STARTUP_SONG        SONG(PINK_PANTHER)
-    #define GOODBYE_SONG        SONG(STILL_DRE)
+    #define GOODBYE_SONG        SONG(MARIO_DEATH)
 #endif

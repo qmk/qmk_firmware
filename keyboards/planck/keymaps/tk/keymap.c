@@ -103,9 +103,9 @@ static bool rbk_mode = false;   // right-side bracket mode
     float caps_on_song[][2]         = SONG(MARIO_CAVE_1);
     float caps_off_song[][2]        = SONG(MARIO_CAVE_2);
     float save_song[][2]            = SONG(MARIO_ONEUP);
-    float copy_song[][2]            = SONG(PICK_UP);
-    float paste_song[][2]           = SONG(PUT_DOWN);
-    float cut_song[][2]             = SONG(MARIO_PIPE);
+    float copy_song[][2]            = SONG(MARIO_POWERUP);
+    float paste_song[][2]           = SONG(MARIO_BUMP);
+    float cut_song[][2]             = SONG(MARIO_FIREBALL);
     float undo_song[][2]            = SONG(MARIO_KICK);
     float redo_song[][2]            = SONG(MARIO_COIN);
 #endif
@@ -344,8 +344,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case PANIC:
             if (record->event.pressed) {
-                if (LSFT_MASK) {
-                    unregister_code(KC_LSFT);
+                if (CTL_MASK) {
+                    unregister_code(KC_LCTL);
                     register_code(KC_DEL);
                     panic_del = true;
                 }
@@ -355,7 +355,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else {
                 if (panic_del) {
-                    register_code(KC_LSFT);
+                    register_code(KC_LCTL);
                     unregister_code(KC_DEL);
                     panic_del = false;
                 }
@@ -364,12 +364,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case KC_SPACE:
-            if (get_mods() && record->event.pressed) {
-                unregister_code(KC_SPACE);
-                return false;
-            }
-            break;
         case LBK_TG:
             if (record->event.pressed) {
                 lbk_mode = !lbk_mode;
