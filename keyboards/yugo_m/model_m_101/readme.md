@@ -1,6 +1,6 @@
 # Planck
 
-![Planck](http://i.imgur.com/q2M3uEU.jpg)
+![Yugo-M](https://raw.githubusercontent.com/tomic1785/Yugo-M-controller-project/master/Pictures/rev_09b.jpg)
 
 A drop-in replacement controller PCB for IBM Model M keyboards, based on the STM32 MCU. [More info on the Yugo-M project repository](https://github.com/tomic1785/Yugo-M-controller-project)
 
