@@ -1,5 +1,7 @@
 # ai03 x PrimeKB Meridian
 
+![Meridian](https://i.imgur.com/c90ZTJJ.jpg)
+
 * Keyboard Maintainer: [Holten Campbell](https://github.com/holtenc)
 * Hardware Supported: STM32F072CBT6
 

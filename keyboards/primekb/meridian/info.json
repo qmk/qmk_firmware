@@ -2,7 +2,7 @@
     "keyboard_name": "Meridian",
     "url": "https://www.primekb.com",
     "maintainer": "holtenc",
-    "width": 15,
+    "width": 16.5,
     "height": 5,
     "layouts": {
         "LAYOUT_unified_bs_rshift": {

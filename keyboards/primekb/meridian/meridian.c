@@ -18,12 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "meridian.h"
 
 //Initialize B12 for in-switch caps lock
-void keyboard_pre_init_user(void){
+void keyboard_pre_init_kb(void){
     setPinOutput(B12);
+    keyboard_pre_init_user();
 }
 
 //Initialize all RGB indicators to 'off'
-void keyboard_post_init_user(void) {
+__attribute__((weak))
+void keyboard_post_init_kb(void) {
     rgblight_setrgb_at(0, 0, 0, 0); // [..., 0] = top LED
     rgblight_setrgb_at(0, 0, 0, 1); // [..., 1] = middle LED
     rgblight_setrgb_at(0, 0, 0, 2); // [..., 2] = bottom LED
