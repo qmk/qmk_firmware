@@ -1,4 +1,4 @@
-# Planck
+# Yugo-M
 
 ![Yugo-M](https://raw.githubusercontent.com/tomic1785/Yugo-M-controller-project/master/Pictures/rev_09b.jpg)
 
