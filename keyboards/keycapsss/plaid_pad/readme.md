@@ -40,7 +40,7 @@ Make example for this keyboard (after [setting up your build environment](https:
     // or
     qmk compile -kb keycapsss/plaid_pad -km default
 
-Flashing example for this keyboard ():
+Flashing example for this keyboard:
 
     make keycapsss/plaid_pad:default:flash
     // or
