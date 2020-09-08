@@ -1,6 +1,6 @@
 # keaboard
 
-![keaboard](http://i.imgur.com/q2M3uEU.jpg)
+![keaboard](https://github.com/keawade/keaboard/blob/master/images/keaboard-rev1-pcb-render.png)
 
 A split ergo 4x6 keyboard with 3 thumb keys designed by [Keith Wade](https://github.com/keawade). [More info on the GitHub Repo](https://github.com/keawade/keaboard).
 
