@@ -506,11 +506,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #     include "./base_qwerty.c" // Regular Dvorak.
 # endif
 
+//                         * Colemak *
+# if defined(BASE_COLEMAK__DEF_BASE) || defined(BASE_COLEMAK__ALT_BASE)
+#     include "./base_colemak.c" // Regular Colemak.
+# endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
 
 // # if defined(BASE_YOUR_KEYMAP__DEF_BASE) || defined(BASE_YOUR_KEYMAP__ALT_BASE)
-// #     include "./base_YOUR_KEYMAP.c" // Regular Dvorak.
+// #     include "./base_YOUR_KEYMAP.c" // Your Keymap.
 // # endif
 
 // // ⬆

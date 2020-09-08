@@ -42,6 +42,10 @@ For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](
 
 For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
+      • Colemak
+
+For the readme about the Colemak version, see ➡ ![base_colemak.md](./base_colemak.md) ⬅
+
 Main features 
 -------------
 
@@ -310,14 +314,14 @@ Layers (text)
          LSht+_PAD  __    __    __    __    __    | __    __    __    __    __    RSht+_FUN⁶
              +_MOV⁵                               |
      ---------------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) LGUI    Right;_RAR 
+     Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
                hold₍₂₎  ^-┃-----------------------+--------^ ┃                          // ₁₎ both = _DRA
                ┗━━━_BON━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
      
-     ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
+     ₁) Dual hold for _DRA, single hold for _..._NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
      ³) 'South paw' hardware configuration 
      ⁴) 'Arrow' hardware configuration 
@@ -333,14 +337,14 @@ It seems this will be difficult to fix, because it is spread over two devices. T
 The two keys with ';' (Del;`_ACC`, Right;`_RAR`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
 There is an uncluttered _Delete_ on `_PAD`, an uncluttered _Right_ arrow on the `_MOV` layer.
 
-Holding both `_DEF_NSY` keys left and right of the "split space bar" (enter, space) results in layer `_DRA`.
+Holding both `_..._NSY` keys left and right of the "split space bar" (enter, space) results in layer `_DRA`.
 
-Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>), with the `_ACC` layer key
+Holding either one of the just above mentioned `_..._NSY` layer keys (<3 and 3>), with the `_ACC` layer key
 (on <2) results in layer `_BON`.
 
 - - -
 
-     Layer _DEF_NSY (Numbers and SYmbols, ./base* files for what comes on ‛__’)
+     Layer _..._NSY (Numbers and SYmbols, ./base* files for what comes on ‛__’)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
@@ -394,7 +398,7 @@ Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get thi
      (…)
      LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
      -------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _DEF_NSY(_DRA) Enter+_MOV| Space  _DEF_NSY(_DRA) LGUI  _MOV  Right;_RAR 
+     Left+LAlt Del;_ACC _..._NSY(_DRA) Enter+_MOV| Space  _..._NSY(_DRA) LGUI  _MOV  Right;_RAR 
                                                                                ^^^^     // new key (toggle)
 
 … and this on `_MOV` for the _triangle_ configuration:
@@ -651,34 +655,34 @@ and closing next to each other.
         Row 4, Key 2: ‛ on ' (`_DEF_BASE`), 🛠 «no reason»
         Row 4, Key 3: ’ (closing) to the right of ‛ (opening); ⬆ on UP arrow in WASD `_MOV` layer configuration
         Row 4, Key 4: ¤ (‛any currency’)on £ (`_DEF_BASE`); 🄯 (‛Copyleft’), sortof money(legal), ¤ is a circle for ‛social’
-        Row 4, Key 5: ∑ on $ (`_DEF_NSY`) and ¢ (`_DRA`) money symbols, money is often added; © (‛Copyright’), ∑$ for ‛accumulate money’
-        Row 4, Key 6: ‰ ‱ on % (`_DEF_NSY`)
+        Row 4, Key 5: ∑ on $ (`_..._NSY`) and ¢ (`_DRA`) money symbols, money is often added; © (‛Copyright’), ∑$ for ‛accumulate money’
+        Row 4, Key 6: ‰ ‱ on % (`_..._NSY`)
         Row 4, Key 7: ★ ٭ on ♥ ❦ (`_DRA`)
         Row 4, Key 8: 😊 ⍨ on 🙂 🙁 (`_DRA`)
-        Row 4, Key 9: × (multiplication)  ⃰(up asterisk) on * (`_DEF_NSY`)
+        Row 4, Key 9: × (multiplication)  ⃰(up asterisk) on * (`_..._NSY`)
         Row 4, Key 10: √ because Øø (`_ACC`) seems to divide something, and √ also does that, proximity to ⁻⁺ (exponential)
         Row 4, Key 11: ⁻⁺ on Åå (`_ACC`) because circle suggests exponent placement, row 4/key 11 is up/right on keyboard
-        Row 3, Key 2: ① on 1 (`_DEF_NSY`); ⬅  on LEFT arrow in WASD `_MOV` layer configuration
-        Row 3, Key 3: ② on 2 (`_DEF_NSY`); ⬇ on DOWN arrow in WASD `_MOV` layer configuration
-        Row 3, Key 4: ③ on 3 (`_DEF_NSY`); ➡ on RIGHT arrow in WASD `_MOV` layer configuration
-        Row 3, Key 5: ④ on 4 (`_DEF_NSY`); ┏ forms a square with box drawing on row 2 (See note¹).
-        Row 3, Key 6: ⑤ on 5 (`_DEF_NSY`); ┓          ''                 ''
-        Row 3, Key 7: ⑥ on 6 (`_DEF_NSY`); ┃ continue box drawing on right hand symmetry
-        Row 3, Key 8: ⑦ on 7 (`_DEF_NSY`); ┇          ''                 ''
-        Row 3, Key 9: ⑧ on 8 (`_DEF_NSY`); ╋ continues box drawings, figure ‛8’ also has a crossing of 2 lines
-        Row 3, Key 10: ⑨ on 9 (`_DEF_NSY`); 
-        Row 3, Key 11: ⓪ on 0 (`_DEF_NSY`); ∞ on 0 for round & round, forever
-        Row 3, Key 12: — (dash) on - (`_DEF_BASE`) (hyphen); ≈ on ~ (`_DEF_NSY`)
-        Row 2, Key 2: ⑪ on 1 row above (`_DEF_NSY`); ‹ on 「 (`_DRA`)
-        Row 2, Key 3: ⑫ on 2 row above (`_DEF_NSY`); › on 」 (`_DRA`)
-        Row 2, Key 4: ⑬ on 3 row above (`_DEF_NSY`); ÷ on / (`_DEF_NSY`) (divisions)
-        Row 2, Key 5: ⑭ on 4 row above (`_DEF_NSY`); ☞ on • (`_DRA`); ┗   forms a square with box drawing on row 3
-        Row 2, Key 6: ⑮ on 5 row above (`_DEF_NSY`); ≠ on = (`_DEF_NSY`); ┛        ''                 ''
-        Row 2, Key 7: ⑯ on 6 row above (`_DEF_NSY`); ✗ on ☒ (`_DEF_NSY`); ┣ continues right-hand symmetry & line from row 3
-        Row 2, Key 8: ⑰ on 7 row above (`_DEF_NSY`); ✓ on ☑ 🗹 (`_DRA`); ┫                ''                       ''
-        Row 2, Key 9: ⑱ on 8 row above (`_DEF_NSY`); ⚠ on ¡ (`_DRA`) (inverted !)
-        Row 2, Key 10: ⑲ on 9 row above (`_DEF_NSY`); « on { (`_DEF_NSY`), 《 (`_DRA`)
-        Row 2, Key 11: ⑩ on 0 row above (`_DEF_NSY`); » on } (`_DEF_NSY`), 》 (`_DRA`)
+        Row 3, Key 2: ① on 1 (`_..._NSY`); ⬅  on LEFT arrow in WASD `_MOV` layer configuration
+        Row 3, Key 3: ② on 2 (`_..._NSY`); ⬇ on DOWN arrow in WASD `_MOV` layer configuration
+        Row 3, Key 4: ③ on 3 (`_..._NSY`); ➡ on RIGHT arrow in WASD `_MOV` layer configuration
+        Row 3, Key 5: ④ on 4 (`_..._NSY`); ┏ forms a square with box drawing on row 2 (See note¹).
+        Row 3, Key 6: ⑤ on 5 (`_..._NSY`); ┓          ''                 ''
+        Row 3, Key 7: ⑥ on 6 (`_..._NSY`); ┃ continue box drawing on right hand symmetry
+        Row 3, Key 8: ⑦ on 7 (`_..._NSY`); ┇          ''                 ''
+        Row 3, Key 9: ⑧ on 8 (`_..._NSY`); ╋ continues box drawings, figure ‛8’ also has a crossing of 2 lines
+        Row 3, Key 10: ⑨ on 9 (`_..._NSY`); 
+        Row 3, Key 11: ⓪ on 0 (`_..._NSY`); ∞ on 0 for round & round, forever
+        Row 3, Key 12: — (dash) on - (`_..._BASE`) (hyphen); ≈ on ~ (`_..._NSY`)
+        Row 2, Key 2: ⑪ on 1 row above (`_..._NSY`); ‹ on 「 (`_DRA`)
+        Row 2, Key 3: ⑫ on 2 row above (`_..._NSY`); › on 」 (`_DRA`)
+        Row 2, Key 4: ⑬ on 3 row above (`_..._NSY`); ÷ on / (`_..._NSY`) (divisions)
+        Row 2, Key 5: ⑭ on 4 row above (`_..._NSY`); ☞ on • (`_DRA`); ┗   forms a square with box drawing on row 3
+        Row 2, Key 6: ⑮ on 5 row above (`_..._NSY`); ≠ on = (`_..._NSY`); ┛        ''                 ''
+        Row 2, Key 7: ⑯ on 6 row above (`_..._NSY`); ✗ on ☒ (`_..._NSY`); ┣ continues right-hand symmetry & line from row 3
+        Row 2, Key 8: ⑰ on 7 row above (`_..._NSY`); ✓ on ☑ 🗹 (`_DRA`); ┫                ''                       ''
+        Row 2, Key 9: ⑱ on 8 row above (`_..._NSY`); ⚠ on ¡ (`_DRA`) (inverted !)
+        Row 2, Key 10: ⑲ on 9 row above (`_..._NSY`); « on { (`_..._NSY`), 《 (`_DRA`)
+        Row 2, Key 11: ⑩ on 0 row above (`_..._NSY`); » on } (`_..._NSY`), 》 (`_DRA`)
    
   ¹) Fitting horizontal bars for the box drawings ┅ ━ are on `_DRA`.
            
@@ -873,14 +877,12 @@ if you want to count in characters.
 
 Making your own base layer(s)
 =============================
-You can insert your own `_DEF_BASE`, `_DEF_NSY` and `_ALT_BASE`, `_Alt_NSY`
+You can insert your own `_DEF_BASE`, `_DEF_NSY` and/or `_ALT_BASE`, `_ALT_NSY`
 BASE plus number/symbols layer pairs, integrate it nicely with the rest 
 of the code, and re-define a special characters layer to go with it if
 you want (etc). The idea is to make it easy to change the alphanumerical
-keys, while leaving the modifiers, layer switch keys and so on, (mostly)
-the same. `YOUR_KEYMAP` stands for a name you choose. You would be 
-re-defining both the ‛Default’ and ‛Alternate’ layer pairs, for your new 
-dual layout.
+keys, while leaving the modifiers, layer switch keys etc. the same. 
+`YOUR_KEYMAP` stands for a name you choose.
 
      ① Make a file named: `./base_YOUR_KEYMAP.c`), with at least 
        those two layers: _..._BASE and _..._NSY. It is probably best to
@@ -896,13 +898,12 @@ dual layout.
        help you. Look just under the line with this, in ./keymap.c:
 
        const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+       (…)
+       // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
 
-       # if   defined(BASES_DVORAK_DESCRAMBLE)
-       (…)
-       # elif defined(BASES_YOUR_KEYMAP)
-       #     include "./bases_YOUR_KEYMAP.c" // ...
-       # endif
-       (…)
+       // # if defined(BASE_YOUR_KEYMAP__DEF_BASE) || defined(BASE_YOUR_KEYMAP__ALT_BASE)
+       // #     include "./base_YOUR_KEYMAP.c" // Your Keymap.
+       // # endif
 
 Now you have integrated your base layers alternative. To compile it:
 

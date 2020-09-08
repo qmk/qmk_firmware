@@ -11,11 +11,11 @@ Qwerty keymaps
 
 ──────────Qwerty───────────────
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_qwerty_va.jpg)
-Layer: `DEF_BASE`
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_qwerty_vb.jpg)
+Layer: `..._BASE`
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_va.jpg)
-Layer: `DEF_NSY`
+Layer: `..._NSY`
 
 ──────────in common────────────
 

@@ -22,10 +22,10 @@ Dvorak² keymaps
 ──────────Dvorak───────────────
 
 ![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_va.jpg)
-Layer: `DEF&ALT_BASE`
+Layer: `..._BASE`
 
 ![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_va.jpg)
-Layer: `DEF&ALT_NSY`
+Layer: `..._NSY`
 
 ──────────in common────────────
 

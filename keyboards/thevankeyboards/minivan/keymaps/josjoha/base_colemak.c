@@ -51,20 +51,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */ 
 
 // Process user configuration wrt ‛Default’ or ‛Alternative’ spot for this layout.
-# if   defined(BASE_QWERTY__DEF_BASE)
+# if   defined(BASE_COLEMAK__DEF_BASE)
     [ _DEF_BASE ] = LAYOUT_redefined (
-# elif defined(BASE_QWERTY__ALT_BASE)
+# elif defined(BASE_COLEMAK__ALT_BASE)
     [ _ALT_BASE ] = LAYOUT_redefined (
 # endif
 
 /*
-     Layer _..._BASE (Letters). This is Qwerty 
+     Layer _..._BASE (Letters). This is Colemak, except backspace/tab 
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Esc        qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
-         Tab+LCtl   aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-         LSht+_PAD  zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht+_FUN⁶
+         Esc        qQ    wW    fF    pP    gG    | jJ    lL    uU    yY    ;:         Bksp
+         Tab+LCtl   aA    rR    sS    tT    dD    | hH    nN    eE    iI    oO           '"
+         LSht+_PAD  zZ    xX    cC    vV    bB    | kK    mM    ,<    .>    /?    RSht+_FUN⁶
              +_MOV⁵                               |
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
@@ -86,9 +86,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, midd>   , ring>  , pink>   , pink2>        ,
 //      -*!-              ,      ,      ,      ,      ,    <|,>     ,      ,         ,        ,         ,               ,
-        KC_ESC            , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_Y , KC_U , KC_I    , KC_O   , KC_P    , KC_BSPC       ,
-        LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT       ,
-        CHOLTAP_LSHFT     , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , CHOLTAP_RSHFT ,
+        KC_ESC            , KC_Q , KC_W , KC_F , KC_P , KC_G , KC_J , KC_L , KC_U    , KC_Y   , KC_SCLN , KC_BSPC       ,
+        LCTL_T ( KC_TAB ) , KC_A , KC_R , KC_S , KC_T , KC_D , KC_H , KC_N , KC_E    , KC_I   , KC_O    , KC_QUOT       ,
+        CHOLTAP_LSHFT     , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_K , KC_M , KC_COMM , KC_DOT , KC_SLSH , CHOLTAP_RSHFT ,
 //      -----------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) 
 
@@ -118,20 +118,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /* ⬆⬇ */
 
-    /* Layer _..._NSY: Numbers and symbols, to work with the Qwerty base layer above.
+    /* Layer _..._NSY: Numbers and symbols, to work with the Colemak base layer above (unchanged from Qwerty).
      *          Off hand Number input (-.Bksp ent (shft)tab).
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
 // Process user configuration wrt ‛Default’ or ‛Alternative’ spot for this layout.
-# if   defined(BASE_QWERTY__DEF_BASE)
+# if   defined(BASE_COLEMAK__DEF_BASE)
     [ _DEF_NSY ] = LAYOUT_redefined (
-# elif defined(BASE_QWERTY__ALT_BASE)
+# elif defined(BASE_COLEMAK__ALT_BASE)
     [ _ALT_NSY ] = LAYOUT_redefined (
 # endif
 
 /*
-     Layer _..._NSY (Numbers and SYmbols). This fits the above Qwerty layer _..._BASE
+     Layer _..._NSY (Numbers and SYmbols). This fits the above Colemak layer _..._BASE
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN

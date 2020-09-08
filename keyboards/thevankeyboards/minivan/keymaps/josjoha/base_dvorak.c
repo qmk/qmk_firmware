@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /*  ⬇ */
 
-    /* Layer _DEF_BASE: default BASE layer (Dvorak)
+    /* Layer _..._BASE: default BASE layer (Dvorak)
      *
      * - Dual use keys create a delay in the key (tap/hold keys), therefore
      *   space is not dual use (most used key), neither is hyphen.
@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # endif
 
 /*
-     Layer _DEF_BASE (LeTteRs, standard Dvorak)
+     Layer _..._BASE (LeTteRs, standard Dvorak)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
@@ -67,14 +67,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          LSht+_PAD  ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN⁶
              +_MOV⁵                               |
      ---------------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) LGUI    Right;_RAR 
+     Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
                hold₍₂₎  ^-┃-----------------------+--------^ ┃                          // ₁₎ both = _DRA
                ┗━━━_BON━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
      
-     ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
+     ₁) Dual hold for _DRA, single hold for _..._NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
      ³) 'South paw' hardware configuration 
      ⁴) 'Arrow' hardware configuration 
@@ -118,7 +118,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /* ⬆⬇ */
 
-    /* Layer _DEF_NSY: Numbers and symbols.
+    /* Layer _..._NSY: Numbers and symbols.
      *          Off hand Number input (-.Bksp ent (shft)tab).
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
@@ -131,7 +131,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # endif
 
 /*
-     Layer _DEF_NSY (Numbers and SYmbols)
+     Layer _..._NSY (Numbers and SYmbols)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
@@ -140,7 +140,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      -+LSht   [{    ]}    /?    \|    =+    | +     |     ?     {     }  `~+RSht // limitation prevents ~
      ---------------------------------------------------------------------------
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
-                     -*-       <|>    -*-                                         //(hold) Access on _DEF_BASE
+                     -*-       <|>    -*-                                         //(hold) Access on _..._BASE
        <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 */
 //

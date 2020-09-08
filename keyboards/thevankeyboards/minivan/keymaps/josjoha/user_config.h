@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //                        * Dvorak *
          //                  (a regular Dvorak layout)
          // _Activate_ one of these two, _remove_ the other.
-  #define BASE_DVORAK__DEF_BASE   // _Activate_ if you want Dvorak on the ‛Default’ spot
+  #define BASE_DVORAK__DEF_BASE // _Activate_ if you want Dvorak on the ‛Default’ spot
 //#define BASE_DVORAK__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
          //
          //                        * Dvorak descramble mode *
@@ -63,8 +63,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //                        * Qwerty *
          //                  (a regular Qwerty layout)
          // _Activate_ one of these two, _remove_ the other.
-//#define BASE_QWERTY__DEF_BASE   // _Activate_ if you want Qwerty on the ‛Default’ spot
+//#define BASE_QWERTY__DEF_BASE // _Activate_ if you want Qwerty on the ‛Default’ spot
 //#define BASE_QWERTY__ALT_BASE // _Activate_ if you want Qwerty on the ‛Alternate’ spot
+         //
+         //                        * Colemak *
+         //                  (a regular Colemak layout)
+         // _Activate_ one of these two, _remove_ the other.
+//#define BASE_COLEMAK__DEF_BASE // _Activate_ if you want Colemak on the ‛Default’ spot
+//#define BASE_COLEMAK__ALT_BASE // _Activate_ if you want Colemak on the ‛Alternate’ spot
+
 
         /*                        Base layers
          *
