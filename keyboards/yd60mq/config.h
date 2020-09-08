@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x258A
+#define PRODUCT_ID      0x0033
 #define MANUFACTURER    YMDK
 #define PRODUCT         YD60MQ
 #define DESCRIPTION     Keyboard
