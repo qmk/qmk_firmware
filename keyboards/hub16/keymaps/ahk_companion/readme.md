@@ -33,7 +33,7 @@ If persistent behavior is prefered, OSL can be swapped for TG which will toggle 
 
 
 
-### Layers ###
+## Layers
 
 While the first 5 layers are accessible with only 1 key press at most, the 5th (less frequently used) layer is accessed by first going to the 4th layer, which makes the TG(5) button available on the bottom left. Space for additional 2 more layer toggles is available on the 2 middle buttons on the bottom row. Please refer to the layer diagrams.
 
