@@ -10,3 +10,6 @@
 
 #define ENCODERS_PAD_A { F4 }
 #define ENCODERS_PAD_B { F5 }
+
+#undef SOFT_SERIAL_PIN
+#define SOFT_SERIAL_PIN D2

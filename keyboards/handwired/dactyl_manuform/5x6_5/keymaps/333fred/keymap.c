@@ -34,17 +34,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [GAME] = LAYOUT_5x6_5(
      KC_ESC, KC_1,    KC_2,    KC_3,  KC_4,    KC_5,                                          KC_6,    KC_7,     KC_8,         KC_9,   KC_0,    KC_MINS,
-     KC_T,   KC_TAB,  KC_Q,    KC_E,  KC_E,    KC_R,                                          KC_Y,    KC_U,     KC_I,         KC_O,   KC_P,    KC_BSLS,
+     KC_T,   KC_TAB,  KC_Q,    KC_W,  KC_E,    KC_R,                                          KC_Y,    KC_U,     KC_I,         KC_O,   KC_P,    KC_BSLS,
      KC_G,   KC_LCTL, KC_A,    KC_S,  KC_D,    KC_F,                                          KC_H,    KC_J,     KC_K,         KC_L,   KC_SCLN, KC_QUOT,
-     KC_V,   KC_LSFT, KC_Z,    KC_X,  KC_C,    KC_V,                                          KC_N,    KC_M,     KC_COMM,      KC_DOT, KC_SLSH, KC_RSFT,
+     KC_B,   KC_LSFT, KC_Z,    KC_X,  KC_C,    KC_V,                                          KC_N,    KC_M,     KC_COMM,      KC_DOT, KC_SLSH, KC_RSFT,
                       KC_LOCK,        KC_LALT, KC_SPC, KC_ENT,  KC_GRV,    TG(GAME), _______, _______, _______,                KC_EQL,
                                                        KC_BSPC, KC_F5,     KC_F6,    _______
   ),
 };
 
+uint16_t quote_timer;
+uint8_t currentQuote = 0;
+
+void keyboard_post_init_user(void) {
+    quote_timer = timer_read();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  tap_dance_process_keycode(keycode);
-  return !try_handle_macro(keycode, record);
+    tap_dance_process_keycode(keycode);
+    return !try_handle_macro(keycode, record);
 }
 
 static void render_logo(void) {
@@ -65,58 +72,153 @@ void render_led_status(void) {
 void render_mods_status(void) {
     bool ctrl = keyboard_report->mods & MOD_BIT(KC_LCTL) || keyboard_report->mods & MOD_BIT(KC_RCTL);
     bool shft = keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT);
-    bool alt = keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT);
-    bool gui = keyboard_report->mods & MOD_BIT(KC_LGUI) || keyboard_report->mods & MOD_BIT(KC_RGUI);
+    bool alt  = keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT);
+    bool gui  = keyboard_report->mods & MOD_BIT(KC_LGUI) || keyboard_report->mods & MOD_BIT(KC_RGUI);
 
-    if (ctrl || shft || alt || gui) {
-        oled_write_P(ctrl ? PSTR("CTRL ") : PSTR("     "), false);
-        oled_write_P(shft ? PSTR("SHIFT ") : PSTR("      "), false);
-        oled_write_P(alt ? PSTR("ALT ") : PSTR("    "), false);
-        oled_write_ln_P(gui ? PSTR("GUI ") : PSTR("    "), false);
+    oled_write_P(ctrl ? PSTR("CTRL ") : PSTR("     "), false);
+    oled_write_P(shft ? PSTR("SHIFT ") : PSTR("      "), false);
+    oled_write_P(alt ? PSTR("ALT ") : PSTR("    "), false);
+    oled_write_ln_P(gui ? PSTR("GUI ") : PSTR("    "), false);
+}
+
+#define MAX_LINES 9
+
+void write_quote(const char* data, const uint8_t num_lines) {
+    uint8_t current_line = 0;
+    for (; current_line < (MAX_LINES - num_lines) / 2; current_line++) {
+        oled_advance_page(true);
+    }
+
+    oled_write_ln_P(data, false);
+
+    for (current_line += num_lines; current_line < MAX_LINES; current_line++)
+    {
+        oled_advance_page(true);
     }
 }
 
 void oled_task_user(void) {
-    render_logo();
-    oled_advance_page(/* clearPageRemainder */true);
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case BASE:
-            oled_write_ln_P(PSTR("Base"), false);
-            break;
-        case SYMB:
-            oled_write_ln_P(PSTR("Symbols"), false);
-            break;
-        case VIM:
-            oled_write_ln_P(PSTR("Vim"), false);
-            break;
-        case GAME:
-            oled_write_ln_P(PSTR("Gaming"), false);
-            break;
+    if (is_keyboard_master()) {
+        render_logo();
+        oled_advance_page(/* clearPageRemainder */ true);
+        oled_write_P(PSTR("Layer: "), false);
+        switch (get_highest_layer(layer_state)) {
+            case BASE:
+                oled_write_ln_P(PSTR("Base"), false);
+                break;
+            case SYMB:
+                oled_write_ln_P(PSTR("Symbols"), false);
+                break;
+            case VIM:
+                oled_write_ln_P(PSTR("Vim"), false);
+                break;
+            case GAME:
+                oled_write_ln_P(PSTR("Gaming"), false);
+                break;
+        }
+
+        snprintf(wpm_str, 8, "WPM: %03d", get_current_wpm());
+        oled_write_ln(wpm_str, false);
+
+        render_mods_status();
+        render_led_status();
+    } else {
+        if (timer_elapsed(quote_timer) > 300000 /* 5 minutes */) {
+            srand(timer_read());
+            currentQuote = rand() % 13;
+            quote_timer  = timer_read();
+        }
+
+        // Max character count on my screen is 20 characters per line.
+        switch (currentQuote) {
+            case 0:
+                write_quote(PSTR("  Life before Death \n"
+                                 "  Strength before   \n"
+                                 "      Weakness      \n"
+                                 "   Journey before   \n"
+                                 "    Destination"),
+                            5);
+                break;
+            case 1:
+                write_quote(PSTR(" Honor is dead, but \n"
+                                 "I'll see what I can \n"
+                                 "        do."),
+                            3);
+                break;
+            case 2:
+                write_quote(PSTR(" You cannot have my \n"
+                                 "       pain!"),
+                            2);
+                break;
+            case 3:
+                write_quote(PSTR(" Pride doesn't win  \n"
+                                 "     battles"),
+                            2);
+                break;
+            case 4:
+                write_quote(PSTR("  I have practice   \n"
+                                 " following fools in \n"
+                                 "   their reckless   \n"
+                                 "      pursuits."),
+                            4);
+                break;
+            case 5:
+                write_quote(PSTR("  What is the most  \n"
+                                 "  important step a  \n"
+                                 "    man can take?"),
+                            3);
+                break;
+            case 6:
+                write_quote(PSTR(" It's the next one. \n"
+                                 "  Always the next   \n"
+                                 "   step, Dalinar."),
+                            3);
+                break;
+            case 7:
+                write_quote(PSTR("    NO MATING."), 1);
+                break;
+            case 8:
+                write_quote(PSTR("   Inappropriate?   \n"
+                                 "Such as... dividing \n"
+                                 "     by zero?"),
+                            3);
+                break;
+            case 9:
+                write_quote(PSTR("   I am a stick!"), 1);
+                break;
+            case 10:
+                write_quote(PSTR("  But you could be  \n"
+                                 "       fire!"),
+                            1);
+                break;
+            case 11:
+                write_quote(PSTR("    Sometimes a     \n"
+                                 "   hyprocrite is    \n"
+                                 " nothing more than  \n"
+                                 " than a man in the  \n"
+                                 "process of changing"),
+                            5);
+                break;
+            case 12:
+                write_quote(PSTR("    Oh, Light!"), 1);
+                break;
+        }
     }
-
-    snprintf(wpm_str, 8, "WPM: %03d", get_current_wpm());
-    oled_write_ln(wpm_str, false);
-
-    render_mods_status();
-    render_led_status();
 }
-
-extern volatile bool isLeftHand;
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     // On the left, control the volume. On the right, scroll the page
-    if (isLeftHand) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else {
+    if (index == 0) {
         if (clockwise) {
             tap_code(KC_WH_U);
         } else {
             tap_code(KC_WH_D);
+        }
+    } else {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
         }
     }
 }
