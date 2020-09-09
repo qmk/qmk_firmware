@@ -40,6 +40,8 @@ void keyboard_pre_init_kb(void) {
     led1_off();
     led2_off();
     led3_off();
+
+    keyboard_pre_init_user();
 }
 
 void keyboard_post_init_kb(void) {
@@ -56,6 +58,8 @@ void keyboard_post_init_kb(void) {
     wait_ms(50);
     led3_off();
     wait_ms(50);
+
+    keyboard_post_init_user();
 }
 
 void manipulate_led(uint32_t led, bool on) {
@@ -70,10 +74,12 @@ void manipulate_led(uint32_t led, bool on) {
 }
 
 
-layer_state_t layer_state_set_kb(uint32_t layer_state) {
-    uint8_t layer = biton(layer_state);
+layer_state_t layer_state_set_kb(uint32_t state) {
+    state = layer_state_set_user(state);
+
+    uint8_t layer = get_highest_layer(state);
     manipulate_led(1, layer  & 1);
     manipulate_led(2, layer >> 1 & 1);
     manipulate_led(3, layer >> 2 & 1);
-    return layer_state;
+    return state;
 }
