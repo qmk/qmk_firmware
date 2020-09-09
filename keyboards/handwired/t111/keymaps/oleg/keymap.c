@@ -134,7 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 	  
-	  case MC1:
+   case MC1:
       if (record->event.pressed) {
         send_unicode_string("[]");
       }
