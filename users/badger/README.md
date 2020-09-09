@@ -1,4 +1,4 @@
-# A multi-OS keyboard layout with support for both Linux (KDE) MacOS-specific QWERTY layouts for many 60-ish% keyboards (
+# A multi-OS keyboard layout with support for both Linux (KDE) and MacOS-specific QWERTY layouts for many 60-ish% keyboards (
 
 ## Author: [BlueTufa](https://github.com/BlueTufa)
 
@@ -20,7 +20,9 @@ Care was taken to keep the tiling and virtual desktop shortcuts as similar as po
 
 REMINDER: The 9-key left-hand pattern requires the installation of the MacOS rectangle app:
 
-`brew cask install rectangle`
+```bash
+brew cask install rectangle
+```
 
 ### ADJUST layer
 Access to function keys as well as media controls and keyboard settings.  Some useful OS action keys are defined here as well.  
