@@ -62,7 +62,7 @@ While the first 5 layers are accessible with only 1 key press at most, the 5th (
 
     ![Image of Layer 5 ](https://i.imgur.com/Os3n8dx.png)
     
-### Host Configuration ### 
+## Host Configuration
 
 Once the keymap has been flashed to the Super16, you can download the accompanying AutoHotKey file or create your own and have it start automatically either via a Windows Task or another way. Using AutoHotKey allows adjustment of functionality of the buttons without the need to change your map and reflash the macropad every time.
 Starting the AHK file can be done either by:
