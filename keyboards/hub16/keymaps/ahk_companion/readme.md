@@ -12,7 +12,7 @@ Same functionality can be accomplished with other similar applications on the ho
 
 This keymap allows for a total of 48 Function/Macro keys that are accessible within 2 sequential key presses (or more when extended with your own code and additional layers) 
 
-### Encoders ### 
+## Encoders
 Encoder functionality was made based on my needs but it can be remapped as desired by changing the keycodes. 
 
 Left Encoder:
