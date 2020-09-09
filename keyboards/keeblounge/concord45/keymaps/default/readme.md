@@ -1,5 +1,5 @@
-![Zlant Layout Image](https://i.imgur.com/Siz8qsL.jpg)
+![Concord45](https://i.ibb.co/bbZjg7N/Whats-App-Image-2020-08-21-at-13-47-14.jpg)
 
-# Default Zlant Layout
+# Default Concord45 Layout
 
-This is the default layout that comes flashed on the Zlant prototype.
+This is the default layout.
