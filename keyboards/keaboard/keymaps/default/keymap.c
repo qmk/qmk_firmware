@@ -4,6 +4,9 @@
 #define _LOWER 1
 #define _RAISE 2
 
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
@@ -14,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_F2,            KC_F12,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-     KC_DEL,  KC_LALT, KC_LCTL, KC_LGUI, MO(_LOWER),            KC_ENT,           KC_SPC,           MO(_RAISE),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+     KC_DEL,  KC_LALT, KC_LCTL, KC_LGUI, LOWER,            KC_ENT,           KC_SPC,           RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
   //`--------+--------+--------+--------+--------+--------+--------/        \--------+--------+--------+--------+--------+--------+--------'
   ),
 
