@@ -18,7 +18,7 @@
 #include "version.h"
 
 enum custom_keycodes {
-  VRSN,
+  VRSN = SAFE_RANGE,
   MC1
 };
 
