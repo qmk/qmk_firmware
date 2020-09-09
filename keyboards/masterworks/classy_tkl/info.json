@@ -100,7 +100,6 @@
             ]
         },
         "LAYOUT_tkl_ansi_wkl": {
-            "key_count": 84,
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 2, "y": 0 },
