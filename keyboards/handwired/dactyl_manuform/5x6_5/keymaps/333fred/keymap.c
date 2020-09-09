@@ -42,11 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-uint16_t quote_timer;
+uint32_t quote_timer;
 uint8_t currentQuote = 0;
 
 void keyboard_post_init_user(void) {
-    quote_timer = timer_read();
+    quote_timer = timer_read32();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -123,10 +123,10 @@ void oled_task_user(void) {
         render_mods_status();
         render_led_status();
     } else {
-        if (timer_elapsed(quote_timer) > 300000 /* 5 minutes */) {
-            srand(timer_read());
+        if (timer_elapsed32(quote_timer) > 300000 /* 5 minutes */) {
+            srand(timer_read32());
             currentQuote = rand() % 13;
-            quote_timer  = timer_read();
+            quote_timer  = timer_read32();
         }
 
         // Max character count on my screen is 20 characters per line.
