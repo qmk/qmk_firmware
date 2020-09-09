@@ -25,7 +25,7 @@ Left Encoder:
  * Clockwise: Volume Up
  * Click: Mute/Unmute
 
-### Alternate Implementations ###
+## Alternate Implementations
 I chose to use <a href="https://docs.qmk.fm/#/feature_layers?id=switching-and-toggling-layers">QMK OSL</a> (One Shot Layer) functionality to avoid having to hold a key while selecting the next key and to have my layers always go back to the default layer as the starting point. This also helps me avoid having to cognitively remember what layer I am on. 
 
 If persistent behavior is prefered, OSL can be swapped for TG which will toggle the layer on/off with a key press instead of clearing the layer once the Function key is pressed. This is useful if a layer contains several keys that need to be used in sequence. I also added a OSL timeout of 3 seconds, so that if the key is not pressed within 3 seconds the layer will go back to default. This can be adjusted in the config.h file by increasing 3000 to a desired value: `#define ONESHOT_TIMEOUT 3000` 
