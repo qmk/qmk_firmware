@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 14
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS {D3, C6, B2, B6} // los pines deben de ir en orden por fila.
-#define MATRIX_COL_PINS {D2, D1, D0, D4, D7, E6, B4, B5, F6, F7, B1, F4, F5, B3} // los pines deben de ir en orden por columna.
+#define MATRIX_ROW_PINS {D3, C6, B2, B6}
+#define MATRIX_COL_PINS {D2, D1, D0, D4, D7, E6, B4, B5, F6, F7, B1, F4, F5, B3}
 
 
 /* COL2ROW or ROW2COL */
