@@ -28,7 +28,7 @@
 #    define SPI_SCK_PIN B7
 #    define SPI_MOSI_PIN B5
 #    define SPI_MISO_PIN B6
-#elif defined(__AVR_ATmega328P__)
+#elif defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
 #    define SPI_SCK_PIN B5
 #    define SPI_MOSI_PIN B3
 #    define SPI_MISO_PIN B4

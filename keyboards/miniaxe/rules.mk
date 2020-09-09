@@ -35,3 +35,5 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs
 DEBUG_ENABLE = no
 CUSTOM_MATRIX = no         # Use custom matrix code
 SPLIT_KEYBOARD = yes        # Use shared split_common code
+
+LAYOUTS = split_3x5_3

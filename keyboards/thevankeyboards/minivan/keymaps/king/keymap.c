@@ -14,27 +14,25 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       /* 0: Main Layer
-
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┐
-   * │ ESC │  Q  │  W  │  E  │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │ENTER    │  
+   * │ ESC │  Q  │  W  │  E  │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │BKSPC    │  
    * ├─────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────────┤
    * │ TAB  │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │ ;   │'       │
    * ├──────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬─────┤
-   * │ LSHFT   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │MO(SL│
+   * │ LSHFT   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │ENTER│
    * ├────────┬┴─────┴─┬───┴─┬───┴─────┴──┬──┴─────┴─────┴─┬───┴─┬───┴─┬───┴─────┤
-   * │LCTRL   │   LGUI │ LALT│SPACE(_NL)  │MO(_NL)         │BKSPC│     │MO(RL    │
+   * │LCTRL   │   LGUI │ LALT│SPACE(_NL)  │MO(_NL)         │MO SL│     │MO(RL    │
    * └────────┴────────┴─────┴────────────┴────────────────┴─────┴─────┴─────────┘
    */
     [_ML] = LAYOUT(
-        KC_ESC,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,     KC_P,     KC_ENT,  
+        KC_ESC,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,     KC_P,     KC_BSPC,  
         KC_TAB,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,     KC_SCLN,  KC_QUOT,         
-        KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  MO(_SL),     
-        KC_LCTL, KC_LGUI, KC_LALT,         SPC_FUN,        MO(_NL),        KC_BSPC, XXXXXXX,  MO(_RL)
+        KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_ENT,     
+        KC_LCTL, KC_LGUI, KC_LALT,         SPC_FUN,        MO(_NL),        MO(_SL), XXXXXXX,  MO(_RL)
     ),
 
 
       /* 1: Function Layer
-
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┐
    * │     │     │HOME │ UP  │END  │PGUP │     │ F1  │ F2  │ F3  │ F4  │         │
    * ├─────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────────┤
@@ -55,7 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
       /* 2: Number Layer
-
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┐
    * │  ~  │  !  │  @  │  #  │  $  │  %  │  ^  │  &  │  *  │  (  │  )  │         │
    * ├─────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────────┤
@@ -74,7 +71,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
       /* 3: Symbol Layer
-
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┐
    * │     │  _  │  +  │  {  │  }  │  |  │     │     │     │     │     │         │
    * ├─────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────────┤
@@ -93,7 +89,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
         /* 4: Reset Layer
-
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┐
    * │RESET│     │     │     │     │     │     │     │     │     │     │         │
    * ├─────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────────┤
@@ -111,4 +106,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,           XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
     )
 };  
-
