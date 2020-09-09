@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0065
 #define MANUFACTURER Ramon Imbao
 #define PRODUCT Squishy65
-#define DESCRIPTION 65% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
