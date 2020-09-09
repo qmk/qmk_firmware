@@ -1,6 +1,6 @@
-## AutoHotKey Companion  ##
+# AutoHotKey Companion
 
-### Overview ### 
+## Overview
 AutoHotKey Companion Keymap for <a href="https://www.tindie.com/products/joshajohnson/hub16-programmable-macro-keyboard/">Hub16 macropad</a> is designed be a quick and easy way to get started with AutoHotKey and to provide a foundation for customizing your own macropad. I upgraded to the Super16 from a Super16 because it kept the RGB underglow lights for an easy way (RGB) to identify what layer I was on with a quick glance or peripheral vision and added 2 rotary encoders and a USB 2.0 hub with USB-C ports. The F13 to F24 keys were selected as they are rarely used so you won't run into conflicts with existing application shortcuts and AutoHotKey recognizes them without any issues. *Note:* MacOS does not support/recognize F21 to F24 so these would need to be remapped for Mac users. 
 
 Same functionality can be accomplished with other similar applications on the host system like Keyboard Maestro, AutoIt, etc. 
