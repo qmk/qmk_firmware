@@ -1,19 +1,16 @@
 # hannah65
 
-![hannah65](imgur.com image replace me!)
+![hannah65](https://i.imgur.com/gallery/HdguPHL)
 
-*A short description of the keyboard/project*
+A 65% PCB, compatible with Poker and Unikorn cases.
 
-* Keyboard Maintainer: [Team Mechlovin](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+
+* Keyboard Maintainer: [Team Mechlovin](https://github.com/mechlovin)
+* Hardware Supported: Hannah65, STM32F303
+* Hardware Availability: [Mechlovin Store](https://mechlove.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hannah65:default
-
-Flashing example for this keyboard:
-
-    make hannah65:default:flash
+    make mechlovin/hannah65:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
