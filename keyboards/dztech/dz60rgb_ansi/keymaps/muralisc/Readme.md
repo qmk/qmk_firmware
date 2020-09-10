@@ -29,12 +29,8 @@ Dedicated Layer for arrow keys and Num keys and `Ins`, `Home` and `PgUp`.
 
 Set keyboard to Reset mode and 
 
+New Method
 ```
-make dztech/dz60rgb:ansi_vim:dfu-util
-```
-
-If build errors occurs try
-
-```
-CFLAGS="-Wno-error=deprecated" make dztech/dz60rgb:ansi_vim:dfu-util
+CFLAGS="-Wno-error=deprecated" qmk compile -kb dztech/dz60rgb_ansi/v1 -km muralisc 
+CFLAGS="-Wno-error=deprecated" qmk flash -kb dztech/dz60rgb_ansi/v1 -km muralisc
 ```
