@@ -2,7 +2,6 @@
 MCU = atmega328p
 
 # Bootloader selection
-#   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
 # Build Options
