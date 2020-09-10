@@ -1,12 +1,11 @@
 {
     "keyboard_name": "hannah60rgb",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "Team Mechlovin'",
     "width": 15,
     "height": 5,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 66,
             "layout": [
                 {"label":"K00 (B0,B5)", "x":2.75, "y":0},
                 {"label":"K01 (B0,B6)", "x":3.75, "y":0},
