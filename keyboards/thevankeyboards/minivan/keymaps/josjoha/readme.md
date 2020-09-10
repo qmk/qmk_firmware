@@ -73,7 +73,7 @@ base layer can be a Qwerty layout, or vice versa. Both will use the same
 layer for Function keys, movement, number pad, additional unicode, etc.
 
 The BASE layers and their numbers layer are detailed in files beginning
-with `./bases_…` (links below).
+with `./base_…` (links below).
 
                    Layer overview:                    Defined in:
 
@@ -1094,7 +1094,7 @@ Authors
   Personal tip: Practice the layout with a shell script.
 
   You can let me know if you find any bugs / problems, have improvements,
-  a new `./bases_...c/.md` keymap, or if you like using it too 👍.
+  a new `./base_...c/.md` keymap, or if you like using it too 👍.
 
   Contributions to this key map:
       - …
