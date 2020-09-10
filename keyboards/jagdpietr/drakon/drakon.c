@@ -18,6 +18,7 @@
 
 char wpm_str[10];
 
+__attribute__((weak))
 void encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_VOLU);
