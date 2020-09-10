@@ -13,3 +13,6 @@
 
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D2
+
+#undef OLED_TIMEOUT
+#define OLED_TIMEOUT 300000
