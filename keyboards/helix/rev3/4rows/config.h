@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x3265 //yushakobo
-#define PRODUCT_ID 0x0004 //Helix Type-R 4rows
+#define PRODUCT_ID 0x0004 //Helix rev3 4rows
 #define DEVICE_VER 0x0001
 #define MANUFACTURER yushakobo
-#define PRODUCT Helix Type-R
+#define PRODUCT Helix rev3 4rows
 #define DESCRIPTION A split keyboard for beginners
 
 /* key matrix size */

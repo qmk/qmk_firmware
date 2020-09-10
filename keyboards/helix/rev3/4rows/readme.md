@@ -1,13 +1,13 @@
-# Helix Type-R
+# Helix rev3 4rows
 
-[helix_type_r](imgur.com image replace me!)
+[helix_rev3_4rows](imgur.com image replace me!)
 
 [//]: # "images are under preparation"
 
 A compact split ortholinear keyboard.
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
-* Hardware Supported: Helix Type-R PCBs, Pro Micro
+* Hardware Supported: Helix rev3 PCBs, Pro Micro
 * Hardware Availability: (Under preparation)
 
 Make example for this keyboard (after setting up your build environment):

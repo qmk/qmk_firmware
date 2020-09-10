@@ -1,4 +1,4 @@
-# The default VIA keymap for Helix Type-R (4Rows)
+# The default VIA keymap for Helix rev3 4rows
 
 ### Qwerty Layer (Base)
 ```

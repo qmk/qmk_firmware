@@ -1,4 +1,4 @@
-# The default keymap for Helix Type-R
+# The default keymap for Helix rev3 5rows
 
 ### Qwerty Layer (Base)
 ```
