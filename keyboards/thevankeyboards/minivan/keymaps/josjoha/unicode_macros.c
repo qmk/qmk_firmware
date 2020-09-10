@@ -1154,7 +1154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (sizecount_measure) {
         if (record->event.pressed) { 
             bool within = TRUE; // When text size is maximized, this indicates we are not yet at that maximum.
-            unsigned short size_fraction; // Used to compute led color as a fraction of a set maximum which is already typed.
+            unsigned short size_fraction = 0; // Used to compute led color as a fraction of a set maximum which is already typed.
 
             // ignoring blanks wordcount
             if ((keycode != KC_SPC)
@@ -1179,11 +1179,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // led colors
                 if (within) { // green to red middle led
                     if (SIZECOUNT_WORD == sizecount_max_type) {
-                        if (sizecount_blanks) // no x/0
-                            size_fraction = (90 * sizecount_blanks) / sizecount_max; 
+                        size_fraction = (90 * sizecount_blanks) / sizecount_max; 
                     }else{
-                        if (sizecount_chars) // no x/0
-                            size_fraction = (90 * sizecount_chars) / sizecount_max;
+                        size_fraction = (90 * sizecount_chars) / sizecount_max;
                     } 
                     rgblight_sethsv_noeeprom (90 - size_fraction , 255, 255); // green to red, full saturation, full lit
                 
