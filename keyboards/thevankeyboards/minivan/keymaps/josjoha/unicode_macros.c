@@ -1134,7 +1134,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (0 >= speed_countdown) {
 
                 // key presses per second, but times ten for added precision of one digit
-                speed = (int) ( (SPEED_COUNTDOWN * 10) / ((timer_read32 () - speed_counttime) / 1000) ); // counts time in ms
+                // This calculation quickly looses precision if not calculated with high enough numbers, but low enough to fit.
+                speed = (int) ( (SPEED_COUNTDOWN * 1000 ) / ((timer_read32 () - speed_counttime)/10) ); // counts time in ms
                 speed_led (speed); // updates led
 
                 // record for average
