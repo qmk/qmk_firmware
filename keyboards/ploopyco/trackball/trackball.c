@@ -197,26 +197,15 @@ void keyboard_pre_init_kb(void) {
      * pathways to ground. If you're messing with this, know this: driving ANY
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
-    setPinOutput(D3);
-    writePinLow(D3);
-    setPinOutput(D1);
-    writePinLow(D1);
-    setPinOutput(B4);
-    writePinLow(B4);
-    setPinOutput(B6);
-    writePinLow(B6);
-    setPinOutput(B7);
-    writePinLow(B7);
-    setPinOutput(D6);
-    writePinLow(D6);
-    setPinOutput(C7);
-    writePinLow(C7);
-    setPinOutput(F6);
-    writePinLow(F6);
-    setPinOutput(F5);
-    writePinLow(F5);
-    setPinOutput(F3);
-    writePinLow(F3);
+#ifdef UNUSED_PINS
+   const pin_t unused_pins[] = UNUSED_PINS;
+
+    for (uint8_t i = 0; i < (sizeof(unused_pins)/sizeof(pin_t)); i++) {
+        setPinOutput(unused_pins[i]);
+        writePinLow(unused_pins[i]);
+    }
+#endif
+    keyboard_pre_init_user();
 }
 
 void pointing_device_init(void) { pmw_spi_init(); }
