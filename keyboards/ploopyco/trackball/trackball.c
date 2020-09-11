@@ -23,13 +23,15 @@
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
 #endif
+#ifndef SCROLL_BUTT_DEBOUNCE
+#    define SCROLL_BUTT_DEBOUNCE 100  // (ms) 			Time between scroll events
+#endif
 #ifndef OPT_THRES
 #    define OPT_THRES 150  // (0-1024) 	Threshold for actication
 #endif
 #ifndef OPT_SCALE
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
-
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
@@ -51,9 +53,14 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     // If the mouse wheel was just released, do not scroll.
     // unsigned long elapsed = micros() - middleClickRelease;
     // if (elapsed < SCROLL_BUTT_DEBOUNCE) { return 0; }
+    if (timer_elapsed(lastMidClick) < SCROLL_BUTT_DEBOUNCE) {
+        return;
+    }
 
     // Limit the number of scrolls per unit time.
-    if ((timer_read() - lastScroll) < OPT_DEBOUNCE) return;
+    if (timer_elapsed(lastScroll) < OPT_DEBOUNCE) {
+        return;
+    }
 
     // Don't scroll if the middle button is depressed.
     // int middleButtonPin = digitalRead(MOUSE_MIDDLE_PIN);
@@ -135,7 +142,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 
     // Update Timer to prevent accidental scrolls
-    if ((record->event.key.col == 2) && (record->event.key.row == 0) && (record->event.pressed == 0)) {
+    if ((record->event.key.col == 2) && (record->event.key.row == 0)) {
         lastMidClick = timer_read();
     }
 
@@ -197,9 +204,9 @@ void keyboard_pre_init_kb(void) {
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
 #ifdef UNUSED_PINS
-   const pin_t unused_pins[] = UNUSED_PINS;
+    const pin_t unused_pins[] = UNUSED_PINS;
 
-    for (uint8_t i = 0; i < (sizeof(unused_pins)/sizeof(pin_t)); i++) {
+    for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
         setPinOutput(unused_pins[i]);
         writePinLow(unused_pins[i]);
     }
@@ -209,11 +216,22 @@ void keyboard_pre_init_kb(void) {
 
 void pointing_device_init(void) { pmw_spi_init(); }
 
+bool has_report_changed (report_mouse_t first, report_mouse_t second) {
+    return !(
+        (!first.buttons && first.buttons == second.buttons) &&
+        (!first.x && first.x == second.x) &&
+        (!first.y && first.y == second.y) &&
+        (!first.h && first.h == second.h) &&
+        (!first.v && first.v == second.v) );
+}
+
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_wheel(&mouse_report);
     process_mouse(&mouse_report);
 
     pointing_device_set_report(mouse_report);
-    pointing_device_send();
+    if (has_report_changed(mouse_report, pointing_device_get_report())) {
+        pointing_device_send();
+    }
 }
