@@ -35,3 +35,4 @@ POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 QUANTUM_LIB_SRC += analog.c spi_master.c
+SRC += spi_adv.c

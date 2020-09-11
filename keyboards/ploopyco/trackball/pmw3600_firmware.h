@@ -1,3 +1,4 @@
+
 // clang-format off
 // Firmware Blob foor PMW3360
 const uint8_t firmware_data[] PROGMEM = {  // SROM 0x04

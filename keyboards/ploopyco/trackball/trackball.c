@@ -15,11 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "pmw3600_firmware.h"
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
-#include "sensor.h"
+
+#ifndef SCROLL_DIVIDER
+#    define SCROLL_DIVIDER 12
+#endif
+#ifndef CPI_1
+#    define CPI_1 2000
+#endif
+#ifndef CPI_2
+#    define CPI_2 4000
+#endif
+#ifndef CPI_3
+#    define CPI_3 8000
+#endif
+#ifndef OPT_DEBOUNCE
+#    define OPT_DEBOUNCE 5
+#endif
+#ifndef OPT_DEBOUNCE
+#    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
+#endif
+#ifndef OPT_THRES
+#    define OPT_THRES 150  // (0-1024) 	Threshold for actication
+#endif
+#ifndef OPT_SCALE
+#    define OPT_SCALE 1  // Multiplier for wheel
+#endif
+
+#define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
+
+// used to track the motion delta between updates
+volatile int16_t delta_x;
+volatile int16_t delta_y;
+volatile uint8_t motion_ind=0;
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
@@ -36,61 +68,64 @@ uint16_t MotionStart  = 0;      // Timer for accel, 0 is resting state
 uint16_t lastScroll   = 0;      // Previous confirmed wheel event
 uint16_t lastMidClick = 0;      // Stops scrollwheel from being read if it was pressed
 uint8_t  OptLowPin    = OPT_ENC1;
-float    mouse_multiplier = 1.0;
-// Mouse Processing
-static void process_mouse(bool bMotion, bool* bBurst) {
-    // Read state
-    PMWState d        = point_burst_read(bMotion, bBurst);
-    bool     isMoving = (d.X != 0) || (d.Y != 0);
-    int16_t  x, y;
 
-    // Reset timer if stopped moving
-    if (!isMoving) {
-        if (MotionStart != 0) MotionStart = 0;
-        return;
-    }
 
-    // Set timer if new motion
-    if ((MotionStart == 0) && isMoving) {
-        if (DEBUGMOUSE) dprintf("Starting motion.\n");
-        MotionStart = timer_read();
-    }
+__attribute__((unused))
+void setCPI(uint16_t cpival) {
+    cpival = (cpival / 100 ) - 1;
+    if (cpival > 119) { cpival = 119; }
 
-    if (DEBUGMOUSE) {
-        dprintf("Delt] d: %d t: %u\n", abs(d.X) + abs(d.Y), MotionStart);
-    }
-    if (DEBUGMOUSE) {
-        dprintf("Pre ] X: %d, Y: %d\n", d.X, d.Y);
-    }
+    spi_start_adv();
+    spi_write_adv(REG_LASER_CTRL0, cpival);
+    spi_stop();
 
-    // Apply any post processing required
-#if defined(PROFILE_LINEAR)
-    float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-    x           *= scale;
-    y           *= scale;
-#elif defined(PROFILE_INVERSE)
-// TODO
-#else
-// no post processing
-#endif
-
-    // apply multiplier
-    x *= mouse_multiplier;
-    y *= mouse_multiplier;
-
-    // Wrap to HID size
-    x = constrain(d.X, -127, 127);
-    y = constrain(d.Y, -127, 127);
-    if (DEBUGMOUSE) dprintf("Cons] X: %d, Y: %d\n", x, y);
-    // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
-
-    report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.x              = (int)x;
-    currentReport.y              = (int)y;
-    pointing_device_set_report(currentReport);
 }
 
-void process_wheel(void) {
+int16_t convertDeltaToInt(uint8_t high, uint8_t low) {
+
+    // join bytes into twos compliment
+    uint16_t twos_comp = (high << 8) | low;
+
+    // convert twos comp to int
+    if (twos_comp & 0x8000)
+        return -1 * (~twos_comp + 1);
+
+    return twos_comp;
+}
+
+report_pmw_t get_pmw_report(void) {
+
+    report_pmw_t report = {0, 0};
+
+    spi_start_adv();
+
+
+    // motion register
+    uint8_t motion = spi_read_adv(REG_Motion_Burst & 0x7f);
+
+    if(motion & 0x80) {
+        // clear observation register
+
+        // delta registers
+        uint8_t delta_x_l = spi_read_adv(REG_Delta_X_L);
+        uint8_t delta_x_h = spi_read_adv(REG_Delta_X_H);
+        uint8_t delta_y_l = spi_read_adv(REG_Delta_Y_L);
+        uint8_t delta_y_h = spi_read_adv(REG_Delta_Y_H);
+
+        report.x = convertDeltaToInt(delta_x_h, delta_x_l);
+        report.y = convertDeltaToInt(delta_y_h, delta_y_l);
+
+        xprintf("SPI X: %d, Y: %d\n", report.x, report.y);
+        xprintf("SPI RAW M: %d, X_L: %d, X_H: %d, Y_L: %d, Y_H: %d, \n", motion, delta_x_l, delta_x_h, delta_y_l, delta_y_h);
+    }
+
+    spi_stop();
+
+    return report;
+}
+
+
+void process_wheel(report_mouse_t *mouse_report) {
     // TODO: Replace this with interrupt driven code,  polling is S L O W
     // Lovingly ripped from the Ploopy Source
 
@@ -127,9 +162,7 @@ void process_wheel(void) {
 
     // Bundle and send if needed
     if (dir == 0) return;
-    report_mouse_t cRep = pointing_device_get_report();
-    cRep.v += dir * OPT_SCALE;
-    pointing_device_set_report(cRep);
+    mouse_report->v += dir * OPT_SCALE;
 }
 
 
@@ -186,18 +219,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    // debug_enable = false;
+     debug_enable = false;
     // debug_matrix = true;
     // debug_mouse  = false;
 
-    // These should probably be moved into the matrix itself
-    // using DIRECT_PINS, and then custom keycodes added for the
-    // mouse buttons.
-    setPinInputHigh(MOUSE_LEFT_PIN);
-    setPinInputHigh(MOUSE_RIGHT_PIN);
-    setPinInputHigh(MOUSE_MIDDLE_PIN);
-    setPinInputHigh(MOUSE_BACK_PIN);
-    setPinInputHigh(MOUSE_FORWARD_PIN);
 
     // This can probably be replaced with rotary encoder config,
     setPinInput(OPT_ENC1);
@@ -205,11 +230,7 @@ void keyboard_pre_init_kb(void) {
 
     // This is the debug LED.
     setPinOutput(F7);
-    if (debug_enable) {
-        writePinHigh(F7);
-    } else {
-        writePinLow(F7);
-    }
+    writePin(F7, debug_enable);
 
     /* Ground all output pins connected to ground. This provides additional
      * pathways to ground. If you're messing with this, know this: driving ANY
@@ -236,12 +257,67 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(F3);
     writePinLow(F3);
 
-    // Initialize SPI for MCU
     spi_init();
-    if (spi_start(SPI_SS_PIN, true, 0,  ))
+    spi_start_adv();
+    spi_stop();
 
+    spi_write_adv(REG_Power_Up_Reset, 0x5a);
+    wait_ms(50);
+
+    spi_read_adv(REG_Motion);
+    spi_read_adv(REG_Delta_X_L);
+    spi_read_adv(REG_Delta_X_H);
+    spi_read_adv(REG_Delta_Y_L);
+    spi_read_adv(REG_Delta_Y_H);
+
+    spi_write_adv(REG_Configuration_IV, 0x02);
+    spi_write_adv(REG_SROM_Enable, 0x1d);
+    wait_ms(10);
+
+    spi_write_adv(REG_SROM_Enable, 0x18);
+
+    spi_start_adv();
+    spi_write(REG_SROM_Load_Burst | 0x80);
+    wait_us(15);
+
+    unsigned char c;
+    for(int i = 0; i < 4094; i++){
+        c = (unsigned char)pgm_read_byte(firmware_data + i);
+        spi_write(c);
+        wait_us(15);
+    }
+    spi_stop();
+    wait_ms(10);
+
+    uint8_t laser_ctrl0 = spi_read_adv(REG_LASER_CTRL0);
+    spi_write_adv(REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
+
+    wait_ms(1);
+
+    // set the configuration_I register to set the CPI
+    // 0x01 = 50, minimum
+    // 0x44 = 3400, default
+    // 0x8e = 7100
+    // 0xA4 = 8200, maximum
+    spi_write_adv(REG_Configuration_I, 0x08);
+
+    wait_ms(100);
 }
-void matrix_scan_kb(void) {
-    process_wheel();
-    matrix_scan_user();
+
+void pointing_device_task(void) {
+
+    report_mouse_t mouse_report = pointing_device_get_report();
+    process_wheel(&mouse_report);
+
+    report_pmw_t pmw_report = get_pmw_report();
+
+    int8_t clamped_x = CLAMP_HID(pmw_report.x);
+    int8_t clamped_y = CLAMP_HID(pmw_report.y);
+
+    mouse_report.x = -clamped_x;
+    mouse_report.y = clamped_y;
+
+    pointing_device_set_report(mouse_report);
+    pointing_device_send();
+
 }

@@ -25,13 +25,9 @@
 #include <print.h>
 #include <stdio.h>
 #include "spi_master.h"
+#include "spi_adv.h"
 #include "analog.h"
 #include "pointing_device.h"
-
-typedef struct {
-    int16_t X;
-    int16_t Y;
-} PMWState;
 
 // Sensor defs
 #define OPT_ENC1 F0
@@ -41,8 +37,6 @@ typedef struct {
 
 extern float mouse_multiplier;
 
-// function defs
-void process_wheel(void);
 
 #define LAYOUT(BL, BM, BR, B4, B5) \
     { {BL, BM, BR, B4, B5}, }
