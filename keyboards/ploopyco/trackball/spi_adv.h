@@ -2,84 +2,84 @@
 
 #include "spi_master.h"
 
-#define REG_Product_ID                           0x00
-#define REG_Revision_ID                          0x01
-#define REG_Motion                               0x02
-#define REG_Delta_X_L                            0x03
-#define REG_Delta_X_H                            0x04
-#define REG_Delta_Y_L                            0x05
-#define REG_Delta_Y_H                            0x06
-#define REG_SQUAL                                0x07
-#define REG_Pixel_Sum                            0x08
-#define REG_Maximum_Pixel                        0x09
-#define REG_Minimum_Pixel                        0x0a
-#define REG_Shutter_Lower                        0x0b
-#define REG_Shutter_Upper                        0x0c
-#define REG_Frame_Period_Lower                   0x0d
-#define REG_Frame_Period_Upper                   0x0e
-#define REG_Configuration_I                      0x0f
-#define REG_Configuration_II                     0x10
-#define REG_Frame_Capture                        0x12
-#define REG_SROM_Enable                          0x13
-#define REG_Run_Downshift                        0x14
-#define REG_Rest1_Rate                           0x15
-#define REG_Rest1_Downshift                      0x16
-#define REG_Rest2_Rate                           0x17
-#define REG_Rest2_Downshift                      0x18
-#define REG_Rest3_Rate                           0x19
-#define REG_Frame_Period_Max_Bound_Lower         0x1a
-#define REG_Frame_Period_Max_Bound_Upper         0x1b
-#define REG_Frame_Period_Min_Bound_Lower         0x1c
-#define REG_Frame_Period_Min_Bound_Upper         0x1d
-#define REG_Shutter_Max_Bound_Lower              0x1e
-#define REG_Shutter_Max_Bound_Upper              0x1f
-#define REG_LASER_CTRL0                          0x20
-#define REG_Observation                          0x24
-#define REG_Data_Out_Lower                       0x25
-#define REG_Data_Out_Upper                       0x26
-#define REG_SROM_ID                              0x2a
-#define REG_Lift_Detection_Thr                   0x2e
-#define REG_Configuration_V                      0x2f
-#define REG_Configuration_IV                     0x39
-#define REG_Power_Up_Reset                       0x3a
-#define REG_Shutdown                             0x3b
-#define REG_Inverse_Product_ID                   0x3f
-#define REG_Motion_Burst                         0x50
-#define REG_SROM_Load_Burst                      0x62
-#define REG_Pixel_Burst                          0x64
+// Registers
+#define REG_Product_ID  0x00
+#define REG_Revision_ID 0x01
+#define REG_Motion  0x02
+#define REG_Delta_X_L 0x03
+#define REG_Delta_X_H 0x04
+#define REG_Delta_Y_L 0x05
+#define REG_Delta_Y_H 0x06
+#define REG_SQUAL 0x07
+#define REG_Raw_Data_Sum  0x08
+#define REG_Maximum_Raw_data  0x09
+#define REG_Minimum_Raw_data  0x0A
+#define REG_Shutter_Lower 0x0B
+#define REG_Shutter_Upper 0x0C
+#define REG_Control 0x0D
+#define REG_Config1 0x0F
+#define REG_Config2 0x10
+#define REG_Angle_Tune  0x11
+#define REG_Frame_Capture 0x12
+#define REG_SROM_Enable 0x13
+#define REG_Run_Downshift 0x14
+#define REG_Rest1_Rate_Lower  0x15
+#define REG_Rest1_Rate_Upper  0x16
+#define REG_Rest1_Downshift 0x17
+#define REG_Rest2_Rate_Lower  0x18
+#define REG_Rest2_Rate_Upper  0x19
+#define REG_Rest2_Downshift 0x1A
+#define REG_Rest3_Rate_Lower  0x1B
+#define REG_Rest3_Rate_Upper  0x1C
+#define REG_Observation 0x24
+#define REG_Data_Out_Lower  0x25
+#define REG_Data_Out_Upper  0x26
+#define REG_Raw_Data_Dump 0x29
+#define REG_SROM_ID 0x2A
+#define REG_Min_SQ_Run  0x2B
+#define REG_Raw_Data_Threshold  0x2C
+#define REG_Config5 0x2F
+#define REG_Power_Up_Reset  0x3A
+#define REG_Shutdown  0x3B
+#define REG_Inverse_Product_ID  0x3F
+#define REG_LiftCutoff_Tune3  0x41
+#define REG_Angle_Snap  0x42
+#define REG_LiftCutoff_Tune1  0x4A
+#define REG_Motion_Burst  0x50
+#define REG_LiftCutoff_Tune_Timeout 0x58
+#define REG_LiftCutoff_Tune_Min_Length  0x5A
+#define REG_SROM_Load_Burst 0x62
+#define REG_Lift_Config 0x63
+#define REG_Raw_Data_Burst  0x64
+#define REG_LiftCutoff_Tune2  0x65
 
-
-enum motion_burst_propertr{
-    motion = 0,
-    observation,
-    delta_x_l,
-    delta_x_h,
-    delta_y_l,
-    delta_y_h,
-    squal,
-    pixel_sum,
-    maximum_pixel,
-    minimum_pixel,
-    shutter_upper,
-    shutter_lower,
-    frame_period_upper,
-    frame_period_lower,
-    end_data
-};
+#ifdef SPI_DEBUG
+void print_byte(uint8_t byte);
+#endif
 
 typedef struct {
-    int16_t x;
-    int16_t y;
+    int8_t  motion;
+    bool    isMotion;     // True if a motion is detected.
+    bool    isOnSurface;  // True when a chip is on a surface
+    int16_t dx;           // displacement on x directions. Unit: Count. (CPI * Count = Inch value)
+    int8_t  mdx;
+    int16_t dy;  // displacement on y directions.
+    int8_t  mdy;
 } report_pmw_t;
 
-typedef struct {
-    /* 200 - 8200 CPI supported */
-    uint16_t cpi;
-} config_pmw_t;
 
 
-void spi_start_adv(void);
-void spi_write_adv(uint8_t reg_addr, uint8_t data);
+bool spi_start_adv(void);
+void spi_stop_adv(void);
+spi_status_t spi_write_adv(uint8_t reg_addr, uint8_t data);
 uint8_t spi_read_adv(uint8_t reg_addr);
-config_pmw_t get_pmw_config(void);
-void pmw_set_config(config_pmw_t config);
+bool pmw_spi_init(void);
+void pmw_set_cpi(uint16_t cpi);
+void pmw_upload_firmware(void);
+bool pmw_check_signature(void);
+report_pmw_t pmw_read_burst(void);
+
+
+#define degToRad(angleInDegrees) ((angleInDegrees)*M_PI / 180.0)
+#define radToDeg(angleInRadians) ((angleInRadians)*180.0 / M_PI)
+#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
