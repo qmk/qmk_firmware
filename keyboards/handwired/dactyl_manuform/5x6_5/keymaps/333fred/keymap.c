@@ -9,7 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_ESC,        KC_A,        KC_S,  KC_D,  KC_F,    KC_G,                                                           KC_H,   KC_J,     KC_K,         KC_L,   KC_SCLN,        KC_QUOT,
      OSM(MOD_LSFT), CTL_T(KC_Z), KC_X,  KC_C,  KC_V,    KC_B,                                                           KC_N,   KC_M,     KC_COMM,      KC_DOT, CTL_T(KC_SLSH), OSM(MOD_RSFT),
                                  KC_F4,        KC_LALT, KC_BSPC, TD(TD_SYM_VIM), KC_DEL,               KC_UP,   KC_ENT, KC_SPC, OSL(VIM),               KC_EQL,
-                                                                 KC_LGUI,        TD(TD_COPY_PASTE),    KC_DOWN, KC_LCTL
+                                                                 OSM(MOD_LGUI),  TD(TD_COPY_PASTE),    KC_DOWN, OSM(MOD_RCTL)
   ),
 
   [SYMB] = LAYOUT_5x6_5(
@@ -65,10 +65,11 @@ void render_led_status(void) {
 }
 
 void render_mods_status(void) {
-    bool ctrl = keyboard_report->mods & MOD_BIT(KC_LCTL) || keyboard_report->mods & MOD_BIT(KC_RCTL);
-    bool shft = keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT);
-    bool alt  = keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT);
-    bool gui  = keyboard_report->mods & MOD_BIT(KC_LGUI) || keyboard_report->mods & MOD_BIT(KC_RGUI);
+    uint8_t mods = get_mods() | get_oneshot_mods();
+    bool    ctrl = mods & MOD_MASK_CTRL;
+    bool    shft = mods & MOD_MASK_SHIFT;
+    bool    alt  = mods & MOD_MASK_ALT;
+    bool    gui  = mods & MOD_MASK_GUI;
 
     oled_write_P(ctrl ? PSTR("CTRL ") : PSTR("     "), false);
     oled_write_P(shft ? PSTR("SHIFT ") : PSTR("      "), false);
@@ -120,7 +121,7 @@ void oled_task_user(void) {
         }
 
         srand(timer_read32());
-        int currentQuote = rand() % 66;
+        int currentQuote = rand() % 63;
         quote_timer  = timer_read32();
 
         // Max character count on my screen is 20 characters per line.
@@ -196,29 +197,26 @@ void oled_task_user(void) {
                             5);
                 break;
             case 12:
-                write_quote(PSTR("    Oh, Light!"), 1);
-                break;
-            case 13:
                 write_quote(PSTR(" You surrender when \n"
                                  " you are dead. Many \n"
                                  "a man has been given\n"
                                  "       less."),
                             4);
                 break;
-            case 14:
+            case 13:
                 write_quote(PSTR(" Kneel and swear to \n"
                                  " the Lord Dragon,...\n"
                                  "   or you will be   \n"
                                  "      knelt."),
                             4);
                 break;
-            case 15:
+            case 14:
                 write_quote(PSTR("I'm right, anyway. I\n"
                                  "wish I wasn't, but I\n"
                                  "  am. I bloody am."),
                             3);
                 break;
-            case 16:
+            case 15:
                 write_quote(PSTR(" Death rides on my  \n"
                                  "  shoulder,. Death  \n"
                                  "    walks in my     \n"
@@ -226,27 +224,27 @@ void oled_task_user(void) {
                                  "       death."),
                             5);
                 break;
-            case 17:
+            case 16:
                 write_quote(PSTR("  The Golden Crane  \n"
                                  "  flies for Tarmon  \n"
                                  "      Gai'don"),
                             3);
                 break;
-            case 18:
+            case 17:
                 write_quote(PSTR("You humans are very \n"
                                  "     excitable"),
                             2);
                 break;
-            case 19:
+            case 18:
                 write_quote(PSTR("       Phaw!"), 1);
                 break;
-            case 20:
+            case 19:
                 write_quote(PSTR("I may be a fool, but\n"
                                  "  I intend to be a  \n"
                                  "     live fool."),
                             3);
                 break;
-            case 21:
+            case 20:
                 write_quote(PSTR(" Anyone who claimed \n"
                                  "  that old age had  \n"
                                  "    brought them    \n"
@@ -254,34 +252,29 @@ void oled_task_user(void) {
                                  "  lying or senile."),
                             5);
                 break;
-            case 22:
+            case 21:
                 write_quote(PSTR("Death is light as a \n"
                                  "feather; duty, heavy\n"
                                  "   as a mountain"),
                             3);
                 break;
-            case 23:
-                write_quote(PSTR(" Sa souvraya niende \n"
-                                 "     misain ye."),
-                            2);
-                break;
-            case 24:
+            case 22:
                 write_quote(PSTR("Dovie'andi se tovya \n"
                                  "      sagain."),
                             2);
                 break;
-            case 25:
+            case 23:
                 write_quote(PSTR(" Carai an Caldazar! \n"
                                  "Carai an Ellisande! \n"
                                  "   Al Ellisande!"),
                             3);
                 break;
-            case 26:
+            case 24:
                 write_quote(PSTR("    Mia dovienya    \n"
                                  "  nesodhin soende."),
                             2);
                 break;
-            case 27:
+            case 25:
                 write_quote(PSTR(" The Wheel of Time  \n"
                                  "turns, and Ages come\n"
                                  " and pass, leaving  \n"
@@ -289,7 +282,7 @@ void oled_task_user(void) {
                                  "      legend."),
                             5);
                 break;
-            case 28:
+            case 26:
                 write_quote(PSTR("  Legend fades to   \n"
                                  "myth, and even myth \n"
                                  " is long forgotten  \n"
@@ -298,7 +291,7 @@ void oled_task_user(void) {
                                  "       again."),
                             6);
                 break;
-            case 29:
+            case 27:
                 write_quote(PSTR(" What is too absurd \n"
                                  "   to believe is    \n"
                                  "believed because it \n"
@@ -306,7 +299,7 @@ void oled_task_user(void) {
                                  "       a lie."),
                             5);
                 break;
-            case 30:
+            case 28:
                 write_quote(PSTR("And you gave me the \n"
                                  "  way out! Chew on  \n"
                                  "that bitterness for \n"
@@ -315,7 +308,7 @@ void oled_task_user(void) {
                                  "       liars!"),
                             6);
                 break;
-            case 31:
+            case 29:
                 write_quote(PSTR("  He was going to   \n"
                                  "start having, 'I am \n"
                                  "not a bloody Lord', \n"
@@ -323,29 +316,29 @@ void oled_task_user(void) {
                                  "       coats."),
                             5);
                 break;
-            case 32:
+            case 30:
                 write_quote(PSTR("All was not lost, of\n"
                                  "  course. All was   \n"
                                  " never lost as long \n"
                                  " as you were alive."),
                             4);
                 break;
-            case 33:
+            case 31:
                 write_quote(PSTR(" Everything is just \n"
                                  "    bloody fine!"),
                             2);
                 break;
-            case 34:
+            case 32:
                 write_quote(PSTR("The wheel weaves as \n"
                                  "  the wheel wills"),
                             2);
                 break;
-            case 35:
+            case 33:
                 write_quote(PSTR("  Time to toss the  \n"
                                  "        dice"),
                             2);
                 break;
-            case 36:
+            case 34:
                 write_quote(PSTR("Always plan for the \n"
                                  " worst, child, that \n"
                                  "    way all your    \n"
@@ -353,7 +346,7 @@ void oled_task_user(void) {
                                  "   pleasant ones."),
                             5);
                 break;
-            case 37:
+            case 35:
                 write_quote(PSTR("'Pessimism, she is a\n"
                                  "   fond friend of   \n"
                                  "yours, yes?' 'That's\n"
@@ -363,42 +356,40 @@ void oled_task_user(void) {
                                  "     at best.'"),
                             7);
                 break;
-            case 38:
+            case 36:
                 write_quote(PSTR("   Do not trouble   \n"
                                  "trouble till trouble\n"
                                  "   troubles you."),
                             3);
                 break;
-            case 39:
+            case 37:
                 write_quote(PSTR("If your enemy offers\n"
                                  "  you two targets,  \n"
                                  " strike at a third."),
                             3);
                 break;
-            case 40:
+            case 38:
                 write_quote(PSTR("The wind was not the\n"
                                  "beginning. There are\n"
                                  " neither beginnings \n"
                                  " nor endings to the \n"
+                                 "   turning of the   \n"
                                  " Wheel of Time. But \n"
                                  "     it was _a_     \n"
                                  "     beginning."),
-                            7);
+                            8);
                 break;
-            case 41:
+            case 39:
                 write_quote(PSTR("Bloody flaming ashes"), 1);
                 break;
-            case 42:
-                write_quote(PSTR(" Read and find out."), 1);
-                break;
-            case 43:
+            case 40:
                 write_quote(PSTR("Then follow Lord Mat\n"
                                  " whenever he calls  \n"
                                  "To dance with Jak O'\n"
                                  "    the Shadows."),
                             4);
                 break;
-            case 44:
+            case 41:
                 write_quote(PSTR("    There are no    \n"
                                  " endings, and never \n"
                                  "will be endings, to \n"
@@ -407,22 +398,22 @@ void oled_task_user(void) {
                                  " it was an ending."),
                             6);
                 break;
-            case 45:
+            case 42:
                 write_quote(PSTR(" TAI'SHAR MALKIER!"), 1);
                 break;
-            case 46:
+            case 43:
                 write_quote(PSTR("I would not mind you\n"
                                  " in my head, if you \n"
                                  "were not so clearly \n"
                                  "        mad."),
                             4);
                 break;
-            case 47:
+            case 44:
                 write_quote(PSTR("  ILYENA, MY LOVE,  \n"
                                  "    FORGIVE ME!"),
                             2);
                 break;
-            case 48:
+            case 45:
                 write_quote(PSTR(" Oh, Light. That's  \n"
                                  "impossible! We can't\n"
                                  "  use it! Cast it   \n"
@@ -431,7 +422,7 @@ void oled_task_user(void) {
                                  "betrayal. It is HIM."),
                             6);
                 break;
-            case 49:
+            case 46:
                 write_quote(PSTR("Nothing ever goes as\n"
                                  " you expect. Expect \n"
                                  "  nothing, and you  \n"
@@ -441,25 +432,25 @@ void oled_task_user(void) {
                                  " nothing. Nothing."),
                             7);
                 break;
-            case 50:
+            case 47:
                 write_quote(PSTR("  Distant Weeping"), 1);
                 break;
-            case 51:
+            case 48:
                 write_quote(PSTR("Are you real? Am I?"), 1);
                 break;
-            case 52:
+            case 49:
                 write_quote(PSTR("  I'm just an old   \n"
                                  "gleeman, who could I\n"
                                  "    possibly be     \n"
                                  "   dangerous to?"),
                             4);
                 break;
-            case 53:
+            case 50:
                 write_quote(PSTR(" Mat bloody Cauthon \n"
                                  " is no bloody hero!"),
                             2);
                 break;
-            case 54:
+            case 51:
                 write_quote(PSTR("You are a coward and\n"
                                  " a tyrant. I'd name \n"
                                  " you Darkfriend as  \n"
@@ -470,17 +461,17 @@ void oled_task_user(void) {
                                  "associate with you."),
                             8);
                 break;
-            case 55:
+            case 52:
                 write_quote(PSTR(" I win again, Lews  \n"
                                  "      Therin."),
                             2);
                 break;
-            case 56:
+            case 53:
                 write_quote(PSTR("May you always find \n"
                                  "  water and shade."),
                             2);
                 break;
-            case 57:
+            case 54:
                 write_quote(PSTR(" I will never serve \n"
                                  "you, Father of Lies.\n"
                                  "In a thousand lives,\n"
@@ -490,7 +481,7 @@ void oled_task_user(void) {
                                  "      to die."),
                             7);
                 break;
-            case 58:
+            case 55:
                 write_quote(PSTR(" There may be more  \n"
                                  "than one way to skin\n"
                                  " a cat, but the cat \n"
@@ -498,13 +489,7 @@ void oled_task_user(void) {
                                  "    any of them."),
                             5);
                 break;
-            case 59:
-                write_quote(PSTR(" The way back will  \n"
-                                 " come but once. Be  \n"
-                                 "     steadfast"),
-                            3);
-                break;
-            case 60:
+            case 56:
                 write_quote(PSTR("Please see that they\n"
                                  " know, although the \n"
                                  "word Black may brand\n"
@@ -513,7 +498,7 @@ void oled_task_user(void) {
                                  "      them..."),
                             6);
                 break;
-            case 61:
+            case 57:
                 write_quote(PSTR(" 'Your soul is of a \n"
                                  "pure white, Verin,' \n"
                                  "Egwene said softly. \n"
@@ -521,25 +506,34 @@ void oled_task_user(void) {
                                  "      itself.'"),
                             5);
                 break;
-            case 62:
+            case 58:
                 write_quote(PSTR("  Asha'man, Kill!"), 1);
                 break;
-            case 63:
+            case 59:
                 write_quote(PSTR("  Let the lord of   \n"
                                  "    chaos rule."),
                             2);
                 break;
-            case 64:
+            case 60:
                 write_quote(PSTR("   There's always   \n"
                                  "  another secret."),
                             2);
                 break;
-            case 65:
+            case 61:
                 write_quote(PSTR(" You see the great  \n"
                                  "thing about madness \n"
                                  "is that it's all in \n"
                                  "     your head."),
                             4);
+                break;
+            case 62:
+                write_quote(PSTR(" In one Age, called \n"
+                                 "  the Third Age by  \n"
+                                 "some, an Age yet to \n"
+                                 " come, an Age long  \n"
+                                 " past, a wind rose  \n"
+                                 "      above..."),
+                            6);
                 break;
         }
     }
