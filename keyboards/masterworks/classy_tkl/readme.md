@@ -4,9 +4,9 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [Mathias Andersson](https://github.com/wraul)  
-Hardware Supported: [Classy TKL PCB](https://github.com/4pplet/classyTKL)  
-Hardware Availability: https://geekhack.org/index.php?topic=105933  
+* Keyboard Maintainer: [Mathias Andersson](https://github.com/wraul)
+* Hardware Supported: [Classy TKL PCB](https://github.com/4pplet/classyTKL)
+* Hardware Availability: https://geekhack.org/index.php?topic=105933
 
 Make example for this keyboard (after setting up your build environment):
 
