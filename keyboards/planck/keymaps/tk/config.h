@@ -9,6 +9,7 @@
 #define ONESHOT_TAP_TOGGLE 5    // taps to toggle a one-shot layer/key persistence
 
 #ifdef AUDIO_ENABLE
+
     #undef  TEMPO_DEFAULT       // set a custom tempo
     #define TEMPO_DEFAULT 255   // smaller is faster; max = 255
 
@@ -26,7 +27,8 @@
 
     #define MARIO_CAVE_1        E__NOTE(_C5),  E__NOTE(_REST), E__NOTE(_C5),  E__NOTE(_REST), \
                                 E__NOTE(_A4),  E__NOTE(_REST), E__NOTE(_A4),  E__NOTE(_REST), \
-                                E__NOTE(_AS4), E__NOTE(_REST), E__NOTE(_AS4), E__NOTE(_REST),
+                                E__NOTE(_AS4), E__NOTE(_REST), E__NOTE(_AS4), E__NOTE(_REST)
+
     #define MARIO_CAVE_2        E__NOTE(_F4),  E__NOTE(_REST), E__NOTE(_F4),  E__NOTE(_REST), \
                                 E__NOTE(_D4),  E__NOTE(_REST), E__NOTE(_D4),  E__NOTE(_REST), \
                                 E__NOTE(_DS4), E__NOTE(_REST), E__NOTE(_DS4), E__NOTE(_REST)
@@ -43,15 +45,12 @@
     #define MARIO_ONEUP         ED_NOTE(_E7), ED_NOTE(_G7), ED_NOTE(_E8), \
                                 ED_NOTE(_C8), ED_NOTE(_D8), H__NOTE(_G8)
 
-    #define MARIO_VINE          // todo
-
     #define MARIO_COIN          E__NOTE(_B6), H__NOTE(_E7), QD_NOTE(_E7)
 
     #define MARIO_KICK          S__NOTE(_AS5), E__NOTE(_REST), S__NOTE(_F6)
 
-    #define MARIO_STOMP         // todo
-
-    #define MARIO_GAMEOVER      // todo
+    #define MARIO_STOMP         T__NOTE(_A5), X__NOTE(_AS5), X__NOTE(_B5),  X__NOTE(_C6), X__NOTE(_CS6), T__NOTE(_REST),\
+                                T__NOTE(_F6), X__NOTE(_G6),  X__NOTE(_GS6), X__NOTE(_A6), X__NOTE(_AS6)
 
     #define MARIO_POWERUP       S__NOTE(_C6),  T__NOTE(_G5),  T__NOTE(_C6),  T__NOTE(_E6),  \
                                 T__NOTE(_G6),  T__NOTE(_C7),  T__NOTE(_G6),  S__NOTE(_GS5), \
@@ -61,15 +60,16 @@
                                 T__NOTE(_AS6), T__NOTE(_F6),  T__NOTE(_AS6), T__NOTE(_D7),  \
                                 T__NOTE(_F7), T__NOTE(_AS7), T__NOTE(_F7)
 
-    #define MARIO_POWERUP_BLOCK // todo
+    #define MARIO_POWERUP_BLOCK SD_NOTE(_C5),  T__NOTE(_G5),  T__NOTE(_GS5), \
+                                SD_NOTE(_CS5), T__NOTE(_GS5), T__NOTE(_A5),  \
+                                SD_NOTE(_D5),  T__NOTE(_A5),  T__NOTE(_AS5), \
+                                SD_NOTE(_DS5), T__NOTE(_AS5), T__NOTE(_B5)
 
     #define MARIO_FIREBALL      T__NOTE(_G4), T__NOTE(_G5), T__NOTE(_G6), T__NOTE(_G7)
 
-    #define MARIO_BUMP          W__NOTE(_G5),  W__NOTE(_FS5), W__NOTE(_F5),  W__NOTE(_E5), \
-                                W__NOTE(_DS5), W__NOTE(_D5),  W__NOTE(_CS5), W__NOTE(_C5), \
-                                S__NOTE(_CS5), W__NOTE(_D5),  W__NOTE(_DS5), W__NOTE(_E5)
-
-    #define MARIO_DAMAGE        // todo
+    #define MARIO_BUMP          X__NOTE(_G4),  X__NOTE(_FS4), X__NOTE(_F4),  X__NOTE(_E4), \
+                                X__NOTE(_DS4), X__NOTE(_D4),  X__NOTE(_CS4), X__NOTE(_C4), \
+                                X__NOTE(_CS4), X__NOTE(_D4),  X__NOTE(_DS4), X__NOTE(_E4)
 
     #define NOTE_A5SEMI         905.79f
     #define NOTE_AS5SEMI        959.65f
@@ -88,6 +88,10 @@
                                 T__NOTE(_B6)
 
     #define MARIO_JUMP_BIG      // todo
+
+    #define MARIO_GAMEOVER      // todo
+
+    #define MARIO_VINE          // todo
 
     // real songs
 
@@ -109,15 +113,10 @@
                                 QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),  \
                                 QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),  \
                                 QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),
-    // sound effects
-
-    #define COIN                E__NOTE(_A5), HD_NOTE(_E6)
-    #define BUZZ                H__NOTE(_C3), H__NOTE(_C3)
-
-    #define PICK_UP             H__NOTE(_C4), HD_NOTE(_G4)
-    #define PUT_DOWN            H__NOTE(_G4), HD_NOTE(_C4)
 
     // override default songs
+
     #define STARTUP_SONG        SONG(PINK_PANTHER)
     #define GOODBYE_SONG        SONG(MARIO_DEATH)
+
 #endif

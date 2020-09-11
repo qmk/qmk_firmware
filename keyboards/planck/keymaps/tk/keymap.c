@@ -90,14 +90,19 @@ static bool rbk_mode = false;   // right-side bracket mode
 // Audio songs
 
 #ifdef AUDIO_ENABLE
-    // layer toggle songs
-    float base_song[][2]            = SONG(QWERTY_SOUND);
-    float bk_activate_song[][2]     = SONG(MARIO_JUMP_SMALL);
-    float bk_deactivate_song[][2]   = SONG(MARIO_JUMP_SMALL);
+    //
+    float confirm_song[][2]         = SONG(MARIO_COIN);
+    float reject_song[][2]          = SONG(MARIO_BUMP);
 
-    // keycode songs
-    float valid_rotary_song[][2]    = SONG(COIN);
-    float invalid_rotary_song[][2]  = SONG(BUZZ);
+    // layer toggle songs
+    float base_song[][2]            = SONG(MARIO_COIN);
+    float hyper_song[][2]           = SONG(MARIO_COIN);
+    float bk_activate_song[][2]     = SONG(MARIO_COIN);
+    float bk_deactivate_song[][2]   = SONG(MARIO_COIN);
+    float raise1_song[][2]          = SONG(MARIO_COIN);
+    float raise2_song[][2]          = SONG(MARIO_COIN);
+    float lower1_song[][2]          = SONG(MARIO_COIN);
+    float lower2_song[][2]          = SONG(MARIO_COIN);
 
     // shortcut songs
     float caps_on_song[][2]         = SONG(MARIO_CAVE_1);
