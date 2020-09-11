@@ -76,7 +76,7 @@ def is_keymap_dir(keymap):
             return True
 
 
-def generate(keyboard, layout, layers, type='c'):
+def generate(keyboard, layout, layers, type='c', keymap=None):
     """Returns a `keymap.c` or `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -94,6 +94,7 @@ def generate(keyboard, layout, layers, type='c'):
     """
     new_keymap = template(keyboard, type)
     if type == 'json':
+        new_keymap['keymap'] = keymap
         new_keymap['layout'] = layout
         new_keymap['layers'] = layers
     else:
@@ -377,11 +378,13 @@ def parse_keymap_c(keymap_file, use_cpp=True):
     return keymap
 
 
-def c2json(keyboard, keymap_file, use_cpp=True):
+def c2json(keyboard, keymap, keymap_file, use_cpp=True):
     """ Convert keymap.c to keymap.json
 
     Args:
         keyboard: The name of the keyboard
+
+        keymap: The name of the keymap
 
         layout: The LAYOUT macro this keymap uses.
 
@@ -404,4 +407,5 @@ def c2json(keyboard, keymap_file, use_cpp=True):
         keymap_json['layers'].append(layer.pop('keycodes'))
 
     keymap_json['keyboard'] = keyboard
+    keymap_json['keymap'] = keymap
     return keymap_json

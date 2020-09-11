@@ -158,12 +158,12 @@ def test_info_matrix_render():
 
 
 def test_c2json():
-    result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/default/keymap.c")
+    result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/default/keymap.c")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
 
 
 def test_c2json_nocpp():
-    result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
+    result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
