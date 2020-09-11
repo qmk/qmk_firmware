@@ -35,7 +35,9 @@
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
 
-
+report_mouse_t pointing_device_task_user(report_mouse_t report);
+void process_mouse(report_mouse_t* mouse_report);
+void process_wheel(report_mouse_t* mouse_report);
 
 #define LAYOUT(BL, BM, BR, B4, B5) \
     { {BL, BM, BR, B4, B5}, }

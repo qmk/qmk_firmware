@@ -225,12 +225,14 @@ bool has_report_changed (report_mouse_t first, report_mouse_t second) {
         (!first.v && first.v == second.v) );
 }
 
+__attribute__((weake)) report_mouse_t pointing_device_task_user(report_mouse_t report) { return report; }
+
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_wheel(&mouse_report);
     process_mouse(&mouse_report);
 
-    pointing_device_set_report(mouse_report);
+    pointing_device_set_report(pointing_device_task_user(mouse_report));
     if (has_report_changed(mouse_report, pointing_device_get_report())) {
         pointing_device_send();
     }
