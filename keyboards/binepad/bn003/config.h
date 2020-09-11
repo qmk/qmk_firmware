@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4249 // Binepad
 #define PRODUCT_ID      0x4287
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Binepad
@@ -95,4 +95,3 @@
 #define RGB_BACKLIGHT_ENABLED 0
 
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 43
-
