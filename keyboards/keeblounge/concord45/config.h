@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4B4C //KL
-#define PRODUCT_ID      0x4334 //K3
+#define PRODUCT_ID      0x4334 // C4
 #define DEVICE_VER      0x0001 //0001
 #define MANUFACTURER    Keeblounge
 #define PRODUCT         Concord45
