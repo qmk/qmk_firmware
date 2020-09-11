@@ -32,38 +32,20 @@
 
 #define CLAMP_HID(value) value<-127 ? -127 : value> 127 ? 127 : value
 
-// used to track the motion delta between updates
-volatile int16_t delta_x;
-volatile int16_t delta_y;
-volatile uint8_t motion_ind = 0;
-
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
 // Compile time accel selection
 // Valid options are ACC_NONE, ACC_LINEAR, ACC_CUSTOM, ACC_QUADRATIC
 
-// Debug Options
-#define DEBUGMOUSE false  // Slows down scan rate!
-#define DEBUGOPTO false   // Slows down scan rate!
-
 // Trackball State
-bool     BurstState   = false;  // init burst state for Trackball module
-uint16_t MotionStart  = 0;      // Timer for accel, 0 is resting state
-uint16_t lastScroll   = 0;      // Previous confirmed wheel event
-uint16_t lastMidClick = 0;      // Stops scrollwheel from being read if it was pressed
-uint8_t  OptLowPin    = OPT_ENC1;
+bool     BurstState    = false;  // init burst state for Trackball module
+uint16_t MotionStart   = 0;      // Timer for accel, 0 is resting state
+uint16_t lastScroll    = 0;      // Previous confirmed wheel event
+uint16_t lastMidClick  = 0;      // Stops scrollwheel from being read if it was pressed
+uint8_t  OptLowPin     = OPT_ENC1;
+bool     debug_encoder = false;
 
-int16_t convertDeltaToInt(uint8_t high, uint8_t low) {
-    // join bytes into twos compliment
-    uint16_t twos_comp = (high << 8) | low;
-
-    // convert twos comp to int
-    if (twos_comp & 0x8000) return -1 * (~twos_comp + 1);
-
-    return twos_comp;
-}
-
-void process_wheel(report_mouse_t* mouse_report) {
+__attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     // TODO: Replace this with interrupt driven code,  polling is S L O W
     // Lovingly ripped from the Ploopy Source
 
@@ -81,7 +63,7 @@ void process_wheel(report_mouse_t* mouse_report) {
     lastScroll  = timer_read();
     uint16_t p1 = adc_read(OPT_ENC1_MUX);
     uint16_t p2 = adc_read(OPT_ENC2_MUX);
-    if (DEBUGOPTO) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
+    if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
 
     uint8_t dir = 0;
     if (p1 < OPT_THRES && p2 < OPT_THRES) {
@@ -103,7 +85,7 @@ void process_wheel(report_mouse_t* mouse_report) {
     mouse_report->v += dir * OPT_SCALE;
 }
 
-void process_mouse(report_mouse_t* mouse_report) {
+__attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
     report_pmw_t data = pmw_read_burst();
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
@@ -143,15 +125,13 @@ void process_mouse(report_mouse_t* mouse_report) {
         if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
         // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
-        mouse_report->x              = (int)data.dx;
-        mouse_report->y              = (int)data.dy;
+        mouse_report->x = (int)data.dx;
+        mouse_report->y = (int)data.dy;
     }
 }
 
-
-
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    if (DEBUGMOUSE) {
+    if (debug_mouse) {
         dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     }
 
@@ -200,9 +180,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    debug_enable = true;
-    // debug_matrix = true;
-    debug_mouse  = true;
+    // debug_enable  = true;
+    // debug_matrix  = true;
+    // debug_mouse   = true;
+    // debug_encoder = true;
 
     // This can probably be replaced with rotary encoder config,
     setPinInput(OPT_ENC1);
@@ -238,10 +219,7 @@ void keyboard_pre_init_kb(void) {
     writePinLow(F3);
 }
 
-void pointing_device_init(void) {
-    pmw_spi_init();
-
-}
+void pointing_device_init(void) { pmw_spi_init(); }
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();

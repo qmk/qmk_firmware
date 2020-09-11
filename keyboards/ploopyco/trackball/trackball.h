@@ -25,7 +25,7 @@
 #include <print.h>
 #include <stdio.h>
 #include "spi_master.h"
-#include "spi_adv.h"
+#include "pmw3600.h"
 #include "analog.h"
 #include "pointing_device.h"
 
@@ -35,7 +35,6 @@
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
 
-extern float mouse_multiplier;
 
 
 #define LAYOUT(BL, BM, BR, B4, B5) \
