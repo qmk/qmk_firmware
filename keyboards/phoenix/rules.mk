@@ -1,23 +1,21 @@
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = no         # Console for debug(+400)
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE = yes           # USB Nkey Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend, do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+NKRO_ENABLE = yes           # USB Nkey Rollover, if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no           # Audio output on port C6
+BLUETOOTH_ENABLE = no       # Enable Bluetooth
+AUDIO_ENABLE = no           # Audio output
 STENO_ENABLE = no
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
+KEYBOARD_SHARED_EP = yes
 
 ## chip/board settings
 # the next two should match the directories in
@@ -47,8 +45,4 @@ STM32_BOOTLOADER_ADDRESS = 0x1FFF0000
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 DFU_SUFFIX_ARGS = -v 0483 -p df11
 
-# Build Options
-#   change yes to no to disable
-#
-KEYBOARD_SHARED_EP       = yes
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE

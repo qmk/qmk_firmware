@@ -1,6 +1,6 @@
 # Phoenix
 
-![Phoenix](https://imgur.com/adJiuMH.jpg)
+![Phoenix](https://imgur.com/adJiuMHl.jpg)
 
 A reborn version of Ergodox with several improved features. [More info on ErgoKB](https://www.ergokb.tw/)
 
