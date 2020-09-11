@@ -28,6 +28,8 @@ bool _inBurst = false;
 #    define SPI_DIVISOR 2
 #endif
 
+static const int8_t ROTATIONAL_TRANSFORM_ANGLE = 20;
+
 #ifdef SPI_DEBUG
 void print_byte(uint8_t byte) {
   uprintf("%c%c%c%c%c%c%c%c|", \
@@ -124,6 +126,9 @@ bool pmw_spi_init(void) {
     spi_read_adv(REG_Delta_Y_H);
 
     pmw_upload_firmware();
+
+    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
+    spi_stop_adv();
 
     wait_ms(10);
     pmw_set_cpi(CPI);

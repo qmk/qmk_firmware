@@ -30,7 +30,6 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 
-#define CLAMP_HID(value) value<-127 ? -127 : value> 127 ? 127 : value
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
