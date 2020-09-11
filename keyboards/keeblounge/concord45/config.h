@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001 //0001
 #define MANUFACTURER    Keeblounge
 #define PRODUCT         Concord45
-#define DESCRIPTION     50 percent staggered keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
