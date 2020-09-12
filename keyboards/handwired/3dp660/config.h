@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6075
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Handwired
-#define PRODUCT         3DP660
+#define PRODUCT         3dp660
 #define DESCRIPTION     QMK keyboard firmware for handwired 3d printed Clueboard 660
 
 #define TAPPING_TERM 400
