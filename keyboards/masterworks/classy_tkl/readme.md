@@ -1,6 +1,6 @@
 # Classy TKL
 
-![Classy TKL](https://i.imgur.com/p1dxfYK.jpg)
+![Classy TKL](https://i.imgur.com/p1dxfYKl.jpg)
 
 A short description of the keyboard/project
 
