@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "helix.h"
-
 #include "quantum.h"
 
 /* This is a shortcut to help you visually see your layout.
@@ -44,4 +42,3 @@
     { R25, R24, R23, R22, R21, R20, KC_NO }, \
     { R35, R34, R33, R32, R31, R30, R36 }, \
  }
-    
