@@ -1,6 +1,6 @@
 # Sendy YK's 60% ANSI Arrow Layout and Keymap
 
-[https://github.com/mrsendyyk](https://github.com/mrsendyyk)
+[https://mr.sendyyk.com](https://mr.sendyyk.com)
 
 ## 60% ANSI Arrow Layout
 
