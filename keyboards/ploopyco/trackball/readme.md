@@ -13,8 +13,32 @@ Everything works. However the scroll wheel has some issues and acts very odd.
 Make example for this keyboard (after setting up your build environment):
 
     make ploopyco/trackball:default:flash
+    
+To jump to the bootloader, hold down "Button 4" (immediate right of the trackball) 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+# Customzing your PloopyCo Trackball
+
+While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change.  Such as adding DPI control, or to use the ball to scroll while holding a button.   To allow for this sort of control, there is a callback for both the scroll wheel and the mouse censor. 
+
+The default behavior for this is:
+
+```c
+void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
+    mouse_report->h = h;
+    mouse_report->v = v;
+}
+
+void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+    mouse_report->x = x;
+    mouse_report->y = y;
+}
+```
+
+This should allow you to more heavily customize the behavior. 
+
+Alternatively, the `process_wheel` and `process_mouse` functions can both be replaced too, to allow for even more functionality. 
 
 # Programming QMK-DFU onto the PloopyCo Trackball
 

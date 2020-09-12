@@ -46,6 +46,12 @@ uint16_t lastMidClick  = 0;      // Stops scrollwheel from being read if it was 
 uint8_t  OptLowPin     = OPT_ENC1;
 bool     debug_encoder = false;
 
+
+__attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
+    mouse_report->h = h;
+    mouse_report->v = v;
+}
+
 __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     // TODO: Replace this with interrupt driven code,  polling is S L O W
     // Lovingly ripped from the Ploopy Source
@@ -88,7 +94,12 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
 
     // Bundle and send if needed
     if (dir == 0) return;
-    mouse_report->v += dir * OPT_SCALE;
+    process_wheel_user(mouse_report, 0, (int)(mouse_report->v + dir * OPT_SCALE));
+}
+
+__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+    mouse_report->x = x;
+    mouse_report->y = y;
 }
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
@@ -131,8 +142,7 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
         // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
-        mouse_report->x = (int)data.dx;
-        mouse_report->y = (int)data.dy;
+        process_mouse_user(mouse_report, data.dx, data.dy);
     }
 }
 
@@ -225,14 +235,12 @@ bool has_report_changed (report_mouse_t first, report_mouse_t second) {
         (!first.v && first.v == second.v) );
 }
 
-__attribute__((weake)) report_mouse_t pointing_device_task_user(report_mouse_t report) { return report; }
-
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_wheel(&mouse_report);
     process_mouse(&mouse_report);
 
-    pointing_device_set_report(pointing_device_task_user(mouse_report));
+    pointing_device_set_report(mouse_report);
     if (has_report_changed(mouse_report, pointing_device_get_report())) {
         pointing_device_send();
     }

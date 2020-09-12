@@ -16,14 +16,7 @@
  */
 #pragma once
 
-#include <math.h>
 #include "quantum.h"
-#include <stdint.h>
-#include <avr/pgmspace.h>
-#include <stdbool.h>
-#include <string.h>
-#include <print.h>
-#include <stdio.h>
 #include "spi_master.h"
 #include "pmw3600.h"
 #include "analog.h"
@@ -35,9 +28,10 @@
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
 
-report_mouse_t pointing_device_task_user(report_mouse_t report);
 void process_mouse(report_mouse_t* mouse_report);
+void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
 void process_wheel(report_mouse_t* mouse_report);
+void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 
 #define LAYOUT(BL, BM, BR, B4, B5) \
     { {BL, BM, BR, B4, B5}, }
