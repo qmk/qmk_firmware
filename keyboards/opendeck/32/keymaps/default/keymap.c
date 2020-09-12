@@ -17,6 +17,7 @@
 
 #define _BL 0
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BL] = KEYMAP(
     KC_F13,       KC_F14,       KC_F15,       KC_F16,       KC_F17,       KC_F18,       KC_F19,       KC_F20,
@@ -25,3 +26,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL(KC_F13), LCTL(KC_F14), LCTL(KC_F15), LCTL(KC_F16), LCTL(KC_F17), LCTL(KC_F18), LCTL(KC_F19), LCTL(KC_F20)
     )
 };
+// clang-format on

@@ -18,27 +18,29 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID       0xC1ED
-#define PRODUCT_ID      0x2EC0
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    OpenDeck
-#define PRODUCT         OpenDeck32
-#define DESCRIPTION     QMK keyboard firmware for OpenDeck32
+#define VENDOR_ID 0xC1ED
+#define PRODUCT_ID 0x2EC0
+#define DEVICE_VER 0x0001
+#define MANUFACTURER OpenDeck
+#define PRODUCT OpenDeck32
 
 // Key matrix (TtB, LtR)
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 8
-#define MATRIX_COL_PINS { B4, D7, D6, D4, F7, F6, F5, F4 }
-#define MATRIX_ROW_PINS { C7, C6, B6, B5}
+#define MATRIX_COL_PINS \
+    { B4, D7, D6, D4, F7, F6, F5, F4 }
+#define MATRIX_ROW_PINS \
+    { C7, C6, B6, B5 }
 #define DIODE_DIRECTION COL2ROW
 
 // RGB matrix
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL (4*8*3)
+#define DRIVER_1_LED_TOTAL (4 * 8 * 3)
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL)
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
-#define RGB_MATRIX_CENTER {MATRIX_COLS/2, MATRIX_ROWS/2}
+#define RGB_MATRIX_CENTER \
+    { MATRIX_COLS / 2, MATRIX_ROWS / 2 }
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_UP_DOWN
 #define RGB_MATRIX_DISABLE_KEYCODES
 

@@ -30,17 +30,18 @@
 // are immediately usable in most software (e.g. OBS and DCSB for streaming) without using AHK.
 //#define KC_WRAPPER_KEY KC_F24
 
-#define LAYOUT_32( \
-    k00, k01, k02, k03, k04, k05, k06, k07, \
-    k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
-    k10, k11, k12, k13, k14, k15, k16, k17, \
-    k18, k19, k1A, k1B, k1C, k1D, k1E, k1F  \
-) { \
-  {k00, k01, k02, k03, k04, k05, k06, k07 }, \
-  {k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
-  {k10, k11, k12, k13, k14, k15, k16, k17}, \
-  {k18, k19, k1A, k1B, k1C, k1D, k1E, k1F}  \
+// clang-format off
+#define LAYOUT_32(k00, k01, k02, k03, k04, k05, k06, k07, \ 
+                  k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
+		  k10, k11, k12, k13, k14, k15, k16, k17, \
+		  k18, k19, k1A, k1B, k1C, k1D, k1E, k1F) \					\
+{ \ 
+    {k00, k01, k02, k03, k04, k05, k06, k07}, \ 
+    {k08, k09, k0A, k0B, k0C, k0D, k0E, k0F}, \ 
+    {k10, k11, k12, k13, k14, k15, k16, k17}, \
+    {k18, k19, k1A, k1B, k1C, k1D, k1E, k1F}  \
 }
+// clang-format on
 
 #define KEYMAP LAYOUT_32
 #define LAYOUT LAYOUT_32
