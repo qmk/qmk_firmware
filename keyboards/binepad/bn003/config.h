@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Binepad
 #define PRODUCT         BN003
-#define DESCRIPTION     3% Macropad
 
 /* Key matrix size */
 #define MATRIX_ROWS 1
