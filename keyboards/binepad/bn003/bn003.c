@@ -1,4 +1,3 @@
-#include "bn003.h"
 /* Copyright 2020 BINEPAD
  *
  * This program is free software: you can redistribute it and/or modify
