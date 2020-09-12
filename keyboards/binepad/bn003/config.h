@@ -73,9 +73,6 @@
  * power-up.
  *
 
-#endif
-
-
  */
 //#define FORCE_NKRO
 
