@@ -18,10 +18,10 @@
 // value.
 #define SERIAL_DELAY 24
 
-uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
+uint8_t volatile serial_follower_buffer[SERIAL_follower_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 
-#define SLAVE_DATA_CORRUPT (1<<0)
+#define follower_DATA_CORRUPT (1<<0)
 volatile uint8_t status = 0;
 
 inline static
@@ -61,7 +61,7 @@ void serial_master_init(void) {
   serial_high();
 }
 
-void serial_slave_init(void) {
+void serial_follower_init(void) {
   serial_input();
 
   // Enable INT0
@@ -70,17 +70,17 @@ void serial_slave_init(void) {
   EICRA &= ~(_BV(ISC00) | _BV(ISC01));
 }
 
-// Used by the master to synchronize timing with the slave.
+// Used by the master to synchronize timing with the follower.
 static
 void sync_recv(void) {
   serial_input();
-  // This shouldn't hang if the slave disconnects because the
-  // serial line will float to high if the slave does disconnect.
+  // This shouldn't hang if the follower disconnects because the
+  // serial line will float to high if the follower does disconnect.
   while (!serial_read_pin());
   serial_delay();
 }
 
-// Used by the slave to send a synchronization signal to the master.
+// Used by the follower to send a synchronization signal to the master.
 static
 void sync_send(void) {
   serial_output();
@@ -120,15 +120,15 @@ void serial_write_byte(uint8_t data) {
   }
 }
 
-// interrupt handle to be used by the slave device
+// interrupt handle to be used by the follower device
 ISR(SERIAL_PIN_INTERRUPT) {
   sync_send();
 
   uint8_t checksum = 0;
-  for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
-    serial_write_byte(serial_slave_buffer[i]);
+  for (int i = 0; i < SERIAL_follower_BUFFER_LENGTH; ++i) {
+    serial_write_byte(serial_follower_buffer[i]);
     sync_send();
-    checksum += serial_slave_buffer[i];
+    checksum += serial_follower_buffer[i];
   }
   serial_write_byte(checksum);
   sync_send();
@@ -151,53 +151,53 @@ ISR(SERIAL_PIN_INTERRUPT) {
   serial_input(); // end transaction
 
   if ( checksum_computed != checksum_received ) {
-    status |= SLAVE_DATA_CORRUPT;
+    status |= follower_DATA_CORRUPT;
   } else {
-    status &= ~SLAVE_DATA_CORRUPT;
+    status &= ~follower_DATA_CORRUPT;
   }
 }
 
 inline
-bool serial_slave_DATA_CORRUPT(void) {
-  return status & SLAVE_DATA_CORRUPT;
+bool serial_follower_DATA_CORRUPT(void) {
+  return status & follower_DATA_CORRUPT;
 }
 
-// Copies the serial_slave_buffer to the master and sends the
-// serial_master_buffer to the slave.
+// Copies the serial_follower_buffer to the master and sends the
+// serial_master_buffer to the follower.
 //
 // Returns:
 // 0 => no error
-// 1 => slave did not respond
+// 1 => follower did not respond
 int serial_update_buffers(void) {
   // this code is very time dependent, so we need to disable interrupts
   cli();
 
-  // signal to the slave that we want to start a transaction
+  // signal to the follower that we want to start a transaction
   serial_output();
   serial_low();
   _delay_us(1);
 
-  // wait for the slaves response
+  // wait for the followers response
   serial_input();
   serial_high();
   _delay_us(SERIAL_DELAY);
 
-  // check if the slave is present
+  // check if the follower is present
   if (serial_read_pin()) {
-    // slave failed to pull the line low, assume not present
+    // follower failed to pull the line low, assume not present
     sei();
     return 1;
   }
 
-  // if the slave is present syncronize with it
+  // if the follower is present syncronize with it
   sync_recv();
 
   uint8_t checksum_computed = 0;
-  // receive data from the slave
-  for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
-    serial_slave_buffer[i] = serial_read_byte();
+  // receive data from the follower
+  for (int i = 0; i < SERIAL_follower_BUFFER_LENGTH; ++i) {
+    serial_follower_buffer[i] = serial_read_byte();
     sync_recv();
-    checksum_computed += serial_slave_buffer[i];
+    checksum_computed += serial_follower_buffer[i];
   }
   uint8_t checksum_received = serial_read_byte();
   sync_recv();
@@ -208,7 +208,7 @@ int serial_update_buffers(void) {
   }
 
   uint8_t checksum = 0;
-  // send data to the slave
+  // send data to the follower
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
     serial_write_byte(serial_master_buffer[i]);
     sync_recv();

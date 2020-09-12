@@ -47,7 +47,7 @@ typedef union {
     uint16_t ENABLE:1;         /*!< bit:      1  Enable                             */
     uint16_t :1;               /*!< bit:      2  Reserved                           */
     uint16_t DUALSEL:2;        /*!< bit:  3.. 4  Dual Mode Trigger Selection        */
-    uint16_t SLAVEEN:1;        /*!< bit:      5  Slave Enable                       */
+    uint16_t followerEN:1;        /*!< bit:      5  follower Enable                       */
     uint16_t RUNSTDBY:1;       /*!< bit:      6  Run in Standby                     */
     uint16_t ONDEMAND:1;       /*!< bit:      7  On Demand Control                  */
     uint16_t PRESCALER:3;      /*!< bit:  8..10  Prescaler Configuration            */
@@ -72,8 +72,8 @@ typedef union {
 #define   ADC_CTRLA_DUALSEL_INTERLEAVE_Val _U_(0x1)   /**< \brief (ADC_CTRLA) START event or software trigger will alternatingly start a conversion on ADC0 and ADC1 */
 #define ADC_CTRLA_DUALSEL_BOTH      (ADC_CTRLA_DUALSEL_BOTH_Val    << ADC_CTRLA_DUALSEL_Pos)
 #define ADC_CTRLA_DUALSEL_INTERLEAVE (ADC_CTRLA_DUALSEL_INTERLEAVE_Val << ADC_CTRLA_DUALSEL_Pos)
-#define ADC_CTRLA_SLAVEEN_Pos       5            /**< \brief (ADC_CTRLA) Slave Enable */
-#define ADC_CTRLA_SLAVEEN           (_U_(0x1) << ADC_CTRLA_SLAVEEN_Pos)
+#define ADC_CTRLA_followerEN_Pos       5            /**< \brief (ADC_CTRLA) follower Enable */
+#define ADC_CTRLA_followerEN           (_U_(0x1) << ADC_CTRLA_followerEN_Pos)
 #define ADC_CTRLA_RUNSTDBY_Pos      6            /**< \brief (ADC_CTRLA) Run in Standby */
 #define ADC_CTRLA_RUNSTDBY          (_U_(0x1) << ADC_CTRLA_RUNSTDBY_Pos)
 #define ADC_CTRLA_ONDEMAND_Pos      7            /**< \brief (ADC_CTRLA) On Demand Control */

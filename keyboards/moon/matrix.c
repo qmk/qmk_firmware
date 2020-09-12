@@ -64,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                 | A   | P24 |
  */
 
-// PCA9555 slave addresses
+// PCA9555 follower addresses
 #define IC1 0x20
 #define IC2 0x21
 

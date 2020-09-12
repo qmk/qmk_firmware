@@ -28,16 +28,16 @@ SOFTWARE.
 #include "serial_link/protocol/triple_buffered_object.h"
 #include "serial_link/system/serial_link.h"
 
-#define NUM_SLAVES 8
+#define NUM_followerS 8
 #define LOCAL_OBJECT_EXTRA 16
 
-// master -> slave = 1 local(target all), 1 remote object
-// slave -> master = 1 local(target 0), multiple remote objects
-// master -> single slave (multiple local, target id), 1 remote object
+// master -> follower = 1 local(target all), 1 remote object
+// follower -> master = 1 local(target 0), multiple remote objects
+// master -> single follower (multiple local, target id), 1 remote object
 typedef enum {
-    MASTER_TO_ALL_SLAVES,
-    MASTER_TO_SINGLE_SLAVE,
-    SLAVE_TO_MASTER,
+    MASTER_TO_ALL_followerS,
+    MASTER_TO_SINGLE_follower,
+    follower_TO_MASTER,
 } remote_object_type;
 
 typedef struct {
@@ -55,10 +55,10 @@ typedef struct {
         uint8_t         buffer[num_remote * REMOTE_OBJECT_SIZE(sizeof(type)) + num_local * LOCAL_OBJECT_SIZE(sizeof(type))]; \
     } remote_object_##name##_t;
 
-#define MASTER_TO_ALL_SLAVES_OBJECT(name, type)                                                                     \
+#define MASTER_TO_ALL_followerS_OBJECT(name, type)                                                                     \
     REMOTE_OBJECT_HELPER(name, type, 1, 1)                                                                          \
     remote_object_##name##_t remote_object_##name = {.object = {                                                    \
-                                                         .object_type = MASTER_TO_ALL_SLAVES,                       \
+                                                         .object_type = MASTER_TO_ALL_followerS,                       \
                                                          .object_size = sizeof(type),                               \
                                                      }};                                                            \
     type*                    begin_write_##name(void) {                                                             \
@@ -79,38 +79,38 @@ typedef struct {
         return (type*)triple_buffer_read_internal(obj->object_size, tb);                                            \
     }
 
-#define MASTER_TO_SINGLE_SLAVE_OBJECT(name, type)                                                                   \
-    REMOTE_OBJECT_HELPER(name, type, NUM_SLAVES, 1)                                                                 \
+#define MASTER_TO_SINGLE_follower_OBJECT(name, type)                                                                   \
+    REMOTE_OBJECT_HELPER(name, type, NUM_followerS, 1)                                                                 \
     remote_object_##name##_t remote_object_##name = {.object = {                                                    \
-                                                         .object_type = MASTER_TO_SINGLE_SLAVE,                     \
+                                                         .object_type = MASTER_TO_SINGLE_follower,                     \
                                                          .object_size = sizeof(type),                               \
                                                      }};                                                            \
-    type*                    begin_write_##name(uint8_t slave) {                                                    \
+    type*                    begin_write_##name(uint8_t follower) {                                                    \
         remote_object_t* obj   = (remote_object_t*)&remote_object_##name;                        \
         uint8_t*         start = obj->buffer;                                                    \
-        start += slave * LOCAL_OBJECT_SIZE(obj->object_size);                                    \
+        start += follower * LOCAL_OBJECT_SIZE(obj->object_size);                                    \
         triple_buffer_object_t* tb = (triple_buffer_object_t*)start;                             \
         return (type*)triple_buffer_begin_write_internal(sizeof(type) + LOCAL_OBJECT_EXTRA, tb); \
     }                                                                                                               \
-    void end_write_##name(uint8_t slave) {                                                                          \
+    void end_write_##name(uint8_t follower) {                                                                          \
         remote_object_t* obj   = (remote_object_t*)&remote_object_##name;                                           \
         uint8_t*         start = obj->buffer;                                                                       \
-        start += slave * LOCAL_OBJECT_SIZE(obj->object_size);                                                       \
+        start += follower * LOCAL_OBJECT_SIZE(obj->object_size);                                                       \
         triple_buffer_object_t* tb = (triple_buffer_object_t*)start;                                                \
         triple_buffer_end_write_internal(tb);                                                                       \
         signal_data_written();                                                                                      \
     }                                                                                                               \
     type* read_##name() {                                                                                           \
         remote_object_t*        obj   = (remote_object_t*)&remote_object_##name;                                    \
-        uint8_t*                start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);             \
+        uint8_t*                start = obj->buffer + NUM_followerS * LOCAL_OBJECT_SIZE(obj->object_size);             \
         triple_buffer_object_t* tb    = (triple_buffer_object_t*)start;                                             \
         return (type*)triple_buffer_read_internal(obj->object_size, tb);                                            \
     }
 
-#define SLAVE_TO_MASTER_OBJECT(name, type)                                                                          \
-    REMOTE_OBJECT_HELPER(name, type, 1, NUM_SLAVES)                                                                 \
+#define follower_TO_MASTER_OBJECT(name, type)                                                                          \
+    REMOTE_OBJECT_HELPER(name, type, 1, NUM_followerS)                                                                 \
     remote_object_##name##_t remote_object_##name = {.object = {                                                    \
-                                                         .object_type = SLAVE_TO_MASTER,                            \
+                                                         .object_type = follower_TO_MASTER,                            \
                                                          .object_size = sizeof(type),                               \
                                                      }};                                                            \
     type*                    begin_write_##name(void) {                                                             \
@@ -124,10 +124,10 @@ typedef struct {
         triple_buffer_end_write_internal(tb);                                                                       \
         signal_data_written();                                                                                      \
     }                                                                                                               \
-    type* read_##name(uint8_t slave) {                                                                              \
+    type* read_##name(uint8_t follower) {                                                                              \
         remote_object_t* obj   = (remote_object_t*)&remote_object_##name;                                           \
         uint8_t*         start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);                                 \
-        start += slave * REMOTE_OBJECT_SIZE(obj->object_size);                                                      \
+        start += follower * REMOTE_OBJECT_SIZE(obj->object_size);                                                      \
         triple_buffer_object_t* tb = (triple_buffer_object_t*)start;                                                \
         return (type*)triple_buffer_read_internal(obj->object_size, tb);                                            \
     }

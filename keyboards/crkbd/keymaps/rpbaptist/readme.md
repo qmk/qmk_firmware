@@ -61,7 +61,7 @@ I took a big inspiration from Drashna's RGB configuration and tweaked it.
 
 ## Notes
 
-I use several OLED slave side images, depending on the keycaps I am using. These also determine the default LED color and underglow.
+I use several OLED follower side images, depending on the keycaps I am using. These also determine the default LED color and underglow.
 
 `make crkbd/rev1:rpbaptist:dfu THEME=pulse`
 

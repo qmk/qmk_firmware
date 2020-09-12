@@ -36,7 +36,7 @@ bool is_keyboard_left(void) {
 bool is_keyboard_master(void)
 {
 #ifdef __AVR__
-  static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
+  static enum { UNKNOWN, MASTER, follower } usbstate = UNKNOWN;
 
   // only check once, as this is called often
   if (usbstate == UNKNOWN)
@@ -44,7 +44,7 @@ bool is_keyboard_master(void)
     USBCON |= (1 << OTGPADE);  // enables VBUS pad
     wait_us(5);
 
-    usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+    usbstate = (USBSTA & (1 << VBUS)) ? MASTER : follower;  // checks state of VBUS
   }
 
   return (usbstate == MASTER);
@@ -66,9 +66,9 @@ static void keyboard_master_setup(void) {
   BACKLIT_DIRTY = true;
 }
 
-static void keyboard_slave_setup(void)
+static void keyboard_follower_setup(void)
 {
-  transport_slave_init();
+  transport_follower_init();
 }
 
 // this code runs before the usb and keyboard is initialized
@@ -82,6 +82,6 @@ void matrix_setup(void)
   }
   else
   {
-    keyboard_slave_setup();
+    keyboard_follower_setup();
   }
 }

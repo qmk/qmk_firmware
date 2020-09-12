@@ -153,14 +153,14 @@ void set_qwerty(void){
 }
 void set_lower(void){
   rgblight_sethsv_master(255, 255, 255);
-  rgblight_sethsv_slave(255, 0, 160);
+  rgblight_sethsv_follower(255, 0, 160);
 }
 void set_raise(void){
-  rgblight_sethsv_slave(35, 255, 255);
+  rgblight_sethsv_follower(35, 255, 255);
   rgblight_sethsv_master(255, 0, 160);
 }
 void set_adjust(void){
-  rgblight_sethsv_slave(35, 255, 255);
+  rgblight_sethsv_follower(35, 255, 255);
   rgblight_sethsv_master(255, 255, 255);
 }
 

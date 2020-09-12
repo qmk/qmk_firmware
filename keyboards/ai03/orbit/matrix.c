@@ -75,7 +75,7 @@ __attribute__((weak)) void matrix_init_user(void) {}
 
 __attribute__((weak)) void matrix_scan_user(void) {}
 
-__attribute__((weak)) void matrix_slave_scan_user(void) {}
+__attribute__((weak)) void matrix_follower_scan_user(void) {}
 
 // helper functions
 
@@ -320,8 +320,8 @@ uint8_t matrix_scan(void) {
 
     matrix_scan_quantum();
   } else {
-    transport_slave(matrix + thisHand);
-    matrix_slave_scan_user();
+    transport_follower(matrix + thisHand);
+    matrix_follower_scan_user();
   }
 
   return ret;

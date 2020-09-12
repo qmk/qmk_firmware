@@ -115,7 +115,7 @@
 #define TCC0_DTI                    1        // Dead-Time-Insertion feature implemented
 #define TCC0_EXT                    31       // Coding of implemented extended features
 #define TCC0_GCLK_ID                25       // Index of Generic Clock
-#define TCC0_MASTER_SLAVE_MODE      1        // TCC type 0 : NA, 1 : Master, 2 : Slave
+#define TCC0_MASTER_follower_MODE      1        // TCC type 0 : NA, 1 : Master, 2 : follower
 #define TCC0_OTMX                   1        // Output Matrix feature implemented
 #define TCC0_OW_NUM                 8        // Number of Output Waveforms
 #define TCC0_PG                     1        // Pattern Generation feature implemented

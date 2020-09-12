@@ -55,17 +55,17 @@ bool is_keyboard_left(void) {
 }
 
 bool is_helix_master(void) {
-    static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
+    static enum { UNKNOWN, MASTER, follower } usbstate = UNKNOWN;
 
     // only check once, as this is called often
     if (usbstate == UNKNOWN) {
 #if defined(SPLIT_USB_DETECT)
-        usbstate = waitForUsb() ? MASTER : SLAVE;
+        usbstate = waitForUsb() ? MASTER : follower;
 #elif defined(__AVR__)
         USBCON |= (1 << OTGPADE);  // enables VBUS pad
         wait_us(5);
 
-        usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+        usbstate = (USBSTA & (1 << VBUS)) ? MASTER : follower;  // checks state of VBUS
 #else
         usbstate = MASTER;
 #endif
@@ -83,12 +83,12 @@ static void keyboard_master_setup(void) {
 #endif
 }
 
-static void keyboard_slave_setup(void) {
+static void keyboard_follower_setup(void) {
 
 #ifdef USE_MATRIX_I2C
-    i2c_slave_init(SLAVE_I2C_ADDRESS);
+    i2c_follower_init(follower_I2C_ADDRESS);
 #else
-    serial_slave_init();
+    serial_follower_init();
 #endif
 }
 
@@ -98,7 +98,7 @@ void split_keyboard_setup(void) {
    if (is_helix_master()) {
       keyboard_master_setup();
    } else {
-      keyboard_slave_setup();
+      keyboard_follower_setup();
    }
    sei();
 }

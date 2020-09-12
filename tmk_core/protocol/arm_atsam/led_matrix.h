@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ISSI3733_PG_FN_BYTES ISSI3733_PG3_BYTES
 
 typedef struct issi3733_driver_s {
-    uint8_t addr;                            // Address of the driver according to wiring "ISSI3733: Table 1 Slave Address"
+    uint8_t addr;                            // Address of the driver according to wiring "ISSI3733: Table 1 follower Address"
     uint8_t onoff[ISSI3733_PG_ONOFF_BYTES];  // PG0 - LED Control Register - LED On/Off Register
     uint8_t open[ISSI3733_PG_OR_BYTES];      // PG0 - LED Control Register - LED Open Register
     uint8_t shrt[ISSI3733_PG_SR_BYTES];      // PG0 - LED Control Register - LED Short Register

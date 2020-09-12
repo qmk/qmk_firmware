@@ -13,7 +13,7 @@ No special setup is required - just connect the `SS`, `SCK`, `MOSI` and `MISO` p
 |ATmega32A      |`B4`|`B7` |`B5`  |`B6`  |
 |ATmega328/P    |`B2`|`B5` |`B3`  |`B4`  |
 
-You may use more than one slave select pin, not just the `SS` pin. This is useful when you have multiple devices connected and need to communicate with them individually.
+You may use more than one follower select pin, not just the `SS` pin. This is useful when you have multiple devices connected and need to communicate with them individually.
 `SPI_SS_PIN` can be passed to `spi_start()` to refer to `SS`.
 
 ## ChibiOS/ARM Configuration
@@ -23,7 +23,7 @@ You'll need to determine which pins can be used for SPI -- as an example, STM32 
 To enable SPI, modify your board's `halconf.h` to enable SPI - both `HAL_USE_SPI` and `SPI_USE_WAIT` should be `TRUE`, and `SPI_SELECT_MODE` should be `SPI_SELECT_MODE_PAD`.
 Then, modify your board's `mcuconf.h` to enable the SPI peripheral you've chosen -- in the case of using SPI2, modify `STM32_SPI_USE_SPI2` to be `TRUE`.
 
-As per the AVR configuration, you may select any other standard GPIO as a slave select pin, and can be supplied to `spi_start()`.
+As per the AVR configuration, you may select any other standard GPIO as a follower select pin, and can be supplied to `spi_start()`.
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
@@ -45,14 +45,14 @@ Initialize the SPI driver. This function must be called only once, before any of
 
 ---
 
-### `bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor)`
+### `bool spi_start(pin_t followerPin, bool lsbFirst, uint8_t mode, uint16_t divisor)`
 
 Start an SPI transaction.
 
 #### Arguments
 
- - `pin_t slavePin`  
-   The QMK pin to assert as the slave select pin, eg. `B4`.
+ - `pin_t followerPin`  
+   The QMK pin to assert as the follower select pin, eg. `B4`.
  - `bool lsbFirst`  
    Determines the endianness of the transmission. If `true`, the least significant bit of each byte is sent first.
  - `uint8_t mode`  
@@ -135,4 +135,4 @@ Receive multiple bytes from the selected SPI device.
 
 ### `void spi_stop(void)`
 
-End the current SPI transaction. This will deassert the slave select pin and reset the endianness, mode and divisor configured by `spi_start()`.
+End the current SPI transaction. This will deassert the follower select pin and reset the endianness, mode and divisor configured by `spi_start()`.

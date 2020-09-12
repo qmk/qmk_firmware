@@ -29,8 +29,8 @@ static void keyboard_master_setup(void) {
   serial_master_init();
 }
 
-static void keyboard_slave_setup(void) {
-  serial_slave_init();
+static void keyboard_follower_setup(void) {
+  serial_follower_init();
 }
 
 bool has_usb(void) {
@@ -45,7 +45,7 @@ void split_keyboard_setup(void) {
    if (has_usb()) {
       keyboard_master_setup();
    } else {
-      keyboard_slave_setup();
+      keyboard_follower_setup();
    }
    sei();
 }

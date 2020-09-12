@@ -8,7 +8,7 @@ Enable the WPM system by adding this to your `rules.mk`:
     WPM_ENABLE = yes
 
 For split keyboards using soft serial, the computed WPM
-score will be available on the master AND slave half.
+score will be available on the master AND follower half.
 
 ## Public Functions
 

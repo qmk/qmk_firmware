@@ -52,7 +52,7 @@ For once we don't really care about what's inside :)
 
 The PHYSICAL rows and columns are connected as such :
 
-on right hand (slave) :
+on right hand (follower) :
 
               I2C mcp23018
            .-------   --------.

@@ -32,6 +32,6 @@
 #    define RGBLIGHT_SPLIT
 #endif
 
-// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
+// If you are using an Elite C rev3 on the follower side, uncomment the lines below:
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 1000

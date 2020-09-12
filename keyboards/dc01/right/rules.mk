@@ -32,4 +32,4 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 NO_USB_STARTUP_CHECK = yes  # Disable initialization only when usb is plugged in
 CUSTOM_MATRIX = yes         # Use custom matrix
 SRC += matrix.c \
-       i2c_slave.c
+       i2c_follower.c

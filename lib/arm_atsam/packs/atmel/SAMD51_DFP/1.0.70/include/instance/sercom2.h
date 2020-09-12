@@ -155,12 +155,12 @@
 #define SERCOM2_SPI_WAKE_ON_SSL     1        // _SS low detect implemented?
 #define SERCOM2_TTBIT_EXTENSION     1        // 32-bit extension implemented?
 #define SERCOM2_TWIM                1        // TWI Master mode implemented?
-#define SERCOM2_TWIS                1        // TWI Slave mode implemented?
-#define SERCOM2_TWIS_AUTO_ACK       1        // TWI slave automatic acknowledge implemented?
-#define SERCOM2_TWIS_GROUP_CMD      1        // TWI slave group command implemented?
+#define SERCOM2_TWIS                1        // TWI follower mode implemented?
+#define SERCOM2_TWIS_AUTO_ACK       1        // TWI follower automatic acknowledge implemented?
+#define SERCOM2_TWIS_GROUP_CMD      1        // TWI follower group command implemented?
 #define SERCOM2_TWIS_SDASETUP_CNT_SIZE 8        // TWIS sda setup count size
 #define SERCOM2_TWIS_SDASETUP_SIZE  4        // TWIS sda setup size
-#define SERCOM2_TWIS_SUDAT          1        // TWI slave SDA setup implemented?
+#define SERCOM2_TWIS_SUDAT          1        // TWI follower SDA setup implemented?
 #define SERCOM2_TWI_FASTMP          1        // TWI fast mode plus implemented?
 #define SERCOM2_TWI_HSMODE          1        // USART mode implemented?
 #define SERCOM2_TWI_SCLSM_MODE      1        // TWI SCL clock stretch mode implemented?

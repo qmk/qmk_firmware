@@ -166,8 +166,8 @@ void render_master_oled(void) {
     }
 }
 
-// Slave OLED scren (Right Hand)
-void render_slave_oled(void) {
+// follower OLED scren (Right Hand)
+void render_follower_oled(void) {
     render_logo();
 }
 
@@ -205,7 +205,7 @@ void oled_task_user(void) {
                 if (is_master) {
                     render_master_oled();
                 } else {
-                    render_slave_oled();
+                    render_follower_oled();
                 }
         }
     }

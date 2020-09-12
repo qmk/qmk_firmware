@@ -330,7 +330,7 @@ Configuration timer settings
 ----------------------------
 Remote configuration is used for the module to be configured with various commands over Bluetooth(SPP profile only?).
 
-The module has remote configuration timer to allow remote configuration over Bluetooth after power up in Slave mode. In Master modes the remote configuration timer is set to 0(no remote configuration). (In Trigger Master mode the timer is used as an idle timer to break the connection after time expires with no charactors receive.)
+The module has remote configuration timer to allow remote configuration over Bluetooth after power up in follower mode. In Master modes the remote configuration timer is set to 0(no remote configuration). (In Trigger Master mode the timer is used as an idle timer to break the connection after time expires with no charactors receive.)
     ST,0        // no remote, no local when connected
     ST,<1-252>  // local and remote with timeout in seconds from power up
     ST,253      // local only       without timeout
@@ -351,7 +351,7 @@ SQ,<mask>               Special configuration(GPIO, discovery mode, low latency,
 SR,<hex>                Store remote address
 SR,Z                    Erase all address
 SS,<string>             Set service name(1-20)**
-ST,<val>                Remote configuration timer(Master:0, Slave:0-255, Triger:as idle timer)
+ST,<val>                Remote configuration timer(Master:0, follower:0-255, Triger:as idle timer)
 SU,<val>                UART baud rate
 SW,<val>                low-power sniff mode** deep sleep and wake up every 625us * <val>
 SX,<0|1>                bonding enable  only acceps device that matches the stored address

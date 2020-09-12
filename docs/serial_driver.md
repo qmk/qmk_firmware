@@ -5,7 +5,7 @@ This driver powers the [Split Keyboard](feature_split_keyboard.md) feature.
 
 All drivers in this category have the following characteristics:
 * Provides data and signaling over a single conductor
-* Limited to single master, single slave
+* Limited to single master, single follower
 
 ## Supported Driver Types
 

@@ -52,7 +52,7 @@ Currently QMK supports 25xx-series chips over SPI. As such, requires a working s
 
 `config.h` override                            | Description                                                                          | Default Value
 -----------------------------------------------|--------------------------------------------------------------------------------------|--------------
-`#define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN` | SPI Slave select pin in order to inform that the EEPROM is currently being addressed | _none_
+`#define EXTERNAL_EEPROM_SPI_follower_SELECT_PIN` | SPI follower select pin in order to inform that the EEPROM is currently being addressed | _none_
 `#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR`    | Clock divisor used to divide the peripheral clock to derive the SPI frequency        | `64`
 `#define EXTERNAL_EEPROM_BYTE_COUNT`           | Total size of the EEPROM in bytes                                                    | 8192
 `#define EXTERNAL_EEPROM_PAGE_SIZE`            | Page size of the EEPROM in bytes, as specified in the datasheet                      | 32

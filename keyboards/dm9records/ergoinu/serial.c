@@ -51,13 +51,13 @@
 #define SERIAL_DELAY_HALF1 (SERIAL_DELAY/2)
 #define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY/2)
 
-#define SLAVE_INT_WIDTH 1
-#define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
+#define follower_INT_WIDTH 1
+#define follower_INT_RESPONSE_TIME SERIAL_DELAY
 
-uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
+uint8_t volatile serial_follower_buffer[SERIAL_follower_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 
-#define SLAVE_DATA_CORRUPT (1<<0)
+#define follower_DATA_CORRUPT (1<<0)
 volatile uint8_t status = 0;
 
 inline static
@@ -107,7 +107,7 @@ void serial_master_init(void) {
   serial_high();
 }
 
-void serial_slave_init(void) {
+void serial_follower_init(void) {
   serial_input_with_pullup();
 
 #if SERIAL_PIN_MASK == _BV(PD0)
@@ -130,8 +130,8 @@ static
 void sync_recv(void) {
   for (int i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
   }
-  // This shouldn't hang if the slave disconnects because the
-  // serial line will float to high if the slave does disconnect.
+  // This shouldn't hang if the follower disconnects because the
+  // serial line will float to high if the follower does disconnect.
   while (!serial_read_pin());
 }
 
@@ -173,28 +173,28 @@ void serial_write_byte(uint8_t data) {
   serial_low(); // sync_send() / senc_recv() need raise edge
 }
 
-// interrupt handle to be used by the slave device
+// interrupt handle to be used by the follower device
 ISR(SERIAL_PIN_INTERRUPT) {
   serial_output();
 
-  // slave send phase
+  // follower send phase
   uint8_t checksum = 0;
-  for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
+  for (int i = 0; i < SERIAL_follower_BUFFER_LENGTH; ++i) {
     sync_send();
-    serial_write_byte(serial_slave_buffer[i]);
-    checksum += serial_slave_buffer[i];
+    serial_write_byte(serial_follower_buffer[i]);
+    checksum += serial_follower_buffer[i];
   }
   sync_send();
   serial_write_byte(checksum);
 
-  // slave switch to input
+  // follower switch to input
   sync_send(); //0
   serial_delay_half1(); //1
   serial_low();         //2
   serial_input_with_pullup(); //2
   serial_delay_half1(); //3
 
-  // slave recive phase
+  // follower recive phase
   uint8_t checksum_computed = 0;
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
     sync_recv();
@@ -205,42 +205,42 @@ ISR(SERIAL_PIN_INTERRUPT) {
   uint8_t checksum_received = serial_read_byte();
 
   if ( checksum_computed != checksum_received ) {
-    status |= SLAVE_DATA_CORRUPT;
+    status |= follower_DATA_CORRUPT;
   } else {
-    status &= ~SLAVE_DATA_CORRUPT;
+    status &= ~follower_DATA_CORRUPT;
   }
 
   sync_recv(); //weit master output to high
 }
 
 inline
-bool serial_slave_DATA_CORRUPT(void) {
-  return status & SLAVE_DATA_CORRUPT;
+bool serial_follower_DATA_CORRUPT(void) {
+  return status & follower_DATA_CORRUPT;
 }
 
-// Copies the serial_slave_buffer to the master and sends the
-// serial_master_buffer to the slave.
+// Copies the serial_follower_buffer to the master and sends the
+// serial_master_buffer to the follower.
 //
 // Returns:
 // 0 => no error
-// 1 => slave did not respond
+// 1 => follower did not respond
 // 2 => checksum error
 int serial_update_buffers(void) {
   // this code is very time dependent, so we need to disable interrupts
   cli();
 
-  // signal to the slave that we want to start a transaction
+  // signal to the follower that we want to start a transaction
   serial_output();
   serial_low();
-  _delay_us(SLAVE_INT_WIDTH);
+  _delay_us(follower_INT_WIDTH);
 
-  // wait for the slaves response
+  // wait for the followers response
   serial_input_with_pullup();
-  _delay_us(SLAVE_INT_RESPONSE_TIME);
+  _delay_us(follower_INT_RESPONSE_TIME);
 
-  // check if the slave is present
+  // check if the follower is present
   if (serial_read_pin()) {
-    // slave failed to pull the line low, assume not present
+    // follower failed to pull the line low, assume not present
     serial_output();
     serial_high();
     sei();
@@ -248,14 +248,14 @@ int serial_update_buffers(void) {
   }
 
   // master recive phase
-  // if the slave is present syncronize with it
+  // if the follower is present syncronize with it
 
   uint8_t checksum_computed = 0;
-  // receive data from the slave
-  for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
+  // receive data from the follower
+  for (int i = 0; i < SERIAL_follower_BUFFER_LENGTH; ++i) {
     sync_recv();
-    serial_slave_buffer[i] = serial_read_byte();
-    checksum_computed += serial_slave_buffer[i];
+    serial_follower_buffer[i] = serial_read_byte();
+    checksum_computed += serial_follower_buffer[i];
   }
   sync_recv();
   uint8_t checksum_received = serial_read_byte();

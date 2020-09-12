@@ -26,6 +26,6 @@ void encoder_update_kb(int8_t index, bool clockwise);
 void encoder_update_user(int8_t index, bool clockwise);
 
 #ifdef SPLIT_KEYBOARD
-void encoder_state_raw(uint8_t* slave_state);
-void encoder_update_raw(uint8_t* slave_state);
+void encoder_state_raw(uint8_t* follower_state);
+void encoder_update_raw(uint8_t* follower_state);
 #endif

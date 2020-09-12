@@ -18,7 +18,7 @@
 #include "quantum.h"
 #include "timer.h"
 
-static pin_t     currentSlavePin = NO_PIN;
+static pin_t     currentfollowerPin = NO_PIN;
 static SPIConfig spiConfig       = {false, NULL, 0, 0, 0, 0};
 
 __attribute__((weak)) void spi_init(void) {
@@ -39,8 +39,8 @@ __attribute__((weak)) void spi_init(void) {
 #endif
 }
 
-bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
+bool spi_start(pin_t followerPin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
+    if (currentfollowerPin != NO_PIN || followerPin == NO_PIN) {
         return false;
     }
 
@@ -99,11 +99,11 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             break;
     }
 
-    currentSlavePin  = slavePin;
-    spiConfig.ssport = PAL_PORT(slavePin);
-    spiConfig.sspad  = PAL_PAD(slavePin);
+    currentfollowerPin  = followerPin;
+    spiConfig.ssport = PAL_PORT(followerPin);
+    spiConfig.sspad  = PAL_PAD(followerPin);
 
-    setPinOutput(slavePin);
+    setPinOutput(followerPin);
     spiStart(&SPI_DRIVER, &spiConfig);
     spiSelect(&SPI_DRIVER);
 
@@ -129,9 +129,9 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 }
 
 void spi_stop(void) {
-    if (currentSlavePin != NO_PIN) {
+    if (currentfollowerPin != NO_PIN) {
         spiUnselect(&SPI_DRIVER);
         spiStop(&SPI_DRIVER);
-        currentSlavePin = NO_PIN;
+        currentfollowerPin = NO_PIN;
     }
 }

@@ -39,35 +39,35 @@
 #define HMATRIXB_I7638
 #define REV_HMATRIXB                0x214
 
-/* -------- HMATRIXB_PRAS : (HMATRIXB Offset: 0x080) (R/W 32) PRS Priority A for Slave -------- */
+/* -------- HMATRIXB_PRAS : (HMATRIXB Offset: 0x080) (R/W 32) PRS Priority A for follower -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   uint32_t reg;                /*!< Type      used for register access              */
 } HMATRIXB_PRAS_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define HMATRIXB_PRAS_OFFSET        0x080        /**< \brief (HMATRIXB_PRAS offset) Priority A for Slave */
-#define HMATRIXB_PRAS_RESETVALUE    _U_(0x00000000) /**< \brief (HMATRIXB_PRAS reset_value) Priority A for Slave */
+#define HMATRIXB_PRAS_OFFSET        0x080        /**< \brief (HMATRIXB_PRAS offset) Priority A for follower */
+#define HMATRIXB_PRAS_RESETVALUE    _U_(0x00000000) /**< \brief (HMATRIXB_PRAS reset_value) Priority A for follower */
 
 #define HMATRIXB_PRAS_MASK          _U_(0x00000000) /**< \brief (HMATRIXB_PRAS) MASK Register */
 
-/* -------- HMATRIXB_PRBS : (HMATRIXB Offset: 0x084) (R/W 32) PRS Priority B for Slave -------- */
+/* -------- HMATRIXB_PRBS : (HMATRIXB Offset: 0x084) (R/W 32) PRS Priority B for follower -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   uint32_t reg;                /*!< Type      used for register access              */
 } HMATRIXB_PRBS_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define HMATRIXB_PRBS_OFFSET        0x084        /**< \brief (HMATRIXB_PRBS offset) Priority B for Slave */
-#define HMATRIXB_PRBS_RESETVALUE    _U_(0x00000000) /**< \brief (HMATRIXB_PRBS reset_value) Priority B for Slave */
+#define HMATRIXB_PRBS_OFFSET        0x084        /**< \brief (HMATRIXB_PRBS offset) Priority B for follower */
+#define HMATRIXB_PRBS_RESETVALUE    _U_(0x00000000) /**< \brief (HMATRIXB_PRBS reset_value) Priority B for follower */
 
 #define HMATRIXB_PRBS_MASK          _U_(0x00000000) /**< \brief (HMATRIXB_PRBS) MASK Register */
 
 /** \brief HmatrixbPrs hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __IO HMATRIXB_PRAS_Type        PRAS;        /**< \brief Offset: 0x000 (R/W 32) Priority A for Slave */
-  __IO HMATRIXB_PRBS_Type        PRBS;        /**< \brief Offset: 0x004 (R/W 32) Priority B for Slave */
+  __IO HMATRIXB_PRAS_Type        PRAS;        /**< \brief Offset: 0x000 (R/W 32) Priority A for follower */
+  __IO HMATRIXB_PRBS_Type        PRBS;        /**< \brief Offset: 0x004 (R/W 32) Priority B for follower */
 } HmatrixbPrs;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 

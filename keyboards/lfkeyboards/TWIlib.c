@@ -139,7 +139,7 @@ uint8_t TWIReadData(uint8_t TWIaddr, uint8_t bytesToRead, uint8_t repStart)
 		uint8_t TXdata[1];
 		// Shift the address and AND a 1 into the read write bit (set to write mode)
 		TXdata[0] = (TWIaddr << 1) | 0x01;
-		// Use the TWITransmitData function to initialize the transfer and address the slave
+		// Use the TWITransmitData function to initialize the transfer and address the follower
 		TWITransmitData(TXdata, 1, repStart, 0);
 	}
 	else
@@ -261,13 +261,13 @@ ISR (TWI_vect)
 			TWIInfo.mode = RepeatedStartSent;
 			break;
 
-		// ----\/ ---- SLAVE RECEIVER ----\/ ----  //
+		// ----\/ ---- follower RECEIVER ----\/ ----  //
 
-		// TODO  IMPLEMENT SLAVE RECEIVER FUNCTIONALITY
+		// TODO  IMPLEMENT follower RECEIVER FUNCTIONALITY
 
-		// ----\/ ---- SLAVE TRANSMITTER ----\/ ----  //
+		// ----\/ ---- follower TRANSMITTER ----\/ ----  //
 
-		// TODO  IMPLEMENT SLAVE TRANSMITTER FUNCTIONALITY
+		// TODO  IMPLEMENT follower TRANSMITTER FUNCTIONALITY
 
 		// ----\/ ---- MISCELLANEOUS STATES ----\/ ----  //
 		case TWI_NO_RELEVANT_INFO: // It is not really possible to get into this ISR on this condition

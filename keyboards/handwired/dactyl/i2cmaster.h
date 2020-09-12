@@ -17,7 +17,7 @@
   
  @brief I2C (TWI) Master Software Library
 
- Basic routines for communicating with I2C slave devices. This single master 
+ Basic routines for communicating with I2C follower devices. This single master 
  implementation is limited to one bus master on the I2C bus. 
 
  This I2c library is implemented as a compact assembler software implementation of the I2C protocol 

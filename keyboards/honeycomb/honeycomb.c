@@ -11,7 +11,7 @@ void pointing_device_task(void){
     SERIAL_UART_INIT();
     uint32_t timeout = 0;
 
-    //the m character requests the RF slave to send the mouse report
+    //the m character requests the RF follower to send the mouse report
     SERIAL_UART_DATA = 'm';
 
     //trust the external inputs completely, erase old data

@@ -49,7 +49,7 @@ b) reduce baud of RN-42 to lower rate;(factory default is 115200bps)
 
 
 
-Slave mode
+follower mode
 ----------
 Discovery/Inquire
 Connect/Page

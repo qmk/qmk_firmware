@@ -142,7 +142,7 @@ uint8_t _matrix_scan(void) {
 }
 
 int serial_transaction(void) {
-  int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+  int followerOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
   int ret=serial_update_buffers();
   if (ret ) {
 #ifndef DISABLE_PROMICRO_LEDs
@@ -154,7 +154,7 @@ int serial_transaction(void) {
   writePinHigh(B0);
 #endif
   for (int i = 0; i < ROWS_PER_HAND; ++i) {
-      matrix[slaveOffset+i] = serial_slave_buffer[i];
+      matrix[followerOffset+i] = serial_follower_buffer[i];
   }
   return 0;
 }
@@ -163,7 +163,7 @@ uint8_t matrix_scan(void) {
   if (is_master) {
     matrix_master_scan();
   }else{
-    matrix_slave_scan();
+    matrix_follower_scan();
 
     int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
 
@@ -197,9 +197,9 @@ uint8_t matrix_master_scan(void) {
 
     if (error_count > ERROR_DISCONNECT_COUNT) {
         // reset other half if disconnected
-      int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+      int followerOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
       for (int i = 0; i < ROWS_PER_HAND; ++i) {
-          matrix[slaveOffset+i] = 0;
+          matrix[followerOffset+i] = 0;
       }
     }
   } else {
@@ -213,13 +213,13 @@ uint8_t matrix_master_scan(void) {
   return ret;
 }
 
-void matrix_slave_scan(void) {
+void matrix_follower_scan(void) {
   _matrix_scan();
 
   int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
   for (int i = 0; i < ROWS_PER_HAND; ++i) {
-    serial_slave_buffer[i] = matrix[offset+i];
+    serial_follower_buffer[i] = matrix[offset+i];
   }
 }
 

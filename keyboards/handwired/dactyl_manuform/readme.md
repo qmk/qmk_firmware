@@ -150,7 +150,7 @@ Notes on Using Pro Micro 3.3V
 Do update the `F_CPU` parameter in `rules.mk` to `8000000` which reflects
 the frequency on the 3.3V board.
 
-Also, if the slave board is producing weird characters in certain columns,
+Also, if the follower board is producing weird characters in certain columns,
 update the following line in `matrix.c` to the following:
 
 ```

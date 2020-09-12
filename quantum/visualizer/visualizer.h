@@ -135,7 +135,7 @@ void stop_keyframe_animation(keyframe_animation_t* animation);
 // Useful for crossfades for example
 void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* state);
 
-// The master can set userdata which will be transferred to the slave
+// The master can set userdata which will be transferred to the follower
 #ifdef VISUALIZER_USER_DATA_SIZE
 void visualizer_set_user_data(void* user_data);
 #endif

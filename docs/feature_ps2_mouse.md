@@ -113,7 +113,7 @@ In your keyboard config.h:
 #define PS2_DATA_BIT    2
 
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
-/* set DDR of CLOCK as input to be slave */
+/* set DDR of CLOCK as input to be follower */
 #define PS2_USART_INIT() do {   \
     PS2_CLOCK_DDR &= ~(1<<PS2_CLOCK_BIT);   \
     PS2_DATA_DDR &= ~(1<<PS2_DATA_BIT);     \

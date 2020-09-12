@@ -90,7 +90,7 @@ static uint8_t user_data[VISUALIZER_USER_DATA_SIZE];
 static keyframe_animation_t* animations[MAX_SIMULTANEOUS_ANIMATIONS] = {};
 
 #ifdef SERIAL_LINK_ENABLE
-MASTER_TO_ALL_SLAVES_OBJECT(current_status, visualizer_keyboard_status_t);
+MASTER_TO_ALL_followerS_OBJECT(current_status, visualizer_keyboard_status_t);
 
 static remote_object_t* remote_objects[] = {
     REMOTE_OBJECT(current_status),

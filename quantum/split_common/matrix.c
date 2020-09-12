@@ -43,7 +43,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 uint8_t thisHand, thatHand;
 
 // user-defined overridable functions
-__attribute__((weak)) void matrix_slave_scan_user(void) {}
+__attribute__((weak)) void matrix_follower_scan_user(void) {}
 
 // matrix code
 
@@ -259,9 +259,9 @@ void matrix_post_scan(void) {
 
         matrix_scan_quantum();
     } else {
-        transport_slave(matrix + thisHand);
+        transport_follower(matrix + thisHand);
 
-        matrix_slave_scan_user();
+        matrix_follower_scan_user();
     }
 }
 

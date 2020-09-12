@@ -162,12 +162,12 @@
 #    define SERIAL_DELAY_HALF1 (SERIAL_DELAY / 2)
 #    define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY / 2)
 
-#    define SLAVE_INT_WIDTH_US 1
+#    define follower_INT_WIDTH_US 1
 #    ifndef SERIAL_USE_MULTI_TRANSACTION
-#        define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
+#        define follower_INT_RESPONSE_TIME SERIAL_DELAY
 #    else
-#        define SLAVE_INT_ACK_WIDTH_UNIT 2
-#        define SLAVE_INT_ACK_WIDTH 4
+#        define follower_INT_ACK_WIDTH_UNIT 2
+#        define follower_INT_ACK_WIDTH 4
 #    endif
 
 static SSTD_t *Transaction_table      = NULL;
@@ -359,7 +359,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
 
     serial_high();  // response step1 low->high
     serial_output();
-    _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT * SLAVE_INT_ACK_WIDTH);
+    _delay_sub_us(follower_INT_ACK_WIDTH_UNIT * follower_INT_ACK_WIDTH);
     SSTD_t *trans = &Transaction_table[tid];
     serial_low();  // response step2 ack high->low
 #    endif
@@ -406,12 +406,12 @@ int soft_serial_transaction(int sstd_index) {
     // signal to the target that we want to start a transaction
     serial_output();
     serial_low();
-    _delay_us(SLAVE_INT_WIDTH_US);
+    _delay_us(follower_INT_WIDTH_US);
 
 #    ifndef SERIAL_USE_MULTI_TRANSACTION
     // wait for the target response
     serial_input_with_pullup();
-    _delay_us(SLAVE_INT_RESPONSE_TIME);
+    _delay_us(follower_INT_RESPONSE_TIME);
 
     // check if the target is present
     if (serial_read_pin()) {
@@ -439,15 +439,15 @@ int soft_serial_transaction(int sstd_index) {
 
     // check if the target is present (step2 high->low)
     for (int i = 0; serial_read_pin(); i++) {
-        if (i > SLAVE_INT_ACK_WIDTH + 1) {
-            // slave failed to pull the line low, assume not present
+        if (i > follower_INT_ACK_WIDTH + 1) {
+            // follower failed to pull the line low, assume not present
             serial_output();
             serial_high();
             *trans->status = TRANSACTION_NO_RESPONSE;
             sei();
             return TRANSACTION_NO_RESPONSE;
         }
-        _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT);
+        _delay_sub_us(follower_INT_ACK_WIDTH_UNIT);
     }
 #    endif
 
@@ -495,7 +495,7 @@ int soft_serial_get_and_clean_status(int sstd_index) {
 
 // Helix serial.c history
 //   2018-1-29 fork from let's split and add PD2, modify sync_recv() (#2308, bceffdefc)
-//   2018-6-28 bug fix master to slave comm and speed up (#3255, 1038bbef4)
+//   2018-6-28 bug fix master to follower comm and speed up (#3255, 1038bbef4)
 //             (adjusted with avr-gcc 4.9.2)
 //   2018-7-13 remove USE_SERIAL_PD2 macro (#3374, f30d6dd78)
 //             (adjusted with avr-gcc 4.9.2)
