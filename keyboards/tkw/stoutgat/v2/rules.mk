@@ -20,5 +20,5 @@ AUDIO_ENABLE = no           # Audio output
 WS2812_DRIVER = pwm
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
 
-DEFAULT_FOLDER = tkw/stoutgatv2/f411
+DEFAULT_FOLDER = tkw/stoutgat/v2/f411
 LAYOUTS = 65_iso 65_ansi
