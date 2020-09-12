@@ -13,9 +13,9 @@ enum layer {
 #define LY_RSE MO(LAYER_RAISE)
 
 #define KY_CSPC LCTL(KC_SPC)
-#define KY_LOCK LGUI(KC_L)
-#define KY_WINL LGUI(KC_LEFT)
-#define KY_WINR LGUI(KC_RGHT)
+#define KY_ZMIN LCTL(KC_EQL)
+#define KY_ZMOUT LCTL(KC_MINS)
+#define KY_ZMRST LCTL(KC_0)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/08d9827d916662a9414f48805aa895a5 */
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Lower layer: http://www.keyboard-layout-editor.com/#/gists/c3fba5eaa2cd70fdfbdbc0f9e34d3bc0 */
     [LAYER_LOWER] = LAYOUT(
         MC_ALTT,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                      KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______,
-        KY_CSPC,  KY_WINL,  KY_WINR,  KY_LOCK,  KC_WBAK,  KC_WFWD,                      KC_PIPE,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_TILD,
+        KY_CSPC,  KY_ZMRST, KY_ZMOUT, KY_ZMIN,  KC_WBAK,  KC_WFWD,                      KC_PIPE,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_TILD,
         _______,  KC_APP,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_LGUI,                      KC_BSLS,  KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_GRV,
                                                 _______,  _______,  _______,  _______,  _______,  _______
     ),

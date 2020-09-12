@@ -50,7 +50,7 @@ elimination.
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/djIkwsa.png)
+![Lower layer layout](https://i.imgur.com/vaIc9JY.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/c3fba5eaa2cd70fdfbdbc0f9e34d3bc0))
 
@@ -74,8 +74,8 @@ And yup, the shifted versions are above the unshifted versions.
 * Remaining keys from a TKL are placed out of the way on the bottom row of the
 left half.
 
-* The home row on the left half contains handy shortcuts for window movement,
-and browser navigation, and screen lock.
+* The home row on the left half contains handy shortcuts for zooming and browser
+navigation.
 
 * Lower+Esc is bound to Ctrl+Space because the Ctrl and Space keys are both on
 the left thumb, so this key combination (which I use for tmux prefix and editor
@@ -109,7 +109,8 @@ keys (F1–F5) on the home row.)
 * Insert and Delete are on the rightmost column, because there didn't seem to
 be a better place to put them.
 
-* Caps Lock is bound in the same position as on an HHKB, for lack of an obvious better location.
+* Caps Lock is bound in the same position as on an HHKB, for lack of an obvious
+better location.
 
 ## Adjust layer
 
