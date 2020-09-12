@@ -29,4 +29,4 @@ BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 TAP_DANCE_ENABLE = no
 VIA_ENABLE = yes
 
-LAYOUTS = ANSI_5x15
+LAYOUTS = LAYOUT_ANSI_5x15
