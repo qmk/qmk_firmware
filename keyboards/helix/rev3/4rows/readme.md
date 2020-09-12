@@ -1,9 +1,5 @@
 # Helix rev3 4rows
 
-[helix_rev3_4rows](imgur.com image replace me!)
-
-[//]: # "images are under preparation"
-
 A compact split ortholinear keyboard.
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
