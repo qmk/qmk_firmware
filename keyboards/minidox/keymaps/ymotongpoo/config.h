@@ -1,0 +1,17 @@
+#pragma once
+
+#undef MASTER_LEFT
+#define MASTER_RIGHT
+
+#define RGBLED_NUM 12
+#define RGB_DI_PIN D7
+#define RGBLED_SPLIT {6, 6}
+#define RGBLIGHT_SPLIT
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_MAX_LAYERS 8
+
+#define TAPPING_TERM 200
+#define RETRO_TAPPING
