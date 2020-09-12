@@ -1,7 +1,9 @@
 """ Original code from https://github.com/skullydazed/kle2xy
 """
+import json
 
-import hjson
+from collections import OrderedDict
+
 from decimal import Decimal
 
 
@@ -47,9 +49,7 @@ class KLE2xy(list):
             self.name = properties['name']
 
     def parse_layout(self, layout):  # noqa  FIXME(skullydazed): flake8 says this has a complexity of 25, it should be refactored.
-        # Wrap this in a dictionary so hjson will parse KLE raw data
-        layout = '{"layout": [' + layout + ']}'
-        layout = hjson.loads(layout)['layout']
+        layout = json.loads(layout, object_pairs_hook=OrderedDict)
 
         # Initialize our state machine
         current_key = self.key_skel.copy()
