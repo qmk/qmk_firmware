@@ -1,7 +1,7 @@
 {
     "name": "3DP660",
     "vendorId": "0xFEED",
-    "productId": "0x6068",
+    "productId": "0x6075",
     "lighting": "none",
     "matrix": {
         "rows": 5,
