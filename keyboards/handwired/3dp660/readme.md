@@ -1,4 +1,4 @@
-# K-numpad22 
+# 3dp660
 <img src="https://imgur.com/KWyU57e" alt="Clueboard660" width="400"/>
 
 ### Teensy 2.0 Pinout
@@ -15,7 +15,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/3DP660:default
+    make handwired/3dp660:default
 
 Bootmagic is enabled.  Press the key at (0,0) while plugging the keyboard in to jump to bootloader. This is numlock in the default keymap.
 
