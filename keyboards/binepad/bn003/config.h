@@ -87,5 +87,3 @@
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-#define RGB_BACKLIGHT_ENABLED 0
