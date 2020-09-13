@@ -48,7 +48,7 @@ This part is super simple.  However, there is some configuration that we need to
 
 ### Configuring VS Code
 
-First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properies.json` file in the QMK Firmware folder, You can do this all manually, but I've done most of the work already. 
+First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properties.json` file in the QMK Firmware folder, You can do this all manually, but I've done most of the work already. 
 
 Grab [this file](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it.  You may need to edit this file, if you didn't install MSYS2 to the default location, or are using WSL/LxSS.  
 
