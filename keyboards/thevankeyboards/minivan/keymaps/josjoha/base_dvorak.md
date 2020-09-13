@@ -21,9 +21,9 @@ Layer: `..._NSY`
 
 (…) 
 
-![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_va.jpg)
-
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
+
+![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_va.jpg)
 
 Layers (text)
 =============

@@ -19,9 +19,11 @@ Layer: `..._NSY`
 
 ──────────in common────────────
 
-![Minivan illustration Overview layers by key, Qwerty](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_2000_va.jpg)
+(…)
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
+
+![Minivan illustration Overview layers by key, Qwerty](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_2000_va.jpg)
 
 Layers (text)
 =============
