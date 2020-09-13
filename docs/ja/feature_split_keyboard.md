@@ -1,8 +1,8 @@
 # 分割キーボード
 
 <!---
-  original document:0.9.43:docs/feature_split_keyboard.md
-  git diff 0.9.43 HEAD -- docs/feature_split_keyboard.md | cat
+  original document:0.10.8:docs/feature_split_keyboard.md
+  git diff 0.10.8 HEAD -- docs/feature_split_keyboard.md | cat
 -->
 
 QMK ファームウェアリポジトリの多くのキーボードは、"分割"キーボードです。それらは2つのコントローラを使います — 1つは USB に接続し、もう1つは TRRS または同様のケーブルを介してシリアルまたは I<sup>2</sup>C 接続で接続します。
@@ -20,12 +20,12 @@ QMK ファームウェアには、任意のキーボードで使用可能な一�
 
 | Transport | AVR | ARM |
 |------------------------------|--------------------|--------------------|
-| ['serial'](serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
+| ['serial'](ja/serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
 | I2C | :heavy_check_mark: |  |
 
 注意:
 
-1. ハードウェアとソフトウェアの両方の制限は、[ドライバーのドキュメント](serial_driver.md)の中で説明されます。
+1. ハードウェアとソフトウェアの両方の制限は、[ドライバーのドキュメント](ja/serial_driver.md)の中で説明されます。
 
 ## ハードウェア設定
 
@@ -53,11 +53,12 @@ QMK ファームウェアには、任意のキーボードで使用可能な一�
 
 ### シリアル配線
 
-2つの Pro Micro 間で GND、Vcc、D0 (別名 PDO あるいは pin 3) を TRS/TRRS ケーブルの3本のワイヤで接続します。
+2つの Pro Micro 間で GND、Vcc、D0/D1/D2/D3 (別名 PD0/PD1/PD2/PD3) を TRS/TRRS ケーブルの3本のワイヤで接続します。
 
 ?> ここで使われるピンは実際には以下の `SOFT_SERIAL_PIN` によって設定されることに注意してください。
 
-![シリアル配線](https://i.imgur.com/C3D1GAQ.png)
+<img alt="sk-pd0-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296488-28e9ad80-ef70-11ea-98be-c40cb48a0319.JPG" width="48%"/>
+<img alt="sk-pd2-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296490-2d15cb00-ef70-11ea-801f-5ace313013e6.JPG" width="48%"/>
 
 ### I<sup>2</sup>C 配線
 
@@ -65,7 +66,7 @@ QMK ファームウェアには、任意のキーボードで使用可能な一�
 
 プルアップ抵抗はキーボードの左右どちら側にも配置することができます。もし各側を単独で使いたい場合は、4つの抵抗を使い、両側にプルアップ抵抗を配置することもできます。
 
-![I2C 配線](https://i.imgur.com/Hbzhc6E.png)
+<img alt="sk-i2c-connection-mono" src="https://user-images.githubusercontent.com/2170248/92297182-92b98580-ef77-11ea-9d7d-d6033914af43.JPG" width="50%"/>
 
 ## ファームウェア設定
 
