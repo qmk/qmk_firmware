@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         XD84 Pro
-#define DESCRIPTION     KPrepublic XD84 Pro
 
 /* key matrix size */
 #define MATRIX_ROWS 6
