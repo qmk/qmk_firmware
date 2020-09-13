@@ -33,5 +33,5 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
 # Add trackball support
 POINTING_DEVICE_ENABLE = yes
-SRC += adns.c 
-QUANTUM_LIB_SRC =+ spi_master.c
+SRC += adns.c
+QUANTUM_LIB_SRC += spi_master.c

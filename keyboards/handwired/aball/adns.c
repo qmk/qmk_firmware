@@ -205,7 +205,7 @@ void pointing_device_init(void) {
     // 0x44 = 3400, default
     // 0x8e = 7100
     // 0xA4 = 8200, maximum
-    adns_write(REG_Configuration_I, 0x08);
+    adns_write(REG_Configuration_I, 0x10);
 
     wait_ms(100);
     dprint("INIT ENDED\n");
@@ -246,18 +246,18 @@ void pointing_device_task(void) {
     readSensor();
     report_mouse_t report = pointing_device_get_report();
 
-    //if(delta_x + delta_y > 0)
-    //uprintf("M: %d\tX: %d\tY: %d\n", motion_ind, delta_x, delta_y);
-    // clamp deltas from -127 to 127
-    report.x = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
-    report.x = -report.x;
+    if(motion_ind) {
+        // clamp deltas from -127 to 127
+        report.x = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
+        report.x = -report.x;
+        report.y = delta_y < -127 ? 127 : delta_y > 127 ? 127 : delta_y;
 
-    report.y = delta_y < -127 ? 127 : delta_y > 127 ? 127 : delta_y;
 
+        pointing_device_set_report(report);
+        pointing_device_send();
+    }
     // reset deltas
     delta_x = 0;
     delta_y = 0;
 
-    pointing_device_set_report(report);
-    pointing_device_send();
 }
