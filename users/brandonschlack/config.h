@@ -14,7 +14,7 @@
 #endif
 
 #ifdef RGB_THEME_ENABLE
-#   define DISABLE_RGB_THEME_STRIKER
+#   define DISABLE_RGB_THEME_JAMON
 #   define DISABLE_RGB_THEME_OBLIQUE
 #endif
 
