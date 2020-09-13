@@ -413,7 +413,7 @@ void oled_write_char(const char data, bool invert) {
         uint16_t index = oled_cursor - &oled_buffer[0];
         oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
         // Edgecase check if the written data spans the 2 chunks
-        oled_dirty |= (1 << ((index + OLED_FONT_WIDTH) / OLED_BLOCK_SIZE));
+        oled_dirty |= (1 << ((index + OLED_FONT_WIDTH - 1) / OLED_BLOCK_SIZE));
     }
 
     // Finally move to the next char
