@@ -75,8 +75,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CHARGE_PUMP 0x8D
 
 // Misc defines
-#define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
-#define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#ifndef OLED_BLOCK_COUNT
+#    define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
+#endif
+#ifndef OLED_BLOCK_SIZE
+#    define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#endif
 
 // i2c defines
 #define I2C_CMD 0x00
