@@ -82,6 +82,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
 #endif
 
+#define OLED_ALL_BLOCKS_MASK (((((OLED_BLOCK_TYPE)1 << (OLED_BLOCK_COUNT - 1)) - 1) << 1) | 1)
+
 // i2c defines
 #define I2C_CMD 0x00
 #define I2C_DATA 0x40
@@ -216,7 +218,7 @@ __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void oled_clear(void) {
     memset(oled_buffer, 0, sizeof(oled_buffer));
     oled_cursor = &oled_buffer[0];
-    oled_dirty  = -1;  // -1 will be max value as long as display_dirty is unsigned type
+    oled_dirty  = OLED_ALL_BLOCKS_MASK;
 }
 
 static void calc_bounds(uint8_t update_start, uint8_t *cmd_array) {
@@ -266,6 +268,7 @@ static void rotate_90(const uint8_t *src, uint8_t *dest) {
 
 void oled_render(void) {
     // Do we have work to do?
+    oled_dirty &= OLED_ALL_BLOCKS_MASK;
     if (!oled_dirty || oled_scrolling) {
         return;
     }
@@ -445,7 +448,7 @@ void oled_pan(bool left) {
             }
         }
     }
-    oled_dirty = ~((OLED_BLOCK_TYPE)0);
+    oled_dirty = OLED_ALL_BLOCKS_MASK;
 }
 
 oled_buffer_reader_t oled_read_raw(uint16_t start_index) {
@@ -606,7 +609,7 @@ bool oled_scroll_off(void) {
             return oled_scrolling;
         }
         oled_scrolling = false;
-        oled_dirty     = -1;
+        oled_dirty     = OLED_ALL_BLOCKS_MASK;
     }
     return !oled_scrolling;
 }
