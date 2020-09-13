@@ -121,7 +121,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
          //'Arrow' + 'South paw'  (12x12x12x10 keys): _activate_ both <<-
          //
-        /*                        Defining the additional key for 'Arrow' ('Command') layout
+         //
+        /*                        Defining the meaning of the additional keys
+         *
+         * Some possibilities you might like:
+         *
+         * ① Number-pad and F-keys layers are only on a toggle. If you want them accessible on a hold key, you can use
+         *   these additional hardware keys. Make sure to use a transparent key on that location on those layers.
+         *
+         * ② You can use the right side additional key for quick access to an arrow/navigation cluster (see below).
+         *
+         * ③ Other uses, such as a delete key and/or a special interface key your system needs.
+         *
+         *                        Defining 'Arrow' hardware layout additional keys
          *
          * You can create an arrow-cluster with your additional MORE_key2 hardware key.
          * To do this on the BASE layer would hurt standard Dvorak/Qwerty. There might be a ./bases_* option
@@ -143,8 +155,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
 //#define MORE_key2 <...your choice...> // Right side additional key.
         //
+        //
         /*                         Defining the additional key for 'South paw' (or called 'Command')
+         *
          * Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
+         * 
          */
   #define MORE_key1_BASE KC__XGUI // Configure here what this key is on the BASE layers
   #define MORE_key1      KC_DEL  // Configure here what this key is on all other layers

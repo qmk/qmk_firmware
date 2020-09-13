@@ -62,6 +62,9 @@ Main features
 
 layout
 ------
+
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_va.jpg)
+
 You can switch between the default base layer (typically letters), and
 another base layer, the alternate base layer (also typically letters),
 on the `_RAR` layer with key ‛Other BASE’. Each base layer comes
@@ -91,8 +94,6 @@ with `./base_…` (links below).
            • Function keys / layer toggles         ┃
            • Power, media, Speed, Text size, etc.  ┛
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_va.jpg)
-
 A layout defined in `./base_…` can have the common layers re-defined
 from what is detailed in _this_ file that you read now. The re-defined
 layer will be the same one for both the ‛default’ and ‛alternate’ layouts
@@ -104,6 +105,7 @@ you will reach that same French adapted `_ACC` layer from either of
 the two BASE layers in the dual layout (one is for instance Qwerty,
 the other Dvorak).
 
+![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_va.jpg)
 
 Led colors for layers
 =====================
@@ -168,7 +170,7 @@ Layer: `ALT_BASE`
 ![Minivan layout Image NSYalt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_alt_base_va.jpg)
 Layer: `ALT_NSY`
 
-![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_va.jpg)
+![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vb.jpg)
 Layer: `_PAD`
 
 ![Minivan layout Image ACC](http://socialism.nl/misc/minivan/minivan_acc_layer_va.jpg)

@@ -21,7 +21,9 @@ Layer: `..._NSY`
 
 ──────────in common────────────
 
-For the other layers, see ➡ ![readme.md](./readme.md) ⬅
+![Minivan illustration Overview layers by key, Colemak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_colemak_2000_va.jpg)
+
+For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
 Layers (text)
 =============
