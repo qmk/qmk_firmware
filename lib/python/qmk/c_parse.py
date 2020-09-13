@@ -23,12 +23,13 @@ def c_source_files(dir_names):
     return files
 
 
-def find_layouts(file):
+def find_layouts(file, include_kc_no=False):
     """Returns list of parsed LAYOUT preprocessor macros found in the supplied include file.
     """
     file = Path(file)
     aliases = {}  # Populated with all `#define`s that aren't functions
     parsed_layouts = {}
+    layout_macros = {}
 
     # Search the file for LAYOUT macros and aliases
     file_contents = file.read_text()
@@ -44,8 +45,12 @@ def find_layouts(file):
             if macro_name.startswith('LAYOUT_kc') or not macro_name.startswith('LAYOUT'):
                 continue
 
+            # breakpoint()
+
+            layout_macros[macro_name] = {'layout': layout.split(','), 'matrix': [m.split(',') for m in matrix.lstrip('{{').rstrip('}}').split('},{')]}
+
             # Parse the matrix data
-            matrix_locations = _parse_matrix_locations(matrix, file, macro_name)
+            matrix_locations = _parse_matrix_locations(matrix, file, macro_name, include_kc_no)
 
             # Parse the layout entries into a basic structure
             default_key_entry['x'] = -1  # Set to -1 so _default_key(key) will increment it to 0
@@ -74,7 +79,7 @@ def find_layouts(file):
         if text in parsed_layouts and 'KEYMAP' not in alias:
             parsed_layouts[alias] = parsed_layouts[text]
 
-    return parsed_layouts
+    return (parsed_layouts, layout_macros)
 
 
 def parse_config_h_file(config_h_file, config_h=None):
@@ -143,11 +148,12 @@ def _parse_layout_macro(layout_macro):
     return macro_name, layout, matrix
 
 
-def _parse_matrix_locations(matrix, file, macro_name):
+def _parse_matrix_locations(matrix, file, macro_name, include_kc_no=False):
     """Parse raw matrix data into a dictionary keyed by the LAYOUT identifier.
     """
     matrix_locations = {}
 
+    # breakpoint()
     for row_num, row in enumerate(matrix.split('},{')):
         if row.startswith('LAYOUT'):
             cli.log.error('%s: %s: Nested layout macro detected. Matrix data not available!', file, macro_name)
@@ -155,7 +161,7 @@ def _parse_matrix_locations(matrix, file, macro_name):
 
         row = row.replace('{', '').replace('}', '')
         for col_num, identifier in enumerate(row.split(',')):
-            if identifier != 'KC_NO':
+            if identifier != 'KC_NO' or include_kc_no:
                 matrix_locations[identifier] = (row_num, col_num)
 
     return matrix_locations

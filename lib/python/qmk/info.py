@@ -29,7 +29,7 @@ def info_json(keyboard):
         'maintainer': 'qmk',
     }
 
-    for layout_name, layout_json in _find_all_layouts(keyboard, rules).items():
+    for layout_name, layout_json in _find_all_layouts(keyboard, rules)[0].items():
         if not layout_name.startswith('LAYOUT_kc'):
             info_data['layouts'][layout_name] = layout_json
 
@@ -109,17 +109,20 @@ def _extract_rules_mk(info_data):
 def _search_keyboard_h(path):
     current_path = Path('keyboards/')
     layouts = {}
+    macros = {}
     for directory in path.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
         if keyboard_h_path.exists():
-            layouts.update(find_layouts(keyboard_h_path))
+            l, m = find_layouts(keyboard_h_path)
+            layouts.update(l)
+            macros.update(m)
 
     return layouts
 
 
-def _find_all_layouts(keyboard, rules):
+def _find_all_layouts(keyboard, rules, include_kc_no=False):
     """Looks for layout macros associated with this keyboard.
     """
     layouts = _search_keyboard_h(Path(keyboard))
@@ -130,7 +133,7 @@ def _find_all_layouts(keyboard, rules):
         cli.log.warning('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
         for file in glob('keyboards/%s/*.h' % keyboard):
             if file.endswith('.h'):
-                these_layouts = find_layouts(file)
+                these_layouts = find_layouts(file, include_kc_no)
                 if these_layouts:
                     layouts.update(these_layouts)
 
@@ -147,7 +150,7 @@ def _find_all_layouts(keyboard, rules):
         if supported_layouts:
             cli.log.error('%s: Missing LAYOUT() macro for %s' % (keyboard, ', '.join(supported_layouts)))
 
-    return layouts
+    return (layouts, macros)
 
 
 def arm_processor_rules(info_data, rules):
