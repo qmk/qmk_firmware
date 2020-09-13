@@ -54,6 +54,8 @@ EXTRAINCDIRS += \
   $(TMK_PATH)/protocol/nrf \
   $(TMK_PATH)/protocol/nrf/$(NRF_VER_DIR) \
   $(TMK_PATH)/protocol/nrf/nrf52 \
+  $(TMK_PATH)/protocol/nrf/microshell/core \
+  $(TMK_PATH)/protocol/nrf/microshell/util \
   $(TMK_PATH)/protocol/chibios/lufa_utils \
 
   NRFCFLAGS += -DAPP_USBD_VID=VENDOR_ID

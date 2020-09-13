@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 9
+#define API_VERSION 10
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -211,6 +211,21 @@ typedef struct {
     const char*     layout_name;
 } bmp_api_keymap_info_t;
 
+typedef struct {
+    uint8_t tx_pin;
+    uint8_t rx_pin;
+    uint32_t baudrate;
+    void (*rx_callback)(uint8_t recv);
+} bmp_uart_config_t;
+
+typedef struct {
+    const uint8_t* pins;
+    uint8_t        cnt;
+    uint8_t        adc_port;
+    uint8_t        shdn_pin;
+    uint8_t        discharge_pin;
+} bmp_ecs_config_t;
+
 typedef bmp_error_t (*bmp_api_msc_write_cb_t)(const uint8_t* dat, uint32_t len);
 typedef bmp_error_t (*bmp_api_state_change_cb_t)(bmp_api_event_t event);
 
@@ -363,9 +378,23 @@ typedef struct {
 typedef struct {
     // void (*init)(void); // initialized in wakeup process
     int (*config_vcc_channel)(uint8_t ain, uint16_t vmax_mv, uint16_t vmin_mv);
-    int (*config_channel)(uint8_t channel, uint8_t pin);
+    int (*config_channel)(uint8_t channel, uint8_t ain);
     int (*sample_and_convert)(uint8_t channel, int16_t* const result);
 } bmp_api_adc_t;
+
+typedef struct {
+    void (*init)(bmp_uart_config_t const* const config);
+    uint32_t (*send)(uint8_t const* dat, uint32_t len);
+} bmp_api_uart_t;
+
+typedef struct {
+    void (*init)(bmp_ecs_config_t const* const config);
+    void (*assign_drive_pin)(uint32_t pin);
+    void (*sw_read)(uint16_t* res);
+    void (*clear_drive_pins)(bmp_ecs_config_t const* const config);
+    void (*schedule_next_scan)();
+    void (*discharge_capacitor)();
+} bmp_api_ecs_t;
 
 typedef struct {
     //////DO NOT CHANGE///////
@@ -385,6 +414,8 @@ typedef struct {
     bmp_api_web_config_t web_config;
     bmp_api_encoder_t    encoder;
     bmp_api_adc_t        adc;
+    bmp_api_uart_t       uart;
+    bmp_api_ecs_t        ecs;
 } bmp_api_t;
 
 #define BMPAPI ((bmp_api_t*)0xFDE00)

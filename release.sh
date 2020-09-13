@@ -1,8 +1,8 @@
 #!/bin/sh
 
-version=0_7_1
+version=0_8_0
 
-for keyboard in ble_micro_pro kugel toybox/bmp
+for keyboard in ble_micro_pro kugel toybox/bmp crkbd_ecwl/bmp keyboard_quantizer/bmp
     do
         make $keyboard:default:uf2 -j8
         make $keyboard:default:zip -j8
