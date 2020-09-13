@@ -473,12 +473,16 @@ void oled_write_pixel(uint8_t x, uint8_t y, bool on) {
         return;
     }
     uint16_t index = x + (y / 8) * OLED_DISPLAY_WIDTH;
+    uint8_t data = oled_buffer[index];
     if (on) {
-        oled_buffer[index] |= (1 << (y % 8));
+        data |= (1 << (y % 8));
     } else {
-        oled_buffer[index] &= ~(1 << (y % 8));
+        data &= ~(1 << (y % 8));
     }
-    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+    if (oled_buffer[index] != data) {
+        oled_buffer[index] = data;
+        oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+    }
 }
 
 #if defined(__AVR__)
