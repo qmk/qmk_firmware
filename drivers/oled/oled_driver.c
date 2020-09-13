@@ -469,10 +469,13 @@ void oled_write_raw(const char *data, uint16_t size) {
 }
 
 void oled_write_pixel(uint8_t x, uint8_t y, bool on) {
-    if (x >= OLED_DISPLAY_WIDTH || y >= OLED_DISPLAY_HEIGHT) {
+    if (x >= oled_rotation_width) {
         return;
     }
-    uint16_t index = x + (y / 8) * OLED_DISPLAY_WIDTH;
+    uint16_t index = x + (y / 8) * oled_rotation_width;
+    if (index >= OLED_MATRIX_SIZE) {
+        return;
+    }
     uint8_t data = oled_buffer[index];
     if (on) {
         data |= (1 << (y % 8));
