@@ -38,7 +38,11 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
 
 This should allow you to more heavily customize the behavior. 
 
-Alternatively, the `process_wheel` and `process_mouse` functions can both be replaced too, to allow for even more functionality. 
+Alternatively, the `process_wheel` and `process_mouse` functions can both be replaced too, to allow for even more functionality.
+
+Additionally, you can change the DPI/CPI or speed of the trackball by calling `pmw_set_cpi` at any time. And tThe default can be changed by adding a define to the keymap's `config.h` file:
+
+    #define PMW_CPI 1600
 
 # Programming QMK-DFU onto the PloopyCo Trackball
 
@@ -48,8 +52,6 @@ If you would rather have DFU on this board, you can use the QMK-DFU bootloader o
 
 Once you have that, you'll need to [ISP Flash](https://docs.qmk.fm/#/isp_flashing_guide) the chip with the new bootloader hex file created (or the production hex), and set the fuses:
 
-
-0x98, L: 0xDF, E: 0xCB
 
 | Fuse     | Setting          |
 |----------|------------------|

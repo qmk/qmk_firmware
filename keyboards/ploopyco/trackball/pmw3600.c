@@ -21,8 +21,8 @@
 
 bool _inBurst = false;
 
-#ifndef CPI
-#    define CPI 1600
+#ifndef PMW_CPI
+#    define PMW_CPI 1600
 #endif
 #ifndef SPI_DIVISOR
 #    define SPI_DIVISOR 2
@@ -131,7 +131,7 @@ bool pmw_spi_init(void) {
     spi_stop_adv();
 
     wait_ms(10);
-    pmw_set_cpi(CPI);
+    pmw_set_cpi(PMW_CPI);
 
     wait_ms(1);
 
