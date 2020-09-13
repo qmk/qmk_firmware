@@ -1,6 +1,6 @@
 # SL40
 
-![SL40](https://i.imgur.com/HeeUwVj.png)
+![SL40](https://i.imgur.com/DX5Znfd.png)
 
 The SL40 is a 14 column staggered 40% keyboard.
 
