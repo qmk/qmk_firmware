@@ -105,7 +105,7 @@ you will reach that same French adapted `_ACC` layer from either of
 the two BASE layers in the dual layout (one is for instance Qwerty,
 the other Dvorak).
 
-![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_va.jpg)
+![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vb.jpg)
 
 Led colors for layers
 =====================
@@ -182,7 +182,7 @@ Layer: `_DRA`
 ![Minivan layout Image BON](http://socialism.nl/misc/minivan/minivan_bon_layer_va.jpg)
 Layer: `_BON`
 
-![Minivan layout Image FUN](http://socialism.nl/misc/minivan/minivan_fun_layer_va.jpg)
+![Minivan layout Image FUN](http://socialism.nl/misc/minivan/minivan_fun_layer_vb.jpg)
 Layer: `_FUN`
 
 ![Minivan layout Image MOV](http://socialism.nl/misc/minivan/minivan_mov_layer_triangle_hw-basic-and-allkeys_va.jpg)
