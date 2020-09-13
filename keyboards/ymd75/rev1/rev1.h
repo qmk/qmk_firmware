@@ -38,18 +38,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K07, K17,   K27, K37,   K47,   K57,   K67,   K77,   KE0,   KC_NO, KA7,   KB7, KC7,   KD7,   KE7   } \
 }
 
-#define LAYOUT_iso( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K514, \
-	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,       K114, K513, \
-	K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,             K214, \
-	K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313,       K314, \
-	K400, K401, K402, K403, K404, K405, K406, K407, K408, K409, K410, K411, K412,       K413, K414, \
-	K500, K501, K502,                   K505,                         K506, K508, K509, K510, K511  \
-) { \
-	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012,  K013,  K014 }, \
-	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  KC_NO, K114 }, \
-	{ K200,  K201,  K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  KC_NO, K214 }, \
-	{ K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  K312,  K313,  K314 }, \
-	{ K400,  K401,  K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  K412,  K413,  K414 }, \
-	{ K500,  K501,  K502,  KC_NO, KC_NO, K505,  K506,  KC_NO,  K508,  K509,  K510,  K511,  KC_NO, K513, K514 }  \
+#define LAYOUT_75_iso( \
+    K50, K52, K53, K54, K55, K60, K6A, K7A, K70, K5B, K5C, K5D, K5E, K1D, K1E, K2E, \
+    K40, K41, K42, K43, K44, K45, K61, K6B, K7B, K71, K4A, K4B, K4C,      K4E, K0D, \
+    K30, K31, K32, K33, K34, K35, K62, K6C, K7C, K72, K3A, K3B, K3C,           K76, \
+    K20, K21, K22, K23, K24, K25, K63, K6D, K7D, K73, K2A, K2B, K2C, K2D,      K0E, \
+    K10, K03, K11, K12, K13, K14, K15, K64, K6E, K7E, K74, K1A, K1B,      K68, K77, \
+    K00, K01, K02,                K65,                K75, K0B, K0C, K69, K67, K66  \
+){ \
+    { K00, K01,   K02, K03, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K0B, K0C,   K0D,   KC_NO }, \
+    { K10, K11,   K12, K13, K14,   K15,   KC_NO, KC_NO, KC_NO, KC_NO, K1A,   K1B, KC_NO, K1D,   K1E   }, \
+    { K20, K21,   K22, K23, K24,   K25,   KC_NO, KC_NO, KC_NO, KC_NO, K2A,   K2B, K2C,   K2D,   K2E   }, \
+    { K30, K31,   K32, K33, K34,   K35,   KC_NO, KC_NO, KC_NO, KC_NO, K3A,   K3B, K3C,   KC_NO, KC_NO }, \
+    { K40, K41,   K42, K43, K44,   K45,   KC_NO, KC_NO, KC_NO, KC_NO, K4A,   K4B, K4C,   KC_NO, K4E   }, \
+    { K50, KC_NO, K52, K53, K54,   K55,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K5B, K5C,   K5D,   K5E   }, \
+    { K60, K61,   K62, K63, K64,   K65,   K66,   K67,   K68,   K69,   K6A,   K6B, K6C,   K6D,   K6E   }, \
+    { K70, K71,   K72, K73, K74,   K75,   K76,   K77,   K0E,   KC_NO, K7A,   K7B, K7C,   K7D,   K7E   } \
 }
