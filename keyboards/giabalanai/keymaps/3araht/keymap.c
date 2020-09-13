@@ -40,6 +40,7 @@
 
 #define DFCBASE DF(_C_SYSTEM_BASE)
 #define DFBBASE DF(_FAKE_B_SYSTEM)
+#define DFCBAS2 DF(_C_SYSTEM_BASE2ROW)
 
 #define DF_QWER DF(_QWERTY)
 #define DF_COLE DF(_COLEMAK)
@@ -107,6 +108,7 @@ const uint8_t PROGMEM convert_key_to_led2[] =
 enum layer_names {
     _C_SYSTEM_BASE,  //  MIDI C-system
     _FAKE_B_SYSTEM,  //  MIDI fake B-system doesn't have correct assignments on top two rows. The bottom 3 rows are B-system.
+    _C_SYSTEM_BASE2ROW,
     _QWERTY,   //  just in case
     _COLEMAK,  //  just in case
     _FN
@@ -242,6 +244,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, MI_Ab,  MI_B,    MI_D_1,  MI_F_1, MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2, MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3
   ),
 
+  /* Base2row */
+  [_C_SYSTEM_BASE2ROW] = LAYOUT(
+    MI_CH_Fr,     MI_CH_Cr,     MI_CH_Gr,     MI_CH_Dr,     MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,   MI_CH_Csr,   MI_CH_Gsr,   MI_CH_Dsr,   MI_CH_Asr,
+    MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr,    MI_CH_Gr,    MI_CH_Dr,    MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,
+    MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C,     MI_CH_G,     MI_CH_D,     MI_CH_A,     MI_CH_E,     MI_CH_B,     MI_CH_Fs,
+    MI_CH_Dbm,    MI_CH_Abm,    MI_CH_Ebm,    MI_CH_Bbm,    MI_CH_Fm,    MI_CH_Cm,    MI_CH_Gm,    MI_CH_Dm,    MI_CH_Am,    MI_CH_Em,    MI_CH_Bm,    MI_CH_Fsm,
+    MI_CH_DbDom7, MI_CH_AbDom7, MI_CH_EbDom7, MI_CH_BbDom7, MI_CH_FDom7, MI_CH_CDom7, MI_CH_GDom7, MI_CH_DDom7, MI_CH_ADom7, MI_CH_EDom7, MI_CH_BDom7, MI_CH_FsDom7,
+
+    MI_Ab, MI_B,  MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  FN_MUTE,
+    MI_G,  MI_Bb, MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
+    MI_Fs, MI_A,  MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3
+  ),
+
   /* QWERTY */
   [_QWERTY] = LAYOUT_wrapper(
     KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
@@ -271,7 +286,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT(
-    DFCBASE, DFBBASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+    DFCBASE, DFBBASE, DFCBAS2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
     DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -332,8 +347,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C;
             process_midi(root_note, record);
-            process_midi(root_note + 12, record);  // -1 Octave
-            process_midi(root_note + 24, record);  // +1 Octave
+            // process_midi(root_note + 12, record);  // -1 Octave
+            // process_midi(root_note + 24, record);  // +1 Octave
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
