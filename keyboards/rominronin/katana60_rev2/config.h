@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
 
@@ -40,10 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS \
-    { B0, E6, D5, B4, B5 }
-#define MATRIX_COL_PINS \
-    { F0, F1, F4, F5, F6, F7, C7, C6, B6, D6, D4, D3, D2, D1, D0 }
+#define MATRIX_ROW_PINS { B0, E6, D5, B4, B5 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, C6, B6, D6, D4, D3, D2, D1, D0 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -86,6 +85,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define FORCE_NKRO
 
+#define TAPPING_TERM 200
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -103,3 +104,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#endif
