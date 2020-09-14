@@ -39,18 +39,9 @@ void matrix_init_user(void) {
 }
 
 // write to above indicators in a binary fashion based on current layer
-layer_state_t layer_state_set_user(layer_state_t state)
-{
-  switch (get_highest_layer(state)){
-    case 0:
-      writePin(D5, true);
-      break;
-    case 1:
-      writePin(D4, true);
-      break;
-    case 2:
-      writePin(D3, true);
-      break;
-  }
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(D5, get_highest_layer(state));
+    writePin(D4, !layer_state_cmp(state, 1));
+    writePin(D3, !layer_state_cmp(state, 2));
     return state;
 }
