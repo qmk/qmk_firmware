@@ -64,14 +64,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, DF(1),   _______, _______,          _______, _______, _______, _______, _______
     )
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_TAP_KEY(CURS, KC_BSPC),
-    [1] = ACTION_LAYER_TAP_KEY(SYMB, KC_SPACE),
-};
-
-void matrix_init_user(void) {}
-
-void matrix_scan_user(void) {}
-
-void led_set_user(uint8_t usb_led) {}
