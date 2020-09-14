@@ -338,7 +338,7 @@ def _get_layers(keymap):  # noqa C901 : until someone has a good idea how to sim
                 # e.g.: MT(MOD_LCTL | MOD_LSFT, KC_ESC)
                 layer['keycodes'][-1] += line[1]
 
-        elif line[0] is Token.Literal.Number.Integer and is_keymap:
+        elif line[0] is Token.Literal.Number.Integer and is_keymap and not is_adv_kc:
             # If the pre-processor finds the 'meaning' of the layer names,
             # they will be numbers
             if not layer['name']:
