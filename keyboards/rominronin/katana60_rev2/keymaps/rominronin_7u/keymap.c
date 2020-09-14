@@ -26,10 +26,12 @@
 #define COPY    LGUI(KC_C)         // COPY
 #define PASTE   LGUI(KC_V)         // PASTE
 
-#define BASE 0 // Default
-#define NUMB 1 // Numbers
-#define SYMB 2 // Symbols
-#define CURS 3 // Text Editing
+enum layer_names {
+    BASE,
+    NUMB,
+    SYMB,
+    CURS,
+};
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
