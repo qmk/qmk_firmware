@@ -1,8 +1,8 @@
 # よくあるビルドの質問
 
 <!---
-  original document: 0.9.10:docs/faq_build.md
-  git diff 0.9.10 HEAD -- docs/faq_build.md | cat
+  original document: 0.9.43:docs/faq_build.md
+  git diff 0.9.43 HEAD -- docs/faq_build.md | cat
 -->
 
 このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
@@ -57,7 +57,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uacc
 
 **注意:** 古い(1.12以前の) ModemManager では、フィルタリングは厳密なモードではない場合にのみ動作し、以下のコマンドはその設定を更新することができます。
 ```console
-sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
+printf '[Service]\nExecStart=\nExecStart=/usr/sbin/ModemManager --filter-policy=default' | sudo tee /etc/systemd/system/ModemManager.service.d/policy.conf
 sudo systemctl daemon-reload
 sudo systemctl restart ModemManager
 ```
@@ -145,4 +145,4 @@ ARM ベースのチップ上での EEPROM の動作によって、保存され�
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を使って eeprom のリセットを強制することができます。このイメージを書き込んだ後で、通常のファームウェアを書き込むと、キーボードが_通常_ の動作順序に復元されます。
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
-いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[ブートマジックドキュメント](feature_bootmagic.md)とキーボード情報を見てください)。
+いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[ブートマジックドキュメント](ja/feature_bootmagic.md)とキーボード情報を見てください)。

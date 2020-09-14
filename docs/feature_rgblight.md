@@ -126,19 +126,19 @@ Use these defines to add or remove animations from the firmware. When you are ru
 
 The following options are used to tweak the various animations:
 
-|Define                              |Default      |Description                                                                          |
-|------------------------------------|-------------|-------------------------------------------------------------------------------------|
+|Define                              |Default      |Description                                                                                    |
+|------------------------------------|-------------|-----------------------------------------------------------------------------------------------|
 |`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
-|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
-|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
-|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
-|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
-|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
-|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
-|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                |
-|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
-|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)  |
-|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                   |
+|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255                       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`40`         |How long (in milliseconds) to wait between animation steps for the "Christmas" animation       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation              |
+|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                                       |
+|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                                      |
+|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by              |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                          |
+|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                                       |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
+|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
   1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
@@ -376,6 +376,17 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
 |`rgblight_sethsv(h, s, v)`                  |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgblight_sethsv_noeeprom(h, s, v)`         |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
+
+#### Speed functions
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_increase_speed()`                 |Increases the animation speed |
+|`rgblight_increase_speed_noeeprom()`        |Increases the animation speed (not written to EEPROM) |
+|`rgblight_decrease_speed()`                 |Decreases the animation speed |
+|`rgblight_decrease_speed_noeeprom()`        |Decreases the animation speed (not written to EEPROM) |
+|`rgblight_set_speed()`                      |Sets the speed. Value is between 0 and 255 |
+|`rgblight_set_speed_noeeprom()`             |Sets the speed. Value is between 0 and 255 (not written to EEPROM) |
+
 
 #### layer functions
 |Function                                    |Description  |

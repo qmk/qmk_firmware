@@ -1,3 +1,5 @@
+MCU_ORIG := $(MCU)
+
 ifneq ($(findstring MKL26Z64, $(MCU)),)
   # Cortex version
   MCU = cortex-m0plus
@@ -266,7 +268,6 @@ ifneq (,$(filter $(MCU),atmega32a))
   F_CPU ?= 12000000
 
   # unsupported features for now
-  NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
@@ -284,7 +285,6 @@ ifneq (,$(filter $(MCU),atmega328p))
   F_CPU ?= 16000000
 
   # unsupported features for now
-  NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
@@ -317,6 +317,5 @@ ifneq (,$(filter $(MCU),attiny85))
   F_CPU ?= 16500000
 
   # unsupported features for now
-  NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
 endif

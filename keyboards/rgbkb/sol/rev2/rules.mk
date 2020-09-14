@@ -29,7 +29,7 @@ IOS_DEVICE_ENABLE       = no        # Limit max brightness to connect to IOS dev
 OLED_DRIVER_ENABLE      = no        # Enable the OLED Driver
 EXTRA_ENCODERS_ENABLE   = no        # Enables 3 encoders per side (up from 1, not compatible with OLED_DRIVER_ENABLE)
 SWAP_HANDS_ENABLE       = no        # Enable one-hand typing
-LINK_TIME_OPTIMIZATION_ENABLE = yes # Enable Link Time Optimizations greatly reducing firmware size by disabling the old Macros and Functions features
+LTO_ENABLE = yes # Enable Link Time Optimizations greatly reducing firmware size by disabling the old Macros and Functions features
 
 # Special RGB Matrix, OLED, & Encoder Control Menu!
 RGB_OLED_MENU           = no        # Enabled by setting this to the encoder index (0-5) you wish to use to control the menu.
