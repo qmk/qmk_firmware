@@ -1,4 +1,4 @@
-# [Sendy YK](https://mr.sendyyk.com)'s Keymap
+# Sendy YK's Keymap
 
 [https://mr.sendyyk.com](https://mr.sendyyk.com)
 
