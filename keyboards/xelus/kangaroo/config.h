@@ -22,8 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x524F  // RO
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Roo
-#define DESCRIPTION     Roo
+#define PRODUCT         Kangaroo
 
 /* key matrix size */
 #define MATRIX_ROWS 12
