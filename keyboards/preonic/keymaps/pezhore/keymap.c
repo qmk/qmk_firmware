@@ -27,9 +27,7 @@ enum preonic_layers {
 };
 
 enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  FN,
-  NUMPAD,
+  FN = SAFE_RANGE,
   LOWER,
   RAISE,
   SHRUG,  // ¯\_(ツ)_/¯
@@ -38,6 +36,8 @@ enum preonic_keycodes {
   DPOINT, // (ಠ_ಠ)
   STRUT   // ᕕ( ᐛ )ᕗ
 };
+
+#define TG_NUMP TG(_NUMPAD)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Effct-|Effct+|      |      |      |      |      |      |      |      |UC_Lin|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |SHRUG |TFLIP |DPOINT|STRUT |      |      |      |QWERTY|NUMPAD|      |UC_Mac|
+ * |      |SHRUG |TFLIP |DPOINT|STRUT |      |      |      |      |TgNmpd|      |UC_Mac|
  * `-----------------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_preonic_grid(
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_MOD,  RGB_HUD, RGB_HUI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  UC_MOD,
   RGB_RMOD, RGB_SAD, RGB_SAI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_M_WC,
   _______,  RGB_SPD, RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_M_LN,
-  _______,  SHRUG,   TFLIP,    DPOINT,   STRUT,    _______,  _______,  _______,   QWERTY,  NUMPAD,   _______,  UC_M_MA
+  _______,  SHRUG,   TFLIP,    DPOINT,   STRUT,    _______,  _______,  _______,   _______, TG_NUMP,   _______,  UC_M_MA
 ),
 
 /* Numpad
@@ -173,23 +173,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-          break;
         case FN:
           if (record->event.pressed) {
             layer_on(_FN);
           } else {
             layer_off(_FN);
-          }
-          return false;
-          break;
-        case NUMPAD:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_NUMPAD);
           }
           return false;
           break;
