@@ -62,6 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Dynamic EEPROM
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 65535
+#define DYNAMIC_MACRO_SIZE 4096
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4
