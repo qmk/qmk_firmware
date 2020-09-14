@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER RominRonin CandyKeys
 #define PRODUCT Katana60 rev2
-#define DESCRIPTION A 60% semi ergonomic layout
 
 /* key matrix size */
 #define MATRIX_ROWS 5
