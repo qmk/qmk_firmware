@@ -106,10 +106,6 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 詳細と制限については、[Unicode ページ](ja/feature_unicode.md) を見てください。
 
-`BLUETOOTH_ENABLE`
-
-これによりキーコードをワイヤレスで送信するために Bluefruit EZ-key と連動することができます。D2 と D3 ピンを使います。
-
 `AUDIO_ENABLE`
 
 C6 ピン(抽象化が必要)でオーディオ出力できます。詳細は[オーディオページ](ja/feature_audio.md)を見てください。

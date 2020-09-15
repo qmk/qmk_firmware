@@ -1,46 +1,85 @@
-# Sendy YK's Keymap
----
+# Sendy YK's 60% ANSI Arrow Layout and Keymap
 
-KBDfans DZ60 ANSI with Arrow also RGB Underglow as a Caps Lock Indicator
+This is Sendy YK's [60% ANSI Arrow Layout](https://github.com/qmk/qmk_firmware/blob/master/layouts/default/60_ansi_arrow/info.json) and [Keymap (with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator)](https://github.com/qmk/qmk_firmware/blob/master/layouts/community/60_ansi_arrow/mrsendyyk/keymap.c).
 
-### Qwerty [0]
-```
-,-----------------------------------------------------------------------------------------.
-| Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  | Backspace |
-|-----------------------------------------------------------------------------------------+
-| Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
-|-----------------------------------------------------------------------------------------+
-|Caps Lock|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
-|-----------------------------------------------------------------------------------------+
-| Shift      |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  RShift  |  Up |  /  |
-|-----------------------------------------------------------------------------------------+
-| Ctrl  |  OS  | Alt  |              Space                 | RAlt | Fn  |Left |Down |Right|
-`-----------------------------------------------------------------------------------------'
-```
+## 60% ANSI Arrow Layout
+
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_layout_60_ansi_arrow.png)
+
+## Keymap
+
+### Default Layer [0]
+
+![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_0.png)
 
 ### Fn Layer [1]
+
+Press and hold *right* **Ctrl** key.
+
+![Fn Layer [1]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_1.png)
+
+### Fn Layer [2]
+
+Press and hold *right* **Alt** key.
+
+![Fn Layer [2]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/kbdfans_tofu_60_keyboard/assets/dz60_mrsendyyk_2.png)
+
+### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
+
+#### Caps Lock Indicator
+
+```c
+/* Caps Lock Indicator */
+   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+     writePinLow(B2);
+     rgblight_setrgb(100, 255, 100);
+   }
 ```
-,-----------------------------------------------------------------------------------------.
-| ` ~ |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |  Delete   |
-|-----------------------------------------------------------------------------------------+
-| Bri Up |     |     | End | Rst |     |     |     | Ins |     | P Sc|     |     | Eject  |
-|-----------------------------------------------------------------------------------------+
-| Bri Down|     | S L |     |     |     | Home|     |     |     |     |     |    Mute     |
-|-----------------------------------------------------------------------------------------+
-| Vol +      |     |     | Calc|     |     |     | Mail|     |     |          |Pg U |Pause|
-|-----------------------------------------------------------------------------------------+
-| Vol - | Rwd  | F Fd |                 Play               | M Stp|     | Prev| Pg D| Next|
-`-----------------------------------------------------------------------------------------'
+
+#### Num Lock Indicator
+
+```c
+/* Num Lock Indicator */
+   if (host_keyboard_led_state().num_lock) {
+     rgblight_setrgb(225, 8, 0);
+   }
 ```
 
-### RGB Underglow as a Caps Lock Indicator
+#### Scroll Lock Indicator
+```c
+/* Scroll Lock Indicator */
+   if (host_keyboard_led_state().scroll_lock) {
+     rgblight_setrgb(241, 190, 72);
+   }
+```
 
-Set in `mrsendyyk/keymap.c` in the `led_set_user` function.
+#### Layer Indicator
 
----
+```c
+/* Layer Indicator */
+   else {          
+     switch (get_highest_layer(layer_state)) {
+     /* Fn Layer [1] Indicator */
+        case 1:
+          rgblight_setrgb(255, 110, 0);
+          break;
+     /* Fn Layer [2] Indicator */
+        case 2:
+          rgblight_setrgb(255, 110, 0);
+          break;
+     /* Default Layer [0] Indicator */
+        default:
+          rgblight_setrgb(0, 0, 0);
+          break;
+     }
+     update_led();
+   }
+```
 
-Make example for this keyboard (after setting up your build environment):
+## Build The Firmware
 
-    make dz60:mrsendyyk
-    
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+You will need to build the firmware. To do so go to your terminal window and run the compile command:
+
+    qmk compile -kb dz60 -km mrsendyyk
+
+See [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs).
