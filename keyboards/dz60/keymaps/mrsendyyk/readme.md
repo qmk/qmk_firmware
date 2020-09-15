@@ -29,51 +29,51 @@ Press and hold *right* **Alt** key.
 #### Caps Lock Indicator
 
 ```c
-/* Caps Lock Indicator */
-   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-     writePinLow(B2);
-     rgblight_setrgb(100, 255, 100);
-   }
+    // Caps Lock Indicator
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        writePinLow(B2);
+        rgblight_setrgb(100, 255, 100);
+    }
 ```
 
 #### Num Lock Indicator
 
 ```c
-/* Num Lock Indicator */
-   if (host_keyboard_led_state().num_lock) {
-     rgblight_setrgb(225, 8, 0);
-   }
+    // Num Lock Indicator
+    if (host_keyboard_led_state().num_lock) {
+        rgblight_setrgb(225, 8, 0);
+    }
 ```
 
 #### Scroll Lock Indicator
 ```c
-/* Scroll Lock Indicator */
-   if (host_keyboard_led_state().scroll_lock) {
-     rgblight_setrgb(241, 190, 72);
-   }
+    // Scroll Lock Indicator
+    if (host_keyboard_led_state().scroll_lock) {
+        rgblight_setrgb(255, 110, 0);
+    }
 ```
 
 #### Layer Indicator
 
 ```c
-/* Layer Indicator */
-   else {          
-     switch (get_highest_layer(layer_state)) {
-     /* Fn Layer [1] Indicator */
-        case 1:
-          rgblight_setrgb(255, 110, 0);
-          break;
-     /* Fn Layer [2] Indicator */
-        case 2:
-          rgblight_setrgb(255, 110, 0);
-          break;
-     /* Default Layer [0] Indicator */
-        default:
-          rgblight_setrgb(0, 0, 0);
-          break;
-     }
-     update_led();
-   }
+    // Layer Indicator
+    else {          
+        switch (get_highest_layer(layer_state)) {
+            // Fn Layer [1] Indicator
+            case 1:
+                rgblight_setrgb(100, 255, 100);
+                break;
+            // Fn Layer [2] Indicator
+            case 2:
+                rgblight_setrgb(100, 255, 100);
+                break;
+            // Default Layer [0] Indicator
+            default:
+                rgblight_setrgb(0, 0, 0);
+                break;
+        }
+        update_led();
+    }
 ```
 
 ## Build The Firmware
