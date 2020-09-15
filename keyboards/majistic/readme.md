@@ -2,7 +2,7 @@
 
 ![maJIStic](https://raw.githubusercontent.com/yossiyossy/maJIStic/master/images/main_image.jpg)
 
-A short description of the keyboard/project
+maJIStic is a split, JIS, magic keyboard like, hot-swappable keybaord!
 
 * Keyboard Maintainer: [yossiyossy](https://github.com/yossiyossy)
 * Hardware Supported: [pcb](https://github.com/yossiyossy/maJIStic/tree/master/pcb), [case](https://github.com/yossiyossy/maJIStic/tree/master/case/dxf)

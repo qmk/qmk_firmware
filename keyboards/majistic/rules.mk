@@ -1,5 +1,7 @@
+# MCU name
 MCU = atmega32u4
 
+# Bootloader selection
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -17,6 +19,6 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
