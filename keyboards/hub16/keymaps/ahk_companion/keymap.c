@@ -77,31 +77,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,16,HSV_ORANGE}
-	);
+        {0,16,HSV_ORANGE}
+    );
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,16,HSV_GREEN}
-	);
+        {0,16,HSV_GREEN}
+    );
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,16,HSV_RED}
-	);
+        {0,16,HSV_RED}
+    );
 const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,16,HSV_BLUE}
-	);
+        {0,16,HSV_BLUE}
+    );
 const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,16,HSV_WHITE}
-	);
+        {0,16,HSV_WHITE}
+    );
 const rgblight_segment_t PROGMEM my_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,16,HSV_TEAL}
-	);
+        {0,16,HSV_TEAL}
+    );
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
         my_layer0_layer,
-		my_layer1_layer,
-		my_layer2_layer,
-		my_layer3_layer,
-		my_layer4_layer,
+        my_layer1_layer,
+        my_layer2_layer,
+        my_layer3_layer,
+        my_layer4_layer,
         my_layer5_layer
-	);
+    );
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
@@ -166,4 +166,3 @@ void eeconfig_init_user(void) {
   rgblight_enable(); // Enable RGB by default
   rgblight_sethsv_orange();  // Set it to orange by default
 }
-
