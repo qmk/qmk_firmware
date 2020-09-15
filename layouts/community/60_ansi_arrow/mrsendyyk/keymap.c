@@ -79,7 +79,7 @@ void led_set_user(uint8_t usb_led) {
                 rgblight_setrgb(100, 255, 100);
                 break;
             // Default Layer [0] Indicator
-                default:
+            default:
                 rgblight_setrgb(0, 0, 0);
                 break;
         }
