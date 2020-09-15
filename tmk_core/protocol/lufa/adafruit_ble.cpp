@@ -38,7 +38,7 @@
 
 #ifdef SAMPLE_BATTERY
 #    ifndef BATTERY_LEVEL_PIN
-#        define BATTERY_LEVEL_PIN 7
+#        define BATTERY_LEVEL_PIN B5
 #    endif
 #endif
 
@@ -556,7 +556,7 @@ void adafruit_ble_task(void) {
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
 
-        state.vbat = analogRead(BATTERY_LEVEL_PIN);
+        state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
     }
 #endif
 }

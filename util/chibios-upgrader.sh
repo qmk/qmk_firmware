@@ -38,7 +38,11 @@ find_chibi_files() {
     local search_path="$1"
     shift
     local conditions=( "$@" )
-    find -L "$search_path" -not -path '*/lib/chibios*' -and -not -path '*/lib/ugfx*' -and -not -path '*/util/*' -and \( "${conditions[@]}" \) | sort
+    for file in $(find -L "$search_path" -not -path '*/lib/chibios*' -and -not -path '*/lib/ugfx*' -and -not -path '*/util/*' -and \( "${conditions[@]}" \) | sort) ; do
+        if [ -z "$(grep 'include_next' "$file")" ] ; then
+            echo $file
+        fi
+    done
 }
 
 revert_chibi_files() {
