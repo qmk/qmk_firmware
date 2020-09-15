@@ -46,16 +46,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * …
      *
      * Todo:
-             ☐ There might be some stale comments.
              ☐ Push DEL on _NSY top/right key through documentation
              ☐ Testing all user configurations
             ?☐ optional removal of alternate base layers/system
-            ?☐ Leds #on/off startup, removal
-             ☐ Add Colemak/Workman, #define TYPING_LAYOUT BASES_QWERTY_DVORAK
-                                    #define TYPING_LAYOUT BASES_WORKMAN_QWERTY
-                                    #define TYPING_LAYOUT BASES_COLEMAN_QWERTY
-                                    Azerty, Qwertz
-               ./bases_workman_qwerty.c ./bases_coleman_qwerty.c
+            ?☐ Leds #on/off startup and removal
      *
      * */
 
@@ -86,9 +80,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
 enum {
     _DEF_BASE,  //  Default BASE layer (layer at startup). Typically the letters.
+# ifndef MINIFAN_SINGLE_LAYOUT
     _ALT_BASE,  //  Alternative BASE layer.
+# endif
     _DEF_NSY,   //  numbers and symbols
+# ifndef MINIFAN_SINGLE_LAYOUT
     _ALT_NSY,   //  Alternate version of _DEF_NSY
+# endif
     _MOV,  //  movement arrows and mouse
     _RAR,  //  keys RARely used, Unicode config, Power keys, Media keys, alternate mode switch, speed/size count, …
     _PAD,  //  Numbers pad. These are different versions of the same numbers, that is ‛1’ (_NSY) ≠ ‛1’ (_PAD).
@@ -1051,7 +1049,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2    , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>        , index>  , middl>           , ring>              , pinky>  , pink2>        ,
 //                ,                  ,                  ,                  , -*-              ,                 <|,>              ,         ,                  ,                    ,         ,               ,
-        CTO_BASE  , COUNT_TOG        , COUNT_NULL       , COUNT_WORDMIN    , COUNT_REPORT     , SPEED_TOG         , SPEED_REPORT  , KC_MPLY , KC_MNXT          , KC_MPRV            , KC_MSTP , KC_RSFT       , // BASE_DESCRMBL is #redefined for BASES_QWERTY_DVORAK.
+        CTO_BASE  , COUNT_TOG        , COUNT_NULL       , COUNT_WORDMIN    , COUNT_REPORT     , SPEED_TOG         , SPEED_REPORT  , KC_MPLY , KC_MNXT          , KC_MPRV            , KC_MSTP , KC_RSFT       ,
         KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
         XP_DRA_CG , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1064,7 +1062,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           , MORE_key1
 #     endif
 
-                          , KC__XGUI , XXXXXXX , BASE_DESCRMBL , XXXXXXX  // BASE_DESCRMBL is #redefined for BASES_QWERTY_DVORAK.
+                          , KC__XGUI , XXXXXXX , OTHER_BASE , XXXXXXX 
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
                                                                    , XXXXXXX

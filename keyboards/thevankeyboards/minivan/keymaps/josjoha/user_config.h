@@ -73,35 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BASE_COLEMAK__ALT_BASE // _Activate_ if you want Colemak on the ‛Alternate’ spot
 
 
-        /*                        Base layers
-         *
-         * Here you can define what base layer(s) you want. Normally the base layer is a
-         * letters layer, with an accompanying numbers/symbols layer. One base layer with
-         * its numbers layer normally contains a layout such as: Dvorak, Qwerty, Colemak, etc. 
-         *
-         * In this dual-layout system you can have a second layout like Dvorak, Qwerty, Colemak, 
-         * on the alternate base layer with its alternate numbers/symbols layer. You can switch
-         * between them with a key on _RAR layer.
-         *
-         */
-//  #define DVORAK_DESCRAMBLE_HALF // _Activate_ to have a normal Dvorak on the default base layer,
-                               // and Dvorak which works on a computer which is already set to Dvorak on alternate.
-                               // The readme is in:          ./bases_dvorak_descramble.md
-                               // This layout is defined in: ./bases_dvorak_descramble.c
-                               // There could be further configuration options in this file.
-//#define BASES_QWERTY_DVORAK // _Activate_ to have Qwerty on default base layer, and Dvorak on alternate base layer.
-                               // The readme is in:          ./bases_qwerty_dvorak.md
-                               // This layout is defined in: ./bases_qwerty_dvorak.c
-                               // There could be further configuration options in this file.
-                               //
-// //#define BASES_YOUR_KEYMAP_NAME // You can define your own default and alternate base layers, and hook them
-                                    // into the code with a #define like this. Change “YOUR_KEYMAP_NAME” to your liking.
-                                    // Look in ./keymap.c under
-                                    /********************        What base layers to use:        **************/
-                                    // Then #include your keymap C code file ./bases_YOUR_KEYMAP_NAME.c there as an option.
-                                    // If it could be generally useful: add a readme and consider a pull request on QMK github 👍.
-
-
         /*                        Startup layer
          *
          * You can define which of the two BASE layers is on when powering up the keyboard.
@@ -264,10 +235,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
        /*                         Firmware size / bloat / clutter reductions
+        */
+       /*                                  Single layout
         *
-        * Removing one or more of the Unicode layers _ACC (accented characters), _DRA and/or _BON (various Unicode).
-        *
-        * Removes the _ACC layer, optionally redirect its key. This can save some 750 bytes. 
+        * Removes the ‛Alternate’ base layers, and removes the switch key on _RAR.
+        * ⚠ You have to not define a ‛Alternate’ base layer pair. Define only a ‛Default’ pair.
+        */
+//#define MINIFAN_SINGLE_LAYOUT // _Activate_ to only have the ‛Default’ base layers, _remove_ to also have ‛Alternate’.
+       //
+       //
+       /*              Removing one or more of the Unicode layers _ACC, _DRA or_BON
+        */
+       /* Removes the _ACC layer, optionally redirect its key. This can save some 750 bytes. 
         */
 //#define REMOVE_ACC // _Activate_ to strip out the _ACC layer, _remove_ to have the _ACC layer.
         /* Unless REMOVE_ACC is _active_, the next defines which redirect the _ACC key(s) are ignored. */
@@ -291,6 +270,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define _BON_KEY_ALT_LAYER _DRA // _Activate_ to make the key(s) that normally goes to _BON, go to _DRA instead.
        /*
         *
+        *                                  Removing groups of characters
+        */
+       /*
         * The below cut out an amount of symbols on a given layer, to simplify and/or reduce firmware size a little.
         */
 //#define ALL_DRA_BON_EVISCERATIONS // _Activate_ this to _remove_ the below all at once. (Seems to save only ±114 bytes)
@@ -357,6 +339,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // The below sets some things up based on the above #defines.
+
+// This is sort of a hack. It re-defines _ALT_BASE and _ALT_NSY to point to the same
+// layer as _DEF_BASE and _DEF_NSY, because there are quite a few references to the
+// former and putting #if then around each one complicated the code even more. If needed,
+// it can be changed later. This option already reduces firmware size, so we should be
+// well below the maximum.
+# ifdef MINIFAN_SINGLE_LAYOUT
+#     define _ALT_BASE _DEF_BASE
+#     define _ALT_NSY _DEF_NSY
+# endif
 
 // This triggers the compilation of special _HALF_ descramble mode, where you access
 // the Unicode layers without passing them through the descramble system (middle led

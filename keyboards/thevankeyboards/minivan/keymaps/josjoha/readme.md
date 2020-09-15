@@ -283,8 +283,8 @@ BASE, etc. These accidental layer switching possibilities are not shown.)
 
 Compile options
 ===============
- - Layouts: You can use the keyboard with two different letters/number-symbols layouts, switching between them.
-   Currently available pairs are: Dvorak², Qwerty+Dvorak.
+ - You can use the keyboard with two different letters/number-symbols layouts, switching between them.
+ - You can compile the keyboard as a single layout (see ‛Eviscerations’).
  - Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
 ![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
  - What the additional hardware keys for _arrow,_ _south paw_ should be.
@@ -946,18 +946,23 @@ You can re-define `_ACC` in your own file.
 Eviscerations
 -------------
 
-You can remove the layers `_ACC`, `_DRA` and/or `_BON` (see
-`./user_config.h` around `REMOVE_ACC`), and/or just remove an amount of
-symbols from one or more of these layers, such as not having box drawing
-characters on `_BON`, or no sub-script numbers on `_DRA`.
-
-If you remove `_ACC` and `_BON` *without* repurposing the key which
-changes to the `_ACC` layer by not _activating_ one of the provided #defines
-there, that key will become a good old Delete key (which
-repeats).
-
 Cutting down the keymap reduces the firmware size, and helps reducing
 mental clutter from having masses of symbols you might never want to use.
+
+You can compile as a single layout. Define only a ‛Default’ base pair,
+and set `MINIFAN_SINGLE_LAYOUT` (`./user_config.h`).
+
+You can remove the layers `_ACC`, `_DRA` and/or `_BON` (see
+`./user_config.h` around `REMOVE_ACC`). 
+
+➡ If you remove `_ACC` and `_BON` *without* repurposing the key
+which changes to the `_ACC` layer by not _activating_ one of the
+provided #defines there, that key will become a good old Delete key
+(which repeats).
+
+You can remove a set of symbols from one or more of Unicode layers,
+such as not having box drawing characters on `_BON`, or no sub-script
+numbers on `_DRA`.
 
 
 Trouble shooting
@@ -1060,9 +1065,20 @@ Use case
 
 Todo
 ----
-        - Support for other common layouts such as Colemak, Qwertz, Azerty,
+        ① Support for other common layouts such as Qwertz, Azerty,
           with a matching `_ACC` layer for specific language layouts.
-        - Support/testing for other keyboards.
+
+        ② Support/testing for other keyboards. If this is to support
+          keyboards other than 12×12×12×[8-12] or different leds,
+          it seems best to isolate those layers in one subdirectory, and
+          copy/edit that to other subdirectories for those mini 40%-50%
+          keyboards. The layers would get too cluttered with endless
+          #defines otherwise.
+
+        - Cook: ‛command’ and ‛arrow’ key for PAD/FUN toggle (#defines)
+        - Right shift cook: various layers like left shift. Especially RAR,
+          to deal with pure Arrow hardware layout & arrows on top (looses RAR).
+        - Compile single layout.
 
 
 BUGS
@@ -1080,8 +1096,8 @@ BUGS
 
   The eviscerations may not have been worked out yet into the ultimate scrubbing of
   everything that may have become redundent, because it does complicate the code with
-  a lot of #defines. However it probably should be done eventually, because firmware
-  size is important.
+  a lot of #defines. Perhaps it should be done eventually, if there is an actual need.
+  “Premature optimization is the root of all evil.” - Donald Knuth. 
 
   Only tested on Linux (FIXME).
 

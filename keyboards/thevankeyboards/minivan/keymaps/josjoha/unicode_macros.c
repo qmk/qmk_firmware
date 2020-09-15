@@ -123,7 +123,7 @@ enum custom_keycodes {
     // layer system call DF() is not being used.
     CTO_BASE = SAFE_RANGE, // 'C' for costum, "TO" for to, "BASE" for chosen base layer
 
-    BASE_DESCRMBL, // cycles modes: use _DEF_BASE, _ALT_BASE. For DVORAK_DESCRAMBLE compile option, there is a third mode.
+    OTHER_BASE, // cycles modes: use _DEF_BASE, _ALT_BASE. For “dvorak²” layout (descramble) compile option, there is a third mode.
 
     CTO_NUMS, // activates number-symbols layer, taking into account the dual layout mode
     CTO_ACCE, //             accented        '' 
@@ -585,7 +585,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // There are macros on Shift who also alter this variable.
             break;
 
-        case BASE_DESCRMBL: // Switching through the default/alternate BASE modes, and Descramble for that Dvorak compile
+        case OTHER_BASE: // Switching through the default/alternate BASE modes, and Descramble for that Dvorak compile
             if (record->event.pressed) {
                 ;
             }else{ // key up
