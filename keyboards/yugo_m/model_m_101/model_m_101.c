@@ -24,20 +24,20 @@ void matrix_init_kb(void) {
 
 void led_init_ports() {
     // Set our LED pins as output
-    palSetPadMode(GPIOA, 2, PAL_MODE_OUTPUT_PUSHPULL); // LED1
+    palSetPadMode(GPIOA, 2, PAL_MODE_OUTPUT_PUSHPULL); // NumLock LED
     palClearPad(GPIOA, 2);
-    palSetPadMode(GPIOA, 1, PAL_MODE_OUTPUT_PUSHPULL); // LED2
+    palSetPadMode(GPIOA, 1, PAL_MODE_OUTPUT_PUSHPULL); // CapsLock LED
     palClearPad(GPIOA, 1);
-    palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL); // LED3
+    palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL); // ScrollLock LED
     palClearPad(GPIOA, 0);
 }
 
 void led_set_kb(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        // Turn NumLock on
+        // Turn NumLock on (pin LOW)
         palClearPad(GPIOA, 2);
     } else {
-        // Turn NumLock off
+        // Turn NumLock off (pin HIGH)
         palSetPad(GPIOA, 2);
     }
 

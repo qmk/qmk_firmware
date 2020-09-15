@@ -2,7 +2,7 @@
 #### The stm32-based IBM Model M controller
 
 A drop-in replacement controller PCB for IBM Model M keyboards. 
-Currently available only for 101/102 key
+Currently available only for 101/102 key keyboards. 
 
 * Keyboard Maintainer: [Nidzo Tomic](https://github.com/tomic1785)
 * Hardware Supported: Yugo-M PCB
