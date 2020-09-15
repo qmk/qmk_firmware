@@ -6,7 +6,7 @@
 
 ### Default Layer [0]
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/ai03_soyuz/assets/ai03-soyuz-with-gmk-metropolis.png)
+![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/keymap-with-gmk-metropolis.png)
 
 ## Build The Firmware
 

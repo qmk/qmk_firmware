@@ -6,11 +6,11 @@
 
 ### Default Layer [0]
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/hmkb_65/assets/hmkb-65-with-gmk-nines---layer-0.png)
+![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/eon65/assets/keymap-with-gmk-nines---layer-0.png)
 
 ### Fn Layer [1]
 
-![Fn Layer [1]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/hmkb_65/assets/hmkb-65-with-gmk-nines---layer-1.png)
+![Fn Layer [1]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/eon65/assets/keymap-with-gmk-nines---layer-1.png)
 
 ## Build The Firmware
 
