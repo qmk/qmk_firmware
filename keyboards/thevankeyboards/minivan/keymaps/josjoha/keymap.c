@@ -28,28 +28,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-    /* Configurable keymap for Minivan layouts 44, 45, 46 keys.
-     *
-     * - There are two ‛BASE’ layers: ‛default base layer’ and ‛alternate base layer’.
-     *   Each comes with its own numbers/symbols (123...!@#...[]/...) layer.
-     *   You can switch between the default and alternate at will.
-     *   The rest of the layers are shared between both ‛BASE’ layers.
-     *   The ‛BASE’ layers with their number/symbols layer, are defined in a separate file.
-     * - 'Escape' always goes back to the ‛base’ layer. 
-     * - You can compile with various ‛base’ layer pairs (default and alternate).
-     * - All layers can be toggled through the _FUN layer.
-     * - A lot of the modifiers, Del/Esc, alt-arrows repeat on layers.
-     * - Hold layer switching by thumbs, for normal use.
-     * - Rather than AltGr or Compose (which for some reason did not work here
-     *   at the moment), there are three Unicode symbols layers.
-     * - Speed measuring, text counting.
-     * …
+    /* Configurable keymap for Minivan layouts 44, 45, 46 keys.  
+     * May work for 12×12×12×[11-12] keys as well.
+     * Configuration in ./user_config.h
      *
      * Todo:
-             ☐ Push DEL on _NSY top/right key through documentation
+
+             ☐ Cook: ‛command’ and ‛arrow’ key for PAD/FUN toggle (#defines)
+               This is needed for a “Qwerty with arrows on top” layout, because
+               it will overwrite the _RAR layer hold key.
+             ☐ Right shift cook: various layers like left shift. Especially RAR,
+               to deal with pure Arrow hardware layout & arrows on top (looses RAR).
+            ?☐ Push DEL on _NSY top/right key through documentation
              ☐ Testing all user configurations
-            ?☐ optional removal of alternate base layers/system
-            ?☐ Leds #on/off startup and removal
+            ?☐ Leds #on/off startup
+             ☐ Test/fix what happens when leds are undefined with the existing QMK led #define
+            ?☐ Review/fix C indendation. QMK indentation is not my preferred style, and 
+               therefore it is not entirely consistent. 
+             ☑ Compile single layout.
      *
      * */
 
@@ -64,12 +60,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    *
    * The led color code might be a bit hairy, due to speed/count middle led overlapping layer color. 
    *
-   * Preprocessor indentation: # always in column one, #includes and #defines
-   * are most to the left unless nested, logical stuff (#if etc) is indented
-   * from column two, and then in each nesting goes 4 more spaces to the
-   * right, so in between the normal code indentations. There is a newline above
-   * and below logical statements. This makes preprocessor statements stand
-   * out, while giving more information in each statement.
+   *  Preprocessor indentation: # always in column one, #includes and #defines
+   *  are most to the left unless nested, except in the user configuration
+   *  block where room is left for a ‛//’. Logical stuff (#if etc) is
+   *  indented from column two, and then in each nesting goes 4 more spaces
+   *  to the right, so in between the normal code indentations. There should
+   *  be a newline above and below logical statements. This makes preprocessor
+   *  statements stand out, while giving more information in each statement.
+   *  C indentation: trying to follow QMK standard.
    *
    */
 

@@ -950,7 +950,9 @@ Cutting down the keymap reduces the firmware size, and helps reducing
 mental clutter from having masses of symbols you might never want to use.
 
 You can compile as a single layout. Define only a ‛Default’ base pair,
-and set `MINIFAN_SINGLE_LAYOUT` (`./user_config.h`).
+and set `MINIFAN_SINGLE_LAYOUT` (`./user_config.h`). The leds for the
+base layers letters and numbers&symbols, will show up as they would for
+the ‛Alternate’ layer in a dual layout compilation.
 
 You can remove the layers `_ACC`, `_DRA` and/or `_BON` (see
 `./user_config.h` around `REMOVE_ACC`). 
@@ -1074,11 +1076,6 @@ Todo
           copy/edit that to other subdirectories for those mini 40%-50%
           keyboards. The layers would get too cluttered with endless
           #defines otherwise.
-
-        - Cook: ‛command’ and ‛arrow’ key for PAD/FUN toggle (#defines)
-        - Right shift cook: various layers like left shift. Especially RAR,
-          to deal with pure Arrow hardware layout & arrows on top (looses RAR).
-        - Compile single layout.
 
 
 BUGS

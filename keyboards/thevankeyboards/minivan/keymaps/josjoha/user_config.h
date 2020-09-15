@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //                        * Dvorak descramble mode *
          //           (Dvorak for a computer already remapping to Dvorak)
          // This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
-  #define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
+//#define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
          //
          //                        * Qwerty *
          //                  (a regular Qwerty layout)
@@ -241,7 +241,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * Removes the ‛Alternate’ base layers, and removes the switch key on _RAR.
         * ⚠ You have to not define a ‛Alternate’ base layer pair. Define only a ‛Default’ pair.
         */
-//#define MINIFAN_SINGLE_LAYOUT // _Activate_ to only have the ‛Default’ base layers, _remove_ to also have ‛Alternate’.
+  #define MINIFAN_SINGLE_LAYOUT // _Activate_ to only have the ‛Default’ base layers, _remove_ to also have ‛Alternate’.
        //
        //
        /*              Removing one or more of the Unicode layers _ACC, _DRA or_BON
