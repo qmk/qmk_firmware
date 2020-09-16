@@ -107,10 +107,6 @@ ifeq ($(strip $(RGB_MATRIX_SPLIT_RIGHT)), yes)
     OPT_DEFS += -DRGB_MATRIX_SPLIT_RIGHT
 endif
 
-ifeq ($(strip $(Link_Time_Optimization)),yes)
-  EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
-endif
-
 # Uncomment these for debugging
 # $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
 # $(info -- OPT_DEFS=$(OPT_DEFS))
