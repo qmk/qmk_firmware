@@ -21,4 +21,4 @@ AUDIO_ENABLE = yes
 
 # project specific files
 SRC =	led.c
-LAYOUTS += 66_ansi
+LAYOUTS = 66_ansi

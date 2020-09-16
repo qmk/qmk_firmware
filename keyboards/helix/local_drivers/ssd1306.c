@@ -10,9 +10,6 @@
 #else
 #include <helixfont.h>
 #endif
-#ifdef ADAFRUIT_BLE_ENABLE
-#include "adafruit_ble.h"
-#endif
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #endif

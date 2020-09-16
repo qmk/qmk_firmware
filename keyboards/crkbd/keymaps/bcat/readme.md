@@ -4,11 +4,11 @@ This is my favorite split ergo layout for typing, featuring the traditional
 four ortho/ergo layers (Default, Lower, Raise, Adjust). It is loosely inspired
 by the default Planck (numbers on Lower, symbols on Raise) and Crkbd (Space on
 left, Enter on right) layouts, but has since been redesigned heavily according
-to the principles described below:
+to the principles described below.
 
-* Since most of the modifiers are on the left half, keys frequently pressed
-together with mods (e.g., numbers, function keys, etc.) are on the Raise layer
-activated by the right thumb.
+* Since my most-frequently-used keyboard shortcuts involve Ctrl, which lives on
+the left half of the keyboard, keys frequently used with it (numbers, function
+keys, etc.) are on the Raise layer activated by the right thumb.
 
 * Navigation can be done on the right half alone, to enable simultaneous
 left-handed mousing. Additionally, Web pages can be scrolled with Space or
@@ -22,7 +22,7 @@ layer-switch keys to correct mistakes.
 
 ## Default layer
 
-![Default layer layout](https://i.imgur.com/s1LDlSQ.png)
+![Default layer layout](https://i.imgur.com/g5N7g8D.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/08d9827d916662a9414f48805aa895a5))
 
@@ -31,29 +31,26 @@ layer-switch keys to correct mistakes.
 * Tab and Backspace are in familiar locations from my row-staggered boards
 (almost all of which use HHKB-style split backspace).
 
+* The Esc key is next to the home row for convenience in Vim.
+
 * Likewise, the Ctrl key is in the same place as on my row-staggered boards
 (where I've been remapping Caps Lock as Ctrl since before even using QMK).
 
-* There are two Shift keys, because I do use Right Shift on occasion (even
-though I'm predominately a Left Shift-er).
+* There are two Shift keys, although I generally use Left Shift. (I've
+considered replacing Right Shift with another key, but haven't chosen one.)
 
-* Lower and Raise layer-switch keys are below the left and right thumb,
-respectively, when resting my fingers on the home row.
+* Lower and Raise layer-switch keys are in the resting position of my left and
+right thumbs, respectively.
 
 * Space and Enter are on the big thumb keys so they're easy to press.
 
-* Alt is on the left so I can navigate back (Alt+Raise+H) and forward
-(Alt+Raise+L) without having to uncomfortably hit two thumb keys on the same
-half. This puts Super on the right by the process of elimination.
-
-* Escape shares a mod-tap key with Ctrl, which is convenient for Vim, but not
-something I'm totally in love with, as even after tweaking `TAPPING_TERM` I
-still get occasional spurious Esc taps. (I might move Esc up a key and put Tab
-on a layer, but that'd take some getting used to....)
+* Ctrl is on the left for ease of chording, especially one-handed use of common
+shortcuts like Ctrl+T and Ctrl+W. This puts Alt on the right by the process of
+elimination.
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/SsxvCgy.png)
+![Lower layer layout](https://i.imgur.com/djIkwsa.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/c3fba5eaa2cd70fdfbdbc0f9e34d3bc0))
 
@@ -74,17 +71,23 @@ bottom row.
 right half, with the same relative positions as on a row-staggered HHKB layout.
 And yup, the shifted versions are above the unshifted versions.
 
-* Caps Lock is bound in the same position as on an HHKB, for lack of an obvious
-better location.
+* Remaining keys from a TKL are placed out of the way on the bottom row of the
+left half.
 
-* Some extra keys are placed on the bottom row of the left half, ensuring every
-key on a TKL has a binding.
+* The home row on the left half contains handy shortcuts for window movement,
+and browser navigation, and screen lock.
 
-* The left-half home row is reversed for future use. (It's free real estate.)
+* Lower+Esc is bound to Ctrl+Space because the Ctrl and Space keys are both on
+the left thumb, so this key combination (which I use for tmux prefix and editor
+autocomplete) is hard to press in its natural location.
+
+* Lower+Tab is bound to a custom Alt+Tab macro that keeps the Alt modifier held
+as long as the Lower key is held down. This means that window switching is on
+Lower+Tab immediately next to browser tab switching (Ctrl+Tab).
 
 ## Raise layer
 
-![Raise layer layout](https://i.imgur.com/cVoKygg.png)
+![Raise layer layout](https://i.imgur.com/VNEiV9A.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/08b44355d4ca85d294bad9e2821f91d7))
 
@@ -106,9 +109,11 @@ keys (F1–F5) on the home row.)
 * Insert and Delete are on the rightmost column, because there didn't seem to
 be a better place to put them.
 
+* Caps Lock is bound in the same position as on an HHKB, for lack of an obvious better location.
+
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/LEHM4DU.png)
+![Adjust layer layout](https://i.imgur.com/fZouko5.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/77e7572e077b36a23eb2086017e16fee))
 
