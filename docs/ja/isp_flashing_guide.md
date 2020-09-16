@@ -64,7 +64,8 @@ You'll need one of the following to actually perform the ISP flashing (followed 
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
 
 There are other devices that can be used to ISP flash, but these are the main ones.  Also, all product links are to the official versions. You can source them elsewhere. 
-ISP書き込みに使用できるデバイスは他にもありますが、これらが主なものです。 また、すべての製品リンクは公式バージョンへのものです。他の場所で入手することができます。
+ISP書き込みに使用できるデバイスは他にもありますが、これらが主なものです。
+また、すべての製品リンクは公式バージョンへのものです。他の場所で入手することができます。
 
 You'll also need something to wire your "ISP Programmer" to the device that you're programming.  Some PCBs may have ISP headers that you can use directly, but this often isn't the case, so you'll likely need to solder to the controller itself or to different switches or other components. 
 また、"ISP Programmer" をプログラミングするデバイスに配線するためのものも必要になります。
@@ -89,7 +90,8 @@ The QMK Toolbox can be used for most (all) of this.
 QMK ツールボックスは、このほとんど（すべて）に使用することができます。
 
 However, you can grab the [Teensy Loader](https://www.pjrc.com/teensy/loader.html) to flash your Teensy 2.0 board, if you are using that. Or you can use `avrdude` (installed as part of `qmk_install.sh`), or [AVRDUDESS](https://blog.zakkemble.net/avrdudess-a-gui-for-avrdude/) (for Windows) to flash the Pro Micro, and the ISP flashing. 
-[Teensy Loader](https:/www.pjrc.comteensyloader.html) を使えば、Teensy 2.0 ボードに書き込むことができます。あるいは、`avrdude` (`qmk_install.sh` の一部としてインストールされています) や、[AVRDUDESS](https:/blog.zakkemble.netavrdudess-a-gui-for-avrdude)(Windows用) を使って、Pro Micro に書き込んだり、ISPを書き込んだりすることができます。
+[Teensy Loader](https:/www.pjrc.comteensyloader.html) を使えば、Teensy 2.0 ボードに書き込むことができます。
+あるいは、`avrdude` (`qmk_install.sh` の一部としてインストールされています) や、[AVRDUDESS](https:/blog.zakkemble.netavrdudess-a-gui-for-avrdude)(Windows用) を使って、Pro Micro に書き込んだり、ISPを書き込んだりすることができます。
 
 ## 配線 Wiring
 
@@ -137,10 +139,12 @@ ISP プログラマをセットアップして、キーボードに接続した�
 ### ブートローダファイル The Bootloader File
 
 The simplest and quickest way to get things back to normal is to flash only a bootloader to the keyboard. Once this is done, you can connect the keyboard normally and flash the keyboard like you normally would. 
-一番簡単で手っ取り早い方法は、キーボードにブートローダだけ書き込むことです。これが終れば、普通にキーボードを接続して、普通にキーボードに書き込みできるようになります。
+一番簡単で手っ取り早い方法は、キーボードにブートローダだけ書き込むことです。
+これが終れば、普通にキーボードを接続して、普通にキーボードに書き込みできるようになります。
 
 You can find the stock bootloaders in the [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util). Be sure to flash the correct bootloader for your chip:
-標準のブートローダは[`util/` フォルダー](https://github.com/qmk/qmk_firmware/tree/master/util) にあります。 チップの正しいブートローダを書き込んでください:
+標準のブートローダは[`util/` フォルダー](https://github.com/qmk/qmk_firmware/tree/master/util) にあります。
+チップの正しいブートローダを書き込んでください:
 
 * **Atmel DFU**
   * [ATmega16U4](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega16u4_1.0.1.hex)
@@ -160,7 +164,8 @@ If you're not sure what your board uses, look in the `rules.mk` file for the key
 ### Production Techniques
 
 If you'd like to flash both the bootloader **and** the regular firmware at the same time, there are two options to do so.  Manually, or with the `:production` target when compiling. 
-ブートローダと通常のファームウェアを同時に書き込みたい場合、2 つの方法があります。 手動で行うか、コンパイル時に `:production` ターゲットを使って行うかです。
+ブートローダと通常のファームウェアを同時に書き込みたい場合、2つの方法があります。
+手動で行うか、コンパイル時に `:production` ターゲットを使って行うかです。
 
 To do this manually:
 手動で行うには:
@@ -181,19 +186,23 @@ To do this manually:
 #### QMK DFU ブートローダとプロダクションイメージの作成
 
 You can create the firmware, the QMK DFU Bootloader and the production firmware images for the board using the `:production` target when compiling.  Once this is done, you'll see three files:
-コンパイル時に `:production` ターゲットを使用して、ボード用のファームウェア、QMK DFU ブートローダ、プロダクションファームウェアイメージを作成することができます。 これが完了すると、3つのファイルが表示されます:
+コンパイル時に `:production` ターゲットを使用して、ボード用のファームウェア、QMK DFU ブートローダ、プロダクションファームウェアイメージを作成することができます。
+これが完了すると、3つのファイルが表示されます:
+
 * `<keyboard>_<keymap>.hex`
 * `<keyboard>_<keymap>_bootloader.hex`
 * `<keyboard>_<keymap>_production.hex`
 
 The QMK DFU bootloader has only really been tested on `atmega32u4` controllers (such as the AVR based Planck boards, and the Pro Micro), and hasn't been tested on other controllers.  However, it will definitely not work on V-USB controllers, such as the `atmega32a` or `atmega328p`.
-QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの Planck ボードや Pro Micro など) でしかテストされておらず、他のコントローラではテストされていません。 しかし、`atmega32a` や `atmega328p` のような V-USB コントローラでは間違いなく動作しません。
+QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの Planck ボードや Pro Micro など) でしかテストされておらず、他のコントローラではテストされていません。
+しかし、`atmega32a` や `atmega328p` のような V-USB コントローラでは間違いなく動作しません。
 
 You can flash either the bootloader or the production firmware file. The production firmware file will take a lot longer to flash, since it's flashing a lot more data. 
-ブートローダかプロダクションファームウェアファイルのどちらかを書き込むことができます。プロダクションファームウェアファイルの方が、より多くのデータを書き込むので、書き込みに時間がかかります。
+ブートローダかプロダクションファームウェアファイルのどちらかを書き込むことができます。
+プロダクションファームウェアファイルの方が、より多くのデータを書き込むので、書き込みに時間がかかります。
 
 ?> Note: You should stay with the same bootloader. If you're using DFU already, switching to QMK DFU is fine. But flashing QMK DFU onto a Pro Micro, for instance, has additional steps needed.
-注意：同じブートローダを使用しつづけるべきです。すでに DFU を使用している場合は、QMK DFU に切り替えても問題ありません。しかし、例えば Pro Micro に QMK DFU をフラッシュするには、追加の手順が必要になります。
+?> 注意：同じブートローダを使用しつづけるべきです。すでに DFU を使用している場合は、QMK DFU に切り替えても問題ありません。しかし、例えば Pro Micro に QMK DFU をフラッシュするには、追加の手順が必要になります。
 
 ## Flashing Your Bootloader/Production File
 ## ブートローダ/プロダクションファイルの書き込み
@@ -209,11 +218,18 @@ If you want to change bootloader types, You'll need to use the command line.
 1. `AVRISP device connected` or `USB Tiny device connected` will show up in yellow
 1. 'AVRISP device connected' または `USB Tiny device connected` が黄色で表示されます。
 2. Select the correct bootloader/production .hex file with the `Open` dialog (spaces can't be in the path)
+2. `Open` ダイアログで正しいブートローダー/プロダクションの .hex ファイルを選択します（パスにスペースを含めることはできません）
 3. Be sure the correct `Microcontroller` option for the keyboard you're flashing (not the ISP programmer) is selected
-4. Hit `Flash`
+3. 書きこもうとしているキーボード（ISPプログラマではなく）のための正しい `Microcontroller` オプションが選択されていることを確認してください。
+4. `Flash` を押します
 5. Wait, as nothing will output for a while, especially with production files
+5. 特にプロダクションファイルの場合、しばらくは何も出力されませんが、待ちましょう。
 
 If the verification and fuse checks are ok, you're done! Your board may restart automatically, otherwise, unplug your Teensy and plug in your keyboard - you can leave your Teensy wired to your keyboard while testing things, but it's recommended that you desolder it/remove the wiring once you're sure everything works.
+確認とヒューズのチェックに問題がなければ、完了です。
+ボードが自動的に再起動する場合があります。
+それ以外の場合は、Teensy のプラグを抜いて、キーボードを接続します。
+テスト中は、Teensy をキーボードに接続したままにすることができますが、すべてが正常に機能することを確認したら、はんだを外すか、配線を外すことをお勧めします。
 
 ### コマンドライン Command Line
 
