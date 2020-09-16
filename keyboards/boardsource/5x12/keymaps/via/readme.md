@@ -1,4 +1,4 @@
-# The via keymap for boardsource 5x12 orthlinear keyboard
+# The via keymap for boardsource 5x12 ortholinear keyboard
 
 This folder contains the [VIA](https://caniusevia.com/) configuration for the boardsource 5x12 ortholinear keyboard
 
