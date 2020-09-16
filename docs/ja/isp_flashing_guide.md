@@ -234,6 +234,10 @@ If the verification and fuse checks are ok, you're done! Your board may restart 
 ### コマンドライン Command Line
 
 Open a terminal (`cmd` on Windows, for instance) and navigate to your where your modified .hex file is. We'll pretend this file is called `main.hex`, and that your Teensy 2.0 is on the `COM3` port - if you're unsure, you can open your Device Manager, and look for `Ports > USB Serial Device`. Use that COM port here. You can confirm it's the right port with:
+ターミナル（Windows の場合は `cmd`）を開いて、修正した .hex ファイルがある場所に移動します。
+ここでは、このファイルを `main.hex` と呼び、Teensy 2.0 が `COM3` ポートに接続されていると仮定します。
+よくわからない場合は、デバイスマネージャを開いて、`Ports > USB Serial Device` を探してください。ここにあるCOMポートを使ってください。
+あなたはそれが正しいポートであることを確認することができます：
 
     avrdude -c avrisp -P COM3 -p atmega32u4
 
@@ -250,14 +254,18 @@ and you should get something like the following output:
     avrdude done.  Thank you.
 
 Since our keyboard uses an `atmega32u4` (common), that is the chip we'll specify. This is the full command:
+私たちのキーボードは `atmega32u4`（共通）を使用しているので、これが指定するチップです。
+以下が完全なコマンドです：
 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i
 
 If your board uses an `atmega32a` (e.g. on a jj40), the command is this (the extra code at the end sets the fuses correctly):
+ボードが `atmega32a`（jj40など）を使用している場合、コマンドは次のとおりです（最後の追加コードによりヒューズが正しく設定されます）。
 
 	avrdude -c avrisp -P COM3 -p atmega32 -U flash:w:main.hex:i -U hfuse:w:0xD0:m -U lfuse:w:0x0F:m
 
 You should see a couple of progress bars, then you should see:
+プログレスバーが表示されてから、以下が表示されるはずです。
 
     avrdude: verifying ...
     avrdude: 32768 bytes of flash verified
