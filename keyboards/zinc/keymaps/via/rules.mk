@@ -21,7 +21,7 @@ RGB_MATRIX = no             # RGB LED Matrix
 RGB_MATRIX_SPLIT_RIGHT = no # RGB Matrix for RIGHT Hand
 LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-Link_Time_Optimization = no # if firmware size over limit, try this option
+LTO_ENABLE = no # if firmware size over limit, try this option
 
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
