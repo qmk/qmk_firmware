@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER ai03 Design Studio
 #define PRODUCT Lunar II
-#define DESCRIPTION Second gen compact AEK keyboard
+#define DESCRIPTION Compact AEK keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Solenoid support */
 #define SOLENOID_PIN B7
-#define SOLENOID_DEFAULT_DWELL 100
+#define SOLENOID_DEFAULT_DWELL 15
 
 
 /*
