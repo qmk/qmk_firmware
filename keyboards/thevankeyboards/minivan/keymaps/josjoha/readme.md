@@ -268,7 +268,7 @@ Layer access
 ------------
 This graphic shows how layers are reached from the ‛Default base’ layer.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_va.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vc.jpg)
 
 The upper/left key which returns to the base layer (letters) on the number layers
  `_DEF_NSY` and `_ALT_NSY` always point to their base layer: `_DEF_BASE` and
