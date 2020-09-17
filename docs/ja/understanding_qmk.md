@@ -5,7 +5,7 @@
   git diff 0.9.55 HEAD -- docs/understanding_qmk.md | cat
 -->
 
-このドキュメントでは、QMK ファームウェアがどのように機能するかを非常に高いレベルから説明しようとしています。基本的なプログラミングの概念を理解していることを前提としていますが、(実証する必要がある場合を除き) C に精通していることを前提にはしていません。以下のドキュメントの基本的な理解をしていることを前提としています。
+このドキュメントでは、QMK ファームウェアがどのように機能するかを非常に高いレベルから説明しようとしています。基本的なプログラミングの概念を理解していることを前提としていますが、(実証する必要がある場合を除き) C に精通していることを前提にはしていません。以下のドキュメントの基本的な知識があることを前提としています。
 
 * [入門](ja/getting_started_introduction.md)
 * [キーボードがどのように動作するか](ja/how_keyboards_work.md)
@@ -13,7 +13,7 @@
 
 ## スタートアップ
 
-QMK は他のコンピュータプログラムと何ら変わりないと考えることができます。開始され、タスクを実行し、そして終了します。プログラムのエントリーポイントは、他の C プログラムと同様に、`main()` 関数です。ただし、QMK を初めて触る人は、`main()` 関数があちこちに現れるため、混乱するかもしれません。また、どれを見ればよいか分かりにくいかもしれません。
+QMK は他のコンピュータプログラムと何ら変わりないと考えることができます。開始され、タスクを実行し、そして終了します。プログラムのエントリーポイントは、他の C プログラムと同様に、`main()` 関数です。ただし、QMK を初めて触る人は、`main()` 関数が複数の場所に現れるため、混乱するかもしれません。また、どれを見ればよいか分かりにくいかもしれません。
 
 複数ある理由は、QMK は様々なプラットフォームをサポートするからです。最も一般的なプラットフォームは `lufa` です。これは atmega32u4 のような AVR プロセッサ上で実行されます。また、`chibios` および `vusb` もサポートします。
 
@@ -21,7 +21,7 @@ QMK は他のコンピュータプログラムと何ら変わりないと考え�
 
 ## メインループ
 
-コードのこの部分は、同じ命令セットを永久にループ処理するため、"メインループ"と呼ばれます。ここはキーボードに必要なことを実行させる関数を QMK が割り当てる場所です。一見、多くの機能を持つように見えるかもしれませんが、大抵の場合、コードは `#define` によって無効にされます。
+コードのこの部分は、同じ命令セットを永久にループ処理するため、「メインループ」と呼ばれます。ここはキーボードに必要なことを実行させる関数を QMK が割り当てる場所です。一見、多くの機能を持つように見えるかもしれませんが、大抵の場合、コードは `#define` によって無効にされます。
 
 ```
     keyboard_task();
@@ -34,7 +34,7 @@ QMK は他のコンピュータプログラムと何ら変わりないと考え�
 * [マトリックスのスキャン](#matrix-scanning)
 * マウスの処理
 * シリアルリンク
-* Visualizer
+* ビジュアライザ
 * キーボードの状態の LED (Caps Lock, Num Lock, Scroll Lock)
 
 #### マトリックスのスキャン
@@ -54,15 +54,15 @@ QMK は他のコンピュータプログラムと何ら変わりないと考え�
 }
 ```
 
-これは 4行x5列のテンキーの直接的な表現のデータ構造です。キーが押されると、マトリックス内のそのキーの位置が、 `0` ではなく `1` として返されます。
+これは 4行x5列のテンキーのマトリックスを表す直接的な表現のデータ構造です。キーが押されると、マトリックス内のそのキーの位置が、 `0` ではなく `1` として返されます。
 
 マトリックスのスキャンは1秒間に複数回実行されます。正確なレートは様々ですが、知覚できるような遅延を避けるために、秒間に少なくとも10回実行します。
 
 ##### マトリックスから物理的なレイアウトへのマップ
 
-キーボード上の各スイッチの状態が分かると、それをキーコードへマップする必要があります。これは、QMK では、物理的なレイアウトの定義とキーコードの定義を分離することができる C マクロを使うことで行えます。
+キーボード上の各スイッチの状態が分かると、それをキーコードへマップする必要があります。これは、QMK では C マクロを使うことで行われ、物理的なレイアウトの定義とキーコードの定義を分離することができます 。
 
-キーボードレベルで、キーボードのマトリックスを物理キーにマップする C マクロ (一般的には、`LAYOUT()` という名前)を定義します。マトリックスの全ての場所にスイッチがあるわけではないことがありますが、このマクロを使って KC_NO を事前に埋め込むことができ、キーマップの定義を扱いやすくすることができます。以下は、numpad のための `LAYOUT()` マクロです:
+キーボードレベルで、キーボードのマトリックスを物理キーにマップする C マクロ (一般的には、`LAYOUT()` という名前)を定義します。マトリックスにスイッチがない場所がある場合、このマクロを使って KC_NO を事前に埋め込むことができ、キーマップの定義を扱いやすくすることができます。以下は、テンキー用の `LAYOUT()` マクロです:
 
 ```c
 #define LAYOUT( \
@@ -80,9 +80,9 @@ QMK は他のコンピュータプログラムと何ら変わりないと考え�
 }
 ```
 
-`LAYOUT()` マクロの2つ目のブロックが、上記のマトリックススキャン配列とどのように一致しているかに注意してください。このマクロはマトリックスのスキャン配列をキーコードにマップするためのものです。ただし、17キーの numpad を見ると、キーが大きいために、スイッチが置けるが実際には無い箇所が3つあることが分かります。これらのスペースに `KC_NO` を設定したので、キーマップ定義に必要はありません。
+`LAYOUT()` マクロの2つ目のブロックが、上記のマトリックススキャン配列とどのように一致しているかに注意してください。このマクロはマトリックスのスキャン配列をキーコードにマップするためのものです。ただし、17キーのテンキーを見ると、マトリックスにはスイッチが置けるが、キーが大きいために実際にはスイッチが無い箇所が3つあることが分かります。これらのスペースに `KC_NO` を設定したので、キーマップ定義には必要ありません。
 
-このマクロを使って通常ではないマトリックスのレイアウト、例えば [Clueboard rev 2](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/keyboards/clueboard/66/rev2/rev2.h) を扱うこともできます。その説明はこのドキュメントの範囲外です。
+このマクロを使って、少し変わったマトリックスのレイアウト、例えば [Clueboard rev 2](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/keyboards/clueboard/66/rev2/rev2.h) を扱うこともできます。その説明はこのドキュメントの範囲外です。
 
 ##### キーコードの割り当て
 
@@ -99,13 +99,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 ```
 
-これら全ての引数が、前のセクションの `LAYOUT()` マクロの前半とどのように一致しているかについて注意してください。これが、キーコードを取得して、それを前のマトリックススキャンにマップする方法です。
+これら全ての引数が、前のセクションの `LAYOUT()` マクロの前半とどのように一致しているかについて注意してください。これが、キーコードを取得して、それを前述のマトリックススキャンにマップする方法です。
 
 ##### 状態変更の検知
 
-上記のマトリックススキャンはある時点のマトリックスの状態を伝えますが、コンピュータは変更のみを知りたいのであって、現在の状態を気にしません。QMK は最後のマトリックススキャンの結果を格納し、いつキーが押されたか放されたかを決定するために、このマトリックスから結果を比較します。
+上記のマトリックススキャンはある時点のマトリックスの状態を伝えますが、コンピュータは変更のみを知りたいのであって、現在の状態を気にしません。QMK は最後のマトリックススキャンの結果を格納し、このマトリックスから結果を比較して、いつキーが押されたか放されたかを決定します。
 
-例を見てみましょう。キーボードスキャンループの途中に移動して、前のスキャンが以下のようになっていることを確認します:
+例を見てみましょう。キーボードスキャンループの途中に移動して、前のスキャンが以下のようになっていることがわかったとします:
 
 ```
 {
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 ```
 
-現在のスキャンが完了すると、以下のように見えます:
+現在のスキャンが完了すると、以下のように見えるとします:
 
 ```
 {
@@ -153,8 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * [`bool process_steno(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_steno.c#L160)
       * [`bool process_music(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_music.c#L114)
       * [`bool process_tap_dance(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_tap_dance.c#L141)
-      * [`bool process_unicode_common(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_unicode_common.c#L169)
-以下のいずれかを呼び出します:
+      * [`bool process_unicode_common(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_unicode_common.c#L169) は、以下のいずれかを呼び出します:
          * [`bool process_unicode(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_unicode.c#L20)
          * [`bool process_unicodemap(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_unicodemap.c#L46)
          * [`bool process_ucis(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_ucis.c#L95)
@@ -163,11 +162,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * [`bool process_printer(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_printer.c#L77)
       * [`bool process_auto_shift(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_auto_shift.c#L94)
       * [`bool process_terminal(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_terminal.c#L264)
-      * [Identify and process Quantum-specific keycodes](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/quantum.c#L291)
+      * [固有のキーコードを識別して処理する](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/quantum.c#L291)
 
-(`process_record_kb()` のような)関数がこの一連のイベントの中の任意のステップで `false を返す`と、以降の処理を停止することができます。
+(`process_record_kb()` のような)関数がこの一連のイベントの中の任意のステップで `return false`と、以降の処理を停止することができます。
 
-この呼び出しの後で、`post_process_record()` が呼ばれます。これはキーコードが通常処理された後に実行する必要がある追加のクリーンアップを処理するために使われるものです。
+この呼び出しの後で、`post_process_record()` が呼ばれます。これはキーコードが通常処理された後に実行する必要がある追加のクリーンアップを処理するために使うことができます。
 
 * [`void post_process_record(keyrecord_t *record)`]()
    * [`void post_process_record_quantum(keyrecord_t *record)`]()
