@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "debounce.h"
-#include QMK_KEYBOARD_H
+#include "gergoplex.h"
 
 #ifdef BALLER
 #    include <avr/interrupt.h>
