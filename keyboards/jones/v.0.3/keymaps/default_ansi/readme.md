@@ -1,1 +1,1 @@
-# The narrow keymap for jones
+# Defalut ANSI keymap for jones
