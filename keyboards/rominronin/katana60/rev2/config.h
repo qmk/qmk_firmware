@@ -15,14 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
+#define VENDOR_ID 0x7272  // "rr" - rominronin
+#define PRODUCT_ID 0xF03B
 #define DEVICE_VER 0x0001
 #define MANUFACTURER RominRonin CandyKeys
 #define PRODUCT Katana60 rev2
@@ -104,5 +103,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif
