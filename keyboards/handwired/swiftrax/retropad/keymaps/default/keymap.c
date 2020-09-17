@@ -9,7 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [1] = LAYOUT( //macOS
   TO(2),
-  KC_LEFT, KC_RGHT,
+  KC_MSTP, MC_MPLY,
   KC_MRWD, KC_MFFD),
 
 [2] = LAYOUT(
