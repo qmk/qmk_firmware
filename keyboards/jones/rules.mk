@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = jones/v.0.1
+DEFAULT_FOLDER = jones/v.0.2
