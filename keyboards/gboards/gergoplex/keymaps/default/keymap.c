@@ -17,9 +17,11 @@
 
 #define KC_GUI_ESC MT(MOD_LGUI, KC_ESC)  // Tap for Esc, hold for GUI (Meta, Command, Win)
 #define KC_ALT_ENT MT(MOD_LALT, KC_ENT)  // Tap for Enter, hold for Alt (Option)
-#define KC_SYM_SPC LT(SYMB, KC_SPC)      // Tap for Space, hold for Symbol layer
-#define KC_NUM_SPC LT(NUMB, KC_SPC)      // Tap for Space, hold for Numbers layer
+#define KC_SYM_SPC LT(_SPECIAL, KC_SPC)  // Tap for Space, hold for Symbol layer
+#define KC_NUM_SPC LT(_NUMBERS, KC_SPC)  // Tap for Space, hold for Numbers layer
 #define KC_SFT_TAB MT(MOD_RSFT, KC_TAB)  // Tap for Tab, hold for Right Shift
+
+#define KC_CMB_TOG CMB_TOG  // A hack to allow KC_-less keycode along with KC_-ful ones
 
     /* Combomap
      *
