@@ -162,7 +162,7 @@ ifeq ($(strip $(LTO_ENABLE)), yes)
     TMK_COMMON_DEFS += -DLTO_ENABLE
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATON_ENABLE
 else ifdef LINK_TIME_OPTIMIZATION_ENABLE
-    $(error The LINK_TIME_OPTIMIZATION_ENABLE flag is deprecated. Use LTO_ENABLE instead.)
+    $(error The LINK_TIME_OPTIMIZATION_ENABLE flag has been renamed to LTO_ENABLE.)
 endif
 
 # Search Path
