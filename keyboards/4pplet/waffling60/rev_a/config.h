@@ -25,7 +25,7 @@
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 0
+#define DEBOUNCE 5
 
 #define QMK_ESC_OUTPUT D3 // usually COL
 #define QMK_ESC_INPUT D4 // usually ROW
