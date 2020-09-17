@@ -16,7 +16,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: trilom/file-changes-action@v1.2.3
+    - uses: trilom/file-changes-action@v1.2.4
       id: file_changes
       with:
         output: '\n'
