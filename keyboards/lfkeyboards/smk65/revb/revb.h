@@ -1,5 +1,4 @@
-#ifndef SMK65_H
-#define SMK65_H
+#pragma once
 
 /* if the kb.h file exists (because we're running from qmkbuilder) include it */
 #ifdef __has_include
@@ -76,7 +75,7 @@ void click(uint16_t freq, uint16_t duration);
 */
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT( \
+#define LAYOUT_65_ansi( \
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D,         k1F, k1G, \
     k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D,       k2F, k2G, \
     k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C,           k3F, k3G, \
@@ -90,7 +89,7 @@ void click(uint16_t freq, uint16_t duration);
     { k51, k52, k53, ___, ___, ___, k57, ___, ___, ___, k5B, k5C, k5D, k5E, ___, ___ }, \
 }
 
-#define LAYOUT_iso( \
+#define LAYOUT_65_iso( \
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D,         k1E, k1G, \
     k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D,       k2F, k2G, \
     k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C,           k3F, k3G, \
@@ -104,4 +103,6 @@ void click(uint16_t freq, uint16_t duration);
     { k51, k52, k53, ___, ___, ___, k57, ___, ___, ___, k5B, k5C, k5D, k5E, ___, ___ }, \
 }
 
-#endif //SMK65_H
+// backwards compat
+#define LAYOUT LAYOUT_65_ansi
+#define LAYOUT_iso LAYOUT_65_iso
