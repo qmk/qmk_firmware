@@ -3,27 +3,34 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [0] = LAYOUT(
-  KC_MUTE,
-  KC_LEFT, KC_RGHT,
-  KC_UP,   KC_UP),
+  TO(1), //windows
+  KC_MSTP, KC_MPLY,
+  KC_MPRV, KC_MNXT),
 
-[1] = LAYOUT(
-  KC_MUTE,
+[1] = LAYOUT( //macOS
+  TO(2),
   KC_LEFT, KC_RGHT,
-  KC_UP,   KC_UP),
+  KC_MRWD, KC_MFFD),
 
 [2] = LAYOUT(
-  KC_MUTE,
-  KC_LEFT, KC_RGHT,
-  KC_UP,   KC_UP),
+  TO(0),
+  KC_HOME, KC_PGUP,
+  KC_END,   KC_PGDN),
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
+  if(IS_LAYER_ON(2)){
+    if (clockwise)
+      tap_code(KC_LEFT);
+    else 
+      tap_code(KC_RGHT);
+  }
+  else{
+    if(clockwise)
+      tap_code(KC_VOLU);
+    else
       tap_code(KC_VOLD);
-    }
+  }
 }
 
 void matrix_init_user(void) {
