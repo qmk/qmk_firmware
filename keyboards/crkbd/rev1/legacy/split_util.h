@@ -15,10 +15,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#pragma once
 
-#ifdef KEYBOARD_crkbd_rev1
-#    include "rev1.h"
+#ifndef SPLIT_KEYBOARD_UTIL_H
+#define SPLIT_KEYBOARD_UTIL_H
+
+#include <stdbool.h>
+#include "eeconfig.h"
+
+#define SLAVE_I2C_ADDRESS           0x32
+
+extern volatile bool isLeftHand;
+
+// slave version of matix scan, defined in matrix.c
+void matrix_slave_scan(void);
+
+void split_keyboard_setup(void);
+bool has_usb(void);
+
+void matrix_master_OLED_init (void);
+
 #endif
-
-#include "quantum.h"

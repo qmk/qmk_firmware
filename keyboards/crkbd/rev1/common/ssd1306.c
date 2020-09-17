@@ -1,9 +1,12 @@
 #ifdef SSD1306OLED
 
 #include "ssd1306.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include <string.h>
 #include "print.h"
+#ifdef ADAFRUIT_BLE_ENABLE
+#include "adafruit_ble.h"
+#endif
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #endif
@@ -50,24 +53,24 @@ static bool force_dirty = true;
 static inline bool _send_cmd1(uint8_t cmd) {
   bool res = false;
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_start(SSD1306_ADDRESS, 100)) {
     xprintf("failed to start write to %d\n", SSD1306_ADDRESS);
     goto done;
   }
 
-  if (i2c_master_write(0x0 /* command byte follows */)) {
+  if (i2c_write(0x0 /* command byte follows */, 100)) {
     print("failed to write control byte\n");
 
     goto done;
   }
 
-  if (i2c_master_write(cmd)) {
+  if (i2c_write(cmd, 100)) {
     xprintf("failed to write command %d\n", cmd);
     goto done;
   }
   res = true;
 done:
-  i2c_master_stop();
+  i2c_stop();
   return res;
 }
 
@@ -98,23 +101,23 @@ static void clear_display(void) {
     cmd3(ColumnAddr, 0, DisplayWidth - 1)
   );
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_start(SSD1306_ADDRESS, 100)) {
     goto done;
   }
-  if (i2c_master_write(0x40)) {
+  if (i2c_write(0x40, 100)) {
     // Data mode
     goto done;
   }
   for (uint8_t row = MatrixRows;row; row--) {
     for (uint8_t col = DisplayWidth; col; col--) {
-      i2c_master_write(0);
+      i2c_write(0, 100);
     }
   }
 
   display.dirty = false;
 
 done:
-  i2c_master_stop();
+  i2c_stop();
 }
 
 #if DEBUG_TO_SCREEN
@@ -133,8 +136,8 @@ static int8_t capture_sendchar(uint8_t c) {
 bool iota_gfx_init(bool rotate) {
   bool success = false;
 
-  i2c_master_init();
-  SEND_CMDS( 
+  i2c_init();
+  SEND_CMDS(
     cmd1(DisplayOff),
     cmd2(SetDisplayClockDiv, 0x80),
     cmd2(SetMultiPlex, DisplayHeight - 1),
@@ -146,19 +149,19 @@ bool iota_gfx_init(bool rotate) {
 
   if(rotate){
     // the following Flip the display orientation 180 degrees
-  SEND_CMDS( 
+  SEND_CMDS(
     cmd1(SegRemap),
     cmd1(ComScanInc)
   );
   }else{
     // Flips the display orientation 0 degrees
-  SEND_CMDS( 
+  SEND_CMDS(
       cmd1(SegRemap | 0x1),
       cmd1(ComScanDec)
     );
   }
 
-  SEND_CMDS( 
+  SEND_CMDS(
 #ifdef SSD1306_128X64
 	cmd2(SetComPins, 0x12),
 #else
@@ -171,10 +174,10 @@ bool iota_gfx_init(bool rotate) {
     cmd1(NormalDisplay),
     cmd1(DeActivateScroll),
     cmd1(DisplayOn),
-  
+
     cmd2(SetContrast, 0) // Dim
   );
-  
+
   clear_display();
 
   success = true;
@@ -297,10 +300,10 @@ void matrix_render(struct CharacterMatrix *matrix) {
     cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1)
   );
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_write(SSD1306_ADDRESS, 100)) {
     goto done;
   }
-  if (i2c_master_write(0x40)) {
+  if (i2c_write(0x40, 100)) {
     // Data mode
     goto done;
   }
@@ -311,7 +314,7 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
       for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
         uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-        i2c_master_write(colBits OLED_BITS_FILTER);
+        i2c_write(colBits OLED_BITS_FILTER, 100);
       }
 
       // 1 column of space between chars (it's not included in the glyph)
@@ -322,7 +325,7 @@ void matrix_render(struct CharacterMatrix *matrix) {
   matrix->dirty = false;
 
 done:
-  i2c_master_stop();
+  i2c_stop();
 #if DEBUG_TO_SCREEN
   --displaying;
 #endif
