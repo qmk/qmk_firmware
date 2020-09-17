@@ -33,5 +33,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BRID, KC_TRNS, KC_SLCK, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_MUTE, KC_TRNS,
         KC_VOLU,          KC_TRNS, KC_TRNS, KC_CALC, KC_TRNS, KC_TRNS, KC_NLCK, KC_MAIL, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAUS, KC_TRNS, KC_TRNS,
         KC_VOLD, KC_MRWD, KC_MFFD,                            KC_MPLY,                            KC_MSTP, KC_NO,   KC_MPRV, KC_NO,   KC_MNXT
-     )
+    )
 };
