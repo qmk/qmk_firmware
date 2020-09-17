@@ -69,8 +69,4 @@ extern host_driver_t lufa_driver;
 #    define MIDI_SYSEX_BUFFER (API_SYSEX_MAX_SIZE + API_SYSEX_MAX_SIZE / 7 + (API_SYSEX_MAX_SIZE % 7 ? 1 : 0))
 #endif
 
-#define ENDPOINT_BANK_SINGLE 1
-#define ENDPOINT_BANK_DOUBLE 2
-#define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank) Endpoint_ConfigureEndpoint((epdir) | (epnum), eptype, epsize, epbank)
-
 #endif

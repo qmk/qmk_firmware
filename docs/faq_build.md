@@ -28,35 +28,32 @@ sudo udevadm trigger
 **/etc/udev/rules.d/50-atmel-dfu.rules:**
 ```
 # Atmel ATMega32U4
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", TAG+="uaccess", RUN{builtin}+="uaccess"
 # Atmel USBKEY AT90USB1287
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", TAG+="uaccess", RUN{builtin}+="uaccess"
 # Atmel ATMega32U2
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
-**/etc/udev/rules.d/52-tmk-keyboard.rules:**
-```
-# tmk keyboard products     https://github.com/tmk/tmk_keyboard
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
-```
 **/etc/udev/rules.d/54-input-club-keyboard.rules:**
 
 ```
 # Input Club keyboard bootloader
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", ATTRS{idProduct}=="b007", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 **/etc/udev/rules.d/55-caterina.rules:**
 ```
 # ModemManager should ignore the following devices
-ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
-ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9205", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 ```
 
-**Note:** ModemManager filtering only works when not in strict mode, the following commands can update that settings:
+**Note:** With older (before 1.12) ModemManager, filtering only works when not in strict mode, the following commands can update that settings:
 ```console
-sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
+printf '[Service]\nExecStart=\nExecStart=/usr/sbin/ModemManager --filter-policy=default' | sudo tee /etc/systemd/system/ModemManager.service.d/policy.conf
 sudo systemctl daemon-reload
 sudo systemctl restart ModemManager
 ```
@@ -64,15 +61,15 @@ sudo systemctl restart ModemManager
 **/etc/udev/rules.d/56-dfu-util.rules:**
 ```
 # stm32duino
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", TAG+="uaccess", RUN{builtin}+="uaccess"
 # Generic stm32
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 **/etc/udev/rules.d/57-bootloadhid.rules:**
 ```
 # bootloadHID
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 ### Serial device is not detected in bootloader mode on Linux
@@ -113,26 +110,16 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
 ## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
+
 This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
 
 The solution is to remove and reinstall all affected modules.
 
 ```
-brew rm avr-gcc
-brew rm avr-gcc@8
-brew rm dfu-programmer
-brew rm dfu-util
-brew rm gcc-arm-none-eabi
-brew rm arm-gcc-bin@8
-brew rm avrdude
-brew install avr-gcc@8
-brew install dfu-programmer
-brew install dfu-util
-brew install arm-gcc-bin@8
-brew install avrdude
+brew rm avr-gcc avr-gcc@8 dfu-programmer dfu-util gcc-arm-none-eabi arm-gcc-bin@8 avrdude qmk
+brew install qmk/qmk/qmk
 brew link --force avr-gcc@8
 brew link --force arm-gcc-bin@8
-
 ```
 
 ### `avr-gcc` and LUFA

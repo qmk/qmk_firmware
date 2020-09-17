@@ -14,7 +14,7 @@ QMK (*Quantum Mechanical Keyboard*) היא קהילת קוד פתוח (open sour
 
 ## איך להשיג אותה
 
-אם אתם מתכננים לתרום מיפוי מקשים, מקלדת או יכולת ל QMK, הדבר הקל ביותר הוא  [לעשות פורק לריפו בGithub](https://github.com/qmk/qmk_firmware#fork-destination-box), ולעשות קלון לריפו בסביבה המקומית ושם לבצע את השינויים שלכם, לדחוף אותם ולפתוח  [Pull Request](https://github.com/qmk/qmk_firmware/pulls) מהפורק שלך.
+אם אתם מתכננים לתרום מיפוי מקשים, מקלדת או יכולת ל QMK, הדבר הקל ביותר הוא  [לעשות פורק לריפו בGitHub](https://github.com/qmk/qmk_firmware#fork-destination-box), ולעשות קלון לריפו בסביבה המקומית ושם לבצע את השינויים שלכם, לדחוף אותם ולפתוח  [Pull Request](https://github.com/qmk/qmk_firmware/pulls) מהפורק שלך.
 
 אחרת, אפשר להוריד את הקושחה באופן ישיר ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), או לשכפל אותה באמצעות git (`git@github.com:qmk/qmk_firmware.git`), או https (`https://github.com/qmk/qmk_firmware.git`).
 

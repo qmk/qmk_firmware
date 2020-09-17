@@ -2,77 +2,108 @@
 
 #include "quantum.h"
 
-#define LAYOUT_all( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, \
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214, \
-	K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313, K314, \
-	K400, K401,       K403,             K406,                   K410, K411,       K413, K414  \
-) { \
-	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012,  K013,  K014 }, \
-	{ K100,  KC_NO, K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  K113,  K114 }, \
-	{ K200,  KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  K213,  K214 }, \
-	{ K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  KC_NO, K313,  K314 }, \
-	{ K400,  K401,  KC_NO, K403,  KC_NO, KC_NO, K406,  KC_NO, KC_NO, KC_NO, K410,  K411,  KC_NO, K413,  K414 }  \
-}
+#define XXX KC_NO
 
+#define LAYOUT_all( \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3D, k3E, \
+    k40, k41,      k43,           k46,                k4A, k4B,      k4D, k4E \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, XXX, k3D, k3E }, \
+    { k40, k41, XXX, k43, XXX, XXX, k46, XXX, XXX, XXX, k4A, k4B, XXX, k4D, k4E } \
+}
 
 /* ANSI variant. No extra keys for ISO */
 #define LAYOUT_60_ansi( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K013, \
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,       K214, \
-	K300,       K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,             K313, \
-	K400, K401,       K403,             K406,                   K410, K411,       K413, K414  \
-) LAYOUT_all( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K013,\
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K214, K214, \
-	K300, KC_NO,K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313, KC_NO,\
-	K400, K401,       K403,             K406,                   K410, K411,       K413, K414  \
-)
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C,      k2E, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3D, \
+    k40, k41,      k43,           k46,                k4A, k4B,      k4D, k4E \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, XXX }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2E, XXX }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, XXX, k3D, XXX }, \
+    { k40, k41, XXX, k43, XXX, XXX, k46, XXX, XXX, XXX, k4A, k4B, XXX, k4D, k4E } \
+}
+
+/* ANSI-Tsangan variant, with split right shift key */
+#define LAYOUT_60_ansi_tsangan_split_rshift( \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C,      k2E, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3D, k3E, \
+    k40, k41,      k43,           k46,                     k4B,      k4D, k4E \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0D }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2E, XXX }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, XXX, k3D, k3E }, \
+    { k40, k41, XXX, k43, XXX, XXX, k46, XXX, XXX, XXX, XXX, k4B, XXX, k4D, k4E } \
+}
 
 /* ISO variant. Remove useless ANSI keys */
 #define LAYOUT_60_iso( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K013, \
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113,       \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214, \
-	K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,             K313, \
-	K400, K401,       K403,             K406,                   K410, K411,       K413, K414  \
-) LAYOUT_all( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K013,\
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K214, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214, \
-	K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313, KC_NO,\
-	K400, K401,       K403,             K406,                   K410, K411,       K413, K414  \
-)
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3D, \
+    k40, k41,      k43,           k46,                k4A, k4B,      k4D, k4E \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, XXX }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k2D }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2E, XXX }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, XXX, k3D, XXX }, \
+    { k40, k41, XXX, k43, XXX, XXX, k46, XXX, XXX, XXX, k4A, k4B, XXX, k4D, k4E } \
+}
 
 /* HHKB Variant */
 #define LAYOUT_60_ansi_split_bs_rshift( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, \
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,       K214, \
-	K300,       K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313, K314, \
-	K400, K401,       K403,             K406,                   K410, K411,       K413, K414  \
-) LAYOUT_all( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014,\
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K214, K214, \
-	K300, KC_NO,K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313, K314,\
-	K400, K401,       K403,             K406,                   K410, K411,       K413, K414  \
-)
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C,      k2E, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3D, k3E, \
+    k40, k41,      k43,           k46,                k4A, k4B,      k4D, k4E  \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2E, XXX }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, XXX, k3D, k3E }, \
+    { k40, k41, XXX, k43, XXX, XXX, k46, XXX, XXX, XXX, k4A, k4B, XXX, k4D, k4E } \
+}
+
+/* ANSI Variant */
+#define LAYOUT_60_ansi_split_rshift( \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C,      k2E, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3D, k3E, \
+    k40, k41,      k43,           k46,                k4A, k4B,      k4D, k4E  \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0D }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2E, XXX }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, XXX, k3D, k3E }, \
+    { k40, k41, XXX, k43, XXX, XXX, k46, XXX, XXX, XXX, k4A, k4B, XXX, k4D, k4E } \
+}
 
 /* HHKB Variant */
 #define LAYOUT_60_hhkb( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, \
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,       K214, \
-	K300,       K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313, K314, \
-	            K401, K403,             K406,                   K411, K413                    \
-) LAYOUT_all( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, \
-	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
-	K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K214, K214, \
-	K300, KC_NO,K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313, K314, \
-	KC_NO,K401,       K403,             K406,                   KC_NO,K411,       K413, KC_NO \
-)
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
+    k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C,      k2E, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B,      k3D, k3E, \
+         k41,      k43,           k46,                     k4B,      k4D \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E }, \
+    { k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2E, XXX }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, XXX, k3D, k3E }, \
+    { XXX, k41, XXX, k43, XXX, XXX, k46, XXX, XXX, XXX, XXX, k4B, XXX, k4D, XXX } \
+}

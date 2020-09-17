@@ -121,10 +121,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+#    ifndef SPLIT_KEYBOARD
+    if (is_master) {
+#    endif
+        return OLED_ROTATION_270;
+#    ifndef SPLIT_KEYBOARD
+    }  else {
+        return rotation;
+    }
+#    endif
+}
 #endif
 
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ALT_T(KC_A):
             return TAPPING_TERM + 100;
