@@ -1,4 +1,5 @@
-#include <print.h>
+// Staggered layout with split spacebars
+// make terrazzo:default
 #include "terrazzo.h"
 #include QMK_KEYBOARD_H
 
@@ -54,15 +55,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    terrazzo_scroll_pixel(clockwise);
-    switch(biton32(layer_state)) {
-      case _NAV:
-        // Change volume when on nav layer
-        clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
-        break;
-      default:
-        // Default encoder behavior of Page Up and Down
-        clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
-        break;
-    }   
+  terrazzo_scroll_pixel(clockwise);
+  switch(biton32(layer_state)) {
+    case _NAV:
+      // Change volume when on nav layer
+      clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
+      break;
+    default:
+      // Default encoder behavior of Page Up and Down
+      clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+      break;
+  }   
 }

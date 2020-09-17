@@ -17,8 +17,7 @@
     { K40, KC_NO, K42, K43, KC_NO, K45,},\
     { K50, K51, K52, K53, K54, K55,},    \
     { K60, K61, K62, K63, K64, K65,},    \
-    { K70, K71, K72, K73, K74, K75, },    \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, } \
+    { K70, K71, K72, K73, K74, K75, }    \
 }
 
 // Default ortho layout

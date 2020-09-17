@@ -1,7 +1,6 @@
 // Ortho layout with 2x 2u spacebars
 // Default ortho layout.
 // make terrazzo:othro
-#include <print.h>
 #include "terrazzo.h"
 #include QMK_KEYBOARD_H
 
@@ -13,7 +12,6 @@ enum layers {
 	_FN
 };
 
-#define KC_CESC CTL_T(KC_ESC)
 #define LOWERSP LT(_LOWER, KC_SPC)
 #define RAISESP LT(_RAISE, KC_SPC)
 #define SFTSLSH MT(MOD_RSFT, KC_SLSH)
@@ -57,17 +55,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    terrazzo_scroll_pixel(clockwise);
-    // switch(biton32(layer_state)) {
-    switch(index) {
-      case 1:
-        clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
-        break;
-      case 2:
-        clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
-        break;
-      case 3:
-        clockwise ? tap_code16(C(KC_TAB)) : tap_code16(S(C(KC_TAB)));
-        break;
-    }   
+  terrazzo_scroll_pixel(clockwise);
+  switch(biton32(layer_state)) {
+    case _NAV:
+      // Change volume when on nav layer
+      clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
+      break;
+    default:
+      // Default encoder behavior of Page Up and Down
+      clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+      break;
+  }   
 }

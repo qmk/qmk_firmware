@@ -9,9 +9,7 @@
 const is31_led g_is31_leds[LED_DRIVER_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  * https://cdn-learn.adafruit.com/downloads/pdf/adafruit-15x7-7x15-charlieplex-led-matrix-charliewing-featherwing.pdf
- *  driver
- *  |   LED address
- *  |   | */
+ */
     {0, C1_2}, {0, C1_3}, {0, C1_4}, {0, C1_5}, {0, C1_6}, {0, C1_7}, {0, C1_8},
     {0, C2_2}, {0, C2_3}, {0, C2_4}, {0, C2_5}, {0, C2_6}, {0, C2_7}, {0, C2_8},
     {0, C3_2}, {0, C3_3}, {0, C3_4}, {0, C3_5}, {0, C3_6}, {0, C3_7}, {0, C3_8},
@@ -45,11 +43,9 @@ uint8_t terrazzo_effect = 1;
 void terrazzo_set_pixel(uint8_t x, uint8_t y, uint8_t value) {
   uint8_t target = y * LED_MATRIX_COLS + x;
   if (target < LED_DRIVER_LED_COUNT && target >= 0) {
-    // TODO: Wrapper function with max value check
     led_matrix_set_index_value(y * LED_MATRIX_COLS + x, value);
   }
 }
-
 
 void terrazzo_draw_at(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t image[]) {
     uint8_t index = 0;
@@ -65,13 +61,12 @@ void terrazzo_draw_at(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8
 }
 
 void terrazzo_scroll_pixel(bool clockwise) {
-    uint8_t speed = 1;
     terrazzo_dir = clockwise;
 
     if (clockwise) {
-        terrazzo_led_index = terrazzo_led_index + speed;
+        terrazzo_led_index = terrazzo_led_index + 1;
     } else {
-        terrazzo_led_index = terrazzo_led_index - speed;
+        terrazzo_led_index = terrazzo_led_index - 1;
     } 
     
     if (terrazzo_led_index >= LED_DRIVER_LED_COUNT) {
@@ -100,21 +95,16 @@ void terrazzo_mode_off(void) {
 }
 
 void terrazzo_render(void) {
-    // led_matrix_set_index_value(terrazzo_led_index, 5);
     switch(terrazzo_effect) {
         case TERRAZZO_NONE:
             led_matrix_set_index_value_all(0);
             break;
-        // ---------------------------------------------
-        // -----Begin rgb effect switch case macros-----
         #define TERRAZZO_EFFECT(name, ...)              \
             case TERRAZZO_EFFECT_##name:                \
                 name(terrazzo_led_index, terrazzo_dir); \
                 break;
         #include "terrazzo_effects/terrazzo_effects.inc"
         #undef TERRAZZO_EFFECT
-        // -----End rgb effect switch case macros-------
-        // ---------------------------------------------
     }
 }
 
@@ -124,7 +114,6 @@ void led_matrix_indicators_kb(void) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        // #ifdef TYPE_ANIMATE
         switch(keycode) {
             case TZ_NXT:
                 terrazzo_step_mode();
@@ -141,13 +130,19 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 return true;
             // Any keycode increments counter
             default:
-              terrazzo_scroll_pixel(1);
-              break;
-
+                terrazzo_scroll_pixel(1);
+                break;
         }
-        //#endif
     }
     return process_record_user(keycode, record);
+}
+
+void suspend_power_down_kb(void) {
+    led_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_kb(void) {
+    led_matrix_set_suspend_state(false);
 }
 
 
