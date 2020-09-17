@@ -54,7 +54,9 @@ enum tap_dances{
     TD_Y_LBRC,
     TD_LSFT_CAPS,
     TD_LBRC_RBRC,
-    TD_ESC_NUM
+    TD_ESC_NUM,
+    TD_MINS_MAC_IME,
+    TD_MINS_WIN_IME,
 };
 
 // Tap Dance state
@@ -74,19 +76,24 @@ uint8_t cur_dance(qk_tap_dance_state_t *state);
 // Functions associated with individual tap dances
 void ql_finished(qk_tap_dance_state_t *state, void *user_data);
 void ql_reset(qk_tap_dance_state_t *state, void *user_data);
+void ql_each(qk_tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_Y_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_LBRC),
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_LBRC_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
-    [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275)
+    [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
+    [TD_MINS_MAC_IME] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
+    [TD_MINS_WIN_IME] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, WIN_IME),
 };
 
 #define ESC_NUM TD(TD_ESC_NUM)
 #define Y_LBRC  TD(TD_Y_LBRC)
 #define S_CAP   TD(TD_LSFT_CAPS)
 #define L_R_BRC TD(TD_LBRC_RBRC)
+#define M_M_IME TD(TD_MINS_MAC_IME)
+#define M_W_IME TD(TD_MINS_WIN_IME)
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
@@ -95,6 +102,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
 #define S_SLS   RSFT_T(KC_SLSH)
 #define C_SCLN  RCTL_T(KC_SCLN)
+#define C_MINS  RCTL_T(KC_MINS)
 #define C_E     LCTL(KC_E)
 #define C_A     LCTL(KC_A)
 
@@ -103,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT(
         ESC_NUM, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_GRV,KC_BSLS,KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, \
             KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,KC_RBRC,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC, \
-            KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_QUOT,KC_H,   KC_J,   KC_K,   KC_L,   C_SCLN, KC_ENT,  \
+            KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_SCLN,   KC_QUOT,KC_H,   KC_J,   KC_K,   KC_L,   C_MINS, KC_ENT,  \
     RAISE,  S_CAP,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LEFT,KC_RGHT,KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLS,  LOWER,   \
-            RAISE,  RAISE,  ALT_US, KC_LGUI,SP_SFT,         MAC_IME,         SP_RAI, SP_RAI, KC_LGUI,ALT_JP, LOWER,  KC_MUTE  \
+            RAISE,  RAISE,  ALT_US, KC_LGUI,SP_SFT,         M_M_IME,         SP_RAI, SP_RAI, KC_LGUI,ALT_JP, LOWER,  KC_MUTE  \
     ),
     [_WIN] = LAYOUT(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
@@ -131,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RAISE] = LAYOUT(
         KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL, \
             KC_PSCR,_______,_______,C_E,    _______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_DEL, \
-            _______,C_A,    _______,KC_DEL, KC_RGHT,KC_ESC, _______,_______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_MINS,KC_INS, \
+            _______,C_A,    _______,KC_DEL, KC_RGHT,KC_ESC, _______,_______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,KC_INS, \
     _______,_______,_______,_______,_______,_______,KC_LEFT,_______,_______,KC_PGDN,KC_ENT, _______,KC_MRWD,KC_MFFD,ADJUST,  \
             _______,_______,_______,_______,_______,        _______,        _______,_______,_______,KC_MPLY,ADJUST, _______  \
     ),
@@ -411,6 +419,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 
 //------------------------------------------------------------------------------
+// Tap Dance function
+
 // ESCキーの動作を、次のようにする設定
 // シングルタップ：ESC
 // シングルタップしてホールド：NUMレイヤー
@@ -431,7 +441,7 @@ uint8_t cur_dance(qk_tap_dance_state_t *state) {
         if (!state->pressed) return DOUBLE_TAP;
         else return TAP_HOLD;
     } else if (state->count == 3) return TRIPLE_TAP;
-    else return 8;
+    else return 8; // Magic number. At some point this method will expand to work for more presses
 }
 
 // Initialize tap structure associated with example tap dance key
@@ -441,37 +451,79 @@ static tap ql_tap_state = {
 };
 
 // Functions that control what our tap dance key does
+void ql_each(qk_tap_dance_state_t *state, void *user_data) {
+}
+
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
-    switch (ql_tap_state.state) {
-        case SINGLE_TAP:
-            tap_code(KC_ESC);
-            break;
-        case SINGLE_HOLD:
-            layer_on(_NUM);
-            break;
-        case TRIPLE_TAP:
-            // Check to see if the layer is already set
-            if (layer_state_is(_NUM)) {
-                // If already set, then switch it off
-                layer_off(_NUM);
-            } else {
-                // If not already set, then switch the layer on
-                layer_on(_NUM);
+
+    switch(state->keycode) {
+        case TD(TD_ESC_NUM):
+            switch (ql_tap_state.state) {
+                case SINGLE_TAP:
+                case DOUBLE_TAP:
+                    tap_code(KC_ESC);
+                    break;
+                case TAP_HOLD:
+                    layer_on(_NUM);
+                    break;
+                case TRIPLE_TAP:
+                    // Check to see if the layer is already set
+                    if (layer_state_is(_NUM)) {
+                        // If already set, then switch it off
+                        layer_off(_NUM);
+                    } else {
+                        // If not already set, then switch the layer on
+                        layer_on(_NUM);
+                    }
+                    break;
             }
+            break;
+
+        case TD(TD_MINS_MAC_IME):
+            switch (ql_tap_state.state) {
+                case SINGLE_TAP:
+                case TAP_HOLD:
+                    register_code(KC_MINS);
+                    break;
+                case DOUBLE_TAP:
+                    //TODO デフォルトレイヤーが何かを読み取り、MAC or WINで処理を変える
+                    register_code(KC_LCTL);
+                    register_code(KC_SPC);
+                    break;
+                }
             break;
     }
 }
 
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
-    // If the key was held down and now is released then switch off the layer
-    if (ql_tap_state.state == SINGLE_HOLD) {
-        layer_off(_NUM);
-    }
-    ql_tap_state.state = 0;
-}
-//------------------------------------------------------------------------------
+    switch(state->keycode) {
+        case TD(TD_ESC_NUM):
+            // If the key was held down and now is released then switch off the layer
+            if (ql_tap_state.state == TAP_HOLD) {
+                layer_off(_NUM);
+            }
+            ql_tap_state.state = 0;
+            break;
 
+        case TD(TD_MINS_MAC_IME):
+            switch (ql_tap_state.state) {
+                case SINGLE_TAP:
+                case TAP_HOLD:
+                    unregister_code(KC_MINS);
+                    break;
+                case DOUBLE_TAP:
+                    //TODO デフォルトレイヤーが何かを読み取り、MAC or WINで処理を変える
+                    unregister_code(KC_LCTL);
+                    unregister_code(KC_SPC);
+                    break;
+            }
+
+            break;
+    }
+}
+
+//------------------------------------------------------------------------------
 /*
 void matrix_init_user(void) {
 
