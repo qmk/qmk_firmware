@@ -142,12 +142,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
          */
-//#define MORE_key1_BASE KC__XGUI // Configure here what this key is on the BASE layers
-//#define MORE_key1      KC_DEL  // Configure here what this key is on all other layers
+        // Configure here what this key is on the BASE layers
+//#define MORE_key1_BASE KC__XGUI 
+  #define MORE_key1_BASE TG ( _RAR ) // _Activate_ this to get a toggle to layer _RAR.  MO(_RAR) does not follow a BASE switch by ‛Other Base’.
         //
-        // _Activate_ these to get a hold layer switch key to _RAR. 
-  #define MORE_key1_BASE MO ( _RAR ) // MOmentarily to _RAR while pressed.
-  #define MORE_key1      _______     // Transparent
+        // Configure here what this key is on all other layers
+  #define MORE_key1      KC_DEL  // Configure here what this key is on all other layers
         //
         //
         /*          • Defining 'Arrow' hardware layout additional keys

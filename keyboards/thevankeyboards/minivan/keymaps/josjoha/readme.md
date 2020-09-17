@@ -495,7 +495,7 @@ arrows (those keys are otherwise twice defined for left and right hand).
      ----------------------------------------------------------------------------
                      SLed  MLeds RGUI  xxx  | !Alter  xxx   LGUI  ___   // Mid-led, Side-leds, !Alternate
                                            <|>                    -*-                   // (Hold) on BASE
-                     <1  ± <2    <3    <4   | 4>      3>    2>  ± 1>  
+                     <1    <2  ± <3    <4   | 4>      3>    2>  ± 1>  
 
 Remarks. !Alter switches between normal and alternate BASE layer.
 
@@ -504,6 +504,8 @@ for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
 change is retained between on/off power cycles.
 
 MLed switches on/off the middle led, SLeds switches on/off the side leds.
+The additional hardware key ‛Command’ is shifted one to the right on this
+layer, to keep the led keys next to each other.
 
 The keys marked with • require Shift to be activated, as a means of
 preventing accidents. Shift here is on (BASE) 'Backspace' (upper/right key)

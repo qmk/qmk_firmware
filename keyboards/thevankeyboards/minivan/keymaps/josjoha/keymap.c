@@ -1040,7 +1040,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ----------------------------------------------------------------------------
      SLed  MLeds RGUI  xxx  | !Alter  xxx   LGUI  ___            // Middle-led, Side-leds, ! 'alternate'
                            <|>                    -*-                                   // (Hold) on BASE
-     <1  ± <2    <3    <4   | 4>      3>    2>  ± 1>  
+     <1    <2  ± <3    <4   | 4>      3>    2>  ± 1>  
  */
 //
 //      <pink2    , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>        , index>  , middl>           , ring>              , pinky>  , pink2>        ,
