@@ -1,6 +1,10 @@
-# [Sendy YK's Keymap](https://github.com/mrsendyyk/my_qmk/tree/master/ai03_soyuz_numpad)
+# Sendy YK's Keymap
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/ai03_soyuz_numpad/assets/ai03_soyuz_mrsendyyk.png)
+[https://mr.sendyyk.com](https://mr.sendyyk.com)
+
+## Keymap
+
+![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/keymap-with-gmk-metropolis.png)
 
 ## Build The Firmware
 
