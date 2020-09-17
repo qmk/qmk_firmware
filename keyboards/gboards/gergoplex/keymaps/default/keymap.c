@@ -3,7 +3,7 @@
  * https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md
  */
 
-#include QMK_KEYBOARD_H
+#include "gergoplex.h"
 #include "g/keymap_combo.h"
 
 #define _ALPHA   0  // default
