@@ -2,7 +2,6 @@
 
 #include "quantum.h"
 #include "i2c_master.h"
-#include <util/delay.h>
 
 extern i2c_status_t mcp23018_status;
 #define I2C_TIMEOUT 1000
@@ -10,8 +9,7 @@ extern i2c_status_t mcp23018_status;
 #define CPU_16MHz 0x00
 
 // I2C aliases and register addresses (see "mcp23018.md")
-//#define I2C_ADDR        0b0100000
-#define I2C_ADDR 0x20
+#define I2C_ADDR 0x20  // 0b0100000
 #define I2C_ADDR_WRITE ((I2C_ADDR << 1) | I2C_WRITE)
 #define I2C_ADDR_READ ((I2C_ADDR << 1) | I2C_READ)
 #define IODIRA 0x00  // i/o direction register
