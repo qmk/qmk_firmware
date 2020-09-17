@@ -1,50 +1,23 @@
-# 60_ansi_arrow
-`LAYOUT_60_ansi_arrow`
+# 60_ansi_arrow and Keymap
+
+## `LAYOUT_60_ansi_arrow`
+
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-with-gmk-metropolis.png)
+
+## Keymap
 
 ### Default Layer [0]
 
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│Esc│1  │2  │3  │4  │5  │6  │7  │8  │9  │0  │-  │=  │Bspc   │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│Tab  │Q  │W  │E  │R  │T  │Y  │U  │I  │O  │P  │[  │]  │\    │
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│Caps L│A  │S  │D  │F  │G  │H  │J  │K  │L  │;  │'  │Enter   │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│Shift   │Z  │X  │C  │V  │B  │N  │M  │,  │.  │Shift │↑  │/  │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│Ctl │OS  │Alt │          Space         │Alt│Ctl│←  │↓  │→  │
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/keymap-with-gmk-metropolis---layer-0.png)
 
 ### Fn Layer [1]
-Press and hold *right* **Ctl** key.
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│`  │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Delete │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│Bri+ │   │   │End│Rst│   │   │   │Ins│   │P S│   │   │Eject│
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│Bri-  │   │S L│   │   │   │Hm │   │   │   │   │   │Mute    │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│Vol+    │   │   │Cal│   │   │N L│Ml │   │   │Pause │P U│   │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│Vol-│Rwd │F FD│           Play         │Stp│   │Prv│P D│Nxt│
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+
+Press and hold **Ctrl** key.
+
+![Fn Layer [2]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/keymap-with-gmk-metropolis---layer-1.png)
 
 ### Fn Layer [2]
+
 Press and hold *right* **Alt** key.
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│   │   │   │   │   │   │   │   │   │   │   │   │   │       │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│     │R T│R M│Hu+│Hu-│Sa+│Sa-│Br+│Br-│   │   │   │   │     │
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│      │   │   │   │   │   │   │   │   │   │   │   │        │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│        │   │   │   │BL-│B T│BL+│B C│   │   │      │   │   │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│    │    │    │                        │   │   │   │   │   │
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+
+![Fn Layer [2]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/keymap-with-gmk-metropolis---layer-2.png)
