@@ -93,8 +93,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          -o-                                     <|>                                    ... //-o- BASE access
          Esc        '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
          Tab+LCtl   aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-         LSht+_PAD  ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN  // _FUN _MOV tap
-             +_MOV⁵                               |
+         LSht+_PAD  ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
+             +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _ALT_NSY(_DRA)  Enter+_MOV| Space  _ALT_NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
@@ -102,6 +102,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                ┗━━━━━━━━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
+
+     ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
+     ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
+     ³) 'South paw' hardware configuration 
+     ⁴) 'Arrow' hardware configuration 
+     ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
+          a 12x12x12x11 or 12x12x12x12 layouts.
+     ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
+     ⁶) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
 
 
      _ALT_BASE input results in the same as _DEF_BASE with computer side Dvorak remapping. Only shown what changes:

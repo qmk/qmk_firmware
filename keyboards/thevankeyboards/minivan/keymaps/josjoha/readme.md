@@ -53,7 +53,7 @@ Main features
        and Dvorak dual layout). Easy to add more layouts.
      • Expanded character set. western European accented characters
        (ëøßœç…); sub- super-script numbers (¹₂…) quite a few additional
-       symbols 《 ± • ☑  ❦ √ ┣ ≠ 》
+       symbols such as 《 ± • ☑  ❦ √ ┣ ≠ 》…
      • Typing speed measuring. Led changes color with your speed. You can 
        ask for a report on your current and average typing speeds.
      • Text size measuring. If you want to type some amount of words or
@@ -63,7 +63,7 @@ Main features
 layout
 ------
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_va.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vc.jpg)
 
 You can switch between the default base layer (typically letters), and
 another base layer, the alternate base layer (also typically letters),
@@ -105,7 +105,7 @@ you will reach that same French adapted `_ACC` layer from either of
 the two BASE layers in the dual layout (one is for instance Qwerty,
 the other Dvorak).
 
-![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vb.jpg)
+![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vc.jpg)
 
 Led colors for layers
 =====================
@@ -158,13 +158,13 @@ will have Qwerty on the ‛default BASE’ and a matching ‛default NSY’
 layer, with Dvorak on the ‛alternate BASE’ and its ‛alternate NSY’ 
 layer.
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_va.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_vc.jpg)
 Layer: `DEF_BASE`
 
 ![Minivan layout Image NSYdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_def_base_va.jpg)
 Layer: `DEF_NSY`
 
-![Minivan layout Image BASEalt](http://socialism.nl/misc/minivan/minivan_base_layer_hide_alt_base_va.jpg)
+![Minivan layout Image BASEalt](http://socialism.nl/misc/minivan/minivan_base_layer_hide_alt_base_vc.jpg)
 Layer: `ALT_BASE`
 
 ![Minivan layout Image NSYalt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_alt_base_va.jpg)
@@ -283,26 +283,35 @@ BASE, etc. These accidental layer switching possibilities are not shown.)
 
 Compile options
 ===============
- - You can use the keyboard with two different letters/number-symbols layouts, switching between them.
- - You can compile the keyboard as a single layout (see ‛Eviscerations’).
- - Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
+         Layout (as in Dvorak, Qwerty, Colemak, etc)
+ • You can use the keyboard with two different letters/number-symbols layouts, switching between them.
+ • You can compile the keyboard as a single layout (see ‛Eviscerations’).
+ • Startup in the alternate BASE layer (for example Qwerty or Dvorak).
+
+         Hardware
+ • Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
 ![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
- - What the additional hardware keys for _arrow,_ _south paw_ should be.
- - An arrow cluster for _arrow_ hardware configuration:
- - Navigation keys around _arrow_ hardware configuration arrow cluster.
- - Startup in the alternate BASE layer (for example Qwerty or Dvorak).
- - Navigation cluster in a triangle (WASD), flat layout with optional vi(1) layout.
- - Switching the GUIs left/right.  
- - To what layer should _left shift_ toggle.
- - Compile with symbols ☐ ☒ ☑ 🗹 (checkboxes) or ⮘ ⮙ ⮚ ⮛ (pointers).
- - You can change the symbol 'ƒ' Dutch guilder into a Euro symbol €.
- - Set speed measuring on/off by default, various settings.
- - Reduce firmware size/bloat: remove or eviscerate Unicode layer(s).
- - If the middle led should show the last active layer when on BASE.
- - To what layer tapping left shift should toggle.
- - It is possible to compile the keymap with 11 or 12 keys on the bottom row (see 
+ • What the additional hardware keys for _arrow,_ _south paw_ should be.
+ • It is possible to compile the keymap with 11 or 12 keys on the bottom row (see 
    `TRANSMINIVAN_LEFTSIDE`, etc). Untested.
 
+         Navigation cluster
+ • An arrow cluster for _arrow_ hardware configuration, on the `_MOV` layer.
+ • Navigation keys around _arrow_ hardware configuration arrow cluster on `_MOV` layer.
+ • Navigation cluster in a triangle (WASD) (left hand), flat layout with optional vi(1) layout (right hand).
+
+         Special functions
+ • Set speed measuring on/off at keyboard startup.
+ • Set text size measuring on/off at keyboard startup.
+
+         Changing symbols
+ • Switching the GUIs left/right.  
+ • You can change the symbol 'ƒ' Dutch guilder into a Euro symbol €.
+ • Compile with symbols ☐ ☒ ☑ 🗹 (checkboxes) or ⮘ ⮙ ⮚ ⮛ (pointers).
+ • Reduce firmware size/bloat: remove or eviscerate Unicode layer(s).
+
+         Useless
+ • If the middle led should show the last active layer when on BASE.
 
 Layers (text)
 =============
@@ -313,8 +322,8 @@ Layers (text)
          -o-                                     <|>                                    ... //-o- BASE access
          Esc        __    __    __    __    __    | __    __    __    __    __         Bksp
          Tab+LCtl   __    __    __    __    __    | __    __    __    __    __           __
-         LSht+_PAD  __    __    __    __    __    | __    __    __    __    __    RSht+_FUN⁶
-             +_MOV⁵                               |
+         LSht+_PAD  __    __    __    __    __    | __    __    __    __    __    RSht+_FUN 
+             +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
@@ -330,7 +339,7 @@ Layers (text)
      ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
           a 12x12x12x11 or 12x12x12x12 layouts.
      ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
-     ⁶) Right shift when pressed with another key, otherwise toggle to _FUN.
+     ⁶) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
@@ -974,11 +983,14 @@ Trouble shooting
   flashing the value of a user option ends up in a different state than
   you expected.
 
-  • Leds not working: try going to `_RAR` layer, and hit the key MLeds and SLeds,
-  which switch Leds on/off.
+  • Unicode is chaos: try going to `_RAR` layer, and hit the Unicode
+  operating system buttons.
 
-  • Unicode is chaos: try going to `_RAR` layer, and hit the Unicode operating
-  system buttons.
+  • Leds not working: try going to `_RAR` layer, and hit the key MLeds
+  and SLeds, which switch Leds on/off.
+
+  • Middle led not showing layer: you may have compiled it with speed
+  measuring on at startup.
 
 
 Why you want this layout

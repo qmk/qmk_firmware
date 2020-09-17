@@ -21,7 +21,7 @@ Dvorak² keymaps
 
 ──────────Dvorak───────────────
 
-![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_va.jpg)
+![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_vc.jpg)
 Layer: `..._BASE`
 
 ![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_va.jpg)
@@ -33,7 +33,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_vb.jpg)
+![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_vc.jpg)
 
 Layers (text)
 =============
@@ -44,8 +44,8 @@ Layers (text)
           -o-                                    <|>                                    ... // -o- BASE access
           Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
           Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-          LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
-              +_MOV⁵                              |
+          LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
+              +_MOV⁵                              |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _ALT_NSY(_DRA)  Enter+_MOV| Space  _ALT_NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
@@ -53,6 +53,16 @@ Layers (text)
                ┗━━━━━━━━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
+
+     ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
+     ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
+     ³) 'South paw' hardware configuration 
+     ⁴) 'Arrow' hardware configuration 
+     ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
+          a 12x12x12x11 or 12x12x12x12 layouts.
+     ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
+     ⁶) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
+
 
      This layer input results in the same as normal Dvorak if computer side Dvorak remapping is occuring.
      Only shown what changes:

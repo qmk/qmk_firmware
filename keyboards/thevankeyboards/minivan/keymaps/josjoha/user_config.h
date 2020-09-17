@@ -22,55 +22,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                 Configuration:
 // --------------------------------------v---------------------------------------
 
-     // (For the non-coders: “_Remove_” means to place ‛//’ in front. The rest of the line becomes a comment.
-     //                      “_Activate_”   means to *remove* the two ‛//’ in front, now it is part of the program.
-     //                      /* ... */ is also a way to remove code “...” from being compiled, same as ‛//’.)
+  // (For the non-coders: “_Remove_” means to place ‛//’ in front of a line. The rest of the line becomes a comment.
+  //                      Placing ‛//’ in front of a line, means whatever follows it will be ignored during compilation.
+  //                      “_Activate_”   means to *delete* the two ‛//’ in front. Now the rest of the line *will* be compiled
+  //                      /* ... */ is another a way to turn “...” into being a comment which is ignored during compilation.
       
-        /*                        Letters / Numbers & Symbols layouts
-         *
-         * Here you can configure what letters layer (BASE layer), and number&symbols layer you
-         * want. This is a dual layout system, so you can choose a second pair as well. You can
-         * switch between them with a key on the _RAR layer. All the other layers are the same,
-         * regardless of your choice in letter/number&symbol layers.
-         *
-         * The letters layer is the BASE layer, from which you also reach all other layers.
-         * The letters it has is the alphabet in its simplest form: abcdefghijklmnopqrstuvwxyz.
-         * The numbers & symbols layer has what you find on any regular keyboard: 123… !@#… []/…
-         * The numbers & symbols layer is made to fit the Letters layer, due to small differences
-         * between layouts like Qwerty and Dvorak (in this case the symbols ‛-’, ‛/’, ‛?’, and ‛_’).
-         *
-         * Example: A Qwerty letters layer, with a fitting numbers & symbols layer, as ‛Default’.
-         *          A Dvorak letters layer, with a fitting numbers & symbols layer, as ‛Alternate’.
-         *
-         * You will be asked to configure one layout as ‛Default’ and another as ‛Alternate’.
-         *
-         * A bases layout may have locally re-defined one or more of the common layers. If you
-         * choose two bases layouts who re-define the same common layer locally, you will need
-         * to choose either one by commenting out the other.
-         */
-         //
-         //                        * Dvorak *
-         //                  (a regular Dvorak layout)
-         // _Activate_ one of these two, _remove_ the other.
+       /*                         Letters / Numbers & Symbols layouts
+        *
+        * Here you can configure what letters layer (BASE layer), and number&symbols layer you
+        * want. This is a dual layout system, so you can choose a second pair as well. You can
+        * switch between them with a key on the _RAR layer. All the other layers are the same,
+        * regardless of your choice in letter/number&symbol layers.
+        *
+        * The letters layer is the BASE layer, from which you also reach all other layers.
+        * The letters it has is the alphabet in its simplest form: abcdefghijklmnopqrstuvwxyz.
+        * The numbers & symbols layer has what you find on any regular keyboard: 123… !@#… []/…
+        * The numbers & symbols layer is made to fit the Letters layer, due to small differences
+        * between layouts like Qwerty and Dvorak (in this case the symbols ‛-’, ‛/’, ‛?’, and ‛_’).
+        *
+        * Example: A Qwerty letters layer, with a fitting numbers & symbols layer, as ‛Default’.
+        *          A Dvorak letters layer, with a fitting numbers & symbols layer, as ‛Alternate’.
+        *
+        * You will be asked to configure one layout as ‛Default’ and another as ‛Alternate’.
+        *
+        * A bases layout may have locally re-defined one or more of the common layers. If you
+        * choose two bases layouts who re-define the same common layer locally, you will need
+        * to choose either one by commenting out the other.
+        */
+        //
+        //                        * Dvorak *
+        //                  (a regular Dvorak layout)
+        // _Activate_ one of these two, _remove_ the other.
   #define BASE_DVORAK__DEF_BASE // _Activate_ if you want Dvorak on the ‛Default’ spot
 //#define BASE_DVORAK__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
-         //
-         //                        * Dvorak descramble mode *
-         //           (Dvorak for a computer already remapping to Dvorak)
-         // This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
-//#define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
-         //
-         //                        * Qwerty *
-         //                  (a regular Qwerty layout)
-         // _Activate_ one of these two, _remove_ the other.
+        // 
+        //                         * Dvorak descramble mode *
+        //            (Dvorak for a computer already remapping to Dvorak)
+        //  This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
+  #define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
+        // 
+        //                         * Qwerty *
+        //                   (a regular Qwerty layout)
+        //  _Activate_ one of these two, _remove_ the other.
 //#define BASE_QWERTY__DEF_BASE // _Activate_ if you want Qwerty on the ‛Default’ spot
 //#define BASE_QWERTY__ALT_BASE // _Activate_ if you want Qwerty on the ‛Alternate’ spot
-         //
-         //                        * Colemak *
-         //                  (a regular Colemak layout)
-         // _Activate_ one of these two, _remove_ the other.
+        // 
+        //                         * Colemak *
+        //                   (a regular Colemak layout)
+        //  _Activate_ one of these two, _remove_ the other.
 //#define BASE_COLEMAK__DEF_BASE // _Activate_ if you want Colemak on the ‛Default’ spot
 //#define BASE_COLEMAK__ALT_BASE // _Activate_ if you want Colemak on the ‛Alternate’ spot
+        //
+        /*                        Eviscerations ( ① / ② )
+         */
+        /*                        Single layout
+         *
+         * Removes the ‛Alternate’ base layers, and removes the switch key on _RAR.
+         * ⚠ You have to not define a ‛Alternate’ base layer pair. Define only a ‛Default’ pair.
+         */
+//#define MINIFAN_SINGLE_LAYOUT // _Activate_ to only have the ‛Default’ base layers, _remove_ to also have ‛Alternate’.
 
 
         /*                        Startup layer
@@ -91,9 +101,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //'Command' 'South paw'  (12x12x12x9 keys):  _activate_ only ->
 //#define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
          //'Arrow' + 'South paw'  (12x12x12x10 keys): _activate_ both <<-
-         //
-         //
-        /*                        Defining the meaning of the additional keys
+
+
+        /*                        ⚠ ≠ Minivan
+         *
+         * This section is for when you want to flash this keymap unto a board with more
+         * keys than the Minivan has. 
+         *
+         *       Trans-Minivan keymap: 12x12x12x11, 12x12x12x12 keys
+         *                                        • Example board: Planck (12x12x12x12)
+         *
+         * It is assumed that you enabled MORE_KEY__ARROW and
+         * MORE_KEY__COMMAND, to get to 12x12x12x10 keys. With this you
+         * can get to one or two more keys on row 1, without manually
+         * editing all layers.
+         *
+         * FIXME: not been compiled or tested for any boards.
+         */
+//#define TRANSMINIVAN_LEFTSIDE // _Activate_ to get yet one more key on the left side row 1
+//#define TRANSMINIVAN_RIGHTSIDE // _Activate_ to get yet one more key on the right side row 1
+//#define TRANSMINIVAN_LAYOUT ....... // Set this to something with the needed amount of keycodes.
+                          // Your values are inserted here: [ _LTR ] = LAYOUT_redefined (
+                          //                                           ^^^^^^^^^^^^^^^^ (throughout all layers)
+
+
+        /*                        Defining the meaning of the additional hardware keys
          *
          * Some possibilities you might like:
          *
@@ -127,7 +159,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MORE_key2 <...your choice...> // Right side additional key.
         //
         //
-        /*                         Defining the additional key for 'South paw' (or called 'Command')
+        /*                        Defining the additional key for 'South paw' (or called 'Command')
          *
          * Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
          * 
@@ -155,6 +187,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
 //#define VI_SWITCHERYDOO //  You have to _remove_ ARROWS_TRIANGLE, or this gets ignored.
 
+//#define POINT_ON_CHECKBOXES // _Activate_ to get arrows, _remove_ to get checkboxes on _DRA layer.
+
+
+        /*                        Speed measuring
+         *
+         */
+  #define SPEED_INIT // _Activate_ for default speed measuring on, _remove_ to set off at startup.
+        /*
+         * Led color configuration. You can see the speed you have configured below directly on the keyboard,
+         * after you compiled and flashed it.
+         * Set speed measuring to <off>.
+         * Hold the 'Report' key for one second, then release. The keyboard prints a number, which is the
+         * amount of characters per second for which that color is then being shown. Hold it again for
+         * a second, and it increments. Toggle speed measuring on/off to restart.
+         * You can play with the below settings until you like the result.
+         *
+         * The default values (8, 160 respectively) are starting at blue, avoiding confusion with default
+         * cyan for BASE layer, going to purple and further avoiding confusion with text size counting.
+         * Very fast typers could reach red, and then it goes further to yellow, etc.
+         */
+  #define SPEED_COUNTDOWN 25 // After how many keypresses to update the effect(s).
+  #define SPEED_HUE_STEP 8 // For each key/sec faster, the hue value of HSV goes this step further.
+  #define SPEED_HUE_START 160 // The starting hue for 0 k/s (0 = 255 = red).
+        /*
+         * Speed report in words-per-minute (wpm) rather than keystrokes-per-second (k/s). wpm = k/s * ⁶⁰/₅ = k/s * 12
+         */
+  #define WORDS_PER_MINUTE // _Activate_ to get speed report in words-per-minute, _remove_ to get it in keystrokes-per-second (k/s).
+
+
+        /*                        Text size counting
+         *
+         */
+  #define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
+
 
         /*                        GUI left/right 
          *
@@ -164,117 +230,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
 
 
-        /*                        'Left Shift' key on BASE layer, activates layer ...
-         *
-         * _Activate_ one of the below lines, determining where L-shift tap-toggles to on the 
-         * BASE layer. Default is _PAD, which otherwise can only be reached through _FUN.
-         */
-//#define LSHIFT_LAYER_RAR // Be warned and don't hold it against me if you accidentally hit 'Power' at the wrong moment.
-//#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle. 
-                         // _MOV is the least dangerous layer to accidentally activate.
-//#define LSHIFT_LAYER_DRA // _DRA is also the least easy to access layer normally, on pinky which is sortof wrong.
-                         // This would help alleviate it.
-//#define LSHIFT_LAYER_ACC // If typing a lot of these in a row
-  #define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender(1) for example).
-
-
         /*                        Alternate currency symbol
          *
          * _Activate_ the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA layer).
          */
 //#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
 
-       /*                         Check boxes or Pointers
-        *
-        * You can have these symbols (checkboxes):  ☐  ☒  ☑  🗹
-        *                     or these (pointers):  ⮘  ⮙  ⮚  ⮛
-        */
-
-//#define POINT_ON_CHECKBOXES // _Activate_ to get arrows, _remove_ to get checkboxes on _DRA layer.
+        /*                        Check boxes or Pointers
+         *
+         * You can have these symbols (checkboxes):  ☐  ☒  ☑  🗹
+         *                     or these (pointers):  ⮘  ⮙  ⮚  ⮛
+         */
 
 
-       /*                         Speed measuring
-        *
-        */
-//#define SPEED_INIT // _Activate_ for default speed measuring on, _remove_ to set off at startup.
-       /*
-        * Led color configuration. You can see the speed you have configured below directly on the keyboard,
-        * after you compiled and flashed it.
-        * Set speed measuring to <off>.
-        * Hold the 'Report' key for one second, then release. The keyboard prints a number, which is the
-        * amount of characters per second for which that color is then being shown. Hold it again for
-        * a second, and it increments. Toggle speed measuring on/off to restart.
-        * You can play with the below settings until you like the result.
-        *
-        * The default values (8, 160 respectively) are starting at blue, avoiding confusion with default
-        * cyan for BASE layer, going to purple and further avoiding confusion with text size counting.
-        * Very fast typers could reach red, and then it goes further to yellow, etc.
-        */
-  #define SPEED_COUNTDOWN 25 // After how many keypresses to update the effect(s).
-  #define SPEED_HUE_STEP 8 // For each key/sec faster, the hue value of HSV goes this step further.
-  #define SPEED_HUE_START 160 // The starting hue for 0 k/s (0 = 255 = red).
-       /*
-        * Speed report in words-per-minute (wpm) rather than keystrokes-per-second (k/s). wpm = k/s * ⁶⁰/₅ = k/s * 12
-        */
-  #define WORDS_PER_MINUTE // _Activate_ to get speed report in words-per-minute, _remove_ to get it in keystrokes-per-second (k/s).
-
-
-       /*                         Text size counting
-        *
-        */
-  #define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
-
-
-       /*                         Middle led BASE layer: last layer color
-        *
-        * It is a bit wacky that in the BASE layer the middle led shows the last active layer. Here you
-        * can stop this behavior. This results in the same middle led behavior, given for when the side
-        * leds are set off: one special color for the BASE layer (cyan) on middle led.
-        */
-  #define MIDLED_BASELAYER_CONSTANT // _Activate_ for one color on middle led for BASE layer, _remove_ to show last layer color
-
-
-       /*                         Firmware size / bloat / clutter reductions
-        */
-       /*                                  Single layout
-        *
-        * Removes the ‛Alternate’ base layers, and removes the switch key on _RAR.
-        * ⚠ You have to not define a ‛Alternate’ base layer pair. Define only a ‛Default’ pair.
-        */
-  #define MINIFAN_SINGLE_LAYOUT // _Activate_ to only have the ‛Default’ base layers, _remove_ to also have ‛Alternate’.
-       //
-       //
-       /*              Removing one or more of the Unicode layers _ACC, _DRA or_BON
-        */
-       /* Removes the _ACC layer, optionally redirect its key. This can save some 750 bytes. 
-        */
+        /*                        Eviscerations ( ② / ② )
+         */
+        /*              Removing one or more of the Unicode layers _ACC, _DRA or_BON
+         */
+        /* Removes the _ACC layer, optionally redirect its key. This can save some 750 bytes. 
+         */
 //#define REMOVE_ACC // _Activate_ to strip out the _ACC layer, _remove_ to have the _ACC layer.
         /* Unless REMOVE_ACC is _active_, the next defines which redirect the _ACC key(s) are ignored. */
 //#define _ACC_KEY_ALT_LAYER _BON // _Activate_ to make the key(s) that normally goes to _ACC, go to _BON instead.
 //#define _ACC_KEY_ALT_LAYER _DRA // _Activate_ to make the key(s) that normally goes to _ACC, go to _DRA instead.
-       /*
-        *
-        * Removes the _DRA layer, optionally redirect its key. Also saves some 750 bytes.
-        */
+        /*
+         *
+         * Removes the _DRA layer, optionally redirect its key. Also saves some 750 bytes.
+         */
 //#define REMOVE_DRA // _Activate_ to strip out the _DRA layer, _remove_ to have the _DRA layer.
-       /* Unless REMOVE_DRA is _active_, the next defines which redirect the _DRA key(s) are ignored. */
+        /* Unless REMOVE_DRA is _active_, the next defines which redirect the _DRA key(s) are ignored. */
 //#define _DRA_KEY_ALT_LAYER _ACC // _Activate_ to make the key(s) that normally goes to _ACC, go to _ACC instead.
 //#define _DRA_KEY_ALT_LAYER _BON // _Activate_ to make the key(s) that normally goes to _ACC, go to _BON instead.
-       /*
-        *
-        * Removes the _BON layer, optionally redirect its key. Also saves some 750 bytes.
-        */
+        /*
+         *
+         * Removes the _BON layer, optionally redirect its key. Also saves some 750 bytes.
+         */
 //#define REMOVE_BON // _Activate_ to strip out the _BON layer, _remove_ to have the _BON layer.
-       /* Unless REMOVE_BON is _active_, the next defines which redirect the _BON key(s) are ignored. */
+        /* Unless REMOVE_BON is _active_, the next defines which redirect the _BON key(s) are ignored. */
 //#define _BON_KEY_ALT_LAYER _ACC // _Activate_ to make the key(s) that normally goes to _BON, go to _ACC instead.
 //#define _BON_KEY_ALT_LAYER _DRA // _Activate_ to make the key(s) that normally goes to _BON, go to _DRA instead.
-       /*
-        *
-        *                                  Removing groups of characters
-        */
-       /*
-        * The below cut out an amount of symbols on a given layer, to simplify and/or reduce firmware size a little.
-        */
+        /*
+         *
+         *                                  Removing groups of characters
+         */
+        /*
+         * The below cut out an amount of symbols on a given layer, to simplify and/or reduce firmware size a little.
+         */
 //#define ALL_DRA_BON_EVISCERATIONS // _Activate_ this to _remove_ the below all at once. (Seems to save only ±114 bytes)
                                     //
   #define BOX_DRAWINGS // _Activate_ to get box drawings on _BON. Horizontal lines (━─┄┅) on _DRA are not affected.
@@ -307,26 +308,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         //
 
 
-       /*                         ⚠ ≠ Minivan
+       /*                         Middle led BASE layer: last layer color
         *
-        * This section is for when you want to flash this keymap unto a board with more
-        * keys than the Minivan has. 
-        *
-        *       Trans-Minivan keymap: 12x12x12x11, 12x12x12x12 keys
-        *                                        • Example board: Planck (12x12x12x12)
-        *
-        * It is assumed that you enabled MORE_KEY__ARROW and
-        * MORE_KEY__COMMAND, to get to 12x12x12x10 keys. With this you
-        * can get to one or two more keys on row 1, without manually
-        * editing all layers.
-        *
-        * FIXME: not been compiled or tested for any boards.
+        * It is a bit wacky that in the BASE layer the middle led shows the last active layer. Here you
+        * can stop this behavior. This results in the same middle led behavior, given for when the side
+        * leds are set off: one special color for the BASE layer (cyan) on middle led.
         */
-//#define TRANSMINIVAN_LEFTSIDE // _Activate_ to get yet one more key on the left side row 1
-//#define TRANSMINIVAN_RIGHTSIDE // _Activate_ to get yet one more key on the right side row 1
-//#define TRANSMINIVAN_LAYOUT ....... // Set this to something with the needed amount of keycodes.
-                          // Your values are inserted here: [ _LTR ] = LAYOUT_redefined (
-                          //                                           ^^^^^^^^^^^^^^^^ (throughout all layers)
+  #define MIDLED_BASELAYER_CONSTANT // _Activate_ for one color on middle led for BASE layer, _remove_ to show last layer color
 
 
 // --------------------------------------^---------------------------------------

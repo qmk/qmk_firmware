@@ -13,7 +13,7 @@ Colemak keymaps
 
 ──────────Colemak──────────────
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_colemak_va.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_colemak_vc.jpg)
 Layer: `..._BASE`
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_va.jpg)
@@ -25,7 +25,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Colemak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_colemak_2000_vb.jpg)
+![Minivan illustration Overview layers by key, Colemak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_colemak_2000_vc.jpg)
 
 Layers (text)
 =============
@@ -37,8 +37,8 @@ Layers (text)
          -o-                                     <|>                                    ... //-o- BASE access
          Esc        qQ    wW    fF    pP    gG    | jJ    lL    uU    yY    ;:         Bksp
          Tab+LCtl   aA    rR    sS    tT    dD    | hH    nN    eE    iI    oO           '"
-         LSht+_PAD  zZ    xX    cC    vV    bB    | kK    mM    ,<    .>    /?    RSht+_FUN⁶
-             +_MOV⁵                               |
+         LSht+_PAD  zZ    xX    cC    vV    bB    | kK    mM    ,<    .>    /?    RSht+_FUN 
+             +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
@@ -54,7 +54,7 @@ Layers (text)
      ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
           a 12x12x12x11 or 12x12x12x12 layouts.
      ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
-     ⁶) Right shift when pressed with another key. Held medium long: toggle to _FUN.
+     ⁶) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the

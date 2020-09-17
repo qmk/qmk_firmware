@@ -901,8 +901,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING (SS_UP (X_RSFT)); 
                 if (isolate_trigger) { // no other key was hit since key down 
 
-                    layer_move (_FUN); // activates function layer as a toggle
 
+                    // Held medium long: _PAD, long: _MOV.
+                    // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
+                    // all by the left hand, when the right hand is on the mouse.
+                    if ((timer_elapsed (key_timer) <= 500)) { // tapped medium-long (milliseconds)
+
+                        layer_move (_FUN); // activates function layer as a toggle
+
+                    } else { // held for longer
+
+                        layer_move (_RAR); 
+
+                    }
                 }
             }
             break;
@@ -928,40 +939,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // all by the left hand, when the right hand is on the mouse.
                     if ((timer_elapsed (key_timer) <= 500)) { // tapped medium-long (milliseconds)
 
-# ifdef LSHIFT_LAYER_RAR
-                        layer_move (_RAR);
-# endif
-
-# ifdef LSHIFT_LAYER_MOV
-                        layer_move (_MOV); 
-# endif
- 
-# ifdef LSHIFT_LAYER_DRA
-#     ifndef REMOVE_DRA // This cuts out the whole _DRA layer.
-                        layer_move (_DRA); // activates normal accented layer
-#     else
-#         ifdef _DRA_KEY_ALT_LAYER
-                        layer_move (_DRA_KEY_ALT_LAYER); // Alternative layer user configuration
-#         endif
-#     endif
-# endif
-
-# ifdef LSHIFT_LAYER_ACC
-#     ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
-                        layer_move (_ACC);
-#     else
-#         ifdef _ACC_KEY_ALT_LAYER
-                        layer_move (_ACC_KEY_ALT_LAYER); // Alternative layer user configuration
-#         endif
-#     endif
-# endif
-
-# ifdef LSHIFT_LAYER_PAD
                         layer_move (_PAD); 
-# endif
 
-                    } else if (timer_elapsed (key_timer) > 500) { // held for that many milliseconds, or longer
+                    } else { // held for longer
+
                         layer_move (_MOV); 
+
                     }
                 }
             }

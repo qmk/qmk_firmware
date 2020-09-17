@@ -34,11 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      *
      * Todo:
 
-             ☐ Cook: ‛command’ and ‛arrow’ key for PAD/FUN toggle (#defines)
-               This is needed for a “Qwerty with arrows on top” layout, because
-               it will overwrite the _RAR layer hold key.
-             ☐ Right shift cook: various layers like left shift. Especially RAR,
-               to deal with pure Arrow hardware layout & arrows on top (looses RAR).
+             ☐ Qwerty with arrows on top
+             ☐ Azerty (doesn't fit the hardware well)
+             ☐ Qwertz (doesn't fit the hardware well)
             ?☐ Push DEL on _NSY top/right key through documentation
              ☐ Testing all user configurations
             ?☐ Leds #on/off startup

@@ -64,8 +64,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          -o-                                     <|>                                    ... //-o- BASE access
          Esc        qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
          Tab+LCtl   aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-         LSht+_PAD  zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht+_FUN⁶
-             +_MOV⁵                               |
+         LSht+_PAD  zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht+_FUN
+             +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
           a 12x12x12x11 or 12x12x12x12 layouts.
      ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
-     ⁶) Right shift when pressed with another key. Held medium long: toggle to _FUN.
+     ⁶) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
 */
 //
 //      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, midd>   , ring>  , pink>   , pink2>        ,
