@@ -11,20 +11,20 @@
 enum ilpse_layers {
     _QWERTY,
     _LOWER,
-    _RAISE,
-    _ADJUST
+    _RAISE
 };
 
-enum ilpse_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST
-};
-
-#define KC_CTLA CTL_T(KC_A)
-#define KC_ALBS ALGR_T(KC_BSPC)
+#define KC_CTES CTL_T(KC_ESC)
+#define KC_CTEN RCTL_T(KC_ENT)
+#define KC_CTSC RCTL_T(KC_SCLN)
 #define KC_LSHZ SFT_T(KC_Z)
+#define KC_SPM1 LT(1, KC_SPC)
+#define KC_SPM2 LT(2, KC_SPC)
+#define KC_BSM1 LT(1, KC_BSPC)
+#define KC_GUTA GUI_T(KC_TAB)
+#define KC_BSM2 LT(2, KC_BSPC)
+#define KC_CLGV CTL_T(KC_GRV)
+#define KC_CLBS CTL_T(KC_BSLS)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,            KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,            KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN,
     KC_LSHZ, KC_X,    KC_C,    KC_V,    KC_B,            KC_N,    KC_M,  KC_COMM, KC_DOT, KC_SLSH,
-                                      LOWER, KC_ALBS, KC_SPC,  RAISE
+                                    KC_CLGV, KC_BSM1, KC_SPM2, KC_GUTA
   ),
 
   [_LOWER] = LAYOUT( /* [> LOWER <] */
@@ -40,49 +40,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GESC, KC_HOME, KC_PGDN, KC_PGUP, KC_END,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT,
                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS  
-    ),
+  ),
 
   [_RAISE] = LAYOUT( /* [> RAISE <] */
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,           KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
     KC_TAB,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_UNDS, KC_PLUS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_UNDS, KC_PLUS, KC_TRNS, KC_TRNS, RESET,
                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-  [_ADJUST] = LAYOUT( /* [> ADJUST <] */
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,
-                                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    )
+  )
 };
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-  }
-  return true;
-}
