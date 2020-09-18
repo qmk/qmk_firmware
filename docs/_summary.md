@@ -103,6 +103,7 @@
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
+    * [Joystick](feature_joystick.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
@@ -111,6 +112,7 @@
     * [Velocikey](feature_velocikey.md)
 
 * Developing QMK
+  * [PR Checklist](pr_checklist.md)
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
@@ -145,6 +147,7 @@
 
   * Hardware Platform Development
     * Arm/ChibiOS
+      * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference

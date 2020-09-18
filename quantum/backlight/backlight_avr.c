@@ -103,7 +103,7 @@
 #        define COMxx1 COM1A1
 #        define OCRxx OCR1A
 #    endif
-#elif defined(__AVR_ATmega328P__) && (BACKLIGHT_PIN == B1 || BACKLIGHT_PIN == B2)
+#elif (defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)) && (BACKLIGHT_PIN == B1 || BACKLIGHT_PIN == B2)
 #    define HARDWARE_PWM
 #    define ICRx ICR1
 #    define TCCRxA TCCR1A

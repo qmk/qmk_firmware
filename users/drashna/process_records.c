@@ -51,7 +51,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     clear_mods();
                     clear_oneshot_mods();
 #endif
-                    send_string_with_delay_P(PSTR("bin/qmk"), TAP_CODE_DELAY);
+                    send_string_with_delay_P(PSTR("qmk"), TAP_CODE_DELAY);
 #ifndef MAKE_BOOTLOADER
                     if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
 #endif
