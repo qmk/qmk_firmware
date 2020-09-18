@@ -202,7 +202,7 @@ You can flash either the bootloader or the production firmware file. The product
 プロダクションファームウェアファイルの方が、より多くのデータを書き込むので、書き込みに時間がかかります。
 
 ?> Note: You should stay with the same bootloader. If you're using DFU already, switching to QMK DFU is fine. But flashing QMK DFU onto a Pro Micro, for instance, has additional steps needed.
-?> 注意：同じブートローダを使用しつづけるべきです。すでに DFU を使用している場合は、QMK DFU に切り替えても問題ありません。しかし、例えば Pro Micro に QMK DFU をフラッシュするには、追加の手順が必要になります。
+?> 注意：同じブートローダを使用しつづけるべきです。すでに DFU を使用している場合は、QMK DFU に切り替えても問題ありません。しかし、例えば Pro Micro に QMK DFU を書き込むには、追加の手順が必要になります。
 
 ## Flashing Your Bootloader/Production File
 ## ブートローダ/プロダクションファイルの書き込み
@@ -275,20 +275,29 @@ You should see a couple of progress bars, then you should see:
     avrdude done.  Thank you.
 
 Which means everything should be ok! Your board may restart automatically, otherwise, unplug your Teensy and plug in your keyboard - you can leave your Teensy wired to your keyboard while testing things, but it's recommended that you desolder it/remove the wiring once you're sure everything works.
+つまり、これで問題ないということです。
+ボードが自動的に再起動する場合もありますが、そうでない場合は、Teensy のプラグを抜いてキーボードを接続してください。
+テスト中は、Teensy をキーボードに接続したままにすることができますが、すべてが正常に機能することを確認したら、はんだを外すか、配線を外すことをお勧めします。
 
 If you're using a SparkFun PocketAVR Programmer, or another USB Tiny based ISP programmer, you will want to use something like this: 
+SparkFun PocketAVR Programmer や、他の USB Tiny ベースの ISP Programmer を使用している場合は、次のようなものを使用すると良いでしょう。
 
     avrdude -c usbtiny -P usb -p atmega32u4
 
 #### 上級者向け: ヒューズの交換 Advanced: Changing Fuses
 
 If you're switching bootloaders, such as flashing QMK DFU on a Pro Micro, you will need to change the fuses, in additional to flashing the bootloader hex file.  This is because `caterina` (the Pro Micro bootloader) and `dfu` handle the startup routines differently, and that behavior is controlled by the fuses.  
+Pro Micro で QMK DFU を書き込むなど、ブートローダを切り替える場合は、ブートローダの hex ファイルの書き込みに加えて、ヒューズを変更する必要があります。
+これは、`caterina` (Pro Micro ブートローダ) と `dfu` では起動ルーチンの扱いが異なり、その動作はヒューズによって制御されるからです。
 
-!> This is one area that it is very important to be careful, as changing fuses is one of the ways that you can permanently brick your controller.  
+!> This is one area that it is very important to be careful, as changing fuses is one of the ways that you can permanently brick your controller.
+!> これは、ヒューズを変更することは、永久にあなたのコントローラをレンガ化(訳注:日本では文鎮化と呼ぶことが多い、コントローラがまったく無反応になる状態)することができる方法の1つであるため、それは非常に注意が必要な1つの領域です。 
 
 For this, we are assuming the 5V 16MHz versions of the `atmega32u4` (such as the 5V Pro Micro).
+以下は、`atmega32u4`の 5V 16MHz版（5V Pro Microなど）を想定しています。
 
 For DFU on the `atmega32u4`, these are the fuse settings that you want: 
+`atmega32u4`の DFU の場合、必要なヒューズ設定は次のとおりです:
 
 | Fuse     | Setting          |
 |----------|------------------|
@@ -297,12 +306,17 @@ For DFU on the `atmega32u4`, these are the fuse settings that you want:
 | Extended | `0xC3`           |
 
 The High fuse can be 0xD9 or 0x99. The difference is that 0xD9 disables JTAG, which QMK Firmware disables via software as well, while 0x99 doesn't disable JTAG. 
+High ヒューズは 0xD9 か 0x99 のどちらかになります。
+違いは、0xD9 は QMK Firmware がソフトウェアでも無効化している JTAG を無効化しているのに対し、0x99 は JTAG を無効化していないことです。
 
 To set this add `-U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m` to your command.  So the final command should look something like: 
+これを設定するには、`-U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m` をコマンドに追加します。
+そうすると、最終的なコマンドは次のようになります。
 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m
 
 For Caterina on the `atmega32u4`, these are the fuse settings that you want: 
+`atmega32u4`の Caterina では、以下があなたに必要なヒューズの設定です。
 
 | Fuse     | Setting|
 |----------|--------|
@@ -311,11 +325,14 @@ For Caterina on the `atmega32u4`, these are the fuse settings that you want:
 | Extended | `0xCB` |
 
 To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your command.  So the final command should look something like: 
+これを設定するには、コマンドに `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` を追加します。
+これで、最終的なコマンドは次のようになるはずです。
 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
 If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](http://www.engbedded.com/fusecalc/) to find a better value for you.
+別のコントローラーを使用している場合や、別の設定を希望する場合は、この[AVRヒューズ計算機](http:/www.engbedded.comfusecalc)を使用して、より良い値を見つけることができます。
 
 ## ヘルプ Help
 
