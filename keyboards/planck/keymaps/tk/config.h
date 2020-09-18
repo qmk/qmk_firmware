@@ -8,6 +8,33 @@
 
 #define ONESHOT_TAP_TOGGLE 5    // taps to toggle a one-shot layer/key persistence
 
+// mouse keys
+
+#define MK_3_SPEED
+
+// mouse speeds --
+
+// cursor offset per movement
+#define MK_C_OFFSET_1 4
+#define MK_C_OFFSET_2 16
+
+// time between cursor movements (ms)
+#define MK_C_INTERVAL_1 16  // 16 ms = 60 Hz refresh rate
+#define MK_C_INTERVAL_2 16
+
+// scroll speeds --
+
+// scroll steps per scroll action
+#define MK_W_OFFSET_1 1
+#define MK_W_OFFSET_2 4
+
+// time between scroll steps (ms)
+#define MK_W_INTERVAL_1 16
+#define MK_W_INTERVAL_2 16
+
+
+// audio --
+
 #ifdef AUDIO_ENABLE
 
     #undef  TEMPO_DEFAULT       // set a custom tempo
