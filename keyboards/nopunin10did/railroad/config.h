@@ -7,9 +7,9 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         keyboard
-#define DESCRIPTION     Keyboard
+#define MANUFACTURER    NoPunIn10Did
+#define PRODUCT         The Railroad
+#define DESCRIPTION     Long ortholinear keyboard with split spacebar, center macropad, and non-ortho modifiers
 
 /* key matrix size */
 #define MATRIX_ROWS 10
