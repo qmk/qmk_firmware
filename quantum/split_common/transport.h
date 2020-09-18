@@ -8,3 +8,6 @@ void transport_slave_init(void);
 // returns false if valid data not received from slave
 bool transport_master(matrix_row_t matrix[]);
 void transport_slave(matrix_row_t matrix[]);
+
+// returns false if master has no USB connection
+bool transport_slave_detect(void);

@@ -23,14 +23,6 @@
 #    include "rgblight.h"
 #endif
 
-#ifndef SPLIT_USB_TIMEOUT
-#    define SPLIT_USB_TIMEOUT 2000
-#endif
-
-#ifndef SPLIT_USB_TIMEOUT_POLL
-#    define SPLIT_USB_TIMEOUT_POLL 10
-#endif
-
 #ifdef PROTOCOL_CHIBIOS
 #    define SPLIT_USB_DETECT  // Force this on for now
 #endif
@@ -59,19 +51,14 @@ static inline void usbDisable(void) {}
 #    endif
 
 bool usbIsActive(void) {
-    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
-        // This will return true if a USB connection has been established
-        if (usbHasActiveConnection()) {
-            return true;
-        }
-        wait_ms(SPLIT_USB_TIMEOUT_POLL);
+    // This will return true if a USB connection has been established
+    if (usbHasActiveConnection()) {
+        return true;
+    } else {
+        return false;
     }
-
-    // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
-    usbDisable();
-
-    return false;
 }
+
 #elif defined(PROTOCOL_LUFA)
 static inline bool usbIsActive(void) {
     USB_OTGPAD_On();  // enables VBUS pad
@@ -123,9 +110,19 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 __attribute__((weak)) bool is_keyboard_master(void) {
     static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
 
-    // only check once, as this is called often
-    if (usbstate == UNKNOWN) {
+    // only check in case of unknown USB state, as this is called often
+    while (usbstate == UNKNOWN) {
         usbstate = usbIsActive() ? MASTER : SLAVE;
+
+        if (usbstate != MASTER) {
+            usbstate = transport_slave_detect() ? SLAVE : UNKNOWN;
+            if (usbstate == SLAVE) {
+                #if defined(SPLIT_USB_DETECT)
+                // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
+                usbDisable();
+                #endif
+            }
+        }
     }
 
     return (usbstate == MASTER);
@@ -133,6 +130,9 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
 // this code runs before the keyboard is fully initialized
 void split_pre_init(void) {
+    // Start in slave configuration and wait for a master to emerge
+    transport_slave_init();
+
     isLeftHand = is_keyboard_left();
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
@@ -156,7 +156,5 @@ void split_pre_init(void) {
 //   - avoids race condition during matrix_init_quantum where slave can start
 //     receiving before the init process has completed
 void split_post_init(void) {
-    if (!is_keyboard_master()) {
-        transport_slave_init();
-    }
+    // unused
 }

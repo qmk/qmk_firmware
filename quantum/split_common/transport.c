@@ -38,6 +38,7 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
+    bool usb_connected;
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -47,6 +48,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
+#    define I2C_USB_CONN_START offsetof(I2C_slave_buffer_t, usb_connected)
 
 #    define TIMEOUT 100
 
@@ -91,6 +93,16 @@ bool transport_master(matrix_row_t matrix[]) {
         }
     }
 #    endif
+
+    // If this is the master, a USB connection was established previously
+    bool usb_connectivity_status = true;
+    
+    if (usb_connectivity_status != i2c_buffer->usb_connected) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_USB_CONN_START, (void *)&usb_connectivity_status, sizeof(usb_connectivity_status), TIMEOUT) >= 0) {
+            i2c_buffer->usb_connected = usb_connectivity_status;
+        }
+    }
+
     return true;
 }
 
@@ -120,6 +132,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    endif
 }
 
+bool transport_slave_detect(void) {
+    return i2c_buffer->usb_connected;
+}
+
 void transport_master_init(void) { i2c_init(); }
 
 void transport_slave_init(void) { i2c_slave_init(SLAVE_I2C_ADDRESS); }
@@ -145,6 +161,7 @@ typedef struct _Serial_m2s_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
+    bool usb_connected;
 } Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -251,6 +268,10 @@ bool transport_master(matrix_row_t matrix[]) {
     // Write wpm to slave
     serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
+
+    // If this is the master, the USB connection was established
+    serial_m2s_buffer.usb_connected = true;
+
     return true;
 }
 
@@ -271,6 +292,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
+}
+
+bool transport_slave_detect(void) {
+    return serial_m2s_buffer.usb_connected;
 }
 
 #endif
