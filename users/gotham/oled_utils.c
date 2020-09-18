@@ -13,10 +13,21 @@ static bool oled_reset_flag;
 const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
     // clang-format off
     [_QWERTY]  = OLED_STR_QWERTY,
+#ifdef ENABLE_LAYOUT_COLEMAK
     [_COLEMAK] = OLED_STR_COLEMAK,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK_DH
+    [_COLEMAK_DH] = OLED_STR_COLEMAK_DH,
+#endif
+#ifdef ENABLE_LAYOUT_DVORAK
     [_DVORAK]  = OLED_STR_DVORAK,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
     [_WORKMAN] = OLED_STR_WORKMAN,
+#endif
+#ifdef ENABLE_LAYOUT_NORMAN
     [_NORMAN]  = OLED_CHAR_COUNTORMAN,
+#endif
     [_GAME]    = OLED_STR_GAME,
     [_GAMENAV] = OLED_STR_GAMENAV,
     [_GAMENUM] = OLED_STR_GAMENUM,

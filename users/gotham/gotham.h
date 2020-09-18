@@ -24,10 +24,21 @@
 
 enum userspace_layers {
     _QWERTY = 0,
+#ifdef ENABLE_LAYOUT_COLEMAK
     _COLEMAK,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK_DH
+    _COLEMAK_DH,
+#endif
+#ifdef ENABLE_LAYOUT_DVORAK
     _DVORAK,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
     _WORKMAN,
+#endif
+#ifdef ENABLE_LAYOUT_NORMAN
     _NORMAN,
+#endif
     _GAME,
     _GAMENAV,
     _GAMENUM,
@@ -36,6 +47,7 @@ enum userspace_layers {
     _ADJUST,
     _MOUSE,
 };
+#define LAYOUT_COUNT _GAME // Used for layout cycling, this should be the layer immediately after the last keyboard layout layer.
 
 void          keyboard_pre_init_keymap(void);
 void          matrix_init_keymap(void);

@@ -124,6 +124,6 @@ For instance Tap/Hold for Control on all of the layouts
 
 #define _________________ADJUST_R1_________________ __________________FN_RIGHT_________________
 #define _________________ADJUST_R2_________________ RESET,   KC_MAKE, VRSN,    KC_F11,  KC_F12
-#define _________________ADJUST_R3_________________ QWERTY,  COLEMAK, NORMAN,  WORKMAN,  DVORAK
+#define _________________ADJUST_R3_________________ KC_LAYOUT, _______, _______, _______, _______
 
 // clang-format on

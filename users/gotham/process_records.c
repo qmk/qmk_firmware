@@ -1,5 +1,6 @@
 #include "gotham.h"
 
+uint16_t layout_timer;
 uint16_t clipboard_timer;
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
@@ -22,11 +23,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
     ) {
         switch (keycode) {
-            case KC_QWERTY ... KC_NORMAN:
+            case KC_LAYOUT:
                 if (record->event.pressed) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY);
+                    layout_timer = timer_read();
+                } else {
+                    if (timer_elapsed(layout_timer) > TAPPING_TERM) {  // Hold, QWERTY
+                        set_single_persistent_default_layer(_QWERTY);
+                    } else {  // Tap, cycle layout
+                        uint32_t new_default_layer = _QWERTY + (get_highest_layer(default_layer_state) + 1) % LAYOUT_COUNT;
+                        set_single_persistent_default_layer(new_default_layer);
+                    }
                 }
-                return false;
+                break;
 
             case KC_MAKE:
                 if (!record->event.pressed) {

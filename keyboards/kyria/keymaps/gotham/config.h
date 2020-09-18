@@ -23,6 +23,12 @@
 // Speed up slave half startup
 #define SPLIT_USB_TIMEOUT 1000
 
+// #define ENABLE_LAYOUT_COLEMAK
+#define ENABLE_LAYOUT_COLEMAK_DH
+// #define ENABLE_LAYOUT_DVORAK
+// #define ENABLE_LAYOUT_WORKMAN
+#define ENABLE_LAYOUT_NORMAN
+
 #ifdef OLED_DRIVER_ENABLE
 #    define OLED_DISPLAY_128X64
 
