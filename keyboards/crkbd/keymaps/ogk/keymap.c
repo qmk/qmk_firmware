@@ -80,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------.                ,-----------------------------------------.
     KC_TILD,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,  KC_7,  KC_8,  KC_9,  KC_0, KC_BSPC,
   //|------+------+-------+-------+-------+-------|                |------+------+------+------+------+------|
-    KC_LCTL, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_PIPE, KC_MINS,KC_EQL,KC_LBRC,KC_RBRC,KC_DEL,
+    KC_LCTL, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_BSLASH, KC_MINS,KC_EQL,KC_LBRC,KC_RBRC,KC_DEL,
   //|------+------+-------+-------+-------+-------|                |------+------+------+------+------+------|
-    KC_LSFT, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,              KC_BSLASH,KC_HOME,KC_PGDN,KC_PGUP,KC_END,KC_PSCR,
+    KC_LSFT, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,                KC_PIPE,KC_HOME,KC_PGDN,KC_PGUP,KC_END,KC_PSCR,
   //|------+------+-------+-------+-------+-------+------|  |------+------+------+------+------+------+------|
                                     KC_LGUI, LOWER,KC_SPC,  RCTL_T(KC_ENT), RAISE,KC_RALT
                                   //`--------------------'  `--------------------'
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    RGB_TOG,RGB_HUI,RGB_SAI,RGB_VAI,RGB_SPI,KC_NO,              QWERTY,COLEMAK, KC_NO, KC_NO, KC_NO, KC_NO,
+    RGB_TOG,RGB_HUI,RGB_SAI,RGB_VAI,RGB_SPI,KC_NO,              KC_NO, QWERTY,COLEMAK, KC_NO, KC_NO, KC_NO,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     RGB_MOD,RGB_HUD,RGB_SAD,RGB_VAD,RGB_SPD,KC_NO,               KC_NO, KC_NO, KC_NO, KC_NO, RGBRST, RESET,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
