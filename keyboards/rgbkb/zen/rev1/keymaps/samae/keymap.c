@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|                              |------+------+------+------+------+------|
    * |DELETE|   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  |   ;  |  "   |
    * |------+------+------+------+------+------|                              |------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |                              |   N  |   M  |   ,  |   .  |   /  |      |
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |                              |   N  |   M  |   ,  |   .  |   /  |RGBMOD|
    * |------+------+------+------+------+------+------.              .--------+------+------+------+------+------+------|
    * | Ctrl | GUI  | Alt  |RGBTOG| NAV  |Space | ESC  |              |Enter|Space/NAV| AltGr|  NAV |      |   -  |   =  |
    * `------------------------------------------------'              '--------------------------------------------------'
@@ -66,7 +66,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef AUDIO_ENABLE
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -85,15 +84,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    //case COLEMAK:
-      //if (record->event.pressed) {
-        //#ifdef AUDIO_ENABLE
-          //PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-        //#endif
-        //persistant_default_layer_set(1UL<<_COLEMAK);
-      //}
-      //return false;
-      //break;
   }
   return true;
 }
