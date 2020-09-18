@@ -39,6 +39,8 @@
 #    define OLED_STR_RAISE "Raise"
 #    define OLED_STR_ADJUST "Adjust"
 
+#    define OLED_STR_MAC_MODE "Mac mode"
+
 #    define OLED_STR_ENC_MODE "Enc %d: "
 #    define OLED_STR_ENC_MODE_VOLUME "Volume"
 #    define OLED_STR_ENC_MODE_WORD_NAV "Word Nav"
@@ -70,6 +72,8 @@
 #    define OLED_STR_LOWER "Lower"
 #    define OLED_STR_RAISE "Raise"
 #    define OLED_STR_ADJUST "Adjst"
+
+#    define OLED_STR_MAC_MODE "macOS"
 
 #    define OLED_STR_ENC_MODE "En%d: "
 #    define OLED_STR_ENC_MODE_VOLUME "Vol"
@@ -111,6 +115,7 @@ void render_encoders(void);
 #ifdef THUMBSTICK_ENABLE
 void render_thumbstick(void);
 #endif
+void render_mac_mode(void);
 
 void render_status(void);
 void render_status_main(void);

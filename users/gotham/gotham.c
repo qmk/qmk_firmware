@@ -1,5 +1,15 @@
 #include "gotham.h"
 
+
+bool is_mac_mode(void) {
+    return keymap_config.swap_lctl_lgui;
+}
+
+void set_mac_mode(bool flag) {
+    keymap_config.swap_lctl_lgui = flag;
+    keymap_config.swap_rctl_rgui = flag;
+}
+
 __attribute__((weak)) void          keyboard_pre_init_keymap(void) {}
 __attribute__((weak)) void          matrix_init_keymap(void) {}
 __attribute__((weak)) void          keyboard_post_init_keymap(void) {}
@@ -15,6 +25,7 @@ void keyboard_pre_init_user(void) { keyboard_pre_init_keymap(); }
 void matrix_init_user(void) { matrix_init_keymap(); }
 
 void keyboard_post_init_user(void) {
+    set_mac_mode(false);
 #ifdef ENCODER_ENABLE
     encoder_init_user();
 #endif

@@ -120,7 +120,7 @@ For instance Tap/Hold for Control on all of the layouts
 
 #define _________________ADJUST_L1_________________ __________________FN_LEFT__________________
 #define _________________ADJUST_L2_________________ RGB_TOG, RGB_SAI, RGB_VAI, RGB_HUI, RGB_MOD
-#define _________________ADJUST_L3_________________ MU_TOG,  RGB_SAD, RGB_VAD, RGB_HUD, RGB_RMOD
+#define _________________ADJUST_L3_________________ MU_TOG,  RGB_SAD, RGB_VAD, RGB_HUD, CG_TOGG
 
 #define _________________ADJUST_R1_________________ __________________FN_RIGHT_________________
 #define _________________ADJUST_R2_________________ RESET,   KC_MAKE, VRSN,    KC_F11,  KC_F12

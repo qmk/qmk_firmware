@@ -205,6 +205,7 @@ void render_status_main(void) {
 #        ifdef THUMBSTICK_ENABLE
         render_thumbstick();
 #        endif
+        render_mac_mode();
     } else {
         if (oled_showing_info) {
             oled_clear();

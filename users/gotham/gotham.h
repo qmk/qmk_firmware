@@ -49,6 +49,9 @@ enum userspace_layers {
 };
 #define LAYOUT_COUNT _GAME // Used for layout cycling, this should be the layer immediately after the last keyboard layout layer.
 
+bool is_mac_mode(void);
+void set_mac_mode(bool);
+
 void          keyboard_pre_init_keymap(void);
 void          matrix_init_keymap(void);
 void          keyboard_post_init_keymap(void);

@@ -145,6 +145,10 @@ void render_layer(void) {
     oled_write_ln_P(((!layer || (layer == _GAME)) ? PSTR(OLED_STR_LAYER_NONE) : layer_names[layer]), false);
 }
 
+void render_mac_mode(void) {
+    oled_write_ln(is_mac_mode() ? OLED_STR_MAC_MODE : "", false);
+}
+
 #ifdef ENCODER_ENABLE
 void render_encoder(uint8_t index) {
     char encoder_index[OLED_CHAR_COUNT] = "";
@@ -182,6 +186,7 @@ __attribute__((weak)) void render_status_main(void) {
 #ifdef THUMBSTICK_ENABLE
     render_thumbstick();
 #endif
+    render_mac_mode();
 }
 
 __attribute__((weak)) void render_status_secondary(void) {
