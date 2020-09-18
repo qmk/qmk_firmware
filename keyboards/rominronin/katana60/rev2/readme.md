@@ -1,6 +1,6 @@
 # Katana60 rev2
 
-![Katana60 rev2](https://i.imgur.com/3hBsSvB.jpg)
+![Katana60 rev2](https://i.imgur.com/3hBsSvBl.jpg)
 
 A 60% keyboard with a symmetrical staggered layout, sold by CandyKeys.com.
 
