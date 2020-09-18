@@ -174,11 +174,22 @@ def check_udev_rules():
             _udev_rule("03EB", "6124")
         },
         'caterina': {
-            _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Spark Fun Electronics
-            _udev_rule("1FFB", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pololu Electronics
-            _udev_rule("2341", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Arduino SA
-            _udev_rule("239A", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Adafruit Industries LLC
-            _udev_rule("2A03", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"')   # dog hunter AG
+            # Spark Fun Electronics
+            _udev_rule("1B4F", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 3V3/8MHz
+            _udev_rule("1B4F", "9205", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 5V/16MHz
+            _udev_rule("1B4F", "9207", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # LilyPad 3V3/8MHz (and some Pro Micro clones)
+            # Pololu Electronics
+            _udev_rule("1FFB", "0101", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # A-Star 32U4
+            # Arduino SA
+            _udev_rule("2341", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
+            _udev_rule("2341", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Micro
+            # Adafruit Industries LLC
+            _udev_rule("239A", "000C", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Feather 32U4
+            _udev_rule("239A", "000D", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 3V3/8MHz
+            _udev_rule("239A", "000E", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 5V/16MHz
+            # dog hunter AG
+            _udev_rule("2A03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
+            _udev_rule("2A03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')   # Micro
         }
     }
 
