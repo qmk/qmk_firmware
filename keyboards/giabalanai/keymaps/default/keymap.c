@@ -34,6 +34,9 @@
 // Long press: go to _FN layer, tap: MUTE
 #define FN_MUTE LT(_FN, KC_MUTE)
 
+// Used to set octave to MI_OCT_0
+extern midi_config_t midi_config;
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _C_SYSTEM_BASE,  //  MIDI C-system
@@ -154,9 +157,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_CH_DbDom7, MI_CH_AbDom7, MI_CH_EbDom7, MI_CH_BbDom7, MI_CH_FDom7, MI_CH_CDom7, MI_CH_GDom7, MI_CH_DDom7, MI_CH_ADom7, MI_CH_EDom7, MI_CH_BDom7, MI_CH_FsDom7,
     MI_CH_DbDim7, MI_CH_AbDim7, MI_CH_EbDim7, MI_CH_BbDim7, MI_CH_FDim7, MI_CH_CDim7, MI_CH_GDim7, MI_CH_DDim7, MI_CH_ADim7, MI_CH_EDim7, MI_CH_BDim7, MI_CH_FsDim7,
 
-    MI_Ab, MI_B,  MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  FN_MUTE,
-    MI_G,  MI_Bb, MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
-    MI_Fs, MI_A,  MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3
+    MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5,  FN_MUTE,
+    MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4,  MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
+    MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5
   ),
 
   /* QWERTY */
@@ -186,6 +189,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+void keyboard_post_init_user(void) {
+    //  Set otave to MI_OCT_0
+    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint16_t root_note = MIDI_INVALID_NOTE;  // Starting value for the root note of each chord
@@ -193,35 +200,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
-            root_note = keycode - MI_CH_Cr + MI_C;
+            root_note = keycode - MI_CH_Cr + MI_C_1;
             process_midi(root_note, record);
-            // process_midi(root_note + 12, record);  // -1 Octave
+            process_midi(root_note + 12, record);  // -1 Octave
             // process_midi(root_note + 24, record);  // +1 Octave
             break;
 
         case MI_CH_C ... MI_CH_B:  // Major Chords
-            root_note = keycode - MI_CH_C + MI_C;
+            root_note = keycode - MI_CH_C + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 4, record);  // Major Third Note
             process_midi(root_note + 7, record);  // Fifth Note
             break;
 
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
-            root_note = keycode - MI_CH_Cm + MI_C;
+            root_note = keycode - MI_CH_Cm + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 3, record);  // Minor Third Note
             process_midi(root_note + 7, record);  // Fifth Note
             break;
 
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
-            root_note = keycode - MI_CH_CDom7 + MI_C;
+            root_note = keycode - MI_CH_CDom7 + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 4, record);   // Major Third Note
             process_midi(root_note + 10, record);  // Minor Seventh Note
             break;
 
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
-            root_note = keycode - MI_CH_CDim7 + MI_C;
+            root_note = keycode - MI_CH_CDim7 + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 3, record);  // Minor Third Note
             process_midi(root_note + 6, record);  // Diminished 5th Note

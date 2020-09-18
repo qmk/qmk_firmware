@@ -38,10 +38,6 @@
 #define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
-#define DFCBASE DF(_C_SYSTEM_BASE)
-#define DFBBASE DF(_FAKE_B_SYSTEM)
-#define DFCBAS2 DF(_C_SYSTEM_BASE2ROW)
-
 #define DF_QWER DF(_QWERTY)
 #define DF_COLE DF(_COLEMAK)
 // Long press: go to _FN layer, tap: MUTE
@@ -51,6 +47,9 @@
 // Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 rgblight_config_t        RGB_current_config;
+
+// Used to set octave to MI_OCT_0
+extern midi_config_t midi_config;
 
 /* used to specify there is no LED on the keylocation. */
 #    define NO_LED 255
@@ -216,6 +215,10 @@ enum custom_keycodes {
     MI_CH_AsDim7,
     MI_CH_BbDim7 = MI_CH_AsDim7,
     MI_CH_BDim7,
+
+    CSYSTEM,
+    BSYSTEM,
+    CNTBASC,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -227,9 +230,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_CH_DbDom7, MI_CH_AbDom7, MI_CH_EbDom7, MI_CH_BbDom7, MI_CH_FDom7, MI_CH_CDom7, MI_CH_GDom7, MI_CH_DDom7, MI_CH_ADom7, MI_CH_EDom7, MI_CH_BDom7, MI_CH_FsDom7,
     MI_CH_DbDim7, MI_CH_AbDim7, MI_CH_EbDim7, MI_CH_BbDim7, MI_CH_FDim7, MI_CH_CDim7, MI_CH_GDim7, MI_CH_DDim7, MI_CH_ADim7, MI_CH_EDim7, MI_CH_BDim7, MI_CH_FsDim7,
 
-    MI_Ab, MI_B,  MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  FN_MUTE,
-    MI_G,  MI_Bb, MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
-    MI_Fs, MI_A,  MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3
+    MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5,  FN_MUTE,
+    MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4,  MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
+    MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5
   ),
 
   /* fake B-system */
@@ -239,9 +242,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    MI_A,    MI_C_1, MI_Eb_1, MI_Gb_1, MI_A_1, MI_C_2,  MI_Eb_2, MI_Gb_2, MI_A_2, MI_C_3,  MI_Eb_3, MI_Gb_3, _______,
-    MI_G,    MI_Bb,  MI_Db_1, MI_E_1,  MI_G_1, MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2, MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
-    XXXXXXX, MI_Ab,  MI_B,    MI_D_1,  MI_F_1, MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2, MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3
+    MI_A_2,  MI_C_3,  MI_Eb_3, MI_Gb_3, MI_A_3, MI_C_4,  MI_Eb_4, MI_Gb_4, MI_A_4, MI_C_5,  MI_Eb_5, MI_Gb_5, _______,
+    MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3, MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4, MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
+    XXXXXXX, MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3, MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4, MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5
   ),
 
   /* Base2row */
@@ -252,9 +255,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_CH_Dbm,    MI_CH_Abm,    MI_CH_Ebm,    MI_CH_Bbm,    MI_CH_Fm,    MI_CH_Cm,    MI_CH_Gm,    MI_CH_Dm,    MI_CH_Am,    MI_CH_Em,    MI_CH_Bm,    MI_CH_Fsm,
     MI_CH_DbDom7, MI_CH_AbDom7, MI_CH_EbDom7, MI_CH_BbDom7, MI_CH_FDom7, MI_CH_CDom7, MI_CH_GDom7, MI_CH_DDom7, MI_CH_ADom7, MI_CH_EDom7, MI_CH_BDom7, MI_CH_FsDom7,
 
-    MI_Ab, MI_B,  MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,  MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  FN_MUTE,
-    MI_G,  MI_Bb, MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,
-    MI_Fs, MI_A,  MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3
+    MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5,  _______,
+    MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4,  MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
+    MI_Fs_2, MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5
   ),
 
   /* QWERTY */
@@ -286,21 +289,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT(
-    DFCBASE, DFBBASE, DFCBAS2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+    CSYSTEM, BSYSTEM, CNTBASC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
     DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
 
+void keyboard_post_init_user(void) {
+    //  Set otave to MI_OCT_0
+    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
 #ifdef RGBLIGHT_ENABLE
-void keyboard_post_init_user(void) {
     // Reset LED off
     rgblight_sethsv(HSV_BLACK);
 #    if defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE)
@@ -311,8 +316,10 @@ void keyboard_post_init_user(void) {
     rgblight_mode(RGBLIGHT_MODE_TWINKLE+3);
 #        endif
 #    endif
+#endif  // RGBLIGHT_ENABLE
 };
 
+#ifdef RGBLIGHT_ENABLE
 void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
     if (keylocation == NO_LED) {
         return;  // do nothing.
@@ -343,19 +350,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // RGBLIGHT_ENABLE
 
     switch (keycode) {
+        //  set default layer and save it to EEPROM when MIDI key layers are selected.
+        case CSYSTEM:
+            set_single_persistent_default_layer(_C_SYSTEM_BASE);
+            break;
+
+        case BSYSTEM:
+            set_single_persistent_default_layer(_FAKE_B_SYSTEM);
+            break;
+
+        case CNTBASC:
+            set_single_persistent_default_layer(_C_SYSTEM_BASE2ROW);
+            break;
+
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
-            root_note = keycode - MI_CH_Cr + MI_C;
+            root_note = keycode - MI_CH_Cr + MI_C_1;
             process_midi(root_note, record);
-            // process_midi(root_note + 12, record);  // -1 Octave
-            // process_midi(root_note + 24, record);  // +1 Octave
+            process_midi(root_note + 12, record);  // +1 Octave
+            // process_midi(root_note + 24, record);  // 21 Octave
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
             break;
 
         case MI_CH_C ... MI_CH_B:  // Major Chords
-            root_note = keycode - MI_CH_C + MI_C;
+            root_note = keycode - MI_CH_C + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 4, record);  // Major Third Note
             process_midi(root_note + 7, record);  // Fifth Note
@@ -365,7 +385,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case MI_CH_Cm ... MI_CH_Bm:  // Minor Chord
-            root_note = keycode - MI_CH_Cm + MI_C;
+            root_note = keycode - MI_CH_Cm + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 3, record);  // Minor Third Note
             process_midi(root_note + 7, record);  // Fifth Note
@@ -375,7 +395,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case MI_CH_CDom7 ... MI_CH_BDom7:  // Dominant 7th Chord
-            root_note = keycode - MI_CH_CDom7 + MI_C;
+            root_note = keycode - MI_CH_CDom7 + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 4, record);   // Major Third Note
             process_midi(root_note + 10, record);  // Minor Seventh Note
@@ -385,7 +405,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case MI_CH_CDim7 ... MI_CH_BDim7:                // Diminished 7th Chord
-            root_note = keycode - MI_CH_CDim7 + MI_C;
+            root_note = keycode - MI_CH_CDim7 + MI_C_2;
             process_midi(root_note, record);
             process_midi(root_note + 3, record);  // Minor Third Note
             process_midi(root_note + 6, record);  // Diminished 5th Note
@@ -418,9 +438,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(int8_t index, bool clockwise) {
-#ifdef CONSOLE_ENABLE
+#    ifdef CONSOLE_ENABLE
     uprintf("encoder_update_user, index = %d, clockwise = %u\n", index, clockwise);
-#endif
+#    endif
     if (index == 1) { /* An encoder on the right side */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -428,5 +448,8 @@ void encoder_update_user(int8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+#    ifdef CONSOLE_ENABLE
+        uprintf("midi_config.octave = %u\n", midi_config.octave);
+#    endif
 }
 #endif  // ENCODER_ENABLE
