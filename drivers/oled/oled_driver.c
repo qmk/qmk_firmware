@@ -275,7 +275,7 @@ void oled_render(void) {
 
     // Find first dirty block
     uint8_t update_start = 0;
-    while (!(oled_dirty & (1 << update_start))) {
+    while (!(oled_dirty & ((OLED_BLOCK_TYPE)1 << update_start))) {
         ++update_start;
     }
 
@@ -321,7 +321,7 @@ void oled_render(void) {
     oled_on();
 
     // Clear dirty flag
-    oled_dirty &= ~(1 << update_start);
+    oled_dirty &= ~((OLED_BLOCK_TYPE)1 << update_start);
 }
 
 void oled_set_cursor(uint8_t col, uint8_t line) {
@@ -411,9 +411,9 @@ void oled_write_char(const char data, bool invert) {
     // Dirty check
     if (memcmp(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH)) {
         uint16_t index = oled_cursor - &oled_buffer[0];
-        oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << (index / OLED_BLOCK_SIZE));
         // Edgecase check if the written data spans the 2 chunks
-        oled_dirty |= (1 << ((index + OLED_FONT_WIDTH - 1) / OLED_BLOCK_SIZE));
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << ((index + OLED_FONT_WIDTH - 1) / OLED_BLOCK_SIZE));
     }
 
     // Finally move to the next char
@@ -463,7 +463,7 @@ void oled_write_raw_byte(const char data, uint16_t index) {
     if (index > OLED_MATRIX_SIZE) index = OLED_MATRIX_SIZE;
     if (oled_buffer[index] == data) return;
     oled_buffer[index] = data;
-    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+    oled_dirty |= ((OLED_BLOCK_TYPE)1 << (index / OLED_BLOCK_SIZE));
 }
 
 void oled_write_raw(const char *data, uint16_t size) {
@@ -471,7 +471,7 @@ void oled_write_raw(const char *data, uint16_t size) {
     for (uint16_t i = 0; i < size; i++) {
         if (oled_buffer[i] == data[i]) continue;
         oled_buffer[i] = data[i];
-        oled_dirty |= (1 << (i / OLED_BLOCK_SIZE));
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << (i / OLED_BLOCK_SIZE));
     }
 }
 
@@ -491,7 +491,7 @@ void oled_write_pixel(uint8_t x, uint8_t y, bool on) {
     }
     if (oled_buffer[index] != data) {
         oled_buffer[index] = data;
-        oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << (index / OLED_BLOCK_SIZE));
     }
 }
 
@@ -515,7 +515,7 @@ void oled_write_raw_P(const char *data, uint16_t size) {
         uint8_t c = pgm_read_byte(data++);
         if (oled_buffer[i] == c) continue;
         oled_buffer[i] = c;
-        oled_dirty |= (1 << (i / OLED_BLOCK_SIZE));
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << (i / OLED_BLOCK_SIZE));
     }
 }
 #endif  // defined(__AVR__)
