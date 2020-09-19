@@ -23,6 +23,7 @@ enum layers {
     _ADJUST
 };
 
+// shortcuts for certain keys to use LAYOUT_kc()
 #define KC_RAISE TT(_RAISE)
 #define KC_LOWER TT(_LOWER)
 #define KC_KITTY S(KC_LCTL)
@@ -170,6 +171,9 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 */
 
+void keyboard_post_init_user(void) {
+    rgblight_sethsv_noeeprom(HSV_BLUE);
+}
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
