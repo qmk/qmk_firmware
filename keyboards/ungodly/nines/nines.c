@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2020 Ungodly Design
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "nines.h"
+ #include "nines.h"
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left encoder */
