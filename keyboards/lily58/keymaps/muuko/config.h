@@ -1,14 +1,11 @@
 #pragma once
 
-
 #define EE_HANDS
 #define USE_SERIAL_PD2
 
-#define SSD1306OLED
 #define OLED_TIMEOUT 300000
 
 #define NO_MUSIC_MODE
-#define PREVENT_STUCK_MODIFIERS
 
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
