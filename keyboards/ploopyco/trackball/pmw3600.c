@@ -18,7 +18,9 @@
 
 #include "pmw3600.h"
 #include "pmw3600_firmware.h"
-
+#ifdef CONSOLE_ENABLE
+#    include <print.h>
+#endif
 bool _inBurst = false;
 
 #ifndef PMW_CPI
@@ -30,18 +32,8 @@ bool _inBurst = false;
 
 static const int8_t ROTATIONAL_TRANSFORM_ANGLE = 20;
 
-#ifdef SPI_DEBUG
-void print_byte(uint8_t byte) {
-  uprintf("%c%c%c%c%c%c%c%c|", \
-    (byte & 0x80 ? '1' : '0'), \
-    (byte & 0x40 ? '1' : '0'), \
-    (byte & 0x20 ? '1' : '0'), \
-    (byte & 0x10 ? '1' : '0'), \
-    (byte & 0x08 ? '1' : '0'), \
-    (byte & 0x04 ? '1' : '0'), \
-    (byte & 0x02 ? '1' : '0'), \
-    (byte & 0x01 ? '1' : '0'));
-}
+#ifdef CONSOLE_ENABLE
+void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
 #endif
 
 
@@ -176,7 +168,9 @@ bool pmw_check_signature(void) {
 
 report_pmw_t pmw_read_burst(void) {
     if (!_inBurst) {
-        uprintf("burst on");
+#ifdef CONSOLE_ENABLE
+        dprintf("burst on");
+#endif
         spi_write_adv(REG_Motion_Burst, 0x00);
         _inBurst = true;
     }
@@ -201,13 +195,13 @@ report_pmw_t pmw_read_burst(void) {
 
     spi_stop();
 
-#ifdef SPI_DEBUG
+#ifdef CONSOLE_ENABLE
     print_byte(data.motion);
     print_byte(data.dx);
     print_byte(data.mdx);
     print_byte(data.dy);
     print_byte(data.mdy);
-    uprintf("\n");
+    dprintf("\n");
 #endif
 
     data.isMotion    = (data.motion & 0x80) != 0;

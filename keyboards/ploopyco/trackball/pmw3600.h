@@ -69,7 +69,7 @@
 #define REG_Raw_Data_Burst  0x64
 #define REG_LiftCutoff_Tune2  0x65
 
-#ifdef SPI_DEBUG
+#ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte);
 #endif
 
