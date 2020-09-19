@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION Macro Pad with Encoder
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 2
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
