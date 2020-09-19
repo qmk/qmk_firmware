@@ -21,3 +21,5 @@
 
 // time for long press
 #define TAPPING_TERM 200
+
+#define AUDIO_CLICKY
