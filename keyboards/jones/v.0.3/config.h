@@ -50,9 +50,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define DIODE_DIRECTION COL2ROW
 
 /* Rotary Encoder */
-#define ENCODERS_PAD_A { F6, B2 }
-#define ENCODERS_PAD_B { F7, B3 }
+#define ENCODERS_PAD_A { F6, B2, B5, B4 }
+#define ENCODERS_PAD_B { F7, B3, D3, D2 }
 #define ENCODER_RESOLUTION 4    //the default & suggested is 4
+
+/* Audio */
+#define C6_AUDIO
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
