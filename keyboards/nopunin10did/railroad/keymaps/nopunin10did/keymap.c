@@ -20,7 +20,7 @@ KEYMAP(
    KC_F3,  KC_F7,  KC_F11,  
    KC_F4,  KC_F8,  KC_F12,  
 /* Right Block */
-   KC_EQL, KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_BSPC,         KC_INS, RESET,  
+   KC_EQL, KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_BSPC,         KC_INS, KC_PSCR,  
    KC_RBRC,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSLS,     KC_DEL, /*   ISO */   
    KC_HOME,KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,  KC_ENT,      KC_ENT,    
    KC_END ,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,          KC_UP,  
