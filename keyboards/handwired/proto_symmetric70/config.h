@@ -47,7 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_MUL_SEL  {  0, 1, 0, 1,  0, 1, 0, 1,   1, 0, 1, 0,  1, 0, 1, 0 }
 /* use 74HC157: quadruple 2-line to 1-line data selectors / multiplexers */
 #define MATRIX_MUL_SELECT  B5 /* 74HC157 pin1:~A/B */
-#define MATRIX_MUL_SELECT_DELAY 4
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

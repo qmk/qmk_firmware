@@ -26,9 +26,12 @@ static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-#ifdef MATRIX_MUL_SELECT
+#  ifdef MATRIX_MUL_SELECT
 static const pin_t col_sel[MATRIX_COLS] = MATRIX_MUL_SEL;
-#endif
+#    ifndef MATRIX_MUL_SELECT_DELAY
+#      define MATRIX_MUL_SELECT_DELAY 1
+#    endif
+#  endif
 #endif
 
 /* matrix state(1:on, 0:off) */
