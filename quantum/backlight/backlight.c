@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeconfig.h"
 #include "debug.h"
 
-#if defined(STM32F0XX) || defined(STM32F0xx)
-#    pragma message("Backlight support for STMF072 has had limited testing, YMMV. If unsure, set 'BACKLIGHT_ENABLE = no' in your rules.mk")
-#endif
-
 backlight_config_t backlight_config;
 
 #ifdef BACKLIGHT_BREATHING

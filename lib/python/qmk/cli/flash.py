@@ -27,6 +27,7 @@ def print_bootloader_help():
     cli.echo('\tdfu-util-split-left')
     cli.echo('\tdfu-util-split-right')
     cli.echo('\tst-link-cli')
+    cli.echo('\tst-flash')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 
