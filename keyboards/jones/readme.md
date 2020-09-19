@@ -6,7 +6,7 @@
 GH60 case compatible PCB and keyplate.
 
 * Keyboard Maintainer: [Takeshi Nishio](https://github.com/jpskenn)
-* Hardware Supported: Jones PCB
+* Hardware Supported: Jones PCB, Keyplate
 * Hardware Availability: [PCB & Keyplate](https://github.com/jpskenn/Jones)
 
 Make example for this keyboard (after setting up your build environment):
