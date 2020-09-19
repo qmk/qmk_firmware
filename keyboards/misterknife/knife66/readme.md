@@ -1,8 +1,8 @@
 # Knife66
 
-![Knife66](https://i.imgur.com/p7G2g81.png)
+![Knife66](https://i.imgur.com/p7G2g81l.png)
 
-*This is a replacement board for the CA66 keyboard*
+This is a replacement board for the CA66 keyboard
 
 * Keyboard Maintainer: [afewyards](https://github.com/afewyards)
 * Hardware Availability: [Geekhack](https://geekhack.org/index.php?topic=107331.0)
