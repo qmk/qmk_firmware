@@ -23,8 +23,7 @@
 #define PRODUCT_ID      0x544E // "TN" = The Nines
 #define DEVICE_VER      0x9999
 #define MANUFACTURER    Ungodly Design
-#define PRODUCT         The Nines by Ungodly Design
-#define DESCRIPTION     A 9 key (3x3) macropad with rotary encoder support.
+#define PRODUCT         The Nines
 
 /* key matrix size */
 #define MATRIX_ROWS 3
