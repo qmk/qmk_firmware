@@ -35,6 +35,10 @@
 #    define SPLIT_USB_DETECT  // Force this on for now
 #endif
 
+#ifdef FORCE_MASTER
+#   define SPLIT_USB_DETECT
+#endif
+
 volatile bool isLeftHand = true;
 
 #if defined(SPLIT_USB_DETECT)
@@ -121,6 +125,7 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 }
 
 __attribute__((weak)) bool is_keyboard_master(void) {
+#ifndef FORCE_MASTER
     static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
 
     // only check once, as this is called often
@@ -129,6 +134,25 @@ __attribute__((weak)) bool is_keyboard_master(void) {
     }
 
     return (usbstate == MASTER);
+#else
+#   if defined(SPLIT_HAND_PIN) || defined(SPLIT_HAND_MATRIX_GRID) || defined(EE_HANDS)
+#       if defined(MASTER_RIGHT)
+    bool master = !is_keyboard_left();
+#       endif    
+    bool master = is_keyboard_left();
+
+    if(!master)
+    {
+        usbDisable();
+    }
+
+    return master;
+
+#   else
+#       error "Forcing the master side requires left/right identification by means of SPLIT_HAND_PIN, SPLIT_HAND_MATRIX_GRID, or EE_HANDS!"
+#   endif
+    
+#endif
 }
 
 // this code runs before the keyboard is fully initialized

@@ -290,6 +290,14 @@ There are a few different ways to set handedness for split keyboards (listed in 
   * Default behavior for ARM
   * Required for AVR Teensy
 
+* `#define FORCE_MASTER`
+  * Delegates master and slave manually.
+  * The master half setting follows `#define MASTER_LEFT` or `#define MASTER_RIGHT`.
+  * This avoids having to wait for the timeout for USB-based detection. It makes split boards usable in situations, where USB detection leads to problems:
+    * Power cycle/power up PC
+    * Use in BIOS/UEFI without any delay
+  * Disadvantage: The USB cable can only be connected to the chosen master half!
+  
 * `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
