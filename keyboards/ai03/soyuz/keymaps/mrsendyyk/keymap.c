@@ -1,5 +1,4 @@
-/* 
- * Copyright (C) 2020 Sendy YK (https://mr.sendyyk.com).
+/* Copyright (C) 2020 Sendy YK (https://mr.sendyyk.com).
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
+enum layer_names {
+    _BASE
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_numpad_5x4(
+    [_BASE] = LAYOUT_numpad_5x4(
         KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
