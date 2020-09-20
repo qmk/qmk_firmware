@@ -1,4 +1,4 @@
-# OLEDドライバー
+# OLED ドライバー
 
 <!---
   original document: 0.9.52:docs/feature_oled_driver.md
