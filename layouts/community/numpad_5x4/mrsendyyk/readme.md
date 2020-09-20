@@ -4,11 +4,11 @@
 
 ## Numpad 5x4 Layout
 
-![LAYOUT_numpad_5x4](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4-with-gmk-metropolis.png)
+![LAYOUT_numpad_5x4](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4.png)
 
 ## Keymap
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/keymap-with-gmk-metropolis.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4-keymap.png)
 
 ## Build The Firmware
 
