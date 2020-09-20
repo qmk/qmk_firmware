@@ -14,7 +14,7 @@
 
 Press and hold *right* **Ctrl** key.
 
-![_FN]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-1.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-1.png)
 
 ### Fn Layer 2
 
