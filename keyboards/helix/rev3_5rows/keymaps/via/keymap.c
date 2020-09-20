@@ -137,34 +137,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-        case 0:
-            if(active) { // Left no.1
-              keymap_config.swap_lalt_lgui = true;
-            } else {
-              keymap_config.swap_lalt_lgui = false;
-            }
-            break;
-        case 1:
-            if(active) { // Left no.2
-              ;
-            } else { }
-            break;
-        case 2:
-            if(active) { // Right no.2
-              ;
-            } else { }
-            break;
-        case 3:
-            if (active) { // Right no.1
-              ;
-            } else { }
-            break;
-    }
-}
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case EISU:
