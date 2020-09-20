@@ -35,8 +35,16 @@ enum layers {
 	_RAISE,
 	_ADJUST
 };
-#define RAISE MO(_RAISE)
+#define RAISE LT(_RAISE, KC_ENT)
 #define LOWER MO(_LOWER)
+#define HOME_A KC_A
+#define HOME_S KC_S 
+#define HOME_H CTL_T(KC_H) 
+#define HOME_T SFT_T(KC_T) 
+#define HOME_N SFT_T(KC_N) 
+#define HOME_E CTL_T(KC_E)
+#define HOME_O KC_O 
+#define HOME_I KC_I 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: QWERTY
@@ -65,16 +73,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |   TAB  |   A  |   S  |   H  |   T  |   G  |                              |   Y  |   N  |   E  |   O  |   I  |    '   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |  CTRL  |   Z  |   X  |   M  |   C  |   V  | SHIFT| Space|  |      | ENTER|   K  |   L  |   ,  |   .  |   /  |  ENTER |
+ * |        |   Z  |   X  |   M  |   C  |   V  | SHIFT| Space|  |      | ENTER|   K  |   L  |   ,  |   .  |   /  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | GUI  |  ALT | LOWER| Space| SWAP |  | SWAP | Bksp | RAISE|  ALT |      |
+ *                        |  GUI |  ESC | LOWER| Space| SWAP |  | SWAP | Bksp | RAISE|      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
 	[_WORKMAN] = LAYOUT(
-	KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,                                          KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC,
-	KC_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,                                          KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT,
-	KC_LCTL, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,  KC_LSFT, KC_SPC,     SH_MON, KC_ENT,   KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-							   KC_LGUI, KC_LALT, LOWER, KC_SPC,  SH_MON,     SH_MON,  SBKSP,    RAISE,   KC_LALT, _______
+	KC_ESC, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,                                          KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC,
+	KC_TAB, HOME_A,  HOME_S,  HOME_H,  HOME_T,  KC_G,                                          KC_Y,    HOME_N,  HOME_E,  HOME_O,  HOME_I,  KC_QUOT,
+    XXXXXXX, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,  KC_LSFT, KC_SPC,     SH_MON, KC_ENT,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+							   KC_LGUI, KC_LALT,  LOWER, KC_SPC,  SH_MON,     SH_MON, KC_BSPC,   RAISE,   XXXXXXX, _______
 	),
 /*
  * Lower Layer: NUM/symb 
@@ -93,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                            KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
 	KC_DEL,  KC_DLR,  KC_PLUS, KC_LPRN, KC_RPRN, KC_AT,                                           KC_PIPE, KC_MINS, KC_EQL,  KC_UNDS, KC_ASTR, KC_BSLS,
 	_______, KC_EXLM, KC_HASH, KC_LCBR, KC_RCBR, KC_TILD, _______, _______,     _______, _______, KC_AMPR, KC_LBRC, KC_RBRC, KC_PERC, KC_CIRC, _______,
-							   KC_PSCR, _______, _______, _______, _______,     _______, _______, _______, _______, _______
+							   KC_PSCR, _______, _______, _______, _______,     _______, KC_BSPC, _______, _______, _______
 	),
  /*
   * Raise Layer: VIM Movement

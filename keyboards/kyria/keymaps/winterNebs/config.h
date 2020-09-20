@@ -28,7 +28,4 @@
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
 #define TAPPING_FORCE_HOLD
-//#define NO_ACTION_TAPPING
-// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-// #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+#define IGNORE_MOD_TAP_INTERRUPT
