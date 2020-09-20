@@ -32,8 +32,8 @@ enum custom_keycodes {
   RGBRST
 };
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
+#define LOWER FN_MO13
+#define RAISE FN_MO23
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
