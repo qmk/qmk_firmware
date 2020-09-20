@@ -5,7 +5,7 @@ A 65% + Southpaw Numpad designed and sold by [Mystic Works](https://mysticworks.
 ## Support
 * Keyboard Maintainer: [mysticworks](https://github.com/mysticworks)
 * Hardware Supported: Wyvern
-* Hardware Availability: Custom Keyboard Groupbuy
+* Hardware Availability: Will be posted [here](https://mysticworks.xyz/)
 
 Make example for this keyboard (after setting up your build environment):
 
