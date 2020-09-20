@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DonutCables
 #define PRODUCT         Budget96
-#define DESCRIPTION		A budget 96key
 
 #define RGBLED_NUM 18
 
