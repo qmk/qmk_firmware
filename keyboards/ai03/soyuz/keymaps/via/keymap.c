@@ -20,7 +20,7 @@ enum layer_names {
     _BASE, // Default Layer
     _FN, // Fn Layer 1
     _FN2, // Fn Layer 2
-    _FN3, // Fn Layer 3
+    _FN3 // Fn Layer 3
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
