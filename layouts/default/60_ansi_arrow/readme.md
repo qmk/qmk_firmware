@@ -1,23 +1,23 @@
 # 60_ansi_arrow and Keymap
 
-## `LAYOUT_60_ansi_arrow`
+## 60% ANSI Arrow Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-with-gmk-metropolis.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow.png)
 
 ## Keymap
 
-### Default Layer [0]
+### Default Layer
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/keymap-with-gmk-metropolis---layer-0.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-0.png)
 
-### Fn Layer [1]
+### Fn Layer 1
 
-Press and hold **Ctrl** key.
+Press and hold *right* **Ctrl** key.
 
-![Fn Layer [2]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/keymap-with-gmk-metropolis---layer-1.png)
+![_FN]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-1.png)
 
-### Fn Layer [2]
+### Fn Layer 2
 
 Press and hold *right* **Alt** key.
 
-![Fn Layer [2]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/keymap-with-gmk-metropolis---layer-2.png)
+![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-2.png)
