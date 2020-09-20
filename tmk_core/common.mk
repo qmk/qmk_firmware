@@ -161,6 +161,8 @@ ifeq ($(strip $(LTO_ENABLE)), yes)
     EXTRAFLAGS += -flto
     TMK_COMMON_DEFS += -DLTO_ENABLE
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATON_ENABLE
+else ifdef LINK_TIME_OPTIMIZATION_ENABLE
+    $(error The LINK_TIME_OPTIMIZATION_ENABLE flag has been renamed to LTO_ENABLE.)
 endif
 
 # Search Path
