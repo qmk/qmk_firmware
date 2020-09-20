@@ -41,12 +41,12 @@ static int8_t   midi_modulation_step;
 static uint16_t midi_modulation_timer;
 midi_config_t   midi_config;
 
-inline uint8_t compute_velocity(uint8_t setting) { return (setting + 1) * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN + 1)); }
+inline uint8_t compute_velocity(uint8_t setting) { return setting * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN)); }
 
 void midi_init(void) {
     midi_config.octave              = MI_OCT_2 - MIDI_OCTAVE_MIN;
     midi_config.transpose           = 0;
-    midi_config.velocity            = (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN);
+    midi_config.velocity            = 127;
     midi_config.channel             = 0;
     midi_config.modulation_interval = 8;
 
@@ -66,7 +66,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
         case MIDI_TONE_MIN ... MIDI_TONE_MAX: {
             uint8_t channel  = midi_config.channel;
             uint8_t tone     = keycode - MIDI_TONE_MIN;
-            uint8_t velocity = compute_velocity(midi_config.velocity);
+            uint8_t velocity = midi_config.velocity;
             if (record->event.pressed) {
                 if (tone_status[tone] == MIDI_INVALID_NOTE) {
                     uint8_t note = midi_compute_note(keycode);
@@ -124,19 +124,30 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MIDI_VELOCITY_MIN ... MIDI_VELOCITY_MAX:
             if (record->event.pressed) {
-                midi_config.velocity = keycode - MIDI_VELOCITY_MIN;
+                midi_config.velocity = compute_velocity(keycode - MIDI_VELOCITY_MIN);
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
             return false;
         case MI_VELD:
             if (record->event.pressed && midi_config.velocity > 0) {
-                midi_config.velocity--;
+                if (midi_config.velocity == 127) {
+                    midi_config.velocity -= 10;
+                } else if (midi_config.velocity > 12) {
+                    midi_config.velocity -= 13;
+                } else {
+                    midi_config.velocity = 0;
+                }
+
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
             return false;
         case MI_VELU:
-            if (record->event.pressed) {
-                midi_config.velocity++;
+            if (record->event.pressed && midi_config.velocity < 127) {
+                if (midi_config.velocity < 115) {
+                    midi_config.velocity += 13;
+                } else {
+                    midi_config.velocity = 127;
+                }
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
             return false;
