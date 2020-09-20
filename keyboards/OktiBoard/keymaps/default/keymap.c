@@ -62,11 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_LAB] = KEYMAP(
-		MO(_FIGMA), LOCKSCREEN, LOCKSCREEN, RESET,
+		TO(_FIGMA), LOCKSCREEN, LOCKSCREEN, LOCKSCREEN,
 		LOCKSCREEN, AU_ON, AU_OFF, LOCKSCREEN,
 		LOCKSCREEN, LOCKSCREEN, LOCKSCREEN, LOCKSCREEN,
-		LOCKSCREEN , LOCKSCREEN, LOCKSCREEN, MO(_FIGMA)
-
+		LOCKSCREEN , RESET, LOCKSCREEN, LSOUT
 	),
 };
 
@@ -91,6 +90,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_copied = true;
       } else {
         register_code(KC_LGUI(KC_LSHIFT(KC_A)));
+        is_copied = false; // state'i sıfırla
+      }
+      break;
+
+    case LSOUT:
+      if(!is_copied) {
+        register_code(TO(_FIGMA));
+        is_copied = true;
+      } else {
+        register_code(TO(_LAB));
         is_copied = false; // state'i sıfırla
       }
       break;
