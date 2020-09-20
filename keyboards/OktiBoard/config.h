@@ -8,8 +8,8 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    qmkbuilder
-#define PRODUCT         keyboard
-#define DESCRIPTION     Keyboard
+#define PRODUCT         Oktiboard
+#define DESCRIPTION     Macro and Funboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -46,13 +46,16 @@
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 
-
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 0
+#ifdef RGB_DI_PIN F6
++#define RGBLIGHT_EFFECT_STATIC_GRADIENT
++#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
+/* Audio Settings */
+#ifdef AUDIO_ENABLE
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif

@@ -33,9 +33,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------.
  * |  CC  |  SC  |  TL  |  DI  |
  * |------+------+------+------|
- * |  LYR |  BF  |  SB  | SHG  |  
+ * |  LYR |  BF  |  SB  | SHG  |
  * |------+------+------+------|
- * | PLG  | TAL  | TAC  | TAR  |   
+ * | PLG  | TAL  | TAC  | TAR  |
  * |------+------+------+------|
  * | AUL  |      |  CPS | LAB  |
  * `---------------------------'
@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_FIGMA] = KEYMAP(
-		M(Create_Components), M(Show_Components), M(Team_Library), M(Detach_Instance), 
-		M(All_Layers), M(Bring_Forward), M(Send_Backward), M(Show_HideGrid), 
-		M(Run_Last_Plugin), M(Text_Align_Left), M(Text_Align_Center), M(Text_Align_Right), 
+		M(Create_Components), M(Show_Components), M(Team_Library), M(Detach_Instance),
+		M(All_Layers), M(Bring_Forward), M(Send_Backward), M(Show_HideGrid),
+		M(Run_Last_Plugin), M(Text_Align_Left), M(Text_Align_Center), M(Text_Align_Right),
 		M(AUTOLAY), M(BOS), M(COPYPASTESTYLE), MO(_LAB)
 	),
 
@@ -53,18 +53,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------.
  * | FGM  |      |      | RESET|
  * |------+------+------+------|
- * |      |      |      |      |  
+ * |      |AU_ON |AU_OFF|      |
  * |------+------+------+------|
- * |      |      |      |      |   
+ * |      |      |      |      |
  * |------+------+------+------|
  * | LCK  |      |      | FGM  |
  * `---------------------------'
  */
 
 [_LAB] = KEYMAP(
-		MO(_FIGMA), LOCKSCREEN, LOCKSCREEN, RESET, 
-		LOCKSCREEN, LOCKSCREEN, LOCKSCREEN, LOCKSCREEN, 
-		LOCKSCREEN, LOCKSCREEN, LOCKSCREEN, LOCKSCREEN, 
+		MO(_FIGMA), LOCKSCREEN, LOCKSCREEN, RESET,
+		LOCKSCREEN, AU_ON, AU_OFF, LOCKSCREEN,
+		LOCKSCREEN, LOCKSCREEN, LOCKSCREEN, LOCKSCREEN,
 		LOCKSCREEN , LOCKSCREEN, LOCKSCREEN, MO(_FIGMA)
 
 	),
@@ -175,7 +175,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 			}
 			break;
 
-			
+
 	}
 	return MACRO_NONE;
 }
@@ -193,33 +193,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void led_set_user(uint8_t usb_led) {
 
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_COMPOSE)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_KANA)) {
-		
+
 	} else {
-		
+
 	}
 
 }
