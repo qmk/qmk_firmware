@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(keymap_config.swap_lalt_lgui==false){
           register_code(KC_LANG2);
         }else{
-          SEND_STRING(SS_LALT("`"));
+          tap_code16(LALT(KC_GRAVE));
         }
       } else {
         unregister_code(KC_LANG2);
@@ -184,7 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(keymap_config.swap_lalt_lgui==false){
           register_code(KC_LANG1);
         }else{
-          SEND_STRING(SS_LALT("`"));
+          tap_code16(LALT(KC_GRAVE));
         }
       } else {
         unregister_code(KC_LANG1);
