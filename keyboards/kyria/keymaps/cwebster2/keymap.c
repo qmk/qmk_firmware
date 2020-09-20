@@ -15,31 +15,39 @@
  */
 #include QMK_KEYBOARD_H
 #include "raw_hid.h"
+#include <stdio.h>
+
+char wpm_str[10];
+uint16_t wpm_graph_timer = 0;
 
 enum layers {
     _QWERTY = 0,
+    _GAME,
     _LOWER,
     _RAISE,
     _ADJUST
 };
 
 // shortcuts for certain keys to use LAYOUT_kc()
-#define KC_RAISE TT(_RAISE)
-#define KC_LOWER TT(_LOWER)
-#define KC_KITTY S(KC_LCTL)
-#define KC_I3 S(KC_LGUI)
+#define KC_TO(a)  TO(a)
+#define KC_DF(a)  DF(a)
+#define KC_RAISE  TT(_RAISE)
+#define KC_LOWER  TT(_LOWER)
+#define KC_KITTY  S(KC_LCTL)
+#define KC_I3     S(KC_LGUI)
 #define KC_CTLESC MT(MOD_LCTL, KC_ESC)
-#define KC_GUIBS MT(MOD_LGUI, KC_BSPC)
-#define KC_ALTCLN MT(MOD_LALT, KC_COLON)
-#define KC_RTOG RGB_TOG
-#define KC_RSAI RGB_SAI
-#define KC_RHUI RGB_HUI
-#define KC_RVAI RGB_VAI
-#define KC_RMOD RGB_MOD
-#define KC_RSAD RGB_SAD
-#define KC_RHUD RGB_HUD
-#define KC_RVAD RGB_VAD
-#define KC_RRMD RGB_RMOD
+#define KC_GUIBS  MT(MOD_LGUI, KC_BSPC)
+#define KC_ALTCLN MT(MOD_LALT, S(KC_SCLN)) // this doesnt work. need to write a custom keycode to handle it
+#define KC_RTOG   RGB_TOG
+#define KC_RSAI   RGB_SAI
+#define KC_RHUI   RGB_HUI
+#define KC_RVAI   RGB_VAI
+#define KC_RMOD   RGB_MOD
+#define KC_RSAD   RGB_SAD
+#define KC_RHUD   RGB_HUD
+#define KC_RVAD   RGB_VAD
+#define KC_RRMD   RGB_RMOD
+#define KC_TT(m,a)  m##_T(KC_##a)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -47,15 +55,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: QWERTY
  */
     [_QWERTY] = LAYOUT_kc(
- // ,-------------------------------------------.                              ,-------------------------------------------.
-      GRV,      Q,     W,     E,     R,    T,                                     Y,     U,     I,     O,     P,    BSLS,
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-      TAB,      A,     S,     D,     F,    G,                                     H,     J,     K,     L,    SCLN,  QUOT,
- // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
-      LSPO,     Z,     X,     C,     V,    B,     LSPO, ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-                              I3,  KITTY, RAISE,  SPC,  CTLESC,   GUIBS,  ENT,  LOWER,  SPC,   PSCR
- //                        `----------------------------------'  `----------------------------------'
+ // ,-------------------------------------------------------.                              ,-------------------------------------------.
+      GRV,        Q,        W,        E,       R,       T,                                     Y,     U,     I,     O,     P,    BSLS,
+ // |--------+---------+---------+---------+---------+------|                              |------+------+------+------+------+--------|
+      TAB,    TT(LGUI,A),TT(LALT,S),TT(LCTL,D),TT(LSFT,F), G,                               H,TT(RSFT,J),TT(RCTL,K),TT(RALT,L),TT(RGUI,SCLN),  QUOT,
+ // |--------+---------+---------+---------+---------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+      LSPO,       Z,        X,        C,       V,       B,   LSPO,  ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
+ // `----------------------------+---------+---------+------+------+------|  |------+------+------+------+------+----------------------'
+                                      I3,    KITTY,   RAISE,  SPC,  CTLESC,   GUIBS,  ENT,  LOWER,TO(_GAME),PSCR
+ //                              `----------------------------------------'  `----------------------------------'
     ),
 /*
  * Lower Layer: Symbols
@@ -133,6 +141,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //                        `----------------------------------'  `----------------------------------'
       ),
  //
+ // GAME layout -- qwerty without homerow mods
+    [_GAME] = LAYOUT_kc(
+ // ,-------------------------------------------.                              ,-------------------------------------------.
+      GRV,      Q,     W,     E,     R,    T,                                     Y,     U,     I,     O,     P,    BSLS,
+ // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+      TAB,      A,     S,     D,     F,    G,                                     H,     J,     K,     L,    SCLN,  QUOT,
+ // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+      LSPO,     Z,     X,     C,     V,    B,     LSPO, ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
+ // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+                              I3,  KITTY, RAISE,  SPC,  CTLESC,   GUIBS,  ENT,  LOWER, TO(_QWERTY), PSCR
+ //                        `----------------------------------'  `----------------------------------'
+    ),
  //  * Layer template
  //
  //    [_LAYERINDEX] = LAYOUT_kc(
@@ -186,7 +206,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         case _LOWER:
             send_layer_via_hid("Lower");
-            rgblight_sethsv_noeeprom(HSV_RED);
+            rgblight_sethsv_noeeprom(HSV_MAGENTA);
             break;
         case _RAISE:
             send_layer_via_hid("Raise");
@@ -195,6 +215,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _ADJUST:
             send_layer_via_hid("Adjust");
             rgblight_sethsv_noeeprom(HSV_PURPLE);
+            break;
+        case _GAME:
+            send_layer_via_hid("Game");
+            rgblight_sethsv_noeeprom(HSV_RED);
             break;
         default:
             send_layer_via_hid("Undefined");
@@ -225,6 +249,12 @@ static void render_logo(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     };
     oled_write_raw_P(logo, sizeof(logo));
+
+    /*oled_write_P(PSTR("Combos enabled: ", flase));*/
+    /*if (is_combo_enabled()) {*/
+    /*    oled_write_P(PSTR("Yes\n"), false);*/
+    /*} else {*/
+    /*    oled_write_P(PSTR("No\n"), false);*/
 }
 
 static void render_qmk_logo(void) {
@@ -248,17 +278,27 @@ static void render_status(void) {
             oled_write_P(PSTR("Default\n"), false);
             break;
         case _LOWER:
-            oled_write_P(PSTR("Lower / Symbols\n"), false);
+            oled_write_P(PSTR("Lower / Sym\n"), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("Raise / Numbers\n"), false);
+            oled_write_P(PSTR("Raise / Num\n"), false);
             break;
         case _ADJUST:
             oled_write_P(PSTR("Adjust\n"), false);
             break;
+        case _GAME:
+            oled_write_P(PSTR("Game\n"), false);
+            break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
     }
+
+#ifdef WPM_ENABLE
+    // Write WPM
+    sprintf(wpm_str, "WPM: %03d", get_current_wpm());
+    //oled_write_P(PSTR("\n"), false);
+    oled_write(wpm_str, false);
+#endif
 
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();

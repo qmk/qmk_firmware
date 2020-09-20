@@ -41,6 +41,7 @@
 
 #define TAPPING_TOGGLE 1
 #define TAPPING_TERM 200
+#define TAPPING_FORCE_HOLD
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -48,8 +49,20 @@
 #define NO_AUTO_SHIFT_SPECIAL
 #define NO_AUTO_SHIFT_ALPHA
 
+#define QMK_KEYS_PER_SCAN 4
+
 #define EE_HANDS
 
+#undef MOUSEKEY_DELAY
+#define MOUSEKEY_DELAY          0
+#undef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL       16
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY    0
+#undef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED      6
+#undef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX    64
 
 /* Disable unused and unneeded features to reduce on firmware size */
 #ifdef LOCKING_SUPPORT_ENABLE
@@ -66,8 +79,8 @@
                    L33, L34, L35, L36, L37, R37, R36, R35, R34, R33 \
     ) \
     LAYOUT ( \
-    KC_##L00, KC_##L01, KC_##L02, KC_##L03, KC_##L04, KC_##L05,                     KC_##R05, KC_##R04, KC_##R03, KC_##R02, KC_##R01, KC_##R00, \
-    KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15,                     KC_##R15, KC_##R14, KC_##R13, KC_##R12, KC_##R11, KC_##R10, \
+    KC_##L00, KC_##L01, KC_##L02, KC_##L03, KC_##L04, KC_##L05,                                         KC_##R05, KC_##R04, KC_##R03, KC_##R02, KC_##R01, KC_##R00, \
+    KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15,                                         KC_##R15, KC_##R14, KC_##R13, KC_##R12, KC_##R11, KC_##R10, \
     KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##L26, KC_##L27, KC_##R27, KC_##R26, KC_##R25, KC_##R24, KC_##R23, KC_##R22, KC_##R21, KC_##R20, \
-                   KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##L37, KC_##R37, KC_##R36, KC_##R35, KC_##R34, KC_##R33 \
+                                  KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##L37, KC_##R37, KC_##R36, KC_##R35, KC_##R34, KC_##R33 \
     )
