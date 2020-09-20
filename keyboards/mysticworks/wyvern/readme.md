@@ -1,9 +1,11 @@
 # Wyvern
 
+A 65% + Southpaw Numpad designed and sold by [Mystic Works](https://mysticworks.xyz).
+
 ## Support
-* Keyboard Maintainer: [maartenwut](https://github.com/maartenwut)
+* Keyboard Maintainer: [maartenwut](https://github.com/maartenwut), [mysticworks](https://github.com/mysticworks)
 * Hardware Supported: Wyvern
-* Hardware Availability: None yet
+* Hardware Availability: Custom Keyboard Groupbuy
 
 Make example for this keyboard (after setting up your build environment):
 

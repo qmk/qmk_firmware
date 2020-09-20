@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xD445
-#define PRODUCT_ID      0xA2EC
+#define VENDOR_ID       0x4D57
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Mystic Works
 #define PRODUCT         Wyvern
