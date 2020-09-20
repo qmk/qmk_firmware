@@ -87,101 +87,73 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case xkcd:
             if (record->event.pressed) {
                 SEND_STRING("https://xkcd.com/927/");
-            } else {
             }
             return true;
-            break;
         case CD:
             if (record->event.pressed) {
                 SEND_STRING("cd d:/keyboard_stuff/gits/qmk_firmware");
-            } else {
             }
             return true;
-            break;
         case AES:
             if (record->event.pressed) {
                 SEND_STRING("***A E S T H E T I C S***");
-            } else {
             }
             return true;
-            break;
         case img:
             if (record->event.pressed) {
                 SEND_STRING("[url=" SS_LCTL("v") "][img]" SS_LCTL("v") "[/img][/url]");
-            } else {
             }
             return true;
-            break;
         case ALT0:
             if (record->event.pressed) {
                 send_unicode_string("≈");
-            } else {
             }
             return true;
-            break;
         case ALT1:
             if (record->event.pressed) {
                 send_unicode_string("π");
-            } else {
             }
             return true;
-            break;
         case ALT2:
             if (record->event.pressed) {
                 send_unicode_string("±");
-            } else {
             }
             return true;
-            break;
         case ALT3:
             if (record->event.pressed) {
                 send_unicode_string("™");
-            } else {
             }
             return true;
-            break;
         case ALT4:
             if (record->event.pressed) {
                 send_unicode_string("Ω");
-            } else {
             }
             return true;
-            break;
         case ALT5:
             if (record->event.pressed) {
                 send_unicode_string("≤");
-            } else {
             }
             return true;
-            break;
         case ALT6:
             if (record->event.pressed) {
                 send_unicode_string("≥");
-            } else {
             }
             return true;
-            break;
         case ALT7:
             if (record->event.pressed) {
                 send_unicode_string("ゴ");
-            } else {
             }
             return true;
-            break;
         case B:
             if (record->event.pressed) {
                 SEND_STRING(":b:");
-            } else {
             }
             return true;
-            break;
         case X:
             if (record->event.pressed) {
                 SEND_STRING(":x:");
-            } else {
             }
             return true;
-            break;
         case KC_A ... KC_Z:
         case KC_1 ... KC_0:
             if (layer_state_is(1)) {
@@ -189,13 +161,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(KC_F13);
                     tap_code(keycode);
                     unregister_code(KC_F13);
-                } else {
                 }
             } else {
                 return true;
             }
             return false;
-            break;
     }
     return true;
 }
