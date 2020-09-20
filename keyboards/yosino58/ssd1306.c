@@ -10,6 +10,8 @@
 #include "sendchar.h"
 #include "timer.h"
 
+struct CharacterMatrix display;
+
 extern const unsigned char font[] PROGMEM;
 
 // Set this to 1 to help diagnose early startup problems
