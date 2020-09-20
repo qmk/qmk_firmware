@@ -126,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case WORKMAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_WORKMAN);
+       set_single_persistent_default_layer(_WORKMAN);
       }
       return false;
       break;
