@@ -24,7 +24,7 @@ A keyboard's `.h` file needs to have `LAYOUT_numpad_5x4` defined
 }
 ```
 
-![LAYOUT_numpad_5x4](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4-with-gmk-metropolis.png)
+![LAYOUT_numpad_5x4](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4.png)
 
 ### 2. Configuring rules.mk
 
@@ -41,8 +41,14 @@ A keymap must be defined at
 This keymap must have a `LAYOUT_numpad_5x4` layout defined.
 
 ```c
+#include QMK_KEYBOARD_H
+
+enum layer_names {
+    _BASE
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_numpad_5x4(
+    [_BASE] = LAYOUT_numpad_5x4(
         KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
@@ -52,4 +58,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/keymap-with-gmk-metropolis.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4-keymap.png)
