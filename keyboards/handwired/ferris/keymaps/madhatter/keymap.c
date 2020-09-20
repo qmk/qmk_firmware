@@ -14,8 +14,6 @@ enum ilpse_layers {
     _RAISE
 };
 
-#define KC_CTES CTL_T(KC_ESC)
-#define KC_CTEN RCTL_T(KC_ENT)
 #define KC_CTSC RCTL_T(KC_SCLN)
 #define KC_CTLA LCTL_T(KC_A)
 #define KC_LSHZ LSFT_T(KC_Z)
@@ -23,9 +21,7 @@ enum ilpse_layers {
 #define KC_SPM2 LT(2, KC_SPC)
 #define KC_BSM1 LT(1, KC_BSPC)
 #define KC_GUTA GUI_T(KC_TAB)
-#define KC_BSM2 LT(2, KC_BSPC)
 #define KC_CLGV CTL_T(KC_GRV)
-#define KC_CLBS CTL_T(KC_BSLS)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
