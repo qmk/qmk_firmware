@@ -3,7 +3,7 @@
 A 65% + Southpaw Numpad designed and sold by [Mystic Works](https://mysticworks.xyz).
 
 ## Support
-* Keyboard Maintainer: [maartenwut](https://github.com/maartenwut), [mysticworks](https://github.com/mysticworks)
+* Keyboard Maintainer: [mysticworks](https://github.com/mysticworks)
 * Hardware Supported: Wyvern
 * Hardware Availability: Custom Keyboard Groupbuy
 

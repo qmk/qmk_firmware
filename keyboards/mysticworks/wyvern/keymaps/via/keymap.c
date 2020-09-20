@@ -1,4 +1,4 @@
-/* Copyright 2020 Maarten Dekkers <maartenwut@gmail.com>
+/* Copyright 2020 Albert Dong <albert@mysticworks.xyz>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
