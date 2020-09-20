@@ -43,7 +43,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ### `update_tri_layer_state(state, x, y, z)`
 The other function is `update_tri_layer_state(state, x, y, z)`.  This function is meant to be called from the [`layer_state_set_*` functions](custom_quantum_functions.md#layer-change-code).  This means that any time that you use a keycode to change the layer, this will be checked.  So you could use `LT(layer, kc)` to change the layer and it will trigger the same layer check.
 
-The caveat to this method is that you cannot access the `z` layer without having `x` and `y` layers on, since if you try to activate just layer `z`, it will run this code and turn off layer `z` before you could use it. Additionally, layer `z` must be a higher layer than `x` and `y`.
+There are a couple of caveats to this method: 
+1. You cannot access the `z` layer without having `x` and `y` layers on, since if you try to activate just layer `z`, it will run this code and turn off layer `z` before you could use it. 
+2. Because layers are processed from the highest number `z` should be a higher layer than `x` and `y` or you may not be able to access it.
 
 #### Example
 
