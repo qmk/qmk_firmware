@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------|
  * | PLG  | TAL  | TAC  | TAR  |
  * |------+------+------+------|
- * | AUL  |      |  CPS | LAB  |
+ * | AUL  |      |  CPS | SWT  |
  * `---------------------------'
  */
 
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		M(Create_Components), M(Show_Components), M(Team_Library), M(Detach_Instance),
 		M(All_Layers), M(Bring_Forward), M(Send_Backward), M(Show_HideGrid),
 		M(Run_Last_Plugin), M(Text_Align_Left), M(Text_Align_Center), M(Text_Align_Right),
-		M(AUTOLAY), M(BOS), M(COPYPASTESTYLE), MO(_LAB)
+		M(AUTOLAY), M(BOS), M(COPYPASTESTYLE), LSOUT
 	),
 
 /* Lab
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------|
  * |      |      |      |      |
  * |------+------+------+------|
- * | LCK  |      |      | FGM  |
+ * | LCK  |      |      | SWT  |
  * `---------------------------'
  */
 
