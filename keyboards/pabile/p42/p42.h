@@ -15,31 +15,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
 
-#include "config_common.h"
+#include "quantum.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6666
-#define PRODUCT_ID      0x6668
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Pabile
-#define PRODUCT         P18 Macro Pad
-#define DESCRIPTION     An 18-key DIY macropad kit
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 5
-
-/* pin-out for PROMICRO */
-#define MATRIX_ROW_PINS { D1, D0, D4, C6 }
-#define MATRIX_COL_PINS { D2, D7, E6, B4, B5 }
-#define UNUSED_PINS
- 
-/* Encoder position for PROMICRO */
-#define ENCODERS_PAD_A { B6, F6 }
-#define ENCODERS_PAD_B { F4, F5 } 
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+#define LAYOUT( \
+      k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, \
+      k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, \
+      k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210,\
+      k300, k301, k302, k303, k304, k305, k306, k307, k308, k309, k310 \
+) \
+{ \
+      {k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, KC_NO}, \
+      {k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, KC_NO}, \
+      {k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210}, \
+      {k300, k301, k302, k303, k304, k305, k306, k307, k308, k309, k310} \
+}
