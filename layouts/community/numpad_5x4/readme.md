@@ -36,7 +36,7 @@ A keyboard's `.h` file needs to have `LAYOUT_numpad_5x4` defined
 
 A keymap must be defined at         
 
-    qmk_firmware/layouts/community/60_ansi_arrow/yourfoldername/keymap.c
+    qmk_firmware/layouts/community/numpad_5x4/yourfoldername/keymap.c
 
 This keymap must have a `LAYOUT_numpad_5x4` layout defined.
 
