@@ -15,6 +15,6 @@ SLEEP_LED_ENABLE = no          # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes              # USB Nkey Rollover
 BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no          # Enable Bluetooth with the Adafruit EZ-Key HID
+BLUETOOTH_ENABLE = no          # Enable Bluetooth
 RGB_MATRIX_ENABLE = IS31FL3741 # Use RGB matrix
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
