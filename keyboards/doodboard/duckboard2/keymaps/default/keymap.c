@@ -14,31 +14,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kb.h"
-
+#include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-	KEYMAP(
-		TG(1), KC_PSLS, KC_PAST, KC_PMNS,
-		KC_P7, KC_P8, KC_P9,
-		KC_P4, KC_P5, KC_P6, KC_PPLS,
-		KC_P1, KC_P2, KC_P3,
-		KC_BSPC, KC_MUTE, KC_P0, KC_PDOT, KC_PENT),
-
-	KEYMAP(
-		TG(1), KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_HOME, KC_UP, KC_PGUP,+
-		KC_LEFT, KC_TRNS, KC_RGHT, KC_TRNS,
-		KC_END, KC_DOWN, KC_PGDN,
-		TG(2), KC_TRNS, KC_INS, KC_DEL, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS,
-		RGB_HUI, RGB_SAI, RGB_VAI,
-		RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS,
-		TG(2), RESET, KC_TRNS, KC_TRNS, KC_TRNS),
-
+    [0] = LAYOUT(
+                 TG(1),   KC_PSLS, KC_PAST, KC_PMNS,
+                 KC_P7,   KC_P8,   KC_P9,
+                 KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+                 KC_P1,   KC_P2,   KC_P3,
+        KC_BSPC, KC_MUTE, KC_P0,   KC_PDOT, KC_PENT),
+	[1] = LAYOUT(
+		         TG(1),   KC_TRNS, KC_TRNS, KC_TRNS,
+		         KC_HOME, KC_UP,   KC_PGUP,
+		         KC_LEFT, KC_TRNS, KC_RGHT, KC_TRNS,
+		         KC_END,  KC_DOWN, KC_PGDN,
+		TG(2),   KC_TRNS, KC_INS,  KC_DEL,  KC_TRNS),
+	[2] = LAYOUT(
+		         KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS,
+		         RGB_HUI, RGB_SAI, RGB_VAI,
+		         RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS,
+		         KC_TRNS, KC_TRNS, KC_TRNS,
+		TG(2),   RESET,   KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {

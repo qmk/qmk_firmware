@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_H
 #define CONFIG_H
 
 #include "config_common.h"
@@ -57,5 +56,3 @@
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-#endif
