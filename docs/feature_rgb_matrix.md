@@ -129,7 +129,7 @@ Configure the hardware via your `config.h`:
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
 ```c
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
   // Key Matrix to LED Index
   {   5, NO_LED, NO_LED,   0 },
   { NO_LED, NO_LED, NO_LED, NO_LED },
