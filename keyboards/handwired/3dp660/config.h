@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Handwired
 #define PRODUCT         3dp660
-#define DESCRIPTION     QMK keyboard firmware for handwired 3d printed Clueboard 660
 
 #define TAPPING_TERM 400
 
@@ -49,5 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
 
