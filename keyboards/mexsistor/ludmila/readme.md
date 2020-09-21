@@ -7,6 +7,7 @@ Ludmila is a 4 Key Macropad with one rotary encoder.
 * Keyboard Maintainer: [Kevin M.](https://github.com/mexsistor)
 * Hardware Supported: Ludmila PCB (atmega32u4)
 * Hardware Availability: [Kevin M:](https://www.mexsistor.com/)
+
 Make example for this keyboard (after setting up your build environment):
 
     make mexsistor/ludmila:default
