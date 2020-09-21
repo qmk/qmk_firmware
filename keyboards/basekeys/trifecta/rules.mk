@@ -1,6 +1,3 @@
-# SRC = matrix.c
-# SRC += config_led.c
-
 # MCU name
 MCU = atmega32u4
 
