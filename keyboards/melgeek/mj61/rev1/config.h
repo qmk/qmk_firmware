@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MelGeek
 #define PRODUCT         MJ61
-#define DESCRIPTION     MJ61 ARM RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
