@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x594D // "YM"
-#define PRODUCT_ID      0x604D // 60M
+#define PRODUCT_ID      0x604D // 60 "M"
 #define MANUFACTURER    YMDK
 #define PRODUCT         YD60MQ
 #define DESCRIPTION     Keyboard
