@@ -43,8 +43,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-// Current limiting.
-#define USB_MAX_POWER_CONSUMPTION 500     // Limit device max power consumption.
 
 #define RGB_DI_PIN E6
 #define DRIVER_LED_TOTAL 80
