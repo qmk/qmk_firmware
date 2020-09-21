@@ -1,5 +1,6 @@
 # 3dp660
-<img src="https://imgur.com/KWyU57e" alt="Clueboard660" width="400"/>
+
+![](https://i.imgur.com/KWyU57el.jpg)
 
 ### Teensy 2.0 Pinout
 | rows        | 0   | 1   | 2   | 3   | 4   |
