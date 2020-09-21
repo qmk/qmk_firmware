@@ -21,8 +21,6 @@
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   WORKMAN,
-  LOWER,
-  RAISE,
   ADJUST,
   SBKSP,
   ENDW
