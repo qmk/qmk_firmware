@@ -131,7 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case EISU:
       if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
+        if (is_mac_mode()) {
           register_code(KC_LANG2);
         }else{
           tap_code16(LALT(KC_GRAVE));
