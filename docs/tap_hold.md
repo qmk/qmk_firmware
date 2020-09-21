@@ -47,7 +47,7 @@ As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new 
 
 This makes tap and hold keys (like Mod Tap) work better for fast typists, or for high `TAPPING_TERM` settings. 
 
-If you press a Mod Tap key, tap another key (press and release) and then release the Mod Tap key, all within the tapping term, it will output the "tapping" function for both keys.
+If you press a Mod Tap key, tap another key (press and release) and then release the Mod Tap key, all within the tapping term, it will output the tapping function for both keys.
 
 For Instance:
 
@@ -87,7 +87,7 @@ To enable this setting, add this to your `config.h`:
 #define IGNORE_MOD_TAP_INTERRUPT
 ```
 
-Similar to Permissive Hold, this alters how the firmware processes inputs for fast typists. If you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally output the "tapping" function for both keys. This may not be desirable for rolling combo keys. 
+Similar to Permissive Hold, this alters how the firmware processes inputs for fast typists. If you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally output the tapping function for both keys. This may not be desirable for rolling combo keys.
 
 Setting `Ignore Mod Tap Interrupt` requires  holding both keys for the `TAPPING_TERM` to trigger the hold function (the mod).
 
@@ -132,21 +132,21 @@ To enable `tapping force hold`, add the following to your `config.h`:
 #define TAPPING_FORCE_HOLD
 ```
 
-When the user holds a key after tap, this repeats the tapped key rather to hold a modifier key.  This allows to use auto repeat for the tapped key.  
+When the user holds a key after tapping it, the tapping function is repeated by default, rather than activating the hold function. This allows to keep the ability to auto-repeat the tapping function of a dual-role key. `TAPPING_FORCE_HOLD` removes that ability to let the user activate the hold function instead, in the case of holding the dual-role key after having tapped it.
 
 Example:
 
-- SFT_T(KC_A) Down
-- SFT_T(KC_A) Up
-- SFT_T(KC_A) Down
-- wait more than tapping term...
-- SFT_T(KC_A) Up
+- `SFT_T(KC_A)` Down
+- `SFT_T(KC_A)` Up
+- `SFT_T(KC_A)` Down
+- wait until the tapping term expires...
+- `SFT_T(KC_A)` Up
 
 With default settings, `a` will be sent on the first release, then `a` will be sent on the second press allowing the computer to trigger its auto repeat function.
 
 With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allowing to use it as a modifier shortly after having used it as a tap.
 
-!> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
+!> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
