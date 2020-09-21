@@ -1,6 +1,6 @@
 # MelGeek MJ61
 
-![MJ61](https://drive.google.com/file/d/1siZCVPbHR-L7UVPa6R_-WPJDPoMtis9Q/view)
+![MJ61](https://cdn.shopifycdn.net/s/files/1/0078/2863/5712/products/a0ebad495be43c4c42403878b4af4ac2_1024x1024@2x.jpg?v=1600672895)
 
 A hotswap 60% RGB Custom Mechanical keyboard.
 
