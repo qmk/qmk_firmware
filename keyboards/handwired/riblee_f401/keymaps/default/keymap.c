@@ -30,9 +30,7 @@ enum preonic_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
     DVORAK,
-    BACKLIT,
-    MAC,
-    LINUX
+    BACKLIT
 };
 
 #define LOWER MO(_LOWER)
@@ -151,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |Reset |Debug |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |Dvorak|Mu mod|Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Linux |      |      |
+ * |      |      |Mu mod|Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      | NKRO | Mac  |      |      |      |      |
+ * |      |      |      |      |      |      | NKRO | Swap |Un swp|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -161,14 +159,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_5x12(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,
     _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______,  _______, KC_DEL,
-    _______, DVORAK,  MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, LINUX,    _______, _______,
-    _______, _______, _______, _______, _______, _______, NK_TOGG, MAC,     _______, _______,  _______, _______,
+    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,   _______, _______,
+    _______, _______, _______, _______, _______, _______, NK_TOGG, LCG_SWP, LCG_NRM, _______,  _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______
 )
 
 };
-
-uint16_t backlight_extra_keycode = KC_LGUI;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -196,21 +192,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case BACKLIT:
             if (record->event.pressed) {
-                register_code(backlight_extra_keycode);
+                register_code(keycode_config(KC_LGUI));
                 #ifdef BACKLIGHT_ENABLE
                     backlight_step();
                 #endif
             } else {
-                unregister_code(backlight_extra_keycode);
+                unregister_code(keycode_config(KC_LGUI));
             }
-            return false;
-            break;
-        case LINUX:
-            backlight_extra_keycode = KC_LCTL;
-            return false;
-            break;
-        case MAC:
-            backlight_extra_keycode = KC_LGUI;
             return false;
             break;
     }

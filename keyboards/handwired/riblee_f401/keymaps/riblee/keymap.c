@@ -30,9 +30,7 @@ enum preonic_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
     DVORAK,
-    BACKLIT,
-    MAC,
-    LINUX
+    BACKLIT
 };
 
 #define LOWER MO(_LOWER)
@@ -56,9 +54,9 @@ void dance_key_a (qk_tap_dance_state_t *state, void *user_data) {
         reset_tap_dance(state);
     } else if (state->count == 2) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("00E1"); // á
+            send_unicode_string("á");
         } else {
-            send_unicode_hex_string("00C1"); // Á
+            send_unicode_string("Á");
         }
 
         reset_tap_dance(state);
@@ -71,9 +69,9 @@ void dance_key_e (qk_tap_dance_state_t *state, void *user_data) {
         reset_tap_dance(state);
     } else if (state->count == 2) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("00E9"); // é
+            send_unicode_string("é");
         } else {
-            send_unicode_hex_string("00C9"); // É
+            send_unicode_string("É");
         }
 
         reset_tap_dance(state);
@@ -86,9 +84,9 @@ void dance_key_i (qk_tap_dance_state_t *state, void *user_data) {
         reset_tap_dance(state);
     } else if (state->count == 2) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("00ED"); // í
+            send_unicode_string("í");
         } else {
-            send_unicode_hex_string("00CD"); // Í
+            send_unicode_string("Í");
         }
 
         reset_tap_dance(state);
@@ -101,25 +99,25 @@ void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
         reset_tap_dance(state);
     } else if (state->count == 2) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("00F3"); // ó
+            send_unicode_string("ó");
         } else {
-            send_unicode_hex_string("00D3"); // Ó
+            send_unicode_string("Ó");
         }
 
         reset_tap_dance(state);
     } else if (state->count == 3) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("00F6"); // ö
+            send_unicode_string("ö");
         } else {
-            send_unicode_hex_string("00D6"); // Ö
+            send_unicode_string("Ö");
         }
 
         reset_tap_dance(state);
     } else if (state->count == 4) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("0151"); // ö
+            send_unicode_string("ő");
         } else {
-            send_unicode_hex_string("0150"); // Ő
+            send_unicode_string("Ő");
         }
 
         reset_tap_dance(state);
@@ -132,25 +130,25 @@ void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
         reset_tap_dance(state);
     } else if (state->count == 2) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("00FA"); // ó
+            send_unicode_string("ú");
         } else {
-            send_unicode_hex_string("00DA"); // Ú
+            send_unicode_string("Ú");
         }
 
         reset_tap_dance(state);
     } else if (state->count == 3) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("00FC"); // ü
+            send_unicode_string("ü");
         } else {
-            send_unicode_hex_string("00DC"); // Ü
+            send_unicode_string("Ü");
         }
 
         reset_tap_dance(state);
     } else if (state->count == 4) {
         if (!(keyboard_report->mods & shift)) {
-            send_unicode_hex_string("0171"); // ű
+            send_unicode_string("ű");
         } else {
-            send_unicode_hex_string("0170"); // Ű
+            send_unicode_string("Ű");
         }
 
         reset_tap_dance(state);
@@ -286,9 +284,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |Reset |Debug |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |Dvorak|Mu mod|Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Linux |      |      |
+ * |      |      |Mu mod|Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      | NKRO | Mac  |      |      |      |      |
+ * |      |      |      |      |      |      | NKRO | Swap |Un swp|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -296,14 +294,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_5x12(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,
     _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______,  _______, KC_DEL,
-    _______, DVORAK,  MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, LINUX,    _______, _______,
-    _______, _______, _______, _______, _______, _______, NK_TOGG, MAC,     _______, _______,  _______, _______,
+    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,   _______, _______,
+    _______, _______, _______, _______, _______, _______, NK_TOGG, LCG_SWP, LCG_NRM, _______,  _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______
 )
 
 };
-
-uint16_t backlight_extra_keycode = KC_LGUI;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -331,21 +327,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case BACKLIT:
             if (record->event.pressed) {
-                register_code(backlight_extra_keycode);
+                register_code(keycode_config(KC_LGUI));
                 #ifdef BACKLIGHT_ENABLE
                     backlight_step();
                 #endif
             } else {
-                unregister_code(backlight_extra_keycode);
+                unregister_code(keycode_config(KC_LGUI));
             }
-            return false;
-            break;
-        case LINUX:
-            backlight_extra_keycode = KC_LCTL;
-            return false;
-            break;
-        case MAC:
-            backlight_extra_keycode = KC_LGUI;
             return false;
             break;
     }
