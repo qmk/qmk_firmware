@@ -1,9 +1,8 @@
 # MCU name
 MCU = atmega32u4
 
-# Bootloader  type
+# Bootloader selection
 BOOTLOADER = atmel-dfu
-
 
 # Build Options
 #   comment out to disable the options.
