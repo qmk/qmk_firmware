@@ -1,2 +1,1 @@
-# The Default Planck Layout
-
+# winterNebs' Planck keymap

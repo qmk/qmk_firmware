@@ -29,7 +29,6 @@ enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   WORKMAN,
   LOWER,
-  HELP
 };
 
 #define ADJUST MO(_ADJUST)
@@ -103,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid(
     RESET,   DEBUG,   _______, _______, AU_ON,    AU_OFF, _______, _______, _______, _______, _______, _______ ,
-    _______, _______, _______, QWERTY, WORKMAN , _______, _______, HELP,	  _______, _______, _______, _______,
+    _______, _______, _______, QWERTY, WORKMAN , _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  KC_VOLU, KC_MPLY,
     MAGIC_TOGGLE_NKRO, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
 )
@@ -146,12 +145,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       layer_off(_LOWER);
       return false;
-      break;
-	case HELP:
-	  if(record->event.pressed){
-        
-      }
-	  return false;
       break;
   }
   return true;
