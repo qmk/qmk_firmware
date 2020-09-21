@@ -1,17 +1,6 @@
 # MCU name
 MCU = atmega32u4
 BOOTLOADER = caterina
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-SRC += ssd1306.c
-
-# Boot Section Size in *bytes*
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   comment out to disable the options.

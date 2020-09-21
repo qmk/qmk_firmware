@@ -16,7 +16,7 @@
 
 #define KB_H
 
-#include "quantum.h"
+#pragma once
 
 #define LAYOUT( \
          K01, K02, K03, K04, \
