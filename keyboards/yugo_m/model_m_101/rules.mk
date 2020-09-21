@@ -13,6 +13,3 @@ COMMAND_ENABLE = no     # Commands for debug and configuration
 NKRO_ENABLE = no	      # USB Nkey Rollover
 AUDIO_ENABLE = no
 
-# project specific files
-# SRC =	led.c
-LAYOUTS = default
