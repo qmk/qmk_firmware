@@ -80,9 +80,9 @@ void oled_task_user(void) {
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             //oled_write_ln_P(PSTR("Undefined"), false);
     }
-    uint8_t led_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("Numlock On\n") : PSTR("           \n"), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("Capslock On \n") : PSTR("           \n"), false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("Numlock On\n") : PSTR("           \n"), false);
+    oled_write_P(led_state.caps_lock ? PSTR("Capslock On \n") : PSTR("           \n"), false);
 }
 #endif
 
