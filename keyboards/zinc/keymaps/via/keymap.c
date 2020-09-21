@@ -180,12 +180,13 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST2);
 #ifdef RGBLIGHT_LAYERS
     // Both layers will light up if both kb layers are active
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
 #endif
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST2);
+    return state;
 }
 
 bool led_update_user(led_t led_state) {
