@@ -1,8 +1,6 @@
 # Corin
 
-![Corin bottom](https://raw.githubusercontent.com/longnald/corin/master/graphics/bottom_render.svg)
-
-![Corin top](https://raw.githubusercontent.com/longnald/corin/master/graphics/top_render.svg)
+![Corin view](https://github.com/longnald/corin/raw/master/view/view-1.jpg)
 
 Corin is a 64-key keyboard that adds 4 more arrow keys than a regular 60% keyboard made and sold by Seaton Jiang.
 
