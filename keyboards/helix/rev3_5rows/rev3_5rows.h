@@ -18,6 +18,9 @@
 
 #include "quantum.h"
 
+bool is_mac_mode(void);
+void set_mac_mode(bool macmode);
+
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
