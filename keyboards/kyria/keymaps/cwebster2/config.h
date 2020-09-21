@@ -40,8 +40,8 @@
 #endif
 
 #define TAPPING_TOGGLE 1
-#define TAPPING_TERM 200
-#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 175
+//#define TAPPING_FORCE_HOLD
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -83,4 +83,30 @@
     KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15,                                         KC_##R15, KC_##R14, KC_##R13, KC_##R12, KC_##R11, KC_##R10, \
     KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##L26, KC_##L27, KC_##R27, KC_##R26, KC_##R25, KC_##R24, KC_##R23, KC_##R22, KC_##R21, KC_##R20, \
                                   KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##L37, KC_##R37, KC_##R36, KC_##R35, KC_##R34, KC_##R33 \
+    )
+
+#define LAYOUT_left_kc( \
+    L00, L01, L02, L03, L04, L05, \
+    L10, L11, L12, L13, L14, L15, \
+    L20, L21, L22, L23, L24, L25, L26, L27, \
+                   L33, L34, L35, L36, L37  \
+    ) \
+    LAYOUT_kc ( \
+    L00, L01, L02, L03, L04, L05,                       TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+    L10, L11, L12, L13, L14, L15,                       TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+    L20, L21, L22, L23, L24, L25, L26, L27, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+                   L33, L34, L35, L36, L37, TRNS, TRNS, TRNS, TRNS, TRNS \
+    )
+
+#define LAYOUT_right_kc( \
+              R05, R04, R03, R02, R01, R00, \
+              R15, R14, R13, R12, R11, R10, \
+    R27, R26, R25, R24, R23, R22, R21, R20, \
+    R37, R36, R35, R34, R33 \
+    ) \
+    LAYOUT_kc ( \
+    TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,                       R05, R04, R03, R02, R01, R00, \
+    TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,                       R15, R14, R13, R12, R11, R10, \
+    TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, R27, R26, R25, R24, R23, R22, R21, R20, \
+                      TRNS, TRNS, TRNS, TRNS, TRNS, R37, R36, R35, R34, R33 \
     )

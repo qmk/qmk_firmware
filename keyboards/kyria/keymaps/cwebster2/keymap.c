@@ -22,6 +22,10 @@ uint16_t wpm_graph_timer = 0;
 
 enum layers {
     _QWERTY = 0,
+    _FN,
+    _SYMBOLS,
+    _NUM,
+    _NAV,
     _GAME,
     _LOWER,
     _RAISE,
@@ -33,9 +37,8 @@ enum layers {
 #define KC_DF(a)  DF(a)
 #define KC_RAISE  TT(_RAISE)
 #define KC_LOWER  TT(_LOWER)
-#define KC_KITTY  S(KC_LCTL)
-#define KC_I3     S(KC_LGUI)
-#define KC_CTLESC MT(MOD_LCTL, KC_ESC)
+#define KC_KITTY(a)  LCTL_T(KC_##a)
+#define KC_I3(a)  SCMD_T(KC_##a)
 #define KC_GUIBS  MT(MOD_LGUI, KC_BSPC)
 #define KC_ALTCLN MT(MOD_LALT, S(KC_SCLN)) // this doesnt work. need to write a custom keycode to handle it
 #define KC_RTOG   RGB_TOG
@@ -48,6 +51,11 @@ enum layers {
 #define KC_RVAD   RGB_VAD
 #define KC_RRMD   RGB_RMOD
 #define KC_TT(m,a)  m##_T(KC_##a)
+#define KC_CTLESC MT(MOD_LCTL, KC_ESC)
+#define KC_FN(a) LT(_FN, KC_##a)
+#define KC_SYM(a) LT(_SYMBOLS, KC_##a)
+#define KC_NUM(a) LT(_NUM, KC_##a)
+#define KC_NAV(a) LT(_NAV, KC_##a)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -55,30 +63,74 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: QWERTY
  */
     [_QWERTY] = LAYOUT_kc(
- // ,-------------------------------------------------------.                              ,-------------------------------------------.
-      GRV,        Q,        W,        E,       R,       T,                                     Y,     U,     I,     O,     P,    BSLS,
- // |--------+---------+---------+---------+---------+------|                              |------+------+------+------+------+--------|
+ // ,-----------------------------------------------------------.                              ,-------------------------------------------.
+      GRV,        Q,        W,         E,         R,       T,                                     Y,     U,     I,     O,     P,    BSLS,
+ // |--------+----------+----------+----------+----------+------|                              |------+------+------+------+------+--------|
       TAB,    TT(LGUI,A),TT(LALT,S),TT(LCTL,D),TT(LSFT,F), G,                               H,TT(RSFT,J),TT(RCTL,K),TT(RALT,L),TT(RGUI,SCLN),  QUOT,
- // |--------+---------+---------+---------+---------+------+------+------.  ,------+------+------+------+------+------+------+--------|
-      LSPO,       Z,        X,        C,       V,       B,   LSPO,  ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
- // `----------------------------+---------+---------+------+------+------|  |------+------+------+------+------+----------------------'
-                                      I3,    KITTY,   RAISE,  SPC,  CTLESC,   GUIBS,  ENT,  LOWER,TO(_GAME),PSCR
+ // |--------+----------+----------+----------+----------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+      EQL,       Z,         X,         C,         V,       B,    LSPO,  ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
+ // `------------------------------+----------+----------+------+------+------|  |------+------+------+------+------+----------------------'
+                                  I3(LBRC),KITTY(MINS),SYM(TAB),NAV(SPC),FN(ESC),  FN(BSPC),NUM(ENT),SYM(DEL),TO(_GAME),PSCR
  //                              `----------------------------------------'  `----------------------------------'
     ),
-/*
- * Lower Layer: Symbols
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  !   |  @   |  |   |  [   |  ]   |                              |      |      |      |      |      |  | \   |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  #   |  $   |  `   |  {   |  }   |                              |   +  |  -   |  /   |  *   |  %   |  ' "   |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  %   |  ^   |  ~   |  (   |  )   |      |      |  |      |      |   &  |  =   |  ,   |  .   |  / ? | - _    |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
+    // symbols and mouse
+    [_SYMBOLS] = LAYOUT_kc(
+ // ,-------------------------------------------.                              ,-------------------------------------------.
+       TRNS,   EXLM,   AT,   PIPE,  LBRC,  RBRC,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  BSLS,
+ // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+       TRNS,   HASH,  DLR,   GRV,   LCBR,  RCBR,                                 PLUS,  MINS,  SLSH,  ASTR,  PERC,  QUOT,
+ // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+       TRNS,   PERC,  CIRC,  TILD,  LPRN,  RPRN,  TRNS,  TRNS,     TRNS,  TRNS,  AMPR,  EQL,   COMM,   DOT,  SLSH,  MINS,
+ // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+ //                        `----------------------------------'  `----------------------------------'
+    ),
+    [_NUM] = LAYOUT_kc(
+ // ,-------------------------------------------.                              ,-------------------------------------------.
+       TRNS,   LBRC,   7,     8,     9,    RBRC,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+       TRNS,   SCLN,   4,     5,     6,    EQL,                                  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+       TRNS,   GRV,    1,     2,     3,    BSLS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+                             TRNS,  TRNS,  DOT,    0,    MINS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+ //                        `----------------------------------'  `----------------------------------'
+      ),
+    [_NAV] = LAYOUT_kc(
+ // ,-------------------------------------------.                              ,-------------------------------------------.
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 LEFT,  DOWN,   UP,   RGHT,  TRNS,  TRNS,
+ // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+ //                        `----------------------------------'  `----------------------------------'
+      ),
+    // media and fn
+    [_FN] = LAYOUT_kc(
+ // ,-------------------------------------------.                              ,-------------------------------------------.
+       TRNS,    F1,    F2,    F3,    F4,    F5,                                   F6,    F7,    F8,    F9,   F10,   TRNS,
+ // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+       TRNS,   RTOG,  RSAI,  RHUI,  RVAI,  RMOD,                                 TRNS,  TRNS,  TRNS,   F11,  F12,   TRNS,
+ // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+       TRNS,   TRNS,  RSAD,  RHUD,  RVAD,  RRMD,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+ //                        `----------------------------------'  `----------------------------------'
+      ),
+ // GAME layout -- qwerty without homerow mods
+    [_GAME] = LAYOUT_kc(
+ // ,-------------------------------------------.                              ,-------------------------------------------.
+      GRV,      Q,     W,     E,     R,    T,                                     Y,     U,     I,     O,     P,    BSLS,
+ // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+      TAB,      A,     S,     D,     F,    G,                                     H,     J,     K,     L,    SCLN,  QUOT,
+ // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
+      LSPO,     Z,     X,     C,     V,    B,     LSPO, ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
+ // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+                            I3(LBRC),KITTY(MINS), RAISE,  SPC,  CTLESC,   GUIBS,  ENT,  LOWER, TO(_QWERTY), PSCR
+ //                        `----------------------------------'  `----------------------------------'
+    ),
     [_LOWER] = LAYOUT_kc(
  // ,-------------------------------------------.                              ,-------------------------------------------.
        TRNS,   EXLM,   AT,   PIPE,  LBRC,  RBRC,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  BSLS,
@@ -90,20 +142,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
  //                        `----------------------------------'  `----------------------------------'
     ),
-/*
- * Raise Layer: Number keys, media, navigation
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      | Prev | Play | Next | VolUp|                              | Left | Down | Up   | Right|      |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      | Mute | VolDn|      |      |  |      |      | MLeft| Mdown| MUp  |MRight|      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
     [_RAISE] = LAYOUT_kc(
  // ,-------------------------------------------.                              ,-------------------------------------------.
        TRNS,    1,     2,     3,     4,     5,                                    6,     7,     8,     9,     0,    TRNS,
@@ -115,20 +153,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
  //                        `----------------------------------'  `----------------------------------'
       ),
-/*
- * Adjust Layer: Function keys, RGB
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | F1   |  F2  | F3   | F4   | F5   |                              | F6   | F7   |  F8  | F9   | F10  |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | TOG  | SAI  | HUI  | VAI  | MOD  |                              |      |      |      | F11  | F12  |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      | SAD  | HUD  | VAD  | RMOD |      |      |  |      |      |      |      |      |      |      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
     [_ADJUST] = LAYOUT_kc(
  // ,-------------------------------------------.                              ,-------------------------------------------.
        TRNS,    F1,    F2,    F3,    F4,    F5,                                   F6,    F7,    F8,    F9,   F10,   TRNS,
@@ -140,19 +164,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
  //                        `----------------------------------'  `----------------------------------'
       ),
- //
- // GAME layout -- qwerty without homerow mods
-    [_GAME] = LAYOUT_kc(
- // ,-------------------------------------------.                              ,-------------------------------------------.
-      GRV,      Q,     W,     E,     R,    T,                                     Y,     U,     I,     O,     P,    BSLS,
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-      TAB,      A,     S,     D,     F,    G,                                     H,     J,     K,     L,    SCLN,  QUOT,
- // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
-      LSPO,     Z,     X,     C,     V,    B,     LSPO, ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-                              I3,  KITTY, RAISE,  SPC,  CTLESC,   GUIBS,  ENT,  LOWER, TO(_QWERTY), PSCR
- //                        `----------------------------------'  `----------------------------------'
-    ),
  //  * Layer template
  //
  //    [_LAYERINDEX] = LAYOUT_kc(
@@ -203,6 +214,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _QWERTY:
             send_layer_via_hid("Default");
             rgblight_sethsv_noeeprom(HSV_BLUE);
+            break;
+        case _SYMBOLS:
+            rgblight_sethsv_noeeprom(HSV_GREEN);
+            break;
+        case _NUM:
+            rgblight_sethsv_noeeprom(HSV_CORAL);
+            break;
+        case _NAV:
+            rgblight_sethsv_noeeprom(HSV_GOLDENROD);
+            break;
+        case _FN:
+            rgblight_sethsv_noeeprom(HSV_PINK);
             break;
         case _LOWER:
             send_layer_via_hid("Lower");
@@ -277,6 +300,21 @@ static void render_status(void) {
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);
             break;
+        case _SYMBOLS:
+            oled_write_P(PSTR("Sym / Mouse\n"), false);
+            break;
+        case _NUM:
+            oled_write_P(PSTR("Numbers\n"), false);
+            break;
+        case _NAV:
+            oled_write_P(PSTR("Navigation\n"), false);
+            break;
+        case _FN:
+            oled_write_P(PSTR("Media / Fn\n"), false);
+            break;
+        case _GAME:
+            oled_write_P(PSTR("Game\n"), false);
+            break;
         case _LOWER:
             oled_write_P(PSTR("Lower / Sym\n"), false);
             break;
@@ -285,9 +323,6 @@ static void render_status(void) {
             break;
         case _ADJUST:
             oled_write_P(PSTR("Adjust\n"), false);
-            break;
-        case _GAME:
-            oled_write_P(PSTR("Game\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
