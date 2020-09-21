@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Swiftrax
 #define PRODUCT         Trifecta
-#define DESCRIPTION     Alice like keyboard with arrow keys and support for rotary encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 10
