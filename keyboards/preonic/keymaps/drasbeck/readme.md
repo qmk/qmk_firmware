@@ -1,4 +1,4 @@
-# The default Preonic layout - largely based on the Planck's
+# drasbeck's Preonic keymap
 Danish layout with Danish characters on default layer.
 
 ```
