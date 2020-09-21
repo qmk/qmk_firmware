@@ -44,11 +44,15 @@ void matrix_scan_cmd_tab(void);
 #define FN_LYR    MO(_FN1)             // Hold for FN Layer
 #define FN2_LYR   MO(_FN2)             // Hold for FN2 Layer
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
+#define RAISE     MO(_RAISE)           // Hold for RAISE Layer
+#define TT_FN     TT(_FN1)             // Hold for FN Layer, or Double-Tap to Toggle
+#define TT_FN2    TT(_FN2)             // Hold for FN2 Layer, or Double-Tap to Toggle
+#define TT_LWR    TT(_LOWER)           // Hold for LOWER Layer, or Double-Tap to Toggle
+#define TT_RAI    TT(_RAISE)           // Hold for RAISE Layer, or Double-Tap to Toggle
 #define SPC_LWR   LT(_LOWER, KC_SPC)   // Tap for Space, Hold for LOWER Layer
 #define SPC_RAI   LT(_RAISE, KC_SPC)   // Tap for Space, Hold for RAISE Layer
 #define SLH_LWR   LT(_LOWER, KC_SLSH)  // Tap for /, Hold for LOWER Layer
 #define BSL_LWR   LT(_LOWER, KC_BSLS)  // Tap for \, Hold for LOWER Layer
-#define RAISE     MO(_RAISE)           // Hold for RAISE Layer
 #define MCO_LYR   MO(_MACRO)           // Hold for MACRO Layer
 #define TG_ADJT   TG(_ADJUST)          // Toggle ADJUST Layer
 #define TG_LGHT   TG(_LIGHT)           // Toggle LIGHT Layer
