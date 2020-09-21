@@ -20,11 +20,10 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0xFF44
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    doodboard
 #define PRODUCT         duckboard
-#define DESCRIPTION     18 key numpad with rotary encoder and OLED support
 
 /* key matrix size */
 #define MATRIX_ROWS 5
