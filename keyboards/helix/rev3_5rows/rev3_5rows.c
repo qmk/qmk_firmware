@@ -36,9 +36,9 @@ void dip_switch_update_kb(uint8_t index, bool active) {
     switch (index) {
     case 0:
         if(active) { // Left no.1  Helix rev3 common
-            keymap_config.swap_lalt_lgui = true;
+            set_mac_mode(false);
         } else {
-            keymap_config.swap_lalt_lgui = false;
+            set_mac_mode(true);
         }
         break;
     default: // Left no.2 or Right no.1 or Right no.2 for user/keymap
