@@ -39,8 +39,8 @@
 #define LAYOUT( \
   K30,      K40, K11, K21, K31, K41, K51, K61, K71, K01, K12, K22, K32, K42, K52, K62, K72, \
   K20, K13, K23, K33, K43, K53, K63, K73, K03, K14, K24, K34, K44, K54, K58,   K64, K74,   K15, K06, K76, K66, \
-  K10,  K17, K27, K37, K47, K57, K67, K77, K07, K18, K28, K38, K48,     K5A,   K68, K78,   K1B, K00, K70, K60, \
-  K0A,   K19, K29, K39, K49, K59, K69, K79, K09, K1A, K2A, K3A, K4A,           K6A, K7A,   K2B, K3B, K4B, K5B, \
+  K10,  K17, K27, K37, K47, K57, K67, K77, K07, K18, K28, K38, K48,            K68, K78,   K1B, K00, K70, K60, \
+  K0A,   K19, K29, K39, K49, K59, K69, K79, K09, K1A, K2A, K3A, K4A,    K5A,   K6A, K7A,   K2B, K3B, K4B, K5B, \
   K0D,    K1C, K2C, K3C, K4C, K5C, K6C, K7C, K0C, K1D, K2D, K3D,        K04,   K6D, K7D,   K25, K35, K45, K55, \
           K08, K0B,                   K50,                  K05,               K6B, K7B,      K65,   K75 \
 ) \

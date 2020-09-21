@@ -21,7 +21,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Fujitsu N860-2500-T111 has 14x8 matrix. It's ghost-free thanks to the diodes.
 
 Rows (0-7) and columns (0-D):
-![T111 rows and columns](https://i.imgur.com/37MxQG8.jpg)
+![T111 rows and columns](https://i.imgur.com/37MxQG8h.jpg)
 
 ## Black Pill
 Suggested mount position for the Black Pill (view from the top side of the PCB):
@@ -36,7 +36,7 @@ Suggested mount position for the Black Pill (view from the top side of the PCB):
       CC  CD  C0  CB  C6  C5          R0  R4  R3  R2  R1  R7
 ```
 
-![Black Pill](https://i.imgur.com/lJfdAQT.jpg)
+![Black Pill](https://i.imgur.com/lJfdAQTh.jpg)
 
 1. Desolder all ICs, capacitors and resistors.
 1. Solder 4-pin SWD header to Black Pill.
