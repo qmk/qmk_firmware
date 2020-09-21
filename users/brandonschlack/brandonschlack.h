@@ -14,12 +14,20 @@
 /* TODO Layer Names */
 enum bs_layers {
     _BASE = 0,
-    KEYMAP_LAYERS, // Add more layers in keymaps
-    /* Protected Layer */
-    _FN1 = 11,
-    _FN2 = 12,
-    _AUDIO = 13, // 13: Audio controls
-    _LIGHT = 14, // 14: Backlight/RGB controls
+    _M1 = 1,
+    _M2 = 2,
+    _M3 = 3,
+    _M4 = 4,
+    _FN1 = 5,
+    _M1_FN1 = 6,
+    _M2_FN1 = 7,
+    _M3_FN1 = 8,
+    _M4_FN1 = 9,
+    _FN2 = 10,
+    _M1_FN2 = 11,
+    _M2_FN2 = 12,
+    _M3_FN2 = 13,
+    _M4_FN2 = 14,
     _ADJUST = 15 // 15: Change keyboard settings
 };
 

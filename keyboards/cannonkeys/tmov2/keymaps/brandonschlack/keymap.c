@@ -22,11 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Layers mostly used for macro keys
  */
-enum macro_layers {
-    _REEDER = KEYMAP_LAYERS,
-    _NAV,
-    _MOUSE,
-};
+#define _REEDER   _M1
+#define _NAV      _M2
+#define _MOUSE    _M3
 
 /**
  * Keycodes & Macros

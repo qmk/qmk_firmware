@@ -4,15 +4,18 @@
 /**
  * Layer Names
  */
-#define _REEDER   _BASE
 enum bdn9_layers {
-    _MEDIA = KEYMAP_LAYERS,
+    _REEDER = 0,
+    _MEDIA,
     _NAVI,
     _KARABINER,
     LR_NAV,
     LR_REVIEW,
     LR_EDIT
 };
+
+#define _AUDIO   13
+#define _LIGHT   14
 
 /**
  * Keycodes & Macros
