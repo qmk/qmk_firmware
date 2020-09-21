@@ -173,9 +173,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
-    rgblight_init();
     RGB_current_config = rgblight_config;
 #endif
 }
