@@ -94,7 +94,7 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
 
     // Bundle and send if needed
     if (dir == 0) return;
-    process_wheel_user(mouse_report, 0, (int)(mouse_report->v + dir * OPT_SCALE));
+    process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + dir * OPT_SCALE));
 }
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
