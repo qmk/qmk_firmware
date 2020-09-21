@@ -24,4 +24,4 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Rotary Encoder support
 CUSTOM_MATRIX = yes
 
-SRC = matrix.c
+SRC += matrix.c
