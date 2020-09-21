@@ -9,7 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = Teensy
+BOOTLOADER = halfkay
 
 # Build Options
 #   comment out to disable the options.
