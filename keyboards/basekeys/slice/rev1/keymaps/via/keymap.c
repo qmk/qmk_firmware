@@ -26,12 +26,6 @@ enum layer_number {
   _RAISE,
 };
 
-enum custom_keycodes {
-  RGB_RST = SAFE_RANGE
-};
-
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_all(
   //,------------------------------------------------------------------------|   |--------------------------------------------------------------------------------------.
