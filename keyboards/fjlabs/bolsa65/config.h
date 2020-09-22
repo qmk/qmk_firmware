@@ -25,7 +25,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001 // Version 1
 #define MANUFACTURER    FJLabs
 #define PRODUCT         bolsa65 
-#define DESCRIPTION     QMK Keyboard firmware for the Bolsa65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
