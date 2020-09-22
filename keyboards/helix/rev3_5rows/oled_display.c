@@ -13,7 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
+ /*
+   How to Customize
+
+   $ make helix/rev3_5rows:YOUR_KEYMAP:clean
+   $ cp keyboards/helix/rev3_5rows/oled_display.c keyboards/helix/rev3_5rows/keymaps/YOUR_KEYMAP
+
+   $ edit keyboards/helix/rev3_5rows/keymaps/YOUR_KEYMAP/oled_display.c
+   $ make helix/rev3_5rows:YOUR_KEYMAP
+   $ make helix/rev3_5rows:YOUR_KEYMAP:flash
+ */
+
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
