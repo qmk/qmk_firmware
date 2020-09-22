@@ -124,6 +124,32 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+The described functionality only works for mod taps. To get the same results for layer taps, add this to your `config.h`:
+
+```c
+#define IGNORE_LAYER_TAP_INTERRUPT
+```
+
+In case you also enabled `IGNORE_MOD_TAP_INTERRUPT_PER_KEY`, you can reuse this function to control layer taps:
+
+```c
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SFT_T(KC_SPC):
+            return true;
+        case LT(_FN, KC_F):
+            // interrupt causes 'f'
+            return true;
+        case LT(_RAISE, KC_BSPC):
+            // interrupt causes layer switch
+            return false;
+        default:
+            return false;
+    }
+}
+```
+
+
 ## Tapping Force Hold
 
 To enable `tapping force hold`, add the following to your `config.h`: 

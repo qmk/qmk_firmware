@@ -562,8 +562,22 @@ void process_action(keyrecord_t *record, action_t action) {
                     /* tap key */
                     if (event.pressed) {
                         if (tap_count > 0) {
-                            dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
-                            register_code(action.layer_tap.code);
+#        ifdef IGNORE_LAYER_TAP_INTERRUPT
+                            if (
+#            ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false), record) &&
+#            endif
+                                record->tap.interrupted) {
+                                dprint("layer_tap: tap: cancel: layer_on\n");
+                                // ad hoc: set 0 to cancel tap
+                                record->tap.count = 0;
+                                layer_on(action.layer_tap.val);
+                            } else
+#        endif
+                            {
+                                dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
+                                register_code(action.layer_tap.code);
+                            }
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);

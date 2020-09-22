@@ -147,6 +147,9 @@ If you define these options you will enable the associated feature, which may in
   * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
   * enables handling for per key `IGNORE_MOD_TAP_INTERRUPT` settings
+* `#define IGNORE_LAYER_TAP_INTERRUPT`
+  * Like `IGNORE_MOD_TAP_INTERRUPT`, but for layer tapping.
+  * See [Ignore Layer Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
   * See [Tapping Force Hold](tap_hold.md#tapping-force-hold)
