@@ -90,19 +90,19 @@ ifeq ($(strip $(BOOTLOADER)), lufa-ms)
     BOOTLOADER_SIZE = 6144
     FIRMWARE_FORMAT = bin
 endif
+ifdef BOOTLOADER_SIZE
+    OPT_DEFS += -DBOOTLOADER_SIZE=$(strip $(BOOTLOADER_SIZE))
+endif
+
 ifeq ($(strip $(BOOTLOADER)), kiibohd)
     OPT_DEFS += -DBOOTLOADER_KIIBOHD
-    ifeq ($(strip $(MCU)), MK20DX128)
+    ifeq ($(strip $(MCU_ORIG)), MK20DX128)
         MCU_LDSCRIPT = MK20DX128BLDR4
     endif
-    ifeq ($(strip $(MCU)), MK20DX256)
+    ifeq ($(strip $(MCU_ORIG)), MK20DX256)
         MCU_LDSCRIPT = MK20DX256BLDR8
     endif
 
     DFU_ARGS = -d 1C11:B007
     DFU_SUFFIX_ARGS = -v 1C11 -p B007
-endif
-
-ifdef BOOTLOADER_SIZE
-    OPT_DEFS += -DBOOTLOADER_SIZE=$(strip $(BOOTLOADER_SIZE))
 endif

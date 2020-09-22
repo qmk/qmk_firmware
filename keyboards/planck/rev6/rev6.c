@@ -15,6 +15,7 @@
  */
 #include "rev6.h"
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
   { NO_LED, 6,      NO_LED, NO_LED, 5,      NO_LED },
@@ -33,6 +34,7 @@ led_config_t g_led_config = { {
   LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
   LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
 } };
+#endif
 
 void matrix_init_kb(void) {
 	matrix_init_user();
