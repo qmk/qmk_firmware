@@ -68,8 +68,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* #define RGBLIGHT_LAYER_BLINK*/
 
 /* Define less important options */
-#define USB_MAX_POWER_CONSUMPTION 500
-#define USB_POLLING_INTERVAL_MS 5
 
 /*
  * Force NKRO
