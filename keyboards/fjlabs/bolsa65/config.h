@@ -21,11 +21,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x7074 // FJLabs
-#define PRODUCT_ID   0x0001 // Shawn65
+#define PRODUCT_ID   0x0001 // Bolsa65
 #define DEVICE_VER   0x0001 // Version 1
 #define MANUFACTURER    FJLabs
-#define PRODUCT         Shawn65 
-#define DESCRIPTION     QMK Keyboard firmware for the Shawn65
+#define PRODUCT         bolsa65 
+#define DESCRIPTION     QMK Keyboard firmware for the Bolsa65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
