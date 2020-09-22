@@ -23,38 +23,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    LFKeyboards
 #define PRODUCT         SMK65v2
 
-// RevA
-// #define DIODE_DIRECTION COL2ROW
-// #define MATRIX_ROWS 5
-// #define MATRIX_COLS 16
-// #define MATRIX_ROW_PINS {B7, F7, F6, F5, F4}
-// #define MATRIX_COL_PINS {F0, F1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C7, B3, B2, B1, B0}
-// #define UNUSED_PINS {}
-
-// RevB
-#define DIODE_DIRECTION COL2ROW
+/* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
-#define MATRIX_ROW_PINS {D6, D7, E0, C3, C4}
-#define MATRIX_COL_PINS {F2, C5, E5, E4, B7, B6, B5, B4, B3, B2, B1, B0, E1, C0, C1, C2}
-#define UNUSED_PINS {}
-#define RGBLED_NUM 20     // Number of LEDs
 
-//RevB only:
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+ */
+#define MATRIX_ROW_PINS { B0, B3, B2, B1, F5 }
+#define MATRIX_COL_PINS { E6, F4, B7, D5, D3, D2, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
+#define UNUSED_PINS
 
-#define AUDIO_VOICES
-#define C6_AUDIO
-// #define B5_AUDIO
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_LEVELS 8
-#define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
-
-#define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile
-#define RGBLED_NUM 20     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+//#define RGB_DI_PIN E2
+//#ifdef RGB_DI_PIN
+#    define RGBLED_NUM 28
+//#    define RGBLIGHT_HUE_STEP 8
+//#    define RGBLIGHT_SAT_STEP 8
+//#    define RGBLIGHT_VAL_STEP 8
+//#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== all animations enable ==*/
+//#    define RGBLIGHT_ANIMATIONS
+/*== or choose animations ==*/
+//#    define RGBLIGHT_EFFECT_BREATHING
+//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//#    define RGBLIGHT_EFFECT_SNAKE
+//#    define RGBLIGHT_EFFECT_KNIGHT
+//#    define RGBLIGHT_EFFECT_CHRISTMAS
+//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//#    define RGBLIGHT_EFFECT_RGB_TEST
+//#    define RGBLIGHT_EFFECT_ALTERNATING
+/*== customize breathing effect ==*/
+/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
+//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
+/*==== use exp() and sin() ====*/
+//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
+//#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -108,8 +124,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

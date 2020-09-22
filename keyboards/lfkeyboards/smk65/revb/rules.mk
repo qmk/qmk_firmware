@@ -2,14 +2,15 @@
 MCU = at90usb646
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
+
+# Build Options
+#   change yes to no to disable
+#
+BACKLIGHT_ENABLE = no           # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no            # Enable keyboard RGB underglow
+RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
+AUDIO_ENABLE = no               # Audio output
 
 # Extra source files for IS3731 lighting
 SRC = TWIlib.c issi.c lighting.c
