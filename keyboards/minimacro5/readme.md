@@ -1,12 +1,12 @@
 # miniMACRO5
 
-A 5 key Macropad based on Arduino Pro Micro with support for combination a combination of rotary encoders and mechanical switches.
+A 5 key Macropad based on Arduino Pro Micro with support for a combination of rotary encoders and mechanical switches.
 
-![](https://i.imgur.com/lxA8DSC.jpg)
+![](https://i.imgur.com/lxA8DSCl.jpg)
 
-Keyboard Maintainer: [LeafCutterLabs](https://github.com/LeafCutterLabs)
-Hardware Supported: Pro Micro 5V/16MHz and compatible.  
-Hardware availability: PCB Files are available [here](https://github.com/LeafCutterLabs/miniMACRO5), which you can get produced.
+* Keyboard Maintainer: [LeafCutterLabs](https://github.com/LeafCutterLabs)
+* Hardware Supported: Pro Micro 5V/16MHz and compatible.
+* Hardware availability: PCB Files are available [here](https://github.com/LeafCutterLabs/miniMACRO5), which you can get produced.
 
 Make example for this keyboard (after setting up your build environment):
 
