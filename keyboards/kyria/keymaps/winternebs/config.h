@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#define OLED_FONT_H "keyboards/kyria/keymaps/winterNebs/glcdfont.c"
+#define OLED_FONT_H "keyboards/kyria/keymaps/winternebs/glcdfont.c"
 #define OLED_FONT_END 127
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
