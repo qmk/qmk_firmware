@@ -82,10 +82,10 @@ void WPM_CHART(uint8_t i, bool dir) {
     };
     uint8_t d1 = (int)floor(c_wpm / 10);
     if (c_wpm > 99) {
-      uint8_t tens_place = d1 % 10;
-      terrazzo_draw_at(0, 11, 3, 4, number_3_4[tens_place]);
+        uint8_t tens_place = d1 % 10;
+        terrazzo_draw_at(0, 11, 3, 4, number_3_4[tens_place]);
     } else {
-      terrazzo_draw_at(0, 11, 3, 4, number_3_4[d1]);
+        terrazzo_draw_at(0, 11, 3, 4, number_3_4[d1]);
     }
     
     // Last character

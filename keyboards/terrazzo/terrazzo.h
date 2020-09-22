@@ -92,9 +92,9 @@ enum terrazzo_matrix_effects {
 };
 
 enum terrazzo_keycodes {
-  TZ_NXT = SAFE_RANGE,
-  TZ_PRV,
-  TZ_OFF
+    TZ_NXT = SAFE_RANGE,
+    TZ_PRV,
+    TZ_OFF
 };
 
 void terrazzo_render(void);

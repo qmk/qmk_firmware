@@ -14,7 +14,6 @@ enum layers {
 
 #define LOWERSP LT(_LOWER, KC_SPC)
 #define RAISESP LT(_RAISE, KC_SPC)
-#define SFTSLSH MT(MOD_RSFT, KC_SLSH)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -55,15 +54,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  terrazzo_scroll_pixel(clockwise);
-  switch(biton32(layer_state)) {
-    case _NAV:
-      // Change volume when on nav layer
-      clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
-      break;
-    default:
-      // Default encoder behavior of Page Up and Down
-      clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
-      break;
-  }   
+    terrazzo_scroll_pixel(clockwise);
+    switch(biton32(layer_state)) {
+        case _NAV:
+            // Change volume when on nav layer
+            clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
+            break;
+        default:
+            // Default encoder behavior of Page Up and Down
+            clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+            break;
+    }   
 }

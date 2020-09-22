@@ -41,10 +41,10 @@ uint8_t terrazzo_dir = 1;
 uint8_t terrazzo_effect = 1;
 
 void terrazzo_set_pixel(uint8_t x, uint8_t y, uint8_t value) {
-  uint8_t target = y * LED_MATRIX_COLS + x;
-  if (target < LED_DRIVER_LED_COUNT && target >= 0) {
-    led_matrix_set_index_value(y * LED_MATRIX_COLS + x, value);
-  }
+    uint8_t target = y * LED_MATRIX_COLS + x;
+    if (target < LED_DRIVER_LED_COUNT && target >= 0) {
+      led_matrix_set_index_value(y * LED_MATRIX_COLS + x, value);
+    }
 }
 
 void terrazzo_draw_at(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t image[]) {
@@ -109,7 +109,7 @@ void terrazzo_render(void) {
 }
 
 void led_matrix_indicators_kb(void) {
-  terrazzo_render();
+    terrazzo_render();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
