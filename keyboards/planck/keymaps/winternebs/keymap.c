@@ -17,9 +17,12 @@
 #include QMK_KEYBOARD_H
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 extern keymap_config_t keymap_config;
 >>>>>>> Rename to lowercase
+=======
+>>>>>>> Update keyboards/planck/keymaps/winterNebs/keymap.c
 
 enum planck_layers {
   _QWERTY,
