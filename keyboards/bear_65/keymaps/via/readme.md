@@ -1,1 +1,1 @@
-# The default keymap for bear_65
+# The via keymap for bear_65
