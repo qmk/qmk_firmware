@@ -36,6 +36,141 @@ enum preonic_keycodes {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
+// Tap Dance declarations
+enum {
+    TD_A,
+    TD_E,
+    TD_I,
+    TD_O,
+    TD_U,
+};
+
+const uint8_t shift = MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT);
+
+// Tap Dance functions
+void dance_key_a (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("a");
+        reset_tap_dance(state);
+    } else if (state->count == 2) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("á");
+        } else {
+            send_unicode_string("Á");
+        }
+
+        reset_tap_dance(state);
+    }
+}
+
+void dance_key_e (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("e");
+        reset_tap_dance(state);
+    } else if (state->count == 2) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("é");
+        } else {
+            send_unicode_string("É");
+        }
+
+        reset_tap_dance(state);
+    }
+}
+
+void dance_key_i (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("i");
+        reset_tap_dance(state);
+    } else if (state->count == 2) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("í");
+        } else {
+            send_unicode_string("Í");
+        }
+
+        reset_tap_dance(state);
+    }
+}
+
+void dance_key_o (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("o");
+        reset_tap_dance(state);
+    } else if (state->count == 2) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("ó");
+        } else {
+            send_unicode_string("Ó");
+        }
+
+        reset_tap_dance(state);
+    } else if (state->count == 3) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("ö");
+        } else {
+            send_unicode_string("Ö");
+        }
+
+        reset_tap_dance(state);
+    } else if (state->count == 4) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("ő");
+        } else {
+            send_unicode_string("Ő");
+        }
+
+        reset_tap_dance(state);
+    }
+}
+
+void dance_key_u (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("u");
+        reset_tap_dance(state);
+    } else if (state->count == 2) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("ú");
+        } else {
+            send_unicode_string("Ú");
+        }
+
+        reset_tap_dance(state);
+    } else if (state->count == 3) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("ü");
+        } else {
+            send_unicode_string("Ü");
+        }
+
+        reset_tap_dance(state);
+    } else if (state->count == 4) {
+        if (!(keyboard_report->mods & shift)) {
+            send_unicode_string("ű");
+        } else {
+            send_unicode_string("Ű");
+        }
+
+        reset_tap_dance(state);
+    }
+}
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_A] = ACTION_TAP_DANCE_FN(dance_key_a),
+    [TD_E] = ACTION_TAP_DANCE_FN(dance_key_e),
+    [TD_I] = ACTION_TAP_DANCE_FN(dance_key_i),
+    [TD_O] = ACTION_TAP_DANCE_FN(dance_key_o),
+    [TD_U] = ACTION_TAP_DANCE_FN(dance_key_u),
+};
+
+// Tap Dance keys
+#define C_KC_A TD(TD_A)
+#define C_KC_E TD(TD_E)
+#define C_KC_I TD(TD_I)
+#define C_KC_O TD(TD_O)
+#define C_KC_U TD(TD_U)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -52,11 +187,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_5x12(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
-    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,      KC_8,      KC_9,      KC_0,    KC_BSPC,
+    KC_TAB,  KC_Q,    KC_W,    C_KC_E,  KC_R,    KC_T,    KC_Y,    C_KC_U,    C_KC_I,    C_KC_O,    KC_P,    KC_DEL,
+    KC_ESC,  C_KC_A,  KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,      KC_K,      KC_L,      KC_SCLN, KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,      KC_COMM,   KC_DOT,    KC_SLSH, KC_ENT,
+    BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RGHT
 ),
 
 /* Colemak
