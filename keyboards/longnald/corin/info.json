@@ -5,7 +5,7 @@
   "width": 28.54,
   "height": 9.58,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_64_ansi": {
       "layout": [
         { "label": "K00 (F4,F7)", "x": 0, "y": 0 },
         { "label": "K01 (F4,F6)", "x": 1, "y": 0 },
