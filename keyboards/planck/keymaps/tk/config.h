@@ -44,13 +44,28 @@
     #define TD_NOTE(note) MUSICAL_NOTE(note, 3) // 48th-note
     #define X__NOTE(note) MUSICAL_NOTE(note, 1) // 64th-note
 
+    #define NOTE_A5SEMI         905.79f
+    #define NOTE_AS5SEMI        959.65f
+    #define NOTE_B5SEMI         1016.71f
+
     // Mario songs
 
-    #undef  MARIO_THEME
-    #define MARIO_THEME         E__NOTE(_E5),   E__NOTE(_REST), Q__NOTE(_E5),   \
-                                Q__NOTE(_REST), Q__NOTE(_E5),   Q__NOTE(_REST), \
-                                Q__NOTE(_C5),   Q__NOTE(_E5),   Q__NOTE(_REST), \
-                                H__NOTE(_G5),   S__NOTE(_REST), H__NOTE(_REST), HD_NOTE(_G4)
+    #define MARIO_FIREBALL      T__NOTE(_G4), T__NOTE(_G5), T__NOTE(_G6), T__NOTE(_G7)
+
+    #define MARIO_KICK          S__NOTE(_AS5), E__NOTE(_REST), S__NOTE(_F6)
+
+    #define MARIO_COIN          E__NOTE(_B6), H__NOTE(_E7), QD_NOTE(_E7)
+
+
+    #define MARIO_ONEUP         ED_NOTE(_E7), ED_NOTE(_G7), ED_NOTE(_E8), \
+                                ED_NOTE(_C8), ED_NOTE(_D8), H__NOTE(_G8)
+
+    #define MARIO_STOMP         T__NOTE(_A5), X__NOTE(_AS5), X__NOTE(_B5),  X__NOTE(_C6), X__NOTE(_CS6), T__NOTE(_REST),\
+                                T__NOTE(_F6), X__NOTE(_G6),  X__NOTE(_GS6), X__NOTE(_A6), X__NOTE(_AS6)
+
+    #define MARIO_BUMP          X__NOTE(_G4),  X__NOTE(_FS4), X__NOTE(_F4),  X__NOTE(_E4), \
+                                X__NOTE(_DS4), X__NOTE(_D4),  X__NOTE(_CS4), X__NOTE(_C4), \
+                                X__NOTE(_CS4), X__NOTE(_D4),  X__NOTE(_DS4), X__NOTE(_E4)
 
     #define MARIO_CAVE_1        E__NOTE(_C5),  E__NOTE(_REST), E__NOTE(_C5),  E__NOTE(_REST), \
                                 E__NOTE(_A4),  E__NOTE(_REST), E__NOTE(_A4),  E__NOTE(_REST), \
@@ -60,24 +75,10 @@
                                 E__NOTE(_D4),  E__NOTE(_REST), E__NOTE(_D4),  E__NOTE(_REST), \
                                 E__NOTE(_DS4), E__NOTE(_REST), E__NOTE(_DS4), E__NOTE(_REST)
 
-    #define MARIO_PIPE          X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), \
-                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), T__NOTE(_AS3), T__NOTE(_AS2), \
-                                T__NOTE(_REST), \
-                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), \
-                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), T__NOTE(_AS3), T__NOTE(_AS2), \
-                                T__NOTE(_REST), \
-                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), \
-                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), T__NOTE(_AS3), T__NOTE(_AS2)
-
-    #define MARIO_ONEUP         ED_NOTE(_E7), ED_NOTE(_G7), ED_NOTE(_E8), \
-                                ED_NOTE(_C8), ED_NOTE(_D8), H__NOTE(_G8)
-
-    #define MARIO_COIN          E__NOTE(_B6), H__NOTE(_E7), QD_NOTE(_E7)
-
-    #define MARIO_KICK          S__NOTE(_AS5), E__NOTE(_REST), S__NOTE(_F6)
-
-    #define MARIO_STOMP         T__NOTE(_A5), X__NOTE(_AS5), X__NOTE(_B5),  X__NOTE(_C6), X__NOTE(_CS6), T__NOTE(_REST),\
-                                T__NOTE(_F6), X__NOTE(_G6),  X__NOTE(_GS6), X__NOTE(_A6), X__NOTE(_AS6)
+    #define MARIO_POWERUP_BLOCK SD_NOTE(_C5),  T__NOTE(_G5),  T__NOTE(_GS5), \
+                                SD_NOTE(_CS5), T__NOTE(_GS5), T__NOTE(_A5),  \
+                                SD_NOTE(_D5),  T__NOTE(_A5),  T__NOTE(_AS5), \
+                                SD_NOTE(_DS5), T__NOTE(_AS5), T__NOTE(_B5)
 
     #define MARIO_POWERUP       S__NOTE(_C6),  T__NOTE(_G5),  T__NOTE(_C6),  T__NOTE(_E6),  \
                                 T__NOTE(_G6),  T__NOTE(_C7),  T__NOTE(_G6),  S__NOTE(_GS5), \
@@ -87,20 +88,15 @@
                                 T__NOTE(_AS6), T__NOTE(_F6),  T__NOTE(_AS6), T__NOTE(_D7),  \
                                 T__NOTE(_F7), T__NOTE(_AS7), T__NOTE(_F7)
 
-    #define MARIO_POWERUP_BLOCK SD_NOTE(_C5),  T__NOTE(_G5),  T__NOTE(_GS5), \
-                                SD_NOTE(_CS5), T__NOTE(_GS5), T__NOTE(_A5),  \
-                                SD_NOTE(_D5),  T__NOTE(_A5),  T__NOTE(_AS5), \
-                                SD_NOTE(_DS5), T__NOTE(_AS5), T__NOTE(_B5)
 
-    #define MARIO_FIREBALL      T__NOTE(_G4), T__NOTE(_G5), T__NOTE(_G6), T__NOTE(_G7)
-
-    #define MARIO_BUMP          X__NOTE(_G4),  X__NOTE(_FS4), X__NOTE(_F4),  X__NOTE(_E4), \
-                                X__NOTE(_DS4), X__NOTE(_D4),  X__NOTE(_CS4), X__NOTE(_C4), \
-                                X__NOTE(_CS4), X__NOTE(_D4),  X__NOTE(_DS4), X__NOTE(_E4)
-
-    #define NOTE_A5SEMI         905.79f
-    #define NOTE_AS5SEMI        959.65f
-    #define NOTE_B5SEMI         1016.71f
+    #define MARIO_PIPE          X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), \
+                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), T__NOTE(_AS3), T__NOTE(_AS2), \
+                                T__NOTE(_REST), \
+                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), \
+                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), T__NOTE(_AS3), T__NOTE(_AS2), \
+                                T__NOTE(_REST), \
+                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), \
+                                X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), T__NOTE(_AS3), T__NOTE(_AS2)
 
                                 // todo - fix
     #define MARIO_DEATH         TD_NOTE(_AS5), T__NOTE(_A5SEMI), TD_NOTE(_B5), T__NOTE(_AS5SEMI), \
@@ -119,6 +115,12 @@
     #define MARIO_GAMEOVER      // todo
 
     #define MARIO_VINE          // todo
+
+    #undef  MARIO_THEME
+    #define MARIO_THEME         E__NOTE(_E5),   E__NOTE(_REST), Q__NOTE(_E5),   \
+                                Q__NOTE(_REST), Q__NOTE(_E5),   Q__NOTE(_REST), \
+                                Q__NOTE(_C5),   Q__NOTE(_E5),   Q__NOTE(_REST), \
+                                H__NOTE(_G5),   S__NOTE(_REST), H__NOTE(_REST), HD_NOTE(_G4)
 
     // real songs
 

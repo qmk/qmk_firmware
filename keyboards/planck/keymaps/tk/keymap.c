@@ -34,8 +34,8 @@ enum planck_layers {
 #define R_MODES OSL(_ROTOR)
 
 #define LOWER1 OSL(_LOWER1)
-#define RAISE1 OSL(_RAISE1)
 #define LOWER2 OSL(_LOWER2)
+#define RAISE1 OSL(_RAISE1)
 #define RAISE2 OSL(_RAISE2)
 
 // Rotary encoder states
@@ -95,24 +95,23 @@ static bool rbk_mode = false;   // right-side bracket mode
     float reject_song[][2]          = SONG(MARIO_BUMP);
 
     // layer toggle songs
-    float base_song[][2]            = SONG(MARIO_COIN);
-    float hyper_song[][2]           = SONG(MARIO_COIN);
-    float bk_activate_song[][2]     = SONG(MARIO_COIN);
-    float bk_deactivate_song[][2]   = SONG(MARIO_COIN);
-    float raise1_song[][2]          = SONG(MARIO_COIN);
-    float raise2_song[][2]          = SONG(MARIO_COIN);
-    float lower1_song[][2]          = SONG(MARIO_COIN);
-    float lower2_song[][2]          = SONG(MARIO_COIN);
+    float base_song[][2]            = SONG(MARIO_BUMP);
+    float hyper_song[][2]           = SONG(MARIO_POWERUP_BLOCK);
+    float rotary_song[][2]          = SONG(MARIO_POWERUP);
+    float raise1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
+    float raise2_song[][2]          = SONG(MARIO_POWERUP);
+    float lower1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
+    float lower2_song[][2]          = SONG(MARIO_POWERUP);
 
     // shortcut songs
     float caps_on_song[][2]         = SONG(MARIO_CAVE_1);
     float caps_off_song[][2]        = SONG(MARIO_CAVE_2);
-    float save_song[][2]            = SONG(MARIO_ONEUP);
-    float copy_song[][2]            = SONG(MARIO_POWERUP);
-    float paste_song[][2]           = SONG(MARIO_BUMP);
-    float cut_song[][2]             = SONG(MARIO_FIREBALL);
+    float save_song[][2]            = SONG(MARIO_COIN);
+    float cut_song[][2]             = SONG(MARIO_STOMP);
+    float copy_song[][2]            = SONG(MARIO_STOMP);
+    float paste_song[][2]           = SONG(MARIO_FIREBALL);
     float undo_song[][2]            = SONG(MARIO_KICK);
-    float redo_song[][2]            = SONG(MARIO_COIN);
+    float redo_song[][2]            = SONG(MARIO_ONEUP);
 #endif
 
 
@@ -172,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |  Caps |       |       |       |       |       |       |       |       |       |       |  Caps |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       | Tg LBK|      BASE     | Tg RBK|       |       | RecM2 | RecM1 |
+        |       |       |       |       | Tg LBK|      BASE     | Tg RBK|       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
         *
@@ -186,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         R_MODES, H(KC_Q), H(KC_W), H(KC_E), H(KC_R), H(KC_T), H(KC_Y), H(KC_U), H(KC_I),    H(KC_O),   H(KC_P),    KC_SLEP,
         RESET,   H(KC_A), H(KC_S), H(KC_D), H(KC_F), H(KC_G), H(KC_H), H(KC_J), H(KC_K),    H(KC_L),   H(KC_SCLN), _______,
         KC_CAPS, H(KC_Z), H(KC_X), H(KC_C), H(KC_V), H(KC_B), H(KC_N), H(KC_M), H(KC_COMM), H(KC_DOT), H(KC_SLSH), KC_CAPS,
-        _______, _______, _______, _______, LBK_TG,  BASE,    BASE,    RBK_TG,  _______,    _______,   DM_REC2,    DM_REC1
+        _______, _______, _______, _______, LBK_TG,  BASE,    BASE,    RBK_TG,  _______,    _______,   _______,    _______
     ),
 
     /* Rotary - rotary encoder mode
@@ -194,46 +193,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-----------------------------------------------------------------------------------------------|
         |       |       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |       |       |       |       |       |       |       |
+        |       |scrll h|scrll v|scrll v|scrll h|       |       |arrow h|arrow v|arrow v|arrow h|       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |  vol  | bright|       | media |       |       |       |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |      BASE     |       |scrll h|scrll v|arrow v|arrow h|
-        |-----------------------------------------------------------------------------------------------|
-
-        *
-        *
-        *
-
-    */
-    [_ROTOR] = LAYOUT_planck_grid(
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, R_VOL,   R_BRI,   XXXXXXX, R_MEDIA, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, _______, _______, _______, _______, BASE,    BASE,    _______, R_SC_H,  R_SC_V,  R_AR_V,  R_AR_H
-    ),
-
-    /* Lower I - numbers
-
-        |-----------------------------------------------------------------------------------------------|
-        |       |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |   4   |   5   |   6   |   .   |       |       |       |       |       |       |       |
-        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |   7   |   8   |   9   |   0   |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
-        *
-        * Each non-layer keypress moves to BASE (exception: rotary, arrow keys, numbers?)
-        *
+    */
+    [_ROTOR] = LAYOUT_planck_grid(
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, R_SC_H,  R_SC_V,  R_SC_V,  R_SC_H,  XXXXXXX, XXXXXXX, R_AR_H,  R_AR_V,  R_AR_V,  R_AR_H,  _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, R_VOL,   R_BRI,   XXXXXXX, R_MEDIA, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
+    ),
+
+    /* Lower I - numbers and brackets
+
+        |-----------------------------------------------------------------------------------------------|
+        |       |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |   4   |   5   |   6   |   .   |       |       |   [   |   ]   |   {   |   }   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |   7   |   8   |   9   |   0   |       |       |       |   <   |   >   |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
 
     */
     [_LOWER1] = LAYOUT_planck_grid(
         _______, KC_1,    KC_2,    KC_3,    KC_4,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        _______, KC_4,    KC_5,    KC_6,    KC_DOT, _______, _______, _______, _______, _______, _______, _______,
-        _______, KC_7,    KC_8,    KC_9,    KC_0,   _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_4,    KC_5,    KC_6,    KC_DOT, _______, _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
+        _______, KC_7,    KC_8,    KC_9,    KC_0,   _______, _______, _______, KC_LABK, KC_RABK, _______, _______,
         _______, _______, _______, _______, LOWER2, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
 
@@ -249,12 +240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
-        *
         * DO NOT INCLUDE DESTRUCTIVE COMMANDS
-        * Stand-alone non-destructive commands are executed instantly (e.g. git status)
-        * Each non-layer keypress moves to BASE (exception: rotary, arrow keys, enter)
-        * Held modifiers temporarily move to BASE
-        *
 
     */
     [_LOWER2] = LAYOUT_planck_grid(
@@ -264,9 +250,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
 
-    /* Raise I - symbols, arrow keys and scroll
+    /* Raise I - symbols, light movement
 
-        |-----------------------------------------------------------------------------------------------|
+        |-------------------------------------------------------&&----------------------------------------|
         |       |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |   (   |   )   |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       | S lt  | S up  | S dn  | S rt  |MS Fast|MS Slow| Left  | Down  |  Up   | Right |       |
@@ -276,39 +262,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
-        *
-        *
-        *
-
     */
     [_RAISE1] = LAYOUT_planck_grid(
         _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  _______,
         _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_ACL2, KC_ACL1, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
         _______, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,   _______,
-        _______, _______, _______, _______, LOWER1,  BASE,    BASE,     RAISE2, _______, _______, _______,  _______
+        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    RAISE2, _______, _______, _______,   _______
     ),
 
-    /* Raise II - navigation
+    /* Raise II - full navigation
 
         |-----------------------------------------------------------------------------------------------|
-        |       |       |       |       |       |       |       | L Ck  | R ck  |       |       |       |
+        |       | Home  | Pg Up | Pg Dn |  End  |       |       | L Ck  | R ck  |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       | S lt  | S up  | S dn  | S rt  |MS Fast|MS Slow| M lt  | M dn  | M up  | M rt  |       |
+        |       | M lt  | M dn  | M up  | M rt  |MS Fast|MS Slow| M lt  | M dn  | M up  | M rt  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |       |       |       |       |       |       |       |
+        |       | S lt  | S up  | S dn  | S rt  |       |       | S lt  | S up  | S dn  | S rt  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
-        *
-        *
-        *
-
     */
     [_RAISE2] = LAYOUT_planck_grid(
-        _______, _______, _______, _______, _______, _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______,
-        _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_ACL2, KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______,
+        _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_ACL2, KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
+        _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______,
         _______, _______, _______, _______, _LOWER1, BASE,    BASE,    _______, _______, _______, _______, _______
     ),
 
@@ -323,6 +301,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║    ███████╗╚██████╔╝╚██████╔╝██║╚██████╗
  ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝ ╚═════╝
 */
+
+// Layers
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // play layer activation audio
+    #ifdef AUDIO_ENABLE
+        switch (get_highest_layer(state)) {
+            case _BASE:
+                PLAY_SONG(base_song);
+                break;
+            case _HYPER:
+                PLAY_SONG(hyper_song);
+                break;
+            case _ROTOR:
+                PLAY_SONG(rotary_song);
+                break;
+            case _LOWER1:
+                PLAY_SONG(lower1_song);
+                break;
+            case _LOWER2:
+                PLAY_SONG(lower2_song);
+                break;
+            case _RAISE1:
+                PLAY_SONG(raise1_song);
+                break;
+            case _RAISE2:
+                PLAY_SONG(raise2_song);
+                break;
+            default:
+                break;
+        }
+    #endif
+
+    return state;
+}
 
 void keypress(bool pressed, uint16_t keycode) {
     if (pressed) {
@@ -536,22 +549,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                     else {
                         PLAY_SONG(caps_off_song);
-                    }
-                    break;
-                case LBK_TG:
-                    if (lbk_mode) {
-                        PLAY_SONG(bk_activate_song);
-                    }
-                    else{
-                        PLAY_SONG(bk_deactivate_song);
-                    }
-                    break;
-                case RBK_TG:
-                    if (rbk_mode) {
-                        PLAY_SONG(bk_activate_song);
-                    }
-                    else {
-                        PLAY_SONG(bk_deactivate_song);
                     }
                     break;
 
