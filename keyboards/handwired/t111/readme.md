@@ -1,6 +1,6 @@
 # QMK-based firmware for Fujitsu N860-2500-T111 keyboard
 
-![Fujitsu T111](https://i.imgur.com/aGtg7FM.jpg)
+![Fujitsu T111](https://i.imgur.com/aGtg7FMl.jpg)
 
 Fujitsu N860-2500-T111 keyboard conversion project: direct connection of Black Pill to the matrix.
 
