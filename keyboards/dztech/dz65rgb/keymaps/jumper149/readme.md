@@ -1,16 +1,18 @@
 # jumper149's DZ65RGB v2
 
+Run commands in the root directory of this repository.
+
 ## build
 
 ```
-~/.local/bin/qmk compile
+./bin/qmk compile
 ```
 
 ## flash
 
 ```
-dfu-programmer atmega32u4 erase
-dfu-programmer atmega32u4 flash dztech_dz65rgb_v2_jumper149.hex
-dfu-programmer atmega32u4 reset
+sudo dfu-programmer atmega32u4 erase
+sudo dfu-programmer atmega32u4 flash dztech_dz65rgb_v2_jumper149.hex
+sudo dfu-programmer atmega32u4 reset
 
 ```
