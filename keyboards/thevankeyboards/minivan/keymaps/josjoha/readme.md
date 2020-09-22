@@ -32,13 +32,13 @@ Available Base layouts
 
       • Qwerty
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_va.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_vb.jpg)
 
 For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
       • Dvorak (regular Dvorak).
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_va.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_vb.jpg)
 
 
 For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak.md) ⬅
@@ -49,7 +49,7 @@ For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](
 
       • Colemak
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_va.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_vb.jpg)
 
 For the readme about the Colemak version, see ➡ ![base_colemak.md](./base_colemak.md) ⬅
 
