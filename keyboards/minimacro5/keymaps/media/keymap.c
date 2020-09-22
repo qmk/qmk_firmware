@@ -38,6 +38,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //buttion closest to usb is first
   [_MAIN] = LAYOUT_ortho_1x5(
-     KC_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP,
+     KC_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP
   )
 };
