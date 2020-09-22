@@ -6,9 +6,12 @@
 #include "gergoplex.h"
 #include "g/keymap_combo.h"
 
-#define _ALPHA   0  // default
-#define _SPECIAL 1  // special characters
-#define _NUMBERS 2  // numbers/function/motion
+
+enum {
+    _ALPHA,   // default
+    _SPECIAL, // special characters
+    _NUMBERS  // numbers/function/motion
+};
 
 #define KC_CTL_A  MT(MOD_LCTL, KC_A)     // Tap for A, hold for Control
 #define KC_CTL_CL MT(MOD_LCTL, KC_SCLN)  // Tap for colon, hold for Control
