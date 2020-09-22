@@ -76,9 +76,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
-
-// Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for
-    [TD_SCAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-};
