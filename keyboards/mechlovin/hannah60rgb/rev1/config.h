@@ -4,6 +4,7 @@
 #define DEVICE_VER   0x0001
 #define PRODUCT      Hannah60 RGB
 
+#define RGB_DI_PIN A15
 #ifdef RGB_MATRIX_ENABLE
 #    define DRIVER_LED_TOTAL 72
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
