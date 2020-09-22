@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {
@@ -32,15 +33,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT(
      KC_DEL,    KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_BTN3,       KC_DQUO,  KC_7,    KC_8,    KC_9,    KC_ASTR, KC_UNDS,
-     _______,   KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_BTN2,       KC_QUOT,  KC_4,    KC_5,    KC_6,    KC_PLUS, KC_ENT,
+     KC_SCROLL, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_BTN2,       KC_QUOT,  KC_4,    KC_5,    KC_6,    KC_PLUS, KC_ENT,
      _______,   KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_BTN1,       KC_0,     KC_1,    KC_2,    KC_3,    KC_MINS, _______,
                                            _______, _______,       _______,  _______
   ),
 
   [_RAISE] = LAYOUT(
-     _______,   KC_ESC,  KC_F7,   KC_F9,   KC_F9,   KC_F10,        KC_PIPE,  KC_PGUP, KC_UP,   KC_PGDN, KC_GRAVE, _______,
-     _______,   KC_LGUI, KC_F4,   KC_F5,   KC_F6,   KC_F11,        KC_AMPR,  KC_LEFT, KC_DOWN, KC_RGHT, KC_TILD,  _______,
-     _______,   KC_INS,  KC_F1,   KC_F2,   KC_F3,   KC_F12,        KC_EQUAL, KC_HOME, _______, KC_END,  KC_BSLS,  _______,
+     _______,   KC_ESC,  KC_F7,   KC_F9,   KC_F9,   KC_F10,        KC_PIPE,  KC_PGUP, KC_UP,   KC_PGDN, KC_GRAVE, KC_CPI_1,
+     _______,   KC_LGUI, KC_F4,   KC_F5,   KC_F6,   KC_F11,        KC_AMPR,  KC_LEFT, KC_DOWN, KC_RGHT, KC_TILD,  KC_CPI_2,
+     _______,   KC_INS,  KC_F1,   KC_F2,   KC_F3,   KC_F12,        KC_EQUAL, KC_HOME, KC_MPLY, KC_END,  KC_BSLS,  KC_CPI_3,
                                            _______, _______,       _______,  _______
   )
 };
