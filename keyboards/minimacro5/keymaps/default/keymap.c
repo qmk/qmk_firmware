@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
 
-#define _MAIN 0
+enum layers (
+     _MAIN,
+};
 
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder*/
