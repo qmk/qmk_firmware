@@ -187,7 +187,7 @@ void oled_task_user(void) {
     oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
   } else {
-    oled_write(read_logo(), false);
+   render_logo();
   }
 }
 #endif
