@@ -188,10 +188,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	}
 }
 #endif
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 #ifdef OLED_DRIVER_ENABLE
 bool left = false;
 bool right = false;
