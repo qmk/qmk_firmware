@@ -1,4 +1,8 @@
-
+UNICODEMAP_ENABLE = yes
+RGBLIGHT_ENABLE = yes
+MOUSEKEY_ENABLE = no
+COMMAND_ENABLE = no
+TAP_DANCE_ENABLE = yes
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/glcdfont.c \
         ./lib/rgb_state_reader.c \
