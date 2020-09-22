@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Copyright 2020 winterNebs <winternebs@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+=======
+>>>>>>> Rename to lowercase
 #pragma once
 /*
 #ifdef AUDIO_ENABLE
@@ -58,4 +61,8 @@
 #define MOUSEKEY_INTERVAL 8
 #define MOUSEKEY_MAX_SPEED 3
 #define MOUSEKEY_TIME_TO_MAX 0
+<<<<<<< HEAD
 #define FORCE_NKRO
+=======
+#define FORCE_NKRO
+>>>>>>> Rename to lowercase

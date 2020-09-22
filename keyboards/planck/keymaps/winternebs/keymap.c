@@ -16,6 +16,10 @@
 
 #include QMK_KEYBOARD_H
 
+<<<<<<< HEAD
+=======
+extern keymap_config_t keymap_config;
+>>>>>>> Rename to lowercase
 
 enum planck_layers {
   _QWERTY,
