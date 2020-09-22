@@ -6,7 +6,7 @@ An Alice style board with arrowkeys, based on the Fate Arisu layout.
 
 * Keyboard Maintainer: [swiftrax](https://github.com/swiftrax)  
 * Hardware Supported: Trifecta PCB, ATMEGA32U4-AU
-* Hardware Availability: Hardware Availability: [Website](https://mykeyboard.eu/catalogue/)
+* Hardware Availability: [Website](https://mykeyboard.eu/catalogue/)
 
 Make example for this keyboard (after setting up your build environment):
 
