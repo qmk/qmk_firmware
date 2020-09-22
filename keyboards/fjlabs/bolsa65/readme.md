@@ -2,8 +2,8 @@
 
 The following is the QMK Firmware for the [XXX] Bolsa65 mechanical keyboard.
 
-Keyboard Maintainer: FJLabs
-Hardware Supported: Bolsa65
+* Keyboard Maintainer: FJLabs
+* Hardware Supported: Bolsa65
 
 Make example for this keyboard (after setting up your build environment):
 
