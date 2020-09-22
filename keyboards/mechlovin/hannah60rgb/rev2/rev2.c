@@ -144,7 +144,7 @@ led_config_t g_led_config = { {
   1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1, 
 } };
 
-void rgb_matrix_indicators_user(void) {
+__attribute__((weak)) void rgb_matrix_indicators_user(void) {
         if (host_keyboard_led_state().caps_lock) {
             rgb_matrix_set_color(8, 255, 255, 255);
             rgb_matrix_set_color(70, 255, 0, 0);
@@ -163,37 +163,37 @@ void rgb_matrix_indicators_user(void) {
         }
 }
 
-uint32_t layer_state_set_user(uint32_t state)
-{
+__attribute__((weak))
+layer_state_t layer_state_set_user(layer_state_t state) {
   // if on layer 1, turn on L1 LED, otherwise off.
-    if (biton32(state) == 0) {
+    if (get_highest_layer(state) == 0) {
         rgb_matrix_set_color(73, 255, 0, 0);
     } else {
         rgb_matrix_set_color(73, 0, 0, 0);
     }
   // if on layer 2, turn on L2 LED, otherwise off.
-    if (biton32(state) == 1) {
+    if (get_highest_layer(state) == 1) {
         rgb_matrix_set_color(74, 255, 0, 0);
     } else {
         rgb_matrix_set_color(74, 0, 0, 0);
     }
 
   // if on layer 3, turn on L3 LED, otherwise off.
-    if (biton32(state) == 2) {
+    if (get_highest_layer(state) == 2) {
         rgb_matrix_set_color(75, 255, 0, 0);
     } else {
         rgb_matrix_set_color(75, 0, 0, 0);
     }
 
   // if on layer 4, turn on L4 LED, otherwise off.
-    if (biton32(state) == 3) {
+    if (get_highest_layer(state) == 3) {
         rgb_matrix_set_color(76, 255, 0, 0);
     } else {
         rgb_matrix_set_color(76, 0, 0, 0);
     }
 
   // if on layer 5, turn on L5 LED, otherwise off.
-    if (biton32(state) == 4) {
+    if (get_highest_layer(state) == 4) {
         rgb_matrix_set_color(77, 255, 0, 0);
     } else {
         rgb_matrix_set_color(77, 0, 0, 0);
@@ -204,15 +204,10 @@ uint32_t layer_state_set_user(uint32_t state)
 
 #endif
 
-#ifndef RAW_ENABLE
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#else
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#endif
   if (record->event.pressed) {
     switch(keycode) {
-    #ifdef RGBLIGHT_ENABLE
-        #ifdef RGB_MATRIX_ENABLE
+    #ifdef RGB_MATRIX_DISABLE_KEYCODES
         case KC_F13: // toggle rgb matrix
             rgb_matrix_toggle();
             return false;
@@ -243,7 +238,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_F22:
             rgb_matrix_decrease_val();
             return false;
-        #endif
     #endif
         default:
         break;

@@ -3,15 +3,14 @@
 #define PRODUCT_ID   0x6002
 #define DEVICE_VER   0x0001
 #define PRODUCT      Hannah60 RGB Rev.2
-#define DESCRIPTION  Team.Mechlovin Hannah60 RGB Rev.2
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN A15
-#define RGBLED_NUM      18
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
+#    define RGB_DI_PIN A15
+#    define RGBLED_NUM      18
+#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
 #endif
 
 //rgb matrix setting// This is a 7-bit address, that gets left-shifted and bit 0
@@ -36,4 +35,6 @@
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
 
-#define RGB_MATRIX_DISABLE_KEYCODES
+#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+#    define RGB_MATRIX_DISABLE_KEYCODES
+#endif

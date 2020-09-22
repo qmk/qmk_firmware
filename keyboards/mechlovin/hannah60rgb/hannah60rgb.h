@@ -17,8 +17,8 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_mechlovin_hannah60rgb_rev1
+#if defined(KEYBOARD_mechlovin_hannah60rgb_rev1)
     #include "rev1.h"
-#elif KEYBOARD_mechlovin_hannah60rgb_rev2
+#elif defined(KEYBOARD_mechlovin_hannah60rgb_rev2)
     #include "rev2.h"
 #endif
