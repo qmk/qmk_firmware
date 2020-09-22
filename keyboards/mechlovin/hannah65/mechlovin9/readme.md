@@ -4,7 +4,6 @@
 
 A 65% PCB, compatible with Kyuu.
 
-
 * Keyboard Maintainer: [Team Mechlovin](https://github.com/mechlovin)
 * Hardware Supported: Kyuu Keyboard.
 * Hardware Availability: [Reddit GB](https://www.reddit.com/r/mechmarket/comments/i61par/gb_mechlovin_9_a_kyuu_65_keyboard_compatible_pcb/)
