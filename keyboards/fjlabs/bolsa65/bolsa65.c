@@ -1,14 +1,15 @@
 #include "bolsa65.h"
 
-void keyboard_pre_init_kb(void) {
-    setPinOutput(F7);
-
-    keyboard_pre_init_user();
+void matrix_init_kb(void) {
+	// Initialize indicator LEDs to output
+    setPinOutput(F7); // Caps
+	matrix_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
+    bool res = led_update_user(led_state);
+    if(res) {
         writePin(F7, led_state.caps_lock);
     }
-    return true;
+    return res;
 }

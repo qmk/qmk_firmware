@@ -61,10 +61,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Define RGB Underglow */
+/* Define RGB Underglow
 #define RGB_DI_PIN B0
 #define RGBLED_NUM 24
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS */
 /* #define RGBLIGHT_LAYER_BLINK*/
 
 /* Define less important options */
