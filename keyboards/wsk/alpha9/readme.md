@@ -8,7 +8,7 @@ Keyboard Maintainer: [Worldspawn00](https://www.github.com/Worldspawn00)
 
 Hardware Supported: Alpha9 PCB, Pro Micro/EliteC and clones
 
-Hardware Availability: on a group-buy basis for now. Pro Micros can be found on Ali or from the official Sparkfun website.
+Hardware Availability: https://www.etsy.com/shop/WorldspawnsKeebs
 
 Make example for Alpha (after setting up your build environment):
 

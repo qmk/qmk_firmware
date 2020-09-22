@@ -1,19 +1,19 @@
-# Alpha
+# G4M3R Alpha
 
-![Alpha](https://i.imgur.com/J6EJ30N.jpg)
+![Alpha](https://i.imgur.com/kETSyyg.png)
 
-A 28-key, semi-ortho keyboard designed by PyroL!
+A modification based on the 28-key, semi-ortho keyboard designed by PyroL.
 
-Keyboard Maintainer: [PyroL](https://www.github.com/PyrooL)
+Keyboard Maintainer: [Worldspawn00](https://www.github.com/Worldspawn00)
 
-Hardware Supported: Alpha PCB, Pro Micro
+Hardware Supported: G4M3R Alpha PCB, Pro Micro
 
-Hardware Availability: on a group-buy basis for now. Pro Micros can be found on Ali or from the official Sparkfun website.
+Hardware Availability: https://www.etsy.com/shop/WorldspawnsKeebs
 
-Make example for Alpha (after setting up your build environment):
+Make example for G4M3RAlpha (after setting up your build environment):
 
-    make alpha:default
+    make wsk/g4m3ralpha:default
 
 See [build environment setup](https://docs.qmk.fm/install-build-tools) then the [make instructions](https://docs.qmk.fm/faq/build-compile-qmk) for more information.
 
-Please see [PyrooL/Alpha](https://www.github.com/PyrooL/Alpha) for **build instructions**, parts lists, Gerbers, and case files.
+Please see [PyrooL/Alpha](https://www.github.com/PyrooL/Alpha) for **build instructions** and parts list.
