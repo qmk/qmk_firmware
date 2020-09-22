@@ -1,6 +1,6 @@
 # Trifecta
 
-![Trifecta](https://imgur.com/tlIwQow)
+![Trifecta](https://i.imgur.com/tlIwQowl.jpeg)
 
 An Alice style board with arrowkeys, based on the Fate Arisu layout.
 
