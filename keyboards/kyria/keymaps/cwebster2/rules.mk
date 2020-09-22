@@ -9,4 +9,6 @@ RAW_ENABLE = yes
 Link_Time_Optimization = yes
 EXTRAFLAGS = -flto
 WPM_ENABLE = yes
+GRAVE_ESC_ENABLE = no
+CONSOLE_ENABLE = no
 

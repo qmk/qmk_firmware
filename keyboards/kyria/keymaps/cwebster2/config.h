@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 Casey Webster <casey.webster@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,14 +42,14 @@
 #define TAPPING_TOGGLE 1
 #define TAPPING_TERM 175
 //#define TAPPING_FORCE_HOLD
-#define PERMISSIVE_HOLD
+#undef PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define AUTO_SHIFT_TIMEOUT 200
 #define NO_AUTO_SHIFT_SPECIAL
 #define NO_AUTO_SHIFT_ALPHA
 
-#define QMK_KEYS_PER_SCAN 4
+#define QMK_KEYS_PER_SCAN 1
 
 #define EE_HANDS
 
