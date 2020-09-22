@@ -99,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //'Command'              (12x12x12x9 keys) + key on the left
          //'Arrow'                (12x12x12x9 keys) + key on the right
          //'South paw' + 'Arrow'  (12x12x12x10 keys)
-  #define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
+//#define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
 //#define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right. 
          //
          // See below for how to define your additional key(s).

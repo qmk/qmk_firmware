@@ -905,7 +905,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // Held medium long: _PAD, long: _MOV.
                     // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
                     // all by the left hand, when the right hand is on the mouse.
-                    if ((timer_elapsed (key_timer) <= 500)) { // tapped medium-long (milliseconds)
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped medium-long (milliseconds)
 
                         layer_move (_FUN); // activates function layer as a toggle
 
@@ -937,7 +937,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // Held medium long: _PAD, long: _MOV.
                     // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
                     // all by the left hand, when the right hand is on the mouse.
-                    if ((timer_elapsed (key_timer) <= 500)) { // tapped medium-long (milliseconds)
+                    if ((timer_elapsed (key_timer) <= 200)) { // tapped medium-long (milliseconds)
 
                         layer_move (_PAD); 
 

@@ -27,10 +27,19 @@ in this readme.md file. The options for the letters and number/symbol
 layer pairs (two pairs in the dual layout) are explained in their
 separate readme file, see immediately below.
 
-Available dual layouts (basic letters)
---------------------------------------
+Available Base layouts
+----------------------
+
+      • Qwerty
+
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_va.jpg)
+
+For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
       • Dvorak (regular Dvorak).
+
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_va.jpg)
+
 
 For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak.md) ⬅
 
@@ -38,13 +47,16 @@ For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak
 
 For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](./base_dvorak_descramble.md) ⬅
 
-      • Qwerty
-
-For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
-
       • Colemak
 
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_va.jpg)
+
 For the readme about the Colemak version, see ➡ ![base_colemak.md](./base_colemak.md) ⬅
+
+The common system
+=================
+
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_common_va.jpg)
 
 Main features 
 -------------
@@ -60,10 +72,24 @@ Main features
        characters, the middle led will go from green to red as you go,
        and prevent you going over the limit.
 
-layout
-------
-
 ![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vc.jpg)
+
+Layer access
+------------
+This graphic shows how layers are reached from the ‛Default base’ layer.
+
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vc.jpg)
+
+The upper/left key which returns to the base layer (letters) on the number layers
+ `_DEF_NSY` and `_ALT_NSY` always point to their base layer: `_DEF_BASE` and
+`_ALT_BASE` respectively. All the other layers also point to the appropriate base
+or numbers layer, depending on which base layer (default or alternate) is active.
+
+(There are some unimportant artefacts due to some transparent layer
+switching keys, allowing for example to switch from a toggled `_NSY`
+layer to the `_ACC` layer with a key on the first row, or to go back
+to base from a toggled `_MOV` layer with what is the `<enter>` key on 
+BASE, etc. These accidental layer switching possibilities are not shown.)
 
 You can switch between the default base layer (typically letters), and
 another base layer, the alternate base layer (also typically letters),
@@ -140,8 +166,9 @@ Led colors for layers
                           if so compiled.
             • Leds can be switched on/off on the _RAR layer (SLeds, MLed).
 
-The common system
-=================
+layout
+------
+
 Below you will first see the **‛default BASE layer’,** with the
 keys that are different in various common layouts (Qwerty, Dvorak,
 etc) blanked out. Then its accompanying **‛default `_NSY` layer’**
@@ -262,24 +289,6 @@ can find the configuration block and mentioned option in `./user_config.h`.
 ![Minivan layout Image MOV 3 vi arrow](http://socialism.nl/misc/minivan/minivan_mov_layer_vi_va.jpg)
 
 ^ `#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
-
-
-Layer access
-------------
-This graphic shows how layers are reached from the ‛Default base’ layer.
-
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vc.jpg)
-
-The upper/left key which returns to the base layer (letters) on the number layers
- `_DEF_NSY` and `_ALT_NSY` always point to their base layer: `_DEF_BASE` and
-`_ALT_BASE` respectively. All the other layers also point to the appropriate base
-or numbers layer, depending on which base layer (default or alternate) is active.
-
-(There are some unimportant artefacts due to some transparent layer
-switching keys, allowing for example to switch from a toggled `_NSY`
-layer to the `_ACC` layer with a key on the first row, or to go back
-to base from a toggled `_MOV` layer with what is the `<enter>` key on 
-BASE, etc. These accidental layer switching possibilities are not shown.)
 
 Compile options
 ===============
@@ -994,6 +1003,12 @@ Trouble shooting
   • Middle led not showing layer: you may have compiled it with speed
   measuring on at startup.
 
+  • You weirdly end up on the `_PAD`, `_FUN` or some other layer while
+  typing ? I also often mistype to the `_PAD` layer. It seems to be a 
+  typing mistake: unnecessary or inaccurately typing on the Shift key.
+  It should never activate to the layer, if you hit another key to get
+  a capital letter. It will always go to a layer, if you hit it by itself.
+
 
 Why you want this layout
 ------------------------
@@ -1081,15 +1096,12 @@ Use case
 
 Todo
 ----
-        ① Support for other common layouts such as Qwertz, Azerty,
-          with a matching `_ACC` layer for specific language layouts.
+        … Support for more common layouts.
 
-        ② Support/testing for other keyboards. If this is to support
-          keyboards other than 12×12×12×[8-12] or different leds,
-          it seems best to isolate those layers in one subdirectory, and
-          copy/edit that to other subdirectories for those mini 40%-50%
-          keyboards. The layers would get too cluttered with endless
-          #defines otherwise.
+        … Support/testing for other keyboards. If this is to support
+          keyboards other than 12×12×12×[8-12] and/or different leds,
+          it seems best to isolate all Minivan layers in one subdirectory, 
+          then copy/edit that to other subdirectories for those keyboards.
 
 
 BUGS
@@ -1117,10 +1129,9 @@ Authors
 -------
   This keymap.c was edited from the Minivan default, original LED
   support was copied/edited from ../jetpacktuxedo/ keymap. Thanks to 
-  QMK support for their help. Written on the Minivan 「Dvorak² 44 WASD ƒ 🛠 ☑」.
+  QMK support for their help. Written on the Minivan.
 
   Written by: Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
-  Personal tip: Practice the layout with a shell script.
 
   You can let me know if you find any bugs / problems, have improvements,
   a new `./base_...c/.md` keymap, or if you like using it too 👍.
