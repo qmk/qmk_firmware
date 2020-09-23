@@ -85,51 +85,51 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
         // F1 - F12
         case 1:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 4 * 255 / 4;
+            hsv.s = 127 + 4 * 128 / 4;
             break;
         case 2:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 3 * 255 / 4;
+            hsv.s = 127 + 3 * 128 / 4;
             break;
         case 3:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 2 * 255 / 4;
+            hsv.s = 127 + 2 * 128 / 4;
             break;
         case 4:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 1 * 255 / 4;
+            hsv.s = 127 + 1 * 128 / 4;
             break;
         case 5:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 4 * 255 / 4;
+            hsv.s = 127 + 4 * 128 / 4;
             break;
         case 6:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 3 * 255 / 4;
+            hsv.s = 127 + 3 * 128 / 4;
             break;
         case 7:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 2 * 255 / 4;
+            hsv.s = 127 + 2 * 128 / 4;
             break;
         case 8:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 1 * 255 / 4;
+            hsv.s = 127 + 1 * 128 / 4;
             break;
         case 9:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 4 * 255 / 4;
+            hsv.s = 127 + 4 * 128 / 4;
             break;
         case 10:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 3 * 255 / 4;
+            hsv.s = 127 + 3 * 128 / 4;
             break;
         case 11:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 2 * 255 / 4;
+            hsv.s = 127 + 2 * 128 / 4;
             break;
         case 12:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 1 * 255 / 4;
+            hsv.s = 127 + 1 * 128 / 4;
             break;
 
         // delete/insert
