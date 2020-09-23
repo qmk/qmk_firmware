@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Copyright 2020 winterNebs <winternebs@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -13,6 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+=======
+>>>>>>> rebase and add back nyquist that was lost by rename
 #include QMK_KEYBOARD_H
 
 
