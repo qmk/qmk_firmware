@@ -333,6 +333,9 @@ static uint8_t time_to_led(uint8_t time, uint8_t led_behind) {
 
 static HSV kitt_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
+    hsv.h = 0;
+    hsv.s = 255;
+
     if (i >= led_first && i < led_first + led_count) {
         uint8_t j = i - led_first;
         if (j == time_to_led(time, 0)) {
