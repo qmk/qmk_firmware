@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 swiftrax
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,5 +13,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "kyria.h"
+#pragma once
 
+#include "quantum.h"
+
+// readability
+#define XXX KC_NO
+
+#define LAYOUT( \
+       K001,    \
+    K100, K101, \
+    K200, K201  \
+) { \
+    {  XXX,  K001, }, \
+    { K100,  K101, }, \
+    { K200,  K201, }  \
+}
