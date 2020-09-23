@@ -42,11 +42,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // TODO: make sure state in selected_mode is handled correctly!
 int selected_mode_user = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (IS_LAYER_ON_STATE(state, _KB)) {
-        selected_mode_user = rgb_matrix_get_mode();
-        rgb_matrix_mode(5);
-    } else if ((IS_LAYER_OFF_STATE(state, _KB)) && (rgb_matrix_get_mode() == 5)) {
-        rgb_matrix_mode(selected_mode_user);
+    switch (get_highest_layer(state)) {
+        case _QWERTY:
+            rgb_matrix_mode(selected_mode_user);
+            break;
+        case _FN:
+            rgb_matrix_mode(5);
+            break;
+        case _KB:
+            rgb_matrix_mode(6);
+            break;
     }
+
     return state;
 }

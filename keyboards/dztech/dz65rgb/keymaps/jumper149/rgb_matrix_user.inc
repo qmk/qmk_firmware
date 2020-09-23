@@ -1,6 +1,74 @@
+RGB_MATRIX_EFFECT(fn_indicator)
 RGB_MATRIX_EFFECT(kb_indicator)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+
+static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    switch (i) {
+
+        // F1 - F12
+        case 1:
+            hsv.h = 0 * 255 / 3;
+            hsv.s = 1 * 255 / 4;
+            break;
+        case 2:
+            hsv.h = 0 * 255 / 3;
+            hsv.s = 2 * 255 / 4;
+            break;
+        case 3:
+            hsv.h = 0 * 255 / 3;
+            hsv.s = 3 * 255 / 4;
+            break;
+        case 4:
+            hsv.h = 0 * 255 / 3;
+            hsv.s = 4 * 255 / 4;
+            break;
+        case 5:
+            hsv.h = 1 * 255 / 3;
+            hsv.s = 1 * 255 / 4;
+            break;
+        case 6:
+            hsv.h = 1 * 255 / 3;
+            hsv.s = 2 * 255 / 4;
+            break;
+        case 7:
+            hsv.h = 1 * 255 / 3;
+            hsv.s = 3 * 255 / 4;
+            break;
+        case 8:
+            hsv.h = 1 * 255 / 3;
+            hsv.s = 4 * 255 / 4;
+            break;
+        case 9:
+            hsv.h = 2 * 255 / 3;
+            hsv.s = 1 * 255 / 4;
+            break;
+        case 10:
+            hsv.h = 2 * 255 / 3;
+            hsv.s = 2 * 255 / 4;
+            break;
+        case 11:
+            hsv.h = 2 * 255 / 3;
+            hsv.s = 3 * 255 / 4;
+            break;
+        case 12:
+            hsv.h = 2 * 255 / 3;
+            hsv.s = 4 * 255 / 4;
+            break;
+
+        // no function
+        default:
+            hsv.v = 0;
+            break;
+    }
+
+    return hsv;
+}
+
+bool fn_indicator(effect_params_t* params) {
+    return effect_runner_i(params, &fn_indicator_math);
+}
 
 static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
 
