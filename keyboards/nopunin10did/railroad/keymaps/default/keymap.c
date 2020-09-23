@@ -1,9 +1,16 @@
+// The Railroad Keyboard
+// Copyright 2020 by W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
+// Licensed under GNU GPL v2, as per the QMK firmware project
+
 #include "railroad.h"
 
 #define LSHFDEL LSFT_T(KC_DEL)
 #define LSACALC LSA_T(KC_CALC)
 #define RALTHOM RALT_T(KC_HOME)
 #define RCTLEND RCTL_T(KC_END)
+#define CUT     LCTL(KC_X)
+#define COPY    LCTL(KC_C)
+#define PASTE   LCTL(KC_V)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -12,8 +19,8 @@ KEYMAP(
    KC_SLCK,KC_PAUS,KC_ESC, KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_MINS,  
    KC_PSCR,KC_BSPC,    KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
    KC_CAPS,      KC_LCTL,          KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_PGUP,
-   KC_CUT,   KC_LSFT,              KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_PGDN,
-   KC_COPY,KC_PSTE,  KC_LCTL,    KC_LGUI,  KC_LALT,    KC_NUBS,  KC_SPC,     LSHFDEL,
+   CUT,      KC_LSFT,              KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_PGDN,
+   COPY,   PASTE,    KC_LCTL,    KC_LGUI,  KC_LALT,    KC_NUBS,  KC_SPC,     LSHFDEL,
 /* Center Block */
    KC_F1,  KC_F5,  KC_F9,  
    KC_F2,  KC_F6,  KC_F10,  
