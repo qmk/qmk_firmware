@@ -1,50 +1,23 @@
-# 60_ansi_arrow
-`LAYOUT_60_ansi_arrow`
+# 60_ansi_arrow and Keymap
 
-### Default Layer [0]
+## 60% ANSI Arrow Layout
 
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│Esc│1  │2  │3  │4  │5  │6  │7  │8  │9  │0  │-  │=  │Bspc   │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│Tab  │Q  │W  │E  │R  │T  │Y  │U  │I  │O  │P  │[  │]  │\    │
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│Caps L│A  │S  │D  │F  │G  │H  │J  │K  │L  │;  │'  │Enter   │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│Shift   │Z  │X  │C  │V  │B  │N  │M  │,  │.  │Shift │↑  │/  │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│Ctl │OS  │Alt │          Space         │Alt│Ctl│←  │↓  │→  │
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow.png)
 
-### Fn Layer [1]
-Press and hold *right* **Ctl** key.
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│`  │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Delete │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│Bri+ │   │   │End│Rst│   │   │   │Ins│   │P S│   │   │Eject│
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│Bri-  │   │S L│   │   │   │Hm │   │   │   │   │   │Mute    │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│Vol+    │   │   │Cal│   │   │N L│Ml │   │   │Pause │P U│   │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│Vol-│Rwd │F FD│           Play         │Stp│   │Prv│P D│Nxt│
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+## Keymap
 
-### Fn Layer [2]
+### Default Layer
+
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-0.png)
+
+### Fn Layer 1
+
+Press and hold *right* **Ctrl** key.
+
+![_FN](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-1.png)
+
+### Fn Layer 2
+
 Press and hold *right* **Alt** key.
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│   │   │   │   │   │   │   │   │   │   │   │   │   │       │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│     │R T│R M│Hu+│Hu-│Sa+│Sa-│Br+│Br-│   │   │   │   │     │
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│      │   │   │   │   │   │   │   │   │   │   │   │        │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│        │   │   │   │BL-│B T│BL+│B C│   │   │      │   │   │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│    │    │    │                        │   │   │   │   │   │
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+
+![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-2.png)
