@@ -2,8 +2,8 @@
 
 #include "quantum.h"
 
-// Default staggered layout
-// Bottom row: 1u 1.5u 2.25u 2.75u 1.5u 1u
+/* Default staggered layout
+   Bottom row: 1u 1.5u 2.25u 2.75u 1.5u 1u */
 #define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K55, \
@@ -20,8 +20,8 @@
     { K70, K71, K72, K73, K74, K75, }    \
 }
 
-// Default ortho layout
-// Bottom row: 1u 1u 1u 2u 2u 1u 1u 1u
+/* Default ortho layout
+   Bottom row: 1u 1u 1u 2u 2u 1u 1u 1u */
 #define LAYOUT_ortho( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K54, K55, \
@@ -39,8 +39,8 @@
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, } \
 }
 
-// MIT ortho layout
-// Bottom row: 1u 1u 1u 1u 2u 1u 1u 1u 1u
+/* MIT ortho layout
+   Bottom row: 1u 1u 1u 1u 2u 1u 1u 1u 1u */
 #define LAYOUT_ortho_mit( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K54, K55, \
@@ -58,8 +58,8 @@
     { KC_NO, KC_NO, KC_NO, KC_NO, K84, K85, } \
 }
 
-// All 1u ortho layout
-// Bottom row: 1u 1u 1u 1u 1u 1u 1u 1u 1u 1u
+/* All 1u ortho layout
+   Bottom row: 1u 1u 1u 1u 1u 1u 1u 1u 1u 1u */
 #define LAYOUT_ortho_all( \
     K00, K01, K02, K03, K04, K05, K70, K71, K72, K73, K74, K75, K65, \
     K10, K11, K12, K13, K14, K15, K60, K61, K62, K63, K64, K54, K55, \
