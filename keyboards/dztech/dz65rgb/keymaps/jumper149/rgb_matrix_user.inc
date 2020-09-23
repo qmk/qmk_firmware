@@ -75,18 +75,18 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             break;
 
         case 45:
-            hsv.v = time;
+            hsv.v = 255;
             break;
 
         case 46:
-            hsv.v = 255 - time;
+            hsv.v = 63;
             break;
 
         case 4:
             if (((time / 8) % 2) == 0) {
                 hsv.v = 255;
             } else {
-                hsv.v = 127;
+                hsv.v = 63;
             }
             break;
 
@@ -94,7 +94,7 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             if (((time / 16) % 2) == 1) {
                 hsv.v = 255;
             } else {
-                hsv.v = 127;
+                hsv.v = 63;
             }
             break;
 
