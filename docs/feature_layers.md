@@ -23,6 +23,38 @@ Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_bas
 
 Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
+Another workaround for this is adding `#define CUSTOM_TAPPING_KEYS` in your `config.h` and using a custom tap handler function in your keymap:
+
+```c
+bool process_tap(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // LSFT_T(KC_LPRN) is in fact LSFT_T(KC_9) or MT(MOD_LSFT, KC_9), but using the shifted value expresses the original intend in a better way
+        case LSFT_T(KC_LPRN):
+            if (record->event.pressed) {
+                register_code16(KC_LPRN);
+            } else {
+                unregister_code16(KC_LPRN);
+            }
+            // returning false prevents qmk from handling the keycode
+            return false;
+
+        case RSFT_T(KC_RPRN):
+            if (record->event.pressed) {
+                register_code16(KC_RPRN);
+            } else {
+                unregister_code16(KC_RPRN);
+            }
+            return false;
+
+        default:
+            // let qmk handle the tapped key
+            return true;
+    }
+}
+```
+
+However, also this solution has a problem: You're not able to use different handlers for normal and shifted keycodes as eg. LSFT_T(KC_LPRN) and LSFT_T(KC_9) are the same.
+
 Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
 ## Working with Layers :id=working-with-layers

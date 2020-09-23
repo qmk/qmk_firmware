@@ -51,6 +51,10 @@ int retro_tapping_counter = 0;
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
+#ifdef CUSTOM_TAPPING_KEYS
+__attribute__((weak)) bool process_tap(uint16_t keycode, keyrecord_t *record) { return true; }
+#endif
+
 #ifndef TAP_CODE_DELAY
 #    define TAP_CODE_DELAY 0
 #endif
@@ -353,7 +357,12 @@ void process_action(keyrecord_t *record, action_t action) {
 #    endif
                             {
                                 dprint("MODS_TAP: Tap: register_code\n");
-                                register_code(action.key.code);
+#    ifdef CUSTOM_TAPPING_KEYS
+                                if (process_tap(get_event_keycode(record->event, false), record))
+#    endif
+                                {
+                                    register_code(action.key.code);
+                                }
                             }
                         } else {
                             dprint("MODS_TAP: No tap: add_mods\n");
@@ -367,7 +376,12 @@ void process_action(keyrecord_t *record, action_t action) {
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
                             }
-                            unregister_code(action.key.code);
+#    ifdef CUSTOM_TAPPING_KEYS
+                            if (process_tap(get_event_keycode(record->event, false), record))
+#    endif
+                            {
+                                unregister_code(action.key.code);
+                            }
                         } else {
                             dprint("MODS_TAP: No tap: add_mods\n");
                             unregister_mods(mods);
@@ -562,8 +576,13 @@ void process_action(keyrecord_t *record, action_t action) {
                     /* tap key */
                     if (event.pressed) {
                         if (tap_count > 0) {
-                            dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
-                            register_code(action.layer_tap.code);
+#        ifdef CUSTOM_TAPPING_KEYS
+                              if (process_tap(get_event_keycode(record->event, false), record))
+#        endif
+                              {
+                                  dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
+                                  register_code(action.layer_tap.code);
+                              }
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);
@@ -576,7 +595,12 @@ void process_action(keyrecord_t *record, action_t action) {
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
                             }
-                            unregister_code(action.layer_tap.code);
+#        ifdef CUSTOM_TAPPING_KEYS
+                            if (process_tap(get_event_keycode(record->event, false), record))
+#        endif
+                            {
+                                unregister_code(action.layer_tap.code);
+                            }
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             layer_off(action.layer_tap.val);
