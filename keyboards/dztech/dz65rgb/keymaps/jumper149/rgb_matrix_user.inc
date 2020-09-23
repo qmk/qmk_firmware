@@ -197,6 +197,33 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             }
             break;
 
+        // reset (for flashing)
+        case 13:
+            hsv.s = 0;
+            if (time < 16) {
+                hsv.v = 255 - time * 128 / 16;
+            } else {
+                hsv.v = 127;
+            }
+            break;
+
+        // reset (reinitialize EEPROM)
+        case 42:
+            hsv.s = 0;
+            hsv.v = 127;
+            break;
+
+        // shift
+        case 44:
+            hsv.s = 0;
+            hsv.v = 63;
+            break;
+        case 55:
+            hsv.s = 0;
+            hsv.v = 63;
+            break;
+
+
         // no function
         default:
             hsv.v = 0;
