@@ -13,7 +13,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    NoPunIn10Did
 #define PRODUCT         The Railroad
-#define DESCRIPTION     Long ortholinear keyboard with split spacebar, center macropad, and non-ortho modifiers
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -34,7 +33,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
