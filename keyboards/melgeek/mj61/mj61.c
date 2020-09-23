@@ -121,3 +121,4 @@ void keyboard_pre_init_kb(void) {
     writePinHigh(A2);
     keyboard_pre_init_user();
 }
+#endif
