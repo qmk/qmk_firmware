@@ -16,6 +16,7 @@
 
 #include "rev1.h"
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     /* Refer to IS31 manual for these locations
      *   driver
@@ -112,6 +113,7 @@ void keyboard_post_init_user() {
     // RGB enabled by default, no way to turn off. No need to expend EEPROM write cycles here.
     rgb_matrix_enable_noeeprom();
 }
+#endif
 
 #if defined(KC_WRAPPER_KEY) && KC_WRAPPER_KEY != 0
 
