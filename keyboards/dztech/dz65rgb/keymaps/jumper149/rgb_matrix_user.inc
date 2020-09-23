@@ -16,21 +16,19 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
 
     switch (i) {
 
+        // test HSV
         case 14:
             break;
-
         case 29:
             break;
-
         case 43:
             break;
-
         case 57:
             break;
-
         case 67:
             break;
 
+        // toggle RGB
         case 16:
             hsv.s = 0;
             if (time < (255 / 2)) {
@@ -40,6 +38,7 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             }
             break;
 
+        // cycle effect
         case 17:
             hsv.s = 255;
             hsv.v = 255;
@@ -52,36 +51,37 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             }
             break;
 
+        // adjust hue
         case 18:
             hsv.h = time;
             hsv.s = 255;
             hsv.v = 255;
             break;
-
         case 19:
             hsv.h = 255 - time;
             hsv.s = 255;
             hsv.v = 255;
             break;
 
+        // adjust saturation
         case 32:
             hsv.s = 255;
             hsv.v = 255;
             break;
-
         case 33:
             hsv.s = 0;
             hsv.v = 255;
             break;
 
+        // adjust value
         case 45:
             hsv.v = 255;
             break;
-
         case 46:
             hsv.v = 63;
             break;
 
+        // adjust speed
         case 4:
             if (((time / 8) % 2) == 0) {
                 hsv.v = 255;
@@ -89,15 +89,15 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
                 hsv.v = 63;
             }
             break;
-
         case 5:
-            if (((time / 16) % 2) == 1) {
-                hsv.v = 255;
-            } else {
+            if (((time / 16) % 2) == 0) {
                 hsv.v = 63;
+            } else {
+                hsv.v = 255;
             }
             break;
 
+        // no function
         default:
             hsv.v = 0;
 
