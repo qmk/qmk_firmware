@@ -41,16 +41,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // Example of "pressing" CONTROL+SHIFT+V instead of "A" on keyboard
-    // More info: https://docs.qmk.fm/#/feature_macros
-    // case KC_A:
-    //   if (record->event.pressed) {
-    //     SEND_STRING(SS_LCTL(SS_LSFT("v")));
-    //   } else {
-    //   }
-    //   break;
-  }
-  return true;
-};

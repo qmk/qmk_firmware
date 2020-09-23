@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 20
+#define DEBOUNCE 0
 
 /* ENCODER THINGS */
 // #define ENCODER_DIRECTION_FLIP
@@ -85,10 +85,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F6 }
 #define ENCODERS_PAD_B \
     { F5 }
-
-/* Tap Dance timing */
-#define TAPPING_TERM 200
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
