@@ -304,7 +304,6 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.v = 63;
             break;
 
-
         // no function
         default:
             hsv.v = 0;
