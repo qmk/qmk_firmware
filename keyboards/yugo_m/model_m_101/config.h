@@ -25,14 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    IBM
 #define PRODUCT         Model M
-#define DESCRIPTION     QMK-powered IBM Model M
-
-/* Address for jumping to bootloader on STM32 chips. */
-/* It is chip dependent, the correct number can be looked up here:
- * http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
- */
-#define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
