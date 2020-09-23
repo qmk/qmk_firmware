@@ -64,9 +64,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code16(KC_MNXT);
+            tap_code(KC_MNXT);
         } else {
-            tap_code16(KC_MPRV);
+            tap_code(KC_MPRV);
         }
      } else if (index == 2) { /* Third encoder */
         if (clockwise) {
