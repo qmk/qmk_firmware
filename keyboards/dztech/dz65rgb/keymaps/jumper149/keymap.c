@@ -44,8 +44,8 @@ int selected_mode_user = 0;
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (IS_LAYER_ON_STATE(state, _KB)) {
         selected_mode_user = rgb_matrix_get_mode();
-        rgb_matrix_mode(4);
-    } else if ((IS_LAYER_OFF_STATE(state, _KB)) && (rgb_matrix_get_mode() == 4)) {
+        rgb_matrix_mode(5);
+    } else if ((IS_LAYER_OFF_STATE(state, _KB)) && (rgb_matrix_get_mode() == 5)) {
         rgb_matrix_mode(selected_mode_user);
     }
     return state;
