@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0004 // ai03
+#define PRODUCT_ID      0x0018
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ai03 Design Studio
 #define PRODUCT         Soyuz
