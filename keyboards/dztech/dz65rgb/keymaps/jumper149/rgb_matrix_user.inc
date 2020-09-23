@@ -1,6 +1,7 @@
 RGB_MATRIX_EFFECT(base_effect)
 RGB_MATRIX_EFFECT(fn_indicator)
 RGB_MATRIX_EFFECT(kb_indicator)
+RGB_MATRIX_EFFECT(kitt_effect)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
@@ -317,4 +318,46 @@ bool kb_indicator(effect_params_t* params) {
     return effect_runner_i(params, &kb_indicator_math);
 }
 
+uint8_t led_count = 9;
+uint8_t led_first = 32;
+static uint8_t time_to_led(uint8_t time, uint8_t led_behind) {
+    uint16_t led_time = led_count * time;
+    uint16_t step = ((2 * led_count + (led_time / 128)) - led_behind) % (2 * led_count);
+    uint8_t led;
+    if (step < led_count) {
+        led = step;
+    } else {
+        led = led_count - 1 - (step - led_count);
+    }
+    return led;
+}
+
+static HSV kitt_effect_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    if (i >= led_first && i < led_first + led_count) {
+        uint8_t j = i - led_first;
+        if (j == time_to_led(time, 0)) {
+            hsv.v = 255;
+        } else if (j == time_to_led(time, 1)) {
+            hsv.v = 127;
+        } else if (j == time_to_led(time, 2)) {
+            hsv.v = 63;
+        } else if (j == time_to_led(time, 3)) {
+            hsv.v = 31;
+        } else {
+            hsv.v = 0;
+        }
+    } else {
+        hsv.v = 0;
+    }
+
+    return hsv;
+}
+
+bool kitt_effect(effect_params_t* params) {
+    return effect_runner_i(params, &kitt_effect_math);
+}
+
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+
+// vim: syntax=c
