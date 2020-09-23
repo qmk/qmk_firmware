@@ -28,7 +28,12 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 
 typedef struct _I2C_slave_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
-#   if defined(BACKLIGHT_ENABLE)
+    uint8_t real_mods;
+    uint8_t weak_mods;
+#ifndef NO_ACTION_ONESHOT
+    uint8_t oneshot_mods;
+#endif
+#    ifdef(BACKLIGHT_ENABLE)
     uint8_t      backlight_level;
 #    endif
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -40,7 +45,6 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
-    uint8_t modifiers;
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -48,9 +52,11 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_BACKLIGHT_START offsetof(I2C_slave_buffer_t, backlight_level)
 #    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
 #    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
+#    define I2C_MODS_START offsetof(I2C_slave_buffer_t, real_mods)
+#    define I2C_MODS_START offsetof(I2C_slave_buffer_t, weak_mods)
+#    define I2C_MODS_START offsetof(I2C_slave_buffer_t, oneshot_mods)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
-#    define I2C_MODS_START offsetof(I2C_slave_buffer_t, modifiers)
 
 #    define TIMEOUT 100
 
@@ -95,10 +101,22 @@ bool transport_master(matrix_row_t matrix[]) {
         }
     }
 #    endif
-    uint8_t modifiers = get_mods() | get_weak_mods();
-    if (modifiers != i2c_buffer->modifiers) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MODS_START, (void *)&current_wpm, sizeof(modifiers), TIMEOUT) >= 0) {
-            i2c_buffer->modifiers = modifiers;
+    uint8_t real_mods = get_mods();
+    if (real_mods != i2c_buffer->real_mods) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MODS_START, (void *)&real_mods, sizeof(real_mods), TIMEOUT) >= 0) {
+            i2c_buffer->real_mods = real_mods;
+    }
+
+    uint8_t weak_mods = get_weak_mods();
+    if (weak_mods != i2c_buffer->weak_mods) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MODS_START, (void *)&weak_mods, sizeof(weak_mods), TIMEOUT) >= 0) {
+            i2c_buffer->weak_mods = weak_mods;
+    }
+
+    uint8_t oneshot_mods = get_mods();
+    if (oneshot_mods != i2c_buffer->oneshot_mods) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MODS_START, (void *)&oneshot_mods, sizeof(oneshot_mods), TIMEOUT) >= 0) {
+            i2c_buffer->oneshot_mods = oneshot_mods;
     }
     return true;
 }
@@ -128,7 +146,11 @@ void transport_slave(matrix_row_t matrix[]) {
     set_current_wpm(i2c_buffer->current_wpm);
 #    endif
 
-    set_mods(i2c_buffer->modifiers);
+    set_mods(i2c_buffer->real_mods);
+    set_weak_mods(i2c_buffer->real_weak_mods);
+#ifndef NO_ACTION_ONESHOT
+    set_oneshot_mods(i2c_buffer->oneshot_mods);
+#endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -150,13 +172,17 @@ typedef struct _Serial_s2m_buffer_t {
 } Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
+    uint8_t real_mods;
+    uint8_t weak_mods;
+#ifndef NO_ACTION_ONESHOT
+    uint8_t oneshot_mods;
+#endif
 #    ifdef BACKLIGHT_ENABLE
     uint8_t backlight_level;
 #    endif
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
-    uint8_t modifiers;
 } Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -263,7 +289,11 @@ bool transport_master(matrix_row_t matrix[]) {
     // Write wpm to slave
     serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
-    serial_m2s_buffer.modifiers = get_mods() | get_weak_mods();
+    serial_m2s_buffer.real_mods = get_mods();
+    serial_m2s_buffer.weak_mods = get_weak_mods();
+#ifndef NO_ACTION_ONESHOT
+    serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
+#endif
     return true;
 }
 
@@ -284,7 +314,11 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
-    set_mods(serial_m2s_buffer.modifiers);
+    set_mods(i2c_buffer->real_mods);
+    set_weak_mods(i2c_buffer->real_weak_mods);
+#ifndef NO_ACTION_ONESHOT
+    set_oneshot_mods(i2c_buffer->oneshot_mods);
+#endif
 }
 
 #endif
