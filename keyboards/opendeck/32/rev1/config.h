@@ -50,8 +50,6 @@
 #define FORCE_NKRO
 
 // Slim down the ROM
-#define NO_DEBUG
-#define NO_PRINT
 #define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT

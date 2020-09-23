@@ -82,6 +82,7 @@ led_config_t g_led_config = {
         4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
     }
 };
+#endif
 // clang-format on
 
 // Set custom key colors here, in order to change the RGB effect, either reserve some keys
@@ -117,7 +118,8 @@ void keyboard_post_init_user() {
 
 static uint8_t g_key_wrapper_tracker = 0;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record) { return false; }
     if (record->event.pressed && keycode != KC_WRAPPER_KEY) {
         register_code(KC_WRAPPER_KEY);
         register_code(keycode);
@@ -127,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed && keycode != KC_WRAPPER_KEY) {
         --g_key_wrapper_tracker;
         if (g_key_wrapper_tracker <= 0) {
@@ -135,5 +137,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             g_key_wrapper_tracker = 0;
         }
     }
+    post_process_record_user(keycode, record);
 }
 #endif

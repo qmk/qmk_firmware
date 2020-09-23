@@ -19,7 +19,7 @@
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BL] = KEYMAP(
+[_BL] = LAYOUT(
     KC_F13,       KC_F14,       KC_F15,       KC_F16,       KC_F17,       KC_F18,       KC_F19,       KC_F20,
     KC_F21,       KC_F22,       KC_F23,       KC_F24,       LSFT(KC_F13), LSFT(KC_F14), LSFT(KC_F15), LSFT(KC_F16),
     LSFT(KC_F17), LSFT(KC_F18), LSFT(KC_F19), LSFT(KC_F20), LSFT(KC_F21), LSFT(KC_F22), LSFT(KC_F23), LSFT(KC_F24),
