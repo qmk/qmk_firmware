@@ -4,10 +4,12 @@
 #include QMK_KEYBOARD_H
 
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _SYS 3
+enum layers {
+    _BASE,
+    _LOWER,
+    _RAISE,
+    _SYS,
+};
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 #define SYS MO(_SYS)
