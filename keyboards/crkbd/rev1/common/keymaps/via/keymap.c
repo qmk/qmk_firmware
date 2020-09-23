@@ -177,7 +177,6 @@ void oled_task_user(void) {
         oled_render_layer_state();
         oled_render_keylog();
         // oled_render_keylogs();
-        // oled_renger_bootmagic_icon(keymap_config.swap_lalt_lgui);
     } else {
         oled_render_logo();
     }
@@ -186,7 +185,6 @@ void oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
-    // set_timelog();
   }
   return true;
 }
