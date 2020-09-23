@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Jacky
 #define PRODUCT         Jacky Bear 65 Ergo
-#define DESCRIPTION     A gasket-mounted 65% Alice style board
 
 /* key matrix size */
 #define MATRIX_ROWS 5
