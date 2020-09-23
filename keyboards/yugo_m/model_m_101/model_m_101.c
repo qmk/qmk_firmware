@@ -15,45 +15,32 @@
  */
 #include "model_m_101.h"
 
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
+
+  // Set our LED pins as output
+  setPinOutput(A2);
+  setPinOutput(A1);
+  setPinOutput(A0);
+}
+
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
     matrix_init_user();
-    led_init_ports();
 }
 
-void led_init_ports() {
-    // Set our LED pins as output
-    palSetPadMode(GPIOA, 2, PAL_MODE_OUTPUT_PUSHPULL); // NumLock LED
-    palClearPad(GPIOA, 2);
-    palSetPadMode(GPIOA, 1, PAL_MODE_OUTPUT_PUSHPULL); // CapsLock LED
-    palClearPad(GPIOA, 1);
-    palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL); // ScrollLock LED
-    palClearPad(GPIOA, 0);
-}
-
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        // Turn NumLock on (pin LOW)
-        palClearPad(GPIOA, 2);
-    } else {
-        // Turn NumLock off (pin HIGH)
-        palSetPad(GPIOA, 2);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        // writePin sets the pin high for 1 and low for 0.
+        // In this example the pins are inverted, setting
+        // it low/0 turns it on, and high/1 turns the LED off.
+        // This behavior depends on whether the LED is between the pin
+        // and VCC or the pin and GND.
+        writePin(A2, !led_state.num_lock);
+        writePin(A1, !led_state.caps_lock);
+        writePin(A0, !led_state.scroll_lock);
     }
-
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // Turn CapsLock on
-        palClearPad(GPIOA, 1);
-    } else {
-        // Turn CapsLock off
-        palSetPad(GPIOA, 1);
-    }
-
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        // Turn ScrollLock on
-        palClearPad(GPIOA, 0);
-    } else {
-        // Turn ScrollLock off
-        palSetPad(GPIOA, 0);
-    }
+    return res;
 }
