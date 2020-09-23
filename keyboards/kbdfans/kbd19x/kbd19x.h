@@ -53,7 +53,7 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
 // 2.25u lshift: k40, XXX
 // split (1.25u, 1u) lshift: k40, k41
 
-// ANSI enter or ISO enter: k3e
+// ANSI enter or ISO enter: k38
 // backslash or NUHS: k73
 
 // left winkey: k50, k51, k52
@@ -66,7 +66,7 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
   k00,  k01, k02, k03, k04,  k60, k61, k62, k63,  k05, k06, k07, k08,   k72,  k09, k0a, k0b, k0c, \
   k10, k11, k12, k13, k14, k64, k65, k66, k67, k15, k16, k17, k18, k1d, k71,  k1f, k1a, k1b, k1c, \
   k20,  k21, k22, k23, k24, k68, k69, k6a, k6b, k25, k26, k27, k28,     k73,  k2f, k2a, k2b, k2c, \
-  k30,    k32, k33, k34, k35, k6c, k75, k76, k77, k36, k37, k38,        k3e,  k39, k3a, k3b, k3c, \
+  k30,    k31, k32, k33, k34, k6c, k75, k76, k77, k35, k36, k37,        k38,  k39, k3a, k3b, k3c, \
   k40,  k41, k42, k43, k44, k78, k79, k7a, k7b, k45, k46, k47, k48,    k74,   k4f, k4a, k4b, k4c, \
   k50,  k51, k52,                k59,            k55, k56, k57,   k5d, k53, k5f,   k5a, k5b, k5c  \
 )\
@@ -74,7 +74,7 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
   {k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c},\
   {k10, k11, k12, k13, k14, k15, k16, k17, k18, k1f, k1a, k1b, k1c},\
   {k20, k21, k22, k23, k24, k25, k26, k27, k28, k2f, k2a, k2b, k2c},\
-  {k30, k32, k33, k34, k35, k36, k37, k38, k3e, k39, k3a, k3b, k3c},\
+  {k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c},\
   {k40, k41, k42, k43, k44, k45, k46, k47, k48, k4f, k4a, k4b, k4c},\
   {k50, k51, k52, k53, k5f, k55, k56, k57, k5d, k59, k5a, k5b, k5c},\
   {k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, k6a, k6b, k6c},\
@@ -85,7 +85,7 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
   k00,  k01, k02, k03, k04,  k60, k61, k62, k63,  k05, k06, k07, k08, k72,     k09, k0a, k0b, k0c, \
   k10, k11, k12, k13, k14, k64, k65, k66, k67, k15, k16, k17, k18,    k71,     k1f, k1a, k1b, k1c, \
   k20,  k21, k22, k23, k24, k68, k69, k6a, k6b, k25, k26, k27, k28,   k73,     k2f, k2a, k2b, k2c, \
-  k30,    k32, k33, k34, k35, k6c, k75, k76, k77, k36, k37, k38,      k3e,     k39, k3a, k3b,      \
+  k30,    k31, k32, k33, k34, k6c, k75, k76, k77, k35, k36, k37,      k38,     k39, k3a, k3b,      \
   k40,      k42, k43, k44, k78, k79, k7a, k7b, k45, k46, k47,    k48,   k74,   k4f, k4a, k4b, k4c, \
   k50, k51, k52,                k59,            k55, k56, k57,     k5d, k53, k5f,   k5a, k5b       \
 )\
@@ -93,7 +93,7 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
   {k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c},\
   {k10, k11, k12, k13, k14, k15, k16, k17, k18, k1f, k1a, k1b, k1c},\
   {k20, k21, k22, k23, k24, k25, k26, k27, k28, k2f, k2a, k2b, k2c},\
-  {k30, k32, k33, k34, k35, k36, k37, k38, k3e, k39, k3a, k3b, XXX},\
+  {k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, XXX},\
   {k40, XXX, k42, k43, k44, k45, k46, k47, k48, k4f, k4a, k4b, k4c},\
   {k50, k51, k52, k53, k5f, k55, k56, k57, k5d, k59, k5a, k5b, XXX},\
   {k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, k6a, k6b, k6c},\
