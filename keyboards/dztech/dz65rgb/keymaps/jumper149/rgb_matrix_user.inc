@@ -88,15 +88,30 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.s = 0;
             break;
 
+        // grave escape
+        case 0:
+            hsv.s = 0;
+            break;
+
+        // caps lock
+        case 30:
+            hsv.s = 0;
+            break;
+
+        // shift
+        case 44:
+            hsv.s = 0;
+            hsv.v = hsv.v / 2;
+            break;
+        case 55:
+            hsv.s = 0;
+            hsv.v = hsv.v / 2;
+            break;
+
         // KB layer
         case 62:
             hsv.h = time;
             hsv.s = 255;
-            break;
-
-        // grave escape
-        case 0:
-            hsv.s = 0;
             break;
 
         // no function
