@@ -20,6 +20,10 @@
 #    include "process_midi.h"
 #endif
 
+#ifdef MIDI_MOCKED
+#    include "tests/midi_mock.h"
+#endif
+
 sequencer_config_t sequencer_config = {
     false,     // enabled
     {false},   // steps
@@ -184,7 +188,7 @@ void sequencer_phase_attack(void) {
         return;
     }
 
-#ifdef MIDI_ENABLE
+#if defined(MIDI_ENABLE) || defined(MIDI_MOCKED)
     if (is_sequencer_step_on_for_track(sequencer_current_step, sequencer_current_track)) {
         process_midi_basic_noteon(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
     }
@@ -201,7 +205,7 @@ void sequencer_phase_release(void) {
     if (timer_elapsed(sequencer_timer) < SEQUENCER_PHASE_RELEASE_TIMEOUT + sequencer_current_track * SEQUENCER_TRACK_THROTTLE) {
         return;
     }
-#ifdef MIDI_ENABLE
+#if defined(MIDI_ENABLE) || defined(MIDI_MOCKED)
     if (is_sequencer_step_on_for_track(sequencer_current_step, sequencer_current_track)) {
         process_midi_basic_noteoff(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
     }

@@ -18,6 +18,13 @@
 
 extern "C" {
 #include "sequencer.h"
+#include "midi_mock.h"
+#include "quantum/quantum_keycodes.h"
+}
+
+extern "C" {
+void set_time(uint32_t t);
+void advance_time(uint32_t ms);
 }
 
 class SequencerTest : public ::testing::Test {
@@ -341,4 +348,186 @@ TEST_F(SequencerTest, TestGetStepDuration120) {
     EXPECT_EQ(get_step_duration(30, SQ_RES_4T), 1333);
     EXPECT_EQ(get_step_duration(30, SQ_RES_8T), 666);
     EXPECT_EQ(get_step_duration(30, SQ_RES_16T), 333);
+}
+
+void advance_time_and_reset(uint32_t ms) {
+    advance_time(ms);
+    last_noteon  = 0;
+    last_noteoff = 0;
+}
+
+/**
+ * This one tests a scenario rather than a unit
+ */
+TEST_F(SequencerTest, TestMatrixScanSequencer) {
+    sequencer_config.enabled    = true;
+    sequencer_config.tempo      = 120;
+    sequencer_config.resolution = SQ_RES_16;
+
+    // Configure the notes for each track
+    sequencer_config.track_notes[0] = MI_C;
+    sequencer_config.track_notes[1] = MI_D;
+    sequencer_config.track_notes[2] = MI_E;
+    sequencer_config.track_notes[3] = MI_F;
+    sequencer_config.track_notes[4] = MI_G;
+    sequencer_config.track_notes[5] = MI_A;
+    sequencer_config.track_notes[6] = MI_B;
+    sequencer_config.track_notes[7] = MI_C;
+
+    // Turn on some steps
+    sequencer_config.steps[0] = (1 << 0);
+    sequencer_config.steps[2] = (1 << 1) + (1 << 0);
+
+    /**
+     * Step 0
+     */
+
+    advance_time_and_reset(0);
+
+    // The C should play as soon as we start the sequence
+    matrix_scan_sequencer();
+    EXPECT_EQ(last_noteon, MI_C);
+    EXPECT_EQ(last_noteoff, 0);
+
+    // The other notes should not be played
+    for (int i = 1; i < SEQUENCER_TRACKS; i++) {
+        advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+
+        matrix_scan_sequencer();
+        EXPECT_EQ(last_noteon, 0);
+        EXPECT_EQ(last_noteoff, 0);
+    }
+
+    advance_time(SEQUENCER_PHASE_RELEASE_TIMEOUT);
+
+    // Release happens in the reverse order
+    // No notes but the first should be released
+    for (int i = SEQUENCER_TRACKS - 1; i > 0; i--) {
+        matrix_scan_sequencer();
+        EXPECT_EQ(last_noteon, 0);
+        EXPECT_EQ(last_noteoff, 0);
+
+        advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+    }
+
+    // Only the C should be released
+    matrix_scan_sequencer();
+    EXPECT_EQ(last_noteon, 0);
+    EXPECT_EQ(last_noteoff, MI_C);
+
+    // A 16th lasts 125ms at tempo=120
+    advance_time_and_reset(125);
+
+    /**
+     * Step 1
+     */
+
+    // On step 1, none of the notes should be played
+    for (int i = 0; i < SEQUENCER_TRACKS; i++) {
+        matrix_scan_sequencer();
+        EXPECT_EQ(last_noteon, 0);
+        EXPECT_EQ(last_noteoff, 0);
+
+        advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+    }
+
+    matrix_scan_sequencer();
+    advance_time(SEQUENCER_PHASE_RELEASE_TIMEOUT);
+
+    // On step 1, none of the notes should be released
+    for (int i = SEQUENCER_TRACKS - 1; i >= 0; i--) {
+        matrix_scan_sequencer();
+        EXPECT_EQ(last_noteon, 0);
+        EXPECT_EQ(last_noteoff, 0);
+
+        advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+    }
+
+    // A 16th lasts 125ms at tempo=120
+    matrix_scan_sequencer();
+    advance_time_and_reset(125);
+
+    /**
+     * Step 2
+     */
+
+    // The C should play as soon as we start the sequence
+    matrix_scan_sequencer();
+    EXPECT_EQ(last_noteon, MI_C);
+    EXPECT_EQ(last_noteoff, 0);
+
+    advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+
+    // The D should play shortly after
+    matrix_scan_sequencer();
+    EXPECT_EQ(last_noteon, MI_D);
+    EXPECT_EQ(last_noteoff, 0);
+
+    // The other notes should not be played
+    for (int i = 2; i < SEQUENCER_TRACKS; i++) {
+        advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+
+        matrix_scan_sequencer();
+        EXPECT_EQ(last_noteon, 0);
+        EXPECT_EQ(last_noteoff, 0);
+    }
+
+    advance_time(SEQUENCER_PHASE_RELEASE_TIMEOUT);
+
+    // Release happens in the reverse order
+    // No notes but the first should be released
+    for (int i = SEQUENCER_TRACKS - 1; i > 1; i--) {
+        matrix_scan_sequencer();
+        EXPECT_EQ(last_noteon, 0);
+        EXPECT_EQ(last_noteoff, 0);
+
+        advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+    }
+
+    // The D should be released first
+    matrix_scan_sequencer();
+    EXPECT_EQ(last_noteon, 0);
+    EXPECT_EQ(last_noteoff, MI_D);
+
+    advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+
+    // The C should be released after
+    matrix_scan_sequencer();
+    EXPECT_EQ(last_noteon, 0);
+    EXPECT_EQ(last_noteoff, MI_C);
+
+    // For steps 3 -> SEQUENCER_STEPS - 1, nothing should be played or released
+    for (int i = 3; i < SEQUENCER_STEPS; i++) {
+        // A 16th lasts 125ms at tempo=120
+        matrix_scan_sequencer();
+        advance_time_and_reset(125);
+
+        for (int j = 0; j < SEQUENCER_TRACKS; j++) {
+            matrix_scan_sequencer();
+            EXPECT_EQ(last_noteon, 0);
+            EXPECT_EQ(last_noteoff, 0);
+
+            advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+        }
+
+        matrix_scan_sequencer();
+        advance_time(SEQUENCER_PHASE_RELEASE_TIMEOUT);
+
+        for (int j = SEQUENCER_TRACKS - 1; j >= 0; j--) {
+            matrix_scan_sequencer();
+            EXPECT_EQ(last_noteon, 0);
+            EXPECT_EQ(last_noteoff, 0);
+
+            advance_time_and_reset(SEQUENCER_TRACK_THROTTLE);
+        }
+    }
+
+    // A 16th lasts 125ms at tempo=120
+    matrix_scan_sequencer();
+    advance_time_and_reset(125);
+
+    // We should have looped back to step 0
+    matrix_scan_sequencer();
+    EXPECT_EQ(last_noteon, MI_C);
+    EXPECT_EQ(last_noteoff, 0);
 }
