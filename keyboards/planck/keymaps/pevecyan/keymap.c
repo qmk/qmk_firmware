@@ -44,7 +44,7 @@ enum planck_keycodes {
 #define CAPS MO(_CAPS)
 #define ALTGR MO(_ALTGR)
 #define MEMA MO(_MEMA)
-#define CARON LT(_CARON, SI_QOT)
+#define CARON LT(_CARON, SI_QUOT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    SI_TILD, SI_EXLM, SI_DQOT, KC_HASH, SI_DLR,  SI_PERC, SI_AMPR, SI_SLSH,    SI_LPRN,    SI_RPRN, SI_EQL,  _______,
+    SI_TILD, SI_EXLM, SI_DQUO, KC_HASH, SI_DLR,  SI_PERC, SI_AMPR, SI_SLSH,    SI_LPRN,    SI_RPRN, SI_EQL,  _______,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_MINS, KC_PPLS, KC_ENT,
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______,
     _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
@@ -142,9 +142,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_CARON] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, SI_ZV  , _______, _______, _______, _______, _______,
-    _______, _______, SI_SV,   _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, SI_CV,   _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, SI_ZCAR  , _______, _______, _______, _______, _______,
+    _______, _______, SI_SCAR,   _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, SI_CCAR,   _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
