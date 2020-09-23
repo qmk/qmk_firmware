@@ -1,4 +1,4 @@
-# Sendy YK's 60% ANSI Arrow Layout and Keymap for DZ60 Rev 3.0 60% Mechanical Keyboard PCB
+# Sendy YK's 60% ANSI Arrow Layout and Keymap
 
 [https://mr.sendyyk.com](https://mr.sendyyk.com)
 

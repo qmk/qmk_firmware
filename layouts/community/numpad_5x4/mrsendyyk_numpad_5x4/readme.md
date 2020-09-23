@@ -1,4 +1,4 @@
-# Sendy YK's Numpad 5x4 Layout and Keymap for ai03 Soyuz Mechanical Number Pad PCB
+# Sendy YK's Numpad 5x4 Layout and Keymap
 
 [https://mr.sendyyk.com](https://mr.sendyyk.com)
 
