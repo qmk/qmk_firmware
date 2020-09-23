@@ -83,22 +83,22 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #define L_ADJUST 8
 
 void oled_render_layer_state(void) {
-    oled_write_P("Layer: ", false);
+    oled_write_P(PSTR("Layer: "), false);
     switch (layer_state) {
         case L_BASE:
-            oled_write_ln_P("Default", false);
+            oled_write_ln_P(PSTR("Default"), false);
             break;
         case L_LOWER:
-            oled_write_ln_P("Lower", false);
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         case L_RAISE:
-            oled_write_ln_P("Raise", false);
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case L_ADJUST:
         case L_ADJUST|L_LOWER:
         case L_ADJUST|L_RAISE:
         case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P("Adjust", false);
+            oled_write_ln_P(PSTR("Adjust"), false);
             break;
     }
 }
