@@ -1,8 +1,8 @@
-RGB_MATRIX_EFFECT(fn_indicator)
+RGB_MATRIX_EFFECT(kb_indicator)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
+static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
 
     /*
     [_LEDS]    = LAYOUT_65_ansi(
@@ -106,8 +106,8 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
     return hsv;
 }
 
-bool fn_indicator(effect_params_t* params) {
-    return effect_runner_i(params, &fn_indicator_math);
+bool kb_indicator(effect_params_t* params) {
+    return effect_runner_i(params, &kb_indicator_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
