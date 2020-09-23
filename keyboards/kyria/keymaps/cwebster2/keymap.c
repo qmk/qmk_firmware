@@ -20,20 +20,34 @@
 char wpm_str[10];
 uint16_t wpm_graph_timer = 0;
 
+#ifdef COMBO_ENABLE
+enum combos {
+    ZX_COPY,
+    CV_PASTE
+};
+
+const uint16_t PROGMEM copy_combo[]  = { KC_Z, KC_X, COMBO_END };
+const uint16_t PROGMEM paste_combo[] = { KC_C, KC_V, COMBO_END };
+
+combo_t key_combos[COMBO_COUNT] = {
+    [ZX_COPY]  = COMBO(copy_combo, LCTL_T(KC_C)),
+    [CV_PASTE] = COMBO(paste_combo, LCTL_T(KC_V))
+};
+#endif
+
 enum custom_keycodes {
-    KC_RACL = SAFE_RANGE
+    KC_LCCL = SAFE_RANGE
 };
 
 enum layers {
     _QWERTY = 0,
+    _GAME,
     _FN,
     _SYMBOLS,
     _NUM,
     _NAV,
-    _GAME,
-    _LOWER,
-    _RAISE,
-    _ADJUST
+    _MOUSE,
+    _MEDIA
 };
 
 // shortcuts for certain keys to use LAYOUT_kc()
@@ -41,7 +55,7 @@ enum layers {
 #define KC_DF(a)  DF(a)
 #define KC_RAISE  TT(_RAISE)
 #define KC_LOWER  TT(_LOWER)
-#define KC_KITTY(a)  LCTL_T(KC_##a)
+#define KC_KITTY(a)  C_S_T(KC_##a)
 #define KC_I3(a)  SCMD_T(KC_##a)
 #define KC_GUIBS  MT(MOD_LGUI, KC_BSPC)
 #define KC_ALTCLN MT(MOD_LALT, S(KC_SCLN)) // this doesnt work. need to write a custom keycode to handle it
@@ -56,10 +70,13 @@ enum layers {
 #define KC_RRMD   RGB_RMOD
 #define KC_TT(m,a)  m##_T(KC_##a)
 #define KC_CTLESC MT(MOD_LCTL, KC_ESC)
+#define KC_CTLTAB MT(MOD_LCTL, KC_TAB)
 #define KC_FN(a) LT(_FN, KC_##a)
 #define KC_SYM(a) LT(_SYMBOLS, KC_##a)
 #define KC_NUM(a) LT(_NUM, KC_##a)
 #define KC_NAV(a) LT(_NAV, KC_##a)
+#define KC_MED(a) LT(_MEDIA, KC_##a)
+#define KC_MSE(a) LT(_MOUSE, KC_##a)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -70,11 +87,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* ,-------------------------------------------------------------------.                                         ,--------------------------------------------------------------------. */
       GRV,         Q,          W,          E,          R,         T,                                                   Y,        U,          I,          O,            P,        BSLS,
  /* |--------+-----------+-----------+-----------+-----------+----------|                                         |---------+-----------+-----------+-----------+-------------+--------| */
-      TAB,    TT(LGUI,A), TT(LALT,S), TT(LCTL,D), TT(LSFT,F),     G,                                                   H,    TT(RSFT,J), TT(RCTL,K), TT(RALT,L), TT(RGUI,SCLN),  QUOT,
+      CTLTAB, TT(LGUI,A), TT(LALT,S), TT(LCTL,D), TT(LSFT,F),     G,                                                   H,    TT(RSFT,J), TT(RCTL,K), TT(RALT,L), TT(RGUI,SCLN),  QUOT,
  /* |--------+-----------+-----------+-----------+-----------+----------+---------+--------.  ,---------+---------+---------+-----------+-----------+-----------+-------------+--------| */
-      EQL,         Z,          X,          C,          V,         B,       COLON,    LGUI,       RALT,     RSPC,       N,        M,         COMM,       DOT,         SLSH,       MINS,
+      EQL,         Z,          X,          C,          V,         B,       LCCL,     LGUI,       RALT,     LSFT,       N,        M,         COMM,       DOT,         SLSH,       MINS,
  /* `--------------------------------+-----------+-----------+----------+---------+--------|  |---------+---------+---------+---------+-------------+----------------------------------' */
-                                       I3(LBRC),  KITTY(MINS), SYM(TAB), NAV(SPC), FN(ESC),    FN(BSPC), NUM(ENT), SYM(DEL), TO(_GAME),     PSCR
+                                       I3(LBRC),  KITTY(MINS), MSE(TAB), NAV(SPC), MED(ESC),    FN(ENT), NUM(BSPC), SYM(DEL), TO(_GAME),     PSCR
  /*                                  `-----------------------------------------------------'  `-----------------------------------------------------' */
     ),
     // symbols and mouse
@@ -123,6 +140,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
  /*                        `----------------------------------'  `----------------------------------' */
       ),
+    [_MOUSE] = LAYOUT_kc(
+ /* ,-------------------------------------------.                              ,-------------------------------------------. */
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
+                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+ /*                        `----------------------------------'  `----------------------------------'                        */
+      ),
+    [_MEDIA] = LAYOUT_kc(
+ /* ,-------------------------------------------.                              ,-------------------------------------------. */
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+ /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
+                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+ /*                        `----------------------------------'  `----------------------------------'                        */
+     ),
  // GAME layout -- qwerty without homerow mods
     [_GAME] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
@@ -130,45 +169,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
       TAB,      A,     S,     D,     F,    G,                                     H,     J,     K,     L,    SCLN,  QUOT,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
-      LSPO,     Z,     X,     C,     V,    B,     LSPO, ALTCLN,    RALT,  RSPC,   N,     M,    COMM,  DOT,   SLSH,  MINS,
+      LSPO,     Z,     X,     C,     V,    B,     LCTL,  LGUI,     RALT,  RSFT,   N,     M,    COMM,  DOT,   SLSH,  RSPC,
  /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
-      //  I3(LBRC),  KITTY(MINS), SYM(TAB), NAV(SPC), FN(ESC),    FN(BSPC), NUM(ENT), SYM(DEL), TO(_QWERTY),     PSCR
-                   I3(LBRC),KITTY(MINS), RAISE,  SPC,  CTLESC,    GUIBS,  ENT,  LOWER, TO(_QWERTY), PSCR
+           I3(LBRC),  KITTY(MINS), MSE(TAB), NAV(SPC), MED(ESC), FN(ENT), NUM(BSPC), SYM(DEL), TO(_QWERTY),     PSCR
  /*                        `----------------------------------'  `----------------------------------' */
     ),
-    [_LOWER] = LAYOUT_kc(
- // ,-------------------------------------------.                              ,-------------------------------------------.
-       TRNS,   EXLM,   AT,   PIPE,  LBRC,  RBRC,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  BSLS,
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-       TRNS,   HASH,  DLR,   GRV,   LCBR,  RCBR,                                 PLUS,  MINS,  SLSH,  ASTR,  PERC,  QUOT,
- // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
-       TRNS,   PERC,  CIRC,  TILD,  LPRN,  RPRN,  TRNS,  TRNS,     TRNS,  TRNS,  AMPR,  EQL,   COMM,   DOT,  SLSH,  MINS,
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
- //                        `----------------------------------'  `----------------------------------'
-    ),
-    [_RAISE] = LAYOUT_kc(
- // ,-------------------------------------------.                              ,-------------------------------------------.
-       TRNS,    1,     2,     3,     4,     5,                                    6,     7,     8,     9,     0,    TRNS,
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-       TRNS,   TRNS,  MPRV,  MPLY,  MNXT,  VOLU,                                 LEFT,  DOWN,   UP,   RGHT,  TRNS,  TRNS,
- // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
-       TRNS,   TRNS,  TRNS,  TRNS,  MUTE,  VOLD,  TRNS,  TRNS,     TRNS,  TRNS,  MS_L,  MS_D,  MS_U,  MS_R,  TRNS,  TRNS,
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
- //                        `----------------------------------'  `----------------------------------'
-      ),
-    [_ADJUST] = LAYOUT_kc(
- // ,-------------------------------------------.                              ,-------------------------------------------.
-       TRNS,    F1,    F2,    F3,    F4,    F5,                                   F6,    F7,    F8,    F9,   F10,   TRNS,
- // |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-       TRNS,   RTOG,  RSAI,  RHUI,  RVAI,  RMOD,                                 TRNS,  TRNS,  TRNS,   F11,  F12,   TRNS,
- // |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------|
-       TRNS,   TRNS,  RSAD,  RHUD,  RVAD,  RRMD,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
- // `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
- //                        `----------------------------------'  `----------------------------------'
-      ),
  //  * Layer template
  //
  //    [_LAYERINDEX] = LAYOUT_kc(
@@ -213,9 +218,7 @@ void keyboard_post_init_user(void) {
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    layer_state_t new_state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-
-    switch (get_highest_layer(new_state)) {
+    switch (get_highest_layer(state)) {
         case _QWERTY:
             send_layer_via_hid("Default");
             rgblight_sethsv_noeeprom(HSV_BLUE);
@@ -232,26 +235,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _FN:
             rgblight_sethsv_noeeprom(HSV_PINK);
             break;
-        case _LOWER:
-            send_layer_via_hid("Lower");
+        case _MEDIA:
             rgblight_sethsv_noeeprom(HSV_MAGENTA);
             break;
-        case _RAISE:
-            send_layer_via_hid("Raise");
+        case _MOUSE:
+            //send_layer_via_hid("Raise");
             rgblight_sethsv_noeeprom(HSV_TURQUOISE);
             break;
-        case _ADJUST:
-            send_layer_via_hid("Adjust");
-            rgblight_sethsv_noeeprom(HSV_PURPLE);
-            break;
         case _GAME:
-            send_layer_via_hid("Game");
+            /*send_layer_via_hid("Game");*/
             rgblight_sethsv_noeeprom(HSV_RED);
             break;
         default:
             send_layer_via_hid("Undefined");
     }
-    return new_state;
+    return state;
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -282,11 +280,24 @@ static void render_logo(void) {
     oled_advance_page(false);
     oled_advance_page(false);
     oled_advance_page(false);
-    /*oled_write_P(PSTR("Combos enabled: ", flase));*/
-    /*if (is_combo_enabled()) {*/
-    /*    oled_write_P(PSTR("Yes\n"), false);*/
-    /*} else {*/
-    /*    oled_write_P(PSTR("No\n"), false);*/
+
+#ifdef COMBO_ENABLE
+    oled_write_P(PSTR("Combos enabled: "), false);
+    if (is_combo_enabled()) {
+        oled_write_P(PSTR("Yes\n"), false);
+    } else {
+        oled_write_P(PSTR("No\n"), false);
+    }
+#endif
+
+    uint8_t mods = get_mods() | get_weak_mods();
+    oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("xxxx "), false);
+    oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("xxxx "), false);
+    oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("xxx "), false);
+    oled_write_P((mods & MOD_MASK_GUI) ? PSTR("GUI ") : PSTR("xxx "), false);
+    oled_write_P(PSTR("\n"), false);
+    sprintf(wpm_str, "MOD: %03d\n", mods);
+    oled_write(wpm_str, false);
 
 #ifdef WPM_ENABLE
     // Write WPM
@@ -317,7 +328,7 @@ static void render_status(void) {
             oled_write_P(PSTR("Default\n"), false);
             break;
         case _SYMBOLS:
-            oled_write_P(PSTR("Sym / Mouse\n"), false);
+            oled_write_P(PSTR("Shifted Sym\n"), false);
             break;
         case _NUM:
             oled_write_P(PSTR("Numbers\n"), false);
@@ -326,19 +337,16 @@ static void render_status(void) {
             oled_write_P(PSTR("Navigation\n"), false);
             break;
         case _FN:
-            oled_write_P(PSTR("Media / Fn\n"), false);
+            oled_write_P(PSTR("Fn\n"), false);
             break;
         case _GAME:
             oled_write_P(PSTR("Game\n"), false);
             break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower / Sym\n"), false);
+        case _MEDIA:
+            oled_write_P(PSTR("Media keys\n"), false);
             break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise / Num\n"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
+        case _MOUSE:
+            oled_write_P(PSTR("Mouse keys\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
@@ -374,12 +382,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t my_colon_timer;
 
     switch (keycode) {
-        case KC_RACL:
+        case KC_LCCL:
             if (record->event.pressed) {
                 my_colon_timer = timer_read();
-                register_code(KC_RALT);
+                register_code(KC_LCTL);
             } else {
-                unregister_code(KC_RALT);
+                unregister_code(KC_LCTL);
                 if (timer_elapsed(my_colon_timer) < TAPPING_TERM) {
                     SEND_STRING(":");
                 }
