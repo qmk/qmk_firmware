@@ -622,8 +622,8 @@ void oled_task(void) {
         return;
     }
 
-#if OLED_UPDATE_INTERVAL_MS > 0
-    if (timer_elapsed(oled_update_timeout) < OLED_UPDATE_INTERVAL_MS) {
+#if OLED_UPDATE_INTERVAL > 0
+    if (timer_elapsed(oled_update_timeout) < OLED_UPDATE_INTERVAL) {
         return;
     }
     oled_update_timeout = timer_read();
