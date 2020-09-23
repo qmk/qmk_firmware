@@ -278,6 +278,20 @@ static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             }
             break;
 
+        // set main effect
+        case 36: // BASE
+            hsv.s = 0;
+            break;
+        case 37: // KITT
+            hsv.h = 0;
+            hsv.s = 255;
+            if (time < 128) {
+                hsv.v = time;
+            } else {
+                hsv.v = 255 - time;
+            }
+            break;
+
         // reset (for flashing)
         case 13:
             hsv.s = 0;

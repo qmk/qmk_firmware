@@ -6,6 +6,30 @@ enum layers_user {
     _KB
 };
 
+enum keycodes_user {
+    _BASEEF = SAFE_RANGE,
+    _KITTEF
+};
+
+// TODO: make sure state in selected_mode is handled correctly!
+int selected_mode_user = 3; // for layer_state_set_user()
+bool process_record_user(uint16_t keycode, keyrecord_t * record) {
+    switch (keycode) {
+        case _BASEEF:
+            if (record->event.pressed) {
+                selected_mode_user = 3;
+            }
+            return false;
+        case _KITTEF:
+            if (record->event.pressed) {
+                selected_mode_user = 6;
+            }
+            return false;
+        default:
+            return true;
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_65_ansi(
         KC_GRAVE,       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
@@ -24,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_KB] = LAYOUT_65_ansi(
         XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, RGB_SPI, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX,
         XXXXXXX,        RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX,        XXXXXXX, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          EEP_RST, XXXXXXX,
+        XXXXXXX,        XXXXXXX, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, _BASEEF, _KITTEF, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          EEP_RST, XXXXXXX,
         KC_LSFT,                 RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT, XXXXXXX, XXXXXXX,
         XXXXXXX,        XXXXXXX, XXXXXXX,                            XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
@@ -39,8 +63,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-// TODO: make sure state in selected_mode is handled correctly!
-int selected_mode_user = 3;
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _QWERTY:
