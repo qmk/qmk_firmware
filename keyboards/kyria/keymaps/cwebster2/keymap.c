@@ -291,10 +291,10 @@ static void render_logo(void) {
 #endif
 
     uint8_t mods = get_mods() | get_weak_mods();
-    oled_write_P((mods & MOD_MASK_GUI) ? PSTR("GUI ") : PSTR("xxx "), false);
-    oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("xxx "), false);
-    oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("xxxx "), false);
-    oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("xxxx "), false);
+    oled_write_P((mods & MOD_MASK_GUI) ? PSTR("GUI ") : PSTR("    "), false);
+    oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("    "), false);
+    oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
+    oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("     "), false);
     oled_write_P(PSTR("\n"), false);
 
 #ifdef WPM_ENABLE
@@ -351,10 +351,10 @@ static void render_status(void) {
     }
 
     uint8_t mods = get_mods() | get_weak_mods();
-    oled_write_P((mods & MOD_MASK_GUI) ? PSTR("GUI ") : PSTR("xxx "), false);
-    oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("xxx "), false);
-    oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("xxxx "), false);
-    oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("xxxx "), false);
+    oled_write_P((mods & MOD_MASK_GUI) ? PSTR("GUI ") : PSTR("    "), false);
+    oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("    "), false);
+    oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
+    oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("     "), false);
     oled_write_P(PSTR("\n"), false);
 
     // Host Keyboard LED Status
