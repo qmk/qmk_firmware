@@ -1,3 +1,4 @@
+RGB_MATRIX_EFFECT(base_effect)
 RGB_MATRIX_EFFECT(fn_indicator)
 RGB_MATRIX_EFFECT(kb_indicator)
 
@@ -12,6 +13,69 @@ RGB_MATRIX_EFFECT(kb_indicator)
     58  ,           59  ,    60  ,                               61  ,                      62  ,    63  ,    64  ,    65  ,    66  ,    67
 )
 */
+
+static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    switch (i) {
+
+        // numbers
+        case 1:
+            hsv.v = 0;
+            break;
+        case 2:
+            hsv.v = 0;
+            break;
+        case 3:
+            hsv.v = 0;
+            break;
+        case 4:
+            hsv.v = 0;
+            break;
+        case 5:
+            hsv.v = hsv.v / 2;
+            break;
+        case 6:
+            hsv.v = hsv.v / 2;
+            break;
+        case 7:
+            hsv.v = hsv.v / 2;
+            break;
+        case 8:
+            hsv.v = hsv.v / 2;
+            break;
+        case 9:
+            hsv.v = 0;
+            break;
+        case 10:
+            hsv.v = 0;
+            break;
+        case 11:
+            hsv.v = 0;
+            break;
+        case 12:
+            hsv.v = 0;
+            break;
+
+        default:
+            if (
+                (i > 15 && i <= 25) ||
+                (i > 30 && i <= 39) ||
+                (i > 44 && i <= 51)
+            ) {
+                hsv.s = 0;
+            } else {
+                hsv.v = 0;
+            }
+            break;
+
+        }
+
+    return hsv;
+}
+
+bool base_effect(effect_params_t* params) {
+    return effect_runner_i(params, &base_effect_math);
+}
 
 static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
 
@@ -118,6 +182,7 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
         default:
             hsv.v = 0;
             break;
+
     }
 
     return hsv;
