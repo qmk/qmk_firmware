@@ -314,10 +314,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
-    set_mods(i2c_buffer->real_mods);
-    set_weak_mods(i2c_buffer->real_weak_mods);
+    set_mods(serial_m2s_buffer.real_mods);
+    set_weak_mods(serial_m2s_buffer.real_weak_mods);
 #ifndef NO_ACTION_ONESHOT
-    set_oneshot_mods(i2c_buffer->oneshot_mods);
+    set_oneshot_mods(serial_m2s_buffer.oneshot_mods);
 #endif
 }
 
