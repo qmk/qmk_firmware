@@ -54,6 +54,7 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
 // split (1.25u, 1u) lshift: k40, k41
 
 // ANSI enter or ISO enter: k38
+// Key next to ISO enter: k72
 // backslash or NUHS: k73
 
 // left winkey: k50, k51, k52
