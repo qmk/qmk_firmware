@@ -1,5 +1,4 @@
-# Yugo-M
-#### The stm32-based IBM Model M controller
+# Yugo-M - An STM32-based IBM Model M controller
 
 A drop-in replacement controller PCB for IBM Model M keyboards. 
 Currently available only for 101/102 key keyboards. 
