@@ -112,7 +112,7 @@ uint32_t oled_timeout;
 #if OLED_SCROLL_TIMEOUT > 0
 uint32_t oled_scroll_timeout;
 #endif
-#if OLED_UPDATE_INTERVAL_MS > 0
+#if OLED_UPDATE_INTERVAL > 0
 uint16_t oled_update_timeout;
 #endif
 
