@@ -4,7 +4,7 @@ An 18-key numpad with rotary encoder and OLED support.
 
 * Keyboard Maintainer: [doodboard](https://github.com/doodboard)
 * Hardware Supported: duckboard PCB
-* Hardware Availability: [private group buy]
+* Hardware Availability: Private Group Buy
 
 Make example for this keyboard (after setting up your build environment):
 
