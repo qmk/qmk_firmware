@@ -44,6 +44,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* GRAVE_ESC will always act as ESC when CTRL is held. */
-#define GRAVE_ESC_CTRL_OVERRIDE
