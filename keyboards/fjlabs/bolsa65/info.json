@@ -2,7 +2,7 @@
     "keyboard_name": "Bolsa65",
     "url": "https://www.bolsakeyboardsupply.com",
     "maintainer": "FJLabs",
-    "width": 15,
+    "width": 16,
     "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
