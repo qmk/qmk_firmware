@@ -1,6 +1,6 @@
 # mechlovin9
 
-![mechlovin9](https://i.imgur.com/T5Lm6OY.png)
+![mechlovin9](https://i.imgur.com/T5Lm6OYl.png)
 
 A 65% PCB, compatible with Kyuu.
 
