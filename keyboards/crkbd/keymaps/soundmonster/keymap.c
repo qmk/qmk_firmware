@@ -298,6 +298,10 @@ void render_status_secondary(void) {
     render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
 }
 
+void suspend_power_down_user() {
+    oled_off();
+}
+
 void oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
