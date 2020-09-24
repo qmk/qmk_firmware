@@ -28,7 +28,7 @@
  */
 #define MATRIX_ROW_PINS { D4, E6, D7, C6 }
 #define MATRIX_COL_PINS { B7, B5, B4, F5, F6, F7 }
-#define UNUSED_PINS { D3, D2, D5, C7, F1, F0, B6, F4 }
+#define UNUSED_PINS { D3, D5, C7, F1, F0, B6, F4 }
 
 /* ADNS_9800, PMW_33600 */
 #define PMW_3360
