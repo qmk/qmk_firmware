@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2020 MechMerlin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,24 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include QMK_KEYBOARD_H
 
-#define VENDOR_ID       0x4753
-#define PRODUCT_ID      0x2000
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Gray Studio
-#define PRODUCT         HB85
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
+    [0] = LAYOUT(KC_TRNS),
 
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7 }
-#define DIODE_DIRECTION COL2ROW
+    [1] = LAYOUT(KC_TRNS),
 
-#define RGBLED_NUM 5
-#define RGBLIGHT_ANIMATIONS
+    [2] = LAYOUT(KC_TRNS),
 
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
+    [3] = LAYOUT(KC_TRNS)
+};
