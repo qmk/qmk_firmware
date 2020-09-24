@@ -17,8 +17,6 @@
 
 enum keyboard_layers {
     _BL, // Base Layer
-    _FL, // Function Layer
-    _CL  // Control Layer
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
