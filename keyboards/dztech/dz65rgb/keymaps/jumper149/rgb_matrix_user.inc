@@ -163,12 +163,28 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.s = 0;
             break;
 
-        // shift
+        // modifier
         case 44:
             hsv.s = 0;
             hsv.v = hsv.v / 2;
             break;
         case 55:
+            hsv.s = 0;
+            hsv.v = hsv.v / 2;
+            break;
+        case 58:
+            hsv.s = 0;
+            hsv.v = hsv.v / 2;
+            break;
+        case 59:
+            hsv.s = 0;
+            hsv.v = hsv.v / 2;
+            break;
+        case 60:
+            hsv.s = 0;
+            hsv.v = hsv.v / 2;
+            break;
+        case 64:
             hsv.s = 0;
             hsv.v = hsv.v / 2;
             break;
@@ -331,8 +347,8 @@ bool kb_indicator(effect_params_t* params) {
     return effect_runner_i(params, &kb_indicator_math);
 }
 
-uint8_t led_count = 9;
-uint8_t led_first = 32;
+uint8_t led_count = 7;
+uint8_t led_first = 33;
 static uint8_t time_to_led(uint8_t time, uint8_t led_behind) {
     uint16_t led_time = led_count * time;
     uint16_t step = ((2 * led_count + (led_time / 128)) - led_behind) % (2 * led_count);
