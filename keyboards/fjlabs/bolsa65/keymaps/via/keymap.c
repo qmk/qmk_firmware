@@ -17,8 +17,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 enum layers {
     _LAYER0,
     _LAYER1,
+    _LAYER2,
     _LAYER3,
-    _LAYER4,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
