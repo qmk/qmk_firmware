@@ -1,3 +1,7 @@
+// The Railroad Keyboard
+// Copyright 2020 by W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
+// Licensed under GNU GPL v2, as per the QMK firmware project
+
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -9,7 +13,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    NoPunIn10Did
 #define PRODUCT         The Railroad
-#define DESCRIPTION     Long ortholinear keyboard with split spacebar, center macropad, and non-ortho modifiers
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -30,7 +33,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -46,13 +49,5 @@
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 
-
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 0
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#endif
 
 #endif
