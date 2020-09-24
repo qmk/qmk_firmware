@@ -14,4 +14,6 @@ BOOTLOADER = caterina
 RGBLIGHT_ENABLE = yes
 BACKLIGHT_ENABLE = no # Enable keyboard backlight functionality
 
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+
 LTO_ENABLE = yes
