@@ -22,3 +22,10 @@
 #if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
 #    define USE_I2CV1
 #endif
+
+// teensy
+#if defined(K20x) || defined(KL2x)
+#    define USE_I2CV1
+#    define USE_I2CV1_CONTRIB  // for some reason a bunch of ChibiOS-Contrib boards only have clock_speed
+#    define USE_GPIOV1
+#endif

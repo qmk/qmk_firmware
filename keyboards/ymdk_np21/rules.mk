@@ -2,28 +2,20 @@
 MCU = atmega32a
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 
-# build options
-BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = no
-COMMAND_ENABLE = yes
-
-BACKLIGHT_ENABLE = yes
-
-RGBLIGHT_ENABLE = yes
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 WS2812_DRIVER = i2c
 
-KEY_LOCK_ENABLE = yes
-
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+LAYOUTS = ortho_6x4 numpad_6x4

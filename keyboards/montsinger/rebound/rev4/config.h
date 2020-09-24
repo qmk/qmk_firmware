@@ -60,6 +60,10 @@ diode)
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* ws2812 RGB LED */
+#define RGB_DI_PIN B6
+#define RGBLED_NUM 17
+
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0

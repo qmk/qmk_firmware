@@ -51,34 +51,51 @@ void led_set_kb(uint8_t usb_led) {
 	led_set_user(usb_led);
 }
 
-uint32_t layer_state_set_user(uint32_t state)
+layer_state_t layer_state_set_kb(layer_state_t state)
 {
-  // if on layer 0, turn on B0 LED, otherwise off.
-    if (biton32(state) == 0) {
+  state = layer_state_set_user(state);
+  process_indicator_led_kb(state);
+
+  return state;
+}
+
+__attribute__((weak))
+bool process_indicator_led_user(layer_state_t state){
+  return true;
+}
+
+bool process_indicator_led_kb(layer_state_t state)
+{
+  if(process_indicator_led_user(state))
+  {
+    // if on layer 0, turn on B0 LED, otherwise off.
+    if (get_highest_layer(state) == 0) {
         PORTB &= ~(1<<PB0);
     } else {
         PORTB |= (1<<PB0);
     }
 
-  // if on layer 1, turn on B1 LED, otherwise off.
-    if (biton32(state) == 1) {
+    // if on layer 1, turn on B1 LED, otherwise off.
+    if (get_highest_layer(state) == 1) {
         PORTB &= ~(1<<PB1);
     } else {
         PORTB |= (1<<PB1);
     }
-  // if on layer 2, turn on B2 LED, otherwise off.
-    if (biton32(state) == 2) {
+
+    // if on layer 2, turn on B2 LED, otherwise off.
+    if (get_highest_layer(state) == 2) {
         PORTB &= ~(1<<PB2);
     } else {
         PORTB |= (1<<PB2);
     }
 
-  // if on layer 3, turn on B3 LED, otherwise off.
-    if (biton32(state) == 3) {
+    // if on layer 3, turn on B3 LED, otherwise off.
+    if (get_highest_layer(state) == 3) {
         PORTB &= ~(1<<PB3);
     } else {
         PORTB |= (1<<PB3);
     }
+  }
 
-    return state;
+  return true;
 }

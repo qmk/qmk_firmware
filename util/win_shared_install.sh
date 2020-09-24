@@ -6,22 +6,6 @@ function install_utils {
 
     pushd "$download_dir"
 
-    echo "Installing dfu-programmer"
-    wget 'http://downloads.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip'
-    unzip -d dfu-programmer dfu-programmer-win-0.7.2.zip
-
-    echo "Installing dfu-util"
-    wget 'http://dfu-util.sourceforge.net/releases/dfu-util-0.9-win64.zip'
-    unzip dfu-util-0.9-win64.zip
-
-    echo "Installing teensy_loader_cli"
-    wget 'https://www.pjrc.com/teensy/teensy_loader_cli_windows.zip'
-    unzip teensy_loader_cli_windows.zip
-
-    echo "Installing bootloadHID"
-    wget 'https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.zip'
-    unzip bootloadHID.2012-12-08.zip
-
     echo "Downloading the QMK driver installer"
     wget -qO- https://api.github.com/repos/qmk/qmk_driver_installer/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4 | wget -i -
 
@@ -77,4 +61,3 @@ done
 
 
 popd > /dev/null
-
