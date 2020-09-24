@@ -155,7 +155,7 @@ void matrix_init(void)
 
 uint8_t _matrix_scan(void)
 {
-	bool changed = false;
+    bool changed = false;
     // Right hand is stored after the left in the matirx so, we need to offset it
     int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
 
@@ -164,7 +164,7 @@ uint8_t _matrix_scan(void)
         _delay_us(30);  // without this wait read unstable value.
         matrix_row_t cols = read_cols();
         if (matrix_debouncing[i+offset] != cols) {
-			changed = true;
+            changed = true;
             matrix_debouncing[i+offset] = cols;
             debouncing = DEBOUNCE;
         }
@@ -239,7 +239,7 @@ int serial_transaction(int master_changed) {
 
 uint8_t matrix_scan(void)
 {
-	bool changed = false;
+    bool changed = false;
     if (is_master) {
         changed |= matrix_master_scan();
     }else{
@@ -317,7 +317,7 @@ uint8_t matrix_slave_scan(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
   #ifdef SERIAL_USE_MULTI_TRANSACTION
         if( serial_slave_buffer[i] != matrix[offset+i] )
-	    change = 1;
+        change = 1;
   #endif
         serial_slave_buffer[i] = matrix[offset+i];
     }
@@ -325,7 +325,7 @@ uint8_t matrix_slave_scan(void) {
     slave_buffer_change_count += change;
   #endif
 #endif
-	return ret;
+    return ret;
 }
 
 bool matrix_is_modified(void)
