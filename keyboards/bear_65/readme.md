@@ -1,6 +1,6 @@
 # Bear 65
 
-![Bear 65](https://i.imgur.com/W1sVP1T.jpg)
+![Bear 65](https://i.imgur.com/W1sVP1Tl.jpg)
 
 A gasket-mounted 65% keyboard inspired by the [TGR Alice](https://github.com/qmk/qmk_firmware/tree/master/keyboards/tgr/alice). Designed and produced by [jacky](https://geekhack.org/index.php?action=profile;u=63864) from Geekhack.
 
