@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define PREVENT_STUCK_MODIFIERS
 #define SPACE_COUNT 3
 
 #define TEMPLATE_TKL( \
