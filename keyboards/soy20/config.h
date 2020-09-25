@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    drewkeys
 #define PRODUCT         soy20
-#define DESCRIPTION     soy20 4x5 numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
