@@ -30,6 +30,7 @@ bool led_update_kb(led_t led_state) {
     return true;
 }
 
+#ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
     suspend_power_down_user();
@@ -137,3 +138,4 @@ led_config_t g_led_config = { {
     1, 1, 1, 4, 4, 1, 1, 1, 1, 1,
     2, 2, 2
 } };
+#endif

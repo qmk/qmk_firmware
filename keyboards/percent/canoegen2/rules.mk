@@ -22,5 +22,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = WS2812
 
-LAYOUTS = 65_ansi 65_iso
+LAYOUTS = 65_ansi_blocker_split_bs 65_iso_blocker_split_bs
 RGB_MATRIX_CUSTOM_KB = yes
