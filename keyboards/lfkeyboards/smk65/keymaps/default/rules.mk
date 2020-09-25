@@ -1,12 +1,11 @@
 # Build Options
 #   change yes to no to disable
 #
-AUDIO_ENABLE = yes              # Audio output on port C6
-RGBLIGHT_ENABLE = yes         	# Disable RGB underlight
-SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend
+AUDIO_ENABLE = no              # Audio output on port C6
+RGBLIGHT_ENABLE = no           # Disable RGB underlight
 
-ISSI_ENABLE = yes               # If the I2C pullup resistors aren't install this must be disabled
-WATCHDOG_ENABLE = no            # Resets keyboard if matrix_scan isn't run every 250ms
+ISSI_ENABLE = no               # If the I2C pullup resistors aren't install this must be disabled
+WATCHDOG_ENABLE = no           # Resets keyboard if matrix_scan isn't run every 250ms
 
 
 ifeq ($(strip $(ISSI_ENABLE)), yes)
