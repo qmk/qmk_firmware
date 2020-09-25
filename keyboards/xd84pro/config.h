@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCDCD
-#define PRODUCT_ID      0x8484
+#define VENDOR_ID       0x7844 // "xD"
+#define PRODUCT_ID      0x8450 // 84 "P"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         XD84 Pro
