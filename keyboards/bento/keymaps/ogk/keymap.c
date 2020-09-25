@@ -51,3 +51,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+
+    /*
+        |               |   Increase Brightness  |     Mute    |
+        |   RGB Cycle   |   Decrease Brightness  |  Hue Cycle  |
+     */
