@@ -21,7 +21,7 @@
 
 enum layers {
 _QWERTY,
-_WORKMAN,
+_COLEMAK,
 _GAMR,
 _GAMEUP,
 _LOWER,
@@ -34,16 +34,12 @@ _SPCFN
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  WORKMAN,
+  COLEMAK,
   GAMR,
   GAMEUP,
   BELOW,
   ABOVE
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -59,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, ENTSFT },
   {GAMEUP,  KC_LALT, KC_LGUI, KC_LCTL, LOWER,  KC_SPC, KC_SPC,   RAISE,   KC_RGUI, KC_RALT, KC_RCTL,  FUN}
 },
-[_WORKMAN] = {
-  {KC_TABM, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC},
-  {CTLESC,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, ENTSFT },
+[_COLEMAK] = {
+  {KC_TABM, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
+  {CTLESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, ENTSFT },
   {FUN, KC_LALT, KC_LGUI, KC_LCTL, LOWER,   KC_BKFN,  KC_SPFN,  RAISE,   KC_RGUI, KC_RALT, KC_RCTL, HYPER}
 },
 [_GAMEUP] = {
@@ -84,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 [_ADJUST] = {
-  {RESET  , QWERTY, WORKMAN,  GAMR, _______, _______, _______, _______, _______, _______, _______, _______},
+  {RESET  , QWERTY, COLEMAK,  GAMR, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,   _______,  _______,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
@@ -111,15 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_MODS_ONESHOT(MOD_RSFT),
-};
-
-#ifdef AUDIO_ENABLE
-float qwerty_sound[][2] = SONG(QWERTY_SOUND);
-float game_sound[][2]   = SONG(ZELDA_TREASURE);
-#endif
-
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
@@ -129,9 +116,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
       // Flip RGB mode on game/qwerty mode
       case QWERTY:
         if(record->event.pressed){
-#ifdef AUDIO_ENABLE
-            PLAY_SONG(qwerty_sound);
-#endif
 #ifdef BACKLIGHT_BREATHING
             breathing_disable();
 #endif
@@ -139,22 +123,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
         }
         return false;
         break;
-     case WORKMAN:
+     case COLEMAK:
         if(record->event.pressed) {
-            set_single_persistent_default_layer(_WORKMAN);
+            set_single_persistent_default_layer(_COLEMAK);
         }
         return false;
         break;
      case GAMR:
         if(record->event.pressed) {
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(game_sound);
-#endif
 #ifdef BACKLIGHT_BREATHING
           breathing_period_set(3);
           breathing_enable();
 #endif
-
         set_single_persistent_default_layer(_GAMR);
         }
         return false;
