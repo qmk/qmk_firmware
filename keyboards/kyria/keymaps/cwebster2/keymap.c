@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 Casey Webster <casey@e1337.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "raw_hid.h"
+#define RAW_EPSIZE 8
 #include <stdio.h>
 
 char wpm_str[10];
@@ -41,6 +42,7 @@ enum custom_keycodes {
 
 enum layers {
     _QWERTY = 0,
+    _COLEMAK,
     _GAME,
     _FN,
     _SYMBOLS,
@@ -53,51 +55,82 @@ enum layers {
 // shortcuts for certain keys to use LAYOUT_kc()
 #define KC_TO(a)  TO(a)
 #define KC_DF(a)  DF(a)
-#define KC_RAISE  TT(_RAISE)
-#define KC_LOWER  TT(_LOWER)
 #define KC_KITTY(a)  C_S_T(KC_##a)
 #define KC_I3(a)  SCMD_T(KC_##a)
-#define KC_GUIBS  MT(MOD_LGUI, KC_BSPC)
-#define KC_ALTCLN MT(MOD_LALT, S(KC_SCLN)) // this doesnt work. need to write a custom keycode to handle it
-#define KC_RTOG   RGB_TOG
-#define KC_RSAI   RGB_SAI
-#define KC_RHUI   RGB_HUI
-#define KC_RVAI   RGB_VAI
-#define KC_RMOD   RGB_MOD
-#define KC_RSAD   RGB_SAD
-#define KC_RHUD   RGB_HUD
-#define KC_RVAD   RGB_VAD
-#define KC_RRMD   RGB_RMOD
+#define KC_TOG   RGB_TOG
+#define KC_SAI   RGB_SAI
+#define KC_HUI   RGB_HUI
+#define KC_VAI   RGB_VAI
+#define KC_MOD   RGB_MOD
+#define KC_RST   RESET
+#define KC_CTLBS CTL_T(KC_BSPC)
 #define KC_TT(m,a)  m##_T(KC_##a)
-#define KC_CTLESC MT(MOD_LCTL, KC_ESC)
-#define KC_CTLTAB MT(MOD_LCTL, KC_TAB)
 #define KC_FN(a) LT(_FN, KC_##a)
 #define KC_SYM(a) LT(_SYMBOLS, KC_##a)
 #define KC_NUM(a) LT(_NUM, KC_##a)
 #define KC_NAV(a) LT(_NAV, KC_##a)
 #define KC_MED(a) LT(_MEDIA, KC_##a)
 #define KC_MSE(a) LT(_MOUSE, KC_##a)
+#define KC_ALTCL LALT_T(KC_CAPS)
 
+#define LAYOUT_kyria_base( \
+    L01, L02, L03, L04, L05, R05, R04, R03, R02, R01, \
+    L11, L12, L13, L14, L15, R15, R14, R13, R12, R11, \
+    L21, L22, L23, L24, L25, R25, R24, R23, R22, R21,  \
+              L33, L34, L35, R35, R34, R33 \
+    ) \
+    LAYOUT_kyria_wrapper ( \
+    KC_GRV,   L01, L02, L03, L04, L05,                          R05, R04, R03, R02, R01, KC_BSLS, \
+    KC_CTLBS, L11, L12, L13, L14, L15,                          R15, R14, R13, R12, R11, KC_QUOT, \
+    KC_EQL,   L21, L22, L23, L24, L25, KC_LCCL, KC_LGUI, KC_ALTCL, KC_LSFT, R25, R24, R23, R22, R21, KC_MINS, \
+         SCMD_T(KC_LBRC), C_S_T(KC_MINS), L33, L34, L35, R35, R34, R33, TO(_GAME), KC_PSCR \
+    )
+#define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
+
+#define _______QWERTY_L1______        KC_Q,         KC_W,         KC_E,         KC_R,         KC_T
+#define _______QWERTY_L2______ LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),        KC_G
+#define _______QWERTY_L3______        KC_Z,         KC_X,         KC_C,         KC_V,         KC_B
+#define _______QWERTY_R1______        KC_Y,         KC_U,         KC_I,         KC_O,         KC_P
+#define _______QWERTY_R2______        KC_H,  RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_SCLN)
+#define _______QWERTY_R3______        KC_N,         KC_M,         KC_COMM,      KC_DOT,       KC_SLSH
+
+#define _______COLEMAK_L1_____        KC_Q,         KC_W,         KC_F,         KC_P,         KC_B
+#define _______COLEMAK_L2_____ LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),        KC_G
+#define _______COLEMAK_L3_____        KC_Z,         KC_X,         KC_C,         KC_D,         KC_V
+#define _______COLEMAK_R1_____        KC_J,         KC_L,         KC_U,         KC_Y,         KC_QUOT
+#define _______COLEMAK_R2_____        KC_M,  RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O)
+#define _______COLEMAK_R3_____        KC_K,         KC_H,         KC_COMM,      KC_DOT,       KC_SLSH
+
+#define _______THUMBS_L_______ LT(_MOUSE,KC_TAB), LT(_NAV,KC_SPC),  LT(_MEDIA,  KC_ESC)
+#define _______THUMBS_R_______ LT(_FN,   KC_ENT), LT(_NUM,KC_BSPC), LT(_SYMBOLS,KC_DEL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: QWERTY
  */
-    [_QWERTY] = LAYOUT_kc(
- /* ,-------------------------------------------------------------------.                                         ,--------------------------------------------------------------------. */
-      GRV,         Q,          W,          E,          R,         T,                                                   Y,        U,          I,          O,            P,        BSLS,
- /* |--------+-----------+-----------+-----------+-----------+----------|                                         |---------+-----------+-----------+-----------+-------------+--------| */
-      CTLTAB, TT(LGUI,A), TT(LALT,S), TT(LCTL,D), TT(LSFT,F),     G,                                                   H,    TT(RSFT,J), TT(RCTL,K), TT(RALT,L), TT(RGUI,SCLN),  QUOT,
- /* |--------+-----------+-----------+-----------+-----------+----------+---------+--------.  ,---------+---------+---------+-----------+-----------+-----------+-------------+--------| */
-      EQL,         Z,          X,          C,          V,         B,       LCCL,     LGUI,       RALT,     LSFT,       N,        M,         COMM,       DOT,         SLSH,       MINS,
- /* `--------------------------------+-----------+-----------+----------+---------+--------|  |---------+---------+---------+---------+-------------+----------------------------------' */
-                                       I3(LBRC),  KITTY(MINS), MSE(TAB), NAV(SPC), MED(ESC),    FN(ENT), NUM(BSPC), SYM(DEL), TO(_GAME),     PSCR
- /*                                  `-----------------------------------------------------'  `-----------------------------------------------------' */
+    [_QWERTY] = LAYOUT_kyria_base_wrapper(
+ /* ,-----------------------.                 ,-----------------------. */
+      _______QWERTY_L1______,                 _______QWERTY_R1______,
+      _______QWERTY_L2______,                 _______QWERTY_R2______,
+      _______QWERTY_L3______,                 _______QWERTY_R3______,
+              _______THUMBS_L_______,  _______THUMBS_R_______
+ /*           `---------------------'  `------------------------------' */
+    ),
+/*
+ * Base Layer: QWERTY
+ */
+    [_COLEMAK] = LAYOUT_kyria_base_wrapper(
+ /* ,-----------------------.                 ,-----------------------. */
+      _______COLEMAK_L1_____,                 _______COLEMAK_R1_____,
+      _______COLEMAK_L2_____,                 _______COLEMAK_R2_____,
+      _______COLEMAK_L3_____,                 _______COLEMAK_R3_____,
+              _______THUMBS_L_______,  _______THUMBS_R_______
+ /*           `---------------------'  `------------------------------' */
     ),
     // symbols and mouse
     [_SYMBOLS] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       TRNS,   RCBR,  AMPR,  ASTR,  LPRN,  LCBR,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       RST,    RCBR,  AMPR,  ASTR,  LPRN,  LCBR,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RST,
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
        TRNS,   COLN,   DLR,  PERC,  CIRC,  PLUS,                                 TRNS,  LSFT,  LCTL,  LALT,  LGUI,  TRNS,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
@@ -108,11 +141,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUM] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       TRNS,   RBRC,   7,     8,     9,    LBRC,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       RST,    RBRC,   7,     8,     9,    LBRC,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RST,
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
        TRNS,   SCLN,   4,     5,     6,    EQL,                                  TRNS,  LSFT,  LCTL,  LALT,  LGUI,  TRNS,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
-       TRNS,   GRV,    1,     2,     3,    BSLS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RALT,  TRNS,  TRNS,
+       TRNS,   GRV,    1,     2,     3,    SLSH,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RALT,  TRNS,  TRNS,
  /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
                              TRNS,  TRNS,  DOT,    0,    MINS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
  /*                        `----------------------------------'  `----------------------------------' */
@@ -120,18 +153,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // media and fn
     [_FN] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       TRNS,   F12,    F7,    F8,    F9,  SYSREQ,                                TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       RST,    F12,    F7,    F8,    F9,  SYSREQ,                                TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RST,
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
-       TRNS,   F11,    F4,    F5,    F6,  SLCK,                                  TRNS,  LSFT,  LCTL,  LALT,  LGUI,  TRNS,
+       TRNS,   F11,    F4,    F5,    F6,   TRNS,                                 TRNS,  LSFT,  LCTL,  LALT,  LGUI,  TRNS,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
-       TRNS,   F10,    F1,    F2,    F3,  PAUSE,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RALT,  TRNS,  TRNS,
+       TRNS,   F10,    F1,    F2,    F3,   BSLS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RALT,  TRNS,  TRNS,
  /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
-                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+                             TRNS,  TRNS,  MENU,  SLSH,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
  /*                        `----------------------------------'  `----------------------------------' */
       ),
     [_NAV] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 AGIN,  UNDO,  CUT,   COPY,  PSTE,  TRNS,
+       RST,    TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 UNDO,  CUT,   COPY,  PSTE,  AGIN,  RST,
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
        TRNS,   LGUI,  LALT,  LCTL,  LSFT,  TRNS,                                 LEFT,  DOWN,   UP,   RGHT,  CAPS,  TRNS,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
@@ -142,24 +175,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
     [_MOUSE] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       RST,    TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RST,
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
-       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 MS_L,  MS_D,  MS_U,  MS_R,  TRNS,  TRNS,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
-       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  WH_L,  WH_D,  WH_U,  WH_R,  TRNS,  TRNS,
  /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
-                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     BTN1,  BTN3,  BTN2,  TRNS,  TRNS
  /*                        `----------------------------------'  `----------------------------------'                        */
       ),
     [_MEDIA] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       RST,    TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                  TOG,   MOD,   HUI,   SAI,   VAI,  RST,
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
-       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
+       TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,                                 MPRV,  VOLD,  VOLU,  MNXT,  TRNS,  TRNS,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
        TRNS,   TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  TRNS,
  /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
-                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
+                             TRNS,  TRNS,  TRNS,  TRNS,  TRNS,     MSTP,  MPLY,  MUTE,  TRNS,  TRNS
  /*                        `----------------------------------'  `----------------------------------'                        */
      ),
  // GAME layout -- qwerty without homerow mods
@@ -167,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
       GRV,      Q,     W,     E,     R,    T,                                     Y,     U,     I,     O,     P,    BSLS,
  /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
-      TAB,      A,     S,     D,     F,    G,                                     H,     J,     K,     L,    SCLN,  QUOT,
+      CTLBS,    A,     S,     D,     F,    G,                                     H,     J,     K,     L,    SCLN,  QUOT,
  /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
       LSPO,     Z,     X,     C,     V,    B,     LCTL,  LGUI,     RALT,  RSFT,   N,     M,    COMM,  DOT,   SLSH,  RSPC,
  /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
@@ -189,8 +222,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //    ),
 };
 
-static void send_layer_via_hid(char *layer) {
-    //raw_hid_send((uint8_t*)layer, sizeof(layer));
+static void send_layer_via_hid(int layer) {
+    uint8_t data[RAW_EPSIZE];
+    data[0] = 1;
+    data[1] = layer;
+    raw_hid_send((uint8_t*)data, sizeof(data));
     return;
 }
 
@@ -216,11 +252,10 @@ void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_BLUE);
 }
 
-
 layer_state_t layer_state_set_user(layer_state_t state) {
+    send_layer_via_hid(state);
     switch (get_highest_layer(state)) {
         case _QWERTY:
-            send_layer_via_hid("Default");
             rgblight_sethsv_noeeprom(HSV_BLUE);
             break;
         case _SYMBOLS:
@@ -239,15 +274,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_sethsv_noeeprom(HSV_MAGENTA);
             break;
         case _MOUSE:
-            //send_layer_via_hid("Raise");
             rgblight_sethsv_noeeprom(HSV_TURQUOISE);
             break;
         case _GAME:
-            /*send_layer_via_hid("Game");*/
             rgblight_sethsv_noeeprom(HSV_RED);
             break;
-        default:
-            send_layer_via_hid("Undefined");
     }
     return state;
 }

@@ -40,7 +40,7 @@
 #endif
 
 #define TAPPING_TOGGLE 1
-#define TAPPING_TERM 175
+#define TAPPING_TERM 200
 //#define TAPPING_FORCE_HOLD
 #undef PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -76,6 +76,9 @@
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
+
+
+
 #define LAYOUT_kc( \
     L00, L01, L02, L03, L04, L05,                     R05, R04, R03, R02, R01, R00, \
     L10, L11, L12, L13, L14, L15,                     R15, R14, R13, R12, R11, R10, \
@@ -88,6 +91,8 @@
     KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##L26, KC_##L27, KC_##R27, KC_##R26, KC_##R25, KC_##R24, KC_##R23, KC_##R22, KC_##R21, KC_##R20, \
                                   KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##L37, KC_##R37, KC_##R36, KC_##R35, KC_##R34, KC_##R33 \
     )
+#define LAYOUT_kyria_wrapper(...)  LAYOUT(__VA_ARGS__)
+
 
 #define LAYOUT_left_kc( \
     L00, L01, L02, L03, L04, L05, \
