@@ -1,6 +1,3 @@
-#ifndef SOY20_H
-#define SOY20_H
-
 #pragma once
 
 #include "quantum.h"
@@ -18,5 +15,3 @@
 	{ K30,   K31,   K32,   K33 }, \
 	{ K40,   K41,   K42,   K43 }  \
 }
-
-#endif
