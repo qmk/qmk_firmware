@@ -141,6 +141,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+### 16-bit axis values
+
+For use-cases where a higher joystick-precision is desired, it is possible to change axis precision to 16-bit. To use  axis values from -32767 to 32767, add the following line to your config.h:
+
+``` #define JOYSTICK_16_BIT ```  
+
+ This setting works for virtual axes as well as analog axis reading using 
+`JOYSTICK_AXIS_IN(...)`, `JOYSTICK_AXIS_IN_OUT(...)` or `JOYSTICK_AXIS_IN_OUT_GROUND(...)`.
 ### Triggering Joystick Buttons
 
 Joystick buttons are normal Quantum keycodes, defined as `JS_BUTTON0` to `JS_BUTTON31`, depending on the number of buttons you have configured.

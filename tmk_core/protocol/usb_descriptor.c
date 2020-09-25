@@ -308,11 +308,19 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
             HID_RI_USAGE(8, 0x35),      // Rz
 #    endif
 #    if JOYSTICK_AXES_COUNT >= 1
+    #   ifndef JOYSTICK_16_BIT
             HID_RI_LOGICAL_MINIMUM(8, -127),
             HID_RI_LOGICAL_MAXIMUM(8, 127),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
             HID_RI_REPORT_SIZE(8, 0x08),
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    #   else
+            HID_RI_LOGICAL_MINIMUM(16, -32767),
+            HID_RI_LOGICAL_MAXIMUM(16, 32767),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x10),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    #   endif
 #    endif
 
 #    if JOYSTICK_BUTTON_COUNT >= 1
