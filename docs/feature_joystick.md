@@ -141,11 +141,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### 16-bit axis values
+### Axis Resolution
 
-For use-cases where a higher joystick-precision is desired, it is possible to change axis precision to 16-bit. To use  axis values from -32767 to 32767, add the following line to your config.h:
+For use-cases where a higher joystick-precision is desired, it is possible to increase axis precision to a maximum of 16-bit.  
+To use higher axis values, in this example 12-bit, i.e. from -2047 to 2047, add the following line to your config.h:
 
-``` #define JOYSTICK_16_BIT ```  
+``` 
+// Max 16
+#define JOYSTICK_AXES_RESOLUTION 12
+```  
+
 
  This setting works for virtual axes as well as analog axis reading using 
 `JOYSTICK_AXIS_IN(...)`, `JOYSTICK_AXIS_IN_OUT(...)` or `JOYSTICK_AXIS_IN_OUT_GROUND(...)`.

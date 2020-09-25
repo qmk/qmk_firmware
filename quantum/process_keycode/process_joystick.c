@@ -126,14 +126,18 @@ bool process_joystick_analogread_quantum() {
         int16_t axis_val = joystick_axes[axis_index].mid_digit;
 #    endif
 
-#   ifndef JOYSTICK_16_BIT
-        int js_min = -127;
-        int js_max = 127;
-#   else
-        int js_min = -32767;
-        int js_max = 32767;
+#   ifndef JOYSTICK_AXES_RESOLUTION
+        #define JOYSTICK_AXES_RESOLUTION 8
 #   endif
-
+        
+#   if JOYSTICK_AXES_RESOLUTION < 16
+        int32_t js_max = (1 << (JOYSTICK_AXES_RESOLUTION-1)) - 1;
+        int32_t js_min = -js_max;
+#   else 
+        int32_t js_max = 32767;
+        int32_t js_min = -32767;
+#   endif
+        
         // test the converted value against the lower range
         int32_t ref        = joystick_axes[axis_index].mid_digit;
         int32_t range      = joystick_axes[axis_index].min_digit;
