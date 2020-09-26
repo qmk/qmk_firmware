@@ -70,7 +70,7 @@ When you are done, press `Media` and `Enter`. You will finally hear a tune confi
 
 Press `Media` and the key where you stored your Macro, either `;` or `'`. The Macro will play.
 
-![Imgur](https://i.imgur.com/TCsD6Ro.png)
+![Imgur](https://i.imgur.com/TcVyNag.png)
 
 http://www.keyboard-layout-editor.com/#/gists/4cfb26f84bbb4fabe5e6c7cc22c85e24
 
@@ -82,13 +82,13 @@ The Lock mode toggle disables the double-tap `CAPS` and disables `GUI` keys (WIN
 
 Lower + Raise gives access to the layer switching, plus keyboard modes (such as enabling music mode for annoying your coworkers), reset, SysReq and Lock Mode, which disables the double shift tap for CapsLock (taken from the *circuit* layout, see the comments below). Also provides another distribution for the F keys.
 
-![Adjust](https://i.imgur.com/ADNLR6n.png)
+![Adjust](https://i.imgur.com/6m6baos.png)
 
 http://www.keyboard-layout-editor.com/#/gists/12462bfba17d16bb40b54ed914209d92
 
 ## Numpad Layer
 
-![Numpad](https://i.imgur.com/iTyhjNZ.png)
+![Numpad](https://i.imgur.com/od1plfz.png)
 
 http://www.keyboard-layout-editor.com/#/gists/5ab730ab278d2050c5250498806e8edc
 

@@ -1,7 +1,7 @@
 # kinesis_stapelberg keyboard firmware
 
 This folder contains the firmware customization required to run QMK on the custom controller for the Kinesis Advantage created by Michael Stapelberg.
-It differs from the `alvicstep keyboard in that the existing QMK Kinesis Advantage project uses the existing controller board provided by Kinesis.
+It differs from the `alvicstep` keyboard in that the existing QMK Kinesis Advantage project uses the existing controller board provided by Kinesis.
 
 The controller board hardware is described
 [here](http://michael.stapelberg.de/Artikel/kinesis_custom_controller)
@@ -22,8 +22,8 @@ If you want to perform this customization, these parts may be helpful.
 | 10 pin headers for thumb clusters                      | 4        | Digi-Key | 609-3250-ND  |
 | 8 pin cable for thumb clusters                         | 2        | Digi-Key | SAM8928-ND   |
 | Teensy++ 2.0                                           | 1        | Digi-Key | 1528-1056-ND |
-| 2 pin right angle header for reset                     | 1        | Digi-Key | 3M9467-ND    |
-| Reset cables                                           | 2        | Sparkfun | PRT-09140    |
+| 2 pin right angle header for reset                     | 1        | Digi-Key | 952-2244-ND  |
+| Reset cables                                           | 1        | Digi-Key | PRT-08672-ND |
 
 The board and connections are shown here
 ![controller board](https://i.imgur.com/2ZPMwvZ.jpg)
@@ -44,11 +44,10 @@ The exterior cables can be seen here.
 
 ### Default
 
-To build with the default keymap, run `make default` while in the
-`kinesis_stapelberg` working directory.
+To build with the default keymap, run `make kinesis/stapelberg` while in the QMK directory.
 
 ### Dvorak
 
 This keymap contains a dvorak implementation as well as media and symbol layers.
 
-Run `make dvorak` while in the `kinesis_stapelberg` working directory.
+Run `make kinesis/stapelberg:dvorak` while in the QMK directory.

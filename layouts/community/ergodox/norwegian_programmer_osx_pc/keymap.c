@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALT_T(KC_ESC), KC_EXLM , NO_QUES, NO_COLN, KC_TAB,
                                                       KC_HASH, KC_FN7,
                                                               KC_FN6,
-                                               KC_FN1,CTL_T(KC_DOT),GUI_T(KC_COMMA),
+                                               OSM(MOD_LSFT),CTL_T(KC_DOT),GUI_T(KC_COMMA),
         // right hand
              KC_FN5, NO_DLR, NO_LPRN, NO_RPRN ,KC_FN3, KC_FN4,NO_AT,
              NO_APOS,      KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,   NO_AA  ,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              NO_EQL,        KC_N,    KC_M, KC_RIGHT,  KC_DOWN,   KC_UP,    NO_BSLS,
                                   KC_LEFT,  NO_UNDS, NO_AMPR,  NO_PIPE,    OSL(2),
              KC_INSERT,  KC_PERC,
-             KC_DELT,
+             KC_DEL,
              KC_BSPC,KC_ENT,KC_SPC
     ),
 /* Keymap 1: Basic layer MACS (Same as pc, except for cmd/ctrl, which are swapped)
@@ -138,7 +138,6 @@ enum macro_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_MODS_ONESHOT(MOD_LSFT),  // Sticky shift light. Tap for the next keypress to be shifted. Hold for regular shift.
     [2] = ACTION_MACRO(TILDE_NO), // Completed ~ character(pc and mac), no space needed.
     [3] = ACTION_MACRO(LESS_NO), // < completed on keypress down, to avoid shifting the next character if it is not released first.
     [4] = ACTION_MACRO(GRTR_NO), // > completed on keypress down, to avoid shifting the next character if it is not released first.

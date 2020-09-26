@@ -14,18 +14,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifdef AUDIO_ENABLE
-#error "AUDIO_ENABLE and FAUXCLICKY_ENABLE cannot be both enabled"
+#    error "AUDIO_ENABLE and FAUXCLICKY_ENABLE cannot be both enabled"
 #endif
 
 #include "musical_notes.h"
 #include "stdbool.h"
 
-__attribute__ ((weak))
-float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_D4, 0.25);
-__attribute__ ((weak))
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_C4, 0.125);
-__attribute__ ((weak))
-float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C4, 0.25);
+__attribute__((weak)) float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_D4, 0.25);
+__attribute__((weak)) float fauxclicky_released_note[2] = MUSICAL_NOTE(_C4, 0.125);
+__attribute__((weak)) float fauxclicky_beep_note[2]     = MUSICAL_NOTE(_C4, 0.25);
 
 bool fauxclicky_enabled;
 
@@ -34,7 +31,7 @@ bool fauxclicky_enabled;
 //
 
 #ifndef FAUXCLICKY_TEMPO
-#define FAUXCLICKY_TEMPO TEMPO_DEFAULT
+#    define FAUXCLICKY_TEMPO TEMPO_DEFAULT
 #endif
 
 // beep on press
@@ -50,42 +47,44 @@ bool fauxclicky_enabled;
 #define FAUXCLICKY_ON fauxclicky_enabled = true
 
 // disable
-#define FAUXCLICKY_OFF do { \
-    fauxclicky_enabled = false; \
-    fauxclicky_stop(); \
-} while (0)
+#define FAUXCLICKY_OFF              \
+    do {                            \
+        fauxclicky_enabled = false; \
+        fauxclicky_stop();          \
+    } while (0)
 
 // toggle
-#define FAUXCLICKY_TOGGLE do { \
-    if (fauxclicky_enabled) { \
-        FAUXCLICKY_OFF; \
-    } else { \
-        FAUXCLICKY_ON; \
-    } \
-} while (0)
+#define FAUXCLICKY_TOGGLE         \
+    do {                          \
+        if (fauxclicky_enabled) { \
+            FAUXCLICKY_OFF;       \
+        } else {                  \
+            FAUXCLICKY_ON;        \
+        }                         \
+    } while (0)
 
 //
 // pin configuration
 //
 
 #ifndef FAUXCLICKY_CPU_PRESCALER
-#define FAUXCLICKY_CPU_PRESCALER 8
+#    define FAUXCLICKY_CPU_PRESCALER 8
 #endif
 
 #ifndef FAUXCLICKY_ENABLE_OUTPUT
-#define FAUXCLICKY_ENABLE_OUTPUT TCCR3A |= _BV(COM3A1)
+#    define FAUXCLICKY_ENABLE_OUTPUT TCCR3A |= _BV(COM3A1)
 #endif
 
 #ifndef FAUXCLICKY_DISABLE_OUTPUT
-#define FAUXCLICKY_DISABLE_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0))
+#    define FAUXCLICKY_DISABLE_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0))
 #endif
 
 #ifndef FAUXCLICKY_TIMER_PERIOD
-#define FAUXCLICKY_TIMER_PERIOD ICR3
+#    define FAUXCLICKY_TIMER_PERIOD ICR3
 #endif
 
 #ifndef FAUXCLICKY_DUTY_CYCLE
-#define FAUXCLICKY_DUTY_CYCLE OCR3A
+#    define FAUXCLICKY_DUTY_CYCLE OCR3A
 #endif
 
 //
@@ -96,4 +95,3 @@ void fauxclicky_init(void);
 void fauxclicky_stop(void);
 void fauxclicky_play(float note[2]);
 void fauxclicky_check(void);
-

@@ -1,4 +1,4 @@
-#include "ergodox_ez.h"
+#include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
 
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | Ctrl |       | Ctrl |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[BASE] = KEYMAP(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
    LT(NAV,KC_ESC),  KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_DELETE,
         KC_TAB,     KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   CTL_T(KC_ESC),
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[SYMB_L] = KEYMAP(
+[SYMB_L] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
        KC_TRNS,  KC_GRV ,  KC_TILD,  KC_ASTR,  KC_AMPR,  KC_SLSH,  LSFT(KC_COMM),
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,  KC_SCLN,  KC_DOT
 ),
 
-[SYMB_R] = KEYMAP(  // same as above, but avoids clash between SYMB and ;/:
+[SYMB_R] = LAYOUT_ergodox(  // same as above, but avoids clash between SYMB and ;/:
        // left hand
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
        KC_TRNS,  KC_GRV ,  KC_TILD,  KC_ASTR,  KC_AMPR,  KC_SLSH,  LSFT(KC_COMM),
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[NAV] = KEYMAP(
+[NAV] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,  KC_F1,    KC_F2,          KC_F3,        KC_F4,    KC_F5,  KC_PAUSE,
        KC_TRNS,  KC_F1,    KC_F2,          KC_F3,        KC_F4,    KC_F5,  KC_TRNS,
@@ -160,11 +160,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS,  KC_TRNS
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-//    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),               // FN1 - Tap/Toggle Layer 1 (Symbols)
-//    [2] = ACTION_LAYER_TAP_TOGGLE(NAV)                // FN2 - Tap/Toggle Layer 2 (Nav)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

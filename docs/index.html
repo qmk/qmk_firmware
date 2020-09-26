@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QMK Firmware</title>
+  <link rel="icon" type="image/png" href="gitbook/images/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta property="og:title" content="QMK Firmware Docs">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="The full documentation of the open-source firmware">
+  <meta property="og:image" content="https://i.imgur.com/svjvIrw.jpg">
+  <meta property="og:url" content="https://docs.qmk.fm">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css" title="light">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//unpkg.com/docsify-toc@1.0.0/dist/toc.css">
+  <link rel="stylesheet" href="qmk_custom_light.css">
+  <link rel="stylesheet" href="qmk_custom_dark.css" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      alias: {
+        // Translation aliases
+        '/en/(.*)': '/$1',
+        '/en-us/(.*)': '/$1',
+        '/en-gb/(.*)': '/$1',
+        '/.*/_langs.md': '/_langs.md',
+
+        // Moved pages
+        '/adding_a_keyboard_to_qmk': '/hardware_keyboard_guidelines',
+        '/build_environment_setup': '/newbs_getting_started',
+        '/cli_dev_configuration': '/cli_configuration',
+        '/dynamic_macros': '/feature_dynamic_macros',
+        '/feature_common_shortcuts': '/feature_advanced_keycodes',
+        '/glossary': '/reference_glossary',
+        '/key_lock': '/feature_key_lock',
+        '/make_instructions': '/getting_started_make_guide',
+        '/porting_your_keyboard_to_qmk': '/hardware_avr',
+        '/space_cadet_shift': '/feature_space_cadet_shift',
+        '/getting_started_getting_help': '/support',
+        '/tap_dance': '/feature_tap_dance',
+        '/unicode': '/feature_unicode',
+        '/python_development': '/cli_development',
+        '/getting_started_build_tools':'/newbs_getting_started',
+      },
+      basePath: '/',
+      name: 'QMK Firmware',
+      nameLink: {
+        '/de/': '/#/de/',
+        '/es/': '/#/es/',
+        '/fr-fr/': '/#/fr-fr/',
+        '/he-il/': '/#/he-il/',
+        '/ja/': '/#/ja/',
+        '/pt-br/': '/#/pt-br/',
+        '/ru-ru/': '/#/ru-ru/',
+        '/zh-cn/': '/#/zh-cn/',
+        '/': '/#/'
+      },
+      repo: 'qmk/qmk_firmware',
+      loadSidebar: '_summary.md',
+      loadNavbar: '_langs.md',
+      mergeNavbar: true,
+      auto2top: true,
+      autoHeader: true,
+      fallbackLanguages: [
+        'de',
+        'es',
+        'fr-fr',
+        'he-il',
+        'ja',
+        'pt-br',
+        'ru-ru',
+        'zh-cn'
+      ],
+      formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
+      search: {
+        paths: 'auto',
+        placeholder: {
+          '/es/': 'Buscar',
+          '/zh-cn/': '搜索',
+          '/ja/': '検索',
+          '/pt-br/': 'Busca',
+          '/': 'Search'
+        },
+        noData: {
+          '/es/': '¡Ningún resultado!',
+          '/zh-cn/': '没有结果!',
+          '/ja/': '見つかりません!',
+          '/pt-br/': 'Nenhum resultado!',
+          '/': 'No results!'
+        },
+        depth: 6
+      },
+      markdown: {
+        smartypants: true,
+        smartLists: true,
+      },
+      copyCode: {
+        buttonText: {
+          '/zh-cn/': '点击复制',
+          '/ru/'   : 'Скопировать в буфер обмена',
+          '/de-de/': 'Klicken Sie zum Kopieren',
+          '/es/'   : 'Haga clic para copiar',
+          '/'      : 'Copy to clipboard'
+        },
+        errorText: {
+          '/zh-cn/': '错误',
+          '/ru/'   : 'ошибка',
+          '/'      : 'Error'
+        },
+        successText: {
+          '/zh-cn/': '复制',
+          '/ru/'   : 'Скопировано',
+          '/de-de/': 'Kopiert',
+          '/es/'   : 'Copiado',
+          '/'      : 'Copied'
+        }
+      },
+      toc: {
+        scope: '.markdown-section',
+        headings: 'h1, h2',
+        title: 'Table of Contents',
+      },
+      plugins: [
+        function (hook, vm) {
+          hook.beforeEach(function (html) {
+            if (/githubusercontent\.com/.test(vm.route.file)) {
+              url = vm.route.file
+                .replace('raw.githubusercontent.com', 'github.com')
+                .replace(/\/master/, '/blob/master')
+            } else {
+              url = 'https://github.com/qmk/qmk_firmware/edit/master/docs/' + vm.route.file
+            }
+            var editHtml = ':pencil2: [Edit this page](' + url + ')\n'
+            return html
+              + '\n\n----\n\n'
+              + editHtml
+          })
+        },
+      ]
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//unpkg.com/docsify-copy-code@2"></script>
+  <script src="//unpkg.com/docsify-toc@1.0.0/dist/toc.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-c.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-cpp.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-json.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-makefile.min.js"></script>
+  <script>
+    // Register the cache worker for offline viewing mode
+    // https://docsify.now.sh/pwa
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('sw.js')
+    }
+  </script>
+</body>
+</html>

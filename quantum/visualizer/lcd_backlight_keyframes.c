@@ -17,46 +17,40 @@
 #include "lcd_backlight_keyframes.h"
 
 bool lcd_backlight_keyframe_animate_color(keyframe_animation_t* animation, visualizer_state_t* state) {
-    int frame_length = animation->frame_lengths[animation->current_frame];
-    int current_pos = frame_length - animation->time_left_in_frame;
-    uint8_t t_h = LCD_HUE(state->target_lcd_color);
-    uint8_t t_s = LCD_SAT(state->target_lcd_color);
-    uint8_t t_i = LCD_INT(state->target_lcd_color);
-    uint8_t p_h = LCD_HUE(state->prev_lcd_color);
-    uint8_t p_s = LCD_SAT(state->prev_lcd_color);
-    uint8_t p_i = LCD_INT(state->prev_lcd_color);
+    int     frame_length = animation->frame_lengths[animation->current_frame];
+    int     current_pos  = frame_length - animation->time_left_in_frame;
+    uint8_t t_h          = LCD_HUE(state->target_lcd_color);
+    uint8_t t_s          = LCD_SAT(state->target_lcd_color);
+    uint8_t t_i          = LCD_INT(state->target_lcd_color);
+    uint8_t p_h          = LCD_HUE(state->prev_lcd_color);
+    uint8_t p_s          = LCD_SAT(state->prev_lcd_color);
+    uint8_t p_i          = LCD_INT(state->prev_lcd_color);
 
-    uint8_t d_h1 = t_h - p_h; //Modulo arithmetic since we want to wrap around
-    int d_h2 = t_h - p_h;
+    uint8_t d_h1 = t_h - p_h;  // Modulo arithmetic since we want to wrap around
+    int     d_h2 = t_h - p_h;
     // Chose the shortest way around
     int d_h = abs(d_h2) < d_h1 ? d_h2 : d_h1;
     int d_s = t_s - p_s;
     int d_i = t_i - p_i;
 
-    int hue = (d_h * current_pos) / frame_length;
-    int sat = (d_s * current_pos) / frame_length;
+    int hue       = (d_h * current_pos) / frame_length;
+    int sat       = (d_s * current_pos) / frame_length;
     int intensity = (d_i * current_pos) / frame_length;
-    //dprintf("%X -> %X = %X\n", p_h, t_h, hue);
+    // dprintf("%X -> %X = %X\n", p_h, t_h, hue);
     hue += p_h;
     sat += p_s;
     intensity += p_i;
     state->current_lcd_color = LCD_COLOR(hue, sat, intensity);
-    lcd_backlight_color(
-            LCD_HUE(state->current_lcd_color),
-            LCD_SAT(state->current_lcd_color),
-            LCD_INT(state->current_lcd_color));
+    lcd_backlight_color(LCD_HUE(state->current_lcd_color), LCD_SAT(state->current_lcd_color), LCD_INT(state->current_lcd_color));
 
     return true;
 }
 
 bool lcd_backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
-    state->prev_lcd_color = state->target_lcd_color;
+    state->prev_lcd_color    = state->target_lcd_color;
     state->current_lcd_color = state->target_lcd_color;
-    lcd_backlight_color(
-            LCD_HUE(state->current_lcd_color),
-            LCD_SAT(state->current_lcd_color),
-            LCD_INT(state->current_lcd_color));
+    lcd_backlight_color(LCD_HUE(state->current_lcd_color), LCD_SAT(state->current_lcd_color), LCD_INT(state->current_lcd_color));
     return false;
 }
 
@@ -70,8 +64,6 @@ bool lcd_backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_
 bool lcd_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
-    lcd_backlight_color(LCD_HUE(state->current_lcd_color),
-        LCD_SAT(state->current_lcd_color),
-        LCD_INT(state->current_lcd_color));
+    lcd_backlight_color(LCD_HUE(state->current_lcd_color), LCD_SAT(state->current_lcd_color), LCD_INT(state->current_lcd_color));
     return false;
 }

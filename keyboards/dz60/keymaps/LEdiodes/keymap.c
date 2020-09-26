@@ -1,13 +1,10 @@
-#include "dz60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define _L0 0
 #define _L1 1
 #define _L2 2
 #define _L3 3
 #define _L4 4
-
-#define _______ KC_TRNS
 
 enum {
   TD_SPC_ENT = 0,
@@ -101,11 +98,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_MS_BTN1,KC_MS_UP,KC_MS_BTN2,   \
       _______,_______,_______,        _______,_______,_______,                _______,_______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT)
 
-};
-
-// Custom Actions
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
 };
 
 // Macros

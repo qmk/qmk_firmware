@@ -1,23 +1,6 @@
-#ifndef LFKPAD_H
-#define LFKPAD_H
-
-/* if the kb.h file exists (because we're running from qmkbuilder) include it */
-#if __has_include("kb.h")
-#include "kb.h"
-#endif
+#pragma once
 
 #include "quantum.h"
-#include "matrix.h"
-#include <avr/sfr_defs.h>
-
-#ifndef cbi
-#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
-#endif
-
-#ifndef sbi
-#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
-#endif
-
 
 typedef struct RGB_Color {
     uint16_t red;
@@ -54,20 +37,21 @@ enum action_functions {
 void reset_keyboard_kb(void);
 void click(uint16_t freq, uint16_t duration);
 
-#define LAYOUT( \
-    k00, k01, k02, k03,\
-    k10, k11, k12, k13,\
-    k20, k21, k22, k23,\
-    k30, k31, k32,\
-    k40, k41, k42, k43,\
-    k50,      k52\
-) { \
-    { k00, k01,   k02, k03 }, \
-    { k10, k11,   k12, k13 }, \
-    { k20, k21,   k22, k23 }, \
-    { k30, k31,   k32, KC_NO }, \
-    { k40, k41,   k42, k43 }, \
-    { k50, KC_NO, k52, KC_NO } \
-}
+// readability
+#define ___ KC_NO
 
-#endif //LFKPAD_H
+#define LAYOUT_numpad_6x4( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22,      \
+    k30, k31, k32, k23, \
+    k40, k41, k42,      \
+    k50,      k52, k43  \
+) { \
+    { k00, k01, k02, k03 }, \
+    { k10, k11, k12, k13 }, \
+    { k20, k21, k22, k23 }, \
+    { k30, k31, k32, ___ }, \
+    { k40, k41, k42, k43 }, \
+    { k50, ___, k52, ___ } \
+}

@@ -1,11 +1,10 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include "mitosis.h"
+#include QMK_KEYBOARD_H
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
-#include "eeconfig.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -48,62 +47,60 @@ enum mitosis_macros
 #define LAYER_TOGGLE_DELAY 900
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
 #define __MOD__ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = { /* QWERTY adapted to this crazy thing */
-    {KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,        KC_P    },
-    {KC_A,       KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,        KC_SCLN },
-    {SFT_T(KC_Z), KC_X,   KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,      SFT_T(KC_SLSH) },
-    {XXXXXXX,    KC_LCTL, M(ESCM),  KC_TAB,  KC_QUOT,       KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,    XXXXXXX },
-    {XXXXXXX,    KC_LALT, KC_LGUI, KC_SPC,  SHIFT,          FNKEY,   KC_BSPC, KC_ENT,  MO(_ADJUST), XXXXXXX }
-  },
+  [_QWERTY] = LAYOUT( /* QWERTY adapted to this crazy thing */
+    KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,        KC_P,
+    KC_A,       KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,        KC_SCLN,
+    SFT_T(KC_Z), KC_X,   KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,      SFT_T(KC_SLSH),
+                KC_LCTL, M(ESCM),  KC_TAB,  KC_QUOT,       KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,
+                KC_LALT, KC_LGUI, KC_SPC,  SHIFT,          FNKEY,   KC_BSPC, KC_ENT,  MO(_ADJUST)
+  ),
 
 
-  [_SHIFTED] = { /* Shifted Layer, layered so that tri_layer can be used, or selectively
-                                   able to modify individual key's shifted behaviour */
-    {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-    {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-    {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-    {XXXXXXX, __MOD__, KC_DEL,  _______, _______,       _______, _______, _______, _______, XXXXXXX },
-    {XXXXXXX, __MOD__, __MOD__, _______, __MOD__,       __MOD__, _______, _______, KC_NO,   XXXXXXX }
-  },
+  [_SHIFTED] = LAYOUT( /* Shifted Layer, layered so that tri_layer can be used, or selectively
+                                         able to modify individual key's shifted behaviour */
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+             __MOD__, KC_DEL,  _______, _______,       _______, _______, _______, _______,
+             __MOD__, __MOD__, _______, __MOD__,       __MOD__, _______, _______, XXXXXXX
+  ),
 
 
-  [_FUNCTIONPC] = { /* Function Layer mimicks planck's raise layer somewhat */
-    {KC_1,       KC_2,          KC_3,    KC_4,      KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0    },
-    {LCTL(KC_A), LCTL(KC_S),    _______, LCTL(KC_F),_______,       _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC },
-    {LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V),_______,       _______, KC_BSLS, _______, _______, KC_QUOT },
-    {XXXXXXX,    __MOD__,        KC_DEL, _______,   KC_GRV,        KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX },
-    {XXXXXXX,    __MOD__,       __MOD__, _______,   __MOD__,       __MOD__, _______, KC_PSCR, KC_NO,   XXXXXXX }
-  },
+  [_FUNCTIONPC] = LAYOUT( /* Function Layer mimicks planck's raise layer somewhat */
+    KC_1,       KC_2,          KC_3,    KC_4,      KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+    LCTL(KC_A), LCTL(KC_S),    _______, LCTL(KC_F),_______,       _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,
+    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V),_______,       _______, KC_BSLS, _______, _______, KC_QUOT,
+                __MOD__,        KC_DEL, _______,   KC_GRV,        KC_HOME, KC_PGDN, KC_PGUP, KC_END,
+                __MOD__,       __MOD__, _______,   __MOD__,       __MOD__, _______, KC_PSCR, XXXXXXX
+  ),
 
-  [_FUNCTIONMAC] = { /* Function Layer mimicks planck's raise layer somewhat */
-    {KC_1,       KC_2,          KC_3,    KC_4,      KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0    },
-    {LGUI(KC_A), LGUI(KC_S),    _______, LGUI(KC_F),_______,       _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC },
-    {LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V),_______,       _______, KC_BSLS, _______, _______, KC_QUOT },
-    {XXXXXXX,    __MOD__,        KC_DEL, _______,   KC_GRV,        KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX },
-    {XXXXXXX,    __MOD__,       __MOD__, _______,   __MOD__,       __MOD__, _______, KC_PSCR, KC_NO,   XXXXXXX }
-  },
+  [_FUNCTIONMAC] = LAYOUT( /* Function Layer mimicks planck's raise layer somewhat */
+    KC_1,       KC_2,          KC_3,    KC_4,      KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+    LGUI(KC_A), LGUI(KC_S),    _______, LGUI(KC_F),_______,       _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,
+    LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V),_______,       _______, KC_BSLS, _______, _______, KC_QUOT,
+                __MOD__,        KC_DEL, _______,   KC_GRV,        KC_HOME, KC_PGDN, KC_PGUP, KC_END,
+                __MOD__,       __MOD__, _______,   __MOD__,       __MOD__, _______, KC_PSCR, XXXXXXX
+  ),
 
-  [_FUNCSHIFT] = { /* Function Shifted Layer mimicks planck's lower layer somewhat */
-    {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-    {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   _______, _______, KC_LCBR, KC_RCBR },
-    {KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,        KC_F12,  _______, _______, _______, _______ },
-    {XXXXXXX, __MOD__, KC_DEL,  _______, KC_TILD,       _______, _______, _______, _______, XXXXXXX },
-    {XXXXXXX, __MOD__, __MOD__, _______, __MOD__,       __MOD__, _______, _______, _______, XXXXXXX }
-  },
+  [_FUNCSHIFT] = LAYOUT( /* Function Shifted Layer mimicks planck's lower layer somewhat */
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   _______, _______, KC_LCBR, KC_RCBR,
+    KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,        KC_F12,  _______, _______, _______, _______,
+             __MOD__, KC_DEL,  _______, KC_TILD,       _______, _______, _______, _______,
+             __MOD__, __MOD__, _______, __MOD__,       __MOD__, _______, _______, _______
+  ),
 
 
-  [_ADJUST] = { /* Adjust layer for fancy stuff and macros */
-    {RESET,   FNPC,    _______, _______,  _______,       _______, DYN_REC_START1,  DYN_REC_START2,  _______,  _______ },
-    {FNMAC,   _______,   AU_ON, AU_OFF,   _______,       _______, _______,         _______,         MACSLEEP, _______ },
-    {MUV_DE,  MUV_IN,    MU_ON, MU_OFF,   _______,       _______, KC_MUTE,         KC_MPRV,         KC_MNXT,  KC_MPLY },
-    {XXXXXXX, __MOD__, _______, _______,  _______,       _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  _______,  XXXXXXX },
-    {XXXXXXX, __MOD__, __MOD__, _______,  __MOD__,       __MOD__, _______,         _______,         __MOD__,  XXXXXXX }
-  }
+  [_ADJUST] = LAYOUT( /* Adjust layer for fancy stuff and macros */
+    RESET,   FNPC,    _______, _______,  _______,       _______, DYN_REC_START1,  DYN_REC_START2,  _______,  _______,
+    FNMAC,   _______,   AU_ON, AU_OFF,   _______,       _______, _______,         _______,         MACSLEEP, _______,
+    MUV_DE,  MUV_IN,    MU_ON, MU_OFF,   _______,       _______, KC_MUTE,         KC_MPRV,         KC_MNXT,  KC_MPLY,
+             __MOD__, _______, _______,  _______,       _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  _______,
+             __MOD__, __MOD__, _______,  __MOD__,       __MOD__, _______,         _______,         __MOD__
+  )
 
 };
 
@@ -120,9 +117,6 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 static uint16_t function_layer = _FUNCTIONMAC;
 static uint16_t key_timer;
 

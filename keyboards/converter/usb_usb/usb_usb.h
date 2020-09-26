@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * TODO: use same keycode to pass through instead of KC_NO?
  */
-#define KEYMAP_ALL( \
+#define LAYOUT_all( \
             K68,K69,K6A,K6B,K6C,K6D,K6E,K6F,K70,K71,K72,K73,                                              \
     K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,  K81,K80,K7F,K66, K75,     \
     K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K89,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, K78,K79, \
@@ -120,21 +120,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctl|Gui|Alt|           Space               |Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|Ent|
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define KEYMAP( \
+#define LAYOUT_ansi( \
     K29,K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,                   \
     K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, \
     K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,K31,  K4C,K4D,K4E,  K5F,K60,K61,     \
     K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,    K28,                K5C,K5D,K5E,K57, \
     KE1,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,        KE5,      K52,      K59,K5A,K5B,     \
     KE0,KE3,KE2,        K2C,                KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63,K58  \
-) KEYMAP_ALL( \
-            KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                               \
-    K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,  KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,      \
-    K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,KC_NO, K2A,  K49,K4A,K4B,  K53,K54,K55,K56, KC_NO, KC_NO,  \
-    K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,    K31,  K4C,K4D,K4E,  K5F,K60,K61,K57, KC_NO, KC_NO,  \
-    K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,    KC_NO, K28,                K5C,K5D,K5E,KC_NO,  KC_NO, KC_NO,  \
-    KE1,KC_NO, K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,    KC_NO, KE5,      K52,      K59,K5A,K5B,KC_NO,  KC_NO, KC_NO,  \
-    KE0,KE3,KE2,KC_NO, KC_NO,     K2C,    KC_NO, KC_NO, KC_NO, KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63,K58, KC_NO, KC_NO   \
+) LAYOUT_all( \
+                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                                                \
+    K29,          K3A,   K3B,   K3C,   K3D,   K3E,   K3F,   K40,   K41,   K42,   K43,   K44,   K45,             K46,   K47,   K48,      KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,        \
+    K35,   K1E,   K1F,   K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K2D,   K2E,   KC_NO, K2A,      K49,   K4A,   K4B,      K53,   K54,   K55,   K56,      KC_NO, KC_NO, \
+    K2B,   K14,   K1A,   K08,   K15,   K17,   K1C,   K18,   K0C,   K12,   K13,   K2F,   K30,          K31,      K4C,   K4D,   K4E,      K5F,   K60,   K61,   K57,      KC_NO, KC_NO, \
+    K39,   K04,   K16,   K07,   K09,   K0A,   K0B,   K0D,   K0E,   K0F,   K33,   K34,          KC_NO, K28,                              K5C,   K5D,   K5E,   KC_NO,    KC_NO, KC_NO, \
+    KE1,   KC_NO, K1D,   K1B,   K06,   K19,   K05,   K11,   K10,   K36,   K37,   K38,          KC_NO, KE5,             K52,             K59,   K5A,   K5B,   KC_NO,    KC_NO, KC_NO, \
+    KE0,   KE3,   KE2,   KC_NO, KC_NO,        K2C,          KC_NO, KC_NO, KC_NO, KE6,   KE7,   K65,   KE4,      K50,   K51,   K4F,      K62,          K63,   K58,      KC_NO, KC_NO  \
 )
 
 /* ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
@@ -152,21 +152,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctl|Gui|Alt|           Space               |Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|   |
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define KEYMAP_ISO( \
+#define LAYOUT_iso( \
     K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,  K46,K47,K48,                   \
     K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, \
     K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,K28,  K4C,K4D,K4E,  K5F,K60,K61,K57, \
     K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,K32,                    K5C,K5D,K5E,     \
     KE1,K64,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,    KE5,      K52,      K59,K5A,K5B,K58, \
     KE0,KE3,KE2,        K2C,                KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63      \
-) KEYMAP_ALL( \
-            KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                               \
-    K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,  KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,      \
-    K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,KC_NO, K2A,  K49,K4A,K4B,  K53,K54,K55,K56, KC_NO, KC_NO,  \
-    K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,    K32,  K4C,K4D,K4E,  K5F,K60,K61,K57, KC_NO, KC_NO,  \
-    K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,    K32,K28,                K5C,K5D,K5E,KC_NO,  KC_NO, KC_NO,  \
-    KE1,K64,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,    KC_NO, KE5,      K52,      K59,K5A,K5B,KC_NO,  KC_NO, KC_NO,  \
-    KE0,KE3,KE2,KC_NO, KC_NO,     K2C,    KC_NO, KC_NO, KC_NO, KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63,K58, KC_NO, KC_NO   \
+) LAYOUT_all( \
+                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                                                \
+    K29,          K3A,   K3B,   K3C,   K3D,   K3E,   K3F,   K40,   K41,   K42,   K43,   K44,   K45,             K46,   K47,   K48,      KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,        \
+    K35,   K1E,   K1F,   K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K2D,   K2E,   KC_NO, K2A,      K49,   K4A,   K4B,      K53,   K54,   K55,   K56,      KC_NO, KC_NO, \
+    K2B,   K14,   K1A,   K08,   K15,   K17,   K1C,   K18,   K0C,   K12,   K13,   K2F,   K30,          K32,      K4C,   K4D,   K4E,      K5F,   K60,   K61,   K57,      KC_NO, KC_NO, \
+    K39,   K04,   K16,   K07,   K09,   K0A,   K0B,   K0D,   K0E,   K0F,   K33,   K34,          K32,   K28,                              K5C,   K5D,   K5E,   KC_NO,    KC_NO, KC_NO, \
+    KE1,   K64,   K1D,   K1B,   K06,   K19,   K05,   K11,   K10,   K36,   K37,   K38,          KC_NO, KE5,             K52,             K59,   K5A,   K5B,   KC_NO,    KC_NO, KC_NO, \
+    KE0,   KE3,   KE2,   KC_NO, KC_NO,        K2C,          KC_NO, KC_NO, KC_NO, KE6,   KE7,   K65,   KE4,      K50,   K51,   K4F,      K62,          K63,   K58,      KC_NO, KC_NO  \
 )
 
 /* ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
@@ -184,20 +184,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctl|Gui|Alt|MHEN|      Space      |HENK|KNA|Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|   |
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define KEYMAP_JIS( \
+#define LAYOUT_jis( \
     K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,                   \
     K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K89,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, \
     K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,    K28,  K4C,K4D,K4E,  K5F,K60,K61,K57, \
     K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,K32,                        K5C,K5D,K5E,     \
     KE1,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,        K87,KE5,      K52,      K59,K5A,K5B,K58, \
     KE0,KE3,KE2,K8B,    K2C,        K8A,K88,KE6,KE7,K65,KE4,      K50,K51,K4F,  K62,    K63      \
-) KEYMAP_ALL( \
-            KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                               \
-    K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,  KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,      \
-    K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K89,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, KC_NO, KC_NO,  \
-    K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,    K32,  K4C,K4D,K4E,  K5F,K60,K61,K57, KC_NO, KC_NO,  \
-    K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,    K32,K28,                K5C,K5D,K5E,KC_NO,  KC_NO, KC_NO,  \
-    KE1,KC_NO, K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,    K87,KE5,      K52,      K59,K5A,K5B,KC_NO,  KC_NO, KC_NO,  \
-    KE0,KE3,KE2,K8B,KC_NO,     K2C,    KC_NO, K8A,K88,KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63,K58, KC_NO, KC_NO   \
+) LAYOUT_all( \
+                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    \
+    K29,          K3A,   K3B,   K3C,   K3D,   K3E,   K3F,   K40,   K41,   K42,   K43,   K44,   K45,             K46,   K47,   K48,      KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,        \
+    K35,   K1E,   K1F,   K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K2D,   K2E,   K89,   K2A,      K49,   K4A,   K4B,      K53,   K54,   K55,   K56,      KC_NO, KC_NO, \
+    K2B,   K14,   K1A,   K08,   K15,   K17,   K1C,   K18,   K0C,   K12,   K13,   K2F,   K30,          K32,      K4C,   K4D,   K4E,      K5F,   K60,   K61,   K57,      KC_NO, KC_NO, \
+    K39,   K04,   K16,   K07,   K09,   K0A,   K0B,   K0D,   K0E,   K0F,   K33,   K34,          K32,   K28,                              K5C,   K5D,   K5E,   KC_NO,    KC_NO, KC_NO, \
+    KE1,   KC_NO, K1D,   K1B,   K06,   K19,   K05,   K11,   K10,   K36,   K37,   K38,          K87,   KE5,             K52,             K59,   K5A,   K5B,   KC_NO,    KC_NO, KC_NO, \
+    KE0,   KE3,   KE2,   K8B,   KC_NO,        K2C,          KC_NO, K8A,   K88,   KE6,   KE7,   K65,   KE4,      K50,   K51,   K4F,      K62,          K63,   K58,      KC_NO, KC_NO  \
 )
 #endif

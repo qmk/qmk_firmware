@@ -23,19 +23,6 @@ ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be di
 WATCHDOG_ENABLE = yes		# Resets keyboard if matrix_scan isn't run every 250ms
 
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
-
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-endif
-
-
 # # Set the LFK78 hardware version. This is defined in rules.mk, but can be overidden here if desired
 # #
 # # RevB - first public release, uses atmega32u4, has audio, ISSI matrix split between RGB and backlight

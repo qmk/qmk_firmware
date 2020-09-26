@@ -1,9 +1,8 @@
-#ifndef FELIX_H
-#define FELIX_H
+#pragma once
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT_ortho_5x4( \
     K000, K001, K002, K003, \
     K100, K101, K102, K103, \
     K200, K201, K202, K203, \
@@ -17,4 +16,4 @@
     { K400, K401, K402, K403 }  \
 }
 
-#endif
+#define LAYOUT LAYOUT_ortho_5x4

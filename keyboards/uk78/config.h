@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x554B /* Ascii */
-#define PRODUCT_ID      0x004E
+#define VENDOR_ID       0x554B // "UK"
+#define PRODUCT_ID      0x004E // 78
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    UK Keyboards
 #define PRODUCT         UK78
@@ -47,21 +47,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 /* ws2812b options */
 #define RGB_DI_PIN F6

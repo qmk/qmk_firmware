@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "cu24.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP( /* Base */
+[0] = LAYOUT_grid( /* Base */
   KC_MPLY,  KC_MUTE,  KC_VOLD,  KC_VOLU, \
   MO(1)  ,  KC_PSLS,  KC_PAST,  KC_PMNS, \
   KC_P7  ,  KC_P8  ,  KC_P9  ,  KC_PPLS, \
@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_P0  ,  KC_P0  ,  KC_PDOT,  KC_PENT
 ),
 
-[1] = KEYMAP( /* FN */
+[1] = LAYOUT_grid( /* FN */
   RGB_TOG,  RGB_MOD,  BL_STEP,  BL_BRTG, \
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, \
   RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_TRNS, \
@@ -33,22 +33,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, \
   KC_TRNS,  KC_TRNS,  RESET  ,  KC_TRNS
 ),
-};
-
-/* Use this function to add macros */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

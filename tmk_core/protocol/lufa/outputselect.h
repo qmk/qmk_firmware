@@ -12,6 +12,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
+#include <stdint.h>
+
 enum outputs {
     OUTPUT_AUTO,
 
@@ -27,14 +31,14 @@ enum outputs {
  * backward compatibility for BLUETOOTH_ENABLE, send to BT and USB by default
  */
 #ifndef OUTPUT_DEFAULT
-    #ifdef BLUETOOTH_ENABLE
-        #define OUTPUT_DEFAULT OUTPUT_USB_AND_BT
-    #else
-        #define OUTPUT_DEFAULT OUTPUT_AUTO
-    #endif
+#    ifdef BLUETOOTH_ENABLE
+#        define OUTPUT_DEFAULT OUTPUT_USB_AND_BT
+#    else
+#        define OUTPUT_DEFAULT OUTPUT_AUTO
+#    endif
 #endif
 
-void set_output(uint8_t output);
-void set_output_user(uint8_t output);
+void    set_output(uint8_t output);
+void    set_output_user(uint8_t output);
 uint8_t auto_detect_output(void);
 uint8_t where_to_send(void);

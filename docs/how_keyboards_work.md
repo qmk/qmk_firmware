@@ -12,7 +12,7 @@ place:
 ``` text
 +------+         +-----+       +----------+      +----------+     +----+
 | User |-------->| Key |------>| Firmware |----->| USB wire |---->| OS |
-+------+         +-----+       +----------+      +----------+     |----+
++------+         +-----+       +----------+      +----------+     +----+
 ```
 
 This scheme is a very simple view of what's going on, and more details follow
@@ -27,17 +27,21 @@ This usually happens with a periodic scan of key presses. This speed often is li
 
 ## 2. What the Firmware Sends
 
-The [HID specification](http://www.usb.org/developers/hidpage/Hut1_12v2.pdf) tells what a keyboard can actually send through USB to have a chance to be properly recognised. This includes a pre-defined list of scancodes which are simple numbers from `0x00` to `0xE7`. The firmware assigns a scancode to each key of the keyboard.
+The [HID specification](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) tells what a keyboard can actually send through USB to have a chance to be properly recognised. This includes a pre-defined list of scancodes which are simple numbers from `0x00` to `0xE7`. The firmware assigns a scancode to each key of the keyboard.
 
-The firmware does not send actually letters or characters, but only scancodes.
-Thus, by modifying the firmware, you only can modify what scancode is sent over
+The firmware does not send actual letters or characters, but only scancodes.
+Thus, by modifying the firmware, you can only modify what scancode is sent over
 USB for a given key.
 
-## 3. What the Operating System Does
+## 3. What the Event Input/Kernel Does
+
+The *scancode* is mapped to a *keycode* dependent on the keyboard [60-keyboard.hwdb at Master](https://github.com/systemd/systemd/blob/master/hwdb.d/60-keyboard.hwdb). Without this mapping, the operating system will not receive a valid keycode and will be unable to do anything useful with that key press.
+
+## 4. What the Operating System Does
 
 Once the keycode reaches the operating system, a piece of software has to have
 it match an actual character thanks to a keyboard layout. For example, if your
-layout is set to QWERTY, a sample of the matching table is as follow:
+layout is set to QWERTY, a sample of the matching table is as follows:
 
 | keycode | character |
 |---------|-----------|
@@ -55,18 +59,18 @@ As the layout is generally fixed (unless you create your own), the firmware can 
 
 ## List of Characters You Can Send
 
-Putting aside shortcuts, having a limited set of keycodes mapped to a limited layout means that **the list of characters you can assign to a given key only is the ones present in the layout**.
+Putting aside shortcuts, having a limited set of keycodes mapped to a limited layout means that **the list of characters you can assign to a given key are only the ones present in the layout**.
 
-For example, this means that if you have a QWERTY US layout, and you want to assign 1 key to produce `€` (euro currency symbol), you are unable to do so, because the QWERTY US layout does not have such mapping. You could fix that by using a QWERTY UK layout, or a QWERTY US International.
+For example, this means that if you have a QWERTY US layout, and you want to assign one key to produce `€` (euro currency symbol), you are unable to do so, because the QWERTY US layout does not have such mapping. You could fix that by using a QWERTY UK layout, or a QWERTY US International.
 
-You may wonder why a keyboard layout containing all of Unicode is not devised then? The limited number of keycode available through USB simply disallow such a thing.
+You may wonder why a keyboard layout containing all of Unicode is not devised then? The limited number of keycodes available through USB simply disallows such a thing.
 
 ## How to (Maybe) Enter Unicode Characters
 
-You can have the firmware send *sequences of keys* to use the [software Unicode Input Method](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_code_input) of the target operating system, thus effectively entering characters independently of the layout defined in the OS.
+You can have the firmware send *sequences of keys* to use the [software Unicode Input Method](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_input) of the target operating system, thus effectively entering characters independently of the layout defined in the OS.
 
 Yet, it does come with multiple disadvantages:
 
- - Tied to a specific OS a a time (need recompilation when changing OS);
+ - Tied to a specific OS at a time (need recompilation when changing OS);
  - Within a given OS, does not work in all software;
  - Limited to a subset of Unicode on some systems.

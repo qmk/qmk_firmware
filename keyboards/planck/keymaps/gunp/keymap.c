@@ -16,8 +16,7 @@
 
 /* modified by Gun Pinyo */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -56,84 +55,84 @@ enum planck_keycodes {
 #define XX XXXXXXX
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[LY_0000] = {
- {KC_DEL,  KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_K, KC_TAB},
- {KC_BSPC, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_ENT},
- {KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M, FN_A, FN_B, FN_C, XX,  KC_LSFT},
- {XX,KC_F21,KC_F22,KC_ESC,KC_SPC,KC_F23,KC_F24,KC_LCTL,KC_LSFT,KC_LALT,FN_D,XX}
-},
-[LY_1000] = {
-  {UC(L'∃'), KC_SLSH,  KC_RCBR,  KC_RPRN,  KC_RBRC,  KC_GT,    MFN_R1},
-  {UC(L'∀'), KC_BSLS,  KC_LCBR,  KC_LPRN,  KC_LBRC,  KC_LT,    MFN_R2},
-  {KC_AMPR,  KC_PIPE,  KC_AT,    KC_TILD,  KC_DLR,   KC_CIRC,  MFN_R3},
-  {KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    MFN_R4},
-},
-[LY_0010] = {
-  {UC(L'×'), KC_ASTR,  KC_QUES,  KC_EXLM,  KC_GRV,   KC_HASH,  MFN_R1},
-  {UC(L'→'), KC_MINS,  KC_COMM,  KC_DOT,   KC_QUOT,  KC_EQL,   MFN_R2},
-  {UC(L'∘'), KC_PLUS,  KC_SCLN,  KC_COLN,  KC_DQUO,  KC_UNDS,  MFN_R3},
-  {KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   MFN_R4},
-},
-[LY_1010] = {
-  {UC(L'⊗'), UC(L'⊕'), KC_7,     KC_8,     KC_9,     UC(L'┻'), MFN_R1},
-  {UC(L'⊚'), KC_0,     KC_1,     KC_2,     KC_3,     UC(L'┃'), MFN_R2},
-  {UC(L'┏'), UC(L'┓'), KC_4,     KC_5,     KC_6,     UC(L'┳'), MFN_R3},
-  {UC(L'┗'), UC(L'┛'), UC(L'┫'), UC(L'━'), UC(L'┣'), UC(L'╋'), MFN_R4}
-},
-[LY_0100] = {
- {KC_F13, KC_WSCH,     KC_HOME,     KC_UP,     KC_END,     KC_PGUP,     MFN_R1},
- {KC_F14, XXXXXXX,     KC_LEFT,     KC_DOWN,   KC_RGHT,    KC_PGDN,     MFN_R2},
- {KC_F15, KC_WBAK,     KC_WFWD,     MC(KC_A),  MC(KC_Z),   MSC(KC_Z),   MFN_R3},
- {KC_F16, MA(KC_LEFT), MC(KC_LEFT), MC(KC_F),  MC(KC_RGHT),MA(KC_RGHT), MFN_R4},
-},
-[LY_1100] = {
- {KC_F17, MC(KC_WSCH), S(KC_HOME),  S(KC_UP),  S(KC_END),  MC(KC_PGUP), MFN_R1},
- {KC_F18, XXXXXXX,     S(KC_LEFT),  S(KC_DOWN),S(KC_RGHT), MC(KC_PGDN), MFN_R2},
- {KC_F19, MC(KC_S),    MC(KC_X),    MC(KC_C),  MC(KC_V),   MC(KC_L),    MFN_R3},
- {KC_F20, MCA(KC_LEFT),MSC(KC_LEFT),MCA(KC_F),MSC(KC_RGHT),MCA(KC_RGHT),MFN_R4},
-},
-[LY_0110] = {
-  {MC(KC_F1) ,MC(KC_F2) ,MC(KC_F3) ,MC(KC_F4) ,MC(KC_F5) ,MC(KC_F6) , MFN_R1},
-  {MC(KC_F7) ,MC(KC_F8) ,MC(KC_F9) ,MC(KC_F10),MC(KC_F11),MC(KC_F12), MFN_R2},
-  {MC(KC_F13),MC(KC_F14),MC(KC_F15),MC(KC_F16),MC(KC_F17),MC(KC_F18), MFN_R3},
-  {MC(KC_F19),MC(KC_F20),MC(KC_F21),MC(KC_F22),MC(KC_F23),MC(KC_F24), MFN_R4}
-},
-[LY_1110] = {
-  {MG(KC_F1) ,MG(KC_F2) ,MG(KC_F3) ,MG(KC_F4) ,MG(KC_F5) ,MG(KC_F6) , MFN_R1},
-  {MG(KC_F7) ,MG(KC_F8) ,MG(KC_F9) ,MG(KC_F10),MG(KC_F11),MG(KC_F12), MFN_R2},
-  {MG(KC_F13),MG(KC_F14),MG(KC_F15),MG(KC_F16),MG(KC_F17),MG(KC_F18), MFN_R3},
-  {MG(KC_F19),MG(KC_F20),MG(KC_F21),MG(KC_F22),MG(KC_F23),MG(KC_F24), MFN_R4}
-},
-[LY_1111] = {
- {KC_MPRV, DYN_REC_STOP,    KC_WH_L,         KC_MS_U, KC_WH_R, KC_WH_U, MFN_R1},
- {KC_CAPS, XXXXXXX,         KC_MS_L,         KC_MS_D, KC_MS_R, KC_WH_D, MFN_R2},
- {KC_MNXT, DYN_MACRO_PLAY2, DYN_MACRO_PLAY1, KC_MPLY, KC_MRWD, KC_MFFD, MFN_R3},
- {KC_MSTP, DYN_REC_START2,  DYN_REC_START1,  KC_BTN2, KC_BTN1, KC_BTN3, MFN_R4},
-},
-[LY_1101] = {
-  {XXXXXXX, MU_ON,   MU_OFF,      PRINT_ON, PRINT_OFF,   DEBUG,   MFN_R1},
-  {XXXXXXX, KC_APP,  KC_VOLD,     KC_MUTE,  KC_VOLU,     XXXXXXX, MFN_R2},
-  {XXXXXXX, KC_MAIL, S(KC_VOLD),  KC_INS,   S(KC_VOLU),  KC_PSCR, MFN_R3},
-  {XXXXXXX, MUV_DE,  MUV_IN,      AU_ON,    AU_OFF,      RESET,   MFN_R4},
-},
-[LY_0011] = {
-  {UC(L'็'),  UC(L'์'),  UC(L'่'),  UC(L'้'),  UC(L'๊'),  UC(L'๋'), MFN_R1},
-  {UC(L'โ'),  UC(L'แ'),  UC(L'เ'),  UC(L'า'),  UC(L'ั'),  UC(L'ะ'), MFN_R2},
-  {UC(L'ไ'),  UC(L'ใ'),  UC(L'ิ'),  UC(L'ี'),  UC(L'ึ'),  UC(L'ื'), MFN_R3},
-  {UC(L'ๅ'),  UC(L'ฺ'),  UC(L'ํ'),  UC(L'ุ'),  UC(L'ู'),  UC(L'ำ'), MFN_R4},
-},
-[LY_1011] = {
-  {UC(L'ฐ'),  UC(L'ฎ'),  UC(L'ฏ'),  UC(L'ฮ'),  UC(L'ข'),  UC(L'ฃ'), MFN_R1},
-  {UC(L'ถ'),  UC(L'ด'),  UC(L'ต'),  UC(L'อ'),  UC(L'ก'),  UC(L'จ'), MFN_R2},
-  {UC(L'ภ'),  UC(L'บ'),  UC(L'ป'),  UC(L'ส'),  UC(L'ห'),  UC(L'ฉ'), MFN_R3},
-  {UC(L'ฯ'),  UC(L'ผ'),  UC(L'ฝ'),  UC(L'ศ'),  UC(L'ษ'),  UC(L'ๆ'), MFN_R4},
-},
-[LY_0111] = {
-  {UC(L'ฒ'),  UC(L'ฤ'),  UC(L'ฦ'),  UC(L'ม'),  UC(L'ค'),  UC(L'ฅ'), MFN_R1},
-  {UC(L'ณ'),  UC(L'ร'),  UC(L'ล'),  UC(L'น'),  UC(L'ว'),  UC(L'ง'), MFN_R2},
-  {UC(L'ญ'),  UC(L'ช'),  UC(L'ซ'),  UC(L'ย'),  UC(L'ท'),  UC(L'ฑ'), MFN_R3},
-  {UC(L'ฌ'),  UC(L'ฬ'),  UC(L'ฟ'),  UC(L'พ'),  UC(L'ธ'),  UC(L'ฆ'), MFN_R4},
-},
+[LY_0000] = LAYOUT_planck_grid(
+ KC_DEL,  KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_K, KC_TAB,
+ KC_BSPC, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_ENT,
+ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M, FN_A, FN_B, FN_C, XX,  KC_LSFT,
+ XX,KC_F21,KC_F22,KC_ESC,KC_SPC,KC_F23,KC_F24,KC_LCTL,KC_LSFT,KC_LALT,FN_D,XX
+),
+[LY_1000] = LAYOUT_planck_grid(
+  UC(L'∃'), KC_SLSH,  KC_RCBR,  KC_RPRN,  KC_RBRC,  KC_GT,    MFN_R1,
+  UC(L'∀'), KC_BSLS,  KC_LCBR,  KC_LPRN,  KC_LBRC,  KC_LT,    MFN_R2,
+  KC_AMPR,  KC_PIPE,  KC_AT,    KC_TILD,  KC_DLR,   KC_CIRC,  MFN_R3,
+  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    MFN_R4,
+),
+[LY_0010] = LAYOUT_planck_grid(
+  UC(L'×'), KC_ASTR,  KC_QUES,  KC_EXLM,  KC_GRV,   KC_HASH,  MFN_R1,
+  UC(L'→'), KC_MINS,  KC_COMM,  KC_DOT,   KC_QUOT,  KC_EQL,   MFN_R2,
+  UC(L'∘'), KC_PLUS,  KC_SCLN,  KC_COLN,  KC_DQUO,  KC_UNDS,  MFN_R3,
+  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   MFN_R4,
+),
+[LY_1010] = LAYOUT_planck_grid(
+  UC(L'⊗'), UC(L'⊕'), KC_7,     KC_8,     KC_9,     UC(L'┻'), MFN_R1,
+  UC(L'⊚'), KC_0,     KC_1,     KC_2,     KC_3,     UC(L'┃'), MFN_R2,
+  UC(L'┏'), UC(L'┓'), KC_4,     KC_5,     KC_6,     UC(L'┳'), MFN_R3,
+  UC(L'┗'), UC(L'┛'), UC(L'┫'), UC(L'━'), UC(L'┣'), UC(L'╋'), MFN_R4
+),
+[LY_0100] = LAYOUT_planck_grid(
+ KC_F13, KC_WSCH,     KC_HOME,     KC_UP,     KC_END,     KC_PGUP,     MFN_R1,
+ KC_F14, XXXXXXX,     KC_LEFT,     KC_DOWN,   KC_RGHT,    KC_PGDN,     MFN_R2,
+ KC_F15, KC_WBAK,     KC_WFWD,     MC(KC_A),  MC(KC_Z),   MSC(KC_Z),   MFN_R3,
+ KC_F16, MA(KC_LEFT), MC(KC_LEFT), MC(KC_F),  MC(KC_RGHT),MA(KC_RGHT), MFN_R4,
+),
+[LY_1100] = LAYOUT_planck_grid(
+ KC_F17, MC(KC_WSCH), S(KC_HOME),  S(KC_UP),  S(KC_END),  MC(KC_PGUP), MFN_R1,
+ KC_F18, XXXXXXX,     S(KC_LEFT),  S(KC_DOWN),S(KC_RGHT), MC(KC_PGDN), MFN_R2,
+ KC_F19, MC(KC_S),    MC(KC_X),    MC(KC_C),  MC(KC_V),   MC(KC_L),    MFN_R3,
+ KC_F20, MCA(KC_LEFT),MSC(KC_LEFT),MCA(KC_F),MSC(KC_RGHT),MCA(KC_RGHT),MFN_R4,
+),
+[LY_0110] = LAYOUT_planck_grid(
+  MC(KC_F1) ,MC(KC_F2) ,MC(KC_F3) ,MC(KC_F4) ,MC(KC_F5) ,MC(KC_F6) , MFN_R1,
+  MC(KC_F7) ,MC(KC_F8) ,MC(KC_F9) ,MC(KC_F10),MC(KC_F11),MC(KC_F12), MFN_R2,
+  MC(KC_F13),MC(KC_F14),MC(KC_F15),MC(KC_F16),MC(KC_F17),MC(KC_F18), MFN_R3,
+  MC(KC_F19),MC(KC_F20),MC(KC_F21),MC(KC_F22),MC(KC_F23),MC(KC_F24), MFN_R4
+),
+[LY_1110] = LAYOUT_planck_grid(
+  MG(KC_F1) ,MG(KC_F2) ,MG(KC_F3) ,MG(KC_F4) ,MG(KC_F5) ,MG(KC_F6) , MFN_R1,
+  MG(KC_F7) ,MG(KC_F8) ,MG(KC_F9) ,MG(KC_F10),MG(KC_F11),MG(KC_F12), MFN_R2,
+  MG(KC_F13),MG(KC_F14),MG(KC_F15),MG(KC_F16),MG(KC_F17),MG(KC_F18), MFN_R3,
+  MG(KC_F19),MG(KC_F20),MG(KC_F21),MG(KC_F22),MG(KC_F23),MG(KC_F24), MFN_R4
+),
+[LY_1111] = LAYOUT_planck_grid(
+ KC_MPRV, DYN_REC_STOP,    KC_WH_L,         KC_MS_U, KC_WH_R, KC_WH_U, MFN_R1,
+ KC_CAPS, XXXXXXX,         KC_MS_L,         KC_MS_D, KC_MS_R, KC_WH_D, MFN_R2,
+ KC_MNXT, DYN_MACRO_PLAY2, DYN_MACRO_PLAY1, KC_MPLY, KC_MRWD, KC_MFFD, MFN_R3,
+ KC_MSTP, DYN_REC_START2,  DYN_REC_START1,  KC_BTN2, KC_BTN1, KC_BTN3, MFN_R4,
+),
+[LY_1101] = LAYOUT_planck_grid(
+  XXXXXXX, MU_ON,   MU_OFF,      PRINT_ON, PRINT_OFF,   DEBUG,   MFN_R1,
+  XXXXXXX, KC_APP,  KC_VOLD,     KC_MUTE,  KC_VOLU,     XXXXXXX, MFN_R2,
+  XXXXXXX, KC_MAIL, S(KC_VOLD),  KC_INS,   S(KC_VOLU),  KC_PSCR, MFN_R3,
+  XXXXXXX, MUV_DE,  MUV_IN,      AU_ON,    AU_OFF,      RESET,   MFN_R4,
+),
+[LY_0011] = LAYOUT_planck_grid(
+  UC(L'็'),  UC(L'์'),  UC(L'่'),  UC(L'้'),  UC(L'๊'),  UC(L'๋'), MFN_R1,
+  UC(L'โ'),  UC(L'แ'),  UC(L'เ'),  UC(L'า'),  UC(L'ั'),  UC(L'ะ'), MFN_R2,
+  UC(L'ไ'),  UC(L'ใ'),  UC(L'ิ'),  UC(L'ี'),  UC(L'ึ'),  UC(L'ื'), MFN_R3,
+  UC(L'ๅ'),  UC(L'ฺ'),  UC(L'ํ'),  UC(L'ุ'),  UC(L'ู'),  UC(L'ำ'), MFN_R4,
+),
+[LY_1011] = LAYOUT_planck_grid(
+  UC(L'ฐ'),  UC(L'ฎ'),  UC(L'ฏ'),  UC(L'ฮ'),  UC(L'ข'),  UC(L'ฃ'), MFN_R1,
+  UC(L'ถ'),  UC(L'ด'),  UC(L'ต'),  UC(L'อ'),  UC(L'ก'),  UC(L'จ'), MFN_R2,
+  UC(L'ภ'),  UC(L'บ'),  UC(L'ป'),  UC(L'ส'),  UC(L'ห'),  UC(L'ฉ'), MFN_R3,
+  UC(L'ฯ'),  UC(L'ผ'),  UC(L'ฝ'),  UC(L'ศ'),  UC(L'ษ'),  UC(L'ๆ'), MFN_R4,
+),
+[LY_0111] = LAYOUT_planck_grid(
+  UC(L'ฒ'),  UC(L'ฤ'),  UC(L'ฦ'),  UC(L'ม'),  UC(L'ค'),  UC(L'ฅ'), MFN_R1,
+  UC(L'ณ'),  UC(L'ร'),  UC(L'ล'),  UC(L'น'),  UC(L'ว'),  UC(L'ง'), MFN_R2,
+  UC(L'ญ'),  UC(L'ช'),  UC(L'ซ'),  UC(L'ย'),  UC(L'ท'),  UC(L'ฑ'), MFN_R3,
+  UC(L'ฌ'),  UC(L'ฬ'),  UC(L'ฟ'),  UC(L'พ'),  UC(L'ธ'),  UC(L'ฆ'), MFN_R4,
+),
 [LY_0001] = UNUSED_LAYER
 [LY_0101] = UNUSED_LAYER
 [LY_1001] = UNUSED_LAYER

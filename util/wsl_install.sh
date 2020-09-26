@@ -1,6 +1,7 @@
 #!/bin/bash
 
-dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+util_dir=$(dirname "$0")
+dir=$(cd -P -- "$util_dir" && pwd -P)
 pushd "$dir";
 
 if [[ $dir != /mnt/* ]];
@@ -15,38 +16,20 @@ fi
 while true; do
     echo
     echo "Do you want to install all toolchain dependencies needed for compiling QMK?"
-    echo "This will run install_dependencies.sh, which calls apt-get upgrade."
     echo "If you don't want that, you can install the dependencies manually."
     read -p "(Y/N) " res
     case $res in
-        [Yy]* ) sudo ./install_dependencies.sh; break;;
+        [Yy]* ) ./linux_install.sh; break;;
         [Nn]* ) break;;
         * ) echo "Invalid answer";;
     esac
 done
-
-echo "Installing dependencies needed for the installation (unzip, wget)"
-echo "This will ask for the sudo password"
-sudo apt-get install unzip wget
 
 download_dir=wsl_downloaded
 
 source "$dir/win_shared_install.sh"
 
-pushd "$download_dir"
-while true; do
-    echo
-    echo "Flip need to be installed if you want to use that for programming."
-    echo "Please install it to the default location!"
-    read -p "Do you want to install it now? (Y/N) " res
-    case $res in
-        [Yy]* ) cmd.exe /c FlipInstaller.exe; break;;
-        [Nn]* ) break;;
-        * ) echo "Invalid answer";;
-    esac
-done
-popd
-
+pip3 install -r ${util_dir}/../requirements.txt
 
 echo 
 echo "Creating a softlink to the utils directory as ~/qmk_utils."

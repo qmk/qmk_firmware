@@ -30,12 +30,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Dactyl
 #define DESCRIPTION     An ortholinear, split, 3D-curved keyboard with thumb clusters.
 
-/* key matrix size
- * At this time, "row" in the dactyl's code actually means "column" on the
- * physical keyboard. It's confusing. I'm sorry. Blame Jack Humbert :P
- */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
+#define DIODE_DIRECTION ROW2COL
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 12
+#define COL_EXPANDED { true, true, true, true, true, true, false, false, false, false, false, false}
+#define MATRIX_ONBOARD_ROW_PINS { F0, F1, F4, F5, F6, F7 }
+#define MATRIX_ONBOARD_COL_PINS { 0, 0, 0, 0, 0, 0, B1, B2, B3, D2, D3, C6 }
+#define EXPANDER_COL_REGISTER GPIOA
+#define EXPANDER_ROW_REGISTER GPIOB
+#define MATRIX_EXPANDER_COL_PINS {0, 1, 2, 3, 4, 5}
+#define MATRIX_EXPANDER_ROW_PINS {0, 1, 2, 3, 4, 5}
 
 #define MOUSEKEY_INTERVAL     20
 #define MOUSEKEY_DELAY        0
@@ -50,8 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
+    get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
 /* fix space cadet rollover issue */
@@ -59,8 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    15
-
-#define PREVENT_STUCK_MODIFIERS
 
 #define USB_MAX_POWER_CONSUMPTION 500
 

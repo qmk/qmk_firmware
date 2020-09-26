@@ -1,5 +1,5 @@
 
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _FNCAPS 1
@@ -7,19 +7,6 @@
 
 // Fillers to make layering more clear
 #define ______ KC_TRNS
-#define XXXXXXX KC_NO
-
-// Func macro definitions.
-#define S_LED   FUNC(0)
-#define S_LEDI  FUNC(1)
-#define S_LEDD  FUNC(2)
-
-// Enable these functions using FUNC(n) macro.
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_BACKLIGHT_TOGGLE(),
-	[1] = ACTION_BACKLIGHT_INCREASE(),
-	[2] = ACTION_BACKLIGHT_DECREASE()
- };
 
 /*
  * |     |     |
@@ -68,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ______,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS,  \
       ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
       ______,   ______, ______, ______, ______, ______, ______, KC_PSCR,______, ______, ______, ______, ______, ______,   \
-      ______,   ______,  S_LED,  S_LEDI, S_LEDD,______,KC_MUTE,KC_VOLU,KC_VOLD,______, ______, ______, ______,KC_MPLY,  \
+      ______,   ______, BL_TOGG, BL_INC, BL_DEC, ______,KC_MUTE,KC_VOLU,KC_VOLD,______, ______, ______, ______,KC_MPLY,  \
       ______,   ______, ______,                 ______,         KC_DEL,         ______, KC_MPRV,    KC_MSTP,    KC_MNXT \
       ),
 

@@ -23,19 +23,6 @@ ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be di
 WATCHDOG_ENABLE = no		# Resets keyboard if matrix_scan isn't run every 250ms
 
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
-
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-endif
-
-
 # Override the LFK87 hardware version.
 #
 # A - Green PCB. at90usb1286 Only 3 exist

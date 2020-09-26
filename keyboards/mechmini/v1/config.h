@@ -15,25 +15,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef V1_CONFIG_H
-#define V1_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xCA40
 #define DEVICE_VER      0x0001
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
 #define MANUFACTURER    MECHKEYS
 #define PRODUCT         Mechmini
 #define DESCRIPTION     40% modular keyboard
 
 /* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
+#define MATRIX_ROW_PINS { B0, B1, B2, B3 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4 }
+#define DIODE_DIRECTION COL2ROW
 
-#define NO_UART 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 
 /* RGB underglow */
 // The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
@@ -41,8 +42,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN E2
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
-#endif

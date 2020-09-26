@@ -13,9 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "speedo.h"
+#include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define FN MO(_FN)
 #define TORST TO(_RESET)
 #define TODFT TO(_DEFAULT)
@@ -30,7 +29,7 @@ enum speedo_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
-[_DEFAULT] = KEYMAP(
+[_DEFAULT] = LAYOUT(
     KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          KC_UP,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_DOWN,      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
@@ -38,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT, KC_GRV,  FN,      KC_BSPC, KC_DEL,   KC_ENT,  KC_SPC,  FN,      TODO,    KC_RALT, KC_RGUI, KC_RCTL \
 ),
 
-[_FN] = KEYMAP(
+[_FN] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______,   TORST, \
     _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,      _______,     KC_PGUP, KC_HOME, KC_END,  _______, _______, _______, \
     KC_CAPS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_PAUS,      _______,     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
@@ -46,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 
-[_RESET] = KEYMAP(
+[_RESET] = LAYOUT(
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   TODFT, \
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, \
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, \
@@ -55,26 +54,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 

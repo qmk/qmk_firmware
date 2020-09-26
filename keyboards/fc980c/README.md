@@ -15,7 +15,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make fc980c:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 To flash the firmware, press the reset button on the controller and run:
 
@@ -155,7 +155,7 @@ Datasheets
 - AD5258: http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf
 - JST S5B-PH-SM4: http://www.jst-mfg.com/product/pdf/eng/ePH.pdf
 - Hirose UX60SC-MB-5S8: https://www.hirose.com/product/en/products/UX/UX60SC-MB-5S8%2880%29/
-- Tr(E42) for LED?: http://cj-elec.com/txUpfile/2013614923661845.pdf
+- Tr(E42) for LED?: http://www.bklighting.com/cimages/specs-758.pdf
 - TYU TU1252WNR-05S: http://php2.twinner.com.tw/files/goodjob/TY1252series.pdf
 
 

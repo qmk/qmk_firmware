@@ -55,7 +55,7 @@ enum action_functions {
 void reset_keyboard_kb(void);
 void click(uint16_t freq, uint16_t duration);
 
-#define k00 KC_NO
+#define ___ KC_NO
 
         // a = 10
         // b = 11
@@ -68,7 +68,7 @@ void click(uint16_t freq, uint16_t duration);
         // i = 18
         // j = 19
 
-#ifndef KEYMAP
+#ifndef LAYOUT
     #define LAYOUT( \
         k11,  k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d,        k1f,        k1g, k1h, k1i, k1j,\
         k21,    k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,      k2e,        k2g, k2h, k2i, k2j,\
@@ -77,13 +77,13 @@ void click(uint16_t freq, uint16_t duration);
         k51,   k52,   k53,                 k56,             k5b, k5c, k5d,     k5f, k5g, k5h,     k5i, k5j \
     ) \
     { \
-        {k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k00, k1f, k1g, k1h, k1i, k1j}, \
-        {k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, k2h, k2i, k2j}, \
-        {k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k00, k00, k00, k3g, k3h, k3i, k3j}, \
-        {k41, k00, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, k00, k4f, k4g, k4h, k4i, k4j}, \
-        {k51, k52, k53, k00, k00, k56, k00, k00, k00, k00, k5b, k5c, k5d, k00, k5f, k5g, k5h, k5i, k5j}, \
+        { k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, ___, k1f, k1g, k1h, k1i, k1j }, \
+        { k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, k2h, k2i, k2j }, \
+        { k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, ___, ___, ___, k3g, k3h, k3i, k3j }, \
+        { k41, ___, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, ___, k4f, k4g, k4h, k4i, k4j }, \
+        { k51, k52, k53, ___, ___, k56, ___, ___, ___, ___, k5b, k5c, k5d, ___, k5f, k5g, k5h, k5i, k5j }, \
     }
 
-#endif //!KEYMAP#endif
+#endif // !LAYOUT #endif
 
 #endif //LFK87_H

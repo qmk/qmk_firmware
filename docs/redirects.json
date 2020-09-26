@@ -34,7 +34,7 @@
             },
             {
                 "from": "space_cadet_shift.html",
-                "to": "feature_space_cadet.html"
+                "to": "feature_space_cadet_shift.html"
             },
             {
                 "from": "tap_dance.html",
@@ -43,6 +43,10 @@
             {
                 "from": "unicode.html",
                 "to": "feature_unicode.html"
+            },
+            {
+                "from": "python_development.html",
+                "to": "cli_development.html"
             }
         ]
 }

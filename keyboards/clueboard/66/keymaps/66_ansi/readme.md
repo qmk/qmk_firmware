@@ -1,6 +1,4 @@
-![Clueboard Layout Image](http://i.imgur.com/7Capi8W.png)
-
-# Basic Clueboard 66% Hotswap Layout
+# Basic Clueboard 66% Hotswap ANSI Layout
 
 This is the default layout that comes flashed on every Clueboard. For the most
 part it's a straightforward and easy to follow layout. The only unusual key is 

@@ -15,29 +15,50 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KEYMAP_COMMON_H
-#define KEYMAP_COMMON_H
+#pragma once
 
 #include "quantum.h"
-#include "quantum_keycodes.h"
-#include "keycode.h"
-#include "action.h"
 
-void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
+#define XXX KC_NO
 
-#define KEYMAP_GRID( \
-    K01, K02, K03, K04, K05, K06, \
-    K11, K12, K13, K14, K15, K16, \
-    K21, K22, K23, K24, K25, K26, \
-    K31, K32, K33, K34, K35, K36 \
-) \
-{ \
-  { K06, K05, K04, K03, K02, K01 }, \
-  { K16, K15, K14, K13, K12, K11 }, \
-  { K26, K25, K24, K23, K22, K21 }, \
-  { K36, K35, K34, K33, K32, K31 }  \
+#define LAYOUT_ortho_6x4( \
+    k00,  k10,  k20,  k30, \
+    k01,  k11,  k21,  k31, \
+    k02,  k12,  k22,  k32, \
+    k03,  k13,  k23,  k33, \
+    k04,  k14,  k24,  k34, \
+    k05,  k15,  k25,  k35 \
+) { \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k10, k11, k12, k13, k14, k15 }, \
+    { k20, k21, k22, k23, k24, k25 }, \
+    { k30, k31, k32, k33, k34, k35 } \
 }
 
-#define KEYMAP KEYMAP_GRID
+#define LAYOUT_ortho_4x6( \
+    k05, k04, k03, k02, k01, k00, \
+    k15, k14, k13, k12, k11, k10, \
+    k25, k24, k23, k22, k21, k20, \
+    k35, k34, k33, k32, k31, k30 \
+) { \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k10, k11, k12, k13, k14, k15 }, \
+    { k20, k21, k22, k23, k24, k25 }, \
+    { k30, k31, k32, k33, k34, k35 } \
+}
 
-#endif
+#define LAYOUT_numpad_6x4( \
+    k00,  k10,  k20,  k30, \
+    k01,  k11,  k21,  k31, \
+    k02,  k12,  k22,\
+    k03,  k13,  k23,  k33, \
+    k04,  k14,  k24, \
+    k05,        k25,  k35 \
+) { \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k10, k11, k12, k13, k14, XXX }, \
+    { k20, k21, k22, k23, k24, k25 }, \
+    { k30, k31, XXX, k33, XXX, k35 } \
+}
+
+#define LAYOUT LAYOUT_ortho_4x6

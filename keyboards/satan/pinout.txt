@@ -1,1 +1,0 @@
-For WS2812B LED strip support, connect DIN from strip to PE2 on ATmega32u4 controller (see reference image controller.jpg)

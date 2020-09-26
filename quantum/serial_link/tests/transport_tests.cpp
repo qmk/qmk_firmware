@@ -26,8 +26,8 @@ SOFTWARE.
 #include "gmock/gmock.h"
 
 using testing::_;
-using testing::ElementsAreArray;
 using testing::Args;
+using testing::ElementsAreArray;
 
 extern "C" {
 #include "serial_link/protocol/transport.h"
@@ -53,7 +53,7 @@ static remote_object_t* test_remote_objects[] = {
 };
 
 class Transport : public testing::Test {
-public:
+   public:
     Transport() {
         Instance = this;
         add_remote_objects(test_remote_objects, sizeof(test_remote_objects) / sizeof(remote_object_t*));
@@ -64,8 +64,8 @@ public:
         reinitialize_serial_link_transport();
     }
 
-    MOCK_METHOD0(signal_data_written, void ());
-    MOCK_METHOD1(router_send_frame, void (uint8_t destination));
+    MOCK_METHOD0(signal_data_written, void());
+    MOCK_METHOD1(router_send_frame, void(uint8_t destination));
 
     void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) {
         router_send_frame(destination);
@@ -80,13 +80,9 @@ public:
 Transport* Transport::Instance = nullptr;
 
 extern "C" {
-void signal_data_written(void) {
-    Transport::Instance->signal_data_written();
-}
+void signal_data_written(void) { Transport::Instance->signal_data_written(); }
 
-void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) {
-    Transport::Instance->router_send_frame(destination, data, size);
-}
+void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) { Transport::Instance->router_send_frame(destination, data, size); }
 }
 
 TEST_F(Transport, write_to_local_signals_an_event) {
@@ -104,7 +100,7 @@ TEST_F(Transport, write_to_local_signals_an_event) {
 TEST_F(Transport, writes_from_master_to_all_slaves) {
     update_transport();
     test_object1* obj = begin_write_master_to_slave();
-    obj->test = 5;
+    obj->test         = 5;
     EXPECT_CALL(*this, signal_data_written());
     end_write_master_to_slave();
     EXPECT_CALL(*this, router_send_frame(0xFF));
@@ -118,7 +114,7 @@ TEST_F(Transport, writes_from_master_to_all_slaves) {
 TEST_F(Transport, writes_from_slave_to_master) {
     update_transport();
     test_object1* obj = begin_write_slave_to_master();
-    obj->test = 7;
+    obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
     end_write_slave_to_master();
     EXPECT_CALL(*this, router_send_frame(0));
@@ -133,7 +129,7 @@ TEST_F(Transport, writes_from_slave_to_master) {
 TEST_F(Transport, writes_from_master_to_single_slave) {
     update_transport();
     test_object1* obj = begin_write_master_to_single_slave(3);
-    obj->test = 7;
+    obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
     end_write_master_to_single_slave(3);
     EXPECT_CALL(*this, router_send_frame(4));
@@ -147,7 +143,7 @@ TEST_F(Transport, writes_from_master_to_single_slave) {
 TEST_F(Transport, ignores_object_with_invalid_id) {
     update_transport();
     test_object1* obj = begin_write_master_to_single_slave(3);
-    obj->test = 7;
+    obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
     end_write_master_to_single_slave(3);
     EXPECT_CALL(*this, router_send_frame(4));
@@ -161,7 +157,7 @@ TEST_F(Transport, ignores_object_with_invalid_id) {
 TEST_F(Transport, ignores_object_with_size_too_small) {
     update_transport();
     test_object1* obj = begin_write_master_to_slave();
-    obj->test = 7;
+    obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
     end_write_master_to_slave();
     EXPECT_CALL(*this, router_send_frame(_));
@@ -175,7 +171,7 @@ TEST_F(Transport, ignores_object_with_size_too_small) {
 TEST_F(Transport, ignores_object_with_size_too_big) {
     update_transport();
     test_object1* obj = begin_write_master_to_slave();
-    obj->test = 7;
+    obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
     end_write_master_to_slave();
     EXPECT_CALL(*this, router_send_frame(_));

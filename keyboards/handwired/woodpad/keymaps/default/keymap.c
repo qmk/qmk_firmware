@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "woodpad.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -23,10 +23,6 @@
 #define _NAV 1
 #define _ALT 2
 #define _ADJUST 3
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMLOCK] = KEYMAP( /* Base */
@@ -57,10 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______,   \
     _______,  _______, _______, _______   \
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 void numlock_led_on(void) {
@@ -94,7 +86,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			layer_off(_ADJUST);
 		}
 		numlock_down = false;
-	  } 
+	  }
       return false;
       break;
 	  case KC_LALT:

@@ -1,7 +1,4 @@
-#include "dz60.h"
-#include "action_layer.h"
-
-#define _______ KC_TRNS //readability
+#include QMK_KEYBOARD_H
 
 #define _DL 0 //default
 #define _F1 1 //function 1

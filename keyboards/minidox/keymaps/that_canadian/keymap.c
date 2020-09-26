@@ -1,6 +1,4 @@
-#include "minidox.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -19,10 +17,6 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))

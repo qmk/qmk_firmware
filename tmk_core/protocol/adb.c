@@ -42,11 +42,10 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <avr/interrupt.h>
 #include "adb.h"
 
-
 // GCC doesn't inline functions normally
-#define data_lo() (ADB_DDR |=  (1<<ADB_DATA_BIT))
-#define data_hi() (ADB_DDR &= ~(1<<ADB_DATA_BIT))
-#define data_in() (ADB_PIN &   (1<<ADB_DATA_BIT))
+#define data_lo() (ADB_DDR |= (1 << ADB_DATA_BIT))
+#define data_hi() (ADB_DDR &= ~(1 << ADB_DATA_BIT))
+#define data_in() (ADB_PIN & (1 << ADB_DATA_BIT))
 
 #ifdef ADB_PSW_BIT
 static inline void psw_lo(void);
@@ -54,18 +53,16 @@ static inline void psw_hi(void);
 static inline bool psw_in(void);
 #endif
 
-static inline void attention(void);
-static inline void place_bit0(void);
-static inline void place_bit1(void);
-static inline void send_byte(uint8_t data);
+static inline void     attention(void);
+static inline void     place_bit0(void);
+static inline void     place_bit1(void);
+static inline void     send_byte(uint8_t data);
 static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
 static inline uint16_t adb_host_dev_recv(uint8_t device);
 
-
-void adb_host_init(void)
-{
-    ADB_PORT &= ~(1<<ADB_DATA_BIT);
+void adb_host_init(void) {
+    ADB_PORT &= ~(1 << ADB_DATA_BIT);
     data_hi();
 #ifdef ADB_PSW_BIT
     psw_hi();
@@ -73,10 +70,7 @@ void adb_host_init(void)
 }
 
 #ifdef ADB_PSW_BIT
-bool adb_host_psw(void)
-{
-    return psw_in();
-}
+bool adb_host_psw(void) { return psw_in(); }
 #endif
 
 /*
@@ -105,11 +99,11 @@ bool adb_host_psw(void)
 // bit0:
 //    70us bit cell:
 //      ____________~~~~~~
-//      42-49        21-28  
+//      42-49        21-28
 //
 //    130us bit cell:
 //      ____________~~~~~~
-//      78-91        39-52  
+//      78-91        39-52
 //
 // bit1:
 //    70us bit cell:
@@ -122,66 +116,50 @@ bool adb_host_psw(void)
 //
 // [from Apple IIgs Hardware Reference Second Edition]
 
-enum {
-    ADDR_KEYB  = 0x20,
-    ADDR_MOUSE = 0x30
-};
+enum { ADDR_KEYB = 0x20, ADDR_MOUSE = 0x30 };
 
-uint16_t adb_host_kbd_recv(void)
-{
-    return adb_host_dev_recv(ADDR_KEYB);
-}
+uint16_t adb_host_kbd_recv(void) { return adb_host_dev_recv(ADDR_KEYB); }
 
 #ifdef ADB_MOUSE_ENABLE
-void adb_mouse_init(void) {
-	    return;
-}
+void adb_mouse_init(void) { return; }
 
-uint16_t adb_host_mouse_recv(void)
-{
-    return adb_host_dev_recv(ADDR_MOUSE);
-}
+uint16_t adb_host_mouse_recv(void) { return adb_host_dev_recv(ADDR_MOUSE); }
 #endif
 
-static inline uint16_t adb_host_dev_recv(uint8_t device)
-{
+static inline uint16_t adb_host_dev_recv(uint8_t device) {
     uint16_t data = 0;
     cli();
     attention();
-    send_byte(device|0x0C);     // Addr:Keyboard(0010)/Mouse(0011), Cmd:Talk(11), Register0(00)
-    place_bit0();               // Stopbit(0)
-    if (!wait_data_hi(500)) {    // Service Request(310us Adjustable Keyboard): just ignored
+    send_byte(device | 0x0C);  // Addr:Keyboard(0010)/Mouse(0011), Cmd:Talk(11), Register0(00)
+    place_bit0();              // Stopbit(0)
+    if (!wait_data_hi(500)) {  // Service Request(310us Adjustable Keyboard): just ignored
         sei();
-        return -30;             // something wrong
+        return -30;  // something wrong
     }
-    if (!wait_data_lo(500)) {   // Tlt/Stop to Start(140-260us)
+    if (!wait_data_lo(500)) {  // Tlt/Stop to Start(140-260us)
         sei();
-        return 0;               // No data to send
+        return 0;  // No data to send
     }
-    
-    uint8_t n = 17; // start bit + 16 data bits
+
+    uint8_t n = 17;  // start bit + 16 data bits
     do {
-        uint8_t lo = (uint8_t) wait_data_hi(130);
-        if (!lo)
-            goto error;
-        
-        uint8_t hi = (uint8_t) wait_data_lo(lo);
-        if (!hi)
-            goto error;
-        
+        uint8_t lo = (uint8_t)wait_data_hi(130);
+        if (!lo) goto error;
+
+        uint8_t hi = (uint8_t)wait_data_lo(lo);
+        if (!hi) goto error;
+
         hi = lo - hi;
         lo = 130 - lo;
-        
+
         data <<= 1;
         if (lo < hi) {
             data |= 1;
-        }
-        else if (n == 17) {
+        } else if (n == 17) {
             sei();
             return -20;
         }
-    }
-    while ( --n );
+    } while (--n);
 
     // Stop bit can't be checked normally since it could have service request lenghtening
     // and its high state never goes low.
@@ -197,76 +175,66 @@ error:
     return -n;
 }
 
-void adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l)
-{
+void adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l) {
     cli();
     attention();
     send_byte(cmd);
-    place_bit0();               // Stopbit(0)
-    _delay_us(200);             // Tlt/Stop to Start
-    place_bit1();               // Startbit(1)
-    send_byte(data_h); 
+    place_bit0();    // Stopbit(0)
+    _delay_us(200);  // Tlt/Stop to Start
+    place_bit1();    // Startbit(1)
+    send_byte(data_h);
     send_byte(data_l);
-    place_bit0();               // Stopbit(0);
+    place_bit0();  // Stopbit(0);
     sei();
 }
 
 // send state of LEDs
-void adb_host_kbd_led(uint8_t led)
-{
+void adb_host_kbd_led(uint8_t led) {
     // Addr:Keyboard(0010), Cmd:Listen(10), Register2(10)
     // send upper byte (not used)
     // send lower byte (bit2: ScrollLock, bit1: CapsLock, bit0:
-    adb_host_listen(0x2A,0,led&0x07);
+    adb_host_listen(0x2A, 0, led & 0x07);
 }
-
 
 #ifdef ADB_PSW_BIT
-static inline void psw_lo()
-{
-    ADB_DDR  |=  (1<<ADB_PSW_BIT);
-    ADB_PORT &= ~(1<<ADB_PSW_BIT);
+static inline void psw_lo() {
+    ADB_DDR |= (1 << ADB_PSW_BIT);
+    ADB_PORT &= ~(1 << ADB_PSW_BIT);
 }
-static inline void psw_hi()
-{
-    ADB_PORT |=  (1<<ADB_PSW_BIT);
-    ADB_DDR  &= ~(1<<ADB_PSW_BIT);
+static inline void psw_hi() {
+    ADB_PORT |= (1 << ADB_PSW_BIT);
+    ADB_DDR &= ~(1 << ADB_PSW_BIT);
 }
-static inline bool psw_in()
-{
-    ADB_PORT |=  (1<<ADB_PSW_BIT);
-    ADB_DDR  &= ~(1<<ADB_PSW_BIT);
-    return ADB_PIN&(1<<ADB_PSW_BIT);
+static inline bool psw_in() {
+    ADB_PORT |= (1 << ADB_PSW_BIT);
+    ADB_DDR &= ~(1 << ADB_PSW_BIT);
+    return ADB_PIN & (1 << ADB_PSW_BIT);
 }
 #endif
 
-static inline void attention(void)
-{
+static inline void attention(void) {
     data_lo();
-    _delay_us(800-35); // bit1 holds lo for 35 more
+    _delay_us(800 - 35);  // bit1 holds lo for 35 more
     place_bit1();
 }
 
-static inline void place_bit0(void)
-{
+static inline void place_bit0(void) {
     data_lo();
     _delay_us(65);
     data_hi();
     _delay_us(35);
 }
 
-static inline void place_bit1(void)
-{
+static inline void place_bit1(void) {
     data_lo();
     _delay_us(35);
     data_hi();
     _delay_us(65);
 }
 
-static inline void send_byte(uint8_t data)
-{
+static inline void send_byte(uint8_t data) {
     for (int i = 0; i < 8; i++) {
-        if (data&(0x80>>i))
+        if (data & (0x80 >> i))
             place_bit1();
         else
             place_bit0();
@@ -275,28 +243,21 @@ static inline void send_byte(uint8_t data)
 
 // These are carefully coded to take 6 cycles of overhead.
 // inline asm approach became too convoluted
-static inline uint16_t wait_data_lo(uint16_t us)
-{
+static inline uint16_t wait_data_lo(uint16_t us) {
     do {
-        if ( !data_in() )
-            break;
+        if (!data_in()) break;
         _delay_us(1 - (6 * 1000000.0 / F_CPU));
-    }
-    while ( --us );
+    } while (--us);
     return us;
 }
 
-static inline uint16_t wait_data_hi(uint16_t us)
-{
+static inline uint16_t wait_data_hi(uint16_t us) {
     do {
-        if ( data_in() )
-            break;
+        if (data_in()) break;
         _delay_us(1 - (6 * 1000000.0 / F_CPU));
-    }
-    while ( --us );
+    } while (--us);
     return us;
 }
-
 
 /*
 ADB Protocol
@@ -375,7 +336,7 @@ Commands
     A A A A 1 1 R R     Talk(read from a device)
 
     The command to read keycodes from keyboard is 0x2C which
-    consist of keyboard address 2 and Talk against register 0. 
+    consist of keyboard address 2 and Talk against register 0.
 
     Address:
     2:  keyboard
@@ -457,7 +418,7 @@ Keyboard Data(Register0)
 Keyboard LEDs & state of keys(Register2)
     This register hold current state of three LEDs and nine keys.
     The state of LEDs can be changed by sending Listen command.
-    
+
     1514 . . . . . . 7 6 5 . 3 2 1 0
      | | | | | | | | | | | | | | | +-   LED1(NumLock)
      | | | | | | | | | | | | | | +---   LED2(CapsLock)

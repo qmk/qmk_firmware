@@ -1,6 +1,5 @@
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
+
 
 extern keymap_config_t keymap_config;
 
@@ -37,12 +36,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_GRV_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_TILD),
 };
 */
-
-
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

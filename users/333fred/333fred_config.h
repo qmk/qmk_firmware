@@ -1,7 +1,0 @@
-#ifndef FRED333_CONFIG
-#define FRED333_CONFIG
-
-#define PREVENT_STUCK_MODIFIERS
-#define PERMISSIVE_HOLD
-
-#endif

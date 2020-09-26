@@ -1,0 +1,1 @@
+DEFAULT_FOLDER = navi10/rev3

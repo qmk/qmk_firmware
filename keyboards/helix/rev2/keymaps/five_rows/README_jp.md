@@ -7,33 +7,38 @@
 ## キー配置
 以下に、Qwerty配列時の、文字配列の図を示します。
 
-![fig1](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/662082b66231eb8d1f45776d813c57f29d445e68/helix-five_rows_r2.png)
+![fig1](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/827632dda7db87cf88d41a0d3b476c5962c29213/helix-five_rows_r3.png)
 
 ## レイヤー
 
 |優先順位|番号|名称|内容|
 | ---- | ---- | --- | --- |
-|高い|16|Adjust|機能キー（紫）|
-||4|Extra char|記号類（赤）|
-||3|Function|ファンクションキー類（青）|
+|高い|9|Adjust|機能キー（紫）|
+||8|KFunction|テンキーパッド用ファンクションキー類（青）|
+||7|Extra char|記号類（赤）|
+||6|Function|ファンクションキー類（青）|
+||3|Keypad|テンキーパッド配列|
 ||2|Dvorak|Dvorak配列|
 ||1|Colemak|Colemak配列|
 |低い|0|Qwerty|QWERTY配列（ベース）|
 
-Qwerty/Colemak/Dvorak の各レイヤーは、後述する、Ajuest キーによる選択で、いずれか一つだけが有効になり、標準のキーマップとなります。
+Qwerty/Colemak/Dvorak/Keypad の各レイヤーは、後述する、Ajuestレイヤーの キーによる選択で、いずれか一つだけが有効になり、標準のキーマップとなります。
 
-Adjust レイヤーは、Adjust キーを押している間だけ有効になり、標準のキーマップの上にかぶさるように一部のキーが置き換わります。
+Function レイヤーは、下段両端の4つのFnキーのどれかひとつを押している間だけ有効になり、矢印キー等のナビゲーションキーや F1, F2, ...F12キーなどが配置されています。  
+上の図の青色の刻印のキーのあるレイヤーです。
 
-Function レイヤーは、Fn キーを押している間だけ有効になり、標準のキーマップの上にかぶさるように一部のキーが置き換わります。
+Extra レイヤーは、下段中央部の Enter キーか BS キーを一定時間(0.2秒)以上押していると押している間だけ有効になり、'+=-_[]{}' の 8つの記号と「英数」キー、「かな」キーが配置されています。
+このため、Enter/BS キーで Enter/BS を入力するには、Enter/BSキーを押して短時間ですぐ離してください。  
+上の図の赤色の刻印のキーのあるレイヤーです。
 
-Extra レイヤーは、Enter キーを一定時間(0.1秒)以上押していると押している間だけ有効になり、標準のキーマップの上にかぶさるように一部のキーが置き換わります。
-このため、Enterキーで Enter を入力するには、Enterキーを押して短時間ですぐ離してください。
+Adjust レイヤーは、Adjust キーを押している間有効になります。
+Adjust キーは Function レイヤーに有り、下段両端の4つのFnキーのどれか一つを押しながら、下段中央部の Enter キーか BS キーを押すことで Adjust レイヤーが有効になります。  
+Adjust キー (Enter/BS)を押した後は、Fnキーは離して構いません。  
 
 ### Adjust レイヤー
-Ajust レイヤーは、Helix の標準キーマップ "default" から F1,F2..F12 を除き、右側にあった機能キーを
-左側にも追加したものとなっています。
+Ajust レイヤーは、LEDのコントロール、Mac/Win モードの切り替え、Qwerty配列, Colemak配列, Dvorak配列, TenkeyPad配列の切り替えが行えます。
 
-LEDコントロール、Mac/Win モードの切り替え、Qwerty配列, Colemak配列, Dvorak配列の切り替えが行えます。
+![fig2](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/827632dda7db87cf88d41a0d3b476c5962c29213/helix-five_rows_r3adj.png)
 
 ### MacモードとWinモード
 キーボードには、Mac モードと、Win モードの二つのモードがあります。
@@ -44,12 +49,13 @@ LEDコントロール、Mac/Win モードの切り替え、Qwerty配列, Colemak
 |コマンド|指定キー|コード|
 | ---- | ---- | --- |
 |Macモード|Adjust + g(Qwerty)|AG_NORM|
-|Winモード|Adjust + h(Qwerty)|AG_SWAP|
-|        |Adjust + t(Qwerty)|       |
+|        |Adjust + h(Qwerty)|       |
+|Winモード|Adjust + t(Qwerty)|AG_SWAP|
+|        |Adjust + y(Qwerty)|       |
 
 Mac モードと Win モードでは、AltキーとWin(GUI)キーが入れ替わります。
 
-Mac モードでは、上の配列図の「英数キー」と「かなキー」で英語モードと日本語モードの切り替えができます。。
+Mac モードでは、Extra レイヤー の「英数」キーと「かな」キーで英語モードと日本語モードの切り替えができます。
 
 Winモードでは、該当のキーはどちらも共に Alt + `（日本語IMEの切り替え）として入力されます。
 
@@ -60,35 +66,48 @@ Winモードでは、該当のキーはどちらも共に Alt + `（日本語IME
 
 |コマンド|指定キー|コード|
 | ---- | ---- | --- |
-|オン／オフ|Adjust + ,(Qwerty)|RGB_TOG|
-|      |Adjust + v(Qwerty)|       |
-|モード切り替え|Adjust + Right option |RGB_SMOD|
-|           |Adjust + c(Qwerty)|       |
-|色相 +|Adjust + .(Qwerty)|RGB_HUI|
-|     |Adjust + Left Control|       |
-|色相 -|Adjust + menu|RGB_HUD|
-|     |Adjust + Left Shift  |       |
-|彩度 +|Adjust + /(Qwerty)   |RGB_SAI|
+|オン／オフ|Adjust + e(Qwerty)|RGB_TOG|
+|      |Adjust + i(Qwerty)|       |
+|モード切り替え|Adjust + d(Qwerty) |RGB_MOD|
+|           |Adjust + k(Qwerty)|       |
+|色相 +|Adjust + Left Control|RGB_HUI|
+|     |Adjust + Right Control|       |
+|色相 -|Adjust + Left Shift  |RGB_HUD|
+|     |Adjust + Right Shift  |       |
+|彩度 +|Adjust + ;(Qwerty)   |RGB_SAI|
 |     |Adjust + a(Qwerty)   |       |
-|彩度 -|Adjust + 右手Fnの左側|RGB_SAD|
-|     |Adjust + z(Qwerty)  |       |
-|明度 +|Adjust + Right Shift|RGB_VAI|
-|     |Adjust + s(Qwerty)  |       |
-|明度 -|Adjust + 右手Fnの右側|RGB_VAD|
-|     |Adjust + x(Qwerty)  |       |
+|彩度 -|Adjust + z(Qwerty)  |RGB_SAD|
+|     |Adjust + /(Qwerty)  |       |
+|明度 +|Adjust + s(Qwerty)  |RGB_VAI|
+|     |Adjust + l(Qwerty)  |       |
+|明度 -|Adjust + x(Qwerty)  |RGB_VAD|
+|     |Adjust + >(Qwerty)  |       |
 |リセット|Adjust + w|RGBRST|
 
 ### 文字配列選択
-Qwerty, Colemak, Dvorak それぞれの文字配列の選択は以下のキーを使います。
+Qwerty, Colemak, Dvorak, Keypad それぞれの文字配列の選択は以下のキーを使います。
 
 |選択配列|指定キー|
 | ---- | ---- |
-|Qwerty | Adjust + j(Qwerty) |
-|       | Adjust + 5|
-|Calemak| Adjust + k(Qwerty) |
-|       | Adjust + 4|
-|Dvorak | Adjust + l(Qwerty) |
-|       | Adjust + 3|
+|Qwerty | Adjust + 5 |
+|       | Adjust + 6 |
+|Calemak| Adjust + 4 |
+|       | Adjust + 7 |
+|Dvorak | Adjust + 3 |
+|       | Adjust + 8 |
+|Keypad | Adjust + 2 |
+|       | Adjust + 9 |
+
+## テンキーパッドのキー配置
+以下に、テンキーパッド配列時の、文字配列の図を示します。
+
+![fig3](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/827632dda7db87cf88d41a0d3b476c5962c29213/helix-five_rows_r3key.png)
+
+図でわかるように、テンキーと F1,F2..F12 のキー入力ができる配列です。  
+F12キーは一定時間(0.2秒)以上押していると KFunc キーとして働き、押している間は、青色の刻印のキー入力を行えます。  
+F12 そのものを入力するときは押して短時間ですぐ離してください。  
+F12キーを押しているときは、F11キー は Adjust キーとなり、Adjust レイヤーが有効になります。
+これによって、Qwerty 配列などに戻すことが可能になります。
 
 ## 備考
 本キーマップは、通常のキーボードの主要部分のホームポジション周辺をなるべくそのまま踏襲する方針で作成しました。
@@ -99,4 +118,4 @@ Qwerty, Colemak, Dvorak それぞれの文字配列の選択は以下のキー�
  * Control キーを左右共にホームポジションの行に移動。
  * 左手親指に BackSpace キーを割り当てる。
 
-![fig2](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/9979482e9aa0b25962fad9ee634cd1c23cef1751/five_rows_making.jpg)
+![fig4](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/d6e9af7684c051de4744b9dee9cd96b762bf4e2d/five_rows_making2.jpg)

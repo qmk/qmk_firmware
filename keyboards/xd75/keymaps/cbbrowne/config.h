@@ -14,17 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
+// place overrides here
 #ifndef NO_DEBUG
 #define NO_DEBUG
 #endif
 #ifndef NO_PRINT
 #define NO_PRINT
 #endif
-
-#include "../../config.h"
 
 #define LEADER_TIMEOUT 300
 #define BACKLIGHT_BREATHING
@@ -34,11 +32,3 @@
 #define randadd 53
 #define randmul 181
 #define randmod 167
-
-/* Filler to make layering a bit clearer *
- * borrowed from basic keymap            */
-
-#define _______ KC_TRNS
-#define _____   KC_NO
-
-#endif

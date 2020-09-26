@@ -1,5 +1,4 @@
 /*
-
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 Copyright 2017 Erin Call <hello@erincall.com>
 
@@ -16,10 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-/*
- * scan matrix
- */
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
@@ -31,47 +26,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "dactyl.h"
 #include "i2cmaster.h"
-#ifdef DEBUG_MATRIX_SCAN_RATE
-#include  "timer.h"
-#endif
+#include "timer.h"
 
-/*
- * This constant define not debouncing time in msecs, but amount of matrix
- * scan loops which should be made to get stable debounced results.
- *
- * On the Dactyl, the matrix scan rate is relatively low, because
- * communicating with the left hand's I/O expander is slower than simply
- * selecting local pins.
- * Now it's only 317 scans/second, or about 3.15 msec/scan.
- * According to Cherry specs, debouncing time is 5 msec.
- *
- * And so, there is no sense to have DEBOUNCE higher than 2.
- */
+
+/* Set 0 if debouncing isn't needed */
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	5
+#   define DEBOUNCE 5
+#endif
+
+#if (DEBOUNCE > 0)
+    static uint16_t debouncing_time;
+    static bool debouncing = false;
+#endif
+
+#ifdef MATRIX_MASKED
+    extern const matrix_row_t matrix_mask[];
+#endif
+
+#if (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
+static const uint8_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
+static const uint8_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
+static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
 #endif
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 
-// Debouncing: store for each key the number of scans until it's eligible to
-// change.  When scanning the matrix, ignore any changes in keys that have
-// already changed in the last DEBOUNCE scans.
-static uint8_t debounce_matrix[MATRIX_ROWS * MATRIX_COLS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-static matrix_row_t read_cols(uint8_t row);
-static void init_cols(void);
-static void unselect_rows(void);
-static void select_row(uint8_t row);
-
-static uint8_t mcp23018_reset_loop;
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
+#if (DIODE_DIRECTION == COL2ROW)
+    static const uint8_t expander_col_pins[MATRIX_COLS] = MATRIX_EXPANDER_COL_PINS;
+    static void init_cols(void);
+    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+    static void unselect_rows(void);
+    static void select_row(uint8_t row);
+    static void unselect_row(uint8_t row);
+#elif (DIODE_DIRECTION == ROW2COL)
+    static const uint8_t expander_row_pins[MATRIX_ROWS] = MATRIX_EXPANDER_ROW_PINS;
+    static void init_rows(void);
+    static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
+    static void unselect_cols(void);
+    static void select_col(uint8_t col);
+    static void unselect_col(uint8_t col);
 #endif
 
+static uint8_t expander_reset_loop;
+uint8_t expander_status;
+uint8_t expander_input_pin_mask;
+bool i2c_initialized = false;
+
+#define ROW_SHIFTER ((matrix_row_t)1)
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -103,81 +108,117 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    // initialize row and col
+    init_expander();
 
-    mcp23018_status = init_mcp23018();
-
-
+#if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
+#elif (DIODE_DIRECTION == ROW2COL)
+    unselect_cols();
+    init_rows();
+#endif
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
-        for (uint8_t j=0; j < MATRIX_COLS; ++j) {
-            debounce_matrix[i * MATRIX_COLS + j] = 0;
-        }
+        matrix_debouncing[i] = 0;
     }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
 
     matrix_init_quantum();
-
 }
 
-void matrix_power_up(void) {
-    mcp23018_status = init_mcp23018();
-
-    unselect_rows();
-    init_cols();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        matrix[i] = 0;
+void init_expander(void) {
+    if (! i2c_initialized) {
+        i2c_init();
+        wait_us(1000000);
     }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
+    if (! expander_input_pin_mask) {
+#if (DIODE_DIRECTION == COL2ROW)
+        for (int col = 0; col < MATRIX_COLS; col++) {
+            if (col_expanded[col]) {
+                expander_input_pin_mask |= (1 << expander_col_pins[col]);
+            }
+        }
+#elif (DIODE_DIRECTION == ROW2COL)
+        for (int row = 0; row < MATRIX_ROWS; row++) {
+            expander_input_pin_mask |= (1 << expander_row_pins[row]);
+        }
 #endif
-}
-
-// Returns a matrix_row_t whose bits are set if the corresponding key should be
-// eligible to change in this scan.
-matrix_row_t debounce_mask(uint8_t row) {
-  matrix_row_t result = 0;
-  for (uint8_t j=0; j < MATRIX_COLS; ++j) {
-    if (debounce_matrix[row * MATRIX_COLS + j]) {
-      --debounce_matrix[row * MATRIX_COLS + j];
-    } else {
-      result |= (1 << j);
     }
-  }
-  return result;
-}
 
-// Report changed keys in the given row.  Resets the debounce countdowns
-// corresponding to each set bit in 'change' to DEBOUNCE.
-void debounce_report(matrix_row_t change, uint8_t row) {
-  for (uint8_t i = 0; i < MATRIX_COLS; ++i) {
-    if (change & (1 << i)) {
-      debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
-    }
-  }
+    expander_status = i2c_start(I2C_ADDR_WRITE); if (expander_status) goto out;
+    expander_status = i2c_write(IODIRA);         if (expander_status) goto out;
+
+    /*
+    Pin direction and pull-up depends on both the diode direction
+    and on whether the column register is GPIOA or GPIOB
+    +-------+---------------+---------------+
+    |       | ROW2COL       | COL2ROW       |
+    +-------+---------------+---------------+
+    | GPIOA | input, output | output, input |
+    +-------+---------------+---------------+
+    | GPIOB | output, input | input, output |
+    +-------+---------------+---------------+
+    */
+
+#if (EXPANDER_COL_REGISTER == GPIOA)
+#   if (DIODE_DIRECTION == COL2ROW)
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+#   elif (DIODE_DIRECTION == ROW2COL)
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+#   endif
+#elif (EXPANDER_COL_REGISTER == GPIOB)
+#   if (DIODE_DIRECTION == COL2ROW)
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+#   elif (DIODE_DIRECTION == ROW2COL)
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+#   endif
+#endif
+
+    i2c_stop();
+
+    // set pull-up
+    // - unused  : off : 0
+    // - input   : on  : 1
+    // - driving : off : 0
+    expander_status = i2c_start(I2C_ADDR_WRITE);              if (expander_status) goto out;
+    expander_status = i2c_write(GPPUA);                       if (expander_status) goto out;
+#if (EXPANDER_COL_REGISTER == GPIOA)
+#   if (DIODE_DIRECTION == COL2ROW)
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+#   elif (DIODE_DIRECTION == ROW2COL)
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+#   endif
+#elif (EXPANDER_COL_REGISTER == GPIOB)
+#   if (DIODE_DIRECTION == COL2ROW)
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+#   elif (DIODE_DIRECTION == ROW2COL)
+        expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
+        expander_status = i2c_write(0);                       if (expander_status) goto out;
+#   endif
+#endif
+
+out:
+    i2c_stop();
 }
 
 uint8_t matrix_scan(void)
 {
-    if (mcp23018_status) { // if there was an error
-        if (++mcp23018_reset_loop == 0) {
-            // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
+    if (expander_status) { // if there was an error
+        if (++expander_reset_loop == 0) {
+            // since expander_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
-            print("trying to reset mcp23018\n");
-            mcp23018_status = init_mcp23018();
-            if (mcp23018_status) {
+            print("trying to reset expander\n");
+            init_expander();
+            if (expander_status) {
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
@@ -185,51 +226,71 @@ uint8_t matrix_scan(void)
         }
     }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_scan_count++;
+#if (DIODE_DIRECTION == COL2ROW)
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+#       if (DEBOUNCE > 0)
+            bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
 
-    uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
-        print("matrix scan frequency: ");
-        pdec(matrix_scan_count);
-        print("\n");
+            if (matrix_changed) {
+                debouncing = true;
+                debouncing_time = timer_read();
+            }
+#       else
+            read_cols_on_row(matrix, current_row);
+#       endif
+    }
 
-        matrix_timer = timer_now;
-        matrix_scan_count = 0;
+#elif (DIODE_DIRECTION == ROW2COL)
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+#       if (DEBOUNCE > 0)
+            bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
+
+            if (matrix_changed) {
+                debouncing = true;
+                debouncing_time = timer_read();
+            }
+#       else
+            read_rows_on_col(matrix, current_col);
+#       endif
+
     }
 #endif
 
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        select_row(i);
-        wait_us(30);  // without this wait read unstable value.
-        matrix_row_t mask = debounce_mask(i);
-        matrix_row_t cols = (read_cols(i) & mask) | (matrix[i] & ~mask);
-        debounce_report(cols ^ matrix[i], i);
-        matrix[i] = cols;
-
-        unselect_rows();
-    }
+#   if (DEBOUNCE > 0)
+        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
+            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+                matrix[i] = matrix_debouncing[i];
+            }
+            debouncing = false;
+        }
+#   endif
 
     matrix_scan_quantum();
-
     return 1;
 }
 
 bool matrix_is_modified(void) // deprecated and evidently not called.
 {
+#if (DEBOUNCE > 0)
+    if (debouncing) return false;
+#endif
     return true;
 }
 
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<<col));
+    return (matrix[row] & (ROW_SHIFTER << col));
 }
 
 inline
 matrix_row_t matrix_get_row(uint8_t row)
 {
+#ifdef MATRIX_MASKED
+    return matrix[row] & matrix_mask[row];
+#else
     return matrix[row];
+#endif
 }
 
 void matrix_print(void)
@@ -251,143 +312,203 @@ uint8_t matrix_key_count(void)
     return count;
 }
 
-/* Column pin configuration
- *
- * Teensy
- * col: 0   1   2   3   4   5
- * pin: F0  F1  F4  F5  F6  F7
- *
- * MCP23018
- * col: 0   1   2   3   4   5
- * pin: B5  B4  B3  B2  B1  B0
- */
-static void  init_cols(void)
-{
-    // init on mcp23018
-    // not needed, already done as part of init_mcp23018()
+#if (DIODE_DIRECTION == COL2ROW)
 
-    // init on teensy
-    // Input with pull-up(DDR:0, PORT:1)
-    DDRF  &= ~(1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
-    PORTF |=  (1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
-}
-
-static matrix_row_t read_cols(uint8_t row)
-{
-    if (row < 6) {
-        if (mcp23018_status) { // if there was an error
-            return 0;
-        } else {
-            uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ);     if (mcp23018_status) goto out;
-            data = i2c_readNak();
-            data = ~data;
-        out:
-            i2c_stop();
-            return data;
+static void init_cols(void) {
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        if (! col_expanded[x]) {
+            uint8_t pin = onboard_col_pins[x];
+            _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+            _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
         }
-    } else {
-        // read from teensy
-        return
-            (PINF&(1<<0) ? 0 : (1<<0)) |
-            (PINF&(1<<1) ? 0 : (1<<1)) |
-            (PINF&(1<<4) ? 0 : (1<<2)) |
-            (PINF&(1<<5) ? 0 : (1<<3)) |
-            (PINF&(1<<6) ? 0 : (1<<4)) |
-            (PINF&(1<<7) ? 0 : (1<<5)) ;
     }
 }
 
-/* Row pin configuration
- *
- * Teensy
- * row: 6   7   8   9   10  11
- * pin: B1  B2  B3  D2  D3  C6
- *
- * MCP23018
- * row: 0   1   2   3   4   5
- * pin: A0  A1  A2  A3  A4  A5
- */
-static void unselect_rows(void)
-{
-    // unselect on mcp23018
-    if (mcp23018_status) { // if there was an error
-        // do nothing
-    } else {
-        // set all rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);          if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0xFF);           if (mcp23018_status) goto out;
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value = current_matrix[current_row];
+
+    // Clear data in matrix row
+    current_matrix[current_row] = 0;
+
+    // Select row and wait for row selection to stabilize
+    select_row(current_row);
+    wait_us(30);
+
+    // Read columns from expander, unless it's in an error state
+    if (! expander_status) {
+        expander_status = i2c_start(I2C_ADDR_WRITE);           if (expander_status) goto out;
+        expander_status = i2c_write(EXPANDER_COL_REGISTER);    if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_READ);            if (expander_status) goto out;
+
+        current_matrix[current_row] |= (~i2c_readNak()) & expander_input_pin_mask;
+
+        out:
+            i2c_stop();
+    }
+
+    // Read columns from onboard pins
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+        if (! col_expanded[col_index]) {
+            uint8_t pin = onboard_col_pins[col_index];
+            uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
+            current_matrix[current_row] |= pin_state ? 0 : (ROW_SHIFTER << col_index);
+        }
+    }
+
+    unselect_row(current_row);
+
+    return (last_row_value != current_matrix[current_row]);
+}
+
+static void select_row(uint8_t row) {
+    // select on expander, unless it's in an error state
+    if (! expander_status) {
+        // set active row low  : 0
+        // set other rows hi-Z : 1
+        expander_status = i2c_start(I2C_ADDR_WRITE);           if (expander_status) goto out;
+        expander_status = i2c_write(EXPANDER_ROW_REGISTER);    if (expander_status) goto out;
+        expander_status = i2c_write(0xFF & ~(1<<row));         if (expander_status) goto out;
     out:
         i2c_stop();
     }
 
-    // unselect on teensy
-    // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<1 | 1<<2 | 1<<3);
-    PORTB &= ~(1<<1 | 1<<2 | 1<<3);
-    DDRD  &= ~(1<<2 | 1<<3);
-    PORTD &= ~(1<<2 | 1<<3);
-    DDRC  &= ~(1<<6);
-    PORTC &= ~(1<<6);
+    // select on teensy
+    uint8_t pin = onboard_row_pins[row];
+    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
+    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
 }
 
-/* Row pin configuration
- *
- * Teensy
- * row: 6   7   8   9   10  11
- * pin: B1  B2  B3  D2  D3  C6
- *
- * MCP23018
- * row: 0   1   2   3   4   5
- * pin: A0  A1  A2  A3  A4  A5
- */
-static void select_row(uint8_t row)
+static void unselect_row(uint8_t row)
 {
-    if (row < 6) {
-        // select on mcp23018
-        if (mcp23018_status) { // if there was an error
+    // No need to explicitly unselect expander pins--their I/O state is
+    // set simultaneously, with a single bitmask sent to i2c_write. When
+    // select_row selects a single pin, it implicitly unselects all the
+    // other ones.
+
+    // unselect on teensy
+    uint8_t pin = onboard_row_pins[row];
+    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // OUT
+    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // LOW
+}
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        unselect_row(x);
+    }
+}
+
+#elif (DIODE_DIRECTION == ROW2COL)
+
+static void init_rows(void)
+{
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        uint8_t pin = onboard_row_pins[x];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    }
+}
+
+static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
+{
+    bool matrix_changed = false;
+
+    uint8_t column_state = 0;
+
+    //select col and wait for selection to stabilize
+    select_col(current_col);
+    wait_us(30);
+
+    if (current_col < 6) {
+        // read rows from expander
+        if (expander_status) {
+            // it's already in an error state; nothing we can do
+            return false;
+        }
+
+        expander_status = i2c_start(I2C_ADDR_WRITE);           if (expander_status) goto out;
+        expander_status = i2c_write(EXPANDER_ROW_REGISTER);    if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_READ);            if (expander_status) goto out;
+        column_state = i2c_readNak();
+
+        out:
+            i2c_stop();
+
+        column_state = ~column_state;
+    } else {
+        for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+            if ((_SFR_IO8(onboard_row_pins[current_row] >> 4) & _BV(onboard_row_pins[current_row] & 0xF)) == 0) {
+                column_state |= (1 << current_row);
+            }
+        }
+    }
+
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        // Store last value of row prior to reading
+        matrix_row_t last_row_value = current_matrix[current_row];
+
+        if (column_state & (1 << current_row)) {
+            // key closed; set state bit in matrix
+            current_matrix[current_row] |= (ROW_SHIFTER << current_col);
+        } else {
+            // key open; clear state bit in matrix
+            current_matrix[current_row] &= ~(ROW_SHIFTER << current_col);
+        }
+
+        // Determine whether the matrix changed state
+        if ((last_row_value != current_matrix[current_row]) && !(matrix_changed))
+        {
+            matrix_changed = true;
+        }
+    }
+
+    unselect_col(current_col);
+
+    return matrix_changed;
+}
+
+static void select_col(uint8_t col)
+{
+    if (col_expanded[col]) {
+        // select on expander
+        if (expander_status) { // if there was an error
             // do nothing
         } else {
-            // set active row low  : 0
-            // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<row)); if (mcp23018_status) goto out;
+            // set active col low  : 0
+            // set other cols hi-Z : 1
+            expander_status = i2c_start(I2C_ADDR_WRITE);          if (expander_status) goto out;
+            expander_status = i2c_write(EXPANDER_COL_REGISTER);   if (expander_status) goto out;
+            expander_status = i2c_write(0xFF & ~(1<<col));        if (expander_status) goto out;
         out:
             i2c_stop();
         }
     } else {
         // select on teensy
-        // Output low(DDR:1, PORT:0) to select
-        switch (row) {
-            case 6:
-                DDRB  |= (1<<1);
-                PORTB &= ~(1<<1);
-                break;
-            case 7:
-                DDRB  |= (1<<2);
-                PORTB &= ~(1<<2);
-                break;
-            case 8:
-                DDRB  |= (1<<3);
-                PORTB &= ~(1<<3);
-                break;
-            case 9:
-                DDRD  |= (1<<2);
-                PORTD &= ~(1<<3);
-                break;
-            case 10:
-                DDRD  |= (1<<3);
-                PORTD &= ~(1<<3);
-                break;
-            case 11:
-                DDRC  |= (1<<6);
-                PORTC &= ~(1<<6);
-                break;
-        }
+        uint8_t pin = onboard_col_pins[col];
+        _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
+        _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
     }
 }
 
+static void unselect_col(uint8_t col)
+{
+    if (col_expanded[col]) {
+        // No need to explicitly unselect expander pins--their I/O state is
+        // set simultaneously, with a single bitmask sent to i2c_write. When
+        // select_col selects a single pin, it implicitly unselects all the
+        // other ones.
+    } else {
+        // unselect on teensy
+        uint8_t pin = onboard_col_pins[col];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    }
+}
+
+static void unselect_cols(void)
+{
+    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
+        unselect_col(x);
+    }
+}
+#endif

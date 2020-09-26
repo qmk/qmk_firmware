@@ -4,7 +4,7 @@
 
 ### Layer 0
 
-![layer 0](https://imgur.com/bOiQI69.png)
+![layer 0](https://imgur.com/gELh7Se.png)
 Conventional ANSI layout. Except:
 
  - Backspace has been replaced with 2 keys
@@ -27,7 +27,7 @@ RGB underglow and backlight controls, Reset
 
 ### Layer 2
 
-![layer 1](https://imgur.com/gELh7Se.png)
+![layer 2](https://imgur.com/bOiQI69.png)
 F1-F12, PGUP -> HOME, PGDN -> END
 
 ### Layer 3

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 
 #ifdef IS_COLINTA
 #include "secrets.h"
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--/RRND----/MUTE----/FFWD-------------------------------------------------------------------------------------------------------------'
  */
 
-  [LAYER_COLEMAK] = KEYMAP(
+  [LAYER_COLEMAK] = LAYOUT(
     KC_GRV, TH_F1, TH_F2, TH_F3, TH_F4, TH_F5,  MM_0,    MM_1,    KC_DEL,  TH_F6, TH_F7,  TH_F8,   TH_F9,   TH_F10,  KC_MINS,
     KC_TAB, KC_Q,  KC_W,  KC_F,  KC_P,  KC_G,   MM_2,    GOTO_FN, KC_BSPC, KC_J,  KC_L,   KC_U,    KC_Y,    KC_SCLN, KC_EQL,
     OSCTL,  KC_A,  KC_R,  KC_S,  KC_T,  KC_D,   KC_LBRC, KC_RBRC, KC_ENT,  KC_H,  KC_N,   KC_E,    KC_I,    KC_O,    KC_QUOT,
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
-  [LAYER_RECORD] = KEYMAP(
+  [LAYER_RECORD] = LAYOUT(
     _____, _____, _____, _____, _____, _____, DYN_REC_STOP, DYN_REC_STOP, _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____, DYN_REC_STOP, DYN_REC_STOP, _____, _____, _____, _____, _____, _____, _____,
     _____, _____, _____, _____, _____, _____,    _____,        _____,     _____, _____, _____, _____, _____, _____, _____,
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
-  [LAYER_QWERTY] = KEYMAP(
+  [LAYER_QWERTY] = LAYOUT(
     _____,    _____, _____, _____,    _____,    _____,    MM_0,  MM_1,    _____, _____, _____, _____, _____, _____, _____,
     _____,    KC_Q,  KC_W,  KC_E,     KC_R,     KC_T,     MM_2,  GOTO_FN, _____, KC_Y,  KC_U, KC_I,  KC_O,  KC_P,    _____,
     MOD_LSFT, KC_A,  KC_S,  KC_D,     KC_F,     KC_G,     _____,  _____,  _____, KC_H,  KC_J, KC_K,  KC_L,  KC_SCLN, _____,
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
-  [LAYER_FN] = KEYMAP(
+  [LAYER_FN] = LAYOUT(
     GOTO_CM, GOTO_QW, KC_NO, KC_NO, KC_NO, KC_NO, DYN_REC_START1, DYN_REC_START2, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,

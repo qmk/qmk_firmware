@@ -1,5 +1,4 @@
 #include "../../config.h"
-#define PREVENT_STUCK_MODIFIERS
 
 // for the broken board
 #undef MATRIX_COL_PINS

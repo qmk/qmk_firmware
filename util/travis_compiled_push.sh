@@ -1,32 +1,21 @@
 #!/bin/bash
 
-TRAVIS_BRANCH="${TRAVIS_BRANCH:master}"
-TRAVIS_PULL_REQUEST="${TRAVIS_PULL_REQUEST:false}"
-TRAVIS_COMMIT_MESSAGE="${TRAVIS_COMMIT_MESSAGE:-none}"
-TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
+source util/travis_utils.sh
+source util/travis_push.sh
 
 set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
+echo "Using git hash ${rev}"
 
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
-git config --global user.name "QMK Bot"
-git config --global user.email "hello@qmk.fm"
-
-openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_iv -in secrets.tar.enc -out secrets.tar -d
-tar xvf secrets.tar
-
-chmod 600 id_rsa_qmk_firmware
-chmod 600 id_rsa_qmk.fm
-eval `ssh-agent -s`
-ssh-add id_rsa_qmk_firmware
-
-# convert to unix line-endings
+# fix formatting
 git checkout master
-git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
-git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
-git commit -m "convert to unix line-endings [skip ci]" && git push git@github.com:qmk/qmk_firmware.git master
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} '*.c' '*.h' '*.cpp' | grep -z -e '^drivers' -e '^quantum' -e '^tests' -e '^tmk_core' | grep -zv -e 'quantum/template' -e 'tmk_core/protocol/usb_hid' -e 'platforms/chibios' | xargs -0 clang-format-7 -i
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
+git commit -m "format code according to conventions [skip ci]" && git push git@github.com:qmk/qmk_firmware.git master
 
 increment_version ()
 {
@@ -34,7 +23,7 @@ increment_version ()
   part[2]=$((part[2] + 1))
   new="${part[*]}"
   echo -e "${new// /.}"
-} 
+}
 
 git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE}
 
@@ -42,8 +31,7 @@ NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
 	git fetch --tags
-	#lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
-	lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | sort -V | tail -1)
+	lasttag=$(git tag --sort=-creatordate --no-column --list '*.*.*' | grep -E -m1 '^[0-9]+\.[0-9]+\.[0-9]+$')
 	newtag=$(increment_version $lasttag)
 	until git tag $newtag; do
 		newtag=$(increment_version $newtag)
@@ -63,18 +51,38 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	ssh-add -D
 	eval `ssh-agent -s`
 	ssh-add id_rsa_qmk.fm
-	
+
 	# don't delete files in case not all keyboards are built
 	# rm -f compiled/*.hex
 
 	# ignore errors here
-	for file in ../qmk_firmware/keyboards/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	# In theory, this is more flexible, and will allow for additional expansion of additional types of files and other names
+	mv ../qmk_firmware/*_default.*{hex,bin} ./compiled/ || true
+
+	# get the list of keyboards
+	readarray -t keyboards < .keyboards
+
+	# replace / with _
+	keyboards=("${keyboards[@]//[\/]/_}")
+
+	# remove all binaries that don't belong to a keyboard in .keyboards
+	for file in "./compiled"/* ; do
+		match=0
+		for keyboard in "${keyboards[@]}" ; do
+			if [[ ${file##*/} = "${keyboard}_default.bin" ]] || [[ ${file##*/} = "${keyboard}_default.hex" ]]; then
+				match=1
+				break
+			fi
+		done
+		if [[ $match = 0 ]]; then
+			echo "Removing deprecated binary: $file"
+			rm "$file"
+		fi
+	done
+
 	bash _util/generate_keyboard_page.sh
 	git add -A
-	git commit -m "generated from qmk/qmk_firmware@${rev}" 
+	git commit -m "generated from qmk/qmk_firmware@${rev}"
 	git push git@github.com:qmk/qmk.fm.git
 
 fi

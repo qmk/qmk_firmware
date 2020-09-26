@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |    |    |LGUI|LALT|LCTL|                     !RCTL|RALT|LEFT|DOWN|RGHT|
  *  '------------------------'                     '------------------------'
  *                         .-----------. .-----------.
- *                         |INS  |TG(2)| !M(UM)|DELT |
+ *                         |INS  |TG(2)| !M(UM)|DEL  |
  *                   .-----+-----+-----! !-----+-----+-----.
  *                   !     !     | APP | ! PGUP|     !     !
  *                   !     !     !-----! !-----!     !     !
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*-*/    DE_S,     DE_N,     DE_R,    DE_T,    DE_D,    DE_SS,
  KC_TAB,  DE_B,     DE_M,     DE_COMM, DE_DOT,  KC_UP,   DE_Y,
  /*-*/    /*-*/     KC_RCTL,  KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT,
- M(UM),   KC_DELT,
+ M(UM),   KC_DEL,
  KC_PGUP,
  KC_PGDN, KC_ENTER, KC_SPACE
 ),
@@ -375,8 +375,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
-
-const uint16_t PROGMEM fn_actions[] = {};
 
 #define UC_MODE_WIN 0
 #define UC_MODE_LINUX 1
