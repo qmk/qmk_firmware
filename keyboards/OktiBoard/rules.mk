@@ -57,4 +57,3 @@ AUDIO_ENABLE = yes
 
 ## RGB Settings
 RGBLIGHT_ENABLE = yes
-
