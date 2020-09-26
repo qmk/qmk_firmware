@@ -18,6 +18,8 @@
 #define RAW_EPSIZE 8
 #include <stdio.h>
 
+#include "cwebster2.h"
+
 char wpm_str[10];
 uint16_t wpm_graph_timer = 0;
 
@@ -80,29 +82,13 @@ enum layers {
               L33, L34, L35, R35, R34, R33 \
     ) \
     LAYOUT_kyria_wrapper ( \
-    KC_GRV,   L01, L02, L03, L04, L05,                          R05, R04, R03, R02, R01, KC_BSLS, \
-    KC_CTLBS, L11, L12, L13, L14, L15,                          R15, R14, R13, R12, R11, KC_QUOT, \
+    KC_GRV,   L01, L02, L03, L04, L05,                                      R05, R04, R03, R02, R01, KC_BSLS, \
+    KC_CTLBS, L11, L12, L13, L14, L15,                                      R15, R14, R13, R12, R11, KC_QUOT, \
     KC_EQL,   L21, L22, L23, L24, L25, KC_LCCL, KC_LGUI, KC_ALTCL, KC_LSFT, R25, R24, R23, R22, R21, KC_MINS, \
          SCMD_T(KC_LBRC), C_S_T(KC_MINS), L33, L34, L35, R35, R34, R33, TO(_GAME), KC_PSCR \
     )
 #define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
 
-#define _______QWERTY_L1______        KC_Q,         KC_W,         KC_E,         KC_R,         KC_T
-#define _______QWERTY_L2______ LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),        KC_G
-#define _______QWERTY_L3______        KC_Z,         KC_X,         KC_C,         KC_V,         KC_B
-#define _______QWERTY_R1______        KC_Y,         KC_U,         KC_I,         KC_O,         KC_P
-#define _______QWERTY_R2______        KC_H,  RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_SCLN)
-#define _______QWERTY_R3______        KC_N,         KC_M,         KC_COMM,      KC_DOT,       KC_SLSH
-
-#define _______COLEMAK_L1_____        KC_Q,         KC_W,         KC_F,         KC_P,         KC_B
-#define _______COLEMAK_L2_____ LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),        KC_G
-#define _______COLEMAK_L3_____        KC_Z,         KC_X,         KC_C,         KC_D,         KC_V
-#define _______COLEMAK_R1_____        KC_J,         KC_L,         KC_U,         KC_Y,         KC_QUOT
-#define _______COLEMAK_R2_____        KC_M,  RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O)
-#define _______COLEMAK_R3_____        KC_K,         KC_H,         KC_COMM,      KC_DOT,       KC_SLSH
-
-#define _______THUMBS_L_______ LT(_MOUSE,KC_TAB), LT(_NAV,KC_SPC),  LT(_MEDIA,  KC_ESC)
-#define _______THUMBS_R_______ LT(_FN,   KC_ENT), LT(_NUM,KC_BSPC), LT(_SYMBOLS,KC_DEL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -114,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______QWERTY_L2______,                 _______QWERTY_R2______,
       _______QWERTY_L3______,                 _______QWERTY_R3______,
               _______THUMBS_L_______,  _______THUMBS_R_______
- /*           `---------------------'  `------------------------------' */
+ /*           `---------------------'  `---------------------' */
     ),
 /*
  * Base Layer: QWERTY
@@ -125,42 +111,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______COLEMAK_L2_____,                 _______COLEMAK_R2_____,
       _______COLEMAK_L3_____,                 _______COLEMAK_R3_____,
               _______THUMBS_L_______,  _______THUMBS_R_______
- /*           `---------------------'  `------------------------------' */
+ /*           `---------------------'  `---------------------' */
     ),
     // symbols and mouse
-    [_SYMBOLS] = LAYOUT_kc(
- /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       RST,    RCBR,  AMPR,  ASTR,  LPRN,  LCBR,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RST,
- /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
-       TRNS,   COLN,   DLR,  PERC,  CIRC,  PLUS,                                 TRNS,  LSFT,  LCTL,  LALT,  LGUI,  TRNS,
- /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
-       TRNS,   TILD,  EXLM,  AT,    HASH,  PIPE,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,   TRNS, RALT,  TRNS,  TRNS,
- /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
-                             TRNS,  TRNS,  LPRN,  RPRN,  UNDS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
- /*                        `----------------------------------'  `----------------------------------' */
+    [_SYMBOLS] = LAYOUT_kyria_base_wrapper(
+ /* ,-----------------------.                 ,-----------------------. */
+      _______SYM______L1____,                 _______INACTIVE_R1____,
+      _______SYM______L2____,                 _______INACTIVE_R2____,
+      _______SYM______L3____,                 _______INACTIVE_R3____,
+              _______SYM_______T____,  _______INACTIVE__T____
+ /*           `---------------------'  `---------------------' */
     ),
-    [_NUM] = LAYOUT_kc(
- /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       RST,    RBRC,   7,     8,     9,    LBRC,                                 TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RST,
- /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
-       TRNS,   SCLN,   4,     5,     6,    EQL,                                  TRNS,  LSFT,  LCTL,  LALT,  LGUI,  TRNS,
- /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
-       TRNS,   GRV,    1,     2,     3,    SLSH,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RALT,  TRNS,  TRNS,
- /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
-                             TRNS,  TRNS,  DOT,    0,    MINS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
- /*                        `----------------------------------'  `----------------------------------' */
+    [_NUM] = LAYOUT_kyria_base_wrapper(
+ /* ,-----------------------.                 ,-----------------------. */
+      _______NUM______L1____,                 _______INACTIVE_R1____,
+      _______NUM______L2____,                 _______INACTIVE_R2____,
+      _______NUM______L3____,                 _______INACTIVE_R3____,
+              _______NUM_______T____,  _______INACTIVE__T____
+ /*           `---------------------'  `---------------------' */
       ),
     // media and fn
-    [_FN] = LAYOUT_kc(
- /* ,-------------------------------------------.                              ,-------------------------------------------. */
-       RST,    F12,    F7,    F8,    F9,  SYSREQ,                                TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RST,
- /* |--------+------+------+------+------+------|                              |------+------+------+------+------+--------| */
-       TRNS,   F11,    F4,    F5,    F6,   TRNS,                                 TRNS,  LSFT,  LCTL,  LALT,  LGUI,  TRNS,
- /* |--------+------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------+--------| */
-       TRNS,   F10,    F1,    F2,    F3,   BSLS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS,  RALT,  TRNS,  TRNS,
- /* `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------' */
-                             TRNS,  TRNS,  MENU,  SLSH,  TRNS,     TRNS,  TRNS,  TRNS,  TRNS,  TRNS
- /*                        `----------------------------------'  `----------------------------------' */
+    [_FN] = LAYOUT_kyria_base_wrapper(
+ /* ,-----------------------.                 ,-----------------------. */
+      _______FN_______L1____,                 _______INACTIVE_R1____,
+      _______FN_______L2____,                 _______INACTIVE_R2____,
+      _______FN_______L3____,                 _______INACTIVE_R3____,
+              _______FN________T____,  _______INACTIVE__T____
+ /*           `---------------------'  `---------------------' */
       ),
     [_NAV] = LAYOUT_kc(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
