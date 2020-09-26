@@ -132,7 +132,7 @@ To enable `tapping force hold`, add the following to your `config.h`:
 #define TAPPING_FORCE_HOLD
 ```
 
-When the user holds a key after tapping it, the tapping function is repeated by default, rather than activating the hold function. This allows to keep the ability to auto-repeat the tapping function of a dual-role key. `TAPPING_FORCE_HOLD` removes that ability to let the user activate the hold function instead, in the case of holding the dual-role key after having tapped it.
+When the user holds a key after tapping it, the tapping function is repeated by default, rather than activating the hold function. This allows keeping the ability to auto-repeat the tapping function of a dual-role key. `TAPPING_FORCE_HOLD` removes that ability to let the user activate the hold function instead, in the case of holding the dual-role key after having tapped it.
 
 Example:
 
