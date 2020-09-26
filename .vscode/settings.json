@@ -13,11 +13,6 @@
         "*.c": "c",
         "*.inc": "c",
         "*.cpp": "cpp",
-<<<<<<< HEAD
-        "*.hpp": "cpp"
-    },
-    "git.enabled": false
-=======
         "*.hpp": "cpp",
         "xstddef": "c",
         "type_traits": "c",
@@ -28,5 +23,4 @@
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
     }
->>>>>>> master
 }
