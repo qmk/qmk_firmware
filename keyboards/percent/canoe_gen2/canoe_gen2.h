@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // readability
 #define ___ KC_NO
 
-#define LAYOUT_all LAYOUT_65_iso
+#define LAYOUT_all LAYOUT_65_iso_blocker_split_bs
 
 #define LAYOUT_65_ansi_blocker_split_bs( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k1d, k0d, k0e, \
