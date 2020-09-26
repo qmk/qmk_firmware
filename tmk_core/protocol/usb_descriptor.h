@@ -49,6 +49,10 @@
 #    include "hal.h"
 #endif
 
+#   ifndef JOYSTICK_AXES_RESOLUTION
+        #define JOYSTICK_AXES_RESOLUTION 8
+#   endif
+
 /*
  * USB descriptor structure
  */
@@ -261,3 +265,5 @@ enum usb_endpoints {
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
 #endif
+
+

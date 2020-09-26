@@ -308,9 +308,6 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
             HID_RI_USAGE(8, 0x35),      // Rz
 #    endif
 #    if JOYSTICK_AXES_COUNT >= 1
-     #   ifndef JOYSTICK_AXES_RESOLUTION
-            #define JOYSTICK_AXES_RESOLUTION 8
-     #   endif
      # if JOYSTICK_AXES_RESOLUTION <8 ||  JOYSTICK_AXES_RESOLUTION > 16
             #   error Joystick Axes Resolution has to be between 8 and 16            
      # endif

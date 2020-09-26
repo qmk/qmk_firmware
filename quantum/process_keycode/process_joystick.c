@@ -126,9 +126,7 @@ bool process_joystick_analogread_quantum() {
         int16_t axis_val = joystick_axes[axis_index].mid_digit;
 #    endif
 
-#   ifndef JOYSTICK_AXES_RESOLUTION
-        #define JOYSTICK_AXES_RESOLUTION 8
-#   endif
+
         
 #   if JOYSTICK_AXES_RESOLUTION < 16
         int32_t js_max = (1 << (JOYSTICK_AXES_RESOLUTION-1)) - 1;
