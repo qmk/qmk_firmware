@@ -1,5 +1,4 @@
 #include "kb.h"
-#include QMK_KEYBOARD_H
 
 //General Definitions
 #define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
