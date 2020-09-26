@@ -10,6 +10,7 @@ from pathlib import Path
 
 from milc import cli
 from qmk import submodules
+from qmk.constants import QMK_FIRMWARE
 from qmk.questions import yesno
 from qmk.commands import run
 
@@ -290,6 +291,8 @@ def doctor(cli):
     else:
         cli.log.error('Unsupported OS detected: %s', platform_id)
         ok = False
+
+    cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
