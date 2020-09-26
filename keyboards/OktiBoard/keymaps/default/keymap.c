@@ -4,13 +4,11 @@
 #define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
 
 enum oktiboard_layers {
-  _FIGMA,
+  _FIGMA = 0,
   _LAB,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-
 
 // Macro Declarations
     enum {
@@ -39,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------|
  * | PLG  | TAL  | TAC  | TAR  |
  * |------+------+------+------|
- * | AUL  |      |  CPS | SWT  |
+ * | AUL  |      |  CPS | CHNG |
  * `---------------------------'
  */
 
@@ -48,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		M(Create_Components), M(Show_Components), M(Team_Library), M(Detach_Instance),
 		M(All_Layers), M(Bring_Forward), M(Send_Backward), M(Show_HideGrid),
 		M(Run_Last_Plugin), M(Text_Align_Left), M(Text_Align_Center), M(Text_Align_Right),
-		M(AUTOLAY), _______ , M(COPYPASTESTYLE), LSOUT
+		M(AUTOLAY), _______ , M(COPYPASTESTYLE), TO(_LAB)
 	),
 
 /* Lab
@@ -59,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------|
  * |      |      |      |      |
  * |------+------+------+------|
- * | LCK  |      |      | SWT  |
+ * | LCK  |      |      | CHNG |
  * `---------------------------'
  */
 
@@ -67,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		TO(_FIGMA), LOCKSCREEN, LOCKSCREEN, LOCKSCREEN,
 		LOCKSCREEN, AU_ON, AU_OFF, LOCKSCREEN,
 		LOCKSCREEN, LOCKSCREEN, LOCKSCREEN, LOCKSCREEN,
-		LOCKSCREEN , RESET, LOCKSCREEN, LSOUT
+		LOCKSCREEN , RESET, LOCKSCREEN, TO(_FIGMA)
 	),
 };
 
@@ -92,16 +90,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_copied = true;
       } else {
         register_code(KC_LGUI(KC_LSHIFT(KC_A)));
-        is_copied = false; // state'i sıfırla
-      }
-      break;
-
-    case LSOUT:
-      if(!is_copied) {
-        register_code(TO(_FIGMA));
-        is_copied = true;
-      } else {
-        register_code(TO(_LAB));
         is_copied = false; // state'i sıfırla
       }
       break;
