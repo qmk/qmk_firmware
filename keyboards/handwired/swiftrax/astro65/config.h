@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Swiftrax
 #define PRODUCT         Astro65
-#define DESCRIPTION     65% keyboard with a daughterboard 
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
@@ -44,6 +42,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/*EEPROM for via*/
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
