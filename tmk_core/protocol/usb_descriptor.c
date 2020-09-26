@@ -42,7 +42,7 @@
 #include "usb_descriptor_common.h"
 
 #ifdef JOYSTICK_ENABLE
-    #include "joystick.h"
+#    include "joystick.h"
 #endif
 
 // clang-format off

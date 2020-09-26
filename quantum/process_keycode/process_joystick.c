@@ -126,8 +126,6 @@ bool process_joystick_analogread_quantum() {
         int16_t axis_val = joystick_axes[axis_index].mid_digit;
 #    endif
 
-
-        
         // test the converted value against the lower range
         int32_t ref        = joystick_axes[axis_index].mid_digit;
         int32_t range      = joystick_axes[axis_index].min_digit;
