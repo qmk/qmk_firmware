@@ -15,37 +15,24 @@
      along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 
-# 60_ansi_arrow and Keymap
+# Sendy YK's Numpad 5x4 Layout and Keymap
 
-This is the 60% ANSI Arrow keyboard layout.
+* [mr.sendyyk.com](https://mr.sendyyk.com)
+* [mrsendyyk](https://github.com/mrsendyyk)
 
-## 60% ANSI Arrow Layout
+## Numpad 5x4 Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
+![LAYOUT_numpad_5x4](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/numpad_5x4/mrsendyyk/images/layout-numpad-5x4.png)
 
 ## Keymap
 
-### Default Layer
-
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
-
-### Fn Layer 1
-
-Press and hold *right* **Ctrl** key.
-
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
-
-### Fn Layer 2
-
-Press and hold *right* **Alt** key.
-
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/numpad_5x4/mrsendyyk/images/layout-numpad-5x4-keymap.png)
 
 ## Build The Firmware
 
 Make example for keyboard (after setting up your build environment):
 
-    make <keyboard_folder>:default_60_ansi_arrow
+    make <keyboard_folder>:mrsendyyk
 
 More information:
 * [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)

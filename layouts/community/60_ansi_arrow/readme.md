@@ -1,3 +1,20 @@
+<!-- 
+     Copyright (C) 2020 Sendy YK <mr@sendyyk.com>.
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
 # 60_ansi_arrow
 
 This is the 60% ANSI Arrow keyboard layout. 
@@ -24,7 +41,7 @@ A keyboard's `.h` file needs to have `LAYOUT_60_ansi_arrow` defined
 }
 ```
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
 
 ### 2. Configuring rules.mk
 
@@ -41,15 +58,7 @@ A keymap must be defined at
 This keymap must have a `LAYOUT_60_ansi_arrow` layout defined.
 
 ```c
-#include QMK_KEYBOARD_H
-
-enum layer_names {
-    _BASE, // Default Layer
-    _FN, // Fn Layer 1
-    _SETTINGS // Fn Layer 2
-};
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {  
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Default Layer
     [_BASE] = LAYOUT_60_ansi_arrow(
         KC_GESC, KC_1,    KC_2, KC_3,    KC_4, KC_5, KC_6,   KC_7, KC_8, KC_9,    KC_0,           KC_MINS,        KC_EQL,           KC_BSPC,
@@ -79,16 +88,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ### Default Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-0.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
 
 ### Fn Layer 1
 
 Press and hold *right* **Ctrl** key.
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-1.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
 
 ### Fn Layer 2
 
 Press and hold *right* **Alt** key.
 
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-2.png)
+![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
+
+## Build The Firmware
+
+Make example for keyboard (after setting up your build environment):
+
+    make <keyboard_folder>:<keymap>
+
+More information:
+* [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)
+* [More Detailed make Instructions](https://docs.qmk.fm/#/getting_started_make_guide)
+* [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs)

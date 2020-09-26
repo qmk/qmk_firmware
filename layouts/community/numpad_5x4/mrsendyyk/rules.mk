@@ -14,4 +14,4 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 
-VIA_ENABLE = yes
+USER_NAME := mrsendyyk
