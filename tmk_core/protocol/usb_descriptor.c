@@ -41,6 +41,10 @@
 #include "usb_descriptor.h"
 #include "usb_descriptor_common.h"
 
+#ifdef JOYSTICK_ENABLE
+    #include "joystick.h"
+#endif
+
 // clang-format off
 
 /*
@@ -308,22 +312,18 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
             HID_RI_USAGE(8, 0x35),      // Rz
 #    endif
 #    if JOYSTICK_AXES_COUNT >= 1
-     # if JOYSTICK_AXES_RESOLUTION <8 ||  JOYSTICK_AXES_RESOLUTION > 16
-            #   error Joystick Axes Resolution has to be between 8 and 16            
-     # endif
-     # if JOYSTICK_AXES_RESOLUTION == 16
-            HID_RI_LOGICAL_MINIMUM(16, -32767),
-            HID_RI_LOGICAL_MAXIMUM(16, 32767),
+     # if JOYSTICK_AXES_RESOLUTION == 8
+            HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_RESOLUTION),
+            HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_RESOLUTION),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
-            HID_RI_REPORT_SIZE(8, 0x10),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+            HID_RI_REPORT_SIZE(8, 0x08),
      # else
-            HID_RI_LOGICAL_MINIMUM(16, (1 << (JOYSTICK_AXES_RESOLUTION-1)) - 1),
-            HID_RI_LOGICAL_MAXIMUM(16, -((1 << (JOYSTICK_AXES_RESOLUTION-1)) - 1)),
+            HID_RI_LOGICAL_MINIMUM(16, -JOYSTICK_RESOLUTION),
+            HID_RI_LOGICAL_MAXIMUM(16, JOYSTICK_RESOLUTION),
             HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
             HID_RI_REPORT_SIZE(8, 0x10),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
      # endif
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 #    endif
 
 #    if JOYSTICK_BUTTON_COUNT >= 1

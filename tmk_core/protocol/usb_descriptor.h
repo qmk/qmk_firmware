@@ -49,10 +49,6 @@
 #    include "hal.h"
 #endif
 
-#   ifndef JOYSTICK_AXES_RESOLUTION
-        #define JOYSTICK_AXES_RESOLUTION 8
-#   endif
-
 /*
  * USB descriptor structure
  */
