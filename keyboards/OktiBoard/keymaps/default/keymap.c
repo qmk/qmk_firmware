@@ -5,24 +5,24 @@
 #define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
 
 // Figma Componenets
-#define CREATECOMPONENT LALT(LGUI(KC_K))
-#define SHOWCOMPONENT LALT(LKC_KP_2)
-#define TEAMLIB LALT(LGUI(KC_O))
-#define DETACH LALT(LGUI(KC_B))
+#define CREATECOMPONENT LALT(LGUI(KC_K))    // Create Components
+#define SHOWCOMPONENT LALT(LKC_KP_2)        // Show Components
+#define TEAMLIB LALT(LGUI(KC_O))            // Team Library
+#define DETACH LALT(LGUI(KC_B))             // Detatch Library
 
 // Figma Shortcuts
-#define FIGLAYERS LALT(LKC_KP_1)
-#define SENDBACK LGUI(KC_LBRACKET)
-#define BRINGFORW LGUI(KC_RBRACKET)
-#define GRID LCTRL(KC_G)
-#define TEXTLEFT LALT(LGUI(KC_L))
-#define TEXTRIGHT LALT(LGUI(KC_R))
-#define TEXTCENTER LALT(LGUI(KC_T))
-#define RUNLASTPLUG LALT(LALT(KC_P))
-#define COPYSTYLE KC_LGUI(KC_LALT(KC_C))
-#define PASTESTYLE KC_LGUI(KC_LALT(KC_V))
-#define AUTOLAYOUT KC_LSHIFT(KC_A)
-#define RMLAYOUT KC_LGUI(KC_LSHIFT(KC_A))
+#define FIGLAYERS LALT(LKC_KP_1)            // go to layers
+#define SENDBACK LGUI(KC_LBRACKET)          // Send layers to back
+#define BRINGFORW LGUI(KC_RBRACKET)         // Send layers to front
+#define GRID LCTRL(KC_G)                    // Open and close grids.
+#define TEXTLEFT LALT(LGUI(KC_L))           // Text Align Left
+#define TEXTRIGHT LALT(LGUI(KC_R))          // Text Align Right
+#define TEXTCENTER LALT(LGUI(KC_T))         // Text Align Center
+#define RUNLASTPLUG LALT(LALT(KC_P))        // Run last plugin
+#define COPYSTYLE KC_LGUI(KC_LALT(KC_C))    // Copy layer styles
+#define PASTESTYLE KC_LGUI(KC_LALT(KC_V))   // Paste layer styles
+#define AUTOLAYOUT KC_LSHIFT(KC_A)          // Create Auto Layout
+#define RMLAYOUT KC_LGUI(KC_LSHIFT(KC_A))   // Remove Auto Layout
 
 enum oktiboard_layers {
   _FIGMA = 0,
