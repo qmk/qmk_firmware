@@ -38,10 +38,17 @@
 #define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
-#define DF_QWER DF(_QWERTY)
-#define DF_COLE DF(_COLEMAK)
+#define _________________FUNC__L___________________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNC__R___________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+
+#define DF_QWER  DF(_QWERTY)
+#define DF_COLE  DF(_COLEMAK)
+#define MO_ADJ   MO(_ADJUST)
 // Long press: go to _FN layer, tap: MUTE
-#define FN_MUTE LT(_FN, KC_MUTE)
+#define FN_MUTE  LT(_FN, KC_MUTE)
+#define SHIF_UP  RSFT_T(KC_UP)
+#define ADJ_EIS  LT(_ADJUST,KC_LANG2)
+#define MIS_KAN  LT(_MISC,KC_LANG1)
 
 #ifdef RGBLIGHT_ENABLE
 // Following line allows macro to read current RGB settings
@@ -110,6 +117,7 @@ enum layer_names {
     _C_SYSTEM_BASE2ROW,
     _QWERTY,   //  just in case
     _COLEMAK,  //  just in case
+    _ADJUST,   //  for Fn keys, etc.
     _FN
 };
 
@@ -264,9 +272,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_wrapper(
     KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
     KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_DEL,
-    KC_CAPS, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_ENT,
+    KC_LCTL, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_ENT,
     KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_RSFT,
-    KC_LCTL, KC_LGUI, KC_LALT, KC_LANG2, KC_SPC,  KC_SPC, KC_SPC, KC_SPC, KC_LANG1, KC_RALT,  KC_RGUI, KC_RCTRL,
+    KC_CAPS, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LANG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
 
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -277,9 +285,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT_wrapper(
     KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
     KC_TAB,  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_DEL,
-    KC_CAPS, _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_ENT,
-    KC_LSFT, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, KC_RSFT,
-    KC_LCTL, KC_LGUI, KC_LALT, KC_LANG2, KC_SPC, KC_SPC,  KC_SPC, KC_SPC, KC_LANG1, KC_RALT, KC_RGUI,  KC_RCTRL,
+    KC_LCTL, _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_ENT,
+    KC_LSFT, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, SHIF_UP,
+    KC_CAPS, KC_LGUI, KC_LALT, ADJ_EIS, KC_SPC,  KC_SPC,  KC_LANG1, KC_APP, MO_ADJ,  KC_LEFT, KC_DOWN, KC_RGHT,
+
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  ),
+
+  /* ADJUST */
+  [_ADJUST] = LAYOUT_wrapper(
+    _______, _________________FUNC__L___________________, _________________FUNC__R___________________, _______,
+    KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, KC_EQL,  _______,
+    _______, KC_VOLD, KC_VOLU, KC_MUTE, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_GRV,  _______,
+    _______, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_QUOT, KC_BSLS, _______,
 
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
