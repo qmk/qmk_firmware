@@ -32,7 +32,3 @@
 
 /* ADNS_9800, PMW_33600 */
 #define ADNS_9800
-
-// TODO: remove
-#undef DIODE_DIRECTION
-#define DIODE_DIRECTION ROW2COL
