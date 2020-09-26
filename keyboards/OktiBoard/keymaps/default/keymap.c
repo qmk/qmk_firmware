@@ -10,6 +10,8 @@ enum oktiboard_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+
+
 // Macro Declarations
     enum {
         Create_Components = 0,
@@ -46,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		M(Create_Components), M(Show_Components), M(Team_Library), M(Detach_Instance),
 		M(All_Layers), M(Bring_Forward), M(Send_Backward), M(Show_HideGrid),
 		M(Run_Last_Plugin), M(Text_Align_Left), M(Text_Align_Center), M(Text_Align_Right),
-		M(AUTOLAY), M(BOS), M(COPYPASTESTYLE), LSOUT
+		M(AUTOLAY), _______ , M(COPYPASTESTYLE), LSOUT
 	),
 
 /* Lab
@@ -171,20 +173,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 				//RETURN
 			}
 			break;
-        case 12: // Remove Auto Layout
-			//RETURN
-			}
-			break;
-        case 13: // Copy Style
-            //RETURN
-			}
-			break;
-        case 14: // Paste Style
-			//RETURN
-			}
-			break;
-
-
 	}
 	return MACRO_NONE;
 }
