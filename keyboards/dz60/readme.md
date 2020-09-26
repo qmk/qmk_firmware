@@ -12,7 +12,7 @@
 
 ## Build The Firmware
 
-Make example for keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make dz60:default
 
