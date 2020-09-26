@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SWAP ] [CTRL ] [/Acce] [/Smil] [MENU ] [SPACE] [SPACE] [ENTER] [SPACE] [SPACE] [←    ] [↓    ] [→    ] [RCTRL] [SWAP ]
   */
   [_QWERTY_ON_FR_AZERTY] =
-    KEYMAP(
+    LAYOUT_ortho_5x15(
       DRZ_LCK,  KC_ESC,   DRZ___1,  DRZ___2,  DRZ___3,  DRZ___4,  DRZ___5,  _______,  DRZ___6,  DRZ___7,  DRZ___8,  DRZ___9,  DRZ___0,  KC_ESC,   DRZ_LCK,
       MO(_FN),  KC_LGUI,  DRZ___Q,  DRZ___W,  DRZ___E,  DRZ___R,  DRZ___T,  _______,  DRZ___Y,  DRZ___U,  DRZ___I,  DRZ___O,  DRZ___P,  KC_RGUI,  MO(_FN),
       MO(_L3),  KC_LALT,  DRZ___A,  DRZ___S,  DRZ___D,  DRZ___F,  DRZ___G,  _______,  DRZ___H,  DRZ___J,  DRZ___K,  DRZ___L,  DRZ_SCL,  KC_RALT,  MO(_L3),
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SWAP ] [CTRL ] [/Acce] [/Smil] [MENU ] [SPACE] [SPACE] [ENTER] [SPACE] [SPACE] [←    ] [↓    ] [→    ] [RCTRL] [SWAP ]
   */
   [_FN] =
-    KEYMAP(
+    LAYOUT_ortho_5x15(
       _______,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,  _______,
       _______,  _______,  KC_F11,   KC_F12,   KC_F13,   KC_F14,   KC_F15,   _______,  KC_F16,   KC_F17,   KC_F18,   KC_F19,   KC_F20,   _______,  _______,
       _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SWAP ] [ctrl/] [/Acce] [/Smil] [MENU ] [shift] [tab  ] [ENTER] [back/] [del  ] [Home ] [PgDn ] [End  ] [ctrl/] [SWAP ]
   */
   [_L2] =
-    KEYMAP(
+    LAYOUT_ortho_5x15(
       _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_APS,  DRZ_QOT,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_UDS,  DRZ_EQU,  _______,  _______,
       _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_SBL,  _______,  DRZ_SBL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
       _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_LPR,  _______,  DRZ_RPR,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_EXC,  _______,  _______,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SWAP ] [ctrl/] [/Acce] [/Unic] [MENU ] [SPACE] [alt/t] [ENTER] [SPACE] [SPACE] [←    ] [↓    ] [→    ] [ctrl/] [SWAP ]
   */
   [_L3] =
-    KEYMAP(
+    LAYOUT_ortho_5x15(
       _______,  _______,  DRZ_TIL,  DRZ_USQ,  DRZ_UST,  XXXXXXX, DRZ_SQT,   _______,  DRZ_AST,  XXXXXXX,  XXXXXXX,  DRZ_MNS,  DRZ_PLS,  _______,  _______,
       _______,  _______,  XXXXXXX,  XXXXXXX,  DRZ__EU,  XXXXXXX, DRZ_ASL,   _______,  DRZ_SLA,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
       _______,  _______,  XXXXXXX,  DRZ_DLR,  XXXXXXX,  XXXXXXX, DRZ_LES,   _______,  DRZ_SUP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,

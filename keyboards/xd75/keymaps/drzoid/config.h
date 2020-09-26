@@ -27,8 +27,8 @@
 #endif
 
 //Comment/uncomment based on OS setup
-#define DRZ_AZERTY_FR_OS  // Qwerty keycaps & layout with Azerty French OS */
-//#define DRZ_QWERTY_INTL_OS  // Qwerty keycaps & layout with Qwerty Intl OS */
+//#define DRZ_AZERTY_FR_OS  // Qwerty keycaps & layout with Azerty French OS */
+#define DRZ_QWERTY_INTL_OS  // Qwerty keycaps & layout with Qwerty Intl OS */
 
 
 #define _______ KC_TRNS
