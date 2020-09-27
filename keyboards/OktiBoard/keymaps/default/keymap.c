@@ -1,27 +1,28 @@
 #include "kb.h"
 
+
 //General Definitions
 #define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
 
 // Figma Componenets
 #define CREATECOMPONENT LALT(LGUI(KC_K))    // Create Components
-#define SHOWCOMPONENT LALT(LKC_KP_2)        // Show Components
+#define SHOWCOMPONENT LALT(KC_KP_2)        // Show Components
 #define TEAMLIB LALT(LGUI(KC_O))            // Team Library
-#define DETACH LALT(LGUI(KC_B))             // Detatch Library
+#define DETACHO LALT(LGUI(KC_B))             // Detatch Library
 
 // Figma Shortcuts
-#define FIGLAYERS LALT(LKC_KP_1)            // go to layers
+#define FIGLAYERS LALT(KC_KP_1)            // go to layers
 #define SENDBACK LGUI(KC_LBRACKET)          // Send layers to back
 #define BRINGFORW LGUI(KC_RBRACKET)         // Send layers to front
-#define GRID LCTRL(KC_G)                    // Open and close grids.
+#define GRID LCTL(KC_G)                    // Open and close grids.
 #define TEXTLEFT LALT(LGUI(KC_L))           // Text Align Left
 #define TEXTRIGHT LALT(LGUI(KC_R))          // Text Align Right
 #define TEXTCENTER LALT(LGUI(KC_T))         // Text Align Center
 #define RUNLASTPLUG LALT(LALT(KC_P))        // Run last plugin
-#define COPYSTYLE KC_LGUI(KC_LALT(KC_C))    // Copy layer styles
-#define PASTESTYLE KC_LGUI(KC_LALT(KC_V))   // Paste layer styles
-#define AUTOLAYOUT KC_LSHIFT(KC_A)          // Create Auto Layout
-#define RMLAYOUT KC_LGUI(KC_LSHIFT(KC_A))   // Remove Auto Layout
+#define COPYSTYLE LGUI(LALT(KC_C))    // Copy layer styles
+#define PASTESTYLE LGUI(LALT(KC_V))   // Paste layer styles
+#define AUTOLAYO LSFT(KC_A)          // Create Auto Layout
+#define RMLAY LGUI(LSFT(KC_A))   // Remove Auto Layout
 
 enum oktiboard_layers {
   _FIGMA = 0,
@@ -38,20 +39,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case M_AUTOLAY:
         if(!is_copied) {
-            SEND_STRING(SS_TAP(AUTOLAYOUT));
+            SEND_STRING(SS_LSFT(SS_TAP(X_A)));
             is_copied = true;
         } else {
-            SEND_STRING(SS_TAP(ARMLAYOUT));
+            SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_A))));
             is_copied = false;
         }
         break;
 
     case M_COPYSTYLES:
         if(!is_copied) {
-            SEND_STRING(SS_TAP(COPYSTYLE));
+            SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_C))));
             is_copied = true;
         } else {
-            SEND_STRING(SS_TAP(PASTESTYLE));
+            SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_V))));
             is_copied = false;
         }
         break;
@@ -86,8 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 
-[_FIGMA] = LAYOUT(
-		CREATECOMPONENT, SHOWCOMPONENT, TEAMLIB, DETACH,
+[_FIGMA] = LAYOUT_oktibro(
+		CREATECOMPONENT, SHOWCOMPONENT, TEAMLIB, DETACHO,
 		FIGLAYERS, BRINGFORW, SENDBACK, GRID,
 		RUNLASTPLUG, TEXTLEFT, TEXTCENTER, TEXTRIGHT,
 		M_AUTOLAY, _______ , M_COPYSTYLES, TO(_LAB)
@@ -105,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 
-[_LAB] = LAYOUT(
+[_LAB] = LAYOUT_oktibro(
 		_______, _______, EEP_RST, RESET,
 		_______, AU_ON, AU_OFF, _______,
 		RGB_TOG, RGB_VAI, RGB_VAD, _______,

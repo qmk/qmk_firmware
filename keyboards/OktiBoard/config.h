@@ -1,13 +1,12 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x2014
+#define PRODUCT_ID      0x0010
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
+#define MANUFACTURER    Teletubbies
 #define PRODUCT         Oktiboard
 #define DESCRIPTION     Macro and Funboard
 
@@ -46,16 +45,13 @@
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 
-#ifdef RGB_DI_PIN F6
-+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGB_DI_PIN F6
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
 
 /* Audio Settings */
-#ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(STARTUP_SOUND)
-#endif
+#define STARTUP_SONG SONG(STARTUP_SOUND)
