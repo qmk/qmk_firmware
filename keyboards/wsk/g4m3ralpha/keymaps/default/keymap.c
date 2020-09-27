@@ -53,37 +53,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void matrix_init_user(void) {
-    setPinOutput(D3);
-    writePinLow(D3);
-    setPinOutput(D2);
-    writePinLow(D2);
-    setPinOutput(D0);
-    writePinLow(D0);
-}
-
-uint32_t layer_state_set_user(uint32_t state)
-{
-    if (state & (1<<1)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _FN:
         writePinHigh(D3);
         writePinLow(D2);
-    } else if (state & (1<<2)) {
+        break;
+    case _FNCHAR:
         writePinLow(D3);
         writePinHigh(D2);
-    } else if (state & (1<<3)) {
+        break;
+    case _FKEYS:
         writePinHigh(D3);
         writePinHigh(D2);
-    } else {
+        break;
+    default: //  for any other layers, or the default layer
         writePinLow(D3);
         writePinLow(D2);
+        break;
     }
-    return state;
+  return state;
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(D0);
-    } else {
-        writePinLow(D0);
-    }
+bool led_update_user(led_t led_state) {
+    writePin(D0, led_state.caps_lock);
+    return false;
 }
