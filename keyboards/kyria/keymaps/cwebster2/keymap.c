@@ -93,6 +93,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               _______THUMBS_L_______,  _______THUMBS_R_______
  /*           `---------------------'  `---------------------' */
     ),
+ // GAME layout -- qwerty without homerow mods
+    [_GAME] = LAYOUT_kyria_wrapper(
+ /* ,-------------------------------------------.                              ,-------------------------------------------. */
+    KC_GRV,   _______QWERTY_L1______,                                     _______QWERTY_R1______, KC_BSLS,
+    KC_CTLBS, KC_A, KC_S, KC_D, KC_F, KC_G,                               KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
+    KC_EQL,   _______QWERTY_L3______, KC_LCCL, KC_LGUI,                   KC_ALTCL, KC_LSFT, _______QWERTY_R3______, KC_MINS,
+       SCMD_T(KC_LBRC), C_S_T(KC_MINS), _______THUMBS_L_______,   _______THUMBS_R_______, TO(_QWERTY), KC_PSCR
+ /*                        `----------------------------------'  `----------------------------------' */
+    ),
+    [_FN] = LAYOUT_kyria_base_wrapper(
+ /* ,-----------------------.                 ,-----------------------. */
+      _______FN_______L1____,                 _______INACTIVE_R1____,
+      _______FN_______L2____,                 _______INACTIVE_R2____,
+      _______FN_______L3____,                 _______INACTIVE_R3____,
+              _______FN________T____,  _______INACTIVE__T____
+ /*           `---------------------'  `---------------------' */
+      ),
     [_SYMBOLS] = LAYOUT_kyria_base_wrapper(
  /* ,-----------------------.                 ,-----------------------. */
       _______SYM______L1____,                 _______INACTIVE_R1____,
@@ -107,14 +124,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______NUM______L2____,                 _______INACTIVE_R2____,
       _______NUM______L3____,                 _______INACTIVE_R3____,
               _______NUM_______T____,  _______INACTIVE__T____
- /*           `---------------------'  `---------------------' */
-      ),
-    [_FN] = LAYOUT_kyria_base_wrapper(
- /* ,-----------------------.                 ,-----------------------. */
-      _______FN_______L1____,                 _______INACTIVE_R1____,
-      _______FN_______L2____,                 _______INACTIVE_R2____,
-      _______FN_______L3____,                 _______INACTIVE_R3____,
-              _______FN________T____,  _______INACTIVE__T____
  /*           `---------------------'  `---------------------' */
       ),
     [_NAV] = LAYOUT_kyria_base_wrapper(
@@ -141,15 +150,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               _______INACTIVE__T____,  _______MEDIA_____T____
  /*           `---------------------'  `---------------------' */
      ),
- // GAME layout -- qwerty without homerow mods
-    [_GAME] = LAYOUT_kyria_wrapper(
- /* ,-------------------------------------------.                              ,-------------------------------------------. */
-    KC_GRV,   _______QWERTY_L1______,                                     _______QWERTY_R1______, KC_BSLS,
-    KC_CTLBS, KC_A, KC_S, KC_D, KC_F, KC_G,                               KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-    KC_EQL,   _______QWERTY_L3______, KC_LCCL, KC_LGUI,                   KC_ALTCL, KC_LSFT, _______QWERTY_R3______, KC_MINS,
-       SCMD_T(KC_LBRC), C_S_T(KC_MINS), _______THUMBS_L_______,   _______THUMBS_R_______, TO(_QWERTY), KC_PSCR
- /*                        `----------------------------------'  `----------------------------------' */
-    ),
 };
 
 static void send_layer_via_hid(int layer) {
@@ -177,12 +177,53 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 10, HSV_PURPLE}
 );
 */
+void keyboard_post_init_rgb(void);
 
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_BLUE);
+    keyboard_post_init_rgb();
+}
+
+
+static const uint8_t PROGMEM layer_colors[][3] = {
+    [_QWERTY] = {HSV_BLUE},
+    [_COLEMAK] = {HSV_AZURE},
+    [_GAME] = {HSV_RED},
+    [_FN] = {HSV_PINK},
+    [_SYMBOLS] = {HSV_GREEN},
+    [_NUM] = {HSV_CORAL},
+    [_NAV] = {HSV_GOLDENROD},
+    [_MOUSE] = {HSV_TURQUOISE},
+    [_MEDIA] = {HSV_MAGENTA}
+};
+
+void keyboard_post_init_rgb(void) {
+/*#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)*/
+    /*if (userspace_config.rgb_layer_change) { rgblight_enable_noeeprom(); }*/
+    /*if (rgblight_config.enable) {*/
+        /*layer_state_set_user(layer_state);*/
+        /*uint16_t old_hue = rgblight_config.hue;*/
+        uint16_t old_hue = 170;
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+        for (uint16_t i = 255; i > 0; i--) {
+            rgblight_sethsv_noeeprom( ( i + old_hue) % 255, 255, 255);
+            matrix_scan();
+            wait_ms(10);
+        }
+    /*}*/
+/*#endif*/
+    /*layer_state_set_user(layer_state);*/
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    /*uint8_t layer = get_highest_layer(state);*/
+    /*switch (get_highest_layer(state))*/
+    /*{*/
+    /*    case _QWERTY ... _MEDIA:*/
+    /*        rgblight_sethsv_noeeprom(layer_colors[layer][0],layer_colors[layer][1],layer_colors[layer][2]);*/
+    /*        send_layer_via_hid(layer);*/
+    /*        break;*/
+    /*}*/
     send_layer_via_hid(state);
     switch (get_highest_layer(state)) {
         case _QWERTY:
