@@ -39,13 +39,13 @@
 // Valid options are ACC_NONE, ACC_LINEAR, ACC_CUSTOM, ACC_QUADRATIC
 
 // Trackball State
-bool     BurstState    = false;  // init burst state for Trackball module
-uint16_t MotionStart   = 0;      // Timer for accel, 0 is resting state
-uint16_t lastScroll    = 0;      // Previous confirmed wheel event
-uint16_t lastMidClick  = 0;      // Stops scrollwheel from being read if it was pressed
-uint8_t  OptLowPin     = OPT_ENC1;
-bool     debug_encoder = false;
-
+bool     is_scroll_clicked = false;
+bool     BurstState        = false;  // init burst state for Trackball module
+uint16_t MotionStart       = 0;      // Timer for accel, 0 is resting state
+uint16_t lastScroll        = 0;      // Previous confirmed wheel event
+uint16_t lastMidClick      = 0;      // Stops scrollwheel from being read if it was pressed
+uint8_t  OptLowPin         = OPT_ENC1;
+bool     debug_encoder     = false;
 
 __attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
     mouse_report->h = h;
@@ -57,8 +57,6 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     // Lovingly ripped from the Ploopy Source
 
     // If the mouse wheel was just released, do not scroll.
-    // unsigned long elapsed = micros() - middleClickRelease;
-    // if (elapsed < SCROLL_BUTT_DEBOUNCE) { return 0; }
     if (timer_elapsed(lastMidClick) < SCROLL_BUTT_DEBOUNCE) {
         return;
     }
@@ -69,32 +67,21 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     }
 
     // Don't scroll if the middle button is depressed.
-    // int middleButtonPin = digitalRead(MOUSE_MIDDLE_PIN);
-    // if (middleButtonPin == LOW) { return 0; }
+    if (is_scroll_clicked) {
+#ifndef IGNORE_SCROLL_CLICK
+        return;
+#endif
+    }
 
     lastScroll  = timer_read();
     uint16_t p1 = adc_read(OPT_ENC1_MUX);
     uint16_t p2 = adc_read(OPT_ENC2_MUX);
     if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
 
-    uint8_t dir = 0;
-    if (p1 < OPT_THRES && p2 < OPT_THRES) {
-        if (OptLowPin == OPT_ENC1) {
-            dir = -1;
-        }  // scroll down
-        else if (OptLowPin == OPT_ENC2) {
-            dir = 1;
-        }  // scroll up
-        OptLowPin = 0;
-    } else if (p1 < OPT_THRES) {
-        OptLowPin = OPT_ENC1;
-    } else if (p2 < OPT_THRES) {
-        OptLowPin = OPT_ENC2;
-    }
+    uint8_t dir = opt_encoder_handler(p1, p2);
 
-    // Bundle and send if needed
     if (dir == 0) return;
-    process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + dir * OPT_SCALE));
+    process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + (dir * OPT_SCALE)));
 }
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
@@ -154,6 +141,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // Update Timer to prevent accidental scrolls
     if ((record->event.key.col == 2) && (record->event.key.row == 0)) {
         lastMidClick = timer_read();
+        is_scroll_clicked = record->event.pressed;
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
@@ -201,7 +189,6 @@ void keyboard_pre_init_kb(void) {
     // debug_mouse   = true;
     // debug_encoder = true;
 
-    // This can probably be replaced with rotary encoder config,
     setPinInput(OPT_ENC1);
     setPinInput(OPT_ENC2);
 
@@ -224,7 +211,12 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void pointing_device_init(void) { pmw_spi_init(); }
+void pointing_device_init(void) {
+    // initialize ball sensor
+    pmw_spi_init();
+    // initialize the scroll wheel's optical encoder
+    opt_encoder_init();
+}
 
 bool has_report_changed (report_mouse_t first, report_mouse_t second) {
     return !(

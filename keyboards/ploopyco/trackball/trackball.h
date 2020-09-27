@@ -20,6 +20,7 @@
 #include "spi_master.h"
 #include "pmw3600.h"
 #include "analog.h"
+#include "opt_encoder.h"
 #include "pointing_device.h"
 
 // Sensor defs
