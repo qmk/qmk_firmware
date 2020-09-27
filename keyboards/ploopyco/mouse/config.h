@@ -21,8 +21,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x1777
+#define VENDOR_ID 0x5043
+#define PRODUCT_ID 0x4D6F
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Ploopyco
 #define PRODUCT Mouse
