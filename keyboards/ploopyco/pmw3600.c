@@ -20,7 +20,7 @@
 #include "pmw3600.h"
 #include "pmw3600_firmware.h"
 #ifdef CONSOLE_ENABLE
-#    include <print.h>
+#    include "print.h"
 #endif
 bool _inBurst = false;
 
