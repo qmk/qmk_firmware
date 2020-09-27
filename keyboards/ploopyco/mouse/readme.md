@@ -1,6 +1,6 @@
-# Ploopyco Trackball
+# Ploopyco Mouse
 
-![Ploopyco Trackball](https://i.redd.it/j7z0y83txps31.jpg)
+![Ploopyco Mouse](https://i.redd.it/j7z0y83txps31.jpg)
 
 It's a DIY, QMK Powered Trackball!!!!
 
@@ -12,9 +12,9 @@ Everything works. However the scroll wheel has some issues and acts very odd.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ploopyco/trackball:default:flash
+    make ploopyco/mouse:default:flash
     
-To jump to the bootloader, hold down "Button 4" (immediate right of the trackball) 
+To jump to the bootloader, hold down "Button 4" (immediate right of the Mouse) 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -40,11 +40,11 @@ This should allow you to more heavily customize the behavior.
 
 Alternatively, the `process_wheel` and `process_mouse` functions can both be replaced too, to allow for even more functionality.
 
-Additionally, you can change the DPI/CPI or speed of the trackball by calling `pmw_set_cpi` at any time. And tThe default can be changed by adding a define to the keymap's `config.h` file:
+Additionally, you can change the DPI/CPI or speed of the Mouse by calling `pmw_set_cpi` at any time. And tThe default can be changed by adding a define to the keymap's `config.h` file:
 
     #define PMW_CPI 1600
 
-# Programming QMK-DFU onto the PloopyCo Trackball
+# Programming QMK-DFU onto the PloopyCo Mouse
 
 If you would rather have DFU on this board, you can use the QMK-DFU bootloader on the device.  To do so, you want to run: 
 
