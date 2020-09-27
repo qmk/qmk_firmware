@@ -48,16 +48,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,    KC_LCTL,  KC_LALT, KC_TRNS, KC_TRNS,          LSFT_T(KC_SPC),   KC_RGUI, KC_RALT, KC_RCTL
     ),
 };
-
-void matrix_init_user(void) {
-    setPinOutput(D3);
-    writePinLow(D3);
-}
-
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(D3);
-    } else {
-        writePinLow(D3);
-    }
-}
