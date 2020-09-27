@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Number Pad 5x4 layout and keymap by Sendy YK <https://mr.sendyyk.com>.
+// Number Pad 5x4 Layout and Keymap by Sendy YK <https://mr.sendyyk.com>.
 
 #include QMK_KEYBOARD_H
 
