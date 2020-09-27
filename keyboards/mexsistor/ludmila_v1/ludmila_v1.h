@@ -14,30 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#pragma once
 
-// Keyboard Layers
-enum keyboard_layers{
-    _BASE = 0,
-    _CONTROL
-};
+#include "quantum.h"
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT( /* Base */
-    KC_A, KC_B, KC_C,
-    KC_D, KC_E
-
-  ),
-
-};
-
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_F);
-        } else {
-            tap_code(KC_G);
-        }
-    }
-}
-
+/* This is a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+#define LAYOUT( \
+    k00, k01, k20, \
+    k10, k11 \
+) { \
+    { k00, k01, }, \
+    { k10, k11, }, \
+    { k20 }  \
+  }
