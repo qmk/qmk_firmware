@@ -41,17 +41,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_TAP(AUTOLAYOUT));
             is_copied = true;
         } else {
-            SEND_STRING(RMLAYOUT);
+            SEND_STRING(SS_TAP(ARMLAYOUT));
             is_copied = false;
         }
         break;
 
     case M_COPYSTYLES:
         if(!is_copied) {
-            SEND_STRING(COPYSTYLE);
+            SEND_STRING(SS_TAP(COPYSTYLE));
             is_copied = true;
         } else {
-            SEND_STRING(PASTESTYLE);
+            SEND_STRING(SS_TAP(PASTESTYLE));
             is_copied = false;
         }
         break;
@@ -62,10 +62,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
     case _FIGMA:
-      rgblight_sethsv_noeeprom(100, 255, 255);
+      rgblight_sethsv_noeeprom(139, 0, 139);
       break;
     case _LAB:
-      rgblight_sethsv_noeeprom(100, 255, 255);
+      rgblight_sethsv_noeeprom(255, 255, 255);
       break;
   }
   return state;
