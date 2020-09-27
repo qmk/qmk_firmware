@@ -20,8 +20,10 @@
 
 #include "cwebster2.h"
 
+#ifdef WPM_ENABLE
 char wpm_str[10];
 uint16_t wpm_graph_timer = 0;
+#endif
 
 #ifdef COMBO_ENABLE
 enum combos {
@@ -51,7 +53,8 @@ enum layers {
     _NUM,
     _NAV,
     _MOUSE,
-    _MEDIA
+    _MEDIA,
+    __LAST
 };
 
 // shortcuts for certain keys to use LAYOUT_kc()
@@ -131,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______INACTIVE_R1____,                 _______NAV______R1____,
       _______INACTIVE_R1____,                 _______NAV______R2____,
       _______INACTIVE_R1____,                 _______NAV______R3____,
-              _______INACTIVE__T____,  _______INACTIVE__T____
+              _______INACTIVE__T____,  _______NAKED_R___T____
  /*           `---------------------'  `---------------------' */
       ),
     [_MOUSE] = LAYOUT_kyria_base_wrapper(
@@ -160,45 +163,52 @@ static void send_layer_via_hid(int layer) {
     return;
 }
 
-/* RGB LIGHT LAYERS
-const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 10, HSV_AZURE}
+#ifdef RGBLIGHT_LAYERS
+const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_BLUE} );
+const rgblight_segment_t PROGMEM my_colemak_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_AZURE} );
+const rgblight_segment_t PROGMEM my_game_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_RED} );
+const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_PINK} );
+const rgblight_segment_t PROGMEM my_symbols_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_GREEN} );
+const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_CORAL} );
+const rgblight_segment_t PROGMEM my_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_GOLDENROD} );
+const rgblight_segment_t PROGMEM my_mouse_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_TURQUOISE} );
+const rgblight_segment_t PROGMEM my_media_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_MAGENTA} );
+
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 3, HSV_RED},
+    {7, 1, HSV_RED},
+    {10, 3, HSV_RED},
+    {17, 1, HSV_RED}
 );
 
-const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 10, HSV_RED}
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_qwerty_layer,
+    my_colemak_layer,
+    my_game_layer,
+    my_fn_layer,
+    my_symbols_layer,
+    my_num_layer,
+    my_nav_layer,
+    my_mouse_layer,
+    my_media_layer,
+    my_capslock_layer
 );
+#endif
 
-const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 10, HSV_TURQUOISE}
-);
-
-const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 10, HSV_PURPLE}
-);
-*/
 void keyboard_post_init_rgb(void);
 
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_BLUE);
     keyboard_post_init_rgb();
+#ifdef RGBLIGHT_LAYERS
+    rgblight_layers = my_rgb_layers;
+#else
+    rgblight_sethsv_noeeprom(HSV_BLUE);
+#endif
 }
 
-
-static const uint8_t PROGMEM layer_colors[][3] = {
-    [_QWERTY] = {HSV_BLUE},
-    [_COLEMAK] = {HSV_AZURE},
-    [_GAME] = {HSV_RED},
-    [_FN] = {HSV_PINK},
-    [_SYMBOLS] = {HSV_GREEN},
-    [_NUM] = {HSV_CORAL},
-    [_NAV] = {HSV_GOLDENROD},
-    [_MOUSE] = {HSV_TURQUOISE},
-    [_MEDIA] = {HSV_MAGENTA}
-};
-
 void keyboard_post_init_rgb(void) {
-/*#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)*/
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)
     /*if (userspace_config.rgb_layer_change) { rgblight_enable_noeeprom(); }*/
     /*if (rgblight_config.enable) {*/
         /*layer_state_set_user(layer_state);*/
@@ -211,20 +221,17 @@ void keyboard_post_init_rgb(void) {
             wait_ms(10);
         }
     /*}*/
-/*#endif*/
+#endif
     /*layer_state_set_user(layer_state);*/
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    /*uint8_t layer = get_highest_layer(state);*/
-    /*switch (get_highest_layer(state))*/
-    /*{*/
-    /*    case _QWERTY ... _MEDIA:*/
-    /*        rgblight_sethsv_noeeprom(layer_colors[layer][0],layer_colors[layer][1],layer_colors[layer][2]);*/
-    /*        send_layer_via_hid(layer);*/
-    /*        break;*/
-    /*}*/
+#ifdef RGBLIGHT_LAYERS
+    for (int i = _QWERTY; i < __LAST; i++) {
+        rgblight_set_layer_state(i, layer_state_cmp(state, i));
+    }
     send_layer_via_hid(state);
+#else
     switch (get_highest_layer(state)) {
         case _QWERTY:
             rgblight_sethsv_noeeprom(HSV_BLUE);
@@ -251,10 +258,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_sethsv_noeeprom(HSV_RED);
             break;
     }
+#endif
     return state;
 }
 
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(9, led_state.caps_lock);
+    return true;
+}
+
 #ifdef OLED_DRIVER_ENABLE
+void suspend_power_down_user() {
+    oled_clear();
+    oled_off();
+}
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }

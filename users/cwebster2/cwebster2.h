@@ -32,6 +32,9 @@
 #define _______THUMBS_L_______ LT(_MOUSE,KC_TAB), LT(_NAV,KC_SPC),  LT(_MEDIA,  KC_ESC)
 #define _______THUMBS_R_______ LT(_FN,   KC_ENT), LT(_NUM,KC_BSPC), LT(_SYMBOLS,KC_DEL)
 
+#define _______NAKED_R___T____ KC_ENT,   KC_BSPC,  KC_DEL
+#define _______NAKED_L___T____ KC_TAB,   KC_SPC,   KC_ESC
+
 #define _______INACTIVE_R1____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RESET
 #define _______INACTIVE_R2____ KC_TRNS,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI
 #define _______INACTIVE_R3____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_RALT,  KC_TRNS
