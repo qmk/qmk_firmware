@@ -4,7 +4,7 @@
 
 The SiCK-PAD is a custom 3D printed mechanical numpad built from scratch without the price tag often associated with one.
 
--   Keyboard Maintainer: [umbynos](https://github.com/umbynos)
+-   Keyboard Maintainer: [jmschneider](https://github.com/jmschneider)
 -   Hardware Supported: QMK Proton C
 -   Hardware Availability: [files to print and documentation](https://www.thingiverse.com/thing:3682168)
 
