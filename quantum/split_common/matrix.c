@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "transport.h"
 
+#define MAX_ERROR_COUNT 2048
 #define ERROR_DISCONNECT_COUNT 5
 
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
@@ -251,21 +252,34 @@ void matrix_init(void) {
     split_post_init();
 }
 
+// should_skip_by_error now skip twice of the error count
+bool should_skip_by_error(uint8_t error_count) {
+    static uint16_t skip_count = 0;
+    if(skip_count < error_count * 2) {
+        skip_count++;
+        return true;
+    } else {
+        skip_count = 0;
+        return false;
+    }
+}
+
 void matrix_post_scan(void) {
     if (is_keyboard_master()) {
-        static uint8_t error_count;
+        static uint16_t error_count = 0;
 
-        if (!transport_master(matrix + thatHand)) {
-            error_count++;
-
-            if (error_count > ERROR_DISCONNECT_COUNT) {
-                // reset other half if disconnected
-                for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                    matrix[thatHand + i] = 0;
+        if (!should_skip_by_error(error_count)) {
+            if (!transport_master(matrix + thatHand)) {
+                error_count = (error_count == MAX_ERROR_COUNT) ? error_count : error_count+1;
+                if (error_count > ERROR_DISCONNECT_COUNT) {
+                    // reset other half if disconnected
+                    for (int i = 0; i < ROWS_PER_HAND; ++i) {
+                        matrix[thatHand + i] = 0;
+                    }
                 }
+            } else {
+                error_count = 0;
             }
-        } else {
-            error_count = 0;
         }
 
         matrix_scan_quantum();
