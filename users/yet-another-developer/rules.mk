@@ -1,7 +1,7 @@
 SRC += yet-another-developer.c \
        process_records.c
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 SPACE_CADET_ENABLE            = no
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)

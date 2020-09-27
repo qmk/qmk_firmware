@@ -2,7 +2,7 @@
 
 ![reviung39](https://github.com/gtips/reviung/blob/master/reviung39/image/REVIUNG39-1.jpg)
 
-The REVIUNG39 is 39-key (37.5%) column staggered keyboard.
+The REVIUNG39 is 39-key column staggered keyboard.
 
 Keyboard Maintainer: [gtips](https://github.com/gtips)  
 Hardware Supported: The REVIUNG39 PCBs, Pro Micro supported  
