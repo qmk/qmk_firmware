@@ -571,7 +571,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   // {.key = B_D|B_F|B_SCLN    , .kana = ""},
 
   // {.key = B_J|B_K|B_Z       , .kana = ""},
-  {.key = B_J|B_K|B_X       , .kana = SS_LCTRL("X_BSPACE")}, // 確定UNDO
+  {.key = B_J|B_K|B_X       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)}, // 確定UNDO
   // {.key = B_J|B_K|B_C       , .kana = ""},
   // {.key = B_J|B_K|B_V       , .kana = ""},
   // {.key = B_J|B_K|B_B       , .kana = ""},
@@ -802,6 +802,14 @@ bool process_modifier(uint16_t keycode, keyrecord_t *record) {
     case KC_RSHIFT:
     case KC_RALT:
     case KC_RGUI:
+    case LCTL_T(0x01) ... LCTL_T(0xFF):
+    case LSFT_T(0x01) ... LSFT_T(0xFF):
+    case LALT_T(0x01) ... LALT_T(0xFF):
+    case LGUI_T(0x01) ... LGUI_T(0xFF):
+    case RCTL_T(0x01) ... RCTL_T(0xFF):
+    case RSFT_T(0x01) ... RSFT_T(0xFF):
+    case RALT_T(0x01) ... RALT_T(0xFF):
+    case RGUI_T(0x01) ... RGUI_T(0xFF):
       if (record->event.pressed) {
         n_modifier++;
         layer_off(naginata_layer);
