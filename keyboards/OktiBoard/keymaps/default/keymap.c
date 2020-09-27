@@ -1,6 +1,5 @@
 #include "kb.h"
 
-
 //General Definitions
 #define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
 
@@ -19,10 +18,7 @@
 #define TEXTRIGHT LALT(LGUI(KC_R))          // Text Align Right
 #define TEXTCENTER LALT(LGUI(KC_T))         // Text Align Center
 #define RUNLASTPLUG LALT(LALT(KC_P))        // Run last plugin
-#define COPYSTYLE LGUI(LALT(KC_C))    // Copy layer styles
-#define PASTESTYLE LGUI(LALT(KC_V))   // Paste layer styles
-#define AUTOLAYO LSFT(KC_A)          // Create Auto Layout
-#define RMLAY LGUI(LSFT(KC_A))   // Remove Auto Layout
+
 
 enum oktiboard_layers {
   _FIGMA = 0,
