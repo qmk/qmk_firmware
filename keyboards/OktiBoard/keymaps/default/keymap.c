@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------|
  * |      |AU_ON |AU_OFF|      |
  * |------+------+------+------|
- * |      |      |      |      |
+ * |RGB_TG|RGB_VI|RGB_VD|      |
  * |------+------+------+------|
  * | LCK  |      |      | CHNG |
  * `---------------------------'
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LAB] = LAYOUT(
 		_______, _______, EEP_RST, RESET,
 		_______, AU_ON, AU_OFF, _______,
-		_______, _______, _______, _______,
+		RGB_TOG, RGB_VAI, RGB_VAD, _______,
 		LOCKSCREEN, _______, _______, TO(_FIGMA)
 	),
 };
