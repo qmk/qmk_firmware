@@ -57,3 +57,17 @@
 #define _______FN_______L2____ KC_F11,   KC_F4,    KC_F5,  KC_F6,  KC_TRNS
 #define _______FN_______L3____ KC_F10,   KC_F1,    KC_F2,  KC_F3,  KC_BSLS
 #define _______FN________T____ KC_MENU,  KC_SLSH,  KC_TRNS
+
+#define _______NAV______R1____ KC_UNDO,  KC_CUT,  KC_COPY,  KC_PSTE,  KC_AGIN
+#define _______NAV______R2____ KC_LEFT,  KC_DOWN,  KC_UP,  KC_RGHT,  KC_CAPS
+#define _______NAV______R3____ KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,  KC_INS
+
+#define _______MEDIA____R1____ RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI
+#define _______MEDIA____R2____ KC_SCLN,  KC_4,  KC_5,  KC_6,  KC_EQL
+#define _______MEDIA____R3____ KC_GRV,   KC_1,  KC_2,  KC_3,  KC_SLSH
+#define _______MEDIA_____T____ KC_MSTP,  KC_MPLY,  KC_MUTE
+
+#define _______MOUSE____R1____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS
+#define _______MOUSE____R2____ KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_TRNS
+#define _______MOUSE____R3____ KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  KC_TRNS
+#define _______MOUSE_____T____ KC_BTN1,  KC_BTN3,  KC_BTN2
