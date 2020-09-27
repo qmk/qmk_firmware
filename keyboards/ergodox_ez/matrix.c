@@ -130,8 +130,6 @@ static void init_cols(void) {
     // init on teensy
     setPinInputHigh(F0);
     setPinInputHigh(F1);
-    setPinInputHigh(F2);
-    setPinInputHigh(F3);
     setPinInputHigh(F4);
     setPinInputHigh(F5);
     setPinInputHigh(F6);
