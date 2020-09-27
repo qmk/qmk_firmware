@@ -25,7 +25,7 @@ DEBOUNCE_TYPE = eager_pk
 SPLIT_KEYBOARD = yes
 POINTING_DEVICE_ENABLE = yes
 
-DEFAULT_FOLDER = oddball/v2
+DEFAULT_FOLDER = oddball/v1
 
 SRC += spi_master.c
 SRC += adns/adns.c
