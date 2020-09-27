@@ -1,4 +1,5 @@
-/* Copyright 2020 Ploopy Corporation
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ * Copyright 2020 Ploopy Corporation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "opt_encoder.h"
-#include "quantum.h"
 
 /* Setup function for the scroll wheel. Initializes
    the relevant variables. */
