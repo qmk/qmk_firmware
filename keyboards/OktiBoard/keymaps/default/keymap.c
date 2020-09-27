@@ -25,7 +25,7 @@
 
 enum oktiboard_layers {
   _FIGMA = 0,
-  _LAB,
+  _LAB = 1,
 };
 
 enum custom_keycodes {
@@ -58,10 +58,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
-
-// My layer names
-#define _FIGMA 0
-#define _LAB 1
 
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
