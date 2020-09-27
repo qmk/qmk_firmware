@@ -15,6 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * 60% ANSI Arrow Keyboard Layout and Keymap
+ * with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
+ * by Sendy YK <https://mr.sendyyk.com>.
+ */
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {
