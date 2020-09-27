@@ -60,7 +60,9 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-
+/* Much more so than a keyboard, speed matters for a mouse. So we'll go for as high
+   a polling rate as possible. */
+#define USB_POLLING_INTERVAL_MS 1
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
