@@ -5,7 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT_60_ansi": {
+        "LAYOUT_60_ansi_arrow": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
