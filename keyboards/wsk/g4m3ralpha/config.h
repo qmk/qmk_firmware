@@ -37,12 +37,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
@@ -60,4 +54,3 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #endif
-
