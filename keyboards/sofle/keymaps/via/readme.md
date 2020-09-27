@@ -1,8 +1,4 @@
-![SofleKeyboard default keymap](https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/soflekeyboard.png)
-![SofleKeyboard adjust layer](https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/soflekeyboard_layout_adjust.png)
-
-
-# Default keymap for Sofle Keyboard using Via
+# VIA keymap for Sofle
 
 Layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/gists/76efb423a46cbbea75465cb468eef7ff) and [adjust layer](http://www.keyboard-layout-editor.com/#/gists/4bcf66f922cfd54da20ba04905d56bd4)
 
@@ -15,5 +11,4 @@ Features:
 - Left encoder controls volume up/down/mute. Right encoder PGUP/PGDOWN.
 - Via support
 - RGB underglow support
-
 
