@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E58
-#define PRODUCT_ID      0x0044
-#define DEVICE_VER      0x00F2
+#define VENDOR_ID       0x4E58 //"NX"
+#define PRODUCT_ID      0x010C //268
+#define DEVICE_VER      0x0078 //"x"
 #define MANUFACTURER    Noxary
 #define PRODUCT         x268
-#define DESCRIPTION     QMK keyboard firmware for x268
+#define DESCRIPTION     A fully customizable RGB 65% keyboard.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -65,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

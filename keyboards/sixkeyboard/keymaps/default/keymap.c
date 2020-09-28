@@ -9,11 +9,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    return MACRO_NONE;
-};
-
 void matrix_scan_user(void) {
   // jump to bootloaer when all keys are pressed
   if (matrix_get_row(0) == 0b111 && matrix_get_row(1) == 0b111) {

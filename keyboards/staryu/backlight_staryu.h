@@ -17,5 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // Add backwards compatibility for existing keymaps
+static inline void backlight_set_value(uint8_t index, uint8_t level) {
+  static const uint8_t backlight_pins[BACKLIGHT_LED_COUNT] = BACKLIGHT_PINS;
+  if (level) {
+      setPinOutput(backlight_pins[index]);
+  } else {
+      setPinInput(backlight_pins[index]);
+  }
+}
+
 #define backlight_led_off(i) backlight_set_value(i, 0)
 #define backlight_led_on(i) backlight_set_value(i, 1)

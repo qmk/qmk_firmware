@@ -3,10 +3,7 @@
 
 #include "../eco.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
-//void promicro_bootloader_jmp(bool program);
 
 #define LAYOUT( \
     k01, k02, k03, k04, k05, k06, k07, k08, k09, k010, k011, k012, k013, k014, \

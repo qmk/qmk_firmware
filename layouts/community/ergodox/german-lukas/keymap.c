@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LGUI,      DE_CIRC, DE_LESS,  KC_LEFT,  KC_RIGHT,
                                                KC_LCTRL, KC_LALT,
                                                               KC_HOME,
-                                               KC_SPC ,KC_DELT,KC_END,
+                                               KC_SPC ,KC_DEL,KC_END,
         // right hand
         KC_PSCREEN,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS,
         TG(MDIA),     DE_Z,   KC_U,    KC_I,    KC_O,    KC_P,        LT(SHRT,DE_UE),

@@ -91,7 +91,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
             break;
 
-        case HYPER:
+        case CHORD:
             rgblight_sethsv_noeeprom_magenta();
             rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
 

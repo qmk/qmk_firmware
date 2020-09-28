@@ -17,11 +17,11 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
+#define VENDOR_ID       0x544E
+#define PRODUCT_ID      0x7034
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    tamanishi
-#define PRODUCT         Pinky
+#define PRODUCT         Pinky4
 #define DESCRIPTION     A split keyboard with 3 or 4 x7 vertically staggered keys and 4 thumb keys
 
 /* key matrix size */
@@ -81,7 +81,7 @@
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

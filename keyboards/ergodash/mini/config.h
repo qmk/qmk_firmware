@@ -38,6 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 // #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define tapping term */
 #define TAPPING_TERM 120
 
@@ -45,10 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 #define C6_AUDIO
-#ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(STARTUP_SOUND)
-  #define GOODBYE_SONG SONG(GOODBYE_SOUND)
-#endif
 
 /* number of backlight levels */
 #ifdef BACKLIGHT_ENABLE
@@ -59,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -68,23 +66,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 20
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT { 10, 10 }    // Number of LEDs
 
-#define RGBLED_NUM 20    // Number of LEDs
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+#define SOFT_SERIAL_PIN D0
+#define SELECT_SOFT_SERIAL_SPEED 1
+/*Sets the protocol speed when using serial communication*/
+//Speeds:
+//0: about 189kbps (Experimental only)
+//1: about 137kbps (default)
+//2: about 75kbps
+//3: about 39kbps
+//4: about 26kbps
+//5: about 20kbps

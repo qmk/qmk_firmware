@@ -15,13 +15,13 @@
 #define  RGBLED_TOGGLE 10
 #define _HIOUT 15
 #define _LWOUT 16
-// Macros
-#define  MDL 4
-#define  MDR 5
-#define  MUR 6
-#define  MUL 3
 
-
+enum custom_keycodes {
+  M_MUL = SAFE_RANGE,
+  M_MDL,
+  M_MDR,
+  M_MUR
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -102,9 +102,9 @@ Right hand nav keys work pretty well chorded with the Right hand Hi Key
 */
 
 [_NAV] = KEYMAP(
-  TG(_NAV), KC_NO,         KC_NO,    KC_UP,       KC_NO,     RGUI(KC_RIGHT),            KC_WH_U,  M(MUL), KC_MS_U,   M(MUR), KC_NO, KC_ACL2,
+  TG(_NAV), KC_NO,         KC_NO,    KC_UP,       KC_NO,     RGUI(KC_RIGHT),            KC_WH_U,  M_MUL,  KC_MS_U,   M_MUR,  KC_NO, KC_ACL2,
   KC_TRNS, RGUI(KC_LEFT),  KC_LEFT,  KC_DOWN,     KC_RIGHT,  LCTL(KC_E),                KC_BTN3,  KC_MS_L,  KC_MS_U,   KC_MS_R,  KC_NO, KC_ACL1,
-  KC_TRNS, LCTL(KC_A),     LGUI(KC_X),RGUI(KC_C), RGUI(KC_V),KC_NO,         KC_ENTER,   KC_WH_D,  M(MDL), KC_MS_D,  M(MDR),  KC_UP, KC_ACL0,
+  KC_TRNS, LCTL(KC_A),     LGUI(KC_X),RGUI(KC_C), RGUI(KC_V),KC_NO,         KC_ENTER,   KC_WH_D,  M_MDL,  KC_MS_D,  M_MDR,   KC_UP, KC_ACL0,
   KC_TRNS, RGUI(KC_Z),     KC_TRNS,  KC_TRNS,     KC_TRNS,   KC_TRNS,       KC_BTN2,   KC_BTN1,  KC_TRNS,  KC_TRNS,   KC_LEFT,   KC_DOWN,   KC_RIGHT
 ),
 
@@ -152,23 +152,10 @@ Right hand nav keys work pretty well chorded with the Right hand Hi Key
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+      switch (keycode) {
    // from  algernon's ErgoDox EZ layout,
-       case MUL:
+       case M_MUL:
         if (record->event.pressed) {
           mousekey_on(KC_MS_UP);
           mousekey_on(KC_MS_LEFT);
@@ -177,9 +164,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           mousekey_off(KC_MS_LEFT);
         }
         mousekey_send();
-        break;
+        return false;
 
-      case MUR:
+      case M_MUR:
         if (record->event.pressed) {
           mousekey_on(KC_MS_UP);
           mousekey_on(KC_MS_RIGHT);
@@ -188,9 +175,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           mousekey_off(KC_MS_RIGHT);
         }
         mousekey_send();
-        break;
+        return false;
 
-      case MDL:
+      case M_MDL:
         if (record->event.pressed) {
           mousekey_on(KC_MS_DOWN);
           mousekey_on(KC_MS_LEFT);
@@ -199,9 +186,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           mousekey_off(KC_MS_LEFT);
         }
         mousekey_send();
-        break;
+        return false;
 
-      case MDR:
+      case M_MDR:
         if (record->event.pressed) {
           mousekey_on(KC_MS_DOWN);
           mousekey_on(KC_MS_RIGHT);
@@ -210,11 +197,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           mousekey_off(KC_MS_RIGHT);
         }
         mousekey_send();
-        break;
-
-
+        return false;
+      default:
+        return true;
       }
-    return MACRO_NONE;
+    return true;
 };
 
 void LayerLEDSet(uint8_t layr) {
@@ -260,11 +247,6 @@ void matrix_scan_user(void) {
            LayerLEDSet(layer);
            old_layer=layer;
            }
-}
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
 }
 
 void led_set_user(uint8_t usb_led) {

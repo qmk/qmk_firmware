@@ -47,24 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN D4
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-/* number of backlight levels */
-#ifdef BREATHING_LED_ENABLE
-#ifdef FADING_LED_ENABLE
-#define BACKLIGHT_LEVELS 8
-#else
-#define BACKLIGHT_LEVELS 6
-#endif
-#else
-#define BACKLIGHT_LEVELS 3
-#endif
-#define BACKLIGHT_CUSTOM
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

@@ -86,31 +86,37 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_COPY_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_copy_paste_finished, NULL)
 };
 
-void tap_dance_process_record(uint16_t keycode) {
+void tap_dance_process_keycode(uint16_t keycode) {
     if (tap_dance_state == SINGLE_TAP && keycode != TD(TD_SYM_VIM)) {
         tap_dance_active = false;
     }
 }
 
 __attribute__ ((weak))
-void matrix_init_rgb(void) {}
-
-__attribute__ ((weak))
 void layer_state_set_rgb(uint32_t state) {}
-
-__attribute__ ((weak))
-void matrix_scan_user_keyboard(void) {}
-
-void matrix_scan_user() {
-  static bool first_run = true;
-  if (first_run) {
-    first_run = false;
-    matrix_init_rgb();
-  }
-  matrix_scan_user_keyboard();
-}
 
 uint32_t layer_state_set_user(uint32_t state) {
   layer_state_set_rgb(state);
   return state;
+}
+
+bool try_handle_macro(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode)
+    {
+        case DLEFT:
+            if (record->event.pressed)
+                SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
+            return true;
+        case DRIGHT:
+            if (record->event.pressed)
+                SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
+            return true;
+        case PSCREEN_APP:
+            if (record->event.pressed)
+                SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)));
+            return true;
+
+        default:
+            return false;
+    }
 }

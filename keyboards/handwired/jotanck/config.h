@@ -20,17 +20,15 @@
 #define UNUSED_PINS
 
 /* leds */
-#define QMK_LED B4
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 5
+#define JOTANCK_LEDS
+#define JOTANCK_LED1 B5
+#define JOTANCK_LED2 B4
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

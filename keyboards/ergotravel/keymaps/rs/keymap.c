@@ -1,25 +1,7 @@
-﻿#include QMK_KEYBOARD_H
-
-enum layers {
-  _QWERTY,
-  _HYPER,
-  _SIGN
-};
-
-
-#define KC_ KC_TRNS
-
-#define KC_ESCC MT(MOD_LCTL, KC_ESC)
-#define KC_ENTS MT(MOD_LSFT, KC_ENT)
-#define KC_HYPE MO(_HYPER)
-#define KC_SIGN MO(_SIGN)
-#define KC_RST RESET
-// Brightness
-#define KC_BRUP KC_PAUS
-#define KC_BRDN KC_SLCK
+#include QMK_KEYBOARD_H
+#include "rs.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
      TAB , Q  , W  , E  , R  , T  , GRV,      BSLS, Y  , U  , I  , O  , P  ,EQL ,
@@ -28,32 +10,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
      LSFT, Z  , X  , C  , V  , B  , SPC,      BSPC, N  , M  ,COMM,DOT ,SLSH,ENTS,
   //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-     SIGN,    ,LCTL,LALT,LGUI, SPC,               BSPC, HYPE,LEFT, UP ,DOWN,RIGHT
+      FN ,    ,LCTL,LALT,LGUI, SPC,               BSPC, CODE,LEFT, UP ,DOWN,RIGHT
   //`----+----+----+--+-+----/----/               \----\----+----+----+----+----'
   ),
-
-
-  [_HYPER] = LAYOUT_kc(
+  [_CODE] = LAYOUT_kc(
     //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
-       GRV , 1  , 2  , 3  , 4  , 5  ,    ,          , 6  , 7  , 8  , 9  , 0  ,    ,
+       GRV ,EXLM, AT ,HASH, DLR,PERC,    ,          ,CIRC,LPLT,ASTR,RPGT,NEQL,    ,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-           ,    ,    ,PGUP,    ,    ,    ,          ,    ,    , UP ,LBRC,RBRC,BSLS,
+           , 1  , 2  , 3  , 4  , 5  ,    ,          ,MINS,LBRC, UP ,RBRC,    ,BSLS,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-           ,    ,HOME,PGDN,END ,    ,    ,      VOLU,    ,LEFT,DOWN,RGHT,    ,PIPE,
+           , 6  , 7  , 8  , 9  , 0  , DOT,          ,AMPR,LEFT,DOWN,RGHT,    ,PIPE,
     //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-           ,    ,    ,    ,    ,    ,                VOLD,    ,MUTE,    ,    ,
+           ,    ,    ,    ,    ,    ,                    ,    ,    ,    ,    ,
     //`----+----+----+----+----/----/               \----\----+----+----+----+----'
   ),
-
-  [_SIGN] = LAYOUT_kc(
+  [_FN] = LAYOUT_kc(
     //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
-       TILD,EXLM, AT ,HASH,DLR ,PERC,    ,          ,CIRC,AMPR,ASTR,LBRC,RBRC,    ,
+           , F1 , F2 , F3 , F4 , F5 ,    ,          , F6 , F7 , F8 , F9 , F10,F11 ,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-       RST , F1 , F2 , F3 , F4 , F5 , F6 ,          ,    ,    ,    ,LCBR,RCBR,PIPE,
+           ,    ,    ,    ,    ,    ,BRMU,          ,    ,    ,PGUP,    ,    ,    ,
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-           , 1  , 2  , 3  , 4  , 5  ,    ,      BRUP, 6  , 7  , 8  , 9  , 0  ,    ,
+           ,    ,    ,    ,    , RST,BRMD,      VOLU,    ,CTRA,PGDN,CTRE,    ,    ,
     //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-           ,    ,    ,    ,    ,    ,                BRDN,    ,    ,    ,    ,
+           ,    ,    ,    ,    ,    ,                VOLD,MUTE,    ,    ,    ,
     //`----+----+----+----+----/----/               \----\----+----+----+----+----'
   ),
 };

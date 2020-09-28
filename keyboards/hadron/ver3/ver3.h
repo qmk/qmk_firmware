@@ -1,4 +1,4 @@
-/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2018 ishtob
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,9 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef VER3_H
-#define VER3_H
+#pragma once
 
 #include "hadron.h"
-
-#endif

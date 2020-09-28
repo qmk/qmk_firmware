@@ -1,93 +1,56 @@
 #include QMK_KEYBOARD_H
-// #include "debug.h"
-#include "action_layer.h"
+#include "narze.h"
 #include "version.h"
-#include "eeconfig.h"
-#include "eeprom.h"
 #include "keymap_colemak.h"
 
 extern keymap_config_t keymap_config;
 
 enum ergodox_layers {
-  _QWERTY,
-  _COLEMAK,
-  _QWOC,
-  _LOWER,
-  _RAISE,
-  _PLOVER,
-// Intermediate layers for SuperDuper (Combo keys does not work on Infinity yet)
-  _SUPER,
-  _DUPER,
-  _SUPERDUPER,
-  _MOUSE,
-  _ADJUST,
-  _MDIA,
-  _SYMB,
+    _QWERTY,
+    _COLEMAK,
+    _QWOC,
+    _LOWER,
+    _RAISE,
+    _PLOVER,
+    // Intermediate layers for SuperDuper (Combo keys does not work on Infinity yet)
+    _SUPERDUPER,
+    _DEV,
+    _MOUSE,
+    _ADJUST,
+    _MDIA,
+    _SYMB,
 };
 
 enum ergodox_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  QWOC,
-  PLOVER,
-  SUPER,
-  DUPER,
-  SUPERDUPER,
-  MOUSE,
-  LOWER,
-  RAISE,
-  BACKLIT,
-  EXT_PLV,
-  SDTOGG, // Toggle SuperDuper
-  EPRM,
-  VRSN,
-  RGB_SLD
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    QWOC,
+    LOWER,
+    RAISE,
+    PLOVER,
+    SUPERDUPER,
+    DEV,
+    MOUSE,
+    BACKLIT,
+    EXT_PLV,
+    SDTOGG, // Toggle SuperDuper
+    EPRM,
+    VRSN,
+    RGB_SLD,
+    GUI_UNDS,
+    LSFT_LPRN,
+    RSFT_RPRN,
 };
-
-enum functions {
-  M_GUI_UNDS, // Simulate GUI_T(KC_UNDS)
-  M_SFT_PO, // SFT_T(KC_LPRN)
-  M_SFT_PC, // SFT_T(KC_RPRN)
-};
-
-// Timer for custom mod tap
-static uint16_t m_gui_unds_timer;
-static uint16_t m_sft_po_timer;
-static uint16_t m_sft_pc_timer;
 
 // Narze : Custom Macros
 #define HPR_ESC ALL_T(KC_ESC)
 #define SFT_ENT SFT_T(KC_ENT)
-#define SFT_PO F(M_SFT_PO)
-#define SFT_PC F(M_SFT_PC)
-#define GUI_MINS GUI_T(KC_MINS)
-#define GUI_UNDS F(M_GUI_UNDS)
+#define SFT_PO LSFT_LPRN
+#define SFT_PC RSFT_RPRN
 
-// Combo : SuperDuper layer from S+D (R+S in Colemak)
-// #define COMBO_COUNT 1
-// #define SUPERDUPER_COMBO_COUNT 3
-// #define EECONFIG_SUPERDUPER_INDEX (uint8_t *) 19
-
-// enum process_combo_event {
-//   CB_SUPERDUPER,
-// };
-
-// const uint16_t PROGMEM superduper_combos[SUPERDUPER_COMBO_COUNT][3] = {
-//   [_QWERTY] = {KC_S, KC_D, COMBO_END},
-//   [_COLEMAK] = {KC_R, KC_S, COMBO_END},
-//   [_QWOC] = {CM_S, CM_D, COMBO_END},
-// };
-
-// combo_t PROGMEM key_combos[COMBO_COUNT] = {
-//   [CB_SUPERDUPER] = COMBO_ACTION(superduper_combos[_QWERTY]),
-// };
-
-// volatile bool superduper_enabled = true;
-
-// const uint16_t empty_combo[] = {COMBO_END};
-
-// void set_superduper_key_combos(void);
-// void clear_superduper_key_combos(void);
+enum process_combo_event {
+    CB_SUPERDUPER,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -99,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Hp/Esc |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | Sft/(  | Z/Mo |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | SD-/ | Sft/)  |
+ * | Sft/(  | Z/Dv |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | SD-/ | Sft/)  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       |  Rse | GUI/-|  Alt | Ctrl | Low/]  |
+ *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       | Rse/B| Bksp |  Alt | Ctrl | Low/]  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Enter| LGui |       | Alt  |Ctrl/Esc|
@@ -115,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   LT(_SYMB, KC_NO),
-        HPR_ESC,        KC_A,         LT(_SUPER, KC_S),   LT(_DUPER, KC_D),   KC_F,   KC_G,
-        SFT_PO,         LT(_MOUSE, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
+        HPR_ESC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        SFT_PO,         LT(_DEV, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
                                               KC_ENT,  KC_LGUI,
                                                               KC_HOME,
@@ -126,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
              MEH_T(KC_NO),KC_N,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  RAISE, KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -140,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Hp/Esc |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |   O  |   '    |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | Sft/(  | Z/Mo |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  | SD-/ | Sft/)  |
+ * | Sft/(  | Z/Dv |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  | SD-/ | Sft/)  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       |  Rse | GUI/-|  Alt | Ctrl | Low/]  |
+ *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       | Rse/B| Bksp |  Alt | Ctrl | Low/]  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Enter| LGui |       | Alt  |Ctrl/Esc|
@@ -156,8 +119,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   LT(_SYMB, KC_NO),
-        HPR_ESC,        KC_A,         LT(_SUPER,KC_R),   LT(_DUPER,KC_S),   KC_T,   KC_D,
-        SFT_PO,         LT(_MOUSE, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
+        HPR_ESC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
+        SFT_PO,         LT(_DEV, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
                                               KC_ENT,  KC_LGUI,
                                                               KC_HOME,
@@ -167,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   KC_J,   KC_L,  KC_U,   KC_Y,   KC_SCLN,       KC_BSLS,
                           KC_H,   KC_N,  KC_E,   KC_I,   KC_O,          KC_QUOT,
              MEH_T(KC_NO),KC_K,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  RAISE, KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -177,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         CM_Q,         CM_W,   CM_E,   CM_R,   CM_T,   LT(_SYMB, KC_NO),
-        HPR_ESC,        CM_A,         LT(_SUPER,CM_S),   LT(_DUPER,CM_D),   CM_F,   CM_G,
+        HPR_ESC,        CM_A,         CM_S,   CM_D,   CM_F,   CM_G,
         SFT_PO,         LT(_MOUSE, CM_Z),  CM_X,   CM_C,   CM_V,   CM_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
                                               KC_ENT,  KC_LGUI,
@@ -188,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   CM_Y,   CM_U,  CM_I,   CM_O,   CM_P,             KC_BSLS,
                           CM_H,   CM_J,  CM_K,   CM_L,   CM_SCLN,          KC_QUOT,
              MEH_T(KC_NO),CM_N,   CM_M,  CM_COMM,CM_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  RAISE, KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -357,12 +320,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______,
              _______,_______, KC_LSFT
     ),
-// Intermediate keymaps for SuperDuper (Combo keys does not work on Infinity yet)
-[_SUPER] = LAYOUT_ergodox(
+
+/* Dev Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |   -  |   +  |   (  |   )  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|   _  |   [  |   ]  |   {  |   }  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |   =  |   |  |   <  |   >  |   ?  |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |        |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[_DEV] = LAYOUT_ergodox(
         // left hand
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   DUPER,     _______,   _______,
+        _______, _______,  _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,
                                                     _______,  _______,
@@ -370,29 +354,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                _______,_______,_______,
         // right hand
              _______, _______,  _______,   _______,  _______,   _______,   _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-                      _______,  _______,   _______,  _______,   _______,    _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-                                _______,   _______,  _______,   _______,   _______,
-             _______,        _______,
-             _______,
-             _______,_______, _______
-    ),
-[_DUPER] = LAYOUT_ergodox(
-        // left hand
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  SUPER,     _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,
-                                                    _______,  _______,
-                                                              _______,
-                                               _______,_______,_______,
-        // right hand
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-                      _______,  _______,   _______,  _______,   _______,    _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
+             _______, _______,  KC_MINS, S(KC_EQL),  S(KC_9),   S(KC_0),   _______,
+                   S(KC_MINS),  KC_LBRC,   KC_RBRC, S(KC_LBRC), S(KC_RBRC),   _______,
+             _______,  KC_EQL, S(KC_BSLASH), S(KC_COMM), S(KC_DOT), S(KC_SLSH),  _______,
                                 _______,   _______,  _______,   _______,   _______,
              _______,        _______,
              _______,
@@ -452,7 +416,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |SDTogg|      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |      |      |      |      |                                       |      |      |      |      | BACKLIT|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |        |
@@ -477,7 +441,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______, _______,  _______,   _______,  _______,   _______,   KC_DEL,
                       AG_SWAP,  QWERTY,    COLEMAK,  QWOC,      PLOVER,    _______,
              _______, SDTOGG,   _______,   _______,  _______,   _______,   _______,
-                                _______,   _______,  _______,   _______,   _______,
+                                _______,   _______,  _______,   _______,   BACKLIT,
              _______,        _______,
              _______,
              _______,_______, _______
@@ -569,146 +533,123 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
+    switch (keycode) {
+        case QWERTY:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWERTY);
 
-        // key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWERTY];
-        // eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_COLEMAK);
+                set_superduper_key_combo_layer(_QWERTY);
+            }
+            return false;
 
-        // key_combos[CB_SUPERDUPER].keys = superduper_combos[_COLEMAK];
-        // eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _COLEMAK);
-      }
-      return false;
-      break;
-    case QWOC:
-      if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWOC);
+        case COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
 
-        // key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWOC];
-        // eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _QWOC);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case SUPER:
-      if (record->event.pressed) {
-        layer_on(_SUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      } else {
-        layer_off(_SUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      }
-      return false;
-      break;
-    case DUPER:
-      if (record->event.pressed) {
-        layer_on(_DUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      } else {
-        layer_off(_DUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      }
-      return false;
-      break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-      }
-      return false;
-      break;
-    case PLOVER:
-      if (record->event.pressed) {
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        layer_off(_PLOVER);
-      }
-      return false;
-      break;
-    case SDTOGG:
-      if (record->event.pressed) {
-        // superduper_enabled = !superduper_enabled;
+                set_superduper_key_combo_layer(_COLEMAK);
+            }
+            return false;
 
-        // if (superduper_enabled) {
-        //   set_superduper_key_combos();
-        // } else {
-        //   clear_superduper_key_combos();
-        // }
-      }
-      return false;
-      break;
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
-      }
-      return false;
-      break;
-  }
-  return true;
+        case QWOC:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWOC);
+
+                set_superduper_key_combo_layer(_QWOC);
+            }
+            return false;
+
+        case LOWER:
+            if (record->event.pressed) {
+                layer_on(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+
+        case RAISE:
+            if (record->event.pressed) {
+                layer_on(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+
+        case BACKLIT:
+            if (record->event.pressed) {
+                register_code(KC_RSFT);
+                #ifdef BACKLIGHT_ENABLE
+                    backlight_step();
+                #endif
+            } else {
+                unregister_code(KC_RSFT);
+            }
+            return false;
+
+        case PLOVER:
+            if (record->event.pressed) {
+                layer_off(_RAISE);
+                layer_off(_LOWER);
+                layer_off(_ADJUST);
+                layer_on(_PLOVER);
+                if (!eeconfig_is_enabled()) {
+                    eeconfig_init();
+                }
+                keymap_config.raw = eeconfig_read_keymap();
+                keymap_config.nkro = 1;
+                eeconfig_update_keymap(keymap_config.raw);
+            }
+            return false;
+
+        case EXT_PLV:
+            if (record->event.pressed) {
+                layer_off(_PLOVER);
+            }
+            return false;
+
+        case SDTOGG:
+            if (record->event.pressed) {
+                toggle_superduper_mode();
+            }
+            return false;
+
+        case VRSN:
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+            return false;
+
+        case RGB_SLD:
+            if (record->event.pressed) {
+                #ifdef RGBLIGHT_ENABLE
+                    rgblight_mode(1);
+                #endif
+            }
+            return false;
+
+        // Macros
+
+        // 1. Hold for LGUI, tap for Underscore
+        case GUI_UNDS:
+            perform_space_cadet(record, keycode, KC_LGUI, KC_LSFT, KC_MINS);
+            return false;
+
+        // 2. Hold for LSHIFT, tap for Parens open
+        case LSFT_LPRN:
+            perform_space_cadet(record, keycode, KC_LSFT, KC_LSFT, KC_9);
+            return false;
+
+        // 3. Hold for RSHIFT, tap for Parens close
+        case RSFT_RPRN:
+            perform_space_cadet(record, keycode, KC_RSFT, KC_RSFT, KC_0);
+            return false;
+
+    }
+    return true;
 }
 
 void matrix_init_user(void) {
@@ -716,24 +657,8 @@ void matrix_init_user(void) {
 }
 
 void matrix_setup(void) {
-  // set_superduper_key_combos();
+    set_superduper_key_combos();
 }
-
-// void set_superduper_key_combos(void) {
-//   uint8_t layer = eeprom_read_byte(EECONFIG_SUPERDUPER_INDEX);
-
-//   switch (layer) {
-//     case _QWERTY:
-//     case _COLEMAK:
-//     case _QWOC:
-//       key_combos[CB_SUPERDUPER].keys = superduper_combos[layer];
-//       break;
-//   }
-// }
-
-// void clear_superduper_key_combos(void) {
-//   key_combos[CB_SUPERDUPER].keys = empty_combo;
-// }
 
 void matrix_scan_user(void) {
   // uint8_t layer = biton32(layer_state);
@@ -758,91 +683,17 @@ void matrix_scan_user(void) {
 
 // Combos
 
-// void process_combo_event(uint8_t combo_index, bool pressed) {
-//   if (pressed) {
-//     switch(combo_index) {
-//       case CB_SUPERDUPER:
-//         layer_on(_SUPERDUPER);
-//         ergodox_board_led_on();
-//         break;
-//     }
-//   } else {
-//     layer_off(_SUPERDUPER);
-//     ergodox_board_led_off();
-//     unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
-//   }
-// }
-
-// Macros
-
-const uint16_t PROGMEM fn_actions[] = {
-  [M_GUI_UNDS] = ACTION_MACRO_TAP(M_GUI_UNDS),
-  [M_SFT_PO] = ACTION_MACRO_TAP(M_SFT_PO),
-  [M_SFT_PC] = ACTION_MACRO_TAP(M_SFT_PC),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  bool tap_not_interrupted = record->tap.count > 0 && !record->tap.interrupted;
-
-  switch(id) {
-    // Hold for LGUI, tap for Underscore
-    case M_GUI_UNDS:
-      if (record->event.pressed) {
-        m_gui_unds_timer = timer_read();
-
-        if (!tap_not_interrupted) {
-          register_mods(MOD_BIT(KC_LGUI));
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    if (pressed) {
+        switch(combo_index) {
+            case CB_SUPERDUPER:
+                layer_on(_SUPERDUPER);
+                ergodox_board_led_on();
+                break;
         }
-      } else {
-        if (tap_not_interrupted && timer_elapsed(m_gui_unds_timer) < TAPPING_TERM) {
-
-          add_weak_mods(MOD_BIT(KC_LSFT));
-          send_keyboard_report();
-          register_code(KC_MINS);
-          unregister_code(KC_MINS);
-          del_weak_mods(MOD_BIT(KC_LSFT));
-          send_keyboard_report();
-          record->tap.count = 0;  // ad hoc: cancel tap
-        } else {
-          unregister_mods(MOD_BIT(KC_LGUI));
-        }
-      }
-      break;
-    // Hold for LSHIFT, tap for Parens open
-    case M_SFT_PO:
-      if (record->event.pressed) {
-        m_sft_po_timer = timer_read();
-
-        if (!tap_not_interrupted) {
-          register_mods(MOD_BIT(KC_LSFT));
-        }
-      } else {
-        if (tap_not_interrupted && timer_elapsed(m_sft_po_timer) < TAPPING_TERM) {
-          record->tap.count = 0;
-          return MACRO(D(RSFT), T(9), U(RSFT), END);
-        } else {
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
-      }
-      break;
-    // Hold for RSHIFT, tap for Parens close
-    case M_SFT_PC:
-      if (record->event.pressed) {
-        m_sft_pc_timer = timer_read();
-
-        if (!tap_not_interrupted) {
-          register_mods(MOD_BIT(KC_RSFT));
-        }
-      } else {
-        if (tap_not_interrupted && timer_elapsed(m_sft_pc_timer) < TAPPING_TERM) {
-          record->tap.count = 0;
-          return MACRO(D(LSFT), T(0), U(LSFT), END);
-        } else {
-          unregister_mods(MOD_BIT(KC_RSFT));
-        }
-      }
-      break;
-  }
-  return MACRO_NONE;
-};
+    } else {
+        layer_off(_SUPERDUPER);
+        ergodox_board_led_off();
+        unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
+    }
+}

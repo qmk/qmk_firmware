@@ -8,17 +8,17 @@ This page covers how to properly support keyboards in the [QMK Configurator](htt
 To understand how the Configurator understands keyboards, first one must understand layout macros. For this exercise, we're going to imagine a 17-key numpad PCB, which we're going to call `numpad`.
 
 ```
-┌───┬───┬───┬───┐
-│NLk│ / │ * │ - │
-├───┼───┼───┼───┤
-│7  │8  │9  │ + │
-├───┼───┼───┤   │
-│4  │5  │6  │   │
-├───┼───┼───┼───┤
-│1  │2  │3  │Ent│
-├───┴───┼───┤   │
-│0      │ . │   │
-└───────┴───┴───┘
+|---------------|
+|NLk| / | * | - |
+|---+---+---+---|
+|7  |8  |9  | + |
+|---+---+---|   |
+|4  |5  |6  |   |
+|---+---+---+---|
+|1  |2  |3  |Ent|
+|-------+---|   |
+|0      | . |   |
+|---------------|
 ```
 
 ?> For more on layout macros, see [Understanding QMK: Matrix Scanning](understanding_qmk.md?id=matrix-scanning) and [Understanding QMK: Matrix to Physical Layout Map](understanding_qmk.md?id=matrix-to-physical-layout-map).
@@ -89,7 +89,7 @@ Once the layout is as desired, move to the Raw Data tab in KLE, and copy the con
 
 To convert this data into our JSON, go to the [QMK KLE-JSON Converter](https://qmk.fm/converter/), paste the Raw Data into the Input field, and click the Convert button. After a moment, our JSON data will appear in the Output field. Copy the contents to a new text document, and name the document `info.json`, saving it in the same folder that contains `numpad.h`.
 
-Use the `keyboard_name` object to set the name of the keyboard. The `bootloader` object is deprecated, so it can be deleted. For instruction purposes, we will put each key's object on its own line. This is only to make the file more human-readable, and does not affect the Configurator's functionality.
+Use the `keyboard_name` object to set the name of the keyboard. For instruction purposes, we will put each key's object on its own line. This is only to make the file more human-readable, and does not affect the Configurator's functionality.
 
 ```json
 {
@@ -130,18 +130,20 @@ Use the `keyboard_name` object to set the name of the keyboard. The `bootloader`
 The `layouts` object contains the data that represents the physical layout of the keyboard. It has an object `LAYOUT`, which needs to match the name of our layout macro from `numpad.h`. The `LAYOUT` object itself has an object named `layout`, which contains one JSON object for each physical key on our keyboard, formatted as follows:
 
 ```
-  ┌ The name of the key. Not displayed in the Configurator.
-  │                   ┌ The key's X-axis location, in key units from the
-  │                   │ keyboard's left edge.
-  │                   │      ┌ The key's Y-axis location, in key units from
-  │                   │      │ the keyboard's top (rear-facing) edge.
+  The name of the key. Not displayed in the Configurator.
+  |
+  |                   The key's X-axis location, in key units from the
+  |                   | keyboard's left edge.
+  |                   |
+  |                   |      The key's Y-axis location, in key units from
+  |                   |      | the keyboard's top (rear-facing) edge.
   ↓                   ↓      ↓
 {"label":"Num Lock", "x":0, "y":0},
 ```
 
 Some objects will also have `"w"` and `"h"` keys, which represent a key's width and height, respectively.
 
-?> For more on the `info.json` files, see [QMK Keyboard Guidelines: Keyboard Metadata](hardware_keyboard_guidelines.md?id=keyboard-metadata)
+?> For more on the `info.json` files, see [`info.json` Format](reference_info_json.md).
 
 
 ## How the Configurator Programs Keys

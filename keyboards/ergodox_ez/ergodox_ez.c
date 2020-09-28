@@ -22,6 +22,8 @@ extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
 
 extern inline void ergodox_led_all_set(uint8_t n);
 
+keyboard_config_t keyboard_config;
+
 bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 
@@ -42,6 +44,16 @@ void matrix_init_kb(void) {
     PORTC |=  (1<<7);
     PORTD |=  (1<<5 | 1<<4);
     PORTE |=  (1<<6);
+
+    keyboard_config.raw = eeconfig_read_kb();
+    ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+#ifdef RGB_MATRIX_ENABLE
+    if (keyboard_config.rgb_matrix_enable) {
+        rgb_matrix_set_flags(LED_FLAG_ALL);
+    } else {
+        rgb_matrix_set_flags(LED_FLAG_NONE);
+    }
+#endif
 
     ergodox_blink_all_leds();
 
@@ -269,68 +281,111 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 };
 
 
-const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
+led_config_t g_led_config = { {
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    {  28,  33,  38,  43,  47, NO_LED },
+    {  27,  32,  37,  42,  46, NO_LED },
+    {  26,  31,  36,  41,  45, NO_LED },
+    {  25,  30,  35,  40,  44, NO_LED },
+    {  24,  29,  34,  39, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    {   0,   5,  10,  15, NO_LED, NO_LED },
+    {   1,   6,  11,  16,  20, NO_LED },
+    {   2,   7,  12,  17,  21, NO_LED },
+    {   3,   8,  13,  18,  22, NO_LED },
+    {   4,   9,  14,  19,  23, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
+}, {
+    { 137,   0 }, { 154,   0 }, { 172,   0 }, { 189,   0 }, { 206,   0 }, { 137,  12 },
+    { 154,  12 }, { 172,  12 }, { 189,  12 }, { 206,  12 }, { 137,  25 }, { 154,  25 },
+    { 172,  25 }, { 189,  25 }, { 206,  25 }, { 137,  38 }, { 154,  38 }, { 172,  38 },
+    { 189,  38 }, { 206,  38 }, { 154,  51 }, { 172,  51 }, { 189,  51 }, { 206,  51 },
+    {  86,   0 }, {  68,   0 }, {  51,   0 }, {  34,   0 }, {  17,   0 }, {  86,  12 },
+    {  68,  12 }, {  51,  12 }, {  34,  12 }, {  17,  12 }, {  86,  25 }, {  68,  25 },
+    {  51,  25 }, {  34,  25 }, {  17,  25 }, {  86,  38 }, {  68,  38 }, {  51,  38 },
+    {  34,  38 }, {  17,  38 }, {  68,  51 }, {  51,  51 }, {  34,  51 }, {  17,  51 }
+}, {
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 1, 1, 1, 1,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 1, 1, 1, 1
+} };
 
-    /*{row | col << 4}
-      |             {x=0..224, y=0..64}
-      |              |                    modifier
-      |              |                    | */
-    {{ 8|(0<<4)},   {17.2* 8, 12.8*0}, 0}, // LED 1 on right > Key 6
-    {{ 9|(0<<4)},   {17.2* 9, 12.8*0}, 0}, // LED 2 > Key 7
-    {{10|(0<<4)},   {17.2*10, 12.8*0}, 0}, // LED 3 > Key 8
-    {{11|(0<<4)},   {17.2*11, 12.8*0}, 0}, // LED 4 > Key 9
-    {{12|(0<<4)},   {17.2*12, 12.8*0}, 0}, // LED 5 > Key 0
+void suspend_power_down_kb(void) {
+    rgb_matrix_set_color_all(0, 0, 0);
+    rgb_matrix_set_suspend_state(true);
+    suspend_power_down_user();
+}
 
-    {{ 8|(1<<4)},   {17.2* 8, 12.8*1}, 0}, // LED 6
-    {{ 9|(1<<4)},   {17.2* 9, 12.8*1}, 0}, // LED 7
-    {{10|(1<<4)},   {17.2*10, 12.8*1}, 0}, // LED 8
-    {{11|(1<<4)},   {17.2*11, 12.8*1}, 0}, // LED 9
-    {{12|(1<<4)},   {17.2*12, 12.8*1}, 0}, // LED 10
+ void suspend_wakeup_init_kb(void) {
+    rgb_matrix_set_suspend_state(false);
+    suspend_wakeup_init_user();
+}
 
-    {{ 8|(2<<4)},   {17.2* 8, 12.8*2}, 0}, // LED 11
-    {{ 9|(2<<4)},   {17.2* 9, 12.8*2}, 0}, // LED 12
-    {{10|(2<<4)},   {17.2*10, 12.8*2}, 0}, // LED 13
-    {{11|(2<<4)},   {17.2*11, 12.8*2}, 0}, // LED 14
-    {{12|(2<<4)},   {17.2*12, 12.8*2}, 0}, // LED 15
-
-    {{ 8|(3<<4)},   {17.2* 8, 12.8*3}, 0}, // LED 16
-    {{ 9|(3<<4)},   {17.2* 9, 12.8*3}, 0}, // LED 17
-    {{10|(3<<4)},   {17.2*10, 12.8*3}, 0}, // LED 18
-    {{11|(3<<4)},   {17.2*11, 12.8*3}, 0}, // LED 19
-    {{12|(3<<4)},   {17.2*12, 12.8*3}, 0}, // LED 20
-
-    {{ 9|(4<<4)},   {17.2* 9, 12.8*4}, 1}, // LED 21
-    {{10|(4<<4)},   {17.2*10, 12.8*4}, 1}, // LED 22
-    {{11|(4<<4)},   {17.2*11, 12.8*4}, 1}, // LED 23
-    {{12|(4<<4)},   {17.2*12, 12.8*4}, 1}, // LED 24
-
-    {{ 5|(0<<4)},   {17.2* 5, 12.8*0}, 0}, // LED 1 on left > Key 5
-    {{ 4|(0<<4)},   {17.2* 4, 12.8*0}, 0}, // LED 2 > Key 4
-    {{ 3|(0<<4)},   {17.2* 3, 12.8*0}, 0}, // LED 3 > Key 3
-    {{ 2|(0<<4)},   {17.2* 2, 12.8*0}, 0}, // LED 4 > Key 2
-    {{ 1|(0<<4)},   {17.2* 1, 12.8*0}, 0}, // LED 5 > Key 1
-
-    {{ 5|(1<<4)},   {17.2* 5, 12.8*1}, 0}, // LED 6
-    {{ 4|(1<<4)},   {17.2* 4, 12.8*1}, 0}, // LED 7
-    {{ 3|(1<<4)},   {17.2* 3, 12.8*1}, 0}, // LED 8
-    {{ 2|(1<<4)},   {17.2* 2, 12.8*1}, 0}, // LED 9
-    {{ 1|(1<<4)},   {17.2* 1, 12.8*1}, 0}, // LED 10
-
-    {{ 5|(2<<4)},   {17.2* 5, 12.8*2}, 0}, // LED 11
-    {{ 4|(2<<4)},   {17.2* 4, 12.8*2}, 0}, // LED 12
-    {{ 3|(2<<4)},   {17.2* 3, 12.8*2}, 0}, // LED 13
-    {{ 2|(2<<4)},   {17.2* 2, 12.8*2}, 0}, // LED 14
-    {{ 1|(2<<4)},   {17.2* 1, 12.8*2}, 0}, // LED 15
-
-    {{ 5|(3<<4)},   {17.2* 5, 12.8*3}, 0}, // LED 16
-    {{ 4|(3<<4)},   {17.2* 4, 12.8*3}, 0}, // LED 17
-    {{ 3|(3<<4)},   {17.2* 3, 12.8*3}, 0}, // LED 18
-    {{ 2|(3<<4)},   {17.2* 2, 12.8*3}, 0}, // LED 19
-    {{ 1|(3<<4)},   {17.2* 1, 12.8*3}, 0}, // LED 20
-
-    {{ 4|(4<<4)},   {17.2* 4, 12.8*4}, 1}, // LED 21
-    {{ 3|(4<<4)},   {17.2* 3, 12.8*4}, 1}, // LED 22
-    {{ 2|(4<<4)},   {17.2* 2, 12.8*4}, 1}, // LED 23
-    {{ 1|(4<<4)},   {17.2* 1, 12.8*4}, 1}, // LED 24 > Key Hack
-};
+#ifdef ORYX_CONFIGURATOR
+void keyboard_post_init_kb(void) {
+    rgb_matrix_enable_noeeprom();
+    keyboard_post_init_user();
+}
 #endif
+#endif
+
+#ifdef ORYX_CONFIGURATOR
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LED_LEVEL:
+            if (record->event.pressed) {
+                 keyboard_config.led_level++;
+                 if (keyboard_config.led_level > 4) {
+                    keyboard_config.led_level = 0;
+                 }
+                 ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 eeconfig_update_kb(keyboard_config.raw);
+                 layer_state_set_kb(layer_state);
+            }
+            break;
+#ifdef RGB_MATRIX_ENABLE
+        case TOGGLE_LAYER_COLOR:
+            if (record->event.pressed) {
+                keyboard_config.disable_layer_led ^= 1;
+                if (keyboard_config.disable_layer_led)
+                    rgb_matrix_set_color_all(0, 0, 0);
+                eeconfig_update_kb(keyboard_config.raw);
+            }
+            break;
+        case RGB_TOG:
+            if (record->event.pressed) {
+              switch (rgb_matrix_get_flags()) {
+                case LED_FLAG_ALL: {
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                    keyboard_config.rgb_matrix_enable = false;
+                    rgb_matrix_set_color_all(0, 0, 0);
+                  }
+                  break;
+                default: {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                    keyboard_config.rgb_matrix_enable = true;
+                  }
+                  break;
+              }
+              eeconfig_update_kb(keyboard_config.raw);
+            }
+            return false;
+#endif
+    }
+    return process_record_user(keycode, record);
+}
+#endif
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    keyboard_config.raw = 0;
+    keyboard_config.led_level = 4;
+    keyboard_config.rgb_matrix_enable = true;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
+}

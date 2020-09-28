@@ -1,24 +1,21 @@
-#include QMK_KEYBOARD_H
 #include "drashna.h"
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 
-extern keymap_config_t keymap_config;
 extern uint8_t is_master;
 
 #ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
+// Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
 
-enum crkbd_keycodes {
-  RGBRST = NEW_SAFE_RANGE
-};
+enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
+
+/*
+ * The `LAYOUT_crkbd_base` macro is a template to allow the use of identical
+ * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * that there is no need to set them up for each layout, and modify all of
+ * them if I want to change them.  This helps to keep consistency and ease
+ * of use. K## is a placeholder to pass through the individual keycodes
+ */
 
 #define LAYOUT_crkbd_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
@@ -27,9 +24,9 @@ enum crkbd_keycodes {
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
-    KC_TAB, ALT_T(K11),  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RGUI_T(KC_QUOT), \
-    OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RSFT, \
-                           LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,     KC_DEL,  KC_ENT,  RAISE                                        \
+    ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
+                                        KC_GRV,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
 
@@ -106,185 +103,114 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_wrapper( \
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
-    _______, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, KC_MPLY,
-                                     _______, _______, _______,        KC_NUKE, TG_MODS, _______
+    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
+                                     HPT_TOG, KC_NUKE, _______,        _______, TG_MODS, HPT_FBK
   )
 };
-
-void matrix_init_keymap(void) {
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  #ifdef SSD1306OLED
-    iota_gfx_init(!has_usb());   // turns on the display
-  #endif
-
-  #ifndef CONVERT_TO_PROTON_C
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-  #endif
-}
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-// When add source files to SRC in rules.mk, you can use functions.
-const char *read_logo(void);
-char layer_state_str[24];
-char modifier_state_str[24];
-char host_led_state_str[24];
-char keylog_str[24] = {};
-char keylogs_str[21] = {};
-int keylogs_str_idx = 0;
-
-// const char *read_mode_icon(bool swap);
-// void set_timelog(void);
-// const char *read_timelog(void);
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
-
-  // update keylogs
-  if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
-    keylogs_str_idx = 0;
-    for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
-      keylogs_str[i] = ' ';
-    }
-  }
-
-  keylogs_str[keylogs_str_idx] = name;
-  keylogs_str_idx++;
-}
-
-const char *read_keylog(void) {
-  return keylog_str;
-}
-
-const char *read_keylogs(void) {
-  return keylogs_str;
-}
-
-
-const char* read_modifier_state(void) {
-  uint8_t modifiers = get_mods();
-  uint8_t one_shot = get_oneshot_mods();
-
-  snprintf(modifier_state_str, sizeof(modifier_state_str), "Mods:%s %s %s %s",
-    (modifiers & MOD_MASK_CTRL || one_shot & MOD_MASK_CTRL) ? "CTL" : "   ",
-    (modifiers & MOD_MASK_GUI || one_shot & MOD_MASK_GUI) ? "GUI" : "   ",
-    (modifiers & MOD_MASK_ALT || one_shot & MOD_MASK_ALT) ? "ALT" : "   ",
-    (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? "SFT" : "   "
-  );
-
-  return modifier_state_str;
-}
-
-const char *read_host_led_state(void) {
-  uint8_t leds = host_keyboard_leds();
-
-  snprintf(host_led_state_str, sizeof(host_led_state_str), "NL:%s CL:%s SL:%s",
-    (leds & (1 << USB_LED_NUM_LOCK)) ? "on" : "- ",
-    (leds & (1 << USB_LED_CAPS_LOCK)) ? "on" : "- ",
-    (leds & (1 << USB_LED_SCROLL_LOCK)) ? "on" : "- "
-  );
-
-  return host_led_state_str;
-}
-
-const char* read_layer_state(void) {
-  switch (biton32(layer_state)) {
-    case _RAISE:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise  ");
-      break;
-    case _LOWER:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower  ");
-      break;
-    case _ADJUST:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust ");
-      break;
-    default:
-      switch (biton32(default_layer_state)) {
-        case _QWERTY:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Qwerty ");
-          break;
-        case _COLEMAK:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Colemak");
-          break;
-        case _DVORAK:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Dvorak ");
-          break;
-        case _WORKMAN:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Workman");
-          break;
-      }
-      break;
-  }
-
-    return layer_state_str;
-}
-
-void matrix_scan_keymap(void) {
-   iota_gfx_task();
-}
-
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
-    //If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_modifier_state());
-    // matrix_write_ln(matrix, read_keylog());
-    matrix_write_ln(matrix, read_keylogs());
-    // matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    // matrix_write(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
-}
-
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);
-}
+// clang-format on
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_A ... KC_SLASH:
-    case KC_F1 ... KC_F12:
-    case KC_INSERT ... KC_UP:
-    case KC_KP_SLASH ... KC_KP_DOT:
-    case KC_F13 ... KC_F24:
-    if (record->event.pressed) { set_keylog(keycode, record); }
-      break;
-    // set_timelog();
-  }
-  return true;
+    if (record->event.pressed) {
+#ifndef SPLIT_KEYBOARD
+        if (keycode == RESET && !is_master) {
+            return false;
+        }
+#endif
+    }
+    return true;
 }
 
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+#    ifndef SPLIT_KEYBOARD
+    if (is_master) {
+#    endif
+        return OLED_ROTATION_270;
+#    ifndef SPLIT_KEYBOARD
+    }  else {
+        return rotation;
+    }
+#    endif
+}
+#endif
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case ALT_T(KC_A):
+            return TAPPING_TERM + 100;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+#ifdef RGB_MATRIX_ENABLE
+
+void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
+
+void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
+
+void check_default_layer(uint8_t mode, uint8_t type) {
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
+            break;
+        case _COLEMAK:
+            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type);
+            break;
+        case _DVORAK:
+            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
+            break;
+        case _WORKMAN:
+            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
+            break;
+        case _NORMAN:
+            rgb_matrix_layer_helper(HSV_CORAL, mode, rgb_matrix_config.speed, type);
+            break;
+        case _MALTRON:
+            rgb_matrix_layer_helper(HSV_YELLOW, mode, rgb_matrix_config.speed, type);
+            break;
+        case _EUCALYN:
+            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, type);
+            break;
+        case _CARPLAX:
+            rgb_matrix_layer_helper(HSV_BLUE, mode, rgb_matrix_config.speed, type);
+            break;
+    }
+}
+
+void rgb_matrix_indicators_user(void) {
+    if (userspace_config.rgb_layer_change &&
+#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+        !g_suspend_state &&
+#    endif
+#    if defined(RGBLIGHT_ENABLE)
+        (!rgblight_config.enable && rgb_matrix_config.enable)
+#    else
+        rgb_matrix_config.enable
+#    endif
+    ) {
+        switch (get_highest_layer(layer_state)) {
+            case _GAMEPAD:
+                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                break;
+            case _DIABLO:
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                break;
+            case _RAISE:
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                break;
+            case _LOWER:
+                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                break;
+            case _ADJUST:
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                break;
+            default: {
+                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW);
+                break;
+            }
+        }
+        check_default_layer(0, LED_FLAG_MODIFIER);
+    }
+}
 #endif

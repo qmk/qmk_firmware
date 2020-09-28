@@ -40,5 +40,4 @@ bool led_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_s
 
 extern keyframe_animation_t led_test_animation;
 
-
 #endif /* LED_KEYFRAMES_H */

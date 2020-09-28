@@ -2,7 +2,7 @@
 
 ![XD84](https://cdn.shopify.com/s/files/1/2711/4238/products/HTB17eeJSXXXXXbIXFXXq6xXFXXXp_1024x1024.jpg?v=1515505994)
 
-Compact With 84 Keys & RGB LED Underglow
+Keyboard with 84 Keys & RGB LED Underglow
 - Designed by Xiudi
 - Up to 87 keys
   - iso and ansi support

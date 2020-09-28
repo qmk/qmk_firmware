@@ -1,4 +1,4 @@
-﻿# The Default Zinc Layout
+# The Default Zinc Layout
 ## 配列
 
 ### Qwerty配列

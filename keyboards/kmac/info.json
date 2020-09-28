@@ -6,7 +6,8 @@
   "width": 18.25,
   "height": 6.5,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_tkl_ansi": {
+      "key_count": 87,
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "F1", "x": 2, "y": 0 },
@@ -97,8 +98,8 @@
         { "label": "\u2192", "x": 17.25, "y": 5.5 }
       ]
     },
-
-    "LAYOUT_WKL": {
+    "LAYOUT_tkl_ansi_wkl": {
+      "key_count": 84,
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "F1", "x": 2, "y": 0 },
@@ -177,11 +178,9 @@
         { "label": "Shift", "x": 12.25, "y": 4.5, "w": 2.75 },
         { "label": "\u2191", "x": 16.25, "y": 4.5 },
         { "label": "Ctrl", "x": 0, "y": 5.5, "w": 1.5 },
-        { "label": "Win", "x": 1.5, "y": 5.5 },
         { "label": "Alt", "x": 2.5, "y": 5.5, "w": 1.5 },
         { "x": 4, "y": 5.5, "w": 7 },
         { "label": "Alt", "x": 11, "y": 5.5, "w": 1.5 },
-        { "label": "Win", "x": 12.5, "y": 5.5 },
         { "label": "Ctrl", "x": 13.5, "y": 5.5, "w": 1.5 },
         { "label": "\u2190", "x": 15.25, "y": 5.5 },
         { "label": "\u2193", "x": 16.25, "y": 5.5 },

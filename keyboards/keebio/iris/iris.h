@@ -6,12 +6,14 @@
     #include "rev1_led.h"
 #elif KEYBOARD_keebio_iris_rev2
     #include "rev2.h"
-#else
+#elif KEYBOARD_keebio_iris_rev3
     #include "rev3.h"
+#elif KEYBOARD_keebio_iris_rev4
+    #include "rev4.h"
 #endif
 
 #include "quantum.h"
-#include "../../zeal60/zeal60_keycodes.h"
+#include "via.h"
 
 // Used to create a keymap using only KC_ prefixed keys
 #define LAYOUT_kc( \

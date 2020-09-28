@@ -52,10 +52,10 @@ Header Pins
 Header / Matrix
 ---------------
 
-Pin             Name        Description                                
+Pin             Name        Description
 --------------------------------------------------------------
 1,2,5,3,4,6     Y0-Y5       Y-direction key-matrix connections
-7               NC                                          
+7               NC
 9,11,10,8       X4-X7       X-direction key-matrix connections
 
 
@@ -98,4 +98,4 @@ http://wiki.apple2.org/index.php?title=Pinouts#Apple_.2F.2Fe_Numeric_Keypad_conn
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 #define SOFT_SERIAL_PIN D0
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5

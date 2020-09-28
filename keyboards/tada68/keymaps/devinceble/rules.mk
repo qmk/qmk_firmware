@@ -1,0 +1,3 @@
+MOUSEKEY_ENABLE = yes
+
+

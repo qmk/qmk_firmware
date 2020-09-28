@@ -14,8 +14,8 @@ __attribute__ ((weak))
 void matrix_init_kb(void) {
 	// Turn status LED on
 	#ifdef __AVR__
-	DDRE |= (1<<6);
-	PORTE |= (1<<6);
+	setPinOutput(E6);
+	writePinHigh(E6);
 	#endif
 
 	matrix_init_user();

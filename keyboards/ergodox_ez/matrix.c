@@ -1,9 +1,5 @@
 /*
 
-Note for ErgoDox EZ customizers: Here be dragons!
-This is not a file you want to be messing with.
-All of the interesting stuff for you is under keymaps/ :)
-Love, Erez
 
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 
@@ -35,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "debounce.h"
 #include QMK_KEYBOARD_H
-#ifdef DEBUG_MATRIX_SCAN_RATE
-#  include "timer.h"
-#endif
 
 /*
  * This constant define not debouncing time in msecs, assuming eager_pr.
@@ -51,10 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * that comment was written.)
  */
 
-#ifndef DEBOUNCE
-#  define DEBOUNCE 5
-#endif
-
 /* matrix state(1:on, 0:off) */
 static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
@@ -66,11 +55,6 @@ static void         select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
 // static uint16_t mcp23018_reset_loop;
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
 
 __attribute__((weak)) void matrix_init_user(void) {}
 
@@ -95,13 +79,9 @@ void matrix_init(void) {
   // initialize matrix state: all keys off
   for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
     matrix[i]     = 0;
-    raw_matrix[i] = 0;    
+    raw_matrix[i] = 0;
   }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_timer      = timer_read32();
-  matrix_scan_count = 0;
-#endif
   debounce_init(MATRIX_ROWS);
   matrix_init_quantum();
 }
@@ -116,11 +96,6 @@ void matrix_power_up(void) {
   for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
     matrix[i] = 0;
   }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_timer      = timer_read32();
-  matrix_scan_count = 0;
-#endif
 }
 
 // Reads and stores a row, returning
@@ -147,28 +122,17 @@ uint8_t matrix_scan(void) {
       } else {
         print("left side attached\n");
         ergodox_blink_all_leds();
+#ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_init(); // re-init driver on reconnect
+#endif
       }
     }
   }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_scan_count++;
-
-  uint32_t timer_now = timer_read32();
-  if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
-    print("matrix scan frequency: ");
-    pdec(matrix_scan_count);
-    print("\n");
-
-    matrix_timer      = timer_now;
-    matrix_scan_count = 0;
-  }
-#endif
-
 #ifdef LEFT_LEDS
   mcp23018_status = ergodox_left_leds_update();
 #endif  // LEFT_LEDS
-  bool changed = false;  
+  bool changed = false;
   for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
     // select rows from left and right hands
     uint8_t left_index = i;
@@ -178,13 +142,13 @@ uint8_t matrix_scan(void) {
 
     // we don't need a 30us delay anymore, because selecting a
     // left-hand row requires more than 30us for i2c.
-    
+
     changed |= store_raw_matrix_row(left_index);
     changed |= store_raw_matrix_row(right_index);
 
     unselect_rows();
   }
-  
+
   debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
   matrix_scan_quantum();
 
@@ -244,10 +208,8 @@ static matrix_row_t read_cols(uint8_t row) {
       return 0;
     } else {
       uint8_t data    = 0;
-      mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);
-      if (mcp23018_status) goto out;
-      mcp23018_status = i2c_write(GPIOB, ERGODOX_EZ_I2C_TIMEOUT);
-      if (mcp23018_status) goto out;
+      // reading GPIOB (column port) since in mcp23018's sequential mode
+      // it is addressed directly after writing to GPIOA in select_row()
       mcp23018_status = i2c_start(I2C_ADDR_READ, ERGODOX_EZ_I2C_TIMEOUT);
       if (mcp23018_status) goto out;
       mcp23018_status = i2c_read_nack(ERGODOX_EZ_I2C_TIMEOUT);

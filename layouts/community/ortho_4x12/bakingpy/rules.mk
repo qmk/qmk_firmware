@@ -1,5 +1,5 @@
 ifneq ($(LAYOUTS_HAS_RGB), no)
-	RGBLIGHT_ENABLE = yes
+  RGBLIGHT_ENABLE = yes
 endif
 AUDIO_ENABLE = no
 ifeq ($(strip $(KEYBOARD)), zlant)

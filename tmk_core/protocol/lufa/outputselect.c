@@ -12,10 +12,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "lufa.h"
 #include "outputselect.h"
+
+#if defined(PROTOCOL_LUFA)
+#    include "lufa.h"
+#endif
+
 #ifdef MODULE_ADAFRUIT_BLE
-    #include "adafruit_ble.h"
+#    include "adafruit_ble.h"
 #endif
 
 uint8_t desired_output = OUTPUT_DEFAULT;
@@ -33,8 +37,12 @@ void set_output(uint8_t output) {
  *
  * FIXME: Needs doc
  */
-__attribute__((weak))
-void set_output_user(uint8_t output) {
+__attribute__((weak)) void set_output_user(uint8_t output) {}
+
+static bool is_usb_configured(void) {
+#if defined(PROTOCOL_LUFA)
+    return USB_DeviceState == DEVICE_STATE_Configured;
+#endif
 }
 
 /** \brief Auto Detect Output
@@ -42,7 +50,7 @@ void set_output_user(uint8_t output) {
  * FIXME: Needs doc
  */
 uint8_t auto_detect_output(void) {
-    if (USB_DeviceState == DEVICE_STATE_Configured) {
+    if (is_usb_configured()) {
         return OUTPUT_USB;
     }
 
@@ -53,7 +61,7 @@ uint8_t auto_detect_output(void) {
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-    return OUTPUT_BLUETOOTH; // should check if BT is connected here
+    return OUTPUT_BLUETOOTH;  // should check if BT is connected here
 #endif
 
     return OUTPUT_NONE;
@@ -69,4 +77,3 @@ uint8_t where_to_send(void) {
     }
     return desired_output;
 }
-

@@ -25,9 +25,10 @@ void keyboard_post_init_user(void) {
   uint8_t temp_mode = rgblight_config.mode;
 	rgblight_enable_noeeprom();
 	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-	for (uint16_t i = 360; i > 0; i--) {
-		rgblight_sethsv_noeeprom( ( i + 180) % 360, 255, 255);
-    wait_ms(8);
+    for (uint16_t i = 255; i > 0; i--) {
+        rgblight_sethsv_noeeprom( ( i + 128) % 255, 255, 255);
+        matrix_scan();
+        wait_ms(10);
 	}
 	led_set_user(host_keyboard_leds());
   rgblight_mode_noeeprom(temp_mode);

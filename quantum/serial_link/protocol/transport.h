@@ -42,104 +42,94 @@ typedef enum {
 
 typedef struct {
     remote_object_type object_type;
-    uint16_t object_size;
-    uint8_t buffer[] __attribute__((aligned(4)));
+    uint16_t           object_size;
+    uint8_t            buffer[] __attribute__((aligned(4)));
 } remote_object_t;
 
-#define REMOTE_OBJECT_SIZE(objectsize) \
-    (sizeof(triple_buffer_object_t) + objectsize * 3)
-#define LOCAL_OBJECT_SIZE(objectsize) \
-    (sizeof(triple_buffer_object_t) + (objectsize + LOCAL_OBJECT_EXTRA) * 3)
+#define REMOTE_OBJECT_SIZE(objectsize) (sizeof(triple_buffer_object_t) + objectsize * 3)
+#define LOCAL_OBJECT_SIZE(objectsize) (sizeof(triple_buffer_object_t) + (objectsize + LOCAL_OBJECT_EXTRA) * 3)
 
-#define REMOTE_OBJECT_HELPER(name, type, num_local, num_remote) \
-typedef struct { \
-    remote_object_t object; \
-    uint8_t buffer[ \
-        num_remote * REMOTE_OBJECT_SIZE(sizeof(type)) + \
-        num_local * LOCAL_OBJECT_SIZE(sizeof(type))]; \
-} remote_object_##name##_t;
+#define REMOTE_OBJECT_HELPER(name, type, num_local, num_remote)                                                              \
+    typedef struct {                                                                                                         \
+        remote_object_t object;                                                                                              \
+        uint8_t         buffer[num_remote * REMOTE_OBJECT_SIZE(sizeof(type)) + num_local * LOCAL_OBJECT_SIZE(sizeof(type))]; \
+    } remote_object_##name##_t;
 
-#define MASTER_TO_ALL_SLAVES_OBJECT(name, type) \
-    REMOTE_OBJECT_HELPER(name, type, 1, 1) \
-    remote_object_##name##_t remote_object_##name = { \
-        .object = { \
-            .object_type = MASTER_TO_ALL_SLAVES, \
-            .object_size = sizeof(type), \
-        } \
-    }; \
-    type* begin_write_##name(void) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer; \
+#define MASTER_TO_ALL_SLAVES_OBJECT(name, type)                                                                     \
+    REMOTE_OBJECT_HELPER(name, type, 1, 1)                                                                          \
+    remote_object_##name##_t remote_object_##name = {.object = {                                                    \
+                                                         .object_type = MASTER_TO_ALL_SLAVES,                       \
+                                                         .object_size = sizeof(type),                               \
+                                                     }};                                                            \
+    type*                    begin_write_##name(void) {                                                             \
+        remote_object_t*        obj = (remote_object_t*)&remote_object_##name;                   \
+        triple_buffer_object_t* tb  = (triple_buffer_object_t*)obj->buffer;                      \
         return (type*)triple_buffer_begin_write_internal(sizeof(type) + LOCAL_OBJECT_EXTRA, tb); \
-    }\
-    void end_write_##name(void) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer; \
-        triple_buffer_end_write_internal(tb); \
-        signal_data_written(); \
-    }\
-    type* read_##name(void) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        uint8_t* start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);\
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
-        return (type*)triple_buffer_read_internal(obj->object_size, tb); \
+    }                                                                                                               \
+    void end_write_##name(void) {                                                                                   \
+        remote_object_t*        obj = (remote_object_t*)&remote_object_##name;                                      \
+        triple_buffer_object_t* tb  = (triple_buffer_object_t*)obj->buffer;                                         \
+        triple_buffer_end_write_internal(tb);                                                                       \
+        signal_data_written();                                                                                      \
+    }                                                                                                               \
+    type* read_##name(void) {                                                                                       \
+        remote_object_t*        obj   = (remote_object_t*)&remote_object_##name;                                    \
+        uint8_t*                start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);                          \
+        triple_buffer_object_t* tb    = (triple_buffer_object_t*)start;                                             \
+        return (type*)triple_buffer_read_internal(obj->object_size, tb);                                            \
     }
 
-#define MASTER_TO_SINGLE_SLAVE_OBJECT(name, type) \
-    REMOTE_OBJECT_HELPER(name, type, NUM_SLAVES, 1) \
-    remote_object_##name##_t remote_object_##name = { \
-        .object = { \
-            .object_type = MASTER_TO_SINGLE_SLAVE, \
-            .object_size = sizeof(type), \
-        } \
-    }; \
-    type* begin_write_##name(uint8_t slave) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        uint8_t* start = obj->buffer;\
-        start += slave * LOCAL_OBJECT_SIZE(obj->object_size); \
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
+#define MASTER_TO_SINGLE_SLAVE_OBJECT(name, type)                                                                   \
+    REMOTE_OBJECT_HELPER(name, type, NUM_SLAVES, 1)                                                                 \
+    remote_object_##name##_t remote_object_##name = {.object = {                                                    \
+                                                         .object_type = MASTER_TO_SINGLE_SLAVE,                     \
+                                                         .object_size = sizeof(type),                               \
+                                                     }};                                                            \
+    type*                    begin_write_##name(uint8_t slave) {                                                    \
+        remote_object_t* obj   = (remote_object_t*)&remote_object_##name;                        \
+        uint8_t*         start = obj->buffer;                                                    \
+        start += slave * LOCAL_OBJECT_SIZE(obj->object_size);                                    \
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)start;                             \
         return (type*)triple_buffer_begin_write_internal(sizeof(type) + LOCAL_OBJECT_EXTRA, tb); \
-    }\
-    void end_write_##name(uint8_t slave) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        uint8_t* start = obj->buffer;\
-        start += slave * LOCAL_OBJECT_SIZE(obj->object_size); \
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
-        triple_buffer_end_write_internal(tb); \
-        signal_data_written(); \
-    }\
-    type* read_##name() { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        uint8_t* start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);\
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
-        return (type*)triple_buffer_read_internal(obj->object_size, tb); \
+    }                                                                                                               \
+    void end_write_##name(uint8_t slave) {                                                                          \
+        remote_object_t* obj   = (remote_object_t*)&remote_object_##name;                                           \
+        uint8_t*         start = obj->buffer;                                                                       \
+        start += slave * LOCAL_OBJECT_SIZE(obj->object_size);                                                       \
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)start;                                                \
+        triple_buffer_end_write_internal(tb);                                                                       \
+        signal_data_written();                                                                                      \
+    }                                                                                                               \
+    type* read_##name() {                                                                                           \
+        remote_object_t*        obj   = (remote_object_t*)&remote_object_##name;                                    \
+        uint8_t*                start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);             \
+        triple_buffer_object_t* tb    = (triple_buffer_object_t*)start;                                             \
+        return (type*)triple_buffer_read_internal(obj->object_size, tb);                                            \
     }
 
-#define SLAVE_TO_MASTER_OBJECT(name, type) \
-    REMOTE_OBJECT_HELPER(name, type, 1, NUM_SLAVES) \
-    remote_object_##name##_t remote_object_##name = { \
-        .object = { \
-            .object_type = SLAVE_TO_MASTER, \
-            .object_size = sizeof(type), \
-        } \
-    }; \
-    type* begin_write_##name(void) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer; \
+#define SLAVE_TO_MASTER_OBJECT(name, type)                                                                          \
+    REMOTE_OBJECT_HELPER(name, type, 1, NUM_SLAVES)                                                                 \
+    remote_object_##name##_t remote_object_##name = {.object = {                                                    \
+                                                         .object_type = SLAVE_TO_MASTER,                            \
+                                                         .object_size = sizeof(type),                               \
+                                                     }};                                                            \
+    type*                    begin_write_##name(void) {                                                             \
+        remote_object_t*        obj = (remote_object_t*)&remote_object_##name;                   \
+        triple_buffer_object_t* tb  = (triple_buffer_object_t*)obj->buffer;                      \
         return (type*)triple_buffer_begin_write_internal(sizeof(type) + LOCAL_OBJECT_EXTRA, tb); \
-    }\
-    void end_write_##name(void) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer; \
-        triple_buffer_end_write_internal(tb); \
-        signal_data_written(); \
-    }\
-    type* read_##name(uint8_t slave) { \
-        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
-        uint8_t* start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);\
-        start+=slave * REMOTE_OBJECT_SIZE(obj->object_size); \
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
-        return (type*)triple_buffer_read_internal(obj->object_size, tb); \
+    }                                                                                                               \
+    void end_write_##name(void) {                                                                                   \
+        remote_object_t*        obj = (remote_object_t*)&remote_object_##name;                                      \
+        triple_buffer_object_t* tb  = (triple_buffer_object_t*)obj->buffer;                                         \
+        triple_buffer_end_write_internal(tb);                                                                       \
+        signal_data_written();                                                                                      \
+    }                                                                                                               \
+    type* read_##name(uint8_t slave) {                                                                              \
+        remote_object_t* obj   = (remote_object_t*)&remote_object_##name;                                           \
+        uint8_t*         start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);                                 \
+        start += slave * REMOTE_OBJECT_SIZE(obj->object_size);                                                      \
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)start;                                                \
+        return (type*)triple_buffer_read_internal(obj->object_size, tb);                                            \
     }
 
 #define REMOTE_OBJECT(name) (remote_object_t*)&remote_object_##name

@@ -1,8 +1,4 @@
 /*
-Note for ErgoDox EZ customizers: Here be dragons!
-This is not a file you want to be messing with.
-All of the interesting stuff for you is under keymaps/ :)
-Love, Erez
 
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 
@@ -31,10 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "keymap_steno.h"
 #include QMK_KEYBOARD_H
-#ifdef DEBUG_MATRIX_SCAN_RATE
-#include  "timer.h"
-#endif
-
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5
@@ -96,12 +88,6 @@ static void select_row(uint8_t row);
 static uint8_t mcp23018_reset_loop;
 // static uint16_t mcp23018_reset_loop;
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
-
-
 __attribute__ ((weak))
 void matrix_init_user(void) {}
 
@@ -147,10 +133,6 @@ void matrix_init(void)
         }
     }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
     matrix_init_quantum();
 }
 
@@ -164,12 +146,6 @@ void matrix_power_up(void) {
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
     }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
-
 }
 
 // Returns a matrix_row_t whose bits are set if the corresponding key should be
@@ -218,18 +194,6 @@ uint8_t matrix_scan(void)
       }
   }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_scan_count++;
-    uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
-        print("matrix scan frequency: ");
-        pdec(matrix_scan_count);
-        print("\n");
-
-        matrix_timer = timer_now;
-        matrix_scan_count = 0;
-    }
-#endif
     for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
         select_row(i);
         // and select on left hand
@@ -248,8 +212,8 @@ uint8_t matrix_scan(void)
     matrix_scan_quantum();
 
 #ifdef DEBUG_MATRIX
-    for (uint8_t c = 0; c < MATRIX_COLS; c++) 
-		for (uint8_t r = 0; r < MATRIX_ROWS; r++) 
+    for (uint8_t c = 0; c < MATRIX_COLS; c++)
+		for (uint8_t r = 0; r < MATRIX_ROWS; r++)
 		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
@@ -359,7 +323,7 @@ static void select_row(uint8_t row)
     if (row < 7) {
         // select on mcp23018
         if (mcp23018_status) { // do nothing on error
-        } else { // set active row low  : 0 // set other rows hi-Z : 1 
+        } else { // set active row low  : 0 // set other rows hi-Z : 1
             mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(0xFF & ~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      if (mcp23018_status) goto out;

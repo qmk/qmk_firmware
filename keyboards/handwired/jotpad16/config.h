@@ -16,23 +16,23 @@
 
 /* pro_micro pin-out */
 #define MATRIX_ROW_PINS { B6, B2, D2, D3 }
-#define MATRIX_COL_PINS { B5, B4, B3, B1 }
+#define MATRIX_COL_PINS { E6, D7, B3, B1 }
 #define UNUSED_PINS
 
 /* leds */
-#define QMK_LED E6
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_PIN D7
+#define JOTPAD16_LEDS
+#define JOTPAD16_LED1 B5
+#define JOTPAD16_LED2 B4
+#define QMK_LED B5
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 0
+#define DEBOUNCE 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
