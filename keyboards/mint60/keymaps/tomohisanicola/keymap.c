@@ -74,9 +74,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_LAYER1] = LAYOUT( \
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,    KC_DEL, \
-    RGB_TOG,   RGBRST,  RGB_HUI, RGB_SAI, RGB_VAI, KC_ACL0,   KC_PGUP, KC_HOME, KC_UP, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX,     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_ACL1,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,        LGUI(KC_ENT), \
-    _______,       LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), KC_ACL2,   KC_EISU, KC_KANA2, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_WH_U, _______, \
+    LGUI(KC_TAB),   LGUI(KC_Q),  LGUI(KC_W), LGUI(KC_E), LGUI(KC_R), LGUI(KC_T),   KC_PGUP, KC_HOME, KC_UP, KC_END, RGB_TOG, RGBRST, RGB_HUI, RGB_VAI, \
+    LGUI(KC_CAPS),     LGUI(KC_A), LGUI(KC_S), LGUI(KC_D), KC_EISU, LGUI(KC_G),   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, RGB_MOD, RGB_HUD,        LGUI(KC_ENT), \
+    _______,       LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_B),   KC_EISU, KC_KANA2, RGB_SAD, RGB_VAD, XXXXXXX, _______, KC_WH_U, _______, \
     _______,   _______,    _______,    MO(_LAYER1),    KC_EISU,       KC_KANA2, KC_DEL, LGUI(KC_F4),                   KC_WH_L, KC_WH_D, KC_WH_R \
   )
 };
