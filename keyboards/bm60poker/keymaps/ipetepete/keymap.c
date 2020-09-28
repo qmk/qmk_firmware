@@ -113,7 +113,7 @@ void rgb_matrix_indicators_kb(void)
             //    rgb_matrix_set_color(26, 0xFF, 0x00, 0x00);
             //    break;
             case _colemak:
-                rgb_matrix_set_color(56, 0xFF, 0xFF, 0xFF);
+                rgb_matrix_set_color(55, 0xFF, 0xFF, 0xFF);
                 break;
             case _spcfn:
                 rgb_matrix_set_color(22, 0xFF, 0x00, 0x00);
