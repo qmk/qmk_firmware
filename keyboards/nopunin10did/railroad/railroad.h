@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT( \
 \
 /* Left Block */ \
    K0000,  K0500,  K0100,  K0001,  K0101,  K0002,  K0102,  K0003,  K0103,  K0004,  \
@@ -51,4 +51,4 @@
    { K0900, K0901, K0902, K0903, K0904, K0905, K0906, K0907, K0908, K0909, KC_NO }  \
 }
 
-#endif
+
