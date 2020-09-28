@@ -88,12 +88,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               _______THUMBS_L_______,  _______THUMBS_R_______
  /*           `---------------------'  `---------------------' */
     ),
-    [_COLEMAK] = LAYOUT_kyria_base_wrapper(
+    [_COLEMAK] = LAYOUT_kyria_wrapper(
  /* ,-----------------------.                 ,-----------------------. */
-      _______COLEMAK_L1_____,                 _______COLEMAK_R1_____,
-      _______COLEMAK_L2_____,                 _______COLEMAK_R2_____,
-      _______COLEMAK_L3_____,                 _______COLEMAK_R3_____,
-              _______THUMBS_L_______,  _______THUMBS_R_______
+      KC_GRV,   _______COLEMAK_L1_____,                                                        _______COLEMAK_R1_____, KC_BSLS,
+      KC_CTLBS, _______COLEMAK_L2_____,                                                        _______COLEMAK_R2_____, KC_SCLN,
+      KC_EQL,   _______COLEMAK_L3_____, KC_LCCL, KC_LGUI,                   KC_ALTCL, KC_LSFT, _______COLEMAK_R3_____, KC_MINS,
+       SCMD_T(KC_LBRC), C_S_T(KC_MINS), _______THUMBS_L_______,   _______THUMBS_R_______, TO(_QWERTY), KC_PSCR
  /*           `---------------------'  `---------------------' */
     ),
  // GAME layout -- qwerty without homerow mods
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,   _______QWERTY_L1______,                                     _______QWERTY_R1______, KC_BSLS,
     KC_CTLBS, KC_A, KC_S, KC_D, KC_F, KC_G,                               KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
     KC_EQL,   _______QWERTY_L3______, KC_LCCL, KC_LGUI,                   KC_ALTCL, KC_LSFT, _______QWERTY_R3______, KC_MINS,
-       SCMD_T(KC_LBRC), C_S_T(KC_MINS), _______THUMBS_L_______,   _______THUMBS_R_______, TO(_QWERTY), KC_PSCR
+       SCMD_T(KC_LBRC), C_S_T(KC_MINS), _______THUMBS_L_______,   _______THUMBS_R_______, TO(_COLEMAK), KC_PSCR
  /*                        `----------------------------------'  `----------------------------------' */
     ),
     [_FN] = LAYOUT_kyria_base_wrapper(
@@ -159,7 +159,7 @@ static void send_layer_via_hid(int layer) {
     uint8_t data[RAW_EPSIZE];
     data[0] = 1;
     data[1] = layer;
-    raw_hid_send((uint8_t*)data, sizeof(data));
+    raw_hid_send(data, sizeof(data));
     return;
 }
 
@@ -335,15 +335,19 @@ static void render_qmk_logo(void) {
 }
 
 static void render_status(void) {
+    static bool isColemak = false;
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.3\n\n"), false);
+    oled_write_P(PSTR("Kyria rev1.3\n"), false);
+
+    oled_write_P(isColemak ? PSTR("COLEMAK\n") : PSTR("QWERTY\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);
+            isColemak = false;
             break;
         case _SYMBOLS:
             oled_write_P(PSTR("Shifted Sym\n"), false);
@@ -359,6 +363,11 @@ static void render_status(void) {
             break;
         case _GAME:
             oled_write_P(PSTR("Game\n"), false);
+            isColemak = false;
+            break;
+        case _COLEMAK:
+            oled_write_P(PSTR("Colemak-DHm\n"), false);
+            isColemak = true;
             break;
         case _MEDIA:
             oled_write_P(PSTR("Media keys\n"), false);
