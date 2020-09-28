@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case M_AUTOLAY:
         if(!is_copied) {
-            tap_code16(LSFT(K_A));
+            tap_code16(LSFT(KC_A));
             is_copied = true;
         } else {
             tap_code16(LGUI(LSFT(KC_A)));
