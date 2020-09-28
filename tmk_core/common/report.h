@@ -190,13 +190,12 @@ typedef struct {
     int8_t  h;
 } __attribute__((packed)) report_mouse_t;
 
-
 typedef struct {
 #if JOYSTICK_AXES_COUNT > 0
-#    if JOYSTICK_AXES_RESOLUTION <= 8
-        int8_t axes[JOYSTICK_AXES_COUNT];
-#    else
+#    if JOYSTICK_AXES_RESOLUTION > 8
         int16_t axes[JOYSTICK_AXES_COUNT];
+#    else
+        int8_t axes[JOYSTICK_AXES_COUNT];
 #    endif
 #endif
 

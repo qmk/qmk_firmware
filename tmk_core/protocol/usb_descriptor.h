@@ -261,5 +261,3 @@ enum usb_endpoints {
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
 #endif
-
-
