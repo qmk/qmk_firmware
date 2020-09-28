@@ -26,8 +26,8 @@ enum oktiboard_layers {
 };
 
 enum custom_keycodes {
-    M_AUTOLAY = SAFE_RANGE,
-    M_COPYSTYLES,
+    M_AUTOLAY,
+    M_COPYSTYLES
 };
 
 bool is_copied = false;
