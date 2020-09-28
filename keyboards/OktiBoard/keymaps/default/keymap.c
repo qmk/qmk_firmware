@@ -1,4 +1,4 @@
-#include "kb.h"
+#include QMK_KEYBOARD_H
 
 //General Definitions
 #define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
@@ -21,8 +21,8 @@
 
 
 enum oktiboard_layers {
-  _FIGMA = 0,
-  _LAB = 1,
+    _FIGMA,
+    _LAB
 };
 
 enum custom_keycodes {
@@ -56,8 +56,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
     case _FIGMA:
       rgblight_sethsv_noeeprom(139, 0, 139);
       break;
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 
-[_FIGMA] = LAYOUT_oktibro(
+[_FIGMA] = LAYOUT_ortho_4x4(
 		CREATECOMPONENT, SHOWCOMPONENT, TEAMLIB, DETACHO,
 		FIGLAYERS, BRINGFORW, SENDBACK, GRID,
 		RUNLASTPLUG, TEXTLEFT, TEXTCENTER, TEXTRIGHT,
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 
-[_LAB] = LAYOUT_oktibro(
+[_LAB] = LAYOUT_ortho_4x4(
 		_______, _______, EEP_RST, RESET,
 		_______, AU_ON, AU_OFF, _______,
 		RGB_TOG, RGB_VAI, RGB_VAD, _______,
