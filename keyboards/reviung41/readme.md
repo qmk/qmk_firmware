@@ -1,6 +1,6 @@
 # reviung41
 
-![reviung41](https://github.com/gtips/reviung/blob/master/reviung41/image/REVIUNG41-prototype.jpg)
+![reviung41](https://github.com/gtips/reviung/blob/master/reviung41/image/reviung41-01.jpg)
 
 The REVIUNG41 is 41-key column staggered keyboard.
 

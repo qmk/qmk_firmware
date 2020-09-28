@@ -2,6 +2,7 @@
 Base Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 Modified 2017 Andrew Novak <ndrw.nvk@gmail.com>
 Modified 2018 Wayne Jones (WarmCatUK) <waynekjones@gmail.com>
+Modified 2020 Guillaume Gérard
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,19 +18,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
+#define VENDOR_ID       0x4B50  // "KP"
+#define PRODUCT_ID      0x0050
 #define DEVICE_VER      0x0200
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    kprepublic
-#define PRODUCT         jj50
-#define DESCRIPTION     Preonic-like clone
+#define MANUFACTURER    KPrepublic
+#define PRODUCT         JJ50
+#define DESCRIPTION     A compact 50% (5x12) ortholinear keyboard
 
 /* matrix size */
 #define MATRIX_ROWS 5
@@ -40,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
+#define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 12
@@ -47,7 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 18
-
-#define NO_UART 1
-
-#endif

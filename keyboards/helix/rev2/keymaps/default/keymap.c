@@ -536,9 +536,9 @@ static void render_logo(struct CharacterMatrix *matrix) {
 }
 
 static void render_rgbled_status(bool full, struct CharacterMatrix *matrix) {
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_ANIMATIONS)
+#ifdef RGBLIGHT_ENABLE
   char buf[30];
-  if(rgblight_config.enable) {
+  if (RGBLIGHT_MODES > 1 && rgblight_config.enable) {
       if (full) {
           snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
                    rgblight_config.mode,

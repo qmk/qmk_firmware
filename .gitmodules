@@ -1,16 +1,24 @@
 [submodule "lib/chibios"]
 	path = lib/chibios
 	url = https://github.com/qmk/ChibiOS
+	branch = master
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
 	url = https://github.com/qmk/ChibiOS-Contrib
-	branch = k-type-fix
+	branch = master
 [submodule "lib/ugfx"]
 	path = lib/ugfx
 	url = https://github.com/qmk/uGFX
+	branch = master
 [submodule "lib/googletest"]
 	path = lib/googletest
-	url = https://github.com/google/googletest
+	url = https://github.com/qmk/googletest
 [submodule "lib/lufa"]
 	path = lib/lufa
 	url = https://github.com/qmk/lufa
+[submodule "lib/vusb"]
+	path = lib/vusb
+	url = https://github.com/qmk/v-usb
+[submodule "lib/printf"]
+	path = lib/printf
+	url = https://github.com/qmk/printf

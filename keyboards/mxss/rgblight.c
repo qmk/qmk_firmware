@@ -110,9 +110,9 @@ extern LED_TYPE fleds[2];
 hs_set fled_hs[2];
 
 void copyrgb(LED_TYPE *src, LED_TYPE *dst) {
-  (*dst).r = (*src).r;
-  (*dst).g = (*src).g;
-  (*dst).b = (*src).b;
+  dst->r = src->r;
+  dst->g = src->g;
+  dst->b = src->b;
 }
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
@@ -145,11 +145,11 @@ void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) { sethsv_raw(hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val, led1); }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
-    (*led1).r = r;
-    (*led1).g = g;
-    (*led1).b = b;
+    led1->r = r;
+    led1->g = g;
+    led1->b = b;
 #ifdef RGBW
-    (*led1).w = 0;
+    led1->w = 0;
 #endif
 }
 
@@ -180,6 +180,10 @@ void eeconfig_update_rgblight(uint32_t val) {
     rgblight_check_config();
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
 #endif
+}
+
+void eeconfig_update_rgblight_current(void) {
+    eeconfig_update_rgblight(rgblight_config.raw);
 }
 
 void eeconfig_update_rgblight_default(void) {
@@ -532,6 +536,22 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
 void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_eeprom_helper(hue, sat, val, true); }
 
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_eeprom_helper(hue, sat, val, false); }
+
+uint8_t rgblight_get_speed(void) { return rgblight_config.speed; }
+
+void rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
+    rgblight_config.speed = speed;
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);   // EECONFIG needs to be increased to support this
+        dprintf("rgblight set speed [EEPROM]: %u\n", rgblight_config.speed);
+    } else {
+        dprintf("rgblight set speed [NOEEPROM]: %u\n", rgblight_config.speed);
+    }
+}
+
+void rgblight_set_speed(uint8_t speed) { rgblight_set_speed_eeprom_helper(speed, true); }
+
+void rgblight_set_speed_noeeprom(uint8_t speed) { rgblight_set_speed_eeprom_helper(speed, false); }
 
 uint8_t rgblight_get_hue(void) { return rgblight_config.hue; }
 

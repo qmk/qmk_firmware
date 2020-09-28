@@ -1,5 +1,6 @@
 """List the keyboards currently defined within QMK
 """
+# We avoid pathlib here because this is performance critical code.
 import os
 import glob
 

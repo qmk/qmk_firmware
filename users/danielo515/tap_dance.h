@@ -57,6 +57,7 @@ void dance_cut (qk_tap_dance_state_t *state, void *user_data);
 void dance_copy (qk_tap_dance_state_t *state, void *user_data);
 void dance_paste (qk_tap_dance_state_t *state, void *user_data);
 
+// Ready to use Tap dance definitions, just put them on your layout
 #define TD_COPY TD(_TD_COPY)
 #define TD_CUT TD(_TD_CUT)
 #define KC_TD_COPY TD(_TD_COPY) // Declarations for macros that add KC_

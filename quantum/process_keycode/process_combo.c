@@ -17,14 +17,17 @@
 #include "print.h"
 #include "process_combo.h"
 
-__attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {
+#ifndef COMBO_VARIABLE_LEN
+__attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {};
+#else
+extern combo_t  key_combos[];
+extern int      COMBO_LEN;
+#endif
 
-};
-
-__attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
+__attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
 static uint16_t timer               = 0;
-static uint8_t  current_combo_index = 0;
+static uint16_t current_combo_index = 0;
 static bool     drop_buffer         = false;
 static bool     is_active           = false;
 static bool     b_combo_enable      = true;  // defaults to enabled
@@ -79,8 +82,8 @@ static inline void dump_key_buffer(bool emit) {
     } while (0)
 
 static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record) {
-    uint8_t count = 0;
-    uint8_t index = -1;
+    uint8_t  count = 0;
+    uint16_t index = -1;
     /* Find index of keycode and number of combo keys */
     for (const uint16_t *keys = combo->keys;; ++count) {
         uint16_t key = pgm_read_word(&keys[count]);
@@ -141,8 +144,11 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     if (!is_combo_enabled()) {
         return true;
     }
-
+#ifndef COMBO_VARIABLE_LEN
     for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
+#else
+    for (current_combo_index = 0; current_combo_index < COMBO_LEN; ++current_combo_index) {
+#endif
         combo_t *combo = &key_combos[current_combo_index];
         is_combo_key |= process_single_combo(combo, keycode, record);
         no_combo_keys_pressed = no_combo_keys_pressed && NO_COMBO_KEYS_ARE_DOWN;

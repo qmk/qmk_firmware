@@ -22,6 +22,8 @@
     #include "astar.h"
 #elif KEYBOARD_atreus_astar_mirrored
     #include "astar_mirrored.h"
+#elif KEYBOARD_atreus_feather
+    #include "feather.h"
 #elif KEYBOARD_atreus_teensy2
     #include "teensy2.h"
 #elif KEYBOARD_atreus_promicro

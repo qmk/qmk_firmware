@@ -14,6 +14,7 @@ Certain MCUs which do not have native USB will use [V-USB](https://www.obdev.at/
 
 * [ATmega32A](https://www.microchip.com/wwwproducts/en/ATmega32A)
 * [ATmega328P](https://www.microchip.com/wwwproducts/en/ATmega328P)
+* [ATmega328](https://www.microchip.com/wwwproducts/en/ATmega328)
 
 ## ARM
 

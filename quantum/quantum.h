@@ -88,6 +88,10 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
+#ifdef BACKLIGHT_ENABLE
+#    include "process_backlight.h"
+#endif
+
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
 #endif
@@ -138,6 +142,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
 #ifdef GRAVE_ESC_ENABLE
 #    include "process_grave_esc.h"
 #endif
@@ -174,6 +182,10 @@ extern layer_state_t layer_state;
 #    include "via.h"
 #endif
 
+#ifdef WPM_ENABLE
+#    include "wpm.h"
+#endif
+
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
@@ -189,6 +201,8 @@ typedef uint8_t pin_t;
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
+#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 
@@ -202,14 +216,28 @@ typedef ioline_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) palReadLine(pin)
+
+#    define togglePin(pin) palToggleLine(pin)
 #endif
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
-extern const bool    ascii_to_shift_lut[128];
-extern const bool    ascii_to_altgr_lut[128];
+// Look-Up Tables (LUTs) to convert ASCII character to keycode sequence.
 extern const uint8_t ascii_to_keycode_lut[128];
+extern const uint8_t ascii_to_shift_lut[16];
+extern const uint8_t ascii_to_altgr_lut[16];
+// clang-format off
+#define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
+    ( ((a) ? 1 : 0) << 0 \
+    | ((b) ? 1 : 0) << 1 \
+    | ((c) ? 1 : 0) << 2 \
+    | ((d) ? 1 : 0) << 3 \
+    | ((e) ? 1 : 0) << 4 \
+    | ((f) ? 1 : 0) << 5 \
+    | ((g) ? 1 : 0) << 6 \
+    | ((h) ? 1 : 0) << 7 )
+// clang-format on
 
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
@@ -225,18 +253,23 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 
-#define IS_LAYER_ON(layer) (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
+#define IS_LAYER_ON(layer) layer_state_is(layer)
+#define IS_LAYER_OFF(layer) !layer_state_is(layer)
+
+#define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
+#define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
 void     matrix_init_kb(void);
 void     matrix_scan_kb(void);
 void     matrix_init_user(void);
 void     matrix_scan_user(void);
-uint16_t get_record_keycode(keyrecord_t *record);
-uint16_t get_event_keycode(keyevent_t event);
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
+void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
+void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 #ifndef BOOTMAGIC_LITE_COLUMN
 #    define BOOTMAGIC_LITE_COLUMN 0

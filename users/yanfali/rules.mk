@@ -2,7 +2,7 @@ BOOTMAGIC = lite
 DYNAMIC_KEYMAP_ENABLE = no
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 AUDIO_ENABLE = no
 
 # only enable audio on specific boards
@@ -24,4 +24,8 @@ endif
 
 ifeq ($(strip $(KEYBOARD)), kbdfans/kbd75/rev1)
     COMMAND_ENABLE = no
+endif
+
+ifeq ($(strip $(KEYBOARD)), ai03/polaris)
+    RGBLIGHT_ENABLE = no
 endif
