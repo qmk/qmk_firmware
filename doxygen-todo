@@ -1,12 +1,9 @@
 tmk_core/protocol
-tmk_core/protocol/bluefruit
 tmk_core/protocol/chibios
-tmk_core/protocol/iwrap
 tmk_core/protocol/lufa
 tmk_core/protocol/midi
 tmk_core/protocol/midi/bytequeue
 tmk_core/protocol/midi/Config
-tmk_core/protocol/pjrc
 tmk_core/protocol/usb_hid
 tmk_core/protocol/vusb
 tmk_core/tool

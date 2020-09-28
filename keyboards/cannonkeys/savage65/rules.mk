@@ -5,10 +5,6 @@ MCU = STM32F072
 #   comment out to disable the options.
 #
 
-# project specific files
-VPATH += keyboards/cannonkeys/stm32f072
-SRC =	keyboard.c \
-      led.c
 
 BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
@@ -18,6 +14,11 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = no # Custom matrix file
-# BACKLIGHT_ENABLE = yes # This is broken on 072 for some reason
+BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
+WS2812_DRIVER = spi
 
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
+
+LAYOUTS = 65_ansi_blocker 65_ansi_blocker_split_bs 65_ansi_blocker_tsangan 65_iso_blocker

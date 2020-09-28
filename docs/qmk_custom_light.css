@@ -1,0 +1,30 @@
+.sidebar-toggle {
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: 0;
+}
+
+.search {
+  margin-top: 40px;
+}
+
+.markdown-section h2 {
+  padding-top: 0.25rem;
+}
+
+.markdown-section h3 {
+  margin-top: 0.25rem;
+}
+
+.sidebar, .sidebar-nav {
+  line-height: 1.5em !important;
+}
+
+.markdown-section ul ul {
+  margin: 0;
+}
+
+.markdown-section pre {
+  padding: 0;
+}

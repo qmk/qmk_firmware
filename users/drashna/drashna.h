@@ -25,8 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 #    include "tap_dances.h"
 #endif  // TAP_DANCE_ENABLE
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
 #    include "rgb_stuff.h"
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+#    include "rgb_matrix_stuff.h"
+#endif
+#if defined(OLED_DRIVER_ENABLE)
+#    include "oled_stuff.h"
+#endif
+#if defined(PIMORONI_TRACKBALL_ENABLE)
+#    include "pimoroni_trackball.h"
 #endif
 
 /* Define layer names */
@@ -70,7 +79,6 @@ typedef union {
         bool    rgb_layer_change     :1;
         bool    is_overwatch         :1;
         bool    nuke_switch          :1;
-        uint8_t unicode_mod          :4;
         bool    swapped_numbers      :1;
         bool    rgb_matrix_idle_anim :1;
     };

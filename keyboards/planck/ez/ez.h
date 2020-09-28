@@ -64,6 +64,10 @@ enum planck_ez_keycodes {
     EZ_SAFE_RANGE,
 };
 
+#ifndef WEBUSB_ENABLE
+#    define WEBUSB_PAIR KC_NO
+#endif
+
 typedef union {
   uint32_t raw;
   struct {

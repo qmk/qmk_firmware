@@ -18,11 +18,11 @@ That should be everything necessary.
 
 To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. 
 
-To finish the recording, press the `DYN_REC_STOP` layer button. 
+To finish the recording, press the `DYN_REC_STOP` layer button. You can also press `DYN_REC_START1` or `DYN_REC_START2` again to stop the recording.
 
 To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
 
-It is possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.  You can disable this completly by defining `DYNAMIC_MACRO_NO_NESTING`  in your `config.h` file.
+It is possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.  You can disable this completely by defining `DYNAMIC_MACRO_NO_NESTING`  in your `config.h` file.
 
 ?> For the details about the internals of the dynamic macros, please read the comments in the `process_dynamic_macro.h` and `process_dynamic_macro.c` files.
 

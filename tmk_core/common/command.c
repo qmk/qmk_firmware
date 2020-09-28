@@ -39,19 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "backlight.h"
 #endif
 
-#ifdef MOUSEKEY_ENABLE
+#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
 #    include "mousekey.h"
-#endif
-
-#ifdef PROTOCOL_PJRC
-#    include "usb_keyboard.h"
-#    ifdef EXTRAKEY_ENABLE
-#        include "usb_extra.h"
-#    endif
-#endif
-
-#ifdef PROTOCOL_VUSB
-#    include "usbdrv.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -64,7 +53,7 @@ static void print_version(void);
 static void print_status(void);
 static bool command_console(uint8_t code);
 static void command_console_help(void);
-#ifdef MOUSEKEY_ENABLE
+#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
 static bool mousekey_console(uint8_t code);
 static void mousekey_console_help(void);
 #endif
@@ -85,7 +74,7 @@ bool command_proc(uint8_t code) {
             else
                 return (command_console_extra(code) || command_console(code));
             break;
-#ifdef MOUSEKEY_ENABLE
+#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
         case MOUSEKEY:
             mousekey_console(code);
             break;
@@ -152,7 +141,6 @@ static void command_common_help(void) {
 static void print_version(void) {
     // print version & information
     print("\n\t- Version -\n");
-    print("DESC: " STR(DESCRIPTION) "\n");
     print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
                                                        "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
                                                                                                 "VER: " STR(DEVICE_VER) "\n");
@@ -160,14 +148,14 @@ static void print_version(void) {
     print("BUILD:  (" __DATE__ ")\n");
 #else
     print("BUILD: " STR(QMK_VERSION) " (" __TIME__ " " __DATE__ ")\n");
+#    ifdef PROTOCOL_CHIBIOS
+    print("CHIBIOS: " STR(CHIBIOS_VERSION) ", CONTRIB: " STR(CHIBIOS_CONTRIB_VERSION) "\n");
+#    endif
 #endif
 
     /* build options */
     print("OPTIONS:"
 
-#ifdef PROTOCOL_PJRC
-          " PJRC"
-#endif
 #ifdef PROTOCOL_LUFA
           " LUFA"
 #endif
@@ -191,6 +179,9 @@ static void print_version(void) {
 #endif
 #ifdef NKRO_ENABLE
           " NKRO"
+#endif
+#ifdef LTO_ENABLE
+          " LTO"
 #endif
 
           " " STR(BOOTLOADER_SIZE) "\n");
@@ -217,20 +208,6 @@ static void print_status(void) {
     print_val_hex8(keymap_config.nkro);
 #endif
     print_val_hex32(timer_read32());
-
-#ifdef PROTOCOL_PJRC
-    print_val_hex8(UDCON);
-    print_val_hex8(UDIEN);
-    print_val_hex8(UDINT);
-    print_val_hex8(usb_keyboard_leds);
-    print_val_hex8(usb_keyboard_idle_count);
-#endif
-
-#ifdef PROTOCOL_PJRC
-#    if USB_COUNT_SOF
-    print_val_hex8(usbSofCount);
-#    endif
-#endif
     return;
 }
 
@@ -377,15 +354,8 @@ static bool command_common(uint8_t code) {
         // jump to bootloader
         case MAGIC_KC(MAGIC_KEY_BOOTLOADER):
         case MAGIC_KC(MAGIC_KEY_BOOTLOADER_ALT):
-            clear_keyboard();  // clear to prevent stuck keys
             print("\n\nJumping to bootloader... ");
-#ifdef AUDIO_ENABLE
-            stop_all_notes();
-            shutdown_user();
-#else
-            wait_ms(1000);
-#endif
-            bootloader_jump();  // not return
+            reset_keyboard();
             break;
 
         // debug toggle
@@ -556,7 +526,7 @@ static bool command_console(uint8_t code) {
         case KC_ESC:
             command_state = ONESHOT;
             return false;
-#ifdef MOUSEKEY_ENABLE
+#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
         case KC_M:
             mousekey_console_help();
             print("M> ");
@@ -571,7 +541,7 @@ static bool command_console(uint8_t code) {
     return true;
 }
 
-#ifdef MOUSEKEY_ENABLE
+#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
 /***********************************************************
  * Mousekey console
  ***********************************************************/

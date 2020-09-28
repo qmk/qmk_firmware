@@ -22,44 +22,11 @@
  */
 #ifdef RGBLIGHT_ENABLE
 
-#    include "ws2812.c"
 #    include "ergodox_ez.h"
 
 extern rgblight_config_t rgblight_config;
 
-/*
- * Forward declare internal functions
- *
- * The functions take a byte-array and send to the data output as WS2812 bitstream.
- * The length is the number of bytes to send - three per LED.
- */
-
-void ws2812_sendarray(uint8_t *array, uint16_t length);
-void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
-
-
-
-
-void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = 0;
-            led[i].g = 0;
-            led[i].b = 0;
-#ifdef RGBW
-            led[i].w = 0;
-#endif
-        }
-    }
-#ifdef RGBW
-    else {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            convert_rgb_to_rgbw(&led[i]);
-        }
-    }
-#endif
-
-    uint8_t led_num = RGBLED_NUM;
+void rgblight_call_driver(LED_TYPE *led, uint8_t led_num) {
     i2c_init();
     i2c_start(0x84, ERGODOX_EZ_I2C_TIMEOUT);
     int i = 0;
@@ -67,8 +34,8 @@ void rgblight_set(void) {
     // prevent right-half code from trying to bitbang all 30
     // so with 30 LEDs, we count from 29 to 15 here, and the
     // other half does 0 to 14.
-    led_num = RGBLED_NUM / 2;
-    for (i = led_num + led_num - 1; i >= led_num; --i)
+    uint8_t half_led_num = RGBLED_NUM / 2;
+    for (i = half_led_num + half_led_num - 1; i >= half_led_num; --i)
 #    elif defined(ERGODOX_LED_15_MIRROR)
     for (i = 0; i < led_num; ++i)
 #    else  // ERGDOX_LED_15 non-mirrored
@@ -85,7 +52,7 @@ void rgblight_set(void) {
     }
     i2c_stop();
 
-    ws2812_setleds(led, RGBLED_NUM);
+    ws2812_setleds(led, led_num);
 }
 
 
