@@ -52,8 +52,28 @@ typedef struct {
     sequencer_resolution_t resolution;
 } sequencer_config_t;
 
+/**
+ * Because Digital Audio Workstations get overwhelmed when too many MIDI signals are sent concurrently,
+ * We use a "phase" state machine to delay some of the events.
+ */
+typedef enum sequencer_phase_t {
+    SEQUENCER_PHASE_ATTACK,   // t=0ms, send the MIDI note on signal
+    SEQUENCER_PHASE_RELEASE,  // t=SEQUENCER_PHASE_RELEASE_TIMEOUT ms, send the MIDI note off signal
+    SEQUENCER_PHASE_PAUSE     // t=step duration ms, loop
+} sequencer_phase_t;
+
+typedef struct {
+    uint8_t           active_tracks;
+    uint8_t           current_track;
+    uint8_t           current_step;
+    uint16_t          timer;
+    sequencer_phase_t phase;
+} sequencer_state_t;
+
 extern sequencer_config_t sequencer_config;
-extern uint8_t            sequencer_active_tracks;
+
+// We expose the internal state to make the feature more "unit-testable"
+extern sequencer_state_t sequencer_internal_state;
 
 bool is_sequencer_on(void);
 void sequencer_toggle(void);

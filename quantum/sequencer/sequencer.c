@@ -32,38 +32,23 @@ sequencer_config_t sequencer_config = {
     SQ_RES_4,  // resolution
 };
 
-uint8_t  sequencer_active_tracks = 0;
-uint8_t  sequencer_current_track = 0;
-uint8_t  sequencer_current_step  = 0;
-uint16_t sequencer_timer         = 0;
-
-/**
- * Because Digital Audio Workstations get overwhelmed when too many MIDI signals are sent concurrently,
- * We use a "phase" state machine to delay some of the events.
- */
-enum sequencer_phase_t {
-    SEQUENCER_PHASE_ATTACK,   // t=0ms, send the MIDI note on signal
-    SEQUENCER_PHASE_RELEASE,  // t=SEQUENCER_PHASE_RELEASE_TIMEOUT ms, send the MIDI note off signal
-    SEQUENCER_PHASE_PAUSE     // t=step duration ms, loop
-};
-
-uint8_t sequencer_phase = SEQUENCER_PHASE_ATTACK;
+sequencer_state_t sequencer_internal_state = {0, 0, 0, 0, SEQUENCER_PHASE_ATTACK};
 
 bool is_sequencer_on(void) { return sequencer_config.enabled; }
 
 void sequencer_on(void) {
     dprintln("sequencer on");
-    sequencer_config.enabled = true;
-    sequencer_current_track  = 0;
-    sequencer_current_step   = 0;
-    sequencer_timer          = timer_read();
-    sequencer_phase          = SEQUENCER_PHASE_ATTACK;
+    sequencer_config.enabled               = true;
+    sequencer_internal_state.current_track = 0;
+    sequencer_internal_state.current_step  = 0;
+    sequencer_internal_state.timer         = timer_read();
+    sequencer_internal_state.phase         = SEQUENCER_PHASE_ATTACK;
 }
 
 void sequencer_off(void) {
     dprintln("sequencer off");
-    sequencer_config.enabled = false;
-    sequencer_current_step   = 0;
+    sequencer_config.enabled              = false;
+    sequencer_internal_state.current_step = 0;
 }
 
 void sequencer_toggle(void) {
@@ -80,13 +65,13 @@ void sequencer_set_track_notes(const uint16_t track_notes[SEQUENCER_TRACKS]) {
     }
 }
 
-bool is_sequencer_track_active(uint8_t track) { return (sequencer_active_tracks >> track) & true; }
+bool is_sequencer_track_active(uint8_t track) { return (sequencer_internal_state.active_tracks >> track) & true; }
 
 void sequencer_set_track_activation(uint8_t track, bool value) {
     if (value) {
-        sequencer_active_tracks |= (1 << track);
+        sequencer_internal_state.active_tracks |= (1 << track);
     } else {
-        sequencer_active_tracks &= ~(1 << track);
+        sequencer_internal_state.active_tracks &= ~(1 << track);
     }
     dprintf("sequencer: track %d is %s\n", track, value ? "active" : "inactive");
 }
@@ -95,22 +80,22 @@ void sequencer_toggle_track_activation(uint8_t track) { sequencer_set_track_acti
 
 void sequencer_toggle_single_active_track(uint8_t track) {
     if (is_sequencer_track_active(track)) {
-        sequencer_active_tracks = 0;
+        sequencer_internal_state.active_tracks = 0;
     } else {
-        sequencer_active_tracks = 1 << track;
+        sequencer_internal_state.active_tracks = 1 << track;
     }
 }
 
-bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] & sequencer_active_tracks) > 0; }
+bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] & sequencer_internal_state.active_tracks) > 0; }
 
 bool is_sequencer_step_on_for_track(uint8_t step, uint8_t track) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] >> track) & true; }
 
 void sequencer_set_step(uint8_t step, bool value) {
     if (step < SEQUENCER_STEPS) {
         if (value) {
-            sequencer_config.steps[step] |= sequencer_active_tracks;
+            sequencer_config.steps[step] |= sequencer_internal_state.active_tracks;
         } else {
-            sequencer_config.steps[step] &= ~sequencer_active_tracks;
+            sequencer_config.steps[step] &= ~sequencer_internal_state.active_tracks;
         }
         dprintf("sequencer: step %d is %s\n", step, value ? "on" : "off");
     } else {
@@ -129,9 +114,9 @@ void sequencer_toggle_step(uint8_t step) {
 void sequencer_set_all_steps(bool value) {
     for (uint8_t step = 0; step < SEQUENCER_STEPS; step++) {
         if (value) {
-            sequencer_config.steps[step] |= sequencer_active_tracks;
+            sequencer_config.steps[step] |= sequencer_internal_state.active_tracks;
         } else {
-            sequencer_config.steps[step] &= ~sequencer_active_tracks;
+            sequencer_config.steps[step] &= ~sequencer_internal_state.active_tracks;
         }
     }
     dprintf("sequencer: all steps are %s\n", value ? "on" : "off");
@@ -174,56 +159,56 @@ void sequencer_increase_resolution(void) { sequencer_set_resolution(sequencer_co
 
 void sequencer_decrease_resolution(void) { sequencer_set_resolution(sequencer_config.resolution - 1); }
 
-uint8_t sequencer_get_current_step(void) { return sequencer_current_step; }
+uint8_t sequencer_get_current_step(void) { return sequencer_internal_state.current_step; }
 
 void sequencer_phase_attack(void) {
-    dprintf("sequencer: step %d\n", sequencer_current_step);
+    dprintf("sequencer: step %d\n", sequencer_internal_state.current_step);
     dprintf("sequencer: time %d\n", timer_read());
 
-    if (sequencer_current_track == 0) {
-        sequencer_timer = timer_read();
+    if (sequencer_internal_state.current_track == 0) {
+        sequencer_internal_state.timer = timer_read();
     }
 
-    if (timer_elapsed(sequencer_timer) < sequencer_current_track * SEQUENCER_TRACK_THROTTLE) {
+    if (timer_elapsed(sequencer_internal_state.timer) < sequencer_internal_state.current_track * SEQUENCER_TRACK_THROTTLE) {
         return;
     }
 
 #if defined(MIDI_ENABLE) || defined(MIDI_MOCKED)
-    if (is_sequencer_step_on_for_track(sequencer_current_step, sequencer_current_track)) {
-        process_midi_basic_noteon(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
+    if (is_sequencer_step_on_for_track(sequencer_internal_state.current_step, sequencer_internal_state.current_track)) {
+        process_midi_basic_noteon(midi_compute_note(sequencer_config.track_notes[sequencer_internal_state.current_track]));
     }
 #endif
 
-    if (sequencer_current_track < SEQUENCER_TRACKS - 1) {
-        sequencer_current_track++;
+    if (sequencer_internal_state.current_track < SEQUENCER_TRACKS - 1) {
+        sequencer_internal_state.current_track++;
     } else {
-        sequencer_phase = SEQUENCER_PHASE_RELEASE;
+        sequencer_internal_state.phase = SEQUENCER_PHASE_RELEASE;
     }
 }
 
 void sequencer_phase_release(void) {
-    if (timer_elapsed(sequencer_timer) < SEQUENCER_PHASE_RELEASE_TIMEOUT + sequencer_current_track * SEQUENCER_TRACK_THROTTLE) {
+    if (timer_elapsed(sequencer_internal_state.timer) < SEQUENCER_PHASE_RELEASE_TIMEOUT + sequencer_internal_state.current_track * SEQUENCER_TRACK_THROTTLE) {
         return;
     }
 #if defined(MIDI_ENABLE) || defined(MIDI_MOCKED)
-    if (is_sequencer_step_on_for_track(sequencer_current_step, sequencer_current_track)) {
-        process_midi_basic_noteoff(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
+    if (is_sequencer_step_on_for_track(sequencer_internal_state.current_step, sequencer_internal_state.current_track)) {
+        process_midi_basic_noteoff(midi_compute_note(sequencer_config.track_notes[sequencer_internal_state.current_track]));
     }
 #endif
-    if (sequencer_current_track > 0) {
-        sequencer_current_track--;
+    if (sequencer_internal_state.current_track > 0) {
+        sequencer_internal_state.current_track--;
     } else {
-        sequencer_phase = SEQUENCER_PHASE_PAUSE;
+        sequencer_internal_state.phase = SEQUENCER_PHASE_PAUSE;
     }
 }
 
 void sequencer_phase_pause(void) {
-    if (timer_elapsed(sequencer_timer) < sequencer_get_step_duration()) {
+    if (timer_elapsed(sequencer_internal_state.timer) < sequencer_get_step_duration()) {
         return;
     }
 
-    sequencer_current_step = (sequencer_current_step + 1) % SEQUENCER_STEPS;
-    sequencer_phase        = SEQUENCER_PHASE_ATTACK;
+    sequencer_internal_state.current_step = (sequencer_internal_state.current_step + 1) % SEQUENCER_STEPS;
+    sequencer_internal_state.phase        = SEQUENCER_PHASE_ATTACK;
 }
 
 void matrix_scan_sequencer(void) {
@@ -231,15 +216,15 @@ void matrix_scan_sequencer(void) {
         return;
     }
 
-    if (sequencer_phase == SEQUENCER_PHASE_PAUSE) {
+    if (sequencer_internal_state.phase == SEQUENCER_PHASE_PAUSE) {
         sequencer_phase_pause();
     }
 
-    if (sequencer_phase == SEQUENCER_PHASE_RELEASE) {
+    if (sequencer_internal_state.phase == SEQUENCER_PHASE_RELEASE) {
         sequencer_phase_release();
     }
 
-    if (sequencer_phase == SEQUENCER_PHASE_ATTACK) {
+    if (sequencer_internal_state.phase == SEQUENCER_PHASE_ATTACK) {
         sequencer_phase_attack();
     }
 }

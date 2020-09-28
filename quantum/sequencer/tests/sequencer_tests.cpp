@@ -42,7 +42,11 @@ class SequencerTest : public ::testing::Test {
 
         config_copy.tempo      = sequencer_config.tempo;
         config_copy.resolution = sequencer_config.resolution;
-        active_tracks_copy     = sequencer_active_tracks;
+
+        state_copy.active_tracks = sequencer_internal_state.active_tracks;
+        state_copy.current_track = sequencer_internal_state.current_track;
+        state_copy.current_step  = sequencer_internal_state.current_step;
+        state_copy.timer         = sequencer_internal_state.timer;
     }
 
     void TearDown() override {
@@ -58,11 +62,15 @@ class SequencerTest : public ::testing::Test {
 
         sequencer_config.tempo      = config_copy.tempo;
         sequencer_config.resolution = config_copy.resolution;
-        sequencer_active_tracks     = active_tracks_copy;
+
+        sequencer_internal_state.active_tracks = state_copy.active_tracks;
+        sequencer_internal_state.current_track = state_copy.current_track;
+        sequencer_internal_state.current_step  = state_copy.current_step;
+        sequencer_internal_state.timer         = state_copy.timer;
     }
 
     sequencer_config_t config_copy;
-    uint8_t            active_tracks_copy;
+    sequencer_state_t  state_copy;
 };
 
 TEST_F(SequencerTest, TestOffByDefault) { EXPECT_EQ(is_sequencer_on(), false); }
@@ -106,7 +114,7 @@ TEST_F(SequencerTest, TestNoActiveTrackByDefault) {
 }
 
 TEST_F(SequencerTest, TestGetActiveTracks) {
-    sequencer_active_tracks = (1 << 7) + (1 << 6) + (1 << 3) + (1 << 1) + (1 << 0);
+    sequencer_internal_state.active_tracks = (1 << 7) + (1 << 6) + (1 << 3) + (1 << 1) + (1 << 0);
 
     EXPECT_EQ(is_sequencer_track_active(0), true);
     EXPECT_EQ(is_sequencer_track_active(1), true);
@@ -127,7 +135,7 @@ TEST_F(SequencerTest, TestGetActiveTracksOutOfBound) {
 }
 
 TEST_F(SequencerTest, TestToggleTrackActivation) {
-    sequencer_active_tracks = (1 << 7) + (1 << 6) + (1 << 3) + (1 << 1) + (1 << 0);
+    sequencer_internal_state.active_tracks = (1 << 7) + (1 << 6) + (1 << 3) + (1 << 1) + (1 << 0);
 
     sequencer_toggle_track_activation(6);
 
@@ -142,7 +150,7 @@ TEST_F(SequencerTest, TestToggleTrackActivation) {
 }
 
 TEST_F(SequencerTest, TestToggleSingleTrackActivation) {
-    sequencer_active_tracks = (1 << 7) + (1 << 6) + (1 << 3) + (1 << 1) + (1 << 0);
+    sequencer_internal_state.active_tracks = (1 << 7) + (1 << 6) + (1 << 3) + (1 << 1) + (1 << 0);
 
     sequencer_toggle_single_active_track(2);
 
@@ -198,8 +206,8 @@ TEST_F(SequencerTest, TestIsStepOnForGivenTrack) {
 }
 
 TEST_F(SequencerTest, TestSetStepOn) {
-    sequencer_active_tracks   = (1 << 6) + (1 << 3) + (1 << 2);
-    sequencer_config.steps[2] = (1 << 5) + (1 << 2);
+    sequencer_internal_state.active_tracks = (1 << 6) + (1 << 3) + (1 << 2);
+    sequencer_config.steps[2]              = (1 << 5) + (1 << 2);
 
     sequencer_set_step(2, true);
 
@@ -207,8 +215,8 @@ TEST_F(SequencerTest, TestSetStepOn) {
 }
 
 TEST_F(SequencerTest, TestSetStepOff) {
-    sequencer_active_tracks   = (1 << 6) + (1 << 3) + (1 << 2);
-    sequencer_config.steps[2] = (1 << 5) + (1 << 2);
+    sequencer_internal_state.active_tracks = (1 << 6) + (1 << 3) + (1 << 2);
+    sequencer_config.steps[2]              = (1 << 5) + (1 << 2);
 
     sequencer_set_step(2, false);
 
@@ -216,8 +224,8 @@ TEST_F(SequencerTest, TestSetStepOff) {
 }
 
 TEST_F(SequencerTest, TestToggleStepOff) {
-    sequencer_active_tracks   = (1 << 6) + (1 << 3) + (1 << 2);
-    sequencer_config.steps[2] = (1 << 5) + (1 << 2);
+    sequencer_internal_state.active_tracks = (1 << 6) + (1 << 3) + (1 << 2);
+    sequencer_config.steps[2]              = (1 << 5) + (1 << 2);
 
     sequencer_toggle_step(2);
 
@@ -225,8 +233,8 @@ TEST_F(SequencerTest, TestToggleStepOff) {
 }
 
 TEST_F(SequencerTest, TestToggleStepOn) {
-    sequencer_active_tracks   = (1 << 6) + (1 << 3) + (1 << 2);
-    sequencer_config.steps[2] = 0;
+    sequencer_internal_state.active_tracks = (1 << 6) + (1 << 3) + (1 << 2);
+    sequencer_config.steps[2]              = 0;
 
     sequencer_toggle_step(2);
 
@@ -234,9 +242,9 @@ TEST_F(SequencerTest, TestToggleStepOn) {
 }
 
 TEST_F(SequencerTest, TestSetAllStepsOn) {
-    sequencer_active_tracks   = (1 << 6) + (1 << 3) + (1 << 2);
-    sequencer_config.steps[2] = (1 << 7) + (1 << 6);
-    sequencer_config.steps[4] = (1 << 3) + (1 << 1);
+    sequencer_internal_state.active_tracks = (1 << 6) + (1 << 3) + (1 << 2);
+    sequencer_config.steps[2]              = (1 << 7) + (1 << 6);
+    sequencer_config.steps[4]              = (1 << 3) + (1 << 1);
 
     sequencer_set_all_steps(true);
 
@@ -245,9 +253,9 @@ TEST_F(SequencerTest, TestSetAllStepsOn) {
 }
 
 TEST_F(SequencerTest, TestSetAllStepsOff) {
-    sequencer_active_tracks   = (1 << 6) + (1 << 3) + (1 << 2);
-    sequencer_config.steps[2] = (1 << 7) + (1 << 6);
-    sequencer_config.steps[4] = (1 << 3) + (1 << 1);
+    sequencer_internal_state.active_tracks = (1 << 6) + (1 << 3) + (1 << 2);
+    sequencer_config.steps[2]              = (1 << 7) + (1 << 6);
+    sequencer_config.steps[4]              = (1 << 3) + (1 << 1);
 
     sequencer_set_all_steps(false);
 
