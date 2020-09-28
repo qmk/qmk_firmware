@@ -164,16 +164,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             if (IS_LAYER_ON(_Q2) == true) {
                 if (record->event.pressed) {
                     if (q2InputMode == 0) {
-                        tap_code(KC_GRV);
                         q2InputMode = 2;
                         layer_on(_DV);
                     } else {
-                        tap_code(KC_GRV);
                         q2InputMode = 2;
                     }
                 }
-            } else {
-                return true;
             }
         default:
             return true;
