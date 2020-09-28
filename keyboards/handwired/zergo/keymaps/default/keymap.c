@@ -17,8 +17,10 @@
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability.
-#define l_main 0
-#define l_arrows 1
+enum zergo_layers {
+    l_main,
+    l_arrows,
+};
 
 //define keycode custom names to better structure view of layout
 #define K_SPCFN LT(l_arrows,KC_SPC)     // tap for space, hold for arrows layer
