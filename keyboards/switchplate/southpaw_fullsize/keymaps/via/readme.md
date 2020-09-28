@@ -1,3 +1,3 @@
 # The via keymap for southpaw fullsize
 
-For use with via configurator
+For use with VIA configurator
