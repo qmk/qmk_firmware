@@ -1,4 +1,4 @@
-# Rartlice
+# RARTLICE
 ![TOP](https://user-images.githubusercontent.com/30220306/94159843-3a0e4600-feae-11ea-94e0-7babe43f83a4.png)
 A 65% Ergo Layout Mechanical Keyboard with Blue Pill STM32F103C8T6-based inspired by TGR Alice, Arisu and Cannon keys Practice60 based on [IMKG](https://www.facebook.com/groups/indomechanicalkeyboard/) (Indonesia Mechanical Keyboard Group)
 
