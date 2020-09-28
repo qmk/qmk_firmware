@@ -15,7 +15,4 @@
  */
 
 #pragma once
-
-#include "config_common.h"
-
 #define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
