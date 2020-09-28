@@ -467,6 +467,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
 
+    if (!keyboard_config.led_level && !keyboard_config.led_level_res) {
+        keyboard_config.led_level = true;
+        keyboard_config.led_level_res = 0b11;
+        eeconfig_update_kb(keyboard_config.raw);
+    }
 #ifdef RGB_MATRIX_ENABLE
     if (keyboard_config.rgb_matrix_enable) {
         rgb_matrix_set_flags(LED_FLAG_ALL);
@@ -480,6 +485,7 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.raw = 0;
     keyboard_config.rgb_matrix_enable = true;
     keyboard_config.led_level = true;
+    keyboard_config.led_level_res = 0b11;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }
