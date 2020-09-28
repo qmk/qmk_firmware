@@ -35,20 +35,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case M_AUTOLAY:
         if(!is_copied) {
-            SEND_STRING(SS_LSFT(SS_TAP(X_A)));
+            tap_code16(LSFT(K_A));
             is_copied = true;
         } else {
-            SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_A))));
+            tap_code16(LGUI(LSFT(KC_A)));
             is_copied = false;
         }
         break;
 
     case M_COPYSTYLES:
         if(!is_copied) {
-            SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_C))));
+            tap_code16(LGUI(LALT(KC_C)));
             is_copied = true;
         } else {
-            SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_V))));
+            tap_code16(LGUI(LALT(KC_V)));
             is_copied = false;
         }
         break;
