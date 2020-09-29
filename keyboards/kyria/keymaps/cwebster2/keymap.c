@@ -181,6 +181,26 @@ const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {17, 1, HSV_RED}
 );
 
+const rgblight_segment_t PROGMEM my_shift_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 1, HSV_RED},
+    {19, 1, HSV_RED}
+);
+
+const rgblight_segment_t PROGMEM my_ctrl_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {5, 1, HSV_ORANGE},
+    {15, 1, HSV_ORANGE}
+);
+
+const rgblight_segment_t PROGMEM my_alt_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {4, 1, HSV_GOLD},
+    {14, 1, HSV_GOLD}
+);
+
+const rgblight_segment_t PROGMEM my_gui_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {3, 1, HSV_SPRINGGREEN},
+    {13, 1, HSV_SPRINGGREEN}
+);
+
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_qwerty_layer,
     my_colemak_layer,
@@ -191,7 +211,11 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_nav_layer,
     my_mouse_layer,
     my_media_layer,
-    my_capslock_layer
+    my_capslock_layer,
+    my_shift_layer,
+    my_ctrl_layer,
+    my_alt_layer,
+    my_gui_layer
 );
 #endif
 
@@ -391,6 +415,11 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+
+    rgblight_set_layer_state(10, mods & MOD_MASK_SHIFT);
+    rgblight_set_layer_state(11, mods & MOD_MASK_CTRL);
+    rgblight_set_layer_state(12, mods & MOD_MASK_ALT);
+    rgblight_set_layer_state(13, mods & MOD_MASK_GUI);
 }
 
 void oled_task_user(void) {
