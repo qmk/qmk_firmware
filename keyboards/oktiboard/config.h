@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x2014
+#define VENDOR_ID       0x5454  // "TT" - Teletubbies
 #define PRODUCT_ID      0x0010
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Teletubbies
