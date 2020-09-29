@@ -67,21 +67,19 @@ ifneq ($(strip $(SPLIT_KEYBOARD)), yes)
 
   CUSTOM_MATRIX = yes
 
-  SRC += rev2/matrix.c
-  SRC += rev2/split_util.c
-  SRC += rev2/split_scomm.c
+  SRC += rev1/matrix.c
+  SRC += rev1/split_util.c
+  SRC += rev1/split_scomm.c
 endif
 
 ########
 # convert Helix-specific options (that represent combinations of standard options)
 #   into QMK standard options.
 
-ifneq ($(strip $(HELIX_ROWS)), 4)
-  ifneq ($(strip $(HELIX_ROWS)), 5)
-    $(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
-  endif
+ifneq ($(strip $(J3PS_ROWS)), 5)
+$(error J3PS_ROWS = $(strip $(J3PS_ROWS)) is unexpected value)
 endif
-OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
+OPT_DEFS += -DJ3PS_ROWS=$(strip $(J3PS_ROWS))
 
 ifeq ($(strip $(LED_BACK_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes

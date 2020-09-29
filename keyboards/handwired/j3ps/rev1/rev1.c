@@ -1,4 +1,4 @@
-#include "helix.h"
+#include "j3ps.h"
 
 // Each keymap.c should use is_keyboard_master() instead of 'is_master'.
 // But keep 'is_master' for a while for backwards compatibility

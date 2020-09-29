@@ -29,7 +29,7 @@ RGB バックライトまたは、RGB Underglow をつけた場合は、
 # Helix Spacific Build Options
 # you can uncomment and edit follows 7 Variables
 #  jp: 以下の7つの変数を必要に応じて編集し、コメントアウトをはずします。
-# HELIX_ROWS = 5              # Helix Rows is 4 or 5
+# J3PS_ROWS = 5              # Helix Rows is 4 or 5
 # OLED_ENABLE = no            # OLED_ENABLE
 # LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 # LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
@@ -43,7 +43,7 @@ RGB バックライトまたは、RGB Underglow をつけた場合は、
 rules.mk の下記の部分を編集して 5 を 4 に変更してください。
 
 ```
-HELIX_ROWS = 4              # Helix Rows is 4 or 5
+J3PS_ROWS = 4              # Helix Rows is 4 or 5
 ```
 
 ## RGB バックライトを有効にする
