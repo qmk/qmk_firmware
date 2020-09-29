@@ -186,7 +186,7 @@ bool process_record_via(uint16_t keycode, keyrecord_t *record) {
 
 // Keyboard level code can override this to handle custom messages from VIA.
 // See raw_hid_receive() implementation.
-// DO NOT call raw_hid_send() in the overide function.
+// DO NOT call raw_hid_send() in the override function.
 __attribute__((weak)) void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     uint8_t *command_id = &(data[0]);
     *command_id         = id_unhandled;
