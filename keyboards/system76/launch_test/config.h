@@ -36,4 +36,28 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+// Dynamic keyboard support {
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+
+// EEPROM usage
+#define EEPROM_SIZE 1024
+
+// TODO: refactor with new user EEPROM code (coming soon)
+#define EEPROM_MAGIC 0x76EC
+#define EEPROM_MAGIC_ADDR 64
+// Bump this every time we change what we store
+// This will automatically reset the EEPROM with defaults
+// and avoid loading invalid data from the EEPROM
+#define EEPROM_VERSION 0x01
+#define EEPROM_VERSION_ADDR (EEPROM_MAGIC_ADDR + 2)
+
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR (EEPROM_VERSION_ADDR + 1)
+#define DYNAMIC_KEYMAP_EEPROM_SIZE (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2)
+// Dynamic macro starts after dynamic keymaps
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + DYNAMIC_KEYMAP_EEPROM_SIZE)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (EEPROM_SIZE - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR)
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+// } Dynamic keyboard support
+
 #endif // CONFIG_H
