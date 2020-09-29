@@ -11,8 +11,8 @@
   #include <print.h>
 #endif
 
-uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
-uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
+uint16_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
+uint16_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 uint8_t volatile status_com = 0;
 uint8_t volatile status1 = 0;
 uint8_t slave_buffer_change_count = 0;

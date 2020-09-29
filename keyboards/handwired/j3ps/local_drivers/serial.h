@@ -33,10 +33,10 @@
 #if !defined(SERIAL_USE_SINGLE_TRANSACTION) && !defined(SERIAL_USE_MULTI_TRANSACTION)
 /* --- USE OLD API (compatible with let's split serial.c) */
  #if SERIAL_SLAVE_BUFFER_LENGTH > 0
- extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
+ extern volatile uint16_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
  #endif
  #if SERIAL_MASTER_BUFFER_LENGTH > 0
- extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
+ extern volatile uint16_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
  #endif
 
  void serial_master_init(void);

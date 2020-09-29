@@ -11,8 +11,8 @@
 #define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
 #define SERIAL_MASTER_BUFFER_LENGTH MATRIX_ROWS/2
 
-extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
-extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
+extern volatile uint16_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
+extern volatile uint16_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
 extern uint8_t slave_buffer_change_count;
 
 void serial_master_init(void);

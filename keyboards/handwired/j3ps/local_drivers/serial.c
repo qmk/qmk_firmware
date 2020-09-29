@@ -73,24 +73,24 @@
 #if !defined(SERIAL_USE_SINGLE_TRANSACTION) && !defined(SERIAL_USE_MULTI_TRANSACTION)
 /* --- USE OLD API (compatible with let's split serial.c) */
   #if SERIAL_SLAVE_BUFFER_LENGTH > 0
-  uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
+  uint16_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
   #endif
   #if SERIAL_MASTER_BUFFER_LENGTH > 0
-  uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
+  uint16_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
   #endif
-  uint8_t volatile status0 = 0;
+  uint16_t volatile status0 = 0;
 
 SSTD_t transactions[] = {
-    { (uint8_t *)&status0,
+    { (uint16_t *)&status0,
   #if SERIAL_MASTER_BUFFER_LENGTH > 0
-      sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
+      sizeof(serial_master_buffer), (uint16_t *)serial_master_buffer,
   #else
-      0, (uint8_t *)NULL,
+      0, (uint16_t *)NULL,
   #endif
   #if SERIAL_SLAVE_BUFFER_LENGTH > 0
-      sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
+      sizeof(serial_slave_buffer), (uint16_t *)serial_slave_buffer
   #else
-      0, (uint8_t *)NULL,
+      0, (uint16_t *)NULL,
   #endif
   }
 };
