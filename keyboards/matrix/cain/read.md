@@ -2,10 +2,10 @@
 
 This was the replacement PCB for the Matrix Cain keyboard. 
 
-This firmware DO NOT support the original PCB shipped with the Cain keybaord.
+This firmware **DOES NOT** support the original PCB shipped with the Cain keyboard.
 
 * Keyboard Maintainer: [astro](https://github.com/yulei)
-* Hardware Supported: Matrix cain keyboard
+* Hardware Supported: Matrix Cain keyboard
 * Hardware Availability: Matrix Lab
 
 Make example for this keyboard (after setting up your build environment):
