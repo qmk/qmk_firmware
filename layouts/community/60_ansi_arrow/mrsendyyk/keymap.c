@@ -87,11 +87,11 @@ void led_set_user(uint8_t usb_led) {
                 rgblight_setrgb(100, 255, 100);
                 break;
             // Code Layer Indicator
-            case _SETTINGS:
+            case _CODE:
                 rgblight_setrgb(100, 255, 100);
                 break;
             // Main Layer Indicator
-            case _BASE:
+            case _MAIN:
                 rgblight_setrgb(0, 0, 0);
                 break;
         }
