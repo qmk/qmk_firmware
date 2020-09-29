@@ -10,7 +10,7 @@ Default 60% ANSI Arrow keyboard layout and keymap by [Sendy YK](https://mr.sendy
 
 ### Main Layer
 
-![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-00.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/default/60_ansi_arrow/default_60_ansi_arrow/images/layout-60-ansi-arrow-keymap---layer-00.png)
 
 ### Fn Layer
 
