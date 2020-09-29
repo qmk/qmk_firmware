@@ -81,7 +81,7 @@
 
 // ISO
 
-// also technically LAYOUT_iso_625u_split_bksp
+// also technically LAYOUT_66_iso
 #define LAYOUT_all( \
     k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012, k113, k013,     k014, \
     k100,   k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112,  k213,        k114, \
