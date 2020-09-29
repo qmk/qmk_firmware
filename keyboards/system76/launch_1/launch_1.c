@@ -5,6 +5,8 @@
 #include "launch_1.h"
 
 enum Command {
+    // Probe for System76 EC protocol
+    CMD_PROBE = 1,
     // Get keyboard map index
     CMD_KEYMAP_GET = 9,
     // Set keyboard map index
@@ -40,6 +42,14 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 	data[1] = 1;
 
 	switch (data[0]) {
+        case CMD_PROBE:
+            // Signature
+            data[2] = 0x76;
+            data[3] = 0xEC;
+            // Version
+            data[4] = 0x01;
+            data[1] = 0;
+            break;
 		case CMD_KEYMAP_GET:
 			{
 				uint16_t value = 0;
