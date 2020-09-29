@@ -1,5 +1,4 @@
 #include "process_records.h"
-#include "custom_keycodes.h"
 
 #ifdef RGB_ENABLE
 #include "custom_rgb.h"
@@ -12,14 +11,9 @@ uint32_t layer_state_set_user(uint32_t state)
 }
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
+/*bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     static uint16_t reset_timer;
-
-#ifndef TAP_DANCE_ENABLE
-    if (!process_custom_tap_dance(keycode, record))
-        return false;
-#endif
 
     switch (keycode)
     {
@@ -60,3 +54,4 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record)
 {
     return true;
 }
+*/

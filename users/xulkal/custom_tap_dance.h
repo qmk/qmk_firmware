@@ -18,6 +18,6 @@ enum {
 
 #else
 
-bool process_custom_tap_dance(uint16_t keycode, keyrecord_t *record);
+//bool process_custom_tap_dance(uint16_t keycode, keyrecord_t *record);
 
 #endif
