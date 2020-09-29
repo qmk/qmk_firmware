@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yushakobo
-#define PRODUCT         Helix Beta
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define PRODUCT         J3PS Beta
+#define DESCRIPTION     A split and ergonomic choise
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100

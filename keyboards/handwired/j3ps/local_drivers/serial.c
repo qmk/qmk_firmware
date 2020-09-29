@@ -133,7 +133,7 @@ int serial_update_buffers()
 // ============ Standard setups ============
 
 #ifndef SELECT_SOFT_SERIAL_SPEED
-#define SELECT_SOFT_SERIAL_SPEED 1
+#define SELECT_SOFT_SERIAL_SPEED 2
 //  0: about 189kbps
 //  1: about 137kbps (default)
 //  2: about 75kbps

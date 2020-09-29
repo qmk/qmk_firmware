@@ -35,3 +35,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //     .
 //     ./tmk_core
 //     ......
+// To use Qwiic pro micro
+#define SPLIT_USB_DETECT
