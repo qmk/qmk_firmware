@@ -534,6 +534,8 @@ bool oled_off(void) {
     return !oled_active;
 }
 
+bool is_oled_on(void) { return oled_active; }
+
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
 // height of the screen.  For 128x32 screens, rows 4-7 are not used.
