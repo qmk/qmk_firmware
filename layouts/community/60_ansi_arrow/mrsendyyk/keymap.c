@@ -1,4 +1,5 @@
-/* Copyright (C) 2020 Sendy YK (https://mr.sendyyk.com).
+/*
+ * Copyright (C) 2020 Sendy YK <mr@sendyyk.com>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
+/*
+ * 60% ANSI Arrow Keyboard Layout and Keymap
+ * with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
+ * by Sendy YK <https://mr.sendyyk.com>.
+ */
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {
@@ -22,7 +29,7 @@ enum layer_names {
     _SETTINGS // Fn Layer 2
 };
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {  
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Default Layer
     [_BASE] = LAYOUT_60_ansi_arrow(
         KC_GESC, KC_1,    KC_2, KC_3,    KC_4, KC_5, KC_6,   KC_7, KC_8, KC_9,    KC_0,           KC_MINS,        KC_EQL,           KC_BSPC,
@@ -73,7 +80,7 @@ void led_set_user(uint8_t usb_led) {
         rgblight_setrgb(100, 255, 100);
     }
     // Layer Indicator
-    else {          
+    else {
         switch (get_highest_layer(layer_state)) {
             // Fn Layer 1 Indicator
             case _FN:
