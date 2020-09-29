@@ -1,4 +1,4 @@
-# Matrix Cain keyboard
+# Matrix Cain replacement PCB
 
 This was the replacement PCB for the Matrix Cain keyboard. 
 
