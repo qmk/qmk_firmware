@@ -3,6 +3,9 @@
 
 #include "quantum.h"
 
+//TODO: determine this automatically
+#define MATRIX_LAYERS 1
+
 #define ___ KC_NO
 
 #define LAYOUT( \
