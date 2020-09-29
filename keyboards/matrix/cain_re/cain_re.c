@@ -1,5 +1,5 @@
 /**
- * cain.c
+ * cain_re.c
  *
     Copyright 2020 astro <yuleiz@gmail.com>
 
@@ -17,14 +17,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "cain.h"
+#include "cain_re.h"
 
 void matrix_init_kb(void)
 {
 	setPinOutput(NUM_PIN);
 	setPinOutput(CAPS_PIN);
 	setPinOutput(SCROLL_PIN);
-	
+
 	matrix_init_user();
 }
 
