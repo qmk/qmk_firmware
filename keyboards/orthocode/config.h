@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { D1 }
 #define ENCODERS_PAD_B { D0 }
 #define ENCODER_RESOLUTION 1
-
+#define TAP_CODE_DELAY 10
 
 #define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN
@@ -77,7 +77,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+// #define DEBOUNCE 5
+#define DEBOUNCE 0
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
