@@ -1,1 +1,1 @@
-# The default keymap for h660-s
+# The VIA keymap for h660-s
