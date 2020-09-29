@@ -1,6 +1,14 @@
-# [Sendy YK's Keymap](https://github.com/mrsendyyk/my_qmk/tree/master/ai03_soyuz_numpad)
+# Sendy YK's Numpad 5x4 Layout and Keymap
 
-![Default Layer [0]](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/ai03_soyuz_numpad/assets/ai03_soyuz_mrsendyyk.png)
+[https://mr.sendyyk.com](https://mr.sendyyk.com)
+
+## Numpad 5x4 Layout
+
+![LAYOUT_numpad_5x4](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4.png)
+
+## Keymap
+
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/soyuz/assets/layout-numpad-5x4-keymap.png)
 
 ## Build The Firmware
 
