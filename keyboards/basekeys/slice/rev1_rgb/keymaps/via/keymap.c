@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
 #include "split_util.h"
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -26,12 +25,6 @@ enum layer_number {
   _LOWER,
   _RAISE,
 };
-
-enum custom_keycodes {
-  RGB_RST = SAFE_RANGE
-};
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_all(
@@ -90,35 +83,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`------------------------------------------------------------------------|   |---------------------------------------------------------------------------'
   )
 };
-
-
-int RGB_current_mode;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool result = false;
-  switch (keycode) {
-    #ifdef RGBLIGHT_ENABLE
-      case RGB_MOD:
-          if (record->event.pressed) {
-            rgblight_mode(RGB_current_mode);
-            rgblight_step();
-            RGB_current_mode = rgblight_get_mode();
-          }
-        break;
-      case RGB_RST:
-          if (record->event.pressed) {
-            eeconfig_update_rgblight_default();
-            rgblight_enable();
-            RGB_current_mode = rgblight_get_mode();
-          }
-        break;
-    #endif
-    default:
-      result = true;
-      break;
-  }
-
-  return result;
-}
 
 #ifdef OLED_DRIVER_ENABLE
 
