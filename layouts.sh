@@ -28,9 +28,9 @@ gcc -I. "$source" -o "$binary"
 "$binary" | tee "$D/keymap.csv"
 
 cd keyboards/
-for board in system76/launch_1
+for board in system76/launch_*
 do
-	file="$board/launch_1.h"
+	file="$board/$(basename "$board").h"
 	if [ ! -e "$file" ]
 	then
 		continue
