@@ -15,16 +15,26 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(
-        KC_A, KC_B, KC_C, KC_D, KC_E,
-        KC_F, KC_G, KC_H, KC_I, KC_J,
-        KC_K, KC_L, KC_M, KC_N
+    [0] = LAYOUT(
+        KC_A,    KC_B,    KC_C,    KC_D,    KC_E,
+        KC_F,    KC_G,    KC_H,    KC_I,    KC_J,
+        KC_K,    KC_L,    KC_M,    KC_N
+    ),
+    [1] = LAYOUT(
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______
+    ),
+    [2] = LAYOUT(
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______
+    ),
+    [3] = LAYOUT(
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______
     ),
 };
