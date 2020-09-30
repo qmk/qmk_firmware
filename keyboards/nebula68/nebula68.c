@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGB_BACKLIGHT_NEBULA65
-#error RGB_BACKLIGHT_NEBULA65 not defined, recheck config.h
+#ifndef RGB_BACKLIGHT_NEBULA68
+#error RGB_BACKLIGHT_NEBULA68 not defined, recheck config.h
 #endif
 
-#include "nebula65.h"
+#include "nebula68.h"
