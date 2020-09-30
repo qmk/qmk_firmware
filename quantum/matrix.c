@@ -32,7 +32,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
-static inline setPinOutput_writeLow(pin_t pin) {
+static inline void setPinOutput_writeLow(pin_t pin) {
 #if defined(__AVR__)
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         setPinOutput(pin);

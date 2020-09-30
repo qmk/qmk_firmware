@@ -45,7 +45,7 @@ uint8_t thisHand, thatHand;
 // user-defined overridable functions
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
-static inline setPinOutput_writeLow(pin_t pin) {
+static inline void setPinOutput_writeLow(pin_t pin) {
 #if defined(__AVR__)
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         setPinOutput(pin);
