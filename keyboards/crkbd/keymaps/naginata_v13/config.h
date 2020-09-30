@@ -20,6 +20,7 @@
 #define PRODUCT   Crkbd Naginata Style V12
 
 // 薙刀式
+// #define NAGINATA_KOUCHI_SHIFT // シフトを後置でも有効にする
 #define NAGINATA_TATEGAKI
 // #define NAGINATA_YOKOGAKI
 #define NAGINATA_EDIT_WIN // JP106

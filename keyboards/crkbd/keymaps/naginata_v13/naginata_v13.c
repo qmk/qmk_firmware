@@ -875,7 +875,19 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
   if (record->event.pressed) {
     switch (keycode) {
-      case NG_Q ... NG_SHFT2:
+      case NG_SHFT ... NG_SHFT2:
+#ifndef NAGINATA_KOUCHI_SHIFT
+        if (ng_chrcount >= 1) {
+          naginata_type();
+          keycomb = 0UL;
+        }
+        ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
+        ng_chrcount++;
+        keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
+        return false;
+        break;
+#endif
+      case NG_Q ... NG_SLSH:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ

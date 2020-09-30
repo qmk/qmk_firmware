@@ -25,4 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NAGINATA_EDIT_WIN // JP106
 // #define NAGINATA_EDIT_MAC // US101
 // #define MAC_LIVE_CONVERSION // Macでライブ変換をオンにしている場合
+// #define NAGINATA_KOUCHI_SHIFT // シフトを後置でも有効にする
 // 薙刀式
