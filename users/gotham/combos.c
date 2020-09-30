@@ -12,6 +12,19 @@ const uint16_t PROGMEM eql_combo[]  = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM mins_combo[] = {KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM unds_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
+/*
+,-----------------------------.      ,-----------------------------.
+|   Grv  |  Esc   |     |     |      |     |     |   Eql  |  Bsls  |
+|-----+-----+-----+-----+-----|      |-----------------------------|
+|     |  Tab   |   GUI  |     |      |     |  Quot  |  Mins  |     |
+|-----+-----+-----+-----+-----+      |-----------------------------|
+|     |  Undo  |  Redo  |     |      |     |     |   Unds    |     |
+`-----+-----+-----+-----+-----'      `-----------------------------'
+              .-----------------.  .-----------------.
+              |     |     |     |  |     |     |     |
+              '-----------------'  '-----------------'
+*/
+
 combo_t key_combos[COMBO_COUNT] = {
     // clang-format off
     [CMB_GRV]   = COMBO(grv_combo, KC_GRV),
@@ -28,7 +41,7 @@ combo_t key_combos[COMBO_COUNT] = {
     // clang-format on
 };
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case CMB_UNDO:
             if (pressed) {
@@ -42,3 +55,16 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             break;
     }
 }
+
+/* Template
+,-----------------------------.      ,-----------------------------.
+|     |     |     |     |     |      |     |     |     |     |     |
+|-----+-----+-----+-----+-----|      |-----------------------------|
+|     |     |     |     |     |      |     |     |     |     |     |
+|-----+-----+-----+-----+-----+      |-----------------------------|
+|     |     |     |     |     |      |     |     |     |     |     |
+`-----+-----+-----+-----+-----'      `-----------------------------'
+              .-----------------.  .-----------------.
+              |     |     |     |  |     |     |     |
+              '-----------------'  '-----------------'
+*/

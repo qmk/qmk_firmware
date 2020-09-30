@@ -6,7 +6,6 @@
 
 #define TAP_CODE_DELAY 5
 #define TAPPING_TERM 200
-#define TAPPING_FORCE_HOLD
 
 #ifdef COMBO_ENABLE
 #    define COMBO_COUNT 11
