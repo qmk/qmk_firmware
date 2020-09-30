@@ -53,11 +53,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_init();
       }
       return false;
+#ifdef RGBLIGHT_ENABLE
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
       }
       return false;
+#endif
   }
   return true;
 }

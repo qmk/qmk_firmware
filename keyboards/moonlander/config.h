@@ -78,10 +78,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
 #    define NO_ACTION_MACRO
 #    define NO_ACTION_FUNCTION
-#endif
 
 #define I2C1_CLOCK_SPEED 400000
 

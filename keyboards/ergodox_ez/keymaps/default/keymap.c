@@ -146,11 +146,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case VRSN:
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
         return false;
-      #ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
       case RGB_SLD:
         rgblight_mode(1);
         return false;
-      #endif
+#endif
     }
   }
   return true;

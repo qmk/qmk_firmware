@@ -19,7 +19,6 @@
 
 keyboard_config_t keyboard_config;
 
-
 #ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);

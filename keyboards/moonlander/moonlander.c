@@ -161,9 +161,10 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
+#if !defined(MOONLANDER_USER_LEDS)
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state         = layer_state_set_user(state);
-    if (is_launching) return state;
+    if (is_launching || !keyboard_config.led_level) return state;
 
     ML_LED_1(false);
     ML_LED_2(false);
@@ -201,6 +202,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     return state;
 }
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
@@ -417,6 +419,24 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set_kb(layer_state);
             break;
 #endif
+#if !defined(MOONLANDER_USER_LEDS)
+        case LED_LEVEL:
+            if (record->event.pressed) {
+                keyboard_config.led_level ^= 1;
+                eeconfig_update_kb(keyboard_config.raw);
+                if (keyboard_config.led_level) {
+                    layer_state_set_kb(layer_state);
+                } else {
+                    ML_LED_1(false);
+                    ML_LED_2(false);
+                    ML_LED_3(false);
+                    ML_LED_4(false);
+                    ML_LED_5(false);
+                    ML_LED_6(false);
+                }
+            }
+            break;
+#endif
 #ifdef RGB_MATRIX_ENABLE
         case TOGGLE_LAYER_COLOR:
             if (record->event.pressed) {
@@ -452,6 +472,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
 
+    if (!keyboard_config.led_level && !keyboard_config.led_level_res) {
+        keyboard_config.led_level = true;
+        keyboard_config.led_level_res = 0b11;
+        eeconfig_update_kb(keyboard_config.raw);
+    }
+
 #ifdef RGB_MATRIX_ENABLE
     if (keyboard_config.rgb_matrix_enable) {
         rgb_matrix_set_flags(LED_FLAG_ALL);
@@ -464,6 +490,8 @@ void matrix_init_kb(void) {
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.raw = 0;
     keyboard_config.rgb_matrix_enable = true;
+    keyboard_config.led_level = true;
+    keyboard_config.led_level_res = 0b11;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }

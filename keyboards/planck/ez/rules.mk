@@ -13,11 +13,9 @@ CONSOLE_ENABLE = no  # Console for debug
 COMMAND_ENABLE = no    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes     # USB Nkey Rollover
-CUSTOM_MATRIX = no # Custom matrix file
 AUDIO_ENABLE = yes
 RGBLIGHT_ENABLE = no
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
-RGB_MATRIX_ENABLE = IS31FL3737
 
 LAYOUTS += ortho_4x12
