@@ -32,6 +32,6 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
 VIA_ENABLE = yes
-LINK_TIME_OPTIMIZATION_ENABLE = yes 
+LTO_ENABLE = yes 
 
 DEFAULT_FOLDER = ergotravel/rev1
