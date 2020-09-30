@@ -16,7 +16,6 @@ include common.mk
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
-STM32_PATH := quantum/stm32
 
 # Force expansion
 TARGET := $(TARGET)
@@ -138,7 +137,7 @@ endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     TARGET := $(TARGET)_proton_c
-    include $(STM32_PATH)/proton_c.mk
+    include platforms/chibios/GENERIC_STM32_F303XC/configs/proton_c.mk
     OPT_DEFS += -DCONVERT_TO_PROTON_C
 endif
 
@@ -147,12 +146,6 @@ ifneq ($(FORCE_LAYOUT),)
 endif
 
 include quantum/mcu_selection.mk
-
-ifdef MCU_FAMILY
-    OPT_DEFS += -DQMK_STM32
-    KEYBOARD_PATHS += $(STM32_PATH)
-endif
-
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
