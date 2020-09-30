@@ -20,8 +20,8 @@
 
 /* USB Device descriptor parameter */
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x4D42
+#define PRODUCT_ID      0x5257
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Mattia Dal Ben
 #define PRODUCT         Redox_wireless
