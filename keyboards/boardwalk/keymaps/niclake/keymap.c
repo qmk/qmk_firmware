@@ -14,7 +14,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keycodes.h"
 
 enum layer_names {
     _BASE,
