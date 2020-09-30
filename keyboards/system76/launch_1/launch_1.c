@@ -7,6 +7,10 @@
 enum Command {
     // Probe for System76 EC protocol
     CMD_PROBE = 1,
+    // Read board string
+    CMD_BOARD = 2,
+    // Read version string
+    CMD_VERSION = 3,
     // Get keyboard map index
     CMD_KEYMAP_GET = 9,
     // Set keyboard map index
@@ -48,6 +52,14 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             data[3] = 0xEC;
             // Version
             data[4] = 0x01;
+            data[1] = 0;
+            break;
+        case CMD_BOARD:
+            strncpy(&data[2], QMK_KEYBOARD, length - 2);
+            data[1] = 0;
+            break;
+        case CMD_VERSION:
+            strncpy(&data[2], QMK_VERSION, length - 2);
             data[1] = 0;
             break;
 		case CMD_KEYMAP_GET:
