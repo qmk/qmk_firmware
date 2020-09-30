@@ -8,16 +8,16 @@
 #define PRODUCT_ID      0x1776
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    System76
-#define PRODUCT         Launch
-#define DESCRIPTION     Launch Keyboard
+#define PRODUCT         Launch Keyboard Alpha 1
+#define DESCRIPTION     Launch Keyboard Alpha 1
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 15
+#define MATRIX_COLS 14
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { F5, F4, F1, F0, B3, F6 }
-#define MATRIX_COL_PINS { B2, B0, D3, D2, D1, D0, D4, C6, D7, E6, B4, B5, B6, B7, D6 }
+#define MATRIX_ROW_PINS { B0, C6, D7, E6, B4, B5 }
+#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4, D3, D2, D1, D0, D4, D5 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */

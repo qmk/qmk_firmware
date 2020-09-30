@@ -1,5 +1,5 @@
-#ifndef LAUNCH_1_H
-#define LAUNCH_1_H
+#ifndef LAUNCH_ALPHA_2_H
+#define LAUNCH_ALPHA_2_H
 
 #include "quantum.h"
 
@@ -21,4 +21,4 @@
     { K50, K51, K52, K53, K54, ___, K55, K56, K57, K58, K59, K5A, K5B, ___, ___ }, \
 }
 
-#endif // LAUNCH_1_H
+#endif // LAUNCH_ALPHA_2_H

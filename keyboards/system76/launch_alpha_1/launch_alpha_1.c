@@ -3,7 +3,7 @@
 #include "tmk_core/common/eeprom.h"
 #include "version.h"
 
-#include "launch_1.h"
+#include "launch_alpha_1.h"
 
 enum Command {
     // Probe for System76 EC protocol
