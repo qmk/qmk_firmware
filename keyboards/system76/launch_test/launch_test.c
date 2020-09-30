@@ -1,6 +1,7 @@
 #include "dynamic_keymap.h"
 #include "raw_hid.h"
 #include "tmk_core/common/eeprom.h"
+#include "version.h"
 
 #include "launch_test.h"
 
@@ -55,11 +56,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             data[1] = 0;
             break;
         case CMD_BOARD:
-            strncpy(&data[2], QMK_KEYBOARD, length - 2);
+            strncpy((char *)&data[2], QMK_KEYBOARD, length - 2);
             data[1] = 0;
             break;
         case CMD_VERSION:
-            strncpy(&data[2], QMK_VERSION, length - 2);
+            strncpy((char *)&data[2], QMK_VERSION, length - 2);
             data[1] = 0;
             break;
 		case CMD_KEYMAP_GET:
