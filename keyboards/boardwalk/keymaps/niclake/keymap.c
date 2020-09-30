@@ -14,8 +14,8 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "keycodes.h"
 
-// Layer shorthand
 enum layer_names {
     _BASE,
     _QWERTY,
@@ -23,6 +23,22 @@ enum layer_names {
     _NUM,
     _ADJ,
 };
+
+enum custom_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    FN,
+    NUM,
+    ADJ,
+    MACWIN
+};
+
+#define QWERTY DF(_QWERTY)
+#define COLEMAK DF(_BASE)
+#define FN MO(_FN)
+#define NUM TT(_NUM)
+#define ADJ MO(_ADJ)
+#define MACWIN AG_TOGG
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -42,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_ortho_2x2u(
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_MINS, KC_EQL,  KC_6, KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_LBRC, KC_RBRC, KC_J, KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
-        MO(_FN), KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_HOME, KC_PGUP, KC_H, KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_END,  KC_PGDN, KC_K, KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                 KC_LCTL, KC_LALT, KC_LGUI, TT(_NUM),      KC_ENT,  KC_SPC,        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        FN,      KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_HOME, KC_PGUP, KC_H, KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+        KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_END,  KC_PGDN, KC_K, KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+                 KC_LCTL, KC_LALT, KC_LGUI, NUM,           KC_ENT,  KC_SPC,        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     /* QWERTY
@@ -63,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_ortho_2x2u(
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_MINS, KC_EQL,  KC_6, KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_LBRC, KC_RBRC, KC_Y, KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-        MO(_FN), KC_A,    KC_S,    KC_D,    KC_F,    KC_G, KC_HOME, KC_PGUP, KC_H, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_END,  KC_PGDN, KC_N, KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                 KC_LCTL, KC_LALT, KC_LGUI, TT(_NUM),      KC_ENT,  KC_SPC,        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        FN,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G, KC_HOME, KC_PGUP, KC_H, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_END,  KC_PGDN, KC_N, KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+                 KC_LCTL, KC_LALT, KC_LGUI, NUM,           KC_ENT,  KC_SPC,        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     /* FN
@@ -86,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,  _______, _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, _______,
         _______, _______, KC_MUTE, KC_VOLD, KC_VOLU,  _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
         _______, _______, _______, _______, _______,  _______, _______, _______, _______, KC_HOME, _______, KC_END,  _______, KC_CAPS,
-                 _______, _______, _______, MO(_ADJ),          _______, _______,          _______, _______, _______, _______
+                 _______, _______, _______, ADJ,               _______, _______,          _______, _______, _______, _______
     ),
 
     /* Num Pad (NUM)
@@ -99,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
      * |        |        |        |        |        |        |        |        | KP 1   | KP 2   | KP 3   | KP Ent |        |        |
      * '--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------'
-     *          |        |        |        | TG_NUM |                 |      KP 0       | KP 0   | KP .   | KP Ent |        |
+     *          |        |        |        | XXXXXX |                 |      KP 0       | KP 0   | KP .   | KP Ent |        |
      *          '-----------------------------------------------------------------------------------------------------------'
      */
     [_NUM] = LAYOUT_ortho_2x2u(
@@ -107,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, _______, _______,
-                 _______, _______, _______, TT(_NUM),         _______, KC_KP_0,          KC_KP_0, KC_PDOT, KC_PENT, _______
+                 _______, _______, _______, _______,          _______, KC_KP_0,          KC_KP_0, KC_PDOT, KC_PENT, _______
     ),
 
     /* ADJUST
@@ -116,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
      * |        |        |        |        |        |        |        |        |        |        |        |        | RESET  |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
-     * | XXXXXX |        |        |        |        |        |        |        |        |        |        |        |        |        |
+     * | XXXXXX | MACWIN |        |        |        |        |        |        |        |        |        |        |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
      * |        | Colemak| QWERTY |        |        |        |        |        |        |        |        |        |        |        |
      * '--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------'
@@ -124,11 +140,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          '-----------------------------------------------------------------------------------------------------------'
      */
     [_ADJ] = LAYOUT_ortho_2x2u(
-        _______, _______,   _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______,   _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______,
-        _______, _______,   _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, DF(_BASE), DF(_QWERTY), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                 _______,   _______,     _______, _______,          _______, _______,          _______, _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______,
+        _______, MACWIN,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, COLEMAK, QWERTY,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______,          _______, _______,          _______, _______, _______, _______
     )
 
 };
