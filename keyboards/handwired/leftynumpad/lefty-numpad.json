@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Lefty Numpad",
+    "author": "Tom Swartz",
+    "notes": "Left-hand side NumPad",
+    "switchMount": "cherry",
+    "switchBrand": "gateron",
+    "switchType": "KS-3-Tea",
+    "plate": true
+  },
+  [ "Bksp", "Num Lock", "/", "*", "-" ],
+  [ "Layer Up", "7", "8", "9", { "h": 2 }, "+" ],
+  [ "Layer Down", "4", { "n": true }, "5", "6" ],
+  [ "PgUp", "1", "2", "3", { "h": 2 }, "Enter" ],
+  [ "PgDn", "00", "0", "." ]
+]
