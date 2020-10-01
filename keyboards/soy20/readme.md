@@ -2,9 +2,9 @@
 
 A 4x5 keypad created by drewkeys
 
-Keyboard Maintainer: [Friend-Or-F0H](https://github.com/Friend-Or-F0H)
-Hardware Supported: drewkeys Soy20 PCB
-Hardware Availability: Limited GB
+* Keyboard Maintainer: [Friend-Or-F0H](https://github.com/Friend-Or-F0H)
+* Hardware Supported: drewkeys Soy20 PCB
+* Hardware Availability: Limited GB
 
 Make example for this keyboard (after setting up your build environment):
 
