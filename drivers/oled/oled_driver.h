@@ -257,6 +257,10 @@ bool oled_on(void);
 // Returns true if the screen was off or turns off
 bool oled_off(void);
 
+// Returns true if the oled is currently on, false if it is
+// not
+bool is_oled_on(void);
+
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);
 
