@@ -1,4 +1,4 @@
-# Nebula65
+# Nebula68
 
 This is a standard fixed layout 68% PCB. It supports VIA, full per-key RGB and underglow RGB.
 
