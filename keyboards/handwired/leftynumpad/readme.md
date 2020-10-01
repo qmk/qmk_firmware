@@ -1,10 +1,8 @@
 # LeftyNumpad
 
-![LeftyNumpad](imgur.com image replace me!)
-
 A short description of the keyboard/project
 
-* Keyboard Maintainer: [Tom Swartz](https://github.com/yourusername)
+* Keyboard Maintainer: [Tom Swartz](https://github.com/tomswartz07)
 * Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: Links to where you can find this hardware
 
