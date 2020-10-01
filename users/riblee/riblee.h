@@ -14,5 +14,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include QMK_KEYBOARD_H
-#include "riblee.h"
+
+enum preonic_layers {
+    _QWERTY,
+    _COLEMAK,
+    _DVORAK,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
+
+enum preonic_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    DVORAK,
+    BACKLIT
+};
+
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+
+// Tap Dance declarations
+enum {
+    TD_A,
+    TD_E,
+    TD_I,
+    TD_O,
+    TD_U,
+};
+
+void dance_key_a (qk_tap_dance_state_t *, void *);
+void dance_key_e (qk_tap_dance_state_t *, void *);
+void dance_key_i (qk_tap_dance_state_t *, void *);
+void dance_key_o (qk_tap_dance_state_t *, void *);
+void dance_key_u (qk_tap_dance_state_t *, void *);
+
+layer_state_t layer_state_set_user(layer_state_t);
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
