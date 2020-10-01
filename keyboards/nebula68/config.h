@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x5336
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         NEBULA65
-#define DESCRIPTION     "A 65-percent, tool-free RGB keyboard"
+#define PRODUCT         NEBULA68
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -106,7 +105,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_BACKLIGHT_ENABLED 1
 
-#define RGB_BACKLIGHT_NEBULA65
+#define RGB_BACKLIGHT_NEBULA68
 
 // they aren't really used if RGB_BACKLIGHT_NEBULA65 defined
 #define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 0
