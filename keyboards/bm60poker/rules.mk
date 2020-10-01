@@ -21,3 +21,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = WS2812
+LAYOUTS = 60_ansi

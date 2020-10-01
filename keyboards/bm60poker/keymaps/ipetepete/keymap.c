@@ -1,4 +1,3 @@
-
 /* Copyright 2020 ipetepete
   * 
   * This program is free software: you can redistribute it and/or modify 
@@ -33,8 +32,6 @@ colemak
 };
 
 #define KC_SPFN LT(_spcfn, KC_SPC) // press for space, hold for function layer (aka spacefn)
-
-bool show_wasd = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_qwerty] = LAYOUT_60_ansi(
