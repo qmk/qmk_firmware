@@ -1,10 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _BL 0
-#define _FN1 1
-#define _FN2 2
-#define _FN3 3
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_BL] = LAYOUT_ortho(
