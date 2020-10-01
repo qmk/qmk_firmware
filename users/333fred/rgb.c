@@ -36,7 +36,7 @@ void layer_state_set_rgb(uint32_t state) {
     case VIM:
       // green
       rgblight_sethsv_noeeprom(85, 255, 20);
-      break;z
+      break;
     case GAME:
       // red
       rgblight_sethsv_noeeprom(0, 255, 20);
