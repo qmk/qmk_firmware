@@ -22,7 +22,7 @@ browser back/forward navigation keys.
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/JVF1p1Q.png)
+![Lower layer layout](https://i.imgur.com/sNKWpUC.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/19ad0d3b5d745fbb2818db09740f5a11))
 
@@ -34,6 +34,6 @@ browser back/forward navigation keys.
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/Rv6jQtC.png)
+![Adjust layer layout](https://i.imgur.com/Q3PGsiK.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/8f6a3f08350a9bbe1d414b22bca4e6c7))
