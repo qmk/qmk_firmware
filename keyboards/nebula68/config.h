@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NEBULA68
-#define DESCRIPTION     "A 68-percent, tool-free RGB keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
