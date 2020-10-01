@@ -10,3 +10,8 @@ But as a regular vim user I use escape more than the grave key.
 
 I have also added mod-tap to the right shift, with the "default" position for
 `KC_SLSH` beeing on the far right, that works fine.
+
+There is also a "sleep-mode" function added,
+this can be enabled defining `SLEEPMODE_ENABLE` in `config.h`.
+This makes the keyboard backlight turn off after 10 minutes without any
+keypresses, and turn on again on keypress. (This is something different than `USB_SUSPEND`)

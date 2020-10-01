@@ -15,6 +15,31 @@
  */
 #include QMK_KEYBOARD_H
 
+#ifdef RGB_MATRIX_ENABLE
+#ifdef SLEEPMODE_ENABLE
+    /* How long the backlight should stay on
+       without any interaction before turning off. */
+    #define SLEEPMODE_TIMEOUT 10  // in minutes
+    /* Which mode we should enter after the timeout,
+       RGB_MATRIX_NONE to turn off.
+       I thinks RGB_MATRIX_DIGITAL RAIN is pretty :) */
+    #define SLEEPMODE_RGB_MODE RGB_MATRIX_NONE
+    /* The desired animation speed when in "sleep mode" */
+    #define SLEEPMODE_RGB_ANIMATION_SPEED 10
+    /* The desired brightness when in "sleep mode" */
+    #define SLEEPMODE_RGB_VAL 10
+
+    /* A bunch of vars to keep track of the rgb states
+       before sleepmode is turned on */
+    static bool sleepmode_on = false;
+    static uint8_t sleepmode_before_mode = -1;
+    static uint8_t sleepmode_before_brightness = -1;
+    static uint8_t sleepmode_before_anim_speed = -1;
+    static uint8_t halfmin_counter = 0;
+    static uint16_t idle_timer = 0;
+#endif
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* ,-----------------------------------------------------------.
      * |ESC| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | + | ´ |  BACK |
@@ -53,3 +78,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, _______,                      _______,                         _______, _______, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK
     ),
 };
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef RGB_MATRIX_ENABLE
+    #ifdef SLEEPMODE_ENABLE
+        if (record->event.pressed) {
+            if (sleepmode_before_mode == -1) { sleepmode_before_mode = rgb_matrix_get_mode(); }
+            if (sleepmode_before_brightness == -1) { sleepmode_before_brightness = rgb_matrix_get_val(); }
+            if (sleepmode_before_anim_speed == -1) { sleepmode_before_anim_speed = rgb_matrix_get_speed(); }
+
+            if (sleepmode_on == true) {
+                // rgb_matrix_enable_noeeprom();
+                rgb_matrix_mode_noeeprom(sleepmode_before_mode);
+                rgb_matrix_set_speed_noeeprom(sleepmode_before_anim_speed);
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), sleepmode_before_brightness);
+                sleepmode_on = false;
+            }
+            idle_timer = timer_read();
+            halfmin_counter = 0;
+        }
+    #endif
+    #endif
+    return true;
+ }
+
+ void matrix_scan_user(void) {
+     #ifdef RGB_MATRIX_ENABLE
+     #ifdef SLEEPMODE_ENABLE
+        /* idle_timer needs to be set one time */
+        if (idle_timer == 0) idle_timer = timer_read();
+
+        if ( !sleepmode_on && timer_elapsed(idle_timer) > 30000) {
+            halfmin_counter++;
+            idle_timer = timer_read();
+        }
+
+        if ( !sleepmode_on && halfmin_counter >= SLEEPMODE_TIMEOUT * 2) {// * 2) {
+            layer_clear();
+            sleepmode_before_anim_speed = rgb_matrix_get_speed();
+            sleepmode_before_brightness = rgb_matrix_get_val();
+            sleepmode_before_mode = rgb_matrix_get_mode();
+            //rgb_matrix_disable_noeeprom();
+
+            rgb_matrix_mode_noeeprom(SLEEPMODE_RGB_MODE);
+            rgb_matrix_set_speed_noeeprom(SLEEPMODE_RGB_ANIMATION_SPEED);
+            rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), SLEEPMODE_RGB_VAL);
+            sleepmode_on = true;
+            halfmin_counter = 0;
+        }
+    #endif
+    #endif
+}
