@@ -39,8 +39,8 @@
 #define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// TODO: check if this is good!?
+// Fix RGB_MATRIX_STARTUP, because RGB_MATRIX_CYCLE_ALL is disabled.
+// The actual handling of RGB_EFFECTs is done in keymap.c
 #undef RGB_MATRIX_STARTUP_MODE
-#define RGB_MATRIX_STARTUP_MODE 3
 
 #endif
