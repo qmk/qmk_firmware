@@ -4,6 +4,7 @@ core:
   - drivers/**/*
   - tests/**/*
   - util/**/*
+  - platforms/**/*
 keymap:
   - users/**/*
   - layouts/**/*
