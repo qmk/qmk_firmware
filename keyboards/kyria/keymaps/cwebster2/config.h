@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "cwebster2.h"
+
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif
@@ -25,7 +27,7 @@
   //#define RGBLIGHT_EFFECT_ALTERNATING
   #define RGBLIGHT_EFFECT_BREATHING
   //#define RGBLIGHT_EFFECT_CHRISTMAS
-  #define RGBLIGHT_EFFECT_KNIGHT
+  //#define RGBLIGHT_EFFECT_KNIGHT
   //#define RGBLIGHT_EFFECT_RAINBOW_MOOD
   //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   //#define RGBLIGHT_EFFECT_RGB_TEST
@@ -42,92 +44,10 @@
   //#define RGBLIGHT_STARTUP_ANIMATION
 #endif
 
-#define TAPPING_TOGGLE 1
-#define TAPPING_TERM 200
-//#define TAPPING_FORCE_HOLD
-#undef PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
-#define NO_ACTION_ONESHOT
-
 #define COMBO_COUNT 2
-
-#ifdef AUTO_SHIFT_ENABLE
-  #define AUTO_SHIFT_TIMEOUT 200
-  #define NO_AUTO_SHIFT_SPECIAL
-  #define NO_AUTO_SHIFT_ALPHA
-#endif
 
 #define QMK_KEYS_PER_SCAN 1
 
 #define EE_HANDS
 
-#undef MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY          0
-#undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL       16
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY    0
-#undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED      6
-#undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX    64
-
-/* Disable unused and unneeded features to reduce on firmware size */
-#ifdef LOCKING_SUPPORT_ENABLE
-#    undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#    undef LOCKING_RESYNC_ENABLE
-#endif
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-#ifndef NO_DEBUG
-    #define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-    #define NO_PRINT
-#endif // !NO_PRINT
-
-
-
-#define LAYOUT_kc( \
-    L00, L01, L02, L03, L04, L05,                     R05, R04, R03, R02, R01, R00, \
-    L10, L11, L12, L13, L14, L15,                     R15, R14, R13, R12, R11, R10, \
-    L20, L21, L22, L23, L24, L25, L26, L27, R27, R26, R25, R24, R23, R22, R21, R20, \
-                   L33, L34, L35, L36, L37, R37, R36, R35, R34, R33 \
-    ) \
-    LAYOUT ( \
-    KC_##L00, KC_##L01, KC_##L02, KC_##L03, KC_##L04, KC_##L05,                                         KC_##R05, KC_##R04, KC_##R03, KC_##R02, KC_##R01, KC_##R00, \
-    KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15,                                         KC_##R15, KC_##R14, KC_##R13, KC_##R12, KC_##R11, KC_##R10, \
-    KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##L26, KC_##L27, KC_##R27, KC_##R26, KC_##R25, KC_##R24, KC_##R23, KC_##R22, KC_##R21, KC_##R20, \
-                                  KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##L37, KC_##R37, KC_##R36, KC_##R35, KC_##R34, KC_##R33 \
-    )
 #define LAYOUT_kyria_wrapper(...)  LAYOUT(__VA_ARGS__)
-
-
-#define LAYOUT_left_kc( \
-    L00, L01, L02, L03, L04, L05, \
-    L10, L11, L12, L13, L14, L15, \
-    L20, L21, L22, L23, L24, L25, L26, L27, \
-                   L33, L34, L35, L36, L37  \
-    ) \
-    LAYOUT_kc ( \
-    L00, L01, L02, L03, L04, L05,                       TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
-    L10, L11, L12, L13, L14, L15,                       TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
-    L20, L21, L22, L23, L24, L25, L26, L27, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
-                   L33, L34, L35, L36, L37, TRNS, TRNS, TRNS, TRNS, TRNS \
-    )
-
-#define LAYOUT_right_kc( \
-              R05, R04, R03, R02, R01, R00, \
-              R15, R14, R13, R12, R11, R10, \
-    R27, R26, R25, R24, R23, R22, R21, R20, \
-    R37, R36, R35, R34, R33 \
-    ) \
-    LAYOUT_kc ( \
-    TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,                       R05, R04, R03, R02, R01, R00, \
-    TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,                       R15, R14, R13, R12, R11, R10, \
-    TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, R27, R26, R25, R24, R23, R22, R21, R20, \
-                      TRNS, TRNS, TRNS, TRNS, TRNS, R37, R36, R35, R34, R33 \
-    )

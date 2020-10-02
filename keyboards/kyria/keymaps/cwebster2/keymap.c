@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______INACTIVE_R1____,                 _______NAV______R1____,
       _______INACTIVE_R1____,                 _______NAV______R2____,
       _______INACTIVE_R1____,                 _______NAV______R3____,
-              _______INACTIVE__T____,  _______NAKED_R___T____
+              _______INACTIVE__T____,  _______NAV_______T____
  /*           `---------------------'  `---------------------' */
       ),
     [_MOUSE] = LAYOUT_kyria_base_wrapper(
@@ -219,8 +219,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 #endif
 
-void keyboard_post_init_rgb(void);
-
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_BLUE);
     keyboard_post_init_rgb();
@@ -229,24 +227,6 @@ void keyboard_post_init_user(void) {
 #else
     rgblight_sethsv_noeeprom(HSV_BLUE);
 #endif
-}
-
-void keyboard_post_init_rgb(void) {
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)
-    /*if (userspace_config.rgb_layer_change) { rgblight_enable_noeeprom(); }*/
-    /*if (rgblight_config.enable) {*/
-        /*layer_state_set_user(layer_state);*/
-        /*uint16_t old_hue = rgblight_config.hue;*/
-        uint16_t old_hue = 170;
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-        for (uint16_t i = 255; i > 0; i--) {
-            rgblight_sethsv_noeeprom( ( i + old_hue) % 255, 255, 255);
-            matrix_scan();
-            wait_ms(10);
-        }
-    /*}*/
-#endif
-    /*layer_state_set_user(layer_state);*/
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
