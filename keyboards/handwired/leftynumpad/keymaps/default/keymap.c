@@ -49,24 +49,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // when keycode DOUBLEZERO is pressed
                 SEND_STRING("00");
-            } else {
-                // when keycode QMKURL is released
             }
             break;
     }
     return true;
 }
-
-/*
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/

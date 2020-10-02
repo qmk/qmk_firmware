@@ -1,10 +1,11 @@
 # LeftyNumpad
 
-A short description of the keyboard/project
+A small numberpad/macropad intended to be placed southpaw-style on the left
+side of a keyboard.
 
 * Keyboard Maintainer: [Tom Swartz](https://github.com/tomswartz07)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Hardware Supported: Handwired, Uses Arudino Micro.
+* Hardware Availability: Handwired hardware.
 
 Make example for this keyboard (after setting up your build environment):
 
