@@ -114,7 +114,7 @@
                 {"y":4.25, "x":14.25, "label":"Space", "w":1.75},
                 {"y":4.25, "x":16,    "label":"UK #~"},
                 {"y":4, "x":17.25,    "label":"AltGr / Home", "w":1.5},
-                {"y":4, "x":17.25,    "label":"Ctrl / End", "w":1.5},
+                {"y":4, "x":18.75,    "label":"Ctrl / End", "w":1.5},
                 {"y":4.25, "x":20.5,  "label":"Left"},
                 {"y":4.25, "x":21.5,  "label":"Down"},
                 {"y":4.25, "x":22.5,  "label":"Right"}
