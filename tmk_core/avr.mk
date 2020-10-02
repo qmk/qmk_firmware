@@ -122,13 +122,14 @@ define EXEC_DFU
 		if [ "$(1)" ]; then \
 			$(DFU_PROGRAMMER) $(MCU) flash --force --eeprom $(QUANTUM_PATH)/split_common/$(1);\
 		fi; \
+		$(DFU_PROGRAMMER) $(MCU) flash --force $(BUILD_DIR)/$(TARGET).hex;\
 	else \
 		$(DFU_PROGRAMMER) $(MCU) erase; \
 		if [ "$(1)" ]; then \
 			$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/$(1);\
 		fi; \
+		$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex;\
 	fi; \
-	$(DFU_PROGRAMMER) $(MCU) flash --force $(BUILD_DIR)/$(TARGET).hex;\
 	$(DFU_PROGRAMMER) $(MCU) reset
 endef
 
