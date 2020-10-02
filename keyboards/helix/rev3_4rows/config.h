@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER yushakobo
 #define PRODUCT Helix rev3 4rows
-#define DESCRIPTION A split keyboard for beginners
 
 /* key matrix size */
 #define MATRIX_ROWS 8
