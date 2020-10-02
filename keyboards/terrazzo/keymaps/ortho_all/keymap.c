@@ -1,6 +1,5 @@
 /* Ortho layout with all 1u
    make terrazzo:othro_all */
-#include "terrazzo.h"
 #include QMK_KEYBOARD_H
 
 enum layers {

@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -10,7 +9,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    MsMustard
 #define PRODUCT         Terrazzo
-#define DESCRIPTION     40% Keyboard with LED Matrix
 
 /* key matrix size */
 
@@ -78,7 +76,6 @@ so there is only one configuration. */
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 20
 #define LED_DISABLE_WHEN_USB_SUSPENDED true
 
-#endif
 #endif
 
 /* Terrazzo animations */

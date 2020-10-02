@@ -1,6 +1,5 @@
 // Staggered layout with split spacebars
 // make terrazzo:default
-#include "terrazzo.h"
 #include QMK_KEYBOARD_H
 
 enum layers {

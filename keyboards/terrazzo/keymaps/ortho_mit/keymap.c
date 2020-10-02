@@ -1,6 +1,5 @@
 // Ortho layout with 1 2u spacebar
 // make terrazzo:othro_mit
-#include "terrazzo.h"
 #include QMK_KEYBOARD_H
 
 enum layers {
