@@ -189,6 +189,11 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.v = hsv.v / 2;
             break;
 
+        // AD layer
+        case 16:
+            hsv.h = 0;
+            break;
+
         // KB layer
         case 62:
             hsv.h = time;
