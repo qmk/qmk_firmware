@@ -123,8 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LAB] = LAYOUT_ortho_4x4(
 		_______, _______, EEP_RST, RESET,
-		_______, AU_ON, AU_OFF, _______,
-		RGB_TOG, RGB_VAI, RGB_VAD, _______,
-		LOCKSCREEN, _______, _______, TO(_FIGMA)
+		_______, _______, _______, _______,
+		_______, _______, _______, _______,
+		_______, _______, _______, TO(_FIGMA)
 	),
 };
