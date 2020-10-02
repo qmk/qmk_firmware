@@ -1,6 +1,6 @@
 # The Railroad
 
-![The Railroad](https://i.imgur.com/B8OjXmy.jpg)
+![The Railroad](https://i.imgur.com/B8OjXmyl.jpg)
 
 A long keyboard with ortholinear alphas and semi-standard modifier keys. For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w).
 
