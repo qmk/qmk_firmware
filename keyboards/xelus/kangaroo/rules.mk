@@ -12,10 +12,10 @@ CONSOLE_ENABLE = yes 	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
-BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = no    # Enable keyboard RGB underglow
+BLUETOOTH_ENABLE = no   # Enable Bluetooth
+AUDIO_ENABLE = no       # Audio output
 EEPROM_DRIVER = i2c
-
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
