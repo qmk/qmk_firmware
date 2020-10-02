@@ -39,12 +39,32 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 enum oktiboard_layers {
     _FIGMA,
-    _LAB
+    _LAB,
+    _EMOJI
 };
 
 enum custom_keycodes {
     M_AUTOLAY,
     M_COPYSTYLES
+};
+
+enum unicode_name {
+  GRIN, // grinning face 😊
+  TJOY, // tears of joy 😂
+  SMILE, // grining face with smiling eyes 😁
+  HEART, // heart ❤
+  EYERT, // smiling face with heart shaped eyes 😍
+  SMEYE, // smiling face with smiling eyes 😊
+  KISS, // kiss 😘
+  OKHND, // ok hand sign 👌
+  PENSV, // pensive 😔
+  WINK, // wink 😉
+  THMUP, // thumb up 👍
+  PRAY, // pray 🙏
+  CELEB, // celebration 🙌
+  CRY2, // crying face 😢
+  COOL, // smile with sunglasses 😎
+  POO,  // Poo 💩
 };
 
 bool is_copied = false;
@@ -77,10 +97,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _FIGMA:
-      rgblight_sethsv_noeeprom(139, 0, 139);
+      rgblight_sethsv_noeeprom(75,0,130);
       break;
     case _LAB:
-      rgblight_sethsv_noeeprom(255, 255, 255);
+      rgblight_sethsv_noeeprom(0,100,0);
+      break;
+    case _EMOJI:
+      rgblight_sethsv_noeeprom(128,0,0);
       break;
   }
   return state;
@@ -124,7 +147,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LAB] = LAYOUT_ortho_4x4(
 		_______, _______, EEP_RST, RESET,
 		_______, _______, _______, _______,
-		_______, _______, _______, _______,
-		_______, _______, _______, TO(_FIGMA)
-	),
+		RGB_TOG, RGB_VAI, RGB_VAD, _______,
+		LOCKSCREEN, _______, _______, TO(_EMOJI)
+),
+
+/* Emoji
+ * ,---------------------------.
+ * |  😊  |  😂   |  😁  |   ❤️  |
+ * |------+------+------+------|
+ * |   😍 |   😊  |  😘  |  👌  |
+ * |------+------+------+------|
+ * |  👍  |  🙌   |  😢  |  😔  |
+ * |------+------+------+------|
+ * |  💩  |  😎   |  😉  | CHNG |
+ * `---------------------------'
+ */
+
+[_EMOJI] = LAYOUT_ortho_4x4(
+		GRIN, TJOY, SMILE, HEART,
+		EYERT, SMEYE, KISS, OKHND,
+		THMUP, CELEB, CRY2, PENSV,
+		POO, COOL, WINK, TO(_FIGMA)
+),
 };
