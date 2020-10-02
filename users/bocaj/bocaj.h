@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include QMK_KEYBOARD_H
-
 #include "version.h"
 #include "eeprom.h"
 #include "process_records.h"
