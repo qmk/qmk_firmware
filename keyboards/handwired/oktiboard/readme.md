@@ -1,7 +1,15 @@
 # oktiboard (Handwired)
 
+<img width='400' src='https://img.imageupload.net/2020/10/02/IMG_1116.jpg' alt='oktiboard' type='oktiboard'>
+<img width='400' src='https://img.imageupload.net/2020/10/02/camphoto_1804928587.jpg' alt='oktiboard_wiring' />
+
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: Pro Micro, 16 NeoPixel LED
+
+<b>Layers:</b>
+Figma Shortcuts,
+Keyboard settings,
+EmojiBoard
 
 Make example for this keyboard (after setting up your build environment):
 
