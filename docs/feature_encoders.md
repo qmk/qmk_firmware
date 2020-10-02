@@ -6,6 +6,12 @@ Basic encoders are supported by adding this to your `rules.mk`:
 ENCODER_ENABLE = yes
 ```
 
+There are two options.
+* Basic Support (Classic)
+* More flexible support (New)
+
+## Basic Support (Classic)
+
 and this to your `config.h`:
 
 ```c
@@ -19,6 +25,29 @@ Each PAD_A/B variable defines an array so multiple encoders can be defined, e.g.
 #define ENCODERS_PAD_A { encoder1a, encoder2a }
 #define ENCODERS_PAD_B { encoder1b, encoder2b }
 ```
+
+## Flexible Support (New)
+
+and this to your `config.h`:
+
+```c
+//A and B are connected to the pins, and C is connected to GND.
+#define MATRIX_ENCODER_PINS_ABC {{B1,B3,NO_PIN}}
+
+//When placed in the key matrix and pad C is connected to the row with a diode.
+#define MATRIX_ENCODER_PINS_ABC {{E6,B4,B2},{E6,B4,B6}}
+
+//For a split keyboard, if you have a different number of encoders on the left and right sides of the keyboard,
+// or if you have different pin assignments on the left and right sides of the keyboard, you can specify like this
+#define MATRIX_ENCODER_PINS_ABC {{E6,B4,B2},{E6,B4,B6}}
+#define MATRIX_ENCODER_PINS_ABC_RIGHT {{E6,B4,B6}}
+
+//To place Encoder on the right side only with a split keyboard.
+#define MATRIX_ENCODER_PINS_ABC {}
+#define MATRIX_ENCODER_PINS_ABC_RIGHT {{E6,B4,B6}}
+```
+
+## Direction and Resolution
 
 If your encoder's clockwise directions are incorrect, you can swap the A & B pad definitions.  They can also be flipped with a define:
 
@@ -78,6 +107,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-## Hardware
+## Hardware 
+
+### Basic Support (Classic)
 
 The A an B lines of the encoders should be wired directly to the MCU, and the C/common lines should be wired to ground.
+
+### Flexible Support (New)
+
+The A and B lines of the encoder can be wired directly to the MCU or to a column in the key matrix.
+The C/common line should be wired to ground or with a diode and wired to the key matrix row.
+
+If a key is present in the same column as the A and B lines where the encoder is placed, it is recommended that you place a diode at the input to the Encoders on the A and B lines.
+This is to eliminate the possibility of determining that the B key is pressed when the A key is pressed at the same time as the encoder is rotated.
