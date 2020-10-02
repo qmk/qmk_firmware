@@ -15,5 +15,27 @@
       "xstddef": "c",
       "type_traits": "c",
       "utility": "c"
-    }
+    },
+    "cSpell.words": [
+      "AMPR",
+      "BRID",
+      "BRIU",
+      "BSPC",
+      "COLEMAK",
+      "Dusartz",
+      "EXLM",
+      "Gnorm",
+      "LALT",
+      "LCTL",
+      "LGUI",
+      "LSFT",
+      "PERC",
+      "RGHT",
+      "SCLN",
+      "TILD",
+      "UNDS",
+      "VOLD",
+      "VOLU",
+      "xxxxxx"
+    ]
 }
