@@ -17,18 +17,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #ifdef SLEEPMODE_ENABLE
-    /* How long the backlight should stay on
-       without any interaction before turning off. */
-    #define SLEEPMODE_TIMEOUT 10  // in minutes
-    /* Which mode we should enter after the timeout,
-       RGB_MATRIX_NONE to turn off.
-       I thinks RGB_MATRIX_DIGITAL RAIN is pretty :) */
-    #define SLEEPMODE_RGB_MODE RGB_MATRIX_NONE
-    /* The desired animation speed when in "sleep mode" */
-    #define SLEEPMODE_RGB_ANIMATION_SPEED 10
-    /* The desired brightness when in "sleep mode" */
-    #define SLEEPMODE_RGB_VAL 10
-
     /* A bunch of vars to keep track of the rgb states
        before sleepmode is turned on */
     static bool sleepmode_on = false;
