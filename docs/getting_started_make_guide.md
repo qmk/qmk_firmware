@@ -101,10 +101,6 @@ This allows you to send Unicode characters by inputting a mnemonic corresponding
 
 For further details, as well as limitations, see the [Unicode page](feature_unicode.md).
 
-`BLUETOOTH_ENABLE`
-
-This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly. It uses the D2 and D3 pins.
-
 `AUDIO_ENABLE`
 
 This allows you output audio on the C6 pin (needs abstracting). See the [audio page](feature_audio.md) for more information.
@@ -135,7 +131,7 @@ As there is no standard split communication driver for ARM-based split keyboards
 
 `CUSTOM_MATRIX`
 
-Lets you replace the default matrix scanning routine with your own code. You will need to provide your own implementations of matrix_init() and matrix_scan().
+Lets you replace the default matrix scanning routine with your own code. For further details, see the [Custom Matrix page](custom_matrix.md).
 
 `DEBOUNCE_TYPE`
 

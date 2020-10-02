@@ -1,18 +1,15 @@
-#ifndef MINORCA_H
-#define MINORCA_H
+#pragma once
 
 #include "quantum.h"
 
 #define LAYOUT( \
-    KA00, KA01, KA02, KA03, KA04, KA05, KA06, KA07, KA08, KA09, KA10, KA11, \
-    KB00,  KB01, KB02, KB03, KB04, KB05, KB06, KB07, KB08, KB09,    KB11,   \
-    KC00,    KC02, KC03, KC04, KC05, KC06, KC07, KC08, KC09, KC10,   KC11,  \
-    KD00,  KD02,  KD03,          KD04, KD07,           KD09,  KD10,  KD11   \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
+    K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19,     K1B, \
+    K20,    K22, K23, K24, K25, K26, K27, K28, K29, K2A,   K2B, \
+    K30,  K32,  K33,         K34, K37,         K39,  K3A,  K3B  \
 ) { \
-  {  KA00,  KA01,   KA02,  KA03,  KA04,  KA05,   KA06,   KA07,  KA08,   KA09,  KA10,   KA11  }, \
-  {  KB00,  KB01,   KB02,  KB03,  KB04,  KB05,   KB06,   KB07,  KB08,   KB09,  KC_NO,  KB11  }, \
-  {  KC00,  KC_NO,  KC02,  KC03,  KC04,  KC05,   KC06,   KC07,  KC08,   KC09,  KC10,   KC11  }, \
-  {  KD00,  KC_NO,  KD02,  KD03,  KD04,  KC_NO,  KC_NO,  KD07,  KC_NO,  KD09,  KD10,   KD11  } \
+    { K00, K01,   K02, K03, K04, K05,   K06,   K07, K08,   K09, K0A,   K0B }, \
+    { K10, K11,   K12, K13, K14, K15,   K16,   K17, K18,   K19, KC_NO, K1B }, \
+    { K20, KC_NO, K22, K23, K24, K25,   K26,   K27, K28,   K29, K2A,   K2B }, \
+    { K30, KC_NO, K32, K33, K34, KC_NO, KC_NO, K37, KC_NO, K39, K3A,   K3B } \
 }
-
-#endif

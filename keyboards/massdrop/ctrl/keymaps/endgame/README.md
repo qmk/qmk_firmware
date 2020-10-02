@@ -6,15 +6,19 @@ This keymap is here to show some love to the MD Ctrl.
 
 ### Typing Layer
 
-![Typing Layer](https://i.imgur.com/1uSVUdU.png)
+![Typing Layer](https://imgur.com/QUIU2SL.png)
 
 ### Function Layer
 
-![Function Layer](https://i.imgur.com/rINs7ro.png)
+![Function Layer](https://imgur.com/4q4ld4X.png)
 
 ### Mouse Layer
 
-![Mouse Layer](https://i.imgur.com/IaS0nAB.png)
+![Mouse Layer](https://imgur.com/xXVFyEE.png)
+
+### Git Layer
+
+![Git Layer](https://imgur.com/WMMM0zz.png)
 
 ## Features
 
@@ -36,19 +40,23 @@ This allows setting a dynamic timeout for RGB to turn off. The following is supp
 Not really a feature. I just want to document what tapdance keys this keymap has because there will be many of them.
 
 1. LGUI is used for both LGUI and toggle mouse layer for double tap.
-2. LCTRL and RCTRL are used for their respective keycodes at single tap and to send LCTRL+LALT+T for double tap, which opens terminal in most environments.
+2. LCTRL sends LCTRL for single tap and LCTRL+LALT+T for double tap, which opens terminal in most environments.
 
 ## Future Work
 
 By the time this is project has accomplished its original primary objectives, the following features will be available for the ctrl:
 
 1. Automatic RGB timeout with all the options you would need. **DONE**
-2. Macro and Shortcut layers for at least the following: Git, IntelliJ, VIM, Yakuake, KDE, Firefox, Slack, Discord. All using default program configuration. [This list may and probably will get longer]
-3. Custom LED configs that offer all the RGB layouts I deem useful or having a unique feature, look or feel.
+2. Macro and Shortcut layers for at least the following: Git **DONE**, IntelliJ, VIM **WIP**, Yakuake, KDE, Firefox, Slack, Discord. All using default program configuration. [This list may and probably will get longer]
+3. Custom LED configs that offer all the RGB layouts I deem useful or having a unique feature, look or feel. **DONE**
 4. Increased Dynamic Macro slots, because two simply isn't enough. This particular one falls outside Ctrl config and into QMK core modification. However, it is on the list of features I would like this keyboard to have and is a **TOP PRIORITY** for me. It won't be easy, but I will figure it out.
-5. Porting from the Drop, Inc. way of doing things to the QMK way of doing things, wherever possible. Full QMK support of this keyboard is the goal, not that it's possible, but I'd like to get as close as it gets.
+5. Porting from the Drop, Inc. way of doing things to the QMK way of doing things, wherever possible. Full QMK support of this keyboard is the goal, not that it's possible, but I'd like to get as close as it gets. **WIP**
 6. An easier way to configure LED than both the QMK way and the Drop way. I'm thinking of a graphical LED config like Drop configurator that offers the advanced LED config features QMK offers. This may or may not get done depending on whether or not I get sick of QMK LED config at any point. If it does get done, it may or may not be added to QMK Configurator.
-7. Better documentation of the MD Ctrl specifications, features, etc. This will be included here in the form of C and doxygen comments. The bigger portion will be included in QMK docs if and where possible.
+7. Better documentation of the MD Ctrl specifications, features, etc. This will be included here in the form of C and doxygen comments. The bigger portion will be included in QMK docs if and where possible. **WIP**
+
+Additions:
+
+8. Implement Raw HID. **WIP**
 
 This list will most probably either expand or have some items removed if they're deemed not worthy, probably both. Nothing will be removed because it can't be done though, I am a firm believer in You Can Do It. Anything modified in this list will be clearly marked, for posterity.
 

@@ -20,11 +20,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "ws2812.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+
+#define pinmask(pin) (_BV((pin)&0xF))
 
 /*
  * Forward declare internal functions
@@ -33,29 +34,18 @@
  * The length is the number of bytes to send - three per LED.
  */
 
-void ws2812_sendarray(uint8_t *array, uint16_t length);
-void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
+static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
 
-// Setleds for standard RGB
-void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
-    // ws2812_setleds_pin(ledarray,leds, _BV(ws2812_pin));
-    ws2812_setleds_pin(ledarray, leds, _BV(RGB_DI_PIN & 0xF));
+void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
+    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(RGB_DI_PIN);
+
+    uint8_t masklo = ~(pinmask(RGB_DI_PIN)) & PORTx_ADDRESS(RGB_DI_PIN);
+    uint8_t maskhi = pinmask(RGB_DI_PIN) | PORTx_ADDRESS(RGB_DI_PIN);
+
+    ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
+
+    _delay_us(WS2812_TRST_US);
 }
-
-void inline ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask) {
-    // new universal format (DDR)
-    _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= pinmask;
-
-    ws2812_sendarray_mask((uint8_t *)ledarray, leds * sizeof(LED_TYPE), pinmask);
-
-#ifdef RGBW
-    _delay_us(80);
-#else
-    _delay_us(50);
-#endif
-}
-
-void ws2812_sendarray(uint8_t *data, uint16_t datlen) { ws2812_sendarray_mask(data, datlen, _BV(RGB_DI_PIN & 0xF)); }
 
 /*
   This routine writes an array of bytes with RGB values to the Dataout pin
@@ -118,14 +108,9 @@ void ws2812_sendarray(uint8_t *data, uint16_t datlen) { ws2812_sendarray_mask(da
 #define w_nop8 w_nop4 w_nop4
 #define w_nop16 w_nop8 w_nop8
 
-void inline ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi) {
-    uint8_t curbyte, ctr, masklo;
-    uint8_t sreg_prev;
+static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi) {
+    uint8_t curbyte, ctr, sreg_prev;
 
-    // masklo  =~maskhi&ws2812_PORTREG;
-    // maskhi |=        ws2812_PORTREG;
-    masklo = ~maskhi & _SFR_IO8((RGB_DI_PIN >> 4) + 2);
-    maskhi |= _SFR_IO8((RGB_DI_PIN >> 4) + 2);
     sreg_prev = SREG;
     cli();
 
@@ -188,7 +173,7 @@ void inline ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi
                      "       dec   %0    \n\t"  //  '1' [+2] '0' [+2]
                      "       brne  loop%=\n\t"  //  '1' [+3] '0' [+4]
                      : "=&d"(ctr)
-                     : "r"(curbyte), "I"(_SFR_IO_ADDR(_SFR_IO8((RGB_DI_PIN >> 4) + 2))), "r"(maskhi), "r"(masklo));
+                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), "r"(maskhi), "r"(masklo));
     }
 
     SREG = sreg_prev;

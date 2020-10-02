@@ -1,8 +1,8 @@
 # 貢献方法
 
 <!---
-  original document: d598f01cb:contributing.md
-  git diff d598f01cb HEAD contributing.md | cat
+  original document: 0.8.62:docs/contributing.md
+  git diff 0.8.62 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 まず、これを読み貢献する時間を作ってくれてありがとうございます！🎉👍
@@ -90,7 +90,7 @@ kerpleplork はエラーコード 23 で連続的に失敗していました。�
 
 ドキュメントは QMK への貢献を始める最も簡単な方法の1つです。ドキュメントが間違っているか不完全な場所を見つけ、これらを修正するのは簡単です！私たちもドキュメントを編集する人を非常に必要としています。編集するスキルがあるが、どこにどのように飛び乗ればいいのか分からない場合は、[助けをもとめて](#where-can-i-go-for-help)ください！
 
-全てのドキュメントは `qmk_firmware/docs` ディレクトリの中にあります。あるいは web ベースのワークフローを使いたい場合は、http://docs.qmk.fm/ の各ページの上部にある "Suggest An Edit" をクリックすることができます。
+全てのドキュメントは `qmk_firmware/docs` ディレクトリの中にあります。あるいは web ベースのワークフローを使いたい場合は、https://docs.qmk.fm/ の各ページの下部にある "Edit this page" リンクをクリックすることができます。
 
 ドキュメントの中にコードの例を提供する場合は、ドキュメント内の他の場所で使用されている命名規則を順守してください。例えば、一貫性を保つために、`my_layers` あるいは `my_keycodes` として列挙型を標準化します:
 
@@ -106,7 +106,7 @@ enum my_keycodes {
 };
 ```
 
-### ドキュメントのプレビュー
+### ドキュメントのプレビュー :id=previewing-the-documentation
 
 開発環境をセットアップした場合は、プルリクエストを開く前に以下のコマンドを `qmk_firmware/` フォルダから実行することで、あなたの変更をプレビューすることができます:
 
@@ -122,7 +122,7 @@ enum my_keycodes {
 
 ほとんどの初めての QMK 貢献者は、個人のキーマップから始めます。キーマップの標準はかなりカジュアルなものにしようとしています(キーマップは結局のところ作成者の性格を反映しています)が、他の人があなたのキーマップを簡単に見つけて学ぶことができるように、これらのガイドラインに従うようにお願いします。
 
-* [the template](documentation_templates.md) を使って `readme.md` を書きます。
+* [テンプレート](documentation_templates.md) を使って `readme.md` を書きます。
 * 全てのキーマップの PR は squash されるため、コミットがどのように squash されるかを気にする場合は、自分で行う必要があります。
 * キーマップの PR に機能をまとめないでください。最初に機能をサブミットし、次にキーマップのための2つ目の PR をサブミットします。
 * `Makefile` をキーマップフォルダに含めないでください(もう使われていません)。
@@ -134,7 +134,7 @@ enum my_keycodes {
 
 また以下のガイドラインに従うことをお願いします:
 
-* [the template](ja/documentation_templates.md) を使って `readme.md` を書きます。
+* [テンプレート](ja/documentation_templates.md) を使って `readme.md` を書きます。
 * コミットの数を適切に保ってください。そうでなければあなたの PR を squash します。
 * コア機能を新しいキーボードにまとめないでください。最初に機能をサブミットし、次にキーボード用に別の PR をサブミットしてください。
 * `.c`/`.h` ファイルにすぐ上の親フォルダに従って名前を付けます。例えば、`/keyboards/<kb1>/<kb2>/<kb2>.[ch]`

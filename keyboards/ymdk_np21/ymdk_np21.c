@@ -18,20 +18,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ymdk_np21.h"
 
-#include "backlight.h"
-#include "backlight_custom.h"
-
-#ifdef BACKLIGHT_ENABLE
-/// Overrides functions in `quantum.c`
-void backlight_init_ports(void) {
-  b_led_init_ports();
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
 }
 
-void backlight_task(void) {
-  b_led_task();
+void led_init_ports(void) {
+    setPinOutput(D0);
 }
 
-void backlight_set(uint8_t level) {
-  b_led_set(level);
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(D0, led_state.num_lock);
+    }
+    return true;
 }
-#endif

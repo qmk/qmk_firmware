@@ -1,37 +1,43 @@
-# QMK で Github を使う方法
+# QMK で GitHub を使う方法
 
 <!---
-  original document: d598f01cb:getting_started_github.md
-  git diff d598f01cb HEAD getting_started_github.md | cat
+  original document: 0.9.43:docs/getting_started_github.md
+  git diff 0.9.43 HEAD -- docs/getting_started_github.md | cat
 -->
 
-Github は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
+GitHub は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
 
 ?> このガイドでは、あなたがコマンドラインでの実行にある程度慣れており、システムに git がインストールされていることを前提にしています。
 
-[QMK Github ページ](https://github.com/qmk/qmk_firmware)を開くと、右上に "Fork" というボタンが見えます:
+[QMK GitHub ページ](https://github.com/qmk/qmk_firmware)を開くと、右上に "Fork" というボタンが見えます:
 
-![Git でのフォーク](http://i.imgur.com/8Toomz4.jpg)
+![GitHub でのフォーク](http://i.imgur.com/8Toomz4.jpg)
 
 あなたが組織の一員である場合は、どのアカウントにフォークするかを選択する必要があります。ほとんどの場合、あなたの個人のアカウントにフォークしたいでしょう。フォークが完了したら(しばらく時間が掛かる場合があります)、"Clone or Download" ボタンをクリックします:
 
-![Git からダウンロード](http://i.imgur.com/N1NYcSz.jpg)
+![GitHub からダウンロード](http://i.imgur.com/N1NYcSz.jpg)
 
 必ず "HTTPS" を選択し、リンクを選択してコピーします:
 
 ![HTTPS リンク](http://i.imgur.com/eGO0ohO.jpg)
 
-ここから、`git clone` をコマンドラインに入力し、リンクを貼り付けます:
+ここから、`git clone --recurse-submodules ` をコマンドラインに入力し、リンクを貼り付けます:
 
 ```
 user@computer:~$ git clone --recurse-submodules https://github.com/whoeveryouare/qmk_firmware.git
 Cloning into 'qmk_firmware'...
-remote: Counting objects: 46625, done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 46625 (delta 0), reused 0 (delta 0), pack-reused 46623
-Receiving objects: 100% (46625/46625), 84.47 MiB | 3.14 MiB/s, done.
-Resolving deltas: 100% (29362/29362), done.
-Checking out files: 100% (2799/2799), done.
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 183883 (delta 5), reused 4 (delta 4), pack-reused 183874
+Receiving objects: 100% (183883/183883), 132.90 MiB | 9.57 MiB/s, done.
+Resolving deltas: 100% (119972/119972), done.
+...
+Submodule path 'lib/chibios': checked out '587968d6cbc2b0e1c7147540872f2a67e59ca18b'
+Submodule path 'lib/chibios-contrib': checked out 'ede48346eee4b8d6847c19bc01420bee76a5e486'
+Submodule path 'lib/googletest': checked out 'ec44c6c1675c25b9827aacd08c02433cccde7780'
+Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d'
+Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
 ローカルマシンに QMK のフォークができるので、キーマップの追加、コンパイル、キーボードへの書き込みができます。変更に満足したら、以下のようにそれらをフォークへ追加、コミットおよびプッシュすることができます:
@@ -53,7 +59,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-あなたの変更は今では Github 上のフォークにあります - フォーク (`https://github.com/<whoeveryouare>/qmk_firmware`)に戻ると、"New Pull Request" ボタンをクリックすることで新しいプルリクエストを作成することができます:
+あなたの変更は今では GitHub 上のフォークにあります - フォーク (`https://github.com/<whoeveryouare>/qmk_firmware`)に戻ると、"New Pull Request" ボタンをクリックすることで新しいプルリクエストを作成することができます:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 

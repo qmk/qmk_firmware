@@ -12,7 +12,7 @@ void pre_encoder_mode_change(){
     timespec.millisecond = (hour_config * 60 + minute_config) * 60 * 1000;
     rtcSetTime(&RTCD1, &timespec);
   } else if (encoder_mode == ENC_MODE_BACKLIGHT){
-    save_backlight_config_to_eeprom();
+    backlight_config_save();
   }
 }
 
@@ -221,7 +221,7 @@ uint16_t handle_encoder_press(){
 
 uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-    void* addr = (void*)(DYNAMIC_KEYMAP_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
+    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
     //big endian
     uint16_t keycode = eeprom_read_byte(addr) << 8;
     keycode |= eeprom_read_byte(addr + 1);
@@ -233,7 +233,7 @@ uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
 
 void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t new_code){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-    void* addr = (void*)(DYNAMIC_KEYMAP_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
+    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
     eeprom_update_byte(addr, (uint8_t)(new_code >> 8));
     eeprom_update_byte(addr + 1, (uint8_t)(new_code & 0xFF));
 #endif

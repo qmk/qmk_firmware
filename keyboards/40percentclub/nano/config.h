@@ -50,9 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-//#define DIODE_DIRECTION CUSTOM_MATRIX
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS

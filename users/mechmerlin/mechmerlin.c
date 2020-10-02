@@ -14,7 +14,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_invert(_AL);
                 }
             }
-        return false;
+        break;
+        case KC_MAC:
+            if (record->event.pressed) {
+                SEND_STRING("meow");
+            } else {
+            }
+        break;
     }
     return true;
 }
