@@ -15,9 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 #include "lib/lib8tion/lib8tion.h"
-
-#define TAPPING_TERM 350
-
 static uint32_t underglow_mode;
 static uint32_t custom_light_mode;
 
