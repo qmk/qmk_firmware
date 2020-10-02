@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Tom Swartz
 #define PRODUCT LeftyNumpad
-#define DESCRIPTION Handwired Number Pad QMK Firmware
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 5
