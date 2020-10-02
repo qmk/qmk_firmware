@@ -11,3 +11,4 @@ Link_Time_Optimization = yes
 EXTRAFLAGS += -flto
 
 SRC += cwebster2.c
+SRC += keycodes.c

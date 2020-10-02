@@ -16,46 +16,33 @@
 #pragma once
 
 #include "my_miryoku.h"
+#include "keycodes.h"
+#include "eeprom.h"
 
-#define TAPPING_TOGGLE 1
-#define TAPPING_TERM 200
-//#define TAPPING_FORCE_HOLD
-#undef PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
-#define NO_ACTION_ONESHOT
-
-#ifdef AUTO_SHIFT_ENABLE
-  #define AUTO_SHIFT_TIMEOUT 200
-  #define NO_AUTO_SHIFT_SPECIAL
-  #define NO_AUTO_SHIFT_ALPHA
-#endif
-
-#undef MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY          0
-#undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL       16
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY    0
-#undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED      6
-#undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX    64
-
-#ifdef LOCKING_SUPPORT_ENABLE
-#    undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#    undef LOCKING_RESYNC_ENABLE
-#endif
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-#ifndef NO_DEBUG
-    #define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-    #define NO_PRINT
-#endif // !NO_PRINT
+enum userspace_layers {
+    _QWERTY = 0,
+    _COLEMAK,
+    _GAME,
+    _FN,
+    _SYMBOLS,
+    _NUM,
+    _NAV,
+    _MOUSE,
+    _MEDIA,
+    __LAST
+};
 
 void keyboard_post_init_rgb(void);
+void matrix_scan_keymap(void);
+void eeconfig_init_keymap(void);
+bool hasAllBitsInMask(uint8_t value, uint8_t mask);
 
+
+typedef union {
+    uint32_t raw;
+    struct {
+        bool rgb_layer_change :1;
+    };
+} userspace_config_t;
+
+extern userspace_config_t userspace_config;

@@ -40,27 +40,6 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 #endif
 
-enum custom_keycodes {
-    KC_LCCL = SAFE_RANGE
-};
-
-enum layers {
-    _QWERTY = 0,
-    _COLEMAK,
-    _GAME,
-    _FN,
-    _SYMBOLS,
-    _NUM,
-    _NAV,
-    _MOUSE,
-    _MEDIA,
-    __LAST
-};
-
-// shortcuts for certain keys to use LAYOUT_kc()
-#define KC_CTLBS CTL_T(KC_BSPC)
-#define KC_ALTCL LALT_T(KC_CAPS)
-
 #define LAYOUT_kyria_base( \
     L01, L02, L03, L04, L05, R05, R04, R03, R02, R01, \
     L11, L12, L13, L14, L15, R15, R14, R13, R12, R11, \
@@ -217,6 +196,14 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_alt_layer,
     my_gui_layer
 );
+
+void matrix_scan_keymap(void) {
+    uint8_t mods = mod_config(get_mods());
+    rgblight_set_layer_state(10, mods & MOD_MASK_SHIFT);
+    rgblight_set_layer_state(11, mods & MOD_MASK_CTRL);
+    rgblight_set_layer_state(12, mods & MOD_MASK_ALT);
+    rgblight_set_layer_state(13, mods & MOD_MASK_GUI);
+}
 #endif
 
 void keyboard_post_init_user(void) {
@@ -235,33 +222,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgblight_set_layer_state(i, layer_state_cmp(state, i));
     }
     send_layer_via_hid(state);
-#else
-    switch (get_highest_layer(state)) {
-        case _QWERTY:
-            rgblight_sethsv_noeeprom(HSV_BLUE);
-            break;
-        case _SYMBOLS:
-            rgblight_sethsv_noeeprom(HSV_GREEN);
-            break;
-        case _NUM:
-            rgblight_sethsv_noeeprom(HSV_CORAL);
-            break;
-        case _NAV:
-            rgblight_sethsv_noeeprom(HSV_GOLDENROD);
-            break;
-        case _FN:
-            rgblight_sethsv_noeeprom(HSV_PINK);
-            break;
-        case _MEDIA:
-            rgblight_sethsv_noeeprom(HSV_MAGENTA);
-            break;
-        case _MOUSE:
-            rgblight_sethsv_noeeprom(HSV_TURQUOISE);
-            break;
-        case _GAME:
-            rgblight_sethsv_noeeprom(HSV_RED);
-            break;
-    }
 #endif
     return state;
 }
@@ -396,10 +356,6 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 
-    rgblight_set_layer_state(10, mods & MOD_MASK_SHIFT);
-    rgblight_set_layer_state(11, mods & MOD_MASK_CTRL);
-    rgblight_set_layer_state(12, mods & MOD_MASK_ALT);
-    rgblight_set_layer_state(13, mods & MOD_MASK_GUI);
 }
 
 void oled_task_user(void) {
@@ -419,22 +375,3 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     raw_hid_send(data, length);
 }
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint16_t my_colon_timer;
-
-    switch (keycode) {
-        case KC_LCCL:
-            if (record->event.pressed) {
-                my_colon_timer = timer_read();
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-                if (timer_elapsed(my_colon_timer) < TAPPING_TERM) {
-                    SEND_STRING(":");
-                }
-            }
-            return false;
-    }
-    return true;
-}
