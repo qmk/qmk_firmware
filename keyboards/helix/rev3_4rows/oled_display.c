@@ -112,7 +112,7 @@ static void render_rgbled_status(bool full) {
 #endif
 }
 
-__attribute__((weak)) void oled_task_user(void) {
+void oled_task_user(void) {
   if(is_keyboard_master()){
     render_status();
   }else{
