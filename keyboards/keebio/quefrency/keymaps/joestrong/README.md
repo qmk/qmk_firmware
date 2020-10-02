@@ -1,8 +1,8 @@
 # JoeStrong's Quefrency layout - 60% ISO
 
-Standard UK ISO qwerty layout
-Function key in place of Caps Lock
-Function layer provides vim-like arrows and various function keys
+* Standard UK ISO qwerty layout
+* Function key in place of Caps Lock
+* Function layer provides vim-like arrows and various function keys
 
 ## Default layer
 
