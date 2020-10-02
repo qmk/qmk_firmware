@@ -7,19 +7,22 @@
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
  * This Revision: $Id: main.c 790 2010-05-30 21:00:26Z cs $
  */
+
 #include <stdint.h>
+
 #include <avr/interrupt.h>
+#include <avr/power.h>
 #include <avr/wdt.h>
 #include <avr/sleep.h>
-#include <util/delay.h>
+
 #include <usbdrv/usbdrv.h>
-#include <usbdrv/oddebug.h>
+
 #include "vusb.h"
+
 #include "keyboard.h"
 #include "host.h"
 #include "timer.h"
-#include "uart.h"
-#include "debug.h"
+#include "print.h"
 #include "suspend.h"
 #include "wait.h"
 #include "sendchar.h"
@@ -27,8 +30,6 @@
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
-
-#define UART_BAUD_RATE 115200
 
 #ifdef CONSOLE_ENABLE
 void console_task(void);
@@ -47,7 +48,7 @@ static void initForUsbConnectivity(void) {
     usbDeviceDisconnect(); /* do this while interrupts are disabled */
     while (--i) {          /* fake USB disconnect for > 250 ms */
         wdt_reset();
-        _delay_ms(1);
+        wait_ms(1);
     }
     usbDeviceConnect();
 }
@@ -60,7 +61,7 @@ static void usb_remote_wakeup(void) {
     USBDDR = ddr_orig | USBMASK;
     USBOUT ^= USBMASK;
 
-    _delay_ms(25);
+    wait_ms(25);
 
     USBOUT ^= USBMASK;
     USBDDR = ddr_orig;
@@ -74,7 +75,6 @@ static void usb_remote_wakeup(void) {
  * FIXME: Needs doc
  */
 static void setup_usb(void) {
-    // debug("initForUsbConnectivity()\n");
     initForUsbConnectivity();
 
     // for Console_Task
@@ -95,10 +95,7 @@ int main(void) {
 #ifdef CLKPR
     // avoid unintentional changes of clock frequency in devices that have a
     // clock prescaler
-    CLKPR = 0x80, CLKPR = 0;
-#endif
-#ifndef NO_UART
-    uart_init(UART_BAUD_RATE);
+    clock_prescale_set(clock_div_1);
 #endif
     keyboard_setup();
 
@@ -113,7 +110,6 @@ int main(void) {
     sleep_led_init();
 #endif
 
-    debug("main loop\n");
     while (1) {
 #if USB_COUNT_SOF
         if (usbSofCount != 0) {
@@ -130,19 +126,6 @@ int main(void) {
 #    ifdef SLEEP_LED_ENABLE
                 sleep_led_enable();
 #    endif
-                /*
-                                uart_putchar('S');
-                                _delay_ms(1);
-                                cli();
-                                set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-                                sleep_enable();
-                                sleep_bod_disable();
-                                sei();
-                                sleep_cpu();
-                                sleep_disable();
-                                _delay_ms(10);
-                                uart_putchar('W');
-                */
             }
         }
 #endif

@@ -444,6 +444,14 @@ void oled_pan(bool left) {
     oled_dirty = ~((OLED_BLOCK_TYPE)0);
 }
 
+oled_buffer_reader_t oled_read_raw(uint16_t start_index) {
+    if (start_index > OLED_MATRIX_SIZE) start_index = OLED_MATRIX_SIZE;
+    oled_buffer_reader_t ret_reader;
+    ret_reader.current_element         = &oled_buffer[start_index];
+    ret_reader.remaining_element_count = OLED_MATRIX_SIZE - start_index;
+    return ret_reader;
+}
+
 void oled_write_raw_byte(const char data, uint16_t index) {
     if (index > OLED_MATRIX_SIZE) index = OLED_MATRIX_SIZE;
     if (oled_buffer[index] == data) return;
@@ -525,6 +533,8 @@ bool oled_off(void) {
     }
     return !oled_active;
 }
+
+bool is_oled_on(void) { return oled_active; }
 
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
