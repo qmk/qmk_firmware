@@ -4,7 +4,7 @@ This is a 2x7 macropad.
 
 * Keyboard Maintainer: [AAClawson](https://github.com/AlisGraveNil)
 * Hardware Supported: FightPad; Pro Micro or Elite-C
-* Hardware Availability: www.clawboards.xyz
+* Hardware Availability: [Clawsome Boards](https://www.clawboards.xyz/)
 
 Make example for this keyboard (after setting up your build environment):
 
