@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Jeff Shufelt <jshuf@puppyfish.com> @jshuf
+Copyright 2020 https://github.com/fatb0y
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,74 +29,84 @@ inline void kbd19x_sclk_led_off(void)   { DDRB &= ~(1<<1); PORTB &= ~(1<<1); }
 inline void kbd19x_nmlk_led_on(void)    { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
 inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
 
-// readability
-#define XXX KC_NO
+#define XXXX KC_NO
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
+/*
+// 2u backspace: XXXX, k701
+// split backspace: k700, k701
 
-// 2u backspace: XXX, k71
-// split backspace: k70, k71
+// 2u numpad +: k212, XXXX
+// split numpad +: k212, k312
 
-// 2u numpad +: k2c, XXX
-// split numpad +: k2c, k3c
+// 2u numpad enter: k412, XXXX
+// split numpad enter: k412, k512
 
-// 2u numpad enter: k4c, XXX
-// split numpad enter: k4c, k5c
+// 2.25u lshift: k400, XXXX
+// split (1.25u, 1u) lshift: k400, k401
 
-// 2.25u lshift: k40, XXX
-// split (1.25u, 1u) lshift: k40, k41
+// ANSI enter or ISO enter: k308
+// backslash or NUHS: k208
 
-// ANSI enter or ISO enter: k38
-// Key next to ISO enter: k72
-// backslash or NUHS: k73
+// left winkey: k500, k501, k502
+// left WKL: k500, XXXX, k502
 
-// left winkey: k50, k51, k52
-// left WKL: k50, XXX, k52
-
-// right winkey: k55, k56, k57
-// right WKL: k55, XXX, k57
+// right winkey: k505, k506, k507
+// right WKL: k505, XXXX, k507
+*/
 
 #define LAYOUT_all( \
-  k00,  k01, k02, k03, k04,  k60, k61, k62, k63,  k05, k06, k07, k08,   k72,  k09, k0a, k0b, k0c, \
-  k10, k11, k12, k13, k14, k64, k65, k66, k67, k15, k16, k17, k18, k70, k71,  k19, k1a, k1b, k1c, \
-  k20,  k21, k22, k23, k24, k68, k69, k6a, k6b, k25, k26, k27, k28,     k73,  k29, k2a, k2b, k2c, \
-  k30,    k31, k32, k33, k34, k6c, k75, k76, k77, k35, k36, k37,        k38,  k39, k3a, k3b, k3c, \
-  k40,  k41, k42, k43, k44, k78, k79, k7a, k7b, k45, k46, k47, k48,    k74,   k49, k4a, k4b, k4c, \
-  k50,  k51, k52,                k59,            k55, k56, k57,   k58, k53, k54,   k5a, k5b, k5c  \
+  k000, k001, k002, k003, k004, k600, k601, k602, k603, k005, k006, k007, k008,       k702,  k009, k010, k011, k012, \
+  k100, k101, k102, k103, k104, k604, k605, k606, k607, k105, k106, k107, k108, k700, k701,  k109, k110, k111, k112, \
+  k200, k201, k202, k203, k204, k608, k609, k610, k611, k205, k206, k207, k208,       k703,  k209, k210, k211, k212, \
+  k300, k301, k302, k303, k304, k612, k705, k706, k707, k305, k306, k307, k308,              k309, k310, k311, k312, \
+  k400, k401, k402, k403, k404, k708, k709, k710, k711, k405, k406, k407, k408,     k704,    k409, k410, k411, k412, \
+  k500, k501, k502,                   k509,             k505, k506, k507,     k508, k503, k504,    k510, k511, k512  \
 )\
 {\
-  {k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c},\
-  {k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c},\
-  {k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c},\
-  {k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c},\
-  {k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c},\
-  {k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c},\
-  {k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, k6a, k6b, k6c},\
-  {k70, k71, k72, k73, k74, k75, k76, k77, k78, k79, k7a, k7b, XXX},\
+  {k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012},\
+  {k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112},\
+  {k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212},\
+  {k300, k301, k302, k303, k304, k305, k306, k307, k308, k309, k310, k311, k312},\
+  {k400, k401, k402, k403, k404, k405, k406, k407, k408, k409, k410, k411, k412},\
+  {k500, k501, k502, k503, k504, k505, k506, k507, k508, k509, k510, k511, k512},\
+  {k600, k601, k602, k603, k604, k605, k606, k607, k608, k609, k610, k611, k612},\
+  {k700, k701, k702, k703, k704, k705, k706, k707, k708, k709, k710, k711, XXXX},\
 }
 
 #define LAYOUT_ansi( \
-  k00,  k01, k02, k03, k04,  k60, k61, k62, k63,  k05, k06, k07, k08, k72,     k09, k0a, k0b, k0c, \
-  k10, k11, k12, k13, k14, k64, k65, k66, k67, k15, k16, k17, k18,    k71,     k19, k1a, k1b, k1c, \
-  k20,  k21, k22, k23, k24, k68, k69, k6a, k6b, k25, k26, k27, k28,   k73,     k29, k2a, k2b, k2c, \
-  k30,    k31, k32, k33, k34, k6c, k75, k76, k77, k35, k36, k37,      k38,     k39, k3a, k3b,      \
-  k40,      k42, k43, k44, k78, k79, k7a, k7b, k45, k46, k47,    k48,   k74,   k49, k4a, k4b, k4c, \
-  k50, k51, k52,                k59,            k55, k56, k57,     k58, k53, k54,   k5a, k5b       \
+  k000, k001, k002, k003, k004, k600, k601, k602, k603, k005, k006, k007, k008,       k702,  k009, k010, k011, k012, \
+  k100, k101, k102, k103, k104, k604, k605, k606, k607, k105, k106, k107, k108,       k701,  k109, k110, k111, k112, \
+  k200, k201, k202, k203, k204, k608, k609, k610, k611, k205, k206, k207, k208,       k703,  k209, k210, k211, k212, \
+  k300, k301, k302, k303, k304, k612, k705, k706, k707, k305, k306, k307, k308,              k309, k310, k311,       \
+  k400,       k402, k403, k404, k708, k709, k710, k711, k405, k406, k407, k408,     k704,    k409, k410, k411, k412, \
+  k500, k501, k502,                   k509,             k505, k506, k507,     k508, k503, k504,    k510, k511,       \
 )\
 {\
-  {k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c},\
-  {k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c},\
-  {k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c},\
-  {k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, XXX},\
-  {k40, XXX, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c},\
-  {k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, XXX},\
-  {k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, k6a, k6b, k6c},\
-  {XXX, k71, k72, k73, k74, k75, k76, k77, k78, k79, k7a, k7b, XXX},\
+  {k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012},\
+  {k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112},\
+  {k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212},\
+  {k300, k301, k302, k303, k304, k305, k306, k307, k308, k309, k310, k311, XXXX},\
+  {k400, XXXX, k402, k403, k404, k405, k406, k407, k408, k409, k410, k411, k412},\
+  {k500, k501, k502, k503, k504, k505, k506, k507, k508, k509, k510, k511, XXXX},\
+  {k600, k601, k602, k603, k604, k605, k606, k607, k608, k609, k610, k611, k612},\
+  {XXXX, k701, k702, k703, k704, k705, k706, k707, k708, k709, k710, k711, XXXX},\
+}
+
+#define LAYOUT_WKL( \
+  k000, k001, k002, k003, k004, k600, k601, k602, k603, k005, k006, k007, k008,       k702,  k009, k010, k011, k012, \
+  k100, k101, k102, k103, k104, k604, k605, k606, k607, k105, k106, k107, k108,       k701,  k109, k110, k111, k112, \
+  k200, k201, k202, k203, k204, k608, k609, k610, k611, k205, k206, k207, k208,       k703,  k209, k210, k211, k212, \
+  k300, k301, k302, k303, k304, k612, k705, k706, k707, k305, k306, k307, k308,              k309, k310, k311,       \
+  k400,       k402, k403, k404, k708, k709, k710, k711, k405, k406, k407, k408,     k704,    k409, k410, k411, k412, \
+  k500,       k502,                   k509,             k505,       k507,     k508, k503, k504,    k510, k511,       \
+)\
+{\
+  {k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012},\
+  {k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112},\
+  {k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212},\
+  {k300, k301, k302, k303, k304, k305, k306, k307, k308, k309, k310, k311, XXXX},\
+  {k400, XXXX, k402, k403, k404, k405, k406, k407, k408, k409, k410, k411, k412},\
+  {k500, XXXX, k502, k503, k504, k505, XXXX, k507, k508, k509, k510, k511, XXXX},\
+  {k600, k601, k602, k603, k604, k605, k606, k607, k608, k609, k610, k611, k612},\
+  {XXXX, k701, k702, k703, k704, k705, k706, k707, k708, k709, k710, k711, XXXX},\
 }
