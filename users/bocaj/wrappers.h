@@ -113,6 +113,14 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ___________________BLANK___________________       _______, _______, _______, _______, _______
 #define _________________UNDEFINED_________________       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
+#define ___________________LOWER_L1_EXT____________________       KC_GRV,  _______, _______, KC_UP,   _______, KC_ARRW
+#define ___________________LOWER_L2_EXT____________________       KC_DEL,  _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_LPRN
+#define ___________________LOWER_L3_EXT____________________       _______, _______, _______, _______, _______, KC_LBRC
+
+#define ___________________LOWER_R1_EXT____________________       KC_MINS, KC_7,    KC_8,    KC_9,    KC_PLUS, KC_EQUAL
+#define ___________________LOWER_R2_EXT____________________       KC_RPRN, KC_4,    KC_5,    KC_6,    KC_ASTR,  KC_ENT
+#define ___________________LOWER_R3_EXT____________________       KC_RBRC, KC_1,    KC_2,    KC_3,    KC_SLSH, _______
+
 #define _________________LOWER_L1__________________       ________________NUMBER_LEFT________________
 #define _________________LOWER_L2__________________       _______, _______, _______, _______, KC_LPRN
 #define _________________LOWER_L3__________________       _______, _______, _______, KC_ARRW, KC_LBRC
