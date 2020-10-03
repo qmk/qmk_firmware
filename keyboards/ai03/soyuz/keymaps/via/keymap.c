@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-    _MAIN, // Main Layer
+    _BASE, // Default Layer
     _FN, // Fn Layer 1
     _FN2, // Fn Layer 2
     _FN3 // Fn Layer 3
