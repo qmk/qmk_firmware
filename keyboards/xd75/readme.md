@@ -41,6 +41,8 @@ bool led_update_user(led_t led_state) {
     } else {
       gp100_led_off();
     }
+
+    return false;
 }
 ```
 
