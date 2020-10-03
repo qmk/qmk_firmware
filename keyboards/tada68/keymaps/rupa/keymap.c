@@ -1,5 +1,7 @@
 #include "rupa.h"
 
+#define LAYOUT_65_ansi_wrapper(...) LAYOUT_65_ansi(__VA_ARGS__)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_65_ansi_wrapper(
         ____65_QWERTY______________ROW1,
