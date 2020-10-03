@@ -12,9 +12,9 @@ Numpad 5x4 Layout and Keymap by [Sendy YK](https://mr.sendyyk.com).
 
 ## Build The Firmware
 
-Make example for this keyboard (after setting up your build environment):
+Make example for keyboard (after setting up your build environment):
 
-    make ai03/soyuz:mrsendyyk
+    make <keyboard_folder>:mrsendyyk
 
 More information:
 * [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)
