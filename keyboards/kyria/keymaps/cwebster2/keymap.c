@@ -161,23 +161,23 @@ const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM my_shift_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {9, 1, HSV_RED},
-    {19, 1, HSV_RED}
+    {3, 1, HSV_RED},
+    {13, 1, HSV_RED}
 );
 
 const rgblight_segment_t PROGMEM my_ctrl_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {5, 1, HSV_ORANGE},
-    {15, 1, HSV_ORANGE}
+    {4, 1, HSV_ORANGE},
+    {14, 1, HSV_ORANGE}
 );
 
 const rgblight_segment_t PROGMEM my_alt_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {4, 1, HSV_GOLD},
-    {14, 1, HSV_GOLD}
+    {5, 1, HSV_GOLD},
+    {15, 1, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM my_gui_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {3, 1, HSV_SPRINGGREEN},
-    {13, 1, HSV_SPRINGGREEN}
+    {9, 1, HSV_SPRINGGREEN},
+    {19, 1, HSV_SPRINGGREEN}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -215,6 +215,8 @@ void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_BLUE);
 #endif
 }
+
+//todo https://github.com/qmk/qmk_firmware/blob/debdc6379c7a72815df1f53e3406479381d243af/keyboards/crkbd/keymaps/soundmonster/keymap.c RGBRST
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_LAYERS

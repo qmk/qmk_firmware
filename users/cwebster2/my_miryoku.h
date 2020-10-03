@@ -35,11 +35,11 @@
 #define _______NAKED_R___T____ KC_ENT,   KC_BSPC,  KC_DEL
 #define _______NAKED_L___T____ KC_TAB,   KC_SPC,   KC_ESC
 
-#define _______INACTIVE_R1____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RESET
+#define _______INACTIVE_R1____ KC_LOCK,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RESET
 #define _______INACTIVE_R2____ KC_TRNS,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI
 #define _______INACTIVE_R3____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_RALT,  KC_TRNS
 
-#define _______INACTIVE_L1____ RESET,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS
+#define _______INACTIVE_L1____ RESET,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LOCK
 #define _______INACTIVE_L2____ KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_TRNS
 #define _______INACTIVE_L3____ KC_TRNS,  KC_RALT,  KC_TRNS,  KC_TRNS,  KC_TRNS
 
@@ -67,8 +67,8 @@
 #define _______NAV_______T____ KC_ENT,   KC_BSPC,  KC_DEL
 
 #define _______MEDIA____R1____ RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI
-#define _______MEDIA____R2____ KC_SCLN,  KC_4,  KC_5,  KC_6,  KC_EQL
-#define _______MEDIA____R3____ KC_GRV,   KC_1,  KC_2,  KC_3,  KC_SLSH
+#define _______MEDIA____R2____ KC_MPRV,  KC_VOLD,  KC_VOLU,  KC_MNXT,  KC_TRNS
+#define _______MEDIA____R3____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS
 #define _______MEDIA_____T____ KC_MSTP,  KC_MPLY,  KC_MUTE
 
 #define _______MOUSE____R1____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS
