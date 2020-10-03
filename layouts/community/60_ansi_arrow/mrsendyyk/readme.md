@@ -1,20 +1,20 @@
-# Sendy YK's DZ60 60% ANSI Arrow Layout and Keymap
+# Sendy YK's 60% ANSI Arrow Layout and Keymap
 
-DZ60 60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator by [Sendy YK](https://mr.sendyyk.com).
+60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator by [Sendy YK](https://mr.sendyyk.com).
 
 ## 60% ANSI Arrow Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/images/layout-60-ansi-arrow.png)
 
 ## Keymap
 
 ### Default Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-base.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/images/layout-60-ansi-arrow-keymap-base.png)
 
 ### Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-fn.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/images/layout-60-ansi-arrow-keymap-fn.png)
 
 ### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
@@ -66,9 +66,9 @@ DZ60 60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lo
 
 ## Build The Firmware
 
-Make example for this keyboard (after setting up your build environment):
+Make example for keyboard (after setting up your build environment):
 
-    make dz60:mrsendyyk
+    make <keyboard_folder>:mrsendyyk
 
 More information:
 * [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)

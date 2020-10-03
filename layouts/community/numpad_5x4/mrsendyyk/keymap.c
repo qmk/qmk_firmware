@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// ai03 Soyuz Keymap by Sendy YK <https://mr.sendyyk.com>.
+// Numpad 5x4 Layout and Keymap by Sendy YK <https://mr.sendyyk.com>.
 
 #include QMK_KEYBOARD_H
 

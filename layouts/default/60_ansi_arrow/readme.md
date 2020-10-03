@@ -4,17 +4,17 @@ Default 60% ANSI Arrow Layout and Keymap by [Sendy YK](https://mr.sendyyk.com).
 
 ## 60% ANSI Arrow Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/images/layout-60-ansi-arrow.png)
 
 ## Keymap
 
 ### Default Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-base.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/images/layout-60-ansi-arrow-keymap-base.png)
 
 ### Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-fn.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/images/layout-60-ansi-arrow-keymap-fn.png)
 
 ## Build The Firmware
 
