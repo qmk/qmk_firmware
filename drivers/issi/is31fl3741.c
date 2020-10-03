@@ -250,4 +250,6 @@ void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t
     g_scaling_registers[pled->driver][pled->r] = red;
     g_scaling_registers[pled->driver][pled->g] = green;
     g_scaling_registers[pled->driver][pled->b] = blue;
+
+    g_scaling_registers_update_required[pled->driver] = true;
 }
