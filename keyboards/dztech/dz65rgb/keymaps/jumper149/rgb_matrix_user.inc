@@ -22,7 +22,6 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
     // startup animation
     if (base_effect_startup_counter < 255) {
-        hsv.s = 0;
 
         // jump to correct indices for alpha keys
         if (i == 0) {
@@ -35,6 +34,8 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
             } else if (base_effect_startup_counter == 40) {
                 base_effect_startup_counter = 45;
             } else if (base_effect_startup_counter == 52) {
+                base_effect_startup_counter = 100;
+            } else if (base_effect_startup_counter == 104) {
                 base_effect_startup_counter = 255;
             } else {
                 base_effect_startup_counter++;
@@ -43,8 +44,13 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
         // light up alpha keys
         if (i < base_effect_startup_counter && i >= 16 && i <= 25) {
+            hsv.s = 0;
         } else if (31 + 39 - i < base_effect_startup_counter && i >= 31 && i <= 39) {
+            hsv.s = 0;
         } else if (i < base_effect_startup_counter && i >= 45 && i <= 51) {
+            hsv.s = 0;
+        } else if (i < base_effect_startup_counter - 94 && i >= 5 && i <= 8) {
+            hsv.v = hsv.v / 2;
         } else {
             hsv.v = 0;
         }
