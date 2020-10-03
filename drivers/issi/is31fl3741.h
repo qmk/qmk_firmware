@@ -23,10 +23,10 @@
 #include <stdbool.h>
 
 typedef struct is31_led {
-    uint8_t  driver : 2;
-    uint16_t r;
-    uint16_t g;
-    uint16_t b;
+    uint32_t driver : 2;
+    uint32_t r : 10;
+    uint32_t g : 10;
+    uint32_t b : 10;
 } __attribute__((packed)) is31_led;
 
 extern const is31_led g_is31_leds[DRIVER_LED_TOTAL];
