@@ -1,5 +1,5 @@
 /*
-Copyright 2020 https://github.com/fatb0y
+Copyright 2018 Jeff Shufelt <jshuf@puppyfish.com> @jshuf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
