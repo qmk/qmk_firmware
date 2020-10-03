@@ -25,8 +25,7 @@
 
 enum layer_names {
     _MAIN, // Main Layer
-    _FN, // Fn Layer
-    _CODE // Code Layer
+    _FN // Fn Layer
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,14 +44,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BRID,          KC_TRNS, KC_SLCK, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE,
         KC_VOLU,          KC_TRNS, KC_TRNS, KC_CALC, KC_TRNS, KC_TRNS, KC_NLCK, KC_MAIL, KC_TRNS, KC_TRNS,          KC_PAUS, KC_PGUP, KC_MSTP,
         KC_VOLD, KC_MRWD,          KC_MFFD,                   KC_MPLY,                            KC_TRNS, KC_TRNS, KC_MPRV, KC_PGDN, KC_MNXT
-    ),
-    // Code Layer
-    [_CODE] = LAYOUT_60_ansi_arrow(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-        KC_TRNS,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,          KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
 
@@ -84,10 +75,6 @@ void led_set_user(uint8_t usb_led) {
         switch (get_highest_layer(layer_state)) {
             // Fn Layer Indicator
             case _FN:
-                rgblight_setrgb(100, 255, 100);
-                break;
-            // Code Layer Indicator
-            case _CODE:
                 rgblight_setrgb(100, 255, 100);
                 break;
             // Main Layer Indicator

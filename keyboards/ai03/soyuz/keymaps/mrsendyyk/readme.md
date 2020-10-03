@@ -4,7 +4,7 @@ ai03 Soyuz Keymap by [Sendy YK](https://mr.sendyyk.com).
 
 ## Keymap
 
-![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/ai03-soyuz-layout-numpad-5x4-keymap.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/ai03/soyuz/images/ai03-soyuz-layout-numpad-5x4-keymap.png)
 
 ## Build The Firmware
 

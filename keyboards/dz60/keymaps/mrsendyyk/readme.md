@@ -4,21 +4,17 @@ DZ60 60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lo
 
 ## 60% ANSI Arrow Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/layout-60-ansi-arrow.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow.png)
 
 ## Keymap
 
 ### Main Layer
 
-![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/dz60-layout-60-ansi-arrow-keymap-main.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-main.png)
 
 ### Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/dz60-layout-60-ansi-arrow-keymap-fn.png)
-
-### Code Layer
-
-![_CODE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/dz60-layout-60-ansi-arrow-keymap-code.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-fn.png)
 
 ### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
@@ -57,10 +53,6 @@ DZ60 60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lo
         switch (get_highest_layer(layer_state)) {
             // Fn Layer Indicator
             case _FN:
-                rgblight_setrgb(100, 255, 100);
-                break;
-            // Code Layer Indicator
-            case _CODE:
                 rgblight_setrgb(100, 255, 100);
                 break;
             // Main Layer Indicator
