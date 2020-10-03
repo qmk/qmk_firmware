@@ -16,9 +16,15 @@ RGB_MATRIX_EFFECT(kitt_effect)
 */
 
 // variable for startup animation
-uint8_t base_effect_startup_counter = 0;
+bool BASE_EFFECT_NOT_STARTED_YET = true;
+uint8_t base_effect_startup_counter = 255;
 
 static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    if (BASE_EFFECT_NOT_STARTED_YET) {
+        base_effect_startup_counter = 0;
+        BASE_EFFECT_NOT_STARTED_YET = false;
+    }
 
     // startup animation
     if (base_effect_startup_counter < 255) {
@@ -121,6 +127,9 @@ bool base_effect(effect_params_t* params) {
 }
 
 static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    // cancel base effect startup
+    base_effect_startup_counter = 255;
 
     switch (i) {
 
@@ -257,6 +266,9 @@ bool fn_indicator(effect_params_t* params) {
 }
 
 static HSV kb_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    // cancel base effect startup
+    base_effect_startup_counter = 255;
 
     switch (i) {
 
@@ -409,6 +421,11 @@ static uint8_t time_to_led(uint8_t time, uint8_t led_behind) {
 }
 
 static HSV kitt_effect_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    // reset base effect startup
+    if (i == 0) {
+        BASE_EFFECT_NOT_STARTED_YET = true;
+    }
 
     hsv.h = 0;
     hsv.s = 255;
