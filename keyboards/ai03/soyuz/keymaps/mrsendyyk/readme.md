@@ -8,7 +8,7 @@ Number Pad 5x4 layout and keymap by [Sendy YK](https://mr.sendyyk.com).
 
 ## Keymap
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/numpad_5x4/mrsendyyk/images/layout-numpad-5x4-keymap.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/numpad_5x4/mrsendyyk/images/layout-numpad-5x4-keymap.png)
 
 ## Build The Firmware
 

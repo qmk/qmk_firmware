@@ -8,21 +8,17 @@
 
 ## Keymap
 
-### Default Layer
+### Main Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
 
-### Fn Layer 1
-
-Press and hold *right* **Ctrl** key.
+### Fn Layer
 
 ![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
 
-### Fn Layer 2
+### Code Layer
 
-Press and hold *right* **Alt** key.
-
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
+![_CODE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
 
 ### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
@@ -59,16 +55,16 @@ Press and hold *right* **Alt** key.
     // Layer Indicator
     else {
         switch (get_highest_layer(layer_state)) {
-            // Fn Layer 1 Indicator
+            // Fn Layer Indicator
             case _FN:
                 rgblight_setrgb(100, 255, 100);
                 break;
-            // Fn Layer 2 Indicator
-            case _SETTINGS:
+            // Code Layer Indicator
+            case _CODE:
                 rgblight_setrgb(100, 255, 100);
                 break;
-            // Default Layer Indicator
-            case _BASE:
+            // Main Layer Indicator
+            case _MAIN:
                 rgblight_setrgb(0, 0, 0);
                 break;
         }

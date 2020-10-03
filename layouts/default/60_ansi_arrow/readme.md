@@ -8,21 +8,13 @@ Default 60% ANSI Arrow keyboard layout and keymap by [Sendy YK](https://mr.sendy
 
 ## Keymap
 
-### Default Layer
+### Main Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/default/60_ansi_arrow/default_60_ansi_arrow/images/layout-60-ansi-arrow-keymap---layer-00.png)
 
-### Fn Layer 1
-
-Press and hold *right* **Ctrl** key.
+### Fn Layer
 
 ![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
-
-### Fn Layer 2
-
-Press and hold *right* **Alt** key.
-
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
 
 ## Build The Firmware
 

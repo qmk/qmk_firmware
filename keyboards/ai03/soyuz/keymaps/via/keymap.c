@@ -1,4 +1,5 @@
-/* Copyright (C) 2020 Sendy YK (https://mr.sendyyk.com).
+/*
+ * Copyright (C) 2020 Sendy YK <mr@sendyyk.com>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,19 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
+// ai03 Soyuz VIA Number Pad 5x4 Layout and Keymap by Sendy YK <https://mr.sendyyk.com>.
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-    _BASE, // Default Layer
+    _MAIN, // Main Layer
     _FN, // Fn Layer 1
     _FN2, // Fn Layer 2
     _FN3 // Fn Layer 3
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	// Default Layer
-    [_BASE] = LAYOUT_ortho_5x4(
+	// Main Layer
+    [_MAIN] = LAYOUT_ortho_5x4(
         KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
