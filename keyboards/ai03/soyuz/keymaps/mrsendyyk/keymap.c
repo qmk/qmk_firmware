@@ -20,11 +20,11 @@
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-    _MAIN
+    _BASE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MAIN] = LAYOUT_numpad_5x4(
+    [_BASE] = LAYOUT_numpad_5x4(
         KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,

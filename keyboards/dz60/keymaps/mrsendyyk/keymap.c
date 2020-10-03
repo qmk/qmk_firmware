@@ -24,13 +24,13 @@
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-    _MAIN, // Main Layer
+    _BASE, // Default Layer
     _FN // Fn Layer
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // Main Layer
-    [_MAIN] = LAYOUT_60_ansi_arrow(
+    // Default Layer
+    [_BASE] = LAYOUT_60_ansi_arrow(
         KC_GESC, KC_1,    KC_2, KC_3,    KC_4, KC_5, KC_6,   KC_7, KC_8, KC_9,    KC_0,   KC_MINS, KC_EQL,           KC_BSPC,
         KC_TAB,           KC_Q, KC_W,    KC_E, KC_R, KC_T,   KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         KC_CAPS,          KC_A, KC_S,    KC_D, KC_F, KC_G,   KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT, KC_ENT,
@@ -77,8 +77,8 @@ void led_set_user(uint8_t usb_led) {
             case _FN:
                 rgblight_setrgb(100, 255, 100);
                 break;
-            // Main Layer Indicator
-            case _MAIN:
+            // Default Layer Indicator
+            case _BASE:
                 rgblight_setrgb(0, 0, 0);
                 break;
         }

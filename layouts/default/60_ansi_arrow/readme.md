@@ -8,9 +8,9 @@ Default 60% ANSI Arrow Layout and Keymap by [Sendy YK](https://mr.sendyyk.com).
 
 ## Keymap
 
-### Main Layer
+### Default Layer
 
-![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-main.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-base.png)
 
 ### Fn Layer
 

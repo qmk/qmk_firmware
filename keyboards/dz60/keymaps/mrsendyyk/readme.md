@@ -8,9 +8,9 @@ DZ60 60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lo
 
 ## Keymap
 
-### Main Layer
+### Default Layer
 
-![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-main.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/mechanical-keyboards/qmk/firmware/keyboards/dz60/images/dz60-layout-60-ansi-arrow-keymap-base.png)
 
 ### Fn Layer
 
@@ -55,8 +55,8 @@ DZ60 60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lo
             case _FN:
                 rgblight_setrgb(100, 255, 100);
                 break;
-            // Main Layer Indicator
-            case _MAIN:
+            // Default Layer Indicator
+            case _BASE:
                 rgblight_setrgb(0, 0, 0);
                 break;
         }
