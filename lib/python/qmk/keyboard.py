@@ -38,7 +38,7 @@ def rules_mk(keyboard):
     Returns:
         a dictionary representing the content of the entire rules.mk tree for a keyboard
     """
-    keyboard = Path(keyboard)
+    keyboard = orig_kb = Path(keyboard)
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
 
@@ -48,6 +48,11 @@ def rules_mk(keyboard):
     for i, dir in enumerate(keyboard.parts):
         cur_dir = cur_dir / dir
         rules = parse_rules_mk_file(cur_dir / 'rules.mk', rules)
+
+    # Removing DEFAULT_FOLDER if the full revision was specified as it can cause unexpected
+    # behaviour otherwise.
+    if 'DEFAULT_FOLDER' in rules and orig_kb not in Path(rules['DEFAULT_FOLDER']).parents:
+        rules.pop('DEFAULT_FOLDER')
 
     return rules
 
