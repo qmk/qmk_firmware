@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Default 60% ANSI Arrow Keyboard Layout and Keymap by Sendy YK <https://mr.sendyyk.com>.
+// Default 60% ANSI Arrow Layout and Keymap by Sendy YK <https://mr.sendyyk.com>.
 
 #include QMK_KEYBOARD_H
 

@@ -1,20 +1,20 @@
-# 60_ansi_arrow and Keymap
+# 60_ansi_arrow Layout and Keymap
 
-Default 60% ANSI Arrow keyboard layout and keymap by [Sendy YK](https://mr.sendyyk.com).
+Default 60% ANSI Arrow Layout and Keymap by [Sendy YK](https://mr.sendyyk.com).
 
 ## 60% ANSI Arrow Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/layout-60-ansi-arrow.png)
 
 ## Keymap
 
 ### Main Layer
 
-![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/default/60_ansi_arrow/default_60_ansi_arrow/images/layout-60-ansi-arrow-keymap---layer-00.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/layout-60-ansi-arrow-keymap-main.png)
 
 ### Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/dz60-layout-60-ansi-arrow-keymap-fn.png)
 
 ## Build The Firmware
 

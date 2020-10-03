@@ -1,24 +1,24 @@
-# Sendy YK's 60% ANSI Arrow Layout and Keymap
+# Sendy YK's DZ60 60% ANSI Arrow Layout and Keymap
 
-60% ANSI Arrow keyboard layout and keymap with RGB lighting/LED/underglow as Caps Lock, Num Lock, Scroll Lock, and layer indicator by [Sendy YK](https://mr.sendyyk.com).
+DZ60 60% ANSI Arrow Layout and Keymap with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator by [Sendy YK](https://mr.sendyyk.com).
 
 ## 60% ANSI Arrow Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/layout-60-ansi-arrow.png)
 
 ## Keymap
 
 ### Main Layer
 
-![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
+![_MAIN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/dz60-layout-60-ansi-arrow-keymap-main.png)
 
 ### Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/dz60-layout-60-ansi-arrow-keymap-fn.png)
 
 ### Code Layer
 
-![_CODE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
+![_CODE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/images/dz60-layout-60-ansi-arrow-keymap-code.png)
 
 ### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
@@ -74,9 +74,9 @@
 
 ## Build The Firmware
 
-Make example for keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
-    make <keyboard_folder>:mrsendyyk
+    make dz60:mrsendyyk
 
 More information:
 * [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)

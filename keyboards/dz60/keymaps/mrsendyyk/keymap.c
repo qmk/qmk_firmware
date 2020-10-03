@@ -16,7 +16,7 @@
  */
 
 /*
- * 60% ANSI Arrow Keyboard Layout and Keymap
+ * DZ60 60% ANSI Arrow Layout and Keymap
  * with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
  * by Sendy YK <https://mr.sendyyk.com>.
  */
