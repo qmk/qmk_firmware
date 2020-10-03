@@ -15,61 +15,97 @@ RGB_MATRIX_EFFECT(kitt_effect)
 )
 */
 
+// variable for startup animation
+uint8_t base_effect_startup_counter = 0;
+
 static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
-    switch (i) {
+    // startup animation
+    if (base_effect_startup_counter < 255) {
+        hsv.s = 0;
 
-        // numbers
-        case 1:
-            hsv.v = 0;
-            break;
-        case 2:
-            hsv.v = 0;
-            break;
-        case 3:
-            hsv.v = 0;
-            break;
-        case 4:
-            hsv.v = 0;
-            break;
-        case 5:
-            hsv.v = hsv.v / 2;
-            break;
-        case 6:
-            hsv.v = hsv.v / 2;
-            break;
-        case 7:
-            hsv.v = hsv.v / 2;
-            break;
-        case 8:
-            hsv.v = hsv.v / 2;
-            break;
-        case 9:
-            hsv.v = 0;
-            break;
-        case 10:
-            hsv.v = 0;
-            break;
-        case 11:
-            hsv.v = 0;
-            break;
-        case 12:
-            hsv.v = 0;
-            break;
-
-        default:
-            if (
-                (i > 15 && i <= 25) ||
-                (i > 30 && i <= 39) ||
-                (i > 44 && i <= 51)
-            ) {
-                hsv.s = 0;
+        // jump to correct indices for alpha keys
+        if (i == 0) {
+            if (base_effect_startup_counter == 0) {
+                base_effect_startup_counter = 1;
+            } else if (base_effect_startup_counter == 1) {
+                base_effect_startup_counter = 17;
+            } else if (base_effect_startup_counter == 26) {
+                base_effect_startup_counter = 31;
+            } else if (base_effect_startup_counter == 40) {
+                base_effect_startup_counter = 45;
+            } else if (base_effect_startup_counter == 52) {
+                base_effect_startup_counter = 255;
             } else {
-                hsv.v = 0;
+                base_effect_startup_counter++;
             }
-            break;
+        }
+
+        // light up alpha keys
+        if (i < base_effect_startup_counter && i >= 16 && i <= 25) {
+        } else if (31 + 39 - i < base_effect_startup_counter && i >= 31 && i <= 39) {
+        } else if (i < base_effect_startup_counter && i >= 45 && i <= 51) {
+        } else {
+            hsv.v = 0;
+        }
+
+    } else {
+
+        switch (i) {
+
+            // numbers
+            case 1:
+                hsv.v = 0;
+                break;
+            case 2:
+                hsv.v = 0;
+                break;
+            case 3:
+                hsv.v = 0;
+                break;
+            case 4:
+                hsv.v = 0;
+                break;
+            case 5:
+                hsv.v = hsv.v / 2;
+                break;
+            case 6:
+                hsv.v = hsv.v / 2;
+                break;
+            case 7:
+                hsv.v = hsv.v / 2;
+                break;
+            case 8:
+                hsv.v = hsv.v / 2;
+                break;
+            case 9:
+                hsv.v = 0;
+                break;
+            case 10:
+                hsv.v = 0;
+                break;
+            case 11:
+                hsv.v = 0;
+                break;
+            case 12:
+                hsv.v = 0;
+                break;
+
+            default:
+                if (
+                    (i > 15 && i <= 25) ||
+                    (i > 30 && i <= 39) ||
+                    (i > 44 && i <= 51)
+                ) {
+                    hsv.s = 0;
+                } else {
+                    hsv.v = 0;
+                }
+                break;
 
         }
+
+    }
 
     return hsv;
 }
