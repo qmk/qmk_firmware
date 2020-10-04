@@ -17,7 +17,7 @@ def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
-    rules = parse_rules_mk_file(cur_dir / Path(keyboard) / 'rules.mk')
+    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
     default_folder = rules.get('DEFAULT_FOLDER', '')
 
     if not default_folder == keyboard:
