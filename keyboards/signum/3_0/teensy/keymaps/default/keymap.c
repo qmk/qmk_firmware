@@ -1,29 +1,30 @@
 #include "kb.h"
 
-#define CTRL_A LCTL_T(KC_A)
-#define ALT_S  LALT_T(KC_S)
-#define CMD_D  LCMD_T(KC_D)
-#define SFT_F  LSFT_T(KC_F)
+#define SUPER_A  LSFT_T(KC_A)
+#define SUPER_S  LCTL_T(KC_S)
+#define SUPER_D  LALT_T(KC_D)
+#define SUPER_F  LCMD_T(KC_F)
 
-#define SFT_J    RSFT_T(KC_J)
-#define CMD_K    RCMD_T(KC_K)
-#define ALT_L    RALT_T(KC_L)
-#define CTRL_CLN RCTL_T(KC_SCLN)
+#define SUPER_J    RCMD_T(KC_J)
+#define SUPER_K    RALT_T(KC_K)
+#define SUPER_L    RCTL_T(KC_L)
+#define SUPER_CLN  RSFT_T(KC_SCLN)
 
-#define CTRL_1 LCTL_T(KC_1)
-#define ALT_2  LALT_T(KC_2)
-#define CMD_3  LCMD_T(KC_3)
-#define SFT_4  LSFT_T(KC_4)
+#define SUPER_1    LSFT_T(KC_1)
+#define SUPER_2    LCTL_T(KC_2)
+#define SUPER_3    LALT_T(KC_3)
+#define SUPER_4    LCMD_T(KC_4)
 
-#define SFT_7    RSFT_T(KC_7)
-#define CMD_8    RCMD_T(KC_8)
-#define ALT_9    RALT_T(KC_9)
-#define CTRL_0   RCTL_T(KC_0)
-
-#define NEXT_W  LCMD(KC_GRV)
-#define LANG    LCMD(KC_SPC)
-#define SPOTL   LALT(KC_SPC)
-#define L2SPC   LT(2, KC_SPC)
+#define SUPER_7    RCMD_T(KC_7)
+#define SUPER_8    RALT_T(KC_8)
+#define SUPER_9    RCTL_T(KC_9)
+#define SUPER_0    RSFT_T(KC_0)
+#define TERM       HYPR(KC_T)
+#define LANG       LCMD(KC_SPC)
+#define SPOTL      LALT(KC_SPC)
+#define L1SPC      LT(1, KC_SPC)
+#define L2SPC      LT(2, KC_SPC)
+#define L2SFT      LM(1, MOD_RSFT)
 
 
 bool is_cmd_tab_active = false;
@@ -35,24 +36,24 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // L0
 	KEYMAP(
-    KC_GRV,   KC_Q,     KC_W,     KC_E,     KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,     KC_O,     KC_P,      KC_LBRC,
-    KC_TAB,   CTRL_A,   ALT_S,    CMD_D,    SFT_F,  KC_G,     KC_H,     SFT_J,  CMD_K,    ALT_L,    CTRL_CLN,  KC_QUOT,
-    KC_BSLS,  KC_Z,     KC_X,     KC_C,     KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,   KC_RBRC,
-    TG(1),    CMD_TAB,  NEXT_W,   KC_ESC,   L2SPC,  KC_LEAD,  KC_ENT,   L2SPC,  KC_BSPC,  LANG,     SPOTL,     TG(1)),
+    KC_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,    KC_I,     KC_O,     KC_P,      KC_BSPC,
+    KC_TAB,   SUPER_A,  SUPER_S,  SUPER_D,  SUPER_F,  KC_G,     KC_H,     SUPER_J, SUPER_K,  SUPER_L,  SUPER_CLN, KC_QUOT,
+    KC_GRV,   KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,   KC_ENT,
+    CMD_TAB,  KC_BSLS,  TERM,     KC_LCMD,  L1SPC,    KC_LEAD,  KC_HYPR,  L2SPC,   L2SFT,    KC_LBRC,  KC_RBRC,   SPOTL),
 
 // L1
 	KEYMAP(
-    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_DEL,
-    _______,  CTRL_1,   ALT_2,    CMD_3,    SFT_4,    KC_5,     KC_6,     SFT_7,    CMD_8,    ALT_9,    CTRL_0,   _______,
+    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_BSPC,
+    _______,  SUPER_1,  SUPER_2,  SUPER_3,  SUPER_4,  KC_5,     KC_6,     SUPER_7,  SUPER_8,  SUPER_9,  SUPER_0,   _______,
     _______,  KC_F11,   KC_F12,   KC_F13,   KC_LBRC,  KC_MINS,  KC_EQL,   KC_RBRC,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______),
 
 // L2
 	KEYMAP(
-    KC_SLEP,       XXXXXXX,  XXXXXXX,  KC_MS_WH_UP,   XXXXXXX,  KC_MS_BTN1,     KC_MS_BTN2,  KC_HOME,  KC_PGUP,  XXXXXXX,   XXXXXXX,  KC_MUTE,
+    _______,       XXXXXXX,  XXXXXXX,  KC_MS_WH_UP,   XXXXXXX,  KC_MS_BTN1,     KC_MS_BTN2,  KC_HOME,  KC_PGUP,  XXXXXXX,   XXXXXXX,  KC_MUTE,
     KC_MS_WH_LEFT, KC_LSFT,  KC_LCTL,  KC_LALT,       KC_LCMD,  KC_MS_WH_RIGHT, KC_LEFT,     KC_DOWN,  KC_UP,    KC_RIGHT,  KC_PGDN,  KC_DEL,
-    KC_BRID,       XXXXXXX,  XXXXXXX,  KC_MS_WH_DOWN, XXXXXXX,  XXXXXXX,        XXXXXXX,     KC_END,   KC_PGDN,  XXXXXXX,   XXXXXXX,  KC_BRIU,
-    KC_VOLD,       _______,  _______,  _______,       _______,  _______,        _______,     _______,  _______,  _______,   _______,  KC_VOLU),
+    XXXXXXX,       XXXXXXX,  XXXXXXX,  KC_MS_WH_DOWN, XXXXXXX,  XXXXXXX,        KC_SLEP,     KC_END,   KC_PGDN,  XXXXXXX,   XXXXXXX,  XXXXXXX,
+    _______,       KC_BRID,  KC_BRIU,  _______,       _______,  _______,        _______,     _______,  _______,  KC_VOLD,   KC_VOLU,  _______),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -62,10 +63,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(KC_LCMD);
             register_code(KC_TAB);
             unregister_code(KC_TAB);
+            layer_on(2);
         } else {
             unregister_code(KC_LCMD);
+            layer_off(2);
         }
         break;
+    case KC_ESC:
+        layer_clear();
   }
   return true;
 }
