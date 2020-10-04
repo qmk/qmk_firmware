@@ -19,6 +19,9 @@
 #include "keycodes.h"
 #include "eeprom.h"
 
+#define LAYOUT_kyria_wrapper(...)  LAYOUT(__VA_ARGS__)
+#define LAYOUT_zen_wrapper(...)    LAYOUT(__VA_ARGS__)
+
 enum userspace_layers {
     _QWERTY = 0,
     _COLEMAK,

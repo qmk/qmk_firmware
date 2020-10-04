@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Copyright 2020 Casey Webster <casey@e1337.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,17 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL
-// #define USE_I2C
 
-/* Select hand configuration */
+#define EE_HANDS
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
+#ifdef COMBO_ENABLE
+  #define COMBO_COUNT 2
+#endif
 
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 16
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
+#define QMK_KEYS_PER_SCAN 4
+
+#define EE_HANDS

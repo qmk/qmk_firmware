@@ -50,7 +50,5 @@
 
 #define EE_HANDS
 
-#define LAYOUT_kyria_wrapper(...)  LAYOUT(__VA_ARGS__)
-
-#define DEBUG_MATRIX_SCAN_RATE
+//#define DEBUG_MATRIX_SCAN_RATE
 //#define SPLIT_MODS_ENABLE
