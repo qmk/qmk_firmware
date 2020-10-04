@@ -19,3 +19,5 @@
 #pragma once
 
 #define TAPPING_TERM_PER_KEY
+#define WAIT_FOR_USB
+// #define NO_USB_STARTUP_CHECK
