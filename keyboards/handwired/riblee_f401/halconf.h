@@ -1,4 +1,5 @@
 /* Copyright 2020 Nick Brassel (tzarc)
+ * Copyright 2020 Janos Daniel Reibl <janos.daniel.reibl@protonmail.com> @riblee
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -14,8 +15,5 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #pragma once
-
-#define HAL_USE_I2C TRUE
-#define HAL_USE_PWM TRUE
 
 #include_next "halconf.h"
