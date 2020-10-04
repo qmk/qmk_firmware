@@ -110,34 +110,21 @@ SFT_T(KC_F12),   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,     XXXXXXX, XXXXXXX
 
 //A description for expressing the layer position in LED mode.
 layer_state_t layer_state_set_user(layer_state_t state) {
-  state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-return state;
+    return update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 }
 
-int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool result = false;
-  switch (keycode) {
-    #ifdef RGBLIGHT_ENABLE
-      case RGB_MOD:
-          if (record->event.pressed) {
-            rgblight_mode(RGB_current_mode);
-            rgblight_step();
-            RGB_current_mode = rgblight_get_mode();
-          }
-        break;
-      case RGB_RST:
-          if (record->event.pressed) {
-            eeconfig_update_rgblight_default();
-            rgblight_enable();
-            RGB_current_mode = rgblight_get_mode();
-          }
-        break;
-    #endif
-    default:
-      result = true;
-      break;
-  }
-
-  return result;
+    switch (keycode) {
+#ifdef RGBLIGHT_ENABLE
+        case RGB_RST:
+            if (record->event.pressed) {
+                uint8_t mode = rgblight_get_mode();
+                eeconfig_update_rgblight_default();
+                rgblight_enable();
+                rgblight_mode(mode);
+             }
+             break;
+#endif
+    }
+    return true;
 }
