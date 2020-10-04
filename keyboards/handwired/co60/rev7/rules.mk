@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F303
+MCU = STM32F303xB
 
 # Use SPI for RGB underglow:
 WS2812_DRIVER = spi

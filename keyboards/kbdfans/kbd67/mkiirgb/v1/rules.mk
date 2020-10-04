@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F303
+MCU = STM32F303xB
 
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = lite           # Virtual DIP switch configuration

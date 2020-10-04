@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F103
+MCU = STM32F103x8
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
 MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader

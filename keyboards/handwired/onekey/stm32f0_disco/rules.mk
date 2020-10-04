@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F072
+MCU = STM32F072xB
 
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

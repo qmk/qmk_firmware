@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F303
+MCU = STM32F303xC
 
 # Build Options
 #   change yes to no to disable
