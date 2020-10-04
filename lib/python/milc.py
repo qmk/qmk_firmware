@@ -111,10 +111,11 @@ class ANSIEmojiLoglevelFormatter(ANSIFormatter):
         return super(ANSIEmojiLoglevelFormatter, self).format(record)
 
 
-class ANSIStrippingFormatter(ANSIFormatter):
+class ANSIStrippingFormatter(ANSIEmojiLoglevelFormatter):
     """A log formatter that strips ANSI.
     """
     def format(self, record):
+        record.levelname = ansi_escape.sub('', record.levelname)
         msg = super(ANSIStrippingFormatter, self).format(record)
         return ansi_escape.sub('', msg)
 
@@ -315,12 +316,17 @@ class MILC(object):
         strings.
 
         If *args or **kwargs are passed they will be used to %-format the strings.
+
+        If `self.config.general.color` is False any ANSI escape sequences in the text will be stripped.
         """
         if args and kwargs:
             raise RuntimeError('You can only specify *args or **kwargs, not both!')
 
         args = args or kwargs
         text = format_ansi(text)
+
+        if not self.config.general.color:
+            text = ansi_escape.sub('', text)
 
         print(text % args)
 
