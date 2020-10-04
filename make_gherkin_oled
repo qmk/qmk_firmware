@@ -1,0 +1,3 @@
+rm *.bin
+make 40percentclub/gherkin:umbacos_oled:flash
+

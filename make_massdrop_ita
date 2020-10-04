@@ -1,0 +1,6 @@
+FILE=massdrop_alt_umbacosITA.bin
+rm $FILE
+make massdrop/alt:umbacosITA
+if [ -f "$FILE" ]; then
+  ./mdloader_mac --first --download massdrop_alt_umbacosITA.bin --restart
+fi

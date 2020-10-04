@@ -1,0 +1,1 @@
+qmk compile -kb tkc/candybar/lefty -km umbacos:flash
