@@ -2,17 +2,11 @@
 
 #define EE_HANDS
 
-#define SSD1306OLED
-
-#ifdef RGBLIGHT_ENABLE
-#    undef RGBLED_NUM
-#    define RGBLIGHT_ANIMATIONS
-#    define RGBLED_NUM 27
-#    define RGBLIGHT_LIMIT_VAL 120
-#    define RGBLIGHT_HUE_STEP 10
-#    define RGBLIGHT_SAT_STEP 17
-#    define RGBLIGHT_VAL_STEP 17
-#endif
+// Pick good defaults for enabling homerow modifiers
+#define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_FORCE_HOLD
 
 #undef PRODUCT
 #define PRODUCT MadHatter Hacked Corne Keyboard
