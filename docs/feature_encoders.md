@@ -6,11 +6,9 @@ Basic encoders are supported by adding this to your `rules.mk`:
 ENCODER_ENABLE = yes
 ```
 
-There are two options.
-* Basic Support (Classic)
-* More flexible support (New)
+There are two options. Basic or Advanced.
 
-## Basic Support (Classic)
+## Basic
 
 and this to your `config.h`:
 
@@ -26,7 +24,7 @@ Each PAD_A/B variable defines an array so multiple encoders can be defined, e.g.
 #define ENCODERS_PAD_B { encoder1b, encoder2b }
 ```
 
-## Flexible Support (New)
+## Advanced
 
 and this to your `config.h`:
 
@@ -109,11 +107,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 ## Hardware 
 
-### Basic Support (Classic)
+### Basic
 
 The A an B lines of the encoders should be wired directly to the MCU, and the C/common lines should be wired to ground.
 
-### Flexible Support (New)
+### Advanced
 
 The A and B lines of the encoder can be wired directly to the MCU or to a column in the key matrix.
 The C/common line should be wired to ground or with a diode and wired to the key matrix row.
