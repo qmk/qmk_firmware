@@ -1,7 +1,5 @@
 /*
-Base Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-Modified 2017 Andrew Novak <ndrw.nvk@gmail.com>
-Modified 2018 Wayne Jones (WarmCatUK) <waynekjones@gmail.com>
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,22 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "ymd75.h"
 
-#include "config_common.h"
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
+}
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
+void led_init_ports(void) { setPinOutput(D1); }
 
-#define MANUFACTURER    YMDK
-#define PRODUCT         YMD75 / MT84
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 12
-
-#define RGB_DI_PIN E2
-#define RGBLED_NUM 16
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 15
-#define RGBLIGHT_VAL_STEP 18
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(D1, led_state.caps_lock);
+    }
+    return true;
+}
