@@ -63,30 +63,19 @@ LT(_ADJUST,KC_GRV),KC_1,   KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7
   )
 };
 
-int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool result = false;
-  switch (keycode) {
-    #ifdef RGBLIGHT_ENABLE
-      case RGB_MOD:
-          if (record->event.pressed) {
-            rgblight_mode(RGB_current_mode);
-            rgblight_step();
-            RGB_current_mode = rgblight_get_mode();
-          }
-        break;
-      case RGB_RST:
-          if (record->event.pressed) {
-            eeconfig_update_rgblight_default();
-            rgblight_enable();
-            RGB_current_mode = rgblight_get_mode();
-          }
-        break;
-    #endif
-    default:
-      result = true;
-      break;
-  }
+    switch (keycode) {
+#ifdef RGBLIGHT_ENABLE
+        case RGB_RST:
+            if (record->event.pressed) {
+                uint8_t mode = rgblight_get_mode();
+                eeconfig_update_rgblight_default();
+                rgblight_enable();
+                rgblight_mode(mode);
+             }
+             break;
+#endif
+    }
 
-  return result;
+    return true;
 }
