@@ -115,8 +115,8 @@ class ANSIStrippingFormatter(ANSIEmojiLoglevelFormatter):
     """A log formatter that strips ANSI.
     """
     def format(self, record):
-        record.levelname = ansi_escape.sub('', record.levelname)
         msg = super(ANSIStrippingFormatter, self).format(record)
+        record.levelname = ansi_escape.sub('', record.levelname)
         return ansi_escape.sub('', msg)
 
 
