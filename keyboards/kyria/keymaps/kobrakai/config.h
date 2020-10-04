@@ -58,4 +58,4 @@ MOUSEKEY_WHEEL_TIME_TO_MAX
 40
 Time until maximum scroll speed is reached
 #endif
-    */
+*/
