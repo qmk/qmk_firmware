@@ -278,15 +278,15 @@ define PARSE_RULE
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
         KEYBOARD_RULE=all
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,avr),true)
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-avr),true)
         KEYBOARD_RULE=all
         REQUIRE_PLATFORM_KEY := avr
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,chibios),true)
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-chibios),true)
         KEYBOARD_RULE=all
         REQUIRE_PLATFORM_KEY := chibios
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,arm_atsam),true)
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-arm_atsam),true)
         KEYBOARD_RULE=all
         REQUIRE_PLATFORM_KEY := arm_atsam
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
