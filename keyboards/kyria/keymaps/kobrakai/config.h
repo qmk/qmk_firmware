@@ -21,11 +21,18 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
+  #define RGBLED_NUM 20
+  //#define RGBLIGHT_ANIMATIONS
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
 #endif
+
+#ifdef ENCODER_ENABLE
+  #define ENCODER_RESOLUTION 4
+  #define ENCODER_DIRECTION_FLIP
+#endif
+
 /* TODO fix up
 #ifdef MOUSEKEY_ENABLE
   #define MOUSEKEY_DELAY 300 // Delay between pressing a movement key and cursor movement
@@ -51,4 +58,4 @@ MOUSEKEY_WHEEL_TIME_TO_MAX
 40
 Time until maximum scroll speed is reached
 #endif
-*/
+    */
