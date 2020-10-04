@@ -39,9 +39,9 @@
 #define _______INACTIVE_R2____ KC_TRNS,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI
 #define _______INACTIVE_R3____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_RALT,  KC_TRNS
 
-#define _______INACTIVE_L1____ RESET,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LOCK
+#define _______INACTIVE_L1____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LOCK
 #define _______INACTIVE_L2____ KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_TRNS
-#define _______INACTIVE_L3____ KC_TRNS,  KC_RALT,  KC_TRNS,  KC_TRNS,  KC_TRNS
+#define _______INACTIVE_L3____ KC_TRNS,  KC_RALT,  KC_LEFT,  KC_RGHT,  KC_TRNS
 
 #define _______INACTIVE__T____ KC_TRNS,  KC_TRNS,  KC_TRNS
 

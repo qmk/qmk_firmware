@@ -42,10 +42,15 @@
   //#define RGBLIGHT_STARTUP_ANIMATION
 #endif
 
-#define COMBO_COUNT 2
+#ifdef COMBO_ENABLE
+  #define COMBO_COUNT 2
+#endif
 
 #define QMK_KEYS_PER_SCAN 4
 
 #define EE_HANDS
 
 #define LAYOUT_kyria_wrapper(...)  LAYOUT(__VA_ARGS__)
+
+#define DEBUG_MATRIX_SCAN_RATE
+//#define SPLIT_MODS_ENABLE

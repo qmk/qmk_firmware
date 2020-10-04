@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* ,-----------------------.                 ,-----------------------. */
       _______FN_______L1____,                 _______INACTIVE_R1____,
       _______FN_______L2____,                 _______INACTIVE_R2____,
-      _______FN_______L3____,                 _______INACTIVE_R3____,
+      _______FN_______L3____,                 _______NAV______R2____,
               _______FN________T____,  _______INACTIVE__T____
  /*           `---------------------'  `---------------------' */
       ),
@@ -110,30 +110,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
     [_NAV] = LAYOUT_kyria_base_wrapper(
  /* ,-----------------------.                 ,-----------------------. */
-      _______INACTIVE_R1____,                 _______NAV______R1____,
-      _______INACTIVE_R1____,                 _______NAV______R2____,
-      _______INACTIVE_R1____,                 _______NAV______R3____,
+      _______INACTIVE_L1____,                 _______NAV______R1____,
+      _______INACTIVE_L2____,                 _______NAV______R2____,
+      _______INACTIVE_L3____,                 _______NAV______R3____,
               _______INACTIVE__T____,  _______NAV_______T____
  /*           `---------------------'  `---------------------' */
       ),
     [_MOUSE] = LAYOUT_kyria_base_wrapper(
  /* ,-----------------------.                 ,-----------------------. */
-      _______INACTIVE_R1____,                 _______MOUSE____R1____,
-      _______INACTIVE_R1____,                 _______MOUSE____R2____,
-      _______INACTIVE_R1____,                 _______MOUSE____R3____,
+      _______INACTIVE_L1____,                 _______MOUSE____R1____,
+      _______INACTIVE_L2____,                 _______MOUSE____R2____,
+      _______INACTIVE_L3____,                 _______MOUSE____R3____,
               _______INACTIVE__T____,  _______MOUSE_____T____
  /*           `---------------------'  `---------------------' */
       ),
     [_MEDIA] = LAYOUT_kyria_base_wrapper(
  /* ,-----------------------.                 ,-----------------------. */
-      _______INACTIVE_R1____,                 _______MEDIA____R1____,
-      _______INACTIVE_R1____,                 _______MEDIA____R2____,
-      _______INACTIVE_R1____,                 _______MEDIA____R3____,
+      _______INACTIVE_L1____,                 _______MEDIA____R1____,
+      _______INACTIVE_L2____,                 _______MEDIA____R2____,
+      _______INACTIVE_L3____,                 _______MEDIA____R3____,
               _______INACTIVE__T____,  _______MEDIA_____T____
  /*           `---------------------'  `---------------------' */
      ),
 };
 
+#ifdef RAW_ENABLE
 static void send_layer_via_hid(int layer) {
     uint8_t data[RAW_EPSIZE];
     data[0] = 1;
@@ -141,6 +142,8 @@ static void send_layer_via_hid(int layer) {
     raw_hid_send(data, sizeof(data));
     return;
 }
+#endif
+
 
 #ifdef RGBLIGHT_LAYERS
 const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_BLUE} );
@@ -214,6 +217,8 @@ void keyboard_post_init_user(void) {
 #else
     rgblight_sethsv_noeeprom(HSV_BLUE);
 #endif
+    /*debug_enable=true;*/
+    /*debug_matrix=true;*/
 }
 
 //todo https://github.com/qmk/qmk_firmware/blob/debdc6379c7a72815df1f53e3406479381d243af/keyboards/crkbd/keymaps/soundmonster/keymap.c RGBRST
@@ -223,7 +228,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     for (int i = _QWERTY; i < __LAST; i++) {
         rgblight_set_layer_state(i, layer_state_cmp(state, i));
     }
+#  ifdef RAW_ENABLE
     send_layer_via_hid(state);
+#  endif
 #endif
     return state;
 }
@@ -244,6 +251,11 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 static void render_logo(void) {
+  static const char PROGMEM qmk_logo[] = {
+    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+
     static const char PROGMEM logo[] = {
         // canvas is 128x64.  need 16 padding
         // 80x32
@@ -266,6 +278,7 @@ static void render_logo(void) {
     oled_advance_page(false);
     oled_advance_page(false);
     oled_advance_page(false);
+  oled_write_P(qmk_logo, false);
 
 #ifdef COMBO_ENABLE
     oled_write_P(PSTR("Combos enabled: "), false);
@@ -276,40 +289,33 @@ static void render_logo(void) {
     }
 #endif
 
+#ifdef SPLIT_MODS_ENABLE
     uint8_t mods = get_mods() | get_weak_mods();
     oled_write_P((mods & MOD_MASK_GUI) ? PSTR("GUI ") : PSTR("    "), false);
     oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("    "), false);
     oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
     oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("     "), false);
     oled_write_P(PSTR("\n"), false);
+#endif
 
 #ifdef WPM_ENABLE
     // Write WPM
     sprintf(wpm_str, "WPM: %03d", get_current_wpm());
     //oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("       "), false);
     oled_write(wpm_str, false);
 #endif
 }
 
-static void render_qmk_logo(void) {
-  static const char PROGMEM qmk_logo[] = {
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
-
-  oled_write_P(qmk_logo, false);
-}
 
 static void render_status(void) {
     static bool isColemak = false;
     // QMK Logo and version information
-    render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.3\n"), false);
+    oled_write_P(PSTR("Kyria rev1.3\n\n"), false);
 
-    oled_write_P(isColemak ? PSTR("COLEMAK\n") : PSTR("QWERTY\n"), false);
+    oled_write_P(isColemak ? PSTR("COLEMAK   ") : PSTR("QWERTY   "), false);
 
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);
@@ -346,6 +352,7 @@ static void render_status(void) {
     }
 
     uint8_t mods = get_mods() | get_weak_mods();
+    oled_write_P(PSTR("\n"), false);
     oled_write_P((mods & MOD_MASK_GUI) ? PSTR("GUI ") : PSTR("    "), false);
     oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("    "), false);
     oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
