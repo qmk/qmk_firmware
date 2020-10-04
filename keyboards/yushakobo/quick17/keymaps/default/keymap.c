@@ -24,11 +24,10 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    CONTROL = SAFE_RANGE,
-    FN,
+    PS_CMRL = SAFE_RANGE,
     MAC,
     WIN,
-    PS_CMRL,
+    FN,
     PS_ZIN,
     PS_ZOUT,
     PS_CSHR,
@@ -40,9 +39,12 @@ enum custom_keycodes {
     PS_LANG,
     FN_LANG1,
     FN_LANG2
-};
-
-
+};/*
+    PHOTO,
+    FN,
+*/
+#define CONTROL DF(_CONTROL)
+#define PHOTO DF(_PHOTO)
 #define PS_ERSE KC_E
 #define PS_MGWD KC_W
 #define PS_EYDR KC_I
@@ -61,9 +63,9 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_CONTROL] = LAYOUT(
-    KC_TAB,  KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, KC_DEL,
+    RGB_MOD,  EEP_RST, RESET,   KC_PGDN, KC_HOME, KC_DEL,
     KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_INS,
-    KC_LSFT, KC_ESC,  KC_LALT, KC_SPC,  FN,      KC_ENT
+    KC_LSFT, KC_ESC,  KC_LALT, KC_SPC,  MO(_FN),      KC_ENT
 ),
     [_PHOTO] = LAYOUT(
     KC_ESC,  PS_ERSE, PS_MGWD, PS_EYDR, PS_ZIN,  KC_BSPC,
@@ -82,11 +84,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-static bool mac = true;// keymap_config.swap_ctrl_gui
-static bool kana = false;
+static bool _mode_mac = true;// keymap_config.swap_ctrl_gui
+static bool _mode_ja = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        /*
         case QMKBEST:
             if (record->event.pressed) {
                 // when keycode QMKBEST is pressed
@@ -103,6 +106,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // when keycode QMKURL is released
             }
             break;
+        */
     }
     return true;
 }
@@ -116,3 +120,52 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+
+#ifdef RGBLIGHT_LAYERS
+    const rgblight_segment_t PROGMEM mode_mac[] = RGBLIGHT_LAYER_SEGMENTS(
+        {5, 1, HSV_WHITE}
+    );
+    const rgblight_segment_t PROGMEM mode_win[] = RGBLIGHT_LAYER_SEGMENTS(
+        {5, 1, HSV_TEAL}
+    );
+    const rgblight_segment_t PROGMEM mode_photo[] = RGBLIGHT_LAYER_SEGMENTS(
+        {11, 1, HSV_TEAL}
+    );
+    const rgblight_segment_t PROGMEM mode_photo1[] = RGBLIGHT_LAYER_SEGMENTS(
+        {11, 1, HSV_BLUE}
+    );
+    const rgblight_segment_t PROGMEM mode_fn[] = RGBLIGHT_LAYER_SEGMENTS(
+        {11, 1, HSV_SPRINGGREEN}
+    );
+    const rgblight_segment_t PROGMEM mode_ja[] = RGBLIGHT_LAYER_SEGMENTS(
+        {17, 1, HSV_ORANGE}
+    );
+    const rgblight_segment_t PROGMEM mode_en[] = RGBLIGHT_LAYER_SEGMENTS(
+        {17, 1, HSV_YELLOW}
+    );
+    const rgblight_segment_t* const PROGMEM quick17_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+        mode_photo,
+        mode_photo1,
+        mode_fn,
+        mode_mac,
+        mode_win,
+        mode_ja,
+        mode_en
+    );
+    void keyboard_post_init_user(void){
+        rgblight_layers = quick17_rgb_layers;
+    }
+    layer_state_t layer_state_set_user(layer_state_t state){
+        rgblight_set_layer_state(0, layer_state_cmp(state, _PHOTO));
+        rgblight_set_layer_state(1, layer_state_cmp(state, _PHOTO_SHIFT));
+        rgblight_set_layer_state(2, layer_state_cmp(state, _FN));
+        return state;
+    }
+    bool led_update_user(led_t led_state){
+        rgblight_set_layer_state(3, _mode_mac);
+        rgblight_set_layer_state(4, !_mode_mac);
+        rgblight_set_layer_state(5, _mode_ja);
+        rgblight_set_layer_state(6, !_mode_ja);
+        return true;
+    }
+#endif
