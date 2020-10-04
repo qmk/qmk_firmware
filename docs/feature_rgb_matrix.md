@@ -482,6 +482,14 @@ void rgb_matrix_indicators_kb(void) {
 }
 ```
 
+In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  Such as some of the "drashna" layouts.  This includes a special macro to help make this easier to use: `RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b)`.
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
+}
+```
+
 ### Suspended state :id=suspended-state
 To use the suspend feature, make sure that `#define RGB_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
 
