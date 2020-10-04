@@ -18,12 +18,12 @@
 #include "quantum/color.h"
 
 /*
- * Older WS2812s can handle a reset time (TRST) of 50us, but recent 
+ * Older WS2812s can handle a reset time (TRST) of 50us, but recent
  * component revisions require a minimum of 280us.
  */
 
 #if !defined(WS2812_TRST_US)
-#define WS2812_TRST_US 280
+#    define WS2812_TRST_US 280
 #endif
 
 /* User Interface

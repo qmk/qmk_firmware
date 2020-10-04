@@ -29,7 +29,7 @@ if [ $(id -u) = 0 ]; then
 else
 	if command -v sudo > /dev/null 2>&1; then
 		sudo pkg update
-		sudp pkg install -y ${packages}
+		sudo pkg install -y ${packages}
 	else
 		echo "Make sure you run setup as root first to install base OS dependencies..."
 		echo ""

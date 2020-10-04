@@ -1,8 +1,8 @@
 # オーディオ
 
 <!---
-  original document: 5d5ff80:docs/feature_audio.md
-  git diff 5d5ff80 HEAD -- docs/feature_audio.md | cat
+  original document: 0.9.0:docs/feature_audio.md
+  git diff 0.9.0 HEAD -- docs/feature_audio.md | cat
 -->
 
 キーボードは音を出すことができます！Planck、Preonic あるいは特定の PWM 対応ピンにアクセスできる AVR キーボードがある場合は、単純なスピーカーを接続してビープ音を鳴らすことができます。これらのビープ音を使ってレイヤーの変化、モディファイア、特殊キーを示したり、あるいは単にイカした8ビットの曲を鳴らすことができます。
