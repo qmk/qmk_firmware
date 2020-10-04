@@ -55,7 +55,7 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.s = 0;
         } else if (i < base_effect_startup_counter && i >= 45 && i <= 51) {
             hsv.s = 0;
-        } else if (i < base_effect_startup_counter - 94 && i >= 5 && i <= 8) {
+        } else if (5 + 8 - i < base_effect_startup_counter - 94 && i >= 5 && i <= 8) {
             hsv.v = hsv.v / 2;
         } else {
             hsv.v = 0;
