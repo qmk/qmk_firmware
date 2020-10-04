@@ -15,18 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _FN
-};
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
@@ -44,25 +32,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
                           _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______)
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
-    }
-    return true;
-}
