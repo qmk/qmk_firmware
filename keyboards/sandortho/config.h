@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    llio
 #define PRODUCT         Sand Ortholinear Keyboard
-#define DESCRIPTION     A custom ortholinear keyboard designed to be compatible with QMK Firmware
 
 /* key matrix size */
 #define MATRIX_ROWS 4

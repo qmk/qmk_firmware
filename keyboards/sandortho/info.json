@@ -1,9 +1,9 @@
 {
     "keyboard_name": "sandortho",
-    "url": "",
+    "url": "https://github.com/Sandpiper131/",
     "maintainer": "Luke LaCasse",
-    "width": 3,
-    "height": 2,
+    "width": 12,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
