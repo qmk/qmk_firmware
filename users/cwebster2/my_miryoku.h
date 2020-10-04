@@ -29,7 +29,7 @@
 #define _______COLEMAK_R2_____        KC_M,  RSFT_T(KC_N), RCTL_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O)
 #define _______COLEMAK_R3_____        KC_K,         KC_H,         KC_COMM,      KC_DOT,       KC_SLSH
 
-#define _______THUMBS_L_______ LT(_MOUSE,KC_TAB), LT(_NAV,KC_SPC),  LT(_MEDIA,  KC_ESC)
+#define _______THUMBS_L_______ LT(_MOUSE,KC_ESC), LT(_NAV,KC_SPC),  LT(_MEDIA,  KC_TAB)
 #define _______THUMBS_R_______ LT(_FN,   KC_ENT), LT(_NUM,KC_BSPC), LT(_SYMBOLS,KC_DEL)
 
 #define _______NAKED_R___T____ KC_ENT,   KC_BSPC,  KC_DEL
