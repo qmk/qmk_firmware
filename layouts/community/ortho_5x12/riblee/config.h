@@ -1,4 +1,4 @@
-/* Copyright 2020 Daniel Reibl <janos.daniel.reibl@protonmail.com>
+/* Copyright 2020 Janos Daniel Reibl <janos.daniel.reibl@protonmail.com> @riblee
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
