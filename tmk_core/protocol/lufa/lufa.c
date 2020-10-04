@@ -1104,6 +1104,10 @@ int main(void) {
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
 #endif
+
+        // Run housekeeping
+        housekeeping_task_kb();
+        housekeeping_task_user();
     }
 }
 
