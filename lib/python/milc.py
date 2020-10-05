@@ -119,6 +119,16 @@ class ANSIStrippingFormatter(ANSIFormatter):
         return ansi_escape.sub('', msg)
 
 
+class LogfileFormatter(logging.Formatter):
+    """A log formatter without emojis and ANSI
+    """
+    def format(self, record):
+        msg = super(LogfileFormatter, self).format(record)
+        for color in ansi_colors:
+            msg = msg.replace('{%s}' % color, '')
+        return msg
+
+
 class Configuration(object):
     """Represents the running configuration.
 
@@ -690,7 +700,7 @@ class MILC(object):
         if self.log_file:
             self.log_file_handler = logging.FileHandler(self.log_file, self.log_file_mode)
             self.log_file_handler.setLevel(self.log_file_level)
-            self.log_file_handler.setFormatter(self.log_file_format)
+            self.log_file_handler.setFormatter(LogfileFormatter(self.args.log_fmt, self.config.general.datetime_fmt))
             logging.root.addHandler(self.log_file_handler)
 
         if self.log_print:
