@@ -23,8 +23,8 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        RGB_TOG, KC__VOLUP,  KC_F2,
-        RGB_MOD, KC__VOLDOWN,KC_F1
+        RGB_TOG, KC_VOLU, KC_F2,
+        RGB_MOD, KC_VOLD, KC_F1
     ),
 };
 #ifdef OLED_DRIVER_ENABLE
