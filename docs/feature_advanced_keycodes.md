@@ -23,6 +23,126 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
+# Checking Modifier State :id=checking-modifier-state
+
+The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers.
+
+The presence of one or more specific modifiers in the current modifier state can be detected by ANDing the modifier state with a mod mask corresponding to the set of modifiers you want to match for.
+
+In practice, this means that you can check modifier state with `get_mods() & MOD_BIT(KC_<mod>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<mod>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
+
+The full list of mod masks is as follows:
+
+| Mod Mask Name      | Matching Modifiers                             |
+|--------------------|------------------------------------------------|
+| `MOD_MASK_CTRL`    | LCTRL       , RCTRL                            |
+| `MOD_MASK_SHIFT`   | LSHIFT      , RSHIFT                           |
+| `MOD_MASK_ALT`     | LALT        , RALT                             |
+| `MOD_MASK_GUI`     | LGUI        , RGUI                             |
+| `MOD_MASK_CS`      | CTRL        , SHIFT                            |
+| `MOD_MASK_CA`      | (L/R)CTRL   , (L/R)ALT                         |
+| `MOD_MASK_CG`      | (L/R)CTRL   , (L/R)GUI                         |
+| `MOD_MASK_SA`      | (L/R)SHIFT  , (L/R)ALT                         |
+| `MOD_MASK_SG`      | (L/R)SHIFT  , (L/R)GUI                         |
+| `MOD_MASK_AG`      | (L/R)ALT    , (L/R)GUI                         |
+| `MOD_MASK_CSA`     | (L/R)CTRL   , (L/R)SHIFT , (L/R)ALT            |
+| `MOD_MASK_CSG`     | (L/R)CTRL   , (L/R)SHIFT , (L/R)GUI            |
+| `MOD_MASK_CAG`     | (L/R)CTRL   , (L/R)ALT   , (L/R)GUI            |
+| `MOD_MASK_SAG`     | (L/R)SHIFT  , (L/R)ALT   , (L/R)GUI            |
+| `MOD_MASK_CSAG`    | (L/R)CTRL   , (L/R)SHIFT , (L/R)ALT , (L/R)GUI |
+
+Aside from accessing the currently active modifiers using `get_mods()`, there exists some other functions you can use to modify the modifier state, where the `mods` argument refers to the modifiers bitmask.
+
+* `add_mods(mods)`: Enable `mods`
+* `del_mods(mods)`: Disable `mods`
+* `set_mods(mods)`: Overwrite current modifier state with `mods`
+* `clear_mods()`: Reset the modifier state by disabling all modifiers
+
+Similarly, in addition to `get_oneshot_mods()`, there also exists these functions for one-shot mods:
+
+* `set_oneshot_mods(mods)`: Overwrite current one-shot modifier state with `mods`
+* `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers
+
+## Examples
+
+### Alt + Escape for Alt + Tab
+
+Simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications. Keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut. Though it keeps the ability to do AltGr+Escape.
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+
+    case KC_ESC:
+        // Detect the activation of Left Alt only, not Right Alt aka AltGr
+        if (get_mods() & MOD_BIT(KC_LALT)) {
+            if (record->event.pressed) {
+                // Only KC_TAB is registered because Alt is already active.
+                // The Alt modifier will apply on this KC_TAB.
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            // Do not let QMK process the keycode further
+            return false;
+        }
+        // Else, let QMK process the KC_ESC keycode as usual
+        return true;
+
+    }
+    return true;
+};
+```
+
+### Shift + Backspace for Delete
+
+Advanced example where the original behaviour of shift is cancelled when chorded with `KC_BSPC` and is instead fully replaced by `KC_DEL`. Two main variables are created to make this work well: `mod_state` and `delkey_registered`. The first one stores the modifier state and is used to restore it after registering `KC_DEL`. The second variable is a boolean variable (true or false) which keeps track of the status of `KC_DEL` to manage the release of the whole Backspace/Delete key correctly.
+
+```c
+// Initialize variable holding the binary
+// representation of active modifiers.
+uint8_t mod_state;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Store the current modifier state in the variable for later reference
+    mod_state = get_mods();
+    switch (keycode) {
+
+    case KC_BSPC:
+        {
+        // Initialize a boolean variable that keeps track
+        // of the delete key status: registered or not?
+        static bool delkey_registered;
+        if (record->event.pressed) {
+            // Detect the activation of either shift keys
+            if (mod_state & MOD_MASK_SHIFT) {
+                // First temporarily canceling both shifts so that
+                // shift isn't applied to the KC_DEL keycode
+                del_mods(MOD_MASK_SHIFT);
+                register_code(KC_DEL);
+                // Update the boolean variable to reflect the status of KC_DEL
+                delkey_registered = true;
+                // Reapplying modifier state so that the held shift key(s)
+                // still work even after having tapped the Backspace/Delete key.
+                set_mods(mod_state);
+                return false;
+            }
+        } else { // on release of KC_BSPC
+            // In case KC_DEL is still being sent even after the release of KC_BSPC
+            if (delkey_registered) {
+                unregister_code(KC_DEL);
+                delkey_registered = false;
+                return false;
+            }
+        }
+        // Let QMK process the KC_BSPC keycode as usual outside of shift
+        return true;
+    }
+
+    }
+    return true;
+};
+```
+
 # Legacy Content :id=legacy-content
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
