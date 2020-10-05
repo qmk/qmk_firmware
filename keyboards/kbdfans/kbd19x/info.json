@@ -217,7 +217,7 @@
                 {"label":"Split Enter (Bottom)", "x":18.5, "y":5.5}
             ]
         },
-     "LAYOUT_wkl7u": {
+     "LAYOUT_wkl": {
             "key_count": "97",
             "layout": [
             {"label":"Esc", "x":0, "y":0.25},
