@@ -1,6 +1,6 @@
 # eiri
 
-![eiri](https://imgur.com/ZiLTj3P.png)
+![eiri](https://imgur.com/ZiLTj3Pl.png)
 
 An Atreus-inspired 40% keyboard with 6 columns
 
