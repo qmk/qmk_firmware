@@ -95,7 +95,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 9 /* If number is smaller, buffer updates too fast causing glitches */
+  #define RGBLED_NUM 10 /* If number is smaller, buffer updates too fast causing glitches */
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
