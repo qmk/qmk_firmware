@@ -21,21 +21,9 @@
 #define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
 
 static bool scroll_pressed;
+static bool mouse_buttons_dirty;
 static int8_t scroll_h;
 static int8_t scroll_v;
-
-void on_cpi_button(int16_t cpi) {
-
-    // read cpi first to prevent unnecessary writes to EEPROM
-    if(optical_sensor_get_config().cpi == cpi)
-        return;
-
-    optical_sensor_set_config((config_optical_sensor_t){ cpi });
-
-    config_oddball_t kb_config;
-    kb_config.cpi = cpi;
-    eeconfig_update_kb(kb_config.raw);
-}
 
 void pointing_device_init(void){
     if(!is_keyboard_master())
@@ -93,7 +81,30 @@ void pointing_device_task(void){
     }
 
     pointing_device_set_report(mouse_report);
-    pointing_device_send();
+
+    // only send report on change as even sending report with no change is treated as movement
+    if(mouse_buttons_dirty ||
+       mouse_report.x != 0 ||
+       mouse_report.y != 0 ||
+       mouse_report.h != 0 ||
+       mouse_report.v != 0){
+
+        mouse_buttons_dirty = false;
+        pointing_device_send();
+    }
+}
+
+static void on_cpi_button(int16_t cpi) {
+
+    // read cpi first to prevent unnecessary writes to EEPROM
+    if(optical_sensor_get_config().cpi == cpi)
+        return;
+
+    optical_sensor_set_config((config_optical_sensor_t){ cpi });
+
+    config_oddball_t kb_config;
+    kb_config.cpi = cpi;
+    eeconfig_update_kb(kb_config.raw);
 }
 
 static void on_mouse_button(uint8_t mouse_button, bool pressed) {
@@ -106,6 +117,7 @@ static void on_mouse_button(uint8_t mouse_button, bool pressed) {
         report.buttons &= ~mouse_button;
 
     pointing_device_set_report(report);
+    mouse_buttons_dirty = true;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
