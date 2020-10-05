@@ -7,6 +7,8 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
+CUSTOM_MATRIX = lite
+SRC = matrix.c
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -21,5 +23,3 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
-SRC = matrix.c
-CUSTOM_MATRIX = yes
