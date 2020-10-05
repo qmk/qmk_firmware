@@ -92,7 +92,7 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
   {XXXX, k701, k702, k703, k704, k705, k706, k707, k708, k709, k710, k711, XXXX},\
 }
 
-#define LAYOUT_WKL( \
+#define LAYOUT_wkl( \
   k000, k001, k002, k003, k004, k600, k601, k602, k603, k005, k006, k007, k008,       k702,  k009, k010, k011, k012, \
   k100, k101, k102, k103, k104, k604, k605, k606, k607, k105, k106, k107, k108,       k701,  k109, k110, k111, k112, \
   k200, k201, k202, k203, k204, k608, k609, k610, k611, k205, k206, k207, k208,       k703,  k209, k210, k211, k212, \
