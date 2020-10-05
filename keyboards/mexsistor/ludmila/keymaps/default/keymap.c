@@ -23,8 +23,8 @@ enum keyboard_layers{
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT( /* Base */
-    KC_A, KC_B, KC_MUTE,
-    KC_D, KC_E
+    KC_COPY, KC_PSCREEN, KC_MUTE,
+    KC_PASTE, KC_ENTER
 
   ),
 
