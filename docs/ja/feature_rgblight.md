@@ -1,49 +1,49 @@
-# RGB照明
+# RGB ライト
 
 <!---
   original document: 0.9.52:docs/feature_oled_driver.md
   git diff 0.9.52 HEAD -- docs/feature_oled_driver.md | cat
 -->
 
-QMK にはキーボードに設置した RGB LED を制御する機能があります。LED をキーボードの底面に設置することが多いため、一般に*アンダーグロー*と呼ばれており、透明なケースと組み合わせると、綺麗な拡散効果が得られます。
+QMK にはキーボードに取り付けられた RGB LED を制御する機能があります。LED をキーボードの底面に設置することが多いため、一般に*アンダーグロー*と呼ばれており、透明なケースと組み合わせると、綺麗な拡散効果が得られます。
 
 ![Planck with RGB Underglow](https://raw.githubusercontent.com/qmk/qmk_firmware/3774a7fcdab5544fc787f4c200be05fcd417e31f/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
 
-キーボードによっては RGB LED があらかじめ取り付けられているものもありますが、それら以外は後付けしなくてはいけません。キーボードに RGB 照明を追加する方法については[ハードウェアの改造](#hardware-modification)の項目を参照してください。
+キーボードによっては RGB LED があらかじめ取り付けられているものもあります。それら以外は後付けしなくてはいけません。キーボードに RGB ライトを追加する方法については[ハードウェアの改造](#hardware-modification)の項目を参照してください。
 
-現在、QMK は以下のアドレサブルLEDをサポートしています(RGBW 方式による白色 LED はサポートしていません):
+現在、QMK は以下のアドレス指定可能な LED をサポートしています(ただし、RGBW 方式においては、白色 LED はサポートしていません):
 
  * WS2811、WS2812、WS2812B、WS2812C など。
  * SK6812、SK6812MINI、SK6805
 
-色ごとに配線するのではなく、単線で送信される特別なプロトコルを解析する小さなマイクロチップが含まれた LED は「アドレサブル」と呼ばれています。チップは残りのデータを次のLEDに渡すことで連携を可能にしています。これにより、個々の LED の色を簡単に制御できるようになっています。
+これらの LED は色ごとに配線するかわりに、各 LED に単線で送信される特別なプロトコルを解析する小さなマイクロチップが含まれているため「アドレス指定可能」と呼ばれています。チップは渡されたデータの先頭を読み込み、残りのデータを次の LED に引き渡すので数珠つなぎに連結してまとめることができます。これにより、個々の LED の色を簡単に制御できるようになっています。
 
 ## 使い方
 
-RGB LED が搭載されたキーボードにおいては、通常は標準で有効になっています。動作しないようであれば、`rules.mk` 内の次の項目を調べてください。
+RGB LED が搭載されたキーボードにおいては、通常は標準で有効になっています。動作しないようであれば、`rules.mk` に以下が含まれているか確認してください。
 
 ```make
 RGBLIGHT_ENABLE = yes
 ```
 
-少なくとも、LED ストリップが接続されているデータピンと LED の個数を `config.h` で定義する必要があります。LED が搭載済みのキーボードなら、キーマップを用意するだけで、値を変更する必要はないでしょう。
+少なくとも、LED ストリップのデータピンが接続されている先と、ストリップ内の LED の個数を `config.h` で定義する必要があります。LED が搭載済みのキーボードで、単にキーマップを作成している場合は、これらを変更する必要はないでしょう。
 
 |定義         |内容                                                                                              |
 |---------------|---------------------------------------------------------------------------------------------------------|
-|`RGB_DI_PIN`   |LED に接続するデータピン                                                            |
+|`RGB_DI_PIN`   |LED のデータピンに接続する MCU のピン                                                                 |
 |`RGBLED_NUM`   |接続する LED の数                                                                             |
-|`RGBLED_SPLIT` |(オプション)分割キーボードにおける、個別の `RGB_DI_PIN` に直接つながっている LED の数。|
+|`RGBLED_SPLIT` |(オプション)分割キーボード用の設定です。左右それぞれの `RGB_DI_PIN` に直接つながっている LED の数。|
 
-後述のキーコードを使用することで、任意の RGB 照明に変更することができます。
+後述のキーコードを使用することで、RGB ライトの状態を好きなように変更することができます。
 
 ### 色の選択
 
-QMK は RGB ではなく、[HSV色空間](https://ja.wikipedia.org/wiki/HSV%E8%89%B2%E7%A9%BA%E9%96%93)で色を選択します。このカラー環はこれがどのように動作するかを示します。
+QMK は RGB ではなく、[HSV色空間](https://ja.wikipedia.org/wiki/HSV%E8%89%B2%E7%A9%BA%E9%96%93)で色を選択します。下のカラー環は、これらがどのように動作するかを示しています。
 
 <img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
-**Hue** を変更すると円を回ります<br>
-**Saturation** を変更すると、円の中央ないしは外へと向かい、色の強度に影響します<br>
+**Hue** を変更するとホイールの周りを回ります<br>
+**Saturation** を変更すると、ホイールの内側と外側の間を移動し、色の強度に影響します<br>
 **Value** を変更すると明るさが変わります<br>
 
 ## キーコード
@@ -53,28 +53,28 @@ QMK は RGB ではなく、[HSV色空間](https://ja.wikipedia.org/wiki/HSV%E8%8
 |`RGB_TOG`          |          |照明のオン・オフ切り替え                                       |
 |`RGB_MODE_FORWARD` |`RGB_MOD` |モードを循環します。シフトキーが押されているときは逆方向に循環します。           |
 |`RGB_MODE_REVERSE` |`RGB_RMOD`|モードを逆方向に循環します。シフトキーが押されているときは正方向に循環します。|
-|`RGB_HUI`          |          |hue値を増やします。シフトキーが押されていると、値は減ります。                       |
-|`RGB_HUD`          |          |hue値を減らします。シフトキーが押されていると、値は増えます。                       |
-|`RGB_SAI`          |          |saturation値を増やします。シフトキーが押されていると、値は減ります。         |
-|`RGB_SAD`          |          |saturation値を減らします。シフトキーが押されていると、値は増えます。         |
-|`RGB_VAI`          |          |value値を増やします(明るくなる)。シフトキーが押されているときは値は減ります。 |
-|`RGB_VAD`          |          |value値を減らします(暗くなる)。シフトキーが押されていると、値は増えます。      |
-|`RGB_MODE_PLAIN`   |`RGB_M_P `|静的 (アニメーションなし)                                           |
-|`RGB_MODE_BREATHE` |`RGB_M_B` |ブレスアニメーション                                            |
-|`RGB_MODE_RAINBOW` |`RGB_M_R` |レインボーアニメーション                                              |
-|`RGB_MODE_SWIRL`   |`RGB_M_SW`|渦巻きアニメーション                                                |
-|`RGB_MODE_SNAKE`   |`RGB_M_SN`|スネークアニメーション                                                |
-|`RGB_MODE_KNIGHT`  |`RGB_M_K` |「ナイトライダー」アニメーション                                       |
-|`RGB_MODE_XMAS`    |`RGB_M_X` |クリスマスアニメーション                                            |
-|`RGB_MODE_GRADIENT`|`RGB_M_G` |静的グラデーションアニメーション                                       |
-|`RGB_MODE_RGBTEST` |`RGB_M_T` |RGB テストアニメーション                                |
+|`RGB_HUI`          |          |hue 値を増やします。シフトキーが押されていると、値を減らします。                        |
+|`RGB_HUD`          |          |hue 値を減らします。シフトキーが押されていると、値を増やします。                      |
+|`RGB_SAI`          |          |saturation 値を増やします。シフトキーが押されていると、値を減らします。             |
+|`RGB_SAD`          |          |saturation 値を減らします。シフトキーが押されていると、値を増やします。            |
+|`RGB_VAI`          |          |value 値を増やします(明るくなる)。シフトキーが押されていると、値を減らします。 |
+|`RGB_VAD`          |          |value 値を減らします(暗くなる)。シフトキーが押されていると、値を増やします。      |
+|`RGB_MODE_PLAIN`   |`RGB_M_P `|固定(アニメーションなし)モード                                    |
+|`RGB_MODE_BREATHE` |`RGB_M_B` |ブレスアニメーションモード                                      |
+|`RGB_MODE_RAINBOW` |`RGB_M_R` |レインボーアニメーションモード                               |
+|`RGB_MODE_SWIRL`   |`RGB_M_SW`|渦巻きアニメーションモード                                       |
+|`RGB_MODE_SNAKE`   |`RGB_M_SN`|スネークアニメーションモード                                    |
+|`RGB_MODE_KNIGHT`  |`RGB_M_K` |「ナイトライダー」アニメーションモード                    |
+|`RGB_MODE_XMAS`    |`RGB_M_X` |クリスマスアニメーションモード                                    |
+|`RGB_MODE_GRADIENT`|`RGB_M_G` |静的グラデーションアニメーションモード                   |
+|`RGB_MODE_RGBTEST` |`RGB_M_T` |RGB テストアニメーションモード                                |ニメーション                                |
 
-!> 標準では、RGB 照明と[RGBマトリクス](feature_rgb_matrix.md)を同時に使用していると、キーコードは両方に機能します。特定の機能に対して `*_DISABLE_KEYCODES` オプションを定義することで、キーコードを無効化できます。
+!> 標準では、RGB ライトと[RGBマトリクス](feature_rgb_matrix.md)の両方を有効にしていると、キーコードは両方に同時に機能します。 `*_DISABLE_KEYCODES` オプションを定義することで、指定の機能に対してキーコードを無効化できます。
 
 
 ## 設定
 
-RGB 照明を設定するには、`config.h` 内で `#define` として宣言します。
+RGB ライトは、`config.h` に以下の `#define` を記述することで設定できます。
 
 |定義               |規定値      |内容                                                                  |
 |---------------------|-------------|-----------------------------------------------------------------------------|
@@ -86,12 +86,11 @@ RGB 照明を設定するには、`config.h` 内で `#define` として宣言し
 |`RGBLIGHT_SPLIT`     |*未定義*|定義すると、分割キーボードの同期機能が追加されます。|
 |`RGBLIGHT_DISABLE_KEYCODES`|*未定義*|定義すると、キーコードからの制御ができなくなります。この場合はプログラム命令で制御することになります。| 
 
-## アニメーション効果
+## エフェクトとアニメーション
 
-色を変更できるだけではなく、`RGBLIGHT_EFFECT_xxxx` や `RGBLIGHT_ANIMATIONS` を定義することによって、いくつかのアニメーションを適用できます。
+色を変更できるだけではなく、`RGBLIGHT_EFFECT_xxxx` や `RGBLIGHT_ANIMATIONS` を定義することによって、アニメーションを取捨選択できます。
 
-|モード番号           |追加値  |内容                            |
-|-----------------------------|-------------------|---------------------------------------|
+|モード番号シンボル名     |追加できる値  |内容                            ||-----------------------------|-------------------|---------------------------------------|
 |`RGBLIGHT_MODE_STATIC_LIGHT` | *なし*            |単色(このモードは常に有効) |
 |`RGBLIGHT_MODE_BREATHING`    | 0,1,2,3           |単色ブレス                  |
 |`RGBLIGHT_MODE_RAINBOW_MOOD` | 0,1,2             |循環レインボー                        |
@@ -106,11 +105,11 @@ RGB 照明を設定するには、`config.h` 内で `#define` として宣言し
 
 [こちらの映像](https://youtube.com/watch?v=VKrpPAHlisY)でデモンストレーションを公開しています。
 
-注記: 0.6.117 以前のバージョンにおいては、モード番号は直接記述します。`quantum/rgblight.h` に、モード番号と名称の対比表が含まれています。
+注記: 0.6.117 以前のバージョンでは、モードは番号を直接記述していました。`quantum/rgblight.h` に、古いモード番号と現在のモードのシンボル名の対比表があります。（訳注: 現在のバージョンは、`RGBLIGHT_EFFECT_xxxx`の設定状況で、モード番号が変化するので、番号を直につかうことはできません。)
 
-### アニメーション効果の切り替え
+### エフェクトとアニメーションの切り替え
 
-これらの定義を使用して、ファームウェアからアニメーションを追加したり削除したりします。書き込み領域が不足しているのであれば、使用しないアニメーションを無効にすると良いでしょう。
+次の定義を使用して、ファームウェアからアニメーションを追加したり削除したりします。書き込み領域が不足しているのであれば、使用しないアニメーションを無効にすると良いでしょう。
 
 |定義                              |規定値      |内容                                                              |
 |------------------------------------|-------------|-------------------------------------------------------------------------|
@@ -126,9 +125,9 @@ RGB 照明を設定するには、`config.h` 内で `#define` として宣言し
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*未定義*|静的グラデーションアニメを有効                                             |
 |`RGBLIGHT_EFFECT_TWINKLE`           |*未定義*|きらきらアニメを有効                                           |
 
-### アニメーション効果の設定
+### エフェクトとアニメーションの設定
 
-以下のオプションでは様々なアニメーションを調整できます:
+以下のオプションで様々なアニメーションを調整できます:
 
 |定義                              |規定値      |内容                                                                          |
 |------------------------------------|-------------|-------------------------------------------------------------------------------------|
@@ -187,15 +186,15 @@ const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
 const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ```
 
-## 照明レイヤー
+## ライティングレイヤー
 
-`config.h` に `#define RGBLIGHT_LAYERS` を含めることで、照明レイヤーを有効にできます。これらはアニメーションを中断することなく、アクティブなレイヤーや Caps Lock 状態の表示などのために、アンダーグロー LED を簡単に使用できるようになります。具体的に何ができるかは、[この映像例](https://youtu.be/uLGE1epbmdY)をご覧ください。
+`config.h` に `#define RGBLIGHT_LAYERS` を含めることで、ライティングレイヤーを有効にできます。これらはアニメーションを中断することなく、アクティブなレイヤーや Caps Lock 状態の表示などのために、アンダーグロー LED を簡単に使用できるようになります。具体的に何ができるかは、[この映像例](https://youtu.be/uLGE1epbmdY)をご覧ください。
 
-### 照明レイヤーの定義 :id=defining-lighting-layers
+### ライティングレイヤーの定義 :id=defining-lighting-layers
 
-初期状態では8つのレイヤーが使用できます。これは `config.h` の `RGBLIGHT_MAX_LAYERS` の値を変えることで、32層(例：`#define RGBLIGHT_MAX_LAYERS 32`)まで拡張できます。分割キーボードの場合、変更後は両方のボードを更新する必要があることに気をつけましょう。また、最大値を増やすと、ファームウェアサイズが増え、分割キーボードの同期が遅くなります。
+初期状態では8つのレイヤーが使用できます。これは `config.h` の `RGBLIGHT_MAX_LAYERS` の値を変えることで、32層(例：`#define RGBLIGHT_MAX_LAYERS 32`)まで拡張できます。分割キーボードの場合、変更後は両方のボードを更新する必要があることに気をつけてください。また、最大値を増やすと、ファームウェアサイズが増え、分割キーボードの同期が遅くなります。
 
-レイヤーを定義するには、`keymap.c` において `RGBLIGHT_LAYER_SEGMENTS` マクロを使い、`rgblight_segment_t` 配列によって LED の範囲と上書きしたい色を列挙させます。複数のレイヤーを定義することで、それらを個別に有効・無効にできます。
+レイヤーを定義するには、`keymap.c` を修正して、`rgblight_segment_t` 配列に `RGBLIGHT_LAYER_SEGMENTS` マクロを使って LED の範囲と上書きしたい色を列挙します。複数のレイヤーを定義し、それらを個別に有効・無効にすることができます。
 
 ```c
 // Caps Lockが有効の時、6～9、12～15の LED を赤く点灯させます。見落とすことはまずないでしょう！
@@ -208,14 +207,13 @@ const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {9, 2, HSV_CYAN}
 );
 // Layer2がアクティブの時、11と12のLEDを紫色で点灯
-
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {11, 2, HSV_PURPLE}
 );
 // 必要に応じて追加...
 ```
 
-これらのレイヤーは `RGBLIGHT_LAYERS_LIST` マクロによってひとつにまとめ、キーボードの初期化時に `rgblight_layers` 変数に代入します。上限を超えるレイヤーは無視されます。異なる照明レイヤーが重なっている場合は、配列順で後のレイヤーが優先されます。
+これらのレイヤーは `RGBLIGHT_LAYERS_LIST` マクロによってひとつにまとめ、キーボードの初期化時に `rgblight_layers` 変数に代入します。上限を超えるレイヤーは無視されます。異なるライティングレイヤーが重なっている場合は、配列順で後のレイヤーが優先されます。
 
 ```c
 // レイヤーの配列を定義。後のレイヤーが優先されます。
@@ -231,11 +229,11 @@ void keyboard_post_init_user(void) {
 }
 ```
 
-注記: 2つのマイコンを搭載した分割キーボードでは、rgblight_layers の内容を変更する際には、両方とも更新する必要があります。
+注記: 2つのマイコンを搭載した分割キーボードでは、rgblight_layers の内容を変更した際には、両方とも再度書き込む必要があります。
 
-### 照明レイヤーの切り替え :id=enabling-lighting-layers
+### ライティングレイヤー表示の切り替え :id=enabling-lighting-layers
 
-各照明レイヤーの定義を設定したので、キーボードの状態でレイヤーを切り替えてみましょう。
+各照明レイヤーの定義を設定したので、キーボードの状態でレイヤーの表示を切り替えてみましょう。
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -251,7 +249,7 @@ bool led_update_user(led_t led_state) {
 }
 ```
 
-### 照明レイヤーの点滅 :id=lighting-layer-blink
+### ライティングレイヤーの点滅 :id=lighting-layer-blink
 
 `config.h` に `#define RGBLIGHT_LAYER_BLINK` を含めることで、指定した間隔(ミリ秒)で点滅させることができます。これは設定などに変更があったときの確認を、利用者に提起することなどに使えます。
 
@@ -283,20 +281,20 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### RGB照明の状態を上書きする
+### RGB ライトの状態を上書きする
 
-`RGB_TOG` を使うなどして、RGB照明を無効にしているとき、通常は照明レイヤーは見えない状態になっています。RGB 照明を無効にしているときでも、レイヤーを動作させたいのであれば、`config.h` に `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`を追加します。
+`RGB_TOG` を使うなどして、RGB ライトを無効にしているとき、通常はライティングレイヤーは見えない状態になっています。RGB 照明を無効にしているときでも、レイヤーを動作させたいのであれば、`config.h` に `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` を追加します。
 
 ## 関数
 
 レイヤーを切り替えるたびに色を変えるといった、RGB 照明を変更するプログラムを書きたいのであれば、QMK にはそれを手助けする関数を提供しています。完全なリストは [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) を見ることになりますが、ここでは頻繁に使われると思われる関数を紹介します。
 
-### 便利な関数
+### ユーティリティー関数
 |関数                                    |内容                                                        |
 |--------------------------------------------|-------------------------------------------------------------------|
-|`sethsv(hue, sat, val, ledbuf)`             |ledbuf に HSV値を設置します                                  |
-|`sethsv_raw(hue, sat, val, ledbuf)`         |RGBLIGHT_LIMIT_VAL を無視して、ledbuf に HSV値を設置します |
-|`setrgb(r, g, b, ledbuf)`                   |ledbuf に RGB値を設置します                |
+|`sethsv(hue, sat, val, ledbuf)`             |ledbuf に HSV 値をセットします                                  |
+|`sethsv_raw(hue, sat, val, ledbuf)`         |RGBLIGHT_LIMIT_VAL を無視して、ledbuf に HSV 値をセットします |
+|`setrgb(r, g, b, ledbuf)`                   |ledbuf に RGB 値をセットします                |
 
 ### 低レベル関数
 |関数                                    |内容                                |
@@ -309,33 +307,33 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
 sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
 sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
-// 上記の関数はrgblight_set()を自動で呼ばないので、
+// ユーティリティー関数は rgblight_set() を自動で呼ばないので、
 // 明示的に呼び出す必要があります。
 rgblight_set();
 ```
 
-### アニメーション効果関数
+### エフェクトとアニメーションの関数
 #### 効果範囲の設定
 |関数                                    |内容         |
 |----------------------------------------|-------------|
-|`rgblight_set_effect_range(pos, num)`   |効果範囲の設定|
+|`rgblight_set_effect_range(pos, num)`   |エフェクト範囲の設定|
 
-#### 直接制御
+#### 直接操作
 - RGB、HSV ともに、指定する値の範囲は 0～255 です。
-- 指定する LED のインデックス範囲は 0～`RGBLED_NUM` までです。
+- 指定する LED のインデックス範囲は 0～(`RGBLED_NUM` - 1) までです。
 - 設定値は EEPROM には書き込まれません。
 
 |関数                                    |内容  |
 |--------------------------------------------|-------------|
-|`rgblight_setrgb_at(r, g, b, index)`          |ひとつの LED に RGB値を設定します。|
-|`rgblight_sethsv_at(h, s, v, index)`          |ひとつの LED に HSV値を設定します。|
-|`rgblight_setrgb_range(r, g, b, start, end)`|指定した範囲（start 以上、end 未満）の LED にRGB値を設定します。|
-|`rgblight_sethsv_range(h, s, v, start, end)`|指定した範囲（start 以上、end 未満）の LED にHSV値を設定します。|
-|`rgblight_setrgb(r, g, b)`                  |効果が適用される LED に RGB値を設定します。|
-|`rgblight_setrgb_master(r, g, b)`           |メインボードの LED に対して、RGB値をで設定します。|
-|`rgblight_setrgb_slave(r, g, b)`            |サブボードの LED に対して、RGB値をで設定します。|
-|`rgblight_sethsv_master(h, s, v)`           |メインボードの LED に対して、HSV値を設定します。|
-|`rgblight_sethsv_slave(h, s, v)`            |サブボードの LED に対して、HSV値を設定します。|
+|`rgblight_setrgb_at(r, g, b, index)`          |ひとつの LED に RGB 値をセットします。|
+|`rgblight_sethsv_at(h, s, v, index)`          |ひとつの LED に HSV値をセットします。|
+|`rgblight_setrgb_range(r, g, b, start, end)`|指定した範囲（start 以上、end 未満）の LED に RGB 値をセットします。|
+|`rgblight_sethsv_range(h, s, v, start, end)`|指定した範囲（start 以上、end 未満）の LED に HSV 値をセットします。|
+|`rgblight_setrgb(r, g, b)`                  |効果が適用される LED に RGB 値をセットします。|
+|`rgblight_setrgb_master(r, g, b)`           |メインボードの LED に対して、RGB 値をでセットします。|
+|`rgblight_setrgb_slave(r, g, b)`            |サブボードの LED に対して、RGB 値をでセットします。|
+|`rgblight_sethsv_master(h, s, v)`           |メインボードの LED に対して、HSV 値をセットします。|
+|`rgblight_sethsv_slave(h, s, v)`            |サブボードの LED に対して、HSV 値をセットします。|
 
 
 例:
@@ -343,12 +341,12 @@ rgblight_set();
 rgblight_sethsv(HSV_WHITE, 0); // led 0
 rgblight_sethsv(HSV_RED,   1); // led 1
 rgblight_sethsv(HSV_GREEN, 2); // led 2
-// これらの関数は自動でrgblight_set()を呼び出すため、明示的に更新する必要はありません。
-// 頻繁に呼び出すと負荷がかかるので注意してください。
+// これらの関数は自動で rgblight_set() を呼び出すため、明示的に呼び出す必要はありません。
+// 繰り返し呼び出すのは非効率なので注意してください
 .. 
 ```
 
-#### 効果の変更
+#### エフェクトモードの変更
 |関数                                    |内容  |
 |--------------------------------------------|-------------|
 |`rgblight_mode(x)`                          |RGBアニメーションが有効であれば、モードを指定します。 |
@@ -358,15 +356,15 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_step_reverse()`                   |RGBアニメーションが有効であれば、リスト内の前のモードに切り替える|
 |`rgblight_step_reverse_noeeprom()`          |RGBアニメーションが有効であれば、リスト内の前のモードに切り替える(EEPROM には書き込まれません)。 |
 
-#### モードの切り替え
+#### エフェクトモードのオン/オフ
 |関数                                    |内容  |
 |--------------------------------------------|-------------|
-|`rgblight_toggle()`                         |適用範囲の LED の有効・無効を切り替えます。 |
-|`rgblight_toggle_noeeprom()`                |適用範囲の LED の有効・無効を切り替えます (EEPROM には書き込まれません)。 |
-|`rgblight_enable()`                         |適用範囲の LED を直前の状態に沿って有効にします。 |
-|`rgblight_enable_noeeprom()`                |適用範囲の LED を直前の状態に沿って有効にします(EEPROM には書き込まれません)。 |
-|`rgblight_disable()`                        |適用範囲の LED を無効にします。|
-|`rgblight_disable_noeeprom()`               |適用範囲の LED を無効にします (EEPROM には書き込まれません)。 |
+|`rgblight_toggle()`                         |エフェクト範囲の LED の有効・無効を切り替えます。 |
+|`rgblight_toggle_noeeprom()`                |エフェクト範囲の LED の有効・無効を切り替えます (EEPROM には書き込まれません)。 |
+|`rgblight_enable()`                         |エフェクト範囲の LED を直前の状態に沿って有効にします。 |
+|`rgblight_enable_noeeprom()`                |エフェクト範囲の LED を直前の状態に沿って有効にします(EEPROM には書き込まれません)。 |
+|`rgblight_disable()`                        |エフェクト範囲の LED を無効にします。|
+|`rgblight_disable_noeeprom()`               |エフェクト範囲の LED を無効にします (EEPROM には書き込まれません)。 |
 
 #### HSV色相値の変更
 |関数                                    |内容  |
@@ -389,8 +387,8 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 #### レイヤー関数
 |関数                                        |内容  |
 |--------------------------------------------|-------------|
-|`rgblight_get_layer_state(i)`               |照明レイヤー `i` が有効なら `true` が返されます。 |
-|`rgblight_set_layer_state(i, is_on)`        |照明レイヤー `i` の状態を変更する。`is_on` が true なら有効になります。 |
+|`rgblight_get_layer_state(i)`               |ライティングレイヤー `i` が有効なら `true` が返されます。 |
+|`rgblight_set_layer_state(i, is_on)`        |ライティングレイヤー `i` の状態を変更する。`is_on` が true なら有効になります。 |
 
 #### クエリ
 |関数                   |内容                 |
@@ -489,12 +487,12 @@ LEDの論理的な順序を電子回路上の接続順とは異なるように�
 ```
 ## 範囲のクリッピング
 
-`rgblight_set_clipping_range()` 関数を使うと、実際の LWS 数よりも多くのバッファを確保して、そのバッファの一部を LED に出力することができます。これは分割キーボードにおいて、左右の LED を論理的に連続したものとして扱いたい場合に便利です。
+`rgblight_set_clipping_range()` 関数を使うと、実際の LED の数よりも多くのバッファを確保して、そのバッファの一部を LED に出力することができます。これは分割キーボードにおいて、左右の LED を論理的に連続したものとして扱いたい場合に便利です。
 
-クリッピングは以下のコードのように実行します。
+以下のコードを実行することにより、クリッピング範囲を設定できます。
 
 ```c
-// 処理ルーチン内
+// ソースコードの適切な箇所で
   rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743785-2bd82a00-5a6e-11e9-9d4b-1b4ffaf4932b.JPG" alt="clip direct" width="70%"/>
@@ -506,11 +504,11 @@ LEDの論理的な順序を電子回路上の接続順とは異なるように�
 #define RGBLED_NUM 8
 #define RGBLIGHT_LED_MAP { 7, 6, 5, 4, 3, 2, 1, 0 }
 
-// 処理ルーチン内
+// ソースコードの適切な箇所で
   rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743747-119e4c00-5a6e-11e9-91e5-013203ffae8a.JPG" alt="clip mapped" width="70%"/>
 
 ## ハードウェアの改造
 
-キーボードに LED が搭載されていないのであれば、自分でLEDをはんだ付けできるかもしれません。接続には配線のための未使用のピンを探す必要があります。キーボードによっては、はんだ付けを容易にするために、マイコンから未使用のピンを取り出すことができるでしょう。また、VCC と GND も適切な電源ピンに接続する必要もあります。
+キーボードにオンボードのアンダーグロー LED がない場合は、RGB LED ストリップに自分ではんだ付けできることがあります。LED ストリップのデータピンに配線するには、MCU の未使用のピンを見つける必要があります。 一部のキーボードでは、はんだ付けを容易にするために、MCU から未使用のピンが引き出してある場合があります。 他の2つのピン、VCC と GND も、適切な電源ピンに接続する必要があります。
