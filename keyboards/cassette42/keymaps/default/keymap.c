@@ -132,6 +132,7 @@ void oled_task_user(void) {
 void led_set_user(uint8_t usb_led) {}
 
 void encoder_update_user(uint8_t index, bool clockwise) {
+  oled_on();
   if (index == 0) { /* left encoder */
     switch (layer_state) {
       case L_AUDIO:
