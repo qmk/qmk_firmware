@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Keyboardio
 #define PRODUCT         Atreus
-#define DESCRIPTION     QMK keyboard firmware for the Keyboardio Atreus
 
 /* key matrix size */
 #define MATRIX_ROWS 4

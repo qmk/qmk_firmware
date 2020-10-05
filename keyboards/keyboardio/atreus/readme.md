@@ -15,7 +15,11 @@ Kickstarter, and will come fully assembled.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keyboardio/atreus:default:avrdude
+    make keyboardio/atreus:default
+
+Flashing example for this keyboard:
+
+    make keyboardio/atreus:default:flash
 
 *Unlike the TMK firmware, these commands should be run from the root of the repository, not the directory containing this readme.*
 
