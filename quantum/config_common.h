@@ -348,22 +348,27 @@
 #        define J13 PAL_LINE(GPIOJ, 13)
 #        define J14 PAL_LINE(GPIOJ, 14)
 #        define J15 PAL_LINE(GPIOJ, 15)
-#        define K0 PAL_LINE(GPIOK, 0)
-#        define K1 PAL_LINE(GPIOK, 1)
-#        define K2 PAL_LINE(GPIOK, 2)
-#        define K3 PAL_LINE(GPIOK, 3)
-#        define K4 PAL_LINE(GPIOK, 4)
-#        define K5 PAL_LINE(GPIOK, 5)
-#        define K6 PAL_LINE(GPIOK, 6)
-#        define K7 PAL_LINE(GPIOK, 7)
-#        define K8 PAL_LINE(GPIOK, 8)
-#        define K9 PAL_LINE(GPIOK, 9)
-#        define K10 PAL_LINE(GPIOK, 10)
-#        define K11 PAL_LINE(GPIOK, 11)
-#        define K12 PAL_LINE(GPIOK, 12)
-#        define K13 PAL_LINE(GPIOK, 13)
-#        define K14 PAL_LINE(GPIOK, 14)
-#        define K15 PAL_LINE(GPIOK, 15)
+// Keyboards can `#define KEYBOARD_REQUIRES_GPIOK` if they need to access GPIO-K pins. These conflict with a whole
+// bunch of layout definitions, so it's intentionally left out unless absolutely required -- in that case, the
+// keyboard designer should use a different symbol when defining their layout macros.
+#        ifdef KEYBOARD_REQUIRES_GPIOK
+#            define K0 PAL_LINE(GPIOK, 0)
+#            define K1 PAL_LINE(GPIOK, 1)
+#            define K2 PAL_LINE(GPIOK, 2)
+#            define K3 PAL_LINE(GPIOK, 3)
+#            define K4 PAL_LINE(GPIOK, 4)
+#            define K5 PAL_LINE(GPIOK, 5)
+#            define K6 PAL_LINE(GPIOK, 6)
+#            define K7 PAL_LINE(GPIOK, 7)
+#            define K8 PAL_LINE(GPIOK, 8)
+#            define K9 PAL_LINE(GPIOK, 9)
+#            define K10 PAL_LINE(GPIOK, 10)
+#            define K11 PAL_LINE(GPIOK, 11)
+#            define K12 PAL_LINE(GPIOK, 12)
+#            define K13 PAL_LINE(GPIOK, 13)
+#            define K14 PAL_LINE(GPIOK, 14)
+#            define K15 PAL_LINE(GPIOK, 15)
+#        endif
 #    endif
 #endif
 
