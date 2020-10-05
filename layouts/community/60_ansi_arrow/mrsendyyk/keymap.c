@@ -1,5 +1,5 @@
 /*
- * 60 ANSI Arrow Keymap with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator.
+ * 60 ANSI Arrow Keymap with RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
  *
  * Copyright (C) 2020 Sendy YK <https://mr.sendyyk.com>
  *
