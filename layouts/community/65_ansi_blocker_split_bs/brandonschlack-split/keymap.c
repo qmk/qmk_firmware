@@ -79,18 +79,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_keymap(void) {
-};
-
-// Runs once after keyboard initializes
-void keyboard_post_init_keymap(void) {
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_keymap(void) {
-};
-
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     #ifdef KEYBOARD_massdrop

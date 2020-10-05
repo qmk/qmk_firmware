@@ -81,15 +81,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 */
 };
-
-void matrix_init_keymap(void) {
-    //user initialization
-}
-
-void matrix_scan_keymap(void) {
-    //user matrix
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}

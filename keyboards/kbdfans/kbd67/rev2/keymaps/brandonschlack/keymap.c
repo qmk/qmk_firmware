@@ -100,15 +100,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______,                   _______,                            _______, _______,                   _______, _______, _______),
 };
 */
-
-void matrix_init_keymap(void) {
-
-}
-
-void matrix_scan_keymap(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
