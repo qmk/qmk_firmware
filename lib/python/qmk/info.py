@@ -9,12 +9,19 @@ from milc import cli
 from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
+from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
 
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
+    cur_dir = Path('keyboards')
+    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
+    if 'DEFAULT_FOLDER' in rules:
+        keyboard = rules['DEFAULT_FOLDER']
+        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk', rules)
+
     info_data = {
         'keyboard_name': str(keyboard),
         'keyboard_folder': str(keyboard),
@@ -22,7 +29,7 @@ def info_json(keyboard):
         'maintainer': 'qmk',
     }
 
-    for layout_name, layout_json in _find_all_layouts(keyboard).items():
+    for layout_name, layout_json in _find_all_layouts(keyboard, rules).items():
         if not layout_name.startswith('LAYOUT_kc'):
             info_data['layouts'][layout_name] = layout_json
 
@@ -99,21 +106,23 @@ def _extract_rules_mk(info_data):
     return info_data
 
 
-def _find_all_layouts(keyboard):
-    """Looks for layout macros associated with this keyboard.
-    """
-    layouts = {}
-    rules = rules_mk(keyboard)
-    keyboard_path = Path(rules.get('DEFAULT_FOLDER', keyboard))
-
-    # Pull in all layouts defined in the standard files
+def _search_keyboard_h(path):
     current_path = Path('keyboards/')
-    for directory in keyboard_path.parts:
+    layouts = {}
+    for directory in path.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
         if keyboard_h_path.exists():
             layouts.update(find_layouts(keyboard_h_path))
+
+    return layouts
+
+
+def _find_all_layouts(keyboard, rules):
+    """Looks for layout macros associated with this keyboard.
+    """
+    layouts = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
         # If we didn't find any layouts above we widen our search. This is error
