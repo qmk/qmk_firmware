@@ -63,9 +63,9 @@ Similarly, in addition to `get_oneshot_mods()`, there also exists these function
 * `set_oneshot_mods(mods)`: Overwrite current one-shot modifier state with `mods`
 * `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers
 
-## Examples
+## Examples :id=examples
 
-### Alt + Escape for Alt + Tab
+### Alt + Escape for Alt + Tab :id=alt-escape-for-alt-tab
 
 Simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications. Keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut. Though it keeps the ability to do AltGr+Escape.
 
@@ -94,7 +94,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-### Shift + Backspace for Delete
+### Shift + Backspace for Delete :id=shift-backspace-for-delete
 
 Advanced example where the original behaviour of shift is cancelled when chorded with `KC_BSPC` and is instead fully replaced by `KC_DEL`. Two main variables are created to make this work well: `mod_state` and `delkey_registered`. The first one stores the modifier state and is used to restore it after registering `KC_DEL`. The second variable is a boolean variable (true or false) which keeps track of the status of `KC_DEL` to manage the release of the whole Backspace/Delete key correctly.
 
