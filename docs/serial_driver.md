@@ -6,12 +6,12 @@ This driver powers the [Split Keyboard](feature_split_keyboard.md) feature.
 Drivers in this category have the following characteristics:
 * bit bang and USART Half-duplex provide data and signaling over a single conductor
 * USART Full-duplex provide data and signaling over two conductors
-* They are all limited to single initiator and single target communication scheme
+* They are all limited to single master and single slave communication scheme
 
 ## Supported Driver Types
 
 |                   | AVR                | ARM                |
-|-------------------|--------------------|--------------------|
+| ----------------- | ------------------ | ------------------ |
 | bit bang          | :heavy_check_mark: | :heavy_check_mark: |
 | USART Half-duplex |                    | :heavy_check_mark: |
 | USART Full-duplex |                    | :heavy_check_mark: |
@@ -52,7 +52,7 @@ SERIAL_DRIVER = usart
 
 Configure the hardware via your config.h:
 ```c
-#define SOFT_SERIAL_PIN B6  // USART TX pin
+#define SOFT_SERIAL_PIN B6         // USART TX pin
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
                                    //  0: about 460800 baud
                                    //  1: about 230400 baud (default)
@@ -60,7 +60,7 @@ Configure the hardware via your config.h:
                                    //  3: about 57600 baud
                                    //  4: about 38400 baud
                                    //  5: about 19200 baud
-#define SERIAL_USART_DRIVER SD1 // USART driver of TX pin. default: SD1
+#define SERIAL_USART_DRIVER SD1    // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT 100 // USART driver timeout. default 100
 ```
@@ -72,7 +72,9 @@ You must also enable the ChibiOS `SERIAL` feature:
 Do note that the configuration required is for the `SERIAL` peripheral, not the `UART` peripheral.
 
 ### USART Full-duplex
-Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors instead of one conductor like the Half-duplex driver, but it is more efficent as it uses DMA transfers, which can result in even faster transmission speeds. To use this driver the usart peripherals `TX` and `RX` pins must be configured. `SERIAL_PIN_TX` is the USART `TX` pin, `SERIAL_PIN_RX` is the USART `RX` pin. No external pull-up resistors are needed as the `TX` pin operates in push-pull mode.
+Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors instead of one conductor like the Half-duplex driver, but it is more efficent as it uses DMA transfers, which can result in even faster transmission speeds. To use this driver the usart peripherals `TX` and `RX` pins must be configured. `SERIAL_USART_TX_PIN` is the USART `TX` pin, `SERIAL_USART_RX_PIN` is the USART `RX` pin. No external pull-up resistors are needed as the `TX` pin operates in push-pull mode. 
+
+Please note that `TX` of the master halve has to be connected with the `RX` pin of the slave halve and `RX` of the master halve has to be connected with the `TX` pin of the slave halve! Usually this pin swap has to be done outside of the MCU e.g. with cables or on the pcb. Some MCUs like the STM32F303 allow this pin swap directly inside the MCU, this feature can be enabled using `#define SERIAL_USART_PIN_SWAP` in your config.h.
 
 To use the driver, add this to your rules.mk:
 
@@ -83,9 +85,11 @@ SERIAL_DRIVER = usart_duplex
 Next configure the hardware via your config.h:
 
 ```c
-#define SERIAL_PIN_TX B6  // USART TX pin
-#define SERIAL_PIN_RX B7  // USART RX pin
-#define SELECT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
+#define SERIAL_USART_TX_PIN B6     // USART TX pin
+#define SERIAL_USART_RX_PIN B7     // USART RX pin
+//#define SERIAL_USART_PIN_SWAP      // Swap TX and RX pins if keyboard is master halve.
+                                   // Check if this feature is necessary with your keyboard design and available on the mcu.
+#define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
                                    //  0: about 460800 baud
                                    //  1: about 230400 baud (default)
                                    //  2: about 115200 baud
