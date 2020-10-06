@@ -5,7 +5,7 @@
     "width": 11.5,
     "height": 4,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {
                     "label": "Q",
