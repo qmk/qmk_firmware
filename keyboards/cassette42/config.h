@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_I2C
 //#define SSD1306OLED
 
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xca42
@@ -35,18 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 6
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-
-#define DIRECT_PINS { {B4, F6, F5, F4, B5, F7} }
+#define DIRECT_PINS {{ B4, F6, F5, F4, B5, F7 }}
 #define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B6, B3 }
@@ -54,18 +42,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 4
 
 #define RGB_DI_PIN D3
- #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 5
-   #define RGBLIGHT_HUE_STEP 8
-   #define RGBLIGHT_SAT_STEP 8
-   #define RGBLIGHT_VAL_STEP 8
-   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
- /*== all animations enable ==*/
-   #define RGBLIGHT_ANIMATIONS
- #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#ifdef RGB_DI_PIN
+#    define RGBLED_NUM 5
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#    define RGBLIGHT_ANIMATIONS
+#endif
 
 #define OLED_FONT_H "keyboards/cassette42/common/glcdfont.c"
