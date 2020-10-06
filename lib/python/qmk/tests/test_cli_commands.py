@@ -45,8 +45,9 @@ def test_config():
 
 
 def test_kle2json():
-    result = check_subcommand('kle2json', 'kle.txt', '-f')
+    result = check_subcommand('kle2json', 'lib/python/qmk/tests/kle.txt', '-f')
     check_returncode(result)
+    assert 'Wrote out' in result.stdout
 
 
 def test_doctor():
