@@ -231,7 +231,7 @@ def _c_preprocess(path):
     Returns:
         the stdout of the pre-processor
     """
-    pre_processed_keymap = qmk.commands.run(['cpp', path], stdout=qmk.commands.PIPE, stderr=qmk.commands.PIPE, universal_newlines=True)
+    pre_processed_keymap = qmk.commands.run(['cpp', path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     return pre_processed_keymap.stdout
 
 

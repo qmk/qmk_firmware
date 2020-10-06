@@ -1,4 +1,6 @@
-from qmk.commands import run, STDOUT, PIPE
+from subprocess import STDOUT, PIPE
+
+from qmk.commands import run
 
 
 def check_subcommand(command, *args):
@@ -28,7 +30,8 @@ def test_compile():
 
 
 def test_compile_json():
-    assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json').returncode == 0
+    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json')
+    check_returncode(result)
 
 
 def test_flash():
