@@ -1,11 +1,13 @@
 # MCU name
 MCU = STM32F103
 
+# Bootloader selection
+BOOTLOADER = stm32duino
+
 # GENERIC STM32F103C8T6 board - mass storage bootloader
 MCU_LDSCRIPT = wm1_f103
-BOARD = STM32_F103_STM32DUINO
 
-PROGRAM_CMD=echo 'CLI flashing not supported' >&2
+PROGRAM_CMD = echo 'CLI flashing not supported' >&2
 
 # Build Options
 #   change yes to no to disable
