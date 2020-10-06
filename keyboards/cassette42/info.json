@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "cassette42", 
+    "url": "http://www.sho-k.co.uk/tech/1246.html", 
+    "maintainer": "monksoffunk", 
+    "width": 4, 
+    "height": 2.75, 
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"label":"Mute", "x":0.5, "y":0.75}, {"label":"Return", "x":2.5, "y":0.75}, {"label":"PREV", "x":0, "y":1.75}, {"label":"PLAY", "x":1, "y":1.75}, {"label":"NEXT", "x":2, "y":1.75}, {"label":"SPACE", "x":3, "y":1.75}]
+        }
+    }
+}
