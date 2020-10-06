@@ -1,1 +1,1 @@
-# The default keymap for aleth42
+# The VIA keymap for aleth42
