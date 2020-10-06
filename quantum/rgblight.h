@@ -142,7 +142,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
-#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000
+#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 40
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
@@ -336,7 +336,9 @@ void rgblight_increase_val_noeeprom(void);
 void rgblight_decrease_val(void);
 void rgblight_decrease_val_noeeprom(void);
 void rgblight_increase_speed(void);
+void rgblight_increase_speed_noeeprom(void);
 void rgblight_decrease_speed(void);
+void rgblight_decrease_speed_noeeprom(void);
 void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 
@@ -350,6 +352,8 @@ uint8_t rgblight_get_mode(void);
 uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
+bool    rgblight_is_enabled(void);
+HSV     rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);

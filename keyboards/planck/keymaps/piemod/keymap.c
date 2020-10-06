@@ -1,13 +1,13 @@
 #include QMK_KEYBOARD_H
 
 #define DVORAK 0
-#define ARROW 1 //F(1)
-#define SYMBOL 2 // F(2)
-#define NUMBER 3 // F(3)
-#define FUNCTION 4 // F(4)
-#define EMACS 5 // F(5)
-#define CUSTOM_MACROS 6 // F(6)
-#define MOUSE 7 // F(7)
+#define ARROW 1
+#define SYMBOL 2
+#define NUMBER 3
+#define FUNCTION 4
+#define EMACS 5
+#define CUSTOM_MACROS 6
+#define MOUSE 7
 
 #define LT_1A LT(1, KC_A)
 #define LT_2O LT(2, KC_O)
@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_QUOTE,  LT_7COM,  KC_DOT,  KC_P,  KC_Y,  KC_F,  KC_G,  KC_C,  KC_R,  KC_L,  KC_DELETE,
     KC_TAB,  LT_1A,  LT_2O,  LT_3E,  LT_4U,  KC_I,  KC_D,  KC_H,  KC_T,  KC_N,  KC_S,  KC_ENTER,
     KC_LSHIFT,  KC_SCOLON,  LT_5Q,   KC_J,   KC_K,  KC_X,   KC_B,   KC_M,   KC_W,  KC_V,  KC_Z,  KC_MINUS,
-    F(10), LT_6CTL,  KC_MENU, KC_LALT,  KC_LGUI,  KC_BSPACE,  KC_SPACE,  KC_RCTRL,  KC_LEFT,  KC_DOWN,  KC_UP, KC_RIGHT
+    C(KC_LALT), LT_6CTL,  KC_MENU, KC_LALT,  KC_LGUI,  KC_BSPACE,  KC_SPACE,  KC_RCTRL,  KC_LEFT,  KC_DOWN,  KC_UP, KC_RIGHT
   ),
 
   [ARROW] = LAYOUT_planck_grid(
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SYMBOL] = LAYOUT_planck_grid(
     KC_TILD,  KC_GRAVE,  KC_NO,  KC_EQUAL,  KC_PLUS,  KC_NO,  KC_LBRACKET,  KC_RBRACKET,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,
-    KC_NO,  KC_NO,  KC_TRNS,  KC_SCOLON,  KC_COLN,  KC_NO,  KC_LCBR,  KC_RCBR,  KC_DLR,  KC_PERC,  KC_CIRC,  F(21),
+    KC_NO,  KC_NO,  KC_TRNS,  KC_SCOLON,  KC_COLN,  KC_NO,  KC_LCBR,  KC_RCBR,  KC_DLR,  KC_PERC,  KC_CIRC,  S(KC_SLSH),
     KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BSLASH,  KC_SLASH,  KC_EXLM,  KC_AT,  KC_HASH,  KC_PIPE,
     KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_ASTR,   KC_SLASH,  KC_MINUS,  KC_PLUS,  KC_EQUAL
   ),
@@ -73,33 +73,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
       KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,  KC_NO,  KC_NO,  KC_NO
     ),
-
-  };
-
-  enum function_id {
-    TEENSY_KEY,
-    CUSTOM_KEY,
-    L_CTRL_ALT_ENT,
-    R_CTRL_ALT_ENT,
-  };
-
-  int CAPSLOCKED = 0;
-
-  const uint16_t PROGMEM fn_actions[] = {
-
-    // DVORAK 0
-    // ARROW 1, F(1)
-    // SYMBOL 2, F(2)
-    // NUMBER 3, F(3)
-    // FUNCTION 4, F(4)
-    // EMACS 5, F(5)
-    // MACROS 6, F(6)
-    // MOUSE 7, F(7)
-
-    // Special Keys
-    [10] =  ACTION_MODS_KEY(KC_LCTRL, KC_LALT), // FN10 = Ctrl + Alt.
-
-    // Symbols
-    [21] =  ACTION_MODS_KEY(MOD_LSFT, KC_SLASH), // FN21 = Question mark.
 
   };

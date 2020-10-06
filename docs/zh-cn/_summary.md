@@ -14,7 +14,7 @@
   * [QMK命令行工具](zh-cn/cli.md)
   * [QMK命令行工具配置](zh-cn/cli_configuration.md)
   * [向QMK贡献代码](zh-cn/contributing.md)
-  * [如何使用Github](zh-cn/getting_started_github.md)
+  * [如何使用GitHub](zh-cn/getting_started_github.md)
   * [获得帮助](zh-cn/getting_started_getting_help.md)
 
 * [非兼容性修改](zh-cn/breaking_changes.md)

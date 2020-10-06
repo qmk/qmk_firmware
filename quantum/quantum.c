@@ -17,7 +17,7 @@
 #include <ctype.h>
 #include "quantum.h"
 
-#ifdef PROTOCOL_LUFA
+#ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
 
@@ -44,10 +44,6 @@ extern backlight_config_t backlight_config;
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
-#endif
-
-#ifdef ENCODER_ENABLE
-#    include "encoder.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -281,6 +277,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
 #endif
+#ifdef JOYSTICK_ENABLE
+            process_joystick(keycode, record) &&
+#endif
             true)) {
         return false;
     }
@@ -442,8 +441,7 @@ void send_string_with_delay(const char *str, uint8_t interval) {
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = *(++str);
-                register_code(keycode);
-                unregister_code(keycode);
+                tap_code(keycode);
             } else if (ascii_code == SS_DOWN_CODE) {
                 // down
                 uint8_t keycode = *(++str);
@@ -484,8 +482,7 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = pgm_read_byte(++str);
-                register_code(keycode);
-                unregister_code(keycode);
+                tap_code(keycode);
             } else if (ascii_code == SS_DOWN_CODE) {
                 // down
                 uint8_t keycode = pgm_read_byte(++str);
@@ -618,20 +615,14 @@ void matrix_init_quantum() {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
 #endif
-#ifdef ENCODER_ENABLE
-    encoder_init();
-#endif
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
-#ifdef OUTPUT_AUTO_ENABLE
+#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
     set_output(OUTPUT_AUTO);
-#endif
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_init();
 #endif
 
     matrix_init_kb();
@@ -656,10 +647,6 @@ void matrix_scan_quantum() {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
-#endif
-
-#ifdef ENCODER_ENABLE
-    encoder_read();
 #endif
 
 #ifdef WPM_ENABLE

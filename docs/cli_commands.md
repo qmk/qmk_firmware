@@ -6,6 +6,8 @@
 
 This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm>, compile keymaps in the repo, or compile the keyboard in the current working directory.
 
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
 **Usage for Configurator Exports**:
 
 ```
@@ -73,8 +75,9 @@ $ qmk compile -kb dz60
 
 ## `qmk flash`
 
-This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
-To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
+This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
 **Usage for Configurator Exports**:
 
@@ -128,6 +131,32 @@ Check your environment and report problems only:
 
     qmk doctor -n
 
+## `qmk info`
+
+Displays information about keyboards and keymaps in QMK. You can use this to get information about a keyboard, show the layouts, display the underlying key matrix, or to pretty-print JSON keymaps.
+
+**Usage**:
+
+```
+qmk info [-f FORMAT] [-m] [-l] [-km KEYMAP] [-kb KEYBOARD]
+```
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+**Examples**:
+
+Show basic information for a keyboard:
+
+    qmk info -kb planck/rev5
+
+Show the matrix for a keyboard:
+
+    qmk info -kb ergodox_ez -m
+
+Show a JSON keymap for a keyboard:
+
+    qmk info -kb clueboard/california -km default
+
 ## `qmk json2c`
 
 Creates a keymap.c from a QMK Configurator export.
@@ -152,6 +181,8 @@ qmk list-keyboards
 
 This command lists all the keymaps for a specified keyboard (and revision).
 
+This command is directory aware. It will automatically fill in KEYBOARD if you are in a keyboard directory.
+
 **Usage**:
 
 ```
@@ -161,6 +192,8 @@ qmk list-keymaps -kb planck/ez
 ## `qmk new-keymap`
 
 This command creates a new keymap based on a keyboard's existing default keymap.
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
 **Usage**:
 
