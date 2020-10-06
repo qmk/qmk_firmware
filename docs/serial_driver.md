@@ -72,10 +72,16 @@ You must also enable the ChibiOS `SERIAL` feature:
 Do note that the configuration required is for the `SERIAL` peripheral, not the `UART` peripheral.
 
 ### USART Full-duplex
-Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors instead of one conductor like the Half-duplex driver, but it is more efficent as it uses DMA transfers, which can result in even faster transmission speeds. To use this driver the usart peripherals `TX` and `RX` pins must be configured. `SERIAL_USART_TX_PIN` is the USART `TX` pin, `SERIAL_USART_RX_PIN` is the USART `RX` pin. No external pull-up resistors are needed as the `TX` pin operates in push-pull mode. 
+Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage over bitbang is that this provides fast and accurate timings. USART Full-Duplex requires two conductors instead of one conductor unlike the Half-duplex driver, but it is more efficent as it uses DMA transfers, which can result in even faster transmission speeds.
 
+#### Pin configuration
+
+`SERIAL_USART_TX_PIN` is the USART `TX` pin, `SERIAL_USART_RX_PIN` is the USART `RX` pin. No external pull-up resistors are needed as the `TX` pin operates in push-pull mode. To use this driver the usart peripherals `TX` and `RX` pins must be configured with the correct Alternate-functions. If you are using an STM32F103 everything is already setup, for other MCUs which are using a more modern GPIO configuration you have to specify these by setting `SERIAL_USART_TX_PAL_MODE` and `SERIAL_USART_RX_PAL_MODE`. Refeer to the corresponding datasheets of your MCU or find those Settings in the table below.
+
+#### Connecting the halves and Pin Swap
 Please note that `TX` of the master halve has to be connected with the `RX` pin of the slave halve and `RX` of the master halve has to be connected with the `TX` pin of the slave halve! Usually this pin swap has to be done outside of the MCU e.g. with cables or on the pcb. Some MCUs like the STM32F303 allow this pin swap directly inside the MCU, this feature can be enabled using `#define SERIAL_USART_PIN_SWAP` in your config.h.
 
+#### Setup
 To use the driver, add this to your rules.mk:
 
 ```make
@@ -98,6 +104,8 @@ Next configure the hardware via your config.h:
                                    //  5: about 19200 baud
 #define SERIAL_USART_DRIVER UARTD1 // USART driver of TX and RX pin. default: UARTD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
+#define SERIAL_USART_RX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
+#define SERIAL_USART_TIMEOUT 100 // USART driver timeout. default 100
 ```
 
 You must also enable the ChibiOS `UART` with blocking api feature:
@@ -105,3 +113,124 @@ You must also enable the ChibiOS `UART` with blocking api feature:
 * In your board's mcuconf.h: `#define STM32_UART_USE_USARTn TRUE` (where 'n' matches the peripheral number of your selected USART on the MCU)
 
 Do note that the configuration required is for the `UART` peripheral, not the `SERIAL` peripheral.
+
+#### Pins for USART Peripherals with Alternate Functions for selected STM32 MCUs
+
+##### STM32F072 [Datasheet](https://www.st.com/resource/en/datasheet/stm32f072c8.pdf)
+
+Pin Swap available: :heavy_check_mark:
+
+USART1:
+| Pin  | Function | Mode |
+| ---- | -------- | ---- |
+| PA9  | TX       | AF1  |
+| PA10 | RX       | AF1  |
+| PB6  | TX       | AF0  |
+| PB7  | RX       | AF0  |
+
+USART2:
+| Pin  | Function | Mode |
+| ---- | -------- | ---- |
+| PA2  | TX       | AF1  |
+| PA3  | RX       | AF1  |
+| PA14 | TX       | AF1  |
+| PA15 | RX       | AF1  |
+
+USART3:
+| Pin  | Function | Mode |
+| ---- | -------- | ---- |
+| PB10 | TX       | AF4  |
+| PB11 | RX       | AF4  |
+| PC4  | TX       | AF1  |
+| PC5  | RX       | AF1  |
+| PC10 | TX       | AF1  |
+| PC11 | RX       | AF1  |
+| PD8  | TX       | AF0  |
+| PD9  | RX       | AF0  |
+
+USART4:
+| Pin | Function | Mode |
+| --- | -------- | ---- |
+| PA0 | TX       | AF4  |
+| PA1 | RX       | AF4  |
+
+##### STM32F103 Medium Density (C8-CB) [Datasheet](https://www.st.com/resource/en/datasheet/stm32f103c8.pdf)
+
+Pin Swap available: N/A
+
+TX Pin is always Alternate Function Push-Pull, RX Pin is always regular input pin for any USART peripheral. **For STM32F103 no additional Alternate Function configuration is necessary. QMK is already configured.**
+
+Pin remapping:
+
+The pins of USART Peripherals use default Pins that can be remapped to use other pins using the AFIO registers. Default pins are marked **bold**. Here is an example how you can remap the pins for USART1.
+
+```c
+// Remap USART1 from pins PA9/PA10 to PB6/PB7
+void keyboard_pre_init_user(void) {
+AFIO->MAPR |= AFIO_MAPR_USART1_REMAP;
+}
+```
+
+**USART1**
+| Pin      | Function | Mode |
+| -------- | -------- | ---- |
+| **PA9**  | TX       | AFPP |
+| **PA10** | RX       | IN   |
+| PB6      | TX       | AFP  |
+| PB7      | RX       | IN   |
+
+**USART2**
+| Pin     | Function | Mode |
+| ------- | -------- | ---- |
+| **PA2** | TX       | AFPP |
+| **PA3** | RX       | IN   |
+| PD5     | TX       | AFPP |
+| PD6     | RX       | IN   |
+
+**USART3**
+| Pin      | Function | Mode |
+| -------- | -------- | ---- |
+| **PB10** | TX       | AFPP |
+| **PB11** | RX       | IN   |
+| PC10     | TX       | AFPP |
+| PC11     | RX       | IN   |
+| PD8      | TX       | AFPP |
+| PD9      | RX       | IN   |
+
+##### STM32F303 [Datasheet](https://www.st.com/resource/en/datasheet/stm32f303cc.pdf)
+
+Pin Swap available: :heavy_check_mark:
+
+**USART1**
+| Pin  | Function | Mode |
+| ---- | -------- | ---- |
+| PA9  | TX       | AF7  |
+| PA10 | RX       | AF7  |
+| PB6  | TX       | AF7  |
+| PB7  | RX       | AF7  |
+| PC4  | TX       | AF7  |
+| PC5  | RX       | AF7  |
+| PE0  | TX       | AF7  |
+| PE1  | RX       | AF7  |
+
+**USART2**
+| Pin  | Function | Mode |
+| ---- | -------- | ---- |
+| PA2  | TX       | AF7  |
+| PA3  | RX       | AF7  |
+| PA14 | TX       | AF7  |
+| PA15 | RX       | AF7  |
+| PB3  | TX       | AF7  |
+| PB4  | RX       | AF7  |
+| PD5  | TX       | AF7  |
+| PD6  | RX       | AF7  |
+
+**USART3**
+| Pin  | Function | Mode |
+| ---- | -------- | ---- |
+| PB10 | TX       | AF7  |
+| PB11 | RX       | AF7  |
+| PC10 | TX       | AF7  |
+| PC11 | RX       | AF7  |
+| PD8  | TX       | AF7  |
+| PD9  | RX       | AF7  |
