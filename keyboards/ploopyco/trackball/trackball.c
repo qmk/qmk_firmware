@@ -31,6 +31,8 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 
+keyboard_config_t keyboard_config;
+
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
 // Compile time accel selection
@@ -132,14 +134,28 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    if (debug_mouse) {
-        dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    if (true) {
+        xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     }
 
     // Update Timer to prevent accidental scrolls
-    if ((record->event.key.col == 2) && (record->event.key.row == 0)) {
+    if ((record->event.key.col == 1) && (record->event.key.row == 0)) {
         lastMidClick = timer_read();
         is_scroll_clicked = record->event.pressed;
+    }
+
+    if (!process_record_user(keycode, record)) { return false; }
+
+    if (keycode == DPI_CONFIG && record->event.pressed) {
+        if (keyboard_config.dpi_config == 16) {
+            keyboard_config.dpi_config = 22;
+        } else if (keyboard_config.dpi_config == 22)  {
+            keyboard_config.dpi_config = 12;
+        } else {
+            keyboard_config.dpi_config = 16;
+        }
+        eeconfig_update_kb(keyboard_config.raw);
+        pmw_set_cpi(keyboard_config.dpi_config * 100);
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
@@ -177,7 +193,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 #endif
 
-    return process_record_user(keycode, record);
+    return true;
 }
 
 // Hardware Setup
@@ -234,4 +250,17 @@ void pointing_device_task(void) {
     if (has_report_changed(mouse_report, pointing_device_get_report())) {
         pointing_device_send();
     }
+}
+
+void eeconfig_init_kb(void) {
+    keyboard_config.dpi_config = 16;
+    eeconfig_update_kb(keyboard_config.raw);
+}
+
+void matrix_init_kb(void) {
+    // is safe to just read DPI setting since matrix init
+    // comes before pointing device init.
+    keyboard_config.raw = eeconfig_read_kb();
+
+    matrix_init_user();
 }
