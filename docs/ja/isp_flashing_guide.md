@@ -279,6 +279,6 @@ High ヒューズは 0xD9 か 0x99 のどちらかになります。
 
 別のコントローラーを使用している場合や、別の設定を希望する場合は、この[AVR ヒューズ計算機](http:/www.engbedded.comfusecalc)を使用して、より良い値を見つけることができます。
 
-## ヘルプ Help
+## ヘルプ
 
 ご質問・ご不明な点がありましたら、お気軽に[open an issue](https://github.com/qmk/qmk_firmware/issues/new)まで!
