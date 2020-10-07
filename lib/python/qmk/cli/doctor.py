@@ -177,7 +177,7 @@ def check_udev_rules():
             udev_rules = [rule_file for rule_file in udev_dir.glob('*.rules')]
 
             # Collect all rules from this config file
-            for rule_file in udev_rules:
+            for rule_file in udev_rule_files:
                 for line in rule_file.read_text().split('\n'):
                     line = line.strip()
                     if line and not line.startswith("#"):
