@@ -1,1 +1,1 @@
-# The default keymap for tg4x
+# Keymap for TG4x with Via enabled
