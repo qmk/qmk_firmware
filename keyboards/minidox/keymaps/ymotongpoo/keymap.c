@@ -188,6 +188,19 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 };
 
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case CTL_A:
+      return true;
+    case SFT_Z:
+      return true;
+    case SFT_SLSH:
+      return true;
+    default:
+      return false;
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
