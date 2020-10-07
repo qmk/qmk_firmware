@@ -147,7 +147,7 @@ def check_udev_rules():
     """Make sure the udev rules look good.
     """
     ok = True
-    udev_dir_list = (Path("/etc/udev/rules.d/"), Path("/lib/udev/rules.d"))
+    udev_dirs = (Path("/etc/udev/rules.d/"), Path("/lib/udev/rules.d"))
     desired_rules = {
         'dfu': {_udev_rule("03eb", "2ff4"), _udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
         'input_club': {_udev_rule("1c11", "b007")},
