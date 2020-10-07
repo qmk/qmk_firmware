@@ -138,7 +138,7 @@ ISP プログラマをセットアップして、キーボードに接続した�
 * **BootloadHID (PS2AVRGB)**
   * [ATmega32A](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_ps2avrgb_bootloadhid_1.0.1.hex)
 
-お使いのボードが何を使っているかわからない場合は、QMKのキーボード用の `rules.mk` ファイルを見てください。
+お使いのボードが何を使っているかわからない場合は、QMK のキーボード用の `rules.mk` ファイルを見てください。
 `MCU` と `BOOTLOADER` の行には必要な値が書かれています。これはボードのバージョンによって異なるかもしれません。
 
 ### Production Techniques
