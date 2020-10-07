@@ -85,7 +85,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - キーマップの `config.h`
     - キーボードから `rules.mk` や `config.h` が重複していないこと
 - `keymaps/default/keymap.c`
-    - `QMKBEST`/`QMKURL` を削除しました
+    - `QMKBEST`/`QMKURL` が削除されていること
     - `MO(_LOWER)`および `MO(_RAISE)`キーコードまたは同等のものを使用していて、キーマップに両方のキーを押したときに adjust レイヤーがある場合 - キーマップに直接 adjust レイヤーに入るキーコードがない場合（`MO(_ADJUST)`のように）次のように記述します...
         ```
         layer_state_t layer_state_set_user(layer_state_t state) {
