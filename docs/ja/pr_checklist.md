@@ -74,7 +74,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - マトリックスと重要なデバイスの初期化コード
         - (カスタムキーコードや特別なアニメーションなど)商用キーボードの既存の機能をミラーリングする場合は、`default` ではないキーマップを使って処理する必要があります
 - `keyboard.c`
-    - 空の `xxxx_xxxx_kb()` または他の weak-define のデフォルト実装関数が削除されました
+    - 空の `xxxx_xxxx_kb()` または他の weak-define のデフォルト実装関数が削除されていること
     - コメントアウトされた関数も削除されました
     - `matrix_init_board()` などが `keyboard_pre_init_kb()` に移行されました。[keyboard_pre_init*](https://docs.qmk.fm/#/ja/custom_quantum_functions?id=keyboard_pre_init_-function-documentation) を参照してください
     - カスタムマトリックスを使用する場合は、`CUSTOM_MATRIX = lite` を選択し、標準のデバウンスを許可します。[custom matrix 'lite'](https://docs.qmk.fm/#/ja/custom_matrix?id=lite) を参照してください
