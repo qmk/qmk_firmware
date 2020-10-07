@@ -54,7 +54,7 @@ You will need to install Homebrew. Follow the instructions on the [Homebrew home
 
 After Homebrew is installed run this command:
 
-    brew install qmk/qmk/qmk
+    brew install qmk
 
 ### Linux
 
