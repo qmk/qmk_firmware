@@ -1,5 +1,4 @@
-#ifndef HACRO8_H
-#define HACRO8_H
+#pragma once
 
 #include "quantum.h"
 
