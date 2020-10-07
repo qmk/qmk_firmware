@@ -40,7 +40,10 @@ enum custom_keycodes {
     OSMODE,
     COPY,
     CUT,
-    PASTE
+    PASTE,
+    SAVE,
+    UNDO,
+    SEL_ALL
 };
 
 enum macro_keycodes {
@@ -51,6 +54,9 @@ enum os_mode {
     _WIN = 0,
     _MAC
 };
+
+#define KANA  KC_LANG5
+
 
 //Macros
 #define M_SAMPLE    M(KC_SAMPLEMACRO)
@@ -69,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI, KC_LGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
    //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      ADJUST,  PASTE,   COPY,    KC_LALT, RAISE,   LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
+      ADJ_IME, PASTE,   COPY,    KC_LALT, RAISE,   LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
       ),
 
   // Lower
@@ -136,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
    //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      ADJUST,  PASTE,   COPY,    KC_LGUI, KC_LALT, RAISE,   LOWER,   KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
+      ADJUST,  PASTE,   COPY,    KC_LALT, KC_LGUI, RAISE,   LOWER,   KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, RAISE   \
       ),
 
   [_LOWER] = LAYOUT( \
@@ -147,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_GRV, \
   //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ZKHK, _______, _______, _______, _______ \
       ),
 
   // Raise
@@ -155,11 +161,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
       KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  SAVE,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
   //+--------+--------+--------+--------+--------+--------+                 +--------+--------+--------+--------+--------+--------+
-      _______, _______, CUT,     COPY,    PASTE,   _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, UNDO,    CUT,     COPY,    PASTE,   SEL_ALL,                   _______, _______, _______, _______, _______, _______, \
   //+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
-      _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
       ),
 
   // Adjust (Lower + Raise)
@@ -212,14 +218,13 @@ const rgblight_segment_t PROGMEM rgb_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {6, 12, HSV_CORAL},
 
     {26, 5, HSV_PINK}, // right
-    {31, 12, HSV_AZURE},
-    {43, 6, HSV_BLUE}
+    {31, 12, HSV_AZURE}
 );
 
 const rgblight_segment_t PROGMEM rgb_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 5, HSV_CORAL}, // left
     {7, 4, HSV_WHITE},
-    {14, 3, HSV_PINK},
+    {13, 5, HSV_PINK},
 
     {26, 5, HSV_CORAL}, // right
     {33, 4, HSV_WHITE},
@@ -286,6 +291,18 @@ void send_cut_key(keyrecord_t *record) {
 
 void send_paste_key(keyrecord_t *record) {
     os_shortcut(KC_V, record);
+}
+
+void send_undo_key(keyrecord_t *record) {
+    os_shortcut(KC_Z, record);
+}
+
+void send_select_all_key(keyrecord_t *record) {
+    os_shortcut(KC_A, record);
+}
+
+void send_save_key(keyrecord_t *record) {
+    os_shortcut(KC_S, record);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -391,6 +408,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case PASTE:
         send_paste_key(record);
+        break;
+    case SAVE:
+        send_save_key(record);
+        break;
+    case UNDO:
+        send_undo_key(record);
+        break;
+    case SEL_ALL:
+        send_select_all_key(record);
         break;
   }
   return true;
