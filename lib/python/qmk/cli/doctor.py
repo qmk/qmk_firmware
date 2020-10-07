@@ -214,7 +214,7 @@ def check_udev_rules():
             for rule_file in udev_rules:
                 for line in rule_file.read_text().split('\n'):
                     line = line.strip()
-                    if not line.startswith("#") and len(line):
+                    if line and not line.startswith("#"):
                         current_rules.add(line)
 
     # Check if the desired rules are among the currently present rules
