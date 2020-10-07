@@ -4,3 +4,4 @@ appdirs
 argcomplete
 colorama
 hjson
+pygments
