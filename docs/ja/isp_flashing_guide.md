@@ -195,7 +195,7 @@ QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの 
 
 ターミナル（Windows の場合は `cmd`）を開いて、修正した .hex ファイルがある場所に移動します。
 ここでは、このファイルを `main.hex` と呼び、Teensy 2.0 が `COM3` ポートに接続されていると仮定します。
-よくわからない場合は、デバイスマネージャを開いて、`Ports > USB Serial Device` を探してください。ここにあるCOMポートを使ってください。
+よくわからない場合は、デバイスマネージャを開いて、`Ports > USB Serial Device` を探してください。ここにある COM ポートを使ってください。
 あなたはそれが正しいポートであることを確認することができます：
 
     avrdude -c avrisp -P COM3 -p atmega32u4
