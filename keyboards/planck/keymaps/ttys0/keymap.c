@@ -1,5 +1,4 @@
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "muse.h"
 
 #define a KC_A
@@ -124,8 +123,6 @@
 #define brup KC_BRMU
 #define brdn KC_BRMD
 #define escf LT(FUNC,KC_ESC)
-
-extern keymap_config_t keymap_config;
 
 enum planck_layers {
     BASE,
