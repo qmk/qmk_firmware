@@ -1,6 +1,6 @@
 # LeftyNumpad
 
-![Image of LeftyNumpad](https://i.imgur.com/kkSPIxp.png)
+![Image of LeftyNumpad](https://i.imgur.com/kkSPIxpl.png)
 
 A small numberpad/macropad intended to be placed southpaw-style on the left
 side of a keyboard.
