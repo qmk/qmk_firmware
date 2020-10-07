@@ -1,6 +1,6 @@
 # spooky
 
-![spooky](https://i.imgur.com/qAeA66w.jpg)
+![spooky](https://i.imgur.com/qAeA66wl.jpg)
 
 this is a limited edition macro pad for the spookiest time of year
 
