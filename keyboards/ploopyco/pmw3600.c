@@ -30,8 +30,9 @@ bool _inBurst = false;
 #ifndef SPI_DIVISOR
 #    define SPI_DIVISOR 2
 #endif
-
-static const int8_t ROTATIONAL_TRANSFORM_ANGLE = 20;
+#ifndef ROTATIONAL_TRANSFORM_ANGLE
+#    define ROTATIONAL_TRANSFORM_ANGLE 0x00
+#endif 
 
 #ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }

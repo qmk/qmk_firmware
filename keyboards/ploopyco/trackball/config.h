@@ -67,3 +67,5 @@
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 3
+
+#define ROTATIONAL_TRANSFORM_ANGLE 20
