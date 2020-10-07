@@ -48,7 +48,7 @@ QMK の ISP 書き込みの主な用途は、AVRベースのコントローラ�
 
 ## 必要なハードウェア
 
-実際にISPの書き込みを行うには、以下のいずれかが必要になります（その後に使用するプロトコルが続きます）。
+実際に ISP の書き込みを行うには、以下のいずれか（その後に使用するプロトコルが続きます）が必要になります。
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
