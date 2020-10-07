@@ -11,4 +11,4 @@ Left Tab-Hold layer is focused on nav cluster functionality, and turns Backspace
 
 To simply build the firmware file: `make clean && make ai03/polaris:mekberg`
 
-To build and immediately flash: `make clean && make ai03/polaris:mekberg:dfu`
+To build and immediately flash: `make clean && make ai03/polaris:mekberg:flash`
