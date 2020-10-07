@@ -1,4 +1,4 @@
-/*
+    /*
 Copyright 2020 wuquestudio
 
 This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wuque studio
 #define PRODUCT         ikki68
-#define DESCRIPTION     wuque studio ikki68
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -67,4 +66,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //     #define RGBLIGHT_EFFECT_RGB_TEST
 //     #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
-
