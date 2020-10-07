@@ -281,4 +281,4 @@ High ヒューズは 0xD9 か 0x99 のどちらかになります。
 
 ## ヘルプ
 
-ご質問・ご不明な点がありましたら、お気軽に[open an issue](https://github.com/qmk/qmk_firmware/issues/new)まで!
+ご質問・ご不明な点がありましたら、お気軽に[issue を開いてください](https://github.com/qmk/qmk_firmware/issues/new)！
