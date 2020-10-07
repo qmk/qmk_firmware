@@ -128,7 +128,7 @@ There are instructions on how to keep your fork updated here:
 
 [**Best Practices: Your Fork's Master: Update Often, Commit Never**](https://docs.qmk.fm/#/newbs_git_using_your_master_branch)
 
-[Fixing Your Branch](https://docs.qmk.fm/#/ja/newbs_git_resynchronize_a_branch) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
+[Fixing Your Branch](https://docs.qmk.fm/#/newbs_git_resynchronize_a_branch) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
 
 Thanks for contributing!
 ```
