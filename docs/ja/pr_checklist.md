@@ -13,7 +13,7 @@
 
 - PRは、ソースリポジトリ上の `master` ではないブランチを使って投稿する必要があります
     - これは、あなたの PR にとって別のブランチをターゲットにするという意味ではなく、むしろ自分の master ブランチで仕事をしていないという意味です
-    - もし PR の提出者が自分の master ブランチを使っている場合は、マージ後に ["how to git"](https://docs.qmk.fm/#/newbs_git_using_your_master_branch) ページへのリンクが表示されます - (このドキュメントの最後にメッセージの内容が表示されます)
+    - もし PR の提出者が自分の master ブランチを使っている場合は、マージ後に ["how to git"](https://docs.qmk.fm/#/ja/newbs_git_using_your_master_branch) ページへのリンクが表示されます - (このドキュメントの最後にメッセージの内容が表示されます)
 - 新しく追加されたディレクトリとファイル名は小文字でなければなりません
     - 上流のソースが元々大文字を使っていた場合 (ChibiOS や他のリポジトリからインポートしたファイルなど)、このルールは緩和されるかもしれません
     - 十分な正当性がある場合 (既存のコアファイルとの整合性など) は、このルールを緩和することができます。
@@ -76,8 +76,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - `keyboard.c`
     - 空の `xxxx_xxxx_kb()` または他の weak-define のデフォルト実装関数が削除されました
     - コメントアウトされた関数も削除されました
-    - `matrix_init_board()` などが `keyboard_pre_init_kb()` に移行されました。[keyboard_pre_init*](https://docs.qmk.fm/#/custom_quantum_functions?id=keyboard_pre_init_-function-documentation) を参照してください
-    - カスタムマトリックスを使用する場合は、`CUSTOM_MATRIX = lite` を選択し、標準のデバウンスを許可します。[custom matrix 'lite'](https://docs.qmk.fm/#/custom_matrix?id=lite) を参照してください
+    - `matrix_init_board()` などが `keyboard_pre_init_kb()` に移行されました。[keyboard_pre_init*](https://docs.qmk.fm/#/ja/custom_quantum_functions?id=keyboard_pre_init_-function-documentation) を参照してください
+    - カスタムマトリックスを使用する場合は、`CUSTOM_MATRIX = lite` を選択し、標準のデバウンスを許可します。[custom matrix 'lite'](https://docs.qmk.fm/#/ja/custom_matrix?id=lite) を参照してください
 - `keyboard.h`
     - 先頭に `#include "quantum.h"` を置きます
     - `LAYOUT` マクロは、該当する場合は標準の定義を使用してください
@@ -105,7 +105,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - 例：STM32L082KZ の場合、STM32L073RZ に類似しているため、rules.mkで `BOARD = ST_NUCLEO64_L073RZ` を使用できます。
     - QMK は ChibiOS のアップグレード時のメンテナンス負担が継続的に発生するため、可能な限りカスタムボード定義を持たないように移行しています。
 - ボードの定義が避けられない場合、`board.c` には標準の `__early_init()` (通常の ChibiOS ボードの定義と同じ) と空の `boardInit()` を指定しなければなりません。
-    - Arm/ChibiOS [early initialization](https:/docs.qmk.fm#platformdev_chibios_earlyinit?id=board-init)を参照してください
+    - Arm/ChibiOS [early initialization](https:/docs.qmk.fm/#/ja/platformdev_chibios_earlyinit?id=board-init)を参照してください
     - `__early_init()`は、必要に応じて `early_hardware_init_pre()` または `early_hardware_init_post()` で置き換える必要があります
     - `boardInit()` は `board_init()` に移行する必要があります
 
@@ -126,9 +126,9 @@ For future reference, we recommend against committing to your `master` branch as
 
 There are instructions on how to keep your fork updated here:
 
-[**Best Practices: Your Fork's Master: Update Often, Commit Never**](https://docs.qmk.fm/#/newbs_git_using_your_master_branch)
+[**Best Practices: Your Fork's Master: Update Often, Commit Never**](https://docs.qmk.fm/#/ja/newbs_git_using_your_master_branch)
 
-[Fixing Your Branch](https://docs.qmk.fm/#/newbs_git_resynchronize_a_branch) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
+[Fixing Your Branch](https://docs.qmk.fm/#/ja/newbs_git_resynchronize_a_branch) will walk you through fixing up your `master` branch moving forward. If you need any help with this just ask.
 
 Thanks for contributing!
 ```
