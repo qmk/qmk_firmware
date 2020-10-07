@@ -209,8 +209,6 @@ def check_udev_rules():
     for udev_dir in udev_dirs:
         if udev_dir.exists():
             udev_rule_files = sorted(udev_dir.glob('*.rules'))
-            print(udev_dir)
-            print(udev_rule_files)
 
             # Collect all rules from this config file
             for rule_file in udev_rule_files:
