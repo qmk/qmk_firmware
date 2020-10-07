@@ -234,7 +234,7 @@ QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの 
 ボードが自動的に再起動する場合もありますが、そうでない場合は、Teensy のプラグを抜いてキーボードを接続してください。
 テスト中は、Teensy をキーボードに接続したままにすることができますが、すべてが正常に機能することを確認したら、はんだを外すか、配線を外すことをお勧めします。
 
-SparkFun PocketAVR Programmer や、他の USB Tiny ベースの ISP Programmer を使用している場合は、次のようなものを使用すると良いでしょう。
+SparkFun PocketAVR Programmer や、他の USB Tiny ベースの ISP プログラマを使用している場合は、次のようなものを使用すると良いでしょう。
 
     avrdude -c usbtiny -P usb -p atmega32u4
 
