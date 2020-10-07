@@ -56,7 +56,7 @@ QMK の ISP 書き込みの主な用途は、AVRベースのコントローラ�
 * [Pro Micro](https://www.sparkfun.com/products/12640)  - (avrisp)
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
 
-ISP書き込みに使用できるデバイスは他にもありますが、これらが主なものです。
+ISP 書き込みに使用できるデバイスは他にもありますが、これらが主なものです。
 また、すべての製品リンクは公式バージョンへのものです。他の場所で入手することができます。
 
 また、"ISP Programmer" をプログラミングするデバイスに配線するためのものも必要になります。
