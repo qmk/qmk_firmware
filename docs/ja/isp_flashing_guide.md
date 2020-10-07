@@ -200,7 +200,7 @@ QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの 
 
     avrdude -c avrisp -P COM3 -p atmega32u4
 
-and you should get something like the following output:
+次のような出力が得られるはずです:
 
     avrdude: AVR device initialized and ready to accept instructions
 
