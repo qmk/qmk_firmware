@@ -113,7 +113,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
 - `develop` ブランチをターゲットにする必要があります。これは、その後、breaking change のタイムラインで `master` にマージされます。
 - その他の注意事項 TBD
-    - core is a lot more subjective given the breadth of posted changes
+    - 投稿された変更の幅を考えると、コアはもっと主観的です
 
 ---
 
