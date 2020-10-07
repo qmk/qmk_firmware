@@ -32,6 +32,8 @@
 #endif
 
 keyboard_config_t keyboard_config;
+uint16_t dpi_array[] = PLOOPY_DPI_OPTIONS;
+#define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
@@ -147,15 +149,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) { return false; }
 
     if (keycode == DPI_CONFIG && record->event.pressed) {
-        if (keyboard_config.dpi_config == 16) {
-            keyboard_config.dpi_config = 22;
-        } else if (keyboard_config.dpi_config == 22)  {
-            keyboard_config.dpi_config = 12;
-        } else {
-            keyboard_config.dpi_config = 16;
+        keyboard_config.dpi_config++;
+        if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
+            keyboard_config.dpi_config = 0;
         }
         eeconfig_update_kb(keyboard_config.raw);
-        pmw_set_cpi(keyboard_config.dpi_config * 100);
+        pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
@@ -253,7 +252,7 @@ void pointing_device_task(void) {
 }
 
 void eeconfig_init_kb(void) {
-    keyboard_config.dpi_config = 16;
+    keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
     eeconfig_update_kb(keyboard_config.raw);
 }
 
@@ -261,6 +260,14 @@ void matrix_init_kb(void) {
     // is safe to just read DPI setting since matrix init
     // comes before pointing device init.
     keyboard_config.raw = eeconfig_read_kb();
-
+    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
+        eeconfig_init_kb();
+    }
     matrix_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+
+    keyboard_post_init_user();
 }

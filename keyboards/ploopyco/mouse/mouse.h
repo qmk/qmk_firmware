@@ -42,7 +42,7 @@ void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
 typedef union {
   uint32_t raw;
   struct {
-    uint8_t    dpi_config :7; // contrain to 127
+    uint8_t    dpi_config;
   };
 } keyboard_config_t;
 

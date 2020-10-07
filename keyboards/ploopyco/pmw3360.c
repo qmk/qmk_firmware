@@ -19,15 +19,15 @@
 
 #include "pmw3360.h"
 #include "pmw3360_firmware.h"
-#include QMK_KEYBOARD_H
 
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
 #endif
 bool _inBurst = false;
 
-extern keyboard_config_t keyboard_config;
-
+#ifndef PMW_CPI
+#    define PMW_CPI 1600
+#endif
 #ifndef SPI_DIVISOR
 #    define SPI_DIVISOR 2
 #endif
@@ -126,7 +126,7 @@ bool pmw_spi_init(void) {
     spi_stop_adv();
 
     wait_ms(10);
-    pmw_set_cpi(keyboard_config.dpi_config * 100);
+    pmw_set_cpi(PMW_CPI);
 
     wait_ms(1);
 
