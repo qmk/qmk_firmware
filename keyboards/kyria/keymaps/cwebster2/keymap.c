@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
     KC_GRV,   _______QWERTY_L1______,                                     _______QWERTY_R1______, KC_BSLS,
     KC_CTLBS, KC_A, KC_S, KC_D, KC_F, KC_G,                               KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-    KC_EQL,   _______QWERTY_L3______, KC_LCCL, KC_LGUI,                   KC_ALTCL, KC_LSFT, _______QWERTY_R3______, KC_MINS,
+    KC_LSFT,   _______QWERTY_L3______, KC_LCCL, KC_LALT,                   KC_ALTCL, KC_LSFT, _______QWERTY_R3______, KC_MINS,
        SCMD_T(KC_LBRC), C_S_T(KC_MINS), _______NAKED_L___T____,   _______THUMBS_R_______, TO(_COLEMAK), KC_PSCR
  /*                        `----------------------------------'  `----------------------------------' */
     ),
@@ -235,10 +235,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+#ifdef RGBLIGHT_LAYERS
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(9, led_state.caps_lock);
     return true;
 }
+#endif
 
 #ifdef OLED_DRIVER_ENABLE
 void suspend_power_down_user() {

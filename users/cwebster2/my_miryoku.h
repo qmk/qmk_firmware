@@ -33,7 +33,7 @@
 #define _______THUMBS_R_______ LT(_FN,   KC_ENT), LT(_NUM,KC_BSPC), LT(_SYMBOLS,KC_DEL)
 
 #define _______NAKED_R___T____ KC_ENT,   KC_BSPC,  KC_DEL
-#define _______NAKED_L___T____ KC_TAB,   KC_SPC,   KC_ESC
+#define _______NAKED_L___T____ KC_ESC,   KC_SPC,   KC_TAB
 
 #define _______INACTIVE_R1____ KC_LOCK,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RESET
 #define _______INACTIVE_R2____ KC_TRNS,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI
