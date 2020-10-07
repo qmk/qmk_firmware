@@ -77,7 +77,7 @@ Teensy と Pro Micro のコントローラを ISP プログラマとして使用
 
 QMK ツールボックスは、このほとんど（すべて）に使用することができます。
 
-[Teensy Loader](https:/www.pjrc.comteensyloader.html) を使えば、Teensy 2.0 ボードに書き込むことができます。
+ただし、Teensy 2.0 ボードを使っている場合は、[Teensy Loader](https:/www.pjrc.comteensyloader.html) を使えば、Teensy 2.0 ボードに書き込むことができます。
 あるいは、`avrdude` (`qmk_install.sh` の一部としてインストールされています) や、[AVRDUDESS](https:/blog.zakkemble.netavrdudess-a-gui-for-avrdude)(Windows用) を使って、Pro Micro に書き込んだり、ISPを書き込んだりすることができます。
 
 ## 配線
