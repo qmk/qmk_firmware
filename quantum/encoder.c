@@ -27,27 +27,21 @@
 #    define ENCODER_RESOLUTION 4
 #endif
 
-#if !(defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B)) \
-    && !(!defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC)) \
-    && !(defined(SPLIT_KEYBOARD) && (defined(MATRIX_ENCODER_PINS_ABC) || defined(MATRIX_ENCODER_PINS_ABC_RIGHT)))
+#if !(defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B)) && !(!defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC)) && !(defined(SPLIT_KEYBOARD) && (defined(MATRIX_ENCODER_PINS_ABC) || defined(MATRIX_ENCODER_PINS_ABC_RIGHT)))
 #    error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B or MATRIX_ENCODER_PINS_ABC or SPLIT_KEYBOARD MATRIX_ENCODER_PINS_ABC and MATRIX_ENCODER_PINS_ABC_RIGHT"
 #endif
 
 #if (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B))
-    #define ENCODER_SIMPLE
-#elif defined(SPLIT_KEYBOARD)
-    #define ENCODER_MATRIX_SPLIT
-#else
-    #define ENCODER_MATRIX
+#    define ENCODER_SIMPLE
 #endif
 
-#ifdef ENCODER_SIMPLE
-    #define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
-    static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
-    static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
-    #ifdef ENCODER_RESOLUTIONS
-    static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
-    #endif
+#if defined(ENCODER_SIMPLE)
+#    define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
+static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
+#    if defined(ENCODER_RESOLUTIONS)
+static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
+#    endif
 #endif
 
 #ifndef ENCODER_DIRECTION_FLIP
@@ -59,374 +53,354 @@
 #endif
 static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
-#ifdef ENCODER_SIMPLE
-    static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
-    static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
+#if defined(ENCODER_SIMPLE)
+static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
+static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
 
-    #ifdef SPLIT_KEYBOARD
-    // right half encoders come over as second set of encoders
-    static uint8_t encoder_value[NUMBER_OF_ENCODERS * 2] = {0};
-    // row offsets for each hand
-    static uint8_t thisHand, thatHand;
-    #else
-    static uint8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
-    #endif
+#    ifdef SPLIT_KEYBOARD
+// right half encoders come over as second set of encoders
+static uint8_t encoder_value[NUMBER_OF_ENCODERS * 2] = {0};
+// row offsets for each hand
+static uint8_t thisHand, thatHand;
+#    else
+static uint8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
+#    endif
 
-    __attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
+__attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
 
-    __attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
+__attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
 
-    void encoder_init(void) {
-    #if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
-        if (!isLeftHand) {
-            const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
-            const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
-        #    if defined(ENCODER_RESOLUTIONS_RIGHT)
-            const uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
-        #    endif
-            for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
-                encoders_pad_a[i] = encoders_pad_a_right[i];
-                encoders_pad_b[i] = encoders_pad_b_right[i];
-        #    if defined(ENCODER_RESOLUTIONS_RIGHT)
-                encoder_resolutions[i] = encoder_resolutions_right[i];
-        #    endif
-            }
+void encoder_init(void) {
+#    if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+    if (!isLeftHand) {
+        const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
+        const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+#        if defined(ENCODER_RESOLUTIONS_RIGHT)
+        const uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
+#        endif
+        for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
+            encoders_pad_a[i] = encoders_pad_a_right[i];
+            encoders_pad_b[i] = encoders_pad_b_right[i];
+#        if defined(ENCODER_RESOLUTIONS_RIGHT)
+            encoder_resolutions[i] = encoder_resolutions_right[i];
+#        endif
         }
-    #endif
+    }
+#    endif
 
-        for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
-            setPinInputHigh(encoders_pad_a[i]);
-            setPinInputHigh(encoders_pad_b[i]);
+    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+        setPinInputHigh(encoders_pad_a[i]);
+        setPinInputHigh(encoders_pad_b[i]);
 
-            encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-        }
-
-    #ifdef SPLIT_KEYBOARD
-        thisHand = isLeftHand ? 0 : NUMBER_OF_ENCODERS;
-        thatHand = NUMBER_OF_ENCODERS - thisHand;
-    #endif
+        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
 
-    static void encoder_update(int8_t index, uint8_t state) {
-        uint8_t i = index;
-    #ifdef ENCODER_RESOLUTIONS
-        int8_t resolution = encoder_resolutions[i];
-    #else
-        int8_t resolution = ENCODER_RESOLUTION;
-    #endif
-    #ifdef SPLIT_KEYBOARD
-        index += thisHand;
-    #endif
-        encoder_pulses[i] += encoder_LUT[state & 0xF];
-        if (encoder_pulses[i] >= resolution) {
+#    ifdef SPLIT_KEYBOARD
+    thisHand = isLeftHand ? 0 : NUMBER_OF_ENCODERS;
+    thatHand = NUMBER_OF_ENCODERS - thisHand;
+#    endif
+}
+
+static void encoder_update(int8_t index, uint8_t state) {
+    uint8_t i = index;
+#    ifdef ENCODER_RESOLUTIONS
+    int8_t resolution = encoder_resolutions[i];
+#    else
+    int8_t resolution = ENCODER_RESOLUTION;
+#    endif
+#    ifdef SPLIT_KEYBOARD
+    index += thisHand;
+#    endif
+    encoder_pulses[i] += encoder_LUT[state & 0xF];
+    if (encoder_pulses[i] >= resolution) {
+        encoder_value[index]++;
+        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
+    }
+    if (encoder_pulses[i] <= -resolution) {  // direction is arbitrary here, but this clockwise
+        encoder_value[index]--;
+        encoder_update_kb(index, ENCODER_CLOCKWISE);
+    }
+    encoder_pulses[i] %= resolution;
+}
+
+void encoder_read(void) {
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
+        encoder_state[i] <<= 2;
+        encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        encoder_update(i, encoder_state[i]);
+    }
+}
+
+#    ifdef SPLIT_KEYBOARD
+void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS); }
+
+void encoder_update_raw(uint8_t* slave_state) {
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
+        uint8_t index = i + thatHand;
+        int8_t  delta = slave_state[i] - encoder_value[index];
+        while (delta > 0) {
+            delta--;
             encoder_value[index]++;
             encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
         }
-        if (encoder_pulses[i] <= -resolution) {  // direction is arbitrary here, but this clockwise
+        while (delta < 0) {
+            delta++;
             encoder_value[index]--;
             encoder_update_kb(index, ENCODER_CLOCKWISE);
         }
-        encoder_pulses[i] %= resolution;
     }
+}
+#    endif
+#else
+extern bool peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
 
-    void encoder_read(void) {
-        for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
-            encoder_state[i] <<= 2;
-            encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-            encoder_update(i, encoder_state[i]);
-        }
-    }
+typedef uint8_t encoder_wiring_t;
+#    define OUTSIDE_KEYMATRIX (encoder_wiring_t)(~0)
+#    define INSIDE_KEYMATRIX (encoder_wiring_t)(~1)
+typedef struct {
+    uint8_t          state;
+    int8_t           pulse;
+    uint8_t          value;
+    encoder_wiring_t wiring;
+    int8_t           pin_index_a;
+    int8_t           pin_index_b;
+    int8_t           pin_index_c;
+} encoder_t;
 
-    #ifdef SPLIT_KEYBOARD
-    void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS); }
-
-    void encoder_update_raw(uint8_t* slave_state) {
-        for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
-            uint8_t index = i + thatHand;
-            int8_t  delta = slave_state[i] - encoder_value[index];
-            while (delta > 0) {
-                delta--;
-                encoder_value[index]++;
-                encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
-            }
-            while (delta < 0) {
-                delta++;
-                encoder_value[index]--;
-                encoder_update_kb(index, ENCODER_CLOCKWISE);
-            }
-        }
-    }
+// clang-format off
+#if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+    //split keyboard,both encoder
+    static pin_t matrix_encoders_pins_left[][3] = MATRIX_ENCODER_PINS_ABC;
+    static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
+    #define NUMBER_OF_ENCODERS_LEFT (sizeof(matrix_encoders_pins_left)/ sizeof(*matrix_encoders_pins_left))
+    #define NUMBER_OF_ENCODERS_RIGHT (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
+    static encoder_t encoders_left[NUMBER_OF_ENCODERS_LEFT] = {0};
+    static encoder_t encoders_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
+    static pin_t row_pins_left[] = MATRIX_ROW_PINS;
+    #if defined(MATRIX_ROW_PINS_RIGHT)
+    static pin_t row_pins_right[] = MATRIX_ROW_PINS_RIGHT;
+    #else
+    static pin_t row_pins_right = MATRIX_ROW_PINS;
+    #endif
+    static pin_t col_pins_left[] = MATRIX_COL_PINS;
+    #if defined(MATRIX_COL_PINS_RIGHT)
+    static pin_t col_pins_right[] = MATRIX_COL_PINS_RIGHT;
+    #else
+    static pin_t col_pins_right[] = MATRIX_COL_PINS;
+    #endif
+#elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+    //split keyboard,right only encoder
+    static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
+    #define NUMBER_OF_ENCODERS_RIGHT (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
+    #define NUMBER_OF_ENCODERS_LEFT 0
+    static encoder_t encoders_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
+    #if defined(MATRIX_ROW_PINS_RIGHT)
+    static pin_t row_pins_right[] = MATRIX_ROW_PINS_RIGHT;
+    #else
+    static pin_t row_pins_right = MATRIX_ROW_PINS;
+    #endif
+    #if defined(MATRIX_COL_PINS_RIGHT)
+    static pin_t col_pins_right[] = MATRIX_COL_PINS_RIGHT;
+    #else
+    static pin_t col_pins_right[] = MATRIX_COL_PINS;
     #endif
 #else
-    #define ENCODER_TYPE_OUTSIDE_KEYMATRIX 0
-    #define ENCODER_TYPE_INSIDE_KEYMATRIX 1
-    extern bool peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
+    //non split keyboard or left only encoder
+    static pin_t matrix_encoders_pins[][3] = MATRIX_ENCODER_PINS_ABC;
+    #define NUMBER_OF_ENCODERS (sizeof(matrix_encoders_pins)/ sizeof(*matrix_encoders_pins))
+    static encoder_t encoders[NUMBER_OF_ENCODERS] = {0};
+    static pin_t row_pins[] = MATRIX_ROW_PINS;
+    static pin_t col_pins[] = MATRIX_COL_PINS;
+#endif
+// clang-format on
 
+#    if defined(ENCODER_RESOLUTIONS)
+static uint8_t encoder_resolutions[]       = ENCODER_RESOLUTIONS;
+#    endif
+#    if defined(ENCODER_RESOLUTIONS_RIGHT)
+static uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
+#    endif
+
+static void encoder_update(int8_t index, uint8_t state) {
+// clang-format off
     #if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
         //split keyboard,both encoder
-        static pin_t matrix_encoders_pins_left[][3] = MATRIX_ENCODER_PINS_ABC;
-        static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
-        #define NUMBER_OF_ENCODERS_LEFT (sizeof(matrix_encoders_pins_left)/ sizeof(*matrix_encoders_pins_left))
-        #define NUMBER_OF_ENCODERS_RIGHT (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
-        static uint8_t encoder_state_left[NUMBER_OF_ENCODERS_LEFT]  = {0};
-        static int8_t  encoder_pulses_left[NUMBER_OF_ENCODERS_LEFT] = {0};
-        static uint8_t encoder_value_left[NUMBER_OF_ENCODERS_LEFT] = {0};
-        static uint8_t encoder_types_left[NUMBER_OF_ENCODERS_LEFT] = {0};
-        static int8_t encoder_pin_index_left[NUMBER_OF_ENCODERS_LEFT * 3] = {0};
-        static uint8_t encoder_state_right[NUMBER_OF_ENCODERS_RIGHT]  = {0};
-        static int8_t  encoder_pulses_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
-        static uint8_t encoder_value_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
-        static uint8_t encoder_types_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
-        static int8_t encoder_pin_index_right[NUMBER_OF_ENCODERS_RIGHT * 3] = {0};
-        static pin_t row_pins_left[] = MATRIX_ROW_PINS;
-        #ifdef MATRIX_ROW_PINS_RIGHT
-        static pin_t row_pins_right[] = MATRIX_ROW_PINS_RIGHT;
+        encoder_t *current_encoders = isLeftHand ? encoders_left:encoders_right;
+        uint8_t total_index = isLeftHand ? index : index + NUMBER_OF_ENCODERS_LEFT;
+        #if defined(ENCODER_RESOLUTIONS) && defined(ENCODER_RESOLUTIONS_RIGHT )
+        int8_t resolution = isLeftHand ? encoder_resolutions[index]:encoder_resolutions_right[index];
+        #elif defined(ENCODER_RESOLUTIONS)
+        int8_t resolution = isLeftHand ? encoder_resolutions[index]:ENCODER_RESOLUTION;
+        #elif defined(ENCODER_RESOLUTIONS_RIGHT)
+        int8_t resolution = isLeftHand ? ENCODER_RESOLUTION:encoder_resolutions_right[index];
         #else
-        static pin_t row_pins_right = MATRIX_ROW_PINS;
-        #endif
-        static pin_t col_pins_left[] = MATRIX_COL_PINS;
-        #ifdef MATRIX_COL_PINS_RIGHT
-        static pin_t col_pins_right[] = MATRIX_COL_PINS_RIGHT;
-        #else
-        static pin_t col_pins_right[] = MATRIX_COL_PINS;
+        int8_t resolution = ENCODER_RESOLUTION;
         #endif
     #elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
         //split keyboard,right only encoder
-        static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
-        #define NUMBER_OF_ENCODERS_RIGHT (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
-        #define NUMBER_OF_ENCODERS_LEFT 0
-        static uint8_t encoder_state_right[NUMBER_OF_ENCODERS_RIGHT]  = {0};
-        static int8_t  encoder_pulses_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
-        static uint8_t encoder_value_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
-        static uint8_t encoder_types_right[NUMBER_OF_ENCODERS_RIGHT] = {0};
-        static int8_t encoder_pin_index_right[NUMBER_OF_ENCODERS_RIGHT * 3] = {0};
-        #ifdef MATRIX_ROW_PINS_RIGHT
-        static pin_t row_pins_right[] = MATRIX_ROW_PINS_RIGHT;
+        encoder_t *current_encoders = encoders_right;
+        uint8_t total_index = index;
+        #if defined(ENCODER_RESOLUTIONS_RIGHT)
+            int8_t resolution = encoder_resolutions_right[index];
         #else
-        static pin_t row_pins_right = MATRIX_ROW_PINS;
-        #endif
-        #ifdef MATRIX_COL_PINS_RIGHT
-        static pin_t col_pins_right[] = MATRIX_COL_PINS_RIGHT;
-        #else
-        static pin_t col_pins_right[] = MATRIX_COL_PINS;
+            int8_t resolution = ENCODER_RESOLUTION;
         #endif
     #else
         //non split keyboard or left only encoder
-        static pin_t matrix_encoders_pins[][3] = MATRIX_ENCODER_PINS_ABC;
-        #define NUMBER_OF_ENCODERS (sizeof(matrix_encoders_pins)/ sizeof(*matrix_encoders_pins))
-        static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
-        static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
-        static uint8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
-        static uint8_t encoder_types[NUMBER_OF_ENCODERS] = {0};
-        static int8_t encoder_pin_index[NUMBER_OF_ENCODERS * 3] = {0};
-        static pin_t row_pins[] = MATRIX_ROW_PINS;
-        static pin_t col_pins[] = MATRIX_COL_PINS;
-    #endif
-
-    #ifdef ENCODER_RESOLUTIONS
-        static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
-    #endif
-    #ifdef ENCODER_RESOLUTIONS_RIGHT
-        static uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
-    #endif
-
-    static void encoder_update(int8_t index, uint8_t state) {
-        #if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-            //split keyboard,both encoder
-            int8_t *current_encoder_pulses = isLeftHand ? encoder_pulses_left:encoder_pulses_right;
-            uint8_t *current_encoder_value = isLeftHand ? encoder_value_left:encoder_value_right;
-            uint8_t total_index = isLeftHand ? index : index + NUMBER_OF_ENCODERS_LEFT;
-            #if defined(ENCODER_RESOLUTIONS) && defined(ENCODER_RESOLUTIONS_RIGHT )
-            int8_t resolution = isLeftHand ? encoder_resolutions[index]:encoder_resolutions_right[index];
-            #elif defined(ENCODER_RESOLUTIONS)
-            int8_t resolution = isLeftHand ? encoder_resolutions[index]:ENCODER_RESOLUTION;
-            #elif defined(ENCODER_RESOLUTIONS_RIGHT)
-            int8_t resolution = isLeftHand ? ENCODER_RESOLUTION:encoder_resolutions_right[index];
-            #else
-            int8_t resolution = ENCODER_RESOLUTION;
-            #endif
-        #elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-            //split keyboard,right only encoder
-            int8_t *current_encoder_pulses = encoder_pulses_right;
-            uint8_t *current_encoder_value = encoder_value_right;
-            uint8_t total_index = index;
-            #if defined(ENCODER_RESOLUTIONS_RIGHT)
-                int8_t resolution = encoder_resolutions_right[index];
-            #else
-                int8_t resolution = ENCODER_RESOLUTION;
-            #endif
+        encoder_t *current_encoders = encoders;
+        uint8_t total_index = index;
+        #if defined(ENCODER_RESOLUTIONS)
+            int8_t resolution = encoder_resolutions[index];
         #else
-            //non split keyboard or left only encoder
-            int8_t *current_encoder_pulses = encoder_pulses;
-            uint8_t *current_encoder_value = encoder_value;
-            uint8_t total_index = index;
-            #if defined(ENCODER_RESOLUTIONS)
-                int8_t resolution = encoder_resolutions[index];
-            #else
-                int8_t resolution = ENCODER_RESOLUTION;
-            #endif
+            int8_t resolution = ENCODER_RESOLUTION;
         #endif
+    #endif
+// clang-format on
 
-        current_encoder_pulses[index] += encoder_LUT[state & 0xF];
+    current_encoders[index].pulse += encoder_LUT[state & 0xF];
 
-        if (current_encoder_pulses[index] >= resolution) {
-            current_encoder_value[index]++;
+    if (current_encoders[index].pulse >= resolution) {
+        current_encoders[index].value++;
+        encoder_update_kb(total_index, ENCODER_COUNTER_CLOCKWISE);
+    }
+    if (current_encoders[index].pulse <= -resolution) {
+        current_encoders[index].value--;
+        encoder_update_kb(total_index, ENCODER_CLOCKWISE);
+    }
+    current_encoders[index].pulse %= resolution;
+}
+static void encoder_read_all(void) {
+#    if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+    // split keyboard,both encoder
+    pin_t *    current_rows     = isLeftHand ? row_pins_left : row_pins_right;
+    pin_t *    current_matrix   = isLeftHand ? (pin_t *)matrix_encoders_pins_left : (pin_t *)matrix_encoders_pins_right;
+    uint8_t    encoder_count    = isLeftHand ? NUMBER_OF_ENCODERS_LEFT : NUMBER_OF_ENCODERS_RIGHT;
+    encoder_t *current_encoders = isLeftHand ? encoders_left : encoders_right;
+#    elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+    // split keyboard,right only encoder
+    pin_t *    current_rows     = row_pins_right;
+    pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins_right;
+    uint8_t    encoder_count    = NUMBER_OF_ENCODERS_RIGHT;
+    encoder_t *current_encoders = encoders_right;
+#    else
+    // non split keyboard or left only encoder
+    pin_t *    current_rows     = row_pins;
+    pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins;
+    uint8_t    encoder_count    = NUMBER_OF_ENCODERS;
+    encoder_t *current_encoders = encoders;
+#    endif
+    bool       isFirstScan      = true;
+    for (int i = 0; i < encoder_count; i++) {
+        if (current_encoders[i].wiring == INSIDE_KEYMATRIX) {
+            // Since each pin of the encoder is in the key matrix, it references the scanned value
+            current_encoders[i].state <<= 2;
+            current_encoders[i].state |= (peek_matrix(current_encoders[i].pin_index_c, current_encoders[i].pin_index_a, true) << 0) | (peek_matrix(current_encoders[i].pin_index_c, current_encoders[i].pin_index_b, true) << 1);
+        } else {
+            // If C/Common is wired to GND, do not select Row and read Col.
+            if (current_matrix[i * 3 + 2] != NO_PIN) {
+                if (isFirstScan) {
+                    // unselect rows(all)
+                    for (int i = 0; i < MATRIX_ROWS; i++) {
+                        setPinOutput(current_rows[i]);
+                        writePinHigh(current_rows[i]);
+                    }
+                    isFirstScan = false;
+                }
+                // select row(C)
+                writePinLow(current_matrix[i * 3 + 2]);
+            }
+
+            // select cols(A&B)
+            setPinInputHigh(current_matrix[i * 3 + 0]);
+            setPinInputHigh(current_matrix[i * 3 + 1]);
+            matrix_io_delay();
+            // read cols
+            current_encoders[i].state <<= 2;
+            current_encoders[i].state |= (readPin(current_matrix[i * 3 + 0]) << 0) | (readPin(current_matrix[i * 3 + 1]) << 1);
+
+            if (current_matrix[i * 3 + 2] != NO_PIN) {
+                // unselect row(C)
+                writePinHigh(current_matrix[i * 3 + 2]);
+            }
+        }
+        encoder_update(i, current_encoders[i].state);
+    }
+}
+static int8_t get_pin_index(pin_t *source, uint8_t count, pin_t value) {
+    for (int i = 0; i < count; i++) {
+        if (source[i] != NO_PIN && source[i] == value) {
+            return i;
+        }
+    }
+    return -1;
+}
+__attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
+__attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
+
+void encoder_init(void) {
+// First check if each encoder is inside or outside the key matrix
+// If each pin of the encoder is in the key matrix, there is no need to read the pins, so
+#    if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+    // split keyboard,both encoder
+    pin_t *    current_rows     = isLeftHand ? row_pins_left : row_pins_right;
+    pin_t *    current_cols     = isLeftHand ? col_pins_left : col_pins_right;
+    pin_t *    current_matrix   = isLeftHand ? (pin_t *)matrix_encoders_pins_left : (pin_t *)matrix_encoders_pins_right;
+    uint8_t    encoder_count    = isLeftHand ? NUMBER_OF_ENCODERS_LEFT : NUMBER_OF_ENCODERS_RIGHT;
+    encoder_t *current_encoders = isLeftHand ? encoders_left : encoders_right;
+#    elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+    // split keyboard,right only encoder
+    pin_t *    current_rows     = row_pins_right;
+    pin_t *    current_cols     = col_pins_right;
+    pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins_right;
+    uint8_t    encoder_count    = NUMBER_OF_ENCODERS_RIGHT;
+    encoder_t *current_encoders = encoders_right;
+#    else
+    // non split keyboard or left only encoder
+    pin_t *    current_rows     = row_pins;
+    pin_t *    current_cols     = col_pins;
+    pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins;
+    uint8_t    encoder_count    = NUMBER_OF_ENCODERS;
+    encoder_t *current_encoders = encoders;
+#    endif
+    for (int i = 0; i < encoder_count; i++) {
+        int8_t pin_index_a = get_pin_index(current_cols, MATRIX_COLS, current_matrix[i * 3 + 0]);
+        int8_t pin_index_b = get_pin_index(current_cols, MATRIX_COLS, current_matrix[i * 3 + 1]);
+        int8_t pin_index_c = get_pin_index(current_rows, MATRIX_ROWS, current_matrix[i * 3 + 2]);
+        if ((pin_index_a != -1 && pin_index_b != -1 && pin_index_c != -1) || (pin_index_a != -1 && pin_index_b != -1 && current_matrix[i * 3 + 2] == NO_PIN)) {
+            current_encoders[i].wiring = INSIDE_KEYMATRIX;
+        } else {
+            current_encoders[i].wiring = OUTSIDE_KEYMATRIX;
+        }
+        current_encoders[i].pin_index_a = pin_index_a;
+        current_encoders[i].pin_index_b = pin_index_b;
+        current_encoders[i].pin_index_c = pin_index_c;
+    }
+    encoder_read_all();
+}
+
+void encoder_read(void) { encoder_read_all(); }
+
+#    if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+void encoder_state_raw(uint8_t *slave_state) {
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS_RIGHT; i++) {
+        slave_state[i] = encoders_right[i].value;
+    }
+}
+void encoder_update_raw(uint8_t *slave_state) {
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS_RIGHT; i++) {
+        uint8_t total_index = i + NUMBER_OF_ENCODERS_LEFT;
+        int8_t  delta       = slave_state[i] - encoders_right[i].value;
+        while (delta > 0) {
+            delta--;
+            encoders_right[i].value++;
             encoder_update_kb(total_index, ENCODER_COUNTER_CLOCKWISE);
         }
-        if (current_encoder_pulses[index] <= -resolution) {
-            current_encoder_value[index]--;
+        while (delta < 0) {
+            delta++;
+            encoders_right[i].value--;
             encoder_update_kb(total_index, ENCODER_CLOCKWISE);
         }
-        current_encoder_pulses[index] %= resolution;
     }
-    static void encoder_read_all(void){
-        #if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-            //split keyboard,both encoder
-            pin_t *current_rows = isLeftHand ? row_pins_left:row_pins_right;
-            uint8_t *current_encoder_state = isLeftHand ? encoder_state_left:encoder_state_right;
-            pin_t *current_matrix = isLeftHand ? (pin_t *)matrix_encoders_pins_left:(pin_t *)matrix_encoders_pins_right;
-            uint8_t encoder_count = isLeftHand ? NUMBER_OF_ENCODERS_LEFT:NUMBER_OF_ENCODERS_RIGHT;
-            uint8_t *current_encoder_types = isLeftHand ? encoder_types_left:encoder_types_right;
-            int8_t *current_encoder_pin_index = isLeftHand ? encoder_pin_index_left:encoder_pin_index_right;
-        #elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-            //split keyboard,right only encoder
-            pin_t *current_rows = row_pins_right;
-            uint8_t *current_encoder_state = encoder_state_right;
-            pin_t *current_matrix = (pin_t *)matrix_encoders_pins_right;
-            uint8_t encoder_count = NUMBER_OF_ENCODERS_RIGHT;
-            uint8_t *current_encoder_types = encoder_types_right;
-            int8_t *current_encoder_pin_index = encoder_pin_index_right;
-        #else
-            //non split keyboard or left only encoder
-            pin_t *current_rows = row_pins;
-            uint8_t *current_encoder_state = encoder_state;
-            pin_t *current_matrix = (pin_t *)matrix_encoders_pins;
-            uint8_t encoder_count = NUMBER_OF_ENCODERS;
-            uint8_t *current_encoder_types = encoder_types;
-            int8_t *current_encoder_pin_index = encoder_pin_index;
-        #endif
-        bool isFirstScan = true;
-        for (int i = 0; i < encoder_count; i++) {
-            if(current_encoder_types[i] == ENCODER_TYPE_INSIDE_KEYMATRIX){
-                //Since each pin of the encoder is in the key matrix, it references the scanned value
-                current_encoder_state[i] <<= 2;
-                current_encoder_state[i] |= (peek_matrix(current_encoder_pin_index[i*3+2],current_encoder_pin_index[i*3+0],true) << 0) | (peek_matrix(current_encoder_pin_index[i*3+2],current_encoder_pin_index[i*3+1],true) << 1);
-            }else{
-                //If C/Common is wired to GND, do not select Row and read Col.
-                if(current_matrix[i*3+2] != NO_PIN){
-                    if(isFirstScan){
-                        //unselect rows(all)
-                        for (int i = 0; i < MATRIX_ROWS; i++) {
-                            setPinOutput(current_rows[i]);
-                            writePinHigh(current_rows[i]);
-                        }
-                        isFirstScan =false;
-                    }
-                    //select row(C)
-                    writePinLow(current_matrix[i*3+2]);
-                }
-
-                //select cols(A&B)
-                setPinInputHigh(current_matrix[i*3+0]);
-                setPinInputHigh(current_matrix[i*3+1]);
-                matrix_io_delay();
-                //read cols
-                current_encoder_state[i] <<= 2;
-                current_encoder_state[i] |= (readPin(current_matrix[i*3+0]) << 0) | (readPin(current_matrix[i*3+1]) << 1);
-
-                if(current_matrix[i*3+2] != NO_PIN){
-                    //unselect row(C)
-                    writePinHigh(current_matrix[i*3+2]);
-                }
-            }
-            encoder_update(i, current_encoder_state[i]);
-        }
-        /*
-        // Before scanning the key matrix, it must be returned to the initial state (all cols InputHigh)
-        for (int i = 0; i < MATRIX_COLS; i++) {
-            setPinInputHigh(current_cols[i]);
-        }
-        */
-    }
-    static int8_t get_pin_index(pin_t *source,uint8_t count,pin_t value){
-        for (int i = 0; i < count; i++) {
-            if(source[i] !=NO_PIN &&  source[i] == value){
-                return i;
-            }
-        }
-        return -1;
-    }
-    __attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
-    __attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
-
-    void encoder_init(void) {
-        //First check if each encoder is inside or outside the key matrix
-        //If each pin of the encoder is in the key matrix, there is no need to read the pins, so
-        #if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-            //split keyboard,both encoder
-            pin_t *current_rows = isLeftHand ? row_pins_left:row_pins_right;
-            pin_t *current_cols = isLeftHand ? col_pins_left:col_pins_right;
-            pin_t *current_matrix = isLeftHand ? (pin_t *)matrix_encoders_pins_left:(pin_t *)matrix_encoders_pins_right;
-            uint8_t encoder_count = isLeftHand ? NUMBER_OF_ENCODERS_LEFT:NUMBER_OF_ENCODERS_RIGHT;
-            uint8_t *current_encoder_types = isLeftHand ? encoder_types_left:encoder_types_right;
-            int8_t *current_encoder_pin_index = isLeftHand ? encoder_pin_index_left:encoder_pin_index_right;
-        #elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-            //split keyboard,right only encoder
-            pin_t *current_rows = row_pins_right;
-            pin_t *current_cols = col_pins_right;
-            pin_t *current_matrix = (pin_t *)matrix_encoders_pins_right;
-            uint8_t encoder_count = NUMBER_OF_ENCODERS_RIGHT;
-            uint8_t *current_encoder_types = encoder_types_right;
-            int8_t *current_encoder_pin_index = encoder_pin_index_right;
-        #else
-            //non split keyboard or left only encoder
-            pin_t *current_rows = row_pins;
-            pin_t *current_cols = col_pins;
-            pin_t *current_matrix = (pin_t *)matrix_encoders_pins;
-            uint8_t encoder_count = NUMBER_OF_ENCODERS;
-            uint8_t *current_encoder_types = encoder_types;
-            int8_t *current_encoder_pin_index = encoder_pin_index;
-        #endif
-        for (int i = 0; i < encoder_count; i++) {
-            int8_t pin_index_a = get_pin_index(current_cols,MATRIX_COLS,current_matrix[i*3+0]);
-            int8_t pin_index_b = get_pin_index(current_cols,MATRIX_COLS,current_matrix[i*3+1]);
-            int8_t pin_index_c = get_pin_index(current_rows,MATRIX_ROWS,current_matrix[i*3+2]);
-            if((pin_index_a != -1 && pin_index_b != -1 && pin_index_c != -1)
-                || (pin_index_a != -1 && pin_index_b != -1 && current_matrix[i*3+2] == NO_PIN)){
-              current_encoder_types[i] = ENCODER_TYPE_INSIDE_KEYMATRIX;
-            }else{
-              current_encoder_types[i] = ENCODER_TYPE_OUTSIDE_KEYMATRIX;
-            }
-            current_encoder_pin_index[i*3+0] = pin_index_a;
-            current_encoder_pin_index[i*3+1] = pin_index_b;
-            current_encoder_pin_index[i*3+2] = pin_index_c;
-        }
-        encoder_read_all();
-    }
-
-    void encoder_read(void) {
-        encoder_read_all();
-    }
-
-    #if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-    void encoder_state_raw(uint8_t* slave_state) {
-        memcpy(slave_state, &encoder_value_right[0], sizeof(uint8_t) * NUMBER_OF_ENCODERS_RIGHT);
-    }
-    void encoder_update_raw(uint8_t* slave_state) {
-        for (uint8_t i = 0; i < NUMBER_OF_ENCODERS_RIGHT; i++) {
-            uint8_t total_index = i + NUMBER_OF_ENCODERS_LEFT;
-            int8_t  delta = slave_state[i] - encoder_value_right[i];
-            while (delta > 0) {
-                delta--;
-                encoder_value_right[i]++;
-                encoder_update_kb(total_index, ENCODER_COUNTER_CLOCKWISE);
-            }
-            while (delta < 0) {
-                delta++;
-                encoder_value_right[i]--;
-                encoder_update_kb(total_index, ENCODER_CLOCKWISE);
-            }
-        }
-    }
-    #endif
+}
+#    endif
 #endif
