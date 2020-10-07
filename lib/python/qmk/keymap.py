@@ -2,6 +2,7 @@
 """
 from pathlib import Path
 import json
+import subprocess
 
 from pygments.lexers.c_cpp import CLexer
 from pygments.token import Token

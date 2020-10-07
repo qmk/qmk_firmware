@@ -7,7 +7,6 @@ import subprocess
 import shlex
 import shutil
 
-from milc import cli
 import qmk.keymap
 
 
