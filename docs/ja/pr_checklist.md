@@ -101,7 +101,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
 さらに、ChibiOS に固有で:
 - 既存の ChibiOS ボード定義を使用することを**強く**推奨します。
-    - 多くの場合、同等のNucleoボードは、同じファミリの異なるフラッシュサイズまたはわずかに異なるモデルで使用できます。
+    - 多くの場合、同等の Nucleo ボードは、同じファミリの異なるフラッシュサイズまたはわずかに異なるモデルで使用できます。
         - 例：STM32L082KZ の場合、STM32L073RZ に類似しているため、rules.mkで `BOARD = ST_NUCLEO64_L073RZ` を使用できます。
     - QMK は ChibiOS のアップグレード時のメンテナンス負担が継続的に発生するため、可能な限りカスタムボード定義を持たないように移行しています。
 - ボードの定義が避けられない場合、`board.c` には標準の `__early_init()` (通常の ChibiOS ボードの定義と同じ) と空の `boardInit()` を指定しなければなりません。
