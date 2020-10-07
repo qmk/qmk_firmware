@@ -113,7 +113,7 @@ QMK ツールボックスは、このほとんど（すべて）に使用する�
     Pro Micro VCC      <-> Keyboard VCC
     Pro Micro GND      <-> Keyboard GND
 
-!> Pro Micro の 10/B6 ピンはキーボードのコントローラの RESET/RST ピンに配線されています。 Pro Micro の RESET ピンをキーボードの RESET に配線しないでください。
+!> Pro Micro の 10/B6 ピンはキーボードのコントローラの RESET/RST ピンに配線されています。 Pro Micro の RESET ピンをキーボードの RESET に配線 ***しないでください***。
 
 ## キーボードの書き込み
 
