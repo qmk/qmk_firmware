@@ -217,7 +217,7 @@ QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの 
 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i
 
-ボードが `atmega32a`（jj40など）を使用している場合、コマンドは次のとおりです（最後の追加コードによりヒューズが正しく設定されます）。
+ボードが `atmega32a`（jj40 など）を使用している場合、コマンドは次のとおりです（最後の追加コードによりヒューズが正しく設定されます）。
 
 	avrdude -c avrisp -P COM3 -p atmega32 -U flash:w:main.hex:i -U hfuse:w:0xD0:m -U lfuse:w:0x0F:m
 
