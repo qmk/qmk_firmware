@@ -23,9 +23,9 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x5043
 #define PRODUCT_ID 0x5442
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Ploopyco
-#define PRODUCT      Trackball
+#define DEVICE_VER 0x0001
+#define MANUFACTURER PloopyCo
+#define PRODUCT Trackball
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -41,11 +41,15 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define DIRECT_PINS { { D4, D2, E6, B5, D7 } }
+#define DIRECT_PINS            \
+    {                          \
+        { D4, D2, E6, B5, D7 } \
+    }
 
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
-#define UNUSED_PINS { D1, D3, B4, B6, B7, D6, C7, F6, F5, F3 }
+#define UNUSED_PINS \
+    { D1, D3, B4, B6, B7, D6, C7, F6, F5, F3 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

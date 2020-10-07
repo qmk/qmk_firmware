@@ -24,7 +24,7 @@
 #define VENDOR_ID 0x5043
 #define PRODUCT_ID 0x4D6F
 #define DEVICE_VER 0x0001
-#define MANUFACTURER Ploopyco
+#define MANUFACTURER PloopyCo
 #define PRODUCT Mouse
 
 /* key matrix size */
