@@ -1,6 +1,6 @@
 #pragma once
 
-#define MASTER_LEFT
+#define EE_HANDS
 
 // Pick good defaults for enabling homerow modifiers
 #define TAPPING_TERM 200
