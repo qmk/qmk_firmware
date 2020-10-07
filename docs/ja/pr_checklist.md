@@ -63,7 +63,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - `# Enable Bluetooth with the Adafruit EZ-Key HID` は `# Enable Bluetooth` に変更されました
     - 機能の有効化に関する `(-/+サイズ)` コメントはなくなりました
     - ブートローダが指定されている場合は、代替ブートローダのリストを削除します
-    - [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/quantum/mcu_selection.mk)の同等の MCU と比較した場合、同じ値の場合、デフォルトの MCU パラメータの再定義はありません
+    - [mcu_selection.mk](https://github.com/qmk/qmk_firmware/blob/master/quantum/mcu_selection.mk)の同等の MCU と比較した場合、同じ値の場合、デフォルトの MCU パラメータの再定義がないこと
 - キーボードの `config.h`
     - `PRODUCT` 値に `MANUFACTURER` を繰り返さないでください
     - `#define DESCRIPTION` は要りません
