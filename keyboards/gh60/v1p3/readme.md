@@ -1,6 +1,6 @@
 # GH60 v1.3
 
-![GH60 v1.3](imgur.com image replace me!)
+![GH60 v1.3](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/gh60/v1p3/pcb_bottom.jpg)
 
 A 60% with USB Type-C, in-switch backlight, and RGB Underglow. Also called GH60 RGB.
 
