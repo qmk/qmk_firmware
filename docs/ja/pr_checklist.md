@@ -59,7 +59,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - ボードをブートローダーモードにリセットする方法を明確に説明してください
     - キーボードの写真、できれば PCB の写真も添付してください
 - `rules.mk`
-    - MIDI_ENABLE、FAUXCLICKY_ENABLE、HD44780_ENABLE は削除されました
+    - `MIDI_ENABLE`、`FAUXCLICKY_ENABLE`、`HD44780_ENABLE` は削除されました
     - `# Enable Bluetooth with the Adafruit EZ-Key HID` は `# Enable Bluetooth` に変更されました
     - 機能の有効化に関する `(-/+サイズ)` コメントはなくなりました
     - ブートローダが指定されている場合は、代替ブートローダのリストを削除します
