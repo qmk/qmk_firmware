@@ -30,6 +30,12 @@
 #ifndef OPT_SCALE
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
+#ifndef PLOOPY_DPI_OPTIONS
+#    define PLOOPY_DPI_OPTIONS { 1200, 1600, 2400 }
+#endif
+#ifndef PLOOPY_DPI_DEFAULT
+#    define PLOOPY_DPI_DEFAULT 1
+#endif
 
 keyboard_config_t keyboard_config;
 uint16_t dpi_array[] = PLOOPY_DPI_OPTIONS;
