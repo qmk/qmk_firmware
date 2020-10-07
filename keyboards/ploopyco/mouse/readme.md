@@ -50,7 +50,7 @@ To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIO
 ```
 The `PLOOPY_DPI_OPTIONS` array sets the values that you want to be able to cycle through, and the order they are in.  The "default" define lets the firmware know which of these options is the default and should be loaded by default. 
 
-The `DPI_CONFIG` macro will cycle through the values in the array, each time you hit it.  And it stores this value in persistant memory, so it will load it the next time the device powers up. 
+The `DPI_CONFIG` macro will cycle through the values in the array, each time you hit it.  And it stores this value in persistent memory, so it will load it the next time the device powers up. 
 
 
 # Programming QMK-DFU onto the PloopyCo Mouse
