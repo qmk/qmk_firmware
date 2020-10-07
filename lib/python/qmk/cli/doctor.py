@@ -172,7 +172,7 @@ def check_udev_rules():
 
     # Get configuration options of all config files
     current_rules = set()
-    for udev_dir in udev_dir_list:
+    for udev_dir in udev_dirs:
         if udev_dir.exists():
             udev_rules = [rule_file for rule_file in udev_dir.glob('*.rules')]
 
