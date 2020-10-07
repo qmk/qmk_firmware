@@ -102,7 +102,7 @@ QMK ツールボックスは、このほとんど（すべて）に使用する�
     Teensy VCC <-> Keyboard VCC
     Teensy GND <-> Keyboard GND
     
-!> Teensy の B0 ピンはキーボードのコントローラの RESET/RST ピンと配線されています。 Teensy の RESETピンをキーボードの RESET に配線しないでください。
+!> Teensy の B0 ピンはキーボードのコントローラの RESET/RST ピンと配線されています。 Teensy の RESET ピンをキーボードの RESET に配線しないでください。
 
 ### Pro Micro
 
