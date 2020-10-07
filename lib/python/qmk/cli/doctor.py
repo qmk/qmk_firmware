@@ -148,7 +148,7 @@ def check_udev_rules():
     """Make sure the udev rules look good.
     """
     ok = True
-    udev_dir = Path("/etc/udev/rules.d/")
+    udev_dirs = (Path("/etc/udev/rules.d/"), Path("/lib/udev/rules.d"))
     desired_rules = {
         'atmel-dfu': {
             _udev_rule("03EB", "2FEF"),  # ATmega16U2
@@ -203,31 +203,33 @@ def check_udev_rules():
         'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
         'tmk': {_deprecated_udev_rule("feed")}
     }
+   
+    # Get configuration options of all config files
+    current_rules = set()
+    for udev_dir in udev_dirs:
+        if udev_dir.exists():
+            udev_rules = sorted(udev_dir.glob('*.rules'))
 
-    if udev_dir.exists():
-        udev_rules = [rule_file for rule_file in udev_dir.glob('*.rules')]
-        current_rules = set()
+            # Collect all rules from this config file
+            for rule_file in udev_rules:
+                for line in rule_file.read_text().split('\n'):
+                    line = line.strip()
+                    if not line.startswith("#") and len(line):
+                        current_rules.add(line)
 
-        # Collect all rules from the config files
-        for rule_file in udev_rules:
-            for line in rule_file.read_text().split('\n'):
-                line = line.strip()
-                if not line.startswith("#") and len(line):
-                    current_rules.add(line)
-
-        # Check if the desired rules are among the currently present rules
-        for bootloader, rules in desired_rules.items():
-            # For caterina, check if ModemManager is running
-            if bootloader == "caterina":
-                if check_modem_manager():
-                    ok = False
-                    cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
-            if not rules.issubset(current_rules):
-                deprecated_rule = deprecated_rules.get(bootloader)
-                if deprecated_rule and deprecated_rule.issubset(current_rules):
-                    cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
-                else:
-                    cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. See https://docs.qmk.fm/#/faq_build?id=linux-udev-rules for more details.", bootloader)
+    # Check if the desired rules are among the currently present rules
+    for bootloader, rules in desired_rules.items():
+        # For caterina, check if ModemManager is running
+        if bootloader == "caterina":
+            if check_modem_manager():
+                ok = False
+                cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+        if not rules.issubset(current_rules):
+            deprecated_rule = deprecated_rules.get(bootloader)
+            if deprecated_rule and deprecated_rule.issubset(current_rules):
+                cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
+            else:
+                cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
 
     return ok
 
