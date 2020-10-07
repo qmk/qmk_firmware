@@ -77,7 +77,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - 空の `xxxx_xxxx_kb()` または他の weak-define のデフォルト実装関数が削除されていること
     - コメントアウトされた関数も削除されていること
     - `matrix_init_board()` などが `keyboard_pre_init_kb()` に移行されました。[keyboard_pre_init*](https://docs.qmk.fm/#/ja/custom_quantum_functions?id=keyboard_pre_init_-function-documentation) を参照してください
-    - カスタムマトリックスを使用する場合は、`CUSTOM_MATRIX = lite` を選択し、標準のデバウンスを許可します。[custom matrix 'lite'](https://docs.qmk.fm/#/ja/custom_matrix?id=lite) を参照してください
+    - カスタムマトリックスを使用する場合は、`CUSTOM_MATRIX = lite` を選択し、標準のデバウンスを許可します。[マトリックスコードの部分置き換え](https://docs.qmk.fm/#/ja/custom_matrix?id=lite) を参照してください
 - `keyboard.h`
     - 先頭に `#include "quantum.h"` を置きます
     - `LAYOUT` マクロは、該当する場合は標準の定義を使用してください
