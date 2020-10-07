@@ -1,4 +1,4 @@
-# PR checklists
+# PR チェックリスト
 
 <!---
   original document: 0.10.7:docs/pr_checklist.md
