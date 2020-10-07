@@ -67,7 +67,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - キーボードの `config.h`
     - `PRODUCT` 値に `MANUFACTURER` を繰り返さないでください
     - `#define DESCRIPTION` は要りません
-    - Magic Key オプション、 MIDI オプション、HD44780 コンフィギュレーションは要りません
+    - マジックキーオプション、 MIDI オプション、HD44780 コンフィギュレーションは要りません
     - ユーザー設定の設定可能な `＃define` はキーマップ `config.h` に移動する必要があります
     - "`DEBOUNCING_DELAY`" の代りに "`DEBOUNCE`" を使います
     - ボードが QMK で起動するために最低限必要なコードが存在する必要があります
