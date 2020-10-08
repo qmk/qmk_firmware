@@ -227,18 +227,18 @@ static uint8_t encoder_resolutions[]       = ENCODER_RESOLUTIONS;
 static uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
 #    endif
 
-static inline void encoder_update_common(uint8_t state, encoder_t current_encoder, uint8_t total_index, int8_t resolution) {
-    current_encoder.pulse += encoder_LUT[state & 0xF];
+static inline void encoder_update_common(uint8_t state, encoder_t *current_encoder, uint8_t total_index, int8_t resolution) {
+    current_encoder->pulse += encoder_LUT[state & 0xF];
 
-    if (current_encoder.pulse >= resolution) {
-        current_encoder.value++;
+    if (current_encoder->pulse >= resolution) {
+        current_encoder->value++;
         encoder_update_kb(total_index, ENCODER_COUNTER_CLOCKWISE);
     }
-    if (current_encoder.pulse <= -resolution) {
-        current_encoder.value--;
+    if (current_encoder->pulse <= -resolution) {
+        current_encoder->value--;
         encoder_update_kb(total_index, ENCODER_CLOCKWISE);
     }
-    current_encoder.pulse %= resolution;
+    current_encoder->pulse %= resolution;
 }
 static void encoder_update(int8_t index, uint8_t state) {
 // clang-format off
@@ -249,14 +249,14 @@ static void encoder_update(int8_t index, uint8_t state) {
             #else
                 int8_t resolution = ENCODER_RESOLUTION;
             #endif
-            encoder_update_common(state,encoders_left[index],index,resolution);
+            encoder_update_common(state,(encoder_t *)&encoders_left[index],index,resolution);
         }else{
             #if defined(ENCODER_RESOLUTIONS_RIGHT)
                 int8_t resolution = encoder_resolutions_right[index];
             #else
                 int8_t resolution = ENCODER_RESOLUTION;
             #endif
-            encoder_update_common(state,encoders_right[index],index + NUMBER_OF_ENCODERS_LEFT,resolution);
+            encoder_update_common(state,(encoder_t *)&encoders_right[index],index + NUMBER_OF_ENCODERS_LEFT,resolution);
         }
     #elif defined(split_keyboard_right_only_encoder)
         #if defined(ENCODER_RESOLUTIONS_RIGHT)
@@ -264,14 +264,14 @@ static void encoder_update(int8_t index, uint8_t state) {
         #else
             int8_t resolution = ENCODER_RESOLUTION;
         #endif
-        encoder_update_common(state,encoders_right[index],index + NUMBER_OF_ENCODERS_LEFT,resolution);
+        encoder_update_common(state,(encoder_t *)&encoders_right[index],index + NUMBER_OF_ENCODERS_LEFT,resolution);
     #else //non split keyboard or left only encoder
         #if defined(ENCODER_RESOLUTIONS)
             int8_t resolution = encoder_resolutions[index];
         #else
             int8_t resolution = ENCODER_RESOLUTION;
         #endif
-        encoder_update_common(state,encoders[index],index,resolution);
+        encoder_update_common(state,(encoder_t *)&encoders[index],index,resolution);
     #endif
     // clang-format on
 }
