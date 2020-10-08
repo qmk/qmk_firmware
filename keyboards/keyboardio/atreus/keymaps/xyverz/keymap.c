@@ -33,9 +33,12 @@ enum planck_keycodes {
 #define ALTENT ALT_T(KC_ENT)
 #define ESCTRL CTL_T(KC_ESC)
 #define TABALT ALT_T(KC_TAB)
+<<<<<<< HEAD
 #define DELGUI GUI_T(KC_DEL)
 #define DELCTL CTL_T(KC_DEL)
 #define MACLOCK LGUI(LCTL(KC_Q))
+=======
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
 #define ADJUST MO(_ADJUST)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -46,6 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |
+<<<<<<< HEAD
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|SFT/ ;|   Q  |   J  |   K  |   X  | Home || End  |   B  |   M  |   W  |   V  |SFT/ Z|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
@@ -56,6 +60,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
     SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, DELCTL,  ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
+=======
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|SFT/ ;|   Q  |   J  |   K  |   X  | CTRL ||Alt / |   B  |   M  |   W  |   V  |SFT/ Z|
+	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   /  |   \  |
+	`----------------------------------'              `----------------------------------' */
+  [_DVORAK] = LAYOUT(
+    KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
+    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
+    SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    _______, _______, KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
+    ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LCTL, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
   ),
 
   /* QWERTY Layer
@@ -63,6 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|   Q  |   W  |   E  |   R  |   T  |              |   Y  |   U  |   I  |   O  |   P  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   S  |   D  |   F  |   G  |              |   H  |   J  |   K  |   L  |   ;  |
+<<<<<<< HEAD
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|SFT/ Z|   X  |   C  |   V  |   B  | Home || End  |   N  |   M  |   ,  |   .  |SFT/ /|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
@@ -72,6 +89,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   ,
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
     SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_HOME, KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
+=======
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|SFT/ Z|   X  |   C  |   V  |   B  | CTRL ||Alt / |   N  |   M  |   ,  |   .  |SFT/ /|
+	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   '  |   \  |
+	`----------------------------------'              `----------------------------------' */
+  [_QWERTY] = LAYOUT(
+    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   ,
+    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+    SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LCTL, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS
   ),
 
@@ -80,6 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|   Q  |   W  |   F  |   P  |   G  |              |   J  |   L  |   U  |   Y  |   L  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   R  |   S  |   T  |   D  |              |   H  |   N  |   E  |   I  |   S  |
+<<<<<<< HEAD
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|SFT/ Z|   X  |   C  |   V  |   B  | Home || End  |   K  |   M  |   ,  |   .  |SFT/ /|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
@@ -89,6 +118,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
     KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O   ,
     SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_HOME, KC_END,  KC_K,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
+=======
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|SFT/ Z|   X  |   C  |   V  |   B  | CTRL ||Alt / |   K  |   M  |   ,  |   .  |SFT/ /|
+	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   '  |   \  |
+	`----------------------------------'              `----------------------------------'*/
+  [_COLEMAK] = LAYOUT(
+    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
+    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O   ,
+    SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_K,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LCTL, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS
   ),
 
@@ -97,6 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |
+<<<<<<< HEAD
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|SFT/ ;|   Q  |   J  |   K  |   X  | Home || End  |   B  |   M  |   W  |   V  |SFT/ Z|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
@@ -107,6 +148,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
     SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, DELGUI,  ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
+=======
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|SFT/ ;|   Q  |   J  |   K  |   X  | CMD  ||Alt / |   B  |   M  |   W  |   V  |SFT/ Z|
+	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   /  |   \  |
+	`----------------------------------'              `----------------------------------' */
+  [_DVORMAC] = LAYOUT(
+    KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
+    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
+    SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    _______, _______, KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
+    ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LGUI, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
   ),
 
   /* LOWER Layer
@@ -114,16 +167,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|   !  |   @  |   #  |   $  |   %  |              |   ^  |   &  |   *  |   (  |   )  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	| CAPS |      |  UP  |      | Home |              | PgDn |      |   +  |   {  |   }  |
+<<<<<<< HEAD
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|      | Left | Down | Right| End  |      ||      | PgUp | Mute | Vol- | Vol+ |      |
 	|------+------+------+------+------+------||------+------+------+------+------+------|
 	|   ~  |      |      |      | Del  |      ||      | Ins  |      |      |      |      |
 	`-----------------------------------------'`-----------------------------------------'*/
+=======
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|      | Left | Down | Right| End  |      ||      | PgUp | Mute | Vol- | Vol+ |      |
+	|------+------+------+------+------|      ||      |------+------+------+------+------|
+	|   ~  |      |      |      | Del  |------'`------| Ins  |      |      |      |      |
+	`----------------------------------'              `----------------------------------'*/
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
   [_LOWER] = LAYOUT(
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
     KC_CAPS, _______, KC_UP,   _______, KC_HOME,                   KC_PGUP, _______, KC_PLUS, KC_LCBR, KC_RCBR,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, _______, KC_PGDN, KC_MUTE, KC_VOLD, KC_VOLU, _______,
+<<<<<<< HEAD
     KC_TILD, KC_LEFT, KC_RGHT, _______, KC_DEL,  _______, _______, KC_INS,  _______, KC_UP,   KC_DOWN, _______
+=======
+    KC_TILD, _______, _______, _______, KC_DEL,  _______, _______, KC_INS,  _______, _______, _______, _______
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
   ),
 
   /* RAISE Layer
@@ -131,6 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	| CAPS |      |  UP  |      | Home |              | PgDn |      |   =  |   [  |   ]  |
+<<<<<<< HEAD
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|      | Left | Down | Right| End  |MacLck||      | PgUp | Prev | Play | Next |      |
 	|------+------+------+------+------+------||------+------+------+------+------+------|
@@ -141,6 +207,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS, _______, KC_UP,   _______, KC_HOME,                   KC_PGUP, _______, KC_EQL,  KC_LBRC, KC_RBRC,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  MACLOCK, _______, KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, _______,
     KC_GRV,  KC_LEFT, KC_RGHT, _______, KC_DEL,  _______, _______, KC_INS,  _______, KC_UP,   KC_DOWN, _______
+=======
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|      | Left | Down | Right| End  |      ||      | PgUp | Prev | Play | Next |      |
+	|------+------+------+------+------|      ||      |------+------+------+------+------|
+	|   `  |      |      |      | Del  |------'`------| Ins  |      |      |      |      |
+	`----------------------------------'              `----------------------------------'*/
+  [_RAISE] = LAYOUT(
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0   ,
+    KC_CAPS, _______, KC_UP,   _______, KC_HOME,                   KC_PGUP, _______, KC_EQL,  KC_LBRC, KC_RBRC,
+    _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, _______, KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, _______,
+    KC_GRV,  _______, _______, _______, KC_DEL,  _______, _______, KC_INS,  _______, _______, _______, _______
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
   ),
 
   /* ADJUST Layer
@@ -148,11 +226,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|  F1  |  F2  |  F3  |  F4  |  F5  |              |  F6  |  F7  |  F8  |  F9  | F10  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|  F11 |      |      |      |      |              |      | PrSc | ScLk | Paus | F12  |
+<<<<<<< HEAD
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|      |QWERTY|COLEMK|DVORAK|DVORMC|      ||      |      |      |      |      |      |
 	|------+------+------+------+------+------||------+------+------+------+------+------|
 	|      |      |      |      |      |      ||      |      |      |      |      | RESET|
 	`-----------------------------------------'`-----------------------------------------'*/
+=======
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|      |QWERTY|COLEMK|DVORAK|DVORMC|      ||      |      |      |      |      |      |
+	|------+------+------+------+------|      ||      |------+------+------+------+------|
+	|      |      |      |      |      |------'`------|      |      |      |      | RESET|
+	`----------------------------------'              `----------------------------------'*/
+>>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
   [_ADJUST] = LAYOUT(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10 ,
     KC_F11,  _______, _______, _______, _______,                   _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_F12 ,
