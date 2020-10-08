@@ -24,27 +24,20 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    PS_CMRL = SAFE_RANGE,
-    MAC,
+    MAC = SAFE_RANGE,
     WIN,
-    FN,
-    PS_ZIN,
-    PS_ZOUT,
-    PS_CSHR,
-    PS_CROP,
-    PS_LLYR,
-    PS_UNDO,
-    PS_REDO,
-    PS_SHIFT,
-    PS_LANG,
-    FN_LANG1,
-    FN_LANG2
-};/*
+    PS_LANG
+};
+
+/*
     PHOTO,
     FN,
 */
+#define FN MO(_FN)
 #define CONTROL DF(_CONTROL)
 #define PHOTO DF(_PHOTO)
+#define PHOTO_S MO(_PHOTO_SHIFT)
+#define PS_CMRL KC_LGUI
 #define PS_ERSE KC_E
 #define PS_MGWD KC_W
 #define PS_EYDR KC_I
@@ -55,32 +48,40 @@ enum custom_keycodes {
 #define PS_PEN KC_P
 #define PS_MOVE KC_V
 #define PS_ZOOM KC_Z
+#define PS_CROP KC_C
 #define PS_BRSD KC_LBRC
 #define PS_BRSI KC_RBRC
 #define PS_BRSP KC_COMM
 #define PS_BRSN KC_DOT
+#define PS_CSHR KC_CAPS
+
+#define PS_ZIN LGUI(KC_PLUS)
+#define PS_ZOUT LGUI(KC_MINS)
+#define PS_CLYR SGUI(KC_N)//ctrl shift n
+#define PS_UNDO LGUI(KC_Z)
+#define PS_REDO SGUI(KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_CONTROL] = LAYOUT(
-    RGB_MOD,  EEP_RST, RESET,   KC_PGDN, KC_HOME, KC_DEL,
+    KC_TAB,  KC_TAB,  KC_UP,   KC_PGDN, KC_HOME, KC_DEL,
     KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_INS,
-    KC_LSFT, KC_ESC,  KC_LALT, KC_SPC,  MO(_FN),      KC_ENT
+    KC_LSFT, KC_ESC,  KC_LALT, KC_SPC,  FN,      KC_ENT
 ),
     [_PHOTO] = LAYOUT(
     KC_ESC,  PS_ERSE, PS_MGWD, PS_EYDR, PS_ZIN,  KC_BSPC,
     PS_CMRL, PS_SLCT, PS_HAND, PS_LASS, PS_MRQE, PS_PEN,
-    KC_LSFT, PS_ZOOM, PS_MOVE, KC_LALT, PS_SHIFT,KC_ENT
+    KC_LSFT, KC_Z,    KC_V,    KC_LALT, PHOTO_S, KC_ENT
 ),
     [_PHOTO_SHIFT] = LAYOUT(
     KC_ESC,  PS_BRSD, PS_BRSI, PS_UNDO, PS_REDO, KC_DEL,
-    PS_CMRL, PS_BRSP, PS_BRSN, PS_CSHR, PS_CROP, PS_LLYR,
+    PS_CMRL, PS_BRSP, PS_BRSN, PS_CSHR, PS_CROP, PS_CLYR,
     KC_LSFT, PS_LANG, CONTROL, _______, _______, _______
 ),
     [_FN] = LAYOUT(
-    FN_LANG1,FN_LANG2,XXXXXXX, RGB_TOG, KC_MNXT, KC_VOLU,
-    PHOTO,   CONTROL, KC_NO,   KC_NO,   KC_MPRV, KC_VOLD,
-    MAC,     WIN,     KC_NO,   KC_NO,   _______, KC_MUTE
+    KC_LANG2,KC_LANG1,XXXXXXX, RGB_TOG, KC_MNXT, KC_VOLU,
+    PHOTO,   CONTROL, KC_NO,   RGB_MOD, KC_MPRV, KC_VOLD,
+    CG_NORM, CG_SWAP, KC_NO,   KC_NO,   _______, KC_MUTE
 )
 };
 
@@ -113,10 +114,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_UP);
-        } else {
-            tap_code(KC_DOWN);
+        switch (layer_state) {
+            case _CONTROL:
+                if (clockwise) {
+                    tap_code(KC_WH_U);
+                } else {
+                    tap_code(KC_WH_D);
+                }
+                break;
+            case _PHOTO:
+            case _PHOTO_SHIFT:
+                if (clockwise) {
+                    tap_code(KC_RBRC);
+                } else {
+                    tap_code(KC_LBRC);
+                }
+                break;
+            case _FN:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+            default:
+                break;
         }
     }
 }
@@ -156,12 +177,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         rgblight_layers = quick17_rgb_layers;
     }
     layer_state_t layer_state_set_user(layer_state_t state){
-        rgblight_set_layer_state(0, layer_state_cmp(state, _PHOTO));
         rgblight_set_layer_state(1, layer_state_cmp(state, _PHOTO_SHIFT));
         rgblight_set_layer_state(2, layer_state_cmp(state, _FN));
         return state;
     }
     bool led_update_user(led_t led_state){
+        rgblight_set_layer_state(0, layer_state_cmp(layer_state, _PHOTO));
         rgblight_set_layer_state(3, _mode_mac);
         rgblight_set_layer_state(4, !_mode_mac);
         rgblight_set_layer_state(5, _mode_ja);
