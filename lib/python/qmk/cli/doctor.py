@@ -9,8 +9,8 @@ import subprocess
 from pathlib import Path
 
 from milc import cli
+from milc.questions import yesno
 from qmk import submodules
-from qmk.questions import yesno
 from qmk.commands import run
 
 ESSENTIAL_BINARIES = {
@@ -57,7 +57,7 @@ def parse_gcc_version(version):
     return {
         'major': int(m.group(1)),
         'minor': int(m.group(2)) if m.group(2) else 0,
-        'patch': int(m.group(3)) if m.group(3) else 0
+        'patch': int(m.group(3)) if m.group(3) else 0,
     }
 
 
