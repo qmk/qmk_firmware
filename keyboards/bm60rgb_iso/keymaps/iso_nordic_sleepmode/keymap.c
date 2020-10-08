@@ -85,8 +85,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             idle_timer = timer_read();
             halfmin_counter = 0;
         }
-    #endif
-    #endif
+#endif
     return true;
  }
 
