@@ -13,4 +13,4 @@ RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not W
 AUDIO_ENABLE = no               # Audio output
 
 # Extra source files for IS3731 lighting
-SRC = TWIlib.c issi.c lighting.c
+SRC += TWIlib.c issi.c lighting.c
