@@ -35,6 +35,12 @@
 #    define ENCODER_SIMPLE
 #endif
 
+#if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+#    define split_keyboard_both_encoder
+#elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
+#    define split_keyboard_right_only_encoder
+#endif
+
 #if defined(ENCODER_SIMPLE)
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
@@ -54,6 +60,7 @@ static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
 static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
 #if defined(ENCODER_SIMPLE)
+
 static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
 static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
 
@@ -151,7 +158,9 @@ void encoder_update_raw(uint8_t* slave_state) {
     }
 }
 #    endif
-#else
+
+#else  // ! defined(ENCODER_SIMPLE)
+
 extern bool peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
 
 typedef uint8_t encoder_wiring_t;
@@ -168,8 +177,7 @@ typedef struct {
 } encoder_t;
 
 // clang-format off
-#if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-    //split keyboard,both encoder
+#if defined(split_keyboard_both_encoder)
     static pin_t matrix_encoders_pins_left[][3] = MATRIX_ENCODER_PINS_ABC;
     static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
     #define NUMBER_OF_ENCODERS_LEFT (sizeof(matrix_encoders_pins_left)/ sizeof(*matrix_encoders_pins_left))
@@ -188,8 +196,7 @@ typedef struct {
     #else
     static pin_t col_pins_right[] = MATRIX_COL_PINS;
     #endif
-#elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-    //split keyboard,right only encoder
+#elif defined(split_keyboard_right_only_encoder)
     static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
     #define NUMBER_OF_ENCODERS_RIGHT (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
     #define NUMBER_OF_ENCODERS_LEFT 0
@@ -204,8 +211,7 @@ typedef struct {
     #else
     static pin_t col_pins_right[] = MATRIX_COL_PINS;
     #endif
-#else
-    //non split keyboard or left only encoder
+#else  //non split keyboard or left only encoder
     static pin_t matrix_encoders_pins[][3] = MATRIX_ENCODER_PINS_ABC;
     #define NUMBER_OF_ENCODERS (sizeof(matrix_encoders_pins)/ sizeof(*matrix_encoders_pins))
     static encoder_t encoders[NUMBER_OF_ENCODERS] = {0};
@@ -222,9 +228,8 @@ static uint8_t encoder_resolutions_right[] = ENCODER_RESOLUTIONS_RIGHT;
 #    endif
 
 static void encoder_update(int8_t index, uint8_t state) {
-// clang-format off
-    #if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-        //split keyboard,both encoder
+    // clang-format off
+    #if defined(split_keyboard_both_encoder)
         encoder_t *current_encoders = isLeftHand ? encoders_left:encoders_right;
         uint8_t total_index = isLeftHand ? index : index + NUMBER_OF_ENCODERS_LEFT;
         #if defined(ENCODER_RESOLUTIONS) && defined(ENCODER_RESOLUTIONS_RIGHT )
@@ -236,8 +241,7 @@ static void encoder_update(int8_t index, uint8_t state) {
         #else
         int8_t resolution = ENCODER_RESOLUTION;
         #endif
-    #elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-        //split keyboard,right only encoder
+    #elif defined(split_keyboard_right_only_encoder)
         encoder_t *current_encoders = encoders_right;
         uint8_t total_index = index;
         #if defined(ENCODER_RESOLUTIONS_RIGHT)
@@ -245,8 +249,7 @@ static void encoder_update(int8_t index, uint8_t state) {
         #else
             int8_t resolution = ENCODER_RESOLUTION;
         #endif
-    #else
-        //non split keyboard or left only encoder
+    #else //non split keyboard or left only encoder
         encoder_t *current_encoders = encoders;
         uint8_t total_index = index;
         #if defined(ENCODER_RESOLUTIONS)
@@ -255,7 +258,7 @@ static void encoder_update(int8_t index, uint8_t state) {
             int8_t resolution = ENCODER_RESOLUTION;
         #endif
     #endif
-// clang-format on
+    // clang-format on
 
     current_encoders[index].pulse += encoder_LUT[state & 0xF];
 
@@ -270,20 +273,17 @@ static void encoder_update(int8_t index, uint8_t state) {
     current_encoders[index].pulse %= resolution;
 }
 static void encoder_read_all(void) {
-#    if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-    // split keyboard,both encoder
+#    if defined(split_keyboard_both_encoder)
     pin_t *    current_rows     = isLeftHand ? row_pins_left : row_pins_right;
     pin_t *    current_matrix   = isLeftHand ? (pin_t *)matrix_encoders_pins_left : (pin_t *)matrix_encoders_pins_right;
     uint8_t    encoder_count    = isLeftHand ? NUMBER_OF_ENCODERS_LEFT : NUMBER_OF_ENCODERS_RIGHT;
     encoder_t *current_encoders = isLeftHand ? encoders_left : encoders_right;
-#    elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-    // split keyboard,right only encoder
+#    elif defined(split_keyboard_right_only_encoder)
     pin_t *    current_rows     = row_pins_right;
     pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins_right;
     uint8_t    encoder_count    = NUMBER_OF_ENCODERS_RIGHT;
     encoder_t *current_encoders = encoders_right;
-#    else
-    // non split keyboard or left only encoder
+#    else  // non split keyboard or left only encoder
     pin_t *    current_rows     = row_pins;
     pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins;
     uint8_t    encoder_count    = NUMBER_OF_ENCODERS;
@@ -340,22 +340,19 @@ __attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { enc
 void encoder_init(void) {
 // First check if each encoder is inside or outside the key matrix
 // If each pin of the encoder is in the key matrix, there is no need to read the pins, so
-#    if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-    // split keyboard,both encoder
+#    if defined(split_keyboard_both_encoder)
     pin_t *    current_rows     = isLeftHand ? row_pins_left : row_pins_right;
     pin_t *    current_cols     = isLeftHand ? col_pins_left : col_pins_right;
     pin_t *    current_matrix   = isLeftHand ? (pin_t *)matrix_encoders_pins_left : (pin_t *)matrix_encoders_pins_right;
     uint8_t    encoder_count    = isLeftHand ? NUMBER_OF_ENCODERS_LEFT : NUMBER_OF_ENCODERS_RIGHT;
     encoder_t *current_encoders = isLeftHand ? encoders_left : encoders_right;
-#    elif defined(SPLIT_KEYBOARD) && !defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
-    // split keyboard,right only encoder
+#    elif defined(split_keyboard_right_only_encoder)
     pin_t *    current_rows     = row_pins_right;
     pin_t *    current_cols     = col_pins_right;
     pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins_right;
     uint8_t    encoder_count    = NUMBER_OF_ENCODERS_RIGHT;
     encoder_t *current_encoders = encoders_right;
-#    else
-    // non split keyboard or left only encoder
+#    else  // non split keyboard or left only encoder
     pin_t *    current_rows     = row_pins;
     pin_t *    current_cols     = col_pins;
     pin_t *    current_matrix   = (pin_t *)matrix_encoders_pins;
@@ -403,4 +400,5 @@ void encoder_update_raw(uint8_t *slave_state) {
     }
 }
 #    endif
-#endif
+
+#endif  // end of  #if defined(ENCODER_SIMPLE)
