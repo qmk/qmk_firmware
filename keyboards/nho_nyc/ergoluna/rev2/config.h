@@ -17,8 +17,12 @@
 
 #include "config_common.h"
 
+
+#define BOARD_OTG_NOVBUSSENS 1
 #define STM32_LSECLK 32768U
 #define STM32_HSECLK 25000000U
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -52,6 +56,7 @@
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
+#define HAL_USE_SERIAL TRUE
 #define SPLIT_HAND_PIN B9
 #define SOFT_SERIAL_PIN B6
 //#define SELECT_SOFT_SERIAL_SPEED 0
