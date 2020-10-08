@@ -6,26 +6,20 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-Useful Command Lines
-cd /mnt/c/Windows/qmk_firmware
-make planck/rev5:dusartz
-
-NOTES:
-// GSRCH does not work on MAC
-
+ *
+ * Useful Command Lines
+ * make planck/rev5:vandusartz
+ *
 */
 
 #include "planck.h"
 #include "action_layer.h"
-
-//static bool bsdel_mods = false; // for backspace/delete key
 
 extern keymap_config_t keymap_config;
 
@@ -33,7 +27,8 @@ enum planck_layers {
   _MACQWERTY,
   _PCQWERTY,
   _SYM,
-  _MACNUM,
+  _MCMACNUM,
+  _PCMACNUM,
   _FUNAV
 };
 
@@ -41,13 +36,16 @@ enum planck_keycodes {
   MACQWERTY = SAFE_RANGE,
   PCQWERTY,
   SYM,
-  MACNUM,
+  MCMACNUM,
+  PCMACNUM,
   FUNAV,
-  //BSDEL,  // backspace and delete when SHIFT
-  GSRCH,  // Ctrl-c, Ctrl-t, Ctrl-v, Enter (Google Search)
-  LNUP,   // Line Up (Moves Line Up)
-  LNDN,   // Line Down (Moves Line Down)
-  SCRSHT  // Pastes printscreen into paint
+  MCGSRCH,  // Mac Ctrl-c, Ctrl-t, Ctrl-v, Enter (Google Search)
+  PCGSRCH,  // PC Ctrl-c, Ctrl-t, Ctrl-v, Enter (Google Search)
+  MCLNUP,   // Mac Line Up (Moves Line Up)
+  PCLNUP,   // PC Line Up (Moves Line Up)
+  MCLNDN,   // Mac Line Down (Moves Line Down)
+  PCLNDN,   // PC Line Down (Moves Line Down)
+  SCRSHT    // Pastes printscreen into paint
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -68,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,              KC_PSCR,            KC_Y,   KC_U,             KC_I,    KC_O,    KC_P},
   {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,              XXXXXXX,            KC_H,   KC_J,             KC_K,    KC_L,    KC_SCLN},
   {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ESC,               XXXXXXX,            KC_N,   KC_M,             KC_COMM, KC_DOT,  KC_QUOT},
-  {KC_SPC,  KC_LCTL, KC_LALT, KC_LGUI, KC_RSFT, LT(_MACNUM, KC_BSPC), LT(_FUNAV, KC_TAB), KC_SPC, LT(_SYM, KC_ENT), KC_CAPS, KC_VOLD, KC_VOLU}
+  {KC_SPC,  KC_LCTL, KC_LALT, KC_LGUI, KC_RSFT, LT(_MCMACNUM, KC_BSPC), LT(_FUNAV, KC_TAB), KC_SPC, LT(_SYM, KC_ENT), KC_CAPS, KC_VOLD, KC_VOLU}
 },
 
 /* PC Qwerty
@@ -87,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,              SCRSHT,             KC_Y,   KC_U,             KC_I,    KC_O,    KC_P},
   {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,              XXXXXXX,            KC_H,   KC_J,             KC_K,    KC_L,    KC_SCLN},
   {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ESC,               XXXXXXX,            KC_N,   KC_M,             KC_COMM, KC_DOT,  KC_QUOT},
-  {KC_SPC,  KC_LGUI, KC_LALT, KC_LCTL, KC_RSFT, LT(_MACNUM, KC_BSPC), LT(_FUNAV, KC_TAB), KC_SPC, LT(_SYM, KC_ENT), KC_CAPS, KC_VOLD, KC_VOLU}
+  {KC_SPC,  KC_LGUI, KC_LALT, KC_LCTL, KC_RSFT, LT(_PCMACNUM, KC_BSPC), LT(_FUNAV, KC_TAB), KC_SPC, LT(_SYM, KC_ENT), KC_CAPS, KC_VOLD, KC_VOLU}
 },
 
 /* SYM
@@ -108,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* Macro-Num
+/* Mac Macro-Num
  * ,-----------------------------------------------------------------------------------.
  * | PC Mo|      |      |      |      |      |      |   /  |   7  |   8  |   9  |  *   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -119,9 +117,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      | XXXX |      |   =  |   0  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MACNUM] = {
+[_MCMACNUM] = {
   {PCQWERTY,  _______, _______, _______, _______, _______, _______, KC_SLSH, KC_7, KC_8,    KC_9,    KC_ASTR},
-  {MACQWERTY, LNDN,    LNUP,    GSRCH,   _______, _______, _______, KC_DOT,  KC_4, KC_5,    KC_6,    KC_MINS},
+  {MACQWERTY, MCLNDN,  MCLNUP,  MCGSRCH, _______, _______, _______, KC_DOT,  KC_4, KC_5,    KC_6,    KC_MINS},
+  {_______,   _______, _______, _______, _______, _______, _______, KC_COMM, KC_1, KC_2,    KC_3,    KC_PLUS},
+  {_______,   _______, _______, _______, _______, _______, _______, KC_EQL,  KC_0, _______, _______, _______}
+},
+
+/* PC Macro-Num
+ * ,-----------------------------------------------------------------------------------.
+ * | PC Mo|      |      |      |      |      |      |   /  |   7  |   8  |   9  |  *   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | MacMo| LnDn | LnDn |GSrch |      |      |      |   .  |   4  |   5  |   6  |  -   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |   ,  |   1  |   2  |   3  |  +   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      | XXXX |      |   =  |   0  |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_PCMACNUM] = {
+  {PCQWERTY,  _______, _______, _______, _______, _______, _______, KC_SLSH, KC_7, KC_8,    KC_9,    KC_ASTR},
+  {MACQWERTY, PCLNDN,  PCLNUP,  PCGSRCH, _______, _______, _______, KC_DOT,  KC_4, KC_5,    KC_6,    KC_MINS},
   {_______,   _______, _______, _______, _______, _______, _______, KC_COMM, KC_1, KC_2,    KC_3,    KC_PLUS},
   {_______,   _______, _______, _______, _______, _______, _______, KC_EQL,  KC_0, _______, _______, _______}
 },
@@ -162,11 +178,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case MACNUM:
+    case MCMACNUM:
       if (record->event.pressed) {
-        layer_on(_MACNUM);
+        layer_on(_MCMACNUM);
       } else {
-        layer_off(_MACNUM);
+        layer_off(_MCMACNUM);
+      }
+      return false;
+      break;
+    case PCMACNUM:
+      if (record->event.pressed) {
+        layer_on(_PCMACNUM);
+      } else {
+        layer_off(_PCMACNUM);
       }
       return false;
       break;
@@ -186,23 +210,73 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KC_LSFT: // This case is needed to end the shift del macro
-      if (!record->event.pressed){
-        SEND_STRING(SS_UP(X_LSHIFT));
-      }
-      return false;
-      break;
-    case GSRCH:
+    case MCGSRCH:
       if (record->event.pressed){
-        SEND_STRING(SS_LCTRL("ctv") SS_TAP(X_ENTER));
+        SEND_STRING(
+          SS_LGUI("c")
+          SS_DELAY(50)
+          SS_LGUI("t")
+          SS_DELAY(100)
+          SS_LGUI("v")
+          SS_TAP(X_ENTER)
+        );
       }
       return false;
       break;
-    case LNUP: // LNUP and LNDN really only work in text editors
+    case PCGSRCH:
+      if (record->event.pressed){
+        SEND_STRING(
+          SS_LCTRL("c")
+          SS_DELAY(50)
+          SS_LCTRL("t")
+          SS_DELAY(100)
+          SS_LCTRL("v")
+          SS_TAP(X_ENTER)
+        );
+      }
+      return false;
+      break;
+    case MCLNUP: // LNUP and LNDN really only work in text editors
+      if (record->event.pressed){
+        SEND_STRING(
+          SS_DOWN(X_LGUI)
+          SS_DELAY(20)
+          SS_TAP(X_RIGHT)
+          SS_DELAY(20)
+          SS_UP(X_LGUI)
+          SS_DELAY(20)
+          SS_DOWN(X_RSHIFT)  // SS_RSFT(X_END) or SS_RLSFT(X_HOME) do not work at all.
+          SS_DELAY(20)
+          SS_DOWN(X_LGUI)
+          SS_DELAY(20)
+          SS_TAP(X_LEFT)
+          SS_DELAY(20)
+          SS_TAP(X_LEFT)
+          SS_DELAY(20)
+          SS_UP(X_LGUI)
+          SS_DELAY(20)
+          SS_UP(X_RSHIFT)
+          SS_DELAY(20)
+          SS_LGUI("x")
+          SS_DELAY(20)
+          SS_TAP(X_DELETE)
+          SS_DELAY(20)
+          SS_TAP(X_UP)
+          SS_DELAY(20)
+          SS_TAP(X_ENTER)
+          SS_DELAY(20)
+          SS_TAP(X_UP)
+          SS_DELAY(20)
+          SS_LGUI("v")
+        );
+      }
+      return false;
+      break;
+    case PCLNUP: // LNUP and LNDN really only work in text editors
       if (record->event.pressed){
         SEND_STRING(
           SS_TAP(X_END)
-          SS_DOWN(X_LSHIFT)  // SS_LSFT(X_END) or SS_LSFT(X_HOME) do not work at all.
+          SS_DOWN(X_LSHIFT)  // SS_RSFT(X_END) or SS_RLSFT(X_HOME) do not work at all.
           SS_TAP(X_HOME)
           SS_TAP(X_HOME)
           SS_UP(X_LSHIFT)
@@ -216,7 +290,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case LNDN: // line down needs to use delete instead of backspace in case you are on the top line.
+    case MCLNDN: // line down needs to use delete instead of backspace in case you are on the top line.
+      if (record->event.pressed){
+        SEND_STRING(
+          SS_DOWN(X_LGUI)
+          SS_DELAY(20)
+          SS_TAP(X_RIGHT)
+          SS_DELAY(20)
+          SS_UP(X_LGUI)
+          SS_DELAY(20)
+          SS_DOWN(X_RSHIFT)
+          SS_DELAY(20)
+          SS_DOWN(X_LGUI)
+          SS_DELAY(20)
+          SS_TAP(X_LEFT)
+          SS_DELAY(20)
+          SS_TAP(X_LEFT)
+          SS_DELAY(20)
+          SS_UP(X_LGUI)
+          SS_DELAY(20)
+          SS_UP(X_RSHIFT)
+          SS_DELAY(20)
+          SS_LGUI("x")
+          SS_DELAY(20)
+          SS_TAP(X_DELETE)
+          SS_DELAY(20)
+          SS_DOWN(X_LGUI)
+          SS_DELAY(20)
+          SS_TAP(X_RIGHT)
+          SS_DELAY(20)
+          SS_UP(X_LGUI)
+          SS_DELAY(20)
+          SS_TAP(X_ENTER)
+          SS_DELAY(20)
+          SS_DOWN(X_RSHIFT)
+          SS_DELAY(20)
+          SS_DOWN(X_LGUI)
+          SS_DELAY(20)
+          SS_TAP(X_LEFT)
+          SS_DELAY(20)
+          SS_TAP(X_LEFT)
+          SS_DELAY(20)
+          SS_UP(X_LGUI)
+          SS_DELAY(20)
+          SS_UP(X_RSHIFT)
+          SS_DELAY(20)
+          SS_LGUI("v")
+        );
+      }
+      return false;
+      break;
+    case PCLNDN: // line down needs to use delete instead of backspace in case you are on the top line.
       if (record->event.pressed){
         SEND_STRING(SS_TAP(X_END)
           SS_DOWN(X_LSHIFT)
@@ -248,3 +372,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+
