@@ -69,8 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef RGB_MATRIX_ENABLE
-    #ifdef SLEEPMODE_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && defined(SLEEPMODE_ENABLE)
         if (record->event.pressed) {
             if (sleepmode_before_mode == -1) { sleepmode_before_mode = rgb_matrix_get_mode(); }
             if (sleepmode_before_brightness == -1) { sleepmode_before_brightness = rgb_matrix_get_val(); }
