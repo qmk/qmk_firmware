@@ -23,7 +23,7 @@
         #define encoder_transport_enable
     #elif defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
         static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
-        #define NUMBER_OF_ENCODERS_RIGHT (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
+        #define NUMBER_OF_ENCODERS (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
         #define encoder_transport_enable
     #endif
 #endif
@@ -40,11 +40,7 @@ typedef struct _I2C_slave_buffer_t {
     rgblight_syncinfo_t rgblight_sync;
 #    endif
 #    ifdef ENCODER_ENABLE
-    #if (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B))
-    uint8_t      encoder_state[NUMBER_OF_ENCODERS];
-    #elif defined(NUMBER_OF_ENCODERS_RIGHT)
-    uint8_t      encoder_state[NUMBER_OF_ENCODERS_RIGHT];
-    #endif
+    uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
@@ -144,11 +140,7 @@ typedef struct _Serial_s2m_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
 
 #    ifdef ENCODER_ENABLE
-    #if (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B))
     uint8_t      encoder_state[NUMBER_OF_ENCODERS];
-    #elif defined(NUMBER_OF_ENCODERS_RIGHT)
-    uint8_t      encoder_state[NUMBER_OF_ENCODERS_RIGHT];
-    #endif
 #    endif
 
 } Serial_s2m_buffer_t;
