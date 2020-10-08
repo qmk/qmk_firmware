@@ -1,6 +1,6 @@
 # Ploopyco Mouse
 
-![Ploopyco Mouse](https://i.redd.it/bf7bkzqzeti51.jpg)
+![Ploopyco Mouse](https://www.ploopy.co/uploads/1/2/7/6/127652558/s905404500980887952_p10_i19_w1414.jpeg)
 
 It's a DIY, QMK Powered Trackball!!!!
 
