@@ -71,7 +71,7 @@ Teensy と Pro Micro のコントローラを ISP プログラマとして使用
 * Teensy 2.0: [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) (`B0`)
 * Pro Micro: [`util/pro_micro_ISP_B6_10.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_micro_ISP_B6_10.hex) (`10/B6`)
 
-コントローラに書き込んだら、このヘキサファイルはもう必要ありません。
+コントローラに書き込んだら、この hex ファイルはもう必要ありません。
 
 ## 必要なソフトウェア
 
