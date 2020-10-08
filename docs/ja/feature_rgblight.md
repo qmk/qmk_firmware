@@ -233,7 +233,7 @@ void keyboard_post_init_user(void) {
 
 ### ライティングレイヤー表示の切り替え :id=enabling-lighting-layers
 
-各照明レイヤーの定義を設定したので、キーボードの状態でレイヤーの表示を切り替えてみましょう。
+各ライティングレイヤーの定義を設定したので、キーボードの状態でレイヤーの表示を切り替えてみましょう。
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
