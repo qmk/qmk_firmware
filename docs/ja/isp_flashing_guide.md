@@ -66,7 +66,7 @@ PCB の中には直接使用できる ISP ヘッダがあるものもありま�
 
 Teensy と Pro Micro のコントローラを ISP プログラマとして使用するには、コントローラに ISP ファームウェアを書き込む必要があります。
 それ以外のハードウェアは、あらかじめプログラムされているはずです。
-そのため、これらのコントローラの場合は、正しいヘキサファイルをダウンロードしてから書き込んでください。
+そのため、これらのコントローラの場合は、正しい hex ファイルをダウンロードしてから書き込んでください。
 
 * Teensy 2.0: [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) (`B0`)
 * Pro Micro: [`util/pro_micro_ISP_B6_10.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_micro_ISP_B6_10.hex) (`10/B6`)
