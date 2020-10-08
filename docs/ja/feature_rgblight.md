@@ -388,7 +388,7 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |関数                                        |内容  |
 |--------------------------------------------|-------------|
 |`rgblight_get_layer_state(i)`               |ライティングレイヤー `i` が有効なら `true` が返されます。 |
-|`rgblight_set_layer_state(i, is_on)`        |ライティングレイヤー `i` の状態を変更する。`is_on` が true なら有効になります。 |
+|`rgblight_set_layer_state(i, is_on)`        |ライティングレイヤー `i` を `is_on` で指定した状態にします。 |
 
 #### クエリ
 |関数                   |内容                 |
