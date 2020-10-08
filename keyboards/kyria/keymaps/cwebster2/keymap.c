@@ -298,6 +298,7 @@ static void render_logo(void) {
     oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
     oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("     "), false);
     oled_write_P(PSTR("\n"), false);
+
 #endif
 
 #ifdef WPM_ENABLE
@@ -359,6 +360,14 @@ static void render_status(void) {
     oled_write_P((mods & MOD_MASK_ALT) ? PSTR("ALT ") : PSTR("    "), false);
     oled_write_P((mods & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
     oled_write_P((mods & MOD_MASK_SHIFT) ? PSTR("SHFT ") : PSTR("     "), false);
+    oled_write_P(PSTR("\n"), false);
+
+#define I3MASK MOD_BIT(KC_LGUI)
+#define I3SMASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_LSFT))
+#define KMASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))
+
+    oled_write_P((mods == I3MASK) ? PSTR("I3     ") : (mods == I3SMASK) ? PSTR("I3-SFT ") : PSTR("       "), false);
+    oled_write_P((mods == KMASK) ? PSTR("KITTY ") : PSTR("      "), false);
     oled_write_P(PSTR("\n"), false);
 
     // Host Keyboard LED Status
