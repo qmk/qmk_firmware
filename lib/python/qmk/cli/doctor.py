@@ -9,9 +9,9 @@ import subprocess
 from pathlib import Path
 
 from milc import cli
+from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
-from qmk.questions import yesno
 from qmk.commands import run
 
 ESSENTIAL_BINARIES = {
