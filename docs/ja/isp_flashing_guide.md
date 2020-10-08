@@ -238,7 +238,7 @@ SparkFun PocketAVR Programmer や、他の USB Tiny ベースの ISP プログ�
 
     avrdude -c usbtiny -P usb -p atmega32u4
 
-#### 上級者向け: ヒューズの交換
+#### 上級者向け: ヒューズの変更
 
 Pro Micro に QMK DFU を書き込むなど、ブートローダを切り替える場合は、ブートローダの hex ファイルの書き込みに加えて、ヒューズを変更する必要があります。
 これは、`caterina` (Pro Micro ブートローダ) と `dfu` では起動ルーチンの扱いが異なり、その動作はヒューズによって制御されるからです。
