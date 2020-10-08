@@ -32,7 +32,7 @@
 #endif
 
 #if (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B))
-#    define ENCODER_SIMPLE
+#    define ENCODER_BASIC
 #endif
 
 #if defined(SPLIT_KEYBOARD) && defined(MATRIX_ENCODER_PINS_ABC) && defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
@@ -41,7 +41,7 @@
 #    define split_keyboard_right_only_encoder
 #endif
 
-#if defined(ENCODER_SIMPLE)
+#if defined(ENCODER_BASIC)
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
@@ -59,7 +59,7 @@ static uint8_t encoder_resolutions[] = ENCODER_RESOLUTIONS;
 #endif
 static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
-#if defined(ENCODER_SIMPLE)
+#if defined(ENCODER_BASIC)
 
 static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
 static int8_t  encoder_pulses[NUMBER_OF_ENCODERS] = {0};
@@ -159,7 +159,7 @@ void encoder_update_raw(uint8_t* slave_state) {
 }
 #    endif
 
-#else  // ! defined(ENCODER_SIMPLE)
+#else  // ! defined(ENCODER_BASIC)
 
 extern bool peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
 
@@ -401,4 +401,4 @@ void encoder_update_raw(uint8_t *slave_state) {
 }
 #    endif
 
-#endif  // end of  #if defined(ENCODER_SIMPLE)
+#endif  // end of  #if defined(ENCODER_BASIC)
