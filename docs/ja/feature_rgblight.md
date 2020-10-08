@@ -327,7 +327,7 @@ rgblight_set();
 |関数                                    |内容  |
 |--------------------------------------------|-------------|
 |`rgblight_setrgb_at(r, g, b, index)`          |ひとつの LED に RGB 値をセットします。|
-|`rgblight_sethsv_at(h, s, v, index)`          |ひとつの LED に HSV値をセットします。|
+|`rgblight_sethsv_at(h, s, v, index)`          |ひとつの LED に HSV 値をセットします。|
 |`rgblight_setrgb_range(r, g, b, start, end)`|指定した範囲（start 以上、end 未満）の LED に RGB 値をセットします。|
 |`rgblight_sethsv_range(h, s, v, start, end)`|指定した範囲（start 以上、end 未満）の LED に HSV 値をセットします。|
 |`rgblight_setrgb(r, g, b)`                  |効果が適用される LED に RGB 値をセットします。|
