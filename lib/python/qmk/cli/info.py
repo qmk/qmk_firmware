@@ -134,11 +134,11 @@ def info(cli):
     if not cli.config.info.keyboard:
         cli.log.error('Missing paramater: --keyboard')
         cli.subcommands['info'].print_help()
-        exit(1)
+        return False
 
     if not is_keyboard(cli.config.info.keyboard):
         cli.log.error('Invalid keyboard: "%s"', cli.config.info.keyboard)
-        exit(1)
+        return False
 
     # Build the info.json file
     kb_info_json = info_json(cli.config.info.keyboard)
@@ -146,13 +146,10 @@ def info(cli):
     # Output in the requested format
     if cli.args.format == 'json':
         print(json.dumps(kb_info_json))
-        exit()
-
-    if cli.args.format == 'text':
+    elif cli.args.format == 'text':
         print_text_output(kb_info_json)
-
     elif cli.args.format == 'friendly':
         print_friendly_output(kb_info_json)
-
     else:
         cli.log.error('Unknown format: %s', cli.args.format)
+        return False
