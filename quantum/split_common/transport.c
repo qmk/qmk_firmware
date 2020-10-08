@@ -20,9 +20,11 @@
     #if (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B))
         static pin_t encoders_pad[] = ENCODERS_PAD_A;
         #define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
+        #define encoder_transport_enable
     #elif defined(MATRIX_ENCODER_PINS_ABC_RIGHT)
         static pin_t matrix_encoders_pins_right[][3] = MATRIX_ENCODER_PINS_ABC_RIGHT;
         #define NUMBER_OF_ENCODERS_RIGHT (sizeof(matrix_encoders_pins_right)/ sizeof(*matrix_encoders_pins_right))
+        #define encoder_transport_enable
     #endif
 #endif
 
@@ -87,7 +89,7 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 #    endif
 
-#    if defined(ENCODER_ENABLE) && (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B) || defined(NUMBER_OF_ENCODERS_RIGHT))
+#    if defined(encoder_transport_enable)
     i2c_readReg(SLAVE_I2C_ADDRESS, I2C_ENCODER_START, (void *)i2c_buffer->encoder_state, sizeof(i2c_buffer->encoder_state), TIMEOUT);
     encoder_update_raw(i2c_buffer->encoder_state);
 #    endif
@@ -120,7 +122,7 @@ void transport_slave(matrix_row_t matrix[]) {
     }
 #    endif
 
-#    if defined(ENCODER_ENABLE) && (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B)) || defined(NUMBER_OF_ENCODERS_RIGHT)
+#    if defined(encoder_transport_enable)
     encoder_state_raw(i2c_buffer->encoder_state);
 #    endif
 
@@ -256,7 +258,7 @@ bool transport_master(matrix_row_t matrix[]) {
     serial_m2s_buffer.backlight_level = is_backlight_enabled() ? get_backlight_level() : 0;
 #    endif
 
-#    if defined(ENCODER_ENABLE) && (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B) || defined(NUMBER_OF_ENCODERS_RIGHT))
+#    if defined(encoder_transport_enable)
     encoder_update_raw((uint8_t *)serial_s2m_buffer.encoder_state);
 #    endif
 
@@ -277,7 +279,7 @@ void transport_slave(matrix_row_t matrix[]) {
     backlight_set(serial_m2s_buffer.backlight_level);
 #    endif
 
-#    if defined(ENCODER_ENABLE) && (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B) || defined(NUMBER_OF_ENCODERS_RIGHT))
+#    if defined(encoder_transport_enable)
     encoder_state_raw((uint8_t *)serial_s2m_buffer.encoder_state);
 #    endif
 
