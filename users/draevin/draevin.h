@@ -13,11 +13,11 @@ enum my_layers {
 };
 
 enum my_keycodes {
-  CM_QW = SAFE_RANGE,       // Switch between Colemak and QWERTY
-  KC_MAKE,                  // in style of drashna
-  NEW_SAFE_RANGE
+    CM_QW = SAFE_RANGE,  // Switch between Colemak and QWERTY
+    KC_MAKE,
+    NEW_SAFE_RANGE
 };
 
 enum my_taps {
-  TD_CAPS = 0
+    TD_CAPS  // shift/caps TD
 };
