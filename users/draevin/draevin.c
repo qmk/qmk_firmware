@@ -8,9 +8,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_invert(_QW);
       }
       return false;
-    default:
-      return true;
+    case KC_MAKE:
+      if (!record->event.pressed) {
+        SEND_STRING ("make " QMK_KEYBOARD ":" QMK_KEYMAP ":flash");
+        tap_code(KC_ENT);
+        reset_keyboard();
+      }
+      break;
   }
+  return true;
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {

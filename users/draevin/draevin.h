@@ -11,7 +11,9 @@
 #define _FN 2
 
 enum custom_keys {
-  CM_QW = SAFE_RANGE, // Switch between Colemak and QWERTY
+  CM_QW = SAFE_RANGE,       // Switch between Colemak and QWERTY
+  KC_MAKE,                  // in style of drashna
+  NEW_SAFE_RANGE
 };
 
 enum taps {

@@ -6,7 +6,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_CM] = LAYOUT_65wm_wrapped(
     HYPR_T(KC_MPLY), KC_ESC,  KC_GRV,      ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________, KC_MINS, KC_EQL,  XXXXXXX, KC_BSPC, KC_DEL, \
-    KC_MPRV,         KC_MNXT, KC_TAB,      _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_LBRC, KC_RBRC, RESET,   KC_HOME, \
+    KC_MPRV,         KC_MNXT, KC_TAB,      _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_LBRC, KC_RBRC, KC_BSLS, KC_HOME, \
     KC_F15,          KC_F16,  KC_BSPC,     _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_QUOT, KC_ENT,  KC_END, \
     KC_F17,          KC_F18,  TD(TD_CAPS), _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, KC_RSFT, KC_UP,   MO(_FN), \
     KC_F19,          KC_F20,  KC_LCTL,     KC_LGUI, KC_LALT, MO(_FN), KC_SPC,           XXXXXXX, KC_SPC,  KC_RCTL, KC_RALT, KC_RGUI, KC_LEFT, KC_DOWN, KC_RGHT
@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_FN] = LAYOUT_65wm_wrapped(
     _______,         _______, _______,     _________________FROW_LEFT_________________, _________________FROW_RIGHT________________, KC_F11,  KC_F12,  XXXXXXX, _______, _______, \
-    RGB_TOG,         RGB_MOD, _______,     ___________________FN_L1___________________, ___________________FN_R1___________________, _______, _______, RESET,   KC_PGUP, \
+    RGB_TOG,         RGB_MOD, _______,     ___________________FN_L1___________________, ___________________FN_R1___________________, _______, _______, KC_MAKE, KC_PGUP, \
     _______,         _______, KC_DEL,      ___________________FN_L2___________________, ___________________FN_R2___________________, _______, _______, KC_PGDN, \
     _______,         _______, _______,     ___________________BLANK___________________, ___________________FN_R3___________________, _______, _______, _______, \
     _______,         CM_QW,   _______,     ___________________BLANK___________________, ___________________BLANK___________________, _______, _______//_______
