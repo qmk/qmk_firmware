@@ -6,16 +6,18 @@
 #define TAPPING_TOGGLE 2
 #define TAPPING_TERM 150
 
-#define _CM 0
-#define _QW 1
-#define _FN 2
+enum my_layers {
+    _CM,
+    _QW,
+    _FN,
+};
 
-enum custom_keys {
+enum my_keycodes {
   CM_QW = SAFE_RANGE,       // Switch between Colemak and QWERTY
   KC_MAKE,                  // in style of drashna
   NEW_SAFE_RANGE
 };
 
-enum taps {
+enum my_taps {
   TD_CAPS = 0
 };
