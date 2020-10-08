@@ -91,8 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  }
 
  void matrix_scan_user(void) {
-     #ifdef RGB_MATRIX_ENABLE
-     #ifdef SLEEPMODE_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && defined(SLEEPMODE_ENABLE)
         /* idle_timer needs to be set one time */
         if (idle_timer == 0) idle_timer = timer_read();
 
