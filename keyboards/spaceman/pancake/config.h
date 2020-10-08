@@ -18,7 +18,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5342 // SB 
-#define PRODUCT_ID      0x504b // PK
+#define PRODUCT_ID      0x504B // PK
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Spaceman
 #define PRODUCT         Pancake
