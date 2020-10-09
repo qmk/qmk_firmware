@@ -3,7 +3,7 @@
     "width": 8,
     "height": 4,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_4x8": {
             "layout": [
                 { "x":0, "y":0 },
                 { "x":1, "y":0 },
