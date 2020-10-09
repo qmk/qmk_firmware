@@ -62,6 +62,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C4_16, C5_16, C6_16},
     // clang-format on
 };
+
 #define P(x,y) {(x*224 / (MATRIX_COLS - 1)), (y*64 / (MATRIX_ROWS - 1))}
 // clang-format off
 led_config_t g_led_config = {
