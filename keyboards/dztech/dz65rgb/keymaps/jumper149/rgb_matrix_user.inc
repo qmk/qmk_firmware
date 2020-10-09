@@ -204,11 +204,6 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.s = 0;
             break;
 
-        // grave escape
-        case 0:
-            hsv.s = 0;
-            break;
-
         // caps lock
         case 30:
             hsv.s = 0;
