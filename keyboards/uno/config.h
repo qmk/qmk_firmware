@@ -33,21 +33,16 @@
 }
 #define UNUSED_PINS
 
-#ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN F6
+#ifdef RGB_DI_PIN
 #define RGBLED_NUM 1
-#endif
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-//   #define RGBLED_NUM 16
 //   #define RGBLIGHT_HUE_STEP 32
 //   #define RGBLIGHT_SAT_STEP 32
 //   #define RGBLIGHT_VAL_STEP 32
 //   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 // /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS
 // /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -64,7 +59,7 @@
 //   /*==== use exp() and sin() ====*/
 //   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-// #endif
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
