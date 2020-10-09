@@ -4,11 +4,11 @@ by [Sendy YK](https://mr.sendyyk.com).
 
 ## Default Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/images/60-ansi-arrow-keymap-base.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60-ansi-arrow-keymap-base.png)
 
 ## Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/images/60-ansi-arrow-keymap-fn.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60-ansi-arrow-keymap-fn.png)
 
 ## Build The Firmware
 
