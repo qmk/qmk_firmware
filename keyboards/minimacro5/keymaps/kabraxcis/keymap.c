@@ -7,9 +7,9 @@ enum layers {
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder*/
     if (clockwise) {
-      tap_code(KC_1);
+      tap_code(KC_VOLU);
     } else {
-      tap_code(KC_2);
+      tap_code(KC_VOLD);
     }
   } else if (index == 1) { /* Second encoder*/
     if (clockwise) {
@@ -31,16 +31,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
   } else if (index == 4) { /* Fifth encoder*/
     if (clockwise) {
-      tap_code(KC_9);
+      tap_code(KC_VOLU);
     } else {
-      tap_code(KC_0);
+      tap_code(KC_VOLD);
     }
   }
 }
 
 //
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { 
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT_ortho_1x5(
-     M1, M2, M3, KC_D, KC_E
+     KC_CAPS, KC_MNXT, KC_MPLY, KC_MPRV, KC_CAPS
   )
 };
