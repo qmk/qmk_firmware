@@ -34,11 +34,15 @@ enum planck_keycodes {
 #define ESCTRL CTL_T(KC_ESC)
 #define TABALT ALT_T(KC_TAB)
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define DELGUI GUI_T(KC_DEL)
 #define DELCTL CTL_T(KC_DEL)
 #define MACLOCK LGUI(LCTL(KC_Q))
 =======
 >>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
+=======
+#define MACLOCK LGUI(LCTL(KC_Q))
+>>>>>>> 82d22d63a... Added MACLOCK macro to keymap.c
 #define ADJUST MO(_ADJUST)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -209,14 +213,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_LEFT, KC_RGHT, _______, KC_DEL,  _______, _______, KC_INS,  _______, KC_UP,   KC_DOWN, _______
 =======
 	|------+------+------+------+------|------.,------|------+------+------+------+------|
-	|      | Left | Down | Right| End  |      ||      | PgUp | Prev | Play | Next |      |
-	|------+------+------+------+------|      ||      |------+------+------+------+------|
-	|   `  |      |      |      | Del  |------'`------| Ins  |      |      |      |      |
-	`----------------------------------'              `----------------------------------'*/
+	|      | Left | Down | Right| End  |MacLck||      | PgUp | Prev | Play | Next |      |
+	|------+------+------+------+------+------||------+------+------+------+------+------|
+	|   `  |      |      |      | Del  |      ||      | Ins  |      |      |      |      |
+	`------------------------------------------------------------------------------------'*/
   [_RAISE] = LAYOUT(
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0   ,
     KC_CAPS, _______, KC_UP,   _______, KC_HOME,                   KC_PGUP, _______, KC_EQL,  KC_LBRC, KC_RBRC,
-    _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, _______, KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, _______,
+    _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  MACLOCK, _______, KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, _______,
     KC_GRV,  _______, _______, _______, KC_DEL,  _______, _______, KC_INS,  _______, _______, _______, _______
 >>>>>>> c8c269eab... Adding Evan Travers' Keyboardio Atreus branch.
   ),
