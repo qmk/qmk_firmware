@@ -23,9 +23,6 @@
 #define MANUFACTURER    Broekhuijsen
 #define PRODUCT         Uno
 
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-// #define RGBLIGHT_ANIMATIONS
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
@@ -75,4 +72,3 @@
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
