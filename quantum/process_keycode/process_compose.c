@@ -75,13 +75,18 @@ void declare_compose_seq(uint64_t* keycodes, const int num_keycodes, const char*
     current->output = output;
 }
 
+static ComposeTrie* current = NULL;
+
+bool compose_active(void) {
+    return current != NULL;
+}
+
 // NOTE: Return false to short-circuit processing for this record or true to
 // allow it to pass to other processors.
 bool process_compose(uint16_t keycode, keyrecord_t* record) {
     if (!record->event.pressed) return true;
 
-    static ComposeTrie* current = NULL;
-    if (current == NULL) {
+    if (!compose_active()) {
         if (keycode != COMPOSE) {
             return true;
         }

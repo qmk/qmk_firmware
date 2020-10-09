@@ -23,4 +23,6 @@ bool process_compose(uint16_t keycode, keyrecord_t* record);
 void compose_start(void);
 void compose_end(bool valid_sequence);
 
+bool compose_active(void);
+
 void declare_compose_seq(uint64_t* keycodes, const int num_keycodes, const char* output);
