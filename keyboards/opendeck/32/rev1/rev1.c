@@ -117,7 +117,7 @@ void keyboard_post_init_user() {
 }
 #endif
 
-#if defined(KC_WRAPPER_KEY) && KC_WRAPPER_KEY != 0
+#if defined(KC_WRAPPER_KEY)
 
 static uint8_t g_key_wrapper_tracker = 0;
 
