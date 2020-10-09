@@ -6,7 +6,7 @@ from pathlib import Path
 
 from milc import cli
 
-from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
 from qmk.makefile import parse_rules_mk_file
@@ -95,9 +95,9 @@ def _extract_rules_mk(info_data):
     rules = rules_mk(info_data['keyboard_folder'])
     mcu = rules.get('MCU')
 
-    if mcu in ARM_PROCESSORS:
+    if mcu in CHIBIOS_PROCESSORS:
         arm_processor_rules(info_data, rules)
-    elif mcu in AVR_PROCESSORS:
+    elif mcu in LUFA_PROCESSORS + VUSB_PROCESSORS:
         avr_processor_rules(info_data, rules)
     else:
         cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
