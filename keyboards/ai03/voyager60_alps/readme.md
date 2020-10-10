@@ -12,9 +12,9 @@ A fully featured Alps-specific 60% PCB
 
 ### Additional Information
 
-Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
-Hardware Supported: Voyager60-Alps PCB
-Hardware Availability: [Gerbers](https://github.com/ai03-2725/Voyager60/tree/alps)  
+* Keyboard Maintainer: [ai03](https://github.com/ai03-2725)
+* Hardware Supported: Voyager60-Alps PCB
+* Hardware Availability: [Gerbers](https://github.com/ai03-2725/Voyager60/tree/alps)
 
 ### Building the Firmware
 
