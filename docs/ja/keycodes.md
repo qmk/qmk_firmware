@@ -16,9 +16,9 @@
 ?> 訳注: 以下の説明は、OS のキーボード配列の設定が「US」の場合のものです。OS のキーボード配列の設定が「JIS」の場合、一部のキーは下の表と異なる文字が入力されます。例えば、`KC_LBRC` は、OS のキーボード配列の設定が US であれば「`[` または `{`」が入力されますが、JIS の場合「`@` または ```」が入力されます。
 ?> これは、OS がキーボードから送信されたキーコードを解釈する際に、キーボード配列の設定によって対応する文字を変えるためです。もし、OS のキーボード配列の設定を JIS にする場合、`#include "keymap_jp.h"` を `keymap.c` に追加すると`JP_AT` のような JIS キーボードのキーキャップに対応したキーを指定できます。
 
-|Key                    |Aliases                       |Description                              |Windows      |macOS        |Linux<sup>1</sup>|
+|キー                   |エイリアス                    |説明                                     |Windows      |macOS        |Linux<sup>1</sup>|
 |-----------------------|------------------------------|-----------------------------------------|-------------|-------------|-----------------|
-|`KC_NO`                |`XXXXXXX`                     |このキーを無視します。 (NOOP)            |*N/A*        |*N/A*        |*N/A*            |
+|`KC_NO`                |`XXXXXXX`                     |このキーを無視します (何もしません) 。           |*N/A*        |*N/A*        |*N/A*            |
 |`KC_TRANSPARENT`       |`KC_TRNS`, `_______`          |直下のレイヤーの非透過キーを使う         |*N/A*        |*N/A*        |*N/A*            |
 |`KC_A`                 |                              |`a` と `A`                               |✔           |✔            |✔                |
 |`KC_B`                 |                              |`b` と `B`                               |✔           |✔            |✔                |
@@ -66,7 +66,7 @@
 |`KC_LBRACKET`          |`KC_LBRC`                     |`[` と `{`                               |✔           |✔            |✔                |
 |`KC_RBRACKET`          |`KC_RBRC`                     |`]` と `}`                               |✔           |✔            |✔                |
 |`KC_BSLASH`            |`KC_BSLS`                     |`\` と `\|`                              |✔           |✔            |✔                |
-|`KC_NONUS_HASH`        |`KC_NUHS`                     |Non-US `#` and `~`                       |✔           |✔            |✔                |
+|`KC_NONUS_HASH`        |`KC_NUHS`                     |Non-US `#` と `~`                       |✔           |✔            |✔                |
 |`KC_SCOLON`            |`KC_SCLN`                     |`;` と `:`                               |✔           |✔            |✔                |
 |`KC_QUOTE`             |`KC_QUOT`                     |`'` と `"`                               |✔           |✔            |✔                |
 |`KC_GRAVE`             |`KC_GRV`, `KC_ZKHK`           |<code>&#96;</code> と `~`, JIS 全角/半角 |✔           |✔            |✔                |
@@ -99,26 +99,26 @@
 |`KC_LEFT`              |                              |左矢印                                   |✔           |✔            |✔                |
 |`KC_DOWN`              |                              |下矢印                                   |✔           |✔            |✔                |
 |`KC_UP`                |                              |上矢印                                   |✔           |✔            |✔                |
-|`KC_NUMLOCK`           |`KC_NLCK`                     |テンキー Num Lock and Clear              |✔           |✔            |✔                |
+|`KC_NUMLOCK`           |`KC_NLCK`                     |テンキー Num Lock と Clear              |✔           |✔            |✔                |
 |`KC_KP_SLASH`          |`KC_PSLS`                     |テンキー `/`                             |✔           |✔            |✔                |
 |`KC_KP_ASTERISK`       |`KC_PAST`                     |テンキー `*`                             |✔           |✔            |✔                |
 |`KC_KP_MINUS`          |`KC_PMNS`                     |テンキー `-`                             |✔           |✔            |✔                |
 |`KC_KP_PLUS`           |`KC_PPLS`                     |テンキー `+`                             |✔           |✔            |✔                |
 |`KC_KP_ENTER`          |`KC_PENT`                     |テンキー Enter                           |✔           |✔            |✔                |
 |`KC_KP_1`              |`KC_P1`                       |テンキー `1` と End                      |✔           |✔            |✔                |
-|`KC_KP_2`              |`KC_P2`                       |テンキー `2` と Down Arrow               |✔           |✔            |✔                |
+|`KC_KP_2`              |`KC_P2`                       |テンキー `2` と下矢印               |✔           |✔            |✔                |
 |`KC_KP_3`              |`KC_P3`                       |テンキー `3` と Page Down                |✔           |✔            |✔                |
-|`KC_KP_4`              |`KC_P4`                       |テンキー `4` と Left Arrow               |✔           |✔            |✔                |
+|`KC_KP_4`              |`KC_P4`                       |テンキー `4` と左矢印               |✔           |✔            |✔                |
 |`KC_KP_5`              |`KC_P5`                       |テンキー `5`                             |✔           |✔            |✔                |
-|`KC_KP_6`              |`KC_P6`                       |テンキー `6` と Right Arrow              |✔           |✔            |✔                |
+|`KC_KP_6`              |`KC_P6`                       |テンキー `6` と右矢印              |✔           |✔            |✔                |
 |`KC_KP_7`              |`KC_P7`                       |テンキー `7` と Home                     |✔           |✔            |✔                |
-|`KC_KP_8`              |`KC_P8`                       |テンキー `8` と Up Arrow                 |✔           |✔            |✔                |
+|`KC_KP_8`              |`KC_P8`                       |テンキー `8` と上矢印                 |✔           |✔            |✔                |
 |`KC_KP_9`              |`KC_P9`                       |テンキー `9` と Page Up                  |✔           |✔            |✔                |
 |`KC_KP_0`              |`KC_P0`                       |テンキー `0` と Insert                   |✔           |✔            |✔                |
 |`KC_KP_DOT`            |`KC_PDOT`                     |テンキー `.` と Delete                   |✔           |✔            |✔                |
 |`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` と `\|`                       |✔           |✔            |✔                |
 |`KC_APPLICATION`       |`KC_APP`                      |アプリケーションキー (Windows コンテキストメニューキー)  |✔            |             |✔                |
-|`KC_POWER`             |                              |System Power                             |             |✔<sup>3</sup>|✔                |
+|`KC_POWER`             |                              |システム電源                             |             |✔<sup>3</sup>|✔                |
 |`KC_KP_EQUAL`          |`KC_PEQL`                     |テンキー `=`                             |✔           |✔            |✔                |
 |`KC_F13`               |                              |F13                                      |✔           |✔            |✔                |
 |`KC_F14`               |                              |F14                                      |✔           |✔            |✔                |
@@ -146,13 +146,13 @@
 |`KC__MUTE`             |                              |ミュート                                 |             |✔            |✔                |
 |`KC__VOLUP`            |                              |音量アップ                               |             |✔            |✔                |
 |`KC__VOLDOWN`          |                              |音量ダウン                               |             |✔            |✔                |
-|`KC_LOCKING_CAPS`      |`KC_LCAP`                     |Locking Caps Lock                        |✔           |✔            |                 |
-|`KC_LOCKING_NUM`       |`KC_LNUM`                     |Locking Num Lock                         |✔           |✔            |                 |
-|`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Locking Scroll Lock                      |✔           |✔            |                 |
+|`KC_LOCKING_CAPS`      |`KC_LCAP`                     |Caps Lock のロック                        |✔           |✔            |                 |
+|`KC_LOCKING_NUM`       |`KC_LNUM`                     |Num Lock のロック                         |✔           |✔            |                 |
+|`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Scroll Lock のロック                      |✔           |✔            |                 |
 |`KC_KP_COMMA`          |`KC_PCMM`                     |テンキー `,`                             |             |             |✔                |
-|`KC_KP_EQUAL_AS400`    |                              |テンキー `=` on AS/400 keyboards         |             |             |                 |
+|`KC_KP_EQUAL_AS400`    |                              |AS/400 キーボードのテンキー `=`          |             |             |                 |
 |`KC_INT1`              |`KC_RO`                       |JIS `\` と `_`                           |✔           |             |✔                |
-|`KC_INT2`              |`KC_KANA`                     |JIS カナ/かな                            |✔           |             |✔                |
+|`KC_INT2`              |`KC_KANA`                     |JIS カタカナ/ひらがな                            |✔           |             |✔                |
 |`KC_INT3`              |`KC_JYEN`                     |JIS `¥` と `\|`                          |✔           |             |✔                |
 |`KC_INT4`              |`KC_HENK`                     |JIS 変換                                 |✔           |             |✔                |
 |`KC_INT5`              |`KC_MHEN`                     |JIS 無変換                               |✔           |             |✔                |
@@ -216,7 +216,7 @@
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |画面の明るさアップ                       |✔            |✔            |✔                |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |画面の明るさダウン                       |✔            |✔            |✔                |
 
-<sup>1. Linux カーネル HID ドライバは [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c) を識別しますが、デフォルトの関連付けは デスクトップ環境/ウィンドウマネージャによって決まります。</sup><br/>
+<sup>1. Linux カーネル HID ドライバは [ほぼ全てのキーコード](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c) を識別しますが、デフォルトの関連付けは デスクトップ環境/ウィンドウマネージャによって決まります。</sup><br/>
 <sup>2. F13-F15 として取り扱われます。</sup><br/>
 <sup>3. 約3秒間押していると、プロンプトが表示されます。</sup><br/>
 <sup>4. Shift と Option を押していると、ボリュームレベルの細かいコントロールが可能になります。</sup><br/>
@@ -229,7 +229,7 @@
 
 |キー          |エイリアス |説明                                                     |
 |--------------|-----------|---------------------------------------------------------|
-|`RESET`       |           |書き込みのためにキーボードをブートローダーモードにします |
+|`RESET`       |           |ファームウエア書き込みのためにキーボードをブートローダーモードにします |
 |`DEBUG`       |           |デバッグモードを切り替えます                             |
 |`EEPROM_RESET`|`EEP_RST`  |キーボードの EEPROM (不揮発メモリ) を再初期化します      |
 
@@ -301,9 +301,9 @@
 | `MAGIC_EE_HANDS_LEFT`              | `EH_LEFT` | 分割キーボードのマスター側を左手に設定(`EE_HANDS` 用) |
 | `MAGIC_EE_HANDS_RIGHT`             | `EH_RGHT` | 分割キーボードのマスター側を右手に設定(`EE_HANDS` 用) |
 
-## ブルートゥース :id=bluetooth
+## Bluetooth :id=bluetooth
 
-[ブルートゥース](ja/feature_bluetooth.md) も見てください。
+[Bluetooth](ja/feature_bluetooth.md) も見てください。
 
 
 |キー      |説明                                  |
@@ -338,7 +338,7 @@
 
 |キー     |説明                                              |
 |---------|--------------------------------------------------|
-|`KC_LOCK`|キーが再び押されるまで次のキーを押したままにする |
+|`KC_LOCK`|キーが再び押されるまで次のキーを押したままにします |
 
 ## レイヤー切り替え :id=layer-switching
 
@@ -346,11 +346,11 @@
 
 |キー            |説明                                                                                                                                  |
 |----------------|--------------------------------------------------------------------------------------------------------------------------------------|
-|`DF(layer)`     |指定されたレイヤーを土台 (デフォルト) レイヤーに設定する |
+|`DF(layer)`     |指定されたレイヤーを基本 (デフォルト) レイヤーに設定する |
 |`MO(layer)`     |キーを押したら一時的に `layer` を切り替える。(切り替え先のレイヤーには `KC_TRNS` が必要です) |
-|`OSL(layer)`    |次のキーが押されるまで、一時的にレイヤーをアクティブにします。詳細は [One Shot Keys](https://docs.qmk.fm/#/ja/one_shot_keys) のとおり。 |
-|`LM(layer, mod)`|`mod` がアクティブな状態で (MO のように) 一時的にレイヤーをアクティブにします。ここでは、`mod` は mods_bit のことです。Mods については [こちら](https://docs.qmk.fm/#/ja/mod_tap) で見ることができます。実装例: `LM(LAYER_1, MOD_LALT)` |
-|`LT(layer, kc)` |押していると `layer` になり、タップすると `kc` になります。 |
+|`OSL(layer)`    |次のキーが押されるまで、一時的にレイヤーをアクティブにします。詳細は [ワンショットキー](ja/one_shot_keys.md) のとおり。 |
+|`LM(layer, mod)`|`mod` がアクティブな状態で (MO のように) 一時的にレイヤーをアクティブにします。ここでは、`mod` は mods_bit のことです。Mod については [こちら](ja/mod_tap.md) で見ることができます。実装例: `LM(LAYER_1, MOD_LALT)` |
+|`LT(layer, kc)` |押していると `layer` をオンにし、タップすると `kc` になります。 |
 |`TG(layer)`     |`layer` のオン・オフを切り替え |
 |`TO(layer)`     |`layer` をオンにして、デフォルトレイヤーを除く他のレイヤーをオフにします。 |
 |`TT(layer)`     |複数回タップしない限り `MO` のように動作し、複数回タップすると `layer` をオンにトグルします。 |
@@ -398,18 +398,18 @@
 | `LGUI(kc)` | `G(kc)`, `LCMD(kc)`, `LWIN(kc)` | 左 GUI を押しながら `kc` を押します。                         |
 | `RCTL(kc)` |                                 | 右 Control を押しながら `kc` を押します。                     |
 | `RSFT(kc)` |                                 | 右 Shift を押しながら `kc` を押します。                       |
-| `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`          | 右 Alt を押しながら `kc` を押します。                         |
+| `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`          | 右 Alt (AltGr) を押しながら `kc` を押します。                         |
 | `RGUI(kc)` | `RCMD(kc)`, `LWIN(kc)`          | 右 GUI を押しながら `kc` を押します。                         |
 | `SGUI(kc)` | `SCMD(kc)`, `SWIN(kc)`          | 左 Shift と GUI を押しながら `kc` を押します。                |
 | `LCA(kc)`  |                                 | 左 Control と Alt を押しながら `kc` を押します。              |
 | `LSA(kc)`  |                                 | 左 Shift と左 Alt を押しながら `kc` を押します。              |
 | `RSA(kc)`  |`SAGR(kc)`                       | 右 Shift と右 Alt (AltGr)  を押しながら `kc` を押します。     |
 | `RCS(kc)`  |                                 | 右 Control と右 Shift を押しながら `kc` を押します。          |
-| `LCAG(kc)` |                                 | 左 Control、Alt と GUI を押しながら `kc` を押します。         |
-| `MEH(kc)`  |                                 | 左 Control、Shift と Alt を押しながら `kc` を押します。       |
-| `HYPR(kc)` |                                 | 左 Control、Shift、 Alt と GUI を押しながら `kc` を押します。 |
-| `KC_MEH`   |                                 | 左 Control, Shift と Alt                                      |
-| `KC_HYPR`  |                                 | 左 Control, Shift, Alt と GUI                                 |
+| `LCAG(kc)` |                                 | 左 Control、Alt、GUI を押しながら `kc` を押します。         |
+| `MEH(kc)`  |                                 | 左 Control、Shift、Alt を押しながら `kc` を押します。       |
+| `HYPR(kc)` |                                 | 左 Control、Shift、Alt、GUI を押しながら `kc` を押します。 |
+| `KC_MEH`   |                                 | 左 Control、Shift、Alt                                      |
+| `KC_HYPR`  |                                 | 左 Control、Shift、Alt、GUI                                 |
 
 
 ## モッドタップキー :id=mod-tap-keys
@@ -418,7 +418,7 @@
 
 |キー          |エイリアス                                                         | 説明                                                                   |
 |--------------|-------------------------------------------------------------------|------------------------------------------------------------------------|
-| `MT(mod, kc)`|                                                                   |タップすると `kc`、押していると `mod`                                   |
+| `MT(mod, kc)`|                                                                   |押したままの場合は `mod` 、タップした場合は `kc`                                   |
 | `LCTL_T(kc)` | `CTL_T(kc)`                                                       | 押したままの場合は左 Control、タップした場合は `kc`                    |
 | `LSFT_T(kc)` | `SFT_T(kc)`                                                       | 押したままの場合は左 Shift、タップした場合は `kc`                      |
 | `LALT_T(kc)` | `LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                            | 押したままの場合は左 Alt、タップした場合は `kc`                        |
@@ -432,13 +432,13 @@
 | `LSA_T(kc)`  |                                                                   | 押したままの場合は左 Shift と左 Alt、タップした場合は `kc`             |
 | `RSA_T(kc)`  |`SAGR_T(kc)`                                                       | 押したままの場合は右 Shift と右 Alt (AltGr) 、タップした場合は `kc`    |
 | `RCS_T(kc)`  |                                                                   | 押したままの場合は右 Control と右 Shift、タップした場合は `kc`         | 
-| `LCAG_T(kc)` |                                                                   | 押したままの場合は左 Control、Alt と GUI、タップした場合は `kc`        |
-| `RCAG_T(kc)` |                                                                   | 押したままの場合は右 Control、Alt と GUI、タップした場合は `kc`        |
+| `LCAG_T(kc)` |                                                                   | 押したままの場合は左 Control、Alt、GUI、タップした場合は `kc`        |
+| `RCAG_T(kc)` |                                                                   | 押したままの場合は右 Control、Alt、GUI、タップした場合は `kc`        |
 | `C_S_T(kc)`  |                                                                   | 押したままの場合は左 Control と左 Shift、タップした場合は `kc`         |
-| `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、Shift と Alt、タップした場合は `kc`      |
-| `HYPR_T(kc)` | `ALL_T(kc)`                                                       | 押したままの場合は左 Control、Shift、Alt と GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
+| `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、Shift、Alt、タップした場合は `kc`      |
+| `HYPR_T(kc)` | `ALL_T(kc)`                                                       | 押したままの場合は左 Control、Shift、Alt、GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
 
-## RGB Lighting :id=rgb-lighting
+## RGB ライト :id=rgb-lighting
 
 [RGB ライト](ja/feature_rgblight.md) も見てください。
 
@@ -463,9 +463,9 @@
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |固定諧調アニメーションモード                                         |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |赤、青、緑のテストアニメーションモード                               |
 
-## RGB マトリックス :id=rgb-lighting
+## RGB マトリックスライト :id=rgb-matrix-lighting
 
-[RGB マトリックス](ja/feature_rgb_matrix.md) も見てください。
+[RGB マトリックスライト](ja/feature_rgb_matrix.md) も見てください。
 
 |キー               |エイリアス|説明                                                                                                    |
 |-------------------|----------|--------------------------------------------------------------------------------------------------------|
@@ -520,7 +520,7 @@
 
 ## ワンショットキー :id=one-shot-keys
 
-[ワンショットキー](one_shot_keys.md) も見てください。
+[ワンショットキー](ja/one_shot_keys.md) も見てください。
 
 |キー        |説明                            |
 |------------|--------------------------------|
@@ -539,7 +539,7 @@
 |`KC_RSPC`  |タップすると `)`、押していると右 Shift     |
 |`KC_LAPO`  |タップすると `(`、押していると左 Alt       |
 |`KC_RAPC`  |タップすると `)`、押していると右 Alt       |
-|`KC_SFTENT`|タップするとエンター、押していると右 Shift |
+|`KC_SFTENT`|タップすると Enter、押していると右 Shift |
 
 ## スワップハンド :id=swap-hands
 
@@ -547,14 +547,14 @@
 
 |キー         |説明                                                                              |
 |-------------|----------------------------------------------------------------------------------|
-| `SH_T(key)` | タップで `key` を送信する。押している時の一時的な入れ替え。                      |
+| `SH_T(key)` | タップで `key` を送信する。押している時に一時的に入れ替え。                      |
 | `SH_ON`     | 入れ替えをオンにして、そのままにする。                                           |
 | `SH_OFF`    | 入れ替えをオフにして、そのままにする。既知の状態に戻るのに適しています。         |
 | `SH_MON`    | 押すとスワップハンドし、放すと通常に戻る (一時的)。                              |
 | `SH_MOFF`   | 一時的に入れ替えをオフする。                                                     |
 | `SH_TG`     | キーを押すたびに入れ替えのオンとオフを切り替える。                               |
-| `SH_TT`     | タップで切り替える。押されている時の一時的なもの。                               |
-| `SH_OS`     | ワンショットスワップハンド: 押されている時あるいは次のキーを押すまで切り替える。 |
+| `SH_TT`     | タップで切り替える。押している時に一時的に切り替える。                               |
+| `SH_OS`     | ワンショットスワップハンド: 押している時あるいは次のキーを押すまで切り替える。 |
 
 ## ユニコードサポート :id=unicode-support
 
