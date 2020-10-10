@@ -16,4 +16,10 @@ Flashing example for this keyboard:
 
     make gh60/v1p3:default:flash
 
+## Layouts
+
+[Reference Image](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/gh60/v1p3/layouts.jpg)
+
+The `factory_*` keymaps are based on KBFirmware JSON files provided by the vendor. Layouts 1 (Minila), 3 (Poker), 5, 7, 9, and HHKB (not pictured) have keymaps present.
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
