@@ -1,4 +1,4 @@
-# group `sysex_tools` {#group__sysex__tools}
+# `sysex_tools` グループ {#group__sysex__tools}
 
 <!---
   original document: 0.10.9:docs/internals_sysex_tools.md
@@ -48,7 +48,7 @@ sysex メッセージで安全に送信できるようにデータをエンコ�
 * `length` 入力バッファからエンコードするバイト数。
 
 #### 返り値
-number of bytes encoded.
+エンコードされたバイト数。
 
 #### `public uint16_t `[`sysex_decode`](#group__sysex__tools_1gaaad1d9ba2d5eca709a0ab4ba40662229)`(uint8_t * decoded,const uint8_t * source,uint16_t length)` {#group__sysex__tools_1gaaad1d9ba2d5eca709a0ab4ba40662229}
 
@@ -62,5 +62,5 @@ number of bytes encoded.
 * `length` 入力バッファからデコードするバイト数。
 
 #### 返り値
-number of bytes decoded.
+デコードされたバイト数。
 

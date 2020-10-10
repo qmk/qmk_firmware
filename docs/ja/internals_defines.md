@@ -1,9 +1,4 @@
-# group `defines` {#group__defines}
-
-<!---
-  original document: 0.10.9:docs/internals_defines.md
-  git diff 0.10.9 HEAD -- docs/internals_defines.md | cat
--->
+# `defines` グループ {#group__defines}
 
 ## 概要
 

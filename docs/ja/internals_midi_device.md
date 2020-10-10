@@ -1,4 +1,4 @@
-# group `midi_device` {#group__midi__device}
+# `midi_device` グループ {#group__midi__device}
 
 <!---
   original document: 0.10.9:docs/internals_midi_device.md
@@ -7,9 +7,9 @@
 
 独自の MIDI デバイスを実装する時に、関数を使います。
 
-実際にデバイスを介してバイトを送信するために、送信関数を設定します。このメソッドは、このデバイスで例えば instance midi_send_cc 送信関数を呼ぶ時に呼ばれます。
+実際にデバイスを介してバイトを送信するために、送信関数を設定します。このメソッドは、このデバイスで例えば midi_send_cc のような送信関数を呼ぶ時に呼ばれます。
 
-デバイスからの入力データを処理するために midi_device_input を使い、それをデバイスに関連付けられたコールバックに渡します。
+midi_device_input を使ってデバイスからの入力データを処理し、それをデバイスに関連付けられたコールバックで渡します。
 
 デバイスのプロセス関数の最初に呼び出される関数が必要な場合、midi_device_set_pre_input_process_func を使います。通常、入力をポーリングして midi_device_input に渡します。
 
@@ -19,9 +19,9 @@
 --------------------------------|---------------------------------------------
 `define `[`MIDI_INPUT_QUEUE_LENGTH`](#group__midi__device_1ga4aaa419caebdca2bbdfc1331e79781a8)            | 
 `enum `[`input_state_t`](#group__midi__device_1gac203e877d3df4275ceb8e7180a61f621) | 
-`public void `[`midi_device_input`](#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db)`(`[`MidiDevice`](#struct__midi__device)` * device,uint8_t cnt,uint8_t * input)` | 入力バイトを処理する。この関数はバイトを解析し、指定されたデバイスに関連する適切なコールバックを呼びます。この関数は、カスタムデバイスを作成していて、MIDI 入力を取得したい場合に使います。
-`public void `[`midi_device_set_send_func`](#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673)`(`[`MidiDevice`](#struct__midi__device)` * device,midi_var_byte_func_t send_func)` | 出力データバイトの送信に使われるコールバック関数を設定します。これは、カスタムデバイスを作成している場合のみ使われます。多くの場合、コールバック関数で割り込みを無効にして、ロックを気にすることなく様々な MIDI 送信関数を呼び出すことができます。
-`public void `[`midi_device_set_pre_input_process_func`](#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69)`(`[`MidiDevice`](#struct__midi__device)` * device,midi_no_byte_func_t pre_process_func)` | midi_device_process 呼び出しの最初に呼ばれるコールバックを設定します。これは入力データをポーリングし、midi_device_input 関数を介してデータを送信できます。カスタムデバイスを作成している場合のみ、これを使います。
+`public void `[`midi_device_input`](#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db)`(`[`MidiDevice`](#struct__midi__device)` * device,uint8_t cnt,uint8_t * input)` | 入力バイトを処理します。この関数はバイトを解析し、指定されたデバイスに関連する適切なコールバックを呼びます。この関数は、カスタムデバイスを作成していて、MIDI 入力が必要な場合に使います。
+`public void `[`midi_device_set_send_func`](#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673)`(`[`MidiDevice`](#struct__midi__device)` * device,midi_var_byte_func_t send_func)` | 出力データバイトの送信に使われるコールバック関数を設定します。これは、カスタムデバイスを作成している場合のみ使われます。ロックを気にすることなく様々な MIDI 送信関数を呼び出すことができるように、コールバック関数で割り込みを無効にすることができます。
+`public void `[`midi_device_set_pre_input_process_func`](#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69)`(`[`MidiDevice`](#struct__midi__device)` * device,midi_no_byte_func_t pre_process_func)` | midi_device_process 呼び出しの最初に呼ばれるコールバックを設定します。これは入力データをポーリングし、midi_device_input 関数を介してデータを送信できます。カスタムデバイスを作成している場合のみ、これを使う可能性があります。
 `struct `[`_midi_device`](docs/api_midi_device.md#struct__midi__device) | この構造体は、MIDI デバイスの入出力関数と処理データを表します。
 
 ## メンバー
@@ -40,18 +40,18 @@ SYSEX_MESSAGE            |
 
 #### `public void `[`midi_device_input`](#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db)`(`[`MidiDevice`](#struct__midi__device)` * device,uint8_t cnt,uint8_t * input)` {#group__midi__device_1gad8d3db8eb35d9cfa51ef036a0a9d70db}
 
-入力バイトを処理する。この関数はバイトを解析し、指定されたデバイスに関連する適切なコールバックを呼びます。この関数は、カスタムデバイスを作成していて、MIDI 入力を取得したい場合に使います。
+入力バイトを処理します。この関数はバイトを解析し、指定されたデバイスに関連する適切なコールバックを呼びます。この関数は、カスタムデバイスを作成していて、MIDI 入力が必要な場合に使います。
 
 #### パラメータ
 * `device` 入力を関連付ける MIDI デバイス
 
 * `cnt` 処理中のバイト数
 
-* `input` 処理するバイト数
+* `input` 処理するバイトデータ
 
 #### `public void `[`midi_device_set_send_func`](#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673)`(`[`MidiDevice`](#struct__midi__device)` * device,midi_var_byte_func_t send_func)` {#group__midi__device_1ga59f5a46bdd4452f186cc73d9e96d4673}
 
-出力データバイトの送信に使われるコールバック関数を設定します。これは、カスタムデバイスを作成している場合のみ使われます。多くの場合、コールバック関数で割り込みを無効にして、ロックを気にすることなく様々な MIDI 送信関数を呼び出すことができます。
+出力データバイトの送信に使われるコールバック関数を設定します。これは、カスタムデバイスを作成している場合のみ使われます。ロックを気にすることなく様々な MIDI 送信関数を呼び出すことができるように、コールバック関数で割り込みを無効にすることができます。
 
 #### パラメータ
 * `device` このコールバックを関連付ける MIDI デバイス
@@ -60,18 +60,18 @@ SYSEX_MESSAGE            |
 
 #### `public void `[`midi_device_set_pre_input_process_func`](#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69)`(`[`MidiDevice`](#struct__midi__device)` * device,midi_no_byte_func_t pre_process_func)` {#group__midi__device_1ga4de0841b87c04fc23cb56b6451f33b69}
 
-midi_device_process 呼び出しの最初に呼ばれるコールバックを設定します。これは入力データをポーリングし、midi_device_input 関数を介してデータを送信できます。カスタムデバイスを作成している場合のみ、これを使います。
+midi_device_process 呼び出しの最初に呼ばれるコールバックを設定します。これは入力データをポーリングし、midi_device_input 関数を介してデータを送信できます。カスタムデバイスを作成している場合のみ、これを使う可能性があります。
 
 #### パラメータ
 * `device` このコールバックを関連付ける MIDI デバイス
 
 * `midi_no_byte_func_t` 実際のコールバック関数
 
-# struct `_midi_device` {#struct__midi__device}
+# `_midi_device` 構造体 {#struct__midi__device}
 
 この構造体は、MIDI デバイスの入出力関数と処理データを表します。
 
-デバイスは、実際の物理デバイスの[シリアルポート、USB ポート]、または仮想の何かを表すことができます。この構造体を直接変更する必要はありません。
+デバイスは、実際の物理デバイス [シリアルポート、USB ポート]、または仮想デバイスを表すことができます。この構造体を直接変更する必要はありません。
 
 ## 概要
 

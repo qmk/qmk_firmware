@@ -1,4 +1,4 @@
-# group `send_functions` {#group__send__functions}
+# `send_functions` グループ {#group__send__functions}
 
 <!---
   original document: 0.10.9:docs/internals_send_functions.md
@@ -37,7 +37,7 @@
 
 #### `public void `[`midi_send_cc`](#group__send__functions_1gaaf884811c92df405ca8fe1a00082f960)`(`[`MidiDevice`](#struct__midi__device)` * device,uint8_t chan,uint8_t num,uint8_t val)` {#group__send__functions_1gaaf884811c92df405ca8fe1a00082f960}
 
-指定されたデバイスを介して、コントロールチェンジメッセージを送信する。
+指定されたデバイスを介して、コントロールチェンジメッセージ(cc)を送信する。
 
 #### パラメータ
 * `device` 送信に使うデバイス
@@ -218,7 +218,7 @@
 
 最大3バイトのデータを送信する。
 
-数える時に4の剰余が適用されるため、これを使って sysex を渡すことができます。
+これを使って sysex を通過できるように count に4の剰余が適用されます。
 
 #### パラメータ
 * `device` 送信に使うデバイス
