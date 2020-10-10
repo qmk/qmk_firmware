@@ -9,7 +9,7 @@
 
 現在のところ Bluetooth のサポートは AVR ベースのチップに限られます。Bluetooth 2.1 については、QMK は RN-42 モジュールをサポートします。より最近の BLE プロトコルについては、現在のところ Adafruit Bluefruit SPI Friend のみが直接サポートされています。iOS デバイスに接続するには、BLE が必要です。iOS はマウス入力をサポートしないことに注意してください。
 
-|                              ボード                              | Bluetooth プロトコル | 接続タイプ |         rules.mk          | Bluetooth チップ |
+| ボード                                                           | Bluetooth プロトコル | 接続タイプ | rules.mk                  | Bluetooth チップ |
 | ---------------------------------------------------------------- | -------------------- | ---------- | ------------------------- | ---------------- |
 | Roving Networks RN-42 (Sparkfun Bluesmirf)                       | Bluetooth Classic    | UART       | `BLUETOOTH = RN42`        | RN-42            |
 | [Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633) | Bluetooth Low Energy | SPI        | `BLUETOOTH = AdafruitBLE` | nRF51822         |
@@ -42,7 +42,7 @@ Bluetooth を有効にするには、これらのうちの1つだけを使って
 
 これは複数のキーボードの出力が選択できる場合に使われます。現在のところ、これは USB と Bluetooth の両方をサポートするキーボードで、それらの間の切り替えのみが可能です。
 
-|    名前    |                 説明                  |
+| 名前       | 説明                                  |
 | ---------- | ------------------------------------- |
 | `OUT_AUTO` | USB と Bluetooth を自動的に切り替える |
 | `OUT_USB`  | USB のみ                              |
