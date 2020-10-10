@@ -30,7 +30,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source-directory: 'api-data'
+        source-directory: 'api_data'
         destination-github-username: 'qmk'
         destination-repository-name: 'keyboards'
         user-email: hello@qmk.fm
