@@ -15,6 +15,8 @@ enum my_layers {
 enum my_keycodes {
     CM_QW = SAFE_RANGE,  // Switch between Colemak and QWERTY
     KC_MAKE,
+    PRNPAIR,
+    BRCPAIR,
     NEW_SAFE_RANGE
 };
 
