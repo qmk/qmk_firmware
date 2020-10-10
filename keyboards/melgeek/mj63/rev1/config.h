@@ -17,8 +17,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xED63
+#define VENDOR_ID       0xEDED
+#define PRODUCT_ID      0x6063
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MelGeek
 #define PRODUCT         MJ63
