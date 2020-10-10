@@ -51,15 +51,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #endif
 
+#define CAPS_LOCK_LED_PIN C7
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 30
+#define RGBLED_NUM 22 /* 16 Bottom 6 top*/
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 180
 #endif
