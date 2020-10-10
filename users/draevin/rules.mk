@@ -1,6 +1,6 @@
 SRC += draevin.c
 
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 
 TAP_DANCE_ENABLE = yes
 BOOTMAGIC_ENABLE = no
