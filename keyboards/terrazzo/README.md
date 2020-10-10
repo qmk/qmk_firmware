@@ -95,7 +95,7 @@ The default keymaps are setup for one encoder. Encoders can change behavior base
 ```c
 void encoder_update_user(uint8_t index, bool clockwise) {
     terrazzo_scroll_pixel(clockwise);
-    switch(biton32(layer_state)) {
+    switch(get_highest_layer(layer_state)) {
       case _NAV:
         // Change volume when on nav layer
         clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
