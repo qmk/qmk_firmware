@@ -10,6 +10,18 @@ SOLUS_INFO="Your tools are now installed. To start using them, open new terminal
 
 util_dir=$(dirname "$0")
 
+if uname -a | grep -qi microsoft; then
+    echo "********************************************************************************"
+    echo "* Detected Windows Subsystem for Linux.                                        *"
+    echo "* Currently, WSL has no access to USB devices and so flashing from within the  *"
+    echo "* WSL terminal will not work.                                                  *"
+    echo "*                                                                              *"
+    echo "* Please install the QMK Toolbox instead:                                      *"
+    echo "*    https://github.com/qmk/qmk_toolbox/releases                               *"
+    echo "********************************************************************************"
+    echo
+fi
+
 # For those distros that do not package bootloadHID
 install_bootloadhid() {
     if ! command -v bootloadHID >/dev/null; then
