@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313,       K315, K316, K317, \
     K400, K401, K402, K403, K404,       K406,       K408,       K410,       K412, K413, K414, K415, K416, K417 \
     */
-   [0] = LAYOUT_1065_ansi_all(
+   [0] = LAYOUT_1065_iso_full_rshift(
         KC_F1,   KC_F2,   KC_GESC, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSPC, KC_BSPC, KC_VOLU,
         KC_F3,   KC_F4,   KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC,          KC_BSLS, KC_VOLD,
         KC_F5,   KC_F6,   KC_CAPS, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT, KC_BSLS,           KC_ENT,  KC_MUTE,
