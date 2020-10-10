@@ -23,6 +23,9 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 CUSTOM_MATRIX = yes
 SRC += matrix.c
 
+# Disable debounce
+DEBOUNCE_TYPE = custom
+
 LAYOUTS = 60_hhkb
 
 PROGRAM_CMD = if [ -z "$(LUFA_DEVICE)" ]; then \
