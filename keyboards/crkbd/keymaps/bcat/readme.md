@@ -33,9 +33,6 @@ layer-switch keys to correct mistakes.
 
 * The Esc key is next to the home row for convenience in Vim.
 
-* Likewise, the Ctrl key is in the same place as on my row-staggered boards
-(where I've been remapping Caps Lock as Ctrl since before even using QMK).
-
 * There are two Shift keys, although I generally use Left Shift. (I've
 considered replacing Right Shift with another key, but haven't chosen one.)
 
@@ -46,7 +43,9 @@ right thumbs, respectively.
 
 * Ctrl is on the left for ease of chording, especially one-handed use of common
 shortcuts like Ctrl+T and Ctrl+W. This puts Alt on the right by the process of
-elimination.
+elimination. (I really wish the Corne had one more 1U thumb key on each half to
+allow for a redundant Alt key on the left half and a dedicated Super key on the
+right half, but alas, this was not meant to be.)
 
 ## Lower layer
 
