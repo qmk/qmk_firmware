@@ -8,7 +8,7 @@ A OSH/OSW stream deck for streamers
 
 Make example for this keyboard (after setting up your build environment):
 
-	make opendeck/32/rev1:default
+    make opendeck/32/rev1:default
 	
 Flashing example for this keyboard:
 
