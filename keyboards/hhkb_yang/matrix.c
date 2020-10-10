@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2020 Kan-Ru Chen <kanru@kanru.info>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,20 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
- * scan matrix
- */
-#include <stdint.h>
-#include <stdbool.h>
-#include <util/delay.h>
-#include "print.h"
-#include "debug.h"
-#include "util.h"
-#include "timer.h"
-#include "matrix.h"
-#include "hhkb_avr.h"
-#include <avr/wdt.h>
-#include "suspend.h"
+#include "quantum.h"
 #include "lufa.h"
 
 // matrix power saving
@@ -41,65 +29,59 @@ static matrix_row_t *matrix_prev;
 static matrix_row_t  _matrix0[MATRIX_ROWS];
 static matrix_row_t  _matrix1[MATRIX_ROWS];
 
-inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
+static inline void key_enable(void) { writePinLow(B6); }
+static inline void key_unable(void) { writePinHigh(B6); }
+static inline bool key_state(void) { return readPin(D7); }
+static inline void key_prev_on(void) { writePinHigh(B7); }
+static inline void key_prev_off(void) { writePinLow(B7); }
+static inline bool key_power_state(void) { return true; }
+static inline void key_power_on(void) {}
+static inline void key_power_off(void) {}
 
-inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
+static inline void key_select(uint8_t row, uint8_t col) { PORTB = (PORTB & 0xC0) | (((col)&0x07) << 3) | ((row)&0x07); }
+static inline bool key_prev_was_on(uint8_t row, uint8_t col) { return matrix_prev[row] & (1 << col); }
 
 void matrix_init(void) {
-#ifdef DEBUG
-    debug_enable   = true;
-    debug_keyboard = true;
-#endif
-
-    // Disable BT power
-    DDRD |= (1<<PD5);
-    PORTD |= (1<<PD5);
-
-    KEY_INIT();
-
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
     matrix      = _matrix0;
     matrix_prev = _matrix1;
+    matrix_last_modified = timer_read32();
 
     matrix_init_quantum();
 }
 
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
 uint8_t matrix_scan(void) {
-    uint8_t *tmp;
+    bool matrix_has_changed = false;
+
+    matrix_row_t *tmp;
 
     tmp         = matrix_prev;
     matrix_prev = matrix;
     matrix      = tmp;
 
     // power on
-    if (!KEY_POWER_STATE()) KEY_POWER_ON();
+    if (!key_power_state()) {
+        key_power_on();
+    }
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            KEY_SELECT(row, col);
-            _delay_us(5);
+            key_select(row, col);
+            wait_us(5);
 
-            // Not sure this is needed. This just emulates HHKB controller's behaviour.
-            if (matrix_prev[row] & (1 << col)) {
-                KEY_PREV_ON();
+            // Hysteresis control: assert(1) when previous key state is on
+            if (key_prev_was_on(row, col)) {
+                key_prev_on();
             }
-            _delay_us(10);
+            wait_us(10);
 
             // NOTE: KEY_STATE is valid only in 20us after KEY_ENABLE.
             // If V-USB interrupts in this section we could lose 40us or so
             // and would read invalid value from KEY_STATE.
             uint8_t last = TIMER_RAW;
 
-            KEY_ENABLE();
+            key_enable();
 
             // Wait for KEY_STATE outputs its value.
             // 1us was ok on one HHKB, but not worked on another.
@@ -113,9 +95,9 @@ uint8_t matrix_scan(void) {
             // 10us wait does    work on Teensy++ with pro
             // 10us wait does    work on 328p+iwrap with pro
             // 10us wait doesn't work on tmk PCB(8MHz) with pro2(very lagged scan)
-            _delay_us(5);
+            wait_us(5);
 
-            if (KEY_STATE()) {
+            if (key_state()) {
                 matrix[row] &= ~(1 << col);
             } else {
                 matrix[row] |= (1 << col);
@@ -128,55 +110,47 @@ uint8_t matrix_scan(void) {
                 matrix[row] = matrix_prev[row];
             }
 
-            _delay_us(5);
-            KEY_PREV_OFF();
-            KEY_UNABLE();
+            wait_us(5);
+            key_prev_off();
+            key_unable();
 
             // NOTE: KEY_STATE keep its state in 20us after KEY_ENABLE.
             // This takes 25us or more to make sure KEY_STATE returns to idle state.
 
-            _delay_us(75);
+            wait_us(75);
         }
-        if (matrix[row] ^ matrix_prev[row]) matrix_last_modified = timer_read32();
+        if (matrix[row] ^ matrix_prev[row]) {
+            matrix_has_changed   = true;
+            matrix_last_modified = timer_read32();
+        }
     }
     // power off
-    if (KEY_POWER_STATE() && (USB_DeviceState == DEVICE_STATE_Suspended || USB_DeviceState == DEVICE_STATE_Unattached) && timer_elapsed32(matrix_last_modified) > MATRIX_POWER_SAVE) {
-        KEY_POWER_OFF();
+    if (key_power_state() && (USB_DeviceState == DEVICE_STATE_Suspended || USB_DeviceState == DEVICE_STATE_Unattached) && timer_elapsed32(matrix_last_modified) > MATRIX_POWER_SAVE) {
+        key_power_off();
         suspend_power_down();
     }
 
     matrix_scan_quantum();
 
-    return 1;
+    return matrix_has_changed;
 }
-
-bool matrix_is_modified(void) {
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] != matrix_prev[i]) return true;
-    }
-    return false;
-}
-
-inline bool matrix_has_ghost(void) { return false; }
-
-inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col)); }
 
 inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 
 void matrix_print(void) {
     print("\nr/c 01234567\n");
-    for (uint8_t row = 0; row < matrix_rows(); row++) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         xprintf("%02X: %08b\n", row, bitrev(matrix_get_row(row)));
     }
 }
 
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        count += bitpop16(matrix_get_row(r));
-    }
-    return count;
-}
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
-void matrix_power_up(void) { KEY_POWER_ON(); }
-void matrix_power_down(void) { KEY_POWER_OFF(); }
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+void matrix_power_up(void) { key_power_on(); }
+void matrix_power_down(void) { key_power_off(); }
