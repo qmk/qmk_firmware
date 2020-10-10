@@ -1,4 +1,5 @@
 /*
+Copyright 2020 Kan-Ru Chen <kanru@kanru.info>
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
@@ -29,6 +30,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
+
+#ifdef BLUETOOTH_ENABLE
+#    undef SERIAL_UART_BAUD
+#    undef SERIAL_UART_DATA
+#    undef SERIAL_UART_UBRR
+#    undef SERIAL_UART_RXD_VECT
+#    undef SERIAL_UART_TXD_READY
+#    undef SERIAL_UART_INIT
+
+#    define SERIAL_UART_BAUD 76800
+#    define SERIAL_UART_DATA UDR1
+#    define SERIAL_UART_UBRR (F_CPU / (8UL * SERIAL_UART_BAUD) - 1)
+#    define SERIAL_UART_RXD_VECT USART1_RX_vect
+#    define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+#    define SERIAL_UART_INIT()                       \
+        do {                                         \
+            cli();                                   \
+            /* baud rate */                          \
+            UBRR1L = SERIAL_UART_UBRR;               \
+            /* baud rate */                          \
+            UBRR1H = SERIAL_UART_UBRR >> 8;          \
+            /* enable TX */                          \
+            UCSR1B |= (0 << TXCIE1) | (1 << TXEN1);  \
+            /* enable RX */                          \
+            UCSR1B |= (1 << RXCIE1) | (1 << RXEN1);  \
+            /* 8-bit data */                         \
+            UCSR1C |= (1 << UCSZ11) | (1 << UCSZ10); \
+            /* 2x speed (error = 0.2%) */            \
+            UCSR1A |= (1 << U2X1);                   \
+            sei();                                   \
+        } while (0)
+#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -84,3 +117,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
+
+//#define DEBUG_MATRIX_SCAN_RATE

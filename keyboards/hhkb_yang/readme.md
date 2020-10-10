@@ -24,7 +24,7 @@ your actual disk.
 ## Features planned:
 
 - [x] QMK (via USB)
-- [ ] Bluetooth (BLE)
+- [x] Bluetooth (BLE)
 - [ ] Power saving mode
 - [ ] LEDs
 - [ ] Special commands

@@ -48,6 +48,15 @@ dd if=FLASH.bin of=/dev/sda seek=4
 Skip 4 sectors because the default sector size of the virtual device
 and dd is 512 bytes and the emulated flash file starts at 5th sector.
 
+## Adafruit Bluefruit LE UART configuraton
+
+The default baud rate used by the firmware is 76800 although adafruit
+do not recommend using higher baudrates than 9600 because the nRF51
+UART can drop characters.
+
+Double speed mode to get more accurate async reading because the F_CPU
+speed is 8MHz.
+
 ## References
 
 * https://github.com/joric/qmk/wiki/hhkb_ble
