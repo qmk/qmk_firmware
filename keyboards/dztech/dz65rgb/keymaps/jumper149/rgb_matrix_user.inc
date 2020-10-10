@@ -1,4 +1,5 @@
 RGB_MATRIX_EFFECT(base_effect)
+RGB_MATRIX_EFFECT(base_ad_effect)
 RGB_MATRIX_EFFECT(fn_indicator)
 RGB_MATRIX_EFFECT(kb_indicator)
 RGB_MATRIX_EFFECT(kitt_effect)
@@ -30,7 +31,7 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
     if (base_effect_startup_counter < 255) {
 
         // jump to correct indices for alpha keys
-        if (i == 0) {
+        if (i == 0) { // only run for one key (key 0 is an arbitrary choice)
             if (base_effect_startup_counter == 0) {
                 base_effect_startup_counter = 1;
             } else if (base_effect_startup_counter == 1) {
@@ -42,6 +43,8 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
             } else if (base_effect_startup_counter == 52) {
                 base_effect_startup_counter = 100;
             } else if (base_effect_startup_counter == 104) {
+                base_effect_startup_counter = 110;
+            } else if (base_effect_startup_counter == 114) {
                 base_effect_startup_counter = 255;
             } else {
                 base_effect_startup_counter++;
@@ -55,7 +58,15 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.s = 0;
         } else if (i < base_effect_startup_counter && i >= 45 && i <= 51) {
             hsv.s = 0;
-        } else if (5 + 8 - i < base_effect_startup_counter - 94 && i >= 5 && i <= 8) {
+        } else if (100 <= base_effect_startup_counter && i == 57) {
+            hsv.s = 3 * 255/3;
+        } else if (101 <= base_effect_startup_counter && i == 43) {
+            hsv.s = 2 * 255/3;
+        } else if (102 <= base_effect_startup_counter && i == 29) {
+            hsv.s = 1 * 255/3;
+        } else if (103 <= base_effect_startup_counter && i == 14) {
+            hsv.s = 0 * 255/3;
+        } else if (5 + 8 - i < base_effect_startup_counter - 104 && i >= 5 && i <= 8) {
             hsv.v = hsv.v / 2;
         } else {
             hsv.v = 0;
@@ -103,6 +114,26 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
                 hsv.v = 0;
                 break;
 
+            // home
+            case 14:
+                hsv.s = 0 * 255/3;
+                break;
+
+            // page up
+            case 29:
+                hsv.s = 1 * 255/3;
+                break;
+
+            // page down
+            case 43:
+                hsv.s = 2 * 255/3;
+                break;
+
+            // end
+            case 57:
+                hsv.s = 3 * 255/3;
+                break;
+
             default:
                 if (
                     (i > 15 && i <= 25) ||
@@ -124,6 +155,51 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
 bool base_effect(effect_params_t* params) {
     return effect_runner_i(params, &base_effect_math);
+}
+
+static HSV base_ad_effect_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    // no startup animation
+    if (BASE_EFFECT_NOT_STARTED_YET) {
+        base_effect_startup_counter = 255; // act like startup is already completed
+        BASE_EFFECT_NOT_STARTED_YET = false;
+    }
+
+    switch (i) {
+
+        // delete
+        case 14:
+            hsv.h = 0;
+            hsv.s = 255;
+            break;
+
+        // insert
+        case 29:
+            hsv.h = 256/3;
+            hsv.s = 255;
+            break;
+
+        // home
+        case 43:
+            hsv.s = 0;
+            break;
+
+        // end
+        case 57:
+            hsv.s = 255;
+            break;
+
+        default:
+            hsv = base_effect_math(hsv, i, time);
+            break;
+
+    }
+
+    return hsv;
+}
+
+bool base_ad_effect(effect_params_t* params) {
+    return effect_runner_i(params, &base_ad_effect_math);
 }
 
 static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {

@@ -23,7 +23,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
             return false;
         case _KITTEF:
             if (record->event.pressed) {
-                selected_mode_user = 6;
+                selected_mode_user = 7;
             }
             return false;
         default:
@@ -77,13 +77,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgb_matrix_mode(selected_mode_user);
             break;
         case _AD:
-            rgb_matrix_mode(selected_mode_user);
+            if (selected_mode_user == 3) {
+                rgb_matrix_mode(4);
+            } else {
+                rgb_matrix_mode(selected_mode_user);
+            }
             break;
         case _FN:
-            rgb_matrix_mode(4);
+            rgb_matrix_mode(5);
             break;
         case _KB:
-            rgb_matrix_mode(5);
+            rgb_matrix_mode(6);
             break;
     }
 
