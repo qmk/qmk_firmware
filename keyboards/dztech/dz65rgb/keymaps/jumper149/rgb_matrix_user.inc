@@ -67,7 +67,7 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
         } else if (103 <= base_effect_startup_counter && i == 14) {
             hsv.s = 0 * 255/3;
         } else if (5 + 8 - i < base_effect_startup_counter - 104 && i >= 5 && i <= 8) {
-            hsv.v = hsv.v / 2;
+            hsv.v = hsv.v;
         } else {
             hsv.v = 0;
         }
@@ -90,16 +90,16 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
                 hsv.v = 0;
                 break;
             case 5:
-                hsv.v = hsv.v / 2;
+                hsv.v = hsv.v;
                 break;
             case 6:
-                hsv.v = hsv.v / 2;
+                hsv.v = hsv.v;
                 break;
             case 7:
-                hsv.v = hsv.v / 2;
+                hsv.v = hsv.v;
                 break;
             case 8:
-                hsv.v = hsv.v / 2;
+                hsv.v = hsv.v;
                 break;
             case 9:
                 hsv.v = 0;
