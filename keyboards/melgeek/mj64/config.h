@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xED64
+#define VENDOR_ID       0xEDED
+#define PRODUCT_ID      0x6064
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MelGeek
 #define PRODUCT         MJ64
