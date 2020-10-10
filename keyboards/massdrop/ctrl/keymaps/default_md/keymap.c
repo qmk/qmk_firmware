@@ -35,7 +35,8 @@ typedef union {
             led_animation_direction: 1;
     uint8_t gcr_desired;
     uint8_t led_animation_speed;
-    uint8_t _unused;
+    uint8_t nkro: 1,
+            _unused: 7;
   };
 } kb_config_t;
 
@@ -47,6 +48,7 @@ void load_saved_settings(void) {
     led_animation_id = kb_config.led_animation_id;
     gcr_desired = kb_config.gcr_desired;
     led_lighting_mode = kb_config.led_lighting_mode;
+    keymap_config.nkro = kb_config.nkro;
 
     bool prev_led_animation_breathing = led_animation_breathing;
     led_animation_breathing = kb_config.led_animation_breathing;
@@ -67,6 +69,7 @@ void load_saved_settings(void) {
     uprintf("  led_animation_id %d\n", led_animation_id);
     uprintf("  gcr_desired %d\n", gcr_desired);
     uprintf("  led_lighting_mode %d\n", led_lighting_mode);
+    uprintf("  nkro %d\n", keymap_config.nkro);
     uprintf("  led_animation_breathing %d\n", led_animation_breathing);
     uprintf("  led_animation_direction %d\n", led_animation_direction);
     uprintf("  led_animation_speed %f\n", led_animation_speed);
@@ -106,6 +109,7 @@ void eeconfig_init_kb(void) {
     kb_config.led_animation_direction = 1;
     kb_config.gcr_desired = LED_GCR_MAX;
     kb_config.led_animation_speed = 4;
+    kb_config.nkro = keymap_config.nkro;
 
     save_settings();
 }
@@ -156,6 +160,11 @@ void led_animation_speed_decrease(void) {
     kb_config.led_animation_speed = kb_config.led_animation_speed < 1
         ? 0
         : kb_config.led_animation_speed - 1;
+    sync_settings();
+}
+
+void nkro_toggle(void) {
+    kb_config.nkro = !kb_config.nkro;
     sync_settings();
 }
 
@@ -298,6 +307,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (timer_elapsed32(key_timer) >= 500) {
                     reset_keyboard();
                 }
+            }
+            return false;
+        case NK_TOGG:
+            if (record->event.pressed) {
+                nkro_toggle();
             }
             return false;
         default:
