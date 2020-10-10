@@ -1,0 +1,36 @@
+name: Update API Data
+
+on:
+  push:
+    paths:
+    - 'keyboards/**'
+    - 'layouts/community/**'
+
+jobs:
+  api_data:
+    runs-on: ubuntu-latest
+    container: qmkfm/base_container
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Print info
+        run: |
+          git rev-parse --short HEAD
+          echo ${{ github.event.pull_request.base.sha }}
+          echo '${{ steps.file_changes.outputs.files}}'
+
+    - name: Generate API Data
+      shell: 'bash {0}'
+      run: qmk generate-api
+    - name: Upload API Data
+      uses: cpina/github-action-push-to-another-repository@master
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source-directory: 'api-data'
+        destination-github-username: 'qmk'
+        destination-repository-name: 'keyboards'
+        user-email: hello@qmk.fm
