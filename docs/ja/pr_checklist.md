@@ -93,7 +93,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         }
         ```
         ...キーマップの `process_record_user()` 内で `layer_on()`、 `update_tri_layer()` を手動で処理する代わりに。
-- default (および via) のキーマップは "pristine" でなければなりません。
+- default (および via) のキーマップは「素朴」でなければなりません。
     - 他のユーザーが独自のユーザー固有のキーマップを開発するための「クリーンな状態」として使用するための最低限のもの。
     - これらのキーマップで推奨される標準レイアウト（可能な場合）
 - PR の提出者は、同じ PR に機能を紹介する個人的な（または豪華な）キーマップを持たせることができますが、「デフォルト」のキーマップに埋め込むべきではありません
