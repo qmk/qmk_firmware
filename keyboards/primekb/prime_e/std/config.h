@@ -26,5 +26,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 5
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8
