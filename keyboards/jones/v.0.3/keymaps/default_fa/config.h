@@ -22,4 +22,10 @@
 // time for long press
 #define TAPPING_TERM 200
 
-#define AUDIO_CLICKY
+// music map for music-mode
+// #define MUSIC_MAP
+
+// disable music-mode on FA
+#define NO_MUSIC_MODE
+
+#define OLED_TIMEOUT 10000

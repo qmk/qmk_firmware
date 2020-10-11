@@ -1,1 +1,1 @@
-# Defalut FA (=Full Armor) keymap for jones
+# Default JP-style keymap for jones
