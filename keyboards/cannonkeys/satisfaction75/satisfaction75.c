@@ -54,6 +54,11 @@ backlight_config_t kb_backlight_config = {
   .level = BACKLIGHT_LEVELS
 };
 
+void board_init(void) {
+  SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
+  SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
+}
+
 #ifdef VIA_ENABLE
 
 void backlight_get_value( uint8_t *data )
