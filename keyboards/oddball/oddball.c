@@ -94,7 +94,7 @@ void pointing_device_task(void){
     }
 }
 
-static void on_cpi_button(int16_t cpi) {
+static void on_cpi_button(uint16_t cpi) {
 
     // read cpi first to prevent unnecessary writes to EEPROM
     if(optical_sensor_get_config().cpi == cpi)
