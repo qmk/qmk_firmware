@@ -1,6 +1,6 @@
 # uno
 
- ![uno](https://i.imgur.com/OqPyWbb.jpg)
+ ![uno](https://i.imgur.com/OqPyWbbl.jpg)
 
 A 1-key, in-USB "board" for the lulz
 
