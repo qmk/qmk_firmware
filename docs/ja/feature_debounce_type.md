@@ -1,11 +1,9 @@
-# デバウンスアルゴリズム
+# 接点バウンス / 接点チャタリング
 
 <!---
   original document: 0.10.33:docs/feature_debounce_type.md
   git diff 0.10.33 HEAD -- docs/feature_debounce_type.md | cat
 -->
-
-# 接点バウンス / 接点チャタリング
 
 メカニカルスイッチは押した時と放した時の状態間にきれいな1つの遷移がないことが良くあります。
 
