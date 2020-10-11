@@ -24,7 +24,7 @@
 - QMK コードベースの「ベストプラクティス」に従う
     - これは網羅的なリストではありませんし、時間が経つにつれて修正される可能性が高いです
     - ヘッダファイルでは、`#ifndef` インクルードガードの代わりに `#pragma once` を使います
-    - 旧式の GPIO/I2C/SPI 関数を使用しない - 正当な理由がない限り、QMK の抽象化を使用しなければなりません (怠惰は正当な理由にはなりません)
+    - 「旧式の」 GPIO/I2C/SPI 関数を使用しない - 正当な理由がない限り、QMK の抽象化を使用しなければなりません (怠惰は正当な理由にはなりません)
     - タイミングの抽象化にも従う必要があります:
         - `_delay_ms()` のかわりに `wait_ms()` を。(`#include <util/delay.h>` も消します)
         - `timer_read()` と `timer_read32()` など。 -- タイミング API は [timer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/timer.h) を参照してください
