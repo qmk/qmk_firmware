@@ -311,8 +311,46 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.v = hsv.v / 2;
             break;
 
+        // volume
+        case 18: // mute
+            hsv.h = 0;
+            break;
+        case 17: // increase
+            hsv.s = 255;
+            break;
+        case 32: // decrease
+            hsv.s = 0;
+            break;
+
+        // brightness
+        case 33: // increase
+            hsv.s = 255;
+            break;
+        case 31: // decrease
+            hsv.s = 0;
+            break;
+
+        // media
+        case 65: // previous
+            hsv.s = 0;
+            break;
+        case 67: // next
+            hsv.s = 0;
+            break;
+        case 56: // stop
+            hsv.h = 0;
+            break;
+        case 66: // play/pause
+            hsv.h = 256/3;
+            break;
+
+        // menu
+        case 51:
+            hsv.s = 0;
+            break;
+
         // toggle AD layer
-        case 33:
+        case 36:
             hsv.h = 0;
             break;
 
