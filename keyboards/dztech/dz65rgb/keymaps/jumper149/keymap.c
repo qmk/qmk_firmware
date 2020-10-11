@@ -3,6 +3,7 @@
 enum layers_user {
     _QWERTY,
     _AD,
+    _VI,
     _FN,
     _KB
 };
@@ -23,7 +24,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
             return false;
         case _KITTEF:
             if (record->event.pressed) {
-                selected_mode_user = 7;
+                selected_mode_user = 8;
             }
             return false;
         default:
@@ -46,10 +47,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_END,
         _______,        _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
     ),
+    [_VI] = LAYOUT_65_ansi(
+        KC_ESC,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_ESC,         XXXXXXX, XXXXXXX, KC_PGDN, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,          _______, XXXXXXX,
+        _______,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_FIND, _______, _______, XXXXXXX,
+        _______,        _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
+    ),
     [_FN] = LAYOUT_65_ansi(
         XXXXXXX,        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,
         XXXXXXX,        KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX,
-        CTL_T(KC_CAPS), KC_BRID, KC_VOLD, KC_BRIU, XXXXXXX, XXXXXXX, TG(_AD), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
+        CTL_T(KC_CAPS), KC_BRID, KC_VOLD, KC_BRIU, XXXXXXX, XXXXXXX, TG(_AD), TG(_VI), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
         KC_LSFT,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_APP,  XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT, KC_MSTP, XXXXXXX,
         KC_LCTL,        KC_LGUI, KC_LALT,                            XXXXXXX,                   MO(_KB), XXXXXXX, KC_RCTL, KC_MPRV, KC_MPLY, KC_MNXT
     ),
@@ -83,11 +91,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
                 rgb_matrix_mode(selected_mode_user);
             }
             break;
-        case _FN:
+        case _VI:
             rgb_matrix_mode(5);
             break;
-        case _KB:
+        case _FN:
             rgb_matrix_mode(6);
+            break;
+        case _KB:
+            rgb_matrix_mode(7);
             break;
     }
 

@@ -1,5 +1,6 @@
 RGB_MATRIX_EFFECT(base_effect)
 RGB_MATRIX_EFFECT(base_ad_effect)
+RGB_MATRIX_EFFECT(vi_effect)
 RGB_MATRIX_EFFECT(fn_indicator)
 RGB_MATRIX_EFFECT(kb_indicator)
 RGB_MATRIX_EFFECT(kitt_effect)
@@ -175,7 +176,7 @@ static HSV base_ad_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
         // insert
         case 29:
-            hsv.h = 256/3;
+            hsv.h = 255/3;
             hsv.s = 255;
             break;
 
@@ -200,6 +201,54 @@ static HSV base_ad_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
 bool base_ad_effect(effect_params_t* params) {
     return effect_runner_i(params, &base_ad_effect_math);
+}
+
+static HSV vi_effect_math(HSV hsv, uint8_t i, uint8_t time) {
+
+    // no startup animation
+    if (BASE_EFFECT_NOT_STARTED_YET) {
+        base_effect_startup_counter = 255; // act like startup is already completed
+        BASE_EFFECT_NOT_STARTED_YET = false;
+    }
+
+    switch (i) {
+
+        // hjkl
+        case 36:
+            break;
+        case 37:
+            break;
+        case 38:
+            break;
+        case 39:
+            break;
+
+        // page up
+        case 22:
+            hsv.s = 0;
+            break;
+
+        // page down
+        case 33:
+            hsv.s = 0;
+            break;
+
+        // find
+        case 54:
+            hsv.s = 0;
+            break;
+
+        default:
+            hsv.v = 0;
+            break;
+
+    }
+
+    return hsv;
+}
+
+bool vi_effect(effect_params_t* params) {
+    return effect_runner_i(params, &vi_effect_math);
 }
 
 static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
@@ -341,7 +390,7 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.h = 0;
             break;
         case 66: // play/pause
-            hsv.h = 256/3;
+            hsv.h = 255/3;
             break;
 
         // menu
@@ -352,6 +401,11 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
         // toggle AD layer
         case 36:
             hsv.h = 0;
+            break;
+
+        // toggle VI layer
+        case 37:
+            hsv.h = 255/3;
             break;
 
         // KB layer
