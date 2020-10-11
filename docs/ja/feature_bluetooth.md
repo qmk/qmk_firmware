@@ -31,7 +31,7 @@ Bluefruit UART friend は SPI friend に変換することができますが、�
 <!-- FIXME: Document bluetooth support more completely. -->
 ## Bluetooth の Rules.mk オプション
 
-現在サポートされている Bluetooth チップセットは [N-キーロールオーバー (NKRO)](ja/reference_glossary.md#n-key-rollover-nkro) をサポートしていません。そのあめ、`rules.mk` に `NKRO_ENABLE = no` が含まれていなければなりません。
+現在サポートされている Bluetooth チップセットは [N-キーロールオーバー (NKRO)](ja/reference_glossary.md#n-key-rollover-nkro) をサポートしていません。そのため、`rules.mk` に `NKRO_ENABLE = no` を含めなければなりません。
 
 Bluetooth を有効にするには、これらのうちの1つだけを使ってください:
 * BLUETOOTH_ENABLE = yes (レガシーオプション)
