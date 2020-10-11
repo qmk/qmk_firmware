@@ -5,21 +5,21 @@
   git diff 0.9.57 HEAD -- docs/keycodes.md | cat
 -->
 
-[キーマップ](ja/keymap.md) のそれぞれのキーを定義するときは、明確な定義が必要です。このページは、QMK で使えるキーコードに相当するシンボルについて記述しています。
+[キーマップ](ja/keymap.md) を定義するときは、それぞれのキーに有効な定義が必要です。このページは、QMK で使えるキーコードに相当するシンボルについて記述しています。
 
-このページはリファレンスのみです。それぞれのキーの種類毎のリンク先のページに、それぞれのキーの機能についてもっと詳細に記載しています。
+このページは参照のみです。それぞれのキーの種類毎のリンク先のページに、それぞれのキーの機能についてもっと詳細に記載しています。
 
 ## 基本的なキーコード :id=basic-keycodes
 
 [基本的なキーコード](ja/keycodes_basic.md) も見てください。
 
-?> 訳注: 以下の説明は、OS のキーボード配列の設定が「US」の場合のものです。OS のキーボード配列の設定が「JIS」の場合、一部のキーは下の表と異なる文字が入力されます。例えば、`KC_LBRC` は、OS のキーボード配列の設定が US であれば「`[` または `{`」が入力されますが、JIS の場合「`@` または ```」が入力されます。
+?> 訳注: 以下の説明は、OS のキーボード配列の設定が「US」の場合のものです。OS のキーボード配列の設定が「JIS」の場合、一部のキーは下の表と異なる文字が入力されます。例えば、`KC_LBRC` は、OS のキーボード配列の設定が US であれば「`[` または `{`」が入力されますが、JIS の場合「`@` または <code>&#96;</code>」が入力されます。
 ?> これは、OS がキーボードから送信されたキーコードを解釈する際に、キーボード配列の設定によって対応する文字を変えるためです。もし、OS のキーボード配列の設定を JIS にする場合、`#include "keymap_jp.h"` を `keymap.c` に追加すると`JP_AT` のような JIS キーボードのキーキャップに対応したキーを指定できます。
 
 |キー                   |エイリアス                    |説明                                     |Windows      |macOS        |Linux<sup>1</sup>|
 |-----------------------|------------------------------|-----------------------------------------|-------------|-------------|-----------------|
-|`KC_NO`                |`XXXXXXX`                     |このキーを無視します (何もしません) 。           |*N/A*        |*N/A*        |*N/A*            |
-|`KC_TRANSPARENT`       |`KC_TRNS`, `_______`          |直下のレイヤーの非透過キーを使う         |*N/A*        |*N/A*        |*N/A*            |
+|`KC_NO`                |`XXXXXXX`                     |このキーを無視します (何もしません) 。   |*N/A*        |*N/A*        |*N/A*            |
+|`KC_TRANSPARENT`       |`KC_TRNS`, `_______`          | 次に低いレイヤーの非透過キーを使う      |*N/A*        |*N/A*        |*N/A*            |
 |`KC_A`                 |                              |`a` と `A`                               |✔           |✔            |✔                |
 |`KC_B`                 |                              |`b` と `B`                               |✔           |✔            |✔                |
 |`KC_C`                 |                              |`c` と `C`                               |✔           |✔            |✔                |
@@ -271,17 +271,17 @@
 
 | キー                               | エイリアス| 説明                                                  |
 |------------------------------------|-----------|-------------------------------------------------------|
-| `MAGIC_SWAP_CONTROL_CAPSLOCK`      | `CL_SWAP` | Caps Lock と左コントロールの入れ替え                  |
-| `MAGIC_UNSWAP_CONTROL_CAPSLOCK`    | `CL_NORM` | Caps Lock と左コントロールの入れ替えの解除            |
-| `MAGIC_CAPSLOCK_TO_CONTROL`        | `CL_CTRL` | Caps Lock をコントロールとして扱う                    |
-| `MAGIC_UNCAPSLOCK_TO_CONTROL`      | `CL_CAPS` | Caps Lock をコントロールとして扱うことを止める        |
-| `MAGIC_SWAP_LCTL_LGUI`             | `LCG_SWP` | 左コントロールと GUI の入れ替え                       |
-| `MAGIC_UNSWAP_LCTL_LGUI`           | `LCG_NRM` | 左コントロールと GUI の入れ替えを解除                 |
-| `MAGIC_SWAP_RCTL_RGUI`             | `RCG_SWP` | 右コントロールと GUI の入れ替え                       |
-| `MAGIC_UNSWAP_RCTL_RGUI`           | `RCG_NRM` | 右コントロールと GUI の入れ替えを解除                 |
-| `MAGIC_SWAP_CTL_GUI`               | `CG_SWAP` | 両側のコントロールと GUI の入れ替え                   |
-| `MAGIC_UNSWAP_CTL_GUI`             | `CG_NORM` | 両側のコントロールと GUI の入れ替えを解除             |
-| `MAGIC_TOGGLE_CTL_GUI`             | `CG_TOGG` | 両側のコントロールと GUI の入れ替えの切り替え         |
+| `MAGIC_SWAP_CONTROL_CAPSLOCK`      | `CL_SWAP` | Caps Lock と左 Control の入れ替え                     |
+| `MAGIC_UNSWAP_CONTROL_CAPSLOCK`    | `CL_NORM` | Caps Lock と左 Control の入れ替えの解除               |
+| `MAGIC_CAPSLOCK_TO_CONTROL`        | `CL_CTRL` | Caps Lock を Control として扱う                       |
+| `MAGIC_UNCAPSLOCK_TO_CONTROL`      | `CL_CAPS` | Caps Lock を Control として扱うことを止める           |
+| `MAGIC_SWAP_LCTL_LGUI`             | `LCG_SWP` | 左 Control と GUI の入れ替え                          |
+| `MAGIC_UNSWAP_LCTL_LGUI`           | `LCG_NRM` | 左 Control と GUI の入れ替えを解除                    |
+| `MAGIC_SWAP_RCTL_RGUI`             | `RCG_SWP` | 右 Control と GUI の入れ替え                          |
+| `MAGIC_UNSWAP_RCTL_RGUI`           | `RCG_NRM` | 右 Control と GUI の入れ替えを解除                    |
+| `MAGIC_SWAP_CTL_GUI`               | `CG_SWAP` | 両側の Control と GUI の入れ替え                      |
+| `MAGIC_UNSWAP_CTL_GUI`             | `CG_NORM` | 両側の Control と GUI の入れ替えを解除                |
+| `MAGIC_TOGGLE_CTL_GUI`             | `CG_TOGG` | 両側の Control と GUI の入れ替えの切り替え            |
 | `MAGIC_SWAP_LALT_LGUI`             | `LAG_SWP` | 左 Alt と GUI の入れ替え                              |
 | `MAGIC_UNSWAP_LALT_LGUI`           | `LAG_NRM` | 左 Alt と GUI の入れ替えを解除                        |
 | `MAGIC_SWAP_RALT_RGUI`             | `RAG_SWP` | 右 Alt と GUI の入れ替え                              |
@@ -293,8 +293,8 @@
 | `MAGIC_UNNO_GUI`                   | `GUI_ON`  | GUI キーを有効にする                                  |
 | `MAGIC_SWAP_GRAVE_ESC`             | `GE_SWAP` | <code>&#96;</code> とエスケープの入れ替え             |
 | `MAGIC_UNSWAP_GRAVE_ESC`           | `GE_NORM` | <code>&#96;</code> とエスケープの入れ替えを解除       |
-| `MAGIC_SWAP_BACKSLASH_BACKSPACE`   | `BS_SWAP` | `\` とバックスペースを入れ替え                        |
-| `MAGIC_UNSWAP_BACKSLASH_BACKSPACE` | `BS_NORM` | `\` とバックスペースの入れ替えを解除する              |
+| `MAGIC_SWAP_BACKSLASH_BACKSPACE`   | `BS_SWAP` | `\` と Backspace を入れ替え                           |
+| `MAGIC_UNSWAP_BACKSLASH_BACKSPACE` | `BS_NORM` | `\` と Backspace の入れ替えを解除する                 |
 | `MAGIC_HOST_NKRO`                  | `NK_ON`   | N キーロールオーバーを有効にする                      |
 | `MAGIC_UNHOST_NKRO`                | `NK_OFF`  | N キーロールオーバーを無効にする                      |
 | `MAGIC_TOGGLE_NKRO`                | `NK_TOGG` | N キーロールオーバーの有効・無効を切り替え            |
@@ -369,10 +369,10 @@
 
 |キー            |エイリアス  |説明                  |
 |----------------|---------|-------------------------|
-|`KC_MS_UP`      |`KC_MS_U`|カーソルを上に移動       |
-|`KC_MS_DOWN`    |`KC_MS_D`|カーソルを下に移動       |
-|`KC_MS_LEFT`    |`KC_MS_L`|カーソルを左に移動       |
-|`KC_MS_RIGHT`   |`KC_MS_R`|カーソルを右に移動       |
+|`KC_MS_UP`      |`KC_MS_U`|マウスカーソルを上に移動 |
+|`KC_MS_DOWN`    |`KC_MS_D`|マウスカーソルを下に移動 |
+|`KC_MS_LEFT`    |`KC_MS_L`|マウスカーソルを左に移動 |
+|`KC_MS_RIGHT`   |`KC_MS_R`|マウスカーソルを右に移動 |
 |`KC_MS_BTN1`    |`KC_BTN1`|ボタン1を押す            |
 |`KC_MS_BTN2`    |`KC_BTN2`|ボタン2を押す            |
 |`KC_MS_BTN3`    |`KC_BTN3`|ボタン3を押す            |
@@ -398,18 +398,18 @@
 | `LGUI(kc)` | `G(kc)`, `LCMD(kc)`, `LWIN(kc)` | 左 GUI を押しながら `kc` を押します。                         |
 | `RCTL(kc)` |                                 | 右 Control を押しながら `kc` を押します。                     |
 | `RSFT(kc)` |                                 | 右 Shift を押しながら `kc` を押します。                       |
-| `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`          | 右 Alt (AltGr) を押しながら `kc` を押します。                         |
+| `RALT(kc)` | `ROPT(kc)`, `ALGR(kc)`          | 右 Alt (AltGr) を押しながら `kc` を押します。                 |
 | `RGUI(kc)` | `RCMD(kc)`, `LWIN(kc)`          | 右 GUI を押しながら `kc` を押します。                         |
 | `SGUI(kc)` | `SCMD(kc)`, `SWIN(kc)`          | 左 Shift と GUI を押しながら `kc` を押します。                |
 | `LCA(kc)`  |                                 | 左 Control と Alt を押しながら `kc` を押します。              |
-| `LSA(kc)`  |                                 | 左 Shift と左 Alt を押しながら `kc` を押します。              |
-| `RSA(kc)`  |`SAGR(kc)`                       | 右 Shift と右 Alt (AltGr)  を押しながら `kc` を押します。     |
-| `RCS(kc)`  |                                 | 右 Control と右 Shift を押しながら `kc` を押します。          |
-| `LCAG(kc)` |                                 | 左 Control、Alt、GUI を押しながら `kc` を押します。         |
-| `MEH(kc)`  |                                 | 左 Control、Shift、Alt を押しながら `kc` を押します。       |
-| `HYPR(kc)` |                                 | 左 Control、Shift、Alt、GUI を押しながら `kc` を押します。 |
-| `KC_MEH`   |                                 | 左 Control、Shift、Alt                                      |
-| `KC_HYPR`  |                                 | 左 Control、Shift、Alt、GUI                                 |
+| `LSA(kc)`  |                                 | 左 Shift と Alt を押しながら `kc` を押します。                |
+| `RSA(kc)`  |`SAGR(kc)`                       | 右 Shift と Alt (AltGr)  を押しながら `kc` を押します。       |
+| `RCS(kc)`  |                                 | 右 Control と Shift を押しながら `kc` を押します。            |
+| `LCAG(kc)` |                                 | 左 Control、Alt、GUI を押しながら `kc` を押します。           |
+| `MEH(kc)`  |                                 | 左 Control、Shift、Alt を押しながら `kc` を押します。         |
+| `HYPR(kc)` |                                 | 左 Control、Shift、Alt、GUI を押しながら `kc` を押します。    |
+| `KC_MEH`   |                                 | 左 Control、Shift、Alt                                        |
+| `KC_HYPR`  |                                 | 左 Control、Shift、Alt、GUI                                   |
 
 
 ## モッドタップキー :id=mod-tap-keys
@@ -418,7 +418,7 @@
 
 |キー          |エイリアス                                                         | 説明                                                                   |
 |--------------|-------------------------------------------------------------------|------------------------------------------------------------------------|
-| `MT(mod, kc)`|                                                                   |押したままの場合は `mod` 、タップした場合は `kc`                                   |
+| `MT(mod, kc)`|                                                                   |押したままの場合は `mod` 、タップした場合は `kc`                        |
 | `LCTL_T(kc)` | `CTL_T(kc)`                                                       | 押したままの場合は左 Control、タップした場合は `kc`                    |
 | `LSFT_T(kc)` | `SFT_T(kc)`                                                       | 押したままの場合は左 Shift、タップした場合は `kc`                      |
 | `LALT_T(kc)` | `LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                            | 押したままの場合は左 Alt、タップした場合は `kc`                        |
@@ -429,13 +429,13 @@
 | `RGUI_T(kc)` | `RCMD_T(kc)`, `RWIN_T(kc)`                                        | 押したままの場合は右 GUI、タップした場合は `kc`                        |
 | `SGUI_T(kc)` | `SCMD_T(kc)`, `SWIN_T(kc)`                                        | 押したままの場合は左 Shift と GUI、タップした場合は `kc`               |
 | `LCA_T(kc)`  |                                                                   | 押したままの場合は左 Control と Alt、タップした場合は `kc`             |
-| `LSA_T(kc)`  |                                                                   | 押したままの場合は左 Shift と左 Alt、タップした場合は `kc`             |
-| `RSA_T(kc)`  |`SAGR_T(kc)`                                                       | 押したままの場合は右 Shift と右 Alt (AltGr) 、タップした場合は `kc`    |
-| `RCS_T(kc)`  |                                                                   | 押したままの場合は右 Control と右 Shift、タップした場合は `kc`         | 
-| `LCAG_T(kc)` |                                                                   | 押したままの場合は左 Control、Alt、GUI、タップした場合は `kc`        |
-| `RCAG_T(kc)` |                                                                   | 押したままの場合は右 Control、Alt、GUI、タップした場合は `kc`        |
-| `C_S_T(kc)`  |                                                                   | 押したままの場合は左 Control と左 Shift、タップした場合は `kc`         |
-| `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、Shift、Alt、タップした場合は `kc`      |
+| `LSA_T(kc)`  |                                                                   | 押したままの場合は左 Shift と Alt、タップした場合は `kc`               |
+| `RSA_T(kc)`  |`SAGR_T(kc)`                                                       | 押したままの場合は右 Shift と Alt (AltGr) 、タップした場合は `kc`      |
+| `RCS_T(kc)`  |                                                                   | 押したままの場合は右 Control と Shift、タップした場合は `kc`           | 
+| `LCAG_T(kc)` |                                                                   | 押したままの場合は左 Control、Alt、GUI、タップした場合は `kc`          |
+| `RCAG_T(kc)` |                                                                   | 押したままの場合は右 Control、Alt、GUI、タップした場合は `kc`          |
+| `C_S_T(kc)`  |                                                                   | 押したままの場合は左 Control と Shift、タップした場合は `kc`           |
+| `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、Shift、Alt、タップした場合は `kc`        |
 | `HYPR_T(kc)` | `ALL_T(kc)`                                                       | 押したままの場合は左 Control、Shift、Alt、GUI、タップした場合は `kc` - より詳しくは[ここ](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
 
 ## RGB ライト :id=rgb-lighting
@@ -490,9 +490,9 @@
 |`PRINT_ON` |ユーザが入力した全ての印刷を開始 |
 |`PRINT_OFF`|ユーザが入力した全ての印刷を停止 |
 
-## US ANSI シフトキー :id=us-ansi-shifted-symbols
+## US ANSI シフト済シンボル :id=us-ansi-shifted-symbols
 
-[US ANSI シフトキー](ja/keycodes_us_ansi_shifted.md) も見てください。
+[US ANSI シフト済シンボル](ja/keycodes_us_ansi_shifted.md) も見てください。
 
 |キー                    |エイリアス            |説明|
 |------------------------|-------------------|-----------|
@@ -533,13 +533,13 @@
 
 |キー       |説明                                       |
 |-----------|-------------------------------------------|
-|`KC_LCPO`  |タップすると `(`、押していると左 Control   |
-|`KC_RCPC`  |タップすると `)`、押していると右 Control   |
-|`KC_LSPO`  |タップすると `(`、押していると左 Shift     |
-|`KC_RSPC`  |タップすると `)`、押していると右 Shift     |
-|`KC_LAPO`  |タップすると `(`、押していると左 Alt       |
-|`KC_RAPC`  |タップすると `)`、押していると右 Alt       |
-|`KC_SFTENT`|タップすると Enter、押していると右 Shift |
+|`KC_LCPO`  |押したままの場合は左 Control、タップした場合は `(` |
+|`KC_RCPC`  |押したままの場合は右 Control、タップした場合は `)` |
+|`KC_LSPO`  |押したままの場合は左 Shift、タップした場合は `(`、 |
+|`KC_RSPC`  |押したままの場合は右 Shift、タップした場合は `)`、 |
+|`KC_LAPO`  |押したままの場合は左 Alt、タップした場合は `(`、   |
+|`KC_RAPC`  |押したままの場合は右 Alt、タップした場合は `)`、   |
+|`KC_SFTENT`|押したままの場合は右 Shift、タップした場合は Enter |
 
 ## スワップハンド :id=swap-hands
 
@@ -552,7 +552,7 @@
 | `SH_OFF`    | 入れ替えをオフにして、そのままにする。既知の状態に戻るのに適しています。         |
 | `SH_MON`    | 押すとスワップハンドし、放すと通常に戻る (一時的)。                              |
 | `SH_MOFF`   | 一時的に入れ替えをオフする。                                                     |
-| `SH_TG`     | キーを押すたびに入れ替えのオンとオフを切り替える。                               |
+| `SH_TG`     | キーを押すたびにオンとオフを切り替える。                               |
 | `SH_TT`     | タップで切り替える。押している時に一時的に切り替える。                               |
 | `SH_OS`     | ワンショットスワップハンド: 押している時あるいは次のキーを押すまで切り替える。 |
 
