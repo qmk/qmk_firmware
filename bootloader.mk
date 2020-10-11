@@ -27,6 +27,7 @@
 # qmk-dfu        QMK DFU (LUFA + blinkenlight)
 # bootloadHID    HIDBootFlash compatible (ATmega32A)
 # USBasp         USBaspLoader (ATmega328P)
+# kiibohd        Input:Club Kiibohd bootloader (only used on their boards)
 #
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
@@ -34,30 +35,30 @@
 ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
     OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    ifneq (,$(filter $(MCU), at90usb646 atmega16u2 atmega16u4 atmega32u2 atmega32u4))
+    ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE = 4096
     endif
-    ifeq ($(strip $(MCU)), at90usb1286)
+    ifneq (,$(filter $(MCU), at90usb1286 at90usb1287))
         BOOTLOADER_SIZE = 8192
     endif
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-dfu)
     OPT_DEFS += -DBOOTLOADER_LUFA_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    ifneq (,$(filter $(MCU), at90usb646 atmega16u2 atmega16u4 atmega32u2 atmega32u4))
+    ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE = 4096
     endif
-    ifeq ($(strip $(MCU)), at90usb1286)
+    ifneq (,$(filter $(MCU), at90usb1286 at90usb1287))
         BOOTLOADER_SIZE = 8192
     endif
 endif
 ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
     OPT_DEFS += -DBOOTLOADER_QMK_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    ifneq (,$(filter $(MCU), at90usb646 atmega16u2 atmega16u4 atmega32u2 atmega32u4))
+    ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE = 4096
     endif
-    ifeq ($(strip $(MCU)), at90usb1286)
+    ifneq (,$(filter $(MCU), at90usb1286 at90usb1287))
         BOOTLOADER_SIZE = 8192
     endif
 endif
@@ -89,7 +90,19 @@ ifeq ($(strip $(BOOTLOADER)), lufa-ms)
     BOOTLOADER_SIZE = 6144
     FIRMWARE_FORMAT = bin
 endif
-
 ifdef BOOTLOADER_SIZE
     OPT_DEFS += -DBOOTLOADER_SIZE=$(strip $(BOOTLOADER_SIZE))
+endif
+
+ifeq ($(strip $(BOOTLOADER)), kiibohd)
+    OPT_DEFS += -DBOOTLOADER_KIIBOHD
+    ifeq ($(strip $(MCU_ORIG)), MK20DX128)
+        MCU_LDSCRIPT = MK20DX128BLDR4
+    endif
+    ifeq ($(strip $(MCU_ORIG)), MK20DX256)
+        MCU_LDSCRIPT = MK20DX256BLDR8
+    endif
+
+    DFU_ARGS = -d 1C11:B007
+    DFU_SUFFIX_ARGS = -v 1C11 -p B007
 endif

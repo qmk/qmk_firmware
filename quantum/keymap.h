@@ -40,6 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(PROTOCOL_CHIBIOS)
 #    define RESET QK_RESET
 #endif
+// Gross hack, remove me and change RESET keycode to QK_BOOT
+#if defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__)
+#    undef RESET
+#endif
 
 #include "quantum_keycodes.h"
 
