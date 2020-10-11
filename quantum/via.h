@@ -16,6 +16,9 @@
 
 #pragma once
 
+#include "quantum.h"
+#include "raw_hid.h"
+#include "tmk_core/common/eeprom.h"
 #include "tmk_core/common/eeconfig.h"  // for EECONFIG_SIZE
 
 // Keyboard level code can change where VIA stores the magic.

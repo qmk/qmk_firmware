@@ -15,7 +15,8 @@
  */
 #pragma once
 
- #include "quantum.h"
+#include "quantum.h"
+#include "tmk_core/common/eeprom.h"
 
 uint8_t  dynamic_keymap_get_layer_count(void);
 void *   dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column);

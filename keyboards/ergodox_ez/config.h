@@ -159,3 +159,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
+
+#define FIRMWARE_VERSION_SIZE 17
+#define DYNAMIC_KEYMAP_EEPROM_ADDR (EECONFIG_SIZE + FIRMWARE_VERSION_SIZE)
