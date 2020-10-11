@@ -21,10 +21,8 @@
 
 enum layers {
     BASE,  // default layer
-    LAYER_3,
-    LAYER_4,
-    SYMB,  // symbols
-    MDIA,  // media keys
+    L_3,
+    L_4,
 };
 
 enum custom_keycodes {
@@ -34,12 +32,12 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_moonlander(
-        XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        XXXXXXX,    XXXXXXX, KC_6,        KC_7,        KC_8,    KC_9,    KC_0,    XXXXXXX,
-        XXXXXXX, KC_X,    KC_V,    KC_L,    KC_C,    KC_W,        XXXXXXX,    XXXXXXX, KC_K,        KC_H,        KC_G,    KC_F,    KC_Q,    XXXXXXX,
-        XXXXXXX, KC_U,    KC_I,    KC_A,    KC_E,    KC_O,        XXXXXXX,    XXXXXXX, KC_S,        KC_N,        KC_R,    KC_T,    KC_D,    KC_Y,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P,    KC_Z,                             KC_B,        KC_M,        KC_COMM, KC_DOT,  XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,    XXXXXXX,              MO(LAYER_4), KC_RGUI, XXXXXXX, XXXXXXX, XXXXXXX,
-                                            KC_LSFT, MO(LAYER_3), KC_SPC,     KC_SPC,  MO(LAYER_3), KC_RSFT
+        XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,    XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
+        KC_TAB , KC_X,    KC_V,    KC_L,    KC_C,    KC_W,    XXXXXXX,    XXXXXXX, KC_K,    KC_H,    KC_G,    KC_F,    KC_Q,    XXXXXXX,
+        XXXXXXX, KC_U,    KC_I,    KC_A,    KC_E,    KC_O,    XXXXXXX,    XXXXXXX, KC_S,    KC_N,    KC_R,    KC_T,    KC_D,    KC_Y,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P,    KC_Z,                         KC_B,    KC_M,    KC_COMM, KC_DOT,  XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_LCTL, XXXXXXX, KC_LGUI, MO(L_4),          XXXXXXX,    XXXXXXX,          MO(L_4), KC_RGUI, XXXXXXX, KC_RCTL, XXXXXXX,
+                                            KC_SPC , KC_LSFT, MO(L_3),    MO(L_3), KC_RSFT, KC_SPC
     ),
 
     // copied from my planck layout
@@ -47,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // XXXXXXX, KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR, KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN, KC_AT  ,
     // XXXXXXX, KC_HASH, KC_DLR , KC_PIPE, KC_TILD, KC_GRV , KC_PLUS, KC_PERC, KC_DQUO, KC_QUOT, KC_SCLN, XXXXXXX,
     // XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC , KC_SPC , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-    [LAYER_3] = LAYOUT_moonlander(
+    [L_3] = LAYOUT_moonlander(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC, XXXXXXX,    XXXXXXX, KC_EXLM, KC_LABK, KC_RABK, KC_EQL , KC_AMPR, XXXXXXX,
+        XXXXXXX, KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR, XXXXXXX,    XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN, KC_AT,
+        XXXXXXX, KC_HASH, KC_DLR , KC_PIPE, KC_TILD, KC_GRV,                       KC_PLUS, KC_PERC, KC_DQUO, KC_QUOT, KC_SCLN, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,    XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                             XXXXXXX, KC_TRNS, XXXXXXX,    XXXXXXX, KC_TRNS, XXXXXXX
     ),
@@ -61,31 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // XXXXXXX, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , XXXXXXX, KC_4   , KC_5   , KC_6   , XXXXXXX, XXXXXXX,
     // XXXXXXX, KC_ESC , KC_TAB , XXXXXXX, KC_ENT , XXXXXXX, XXXXXXX, KC_1   , KC_2   , KC_3   , XXXXXXX, XXXXXXX,
     // RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_0   , KC_0   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-    [LAYER_4] = LAYOUT_moonlander(
+    [L_4] = LAYOUT_moonlander(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL , KC_PGDN, XXXXXXX,    XXXXXXX, XXXXXXX, KC_7   , KC_8   , KC_9,    XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  XXXXXXX,    XXXXXXX, XXXXXXX, KC_4   , KC_5   , KC_6,    XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_ESC , KC_TAB , XXXXXXX, KC_ENT,  XXXXXXX,                      XXXXXXX, KC_1   , KC_2   , KC_3,    XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,    XXXXXXX,          KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                            XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
-    ),
-
-    [SYMB] = LAYOUT_moonlander(
-        VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,           KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        KC_TRNS, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, KC_TRNS,           KC_TRNS, KC_UP,   KC_7,    KC_8,    KC_9,    KC_ASTR, KC_F12,
-        KC_TRNS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,  KC_TRNS,           KC_TRNS, KC_DOWN, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_TRNS,
-        KC_TRNS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                             KC_AMPR, KC_1,    KC_2,    KC_3,    KC_BSLS, KC_TRNS,
-        EEP_RST, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          RGB_VAI,           RGB_TOG,          KC_TRNS, KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-                                            RGB_HUD, RGB_VAD, RGB_HUI, TOGGLE_LAYER_COLOR,KC_TRNS, KC_TRNS
-    ),
-
-    [MDIA] = LAYOUT_moonlander(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                             KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,         KC_TRNS,            KC_TRNS,               KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
-                                            KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS
+                                            XXXXXXX, XXXXXXX, KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX
     ),
 };
 
