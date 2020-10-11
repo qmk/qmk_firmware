@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5052
 #define MANUFACTURER    PrimeKB
-#define DESCRIPTION     Ergo_45
 
 /* key matrix size */
 #define MATRIX_ROWS 4
