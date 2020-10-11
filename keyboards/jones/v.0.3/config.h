@@ -55,7 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 4    //the default & suggested is 4
 
 /* Audio */
-#define C6_AUDIO
+#ifdef AUDIO_ENABLE
+  #define C6_AUDIO
+  #define B6_AUDIO
+#endif
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
