@@ -15,11 +15,6 @@
  */
 #pragma once
 
-#define BOARD_OTG_NOVBUSSENS 1
+#include_next "board.h"
 
-#define STM32_LSECLK 32768U
-#define STM32_HSECLK 25000000U
-
-#ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
-#    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-#endif
+#undef STM32_HSE_BYPASS
