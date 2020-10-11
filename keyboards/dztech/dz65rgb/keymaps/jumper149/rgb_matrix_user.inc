@@ -59,14 +59,16 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.s = 0;
         } else if (i < base_effect_startup_counter && i >= 45 && i <= 51) {
             hsv.s = 0;
+        // light up keys on the right
         } else if (100 <= base_effect_startup_counter && i == 57) {
-            hsv.s = 3 * (255/3);
+            hsv.s = 3 * (hsv.s/3);
         } else if (101 <= base_effect_startup_counter && i == 43) {
-            hsv.s = 2 * (255/3);
+            hsv.s = 2 * (hsv.s/3);
         } else if (102 <= base_effect_startup_counter && i == 29) {
-            hsv.s = 1 * (255/3);
+            hsv.s = 1 * (hsv.s/3);
         } else if (103 <= base_effect_startup_counter && i == 14) {
-            hsv.s = 0 * (255/3);
+            hsv.s = 0 * (hsv.s/3);
+        // light up numbers
         } else if (5 + 8 - i < base_effect_startup_counter - 104 && i >= 5 && i <= 8) {
             hsv.v = hsv.v;
         } else {
@@ -117,22 +119,22 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
 
             // home
             case 14:
-                hsv.s = 0 * (255/3);
+                hsv.s = 0 * (hsv.s/3);
                 break;
 
             // page up
             case 29:
-                hsv.s = 1 * (255/3);
+                hsv.s = 1 * (hsv.s/3);
                 break;
 
             // page down
             case 43:
-                hsv.s = 2 * (255/3);
+                hsv.s = 2 * (hsv.s/3);
                 break;
 
             // end
             case 57:
-                hsv.s = 3 * (255/3);
+                hsv.s = 3 * (hsv.s/3);
                 break;
 
             default:
