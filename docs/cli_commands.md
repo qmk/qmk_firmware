@@ -239,6 +239,12 @@ qmk cformat -b branch_name
 
 ## `qmk compiledb`
 
+**Usage**:
+
+```
+qmk compiledb [-kb KEYBOARD] [-km KEYMAP]
+```
+
 Creates a `compile_commands.json` file.
 
 Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! The qmk tool can build this for you.
