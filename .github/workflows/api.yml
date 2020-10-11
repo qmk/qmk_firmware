@@ -2,6 +2,8 @@ name: Update API Data
 
 on:
   push:
+    branches:
+    - master
     paths:
     - 'keyboards/**'
     - 'layouts/community/**'
@@ -14,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Print info
         run: |
@@ -23,8 +25,8 @@ jobs:
           echo '${{ steps.file_changes.outputs.files}}'
 
     - name: Generate API Data
-      shell: 'bash {0}'
       run: qmk generate-api
+
     - name: Upload API Data
       uses: cpina/github-action-push-to-another-repository@master
       env:
