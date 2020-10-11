@@ -2,8 +2,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-rgblight_config_t RGB_current_config;
 
 // Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
 const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
