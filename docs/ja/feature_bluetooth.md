@@ -33,7 +33,7 @@ Bluefruit UART friend は SPI friend に変換することができますが、�
 
 現在サポートされている Bluetooth チップセットは [N-キーロールオーバー (NKRO)](ja/reference_glossary.md#n-key-rollover-nkro) をサポートしていません。そのため、`rules.mk` に `NKRO_ENABLE = no` を含めなければなりません。
 
-Bluetooth を有効にするには、これらのうちの1つだけを使ってください:
+Bluetooth を有効にするには、以下のうちの1つだけを使ってください:
 * BLUETOOTH_ENABLE = yes (レガシーオプション)
 * BLUETOOTH = RN42
 * BLUETOOTH = AdafruitBLE
