@@ -118,12 +118,12 @@ void oled_task_user(void) {
   }
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
+  led_t led_state = host_keyboard_led_state();
   oled_write_P(PSTR("-----"), false);
   oled_write_P(PSTR("Stats"), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("num:*") : PSTR("num:."), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("cap:*") : PSTR("cap:."), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("scr:*") : PSTR("scr:."), false);
+  oled_write_P(led_state.num_lock ? PSTR("num:*") : PSTR("num:."), false);
+  oled_write_P(led_state.caps_lock ? PSTR("cap:*") : PSTR("cap:."), false);
+  oled_write_P(led_state.scroll_lock ? PSTR("scr:*") : PSTR("scr:."), false);
 
   // Host Keyboard RGB backlight status
   oled_write_P(PSTR("-----"), false);
