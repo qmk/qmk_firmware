@@ -23,3 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 
 #endif
+
+#define BOOTMAGIC_LITE_ROW 3
+#define BOOTMAGIC_LITE_COLUMN 5 //hold b while plugging in to enter bootloader
