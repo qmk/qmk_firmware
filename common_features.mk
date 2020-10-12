@@ -397,9 +397,20 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
+# Support for translating old names to new names:
+ifeq ($(strip $(DEBOUNCE_TYPE)),sym_g)
+    DEBOUNCE_TYPE:=sym_defer_g
+else ifeq ($(strip $(DEBOUNCE_TYPE)),eager_pk)
+    DEBOUNCE_TYPE:=sym_eager_pk
+else ifeq ($(strip $(DEBOUNCE_TYPE)),sym_pk)
+    DEBOUNCE_TYPE:=sym_defer_pk
+else ifeq ($(strip $(DEBOUNCE_TYPE)),eager_pr)
+    DEBOUNCE_TYPE:=sym_eager_pr
+endif
+
 DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
 # Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
-DEBOUNCE_TYPE?= sym_g
+DEBOUNCE_TYPE?= sym_defer_g
 ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
     QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
 endif
