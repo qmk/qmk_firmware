@@ -50,10 +50,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------'
  */
   [_NV] = LAYOUT(
-    KC_INS,   KC_HOME,  KC_PGUP,   TG(_NV), \
-    KC_DEL,   KC_END,   KC_PGDN,            \
-    XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX, \
-    XXXXXXX,  KC_UP,    XXXXXXX,            \
+    KC_INS,   KC_HOME,  KC_PGUP,   TG(_NV),
+    KC_DEL,   KC_END,   KC_PGDN,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,
+    XXXXXXX,  KC_UP,    XXXXXXX,
     KC_LEFT,  KC_DOWN,  KC_RGHT,   XXXXXXX
   ),
 
