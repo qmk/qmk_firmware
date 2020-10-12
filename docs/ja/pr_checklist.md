@@ -106,7 +106,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - QMK は ChibiOS のアップグレード時のメンテナンス負担が継続的に発生するため、可能な限りカスタムボード定義を持たないように移行しています。
 - ボードの定義が避けられない場合、`board.c` には標準の `__early_init()` (通常の ChibiOS ボードの定義と同じ) と空の `boardInit()` を実装しなければなりません。
     - Arm/ChibiOS [早期初期化](https:/docs.qmk.fm/#/ja/platformdev_chibios_earlyinit?id=board-init)を参照してください
-    - `__early_init()`は、必要に応じて `early_hardware_init_pre()` または `early_hardware_init_post()` で置き換える必要があります
+    - `__early_init()`は、`early_hardware_init_pre()` または `early_hardware_init_post()` で適切に置き換える必要があります
     - `boardInit()` は `board_init()` に移行する必要があります
 
 ## コアの PR
