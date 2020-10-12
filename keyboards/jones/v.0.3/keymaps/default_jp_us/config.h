@@ -23,4 +23,4 @@
 #define TAPPING_TERM 200
 
 // music map for music-mode
-// #define MUSIC_MAP
+#define MUSIC_MAP
