@@ -10,5 +10,5 @@ You should have received a copy of the GNU General Public License along with thi
 
 #pragma once
 
-#define ENCODERS_PAD_A { D2, F4, F5, F6 }
-#define ENCODERS_PAD_B { D3, F7, B1, B3 }
+#define ENCODERS_PAD_B { D2, F4, F5, F6 }
+#define ENCODERS_PAD_A { D3, F7, B1, B3 }
