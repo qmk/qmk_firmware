@@ -94,7 +94,10 @@ void pointing_device_task(void){
     }
 }
 
-static void on_cpi_button(uint16_t cpi) {
+static void on_cpi_button(uint16_t cpi, keyrecord_t *record) {
+
+    if(!record->event.pressed)
+        return;
 
     optical_sensor_set_config((config_optical_sensor_t){ cpi });
 
@@ -103,11 +106,11 @@ static void on_cpi_button(uint16_t cpi) {
     eeconfig_update_kb(kb_config.raw);
 }
 
-static void on_mouse_button(uint8_t mouse_button, bool pressed) {
+static void on_mouse_button(uint8_t mouse_button, keyrecord_t *record) {
 
     report_mouse_t report = pointing_device_get_report();
 
-    if(pressed)
+    if(record->event.pressed)
         report.buttons |= mouse_button;
     else
         report.buttons &= ~mouse_button;
@@ -125,23 +128,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case KC_BTN1:
-            on_mouse_button(MOUSE_BTN1, record->event.pressed);
+            on_mouse_button(MOUSE_BTN1, record);
             return false;
 
         case KC_BTN2:
-            on_mouse_button(MOUSE_BTN2, record->event.pressed);
+            on_mouse_button(MOUSE_BTN2, record);
             return false;
 
         case KC_BTN3:
-            on_mouse_button(MOUSE_BTN3, record->event.pressed);
+            on_mouse_button(MOUSE_BTN3, record);
             return false;
 
         case KC_BTN4:
-            on_mouse_button(MOUSE_BTN4, record->event.pressed);
+            on_mouse_button(MOUSE_BTN4, record);
             return false;
 
         case KC_BTN5:
-            on_mouse_button(MOUSE_BTN5, record->event.pressed);
+            on_mouse_button(MOUSE_BTN5, record);
             return false;
 
         case KC_SCROLL:
@@ -149,15 +152,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case KC_CPI_1:
-            on_cpi_button(CPI_1);
+            on_cpi_button(CPI_1, record);
             return false;
 
         case KC_CPI_2:
-            on_cpi_button(CPI_2);
+            on_cpi_button(CPI_2, record);
             return false;
 
         case KC_CPI_3:
-            on_cpi_button(CPI_3);
+            on_cpi_button(CPI_3, record);
             return false;
 
         default:
