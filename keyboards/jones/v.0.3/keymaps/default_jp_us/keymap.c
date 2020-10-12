@@ -161,13 +161,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
-//     _______,37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, XXXXXXX,XXXXXXX,XXXXXXX,
-//     _______,24, 25, 26, 27, 28, 29, 30, 31, 32, 33, XXXXXXX,XXXXXXX,
-//     _______,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, XXXXXXX,XXXXXXX,XXXXXXX,
-//     _______,0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, XXXXXXX,XXXXXXX,
-//     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
-// );
+#if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
+    51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65,
+    38,   39, 40, 41, 42, 43, 44, 45, 46, 47, 48,       49, 50,
+    25,   26, 27, 28, 29, 30, 31, 32, 33, 34, 35,  36,  37, 38,
+    11,     12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+    0,   1,  2,  3,      4,      5,      6,  7,  8,  9, 10, 11
+);
+#endif
 
 // レイヤーキーを変換・無変換キーと共用する際に動作を改善する。
 static bool lower_pressed = false;
