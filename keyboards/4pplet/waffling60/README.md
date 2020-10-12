@@ -5,7 +5,7 @@ A 60% PCB for MX switches, one hot swap and one solder-pcb version with decent l
 More info: https://geekhack.org/index.php?topic=103531.0
 
 * Keyboard Maintainer: [4pplet](https://github.com/4pplet)
-* Hardware Supported: waffling60 Rev A
+* Hardware Supported: [waffling60](https://github.com/4pplet/waffling60)
 
 Make example for this keyboard (after setting up your build environment):
 
