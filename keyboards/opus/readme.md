@@ -5,7 +5,7 @@
 This is a 40%, non-split, ergonomic, hot-swap keyboard.
 The columns are angled to follow the natural angle of the hand.
 
-Keyboard Maintainer: [Raleigh Wayland](https://github.com/rtwayland)  
+Keyboard Maintainer: [rtwayland](https://github.com/rtwayland)  
 Hardware Supported: Pro-micro. Elite-C.
 
 Make example for this keyboard (after setting up your build environment):
