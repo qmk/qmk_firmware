@@ -17,10 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "quantum.h"
-#include "lufa.h"
 
-// matrix power saving
-#define MATRIX_POWER_SAVE 10000
 #define RELAX_TIME_US 5
 #define ADC_READ_TIME_US 5
 static uint32_t matrix_last_modified = 0;
@@ -36,9 +33,27 @@ static inline void key_strobe_low(void) { writePinHigh(B6); }
 static inline bool key_state(void) { return readPin(D7); }
 static inline void key_prev_on(void) { writePinHigh(B7); }
 static inline void key_prev_off(void) { writePinLow(B7); }
-static inline bool key_power_state(void) { return true; }
-static inline void key_power_on(void) {}
-static inline void key_power_off(void) {}
+static inline bool key_power_state(void) { return !readPin(D6); }
+
+void matrix_power_up(void) {
+    dprint("[matrix_on]\n");
+    // change pins output
+    DDRB  = 0xFF;
+    PORTB = 0x40;
+    // switch MOS FET on
+    setPinOutput(D6);
+    writePinLow(D6);
+}
+
+void matrix_power_down(void) {
+    dprint("[matrix_off]\n");
+    // input with pull-up consumes less than without it when pin is open
+    DDRB  = 0x00;
+    PORTB = 0xFF;
+    // switch MOS FET off
+    setPinOutput(D6);
+    writePinHigh(D6);
+}
 
 static inline void key_select_row(uint8_t row) { PORTB = (PORTB & 0b11111000) | ((row)&0b111); }
 static inline void key_select_col(uint8_t col) { PORTB = (PORTB & 0b11000111) | (((col)&0b111) << 3); }
@@ -65,7 +80,7 @@ uint8_t matrix_scan(void) {
 
     // power on
     if (!key_power_state()) {
-        key_power_on();
+        matrix_power_up();
     }
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         key_select_row(row);
@@ -118,9 +133,8 @@ uint8_t matrix_scan(void) {
             matrix_last_modified = timer_read32();
         }
     }
-    // power off
-    if (key_power_state() && (USB_DeviceState == DEVICE_STATE_Suspended || USB_DeviceState == DEVICE_STATE_Unattached) && timer_elapsed32(matrix_last_modified) > MATRIX_POWER_SAVE) {
-        key_power_off();
+    // Power saving
+    if (key_power_state() && timer_elapsed32(matrix_last_modified) > MATRIX_POWER_SAVE_TIMEOUT_MS) {
         suspend_power_down();
     }
 
@@ -145,6 +159,3 @@ __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
 __attribute__((weak)) void matrix_init_user(void) {}
 
 __attribute__((weak)) void matrix_scan_user(void) {}
-
-void matrix_power_up(void) { key_power_on(); }
-void matrix_power_down(void) { key_power_off(); }

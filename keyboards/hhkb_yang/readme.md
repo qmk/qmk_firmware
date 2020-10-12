@@ -26,8 +26,13 @@ your actual disk.
 - [x] QMK (via USB)
 - [x] Bluetooth (BLE)
 - [ ] Power saving mode
+  - [x] Idle mode
+  - [ ] Deep sleep mode
+  - [ ] Lock mode
 - [ ] LEDs
+- [ ] Battery service
 - [ ] Special commands
+  - [ ] Switch BT peer
 
 ## Entering flash mode
 

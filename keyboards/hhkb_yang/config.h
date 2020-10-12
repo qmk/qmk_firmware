@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 
+/* matrix power saving */
+#define MATRIX_POWER_SAVE_TIMEOUT_MS 10000
+
 #ifdef BLUETOOTH_ENABLE
 #    define OUTPUT_DEFAULT OUTPUT_AUTO
 
