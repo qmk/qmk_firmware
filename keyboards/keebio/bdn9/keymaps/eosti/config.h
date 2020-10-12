@@ -15,4 +15,6 @@
  */
 #pragma once
 
-#define TAPPING_TERM 175
+#define TAPPING_TERM 275
+#define NO_DEBUG
+#define NO_PRINT
