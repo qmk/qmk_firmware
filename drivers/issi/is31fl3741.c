@@ -97,14 +97,13 @@ bool IS31FL3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
 
     for (int i = 0; i < 342; i += 18) {
-        g_twi_transfer_buffer[0] = i % 180;
-
         if (i == 180) {
             // unlock the command register and select PG2
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM1);
         }
 
+        g_twi_transfer_buffer[0] = i % 180;
         memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 18);
 
 #if ISSI_PERSISTENCE > 0
@@ -251,4 +250,6 @@ void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t
     g_scaling_registers[pled->driver][pled->r] = red;
     g_scaling_registers[pled->driver][pled->g] = green;
     g_scaling_registers[pled->driver][pled->b] = blue;
+
+    g_scaling_registers_update_required[pled->driver] = true;
 }
