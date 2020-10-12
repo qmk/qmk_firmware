@@ -32,6 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 8
 
 #ifdef BLUETOOTH_ENABLE
+#    define OUTPUT_DEFAULT OUTPUT_AUTO
+
 #    undef SERIAL_UART_BAUD
 #    undef SERIAL_UART_DATA
 #    undef SERIAL_UART_UBRR
@@ -44,22 +46,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SERIAL_UART_UBRR (F_CPU / (8UL * SERIAL_UART_BAUD) - 1)
 #    define SERIAL_UART_RXD_VECT USART1_RX_vect
 #    define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
-#    define SERIAL_UART_INIT()                       \
-        do {                                         \
-            cli();                                   \
-            /* baud rate */                          \
-            UBRR1L = SERIAL_UART_UBRR;               \
-            /* baud rate */                          \
-            UBRR1H = SERIAL_UART_UBRR >> 8;          \
-            /* enable TX */                          \
-            UCSR1B |= (0 << TXCIE1) | (1 << TXEN1);  \
-            /* enable RX */                          \
-            UCSR1B |= (1 << RXCIE1) | (1 << RXEN1);  \
-            /* 8-bit data */                         \
-            UCSR1C |= (1 << UCSZ11) | (1 << UCSZ10); \
-            /* 2x speed (error = 0.2%) */            \
-            UCSR1A |= (1 << U2X1);                   \
-            sei();                                   \
+#    define SERIAL_UART_INIT()                        \
+        do {                                          \
+            cli();                                    \
+            /* baud rate */                           \
+            UBRR1L = SERIAL_UART_UBRR;                \
+            /* baud rate */                           \
+            UBRR1H = SERIAL_UART_UBRR >> 8;           \
+            /* enable TX */                           \
+            UCSR1B |= (0 << TXCIE1) | (1 << TXEN1);   \
+            /* enable RX */                           \
+            UCSR1B |= (1 << RXCIE1) | (1 << RXEN1);   \
+            /* parity: none(00), even(01), odd(11) */ \
+            UCSR1C |= (0 << UPM11) | (0 << UPM10);    \
+            /* 2x speed (error = 0.2%) */             \
+            UCSR1A |= (1 << U2X1);                    \
+            sei();                                    \
         } while (0)
 #endif
 
