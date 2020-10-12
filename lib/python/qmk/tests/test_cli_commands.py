@@ -1,10 +1,11 @@
-import subprocess
+from subprocess import STDOUT, PIPE
+
 from qmk.commands import run
 
 
 def check_subcommand(command, *args):
     cmd = ['bin/qmk', command] + list(args)
-    result = run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+    result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
 
 
@@ -28,6 +29,11 @@ def test_compile():
     check_returncode(result)
 
 
+def test_compile_json():
+    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json')
+    check_returncode(result)
+
+
 def test_flash():
     result = check_subcommand('flash', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-n')
     check_returncode(result)
@@ -45,8 +51,9 @@ def test_config():
 
 
 def test_kle2json():
-    result = check_subcommand('kle2json', 'kle.txt', '-f')
+    result = check_subcommand('kle2json', 'lib/python/qmk/tests/kle.txt', '-f')
     check_returncode(result)
+    assert 'Wrote out' in result.stdout
 
 
 def test_doctor():
@@ -152,3 +159,15 @@ def test_info_matrix_render():
     assert 'LAYOUT_ortho_1x1' in result.stdout
     assert '│0A│' in result.stdout
     assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout
+
+
+def test_c2json():
+    result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/default/keymap.c")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+
+
+def test_c2json_nocpp():
+    result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
