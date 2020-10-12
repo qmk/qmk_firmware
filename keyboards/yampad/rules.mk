@@ -75,3 +75,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 OLED_DRIVER_ENABLE = yes    # Enable OLED feature
+DEBOUNCE_TYPE = eager_pk
+DEBOUNCE = 2
