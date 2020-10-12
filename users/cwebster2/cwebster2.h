@@ -23,8 +23,8 @@
 #define LAYOUT_zen_wrapper(...)    LAYOUT(__VA_ARGS__)
 
 enum userspace_layers {
-    _QWERTY = 0,
-    _COLEMAK,
+    _COLEMAK = 0,
+    _QWERTY,
     _GAME,
     _FN,
     _SYMBOLS,

@@ -146,8 +146,8 @@ static void send_layer_via_hid(int layer) {
 
 
 #ifdef RGBLIGHT_LAYERS
-const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_BLUE} );
-const rgblight_segment_t PROGMEM my_colemak_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_AZURE} );
+const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_AZURE} );
+const rgblight_segment_t PROGMEM my_colemak_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_BLUE} );
 const rgblight_segment_t PROGMEM my_game_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_RED} );
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_PINK} );
 const rgblight_segment_t PROGMEM my_symbols_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_GREEN} );
@@ -184,8 +184,8 @@ const rgblight_segment_t PROGMEM my_gui_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_qwerty_layer,
     my_colemak_layer,
+    my_qwerty_layer,
     my_game_layer,
     my_fn_layer,
     my_symbols_layer,
