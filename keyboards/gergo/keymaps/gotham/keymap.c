@@ -9,10 +9,10 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    BASE, // default layer
-    SYMB, // symbols
-    NUMB, // number/navigation
-    MOUS, // mouse navigation
+    BASE,  // default layer
+    SYMB,  // symbols
+    NUMB,  // number/navigation
+    MOUS,  // mouse navigation
 };
 
 #define KC_ANGL LSFT(KC_COMM)
@@ -20,6 +20,7 @@ enum layers {
 
 // Blank template at the bottom
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -153,3 +154,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
  */
+// clang-format off
