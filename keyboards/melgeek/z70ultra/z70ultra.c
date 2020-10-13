@@ -1,5 +1,4 @@
 #include "z70ultra.h"
-#include "config.h"
 #include "is31fl3741.h"
 
 
@@ -163,4 +162,3 @@ void suspend_wakeup_init_kb(void) {
     rgb_matrix_set_suspend_state(false);
     suspend_wakeup_init_user();
 }
-
