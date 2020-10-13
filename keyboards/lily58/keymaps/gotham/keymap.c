@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 Gautham Yerroju <gautham.yerroju@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,35 +49,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
-
+#ifdef ENABLE_LAYOUT_COLEMAK
     [_COLEMAK] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
         _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
     ),
-
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK_DH
+    [_COLEMAK_DH] = LAYOUT_lily58_base_wrapper(
+        ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+#endif
+#ifdef ENABLE_LAYOUT_DVORAK
     [_DVORAK] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
-
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
     [_WORKMAN] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
         _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
         _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
     ),
-
+#endif
+#ifdef ENABLE_LAYOUT_NORMAN
     [_NORMAN] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________NORMAN_L1_________________, _________________NORMAN_R1_________________,
         _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
         _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
     ),
-
+#endif
     [_GAME] = LAYOUT_lily58_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         __________________GAME_L1__________________, _________________QWERTY_R1_________________,

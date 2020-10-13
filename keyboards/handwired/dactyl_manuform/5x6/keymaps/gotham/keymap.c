@@ -1,4 +1,18 @@
-/* A standard layout for the Dactyl Manuform 5x6 Keyboard */
+/* Copyright 2020 Gautham Yerroju <gautham.yerroju@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include QMK_KEYBOARD_H
 #include "gotham.h"
@@ -46,35 +60,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
-
-    [_COLEMAK] = LAYOUT_dactyl_5x6_base_wrapper(
+#ifdef ENABLE_LAYOUT_COLEMAK
+    [_COLEMAK] = LAYOUT_crkbd_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
         _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
     ),
-
-    [_DVORAK] = LAYOUT_dactyl_5x6_base_wrapper(
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK_DH
+    [_COLEMAK_DH] = LAYOUT_crkbd_base_wrapper(
+        ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+#endif
+#ifdef ENABLE_LAYOUT_DVORAK
+    [_DVORAK] = LAYOUT_crkbd_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
-
-    [_WORKMAN] = LAYOUT_dactyl_5x6_base_wrapper(
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+    [_WORKMAN] = LAYOUT_crkbd_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
         _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
         _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
     ),
-
-    [_NORMAN] = LAYOUT_dactyl_5x6_base_wrapper(
+#endif
+#ifdef ENABLE_LAYOUT_NORMAN
+    [_NORMAN] = LAYOUT_crkbd_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________NORMAN_L1_________________, _________________NORMAN_R1_________________,
         _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
         _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
     ),
-
+#endif
     [_GAME] = LAYOUT_wrapper_5x6(
       _______, ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________, _______,
       GN_ESC,  __________________GAME_L1__________________, _________________QWERTY_R1_________________, _______,

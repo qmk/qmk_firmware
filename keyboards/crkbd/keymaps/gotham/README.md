@@ -1,4 +1,4 @@
-# Gotham's custom CRKBD Layout
+#Gotham's custom CRKBD Layout
 
 My take on the 40% layout with programming in mind. Do read about the layers, it helps with forming a mental model to remember the keymap better than just memorization.
 
