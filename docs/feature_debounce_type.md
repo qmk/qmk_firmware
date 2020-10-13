@@ -76,8 +76,8 @@ susceptible to noise, you must choose a debounce method that will also mitigate 
      * Defer algorithms are noise-resistant
      * Recommended naming conventions:
         * ```sym_defer_*```
-        * ```asym_defer_*_*```: key-down is using eager algorithm
-        * ```asym_*_defer_*```: key-up is using eager algorithm
+        * ```asym_defer_*_*```: key-down is using defer algorithm
+        * ```asym_*_defer_*```: key-up is using defer algorithm
 
 4) Global vs Per-Key vs Per-Row
    * Global - one timer for all keys. Any key change state affects global timer
