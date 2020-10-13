@@ -86,7 +86,7 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 
 ?> MSYS2 を別のフォルダにインストールした場合は、`terminal.integrated.shell.windows` のパスをシステムの正しいパスに変更する必要があります。
 
-4. Ctrl-<code>&#96;</code> (Grave) を押して、ターミナルを起動するか、<kbd><kbd>表示</kbd> > <kbd>ターミナル</kbd></kbd> (コマンド `workbench.action.terminal.toggleTerminal`)に進みます。まだターミナルが開いていない場合は、新しいターミナルを開きます。
+4. Ctrl-<code>&#96;</code> (Grave) を押して、ターミナルを起動するか、<kbd><kbd>表示</kbd> > <kbd>ターミナル</kbd></kbd> (コマンド `workbench.action.terminal.toggleTerminal`)に進みます。まだターミナルが開いていない場合は、新しいターミナルが開きます。
 
    これにより、ワークスペースフォルダ(つまり `qmk_firmware` フォルダ)でターミナルが起動し、キーボードをコンパイルすることができます。
 
