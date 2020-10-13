@@ -364,6 +364,8 @@ void process_action(keyrecord_t *record, action_t action) {
                             dprint("MODS_TAP: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
+                            } else {
+                                wait_ms(TAP_CODE_DELAY);
                             }
                             unregister_code(action.key.code);
                         } else {
@@ -400,7 +402,9 @@ void process_action(keyrecord_t *record, action_t action) {
         /* Mouse key */
         case ACT_MOUSEKEY:
             if (event.pressed) {
+                mousekey_on(action.key.code);
                 switch (action.key.code) {
+#    ifdef PS2_MOUSE_ENABLE
                     case KC_MS_BTN1:
                         tp_buttons |= (1 << 0);
                         break;
@@ -410,13 +414,15 @@ void process_action(keyrecord_t *record, action_t action) {
                     case KC_MS_BTN3:
                         tp_buttons |= (1 << 2);
                         break;
+#    endif
                     default:
+                        mousekey_send();
                         break;
                 }
-                mousekey_on(action.key.code);
-                mousekey_send();
             } else {
+                mousekey_off(action.key.code);
                 switch (action.key.code) {
+#    ifdef PS2_MOUSE_ENABLE
                     case KC_MS_BTN1:
                         tp_buttons &= ~(1 << 0);
                         break;
@@ -426,11 +432,11 @@ void process_action(keyrecord_t *record, action_t action) {
                     case KC_MS_BTN3:
                         tp_buttons &= ~(1 << 2);
                         break;
+#    endif
                     default:
+                        mousekey_send();
                         break;
                 }
-                mousekey_off(action.key.code);
-                mousekey_send();
             }
             break;
 #endif
