@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ergodox_ez.h"
+#include QMK_KEYBOARD_H
 
 extern inline void ergodox_board_led_on(void);
 extern inline void ergodox_right_led_1_on(void);
