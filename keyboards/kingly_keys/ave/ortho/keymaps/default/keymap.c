@@ -184,6 +184,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  )
 
 
+// Per-Key Tapping Term Definitions:
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case TD(TD_DBQT):
+      return 235;
+    default:
+      return TAPPING_TERM;
+  }
+}
+
 
 // Encoder Customization: (*Order-of-Keycode Specific)
 void encoder_update_user(uint8_t index, bool clockwise) {
