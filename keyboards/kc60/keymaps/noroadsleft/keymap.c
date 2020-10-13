@@ -1,5 +1,4 @@
-#include QMK_KEYBOARD_H
-#include "version.h"
+#include "noroadsleft.h"
 #include <sendstring_dvorak.h>
 //#include <sendstring_colemak.h>
 #include <print.h>
@@ -13,13 +12,10 @@ enum layer_names {
     _QW,  // QWERTY
     _DV,  // Dvorak
     _CM,  // Colemak
-    // QUAKE 2 OVERLAYS
+    // QUAKE 2 OVERLAY
     _Q2,  // Quake 2
-    _QD,  // Quake 2 Dvorak
-    _QC,  // Quake 2 Console
-    // FUNCTION LAYERS
+    // FUNCTION LAYER
     _FN,  // Function
-    _FQ,  // Quake 2 Function
     // OTHER LAYERS
     _NP,  // Numpad
     _MA,  // Macros
@@ -38,23 +34,8 @@ enum layer_names {
 
 // MACRO DEFINITIONS
 enum custom_keycodes {
-    F_CAPS = SAFE_RANGE,
-    G_PUSH,
-    G_FTCH,
-    G_BRCH,
-    SIGNA,
-    GO_Q2,
-    Q2_ON,
-    Q2_OFF,
-    Q2_ESC,
-    Q2_GRV,
-    M_SALL,
-    M_UNDO,
-    M_CUT,
-    M_COPY,
-    M_PASTE,
-    VRSN,
-    M_MDSWP
+    GO_Q2 = KEYMAP_SAFE_RANGE,
+    Q2_ENT
 };
 
 
@@ -62,42 +43,12 @@ enum custom_keycodes {
 ** MODIFIER MASKS **
 *******************/
 #define MOD_MASK_RALT   (MOD_BIT(KC_RALT))
-bool macroMode = 0;
+unsigned char q2InputMode = 0;
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         // these are our macros!
-        case G_PUSH:
-            if (record->event.pressed) {
-                SEND_STRING("git push origin ");
-            };
-            return false;
-        case G_FTCH:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_SHIFT ) {
-                    clear_mods();
-                    SEND_STRING("git pull upstream ");
-                } else {
-                    SEND_STRING("git fetch upstream ");
-                }
-            };
-            return false;
-        case G_BRCH:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_SHIFT ) {
-                    clear_mods();
-                    SEND_STRING("master");
-                } else {
-                    SEND_STRING("$(git branch-name)");
-                }
-            };
-            return false;
-        case SIGNA:
-            if (record->event.pressed) {
-                SEND_STRING("\\- @noroadsleft\n");
-            };
-            return false;
         case GO_Q2:
             if (record->event.pressed) {
                 //default_layer_set(_QW);
@@ -106,115 +57,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 //layer_off(_SY);
             };
             return false;
-        case Q2_ON:
+        case Q2_ENT:
             if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ENTER));
-                layer_on(_DV);
-                layer_on(_QD);
-            };
-            return false;
-        case Q2_OFF:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ENTER));
-                layer_move(_QW); // TO(_QW);
-                layer_on(_Q2);
-            };
-            return false;
-        case Q2_ESC:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE));
-                layer_move(_QW); // TO(_QW);
-                layer_on(_Q2);
-            };
-            return false;
-        case Q2_GRV:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_GRAVE));
-                layer_on(_DV);
-                layer_on(_QD);
-                layer_on(_QC);
-            };
-            return false;
-        case M_SALL:
-            if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    SEND_STRING(SS_LGUI("a"));
+                if (q2InputMode == 0) {
+                    tap_code(KC_ENT);
+                    q2InputMode = 1;
+                    layer_on(_DV);
+                    //layer_on(_Q2);
+                } else if (q2InputMode == 1) {
+                    tap_code(KC_ENT);
+                    q2InputMode = 0;
+                    layer_off(_DV);
                 } else {
-                    SEND_STRING(SS_LCTL("a"));
+                    tap_code(KC_ENT);
                 }
-            }
+            };
             return false;
-        case M_UNDO:
+        case KC_ESC:
             if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    if ( get_mods() & MOD_MASK_SHIFT ) {
-                        SEND_STRING(SS_LSFT(SS_LGUI("z")));
+                if (q2InputMode > 0) {
+                    tap_code(KC_ESC);
+                    q2InputMode = 0;
+                    layer_off(_DV);
+                } else {
+                    tap_code(KC_ESC);
+                }
+            };
+            return false;
+        case KC_GRV:
+            if (IS_LAYER_ON(_Q2) == true) {
+                if (record->event.pressed) {
+                    if (q2InputMode == 0) {
+                        q2InputMode = 2;
+                        layer_on(_DV);
                     } else {
-                        SEND_STRING(SS_LGUI("z"));
+                        q2InputMode = 2;
                     }
-                } else {
-                    SEND_STRING(SS_LCTL("z"));
                 }
             }
-            return false;
-        case M_CUT:
-            if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    SEND_STRING(SS_LGUI("x"));
-                } else {
-                    SEND_STRING(SS_LCTL("x"));
-                }
-            }
-            return false;
-        case M_COPY:
-            if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    SEND_STRING(SS_LGUI("c"));
-                } else {
-                    SEND_STRING(SS_LCTL("c"));
-                }
-            }
-            return false;
-        case M_PASTE:
-            if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    if ( get_mods() & MOD_MASK_SHIFT ) {
-                        SEND_STRING(SS_LSFT(SS_LALT(SS_LGUI("v"))));
-                    } else {
-                        SEND_STRING(SS_LGUI("v"));
-                    }
-                } else {
-                    SEND_STRING(SS_LCTL("v"));
-                }
-            }
-            return false;
-        case KC_HOME:
-            if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    tap_code16(G(KC_LEFT));
-                } else {
-                    tap_code(keycode);
-                }
-            };
-            return false;
-        case KC_END:
-            if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    tap_code16(G(KC_RGHT));
-                } else {
-                    tap_code(keycode);
-                }
-            };
-            return false;
-        case KC_PSCR:
-            if (record->event.pressed) {
-                if ( macroMode == 1 ) {
-                    tap_code16(G(S(KC_3)));
-                } else {
-                    tap_code(keycode);
-                }
-            };
-            return false;
         case KC_Z:
             if (record->event.pressed) {
                 if ( get_mods() & MOD_MASK_RALT ) {
@@ -229,16 +109,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_Z);
                 }
             };
-            return false;
-        case VRSN:
-            if (record->event.pressed) {
-                SEND_STRING( QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION );
-            }
-            return false;
-        case M_MDSWP:
-            if (record->event.pressed) {
-                macroMode ^= 1;
-            }
             return false;
         case KC_1 ... KC_0:
             if (record->event.pressed) {
@@ -317,25 +187,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_Q2] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        Q2_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_ON,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_ENT,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______,                            _______,                            _______, _______, MO(_FQ), _______
-    ),
-
-    [_QD] = LAYOUT_60_ansi(
-        Q2_ESC,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        Q2_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_OFF,
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______,                            _______,                            _______, _______, MO(_FQ), _______
-    ),
-
-    [_QC] = LAYOUT_60_ansi(
-        Q2_ESC,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        Q2_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_ENT,
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______,                            _______,                            _______, _______, MO(_FQ), _______
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______
     ),
 
     /********************
@@ -349,15 +203,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         NO_CHNG, M_SALL,  _______, _______, _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          KC_PENT,
         _______,          M_UNDO,  M_CUT,   M_COPY,  M_PASTE, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, TG(_SY),          _______,
         _______, _______, _______,                            TG(_NP),                            _______, _______, NO_CHNG, _______
-    ),
-
-    /* Quake 2 Fn layer */
-    [_FQ] = LAYOUT_60_ansi(
-        Q2_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-        _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_PSCR, KC_SLCK, KC_PAUS,
-        NO_CHNG, _______, _______, _______, _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,          KC_ENT,
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, TG(_SY),          _______,
-        _______, _______, _______,                            _______,                            _______, _______, NO_CHNG, _______
     ),
 
     /*****************
@@ -378,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DM_REC2, _______,
         _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, DM_PLY1, DM_PLY2, DM_RSTP,
         _______, _______, _______, G_FTCH,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______,          _______, _______, _______, _______, G_BRCH,  SIGNA,   _______, _______, _______, _______,          _______,
+        _______,          _______, _______, _______, _______, G_BRCH,  _______, _______, _______, _______, _______,          _______,
         _______, _______, _______,                            _______,                            _______, _______, NO_CHNG, _______
     ),
 

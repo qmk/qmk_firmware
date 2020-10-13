@@ -1,5 +1,5 @@
-#include "noroadsleft.c"
-#include "version.h"
+#include "noroadsleft.h"
+//#include "version.h"
 #include <sendstring_dvorak.h>
 
 #define LAYOUT_75_ansi_wkl( \
@@ -27,12 +27,8 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    G_PUSH = SAFE_RANGE,
-    G_FTCH,
-    G_BRCH,
-    GO_Q2,
-    Q2_ENT,
-    Q2_GRV
+    GO_Q2 = KEYMAP_SAFE_RANGE,
+    Q2_ENT
 };
 
 unsigned char q2InputMode = 0;
@@ -87,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SY] = LAYOUT_75_ansi_wkl(
         _______, TO(_QW), TO(_DV), _______, GO_Q2,   _______, _______, _______, RESET,   _______, DEBUG,   _______, VRSN,    _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,  _______,
+        _______, _______, M_MDSWP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,  _______,
         _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, _______, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, _______, _______, _______, _______,          _______, _______, _______,
@@ -171,6 +167,21 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     }
                 }
             }
+        case KC_Z:
+            if (record->event.pressed) {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    register_code(KC_NUBS);
+                } else {
+                    register_code(KC_Z);
+                }
+            } else {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    unregister_code(KC_NUBS);
+                } else {
+                    unregister_code(KC_Z);
+                }
+            };
+            return false;
         default:
             return true;
     }

@@ -17,37 +17,102 @@
 #include "noroadsleft.h"
 #include "version.h"
 
-enum userspace_keycodes {
-    NUBS_Z = SAFE_RANGE,
-    VRSN,
-    KEYMAP_SAFE_RANGE
-};
-
 /*******************
 ** MODIFIER MASKS **
 *******************/
-#define MOD_MASK_RALT (MOD_BIT(KC_RALT))
+bool macroMode = 0;
+
+__attribute__((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case NUBS_Z:
-            if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_RALT) {
-                    SEND_STRING(SS_DOWN(X_NONUS_BSLASH));
-                } else {
-                    SEND_STRING(SS_DOWN(X_Z));
-                }
-            } else {
-                if (get_mods() & MOD_MASK_RALT) {
-                    SEND_STRING(SS_UP(X_NONUS_BSLASH));
-                } else {
-                    SEND_STRING(SS_UP(X_Z));
-                }
-            };
-            return false;
         case VRSN:
             if (record->event.pressed) {
                 SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+            return false;
+        case G_PUSH:
+            if (record->event.pressed) {
+                SEND_STRING("git push origin ");
+            };
+            return false;
+        case G_FTCH:
+            if (record->event.pressed) {
+                if ( get_mods() & MOD_MASK_SHIFT ) {
+                    clear_mods();
+                    SEND_STRING("git pull upstream ");
+                } else {
+                    SEND_STRING("git fetch upstream ");
+                }
+            };
+            return false;
+        case G_BRCH:
+            if (record->event.pressed) {
+                if ( get_mods() & MOD_MASK_SHIFT ) {
+                    clear_mods();
+                    SEND_STRING("master");
+                } else {
+                    SEND_STRING("$(git branch-name)");
+                }
+            };
+            return false;
+        case M_SALL:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    SEND_STRING(SS_LGUI("a"));
+                } else {
+                    SEND_STRING(SS_LCTL("a"));
+                }
+            }
+            return false;
+        case M_UNDO:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    if ( get_mods() & MOD_MASK_SHIFT ) {
+                        SEND_STRING(SS_LSFT(SS_LGUI("z")));
+                    } else {
+                        SEND_STRING(SS_LGUI("z"));
+                    }
+                } else {
+                    SEND_STRING(SS_LCTL("z"));
+                }
+            }
+            return false;
+        case M_CUT:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    SEND_STRING(SS_LGUI("x"));
+                } else {
+                    SEND_STRING(SS_LCTL("x"));
+                }
+            }
+            return false;
+        case M_COPY:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    SEND_STRING(SS_LGUI("c"));
+                } else {
+                    SEND_STRING(SS_LCTL("c"));
+                }
+            }
+            return false;
+        case M_PASTE:
+            if (record->event.pressed) {
+                if ( macroMode == 1 ) {
+                    if ( get_mods() & MOD_MASK_SHIFT ) {
+                        SEND_STRING(SS_LSFT(SS_LALT(SS_LGUI("v"))));
+                    } else {
+                        SEND_STRING(SS_LGUI("v"));
+                    }
+                } else {
+                    SEND_STRING(SS_LCTL("v"));
+                }
+            }
+            return false;
+        case M_MDSWP:
+            if (record->event.pressed) {
+                macroMode ^= 1;
             }
             return false;
         case KC_1 ... KC_0:

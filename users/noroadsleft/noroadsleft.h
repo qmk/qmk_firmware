@@ -18,7 +18,21 @@
 
 #include QMK_KEYBOARD_H
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+#define MOD_MASK_RALT (MOD_BIT(KC_RALT))
+extern bool macroMode;
 
-__attribute__((weak))
-bool process_record_user(uint16_t keycode, keyrecord_t *record);
+enum userspace_keycodes {
+    VRSN = SAFE_RANGE,
+    G_PUSH,
+    G_FTCH,
+    G_BRCH,
+    M_SALL,
+    M_UNDO,
+    M_CUT,
+    M_COPY,
+    M_PASTE,
+    M_MDSWP,
+    KEYMAP_SAFE_RANGE
+};
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
