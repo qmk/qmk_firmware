@@ -1,7 +1,8 @@
 /*
-
-
+Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
+Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 /*
  * scan matrix
