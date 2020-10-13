@@ -1,6 +1,5 @@
-/* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
- * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+/*
+ * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,4 +17,8 @@
 
 #pragma once
 
-#define ORYX_CONFIGURATOR
+#undef PRODUCT_ID
+#define PRODUCT_ID      0xC6CF
+
+#undef PRODUCT
+#define PRODUCT Planck EZ Glow
