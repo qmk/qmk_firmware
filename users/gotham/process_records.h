@@ -25,6 +25,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define CTL_EQL MT(MOD_LCTL, KC_EQL)
 #define SF_QUOT MT(MOD_RSFT, KC_QUOT)
 #define CT_MINS MT(MOD_RCTL, KC_MINS)
+#define TAB_CTL MT(MOD_LCTL, KC_TAB)
+#define TAB_SFT MT(MOD_LSFT, KC_TAB)
+#define ENT_CTL MT(MOD_LCTL, KC_ENT)
+#define ENT_SFT MT(MOD_LSFT, KC_ENT)
 
 #define SP_LOWR LT(_LOWER, KC_SPC)
 #define TB_LOWR LT(_LOWER, KC_TAB)
