@@ -15,7 +15,7 @@
 #    include "backlight.h"
 #endif
 
-#ifdef ENCODER_ENABLE
+#ifdef encoder_transport_enable
 #    include "encoder.h"
     #if (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B))
         static pin_t encoders_pad[] = ENCODERS_PAD_A;
@@ -39,7 +39,7 @@ typedef struct _I2C_slave_buffer_t {
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     rgblight_syncinfo_t rgblight_sync;
 #    endif
-#    ifdef ENCODER_ENABLE
+#    ifdef encoder_transport_enable
     uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
 #    ifdef WPM_ENABLE
@@ -139,7 +139,7 @@ typedef struct _Serial_s2m_buffer_t {
     // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
     matrix_row_t smatrix[ROWS_PER_HAND];
 
-#    ifdef ENCODER_ENABLE
+#    ifdef encoder_transport_enable
     uint8_t      encoder_state[NUMBER_OF_ENCODERS];
 #    endif
 
