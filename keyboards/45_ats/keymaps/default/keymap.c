@@ -89,23 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 //function for layer indicator LED
-uint32_t layer_state_set_user(uint32_t state)
-{
-    if (biton32(state) == 0) {
-    writePinHigh(D0);
-	} else {
-		writePinLow(D0);
-    }
-    if (biton32(state) == 1) {
-    writePinHigh(D1);
-	} else {
-		writePinLow(D1);
-    }
-    if (biton32(state) == 2) {
-    writePinHigh(D2);
-	} else {
-		writePinLow(D2);
-    }
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(D0, layer_state_cmp(state, 0));
+    writePin(D1, layer_state_cmp(state, 1));
+    writePin(D2, layer_state_cmp(state, 2));
     return state;
 }
 
