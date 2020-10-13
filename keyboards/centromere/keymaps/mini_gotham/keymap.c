@@ -17,8 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "gotham.h"
 
-#define TB_CTL MT(MOD_LCTL, KC_TAB)
-#define EN_SFT MT(MOD_RSFT, KC_ENT)
 /*
  * The `LAYOUT_centromere_mini_mods` macro is a template to allow the use of identical
  * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
@@ -37,7 +35,7 @@
       KC_NO, K01,  K02,  K03,  K04,  K05,                        K06,  K07,  K08,  K09,  K0A, KC_NO, \
       KC_NO, K11,  K12,  K13,  K14,  K15,                        K16,  K17,  K18,  K19,  K1A, KC_NO, \
       KC_NO, K21,  K22,  K23,  K24,  K25,                        K26,  K27,  K28,  K29,  K2A, KC_NO, \
-                        KC_LGUI, SP_LOWR, TB_CTL,            EN_SFT,  BK_RAIS, MS_DEL \
+                      KC_LGUI, SP_LOWR, TAB_CTL,            ENT_SFT,  BK_RAIS, MS_DEL \
     )
 
 #define LAYOUT_centromere_mini_mods( \
@@ -46,10 +44,10 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-      KC_NO, MT(MOD_LALT, K01),  K02,  K03,  K04,  K05,                        K06,  K07,  K08,  K09,  K0A, KC_NO, \
-      KC_NO, MT(MOD_LSFT, K11),  K12,  K13,  K14,  K15,                        K16,  K17,  K18,  K19,  MT(MOD_RSFT, K1A), KC_NO, \
-      KC_NO, MT(MOD_LCTL, K21),  K22,  K23,  K24,  K25,                        K26,  K27,  K28,  K29,  MT(MOD_RCTL, K2A), KC_NO, \
-                                      KC_LGUI, SP_LOWR, TB_CTL,            EN_SFT,  BK_RAIS, MS_DEL \
+      KC_NO, LALT_T(K01),  K02,  K03,  K04,  K05,                        K06,  K07,  K08,  K09,  RALT_T(K0A), KC_NO, \
+      KC_NO, LSFT_T(K11),  K12,  K13,  K14,  K15,                        K16,  K17,  K18,  K19,  RSFT_T(K1A), KC_NO, \
+      KC_NO, LCTL_T(K21),  K22,  K23,  K24,  K25,                        K26,  K27,  K28,  K29,  RCTL_T(K2A), KC_NO, \
+                              KC_LGUI, SP_LOWR, TAB_CTL,            ENT_SFT,  BK_RAIS, MS_DEL \
     )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_centromere_mini_base_wrapper(...)       LAYOUT_centromere_mini_base(__VA_ARGS__)
