@@ -1,28 +1,28 @@
 # Sendy YK's 60% ANSI Arrow Layout and Keymap
 
-[https://mr.sendyyk.com](https://mr.sendyyk.com)
+60% ANSI Arrow keyboard layout and keymap with RGB lighting/LED/underglow as Caps Lock, Num Lock, Scroll Lock, and layer indicator by [Sendy YK](https://mr.sendyyk.com).
 
 ## 60% ANSI Arrow Layout
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow.png)
+![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
 
 ## Keymap
 
 ### Default Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-0.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
 
 ### Fn Layer 1
 
 Press and hold *right* **Ctrl** key.
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-1.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
 
 ### Fn Layer 2
 
 Press and hold *right* **Alt** key.
 
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-2.png)
+![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
 
 ### RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
@@ -57,7 +57,7 @@ Press and hold *right* **Alt** key.
 
 ```c
     // Layer Indicator
-    else {          
+    else {
         switch (get_highest_layer(layer_state)) {
             // Fn Layer 1 Indicator
             case _FN:
@@ -78,8 +78,11 @@ Press and hold *right* **Alt** key.
 
 ## Build The Firmware
 
-You will need to build the firmware. To do so go to your terminal window and run the compile command:
+Make example for keyboard (after setting up your build environment):
 
-    qmk compile -kb dz60 -km mrsendyyk
+    make <keyboard_folder>:mrsendyyk
 
-See [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs).
+More information:
+* [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)
+* [More Detailed make Instructions](https://docs.qmk.fm/#/getting_started_make_guide)
+* [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs)
