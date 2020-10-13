@@ -1,6 +1,6 @@
 # Opus
 
-![opus](https://i.imgur.com/1jXSUbr.jpg)
+![opus](https://i.imgur.com/1jXSUbrl.jpg)
 
 This is a 40%, non-split, ergonomic, hot-swap keyboard.
 The columns are angled to follow the natural angle of the hand.
