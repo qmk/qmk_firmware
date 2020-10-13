@@ -1,8 +1,8 @@
 # キーボードの挙動をカスタマイズする方法
 
 <!---
-  original document: 0.9.43:docs/custom_quantum_functions.md
-  git diff 0.9.43 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.10.33:docs/custom_quantum_functions.md
+  git diff 0.10.33 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 多くの人にとって、カスタムキーボードはボタンの押下をコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいでしょう。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズできるフックがあります。
