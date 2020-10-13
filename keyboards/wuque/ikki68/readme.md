@@ -3,7 +3,7 @@
 ![ikki68](https://ikki68.com/wp-content/uploads/2020/06/cover-ikki68-coronation-2.jpg)
 ​
 Hope this kit is the same as ikki, every rebirth will be stronger
-More Info at[wuquestudio](https://shop.wuquestudio.com/).
+More Info at [wuquestudio](https://shop.wuquestudio.com/).
 ​
 * Keyboard Maintainer: [wuquestudio](https://shop.wuquestudio.com)
 * Hardware Supported: ikki 68 Standard
