@@ -28,8 +28,8 @@ enum avenue_layers {
 
 //Tap Dance Declarations:
 enum avenue_tapcodes {
-  TD_RST = 0,
-  TD_DBQT = 1
+  TD_RST,
+  TD_DBQT,
 };
 
 void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_Note.001
@@ -191,7 +191,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
     case TD(TD_DBQT):
       return 235;
     default:
-      return 200;
+      return TAPPING_TERM;
   }
 }
 

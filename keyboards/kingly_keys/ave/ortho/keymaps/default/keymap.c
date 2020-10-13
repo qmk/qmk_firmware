@@ -28,8 +28,8 @@ enum avenue_layers {
 
 //Tap Dance Declarations:
 enum avenue_tapcodes {
-  TD_RST = 0,
-  TD_DBQT = 1
+  TD_RST,
+  TD_DBQT,
 };
 
 void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_Note.001
