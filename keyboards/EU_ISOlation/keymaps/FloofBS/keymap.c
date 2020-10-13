@@ -71,6 +71,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // when this shitpost is pressed
         SEND_STRING("HAPPY FEET!! WOMBO COMBO!!");
       } else {
+	// The rest of the shitpost when released
         SEND_STRING("OH OH OH OH OH!!!!");
       }
       break;
