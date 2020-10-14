@@ -18,6 +18,8 @@ if uname -a | grep -qi microsoft; then
     echo "*                                                                              *"
     echo "* Please install the QMK Toolbox instead:                                      *"
     echo "*    https://github.com/qmk/qmk_toolbox/releases                               *"
+    echo "* Then, map your WSL filesystem as a network drive:                            *"
+    echo "*    \\\\\\\\wsl$\\<distro>                                                           *"
     echo "********************************************************************************"
     echo
 fi
