@@ -1,6 +1,6 @@
 # 45-ATS 
 
-![45ats](https://i.imgur.com/Paqx5zG.png)
+![45ats](https://i.imgur.com/Paqx5zGl.png)
 
 A Premium and Beautiful 45% (And-Then-Some) Keyboard. Concept and Design by [Abec13](https://www.reddit.com/user/abec13).
 
