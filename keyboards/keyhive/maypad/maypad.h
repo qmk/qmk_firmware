@@ -46,6 +46,20 @@
     { KC_NO, k41, k42, k43   }   \
 }
 
+#define LAYOUT_numpad_5x4_splitPlus( \
+        k00, k01, k02, k03, \
+        k10, k11, k12, k13, \
+        k20, k21, k22, k23, \
+        k30, k31, k32,      \
+             k41, k42, k43  \
+) { \
+    { k00,   k01, k02, k03   }, \
+    { k10,   k11, k12, k13   }, \
+    { k20,   k21, k22, k23   }, \
+    { k30,   k31, k32, KC_NO }, \
+    { KC_NO, k41, k42, k43   }  \
+}
+
 #define LAYOUT_ortho_5x4( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
@@ -59,3 +73,7 @@
     { k30, k31, k32, k33 }, \
     { k40, k41, k42, k43 }  \
 }
+
+#define LAYOUT                  LAYOUT_ortho_5x4
+#define LAYOUT_numpad           LAYOUT_numpad_5x4
+#define LAYOUT_numpad_splitPlus LAYOUT_numpad_5x4_splitPlus
