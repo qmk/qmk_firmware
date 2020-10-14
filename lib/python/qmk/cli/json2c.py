@@ -22,12 +22,12 @@ def json2c(cli):
         # TODO(skullydazed/anyone): Read file contents from STDIN
         cli.log.error('Reading from STDIN is not (yet) supported.')
         cli.print_usage()
-        exit(1)
+        return False
 
     if not cli.args.filename.exists():
         cli.log.error('JSON file does not exist!')
         cli.print_usage()
-        exit(1)
+        return False
 
     # Environment processing
     if cli.args.output and cli.args.output.name == '-':

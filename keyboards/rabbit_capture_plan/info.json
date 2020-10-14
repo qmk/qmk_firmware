@@ -5,7 +5,7 @@
     "width": 20.25,
     "height": 5.25,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {
                     "x": 0.66,
