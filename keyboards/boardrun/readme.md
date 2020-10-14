@@ -1,6 +1,6 @@
 # Boardrun
 
-![Boardrun](https://i.imgur.com/Efo0ItK.jpg)
+![Boardrun](https://i.imgur.com/Efo0ItKl.jpg)
 
 The Boardrun is a family of ortholinear keyboards with columnar stagger, inspired by the Alice layout. The Classic is a 60% layout that uses Ergodox keycap sets for compatibility, whereas the Bizarre is a 65% layout that uses standard (staggered) keycap sets in an ortholinear arrangement.
 
