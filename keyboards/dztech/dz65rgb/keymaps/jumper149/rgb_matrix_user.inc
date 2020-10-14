@@ -42,18 +42,23 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
             } else if (base_effect_startup_counter == 40) {
                 base_effect_startup_counter = 45;
             } else if (base_effect_startup_counter == 52) {
-                base_effect_startup_counter = 100;
-            } else if (base_effect_startup_counter == 104) {
-                base_effect_startup_counter = 110;
-            } else if (base_effect_startup_counter == 114) {
+                base_effect_startup_counter = 95;
+//            } else if (base_effect_startup_counter == 104) {
+//                base_effect_startup_counter = 110;
+            } else if (base_effect_startup_counter == 120) {
                 base_effect_startup_counter = 255;
             } else {
                 base_effect_startup_counter++;
             }
         }
 
+        // overwrite some highlit keys
+        if (3 + 39 - i < base_effect_startup_counter - 104 && i >= 36 && i <= 39) {
+            hsv.s = hsv.s;
+        } else if (3 + 39 - i < base_effect_startup_counter - 104 && i >= 31 && i <= 34) {
+            hsv.s = hsv.s;
         // light up alpha keys
-        if (i < base_effect_startup_counter && i >= 16 && i <= 25) {
+        } else if (i < base_effect_startup_counter && i >= 16 && i <= 25) {
             hsv.s = 0;
         } else if (31 + 39 - i < base_effect_startup_counter && i >= 31 && i <= 39) {
             hsv.s = 0;
@@ -143,7 +148,13 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
                     (i > 30 && i <= 39) ||
                     (i > 44 && i <= 51)
                 ) {
-                    hsv.s = 0;
+                    if (i > 35 && i <= 39) {
+                        hsv.s = hsv.s;
+                    } else if (i > 30 && i <= 34) {
+                        hsv.s = hsv.s;
+                    } else {
+                        hsv.s = 0;
+                    }
                 } else {
                     hsv.v = 0;
                 }
