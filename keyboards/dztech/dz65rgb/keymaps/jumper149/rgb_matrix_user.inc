@@ -627,13 +627,13 @@ static HSV kitt_effect_math(HSV hsv, uint8_t i, uint8_t time) {
     if (i >= led_first && i < led_first + led_count) {
         uint8_t j = i - led_first;
         if (j == time_to_led(time, 0)) {
-            hsv.v = 255;
+            hsv.v = hsv.v;
         } else if (j == time_to_led(time, 1)) {
-            hsv.v = 127;
+            hsv.v = hsv.v/2;
         } else if (j == time_to_led(time, 2)) {
-            hsv.v = 63;
+            hsv.v = hsv.v/4;
         } else if (j == time_to_led(time, 3)) {
-            hsv.v = 31;
+            hsv.v = hsv.v/8;
         } else {
             hsv.v = 0;
         }
