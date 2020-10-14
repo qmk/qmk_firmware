@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _CONTROL,
+    _BASE,
     _PHOTO,
     _PHOTO_SHIFT,
     _FN
@@ -34,7 +34,7 @@ enum custom_keycodes {
     FN,
 */
 #define FN MO(_FN)
-#define CONTROL DF(_CONTROL)
+#define BASE DF(_BASE)
 #define PHOTO DF(_PHOTO)
 #define PHOTO_S MO(_PHOTO_SHIFT)
 #define PS_CMRL KC_LGUI
@@ -63,7 +63,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_CONTROL] = LAYOUT(
+    [_BASE] = LAYOUT(
     KC_TAB,  KC_TAB,  KC_UP,   KC_PGDN, KC_HOME, KC_DEL,
     KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_INS,
     KC_LSFT, KC_ESC,  KC_LALT, KC_SPC,  FN,      KC_ENT
@@ -76,11 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_PHOTO_SHIFT] = LAYOUT(
     KC_ESC,  PS_BRSD, PS_BRSI, PS_UNDO, PS_REDO, KC_DEL,
     PS_CMRL, PS_BRSP, PS_BRSN, PS_CSHR, PS_CROP, PS_CLYR,
-    KC_LSFT, PS_LANG, CONTROL, _______, _______, _______
+    KC_LSFT, PS_LANG, BASE, _______, _______, _______
 ),
     [_FN] = LAYOUT(
     KC_LANG2,KC_LANG1,XXXXXXX, RGB_TOG, KC_MNXT, KC_VOLU,
-    PHOTO,   CONTROL, KC_NO,   RGB_MOD, KC_MPRV, KC_VOLD,
+    PHOTO,   BASE, KC_NO,   RGB_MOD, KC_MPRV, KC_VOLD,
     CG_NORM, CG_SWAP, KC_NO,   KC_NO,   _______, KC_MUTE
 )
 };
@@ -115,7 +115,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (layer_state) {
-            case _CONTROL:
+            case _BASE:
                 if (clockwise) {
                     tap_code(KC_WH_U);
                 } else {

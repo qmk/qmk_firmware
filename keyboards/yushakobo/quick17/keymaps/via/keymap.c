@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _CONTROL,
+    _BASE,
     _PHOTO,
     _PHOTO_SHIFT,
     _FN
@@ -33,7 +33,7 @@ enum custom_keycodes {
     FN,
 */
 #define FN MO(_FN)
-#define CONTROL DF(_CONTROL)
+#define BASE DF(_BASE)
 #define PHOTO DF(_PHOTO)
 #define PHOTO_S MO(_PHOTO_SHIFT)
 #define MAC CG_NORM
@@ -63,9 +63,9 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_CONTROL] = LAYOUT(
-    KC_TAB,  KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, KC_DEL,
-    KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_INS,
+    [_BASE] = LAYOUT(
+    KC_TAB,  KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, KC_INS,
+    KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_DEL,
     KC_LSFT, KC_ESC,  KC_LALT, KC_SPC,  FN,      KC_ENT
 ),
     [_PHOTO] = LAYOUT(
@@ -76,11 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_PHOTO_SHIFT] = LAYOUT(
     KC_ESC,  PS_BRSD, PS_BRSI, PS_UNDO, PS_REDO, KC_DEL,
     PS_CMRL, PS_BRSP, PS_BRSN, PS_CSHR, PS_CROP, PS_CLYR,
-    KC_LSFT, PS_LANG, CONTROL, _______, _______, _______
+    KC_LSFT, PS_LANG, BASE, _______, _______, _______
 ),
     [_FN] = LAYOUT(
     FN_LANG, KC_LANG1,XXXXXXX, RGB_TOG, KC_MNXT, KC_VOLU,
-    PHOTO,   CONTROL, KC_NO,   RGB_MOD, KC_MPRV, KC_VOLD,
+    PHOTO,   BASE, KC_NO,   RGB_MOD, KC_MPRV, KC_VOLD,
     MAC,     WIN,     KC_NO,   KC_NO,   _______, KC_MUTE
 )
 };
@@ -102,10 +102,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {
                 if (_mode_ja == false){
-                    register_code(KC_LANG2);
+                    unregister_code(KC_LANG2);
                     _mode_ja = true;
                 } else {
-                    register_code(KC_LANG1);
+                    unregister_code(KC_LANG1);
                     _mode_ja = false;
                 }
             }
@@ -128,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (layer_state) {
-            case _CONTROL:
+            case _BASE:
                 if (clockwise) {
                     tap_code(KC_WH_U);
                 } else {
@@ -156,28 +156,43 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #ifdef RGBLIGHT_LAYERS
+#define RGBINDICATOR_TEST_A HSV_RED
+#define RGBINDICATOR_TEST_B HSV_BLUE
+#define RGBINDICATOR_TEST_C HSV_WHITE
+#define RGBINDICATOR_TEST_D HSV_GREEN
     const rgblight_segment_t PROGMEM mode_mac[] = RGBLIGHT_LAYER_SEGMENTS(
-        {5, 1, HSV_WHITE}
+        {5, 1, RGBINDICATOR_TEST_A}
+//        {5, 1, HSV_WHITE}
     );
     const rgblight_segment_t PROGMEM mode_win[] = RGBLIGHT_LAYER_SEGMENTS(
-        {5, 1, HSV_TEAL}
+        {5, 1, RGBINDICATOR_TEST_B}
+//        {5, 1, HSV_TEAL}
+    );
+    const rgblight_segment_t PROGMEM mode_base[] = RGBLIGHT_LAYER_SEGMENTS(
+        {11, 1, RGBINDICATOR_TEST_D}
     );
     const rgblight_segment_t PROGMEM mode_photo[] = RGBLIGHT_LAYER_SEGMENTS(
-        {11, 1, HSV_TEAL}
+        {11, 1, RGBINDICATOR_TEST_A}
+//        {11, 1, HSV_TEAL}
     );
     const rgblight_segment_t PROGMEM mode_photo1[] = RGBLIGHT_LAYER_SEGMENTS(
-        {11, 1, HSV_BLUE}
+        {11, 1, RGBINDICATOR_TEST_B}
+//        {11, 1, HSV_BLUE}
     );
     const rgblight_segment_t PROGMEM mode_fn[] = RGBLIGHT_LAYER_SEGMENTS(
-        {11, 1, HSV_SPRINGGREEN}
+        {11, 1, RGBINDICATOR_TEST_C}
+//        {11, 1, HSV_SPRINGGREEN}
     );
     const rgblight_segment_t PROGMEM mode_ja[] = RGBLIGHT_LAYER_SEGMENTS(
-        {17, 1, HSV_ORANGE}
+        {17, 1, RGBINDICATOR_TEST_A}
+//        {17, 1, HSV_ORANGE}
     );
     const rgblight_segment_t PROGMEM mode_en[] = RGBLIGHT_LAYER_SEGMENTS(
-        {17, 1, HSV_YELLOW}
+        {17, 1, RGBINDICATOR_TEST_B}
+//        {17, 1, HSV_YELLOW}
     );
     const rgblight_segment_t* const PROGMEM quick17_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+        mode_base,
         mode_photo,
         mode_photo1,
         mode_fn,
@@ -188,18 +203,22 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     );
     void keyboard_post_init_user(void){
         rgblight_layers = quick17_rgb_layers;
+        
     }
     layer_state_t layer_state_set_user(layer_state_t state){
-        rgblight_set_layer_state(1, layer_state_cmp(state, _PHOTO_SHIFT));
-        rgblight_set_layer_state(2, layer_state_cmp(state, _FN));
+        rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
+        rgblight_set_layer_state(1, layer_state_cmp(state, _PHOTO));
+        rgblight_set_layer_state(2, layer_state_cmp(state, _PHOTO_SHIFT));
+        rgblight_set_layer_state(3, layer_state_cmp(state, _FN));
+        rgblight_set_layer_state(4, keymap_config.swap_lctl_lgui == true);
+        rgblight_set_layer_state(5, keymap_config.swap_lctl_lgui == false);
+        rgblight_set_layer_state(6, _mode_ja);
+        rgblight_set_layer_state(7, !_mode_ja);
         return state;
     }
+    /*
     bool led_update_user(led_t led_state){
-        rgblight_set_layer_state(0, layer_state_cmp(layer_state, _PHOTO));
-        rgblight_set_layer_state(3, keymap_config.swap_lctl_lgui);
-        rgblight_set_layer_state(4, !keymap_config.swap_lctl_lgui);
-        rgblight_set_layer_state(5, _mode_ja);
-        rgblight_set_layer_state(6, !_mode_ja);
         return true;
     }
+    */
 #endif
