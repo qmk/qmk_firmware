@@ -17,7 +17,7 @@ extern rgblight_config_t rgblight_config;
 
 enum layers {
     QWERTY, // default layer
-    LOWER, // symbols
+    LOWER,  // symbols
     RAISE,  // media & rgb keys
 };
 
@@ -63,6 +63,7 @@ void matrix_init_user(void) {
     #endif
 }
 //SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
+
 #ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -77,7 +78,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
      void set_keylog(uint16_t keycode, keyrecord_t *record);
      const char *read_keylogs(void);
      const char *read_host_led_state(void);
-	 //const char *read_keylog(void);
+     //const char *read_keylog(void);
      //const char *read_mode_icon(bool swap);
      //void set_timelog(void);
      //const char *read_timelog(void);
@@ -89,7 +90,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
      const char *wpm_state(void);
      void render_anim(void);
 #endif
-
 
 void oled_task_user(void) {
   if (!is_keyboard_master()) {
@@ -112,7 +112,9 @@ void oled_task_user(void) {
     #endif
   }
 }
-#endif // OLED_DRIVER_ENABLE
+#endif
+// OLED_DRIVER_ENABLE
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
@@ -123,3 +125,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+#ifdef ENCODER_ENABLE
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        // Volume control
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    else if (index == 1) {
+        // Page up/Page down
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+}
+#endif
+
+

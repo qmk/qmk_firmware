@@ -17,6 +17,9 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
-FIRMWARE_FORMAT = hex
 SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm
+
+# Address of the bootloader in system memory
+STM32_BOOTLOADER_ADDRESS = 0x1FFF0000
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave

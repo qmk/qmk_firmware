@@ -17,7 +17,7 @@
 
 #include "config_common.h"
 
-
+#define HAL_USE_I2C TRUE
 #define BOARD_OTG_NOVBUSSENS 1
 #define STM32_LSECLK 32768U
 #define STM32_HSECLK 25000000U
@@ -38,8 +38,8 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { A0, A1, A3, A4, A5, A6 }
-#define MATRIX_COL_PINS { B0, B2, B4, B7, B8, B11, B12 }
+#define MATRIX_ROW_PINS { A7, A8, A9, A10, B14, B15 }
+#define MATRIX_COL_PINS { A6, A5, A4, A3, A2, A1, A0 }
 
 
 /* COL2ROW, ROW2COL*/
@@ -57,19 +57,25 @@
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define HAL_USE_SERIAL TRUE
-#define SPLIT_HAND_PIN B9
+#define SPLIT_HAND_PIN B12
 #define SOFT_SERIAL_PIN B6
 //#define SELECT_SOFT_SERIAL_SPEED 0
 #define SERIAL_USART_SPEED 921600
 
 #define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { A2 }
+#define ENCODERS_PAD_B { B4 }
 
 #define RGB_DI_PIN B1
+#define WS2812_PWM_DRIVER PWMD3                // TIMxx
+#define WS2812_PWM_CHANNEL 4                   // Channel of TIMx
+#define WS2812_PWM_PAL_MODE 2                  // Alternate function for TIMx_CHANNELx
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2   //DMAx_STREAMx for TIMx_CHANNELx
+#define WS2812_DMA_CHANNEL 5                   //DMA_CHANNEL 
+
 
 #ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 48
-#define RGBLED_SPLIT {24, 24}
+#define RGBLED_NUM 28
+#define RGBLED_SPLIT {14, 14}
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -77,11 +83,6 @@
 #define DRIVER_LED_TOTAL RGBLED_NUM   // Number of LEDs
 #endif
 
-#define WS2812_PWM_DRIVER PWMD3
-#define WS2812_PWM_CHANNEL 4
-#define WS2812_PWM_PAL_MODE 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
-#define WS2812_DMA_CHANNEL 5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
