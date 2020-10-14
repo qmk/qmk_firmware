@@ -242,3 +242,18 @@ static void select_row(uint8_t row) {
         }
     }
 }
+
+// DO NOT REMOVE
+// Needed for proper wake/sleep
+void matrix_power_up(void) {
+    mcp23018_status = init_mcp23018();
+
+    unselect_rows();
+    init_cols();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+    }
+
+}
