@@ -32,7 +32,7 @@
   { k51, k52, k53, k54, k55, k56, k57, k58, k59, k510, k511, k512, k513, KC_NO, KC_NO, KC_NO, KC_NO} \
 }
 
-#define LAYOUT_Bizarre_ANSI( \
+#define LAYOUT_bizarre_ansi( \
   k11,   k12, k69, k13, k14, k15, k16, k17,           k18, k19, k110, k111, k112, k113, k114,   k115,    \
   k21,      k22,   k23, k24, k25, k26, k27,           k28, k29, k210, k211, k212, k213, k214,   k215,  \
            k32,    k33, k34, k35, k36, k37,           k38, k39, k310, k311, k312, k313,     k315,      \
