@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B6 }
 
 #define ENCODER_RESOLUTION 2
-#define TAP_CODE_DELAY 25
+#define TAP_CODE_DELAY 25 
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
