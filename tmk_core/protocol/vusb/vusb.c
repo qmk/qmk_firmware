@@ -532,7 +532,11 @@ const PROGMEM uchar console_hid_report[] = {
 #endif
 
 #ifndef SERIAL_NUMBER
+#ifdef VIAL_ENABLE
+#    define SERIAL_NUMBER vial:f64c2b3c
+#else
 #    define SERIAL_NUMBER 0
+#endif
 #endif
 
 #ifndef USB_MAX_POWER_CONSUMPTION

@@ -47,6 +47,10 @@
 #include "tmk_core/common/eeprom.h"
 #include "version.h"  // for QMK_BUILDDATE used in EEPROM magic
 
+#ifdef VIAL_ENABLE
+#include "vial.h"
+#endif
+
 // Forward declare some helpers.
 #if defined(VIA_QMK_BACKLIGHT_ENABLE)
 void via_qmk_backlight_set_value(uint8_t *data);
@@ -383,6 +387,12 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             bootloader_jump();
             break;
         }
+#ifdef VIAL_ENABLE
+        case 0xFE: {
+            vial_handle_cmd(data, length);
+            break;
+        }
+#endif
         default: {
             // The command ID is not known
             // Return the unhandled state
