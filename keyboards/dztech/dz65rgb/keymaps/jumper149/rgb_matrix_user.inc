@@ -72,8 +72,6 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
         } else if (103 <= base_effect_startup_counter && i == 14) {
             hsv.s = 0 * (hsv.s/3);
         // light up number row
-        } else if (5 + 8 - i < base_effect_startup_counter - 104 && i == 0) {
-            hsv.v = hsv.v;
         } else if (5 + 8 - i < base_effect_startup_counter - 104 && i >= 5 && i <= 8) {
             hsv.v = hsv.v;
         } else if (5 + 8 - i < base_effect_startup_counter - 104 && i >= 11 && i <= 12) {
@@ -279,51 +277,51 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
         // F1 - F12
         case 1:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 127 + 4 * (128 / 4);
+            hsv.s = 255;
             break;
         case 2:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 127 + 3 * (128 / 4);
+            hsv.s = 255;
             break;
         case 3:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 127 + 2 * (128 / 4);
+            hsv.s = 255;
             break;
         case 4:
             hsv.h = 0 * 255 / 3;
-            hsv.s = 127 + 1 * (128 / 4);
+            hsv.s = 255;
             break;
         case 5:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 127 + 4 * (128 / 4);
+            hsv.s = 255;
             break;
         case 6:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 127 + 3 * (128 / 4);
+            hsv.s = 255;
             break;
         case 7:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 127 + 2 * (128 / 4);
+            hsv.s = 255;
             break;
         case 8:
             hsv.h = 1 * 255 / 3;
-            hsv.s = 127 + 1 * (128 / 4);
+            hsv.s = 255;
             break;
         case 9:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 127 + 4 * (128 / 4);
+            hsv.s = 255;
             break;
         case 10:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 127 + 3 * (128 / 4);
+            hsv.s = 255;
             break;
         case 11:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 127 + 2 * (128 / 4);
+            hsv.s = 255;
             break;
         case 12:
             hsv.h = 2 * 255 / 3;
-            hsv.s = 127 + 1 * (128 / 4);
+            hsv.s = 255;
             break;
 
         // delete/insert
