@@ -6,8 +6,6 @@
 #include "split_util.h"
 #endif
 
-extern uint8_t is_master;
-
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);
 const char *read_keylog(void);

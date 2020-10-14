@@ -10,7 +10,6 @@
 #endif
 
 extern keymap_config_t keymap_config;
-extern uint8_t is_master;
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings

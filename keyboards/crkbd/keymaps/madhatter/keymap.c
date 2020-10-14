@@ -30,8 +30,6 @@ static const char PROGMEM code_to_name[0xFF] = {
 void add_keylog(uint16_t keycode);
 #endif
 
-extern uint8_t is_master;
-
 enum corny_layers {
     _QWERTY,
     _LOWER,

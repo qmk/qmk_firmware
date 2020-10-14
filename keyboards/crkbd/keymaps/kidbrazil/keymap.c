@@ -3,7 +3,6 @@
 #include "layer.h"
 
 // [Init Variables] ----------------------------------------------------------//
-extern uint8_t is_master;
 // Oled timer similar to Drashna's
 static uint32_t oled_timer = 0;
 // Boolean to store LED state
