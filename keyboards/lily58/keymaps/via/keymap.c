@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-
+#include <stdio.h>
 
 enum layer_number {
   _QWERTY = 0,
@@ -106,12 +106,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-int keylogs_row;
-int keylogs_col;
-int keylogs_keycode;
-int keylogs_name;
-int keylog_str[24] = [];
-int *keylogs_str = {};
+char keylog_str[24] = {};
+char keylogs_str[21] = {};
 int keylogs_str_idx = 0;
 
 const char code_to_name[60] = {
@@ -123,28 +119,25 @@ const char code_to_name[60] = {
     ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
-//   char name = ' ';
+  char name = ' ';
   if (keycode < 60) {
-    keylogs_name = code_to_name[keycode];
+    name = code_to_name[keycode];
   }
-  keylogs_row = record->event.key.row;
-  keylogs_col = record->event.key.col;
-  keylogs_keycode = keycode;
 
   // update keylog
-  printf("%dx%d, k%2d : %c\n",
-           keylogs_row, keylogs_col,
-           keylogs_keycode, keylogs_name);
+  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
+           record->event.key.row, record->event.key.col,
+           keycode, name);
 
-    //   update keylogs
-  if (keylogs_str_idx == 21 - 1) {
+  // update keylogs
+  if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
     keylogs_str_idx = 0;
-    for (int i = 0; i < 21 - 1; i++) {
-      keylogs_str[i] = 0;
+    for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
+      keylogs_str[i] = ' ';
     }
   }
 
-  keylogs_str[keylogs_str_idx] = keylogs_keycode;
+  keylogs_str[keylogs_str_idx] = name;
   keylogs_str_idx++;
 }
 
