@@ -336,6 +336,19 @@ static HSV fn_indicator_math(HSV hsv, uint8_t i, uint8_t time) {
             hsv.s = 255;
             break;
 
+        // paste/copy/cut
+        case 29:
+            hsv.s = 0;
+            break;
+        case 43:
+            hsv.h = 200;
+            hsv.s = 255;
+            break;
+        case 57:
+            hsv.h = 0;
+            hsv.s = 255;
+            break;
+
         // print/scroll/pause
         case 25:
             hsv.s = 0;
