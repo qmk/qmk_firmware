@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    CozyKeys
 #define PRODUCT         Speedo
-#define DESCRIPTION     A 66-key Ergonomic Mechanical Keyboard
+
 
 // Key matrix size
 #define MATRIX_ROWS 5
