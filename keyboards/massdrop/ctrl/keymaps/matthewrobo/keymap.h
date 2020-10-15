@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MILLISECONDS_IN_SECOND 1000
 
 // These are just to make it neater to use builtin HSV values in the keymap
+// clang-format off
 #define WHITE {HSV_WHITE}
 #define RED {HSV_RED}
 #define CORAL {HSV_CORAL}
@@ -46,31 +47,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CREAM {HSV_CREAM}
 #define HSV_9B59B5 208, 192, 255
 #define M9B59B5 {HSV_9B59B5}
+// clang-format on
 
 #define LT_CAPS LT(_NL, KC_CAPS)
 #define _LAYER_ KC_TRNS
 
 //========================================================== CONFIGURABLE DEFAULTS ==========================================================
-extern bool g_suspend_state;
+extern bool         g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
-bool disable_layer_color;
+bool                disable_layer_color;
 
-bool rgb_enabled_flag;                  // Current LED state flag. If false then LED is off.
+bool rgb_enabled_flag;  // Current LED state flag. If false then LED is off.
 
 enum layout_names {
-    _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
-    _NL,         // Navigation Layout: Cursor keys and numpad inputs
-    _FL,         // Function Layout: The function key activated layout with default functions and some added ones
+    _KL = 0,  // Keys Layout: The main keyboard layout that has all the characters
+    _NL,      // Navigation Layout: Cursor keys and numpad inputs
+    _FL,      // Function Layout: The function key activated layout with default functions and some added ones
 };
 
 enum ctrl_keycodes {
-    U_T_AUTO = SAFE_RANGE, // USB Extra Port Toggle Auto Detect / Always Active
-    U_T_AGCR,              // USB Toggle Automatic GCR control
-    DBG_TOG,               // DEBUG Toggle On / Off
-    DBG_MTRX,              // DEBUG Toggle Matrix Prints
-    DBG_KBD,               // DEBUG Toggle Keyboard Prints
-    DBG_MOU,               // DEBUG Toggle Mouse Prints
-    MD_BOOT,               // Restart into bootloader after hold timeout
+    U_T_AUTO = SAFE_RANGE,  // USB Extra Port Toggle Auto Detect / Always Active
+    U_T_AGCR,               // USB Toggle Automatic GCR control
+    DBG_TOG,                // DEBUG Toggle On / Off
+    DBG_MTRX,               // DEBUG Toggle Matrix Prints
+    DBG_KBD,                // DEBUG Toggle Keyboard Prints
+    DBG_MOU,                // DEBUG Toggle Mouse Prints
+    MD_BOOT,                // Restart into bootloader after hold timeout
     MAS_CRM,
     MAS_PRP,
     MAS_RED,

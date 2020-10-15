@@ -1,8 +1,8 @@
-# RGBLIGHT_ENABLE = no				# Not for MD boards. This is here in case you forget.
+#RGBLIGHT_ENABLE   = no #Not for MD boards.This is here in case you forget.
 COMMAND_ENABLE = no				# Commands for debug and configuration
-# BOOTMAGIC_ENABLE = full			# Virtual DIP switch configuration
-# BOOTMAGIC_ENABLE = lite
-# AUTO_SHIFT_ENABLE = yes      	# Auto Shift
+#BOOTMAGIC_ENABLE  = full #Virtual DIP switch configuration
+#BOOTMAGIC_ENABLE  = lite
+#AUTO_SHIFT_ENABLE = yes #Auto Shift
 NKRO_ENABLE = yes           	# USB Nkey Rollover
 DYNAMIC_MACRO_ENABLE = no		# Dynamic macro recording and play
 MOUSEKEY_ENABLE = no			# Enable mouse control keycodes. Increases firmware size.
@@ -11,7 +11,7 @@ CONSOLE_ENABLE = no			# Enable debugging console. Increases firmware size.
 SRC += config_led.c				# Used to add files to the compilation/linking list.
 TERMINAL_ENABLE = no
 EXTRAKEY_ENABLE = yes			# Audio control and System control
-# RAW_ENABLE = yes				# Raw HID has not yet been implemented for this keyboard
-# COMBO_ENABLE					# Key combo feature
-# LEADER_ENABLE					# Enable leader key chording
+#RAW_ENABLE = yes #Raw HID has not yet been implemented for this keyboard
+#COMBO_ENABLE #Key combo                    feature
+#LEADER_ENABLE #Enable leader key           chording
 RGB_MATRIX_CUSTOM_USER = yes

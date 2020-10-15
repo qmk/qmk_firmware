@@ -17,12 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifdef RGB_MATRIX_ENABLE
-#include "ctrl.h"
+#    include "ctrl.h"
 
-#include "led_matrix.h"
-#include "rgb_matrix.h"
-#include "config_led.h"
-
+#    include "led_matrix.h"
+#    include "rgb_matrix.h"
+#    include "config_led.h"
+// clang-format off
 led_config_t g_led_config = { {
     {   0,   1,   2,   3,   4,   5,   6,   7 },
     {  16,  17,  18,  19,  20,  21,  22,  23 },
@@ -88,13 +88,10 @@ led_config_t g_led_config = { {
     2, 2, 2, 2, 2, 2, 2, 2,
     2, 2, 2, 2, 2, 2, 2, 2
 } };
+// clang-format on
 
-
-#ifdef USB_LED_INDICATOR_ENABLE
-void rgb_matrix_indicators_kb(void)
-{
-  led_matrix_indicators();
-}
-#endif // USB_LED_INDICATOR_ENABLE
+#    ifdef USB_LED_INDICATOR_ENABLE
+void rgb_matrix_indicators_kb(void) { led_matrix_indicators(); }
+#    endif  // USB_LED_INDICATOR_ENABLE
 
 #endif
