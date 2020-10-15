@@ -28,8 +28,6 @@
 #    include "rev1.h"
 #elif defined(KEYBOARD_ploopyco_trackball_rev1_005)
 #    include "rev1_005.h"
-#else
-#    error Revision not selected. Please check your PCB and verify that you have the correct revision.
 #endif
 
 // Sensor defs
