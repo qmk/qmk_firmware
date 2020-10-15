@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 #define USE_I2C
-//#define SSD1306OLED
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -28,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    monksoffunk
 #define PRODUCT         cassette42
-#define DESCRIPTION     Audio control pad
 
 /* key matrix size */
 #define MATRIX_ROWS 1
