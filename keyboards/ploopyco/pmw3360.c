@@ -122,7 +122,6 @@ bool pmw_spi_init(void) {
 
     pmw_upload_firmware();
 
-    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
     spi_stop_adv();
 
     wait_ms(10);
@@ -135,6 +134,8 @@ bool pmw_spi_init(void) {
 
 void pmw_upload_firmware(void) {
     spi_write_adv(REG_Config2, 0x00);
+
+    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
 
     spi_write_adv(REG_SROM_Enable, 0x1d);
 
