@@ -4,9 +4,9 @@
 
 An ergonomic 45%. 
 
-*Keyboard Maintainer: [Holtenc](https://github.com/holtenc/)  
-*Hardware Supported: Prime_E Standard PCBs, Atmega32u4
-*Hardware Availability: [Store Link](https://www.primekb.com)
+* Keyboard Maintainer: [Holtenc](https://github.com/holtenc/)
+* Hardware Supported: Prime_E Standard PCBs, Atmega32u4
+* Hardware Availability: [Store Link](https://www.primekb.com)
 
 Make example for this keyboard (after setting up your build environment):
 
