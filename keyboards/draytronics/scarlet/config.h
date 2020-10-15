@@ -1,4 +1,6 @@
-/*Copyright 2020 GhostSeven
+/*Copyright 2020 Blake Drayson / Draytronics
+
+Contact info@draytronics.co.uk
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x4445 //DE for Drayson Electronics
+#define VENDOR_ID       0x4454 //DT for DrayTronics
 #define PRODUCT_ID      0x5343 //SC for Scarlet
 #define DEVICE_VER      0x0001 //Version 1
-#define MANUFACTURER    GhostSeven
+#define MANUFACTURER    Draytronics
 #define PRODUCT         SCARLET
 #define DESCRIPTION     17 key numpad.
 

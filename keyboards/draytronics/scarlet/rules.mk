@@ -1,7 +1,4 @@
 # MCU name
-
-#Both ATmega328P and ATmega32A have been tested and work with USBasp, please ensure you configure the right one.
-#MCU = atmega328p
 MCU = atmega32a
 
 # Processor frequency
