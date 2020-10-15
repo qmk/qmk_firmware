@@ -49,7 +49,7 @@
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
 #define UNUSED_PINS \
-    { D1, D3, B4, B6, B7, D6, C7, F6, F5, F3 }
+    { D1, D3, B4, B6, B7, D6, C7, F6, F5, F3, F7 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -74,3 +74,5 @@
 #define BOOTMAGIC_LITE_COLUMN 3
 
 #define ROTATIONAL_TRANSFORM_ANGLE 20
+
+// #define DEBUG_LED_PIN F7
