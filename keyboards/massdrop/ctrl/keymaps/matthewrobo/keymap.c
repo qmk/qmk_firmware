@@ -280,15 +280,3 @@ void rgb_matrix_indicators_user(void) {
         }
     set_layer_color(get_highest_layer(layer_state));
 }
-
-/* This is a test function for Raw HID, which is currently not implemented for this keyboard */
-/**
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-    uint8_t response[RAW_EPSIZE];
-    memset(response+1, 'C', 1);
-    memset(response+2, 'T', 1);
-    memset(response+3, 'R', 1);
-    memset(response+4, 'L', 1);
-    raw_hid_send(data, length);
-}
-*/

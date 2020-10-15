@@ -14,3 +14,4 @@ EXTRAKEY_ENABLE = no			# Audio control and System control
 # RAW_ENABLE = yes				# Raw HID has not yet been implemented for this keyboard
 # COMBO_ENABLE					# Key combo feature
 # LEADER_ENABLE					# Enable leader key chording
+RGB_MATRIX_CUSTOM_USER = yes
