@@ -78,11 +78,11 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     },
     [_FL] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            RED,     GREEN,   _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   RED,     GREEN,   AZURE, \
-        _______, GOLD,    CORAL,   ORANGE,  PINK,    WHITE,   _______, _______, MAGENT,  BLUE,    WHITE,   GOLD,    GOLD,    _______,   ORANGE,  ORANGE,  AZURE, \
-        _______, GOLD,    CORAL,   MAGENT,  RED,     WHITE,   _______, RED,     {1,0,0}, CYAN,    PURPLE,  _______, _______, \
-        _______, RED,     _______, _______, _______, RED,     PINK,    YELLOW,  GREEN,   GOLD,    _______, _______,                              WHITE,   \
-        _______, _______, _______,                   _______,                            _______, WHITE,   _______, _______,            CORAL,   WHITE,   CORAL \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   RED,     GREEN,   AZURE,   \
+        _______, GOLD,    CORAL,   _______, _______, _______, _______, _______, MAGENT,  BLUE,    WHITE,   GOLD,    GOLD,    _______,   ORANGE,  ORANGE,  AZURE,   \
+        _______, GOLD,    CORAL,   _______, _______, _______, _______, RED,     {1,0,0}, CYAN,    M9B59B5, _______, _______, \
+        _______, RED,     _______, _______, _______, RED,     PINK,    YELLOW,  GREEN,   CREAM,   _______, _______,                              _______, \
+        _______, _______, _______,                   _______,                            _______, WHITE,   _______, _______,            CORAL,   _______, CORAL   \
     },
 };
 
@@ -168,28 +168,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             // ======================================================== CUSTOM KEYCOADS BELOW ========================================================
             case MAS_CRM:
-                rgb_matrix_sethsv(32, 160, 255);
+                rgb_matrix_sethsv(HSV_CREAM);
                 return false;
             case MAS_PRP:
-                rgb_matrix_sethsv(192, 112, 255);
+                rgb_matrix_sethsv(HSV_9B59B5);
                 return false;
             case MAS_RED:
-                rgb_matrix_sethsv(0, 255, 255);
+                rgb_matrix_sethsv(HSV_RED);
                 return false;
             case MAS_GRN:
-                rgb_matrix_sethsv(88, 255, 255);
+                rgb_matrix_sethsv(HSV_GREEN);
                 return false;
             case MAS_BLU:
-                rgb_matrix_sethsv(168, 255, 255);
+                rgb_matrix_sethsv(HSV_BLUE);
                 return false;
             case MAS_CYN:
-                rgb_matrix_sethsv(128, 255, 255);
+                rgb_matrix_sethsv(HSV_CYAN);
                 return false;
             case MAS_MGT:
-                rgb_matrix_sethsv(216, 255, 255);
+                rgb_matrix_sethsv(HSV_MAGENTA);
                 return false;
             case MAS_YEL:
-                rgb_matrix_sethsv(40, 255, 255);
+                rgb_matrix_sethsv(HSV_YELLOW);
                 return false;
             case MAS_KEY:
                 rgb_matrix_sethsv(0, 0, 0);
@@ -217,7 +217,58 @@ void set_layer_color(int layer) {
             RGB rgb = hsv_to_rgb(hsv);
             float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
             rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
-        } 
+        } else if (layer == _FL) {
+            HSV hsv2 = { 
+                rgb_matrix_config.hsv.h, 
+                rgb_matrix_config.hsv.s, 
+                rgb_matrix_config.hsv.v 
+            };
+            HSV hui = hsv2;
+            HSV hud = hsv2;
+            HSV sai = hsv2;
+            HSV sad = hsv2;
+            HSV vai = hsv2;
+            HSV vad = hsv2;
+            hui.h = hsv2.h + 8;
+            hud.h = hsv2.h - 8;
+            sai.s = hsv2.s + 16 > 255 ? 255 : hsv2.s + 16;
+            sad.s = hsv2.s - 16 < 0   ?   0 : hsv2.s - 16;
+            vai.v = hsv2.v + 16 > 255 ? 255 : hsv2.v + 16;
+            vad.v = hsv2.v - 16 < 0   ?   0 : hsv2.v - 16;
+            RGB rgbHUI = hsv_to_rgb(hui);
+            RGB rgbHUD = hsv_to_rgb(hud);
+            RGB rgbSAI = hsv_to_rgb(sai);
+            RGB rgbSAD = hsv_to_rgb(sad);
+            RGB rgbVAI = hsv_to_rgb(vai);
+            RGB rgbVAD = hsv_to_rgb(vad);
+
+            switch(i) {
+            case 36: 
+                rgb_matrix_set_color(i, rgbHUI.r, rgbHUI.g, rgbHUI.b);           
+                break;
+            case 53: 
+                rgb_matrix_set_color(i, rgbHUD.r, rgbHUD.g, rgbHUD.b);
+                break;
+            case 54: 
+                rgb_matrix_set_color(i, rgbSAI.r, rgbSAI.g, rgbSAI.b);
+                break;
+            case 37: 
+                rgb_matrix_set_color(i, rgbSAD.r, rgbSAD.g, rgbSAD.b);
+                break;
+            case 38: 
+                rgb_matrix_set_color(i, rgbVAI.r, rgbVAI.g, rgbVAI.b);
+                break;
+            case 55: 
+                rgb_matrix_set_color(i, rgbVAD.r, rgbVAD.g, rgbVAD.b);
+                break;
+            case 75: 
+                rgb_matrix_set_color(i, rgbVAI.r, rgbVAI.g, rgbVAI.b);
+                break;
+            case 85: 
+                rgb_matrix_set_color(i, rgbVAD.r, rgbVAD.g, rgbVAD.b);
+                break;
+            }
+        }
     }
 }
 

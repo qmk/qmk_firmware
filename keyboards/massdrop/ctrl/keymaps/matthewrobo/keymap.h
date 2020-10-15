@@ -24,6 +24,10 @@
 #define PURPLE {HSV_PURPLE}
 #define MAGENT {HSV_MAGENTA}
 #define PINK {HSV_PINK}
+#define HSV_CREAM 24, 240, 255
+#define CREAM {HSV_CREAM}
+#define HSV_9B59B5 208, 192, 255
+#define M9B59B5 {HSV_9B59B5}
 
 #define LT_CAPS LT(_NL, KC_CAPS)
 #define _LAYER_ KC_TRNS
