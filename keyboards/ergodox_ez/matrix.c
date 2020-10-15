@@ -1,7 +1,8 @@
 /*
-
-
+Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2015 ZSA Technology Labs Inc (@zsa)
+Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 /*
  * scan matrix
@@ -234,4 +236,19 @@ static void select_row(uint8_t row) {
                 break;
         }
     }
+}
+
+// DO NOT REMOVE
+// Needed for proper wake/sleep
+void matrix_power_up(void) {
+    mcp23018_status = init_mcp23018();
+
+    unselect_rows();
+    init_cols();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+    }
+
 }
