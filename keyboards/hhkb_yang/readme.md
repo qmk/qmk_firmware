@@ -28,7 +28,7 @@ your actual disk.
 - [x] Power saving mode
   - [x] Idle mode
   - [x] Deep sleep mode
-- [ ] LEDs
+- [x] LEDs
 - [ ] Battery service
 - [ ] Special commands
   - [ ] Switch BT peer
