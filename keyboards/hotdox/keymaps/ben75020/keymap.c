@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "keymap_extras/keymap_colemak.h"
 
 #define BASE 0 // default layer
 #define SYMB 2 // symbols
@@ -15,13 +16,14 @@ enum unicode_name {
 
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
-  GMEET,
-  TD_A = 0,
-  TD_E = 0,
-  TD_U = 0,
-  TD_C = 0
+  GMEET
 };
-
+enum {
+  TD_A,
+  TD_E,
+  TD_U,
+  TD_C
+};
 void tap_dance_a (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING ("a");
@@ -79,10 +81,10 @@ void tap_dance_u (qk_tap_dance_state_t *state, void *user_data) {
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
-  [TD_A]  = ACTION_TAP_DANCE_FN(tap_dance_a),
-  [TD_C]  = ACTION_TAP_DANCE_FN(tap_dance_c),
-  [TD_E]  = ACTION_TAP_DANCE_FN(tap_dance_e),
-  [TD_U]  = ACTION_TAP_DANCE_FN(tap_dance_u);
+  [TD_A] = ACTION_TAP_DANCE_FN(tap_dance_a),
+  [TD_C] = ACTION_TAP_DANCE_FN(tap_dance_c),
+  [TD_E] = ACTION_TAP_DANCE_FN(tap_dance_e),
+  [TD_U] = ACTION_TAP_DANCE_FN(tap_dance_u)
 // Other declarations would go here, separated by commas, if you have them
 };
 
@@ -100,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   -  |           |  '   |------+------+------+------+------+--------|
  * | L1     |   w  |   x  |   c  |   v  |   b  |      |           |      |   k  |   m  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | Ctrl | XXX  | Alt  | Esc  | XXX  |                                       | left | Down |  up  |right | PAUSE  |
+ *   | Ctrl | XXX  | Alt  | Alt  | XXX  |                                       | left | Down |  up  |right | PAUSE  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        |Print |  {   |       |  }   |   Del  |
@@ -115,28 +117,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_ESC,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_GRV,
-        KC_TAB,         KC_Q,         KC_W,       KC_F,       KC_P,       KC_G,     TG(SYMB),
-        KC_BSPC,        TD(TD_A),     KC_R,       KC_S,       KC_T,       KC_D,
-        KC_LSHIFT,      KC_Z,         KC_X,       TD(TD_C),   KC_V,       KC_B,     KC_MINS,
+        KC_TAB,         CM_Q,         CM_W,       CM_F,       CM_P,       CM_G,     MO(SYMB),
+        KC_BSPC,        CM_A,         CM_R,       CM_S,       CM_T,       CM_D,
+        KC_LSHIFT,      CM_Z,         CM_X,       CM_C,       CM_V,       CM_B,     KC_MINS,
 
-        KC_RCTL,        KC_NO,        KC_LALT,    KC_ESC,     KC_NO,
+        KC_RCTL,        KC_NO,        KC_LALT,    KC_LALT,    KC_NO,
 
-                                                                          KC_PSCR,  KC_LCBR,
+                                                                          KC_PSCR,  KC_LBRACKET,
                                                                                     KC_HOME,
                                                               KC_SPACE,   KC_BSPC,  KC_END,
 
         // right hand
         KC_EQUAL,       KC_6,         KC_7,       KC_8,       KC_9,       KC_0,     KC_BSPC,
-        TG(SYMB),       KC_J,         KC_L,       TD(TD_U),   KC_Y,       KC_SCLN,  KC_BSLS,
-                        KC_H,         KC_N,       TD(TD_E),   KC_I,       KC_O,     KC_ENTER,
-        KC_QUOT,        KC_K,         KC_M,       KC_COMMA,   KC_DOT,     KC_SLSH,  KC_RSHIFT,
+        MO(SYMB),       CM_J,         CM_L,       CM_U,       CM_Y,       CM_SCLN,  KC_BSLS,
+                        CM_H,         CM_N,       CM_E,       CM_I,       CM_O,     KC_ENTER,
+        KC_QUOT,        CM_K,         CM_M,       KC_COMMA,   KC_DOT,     KC_SLSH,  KC_RSHIFT,
 
                                       KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT, KC_PAUSE,
 
 
-        KC_RCBR,        KC_DEL,
+        KC_RBRACKET,    KC_DEL,
         KC_PGUP,
-        KC_PGDN,        KC_TAB,KC_ENT
+        KC_PGDN,        KC_LSHIFT,KC_ENT
     ),
 /* Keymap 1: Symbol Layer
  *
