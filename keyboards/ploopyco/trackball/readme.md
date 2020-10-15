@@ -12,11 +12,16 @@ Everything works. However the scroll wheel has some issues and acts very odd.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ploopyco/trackball:default:flash
+    make ploopyco/trackball/rev1:default:flash
+    make ploopyco/trackball/rev1_005:default:flash
     
 To jump to the bootloader, hold down "Button 4" (immediate right of the trackball) 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Revisions
+
+There are several revisions for the PCB. However, the important one is rev 1.005, as this changes the button and debug LED configuration. Previous versions use the `rev1` folder (as they're electrically identical). 
 
 # Customzing your PloopyCo Trackball
 
