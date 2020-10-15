@@ -106,3 +106,14 @@ ifeq ($(strip $(BOOTLOADER)), kiibohd)
     DFU_ARGS = -d 1C11:B007
     DFU_SUFFIX_ARGS = -v 1C11 -p B007
 endif
+
+ifeq ($(strip $(BOOTLOADER)), stm32duino)
+    OPT_DEFS += -DBOOTLOADER_STM32DUINO
+    MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
+    BOARD = STM32_F103_STM32DUINO
+    # STM32F103 does NOT have an USB bootloader in ROM (only serial), so setting anything here does not make much sense
+    STM32_BOOTLOADER_ADDRESS = 0x80000000
+
+    DFU_ARGS = -d 1EAF:0003 -a2 -R
+    DFU_SUFFIX_ARGS = -v 1EAF -p 0003
+endif
