@@ -26,18 +26,21 @@ enum layers {
 };
 
 enum custom_keycodes {
-    VRSN = ML_SAFE_RANGE,
+    a_umlaut = ML_SAFE_RANGE,
+    o_umlaut,
+    u_umlaut,
+    eszett,
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_moonlander(
-        XXXXXXX, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , XXXXXXX,    XXXXXXX, KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , XXXXXXX,
-        KC_TAB , KC_X   , KC_V   , KC_L   , KC_C   , KC_W   , XXXXXXX,    XXXXXXX, KC_K   , KC_H   , KC_G   , KC_F   , KC_Q   , XXXXXXX,
-        XXXXXXX, KC_U   , KC_I   , KC_A   , KC_E   , KC_O   , XXXXXXX,    XXXXXXX, KC_S   , KC_N   , KC_R   , KC_T   , KC_D   , KC_Y   ,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P   , KC_Z   ,                      KC_B   , KC_M   , KC_COMM, KC_DOT , KC_J   , XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, MO(L_4),          XXXXXXX,    XXXXXXX,          MO(L_4), KC_RGUI, XXXXXXX, KC_RCTL, XXXXXXX,
-                                            KC_LCTL, KC_LSFT, MO(L_3),    MO(L_3), KC_RSFT, KC_SPC
+        XXXXXXX, KC_1    , KC_2    , KC_3    , KC_4   , KC_5   , XXXXXXX,    XXXXXXX, KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , XXXXXXX,
+        KC_TAB , KC_X    , KC_V    , KC_L    , KC_C   , KC_W   , XXXXXXX,    XXXXXXX, KC_K   , KC_H   , KC_G   , KC_F   , KC_Q   , eszett ,
+        XXXXXXX, KC_U    , KC_I    , KC_A    , KC_E   , KC_O   , XXXXXXX,    XXXXXXX, KC_S   , KC_N   , KC_R   , KC_T   , KC_D   , KC_Y   ,
+        XXXXXXX, u_umlaut, o_umlaut, a_umlaut, KC_P   , KC_Z   ,                      KC_B   , KC_M   , KC_COMM, KC_DOT , KC_J   , XXXXXXX,
+        XXXXXXX, XXXXXXX , XXXXXXX , KC_LGUI , MO(L_4),          XXXXXXX,    XXXXXXX,          MO(L_4), KC_RGUI, XXXXXXX, XXXXXXX, XXXXXXX,
+                                               KC_LCTL, KC_LSFT, MO(L_3),    MO(L_3), KC_RSFT, KC_SPC
     ),
 
     [L_3] = LAYOUT_moonlander(
@@ -95,11 +98,24 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+// only works after executing
+// $ xmodmap -e "keycode 138 = Multi_key"
+#define compose_key SS_TAP(X_MENU)
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-        case VRSN:
-            SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+        case a_umlaut:
+            SEND_STRING(compose_key "\"a");
+            return false;
+        case o_umlaut:
+            SEND_STRING(compose_key "\"o");
+            return false;
+        case u_umlaut:
+            SEND_STRING(compose_key "\"u");
+            return false;
+        case eszett:
+            SEND_STRING(compose_key "ss");
             return false;
         }
     }
