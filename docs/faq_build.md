@@ -24,12 +24,18 @@ On Linux, you'll need proper privileges to communicate with the bootloader devic
 **/etc/udev/rules.d/50-qmk.rules:**
 ```
 # Atmel DFU
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FEF", TAG+="uaccess", RUN{builtin}+="uaccess" # ATmega16U2
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF0", TAG+="uaccess", RUN{builtin}+="uaccess" # ATmega32U2
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF3", TAG+="uaccess", RUN{builtin}+="uaccess" # ATmega16U4
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF4", TAG+="uaccess", RUN{builtin}+="uaccess" # ATmega32U4
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF9", TAG+="uaccess", RUN{builtin}+="uaccess" # AT90USB64
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FFB", TAG+="uaccess", RUN{builtin}+="uaccess" # AT90USB128
+### ATmega16U2
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FEF", TAG+="uaccess", RUN{builtin}+="uaccess"
+### ATmega32U2
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF0", TAG+="uaccess", RUN{builtin}+="uaccess"
+### ATmega16U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF3", TAG+="uaccess", RUN{builtin}+="uaccess"
+### ATmega32U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF4", TAG+="uaccess", RUN{builtin}+="uaccess"
+### AT90USB64
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF9", TAG+="uaccess", RUN{builtin}+="uaccess"
+### AT90USB128
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FFB", TAG+="uaccess", RUN{builtin}+="uaccess"
 
 # Input Club
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1C11", ATTRS{idProduct}=="B007", TAG+="uaccess", RUN{builtin}+="uaccess"
@@ -50,22 +56,33 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="16C0", ATTRS{idProduct}=="05DC", TAG+="uacc
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="6124", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 
 # Caterina (Pro Micro)
-#   Spark Fun Electronics
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Pro Micro 3V3/8MHz
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9205", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Pro Micro 5V/16MHz
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9207", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # LilyPad 3V3/8MHz (and some Pro Micro clones)
-#   Pololu Electronics
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1FFB", ATTRS{idProduct}=="0101", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # A-Star 32U4
-#   Arduino SA
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Leonardo
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0037", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Micro
-#   Adafruit Industries LLC
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000C", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Feather 32U4
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000D", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # ItsyBitsy 32U4 3V3/8MHz
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000E", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # ItsyBitsy 32U4 5V/16MHz
-#   dog hunter AG
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Leonardo
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03", ATTRS{idProduct}=="0037", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1" # Micro
+## Spark Fun Electronics
+### Pro Micro 3V3/8MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### Pro Micro 5V/16MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9205", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### LilyPad 3V3/8MHz (and some Pro Micro clones)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F", ATTRS{idProduct}=="9207", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## Pololu Electronics
+### A-Star 32U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1FFB", ATTRS{idProduct}=="0101", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## Arduino SA
+### Leonardo
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### Micro
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0037", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## Adafruit Industries LLC
+### Feather 32U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000C", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### ItsyBitsy 32U4 3V3/8MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000D", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### ItsyBitsy 32U4 5V/16MHz
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="239A", ATTRS{idProduct}=="000E", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+## dog hunter AG
+### Leonardo
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+### Micro
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03", ATTRS{idProduct}=="0037", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 ```
 
 Once added, run the following:
