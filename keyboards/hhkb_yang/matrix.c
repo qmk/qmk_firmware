@@ -18,6 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#ifdef BLUETOOTH_ENABLE
+#    include "adafruit_ble.h"
+#endif
+
 #define RELAX_TIME_US 5
 #define ADC_READ_TIME_US 5
 
@@ -153,6 +157,11 @@ uint8_t matrix_scan(void) {
         suspend_power_down_longer();
     } else if (time_diff > MATRIX_POWER_SAVE_TIMEOUT_MS) {
         power_save_level = 1;
+#ifdef BLUETOOTH_ENABLE
+        if (!adafruit_ble_is_connected()) {
+            power_save_level = 3;
+        }
+#endif
         suspend_power_down();
     } else {
         if (power_save_level != 0) {

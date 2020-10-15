@@ -38,8 +38,6 @@ void suspend_power_down_kb(void) {
     if (power_save_level > 2) {
         // Disable UART TX to avoid current leakage
         UCSR1B &= ~_BV(TXEN1);
-        // Set TX pin to input high
-        //setPinInputHigh(D3);
         // Power down BLE module
         writePinHigh(D5);
     }
