@@ -194,6 +194,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 currentReport.buttons &= ~MOUSE_BTN5;
         }
         pointing_device_set_report(currentReport);
+        pointing_device_send();
     }
 #endif
 
