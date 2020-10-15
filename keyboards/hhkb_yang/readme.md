@@ -25,10 +25,9 @@ your actual disk.
 
 - [x] QMK (via USB)
 - [x] Bluetooth (BLE)
-- [ ] Power saving mode
+- [x] Power saving mode
   - [x] Idle mode
-  - [ ] Deep sleep mode
-  - [ ] Lock mode
+  - [x] Deep sleep mode
 - [ ] LEDs
 - [ ] Battery service
 - [ ] Special commands

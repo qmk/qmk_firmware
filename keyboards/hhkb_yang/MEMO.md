@@ -23,8 +23,8 @@ controller. Most pins are compatiable.
 | Col selector bit2                    | PB5 output             |                            |
 | Key unable                           | PB6 output             |                            |
 | Switch power                         | PD4 output             | PD6 output (PMOS FET)      |
-| Bluetooth UART Rx                    | PC4 input              |                            |
-| Bluetooth UART Tx                    | PC5 output             |                            |
+| Bluetooth UART Rx                    | PC4 input              | PD2                        |
+| Bluetooth UART Tx                    | PC5 output             | PD3                        |
 | Bluetooth power                      |                        | PD5 output (low: power on) |
 | LED 0                                |                        | PF4                        |
 | LED 2                                |                        | PF1                        |
@@ -56,6 +56,24 @@ UART can drop characters.
 
 Double speed mode to get more accurate async reading because the F_CPU
 speed is 8MHz.
+
+## Power saving mode design
+
+Power saving is only enabled when USB is detached and using battery
+power. Here we define several levels of power saving mode, each saves
+more power but takes longer to resume operation.
+
+1. Level 1: idle mode is activated after a short configurable time
+   (MATRIX_POWER_SAVE_TIMEOUT_MS) MCU is put into sleep mode and only
+   scan the matrix per 15ms. PORTB pins are set to input with pull-up
+   to save power. Sensing PCB is powered down between scans.
+
+2. Level 2: after idling for longer (MATRIX_POWER_SAVE_TIMEOUT_L2_MS)
+   we entry this state. Matrix scan is skipped until the time lapses
+   900ms.
+
+2. Level 3: sleep mode is activated after a longer timeout
+   (MATRIX_POWER_SAVE_TIMEOUT_L3_MS) Bluetooth module is powered down.
 
 ## References
 

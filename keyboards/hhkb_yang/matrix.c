@@ -20,13 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RELAX_TIME_US 5
 #define ADC_READ_TIME_US 5
-static uint32_t matrix_last_modified = 0;
+
+uint8_t power_save_level;
 
 // matrix state buffer(1:on, 0:off)
 static matrix_row_t *matrix;
 static matrix_row_t *matrix_prev;
 static matrix_row_t  _matrix0[MATRIX_ROWS];
 static matrix_row_t  _matrix1[MATRIX_ROWS];
+static uint32_t      matrix_last_modified = 0;
 
 static inline void key_strobe_high(void) { writePinLow(B6); }
 static inline void key_strobe_low(void) { writePinHigh(B6); }
@@ -34,6 +36,11 @@ static inline bool key_state(void) { return readPin(D7); }
 static inline void key_prev_on(void) { writePinHigh(B7); }
 static inline void key_prev_off(void) { writePinLow(B7); }
 static inline bool key_power_state(void) { return !readPin(D6); }
+
+static inline void suspend_power_down_longer(void) {
+    uint8_t times = 60;
+    while (--times) suspend_power_down();
+}
 
 void matrix_power_up(void) {
     dprint("[matrix_on]\n");
@@ -65,6 +72,8 @@ void matrix_init(void) {
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
     matrix      = _matrix0;
     matrix_prev = _matrix1;
+
+    power_save_level = 0;
 
     matrix_init_quantum();
 }
@@ -133,9 +142,23 @@ uint8_t matrix_scan(void) {
             matrix_last_modified = timer_read32();
         }
     }
+
     // Power saving
-    if (key_power_state() && timer_elapsed32(matrix_last_modified) > MATRIX_POWER_SAVE_TIMEOUT_MS) {
+    uint32_t time_diff = timer_elapsed32(matrix_last_modified);
+    if (time_diff > MATRIX_POWER_SAVE_TIMEOUT_L3_MS) {
+        power_save_level = 3;
+        suspend_power_down_longer();
+    } else if (time_diff > MATRIX_POWER_SAVE_TIMEOUT_L2_MS) {
+        power_save_level = 2;
+        suspend_power_down_longer();
+    } else if (time_diff > MATRIX_POWER_SAVE_TIMEOUT_MS) {
+        power_save_level = 1;
         suspend_power_down();
+    } else {
+        if (power_save_level != 0) {
+            power_save_level = 0;
+            suspend_wakeup_init();
+        }
     }
 
     matrix_scan_quantum();

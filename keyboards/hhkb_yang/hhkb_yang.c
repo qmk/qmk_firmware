@@ -1,5 +1,7 @@
 #include "hhkb_yang.h"
 
+extern uint8_t power_save_level;
+
 void keyboard_pre_init_kb(void) {
     // BT power up
     setPinOutput(D5);
@@ -30,4 +32,22 @@ void keyboard_pre_init_kb(void) {
     // Turn on switch PCB
     setPinOutput(D6);
     writePinLow(D6);
+}
+
+void suspend_power_down_kb(void) {
+    if (power_save_level > 2) {
+        // Disable UART TX to avoid current leakage
+        UCSR1B &= ~_BV(TXEN1);
+        // Set TX pin to input high
+        //setPinInputHigh(D3);
+        // Power down BLE module
+        writePinHigh(D5);
+    }
+}
+
+void suspend_wakeup_init_kb(void) {
+    // Power up BLE module
+    writePinLow(D5);
+    // Enable UART TX
+    UCSR1B |= _BV(TXEN1);
 }
