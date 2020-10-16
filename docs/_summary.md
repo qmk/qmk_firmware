@@ -60,7 +60,7 @@
     * [Quantum Keycodes](quantum_keycodes.md)
 
   * Advanced Keycodes
-    * [Backspace Delete](feature_bsp_del.md)
+    * [Backspace Delete](feature_backspace_delete.md)
     * [Command](feature_command.md)
     * [Dynamic Macros](feature_dynamic_macros.md)
     * [Grave Escape](feature_grave_esc.md)

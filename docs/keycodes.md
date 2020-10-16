@@ -305,7 +305,7 @@ See also: [Bluetooth](feature_bluetooth.md)
 
 ## Backspace Delete :id=backspace-deletet
 
-See also: [Backspace Delete](feature_bsp_del.md)
+See also: [Backspace Delete](feature_backspace_delete.md)
 
 |Key      |Aliases    |Description                                                       |
 |---------|-----------|------------------------------------------------------------------|
