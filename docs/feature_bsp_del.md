@@ -16,7 +16,7 @@ If Mary presses BSDL on her keyboard, the OS will see an `KC_BSPC` character. No
 
 ### Caveats
 
-With this option enabled you won't be able to output `SHIFT` + `KC_BSPC`. You can however, still use the regular keycode `KC_BSPC` anywhere in your keymap.
+With this option enabled you won't be able to output Shift+Backspace. You can however, still use the regular keycode `KC_BSPC` anywhere in your keymap.
 
 ## Configuration
 
