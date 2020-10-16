@@ -17,4 +17,4 @@
 
 #include "quantum.h"
 
-bool process_bsp_del(uint16_t keycode, keyrecord_t *record);
+bool process_backspace_delete(uint16_t keycode, keyrecord_t *record);
