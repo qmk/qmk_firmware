@@ -674,7 +674,7 @@ enum quantum_keycodes {
 #define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
-#define KC_BSDL BSP_DEL
+#define BSP_DEL BACKSPACE_DELETE
 #define KC_GESC GRAVE_ESC
 
 #define EEP_RST EEPROM_RESET
