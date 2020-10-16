@@ -550,7 +550,7 @@ enum quantum_keycodes {
     JS_BUTTON_MAX = JS_BUTTON31,
 
     // Backspace/Delete functionality
-    BSP_DEL,
+    BACKSPACE_DELETE,
 
     // always leave at the end
     SAFE_RANGE
