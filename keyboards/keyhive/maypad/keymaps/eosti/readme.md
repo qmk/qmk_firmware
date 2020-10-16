@@ -1,4 +1,4 @@
-#EosTi's Maypad Layout
+# EosTi's Maypad Layout
 
 ## Features
 * Split-plus layout (who needs a massive plus anyway)
