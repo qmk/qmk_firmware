@@ -7,19 +7,29 @@
 #define LAY_EXT MO(_EXTEND)
 #define LAY_NUM MO(_NUMBERS)
 
-#define CTLESC LCTL_T(KC_ESC)
-#define CTLQUOT RCTL_T(KC_QUOT)
-#define RSFTEQL RSFT_T(KC_EQL)
-#define RSPCSFT RSFT_T(KC_SPC)
-#define LSPCSFT LSFT_T(KC_SPC)
+#define C_A LCTL_T(KC_A)
+#define A_R LALT_T(KC_R)
+#define G_S LGUI_T(KC_S)
+#define S_T LSFT_T(KC_T)
+#define S_N RSFT_T(KC_N)
+#define G_E RGUI_T(KC_E)
+#define A_I RALT_T(KC_I)
+#define C_O RCTL_T(KC_O)
+
+#define S_P4 RSFT_T(KC_P4)
+#define G_P5 RGUI_T(KC_P5)
+#define A_P6 RALT_T(KC_P6)
+#define C_PLS RCTL_T(KC_PPLS)
+
+#define SFT_SPC SFT_T(KC_SPC)
+#define EXT_SPC LT(_EXTEND, KC_SPC)
+#define CTL_ESC LCTL_T(KC_ESC)
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case CTLESC:
-    case CTLQUOT:
-    case RSFTEQL:
-    case RSPCSFT:
-    case LSPCSFT:
+    case SFT_SPC:
+    case EXT_SPC:
+    case CTL_ESC:
       return true;
     default:
       return false;
@@ -33,11 +43,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-      CTLESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                               KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    CTLQUOT,
+      CTL_ESC, C_A,     A_R,     G_S,     S_T,     KC_G,                               KC_M,    S_N,     G_E,     A_I,     C_O,     KC_QUOT,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_BSPC,          KC_ENT,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, RSFTEQL,
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_BSPC,          KC_BSPC, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQL,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                     KC_LGUI, LSPCSFT, LAY_NUM,                   LAY_EXT, RSPCSFT, KC_RALT
+                                     KC_LGUI, EXT_SPC, LAY_NUM,                   KC_ENT,  SFT_SPC,  KC_RALT
                                  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
       ),
 
@@ -47,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,  XXXXXXX,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, XXXXXXX, KC_LALT, KC_LSFT, KC_LCTL, XXXXXXX,                            KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC, _______,
+      _______, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, XXXXXXX,                            KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC, XXXXXXX,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       _______, KC_LT,   KC_LBRC, KC_LCBR, KC_LPRN, XXXXXXX, _______,          _______, XXXXXXX, KC_RPRN, KC_RCBR, KC_RBRC, KC_GT,   XXXXXXX,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -59,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_PSLS,
+      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_PAST, KC_PSLS,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PMNS,
+      _______, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, XXXXXXX,                            XXXXXXX, S_P4,    G_P5,    A_P6,    C_PLS,   KC_PMNS,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          _______, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   XXXXXXX, KC_PEQL,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
