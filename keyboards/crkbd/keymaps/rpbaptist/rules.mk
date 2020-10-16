@@ -5,7 +5,7 @@ LTO_ENABLE = yes
 #change to "no" to disable the options, or define them in the Makefile in
 #the appropriate keymap folder that will get included automatically
 #
-BACSPACE_DELETE_ENABLE     = yes # Output Del when holding Shift while pressing Backspace
+BACKSPACE_DELETE_ENABLE     = yes # Output Del when holding Shift while pressing Backspace
 EXTRAKEY_ENABLE    = yes # Audio control and System control(+450)
 NKRO_ENABLE        = yes # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 # DYNAMIC_MACRO_ENABLE = yes
