@@ -18,10 +18,10 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x544B //TK
+#define VENDOR_ID       0x5644 //VD
 #define PRODUCT_ID      0x5111
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    The Key Company
+#define MANUFACTURER    Viktus Design
 #define PRODUCT         SP111
 
 /* key matrix size */
