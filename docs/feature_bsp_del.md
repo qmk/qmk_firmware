@@ -12,7 +12,7 @@ If Mary presses `BSP_DEL` on her keyboard, the OS will see an `KC_BSPC` characte
 
 |Key      |Aliases    |Description                                                       |
 |---------|-----------|------------------------------------------------------------------|
-|`KC_BSDL`|`BSP_DEL`|Backspace when pressed, Delete when Shift is held, Shift+Delete when both Shift keys are held.|
+|`BACKSPACE_DELETE`|`BSP_DEL`|Backspace when pressed, Delete when Shift is held, Shift+Delete when both Shift keys are held.|
 
 ### Caveats
 
