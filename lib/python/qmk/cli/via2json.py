@@ -5,8 +5,9 @@ import json
 from milc import cli
 
 import qmk.keymap
+import qmk.keyboard
 import qmk.path
-from qmk.info import info_json, _find_all_layouts
+from qmk.info import _find_all_layouts
 
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
@@ -46,7 +47,8 @@ def via2json(cli):
         via_backup = json.load(fd)
 
     # breakpoint()
-    layout_data, macro_data = _find_all_layouts(cli.args.keyboard)
+    rules = qmk.keyboard.rules_mk(cli.args.keyboard)
+    layout_data, macro_data = _find_all_layouts(cli.args.keyboard, rules)
 
     temp_keycodes = []
     for layer in via_backup['layers']:
@@ -62,8 +64,6 @@ def via2json(cli):
     index_map = {v: i for i, v in enumerate(macro_data['LAYOUT_all']['layout'])}
     for layer in temp_keycodes:
         keycodes.append([kc[1] for kc in sorted(layer.items(), key=lambda pair: index_map[pair[0]])])
-
-
 
     # Try to figure out a name for the keymap
     keymap_name = cli.config.via2json.name or cli.config.via2json.keymap or 'via2json'

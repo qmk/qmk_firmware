@@ -106,7 +106,7 @@ def _extract_rules_mk(info_data):
     return info_data
 
 
-def _search_keyboard_h(path):
+def _search_keyboard_h(path, include_kc_no):
     current_path = Path('keyboards/')
     layouts = {}
     macros = {}
@@ -119,13 +119,13 @@ def _search_keyboard_h(path):
             layouts.update(l)
             macros.update(m)
 
-    return layouts
+    return (layouts, macros)
 
 
 def _find_all_layouts(keyboard, rules, include_kc_no=False):
     """Looks for layout macros associated with this keyboard.
     """
-    layouts = _search_keyboard_h(Path(keyboard))
+    layouts, macros = _search_keyboard_h(Path(keyboard), include_kc_no)
 
     if not layouts:
         # If we didn't find any layouts above we widen our search. This is error
