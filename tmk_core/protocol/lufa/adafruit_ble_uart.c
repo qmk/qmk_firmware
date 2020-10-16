@@ -365,3 +365,13 @@ bool adafruit_ble_delbonds(void) {
     }
     return at_command_P(PSTR("AT+GAPDELBONDS"), NULL, 0);
 }
+
+bool adafruit_ble_reconnect(void) {
+    if (!state.configured) {
+	return false;
+    }
+    if (!at_command_P(PSTR("AT+GAPDISCONNECT"), NULL, 0)) {
+	return false;
+    }
+    return at_command_P(PSTR("AT+GAPSTARTADV"), NULL, 0);
+}
