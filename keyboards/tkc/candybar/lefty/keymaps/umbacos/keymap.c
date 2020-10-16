@@ -29,6 +29,7 @@ enum qmk_layers {
 
 enum custom_keycodes {
     BRACKETS = SAFE_RANGE,
+    EMOJI1,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_7, KC_8, KC_9, KC_NLCK,                     _______, IT_EURO, IT_AT, IT_EGRV, _______, _______, _______, IT_UGRV, IT_IGRV, IT_OGRV, _______, _______, _______,  \
       KC_4, KC_5, KC_6, KC_DEL,                      _______, IT_AGRV, IT_SECT, _______, _______, IT_DEG, _______, _______, _______, _______, _______, _______,   \
       KC_1, KC_2, KC_3, KC_PMNS,                     KC_LSFT, _______, _______, IT_CCED, _______, _______, _______, _______, IT_SCLN, IT_COLN, _______, KC_RSFT,   \
-      KC_0, KC_0, IT_DOT,KC_PPLS,                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+      KC_0, KC_0, IT_DOT,KC_PPLS,                    _______, _______, _______, _______, _______, _______, _______, EMOJI1 , _______, _______ \
   ),
 
   [_SE] = LAYOUT(
@@ -78,14 +79,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case BRACKETS:
-        if (record->event.pressed) {
-            // when keycode is pressed
-            SEND_STRING("*("SS_TAP(X_LEFT));
-        } else {
-            // when keycode is released
-        }
-        break;
+      case BRACKETS:
+          if (record->event.pressed) {
+              // when keycode is pressed
+              SEND_STRING("*("SS_TAP(X_LEFT));
+          } else {
+              // when keycode is released
+          }
+          break;
     }
     return true;
 };
