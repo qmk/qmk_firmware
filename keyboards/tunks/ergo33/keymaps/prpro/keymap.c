@@ -5,12 +5,12 @@
 extern keymap_config_t keymap_config;
 
 enum layers {
-  _BASE = 0,
-  _PRPRO,
-  _PRPRO2,
+    _BASE = 0,
+    _PRPRO,
+    _PRPRO2,
 };
 
-// Tap Dance declarations
+/* Tap Dance declarations */
 enum {
     TD_1,
     TD_2,
@@ -28,7 +28,7 @@ enum {
     TD_Z
 };
 
-// Tap Dance definitions
+/* Tap Dance definitions */
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_1] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_1), LCTL(LSFT(KC_1))),
     [TD_2] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_2), LCTL(LSFT(KC_2))),
@@ -46,36 +46,34 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_Z] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_Z), LCTL(LSFT(KC_Z)))
 };
 
-// enum custom_keycodes {};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = LAYOUT(
-    KC_ESC,  KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-    KC_Y,    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
-    KC_H,    KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-    KC_N,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    TG(_PRPRO),
-    KC_LGUI, KC_LCTL,                                                KC_ENT,
-                                           KC_LALT,  KC_SPC,  KC_ENT
-  ),
+    [_BASE] = LAYOUT(
+        KC_ESC,  KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+        KC_Y,    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+        KC_H,    KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+        KC_N,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    TG(_PRPRO),
+        KC_LGUI, KC_LCTL,                                                KC_ENT,
+                                               KC_LALT,  KC_SPC,  KC_ENT
+    ),
 
-  [_PRPRO] = LAYOUT(
-    KC_ESC,     KC_M,        KC_V,         KC_UP,      KC_A,       KC_Y,       KC_C,
-    KC_1,       KC_2,        KC_LEFT,      KC_DOWN,    KC_RIGHT,   TD(TD_Z),   TD(TD_DEL),
-    FI_SECT,    TD(TD_HOME), KC_J,         KC_K,       KC_L,       TD(TD_K),   TG(_PRPRO2),
-    KC_S,       KC_LSFT,     LCTL(KC_X),   LCTL(KC_C), LCTL(KC_V), LCTL(KC_S), TG(_PRPRO),
-    LCTL(KC_L), KC_LCTL,                                                                   KC_ENT,
-                                                              KC_LALT,     KC_SPC,  KC_ENT
-  ),
+    [_PRPRO] = LAYOUT(
+        KC_ESC,     KC_M,        KC_V,         KC_UP,      KC_A,       KC_Y,       KC_C,
+        KC_1,       KC_2,        KC_LEFT,      KC_DOWN,    KC_RIGHT,   TD(TD_Z),   TD(TD_DEL),
+        FI_SECT,    TD(TD_HOME), KC_J,         KC_K,       KC_L,       TD(TD_K),   TG(_PRPRO2),
+        KC_S,       KC_LSFT,     LCTL(KC_X),   LCTL(KC_C), LCTL(KC_V), LCTL(KC_S), TG(_PRPRO),
+        LCTL(KC_L), KC_LCTL,                                                                   KC_ENT,
+                                                                  KC_LALT,     KC_SPC,  KC_ENT
+    ),
 
-  [_PRPRO2] = LAYOUT(
-    KC_TRNS, KC_TRNS, TD(TD_1), TD(TD_2), TD(TD_3),     TD(TD_4), TD(TD_5),
-    KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_I,     KC_O,     TD(TD_COMMA), KC_TRNS,  TG(_PRPRO2),
-    KC_TRNS, KC_TRNS,                                                         KC_TRNS,
-                                                  KC_TRNS,   KC_TRNS, KC_TRNS
-  ),
+    [_PRPRO2] = LAYOUT(
+        KC_TRNS, KC_TRNS, TD(TD_1), TD(TD_2), TD(TD_3),     TD(TD_4), TD(TD_5),
+        KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_I,     KC_O,     TD(TD_COMMA), KC_TRNS,  TG(_PRPRO2),
+        KC_TRNS, KC_TRNS,                                                         KC_TRNS,
+                                                      KC_TRNS,   KC_TRNS, KC_TRNS
+    ),
 };
 
 #ifdef ENCODER_ENABLE
@@ -120,7 +118,7 @@ const rgblight_segment_t PROGMEM ug_prpro2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {13, 1, HSV_LAYER_PRPRO2}
 );
 
-// Now define the array of layers. Later layers take precedence
+/* Define layer order, later layers take precedence */
 const rgblight_segment_t* const PROGMEM ug_layers[] = RGBLIGHT_LAYERS_LIST(
     ug_default_layer,
     ug_caps_layer,
@@ -130,7 +128,7 @@ const rgblight_segment_t* const PROGMEM ug_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
+    /* Enable the LED layers */
     rgblight_layers = ug_layers;
     rgblight_set_layer_state(0, true);
     rgblight_set_layer_state(2, true);
@@ -138,7 +136,7 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, true);
-    // Both layers will light up if both kb layers are active
+    /* Both layers will light up if both kb layers are active */
     rgblight_set_layer_state(2, layer_state_cmp(state, 0));
     rgblight_set_layer_state(3, layer_state_cmp(state, 1));
     rgblight_set_layer_state(4, layer_state_cmp(state, 2));

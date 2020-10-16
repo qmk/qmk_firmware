@@ -2,32 +2,33 @@
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+/* Each layer gets a name for readability, which is then used in the keymap matrix below.
+ * The underscores don't mean anything - you can have a layer called STUFF or any other name.
+ */
 enum layers {
-  _BASE = 0,
-  _RGB,
+    _BASE = 0,
+    _RGB,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = LAYOUT(
-    KC_ESC,  KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-    KC_Y,    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
-    KC_H,    KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-    KC_N,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    TG(_RGB),
-    KC_LGUI, KC_LCTL,                                                 KC_ENT,
-                                           KC_LALT,  KC_SPC,  KC_ENT
-  ),
+    [_BASE] = LAYOUT(
+        KC_ESC,  KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+        KC_Y,    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+        KC_H,    KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+        KC_N,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    TG(_RGB),
+        KC_LGUI, KC_LCTL,                                                 KC_ENT,
+                                               KC_LALT,  KC_SPC,  KC_ENT
+    ),
 
-  [_RGB] = LAYOUT(
-    RGB_RMOD, RGB_MOD, RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    RGB_HUD,  RGB_HUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    RGB_SAD,  RGB_SAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    RGB_VAD,  RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(_RGB),
-    KC_TRNS,  KC_TRNS,                                                 KC_TRNS,
-                                           KC_TRNS,  KC_TRNS,  KC_TRNS
-  ),
+    [_RGB] = LAYOUT(
+        RGB_RMOD, RGB_MOD, RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        RGB_HUD,  RGB_HUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        RGB_SAD,  RGB_SAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        RGB_VAD,  RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(_RGB),
+        KC_TRNS,  KC_TRNS,                                                 KC_TRNS,
+                                               KC_TRNS,  KC_TRNS,  KC_TRNS
+    ),
 };
 
 #ifdef ENCODER_ENABLE
@@ -66,7 +67,7 @@ const rgblight_segment_t PROGMEM ug_rgb_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {13, 1, HSV_LAYER_RGB}
 );
 
-// Define layer order, later layers take precedence
+/* Define layer order, later layers take precedence */
 const rgblight_segment_t* const PROGMEM ug_layers[] = RGBLIGHT_LAYERS_LIST(
     ug_default_layer,
     ug_caps_layer,
@@ -75,14 +76,14 @@ const rgblight_segment_t* const PROGMEM ug_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 void keyboard_post_init_user(void) {
-    // Enable the LED layers and set the initial state
+    /* Enable the LED layers and set the initial state */
     rgblight_layers = ug_layers;
     rgblight_set_layer_state(0, true);
     rgblight_set_layer_state(2, true);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Both layers will light up if both kb layers are active, latter overrides
+    /* Both layers will light up if both kb layers are active, latter overrides */
     rgblight_set_layer_state(2, layer_state_cmp(state, 0));
     rgblight_set_layer_state(3, layer_state_cmp(state, 1));
     return state;
