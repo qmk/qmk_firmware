@@ -21,7 +21,7 @@ LUFA_DEVICE should point to the emulated storage device by the lufa-ms
 bootloader. **Caution**: if set to incorrect device it may wipe out
 your actual disk.
 
-## Features planned:
+## Features:
 
 - [x] QMK (via USB)
 - [x] Bluetooth (BLE)
@@ -30,8 +30,8 @@ your actual disk.
   - [x] Deep sleep mode
 - [x] LEDs
 - [x] Battery service
-- [ ] Special commands
-  - [ ] Switch BT peer
+- [x] Special commands
+  - [x] Switch BT peer
 
 ## Entering flash mode
 

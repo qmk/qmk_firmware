@@ -184,6 +184,22 @@ void matrix_print(void) {
     }
 }
 
+bool adafruit_ble_delbonds(void);
+bool adafruit_ble_reconnect(void);
+
+bool command_extra(uint8_t code) {
+    switch (code) {
+	case KC_R:
+	    adafruit_ble_delbonds();
+	    return true;
+	case KC_S:
+	    adafruit_ble_reconnect();
+	    return true;
+	default:
+	    return false;
+    }
+}
+
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
