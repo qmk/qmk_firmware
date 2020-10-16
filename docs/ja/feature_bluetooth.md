@@ -1,19 +1,18 @@
 # Bluetooth
 
 <!---
-  original document: 0.9.0:docs/feature_bluetooth.md
-  git diff 0.9.0 HEAD -- docs/feature_bluetooth.md | cat
+  original document: 0.10.33:docs/feature_bluetooth.md
+  git diff 0.10.33 HEAD -- docs/feature_bluetooth.md | cat
 -->
 
 ## Bluetooth の既知のサポートハードウェア
 
-現在のところ Bluetooth のサポートは AVR ベースのチップに限られます。Bluetooth 2.1 については、QMK は RN-42 モジュールと、Bluefruit EZ-Key をサポートしますが、後者はもう生産されていません。より最近の BLE プロトコルについては、現在のところ Adafruit Bluefruit SPI Friend のみが直接サポートされています。iOS デバイスに接続するには、BLE が必要です。iOS はマウス入力をサポートしないことに注意してください。
+現在のところ Bluetooth のサポートは AVR ベースのチップに限られます。Bluetooth 2.1 については、QMK は RN-42 モジュールをサポートします。より最近の BLE プロトコルについては、現在のところ Adafruit Bluefruit SPI Friend のみが直接サポートされています。iOS デバイスに接続するには、BLE が必要です。iOS はマウス入力をサポートしないことに注意してください。
 
-| ボード | Bluetooth プロトコル | 接続タイプ | rules.mk | Bluetooth チップ |
-|----------------------------------------------------------------|----------------------------|----------------|---------------------------|--------------|
-| [Adafruit EZ-Key HID](https://www.adafruit.com/product/1535) | Bluetooth Classic | UART | `BLUETOOTH = AdafruitEZKey` |  |
-| Roving Networks RN-42 (Sparkfun Bluesmirf) | Bluetooth Classic | UART | `BLUETOOTH = RN42` | RN-42 |
-| [Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633) | Bluetooth Low Energy | SPI | `BLUETOOTH = AdafruitBLE` | nRF51822 |
+| ボード                                                           | Bluetooth プロトコル | 接続タイプ | rules.mk                  | Bluetooth チップ |
+| ---------------------------------------------------------------- | -------------------- | ---------- | ------------------------- | ---------------- |
+| Roving Networks RN-42 (Sparkfun Bluesmirf)                       | Bluetooth Classic    | UART       | `BLUETOOTH = RN42`        | RN-42            |
+| [Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633) | Bluetooth Low Energy | SPI        | `BLUETOOTH = AdafruitBLE` | nRF51822         |
 
 まだサポートされていませんが、可能性のあるもの:
 * [Bluefruit LE UART Friend](https://www.adafruit.com/product/2479)。[tmk 実装がおそらく見つかります](https://github.com/tmk/tmk_keyboard/issues/514)
@@ -29,24 +28,22 @@
 
 Bluefruit UART friend は SPI friend に変換することができますが、これにはMDBT40 チップへの直接の再書き込みとはんだ付けが[必要です](https://github.com/qmk/qmk_firmware/issues/2274)。
 
-## Adafruit EZ-Key hid
-これには[ハードウェアの変更](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts)が必要ですが、Makefile を使って有効にすることができます。ファームウェアは引き続き USB 経由で文字を出力するため、コンピュータ経由で充電する場合は注意してください。任意にオフにするために Bluefruit 上にスイッチを持つことは理にかなっています。
-
-
 <!-- FIXME: Document bluetooth support more completely. -->
 ## Bluetooth の Rules.mk オプション
-これらのうちの1つだけを使ってください
+
+現在サポートされている Bluetooth チップセットは [N-キーロールオーバー (NKRO)](ja/reference_glossary.md#n-key-rollover-nkro) をサポートしていません。そのため、`rules.mk` に `NKRO_ENABLE = no` を含めなければなりません。
+
+Bluetooth を有効にするには、以下のうちの1つだけを使ってください:
 * BLUETOOTH_ENABLE = yes (レガシーオプション)
 * BLUETOOTH = RN42
-* BLUETOOTH = AdafruitEZKey
 * BLUETOOTH = AdafruitBLE
 
 ## Bluetooth キーコード
 
 これは複数のキーボードの出力が選択できる場合に使われます。現在のところ、これは USB と Bluetooth の両方をサポートするキーボードで、それらの間の切り替えのみが可能です。
 
-| 名前 | 説明 |
-|----------|----------------------------------------------|
+| 名前       | 説明                                  |
+| ---------- | ------------------------------------- |
 | `OUT_AUTO` | USB と Bluetooth を自動的に切り替える |
-| `OUT_USB` | USB のみ |
-| `OUT_BT` | Bluetooth のみ |
+| `OUT_USB`  | USB のみ                              |
+| `OUT_BT`   | Bluetooth のみ                        |
