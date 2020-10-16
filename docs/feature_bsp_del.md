@@ -6,7 +6,7 @@
 
 ## What Your OS Sees
 
-If Mary presses BSDL on her keyboard, the OS will see an `KC_BSPC` character. Now if Mary holds Shift down and presses BSDL it will output `KC_DEL`. If she holds down both Shift keys, it will output `SHIFT` and `KC_DEL`.
+If Mary presses `BSP_DEL` on her keyboard, the OS will see an `KC_BSPC` character. Now if Mary holds Shift down and presses `BSP_DEL` it will output `KC_DEL`. If she holds down both Shift keys, it will output Shift and `KC_DEL`.
 
 ## Keycodes
 
