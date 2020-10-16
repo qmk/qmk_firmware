@@ -18,7 +18,7 @@
 bool process_bsp_del(uint16_t keycode, keyrecord_t *record) {
     static uint8_t saved_mods   = 0;
 
-    if (keycode == KC_BSDL) {
+    if (keycode == BSP_DEL) {
         if (record->event.pressed) {
             // Check if currently pressed mods are SHIFT and store them.
             saved_mods = get_mods() & MOD_MASK_SHIFT;
