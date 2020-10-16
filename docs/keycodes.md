@@ -303,6 +303,14 @@ See also: [Bluetooth](feature_bluetooth.md)
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
 
+## Backspace Delete :id=backspace-deletet
+
+See also: [Backspace Delete](feature_bsp_del.md)
+
+|Key      |Aliases    |Description                                                       |
+|---------|-----------|------------------------------------------------------------------|
+|`KC_BSDL`|`BSP_DEL`|Backspace when pressed, Delete when Shift is held, Shift+Delete when both Shift keys are held.|
+
 ## Dynamic Macros :id=dynamic-macros
 
 See also: [Dynamic Macros](feature_dynamic_macros.md)
