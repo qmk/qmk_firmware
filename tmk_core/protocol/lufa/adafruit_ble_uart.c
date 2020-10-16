@@ -8,17 +8,24 @@
 #include "timer.h"
 
 #define TIMEOUT 100
-#define ConnectionUpdateInterval 1000 /* milliseconds */
+#define SAMPLE_BATTERY
+#define BATTERY_FULL 550
+#define BATTERY_EMPTY 0
+#define ConnectionUpdateInterval 1000    /* milliseconds */
+#define BatteryLevelUpdateInterval 60000
+
+#ifdef SAMPLE_BATTERY
+bool adafruit_ble_set_battery_level(uint8_t level);
+#endif
 
 static struct {
     bool is_connected;
     bool initialized;
     bool configured;
 
-    // #ifdef SAMPLE_BATTERY
-    //     uint16_t last_battery_update;
-    //     uint32_t vbat;
-    // #endif
+#ifdef SAMPLE_BATTERY
+    uint16_t last_battery_update;
+#endif
     uint16_t last_connection_update;
 } state;
 
@@ -173,13 +180,23 @@ bool adafruit_ble_enable_keyboard(void) {
     // feels reasonable to type to.
     static const char kGapIntervals[] PROGMEM = "AT+GAPINTERVALS=10,30,,";
 
+    // Turn down the power level a bit
+    static const char kPower[] PROGMEM = "AT+BLEPOWERLEVEL=-12";
+
+#ifdef SAMPLE_BATTERY
+    // Enable battery service
+    static const char kBattEn[] PROGMEM = "AT+BLEBATTEN=1";
+#endif
+
     // Reset the device so that it picks up the above changes
     static const char kATZ[] PROGMEM = "ATZ";
 
-    // Turn down the power level a bit
-    static const char  kPower[] PROGMEM             = "AT+BLEPOWERLEVEL=-12";
     static PGM_P const configure_commands[] PROGMEM = {
-        kEcho, kGapIntervals, kGapDevName, kHidEnOn, kPower, kATZ,
+        kEcho, kGapIntervals, kGapDevName, kHidEnOn, kPower,
+#ifdef SAMPLE_BATTERY
+	kBattEn,
+#endif
+	kATZ,
     };
 
     uint8_t i;
@@ -198,6 +215,7 @@ bool adafruit_ble_enable_keyboard(void) {
     // Check connection status in a little while; allow the ATZ time
     // to kick in.
     state.last_connection_update = timer_read();
+    state.last_battery_update    = 0;
 fail:
     return state.configured;
 }
@@ -229,6 +247,13 @@ void adafruit_ble_task(void) {
         if (at_command_P(kGetConn, resbuf, sizeof(resbuf))) {
             set_connected(atoi(resbuf));
         }
+    }
+
+    if (timer_elapsed(state.last_battery_update) > BatteryLevelUpdateInterval) {
+        state.last_battery_update = timer_read();
+
+        uint8_t level = adafruit_ble_read_battery_voltage() / (float)(BATTERY_FULL - BATTERY_EMPTY) * 100;
+        adafruit_ble_set_battery_level(level);
     }
 }
 
@@ -313,3 +338,30 @@ bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan,
     return enqueue(&send_queue, &item);
 }
 #endif
+
+uint32_t adafruit_ble_read_battery_voltage(void) {
+    char resbuf[8];
+    if (!state.configured) {
+        return 0;
+    }
+    if (at_command_P(PSTR("AT+HWADC=6"), resbuf, sizeof(resbuf))) {
+        return atoi(resbuf);
+    }
+    return 0;
+}
+
+bool adafruit_ble_set_battery_level(uint8_t level) {
+    char cmd[32];
+    if (!state.configured) {
+        return false;
+    }
+    snprintf_P(cmd, sizeof(cmd), PSTR("AT+BLEBATTVAL=%d"), level);
+    return at_command(cmd, NULL, 0);
+}
+
+bool adafruit_ble_delbonds(void) {
+    if (!state.configured) {
+        return false;
+    }
+    return at_command_P(PSTR("AT+GAPDELBONDS"), NULL, 0);
+}
