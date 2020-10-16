@@ -29,7 +29,7 @@ your actual disk.
   - [x] Idle mode
   - [x] Deep sleep mode
 - [x] LEDs
-- [ ] Battery service
+- [x] Battery service
 - [ ] Special commands
   - [ ] Switch BT peer
 

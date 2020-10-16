@@ -75,6 +75,18 @@ more power but takes longer to resume operation.
 2. Level 3: sleep mode is activated after a longer timeout
    (MATRIX_POWER_SAVE_TIMEOUT_L3_MS) Bluetooth module is powered down.
 
+## Batter reading
+
+VBAT is connected to AIN6 pin on the MDBT40 module and the AREF pin is
+the reference voltage. Doing a ADC with AT+HWDAC=6 will return the
+difference between VBAT and VREF.
+
+It seems when fully charged the ADC read is 550. Likely VREF is 3311mV
+and the fully charged VBAT is thus 3861mV.
+
+Enable battery service with AT+GLEBATTEN=1 first then we can update the
+battery level by using AT+GLEBATTVAL=%d
+
 ## References
 
 * https://github.com/joric/qmk/wiki/hhkb_ble
