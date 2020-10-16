@@ -2,7 +2,7 @@
 
 ![ID87](https://cdn.shopify.com/s/files/1/0382/1348/4675/products/6601EE887B14D36DE54CA137F0E383AE_1024x1024.jpg)
 
-*A TKL hotswap board from IDOBAO*
+A TKL hotswap board from IDOBAO.
 
 * Keyboard Maintainer: Tybera
 * Hardware Supported: IDOBAO ID87, atmega32u4
