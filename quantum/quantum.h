@@ -92,8 +92,8 @@ extern layer_state_t layer_state;
 #    include "process_backlight.h"
 #endif
 
-#ifdef BSP_DEL_ENABLE
-#    include "process_bsp_del.h"
+#ifdef BACKSPACE_DELETE_ENABLE
+#    include "process_backspace_delete.h"
 #endif
 
 #ifdef LEADER_ENABLE
