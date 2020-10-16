@@ -62,8 +62,17 @@ For instance Tap/Hold for Control on all of the layouts
 #define ______________COLEMAK_MOD_DH_L3____________ KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
 
 #define ______________COLEMAK_MOD_DH_R1____________ KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define ______________COLEMAK_MOD_DH_R2____________ KC_M,    KC_N,    KC_E,    KC_I,    KC_O
-#define ______________COLEMAK_MOD_DH_R3____________ KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH
+#define ______________COLEMAK_MOD_DH_R2____________ KC_K,    KC_N,    KC_E,    KC_I,    KC_O
+#define ______________COLEMAK_MOD_DH_R3____________ KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH
+
+
+#define _____________COLEMAK_MOD_DHM_L1____________ KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
+#define _____________COLEMAK_MOD_DHM_L2____________ KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+#define _____________COLEMAK_MOD_DHM_L3____________ KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+
+#define _____________COLEMAK_MOD_DHM_R1____________ KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define _____________COLEMAK_MOD_DHM_R2____________ KC_M,    KC_N,    KC_E,    KC_I,    KC_O
+#define _____________COLEMAK_MOD_DHM_R3____________ KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH
 
 
 #define _________________DVORAK_L1_________________ KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y

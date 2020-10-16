@@ -72,6 +72,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
     ),
 #endif
+#ifdef ENABLE_LAYOUT_COLEMAK_DHM
+    [_COLEMAK_DHM] = LAYOUT_kyria_base_wrapper(
+        _____________COLEMAK_MOD_DHM_L1____________, _____________COLEMAK_MOD_DHM_R1____________,
+        _____________COLEMAK_MOD_DHM_L2____________, _____________COLEMAK_MOD_DHM_R2____________,
+        _____________COLEMAK_MOD_DHM_L3____________, _____________COLEMAK_MOD_DHM_R3____________
+    ),
+#endif
 #ifdef ENABLE_LAYOUT_DVORAK
     [_DVORAK] = LAYOUT_kyria_base_wrapper(
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,

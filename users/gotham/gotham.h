@@ -46,6 +46,9 @@ enum userspace_layers {
 #ifdef ENABLE_LAYOUT_COLEMAK_DH
     _COLEMAK_DH,
 #endif
+#ifdef ENABLE_LAYOUT_COLEMAK_DHM
+    _COLEMAK_DHM,
+#endif
 #ifdef ENABLE_LAYOUT_DVORAK
     _DVORAK,
 #endif

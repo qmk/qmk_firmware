@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
 #ifdef ENABLE_LAYOUT_COLEMAK
-    [_COLEMAK] = LAYOUT_crkbd_base_wrapper(
+    [_COLEMAK] = LAYOUT_dactyl_5x6_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
@@ -69,15 +69,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 #endif
 #ifdef ENABLE_LAYOUT_COLEMAK_DH
-    [_COLEMAK_DH] = LAYOUT_crkbd_base_wrapper(
+    [_COLEMAK_DH] = LAYOUT_dactyl_5x6_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
         ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
         ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
     ),
 #endif
+#ifdef ENABLE_LAYOUT_COLEMAK_DHM
+    [_COLEMAK_DHM] = LAYOUT_dactyl_5x6_base_wrapper(
+        ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,@
+        _____________COLEMAK_MOD_DHM_L1____________, _____________COLEMAK_MOD_DHM_R1____________,
+        _____________COLEMAK_MOD_DHM_L2____________, _____________COLEMAK_MOD_DHM_R2____________,
+        _____________COLEMAK_MOD_DHM_L3____________, _____________COLEMAK_MOD_DHM_R3____________
+    ),
+#endif
 #ifdef ENABLE_LAYOUT_DVORAK
-    [_DVORAK] = LAYOUT_crkbd_base_wrapper(
+    [_DVORAK] = LAYOUT_dactyl_5x6_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
@@ -85,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 #endif
 #ifdef ENABLE_LAYOUT_WORKMAN
-    [_WORKMAN] = LAYOUT_crkbd_base_wrapper(
+    [_WORKMAN] = LAYOUT_dactyl_5x6_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
         _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
@@ -93,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 #endif
 #ifdef ENABLE_LAYOUT_NORMAN
-    [_NORMAN] = LAYOUT_crkbd_base_wrapper(
+    [_NORMAN] = LAYOUT_dactyl_5x6_base_wrapper(
         ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,
         _________________NORMAN_L1_________________, _________________NORMAN_R1_________________,
         _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
