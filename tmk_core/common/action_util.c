@@ -297,7 +297,7 @@ void clear_macro_mods(void) { macro_mods = 0; }
 uint8_t get_oneshot_mods(void) { return oneshot_mods; }
 
 void add_oneshot_mods(uint8_t mods) {
-    if (oneshot_mods != mods) {
+    if ((oneshot_mods & mods) != mods) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
         oneshot_time = timer_read();
 #    endif
@@ -307,7 +307,7 @@ void add_oneshot_mods(uint8_t mods) {
 }
 
 void del_oneshot_mods(uint8_t mods) {
-    if (oneshot_mods) {
+    if (oneshot_mods & mods) {
         oneshot_mods &= ~mods;
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
         oneshot_time = oneshot_mods ? timer_read() : 0;
