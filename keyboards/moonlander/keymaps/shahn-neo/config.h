@@ -1,6 +1,4 @@
-/* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
- * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Drashna Jael're  <drashna@live.com>
+/* Copyright 2020 Sönke Hahn <SoenkeHahn@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
