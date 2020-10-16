@@ -1,6 +1,6 @@
 # ÆLITH
 
-![ÆLITH](https://i.imgur.com/wG1OWLo.png)
+![ÆLITH](https://i.imgur.com/wG1OWLol.png)
 
 A through-hole Alice-layout keyboard.
 
