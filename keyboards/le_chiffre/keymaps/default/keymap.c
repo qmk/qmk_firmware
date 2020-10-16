@@ -1,3 +1,18 @@
+/* Copyright 2020 tominabox1
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include QMK_KEYBOARD_H
 
 enum layers{
@@ -74,9 +89,9 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_DRIVER_ENABLE  //Special thanks to Sickbabies for this great OLED widget!
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_90;  // rotates for dank proper orientation
+    return OLED_ROTATION_90;  // rotates for proper orientation
 }
 
 void render_lechiffre_logo(void) {
@@ -93,16 +108,14 @@ void render_lechiffre_logo(void) {
   oled_write_raw_P(lechiffre_logo, sizeof(lechiffre_logo));
 }
 
-static void render_status(void) {
-
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer"), false);
+static void render_layer_status(void) {
+    oled_write_P(PSTR("-----"), false);
     switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_ln_P(PSTR("BASE"), false);
             break;
         case _NUM_SYM:
-            oled_write_ln_P(PSTR(" NUM"), false);
+            oled_write_ln_P(PSTR(" SYM"), false);
             break;
         case _NAV:
             oled_write_ln_P(PSTR(" NAV"), false);
@@ -110,19 +123,80 @@ static void render_status(void) {
         default:
             oled_write_ln_P(PSTR("?????"), false);
     }
+}
 
-    // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
+#    define KEYLOG_LEN 11
+char     keylog_str[KEYLOG_LEN] = {};
+uint8_t  keylogs_str_idx        = 0;
+uint16_t log_timer              = 0;
+
+const char code_to_name[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
+    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
+
+void add_keylog(uint16_t keycode) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+        keycode = keycode & 0xFF;
+    }
+
+    for (uint8_t i = KEYLOG_LEN - 1; i > 0; i--) {
+        keylog_str[i] = keylog_str[i - 1];
+    }
+    if (keycode < 60) {
+        keylog_str[0] = code_to_name[keycode];
+    }
+    keylog_str[KEYLOG_LEN - 1] = 0;
+
+    log_timer = timer_read();
+}
+
+void update_log(void) {
+    if (timer_elapsed(log_timer) > 750) {
+        add_keylog(0);
+    }
+}
+
+//Text only renders
+void render_keylogger_status(void) {
     oled_write_P(PSTR("-----"), false);
-    oled_write_P(PSTR("Lock\n"), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(" N") : PSTR(" *"), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("C") : PSTR("*"), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("S\n") : PSTR("*\n"), false);
+    oled_write(keylog_str, false);
+}
+
+void render_keylock_status(uint8_t led_usb_state) {
+    oled_write_P(PSTR("-----"), false);
+    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+	oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+	oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    //oled_write_ln_P(PSTR(" "), false);
+}
+
+void render_mod_status(uint8_t modifiers) {
+       oled_write_P(PSTR("-----"), false);
+    oled_write_ln_P(PSTR("SHFT"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_ln_P(PSTR("ALT"), (modifiers & MOD_MASK_ALT));
+    oled_write_ln_P(PSTR("CTRL"), (modifiers & MOD_MASK_CTRL));
+    oled_write_ln_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
 void oled_task_user(void) {
     render_lechiffre_logo();
     oled_set_cursor(0,3);
-    render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    render_layer_status();	// Renders the current keyboard state (layer, lock, caps, scroll, etc)
+	render_mod_status(get_mods()|get_oneshot_mods());
+	render_keylock_status(host_keyboard_leds());
+	render_keylogger_status();
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+      add_keylog(keycode);
+    }
+    return true;
+  }
 #endif
