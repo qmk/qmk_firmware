@@ -18,8 +18,7 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    BSP_DEL = SAFE_RANGE,
-    RGB_RST,  // Reset RGB
+    RGB_RST = SAFE_RANGE,  // Reset RGB
     RGB_UND,  // Toggle RGB underglow as layer indicator
     RGB_IDL,  // RGB Idling animations
     RGB_MAP,  // RGB_MATRIX_TYPING_HEATMAP
@@ -86,7 +85,7 @@ user_config_t user_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, BSP_DEL,\
+       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSDL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TAB_NUM,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -453,7 +452,6 @@ void suspend_wakeup_init_keymap(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint8_t saved_mods   = 0;
     uint16_t       temp_keycode = keycode;
 
     oled_timer = timer_read32();
@@ -469,31 +467,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
 #endif
-
     // Filter out the actual keycode from MT and LT keys.
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
         temp_keycode &= 0xFF;
     }
 
     switch (temp_keycode) {
-        case BSP_DEL:
-            if (record->event.pressed) {
-                saved_mods = get_mods() & MOD_MASK_SHIFT;
-
-                if (saved_mods == MOD_MASK_SHIFT) {  // Both shifts pressed
-                    register_code(KC_DEL);
-                } else if (saved_mods) {   // One shift pressed
-                    del_mods(saved_mods);  // Remove any Shifts present
-                    register_code(KC_DEL);
-                    add_mods(saved_mods);  // Add shifts again
-                } else {
-                    register_code(KC_BSPC);
-                }
-            } else {
-                unregister_code(KC_DEL);
-                unregister_code(KC_BSPC);
-            }
-            return false;
 #ifdef RGB_MATRIX_ENABLE
         case COLEMAK:
             if (record->event.pressed) {
