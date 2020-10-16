@@ -2,7 +2,7 @@
 
 ## Usage
 
-`KS_BSDL` will function as normal `KC_BSPC` when pressed. When either `SHIFT` key is held, it will function as `KC_DEL` instead. When both `KC_RSHIFT` and `KC_LSHIFT` are held, the output will be `SHIFT` modifier with `KC_DEL` pressed.
+`KC_BSDL` will function as normal `KC_BSPC` when pressed. When either `SHIFT` key is held, it will function as `KC_DEL` instead. When both `KC_RSHIFT` and `KC_LSHIFT` are held, the output will be `SHIFT` modifier with `KC_DEL` pressed.
 
 ## What Your OS Sees
 
