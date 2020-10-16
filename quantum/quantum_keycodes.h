@@ -116,7 +116,6 @@ enum quantum_keycodes {
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
     MAGIC_TOGGLE_ALT_GUI,
-    BSP_DEL,
     GRAVE_ESC,
 
 // Leader key
@@ -549,6 +548,9 @@ enum quantum_keycodes {
     JS_BUTTON30,
     JS_BUTTON31,
     JS_BUTTON_MAX = JS_BUTTON31,
+
+    // Backspace/Delete functionality
+    BSP_DEL,
 
     // always leave at the end
     SAFE_RANGE
