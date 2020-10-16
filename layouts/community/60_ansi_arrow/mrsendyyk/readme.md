@@ -51,7 +51,7 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
                 break;
             // Default Layer Indicator
             case _BASE:
-                rgblight_setrgb(0, 0, 0);
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_static_gradient_26);
                 break;
         }
         update_led();

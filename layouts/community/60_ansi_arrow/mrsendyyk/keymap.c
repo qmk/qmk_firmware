@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom(0, 0, 0);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_static_gradient_26);
 }
 
 // RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
@@ -75,7 +75,7 @@ void led_set_user(uint8_t usb_led) {
                 break;
             // Default Layer Indicator
             case _BASE:
-                rgblight_setrgb(0, 0, 0);
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_static_gradient_26);
                 break;
         }
         update_led();
