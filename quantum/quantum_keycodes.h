@@ -116,6 +116,7 @@ enum quantum_keycodes {
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
     MAGIC_TOGGLE_ALT_GUI,
+    BSP_DEL,
     GRAVE_ESC,
 
 // Leader key
@@ -671,6 +672,7 @@ enum quantum_keycodes {
 #define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
+#define KC_BSDL BSP_DEL
 #define KC_GESC GRAVE_ESC
 
 #define EEP_RST EEPROM_RESET

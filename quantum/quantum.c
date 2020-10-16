@@ -235,6 +235,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
             process_audio(keycode, record) &&
 #endif
+#ifdef BSP_DEL_ENABLE
+            process_bsp_del(keycode, record) &&
+#endif
 #ifdef BACKLIGHT_ENABLE
             process_backlight(keycode, record) &&
 #endif

@@ -514,6 +514,12 @@ ifeq ($(strip $(GRAVE_ESC_ENABLE)), yes)
     OPT_DEFS += -DGRAVE_ESC_ENABLE
 endif
 
+BSP_DEL_ENABLE ?= yes
+ifeq ($(strip $(BSP_DEL_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_bsp_del.c
+    OPT_DEFS += -DBSP_DEL_ENABLE
+endif
+
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
     OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
