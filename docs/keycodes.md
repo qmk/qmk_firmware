@@ -309,7 +309,7 @@ See also: [Backspace Delete](feature_bsp_del.md)
 
 |Key      |Aliases    |Description                                                       |
 |---------|-----------|------------------------------------------------------------------|
-|`KC_BSDL`|`BSP_DEL`|Backspace when pressed, Delete when Shift is held, Shift+Delete when both Shift keys are held.|
+|`BSP_DEL`|`BACKSPACE_DELETE`|Backspace when pressed, Delete when Shift is held, Shift+Delete when both Shift keys are held.|
 
 ## Dynamic Macros :id=dynamic-macros
 
