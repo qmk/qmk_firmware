@@ -42,10 +42,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN A4
 #define RGBLED_NUM 16
-//#define WS2812_SPI SPID1
-//#define WS2812_EXTERNAL_PULLUP
-#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_LIMIT_VAL 128
 #define RGBLIGHT_SLEEP
+
+// Allows for rotary encoder volume control
+#define TAP_CODE_DELAY 20
 
 /* Encoder stuff */
 #define ENCODERS_PAD_A \
