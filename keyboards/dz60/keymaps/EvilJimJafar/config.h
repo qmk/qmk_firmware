@@ -21,3 +21,4 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
+#define COMBO_COUNT 1

@@ -6,6 +6,30 @@
 #define _NUM 3
 #define _RGB 4
 
+// Combos
+// Note: When adding a combo, increment COMBO_COUNT in config.h
+
+enum combo_events {
+  SWITCH_WINDOW
+};
+
+const uint16_t PROGMEM switch_window_combo[] = {KC_LGUI, KC_ESC, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [SWITCH_WINDOW] = COMBO_ACTION(switch_window_combo)
+};
+
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case SWITCH_WINDOW:
+      if (pressed) {
+        tap_code16(LGUI(KC_GRV));
+      }
+      break;
+  }
+}
+
+
 /* DZ60 layout using following options (from layouts diagram on KBDfans):
  *  - plate B (2.25u lshift)
  *  - opt 4 (1.75, 1, 1 on rshift)
