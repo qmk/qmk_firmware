@@ -154,14 +154,14 @@ uint8_t matrix_scan(void) {
         suspend_power_down_longer();
     } else if (time_diff > MATRIX_POWER_SAVE_TIMEOUT_L2_MS) {
         power_save_level = 2;
-        suspend_power_down_longer();
-    } else if (time_diff > MATRIX_POWER_SAVE_TIMEOUT_MS) {
-        power_save_level = 1;
 #ifdef BLUETOOTH_ENABLE
         if (!adafruit_ble_is_connected()) {
             power_save_level = 3;
         }
 #endif
+        suspend_power_down_longer();
+    } else if (time_diff > MATRIX_POWER_SAVE_TIMEOUT_MS) {
+        power_save_level = 1;
         suspend_power_down();
     } else {
         if (power_save_level != 0) {
