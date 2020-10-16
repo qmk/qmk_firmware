@@ -17,6 +17,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "encoder_action.h"
 
 /* This is a shortcut to help you visually see your layout.
  *

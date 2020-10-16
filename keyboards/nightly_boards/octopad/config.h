@@ -54,8 +54,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
+#define ENCODERS 2
+
 #define ENCODERS_PAD_A { C7, F4 }
 #define ENCODERS_PAD_B { C6, F5 }
+
+#define ENCODERS_CW_KEY  { { 1, 2 },{ 3, 2 } }
+#define ENCODERS_CCW_KEY { { 0, 2 },{ 2, 2 } }
+
+#define ENCODER_RESOLUTION 4
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
