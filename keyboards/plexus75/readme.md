@@ -1,6 +1,6 @@
 # Plexus75
 
-![Plexus75](https://i.imgur.com/c06EAxJ.jpg)
+![Plexus75](https://i.imgur.com/c06EAxJl.jpg)
 
 The Plexus75 is a 60% ortholinear keyboard based on the XD75 but instead of an all 1u bottom row the Plexus75 has a more traditional bottom row similar to reg. 60% boards.
 
