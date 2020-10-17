@@ -3,6 +3,7 @@
 ![Plexus75](https://i.imgur.com/c06EAxJ.jpg)
 
 The Plexus75 is a 60% ortholinear keyboard based on the XD75 but instead of an all 1u bottom row the Plexus75 has a more traditional bottom row similar to reg. 60% boards.
+
 * Keyboard Maintainer: [Nasp](https://github.com/npspears)
 * Hardware Supported: Plexus75 PCB
 * Hardware Availability: https://forms.gle/uSqeNRgJEEQNk4C97
