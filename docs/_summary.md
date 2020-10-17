@@ -23,6 +23,7 @@
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
     * [Keyboard Support](reference_configurator_support.md)
+    * [Adding Default Keymaps](configurator_default_keymaps.md)
 
 * CLI
     * [Overview](cli.md)
