@@ -2,7 +2,6 @@
   "keyboard_name": "Speedo",
   "url": "https://github.com/cozykeys/speedo",
   "maintainer": "pcewing",
-  "bootloader": "atmel-dfu",
   "width": 14,
   "height": 5,
   "layouts": {

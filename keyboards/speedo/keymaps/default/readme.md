@@ -1,4 +1,4 @@
-# The default Speedo
+# The default Speedo keymap
 
 ## Default Layer
 
