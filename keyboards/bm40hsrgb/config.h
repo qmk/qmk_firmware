@@ -22,7 +22,7 @@
 #define PRODUCT_ID      0x3430
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPRepublic
-#define PRODUCT         KPRepublic BM40 Hotswap RGB
+#define PRODUCT         BM40 Hotswap RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 4
