@@ -18,7 +18,7 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID 0xC1ED
+#define VENDOR_ID 0x4345
 #define PRODUCT_ID 0x2EC0
 #define DEVICE_VER 0x0001
 #define MANUFACTURER OpenDeck
