@@ -18,17 +18,6 @@ jobs:
       with:
         fetch-depth: 1
 
-    - uses: trilom/file-changes-action@v1.2.4
-      id: file_changes
-      with:
-        output: '\n'
-
-    - name: Print info
-      run: |
-        git rev-parse --short HEAD
-        echo ${{ github.event.pull_request.base.sha }}
-        echo '${{ steps.file_changes.outputs.files}}'
-
     - name: Generate API Data
       run: qmk generate-api
 
