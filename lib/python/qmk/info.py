@@ -161,8 +161,6 @@ def arm_processor_rules(info_data, rules):
     if info_data['bootloader'] == 'unknown':
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
-        elif info_data.get('manufacturer') == 'Input Club':
-            info_data['bootloader'] = 'kiibohd-dfu'
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
