@@ -5,8 +5,8 @@
 this is a limited edition macro pad for the spookiest time of year
 
 * Keyboard Maintainer: [boardsource](https://github.com/boardsource)
-* Hardware Supported: v1 pcb
-* Hardware Availability:[From Boardsource store around halloween time](https://boardsource.xyz/store/5f783f6da2c1b43e37ca0795)
+* Hardware Supported: spooky v1 PCB
+* Hardware Availability: [From Boardsource store around halloween time](https://boardsource.xyz/store/5f783f6da2c1b43e37ca0795)
 
 Make example for this keyboard (after setting up your build environment):
 
