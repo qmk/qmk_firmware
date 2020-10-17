@@ -18,7 +18,7 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
     // Caps Lock Indicator
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         writePinLow(B2);
-        rgblight_setrgb(100, 255, 100);
+        rgblight_setrgb(255, 110, 0);
     }
 ```
 
@@ -35,7 +35,7 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
 ```c
     // Scroll Lock Indicator
     if (host_keyboard_led_state().scroll_lock) {
-        rgblight_setrgb(255, 110, 0);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 2);
     }
 ```
 
@@ -47,11 +47,11 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
         switch (get_highest_layer(layer_state)) {
             // Fn Layer Indicator
             case _FN:
-                rgblight_setrgb(100, 255, 100);
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 1);
                 break;
             // Default Layer Indicator
             case _BASE:
-                rgblight_mode_noeeprom(RGBLIGHT_MODE_static_gradient_26);
+                rgblight_setrgb(100, 255, 100);
                 break;
         }
         update_led();

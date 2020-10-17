@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_static_gradient_26);
+    rgblight_setrgb(100, 255, 100);
 }
 
 // RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
@@ -56,7 +56,7 @@ void update_led(void) {
     }
     // Scroll Lock Indicator
     if (host_keyboard_led_state().scroll_lock) {
-        rgblight_setrgb(255, 110, 0);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 2);
     }
 }
 
@@ -64,18 +64,18 @@ void led_set_user(uint8_t usb_led) {
     // Caps Lock Indicator
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         writePinLow(B2);
-        rgblight_setrgb(100, 255, 100);
+        rgblight_setrgb(255, 110, 0);
     }
     // Layer Indicator
     else {
         switch (get_highest_layer(layer_state)) {
             // Fn Layer Indicator
             case _FN:
-                rgblight_setrgb(100, 255, 100);
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 1);
                 break;
             // Default Layer Indicator
             case _BASE:
-                rgblight_mode_noeeprom(RGBLIGHT_MODE_static_gradient_26);
+                rgblight_setrgb(100, 255, 100);
                 break;
         }
         update_led();
