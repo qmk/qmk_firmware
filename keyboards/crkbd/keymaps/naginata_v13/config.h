@@ -17,7 +17,7 @@
 #pragma once
 
 #undef PRODUCT
-#define PRODUCT   Crkbd Naginata Style V12
+#define PRODUCT   Crkbd Naginata Style V13
 
 // 薙刀式
 // #define NAGINATA_KOUCHI_SHIFT // シフトを後置でも有効にする

@@ -98,6 +98,12 @@
 		<key>shortcut</key>
 		<string>なぎたてせん</string>
 	</dict>
+  <dict>
+		<key>phrase</key>
+		<string>││</string>
+		<key>shortcut</key>
+		<string>なぎたてせん2</string>
+	</dict>
 	<dict>
 		<key>phrase</key>
 		<string>／</string>
