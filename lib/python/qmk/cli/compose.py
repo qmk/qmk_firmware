@@ -99,7 +99,7 @@ def compose(cli):
         except ComposeSequencePrefixCollision as e:
             cli.log.error(f'Compose sequence {e.args[0]} is a prefix of another sequence. Aborting.')
             return False
-    lines = trie.compile()
-    lines[0] = 'const ComposeTrie compose_trie =' + lines[0]
+    lines = [f'// Auto-generated from {cli.args.infile.name}.\n', '// DO NOT EDIT MANUALLY\n', 'const ComposeTrie compose_trie = ']
+    lines.extend(trie.compile())
     lines.append(';')
     cli.args.outfile.writelines(lines)
