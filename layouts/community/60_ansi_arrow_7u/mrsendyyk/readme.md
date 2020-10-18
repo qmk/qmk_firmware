@@ -1,14 +1,14 @@
-# 60 ANSI Arrow Keymap by [Sendy YK](https://mr.sendyyk.com)
+# 60 ANSI Arrow 7U Keymap by [Sendy YK](https://mr.sendyyk.com)
 
 With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator.
 
 ## Default Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_base.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60-ansi-arrow-7u-keymap-base.png)
 
 ## Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_fn.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60-ansi-arrow-7u-keymap-fn.png)
 
 ## RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
@@ -62,7 +62,7 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
 
 Make example for keyboard (after setting up your build environment):
 
-    make <keyboard_folder>:mrsendyyk FORCE_LAYOUT=60_ansi_arrow
+    make <keyboard_folder>:mrsendyyk FORCE_LAYOUT=60_ansi_arrow_7u
 
 More information:
 * [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)
