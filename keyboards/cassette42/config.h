@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define USE_I2C
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
