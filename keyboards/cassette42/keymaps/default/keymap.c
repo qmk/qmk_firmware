@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-extern keymap_config_t keymap_config;
 #ifdef RGBLIGHT_ENABLE
 // Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
