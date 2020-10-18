@@ -5,7 +5,7 @@ _qmk_install() {
 
     sudo xbps-install \
         gcc git make wget unzip zip \
-        python3 \
+        python3-pip \
         avr-binutils avr-gcc avr-libc \
         cross-arm-none-eabi-binutils cross-arm-none-eabi-gcc cross-arm-none-eabi-newlib \
         avrdude dfu-programmer dfu-util teensy_loader_cli \
