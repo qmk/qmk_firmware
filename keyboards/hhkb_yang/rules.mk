@@ -27,8 +27,6 @@ SRC += matrix.c
 # Disable debounce
 DEBOUNCE_TYPE = custom
 
-LAYOUTS = 60_hhkb
-
 PROGRAM_CMD = if [ -z "$(LUFA_DEVICE)" ]; then \
 		echo "Abort: set LUFA_DEVICE variable first"; \
 	else \
