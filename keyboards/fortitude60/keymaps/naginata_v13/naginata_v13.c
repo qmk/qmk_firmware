@@ -629,7 +629,7 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
   {.key = B_J|B_K|B_Z       , .uc = "）"}, // ）{改行}
   {.key = B_J|B_K|B_X       , .uc = "》"}, // 》{改行}
   {.key = B_J|B_K|B_C       , .uc = "」"}, // 」{改行}
-  {.key = B_J|B_K|B_B       , .uc = "｜｜"}, // ｜｜{改行}
+  {.key = B_J|B_K|B_B       , .uc = "││"}, // ｜｜{改行}
 
   // 編集モード2
   {.key = B_M|B_COMM|B_T    , .uc = "〇"}, // 〇{改行}
@@ -979,7 +979,6 @@ bool naginata_lookup(int nt, bool shifted) {
       send_unicode_string("」");
       tap_code(KC_ENT);
       send_unicode_string("「");
-      tap_code(KC_ENT);
       compress_buffer(nt);
       return true;
       break;
