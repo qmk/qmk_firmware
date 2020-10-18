@@ -95,7 +95,8 @@ void matrix_init_user(void) {
   uint16_t ngoffkeys[] = {KC_I, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // set_naginata(_NAGINATA);
-  set_unicode_input_mode(UC_WINC);
+  // set_unicode_input_mode(UC_WINC);
+  // set_unicode_input_mode(UC_LNX);
   // 薙刀式
 }
 
