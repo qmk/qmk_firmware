@@ -68,10 +68,12 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             uint8_t tone     = keycode - MIDI_TONE_MIN;
             uint8_t velocity = compute_velocity(midi_config.velocity);
             if (record->event.pressed) {
-                uint8_t note = midi_compute_note(keycode);
-                midi_send_noteon(&midi_device, channel, note, velocity);
-                dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                tone_status[tone] = note;
+                if (tone_status[tone] == MIDI_INVALID_NOTE) {
+                    uint8_t note = midi_compute_note(keycode);
+                    midi_send_noteon(&midi_device, channel, note, velocity);
+                    dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                    tone_status[tone] = note;
+                }
             } else {
                 uint8_t note = tone_status[tone];
                 if (note != MIDI_INVALID_NOTE) {
