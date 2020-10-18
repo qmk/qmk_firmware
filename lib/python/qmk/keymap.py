@@ -103,6 +103,8 @@ def generate(keyboard, layout, layers, type='c', keymap=None):
         for layer_num, layer in enumerate(layers):
             if layer_num != 0:
                 layer_txt[-1] = layer_txt[-1] + ','
+
+            layer = map(_strip_any, layer)
             layer_keys = ', '.join(layer)
             layer_txt.append('\t[%s] = %s(%s)' % (layer_num, layout, layer_keys))
 
