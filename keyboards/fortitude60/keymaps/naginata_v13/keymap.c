@@ -12,10 +12,10 @@ NGKEYS naginata_keys;
 // entirely and just use numbers.
 enum my_layers {
   _BASE,
+  _NAGINATA,
   _LOWER,
   _RAISE,
   _ADJUST,
-  _NAGINATA,
 };
 
 enum custom_keycodes {
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Y,    KC_R,    KC_O,    KC_U,    KC_COMM,                KC_DOT,  KC_BSPC, KC_L,    KC_F,    KC_P,    KC_QUOT, \
   KC_LSFT, KC_D,    KC_S,    KC_A,    KC_I,    KC_G,                   KC_J,    KC_E,    KC_H,    KC_T,    KC_K,    KC_SCLN, \
   KC_LCTL, KC_V,    KC_Z,    KC_X,    KC_M,    KC_C, KC_LBRC, KC_RBRC, KC_N,    KC_W,    KC_B,    KC_Q,    KC_SLSH, KC_RSFT , \
-                 KC_LGUI, KC_LALT,    LOWER,  KC_SPC, KC_LCTL,KC_RCTL, KC_ENT, RAISE,   KC_MENU, KC_LWIN\
+  KC_LGUI, KC_LALT,    LOWER,LSFT_T(KC_SPC), LSFT_T(KC_SPC),LSFT_T(KC_ENT),LSFT_T(KC_ENT), RAISE,   KC_MENU, KC_LWIN\
 ),
 
 [_LOWER] = LAYOUT( \
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, NG_Q,    NG_W,    NG_E,    NG_R,    NG_T,                      NG_Y,    NG_U,    NG_I,    NG_O,    NG_P,    _______, \
   _______, NG_A,    NG_S,    NG_D,    NG_F,    NG_G,                      NG_H,    NG_J,    NG_K,    NG_L,    NG_SCLN, _______, \
   _______, NG_Z,    NG_X,    NG_C,    NG_V,    NG_B,    _______, _______, NG_N,    NG_M,    NG_COMM, NG_DOT,  NG_SLSH, _______ , \
-                 _______, _______,    _______, NG_SHFT, _______, _______, NG_SHFT2,_______, _______, _______\
+                 _______, _______,    _______, NG_SHFT, NG_SHFT, NG_SHFT2, NG_SHFT2,_______, _______, _______\
 )
 
 };
