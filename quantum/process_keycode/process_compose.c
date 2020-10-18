@@ -24,58 +24,7 @@ __attribute__((weak)) void compose_start(void) {}
 
 __attribute__((weak)) void compose_end(bool valid_sequence) {}
 
-typedef struct ComposeTrie {
-    uint16_t            keycode;
-    const char*         output;
-    struct ComposeTrie* next;
-    struct ComposeTrie* child;
-} ComposeTrie;
-
-ComposeTrie* get_new_node(void) {
-    ComposeTrie* node = (ComposeTrie*)malloc(sizeof(ComposeTrie));
-    node->output      = NULL;
-    node->keycode     = 0;
-    node->next        = NULL;
-    node->child       = NULL;
-    return node;
-}
-
-ComposeTrie* get_head(void) {
-    static ComposeTrie* head = NULL;
-    if (head == NULL) {
-        head = get_new_node();
-    }
-    return head;
-}
-
-void declare_compose_seq(uint64_t* keycodes, const int num_keycodes, const char* output) {
-    dprintf("Adding compose sequence to emit '%s'\n", output);
-    ComposeTrie* current = get_head();
-
-    for (uint64_t* keycode = keycodes; keycode < keycodes + num_keycodes; keycode++) {
-        // Walk siblings until we find one with this keycode or no keycode.
-        while (current->keycode != 0 && current->keycode != *keycode) {
-            if (current->next == NULL) {
-                current->next = get_new_node();
-            }
-            current = current->next;
-        }
-
-        if (current->keycode == 0) {
-            current->keycode = *keycode;
-        }
-
-        // If there's another keycode, step down to the child, creating it if necessary.
-        if (keycode < keycodes + num_keycodes - 1) {
-            if (current->child == NULL) current->child = get_new_node();
-            current = current->child;
-        }
-    }
-
-    current->output = output;
-}
-
-static ComposeTrie* current = NULL;
+static const ComposeTrie* current = NULL;
 
 bool compose_active(void) {
     return current != NULL;
@@ -92,7 +41,7 @@ bool process_compose(uint16_t keycode, keyrecord_t* record) {
         }
         dprintf("Start compose sequence.\n");
         compose_start();
-        current = get_head();
+        current = &compose_trie;
         return false;
     }
 
@@ -111,8 +60,8 @@ bool process_compose(uint16_t keycode, keyrecord_t* record) {
 #    endif  // COMPOSE_KEY_STRICT_KEY_PROCESSING
 
     // Scan the current level of the trie for a matching keycode.
-    while (current->keycode != keycode && current->next != NULL) {
-        current = current->next;
+    while (current->keycode != keycode && current->sibling != NULL) {
+        current = current->sibling;
     }
 
     // If we don't find one, this is an invalid compose sequence. Clean up

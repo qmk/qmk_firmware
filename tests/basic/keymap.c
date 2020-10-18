@@ -15,7 +15,6 @@
  */
 
 #include "quantum.h"
-#include <stdio.h>
 
 // Don't rearrange keys as existing tests might rely on the order
 // Col2, Row 0 has to be KC_NO, because tests rely on it
@@ -45,10 +44,32 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     return MACRO_NONE;
 };
 
-void matrix_init_user(void) {
-    declare_compose_seq((uint64_t[]){KC_A, KC_B}, 2, "ccc");
-    declare_compose_seq((uint64_t[]){KC_A, KC_EQL}, 2, "123");
-}
+const ComposeTrie compose_trie = {
+.keycode = KC_A,
+.child = &(struct ComposeTrie)
+    {
+    .keycode = KC_B,
+    .sibling = &(struct ComposeTrie)
+        {
+        .keycode = KC_EQL,
+        .output = "123",
+        }
+    ,
+    .child = &(struct ComposeTrie)
+        {
+        .keycode = KC_C,
+        .output = "ccc",
+        .sibling = &(struct ComposeTrie)
+            {
+            .keycode = KC_D,
+            .output = "ddd",
+            }
+        ,
+        }
+    ,
+    }
+,
+};
 
 void compose_start(void) {
     send_string("s");
