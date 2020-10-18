@@ -21,5 +21,5 @@ _qmk_install() {
         python3 \
         avrdude dfu-programmer dfu-util teensy_loader_cli
 
-    python3 -m pip install --user $QMK_FIRMWARE_DIR/requirements.txt
+    python3 -m pip install --user -r $QMK_FIRMWARE_DIR/requirements.txt
 }

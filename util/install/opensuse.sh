@@ -27,5 +27,5 @@ _qmk_install() {
         avrdude dfu-programmer dfu-util
         #cross-arm-binutils cross-arm-none-gcc8 cross-arm-none-newlib-devel
 
-    python3 -m pip install --user $QMK_FIRMWARE_DIR/requirements.txt
+    python3 -m pip install --user -r $QMK_FIRMWARE_DIR/requirements.txt
 }

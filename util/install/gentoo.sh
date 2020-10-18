@@ -29,5 +29,5 @@ _qmk_install() {
     sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
     sudo crossdev -s4 --stable --g \<9 --portage --verbose --target arm-none-eabi
 
-    python3 -m pip install --user $QMK_FIRMWARE_DIR/requirements.txt
+    python3 -m pip install --user -r $QMK_FIRMWARE_DIR/requirements.txt
 }
