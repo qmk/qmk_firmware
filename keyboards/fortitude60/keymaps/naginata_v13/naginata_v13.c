@@ -483,7 +483,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_J|B_K|B_F       , .kana = "?"SS_TAP(X_ENTER)}, // ？{改行}
   // {.key = B_J|B_K|B_G       , .uc = "……"}, // ……{改行}
 
-  {.key = B_J|B_K|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)}, // {Enter}{End}
+  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)}, // {Enter}{End}
   {.key = B_D|B_F|B_J       , .kana = SS_TAP(NGUP)}, // {↑}
   {.key = B_D|B_F|B_K       , .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
   {.key = B_D|B_F|B_L       , .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)}, // {↑ 5}
@@ -520,7 +520,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   // {.key = B_M|B_COMM|B_F    , .kana = macro, // 」{改行 2}「{改行}
   {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)}, // {Space 3}
 
-  {.key = B_M|B_COMM|B_H    , .kana = SS_LCTL("x")}, // ^x
+  {.key = B_C|B_V|B_H       , .kana = SS_LCTL("x")}, // ^x
   {.key = B_C|B_V|B_J       , .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
   {.key = B_C|B_V|B_K       , .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
   {.key = B_C|B_V|B_L       , .kana = SS_LCTL(SS_TAP(X_PGDOWN))}, // ^{PgDn}
@@ -558,7 +558,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_J|B_K|B_F       , .kana = "?"SS_TAP(X_ENTER)}, // ？{改行}
   // {.key = B_J|B_K|B_G       , .uc = "……"}, // ……{改行}
 
-  {.key = B_J|B_K|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)}, // {Enter}{End}
+  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)}, // {Enter}{End}
   {.key = B_D|B_F|B_J       , .kana = SS_TAP(NGUP)}, // {↑}
   {.key = B_D|B_F|B_K       , .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
   {.key = B_D|B_F|B_L       , .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)}, // {↑ 5}
@@ -595,7 +595,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   // {.key = B_M|B_COMM|B_F    , .kana = macro, // 」{改行 2}「{改行}
   {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)}, // {Space 3}
 
-  {.key = B_M|B_COMM|B_H    , .kana = SS_LCMD("x")}, // ^x
+  {.key = B_C|B_V|B_H    , .kana = SS_LCMD("x")}, // ^x
   {.key = B_C|B_V|B_J       , .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
   {.key = B_C|B_V|B_K       , .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
   {.key = B_C|B_V|B_L       , .kana = SS_LCMD(SS_TAP(X_PGDOWN))}, // ^{PgDn}
@@ -964,7 +964,6 @@ bool naginata_lookup(int nt, bool shifted) {
     case B_M|B_COMM|B_Q: //　　　×　　　×　　　×{改行 2}
       send_unicode_string("　　　×　　　×　　　×");
       tap_code(KC_ENT);
-      tap_code(KC_ENT);
       compress_buffer(nt);
       return true;
       break;
@@ -972,14 +971,12 @@ bool naginata_lookup(int nt, bool shifted) {
       tap_code(KC_ENT);
       tap_code(KC_END);
       send_unicode_string("《》");
-      tap_code(KC_ENT);
       tap_code(NGKUP);
       compress_buffer(nt);
       return true;
       break;
     case B_M|B_COMM|B_F: // 」{改行 2}「{改行}
       send_unicode_string("」");
-      tap_code(KC_ENT);
       tap_code(KC_ENT);
       send_unicode_string("「");
       tap_code(KC_ENT);
@@ -989,14 +986,12 @@ bool naginata_lookup(int nt, bool shifted) {
     case B_M|B_COMM|B_V: // 」{改行 2}{Space}
       send_unicode_string("」");
       tap_code(KC_ENT);
-      tap_code(KC_ENT);
       tap_code(KC_SPC);
       compress_buffer(nt);
       return true;
       break;
     case B_M|B_COMM|B_B: // 」{改行 2}
       send_unicode_string("」");
-      tap_code(KC_ENT);
       tap_code(KC_ENT);
       compress_buffer(nt);
       return true;
@@ -1061,7 +1056,7 @@ bool naginata_lookup(int nt, bool shifted) {
         if (keycomb_buf == bngmapu.key) {
           send_unicode_string(bngmapu.uc);
           // send_unicode_hex_string(bngmapu.kana);
-          tap_code(KC_ENT);
+          // tap_code(KC_ENT);
           compress_buffer(nt);
           return true;
         }
