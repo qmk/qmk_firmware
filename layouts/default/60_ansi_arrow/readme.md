@@ -1,28 +1,14 @@
-# 60_ansi_arrow and Keymap
+# 60_ansi_arrow Keymap
 
-Default 60% ANSI Arrow keyboard layout and keymap by [Sendy YK](https://mr.sendyyk.com).
+by [Sendy YK](https://mr.sendyyk.com).
 
-## 60% ANSI Arrow Layout
+## Default Layer
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_base.png)
 
-## Keymap
+## Fn Layer
 
-### Default Layer
-
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
-
-### Fn Layer 1
-
-Press and hold *right* **Ctrl** key.
-
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
-
-### Fn Layer 2
-
-Press and hold *right* **Alt** key.
-
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_fn.png)
 
 ## Build The Firmware
 
