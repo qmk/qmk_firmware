@@ -14,12 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "vial.h"
+
 #include <string.h>
 #include "protocol/usb_descriptor.h"
 
 #include "vial_generated_keyboard_definition.h"
 
 enum {
+    vial_get_keyboard_id = 0x00,
     vial_get_size = 0x01,
     vial_get_def = 0x02,
 };
@@ -31,6 +34,17 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
 
     /* msg[0] is 0xFE -- prefix vial magic */
     switch (msg[1]) {
+        /* Get keyboard ID and Vial protocol version */
+        case vial_get_keyboard_id: {
+            uint8_t keyboard_uid[] = VIAL_KEYBOARD_UID;
+
+            msg[0] = VIAL_PROTOCOL_VERSION & 0xFF;
+            msg[1] = (VIAL_PROTOCOL_VERSION >> 8) & 0xFF;
+            msg[2] = (VIAL_PROTOCOL_VERSION >> 16) & 0xFF;
+            msg[3] = (VIAL_PROTOCOL_VERSION >> 24) & 0xFF;
+            memcpy(&msg[4], keyboard_uid, 8);
+            break;
+        }
         /* Retrieve keyboard definition size */
         case vial_get_size: {
             uint32_t sz = sizeof(keyboard_definition);

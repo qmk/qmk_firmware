@@ -16,4 +16,8 @@
 
 #pragma once
 
+#include <inttypes.h>
+
+#define VIAL_PROTOCOL_VERSION 0x00000000
+
 void vial_handle_cmd(uint8_t *data, uint8_t length);
