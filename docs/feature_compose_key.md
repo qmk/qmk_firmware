@@ -8,14 +8,26 @@ The Compose Key processor lets you do the same thing directly on your keyboard, 
 
 1. Choose a key to use for your Compose Key. (Mod-Tap keys are not currently supported.) Assign it the keycode `COMPOSE`.
 2. Include `COMPOSE_ENABLE = yes` in your `rules.mk`. To enable support for non-ANSI characters, include `UNICODE_ENABLE = yes` as well, and follow the [Unicode feature docs](feature_unicode.md) to set it up for your OS.
-3. Define your compose sequences in `keyboard_post_init_user` by calling `declare_compose_seq`. For example:
-    ```c
-void keyboard_post_init_user(void) {
-    declare_compose_seq((uint64_t[]){KC_G, KC_T, KC_H}, 3, "θ");
-    declare_compose_seq((uint64_t[]){KC_G, KC_B}, 2, "β");
-    declare_compose_seq((uint64_t[]){KC_S, KC_H, KC_R, KC_U, KC_G}, 5, "¯\\_(ツ)_/¯");
-}
-```
-    defines three sequences: `COMPOSE-G-T-H` to type `θ`, `COMPOSE-G-B` to type `β`, and `COMPOSE-S-H-R-U-G` to type `¯\_(ツ)_/¯`.
+3. Define your compose sequences in a new file (e.g. `compose.conf`). For example:
+    ```
+# dongers
+KC_S KC_H KC_R KC_U KC_G "¯\\_(ツ)_/¯"
+KC_F KC_L KC_I KC_P "╯°□°)╯︵ ┻━┻"
+KC_H KC_A KC_P KC_P KC_Y "ᕕ( ᐛ )ᕗ"
+KC_Y KC_U KC_N KC_O "ლ(ಠ益ಠლ)"
 
-You can define as many sequences as you want, subject to firmware size restrictions. The author found that adding the Compose Key and Unicode modules added about 1.3KB and each rule added about 150B.
+# blackboard bold
+KC_B KC_B KC_A "𝔸"
+KC_B KC_B KC_B "𝔹"
+
+# misc. symbols
+KC_O KC_C "©"
+KC_O KC_R "®"
+KC_DOT KC_DOT "…" # ellipsis
+```
+    defines nine sequences, including e.g.: `COMPOSE-O-C` to type `©`, `COMPOSE-B-B-A` to type `𝔸`, and `COMPOSE-S-H-R-U-G` to type `¯\_(ツ)_/¯`.
+4. Compile your sequences to C by running `bin/qmk compose path/to/your/compose.conf path/to/your/compose.h`.
+5. Add `#include "compose.h"` to your `keymap.c`.
+6. Recompile your firmware.
+
+You can define as many sequences as you want, subject to firmware size restrictions. The author uses over a hundred sequences on a Gergo, so large configurations are definitely supported.
