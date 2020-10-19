@@ -1,7 +1,7 @@
 # Crazy Keyboard 68
 
-![Front View of Crazy Keyboard 68 PCB](https://imgur.com/0nTjDbU)
-![Back View of Crazy Keyboard 68 PCB](https://imgur.com/gTpdux3)
+![Front View of Crazy Keyboard 68 PCB](https://i.imgur.com/0nTjDbU.jpg)\
+![Back View of Crazy Keyboard 68 PCB](https://i.imgur.com/gTpdux3.jpeg)
 
 Obscure 68% hotswap PCB sold on taobao, powered by ATM32U4. RGB key lighting and underglow requires self-soldering.
 
@@ -20,6 +20,6 @@ Flashing example for this keyboard:
 ## Layouts 
 
 ### ANSI
-![Default ANSI Layout](https://imgur.com/y1ZApvU)
+![Default ANSI Layout](https://i.imgur.com/y1ZApvU.png)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
