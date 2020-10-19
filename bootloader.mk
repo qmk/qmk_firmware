@@ -110,7 +110,7 @@ endif
 
 ifeq ($(strip $(BOOTLOADER)), stm32duino)
     OPT_DEFS += -DBOOTLOADER_STM32DUINO
-    MCU_LDSCRIPT ?= STM32F103x8_stm32duino_bootloader
+    MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
     BOARD = STM32_F103_STM32DUINO
     # STM32F103 does NOT have an USB bootloader in ROM (only serial), so setting anything here does not make much sense
     STM32_BOOTLOADER_ADDRESS = 0x80000000
