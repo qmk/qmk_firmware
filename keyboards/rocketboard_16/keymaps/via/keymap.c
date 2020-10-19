@@ -46,9 +46,7 @@ void encoder_update_user(uint8_t index, bool clockwise){
     }
   }else if(index == 1){ // second encoder
     if(clockwise){
-      tap_code(KC_NO);
-      // To be added back when bug fix is found
-      //tap_code(RGB_VAI);
+      rgblight_increase_val();
     }else{
       rgblight_decrease_val();
     }
