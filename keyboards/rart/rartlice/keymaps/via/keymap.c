@@ -57,11 +57,14 @@ void oled_task_user(void) {
         case 0:
             oled_write_P(PSTR("Default\n"), false);
             break;
-        case 2:
+        case 1:
             oled_write_P(PSTR("Fn\n"), false);
             break;
-        case 3:
+        case 2:
             oled_write_P(PSTR("Layer 3\n"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("Layer 4\n"), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
