@@ -446,7 +446,13 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
+#ifdef RGB_MATRIX_ENABLE
+#    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
+#        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
 void rgb_matrix_indicators_user(void) {
+    #else
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+#    endif
     if (g_suspend_state || !rgb_matrix_config.enable) return;
 
     if (layer_state_is(_GAMEPAD)) {

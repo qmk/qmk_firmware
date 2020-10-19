@@ -231,7 +231,13 @@ void suspend_wakeup_init_keymap(void) {
 }
 // clang-format on
 
+#ifdef RGB_MATRIX_ENABLE
+#    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
+#        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
 void rgb_matrix_indicators_user(void) {
+    #else
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+#    endif
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
