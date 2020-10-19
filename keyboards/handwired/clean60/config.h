@@ -31,15 +31,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     Some shitty handwire
 
 #define DIODE_DIRECTION ROW2COL
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 12
-#define COL_EXPANDED { true, true, true, true, true, true, false, false, false, false, false, false}
-#define MATRIX_ONBOARD_ROW_PINS { F0, F1, F4, F5, F6, F7 }
-#define MATRIX_ONBOARD_COL_PINS { 0, 0, 0, 0, 0, 0, B1, B2, B3, D2, D3, C6 }
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
+#define COL_EXPANDED { false, false, false, false, false, false, false, false, true, true, true, true, true, true }
+#define MATRIX_ONBOARD_ROW_PINS { D4, C6, D7, E6, B4 }
+#define MATRIX_ONBOARD_COL_PINS { B5, F4, F5, F6, F7, B1, B3, B2, 0, 0, 0, 0, 0, 0 }
 #define EXPANDER_COL_REGISTER GPIOA
 #define EXPANDER_ROW_REGISTER GPIOB
-#define MATRIX_EXPANDER_COL_PINS {0, 1, 2, 3, 4, 5}
-#define MATRIX_EXPANDER_ROW_PINS {0, 1, 2, 3, 4, 5}
+#define MATRIX_EXPANDER_COL_PINS {0, 1, 2, 3, 4, 5, 6}
+#define MATRIX_EXPANDER_ROW_PINS {0, 1, 2, 3, 4}
 
 #define MOUSEKEY_INTERVAL     20
 #define MOUSEKEY_DELAY        0
