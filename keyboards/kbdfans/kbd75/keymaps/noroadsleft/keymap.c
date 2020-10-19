@@ -160,13 +160,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             if (IS_LAYER_ON(_Q2) == true) {
                 if (record->event.pressed) {
                     if (q2InputMode == 0) {
+                        tap_code(KC_GRV);
                         q2InputMode = 2;
                         layer_on(_DV);
-                    } else {
+                    } else if (q2InputMode == 1) {
+                        tap_code(KC_GRV);
                         q2InputMode = 2;
+                    } else {
+                        tap_code(KC_GRV);
+                        q2InputMode = 0;
+                        layer_off(_DV);
                     }
                 }
-            }
+            };
+            return false;
         case KC_Z:
             if (record->event.pressed) {
                 if ( get_mods() & MOD_MASK_RALT ) {
