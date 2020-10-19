@@ -28,3 +28,5 @@ translation:
   - docs/zh-cn/**/*
   - docs/de/**/*
   - docs/ru-ru/**/*
+CI:
+  - .github/**/*
