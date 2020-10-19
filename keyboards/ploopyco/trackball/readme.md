@@ -21,7 +21,11 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Revisions
 
-There are several revisions for the PCB. However, the important one is rev 1.005, as this changes the button and debug LED configuration. Previous versions use the `rev1` folder (as they're electrically identical). 
+There are two main revisions for the PloopyCo Tracball, everything up to 1.004, and 1.005.   
+
+In the 1.005 revision, button for was changed from pin B5 to B6, and the debug LED pin was changed from F7 to B5. 
+
+The PCB should indicate which revision this is.
 
 # Customzing your PloopyCo Trackball
 
