@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x1256
+#define VENDOR_ID       0x4A50 //JP
+#define PRODUCT_ID      0x4554 //ET
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    JPConstantineau.com
 #define PRODUCT         ErgoTravel Keyboard

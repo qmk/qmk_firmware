@@ -1,23 +1,22 @@
-# 60_ansi_arrow and Keymap
+# 60_ansi_arrow Keymap
 
-## 60% ANSI Arrow Layout
+by [Sendy YK](https://mr.sendyyk.com).
 
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow.png)
+## Default Layer
 
-## Keymap
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_base.png)
 
-### Default Layer
+## Fn Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-0.png)
+![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_fn.png)
 
-### Fn Layer 1
+## Build The Firmware
 
-Press and hold *right* **Ctrl** key.
+Make example for keyboard (after setting up your build environment):
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-1.png)
+    make <keyboard_folder>:default_60_ansi_arrow
 
-### Fn Layer 2
-
-Press and hold *right* **Alt** key.
-
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/my_qmk/master/dz60/assets/layout-60-ansi-arrow-keymap---layer-2.png)
+More information:
+* [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)
+* [More Detailed make Instructions](https://docs.qmk.fm/#/getting_started_make_guide)
+* [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs)
