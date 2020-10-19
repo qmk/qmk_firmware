@@ -50,9 +50,7 @@ void encoder_update_user(uint8_t index, bool clockwise){
       // To be added back when bug fix is found
       //tap_code(RGB_VAI);
     }else{
-      tap_code(KC_NO);
-      // To be added back when bug fix is found
-      //tap_code(RGB_VAD);
+      rgblight_decrease_val();
     }
   }
 }
