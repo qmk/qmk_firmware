@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER chent7
 #define PRODUCT      Crazy Keyboard 68
-#define DESCRIPTION  Crazy Keyboard 68 65pc keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
