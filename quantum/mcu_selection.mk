@@ -174,11 +174,6 @@ ifneq ($(findstring STM32F042, $(MCU)),)
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_F042X6
 
-  # Stack sizes: Since this chip has limited RAM capacity, the stack area needs to be reduced.
-  # This ensures that the EEPROM page buffer fits into RAM
-  USE_PROCESS_STACKSIZE = 0x600
-  USE_EXCEPTIONS_STACKSIZE = 0x300
-
   USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
