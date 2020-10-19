@@ -63,7 +63,7 @@ void oled_task_user(void) {
         case 2:
             oled_write_P(PSTR("Layer 3\n"), false);
             break;
-        case 2:
+        case 3:
             oled_write_P(PSTR("Layer 4\n"), false);
             break;
         default:
