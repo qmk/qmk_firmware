@@ -72,7 +72,7 @@ class ComposeTrie:
         lines.append(f'{indent}.keycode = {self.keycode},\n')
         if self.output:
             output = self.output.replace("\\", "\\\\")
-            lines.append(f'{indent}.output = (const FLASHMEM char[]) {{"{output}"}},\n')
+            lines.append(f'{indent}.output = "{output}",\n')
         if self.sibling:
             lines.append(f'{indent}.sibling = &(const FLASHMEM struct ComposeTrie)\n')
             lines.extend(self.sibling.compile())

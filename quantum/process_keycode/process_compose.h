@@ -18,6 +18,10 @@
 
 #include "quantum.h"
 
+// The compose trie can be several KB, but it is compile-time const and can be
+// used from flash. ARM boards do this automatically, but  AVR boards have
+// separate address spaces for flash and RAM and we need to tell the compiler
+// what's up.
 #ifdef __AVR__
 #define FLASHMEM __flash
 #else
@@ -26,7 +30,10 @@
 
 typedef struct ComposeTrie {
     uint16_t                                 keycode;
-    const FLASHMEM char*                     output;
+    // Although these strings are also compile-time constants, the
+    // send_unicode_string() utility function doesn't work with __flash
+    // pointers :(
+    const char*                              output;
     const FLASHMEM struct ComposeTrie* const sibling;
     const FLASHMEM struct ComposeTrie* const child;
 } ComposeTrie;
