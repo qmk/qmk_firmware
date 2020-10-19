@@ -45,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 128
 #define RGBLIGHT_SLEEP
 
+#define OLED_DISPLAY_128X64
+
 // Allows for rotary encoder volume control
 #define TAP_CODE_DELAY 20
 
