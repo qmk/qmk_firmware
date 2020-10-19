@@ -7,7 +7,6 @@ import subprocess
 import shlex
 import shutil
 
-from milc import cli
 import qmk.keymap
 
 
@@ -83,7 +82,5 @@ def run(command, *args, **kwargs):
         safecmd = map(shlex.quote, command)
         safecmd = ' '.join(safecmd)
         command = [os.environ['SHELL'], '-c', safecmd]
-
-    cli.log.debug('Running command: %s', command)
 
     return subprocess.run(command, *args, **kwargs)
