@@ -13,7 +13,7 @@ class ComposeSequencePrefixCollision(Exception):
 
 class ComposeTrie:
     """Prefix trie for storing compose sequences.
-    
+
     Implementation deliberately mirrors the one in process_compose.h since the
     goal is to compile to C source that statically initializes a trie at
     keyboard boot time.
@@ -27,7 +27,7 @@ class ComposeTrie:
 
     def insert(self, keycodes, output, prefix=None):
         """Add a new compose sequence to the trie.
-        
+
         NOTE: Called recursively to descend the trie during insertion.
         """
         if not prefix:
