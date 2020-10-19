@@ -18,8 +18,6 @@
 
 #include "keymap_finnish.h"
 
-extern keymap_config_t keymap_config;
-
 enum layers {
     _BASE = 0,
     _PRPRO,
