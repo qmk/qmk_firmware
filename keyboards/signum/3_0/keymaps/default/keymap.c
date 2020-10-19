@@ -1,7 +1,7 @@
 /* keymap.c is auto-generated, don't edit it directly.
  * Further instructions are provided in readme.md */
 
-#include QMK_KEYBOARD_H
+#include "signum.h"
 
 enum unicode_name {
 AB_ARC,

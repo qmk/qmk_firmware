@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -7,9 +6,9 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         keyboard
-#define DESCRIPTION     Keyboard
+#define MANUFACTURER    "Troy Fletcher"
+#define PRODUCT         Signum30
+#define DESCRIPTION     "Signum keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -22,11 +21,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LEADER_TIMEOUT 300
-#define LEADER_PER_KEY_TIMING 300
-#define TAPPING_TERM 500
-#define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_TOGGLE 1
-
-#endif
