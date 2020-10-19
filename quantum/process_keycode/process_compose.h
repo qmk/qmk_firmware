@@ -18,14 +18,20 @@
 
 #include "quantum.h"
 
+#ifdef __AVR__
+#define FLASHMEM __flash
+#else
+#define FLASHMEM
+#endif
+
 typedef struct ComposeTrie {
-    uint16_t            keycode;
-    const char*         output;
-    struct ComposeTrie* sibling;
-    struct ComposeTrie* child;
+    uint16_t                                 keycode;
+    const FLASHMEM char*                     output;
+    const FLASHMEM struct ComposeTrie* const sibling;
+    const FLASHMEM struct ComposeTrie* const child;
 } ComposeTrie;
 
-extern const ComposeTrie __attribute__((weak)) compose_trie;
+extern const FLASHMEM ComposeTrie* const __attribute__((weak)) compose_trie;
 
 bool process_compose(uint16_t keycode, keyrecord_t* record);
 

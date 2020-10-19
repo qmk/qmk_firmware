@@ -1,15 +1,15 @@
 // Auto-generated from tests/basic/compose.conf.
 // DO NOT EDIT MANUALLY
-const ComposeTrie compose_trie = {
+const FLASHMEM ComposeTrie* const compose_trie = &(const FLASHMEM struct ComposeTrie) {
 .keycode = KC_A,
-.child = &(struct ComposeTrie)
+.child = &(const FLASHMEM struct ComposeTrie)
     {
     .keycode = KC_B,
-    .output = "ccc",
-    .sibling = &(struct ComposeTrie)
+    .output = (const FLASHMEM char[]) {"ccc"},
+    .sibling = &(const FLASHMEM struct ComposeTrie)
         {
         .keycode = KC_EQL,
-        .output = "123",
+        .output = (const FLASHMEM char[]) {"123"},
         }
     ,
     }

@@ -71,13 +71,14 @@ class ComposeTrie:
         lines = [f'{indent}{{\n']
         lines.append(f'{indent}.keycode = {self.keycode},\n')
         if self.output:
-            lines.append(f'{indent}.output = "{self.output}",\n'.replace("\\", "\\\\"))
+            output = self.output.replace("\\", "\\\\")
+            lines.append(f'{indent}.output = (const FLASHMEM char[]) {{"{output}"}},\n')
         if self.sibling:
-            lines.append(f'{indent}.sibling = &(struct ComposeTrie)\n')
+            lines.append(f'{indent}.sibling = &(const FLASHMEM struct ComposeTrie)\n')
             lines.extend(self.sibling.compile())
             lines.append(f'{indent},\n')
         if self.child:
-            lines.append(f'{indent}.child = &(struct ComposeTrie)\n')
+            lines.append(f'{indent}.child = &(const FLASHMEM struct ComposeTrie)\n')
             lines.extend(self.child.compile())
             lines.append(f'{indent},\n')
         lines.append(f'{indent}}}\n')
@@ -99,7 +100,11 @@ def compose(cli):
         except ComposeSequencePrefixCollision as e:
             cli.log.error(f'Compose sequence {e.args[0]} is a prefix of another sequence. Aborting.')
             return False
-    lines = [f'// Auto-generated from {cli.args.infile.name}.\n', '// DO NOT EDIT MANUALLY\n', 'const ComposeTrie compose_trie = ']
+    lines = [
+        f'// Auto-generated from {cli.args.infile.name}.\n',
+        '// DO NOT EDIT MANUALLY\n',
+        'const FLASHMEM ComposeTrie* const compose_trie = &(const FLASHMEM struct ComposeTrie) ',
+    ]
     lines.extend(trie.compile())
     lines.append(';')
     cli.args.outfile.writelines(lines)

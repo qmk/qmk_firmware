@@ -24,7 +24,7 @@ __attribute__((weak)) void compose_start(void) {}
 
 __attribute__((weak)) void compose_end(bool valid_sequence) {}
 
-static const ComposeTrie* current = NULL;
+static const FLASHMEM ComposeTrie* current = NULL;
 
 bool compose_active(void) {
     return current != NULL;
@@ -41,7 +41,7 @@ bool process_compose(uint16_t keycode, keyrecord_t* record) {
         }
         dprintf("Start compose sequence.\n");
         compose_start();
-        current = &compose_trie;
+        current = compose_trie;
         return false;
     }
 
