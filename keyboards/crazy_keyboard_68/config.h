@@ -57,9 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
 
-/*== caps lock ==*/
-#define BACKLIGHT_CAPS_LOCK B0
-
 #define RGB_DI_PIN F6
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 84
