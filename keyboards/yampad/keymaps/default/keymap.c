@@ -131,7 +131,7 @@ void oled_task_user(void) {
 
   static char led_buf[30];
   snprintf(led_buf, sizeof(led_buf) - 1, "RGB:%cM: %2d\nh: %2ds: %2dv: %2d\n",
-      rgblight_config.enable ? '*' : '.', (uint8_t)rgblight_config.mode,
+      rgblight_is_enabled() ? '*' : '.', (uint8_t)rgblight_get_mode(),
       (uint8_t)(rgblight_get_hue() / RGBLIGHT_HUE_STEP),
       (uint8_t)(rgblight_get_sat() / RGBLIGHT_SAT_STEP),
       (uint8_t)(rgblight_get_val() / RGBLIGHT_VAL_STEP));
