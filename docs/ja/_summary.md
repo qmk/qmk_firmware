@@ -116,6 +116,7 @@
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
     * 履歴
+      * [2020年8月29日](ja/ChangeLog/20200829.md)
       * [2020年5月30日](ja/ChangeLog/20200530.md)
       * [2020年2月29日](ja/ChangeLog/20200229.md)
       * [2019年8月30日](ja/ChangeLog/20190830.md)

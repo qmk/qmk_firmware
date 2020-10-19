@@ -1,21 +1,28 @@
+ /* Copyright HarshitGoel96 2020
+  * With permission form jpconstantineau, the original maintainer of the Ergo Travel hardware.
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */ 
 #include QMK_KEYBOARD_H
 
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
-#define _FINL 4
-
-// enum custom_keycodes {
-//   QWERTY = SAFE_RANGE,
-//   LOWER,
-//   RAISE,
-//   ADJUST,FINL
-// };
-
-// #define CALTDEL LCTL(LALT(KC_DEL))
-// #define TSKMGR LCTL(LSFT(KC_ESC))
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -53,61 +60,7 @@ _______,  _______,  _______, _______, _______, _______, _______,         _______
      _______, _______,  _______, _______, _______, _______, _______,         _______,  _______, _______, _______, _______, _______, _______,
      _______, _______,  _______, _______, _______, _______, _______,         _______,  _______, _______, _______, _______, _______, _______,
      _______, _______, _______, _______,           _______, _______,         _______,  _______,          _______, _______, _______, _______
-  ),
-  [_FINL] = LAYOUT(
-     _______,  _______,  _______, _______, _______, _______, _______,         _______,  _______, _______, _______, _______, _______, _______,
-     _______, _______,  _______, _______, _______, _______, _______,         _______,  _______, _______, _______, _______, _______, _______,
-     _______, _______,  _______, _______, _______, _______, _______,         _______,  _______, _______, _______, _______, _______, _______,
-     _______, _______, _______, _______,           _______, _______,         _______,  _______,          _______, _______, _______, _______
   )
 
 };
 
-
-
-
-
-
-
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // switch (keycode) {
-  //   case QWERTY:
-  //     if (record->event.pressed) {
-  //       #ifdef AUDIO_ENABLE
-  //         PLAY_SONG(tone_qwerty);
-  //       #endif
-  //       set_single_persistent_default_layer(_QWERTY);
-  //     }
-  //     return false;
-  //     break;
-  //   case LOWER:
-  //     if (record->event.pressed) {
-  //       layer_on(_LOWER);
-  //       update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  //     } else {
-  //       layer_off(_LOWER);
-  //       update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  //     }
-  //     return false;
-  //     break;
-  //   case RAISE:
-  //     if (record->event.pressed) {
-  //       layer_on(_RAISE);
-  //       update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  //     } else {
-  //       layer_off(_RAISE);
-  //       update_tri_layer(_LOWER, _RAISE, _ADJUST);
-  //     }
-  //     return false;
-  //     break;
-  //   case ADJUST:
-  //     if (record->event.pressed) {
-  //       layer_on(_ADJUST);
-  //     } else {
-  //       layer_off(_ADJUST);
-  //     }
-  //     return false;
-  //     break;
-  // }
-  // return true;
-// }
