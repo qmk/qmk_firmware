@@ -2,7 +2,7 @@
 
 A STM32F103 based macropad/numpad with RGB individual key underglow, dual rotary encoders, and a 128x64 OLED display. [More info on qmk.fm](http://qmk.fm/)
 
-* Keyboard Maintainer: [Seth Bonner](https://github.com/fl3tching101)
+* Keyboard Maintainer: [fl3tching101](https://github.com/fl3tching101)
 * Hardware Supported: Rocketboard 16 PCB rev1.1
 * Hardware Availability: Group buy on r/mechmarket
 
