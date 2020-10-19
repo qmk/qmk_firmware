@@ -17,6 +17,7 @@
 #pragma once
 
 #include "quantum.h"
+
 #define XXX KC_NO
 
 /* Crazy Keyboard 68 (ANSI) layout
