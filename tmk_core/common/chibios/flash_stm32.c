@@ -128,24 +128,21 @@ FLASH_Status FLASH_ErasePage(uint32_t Page) {
         /* if the previous operation is completed, proceed to erase the page */
 #if defined(EEPROM_EMU_STM32F411xE)
         FLASH->CR &= ~FLASH_CR_SNB;
-        FLASH->CR |= (Page << FLASH_CR_SNB_POS);
-        FLASH->CR |= FLASH_CR_SER;
+        FLASH->CR |= FLASH_CR_SER | (Page << FLASH_CR_SNB_POS);
 #else
-        FLASH->AR = Page;
         FLASH->CR |= FLASH_CR_PER;
+        FLASH->AR = Page;
 #endif
         FLASH->CR |= FLASH_CR_STRT;
 
         /* Wait for last operation to be completed */
         status = FLASH_WaitForLastOperation(EraseTimeout);
-        if (status != FLASH_TIMEOUT) {
-            /* if the erase operation is completed, disable the PER Bit */
+        /* clear the SER or PER Bit */
 #if defined(EEPROM_EMU_STM32F411xE)
-            FLASH->CR &= ~FLASH_CR_SER;
+        FLASH->CR &= ~(FLASH_CR_SER | FLASH_CR_SNB);
 #else
-            FLASH->CR &= ~FLASH_CR_PER;
+        FLASH->CR &= ~FLASH_CR_PER;
 #endif
-        }
         FLASH_ClearFlag(FLASH_SR_FLAGS);
     }
     /* Return the Erase Status */
