@@ -1,4 +1,5 @@
 name: "Pull Request Labeler"
+
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review, locked]
