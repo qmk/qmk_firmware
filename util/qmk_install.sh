@@ -68,3 +68,7 @@ if type _qmk_install_prepare &>/dev/null; then
 fi
 
 _qmk_install
+
+if type _qmk_install_bootloadhid &>/dev/null; then
+    _qmk_install_bootloadhid
+fi

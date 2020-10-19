@@ -11,5 +11,3 @@ _qmk_install_bootloadhid() {
         popd > /dev/null
     fi
 }
-
-_qmk_install_bootloadhid
