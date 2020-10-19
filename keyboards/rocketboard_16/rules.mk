@@ -4,9 +4,9 @@ MCU = STM32F103
 # Bootloader selection
 BOOTLOADER = stm32duino
 
-# project specific files
-
-
+# Build Options
+#   change yes to no to disable
+#
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
