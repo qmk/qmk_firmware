@@ -8,9 +8,11 @@ TAP_DANCE_ENABLE     = yes # Enable the tap dance feature.
 CONSOLE_ENABLE       = yes  # Console for debug
 DYNAMIC_MACRO_ENABLE = yes # Dynamic macro recording
 
-BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
-UNICODE_ENABLE   = no
-SLEEP_LED_ENABLE = no
-API_SYSEX_ENABLE = no
-RGBLIGHT_ENABLE = no
+BOOTMAGIC_ENABLE   = no  # Virtual DIP switch configuration
+UNICODE_ENABLE     = no
+SLEEP_LED_ENABLE   = no
+API_SYSEX_ENABLE   = no
+RGBLIGHT_ENABLE    = no
 RGBLIGHT_ANIMATION = no
+AUDIO_ENABLE       = no
+MIDI_ENABLE        = no

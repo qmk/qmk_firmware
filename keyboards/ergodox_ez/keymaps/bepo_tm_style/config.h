@@ -29,3 +29,15 @@
 
 // Disable the option to have recursive macros that can block the keyboard.
 #define DYNAMIC_MACRO_NO_NESTING
+
+// NKRO is activated by default (otherwise we need a keyboard command for it).
+#define FORCE_NKRO
+
+// Disable some features that we don’t need to save space.
+// Other features are enabled/disabled in rules.mk.
+
+// These two features require CONSOLE_ENABLE = yes in rules.mk to do anything.
+// #define NO_DEBUG  // The debug messages are not taking that much space, we can keep them.
+#define NO_PRINT  // The info messages are using a lot of memory.
+#define NO_ACTION_MACRO  // disable old-style macro.
+#define NO_ACTION_FUNCTION
