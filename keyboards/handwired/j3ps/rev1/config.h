@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x3265
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Yushakobo
+#define MANUFACTURER    JTech Creations Inc
 #define PRODUCT         J3PS Beta
 #define DESCRIPTION     A split and ergonomic choise
 
