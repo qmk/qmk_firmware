@@ -6,7 +6,8 @@ A one-handed 33-key keypad for gaming, macros etc.
 * Hardware Supported: Ergo33 PCB, ATmega32U4 MCU, Kailh hot-swap sockets, EC11 rotary encoder
 * Hardware Availability: Open source, schema and layout: [Github](https://github.com/kulmajaba/tunks-keyboard)
 
-<img src="https://i.imgur.com/G5nAspY.jpg" alt="Ergo33 keyboard" height="480px"><img src="https://i.imgur.com/snLIZrE.jpg" alt="Ergo33 keyboard" height="480px">
+![](https://i.imgur.com/G5nAspYl.jpg)
+![](https://i.imgur.com/snLIZrEl.jpg)
 
 Make example for this keyboard (after setting up your build environment):
 
