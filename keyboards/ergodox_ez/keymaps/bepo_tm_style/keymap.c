@@ -46,8 +46,13 @@ enum {
   // SAFE_RANGE must be used to tag the first element of the enum.
   COPY_ALL = SAFE_RANGE,  // CTRL + A and then ctrl + insert (copy)
   PASTE_LINK,  // CTRL + K (insert link) and then shift + insert (paste)
-  FAST_UP,  // Send an up arrow FAST_ARROW_TIME times.
-  FAST_DOWN,  // Send a down arrow FAST_ARROW_TIME times.
+  FAST_UP,     // Send an up arrow FAST_ARROW_TIME times.
+  FAST_DOWN,   // Send a down arrow FAST_ARROW_TIME times.
+  CTRL_LEFT,   // Send Ctrl+left (move one word left).
+  CTRL_RIGHT,  // Send Ctrl+right (move one word right).
+  CTRL_B,      // Send Ctrl+B (bold).
+  CTRL_U,      // Send Ctrl+B (underline).
+  CTRL_I,      // Send Ctrl+B (italic).
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -76,19 +81,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FN] = LAYOUT_ergodox(
     /* left hand */
     KC_SLEP, KC_F1,      KC_F2,  KC_F3,   KC_F4,    KC_F5,    ___,
-    ___,     ___,        ___,    ___,     ___,      ___,      ___,
-    ___,     COPY_ALL,   ___,    ___,     ___,      KC_LSFT,
+    ___,     CTRL_B,     ___,    ___,     ___,      ___,      ___,
+    ___,     COPY_ALL,   CTRL_U, CTRL_I,  ___,      KC_LSFT,
     ___,     PASTE_LINK, MK_CUT, MK_COPY, MK_PASTE, KC_LCTRL, ___,
     ___,     ___,        ___,    ___,     ___,
                                                          ___, KC_MPRV,
                                                               KC_MPLY,
                                                  ___,    ___, KC_MNXT,
     /* right hand */
-        ___, KC_F6,     KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,
-        ___, FAST_UP,   KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_F12,
-             FAST_DOWN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, ___,
-        ___, ___,       ___,     ___,     ___,      ___,     ___,
-                        ___,     ___,     ___,      ___,     ___,
+        ___, KC_F6,     KC_F7,     KC_F8,   KC_F9,      KC_F10,  KC_F11,
+        ___, FAST_UP,   KC_HOME,   KC_UP,   KC_END,     KC_PGUP, KC_F12,
+             FAST_DOWN, KC_LEFT,   KC_DOWN, KC_RIGHT,   KC_PGDN, ___,
+        ___, ___,       CTRL_LEFT, ___,     CTRL_RIGHT, ___,     ___,
+                        ___,       ___,     ___,        ___,     ___,
     KC_HOME, KC_END,
     KC_PGUP,
     KC_PGDN, ___,       ___),
@@ -108,10 +113,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                   ___, ___, KC_MNXT,
     /* right hand */
          ___, KC_F6, KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11,
-         ___, ___,   XXX,     KC_WH_U, XXX,     XXX,    KC_F12,
-              ___,   KC_WH_L, KC_WH_D, KC_WH_R, XXX,    ___,
+         ___, ___,   KC_WH_L, KC_WH_U, KC_WH_R, XXX,    KC_F12,
+              ___,   KC_BTN1, KC_WH_D, KC_BTN2, KC_BTN3,    ___,
          ___, ___,   KC_ACL0, KC_ACL1, KC_ACL2, ___,    ___,
-                     KC_BTN1, KC_BTN2, KC_BTN3, ___,    ___,
+                     ___,     ___,     ___,     ___,    ___,
     ___, ___,
     ___,
     ___, ___, ___),
@@ -259,6 +264,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING(SS_TAP(X_DOWN));
         }
         return false;
+      case CTRL_B:
+        SEND_STRING(SS_LCTRL("q"));  // Ctrl+q (== Ctrl+b in bépo)
+        return false;
+      case CTRL_U:
+        SEND_STRING(SS_LCTRL("s"));  // Ctrl+s (== Ctrl+u in bépo)
+        return false;
+      case CTRL_I:
+        SEND_STRING(SS_LCTRL("d"));  // Ctrl+d (== Ctrl+i in bépo)
+        return false;
+      case CTRL_LEFT:
+        register_code(KC_LCTRL);
+        register_code(KC_LEFT);
+        return false;
+      case CTRL_RIGHT:
+        register_code(KC_LCTRL);
+        register_code(KC_RIGHT);
+        return false;
+    }
+  } else {
+    switch(keycode) {
+      case CTRL_LEFT:
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LCTRL);
+        return false;
+      case CTRL_RIGHT:
+        unregister_code(KC_RIGHT);
+        unregister_code(KC_LCTRL);
+        return false;
     }
   }
 
@@ -357,9 +390,9 @@ uint32_t layer_state_set_user(uint32_t state) {
   }
 
   if (LAYER_ON(FN)) {
-    led_1_on();
+    led_3_on();
   } else {
-    led_1_off();
+    led_3_off();
   }
 
   if (LAYER_ON(NUMS)) {
@@ -369,9 +402,9 @@ uint32_t layer_state_set_user(uint32_t state) {
   }
 
   if (LAYER_ON(MOUSE)) {
-    led_3_on();
+    led_1_on();
   } else {
-    led_3_off();
+    led_1_off();
   }
 
   return state;
