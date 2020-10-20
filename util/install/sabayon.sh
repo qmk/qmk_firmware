@@ -4,8 +4,8 @@ _qmk_install() {
     echo "Installing dependencies"
 
     sudo equo install \
-        app-arch/unzip app-arch/zip net-misc/wget sys-devel/clang sys-devel/gcc sys-devel/crossdev \
-        dev-lang/python \
+        app-arch/unzip app-arch/zip net-misc/wget dev-vcs/git sys-devel/clang sys-devel/gcc sys-devel/crossdev \
+        dev-python/pip \
         dev-embedded/avrdude dev-embedded/dfu-programmer app-mobilephone/dfu-util
 
     sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
