@@ -38,17 +38,22 @@
 #define MK_COPY   LCTL(KC_INS)  // ctrl + insert
 #define MK_PASTE  LSFT(KC_INS)  // shift + insert
 
+// The number of arrows that are sent by the fast arrow keys.
+#define FAST_ARROW_TIME 10
+
 // Custom keycodes
 enum {
   // SAFE_RANGE must be used to tag the first element of the enum.
-  // DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
-  // values are added (as its value is used to create a couple of other keycodes
-  // after it).
-  DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+  COPY_ALL = SAFE_RANGE,  // CTRL + A and then ctrl + insert (copy)
+  PASTE_LINK,  // CTRL + K (insert link) and then shift + insert (paste)
+  FAST_UP,     // Send an up arrow FAST_ARROW_TIME times.
+  FAST_DOWN,   // Send a down arrow FAST_ARROW_TIME times.
+  CTRL_LEFT,   // Send Ctrl+left (move one word left).
+  CTRL_RIGHT,  // Send Ctrl+right (move one word right).
+  CTRL_B,      // Send Ctrl+B (bold).
+  CTRL_U,      // Send Ctrl+B (underline).
+  CTRL_I,      // Send Ctrl+B (italic).
 };
-
-// This file must be included after DYNAMIC_MACRO_RANGE is defined...
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
@@ -59,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,
     KC_LCTL,  BP_AGRV, BP_Y,    BP_X,    BP_DOT,  BP_K,    KC_ENT,
     ESC_FN,   BP_ECIR, KC_LGUI, KC_LALT, SPC_RALT,
-                                                          TT(SWAP), KC_MNXT,
-                                                                    KC_MPLY,
-                                                  TT(FN), TT(NUMS), KC_MPRV,
+                                                          TT(SWAP), KC_VOLU,
+                                                                    KC_MUTE,
+                                                  TT(FN), TT(NUMS), KC_VOLD,
     /* right hand */
         KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL,
         KC_BSPC, BP_DCIR, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z,
@@ -75,43 +80,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 1: function and media keys.
   [FN] = LAYOUT_ergodox(
     /* left hand */
-    KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5,    ___,
-    ___,     ___,   ___,    ___,     ___,      ___,      ___,
-    ___,     ___,   ___,    ___,     ___,      KC_LSFT,
-    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, KC_LCTL,  ___,
-    ___,     ___,   ___,    ___,     ___,
-                                                     ___, KC_VOLU,
-                                                          KC_VOLD,
-                                             ___,    ___, KC_MUTE,
+    KC_SLEP, KC_F1,      KC_F2,  KC_F3,   KC_F4,    KC_F5,    ___,
+    ___,     CTRL_B,     ___,    ___,     ___,      ___,      ___,
+    ___,     COPY_ALL,   CTRL_U, CTRL_I,  ___,      KC_LSFT,
+    ___,     PASTE_LINK, MK_CUT, MK_COPY, MK_PASTE, KC_LCTL, ___,
+    ___,     ___,        ___,    ___,     ___,
+                                                         ___, KC_MPRV,
+                                                              KC_MPLY,
+                                                 ___,    ___, KC_MNXT,
     /* right hand */
-        ___, KC_F6, KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,
-        ___, ___,   KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_F12,
-             ___,   KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, ___,
-        ___, ___,   ___,     ___,     ___,      ___,     ___,
-                    ___,     ___,     ___,      ___,     ___,
+        ___, KC_F6,     KC_F7,     KC_F8,   KC_F9,      KC_F10,  KC_F11,
+        ___, FAST_UP,   KC_HOME,   KC_UP,   KC_END,     KC_PGUP, KC_F12,
+             FAST_DOWN, KC_LEFT,   KC_DOWN, KC_RIGHT,   KC_PGDN, ___,
+        ___, ___,       CTRL_LEFT, ___,     CTRL_RIGHT, ___,     ___,
+                        ___,       ___,     ___,        ___,     ___,
     KC_HOME, KC_END,
     KC_PGUP,
-    KC_PGDN, ___,    ___),
+    KC_PGDN, ___,       ___),
     // Note that any change to the FN layer above must be added to
     // the MOUSE layer below (except for the arrow keys).
 
   // Layer 2: Mouse control.
   [MOUSE] = LAYOUT_ergodox(
     /* left hand */
-    KC_SLEP, KC_F1, KC_F2,   KC_F3,   KC_F4,    KC_F5,    ___,
-    ___,     ___,   KC_BTN4, KC_MS_U, KC_BTN5,  ___,      ___,
-    ___,     ___,   KC_MS_L, KC_MS_D, KC_MS_R,  KC_LSFT,
-    ___,     ___,   MK_CUT,  MK_COPY, MK_PASTE, KC_LCTL,  ___,
-    ___,     ___,   ___,     ___,     ___,
-                                                  ___, KC_VOLU,
-                                                       KC_VOLD,
-                                             ___, ___, KC_MUTE,
+    KC_SLEP, KC_F1,      KC_F2,   KC_F3,   KC_F4,    KC_F5,    ___,
+    ___,     ___,        KC_BTN4, KC_MS_U, KC_BTN5,  ___,      ___,
+    ___,     COPY_ALL,   KC_MS_L, KC_MS_D, KC_MS_R,  KC_LSFT,
+    ___,     PASTE_LINK, MK_CUT,  MK_COPY, MK_PASTE, KC_LCTL, ___,
+    ___,     ___,        ___,     ___,     ___,
+                                                       ___, KC_MPRV,
+                                                            KC_MPLY,
+                                                  ___, ___, KC_MNXT,
     /* right hand */
          ___, KC_F6, KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11,
-         ___, ___,   XXX,     KC_WH_U, XXX,     XXX,    KC_F12,
-              ___,   KC_WH_L, KC_WH_D, KC_WH_R, XXX,    ___,
+         ___, ___,   KC_WH_L, KC_WH_U, KC_WH_R, XXX,    KC_F12,
+              ___,   KC_BTN1, KC_WH_D, KC_BTN2, KC_BTN3,    ___,
          ___, ___,   KC_ACL0, KC_ACL1, KC_ACL2, ___,    ___,
-                     KC_BTN1, KC_BTN2, KC_BTN3, ___,    ___,
+                     ___,     ___,     ___,     ___,    ___,
     ___, ___,
     ___,
     ___, ___, ___),
@@ -213,9 +218,9 @@ void macro_tapdance_fn(tap_dance_state_t *state, void *user_data) {
   }
 
   record.event.pressed = true;
-  process_record_dynamic_macro(keycode, &record);
+  process_dynamic_macro(keycode, &record);
   record.event.pressed = false;
-  process_record_dynamic_macro(keycode, &record);
+  process_dynamic_macro(keycode, &record);
 }
 
 // The definition of the tap dance actions:
@@ -232,8 +237,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // We can't just return false when the key is a tap dance, because
     // process_record_user, is called before the tap dance processing (and
     // returning false would eat the tap dance).
-    if (!process_record_dynamic_macro(keycode, record)) {
+    if (!process_dynamic_macro(keycode, record)) {
       return false;
+    }
+  }
+
+  if (record->event.pressed) {
+    switch(keycode) {
+      case COPY_ALL:
+        // A in QWERTY is also A in BÉPO (SEND_STRING assumes an QWERTY keymap)
+        // There is no string representation of the insert key, so we need to use
+        // the SS_UP/DOWN macro, instead of SS_LCTL(...).
+        SEND_STRING(SS_LCTL("a") SS_DOWN(X_LCTL) SS_TAP(X_INSERT) SS_UP(X_LCTL) SS_TAP(X_RIGHT));
+        return false;
+      case PASTE_LINK:
+        // B in QWERTY is K in BÉPO
+        SEND_STRING(SS_LCTL("b") SS_DOWN(X_LSFT) SS_TAP(X_INSERT) SS_UP(X_LSFT) SS_TAP(X_ENTER));
+        return false;
+      case FAST_UP:
+        for (int i = 0; i < FAST_ARROW_TIME; i++) {
+          SEND_STRING(SS_TAP(X_UP));
+        }
+        return false;
+      case FAST_DOWN:
+        for (int i = 0; i < FAST_ARROW_TIME; i++) {
+          SEND_STRING(SS_TAP(X_DOWN));
+        }
+        return false;
+      case CTRL_B:
+        SEND_STRING(SS_LCTL("q"));  // Ctrl+q (== Ctrl+b in bépo)
+        return false;
+      case CTRL_U:
+        SEND_STRING(SS_LCTL("s"));  // Ctrl+s (== Ctrl+u in bépo)
+        return false;
+      case CTRL_I:
+        SEND_STRING(SS_LCTL("d"));  // Ctrl+d (== Ctrl+i in bépo)
+        return false;
+      case CTRL_LEFT:
+        register_code(KC_LCTL);
+        register_code(KC_LEFT);
+        return false;
+      case CTRL_RIGHT:
+        register_code(KC_LCTL);
+        register_code(KC_RIGHT);
+        return false;
+    }
+  } else {
+    switch(keycode) {
+      case CTRL_LEFT:
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LCTL);
+        return false;
+      case CTRL_RIGHT:
+        unregister_code(KC_RIGHT);
+        unregister_code(KC_LCTL);
+        return false;
     }
   }
 
@@ -328,9 +386,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
 
   if (LAYER_ON(FN)) {
-    led_1_on();
+    led_3_on();
   } else {
-    led_1_off();
+    led_3_off();
   }
 
   if (LAYER_ON(NUMS)) {
@@ -340,9 +398,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
 
   if (LAYER_ON(MOUSE)) {
-    led_3_on();
+    led_1_on();
   } else {
-    led_3_off();
+    led_1_off();
   }
 
   return state;

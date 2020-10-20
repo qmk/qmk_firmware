@@ -4,17 +4,9 @@ This keymap is meant to be used with a [Bépo](http://bepo.fr) layout. It is
 designed to be somewhat similar to a TypeMatrix keyboard so that switching
 between one and the other is easy.
 
-![The Keymap](https://i.imgur.com/yChIbaK.png)
+![The Keymap](https://i.imgur.com/rbeQxgw.png)
 
-## Build instruction
-
-To build this on Windows, under Cygwin, provided that you have installed the
-Arduino environment and Teensy loaded in the default path, you can do:
-
-```shell
-PATH=/cygdrive/c/Program\ Files\ \(x86\)/Arduino/hardware/tools/avr/bin:$PATH
-make ergodox_ez:bepo_tm_style:all
-```
+*This keymap is generated using http://www.keyboard-layout-editor.com.*
 
 ## Debug
 
