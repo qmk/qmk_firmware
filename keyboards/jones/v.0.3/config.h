@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0030
 #define MANUFACTURER jpskenn
 #define PRODUCT Jones
-#define DESCRIPTION Jones is a Row-staggered 60% keyboard with gapless R2-R3 row. GH60 case compatible PCB and keyplate.
+#define DESCRIPTION Jones is a 60% keyboard combined with Ortho-Linear and Row-staggered. It has gapless R2-R3 row. GH60 case compatible PCB and keyplate.
 
 /* key matrix size */
 #define MATRIX_ROWS 11
