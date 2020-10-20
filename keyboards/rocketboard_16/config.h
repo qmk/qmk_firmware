@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN A4
 #define RGBLED_NUM 16
 #define RGBLIGHT_LIMIT_VAL 128
+#define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
 
 // OLED stuff
