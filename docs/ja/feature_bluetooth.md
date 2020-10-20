@@ -1,18 +1,18 @@
 # Bluetooth
 
 <!---
-  original document: 0.9.0:docs/feature_bluetooth.md
-  git diff 0.9.0 HEAD -- docs/feature_bluetooth.md | cat
+  original document: 0.10.33:docs/feature_bluetooth.md
+  git diff 0.10.33 HEAD -- docs/feature_bluetooth.md | cat
 -->
 
 ## Bluetooth の既知のサポートハードウェア
 
 現在のところ Bluetooth のサポートは AVR ベースのチップに限られます。Bluetooth 2.1 については、QMK は RN-42 モジュールをサポートします。より最近の BLE プロトコルについては、現在のところ Adafruit Bluefruit SPI Friend のみが直接サポートされています。iOS デバイスに接続するには、BLE が必要です。iOS はマウス入力をサポートしないことに注意してください。
 
-| ボード | Bluetooth プロトコル | 接続タイプ | rules.mk | Bluetooth チップ |
-|----------------------------------------------------------------|----------------------------|----------------|---------------------------|--------------|
-| Roving Networks RN-42 (Sparkfun Bluesmirf) | Bluetooth Classic | UART | `BLUETOOTH = RN42` | RN-42 |
-| [Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633) | Bluetooth Low Energy | SPI | `BLUETOOTH = AdafruitBLE` | nRF51822 |
+| ボード                                                           | Bluetooth プロトコル | 接続タイプ | rules.mk                  | Bluetooth チップ |
+| ---------------------------------------------------------------- | -------------------- | ---------- | ------------------------- | ---------------- |
+| Roving Networks RN-42 (Sparkfun Bluesmirf)                       | Bluetooth Classic    | UART       | `BLUETOOTH = RN42`        | RN-42            |
+| [Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633) | Bluetooth Low Energy | SPI        | `BLUETOOTH = AdafruitBLE` | nRF51822         |
 
 まだサポートされていませんが、可能性のあるもの:
 * [Bluefruit LE UART Friend](https://www.adafruit.com/product/2479)。[tmk 実装がおそらく見つかります](https://github.com/tmk/tmk_keyboard/issues/514)
@@ -30,7 +30,10 @@ Bluefruit UART friend は SPI friend に変換することができますが、�
 
 <!-- FIXME: Document bluetooth support more completely. -->
 ## Bluetooth の Rules.mk オプション
-これらのうちの1つだけを使ってください
+
+現在サポートされている Bluetooth チップセットは [N-キーロールオーバー (NKRO)](ja/reference_glossary.md#n-key-rollover-nkro) をサポートしていません。そのため、`rules.mk` に `NKRO_ENABLE = no` を含めなければなりません。
+
+Bluetooth を有効にするには、以下のうちの1つだけを使ってください:
 * BLUETOOTH_ENABLE = yes (レガシーオプション)
 * BLUETOOTH = RN42
 * BLUETOOTH = AdafruitBLE
@@ -39,8 +42,8 @@ Bluefruit UART friend は SPI friend に変換することができますが、�
 
 これは複数のキーボードの出力が選択できる場合に使われます。現在のところ、これは USB と Bluetooth の両方をサポートするキーボードで、それらの間の切り替えのみが可能です。
 
-| 名前 | 説明 |
-|----------|----------------------------------------------|
+| 名前       | 説明                                  |
+| ---------- | ------------------------------------- |
 | `OUT_AUTO` | USB と Bluetooth を自動的に切り替える |
-| `OUT_USB` | USB のみ |
-| `OUT_BT` | Bluetooth のみ |
+| `OUT_USB`  | USB のみ                              |
+| `OUT_BT`   | Bluetooth のみ                        |
