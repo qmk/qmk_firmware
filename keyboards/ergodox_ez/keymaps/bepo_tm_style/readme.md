@@ -15,8 +15,12 @@ Arduino environment and Teensy loaded in the default path, you can do:
 
 ```shell
 PATH=/cygdrive/c/Program\ Files\ \(x86\)/Arduino/hardware/tools/avr/bin:$PATH
+make git-submodule
 make ergodox_ez:bepo_tm_style:all
 ```
+The last command will fail when trying to copy the firmware file. But, at that
+stage, the file is already ready. The only issue is that it’s size is not
+checked.
 
 ## Debug
 
