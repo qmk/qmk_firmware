@@ -21,13 +21,11 @@
 #define A_P6 RALT_T(KC_P6)
 #define C_PLS RCTL_T(KC_PPLS)
 
-#define SFT_SPC SFT_T(KC_SPC)
 #define EXT_SPC LT(_EXTEND, KC_SPC)
 #define CTL_ESC LCTL_T(KC_ESC)
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case SFT_SPC:
     case EXT_SPC:
     case CTL_ESC:
       return true;
@@ -47,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_BSPC,          KC_BSPC, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQL,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                     KC_LGUI, EXT_SPC, LAY_NUM,                   KC_ENT,  SFT_SPC,  KC_RALT
+                                     KC_LGUI, EXT_SPC, LAY_NUM,                   KC_ENT,  KC_SPC,  KC_RALT
                                  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
       ),
 
