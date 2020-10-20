@@ -268,3 +268,32 @@ void matrix_print(void) {
         printf("\n");
     }
 }
+
+// DO NOT REMOVE
+// Needed for proper wake/sleep
+void matrix_power_up(void) {
+    mcp23018_init();
+
+    // outputs
+    setPinOutput(B10);
+    setPinOutput(B11);
+    setPinOutput(B12);
+    setPinOutput(B13);
+    setPinOutput(B14);
+    setPinOutput(B15);
+
+    // inputs
+    setPinInputLow(A0);
+    setPinInputLow(A1);
+    setPinInputLow(A2);
+    setPinInputLow(A3);
+    setPinInputLow(A6);
+    setPinInputLow(A7);
+    setPinInputLow(B0);
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+    }
+
+}
