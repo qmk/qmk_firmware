@@ -6,6 +6,8 @@ between one and the other is easy.
 
 ![The Keymap](https://i.imgur.com/yChIbaK.png)
 
+*This keymap is generated using http://www.keyboard-layout-editor.com.*
+
 ## Build instruction
 
 To build this on Windows, under Cygwin, provided that you have installed the
