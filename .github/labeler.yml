@@ -5,6 +5,8 @@ core:
   - tests/**/*
   - util/**/*
   - platforms/**/*
+keyboard:
+- any: ['keyboards/**/*', '!keyboards/**/keymaps/**/*']
 keymap:
   - users/**/*
   - layouts/**/*
@@ -17,3 +19,14 @@ python:
   - '**/*.py'
 documentation:
   - docs/**/*
+translation:
+  - docs/fr-fr/**/*
+  - docs/es/**/*
+  - docs/ja/**/*
+  - docs/he-il/**/*
+  - docs/pt-br/**/*
+  - docs/zh-cn/**/*
+  - docs/de/**/*
+  - docs/ru-ru/**/*
+CI:
+  - .github/**/*
