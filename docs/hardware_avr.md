@@ -67,7 +67,7 @@ The `config.h` file is where you configure the hardware and feature set for your
 
 At the top of the `config.h` you'll find USB related settings. These control how your keyboard appears to the Operating System. If you don't have a good reason to change you should leave the `VENDOR_ID` as `0xFEED`. For the `PRODUCT_ID` you should pick a number that is not yet in use.
 
-Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately reflect your keyboard.
+Do change the `MANUFACTURER` and `PRODUCT` lines to accurately reflect your keyboard.
 
 ```c
 #define VENDOR_ID       0xFEED
@@ -75,7 +75,6 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
 #define PRODUCT         my_awesome_keyboard
-#define DESCRIPTION     A custom keyboard
 ```
 
 ?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead takes these from the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. `lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.

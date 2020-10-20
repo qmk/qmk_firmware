@@ -64,6 +64,7 @@ def compile_configurator_json(user_keymap, bootloader=None):
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
+    # FIXME(skullydazed/anyone): Add validation here
     user_keymap = json.load(configurator_file)
 
     return user_keymap

@@ -43,10 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "mousekey.h"
 #endif
 
-#ifdef PROTOCOL_VUSB
-#    include "usbdrv.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
 #endif /* AUDIO_ENABLE */
@@ -145,7 +141,6 @@ static void command_common_help(void) {
 static void print_version(void) {
     // print version & information
     print("\n\t- Version -\n");
-    print("DESC: " STR(DESCRIPTION) "\n");
     print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
                                                        "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
                                                                                                 "VER: " STR(DEVICE_VER) "\n");
@@ -185,7 +180,7 @@ static void print_version(void) {
 #ifdef NKRO_ENABLE
           " NKRO"
 #endif
-#ifdef LINK_TIME_OPTIMIZATION_ENABLE
+#ifdef LTO_ENABLE
           " LTO"
 #endif
 

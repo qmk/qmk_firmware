@@ -1,0 +1,32 @@
+core:
+  - quantum/**/*
+  - tmk_core/**/*
+  - drivers/**/*
+  - tests/**/*
+  - util/**/*
+  - platforms/**/*
+keyboard:
+- any: ['keyboards/**/*', '!keyboards/**/keymaps/**/*']
+keymap:
+  - users/**/*
+  - layouts/**/*
+  - keyboards/**/keymaps/**/*
+cli:
+  - bin/qmk
+  - requirements.txt
+  - lib/python/**/*
+python:
+  - '**/*.py'
+documentation:
+  - docs/**/*
+translation:
+  - docs/fr-fr/**/*
+  - docs/es/**/*
+  - docs/ja/**/*
+  - docs/he-il/**/*
+  - docs/pt-br/**/*
+  - docs/zh-cn/**/*
+  - docs/de/**/*
+  - docs/ru-ru/**/*
+CI:
+  - .github/**/*
