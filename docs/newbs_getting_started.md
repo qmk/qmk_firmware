@@ -64,6 +64,7 @@ You will need to install Git and Python. It's very likely that you already have 
 * Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip`
 * Arch / Manjaro: `sudo pacman --needed --noconfirm -S git python-pip libffi`
 * Void: `sudo xbps-install -y git python3-pip`
+* Solus: `sudo eopkg -y install git python3`
 
 Install the global CLI to bootstrap your system:
 

@@ -1,14 +1,15 @@
 #!/bin/bash
 
 _qmk_install_prepare() {
-    sudo eopkg ur
+    sudo eopkg -y update-repo
+    sudo eopkg -y upgrade
 }
 
 _qmk_install() {
     echo "Installing dependencies"
 
-    sudo eopkg it -c \
-        system.devel git wget zip unzip \
+    sudo eopkg -y install \
+        -c system.devel git wget zip unzip \
         python3 \
         avr-binutils avr-gcc avr-libc \
         arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib \
