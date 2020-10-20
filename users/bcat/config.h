@@ -4,16 +4,8 @@
 #define TAP_CODE_DELAY 20
 
 /*
- * Force the default tapping term since some keyboards make it way too short
- * (*cough*Lily58*cough*).
- */
-#undef TAPPING_TERM
-
-#define TAPPING_TERM 200
-
-/*
  * Treat mod-tap keys as holds even if the mod-tap key and the key being
- * modified are both relased within TAPPING_TERM. This assumes the mod-tap key
+ * modified are both released within TAPPING_TERM. This assumes the mod-tap key
  * isn't usually pressed in quick succession with other tapped keys, which is
  * good when the tap keycode is something like KC_ESC rather than a letter.
  */
