@@ -188,8 +188,6 @@ extern layer_state_t layer_state;
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
-#include <util/atomic.h>
-
 typedef uint8_t pin_t;
 
 #    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))

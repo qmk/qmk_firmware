@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "debounce.h"
 #include "quantum.h"
+#include "quantum_atomic_extend.h"
 #include "split_util.h"
 #include "config.h"
 #include "transport.h"
@@ -46,34 +47,16 @@ uint8_t thisHand, thatHand;
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
 static inline void setPinOutput_writeLow(pin_t pin) {
-#if defined(__AVR__)
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+    ATOMIC_BLOCK_FORCEON {
         setPinOutput(pin);
         writePinLow(pin);
     }
-#elif defined(PROTOCOL_CHIBIOS)
-    chSysLock();
-    setPinOutput(pin);
-    writePinLow(pin);
-    chSysUnlock();
-#else
-    setPinOutput(pin);
-    writePinLow(pin);
-#endif
 }
 
 static inline void setPinInputHigh_atomic(pin_t pin) {
-#if defined(__AVR__)
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+    ATOMIC_BLOCK_FORCEON {
         setPinInputHigh(pin);
     }
-#elif defined(PROTOCOL_CHIBIOS)
-    chSysLock();
-    setPinInputHigh(pin);
-    chSysUnlock();
-#else
-    setPinInputHigh(pin);
-#endif
 }
 
 // matrix code
