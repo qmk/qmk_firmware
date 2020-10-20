@@ -49,6 +49,9 @@
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 17
 #    define RGBLIGHT_VAL_STEP 17
+
+/* Turn on additional RGB animations. */
+#    define RGBLIGHT_ANIMATIONS
 #endif
 
 #if defined(BACKLIGHT_ENABLE)
