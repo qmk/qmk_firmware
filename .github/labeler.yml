@@ -11,6 +11,8 @@ keymap:
   - users/**/*
   - layouts/**/*
   - keyboards/**/keymaps/**/*
+via:
+  - keyboards/**/keymaps/via/*
 cli:
   - bin/qmk
   - requirements.txt
