@@ -13,19 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ergoluna.h"
+#include "rev2.h"
 
-/*void keyboard_pre_init_kb(void){
+/*
+void keyboard_pre_init_kb(void){
     // Workaround for reversible pcb/mcu
     palSetLineMode(C13, PAL_MODE_INPUT_PULLUP);
     palSetLineMode(C15, PAL_MODE_INPUT_PULLUP);
     palSetLineMode(B7, PAL_MODE_OUTPUT_OPENDRAIN);
     palSetLineMode(A0, PAL_MODE_OUTPUT_OPENDRAIN);
     palSetLineMode(A1, PAL_MODE_OUTPUT_OPENDRAIN);
-
     keyboard_pre_init_user();
 }
 */
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
          // Key Matrix to LED Index

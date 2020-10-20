@@ -1,3 +1,0 @@
-# MCU name
-MCU = STM32F401
-

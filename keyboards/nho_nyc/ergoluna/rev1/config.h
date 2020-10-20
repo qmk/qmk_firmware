@@ -54,8 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B5
 #ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 30    // Number of LEDs
-#define RGBLED_SPLIT { 15, 15 }
+#define RGBLED_NUM 28    // Number of LEDs
+#define RGBLED_SPLIT { 14, 14 }
 #endif
 
 #define SOFT_SERIAL_PIN D2
@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // Use the Luna version to get the ErgoLuna logo instead of the qmk logo
-#define OLED_FONT_H "lib/glcdfont_luna.c"
+//#define OLED_FONT_H "lib/glcdfont_luna.c"
 
 
 /*

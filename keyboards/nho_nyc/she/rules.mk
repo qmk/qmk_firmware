@@ -28,6 +28,8 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 OLED_DRIVER_ENABLE = no
 
-
+SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm
+
+DEFAULT_FOLDER = nho_nyc/she

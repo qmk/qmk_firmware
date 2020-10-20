@@ -17,6 +17,14 @@
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x5A56
+#define PRODUCT_ID      0x0048
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    zvecr
+#define PRODUCT         zv48
+#define DESCRIPTION     ARM Split ortho_4x12
+
 /* key matrix size */
 #define MATRIX_ROWS 12 // Rows are doubled-up
 #define MATRIX_COLS 7
