@@ -48,14 +48,7 @@ enum {
   PASTE_LINK,  // CTRL + K (insert link) and then shift + insert (paste)
   FAST_UP,  // Send an up arrow FAST_ARROW_TIME times.
   FAST_DOWN,  // Send a down arrow FAST_ARROW_TIME times.
-  // DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
-  // values are added (as its value is used to create a couple of other keycodes
-  // after it).
-  DYNAMIC_MACRO_RANGE,
 };
-
-// This file must be included after DYNAMIC_MACRO_RANGE is defined...
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
@@ -220,9 +213,9 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
   }
 
   record.event.pressed = true;
-  process_record_dynamic_macro(keycode, &record);
+  process_dynamic_macro(keycode, &record);
   record.event.pressed = false;
-  process_record_dynamic_macro(keycode, &record);
+  process_dynamic_macro(keycode, &record);
 }
 
 // The definition of the tap dance actions:
@@ -239,7 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // We can't just return false when the key is a tap dance, because
     // process_record_user, is called before the tap dance processing (and
     // returning false would eat the tap dance).
-    if (!process_record_dynamic_macro(keycode, record)) {
+    if (!process_dynamic_macro(keycode, record)) {
       return false;
     }
   }

@@ -26,3 +26,6 @@
 #define TAPPING_TOGGLE  3
 #define TAPPING_TERM    150
 #define IGNORE_MOD_TAP_INTERRUPT
+
+// Disable the option to have recursive macros that can block the keyboard.
+#define DYNAMIC_MACRO_NO_NESTING
