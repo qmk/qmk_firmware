@@ -1,4 +1,4 @@
-# bcat's Corne layout
+# bcat's split 3x6 + 3 thumb keys layout
 
 This is my favorite split ergo layout for typing, featuring the traditional
 four ortho/ergo layers (Default, Lower, Raise, Adjust). It is loosely inspired
@@ -43,9 +43,8 @@ right thumbs, respectively.
 
 * Ctrl is on the left for ease of chording, especially one-handed use of common
 shortcuts like Ctrl+T and Ctrl+W. This puts Alt on the right by the process of
-elimination. (I really wish the Corne had one more 1U thumb key on each half to
-allow for a redundant Alt key on the left half and a dedicated Super key on the
-right half, but alas, this was not meant to be.)
+elimination. (I would really like one more 1U thumb key on each half to allow
+for a redundant Alt key on the left and a dedicated Super key on the right.)
 
 ## Lower layer
 
