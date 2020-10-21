@@ -21,7 +21,7 @@
 #define PRODUCT_ID      0x3225 // "2%"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Little Alby
-#define PRODUCT         Micro
+#define PRODUCT         Mute
 #define DESCRIPTION     An Arduino keyboard
 
 /* USB_MAX_POWER_CONSUMPTION - sets the maximum power (in mA) over USB for the device (default: 500)*/
@@ -32,7 +32,7 @@
 #define MATRIX_COLS 1
 
 /* Default pinout */
-/* See arduino micro pinout: https://content.arduino.cc/assets/Pinout-Micro_latest.png 
+/* See arduino micro pinout: https://content.arduino.cc/assets/Pinout-Micro_latest.png
  * for pins e.g.
  * PB5 = digital pin 9 / analog pin 9
  */
