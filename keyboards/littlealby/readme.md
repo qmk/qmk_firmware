@@ -3,7 +3,7 @@
 
 Little Alby is a keyboard library using QMk used to create Arduino based keyboards.
 
-## Layouts
+## Keyboard Layouts
 
 [Mute:](keyboards/littlealby/mute)
 A single button layout that can be used as a mute audio keyboard shortcut for popular video conferencing programs e.g. [Zoom](keyboards/littlealby/mute/keymaps/zoom/readme.md), [Microsoft teams](keyboards/littlealby/mute/keymaps/ms_teams/readme.md), [Google meet](keyboards/littlealby/mute/keymaps/g_meet/readme.md) 
@@ -17,11 +17,9 @@ Keyboard Maintainer: [albybarber](https://github.com/albybarber)
 Keyboard Maintainers spirit guide : [Olivia++](https://github.com/TODO)
 
 Hardware:
-* [ARDUINO MICRO - 5v](https://store.arduino.cc/usa/arduino-micro)
-* [Pro Micro - 5V/16MHz](https://www.sparkfun.com/products/12640)
+* [ARDUINO MICRO - 5v](https://store.arduino.cc/usa/arduino-micro) or [Pro Micro - 5V/16MHz](https://www.sparkfun.com/products/12640)
 
-
-## Building 
+## Building Code
 Make example for this keyboard (after setting up your build environment):
 
     make littlealby/mute:zoom
