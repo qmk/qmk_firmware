@@ -161,5 +161,10 @@ int i2c_set(uint8_t addr, uint8_t reg, uint8_t* data, int length) {
     res = i2c_write(&reg, 1);
     if (res < 0) return res;
 
-    return i2c_send(addr, data, length);
+    res = i2c_write(data, length);
+    if (res < 0) return res;
+
+    i2c_stop();
+
+    return res;
 }
