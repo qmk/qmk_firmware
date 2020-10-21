@@ -2,10 +2,10 @@
 
 ![Cordillera](https://i.imgur.com/3VCGsdD.png)
 
-An Alice-layout keyboard with publicly available source code.
+A publicly available replacement backlit PCB for top mount USB C Alice cases.
 
 * Keyboard Maintainer: [coarse](https://github.com/coarse)
-* Hardware Supported: [Cordillera PCB](https://github.com/coarse/cordillera)
+* Hardware Supported: [Cordillera PCB](https://keyboard.coarse.tech/Cordillera-Alice-like-PCB-b34d95777ea44249bad3271b01d7838a)
 * Hardware Availability: [coarse](https://github.com/coarse)
 
 Make example for this keyboard (after setting up your build environment):
