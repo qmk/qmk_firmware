@@ -211,7 +211,7 @@ int usb7206_gpio_init(struct USB7206_GPIO * self) {
     int res = 0;
 
     // Set programmable function to GPIO
-    res = usb7206_write_reg_32(self->usb7206, PF1_CTL + (self->pf - 1), 0);
+    res = usb7206_write_reg_8(self->usb7206, PF1_CTL + (self->pf - 1), 0);
     if (res < 0) return res;
 
     // Set GPIO to false by default
