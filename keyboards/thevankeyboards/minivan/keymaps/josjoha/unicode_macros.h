@@ -33,7 +33,7 @@ short duo_press_acc_bon = 0; // This remembers how many of the duo-press keys ar
 
 void deactivate_all_but (int layer);
 void activate_this_layer (int layer);
-void indicate_scramble (void);
+void indicate_base (void);
 void leds_show_off (void);
 void speed_report (int speed);
 void speed_led (int speed);

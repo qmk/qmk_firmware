@@ -125,6 +125,10 @@ enum custom_keycodes {
 
     OTHER_BASE, // cycles modes: use _DEF_BASE, _ALT_BASE. For “dvorak²” layout (descramble) compile option, there is a third mode.
 
+# if defined(BASE_NUMPAD__ALT_BASE)
+    OTHER_BASE_GO, // Like OTHER_BASE, but also immediately switches to the other BASE layer.
+# endif
+
     CTO_NUMS, // activates number-symbols layer, taking into account the dual layout mode
     CTO_ACCE, //             accented        '' 
     CTO_DRAW, //             drawings        ''
@@ -599,7 +603,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }else{ // _FULL_ == alternate
                     alternate = _HALF_;// alternate layers, without 'descramble' recomputing Unicode
                 }
-# else          // Only switching the BASE layers between alterante and default
+# else          // Only switching the BASE layers between alternate and default
 
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate base layers
@@ -608,9 +612,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } 
 # endif
 
-                indicate_scramble ();  // activate led change 
+                indicate_base ();  // activate led change 
             }
             break; 
+
+# if defined(BASE_NUMPAD__ALT_BASE)
+
+        case OTHER_BASE_GO: // Switching through the default/alternate BASE modes, and Descramble for that Dvorak compile
+            if (record->event.pressed) {
+                ;
+            }else{ // key up
+
+                // Cycles through the modes
+#     ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
+                if (_NORMAL_ == alternate) {
+                    alternate = _FULL_;// alternate layers
+                } else if (_HALF_ == alternate) {
+                    alternate = _NORMAL_;// normal layers
+                }else{ // _FULL_ == alternate
+                    alternate = _HALF_;// alternate layers, without 'descramble' recomputing Unicode
+                }
+#     else          // Only switching the BASE layers between alternate and default
+
+                if (_NORMAL_ == alternate) {
+                    alternate = _FULL_;// alternate base layers
+                }else{
+                    alternate = _NORMAL_;// default base layers
+                } 
+#     endif
+                // make the switch to the other Base layer
+                if (alternate) { // 
+                    layer_move (_ALT_BASE); 
+                }else{
+                    layer_move (_DEF_BASE);
+                }
+            }
+            break; 
+# endif
 
         //     Switching to layers:
 

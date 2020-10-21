@@ -34,16 +34,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      *
      * Todo:
 
-             ☐ Qwerty with arrows on top
-             ☐ Azerty (doesn't fit the hardware well)
-             ☐ Qwertz (doesn't fit the hardware well)
-            ?☐ Push DEL on _NSY top/right key through documentation
+           Base layers:
+             ☐ Qwerty with arrows on top (could be a good pair with regular Qwerty on DEF)
+             ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
+             ☐ Qwertz (                   "                             "                        )
+             ☐ Fun and games: replicate Evan's “game layer”, also as a stub for others to edit
+               that as their game layer. Many people probably do not much use for the dual layout
+               (such as Qwerty + Colemak), but this could be one. It doesn't seem useful or possible
+               to support every game layer quirk someone might prefer, so this way that whole kind of
+               thing is isolated: compile this and edit as needed there.
+             ☐ User defining macros (record/play user input), another special Base layer.
+             ☑ Numbers pad, a special Base layer.
+           …
+             ☐ An option to compile the _PAD layer, in the format of the Numbers Pad Base layer.
+               The Numbers Pad Base Layer is copied into keymap.c, edited to work as needed.
+               (This implies a compilation with Numbers Pad on alternate Base is redundant; twice the same.)
              ☐ Testing all user configurations
-            ?☐ Leds #on/off startup
              ☐ Test/fix what happens when leds are undefined with the existing QMK led #define
+            ?☐ Leds #on/off startup
+            ?☐ Push DEL on _NSY top/right key through documentation
             ?☐ Review/fix C indendation. QMK indentation is not my preferred style, and 
                therefore it is not entirely consistent. 
-             ☑ Compile single layout.
      *
      * */
 
@@ -290,8 +301,8 @@ void indicate_fun_stay (void) {
 
 
 // _RAR layer leds
-// It is a function because this is called when the mode key pressed
-void indicate_scramble (void) {
+// It is a function because this is called when the Base layer OTHER_BASE key is pressed
+void indicate_base (void) {
 
 # ifdef RGBLIGHT_ENABLE
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
@@ -330,7 +341,8 @@ void indicate_scramble (void) {
 }
 
 
-// Sets led colors for all layers. Including Capslock/Numlock changes (see a computer side activated function for that too).
+// Sets led colors for all layers. Including Capslock/Numlock changes. See a computer side activated function for that too:
+//                                                                                    led_update_user (…)
 void set_led_colors_ (layer_state_t state) {
 
 # ifdef RGBLIGHT_ENABLE
@@ -385,8 +397,8 @@ void set_led_colors_ (layer_state_t state) {
         middle_led_control (60, 20, 100); // yellow (low saturation)
     }
     //---
-    else if (layer_state_cmp (state, _RAR)) { // weird layer
-        indicate_scramble (); // this function already does it all
+    else if (layer_state_cmp (state, _RAR)) { // layer with special keys
+        indicate_base (); // this function already does it all
         return; // 
     }
     //---
@@ -411,6 +423,9 @@ void set_led_colors_ (layer_state_t state) {
     //--- (pair)
     // Alternate BASE layer (alternate)
     else if (layer_state_cmp (state, _ALT_BASE)) {
+
+#     if !defined(BASE_NUMPAD__ALT_BASE) // Normal led colors for ‛regular’ base layers like Dvorak, Qwerty. 
+
         if (capslock) {
            led2r = 255; // Brighter version to indicate capslock
            led2g = 255; // 
@@ -421,6 +436,20 @@ void set_led_colors_ (layer_state_t state) {
            led2b = color_ddl; // 
         }
 
+#     else // BASE_NUMPAD__ALT_BASE: numpad on Alternate Base, which should show the state of NumLock
+
+        // This is a copy of the _PAD led colors, but less bright
+        if (numlock) {
+            led0b = 80; // Blue for the numbers part 
+            led2g = 80; // Green for the navigation part
+        }else{
+            led0g = 80; // reversed 
+            led2b = 80; //
+        }
+        middle_led_control (60, 20, 100); // yellow (low saturation)
+
+#     endif
+
 #     ifndef MIDLED_BASELAYER_CONSTANT
         if (!leds_on)
 #     endif
@@ -428,6 +457,7 @@ void set_led_colors_ (layer_state_t state) {
     }
     // Default layer (generally), normal BASE layer
     else if (layer_state_cmp (state, _DEF_BASE)) { // letters
+
         if (capslock) {
             led0r = 255; // Brighter version to indicate capslock
             led0g = 255; // 
@@ -437,6 +467,7 @@ void set_led_colors_ (layer_state_t state) {
             led0g = 28; // 
             led0b = 28; // 
         }
+
 #     ifndef MIDLED_BASELAYER_CONSTANT
         if (!leds_on) 
 #     endif
@@ -452,7 +483,7 @@ void set_led_colors_ (layer_state_t state) {
 
 // Pre-existing QMK function, called when NumLock/CapsLock key is pressed, including on another keyboard.
 // This function sets two booleans that keep track of the current capslock/numlock state, for use in layer led colors.
-bool led_update_user(led_t led_state) {
+bool led_update_user (led_t led_state) {
     if (led_state.num_lock) { // This doesn't look at the keyboard leds or any other actual leds. It seems to look at whether
                               // or not the computer has numlock in the on/off state.
         numlock = TRUE;
@@ -503,6 +534,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                         * Colemak *
 # if defined(BASE_COLEMAK__DEF_BASE) || defined(BASE_COLEMAK__ALT_BASE)
 #     include "./base_colemak.c" // Regular Colemak.
+# endif
+
+//                         * Numpad *
+# if defined(BASE_NUMPAD__ALT_BASE)
+#     include "./base_numpad.c" // Numbers pad
 # endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:

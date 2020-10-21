@@ -57,9 +57,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BASE_DVORAK__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
         // 
         //          • Dvorak descramble mode
-        //            (Dvorak for a computer already remapping to Dvorak)
+        //                  (Dvorak for a computer already remapping to Dvorak)
         //  This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
-  #define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
+//#define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
         // 
         //          • Qwerty
         //                   (a regular Qwerty layout)
@@ -72,6 +72,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //  _Activate_ one of these two, _remove_ the other.
 //#define BASE_COLEMAK__DEF_BASE // _Activate_ if you want Colemak on the ‛Default’ spot
 //#define BASE_COLEMAK__ALT_BASE // _Activate_ if you want Colemak on the ‛Alternate’ spot
+        // 
+        //          • Numpad
+        //                   (a numerical keypad, one for left hand and one for right hand)
+        //  _Activate_ to get Numpad on Alternate. There is no option for Numpad on ‛Default’ base.
+  #define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
         //
         /*                      ➡ Eviscerations ( ① / ② ) ⬅
          */

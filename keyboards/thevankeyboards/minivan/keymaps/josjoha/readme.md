@@ -27,18 +27,26 @@ in this readme.md file. The options for the letters and number/symbol
 layer pairs (two pairs in the dual layout) are explained in their
 separate readme file, see immediately below.
 
-Available Base layouts
-----------------------
+Base layouts
+============
+You can have two of these layouts on your keyboard, and switch between them.
+They are presented here in a sort of simplified keycaps view. See the manual for
+each layout for more details. See further down for the *other layers* that these
+layouts have in common.
+
+Normal layouts
+--------------
+These are layouts for commonly used configurations, such as Qwerty or Dvorak.
 
       • Qwerty
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_vb.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_vc.jpg)
 
 For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
       • Dvorak (regular Dvorak).
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_vb.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_vc.jpg)
 
 
 For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak.md) ⬅
@@ -49,9 +57,21 @@ For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](
 
       • Colemak
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_vb.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_vc.jpg)
 
 For the readme about the Colemak version, see ➡ ![base_colemak.md](./base_colemak.md) ⬅
+
+Special layouts
+---------------
+These are unusual layouts. Most people will probably only want one of these on the ‛Alternate’ layout,
+with a normal layout on ‛Default’. How this works is explained below.
+
+      • Numbers pad
+
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_vc.jpg)
+
+For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
+
 
 The common system
 =================
@@ -200,6 +220,8 @@ Layer: `ALT_NSY`
 ![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vb.jpg)
 Layer: `_PAD`
 
+^ There is a Base layout for a numbers pad as well, in a different format.
+
 ![Minivan layout Image ACC](http://socialism.nl/misc/minivan/minivan_acc_layer_va.jpg)
 Layer: `_ACC`
 
@@ -218,7 +240,7 @@ Layer: `_MOV`
 ^ There is an alternative flat arrow configuration for this layer (see below),
 and options to compile with the 'arrow' hardware layout.
 
-![Minivan layout Image RAR](http://socialism.nl/misc/minivan/minivan_rar_layer_va.jpg)
+![Minivan layout Image RAR](http://socialism.nl/misc/minivan/minivan_rar_layer_vb.jpg)
 Layer: `_RAR`
 
 Movement layer options
@@ -858,6 +880,10 @@ either characters or words, and the maximum is given with it, like so:
 `<66w>[200w]`. 66 words have been written, a maximum of 200 words has
 been set.
 
+If you have a maximum established and use it across different articles,
+you no longer have the total count. You can activate speed measuring,
+which in its report includes the total characters pressed.
+
           Usage
 
 It is assumed that you will take the report in the document you are
@@ -989,7 +1015,7 @@ numbers on `_DRA`.
 
 Trouble shooting
 ----------------
-  When you flash your board, suddenly your Unicode doesn't work, or your
+  • When you flash your board, suddenly your Unicode doesn't work, or your
   leds seem to be broken. What seems to happen sometimes is that after
   flashing the value of a user option ends up in a different state than
   you expected.
@@ -1004,10 +1030,14 @@ Trouble shooting
   measuring on at startup.
 
   • You weirdly end up on the `_PAD`, `_FUN` or some other layer while
-  typing ? I also often mistype to the `_PAD` layer. It seems to be a 
+  typing ? I also sometimes mistype to the `_PAD` layer. It seems to be a 
   typing mistake: unnecessary or inaccurately typing on the Shift key.
   It should never activate to the layer, if you hit another key to get
   a capital letter. It will always go to a layer, if you hit it by itself.
+  It can help to set `_PAD` in numerical mode, so that you will just type
+  some numbers, rather than fly all over the place with arrows and 
+  navigation. For the `_FUN` layer, you could put it in one stroke mode, to
+  reduce the consequences of the mistake.
 
 
 Why you want this layout

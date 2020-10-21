@@ -72,7 +72,7 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
 - - -
 
 
-     Layer _..._NSY (Numbers and SYmbols). This fits the above Qwerty layer _DEF_BASE (#define BASES_QWERTY_DVORAK set.)
+     Layer _..._NSY (Numbers and SYmbols). (Same as Qwerty numbers layer.)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
