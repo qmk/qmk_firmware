@@ -14,13 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "quantum.h"
-
-#ifdef KEYBOARD_sekimen_5cols
-  #include "5cols.h"
-#endif
-#ifdef KEYBOARD_sekimen_7cols
-    #include "7cols.h"
-#endif
+#include "sekimen.h"
