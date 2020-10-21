@@ -436,8 +436,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
 
         SERIAL_DRIVER ?= bitbang
         ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
+            OPT_DEFS += -DSERIAL_DRIVER_bitbang
             QUANTUM_LIB_SRC += serial.c
         else
+            OPT_DEFS += -DSERIAL_DRIVER_$(strip $(SERIAL_DRIVER))
             QUANTUM_LIB_SRC += serial_$(strip $(SERIAL_DRIVER)).c
         endif
     endif
