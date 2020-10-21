@@ -1,0 +1,14 @@
+{
+  "keyboard_name": "Little Alby",
+  "keyboard_folder": "mute",
+  "url": "",
+  "maintainer": "albybarber",
+  "width": 1,
+  "height": 1,
+  "layouts": {
+    "LAYOUT": {
+      "key_count": 1,
+      "layout": [ {"x": 0, "y": 0 }]
+    }
+  }
+}

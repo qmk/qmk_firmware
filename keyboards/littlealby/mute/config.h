@@ -1,4 +1,4 @@
-/* Copyright 2019 Spaceman
+/* Copyright 2019 albybarber
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,26 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
+/* USB Device descriptor parameter - https://github.com/qmk/qmk_firmware/blob/master/docs/config_options.md#hardware-options */
 #define VENDOR_ID       0x5342 // "SB"
 #define PRODUCT_ID      0x3225 // "2%"
 #define DEVICE_VER      0x0001
-#define USB_MAX_POWER_CONSUMPTION 100
 #define MANUFACTURER    Little Alby
-#define PRODUCT         Lanas mute button
-#define DESCRIPTION     A mute button
+#define PRODUCT         Micro
+#define DESCRIPTION     An Arduino keyboard
+
+/* USB_MAX_POWER_CONSUMPTION - sets the maximum power (in mA) over USB for the device (default: 500)*/
+#define USB_MAX_POWER_CONSUMPTION 100
 
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
 
-/* Milk default pinout */
+/* Default pinout */
+/* See arduino micro pinout: https://content.arduino.cc/assets/Pinout-Micro_latest.png 
+ * for pins e.g.
+ * PB5 = digital pin 9 / analog pin 9
+ */
 #define DIRECT_PINS { \
     {B5} \
 }
