@@ -25,10 +25,10 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    ADJUST,
 };
 
 #define L_QWERTY 0
@@ -39,20 +39,20 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* Default Layer
      * ,-----------------------------------------------------------.
-     * | RE |  Q |  W |  E |  R |  T |  Y |  U |  I |  O |  P | BS |
+     * | Esc|  Q |  W |  E |  R |  T |  Y |  U |  I |  O |  P | BS |
      * |-----------------------------------------------------------|
      * | Tab |  A |  S |  D |  F |  G |  H |  J |  K |  L | Ent    |
      * |-----------------------------------------------------------|
      * | LSft   |  Z |  X |  C |  V |  B |  N |  M |  , |  . |fn(/)|
      * |-----------------------------------------------------------|
-     * | Esc  | LAlt| LGui|  spc fn0  |  spc fn1    |RGui|RAlt|RCtl|
+     * | LCtl | LAlt| LGui|  spc fn0  |  spc fn1    |RGui|RAlt|RCtl|
      * `-----------------------------------------------------------'
  */
     [_QWERTY] = LAYOUT(
         KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,   KC_BSPC,
-        MT(MOD_LCTL, KC_TAB),  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_ENT,
+        KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_ENT,
         KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  LT(_ADJUST, KC_SLSH),
-        KC_GESC, KC_LALT   , KC_LGUI, LT(_LOWER, KC_SPC),   LT(_RAISE, KC_SPC), KC_RGUI, KC_RALT, KC_RCTL
+        KC_LCTL, KC_LALT   , KC_LGUI, LT(_LOWER, KC_SPC),   LT(_RAISE, KC_SPC), KC_RGUI, KC_RALT, KC_RCTL
         ),
 
  /* Lower Layer
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |  F1   | F2  | F3 | F4 | F5 |  F6 | - | = | [ | ] |  Pipe  |
      * |-----------------------------------------------------------|
-     * |    F7    | F8 | F9 | F10| F11| F12| End|PgDn| ↓ |    |    |
+     * |    F7    | F8 | F9 | F10| F11| F12|  \ |  \ |   |    |    |
      * |-----------------------------------------------------------|
      * |     |    |     |           |             |     |    |     |
      * `-----------------------------------------------------------'
@@ -95,11 +95,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------.
      * |Mute| F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10|F11 |
      * |-----------------------------------------------------------|
-     * |       |     |    |    | MAC|      |   |WIN|   |   |  F12  |
+     * |       |BTOG |BSTP|BINC| MAC|RGBTOG|HUI|WIN|SAI|VAI|  F12  |
      * |-----------------------------------------------------------|
-     * |   Caps   |Reset|    |    |    |    |    |   |   |    |    |
+     * |   Caps   |Reset|BBRE|BDEC|    |RMOD|HUD |   |SAD|VAD |    |
      * |-----------------------------------------------------------|
-     * |     |    |     |           |             |     |    |     |
+     * |SLEEP|    |     |           |             |     |    |     |
      * `-----------------------------------------------------------'
       */
     [_ADJUST] = LAYOUT(
