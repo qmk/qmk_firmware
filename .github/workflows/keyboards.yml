@@ -1,0 +1,47 @@
+name: PR keyboards/keymaps
+
+on:
+  pull_request:
+    paths-ignore:
+    - 'docs/**'
+    - 'util/**'
+    - 'tests/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/base_container
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+
+    - uses: trilom/file-changes-action@v1.2.4
+      id: file_changes
+      with:
+        output: '\n'
+
+    - name: Print info
+      run: |
+        git rev-parse --short HEAD
+        echo ${{ github.event.pull_request.base.sha }}
+        echo '${{ steps.file_changes.outputs.files}}'
+
+    - uses: actions/cache@v2
+      with:
+        path: |
+          .ccache/
+        key: pr-keyboard-${{ github.event.number }}
+
+    - name: Build 
+      shell: 'bash {0}'
+      env:
+        MAKEFLAGS: '-j --output-sync'
+      run: |
+        apt-get update && apt-get install --no-install-recommends -y ccache
+        export PATH="/usr/lib/ccache:$PATH"
+        export CCACHE_DIR=.ccache
+        make all:default
