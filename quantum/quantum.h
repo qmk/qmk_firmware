@@ -259,7 +259,6 @@ static __inline__ void __chSysUnlock(const uint8_t *__s) {
 /* Other platform part */
 #else
 
-#error "ATOMIC_BLOCK_xxxx dose not implement"
 #define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
 #define ATOMIC_BLOCK_FORCEON _Static_assert(0, "ATOMIC_BLOCK_FORCEON dose not implement")
 
