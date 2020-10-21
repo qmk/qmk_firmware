@@ -31,7 +31,7 @@ int usb7206_read_reg(struct USB7206 * self, uint32_t addr, uint8_t * data, int l
         // Buffer address low: always 0
         0x00,
         // Number of bytes to write to command block buffer area
-        6,
+        0x06,
         // Direction: 0 = write, 1 = read
         0x01,
         // Number of bytes to read from register
@@ -45,7 +45,7 @@ int usb7206_read_reg(struct USB7206 * self, uint32_t addr, uint8_t * data, int l
         // Register address byte 0
         (uint8_t)(addr >> 0),
     };
-    res = i2c_send(addr, command, sizeof(command));
+    res = i2c_send(self->addr, command, sizeof(command));
     if (res < 0) return res;
 
     res = usb7206_register_access(self);
@@ -66,13 +66,6 @@ int usb7206_read_reg(struct USB7206 * self, uint32_t addr, uint8_t * data, int l
     res = i2c_start(self->addr, true);
     if (res < 0) return res;
 
-    uint8_t command3[1] = {
-        // Number of bytes to read from command block buffer area
-        0x00,
-    };
-    res = i2c_read(command3, sizeof(command3));
-    if (res < 0) return res;
-
     res = i2c_read(data, length);
     if (res < 0) return res;
 
@@ -84,17 +77,17 @@ int usb7206_read_reg(struct USB7206 * self, uint32_t addr, uint8_t * data, int l
 int usb7206_read_reg_32(struct USB7206 * self, uint32_t addr, uint32_t * data) {
     int res;
 
-    // Must convert to little endian
-    uint8_t bytes[4] = { 0, 0, 0, 0, };
+    // First byte is available length
+    uint8_t bytes[5] = { 0, 0, 0, 0, 0, };
     res = usb7206_read_reg(self, addr, bytes, sizeof(bytes));
     if (res < 0) return res;
 
     // Must convert from little endian
     *data =
-        (((uint32_t)bytes[0]) << 0) |
-        (((uint32_t)bytes[1]) << 8) |
-        (((uint32_t)bytes[2]) << 16) |
-        (((uint32_t)bytes[3]) << 24);
+        (((uint32_t)bytes[1]) << 0) |
+        (((uint32_t)bytes[2]) << 8) |
+        (((uint32_t)bytes[3]) << 16) |
+        (((uint32_t)bytes[4]) << 24);
 
     return 0;
 }
@@ -159,16 +152,6 @@ int usb7206_init(struct USB7206 * self) {
     res = usb7206_write_reg_8(self, PRT_SWAP, 0x0C);
     if (res < 0) return res;
 
-    //TODO: SS MUX select
-/* GPIO CONFIG NOT USED
-    // Set programmable function 9 to GPIO73
-    usb7206_write_reg_8(self, PF9_CTL, 0);
-    // Set GPIO 73 to output
-    usb7206_bit_set_32(self, PIO96_OEN, (1<<9));
-    // Set GPIO 73 high
-    usb7206_write_reg_32(self, PIO96_OUT, (1<<9));
-*/
-
     // Disable audio
     return usb7206_write_reg_8(self, I2S_FEAT_SEL, 0);
 }
@@ -217,9 +200,9 @@ int usb7206_gpio_set(struct USB7206_GPIO * self, bool value) {
     if (res < 0) return res;
 
     if (value) {
-        data |= (1 << self->pf);
+        data |= (1UL << self->pf);
     } else {
-        data &= ~(1 << self->pf);
+        data &= ~(1UL << self->pf);
     }
     return usb7206_write_reg_32(self->usb7206, PIO64_OUT, data);
 }
@@ -253,9 +236,11 @@ struct PTN5110 usb_sink = { .addr = 0x51, .gpio = &usb_gpio_sink };
 struct PTN5110 usb_source_left = { .addr = 0x52, .gpio = &usb_gpio_source_left };
 struct PTN5110 usb_source_right = { .addr = 0x50, .gpio = &usb_gpio_source_right };
 
-void ptn5110_init(struct PTN5110 * self) {
+int ptn5110_init(struct PTN5110 * self) {
     // Set last cc to disconnected value
     self->cc = 0;
+    // Initialize GPIO
+    return usb7206_gpio_init(self->gpio);
 }
 
 int ptn5110_get_cc_status(struct PTN5110 * self, uint8_t * cc) {
