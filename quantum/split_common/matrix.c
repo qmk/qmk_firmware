@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "debounce.h"
 #include "quantum.h"
-#include "quantum_atomic_extend.h"
 #include "split_util.h"
 #include "config.h"
 #include "transport.h"
