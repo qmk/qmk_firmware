@@ -1,3 +1,3 @@
-# Default keymap for micro
+# Default keymap for arduino micro for Google Meet
 
-![ARDUINO MICRO pinout](https://content.arduino.cc/assets/Pinout-Micro_latest.png)
+![Pinout](https://assets.codepen.io/18215/littleAlby_bb.png)
