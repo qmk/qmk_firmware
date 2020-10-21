@@ -74,6 +74,8 @@ def run(command, *args, **kwargs):
     """Run a command with subprocess.run
     """
     platform_id = platform.platform().lower()
+    # Make sure all elements of `command` are strings
+    command = map(str, command)
 
     if isinstance(command, str):
         raise TypeError('`command` must be a non-text sequence such as list or tuple.')
