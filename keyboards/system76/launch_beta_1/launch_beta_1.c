@@ -127,18 +127,18 @@ void bootmagic_lite(void) {
 }
 
 void matrix_init_kb(void) {
+    usb_mux_init();
+
     bootmagic_lite();
     if (!eeprom_is_valid()) {
         dynamic_keymap_reset();
         dynamic_keymap_macro_reset();
         eeprom_set_valid(true);
     }
-
-    usb_mux_init();
 }
 
 void matrix_scan_kb(void) {
-    matrix_scan_user();
-
     usb_mux_event();
+
+    matrix_scan_user();
 }
