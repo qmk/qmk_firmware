@@ -4,16 +4,28 @@
    - You may also need to install dependencies: `sudo apt install avrdude gcc-avr avr-libc`
 * To build the firmware without flashing the keyboard, use `make (keyboard name):(layout name)`
    - For example, if you want to build the `default` layout for the Launch keyboard, run:
-   `make system76/launch_beta_1:default`
+```
+make system76/launch_beta_1:default
+```
 * To flash the firmware, you'll use the same build command, but with `dfu` added to the end:
-   `make system76/launch_beta_1:default:dfu`
+```
+make system76/launch_beta_1:default:dfu
+```
    - After it builds, you will see a message that says `Detecting USB port, reset your controller now...`. You then want to hit the "RESET" key on the keyboard if it is programmed into the layout.
    - In the default layout, it is Fn+Esc. If a RESET key is not programmed into the layout, you will have to manually reset the controller.
 * To flash the firmware using ISP, you will need a USBasp device, and a tag connect cable.
-  - First, build the firmware and bootloader with:
-    `make system76/launch_beta_1:default:production`
-  - Next, run avrdude to flash the device:
-    `avrdude -c usbasp -p atmega32u4 -U flash:w:system76_launch_beta_1_default_production.hex`
+  - Build the firmware and bootloader with:
+```
+make system76/launch_beta_1:default:production
+```
+  - Run avrdude to flash the fuses:
+```
+avrdude -c usbasp -p atmega32u4 -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xCB:m
+```
+  - Run avrdude to flash the ROM:
+```
+avrdude -c usbasp -p atmega32u4 -U flash:w:system76_launch_beta_1_default_production.hex
+```
 
 ## Making your own layout:
 If you want to create your own layout, go to the `keymaps` directory and copy one of the maps in there. You'll probably want to start with the default layout, but the other layouts in there may be helpful references. The name of the directory you create will be the name of your layout. Ensure that it has no spaces or strange symbols, as this could lead to build errors.
