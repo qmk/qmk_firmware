@@ -25,6 +25,7 @@ let
     argcomplete
     colorama
     hjson
+    pygments
     # requirements-dev.txt
     nose2
     flake8
