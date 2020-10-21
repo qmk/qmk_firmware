@@ -99,7 +99,7 @@ int i2c_read(uint8_t * data, int length) {
     int i;
 
     for (i = 0; i < length; i++) {
-        bool ack = (i + 1) == length;
+        bool ack = (i + 1) < length;
         res = i2c_read_byte(ack);
         if (res < 0) return res;
         data[i] = (uint8_t)res;
