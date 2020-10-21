@@ -68,7 +68,7 @@ with a normal layout on ‛Default’. How this works is explained below.
 
       • Numbers pad
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_vc.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_vd.jpg)
 
 For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
 
