@@ -29,3 +29,12 @@ DYNAMIC_KEYMAP_ENABLE = yes # Reconfigurable keyboard without flashing firmware
 NKRO_ENABLE = yes           # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RAW_ENABLE = yes            # Enable RAW HID commands (used by keyboard configurator)
 RGBLIGHT_ENABLE = yes       # Support for RGB backlight
+
+# Add System76 EC command interface
+SRC+=system76_ec.c
+
+# Add I2C driver
+SRC+=i2c.c
+
+# Add USB mux driver
+SRC+=usb_mux.c

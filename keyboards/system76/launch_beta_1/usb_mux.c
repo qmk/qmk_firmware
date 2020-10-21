@@ -1,4 +1,5 @@
-#include "i2c.c"
+#include "i2c.h"
+#include "usb_mux.h"
 
 #define PRT_SWAP 0xBF8030FA
 #define I2S_FEAT_SEL 0xBFD23412

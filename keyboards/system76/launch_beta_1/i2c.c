@@ -2,6 +2,8 @@
 #include <avr/io.h>
 #include <util/twi.h>
 
+#include "i2c.h"
+
 #define TIMEOUT (F_CPU/1000)
 
 // Initialize I2C with specified buad rate
@@ -140,6 +142,8 @@ int i2c_send(uint8_t addr, uint8_t* data, int length) {
     return res;
 }
 
+// Get data from a specified address and register on the I2C bus
+// Returns bytes read on success or negative number on error
 int i2c_get(uint8_t addr, uint8_t reg, uint8_t* data, int length) {
     int res = 0;
 
@@ -152,6 +156,8 @@ int i2c_get(uint8_t addr, uint8_t reg, uint8_t* data, int length) {
     return i2c_recv(addr, data, length);
 }
 
+// Set data in a specified address and register on the I2C bus
+// Returns bytes written on success or negative number on error
 int i2c_set(uint8_t addr, uint8_t reg, uint8_t* data, int length) {
     int res = 0;
 
