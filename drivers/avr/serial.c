@@ -20,75 +20,90 @@
 
 #ifdef SOFT_SERIAL_PIN
 
-#    if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-// if using ATmega32U4 I2C, can not use PD0 and PD1 in soft serial.
-#        ifdef USE_AVR_I2C
-#            if SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1
-#                error Using I2C, so can not use PD0, PD1
-#            endif
+#    if !(defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+#        error serial.c is not supported for the currently selected MCU
+#    endif
+// if using ATmega32U4/2, AT90USBxxx I2C, can not use PD0 and PD1 in soft serial.
+#    if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#        if defined(USE_AVR_I2C) && (SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1)
+#            error Using I2C, so can not use PD0, PD1
 #        endif
-#        if SOFT_SERIAL_PIN >= D0 && SOFT_SERIAL_PIN <= D3
-#            if SOFT_SERIAL_PIN == D0
-#                define EIMSK_BIT _BV(INT0)
-#                define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
-#                define SERIAL_PIN_INTERRUPT INT0_vect
-#            endif
-#            if SOFT_SERIAL_PIN == D1
-#                define EIMSK_BIT _BV(INT1)
-#                define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
-#                define SERIAL_PIN_INTERRUPT INT1_vect
-#            endif
-#            if SOFT_SERIAL_PIN == D2
-#                define EIMSK_BIT _BV(INT2)
-#                define EICRx_BIT (~(_BV(ISC20) | _BV(ISC21)))
-#                define SERIAL_PIN_INTERRUPT INT2_vect
-#            endif
-#            if SOFT_SERIAL_PIN == D3
-#                define EIMSK_BIT _BV(INT3)
-#                define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
-#                define SERIAL_PIN_INTERRUPT INT3_vect
-#            endif
-#        elif SOFT_SERIAL_PIN >= E4 && SOFT_SERIAL_PIN <= E7
-#            if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
-#                if SOFT_SERIAL_PIN == E4
-#                    define EIMSK_BIT _BV(INT4)
-#                    define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
-#                    define SERIAL_PIN_INTERRUPT INT4_vect
-#                endif
-#                if SOFT_SERIAL_PIN == E5
-#                    define EIMSK_BIT _BV(INT5)
-#                    define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
-#                    define SERIAL_PIN_INTERRUPT INT5_vect
-#                endif
-#                if SOFT_SERIAL_PIN == E7
-#                    define EIMSK_BIT _BV(INT7)
-#                    define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
-#                    define SERIAL_PIN_INTERRUPT INT7_vect
-#                endif
-#            endif
-#            if !(defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && SOFT_SERIAL_PIN == E6
-#                define EIMSK_BIT _BV(INT6)
-#                define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
-#                define SERIAL_PIN_INTERRUPT INT6_vect
-#            endif
-#        endif
-#    elif defined(__AVR_ATmega32A__)
-#        if SOFT_SERIAL_PIN == D2
-#            define EIMSK_BIT _BV(INT0)
-#            define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
-#            define SERIAL_PIN_INTERRUPT INT0_vect
-#        elif SOFT_SERIAL_PIN == D3
-#            define EIMSK_BIT _BV(INT1)
-#            define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
-#            define SERIAL_PIN_INTERRUPT INT1_vect
-#        endif
+#    endif
+// PD0..PD3, common config
+#    if SOFT_SERIAL_PIN == D0
+#        define EIMSK_BIT _BV(INT0)
+#        define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
+#        define SERIAL_PIN_INTERRUPT INT0_vect
+#    elif SOFT_SERIAL_PIN == D1
+#        define EIMSK_BIT _BV(INT1)
+#        define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
+#        define SERIAL_PIN_INTERRUPT INT1_vect
+#    elif SOFT_SERIAL_PIN == D2
+#        define EIMSK_BIT _BV(INT2)
+#        define EICRx_BIT (~(_BV(ISC20) | _BV(ISC21)))
+#        define SERIAL_PIN_INTERRUPT INT2_vect
+#    elif SOFT_SERIAL_PIN == D3
+#        define EIMSK_BIT _BV(INT3)
+#        define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
+#        define SERIAL_PIN_INTERRUPT INT3_vect
+#    endif
 
-#        ifndef SERIAL_PIN_INTERRUPT
-#            error invalid SOFT_SERIAL_PIN value
+// ATmegaxxU2 specific config
+#    if defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)
+// PD4(INT5), PD6(INT6), PD7(INT7), PC7(INT4)
+#        if SOFT_SERIAL_PIN == D4
+#            define EIMSK_BIT _BV(INT5)
+#            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
+#            define SERIAL_PIN_INTERRUPT INT5_vect
+#        elif SOFT_SERIAL_PIN == D6
+#            define EIMSK_BIT _BV(INT6)
+#            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
+#            define SERIAL_PIN_INTERRUPT INT6_vect
+#        elif SOFT_SERIAL_PIN == D7
+#            define EIMSK_BIT _BV(INT7)
+#            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
+#            define SERIAL_PIN_INTERRUPT INT7_vect
+#        elif SOFT_SERIAL_PIN == C7
+#            define EIMSK_BIT _BV(INT4)
+#            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
+#            define SERIAL_PIN_INTERRUPT INT4_vect
 #        endif
+#    endif
 
-#    else
-#        error serial.c does not currently support selected MCU
+// ATmegaxxU4 specific config
+#    if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
+// PE6(INT6)
+#        if SOFT_SERIAL_PIN == E6
+#            define EIMSK_BIT _BV(INT6)
+#            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
+#            define SERIAL_PIN_INTERRUPT INT6_vect
+#        endif
+#    endif
+
+// AT90USBxxx specific config
+#    if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+// PE4..PE7(INT4..INT7)
+#        if SOFT_SERIAL_PIN == E4
+#            define EIMSK_BIT _BV(INT4)
+#            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
+#            define SERIAL_PIN_INTERRUPT INT4_vect
+#        elif SOFT_SERIAL_PIN == E5
+#            define EIMSK_BIT _BV(INT5)
+#            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
+#            define SERIAL_PIN_INTERRUPT INT5_vect
+#        elif SOFT_SERIAL_PIN == E6
+#            define EIMSK_BIT _BV(INT6)
+#            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
+#            define SERIAL_PIN_INTERRUPT INT6_vect
+#        elif SOFT_SERIAL_PIN == E7
+#            define EIMSK_BIT _BV(INT7)
+#            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
+#            define SERIAL_PIN_INTERRUPT INT7_vect
+#        endif
+#    endif
+
+#    ifndef SERIAL_PIN_INTERRUPT
+#        error invalid SOFT_SERIAL_PIN value
 #    endif
 
 #    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
