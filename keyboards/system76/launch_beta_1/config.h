@@ -28,6 +28,7 @@
 
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 84
+#define DRIVER_LED_TOTAL RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 // Limit brightness to support USB-A at 0.5A
 //TODO: do this dynamically based on power source
