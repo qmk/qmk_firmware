@@ -12,9 +12,8 @@ void i2c_init(unsigned long baud) {
 
 int i2c_start(uint8_t addr, bool read) {
 	uint32_t count;
+	uint8_t twst;
 
-	// reset TWI control register
-	TWCR = 0;
 	// transmit START condition
 	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
 	// wait for end of transmission
@@ -23,7 +22,8 @@ int i2c_start(uint8_t addr, bool read) {
 	if (count == 0) return -1;
 
 	// check if the start condition was successfully transmitted
-	if((TWSR & 0xF8) != TW_START) return -1;
+	twst = TW_STATUS & 0xF8;
+	if ((twst != TW_START) && (twst != TW_REP_START)) return -1;
 
 	// load slave addr into data register
 	TWDR = ((addr << 1) | read);
@@ -35,7 +35,7 @@ int i2c_start(uint8_t addr, bool read) {
 	if (count == 0) return -1;
 
 	// check if the device has acknowledged the READ / WRITE mode
-	uint8_t twst = TW_STATUS & 0xF8;
+	twst = TW_STATUS & 0xF8;
 	if ((twst != TW_MT_SLA_ACK) && (twst != TW_MR_SLA_ACK)) return -1;
 
 	return 0;
@@ -44,6 +44,8 @@ int i2c_start(uint8_t addr, bool read) {
 void i2c_stop(void) {
 	// transmit STOP condition
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+	//TODO: timeout?
+	while (TWCR & (1<<TWSTO));
 }
 
 int i2c_write(uint8_t * data, int length) {
