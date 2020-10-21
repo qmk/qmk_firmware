@@ -1,8 +1,8 @@
 # bcat's Lily58 layout
 
-This split ergo layout follows my preferred [Crkbd
-layout](https://github.com/qmk/qmk_firmware/tree/master/keyboards/crkbd/keymaps/bcat)
-with the following changes:
+This split ergo layout follows my preferred [split 3x6 + 3 thumb
+keys](https://github.com/qmk/qmk_firmware/tree/master/layouts/community/split_3x6_3/bcat)
+(Crkbd) layout with a few changes:
 
 * There's an optional number row at the top of the keyboard. I am quite used to
 using layers for numbers and symbols, so in practice this goes unused.
