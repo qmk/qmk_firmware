@@ -14,7 +14,7 @@ A single button layout that can be used as a mute audio keyboard shortcut for po
 
 Keyboard Maintainer: [albybarber](https://github.com/albybarber)
 
-Keyboard Maintainers spirit guide : [Olivia++](https://github.com/TODO)
+Keyboard Maintainers spirit guide : [Olivia](https://github.com/olivia)
 
 Hardware:
 * [ARDUINO MICRO - 5v](https://store.arduino.cc/usa/arduino-micro) or [Pro Micro - 5V/16MHz](https://www.sparkfun.com/products/12640)
