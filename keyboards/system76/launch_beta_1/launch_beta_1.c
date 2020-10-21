@@ -5,6 +5,9 @@
 
 #include "launch_beta_1.h"
 
+//TODO: refactor
+#include "usb_mux.c"
+
 enum Command {
     // Probe for System76 EC protocol
     CMD_PROBE = 1,
@@ -130,4 +133,12 @@ void matrix_init_kb(void) {
         dynamic_keymap_macro_reset();
         eeprom_set_valid(true);
     }
+
+    usb_mux_init();
+}
+
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+
+    usb_mux_event();
 }
