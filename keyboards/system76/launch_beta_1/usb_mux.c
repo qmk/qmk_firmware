@@ -35,7 +35,8 @@ int usb7206_read_reg(struct USB7206 * self, uint32_t addr, uint8_t * data, int l
         // Direction: 0 = write, 1 = read
         0x01,
         // Number of bytes to read from register
-        length,
+        //TODO: check length
+        length - 1,
         // Register address byte 3
         (uint8_t)(addr >> 24),
         // Register address byte 2
@@ -200,9 +201,9 @@ int usb7206_gpio_set(struct USB7206_GPIO * self, bool value) {
     if (res < 0) return res;
 
     if (value) {
-        data |= (1UL << self->pf);
+        data |= (((uint32_t)1) << self->pf);
     } else {
-        data &= ~(1UL << self->pf);
+        data &= ~(((uint32_t)1) << self->pf);
     }
     return usb7206_write_reg_32(self->usb7206, PIO64_OUT, data);
 }
@@ -222,7 +223,7 @@ int usb7206_gpio_init(struct USB7206_GPIO * self) {
     res = usb7206_read_reg_32(self->usb7206, PIO64_OEN, &data);
     if (res < 0) return res;
 
-    data |= (1 << self->pf);
+    data |= (((uint32_t)1) << self->pf);
     return usb7206_write_reg_32(self->usb7206, PIO64_OEN, data);
 }
 
