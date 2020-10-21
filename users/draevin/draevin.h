@@ -3,9 +3,6 @@
 #include QMK_KEYBOARD_H
 #include "wrappers.h"
 
-#define TAPPING_TOGGLE 2
-#define TAPPING_TERM 150
-
 enum my_layers {
     _CM,
     _QW,
