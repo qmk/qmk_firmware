@@ -26,7 +26,7 @@
 #define cursor_mode 0
 #define carret_mode 1
 #define scroll_mode 2
-uint8_t track_mode = cursor_mode; // 0 Mousecursor; 1 arrowkeys/carret; 2 scrollwheel; 3 sound/brightness
+uint8_t track_mode = scroll_mode; // 0 Mousecursor; 1 arrowkeys/carret; 2 scrollwheel; 3 sound/brightness
 #define sound_brightness_mode 3
 uint8_t prev_track_mode = 0;
 bool integration_mode = false;
@@ -41,10 +41,10 @@ uint16_t carret_threshold_inte = 340; // in integration mode higher threshold
 
 #define regular_smoothscroll_factor 8
 bool smooth_scroll = true;
-uint8_t	scroll_threshold = 8 / regular_smoothscroll_factor;	// divide if started smooth
+uint8_t	scroll_threshold = 800 / regular_smoothscroll_factor;	// divide if started smooth
 uint16_t scroll_threshold_inte = 1200 / regular_smoothscroll_factor;
 
-uint16_t cursor_multiplier = 250;	// adjust cursor speed
+uint16_t cursor_multiplier = 25;	// adjust cursor speed
 uint16_t cursor_multiplier_inte = 20;
 #define CPI_STEP 20
 
@@ -225,44 +225,46 @@ void tap_tb(uint8_t keycode0, uint8_t keycode1, uint8_t keycode2, uint8_t keycod
 
 void handle_pointing_device_modes(void){
 	report_mouse_t mouse_report = pointing_device_get_report();
-
-	if (track_mode == cursor_mode) {
+    cum_x += sensor_y;
+    cum_y -= sensor_x;
+    switch (track_mode)
+    {
+    case cursor_mode:
 		if (integration_mode)
 			cur_factor = cursor_multiplier_inte;
 		else
 			cur_factor = cursor_multiplier;
-		mouse_report.x = CLAMP_HID( sensor_x * cur_factor / 100);
-		mouse_report.y = CLAMP_HID(-sensor_y * cur_factor / 100);
-	} else {
-		// accumulate movement until threshold reached
-		cum_x += sensor_x;
-		cum_y += sensor_y;
-		if (track_mode == carret_mode) {
-			if (integration_mode)
-				cur_factor = carret_threshold_inte;
-			else
-				cur_factor = carret_threshold;
-			tap_tb(KC_RIGHT, KC_LEFT, KC_UP, KC_DOWN);
-
-		} else if(track_mode == scroll_mode) {
-				if (integration_mode)
-					cur_factor = scroll_threshold_inte;
-				else
-					cur_factor = scroll_threshold;
-				if(abs(cum_x) + abs(cum_y) >= cur_factor) {
-					if(abs(cum_x) > abs(cum_y)) {
-						mouse_report.h = sign(cum_x) * (abs(cum_x) + abs(cum_y)) / cur_factor;
-					} else {
-						mouse_report.v = sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor;
-					}
-					cum_x = 0;
-					cum_y = 0;
-				}
-		} else { // sound vol/brightness (3)
-			cur_factor = carret_threshold;
-			tap_tb(KC_BRIGHTNESS_UP, KC_BRIGHTNESS_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN);
-		}
-	}
+		mouse_report.x = CLAMP_HID( sensor_y * cur_factor / 100);
+		mouse_report.y = CLAMP_HID( sensor_x * cur_factor / 100);
+        break;
+    case carret_mode:
+        if (integration_mode)
+            cur_factor = carret_threshold_inte;
+        else
+            cur_factor = carret_threshold;
+        tap_tb(KC_RIGHT, KC_LEFT, KC_UP, KC_DOWN);
+        break;
+    case scroll_mode:
+        if (integration_mode)
+            cur_factor = scroll_threshold_inte;
+        else
+            cur_factor = scroll_threshold;
+        if(abs(cum_x) + abs(cum_y) >= cur_factor) {
+            if(abs(cum_x) > abs(cum_y)) {
+                mouse_report.h = sign(cum_x) * (abs(cum_x) + abs(cum_y)) / cur_factor;
+            } else {
+                mouse_report.v = sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor;
+            }
+            cum_x = 0;
+            cum_y = 0;
+        }
+        break;
+    case sound_brightness_mode:
+        cur_factor = carret_threshold;
+        tap_tb(KC_BRIGHTNESS_UP, KC_BRIGHTNESS_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN);
+    default:
+        break;
+    }
 	pointing_device_set_report(mouse_report);
 	pointing_device_send();
 }
