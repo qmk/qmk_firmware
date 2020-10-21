@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x16D0
-#define PRODUCT_ID 0x0FC9
-#define DEVICE_VER 0x0001
-#define MANUFACTURER monksoffunk
+#define VENDOR_ID 0x04D8
+#define PRODUCT_ID 0xEAC8
+#define DEVICE_VER 0x0000
+#define MANUFACTURER 25KEYS
 #define PRODUCT ALETH42
-#define DESCRIPTION real 42 key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
