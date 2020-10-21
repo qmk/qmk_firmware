@@ -68,7 +68,7 @@ with a normal layout on ‛Default’. How this works is explained below.
 
       • Numbers pad
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_vd.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_ve.jpg)
 
 For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
 
@@ -76,7 +76,7 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 The common system
 =================
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_common_va.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_common_vb.jpg)
 
 Main features 
 -------------
