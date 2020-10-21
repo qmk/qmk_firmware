@@ -20,13 +20,14 @@
 #include "nk65.h"
 #include "drivers/issi/is31fl3733.h"
 
-/* Indicator LEDS are part of the LED driver 
+/* Indicator LEDS are part of the LED driver
  * Top LED is blue only. LED driver 2 RGB 7 Green channel
  * Middle LED is blue and red. LED driver 2 RGB 6 Red and Blue channel
  * Bottom LED is red only LED driver 2 RGB 6 Green channel.
  */
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
+#if INDICATOR_LED_MODE == CAPS_LOCK
     if(res) {
         if (led_state.caps_lock) {
             IS31FL3733_set_color( 7+64-1, 0, 255, 0 );
@@ -34,6 +35,7 @@ bool led_update_kb(led_t led_state) {
             IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
         }
     }
+#endif
     return res;
 }
 
@@ -41,6 +43,9 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t R = 0;
     uint8_t G = 0;
     uint8_t B = 0;
+    int channel = 6;
+
+#ifdef INDICATOR_LED_MODE == CAPS_LOCK
     if (state & (1UL << 1)) {
         R = 255;
         B = 255;
@@ -48,7 +53,20 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     if (state & (1UL << 2)) {
         G = 255;
     }
-    
-    IS31FL3733_set_color( 6+64-1, R, G, B );
+#elif INDICATOR_LED_MODE == LAYERS
+    if (state & (1UL << 1)) {
+        channel = 7;
+        G = 255;
+    }
+    if (state & (1UL << 2)) {
+        R = 255;
+        B = 255;
+    }
+    if (state & (1UL << 3)) {
+        G = 255;
+    }
+#endif
+
+    IS31FL3733_set_color( channel+64-1, R, G, B );
   return state;
 }
