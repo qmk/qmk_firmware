@@ -50,8 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define DIODE_DIRECTION COL2ROW
 
 /* Rotary Encoder */
-#define ENCODERS_PAD_A { F7, B3, B5, B4 }
-#define ENCODERS_PAD_B { F6, B2, D3, D2 }
+#define ENCODERS_PAD_A { F6, B3, B5, B4 }
+#define ENCODERS_PAD_B { F7, B2, D3, D2 }
 #define ENCODER_RESOLUTION 4    //the default & suggested is 4
 
 /* Audio */
