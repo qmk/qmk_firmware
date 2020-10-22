@@ -1,12 +1,12 @@
-# aleth42
+# ALETH42
 
-![aleth42](imgur.com image replace me!)
+![ALETH42](https://i.imgur.com/6hJVBQl.png)
 
-A short description of the keyboard/project
+40% keyboard with rotary encoder (optional)
 
-* Keyboard Maintainer: [monksoffunk](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [monksoffunk](https://github.com/monksoffunk/) [@monksoffunkJP](https://twitter.com/monksoffunkJP)
+* Hardware Supported: ALETH42 PCB
+* Hardware Availability: [twitter](https://twitter.com/monksoffunkJP), [Booth](https://25keys.booth.pm/items/2420095)
 
 Make example for this keyboard (after setting up your build environment):
 
