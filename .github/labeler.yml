@@ -5,8 +5,12 @@ core:
   - tests/**/*
   - util/**/*
   - platforms/**/*
+  - Makefile
+  - '*.mk'
 keyboard:
-- any: ['keyboards/**/*', '!keyboards/**/keymaps/**/*']
+  - any:
+    - 'keyboards/**/*'
+    - '!keyboards/**/keymaps/**/*'
 keymap:
   - users/**/*
   - layouts/**/*
