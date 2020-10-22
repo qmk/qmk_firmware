@@ -30,18 +30,17 @@ jobs:
         echo ${{ github.event.pull_request.base.sha }}
         echo '${{ steps.file_changes.outputs.files}}'
 
-    - name: Prepare ccache
-      id: ccache_prepare
-      shell: 'bash {0}'
+    - name: Get Date
+      id: get-date
       run: |
-        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S")
-        message("::set-output name=timestamp::${current_date}")
+        echo "::set-output name=date::$(/bin/date -u '+%s')"
+      shell: bash
 
     - uses: actions/cache@v2
       with:
         path: |
           .ccache/
-        key: ${{ runner.os }}-ccache-${{ github.ref }}-${{ steps.ccache_prepare.outputs.timestamp }}
+        key: ${{ runner.os }}-ccache-${{ github.ref }}-${{ steps.get-date.outputs.date }}
         # Restoring: From current branch, otherwise from base branch.
         restore-keys: |
           ${{ runner.os }}-ccache-${{ github.ref }}
