@@ -26,13 +26,28 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-#define RGB_DI_PIN E2
-#define RGBLED_NUM 84
-#define DRIVER_LED_TOTAL RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-// Limit brightness to support USB-A at 0.5A
-//TODO: do this dynamically based on power source
-#define RGBLIGHT_LIMIT_VAL 176
+#if RGBLIGHT_ENABLE
+    #define RGB_DI_PIN E2
+    #define RGBLED_NUM 84
+    #define RGBLIGHT_ANIMATIONS
+    // Limit brightness to support USB-A at 0.5A
+    //TODO: do this dynamically based on power source
+    #define RGBLIGHT_LIMIT_VAL 176
+#endif
+
+#if RGB_MATRIX_ENABLE
+    #define RGB_DI_PIN E2
+    #define DRIVER_LED_TOTAL 84
+    #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+    //#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+    //#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    #define RGB_DISABLE_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
+    #define RGB_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_MULTISPLASH // Sets the default mode, if none has been set
+    #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
+#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

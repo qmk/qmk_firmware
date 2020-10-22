@@ -28,7 +28,7 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 DYNAMIC_KEYMAP_ENABLE = yes # Reconfigurable keyboard without flashing firmware
 NKRO_ENABLE = yes           # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RAW_ENABLE = yes            # Enable RAW HID commands (used by keyboard configurator)
-RGBLIGHT_ENABLE = yes       # Support for RGB backlight
+RGBLIGHT_ENABLE = no        # Support for RGB backlight (conflicts with RGB_MATRIX)
 RGB_MATRIX_ENABLE = WS2812  # Support for RGB matrix
 
 # Add System76 EC command interface
