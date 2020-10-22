@@ -258,13 +258,11 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size) {
     Transaction_table_size = (uint8_t)sstd_table_size;
     serial_input_with_pullup();
 
-    // Enable INT0-INT3,INT6
+-    // Enable INT0-INT7
     EIMSK |= EIMSK_BIT;
-#    if SOFT_SERIAL_PIN == E6
-    // Trigger on falling edge of INT6
+#    if EIMSK_BIT >= _BV(INT4)
     EICRB &= EICRx_BIT;
 #    else
-    // Trigger on falling edge of INT0-INT3
     EICRA &= EICRx_BIT;
 #    endif
 }
