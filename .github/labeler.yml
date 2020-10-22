@@ -7,6 +7,10 @@ core:
   - platforms/**/*
   - Makefile
   - '*.mk'
+dependencies:
+  - any:
+    - 'lib/**/*'
+    - '!lib/python/**/*'
 keyboard:
   - any:
     - 'keyboards/**/*'
