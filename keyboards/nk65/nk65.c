@@ -27,15 +27,6 @@
  */
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
-#if INDICATOR_LED_MODE == CAPS_LOCK
-    if(res) {
-        if (led_state.caps_lock) {
-            IS31FL3733_set_color( 7+64-1, 0, 255, 0 );
-        } else {
-            IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
-        }
-    }
-#endif
     return res;
 }
 
@@ -45,15 +36,6 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t B = 0;
     int channel = 6;
 
-#if INDICATOR_LED_MODE == CAPS_LOCK
-    if (state & (1UL << 1)) {
-        R = 255;
-        B = 255;
-    }
-    if (state & (1UL << 2)) {
-        G = 255;
-    }
-#elif INDICATOR_LED_MODE == LAYERS
     if (state & (1UL << 1)) {
         channel = 7;
         G = 255;
@@ -65,7 +47,10 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     if (state & (1UL << 3)) {
         G = 255;
     }
-#endif
+
+    if (channel == 6) {
+      IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
+    }
 
     IS31FL3733_set_color( channel+64-1, R, G, B );
   return state;

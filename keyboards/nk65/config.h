@@ -144,14 +144,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // VIA lighting is handled by the keyboard-level code
 #define VIA_CUSTOM_LIGHTING_ENABLE
-
-// Chooses the mode for the indicator LEDs
-// CAPS_LOCK
-//  Top LED - whether caps lock is on
-//  Middle LED - layer 1 is current layer
-//  Bottom LED - layer 2 is current layer
-// LAYERS
-//  Top LED - layer 1 is current layer
-//  Middle LED - layer 2 is current layer
-//  Bottom LED - layer 3 is current layer
-#define INDICATOR_LED_MODE CAPS_LOCK
