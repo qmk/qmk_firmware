@@ -45,14 +45,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
-	|SFT/ ;|   Q  |   J  |   K  |   X  |      ||      |   B  |   M  |   W  |   V  |SFT/ Z|
+	|SFT/ ;|   Q  |   J  |   K  |   X  | Home || End  |   B  |   M  |   W  |   V  |SFT/ Z|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
 	|  Esc |  Tab |  GUI | LOWER| BkSp | LCTL ||ALTENT|  Spc | RAISE|   -  |   /  |   \  |
 	`-----------------------------------------'`-----------------------------------------' */
   [_DVORAK] = LAYOUT(
     KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
     KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
-    SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    _______, _______, KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
+    SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LCTL, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
   ),
 
@@ -62,14 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   S  |   D  |   F  |   G  |              |   H  |   J  |   K  |   L  |   ;  |
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
-	|SFT/ Z|   X  |   C  |   V  |   B  |      ||      |   N  |   M  |   ,  |   .  |SFT/ /|
+	|SFT/ Z|   X  |   C  |   V  |   B  | Home || End  |   N  |   M  |   ,  |   .  |SFT/ /|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
 	|  Esc |  Tab |  GUI | LOWER| BkSp | LCTL ||ALTENT|  Spc | RAISE|   -  |   '  |   \  |
 	`-----------------------------------------'`-----------------------------------------' */
   [_QWERTY] = LAYOUT(
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   ,
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-    SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
+    SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_HOME, KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LCTL, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS
   ),
 
@@ -79,14 +79,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   R  |   S  |   T  |   D  |              |   H  |   N  |   E  |   I  |   S  |
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
-	|SFT/ Z|   X  |   C  |   V  |   B  |      ||      |   K  |   M  |   ,  |   .  |SFT/ /|
+	|SFT/ Z|   X  |   C  |   V  |   B  | Home || End  |   K  |   M  |   ,  |   .  |SFT/ /|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
 	|  Esc |  Tab |  GUI | LOWER| BkSp | LCTL ||ALTENT|  Spc | RAISE|   -  |   '  |   \  |
 	`-----------------------------------------'`-----------------------------------------'*/
   [_COLEMAK] = LAYOUT(
     KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
     KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O   ,
-    SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_K,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
+    SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_HOME, KC_END,  KC_K,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH,
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LCTL, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS
   ),
 
@@ -96,14 +96,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
-	|SFT/ ;|   Q  |   J  |   K  |   X  |      ||      |   B  |   M  |   W  |   V  |SFT/ Z|
+	|SFT/ ;|   Q  |   J  |   K  |   X  | Home || End  |   B  |   M  |   W  |   V  |SFT/ Z|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
 	|  Esc |  Tab |  GUI | LOWER| BkSp | LGUI ||ALTENT|  Spc | RAISE|   -  |   /  |   \  |
 	`-----------------------------------------'`-----------------------------------------' */
   [_DVORMAC] = LAYOUT(
     KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
     KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
-    SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    _______, _______, KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
+    SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
     ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LGUI, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
   ),
 
