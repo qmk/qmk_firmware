@@ -1,6 +1,21 @@
 # Numpad 5x4 Keymap by [Sendy YK](https://mr.sendyyk.com).
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/numpad-5x4-keymap.png)
+```c
+    /*
+     * [_BASE]
+     * ┌───┬───┬───┬───┐
+     * │NLc│÷  │x  │-  │
+     * ├───┼───┼───┼───┤
+     * │7  │8  │9  │   │
+     * ├───┼───┼───┤+  │
+     * │4  │4  │6  │   │
+     * ├───┼───┼───┼───┤
+     * │1  │2  │3  │   │
+     * ├───┴───┼───┤Ent│
+     * │0      │.  │   │
+     * └───────┴───┴───┘
+     */
+```
 
 ## Build The Firmware
 

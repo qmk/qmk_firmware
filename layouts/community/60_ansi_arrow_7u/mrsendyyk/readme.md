@@ -4,11 +4,41 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
 
 ## Default Layer
 
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60-ansi-arrow-7u-keymap-base.png)
+```c
+    /*
+     * [_BASE] Default Layer
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+     * │Esc│1  │2  │3  │4  │5  │6  │7  │8  │9  │0  │-  │+  │Bspc   │
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+     * │Tab  │Q  │W  │E  │R  │T  │Y  │U  │I  │O  │P  │[  │]  │\    │
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+     * │Caps  │A  │S  │D  │F  │G  │H  │J  │K  │L  │;  │'  │Enter   │
+     * ├──────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬───────┤
+     * │Shift  │Z  │X  │C  │V  │B  │N  │M  │,  │.  │/  │↑  │Shift  │
+     * ├─────┬─┴─┬─┴───┼───┴───┴───┴───┴───┴───┴───┼───┼───┼───┬───┤
+     * │Ctl  │OS │Alt  │Space                      │←  │↓  │→  │Fn │
+     * └─────┴───┴─────┴───────────────────────────┴───┴───┴───┴───┘
+     */
+```
 
 ## Fn Layer
 
-![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60-ansi-arrow-7u-keymap-fn.png)
+```c
+    /*
+     * [[_FN]] Fn Layer
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+     * │`  │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Delete │
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+     * │Bri U│   │   │End│Rst│   │   │   │Ins│   │PSc│   │   │Eject│
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+     * │Bri D │   │SLc│   │   │   │Hom│   │   │   │   │   │Mute    │
+     * ├──────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬───────┤
+     * │Vol +  │   │   │Cal│   │   │NLc│Mai│   │   │MSt│PgU│Pause  │
+     * ├─────┬─┴─┬─┴───┼───┴───┴───┴───┴───┴───┴───┼───┼───┼───┬───┤
+     * │Vol -│Rwd│FFd  │Play/Pause                 │Prv│PgD│Nxt│   │
+     * └─────┴───┴─────┴───────────────────────────┴───┴───┴───┴───┘
+     */
+```
 
 ## RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator
 
