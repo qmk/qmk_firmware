@@ -349,13 +349,13 @@ switch (keycode) {
 
 // 1st LED
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_WHITE}
+    {0, 2, HSV_WHITE}
 );
 const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_BLUE}
+    {0, 2, HSV_BLUE}
 );
 const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_YELLOW}
+    {0, 2, HSV_YELLOW}
 );
 
 // 2nd LED
