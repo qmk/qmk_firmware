@@ -20,10 +20,6 @@
  *    QWERTY layer.
  *  - The "Git" one shot function goes to the macro layer which has Git
  *    commands implemented.
- *  - The "Convc" momentary function goes to the Convenience layer which has a
- *    tenkey.  Note: The tenkey will operate using the secondary functions if
- *    the Number Lock is not enabled (e.g., Left and Right instead of 4 and
- *    6).
  *  - The Right Shift key also doubles as an Enter key if it is tapped rather
  *    than held.
  *
@@ -46,7 +42,7 @@
 #define _____________________QWERTY_R1_____________________  KC_Y,     KC_U,     KC_I,     KC_O,      KC_P,     KC_BSPC
 #define _____________________QWERTY_R2_____________________  KC_H,     KC_J,     KC_K,     KC_L,      KC_SCLN,  KC_QUOT
 #define _____________________QWERTY_R3_____________________  KC_N,     KC_M,     KC_COMM,  KC_DOT,    KC_SLSH,  MC_RSFE
-#define _____________________QWERTY_R4_____________________  KC_SPC,   RAISE,    KC_BSLS,  OSL(_GT),  TO(_GW),  XXXXXXX
+#define _____________________QWERTY_R4_____________________  KC_SPC,   RAISE,    KC_BSLS,  OSL(_GT),  TO(_GG),  XXXXXXX
 
 /* Raise Layer
  *
@@ -212,6 +208,52 @@
 #define ___________________CONVENIENCE_R2__________________  MC_vtdl,  MC_vtdc,  MC_vtdn,  MC_vtdr,  XXXXXXX,  XXXXXXX
 #define ___________________CONVENIENCE_R3__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ___________________CONVENIENCE_R4__________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+
+/* General Game Layer
+ *
+ * ,-----------------------------------.  ,-----------------------------------.
+ * |  `  |  1  |  2  |  3  |  4  |  5  |  |  6  |  7  |  8  |  9  |  0  |BkSpc|
+ * |-----------------------------------|  |-----------------------------------|
+ * | Tab |  Q  |  W  |  E  |  R  |  T  |  |  Y  |  U  |  I  |  O  |  P  |  \  |
+ * |-----------------------------------|  |-----------------------------------|
+ * |Sf/Ec|  A  |  S  |  D  |  F  |  G  |  |  H  |  J  |  K  |  L  |  ;  |Enter|
+ * |-----------------------------------|  |-----------------------------------|
+ * | Ctl |  Z  | Alt |  X  |  C  |Space|  |Space|  M  |  B  |  .  |Nxt L|Rst L|
+ * `-----------------------------------'  `-----------------------------------'
+ */
+
+#define ________________General_Game_4x12_L1_______________  KC_GRV,   KC_1,  KC_2,     KC_3,    KC_4,     KC_5
+#define ________________General_Game_4x12_L2_______________  KC_TAB,   KC_Q,  KC_W,     KC_E,    KC_R,     KC_T
+#define ________________General_Game_4x12_L3_______________  MC_LSEC,  KC_A,  KC_S,     KC_D,    KC_F,     KC_G
+#define ________________General_Game_4x12_L4_______________  KC_LCTL,  KC_Z,  KC_LALT,  KC_X,    KC_C,     KC_SPC
+
+#define ________________General_Game_4x12_R1_______________  KC_6,     KC_7,  KC_8,     KC_9,    KC_0,     KC_BSPC
+#define ________________General_Game_4x12_R2_______________  KC_Y,     KC_U,  KC_I,     KC_O,    KC_P,     KC_BSLS
+#define ________________General_Game_4x12_R3_______________  KC_H,     KC_J,  KC_K,     KC_L,    KC_SCLN,  KC_ENT
+#define ________________General_Game_4x12_R4_______________  KC_SPC,   KC_M,  KC_B,     KC_DOT,  TO(_CS),  TO(_QW)
+
+/* CS:GO Layer
+ *
+ * ,-----------------------------------.  ,-----------------------------------.
+ * |     |  1  |  2  |  3  |  4  |  5  |  |  6  |  7  |  8  |  9  |  0  |BkSpc|
+ * |-----------------------------------|  |-----------------------------------|
+ * | Tab |  Q  |  W  |  E  |  R  |  T  |  |  Y  |  4  |  5  |  6  |     |NmLck|
+ * |-----------------------------------|  |-----------------------------------|
+ * |Shift|  A  |  S  |  D  |  F  |  G  |  |  H  |  1  |  2  |  3  |Enter| Esc |
+ * |-----------------------------------|  |-----------------------------------|
+ * | Ctl |  Z  | Alt |  X  |  B  |Space|  |Space|  0  |  0  |  .  |Nxt L|Rst L|
+ * `-----------------------------------'  `-----------------------------------'
+ */
+
+#define ___________________CSGO_4x12_L1____________________  XXXXXXX, KC_1,   KC_2,     KC_3,     KC_4,     KC_5
+#define ___________________CSGO_4x12_L2____________________  KC_TAB,  KC_Q,   KC_W,     KC_E,     KC_R,     KC_T
+#define ___________________CSGO_4x12_L3____________________  KC_LSFT, KC_A,   KC_S,     KC_D,     KC_F,     KC_G
+#define ___________________CSGO_4x12_L4____________________  KC_LCTL, KC_Z,   KC_LALT,  KC_X,     KC_B,     KC_SPC
+
+#define ___________________CSGO_4x12_R1____________________  KC_6,    KC_P7,  KC_P8,    KC_P9,    KC_0,     KC_BSPC
+#define ___________________CSGO_4x12_R2____________________  KC_Y,    KC_P4,  KC_P5,    KC_P6,    XXXXXXX,  KC_NLCK
+#define ___________________CSGO_4x12_R3____________________  KC_H,    KC_P1,  KC_P2,    KC_P3,    KC_PENT,  KC_ESC
+#define ___________________CSGO_4x12_R4____________________  KC_SPC,  KC_P0,  KC_P0,    KC_PDOT,  TO(_QW),  TO(_QW)
 
 /* Convenience macros
  *

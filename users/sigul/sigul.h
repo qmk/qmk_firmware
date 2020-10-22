@@ -25,6 +25,7 @@ enum userspace_custom_keycodes {
   SECRET2,
   SECRET3, 
   SECRET4,
+  SECRET5,
   NEW_SAFE_RANGE // start new keyboard-level declarations with NEW_SAFE_RANGE
 };
 
@@ -35,7 +36,6 @@ enum userspace_custom_keycodes {
 #define RAISE TT(_RAISE)
 #define NUMPAD TG(_NUMPAD)
 #define FN MO(_FN)
-#define MOUSE TT(_MOUSE)
 #define TABFN LT(_FN, KC_TAB)
 #define ESCFN LT(_FN, KC_ESC)
 #define MS_B LT(_MOUSE, IT_B)

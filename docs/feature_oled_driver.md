@@ -72,6 +72,43 @@ static void render_logo(void) {
 }
 ```
 
+## Buffer Read Example
+For some purposes, you may need to read the current state of the OLED display
+buffer. The `oled_read_raw` function can be used to safely read bytes from the
+buffer.
+
+In this example, calling `fade_display` in the `oled_task_user` function will
+slowly fade away whatever is on the screen by turning random pixels black over
+time.
+```c
+//Setup some mask which can be or'd with bytes to turn off pixels
+const uint8_t single_bit_masks[8] = {127, 191, 223, 239, 247, 251, 253, 254};
+
+static void fade_display(void) {
+    //Define the reader structure
+    oled_buffer_reader_t reader;
+    uint8_t buff_char;
+    if (random() % 30 == 0) {
+        srand(timer_read());
+        // Fetch a pointer for the buffer byte at index 0. The return structure
+        // will have the pointer and the number of bytes remaining from this
+        // index position if we want to perform a sequential read by
+        // incrementing the buffer pointer
+        reader = oled_read_raw(0);
+        //Loop over the remaining buffer and erase pixels as we go
+        for (uint16_t i = 0; i < reader.remaining_element_count; i++) {
+            //Get the actual byte in the buffer by dereferencing the pointer
+            buff_char = *reader.current_element;
+            if (buff_char != 0) {
+                oled_write_raw_byte(buff_char & single_bit_masks[rand() % 8], i);
+            }
+            //increment the pointer to fetch a new byte during the next loop
+            reader.current_element++;
+        }
+    }
+}
+```
+
 ## Other Examples
 
 In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
@@ -238,6 +275,10 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
+// Returns a pointer to the requested start index in the buffer plus remaining
+// buffer length as struct
+oled_buffer_reader_t oled_read_raw(uint16_t start_index);
+
 // Writes a string to the buffer at current cursor position
 void oled_write_raw(const char *data, uint16_t size);
 
@@ -247,6 +288,10 @@ void oled_write_raw_byte(const char data, uint16_t index);
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
 
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
+
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
 bool oled_on(void);
@@ -254,6 +299,10 @@ bool oled_on(void);
 // Can be used to manually turn off the screen if it is on
 // Returns true if the screen was off or turns off
 bool oled_off(void);
+
+// Returns true if the oled is currently on, false if it is
+// not
+bool is_oled_on(void);
 
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);

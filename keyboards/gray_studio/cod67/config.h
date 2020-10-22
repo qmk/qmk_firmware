@@ -52,6 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * https://docs.qmk.fm/#/feature_backlight?id=timer-assisted-pwm-implementation
  */
 #define BACKLIGHT_PIN D4
+#define BACKLIGHT_ON_STATE 0
 
 #define RGB_DI_PIN B2
 #ifdef RGB_DI_PIN

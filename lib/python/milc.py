@@ -18,9 +18,11 @@ import logging
 import os
 import re
 import shlex
+import subprocess
 import sys
 from decimal import Decimal
 from pathlib import Path
+from platform import platform
 from tempfile import NamedTemporaryFile
 from time import sleep
 
@@ -94,29 +96,54 @@ def format_ansi(text):
     return text + ansi_colors['style_reset_all']
 
 
-class ANSIFormatter(logging.Formatter):
-    """A log formatter that inserts ANSI color.
+class ANSIFormatterMixin(object):
+    """A log formatter mixin that inserts ANSI color.
     """
     def format(self, record):
-        msg = super(ANSIFormatter, self).format(record)
+        msg = super(ANSIFormatterMixin, self).format(record)
         return format_ansi(msg)
 
 
-class ANSIEmojiLoglevelFormatter(ANSIFormatter):
-    """A log formatter that makes the loglevel an emoji on UTF capable terminals.
+class ANSIStrippingMixin(object):
+    """A log formatter mixin that strips ANSI.
+    """
+    def format(self, record):
+        msg = super(ANSIStrippingMixin, self).format(record)
+        record.levelname = ansi_escape.sub('', record.levelname)
+        return ansi_escape.sub('', msg)
+
+
+class EmojiLoglevelMixin(object):
+    """A log formatter mixin that makes the loglevel an emoji on UTF capable terminals.
     """
     def format(self, record):
         if UNICODE_SUPPORT:
             record.levelname = EMOJI_LOGLEVELS[record.levelname].format(**ansi_colors)
-        return super(ANSIEmojiLoglevelFormatter, self).format(record)
+        return super(EmojiLoglevelMixin, self).format(record)
 
 
-class ANSIStrippingFormatter(ANSIFormatter):
-    """A log formatter that strips ANSI.
+class ANSIFormatter(ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that colorizes output.
     """
-    def format(self, record):
-        msg = super(ANSIStrippingFormatter, self).format(record)
-        return ansi_escape.sub('', msg)
+    pass
+
+
+class ANSIStrippingFormatter(ANSIStrippingMixin, ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that strips ANSI
+    """
+    pass
+
+
+class ANSIEmojiLoglevelFormatter(EmojiLoglevelMixin, ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that adds Emoji and ANSI
+    """
+    pass
+
+
+class ANSIStrippingEmojiLoglevelFormatter(ANSIStrippingMixin, EmojiLoglevelMixin, ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that adds Emoji and strips ANSI
+    """
+    pass
 
 
 class Configuration(object):
@@ -242,15 +269,24 @@ class SubparserWrapper(object):
 
         This also stores the default for the argument in `self.cli.default_arguments`.
         """
-        if 'action' in kwargs and kwargs['action'] == 'store_boolean':
+        if kwargs.get('action') == 'store_boolean':
             # Store boolean will call us again with the enable/disable flag arguments
             return handle_store_boolean(self, *args, **kwargs)
 
         self.cli.acquire_lock()
+        argument_name = self.cli.get_argument_name(*args, **kwargs)
+
         self.subparser.add_argument(*args, **kwargs)
+
+        if kwargs.get('action') == 'store_false':
+            self.cli._config_store_false.append(argument_name)
+
+        if kwargs.get('action') == 'store_true':
+            self.cli._config_store_true.append(argument_name)
+
         if self.submodule not in self.cli.default_arguments:
             self.cli.default_arguments[self.submodule] = {}
-        self.cli.default_arguments[self.submodule][self.cli.get_argument_name(*args, **kwargs)] = kwargs.get('default')
+        self.cli.default_arguments[self.submodule][argument_name] = kwargs.get('default')
         self.cli.release_lock()
 
 
@@ -268,20 +304,23 @@ class MILC(object):
 
         # Define some basic info
         self.acquire_lock()
+        self._config_store_true = []
+        self._config_store_false = []
         self._description = None
         self._entrypoint = None
         self._inside_context_manager = False
         self.ansi = ansi_colors
-        self.arg_only = []
+        self.arg_only = {}
         self.config = self.config_source = None
         self.config_file = None
         self.default_arguments = {}
         self.version = 'unknown'
-        self.release_lock()
+        self.platform = platform()
 
         # Figure out our program name
         self.prog_name = sys.argv[0][:-3] if sys.argv[0].endswith('.py') else sys.argv[0]
         self.prog_name = self.prog_name.split('/')[-1]
+        self.release_lock()
 
         # Initialize all the things
         self.read_config_file()
@@ -304,6 +343,8 @@ class MILC(object):
         strings.
 
         If *args or **kwargs are passed they will be used to %-format the strings.
+
+        If `self.config.general.color` is False any ANSI escape sequences in the text will be stripped.
         """
         if args and kwargs:
             raise RuntimeError('You can only specify *args or **kwargs, not both!')
@@ -311,7 +352,26 @@ class MILC(object):
         args = args or kwargs
         text = format_ansi(text)
 
+        if not self.config.general.color:
+            text = ansi_escape.sub('', text)
+
         print(text % args)
+
+    def run(self, command, *args, **kwargs):
+        """Run a command with subprocess.run
+        The *args and **kwargs arguments get passed directly to `subprocess.run`.
+        """
+        if isinstance(command, str):
+            raise TypeError('`command` must be a non-text sequence such as list or tuple.')
+
+        if 'windows' in self.platform.lower():
+            safecmd = map(shlex.quote, command)
+            safecmd = ' '.join(safecmd)
+            command = [os.environ['SHELL'], '-c', safecmd]
+
+        self.log.debug('Running command: %s', command)
+
+        return subprocess.run(command, *args, **kwargs)
 
     def initialize_argparse(self):
         """Prepare to process arguments from sys.argv.
@@ -377,7 +437,7 @@ class MILC(object):
         self.add_argument('--log-file', help='File to write log messages to')
         self.add_argument('--color', action='store_boolean', default=True, help='color in output')
         self.add_argument('--config-file', help='The location for the configuration file')
-        self.arg_only.append('config_file')
+        self.arg_only['config_file'] = ['general']
 
     def add_subparsers(self, title='Sub-commands', **kwargs):
         if self._inside_context_manager:
@@ -427,17 +487,20 @@ class MILC(object):
             raise RuntimeError('You must run this before the with statement!')
 
         def argument_function(handler):
-            if 'arg_only' in kwargs and kwargs['arg_only']:
+            subcommand_name = handler.__name__.replace("_", "-")
+
+            if kwargs.get('arg_only'):
                 arg_name = self.get_argument_name(*args, **kwargs)
-                self.arg_only.append(arg_name)
+                if arg_name not in self.arg_only:
+                    self.arg_only[arg_name] = []
+                self.arg_only[arg_name].append(subcommand_name)
                 del kwargs['arg_only']
 
-            name = handler.__name__.replace("_", "-")
             if handler is self._entrypoint:
                 self.add_argument(*args, **kwargs)
 
-            elif name in self.subcommands:
-                self.subcommands[name].add_argument(*args, **kwargs)
+            elif subcommand_name in self.subcommands:
+                self.subcommands[subcommand_name].add_argument(*args, **kwargs)
 
             else:
                 raise RuntimeError('Decorated function is not entrypoint or subcommand!')
@@ -511,35 +574,37 @@ class MILC(object):
             if argument in ('subparsers', 'entrypoint'):
                 continue
 
-            if argument not in self.arg_only:
-                # Find the argument's section
-                # Underscores in command's names are converted to dashes during initialization.
-                # TODO(Erovia) Find a better solution
-                entrypoint_name = self._entrypoint.__name__.replace("_", "-")
-                if entrypoint_name in self.default_arguments and argument in self.default_arguments[entrypoint_name]:
-                    argument_found = True
-                    section = self._entrypoint.__name__
-                if argument in self.default_arguments['general']:
-                    argument_found = True
-                    section = 'general'
+            # Find the argument's section
+            # Underscores in command's names are converted to dashes during initialization.
+            # TODO(Erovia) Find a better solution
+            entrypoint_name = self._entrypoint.__name__.replace("_", "-")
+            if entrypoint_name in self.default_arguments and argument in self.default_arguments[entrypoint_name]:
+                argument_found = True
+                section = self._entrypoint.__name__
+            if argument in self.default_arguments['general']:
+                argument_found = True
+                section = 'general'
 
-                if not argument_found:
-                    raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
-                    exit(1)
+            if not argument_found:
+                raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
+                exit(1)
+
+            if argument not in self.arg_only or section not in self.arg_only[argument]:
+                # Determine the arg value and source
+                arg_value = getattr(self.args, argument)
+                if argument in self._config_store_true and arg_value:
+                    passed_on_cmdline = True
+                elif argument in self._config_store_false and not arg_value:
+                    passed_on_cmdline = True
+                elif arg_value is not None:
+                    passed_on_cmdline = True
+                else:
+                    passed_on_cmdline = False
 
                 # Merge this argument into self.config
-                if argument in self.default_arguments['general'] or argument in self.default_arguments[entrypoint_name]:
-                    arg_value = getattr(self.args, argument)
-                    if arg_value is not None:
-                        self.config[section][argument] = arg_value
-                        self.config_source[section][argument] = 'argument'
-                else:
-                    if argument not in self.config[entrypoint_name]:
-                        # Check if the argument exist for this section
-                        arg = getattr(self.args, argument)
-                        if arg is not None:
-                            self.config[section][argument] = arg
-                            self.config_source[section][argument] = 'argument'
+                if passed_on_cmdline and (argument in self.default_arguments['general'] or argument in self.default_arguments[entrypoint_name] or argument not in self.config[entrypoint_name]):
+                    self.config[section][argument] = arg_value
+                    self.config_source[section][argument] = 'argument'
 
         self.release_lock()
 
@@ -662,14 +727,13 @@ class MILC(object):
             self.log_print_level = logging.DEBUG
 
         self.log_file = self.config['general']['log_file'] or self.log_file
-        self.log_file_format = self.config['general']['log_file_fmt']
         self.log_file_format = ANSIStrippingFormatter(self.config['general']['log_file_fmt'], self.config['general']['datetime_fmt'])
         self.log_format = self.config['general']['log_fmt']
 
         if self.config.general.color:
-            self.log_format = ANSIEmojiLoglevelFormatter(self.args.log_fmt, self.config.general.datetime_fmt)
+            self.log_format = ANSIEmojiLoglevelFormatter(self.config.general.log_fmt, self.config.general.datetime_fmt)
         else:
-            self.log_format = ANSIStrippingFormatter(self.args.log_fmt, self.config.general.datetime_fmt)
+            self.log_format = ANSIStrippingEmojiLoglevelFormatter(self.config.general.log_fmt, self.config.general.datetime_fmt)
 
         if self.log_file:
             self.log_file_handler = logging.FileHandler(self.log_file, self.log_file_mode)

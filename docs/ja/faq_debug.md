@@ -1,8 +1,8 @@
 # デバッグの FAQ
 
 <!---
-  original document: 376419a4f:docs/faq_debug.md
-  git diff 376419a4f HEAD -- docs/faq_debug.md | cat
+  original document: 0.10.33:docs/faq_debug.md
+  git diff 0.10.33 HEAD -- docs/faq_debug.md | cat
 -->
 
 このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。
@@ -35,20 +35,6 @@ Linux のような OS でデバイスにアクセスするには、権限が必�
 - `debug_enable=true` を設定します。[テストとデバッグ](ja/newbs_testing_debugging.md#debugging)を見てください
 - デバッグ print の代わりに 'print' 関数を使ってみてください。**common/print.h** を見てください。
 - コンソール機能を持つ他のデバイスを切断します。[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97) を見てください。
-
-## Linux あるいは UNIX のようなシステムはスーパーユーザ権限を必要とします
-権限付きで *hid_listen* を実行するために 'sudo' を使ってください。
-```
-$ sudo hid_listen
-```
-
-または rules ディレクトリにファイルを置いて、TMK デバイスのための *udev rule* を追加します。ディレクトリは各システムで異なるかもしれません。
-
-File: /etc/udev/rules.d/52-tmk-keyboard.rules (Ubuntu の場合)
-```
-# tmk keyboard products     https://github.com/tmk/tmk_keyboard
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
-```
 
 ***
 
@@ -152,10 +138,3 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
-
-
-
-## FLIP が動作しない
-### `AtLibUsbDfu.dll` が見つかりません
-デバイスマネージャから現在のドライバを削除し、FLIP が提供するものを再インストールします。
-http://imgur.com/a/bnwzy
