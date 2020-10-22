@@ -45,7 +45,7 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t B = 0;
     int channel = 6;
 
-#ifdef INDICATOR_LED_MODE == CAPS_LOCK
+#if INDICATOR_LED_MODE == CAPS_LOCK
     if (state & (1UL << 1)) {
         R = 255;
         B = 255;
