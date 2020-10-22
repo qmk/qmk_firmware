@@ -159,7 +159,7 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
      $(info -- CONSOLE_ENABLE     = $(CONSOLE_ENABLE))
      $(info -- OPT_DEFS           = $(OPT_DEFS))
      $(info -- SPLIT_KEYBOARD     = $(SPLIT_KEYBOARD))
-     $(info -- LINK_TIME_OPTIMIZATION_ENABLE = $(LINK_TIME_OPTIMIZATION_ENABLE))
+     $(info -- LTO_ENABLE         = $(LTO_ENABLE))
      $(info )
   endif
 endif
