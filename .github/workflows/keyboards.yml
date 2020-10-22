@@ -24,17 +24,28 @@ jobs:
       with:
         output: '\n'
 
-    - name: Print info
+    - name: Print git info
       run: |
         git rev-parse --short HEAD
         echo ${{ github.event.pull_request.base.sha }}
         echo '${{ steps.file_changes.outputs.files}}'
 
+    - name: Prepare ccache
+      id: ccache_prepare
+      shell: 'bash {0}'
+      run: |
+        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S")
+        message("::set-output name=timestamp::${current_date}")
+
     - uses: actions/cache@v2
       with:
         path: |
           .ccache/
-        key: pr-keyboard-${{ github.event.number }}
+        key: ${{ runner.os }}-ccache-${{ github.ref }}-${{ steps.ccache_prepare.outputs.timestamp }}
+        # Restoring: From current branch, otherwise from base branch.
+        restore-keys: |
+          ${{ runner.os }}-ccache-${{ github.ref }}
+          ${{ runner.os }}-ccache-${{ github.base_ref }}
 
     - name: Build 
       shell: 'bash {0}'
@@ -45,3 +56,4 @@ jobs:
         export PATH="/usr/lib/ccache:$PATH"
         export CCACHE_DIR=.ccache
         make all:default
+        ccache -s
