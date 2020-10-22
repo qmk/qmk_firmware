@@ -17,6 +17,6 @@
 #pragma once
 
 // place overrides here
-// #define ENCODER_RESOLUTION 4
 // #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
+#define ENCODER_RESOLUTION 2
