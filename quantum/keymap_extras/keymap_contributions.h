@@ -14,7 +14,7 @@
 #define PL_08 ALGR(KC_C) // ć
 #define PL_09 ALGR(KC_A) // ą
 
-//Kazakh programmer, contributed by Zhanibek Adilbekov
+//Kazakh, contributed by Zhanibek Adilbekov
 #define KK_01 KC_SLASH    // №
 #define KK_02 KC_DOT      // ю
 #define KK_03 KC_COMMA    // б
