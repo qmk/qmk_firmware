@@ -78,11 +78,9 @@ def run(command, *args, **kwargs):
     if isinstance(command, str):
         raise TypeError('`command` must be a non-text sequence such as list or tuple.')
 
-    # Make sure all elements of `command` are strings
-    command = map(str, command)
-
     if 'windows' in platform_id:
-        safecmd = map(shlex.quote, command)
+        safecmd = map(str, command)
+        safecmd = map(shlex.quote, safecmd)
         safecmd = ' '.join(safecmd)
         command = [os.environ['SHELL'], '-c', safecmd]
 
