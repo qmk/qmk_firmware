@@ -221,49 +221,59 @@ typedef ioline_t pin_t;
 #endif
 
 // Atomic macro to help make GPIO and other controls atomic.
-#ifdef DUMMY_ATOMIC_BLOCK
-  // do nothing sample
-  #define ATOMIC_BLOCK for ( uint8_t __ToDo = 1; __ToDo ; __ToDo = 0 )
-  #define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK
-  #define ATOMIC_BLOCK_FORCEON      ATOMIC_BLOCK
+#ifdef IGNORE_ATOMIC_BLOCK
+/* do nothing atomic macro */
+#    define ATOMIC_BLOCK for (uint8_t __ToDo = 1; __ToDo; __ToDo = 0)
+#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK
 
-/* AVR atomic part */
 #elif defined(__AVR__)
-  #include <util/atomic.h>
+/* atomic macro for AVR */
+#    include <util/atomic.h>
 
-  #define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-  #define ATOMIC_BLOCK_FORCEON      ATOMIC_BLOCK(ATOMIC_FORCEON)
+#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
 
-/* ChibiOS atomic part */
-#elif defined(PROTOCOL_CHIBIOS)
+#elif defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_ARM_ATSAM)
+/* atomic macro for ChibiOS / ARM ATSAM */
+#    if defined(PROTOCOL_ARM_ATSAM)
+#        include "arm_atsam_protocol.h"
+#    endif
 
-static __inline__ uint8_t __chSysLock(void) {
-    chSysLock(); /* interrupt disable */
+static __inline__ uint8_t __interrupt_disable__(void) {
+#    if defined(PROTOCOL_CHIBIOS)
+    chSysLock();
+#    endif
+#    if defined(PROTOCOL_ARM_ATSAM)
+    __disable_irq();
+#    endif
     return 1;
 }
 
-static __inline__ void __chSysUnlock(const uint8_t *__s) {
-    chSysUnlock(); /* interrupt enable */
-    __asm__ volatile ("" ::: "memory");
+static __inline__ void __interrupt_enable__(const uint8_t *__s) {
+#    if defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
+#    endif
+#    if defined(PROTOCOL_ARM_ATSAM)
+    __enable_irq();
+#    endif
+    __asm__ volatile("" ::: "memory");
     (void)__s;
 }
 
-  #define ATOMIC_BLOCK(type) for ( type, __ToDo = __chSysLock(); \
-                                   __ToDo ; __ToDo = 0 )
-  #define ATOMIC_FORCEON uint8_t sreg_save \
-                         __attribute__((__cleanup__(__chSysUnlock))) = 0
+#    define ATOMIC_BLOCK(type) for (type, __ToDo = __interrupt_disable__(); __ToDo; __ToDo = 0)
+#    define ATOMIC_FORCEON uint8_t sreg_save __attribute__((__cleanup__(__interrupt_enable__))) = 0
 
-  #define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
-  #define ATOMIC_BLOCK_FORCEON      ATOMIC_BLOCK(ATOMIC_FORCEON)
+#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
 
-/* Other platform part */
+/* Other platform */
 #else
 
-#define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
-#define ATOMIC_BLOCK_FORCEON _Static_assert(0, "ATOMIC_BLOCK_FORCEON dose not implement")
+#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
+#    define ATOMIC_BLOCK_FORCEON _Static_assert(0, "ATOMIC_BLOCK_FORCEON dose not implement")
 
 #endif
-
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
