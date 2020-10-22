@@ -49,7 +49,7 @@ jobs:
     - name: Build 
       shell: 'bash {0}'
       env:
-        MAKEFLAGS: '-j --output-sync'
+        MAKEFLAGS: '-j3 --output-sync'
       run: |
         apt-get update && apt-get install --no-install-recommends -y ccache
         export PATH="/usr/lib/ccache:$PATH"
