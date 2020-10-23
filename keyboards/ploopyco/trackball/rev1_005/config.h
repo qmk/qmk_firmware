@@ -36,7 +36,12 @@
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default
 #define UNUSED_PINS \
-    { D1, D3, B4, B5, B7, D6, C7, F6, F5, F3, F7 }
+    { D1, D3, B4, B7, D6, C7, F6, F5, F3, F7 }
 
 // If board has a debug LED, you can enable it by defining this
-#define DEBUG_LED_PIN B5
+#define RGB_DI_PIN B5
+#define RGBLED_NUM 3
+#define RGBLIGHT_LIMIT_VAL 40
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
