@@ -258,7 +258,7 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size) {
     Transaction_table_size = (uint8_t)sstd_table_size;
     serial_input_with_pullup();
 
--    // Enable INT0-INT7
+    // Enable INT0-INT7
     EIMSK |= EIMSK_BIT;
 #    if EIMSK_BIT >= _BV(INT4)
     EICRB &= EICRx_BIT;
