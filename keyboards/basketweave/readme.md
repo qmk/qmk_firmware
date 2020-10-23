@@ -1,6 +1,6 @@
 # Basketweave
 
-![Basketweave](https://i.imgur.com/lXhMxQU.jpg)
+![Basketweave](https://i.imgur.com/lXhMxQUl.jpg)
 
 A through-hole Alice style keyboard with arrow keys and a rotary encoder
 
