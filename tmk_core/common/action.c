@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
-#ifdef RETRO_TAPPING
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
 int retro_tapping_counter = 0;
 #endif
 
@@ -53,6 +53,10 @@ int retro_tapping_counter = 0;
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
+#endif
+
+#ifdef RETRO_TAPPING_PER_KEY
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
 #ifndef TAP_CODE_DELAY
@@ -71,7 +75,7 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#ifdef RETRO_TAPPING
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
         retro_tapping_counter++;
 #endif
     }
@@ -725,20 +729,23 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    ifdef RETRO_TAPPING
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
     if (!is_tap_action(action)) {
         retro_tapping_counter = 0;
     } else {
         if (event.pressed) {
             if (tap_count > 0) {
                 retro_tapping_counter = 0;
-            } else {
             }
         } else {
             if (tap_count > 0) {
                 retro_tapping_counter = 0;
             } else {
-                if (retro_tapping_counter == 2) {
+                if (
+     #    ifdef RETRO_TAPPING_PER_KEY
+                    get_retro_tapping(get_event_keycode(record->event, false), record) &&
+     #    endif
+                    retro_tapping_counter == 2) {
                     tap_code(action.layer_tap.code);
                 }
                 retro_tapping_counter = 0;
