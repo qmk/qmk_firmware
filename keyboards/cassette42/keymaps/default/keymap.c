@@ -84,8 +84,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void render_status(void) {
     render_logo();
     // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-    char buf[40];
-    snprintf(buf, sizeof(buf), "Undef-%ld", layer_state);
     switch (layer_state) {
         case L_AUDIO:
             oled_write_P(PSTR("audio control\n"), false);
@@ -104,7 +102,6 @@ void render_status(void) {
             break;
         default:
             break;
-            oled_write(buf, false);
     }
     UPDATE_LED_STATUS();
     RENDER_LED_STATUS();

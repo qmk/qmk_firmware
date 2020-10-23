@@ -8,34 +8,12 @@ void render_logo(void) {
     oled_write_P(logo, false);
 }
 
-static char keylog_buf[24]   = "Key state ready.";
-const char code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ', ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
-
-void update_key_status(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed) return;
-    char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-    snprintf(keylog_buf, sizeof(keylog_buf) - 1, "Key:%dx%d %2x %c", record->event.key.row, record->event.key.col, (uint16_t)keycode, name);
-}
-
-void render_key_status(void) { oled_write(keylog_buf, false); }
-
-static char lock_buf[24] = "Lock state ready.\n";
-void update_lock_status(void) {
-    uint8_t leds      = host_keyboard_leds();
-    char *  num_lock  = (leds & (1 << USB_LED_NUM_LOCK)) ? "Num" : "";
-    char *  caps_lock = (leds & (1 << USB_LED_CAPS_LOCK)) ? "Caps" : "";
-    char *  scrl_lock = (leds & (1 << USB_LED_SCROLL_LOCK)) ? "Scrn" : "";
-    snprintf(lock_buf, sizeof(lock_buf) - 1, "Lock:%s %s %s\n", num_lock, caps_lock, scrl_lock);
-}
-
-void render_lock_status(void) { oled_write(lock_buf, false); }
-
 #    ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
-
-static char       led_buf[24] = "LED state ready.\n";
+static char led_buf[24] = "LED state ready.\n";
 rgblight_config_t rgblight_config_bak;
-void              update_led_status(void) {
+
+void update_led_status(void) {
     if (rgblight_config_bak.enable != rgblight_config.enable || rgblight_config_bak.mode != rgblight_config.mode || rgblight_config_bak.hue != rgblight_config.hue || rgblight_config_bak.sat != rgblight_config.sat || rgblight_config_bak.val != rgblight_config.val) {
         snprintf(led_buf, sizeof(led_buf) - 1, "%c H%2d S%2d V%2d MODE%2d", rgblight_config.enable ? '*' : '.', (uint8_t)(rgblight_config.hue / RGBLIGHT_HUE_STEP), (uint8_t)(rgblight_config.sat / RGBLIGHT_SAT_STEP), (uint8_t)(rgblight_config.val / RGBLIGHT_VAL_STEP), (uint8_t)rgblight_config.mode);
         rgblight_config_bak = rgblight_config;
