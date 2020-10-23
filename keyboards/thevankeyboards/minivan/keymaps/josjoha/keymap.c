@@ -35,11 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
-             ☐ Qwerty with arrows on top (could be a good pair with regular Qwerty on DEF)
+             ☐ Qwerty with arrows on top (could be a good pair with regular Qwerty)
              ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
              ☐ Qwertz (                   "                             "                        )
              ☐ Fun and games: replicate Evan's “game layer”, also as a stub for others to edit
-               that as their game layer. Many people probably do not much use for the dual layout
+               that as their game layer. Many people probably do not have much use for the dual layout
                (such as Qwerty + Colemak), but this could be one. It doesn't seem useful or possible
                to support every game layer quirk someone might prefer, so this way that whole kind of
                thing is isolated: compile this and edit as needed there.

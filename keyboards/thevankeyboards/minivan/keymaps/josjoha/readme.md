@@ -76,7 +76,7 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 The common system
 =================
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_common_vb.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_common_vc.jpg)
 
 Main features 
 -------------
