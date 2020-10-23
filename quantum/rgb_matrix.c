@@ -31,6 +31,8 @@ const point_t k_rgb_matrix_center = {112, 32};
 const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #endif
 
+__attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
+
 // Generic effect runners
 #include "rgb_matrix_runners/effect_runner_dx_dy_dist.h"
 #include "rgb_matrix_runners/effect_runner_dx_dy.h"
