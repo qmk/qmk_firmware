@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //          • Dvorak descramble mode
         //                  (Dvorak for a computer already remapping to Dvorak)
         //  This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
-//#define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
+  #define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
         // 
         //          • Qwerty
         //                   (a regular Qwerty layout)
@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //          • Numpad
         //                   (a numerical keypad, one for left hand and one for right hand)
         //  _Activate_ to get Numpad on Alternate. There is no option for Numpad on ‛Default’ base.
-  #define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
+//#define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
         //
         /*                      ➡ Eviscerations ( ① / ② ) ⬅
          */
@@ -105,7 +105,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //'Arrow'                (12x12x12x9 keys) + key on the right
          //'South paw' + 'Arrow'  (12x12x12x10 keys)
 //#define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
-//#define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right. 
+//#define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right, called 'Arrow' layout. 
          //
          // See below for how to define your additional key(s).
 
@@ -120,16 +120,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * It is assumed that you enabled MORE_KEY__ARROW and
          * MORE_KEY__COMMAND, to get to 12x12x12x10 keys. With this you
-         * can get to one or two more keys on row 1, without manually
+         * can get to one, two or three more keys on row 1, without manually
          * editing all layers.
+         *
+         * It can help to inspect the preprocessing with > gcc -E keymap.c | less
+         *
+         *                        Planck keyboard
+         *
+         * The identifier TRANSMINIVAN_MIDLEFT could help compile the layout on a Planck keyboard,
+         * if it has a two unit large spacebar. You compile without TRANSMINIVAN_LEFTSIDE in that case.
+         * All keys on the left, row 1 (closest to the user) shift one unit to the left, with TRANS_MIDLEFT
+         * inserted on what would be the left key of the two unit spacebar (assuming that is a key).
+         *
          *
          * FIXME: not been compiled or tested for any boards.
          */
-//#define TRANSMINIVAN_LEFTSIDE // _Activate_ to get yet one more key on the left side row 1
-//#define TRANSMINIVAN_RIGHTSIDE // _Activate_ to get yet one more key on the right side row 1
 //#define TRANSMINIVAN_LAYOUT ....... // Set this to something with the needed amount of keycodes.
                           // Your values are inserted here: [ _LTR ] = LAYOUT_redefined (
                           //                                           ^^^^^^^^^^^^^^^^ (throughout all layers)
+//#define TRANSMINIVAN_LEFTSIDE  // _Activate_ to get yet one more key on the left side row 1
+  #define TRANS_LEFT XXXXXXX     // Define what the TRANSMINIVAN_LEFTSIDE key should be, where it is not otherwise defined.
+                                 // (Ignored if TRANSMINIVAN_LEFTSIDE is _removed_).
+                                 //
+//#define TRANSMINIVAN_MIDLEFT   // _Activate_ to get yet one more key on the first key from center, row 1.
+  #define TRANS_MIDLEFT KC_SPACE // Define what the TRANSMINIVAN_RIGHTSIDE key should be on all layers at once.
+                                 // (Ignored if TRANSMINIVAN_MIDLEFT is _removed_).
+                                 //
+//#define TRANSMINIVAN_RIGHTSIDE // _Activate_ to get yet one more key on the right side row 1
+  #define TRANS_RIGHT XXXXXXX    // Define what the TRANSMINIVAN_RIGHTSIDE key should be, where it is not otherwise defined.
+                                 // (Ignored if TRANSMINIVAN_RIGHTSIDE is _removed_).
 
 
         /*                      ➡ Defining the meaning of the additional hardware keys ⬅

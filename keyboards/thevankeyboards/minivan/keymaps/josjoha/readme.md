@@ -314,34 +314,53 @@ can find the configuration block and mentioned option in `./user_config.h`.
 
 Compile options
 ===============
+
          Layout (as in Dvorak, Qwerty, Colemak, etc)
+
  • You can use the keyboard with two different letters/number-symbols layouts, switching between them.
+
  • You can compile the keyboard as a single layout (see ‛Eviscerations’).
+
  • Startup in the alternate BASE layer (for example Qwerty or Dvorak).
 
          Hardware
+
  • Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
+
 ![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
+   (On the `_RAR` layer, the additional _south paw_ key is more to the right.)
+
  • What the additional hardware keys for _arrow,_ _south paw_ should be.
- • It is possible to compile the keymap with 11 or 12 keys on the bottom row (see 
-   `TRANSMINIVAN_LEFTSIDE`, etc). Untested.
+
+ • It is possible to compile the keymap with 11, 12, 13 keys on the bottom row (see 
+   `TRANSMINIVAN_LEFTSIDE`, etc). Untested FIXME.
 
          Navigation cluster
+
  • An arrow cluster for _arrow_ hardware configuration, on the `_MOV` layer.
+
  • Navigation keys around _arrow_ hardware configuration arrow cluster on `_MOV` layer.
+
  • Navigation cluster in a triangle (WASD) (left hand), flat layout with optional vi(1) layout (right hand).
 
          Special functions
+
  • Set speed measuring on/off at keyboard startup.
+
  • Set text size measuring on/off at keyboard startup.
 
          Changing symbols
+
  • Switching the GUIs left/right.  
+
  • You can change the symbol 'ƒ' Dutch guilder into a Euro symbol €.
+
  • Compile with symbols ☐ ☒ ☑ 🗹 (checkboxes) or ⮘ ⮙ ⮚ ⮛ (pointers).
+
  • Reduce firmware size/bloat: remove or eviscerate Unicode layer(s).
 
          Useless
+
  • If the middle led should show the last active layer when on BASE.
 
 Layers (text)

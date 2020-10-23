@@ -549,8 +549,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // // ⬆
 
-//# endif
-
 
         // See the ./bases_*.c file for definition of _DEF_BASE, _DEF_NSY, _ALT_BASE, _ALT_NSY layers, selected in ./user_config.h
 
@@ -1011,17 +1009,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      --------------------------------------------------------------------------------------------------------------------------------------------------------------------
         KC_LALT 
 #     ifdef TRANSMINIVAN_LEFTSIDE
-                , XXXXXXX
+                , TRANS_LEFT
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
                 , MORE_key1 
 #     endif
 
-                , KC_DEL , KC_ENT , _______ , KC_PGUP 
+                , KC_DEL , KC_ENT , _______ 
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                  , TRANS_MIDLEFT
+#     endif
+
+                                            , KC_PGUP 
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                      , XXXXXXX
+                                                      , TRANS_RIGHT
 #     endif
 
                                                       , _MOV_KEY_ROW1_KEY4 , _MOV_KEY_ROW1_KEY3
@@ -1087,17 +1091,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         LEDS_ON , RGB_TOG 
 #     ifdef TRANSMINIVAN_LEFTSIDE
-                          , XXXXXXX
+                          , TRANS_LEFT
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
                           , MORE_key1
 #     endif
 
-                          , KC__XGUI , XXXXXXX , OTHER_BASE , XXXXXXX 
+                          , KC__XGUI , XXXXXXX 
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                     , TRANS_MIDLEFT
+#     endif
+
+                                               , OTHER_BASE , XXXXXXX 
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                   , XXXXXXX
+                                                                   , TRANS_RIGHT
 #     endif
 
                                                                    , KC__YGUI
@@ -1148,17 +1158,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      ----------------------------------------------------------------------------------------------------------------------------------------------
         KC_LALT 
 #     ifdef TRANSMINIVAN_LEFTSIDE
-                , XXXXXXX
+                , _______ // On Base layers this key typically defaults to MO ( _PAD )
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
                 , MORE_key1
 #     endif
 
-                , KC_DEL , KC_TAB , KC_KP_ENTER , KC_NUMLOCK , XXXXXXX , KC__YGUI
+                , KC_DEL , KC_TAB , KC_KP_ENTER
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                  , TRANS_MIDLEFT
+#     endif
+
+                                                , KC_NUMLOCK , XXXXXXX , KC__YGUI
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                  , XXXXXXX
+                                                                                  , TRANS_RIGHT
 #     endif
 
 #     ifdef MORE_KEY__ARROW
@@ -1169,7 +1185,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //              ,        ,        ,           <|,>           ,         ,          ,
 //      <1  ± ± , <2     , <3     , <4         |, 4>         , 3>      , 2>       , ±  ±  1>
 
+//..............................v
+/*
+     Layer _..._BASE (Number pad, with NumLock on)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+                                           <|>
+ ••  LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS  -
+     !Alter   Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc
+
+ …•  LCtl     1     2     3     4     5     | 6     7     8     9    0   Bspc
+     Tab       *    4     5     6     +     | *     4     5     6    -    Tab
+     _SSS¹     /    1     2     3     ,     | /     1     2     3    +   _SSS¹ 
+     ------------------------------------------------------------------------
+                   NumL    0     .     Ent  | 0   .     Ent   NumL      
+                                           <|>
+                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
+                       xxx                  |              xxx          
+
+     Layer _..._BASE (Number pad, with NumLock off)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
+                                           <|>
+     !Alter   Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc
+     Tab       *    Left  xxx   Right +     | *     Left  xxx   Right +    Tab
+     _SSS¹     /    End   Down  PgDn  ,     | /     End   Down  PgDn  ,   _SSS¹
+     -------------------------------------------------------------------------
+                   NumL    Ins   Del   Ent  | Ins Del   Ent   NumL      
+                                           <|>
+                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
+                       xxx                  |              xxx          
+ 
+     ¹) Toggle to the accompanying Super-Sub-Script (_SSS) layer.
+        With regular Base layers, such as Qwerty/Dvorak, this is 
+        called the Numbers&Symbols (_NSY) layer, and it is still
+        called _NSY in the source code.
+
+*/
+//..............................^
+
                       ),
+
 
 # endif // BASESFILE_LAYER_PAD
 
@@ -1244,17 +1300,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      --------------------------------------------------------------------------------------------------------------------------------------------
         KC_LEFT 
 #         ifdef TRANSMINIVAN_LEFTSIDE
-                , XXXXXXX
+                , TRANS_LEFT
 #         endif
 
 #         ifdef MORE_KEY__COMMAND
                 , MORE_key1
 #         endif
 
-                , _______ , _______ , KC_ENT , KC_SPC , _______ , _______
+                , _______ , _______ , KC_ENT 
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                    , TRANS_MIDLEFT
+#     endif
+
+                                             , KC_SPC , _______ , _______
 
 #         ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                          , XXXXXXX
+                                                                          , TRANS_RIGHT
 #         endif
 
 #         ifdef MORE_KEY__ARROW
@@ -1306,17 +1368,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT 
 
 #         ifdef TRANSMINIVAN_LEFTSIDE
-                , XXXXXXX
+                , TRANS_LEFT
 #         endif
 
 #         ifdef MORE_KEY__COMMAND
                 , MORE_key1
 #         endif
 
-                , _______ , _______ , KC_ENT , KC_SPC , _______ , _______ 
+                , _______ , _______ , KC_ENT
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                    , TRANS_MIDLEFT
+#     endif
+
+                                             , KC_SPC , _______ , _______ 
 
 #         ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                          , XXXXXXX
+                                                                          , TRANS_RIGHT
 #         endif
 
 #         ifdef MORE_KEY__ARROW
@@ -1372,17 +1440,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT 
 
 #         ifdef TRANSMINIVAN_LEFTSIDE
-                , XXXXXXX
+                , TRANS_LEFT
 #         endif
 
 #         ifdef MORE_KEY__COMMAND
                 , MORE_key1
 #         endif                 
 
-                , _______ , _______ , KC_ENT , KC_SPC , _______ , _______
+                , _______ , _______ , KC_ENT
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                    , TRANS_MIDLEFT
+#     endif
+
+                                             , KC_SPC , _______ , _______
 
 #         ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                          , XXXXXXX
+                                                                          , TRANS_RIGHT
 #         endif
 
 #         ifdef MORE_KEY__ARROW                    
@@ -1433,17 +1507,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      ------------------------------------------------------------------------------------------------------------------------------------------
         KC_LALT 
 #     ifdef TRANSMINIVAN_LEFTSIDE
-                , XXXXXXX
+                , TRANS_LEFT
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
                 , MORE_key1
 #     endif
 
-                , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , _FUN_STAY , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , KC__YGUI
+                , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX )
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                                                                             , TRANS_MIDLEFT
+#     endif
+
+                                                                                                                                    , _FUN_STAY , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , KC__YGUI
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                                                                                                                             , XXXXXXX
+                                                                                                                                                                                                             , _______ // On Base layers this key typically defaults to MO ( _FUN )
 #     endif
 
 #     ifdef MORE_KEY__ARROW
@@ -1488,17 +1568,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LALT_T ( KC_LEFT ) 
 
 # ifdef TRANSMINIVAN_LEFTSIDE
-                           , XXXXXXX
+                           , TRANS_LEFT
 # endif
 
 # ifdef MORE_KEY__COMMAND
                            , MORE_key1
 # endif                 
 
-                           , KC_DEL , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , XXXXXXX
+                           , KC_DEL , XXXXXXX , KC_ENT
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                              , TRANS_MIDLEFT
+#     endif
+
+                                                       , KC_SPC , XXXXXXX , XXXXXXX
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                    , XXXXXXX
+                                                                                    , TRANS_RIGHT
 # endif
 
 # ifdef MORE_KEY__ARROW

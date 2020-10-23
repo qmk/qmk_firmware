@@ -100,7 +100,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            , MORE_key1_BASE
 # endif
 
-                           , CHOLTAP_ACCE , DUO_HOLD , LT__MOV__KC_ENT , KC_SPC , DUO_HOLD , KC__YGUI
+                           , CHOLTAP_ACCE , DUO_HOLD , LT__MOV__KC_ENT
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                                     , TRANS_MIDLEFT
+#     endif
+
+                                                                       , KC_SPC , DUO_HOLD , KC__YGUI
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
                                                                                                       , MO ( _FUN )
@@ -162,7 +168,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            , MORE_key1  
 # endif
 
-                           , _______ , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI
+                           , _______ , DUO_HOLD , KC_ENT 
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                                , TRANS_MIDLEFT
+#     endif
+
+                                                         , KC_DOT , DUO_HOLD , KC__YGUI
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
                                                                                         , XXXXXXX

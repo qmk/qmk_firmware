@@ -137,17 +137,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         KC_NUMLOCK
 
 # ifdef TRANSMINIVAN_LEFTSIDE
-                           , XXXXXXX
+                           , TRANS_LEFT
 # endif
 
 # ifdef MORE_KEY__COMMAND
                            , XXXXXXX
 # endif
 
-                           , KC_KP_0      , KC_KP_DOT , KC_KP_ENTER     , KC_KP_0 , KC_KP_DOT , KC_KP_ENTER
+                           , KC_KP_0      , KC_KP_DOT , KC_KP_ENTER     
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                                      , TRANS_MIDLEFT
+#     endif
+
+                                                                        , KC_KP_0 , KC_KP_DOT , KC_KP_ENTER
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                         , XXXXXXX
+                                                                                                         , TRANS_RIGHT
 # endif
 
 # ifdef MORE_KEY__ARROW
@@ -198,17 +204,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         XXXXXXX   
 
 # ifdef TRANSMINIVAN_LEFTSIDE
-                           , XXXXXXX
+                           , TRANS_LEFT
 # endif
 
 # ifdef MORE_KEY__COMMAND
                            , XXXXXXX
 # endif
 
-                           , XP_DRA_BJ      , KC_KP_DOT , KC_KP_ENTER     , XP_DRA_BJ , KC_KP_DOT , KC_KP_ENTER
+                           , XP_DRA_BJ      , KC_KP_DOT , KC_KP_ENTER 
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                  , TRANS_MIDLEFT
+#     endif
+
+                                                                        , XP_DRA_BJ , KC_KP_DOT , KC_KP_ENTER
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                         , XXXXXXX
+                                                                                                         , TRANS_RIGHT
 # endif
 
 # ifdef MORE_KEY__ARROW
