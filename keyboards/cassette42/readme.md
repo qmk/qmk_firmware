@@ -4,9 +4,9 @@
 
 An audio control pad with 4 switches and 2 rotary encoders.
 
-Keyboard Maintainer: [monksoffunk](https://github.com/monksoffunk)  [@monksoffunkJP](https://twitter.com/monksoffunkJP)   
-Hardware Supported: Cassette 42 PCB  
-Hardware Availability: [Yushakobo Shop](https://yushakobo.jp/shop/cassette42/)
+* Keyboard Maintainer: [monksoffunk](https://github.com/monksoffunk)  [@monksoffunkJP](https://twitter.com/monksoffunkJP)
+* Hardware Supported: Cassette 42 PCB
+* Hardware Availability: [Yushakobo Shop](https://yushakobo.jp/shop/cassette42/)
 
 Make example for this keyboard (after setting up your build environment):
 
