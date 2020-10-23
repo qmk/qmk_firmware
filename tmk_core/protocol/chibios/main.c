@@ -265,5 +265,9 @@ int main(void) {
 #ifdef RAW_ENABLE
         raw_hid_task();
 #endif
+
+        // Run housekeeping
+        housekeeping_task_kb();
+        housekeeping_task_user();
     }
 }
