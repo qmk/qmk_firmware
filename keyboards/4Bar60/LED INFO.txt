@@ -1,0 +1,6 @@
+The strip that is supported by the proton c is the WS2812.
+
+The proton C has a pin called A3, and it says A3 - 5V, so I will try to use that as the power for the strip.
+I will connect the strip's ground to one of the three ground pins on the proton c.
+The last part is the DATA on the RGB strip. The proton C says that A3 drives RGB, but I was planning on using that as the power, so I'm not sure.
+	- I have the thought that maybe I can connect the power pin to the hole that just says 5V right next to the D- hole.

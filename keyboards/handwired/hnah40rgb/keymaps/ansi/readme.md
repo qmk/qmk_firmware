@@ -1,1 +1,0 @@
-# The ansi keymap for hnah40rgb
