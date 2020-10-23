@@ -1,4 +1,4 @@
-# The default Speedo keymap
+# CozyKeys Speedo v3 Default Keymap
 
 ## Default Layer
 

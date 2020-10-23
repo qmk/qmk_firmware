@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Paul Ewing
+Copyright 2020 Paul Ewing
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,7 +14,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
 #include "config_common.h"
@@ -22,34 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // USB Device descriptor parameter
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1192
-#define DEVICE_VER      0x0003
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    CozyKeys
 #define PRODUCT         Speedo
-
 
 // Key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
 // Keyboard Matrix Assignments
-#define MATRIX_ROW_PINS { F0, F1, C7, D5, B7 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B6, B2, E6, D7, C6, D4, D0, D1 }
-#define UNUSED_PINS { D2, D3, B0, B4 }
+#define MATRIX_ROW_PINS { D1, D2, D3, C6, C7 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, B6, B5, D0, B7, B3, B2, B1, B0 }
+#define UNUSED_PINS { D5, D4, D6, D7, B4 }
 #define DIODE_DIRECTION COL2ROW
-
-#ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B5
-#define RGBLED_NUM 12
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 255
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_BREATHE_TABLE_SIZE    256
-#define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85
-#define RGBLIGHT_EFFECT_BREATHE_MAX    255
-#endif
 
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
 #define DEBOUNCE 5
