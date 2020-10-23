@@ -157,7 +157,7 @@ def test_info_matrix_render():
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
     assert 'LAYOUT_ortho_1x1' in result.stdout
-    assert '│0A│' in result.stdout
+    assert '│00│' in result.stdout
     assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout
 
 
