@@ -104,7 +104,7 @@ CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
-# Fixing of multiple variable definitions must be fixed.
+# Fixing of multiple variable definitions must be made.
 CFLAGS += -fcommon
 
 #---------------- Compiler Options C++ ----------------
