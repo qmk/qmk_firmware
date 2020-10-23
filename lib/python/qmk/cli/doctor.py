@@ -40,7 +40,7 @@ def _udev_rule(vid, pid=None, is_systemd_system=True, *args):
             builtin,
         )
     else:
-        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"' % (
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"%s' % (
             vid,
             builtin,
         )
@@ -241,8 +241,9 @@ def check_udev_rules():
 
 def check_modem_manager():
     """Returns True if ModemManager is running.
+
+    (TODO): Add check for non-systemd systems
     """
-    #(TODO): Add check for non-systemd systems
     mm_check = run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
     if mm_check.returncode == 0:
         return True
