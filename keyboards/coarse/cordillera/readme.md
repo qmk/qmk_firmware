@@ -1,6 +1,6 @@
 # Cordillera
 
-![Cordillera](https://i.imgur.com/3VCGsdD.png)
+![Cordillera](https://i.imgur.com/3VCGsdDl.png)
 
 A publicly available replacement backlit PCB for top mount USB C Alice cases.
 
