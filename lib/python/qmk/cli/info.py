@@ -12,8 +12,7 @@ from qmk.keymap import locate_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard
 
-ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
-COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
+ROW_COL_LETTERS = '0123456789ABCDEF'
 
 
 def show_keymap(info_json, title_caps=True):
@@ -56,8 +55,8 @@ def show_matrix(info_json, title_caps=True):
         labels = []
         for key in layout['layout']:
             if key['matrix']:
-                row = ROW_LETTERS[key['matrix'][0]]
-                col = COL_LETTERS[key['matrix'][1]]
+                row = ROW_COL_LETTERS[key['matrix'][0] % len(ROW_COL_LETTERS)]
+                col = ROW_COL_LETTERS[key['matrix'][1] % len(ROW_COL_LETTERS)]
 
                 labels.append(row + col)
             else:
