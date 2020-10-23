@@ -20,10 +20,10 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0x542C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK Community
-#define PRODUCT         Pteron44 Keyboard
+#define PRODUCT         Pteron44
 
 /* key matrix size */
 #define MATRIX_ROWS 4

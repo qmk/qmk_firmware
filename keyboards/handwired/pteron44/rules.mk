@@ -2,7 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-# Elite C is default
 BOOTLOADER = atmel-dfu
 
 # Build Options
