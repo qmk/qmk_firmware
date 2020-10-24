@@ -18,8 +18,10 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_mechlovin_hannah65_rev1)
+#if defined(KEYBOARD_mechlovin_hannah65_standard_led_rev1)
 #    include "rev1.h"
-#elif defined(KEYBOARD_mechlovin_hannah65_mechlovin9)
+#elif defined(KEYBOARD_mechlovin_hannah65_rgb_led_rev1)
+#    include "rev1.h"
+#elif defined(KEYBOARD_mechlovin_hannah65_standard_led_mechlovin9)
 #    include "mechlovin9.h"
 #endif

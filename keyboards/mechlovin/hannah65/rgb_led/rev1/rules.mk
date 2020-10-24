@@ -1,0 +1,3 @@
+RGB_MATRIX_ENABLE = IS31FL3731
+RGBLIGHT_ENABLE = yes
+DEFAULT_FOLDER = mechlovin/hannah65/rgb_led/rev1
