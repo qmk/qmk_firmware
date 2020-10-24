@@ -5,7 +5,7 @@
 A 75% keyboard kit featuring offset arrow keys.
 
 * Keyboard Maintainer: [moyi4681](https://github.com/moyi4681), [The QMK Community](https://github.com/qmk)
-* Hardware Supported: KBDfans Bella soldered PCB; ATmega32U4
+* Hardware Supported: Bella soldered PCB; ATmega32U4
 * Hardware Availability: [KBDfans](https://kbdfans.com/collections/bella)
 
 Make example for this keyboard (after setting up your build environment):
