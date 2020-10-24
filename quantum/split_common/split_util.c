@@ -31,7 +31,7 @@
 #    define SPLIT_USB_TIMEOUT_POLL 10
 #endif
 
-#ifdef PROTOCOL_CHIBIOS
+#if defined(PROTOCOL_CHIBIOS) || defined(BOOTLOADER_HALFKAY)
 #    define SPLIT_USB_DETECT  // Force this on for now
 #endif
 
