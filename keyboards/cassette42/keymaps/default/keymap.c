@@ -14,11 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#ifdef RGBLIGHT_ENABLE
-// Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-rgblight_config_t        RGB_current_config;
-#endif
 
 #include "common/oled_helper.h"
 
