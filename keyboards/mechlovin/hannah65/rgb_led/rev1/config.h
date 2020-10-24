@@ -4,14 +4,6 @@
 #define DEVICE_VER   0x0001
 #define PRODUCT      Hannah65 RGB Rev1
 
-#ifdef RGBLIGHT_ENABLE
-     #define RGBLED_NUM      23
-     #define RGBLIGHT_ANIMATIONS
-     #define RGBLIGHT_HUE_STEP 8
-     #define RGBLIGHT_SAT_STEP 8
-     #define RGBLIGHT_VAL_STEP 8
-#endif
-
 //rgb matrix setting// This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
