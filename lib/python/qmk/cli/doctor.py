@@ -77,7 +77,7 @@ def check_arm_gcc_version():
         version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
         cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
-    return True  # Right now all known arm versions are ok
+    return 'ok'  # Right now all known arm versions are ok
 
 
 def check_avr_gcc_version():
@@ -88,13 +88,13 @@ def check_avr_gcc_version():
 
         parsed_version = parse_gcc_version(version_number)
         if parsed_version['major'] > 8:
-            cli.log.error('We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
-            return False
+            cli.log.error('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
+            return 'warning'
 
         cli.log.info('Found avr-gcc version %s', version_number)
-        return True
+        return 'ok'
 
-    return False
+    return 'error'
 
 
 def check_avrdude_version():
@@ -103,7 +103,7 @@ def check_avrdude_version():
         version_number = last_line.split()[2][:-1]
         cli.log.info('Found avrdude version %s', version_number)
 
-    return True
+    return 'ok'
 
 
 def check_dfu_util_version():
@@ -112,7 +112,7 @@ def check_dfu_util_version():
         version_number = first_line.split()[1]
         cli.log.info('Found dfu-util version %s', version_number)
 
-    return True
+    return 'ok'
 
 
 def check_dfu_programmer_version():
@@ -121,7 +121,7 @@ def check_dfu_programmer_version():
         version_number = first_line.split()[1]
         cli.log.info('Found dfu-programmer version %s', version_number)
 
-    return True
+    return 'ok'
 
 
 def check_binaries():
@@ -139,17 +139,15 @@ def check_binaries():
 def check_submodules():
     """Iterates through all submodules to make sure they're cloned and up to date.
     """
-    ok = True
-
     for submodule in submodules.status().values():
         if submodule['status'] is None:
             cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
-            ok = False
+            return 'error'
         elif not submodule['status']:
             cli.log.error('Submodule %s is not up to date!', submodule['name'])
-            ok = False
+            return 'warning'
 
-    return ok
+    return 'ok'
 
 
 def check_systemd():
@@ -158,12 +156,11 @@ def check_systemd():
     return bool(shutil.which("systemctl"))
 
 
-def check_udev_rules():
+def check_udev_rules(is_systemd_system):
     """Make sure the udev rules look good.
     """
-    ok = True
+    rc = 'ok'
     udev_dir = Path("/etc/udev/rules.d/")
-    is_systemd_system = check_systemd()
     desired_rules = {
         'atmel-dfu': {
             _udev_rule("03EB", "2FEF", is_systemd_system),  # ATmega16U2
@@ -227,19 +224,20 @@ def check_udev_rules():
             if not rules.issubset(current_rules):
                 deprecated_rule = deprecated_rules.get(bootloader)
                 if deprecated_rule and deprecated_rule.issubset(current_rules):
-                    cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
+                    cli.log.warn("{fg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
                     # For caterina, check if ModemManager is running
                     if bootloader == "caterina" and is_systemd_system:
                         if check_modem_manager():
-                            ok = False
-                            cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
-                    cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. See https://docs.qmk.fm/#/faq_build?id=linux-udev-rules for more details.", bootloader)
+                            rc = 'warning'
+                            cli.log.warn("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+                    rc = 'warning'
+                    cli.log.warn("{fg_yellow}Missing udev rules for '%s' boards. See https://docs.qmk.fm/#/faq_build?id=linux-udev-rules for more details.", bootloader)
 
     else:
-        cli.log.warn("{bg_yellow}'%s' does not exist. Skipping udev rule checking...", udev_dir)
+        cli.log.warn("{fg_yellow}'%s' does not exist. Skipping udev rule checking...", udev_dir)
 
-    return ok
+    return rc
 
 
 def check_modem_manager():
@@ -279,12 +277,15 @@ def os_test_linux():
     """Run the Linux specific tests.
     """
     cli.log.info("Detected {fg_cyan}Linux.")
-    ok = True
+    rc = 'ok'
 
-    if not check_udev_rules():
-        ok = False
+    is_systemd_system = check_systemd()
+    rc = check_udev_rules(is_systemd_system)
+    if rc != 'ok':
+        if not is_systemd_system:
+            cli.log.info("{fg_yellow}Check if your udev supports 'RUN{builtin}+=\"uaccess\"'. If it does, you can ignore the udev warnings. Otherwise, use 'qmk_firmware/util/udev/50-qmk-nobuiltin.rules")
 
-    return ok
+    return rc
 
 
 def os_test_macos():
@@ -292,7 +293,7 @@ def os_test_macos():
     """
     cli.log.info("Detected {fg_cyan}macOS.")
 
-    return True
+    return 'ok'
 
 
 def os_test_windows():
@@ -300,7 +301,7 @@ def os_test_windows():
     """
     cli.log.info("Detected {fg_cyan}Windows.")
 
-    return True
+    return 'ok'
 
 
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
@@ -315,23 +316,20 @@ def doctor(cli):
         * [ ] Compile a trivial program with each compiler
     """
     cli.log.info('QMK Doctor is checking your environment.')
-    ok = True
+    status = 'ok'
 
     # Determine our OS and run platform specific tests
     platform_id = platform.platform().lower()
 
     if 'darwin' in platform_id or 'macos' in platform_id:
-        if not os_test_macos():
-            ok = False
+        status = os_test_macos()
     elif 'linux' in platform_id:
-        if not os_test_linux():
-            ok = False
+        status = os_test_linux()
     elif 'windows' in platform_id:
-        if not os_test_windows():
-            ok = False
+        status = os_test_windows()
     else:
         cli.log.error('Unsupported OS detected: %s', platform_id)
-        ok = False
+        status = 'warning'
 
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
@@ -346,31 +344,41 @@ def doctor(cli):
     if bin_ok:
         cli.log.info('All dependencies are installed.')
     else:
-        ok = False
+        status = 'error'
 
     # Make sure the tools are at the correct version
+    ver_ok = []
     for check in (check_arm_gcc_version, check_avr_gcc_version, check_avrdude_version, check_dfu_util_version, check_dfu_programmer_version):
-        if not check():
-            ok = False
+        ver_ok.append(check())
+
+    if 'error' in ver_ok:
+        status = 'error'
+    elif 'warning' in ver_ok and status == 'ok':
+        status = 'warning'
 
     # Check out the QMK submodules
     sub_ok = check_submodules()
 
-    if sub_ok:
+    if sub_ok == 'ok':
         cli.log.info('Submodules are up to date.')
     else:
         if yesno('Would you like to clone the submodules?', default=True):
             submodules.update()
             sub_ok = check_submodules()
 
-        if not sub_ok:
-            ok = False
+        if 'error' in sub_ok:
+            status = 'error'
+        elif 'warning' in sub_ok and status == 'ok':
+            status = 'warning'
 
     # Report a summary of our findings to the user
-    if ok:
+    if status == 'ok':
         cli.log.info('{fg_green}QMK is ready to go')
+        return 0
+    elif status == 'warning':
+        cli.log.info('{fg_yellow}QMK is ready to go, but minor problems were found')
+        return 1
     else:
-        cli.log.info('{fg_yellow}Problems detected, please fix these problems before proceeding.')
-        # FIXME(skullydazed/unclaimed): Link to a document about troubleshooting, or discord or something
-
-    return ok
+        cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.')
+        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/Uq7gcHh) for help.')
+        return 2
