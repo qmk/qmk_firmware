@@ -1,0 +1,17 @@
+#pragma once
+
+#ifndef MOUSEKEY_WHEEL_DELTA
+#    define MOUSEKEY_WHEEL_DELTA 1
+#endif
+#ifndef MOUSEKEY_WHEEL_DELAY
+#    define MOUSEKEY_WHEEL_DELAY 200
+#endif
+#ifndef MOUSEKEY_WHEEL_INTERVAL
+#    define MOUSEKEY_WHEEL_INTERVAL 50
+#endif
+#ifndef MOUSEKEY_WHEEL_MAX_SPEED
+#    define MOUSEKEY_WHEEL_MAX_SPEED 8
+#endif
+#ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
+#    define MOUSEKEY_WHEEL_TIME_TO_MAX 80
+#endif
