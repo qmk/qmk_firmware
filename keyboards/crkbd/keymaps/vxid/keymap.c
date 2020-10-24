@@ -7,6 +7,8 @@
 
 extern keymap_config_t keymap_config;
 
+extern uint8_t is_master;
+
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2

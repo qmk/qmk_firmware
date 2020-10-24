@@ -8,6 +8,8 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
+extern uint8_t is_master;
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ESC_CTL LCTL_T(KC_ESC)

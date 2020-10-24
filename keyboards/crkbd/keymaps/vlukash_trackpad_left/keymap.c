@@ -13,6 +13,8 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
+extern uint8_t is_master;
+
 enum layer_names {
   _QWERTY,
   _LOWER,
