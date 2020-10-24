@@ -33,4 +33,5 @@ jobs:
       run: echo "There were new commits."
 
     # Step 4: Print a helpful timestamp for your records (not required)
-    - name: Timesta
+    - name: timestamp
+      run: date
