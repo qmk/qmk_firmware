@@ -23,6 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
+// OLED time out
+#define OLED_TIMEOUT 0
+
 //RGBLIGHT
 #ifdef RGBLIGHT_ENABLE 
 #define RGBLIGHT_ANIMATIONS
@@ -31,3 +34,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 1
 #define RGBLIGHT_VAL_STEP 1
 #endif
+

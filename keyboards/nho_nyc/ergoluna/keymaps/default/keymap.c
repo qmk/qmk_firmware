@@ -6,9 +6,6 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -23,7 +20,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY] = LAYOUT_ergodox( \
-  KC_EQL,    KC_1,        KC_2,     KC_3,    KC_4,    KC_5,     TG(RAISE) ,        TG(LOWER)     ,     KC_6,    KC_7,    KC_8,    KC_9,           KC_0,      KC_MINS,
+  KC_PEQL,    KC_1,        KC_2,     KC_3,    KC_4,    KC_5,     TG(RAISE) ,        TG(LOWER)     ,     KC_6,    KC_7,    KC_8,    KC_9,           KC_0,      KC_MINS,
   KC_DEL,    KC_Q,        KC_W,     KC_E,    KC_R,    KC_T,LT(LOWER,KC_NO),       LT(RAISE,KC_NO),     KC_Y,    KC_U,    KC_I,    KC_O,           KC_P,      KC_BSLS,
   KC_CAPS,   KC_A,        KC_S,     KC_D,    KC_F,    KC_G,                                            KC_H,    KC_J,    KC_K,    KC_L,        KC_SCLN,      KC_QUOT,
   KC_LSFT,CTL_T(KC_Z),    KC_X,     KC_C,    KC_V,    KC_B,   ALL_T(KC_NO),          MEH_T(KC_NO),     KC_N,    KC_M, KC_COMM,  KC_DOT, CTL_T(KC_SLSH),      KC_RSFT,
@@ -81,8 +78,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
      //const char *read_keylog(void);
      //const char *read_mode_icon(bool swap);
      //void set_timelog(void);
-     //const char *read_timelog(void);
-	 
+     //const char *read_timelog(void);	 
 #ifdef RGBLIGHT_ENABLE
      const char *read_rgb_info(void);
 #endif
@@ -92,8 +88,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #endif
 
 void oled_task_user(void) {
-  if (!is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
+  if (is_keyboard_master()) {
+    // If	 you want to change the display of OLED, you need to change here
     oled_write_ln(read_layer_state(), false);
     oled_write_ln(read_host_led_state(), false);	
   #ifdef RGBLIGHT_ENABLE
@@ -108,7 +104,8 @@ void oled_task_user(void) {
 	     oled_write(wpm_state(), false);
 	     render_anim();
 	#else
-         oled_write(read_logo(), false);
+             oled_write(read_logo(), false);
+             oled_scroll_left();  // Turns on scrolling
     #endif
   }
 }
@@ -129,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        // Volume control
+        / Volume control
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
@@ -145,6 +142,4 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
-#endif
-
-
+#endif	

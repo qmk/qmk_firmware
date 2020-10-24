@@ -1,7 +1,7 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
-Copyright 2020 Fruitkt
+Copyright 2020 fruitkt
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F6, F7, B1, B3, B2, F4 }
-#define MATRIX_COL_PINS { B6, F5, D4, C6, D7, E6, B4 }
+#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5 }
+#define MATRIX_ROW_PINS { B4, E6, D7, C6, D4, B5 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -52,20 +52,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN B5
+#define RGB_DI_PIN D2
 #ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 28    // Number of LEDs
-#define RGBLED_SPLIT { 14, 14 }
+#define RGBLED_NUM 30    // Number of LEDs
+#define RGBLED_SPLIT { 15, 15 }
 #endif
 
-#define SOFT_SERIAL_PIN D2
+#define SOFT_SERIAL_PIN D3
 #define SERIAL_USE_MULTI_TRANSACTION
 
 
 /* Select hand configuration */
-#define EE_HANDS
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
+#define SPLIT_HAND_PIN F4
+
+
+#define ENCODERS_PAD_A { D6 }
+#define ENCODERS_PAD_B { B0 }
 
 #if !defined(NO_ACTION_MACRO)
     #define NO_ACTION_MACRO

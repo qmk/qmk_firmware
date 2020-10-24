@@ -1,4 +1,5 @@
 /* Copyright 2020 zvecr <git@zvecr.com>
+   Copyright 2020 fruitkt
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +18,8 @@
 
 #include "config_common.h"
 
+#define STM32_HSECLK                25000000U
+
 /* key matrix size */
 #define MATRIX_ROWS 12 // Rows are doubled-up
 #define MATRIX_COLS 7
@@ -25,16 +28,14 @@
  * Keyboard Matrix Assignments
  *
  * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
+ * COLS: STM32 pins used for columns, left to right
+ * ROWS: STM32 pins used for rows, top to bottom
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_COL_PINS { B0, B4, B7, B8,B12,B13,B14 }
-#define MATRIX_ROW_PINS { A0, A1, A3, A4, A5, A6 }
-#define MATRIX_COL_PINS_RIGHT { A0, A1, A3, A4, A5, A6, A7 }
-#define MATRIX_ROW_PINS_RIGHT { B0, B4, B7, B8, B12, B13 }
+#define MATRIX_COL_PINS { A3, A7, A6, A5, B10, B12, B13 }
+#define MATRIX_ROW_PINS { B9, B8, B5, B4, A15, A0 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -44,15 +45,17 @@
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SPLIT_HAND_PIN B9
-#define SOFT_SERIAL_PIN B6
+#define SPLIT_HAND_PIN B14
+#define SOFT_SERIAL_PIN A9
 //#define SELECT_SOFT_SERIAL_SPEED 0
 #define SERIAL_USART_SPEED 921600
+#define SERIAL_USART_DRIVER SD1
+#define SERIAL_USART_TX_PAL_MODE 7
 
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { A2 }
+#define ENCODERS_PAD_A { A8 }
+#define ENCODERS_PAD_B { B15 }
 
-#define RGB_DI_PIN B1
+#define RGB_DI_PIN A10
 
 #ifdef  RGBLIGHT_ENABLE
 #define RGBLED_NUM 28
@@ -63,7 +66,6 @@
 
 #ifdef  RGB_MATRIX_ENABLE
 #define RGBLED_NUM 108
-#define RGBLED_SPLIT {55, 55}
 #define DRIVER_LED_TOTAL RGBLED_NUM
 #endif
 

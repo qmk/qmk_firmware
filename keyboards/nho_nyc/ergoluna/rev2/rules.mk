@@ -18,16 +18,19 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = WS2812
-ENCODER_ENABLE = yes        # Enable rotary encoder support
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+
+#
+#Enable RGB Matrix only when compiled with  "make nho_nyc/ergoluna/rev2:default"
+#
+RGB_MATRIX_ENABLE = WS2812  # Change into "WS2812" to enable RGB Matrix; "no" to off.
 MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
-OLED_DRIVER_ENABLE = no
 
+USE_I2C = no
 
 SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm
