@@ -45,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WRTROM:
 #ifdef RGBLIGHT_ENABLE
             if (record->event.pressed) {
-                eeconfig_update_rgblight(rgblight_config.raw);
+                eeconfig_update_rgblight_current();
             }
 #endif
             return false;
