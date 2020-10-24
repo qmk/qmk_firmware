@@ -235,3 +235,17 @@ fi
 # Global install tasks
 install_bootloadhid
 pip3 install --user -r ${util_dir}/../requirements.txt
+
+if uname -a | grep -qi microsoft; then
+    echo "********************************************************************************"
+    echo "* Detected Windows Subsystem for Linux.                                        *"
+    echo "* Currently, WSL has no access to USB devices and so flashing from within the  *"
+    echo "* WSL terminal will not work.                                                  *"
+    echo "*                                                                              *"
+    echo "* Please install the QMK Toolbox instead:                                      *"
+    echo "*    https://github.com/qmk/qmk_toolbox/releases                               *"
+    echo "* Then, map your WSL filesystem as a network drive:                            *"
+    echo "*    \\\\\\\\wsl$\\<distro>                                                           *"
+    echo "********************************************************************************"
+    echo
+fi

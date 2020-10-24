@@ -62,6 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 14    // Number of LEDs
 
+#define RGBLIGHT_SPLIT   // sync LEDs between RIGHT and LEFT hand
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

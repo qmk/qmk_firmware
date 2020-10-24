@@ -2,18 +2,19 @@
  * Author: Wez Furlong, 2016
  * Supports the Adafruit BLE board built around the nRF51822 chip.
  */
+
 #pragma once
-#ifdef MODULE_ADAFRUIT_BLE
-#    include <stdbool.h>
-#    include <stdint.h>
-#    include <string.h>
 
-#    include "config_common.h"
-#    include "progmem.h"
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
 
-#    ifdef __cplusplus
+#include "config_common.h"
+#include "progmem.h"
+
+#ifdef __cplusplus
 extern "C" {
-#    endif
+#endif
 
 /* Instruct the module to enable HID keyboard support and reset */
 extern bool adafruit_ble_enable_keyboard(void);
@@ -40,12 +41,12 @@ extern bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uin
  * (milliseconds) */
 extern bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration);
 
-#    ifdef MOUSE_ENABLE
+#ifdef MOUSE_ENABLE
 /* Send a mouse/wheel movement report.
  * The parameters are signed and indicate positive of negative direction
  * change. */
 extern bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons);
-#    endif
+#endif
 
 /* Compute battery voltage by reading an analog pin.
  * Returns the integer number of millivolts */
@@ -54,8 +55,6 @@ extern uint32_t adafruit_ble_read_battery_voltage(void);
 extern bool adafruit_ble_set_mode_leds(bool on);
 extern bool adafruit_ble_set_power_level(int8_t level);
 
-#    ifdef __cplusplus
+#ifdef __cplusplus
 }
-#    endif
-
-#endif  // MODULE_ADAFRUIT_BLE
+#endif
