@@ -10,9 +10,9 @@ Make example for this keyboard (after setting up your build environment):
 
     make speedo:default
 
-Example of flashing this keyboard:
+Flashing example for this keyboard:
 
-    make speedo:default:dfu
+    make speedo:default:flash
 
 See the
 [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and
