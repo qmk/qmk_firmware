@@ -12,7 +12,9 @@ from qmk.keymap import locate_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard
 
-ROW_COL_LETTERS = '0123456789ABCDEF'
+ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
+COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
+ROW_COL_LETTERS_HEX = '0123456789ABCDEF'
 
 
 def show_keymap(info_json, title_caps=True):
@@ -55,8 +57,12 @@ def show_matrix(info_json, title_caps=True):
         labels = []
         for key in layout['layout']:
             if key['matrix']:
-                row = ROW_COL_LETTERS[key['matrix'][0] % len(ROW_COL_LETTERS)]
-                col = ROW_COL_LETTERS[key['matrix'][1] % len(ROW_COL_LETTERS)]
+                if cli.config.info.hex_matrix:
+                    row = ROW_COL_LETTERS_HEX[key['matrix'][0] % len(ROW_COL_LETTERS_HEX)]
+                    col = ROW_COL_LETTERS_HEX[key['matrix'][1] % len(ROW_COL_LETTERS_HEX)]
+                else:
+                    row = ROW_LETTERS[key['matrix'][0]]
+                    col = COL_LETTERS[key['matrix'][1]]
 
                 labels.append(row + col)
             else:
@@ -123,6 +129,7 @@ def print_text_output(info_json):
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
+@cli.argument('--hex-matrix', action='store_true', help='With -m, display matrix positions in hexadecimal.')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
 @automagic_keymap
@@ -131,7 +138,7 @@ def info(cli):
     """
     # Determine our keyboard(s)
     if not cli.config.info.keyboard:
-        cli.log.error('Missing paramater: --keyboard')
+        cli.log.error('Missing parameter: --keyboard')
         cli.subcommands['info'].print_help()
         return False
 
