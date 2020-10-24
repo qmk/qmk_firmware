@@ -1,6 +1,6 @@
 # Bella Soldered
 
-![Bella Soldered](imgur.com image replace me!)
+![Bella Soldered](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kbdfans/bella/soldered/kbdfans_bella_soldered.jpg)
 
 A 75% keyboard kit featuring offset arrow keys.
 
