@@ -25,4 +25,3 @@ BACKLIGHT_ENABLE = no			# Enable keyboard backlight functionality
 MIDI_ENABLE = no				# MIDI controls
 UNICODE_ENABLE = no				# Unicode
 BLUETOOTH_ENABLE = no			# Enable Bluetooth with the Adafruit EZ-Key HID
-DEBOUNCE_TYPE = eager_pk		# Eager debounce type

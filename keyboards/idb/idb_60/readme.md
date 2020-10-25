@@ -2,9 +2,10 @@
 
 Firmware for the idb 60 PCB
 
-* Keyboard Maintainer: [/u/omgitspngu](https://github.com/itspngu)
+* Keyboard Maintainer: [pngu](https://github.com/itspngu)
 * Hardware Supported: idb 60 PCB
-* Hardware Availability: [/u/omgitspngu](https://www.reddit.com/user/omgitspngu/)
+* Hardware Availability: [Case & PCB Files (CC-by-SA 4.0)](https://github.com/itspngu/idb_60)
+* Project Website: [idb Keyboards » 60](https://idb-keyboards.xyz/60)
 
 Make example for this keyboard (after setting up your build environment):
 

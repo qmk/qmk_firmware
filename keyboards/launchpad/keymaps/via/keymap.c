@@ -9,7 +9,7 @@
 enum layer_names {
     _QWERTY,
     _FUNC,
-    _LAYER2,
+    _RGB,
     _LAYER3
 };
 
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_1,      KC_2,
     KC_3,      KC_4,
     KC_5,      KC_6,
-    MO(_FUNC), KC_8
+    MO(_FUNC), TG(_RGB)
 ),
 
 /* Function
@@ -55,22 +55,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_C
 ),
 
-/* Layer 2
+/* RGB
  * ,-------------.
- * |      |      |
+ * | MODE-| MODE+|
  * |------+------|
- * |      |      |
+ * | HUE- | HUE+ |
  * |------+------|
- * |      |      |
+ * | SAT- | SAT+ |
  * |------+------|
- * |      |      |
+ * |TOGGLE|      |
  * `-------------'
  */
-[_LAYER2] = LAYOUT(
-    KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS
+[_RGB] = LAYOUT(
+    RGB_RMOD, RGB_MOD,
+    RGB_HUD,  RGB_HUI,
+    RGB_SAD,  RGB_SAI,
+    RGB_TOG,  KC_TRNS
 ),
 
 /* Layer 3

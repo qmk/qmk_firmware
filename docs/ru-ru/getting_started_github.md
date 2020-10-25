@@ -6,10 +6,10 @@ GitHub может показаться несколько сложным для 
 
 Откройте [страницу QMK на GitHub] (https://github.com/qmk/qmk_firmware), и в правом верхнем углу вы увидите кнопку с надписью "Fork":
 
-![Fork on Github](http://i.imgur.com/8Toomz4.jpg)
+![Fork on GitHub](http://i.imgur.com/8Toomz4.jpg)
 
 Если вы состоите в какой-либо организации, вам нужно выбрать учетную запись, к которой будет привязан форк. В большинстве случаев это будет личной аккаунт. Как только ваш форк будет завершен (иногда это занимает немного времени), нажмите кнопку "Clone or Download":
-![Download from Github](http://i.imgur.com/N1NYcSz.jpg)
+![Download from GitHub](http://i.imgur.com/N1NYcSz.jpg)
 
 И обязательно выберите "HTTPS", затем выделите ссылку и скопируйте ее:
 

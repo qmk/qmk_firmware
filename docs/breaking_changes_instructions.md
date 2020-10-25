@@ -27,7 +27,7 @@ If you are contributing core code, and the only reason it needs to go through br
 
 We require submissions that go through the Breaking Change process to include a changelog entry. The entry should be a short summary of the changes your pull request makes &ndash; [each section here started as a changelog](ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc  - @noroadsleft").
 
-Your changelog should be located at `docs/ChangeLog/YYYYMMDD/PR####.md`, where `YYYYMMDD` is the date on which QMK's breaking change branch &ndash; usually named `future` &ndash; will be merged into the `master` branch, and `####` is the number of your pull request.
+Your changelog should be located at `docs/ChangeLog/YYYYMMDD/PR####.md`, where `YYYYMMDD` is the date on which QMK's breaking change branch &ndash; usually named `develop` &ndash; will be merged into the `master` branch, and `####` is the number of your pull request.
 
 If your submission requires action on the part of users, your changelog should instruct users what action(s) must be taken, or link to a location that does so.
 

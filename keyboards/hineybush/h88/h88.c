@@ -18,7 +18,8 @@
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
-
+	setPinOutput(D5);
+	setPinOutput(E6);
 	matrix_init_user();
 }
 
@@ -42,26 +43,19 @@ void led_set_kb(uint8_t usb_led) {
 	led_set_user(usb_led);
 }
 
-void led_init_ports(void) {
-  setPinOutput(D5);
-  setPinOutput(E6);
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(D5, !led_state.caps_lock);
+        writePin(E6, !led_state.scroll_lock);
+    }
+    return true;
 }
 
-void led_set_user(uint8_t usb_led) {
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+  rgblight_enable(); // Enable RGB by default
+  rgblight_sethsv(0, 255, 128);  // Set default HSV - red hue, full saturation, medium brightness
+  rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
 
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    setPinOutput(D5);
-    writePinLow(D5);
-  } else {
-    setPinInput(D5);
-  }
-
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    setPinOutput(E6);
-    writePinLow(E6);
-  } else {
-    setPinInput(E6);
-  }
-
+  eeconfig_update_kb(0);
+  eeconfig_init_user();
 }
-

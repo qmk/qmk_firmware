@@ -101,7 +101,8 @@
   * [Guide des claviers soudés à la main](fr-fr/hand_wire.md)
   * [Guide de flash de l’ISP](fr-fr/isp_flashing_guide.md)
   * [Guide du débogage ARM](fr-fr/arm_debugging.md)
-  * [Drivers i2c](fr-fr/i2c_driver.md)
+  * [Drivers I2C](fr-fr/i2c_driver.md)
+  * [Drivers SPI](fr-fr/spi_driver.md)
   * [Contrôles des GPIO](fr-fr/internals_gpio_control.md)
   * [Conversion en Proton C](fr-fr/proton_c_conversion.md)
 

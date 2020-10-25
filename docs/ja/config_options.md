@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: 0.8.62:docs/config_options.md
-  git diff 0.8.62 HEAD -- docs/config_options.md | cat
+  original document: 0.10.33:docs/config_options.md
+  git diff 0.10.33 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -48,8 +48,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * 一般的に、誰もしくはどのブランドがボードを作成したか
 * `#define PRODUCT Board`
   * キーボードの名前
-* `#define DESCRIPTION a keyboard`
-  * キーボードの簡単な説明
 * `#define MATRIX_ROWS 5`
   * キーボードのマトリックスの行の数
 * `#define MATRIX_COLS 15`
@@ -120,9 +118,9 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define NO_ACTION_ONESHOT`
   * ワンショットモディファイアを無効にします
 * `#define NO_ACTION_MACRO`
-  * 古い形式のマクロ処理を無効にします: MACRO() & action_get_macro
+  * `MACRO()`、`action_get_macro()` _(非推奨)_ を使う古い形式のマクロ処理を無効にします
 * `#define NO_ACTION_FUNCTION`
-  * fn_actions 配列(非推奨)からの action_function() の呼び出しを無効にします 
+  * `fn_actions`、`action_function()` _(非推奨)_ を使う古い形式の関数処理を無効にします
 
 ## 有効にできる機能
 
@@ -189,7 +187,14 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define RGBLIGHT_ANIMATIONS`
   * RGB アニメーションを実行します
 * `#define RGBLIGHT_LAYERS`
-  * オンとオフを切り替えることができる [ライトレイヤー](ja/feature_rgblight.md) を定義できます。現在のキーボードレイヤーまたは Caps Lock 状態を表示するのに最適です。
+  * オンとオフを切り替えることができる [ライトレイヤー](ja/feature_rgblight.md?id=lighting-layers) を定義できます。現在のキーボードレイヤーまたは Caps Lock 状態を表示するのに最適です。
+* `#define RGBLIGHT_MAX_LAYERS`
+  * デフォルトは8です。もしさらに [ライトレイヤー](ja/feature_rgblight.md?id=lighting-layers) が必要であれば、32まで拡張できます。
+  * メモ: 最大値を大きくするとファームウェアサイズが大きくなり、分割キーボードで同期が遅くなります。
+* `#define RGBLIGHT_LAYER_BLINK`
+  * 指定されたミリ秒の間、ライトレイヤーを [点滅](ja/feature_rgblight.md?id=lighting-layer-blink) する機能を追加します(例えば、アクションを確認するため)。
+* `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
+  * 定義されている場合、RGB ライトがオフになっている場合でも [ライトレイヤー](ja/feature_rgblight?id=overriding-rgb-lighting-onoff-status) が表示されます。
 * `#define RGBLED_NUM 12`
   * LED の数
 * `#define RGBLIGHT_SPLIT`
@@ -241,7 +246,10 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define SPLIT_HAND_PIN B7`
   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7` を使っているピンに置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準の Let's Splitが使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
 
-* `#define EE_HANDS` (`SPLIT_HAND_PIN` が定義されていない場合のみ動作します)
+* `#define SPLIT_HAND_MATRIX_GRID <out_pin>,<in_pin>`
+  * 左右はキーマトリックスのキースイッチが存在しない交点を使って決定されます。通常、この交点が短絡している(ローレベル)のときに左側と見なされます。もし `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT` が定義されている場合は、ローレベルの時に右側と決定されます。
+
+* `#define EE_HANDS` (`SPLIT_HAND_PIN` と `SPLIT_HAND_MATRIX_GRID` が定義されていない場合のみ動作します)
   * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分に書き込まれた後で、EEPROM 内に格納されている左右の設定の値を読み込みます。
 
 * `#define MASTER_RIGHT`
@@ -314,10 +322,9 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
     ```
 * `LAYOUTS`
   * このキーボードがサポートする[レイアウト](ja/feature_layouts.md)のリスト
-* `LINK_TIME_OPTIMIZATION_ENABLE`
-  * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、古いマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。
 * `LTO_ENABLE`
-  * LINK_TIME_OPTIMIZATION_ENABLE と同じ意味です。`LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
+  * キーボードをコンパイルする時に、Link Time Optimization (LTO) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。
+ただし、LTO が有効な場合、古い TMK のマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。(メモ: これは QMK の [マクロ](ja/feature_macros.md) と [レイヤー](ja/feature_layers.md) には影響を与えません。)
 
 ## AVR MCU オプション
 * `MCU = atmega32u4`
@@ -362,10 +369,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * MIDI 制御
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH_ENABLE`
-  * Adafruit EZ-Key HID で Bluetooth を有効にするレガシーオプション。BLUETOOTH を見てください
 * `BLUETOOTH`
-  * 現在のオプションは、AdafruitEzKey、AdafruitBLE、RN42
+  * 現在のオプションは、AdafruitBLE、RN42
 * `SPLIT_KEYBOARD`
   * 分割キーボード (let's split や bakingpy のキーボードのようなデュアル MCU) のサポートを有効にし、quantum/split_common にある全ての必要なファイルをインクルードします
 * `CUSTOM_MATRIX`
