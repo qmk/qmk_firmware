@@ -6,6 +6,7 @@ from milc import cli
 
 import qmk.keymap
 import qmk.path
+from qmk.info_json_encoder import InfoJSONEncoder
 
 
 @cli.argument('--no-cpp', arg_only=True, action='store_false', help='Do not use \'cpp\' on keymap.c')
@@ -47,7 +48,7 @@ def c2json(cli):
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
             cli.args.output.replace(cli.args.output.name + '.bak')
-        cli.args.output.write_text(json.dumps(keymap_json))
+        cli.args.output.write_text(json.dumps(keymap_json, cls=InfoJSONEncoder))
 
         if not cli.args.quiet:
             cli.log.info('Wrote keymap to %s.', cli.args.output)
