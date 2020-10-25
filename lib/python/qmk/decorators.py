@@ -88,7 +88,7 @@ def automagic_keymap(func):
 
 
 def lru_cache(timeout=10, maxsize=128, typed=False):
-    """Leaste Recently Used Cache- cache the result of a function.
+    """Least Recently Used Cache- cache the result of a function.
 
     Args:
 
