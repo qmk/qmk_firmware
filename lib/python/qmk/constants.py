@@ -14,6 +14,6 @@ LUFA_PROCESSORS = 'atmega16u2', 'atmega32u2', 'atmega16u4', 'atmega32u4', 'at90u
 VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 
 # Common format strings
-DATE_FORMAT='%Y-%m-%d'
-DATETIME_FORMAT='%Y-%m-%d %H:%M:%S %Z'
-TIME_FORMAT='%H:%M:%S'
+DATE_FORMAT = '%Y-%m-%d'
+DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
+TIME_FORMAT = '%H:%M:%S'
