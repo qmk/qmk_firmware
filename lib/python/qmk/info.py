@@ -50,28 +50,52 @@ def info_json(keyboard):
     return info_data
 
 
-def _extract_config_h(info_data):
-    """Pull some keyboard information from existing rules.mk files
+def _extract_diode_direction(info_data, config_c):
+    """Handle the diode direction.
     """
-    config_c = config_h(info_data['keyboard_folder'])
+    if 'diode_direction' in info_data and 'DIODE_DIRECTION' in config_c:
+        _log_warning(info_data, 'Diode direction is specified in both info.json and config.h, the config.h value wins.')
+
+    if 'DIODE_DIRECTION' in config_c:
+        info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
+
+    return info_data
+
+
+def _extract_matrix_info(info_data, config_c):
+    """Populate the matrix information.
+    """
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
 
-    info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
-    info_data['matrix_size'] = {
-        'rows': compute(config_c.get('MATRIX_ROWS', '0')),
-        'cols': compute(config_c.get('MATRIX_COLS', '0')),
-    }
-    info_data['matrix_pins'] = {}
+    if 'MATRIX_ROWS' in config_c and 'MATRIX_COLS' in config_c:
+        if 'matrix_size' in info_data:
+            _log_warning(info_data, 'Matrix size is specified in both info.json and config.h, the config.h values win.')
 
-    if row_pins:
-        info_data['matrix_pins']['rows'] = row_pins.split(',')
-    if col_pins:
-        info_data['matrix_pins']['cols'] = col_pins.split(',')
+        info_data['matrix_size'] = {
+            'rows': compute(config_c.get('MATRIX_ROWS', '0')),
+            'cols': compute(config_c.get('MATRIX_COLS', '0')),
+        }
+
+    if row_pins and col_pins:
+        if 'matrix_pins' in info_data:
+            _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
+
+        info_data['matrix_pins'] = {}
+
+        if row_pins:
+            info_data['matrix_pins']['rows'] = row_pins.split(',')
+        if col_pins:
+            info_data['matrix_pins']['cols'] = col_pins.split(',')
 
     if direct_pins:
+        if 'matrix_pins' in info_data:
+            _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
+
+        info_data['matrix_pins'] = {}
         direct_pin_array = []
+
         for row in direct_pins.split('},{'):
             if row.startswith('{'):
                 row = row[1:]
@@ -86,15 +110,45 @@ def _extract_config_h(info_data):
 
                 direct_pin_array[-1].append(pin)
 
-        info_data['matrix_pins']['direct'] = direct_pin_array
+            info_data['matrix_pins']['direct'] = direct_pin_array
 
-    info_data['usb'] = {
-        'vid': config_c.get('VENDOR_ID'),
-        'pid': config_c.get('PRODUCT_ID'),
-        'device_ver': config_c.get('DEVICE_VER'),
-        'manufacturer': config_c.get('MANUFACTURER'),
-        'product': config_c.get('PRODUCT'),
+    return info_data
+
+
+def _extract_usb_info(info_data, config_c):
+    """Populate the USB information.
+    """
+    usb_properties = {
+        'vid': 'VENDOR_ID',
+        'pid': 'PRODUCT_ID',
+        'device_ver': 'DEVICE_VER',
+        'manufacturer': 'MANUFACTURER',
+        'product': 'PRODUCT'
     }
+
+    if 'usb' not in info_data:
+        info_data['usb'] = {}
+
+    for info_name, config_name in usb_properties.items():
+        if config_name in config_c:
+            if info_name in info_data['usb']:
+                _log_warning(info_data, 'USB %s has been specified in both info.json and config.h, the config.h value wins.' % (info_name,))
+
+            info_data['usb'][info_name] = config_c[config_name]
+        elif info_name not in info_data:
+            _log_error(info_data, 'USB %s has not been specified in info.json, and %s has not been specified in config.h. One is required.' % (info_name, config_name))
+
+    return info_data
+
+
+def _extract_config_h(info_data):
+    """Pull some keyboard information from existing rules.mk files
+    """
+    config_c = config_h(info_data['keyboard_folder'])
+
+    _extract_diode_direction(info_data, config_c)
+    _extract_matrix_info(info_data, config_c)
+    _extract_usb_info(info_data, config_c)
 
     return info_data
 
