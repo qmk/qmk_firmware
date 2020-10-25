@@ -27,13 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Beegboy
 
 /* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 10
+#define MATRIX_ROWS 12
+#define MATRIX_COLS 9
 
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS { D1, D2, B5, B7, D3, D5, D6, D4, D7, B4 }
-#define MATRIX_COL_PINS { B6, C6, C7, F7, F6, F5, F4, F1, F0, D0 }
+#define MATRIX_ROW_PINS { B1, B0, B3, B2, D0, B7, D2, D1, B5, B4, C6, B6 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, D5, D3 }
 
 
 /* COL2ROW or ROW2COL */
@@ -46,4 +46,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /*EEPROM for via*/
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+//#define DYNAMIC_KEYMAP_LAYER_COUNT 3
