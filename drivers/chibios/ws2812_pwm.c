@@ -40,14 +40,6 @@
 #    endif
 #endif
 
-// WS2812 Byte Order
-#define WS2812_BYTE_ORDER_RGB 0
-#define WS2812_BYTE_ORDER_GRB 1
-
-#ifndef WS2812_BYTE_ORDER
-#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
-#endif
-
 #ifndef WS2812_PWM_TARGET_PERIOD
 //#    define WS2812_PWM_TARGET_PERIOD 800000 // Original code is 800k...?
 #    define WS2812_PWM_TARGET_PERIOD 80000  // TODO: work out why 10x less on f303/f4x1
