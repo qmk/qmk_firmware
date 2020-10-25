@@ -28,7 +28,8 @@ def info_json(keyboard):
         'keyboard_folder': str(keyboard),
         'keymaps': {},
         'layouts': {},
-        'parsing_errors': [],
+        'parse_errors': [],
+        'parse_warnings': [],
         'maintainer': 'qmk',
     }
 
@@ -110,10 +111,7 @@ def _extract_rules_mk(info_data):
     elif mcu in LUFA_PROCESSORS + VUSB_PROCESSORS:
         return avr_processor_rules(info_data, rules)
 
-    msg = "%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu)
-
-    info_data['parsing_errors'].append(msg)
-    _log_warning(info_data, msg)
+    _log_warning(info_data, "%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
 
     return unknown_processor_rules(info_data, rules)
 
@@ -165,14 +163,14 @@ def _find_all_layouts(info_data, keyboard, rules):
 def _log_error(info_data, message):
     """Send an error message to both JSON and the log.
     """
-    info_data['parsing_errors'].append(message)
+    info_data['parse_errors'].append(message)
     cli.log.error(message)
 
 
 def _log_warning(info_data, message):
     """Send a warning message to both JSON and the log.
     """
-    info_data['parsing_errors'].append(message)
+    info_data['parse_warnings'].append(message)
     cli.log.warning(message)
 
 
