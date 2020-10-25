@@ -44,17 +44,12 @@ enum custom_keycodes {
   ADJUST,
   ALT_US,
   ALT_JP,
-  // A_IME_M,
-  // A_IME_W,
-  OPT_IME,
   ALT_GRV,
 };
 
 // Tap Dance
 enum tap_dances{
-    TD_GRV_ESC = 0 ,
-    TD_LSFT_CAPS,
-    TD_LBRC_RBRC,
+    TD_LSFT_CAPS = 0,
     TD_ESC_NUM,
 };
 
@@ -83,21 +78,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 #define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
-#define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
-#define SP_ADJ  LT(_ADJUST, KC_SPC)
-#define SP_GUI  MT(MOD_LGUI, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define S_SLS   RSFT_T(KC_SLSH)
-#define C_SCLN  RCTL_T(KC_SCLN)
-#define C_QUOT  RCTL_T(KC_QUOT)
-#define C_MINS  RCTL_T(KC_MINS)
+#define S_SLSH   RSFT_T(KC_SLSH)
 #define C_SLSH  RCTL_T(KC_SLSH)
 #define CT_E     LCTL(KC_E)
 #define CT_A     LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
-#define OPT_IME RALT_T(LCTL(KC_SPC))
 
 
 
@@ -141,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,  \
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC, \
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_ENT,            KC_QUOT, \
-        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLS,  KC_RSFT,XXXXXXX,ADJUST,  \
+        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH,  KC_UP, KC_RSFT,ADJUST,  \
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______  \
     ),
     [_ADJUST] = LAYOUT_ANSI(
