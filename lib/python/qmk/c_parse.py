@@ -102,7 +102,7 @@ def parse_config_h_file(config_h_file, config_h=None):
 
             if line[0] == '#define':
                 if len(line) == 1:
-                    cli.log.error('%s: Incomplete #define! On or around line %s' % (config_h_file, linenum))
+                    cli.log.warn('%s: Incomplete #define! On or around line %s' % (config_h_file, linenum))
                 elif len(line) == 2:
                     config_h[line[1]] = True
                 else:
@@ -116,7 +116,7 @@ def parse_config_h_file(config_h_file, config_h=None):
                         else:
                             config_h[line[1]] = False
                 else:
-                    cli.log.error('%s: Incomplete #undef! On or around line %s' % (config_h_file, linenum))
+                    cli.log.warn('%s: Incomplete #undef! On or around line %s' % (config_h_file, linenum))
 
     return config_h
 
@@ -150,7 +150,7 @@ def _parse_matrix_locations(matrix, file, macro_name):
 
     for row_num, row in enumerate(matrix.split('},{')):
         if row.startswith('LAYOUT'):
-            cli.log.error('%s: %s: Nested layout macro detected. Matrix data not available!', file, macro_name)
+            cli.log.warn('%s: %s: Nested layout macro detected. Matrix data not available!', file, macro_name)
             break
 
         row = row.replace('{', '').replace('}', '')
