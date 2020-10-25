@@ -3,9 +3,29 @@
 from array import array
 from math import ceil
 from pathlib import Path
+import os
+from glob import glob
 
 from qmk.c_parse import parse_config_h_file
 from qmk.makefile import parse_rules_mk_file
+
+base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
+
+
+def _find_name(path):
+    """Determine the keyboard name by stripping off the base_path and rules.mk.
+    """
+    return path.replace(base_path, "").replace(os.path.sep + "rules.mk", "")
+
+
+def list_keyboards():
+    """Returns a list of all keyboards.
+    """
+    # We avoid pathlib here because this is performance critical code.
+    kb_wildcard = os.path.join(base_path, "**", "rules.mk")
+    paths = [path for path in glob(kb_wildcard, recursive=True) if 'keymaps' not in path]
+
+    return sorted(map(_find_name, paths))
 
 
 def config_h(keyboard):
