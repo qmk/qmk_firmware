@@ -25,9 +25,10 @@ You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` make
 
 # Checking Modifier State :id=checking-modifier-state
 
-The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers.
+The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers (unless they're held, in which case they act like normal modifier keys).
 
 The presence of one or more specific modifiers in the current modifier state can be detected by ANDing the modifier state with a mod mask corresponding to the set of modifiers you want to match for.
+For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
 
 In practice, this means that you can check modifier state with `get_mods() & MOD_BIT(KC_<mod>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<mod>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
 
@@ -53,8 +54,8 @@ The full list of mod masks is as follows:
 
 Aside from accessing the currently active modifiers using `get_mods()`, there exists some other functions you can use to modify the modifier state, where the `mods` argument refers to the modifiers bitmask.
 
-* `add_mods(mods)`: Enable `mods`
-* `del_mods(mods)`: Disable `mods`
+* `add_mods(mods)`: Enable `mods` without affecting any other modifiers
+* `del_mods(mods)`: Disable `mods` without affecting any other modifiers
 * `set_mods(mods)`: Overwrite current modifier state with `mods`
 * `clear_mods()`: Reset the modifier state by disabling all modifiers
 
@@ -64,6 +65,8 @@ Similarly, in addition to `get_oneshot_mods()`, there also exists these function
 * `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers
 
 ## Examples :id=examples
+
+The following examples use [advanced macro functions](feature_macros#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros).
 
 ### Alt + Escape for Alt + Tab :id=alt-escape-for-alt-tab
 
