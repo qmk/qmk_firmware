@@ -44,13 +44,14 @@ def generate_api(cli):
         if 'usb' in kb_all['keyboards'][keyboard_name]:
             usb = kb_all['keyboards'][keyboard_name]['usb']
 
-            if usb['vid'] not in usb_list['devices']:
+            if 'vid' in usb and usb['vid'] not in usb_list['devices']:
                 usb_list['devices'][usb['vid']] = {}
 
-            if usb['pid'] not in usb_list['devices'][usb['vid']]:
+            if 'pid' in usb and usb['pid'] not in usb_list['devices'][usb['vid']]:
                 usb_list['devices'][usb['vid']][usb['pid']] = {}
 
-            usb_list['devices'][usb['vid']][usb['pid']][keyboard_name] = usb
+            if 'vid' in usb and 'pid' in usb:
+                usb_list['devices'][usb['vid']][usb['pid']][keyboard_name] = usb
 
     # Write the global JSON files
     keyboard_list.write_text(json.dumps({'last_updated': current_datetime(), 'keyboards': sorted(kb_all['keyboards'])}))

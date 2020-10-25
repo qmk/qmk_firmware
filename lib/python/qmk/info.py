@@ -86,6 +86,7 @@ def _extract_matrix_info(info_data, config_c):
 
         if row_pins:
             info_data['matrix_pins']['rows'] = row_pins.split(',')
+
         if col_pins:
             info_data['matrix_pins']['cols'] = col_pins.split(',')
 
@@ -99,6 +100,7 @@ def _extract_matrix_info(info_data, config_c):
         for row in direct_pins.split('},{'):
             if row.startswith('{'):
                 row = row[1:]
+
             if row.endswith('}'):
                 row = row[:-1]
 
@@ -132,11 +134,12 @@ def _extract_usb_info(info_data, config_c):
     for info_name, config_name in usb_properties.items():
         if config_name in config_c:
             if info_name in info_data['usb']:
-                _log_warning(info_data, 'USB %s has been specified in both info.json and config.h, the config.h value wins.' % (info_name,))
+                _log_warning(info_data, '%s in config.h is overwriting usb.%s in info.json' % (config_name, info_name))
 
             info_data['usb'][info_name] = config_c[config_name]
+
         elif info_name not in info_data:
-            _log_error(info_data, 'USB %s has not been specified in info.json, and %s has not been specified in config.h. One is required.' % (info_name, config_name))
+            _log_error(info_data, '%s not specified in config.h, and %s not specified in info.json. One is required.' % (config_name, info_name))
 
     return info_data
 
@@ -218,14 +221,14 @@ def _log_error(info_data, message):
     """Send an error message to both JSON and the log.
     """
     info_data['parse_errors'].append(message)
-    cli.log.error(message)
+    cli.log.error('%s: %s', info_data['keyboard_name'], message)
 
 
 def _log_warning(info_data, message):
     """Send a warning message to both JSON and the log.
     """
     info_data['parse_warnings'].append(message)
-    cli.log.warning(message)
+    cli.log.warning('%s: %s', info_data['keyboard_name'], message)
 
 
 def arm_processor_rules(info_data, rules):
