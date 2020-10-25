@@ -256,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     MI_A_2,  MI_C_3,  MI_Eb_3, MI_Gb_3, MI_A_3, MI_C_4,  MI_Eb_4, MI_Gb_4, MI_A_4, MI_C_5,  MI_Eb_5, MI_Gb_5, _______,
     MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3, MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4, MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
-    XXXXXXX, MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3, MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4, MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5
+    MI_Ab_2, MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3, MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4, MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5
   ),
 
   /* Base2row */
