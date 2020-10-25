@@ -2,11 +2,11 @@
 """
 from pathlib import Path
 from shutil import copyfile
-from time import strftime
 import json
 
 from milc import cli
 
+from qmk.datetime import current_datetime
 from qmk.info import info_json
 from qmk.keyboard import list_keyboards
 
@@ -24,8 +24,8 @@ def generate_api(cli):
     if not api_data_dir.exists():
         api_data_dir.mkdir()
 
-    kb_all = {'last_updated': strftime('%Y-%m-%d %H:%M:%S %Z'), 'keyboards': {}}
-    usb_list = {'last_updated': strftime('%Y-%m-%d %H:%M:%S %Z'), 'devices': {}}
+    kb_all = {'last_updated': current_datetime(), 'keyboards': {}}
+    usb_list = {'last_updated': current_datetime(), 'devices': {}}
 
     # Generate and write keyboard specific JSON files
     for keyboard_name in list_keyboards():
@@ -53,6 +53,6 @@ def generate_api(cli):
             usb_list['devices'][usb['vid']][usb['pid']][keyboard_name] = usb
 
     # Write the global JSON files
-    keyboard_list.write_text(json.dumps({'last_updated': strftime('%Y-%m-%d %H:%M:%S %Z'), 'keyboards': sorted(kb_all['keyboards'])}))
+    keyboard_list.write_text(json.dumps({'last_updated': current_datetime(), 'keyboards': sorted(kb_all['keyboards'])}))
     keyboard_all.write_text(json.dumps(kb_all))
     usb_file.write_text(json.dumps(usb_list))
