@@ -17,8 +17,7 @@ def lint(cli):
     """Check keyboard and keymap for common mistakes.
     """
     if not cli.config.lint.keyboard:
-        cli.log.error('Could not determine keyboard!')
-        print()
+        cli.log.error('Missing required argument: --keyboard')
         cli.print_help()
         return False
 
@@ -45,11 +44,14 @@ def lint(cli):
     # Keymap specific checks
     if cli.config.lint.keymap:
         keymap_path = locate_keymap(cli.config.lint.keyboard, cli.config.lint.keymap)
+
         if not keymap_path:
             ok = False
             cli.log.error("Can't find %s keymap for %s keyboard.", cli.config.lint.keymap, cli.config.lint.keyboard)
         else:
-            pass
+            keymap_readme = keymap_path.parent / 'readme.md'
+            if not keymap_readme.exists():
+                cli.log.warning('Missing %s', keymap_readme)
 
     # Check and report the overall status
     if ok:
