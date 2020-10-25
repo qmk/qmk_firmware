@@ -33,6 +33,8 @@ enum planck_keycodes {
 #define ALTENT ALT_T(KC_ENT)
 #define ESCTRL CTL_T(KC_ESC)
 #define TABALT ALT_T(KC_TAB)
+#define DELGUI GUI_T(KC_DEL)
+#define DELCTL CTL_T(KC_DEL)
 #define MACLOCK LGUI(LCTL(KC_Q))
 #define ADJUST MO(_ADJUST)
 #define LOWER MO(_LOWER)
@@ -47,13 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|SFT/ ;|   Q  |   J  |   K  |   X  | Home || End  |   B  |   M  |   W  |   V  |SFT/ Z|
 	|------+------+------+------+------+------||------+------+------+------+------+------|
-	|  Esc |  Tab |  GUI | LOWER| BkSp | LCTL ||ALTENT|  Spc | RAISE|   -  |   /  |   \  |
+	|  Esc |  Tab |  GUI | LOWER| BkSp |DELCTL||ALTENT|  Spc | RAISE|   -  |   /  |   \  |
 	`-----------------------------------------'`-----------------------------------------' */
   [_DVORAK] = LAYOUT(
     KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
     KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
     SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
-    ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LCTL, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
+    ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, DELCTL,  ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
   ),
 
   /* QWERTY Layer
@@ -104,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
     KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
     SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
-    ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, KC_LGUI, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
+    ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, DELGUI,  ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
   ),
 
   /* LOWER Layer
