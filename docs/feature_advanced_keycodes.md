@@ -68,7 +68,7 @@ Similarly, in addition to `get_oneshot_mods()`, there also exists these function
 
 ## Examples :id=examples
 
-The following examples use [advanced macro functions](feature_macros#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros).
+The following examples use [advanced macro functions](feature_macros.md#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros.md).
 
 ### Alt + Escape for Alt + Tab :id=alt-escape-for-alt-tab
 
