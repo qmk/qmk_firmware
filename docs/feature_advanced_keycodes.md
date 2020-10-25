@@ -27,7 +27,7 @@ You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` make
 
 The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers (unless they're held, in which case they act like normal modifier keys).
 
-The presence of one or more specific modifiers in the current modifier state can be detected by ANDing the modifier state with a mod mask corresponding to the set of modifiers you want to match for. The reason why bitwise operators are used is that the modifier state is stored as a single byte in the format C<sub>L</sub>S<sub>L</sub>A<sub>L</sub>G<sub>L</sub>C<sub>R</sub>S<sub>R</sub>A<sub>R</sub>G<sub>R</sub>.
+The presence of one or more specific modifiers in the current modifier state can be detected by ANDing the modifier state with a mod mask corresponding to the set of modifiers you want to match for. The reason why bitwise operators are used is that the modifier state is stored as a single byte in the format (GASC)<sub>R</sub>(GASC)<sub>L</sub>.
 
 Thus, to give an example, `01000010` would be the internal representation of LShift+RAlt.
 For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
