@@ -1,7 +1,7 @@
 # Little Alby
 *Arduino Keyboard layouts*
 
-Little Alby is a keyboard library using QMk used to create Arduino based keyboards.
+Little Alby is a keyboard library using QMK used to create Arduino based keyboards.
 
 ## Keyboard Layouts
 
