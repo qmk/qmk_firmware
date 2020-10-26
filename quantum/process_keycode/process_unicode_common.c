@@ -136,20 +136,10 @@ __attribute__((weak)) void unicode_input_cancel(void) {
     set_mods(unicode_saved_mods);  // Reregister previously set mods
 }
 
-__attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {
-    if (hex == 0x0) {
-        return KC_0;
-    } else if (hex < 0xA) {
-        return KC_1 + (hex - 0x1);
-    } else {
-        return KC_A + (hex - 0xA);
-    }
-}
-
 void register_hex(uint16_t hex) {
     for (int i = 3; i >= 0; i--) {
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
-        tap_code(hex_to_keycode(digit));
+        tap_code16(hex_to_keycode(digit));
     }
 }
 
@@ -162,10 +152,10 @@ void register_hex32(uint32_t hex) {
         uint8_t digit = ((hex >> (i * 4)) & 0xF);
         if (digit == 0) {
             if (!onzerostart) {
-                tap_code(hex_to_keycode(digit));
+                tap_code16(hex_to_keycode(digit));
             }
         } else {
-            tap_code(hex_to_keycode(digit));
+            tap_code16(hex_to_keycode(digit));
             onzerostart = false;
         }
     }
