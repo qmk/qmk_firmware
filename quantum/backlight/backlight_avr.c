@@ -246,9 +246,7 @@ static uint16_t cie_lightness(uint16_t v) {
 }
 
 // rescale the supplied backlight value to be in terms of the value limit
-static uint32_t rescale_limit_val(uint32_t val) {
-    return (val * (BACKLIGHT_LIMIT_VAL + 1)) / 256;
-}
+static uint32_t rescale_limit_val(uint32_t val) { return (val * (BACKLIGHT_LIMIT_VAL + 1)) / 256; }
 
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) { OCRxx = val; }
