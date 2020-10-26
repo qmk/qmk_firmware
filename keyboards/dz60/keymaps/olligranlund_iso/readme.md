@@ -1,4 +1,4 @@
-# DZ60 with splitted parts
+# DZ60 with splitted parts with VIA support
 ### by Oliver Granlund
 
 ![Finished product](https://i.imgur.com/HlEo5Yg.jpg)
