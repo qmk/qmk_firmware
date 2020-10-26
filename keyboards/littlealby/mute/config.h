@@ -17,8 +17,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5342 // "SB"
-#define PRODUCT_ID      0x3225 // "2%"
+#define VENDOR_ID       0x1235 // "AB"
+#define PRODUCT_ID      0x5555 // "MUTE"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Little Alby
 #define PRODUCT         Mute
