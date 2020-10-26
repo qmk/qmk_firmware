@@ -16,7 +16,7 @@
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter - https://github.com/qmk/qmk_firmware/blob/master/docs/config_options.md#hardware-options */
+/* USB Device descriptor parameter */
 #define VENDOR_ID       0x5342 // "SB"
 #define PRODUCT_ID      0x3225 // "2%"
 #define DEVICE_VER      0x0001
