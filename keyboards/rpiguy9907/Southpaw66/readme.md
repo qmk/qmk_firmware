@@ -14,7 +14,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make rpiguy9907/southpaw66:default
+    make rpiguy9907/Southpaw66:default
 
 **Reset Key:** Hold down the key located at `k00`, commonly programmed as Escape while plugging in the keyboard.
 
