@@ -230,14 +230,14 @@ void process_record_handler(keyrecord_t *record) {
 
 #if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
 void register_button(bool pressed, enum mouse_buttons button) {
-    #ifdef PS2_MOUSE_ENABLE
+#    ifdef PS2_MOUSE_ENABLE
     tp_buttons = pressed ? tp_buttons | button : tp_buttons & ~button;
-    #endif
-    #ifdef POINTING_DEVICE_ENABLE
+#    endif
+#    ifdef POINTING_DEVICE_ENABLE
     report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.buttons = pressed ? currentReport.buttons | button : currentReport.buttons & ~button;
+    currentReport.buttons        = pressed ? currentReport.buttons | button : currentReport.buttons & ~button;
     pointing_device_set_report(currentReport);
-    #endif
+#    endif
 }
 #endif
 
@@ -742,9 +742,9 @@ void process_action(keyrecord_t *record, action_t action) {
                 retro_tapping_counter = 0;
             } else {
                 if (
-     #    ifdef RETRO_TAPPING_PER_KEY
+#        ifdef RETRO_TAPPING_PER_KEY
                     get_retro_tapping(get_event_keycode(record->event, false), record) &&
-     #    endif
+#        endif
                     retro_tapping_counter == 2) {
                     tap_code(action.layer_tap.code);
                 }

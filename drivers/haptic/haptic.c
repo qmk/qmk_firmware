@@ -40,7 +40,7 @@ void haptic_init(void) {
 #ifdef SOLENOID_ENABLE
         || (haptic_config.dwell == 0)
 #endif
-       ) {
+    ) {
         // this will be called, if the eeprom is not corrupt,
         // but the previous firmware didn't have haptic enabled,
         // or the previous firmware didn't have solenoid enabled,
