@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Little Alby
 #define PRODUCT         Mute
-#define DESCRIPTION     An Arduino keyboard
 
 /* USB_MAX_POWER_CONSUMPTION - sets the maximum power (in mA) over USB for the device (default: 500)*/
 #define USB_MAX_POWER_CONSUMPTION 100
