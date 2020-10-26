@@ -17,10 +17,9 @@
 #include "crazy_keyboard_68.h"
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-	//matrix_init_user();
 	led_init_ports();
+	
+	matrix_init_user();
 }
 
 void led_init_ports(void) {
