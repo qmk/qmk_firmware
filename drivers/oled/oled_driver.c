@@ -654,15 +654,15 @@ void oled_task(void) {
     }
 
 #if OLED_UPDATE_INTERVAL > 0
-    if (timer_elapsed(oled_update_timeout) < OLED_UPDATE_INTERVAL) {
-        return;
+    if (timer_elapsed(oled_update_timeout) >= OLED_UPDATE_INTERVAL) {
+        oled_update_timeout = timer_read();
+        oled_set_cursor(0, 0);
+        oled_task_user();
     }
-    oled_update_timeout = timer_read();
-#endif
-
+#else
     oled_set_cursor(0, 0);
-
     oled_task_user();
+#endif
 
 #if OLED_SCROLL_TIMEOUT > 0
     if (oled_dirty && oled_scrolling) {
