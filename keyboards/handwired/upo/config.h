@@ -45,9 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_ROW_PINS {  }
 // #define MATRIX_COL_PINS {  }
 // #define UNUSED_PINS
-#define MATRIX_ROW_PINS { D1, D0, D4 }
-#define MATRIX_COL_PINS { C6, D7, E6, B4 }
-#define UNUSED_PINS {F4, F5, F6, B6, B5 }
+#define MATRIX_ROW_PINS { B4, B5, B6 }
+#define MATRIX_COL_PINS { D4, C6, D7, E6 }
+#define UNUSED_PINS { D1, D0, F6, F4, F5, F6 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -152,3 +152,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POLLING true
 // To use Qwiic pro micro
 #define SPLIT_USB_DETECT
+
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 11
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8

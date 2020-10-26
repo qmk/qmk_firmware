@@ -26,7 +26,7 @@
 #define cursor_mode 0
 #define carret_mode 1
 #define scroll_mode 2
-uint8_t track_mode = scroll_mode; // 0 Mousecursor; 1 arrowkeys/carret; 2 scrollwheel; 3 sound/brightness
+uint8_t track_mode = cursor_mode; // 0 Mousecursor; 1 arrowkeys/carret; 2 scrollwheel; 3 sound/brightness
 #define sound_brightness_mode 3
 uint8_t prev_track_mode = 0;
 bool integration_mode = false;
@@ -36,19 +36,21 @@ int16_t sensor_x = 0;
 int16_t sensor_y = 0;
 
 // Thresholds help to move only horizontal or vertical. When accumulated distance reaches threshold, only move one discrete value in direction with bigger delta.
-uint8_t	carret_threshold = 24;		 // higher means slower
+uint8_t	carret_threshold = 48;		 // higher means slower
 uint16_t carret_threshold_inte = 340; // in integration mode higher threshold
+#define CARRET_STEP 5
 
 #define regular_smoothscroll_factor 8
 bool smooth_scroll = true;
 uint8_t	scroll_threshold = 800 / regular_smoothscroll_factor;	// divide if started smooth
 uint16_t scroll_threshold_inte = 1200 / regular_smoothscroll_factor;
 
-uint16_t cursor_multiplier = 25;	// adjust cursor speed
+uint16_t cursor_multiplier = 50;	// adjust cursor speed
 uint16_t cursor_multiplier_inte = 20;
-#define CPI_STEP 20
+#define CPI_STEP 10
 
 int16_t cur_factor;
+#define SCROLL_STEP 10
 
 /***************************
  * Mouse pressed
@@ -81,21 +83,28 @@ enum custom_keycodes {
 	KC_CPI_DOWN,
 	KC_CPI_STD,
 	KC_CPI_UP,
+	KC_SCROLLSPEED_DOWN,
+	KC_SCROLLSPEED_UP,
 	KC_SMO_SC,
 	KC_MOUSEMODE_CURSOR,
 	KC_MOUSEMODE_SCROLL,
-	KC_MOUSEMODE_ARROW
+	KC_MOUSEMODE_ARROW,
+	KC_MOUSEMODE_BRIGHTNESS,
+	KC_MOUSEMODE_SCROLL_ON_PRESS,
+	KC_MOUSEMODE_ARROW_ON_PRESS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        KC_A,    KC_1,    MO(_FN),
-            KC_TAB,   KC_SPC
+        RGB_TOG,    RGB_HUI,    RGB_SAI,
+        KC_CPI_UP,   KC_CPI_DOWN,    KC_MOUSEMODE_SCROLL_ON_PRESS,   KC_MOUSEMODE_ARROW_ON_PRESS,
+        KC_BTN1,   MO(_FN),    KC_BTN3,   KC_BTN2
     ),
     [_FN] = LAYOUT(
-        QMKBEST, QMKURL,  _______,
-            RESET,    XXXXXXX
+        RGB_MODE_FORWARD,    RGB_HUD,    RGB_SAD,
+        KC_SCROLLSPEED_UP,   KC_SCROLLSPEED_DOWN,    KC_SPC,   KC_SPC,
+        KC_BTN1,   MO(_FN),    KC_BTN3,   KC_BTN2
     )
 };
 
@@ -139,8 +148,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 
 		case KC_CPI_DOWN:
-			if (cursor_multiplier > CPI_STEP)
-				cursor_multiplier = cursor_multiplier - CPI_STEP;
+            if (record->event.pressed) {
+                if (cursor_multiplier > CPI_STEP) {
+                    cursor_multiplier = cursor_multiplier - CPI_STEP;
+                }
+                carret_threshold += CARRET_STEP;
+            }
 			return false;
 
 		case KC_CPI_STD:
@@ -148,7 +161,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 
 		case KC_CPI_UP:
-			cursor_multiplier = cursor_multiplier + CPI_STEP;
+            if (record->event.pressed) {
+                cursor_multiplier = cursor_multiplier + CPI_STEP;
+                if (carret_threshold>CARRET_STEP) {
+                    carret_threshold += CARRET_STEP;
+                }
+
+            }
 			return false;
 
 		case KC_SMO_SC:
@@ -163,7 +182,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				smooth_scroll = true;
 				}
 			}
-
+            return false;
+        case KC_MOUSEMODE_CURSOR:
+            track_mode = cursor_mode;
+            return false;
+        case KC_MOUSEMODE_SCROLL:
+            track_mode = scroll_mode;
+            return false;
+        case KC_MOUSEMODE_SCROLL_ON_PRESS:
+            if (record->event.pressed) {
+                track_mode = scroll_mode;
+            } else {
+                track_mode = cursor_mode;
+            }
+            return false;
+        case KC_MOUSEMODE_ARROW_ON_PRESS:
+            if (record->event.pressed) {
+                track_mode = carret_mode;
+            } else {
+                track_mode = cursor_mode;
+            }
+            return false;
+        case KC_MOUSEMODE_ARROW:
+            track_mode = carret_mode;
+            return false;
+        case KC_MOUSEMODE_BRIGHTNESS:
+            track_mode = sound_brightness_mode;
+            return false;
+        case KC_SCROLLSPEED_UP:
+            if (record->event.pressed) {
+                scroll_threshold += SCROLL_STEP;
+            }
+            return false;
+        case KC_SCROLLSPEED_DOWN:
+            if (record->event.pressed) {
+                scroll_threshold -= SCROLL_STEP;
+            }
+            return false;
     }
     return true;
 }
