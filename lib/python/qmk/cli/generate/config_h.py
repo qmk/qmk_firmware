@@ -10,7 +10,7 @@ from qmk.datetime import current_datetime
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.keyboard import list_keyboards
-from qmk.path import is_keyboard
+from qmk.path import is_keyboard, normpath
 
 usb_properties = {
     'vid': 'VENDOR_ID',
@@ -19,6 +19,8 @@ usb_properties = {
 }
 
 
+@cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', help='Keyboard to generate config.h for.')
 @cli.subcommand('Used by the make system to generate info_config.h from info.json', hidden=True)
 @automagic_keyboard
@@ -80,7 +82,7 @@ def generate_config_h(cli):
             config_h_lines.append('#endif // MATRIX_COLS')
             config_h_lines.append('')
             config_h_lines.append('#ifndef MATRIX_COL_PINS')
-            config_h_lines.append('#    define MATRIX_COL_PINS ' + cols)
+            config_h_lines.append('#    define MATRIX_COL_PINS { %s }' % (cols,))
             config_h_lines.append('#endif // MATRIX_COL_PINS')
 
         if 'rows' in kb_info_json['matrix_pins']:
@@ -93,7 +95,7 @@ def generate_config_h(cli):
             config_h_lines.append('#endif // MATRIX_ROWS')
             config_h_lines.append('')
             config_h_lines.append('#ifndef MATRIX_ROW_PINS')
-            config_h_lines.append('#    define MATRIX_ROW_PINS ' + rows)
+            config_h_lines.append('#    define MATRIX_ROW_PINS { %s }' % (rows,))
             config_h_lines.append('#endif // MATRIX_ROW_PINS')
 
     if 'usb' in kb_info_json:
@@ -105,4 +107,16 @@ def generate_config_h(cli):
                 config_h_lines.append('#endif // ' + config_name)
 
     # Show the results
-    print('\n'.join(config_h_lines))
+    config_h = '\n'.join(config_h_lines)
+
+    if cli.args.output:
+        cli.args.output.parent.mkdir(parents=True, exist_ok=True)
+        if cli.args.output.exists():
+            cli.args.output.replace(cli.args.output.name + '.bak')
+        cli.args.output.write_text(config_h)
+
+        if not cli.args.quiet:
+            cli.log.info('Wrote info_config.h to %s.', cli.args.output)
+
+    else:
+        print(config_h)
