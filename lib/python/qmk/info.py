@@ -123,9 +123,7 @@ def _extract_usb_info(info_data, config_c):
     usb_properties = {
         'vid': 'VENDOR_ID',
         'pid': 'PRODUCT_ID',
-        'device_ver': 'DEVICE_VER',
-        'manufacturer': 'MANUFACTURER',
-        'product': 'PRODUCT'
+        'device_ver': 'DEVICE_VER'
     }
 
     if 'usb' not in info_data:
@@ -138,7 +136,7 @@ def _extract_usb_info(info_data, config_c):
 
             info_data['usb'][info_name] = config_c[config_name]
 
-        elif info_name not in info_data:
+        elif info_name not in info_data['usb']:
             _log_error(info_data, '%s not specified in config.h, and %s not specified in info.json. One is required.' % (config_name, info_name))
 
     return info_data
@@ -286,21 +284,34 @@ def merge_info_jsons(keyboard, info_data):
     for info_file in find_info_json(keyboard):
         # Load and validate the JSON data
         with info_file.open('r') as info_fd:
-            new_info_data = json.load(info_fd)
+            try:
+                new_info_data = json.load(info_fd)
+            except Exception as e:
+                _log_error(info_data, "Invalid JSON in file %s: %s" % (info_file, e))
+                new_info_data = {}
 
         if not isinstance(new_info_data, dict):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary.", str(info_file))
             continue
 
         # Copy whitelisted keys into `info_data`
-        for key in ('keyboard_name', 'manufacturer', 'identifier', 'url', 'maintainer', 'processor', 'bootloader', 'width', 'height'):
+        for key in ('diode_direction', 'keyboard_name', 'manufacturer', 'identifier', 'url', 'maintainer', 'processor', 'bootloader', 'width', 'height'):
             if key in new_info_data:
                 info_data[key] = new_info_data[key]
 
-        # Merge the layouts in
+        # Deep merge certain keys
+        for key in ('matrix_pins', 'usb'):
+            if key not in info_data:
+                info_data[key] = {}
+
+            if key in new_info_data:
+                info_data[key].update(new_info_data[key])
+
+        # Merge the layouts
         if 'layouts' in new_info_data:
             for layout_name, json_layout in new_info_data['layouts'].items():
                 # Only pull in layouts we have a macro for
+                # FIXME(skullydazed): Should also pull in layouts that have matrix data
                 if layout_name in info_data['layouts']:
                     if info_data['layouts'][layout_name]['key_count'] != len(json_layout['layout']):
                         msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
