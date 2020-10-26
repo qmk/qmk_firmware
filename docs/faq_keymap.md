@@ -1,85 +1,96 @@
-# Keymap FAQ
+# Keymap - вопросы и ответы
 
-This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap.md) first.
 
-## What Keycodes Can I Use?
-See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
+Вопросы, которые часто возникают в процессе создания раскладок. 
+Но для начала лучше прочитать [Keymap Overview](https://docs.qmk.fm/#/keymap).
 
-Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+## Какие коды клавиш(Keycodes) я могу использовать?
 
-## What Are the Default Keycodes?
+См. Раздел [«Keycodes»](https://docs.qmk.fm/#/keycodes) для получения списка доступных вам кодов клавиш. Они содержат ссылки на более обширную документацию, если таковая имеется.
+Коды клавиш фактически определены в common/keycode.h.
 
-There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
+## Какие коды клавиш используются по умолчанию?
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
-![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
+В мире используются 3 стандартные раскладки клавиатуры: ANSI, ISO и JIS. Северная Америка в основном использует ANSI, Европа и Африка в первую очередь используют ISO, а Япония использует JIS. 
+Не упомянутые регионы обычно используют ANSI или ISO. Коды клавиш, соответствующие этим раскладкам, показаны здесь:
 
-## How Can I Make Custom Names For Complex Keycodes?
+![стандартные раскладки клавиатуры](https://i.imgur.com/5wsh5wM.png)
 
-Sometimes, for readability's sake, it's useful to define custom names for some keycodes. People often define custom names using `#define`. For example:
+## Как назвать свои сложно-составные кей-коды для клавиш?
 
+Иногда для удобства полезно определить собственные имена для некоторых клави-кодов. Люди часто определяют собственные имена с помощью #define. 
+Например:
 ```c
 #define FN_CAPS LT(_FL, KC_CAPSLOCK)
 #define ALT_TAB LALT(KC_TAB)
 ```
 
-This will allow you to use `FN_CAPS` and `ALT_TAB` in your keymap, keeping it more readable.
+Это позволит вам использовать FN_CAPS и ALT_TAB в вашей раскладке, делая ее более читаемой.
 
-## Some Of My Keys Are Swapped Or Not Working
+## Некоторые из моих клавиш "поменялись местами" или не работают. Что делать?
 
-QMK has two features, Bootmagic and Command, which allow you to change the behavior of your keyboard on the fly. This includes, but is not limited to, swapping Ctrl/Caps, disabling Gui, swapping Alt/Gui, swapping Backspace/Backslash, disabling all keys, and other behavioral modifications. 
+QMK имеет две функции, Bootmagic и Command, которые позволяют вам изменять поведение клавиатуры "на лету". 
+Это включает, но не ограничивается, замену Ctrl/Caps, отключение Gui, замену Alt/Gui, замену Backspace/Backslash, отключение всех клавиш и другие поведенческие модификации.
+В качестве быстрого решения попробуйте удерживать клавиши Space + Backspace при подключении клавиатуры. 
+Это приведет к сбросу сохраненных настроек на вашей клавиатуре, и эти клавиши вернутся к нормальной работе. Если это не сработает, посмотрите здесь:
+* [Bootmagic](https://docs.qmk.fm/#/feature_bootmagic)
+* [Command](https://docs.qmk.fm/#/feature_command)
 
-As a quick fix try holding down `Space`+`Backspace` while you plug in your keyboard. This will reset the stored settings on your keyboard, returning those keys to normal operation. If that doesn't work look here:
+## Клавиша "меню" не работает
 
-* [Bootmagic](feature_bootmagic.md)
-* [Command](feature_command.md) 
+Клавиша на большинстве современных клавиатур, расположенная между KC_RGUI и KC_RCTL, на самом деле называется KC_APP. 
+Это связано с тем, что когда она появилась, в соответствующих стандартах уже был ключ с именем MENU, поэтому MS решила назвать его ключом APP.
 
-## The Menu Key Isn't Working
+## KC_SYSREQ не работает
 
-The key found on most modern keyboards that is located between `KC_RGUI` and `KC_RCTL` is actually called `KC_APP`. This is because when that key was invented there was already a key named `MENU` in the relevant standards, so MS chose to call that the `APP` key.
+Используйте для функции PrintScreen кей-код (KC_PSCREEN или KC_PSCR) вместо KC_SYSREQ. Сочетание клавиш «Alt + Print Screen» распознается как «Системный запрос».
+См "задачу" #168 и
+    <http://en.wikipedia.org/wiki/Magic_SysRq_key>
+    <http://en.wikipedia.org/wiki/System_request>
 
-## `KC_SYSREQ` Isn't Working
-Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
+## Клавиши питания не работают
 
-See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
-* http://en.wikipedia.org/wiki/Magic_SysRq_key
-* http://en.wikipedia.org/wiki/System_request
-
-## Power Keys Aren't Working
-
-Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
-
-The former is only recognized on macOS, while the latter, `KC_SLEP` and `KC_WAKE` are supported by all three major operating systems, so it is recommended to use those instead. Under Windows, these keys take effect immediately, however on macOS they must be held down until a dialog appears.
-
-## One Shot Modifier
-Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  One Shot Shift mitigates this for me.
-https://github.com/tmk/tmk_keyboard/issues/67
-
-## Modifier/Layer Stuck
-Modifier keys or layers can be stuck unless layer switching is configured properly.
-For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
-
-* https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
-* https://github.com/tmk/tmk_keyboard/issues/248
+Несколько сбивает с толку то, что в QMK есть два кода клавиш «Power»: KC_POWER на стороне HID-клавиатуры/клавиатуры и KC_SYSTEM_POWER (или KC_PWR) на стороне ОС (проверить!!!).
+Первый кей-код распознается только в macOS, в то время как второй, как и KC_SLEP и KC_WAKE поддерживаются всеми тремя основными операционными системами, поэтому рекомендуется использовать именно их. 
+В Windows эти клавиши работают непосредственно, однако в macOS их нужно удерживать, пока не появится диалоговое окно.
 
 
-## Mechanical Lock Switch Support
+## Модификатор One Shot
 
-This feature is for *mechanical lock switch* like [this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock). You can enable it by adding this to your `config.h`:
+Касается личной "проблемы" автора этих строк. Он часто ошибочно набирал «the» или «THe» вместо «The». One Shot Shift частично решает этот вопрос <https://github.com/tmk/tmk_keyboard/issues/67>
 
-```
+
+## Модификатор или слой завис
+
+Клавиши-модификаторы или слои могут зависнуть, если переключение слоев не настроено должным образом.
+Для клавиш-модификаторов и действий слоя вы должны поместить KC_TRANS в ту же позицию целевого слоя, чтобы отменить регистрацию клавиши-модификатора или вернуться к предыдущему слою при событии выпуска.
+
+При задействовании клавиш-модификаторов и переключении слоёв вы должны поместить кей-код KC_TRANS в соответственные позиции нужного слоя, чтобы оставить этот модификатор доступным для использования.
+
+    <https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching>
+    <http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604>
+    <https://github.com/tmk/tmk_keyboard/issues/248>
+
+## Поддержка Mechanical Lock с помощью свичей (Mechanical Lock ???)
+
+This feature is for mechanical lock switch like this Alps one. You can enable it by adding this to your config.h:
+Эта функция доступна для механического включения блокировки(чего?), такого как, на Alps. Вы можете включить это, добавив это в свой config.h:
+```c
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 ```
 
-After enabling this feature use keycodes `KC_LCAP`, `KC_LNUM` and `KC_LSCR` in your keymap instead.
+После включения этой функции используйте коды клавиш KC_LCAP, KC_LNUM и KC_LSCR в вашей таблице клавиш вместо(чего???).
+На старых старинных механических клавиатурах иногда есть блокировка (чего???), а на современных их нет. В большинстве случаев эта функция не требуется, просто используйте коды клавиш KC_CAPS, KC_NLCK и KC_SLCK.
 
-Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `KC_CAPS`, `KC_NLCK` and `KC_SLCK`.***
+## Ввод спецсимволов, которых нет в таблице ASCII, например как Cédille ‘Ç’
 
-## Input Special Characters Other Than ASCII like Cédille 'Ç'
+Смотрите [функции, связанные с Unicode](https://docs.qmk.fm/#/feature_unicode)
 
-See the [Unicode](feature_unicode.md) feature.
+---
+
+untranslated part:
+
 
 ## `Fn` Key on macOS
 
