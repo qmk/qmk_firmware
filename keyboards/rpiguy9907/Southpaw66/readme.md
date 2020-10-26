@@ -1,6 +1,6 @@
 # Southpaw66
 
-![](https://raw.githubusercontent.com/rpiguy9907/Keyboards/master/Southpaw66/IMG_0970.jpeg)
+![](https://i.imgur.com/Mzmhsed.jpg)
 
 ### Pro Micro Pinout
 | rows            | 0   | 1   | 2   | 3   | 4   | 5   | 6   |

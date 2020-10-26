@@ -27,8 +27,8 @@
 #define TAPPING_TERM 400
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 10
 
 // ROWS: Top to bottom, COLS: Left to right
 
