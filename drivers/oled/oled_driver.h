@@ -143,7 +143,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 // Default brightness level
 #if !defined(OLED_BRIGHTNESS)
-#    define OLED_BRIGHTNESS 143
+#    define OLED_BRIGHTNESS 255
 #endif
 
 #if !defined(OLED_TIMEOUT)
