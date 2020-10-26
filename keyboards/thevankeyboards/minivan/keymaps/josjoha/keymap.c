@@ -1187,40 +1187,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //..............................v
 /*
+     
+     * Layer _PAD: Option for a different _PAD layer in the common layers system.
+     *             This variety obviously resembles the square layout of a numerical keyboard.
+     *             It is different from one of the Numpad Base layer compile options, in that
+     *             it only has a number pad for the right hand. It is also different in featuring
+     *             modifiers, and the overall layout is sligthly different (the = symbol).
+     *             ‛Tab’ on key 3 left hand is the same as the other _PAD layer option (with the
+     *             numbers in a line, equal to the _NSY layer), to retain the same ability to
+     *             type Control-Tab.
+     *
+     *             This is probably the better one of the square layout numpads, unless you have a use
+     *             for the both hands version. This is also (going to be XXX) available on ‛Base’ Numpad, as an option 
+     *             (as default, the two handed version becoming the option). Normal keyboards also only have one keypad,
+     *             and with the modifiers available it is just better. There is also a block of keys still free to configure.
+     *
+     
      Layer _..._BASE (Number pad, with NumLock on)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
- ••  LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS  -
-     !Alter   Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc
-
- …•  LCtl     1     2     3     4     5     | 6     7     8     9    0   Bspc
-     Tab       *    4     5     6     +     | *     4     5     6    -    Tab
-     _SSS¹     /    1     2     3     ,     | /     1     2     3    +   _SSS¹ 
+     !Alter   xxx   xxx   xxx   xxx   xxx   | =     7     8     9    -   Bspc
+     LCtl     xxx   xxx   xxx   xxx   xxx   | *     4     5     6    +   RCtl
+     LSht     xxx   xxx   xxx   xxx   xxx   | /     1     2     3    ,   RSht  
      ------------------------------------------------------------------------
-                   NumL    0     .     Ent  | 0   .     Ent   NumL      
-                                           <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   LAlt   xxx    Tab   xxx  | NumL  0     .     Ent   RAlt      
+                                           <|>           
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
 
      Layer _..._BASE (Number pad, with NumLock off)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
                                            <|>
-     !Alter   Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc
-     Tab       *    Left  xxx   Right +     | *     Left  xxx   Right +    Tab
-     _SSS¹     /    End   Down  PgDn  ,     | /     End   Down  PgDn  ,   _SSS¹
+     !Alter   xxx   xxx   xxx   xxx   xxx   | =     Home  Up    PgUp  -   Bspc
+     LCtl     xxx   xxx   xxx   xxx   xxx   | *     Left  5     Right +   RCtl
+     LSht     xxx   xxx   xxx   xxx   xxx   | /     End   Down  PgDn  ,   RSht  
      -------------------------------------------------------------------------
-                   NumL    Ins   Del   Ent  | Ins Del   Ent   NumL      
+                   LAlt   xxx    Tab   xxx  | NumL  Ins   Del   Ent   RAlt      
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
  
-     ¹) Toggle to the accompanying Super-Sub-Script (_SSS) layer.
-        With regular Base layers, such as Qwerty/Dvorak, this is 
-        called the Numbers&Symbols (_NSY) layer, and it is still
-        called _NSY in the source code.
-
 */
 //..............................^
 

@@ -51,12 +51,6 @@ the logic of the `_NSY` (numbers/symbols) layer being blue, and the `_MOV`
 led is the indicator thereof. The brightness of the leds is diminished,
 to indicate the difference with `_PAD`. 
 
-If you happen to be confused, you could press the keys on the far sides
-on row 1 (row closest to you), which is NumLock or Alt, depending, both
-of which are normally harmless keys.  If NumLock is altered, you are on
-this ‛Base’ layer, rather than on `_PAD`. If nothing happens, you pressed
-Alt on `_PAD`. 
-
 For the second layer that comes with it, with super-/sub-script
 numbers, the layer led colors are what they normally are for this layer
 (the ‛Alternate‛ Base accompanying layer): blue/blue/light-blue.
@@ -68,10 +62,10 @@ Numpad keymaps
 
 ──────────Numpad───────────────
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_vc.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_vd.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_va.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_vb.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -81,7 +75,7 @@ You can still reach them as normal through your other Base layer.
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Numpad](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_numpad_2000_vc.jpg)
+![Minivan illustration Overview layers by key, Numpad](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_numpad_2000_vd.jpg)
 
 Layers (text)
 =============
@@ -91,28 +85,28 @@ Layers (text)
      Layer _..._BASE (Number pad, with NumLock on)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
-                                           <|>
      !Alter   Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc
-     Tab       *    4     5     6     +     | *     4     5     6    +    Tab
+     =         *    4     5     6     +     | *     4     5     6    +      =
      _SSS¹     /    1     2     3     ,     | /     1     2     3    ,   _SSS¹ 
      ------------------------------------------------------------------------
-                   NumL    0     .     Ent  | 0   .     Ent   NumL      
+                   xxx     0     .     Ent  | NumL  0     .     Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
+
 
      Layer _..._BASE (Number pad, with NumLock off)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
                                            <|>
      !Alter   Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc
-     Tab       *    Left  xxx   Right +     | *     Left  xxx   Right +    Tab
+     =         *    Left  xxx   Right +     | *     Left  xxx   Right +      =
      _SSS¹     /    End   Down  PgDn  ,     | /     End   Down  PgDn  ,   _SSS¹
      -------------------------------------------------------------------------
-                   NumL    Ins   Del   Ent  | Ins Del   Ent   NumL      
+                   xxx     Ins   Del   Ent  | NumL  Ins   Del   Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
  
      ¹) Toggle to the accompanying Super-Sub-Script (_SSS) layer.
         With regular Base layers, such as Qwerty/Dvorak, this is 
@@ -127,14 +121,14 @@ Layers (text)
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
      BASE     Bspc  ⁷₇    ⁸₈    ⁹₉    -     | Bspc  ⁷₇    ⁸₈    ⁹₉   -   Bspc
-     Tab       *    ⁴₄    ⁵₅    ⁶₆    +     | *     ⁴₄    ⁵₅    ⁶₆   +    Tab
+     =         *    ⁴₄    ⁵₅    ⁶₆    +     | *     ⁴₄    ⁵₅    ⁶₆   +      =
      LSht      /    ¹₁    ²₂    ³₃    ,     | /     ¹₁    ²₂    ³₃   ,   RSht
      -*-                                   <|>                            -*- //(toggle) Access on Base
      ------------------------------------------------------------------------
-                   xxx    ⁰₀     .     Ent  | ⁰₀  .     Ent   xxx       
-                                           <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   xxx    ⁰₀     .     Ent  | xxx   ⁰₀    .     Ent  
+                                           <|>      
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
 
 - - -
 

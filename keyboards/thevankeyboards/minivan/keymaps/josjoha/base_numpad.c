@@ -55,7 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * number pad typing.
      * The “,” is added, because it is used in some languages, where in English 
      * the “.” is used (such as Dutch).
-     * Tab is added because it is useful in spreadsheets.
      *
      * The left/upper key, where normally BASE is located, is now OTHER_BASE.
      * That switches the board to the ‛Default’ layout (assuming this layout is
@@ -73,12 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * of numbers. Some computer programs use the difference, even if they appear the
      * same and/or are treated the same in other computer programs.
      *
-     * The NumLock key is now not on what usually is Space on Base (the right side
-     * space bar), in an effort to resemble the layout of keypads better. A downside
-     * is that it breaks the logic that “modes” (whatever they are) are altered on
-     * that key, but a benefit is that you can use this to differentiate this layer
-     * from _PAD.
-     *
      * (While a keyboard typically has the tactile guide on the keycaps under the
      * index fingers, while the tactile guide on the numbers pad is under the middle
      * finger for number 5, I have the tactile key caps guide for under the
@@ -95,31 +88,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     [ _ALT_BASE ] = LAYOUT_redefined (
 
 /*
-     Layer _..._BASE (Number pad, with NumLock on)
+     Layer _..._BASE (Number pad, square layout)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
      !Alter   Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc
-     Tab       *    4     5     6     +     | *     4     5     6    +    Tab
+     =         *    4     5     6     +     | *     4     5     6    +      =
      _SSS¹     /    1     2     3     ,     | /     1     2     3    ,   _SSS¹ 
      ------------------------------------------------------------------------
-                   NumL    0     .     Ent  | 0   .     Ent   NumL      
+                   xxx     0     .     Ent  | NumL  0     .     Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
 
      Layer _..._BASE (Number pad, with NumLock off)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
                                            <|>
      !Alter   Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc
-     Tab       *    Left  xxx   Right +     | *     Left  xxx   Right +    Tab
+     =         *    Left  xxx   Right +     | *     Left  xxx   Right +      =
      _SSS¹     /    End   Down  PgDn  ,     | /     End   Down  PgDn  ,   _SSS¹
      -------------------------------------------------------------------------
-                   NumL    Ins   Del   Ent  | Ins Del   Ent   NumL      
+                   xxx     Ins   Del   Ent  | NumL  Ins   Del   Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
  
      ¹) Toggle to the accompanying Super-Sub-Script (_SSS) layer.
         With regular Base layers, such as Qwerty/Dvorak, this is 
@@ -131,10 +124,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //      <pink2            , <pinky         , <ring   , <middl  , <indx   ,        <ind|, indx>          , inde>   , midd>   , ring>   , pink>       , pink2>        ,
 //      -*!-              ,                ,         ,         ,         ,           <|,>               ,         ,         ,         ,             ,               ,
         OTHER_BASE_GO     , KC_BSPC        , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC        , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC       ,
-        KC_TAB            , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_TAB        ,
-        CTO_NUMS          , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_COMMA    , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_COMMA    , CTO_NUMS      ,
+        KC_KP_EQUAL       , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_KP_EQUAL   ,
+        CTO_NUMS          , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , CTO_NUMS      ,
 //      -----------------------------------------------------------------------------------------------------------------
-        KC_NUMLOCK
+        XXXXXXX
 
 # ifdef TRANSMINIVAN_LEFTSIDE
                            , TRANS_LEFT
@@ -150,26 +143,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                       , TRANS_MIDLEFT
 #     endif
 
-                                                                        , KC_KP_0 , KC_KP_DOT , KC_KP_ENTER
+                                                                        , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT 
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                         , TRANS_RIGHT
-# endif
-
-# ifdef MORE_KEY__ARROW
-                                                                                                         , XXXXXXX
-# endif
-
-                                                                                                         , KC_NUMLOCK
-//                         ,              ,           ,               <|,>        ,           ,          ,
-//      <1           ±  ±  , <2           , <3        , <4             |, 4>      , 3>        , 2>       , ±  ±  1>
+                                                                                                          , TRANS_RIGHT
+# endif                                                                              
+                                                                                     
+# ifdef MORE_KEY__ARROW                                                              
+                                                                                                          , XXXXXXX
+# endif                                                                              
+                                                                                     
+                                                                                                          , KC_KP_ENTER
+//                         ,              ,           ,               <|,>           ,         ,          ,
+//      <1           ±  ±  , <2           , <3        , <4             |, 4>         , 3>      , 2>       , ±  ±  1>
 
                       ),
 
         /* ⬆⬇ */
 
-    /* Layer _..._NSY: Numbers and symbols.
-     *          Off hand Number input (-.Bksp ent (shft)tab).
+    /* Layer _..._NSY: super-/sub-script numbers numpad, square layout
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
@@ -181,25 +173,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
      BASE     Bspc  ⁷₇    ⁸₈    ⁹₉    -     | Bspc  ⁷₇    ⁸₈    ⁹₉   -   Bspc
-     Tab       *    ⁴₄    ⁵₅    ⁶₆    +     | *     ⁴₄    ⁵₅    ⁶₆   +    Tab
+     =         *    ⁴₄    ⁵₅    ⁶₆    +     | *     ⁴₄    ⁵₅    ⁶₆   +      =
      LSht      /    ¹₁    ²₂    ³₃    ,     | /     ¹₁    ²₂    ³₃   ,   RSht
      -*-                                   <|>                            -*- //(toggle) Access on Base
      ------------------------------------------------------------------------
-                   xxx    ⁰₀     .     Ent  | ⁰₀  .     Ent   xxx       
-                                           <|>
-                   <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
-                       xxx                  |              xxx          
+                   xxx    ⁰₀     .     Ent  | xxx   ⁰₀    .     Ent  
+                                           <|>      
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
 
 */
 //High/low numbers guide:
 //¹₁         ²₂         ³₃         ⁴₄         ⁵₅       | ⁶₆         ⁷₇         ⁸₈         ⁹₉         ⁰₀       
 //XP_DRA_BA  XP_DRA_BB  XP_DRA_BC  XP_DRA_BD  XP_DRA_BE  XP_DRA_BF  XP_DRA_BG  XP_DRA_BH  XP_DRA_BI  XP_DRA_BJ
 //
-//      <pink2            , <pinky         , <ring     , <middl    , <indx     ,        <ind|, indx>          , inde>     , midd>     , ring>     , pink>       , pink2>        ,
-//      -*!-              ,                ,           ,           ,           ,           <|,>               ,           ,           ,           ,             ,               ,
-        CTO_BASE          , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC       ,
-        KC_TAB            , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_TAB        ,
-        KC_LSFT           , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_COMMA    , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_COMMA    , KC_RSFT       ,
+//      <pink2            , <pinky         , <ring     , <middl    , <indx     ,        <ind|, indx>          , inde>     , midd>     , ring>     , pink>       , pink2>      ,
+//      -*!-              ,                ,           ,           ,           ,           <|,>               ,           ,           ,           ,             ,             ,
+        CTO_BASE          , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC     ,
+        KC_KP_EQUAL       , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_KP_EQUAL ,
+        KC_LSFT           , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_KP_COMMA , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_KP_COMMA , KC_RSFT     ,
 //      -----------------------------------------------------------------------------------------------------------------
         XXXXXXX   
 
@@ -217,19 +209,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                   , TRANS_MIDLEFT
 #     endif
 
-                                                                        , XP_DRA_BJ , KC_KP_DOT , KC_KP_ENTER
+                                                                        , XXXXXXX , XP_DRA_BJ , KC_KP_DOT 
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                         , TRANS_RIGHT
-# endif
-
-# ifdef MORE_KEY__ARROW
-                                                                                                         , XXXXXXX
-# endif
-
-                                                                                                         , XXXXXXX
-//                         ,              ,           ,               <|,>        ,           ,          ,
-//      <1           ±  ±  , <2           , <3        , <4             |, 4>      , 3>        , 2>       , ±  ±  1>
+                                                                                                          , TRANS_RIGHT
+# endif                                                                                                   
+                                                                                                          
+# ifdef MORE_KEY__ARROW                                                                                   
+                                                                                                          , XXXXXXX
+# endif                                                                                                   
+                                                                                                          
+                                                                                                          , KC_KP_ENTER
+//                         ,              ,           ,               <|,>        ,           ,           ,
+//      <1           ±  ±  , <2           , <3        , <4             |, 4>      , 3>        , 2>        , ±  ±  1>
 
                       ),
 
