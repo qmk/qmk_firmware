@@ -32,7 +32,7 @@
 
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS { D3, D2, D1, D0, D4, C6, D7 }
+#define MATRIX_ROW_PINS { D7, C6, D4, D0, D1, D2, D3 }
 #define MATRIX_COL_PINS { E6, B4, B5, F4, F5, F6, F7, B1, B3, B2 }
 #define UNUSED_PINS
 
