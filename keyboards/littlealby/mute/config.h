@@ -23,7 +23,6 @@
 #define MANUFACTURER    Little Alby
 #define PRODUCT         Mute
 
-/* USB_MAX_POWER_CONSUMPTION - sets the maximum power (in mA) over USB for the device (default: 500)*/
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* key matrix size */
