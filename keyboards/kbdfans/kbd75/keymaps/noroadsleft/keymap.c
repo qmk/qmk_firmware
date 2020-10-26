@@ -171,9 +171,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                         q2InputMode = 0;
                         layer_off(_DV);
                     }
+                    return false;
                 }
             };
-            return false;
+            return true;
         case KC_Z:
             if (record->event.pressed) {
                 if ( get_mods() & MOD_MASK_RALT ) {
