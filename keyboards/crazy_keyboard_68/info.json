@@ -5,8 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
-            "key_count": 68,
+        "LAYOUT_65_ansi": {
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k01", "x":1, "y":0},
