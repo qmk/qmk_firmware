@@ -80,13 +80,13 @@ bool process_compose(uint16_t keycode, keyrecord_t* record) {
     // If it's the end of the sequence, print the result.
     if (current->output != NULL) {
         dprintf("Finished compose sequence, printing '%s'.\n", current->output);
+        current = NULL;
         compose_end(true);
 #    ifdef UNICODE_ENABLE
         send_unicode_string(current->output);
 #    else
         send_string(current->output);
 #    endif
-        current = NULL;
         return false;
     }
 
