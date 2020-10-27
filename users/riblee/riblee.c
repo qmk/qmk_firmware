@@ -218,7 +218,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         receive_buffer_length = 0;
     }
 
-    // Reset the offset to prevent overwrining memory outside of the buffer
+    // Reset the offset to prevent overwriting memory outside of the buffer
     if (receive_buffer_length + 32 >= 128) {
         receive_buffer_length = 0;
     }
