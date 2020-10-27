@@ -2,9 +2,9 @@
 
 ErgoLuna is split keyboard like ErgoDox, with and RGB
 
-Keyboard Maintainer: [fruitkt](https://github.com/fruitkt) 
-Hardware Supported: ErgoLuna PCB, ProMicro 
-Hardware Availability: 
+* Keyboard Maintainer: [fruitkt](https://github.com/fruitkt)  
+* Hardware Supported: ErgoLuna PCB, ProMicro  
+* Hardware Availability:
 
 Make example for this keyboard (after setting up your build environment):
 
