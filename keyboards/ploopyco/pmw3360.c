@@ -17,8 +17,9 @@
  */
 
 
-#include "pmw3600.h"
-#include "pmw3600_firmware.h"
+#include "pmw3360.h"
+#include "pmw3360_firmware.h"
+
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
 #endif
@@ -30,8 +31,9 @@ bool _inBurst = false;
 #ifndef SPI_DIVISOR
 #    define SPI_DIVISOR 2
 #endif
-
-static const int8_t ROTATIONAL_TRANSFORM_ANGLE = 20;
+#ifndef ROTATIONAL_TRANSFORM_ANGLE
+#    define ROTATIONAL_TRANSFORM_ANGLE 0x00
+#endif
 
 #ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
@@ -120,7 +122,6 @@ bool pmw_spi_init(void) {
 
     pmw_upload_firmware();
 
-    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
     spi_stop_adv();
 
     wait_ms(10);
@@ -133,6 +134,8 @@ bool pmw_spi_init(void) {
 
 void pmw_upload_firmware(void) {
     spi_write_adv(REG_Config2, 0x00);
+
+    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
 
     spi_write_adv(REG_SROM_Enable, 0x1d);
 
