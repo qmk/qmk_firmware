@@ -34,18 +34,22 @@
 #        define EIMSK_BIT _BV(INT0)
 #        define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
 #        define SERIAL_PIN_INTERRUPT INT0_vect
+#        define EICRx EICRA
 #    elif SOFT_SERIAL_PIN == D1
 #        define EIMSK_BIT _BV(INT1)
 #        define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
 #        define SERIAL_PIN_INTERRUPT INT1_vect
+#        define EICRx EICRA
 #    elif SOFT_SERIAL_PIN == D2
 #        define EIMSK_BIT _BV(INT2)
 #        define EICRx_BIT (~(_BV(ISC20) | _BV(ISC21)))
 #        define SERIAL_PIN_INTERRUPT INT2_vect
+#        define EICRx EICRA
 #    elif SOFT_SERIAL_PIN == D3
 #        define EIMSK_BIT _BV(INT3)
 #        define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
 #        define SERIAL_PIN_INTERRUPT INT3_vect
+#        define EICRx EICRA
 #    endif
 
 // ATmegaxxU2 specific config
@@ -55,18 +59,22 @@
 #            define EIMSK_BIT _BV(INT5)
 #            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
 #            define SERIAL_PIN_INTERRUPT INT5_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == D6
 #            define EIMSK_BIT _BV(INT6)
 #            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
 #            define SERIAL_PIN_INTERRUPT INT6_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == D7
 #            define EIMSK_BIT _BV(INT7)
 #            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
 #            define SERIAL_PIN_INTERRUPT INT7_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == C7
 #            define EIMSK_BIT _BV(INT4)
 #            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
 #            define SERIAL_PIN_INTERRUPT INT4_vect
+#            define EICRx EICRB
 #        endif
 #    endif
 
@@ -77,6 +85,7 @@
 #            define EIMSK_BIT _BV(INT6)
 #            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
 #            define SERIAL_PIN_INTERRUPT INT6_vect
+#            define EICRx EICRB
 #        endif
 #    endif
 
@@ -87,18 +96,22 @@
 #            define EIMSK_BIT _BV(INT4)
 #            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
 #            define SERIAL_PIN_INTERRUPT INT4_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == E5
 #            define EIMSK_BIT _BV(INT5)
 #            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
 #            define SERIAL_PIN_INTERRUPT INT5_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == E6
 #            define EIMSK_BIT _BV(INT6)
 #            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
 #            define SERIAL_PIN_INTERRUPT INT6_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == E7
 #            define EIMSK_BIT _BV(INT7)
 #            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
 #            define SERIAL_PIN_INTERRUPT INT7_vect
+#            define EICRx EICRB
 #        endif
 #    endif
 
@@ -260,11 +273,7 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size) {
 
     // Enable INT0-INT7
     EIMSK |= EIMSK_BIT;
-#    if EIMSK_BIT >= _BV(INT4)
-    EICRB &= EICRx_BIT;
-#    else
-    EICRA &= EICRx_BIT;
-#    endif
+    EICRx &= EICRx_BIT;
 }
 
 // Used by the sender to synchronize timing with the reciver.
