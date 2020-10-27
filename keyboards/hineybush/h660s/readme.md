@@ -5,8 +5,8 @@
 A 65% layout for the Sakura660.
 
 * Keyboard Maintainer: [hineybush](https://github.com/hineybush)
-* Hardware Supported: *Sakura660 by Fropsie and Proto[Typist]*
-* Hardware Availability: *Prototypes, upcoming group buy*
+* Hardware Supported: Sakura660 by Fropsie and Proto[Typist]
+* Hardware Availability: Prototypes, upcoming group buy
 
 Make example for this keyboard (after setting up your build environment):
 
