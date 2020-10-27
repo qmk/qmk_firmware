@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xC1ED
 #define MANUFACTURER    Clueboard
 #define PRODUCT         Clueboard 66% HotSwap
 #define DESCRIPTION     QMK keyboard firmware for Clueboard 66%

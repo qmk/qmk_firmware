@@ -21,9 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xC1ED
 #define PRODUCT_ID      0x23A0
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 #define PRODUCT         2x1800 2018
 #define DESCRIPTION     What does it mean?

@@ -19,9 +19,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xC1ED
 #define PRODUCT_ID      0x2391
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 
 /* Address for jumping to bootloader on STM32 chips. */
