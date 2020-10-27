@@ -116,8 +116,8 @@ void render_anim(void) {
                     if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
                           anim_timer = timer_read32();
                           animation_phase();
-                   }
-              }
-         }
-    }
+                    }
+               }
+          }
+     }
 }
