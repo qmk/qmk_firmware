@@ -59,9 +59,15 @@ typedef cRGB RGB;
 
 // WS2812 specific layout
 typedef struct PACKED {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
     uint8_t g;
     uint8_t r;
     uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+#endif
     uint8_t w;
 } cRGBW;
 

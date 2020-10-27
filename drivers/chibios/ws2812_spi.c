@@ -32,14 +32,6 @@
 #    endif
 #endif
 
-// WS2812 Byte Order
-#define WS2812_BYTE_ORDER_RGB 0
-#define WS2812_BYTE_ORDER_GRB 1
-
-#ifndef WS2812_BYTE_ORDER
-#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
-#endif
-
 #define BYTES_FOR_LED_BYTE 4
 #define NB_COLORS 3
 #define BYTES_FOR_LED (BYTES_FOR_LED_BYTE * NB_COLORS)
