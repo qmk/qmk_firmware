@@ -156,24 +156,16 @@ def check_udev_rules():
             _udev_rule("03EB", "2FF3"),  # ATmega16U4
             _udev_rule("03EB", "2FF4"),  # ATmega32U4
             _udev_rule("03EB", "2FF9"),  # AT90USB64
-            _udev_rule("03EB", "2FFB")   # AT90USB128
+            _udev_rule("03EB", "2FFB")  # AT90USB128
         },
-        'kiibohd': {
-            _udev_rule("1C11", "B007")
-        },
+        'kiibohd': {_udev_rule("1C11", "B007")},
         'stm32': {
             _udev_rule("1EAF", "0003"),  # STM32duino
-            _udev_rule("0483", "DF11")   # STM32 DFU
+            _udev_rule("0483", "DF11")  # STM32 DFU
         },
-        'bootloadhid': {
-            _udev_rule("16C0", "05DF")
-        },
-        'usbasploader': {
-            _udev_rule("16C0", "05DC")
-        },
-        'massdrop': {
-            _udev_rule("03EB", "6124")
-        },
+        'bootloadhid': {_udev_rule("16C0", "05DF")},
+        'usbasploader': {_udev_rule("16C0", "05DC")},
+        'massdrop': {_udev_rule("03EB", "6124", 'ENV{ID_MM_DEVICE_IGNORE}="1"')},
         'caterina': {
             # Spark Fun Electronics
             _udev_rule("1B4F", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 3V3/8MHz
@@ -190,7 +182,7 @@ def check_udev_rules():
             _udev_rule("239A", "000E", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 5V/16MHz
             # dog hunter AG
             _udev_rule("2A03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
-            _udev_rule("2A03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')   # Micro
+            _udev_rule("2A03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
         }
     }
 
