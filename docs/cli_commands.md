@@ -167,6 +167,17 @@ Creates a keymap.c from a QMK Configurator export.
 qmk json2c [-o OUTPUT] filename
 ```
 
+## `qmk c2json`
+
+Creates a keymap.json from a keymap.c.  
+**Note:** Parsing C source files is not easy, therefore this subcommand may not work your keymap. In some cases not using the C pre-processor helps.
+
+**Usage**:
+
+```
+qmk c2json [--no-cpp] [-o OUTPUT] filename
+```
+
 ## `qmk list-keyboards`
 
 This command lists all the keyboards currently defined in `qmk_firmware`
