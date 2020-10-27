@@ -1,12 +1,13 @@
 # TWOKEY
 
-![Twokey](https://i.imgur.com)
+![Twokey](https://i.imgur.com/UiLwPld.jpeg)
+===
 
-A Two Key mini keyboard supporting a Rotary Encoder with a switch. 
+A Two Key mini keyboard supporting a Rotary Encoder with a switch along with backlight keys and RGB Underglow.
 
 Keyboard Maintainer: Keys of Kings
 Keyboard Designer: King Icewind
-Hardware Supported: Twokey PCB, Pro Micro   
+Hardware Supported: Twokey PCB, Pro Micro
 Hardware Availability: www.keysofkings.com
 
 Make example for this keyboard (after setting up your build environment):
