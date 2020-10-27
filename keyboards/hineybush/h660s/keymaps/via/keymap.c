@@ -23,12 +23,6 @@ enum layer_names {
     _FN3
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
     k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012, k113, k013,     k014, \
