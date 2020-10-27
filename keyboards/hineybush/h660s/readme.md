@@ -2,7 +2,7 @@
 
 ![h660s](https://i.imgur.com/U7s0xJL.png)
 
-*A 65% layout for the Sakura660.*
+A 65% layout for the Sakura660.
 
 * Keyboard Maintainer: [hineybush](https://github.com/hineybush)
 * Hardware Supported: *Sakura660 by Fropsie and Proto[Typist]*
