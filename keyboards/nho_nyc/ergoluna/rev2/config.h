@@ -18,7 +18,7 @@
 
 #include "config_common.h"
 
-#define STM32_HSECLK                25000000U
+#define STM32_HSECLK   25000000U
 
 /* key matrix size */
 #define MATRIX_ROWS 12 // Rows are doubled-up
@@ -52,21 +52,29 @@
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7
 
-#define ENCODERS_PAD_A { A8 }
-#define ENCODERS_PAD_B { B15 }
+/* 
+ * Econder config
+ */
+#define ENCODERS_PAD_A { A2 }
+#define ENCODERS_PAD_B { A3 }
+#define ENCODER_DIRECTION_FLIP
+#define ENCODER_RESOLUTION 4
 
+// RGB config
 #define RGB_DI_PIN A10
 
 #ifdef  RGBLIGHT_ENABLE
-#define RGBLED_NUM 28
-#define RGBLED_SPLIT {14, 14}
-#define RGBLIGHT_LIMIT_VAL 120
-#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 30
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT {15, 15}
 #endif
 
-#ifdef  RGB_MATRIX_ENABLE
-#define RGBLED_NUM 108
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#if defined RGB_MATRIX_ENABLE || !defined ENCODER_ENABLE
+   #define RGBLED_NUM 110
+   #define DRIVER_LED_TOTAL RGBLED_NUM
+#elif defined RGB_MATRIX_ENABLE || defined ENCODER_ENABLE
+   #define RGBLED_NUM 108
+   #define DRIVER_LED_TOTAL RGBLED_NUM
 #endif
 
 #define WS2812_PWM_DRIVER PWMD3
@@ -82,6 +90,10 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+// Use the ErgoLuna version to get the ErgoLuna logo instead of the qmk logo
+#define OLED_FONT_H "lib/glcdfont_luna.c"
+
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).

@@ -1,4 +1,5 @@
 /* Copyright 2020 zvecr <git@zvecr.com>
+ * Copyright 2020 fruitkt
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-
+#include "ergoluna.h"
 #include "quantum.h"
 
 /*  ---------- LEFT HAND -----------       ---------- RIGHT HAND ---------- */
@@ -25,9 +26,9 @@
     L37,L36,L35,L34,L33,L32,                       R32,R33,R34,R35,R36,R37,     \
     L47,L46,L45,L44,L43,L42,L41,               R41,R42,R43,R44,R45,R46,R47,     \
     L57,L56,L55,L54,L53,                               R53,R54,R55,R56,R57,     \
-                            L62,L61,       R61,R62,                             \
-                                L63,       R63,                                 \
-                        L64,L65,L66,       R66,R65,R64 )                        \
+                            L66,L65,       R65,R66,                             \
+                                L64,       R64,                                 \
+                        L62,L61,L63,       R63,R61,R62 )                        \
                                                                                 \
    /* matrix positions */                                                       \
    {                                                                            \
@@ -53,9 +54,9 @@
     L37,L36,L35,L34,L33,L32,                       R32,R33,R34,R35,R36,R37,    \
     L47,L46,L45,L44,L43,L42,L41,               R41,R42,R43,R44,R45,R46,R47,    \
     L57,L56,L55,L54,L53,                               R53,R54,R55,R56,R57,    \
-                            L62,L61,       R61,R62,                            \
-                            L51,L63,       R63,                                \
-                        L64,L65,L66,       R66,R65,R64 )                       \
+                            L66,L65,       R65,R66,                            \
+                            L51,L64,       R64,                                \
+                        L62,L61,L63,       R63,R61,R62 )                       \
                                                                                \
    /* matrix positions */                                                      \
    {                                                                           \
@@ -81,9 +82,9 @@
     L37,L36,L35,L34,L33,L32,                       R32,R33,R34,R35,R36,R37,     \
     L47,L46,L45,L44,L43,L42,L41,               R41,R42,R43,R44,R45,R46,R47,     \
     L57,L56,L55,L54,L53,                               R53,R54,R55,R56,R57,     \
-                            L62,L61,       R61,R62,                             \
-                                L63,       R63,R51,                             \
-                        L64,L65,L66,       R66,R65,R64 )                        \
+                            L66,L65,       R65,R66,                             \
+                                L64,       R64,R51,                             \
+                        L62,L61,L63,       R63,R61,R62 )                        \
                                                                                 \
    /* matrix positions */                                                       \
    {                                                                            \
@@ -109,9 +110,9 @@
     L37,L36,L35,L34,L33,L32,                       R32,R33,R34,R35,R36,R37,     \
     L47,L46,L45,L44,L43,L42,L41,               R41,R42,R43,R44,R45,R46,R47,     \
     L57,L56,L55,L54,L53,                               R53,R54,R55,R56,R57,     \
-                            L62,L61,       R61,R62,                             \
-                            L51,L63,       R63,R51,                             \
-                        L64,L65,L66,       R66,R65,R64 )                        \
+                            L66,L65,       R65,R66,                             \
+                            L51,L64,       R64,R51,                             \
+                        L62,L61,L63,       R63,R61,R62 )                        \
                                                                                 \
    /* matrix positions */                                                       \
    {                                                                            \
@@ -136,9 +137,9 @@
     L37,L36,L35,L34,L33,L32,                       R32,R33,R34,R35,R36,R37,     \
     L47,L46,L45,L44,L43,L42,L41,               R41,R42,R43,R44,R45,R46,R47,     \
     L57,L56,L55,L54,L53,                               R53,R54,R55,R56,R57,     \
-                            L62,L61,       R61,R62,                             \
-                        L52,L51,L63,       R63,R51,R52,                         \
-                        L64,L65,L66,       R66,R65,R64 )                        \
+                            L66,L65,       R65,R66,                             \
+                        L52,L51,L64,       R64,R51,R52,                         \
+                        L62,L61,L63,       R63,R61,R62 )                        \
                                                                                 \
    /* matrix positions */                                                       \
    {                                                                            \

@@ -24,11 +24,11 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 #Enable RGB Matrix only when compiled with  "make nho_nyc/ergoluna/rev2:default"
 #
 RGB_MATRIX_ENABLE = WS2812  # Change into "WS2812" to enable RGB Matrix; "no" to off.
+ENCODER_ENABLE = no         # Enable Encoder
 MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-
 
 USE_I2C = no
 

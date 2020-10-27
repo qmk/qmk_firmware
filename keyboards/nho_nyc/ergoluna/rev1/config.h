@@ -53,10 +53,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D2
+
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 30    // Number of LEDs
+#define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 15, 15 }
 #endif
+
 
 #define SOFT_SERIAL_PIN D3
 #define SERIAL_USE_MULTI_TRANSACTION
@@ -66,8 +69,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_PIN F4
 
 
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { B0 }
+/* 
+ * Econder config
+ */
+#define ENCODERS_PAD_A { F1 }
+#define ENCODERS_PAD_B { F0 }
+#define ENCODER_DIRECTION_FLIP
+#define ENCODER_RESOLUTION 4
+
 
 #if !defined(NO_ACTION_MACRO)
     #define NO_ACTION_MACRO
@@ -79,7 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // Use the Luna version to get the ErgoLuna logo instead of the qmk logo
-//#define OLED_FONT_H "lib/glcdfont_luna.c"
+#define OLED_FONT_H "lib/glcdfont_luna.c"
 
 
 /*
