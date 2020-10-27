@@ -310,10 +310,13 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
     INFO_JSON_FILES += $(KEYBOARD_PATH_5)/info.json
 endif
 
-CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h
+CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 $(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
 	bin/qmk generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
+
+$(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
+	bin/qmk generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
 
 # project specific files
 SRC += $(KEYBOARD_SRC) \
@@ -389,7 +392,7 @@ all:
 	echo "skipped" >&2
 endif
 
-build: $(KEYBOARD_OUTPUT)/src/info_config.h elf cpfirmware
+build: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h elf cpfirmware
 check-size: build
 objs-size: build
 
