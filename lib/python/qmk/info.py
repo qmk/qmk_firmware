@@ -38,7 +38,7 @@ def info_json(keyboard):
         info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
-    for layout_name, layout_json in _find_all_layouts(info_data, keyboard, rules).items():
+    for layout_name, layout_json in _find_all_layouts(info_data, keyboard).items():
         if not layout_name.startswith('LAYOUT_kc'):
             info_data['layouts'][layout_name] = layout_json
 
@@ -46,6 +46,26 @@ def info_json(keyboard):
     info_data = merge_info_jsons(keyboard, info_data)
     info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
+
+    # Make sure we have at least one layout
+    if not info_data.get('layouts'):
+        _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
+
+    # Make sure we supply layout macros for the community layouts we claim to support
+    # FIXME(skullydazed): This should be populated into info.json and read from there instead
+    if 'LAYOUTS' in rules and info_data.get('layouts'):
+        # Match these up against the supplied layouts
+        supported_layouts = rules['LAYOUTS'].strip().split()
+        for layout_name in sorted(info_data['layouts']):
+            layout_name = layout_name[7:]
+
+            if layout_name in supported_layouts:
+                supported_layouts.remove(layout_name)
+
+        if supported_layouts:
+            for supported_layout in supported_layouts:
+                _log_error(info_data, 'Claims to support community layout %s but no LAYOUT_%s() macro found' % (supported_layout, supported_layout))
+
 
     return info_data
 
@@ -184,33 +204,19 @@ def _search_keyboard_h(path):
     return layouts
 
 
-def _find_all_layouts(info_data, keyboard, rules):
+def _find_all_layouts(info_data, keyboard):
     """Looks for layout macros associated with this keyboard.
     """
     layouts = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
-        # If we didn't find any layouts above we widen our search. This is error
-        # prone which is why we want to encourage people to follow the standard above.
-        _log_warning(info_data, '%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
+        # If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
+        info_data['parse_warnings'].append('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
         for file in glob('keyboards/%s/*.h' % keyboard):
             if file.endswith('.h'):
                 these_layouts = find_layouts(file)
                 if these_layouts:
                     layouts.update(these_layouts)
-
-    if 'LAYOUTS' in rules:
-        # Match these up against the supplied layouts
-        supported_layouts = rules['LAYOUTS'].strip().split()
-        for layout_name in sorted(layouts):
-            if not layout_name.startswith('LAYOUT_'):
-                continue
-            layout_name = layout_name[7:]
-            if layout_name in supported_layouts:
-                supported_layouts.remove(layout_name)
-
-        if supported_layouts:
-            _log_error(info_data, '%s: Missing LAYOUT() macro for %s' % (keyboard, ', '.join(supported_layouts)))
 
     return layouts
 
@@ -219,14 +225,14 @@ def _log_error(info_data, message):
     """Send an error message to both JSON and the log.
     """
     info_data['parse_errors'].append(message)
-    cli.log.error('%s: %s', info_data['keyboard_name'], message)
+    cli.log.error('%s: %s', info_data['keyboard_folder'], message)
 
 
 def _log_warning(info_data, message):
     """Send a warning message to both JSON and the log.
     """
     info_data['parse_warnings'].append(message)
-    cli.log.warning('%s: %s', info_data['keyboard_name'], message)
+    cli.log.warning('%s: %s', info_data['keyboard_folder'], message)
 
 
 def arm_processor_rules(info_data, rules):
@@ -301,24 +307,39 @@ def merge_info_jsons(keyboard, info_data):
 
         # Deep merge certain keys
         for key in ('matrix_pins', 'usb'):
-            if key not in info_data:
-                info_data[key] = {}
-
             if key in new_info_data:
+                if key not in info_data:
+                    info_data[key] = {}
+
                 info_data[key].update(new_info_data[key])
 
         # Merge the layouts
         if 'layouts' in new_info_data:
             for layout_name, json_layout in new_info_data['layouts'].items():
-                # Only pull in layouts we have a macro for
-                # FIXME(skullydazed): Should also pull in layouts that have matrix data
                 if layout_name in info_data['layouts']:
-                    if info_data['layouts'][layout_name]['key_count'] != len(json_layout['layout']):
+                    # Pull in layouts we have a macro for
+                    if len(info_data['layouts'][layout_name]['layout']) != len(json_layout['layout']):
                         msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
                         _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(json_layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
                     else:
                         for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
                             key.update(json_layout['layout'][i])
+                else:
+                    # Pull in layouts that have matrix data
+                    missing_matrix = False
+                    for key in json_layout['layout']:
+                        if 'matrix' not in key:
+                            missing_matrix = True
+
+                    if not missing_matrix:
+                        if layout_name in info_data['layouts']:
+                            # Update an existing layout with new data
+                            for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
+                                key.update(json_layout['layout'][i])
+
+                        else:
+                            # Copy in the new layout wholesale
+                            info_data['layouts'][layout_name] = json_layout
 
     return info_data
 

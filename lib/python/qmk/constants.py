@@ -17,3 +17,7 @@ VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 DATE_FORMAT = '%Y-%m-%d'
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
 TIME_FORMAT = '%H:%M:%S'
+
+# Used when generating matrix locations
+COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
+ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
