@@ -3,7 +3,7 @@
 ![Twokey](https://i.imgur.com/UiLwPld.jpeg)
 ===
 
-A Two Key mini keyboard supporting a Rotary Encoder with a switch along with backlight keys and RGB Underglow.
+A Two Key mini keyboard with Rotary Encoder/Switch along with Backlight keys, RGB Underglow, and Piezo Buzzer. Supports Cherry, Choc, Matias switches.
 
 Keyboard Maintainer: Keys of Kings
 Keyboard Designer: King Icewind
