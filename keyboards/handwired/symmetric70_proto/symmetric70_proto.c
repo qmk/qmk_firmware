@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "proto_symmetric70.h"
+#include "symmetric70_proto.h"
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour

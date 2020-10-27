@@ -1,4 +1,4 @@
-# The default keymap for proto_symmetric70
+# The default keymap for symmetric70_proto
 
 ```
   ESC   1  2  3  4  5              6  7  8  9  0   BS

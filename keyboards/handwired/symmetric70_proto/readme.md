@@ -1,6 +1,6 @@
-# proto_symmetric70
+# symmetric70_proto
 
-![proto_symmetric70](https://i.imgur.com/Br4pH9o.jpg)
+![symmetric70_proto](https://i.imgur.com/Br4pH9o.jpg)
 <img width="90%" alt="74HC157" src="https://user-images.githubusercontent.com/2170248/97360929-33765280-18e2-11eb-9eeb-791133e4d328.PNG">
 
 A compact 70keys keyboard (prototype) designed by mtei
@@ -11,10 +11,10 @@ A compact 70keys keyboard (prototype) designed by mtei
 
 Make example for this keyboard (after setting up your build environment):
 
-    make proto_symmetric70:default
+    make symmetric70_proto:default
 
 Flashing example for this keyboard:
 
-    make proto_symmetric70:default:flash
+    make symmetric70_proto:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
