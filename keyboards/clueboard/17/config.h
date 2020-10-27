@@ -20,35 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x2312
-#define MANUFACTURER    Clueboard
-#define PRODUCT         Cluepad with RGB Underlighting
-#define DESCRIPTION     QMK keyboard firmware for Cluepad
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
-// ROWS: Top to bottom, COLS: Left to right
-/* Row pin configuration
-* row: 0  1  2  3  4
-* pin:
-*/
-#define MATRIX_ROW_PINS { B0, D3, D5, D4, D6 }
-/* Column pin configuration
- * col: 0  1  2  3
- * pin: F4 E6 B1 D2
- */
-#define MATRIX_COL_PINS { F4, E6, B1, D2 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
@@ -69,25 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* Debug forcibly enabled */
-#define ALWAYS_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+/* Layout aliases */
+#define LAYOUT LAYOUT_numpad_5x4
+#define KEYMAP LAYOUT_numpad_5x4
 
 #endif
