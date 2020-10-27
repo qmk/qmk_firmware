@@ -17,7 +17,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum preonic_layers {
+enum layer_names {
     _QWERTY,
     _COLEMAK,
     _DVORAK,
@@ -26,7 +26,7 @@ enum preonic_layers {
     _ADJUST
 };
 
-enum preonic_keycodes {
+enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
     DVORAK,
