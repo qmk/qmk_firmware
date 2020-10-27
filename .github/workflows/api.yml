@@ -22,6 +22,10 @@ jobs:
     - name: Generate API Data
       run: qmk generate-api
 
+    - name: Install rsync
+      run: |
+        apt-get update && apt-get install -y rsync
+
     - name: Upload API Data
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
