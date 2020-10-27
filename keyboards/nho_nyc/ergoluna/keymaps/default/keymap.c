@@ -89,7 +89,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_task_user(void) {
   if (is_keyboard_master()) {
-    // If	 you want to change the display of OLED, you need to change here
+    // If you want to change the display of OLED, you need to change here
     oled_write_ln(read_layer_state(), false);
     oled_write_ln(read_host_led_state(), false);	
   #ifdef RGBLIGHT_ENABLE
