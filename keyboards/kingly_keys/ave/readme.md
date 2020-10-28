@@ -1,6 +1,6 @@
 # The Ave. (Avenue)
 
-![ave-img-1](https://i.imgur.com/l5ah6uM.png)
+![ave-img-1](https://i.imgur.com/l5ah6uMl.png)
 
 A Compact Battlestation.
 
