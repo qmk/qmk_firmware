@@ -4,9 +4,6 @@
 #define _EXTEND 1
 #define _NUMBERS 2
 
-#define LAY_EXT MO(_EXTEND)
-#define LAY_NUM MO(_NUMBERS)
-
 #define C_A LCTL_T(KC_A)
 #define A_R LALT_T(KC_R)
 #define G_S LGUI_T(KC_S)
@@ -22,10 +19,12 @@
 #define C_PLS RCTL_T(KC_PPLS)
 
 #define EXT_SPC LT(_EXTEND, KC_SPC)
+#define NUM_ENT LT(_NUMBERS, KC_ENT)
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case EXT_SPC:
+    case NUM_ENT:
       return true;
     default:
       return false;
@@ -43,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_BSPC,          KC_BSPC, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQL,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                     KC_LGUI, EXT_SPC, LAY_NUM,                   KC_ENT,  EXT_SPC, KC_RALT
+                                     KC_LGUI, EXT_SPC, NUM_ENT,                   NUM_ENT, EXT_SPC, KC_RALT
                                  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
       ),
 
