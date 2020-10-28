@@ -24,7 +24,7 @@
 #define PRODUCT_ID      0x1225
 #define DEVICE_VER      0x0011
 #define MANUFACTURER    Kingly-Keys
-#define PRODUCT         "The Ave."
+#define PRODUCT         The Ave\x2E
 
 /* key matrix size */
 #define MATRIX_ROWS 5
