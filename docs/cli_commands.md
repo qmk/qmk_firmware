@@ -212,6 +212,16 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 ```
 
+## `qmk clean`
+
+This command cleans up the `.build` folder. If `--all` is passed, any .hex or .bin files present in the `qmk_firmware` directory will also be deleted.
+
+**Usage**:
+
+```
+qmk clean [-a]
+```
+
 ---
 
 # Developer Commands
