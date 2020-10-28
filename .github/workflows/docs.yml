@@ -14,6 +14,7 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    container: qmkfm/base_container
 
     # protect against those who develop with their fork on master
     if: github.repository == 'qmk/qmk_firmware'
@@ -25,12 +26,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt install nodejs doxygen
+        apt-get update && apt-get install -y rsync nodejs npm doxygen
         npm install -g moxygen
 
     - name: Build docs
       run: |
-        bin/qmk --verbose docs --generate
+        qmk --verbose docs --generate
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@3.7.1
