@@ -19,36 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x23A0
-#define MANUFACTURER    Clueboard
-#define PRODUCT         2x1800 2019
-#define DESCRIPTION     Mechanical Drawing Toy Edition
-
-/* key matrix size */
-#define MATRIX_ROWS 13
-#define MATRIX_COLS 11
-
 /*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { C0, C1, C2, C3, C7, F7, B1, F2, F3, F4, F5, F6, C6 }
-#define MATRIX_COL_PINS { D2, D3, D4, D5, D7, E0, E1, B0, E6, B3, B2 }
-#define UNUSED_PINS { D0, D1, D6, C5, E7, F0, F1 }
-
+ * Encoder Assignments
+ */
 #define ENCODERS_PAD_A { A5, A4, A2, A1 }
 #define ENCODERS_PAD_B { A6, A7, A3, A0 }
 #define ENCODER_RESOLUTION 4
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -210,3 +186,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SHAKE_TIMEOUT 500     // How long after shaking stops before we register it
 #define SHAKE_COUNT 8         // How many shakes it takes to activate
 #define SHAKE_KEY UNDO_KEY    // What key to send after a shake
+
+/* Layout aliases
+ */
+#define LAYOUT LAYOUT_all
