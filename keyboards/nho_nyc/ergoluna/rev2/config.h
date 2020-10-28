@@ -34,7 +34,7 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_COL_PINS { A3, A7, A6, A5, B10, B12, B13 }
+#define MATRIX_COL_PINS { A3, A10, A6, A5, B10, B12, B13 }
 #define MATRIX_ROW_PINS { B9, B8, B5, B4, A15, A0 }
 
 /* COL2ROW, ROW2COL*/
@@ -61,7 +61,7 @@
 #define ENCODER_RESOLUTION 4
 
 // RGB config
-#define RGB_DI_PIN A10
+#define RGB_DI_PIN B1
 
 #ifdef  RGBLIGHT_ENABLE
 #define RGBLED_NUM 30
@@ -69,12 +69,10 @@
 #define RGBLED_SPLIT {15, 15}
 #endif
 
-#if defined RGB_MATRIX_ENABLE || !defined ENCODER_ENABLE
+#ifdef RGB_MATRIX_ENABLE
    #define RGBLED_NUM 110
    #define DRIVER_LED_TOTAL RGBLED_NUM
-#elif defined RGB_MATRIX_ENABLE || defined ENCODER_ENABLE
-   #define RGBLED_NUM 108
-   #define DRIVER_LED_TOTAL RGBLED_NUM
+   #define RGB_MATRIX_CENTER { 110, 28 }
 #endif
 
 #define WS2812_PWM_DRIVER PWMD3

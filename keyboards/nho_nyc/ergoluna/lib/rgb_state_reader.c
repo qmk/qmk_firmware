@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-#if defined RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
 char rbf_info_str[24];
 const char *read_rgb_info(void) {
@@ -13,7 +13,7 @@ const char *read_rgb_info(void) {
 }
 #endif
 
-#if defined RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 char rbf_matrix_info_str[24];
 const char *read_rgb_matrix_info(void) {
   snprintf(rbf_matrix_info_str, sizeof(rbf_matrix_info_str), "Status:%s|Mode:%2d",

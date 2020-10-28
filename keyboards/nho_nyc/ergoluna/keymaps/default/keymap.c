@@ -82,6 +82,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #ifdef RGBLIGHT_ENABLE
      const char *read_rgb_info(void);
 #endif
+#ifdef RGB_MATRIX_ENABLE
+     const char *read_rgb_matrix_info(void);
+#endif
 #ifdef WPM_ENABLE
      const char *wpm_state(void);
      void render_anim(void);
@@ -94,6 +97,9 @@ void oled_task_user(void) {
     oled_write_ln(read_host_led_state(), false);	
   #ifdef RGBLIGHT_ENABLE
     oled_write_ln(read_rgb_info(), false);
+  #endif
+  #ifdef RGB_MATRIX_ENABLE
+    oled_write_ln(read_rgb_matrix_info(),false);
   #endif
     oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_keylog(), false);
