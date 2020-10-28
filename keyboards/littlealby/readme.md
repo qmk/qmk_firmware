@@ -21,7 +21,7 @@ Hardware:
 ## Building Code
 Make example for this keyboard (after setting up your build environment):
 
-    make littlealby/mute:zoom
+    make littlealby/mute:default
     
     // Builds for specific programs 
     make littlealby/mute:zoom
