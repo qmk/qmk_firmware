@@ -23,9 +23,8 @@
 #define VENDOR_ID       0x4b4b
 #define PRODUCT_ID      0x1001
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    "the-royal"
+#define MANUFACTURER    "The-Royal"
 #define PRODUCT         Sukari
-#define DESCRIPTION     'A "True Gasket", 60%, Ortholinear Keyboard'
 
 /* key matrix size */
 #define MATRIX_ROWS 5
