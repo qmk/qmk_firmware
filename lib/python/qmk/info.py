@@ -40,6 +40,7 @@ def info_json(keyboard):
     # Populate layout data
     for layout_name, layout_json in _find_all_layouts(info_data, keyboard).items():
         if not layout_name.startswith('LAYOUT_kc'):
+            layout_json['c_macro'] = True
             info_data['layouts'][layout_name] = layout_json
 
     # Merge in the data from info.json, config.h, and rules.mk
@@ -315,19 +316,19 @@ def merge_info_jsons(keyboard, info_data):
 
         # Merge the layouts
         if 'layouts' in new_info_data:
-            for layout_name, json_layout in new_info_data['layouts'].items():
+            for layout_name, layout_json in new_info_data['layouts'].items():
                 if layout_name in info_data['layouts']:
                     # Pull in layouts we have a macro for
-                    if len(info_data['layouts'][layout_name]['layout']) != len(json_layout['layout']):
+                    if len(info_data['layouts'][layout_name]['layout']) != len(layout_json['layout']):
                         msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
-                        _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(json_layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
+                        _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout_json['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
                     else:
                         for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
-                            key.update(json_layout['layout'][i])
+                            key.update(layout_json['layout'][i])
                 else:
                     # Pull in layouts that have matrix data
                     missing_matrix = False
-                    for key in json_layout['layout']:
+                    for key in layout_json['layout']:
                         if 'matrix' not in key:
                             missing_matrix = True
 
@@ -335,11 +336,12 @@ def merge_info_jsons(keyboard, info_data):
                         if layout_name in info_data['layouts']:
                             # Update an existing layout with new data
                             for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
-                                key.update(json_layout['layout'][i])
+                                key.update(layout_json['layout'][i])
 
                         else:
                             # Copy in the new layout wholesale
-                            info_data['layouts'][layout_name] = json_layout
+                            layout_json['c_macro'] = False
+                            info_data['layouts'][layout_name] = layout_json
 
     return info_data
 
