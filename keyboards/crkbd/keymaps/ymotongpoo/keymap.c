@@ -127,7 +127,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2);
 }
 
 void matrix_init_user(void) {
