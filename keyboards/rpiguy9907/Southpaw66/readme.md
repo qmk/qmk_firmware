@@ -1,6 +1,6 @@
 # southpaw66
 
-![](https://i.imgur.com/Mzmhsed.jpg)
+![](https://i.imgur.com/Mzmhsedl.jpg)
 
 ### Pro Micro Pinout
 | rows            | 0   | 1   | 2   | 3   | 4   | 5   | 6   |
