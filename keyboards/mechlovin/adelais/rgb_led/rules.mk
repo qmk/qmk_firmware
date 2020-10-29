@@ -1,1 +1,3 @@
-RGB_MATRIX_ENABLE = WS2812
+
+
+DEFAULT_FOLDER = mechlovin/adelais/rgb_led/rev1

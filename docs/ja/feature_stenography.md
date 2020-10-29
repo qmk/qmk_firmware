@@ -1,8 +1,8 @@
 # QMK での速記 :id=stenography-in-qmk
 
 <!---
-  original document: 0.9.19:docs/feature_stenography.md
-  git diff 0.9.19 HEAD -- docs/feature_stenography.md | cat
+  original document: 0.10.33:docs/feature_stenography.md
+  git diff 0.10.33 HEAD -- docs/feature_stenography.md | cat
 -->
 
 [速記](https://en.wikipedia.org/wiki/Stenotype)は裁判所のレポート、字幕および耳が不自由な人のためのリアルタイムの文字起こしで最もよく使われる記述方法です。速記では単語はスペル、音声およびショートカット(短い)ストロークが混在する音節ごとに音節化されます。プロの速記者は、標準的なタイピングで通常見られる負担を掛けずに、はるかに少ないエラー(99.9%より高い精度)で、200-300 WPM に到達できます。

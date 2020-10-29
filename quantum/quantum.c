@@ -17,7 +17,7 @@
 #include <ctype.h>
 #include "quantum.h"
 
-#ifdef PROTOCOL_LUFA
+#ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
 
@@ -276,6 +276,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
+#endif
+#ifdef JOYSTICK_ENABLE
+            process_joystick(keycode, record) &&
 #endif
             true)) {
         return false;
@@ -618,7 +621,7 @@ void matrix_init_quantum() {
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
-#ifdef OUTPUT_AUTO_ENABLE
+#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
     set_output(OUTPUT_AUTO);
 #endif
 
