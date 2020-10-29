@@ -1,37 +1,25 @@
-"""Build QMK documentation locally
+"""Serve QMK documentation locally
 """
-import shutil
-import subprocess
-from pathlib import Path
+import http.server
+import os
 
 from milc import cli
 
-DOCS_PATH = Path('docs/')
-BUILD_PATH = Path('.build/docs/')
 
-
-@cli.subcommand('Local interactions wth QMK documentation.', hidden=False if cli.config.user.developer else True)
-def generate_docs(cli):
-    """Invoke the docs generation process
-
-    TODO(unclaimed):
-        * [ ] Add a real build step... something static docs
+@cli.argument('-p', '--port', default=8936, type=int, help='Port number to use.')
+@cli.subcommand('Run a local webserver for QMK documentation.', hidden=False if cli.config.user.developer else True)
+def docs(cli):
+    """Spin up a local HTTPServer instance for the QMK docs.
     """
+    os.chdir('docs')
 
-    if BUILD_PATH.exists():
-        shutil.rmtree(BUILD_PATH)
+    with http.server.HTTPServer(('', cli.config.docs.port), http.server.SimpleHTTPRequestHandler) as httpd:
+        cli.log.info("Serving QMK docs at http://localhost:%d/", cli.config.docs.port)
+        cli.log.info("Press Control+C to exit.")
 
-    shutil.copytree(DOCS_PATH, BUILD_PATH)
-
-    # When not verbose we want to hide all output
-    args = {'check': True}
-    if not cli.args.verbose:
-        args.update({'stdout': subprocess.DEVNULL, 'stderr': subprocess.STDOUT})
-
-    cli.log.info('Generating internal docs...')
-
-    # Generate internal docs
-    subprocess.run(['doxygen', 'Doxyfile'], **args)
-    subprocess.run(['moxygen', '-q', '-a', '-g', '-o', BUILD_PATH / 'internals_%s.md', 'doxygen/xml'], **args)
-
-    cli.log.info('Successfully generated internal docs to %s.', BUILD_PATH)
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            cli.log.info("Stopping HTTP server...")
+        finally:
+            httpd.shutdown()
