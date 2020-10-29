@@ -220,7 +220,7 @@ const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 // レイヤーの配列を定義。後のレイヤーが優先されます。
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_capslock_layer,
-    my_layer1_layer,    // Overrides caps lock layer
+    my_layer1_layer,    // Caps Lock レイヤーを上書き
     my_layer2_layer     // 他のレイヤーを上書き
 );
 
