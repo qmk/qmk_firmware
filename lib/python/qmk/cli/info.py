@@ -3,6 +3,7 @@
 Compile an info.json for a particular keyboard and pretty-print it.
 """
 import json
+import platform
 
 from milc import cli
 
@@ -140,6 +141,11 @@ def info(cli):
     if not is_keyboard(cli.config.info.keyboard):
         cli.log.error('Invalid keyboard: "%s"', cli.config.info.keyboard)
         return False
+
+    platform_id = platform.platform().lower()
+
+    if 'windows' in platform_id:
+        cli.config.info.ascii = True
 
     # Build the info.json file
     kb_info_json = info_json(cli.config.info.keyboard)
