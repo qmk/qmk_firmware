@@ -6,7 +6,7 @@
         "cols": ["A2", "A3", "A6", "B14", "B15", "A8", "A9", "A7", "B3", "B4", "C15", "C14", "C13", "B5", "B6"],
         "rows": ["B0", "B1", "B2", "A15", "A10"]
     },
-    "usb": {"vid": "0xC1ED"},
+    "usb": {"pid": "0x2350"},
     "layouts": {
         "LAYOUT_all": {
             "layout": [
