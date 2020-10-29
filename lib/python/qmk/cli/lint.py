@@ -33,11 +33,11 @@ def lint(cli):
     readme_path = keyboard_path / 'readme.md'
 
     # Check for errors in the info.json
-    if keyboard_info['parsing_errors']:
+    if keyboard_info['parse_errors']:
         ok = False
         cli.log.error('Errors found when generating info.json.')
 
-    if cli.config.lint.strict and keyboard_info['parsing_warnings']:
+    if cli.config.lint.strict and keyboard_info['parse_warnings']:
         ok = False
         cli.log.error('Warnings found when generating info.json (Strict mode enabled.)')
 
