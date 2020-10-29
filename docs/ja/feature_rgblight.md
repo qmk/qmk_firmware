@@ -284,7 +284,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### RGB ライトの状態を上書きする
 
-`RGB_TOG` を使うなどして、RGB ライトを無効にしているとき、通常はライティングレイヤーは見えない状態になっています。RGB 照明を無効にしているときでも、レイヤーを動作させたいのであれば、`config.h` に `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` を追加します。
+`RGB_TOG` を使うなどして、RGB ライトを無効にしているとき、通常はライティングレイヤーは見えない状態になっています。RGB ライトを無効にしているときでも、レイヤーを動作させたいのであれば、`config.h` に `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` を追加します。
 
 ## 関数
 
