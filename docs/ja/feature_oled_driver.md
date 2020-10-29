@@ -322,7 +322,7 @@ uint8_t oled_max_lines(void);
 |`iota_gfx_write`         |`oled_write`                     |
 |`iota_gfx_write_P`       |`oled_write_P`                   |
 |`iota_gfx_clear_screen`  |`oled_clear`                     |
-|`matrix_clear`           |*(削除されました)*                    |
+|`matrix_clear`           |*(削除されました。全ての参照を削除してください。)*                    |
 |`matrix_write_char_inner`|`oled_write_char`                |
 |`matrix_write_char`      |`oled_write_char`                |
 |`matrix_write`           |`oled_write`                     |
