@@ -18,14 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define MANUFACTURER    Clueboard
-#define PRODUCT         Clueboard 66% HotSwap
-#define DESCRIPTION     QMK keyboard firmware for Clueboard 66%
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
