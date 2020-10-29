@@ -1,6 +1,6 @@
 # symmetric70_proto
 
-![symmetric70_proto](https://i.imgur.com/Br4pH9o.jpg)
+![symmetric70_proto](https://i.imgur.com/Br4pH9ol.jpg)
 <img width="90%" alt="74HC157" src="https://user-images.githubusercontent.com/2170248/97360929-33765280-18e2-11eb-9eeb-791133e4d328.PNG">
 
 A compact 70keys keyboard (prototype) designed by mtei
