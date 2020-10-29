@@ -143,7 +143,7 @@ void oled_task_user(void) {
 !> SH1106では回転はサポートされていません
 
 ```c
-// OLED回転列挙フラグ
+// OLED 回転列挙型の値はフラグ
 typedef enum {
     OLED_ROTATION_0   = 0,
     OLED_ROTATION_90  = 1,
