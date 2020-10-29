@@ -1,3 +1,19 @@
+/* Copyright 2020 Jordan Egstad
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 
@@ -131,18 +147,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // 26-30 = Static Gradient
 
 // Default LED colors
-int h = 170;
-int s = 255;
-int v;
+uint8_t h = 170;
+uint8_t s = 255;
+uint8_t v;
 
 // default animation
-int rgbMode = 1;
+uint8_t rgbMode = 1;
 // boot animation
-int rgbBootMode = 17;
+uint8_t rgbBootMode = 17;
 // boot timeout vars
-int bootComplete = 0;
-int bootTimeout;
+uint8_t bootComplete = 0;
 int bootTimeoutDuration = 2000;
+int bootTimeout;
 
 
 void init_hsv(void) {
