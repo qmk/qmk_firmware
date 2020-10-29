@@ -119,6 +119,9 @@ uint32_t oled_timeout;
 #if OLED_SCROLL_TIMEOUT > 0
 uint32_t oled_scroll_timeout;
 #endif
+#if OLED_UPDATE_INTERVAL > 0
+uint16_t oled_update_timeout;
+#endif
 
 // Internal variables to reduce math instructions
 
@@ -650,9 +653,16 @@ void oled_task(void) {
         return;
     }
 
+#if OLED_UPDATE_INTERVAL > 0
+    if (timer_elapsed(oled_update_timeout) >= OLED_UPDATE_INTERVAL) {
+        oled_update_timeout = timer_read();
+        oled_set_cursor(0, 0);
+        oled_task_user();
+    }
+#else
     oled_set_cursor(0, 0);
-
     oled_task_user();
+#endif
 
 #if OLED_SCROLL_TIMEOUT > 0
     if (oled_dirty && oled_scrolling) {

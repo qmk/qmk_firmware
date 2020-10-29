@@ -28,12 +28,31 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/api.c
 endif
 
+AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        AUDIO_DRIVER ?= dac_basic
+        ifeq ($(strip $(AUDIO_DRIVER)), dac_basic)
+            OPT_DEFS += -DAUDIO_DRIVER_DAC
+        else ifeq ($(strip $(AUDIO_DRIVER)), dac_additive)
+            OPT_DEFS += -DAUDIO_DRIVER_DAC
+        ## stm32f2 and above have a usable DAC unit, f1 do not, and need to use pwm instead
+        else ifeq ($(strip $(AUDIO_DRIVER)), pwm_software)
+            OPT_DEFS += -DAUDIO_DRIVER_PWM
+        else ifeq ($(strip $(AUDIO_DRIVER)), pwm_hardware)
+            OPT_DEFS += -DAUDIO_DRIVER_PWM
+        endif
+    else
+        # fallback for all other platforms is pwm
+        AUDIO_DRIVER ?= pwm_hardware
+        OPT_DEFS += -DAUDIO_DRIVER_PWM
+    endif
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
-    SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY).c
+    SRC += $(QUANTUM_DIR)/audio/audio.c ## common audio code, hardware agnostic
+    SRC += $(QUANTUM_DIR)/audio/driver_$(PLATFORM_KEY)_$(AUDIO_DRIVER).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
@@ -443,11 +462,14 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)
-            QUANTUM_LIB_SRC += i2c_master.c \
-                               i2c_slave.c
+            ifneq ($(NO_I2C),yes)
+                QUANTUM_LIB_SRC += i2c_master.c \
+                                   i2c_slave.c
+            endif
         endif
 
         SERIAL_DRIVER ?= bitbang
+        OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | tr '[:lower:]' '[:upper:]'))
         ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
             QUANTUM_LIB_SRC += serial.c
         else

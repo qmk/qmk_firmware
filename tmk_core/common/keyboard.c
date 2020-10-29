@@ -229,6 +229,20 @@ __attribute__((weak)) bool is_keyboard_master(void) { return true; }
  */
 __attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_master(); }
 
+/** \brief housekeeping_task_kb
+ *
+ * Override this function if you have a need to execute code for every keyboard main loop iteration.
+ * This is specific to keyboard-level functionality.
+ */
+__attribute__((weak)) void housekeeping_task_kb(void) {}
+
+/** \brief housekeeping_task_user
+ *
+ * Override this function if you have a need to execute code for every keyboard main loop iteration.
+ * This is specific to user/keymap-level functionality.
+ */
+__attribute__((weak)) void housekeeping_task_user(void) {}
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -308,6 +322,9 @@ void keyboard_task(void) {
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
 #endif
+
+    housekeeping_task_kb();
+    housekeeping_task_user();
 
 #if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
     uint8_t ret = matrix_scan();

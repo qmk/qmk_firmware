@@ -20,7 +20,7 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
             hsv           = effect_func(hsv, dx, dy, dist, tick);
         }
         hsv.v   = scale8(hsv.v, rgb_matrix_config.hsv.v);
-        RGB rgb = hsv_to_rgb(hsv);
+        RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < DRIVER_LED_TOTAL;
