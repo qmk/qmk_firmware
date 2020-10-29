@@ -194,7 +194,7 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 
 Do a basic lint check:
 
-    qmk info -kb rominronin/katana60/rev2
+    qmk lint -kb rominronin/katana60/rev2
 
 ## `qmk list-keyboards`
 
@@ -317,4 +317,3 @@ This command runs the python test suite. If you make changes to python code you 
 ```
 qmk pytest
 ```
-

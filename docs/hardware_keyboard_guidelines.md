@@ -5,7 +5,7 @@ Since starting, QMK has grown by leaps and bounds thanks to people like you who 
 
 ## Use QMK Lint
 
-We have provided a tools, `qmk lint`, which will let you check over your keyboard for problems. We suggest using it frequently while working on your keyboard and keymap. 
+We have provided a tool, `qmk lint`, which will let you check over your keyboard for problems. We suggest using it frequently while working on your keyboard and keymap. 
 
 Example passing check:
 
