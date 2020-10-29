@@ -7,10 +7,7 @@ import json
 from milc import cli
 
 from qmk.InfoJSONEncoder import InfoJSONEncoder
-from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import render_layouts, render_layout
-from qmk.keymap import locate_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard
 

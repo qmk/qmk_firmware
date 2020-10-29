@@ -13,7 +13,7 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 
-fileHeader = """\
+file_header = """\
 /* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
@@ -77,7 +77,7 @@ def check_diffs(input_defs, reference_defs):
 
 
 def migrate_chconf_h(to_override, outfile):
-    print(fileHeader.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
+    print(file_header.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
 
     for override in to_override:
         print("#define %s %s" % (override[0], override[1]), file=outfile)
@@ -87,7 +87,7 @@ def migrate_chconf_h(to_override, outfile):
 
 
 def migrate_halconf_h(to_override, outfile):
-    print(fileHeader.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
+    print(file_header.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
 
     for override in to_override:
         print("#define %s %s" % (override[0], override[1]), file=outfile)
@@ -97,7 +97,7 @@ def migrate_halconf_h(to_override, outfile):
 
 
 def migrate_mcuconf_h(to_override, outfile):
-    print(fileHeader.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
+    print(file_header.format(cli.args.input.relative_to(QMK_FIRMWARE), cli.args.reference.relative_to(QMK_FIRMWARE)), file=outfile)
 
     print("#include_next <mcuconf.h>\n", file=outfile)
 
