@@ -133,7 +133,7 @@ def info(cli):
     """
     # Determine our keyboard(s)
     if not cli.config.info.keyboard:
-        cli.log.error('Missing paramater: --keyboard')
+        cli.log.error('Missing parameter: --keyboard')
         cli.subcommands['info'].print_help()
         return False
 
