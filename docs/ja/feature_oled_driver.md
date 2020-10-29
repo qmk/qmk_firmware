@@ -53,7 +53,7 @@ void oled_task_user(void) {
             oled_write_ln_P(PSTR("Undefined"), false);
     }
 
-    // キーボードの LED 状態
+    // ホストキーボードの LED 状態
     led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
