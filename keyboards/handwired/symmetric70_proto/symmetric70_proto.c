@@ -16,7 +16,7 @@
 
 #include "symmetric70_proto.h"
 
-void keyboard_post_init_user(void) {
+__attribute__((weak)) void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
   debug_enable=true;
   debug_matrix=true;
