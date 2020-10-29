@@ -313,7 +313,7 @@ uint8_t oled_max_lines(void);
 
 |旧 API                   |推奨する新しい API                |
 |-------------------------|---------------------------------|
-|`struct CharacterMatrix` |*(削除されました)*                    |
+|`struct CharacterMatrix` |*(削除されました。全ての参照を削除してください。)*                    |
 |`iota_gfx_init`          |`oled_init`                      |
 |`iota_gfx_on`            |`oled_on`                        |
 |`iota_gfx_off`           |`oled_off`                       |
