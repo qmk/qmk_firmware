@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Keys of Kings
 #define PRODUCT         Twokey
-#define DESCRIPTION     2020 What a year
 
 /* key matrix size */
 #define MATRIX_ROWS 2
