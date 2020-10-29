@@ -38,3 +38,7 @@
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 2   // The led to start at
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 5  // How many LEDs to travel
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4    // How many LEDs wide to light up
+
+// Layout aliases
+#define KEYMAP LAYOUT_all
+#define LAYOUT LAYOUT_all

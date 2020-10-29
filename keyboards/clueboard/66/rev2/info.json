@@ -1,5 +1,5 @@
 {
-  "keyboard_name": "Clueboard 66% rev3",
+  "keyboard_name": "Clueboard 66% rev2",
   "diode_direction": "COL2ROW",
   "matrix_pins": {
     "cols": ["F0", " F1", " F4", " F5", " F6", " F7", " E6", " B1"],
@@ -7,7 +7,7 @@
   },
   "usb": {
     "device_ver": "0x0001",
-    "pid": "0x2370",
+    "pid": "0x2320",
     "vid": "0xC1ED"
   },
   "layouts": {
