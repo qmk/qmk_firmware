@@ -4,16 +4,18 @@
 #include <avr/interrupt.h>
 #include "matrix.h"
 #include "action.h"
-#include "backlight.h"
 #include "suspend_avr.h"
 #include "suspend.h"
 #include "timer.h"
 #include "led.h"
 #include "host.h"
-#include "rgblight_reconfig.h"
 
 #ifdef PROTOCOL_LUFA
 #    include "lufa.h"
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -26,23 +28,6 @@ extern rgblight_config_t rgblight_config;
 static bool              rgblight_enabled;
 static bool              is_suspended;
 #endif
-
-#define wdt_intr_enable(value)                                                                                                                                                         \
-    __asm__ __volatile__("in __tmp_reg__,__SREG__"                                                                                                                                     \
-                         "\n\t"                                                                                                                                                        \
-                         "cli"                                                                                                                                                         \
-                         "\n\t"                                                                                                                                                        \
-                         "wdr"                                                                                                                                                         \
-                         "\n\t"                                                                                                                                                        \
-                         "sts %0,%1"                                                                                                                                                   \
-                         "\n\t"                                                                                                                                                        \
-                         "out __SREG__,__tmp_reg__"                                                                                                                                    \
-                         "\n\t"                                                                                                                                                        \
-                         "sts %0,%2"                                                                                                                                                   \
-                         "\n\t"                                                                                                                                                        \
-                         : /* no outputs */                                                                                                                                            \
-                         : "M"(_SFR_MEM_ADDR(_WD_CONTROL_REG)), "r"(_BV(_WD_CHANGE_BIT) | _BV(WDE)), "r"((uint8_t)((value & 0x08 ? _WD_PS3_MASK : 0x00) | _BV(WDIE) | (value & 0x07))) \
-                         : "r0")
 
 /** \brief Suspend idle
  *
@@ -119,9 +104,7 @@ static void power_down(uint8_t wdto) {
     // stop_all_notes();
 #    endif /* AUDIO_ENABLE */
 #    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-#        ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_disable();
-#        endif
     if (!is_suspended) {
         is_suspended     = true;
         rgblight_enabled = rgblight_config.enable;
@@ -201,9 +184,7 @@ void suspend_wakeup_init(void) {
 #    endif
         rgblight_enable_noeeprom();
     }
-#    ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_enable();
-#    endif
 #endif
     suspend_wakeup_init_kb();
 }

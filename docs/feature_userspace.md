@@ -1,6 +1,6 @@
 # Userspace: Sharing Code Between Keymaps
 
-If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your github username, `<name>`) with the following structure:
+If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your GitHub username, `<name>`) with the following structure:
 
 * `/users/<name>/` (added to the path automatically)
   * `readme.md` (optional, recommended)
@@ -73,7 +73,7 @@ The reason for this, is that `<name>.h` won't be added in time to add settings (
 
 ## Readme (`readme.md`)
 
-Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
+Please include authorship (your name, GitHub username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
 
 You can use this as a template: 
 ```
@@ -93,17 +93,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
 
-You'd want to replace the year, name, email and github username with your info. 
+You'd want to replace the year, name, email and GitHub username with your info. 
 
 Additionally, this is a good place to document your code, if you wish to share it with others. 
 
-# Examples
+## Build All Keyboards That Support a Specific Keymap
 
-For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).  
+Want to check all your keymaps build in a single command? You can run:
+
+    make all:<name>
+
+For example,
+
+    make all:jack
+
+This is ideal for when you want ensure everything compiles successfully when preparing a [_Pull request_](https://github.com/qmk/qmk_firmware/pulls).
+
+## Examples
+
+For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example).  
 For a more complicated example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
 
 
-## Customized Functions
+### Customized Functions
 
 QMK has a bunch of [functions](custom_quantum_functions.md) that have [`_quantum`, `_kb`, and `_user` versions](custom_quantum_functions.md#a-word-on-core-vs-keyboards-vs-keymap) that you can use.  You will pretty much always want to use the user version of these functions.  But the problem is that if you use them in your userspace, then you don't have a version that you can use in your keymap. 
 
@@ -130,7 +142,7 @@ The `_keymap` part here doesn't matter, it just needs to be something other than
 
 You can see a list of this and other common functions in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [`users/drashna`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
 
-## Custom Features
+### Custom Features
 
 Since the Userspace feature can support a staggering number of boards, you may have boards that you want to enable certain functionality for, but not for others. And you can actually create "features" that you can enable or disable in your own userspace.  
 
@@ -166,7 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 
 
-## Consolidated Macros
+### Consolidated Macros
 
 If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that.  This builds upon the [Customized Functions](#customized-functions) example above. This lets you maintain a bunch of macros that are shared between the different keyboards, and allow for keyboard specific macros, too. 
 
@@ -208,23 +220,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             clear_mods(); clear_oneshot_mods();
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
     #ifndef FLASH_BOOTLOADER
-            if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT ) 
+            if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
     #endif
-            { // 
-                #if defined(__arm__)  // only run for ARM boards
-                    SEND_STRING(":dfu-util");
-                #elif defined(BOOTLOADER_DFU) // only run for DFU boards
-                    SEND_STRING(":dfu");
-                #elif defined(BOOTLOADER_HALFKAY) // only run for teensy boards
-                    SEND_STRING(":teensy");
-                #elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
-                    SEND_STRING(":avrdude");
-                #endif // bootloader options
+            {
+                SEND_STRING(":flash");
             }
-            if ( (temp_mod | temp_osm) & MOD_MASK_CTRL) { 
-                SEND_STRING(" -j8 --output-sync"); 
+            if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
+                SEND_STRING(" -j8 --output-sync");
             }
-            SEND_STRING(SS_TAP(X_ENTER));
+            tap_code(KC_ENT);
             set_mods(temp_mod);
         }
         break;
@@ -244,7 +248,7 @@ endif
 
 This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
-Also, holding `shift` will add the appropriate flashing command (`:dfu`, `:teensy`, `:avrdude`, `:dfu-util`) for a majority of keyboards.  Holding `control` will add some commands that will speed up compiling time by processing multiple files at once. 
+Also, holding Shift will add the flash target (`:flash`) to the command.  Holding Control will add some commands that will speed up compiling time by processing multiple files at once. 
 
 And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 

@@ -18,9 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "quantum_keycodes.h"
-#include "keycode.h"
-#include "action.h"
+#include "quantum.h"
 
 #define LAYOUT_60_ansi( \
   K04, K14, K24, K34, K44, K54, K16, KB6, KB7, K17, KA4, KB4, KC4, KE4, \

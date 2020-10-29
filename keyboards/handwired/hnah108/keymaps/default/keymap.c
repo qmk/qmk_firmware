@@ -44,17 +44,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  if (IS_LAYER_ON(_FN)) { /* First encoder */
+  if (index == 0) {
+    if (IS_LAYER_ON(_FN)) { 
     if (clockwise) {
-      rgb_matrix_step();
+            tap_code(KC_BRIU);
     } else {
-      rgb_matrix_step_reverse();	
+            tap_code(KC_BRID);
     }
   } else {
     if (clockwise) {
-      rgb_matrix_increase_speed();
+            tap_code(KC_VOLU);
+
     } else {
-      rgb_matrix_decrease_speed();
+            tap_code(KC_VOLD);
+      }
     }
   }
 }

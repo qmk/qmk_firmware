@@ -22,13 +22,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "kuchosauronad0.h"
 
-#ifdef INDICATOR_LIGHTS
-extern userspace_config_t userspace_config;
-
-uint8_t last_mod;
-uint8_t last_led;
-uint8_t last_osm;
+#ifdef RGBLIGHT_ENABLE
+  extern rgblight_config_t rgblight_config;
 #endif
+
+#ifdef INDICATOR_LIGHTS
+  extern userspace_config_t userspace_config;
+  uint8_t last_mod;
+  uint8_t last_led;
+  uint8_t last_osm;
+#endif
+
 
 #define LAYOUT_collide39_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
@@ -40,7 +44,16 @@ uint8_t last_osm;
     SFT_T(KC_ESC),        K11,    K12,     K13,      K14,     K15,     LT(LOWER,KC_PGDN),  K16,     K17,     K18,     K19,     K1A,     SFT_T(KC_ENT), \
     MT(MOD_LCTL,KC_DEL),  K21,    K22,     K23,      K24,     K25,     KC_SPACE,           K26,     K27,     K28,     K29,     K2A,     KC_LEAD  \
   )
-#define LAYOUT_collide39_base_wrapper(...)       LAYOUT_collide39_base(__VA_ARGS__)
+
+/* 
+ * ,------. ,----------------------------------------------------------------------------. ,------.
+ * |ALTTAB| |   Q  |   W  |   E  |   R  |   T  |RSE/PU|   Y  |   U  |   I  |   O  |   P  | | BSPC |
+ * |------| |------+------+------+------+------+------+------+------+------+------+------+ |------|
+ * |SF/ESC| |   A  |   S  |   D  |   F  |   G  |LWR/PD|   H  |   J  |   K  |   L  |   ;  | | ENTER|
+ * |------| |------+------+------+------+------+------+------+------+------+------+------+ |------|
+ * |CTLDEL| |   Z  |   X  |   C  |   V  |   B  |SPACE |   N  |   M  |   ,  |   .  |   /  | |LEADER|
+ * `------' `----------------------------------------------------------------------------' `------'
+ */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             
@@ -70,39 +83,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 #endif
   [_WORKMAN] = LAYOUT_collide39_base_wrapper(
-    _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-    _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-    _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
+    _________________RGB_UP____________________, _________________RGB_UP____________________,
+    _________________RGB_CENTER________________, _________________RGB_CENTER________________,
+    _________________RGB_DOWN__________________, _________________RGB_DOWN__________________
   ),
 
-  [_NORMAN] = LAYOUT_collide39_base_wrapper(
-    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
+  [_PLOVER] = LAYOUT_wrapper(\
+    KC_1,  _________________PLOVER_L1_________________, _______, _________________PLOVER_R1_________________, KC_1,
+    KC_NO, _________________PLOVER_L2_________________, _______, _________________PLOVER_R2_________________, KC_NO,
+    KC_NO, _________________PLOVER_L3_________________, _______, _________________PLOVER_R3_________________, _______
   ),
-
-  [_MALTRON] = LAYOUT_collide39_base_wrapper(
-    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-    _________________MALTRON_L3________________, _________________MALTRON_R3________________
-  ),
-
-  [_EUCALYN] = LAYOUT_collide39_base_wrapper(
-    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-  ),
-
-  [_CARPLAX] = LAYOUT_collide39_base_wrapper(
-    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
-  ),
-
 
   [_MODS] = LAYOUT_wrapper(\
-    _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,
+    KC_LALT, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, KC_RALT,
+    KC_LCTL, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, KC_RCTL,
     KC_LSFT, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______
   ),
 
@@ -121,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_wrapper(\
     KC_MAKE, _________________ADJUST_L1_________________, _______,  _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________, _______,  _________________ADJUST_R2_________________, EEP_RST,
-    TG_MODS, _________________ADJUST_L3_________________, _______,  _________________ADJUST_R3_________________, KC_MPLY
+    DEBUG,   _________________ADJUST_L3_________________, _______,  _________________ADJUST_R3_________________, _______
   )
 
 };

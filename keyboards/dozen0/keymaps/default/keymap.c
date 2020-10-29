@@ -15,20 +15,110 @@
  */
 #include QMK_KEYBOARD_H
 
+#ifdef RGBLIGHT_ENABLE
+//Following line allows macro to read current RGB settings
+extern rgblight_config_t rgblight_config;
+#endif
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
-    LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_UP, KC_DEL, KC_BSPC, \
-    KC_LCTRL, KC_LSFT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ENT \
-  ),
+enum layer_number {
+    _BASE = 0,
+    _LOWER,
+    _RAISE,
+    _ADJUST
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
+enum custom_keycodes {
+  BASE = SAFE_RANGE,
+  LOWER,
+  RAISE,
+  ADJUST,
+  RGBRST
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  /* Base
+   * ,-----------------------------------------.
+   * |  Cut | Copy |Paste |  Up  |Delete| Bksp |
+   * |      |      |      |      |      |Raise |
+   * |------+------+------+------+------+------|
+   * | Ctrl |Shift | Left | Down |Right |Enter |
+   * |      |      |      |      |      |Lower |
+   * `-----------------------------------------'
+   */
+	[_BASE] = LAYOUT(
+    LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_UP, KC_DEL, LT(_RAISE,KC_BSPC),
+    KC_LCTL, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, LT(_LOWER,KC_ENT)
+  ),
+
+  /* Lower
+   * ,-----------------------------------------.
+   * |      |      |      | Page |      |      |
+   * |      |      |      |  Up  |      |      |
+   * |------+------+------+------+------+------|
+   * |      |      | Home | Page | End  |      |
+   * |      |      |      | Down |      |      |
+   * `-----------------------------------------'
+   */
+  [_LOWER] = LAYOUT(
+    _______, _______, _______, KC_PGUP, _______, _______,
+    _______, _______, KC_HOME, KC_PGDN, KC_END, _______
+  ),
+
+  /* Raise
+   * ,-----------------------------------------.
+   * |      |      |      |      |      |      |
+   * |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |
+   * |      |      |      |      |      |      |
+   * `-----------------------------------------'
+   */
+  [_RAISE] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______
+  ),
+
+  /* Adjust
+   * ,-----------------------------------------.
+   * | RGB  | RGB  | RGB  | RGB  | RGB  |      |
+   * |Toggle|Mode+ | Hue+ | Sat+ | Val+ |      |
+   * |------+------+------+------+------+------|
+   * | RGB  | RGB  | RGB  | RGB  | RGB  |      |
+   * |Reset |Mode- | Hue- | Sat- | Val- |      |
+   * `-----------------------------------------'
+   */
+  [_ADJUST] = LAYOUT(
+    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______,
+    RGBRST, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______
+  )
+};
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-void matrix_init_user(void) {
+int RGB_current_mode;
 
+void matrix_init_user(void) {
+  #ifdef RGBLIGHT_ENABLE
+  RGB_current_mode = rgblight_config.mode;
+  #endif
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  switch (keycode) {
+    case RGBRST:
+      #ifdef RGBLIGHT_ENABLE
+      if (record->event.pressed) {
+        eeconfig_update_rgblight_default();
+        rgblight_enable();
+        RGB_current_mode = rgblight_config.mode;
+      }
+      #endif
+      break;
+  }
+  return true;
 }
 
 void matrix_scan_user(void) {

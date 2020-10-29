@@ -3,7 +3,7 @@
 SRC += ./logo_reader.c
 
 # enable OLED displays
-OLED_DRIVER_ENABLE = yes
+OLED_DRIVER_ENABLE = no
 
 # enable media keys
 EXTRAKEY_ENABLE = yes

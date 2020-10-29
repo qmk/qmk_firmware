@@ -2,7 +2,6 @@
     "keyboard_name": "wilba.tech WT8-A", 
     "url": "https://wilba.tech", 
     "maintainer": "Wilba", 
-    "bootloader": "atmel-dfu", 
     "width": 4, 
     "height": 2, 
     "layouts": {

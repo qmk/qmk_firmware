@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -88,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_qwerty[][2]     = TONE_QWERTY;
 float tone_numpad[][2]     = TONE_NUMPAD;
 
-uint32_t default_layer_state_set_kb(uint32_t state) {
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
     if (state == 1UL<<_QWERTY) {
       PLAY_SONG(tone_qwerty);
     } else if (state == 1UL<<_NUMPAD) {

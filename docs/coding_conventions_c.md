@@ -14,34 +14,34 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
-  * If you not sure if a comment is obvious, go ahead and include it.
+  * If you're not sure if a comment is obvious, go ahead and include it.
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
 * We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
 * We accept both forms of preprocessor if's: `#ifdef DEFINED` and `#if defined(DEFINED)`
   * If you are not sure which to prefer use the `#if defined(DEFINED)` form.
   * Do not change existing code from one style to the other, except when moving to a multiple condition `#if`.
-  * Do not put whitespace between `#` and `if`.
-  * When deciding how (or if) to indent directives keep these points in mind:
-    * Readability is more important than consistency.
-    * Follow the file's existing style. If the file is mixed follow the style that makes sense for the section you are modifying.
-    * When choosing to indent you can follow the indention level of the surrounding C code, or preprocessor directives can have their own indent level. Choose the style that best communicates the intent of your code.
+* When deciding how (or if) to indent preprocessor directives, keep these points in mind:
+  * Readability is more important than consistency.
+  * Follow the file's existing style. If the file is mixed, follow the style that makes sense for the section you are modifying.
+  * When indenting, keep the hash at the start of the line and add whitespace between `#` and `if`, starting with 4 spaces after the `#`.
+  * You can follow the indention level of the surrounding C code, or preprocessor directives can have their own indentation levels. Choose the style that best communicates the intent of your code.
 
 Here is an example for easy reference:
 
 ```c
 /* Enums for foo */
 enum foo_state {
-  FOO_BAR,
-  FOO_BAZ,
+    FOO_BAR,
+    FOO_BAZ,
 };
 
 /* Returns a value */
 int foo(void) {
-  if (some_condition) {
-    return FOO_BAR;
-  } else {
-    return -1;
-  }
+    if (some_condition) {
+        return FOO_BAR;
+    } else {
+        return -1;
+    }
 }
 ```
 

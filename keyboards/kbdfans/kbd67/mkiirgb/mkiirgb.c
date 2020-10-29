@@ -95,17 +95,7 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
-#endif
 
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    return process_record_user(keycode, record);
-}
 void suspend_power_down_kb(void)
 {
     rgb_matrix_set_suspend_state(true);
@@ -117,3 +107,13 @@ void suspend_wakeup_init_kb(void)
     rgb_matrix_set_suspend_state(false);
     suspend_wakeup_init_user();
 }
+
+__attribute__ ((weak))
+void rgb_matrix_indicators_user(void)
+{
+    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
+    {
+        rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
+    }
+}
+#endif

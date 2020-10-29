@@ -2,7 +2,7 @@
 
 ## Haptic feedback rules.mk options
 
-The following options are currently available for haptic feedback in `rule.mk`:
+The following options are currently available for haptic feedback in `rules.mk`:
 
 `HAPTIC_ENABLE += DRV2605L`
 
@@ -22,7 +22,7 @@ Not all keycodes below will work depending on which haptic mechanism you have ch
 | Name      | Description                                           |
 |-----------|-------------------------------------------------------|
 |`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback on                               |
+|`HPT_OFF`  | Turn haptic feedback off                              |
 |`HPT_TOG`  | Toggle haptic feedback on/off                         |
 |`HPT_RST`  | Reset haptic feedback config to default               |
 |`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
@@ -41,11 +41,15 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 
 [Wiring diagram provided by Adafruit](https://playground.arduino.cc/uploads/Learning/solenoid_driver.pdf)
 
-Select a pin that has PWM for the signal pin
 
-```
-#define SOLENOID_PIN *pin*
-```
+| Settings                 | Default       | Description                                           |
+|--------------------------|---------------|-------------------------------------------------------|
+|`SOLENOID_PIN`            | *Not defined* |Configures the pin that the Solenoid is connected to.  |
+|`SOLENOID_DEFAULT_DWELL`  | `12` ms       |Configures the default dwell time for the solenoid.    |
+|`SOLENOID_MIN_DWELL`      | `4` ms        |Sets the lower limit for the dwell.                    |
+|`SOLENOID_MAX_DWELL`      | `100` ms      |Sets the upper limit for the dwell.                    |
+
+?> Dwell time is how long the "plunger" stays activated.  The dwell time changes how the solenoid sounds.
 
 Beware that some pins may be powered during bootloader (ie. A13 on the STM32F303 chip) and will result in the solenoid kept in the on state through the whole flashing process. This may overheat and damage the solenoid. If you find that the pin the solenoid is connected to is triggering the solenoid during bootloader/DFU, select another pin.
 

@@ -20,7 +20,6 @@ The "easy" way to flash the firmware is using a tool from your host OS:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox) (recommended)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
-* [Atmel FLIP](http://www.atmel.com/tools/flip.aspx)
 
 If you want to program via the command line you can uncomment the ['modifyvm'] lines in the Vagrantfile to enable the USB passthrough into Linux and then program using the command line tools like dfu-util/dfu-programmer or you can install the Teensy CLI version.
 
@@ -40,7 +39,7 @@ vagrant plugin install vagrant-vbguest
 Finished with your environment? From anywhere inside the folder where you checked out this project, Execute:
 
 ```console
-vagrant destory
+vagrant destroy
 ```
 
 ### What if I want to use Docker directly?

@@ -123,10 +123,12 @@ enum quantum_keycodes {
     KC_LEAD,
 #endif
 
-    // Auto Shift setup
+// Auto Shift setup
+#ifndef AUTO_SHIFT_NO_SETUP
     KC_ASUP,
     KC_ASDN,
     KC_ASRP,
+#endif
     KC_ASTG,
     KC_ASON,
     KC_ASOFF,
@@ -459,7 +461,7 @@ enum quantum_keycodes {
 
     UNICODE_MODE_FORWARD,
     UNICODE_MODE_REVERSE,
-    UNICODE_MODE_OSX,
+    UNICODE_MODE_MAC,
     UNICODE_MODE_LNX,
     UNICODE_MODE_WIN,
     UNICODE_MODE_BSD,
@@ -505,6 +507,48 @@ enum quantum_keycodes {
     MAGIC_EE_HANDS_LEFT,
     MAGIC_EE_HANDS_RIGHT,
 
+    // Dynamic Macros
+    DYN_REC_START1,
+    DYN_REC_START2,
+    DYN_REC_STOP,
+    DYN_MACRO_PLAY1,
+    DYN_MACRO_PLAY2,
+
+    JS_BUTTON0,
+    JS_BUTTON_MIN = JS_BUTTON0,
+    JS_BUTTON1,
+    JS_BUTTON2,
+    JS_BUTTON3,
+    JS_BUTTON4,
+    JS_BUTTON5,
+    JS_BUTTON6,
+    JS_BUTTON7,
+    JS_BUTTON8,
+    JS_BUTTON9,
+    JS_BUTTON10,
+    JS_BUTTON11,
+    JS_BUTTON12,
+    JS_BUTTON13,
+    JS_BUTTON14,
+    JS_BUTTON15,
+    JS_BUTTON16,
+    JS_BUTTON17,
+    JS_BUTTON18,
+    JS_BUTTON19,
+    JS_BUTTON20,
+    JS_BUTTON21,
+    JS_BUTTON22,
+    JS_BUTTON23,
+    JS_BUTTON24,
+    JS_BUTTON25,
+    JS_BUTTON26,
+    JS_BUTTON27,
+    JS_BUTTON28,
+    JS_BUTTON29,
+    JS_BUTTON30,
+    JS_BUTTON31,
+    JS_BUTTON_MAX = JS_BUTTON31,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -514,13 +558,15 @@ enum quantum_keycodes {
 #define LSFT(kc) (QK_LSFT | (kc))
 #define LALT(kc) (QK_LALT | (kc))
 #define LGUI(kc) (QK_LGUI | (kc))
+#define LOPT(kc) LALT(kc)
 #define LCMD(kc) LGUI(kc)
 #define LWIN(kc) LGUI(kc)
 #define RCTL(kc) (QK_RCTL | (kc))
 #define RSFT(kc) (QK_RSFT | (kc))
 #define RALT(kc) (QK_RALT | (kc))
-#define ALGR(kc) RALT(kc)
 #define RGUI(kc) (QK_RGUI | (kc))
+#define ALGR(kc) RALT(kc)
+#define ROPT(kc) RALT(kc)
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
 
@@ -531,6 +577,10 @@ enum quantum_keycodes {
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LSA(kc) (QK_LSFT | QK_LALT | (kc))
+#define RSA(kc) (QK_RSFT | QK_RALT | (kc))
+#define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define SAGR(kc) RSA(kc)
 
 #define MOD_HYPR 0xF
 #define MOD_MEH 0x7
@@ -648,13 +698,42 @@ enum quantum_keycodes {
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (QK_LAYER_TAP | (((layer)&0xF) << 8) | ((kc)&0xFF))
 
+#define CL_SWAP MAGIC_SWAP_CONTROL_CAPSLOCK
+#define CL_NORM MAGIC_UNSWAP_CONTROL_CAPSLOCK
+#define CL_CTRL MAGIC_CAPSLOCK_TO_CONTROL
+#define CL_CAPS MAGIC_UNCAPSLOCK_TO_CONTROL
+
+#define LCG_SWP MAGIC_SWAP_LCTL_LGUI
+#define LCG_NRM MAGIC_UNSWAP_LCTL_LGUI
+#define RCG_SWP MAGIC_SWAP_RCTL_RGUI
+#define RCG_NRM MAGIC_UNSWAP_RCTL_RGUI
+#define CG_SWAP MAGIC_SWAP_CTL_GUI
+#define CG_NORM MAGIC_UNSWAP_CTL_GUI
+#define CG_TOGG MAGIC_TOGGLE_CTL_GUI
+
+#define LAG_SWP MAGIC_SWAP_LALT_LGUI
+#define LAG_NRM MAGIC_UNSWAP_LALT_LGUI
+#define RAG_SWP MAGIC_SWAP_RALT_RGUI
+#define RAG_NRM MAGIC_UNSWAP_RALT_RGUI
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
 #define AG_TOGG MAGIC_TOGGLE_ALT_GUI
 
-#define CG_SWAP MAGIC_SWAP_CTL_GUI
-#define CG_NORM MAGIC_UNSWAP_CTL_GUI
-#define CG_TOGG MAGIC_TOGGLE_CTL_GUI
+#define GUI_OFF MAGIC_NO_GUI
+#define GUI_ON MAGIC_UNNO_GUI
+
+#define GE_SWAP MAGIC_SWAP_GRAVE_ESC
+#define GE_NORM MAGIC_UNSWAP_GRAVE_ESC
+
+#define BS_SWAP MAGIC_SWAP_BACKSLASH_BACKSPACE
+#define BS_NORM MAGIC_UNSWAP_BACKSLASH_BACKSPACE
+
+#define NK_ON MAGIC_HOST_NKRO
+#define NK_OFF MAGIC_UNHOST_NKRO
+#define NK_TOGG MAGIC_TOGGLE_NKRO
+
+#define EH_LEFT MAGIC_EE_HANDS_LEFT
+#define EH_RGHT MAGIC_EE_HANDS_RIGHT
 
 // GOTO layer - 16 layers max
 // when:
@@ -700,8 +779,11 @@ enum quantum_keycodes {
 
 #define LALT_T(kc) MT(MOD_LALT, kc)
 #define RALT_T(kc) MT(MOD_RALT, kc)
-#define ALT_T(kc) LALT_T(kc)
+#define LOPT_T(kc) LALT_T(kc)
+#define ROPT_T(kc) RALT_T(kc)
 #define ALGR_T(kc) RALT_T(kc)
+#define ALT_T(kc) LALT_T(kc)
+#define OPT_T(kc) LOPT_T(kc)
 
 #define LGUI_T(kc) MT(MOD_LGUI, kc)
 #define RGUI_T(kc) MT(MOD_RGUI, kc)
@@ -722,6 +804,11 @@ enum quantum_keycodes {
 #define SCMD_T(kc) SGUI_T(kc)
 #define SWIN_T(kc) SGUI_T(kc)
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
+#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
+#define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt
+#define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)  // Right Control + Shift
+#define SAGR_T(kc) RSA_T(kc)
+
 #define ALL_T(kc) HYPR_T(kc)
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
@@ -741,7 +828,9 @@ enum quantum_keycodes {
 #define UC_MOD UNICODE_MODE_FORWARD
 #define UC_RMOD UNICODE_MODE_REVERSE
 
-#define UC_M_OS UNICODE_MODE_OSX
+#define UC_M_MA UNICODE_MODE_MAC
+#define UNICODE_MODE_OSX UNICODE_MODE_MAC  // Deprecated alias
+#define UC_M_OS UNICODE_MODE_MAC           // Deprecated alias
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
@@ -751,10 +840,18 @@ enum quantum_keycodes {
 #    define SH_T(kc) (QK_SWAP_HANDS | (kc))
 #    define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
 #    define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+#    define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
 #    define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
 #    define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
 #    define SH_ON (QK_SWAP_HANDS | OP_SH_ON)
 #    define SH_OFF (QK_SWAP_HANDS | OP_SH_OFF)
 #endif
+
+// Dynamic Macros aliases
+#define DM_REC1 DYN_REC_START1
+#define DM_REC2 DYN_REC_START2
+#define DM_RSTP DYN_REC_STOP
+#define DM_PLY1 DYN_MACRO_PLAY1
+#define DM_PLY2 DYN_MACRO_PLAY2
 
 #endif  // QUANTUM_KEYCODES_H

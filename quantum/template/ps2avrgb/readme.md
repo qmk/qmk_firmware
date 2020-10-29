@@ -2,17 +2,17 @@
 
 ![%KEYBOARD%](imgur.com image replace me!)
 
-A short description of the keyboard/project
+*A short description of the keyboard/project*
 
-Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+* Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)
+* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
     make %KEYBOARD%:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](flashing_bootloadhid.md))
+Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
     make %KEYBOARD%:default:flash
 

@@ -186,9 +186,10 @@ COMPILER_PACK_RESET()
 #define USB_HID_COUNTRY_UK 32                 // UK
 #define USB_HID_COUNTRY_US 33                 // US
 #define USB_HID_COUNTRY_YUGOSLAVIA 34         // Yugoslavia
-#define USB_HID_COUNTRY_TURKISH_F 35          // Turkish-F
-                                              //! @}
-                                              //! @}
+#define USB_HID_COUNTRY_TURKISH_F \
+    35  // Turkish-F
+        //! @}
+        //! @}
 //! @}
 
 //! \name HID KEYS values
