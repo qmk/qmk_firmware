@@ -8,6 +8,7 @@ from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard, keyboard
 
 
+@cli.argument('--strict', action='store_true', help='Treat warnings as errors.')
 @cli.argument('-kb', '--keyboard', help='The keyboard to check.')
 @cli.argument('-km', '--keymap', help='The keymap to check.')
 @cli.subcommand('Check keyboard and keymap for common mistakes.')
@@ -33,8 +34,12 @@ def lint(cli):
 
     # Check for errors in the info.json
     if keyboard_info['parsing_errors']:
-        cli.log.error('Errors found when generating info.json.')
         ok = False
+        cli.log.error('Errors found when generating info.json.')
+
+    if cli.config.lint.strict and keyboard_info['parsing_warnings']:
+        ok = False
+        cli.log.error('Warnings found when generating info.json (Strict mode enabled.)')
 
     # Check for a readme.md and warn if it doesn't exist
     if not readme_path.exists():
