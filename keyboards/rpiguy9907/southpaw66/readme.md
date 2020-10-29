@@ -1,4 +1,4 @@
-# southpaw66
+# Southpaw66
 
 ![](https://i.imgur.com/Mzmhsedl.jpg)
 
