@@ -311,7 +311,7 @@ uint8_t oled_max_lines(void);
 
 ## SSD1306.h ドライバー変換ガイド
 
-|旧API                    |推奨する新しいAPI                 |
+|旧 API                   |推奨する新しい API                |
 |-------------------------|---------------------------------|
 |`struct CharacterMatrix` |*(削除されました)*                    |
 |`iota_gfx_init`          |`oled_init`                      |
