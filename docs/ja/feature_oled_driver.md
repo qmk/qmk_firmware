@@ -135,7 +135,7 @@ void oled_task_user(void) {
 |`OLED_BLOCK_SIZE`    |`32`           |描画のための各ブロックのサイズ<br>`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`.                                                  |
 |`OLED_COM_PINS`      |`COM_PINS_SEQ` |描画メモリーのための SSD1306 チップマップ<br>値は `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, `COM_PINS_ALT_LR`.|
 |`OLED_SOURCE_MAP`    |`{ 0, ... N }` |90度回転させる描画でソースバッファをターゲット OLED メモリにマッピングするために使用する事前計算されたソース配列。                               |
-|`OLED_TARGET_MAP`    |`{ 24, ... N }`|90度回転における変換先マップ                               |
+|`OLED_TARGET_MAP`    |`{ 24, ... N }`|90度回転させる描画でソースバッファをターゲット OLED メモリにマッピングするために使用する事前計算されたターゲット配列。                               |
 
 
 ### 90°回転 - 技術云々
