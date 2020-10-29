@@ -1,6 +1,6 @@
 # hnah108
 
-![hnah108](https://i.imgur.com/rV0lM8M.jpg)
+![hnah108](https://i.imgur.com/rV0lM8Ml.jpg)
 
 A full size keyboard pcb with rotary encoder. Uses WS2811 IC as an indicator LED driver.
 

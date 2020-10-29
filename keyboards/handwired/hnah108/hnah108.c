@@ -16,6 +16,7 @@
 
 #include "hnah108.h"
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
     {
         // Key Matrix to LED Index
@@ -43,3 +44,4 @@ led_config_t g_led_config = {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     }
 };
+#endif
