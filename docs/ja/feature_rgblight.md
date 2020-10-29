@@ -252,7 +252,7 @@ bool led_update_user(led_t led_state) {
 
 ### ライティングレイヤーの点滅 :id=lighting-layer-blink
 
-`config.h` に `#define RGBLIGHT_LAYER_BLINK` を含めることで、指定した間隔(ミリ秒)で点滅させることができます。これは設定などに変更があったときの確認を、利用者に提起することなどに使えます。
+`config.h` に `#define RGBLIGHT_LAYER_BLINK` を含めることで、指定した間隔(ミリ秒)でライティングレイヤーをオンにすることができます。指定したミリ秒が経過すると、レイヤーはオフになります。これは何らかのアクションを確認する場合(例えば設定を切り替える場合など)に、役に立ちます。
 
 ```c
 const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_GREEN} );
