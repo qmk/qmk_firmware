@@ -116,7 +116,7 @@ void oled_task_user(void) {
 |`OLED_TIMEOUT`             |`60000`          |焼き付き抑止のため、キーボードを操作していないときに60秒後にディスプレイを切る。0なら電源は切られません           |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |焼き付き抑止のため、キーボードを操作していないときにスクロールさせるまでの間隔。0ならスクロールはしません                     |
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |定義された場合、右にスクロールします。未定義なら左方向                                                      |
-|`OLED_IC`                  |`OLED_IC_SSD1306`|SH1106コントローラーを使う場合、 `OLED_IC_SH1106` に設定                                                       |
+|`OLED_IC`                  |`OLED_IC_SSD1306`|SH1106 OLED コントローラーを使う場合、 `OLED_IC_SH1106` に設定                                                       |
 |`OLED_COLUMN_OFFSET`       |`0`              |(SH1106のみ) 指定地だけピクセルを右にシフト。132x64サイズの液晶において128x64の画像を中寄せするときに便利です|
 
  ## 128x64と独自サイズのOLEDディスプレイ
