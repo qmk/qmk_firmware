@@ -114,7 +114,7 @@ void oled_task_user(void) {
 |`OLED_FONT_WIDTH`          |`6`              |フォントの幅                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |フォントの高さ(未検証)                                                                                                |
 |`OLED_TIMEOUT`             |`60000`          |60000ミリ秒間キーボードを操作していないときにディスプレイを切る。OLED の焼き付き抑止に便利です。0なら電源は切られません           |
-|`OLED_SCROLL_TIMEOUT`      |`0`              |焼き付き抑止のため、キーボードを操作していないときにスクロールさせるまでの間隔。0ならスクロールはしません                     |
+|`OLED_SCROLL_TIMEOUT`      |`0`              |0ミリ秒間 OLED が非アクティブのときにスクロールさせる。OLED の焼き付き抑止に便利です。0ならスクロールはしません                     |
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |定義された場合、右にスクロールします。未定義なら左方向                                                      |
 |`OLED_IC`                  |`OLED_IC_SSD1306`|SH1106 OLED コントローラーを使う場合、 `OLED_IC_SH1106` に設定                                                       |
 |`OLED_COLUMN_OFFSET`       |`0`              |(SH1106のみ) 指定値だけピクセルを右にシフト。132x64サイズの SH1106 IC において128x64の画像を中寄せするときに便利です|
