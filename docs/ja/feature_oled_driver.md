@@ -127,7 +127,7 @@ void oled_task_user(void) {
 |---------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_128X64`|*Not defined*  |128x64ディスプレイを使うための定義に変更                                                                               |
 |`OLED_DISPLAY_CUSTOM`|*Not defined*  |独自の値を定義。実装には以下の定義が必要です                              |
-|`OLED_DISPLAY_WIDTH` |`128`          |OLEDの横幅 display.                                                                                                          |
+|`OLED_DISPLAY_WIDTH` |`128`          |OLED の幅                                                                                                         |
 |`OLED_DISPLAY_HEIGHT`|`32`           |OLEDの縦幅 display.                                                                                                         |
 |`OLED_MATRIX_SIZE`   |`512`          |確保するローカルバッファのサイズ<br>`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`.                                                 |
 |`OLED_BLOCK_TYPE`    |`uint16_t`     |描画に用いる符号なし整数型                                                                                   |
