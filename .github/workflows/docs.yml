@@ -31,7 +31,7 @@ jobs:
 
     - name: Build docs
       run: |
-        qmk --verbose docs --generate
+        qmk --verbose generate-docs
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@3.7.1
