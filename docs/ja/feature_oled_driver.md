@@ -94,7 +94,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status();  // 現在のキーボードの状態を描画 (レイヤー、キーロックなど)
+        render_status();  // 現在のキーボードの状態を描画 (レイヤー、キーロック、Caps Lock、Scroll Lock など)
     } else {
         render_logo();  // ロゴの描画
         oled_scroll_left();  // スクロールを有効にします
