@@ -1,19 +1,34 @@
 {
   "keyboard_name": "Cluecard",
-  "keyboard_folder": "clueboard/card",
-  "url": "",
-  "maintainer": "skullydazed",
-  "width": 10,
   "height": 8,
+  "width": 10,
+  "diode_direction": "ROW2COL",
+  "matrix_pins": {
+    "cols": ["F1", " F7", " F6"],
+    "rows": ["F0", " F5", " F4", " B4"]
+  },
+  "url": "",
+  "usb": {
+    "device_ver": "0x0001",
+    "pid": "0x2330",
+    "vid": "0xC1ED"
+  },
   "layouts": {
     "LAYOUT": {
+      "key_count": 12,
       "layout": [
-        {"label":"ON/OFF", "x":0, "y":0}, {"label":"SAT+", "x":4, "y":0}, {"label":"BRIGHT+", "x":8, "y":0},
-        {"label":"HUE-", "x":2, "y":1}, {"label":"HUE+", "x":6, "y":1},
-        {"label":"MODE", "x":0, "y":2}, {"label":"SAT-", "x":4, "y":2}, {"label":"BRIGHT-", "x":8, "y":2},
-        {"label":"LAYER", "x":2, "y":4},
-
-        {"label":"MX1", "x":4, "y":6, "w":2, "h":2}, {"label":"MX2", "x":6, "y":6, "w":2, "h":2}, {"label":"MX3", "x":8, "y":6, "w":2, "h":2}
+        { "label": "ON/OFF", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
+        { "label": "SAT+", "matrix": [0, 1], "w": 1, "x": 4, "y": 0 },
+        { "label": "BRIGHT+", "matrix": [0, 2], "w": 1, "x": 8, "y": 0 },
+        { "label": "HUE-", "matrix": [1, 0], "w": 1, "x": 2, "y": 1 },
+        { "label": "HUE+", "matrix": [1, 2], "w": 1, "x": 6, "y": 1 },
+        { "label": "MODE", "matrix": [2, 0], "w": 1, "x": 0, "y": 2 },
+        { "label": "SAT-", "matrix": [2, 1], "w": 1, "x": 4, "y": 2 },
+        { "label": "BRIGHT-", "matrix": [2, 2], "w": 1, "x": 8, "y": 2 },
+        { "label": "LAYER", "matrix": [1, 1], "w": 1, "x": 2, "y": 4 },
+        { "h": 2, "label": "MX1", "matrix": [3, 0], "w": 2, "x": 4, "y": 6 },
+        { "h": 2, "label": "MX2", "matrix": [3, 1], "w": 2, "x": 6, "y": 6 },
+        { "h": 2, "label": "MX3", "matrix": [3, 2], "w": 2, "x": 8, "y": 6 }
       ]
     }
   }
