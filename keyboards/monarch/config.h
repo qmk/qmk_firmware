@@ -26,25 +26,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 16
+#define MATRIX_COLS 20
 
-#define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B12, B10, B2, B1, B0, A5, A7, A4, A3, B6 }
-#define MATRIX_ROW_PINS { A15, B3, B11, A2, A1 }
+#define MATRIX_COL_PINS { B13, B14, B15, A8, B0, A7, A5, A4, A3, B9, C13, C14, C15, F0, F1, A0, A1, A2, B8, B7 }
+#define MATRIX_ROW_PINS { A9, B12, B11, B10, B2, B1 }
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 /* Rotary encoder pins */
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B4 }
 
-/* Backlight configuration */
+//LEDS A6
 #define BACKLIGHT_PIN A6
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
-#define BACKLIGHT_PWM_MODE 1
-#define BACKLIGHT_LEVELS 16
+#define BACKLIGHT_PAL_MODE 1
+#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
+
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
+
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
