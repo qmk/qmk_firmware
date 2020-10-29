@@ -221,7 +221,7 @@ const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_capslock_layer,
     my_layer1_layer,    // Overrides caps lock layer
-    my_layer2_layer     // Overrides other layers
+    my_layer2_layer     // 他のレイヤーを上書き
 );
 
 void keyboard_post_init_user(void) {
