@@ -133,7 +133,7 @@ void oled_task_user(void) {
 |`OLED_BLOCK_TYPE`    |`uint16_t`     |描画に用いる符号なし整数型                                                                                   |
 |`OLED_BLOCK_COUNT`   |`16`           |描画する分割されたブロックの数<br>`(sizeof(OLED_BLOCK_TYPE) * 8)`.                               |
 |`OLED_BLOCK_SIZE`    |`32`           |描画のための各ブロックのサイズ<br>`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`.                                                  |
-|`OLED_COM_PINS`      |`COM_PINS_SEQ` |描画メモリーのためのSSD1306チップマップ<br>値は `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, & `COM_PINS_ALT_LR`.|
+|`OLED_COM_PINS`      |`COM_PINS_SEQ` |描画メモリーのための SSD1306 チップマップ<br>値は `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, `COM_PINS_ALT_LR`.|
 |`OLED_SOURCE_MAP`    |`{ 0, ... N }` |90度回転における変換元マップ                               |
 |`OLED_TARGET_MAP`    |`{ 24, ... N }`|90度回転における変換先マップ                               |
 
