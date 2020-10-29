@@ -35,7 +35,7 @@ OLED_DRIVER_ENABLE = yes
 ```c
 #ifdef OLED_DRIVER_ENABLE
 void oled_task_user(void) {
-    // キーボードレイヤーの状態
+    // ホストキーボードレイヤーの状態
     oled_write_P(PSTR("Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
