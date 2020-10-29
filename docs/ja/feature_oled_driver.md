@@ -302,7 +302,7 @@ uint8_t oled_max_chars(void);
 uint8_t oled_max_lines(void);
 ```
 
-!> スクロールと回転はSH1106ではサポートされていません。
+!> スクロールと回転は SH1106 ではサポートされていません。
 
 > **oled_scroll_set_speed の訳註**<br>
 コメントにある遅延順序の対応値は原文に基づいていますが、
