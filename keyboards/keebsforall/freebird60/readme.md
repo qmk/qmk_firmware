@@ -1,6 +1,6 @@
 # Freebird60
 
-![freebird60](https://imgur.com/a/cfYz93b)
+![freebird60](https://i.imgur.com/qGtVVbyl.jpeg)
 
 *A 60% hotswap keyboard with mutliple layout compatibility*
 
