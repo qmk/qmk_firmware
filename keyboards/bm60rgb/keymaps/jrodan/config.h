@@ -15,6 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+//#define UNICODE_SELECTED_MODES UC_LNX, UC_MAC, UC_WINC
+#define UNICODE_SELECTED_MODES UC_MAC, UC_WINC, UC_LNX
+
 #ifdef RGB_MATRIX_ENABLE
     
 

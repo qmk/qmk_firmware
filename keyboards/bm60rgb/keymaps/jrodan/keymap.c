@@ -15,8 +15,29 @@
  */
 #include QMK_KEYBOARD_H
 #include "lib/lib8tion/lib8tion.h"
+
 static uint32_t underglow_mode;
 static uint32_t custom_light_mode;
+
+enum unicode_names {
+  U_s,
+  U_u,
+  U_U,
+  U_o,
+  U_O,
+  U_a,
+  U_A
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [U_s] = 0x00DF, // ß
+    [U_u] = 0x00FC, // ü
+    [U_U] = 0x00DC, // Ü
+    [U_o] = 0x00F6, // ö
+    [U_O] = 0x00D6, // Ö
+    [U_a] = 0x00E4 , // ä
+    [U_A] = 0x00C4, // Ä
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -29,6 +50,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, 
         _______, KC_F14, KC_F15, LCTL(KC_UP), KC_F12, KC_F13, _______, _______, _______, _______, _______, _______, _______, _______, 
         _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,         _______, 
+        _______,    BL_TOGG, BL_DEC, BL_INC, BL_STEP, _______, _______, _______, _______, UNICODE_MODE_FORWARD,      _______, KC__VOLUP, _______, 
+        _______, _______, _______,                   _______,                    MO(2), _______, KC_MUTE, KC__VOLDOWN, _______),
+    [2] = LAYOUT(
+        RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, 
+        _______, KC_F14, KC_F15, LCTL(KC_UP), KC_F12, KC_F13, _______, _______, _______, _______, _______, _______, _______, _______, 
+        _______, XP(U_a,U_A), RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,         _______, 
         _______,    BL_TOGG, BL_DEC, BL_INC, BL_STEP, _______, _______, _______, _______, _______,      _______, KC__VOLUP, _______, 
         _______, _______, _______,                   _______,                    _______, _______, KC_MUTE, KC__VOLDOWN, _______),
 };
@@ -133,6 +160,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+
+void eeconfig_init_user(void) {
+  set_unicode_input_mode(UC_MAC);
+}
 // https://github.com/qmk/qmk_firmware/blob/master/keyboards/crkbd/keymaps/gotham/rgb.c
 // https://github.com/qmk/qmk_firmware/blob/a4fd5e2491aa7213d15ef2ff3615b8eb75660e93/keyboards/crkbd/keymaps/rpbaptist/keymap.c
 // https://github.com/qmk/qmk_firmware/blob/caa70df816033c30dbbbf4c5a90d803c7bb1dfde/users/curry/rgb_matrix_user.c
