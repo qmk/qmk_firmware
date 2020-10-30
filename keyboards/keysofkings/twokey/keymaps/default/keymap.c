@@ -31,6 +31,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT(
 		TO(0), 
+		RGB_VAI, RGB_VAD),
+    
+    LAYOUT(
+		TO(0), 
 		RGB_HUI, RGB_HUD),
 
 	LAYOUT(
@@ -40,10 +44,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT(
 		TO(0), 
 		RGB_SAI, RGB_SAD),
-
-	LAYOUT(
-		TO(0), 
-		RGB_VAI, RGB_VAD),
 
 	LAYOUT(
 		TO(8), 
