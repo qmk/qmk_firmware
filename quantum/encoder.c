@@ -188,7 +188,7 @@ typedef struct {
     #if defined(MATRIX_ROW_PINS_RIGHT)
     static pin_t row_pins_right[] = MATRIX_ROW_PINS_RIGHT;
     #else
-    static pin_t row_pins_right = MATRIX_ROW_PINS;
+    static pin_t row_pins_right[] = MATRIX_ROW_PINS;
     #endif
     static pin_t col_pins_left[] = MATRIX_COL_PINS;
     #if defined(MATRIX_COL_PINS_RIGHT)
@@ -204,7 +204,7 @@ typedef struct {
     #if defined(MATRIX_ROW_PINS_RIGHT)
     static pin_t row_pins_right[] = MATRIX_ROW_PINS_RIGHT;
     #else
-    static pin_t row_pins_right = MATRIX_ROW_PINS;
+    static pin_t row_pins_right[] = MATRIX_ROW_PINS;
     #endif
     #if defined(MATRIX_COL_PINS_RIGHT)
     static pin_t col_pins_right[] = MATRIX_COL_PINS_RIGHT;
