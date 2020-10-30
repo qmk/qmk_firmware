@@ -9,14 +9,14 @@ from glob import glob
 from qmk.c_parse import parse_config_h_file
 from qmk.makefile import parse_rules_mk_file
 
-BOX_DRAWING_CHARACTERS = {  # noqa: this reads better across multiple lines
+BOX_DRAWING_CHARACTERS = {
     "unicode": {
         "tl": "┌",
         "tr": "┐",
         "bl": "└",
         "br": "┘",
         "v": "│",
-        "h": "─"
+        "h": "─",
     },
     "ascii": {
         "tl": " ",
@@ -24,8 +24,8 @@ BOX_DRAWING_CHARACTERS = {  # noqa: this reads better across multiple lines
         "bl": "|",
         "br": "|",
         "v": "|",
-        "h": "_"
-    }
+        "h": "_",
+    },
 }
 
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
@@ -96,6 +96,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
     """
     textpad = [array('u', ' ' * 200) for x in range(50)]
     style = 'ascii' if render_ascii else 'unicode'
+    box_chars = BOX_DRAWING_CHARACTERS[style]
 
     for key in layout_data:
         x = ceil(key.get('x', 0) * 4)
@@ -117,13 +118,13 @@ def render_layout(layout_data, render_ascii, key_labels=None):
             label = label[:label_len]
 
         label_blank = ' ' * label_len
-        label_border = BOX_DRAWING_CHARACTERS[style]['h'] * label_len
+        label_border = box_chars['h'] * label_len
         label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
 
-        top_line = array('u', BOX_DRAWING_CHARACTERS[style]['tl'] + label_border + BOX_DRAWING_CHARACTERS[style]['tr'])
-        lab_line = array('u', BOX_DRAWING_CHARACTERS[style]['v'] + label_middle + BOX_DRAWING_CHARACTERS[style]['v'])
-        mid_line = array('u', BOX_DRAWING_CHARACTERS[style]['v'] + label_blank + BOX_DRAWING_CHARACTERS[style]['v'])
-        bot_line = array('u', BOX_DRAWING_CHARACTERS[style]['bl'] + label_border + BOX_DRAWING_CHARACTERS[style]['br'])
+        top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
+        lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
+        mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+        bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
 
         textpad[y][x:x + w] = top_line
         textpad[y + 1][x:x + w] = lab_line

@@ -13,11 +13,13 @@ from qmk.keymap import locate_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard
 
+platform_id = platform.platform().lower()
+
 ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
 COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
 
 
-def show_keymap(kb_info_json, render_ascii, title_caps=True):
+def show_keymap(kb_info_json, title_caps=True):
     """Render the keymap in ascii art.
     """
     keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
@@ -37,19 +39,19 @@ def show_keymap(kb_info_json, render_ascii, title_caps=True):
             else:
                 cli.echo('{fg_cyan}layer_%s{fg_reset}:', layer_num)
 
-            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], render_ascii, layer))
+            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
 
-def show_layouts(kb_info_json, render_ascii, title_caps=True):
+def show_layouts(kb_info_json, title_caps=True):
     """Render the layouts with info.json labels.
     """
-    for layout_name, layout_art in render_layouts(kb_info_json, render_ascii).items():
+    for layout_name, layout_art in render_layouts(kb_info_json, cli.config.info.ascii).items():
         title = layout_name.title() if title_caps else layout_name
         cli.echo('{fg_cyan}%s{fg_reset}:', title)
         print(layout_art)  # Avoid passing dirty data to cli.echo()
 
 
-def show_matrix(kb_info_json, render_ascii, title_caps=True):
+def show_matrix(kb_info_json, title_caps=True):
     """Render the layout with matrix labels in ascii art.
     """
     for layout_name, layout in kb_info_json['layouts'].items():
@@ -70,7 +72,7 @@ def show_matrix(kb_info_json, render_ascii, title_caps=True):
         else:
             cli.echo('{fg_blue}matrix_%s{fg_reset}:', layout_name)
 
-        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], render_ascii, labels))
+        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
 
 
 def print_friendly_output(kb_info_json):
@@ -92,13 +94,13 @@ def print_friendly_output(kb_info_json):
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
 
     if cli.config.info.layouts:
-        show_layouts(kb_info_json, cli.config.info.ascii, True)
+        show_layouts(kb_info_json, True)
 
     if cli.config.info.matrix:
-        show_matrix(kb_info_json, cli.config.info.ascii, True)
+        show_matrix(kb_info_json, True)
 
     if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
-        show_keymap(kb_info_json, cli.config.info.ascii, True)
+        show_keymap(kb_info_json, True)
 
 
 def print_text_output(kb_info_json):
@@ -111,13 +113,13 @@ def print_text_output(kb_info_json):
             cli.echo('{fg_blue}%s{fg_reset}: %s', key, kb_info_json[key])
 
     if cli.config.info.layouts:
-        show_layouts(kb_info_json, cli.config.info.ascii, False)
+        show_layouts(kb_info_json, False)
 
     if cli.config.info.matrix:
-        show_matrix(kb_info_json, cli.config.info.ascii, False)
+        show_matrix(kb_info_json, False)
 
     if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
-        show_keymap(kb_info_json, cli.config.info.ascii, False)
+        show_keymap(kb_info_json, False)
 
 
 @cli.argument('-kb', '--keyboard', help='Keyboard to show info for.')
@@ -125,7 +127,7 @@ def print_text_output(kb_info_json):
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
-@cli.argument('--ascii', action='store_true', help='Render layout box drawings in ASCII only.')
+@cli.argument('--ascii', action='store_true', default='windows' in platform_id, help='Render layout box drawings in ASCII only.')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
 @automagic_keymap
