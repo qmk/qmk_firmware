@@ -411,7 +411,7 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x85, REPORT_ID_MOUSE,  //   Report ID
     0x09, 0x01,             //   Usage (Pointer)
     0xA1, 0x00,             //   Collection (Physical)
-    // Buttons (5 bits)
+    // Buttons (8 bits)
     0x05, 0x09,  //     Usage Page (Button)
     0x19, 0x01,  //     Usage Minimum (Button 1)
     0x29, 0x08,  //     Usage Maximum (Button 8)
