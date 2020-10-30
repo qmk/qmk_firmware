@@ -144,8 +144,6 @@ def info(cli):
         cli.log.error('Invalid keyboard: "%s"', cli.config.info.keyboard)
         return False
 
-    platform_id = platform.platform().lower()
-
     # Build the info.json file
     kb_info_json = info_json(cli.config.info.keyboard)
 
