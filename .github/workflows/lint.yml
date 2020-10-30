@@ -6,7 +6,7 @@ on:
     - 'keyboards/**'
 
 jobs:
-  info:
+  lint:
     runs-on: ubuntu-latest
 
     container: qmkfm/base_container
