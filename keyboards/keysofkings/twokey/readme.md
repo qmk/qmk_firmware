@@ -1,7 +1,6 @@
 # TWOKEY
 
-![Twokey](https://i.imgur.com/UiLwPld.jpeg)
-===
+![Twokey](https://i.imgur.com/UiLwPldl.jpeg)
 
 A Two Key mini keyboard with Rotary Encoder/Switch along with Backlight keys, RGB Underglow, and Piezo Buzzer. Supports Cherry, Choc, Matias switches.
 
