@@ -1,1 +1,16 @@
-{"keyboard": "keysofkings/twokey", "keymap": "default", "layout": "LAYOUT", "layers": [["LT(1, KC_MUTE)", "LT(4, KC_MPLY)", "LT(7, KC_MNXT)"], ["KC_TRNS", "TO(2)", "TO(3)"], ["TO(0)", "RGB_TOG", "RGB_MOD"], ["TO(0)", "RGB_HUI", "RGB_HUD"], ["TO(5)", "KC_TRNS", "TO(6)"], ["TO(0)", "RGB_SAI", "RGB_SAD"], ["TO(0)", "RGB_VAI", "RGB_VAD"], ["TO(8)", "TO(9)", "KC_TRNS"], ["TO(0)", "CK_TOGG", "MU_TOG"], ["TO(0)", "RESET", "EEPROM_RESET"]]}
+{
+    "keyboard_name": "Twokey",
+    "url": "",
+    "maintainer": "Keys of Kings",
+    "width": 2,
+    "height": 2,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0.5, "y": 0},
+                {"x": 0, "y": 1.5},
+                {"x": 1, "y": 1.5}
+            ]
+        }
+    }
+}
