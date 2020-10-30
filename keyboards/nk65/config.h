@@ -152,6 +152,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EEPROM_START_ADDRESS
 #define FEE_MCU_FLASH_SIZE                              \
 ({                                                      \
-    uint16_t (*flash_size) = (uint16_t*)(0x1FFFF7CC );  \
+    uint16_t (*flash_size) = (uint16_t*)FLASHSIZE_BASE;  \
     *flash_size;                                        \
 })
