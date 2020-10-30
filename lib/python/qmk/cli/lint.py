@@ -58,6 +58,9 @@ def lint(cli):
             if not keymap_readme.exists():
                 cli.log.warning('Missing %s', keymap_readme)
 
+                if cli.config.lint.strict:
+                    ok = False
+
     # Check and report the overall status
     if ok:
         cli.log.info('Lint check passed!')
