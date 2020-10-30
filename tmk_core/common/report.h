@@ -42,7 +42,7 @@ enum mouse_buttons {
     MOUSE_BTN5 = (1 << 4),
     MOUSE_BTN6 = (1 << 5),
     MOUSE_BTN7 = (1 << 6),
-    MOUSE_BTN8 = (1 << 7),
+    MOUSE_BTN8 = (1 << 7)
 };
 
 /* Consumer Page (0x0C)

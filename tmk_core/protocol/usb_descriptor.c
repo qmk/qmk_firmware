@@ -116,7 +116,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
         HID_RI_USAGE(8, 0x01),             // Pointer
         HID_RI_COLLECTION(8, 0x00),        // Physical
-            // Buttons (5 bits)
+            // Buttons (8 bits)
             HID_RI_USAGE_PAGE(8, 0x09),    // Button
             HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
             HID_RI_USAGE_MAXIMUM(8, 0x08), // Button 8
