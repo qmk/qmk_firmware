@@ -219,6 +219,12 @@ void mousekey_on(uint8_t code) {
         mouse_report.buttons |= MOUSE_BTN4;
     else if (code == KC_MS_BTN5)
         mouse_report.buttons |= MOUSE_BTN5;
+    else if (code == KC_MS_BTN6)
+        mouse_report.buttons |= MOUSE_BTN6;
+    else if (code == KC_MS_BTN7)
+        mouse_report.buttons |= MOUSE_BTN7;
+    else if (code == KC_MS_BTN8)
+        mouse_report.buttons |= MOUSE_BTN8;
     else if (code == KC_MS_ACCEL0)
         mousekey_accel |= (1 << 0);
     else if (code == KC_MS_ACCEL1)
@@ -254,6 +260,12 @@ void mousekey_off(uint8_t code) {
         mouse_report.buttons &= ~MOUSE_BTN4;
     else if (code == KC_MS_BTN5)
         mouse_report.buttons &= ~MOUSE_BTN5;
+    else if (code == KC_MS_BTN6)
+        mouse_report.buttons &= ~MOUSE_BTN6;
+    else if (code == KC_MS_BTN7)
+        mouse_report.buttons &= ~MOUSE_BTN7;
+    else if (code == KC_MS_BTN8)
+        mouse_report.buttons &= ~MOUSE_BTN8;
     else if (code == KC_MS_ACCEL0)
         mousekey_accel &= ~(1 << 0);
     else if (code == KC_MS_ACCEL1)
@@ -359,6 +371,12 @@ void mousekey_on(uint8_t code) {
         mouse_report.buttons |= MOUSE_BTN4;
     else if (code == KC_MS_BTN5)
         mouse_report.buttons |= MOUSE_BTN5;
+    else if (code == KC_MS_BTN6)
+        mouse_report.buttons |= MOUSE_BTN6;
+    else if (code == KC_MS_BTN7)
+        mouse_report.buttons |= MOUSE_BTN7;
+    else if (code == KC_MS_BTN8)
+        mouse_report.buttons |= MOUSE_BTN8;
     else if (code == KC_MS_ACCEL0)
         mk_speed = mkspd_0;
     else if (code == KC_MS_ACCEL1)
@@ -398,6 +416,12 @@ void mousekey_off(uint8_t code) {
         mouse_report.buttons &= ~MOUSE_BTN4;
     else if (code == KC_MS_BTN5)
         mouse_report.buttons &= ~MOUSE_BTN5;
+    else if (code == KC_MS_BTN6)
+        mouse_report.buttons &= ~MOUSE_BTN6;
+    else if (code == KC_MS_BTN7)
+        mouse_report.buttons &= ~MOUSE_BTN7;
+    else if (code == KC_MS_BTN8)
+        mouse_report.buttons &= ~MOUSE_BTN8;
 #    ifdef MK_MOMENTARY_ACCEL
     else if (code == KC_MS_ACCEL0)
         mk_speed = mkspd_DEFAULT;

@@ -205,6 +205,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_BTN3 KC_MS_BTN3
 #define KC_BTN4 KC_MS_BTN4
 #define KC_BTN5 KC_MS_BTN5
+#define KC_BTN6 KC_MS_BTN6
+#define KC_BTN7 KC_MS_BTN7
+#define KC_BTN8 KC_MS_BTN8
 #define KC_WH_U KC_MS_WH_UP
 #define KC_WH_D KC_MS_WH_DOWN
 #define KC_WH_L KC_MS_WH_LEFT
@@ -521,15 +524,18 @@ enum internal_special_keycodes {
 
 enum mouse_keys {
     /* Mouse Buttons */
-    KC_MS_UP = 0xF0,
+    KC_MS_UP = 0xEC,
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT,
+    KC_MS_RIGHT, // 0xF0
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
     KC_MS_BTN4,
     KC_MS_BTN5,
+    KC_MS_BTN6,
+    KC_MS_BTN7,
+    KC_MS_BTN8,
 
     /* Mouse Wheel */
     KC_MS_WH_UP,
@@ -540,6 +546,6 @@ enum mouse_keys {
     /* Acceleration */
     KC_MS_ACCEL0,
     KC_MS_ACCEL1,
-    KC_MS_ACCEL2
+    KC_MS_ACCEL2  // 0xFF
 };
 #endif
