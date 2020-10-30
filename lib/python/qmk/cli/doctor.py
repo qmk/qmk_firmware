@@ -28,22 +28,14 @@ ESSENTIAL_BINARIES = {
 }
 
 
-def _udev_rule(vid, pid=None, is_systemd_system=True, *args):
+def _udev_rule(vid, pid=None, *args):
     """ Helper function that return udev rules
     """
     rule = ""
-    builtin = ', RUN{builtin}+="uaccess"' if is_systemd_system else ""
     if pid:
-        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", TAG+="uaccess"%s' % (
-            vid,
-            pid,
-            builtin,
-        )
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", TAG+="uaccess"' % (vid, pid,)
     else:
-        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"%s' % (
-            vid,
-            builtin,
-        )
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess"' % vid
     if args:
         rule = ', '.join([rule, *args])
     return rule
@@ -150,51 +142,45 @@ def check_submodules():
     return 'ok'
 
 
-def check_systemd():
-    """Check if it's a systemd system
-    """
-    return bool(shutil.which("systemctl"))
-
-
-def check_udev_rules(is_systemd_system):
+def check_udev_rules():
     """Make sure the udev rules look good.
     """
     rc = 'ok'
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
         'atmel-dfu': {
-            _udev_rule("03EB", "2FEF", is_systemd_system),  # ATmega16U2
-            _udev_rule("03EB", "2FF0", is_systemd_system),  # ATmega32U2
-            _udev_rule("03EB", "2FF3", is_systemd_system),  # ATmega16U4
-            _udev_rule("03EB", "2FF4", is_systemd_system),  # ATmega32U4
-            _udev_rule("03EB", "2FF9", is_systemd_system),  # AT90USB64
-            _udev_rule("03EB", "2FFB", is_systemd_system)  # AT90USB128
+            _udev_rule("03EB", "2FEF"),  # ATmega16U2
+            _udev_rule("03EB", "2FF0"),  # ATmega32U2
+            _udev_rule("03EB", "2FF3"),  # ATmega16U4
+            _udev_rule("03EB", "2FF4"),  # ATmega32U4
+            _udev_rule("03EB", "2FF9"),  # AT90USB64
+            _udev_rule("03EB", "2FFB")  # AT90USB128
         },
-        'kiibohd': {_udev_rule("1C11", "B007", is_systemd_system)},
+        'kiibohd': {_udev_rule("1C11", "B007")},
         'stm32': {
-            _udev_rule("1EAF", "0003", is_systemd_system),  # STM32duino
-            _udev_rule("0483", "DF11", is_systemd_system)  # STM32 DFU
+            _udev_rule("1EAF", "0003"),  # STM32duino
+            _udev_rule("0483", "DF11")  # STM32 DFU
         },
-        'bootloadhid': {_udev_rule("16C0", "05DF", is_systemd_system)},
-        'usbasploader': {_udev_rule("16C0", "05DC", is_systemd_system)},
-        'massdrop': {_udev_rule("03EB", "6124", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"')},
+        'bootloadhid': {_udev_rule("16C0", "05DF")},
+        'usbasploader': {_udev_rule("16C0", "05DC")},
+        'massdrop': {_udev_rule("03EB", "6124", 'ENV{ID_MM_DEVICE_IGNORE}="1"')},
         'caterina': {
             # Spark Fun Electronics
-            _udev_rule("1B4F", "9203", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 3V3/8MHz
-            _udev_rule("1B4F", "9205", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 5V/16MHz
-            _udev_rule("1B4F", "9207", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # LilyPad 3V3/8MHz (and some Pro Micro clones)
+            _udev_rule("1B4F", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 3V3/8MHz
+            _udev_rule("1B4F", "9205", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 5V/16MHz
+            _udev_rule("1B4F", "9207", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # LilyPad 3V3/8MHz (and some Pro Micro clones)
             # Pololu Electronics
-            _udev_rule("1FFB", "0101", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # A-Star 32U4
+            _udev_rule("1FFB", "0101", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # A-Star 32U4
             # Arduino SA
-            _udev_rule("2341", "0036", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
-            _udev_rule("2341", "0037", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Micro
+            _udev_rule("2341", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
+            _udev_rule("2341", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Micro
             # Adafruit Industries LLC
-            _udev_rule("239A", "000C", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Feather 32U4
-            _udev_rule("239A", "000D", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 3V3/8MHz
-            _udev_rule("239A", "000E", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 5V/16MHz
+            _udev_rule("239A", "000C", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Feather 32U4
+            _udev_rule("239A", "000D", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 3V3/8MHz
+            _udev_rule("239A", "000E", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 5V/16MHz
             # dog hunter AG
-            _udev_rule("2A03", "0036", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
-            _udev_rule("2A03", "0037", is_systemd_system, 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
+            _udev_rule("2A03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
+            _udev_rule("2A03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
         }
     }
 
@@ -227,7 +213,7 @@ def check_udev_rules(is_systemd_system):
                     cli.log.warn("{fg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
                     # For caterina, check if ModemManager is running
-                    if bootloader == "caterina" and is_systemd_system:
+                    if bootloader == "caterina":
                         if check_modem_manager():
                             rc = 'warning'
                             cli.log.warn("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
@@ -240,14 +226,24 @@ def check_udev_rules(is_systemd_system):
     return rc
 
 
+def check_systemd():
+    """Check if it's a systemd system
+    """
+    return bool(shutil.which("systemctl"))
+
+
 def check_modem_manager():
     """Returns True if ModemManager is running.
 
-    (TODO): Add check for non-systemd systems
     """
-    mm_check = run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
-    if mm_check.returncode == 0:
-        return True
+    if check_systemd():
+        mm_check = run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
+        if mm_check.returncode == 0:
+            return True
+    else:
+        """(TODO): Add check for non-systemd systems
+        """
+    return False
 
 
 def is_executable(command):
@@ -277,15 +273,8 @@ def os_test_linux():
     """Run the Linux specific tests.
     """
     cli.log.info("Detected {fg_cyan}Linux.")
-    rc = 'ok'
 
-    is_systemd_system = check_systemd()
-    rc = check_udev_rules(is_systemd_system)
-    if rc != 'ok':
-        if not is_systemd_system:
-            cli.log.info("{fg_yellow}Check if your udev supports 'RUN{builtin}+=\"uaccess\"'. If it does, you can ignore the udev warnings. Otherwise, use 'qmk_firmware/util/udev/50-qmk-nobuiltin.rules")
-
-    return rc
+    return check_udev_rules()
 
 
 def os_test_macos():
