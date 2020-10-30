@@ -26,6 +26,9 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
+// NKRO must be used
+#define FORCE_NKRO
+
 #if RGBLIGHT_ENABLE
     #define RGB_DI_PIN E2
     #define RGBLED_NUM 84

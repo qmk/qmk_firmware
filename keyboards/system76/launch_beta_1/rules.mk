@@ -30,6 +30,7 @@ NKRO_ENABLE = yes           # USB Nkey Rollover - if this doesn't work, see here
 RAW_ENABLE = yes            # Enable RAW HID commands (used by keyboard configurator)
 RGBLIGHT_ENABLE = no        # Support for RGB backlight (conflicts with RGB_MATRIX)
 RGB_MATRIX_ENABLE = WS2812  # Support for RGB matrix
+USB_6KRO_ENABLE = no        # 6key Rollover
 
 # Add System76 EC command interface
 SRC+=system76_ec.c
