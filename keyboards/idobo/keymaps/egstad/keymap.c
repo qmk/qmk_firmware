@@ -152,9 +152,9 @@ uint8_t s = 255;
 uint8_t v;
 
 // default animation
-uint8_t rgbMode = 1;
+uint8_t rgbMode = RGBLIGHT_MODE_STATIC_LIGHT;
 // boot animation
-uint8_t rgbBootMode = 17;
+uint8_t rgbBootMode = RGBLIGHT_MODE_SNAKE;
 // boot timeout vars
 uint8_t bootComplete = 0;
 int bootTimeoutDuration = 2000;
@@ -219,7 +219,7 @@ void keyboard_post_init_user(void) {
    ========================================================================== */
 void matrix_scan_user(void) {
     // keep an eye on these layers
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
     // handle boot-up sequence
     bootupAnimation();
     // watch the brightness for changes
@@ -246,7 +246,7 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // keep an eye on these layers
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   switch (keycode) {
     case FN_SPC:
