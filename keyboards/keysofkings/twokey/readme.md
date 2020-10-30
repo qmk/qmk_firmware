@@ -4,10 +4,10 @@
 
 A Two Key mini keyboard with Rotary Encoder/Switch along with Backlight keys, RGB Underglow, and Piezo Buzzer. Supports Cherry, Choc, Matias switches.
 
-Keyboard Maintainer: Keys of Kings
-Keyboard Designer: King Icewind
-Hardware Supported: Twokey PCB, Pro Micro
-Hardware Availability: www.keysofkings.com
+* Keyboard Maintainer: Keys of Kings
+* Keyboard Designer: King Icewind
+* Hardware Supported: Twokey PCB, Pro Micro
+* Hardware Availability: www.keysofkings.com
 
 Make example for this keyboard (after setting up your build environment):
 
