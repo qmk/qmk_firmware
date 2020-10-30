@@ -33,7 +33,10 @@ def _udev_rule(vid, pid=None, *args):
     """
     rule = ""
     if pid:
-        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", TAG+="uaccess"' % (vid, pid,)
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", TAG+="uaccess"' % (
+            vid,
+            pid,
+        )
     else:
         rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess"' % vid
     if args:
