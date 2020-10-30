@@ -2,7 +2,7 @@
 
 ![freebird60](https://i.imgur.com/qGtVVbyl.jpeg)
 
-*A 60% hotswap keyboard with mutliple layout compatibility*
+A 60% hotswap keyboard with multiple layout compatibility.
 
 * Keyboard Maintainer: [KnoblesseOblige](https://github.com/KnoblesseOblige)
 * Hardware Supported: Freebird60
