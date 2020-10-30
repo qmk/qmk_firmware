@@ -323,8 +323,16 @@ static void encoder_read_all(void) {
         encoder_read_all_common(row_pins_right, (pin_t *)matrix_encoders_pins_right, NUMBER_OF_ENCODERS_RIGHT, encoders_right);
     }
 #    elif defined(split_keyboard_right_only_encoder)
+    if (isLeftHand) {
+        return;
+    }
     encoder_read_all_common(row_pins_right, (pin_t *)matrix_encoders_pins_right, NUMBER_OF_ENCODERS_RIGHT, encoders_right);
 #    else  // non split keyboard or left only encoder
+#        if defined(SPLIT_KEYBOARD)
+    if (!isLeftHand) {
+        return;
+    }
+#        endif
     encoder_read_all_common(row_pins, (pin_t *)matrix_encoders_pins, NUMBER_OF_ENCODERS, encoders);
 #    endif
 }
