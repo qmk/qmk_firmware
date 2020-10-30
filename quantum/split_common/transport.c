@@ -15,7 +15,7 @@
 #    include "backlight.h"
 #endif
 
-#ifdef encoder_transport_enable
+#ifdef ENCODER_ENABLE
 #    include "encoder.h"
     #if (defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B))
         static pin_t encoders_pad[] = ENCODERS_PAD_A;
