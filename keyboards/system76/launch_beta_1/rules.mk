@@ -33,7 +33,7 @@ RGB_MATRIX_ENABLE = WS2812  # Support for RGB matrix
 USB_6KRO_ENABLE = no        # 6key Rollover
 
 # Add System76 EC command interface
-SRC+=system76_ec.c
+SRC+=../system76_ec.c
 
 # Add I2C driver
 SRC+=i2c.c
