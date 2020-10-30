@@ -41,7 +41,6 @@ and this to your `config.h`:
 #define MATRIX_ENCODER_PINS_ABC_RIGHT {{E6,B4,B6}}
 
 //To place Encoder on the right side only with a split keyboard.
-#define MATRIX_ENCODER_PINS_ABC {}
 #define MATRIX_ENCODER_PINS_ABC_RIGHT {{E6,B4,B6}}
 ```
 
