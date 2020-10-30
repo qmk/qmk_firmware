@@ -146,9 +146,6 @@ def info(cli):
 
     platform_id = platform.platform().lower()
 
-    if 'windows' in platform_id:
-        cli.config.info.ascii = True
-
     # Build the info.json file
     kb_info_json = info_json(cli.config.info.keyboard)
 
