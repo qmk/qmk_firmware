@@ -8,8 +8,8 @@ QMK provides methods to read 5 of the LEDs defined in the HID spec:
 * Compose
 * Kana
 
-There are two ways to get the lock LED state:
-
+There are three ways to get the lock LED state:
+* by specifying configuration options within `config.h`
 * by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
 * by calling `led_t host_keyboard_led_state()`
 
@@ -19,6 +19,21 @@ Two more deprecated functions exist that provide the LED state as a `uint8_t`:
 
 * `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
 * `uint8_t host_keyboard_leds()`
+
+## Configuration Options
+
+To configure the indicators, `#define` these in your `config.h`:
+
+|Define               |Default      |Description                                |
+|---------------------|-------------|-------------------------------------------|
+|`LED_NUM_LOCK_PIN`   |*Not defined*|The pin that controls the `Num Lock` LED   |
+|`LED_CAPS_LOCK_PIN`  |*Not defined*|The pin that controls the `Caps Lock` LED  |
+|`LED_SCROLL_LOCK_PIN`|*Not defined*|The pin that controls the `Scroll Lock` LED|
+|`LED_COMPOSE_PIN`    |*Not defined*|The pin that controls the `Compose` LED    |
+|`LED_KANA_PIN`       |*Not defined*|The pin that controls the `Kana` LED       |
+|`LED_PIN_ON_STATE`   |`0`          |The state of the indicator pins when the LED is "on" - `1` for high, `0` for low|
+
+Unless you are designing your own keyboard, you generally should not need to change the above config options.
 
 ## `led_update_*()`
 
