@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, 
         _______, KC_F14, KC_F15, LCTL(KC_UP), KC_F12, KC_F13, _______, _______, _______, _______, _______, _______, _______, _______, 
         _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,         _______, 
-        _______,    BL_TOGG, BL_DEC, BL_INC, BL_STEP, _______, _______, _______, _______, UNICODE_MODE_FORWARD,      _______, KC__VOLUP, _______, 
-        _______, _______, _______,                   _______,                    MO(2), _______, KC_MUTE, KC__VOLDOWN, _______),
+        _______,    BL_TOGG, BL_DEC, BL_INC, BL_STEP, _______, _______, _______, KC__VOLDOWN, KC__VOLUP,      KC_MUTE, KC_PGUP, KC_HOME, 
+        _______, _______, _______,                   _______,                    MO(2), _______, _______, KC_PGDOWN, KC_END),
     [2] = LAYOUT(
         RESET, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, 
         _______, KC_F14, KC_F15, LCTL(KC_UP), KC_F12, KC_F13, _______, _______, _______, _______, _______, _______, _______, _______, 
