@@ -8,6 +8,7 @@ from milc import cli
 
 from qmk.datetime import current_datetime
 from qmk.info import info_json
+from qmk.info_json_formatter import InfoJSONFormatter
 from qmk.keyboard import list_keyboards
 
 
@@ -36,7 +37,7 @@ def generate_api(cli):
         keyboard_readme_src = Path('keyboards') / keyboard_name / 'readme.md'
 
         keyboard_dir.mkdir(parents=True, exist_ok=True)
-        keyboard_info.write_text(json.dumps(kb_all['keyboards'][keyboard_name]))
+        keyboard_info.write_text(json.dumps(kb_all['keyboards'][keyboard_name], cls=InfoJSONFormatter))
 
         if keyboard_readme_src.exists():
             copyfile(keyboard_readme_src, keyboard_readme)
@@ -54,6 +55,6 @@ def generate_api(cli):
                 usb_list['devices'][usb['vid']][usb['pid']][keyboard_name] = usb
 
     # Write the global JSON files
-    keyboard_list.write_text(json.dumps({'last_updated': current_datetime(), 'keyboards': sorted(kb_all['keyboards'])}))
-    keyboard_all.write_text(json.dumps(kb_all))
-    usb_file.write_text(json.dumps(usb_list))
+    keyboard_list.write_text(json.dumps({'last_updated': current_datetime(), 'keyboards': sorted(kb_all['keyboards'])}, cls=InfoJSONFormatter))
+    keyboard_all.write_text(json.dumps(kb_all, cls=InfoJSONFormatter))
+    usb_file.write_text(json.dumps(usb_list, cls=InfoJSONFormatter))

@@ -6,7 +6,7 @@ import json
 
 from milc import cli
 
-from qmk.InfoJSONEncoder import InfoJSONEncoder
+from qmk.info_json_encoder import InfoJSONEncoder
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard

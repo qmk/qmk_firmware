@@ -6,6 +6,7 @@ import json
 
 from milc import cli
 
+from qmk.info_json_encoder import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import render_layouts, render_layout
@@ -143,7 +144,7 @@ def info(cli):
 
     # Output in the requested format
     if cli.args.format == 'json':
-        print(json.dumps(kb_info_json))
+        print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
     elif cli.args.format == 'text':
         print_text_output(kb_info_json)
     elif cli.args.format == 'friendly':

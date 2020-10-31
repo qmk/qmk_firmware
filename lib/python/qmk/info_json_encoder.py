@@ -1,6 +1,7 @@
 """Class that pretty-prints QMK info.json files.
 """
 import json
+from decimal import Decimal
 
 
 class InfoJSONEncoder(json.JSONEncoder):
@@ -13,9 +14,18 @@ class InfoJSONEncoder(json.JSONEncoder):
         super().__init__(*args, **kwargs)
         self.indentation_level = 0
 
+        if not self.indent:
+            self.indent = 2
+
     def encode(self, obj):
-        """Encode JSON objects for QMK"""
-        if isinstance(obj, (list, tuple)):
+        """Encode JSON objects for QMK.
+        """
+        if isinstance(obj, Decimal):
+            if obj == int(obj):  # I can't believe Decimal objects don't have .is_integer()
+                return int(obj)
+            return float(obj)
+
+        elif isinstance(obj, (list, tuple)):
             if self._primitives_only(obj):
                 return "[" + ", ".join(self.encode(element) for element in obj) + "]"
 
