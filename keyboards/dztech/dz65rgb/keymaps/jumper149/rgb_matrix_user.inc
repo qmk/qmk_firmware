@@ -66,7 +66,7 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
         } else if (27 + 1 - i <= base_effect_startup_counter - 104 && i >= 26 && i <= 27) {
             hsv.s = hsv.s;
         } else if (41 + 1 - i <= base_effect_startup_counter - 104 && i >= 40 && i <= 41) {
-            hsv.s = hsv.s;
+            hsv.s = 0;
         } else if (54 + 2 - i <= base_effect_startup_counter - 104 && i >= 52 && i <= 54) {
             hsv.s = hsv.s;
         // light up keys on the right
@@ -144,10 +144,10 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
                 hsv.v = hsv.v;
                 break;
             case 40:
-                hsv.v = hsv.v;
+                hsv.s = 0;
                 break;
             case 41:
-                hsv.v = hsv.v;
+                hsv.s = 0;
                 break;
             case 52:
                 hsv.v = hsv.v;
