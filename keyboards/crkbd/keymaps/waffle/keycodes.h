@@ -13,7 +13,6 @@ enum custom_keycodes {
   CP_PSTE,
   ALT_TAB,
   CTLS,
-  MAKE,
   UNIT,
   UNIT2,
   UNIT3,
