@@ -14,19 +14,6 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   comment out to disable the options.
 #
-BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = custom
-BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = yes
-COMMAND_ENABLE = no
-NKRO_ENABLE = yes
-AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
-MIDI_ENABLE = no
-UNICODE_ENABLE = no
-BLUETOOTH_ENABLE = no
 
 EXTRAFLAGS += -flto
-LAYOUTS = 66_ansi
