@@ -15,3 +15,19 @@ void led_set_kb(uint8_t usb_led) {
 
 	led_set_user(usb_led);
 }
+
+inline void _idb_60_caps_led_on(void) {
+    writePinLow(C5);
+}
+
+inline void _idb_60_fn_led_on(void) {
+    writePinLow(C4);
+}
+
+inline void _idb_60_caps_led_off(void) {
+    writePinHigh(C5);
+}
+
+inline void _idb_60_fn_led_off(void) {
+    writePinHigh(C4);
+}
