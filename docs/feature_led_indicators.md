@@ -37,7 +37,7 @@ Unless you are designing your own keyboard, you generally should not need to cha
 
 ## `led_update_*()`
 
-This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
+When the configuration options do not provide enough flexibility, the API hooks provided allow custom control of the LED behavior. These functions will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
 
 By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
 return `false` when you would prefer not to run the code in `led_update_kb()`.
