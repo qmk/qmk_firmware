@@ -1,0 +1,33 @@
+name: Rebase develop after master merge
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  develop_rebase:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Rebase develop from master
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: 'bash {0}'
+      run: |
+        if [ -e .locked ]; then
+            echo 'Develop branch is locked, aborting rebase!'
+            exit 1
+        fi
+
+        COMMITTER_TOKEN="$(echo -e "${UNTRIMMED_COMMITTER_TOKEN}" | tr -d '[:space:]')"
+
+        git remote set-url origin https://x-access-token:$COMMITTER_TOKEN@github.com/$GITHUB_REPOSITORY.git
+        git fetch origin master develop
+        git checkout develop
+        git rebase origin/master
+        git push --force-with-lease origin develop
