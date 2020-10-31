@@ -59,8 +59,15 @@
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL + WS2812_LED_TOTAL)
 
 #define RGB_MATRIX_STARTUP_VAL 80
+#define RGB_MATRIX_KEYPRESSES
 
-#define RGB_UNDERGLOW_ALPHA_TOP_START 0
-#define RGB_UNDERGLOW_ALPHA_TOP_END   6   
-#define RGB_UNDERGLOW_ALPHA_BOT_START 12
-#define RGB_UNDERGLOW_ALPHA_BOT_END   15
+// enable/disable LEDs based on layout
+// switch between split backspace (1) or normal backspace(0)
+#define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 1
+// switch between Tsangan (1) or Arrows Bottom Row (0)
+#define RGB_BACKLIGHT_USE_7U_SPACEBAR 0
+// switch between standard split rshift (0) or arrows r shift (1)
+// .------------------.           .-------------------.
+// | ? |  Shift  | Fn |    vs     |  Shift  | Up | Fn |
+// `------------------'           `-------------------'
+#define RGB_BACKLIGHT_USE_SPLIT_RIGHT_SHIFT 1
