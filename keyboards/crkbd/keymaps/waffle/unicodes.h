@@ -1,11 +1,11 @@
 #pragma once
 
 enum unicodemap_names {
-    SIDE,
-    UPAR,
-    HAS,
-    STAR,
-    VIB
+    SIDE, //ツ
+    UPAR, //ᛏ
+    HAS, //☭
+    STAR, //★
+    VIB //ॐ
 };
 
  const uint32_t PROGMEM unicode_map[] = {

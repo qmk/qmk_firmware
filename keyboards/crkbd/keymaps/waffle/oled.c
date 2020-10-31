@@ -40,7 +40,7 @@ void render_prompt(void) {
       }
 };
 
-static void render_anim(void) { //bongo cat animation from @jordi-7
+static void render_anim(void) { 
 
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
 
