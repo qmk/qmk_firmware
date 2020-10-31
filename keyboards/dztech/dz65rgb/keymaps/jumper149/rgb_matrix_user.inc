@@ -65,24 +65,34 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
         // light up number row
         } else if (12 + 1 - i < base_effect_startup_counter - 100 && i == 2) {
             hsv.s = 0;
-            hsv.v = 1 * (hsv.v / 6);
+            hsv.v = 1 * (hsv.v / 8);
         } else if (12 + 1 - i < base_effect_startup_counter - 100 && i == 3) {
             hsv.s = 0;
-            hsv.v = 2 * (hsv.v / 6);
+            hsv.v = 2 * (hsv.v / 8);
         } else if (12 + 1 - i < base_effect_startup_counter - 100 && i == 4) {
             hsv.s = 0;
-            hsv.v = 3 * (hsv.v / 6);
+            hsv.v = 3 * (hsv.v / 8);
         } else if (12 + 1 - i < base_effect_startup_counter - 100 && i >= 5 && i <= 8) {
             hsv.v = hsv.v;
         } else if (12 + 1 - i < base_effect_startup_counter - 100 && i == 9) {
             hsv.s = 0;
-            hsv.v = 3 * (hsv.v / 6);
+            hsv.v = 3 * (hsv.v / 8);
         } else if (12 + 1 - i < base_effect_startup_counter - 100 && i == 10) {
             hsv.s = 0;
-            hsv.v = 2 * (hsv.v / 6);
+            hsv.v = 2 * (hsv.v / 8);
         } else if (12 + 1 - i < base_effect_startup_counter - 100 && i == 11) {
             hsv.s = 0;
-            hsv.v = 1 * (hsv.v / 6);
+            hsv.v = 1 * (hsv.v / 8);
+        // light up punctuation keys
+        } else if (27 + 1 - i < base_effect_startup_counter - 100 && i >= 26 && i <= 27) {
+            hsv.s = 0;
+            hsv.v = hsv.v / 8;
+        } else if (41 + 2 - i < base_effect_startup_counter - 100 && i >= 40 && i <= 41) {
+            hsv.s = 0;
+            hsv.v = hsv.v / 8;
+        } else if (54 + 3 - i < base_effect_startup_counter - 100 && i >= 52 && i <= 54) {
+            hsv.s = 0;
+            hsv.v = hsv.v / 8;
         // rest
         } else {
             hsv.v = 0;
@@ -101,15 +111,15 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
                 break;
             case 2:
                 hsv.s = 0;
-                hsv.v = 1 * (hsv.v / 6);
+                hsv.v = 1 * (hsv.v / 8);
                 break;
             case 3:
                 hsv.s = 0;
-                hsv.v = 2 * (hsv.v / 6);
+                hsv.v = 2 * (hsv.v / 8);
                 break;
             case 4:
                 hsv.s = 0;
-                hsv.v = 3 * (hsv.v / 6);
+                hsv.v = 3 * (hsv.v / 8);
                 break;
             case 5:
                 hsv.v = hsv.v;
@@ -125,15 +135,15 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
                 break;
             case 9:
                 hsv.s = 0;
-                hsv.v = 3 * (hsv.v / 6);
+                hsv.v = 3 * (hsv.v / 8);
                 break;
             case 10:
                 hsv.s = 0;
-                hsv.v = 2 * (hsv.v / 6);
+                hsv.v = 2 * (hsv.v / 8);
                 break;
             case 11:
                 hsv.s = 0;
-                hsv.v = 1 * (hsv.v / 6);
+                hsv.v = 1 * (hsv.v / 8);
                 break;
             case 12:
                 hsv.v = 0;
@@ -142,31 +152,31 @@ static HSV base_effect_math(HSV hsv, uint8_t i, uint8_t time) {
             // punctuation keys
             case 26:
                 hsv.s = 0;
-                hsv.v = hsv.v / 6;
+                hsv.v = hsv.v / 8;
                 break;
             case 27:
                 hsv.s = 0;
-                hsv.v = hsv.v / 6;
+                hsv.v = hsv.v / 8;
                 break;
             case 40:
                 hsv.s = 0;
-                hsv.v = hsv.v / 6;
+                hsv.v = hsv.v / 8;
                 break;
             case 41:
                 hsv.s = 0;
-                hsv.v = hsv.v / 6;
+                hsv.v = hsv.v / 8;
                 break;
             case 52:
                 hsv.s = 0;
-                hsv.v = hsv.v / 6;
+                hsv.v = hsv.v / 8;
                 break;
             case 53:
                 hsv.s = 0;
-                hsv.v = hsv.v / 6;
+                hsv.v = hsv.v / 8;
                 break;
             case 54:
                 hsv.s = 0;
-                hsv.v = hsv.v / 6;
+                hsv.v = hsv.v / 8;
                 break;
 
             default:
