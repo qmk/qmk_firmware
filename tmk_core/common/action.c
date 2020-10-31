@@ -481,7 +481,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     case KC_MS_BTN6:
                         register_button(false, MOUSE_BTN6);
                         break;
-                    case KC_MS_BTN7
+                    case KC_MS_BTN7:
                         register_button(false, MOUSE_BTN7);
                         break;
                     case KC_MS_BTN8:
