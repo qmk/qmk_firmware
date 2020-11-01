@@ -43,3 +43,5 @@ SRC +=  drivers/issi/is31fl3731.c \
 		ws2812.c
 
 QUANTUM_LIB_SRC += i2c_master.c 
+
+LTO_ENABLE = yes
