@@ -1,5 +1,6 @@
 #include "rev2.h"
 
+// Tested and verified working on ext65rev2
 void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 
 #ifdef OLED_DRIVER_ENABLE
