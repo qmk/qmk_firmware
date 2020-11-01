@@ -195,7 +195,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 #    error DIODE_DIRECTION is not defined!
 #endif
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
 
@@ -205,9 +205,6 @@ void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void) {
