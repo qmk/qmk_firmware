@@ -1,3 +1,19 @@
+/* Copyright 2020 Jack Sangdahl
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #pragma once
 
 bool is_alt_tab_active = false;
@@ -82,23 +98,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_TAB);
         }
         break;
-/*
-      case MAKE:
-        if (!record->event.pressed) {
-          SEND_STRING("cd /c/Users/put-your-user-here/qmk_firmware"SS_TAP(X_ENTER) SS_DELAY(500));
-          SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                          ":dfu"
-#elif defined(BOOTLOADER_HALFKAY)
-                          ":teensy"
-#elif defined(BOOLOADER_CATERINA)
-                          ":avrdude"
-#endif
-                          SS_TAP(X_ENTER));
-            }
-            return false;
-            break;
-*/
+
   }
   return true;
 };
