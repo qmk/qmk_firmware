@@ -6,7 +6,7 @@ LTO_ENABLE = yes
 AUDIO_ENABLE = no
 
 # only enable audio on specific boards
-ifeq ($(strip $(KEYBOARD)), maartenwut/plain60)
+ifeq ($(strip $(KEYBOARD)), evyd13/plain60)
     AUDIO_ENABLE = yes
 endif
 
