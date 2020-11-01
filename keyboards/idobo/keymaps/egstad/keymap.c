@@ -228,7 +228,7 @@ void matrix_scan_user(void) {
     switch (layer) {
       case _FN:
         // set leds to white
-        rgblight_sethsv(h,0,v);
+        rgblight_sethsv_noeeprom(h,0,v);
         break;
       default:
         break;
