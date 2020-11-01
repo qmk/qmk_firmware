@@ -1,2 +1,2 @@
-# The Default Valor Layout
+# The Default Valor FRL TKL Layout
 

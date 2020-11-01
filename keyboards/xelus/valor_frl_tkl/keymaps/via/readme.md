@@ -1,2 +1,2 @@
-# The VIA Valor Layout
+# The VIA Valor FRL TKL Layout
 
