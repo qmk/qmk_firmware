@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define MASTER_LEFT
-
 //#define SSD1306OLED  //removed to use crkbd legacy driver
 
 #define USE_SERIAL_PD2
@@ -58,14 +56,6 @@
 #endif
 #ifdef LOCKING_RESYNC_ENABLE
 #    undef LOCKING_RESYNC_ENABLE
-#endif
-
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif
-
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/waffle/glcdfont.c"
