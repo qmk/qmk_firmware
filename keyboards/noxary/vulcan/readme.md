@@ -1,12 +1,12 @@
 # Vulcan
 
-![Vulcan](https://i.imgur.com/ZwlJ0sx.png)
+![Vulcan](https://i.imgur.com/ZwlJ0sxl.png)
 
 High-end 60% keyboard
 
-Keyboard Maintainer: [ai03](https://github.com/ai03-2725)/Noxary Keyboards  
-Hardware Supported: The Vulcan PCB  
-Hardware Availability: [Noxary Webstore](https://noxary.co/)  
+* Keyboard Maintainer: [ai03](https://github.com/ai03-2725)/Noxary Keyboards
+* Hardware Supported: The Vulcan PCB
+* Hardware Availability: [Noxary Webstore](https://noxary.co/)
 
 Make example for this keyboard (after setting up your build environment):
 
