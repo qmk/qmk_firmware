@@ -3,13 +3,14 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xE11D
+
+#define VENDOR_ID       0x414B // 'AK' for Alpaca Keyboards
+#define PRODUCT_ID      0x0001 // sequentially numbered
 
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Z.P.Z.O.
-#define PRODUCT         HotDox
-#define DESCRIPTION     QMK keyboard firmware for HotDox
+#define MANUFACTURER    Alpaca Keyboards
+#define PRODUCT         ErgoDox 76 "HotDox"
+#define DESCRIPTION     QMK FW for the "HotDox"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -75,4 +76,3 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
-

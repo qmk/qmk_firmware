@@ -64,6 +64,7 @@ def compile_configurator_json(user_keymap, bootloader=None):
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
+    # FIXME(skullydazed/anyone): Add validation here
     user_keymap = json.load(configurator_file)
 
     return user_keymap
@@ -78,7 +79,8 @@ def run(command, *args, **kwargs):
         raise TypeError('`command` must be a non-text sequence such as list or tuple.')
 
     if 'windows' in platform_id:
-        safecmd = map(shlex.quote, command)
+        safecmd = map(str, command)
+        safecmd = map(shlex.quote, safecmd)
         safecmd = ' '.join(safecmd)
         command = [os.environ['SHELL'], '-c', safecmd]
 

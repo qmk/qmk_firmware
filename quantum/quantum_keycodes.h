@@ -123,10 +123,12 @@ enum quantum_keycodes {
     KC_LEAD,
 #endif
 
-    // Auto Shift setup
+// Auto Shift setup
+#ifndef AUTO_SHIFT_NO_SETUP
     KC_ASUP,
     KC_ASDN,
     KC_ASRP,
+#endif
     KC_ASTG,
     KC_ASON,
     KC_ASOFF,
@@ -512,6 +514,41 @@ enum quantum_keycodes {
     DYN_MACRO_PLAY1,
     DYN_MACRO_PLAY2,
 
+    JS_BUTTON0,
+    JS_BUTTON_MIN = JS_BUTTON0,
+    JS_BUTTON1,
+    JS_BUTTON2,
+    JS_BUTTON3,
+    JS_BUTTON4,
+    JS_BUTTON5,
+    JS_BUTTON6,
+    JS_BUTTON7,
+    JS_BUTTON8,
+    JS_BUTTON9,
+    JS_BUTTON10,
+    JS_BUTTON11,
+    JS_BUTTON12,
+    JS_BUTTON13,
+    JS_BUTTON14,
+    JS_BUTTON15,
+    JS_BUTTON16,
+    JS_BUTTON17,
+    JS_BUTTON18,
+    JS_BUTTON19,
+    JS_BUTTON20,
+    JS_BUTTON21,
+    JS_BUTTON22,
+    JS_BUTTON23,
+    JS_BUTTON24,
+    JS_BUTTON25,
+    JS_BUTTON26,
+    JS_BUTTON27,
+    JS_BUTTON28,
+    JS_BUTTON29,
+    JS_BUTTON30,
+    JS_BUTTON31,
+    JS_BUTTON_MAX = JS_BUTTON31,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -540,6 +577,10 @@ enum quantum_keycodes {
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LSA(kc) (QK_LSFT | QK_LALT | (kc))
+#define RSA(kc) (QK_RSFT | QK_RALT | (kc))
+#define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define SAGR(kc) RSA(kc)
 
 #define MOD_HYPR 0xF
 #define MOD_MEH 0x7
@@ -763,6 +804,11 @@ enum quantum_keycodes {
 #define SCMD_T(kc) SGUI_T(kc)
 #define SWIN_T(kc) SGUI_T(kc)
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
+#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
+#define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt
+#define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)  // Right Control + Shift
+#define SAGR_T(kc) RSA_T(kc)
+
 #define ALL_T(kc) HYPR_T(kc)
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
@@ -794,6 +840,7 @@ enum quantum_keycodes {
 #    define SH_T(kc) (QK_SWAP_HANDS | (kc))
 #    define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
 #    define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+#    define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
 #    define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
 #    define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
 #    define SH_ON (QK_SWAP_HANDS | OP_SH_ON)

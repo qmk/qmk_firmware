@@ -208,24 +208,19 @@ elif grep ID /etc/os-release | grep -q solus; then
 	printf "\n$SOLUS_INFO\n"
 
 elif grep ID /etc/os-release | grep -q void; then
-	# musl Void systems don't have glibc cross compilers avaliable in their repos.
-	# glibc Void systems do have musl cross compilers though, for some reason.
-	# So, default to musl, and switch to glibc if it is installed.
-	CROSS_ARM=cross-arm-linux-musleabi
-	if xbps-query glibc > /dev/null; then # Check is glibc if installed
-		CROSS_ARM=cross-arm-linux-gnueabi
-	fi
-
 	sudo xbps-install \
 		avr-binutils \
 		avr-gcc \
 		avr-libc \
-		$CROSS_ARM \
+		cross-arm-none-eabi-binutils \
+		cross-arm-none-eabi-gcc \
+		cross-arm-none-eabi-newlib \
 		avrdude \
 		dfu-programmer \
 		dfu-util \
 		gcc \
 		git \
+		libusb-compat-devel \
 		make \
 		wget \
 		unzip \
@@ -240,3 +235,17 @@ fi
 # Global install tasks
 install_bootloadhid
 pip3 install --user -r ${util_dir}/../requirements.txt
+
+if uname -a | grep -qi microsoft; then
+    echo "********************************************************************************"
+    echo "* Detected Windows Subsystem for Linux.                                        *"
+    echo "* Currently, WSL has no access to USB devices and so flashing from within the  *"
+    echo "* WSL terminal will not work.                                                  *"
+    echo "*                                                                              *"
+    echo "* Please install the QMK Toolbox instead:                                      *"
+    echo "*    https://github.com/qmk/qmk_toolbox/releases                               *"
+    echo "* Then, map your WSL filesystem as a network drive:                            *"
+    echo "*    \\\\\\\\wsl$\\<distro>                                                           *"
+    echo "********************************************************************************"
+    echo
+fi

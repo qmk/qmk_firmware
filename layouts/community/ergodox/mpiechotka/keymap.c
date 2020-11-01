@@ -15,9 +15,7 @@ enum {
     PC1,
     PC2,
     PC3,
-    PC4,
-    DL_BASE,
-    DL_BASE_CM,
+    PC4
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -175,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // MACROS
 [MACR] = LAYOUT_ergodox(
        KC_NO,   KC_NO,     KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,   F(DL_BASE),F(DL_BASE_CM),KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,   DF(BASE),  DF(BASE_CM),  KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_NO,   F(PC1),    F(PC2),       F(PC3),  F(PC4),  KC_NO,
        KC_NO,   KC_NO,     KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_NO,   KC_NO,     KC_NO,        KC_NO,   KC_NO,
@@ -199,9 +197,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [PC1] = ACTION_MACRO(PC1),
     [PC2] = ACTION_MACRO(PC2),
     [PC3] = ACTION_MACRO(PC3),
-    [PC4] = ACTION_MACRO(PC4),
-    [DL_BASE] = ACTION_DEFAULT_LAYER_SET(BASE),
-    [DL_BASE_CM] = ACTION_DEFAULT_LAYER_SET(BASE_CM)
+    [PC4] = ACTION_MACRO(PC4)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

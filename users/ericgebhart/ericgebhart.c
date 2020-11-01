@@ -61,11 +61,6 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-  //ACTION_DEFAULT_LAYER_SET(DVORAK) ;
-}
-
 // check default layerstate to see which layer we are on.
 // if (biton32(layer_state) == _DIABLO) {  --- current layer
 // if (biton32(default_layer_state) == _DIABLO) { --- current default layer

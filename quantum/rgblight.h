@@ -59,6 +59,12 @@
 |       34        | RGBLIGHT_MODE_STATIC_GRADIENT + 9 |
 |       35        | RGBLIGHT_MODE_RGB_TEST            |
 |       36        | RGBLIGHT_MODE_ALTERNATING         |
+|       37        | RGBLIGHT_MODE_TWINKLE             |
+|       38        | RGBLIGHT_MODE_TWINKLE + 1         |
+|       39        | RGBLIGHT_MODE_TWINKLE + 2         |
+|       40        | RGBLIGHT_MODE_TWINKLE + 3         |
+|       41        | RGBLIGHT_MODE_TWINKLE + 4         |
+|       42        | RGBLIGHT_MODE_TWINKLE + 5         |
 |-----------------|-----------------------------------|
  *****/
 
@@ -73,6 +79,7 @@
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 #ifdef RGBLIGHT_STATIC_PATTERNS
@@ -89,7 +96,8 @@
   || defined(RGBLIGHT_EFFECT_KNIGHT)        \
   || defined(RGBLIGHT_EFFECT_CHRISTMAS)     \
   || defined(RGBLIGHT_EFFECT_RGB_TEST)      \
-  || defined(RGBLIGHT_EFFECT_ALTERNATING)
+  || defined(RGBLIGHT_EFFECT_ALTERNATING)   \
+  || defined(RGBLIGHT_EFFECT_TWINKLE)
 #    define RGBLIGHT_USE_TIMER
 #endif
 
@@ -134,11 +142,19 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
-#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000
+#        define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 40
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
 #        define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2
+#    endif
+
+#    ifndef RGBLIGHT_EFFECT_TWINKLE_LIFE
+#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 75
+#    endif
+
+#    ifndef RGBLIGHT_EFFECT_TWINKLE_PROBABILITY
+#        define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 127
 #    endif
 
 #    ifndef RGBLIGHT_HUE_STEP
@@ -180,7 +196,20 @@ typedef struct {
 #        define RGBLIGHT_END_SEGMENT_INDEX (255)
 #        define RGBLIGHT_END_SEGMENTS \
             { RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0 }
-#        define RGBLIGHT_MAX_LAYERS 8
+#        ifndef RGBLIGHT_MAX_LAYERS
+#            define RGBLIGHT_MAX_LAYERS 8
+#        endif
+#        if RGBLIGHT_MAX_LAYERS <= 0
+#            error invalid RGBLIGHT_MAX_LAYERS value (must be >= 1)
+#        elif RGBLIGHT_MAX_LAYERS <= 8
+typedef uint8_t rgblight_layer_mask_t;
+#        elif RGBLIGHT_MAX_LAYERS <= 16
+typedef uint16_t rgblight_layer_mask_t;
+#        elif RGBLIGHT_MAX_LAYERS <= 32
+typedef uint32_t rgblight_layer_mask_t;
+#        else
+#            error invalid RGBLIGHT_MAX_LAYERS value (must be <= 32)
+#        endif
 #        define RGBLIGHT_LAYER_SEGMENTS(...) \
             { __VA_ARGS__, RGBLIGHT_END_SEGMENTS }
 #        define RGBLIGHT_LAYERS_LIST(...) \
@@ -192,6 +221,12 @@ bool rgblight_get_layer_state(uint8_t layer);
 
 // Point this to an array of rgblight_segment_t arrays in keyboard_post_init_user to use rgblight layers
 extern const rgblight_segment_t *const *rgblight_layers;
+
+#        ifdef RGBLIGHT_LAYER_BLINK
+#            define RGBLIGHT_USE_TIMER
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms);
+#        endif
+
 #    endif
 
 extern LED_TYPE led[RGBLED_NUM];
@@ -202,6 +237,7 @@ extern const uint8_t  RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t  RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t  RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
+extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
 // Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
@@ -224,7 +260,7 @@ typedef struct _rgblight_status_t {
     uint8_t change_flags;
 #    endif
 #    ifdef RGBLIGHT_LAYERS
-    uint8_t enabled_layer_mask;
+    rgblight_layer_mask_t enabled_layer_mask;
 #    endif
 } rgblight_status_t;
 
@@ -300,7 +336,9 @@ void rgblight_increase_val_noeeprom(void);
 void rgblight_decrease_val(void);
 void rgblight_decrease_val_noeeprom(void);
 void rgblight_increase_speed(void);
+void rgblight_increase_speed_noeeprom(void);
 void rgblight_decrease_speed(void);
+void rgblight_decrease_speed_noeeprom(void);
 void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 
@@ -314,6 +352,8 @@ uint8_t rgblight_get_mode(void);
 uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
+bool    rgblight_is_enabled(void);
+HSV     rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);
@@ -392,6 +432,7 @@ void rgblight_effect_knight(animation_status_t *anim);
 void rgblight_effect_christmas(animation_status_t *anim);
 void rgblight_effect_rgbtest(animation_status_t *anim);
 void rgblight_effect_alternating(animation_status_t *anim);
+void rgblight_effect_twinkle(animation_status_t *anim);
 
 #    endif
 
