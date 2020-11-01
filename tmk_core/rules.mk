@@ -306,6 +306,7 @@ BEGIN = gccversion sizebefore
 	@$(BUILD_CMD)
 
 
+
 define GEN_OBJRULE
 $1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
 ifdef $1_CONFIG
@@ -426,9 +427,37 @@ check-size:
 		    fi \
 		fi \
 	fi
+
+else
+ifeq ($(findstring arm-none-eabi-gcc,$(CC)),arm-none-eabi-gcc)
+SIZE_MARGIN = 1024
+
+check-size:
+	$(eval MAX_SIZE_HUMAN=$(shell $(CC) $(MCUFLAGS) -Wl,--gc-sections -Wl,--print-memory-usage -T$(LDSCRIPT) | grep -E "(rom:|flash:).*" | perl -lpe's/\s+/ /g' | cut -d" " -f5,6))
+	$(eval MAX_SIZE_UNIT=$(shell echo $(MAX_SIZE_HUMAN) | cut -d" " -f2))
+	$(eval MAX_SIZE_NUM=$(shell echo $(MAX_SIZE_HUMAN) | cut -d" " -f1))
+	$(eval MAX_SIZE=$(shell test "$(MAX_SIZE_UNIT)" == "MB" && expr $(MAX_SIZE_NUM) \* 1048576 || test "$(MAX_SIZE_UNIT)" == "KB" && expr $(MAX_SIZE_NUM) \* 1024 || echo $(MAX_SIZE_NUM)))
+	$(eval CURRENT_SIZE=$(shell $(SIZE) --target=$(FORMAT)  $(BUILD_DIR)/$(TARGET).hex | tail -n1 | perl -lpe's/\s+/ \+ /g' | cut -d" " -f3,4,5 | xargs expr))
+	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
+	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
+	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
+	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
+		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
+		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
+		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
+		else \
+		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
+			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
+		    else \
+			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
+		    fi \
+		fi \
+	fi
+
 else
 check-size:
 	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+endif
 endif
 
 # Create build directory

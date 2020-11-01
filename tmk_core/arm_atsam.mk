@@ -32,12 +32,14 @@ CFLAGS += $(COMPILEFLAGS)
 CXXFLAGS += $(COMPILEFLAGS)
 CXXFLAGS += -fno-exceptions -std=c++11
 
+LDSCRIPT = $(LIB_PATH)/arm_atsam/packs/atmel/SAMD51_DFP/1.0.70/gcc/gcc/samd51j18a_flash.ld
+
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS += -Wl,-Map="%OUT%%PROJ_NAME%.map"
 LDFLAGS += -Wl,--start-group
 LDFLAGS += -Wl,--end-group
 LDFLAGS += --specs=rdimon.specs
-LDFLAGS += -T$(LIB_PATH)/arm_atsam/packs/atmel/SAMD51_DFP/1.0.70/gcc/gcc/samd51j18a_flash.ld
+LDFLAGS += -T$(LDSCRIPT)
 
 OPT_DEFS += -DPROTOCOL_ARM_ATSAM
 
