@@ -1,5 +1,5 @@
 /* Copyright 2020 zvecr <git@zvecr.com>
-   Copyright 2020 fruitkt
+ * Copyright 2020 nho-nyc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,61 +18,62 @@
 
 #include "config_common.h"
 
-#define STM32_HSECLK   84000000U
+#define STM32_HSECLK   25000000U
+
+
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEB2D
+#define DEVICE_VER      0x0100
+#define MANUFACTURER    liliums
+#define PRODUCT         Lily58
+#define DESCRIPTION     Lily58 is 6×4+5keys column-staggered split keyboard.
 
 /* key matrix size */
-#define MATRIX_ROWS 12 // Rows are doubled-up
-#define MATRIX_COLS 7
+// Rows are doubled-up
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 6
 
 /*
  * Keyboard Matrix Assignments
  *
  * Change this to how you wired your keyboard
- * COLS: STM32 pins used for columns, left to right
- * ROWS: STM32 pins used for rows, top to bottom
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_COL_PINS { A3, A10, A6, A5, B10, B12, B13 }
-#define MATRIX_ROW_PINS { B9, B8, B5, B4, A15, A0 }
+#define MATRIX_COL_PINS { A8,B15,B14,B13,B12, A2 }
+#define MATRIX_ROW_PINS { B0, A6, A5, A4, A3 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define MATRIX_IO_DELAY 30
+#define MATRIX_IO_DELAY 5
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SPLIT_HAND_PIN B14
+#define SPLIT_HAND_PIN B8
 #define SOFT_SERIAL_PIN A9
 //#define SELECT_SOFT_SERIAL_SPEED 0
 #define SERIAL_USART_SPEED 921600
-#define SERIAL_USART_DRIVER SD1
-#define SERIAL_USART_TX_PAL_MODE 7
 
-/* 
- * Econder config
- */
-#define ENCODERS_PAD_A { A2 }
-#define ENCODERS_PAD_B { A3 }
-#define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 4
+#define ENCODERS_PAD_A { B5 }
+#define ENCODERS_PAD_B { B4 }
 
-// RGB config
 #define RGB_DI_PIN B1
-
-#ifdef  RGBLIGHT_ENABLE
-#define RGBLED_NUM 30
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT {15, 15}
+#ifdef RGBLIGHT_ENABLE
+  #define RGBLED_NUM 12
+  #define RGBLIGHT_SPLIT
+  #define RGBLED_SPLIT {6, 6}
+  #define RGBLIGHT_LIMIT_VAL 120
+  #define RGBLIGHT_ANIMATIONS
 #endif
-
-#ifdef RGB_MATRIX_ENABLE
-   #define RGBLED_NUM 108
-   #define DRIVER_LED_TOTAL RGBLED_NUM
-   #define RGB_MATRIX_CENTER { 110, 28 }
+#ifdef RGB_MATRIX_ENABLE 
+  #define RGBLED_NUM 70
+  #define DRIVER_LED_TOTAL RGBLED_NUM
 #endif
 
 #define WS2812_PWM_DRIVER PWMD3
@@ -88,10 +89,6 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-// Use the ErgoLuna version to get the ErgoLuna logo instead of the qmk logo
-//#define OLED_FONT_H "lib/glcdfont_luna.c"
-
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).

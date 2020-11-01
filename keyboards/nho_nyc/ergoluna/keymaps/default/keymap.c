@@ -107,8 +107,10 @@ void oled_task_user(void) {
     //oled_write_ln(read_timelog(), false);
   } else {
 	#ifdef WPM_ENABLE
-	     oled_write(wpm_state(), false);
-	     render_anim();
+           if ( get_current_wpm() != 0 ) {
+	       oled_write(wpm_state(), false);
+             }
+	   render_anim();
 	#else
              oled_write(read_logo(), false);
              oled_scroll_left();  // Turns on scrolling
@@ -131,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
+       if (index == 0) {
         // Volume control
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -147,5 +149,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
-}
+  }
 #endif	
