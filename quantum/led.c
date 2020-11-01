@@ -75,13 +75,6 @@ __attribute__((weak)) bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
 #if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
-        // TODO: refactor to call led_init_ports in core && remove init from keyboards
-        static bool s_init = false;
-        if (!s_init) {
-            led_init_ports();
-            s_init = true;
-        }
-
 #    if LED_PIN_ON_STATE == 0
         // invert the whole thing to avoid having to conditionally !led_state.x later
         led_state.raw = ~led_state.raw;
