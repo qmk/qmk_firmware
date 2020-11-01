@@ -299,6 +299,10 @@ void keyboard_init(void) {
     dip_switch_init();
 #endif
 
+#if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
+    debug_enable = true;
+#endif
+
     keyboard_post_init_kb(); /* Always keep this last */
 }
 

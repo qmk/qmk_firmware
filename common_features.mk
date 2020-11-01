@@ -20,6 +20,11 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
+ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
+    OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
+    CONSOLE_ENABLE = yes
+endif
+
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     OPT_DEFS += -DAPI_SYSEX_ENABLE
     OPT_DEFS += -DAPI_ENABLE
