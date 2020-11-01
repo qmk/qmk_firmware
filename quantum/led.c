@@ -112,18 +112,23 @@ __attribute__((weak)) bool led_update_kb(led_t led_state) {
 __attribute__((weak)) void led_init_ports(void) {
 #ifdef LED_NUM_LOCK_PIN
     setPinOutput(LED_NUM_LOCK_PIN);
+    writePin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_CAPS_LOCK_PIN
     setPinOutput(LED_CAPS_LOCK_PIN);
+    writePin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_SCROLL_LOCK_PIN
     setPinOutput(LED_SCROLL_LOCK_PIN);
+    writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_COMPOSE_PIN
     setPinOutput(LED_COMPOSE_PIN);
+    writePin(LED_COMPOSE_PIN, !LED_PIN_ON_STATE);
 #endif
 #ifdef LED_KANA_PIN
     setPinOutput(LED_KANA_PIN);
+    writePin(LED_KANA_PIN, !LED_PIN_ON_STATE);
 #endif
 }
 
