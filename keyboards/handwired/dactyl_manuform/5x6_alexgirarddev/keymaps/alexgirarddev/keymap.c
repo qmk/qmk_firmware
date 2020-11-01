@@ -1,6 +1,7 @@
 /* A standard layout for the Dactyl Manuform 5x6 Keyboard */ 
 
 #include QMK_KEYBOARD_H
+#include <print.h>
 
 
 #define _QWERTY 0
@@ -47,3 +48,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                _______,_______,            _______,_______
   ),
 };
+
+void keyboard_post_init_user(void) {
+	  // Customise these values to desired behaviour
+debug_enable=true;
+debug_matrix=true;
+print("wow");
+	  //       //debug_keyboard=true;
+	  //         //debug_mouse=true;
+	  //         }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	print("wow");
+   //If console is enabled, it will print the matrix position and status of each key pressed
+	#ifdef CONSOLE_ENABLE
+	uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+	#endif 
+	return true;
+ }
