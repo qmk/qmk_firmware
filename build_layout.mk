@@ -1,5 +1,11 @@
+# Load the out-of-tree layout-specific keymap, if requested
+ifneq ($(EXTERNAL_USERSPACE),)
+    LAYOUTS_PATH := $(EXTERNAL_USERSPACE)/layouts
+    LAYOUTS_REPOS := $(patsubst %/,%,$(sort $(dir $(wildcard $(LAYOUTS_PATH)/))))
+endif
+
 LAYOUTS_PATH := layouts
-LAYOUTS_REPOS := $(patsubst %/,%,$(sort $(dir $(wildcard $(LAYOUTS_PATH)/*/))))
+LAYOUTS_REPOS += $(patsubst %/,%,$(sort $(dir $(wildcard $(LAYOUTS_PATH)/*/))))
 
 define SEARCH_LAYOUTS_REPO
     LAYOUT_KEYMAP_PATH := $$(LAYOUTS_REPO)/$$(LAYOUT)/$$(KEYMAP)
