@@ -78,18 +78,19 @@ def check_arm_gcc_version():
 def check_avr_gcc_version():
     """Returns True if the avr-gcc version is not known to cause problems.
     """
+    rc = 'error'
     if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
         version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
 
+        cli.log.info('Found avr-gcc version %s', version_number)
+        rc = 'ok'
+
         parsed_version = parse_gcc_version(version_number)
         if parsed_version['major'] > 8:
-            cli.log.error('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
-            return 'warning'
+            cli.log.warning('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
+            rc = 'warning'
 
-        cli.log.info('Found avr-gcc version %s', version_number)
-        return 'ok'
-
-    return 'error'
+    return rc
 
 
 def check_avrdude_version():
@@ -139,7 +140,7 @@ def check_submodules():
             cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
             return 'error'
         elif not submodule['status']:
-            cli.log.error('Submodule %s is not up to date!', submodule['name'])
+            cli.log.warning('Submodule %s is not up to date!', submodule['name'])
             return 'warning'
 
     return 'ok'
@@ -213,18 +214,18 @@ def check_udev_rules():
             if not rules.issubset(current_rules):
                 deprecated_rule = deprecated_rules.get(bootloader)
                 if deprecated_rule and deprecated_rule.issubset(current_rules):
-                    cli.log.warn("{fg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
+                    cli.log.warning("{fg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
                     # For caterina, check if ModemManager is running
                     if bootloader == "caterina":
                         if check_modem_manager():
                             rc = 'warning'
-                            cli.log.warn("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+                            cli.log.warning("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
                     rc = 'warning'
-                    cli.log.warn("{fg_yellow}Missing udev rules for '%s' boards. See https://docs.qmk.fm/#/faq_build?id=linux-udev-rules for more details.", bootloader)
+                    cli.log.warning("{fg_yellow}Missing udev rules for '%s' boards. See https://docs.qmk.fm/#/faq_build?id=linux-udev-rules for more details.", bootloader)
 
     else:
-        cli.log.warn("{fg_yellow}'%s' does not exist. Skipping udev rule checking...", udev_dir)
+        cli.log.warning("{fg_yellow}'%s' does not exist. Skipping udev rule checking...", udev_dir)
 
     return rc
 
@@ -320,7 +321,7 @@ def doctor(cli):
     elif 'windows' in platform_id:
         status = os_test_windows()
     else:
-        cli.log.error('Unsupported OS detected: %s', platform_id)
+        cli.log.warning('Unsupported OS detected: %s', platform_id)
         status = 'warning'
 
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
