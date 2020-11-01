@@ -28,6 +28,16 @@ ifneq ($(strip $(HELIX)),)
   ifeq ($(findstring console,$(HELIX)), console)
     CONSOLE_ENABLE = yes
   endif
+  ## make HELIX=stdole helix:five_rows -- use TOP/drivers/oled/oled_driver.c
+  ifeq ($(findstring stdole,$(HELIX)), stdole)
+    OLED_ENABLE = new
+  endif
+  ## make HELIX=oled helix:five_rows -- use helix/local_drivers/ssd1306.c
+endif
+
+ifeq ($(strip $(OLED_ENABLE)), new)
+    OLED_DRIVER_ENABLE = yes
+    OLED_ENABLE = no
 endif
 
 # convert Helix-specific options (that represent combinations of standard options)
