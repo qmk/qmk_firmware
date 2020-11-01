@@ -7,6 +7,8 @@ import subprocess
 import shlex
 import shutil
 
+from milc import cli
+
 import qmk.keymap
 
 
@@ -34,7 +36,12 @@ def create_make_command(keyboard, keymap, target=None):
     if target:
         make_args.append(target)
 
-    return [make_cmd, ':'.join(make_args)]
+    make_command = [make_cmd, ':'.join(make_args)]
+
+    if cli.config.user.userspace:
+        make_command.append('EXTERNAL_USERSPACE=%s' % cli.config.user.userspace)
+
+    return make_command
 
 
 def compile_configurator_json(user_keymap, bootloader=None):

@@ -28,6 +28,17 @@ def os_tests():
         return CheckStatus.WARNING
 
 
+def check_userspace():
+    if cli.config.user.userspace:
+        userspace_path = Path(cli.config.user.userspace)
+        if not userspace_path.exists():
+            cli.log.error('External userspace: {fg_red}%s does not exists', userspace_path)
+        elif not userspace_path.is_absolute():
+            cli.log.warning('External userspace: {fg_yellow}%s is not an absolute path', userspace_path)
+        else:
+            cli.log.info('External userspace: {fg_cyan}%s', userspace_path)
+
+
 def os_test_linux():
     """Run the Linux specific tests.
     """
@@ -69,6 +80,7 @@ def doctor(cli):
     status = os_tests()
 
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
+    check_userspace()
 
     # Make sure our QMK home is a Git repo
     git_ok = check_git_repo()
