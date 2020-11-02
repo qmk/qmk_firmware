@@ -102,18 +102,16 @@ void matrix_scan_user(void) {
     }
     if (enc2Left != enc2LeftPrev) {
         if (enc2Left < ENC_TILT_THRESHOLD) {
-            register_code16(RGB_TOG);
         }
         else {
-            unregister_code16(RGB_TOG);
+            rgblight_toggle_noeeprom();
         }
     }
     if (enc2Right != enc2RightPrev) {
         if (enc2Right < ENC_TILT_THRESHOLD) {
-            register_code16(RGB_MODE_FORWARD);
         }
         else {
-            unregister_code16(RGB_MODE_FORWARD);
+            rgblight_step_noeeprom();
         }
     }
 }
