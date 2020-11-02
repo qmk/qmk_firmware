@@ -1,31 +1,18 @@
-#include "zeta.h"
 #include QMK_KEYBOARD_H
-
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-enum custom_layers
-{
-	_QWERTY,
-	_LOWER,
-	_RAISE,
-	_ADJUST
-};
 
-enum custom_keycodes
-{
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST
-};
+enum layer_names { _QWERTY, _LOWER, _RAISE, _ADJUST };
 
-// Fillers to make layering more clear
-#define XXXXXXX KC_NO
-#define _______ KC_TRNS
+enum custom_keycodes { QWERTY = SAFE_RANGE, ADJUST };
+
+// Aliases to keep the keymap tidy
+#define RAISE MO(_RAISE)
+#define LOWER MO(_LOWER)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -61,37 +48,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); };
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-      } else {
-        layer_off(_LOWER);
-      }
-      return false;
-      break;
-
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-      } else {
-        layer_off(_RAISE);
-      }
-      return false;
-      break;
-
-     case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-
-  }
-  return true;
+    if (record->event.pressed) {
+        switch (keycode) {
+            case QWERTY:
+                set_single_persistent_default_layer(_QWERTY);
+                return false;
+            case COLEMAK:
+                set_single_persistent_default_layer(_COLEMAK);
+                return false;
+            case DVORAK:
+                set_single_persistent_default_layer(_DVORAK);
+                return false;
+        }
+    }
+    return true;
 }
 
 void matrix_scan_user(void) {
