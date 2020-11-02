@@ -79,7 +79,7 @@
             ]
         },
         "LAYOUT_65_ansi_split_bs": {
-            "key_count": 68,
+            "key_count": 69,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
