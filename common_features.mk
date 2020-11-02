@@ -171,9 +171,10 @@ endif
 VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
-ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
-    ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
-        $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
+    ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_MATRIX_TYPES)),)
+        $(error LED_MATRIX_DRIVER="$(LED_MATRIX_DRIVER)" is not a valid matrix type)
     else
         BACKLIGHT_ENABLE = yes
         BACKLIGHT_DRIVER = custom
@@ -181,13 +182,13 @@ ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
         SRC += $(QUANTUM_DIR)/led_matrix.c
         SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
     endif
-endif
 
-ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731
-    COMMON_VPATH += $(DRIVER_PATH)/issi
-    SRC += is31fl3731-simple.c
-    QUANTUM_LIB_SRC += i2c_master.c
+    ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
+        OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/issi
+        SRC += is31fl3731-simple.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
 endif
 
 RGB_MATRIX_ENABLE ?= no
