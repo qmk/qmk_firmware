@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QVEX
 #define PRODUCT         Lynepad
-#define DESCRIPTION     Macro Keypad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

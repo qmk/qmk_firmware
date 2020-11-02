@@ -15,8 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#include <print.h>
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap (Base Layer) Default Layer
    * |----------------------------|
@@ -25,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | 9 | 10 | 11 |              |
    * |----------------------------|
    */
-[0] = LAYOUT_Lynepad(
+[0] = LAYOUT(
   KC_MS_BTN4,   KC_MS_BTN2,   KC_MS_UP,    KC_MS_BTN1,
   KC_MS_BTN5,   KC_MS_LEFT,   KC_MS_DOWN,  KC_MS_RIGHT,
   KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2
@@ -90,18 +88,16 @@ void matrix_scan_user(void) {
     }
     if (enc2Up != enc2UpPrev) {
         if (enc2Up < ENC_TILT_THRESHOLD) {
-            register_code16(RGB_VAI);
         }
         else {
-            unregister_code16(RGB_VAI);
+            rgblight_increase_val_noeeprom();
         }
     }
     if (enc2Down != enc2DownPrev) {
         if (enc2Down < ENC_TILT_THRESHOLD) {
-            register_code16(RGB_VAD);
         }
         else {
-            unregister_code16(RGB_VAD);
+            rgblight_decrease_val_noeeprom();
         }
     }
     if (enc2Left != enc2LeftPrev) {

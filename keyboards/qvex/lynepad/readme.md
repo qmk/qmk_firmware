@@ -2,9 +2,9 @@
 
 Macro pad with 11 keys and 2 rotary encoders.
 
-Keyboard Maintainer: [KemoNine](https://git.kemonine.info/kemonine/keyboard)  
-Hardware Supported: QVEX Lynepad: macro keypad
-Hardware Availability: Tindie [Keyboard Kit](https://www.tindie.com/products/qvex_tech/qvex-lynepad-macro-keypad/)
+* Keyboard Maintainer: [KemoNine](https://git.kemonine.info/kemonine/keyboard)
+* Hardware Supported: QVEX Lynepad: macro keypad
+* Hardware Availability: Tindie [Keyboard Kit](https://www.tindie.com/products/qvex_tech/qvex-lynepad-macro-keypad/)
 
 Make example for this macro pad (after setting up your build environment):
 
