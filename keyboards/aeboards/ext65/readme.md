@@ -1,5 +1,4 @@
-EXT65
-===
+# EXT65
 
 A southpaw inspired keyboard by [AEBoards](https://aeboards.com/)
 
