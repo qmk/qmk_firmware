@@ -1,6 +1,10 @@
+import platform
+
 from subprocess import STDOUT, PIPE
 
 from qmk.commands import run
+
+is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
@@ -148,7 +152,11 @@ def test_info_keymap_render():
     check_returncode(result)
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
-    assert '│A │' in result.stdout
+
+    if is_windows:
+        assert '|A |' in result.stdout
+    else:
+        assert '│A │' in result.stdout
 
 
 def test_info_matrix_render():
@@ -157,7 +165,12 @@ def test_info_matrix_render():
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
     assert 'LAYOUT_ortho_1x1' in result.stdout
-    assert '│0A│' in result.stdout
+
+    if is_windows:
+        assert '|0A|' in result.stdout
+    else:
+        assert '│0A│' in result.stdout
+
     assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout
 
 
