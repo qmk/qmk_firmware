@@ -22,5 +22,3 @@
     { B4, B3, A15, B13, B5 }
 #define UNUSED_PINS \
     { A0, A9, A11, A12, C13, C14, C15 }
-
-#define BACKLIGHT_PIN B14

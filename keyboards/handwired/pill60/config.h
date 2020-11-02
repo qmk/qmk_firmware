@@ -17,9 +17,11 @@
 #define DEBOUNCE 1
 
 /* Backlighting include */
-
-#define BACKLIGHT_LEVELS 5
-#define BREATHING_PERIOD 6
+#define BACKLIGHT_PIN           B14
+#define BACKLIGHT_PWM_DRIVER    PWMD5
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_LEVELS        5
+#define BREATHING_PERIOD        6
 
 /* Encoder */
 #define ENCODERS_PAD_A \
