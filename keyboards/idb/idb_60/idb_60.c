@@ -18,7 +18,7 @@ void led_set_kb(uint8_t usb_led) {
 
 // Layer LED indicator - drive LED when not on base layer
 
-layer_state_t layer_state_set_kb(layer_state_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     if (get_highest_layer(state) == 0) {
         _idb_60_fn_led_off();
     } else {
