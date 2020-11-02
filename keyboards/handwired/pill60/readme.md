@@ -1,6 +1,6 @@
 # Pill60
 
-![Pill60](https://i.imgur.com/7WmHa6m.png)
+![Pill60](https://i.imgur.com/7WmHa6ml.png)
 
 A 60% open source keyboard with rotary encoder, OLED screen, and Hotswap socket, using STM32F103 / Blue Pill.
 

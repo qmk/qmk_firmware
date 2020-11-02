@@ -6,7 +6,6 @@
     "height": 5,
     "layouts": {
         "layout_default": {
-            "key_count": 63,
             "layout": [
                 {"label": "Encoder", "x": 0, "y": 0},
 

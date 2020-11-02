@@ -1,4 +1,4 @@
-![Clueboard Layout Image](https://i.imgur.com/86mrAwZ.png)
+![Pill60 Layout Image](https://i.imgur.com/LIW18XJ.png)
 
 # Default Pill 60 Layout
 
