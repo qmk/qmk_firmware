@@ -104,7 +104,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     rgb_matrix_set_color_all(0, 0, 0);
                   }
                   break;
-                case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR: {
+                case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
                     rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
                     rgb_matrix_set_color_all(0, 0, 0);
                   }
