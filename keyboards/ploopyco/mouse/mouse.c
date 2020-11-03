@@ -140,7 +140,7 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
         // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
-        process_mouse_user(mouse_report, data.dx, data.dy);
+        process_mouse_user(mouse_report, data.dx, -data.dy);
     }
 }
 
