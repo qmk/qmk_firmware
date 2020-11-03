@@ -4,8 +4,6 @@
 
 It's a DIY, QMK Powered Trackball!!!!
 
-Everything works. However the scroll wheel has some issues and acts very odd.
-
 * Keyboard Maintainer: [PloopyCo](https://github.com/ploopyco), [Drashna Jael're](https://github.com/drashna/), [Germ](https://github.com/germ/)
 * Hardware Supported: ATMega32u4 8MHz(3.3v)  
 * Hardware Availability: [Store](https://ploopy.co), [GitHub](https://github.com/ploopyco)
