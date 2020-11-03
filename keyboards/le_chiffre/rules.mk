@@ -20,3 +20,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = no
 ENCODER_ENABLE = yes
 OLED_DRIVER_ENABLE = no
+
+RGB_MATRIX_ENABLE = WS2812	
