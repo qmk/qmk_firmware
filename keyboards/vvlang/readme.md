@@ -1,10 +1,8 @@
-# Corne Keyboard (CRKBD)
+# Vvlang Keyboard (VVLANG)
 
 Also known (incorrectly) as the `HeliDox`. 
 
-![Crkbd](https://user-images.githubusercontent.com/736191/40575636-6fba63a4-6123-11e8-9ca0-3f990f1f9f4c.jpg)
 
-![Crkbd](https://user-images.githubusercontent.com/736191/40887871-0eead5dc-678a-11e8-9518-e3ad9e5d2bac.png)
 
 A split keyboard with 3x6 vertically staggered keys and 3 thumb keys.
 
