@@ -1,29 +1,24 @@
-# Corne Keyboard (CRKBD)
+# vvlang Keyboard (vvlang)
 
-Also known (incorrectly) as the `HeliDox`. 
+Also known (incorrectly) as the `HeliDox`.
 
-![Crkbd](https://user-images.githubusercontent.com/736191/40575636-6fba63a4-6123-11e8-9ca0-3f990f1f9f4c.jpg)
 
-![Crkbd](https://user-images.githubusercontent.com/736191/40887871-0eead5dc-678a-11e8-9518-e3ad9e5d2bac.png)
 
 A split keyboard with 3x6 vertically staggered keys and 3 thumb keys.
 
-Keyboard Maintainer: [foostan](https://github.com/foostan/) [@foostan](https://twitter.com/foostan)  
-Hardware Supported: Crkbd PCB, Pro Micro  
-Hardware Availability: [PCB & Case Data](https://github.com/foostan/crkbd)
 
 Make example for this keyboard (after setting up your build environment):
 
 ```sh
-make crkbd:default
+make vvlang:default
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## RGB Matrix 
-The Corne Keyboard also supports using the RGB Matrix feature, in place of RGB Light.  This provids a better experience when using the keyboard, as it supports a number of per key effects properly.  If you're not using the in switch LEDs, then you may want to pass on doing this. 
+## RGB Matrix
+The vvlang Keyboard also supports using the RGB Matrix feature, in place of RGB Light.  This provids a better experience when using the keyboard, as it supports a number of per key effects properly.  If you're not using the in switch LEDs, then you may want to pass on doing this.
 
-In your keymap's `rules.mk` file, add the following: 
+In your keymap's `rules.mk` file, add the following:
 
 ```make
 RGBLIGHT_ENABLE = no
@@ -42,7 +37,7 @@ And in your `config.h` file, add the following:
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash. 
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #    define RGB_MATRIX_HUE_STEP 8
 #    define RGB_MATRIX_SAT_STEP 8
 #    define RGB_MATRIX_VAL_STEP 8
@@ -81,4 +76,4 @@ And in your `config.h` file, add the following:
 #endif
 ```
 
-After this is done, you should be able to use the normal RGB keycodes, but you'll see the RGB Matrix effects in use, giving a much better experience. 
+After this is done, you should be able to use the normal RGB keycodes, but you'll see the RGB Matrix effects in use, giving a much better experience.
