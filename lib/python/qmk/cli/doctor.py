@@ -222,7 +222,7 @@ def check_udev_rules():
                             rc = 'warning'
                             cli.log.warning("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
                     rc = 'warning'
-                    cli.log.warning("{fg_yellow}Missing udev rules for '%s' boards. See https://docs.qmk.fm/#/faq_build?id=linux-udev-rules for more details.", bootloader)
+                    cli.log.warning("{fg_yellow}Missing or outdated udev rules for '%s' boards. Run 'sudo cp %s/util/udev/50-qmk.rules /etc/udev/rules.d/'.", bootloader, QMK_FIRMWARE)
 
     else:
         cli.log.warning("{fg_yellow}'%s' does not exist. Skipping udev rule checking...", udev_dir)
