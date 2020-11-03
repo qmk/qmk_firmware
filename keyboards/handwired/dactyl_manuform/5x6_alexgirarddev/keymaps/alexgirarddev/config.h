@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2
 
 #define MASTER_LEFT
+//#define OLED_FONT_WIDTH 12
+//#define OLED_FONT_HEIGHT 16
+//#define OLED_FONT_END 111
 // #define MASTER_RIGHT
 //#define EE_HANDS
 // Rows are doubled-up
