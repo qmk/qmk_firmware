@@ -17,6 +17,6 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_xelus_dawn60_rev1
+#if defined(KEYBOARD_xelus_dawn60_rev1)
     #include "rev1.h"
 #endif
