@@ -41,14 +41,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN C0
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 9
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255
-  #define RGBLIGHT_SLEEP
-  /*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
+    #define RGBLED_NUM 9
+    #define RGBLIGHT_HUE_STEP 8
+    #define RGBLIGHT_SAT_STEP 8
+    #define RGBLIGHT_VAL_STEP 8
+    #define RGBLIGHT_LIMIT_VAL 255
+    #define RGBLIGHT_SLEEP
+    /*== all animations enable ==*/
+    #define RGBLIGHT_ANIMATIONS
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) */
