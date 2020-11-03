@@ -44,13 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
   // set CapsLock LED to output and off (active high)
   setPinOutput(F5);
-  writePinLow(F5);
   // set NumLock LED to output and off (active high)
   setPinOutput(F6);
-  writePinLow(F6);
   // set ScrollLock LED to output and off (active high)
   setPinOutput(F7);
-  writePinLow(F7);
 }
 
 // write to above indicators in a binary fashion based on current layer
