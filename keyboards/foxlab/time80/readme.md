@@ -1,6 +1,6 @@
 # time80
 
-![time80](https://i.imgur.com/8HpYStP.jpg)
+![time80](https://i.imgur.com/8HpYStPl.jpg)
 
 Time is an intricate custom keyboard kit from Fox Lab, a group of
 Chinese designers focused on making maximizing the potential for
