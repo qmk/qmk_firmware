@@ -126,6 +126,8 @@ The following input modes are available:
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
   By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with a different keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
+  Users who wish support in non-GTK apps without IBus may need to resort to a more indirect method, such as creating a [custom](https://www.linux.com/news/creating-custom-keyboard-layouts-x11-using-xkb/) [software](http://karols.github.io/blog/2013/11/18/creating-custom-keyboard-layouts-for-linux/) [keyboard layout](https://wiki.archlinux.org/index.php/X_keyboard_extension) with custom characters on the third layer.
+  
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
   To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Reboot afterwards.
