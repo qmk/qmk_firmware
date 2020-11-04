@@ -69,10 +69,14 @@ void annepro2_ble_broadcast(uint8_t port) {
     if (port > 3) {
         port = 3;
     }
-    sdPut(&SD1, 0x00);
+    // sdPut(&SD1, 0x00);
     sdWrite(&SD1, bleMcuStartBroadcast, 10);
     sdPut(&SD1, port);
-    annepro2_ble_connect(port);
+    static int lastBroadcast = -1;
+    if (lastBroadcast == port) {
+        annepro2_ble_connect(port);
+    }
+    lastBroadcast = port;
 }
 
 void annepro2_ble_connect(uint8_t port) {
@@ -98,7 +102,7 @@ void annepro2_ble_disconnect(void) {
 }
 
 void annepro2_ble_unpair(void) {
-    sdPut(&SD1, 0x0);
+    // sdPut(&SD1, 0x0);
     sdWrite(&SD1, bleMcuUnpair, 11);
 }
 
