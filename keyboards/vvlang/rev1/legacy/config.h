@@ -20,4 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <serial_config.h>
 
-#define PRODUCT         Vvlang Keyboard Rev.1 (Legacy Split)
+#define PRODUCT         vvlang Keyboard Rev.1 (Legacy Split)
