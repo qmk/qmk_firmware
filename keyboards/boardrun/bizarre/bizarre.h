@@ -31,7 +31,7 @@
   { k41,   k42, k43,   k44,   k45, k46, k47, k48, k49, k410,  k411,  k412, k413,  KC_NO, k415, KC_NO, KC_NO }, \
   { KC_NO, k52, KC_NO, KC_NO, k55, k56, k57, k58, k59, KC_NO, KC_NO, k512, KC_NO, k514,  k515, k516,  KC_NO } \
 }
-/**
+
 #define LAYOUT_ANSI( \
   k11,  k12, k117, k13, k14, k15, k16, k17,           k18, k19, k110, k111, k112, k113, k114, k115,   \
   k21,      k22,   k23, k24, k25, k26, k27,           k28, k29, k210, k211, k212, k213, k214,   k215,  \
@@ -76,4 +76,3 @@
   { k41,   k42, k43,   k44,   k45, k46, k47, k48, k49, k410,  k411,  k412, k413,  KC_NO, k415,  KC_NO, KC_NO }, \
   { KC_NO, k52, KC_NO, KC_NO, k55, k56, k57, k58, k59, KC_NO, KC_NO, k512, KC_NO, k514,  k515,  k516,  KC_NO } \
 }
-**/
