@@ -20,7 +20,7 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
     make foxlab/time80:default:flash
 
 **Reset Key**: There are no reset switches or pads. Follow this
-[guide](https://beta.docs.qmk.fm/using-qmk/guides/flashing/flashing_bootloadhid)
+[guide](https://docs.qmk.fm/#/flashing_bootloadhid)
 to have it flashed for the first time. Remember to add a `RESET`
 key on your keymap for future endeavors.
 
