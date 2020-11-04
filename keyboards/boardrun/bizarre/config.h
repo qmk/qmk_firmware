@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCDCD
-#define PRODUCT_ID      0x5338
+#define PRODUCT_ID      0x5339
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    shensmobile
-#define PRODUCT         Boardrun
+#define PRODUCT         Boardrun Bizarre
 
 /* key matrix size */
 #define MATRIX_ROWS 5
