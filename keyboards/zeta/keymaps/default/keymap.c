@@ -66,23 +66,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case QWERTY:
-                set_single_persistent_default_layer(_QWERTY);
-                return false;
-            case COLEMAK:
-                set_single_persistent_default_layer(_COLEMAK);
-                return false;
-            case DVORAK:
-                set_single_persistent_default_layer(_DVORAK);
-                return false;
-        }
-    }
-    return true;
-}
-
 void matrix_scan_user(void) {
 		return;
 };
