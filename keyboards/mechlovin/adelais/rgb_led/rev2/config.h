@@ -18,7 +18,7 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110101
+#define DRIVER_ADDR_2 0b1110110
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 32
 #define DRIVER_2_LED_TOTAL 36
@@ -33,3 +33,8 @@
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
 
 #define RGB_MATRIX_DISABLE_KEYCODES
+
+#define ENCODERS_PAD_A { A4 }
+#define ENCODERS_PAD_B { A3 }
+#define ENCODER_RESOLUTION 2
+
