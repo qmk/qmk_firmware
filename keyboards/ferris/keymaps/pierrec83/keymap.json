@@ -1,0 +1,118 @@
+{    "version": 1,
+    "notes": "My awesome keymap",
+    "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
+    "keyboard": "handwired/ferris",
+    "keymap": "pierrec83",
+    "layout": "LAYOUT",
+    "layers": [
+        ["KC_Q"                   , "KC_D"                 , "KC_R"           , "KC_W"                 , "KC_B",
+         "KC_J"                   , "KC_F"                 , "KC_U"           , "KC_P"                 , "KC_SCLN",
+
+         "LSFT_T(KC_A)"           , "LT(6,KC_S)"           , "LT(2,KC_H)"     , "LT(4,KC_T)"           , "KC_G",
+         "KC_Y"                   , "LT(5,KC_N)"           , "LT(3,KC_E)"     , "LT(7,KC_O)"           , "LSFT_T(KC_I)",
+
+         "KC_Z"                   , "LCTL_T(KC_X)"         , "LALT_T(KC_M)"   , "KC_C"                 , "KC_V",
+         "KC_K"                   , "KC_L"                 , "LALT_T(KC_COMM)", "LCTL_T(KC_DOT)"       , "KC_SLSH",
+
+         "LCA(KC_UP)"             , "KC_BSPC",
+         "LT(8,KC_SPC)"           , "LCA(KC_DOWN)"
+        ],
+        ["KC_Q"                   , "KC_C"                 , "KC_M"           , "KC_Y"                 , "KC_COLN",
+         "KC_Z"                   , "KC_W"                 , "KC_COMM"        , "KC_U"                 , "KC_J",
+
+         "LSFT_T(KC_R)"           , "LT(6,KC_S)"           , "LT(2,KC_T)"     , "LT(4,KC_H)"           , "KC_X",
+         "KC_TRNS"                , "LT(5,KC_N)"           , "LT(3,KC_A)"     , "LT(7,KC_I)"           , "LSFT_T(KC_O)",
+
+         "KC_B"                   , "LCTL_T(KC_F)"         , "LALT_T(KC_G)"   , "KC_D"                 , "KC_V",
+         "KC_ESC"                 , "KC_L"                 , "LALT_T(KC_DOT)" , "LCTL_T(KC_BSPC)"      , "KC_K",
+
+         "LCA(KC_UP)"             , "KC_E",
+         "LT(8,KC_SPC)"           , "LCA(KC_DOWN)"
+        ],
+        ["KC_TRNS"                , "ANY(LCTL(LSFT(KC_C)))", "KC_TRNS"        , "ANY(LCTL(LSFT(KC_V)))", "KC_TRNS",
+         "KC_TRNS"                , "KC_BTN1"              , "KC_WH_U"        , "KC_BTN2"              , "KC_TRNS",
+
+         "KC_TRNS"                , "KC_BTN2"              , "KC_NO"          , "KC_BTN1"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_MS_L"              , "KC_MS_D"        , "KC_MS_U"              , "KC_MS_R",
+
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_WH_L"              , "KC_WH_D"        , "KC_WH_R"              , "KC_TRNS",
+
+         "ANY(LCTL(LSFT(KC_TAB)))", "KC_TRNS",
+         "KC_TRNS"                , "LCTL(KC_TAB)"
+        ],
+        ["KC_TRNS"                , "KC_TRNS"              , "KC_PGUP"        , "KC_TRNS"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+
+         "KC_LEFT"                , "KC_UP"                , "KC_DOWN"        , "KC_RGHT"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_LGUI"              , "KC_NO"          , "LCTL(KC_LALT)"        , "LCA(KC_LSFT)",
+
+         "KC_TRNS"                , "KC_HOME"              , "KC_PGDN"        , "KC_END"               , "KC_TRNS",
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+
+         "LGUI(KC_LEFT)"          , "KC_TRNS",
+         "KC_TRNS"                , "LGUI(KC_RGHT)"
+        ],
+        ["KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_UNDS"              , "KC_PIPE"        , "KC_QUOT"              , "KC_TRNS",
+
+         "KC_CIRC"                , "KC_ASTR"              , "KC_AMPR"        , "KC_NO"                , "KC_TRNS",
+         "KC_HASH"                , "KC_TILD"              , "KC_SLSH"        , "KC_DQUO"              , "KC_DLR",
+
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_MINS"              , "KC_BSLS"        , "KC_GRV"               , "KC_TRNS",
+
+         "KC_BRID"                , "KC_TRNS",
+         "KC_TRNS"                , "KC_BRIU"
+        ],
+        ["KC_TRNS"                , "KC_COLN"              , "KC_LT"          , "KC_GT"                , "KC_SCLN",
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+
+         "KC_LCBR"                , "KC_RCBR"              , "KC_LPRN"        , "KC_RPRN"              , "KC_AT",
+         "KC_TRNS"                , "KC_NO"                , "KC_EQL"         , "KC_PLUS"              , "KC_PERC",
+
+         "KC_TRNS"                , "KC_EXLM"              , "KC_LBRC"        , "KC_RBRC"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+
+         "KC_VOLD"                , "KC_TRNS",
+         "KC_TRNS"                , "KC_VOLU"
+        ],
+        ["KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_F7"                , "KC_F8"          , "KC_F9"                , "KC_F10",
+
+         "KC_TRNS"                , "KC_TRNS"              , "LCTL(KC_LALT)"  , "KC_TRNS"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_F4"                , "KC_F5"          , "KC_F6"                , "KC_F11",
+
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+         "KC_TRNS"                , "KC_F1"                , "KC_F2"          , "KC_F3"                , "KC_F12",
+
+         "KC_TRNS"                , "KC_TRNS",
+         "KC_TRNS"                , "KC_TRNS"
+        ],
+        ["KC_PSLS"                , "KC_7"                 , "KC_8"           , "KC_9"                 , "KC_PPLS",
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+
+         "KC_0"                   , "KC_1"                 , "KC_2"           , "KC_3"                 , "KC_PMNS",
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_NO"                , "KC_TRNS",
+
+         "KC_PAST"                , "KC_4"                 , "KC_5"           , "KC_6"                 , "KC_PEQL",
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+
+         "KC_TRNS"                , "KC_TRNS",
+         "KC_TRNS"                , "KC_TRNS"
+        ],
+        ["KC_TRNS"                , "KC_ESC"               , "KC_COLN"        , "KC_TRNS"              , "KC_TRNS",
+         "DF(2)"                  , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_DEL",
+
+         "KC_TRNS"                , "KC_PERC"              , "KC_SLSH"        , "KC_ENT"               , "KC_EXLM",
+         "DF(1)"                  , "KC_LGUI"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+
+         "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
+         "DF(0)"                  , "KC_TRNS"              , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)"       , "RESET",
+
+         "KC_TRNS"                , "KC_TAB",
+         "KC_NO"                  , "KC_TRNS"
+        ]
+    ],
+    "author": "@pierrec83"
+}
