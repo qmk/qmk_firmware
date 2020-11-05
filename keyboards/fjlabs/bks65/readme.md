@@ -11,7 +11,7 @@ The PCB will feature:
 ---
 
 * Keyboard Maintainer: FJLabs
-* Hardware Supported: Bolsa65
+* Hardware Supported: BKS65
 
 Make example for this keyboard (after setting up your build environment):
 
