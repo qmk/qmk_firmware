@@ -4,8 +4,10 @@ MCU = atmega32u4
 # Allow flashing with usbasp
 AVRDUDE_MCU = $(MCU)
 
-# Processor frequency
-F_CPU = 16000000
+# CPU frequency divided by two since AVR is at 3.3V
+F_CPU = 8000000
+# External oscillator is 16Mhz
+F_USB = 16000000
 
 # Bootloader selection
 #   Teensy       halfkay
