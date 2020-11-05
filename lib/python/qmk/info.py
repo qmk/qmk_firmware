@@ -6,26 +6,41 @@ from pathlib import Path
 
 from milc import cli
 
-from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
+from qmk.keymap import list_keymaps
+from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
 
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
+    cur_dir = Path('keyboards')
+    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
+    if 'DEFAULT_FOLDER' in rules:
+        keyboard = rules['DEFAULT_FOLDER']
+        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk', rules)
+
     info_data = {
         'keyboard_name': str(keyboard),
         'keyboard_folder': str(keyboard),
+        'keymaps': {},
         'layouts': {},
         'maintainer': 'qmk',
     }
 
-    for layout_name, layout_json in _find_all_layouts(keyboard).items():
+    # Populate the list of JSON keymaps
+    for keymap in list_keymaps(keyboard, c=False, fullpath=True):
+        info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
+
+    # Populate layout data
+    for layout_name, layout_json in _find_all_layouts(keyboard, rules).items():
         if not layout_name.startswith('LAYOUT_kc'):
             info_data['layouts'][layout_name] = layout_json
 
+    # Merge in the data from info.json, config.h, and rules.mk
     info_data = merge_info_jsons(keyboard, info_data)
     info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
@@ -88,9 +103,9 @@ def _extract_rules_mk(info_data):
     rules = rules_mk(info_data['keyboard_folder'])
     mcu = rules.get('MCU')
 
-    if mcu in ARM_PROCESSORS:
+    if mcu in CHIBIOS_PROCESSORS:
         arm_processor_rules(info_data, rules)
-    elif mcu in AVR_PROCESSORS:
+    elif mcu in LUFA_PROCESSORS + VUSB_PROCESSORS:
         avr_processor_rules(info_data, rules)
     else:
         cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
@@ -99,21 +114,23 @@ def _extract_rules_mk(info_data):
     return info_data
 
 
-def _find_all_layouts(keyboard):
-    """Looks for layout macros associated with this keyboard.
-    """
-    layouts = {}
-    rules = rules_mk(keyboard)
-    keyboard_path = Path(rules.get('DEFAULT_FOLDER', keyboard))
-
-    # Pull in all layouts defined in the standard files
+def _search_keyboard_h(path):
     current_path = Path('keyboards/')
-    for directory in keyboard_path.parts:
+    layouts = {}
+    for directory in path.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
         if keyboard_h_path.exists():
             layouts.update(find_layouts(keyboard_h_path))
+
+    return layouts
+
+
+def _find_all_layouts(keyboard, rules):
+    """Looks for layout macros associated with this keyboard.
+    """
+    layouts = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
         # If we didn't find any layouts above we widen our search. This is error
@@ -152,8 +169,6 @@ def arm_processor_rules(info_data, rules):
     if info_data['bootloader'] == 'unknown':
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
-        elif info_data.get('manufacturer') == 'Input Club':
-            info_data['bootloader'] = 'kiibohd-dfu'
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'

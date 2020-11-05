@@ -264,5 +264,6 @@ void IS31FL3736_update_led_control_registers(uint8_t addr1, uint8_t addr2) {
             IS31FL3736_write_register(addr1, i, g_led_control_registers[0][i]);
             // IS31FL3736_write_register(addr2, i, g_led_control_registers[1][i]);
         }
+        g_led_control_registers_update_required = false;
     }
 }
