@@ -64,7 +64,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-    KC_TAB,  KC_TAB,  KC_UP,   KC_PGDN, KC_HOME, KC_DEL,
+    KC_TAB,  KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, KC_DEL,
     KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_INS,
     KC_LSFT, KC_ESC,  KC_LALT, KC_SPC,  FN,      KC_ENT
 ),
@@ -76,11 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_PHOTO_SHIFT] = LAYOUT(
     KC_ESC,  PS_BRSD, PS_BRSI, PS_UNDO, PS_REDO, KC_DEL,
     PS_CMRL, PS_BRSP, PS_BRSN, PS_CSHR, PS_CROP, PS_CLYR,
-    KC_LSFT, PS_LANG, BASE, _______, _______, _______
+    KC_LSFT, PS_LANG, BASE,    _______, _______, _______
 ),
     [_FN] = LAYOUT(
     KC_LANG2,KC_LANG1,XXXXXXX, RGB_TOG, KC_MNXT, KC_VOLU,
-    PHOTO,   BASE, KC_NO,   RGB_MOD, KC_MPRV, KC_VOLD,
+    PHOTO,   BASE,    KC_NO,   RGB_MOD, KC_MPRV, KC_VOLD,
     CG_NORM, CG_SWAP, KC_NO,   KC_NO,   _______, KC_MUTE
 )
 };
