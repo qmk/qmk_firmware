@@ -51,7 +51,7 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     if (state & (1UL << 2)) {
         R = 255;
     }
-    if (state & (1UL << 3)) {
+    if (IS_LAYER_STATE_ON(layer_state, 3)) {
         B = 255;
     }
     IS31FL3733_set_color( 6+64-1, R, G, B );
