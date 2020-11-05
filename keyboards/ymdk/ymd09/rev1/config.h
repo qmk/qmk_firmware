@@ -17,39 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x594D // "YM"
-#define PRODUCT_ID   0x4409 // "D" + 09
-#define DEVICE_VER   0x0000
-#define MANUFACTURER YMDK
-#define PRODUCT      YMD09V1
-#define DESCRIPTION  9-Key Macropad v1
-
-/* key matrix size */
+/* matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 3
-
-/* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { A0, A1, A2 }
 #define MATRIX_COL_PINS { B0, B1, B2 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
+#define DEVICE_VER      0x0000
 
 #define RGB_DI_PIN C0
 #ifdef RGB_DI_PIN
-    #define RGBLED_NUM 9
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 255
-    #define RGBLIGHT_SLEEP
-    /*== all animations enable ==*/
-    #define RGBLIGHT_ANIMATIONS
+ #define RGBLED_NUM 9
+ #define RGBLIGHT_HUE_STEP 8
+ #define RGBLIGHT_SAT_STEP 8
+ #define RGBLIGHT_VAL_STEP 8
+ #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+ #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+ /*== all animations enable ==*/
+ #define RGBLIGHT_ANIMATIONS
 #endif
 
-/* Debounce reduces chatter (unintended double-presses) */
-#define DEBOUNCE 5
+#define KEYBOARD_ymd09_rev1

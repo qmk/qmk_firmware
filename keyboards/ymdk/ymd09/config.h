@@ -20,36 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x594D // "YM"
-#define PRODUCT_ID 0x4409 // "D" + 09
-#define DEVICE_VER 0x0001
+#define VENDOR_ID    0x594D // "YM"
+#define PRODUCT_ID   0x4409 // "D" + 09
 #define MANUFACTURER YMDK
-#define PRODUCT YMD09
-#define DESCRIPTION 9-Key Macropad
+#define PRODUCT      YMD09
+#define DESCRIPTION  9-Key Macropad
 
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { F5, F4, F1 }
-#define MATRIX_COL_PINS { D6, D2, D1 }
 #define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
-#define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
- #define RGBLED_NUM 9
- #define RGBLIGHT_HUE_STEP 8
- #define RGBLIGHT_SAT_STEP 8
- #define RGBLIGHT_VAL_STEP 8
- #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
- #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
- /*== all animations enable ==*/
- #define RGBLIGHT_ANIMATIONS
-#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

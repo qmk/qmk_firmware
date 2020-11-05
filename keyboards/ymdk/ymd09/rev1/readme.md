@@ -1,16 +1,17 @@
-# YMD09v1
+# YMD09 rev1
 
 ![YMD09](https://ae01.alicdn.com/kf/HTB1x6BATYvpK1RjSZPiq6zmwXXai/9-Key-QMK-Hotswap-YMDK-RGB-Support-Macro-Function-Type-C-MX-Switches-Mechanical-Keyboard-Numpad.jpg)
 
 A 9-key macropad by [YMDK](https://www.aliexpress.com/store/429151) with per-key RGB lighting. [This is an earlier board](https://www.aliexpress.com/item/33008853928.html) than the [YMD09 that officially supports QMK](https://www.aliexpress.com/item/4000510880374.html).
 
 * Keyboard Maintainer: [James Badger](https://github.com/openfirmware)
-* Hardware Supported: YMD09 ("non-QMK version")
+* Hardware Supported:
+    - rev1 ("non-QMK version")
 * Hardware Availability: [AliExpress](https://www.aliexpress.com/item/33008853928.html)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk/ymd09v1:default:bootloadHID
+    make ymdk/ymd09/rev1:default:bootloadHID
 
 The keyboard can be placed in DFU mode by holding down the top-left key while plugging in the USB cable. Holding down all the buttons while plugging in the cable also works.
 

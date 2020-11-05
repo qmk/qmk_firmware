@@ -2,12 +2,8 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
-	K00, K01, K02, \
-	K10, K11, K12, \
-	K20, K21, K22  \
-) { \
-	{ K00,   K01,   K02 }, \
-	{ K10,   K11,   K12 }, \
-	{ K20,   K21,   K22 }  \
-}
+#if defined(KEYBOARD_ymd09_rev1)
+    #include "rev1.h"
+#elif defined(KEYBOARD_ymd09_rev2)
+    #include "rev2.h"
+#endif
