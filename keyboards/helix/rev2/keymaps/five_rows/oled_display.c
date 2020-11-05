@@ -23,7 +23,7 @@ void init_helix_oled(void) {
 
 #    if defined(OLED_DRIVER_ENABLE)
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_master) {
+    if (is_keyboard_master()) {
         return OLED_ROTATION_0;
     } else {
         return OLED_ROTATION_180;
@@ -157,7 +157,7 @@ void iota_gfx_task_user(void) {
 #        endif
 
     matrix_clear(&matrix);
-    if (is_master) {
+    if (is_keyboard_master()) {
         render_status(&matrix);
     } else {
         render_logo(&matrix);
@@ -173,7 +173,7 @@ void oled_task_user(void) {
     }
 #        endif
 
-    if(is_master){
+    if(is_keyboard_master()){
         render_status();
     }else{
         render_logo();
