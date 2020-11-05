@@ -28,6 +28,8 @@ enum layers {
 // Custom keycodes for layer keys
 // Dual function escape with left command
 #define KC_LGESC LGUI_T(KC_ESC)
+#define TSKMGR LCTL(LSFT(KC_ESC))
+
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -90,7 +92,7 @@ LCTL_T(KC_ESC),KC_A,  KC_S,  KC_D,  KC_F,  KC_G,                   KC_H,  KC_J, 
 
   [_ADJUST] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-     RGBRST, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR,
+     RGBRST, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TSKMGR,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     RGB_TOG,RGB_HUI,RGB_SAI,RGB_VAI,RGB_SPI,KC_NO,              KC_NO, QWERTY,COLEMAK, KC_NO, KC_NO, KC_NO,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
