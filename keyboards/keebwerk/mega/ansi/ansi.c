@@ -45,7 +45,7 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     R = 0;
     G = 0;
     B = 0;
-    if (state & (1UL << 1)) {
+    if (IS_LAYER_STATE_ON(layer_state, 1)) {
         G = 255;
     }
     if (state & (1UL << 2)) {
