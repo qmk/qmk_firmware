@@ -50,4 +50,4 @@
    { K0900, K0901, K0902, K0903, K0904, K0905, K0906, K0907, K0908, K0909, KC_NO }  \
 }
 
-
+#define LAYOUT_prototype LAYOUT
