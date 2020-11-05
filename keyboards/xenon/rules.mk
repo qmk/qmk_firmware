@@ -32,7 +32,7 @@ FAUXCLICKY_ENABLE = no     # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no        # Enable support for HD44780 based LCDs
 SPLIT_KEYBOARD = yes       # Split common
 
-OLED_DRIVER_ENABLE = no    # Enables the use of OLED displays
+OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
 ENCODER_ENABLE = yes       # ENables the use of one or more encoders
 
 LINK_TIME_OPTIMIZATION_ENABLE =yes

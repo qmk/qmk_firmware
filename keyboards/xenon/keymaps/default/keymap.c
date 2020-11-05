@@ -24,21 +24,24 @@ enum layers {
 
 #define M_LWR MO(_LOWER)
 #define M_RSE MO(_RAISE)
+#define L(kc) (LSFT(kc))
+#define R(kc) (RALT(kc))
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
       KC_TAB,    KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                         KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,
       KC_LCTL,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                         KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
       KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                         KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,RSFT_T(KC_ENT),
-                         KC_MUTE,KC_LGUI,KC_LALT, KC_SPC, KC_DEL,      KC_BSPC,KC_ENT, M_LWR,  M_RSE,  KC_MPLY,
-                                 KC_1 ,KC_2,  KC_3, KC_4,      KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
+                         KC_MUTE,KC_RALT,KC_LALT,KC_LGUI, KC_SPC,      KC_ENT, M_LWR,  KC_BSPC,M_RSE,  KC_MPLY,
+                                 KC_DEL ,KC_PGDN,KC_PGUP,KC_ESC,      KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
     ),
     [_LOWER] = LAYOUT(
       KC_BSLS,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
-      KC_LCTL,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_ENT),
-                         KC_LGUI,KC_DEL,KC_ENT,  KC_SPC, KC_ESC,       KC_ENT, KC_SPC,  KC_TRNS,  KC_TRNS, KC_RALT,
-                                 KC_DEL,KC_ENT,  KC_SPC, KC_ESC,       KC_ENT, KC_SPC,  KC_TAB,  KC_BSPC
+      KC_TRNS,   L(KC_1),L(KC_2),L(KC_3),L(KC_4),L(KC_5),                      L(KC_6), L(KC_7), L(KC_8), L(KC_9), L(KC_0), L(KC_MINS),
+      KC_TRNS,   KC_GRV, KC_TRNS,L(KC_EQL),L(KC_RBRC),L(KC_BSLS),              KC_BSLS, KC_RBRC, KC_EQL,  KC_VOLD, KC_VOLU, KC_TRNS,
+                         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,       KC_ENT, KC_SPC,  KC_TRNS,  KC_TRNS, KC_RALT,
+                                 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,       KC_ENT, KC_SPC,  KC_TAB,  KC_BSPC
     ),
     [_RAISE] = LAYOUT(
       KC_F1,     KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                        KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_F11,    KC_F12,
@@ -62,44 +65,58 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
 
-static void render_qmk_logo(void) {
-  static const char PROGMEM qmk_logo[] = {
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+    return OLED_ROTATION_270;
+}
 
-  oled_write_P(qmk_logo, false);
+static void render_named_logo(void) {
+  static const char PROGMEM raw_logo[] = {
+    12, 60,252,252,252,236,236,140, 12, 28,248,192,  0,192,248,252,252,252,108, 12, 12,140,236, 60, 12,  0,  0,  0,248,252,252,252,236,204,204,204,204,204,204,204,204,204,204,204,204,140, 12,252,248,  0,  0,  0,252,252,252,252,236,236,236,204, 12, 60,240,192,  0,  0,  0,252,252,252,236,236, 12, 12, 12,252,248,  0,  0,192,224, 96, 48, 24, 24,140,140,132,196,196,196,196,132,140,140, 12, 24, 48, 48, 96,192,128,  0,  0,252,252,252,236,236,236,236,140, 28,120,224,128,  0,  0,252,252,252,252,236,236, 12, 12, 12,252,
+    0,  0,  0,  3, 15,255,255,255,254,248,192,195,223,255,255, 63, 15,  1,224,248, 30,  7,  1,  0,  0,  0,  0,  0,255,255,255,255,255,255,  0,  0,  1, 63, 63, 51, 51, 51, 51, 51, 51, 51,243,  3,  1,  0,  0,  0,255,255,255,255,255,  1, 15,127,255,252,240,195, 15, 60,240,255,255,255,255,255,  0,  0,  0,255,255,254,255,255,255,127, 14,  2,195,247, 63, 31, 15, 15, 15, 15, 31, 63,255,255,254,252,248,224,  1,  3, 30,252,255,255,255,255,255,  3, 31,255,254,248,225,135, 30,120,255,255,255,255,255,255,  0,  0,  0,255, 
+    0,  0,128,240,252,255,255,255, 63,  7,  1,227,127,255,255,255,248,224,  1,  7, 62,240,192,  0,  0,  0,  0,  0,255,255,255,255,255,255,  1,  3,  7,255,255,207,207,207,207,207,206,204,207,192,128,  0,  0,  0,255,255,255,255,255,  0,  0,  0,255,255, 15,127,255,252,240,227,143,127,255,255,  0,  0,  0,255,255, 63,255,255,255,254,240,192,131,135, 12, 24, 48, 48, 48, 48, 24, 28, 15,159,255, 63, 31,  7,128,192,120, 31,255,255,255,255,255,  0,  0,  0,255,255, 31,127,255,252,241,199, 31,127,255,255,  0,  0,  0,255,
+    48, 62, 63, 63, 63, 63, 63, 56, 48, 60, 31,  3,  0,  3, 31, 63, 63, 63, 63, 60, 60, 56, 59, 63, 56,  0,  0,  0, 31, 63, 63, 63, 63, 63, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 56, 63, 31,  0,  0,  0, 63, 63, 63, 63, 63, 60, 56, 48, 63, 63,  0,  0,  0,  3, 31, 63, 63, 62, 61, 63, 60, 56, 48, 63, 31,  0,  0,  1,  7,  7, 15, 31, 31, 63, 63, 63, 62, 62, 62, 62, 63, 63, 63, 31, 31, 15, 14,  6,  3,  1,  0,  0, 63, 63, 63, 63, 63, 60, 56, 56, 63, 31,  0,  0,  1,  7, 31, 63, 63, 60, 63, 63, 60, 56, 48, 63
+  };
+  oled_write_raw_P(raw_logo, sizeof(raw_logo));
+}
+
+static void render_logo(void) {
+      static const char PROGMEM raw_logo[] = {
+        255,  1, 93, 85,117,  1, 49, 41, 37,125, 33,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,255,255,  0,  0,  7, 63,255,254,240,128,192,240,254,255, 63,  7,  0,  0,  0,  0,192,192,224,224,224,224,224,224,192,128,  0,  0,255,255,  0,  0,192,240,254,255, 63,  7,  7, 63,255,254,240,192,  0,  0,  0,127,255,255,239,206,206,206,206,207,207,207, 14,  0,255,255,128,129,129,129,129,128,156,128,128,148,140,133,149,129,128,128,128,144,148,133,145,137,129,157,129,129,129,128,128,128,255
+    };
+      oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
 static void render_status(void) {
-    // QMK Logo and version information
-    render_qmk_logo();
-    oled_write_P(PSTR("Xenon by Narinari\n\n"), false);
-
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined\n"), false);
-    }
+  render_logo();
+  //  oled_write_P(PSTR("Xenon by Narinari\n\n"), false);
+  //
+  //  // Host Keyboard Layer Status
+  //  oled_write_P(PSTR("Layer: "), false);
+  //  switch (get_highest_layer(layer_state)) {
+  //      case _QWERTY:
+  //          oled_write_P(PSTR("Default\n"), false);
+  //          break;
+  //      case _LOWER:
+  //          oled_write_P(PSTR("Lower\n"), false);
+  //          break;
+  //      case _RAISE:
+  //          oled_write_P(PSTR("Raise\n"), false);
+  //          break;
+  //      default:
+  //          oled_write_P(PSTR("Undefined\n"), false);
+  //  }
 }
 
 void oled_task_user(void) {
-    if (is_keyboard_master()) {
-        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    } else {
-        render_qmk_logo();
-    }
+  if (is_keyboard_master()) {
+    render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+  } else {
+    render_named_logo();
+  }
 }
 #endif
 
@@ -108,17 +125,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-            tap_code(KC_VOLU);
+	    tap_code(KC_VOLU);
         } else {
-            tap_code(KC_VOLD);
+	    tap_code(KC_VOLD);
         }
     }
     else if (index == 1) {
         // Page up/Page down
         if (clockwise) {
-            tap_code(KC_PGDN);
+	    tap_code(KC_PGDN);
         } else {
-            tap_code(KC_PGUP);
+	    tap_code(KC_PGUP);
         }
     }
 }
