@@ -102,7 +102,7 @@ include build_json.mk
 
 ifneq ($(EXTERNAL_USERSPACE), )
     # Look for out-of-tree keyboard-specific keymap
-    EXT_KM_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)
+    EXT_KM_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD)/$(KEYMAP)
     ifneq ("$(wildcard $(EXT_KM_PATH)/keymap.c)", "")
         -include $(EXT_KM_PATH)/rules.mk
         # If EXT_SRC exists, add all files to SRC with the EXT_KM_PATH prefix so make can find it

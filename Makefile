@@ -355,7 +355,7 @@ define PARSE_KEYBOARD
     # Look for out-of-tree keymaps
     # Both keyboard- and layout-specific keymaps are supported
     ifneq ("$(EXTERNAL_USERSPACE)", "")
-        EXT_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
+        EXT_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$$(CURRENT_KB)/*/.)))
 
         EXT_LAYOUT_KEYMAPS :=
         $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval EXT_LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/layouts/$$(LAYOUT)/*/.)))))
