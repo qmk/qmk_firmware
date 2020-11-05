@@ -1,11 +1,9 @@
 #include QMK_KEYBOARD_H
+#include "util.h"
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
-#endif
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
 #endif
 #ifdef CONSOLE_ENABLE
   #include <print.h>
@@ -282,28 +280,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 
-#ifdef AUDIO_ENABLE
-
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-#endif
-
 int current_default_layer;
 
-uint32_t default_layer_state_set_kb(uint32_t state) {
-    // 1<<_QWERTY  - 1 == 1 - 1 == _QWERTY (=0)
-    // 1<<_COLEMAK - 1 == 2 - 1 == _COLEMAK (=1)
-    current_default_layer = state - 1;
-    // 1<<_DVORAK  - 2 == 4 - 2 == _DVORAK (=2)
-    if ( current_default_layer == 3 ) current_default_layer -= 1;
-    // 1<<_EUCALYN - 5 == 8 - 5 == _EUCALYN (=3)
-    if ( current_default_layer == 7 ) current_default_layer -= 4;
-    // 1<<_KEYPAD  - 12 == 16 - 12 == _KEYPAD (=4)
-    if ( current_default_layer == 15 ) current_default_layer -= 11;
+uint32_t default_layer_state_set_user(uint32_t state) {
+    current_default_layer = biton32(state);
     return state;
 }
 
@@ -326,45 +306,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         update_base_layer(_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
         update_base_layer(_COLEMAK);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
         update_base_layer(_DVORAK);
       }
       return false;
       break;
     case EUCALYN:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
         update_base_layer(_EUCALYN);
       }
       return false;
       break;
     case KEYPAD:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
         update_base_layer(_KEYPAD);
       }
       return false;
@@ -412,34 +377,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-#ifdef AUDIO_ENABLE
-    startup_user();
-#endif
-    INIT_HELIX_OLED();
+    INIT_HELIX_OLED(); /* define in layer_number.h */
 }
-
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-}
-
-void shutdown_user()
-{
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
