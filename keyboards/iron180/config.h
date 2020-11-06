@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5352 //SR for Smith and Rune
-#define PRODUCT_ID      0x0180
+#define VENDOR_ID       0xFEEE //SR for Smith and Rune
+#define PRODUCT_ID      0x1180
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SmithRune
 #define PRODUCT         IRON180
@@ -33,13 +33,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B9 , B8 , A15, B0 , A7 , A5 }
 #define DIODE_DIRECTION COL2ROW
 
-//#define BACKLIGHT_PIN           A6
-//#define BACKLIGHT_PWM_DRIVER    PWMD3
-//#define BACKLIGHT_PWM_CHANNEL   1
-//#define BACKLIGHT_PAL_MODE      1
-//#define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_BREATHING
-//#define BREATHING_PERIOD 6
+#define BACKLIGHT_PIN           A6
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
+#define BACKLIGHT_LEVELS 6
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
