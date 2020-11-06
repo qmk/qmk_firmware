@@ -1,4 +1,4 @@
-/* Copyright 2020 MechMerlin
+/* Copyright 2020 Jonathan Rascher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,19 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "hotswap.h"
+#pragma once
 
-void keyboard_pre_init_kb(void) {
-    setPinOutput(C7);
-    setPinOutput(B5);
+#if defined(KEYBOARD_crkbd_rev1_common) || defined(KEYBOARD_crkbd_rev1_legacy)
+#    define EE_HANDS
 
-    keyboard_pre_init_user();
-}
+#    if defined(RGBLIGHT_ENABLE)
+/* Configure RGB for underglow only (first six LEDs on each side). */
+#        undef RGBLED_SPLIT
+#        define RGBLED_SPLIT \
+            { 6, 6 }
+#    endif
 
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        writePin(C7, led_state.caps_lock);
-        writePin(B5, led_state.scroll_lock);
-    }
-    return true;
-}
+#    if defined(RGB_MATRIX_ENABLE)
+/* Limit max RGB LED current to avoid tripping controller fuse. */
+#        undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+#    endif
+#endif

@@ -1,26 +1,32 @@
+/* Copyright 2020 Jonathan Rascher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /* Wait between tap_code register and unregister to fix flaky media keys. */
 #undef TAP_CODE_DELAY
 
 #define TAP_CODE_DELAY 20
 
-/*
- * Force the default tapping term since some keyboards make it way too short
- * (*cough*Lily58*cough*).
- */
-#undef TAPPING_TERM
-
-#define TAPPING_TERM 200
-
-/*
- * Treat mod-tap keys as holds even if the mod-tap key and the key being
- * modified are both relased within TAPPING_TERM. This assumes the mod-tap key
+/* Treat mod-tap keys as holds even if the mod-tap key and the key being
+ * modified are both released within TAPPING_TERM. This assumes the mod-tap key
  * isn't usually pressed in quick succession with other tapped keys, which is
  * good when the tap keycode is something like KC_ESC rather than a letter.
  */
 #define PERMISSIVE_HOLD
 
-/*
- * Turn off key repeat support of the tap keycode for tap-hold keys, enabling
+/* Turn off key repeat support of the tap keycode for tap-hold keys, enabling
  * holds to work correctly in quick succession after taps.
  */
 #define TAPPING_FORCE_HOLD
@@ -57,6 +63,9 @@
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 17
 #    define RGBLIGHT_VAL_STEP 17
+
+/* Turn on additional RGB animations. */
+#    define RGBLIGHT_ANIMATIONS
 #endif
 
 #if defined(BACKLIGHT_ENABLE)
