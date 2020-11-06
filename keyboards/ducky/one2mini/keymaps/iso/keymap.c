@@ -16,11 +16,13 @@
 #include QMK_KEYBOARD_H
 
 // LAYERS
-#define _QWERTY 0       // Standard QWERTY layer
+enum Layer {
+    _QWERTY = 0,        // Standard QWERTY layer
+    _FUNCTION,          // Function key layer
+    _COLOUR             // RGB key layer
+};
 #define _QW _QWERTY
-#define _FUNCTION 1     // Function key layer
 #define _FN _FUNCTION
-#define _COLOUR 2       // RGB key layer
 #define _CLR _COLOUR
 
 // Defines the keycodes used by our macros in process_record_user

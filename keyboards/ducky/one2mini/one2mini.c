@@ -24,8 +24,7 @@
  */
 void bootmagic_lite(void) {
     matrix_scan();
-    wait_ms(DEBOUNCING_DELAY);
-    wait_ms(DEBOUNCING_DELAY);
+    wait_ms(DEBOUNCE*2);
     matrix_scan();
 
     uint8_t valMatrixRow = 0U;

@@ -105,3 +105,6 @@ HD44780_ENABLE = no                    # Enable support for HD44780 based LCDs (
 RGB_MATRIX_ENABLE = MBI5042            # Use Macroblock PWM LED driver
 
 CUSTOM_MATRIX = yes                    # Custom keyscan matrix (don't force inputs)
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
