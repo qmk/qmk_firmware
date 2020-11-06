@@ -1,6 +1,4 @@
-/*
- * pvazteixeira's ergodox layout
- */
+//pvazteixeira's ergodox (classic) layout
 
 #include QMK_KEYBOARD_H
 #include "version.h"
@@ -52,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,
   LCTL_T(KC_TAB), LGUI_T(KC_ESC),  MO(SYMB),
 
-  // hand right
+  // right hand
   KC_NO,        KC_6,    KC_7,    KC_8,    KC_9,     KC_0,     KC_EQUAL,
   KC_LBRC,      KC_Y,    KC_U,    KC_I,    KC_O,     KC_P,     KC_BSLS,
                 KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,
