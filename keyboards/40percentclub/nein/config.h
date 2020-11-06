@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0A0C
+#define VENDOR_ID       0x3430 // "40"
+#define PRODUCT_ID      0x9999
 #define DEVICE_VER      0x9999
 #define MANUFACTURER    di0ib
 #define PRODUCT         The nein Keyboard
