@@ -24,7 +24,7 @@ BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = spi
 
-LAYOUTS = 60_ansi
+# LAYOUTS = 60_ansi
 
 DEFAULT_FOLDER = handwired/bt66tech/bt66tech60
 
