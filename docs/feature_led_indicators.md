@@ -31,7 +31,7 @@ To configure the indicators, `#define` these in your `config.h`:
 |`LED_SCROLL_LOCK_PIN`|*Not defined*|The pin that controls the `Scroll Lock` LED|
 |`LED_COMPOSE_PIN`    |*Not defined*|The pin that controls the `Compose` LED    |
 |`LED_KANA_PIN`       |*Not defined*|The pin that controls the `Kana` LED       |
-|`LED_PIN_ON_STATE`   |`0`          |The state of the indicator pins when the LED is "on" - `1` for high, `0` for low|
+|`LED_PIN_ON_STATE`   |`1`          |The state of the indicator pins when the LED is "on" - `1` for high, `0` for low|
 
 Unless you are designing your own keyboard, you generally should not need to change the above config options.
 

@@ -24,7 +24,7 @@ extern backlight_config_t backlight_config;
 #endif
 
 #ifndef LED_PIN_ON_STATE
-#    define LED_PIN_ON_STATE 0
+#    define LED_PIN_ON_STATE 1
 #endif
 
 #if defined(BACKLIGHT_CAPS_LOCK)
