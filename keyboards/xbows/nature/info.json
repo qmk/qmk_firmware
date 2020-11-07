@@ -97,7 +97,7 @@
                 {"label":"Ctrl", "x":14, "y":5.5},
                 {"label":"Left", "x":15, "y":5.5},
                 {"label":"Down", "x":16, "y":5.5},
-                {"label":"Right", "x":17, "y":5.5},
+                {"label":"Right", "x":17, "y":5.5}
 
             ]
         }
