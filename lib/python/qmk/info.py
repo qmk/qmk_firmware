@@ -28,6 +28,8 @@ def info_json(keyboard):
         'keyboard_folder': str(keyboard),
         'keymaps': {},
         'layouts': {},
+        'parse_errors': [],
+        'parse_warnings': [],
         'maintainer': 'qmk',
     }
 
@@ -36,7 +38,7 @@ def info_json(keyboard):
         info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
-    for layout_name, layout_json in _find_all_layouts(keyboard, rules).items():
+    for layout_name, layout_json in _find_all_layouts(info_data, keyboard, rules).items():
         if not layout_name.startswith('LAYOUT_kc'):
             info_data['layouts'][layout_name] = layout_json
 
@@ -104,14 +106,16 @@ def _extract_rules_mk(info_data):
     mcu = rules.get('MCU')
 
     if mcu in CHIBIOS_PROCESSORS:
-        arm_processor_rules(info_data, rules)
-    elif mcu in LUFA_PROCESSORS + VUSB_PROCESSORS:
-        avr_processor_rules(info_data, rules)
-    else:
-        cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
-        unknown_processor_rules(info_data, rules)
+        return arm_processor_rules(info_data, rules)
 
-    return info_data
+    elif mcu in LUFA_PROCESSORS + VUSB_PROCESSORS:
+        return avr_processor_rules(info_data, rules)
+
+    msg = "Unknown MCU: " + str(mcu)
+
+    _log_warning(info_data, msg)
+
+    return unknown_processor_rules(info_data, rules)
 
 
 def _search_keyboard_h(path):
@@ -127,7 +131,7 @@ def _search_keyboard_h(path):
     return layouts
 
 
-def _find_all_layouts(keyboard, rules):
+def _find_all_layouts(info_data, keyboard, rules):
     """Looks for layout macros associated with this keyboard.
     """
     layouts = _search_keyboard_h(Path(keyboard))
@@ -135,7 +139,7 @@ def _find_all_layouts(keyboard, rules):
     if not layouts:
         # If we didn't find any layouts above we widen our search. This is error
         # prone which is why we want to encourage people to follow the standard above.
-        cli.log.warning('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
+        _log_warning(info_data, 'Falling back to searching for KEYMAP/LAYOUT macros.')
         for file in glob('keyboards/%s/*.h' % keyboard):
             if file.endswith('.h'):
                 these_layouts = find_layouts(file)
@@ -153,9 +157,23 @@ def _find_all_layouts(keyboard, rules):
                 supported_layouts.remove(layout_name)
 
         if supported_layouts:
-            cli.log.error('%s: Missing LAYOUT() macro for %s' % (keyboard, ', '.join(supported_layouts)))
+            _log_error(info_data, 'Missing LAYOUT() macro for %s' % (', '.join(supported_layouts)))
 
     return layouts
+
+
+def _log_error(info_data, message):
+    """Send an error message to both JSON and the log.
+    """
+    info_data['parse_errors'].append(message)
+    cli.log.error('%s: %s', info_data.get('keyboard_folder', 'Unknown Keyboard!'), message)
+
+
+def _log_warning(info_data, message):
+    """Send a warning message to both JSON and the log.
+    """
+    info_data['parse_warnings'].append(message)
+    cli.log.warning('%s: %s', info_data.get('keyboard_folder', 'Unknown Keyboard!'), message)
 
 
 def arm_processor_rules(info_data, rules):
@@ -216,7 +234,7 @@ def merge_info_jsons(keyboard, info_data):
             new_info_data = json.load(info_fd)
 
         if not isinstance(new_info_data, dict):
-            cli.log.error("Invalid file %s, root object should be a dictionary.", str(info_file))
+            _log_error(info_data, "Invalid file %s, root object should be a dictionary.", str(info_file))
             continue
 
         # Copy whitelisted keys into `info_data`
@@ -230,7 +248,8 @@ def merge_info_jsons(keyboard, info_data):
                 # Only pull in layouts we have a macro for
                 if layout_name in info_data['layouts']:
                     if info_data['layouts'][layout_name]['key_count'] != len(json_layout['layout']):
-                        cli.log.error('%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s', info_data['keyboard_folder'], layout_name, len(json_layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout']))
+                        msg = '%s: Number of elements in info.json does not match! info.json:%s != %s:%s'
+                        _log_error(info_data, msg % (layout_name, len(json_layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
                     else:
                         for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
                             key.update(json_layout['layout'][i])
