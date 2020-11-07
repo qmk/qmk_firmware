@@ -5,9 +5,12 @@ on:
     branches:
     - master
 
+
 jobs:
   develop_rebase:
     runs-on: ubuntu-latest
+
+    if: github.repository == 'qmk/qmk_firmware'
 
     steps:
     - uses: actions/checkout@v2
