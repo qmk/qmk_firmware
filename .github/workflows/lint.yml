@@ -45,7 +45,7 @@ jobs:
           if [[ $KEYMAP_ONLY -gt 0 ]]; then
             echo "linting ${KB}"
 
-            qmk lint --keyboard ${KB}
+            qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB}
           fi
         done
         exit $exit_code
