@@ -46,6 +46,7 @@ jobs:
             echo "linting ${KB}"
 
             qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB}
+            exit_code=$(($exit_code + $?))
           fi
         done
         exit $exit_code
