@@ -524,7 +524,7 @@ enum internal_special_keycodes {
 
 enum mouse_keys {
     /* Mouse Buttons */
-    KC_MS_UP = 0xEC,
+    KC_MS_UP = 0xED,
     KC_MS_DOWN,
     KC_MS_LEFT,
     KC_MS_RIGHT,  // 0xF0
