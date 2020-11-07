@@ -36,5 +36,3 @@
 	{ K60,   K61,   K62,   KC_NO, K64,   K65 }, \
 	{ K70,   KC_NO, K72,   K73,   K74,   KC_NO }  \
 }
-
-#endif
