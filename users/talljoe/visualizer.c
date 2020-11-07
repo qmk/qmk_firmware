@@ -14,27 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "talljoe.h"
 
-#include "quantum/color.h"
-
-typedef struct {
-  HSV base03;
-  HSV base02;
-  HSV base01;
-  HSV base00;
-  HSV base0;
-  HSV base1;
-  HSV base2;
-  HSV base3;
-  HSV yellow;
-  HSV orange;
-  HSV red;
-  HSV magenta;
-  HSV violet;
-  HSV blue;
-  HSV cyan;
-  HSV green;
-} solarized_t;
-
-extern solarized_t solarized;
+static void get_visualizer_layer_and_color(visualizer_state_t* state) {
+  state->status_text = layer_names[biton32(state->status.layer)];
+}

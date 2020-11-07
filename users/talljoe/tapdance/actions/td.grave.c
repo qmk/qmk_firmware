@@ -14,27 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+// Send `. ~. ```
+void tap_dance_grave_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch(state->count) {
+    case 1:
+      SEND_STRING("`");
+      break;
+    case 2:
+      SEND_STRING("~");
+      break;
+  }
+}
 
-#include "quantum/color.h"
+void tap_dance_grave_each(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 3) {
+    SEND_STRING("```");
+  } else if (state->count > 3) {
+    SEND_STRING("`");
+  }
+}
 
-typedef struct {
-  HSV base03;
-  HSV base02;
-  HSV base01;
-  HSV base00;
-  HSV base0;
-  HSV base1;
-  HSV base2;
-  HSV base3;
-  HSV yellow;
-  HSV orange;
-  HSV red;
-  HSV magenta;
-  HSV violet;
-  HSV blue;
-  HSV cyan;
-  HSV green;
-} solarized_t;
-
-extern solarized_t solarized;

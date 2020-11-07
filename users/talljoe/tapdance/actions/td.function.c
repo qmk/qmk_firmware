@@ -14,27 +14,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+static struct {
+  int state;
+} function_state = {0};
 
-#include "quantum/color.h"
+// Send semi-colon + enter on two taps
+void tap_dance_function_finished(qk_tap_dance_state_t *state, void *user_data) {
+  function_state.state = hold_cur_dance(state);
+  switch (function_state.state) {
+    case SINGLE_HOLD: layer_on(_ADJUST); break;
+  }
+}
 
-typedef struct {
-  HSV base03;
-  HSV base02;
-  HSV base01;
-  HSV base00;
-  HSV base0;
-  HSV base1;
-  HSV base2;
-  HSV base3;
-  HSV yellow;
-  HSV orange;
-  HSV red;
-  HSV magenta;
-  HSV violet;
-  HSV blue;
-  HSV cyan;
-  HSV green;
-} solarized_t;
-
-extern solarized_t solarized;
+void tap_dance_function_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (function_state.state) {
+    case SPECIAL: reset_keyboard(); break;
+    case SINGLE_HOLD: layer_off(_ADJUST); break;
+  }
+  function_state.state = 0;
+}

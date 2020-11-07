@@ -13,28 +13,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "talljoe.h"
 
-#pragma once
+extern keymap_config_t keymap_config;
 
-#include "quantum/color.h"
+ostype_t get_os() {
+  if(keymap_config.swap_lalt_lgui) {
+    return MACOSX;
+  }
 
-typedef struct {
-  HSV base03;
-  HSV base02;
-  HSV base01;
-  HSV base00;
-  HSV base0;
-  HSV base1;
-  HSV base2;
-  HSV base3;
-  HSV yellow;
-  HSV orange;
-  HSV red;
-  HSV magenta;
-  HSV violet;
-  HSV blue;
-  HSV cyan;
-  HSV green;
-} solarized_t;
+  return WINDOWS;
+}
 
-extern solarized_t solarized;
+#define IS_OSX() (get_os() == MACOSX)
+
+#define MOD_SEND(KEY) (IS_OSX() ? SEND_STRING(SS_LCMD(KEY)) : SEND_STRING(SS_LCTRL(KEY)))
+
+void macro_copy() { MOD_SEND("c"); }
+void macro_paste() { MOD_SEND("v"); }
+void macro_lock() {
+  if (IS_OSX()) {
+    SEND_STRING(SS_LCTRL(SS_LCMD("q")));
+  } else {
+    SEND_STRING(SS_LGUI("l"));
+  }
+}

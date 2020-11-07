@@ -14,27 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7,
+  SPECIAL = 8
+};
 
-#include "quantum/color.h"
-
-typedef struct {
-  HSV base03;
-  HSV base02;
-  HSV base01;
-  HSV base00;
-  HSV base0;
-  HSV base1;
-  HSV base2;
-  HSV base3;
-  HSV yellow;
-  HSV orange;
-  HSV red;
-  HSV magenta;
-  HSV violet;
-  HSV blue;
-  HSV cyan;
-  HSV green;
-} solarized_t;
-
-extern solarized_t solarized;
+int cur_dance (qk_tap_dance_state_t *state);
+int hold_cur_dance (qk_tap_dance_state_t *state);

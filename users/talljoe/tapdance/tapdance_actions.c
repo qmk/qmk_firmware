@@ -14,27 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "../talljoe.h"
+#include "actions/td.grave.c"
+#include "actions/td.lock.c"
+#include "actions/td.semicolon.c"
+#include "actions/td.function.c"
 
-#include "quantum/color.h"
-
-typedef struct {
-  HSV base03;
-  HSV base02;
-  HSV base01;
-  HSV base00;
-  HSV base0;
-  HSV base1;
-  HSV base2;
-  HSV base3;
-  HSV yellow;
-  HSV orange;
-  HSV red;
-  HSV magenta;
-  HSV violet;
-  HSV blue;
-  HSV cyan;
-  HSV green;
-} solarized_t;
-
-extern solarized_t solarized;
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_SEMICOLON] = ACTION_TAP_DANCE_FN_ADVANCED(tap_dance_semicolon_each, tap_dance_semicolon_finished, tap_dance_semicolon_reset),
+  [TD_LOCK]      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_lock_finished, tap_dance_lock_reset),
+  [TD_GRAVE]     = ACTION_TAP_DANCE_FN_ADVANCED(tap_dance_grave_each, tap_dance_grave_finished, NULL),
+  [TD_FUNCTION]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_function_finished, tap_dance_function_reset),
+};
