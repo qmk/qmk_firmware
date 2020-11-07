@@ -128,7 +128,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## 単一のキーでの Esc と<code>&#96;</code>
 
-[Grave Escape](feature_grave_esc.md) 機能を見てください。
+[Grave Escape](ja/feature_grave_esc.md) 機能を見てください。
 
 ## Mac OSX での Eject
 `KC_EJCT` キーコードは OSX で動作します。https://github.com/tmk/tmk_keyboard/issues/250
