@@ -18,7 +18,7 @@
 
 #include "config_common.h"
 
-#define STM32_HSECLK   84000000U
+#define STM32_HSECLK   25000000U
 
 /* key matrix size */
 #define MATRIX_ROWS 12 // Rows are doubled-up
