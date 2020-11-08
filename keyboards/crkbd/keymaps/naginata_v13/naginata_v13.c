@@ -463,7 +463,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_SHFT|B_T        , .kana = SS_LSFT(SS_TAP(NGLT))},
   {.key = B_SHFT|B_Y        , .kana = SS_LSFT(SS_TAP(NGRT))},
 
-#ifdef NAGINATA_EDIT_WIN
+#if defined(NAGINATA_EDIT_WIN) || defined(NAGINATA_EDIT_LINUX)
   // 編集モード1
   {.key = B_J|B_K|B_Q       , .kana = SS_LCTL(SS_TAP(X_END))}, // ^{End}
   // {.key = B_J|B_K|B_W       , .uc = "｜"}, // ｜{改行}
@@ -616,7 +616,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 };
 
 const PROGMEM naginata_keymap_unicode ngmapu[] = {
-#ifdef NAGINATA_EDIT_WIN
+#if defined(NAGINATA_EDIT_WIN) || defined(NAGINATA_EDIT_LINUX)
   // 編集モード1
   {.key = B_J|B_K|B_W       , .uc = "｜"}, // ｜{改行}
   {.key = B_J|B_K|B_T       , .uc = "・"}, // ・
@@ -767,6 +767,18 @@ void mac_send_string(const char *str) {
   send_string(str);
   if (!is_live_conv) tap_code(KC_SPC);
   tap_code(KC_ENT);
+}
+
+void ng_send_unicode_string(const char *str) {
+  #if defined(NAGINATA_EDIT_LINUX)
+  tap_code(KC_MHEN); // Win
+  send_unicode_string(str);
+  tap_code(KC_HENK); // Win
+  #endif
+  #if defined(NAGINATA_EDIT_WIN) || defined(NAGINATA_EDIT_MAC)
+  send_unicode_string(str);
+  tap_code(KC_ENT);
+  #endif
 }
 
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
@@ -960,9 +972,9 @@ bool naginata_lookup(int nt, bool shifted) {
       compress_buffer(nt);
       return true;
       break;
-#ifdef NAGINATA_EDIT_WIN
+#if defined(NAGINATA_EDIT_WIN) || defined(NAGINATA_EDIT_LINUX)
     case B_M|B_COMM|B_Q: //　　　×　　　×　　　×{改行 2}
-      send_unicode_string("　　　×　　　×　　　×");
+      ng_send_unicode_string("　　　×　　　×　　　×");
       tap_code(KC_ENT);
       compress_buffer(nt);
       return true;
@@ -970,27 +982,27 @@ bool naginata_lookup(int nt, bool shifted) {
     case B_M|B_COMM|B_W: // {改行}{End}《》{改行}{↑}
       tap_code(KC_ENT);
       tap_code(KC_END);
-      send_unicode_string("《》");
+      ng_send_unicode_string("《》");
       tap_code(NGKUP);
       compress_buffer(nt);
       return true;
       break;
     case B_M|B_COMM|B_F: // 」{改行 2}「{改行}
-      send_unicode_string("」");
+      ng_send_unicode_string("」");
       tap_code(KC_ENT);
-      send_unicode_string("「");
+      ng_send_unicode_string("「");
       compress_buffer(nt);
       return true;
       break;
     case B_M|B_COMM|B_V: // 」{改行 2}{Space}
-      send_unicode_string("」");
+      ng_send_unicode_string("」");
       tap_code(KC_ENT);
       tap_code(KC_SPC);
       compress_buffer(nt);
       return true;
       break;
     case B_M|B_COMM|B_B: // 」{改行 2}
-      send_unicode_string("」");
+      ng_send_unicode_string("」");
       tap_code(KC_ENT);
       compress_buffer(nt);
       return true;
@@ -1057,7 +1069,7 @@ bool naginata_lookup(int nt, bool shifted) {
       for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
         memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
         if (keycomb_buf == bngmapu.key) {
-          send_unicode_string(bngmapu.uc);
+          ng_send_unicode_string(bngmapu.uc);
           // send_unicode_hex_string(bngmapu.kana);
           // tap_code(KC_ENT);
           compress_buffer(nt);
@@ -1068,7 +1080,12 @@ bool naginata_lookup(int nt, bool shifted) {
       for (int i = 0; i < sizeof ngmapi / sizeof bngmapi; i++) {
         memcpy_P(&bngmapi, &ngmapi[i], sizeof(bngmapi));
         if (keycomb_buf == bngmapi.key) {
+          #if defined(NAGINATA_EDIT_WIN) || defined(NAGINATA_EDIT_LINUX)
+          send_string(bngmapi.kana);
+          #endif
+          #ifdef NAGINATA_EDIT_MAC
           mac_send_string(bngmapi.kana);
+          #endif
           compress_buffer(nt);
           return true;
         }
