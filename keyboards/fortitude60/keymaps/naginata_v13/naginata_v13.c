@@ -777,6 +777,7 @@ void ng_send_unicode_string(const char *str) {
   #endif
   #if defined(NAGINATA_EDIT_WIN) || defined(NAGINATA_EDIT_MAC)
   send_unicode_string(str);
+  tap_code(KC_ENT);
   #endif
 }
 
