@@ -1,8 +1,6 @@
 # titan60
 
-![titan60](imgur.com image replace me!)
-
-*A short description of the keyboard/project*
+60% custom keyboard originally meant for the Saturn 60
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Titan 60 PCB
