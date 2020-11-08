@@ -36,7 +36,7 @@ LED_DRIVER = is31fl3731c
 LED_WIDTH = 16
 LED_HEIGHT = 5
 
-LAYOUTS = 65_ansi 65_ansi_blocker 65_ansi_blocker_split_bs 65_iso 65_iso_blocker
+LAYOUTS = 65_ansi 65_ansi_blocker 65_ansi_blocker_split_bs 65_iso 65_iso_blocker 65_iso_blocker_split_bs
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
