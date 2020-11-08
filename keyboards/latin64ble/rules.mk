@@ -37,4 +37,3 @@ AUDIO_ENABLE = no           # Audio output on port C6
 LAYOUTS = 666
 RGBLIGHT_ENABLE = yes
 BLUETOOTH = AdafruitBLE
-VIA_ENABLE = yes
