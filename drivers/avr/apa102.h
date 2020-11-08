@@ -22,24 +22,25 @@
 
 #pragma once
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-
 #include "color.h"
+
+#ifndef APA102_DEFAULT_BRIGHTNESS
+#    define APA102_DEFAULT_BRIGHTNESS 31
+#endif
+
+#define APA102_MAX_BRIGHTNESS 31
+
+extern uint8_t apa102_let_brightness;
 
 /* User Interface
  *
  * Input:
- *         ledarray:           An array of GRB data describing the LED colors
- *         number_of_leds:     The number of LEDs to write
- *         pinmask (optional): Bitmask describing the output bin. e.g. _BV(PB0)
+ *         start_led:          An array of GRB data describing the LED colors
+ *         num_leds:           The number of LEDs to write
  *
  * The functions will perform the following actions:
  *         - Set the data-out pin as output
  *         - Send out the LED data
- *         - Wait 50�s to reset the LEDs
  */
-
-void apa102_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
-void apa102_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pinmask);
-void apa102_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
+void apa102_setleds(LED_TYPE *start_led, uint16_t num_leds);
+void apa102_set_brightness(uint8_t brightness);

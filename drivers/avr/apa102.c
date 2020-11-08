@@ -21,76 +21,106 @@
  */
 
 #include "apa102.h"
-#include <avr/interrupt.h>
-#include <avr/io.h>
-#include <util/delay.h>
-#include "debug.h"
+#include "quantum.h"
 
-// Setleds for standard RGB
-void inline apa102_setleds(LED_TYPE *ledarray, uint16_t leds) { apa102_setleds_pin(ledarray, leds, _BV(RGB_DI_PIN & 0xF), _BV(RGB_CLK_PIN & 0xF)); }
+uint8_t apa102_led_brightness = APA102_DEFAULT_BRIGHTNESS;
 
-void static inline apa102_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask_DI, uint8_t pinmask_CLK) {
+void static apa102_start_frame(void);
+void static apa102_end_frame(uint16_t num_leds);
+
+void static apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
+void static apa102_send_byte(uint8_t byte);
+
+void apa102_setleds(LED_TYPE *start_led, uint16_t num_leds) {
+    LED_TYPE *end = start_led + num_leds;
+
+    apa102_start_frame();
+    for (LED_TYPE *led = start_led; led < end; led++) {
+        apa102_send_frame(led->r, led->g, led->b, apa102_led_brightness);
+    }
+    apa102_end_frame(num_leds);
+}
+
+void static apa102_init(void) {
     setPinOutput(RGB_DI_PIN);
     setPinOutput(RGB_CLK_PIN);
 
-    apa102_send_array((uint8_t *)ledarray, leds)
+    writePinLow(RGB_DI_PIN);
+    writePinLow(RGB_CLK_PIN);
 }
 
-void apa102_send_array(uint8_t *data, uint16_t leds) {  // Data is struct of 3 bytes. RGB - leds is number of leds in data
-    apa102_start_frame();
-    while (leds--) {
-        apa102_send_frame(0xFF000000 | (data->b << 16) | (data->g << 8) | data->r);
-        data++;
-    }
-    apa102_end_frame(leds);
-}
-
-void apa102_send_frame(uint32_t frame) {
-    for (uint32_t i = 0xFF; i > 0;) {
-        apa102_send_byte(frame & i);
-        i = i << 8;
+void apa102_set_brightness(uint8_t brightness) {
+    if (brightness > APA102_MAX_BRIGHTNESS) {
+        apa102_led_brightness = APA102_MAX_BRIGHTNESS;
+    } else if (brightness < 0) {
+        apa102_led_brightness = 0;
+    } else {
+        apa102_led_brightness = brightness;
     }
 }
 
-void apa102_start_frame() { apa102_send_frame(0); }
+void static apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness) {
+    apa102_send_byte(0b11100000 | brightness);
+    apa102_send_byte(blue);
+    apa102_send_byte(green);
+    apa102_send_byte(red);
+}
 
-void apa102_end_frame(uint16_t leds) {
+void static apa102_start_frame(void) {
+    apa102_init();
+    apa102_send_byte(0);
+    apa102_send_byte(0);
+    apa102_send_byte(0);
+    apa102_send_byte(0);
+}
+
+void static apa102_end_frame(uint16_t num_leds) {
     // This function has been taken from: https://github.com/pololu/apa102-arduino/blob/master/APA102.h
     // and adapted. The code is MIT licensed. I think thats compatible?
-
-    // We need to send some more bytes to ensure that all the LEDs in the
-    // chain see their new color and start displaying it.
     //
     // The data stream seen by the last LED in the chain will be delayed by
     // (count - 1) clock edges, because each LED before it inverts the clock
     // line and delays the data by one clock edge.  Therefore, to make sure
     // the last LED actually receives the data we wrote, the number of extra
     // edges we send at the end of the frame must be at least (count - 1).
-    // For the APA102C, that is sufficient.
     //
-    // The SK9822 only updates after it sees 32 zero bits followed by one more
-    // rising edge.  To avoid having the update time depend on the color of
-    // the last LED, we send a dummy 0xFF byte.  (Unfortunately, this means
-    // that partial updates of the beginning of an LED strip are not possible;
-    // the LED after the last one you are trying to update will be black.)
-    // After that, to ensure that the last LED in the chain sees 32 zero bits
-    // and a rising edge, we need to send at least 65 + (count - 1) edges.  It
-    // is sufficent and simpler to just send (5 + count/16) bytes of zeros.
+    // Assuming we only want to send these edges in groups of size K, the
+    // C/C++ expression for the minimum number of groups to send is:
     //
-    // We are ignoring the specification for the end frame in the APA102/SK9822
-    // datasheets because it does not actually ensure that all the LEDs will
-    // start displaying their new colors right away.
-
-    apa102_send_byte(0xFF);
-    for (uint16_t i = 0; i < 5 + leds / 16; i++) {
+    //   ((count - 1) + (K - 1)) / K
+    //
+    // The C/C++ expression above is just (count - 1) divided by K,
+    // rounded up to the nearest whole number if there is a remainder.
+    //
+    // We set K to 16 and use the formula above as the number of frame-end
+    // bytes to transfer.  Each byte has 16 clock edges.
+    //
+    // We are ignoring the specification for the end frame in the APA102
+    // datasheet, which says to send 0xFF four times, because it does not work
+    // when you have 66 LEDs or more, and also it results in unwanted white
+    // pixels if you try to update fewer LEDs than are on your LED strip.
+    uint16_t iterations = (num_leds + 14) / 16;
+    for (uint16_t i = 0; i < iterations; i++) {
         apa102_send_byte(0);
     }
+
+    apa102_init();
 }
 
-void apa102_send_byte(uint8_t byte) {
-    uint8_t i;
-    for (i = 0; i < 8; i++) {
-        writePin(RGB_DI_PIN, !!(byte & (1 << (7 - i))));
-        writePinHigh(RGB_CLK_PIN);
-    }
+#define APA102_SEND_BIT(byte, bit)               \
+    do {                                         \
+        writePin(RGB_DI_PIN, (byte >> bit) & 1); \
+        writePinHigh(RGB_CLK_PIN);               \
+        writePinLow(RGB_CLK_PIN);                \
+    } while (0)
+
+void static apa102_send_byte(uint8_t byte) {
+    APA102_SEND_BIT(byte, 7);
+    APA102_SEND_BIT(byte, 6);
+    APA102_SEND_BIT(byte, 5);
+    APA102_SEND_BIT(byte, 4);
+    APA102_SEND_BIT(byte, 3);
+    APA102_SEND_BIT(byte, 2);
+    APA102_SEND_BIT(byte, 1);
+    APA102_SEND_BIT(byte, 0);
 }
