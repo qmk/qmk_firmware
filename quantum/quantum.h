@@ -68,6 +68,11 @@ extern layer_state_t default_layer_state;
 extern layer_state_t layer_state;
 #endif
 
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#    include "process_sequencer.h"
+#endif
+
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
 #    include "process_midi.h"
 #endif
