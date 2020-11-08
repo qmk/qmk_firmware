@@ -18,18 +18,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEEE //SR for Smith and Rune
+#define VENDOR_ID       0x8384 //SR for Smith and Rune
 #define PRODUCT_ID      0x1180
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SmithRune
 #define PRODUCT         IRON180
-#define DESCRIPTION	A high end TKL
+#define DESCRIPTION	Smith and Rune Iron180
 
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 
-#define MATRIX_COL_PINS { B7 , B6 , B5 , B4 , B3 , A10, A9 , A8 , B15, B14, B13, B12, B11, B2 , A4 , B1 }
+#define MATRIX_COL_PINS { B7 , B6 , B5 , B4 , B3 , A10, A9 , A8 , B15, B14, B13, B12, B11, B2 , A4 , B1 , A3 }
 #define MATRIX_ROW_PINS { B9 , B8 , A15, B0 , A7 , A5 }
 #define DIODE_DIRECTION COL2ROW
 
