@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x5A67
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER CannonKeys
 #define PRODUCT Sagittarius
@@ -62,6 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2
 
 /*
  * Feature disable options
