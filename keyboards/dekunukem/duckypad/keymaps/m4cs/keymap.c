@@ -43,9 +43,13 @@ enum my_keycodes {
 #define MAC_17 LCTL(LSFT(KC_QUOT))
 #define MAC_18 LCTL(LSFT(KC_COMM))
 
+#define _DEFAULT 0
+#define _RGB 1
+#define _ALT 2
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
+  [_DEFAULT] = LAYOUT(
       KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK,
       KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,
       MAC_1, MAC_2, MAC_3,
@@ -53,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MAC_7, MAC_8, MAC_9,
       RGB_LAYER, ALT_LAYER
   ),
-  [1] = LAYOUT(
+  [_RGB] = LAYOUT(
       RGB_MODE_PLAIN, RGB_MODE_BREATHE, RGB_MODE_RAINBOW,
       RGB_MODE_SWIRL, RGB_SPD, RGB_SPI,
       RGB_MOD, RGB_SAD, RGB_SAI,
@@ -61,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_TOG, RGB_VAD, RGB_VAI,
       RGB_LAYER, ALT_LAYER
   ),
-  [2] = LAYOUT(
+  [_ALT] = LAYOUT(
       MAC_10, MAC_11, MAC_12,
       KC_UNDO, KC_CUT, KC_COPY,
       KC_PASTE, KC_FIND, KC_PSCR,
@@ -149,30 +153,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_LAYER:
       if (record->event.pressed) {
         if (rgbToggled) {
-          layer_off(1);
-          rgbToggled = !rgbToggled;
-        } else if (altToggled) {
-          layer_off(2);
-          layer_on(1);
-          altToggled = !altToggled;
+          rgbToggled = false;
+          altToggled = false;
+          layer_clear();
         } else {
-          layer_on(1);
-          rgbToggled = !rgbToggled;
+          rgbToggled = true;
+          altToggled = false;
+          layer_on(_RGB);
         }
       }
       return false;
     case ALT_LAYER:
       if (record->event.pressed) {
         if (altToggled) {
-          layer_off(2);
-          altToggled = !altToggled;
-        } else if (rgbToggled) {
-          layer_off(1);
-          layer_on(2);
-          rgbToggled = !rgbToggled;
+          rgbToggled = false;
+          altToggled = false;
+          layer_clear();
         } else {
-          layer_on(1);
-          altToggled = !altToggled;
+          rgbToggled = false;
+          altToggled = true;
+          layer_on(_ALT);
         }
       }
       return false;
