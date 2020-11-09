@@ -1,0 +1,10 @@
+■キーマップ書き込み手順
+①MSYSでqmk_firmwareのディレクトリに移動
+cd /C/qmk_firmware
+
+②対象フォルダを選択してビルドを実行
+make limb44:default:avrdude
+
+③リセットボタンを押してProMicroにファームウェアを書き込み(左右両方)
+
+④完了
