@@ -57,6 +57,7 @@ enum planck_keycodes {
  * `-----------------------------------------------------------------------------------'
  */
 #define LAYOUT_ortho_4x12_bocaj_base(...) WRAPPER_planck_bocaj_base(__VA_ARGS__)
+#define LAYOUT_ortho_4x12_bocaj_base_WIN(...) WRAPPER_planck_bocaj_base_WIN(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -65,8 +66,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
     _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
   ),
+  [_WWORKMAN] = LAYOUT_ortho_4x12_bocaj_base_WIN(
+    _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
+    _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
+    _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
+  ),
 
   [_QWERTY] = LAYOUT_ortho_4x12_bocaj_base(
+    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+  ),
+  [_WQWERTY] = LAYOUT_ortho_4x12_bocaj_base_WIN(
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
     _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
@@ -183,14 +194,14 @@ void rgb_matrix_indicators_user(void) {
                     case _QWERTY:
                         rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
-                    // case _COLEMAK:
-                    //     rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                    //     break;
-                    // case _DVORAK:
-                    //     rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                    //     break;
+                    case _WQWERTY:
+                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _WWORKMAN:
+                        rgb_matrix_layer_helper(HSV_GREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                 }
                 break;
@@ -202,54 +213,28 @@ void rgb_matrix_indicators_user(void) {
         case _QWERTY:
             rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF);
             break;
-        // case _COLEMAK:
-        //     rgb_matrix_set_color(is_ez ? 41 : 42, 0xFF, 0x00, 0xFF);
-        //     break;
-        // case _DVORAK:
-        //     rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0x00);
-        //     break;
         case _WORKMAN:
             rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21);
             break;
     }
 
-    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
-        if (!layer_state_cmp(layer_state, _ADJUST)) {
-            rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
-        }
-        rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
+    if ((this_mod | this_osm) & MODS_SHIFT_MASK || this_led & (1 << USB_LED_CAPS_LOCK)) {
+        rgb_matrix_set_color_row(0, 0x00, 0xFF, 0x00);
     }
-    if ((this_mod | this_osm) & MOD_MASK_CTRL) {
-        rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
+    if ((this_mod | this_osm) & MODS_CTRL_MASK && (this_mod | this_osm) & MODS_GUI_MASK) {
+        rgb_matrix_set_color_row(1, 0xFF, 0xD9, 0xFF);
+    } else if ((this_mod | this_osm) & MODS_CTRL_MASK) {
+        rgb_matrix_set_color_row(1, 0xFF, 0x00, 0x00);
+    } else if ((this_mod | this_osm) & MODS_GUI_MASK) {
+        rgb_matrix_set_color_row(1, 0xFF, 0xD9, 0x00);
     }
-    if ((this_mod | this_osm) & MOD_MASK_GUI) {
-        rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
+    if ((this_mod | this_osm) & MODS_ALT_MASK) {
+        rgb_matrix_set_color_row(2, 0x00, 0x00, 0xFF);
     }
-    if ((this_mod | this_osm) & MOD_MASK_ALT) {
-        rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
-    }
-}
-
-void matrix_init_keymap(void) {
-#    ifdef KEYBOARD_planck_light
-    writePinLow(D6);
-#    endif
-    // rgblight_mode(RGB_MATRIX_MULTISPLASH);
-}
-#else  // RGB_MATRIX_INIT
-
-void matrix_init_keymap(void) {
-#    if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#    endif
 }
 #endif  // RGB_MATRIX_INIT
+
+void matrix_init_keymap(void) {}
 
 #ifdef ENCODER_ENABLE
 void encoder_update(bool clockwise) {
@@ -277,33 +262,6 @@ void encoder_update(bool clockwise) {
 #    endif
 }
 #endif  // ENCODER_ENABLE
-
-#ifdef KEYBOARD_planck_rev6
-void dip_update(uint8_t index, bool active) {
-    switch (index) {
-        case 0:
-            if (active) {
-                audio_on();
-            } else {
-                audio_off();
-            }
-            break;
-        case 1:
-            if (active) {
-                clicky_on();
-            } else {
-                clicky_off();
-            }
-            break;
-        case 2:
-            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = active;
-            break;
-        case 3:
-            userspace_config.nuke_switch = active;
-            break;
-    }
-}
-#endif  // KEYBOARD_planck_rev6
 
 #ifdef KEYBOARD_planck_ez
 layer_state_t layer_state_set_keymap(layer_state_t state) {

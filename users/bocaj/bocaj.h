@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum userspace_layers {
     _WORKMAN = 0,
     _QWERTY,
+    _WWORKMAN,
+    _WQWERTY,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -39,9 +41,9 @@ enum userspace_layers {
 };
 
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+#define MODS_CTRL_MASK   (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
+#define MODS_ALT_MASK    (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK    (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool          mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);

@@ -10,6 +10,26 @@ static uint32_t hypno_timer;
 #    define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #endif
 
+void rgb_matrix_set_color_row(uint8_t row, uint8_t red, uint8_t green, uint8_t blue) {
+#ifdef KEYBOARD_planck_ez
+    if (row > 2) {
+        row = 0;
+    }
+    uint8_t row_multiplier = row * 12;
+
+    rgb_matrix_set_color(1 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(2 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(3 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(4 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(5 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(6 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(7 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(8 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(9 + row_multiplier, red, green, blue);
+    rgb_matrix_set_color(10 + row_multiplier, red, green, blue);
+#endif
+}
+
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
     HSV hsv = {hue, sat, val};
     if (hsv.v > rgb_matrix_get_val()) {

@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * ease of use. K## is a placeholder to pass through the individual keycodes
  */
 #define LAYOUT_ergodox_bocaj(...)       WRAPPER_ergodox_bocaj(__VA_ARGS__)
+#define LAYOUT_ergodox_bocaj_WIN(...)   WRAPPER_ergodox_bocaj_WIN(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -33,7 +34,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DEL, _________________WORKMAN_L1________________, KC_LPRN,     KC_RPRN, _________________WORKMAN_R1________________, KC_BSLS,
        _______, _________________WORKMAN_L2________________,                       _________________WORKMAN_R2________________, KC_QUOT,
        KC_LSFT, _________________WORKMAN_L3________________, KC_LBRC,     KC_RBRC, _________________WORKMAN_R3________________, _______,
-        MO_MOD, _______, _______, KC_UP, KC_LEFT,                                          KC_RIGHT, KC_DOWN, _______, _______, _______,
+        MO_MOD, KC_PGUP, KC_HOME, KC_UP, KC_LEFT,                                          KC_RIGHT, KC_DOWN, KC_END, KC_PGDN, WORKMAN,
+                                              KC_APP,KC_HOME, /* <- LHS/RHS -> */ KC_END,KC_ESC,
+                                                     KC_PGUP, /* <- LHS/RHS -> */ KC_PGDN,
+                                  KC_SPACE,KC_BSPACE,KC_LEAD, /* <- LHS/RHS -> */ KC_LOCK,KC_TAB,KC_ENTER
+    ),
+
+    [_WWORKMAN] = LAYOUT_ergodox_bocaj_WIN(
+        KC_ESC, ________________NUMBER_LEFT________________, KC_ARRW,     KC_MINS, ________________NUMBER_RIGHT_______________, KC_EQUAL,
+        KC_DEL, _________________WORKMAN_L1________________, KC_LPRN,     KC_RPRN, _________________WORKMAN_R1________________, KC_BSLS,
+       _______, _________________WORKMAN_L2________________,                       _________________WORKMAN_R2________________, KC_QUOT,
+       KC_LSFT, _________________WORKMAN_L3________________, KC_LBRC,     KC_RBRC, _________________WORKMAN_R3________________, _______,
+        MO_MOD, KC_PGUP, KC_HOME, KC_UP, KC_LEFT,                                          KC_RIGHT, KC_DOWN, KC_END, KC_PGDN, WORKMAN,
                                               KC_APP,KC_HOME, /* <- LHS/RHS -> */ KC_END,KC_ESC,
                                                      KC_PGUP, /* <- LHS/RHS -> */ KC_PGDN,
                                   KC_SPACE,KC_BSPACE,KC_LEAD, /* <- LHS/RHS -> */ KC_LOCK,KC_TAB,KC_ENTER

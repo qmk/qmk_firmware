@@ -27,18 +27,14 @@ enum userspace_custom_keycodes {
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-#define MO_MOD  MO(_MOD)
-#define TT_MOD  TT(_MOD)
-
 #define QWERTY  KC_QWERTY
-// #define DVORAK  KC_DVORAK
-// #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
 
 #define KC_ARRW MC_ARRW
 
 #define KC_RST   RESET
 
+#define MO_MOD MO(_MOD)
 #define ALT_APP ALT_T(KC_APP)
 #define HYP_LBK ALL_T(KC_LBRACKET)
 #define MEH_RBK MEH_T(KC_RBRACKET)

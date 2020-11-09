@@ -34,6 +34,27 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
                                                              L54, /* <- LHS/RHS -> */ R52,                                                         \
                                          LT(_LOWER, L53),L52,L51, /* <- LHS/RHS -> */ R55,R54,LT(_RAISE, R53)                                      \
 )
+
+#define WRAPPER_ergodox_bocaj_WIN(                                       \
+    L00,L01,L02,L03,L04,L05,L06,           R00,R01,R02,R03,R04,R05,R06,  \
+    L10,L11,L12,L13,L14,L15,L16,           R10,R11,R12,R13,R14,R15,R16,  \
+    L20,L21,L22,L23,L24,L25,                   R21,R22,R23,R24,R25,R26,  \
+    L30,L31,L32,L33,L34,L35,L36,           R30,R31,R32,R33,R34,R35,R36,  \
+    L40,L41,L42,L43,L44,                           R42,R43,R44,R45,R46,  \
+                            L55,L56,   R50,R51,                          \
+                                L54,   R52,                              \
+                        L53,L52,L51,   R55,R54,R53 )                     \
+  WRAPPER_ergodox_pretty( \
+      L00,       L01,        L02,        L03,        L04,  L05, L06,                R00,  R01,       R02,        R03,        R04,       R05,  R06, \
+      L10,       L11,        L12,        L13,        L14,  L15, L16,                R10,  R11,       R12,        R13,        R14,       R15,  R16, \
+      L20,       L21,  SFT_T(L22), CTL_T(L23), ALT_T(L24), L25,                           R21, ALT_T(R22), CTL_T(R23), SFT_T(R24),      R25,  R26, \
+      L30, GUI_T(L31),       L32,        L33,        L34,  L35, ALL_T(L36),   MEH_T(R30), R31,       R32,        R33,        R34, GUI_T(R35), R36, \
+      L40,       L41,        L42,        L43,        L44,                                            R42,        R43,        R44,       R45,  R46, \
+                                                         L55,L56, /* <- LHS/RHS -> */ R50,R51,                                                     \
+                                                             L54, /* <- LHS/RHS -> */ R52,                                                         \
+                                         LT(_LOWER, L53),L52,L51, /* <- LHS/RHS -> */ R55,R54,LT(_RAISE, R53)                                      \
+)
+
 /*
   Planck EZ Wrappers
 */
@@ -45,8 +66,20 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 )\
   WRAPPER_ortho_4x12( \
     K01,       K02,        K03,        K04,            K05,        K06,         K07,            K08,        K09,        K0A,        K0B,  K0C, \
-    K11,       K12,  SFT_T(K13), GUI_T(K14),     ALT_T(K15),       K16,         K17,     ALT_T(K18), GUI_T(K19), SFT_T(K1A),       K1B,  K1C,  \
+    K11,       K12,  SFT_T(K13), GUI_T(K14),     ALT_T(K15),       K16,         K17,      ALT_T(K18), GUI_T(K19), SFT_T(K1A),       K1B,  K1C,  \
     K21, CTL_T(K22),       K23,        K24,            K25,        K26,         K27,            K28,        K29,        K2A,  CTL_T(K2B), K2C, \
+    K31,       K32,        K33,        K34, LT(_LOWER, K35),              K36,       LT(_RAISE, K37),       K38,        K39,        K3A,  K3B )
+
+#define WRAPPER_planck_bocaj_WIN( \
+  K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \
+  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, \
+  K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, \
+  K31, K32, K33, K34, K35,    K36,   K37, K38, K39, K3A, K3B  \
+)\
+  WRAPPER_ortho_4x12( \
+    K01,       K02,        K03,        K04,            K05,        K06,         K07,            K08,        K09,        K0A,        K0B,  K0C, \
+    K11,       K12,  SFT_T(K13), CTL_T(K14),     ALT_T(K15),       K16,         K17,      ALT_T(K18), CTL_T(K19), SFT_T(K1A),       K1B,  K1C,  \
+    K21, GUI_T(K22),       K23,        K24,            K25,        K26,         K27,            K28,        K29,        K2A,  GUI_T(K2B), K2C, \
     K31,       K32,        K33,        K34, LT(_LOWER, K35),              K36,       LT(_RAISE, K37),       K38,        K39,        K3A,  K3B )
 
 #define WRAPPER_planck_bocaj_base( \
@@ -55,10 +88,22 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
  K21, K22, K23, K24, K25,      K26, K27, K28, K29, K2A  \
 ) \
   WRAPPER_planck_bocaj( \
-    KC_ESC,  K01,     K02,   K03,     K04,        K05,        K06,  K07,      K08,      K09,     K0A,     KC_MINS, \
-    KC_TAB,  K11,     K12,   K13,     K14,  ALL_T(K15), MEH_T(K16), K17,      K18,      K19,     K1A,     KC_QUOT, \
-    KC_LSFT, K21,     K22,   K23,     K24,        K25,        K26,  K27,      K28,      K29,     K2A,     TT_MOD,  \
-    MO_MOD,  KC_LEAD, KC_UP, KC_LEFT, KC_BSPC,         KC_SPC,      KC_ENTER, KC_RIGHT, KC_DOWN, KC_TRNS, KC_TRNS  \
+    KC_ESC,   K01,     K02,   K03,     K04,        K05,        K06,  K07,      K08,      K09,     K0A,    KC_MINS, \
+    KC_TAB,   K11,     K12,   K13,     K14,  ALL_T(K15), MEH_T(K16), K17,      K18,      K19,     K1A,    KC_QUOT, \
+    KC_LSFT,  K21,     K22,   K23,     K24,        K25,        K26,  K27,      K28,      K29,     K2A,    _______,  \
+    _______,  KC_LEAD, KC_UP, KC_LEFT, KC_BSPC,         KC_SPC,      KC_ENTER, KC_RIGHT, KC_DOWN, QWERTY, WORKMAN  \
+  )
+
+#define WRAPPER_planck_bocaj_base_WIN( \
+ K01, K02, K03, K04, K05,      K06, K07, K08, K09, K0A, \
+ K11, K12, K13, K14, K15,      K16, K17, K18, K19, K1A, \
+ K21, K22, K23, K24, K25,      K26, K27, K28, K29, K2A  \
+) \
+  WRAPPER_planck_bocaj_WIN( \
+    KC_ESC,   K01,     K02,   K03,     K04,        K05,        K06,  K07,      K08,      K09,     K0A,    KC_MINS, \
+    KC_TAB,   K11,     K12,   K13,     K14,  ALL_T(K15), MEH_T(K16), K17,      K18,      K19,     K1A,    KC_QUOT, \
+    KC_LSFT,  K21,     K22,   K23,     K24,        K25,        K26,  K27,      K28,      K29,     K2A,    _______,  \
+    _______,  KC_LEAD, KC_UP, KC_LEFT, KC_BSPC,         KC_SPC,      KC_ENTER, KC_RIGHT, KC_DOWN, QWERTY, WORKMAN  \
   )
 
 /*
@@ -118,16 +163,16 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ___________________LOWER_L3_EXT____________________       _______, _______, _______, _______, _______, KC_LBRC
 
 #define ___________________LOWER_R1_EXT____________________       KC_MINS, KC_7,    KC_8,    KC_9,    KC_PLUS, KC_EQUAL
-#define ___________________LOWER_R2_EXT____________________       KC_RPRN, KC_4,    KC_5,    KC_6,    KC_ASTR,  KC_ENT
+#define ___________________LOWER_R2_EXT____________________       KC_RPRN, KC_4,    KC_5,    KC_6,    KC_ASTR, KC_BSLS
 #define ___________________LOWER_R3_EXT____________________       KC_RBRC, KC_1,    KC_2,    KC_3,    KC_SLSH, _______
 
-#define _________________LOWER_L1__________________       ________________NUMBER_LEFT________________
-#define _________________LOWER_L2__________________       _______, _______, _______, _______, KC_LPRN
-#define _________________LOWER_L3__________________       _______, _______, _______, KC_ARRW, KC_LBRC
+// #define _________________LOWER_L1__________________       ________________NUMBER_LEFT________________
+// #define _________________LOWER_L2__________________       _______, _______, _______, _______, KC_LPRN
+// #define _________________LOWER_L3__________________       _______, _______, _______, KC_ARRW, KC_LBRC
 
-#define _________________LOWER_R1__________________       ________________NUMBER_RIGHT_______________
-#define _________________LOWER_R2__________________       KC_RPRN, _______, _______, _______, _______
-#define _________________LOWER_R3__________________       KC_RBRC, _______, _______, _______, _______
+// #define _________________LOWER_R1__________________       ________________NUMBER_RIGHT_______________
+// #define _________________LOWER_R2__________________       KC_RPRN, _______, _______, _______, _______
+// #define _________________LOWER_R3__________________       KC_RBRC, _______, _______, _______, _______
 
 #define _________________RAISE_L1__________________       KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC
 #define _________________RAISE_L2__________________       _________________FUNC_LEFT_________________
