@@ -46,6 +46,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_NUM_LOCK_PIN C6
+#define LED_CAPS_LOCK_PIN C7
+#define LED_SCROLL_LOCK_PIN F7
+#define LED_PIN_ON_STATE 0
+
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 22
