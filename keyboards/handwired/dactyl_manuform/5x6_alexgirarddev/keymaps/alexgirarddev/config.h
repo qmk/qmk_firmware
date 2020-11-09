@@ -22,10 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 #define EE_HANDS
 
-#define OLED_DISPLAY_128x64
 
 #undef OLED_DISPLAY_ADDRESS 
 #define OLED_DISPLAY_ADDRESS 0x3C
+
+#define OLED_DISPLAY_128X64
 
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D2
