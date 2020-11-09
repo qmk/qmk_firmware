@@ -178,6 +178,24 @@ Creates a keymap.json from a keymap.c.
 qmk c2json [--no-cpp] [-o OUTPUT] filename
 ```
 
+## `qmk lint`
+
+Checks over a keyboard and/or keymap and highlights common errors, problems, and anti-patterns.
+
+**Usage**:
+
+```
+qmk lint [-km KEYMAP] [-kb KEYBOARD] [--strict]
+```
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+**Examples**:
+
+Do a basic lint check:
+
+    qmk lint -kb rominronin/katana60/rev2
+
 ## `qmk list-keyboards`
 
 This command lists all the keyboards currently defined in `qmk_firmware`
@@ -309,4 +327,3 @@ This command runs the python test suite. If you make changes to python code you 
 ```
 qmk pytest
 ```
-
