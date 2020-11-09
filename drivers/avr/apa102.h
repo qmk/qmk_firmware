@@ -30,7 +30,7 @@
 
 #define APA102_MAX_BRIGHTNESS 31
 
-extern uint8_t apa102_let_brightness;
+extern uint8_t apa102_led_brightness;
 
 /* User Interface
  *
