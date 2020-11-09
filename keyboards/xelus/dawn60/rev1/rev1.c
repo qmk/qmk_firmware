@@ -13,10 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
-
-#include "quantum.h"
-
-#if defined(KEYBOARD_xelus_dawn60_rev1)
-    #include "rev1.h"
+#ifndef RGB_BACKLIGHT_DAWN60
+#error RGB_BACKLIGHT_DAWN60 not defined, you done goofed somehao, brah
 #endif
