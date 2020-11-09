@@ -39,4 +39,4 @@ SRC += ssd1306.c
 # if firmware size over limit, try this option
 # CFLAGS += -flto
 
-DEFAULT_FOLDER = crkbd/rev1
+DEFAULT_FOLDER = limb44/rev1
