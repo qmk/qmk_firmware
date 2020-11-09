@@ -26,7 +26,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-`"raw_hid.h"` ヘッダは、キーボードからホストにパケットを送信できる `void raw_hid_send(uint8_t *data, uint8_t length);` も宣言します。例として、全てのデータをホストに返すことでホストアプリケーションを構築する時にデバッグをするために使うこともできます。
+`"raw_hid.h"` ヘッダは、キーボードからホストにパケットを送信できる `void raw_hid_send(uint8_t *data, uint8_t length);` も宣言します。例として、全てのデータをホストに返すことで、ホストアプリケーションを構築する時のデバッグに使うこともできます。
 
 ```C
 void raw_hid_receive(uint8_t *data, uint8_t length) {
