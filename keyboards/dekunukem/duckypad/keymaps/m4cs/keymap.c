@@ -1,7 +1,26 @@
+/*
+
+M4cs Keymap for dekuNukem/duckyPad QMK firmware
+
+Copyright (C) 2020 Max Bridgland
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include QMK_KEYBOARD_H
 
 #include "stdio.h"
-// #include "raw_hid.h"
 #include <unistd.h>
 #include <string.h>
 
@@ -122,13 +141,6 @@ static void render_logo(void) {
    };
    oled_write_raw_P(ducky_logo, LOGO_SIZE);
 }
-
-
-/* Save this baby for later <3 
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-  uint8_t cmd[33] = {0, 0, 3, 0, 45, 66, 6, 6, 4, 32, 24, 77, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  raw_hid_send(cmd, RAW_EPSIZE);
-} */
 
 char* make_menu_text(void){
   char *s = malloc((30 * 3) * sizeof(*s));
