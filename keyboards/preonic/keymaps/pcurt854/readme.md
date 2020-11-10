@@ -44,7 +44,13 @@ Some mouse keys.
 
 ### Layer 4
 
-Special characters like $ and ^.
+Special symbols using a character in their names:
+
+pLus, miNus, eQual
+
+aMpersand, pIpe
+
+At, Backslash, Circumflex, Dollar, Exclamation, Hash, Percent, Star, Underscore
 
 ### Layer 5
 
