@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |=========================================|
   | Macro 4     | Macro 5     | Macro 6     |
   |=========================================| ,---------------------.
-  | Macro 7     | Macro 8     | Macro 9     | | RGB Menu | Alt Menu |
+  | Macro 7     | Macro 8     | Sys. Info   | | RGB Menu | Alt Menu |
   `=========================================' `--------------------'
   */
   [_DEFAULT] = LAYOUT(
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |=========================================|
   | Macro 13    | Macro 14    | Macro 15    |
   |=========================================| ,----------------------.
-  | Macro 16    | Macro 17    | Macro 18    | | Norm Menu | Alt Menu |
+  | Macro 16    | Macro 17    | Sys. Info   | | Norm Menu | Alt Menu |
   `=========================================' `---------------------'
   */
   [_ALT] = LAYOUT(
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_UNDO, KC_CUT, KC_COPY,
       KC_PASTE, KC_FIND, KC_PSCR,
       MAC_13, MAC_14, MAC_15,
-      MAC_16, MAC_17, MAC_18,
+      MAC_16, MAC_17, SYS_LAYER,
       RGB_LAYER, ALT_LAYER
   ),
   [_SYS] = LAYOUT(
@@ -162,9 +162,9 @@ static void render_logo(void) {
 }
 
 char* make_menu_text(void){
-  char *s = malloc((30 * 3) * sizeof(*s));
+  char *s = malloc((30 * 4) * sizeof(*s));
   int width = 3;
-  sprintf(s, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
+  snprintf(s, 120, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
     width, MT_0_0, width, MT_0_1, width, MT_0_2,
     width, MT_0_3, width, MT_0_4, width, MT_0_5,
     width, MT_0_6, width, MT_0_7, width, MT_0_8,
@@ -175,10 +175,10 @@ char* make_menu_text(void){
 };
 
 char* make_rgb_text(void){
-  char *s = malloc((30 * 3) * sizeof(*s));
+  char *s = malloc((30 * 4) * sizeof(*s));
   int width = 3;
-  sprintf(
-    s, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
+  snprintf(
+    s, 120, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
     width, MT_1_0, width, MT_1_1, width, MT_1_2,
     width, MT_1_3, width, MT_1_4, width, MT_1_5,
     width, MT_1_6, width, MT_1_7, width, MT_1_8,
@@ -189,10 +189,10 @@ char* make_rgb_text(void){
 };
 
 char* make_alt_text(void){
-  char *s = malloc((30 * 3) * sizeof(*s));
+  char *s = malloc((30 * 4) * sizeof(*s));
   int width = 3;
-  sprintf(
-    s, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
+  snprintf(
+    s,  120, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
     width, MT_2_0, width, MT_2_1, width, MT_2_2,
     width, MT_2_3, width, MT_2_4, width, MT_2_5,
     width, MT_2_6, width, MT_2_7, width, MT_2_8,
@@ -203,10 +203,10 @@ char* make_alt_text(void){
 };
 
 char* make_sys_info_text(void) {
-  char *s = malloc((30 * 3) * sizeof(*s));
-  sprintf(s, "    cpu: %.1fGHz\n    mem: %d%%\n    gpu: %d%%\n    temp: %d C", cpuFreq, memPerc, gpuLoad, temp);
+  char *s = malloc((30 * 4) * sizeof(*s));
+  snprintf(s, 120, "    cpu: %.1fGHz\n    mem: %d%%\n    gpu: %d%%\n    temp: %d C", cpuFreq, memPerc, gpuLoad, temp);
   return s;
-}
+};
 
 void oled_task_user(void) {
   if (!sysToggled) {
@@ -214,40 +214,31 @@ void oled_task_user(void) {
     oled_set_cursor(0,3);
     if (rgbToggled) {
         char *s = make_rgb_text();
-        oled_write_ln_P(s, false);
+        oled_write_ln(s, false);
         free(s);
     } else if (altToggled) {
         char *s = make_alt_text();
-        oled_write_ln_P(s, false);
+        oled_write_ln(s, false);
         free(s);
     } else {
         char *s = make_menu_text();
-        oled_write_ln_P(s, false);
+        oled_write_ln(s, false);
         free(s);
     }
   }
-}
+};
 
-int concat(int a, int b)
-{
-
+int concat(int a, int b) {
     char s1[20];
     char s2[20];
-
-    // Convert both the integers to string
     sprintf(s1, "%d", a);
     sprintf(s2, "%d", b);
-
-    // Concatenate both strings
     strcat(s1, s2);
-
-    // Convert the concatenated string
-    // to integer
     int c = atoi(s1);
 
-    // return the formed integer
     return c;
-}
+};
+
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     if (sysToggled) {
         oled_clear();
@@ -262,7 +253,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         } else {
             switch (stepper) {
                 case 0:
-                    cpuFreq = floor(10*toWrite)/1000;
+                    cpuFreq = floor(100*toWrite)/10000;
                     break;
                 case 1:
                     memPerc = toWrite / 10;
@@ -281,12 +272,12 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
     }
     if (sysToggled) {
-        oled_set_cursor(0, 3);
+        oled_set_cursor(0, 4);
         char *s = make_sys_info_text();
-        oled_write_ln_P(s, false);
+        oled_write_ln(s, false);
         free(s);
     }
-}
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -295,10 +286,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (rgbToggled) {
           rgbToggled = false;
           altToggled = false;
+          sysToggled = false;
+          oled_clear();
           layer_clear();
         } else {
           rgbToggled = true;
           altToggled = false;
+          sysToggled = false;
           layer_on(_RGB);
         }
       }
@@ -309,6 +303,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           rgbToggled = false;
           altToggled = false;
           sysToggled = false;
+          oled_clear();
           layer_clear();
         } else {
           rgbToggled = false;
@@ -324,6 +319,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             rgbToggled = false;
             altToggled = false;
             sysToggled = false;
+            oled_clear();
             layer_clear();
         } else {
             rgbToggled = false;
@@ -336,4 +332,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
   }
   return false;
-}
+};
