@@ -57,12 +57,11 @@ void    set_macro_mods(uint8_t mods);
 void    clear_macro_mods(void);
 
 /* oneshot modifier */
-void    set_oneshot_mods(uint8_t mods);
 uint8_t get_oneshot_mods(void);
+void    add_oneshot_mods(uint8_t mods);
+void    del_oneshot_mods(uint8_t mods);
+void    set_oneshot_mods(uint8_t mods);
 void    clear_oneshot_mods(void);
-void    oneshot_toggle(void);
-void    oneshot_enable(void);
-void    oneshot_disable(void);
 bool    has_oneshot_mods_timed_out(void);
 
 uint8_t get_oneshot_locked_mods(void);
