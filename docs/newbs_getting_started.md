@@ -79,7 +79,7 @@ Install the QMK CLI by running:
 
 #### Arch / Manjaro
 
-You can install the CLI from the official repositories:
+You can install the CLI from the official repositories (**note**: it's maintained by a community member):
 
 `sudo pacman -S qmk`
 
