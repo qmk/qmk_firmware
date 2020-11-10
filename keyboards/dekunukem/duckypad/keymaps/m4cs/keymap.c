@@ -21,17 +21,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "stdio.h"
+#include "raw_hid.h"
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
+#include <math.h>
 
 #define LOGO_SIZE 384
 
 bool rgbToggled = false;
 bool altToggled = false;
+bool sysToggled = false;
 
 enum layer_codes {
   RGB_LAYER = SAFE_RANGE,
-  ALT_LAYER
+  ALT_LAYER,
+  SYS_LAYER
 };
 
 enum my_keycodes {
@@ -65,10 +70,16 @@ enum my_keycodes {
 #define _DEFAULT 0
 #define _RGB 1
 #define _ALT 2
+#define _SYS 3
+
+float cpuFreq = 0;
+int memPerc = 0;
+int gpuLoad = 0;
+int temp = 0;
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* 
+  /*
   ,=========================================.
   | Media Prev. | Media Play  | Media Next  |
   |=========================================|
@@ -86,10 +97,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,
       MAC_1, MAC_2, MAC_3,
       MAC_4, MAC_5, MAC_6,
-      MAC_7, MAC_8, MAC_9,
+      MAC_7, MAC_8, SYS_LAYER,
       RGB_LAYER, ALT_LAYER
   ),
-  /* 
+  /*
   ,=========================================.
   | Plain RGB   | Breathe RGB | Rainbow RGB |
   |=========================================|
@@ -110,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_TOG, RGB_VAD, RGB_VAI,
       RGB_LAYER, ALT_LAYER
   ),
-  /* 
+  /*
   ,=========================================.
   | Macro 10    | Macro 11    | Macro 12    |
   |=========================================|
@@ -130,13 +141,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MAC_13, MAC_14, MAC_15,
       MAC_16, MAC_17, MAC_18,
       RGB_LAYER, ALT_LAYER
+  ),
+  [_SYS] = LAYOUT(
+      KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, SYS_LAYER,
+      RGB_LAYER, ALT_LAYER
   )
 };
 
 static void render_logo(void) {
    static const char PROGMEM ducky_logo[LOGO_SIZE] = {
       0, 0, 0, 0,128,128,128,128,128, 0, 0,252,252,252, 0, 0, 0,128,128,128, 0, 0, 0, 0, 0,128,128,128, 0, 0, 0, 0, 0,128,128,128,128,128, 0, 0, 0, 0, 0,252,252,252, 0, 0, 0, 0, 0,128,128,128,128,128,128, 0, 0, 0, 0, 0, 0,128,128,128,128, 0,248,248,248, 56, 56, 56, 56, 56, 56,120,240,224,192, 0, 0,128,128,128,128,128,128, 0, 0, 0, 0, 0, 0, 0, 0,128,128,128,128,128, 0, 0,252,252,252, 0, 0, 0, 0, 0,232, 24, 24,232, 0, 24, 48, 48, 24, 0,232, 24, 24,232, 0, 0,
-      0,248,254,255,143, 7, 3, 3, 3, 7,142,255,255,255, 0, 0, 0,255,255,255, 0, 0, 0, 0, 0,255,255,255, 0,248,254,255,143, 7, 3, 3, 3, 3,143, 7, 2, 0, 0,255,255,255,240,120,252,254,231,131, 1, 0, 1, 7, 63,254,240,192, 0,224,252,127, 31, 3, 0, 0,255,255,255,112,112,112,112,112,112, 56, 63, 31, 15,193,231,243,115, 51, 51, 51, 55,255,255,252, 0, 0,248,254,255,143, 7, 3, 3, 3, 7,142,255,255,255, 0, 0, 0, 0, 0, 21,127,127,252,252,252,253,253,252,252,252,255,255,255, 0, 0, 
+      0,248,254,255,143, 7, 3, 3, 3, 7,142,255,255,255, 0, 0, 0,255,255,255, 0, 0, 0, 0, 0,255,255,255, 0,248,254,255,143, 7, 3, 3, 3, 3,143, 7, 2, 0, 0,255,255,255,240,120,252,254,231,131, 1, 0, 1, 7, 63,254,240,192, 0,224,252,127, 31, 3, 0, 0,255,255,255,112,112,112,112,112,112, 56, 63, 31, 15,193,231,243,115, 51, 51, 51, 55,255,255,252, 0, 0,248,254,255,143, 7, 3, 3, 3, 7,142,255,255,255, 0, 0, 0, 0, 0, 21,127,127,252,252,252,253,253,252,252,252,255,255,255, 0, 0,
       0, 0, 3, 7, 15, 15, 14, 14, 14, 7, 3, 15, 15, 15, 0, 0, 0, 3, 7, 15, 15, 14, 14, 6, 3, 15, 15, 15, 0, 0, 3, 7, 7, 15, 14, 14, 14, 14, 7, 7, 2, 0, 0, 15, 15, 15, 0, 0, 0, 1, 3, 15, 15, 12,136,224,224,224,247,127,127, 31, 3, 0, 0, 0, 0, 0, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 15, 14, 14, 14, 6, 3, 15, 15, 15, 0, 0, 0, 3, 7, 15, 15, 14, 14, 14, 7, 3, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 7, 11, 3, 11, 7, 11, 7, 7, 31, 0, 0
    };
    oled_write_raw_P(ducky_logo, LOGO_SIZE);
@@ -183,6 +202,12 @@ char* make_alt_text(void){
   return s;
 };
 
+char* make_sys_info_text(void) {
+  char *s = malloc((30) * sizeof(*s));
+  sprintf(s, "cpu: %.1f%%\nmem: %d%%\ngpu: %d%%\ntemp: %d C", cpuFreq, memPerc, gpuLoad, temp);
+  return s;
+}
+
 void oled_task_user(void) {
   render_logo();
   oled_set_cursor(0,3);
@@ -194,11 +219,65 @@ void oled_task_user(void) {
     char *s = make_alt_text();
     oled_write_ln_P(s, false);
     free(s);
+  } else if (sysToggled) {
+    oled_clear();
+    oled_set_cursor(3, 0);
+    char *s = make_sys_info_text();
+    oled_write_ln_P(s, false);
+    free(s);
   } else {
     char *s = make_menu_text();
     oled_write_ln_P(s, false);
     free(s);
   }
+}
+
+int concat(int a, int b)
+{
+
+    char s1[20];
+    char s2[20];
+
+    // Convert both the integers to string
+    sprintf(s1, "%d", a);
+    sprintf(s2, "%d", b);
+
+    // Concatenate both strings
+    strcat(s1, s2);
+
+    // Convert the concatenated string
+    // to integer
+    int c = atoi(s1);
+
+    // return the formed integer
+    return c;
+}
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    int i;
+    int stepper = 0;
+    int toWrite;
+    for (i=0; i < length; i++) {
+        if (data[i] != 10) {
+            toWrite = concat(toWrite, data[i]);
+        } else {
+            switch (stepper) {
+                case 0:
+                    cpuFreq = floor(100*toWrite)/100;
+                    break;
+                case 1:
+                    memPerc = toWrite / 10;
+                    break;
+                case 2:
+                    gpuLoad = toWrite;
+                    break;
+                case 3:
+                    temp = toWrite;
+                    break;
+            }
+            toWrite = 0;
+            stepper++;
+        }
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -221,14 +300,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (altToggled) {
           rgbToggled = false;
           altToggled = false;
+          sysToggled = false;
           layer_clear();
         } else {
           rgbToggled = false;
+          sysToggled = false;
           altToggled = true;
           layer_on(_ALT);
         }
       }
       return false;
+    case SYS_LAYER:
+    if (record->event.pressed) {
+        if (sysToggled) {
+            rgbToggled = false;
+            altToggled = false;
+            sysToggled = false;
+            layer_clear();
+        } else {
+            rgbToggled = false;
+            sysToggled = true;
+            altToggled = false;
+            layer_on(_SYS);
+        }
+    }
     default:
       return true;
   }
