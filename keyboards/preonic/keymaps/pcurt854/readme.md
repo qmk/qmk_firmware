@@ -14,11 +14,21 @@ For programmers, parentheses, brackets, and braces are important.  They are move
 
 The middle section, from 1 to 0, plus three rows of letters, follows the traditional QWERTY layout.
 
-The left boarder, from top to bottom: ~, Tab, Esc when tapped and Control when held, Toggle layer 3, and CapLock when tapped and Shift when held.
+The left border, from top to bottom: ~, Tab, Esc when tapped and Control when held, Toggle layer 3, and CapLock when tapped and Left Shift when held.
 
-The right boarder: Backspace, Delete, ", Up, and Down.
+The right border: Backspace, Delete, ", Up, and Down.
 
-Bottom row, left to right: One shot layer 4, Control, Option, Command, Enter, Space, Left, Right CapLock/Shift, and One shot layer 5.
+Bottom row, left to right: One shot layer 4, Control, Option, Command, Enter, Space, Left, Right, CapLock/Right Shift, and One shot layer 5.
+
+### Layer 1
+
+Middle: Colemak
+Border: Same as QWERTY
+
+### Layer 2
+
+Middle: Dvorak
+Border: Same as QWERTY
 
 ### Layer 3
 
