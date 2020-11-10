@@ -6,6 +6,7 @@
     // #define STARTUP_SONG SONG(PREONIC_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
+    // DEFAULT_LAYER_SONGS are used in set_single_persistent_default_layer in quantum/quantum.c
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
