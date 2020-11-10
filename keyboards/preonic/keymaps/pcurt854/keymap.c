@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
+ * | osm  |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   TG(_NUMPAD),
            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
-  LSFT_T(KC_CAPS), OSL(_SYMBOL),
+  OSM(MOD_LSFT), OSL(_SYMBOL),
                     KC_RCTL, KC_LOPT, KC_LCMD, KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
                                                                                             OSL(_ADJUST), KC_DOWN
 ),
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
+ * | osm  |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   TG(_NUMPAD),
            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
-  LSFT_T(KC_CAPS), OSL(_SYMBOL),
+  OSM(MOD_LSFT), OSL(_SYMBOL),
                     KC_RCTL, KC_LOPT, KC_LCMD, KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
                                                                                             OSL(_ADJUST), KC_DOWN
 ),
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
+ * | osm  |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
   TG(_NUMPAD),
            KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP,
-  LSFT_T(KC_CAPS), OSL(_SYMBOL),
+  OSM(MOD_LSFT), OSL(_SYMBOL),
                     KC_RCTL, KC_LOPT, KC_LCMD, KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
                                                                                             OSL(_ADJUST), KC_DOWN
 ),
