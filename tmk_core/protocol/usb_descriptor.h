@@ -210,7 +210,6 @@ enum usb_endpoints {
     #else
     RAW_OUT_EPNUM = NEXT_EPNUM,
     #endif
-
 #endif
 
 #ifdef SHARED_EP_ENABLE
@@ -240,6 +239,7 @@ enum usb_endpoints {
     #define MIDI_STREAM_OUT_EPNUM MIDI_STREAM_IN_EPNUM
     #else
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
+    #endif
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -249,6 +249,7 @@ enum usb_endpoints {
     #define CDC_OUT_EPNUM  CDC_IN_EPNUM
     #else
     CDC_OUT_EPNUM          = NEXT_EPNUM,
+    #endif
 #endif
 #ifdef JOYSTICK_ENABLE
     JOYSTICK_IN_EPNUM  = NEXT_EPNUM,
