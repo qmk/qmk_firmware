@@ -184,3 +184,9 @@ def test_c2json_nocpp():
     result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
     check_returncode(result)
     assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+
+
+def test_clean():
+    result = check_subcommand('clean', '-a')
+    check_returncode(result)
+    assert result.stdout.count('done') == 2
