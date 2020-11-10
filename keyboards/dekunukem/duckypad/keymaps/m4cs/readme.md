@@ -3,7 +3,9 @@
 ### Layers:
 
 0: Default Layer w/ Media Functionality and Macros
+
 1: RGB Menu that allows RGB customization
+
 2: Alternate Macro Menu
 
 ### Configuration:
