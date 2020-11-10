@@ -203,32 +203,28 @@ char* make_alt_text(void){
 };
 
 char* make_sys_info_text(void) {
-  char *s = malloc((30) * sizeof(*s));
-  sprintf(s, "cpu: %.1f%%\nmem: %d%%\ngpu: %d%%\ntemp: %d C", cpuFreq, memPerc, gpuLoad, temp);
+  char *s = malloc((30 * 3) * sizeof(*s));
+  sprintf(s, "    cpu: %.1fGHz\n    mem: %d%%\n    gpu: %d%%\n    temp: %d C", cpuFreq, memPerc, gpuLoad, temp);
   return s;
 }
 
 void oled_task_user(void) {
-  render_logo();
-  oled_set_cursor(0,3);
-  if (rgbToggled) {
-    char *s = make_rgb_text();
-    oled_write_ln_P(s, false);
-    free(s);
-  } else if (altToggled) {
-    char *s = make_alt_text();
-    oled_write_ln_P(s, false);
-    free(s);
-  } else if (sysToggled) {
-    oled_clear();
-    oled_set_cursor(3, 0);
-    char *s = make_sys_info_text();
-    oled_write_ln_P(s, false);
-    free(s);
-  } else {
-    char *s = make_menu_text();
-    oled_write_ln_P(s, false);
-    free(s);
+  if (!sysToggled) {
+    render_logo();
+    oled_set_cursor(0,3);
+    if (rgbToggled) {
+        char *s = make_rgb_text();
+        oled_write_ln_P(s, false);
+        free(s);
+    } else if (altToggled) {
+        char *s = make_alt_text();
+        oled_write_ln_P(s, false);
+        free(s);
+    } else {
+        char *s = make_menu_text();
+        oled_write_ln_P(s, false);
+        free(s);
+    }
   }
 }
 
@@ -253,6 +249,10 @@ int concat(int a, int b)
     return c;
 }
 void raw_hid_receive(uint8_t *data, uint8_t length) {
+    if (sysToggled) {
+        oled_clear();
+        render_logo();
+    }
     int i;
     int stepper = 0;
     int toWrite;
@@ -262,7 +262,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         } else {
             switch (stepper) {
                 case 0:
-                    cpuFreq = floor(100*toWrite)/100;
+                    cpuFreq = floor(10*toWrite)/1000;
                     break;
                 case 1:
                     memPerc = toWrite / 10;
@@ -273,10 +273,18 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 case 3:
                     temp = toWrite;
                     break;
+                default:
+                    break;
             }
             toWrite = 0;
             stepper++;
         }
+    }
+    if (sysToggled) {
+        oled_set_cursor(0, 3);
+        char *s = make_sys_info_text();
+        oled_write_ln_P(s, false);
+        free(s);
     }
 }
 
