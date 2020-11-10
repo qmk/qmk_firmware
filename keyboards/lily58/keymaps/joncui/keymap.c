@@ -20,8 +20,8 @@ enum layer_number {
 #define KC__VD KC__VOLDOWN
 #define KC__VU KC__VOLUP
 #define KC_MU KC_MUTE
-#define KC_VD KC_VOLDOWN
-#define KC_VU KC_VOLUP
+#define KC_VD KC_VOLD
+#define KC_VU KC_VOLU
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
