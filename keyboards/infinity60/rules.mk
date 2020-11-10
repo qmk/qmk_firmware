@@ -1,6 +1,9 @@
 # MCU name
 MCU = MK20DX128
 
+# Bootloader selection
+BOOTLOADER = kiibohd
+
 # Board: it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
 # - BOARD =
@@ -10,18 +13,9 @@ MCU = MK20DX128
 #   - MCHCK_K20 for Infinity KB
 BOARD = MCHCK_K20
 
-# Vector table for application
-# 0x00000000-0x00001000 area is occupied by bootlaoder.*/
-# The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
-
-# Bootloader selection
-BOOTLOADER = kiibohd
-
 # Build Options
 #   comment out to disable the options.
 #
-
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes	# Mouse keys

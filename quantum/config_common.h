@@ -44,7 +44,7 @@
 #        define PINB_ADDRESS 0x3
 #        define PINC_ADDRESS 0x6
 #        define PIND_ADDRESS 0x9
-#    elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__)
+#    elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #        define ADDRESS_BASE 0x00
 #        define PINA_ADDRESS 0x0
 #        define PINB_ADDRESS 0x3
@@ -218,6 +218,8 @@
 #        define B15 PAL_LINE(GPIOB, 15)
 #        define B16 PAL_LINE(GPIOB, 16)
 #        define B17 PAL_LINE(GPIOB, 17)
+#        define B18 PAL_LINE(GPIOB, 18)
+#        define B19 PAL_LINE(GPIOB, 19)
 #        define C0 PAL_LINE(GPIOC, 0)
 #        define C1 PAL_LINE(GPIOC, 1)
 #        define C2 PAL_LINE(GPIOC, 2)
@@ -305,7 +307,7 @@
                 UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
                 sei();                              \
             } while (0)
-#    elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
+#    elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #        define SERIAL_UART_BAUD 115200
 #        define SERIAL_UART_DATA UDR1
 /* UBRR should result in ~16 and set UCSR1A = _BV(U2X1) as per rn42 documentation. HC05 needs baudrate configured accordingly */
