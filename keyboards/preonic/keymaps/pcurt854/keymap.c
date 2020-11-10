@@ -19,12 +19,12 @@
 #include "muse.h"
 
 enum preonic_layers {
-  _QWERTY,
-  _COLEMAK,
-  _DVORAK,
-  _LOWER,
-  _RAISE,
-  _ADJUST
+  _QWERTY,	// 0
+  _COLEMAK,	// 1
+  _DVORAK,	// 2
+  _LOWER,	// 3
+  _RAISE,	// 4
+  _ADJUST	// 5
 };
 
 enum preonic_keycodes {
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Dwn  |
+ * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Dwn  |
+ * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Dwn  |
+ * | Caps |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
