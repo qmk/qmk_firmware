@@ -16,6 +16,13 @@ enum layer_number {
   _UP,
 };
 
+#define KC__MU KC__MUTE
+#define KC__VD KC__VOLDOWN
+#define KC__VU KC__VOLUP
+#define KC_MU KC_MUTE
+#define KC_VD KC_VOLDOWN
+#define KC_VU KC_VOLUP
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -28,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |Delete|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LCTRL| LGUI |  UP  | /BackSP /       \Space \  |RAISE |Enter | RAlt |
+ *                   | LCTRL| LGUI |  DN  | /BackSP /       \Space \  |  UP  |Enter | RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -49,14 +56,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |LShift|      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LCTRL| LGUI |  UP  | /BackSP /       \Space \  |RAISE |Enter | RAlt |
+ *                   | LCTRL| LGUI |  DN  | /BackSP /       \Space \  |  UP  |Enter | RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
   [_DN] = LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_BSLS, \
-  KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO, \
+  KC_TRNS, KC_NO,  KC__MU,  KC__VD,  KC__VU,   KC_NO,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_NO, \
   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, \
                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS \
   ),
@@ -70,14 +77,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |LShift|      |      |      |      |      |-------|    |-------|      |  0   |  .   | Enter|      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LCTRL| LGUI |  UP  | /BackSP /       \Space \  |RAISE |Enter | RAlt |
+ *                   | LCTRL| LGUI |  DN  | /BackSP /       \Space \  |  UP  |Enter | RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
   [_UP] = LAYOUT( \
   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_P7,   KC_P8,   KC_P9,   KC_PSLS, KC_PAST, \
   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_PPLS, \
-  KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_PCMM, KC_PEQL, \
+  KC_TRNS, KC_NO,   KC_MU,   KC_VD,   KC_VU,   KC_NO,                     KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_PCMM, KC_PEQL, \
   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_P0,   KC_PDOT, KC_PENT, KC_NO,   KC_NO, \
                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS \
   )
