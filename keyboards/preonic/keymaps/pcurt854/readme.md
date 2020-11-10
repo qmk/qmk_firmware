@@ -23,16 +23,24 @@ Bottom row, left to right: One shot layer 4, Control, Option, Command, Enter, Sp
 ### Layer 1
 
 Middle: Colemak
+
 Border: Same as QWERTY
 
 ### Layer 2
 
 Middle: Dvorak
+
 Border: Same as QWERTY
 
 ### Layer 3
 
-Numpad, parenthese, and some mouse keys.
+Numpad and common operators around it.
+
+Brackets <> () [] {}
+
+Home/End/Page Up/Down in place of arrow keys.
+
+Some mouse keys.
 
 ### Layer 4
 
