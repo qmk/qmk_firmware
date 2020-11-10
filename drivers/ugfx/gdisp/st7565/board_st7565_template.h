@@ -79,11 +79,7 @@ static GFXINLINE void post_init_board(GDisplay *g) { (void)g; }
 
 static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
     (void)g;
-    if (state) {
-        writePinLow(ST7565_RST_PIN);
-    } else {
-        writePinHigh(ST7565_RST_PIN);
-    }
+    writePin(ST7565_RST_PIN, !state);
 }
 
 static GFXINLINE void write_cmd(GDisplay *g, gU8 cmd) {
