@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include <stdio.h>
 
 // OLED setup
 #define IDLE_FRAMES 5
@@ -15,8 +16,6 @@ uint8_t  current_idle_frame = 0;
 uint8_t  current_tap_frame  = 0;
 
 static long int oled_timeout = 600000;  // 10 minutes
-
-// extern uint8_t is_master;
 
 enum layer_number {
     _QWERTY = 0,
@@ -117,23 +116,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-    return OLED_ROTATION_270;
+    if (is_keyboard_master()) return OLED_ROTATION_270;
+    return OLED_ROTATION_180;
 }
 
-// When you add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-// const char *read_logo(void);
-// void set_keylog(uint16_t keycode, keyrecord_t *record);
-// const char *read_keylog(void);
-// const char *read_keylogs(void);
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
 
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
-// void set_timelog(void);
-// const char *read_timelog(void);
-
-static void render_anim(void) {
+static void render_bongo_cat(void) {
     // Idle animation
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
 
@@ -210,26 +201,36 @@ static void render_anim(void) {
     }
 }
 
-void oled_task_user(void) {
-    if (is_keyboard_master()) {
-        // If you want to change the display of OLED, you need to change here
-        oled_write_ln(read_layer_state(), false);
-        // oled_write_ln(read_keylog(), false);
-        // oled_write_ln(read_keylogs(), false);
-        // oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-        // oled_write_ln(read_host_led_state(), false);
-        // oled_write_ln(read_timelog(), false);
-    } else {
-        render_anim();
+static void render_status(void) {
+    // WPM
+    oled_write_ln("WPM", false);
+    sprintf(wpm_str, "%03d", get_current_wpm());
+    oled_write_ln(wpm_str, false);
+    oled_write_ln("", false);
+    // Layer display
+    oled_write_ln("Layer", false);
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write_ln("DEFLT", false);
+            break;
+        case _RAISE:
+            oled_write_ln("RAISE", false);
+            break;
+        case _LOWER:
+            oled_write_ln("LOWER", false);
+            break;
+        case _ADJUST:
+            oled_write_ln("ADJST", false);
+            break;
+        default:
+            oled_write_ln("ERROR", false);
     }
 }
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   if (record->event.pressed) {
-// #ifdef OLED_DRIVER_ENABLE
-//     set_keylog(keycode, record);
-// #endif
-//     // set_timelog();
-//   }
-//   return true;
-// }
+void oled_task_user(void) {
+    if (is_keyboard_master()) {
+        render_status();
+    } else {
+        render_bongo_cat();
+    }
+}
