@@ -58,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |   '  |
      * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
-     * |LCTRL |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |Enter |
+     * |LCTRL |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  | RAlt |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | LGUI | LAlt |LOWER | / Space /       \ Bksp \  |RAISE | RAlt | Del  |
+     *                   | LGUI | LAlt |LOWER | / Space /       \ Bksp \  |Enter |RAISE | Del  |
      *                   |      |      |      |/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
@@ -68,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,   LT_A_OG, LT_C_CA, LT_E_OG, LT_E_DO, LT_I_OG,                  LT_S_CA, LT_U_OG, LT_U_MA, KC_9,    KC_0,    LT_Z_CA, \
         KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
         KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-        KC_LCTRL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_LBRC, KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
-                                KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC,  KC_BSPC, MO(_RAISE), KC_RALT, KC_DEL \
+        KC_LCTRL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_LBRC, KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RALT, \
+                                KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC,  KC_BSPC, KC_ENT,  MO(_RAISE), KC_DEL \
     ),
 
     /* LOWER
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
      * |LCTRL |   =  |   +  |   -  |   |  |      |-------|    |-------|      |      |      |      |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | LGUI | LAlt |LOWER | / Space /       \ Bksp \  |RAISE | RAlt | Del  |
+     *                   | LGUI | LAlt |LOWER | / Space /       \ Bksp \  |Enter |RAISE | Del  |
      *                   |      |      ||||||||/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
@@ -102,17 +102,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
      * |LShift|      |      |      |      |      |-------.    ,-------|      | Left | Down |  Up  |Right |      |
      * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
-     * |LCTRL |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+     * |LCTRL | Undo | Cut  | Copy |Paste |      |-------|    |-------|      |      |      |      |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | LGUI | LAlt |LOWER | / Space /       \ Bksp \  |RAISE | RAlt | Del  |
-     *                   |      |      |      |/       /         \      \ ||||||||      |      |
+     *                   | LGUI | LAlt |LOWER | / Space /       \ Bksp \  |Enter |RAISE | Del  |
+     *                   |      |      |      |/       /         \      \ |      ||||||||      |
      *                   `----------------------------'           '------''--------------------'
      */
     [_RAISE] = LAYOUT( \
         _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______,                   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), _______, _______, _______, _______, _______, _______, _______, _______, _______, \
                                    _______, _______, _______, _______, _______, _______, _______, _______ \
     ),
 
@@ -126,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
      * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | LGUI | LAlt |LOWER | /Space  /       \Enter \  |RAISE | RAlt | Del  |
-     *                   |      |      ||||||||/       /         \      \ ||||||||      |      |
+     *                   | LGUI | LAlt |LOWER | /Space  /       \Enter \  |Enter |RAISE | Del  |
+     *                   |      |      ||||||||/       /         \      \ |      ||||||||      |
      *                   `----------------------------'           '------''--------------------'
      */
     [_ADJUST] = LAYOUT( \
@@ -149,6 +149,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 static void render_bongo_cat(void) {
+
     // Idle animation
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
 
@@ -254,11 +255,6 @@ static void render_status(void) {
     oled_write_ln("", false);
     oled_write_ln("", false);
     oled_write_ln("caps", led_state.caps_lock);
-
-    led_write_ln("", false);
-    led_write_ln("", false);
-    led_write_ln("", false);
-    oled_write_P(0x80);
 }
 
 void oled_task_user(void) {
