@@ -8,6 +8,8 @@
 #ifndef _GDISP_LLD_BOARD_H
 #define _GDISP_LLD_BOARD_H
 
+#include "quantum.h"
+
 #define ST7565_LCD_BIAS ST7565_LCD_BIAS_9  // actually 6
 #define ST7565_ADC ST7565_ADC_NORMAL
 #define ST7565_COM_SCAN ST7565_COM_SCAN_DEC
@@ -20,12 +22,9 @@
 #define ST7565_A0_PIN C7
 #define ST7565_RST_PIN C8
 #define ST7565_MOSI_PIN C6
-#define ST7565_SLCK_PIN C5
+#define ST7565_SCLK_PIN C5
 #define ST7565_SS_PIN C4
 
-#define palSetPadModeRaw(portname, bits) ST7565_PORT->PCR[ST7565_##portname##_PIN] = bits
-
-#define ST7565_SPI_MODE PORTx_PCRn_DSE | PORTx_PCRn_MUX(2)
 // DSPI Clock and Transfer Attributes
 // Frame Size: 8 bits
 // MSB First
@@ -68,8 +67,8 @@ static GFXINLINE void init_board(GDisplay *g) {
     writePinHigh(ST7565_RST_PIN);
     setPinOutput(ST7565_SS_PIN);
 
-    palSetPadModeRaw(MOSI, ST7565_SPI_MODE);
-    palSetPadModeRaw(SLCK, ST7565_SPI_MODE);
+    palSetPadMode(PAL_PORT(ST7565_MOSI_PIN), PAL_PAD(ST7565_MOSI_PIN), PAL_MODE_ALTERNATIVE_2);
+    palSetPadMode(PAL_PORT(ST7565_SCLK_PIN), PAL_PAD(ST7565_SCLK_PIN), PAL_MODE_ALTERNATIVE_2);
 
     spiInit();
     spiStart(&SPID1, &spi1config);
@@ -80,21 +79,22 @@ static GFXINLINE void post_init_board(GDisplay *g) { (void)g; }
 
 static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
     (void)g;
-    writePin(ST7565_RST_PIN, !state);
+    if (state) {
+        writePinLow(ST7565_RST_PIN);
+    } else {
+        writePinHigh(ST7565_RST_PIN);
+    }
 }
 
-static GFXINLINE void enter_data_mode(GDisplay *g) {
-    (void)g;
-    writePinHigh(ST7565_A0_PIN);
-}
-
-static GFXINLINE void enter_cmd_mode(GDisplay *g) {
+static GFXINLINE void write_cmd(GDisplay *g, gU8 cmd) {
     (void)g;
     writePinLow(ST7565_A0_PIN);
+    spiSend(&SPID1, 1, &cmd);
 }
 
-static GFXINLINE void write_data(GDisplay *g, uint8_t *data, uint16_t length) {
+static GFXINLINE void write_data(GDisplay *g, gU8 *data, gU16 length) {
     (void)g;
+    writePinHigh(ST7565_A0_PIN);
     spiSend(&SPID1, length, data);
 }
 
