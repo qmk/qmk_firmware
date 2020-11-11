@@ -1,5 +1,7 @@
 #pragma once
 
+#define TAPPING_TOGGLE 2
+
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(CAMPANELLA)
     // #define STARTUP_SONG SONG(FANTASIE_IMPROMPTU)
