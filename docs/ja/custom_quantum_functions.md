@@ -1,8 +1,8 @@
 # キーボードの挙動をカスタマイズする方法
 
 <!---
-  original document: 0.9.43:docs/custom_quantum_functions.md
-  git diff 0.9.43 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.10.33:docs/custom_quantum_functions.md
+  git diff 0.10.33 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 多くの人にとって、カスタムキーボードはボタンの押下をコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいでしょう。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズできるフックがあります。
@@ -232,7 +232,7 @@ void keyboard_pre_init_user(void) {
 }
 ```
 
-### `keyboard_pre_init_*` 関数のドキュメント
+### `keyboard_pre_init_*` 関数のドキュメント :id=keyboard_pre_init_-function-documentation
 
 * キーボード/リビジョン: `void keyboard_pre_init_kb(void)`
 * キーマップ: `void keyboard_pre_init_user(void)`
@@ -456,7 +456,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // すぐにレイヤーの色を更新します
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 任意の RGB コード に対して(quantum_keycodes.h を見てください。400行目参照)
         if (record->event.pressed) { // これはレイヤー表示を無効にします。これを変更する場合は、無効にしたいだろうため。
             if (user_config.rgb_layer_change) {        // 有効な場合のみ

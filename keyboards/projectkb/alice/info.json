@@ -5,7 +5,7 @@
     "width": 19.75,
     "height": 5.25,
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_alice": {
             "layout": [
                 {"label":"Esc", "x":0.5, "y":0},
                 {"label":"`", "x":1.75, "y":0.25},

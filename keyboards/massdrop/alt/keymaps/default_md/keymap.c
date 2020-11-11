@@ -21,8 +21,6 @@ enum alt_keycodes {
     MD_BOOT             //Restart into bootloader after hold timeout                //Working
 };
 
-keymap_config_t keymap_config;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,  \
@@ -47,14 +45,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______  \
     ),
     */
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
 };
 
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
@@ -186,7 +176,7 @@ led_instruction_t led_instructions[] = {
     //Flags can be found in tmk_core/protocol/arm_atsam/led_matrix.h (prefixed with LED_FLAG_)
     //LED IDs can be found in config_led.h in the keyboard's directory
     //Examples are below
-    
+
     //All LEDs use the user's selected pattern (this is the factory default)
      { .flags = LED_FLAG_USE_ROTATE_PATTERN },
 
@@ -195,7 +185,7 @@ led_instruction_t led_instructions[] = {
 
     //Specific LEDs use specified RGB values while all others are off
     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFF, .id1 = 0x00FF, .id2 = 0x0000FF00, .id3 = 0xFF000000, .r = 75, .g = 150, .b = 225 },
-    
+
     //All LEDs use the user's selected pattern
     //On layer 1, all key LEDs (except the top row which keeps active pattern) are red while all edge LEDs are green
     //When layer 1 is active, key LEDs use red    (id0  32 -  16: 1111 1111 1111 1111 1000 0000 0000 0000 = 0xFFFF8000) (except top row 15 - 1)
