@@ -116,6 +116,11 @@ bool is_tap_action(action_t action);
 void process_record_tap_hint(keyrecord_t *record);
 #endif
 
+#ifndef NO_ACTION_ONESHOT
+bool get_clear_oneshot_layer(uint16_t keycode, keyrecord_t *record, bool default_value);
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+#endif
+
 /* debug */
 void debug_event(keyevent_t event);
 void debug_record(keyrecord_t record);
