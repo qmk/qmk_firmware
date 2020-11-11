@@ -221,6 +221,10 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
     }
 
     for (uint16_t i = 0; i < leds; i++) {
+ #ifdef WS2812_RGB
+        // Support for strange RGB implementations
+        ws2812_write_led(i, ledarray[i].g, ledarray[i].r, ledarray[i].b);
+#else
         ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
     }
 }

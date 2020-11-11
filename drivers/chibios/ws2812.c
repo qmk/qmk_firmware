@@ -88,9 +88,15 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
     chSysLock();
 
     for (uint8_t i = 0; i < leds; i++) {
+#ifdef WS2812_RGB
+        // Support for strange RGB implementations
+        sendByte(ledarray[i].r);
+        sendByte(ledarray[i].g);
+#else
         // WS2812 protocol dictates grb order
         sendByte(ledarray[i].g);
         sendByte(ledarray[i].r);
+#endif
         sendByte(ledarray[i].b);
 #ifdef RGBW
         sendByte(ledarray[i].w);
