@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ____ | MsLf | MsDn | MsRt |   [  |   ]  |  *   |   1  |   2  |   3  | ____ | ____ |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | ____ |      |      |      |   {  |   }  |  /   |   0  | ____ | ____ | ____ | PgUp |
+ * | ____ |      |  3   |      |   {  |   }  |  /   |   0  | ____ | ____ | ____ | PgUp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | Home | End  | ____ | ____ | PgDn |
  * `-----------------------------------------------------------------------------------'
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_EQL,  KC_7,    KC_8,    KC_9,    KC_CIRC, _______,
   _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_LPRN, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
   _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_LBRC, KC_RBRC, KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, _______, KC_PGUP,
+  _______, XXXXXXX, KC_3,    XXXXXXX, KC_LCBR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, _______, KC_PGUP,
   _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  _______, _______, KC_PGDN
 ),
 
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ____ |   @  |   *  |   $  |      |      |   #  |      |      |   +  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |   ^  |      |   \  |   -  |   &  |      |      |      |      |
+ * |      |      |   4  |   ^  |      |   \  |   -  |   &  |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      | ____ | ____ |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
   _______, KC_EQL,  _______, KC_EXLM, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, _______,
   _______, KC_AT,   KC_ASTR, KC_DLR,  XXXXXXX, XXXXXXX, KC_HASH, XXXXXXX, XXXXXXX, KC_PLUS, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, KC_CIRC, XXXXXXX, KC_BSLS, KC_MINS, KC_AMPR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, KC_4,    KC_CIRC, XXXXXXX, KC_BSLS, KC_MINS, KC_AMPR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ____ |      |Sleep |show  |      |      |finder|      |      |Lock  | rgb  |      |
  * |      |      |      |Dsktp |      |      |Hddn  |      |      |screen| mode |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |RESET |      |      |Virus |      |      | Mute | vol+ | rbg+ | rgb  | dsp+ |
+ * |      |RESET |   5  |      |Virus |      |      | Mute | vol+ | rbg+ | rgb  | dsp+ |
  * |      |RESET |      |      |scan  |      |      |      |      |      | 0/1  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      |      |      |      | vol- | rbg- |      | dsp- |
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              LCMD(KC_F4),
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),
                                                                  XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), RGB_MODE_FORWARD, XXXXXXX,
-  XXXXXXX, RESET,   XXXXXXX, XXXXXXX, SCMD(KC_V),
+  XXXXXXX, RESET,   KC_5,    XXXXXXX, SCMD(KC_V),
                                                XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   RGB_VAI, RGB_TOG, LCAG(KC_UP),
   _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, XXXXXXX, LCAG(KC_DOWN)
 )
