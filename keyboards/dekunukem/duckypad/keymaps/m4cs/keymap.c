@@ -36,7 +36,8 @@ bool sysToggled = false;
 enum layer_codes {
   RGB_LAYER = SAFE_RANGE,
   ALT_LAYER,
-  SYS_LAYER
+  SYS_LAYER,
+  CLOCK_TOGGLE
 };
 
 enum my_keycodes {
@@ -76,6 +77,8 @@ float cpuFreq = 0;
 int memPerc = 0;
 int gpuLoad = 0;
 int temp = 0;
+int hour = 0;
+int minute = 0;
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -97,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,
       MAC_1, MAC_2, MAC_3,
       MAC_4, MAC_5, MAC_6,
-      MAC_7, MAC_8, SYS_LAYER,
+      CLOCK_TOGGLE, MAC_8, SYS_LAYER,
       RGB_LAYER, ALT_LAYER
   ),
   /*
@@ -139,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_UNDO, KC_CUT, KC_COPY,
       KC_PASTE, KC_FIND, KC_PSCR,
       MAC_13, MAC_14, MAC_15,
-      MAC_16, MAC_17, SYS_LAYER,
+      CLOCK_TOGGLE, MAC_17, SYS_LAYER,
       RGB_LAYER, ALT_LAYER
   ),
   [_SYS] = LAYOUT(
@@ -147,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO, KC_NO, KC_NO,
       KC_NO, KC_NO, KC_NO,
       KC_NO, KC_NO, KC_NO,
-      KC_NO, KC_NO, SYS_LAYER,
+      CLOCK_TOGGLE, KC_NO, SYS_LAYER,
       RGB_LAYER, ALT_LAYER
   )
 };
@@ -203,10 +206,11 @@ char* make_alt_text(void){
 };
 
 char* make_sys_info_text(void) {
-  char *s = malloc((30 * 4) * sizeof(*s));
-  snprintf(s, 120, "    cpu: %.1fGHz\n    mem: %d%%\n    gpu: %d%%\n    temp: %d C", cpuFreq, memPerc, gpuLoad, temp);
+  char *s = malloc((30 * 5) * sizeof(*s));
+  snprintf(s, 150, "    cpu: %.1fGHz\n      mem: %d%%\n      gpu: %d%%\n     temp: %dC\n    time: %d:%d", cpuFreq, memPerc, gpuLoad, temp, hour, minute);
   return s;
 };
+
 
 void oled_task_user(void) {
   if (!sysToggled) {
@@ -243,36 +247,40 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     if (sysToggled) {
         oled_clear();
         render_logo();
-    }
-    int i;
-    int stepper = 0;
-    int toWrite;
-    for (i=0; i < length; i++) {
-        if (data[i] != 10) {
-            toWrite = concat(toWrite, data[i]);
-        } else {
-            switch (stepper) {
-                case 0:
-                    cpuFreq = floor(100*toWrite)/10000;
-                    break;
-                case 1:
-                    memPerc = toWrite / 10;
-                    break;
-                case 2:
-                    gpuLoad = toWrite;
-                    break;
-                case 3:
-                    temp = toWrite;
-                    break;
-                default:
-                    break;
+        int i;
+        int stepper = 0;
+        int toWrite;
+        for (i=0; i < length; i++) {
+            if (data[i] != 13) {
+                toWrite = concat(toWrite, data[i]);
+            } else {
+                switch (stepper) {
+                    case 0:
+                        cpuFreq = floor(100*toWrite)/10000;
+                        break;
+                    case 1:
+                        memPerc = toWrite / 10;
+                        break;
+                    case 2:
+                        gpuLoad = toWrite;
+                        break;
+                    case 3:
+                        temp = toWrite;
+                        break;
+                    case 4:
+                        hour = toWrite;
+                        break;
+                    case 5:
+                        minute = toWrite;
+                        break;
+                    default:
+                        break;
+                }
+                toWrite = 0;
+                stepper++;
             }
-            toWrite = 0;
-            stepper++;
         }
-    }
-    if (sysToggled) {
-        oled_set_cursor(0, 4);
+        oled_set_cursor(0,3);
         char *s = make_sys_info_text();
         oled_write_ln(s, false);
         free(s);
@@ -314,20 +322,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     case SYS_LAYER:
-    if (record->event.pressed) {
-        if (sysToggled) {
-            rgbToggled = false;
-            altToggled = false;
-            sysToggled = false;
-            oled_clear();
-            layer_clear();
-        } else {
-            rgbToggled = false;
-            sysToggled = true;
-            altToggled = false;
-            layer_on(_SYS);
+        if (record->event.pressed) {
+            if (sysToggled) {
+                rgbToggled = false;
+                altToggled = false;
+                sysToggled = false;
+                oled_clear();
+                layer_clear();
+            } else {
+                rgbToggled = false;
+                sysToggled = true;
+                altToggled = false;
+                layer_on(_SYS);
+            }
         }
-    }
     default:
       return true;
   }
