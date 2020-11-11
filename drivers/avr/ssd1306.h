@@ -66,7 +66,7 @@ struct CharacterMatrix {
     bool     dirty;
 };
 
-extern struct CharacterMatrix display;
+struct CharacterMatrix display;
 
 bool iota_gfx_init(void);
 void iota_gfx_task(void);

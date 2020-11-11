@@ -34,4 +34,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 LAYOUTS = ortho_5x12
 
-LTO_ENABLE = yes
+LINK_TIME_OPTIMIZATION_ENABLE = yes

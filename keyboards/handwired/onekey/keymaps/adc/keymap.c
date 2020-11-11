@@ -21,7 +21,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
                     printf(buffer);
 #else
-                    send_string(buffer);
+                    SEND_STRING(buffer);
 #endif
             }
             break;

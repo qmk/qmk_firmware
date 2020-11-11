@@ -1,0 +1,356 @@
+Terminology
+===========
+PSM
+HIDP        HID Protocol
+L2CAP       Logical Link Control Adaptation Protocol
+MTU         Maximum Transmission Unit
+
+
+
+HID Protocol
+============
+3 of HID_SPEC_V11.pdf
+
+Channel
+-------
+Control channel     PSM=0x0011
+Interrupt channel   PSM=0x0013
+
+Message
+-------
+HANDSHAKE(0)
+HID_CONTROL(1)
+
+GET_REPORT(4)
+    Host requests report(DATA payload on Control channel) from Device
+                Size    Desc
+    ------------------------------------------------------------------------------
+    HIDP-Hdr    1       7..4: HIDP Message TYpe(4: GET_REPORT)
+                        3: Size(1:2-octed buffer size, 0:size of the report)
+                        2: 0
+                        1..0: Report Type(1:input, 2:output, 3: feature)
+    ReportID    1       Optional
+    BufferSize  2       Optional(specified when Size=1)
+
+SET_REPORT(5)
+GET_PROTOCOL(6)
+SET_PROTOCOL(7)
+
+DATA(A)
+    Input/Output Report: All DATA payloads flow on Interrupt channel.
+    Other: flows on Control channel.
+                Size    Desc
+    ------------------------------------------------------------------------------
+    HIDP-Hdr    1       7..4    0xA
+                        3..2    Reserved(0)
+                        1..0    Report Type(0:Other, 1:Input, 2:Output, 3:Feature)
+    Payload     N               Data
+
+
+
+
+Boot Protocol
+=============
+3.3.2
+No report descriptor, fixed report descriptors defined.
+
+Device      ReportID    Size
+---------------------------------
+Reserved    0
+Keyboard    1           9octets
+Mouse       2           4octets
+Reserved    3-255
+
+Report descriptor
+-----------------
+Report ID is added to USB HID boot protocol descriptor.
+Boot Protocol device doesn't need to supply descriptors. and can send extra data on end of boot report this data will be ignored unless host supports report descriptor.
+
+Report Protocol devices can have specific descriptors. Using Boot protocol descriptor followed by extra data may be useful for compatibility to Boot protocol only supported host.
+
+NOTE:
+Bluegiga HID sample say report ID of mouse is 1 but 2?
+Bluegiga HID sample say report ID of consumer page is 2 but 3?
+** mouse.desc and consumer.desc were fixed.
+                size
+keyboard.desc   67  0x43 
+mouse.desc      60  0x3c
+consumer.desc   82  0x52
+combo.desc      209 0xd1
+
+
+
+SDP
+===
+attributes(3.3.2)
+----------
+HIDDeviceSubclass
+    which type is supported in Boot Protocol Mode
+    7 6
+    ---
+    0 1 Keyboard
+    1 0 Pointing device
+    1 1 Combo keyboard/pointing device
+
+HIDBootDevice
+    TRUE
+HIDReconnectInitiate
+    TRUE
+
+
+Class of Device/Service
+=======================
+http://phys.sci.hokudai.ac.jp/LABS/yts/pic/GB002/Bluetooth_assigned_numbers_baseband.pdf
+
+0x0005C0        Keyboard and Pointing deivce(combo)
+
+
+    23      16 15       8 7         0
+    ---------------------------------
+    Service      |Major  |Minor   |Format
+
+    Format type
+    1 0
+    ---
+    0 0
+
+    Minor Device Class of Peripheral Major
+    7 6
+    ---
+    0 1 Keyboard
+    1 0 Pointing device
+    1 1 Combo keyboard/pointing device
+
+
+    Major device classes
+    12 11 10  9  8
+    --------------
+     0  0  0  0  0  Miscellaneous
+     0  0  0  0  1  Computer
+     0  0  0  1  0  Phone
+     0  0  0  1  1  LAN /Network Access point
+     0  0  1  0  0  Audio/Video (headset,speaker,stereo, video display, vcr.....
+     0  0  1  0  1 *Peripheral (mouse, joystick, keyboards, ..... )
+     0  0  1  1  0  Imaging (printing, scanner, camera, display, ...)
+     1  1  1  1  1  Uncategorized, specific device code not specified
+     X  X  X  X  X  All other values reserved
+
+
+    Major service classes
+    bit
+    --------------------------------------
+    13 Limited Discoverable Mode [Ref #1]
+    14 (reserved)
+    15 (reserved)
+    16 Positioning (Location identification)
+    17 Networking (LAN, Ad hoc, ...)
+    18 Rendering (Printing, Speaker, ...) 
+    19 Capturing (Scanner, Microphone, ...)
+    20 Object Transfer (v-Inbox, v-Folder, ...)
+    21 Audio (Speaker, Microphone, Headset service, ...)
+    22 Telephony (Cordless telephony, Modem, Headset service, ...)
+    23 Information (WEB-server, WAP-server, ...)
+
+
+
+
+Authentication SSP
+-------------------
+SET BT SSP 2 0      PASS KEY entering
+SET BT SSP 3 0      NO PASS KEY entering
+SET BT SSP <capabilities> <mitm>
+    <capabilities>: 0:display only 1:display+yes/no button 2:keyboard only 3:none
+SET BT SSP 2 1  # 2:keyboard only 1:Man-in-the-middle protection is needed
+SET BT SSP 2 0  # 2:keyboard only 0:Man-in-the-middle protection is not needed
+
+
+SET BT SSP 2 1
+    bond only if MITM protection is supported by host
+SET BT SSP 2 0
+    bond even if MITM protection is not supported by host
+
+On Windows 'Add device' causes SSP PASSKEY event on iWRAP
+    SSP PASSKEY 78:dd:08:b7:e4:a2 ?
+
+If device has display(0 or 1) this event occurs. User should be shown this code on the device.
+    SSP CONFIRM 78:dd:08:b7:e4:a2 517572
+
+
+SET BT SSP 3 0
+    No input/output, No MITM protection.
+    Without procedure of authentication the divice is bond to host.
+
+
+Connect
+=======
+CALL 78:dd:08:b7:e4:a2 11 HID
+
+
+Setting
+========
+Following settings need to be done before wiring into keyboard.
+- UART speed: 38400bps(115200bps didn't work with software serial)
+- No SSP procedure(without MITM protection)
+- No Power Saving
+
+# clear pairing record and set default
+SET BT PAIR *
+SET RESET
+
+SET CONTROL INIT SET CONTROL MUX 0
+SET CONTROL BAUD 38400,8n1
+SET BT NAME TMK Blootooth WT12
+SET BT CLASS 0005c0
+SET BT AUTH * 0000
+SET BT SSP 3 0
+SET CONTROL CONFIG 4800
+SET PROFILE HID 0f c0 0100 00 en 0409 TMK Bluetooth keyboard(WT12)
+SET PROFILE SPP
+
+# power saving?
+SET BT SNIFF 100 20 1 8
+
+
+# Report Descriptor
+# combo keyboard + mouse + consumer
+HID SET d2 05010906a1010507850119e029e715002501750195088102950175088101950575010508850119012905910295017503910395067508150025650507190029658100c005010902a1010901a1008502050919012908150025017501950881020501093009311581257f750895028106093895018106050c0a380295018106c0c0050c0901a1018503050c1500250109e909ea09e209cd19b529b87501950881020a8a010a21020a2a021a23022a27027501950881020a83010a96010a92010a9e010a94010a060209b209b4750195088102c0
+
+
+
+SET PROFILE HID
+---------------
+    SET PROFILE HID 0d  c0 100 0 en 0409 HHKB pro Bluetooth keyboard
+    {function bit}  uint8
+    {subclass}      uint8
+    {version}       uint16
+    {country}       uint8
+    {BTlang}        char[2]
+    {USBlang}       uint16
+    {name}          string
+
+
+SET BT CLASS
+------------
+    See Class of Device
+    composite device: keyboard and mouse
+    SET BT CLASS 005c0
+
+
+
+
+
+
+----------
+after setting
+----------
+set
+SET BT BDADDR 00:07:80:47:22:14
+SET BT NAME TMK Blootooth WT12
+SET BT CLASS 0005c0
+SET BT AUTH * 0000
+SET BT IDENT BT:47 f000 5.0.1 Bluegiga iWRAP
+SET BT LAP 9e8b33
+SET BT PAGEMODE 4 2000 1
+SET BT PAIR 78:dd:08:b7:e4:a2 9e3d85c91bcae73fef8cc10bec18b42f
+SET BT POWER 3 3 3
+SET BT ROLE 0 f 7d00
+SET BT SNIFF 0 20 1 8
+SET BT SSP 3 0
+SET BT MTU 667
+SET CONTROL BAUD 38400,8n1
+SET CONTROL CD 00 0
+SET CONTROL ECHO 7
+SET CONTROL ESCAPE 43 00 1
+SET CONTROL GAIN 0 5
+SET CONTROL INIT SET CONTROL MUX 0
+SET CONTROL MSC DTE 00 00 00 00 00 00
+SET CONTROL MUX 1
+SET CONTROL PIO 00 00
+SET CONTROL READY 00
+SET PROFILE HID 0f c0 0100 00 en 0409 TMK Bluetooth keyboard(WT12)
+SET
+
+set control config list
+SET CONTROL CONFIG 0000 0000 0000 4900 KLUDGE INTERACTIVE_PIN UART_LATENCY
+
+
+info config
+WRAP THOR AI (5.0.1 build 620)
+Copyright (c) 2003-2012 Bluegiga Technologies Inc.
+Compiled on Oct  1 2012 10:56:21, running on WT12-A module, psr v31
+        BGIO FTP HFP HFP_AG HID HID_CONSUMER_PAGE HSP MAP MDP OTA PBAP PIO=0x00fc SSP SUBRATE TEST VOLUME
+        - BOCK4 version 620 (Oct  1 2012 10:56:03) (max acl/sco 7/1)
+        - Bluetooth version 3.0, Power class 2
+        - Loader 8615, firmware 8825 (56-bit encryption), native execution mode
+        - up 0 days, 01:50, 2 connections (pool 2)
+        - User configuration:
+&028d = 0001
+&0295 = 0000 0005 000b 0000 0003 0000 0000 0000 0000 0000 0000
+&0298 = c053
+&0299 = 0000 0000
+&02a3 = 0030 0030 0030 0030
+&02a4 = 009d 0000
+&02a5 = 0053 0045 0054 0020 0043 004f 004e 0054 0052 004f 004c 0020 004d 0055 0058 0020 0030
+&02a7 = 0000 05c0
+&02a8 = 0800 0000 0000 0000
+&02aa = 0004 2000 0001 0033 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+&02ac = 0000 0000 002b 0000 0000 0000 0000 0000 0000 0000 0002 0000 0000 0000 0010 0000 0000 0000 0000 029b 0000 0000 0000 0000
+&02ad = 4d54 204b 6c42 6f6f 6f74 746f 2068 5457 3231
+&02b0 = fa65 b0aa 934a 077b a600 d1cc fe58 8dd5
+&02b3 = 0004 0003 0003 0003 0003 0003 0003 0003 0003 0003 0003 0003 0003 0003 0003 0003 0005 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005
+&02b7 = 000f 00c0 0100 0000 0065 006e 0409 4d54 204b 6c42 6575 6f74 746f &02bb = 8000
+READY.
+----------
+
+
+
+-----
+After 5.0.1 Firmware update
+Firmware: ai-5.0.1-620-25b.bc4.dfu
+PSR: wt12-a.ai-5.0.1-620-25b.psrf
+-----
+info config
+WRAP THOR AI (5.0.1 build 620)
+Copyright (c) 2003-2012 Bluegiga Technologies Inc.
+Compiled on Oct  1 2012 10:56:21, running on WT12-A module, psr v31
+        BGIO FTP HFP HFP_AG HID HID_CONSUMER_PAGE HSP MAP MDP OTA PBAP PIO=0x00fc SSP SUBRATE TEST VOLUME
+        - BOCK4 version 620 (Oct  1 2012 10:56:03) (max acl/sco 7/1)
+        - Bluetooth version 3.0, Power class 2
+        - Loader 8615, firmware 8825 (56-bit encryption), native execution mode
+        - up 0 days, 00:03, 0 connections (pool 1)
+        - User configuration:
+&0295 = 0000 0005 000b 0000 0003 0000 0000 0000 0000 0000 0000
+&0299 = 0000 0000
+&02aa = 0004 2000 0001 0033 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+&02ac = 0000 0000 002b 0000 0000 0000 0000 0000 0000 0000 0002 0000 0000 0000 0010 0000 0000 0000 0000 029b 0000 0000 0000 0000
+&02ad = 5457 3231 412d
+&02b0 = fa65 b0aa 934a 077b a600 d1cc fe58 8dd5
+READY.
+
+set
+SET BT BDADDR 00:07:80:47:22:14
+SET BT NAME WT12-A
+SET BT CLASS 001f00
+SET BT IDENT BT:47 f000 5.0.1 Bluegiga iWRAP
+SET BT LAP 9e8b33
+SET BT PAGEMODE 4 2000 1
+SET BT PAIR 78:dd:08:b7:e4:a2 af18f81faa107e6dd068762ef921f48b
+SET BT POWER 3 3 3
+SET BT ROLE 0 f 7d00
+SET BT SNIFF 0 20 1 8
+SET BT SSP 3 0
+SET BT MTU 667
+SET CONTROL BAUD 115200,8n1
+SET CONTROL CD 00 0
+SET CONTROL ECHO 7
+SET CONTROL ESCAPE 43 00 1
+SET CONTROL GAIN 0 5
+SET CONTROL MSC DTE 00 00 00 00 00 00
+SET CONTROL PIO 00 00
+SET CONTROL READY 00
+SET PROFILE SPP Bluetooth Serial Port
+SET
+
+set control config list
+SET CONTROL CONFIG 0000 0000 0000 0100 KLUDGE
+---------

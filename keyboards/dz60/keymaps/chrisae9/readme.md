@@ -4,15 +4,15 @@ This is a custom keymap for the layout of the DZ60.
 
 ## Keyboard Picture
 
-![Keyboard](https://i.imgur.com/qyWgShY.png)
+![Keyboard Picture](https://i.imgur.com/cbKxxx4.jpg)
 
 ## Keyboard Layout
 
-![Chris DZ60](https://i.imgur.com/6mwsEOl.png)
+![Chris DZ60](https://i.imgur.com/sILXwXc.png)
 
 ## Setup
 
-[QMK Toolbox Download](https://github.com/qmk/qmk_toolbox/releases/tag/0.0.13)
+[QMK Tookbox Download](https://github.com/qmk/qmk_toolbox/releases/tag/0.0.13)
 
 [MYSYS2 for Windows](http://www.msys2.org/)
 
@@ -29,5 +29,5 @@ util/qmk_install.sh
 
 ``` bash
 #From the qmk_firware directory run
-make dz60:chrisae9
+make dz60:chrisae9:flash
 ```

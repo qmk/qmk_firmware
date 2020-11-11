@@ -1,12 +1,7 @@
 """Functions to collect user input.
 """
 
-from milc import cli
-
-try:
-    from milc import format_ansi
-except ImportError:
-    from milc.ansi import format_ansi
+from milc import cli, format_ansi
 
 
 def yesno(prompt, *args, default=None, **kwargs):

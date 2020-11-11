@@ -1,5 +1,5 @@
 #This enables Link Time Optimization.This can save a good chunk of space(several KB for me), but the macro and function... functions cause it to error out.
-LTO_ENABLE = yes
+LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 #Build Options
 #change to "no" to disable the options, or define them in the Makefile in

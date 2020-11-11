@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SPLIT
     #undef  RGBLED_NUM
     #define RGBLED_NUM 17
-    #undef RGBLED_SPLIT
     #define RGBLED_SPLIT { 9, 8 }
     #define RGBLIGHT_SLEEP
 #endif

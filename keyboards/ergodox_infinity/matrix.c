@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "matrix.h"
-#include "eeconfig.h"
 #include "serial_link/system/serial_link.h"
 
 
@@ -119,12 +118,8 @@ uint8_t matrix_scan(void)
     }
 
     uint8_t offset = 0;
-#if (defined(EE_HANDS) || defined(MASTER_IS_ON_RIGHT))
-#ifdef EE_HANDS
-    if (is_serial_link_master() && !eeconfig_read_handedness()) {
-#else
+#ifdef MASTER_IS_ON_RIGHT
     if (is_serial_link_master()) {
-#endif
         offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS;
     }
 #endif
@@ -167,13 +162,7 @@ void matrix_print(void)
 
 void matrix_set_remote(matrix_row_t* rows, uint8_t index) {
     uint8_t offset = 0;
-#ifdef EE_HANDS
-    if (eeconfig_read_handedness()) {
-        offset = LOCAL_MATRIX_ROWS * (index + 1);
-    } else {
-        offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS * (index + 2);
-    }
-#elif defined(MASTER_IS_ON_RIGHT)
+#ifdef MASTER_IS_ON_RIGHT
     offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS * (index + 2);
 #else
     offset = LOCAL_MATRIX_ROWS * (index + 1);

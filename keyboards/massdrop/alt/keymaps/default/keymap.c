@@ -10,6 +10,8 @@ enum alt_keycodes {
     MD_BOOT,               //Restart into bootloader after hold timeout
 };
 
+keymap_config_t keymap_config;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_65_ansi_blocker(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,  \
@@ -34,6 +36,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______  \
     ),
     */
+};
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
 };
 
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
@@ -87,11 +97,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
               switch (rgb_matrix_get_flags()) {
                 case LED_FLAG_ALL: {
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
                     rgb_matrix_set_color_all(0, 0, 0);
                   }
                   break;
-                case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
+                case LED_FLAG_KEYLIGHT: {
                     rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
                     rgb_matrix_set_color_all(0, 0, 0);
                   }

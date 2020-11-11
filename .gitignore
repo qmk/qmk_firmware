@@ -16,7 +16,6 @@
 *.swp
 tags
 *~
-api_data/v1
 build/
 .build/
 *.bak

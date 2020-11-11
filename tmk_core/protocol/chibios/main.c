@@ -35,7 +35,6 @@
 
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 // Change this to be TRUE once we've migrated keyboards to the new init system
-// Remember to change docs/platformdev_chibios_earlyinit.md as well.
 #    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 #endif
 

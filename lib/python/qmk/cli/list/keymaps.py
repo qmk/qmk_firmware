@@ -15,7 +15,7 @@ def list_keymaps(cli):
     """
     if not is_keyboard(cli.config.list_keymaps.keyboard):
         cli.log.error('Keyboard %s does not exist!', cli.config.list_keymaps.keyboard)
-        return False
+        exit(1)
 
     for name in qmk.keymap.list_keymaps(cli.config.list_keymaps.keyboard):
         print(name)

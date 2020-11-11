@@ -1,5 +1,6 @@
 /*
-Copyright 2020 2Moons
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,6 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
 /* USB Device descriptor parameter */

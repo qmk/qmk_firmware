@@ -1,9 +1,8 @@
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
-AUTO_SHIFT_ENABLE = yes
-OLED_DRIVER_ENABLE= yes     # OLED display
+RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 
 # If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/rgb_state_reader.c \
+SRC +=  ./lib/glcdfont.c \
+        ./lib/rgb_state_reader.c \
         ./lib/layer_state_reader.c \
         ./lib/logo_reader.c \
         ./lib/keylogger.c \

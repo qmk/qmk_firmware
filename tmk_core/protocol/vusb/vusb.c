@@ -15,12 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdint.h>
-
 #include <avr/wdt.h>
-
+#include <util/delay.h>
+#include <stdint.h>
 #include <usbdrv/usbdrv.h>
-
 #include "usbconfig.h"
 #include "host.h"
 #include "report.h"
@@ -28,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "vusb.h"
 #include "print.h"
 #include "debug.h"
-#include "wait.h"
 #include "usb_descriptor_common.h"
 
 #ifdef RAW_ENABLE
@@ -59,20 +56,16 @@ enum usb_interfaces {
 #ifdef CONSOLE_ENABLE
     CONSOLE_INTERFACE = NEXT_INTERFACE,
 #endif
-    TOTAL_INTERFACES = NEXT_INTERFACE
+    TOTAL_INTERFACES = NEXT_INTERFACE,
 };
 
-#define MAX_INTERFACES 3
+#define MAX_INTERFACES 2
 
 #if (NEXT_INTERFACE - 1) > MAX_INTERFACES
 #    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console
 #endif
 
-#if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
-#    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
-#endif
-
-static uint8_t keyboard_led_state = 0;
+static uint8_t vusb_keyboard_leds = 0;
 static uint8_t vusb_idle_rate     = 0;
 
 /* Keyboard report send buffer */
@@ -81,7 +74,13 @@ static report_keyboard_t kbuf[KBUF_SIZE];
 static uint8_t           kbuf_head = 0;
 static uint8_t           kbuf_tail = 0;
 
-static report_keyboard_t keyboard_report_sent;
+typedef struct {
+    uint8_t modifier;
+    uint8_t reserved;
+    uint8_t keycode[6];
+} keyboard_report_t;
+
+static keyboard_report_t keyboard_report;  // sent to PC
 
 #define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
 
@@ -93,13 +92,19 @@ void vusb_transfer_keyboard(void) {
                 usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
                 kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
                 if (debug_keyboard) {
-                    dprintf("V-USB: kbuf[%d->%d](%02X)\n", kbuf_tail, kbuf_head, (kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
+                    print("V-USB: kbuf[");
+                    pdec(kbuf_tail);
+                    print("->");
+                    pdec(kbuf_head);
+                    print("](");
+                    phex((kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
+                    print(")\n");
                 }
             }
             break;
         }
         usbPoll();
-        wait_ms(1);
+        _delay_ms(1);
     }
 }
 
@@ -120,16 +125,16 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
 
     uint8_t *temp = data;
     for (uint8_t i = 0; i < 4; i++) {
-        while (!usbInterruptIsReady4()) {
+        while (!usbInterruptIsReady3()) {
             usbPoll();
         }
-        usbSetInterrupt4(temp, 8);
+        usbSetInterrupt3(temp, 8);
         temp += 8;
     }
-    while (!usbInterruptIsReady4()) {
+    while (!usbInterruptIsReady3()) {
         usbPoll();
     }
-    usbSetInterrupt4(0, 0);
+    usbSetInterrupt3(0, 0);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -213,7 +218,7 @@ static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_sy
 
 host_driver_t *vusb_driver(void) { return &driver; }
 
-static uint8_t keyboard_leds(void) { return keyboard_led_state; }
+static uint8_t keyboard_leds(void) { return vusb_keyboard_leds; }
 
 static void send_keyboard(report_keyboard_t *report) {
     uint8_t next = (kbuf_head + 1) % KBUF_SIZE;
@@ -221,13 +226,12 @@ static void send_keyboard(report_keyboard_t *report) {
         kbuf[kbuf_head] = *report;
         kbuf_head       = next;
     } else {
-        dprint("kbuf: full\n");
+        debug("kbuf: full\n");
     }
 
     // NOTE: send key strokes of Macro
     usbPoll();
     vusb_transfer_keyboard();
-    keyboard_report_sent = *report;
 }
 
 typedef struct {
@@ -284,35 +288,36 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
 
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
         if (rq->bRequest == USBRQ_HID_GET_REPORT) {
-            dprint("GET_REPORT:");
-            if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
-                return sizeof(keyboard_report_sent);
-            }
+            debug("GET_REPORT:");
+            /* we only have one report type, so don't look at wValue */
+            usbMsgPtr = (usbMsgPtr_t)&keyboard_report;
+            return sizeof(keyboard_report);
         } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
-            dprint("GET_IDLE:");
+            debug("GET_IDLE: ");
+            // debug_hex(vusb_idle_rate);
             usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
             return 1;
         } else if (rq->bRequest == USBRQ_HID_SET_IDLE) {
             vusb_idle_rate = rq->wValue.bytes[1];
-            dprintf("SET_IDLE: %02X", vusb_idle_rate);
+            debug("SET_IDLE: ");
+            debug_hex(vusb_idle_rate);
         } else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
-            dprint("SET_REPORT:");
+            debug("SET_REPORT: ");
             // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
-            if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
-                dprint("SET_LED:");
+            if (rq->wValue.word == 0x0200 && rq->wIndex.word == 0) {
+                debug("SET_LED: ");
                 last_req.kind = SET_LED;
                 last_req.len  = rq->wLength.word;
             }
             return USB_NO_MSG;  // to get data in usbFunctionWrite
         } else {
-            dprint("UNKNOWN:");
+            debug("UNKNOWN:");
         }
     } else {
-        dprint("VENDOR:");
+        debug("VENDOR:");
         /* no vendor specific requests implemented */
     }
-    dprint("\n");
+    debug("\n");
     return 0; /* default for not implemented requests: return no data back to host */
 }
 
@@ -322,8 +327,10 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
     }
     switch (last_req.kind) {
         case SET_LED:
-            dprintf("SET_LED: %02X\n", data[0]);
-            keyboard_led_state = data[0];
+            debug("SET_LED: ");
+            debug_hex(data[0]);
+            debug("\n");
+            vusb_keyboard_leds = data[0];
             last_req.len       = 0;
             return 1;
             break;
@@ -339,13 +346,13 @@ void usbFunctionWriteOut(uchar *data, uchar len) {
 #ifdef RAW_ENABLE
     // Data from host must be divided every 8bytes
     if (len != 8) {
-        dprint("RAW: invalid length\n");
+        debug("RAW: invalid length");
         raw_output_received_bytes = 0;
         return;
     }
 
     if (raw_output_received_bytes + len > RAW_BUFFER_SIZE) {
-        dprint("RAW: buffer full\n");
+        debug("RAW: buffer full");
         raw_output_received_bytes = 0;
     } else {
         for (uint8_t i = 0; i < 8; i++) {
@@ -400,6 +407,29 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x91, 0x03,  //   Output (Constant)
     0xC0         // End Collection
 };
+
+#ifdef RAW_ENABLE
+const PROGMEM uchar raw_hid_report[] = {
+    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,                          // Usage (Vendor Defined)
+    0xA1, 0x01,                                  // Collection (Application)
+    // Data to host
+    0x09, 0x62,             //   Usage (Vendor Defined)
+    0x15, 0x00,             //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
+    0x95, RAW_BUFFER_SIZE,  //   Report Count
+    0x75, 0x08,             //   Report Size (8)
+    0x81, 0x02,             //   Input (Data, Variable, Absolute)
+    // Data from host
+    0x09, 0x63,             //   Usage (Vendor Defined)
+    0x15, 0x00,             //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
+    0x95, RAW_BUFFER_SIZE,  //   Report Count
+    0x75, 0x08,             //   Report Size (8)
+    0x91, 0x02,             //   Output (Data, Variable, Absolute)
+    0xC0                    // End Collection
+};
+#endif
 
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
 const PROGMEM uchar mouse_extra_hid_report[] = {
@@ -482,29 +512,6 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x81, 0x00,                //   Input (Data, Array, Absolute)
     0xC0                       // End Collection
 #    endif
-};
-#endif
-
-#ifdef RAW_ENABLE
-const PROGMEM uchar raw_hid_report[] = {
-    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
-    0x09, RAW_USAGE_ID,                          // Usage (Vendor Defined)
-    0xA1, 0x01,                                  // Collection (Application)
-    // Data to host
-    0x09, 0x62,             //   Usage (Vendor Defined)
-    0x15, 0x00,             //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
-    0x95, RAW_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,             //   Report Size (8)
-    0x81, 0x02,             //   Input (Data, Variable, Absolute)
-    // Data from host
-    0x09, 0x63,             //   Usage (Vendor Defined)
-    0x15, 0x00,             //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
-    0x95, RAW_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,             //   Report Size (8)
-    0x91, 0x02,             //   Output (Data, Variable, Absolute)
-    0xC0                    // End Collection
 };
 #endif
 
@@ -687,7 +694,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
             .bDescriptorType = USBDESCR_ENDPOINT
         },
-        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP3_NUMBER),
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
@@ -697,7 +704,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
             .bDescriptorType = USBDESCR_ENDPOINT
         },
-        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP4_NUMBER),
+        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP3_NUMBER),
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
@@ -798,6 +805,14 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
 USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
     usbMsgLen_t len = 0;
 
+    /*
+        debug("usbFunctionDescriptor: ");
+        debug_hex(rq->bmRequestType); debug(" ");
+        debug_hex(rq->bRequest); debug(" ");
+        debug_hex16(rq->wValue.word); debug(" ");
+        debug_hex16(rq->wIndex.word); debug(" ");
+        debug_hex16(rq->wLength.word); debug("\n");
+    */
     switch (rq->wValue.bytes[1]) {
         case USBDESCR_DEVICE:
             usbMsgPtr = (usbMsgPtr_t)&usbDeviceDescriptor;
@@ -881,5 +896,6 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
             }
             break;
     }
+    // debug("desc len: "); debug_hex(len); debug("\n");
     return len;
 }

@@ -14,7 +14,6 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 #endif
 
-#ifdef BACKLIGHT_ENABLE
 static bool backlight_was_toggled = false;
 
 void suspend_power_down_kb(void) {
@@ -30,7 +29,6 @@ void suspend_wakeup_init_kb(void) {
         backlight_was_toggled = false;
     }
 }
-#endif
 
 #ifdef PHYSICAL_LEDS_ENABLE
 void led_init_kb(void)

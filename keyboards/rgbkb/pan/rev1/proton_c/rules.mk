@@ -1,2 +1,0 @@
-# MCU name
-MCU = STM32F303

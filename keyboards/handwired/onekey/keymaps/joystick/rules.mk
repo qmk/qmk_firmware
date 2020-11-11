@@ -1,1 +1,0 @@
-JOYSTICK_ENABLE = analog

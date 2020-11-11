@@ -14,7 +14,7 @@ EXTRAKEY_ENABLE = yes
 NKRO_ENABLE = yes
 
 # Enable link-time optimization to reduce binary size.
-LTO_ENABLE = yes
+LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 # Disable unused build options on all keyboards.
 COMMAND_ENABLE = no

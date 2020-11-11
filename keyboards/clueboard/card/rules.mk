@@ -26,4 +26,4 @@ UNICODE_ENABLE = no        # Unicode
 BLUETOOTH_ENABLE = no      # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = yes         # Audio output on port C6
 
-LTO_ENABLE = yes
+LINK_TIME_OPTIMIZATION_ENABLE = yes

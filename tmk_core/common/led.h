@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
+#ifndef LED_H
+#define LED_H
 #include "stdint.h"
 #include "stdbool.h"
 
@@ -51,4 +51,6 @@ void led_init_ports(void);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

@@ -74,9 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
-#ifdef JOYSTICK_ENABLE
-#    include "process_joystick.h"
-#endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -421,10 +418,6 @@ MATRIX_LOOP_END:
     if (velocikey_enabled()) {
         velocikey_decelerate();
     }
-#endif
-
-#ifdef JOYSTICK_ENABLE
-    joystick_task();
 #endif
 
     // update LED

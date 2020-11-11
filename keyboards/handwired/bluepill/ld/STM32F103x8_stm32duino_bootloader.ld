@@ -16,6 +16,9 @@
 
 /*
  * ST32F103xB memory setup for use with the maplemini bootloader.
+ * You will have to
+ * 	#define CORTEX_VTOR_INIT 0x5000
+ * in your projects chconf.h
  */
 MEMORY
 {

@@ -10,9 +10,6 @@
 #ifdef KEYBOARD_kinesis_kint2pp
 	#include "kint2pp.h"
 #endif
-#ifdef KEYBOARD_kinesis_nguyenvietyen
-	#include "nguyenvietyen.h"
-#endif
 
 #include "quantum.h"
 

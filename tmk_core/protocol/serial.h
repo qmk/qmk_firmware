@@ -35,10 +35,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#pragma once
+#ifndef SERIAL_H
+#define SERIAL_H
 
 /* host role */
 void    serial_init(void);
 uint8_t serial_recv(void);
 int16_t serial_recv2(void);
 void    serial_send(uint8_t data);
+
+#endif

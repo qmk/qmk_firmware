@@ -1,3 +1,5 @@
-LIB_SRC += ssd1306.c
+SRC += 	matrix.c \
+		split_util.c \
+		split_scomm.c
 
-DEFAULT_FOLDER = crkbd/rev1/legacy
+LAYOUTS = split_3x6_3

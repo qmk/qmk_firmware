@@ -16,6 +16,10 @@
 #include "quantum.h"
 #include "action_tapping.h"
 
+#ifndef TAPPING_TERM
+#    define TAPPING_TERM 200
+#endif
+
 #ifndef NO_ACTION_ONESHOT
 uint8_t get_oneshot_mods(void);
 #endif
@@ -167,7 +171,7 @@ void matrix_scan_tap_dance() {
         if (action->custom_tapping_term > 0) {
             tap_user_defined = action->custom_tapping_term;
         } else {
-            tap_user_defined = get_tapping_term(action->state.keycode, NULL);
+            tap_user_defined = TAPPING_TERM;
         }
         if (action->state.count && timer_elapsed(action->state.timer) > tap_user_defined) {
             process_tap_dance_action_on_dance_finished(action);

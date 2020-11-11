@@ -72,7 +72,7 @@ bool usbIsActive(void) {
 
     return false;
 }
-#elif defined(PROTOCOL_LUFA) && defined(OTGPADE)
+#elif defined(PROTOCOL_LUFA)
 static inline bool usbIsActive(void) {
     USB_OTGPAD_On();  // enables VBUS pad
     wait_us(5);

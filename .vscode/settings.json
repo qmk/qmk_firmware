@@ -16,8 +16,7 @@
         "*.hpp": "cpp",
         "xstddef": "c",
         "type_traits": "c",
-        "utility": "c",
-        "ranges": "c"
+        "utility": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,

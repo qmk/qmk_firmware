@@ -37,8 +37,7 @@ def kle2json(cli):
         file_path = Path(os.environ['ORIG_CWD'], cli.args.filename)
     # Check for valid file_path for more graceful failure
     if not file_path.exists():
-        cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
-        return False
+        return cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
     out_path = file_path.parent
     raw_code = file_path.open().read()
     # Check if info.json exists, allow overwrite with force
@@ -51,7 +50,8 @@ def kle2json(cli):
     except Exception as e:
         cli.log.error('Could not parse KLE raw data: %s', raw_code)
         cli.log.exception(e)
-        return False
+        # FIXME: This should be better
+        return cli.log.error('Could not parse KLE raw data.')
     keyboard = OrderedDict(
         keyboard_name=kle.name,
         url='',
