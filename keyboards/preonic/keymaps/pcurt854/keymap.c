@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -58,8 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   TG(_NUMPAD),
            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
-  OSM(MOD_LSFT), OSL(_SYMBOL),
-                    KC_RCTL, KC_LOPT, KC_LCMD, KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
+  OSM(MOD_LSFT),
+           KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
+                                               KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
                                                                                             OSL(_ADJUST), KC_DOWN
 ),
 
@@ -74,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -85,8 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   TG(_NUMPAD),
            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
-  OSM(MOD_LSFT), OSL(_SYMBOL),
-                    KC_RCTL, KC_LOPT, KC_LCMD, KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
+  OSM(MOD_LSFT),
+           KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
+                                               KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
                                                                                             OSL(_ADJUST), KC_DOWN
 ),
 
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | tg(3)|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  |osl(4)| RCtl | Opt  | Cmd  | Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | Left | Rght | Caps |osl(5)| Down |
  * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -112,8 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
   TG(_NUMPAD),
            KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP,
-  OSM(MOD_LSFT), OSL(_SYMBOL),
-                    KC_RCTL, KC_LOPT, KC_LCMD, KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
+  OSM(MOD_LSFT),
+           KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
+                                               KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
                                                                                             OSL(_ADJUST), KC_DOWN
 ),
 
@@ -148,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |   ^  |      |   \  |   -  |   &  |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ |      | ____ | ____ | ____ | ____ | ____ |      |      |      |      |      |
+ * | ____ | ____ | ____ | ____ |      | ____ | ____ |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMBOL] = LAYOUT_preonic_grid(
@@ -156,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_EQL,  _______, KC_EXLM, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, _______,
   _______, KC_AT,   KC_ASTR, KC_DLR,  XXXXXXX, XXXXXXX, KC_HASH, XXXXXXX, XXXXXXX, KC_PLUS, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CIRC, XXXXXXX, KC_BSLS, KC_MINS, KC_AMPR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  _______, _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* Adjust 5
@@ -173,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |RESET |      |      |Virus |      |      | Mute | vol+ | rbg+ | rgb  | dsp+ |
  * |      |RESET |      |      |scan  |      |      |      |      |      | 0/1  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ |      | ____ | ____ | ____ |      |      |      | vol- | rbg- |      | dsp- |
+ * | ____ | ____ | ____ | ____ |      |      |      |      | vol- | rbg- |      | dsp- |
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
@@ -186,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                  XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), RGB_MODE_FORWARD, XXXXXXX,
   XXXXXXX, RESET,   XXXXXXX, XXXXXXX, SCMD(KC_V),
                                                XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   RGB_VAI, RGB_TOG, LCAG(KC_UP),
-  _______, XXXXXXX, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, XXXXXXX, LCAG(KC_DOWN)
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, XXXXXXX, LCAG(KC_DOWN)
 )
 
 
