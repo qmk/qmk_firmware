@@ -31,7 +31,11 @@ enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
-  BACKLIT
+  BACKLIT,
+  ABKPAIR,
+  RBKPAIR,
+  SBKPAIR,
+  CBKPAIR
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -122,22 +126,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Numpad 3
  * ,-----------------------------------------------------------------------------------.
- * | ____ |      |      |      |   <  |   >  |  =+  |   7  |   8  |   9  |   ^  | ____ |
+ * | ____ |      |      | <|>  |   <  |   >  |  =+  |   7  |   8  |   9  |   ^  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ | Ms1  | MsUp | Ms2  |   (  |   )  |  -_  |   4  |   5  |   6  |   %  | ____ |
+ * | ____ |      |      | (|)  |   (  |   )  |  -_  |   4  |   5  |   6  |   %  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ | MsLf | MsDn | MsRt |   [  |   ]  |  *   |   1  |   2  |   3  | ____ | ____ |
+ * | ____ |      |      | [|]  |   [  |   ]  |  *   |   1  |   2  |   3  | ____ | ____ |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | ____ |      |  3   |      |   {  |   }  |  /   |   0  | ____ | ____ | ____ | PgUp |
+ * | ____ |      |  3   | {|}  |   {  |   }  |  /   |   0  | ____ | ____ | ____ | PgUp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ |      | Home | End  | PgDn |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_preonic_grid(
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_LABK, KC_RABK, KC_EQL,  KC_7,    KC_8,    KC_9,    KC_CIRC, _______,
-  _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_LPRN, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
-  _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_LBRC, KC_RBRC, KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
-  _______, XXXXXXX, KC_3,    XXXXXXX, KC_LCBR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, _______, KC_PGUP,
+  _______, XXXXXXX, XXXXXXX, ABKPAIR, KC_LABK, KC_RABK, KC_EQL,  KC_7,    KC_8,    KC_9,    KC_CIRC, _______,
+  _______, XXXXXXX, XXXXXXX, RBKPAIR, KC_LPRN, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
+  _______, XXXXXXX, XXXXXXX, SBKPAIR, KC_LBRC, KC_RBRC, KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
+  _______, XXXXXXX, KC_3,    CBKPAIR, KC_LCBR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, _______, KC_PGUP,
   _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_HOME, KC_END,  KC_PGDN
 ),
 
@@ -231,6 +235,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
           }
           return false;
+          break;
+        case ABKPAIR:
+          if (record->event.pressed) {
+              SEND_STRING("<>"SS_TAP(X_LEFT));
+          }
+          break;
+        case RBKPAIR:
+          if (record->event.pressed) {
+              SEND_STRING("()"SS_TAP(X_LEFT));
+          }
+          break;
+        case SBKPAIR:
+          if (record->event.pressed) {
+              SEND_STRING("[]"SS_TAP(X_LEFT));
+          }
+          break;
+        case CBKPAIR:
+          if (record->event.pressed) {
+              SEND_STRING("{}"SS_TAP(X_LEFT));
+          }
           break;
       }
     return true;
