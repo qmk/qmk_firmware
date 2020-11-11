@@ -192,7 +192,6 @@ void check_default_layer(uint8_t mode, uint8_t type) {
     }
 }
 
-#ifdef RGB_MATRIX_ENABLE
 #    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
 #        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
 void rgb_matrix_indicators_user(void) {
