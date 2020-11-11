@@ -28,9 +28,11 @@ def test_compile():
     result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-n')
     check_returncode(result)
 
+
 def test_compile_with_jobs():
     result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-j', '4', '-n')
     check_returncode(result)
+
 
 def test_compile_json():
     result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json')
@@ -41,9 +43,11 @@ def test_flash():
     result = check_subcommand('flash', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-n')
     check_returncode(result)
 
+
 def test_flash_with_jobs():
     result = check_subcommand('flash', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-j', '4', '-n')
     check_returncode(result)
+
 
 def test_flash_bootloaders():
     result = check_subcommand('flash', '-b')
