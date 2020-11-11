@@ -37,6 +37,7 @@ def print_bootloader_help():
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-j', '--jobs', type=int, help="Specify number of parallel jobs for compiling.")
 @cli.subcommand('QMK Flash.')
 @automagic_keyboard
 @automagic_keymap
@@ -69,7 +70,10 @@ def flash(cli):
     else:
         if cli.config.flash.keyboard and cli.config.flash.keymap:
             # Generate the make command for a specific keyboard/keymap.
-            command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
+            if cli.config.flash.jobs:
+                command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader, jobs=cli.config.flash.jobs)
+            else:
+                command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
 
         elif not cli.config.flash.keyboard:
             cli.log.error('Could not determine keyboard!')
@@ -85,5 +89,5 @@ def flash(cli):
 
     else:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
-        cli.echo('usage: qmk flash [-h] [-b] [-n] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
+        cli.echo('usage: qmk flash [-h] [-b] [-n] [-kb KEYBOARD] [-km KEYMAP] [-j JOBS] [-bl BOOTLOADER] [filename]')
         return False

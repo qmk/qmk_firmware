@@ -15,6 +15,7 @@ from qmk.commands import compile_configurator_json, create_make_command, parse_c
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-j', '--jobs', type=int, help="Specify number of parallel jobs for compiling.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
 @automagic_keymap
@@ -36,7 +37,10 @@ def compile(cli):
     else:
         if cli.config.compile.keyboard and cli.config.compile.keymap:
             # Generate the make command for a specific keyboard/keymap.
-            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap)
+            if cli.config.compile.jobs:
+                command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, jobs=cli.config.compile.jobs)
+            else:
+                command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap)
 
         elif not cli.config.compile.keyboard:
             cli.log.error('Could not determine keyboard!')
@@ -52,5 +56,5 @@ def compile(cli):
 
     else:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
-        cli.echo('usage: qmk compile [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [filename]')
+        cli.echo('usage: qmk compile [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-j JOBS] [filename]')
         return False

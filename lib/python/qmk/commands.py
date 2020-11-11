@@ -10,7 +10,7 @@ import shutil
 import qmk.keymap
 
 
-def create_make_command(keyboard, keymap, target=None):
+def create_make_command(keyboard, keymap, target=None, jobs = 1):
     """Create a make compile command
 
     Args:
@@ -23,6 +23,9 @@ def create_make_command(keyboard, keymap, target=None):
 
         target
             Usually a bootloader.
+        
+        jobs
+            Specify number of parallel jobs for compiling. Default 1.
 
     Returns:
 
@@ -33,8 +36,12 @@ def create_make_command(keyboard, keymap, target=None):
 
     if target:
         make_args.append(target)
-
-    return [make_cmd, ':'.join(make_args)]
+    print(make_args)
+    print(jobs)
+    if isinstance(jobs, int) and jobs > 1:
+        return [make_cmd, ':'.join(make_args), '-j%i' % (jobs)]
+    else:
+        return [make_cmd, ':'.join(make_args)]
 
 
 def compile_configurator_json(user_keymap, bootloader=None):
