@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_jp.h"
 
 enum layer_names {
   _BASE,
@@ -25,34 +26,34 @@ enum layer_names {
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
 
-#define CT_Q  LCTL_T(KC_Q)
-#define CT_CM RCTL_T(KC_COMM)
-#define SF_Z  LSFT_T(KC_Z)
-#define SF_SS RSFT_T(KC_SLSH)
-#define AL_X  LALT_T(KC_X)
-#define AL_DT RALT_T(KC_DOT)
+#define CT_Q  LCTL_T(JP_Q)
+#define CT_CM RCTL_T(JP_COMM)
+#define SF_Z  LSFT_T(JP_Z)
+#define SF_SS RSFT_T(JP_SLSH)
+#define AL_X  LALT_T(JP_X)
+#define AL_DT RALT_T(JP_DOT)
 #define RA_SP LT(RAISE, KC_SPC)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_reviung34(
-    CT_Q,    KC_W,    KC_E,    KC_R,    KC_T,          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,          KC_H,    KC_J,    KC_K,    KC_L,    KC_ENT,
-    SF_Z,    AL_X,    KC_C,    KC_V,    KC_B,          KC_N,    KC_M,    CT_CM,   AL_DT,   SF_SS,
+    CT_Q,    JP_W,    JP_E,    JP_R,    JP_T,          JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,
+    JP_A,    JP_S,    JP_D,    JP_F,    JP_G,          JP_H,    JP_J,    JP_K,    JP_L,    KC_ENT,
+    SF_Z,    AL_X,    JP_C,    JP_V,    JP_B,          JP_N,    JP_M,    CT_CM,   AL_DT,   SF_SS,
                       KC_TAB,  KC_BSPC, LOWER,              RA_SP
   ),
 
   [_LOWER] = LAYOUT_reviung34(
-    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-    KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN,
-    KC_LSFT, KC_ESC,  KC_LGUI, KC_LALT, KC_QUOT,       KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_BSPC,
+    JP_EXLM, JP_AT,   JP_HASH, JP_DLR,  JP_PERC,       JP_CIRC, JP_AMPR, JP_ASTR, JP_LPRN, JP_RPRN,
+    JP_UNDS, JP_PLUS, JP_LCBR, JP_RCBR, JP_PIPE,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, JP_SCLN,
+    KC_LSFT, KC_ESC,  KC_LGUI, KC_LALT, JP_QUOT,       KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_BSPC,
                       _______, _______, _______,            _______
   ),
   
   [_RAISE] = LAYOUT_reviung34(
-    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-    KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,       XXXXXXX, XXXXXXX, KC_GRV,  KC_TILD, KC_COLN,
-    KC_LSFT, KC_ESC,  KC_RGUI, KC_LALT, KC_DQUO,       KC_TAB,  XXXXXXX, KC_RCTL, KC_RALT, KC_DEL,
+    JP_1,    JP_2,    JP_3,    JP_4,    JP_5,          JP_6,    JP_7,    JP_8,    JP_9,    JP_0,
+    JP_MINS, JP_EQL,  JP_LBRC, JP_RBRC, JP_YEN,        KC_RO,   XXXXXXX, JP_GRV,  JP_TILD, JP_COLN,
+    KC_LSFT, KC_ESC,  KC_RGUI, KC_LALT, JP_DQUO,       KC_TAB,  XXXXXXX, KC_RCTL, KC_RALT, KC_DEL,
                       _______, _______, _______,            _______
   ),
   
