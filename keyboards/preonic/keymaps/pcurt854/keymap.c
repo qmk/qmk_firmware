@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |osl(5)|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | Left | Rght | Caps | tt(3)| Down |
- * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)| Caps | Left | Rght | Down |
+ * | Lsft |      |      |      |      |      |      |      | Rsft |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
-                                               KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
-                                                                                            TT(_NUMPAD), KC_DOWN
+                                               KC_ENT,  KC_SPC,  TT(_NUMPAD), RSFT_T(KC_CAPS),
+                                                                                   KC_LEFT, KC_RGHT, KC_DOWN
 ),
 
 /* Colemak 1
@@ -75,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |osl(5)|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | Left | Rght | Caps | tt(3)| Down |
- * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)| Caps | Left | Rght | Down |
+ * | Lsft |      |      |      |      |      |      |      | Rsft |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_preonic_grid(
@@ -88,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
-                                               KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
-                                                                                            TT(_NUMPAD), KC_DOWN
+                                               KC_ENT,  KC_SPC,  TT(_NUMPAD), RSFT_T(KC_CAPS),
+                                                                                   KC_LEFT, KC_RGHT, KC_DOWN
 ),
 
 /* Dvorak 2
@@ -103,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |osl(5)|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | Left | Rght | Caps | tt(3)| Down |
- * | Lsft |      |      |      |      |      |      |      |      | Rsft |      |      |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)| Caps | Left | Rght | Down |
+ * | Lsft |      |      |      |      |      |      |      | Rsft |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_preonic_grid(
@@ -116,8 +116,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP,
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
-                                               KC_ENT,  KC_SPC,  KC_LEFT, KC_RGHT, RSFT_T(KC_CAPS),
-                                                                                            TT(_NUMPAD), KC_DOWN
+                                               KC_ENT,  KC_SPC,  TT(_NUMPAD), RSFT_T(KC_CAPS),
+                                                                                   KC_LEFT, KC_RGHT, KC_DOWN
 ),
 
 /* Numpad 3
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | ____ |      |  3   |      |   {  |   }  |  /   |   0  | ____ | ____ | ____ | PgUp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | Home | End  | ____ | ____ | PgDn |
+ * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ |      | Home | End  | PgDn |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_preonic_grid(
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_LPRN, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
   _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_LBRC, KC_RBRC, KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
   _______, XXXXXXX, KC_3,    XXXXXXX, KC_LCBR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, _______, KC_PGUP,
-  _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  _______, _______, KC_PGDN
+  _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_HOME, KC_END,  KC_PGDN
 ),
 
 /* Symbol 4
@@ -171,13 +171,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |screen|      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ____ |      |Sleep |show  |      |      |finder|      |      |Lock  | rgb  |      |
- * |      |      |      |Dsktp |      |      |Hddn  |      |      |screen| mode |      |
+ * |      |      |      |Dsktp |      |      |Hddn  |      |      |screen| 0/1  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |RESET |   5  |      |Virus |      |      | Mute | vol+ | rbg+ | rgb  | dsp+ |
- * |      |RESET |      |      |scan  |      |      |      |      |      | 0/1  |      |
+ * |      |RESET |      |      |scan  |      |      |      |      |      | mode+|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ |      |      |      |      | vol- | rbg- |      | dsp- |
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | ____ | ____ | ____ | ____ |      |      |      |      | vol- | rbg- | rgb  | dsp- |
+ * |      |      |      |      |      |      |      |      |      |      | mode-|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid(
@@ -186,10 +186,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),
-                                                                 XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), RGB_MODE_FORWARD, XXXXXXX,
+                                                                 XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), RGB_TOG, XXXXXXX,
   XXXXXXX, RESET,   KC_5,    XXXXXXX, SCMD(KC_V),
-                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   RGB_VAI, RGB_TOG, LCAG(KC_UP),
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, XXXXXXX, LCAG(KC_DOWN)
+                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   RGB_VAI, RGB_MODE_FORWARD, LCAG(KC_UP),
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, RGB_MODE_REVERSE, LCAG(KC_DOWN)
 )
 
 
