@@ -17,6 +17,9 @@
 
 #define MUSIC_MASK (keycode != KC_NO)
 
+#define RGBLIGHT_SLEEP
+// so rgb sleeps when the system goes to sleep
+
 /*
  * MIDI options
  */

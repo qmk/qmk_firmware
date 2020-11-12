@@ -177,11 +177,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ____ |      |Sleep |show  |      |      |finder|      |      |Lock  | rgb  |      |
  * |      |      |      |Dsktp |      |      |Hddn  |      |      |screen| 0/1  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |RESET |   5  |      |Virus |      |      | Mute | vol+ | rbg+ | rgb  | dsp+ |
+ * |      |RESET |   5  |      |Virus |      |      | Mute | vol+ |      | rgb  | dsp+ |
  * |      |RESET |      |      |scan  |      |      |      |      |      | mode+|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ |      |      |      |      | vol- | rbg- | rgb  | dsp- |
- * |      |      |      |      |      |      |      |      |      |      | mode-|      |
+ * | ____ | ____ | ____ | ____ |      |      |      |      | vol- |      | rgb  | dsp- |
+ * |      |      |      |      |      |      |      |      |      |      | plain|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid(
@@ -192,8 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),
                                                                  XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), RGB_TOG, XXXXXXX,
   XXXXXXX, RESET,   KC_5,    XXXXXXX, SCMD(KC_V),
-                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   RGB_VAI, RGB_MODE_FORWARD, LCAG(KC_UP),
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, RGB_MODE_REVERSE, LCAG(KC_DOWN)
+                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, RGB_MOD, LCAG(KC_UP),
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, RGB_M_P, LCAG(KC_DOWN)
 )
 
 
@@ -259,4 +259,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     return true;
 };
+
+void keyboard_post_init_user(void) {
+  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+  rgblight_sethsv_noeeprom(HSV_GREEN); // sets an init color
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode that works with layer change below
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _NUMPAD:
+        rgblight_setrgb(RGB_ORANGE);
+        break;
+    case _SYMBOL:
+        rgblight_setrgb(RGB_PURPLE);
+        break;
+    case _ADJUST:
+        rgblight_setrgb(RGB_CYAN);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb(0x00,  0x00, 0x00);
+        break;
+    }
+  return state;
+}
 
