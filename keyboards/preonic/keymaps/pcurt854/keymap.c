@@ -40,7 +40,7 @@ enum preonic_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty 0
+/* Qwerty layer 0
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                    KC_LEFT, KC_RGHT, KC_DOWN
 ),
 
-/* Colemak 1
+/* Colemak layer 1
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                    KC_LEFT, KC_RGHT, KC_DOWN
 ),
 
-/* Dvorak 2
+/* Dvorak layer 2
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                    KC_LEFT, KC_RGHT, KC_DOWN
 ),
 
-/* Numpad 3
+/* Numpad layer 3
  * ,-----------------------------------------------------------------------------------.
  * | ____ |      |      |   <  |   >  |  <|> |  =+  |   7  |   8  |   9  |   ^  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -145,15 +145,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_HOME, KC_END,  KC_PGDN
 ),
 
-/* Symbol 4
+/* Symbol layer 4
  * ,-----------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | ____ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ |   =  |      |   !  |   $  |      |      |   _  |   |  |      |   %  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ |   @  |   *  |   &  |      |      |   #  |      |      |   +  |      |      |
+ * | ____ |   @  |   *  |   &  |      |      |   #  |   -  |      |   +  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |   4  |   ^  |      |   \  |   -  |      |      |      |      |      |
+ * |      |      |   4  |   ^  |      |   \  |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      | ____ | ____ |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -161,12 +161,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYMBOL] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
   _______, KC_EQL,  _______, KC_EXLM, KC_DLR,  XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, _______,
-  _______, KC_AT,   KC_ASTR, KC_AMPR, XXXXXXX, XXXXXXX, KC_HASH, XXXXXXX, XXXXXXX, KC_PLUS, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_4,    KC_CIRC, XXXXXXX, KC_BSLS, KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, KC_AT,   KC_ASTR, KC_AMPR, XXXXXXX, XXXXXXX, KC_HASH, KC_MINS, XXXXXXX, KC_PLUS, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, KC_4,    KC_CIRC, XXXXXXX, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-/* Adjust 5
+/* Adjust layer 5
  * Some of these are highly personal.  Please change to adapt to your own system.
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
