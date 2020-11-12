@@ -16,7 +16,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make rpiguy9907/southpaw66:default
 
-**Reset Key:** Hold down the key located at `k00`, commonly programmed as Escape while plugging in the keyboard.
+**Reset Key:** Hold down the key located at `k10`, commonly programmed as Escape while plugging in the keyboard.
 
 * Keyboard Maintainer: [gooberpsycho](https://github.com/gooberpsycho)
 * Hardware Availability: [Casefile](https://github.com/rpiguy9907/Keyboards/tree/master/Southpaw66)
