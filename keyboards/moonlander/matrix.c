@@ -1,6 +1,6 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Drashna Jael're  <drashna@live.com>
+ * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -267,4 +267,43 @@ void matrix_print(void) {
         }
         printf("\n");
     }
+}
+
+// DO NOT REMOVE
+// Needed for proper wake/sleep
+void matrix_power_up(void) {
+    bool temp_launching = is_launching;
+    // outputs
+    setPinOutput(B10);
+    setPinOutput(B11);
+    setPinOutput(B12);
+    setPinOutput(B13);
+    setPinOutput(B14);
+    setPinOutput(B15);
+
+    // inputs
+    setPinInputLow(A0);
+    setPinInputLow(A1);
+    setPinInputLow(A2);
+    setPinInputLow(A3);
+    setPinInputLow(A6);
+    setPinInputLow(A7);
+    setPinInputLow(B0);
+
+    mcp23018_init();
+    is_launching = temp_launching;
+    if (!is_launching) {
+        ML_LED_1(false);
+        ML_LED_2(false);
+        ML_LED_3(false);
+        ML_LED_4(false);
+        ML_LED_5(false);
+        ML_LED_6(false);
+    }
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+    }
+
 }
