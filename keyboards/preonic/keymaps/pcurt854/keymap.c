@@ -272,13 +272,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgblight_setrgb(RGB_ORANGE);
         break;
     case _SYMBOL:
-        rgblight_setrgb(RGB_PURPLE);
-        break;
-    case _ADJUST:
         rgblight_setrgb(RGB_CYAN);
         break;
+    case _ADJUST:
+        rgblight_setrgb(RGB_GREEN);
+        break;
     default: //  for any other layers, or the default layer
-        rgblight_setrgb(0x00,  0x00, 0x00);
+        rgblight_setrgb(0,0,0);
         break;
     }
 
