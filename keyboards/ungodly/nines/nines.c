@@ -1,4 +1,4 @@
-/* Copyright 2020 Ungodly Design
+/* Copyright 2020 Ungodly Design <hello@ungodly.design>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 void encoder_update_kb(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left encoder */
         if (clockwise) {
-            tap_code(KC_AUDIO_VOL_UP);
+            tap_code(KC_VOLU);
         } else {
-            tap_code(KC_AUDIO_VOL_DOWN);
+            tap_code(KC_VOLD);
         }
     } else if (index == 1) { /* Right encoder */
         if (clockwise) {
-            tap_code(KC_AUDIO_VOL_UP);
+            tap_code(KC_VOLU);
         } else {
-            tap_code(KC_AUDIO_VOL_DOWN);
+            tap_code(KC_VOLD);
         }
     }
 }

@@ -1,6 +1,6 @@
 # Nines
 
-![Nines](https://imgur.com/a/EcypUBG)
+![Nines](https://i.imgur.com/zNnmPV9.jpg)
 
 A 9 key (3x3) macropad with rotary encoder support.
 Made by Ungodly Design for Qlavier.

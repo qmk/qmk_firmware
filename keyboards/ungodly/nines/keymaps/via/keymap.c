@@ -1,4 +1,4 @@
-/* Copyright 2020 Ungodly Design
+/* Copyright 2020 Ungodly Design <hello@ungodly.design>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
