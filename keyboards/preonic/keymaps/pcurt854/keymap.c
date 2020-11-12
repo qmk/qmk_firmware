@@ -49,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * | LCtl |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |osl(5)|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Up   |
+ * |osl(5)|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Rsft |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)|      | Left | Rght | Down |
- * | Lsft |      |      |      |      |      |      |      | Rsft |      |      |      |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)| Left | Down | Up   | Rght |
+ * | Lsft |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LCTL_T(KC_ESC),
            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   OSL(_ADJUST),
-           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
+           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
-                                               KC_ENT,  KC_SPC,  TT(_NUMPAD), KC_RSFT,
-                                                                                   KC_LEFT, KC_RGHT, KC_DOWN
+                                               KC_ENT,  KC_SPC,  TT(_NUMPAD),
+                                                                          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Colemak layer 1
@@ -79,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |osl(5)|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)|      | Left | Rght | Down |
- * | Lsft |      |      |      |      |      |      |      | Rsft |      |      |      |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)| Left | Down | Up   | Rght |
+ * | Lsft |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_preonic_grid(
@@ -92,8 +92,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
-                                               KC_ENT,  KC_SPC,  TT(_NUMPAD), KC_RSFT,
-                                                                                   KC_LEFT, KC_RGHT, KC_DOWN
+                                               KC_ENT,  KC_SPC,  TT(_NUMPAD),
+                                                                          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Dvorak layer 2
@@ -107,8 +107,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |osl(5)|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Up   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)|      | Left | Rght | Down |
- * | Lsft |      |      |      |      |      |      |      | Rsft |      |      |      |
+ * | osm  | RCtl | Opt  | Cmd  |osl(4)| Entr | Spc  | tt(3)| Left | Down | Up   | Rght |
+ * | Lsft |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_preonic_grid(
@@ -120,8 +120,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP,
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
-                                               KC_ENT,  KC_SPC,  TT(_NUMPAD), KC_RSFT,
-                                                                                   KC_LEFT, KC_RGHT, KC_DOWN
+                                               KC_ENT,  KC_SPC,  TT(_NUMPAD),
+                                                                          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Numpad layer 3
