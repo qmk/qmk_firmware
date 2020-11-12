@@ -1,4 +1,5 @@
 RGBLIGHT_ENABLE = yes
+WPM_ENABLE = yes
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/glcdfont.c \
         ./lib/rgb_state_reader.c \
