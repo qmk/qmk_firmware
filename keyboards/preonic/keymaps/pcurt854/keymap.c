@@ -260,25 +260,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+#define USER_DEFAULT_COLOR 0,0,0
+
 void keyboard_post_init_user(void) {
   rgblight_enable_noeeprom(); // enables Rgb, without saving settings
-  rgblight_sethsv_noeeprom(HSV_GREEN); // sets an init color
+  rgblight_sethsv_noeeprom(USER_DEFAULT_COLOR); // sets an init color
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode that works with layer change below
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _NUMPAD:
-        rgblight_setrgb(RGB_ORANGE);
+        rgblight_sethsv_noeeprom(HSV_ORANGE);
         break;
     case _SYMBOL:
-        rgblight_setrgb(RGB_CYAN);
+        rgblight_sethsv_noeeprom(HSV_CYAN);
         break;
     case _ADJUST:
-        rgblight_setrgb(RGB_GREEN);
+        rgblight_sethsv_noeeprom(HSV_GREEN);
         break;
     default: //  for any other layers, or the default layer
-        rgblight_setrgb(0,0,0);
+        rgblight_sethsv_noeeprom(USER_DEFAULT_COLOR);
         break;
     }
 
