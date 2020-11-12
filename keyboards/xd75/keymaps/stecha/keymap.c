@@ -79,7 +79,7 @@ uint16_t key_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case DSKP_LEFT:
-            if (record->event.pressed) { r // key down
+            if (record->event.pressed) { // key down
                 key_timer = timer_read();
                 register_mods(MOD_BIT(KC_LGUI));
             } else {                                   // key up
