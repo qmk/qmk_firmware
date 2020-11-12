@@ -2,23 +2,23 @@
 
 ### My problem and using preonic to solve it
 
-I am an okay letter typist, but often need to look and find $, ^, numbers, and so on, on the top row.
+I am an okay letter typist, but often need to look and find special symbols, like $ and ^, on the top row.
 
 The numpad on a full-sized keyboard is helpful.  But it's simply too far away.  Staggered keyboard makes it awkward to move the numpad in.  Preonic is ortholinear, and of the right size.  It's quite natural to move the numpad in on a preonic.
 
 Special symbols like $ and ^ are assigned to keys corresponding to their names.
 
-For programmers, parentheses, brackets, and braces are important.  They are moved to the middle of the keyboard as well.
+For programmers, parentheses, brackets, and braces are important.  They are moved to the middle of the keyboard in an easy to remember layout as well.
 
 ### Layer 0
 
 The middle section, from 1 to 0, plus three rows of letters, follows the traditional QWERTY layout.
 
-The left border, from top to bottom: ~, Tab, Esc when tapped and Control when held, Toggle layer 3, and CapLock when tapped and Left Shift when held.
+The left border, from top to bottom: ~, Tab, Esc when tapped and Control when held, and One shot layer 5.
 
-The right border: Backspace, Delete, ", Up, and Down.
+The right border: Backspace, Delete, quotes, and Right shift.
 
-Bottom row, left to right: One shot layer 4, Control, Option, Command, Enter, Space, Left, Right, CapLock/Right Shift, and One shot layer 5.
+Bottom row, left to right: One shot modifier Left shift, Control, Option, Command, One shot layer 4, Enter, Space, Layer 3 double tap to toggle, Left, Down, Up, and Right.
 
 ### Layer 1
 
@@ -40,18 +40,23 @@ Brackets <> () [] {}
 
 Home/End/Page Up/Down in place of arrow keys.
 
-Some mouse keys.
-
 ### Layer 4
 
 Special symbols using a character in their names:
 
-pLus, miNus, eQual
+pLus (+), eQual (=), pIpe (|)
 
-aMpersand, pIpe
+anD (&), dollaR
 
-At, Backslash, Circumflex, Dollar, Exclamation, Hash, Percent, Star, Underscore
+At, Backslash, Circumflex, Exclamation, Hash, Percent, Star, Underscore
+
+- is put on J so it's under Underscore, easy to access, and matches the bump on J 
 
 ### Layer 5
 
 Layout switches and other special functions.
+
+### To indentify layers
+
+I put the layer number on X, and turned on preonic backlight for layers 3 and above.
+
