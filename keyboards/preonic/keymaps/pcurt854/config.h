@@ -3,10 +3,9 @@
 #define TAPPING_TOGGLE 2
 
 
-
 #define RGBLIGHT_LAYERS
 
- #define RGBLIGHT_SLEEP
+#define RGBLIGHT_SLEEP
 // so rgb sleeps when the system goes to sleep
 
 

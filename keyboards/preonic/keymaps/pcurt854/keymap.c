@@ -289,9 +289,11 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 void keyboard_post_init_user(void) {
+/*
     rgblight_enable_noeeprom(); // enables Rgb, without saving settings
     rgblight_sethsv_noeeprom(0,0,0); // turn off all light in the beginning
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode that works with layer change below
+*/
     rgblight_layers = my_rgb_layers;
 }
 
