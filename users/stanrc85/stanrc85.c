@@ -44,6 +44,26 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+#if defined(HAS_ROTARY)
+  void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+      if (IS_LAYER_ON(_QWERTY)){
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    } else if (IS_LAYER_ON(_FN1_60)){
+        if (clockwise) {
+            tap_code(KC_DOWN);
+        } else {
+            tap_code(KC_UP);
+        }
+    }
+    }
+}
+#endif
+
 #if defined(HAS_INDICATORS)
   static uint8_t led_user = 0;
 #endif
