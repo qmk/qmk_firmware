@@ -39,3 +39,29 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_66_ansi(
 	10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
 	 0,  1,  2,  3,  4,  5,  6,  7,  8,  9
 );
+
+
+#ifdef AUDIO_ENABLE
+//Function calls a song every time the layer state changes.
+float FL_SONG[][2] = SONG(UNICODE_WINDOWS);
+float CL_SONG[][2] = SONG(UNICODE_LINUX);
+float BL_SONG[][2] = SONG(TERMINAL_SOUND);
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+
+		switch (get_highest_layer(state)) {
+		case _BL:
+			PLAY_SONG(BL_SONG);
+			break;
+			
+		case _FL:
+			PLAY_SONG(FL_SONG);
+			break;
+		
+		case _CL:
+			PLAY_SONG(CL_SONG);
+			break;
+		}
+	return state;
+};
+#endif
