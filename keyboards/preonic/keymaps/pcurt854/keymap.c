@@ -177,11 +177,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ____ |      |Sleep |show  |      |      |finder|      |      |Lock  | rgb  |      |
  * |      |      |      |Dsktp |      |      |Hddn  |      |      |screen| 0/1  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |RESET |      |      |Virus |      |      | Mute | vol+ |      | rgb  | dsp+ |
- * |      |RESET |      |      |scan  |      |      |      |      |      | mode+|      |
+ * |      |RESET |      |      |Virus |      |      | Mute | vol+ | rgb  | rgb  | dsp+ |
+ * |      |RESET |      |      |scan  |      |      |      |      | brit+| mode+|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ |      |      |      |      | vol- |      | rgb  | dsp- |
- * |      |      |      |      |      |      |      |      |      |      | plain|      |
+ * | ____ | ____ | ____ | ____ |      |      |      |      | vol- | rgb  | rgb  | dsp- |
+ * |      |      |      |      |      |      |      |      |      | brit-| plain|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid(
@@ -192,8 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),
                                                                  XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), RGB_TOG, XXXXXXX,
   XXXXXXX, RESET,   XXXXXXX, XXXXXXX, SCMD(KC_V),
-                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, RGB_MOD, LCAG(KC_UP),
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, RGB_M_P, LCAG(KC_DOWN)
+                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   RGB_VAI, RGB_MOD, LCAG(KC_UP),
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, RGB_M_P, LCAG(KC_DOWN)
 )
 
 
