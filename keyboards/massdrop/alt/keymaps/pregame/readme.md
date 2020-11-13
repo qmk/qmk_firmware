@@ -33,7 +33,3 @@ LED config code was mostly transferred from [matthewrobo keymap](https://github.
 
 
 **Rest of the information about RGB matrix, scan matrix, and whatever information I have used was made publicly available by many other awesome members of the community.**
-<<<<<<< HEAD:keyboards/massdrop/alt/keymaps/pregame/readme.md
-
-=======
->>>>>>> trying to fix my repo:keyboards/massdrop/alt/keymaps/pregame/README.md
