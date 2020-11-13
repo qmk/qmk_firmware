@@ -7,7 +7,7 @@ enum layers {
   _L1,
   _L2,
   _L3
-
+};
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
