@@ -1,5 +1,7 @@
 #pragma once
 
+#define FORCE_NKRO
+
 #ifdef RGB_MATRIX_ENABLE
 
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
