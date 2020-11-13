@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x6F6A
-#define PRODUCT_ID 0x0001
+#define VENDOR_ID 0x6F6A // "oj"
+#define PRODUCT_ID 0x6276 // "bv"
 #define DEVICE_VER 0x0001
 #define MANUFACTURER OJ
 #define PRODUCT beatervan
@@ -37,4 +37,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
