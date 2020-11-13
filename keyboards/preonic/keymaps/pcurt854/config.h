@@ -2,6 +2,16 @@
 
 #define TAPPING_TOGGLE 2
 
+
+
+#define RGBLIGHT_LAYERS
+
+ #define RGBLIGHT_SLEEP
+// so rgb sleeps when the system goes to sleep
+
+
+
+
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(CAMPANELLA)
     // #define STARTUP_SONG SONG(FANTASIE_IMPROMPTU)
@@ -16,12 +26,6 @@
 #endif
 
 #define MUSIC_MASK (keycode != KC_NO)
-
-
-
-#define RGBLIGHT_SLEEP
-// so rgb sleeps when the system goes to sleep
-
 
 
 /*
