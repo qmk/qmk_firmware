@@ -1,8 +1,8 @@
 # キーボードをより良くするための便利なコア関数のリスト
 
 <!---
-  original document: 0.9.47:docs/ref_functions.md
-  git diff 0.9.47 HEAD -- docs/ref_functions.md | cat
+  original document: 0.10.33:docs/ref_functions.md
+  git diff 0.10.33 HEAD -- docs/ref_functions.md | cat
 -->
 
 QMK には、信じられないほど便利な、またはあなたが望んでいた機能を少し追加する、隠された関数がたくさんあります。特定の機能に固有の関数はそれぞれの機能のページにあるため、ここには含まれていません。
@@ -48,7 +48,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ### `update_tri_layer_state(state, x, y, z)`
 もう1つの関数は `update_tri_layer_state(state, x, y, z)` です。この関数は [`layer_state_set_*` 関数](ja/custom_quantum_functions.md#layer-change-code)から呼び出されることを意図しています。これは、キーコードを使ってレイヤーを変更するたびに、これがチェックされることを意味します。したがって、`LT(layer, kc)` を使ってレイヤーを変更すると、同じレイヤーチェックが引き起こされます。
 
-このメソッドの注意点は、`x` および `y` レイヤーをオンにしないと、`z` レイヤーにアクセスできないことです。レイヤー `z` のみをアクティブにしようとすると、このコードが実行され、使用前にレイヤー `z` がオフになるからです。
+このメソッドの注意点は2つあります:
+1. `x` および `y` レイヤーをオンにしないと、`z` レイヤーにアクセスできません。これは、レイヤー `z` のみをアクティブにしようとすると、このコードが実行され、使用前にレイヤー `z` がオフになるからです。
+2. レイヤーは最上位の番号から処理されるので、`z` は `x` や `y` よりも上位のレイヤーでなければなりません。そうでなければアクセスできない場合があります。
 
 #### 例
 
