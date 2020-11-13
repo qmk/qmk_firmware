@@ -213,7 +213,7 @@ report_pmw_t pmw_read_burst(void) {
     data.dx |= (data.mdx << 8);
     data.dx = data.dx * -1;
     data.dy |= (data.mdy << 8);
-    // data.dy = data.dy * -1;
+    data.dy = data.dy * -1;
 
     spi_stop();
 
