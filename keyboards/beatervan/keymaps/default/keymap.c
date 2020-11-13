@@ -1,11 +1,13 @@
 #include QMK_KEYBOARD_H
 
-#define _QW 0
-#define _DV 1
-#define _CM 2
-#define _L1 3
-#define _L2 4
-#define _L3 5
+enum layers {
+  _QW,
+  _DV,
+  _CM,
+  _L1,
+  _L2,
+  _L3,
+};
 
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
