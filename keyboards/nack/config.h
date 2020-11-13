@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER pastapojken
 #define PRODUCT nack
-#define DESCRIPTION Nack keyboard
+#define DESCRIPTION nack keyboard
 
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
@@ -41,15 +41,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_DI_PIN B5
     #define DRIVER_LED_TOTAL 52
 
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 192
-    #define RGB_MATRIX_STARTUP_VAL 96
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128 // Max brightness of LEDs 
+    #define RGB_MATRIX_STARTUP_VAL 64
     #define RGBLED_NUM 52
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 10
     #define RGBLIGHT_VAL_STEP 10
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-    #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-    #define RGBLIGHT_EFFECT_BREATHE_MAX    64   // 0 to 255
+    #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // Valid values: 1 to 2.7
+    #define RGBLIGHT_EFFECT_BREATHE_MAX    64   // Max brightness of breathe effect, valid values go from 0 to 255
 // /* RGB LED Conversion macro from physical array to electric array */
     #define LED_LAYOUT( \
         L00, L01, L02, L03, L04, L05, L06, L07, L08, L09, L10, L11, L12, \
@@ -69,12 +69,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, \
           51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39 )
 
-    /*#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1*/
 #endif
 
 #ifdef AUDIO_ENABLE
-    #define AUDIO_PIN A4
-    #define AUDIO_PIN_ALT A5
+    #define AUDIO_PIN A4 // Pin of the left speaker 
+    #define AUDIO_PIN_ALT A5 // Pin of the right speaker
     #define AUDIO_DAC_SAMPLE_MAX 4095U
     #define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
 #endif

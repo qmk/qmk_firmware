@@ -122,6 +122,7 @@ if (record->event.pressed) { \
 } \
 return false;
 
+//Never RALT
 #define RALT_NO(kc1, kc2) \
 if (record->event.pressed) { \
   timer_timeout(); \
