@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x726b
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x726B // rk - "rainkeebs"
+#define PRODUCT_ID      0x726B // rk - "rainkeeb"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rainkeebs
 #define PRODUCT         rainkeeb
@@ -44,14 +44,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 /* encoder pads */
 #define ENCODERS_PAD_A { B2 }
