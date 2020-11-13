@@ -7,11 +7,6 @@
 #define _L2 4
 #define _L3 5
 
-// Curly braces have their own keys. These are defined to make them not mess up
-// the grid in layer 2.
-#define L_CURBR LSFT(KC_LBRC)
-#define R_CURBR LSFT(KC_RBRC)
-
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
