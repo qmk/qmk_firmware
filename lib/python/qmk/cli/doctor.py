@@ -165,7 +165,7 @@ def check_udev_rules():
         },
         'bootloadhid': {_udev_rule("16C0", "05DF")},
         'usbasploader': {_udev_rule("16C0", "05DC")},
-        'massdrop': {_udev_rule("03EB", "6124")},
+        'massdrop': {_udev_rule("03EB", "6124", 'ENV{ID_MM_DEVICE_IGNORE}="1"')},
         'caterina': {
             # Spark Fun Electronics
             _udev_rule("1B4F", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 3V3/8MHz

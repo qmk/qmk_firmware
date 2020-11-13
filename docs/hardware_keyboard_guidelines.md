@@ -3,6 +3,25 @@
 Since starting, QMK has grown by leaps and bounds thanks to people like you who contribute to creating and maintaining our community keyboards. As we've grown we've discovered some patterns that work well, and ask that you conform to them to make it easier for other people to benefit from your hard work.
 
 
+## Use QMK Lint
+
+We have provided a tool, `qmk lint`, which will let you check over your keyboard for problems. We suggest using it frequently while working on your keyboard and keymap. 
+
+Example passing check:
+
+```
+$ qmk lint -kb rominronin/katana60/rev2
+Ψ Lint check passed!
+```
+
+Example failing check:
+
+```
+$ qmk lint -kb clueboard/66/rev3
+☒ Missing keyboards/clueboard/66/rev3/readme.md
+☒ Lint check failed!
+```
+
 ## Naming Your Keyboard/Project
 
 All keyboard names are in lower case, consisting only of letters, numbers, and underscore (`_`). Names may not begin with an underscore. Forward slash (`/`) is used as a sub-folder separation character.
