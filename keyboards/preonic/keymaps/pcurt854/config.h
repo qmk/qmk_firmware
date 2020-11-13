@@ -2,7 +2,6 @@
 
 #define TAPPING_TOGGLE 2
 
-
 #define RGBLIGHT_LAYERS
 
 #define RGBLIGHT_SLEEP

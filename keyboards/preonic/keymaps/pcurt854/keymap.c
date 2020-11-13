@@ -261,7 +261,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 /*
- Preonic LEDs:
+ Preonic LEDs visible from the top:
  6 5 4 3
  7 8 1 2
 */
@@ -270,7 +270,7 @@ const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 const rgblight_segment_t PROGMEM my_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_ORANGE},   // Light LED 1
-    {4, 5, HSV_ORANGE}    // and six LEDs starting from LED 4, together six on the left
+    {4, 5, HSV_ORANGE}    // and five LEDs starting from LED 4, together six on the left
 );
 const rgblight_segment_t PROGMEM my_symbol_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_CYAN},
