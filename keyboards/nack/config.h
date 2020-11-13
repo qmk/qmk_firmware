@@ -16,14 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */ 
 
 #pragma once
-
 #include "config_common.h"
 
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x6060
 #define DEVICE_VER 0x0001
 #define MANUFACTURER pastapojken
-#define PRODUCT nack
+#define PRODUCT nack keyboard
 #define DESCRIPTION nack keyboard
 
 #define MATRIX_ROWS 4
@@ -50,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
     #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // Valid values: 1 to 2.7
     #define RGBLIGHT_EFFECT_BREATHE_MAX    64   // Max brightness of breathe effect, valid values go from 0 to 255
-// /* RGB LED Conversion macro from physical array to electric array */
+    /* RGB LED Conversion macro from physical array to electric array */
     #define LED_LAYOUT( \
         L00, L01, L02, L03, L04, L05, L06, L07, L08, L09, L10, L11, L12, \
         L13, L14, L15, L16, L17, L18, L19, L20, L21, L22, L23, L24, L25, \
