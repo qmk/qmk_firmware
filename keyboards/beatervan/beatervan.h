@@ -2,15 +2,6 @@
 
 #include "quantum.h"
 
-// This a shortcut to help you visually see your layout.
-// There are a number of variations depending on the layout of your bottom row.
-// The arrow variant adds an additional key on the bottom-right, while the
-// command variant adds an additional key on the bottom-left. arrow-command is a
-// combination of both of those, having an additional key on both sides.
-//
-// Please note that the numbering of the macro arguments are based on the
-// numbers of the keys on the PCB.
-
 #define LAYOUT( \
     K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, \
     K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K169, \
