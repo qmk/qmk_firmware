@@ -1,8 +1,8 @@
 # nack
 
-![nack](https://imgur.com/a/PPO18Lc)
 
-A ISO-friendly ortholinear keyboard, 13x4 keys. 
+A ISO-friendly ortholinear keyboard, 13x4 keys.  
+See [screenshots](https://imgur.com/a/PPO18Lc).
 
 * Keyboard Maintainer: [pastapojken](https://github.com/pastapojken)
 * Hardware Supported: nack PCB
