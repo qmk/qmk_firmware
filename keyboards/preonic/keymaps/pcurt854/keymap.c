@@ -171,29 +171,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ |Qwerty|Colemk|Dvorak|      |      |      |      |      |      |Print |      |
- * |      |      |      |      |      |      |      |      |      |      |screen|      |
+ * | ____ |Qwerty|Colemk|Dvorak| rgb  | rgb  |      |      |      |      |Print |      |
+ * |      |      |      |      | 0/1  | saT+ |      |      |      |      |screen|      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ |      |Sleep |show  |      |      |finder|      |      |Lock  | rgb  |      |
- * |      |      |      |Dsktp |      |      |Hddn  |      |      |screen| 0/1  |      |
+ * | ____ |      |Sleep |show  | rgb  | rgb  |finder|      |      |Lock  |      |      |
+ * |      |      |      |Dsktp | hue+ | mod+ |Hddn  |      |      |screen|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |RESET |      |      |Virus |      |      | Mute | vol+ | rgb  | rgb  | dsp+ |
- * |      |RESET |      |      |scan  |      |      |      |      | brit+| mode+|      |
+ * |      |RESET |      |      |Virus | rgb  |      | Mute | vol+ |      |      | dsp+ |
+ * |      |RESET |      |      |scan  | Brit+|      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ |      |      |      |      | vol- | rgb  | rgb  | dsp- |
- * |      |      |      |      |      |      |      |      |      | brit-| plain|      |
+ * | ____ | ____ | ____ | ____ |      |      |      |      | vol- |      |      | dsp- |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-  _______, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), XXXXXXX,
+  _______, QWERTY,  COLEMAK, DVORAK,  RGB_TOG, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), XXXXXXX,
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
-                                      XXXXXXX, XXXXXXX, SCMD(KC_DOT),
-                                                                 XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), RGB_TOG, XXXXXXX,
+                                      RGB_HUI, RGB_MOD, SCMD(KC_DOT),
+                                                                 XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
   XXXXXXX, RESET,   XXXXXXX, XXXXXXX, SCMD(KC_V),
-                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   RGB_VAI, RGB_MOD, LCAG(KC_UP),
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, RGB_VAD, RGB_M_P, LCAG(KC_DOWN)
+                                               RGB_VAI, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, XXXXXXX, LCAG(KC_UP),
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, XXXXXXX, LCAG(KC_DOWN)
 )
 
 
@@ -270,15 +270,15 @@ const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 const rgblight_segment_t PROGMEM my_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_ORANGE},   // Light LED 1
-    {4, 5, HSV_ORANGE}    // and five LEDs starting from LED 4, together six on the left
+    {7, 2, HSV_ORANGE}    // and two LEDs starting from LED 7, together three on the bottom left
 );
 const rgblight_segment_t PROGMEM my_symbol_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_CYAN},
-    {4, 5, HSV_CYAN}
+    {7, 2, HSV_CYAN}
 );
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_GREEN},
-    {4, 5, HSV_GREEN}
+    {7, 2, HSV_GREEN}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
