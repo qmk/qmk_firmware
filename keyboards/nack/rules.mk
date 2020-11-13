@@ -8,4 +8,3 @@ UNICODE_ENABLE = yes		# Unicode support
 NKRO_ENABLE = yes			# USB Nkey Rollover
 AUDIO_ENABLE = yes			# Audio output on port C6
 SLEEP_LED_ENABLE = no		# Breathing sleep LED during USB suspend
-MIDI_ENABLE = no			# MIDI support

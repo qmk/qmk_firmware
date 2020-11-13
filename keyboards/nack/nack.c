@@ -38,6 +38,3 @@
     } };
 #endif
 
-__attribute__((weak))
-void timer_timeout_keymap(void){
-}
