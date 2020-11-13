@@ -1,4 +1,4 @@
-/* Copyright 2020 pastapojken
+/* Copyright 2020 pastapojken <pastapojken@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,6 +52,11 @@ void timer_timeout(void);
 void timer_timeout_keymap(void);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
+
+/*
+Templates for Keys, with custom shifted and non shifted Characters
+Heavily based off of SpacebarRacecar's userspace
+*/
 
 // Normal shift status
 #define SHIFT_NORM(kc1, kc2) \
