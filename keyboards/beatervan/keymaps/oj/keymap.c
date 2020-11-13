@@ -68,17 +68,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       switch(keycode) {
         case DVORAK:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DV);
+            set_single_persistent_default_layer(_DV);
           }
           return false;
         case QWERTY:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QW);
+            set_single_persistent_default_layer(_QW);
           }
           return false;
         case COLEMAK:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_CM);
+            set_single_persistent_default_layer(_CM);
           }
           return false;
         default:
