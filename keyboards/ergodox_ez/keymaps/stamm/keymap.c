@@ -37,8 +37,8 @@
 #define U_MOUSE LT(_4_MOUSE,KC_U)
 #define R_NUMBERS LT(_3_NUMBERS,KC_R)
 #define W_MOUSE LT(_4_MOUSE,KC_W)
-#define LEFT_NUMBERS LT(_3_NUMBERS, KC_LEFT)
-#define RIGHT_MOUSE LT(_4_MOUSE, KC_RIGHT)
+#define LEFT_NUMBERS KC_LEFT
+#define RIGHT_MOUSE KC_RIGHT
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -290,6 +290,9 @@ void matrix_scan_user(void) {
     }
     SEQ_ONE_KEY(KC_S) {
       SEND_STRING ("sudo -i\n");
+    }
+    SEQ_ONE_KEY(KC_H) {
+      SEND_STRING ("--help\n");
     }
     SEQ_TWO_KEYS(KC_D, KC_D) {
       SEND_STRING(SS_LGUI("ac"));
