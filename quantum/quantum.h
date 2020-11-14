@@ -229,7 +229,12 @@ typedef ioline_t pin_t;
 #endif
 
 #if defined(__ARMEL__) || defined(__ARMEB__)
-#    define waitOutputPinValid() wait_cpuclock(STM32_SYSCLK/1000000L / 4)
+#    if  defined(STM32_SYSCLK)
+#        define WAITOUTPUTPINVALID_DELAY (STM32_SYSCLK/1000000L / 4)
+#    elif defined(KINETIS_SYSCLK_FREQUENCY)
+#        define WAITOUTPUTPINVALID_DELAY (KINETIS_SYSCLK_FREQUENCY/1000000L / 4)
+#    endif
+#    define waitOutputPinValid() wait_cpuclock(WAITOUTPUTPINVALID_DELAY)
 #endif
 
 // Atomic macro to help make GPIO and other controls atomic.

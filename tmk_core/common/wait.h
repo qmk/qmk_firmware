@@ -9,7 +9,7 @@ extern "C" {
 
 #if defined(__ARMEL__) || defined(__ARMEB__)
 #    ifndef __OPTIMIZE__
-#        warning "Compiler optimizations disabled; wait_cpuclock() won't work as designed"
+#        pragma message "Compiler optimizations disabled; wait_cpuclock() won't work as designed"
 #    endif
 
 #    define CLOCK_DELAY_NOP8 "nop\n\t nop\n\t nop\n\t nop\n\t   nop\n\t nop\n\t nop\n\t nop\n\t"
