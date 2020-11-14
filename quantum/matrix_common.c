@@ -87,7 +87,7 @@ uint8_t matrix_key_count(void) {
 /*　`matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay().　*/
 __attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
-__attribute__((weak)) void matrix_output_select_delay(void) { waitOutputPinValid(); }
+__attribute__((weak)) void matrix_output_select_delay(void) { waitInputPinDelay(); }
 __attribute__((weak)) void matrix_output_unselect_delay(void) { matrix_io_delay(); }
 
 // CUSTOM MATRIX 'LITE'
