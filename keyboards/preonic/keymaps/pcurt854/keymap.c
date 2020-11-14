@@ -266,19 +266,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  7 8 1 2
 */
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {2, 2, HSV_RED}       // Light 2 LEDs, starting with LED 2, that is, the two on the right
+    {2, 2, HSV_WHITE}       // Light 2 LEDs, starting with LED 2, that is, the two on the right
 );
 const rgblight_segment_t PROGMEM my_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_ORANGE},   // Light LED 1
-    {7, 2, HSV_ORANGE}    // and two LEDs starting from LED 7, together three on the bottom left
+    {1, 1, HSV_WHITE}
 );
 const rgblight_segment_t PROGMEM my_symbol_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_CYAN},
-    {7, 2, HSV_CYAN}
+    {8, 1, HSV_WHITE}
 );
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_GREEN},
-    {7, 2, HSV_GREEN}
+    {6, 2, HSV_WHITE}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -289,11 +286,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 void keyboard_post_init_user(void) {
-/*
-    rgblight_enable_noeeprom(); // enables Rgb, without saving settings
-    rgblight_sethsv_noeeprom(0,0,0); // turn off all light in the beginning
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode that works with layer change below
-*/
     rgblight_layers = my_rgb_layers;
 }
 
@@ -311,6 +303,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(_ADJUST-_NUMPAD+1, led_state.caps_lock);
+
     return true;
 }
 
