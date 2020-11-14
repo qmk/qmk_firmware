@@ -1,3 +1,4 @@
+#include "quantum.h"
 #include "matrix.h"
 #include "debounce.h"
 #include "wait.h"
