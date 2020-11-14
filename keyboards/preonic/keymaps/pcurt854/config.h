@@ -6,6 +6,8 @@
 
 #define RGBLIGHT_LAYERS
 
+#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+
 #define RGBLIGHT_SLEEP
 // so rgb sleeps when the system goes to sleep
 

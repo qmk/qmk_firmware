@@ -266,16 +266,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  7 8 1 2
 */
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {2, 2, HSV_WHITE}       // Light 2 LEDs, starting with LED 2, that is, the two on the right
+    {2, 2, HSV_PINK}       // Light 2 LEDs, starting with LED 2, that is, the two on the right
 );
 const rgblight_segment_t PROGMEM my_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_WHITE}
+    {1, 1, HSV_ORANGE},
+    {4, 5, HSV_ORANGE}
 );
 const rgblight_segment_t PROGMEM my_symbol_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {8, 1, HSV_WHITE}
+    {1, 1, HSV_CYAN},
+    {4, 5, HSV_CYAN}
 );
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 2, HSV_WHITE}
+    {1, 1, HSV_GREEN},
+    {4, 5, HSV_GREEN}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
