@@ -49,4 +49,18 @@ void encoder_update_user(uint8_t index, bool clockwise)
     {
         tap_code(KC_VOLU);
     }
-}
+};
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+
+		switch (get_highest_layer(state)) {
+		case _BL:
+			//When Layer swithces, change oled screen to "Base Layer"
+			break;
+			
+		case _FL:
+			//when layer switches, change oled to "function layer"
+			break;
+		}
+	return state;
+};
