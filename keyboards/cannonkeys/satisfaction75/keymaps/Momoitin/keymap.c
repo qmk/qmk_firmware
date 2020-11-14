@@ -43,10 +43,12 @@ void encoder_update_user(uint8_t index, bool clockwise)
 {
     if (clockwise) 
     {
+        //when encoder is turned cw, toggle to layer +1
         tap_code(KC_VOLU);
     } 
     else 
     {
+        //when encodered is turned ccw, toggle layer to -1
         tap_code(KC_VOLU);
     }
 };
