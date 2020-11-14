@@ -13,24 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "vn66.h"
 
 void matrix_init_kb(void) {
-  led_init_ports();
-  matrix_init_user(); 
-};
-
-void led_init_ports(void) {
-  setPinOutput(E6);
+    led_init_ports();
+    matrix_init_user();
 }
 
-void led_set_kb(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    // Turn Caps Lock LED on
-    writePinLow(E6);
-  } else {
-    // Turn Caps Lock LED off
-    writePinHigh(E6);
-  }
-    led_set_user(usb_led);
+void led_init_ports(void) {
+    setPinOutput(E6);
+}
+
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(E6, !led_state.caps_lock);
+    }
+
+    return true;
 }

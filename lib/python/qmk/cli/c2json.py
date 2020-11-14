@@ -44,7 +44,7 @@ def c2json(cli):
 
     # Generate the keymap.json
     try:
-        keymap_json = qmk.keymap.generate(keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'], type='json', keymap=keymap_json['keymap'])
+        keymap_json = qmk.keymap.generate_json(keymap_json['keymap'], keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'])
     except KeyError:
         cli.log.error('Something went wrong. Try to use --no-cpp.')
         sys.exit(1)
