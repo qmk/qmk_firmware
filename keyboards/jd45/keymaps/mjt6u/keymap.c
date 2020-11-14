@@ -26,9 +26,9 @@ enum jd45_keycodes
 #define LAYER_TOGGLE_DELAY 900
 
 #define __MOD__ KC_TRNS
-#define F_FNSPC F(0)
-#define F_NUMSPC F(1)
-#define F_FNTAB F(2)
+#define F_FNSPC LT(_NUMSYM, KC_SPC)
+#define F_NUMSPC LT(_NUMPAD, KC_SPC)
+#define F_FNTAB LT(_FUNCTION, KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
@@ -79,12 +79,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______,   _______, USENUMMODS, _______,         _______,         _______,  _______,          _______, \
     XXXXXXX, _______, _______, XXXXXXX,            XXXXXXX,             _______,                          XXXXXXX, __MOD__,  __MOD__, XXXXXXX  \
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_TAP_KEY(_NUMSYM, KC_SPC),
-    [1] = ACTION_LAYER_TAP_KEY(_NUMPAD, KC_SPC),
-    [2] = ACTION_LAYER_TAP_KEY(_FUNCTION, KC_TAB),
 };
 
 void persistent_default_layer_set(uint16_t default_layer)

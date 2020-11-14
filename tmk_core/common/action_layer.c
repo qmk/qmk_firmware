@@ -49,7 +49,7 @@ static void default_layer_state_set(layer_state_t state) {
  *
  * Print out the hex value of the 32-bit default layer state, as well as the value of the highest bit.
  */
-void default_layer_debug(void) { dprintf("%08lX(%u)", default_layer_state, biton32(default_layer_state)); }
+void default_layer_debug(void) { dprintf("%08lX(%u)", default_layer_state, get_highest_layer(default_layer_state)); }
 
 /** \brief Default Layer Set
  *
@@ -178,7 +178,7 @@ void layer_xor(layer_state_t state) { layer_state_set(layer_state ^ state); }
  *
  * Print out the hex value of the 32-bit layer state, as well as the value of the highest bit.
  */
-void layer_debug(void) { dprintf("%08lX(%u)", layer_state, biton32(layer_state)); }
+void layer_debug(void) { dprintf("%08lX(%u)", layer_state, get_highest_layer(layer_state)); }
 #endif
 
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)

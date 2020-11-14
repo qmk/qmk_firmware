@@ -2,7 +2,7 @@
 
 Ortho 40% Ortho Keyboard with an option for the adafruit feather
 
-Keyboard Maintainer: [Rionlion100](https://github.com/rionlion100)  
+Keyboard Maintainer: Spaceman AKA:[Rionlion100](https://github.com/rionlion100)  
 Hardware Availability: [GB](https://geekhack.org/index.php?topic=101371.0)
 
 Make example for this keyboard (after setting up your build environment):

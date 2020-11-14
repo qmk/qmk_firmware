@@ -7,8 +7,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xDEAD
-#define PRODUCT_ID      0xFEED
+#define VENDOR_ID       0x4154      //AT
+#define PRODUCT_ID      0x4536      //E6
 #define DEVICE_VER      0x0062
 #define MANUFACTURER    astro
 #define PRODUCT         e6rgb
@@ -22,27 +22,6 @@
 #define MATRIX_COL_PINS { D7, B4, B5, B6, C6, C7, F7, F0, B0, B1, D2, D3, B3, B2 }
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 //rgb light setting
 #define RGBLED_NUM      6
@@ -58,8 +37,3 @@
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 63
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
-
-// tapping setting
-#define TAPPING_TERM    200
-#define RETRO_TAPPING
-#define PERMISSIVE_HOLD

@@ -19,10 +19,9 @@
 /* diode directions */
 #define COL2ROW 0
 #define ROW2COL 1
-#define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
 // useful for direct pin mapping
-#define NO_PIN (~0)
+#define NO_PIN (pin_t)(~0)
 
 #ifdef __AVR__
 #    ifndef __ASSEMBLER__
@@ -64,6 +63,9 @@
 #        define PINB_ADDRESS 0x3
 #        define PINC_ADDRESS 0x6
 #        define PIND_ADDRESS 0x9
+#    elif defined(__AVR_ATtiny85__)
+#        define ADDRESS_BASE 0x10
+#        define PINB_ADDRESS 0x6
 #    else
 #        error "Pins are not defined"
 #    endif
@@ -133,7 +135,7 @@
 #    endif
 
 #    ifndef __ASSEMBLER__
-#        define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+#        define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset))
 // Port X Input Pins Address
 #        define PINx_ADDRESS(p) _PIN_ADDRESS(p, 0)
 // Port X Data Direction Register,  0:input 1:output

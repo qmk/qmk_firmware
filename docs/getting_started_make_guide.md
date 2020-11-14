@@ -135,7 +135,7 @@ As there is no standard split communication driver for ARM-based split keyboards
 
 `CUSTOM_MATRIX`
 
-Lets you replace the default matrix scanning routine with your own code. You will need to provide your own implementations of matrix_init() and matrix_scan().
+Lets you replace the default matrix scanning routine with your own code. For further details, see the [Custom Matrix page](custom_matrix.md).
 
 `DEBOUNCE_TYPE`
 

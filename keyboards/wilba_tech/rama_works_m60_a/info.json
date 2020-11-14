@@ -2,7 +2,6 @@
     "keyboard_name": "RAMA WORKS M60-A", 
     "url": "http://rama.works", 
     "maintainer": "Wilba", 
-    "bootloader": "atmel-dfu", 
     "width": 15, 
     "height": 5, 
     "layouts": {

@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: adf4acf59:docs/newbs_git_resolving_merge_conflicts.md
-  git diff adf4acf59 HEAD docs/newbs_git_resolving_merge_conflicts.md | cat
+  git diff adf4acf59 HEAD -- docs/newbs_git_resolving_merge_conflicts.md | cat
 -->
 
 ブランチでの作業の完了に時間がかかる場合、他の人が行った変更が、プルリクエストを開いたときにブランチに加えた変更と競合することがあります。

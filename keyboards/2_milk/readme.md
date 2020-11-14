@@ -4,7 +4,7 @@
 
 A 2% Meme board themed around a milk carton
 
-Keyboard Maintainer: [Rionlion100](https://github.com/rionlion100)  
+Keyboard Maintainer: Spaceman AKA:[Rionlion100](https://github.com/rionlion100)  
 Hardware Availability: [Open Source](https://github.com/Rionlion100/Spaceboards/tree/master/Keyboards/2%25%20Milk)
 
 Make example for this keyboard (after setting up your build environment):

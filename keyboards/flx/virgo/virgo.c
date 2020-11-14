@@ -1,4 +1,5 @@
 /* Copyright 2019 MechMerlin
+ * Edits etc 2020 Flexerm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +20,7 @@ void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
 
-	setPinOutput(E6);
+  setPinOutput(E6);
   setPinOutput(B2);
   matrix_init_user();
 }

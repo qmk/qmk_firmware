@@ -13,4 +13,4 @@ ifneq (,$(filter yes,$(UNICODE_ENABLE) $(UNICODEMAP_ENABLE)))
     SRC += unicode.c
 endif
 
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes

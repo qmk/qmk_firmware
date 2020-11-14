@@ -45,6 +45,6 @@ stdenv.mkDerivation {
     ++ lib.optional arm [ gcc-arm-embedded ]
     ++ lib.optional teensy [ teensy-loader-cli ];
 
-  CFLAGS = lib.optional avr avr_incflags;
-  ASFLAGS = lib.optional avr avr_incflags;
+  AVR_CFLAGS = lib.optional avr avr_incflags;
+  AVR_ASFLAGS = lib.optional avr avr_incflags;
 }

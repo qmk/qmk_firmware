@@ -166,10 +166,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_USAGE(8, 0x80),                // System Control
     HID_RI_COLLECTION(8, 0x01),           // Application
         HID_RI_REPORT_ID(8, REPORT_ID_SYSTEM),
-        HID_RI_USAGE_MINIMUM(16, 0x0081), // System Power Down
-        HID_RI_USAGE_MAXIMUM(16, 0x0083), // System Wake Up
-        HID_RI_LOGICAL_MINIMUM(16, 0x0001),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x0003),
+        HID_RI_USAGE_MINIMUM(8, 0x01),    // Pointer
+        HID_RI_USAGE_MAXIMUM(16, 0x00B7), // System Display LCD Autoscale
+        HID_RI_LOGICAL_MINIMUM(8, 0x01),
+        HID_RI_LOGICAL_MAXIMUM(16, 0x00B7),
         HID_RI_REPORT_COUNT(8, 1),
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
@@ -179,10 +179,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_USAGE(8, 0x01),                // Consumer Control
     HID_RI_COLLECTION(8, 0x01),           // Application
         HID_RI_REPORT_ID(8, REPORT_ID_CONSUMER),
-        HID_RI_USAGE_MINIMUM(16, 0x0001), // Consumer Control
-        HID_RI_USAGE_MAXIMUM(16, 0x029C), // AC Distribute Vertically
-        HID_RI_LOGICAL_MINIMUM(16, 0x0001),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x029C),
+        HID_RI_USAGE_MINIMUM(8, 0x01),    // Consumer Control
+        HID_RI_USAGE_MAXIMUM(16, 0x02A0), // AC Desktop Show All Applications
+        HID_RI_LOGICAL_MINIMUM(8, 0x01),
+        HID_RI_LOGICAL_MAXIMUM(16, 0x02A0),
         HID_RI_REPORT_COUNT(8, 1),
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),

@@ -2,7 +2,6 @@
     "keyboard_name": "RAMA WORKS U80-A", 
     "url": "http://rama.works", 
     "maintainer": "Wilba", 
-    "bootloader": "atmel-dfu", 
     "width": 18.25, 
     "height": 6.5, 
     "layouts": {

@@ -1,7 +1,4 @@
-#ifndef REV1_H
-#define REV1_H
-
-#include "../minidox.h"
+#pragma once
 
 #include "quantum.h"
 
@@ -24,5 +21,3 @@
     { k61, k62, k63, k64, k65 }, \
     { ___, ___, k73, k74, k75 } \
   }
-
-#endif

@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6464
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER QMK
 #define PRODUCT Practice 60
 #define DESCRIPTION Practice 60
@@ -35,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, B5, B6, B7 }
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN A8
+#define BACKLIGHT_PWM_DRIVER PWMD1
+#define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
@@ -51,13 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLIGHT_ANIMATIONS
-
-#define WS2812_LED_N 9
-#define RGBLED_NUM WS2812_LED_N
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      15
+#define RGB_DI_PIN B15
+#define RGBLED_NUM 9
 #define WS2812_SPI SPID2
-
 
 /*
  * Feature disable options

@@ -3,11 +3,11 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: adf4acf59:docs/newbs_git_resynchronize_a_branch.md
-  git diff adf4acf59 HEAD docs/newbs_git_resynchronize_a_branch.md | cat
+  git diff adf4acf59 HEAD -- docs/newbs_git_resynchronize_a_branch.md | cat
 -->
 
 仮にあなたの `master` ブランチにあなたのコミットを行い、そしてあなたの QMK リポジトリの更新が必要になったとします。
-(フォーク元の) QMKの `master` ブランチをあなたの `master` ブランチに `git pull` することもできますが、GitHub は、あなたのブランチが `qmk:master` より何コミットか先行していると通知します、この状態で QMK にプルリクエストを行う場合、問題が発生する可能性があります。
+(フォーク元の) QMK の `master` ブランチをあなたの `master` ブランチに `git pull` することもできますが、GitHub は、あなたのブランチが `qmk:master` より何コミットか先行していると通知します、この状態で QMK にプルリクエストを行う場合、問題が発生する可能性があります。
 (訳注：この通知は、GitHub のあなたのリポジトリの code ペインのブランチ選択メニューの下のあたりで `This branch is 3 commit ahead of qmk:master` という様な文面で表示されています。)
 
 ?> このドキュメントは [あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと](ja/newbs_git_using_your_master_branch.md) で詳述されている概念に基づいています。その概念に慣れていない場合は、まずそれを読んでから、ここに戻ってください。  

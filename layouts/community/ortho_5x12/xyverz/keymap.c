@@ -151,9 +151,7 @@ void matrix_init_user(void) {
 #ifdef BOOTLOADER_CATERINA
     // This will disable the red LEDs on the ProMicros
     setPinInput(D5);
-    writePinLow(D5);
     setPinInput(B0);
-    writePinLow(B0);
 #endif
 };
 

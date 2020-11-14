@@ -2,7 +2,6 @@
 
 #include <stdbool.h>
 #include <stdio.h>
-#include "pincontrol.h"
 #include "action.h"
 
 enum ssd1306_cmds {

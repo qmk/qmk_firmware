@@ -21,6 +21,7 @@
     { K70, K71, K72, K73, K74, K75, K76, KC_NO }                               \
 }
 
+#define LAYOUT_60_hhkb LAYOUT
 
 #define LAYOUT_JP(                                                             \
     K02, K32, K62, K22, K12, K52, K72, KA2, K92, K82, KB2, KE2, KF2, KD2, KC2, \
