@@ -24,7 +24,7 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif  // KEYLOGGER_ENABLE
+#endif
     if (process_record_keymap(keycode, record)
 #if defined OLED_DRIVER_ENABLE
 #    ifndef DISABLE_USERSPACE_OLED

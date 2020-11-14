@@ -23,6 +23,12 @@
 #define TAP_CODE_DELAY 5
 #define TAPPING_TERM 200
 
+// Disable default layer switching to prevent accidents
+#ifdef COMMAND_ENABLE
+    #define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS false
+    #define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS false
+#endif
+
 #ifdef COMBO_ENABLE
 #    define COMBO_COUNT 11
 #    define COMBO_TERM 30
@@ -56,8 +62,8 @@
 
 #    define MOUSEKEY_DELAY 0               // Delay between pressing a movement key and cursor movement
 #    define MOUSEKEY_INTERVAL 8            // Time between cursor movements
-#    define MOUSEKEY_MAX_SPEED 8           // Maximum cursor speed at which acceleration stops
-#    define MOUSEKEY_TIME_TO_MAX 80        // Time until maximum cursor speed is reached
+#    define MOUSEKEY_MAX_SPEED 6           // Maximum cursor speed at which acceleration stops
+#    define MOUSEKEY_TIME_TO_MAX 40        // Time until maximum cursor speed is reached
 #    define MOUSEKEY_WHEEL_DELAY 100       // Delay between pressing a wheel key and wheel movement
 #    define MOUSEKEY_WHEEL_INTERVAL 150    // Time between wheel movements
 #    define MOUSEKEY_WHEEL_MAX_SPEED 8     // Maximum number of scroll steps per scroll action

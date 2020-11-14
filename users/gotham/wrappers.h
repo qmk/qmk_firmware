@@ -43,11 +43,6 @@ For instance Tap/Hold for Control on all of the layouts
 #define _________________QWERTY_R3_________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 
-#define __________________GAME_L1__________________ KC_T,    KC_Q,    KC_W,    KC_E,    KC_R
-#define __________________GAME_L2__________________ KC_G,    KC_A,    KC_S,    KC_D,    KC_F
-#define __________________GAME_L3__________________ KC_B,    KC_Z,    KC_X,    KC_C,    KC_V
-
-
 #define _________________COLEMAK_L1________________ KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
 #define _________________COLEMAK_L2________________ KC_A,    KC_R,    KC_S,    KC_T,    KC_D
 #define _________________COLEMAK_L3________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
@@ -112,6 +107,13 @@ For instance Tap/Hold for Control on all of the layouts
 #define __________________FN_LEFT__________________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define __________________FN_RIGHT_________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
+#define __________________NUMPAD_1_________________ KC_NO,   KC_1,    KC_2,    KC_3,    KC_NO
+#define __________________NUMPAD_2_________________ KC_0,    KC_4,    KC_5,    KC_6,    KC_0s
+#define __________________NUMPAD_3_________________ KC_NO,   KC_7,    KC_8,    KC_9,    KC_NO
+#define __________________FN_PAD_1_________________ KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_NO
+#define __________________FN_PAD_2_________________ KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_NO
+#define __________________FN_PAD_3_________________ KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_NO
+
 #define ________________VIM_ARROWS_________________ KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______
 
 #define ___________________NAV1____________________ KC_PGUP, KC_LEFT, KC_UP,   KC_RIGHT, KC_PGUP
@@ -122,16 +124,37 @@ For instance Tap/Hold for Control on all of the layouts
 #define __________________MOUSE3___________________ KC_WH_D, KC_BTN1, KC_MS_D, KC_BTN2, KC_WH_D
 
 /*
+ * Game Mode Components
+*/
+
+#define __________________GAME_L1__________________ KC_T,    KC_Q,    KC_W,    KC_E,    KC_R
+#define __________________GAME_L2__________________ KC_G,    KC_A,    KC_S,    KC_D,    KC_F
+#define __________________GAME_L3__________________ KC_B,    KC_Z,    KC_X,    KC_C,    KC_V
+
+#define __________________GAME_R1__________________ _________________QWERTY_R1_________________
+#define __________________GAME_R2__________________ _________________QWERTY_R2_________________
+#define __________________GAME_R3__________________ _________________QWERTY_R3_________________
+
+#define _________________GAMENUM_L1________________ __________________NUMPAD_1_________________
+#define _________________GAMENUM_L2________________ KC_0,    KC_4,    KC_5,    KC_6,    TG_GAME
+#define _________________GAMENUM_L3________________ __________________NUMPAD_3_________________
+
+#define _________________GAMENUM_R1________________ __________________FN_PAD_1_________________
+#define _________________GAMENUM_R2________________ __________________FN_PAD_2_________________
+#define _________________GAMENUM_R3________________ __________________FN_PAD_3_________________
+
+
+/*
  * Layers
 */
 
-#define _________________LOWER_L1__________________ KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_PIPE
+#define _________________LOWER_L1__________________ KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_BSLS
 #define _________________LOWER_L2__________________ KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_GRV
 #define _________________LOWER_L3__________________ KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD
 
-#define _________________LOWER_R1__________________ ___________________BLANK___________________
-#define _________________LOWER_R2__________________ KC_MINS, KC_PLUS, KC_ASTR, KC_SLSH, KC_PERC
-#define _________________LOWER_R3__________________ KC_AMPR, KC_PIPE, KC_COMM, KC_DOT,  KC_SLSH
+#define _________________LOWER_R1__________________ KC_EXLM, KC_AMPR, KC_EQL,  KC_PIPE, KC_BSLS
+#define _________________LOWER_R2__________________ KC_PLUS, KC_MINS, KC_ASTR, KC_PERC, KC_QUOT
+#define _________________LOWER_R3__________________ KC_GRV,  KC_UNDS, KC_COMM, KC_DOT,  KC_SLSH
 
 
 #define _________________RAISE_L1__________________ ________________NUMBER_LEFT________________
@@ -151,4 +174,12 @@ For instance Tap/Hold for Control on all of the layouts
 #define _________________ADJUST_R2_________________ RESET,   KC_MAKE, VRSN,    KC_F11,  KC_F12
 #define _________________ADJUST_R3_________________ KC_LAYOUT, CMB_TOG, _______, _______, _______
 
+
+#define _________________MOUSE_L1__________________ ___________________KC_NO___________________
+#define _________________MOUSE_L2__________________ KC_NO,   KC_NO,   KC_NO,   KC_NO,   TG_GAME
+#define _________________MOUSE_L3__________________ ___________________KC_NO___________________
+
+#define _________________MOUSE_R1__________________ __________________MOUSE1___________________
+#define _________________MOUSE_R2__________________ __________________MOUSE2___________________
+#define _________________MOUSE_R3__________________ __________________MOUSE3___________________
 // clang-format on
