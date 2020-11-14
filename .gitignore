@@ -4,7 +4,6 @@
 *.bin
 *.eep
 *.elf
-*.hex
 *.qmk
 !util/bootloader.hex
 !quantum/tools/eeprom_reset.hex
@@ -68,6 +67,7 @@ doxygen/
 secrets.tar
 id_rsa_*
 /.vs
+.build/*
 
 # python things
 __pycache__
