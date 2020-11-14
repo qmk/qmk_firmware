@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6464
+#define VENDOR_ID       0x6873 //hs "Hasu"
+#define PRODUCT_ID      0x6464 //Alps"64"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Hasu
 #define PRODUCT         Alps64
@@ -47,6 +47,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Bootmagic Lite Support*/
+#define BOOTMAGIC_LITE_ROW 3
+#define BOOTMAGIC_LITE_COLUMN 6
 
 /*
  * Feature disable options

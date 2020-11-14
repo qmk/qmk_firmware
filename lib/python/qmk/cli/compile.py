@@ -7,7 +7,6 @@ from argparse import FileType
 
 from milc import cli
 
-import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
 
@@ -32,10 +31,7 @@ def compile(cli):
         # If a configurator JSON was provided generate a keymap and compile it
         # FIXME(skullydazed): add code to check and warn if the keymap already exists when compiling a json keymap.
         user_keymap = parse_configurator_json(cli.args.filename)
-        keymap_path = qmk.path.keymap(user_keymap['keyboard'])
         command = compile_configurator_json(user_keymap)
-
-        cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
     else:
         if cli.config.compile.keyboard and cli.config.compile.keymap:

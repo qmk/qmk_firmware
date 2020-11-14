@@ -14,9 +14,6 @@ BOOTLOADER = USBasp
 # Processor frequency
 F_CPU = 12000000
 
-# disable the debugging code
-OPT_DEFS = -DDEBUG_LEVEL=0
-
 # Build Options
 #   change yes to no to disable
 #

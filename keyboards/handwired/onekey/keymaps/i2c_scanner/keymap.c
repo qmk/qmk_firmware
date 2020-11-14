@@ -21,7 +21,7 @@ i2c_status_t i2c_start_bodge(uint8_t address, uint16_t timeout) {
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(KC_A)  //
+    LAYOUT_ortho_1x1(KC_A)
 };
 
 void do_scan(void) {

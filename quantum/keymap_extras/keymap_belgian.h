@@ -67,7 +67,7 @@
 #define BE_F    KC_F    // F
 #define BE_G    KC_G    // G
 #define BE_H    KC_H    // H
-#define BE_J    KC_K    // J
+#define BE_J    KC_J    // J
 #define BE_K    KC_K    // K
 #define BE_L    KC_L    // L
 #define BE_M    KC_SCLN // M

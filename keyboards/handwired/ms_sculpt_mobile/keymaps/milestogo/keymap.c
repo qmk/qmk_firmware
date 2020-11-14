@@ -29,7 +29,6 @@ TRAN
 #define TT_SYM MO(_SYM)
 #define TT_MOV LT(_MOV,KC_BSPC)
 #define TT_NUM MO(_NUM)
-#define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
 
 enum macro_keycodes {
 DHPASTE=1,

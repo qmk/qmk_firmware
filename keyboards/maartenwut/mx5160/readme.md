@@ -5,7 +5,7 @@
 ## Support
 * Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)
 * Hardware Supported: mx-5160 (Chicony 5160c case)
-* Hardware Availability: [Github](https://github.com/Maartenwut/mx-5160)
+* Hardware Availability: [GitHub](https://github.com/Maartenwut/mx-5160)
 
 ## Build
 Make example for this keyboard (after setting up your build environment):

@@ -3,12 +3,14 @@
 Check out the user's QMK environment and make sure it's ready to compile.
 """
 import platform
+import re
 import shutil
 import subprocess
 from pathlib import Path
 
 from milc import cli
 from qmk import submodules
+from qmk.constants import QMK_FIRMWARE
 from qmk.questions import yesno
 from qmk.commands import run
 
@@ -24,16 +26,40 @@ ESSENTIAL_BINARIES = {
     },
     'bin/qmk': {},
 }
-ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
 
 
-def _udev_rule(vid, pid=None):
+def _udev_rule(vid, pid=None, *args):
     """ Helper function that return udev rules
+    """
+    rule = ""
+    if pid:
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"' % (vid, pid)
+    else:
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"' % vid
+    if args:
+        rule = ', '.join([rule, *args])
+    return rule
+
+
+def _deprecated_udev_rule(vid, pid=None):
+    """ Helper function that return udev rules
+
+    Note: these are no longer the recommended rules, this is just used to check for them
     """
     if pid:
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", MODE:="0666"' % (vid, pid)
     else:
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", MODE:="0666"' % vid
+
+
+def parse_gcc_version(version):
+    m = re.match(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?", version)
+
+    return {
+        'major': int(m.group(1)),
+        'minor': int(m.group(2)) if m.group(2) else 0,
+        'patch': int(m.group(3)) if m.group(3) else 0,
+    }
 
 
 def check_arm_gcc_version():
@@ -52,8 +78,8 @@ def check_avr_gcc_version():
     if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
         version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
 
-        major, minor, rest = version_number.split('.', 2)
-        if int(major) > 8:
+        parsed_version = parse_gcc_version(version_number)
+        if parsed_version['major'] > 8:
             cli.log.error('We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
             return False
 
@@ -109,14 +135,11 @@ def check_submodules():
 
     for submodule in submodules.status().values():
         if submodule['status'] is None:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
-                ok = False
-            else:
-                cli.log.warn('Submodule %s is not available.', submodule['name'])
+            cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
+            ok = False
         elif not submodule['status']:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.warn('Submodule %s is not up to date!')
+            cli.log.error('Submodule %s is not up to date!', submodule['name'])
+            ok = False
 
     return ok
 
@@ -127,11 +150,50 @@ def check_udev_rules():
     ok = True
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
-        'dfu': {_udev_rule("03eb", "2ff4"), _udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
-        'tmk': {_udev_rule("feed")},
-        'input_club': {_udev_rule("1c11")},
-        'stm32': {_udev_rule("1eaf", "0003"), _udev_rule("0483", "df11")},
+        'atmel-dfu': {
+            _udev_rule("03EB", "2FEF"),  # ATmega16U2
+            _udev_rule("03EB", "2FF0"),  # ATmega32U2
+            _udev_rule("03EB", "2FF3"),  # ATmega16U4
+            _udev_rule("03EB", "2FF4"),  # ATmega32U4
+            _udev_rule("03EB", "2FF9"),  # AT90USB64
+            _udev_rule("03EB", "2FFB")  # AT90USB128
+        },
+        'kiibohd': {_udev_rule("1C11", "B007")},
+        'stm32': {
+            _udev_rule("1EAF", "0003"),  # STM32duino
+            _udev_rule("0483", "DF11")  # STM32 DFU
+        },
+        'bootloadhid': {_udev_rule("16C0", "05DF")},
+        'usbasploader': {_udev_rule("16C0", "05DC")},
+        'massdrop': {_udev_rule("03EB", "6124", 'ENV{ID_MM_DEVICE_IGNORE}="1"')},
+        'caterina': {
+            # Spark Fun Electronics
+            _udev_rule("1B4F", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 3V3/8MHz
+            _udev_rule("1B4F", "9205", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Pro Micro 5V/16MHz
+            _udev_rule("1B4F", "9207", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # LilyPad 3V3/8MHz (and some Pro Micro clones)
+            # Pololu Electronics
+            _udev_rule("1FFB", "0101", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # A-Star 32U4
+            # Arduino SA
+            _udev_rule("2341", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
+            _udev_rule("2341", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Micro
+            # Adafruit Industries LLC
+            _udev_rule("239A", "000C", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Feather 32U4
+            _udev_rule("239A", "000D", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 3V3/8MHz
+            _udev_rule("239A", "000E", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # ItsyBitsy 32U4 5V/16MHz
+            # dog hunter AG
+            _udev_rule("2A03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
+            _udev_rule("2A03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
+        }
+    }
+
+    # These rules are no longer recommended, only use them to check for their presence.
+    deprecated_rules = {
+        'atmel-dfu': {_deprecated_udev_rule("03eb", "2ff4"), _deprecated_udev_rule("03eb", "2ffb"), _deprecated_udev_rule("03eb", "2ff0")},
+        'kiibohd': {_deprecated_udev_rule("1c11")},
+        'stm32': {_deprecated_udev_rule("1eaf", "0003"), _deprecated_udev_rule("0483", "df11")},
+        'bootloadhid': {_deprecated_udev_rule("16c0", "05df")},
         'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
+        'tmk': {_deprecated_udev_rule("feed")}
     }
 
     if udev_dir.exists():
@@ -147,14 +209,17 @@ def check_udev_rules():
 
         # Check if the desired rules are among the currently present rules
         for bootloader, rules in desired_rules.items():
+            # For caterina, check if ModemManager is running
+            if bootloader == "caterina":
+                if check_modem_manager():
+                    ok = False
+                    cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
             if not rules.issubset(current_rules):
-                # If the rules for catalina are not present, check if ModemManager is running
-                if bootloader == "caterina":
-                    if check_modem_manager():
-                        ok = False
-                        cli.log.warn("{bg_yellow}Detected ModemManager without udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+                deprecated_rule = deprecated_rules.get(bootloader)
+                if deprecated_rule and deprecated_rule.issubset(current_rules):
+                    cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
-                    cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
+                    cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. See https://docs.qmk.fm/#/faq_build?id=linux-udev-rules for more details.", bootloader)
 
     return ok
 
@@ -252,6 +317,8 @@ def doctor(cli):
         cli.log.error('Unsupported OS detected: %s', platform_id)
         ok = False
 
+    cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
+
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
 
@@ -289,3 +356,5 @@ def doctor(cli):
     else:
         cli.log.info('{fg_yellow}Problems detected, please fix these problems before proceeding.')
         # FIXME(skullydazed/unclaimed): Link to a document about troubleshooting, or discord or something
+
+    return ok

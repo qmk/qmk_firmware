@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Ruari Armstrong <ukkeyboards@gmail.com>
+Copyright 2020 Rozakiin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,29 +15,37 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E58
-#define PRODUCT_ID      0x0044
+#define VENDOR_ID       0x4E58 //"NX"
+#define PRODUCT_ID      0x010C //268
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Noxary
 #define PRODUCT         268
-#define DESCRIPTION     QMK keyboard firmware for 268
+#define DESCRIPTION     A fully customizable 65% keyboard.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-/* key matrix pins */
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+*/
 #define MATRIX_ROW_PINS { F5, F4, F0, F1, D0 }
 #define MATRIX_COL_PINS { C6, C7, F7, F6, E6, B0, D1, B2, B3, D2, D3, D5, D4, D6, D7, B4 }
 #define UNUSED_PINS
 
-/* COL2ROW or ROW2COL */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* number of backlight levels */
@@ -54,15 +62,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* ws2812b options */
-#define RGB_DI_PIN B5
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 18
-#define RGBLIGHT_HUE_STEP 16
-#define RGBLIGHT_SAT_STEP 16
-#define RGBLIGHT_VAL_STEP 16
-#endif
-
-#endif

@@ -9,13 +9,7 @@
         "**/*.bin": true
     },
     "files.associations": {
-      "*.h": "c",
-      "*.c": "c",
-      "*.cpp": "cpp",
-      "*.hpp": "cpp",
-      "xstddef": "c",
-      "type_traits": "c",
-      "utility": "c"
+
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

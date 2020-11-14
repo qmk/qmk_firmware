@@ -36,25 +36,15 @@
 
 static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
 
-// Setleds for standard RGB
-void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
-    // wrap up usage of RGB_DI_PIN
-    ws2812_setleds_pin(ledarray, number_of_leds, RGB_DI_PIN);
-}
+void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
+    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(RGB_DI_PIN);
 
-void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin) {
-    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(pin);
-
-    uint8_t masklo = ~(pinmask(pin)) & PORTx_ADDRESS(pin);
-    uint8_t maskhi = pinmask(pin) | PORTx_ADDRESS(pin);
+    uint8_t masklo = ~(pinmask(RGB_DI_PIN)) & PORTx_ADDRESS(RGB_DI_PIN);
+    uint8_t maskhi = pinmask(RGB_DI_PIN) | PORTx_ADDRESS(RGB_DI_PIN);
 
     ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
 
-#ifdef RGBW
-    _delay_us(80);
-#else
-    _delay_us(50);
-#endif
+    _delay_us(WS2812_TRST_US);
 }
 
 /*
