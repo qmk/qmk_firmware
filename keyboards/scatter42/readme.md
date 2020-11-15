@@ -1,6 +1,6 @@
 # scatter42
 
-[![scatter42](https://i.imgur.com/AZ66Vdn.jpg)](https://imgur.com/AZ66Vdn)
+[![scatter42](https://i.imgur.com/2MGMcip.jpg)](https://imgur.com/2MGMcip)
 
 A split keyboard with 39 (4rows and 5columns) keys and 3 keys for thumbs.
 
