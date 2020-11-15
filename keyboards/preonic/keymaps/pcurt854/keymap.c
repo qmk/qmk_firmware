@@ -331,54 +331,54 @@ void matrix_scan_user(void) {
       did_leader_succeed = true;
     }
 
-    SEQ_ONE_KEY(KC_4) {
+    SEQ_ONE_KEY(KC_J) {
       SEND_STRING("<>"SS_TAP(X_LEFT));
       did_leader_succeed = true;
     }
-    SEQ_TWO_KEYS(KC_4, KC_4) {
+    SEQ_TWO_KEYS(KC_J, KC_J) {
       SEND_STRING("<");
       did_leader_succeed = true;
     }
-    SEQ_THREE_KEYS(KC_4, KC_4, KC_4) {
+    SEQ_THREE_KEYS(KC_J, KC_J, KC_J) {
       SEND_STRING(">");
       did_leader_succeed = true;
     }
 
-    SEQ_ONE_KEY(KC_R) {
+    SEQ_ONE_KEY(KC_X) {
       SEND_STRING("()"SS_TAP(X_LEFT));
       did_leader_succeed = true;
     }
-    SEQ_TWO_KEYS(KC_R, KC_R) {
+    SEQ_TWO_KEYS(KC_X, KC_X) {
       SEND_STRING("(");
       did_leader_succeed = true;
     }
-    SEQ_THREE_KEYS(KC_R, KC_R, KC_R) {
+    SEQ_THREE_KEYS(KC_X, KC_X, KC_X) {
       SEND_STRING(")");
       did_leader_succeed = true;
     }
 
-    SEQ_ONE_KEY(KC_F) {
+    SEQ_ONE_KEY(KC_Z) {
       SEND_STRING("[]"SS_TAP(X_LEFT));
       did_leader_succeed = true;
     }
-    SEQ_TWO_KEYS(KC_F, KC_F) {
+    SEQ_TWO_KEYS(KC_Z, KC_Z) {
       SEND_STRING("[");
       did_leader_succeed = true;
     }
-    SEQ_THREE_KEYS(KC_F, KC_F, KC_F) {
+    SEQ_THREE_KEYS(KC_Z, KC_Z, KC_Z) {
       SEND_STRING("]");
       did_leader_succeed = true;
     }
 
-    SEQ_ONE_KEY(KC_V) {
+    SEQ_ONE_KEY(KC_D) {
       SEND_STRING("{}"SS_TAP(X_LEFT));
       did_leader_succeed = true;
     }
-    SEQ_TWO_KEYS(KC_V, KC_V) {
+    SEQ_TWO_KEYS(KC_D, KC_D) {
       SEND_STRING("{");
       did_leader_succeed = true;
     }
-    SEQ_THREE_KEYS(KC_V, KC_V, KC_V) {
+    SEQ_THREE_KEYS(KC_D, KC_D, KC_D) {
       SEND_STRING("}");
       did_leader_succeed = true;
     }
