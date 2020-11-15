@@ -1,10 +1,27 @@
 # Launch Pad
 
+![Launch Pad](https://i.imgur.com/ia9uhRQ.png)
+
+PCB Front             |  PCB Back
+:-------------------------:|:-------------------------:
+![Numpad](https://i.imgur.com/f47ZFZZ.png)  |  ![5x4](https://i.imgur.com/wZH76Pp.png)
+
+**Features:**
+* Onboard atmega32u4 controller, 5V @ 16MHz
+* Kaihl hotswap sockets
+* USB-C connector
+* 18 in-switch RGB LEDs
+* 4 underglow RGB LEDs
+* 100 Ω potentiometer slider
+* (optional) M2 pcb mounting holes
+* (optional) pcb-mount stablizer footprints
+* (optional) pin breakout:
+  * F5, F4, F1, F0, VBUS, GND
+
 Numpad Layout             |  5x4 Layout
 :-------------------------:|:-------------------------:
 ![Numpad](https://i.imgur.com/4XvqCBH.jpg)  |  ![5x4](https://i.imgur.com/mwtGnPS.jpg)
-
-Macropad with oled screen, midi slider and optional rotary encoder.
+The guidance computer inside the [Launch Pad](https://ungodly.design/products/launch-pad) by Ungodly Design.
 
 * Keyboard Maintainer: [Luis Godinez](https://github.com/luis-Godinez)
 * Hardware Supported: Launch Pad PCB
