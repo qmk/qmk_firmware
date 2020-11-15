@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Del  |
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Lead |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * | LCtl |      |      |      |      |      |      |      |      |      |      |      |
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = LAYOUT_preonic_grid(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
   LCTL_T(KC_ESC),
            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   OSL(_ADJUST),
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Del  |
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Lead |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
  * | LCtl |      |      |      |      |      |      |      |      |      |      |      |
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] = LAYOUT_preonic_grid(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL,
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LEAD,
   LCTL_T(KC_ESC),
            KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   OSL(_ADJUST),
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Del  |
+ * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Lead |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
  * | LCtl |      |      |      |      |      |      |      |      |      |      |      |
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_DVORAK] = LAYOUT_preonic_grid(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL,
+  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_LEAD,
   LCTL_T(KC_ESC),
            KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
   OSL(_ADJUST),
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | ____ |      |      |   <  |  <|> |  >   |  =+  |   7  |   8  |   9  |   ^  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ |      |      |   (  |  (|) |  )   |  -_  |   4  |   5  |   6  |   %  | ____ |
+ * | ____ |      |      |   (  |  (|) |  )   |  -_  |   4  |   5  |   6  |   %  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ____ |      |      |   [  |  [|] |  ]   |  *   |   1  |   2  |   3  | ____ | ____ |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_NUMPAD] = LAYOUT_preonic_grid(
   _______, XXXXXXX, XXXXXXX, KC_LABK, ABKPAIR, KC_RABK, KC_EQL,  KC_7,    KC_8,    KC_9,    KC_CIRC, _______,
-  _______, XXXXXXX, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
+  _______, XXXXXXX, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, KC_LBRC, SBKPAIR, KC_RBRC, KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
   _______, XXXXXXX, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | ____ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ |   =  |      |   !  |   $  |      |      |   _  |   |  |      |   %  | ____ |
+ * | ____ |   =  |      |   !  |   $  |      |      |   _  |   |  |      |   %  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ____ |   @  |   *  |   &  |      |      |   #  |   -  |      |   +  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYMBOL] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-  _______, KC_EQL,  _______, KC_EXLM, KC_DLR,  XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, _______,
+  _______, KC_EQL,  _______, KC_EXLM, KC_DLR,  XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, XXXXXXX,
   _______, KC_AT,   KC_ASTR, KC_AMPR, XXXXXXX, XXXXXXX, KC_HASH, KC_MINS, XXXXXXX, KC_PLUS, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CIRC, XXXXXXX, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -307,5 +307,98 @@ bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(_ADJUST-_NUMPAD+1, led_state.caps_lock);
 
     return true;
+}
+
+bool did_leader_succeed;
+#ifdef AUDIO_ENABLE
+//float leader_start_song[][2] = SONG(CHROMATIC_SOUND);
+float leader_start_song[][2] = SONG(NO_SOUND);
+float leader_succeed_song[][2] = SONG(STARTUP_SOUND);
+//float leader_fail_song[][2] = SONG(GOODBYE_SOUND);
+float leader_fail_song[][2] = SONG(NO_SOUND);
+#endif
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    did_leader_succeed = leading = false;
+
+    SEQ_ONE_KEY(KC_BSPC) {
+      SEND_STRING(SS_TAP(X_DEL));
+      did_leader_succeed = true;
+    }
+
+    SEQ_ONE_KEY(KC_4) {
+      SEND_STRING("<>"SS_TAP(X_LEFT));
+      did_leader_succeed = true;
+    }
+    SEQ_TWO_KEYS(KC_4, KC_4) {
+      SEND_STRING("<");
+      did_leader_succeed = true;
+    }
+    SEQ_THREE_KEYS(KC_4, KC_4, KC_4) {
+      SEND_STRING(">");
+      did_leader_succeed = true;
+    }
+
+    SEQ_ONE_KEY(KC_R) {
+      SEND_STRING("()"SS_TAP(X_LEFT));
+      did_leader_succeed = true;
+    }
+    SEQ_TWO_KEYS(KC_R, KC_R) {
+      SEND_STRING("(");
+      did_leader_succeed = true;
+    }
+    SEQ_THREE_KEYS(KC_R, KC_R, KC_R) {
+      SEND_STRING(")");
+      did_leader_succeed = true;
+    }
+
+    SEQ_ONE_KEY(KC_F) {
+      SEND_STRING("[]"SS_TAP(X_LEFT));
+      did_leader_succeed = true;
+    }
+    SEQ_TWO_KEYS(KC_F, KC_F) {
+      SEND_STRING("[");
+      did_leader_succeed = true;
+    }
+    SEQ_THREE_KEYS(KC_F, KC_F, KC_F) {
+      SEND_STRING("]");
+      did_leader_succeed = true;
+    }
+
+    SEQ_ONE_KEY(KC_V) {
+      SEND_STRING("{}"SS_TAP(X_LEFT));
+      did_leader_succeed = true;
+    }
+    SEQ_TWO_KEYS(KC_V, KC_V) {
+      SEND_STRING("{");
+      did_leader_succeed = true;
+    }
+    SEQ_THREE_KEYS(KC_V, KC_V, KC_V) {
+      SEND_STRING("}");
+      did_leader_succeed = true;
+    }
+
+    leader_end();
+  }
+}
+
+void leader_start(void) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_start_song);
+#endif
+}
+
+void leader_end(void) {
+  if (did_leader_succeed) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_succeed_song);
+#endif
+  } else {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_fail_song);
+#endif
+  }
 }
 
