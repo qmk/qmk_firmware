@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | ____ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ |   =  |      |   !  |   $  |      |      |   _  |   |  |      |   %  |      |
+ * | ____ |   =  |      |   !  |   $  |   ~  |      |   _  |   |  |      |   %  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ____ |   @  |   *  |   &  |      |   `  |   #  |   -  |      |   +  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYMBOL] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-  _______, KC_EQL,  _______, KC_EXLM, KC_DLR,  XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, XXXXXXX,
+  _______, KC_EQL,  _______, KC_EXLM, KC_DLR,  KC_TILD, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, XXXXXXX,
   _______, KC_AT,   KC_ASTR, KC_AMPR, XXXXXXX, KC_GRV,  KC_HASH, KC_MINS, XXXXXXX, KC_PLUS, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CIRC, XXXXXXX, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______, _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
