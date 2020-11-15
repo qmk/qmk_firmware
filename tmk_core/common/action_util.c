@@ -185,11 +185,11 @@ void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
 bool is_oneshot_layer_active(void) { return get_oneshot_layer_state(); }
 #endif
 
-/** \brief Send keyboard report
+/** \brief Send keyboard report deferred
  *
  * Flags the keyboard report to be sent at the soonest availability
  */
-void send_keyboard_report(void) {
+void send_keyboard_report_deferred(void) {
     keyboard_report->mods = real_mods;
     keyboard_report->mods |= weak_mods;
     keyboard_report->mods |= macro_mods;
@@ -208,12 +208,19 @@ void send_keyboard_report(void) {
     }
 
 #endif
-
     keyboard_report_dirty = true;
 #ifndef DEFER_KEYBOARD_REPORT_ENABLE
     send_keyboard_report_immediate();
 #endif
+}
 
+/** \brief Send keyboard report
+ *
+ * Sends the latest keyboard report immediately
+ */
+void send_keyboard_report(void) {
+    send_keyboard_report_deferred();
+    send_keyboard_report_immediate();
 }
 
 /** \brief Send keyboard report immediate

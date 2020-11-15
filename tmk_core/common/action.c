@@ -284,18 +284,18 @@ void process_action(keyrecord_t *record, action_t action) {
                     } else {
                         add_weak_mods(mods);
                     }
-                    send_keyboard_report();
+                    send_keyboard_report_deferred();
                 }
-                register_code(action.key.code);
+                register_code_deferred(action.key.code);
             } else {
-                unregister_code(action.key.code);
+                unregister_code_deferred(action.key.code);
                 if (mods) {
                     if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
                         del_mods(mods);
                     } else {
                         del_weak_mods(mods);
                     }
-                    send_keyboard_report();
+                    send_keyboard_report_deferred();
                 }
             }
         } break;
@@ -374,7 +374,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    endif
                             {
                                 dprint("MODS_TAP: Tap: register_code\n");
-                                register_code(action.key.code);
+                                register_code_deferred(action.key.code);
                             }
                         } else {
                             dprint("MODS_TAP: No tap: add_mods\n");
@@ -388,7 +388,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
                             }
-                            unregister_code(action.key.code);
+                            unregister_code_deferred(action.key.code);
                         } else {
                             dprint("MODS_TAP: No tap: add_mods\n");
                             unregister_mods(mods);
@@ -600,7 +600,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     if (event.pressed) {
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
-                            register_code(action.layer_tap.code);
+                            register_code_deferred(action.layer_tap.code);
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);
@@ -613,7 +613,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
                             }
-                            unregister_code(action.layer_tap.code);
+                            unregister_code_deferred(action.layer_tap.code);
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             layer_off(action.layer_tap.val);
@@ -688,10 +688,10 @@ void process_action(keyrecord_t *record, action_t action) {
                             swap_held  = false;
                         }
                         if (event.pressed) {
-                            register_code(action.swap.code);
+                            register_code_deferred(action.swap.code);
                         } else {
                             wait_ms(TAP_CODE_DELAY);
-                            unregister_code(action.swap.code);
+                            unregister_code_deferred(action.swap.code);
                             *record = (keyrecord_t){};  // hack: reset tap mode
                         }
                     } else {
@@ -776,11 +776,23 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 }
 
+void register_code_deferred(uint8_t code) {
+#ifdef DEFER_KEYBOARD_REPORT_ENABLE
+    register_code_P(code, true);
+#else
+    register_code_P(code, false);
+#endif
+}
+
+void register_code(uint8_t code) {
+    register_code_P(code, false);
+}
+
 /** \brief Utilities for actions. (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
  */
-void register_code(uint8_t code) {
+void register_code_P(uint8_t code, bool deferred) {
     if (code == KC_NO) {
         return;
     }
@@ -791,10 +803,10 @@ void register_code(uint8_t code) {
         if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) return;
 #    endif
         add_key(KC_CAPSLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         wait_ms(100);
         del_key(KC_CAPSLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
     }
 
     else if (KC_LOCKING_NUM == code) {
@@ -802,10 +814,10 @@ void register_code(uint8_t code) {
         if (host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) return;
 #    endif
         add_key(KC_NUMLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         wait_ms(100);
         del_key(KC_NUMLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
     }
 
     else if (KC_LOCKING_SCROLL == code) {
@@ -813,10 +825,10 @@ void register_code(uint8_t code) {
         if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) return;
 #    endif
         add_key(KC_SCROLLLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         wait_ms(100);
         del_key(KC_SCROLLLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
     }
 #endif
 
@@ -832,10 +844,10 @@ void register_code(uint8_t code) {
             add_mods(oneshot_state.mods);
 
             add_key(code);
-            send_keyboard_report();
+            deferred ? send_keyboard_report_deferred() : send_keyboard_report();
 
             set_mods(tmp_mods);
-            send_keyboard_report();
+            deferred ? send_keyboard_report_deferred() : send_keyboard_report();
             oneshot_cancel();
         } else
 */
@@ -846,16 +858,16 @@ void register_code(uint8_t code) {
                 // modifiers will be reported incorrectly, see issue #1708
                 if (is_key_pressed(keyboard_report, code)) {
                     del_key(code);
-                    send_keyboard_report();
+                    deferred ? send_keyboard_report_deferred() : send_keyboard_report();
                 }
                 add_key(code);
-                send_keyboard_report();
+                deferred ? send_keyboard_report_deferred() : send_keyboard_report();
             }
         }
     else if
         IS_MOD(code) {
             add_mods(MOD_BIT(code));
-            send_keyboard_report();
+            deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         }
 #ifdef EXTRAKEY_ENABLE
     else if
@@ -872,11 +884,23 @@ void register_code(uint8_t code) {
 #endif
 }
 
+void unregister_code_deferred(uint8_t code) {
+#ifdef DEFER_KEYBOARD_REPORT_ENABLE
+    unregister_code_P(code, true);
+#else
+    unregister_code_P(code, false);
+#endif
+}
+
+void unregister_code(uint8_t code) {
+    unregister_code_P(code, false);
+}
+
 /** \brief Utilities for actions. (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
  */
-void unregister_code(uint8_t code) {
+void unregister_code_P(uint8_t code, bool deferred) {
     if (code == KC_NO) {
         return;
     }
@@ -887,9 +911,9 @@ void unregister_code(uint8_t code) {
         if (!(host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK))) return;
 #    endif
         add_key(KC_CAPSLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         del_key(KC_CAPSLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
     }
 
     else if (KC_LOCKING_NUM == code) {
@@ -897,9 +921,9 @@ void unregister_code(uint8_t code) {
         if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) return;
 #    endif
         add_key(KC_NUMLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         del_key(KC_NUMLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
     }
 
     else if (KC_LOCKING_SCROLL == code) {
@@ -907,21 +931,21 @@ void unregister_code(uint8_t code) {
         if (!(host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK))) return;
 #    endif
         add_key(KC_SCROLLLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         del_key(KC_SCROLLLOCK);
-        send_keyboard_report();
+        deferred ? send_keyboard_report_deferred() : send_keyboard_report();
     }
 #endif
 
     else if
         IS_KEY(code) {
             del_key(code);
-            send_keyboard_report();
+            deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         }
     else if
         IS_MOD(code) {
             del_mods(MOD_BIT(code));
-            send_keyboard_report();
+            deferred ? send_keyboard_report_deferred() : send_keyboard_report();
         }
     else if
         IS_SYSTEM(code) { host_system_send(0); }
