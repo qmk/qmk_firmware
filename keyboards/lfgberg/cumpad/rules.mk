@@ -22,5 +22,3 @@ AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth
 TAP_DANCE_ENABLE = no
-
-LAYOUTS = LAYOUT
