@@ -173,10 +173,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ |Qwerty|Colemk|Dvorak| rgb  | rgb  |      |      |      |      |Print |      |
+ * |      |Qwerty|Colemk|Dvorak| rgb  | rgb  |      |      |      |      |Print |      |
  * |      |      |      |      | 0/1  | saT+ |      |      |      |      |screen|      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ |      |Sleep |show  | rgb  | rgb  |finder|mv win|      |Lock  |      |      |
+ * |      |      |Sleep |show  | rgb  | rgb  |finder|mv win|      |Lock  |      |      |
  * |      |      |      |Dsktp | hue+ | mod+ |Hddn  |clkw  |      |screen|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |RESET |      |Virus | rgb  |      | Mute | vol+ |      |      | dsp+ |
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-  _______, QWERTY,  COLEMAK, DVORAK,  RGB_TOG, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), XXXXXXX,
+  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  RGB_TOG, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), XXXXXXX,
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
                                       RGB_HUI, RGB_MOD, SCMD(KC_DOT),
