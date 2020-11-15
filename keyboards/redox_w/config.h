@@ -57,6 +57,13 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+//CYE custom mousekey sensitivities
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_TIME_TO_MAX 60
+#define MOUSEKEY_MAX_SPEED 7
+#define MOUSEKEY_WHEEL_DELAY 0
+
 //UART settings for communication with the RF microcontroller
 #define SERIAL_UART_BAUD 1000000
 #define SERIAL_UART_DATA UDR1
