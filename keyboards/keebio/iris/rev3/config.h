@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x1256
 #define DEVICE_VER      0x0300
 #define MANUFACTURER    Keebio
-#define PRODUCT         Iris Keyboard
+#define PRODUCT         Keebio Iris Rev. 3
 #define DESCRIPTION     Split 50 percent ergonomic keyboard
 
 /* key matrix size */

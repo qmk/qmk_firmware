@@ -1,8 +1,8 @@
 # キーボードの挙動をカスタマイズする方法
 
 <!---
-  original document: 0.8.62:docs/custom_quantum_functions.md
-  git diff 0.8.62 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.10.33:docs/custom_quantum_functions.md
+  git diff 0.10.33 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 多くの人にとって、カスタムキーボードはボタンの押下をコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいでしょう。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズできるフックがあります。
@@ -62,7 +62,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // enter が押された時に音を再生します
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // QMK に enter のプレスまたはリリースイベントを送信させます
     default:
@@ -232,7 +232,7 @@ void keyboard_pre_init_user(void) {
 }
 ```
 
-### `keyboard_pre_init_*` 関数のドキュメント
+### `keyboard_pre_init_*` 関数のドキュメント :id=keyboard_pre_init_-function-documentation
 
 * キーボード/リビジョン: `void keyboard_pre_init_kb(void)`
 * キーマップ: `void keyboard_pre_init_user(void)`
@@ -346,6 +346,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 ```
+
+特定のレイヤーの状態を確認するには、 `IS_LAYER_ON_STATE(state, layer)` と `IS_LAYER_OFF_STATE(state, layer)` マクロを使います。
+
+`layer_state_set_*` 関数の外では、グローバルなレイヤー状態を確認するために `IS_LAYER_ON(layer)` と `IS_LAYER_OFF(layer)` マクロを使えます。
+
 ### `layer_state_set_*` 関数のドキュメント
 
 * キーボード/リビジョン: `layer_state_t layer_state_set_kb(layer_state_t state)`
@@ -440,7 +445,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // enter が押された時に音を再生します
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // QMK に enter のプレスまたはリリースイベントを送信させます
     case RGB_LYR:  // これにより、アンダーグローをレイヤー表示として、あるいは通常通りに使うことができます。
@@ -451,7 +456,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // すぐにレイヤーの色を更新します
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 任意の RGB コード に対して(quantum_keycodes.h を見てください。400行目参照)
         if (record->event.pressed) { // これはレイヤー表示を無効にします。これを変更する場合は、無効にしたいだろうため。
             if (user_config.rgb_layer_change) {        // 有効な場合のみ
@@ -488,56 +493,3 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
 * キーマップ: `void eeconfig_init_user(void)`、`uint32_t eeconfig_read_user(void)` および `void eeconfig_update_user(uint32_t val)`
 
 `val` は EEPROM に書き込みたいデータの値です。`eeconfig_read_*` 関数は EEPROM から32ビット(DWORD) 値を返します。
-
-# カスタムタッピング期間
-
-デフォルトでは、タッピング期間と(`IGNORE_MOD_TAP_INTERRUPT` のような)関連オプションはグローバルに設定されていて、キーでは設定することができません。ほとんどのユーザにとって、これは全然問題ありません。しかし、場合によっては、`LT` キーとは異なるタイムアウトによって、デュアルファンクションキーが大幅に改善されます。なぜなら、一部のキーは他のキーよりも押し続けやすいためです。それぞれにカスタムキーコードを使う代わりに、キーごとに設定可能なタイムアウトの挙動を設定できます。
-
-キーごとのタイムアウトの挙動を制御するための2つの設定可能なオプションがあります:
-
-- `TAPPING_TERM_PER_KEY`
-- `IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
-
-必要な機能ごとに、`config.h` に `#define` 行を追加する必要があります。
-
-```
-#define TAPPING_TERM_PER_KEY
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-```
-
-
-## `get_tapping_term` の実装例
-
-キーコードに基づいて `TAPPING_TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
-
-```c
-uint16_t get_tapping_term(uint16_t keycode) {
-  switch (keycode) {
-    case SFT_T(KC_SPC):
-      return TAPPING_TERM + 1250;
-    case LT(1, KC_GRV):
-      return 130;
-    default:
-      return TAPPING_TERM;
-  }
-}
-```
-
-## `get_ignore_mod_tap_interrupt` の実装例
-
-キーコードに基づいて `IGNORE_MOD_TAP_INTERRUPT` の値を変更するには、次のようなものを `keymap.c` ファイルに追加します:
-
-```c
-bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
-  switch (keycode) {
-    case SFT_T(KC_SPC):
-      return true;
-    default:
-      return false;
-  }
-}
-```
-
-## `get_tapping_term` / `get_ignore_mod_tap_interrupt` 関数のドキュメント
-
-ここにある他の多くの関数とは異なり、quantum あるいはキーボードレベルの関数を持つ必要はありません (または理由さえありません)。ここではユーザレベルの関数だけが有用なため、そのようにマークする必要はありません。

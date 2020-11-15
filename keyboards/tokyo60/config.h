@@ -18,7 +18,6 @@
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_ON_STATE 1
 #endif
 
 /* COL2ROW or ROW2COL */

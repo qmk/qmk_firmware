@@ -2,21 +2,13 @@
 
 #include "quantum.h"
 
-inline void _idb_60_caps_led_on(void) {
-    writePinLow(C5);
-}
+void _idb_60_caps_led_on(void);
+void _idb_60_fn_led_on(void);
+void _idb_60_caps_led_off(void);
+void _idb_60_fn_led_off(void);
 
-inline void _idb_60_esc_led_on(void) {
-    writePinLow(C4);
-}
-
-inline void _idb_60_caps_led_off(void) {
-    writePinLow(C5);
-}
-
-inline void _idb_60_esc_led_off(void) {
-    writePinLow(C4);
-}
+#define _idb_60_esc_led_on() _idb_60_fn_led_on()
+#define _idb_60_esc_led_off() _idb_60_fn_led_off()
 
 #define LAYOUT( \
 	K00, K10, K01, K11, K02, K12, K03, K13, K04, K14, K05, K15, K06, K16, K07,\
@@ -57,4 +49,3 @@ inline void _idb_60_esc_led_off(void) {
 	{ K80,   K81,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO         }, \
 	{ KC_NO, KC_NO, KC_NO, K93,   KC_NO, K95,   K96           } \
 }
-

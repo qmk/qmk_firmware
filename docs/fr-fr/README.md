@@ -4,8 +4,8 @@
 [![Statut du build](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
 [![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
 [![Statut de la doc](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![Contributeurs Github](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![Forks Github](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+[![Contributeurs GitHub](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
+[![Forks GitHub](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
 
 ## Qu'est-ce que QMK Firmware ?
 
@@ -13,7 +13,7 @@ QMK (*Quantum Mechanical Keyboard*) est une communauté open source qui maintien
 
 ## Comment l'obtenir
 
-Si vous souhaitez contribuer à une disposition de clavier (keymap), ou à des fonctionnalités de QMK alors le plus simple est de [forker le dépôt avec Github](https://github.com/qmk/qmk_firmware#fork-destination-box) puis cloner le dépôt localement pour y faire des changements. Vous pourrez pousser vos changements sur github puis ouvrir un [Pull Request](https://github.com/qmk/qmk_firmware/pulls) depuis votre fork Github.
+Si vous souhaitez contribuer à une disposition de clavier (keymap), ou à des fonctionnalités de QMK alors le plus simple est de [forker le dépôt avec GitHub](https://github.com/qmk/qmk_firmware#fork-destination-box) puis cloner le dépôt localement pour y faire des changements. Vous pourrez pousser vos changements sur GitHub puis ouvrir un [Pull Request](https://github.com/qmk/qmk_firmware/pulls) depuis votre fork GitHub.
 
 Sinon, vous pouvez aussi le télécharger directement en ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), ou le cloner avec git en ssh (`git@github.com:qmk/qmk_firmware.git`), ou https (`https://github.com/qmk/qmk_firmware.git`).
 

@@ -270,7 +270,7 @@ void flush(void) {
     }
 
     // This should only be performed once per frame
-    pomod = (float)((g_rgb_counters.tick / 10) % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+    pomod = (float)((g_rgb_timer / 10) % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
     pomod *= 100.0f;
     pomod = (uint32_t)pomod % 10000;
     pomod /= 100.0f;
@@ -311,9 +311,11 @@ void led_matrix_indicators(void) {
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
 #endif  // KANA
                 (0)) {
-                led_buffer[i].r = 255 - led_buffer[i].r;
-                led_buffer[i].g = 255 - led_buffer[i].g;
-                led_buffer[i].b = 255 - led_buffer[i].b;
+                if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
+                    led_buffer[i].r = 255 - led_buffer[i].r;
+                    led_buffer[i].g = 255 - led_buffer[i].g;
+                    led_buffer[i].b = 255 - led_buffer[i].b;
+                }
             }
         }
     }
@@ -326,7 +328,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {.init = init, .flush = flush, .se
 ==============================================================================*/
 
 #ifdef USE_MASSDROP_CONFIGURATOR
-// Ported from Massdrop QMK Github Repo
+// Ported from Massdrop QMK GitHub Repo
 
 // TODO?: wire these up to keymap.c
 uint8_t led_animation_orientation = 0;
