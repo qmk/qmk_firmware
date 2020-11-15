@@ -16,7 +16,7 @@ The middle section, from 1 to 0, plus three rows of letters, follows the traditi
 
 The left border, from top to bottom: ~, Tab, Esc when tapped and Control when held, and One shot layer 5.
 
-The right border: Backspace, Delete, quotes, and Right shift.
+The right border: Backspace, Delete, quotes, and Cap locks when tapped and Right shift when held.
 
 Bottom row, left to right: One shot modifier Left shift, Control, Option, Command, One shot layer 4, Enter, Space, Layer 3 double tap to toggle, Left, Down, Up, and Right.
 
@@ -58,5 +58,5 @@ Layout switches and other special functions.
 
 ### To indentify layers
 
-I put the layer number on X, and turned on preonic backlight for layers 3 and above.
+I turned on preonic RGB backlight for Cap locks and layers 3 and above.
 
