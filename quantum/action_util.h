@@ -27,6 +27,7 @@ extern "C" {
 extern report_keyboard_t *keyboard_report;
 
 void send_keyboard_report(void);
+void send_keyboard_report_immediate(void);
 
 /* key */
 inline void add_key(uint8_t key) { add_key_to_report(keyboard_report, key); }
