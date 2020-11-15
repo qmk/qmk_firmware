@@ -14,11 +14,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make -kb lfgberg/cumpad -km default
+    compile -kb lfgberg/cumpad -km default
 
 Make via compatible firmware (after setting up your build environment):
 
-    make -kb lfgberg/cumpad -km via
+    compile -kb lfgberg/cumpad -km via
 
 Bootmagic is enabled.  Press the key at (0,0) while plugging the keyboard in to jump to bootloader.
 

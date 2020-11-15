@@ -1,11 +1,11 @@
 {
     "keyboard_name": "Cumpad",
-    "url": "",
+    "url": "keebs.lfgberg.org",
     "maintainer": "Lfgberg",
     "width": 8,
     "height": 3,
     "layouts": {
-        "cumpad": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
