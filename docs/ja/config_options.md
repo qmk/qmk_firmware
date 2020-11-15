@@ -136,6 +136,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 これらのオプションを定義すると、関連する機能が有効になり、コードサイズが大きくなるかもしれません。
 
+* `#define DEFER_KEYBOARD_REPORT_ENABLE`
 * `#define FORCE_NKRO`
   * NKRO をデフォルトでオンにする必要があります。これにより EEPROM の設定に関係なく、キーボードの起動時に NKRO が強制的にオンになります。NKRO は引き続きオフにできますが、キーボードを再起動すると再びオンになります。
 * `#define STRICT_LAYER_RELEASE`
