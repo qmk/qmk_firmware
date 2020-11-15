@@ -258,6 +258,9 @@ void send_keyboard_report(void) {
 #endif
 
     keyboard_report_dirty = true;
+#ifndef DEFER_KEYBOARD_REPORT_ENABLE
+    send_keyboard_report_immediate();
+#endif
 }
 
 /** \brief Send keyboard report immediate
