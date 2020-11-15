@@ -1,8 +1,8 @@
 # ASTRA 515
 
-![ASTRA515](https://raw.githubusercontent.com/Lekipon/ASTRA515/master/doc/img/astra515_01.JPG?token=AQTIWSCC6VVJNLXUC3EHG6C7WDGV6)
+<img src="https://raw.githubusercontent.com/Lekipon/ASTRA515/master/doc/img/astra515_01.JPG" alt="ASTRA515" style="zoom:80%;" />
 
-![ASTRA515](https://raw.githubusercontent.com/Lekipon/ASTRA515/master/doc/img/astra515_02.JPG?token=AQTIWSCYFBAYJSCFKRD2UUS7WDHLC)
+<img src="https://raw.githubusercontent.com/Lekipon/ASTRA515/master/doc/img/astra515_02.JPG" alt="ASTRA515_2" style="zoom:80%;" />
 
 ------
 
