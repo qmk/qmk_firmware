@@ -45,6 +45,7 @@ static int8_t cb_count = 0;
 // TODO: pointer variable is not needed
 // report_keyboard_t keyboard_report = {};
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
+static bool keyboard_report_dirty = false;
 
 extern inline void add_key(uint8_t key);
 extern inline void del_key(uint8_t key);
@@ -227,7 +228,7 @@ bool is_oneshot_enabled(void) { return keymap_config.oneshot_disable; }
 
 /** \brief Send keyboard report
  *
- * FIXME: needs doc
+ * Flags the keyboard report to be sent at the soonest availability
  */
 void send_keyboard_report(void) {
     keyboard_report->mods = real_mods;
@@ -256,7 +257,18 @@ void send_keyboard_report(void) {
     keyboard_report->mods |= weak_override_mods;
 #endif
 
-    host_keyboard_send(keyboard_report);
+    keyboard_report_dirty = true;
+}
+
+/** \brief Send keyboard report immediate
+ *
+ * Checks if the keyboard report is different from the last one sent, and if so, sends the updated one
+ */
+void send_keyboard_report_immediate(void) {
+    if (keyboard_report_dirty) {
+        host_keyboard_send(keyboard_report);
+        keyboard_report_dirty = false;
+    }
 }
 
 /** \brief Get mods
