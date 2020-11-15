@@ -174,8 +174,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ____ |Qwerty|Colemk|Dvorak| rgb  | rgb  |      |      |      |      |Print |      |
  * |      |      |      |      | 0/1  | saT+ |      |      |      |      |screen|      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ |      |Sleep |show  | rgb  | rgb  |finder|      |      |Lock  |      |      |
- * |      |      |      |Dsktp | hue+ | mod+ |Hddn  |      |      |screen|      |      |
+ * | ____ |      |Sleep |show  | rgb  | rgb  |finder|mv win|      |Lock  |      |      |
+ * |      |      |      |Dsktp | hue+ | mod+ |Hddn  |clkw  |      |screen|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |RESET |      |Virus | rgb  |      | Mute | vol+ |      |      | dsp+ |
  * |      |      |RESET |      |scan  | Brit+|      |      |      |      |      |      |
@@ -190,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
                                       RGB_HUI, RGB_MOD, SCMD(KC_DOT),
-                                                                 XXXXXXX, XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
+                                                                 LCA(KC_J), XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, RESET,   XXXXXXX, SCMD(KC_V),
                                                RGB_VAI, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, XXXXXXX, LCAG(KC_UP),
   _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, XXXXXXX, LCAG(KC_DOWN)
