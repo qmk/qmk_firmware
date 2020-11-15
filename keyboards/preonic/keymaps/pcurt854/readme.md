@@ -48,7 +48,7 @@ pLus (+), eQual (=), pIpe (|)
 
 anD (&), dollaR
 
-At, Backslash, Circumflex, Exclamation, Grave, Hash, Percent, Star, Underscore
+At, Backslash, Circumflex, Exclamation, Grave, Hash, Percent, Star, Tilde, Underscore
 
 - is put on J so it's under Underscore, easy to access, and matches the bump on J 
 
@@ -62,7 +62,7 @@ I turned on preonic RGB backlight for Cap locks and layers 3 and above.
 
 ### Tap dancing
 
-With the leader key, the F colume becomes brackets: <> () [] {} from top to bottom.
+With the leader key, tap dance the brackets: <> () [] {}:
 1 tap: the pair, with the cursor returned to the middle
 2 taps: the open bracket
 3 taps; the close bracket
