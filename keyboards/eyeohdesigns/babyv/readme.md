@@ -1,6 +1,6 @@
 # babyv
 
-![babyv](imgur.com image replace me!)
+![babyv](https://i.imgur.com/iRUm9I5.jpg)
 
 A short description of the keyboard/project
 
