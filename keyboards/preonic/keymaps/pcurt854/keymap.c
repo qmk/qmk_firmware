@@ -167,7 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Adjust layer 5
- * Some of these are highly personal.  Please change to adapt to your own system.
+ *
+ * The control sequences are highly personal.  Please change to adapt to your own system.
+ *
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
