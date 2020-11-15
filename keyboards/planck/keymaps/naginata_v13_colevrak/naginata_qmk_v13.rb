@@ -5,7 +5,7 @@ eiji_l  = %w(Q W E R T  A S D F G  Z X C V B)
 
 tanda   = %w(_ き て し < > 削 る す へ ろ け と か っ く あ い う ー ほ ひ は こ そ た な ん ら れ)
 
-shifted = %w(_ ぬ り め < > さ よ え ゆ せ む に ま ち や の も わ つ ほ け を 、 み お 。 ね ふ れ)
+shifted = %w(_ ね り め < > さ よ え ゆ せ ぬ に ま ち や の も わ つ ほ ひ を 、 み お 。 む ふ れ)
 
 kana      = %w(あ い う え お か き く け こ さ し す せ そ た ち つ て と な に ぬ ね の は ひ ふ へ ほ ま み む め も や ゆ よ ら り る れ ろ わ を ん ー)
 r_kana    = %w(a i u e o ka ki ku ke ko sa si su se so ta ti tu te to na ni nu ne no ha hi hu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo nn -)
@@ -214,3 +214,199 @@ gairai.each_with_index do |k, i|
     puts teigi([e0, e1], r_gairai[i], k + "(冗長)", "", "|B_SHFT")
   end
 end
+
+
+# 編集モード
+
+henshu = {
+"/*ディ*/"          => ["kana", "\"dexi\""],
+"？{改行}"      => ["kana"  , "\"?\"SS_TAP(X_ENTER)"],
+"！{改行}"      => ["kana"  , "\"!\"SS_TAP(X_ENTER)"],
+"{Home}"        => ["kana", "SS_TAP(X_HOME)", "SS_LCTL(\"a\")"],
+"{End}"         => ["kana", "SS_TAP(X_END)", "SS_LCTL(\"e\")"],
+"+{Home}"       => ["kana", "SS_LSFT(SS_TAP(X_HOME))", "SS_LSFT(SS_LCTL(SS_TAP(NGUP)))"],
+"+{End}"        => ["kana", "SS_LSFT(SS_TAP(X_END))", "SS_LSFT(SS_LCTL(\"e\"))"],
+"^{End}"        => ["kana", "SS_LCTL(SS_TAP(X_END))}", "SS_LCMD(SS_LCTL(\"e\"))"],
+"+{End}{BS}"    => ["kana", "SS_LSFT(SS_TAP(X_END))SS_TAP(X_BSPACE)", "SS_LSFT(SS_LCTL(\"e\"))SS_TAP(X_BSPACE)"], # 末消
+"{vk1Csc079}"   => ["kana", "SS_TAP(X_INT4)"], # 再変換
+"{Del}"         => ["kana", "SS_TAP(X_DELETE)"],
+"{Esc 3}"       => ["kana", "SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)"],
+"{↑}"          => ["kana", "SS_TAP(NGUP)"],
+"{↓}"          => ["kana", "SS_TAP(NGDN)"],
+"+{↑}"         => ["kana", "SS_LSFT(SS_TAP(NGUP))"],
+"+{↓}"         => ["kana", "SS_LSFT(SS_TAP(NGDN))"],
+"{↑ 5}"        => ["kana", "SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)"],
+"{↓ 5}"        => ["kana", "SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)"],
+"+{→ 5}"       => ["kana", "SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))"],
+"+{← 5}"       => ["kana", "SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))"],
+"{→ 5}"        => ["kana", "SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)"],
+"{← 5}"        => ["kana", "SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)"],
+"^{PgUp}"       => ["kana", "SS_LCTL(SS_TAP(X_PGUP))"],
+"^{PgDn}"       => ["kana", "SS_LCTL(SS_TAP(X_PGDOWN))"],
+"{Enter}{End}"  => ["kana", "SS_TAP(X_ENTER)SS_TAP(X_END)"],
+"{Home}{改行}{Space 3}{End}"=> ["kana", "SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_END)", "SS_LCTL(\"a\")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_LCTL(\"e\")"], # 台マクロ
+"{Home}{改行}{Space 1}{End}"=> ["kana", "SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_END)", "SS_LCTL(\"a\")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_LCTL(\"e\")"], # ト マクロ
+
+"｜{改行}"      => ["uc"  , "｜", "nagitatesenn"],
+"・"            => ["uc"  , "・", "nagichuutenn"],
+"……{改行}"    => ["uc"  , "……", "nagitentenn"],
+"／{改行}"      => ["uc"  , "／", "naginaname"],
+"《{改行}"      => ["uc"  , "《", "nagikakkohi5"],
+"》{改行}"      => ["uc"  , "》", "nagikakkomi5"],
+"「{改行}"      => ["uc"  , "「", "nagikakkohi3"],
+"」{改行}"      => ["uc"  , "」", "nagikakkomi3"],
+"({改行}"       => ["uc"  , "(", "nagikakkohi6"],
+"){改行}"       => ["uc"  , ")", "nagikakkomi6"],
+"││{改行}"    => ["uc"  , "││", "nagitatesenn2"],
+"〇{改行}"      => ["uc"  , "〇", "nagimaru"],
+"【{改行}"      => ["uc"  , "【", "nagikakkohi1"],
+"】{改行}"      => ["uc"  , "】", "nagikakkomi1"],
+"〈{改行}"      => ["uc"  , "〈", "nagikakkohi2"],
+"〉{改行}"      => ["uc"  , "〉", "nagikakkomi2"],
+"『{改行}"      => ["uc"  , "『", "nagikakkohi4"],
+"』{改行}"      => ["uc"  , "』", "nagikakkomi4"],
+
+"｜{改行}{End}《》{改行}{↑}"=> ["macro", ""], # ルビ
+"」{改行 2}「{改行}"=> ["macro", ""],
+"」{改行 2}{Space}"=> ["macro", ""],
+"　　　×　　　×　　　×{改行 2}"=> ["macro", ""],
+
+"{Space 3}"     => ["kana", "SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)"],
+"^i"            => ["kana", "SS_LCTL(\"i\")", "SS_LCMD(\"i\")"],
+"^u"            => ["kana", "SS_LCTL(\"u\")", "SS_LCTL(\"j\")"],
+"^s"            => ["kana", "SS_LCTL(\"s\")", "SS_LCMD(\"s\")"],
+"^x"            => ["kana", "SS_LCTL(\"x\")", "SS_LCMD(\"x\")"],
+"^v"            => ["kana", "SS_LCTL(\"v\")", "SS_LCMD(\"v\")"],
+"^y"            => ["kana", "SS_LCTL(\"y\")", "SS_LCMD(\"y\")"],
+"^z"            => ["kana", "SS_LCTL(\"z\")", "SS_LCMD(\"z\")"],
+"^c"            => ["kana", "SS_LCTL(\"c\")", "SS_LCMD(\"c\")"],
+}
+
+qwerty    = %w(Q W E R T  Y U I O P NO NO A S D F G  H J K L SCLN NO NO Z X C V B  N M COMM DOT SLSH NO)
+
+mode1l = <<MEND
+^{End}    |｜{改行}|/*ディ*/|^s      |・     ||||||||
+……{改行}|《{改行}|？{改行}|「{改行}|({改行}||||||||
+││{改行}|》{改行}|！{改行}|」{改行}|){改行}|||||||
+MEND
+
+mode1r = <<MEND
+|||||{Home}      |+{End}{BS}|{vk1Csc079}|{Del} |{Esc 3}|  |  |
+|||||{Enter}{End}|{↑}      |+{↑}      |{↑ 5}|^i     |  |  |
+|||||{End}       |{↓}      |+{↓}      |{↓ 5}|^u     |  |
+MEND
+
+mode2l = <<MEND
+／{改行}|｜{改行}{End}《》{改行}{↑}|{Home}{改行}{Space 3}{End}|{Home}{改行}{Space 1}{End}|〇{改行} ||||||||
+【{改行}|〈{改行}                   |『{改行}                   |」{改行 2}「{改行}       |{Space 3}||||||||
+】{改行}|〉{改行}                   |』{改行}                   |」{改行 2}{Space}        |　　　×　　　×　　　×{改行 2}|||||||
+MEND
+
+mode2r = <<MEND
+|||||+{Home}|^x     |^v   |^y    |^z     |  |  |
+|||||^c     |+{→ 5}|+{↑}|{→ 5}|^{PgUp}|  |  |
+|||||+{End} |+{← 5}|+{↓}|{← 5}|^{PgDn}|  |
+MEND
+
+mode1l = mode1l.split("|").map{|x| x.strip}
+mode1r = mode1r.split("|").map{|x| x.strip}
+mode2l = mode2l.split("|").map{|x| x.strip}
+mode2r = mode2r.split("|").map{|x| x.strip}
+
+
+hwin = []
+hmac = []
+uwin = []
+umac = []
+
+qwerty.each_with_index do |k, i|
+  next unless henshu.key? mode1l[i]
+  m =  mode1l[i]
+  pk = "B_J|B_K"
+  if henshu[m][0] == "kana"
+    hwin << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][1]}}, // #{m}"
+    hmac << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+  end
+  if henshu[m][0] == "uc"
+    uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+  end
+  if henshu[m][0] == "macro"
+    hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+  end
+end
+
+qwerty.each_with_index do |k, i|
+  next unless henshu.key? mode1r[i]
+  m =  mode1r[i]
+  pk = "B_D|B_F"
+  if henshu[m][0] == "kana"
+    hwin << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][1]}}, // #{m}"
+    hmac << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+  end
+  if henshu[m][0] == "uc"
+    uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+  end
+  if henshu[m][0] == "macro"
+    hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+  end
+end
+
+qwerty.each_with_index do |k, i|
+  next unless henshu.key? mode2l[i]
+  m =  mode2l[i]
+  pk = "B_M|B_COMM"
+  if henshu[m][0] == "kana"
+    hwin << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][1]}}, // #{m}"
+    hmac << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+  end
+  if henshu[m][0] == "uc"
+    uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+  end
+  if henshu[m][0] == "macro"
+    hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+  end
+end
+
+qwerty.each_with_index do |k, i|
+  next unless henshu.key? mode2r[i]
+  m =  mode2r[i]
+  pk = "B_C|B_V"
+  if henshu[m][0] == "kana"
+    hwin << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][1]}}, // #{m}"
+    hmac << "  {.key = #{pk}|B_#{k}       , .kana = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+  end
+  if henshu[m][0] == "uc"
+    uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+  end
+  if henshu[m][0] == "macro"
+    hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
+  end
+end
+
+puts "// 編集モード Win"
+puts hwin
+
+puts "// 編集モード Mac"
+puts hmac
+
+puts "// 編集モードunicode Win"
+puts uwin
+
+puts "// 編集モードunicode Mac"
+puts umac
