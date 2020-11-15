@@ -376,7 +376,9 @@ void keyboard_task(void) {
 
 MATRIX_LOOP_END:
 
+#ifdef DEFER_KEYBOARD_REPORT_ENABLE
     send_keyboard_report_immediate();
+#endif
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();
