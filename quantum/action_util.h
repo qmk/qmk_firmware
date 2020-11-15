@@ -26,6 +26,7 @@ extern "C" {
 
 extern report_keyboard_t *keyboard_report;
 
+void send_keyboard_report_deferred(void);
 void send_keyboard_report(void);
 void send_keyboard_report_immediate(void);
 
