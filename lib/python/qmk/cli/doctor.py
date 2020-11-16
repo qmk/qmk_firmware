@@ -7,6 +7,7 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
+from enum import Enum
 
 from milc import cli
 from qmk import submodules
@@ -14,6 +15,12 @@ from qmk.constants import QMK_FIRMWARE
 from qmk.questions import yesno
 from qmk.commands import run
 
+
+class CheckStatus(Enum):
+    OK = 1
+    WARNING = 2
+    ERROR = 3
+                
 ESSENTIAL_BINARIES = {
     'dfu-programmer': {},
     'avrdude': {},
@@ -72,23 +79,23 @@ def check_arm_gcc_version():
         version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
         cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
-    return 'ok'  # Right now all known arm versions are ok
+    return CheckStatus.OK  # Right now all known arm versions are ok
 
 
 def check_avr_gcc_version():
     """Returns True if the avr-gcc version is not known to cause problems.
     """
-    rc = 'error'
+    rc = CheckStatus.ERROR
     if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
         version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
 
         cli.log.info('Found avr-gcc version %s', version_number)
-        rc = 'ok'
+        rc = CheckStatus.OK
 
         parsed_version = parse_gcc_version(version_number)
         if parsed_version['major'] > 8:
             cli.log.warning('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
-            rc = 'warning'
+            rc = CheckStatus.WARNING
 
     return rc
 
@@ -99,7 +106,7 @@ def check_avrdude_version():
         version_number = last_line.split()[2][:-1]
         cli.log.info('Found avrdude version %s', version_number)
 
-    return 'ok'
+    return CheckStatus.OK
 
 
 def check_dfu_util_version():
@@ -108,7 +115,7 @@ def check_dfu_util_version():
         version_number = first_line.split()[1]
         cli.log.info('Found dfu-util version %s', version_number)
 
-    return 'ok'
+    return CheckStatus.OK
 
 
 def check_dfu_programmer_version():
@@ -117,7 +124,7 @@ def check_dfu_programmer_version():
         version_number = first_line.split()[1]
         cli.log.info('Found dfu-programmer version %s', version_number)
 
-    return 'ok'
+    return CheckStatus.OK
 
 
 def check_binaries():
@@ -138,18 +145,18 @@ def check_submodules():
     for submodule in submodules.status().values():
         if submodule['status'] is None:
             cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
-            return 'error'
+            return CheckStatus.ERROR
         elif not submodule['status']:
             cli.log.warning('Submodule %s is not up to date!', submodule['name'])
-            return 'warning'
+            return CheckStatus.WARNING
 
-    return 'ok'
+    return CheckStatus.OK
 
 
 def check_udev_rules():
     """Make sure the udev rules look good.
     """
-    rc = 'ok'
+    rc = CheckStatus.OK
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
         'atmel-dfu': {
@@ -219,9 +226,9 @@ def check_udev_rules():
                     # For caterina, check if ModemManager is running
                     if bootloader == "caterina":
                         if check_modem_manager():
-                            rc = 'warning'
+                            rc = CheckStatus.WARNING
                             cli.log.warning("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
-                    rc = 'warning'
+                    rc = CheckStatus.WARNING
                     cli.log.warning("{fg_yellow}Missing or outdated udev rules for '%s' boards. Run 'sudo cp %s/util/udev/50-qmk.rules /etc/udev/rules.d/'.", bootloader, QMK_FIRMWARE)
 
     else:
@@ -286,7 +293,7 @@ def os_test_macos():
     """
     cli.log.info("Detected {fg_cyan}macOS.")
 
-    return 'ok'
+    return CheckStatus.OK
 
 
 def os_test_windows():
@@ -294,7 +301,7 @@ def os_test_windows():
     """
     cli.log.info("Detected {fg_cyan}Windows.")
 
-    return 'ok'
+    return CheckStatus.OK
 
 
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
@@ -309,7 +316,7 @@ def doctor(cli):
         * [ ] Compile a trivial program with each compiler
     """
     cli.log.info('QMK Doctor is checking your environment.')
-    status = 'ok'
+    status = CheckStatus.OK
 
     # Determine our OS and run platform specific tests
     platform_id = platform.platform().lower()
@@ -322,7 +329,7 @@ def doctor(cli):
         status = os_test_windows()
     else:
         cli.log.warning('Unsupported OS detected: %s', platform_id)
-        status = 'warning'
+        status = CheckStatus.WARNING
 
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
@@ -337,38 +344,38 @@ def doctor(cli):
     if bin_ok:
         cli.log.info('All dependencies are installed.')
     else:
-        status = 'error'
+        status = CheckStatus.ERROR
 
     # Make sure the tools are at the correct version
     ver_ok = []
     for check in (check_arm_gcc_version, check_avr_gcc_version, check_avrdude_version, check_dfu_util_version, check_dfu_programmer_version):
         ver_ok.append(check())
 
-    if 'error' in ver_ok:
-        status = 'error'
-    elif 'warning' in ver_ok and status == 'ok':
-        status = 'warning'
+    if CheckStatus.ERROR in ver_ok:
+        status = CheckStatus.ERROR
+    elif CheckStatus.WARNING in ver_ok and status == CheckStatus.OK:
+        status = CheckStatus.WARNING
 
     # Check out the QMK submodules
     sub_ok = check_submodules()
 
-    if sub_ok == 'ok':
+    if sub_ok == CheckStatus.OK:
         cli.log.info('Submodules are up to date.')
     else:
         if yesno('Would you like to clone the submodules?', default=True):
             submodules.update()
             sub_ok = check_submodules()
 
-        if 'error' in sub_ok:
-            status = 'error'
-        elif 'warning' in sub_ok and status == 'ok':
-            status = 'warning'
+        if CheckStatus.ERROR in sub_ok:
+            status = CheckStatus.ERROR
+        elif CheckStatus.WARNING in sub_ok and status == CheckStatus.OK:
+            status = CheckStatus.WARNING
 
     # Report a summary of our findings to the user
-    if status == 'ok':
+    if status == CheckStatus.OK:
         cli.log.info('{fg_green}QMK is ready to go')
         return 0
-    elif status == 'warning':
+    elif status == CheckStatus.WARNING:
         cli.log.info('{fg_yellow}QMK is ready to go, but minor problems were found')
         return 1
     else:
