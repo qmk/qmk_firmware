@@ -2,11 +2,11 @@
 
 ![bt66tech60](https://i.imgur.com/8eJ4liU.jpg)
 
-*a handwired 60% keyboard with stm32t*
+*a handwired 60% keyboard with stm32
 
 * Keyboard Maintainer: [bt66](https://github.com/bt66)
-* Hardware Supported: *handwired, STM32*
-* Hardware Availability: *anywhere*
+* Hardware Supported: handwired, STM32
+* Hardware Availability: anywhere
 
 Make example for this keyboard (after setting up your build environment):
 
