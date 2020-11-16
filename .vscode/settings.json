@@ -24,4 +24,5 @@
         "files.trimTrailingWhitespace": false
     },
     "cmake.configureOnOpen": false
+    }
 }
