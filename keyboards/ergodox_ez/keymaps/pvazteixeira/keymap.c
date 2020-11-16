@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Log event
     uprintf ("KL: col=%02d, row=%02d, pressed=%d, layer=%d\n", record->event.key.col,
-             record->event.key.row, record->event.pressed, biton32(layer_state));
+             record->event.key.row, record->event.pressed, get_highest_layer(layer_state));
 
     switch (keycode) {
       case EPRM:
