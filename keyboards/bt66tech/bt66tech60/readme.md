@@ -2,7 +2,7 @@
 
 ![bt66tech60](https://i.imgur.com/8eJ4liU.jpg)
 
-*A short description of the keyboard/project*
+*a handwired 60% keyboard with stm32t*
 
 * Keyboard Maintainer: [bt66](https://github.com/bt66)
 * Hardware Supported: *handwired, STM32*
