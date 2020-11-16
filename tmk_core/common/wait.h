@@ -12,12 +12,12 @@ extern "C" {
 #        pragma message "Compiler optimizations disabled; wait_cpuclock() won't work as designed"
 #    endif
 
+#    define wait_cpuclock(x) wait_cpuclock_allnop(x)
+
 #    define CLOCK_DELAY_NOP8 "nop\n\t nop\n\t nop\n\t nop\n\t   nop\n\t nop\n\t nop\n\t nop\n\t"
 
-#define WAIT_CPUCLOCK_DEFINED
-
 __attribute__((always_inline))
-static inline void wait_cpuclock(unsigned int n) { /* n: 1..135 */
+static inline void wait_cpuclock_allnop(unsigned int n) { /* n: 1..135 */
     /* The argument n must be a constant expression.
      * That way, compiler optimization will remove unnecessary code. */
     if (n < 1) { return; }
