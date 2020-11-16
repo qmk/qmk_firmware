@@ -526,66 +526,66 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_C|B_V|B_SLSH       , .kana = SS_LCTL(SS_TAP(X_PGDOWN))} , // ^{PgDn}
 #endif
 #ifdef NAGINATA_EDIT_MAC
-  {.key = B_J|B_K|B_Q       , .kana = SS_LCMD(SS_LCTL("e"))} , // ^{End}
-//{.key = B_J|B_K|B_W       , .uc   = "nagitatesenn"} , // ｜{改行}
-  {.key = B_J|B_K|B_E       , .kana = "dexi"} , // /*ディ*/
-  {.key = B_J|B_K|B_R       , .kana = SS_LCMD("s")} , // ^s
-//{.key = B_J|B_K|B_T       , .uc   = "nagichuutenn"} , // ・
-//{.key = B_J|B_K|B_A       , .uc   = "nagitentenn"} , // ……{改行}
-//{.key = B_J|B_K|B_S       , .uc   = "nagikakkohi5"} , // 《{改行}
-  {.key = B_J|B_K|B_D       , .kana = "?"SS_TAP(X_ENTER)} , // ？{改行}
-//{.key = B_J|B_K|B_F       , .uc   = "nagikakkohi3"} , // 「{改行}
-//{.key = B_J|B_K|B_G       , .uc   = "nagikakkohi6"} , // ({改行}
-//{.key = B_J|B_K|B_Z       , .uc   = "nagitatesenn2"} , // ││{改行}
-//{.key = B_J|B_K|B_X       , .uc   = "nagikakkomi5"} , // 》{改行}
-  {.key = B_J|B_K|B_C       , .kana = "!"SS_TAP(X_ENTER)} , // ！{改行}
-//{.key = B_J|B_K|B_V       , .uc   = "nagikakkomi3"} , // 」{改行}
-//{.key = B_J|B_K|B_B       , .uc   = "nagikakkomi6"} , // ){改行}
-  {.key = B_D|B_F|B_Y       , .kana = SS_LCTL("a")} , // {Home}
-  {.key = B_D|B_F|B_U       , .kana = SS_LSFT(SS_LCTL("e"))SS_TAP(X_BSPACE)} , // +{End}{BS}
-  {.key = B_D|B_F|B_I       , .kana = SS_TAP(X_INT4)} , // {vk1Csc079}
-  {.key = B_D|B_F|B_O       , .kana = SS_TAP(X_DELETE)} , // {Del}
-  {.key = B_D|B_F|B_P       , .kana = SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)} , // {Esc 3}
-  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)} , // {Enter}{End}
-  {.key = B_D|B_F|B_J       , .kana = SS_TAP(NGUP)} , // {↑}
-  {.key = B_D|B_F|B_K       , .kana = SS_LSFT(SS_TAP(NGUP))} , // +{↑}
-  {.key = B_D|B_F|B_L       , .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)} , // {↑ 5}
-  {.key = B_D|B_F|B_SCLN       , .kana = SS_LCMD("i")} , // ^i
-  {.key = B_D|B_F|B_N       , .kana = SS_LCTL("e")} , // {End}
-  {.key = B_D|B_F|B_M       , .kana = SS_TAP(NGDN)} , // {↓}
-  {.key = B_D|B_F|B_COMM       , .kana = SS_LSFT(SS_TAP(NGDN))} , // +{↓}
-  {.key = B_D|B_F|B_DOT       , .kana = SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)} , // {↓ 5}
-  {.key = B_D|B_F|B_SLSH       , .kana = SS_LCTL("j")} , // ^u
-//{.key = B_M|B_COMM|B_Q       , .uc   = "naginaname"} , // ／{改行}
+  {.key = B_J|B_K|B_Q       , .kana = SS_LCMD(SS_LCTL("e"))}, // ^{End}
+//{.key = B_J|B_K|B_W       , .kana = "nagitatesenn"}, // ｜{改行}
+  {.key = B_J|B_K|B_E       , .kana = "dexi"}, // /*ディ*/
+  {.key = B_J|B_K|B_R       , .kana = SS_LCMD("s")}, // ^s
+//{.key = B_J|B_K|B_T       , .kana = "nagichuutenn"}, // ・
+//{.key = B_J|B_K|B_A       , .kana = "nagitentenn"}, // ……{改行}
+//{.key = B_J|B_K|B_S       , .kana = "nagikakkohi5"}, // 《{改行}
+  {.key = B_J|B_K|B_D       , .kana = "?"SS_TAP(X_ENTER)}, // ？{改行}
+//{.key = B_J|B_K|B_F       , .kana = "nagikakkohi3"}, // 「{改行}
+//{.key = B_J|B_K|B_G       , .kana = "nagikakkohi6"}, // ({改行}
+//{.key = B_J|B_K|B_Z       , .kana = "nagitatesenn2"}, // ││{改行}
+//{.key = B_J|B_K|B_X       , .kana = "nagikakkomi5"}, // 》{改行}
+  {.key = B_J|B_K|B_C       , .kana = "!"SS_TAP(X_ENTER)}, // ！{改行}
+//{.key = B_J|B_K|B_V       , .kana = "nagikakkomi3"}, // 」{改行}
+//{.key = B_J|B_K|B_B       , .kana = "nagikakkomi6"}, // ){改行}
+  {.key = B_D|B_F|B_Y       , .kana = SS_LCTL("a")}, // {Home}
+  {.key = B_D|B_F|B_U       , .kana = SS_LSFT(SS_LCTL("e"))SS_TAP(X_BSPACE)}, // +{End}{BS}
+  {.key = B_D|B_F|B_I       , .kana = SS_TAP(X_INT4)}, // {vk1Csc079}
+  {.key = B_D|B_F|B_O       , .kana = SS_TAP(X_DELETE)}, // {Del}
+  {.key = B_D|B_F|B_P       , .kana = SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)}, // {Esc 3}
+  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)}, // {Enter}{End}
+  {.key = B_D|B_F|B_J       , .kana = SS_TAP(NGUP)}, // {↑}
+  {.key = B_D|B_F|B_K       , .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
+  {.key = B_D|B_F|B_L       , .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)}, // {↑ 5}
+  {.key = B_D|B_F|B_SCLN       , .kana = SS_LCMD("i")}, // ^i
+  {.key = B_D|B_F|B_N       , .kana = SS_LCTL("e")}, // {End}
+  {.key = B_D|B_F|B_M       , .kana = SS_TAP(NGDN)}, // {↓}
+  {.key = B_D|B_F|B_COMM       , .kana = SS_LSFT(SS_TAP(NGDN))}, // +{↓}
+  {.key = B_D|B_F|B_DOT       , .kana = SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)}, // {↓ 5}
+  {.key = B_D|B_F|B_SLSH       , .kana = SS_LCTL("j")}, // ^u
+//{.key = B_M|B_COMM|B_Q       , .kana = "naginaname"}, // ／{改行}
 //{.key = B_M|B_COMM|B_W       , .macro , // ｜{改行}{End}《》{改行}{↑}
-  {.key = B_M|B_COMM|B_E       , .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_LCTL("e")} , // {Home}{改行}{Space 3}{End}
-  {.key = B_M|B_COMM|B_R       , .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_LCTL("e")} , // {Home}{改行}{Space 1}{End}
-//{.key = B_M|B_COMM|B_T       , .uc   = "nagimaru"} , // 〇{改行}
-//{.key = B_M|B_COMM|B_A       , .uc   = "nagikakkohi1"} , // 【{改行}
-//{.key = B_M|B_COMM|B_S       , .uc   = "nagikakkohi2"} , // 〈{改行}
-//{.key = B_M|B_COMM|B_D       , .uc   = "nagikakkohi4"} , // 『{改行}
+  {.key = B_M|B_COMM|B_E       , .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_LCTL("e")}, // {Home}{改行}{Space 3}{End}
+  {.key = B_M|B_COMM|B_R       , .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_LCTL("e")}, // {Home}{改行}{Space 1}{End}
+//{.key = B_M|B_COMM|B_T       , .kana = "nagimaru"}, // 〇{改行}
+//{.key = B_M|B_COMM|B_A       , .kana = "nagikakkohi1"}, // 【{改行}
+//{.key = B_M|B_COMM|B_S       , .kana = "nagikakkohi2"}, // 〈{改行}
+//{.key = B_M|B_COMM|B_D       , .kana = "nagikakkohi4"}, // 『{改行}
 //{.key = B_M|B_COMM|B_F       , .macro , // 」{改行 2}「{改行}
-  {.key = B_M|B_COMM|B_G       , .kana = SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)} , // {Space 3}
-//{.key = B_M|B_COMM|B_Z       , .uc   = "nagikakkomi1"} , // 】{改行}
-//{.key = B_M|B_COMM|B_X       , .uc   = "nagikakkomi2"} , // 〉{改行}
-//{.key = B_M|B_COMM|B_C       , .uc   = "nagikakkomi4"} , // 』{改行}
+  {.key = B_M|B_COMM|B_G       , .kana = SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)}, // {Space 3}
+//{.key = B_M|B_COMM|B_Z       , .kana = "nagikakkomi1"}, // 】{改行}
+//{.key = B_M|B_COMM|B_X       , .kana = "nagikakkomi2"}, // 〉{改行}
+//{.key = B_M|B_COMM|B_C       , .kana = "nagikakkomi4"}, // 』{改行}
 //{.key = B_M|B_COMM|B_V       , .macro , // 」{改行 2}{Space}
 //{.key = B_M|B_COMM|B_B       , .macro , // 　　　×　　　×　　　×{改行 2}
-  {.key = B_C|B_V|B_Y       , .kana = SS_LSFT(SS_LCTL(SS_TAP(NGUP)))} , // +{Home}
-  {.key = B_C|B_V|B_U       , .kana = SS_LCMD("x")} , // ^x
-  {.key = B_C|B_V|B_I       , .kana = SS_LCMD("v")} , // ^v
-  {.key = B_C|B_V|B_O       , .kana = SS_LCMD("y")} , // ^y
-  {.key = B_C|B_V|B_P       , .kana = SS_LCMD("z")} , // ^z
-  {.key = B_C|B_V|B_H       , .kana = SS_LCMD("c")} , // ^c
-  {.key = B_C|B_V|B_J       , .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))} , // +{→ 5}
-  {.key = B_C|B_V|B_K       , .kana = SS_LSFT(SS_TAP(NGUP))} , // +{↑}
-  {.key = B_C|B_V|B_L       , .kana = SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)} , // {→ 5}
-  {.key = B_C|B_V|B_SCLN       , .kana = SS_LCTL(SS_TAP(X_PGUP))} , // ^{PgUp}
-  {.key = B_C|B_V|B_N       , .kana = SS_LSFT(SS_LCTL("e"))} , // +{End}
-  {.key = B_C|B_V|B_M       , .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))} , // +{← 5}
-  {.key = B_C|B_V|B_COMM       , .kana = SS_LSFT(SS_TAP(NGDN))} , // +{↓}
-  {.key = B_C|B_V|B_DOT       , .kana = SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)} , // {← 5}
-  {.key = B_C|B_V|B_SLSH       , .kana = SS_LCTL(SS_TAP(X_PGDOWN))} , // ^{PgDn}
+  {.key = B_C|B_V|B_Y       , .kana = SS_LSFT(SS_LCTL(SS_TAP(NGUP)))}, // +{Home}
+  {.key = B_C|B_V|B_U       , .kana = SS_LCMD("x")}, // ^x
+  {.key = B_C|B_V|B_I       , .kana = SS_LCMD("v")}, // ^v
+  {.key = B_C|B_V|B_O       , .kana = SS_LCMD("y")}, // ^y
+  {.key = B_C|B_V|B_P       , .kana = SS_LCMD("z")}, // ^z
+  {.key = B_C|B_V|B_H       , .kana = SS_LCMD("c")}, // ^c
+  {.key = B_C|B_V|B_J       , .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
+  {.key = B_C|B_V|B_K       , .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
+  {.key = B_C|B_V|B_L       , .kana = SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)}, // {→ 5}
+  {.key = B_C|B_V|B_SCLN       , .kana = SS_LCTL(SS_TAP(X_PGUP))}, // ^{PgUp}
+  {.key = B_C|B_V|B_N       , .kana = SS_LSFT(SS_LCTL("e"))}, // +{End}
+  {.key = B_C|B_V|B_M       , .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
+  {.key = B_C|B_V|B_COMM       , .kana = SS_LSFT(SS_TAP(NGDN))}, // +{↓}
+  {.key = B_C|B_V|B_DOT       , .kana = SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)}, // {← 5}
+  {.key = B_C|B_V|B_SLSH       , .kana = SS_LCTL(SS_TAP(X_PGDOWN))}, // ^{PgDn}
 #endif
 };
 
@@ -615,24 +615,24 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
 
 const PROGMEM naginata_keymap_ime ngmapi[] = {
 #ifdef NAGINATA_EDIT_MAC
-  {.key = B_J|B_K|B_W       , .uc   = "nagitatesenn"} , // ｜{改行}
-  {.key = B_J|B_K|B_T       , .uc   = "nagichuutenn"} , // ・
-  {.key = B_J|B_K|B_A       , .uc   = "nagitentenn"} , // ……{改行}
-  {.key = B_J|B_K|B_S       , .uc   = "nagikakkohi5"} , // 《{改行}
-  {.key = B_J|B_K|B_F       , .uc   = "nagikakkohi3"} , // 「{改行}
-  {.key = B_J|B_K|B_G       , .uc   = "nagikakkohi6"} , // ({改行}
-  {.key = B_J|B_K|B_Z       , .uc   = "nagitatesenn2"} , // ││{改行}
-  {.key = B_J|B_K|B_X       , .uc   = "nagikakkomi5"} , // 》{改行}
-  {.key = B_J|B_K|B_V       , .uc   = "nagikakkomi3"} , // 」{改行}
-  {.key = B_J|B_K|B_B       , .uc   = "nagikakkomi6"} , // ){改行}
-  {.key = B_M|B_COMM|B_Q       , .uc   = "naginaname"} , // ／{改行}
-  {.key = B_M|B_COMM|B_T       , .uc   = "nagimaru"} , // 〇{改行}
-  {.key = B_M|B_COMM|B_A       , .uc   = "nagikakkohi1"} , // 【{改行}
-  {.key = B_M|B_COMM|B_S       , .uc   = "nagikakkohi2"} , // 〈{改行}
-  {.key = B_M|B_COMM|B_D       , .uc   = "nagikakkohi4"} , // 『{改行}
-  {.key = B_M|B_COMM|B_Z       , .uc   = "nagikakkomi1"} , // 】{改行}
-  {.key = B_M|B_COMM|B_X       , .uc   = "nagikakkomi2"} , // 〉{改行}
-  {.key = B_M|B_COMM|B_C       , .uc   = "nagikakkomi4"} , // 』{改行}
+  {.key = B_J|B_K|B_W       , .kana = "nagitatesenn"}, // ｜{改行}
+  {.key = B_J|B_K|B_T       , .kana = "nagichuutenn"}, // ・
+  {.key = B_J|B_K|B_A       , .kana = "nagitentenn"}, // ……{改行}
+  {.key = B_J|B_K|B_S       , .kana = "nagikakkohi5"}, // 《{改行}
+  {.key = B_J|B_K|B_F       , .kana = "nagikakkohi3"}, // 「{改行}
+  {.key = B_J|B_K|B_G       , .kana = "nagikakkohi6"}, // ({改行}
+  {.key = B_J|B_K|B_Z       , .kana = "nagitatesenn2"}, // ││{改行}
+  {.key = B_J|B_K|B_X       , .kana = "nagikakkomi5"}, // 》{改行}
+  {.key = B_J|B_K|B_V       , .kana = "nagikakkomi3"}, // 」{改行}
+  {.key = B_J|B_K|B_B       , .kana = "nagikakkomi6"}, // ){改行}
+  {.key = B_M|B_COMM|B_Q       , .kana = "naginaname"}, // ／{改行}
+  {.key = B_M|B_COMM|B_T       , .kana = "nagimaru"}, // 〇{改行}
+  {.key = B_M|B_COMM|B_A       , .kana = "nagikakkohi1"}, // 【{改行}
+  {.key = B_M|B_COMM|B_S       , .kana = "nagikakkohi2"}, // 〈{改行}
+  {.key = B_M|B_COMM|B_D       , .kana = "nagikakkohi4"}, // 『{改行}
+  {.key = B_M|B_COMM|B_Z       , .kana = "nagikakkomi1"}, // 】{改行}
+  {.key = B_M|B_COMM|B_X       , .kana = "nagikakkomi2"}, // 〉{改行}
+  {.key = B_M|B_COMM|B_C       , .kana = "nagikakkomi4"}, // 』{改行}
 #endif
 };
 
@@ -990,12 +990,6 @@ bool naginata_lookup(int nt, bool shifted) {
       mac_send_string("nagikakkomi3");
       tap_code(KC_ENT);
       tap_code(KC_SPC);
-      compress_buffer(nt);
-      return true;
-      break;
-    case B_M|B_COMM|B_B: // 」{改行 2}
-      mac_send_string("nagikakkomi3");
-      tap_code(KC_ENT);
       compress_buffer(nt);
       return true;
       break;

@@ -352,9 +352,9 @@ qwerty.each_with_index do |k, i|
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
     hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
   end
   if henshu[m][0] == "macro"
     hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
@@ -372,9 +372,9 @@ qwerty.each_with_index do |k, i|
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
     hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
   end
   if henshu[m][0] == "macro"
     hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
@@ -392,9 +392,9 @@ qwerty.each_with_index do |k, i|
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
     hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
   end
   if henshu[m][0] == "macro"
     hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
@@ -412,9 +412,9 @@ qwerty.each_with_index do |k, i|
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    umac << "  {.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    umac << "  {.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
     hwin << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][1]}\"}, // #{m}"
-    hmac << "//{.key = #{pk}|B_#{k}       , .uc   = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
+    hmac << "//{.key = #{pk}|B_#{k}       , .kana = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
   end
   if henshu[m][0] == "macro"
     hwin << "//{.key = #{pk}|B_#{k}       , .macro , // #{m}"
