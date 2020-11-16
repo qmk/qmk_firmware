@@ -22,11 +22,6 @@ enum layer_names {
     _FN1
 };
 
-
-
-
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
 [_BASE] = LAYOUT_60_ansi(
