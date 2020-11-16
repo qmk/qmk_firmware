@@ -330,8 +330,29 @@ void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     did_leader_succeed = leading = false;
 
+    // sort by first key
+
     SEQ_ONE_KEY(KC_BSPC) {
       SEND_STRING(SS_TAP(X_DEL));
+      did_leader_succeed = true;
+    }
+
+    SEQ_ONE_KEY(KC_D) {
+      SEND_STRING("{}"SS_TAP(X_LEFT));
+      did_leader_succeed = true;
+    }
+    SEQ_TWO_KEYS(KC_D, KC_D) {
+      SEND_STRING("{");
+      did_leader_succeed = true;
+    }
+    SEQ_THREE_KEYS(KC_D, KC_D, KC_D) {
+      SEND_STRING("}");
+      did_leader_succeed = true;
+    }
+
+    // Html Tags
+    SEQ_TWO_KEYS(KC_H, KC_T) {
+      SEND_STRING("<></>"SS_TAP(X_LEFT));
       did_leader_succeed = true;
     }
 
@@ -374,18 +395,6 @@ void matrix_scan_user(void) {
       did_leader_succeed = true;
     }
 
-    SEQ_ONE_KEY(KC_D) {
-      SEND_STRING("{}"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_D, KC_D) {
-      SEND_STRING("{");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_D, KC_D, KC_D) {
-      SEND_STRING("}");
-      did_leader_succeed = true;
-    }
 
     leader_end();
   }
