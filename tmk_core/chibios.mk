@@ -39,6 +39,7 @@ endif
 include $(STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
+include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
 
 ifeq ("$(PLATFORM_NAME)","")
 	PLATFORM_NAME = platform
@@ -197,7 +198,9 @@ CHIBISRC = $(STARTUPSRC) \
        $(PORTSRC) \
        $(OSALSRC) \
        $(HALSRC) \
+       $(HALSRC_CONTRIB) \
        $(PLATFORMSRC) \
+       $(PLATFORMSRC_CONTRIB) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
        $(CHIBIOS)/os/various/syscalls.c
@@ -210,8 +213,8 @@ CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(TOP_DIR)/platforms/chibios/$(BOARD)/configs \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
-         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+         $(HALINC) $(HALINC_CONTRIB) $(PLATFORMINC) $(PLATFORMINC_CONTRIB) $(BOARDINC) $(TESTINC) \
+         $(STREAMSINC) $(CHIBIOS)/os/various $(CHIBIOS_CONTRIB)/os/various $(COMMON_VPATH)
 
 #
 # ChibiOS-Contrib
@@ -382,7 +385,6 @@ teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
-
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(PROGRAM_CMD)
@@ -391,6 +393,8 @@ else ifeq ($(strip $(BOOTLOADER)),kiibohd)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),STM32)
+	$(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(MCU_FAMILY)),SN32)
 	$(call EXEC_DFU_UTIL)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"

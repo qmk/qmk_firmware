@@ -54,6 +54,9 @@
 #ifdef STM32_EEPROM_ENABLE
 #    include "eeprom_stm32.h"
 #endif
+#ifdef SN32_EEPROM_ENABLE
+#    include "eeprom_sn32.h"
+#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -149,6 +152,10 @@ int main(void) {
 
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Init();
+#endif
+
+#ifdef SN32_EEPROM_ENABLE
+    // EEPROM_Init();
 #endif
 
     // TESTING
