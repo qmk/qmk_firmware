@@ -3,9 +3,11 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
+enum keyboard_layers (
+    BASE,
+    SYMB,
+    MDIA,
+};
 
 enum custom_keycodes {
 #ifdef ORYX_CONFIGURATOR
