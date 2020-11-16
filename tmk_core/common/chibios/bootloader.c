@@ -101,6 +101,37 @@ __attribute__((weak)) void bootloader_jump(void) {
 }
 #    endif /* defined(BOOTLOADER_KIIBOHD) */
 
+#elif defined(SN32_BOOTLOADER_ADDRESS)
+
+#       define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
+extern uint32_t __ram0_end__;
+#       define BOOTLOADER_MAGIC 0xDEADBEEF
+#       define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
+
+void bootloader_jump(void) {
+    *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
+    NVIC_SystemReset();
+}
+
+/** \brief Enter bootloader mode if requested
+ *
+ * FIXME: needs doc
+ */
+void enter_bootloader_mode_if_requested(void) {
+    unsigned long *check = MAGIC_ADDR;
+    if (*check == BOOTLOADER_MAGIC) {
+        *check = 0;
+        __set_CONTROL(0);
+        __enable_irq();
+
+        void(*recovery)(void) = (void*)SN32_BOOTLOADER_ADDRESS;
+        recovery();
+
+        while (1)
+            ;
+    }
+}
+
 #else /* neither STM32 nor KINETIS */
 __attribute__((weak)) void bootloader_jump(void) {}
 #endif

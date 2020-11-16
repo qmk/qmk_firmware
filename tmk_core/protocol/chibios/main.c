@@ -51,6 +51,9 @@
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
 #endif
+#ifdef SN32_EEPROM_ENABLE
+#    include "eeprom_sn32.h"
+#endif
 #ifdef STM32_EEPROM_ENABLE
 #    include "eeprom_stm32.h"
 #endif
@@ -155,6 +158,10 @@ int main(void) {
 #endif
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
+#endif
+
+#ifdef SN32_EEPROM_ENABLE
+    // EEPROM_Init();
 #endif
 
     // TESTING
