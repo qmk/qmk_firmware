@@ -1,4 +1,4 @@
-name: Rebase develop after master merge
+name: Update develop after master merge
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  develop_rebase:
+  develop_update:
     runs-on: ubuntu-latest
 
     if: github.repository == 'qmk/qmk_firmware'
@@ -17,20 +17,20 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Rebase develop from master
+    - name: Update develop from master
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: 'bash {0}'
       run: |
         if [ -e .locked ]; then
-            echo 'Develop branch is locked, aborting rebase!'
+            echo 'Develop branch is locked, aborting update!'
             exit 1
         fi
 
-        COMMITTER_TOKEN="$(echo -e "${UNTRIMMED_COMMITTER_TOKEN}" | tr -d '[:space:]')"
+        COMMITTER_TOKEN="$(echo -e "${GITHUB_TOKEN}" | tr -d '[:space:]')"
 
         git remote set-url origin https://x-access-token:$COMMITTER_TOKEN@github.com/$GITHUB_REPOSITORY.git
         git fetch origin master develop
         git checkout develop
-        git rebase origin/master
-        git push --force-with-lease origin develop
+        git merge origin/master
+        git push origin develop
