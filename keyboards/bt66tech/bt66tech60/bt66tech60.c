@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "bt66tech60.h"
+
 #include "ch.h"
 #include "hal.h"
 #include "util.h"
