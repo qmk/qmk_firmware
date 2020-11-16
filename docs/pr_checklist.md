@@ -73,6 +73,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - commented-out functions removed too
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](https://docs.qmk.fm/#/custom_quantum_functions?id=keyboard_pre_init_-function-documentation)
     - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](https://docs.qmk.fm/#/custom_matrix?id=lite)
+    - prefer LED indicator [Configuration Options](https://docs.qmk.fm/#/feature_led_indicators?id=configuration-options) to custom `led_update_*()` implementations where possible
 - `keyboard.h`
     - `#include "quantum.h"` appears at the top
     - `LAYOUT` macros should use standard definitions if applicable
