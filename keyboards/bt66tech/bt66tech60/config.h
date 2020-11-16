@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER bt66tech
 #define PRODUCT bt66tech 60% 
-#define DESCRIPTION A handwired 60% keyboard.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
