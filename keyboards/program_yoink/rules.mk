@@ -31,6 +31,6 @@ AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 ENCODER_ENABLE = yes		# Enable rotary encoder
-COMBO_ENABLE = no 
+COMBO_ENABLE = yes 
 TAP_DANCE_ENABLE = no
 LTO_ENABLE = yes
