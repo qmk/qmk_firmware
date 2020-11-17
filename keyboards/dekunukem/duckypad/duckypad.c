@@ -42,8 +42,6 @@ led_config_t g_led_config = { {
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 } };
 
-#endif
-
 void keyboard_pre_init_kb(void) {
     setPinOutput(A0);
     writePinHigh(A0);
