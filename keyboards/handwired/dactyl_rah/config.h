@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ralphie02
 #define PRODUCT         DACTYL_RAH
-#define DESCRIPTION     An ortholinear, split, 3D-curved keyboard with thumb clusters.
 
 /* key matrix size */
 // Rows are doubled-up
