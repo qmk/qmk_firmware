@@ -357,6 +357,7 @@ void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     did_leader_succeed = leading = false;
 
+    // tap dance
     // sort by first key
 
     SEQ_ONE_KEY(KC_C) {
@@ -400,7 +401,6 @@ void matrix_scan_user(void) {
       did_leader_succeed = true;
     }
 
-    // In Christ
     SEQ_TWO_KEYS(KC_I, KC_C) {
       SEND_STRING("In Christ,");
       did_leader_succeed = true;
@@ -416,6 +416,15 @@ void matrix_scan_user(void) {
     }
     SEQ_THREE_KEYS(KC_J, KC_J, KC_J) {
       SEND_STRING(">");
+      did_leader_succeed = true;
+    }
+
+    SEQ_TWO_KEYS(KC_T, KC_S) {
+      SEND_STRING("Thanks!");
+      did_leader_succeed = true;
+    }
+    SEQ_TWO_KEYS(KC_T, KC_Y) {
+      SEND_STRING("Thank you!");
       did_leader_succeed = true;
     }
 
