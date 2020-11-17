@@ -17,16 +17,16 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Update develop from master
-      shell: 'bash {0}'
+    - name: Checkout develop
       run: |
         git fetch origin master develop
         git checkout develop
 
-        if [ -e .locked ]; then
-            echo 'Develop branch is locked, aborting update!'
-            exit 1
-        fi
+    - name: Check if branch locked
+      run: |
+        test -e .locked || exit 1
 
+    - name: Update develop from master
+      run: |
         git merge origin/master
         git push origin develop
