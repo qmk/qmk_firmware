@@ -1,7 +1,11 @@
+# MCU name
 MCU = atmega32u4
-
+# Bootloader selection
 BOOTLOADER = halfkay
-
+# Build Options
+#   change to "no" to disable the options, or define them in the Makefile in
+#   the appropriate keymap folder that will get included automatically
+#
 BOOTMAGIC_ENABLE = yes
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = no
@@ -14,8 +18,3 @@ RGBLIGHT_ENABLE = no
 MIDI_ENABLE = no
 BLUETOOTH_ENABLE = no
 AUDIO_ENABLE = no
-FAUXCLICKY_ENABLE = no
-HD44780_ENABLE = no
-SPLIT_KEYBOARD = no
-IOS_DEVICE_ENABLE = no
-
