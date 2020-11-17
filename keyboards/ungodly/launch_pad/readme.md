@@ -1,6 +1,6 @@
 # Launch Pad
 
-![Launch Pad](https://i.imgur.com/ia9uhRQ.png)
+![Launch Pad](https://i.imgur.com/ia9uhRQl.png)
 
 PCB Front             |  PCB Back
 :-------------------------:|:-------------------------:

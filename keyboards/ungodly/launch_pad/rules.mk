@@ -23,4 +23,4 @@ ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = WS2812
 
 SRC += analog.c
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
