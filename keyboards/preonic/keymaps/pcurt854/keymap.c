@@ -341,6 +341,14 @@ void matrix_scan_user(void) {
       SEND_STRING("{}"SS_TAP(X_LEFT));
       did_leader_succeed = true;
     }
+    SEQ_TWO_KEYS(KC_D, KC_B) {
+      SEND_STRING("Dear Brother");
+      did_leader_succeed = true;
+    }
+    SEQ_THREE_KEYS(KC_D, KC_B, KC_S) {
+      SEND_STRING("Dear Brothers and Sister");
+      did_leader_succeed = true;
+    }
     SEQ_TWO_KEYS(KC_D, KC_D) {
       SEND_STRING("{");
       did_leader_succeed = true;
@@ -349,10 +357,20 @@ void matrix_scan_user(void) {
       SEND_STRING("}");
       did_leader_succeed = true;
     }
+    SEQ_TWO_KEYS(KC_D, KC_S) {
+      SEND_STRING("Dear Sister");
+      did_leader_succeed = true;
+    }
 
     // Html Tags
     SEQ_TWO_KEYS(KC_H, KC_T) {
       SEND_STRING("<></>"SS_TAP(X_LEFT));
+      did_leader_succeed = true;
+    }
+
+    // In Christ
+    SEQ_TWO_KEYS(KC_I, KC_C) {
+      SEND_STRING("In Christ,");
       did_leader_succeed = true;
     }
 
