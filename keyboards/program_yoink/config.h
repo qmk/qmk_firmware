@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER melonbred
 #define PRODUCT program_yoink
-#define DESCRIPTION A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -191,5 +190,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
 
