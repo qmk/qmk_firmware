@@ -86,8 +86,8 @@ void matrix_scan_user(void) {
 //function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state) {
     writePin(CAPS_LED_PIN, layer_state_cmp(state, 0));
-    writePin(NUM_LED_PIN, layer_state_cmp(state, 0));
-    writePin(SCROLL_LED_PIN, layer_state_cmp(state, 0));
+    writePin(NUM_LED_PIN, layer_state_cmp(state, 1));
+    writePin(SCROLL_LED_PIN, layer_state_cmp(state, 2));
     return state;
 }
 
