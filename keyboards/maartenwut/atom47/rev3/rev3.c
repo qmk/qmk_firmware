@@ -2,26 +2,21 @@
 #include "led.h"
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-	matrix_init_user();
-	led_init_ports();
-};
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-	matrix_scan_user();
+  // put your keyboard start-up code here
+  // runs once when the firmware starts up
+  matrix_init_user();
+  led_init_ports();
 };
 
 void led_init_ports(void) {
-    // * Set our LED pins as output
-    DDRE |= (1 << 6);
-
-	//Set output high, so the capslock led is off
-	PORTE |= (1 << 6);
+  setPinOutput(E6);
+  writePinHigh(E6);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    led_set_user(usb_led);
+bool led_update_kb(led_t led_state) {
+  if(led_update_user(led_state)) {
+    writePin(E6, !led_state.caps_lock);
+  }
+
+  return true;
 }
