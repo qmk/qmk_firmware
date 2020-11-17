@@ -10,8 +10,7 @@
 
 #include "quantum.h"
 
-#define ST7565_LCD_BIAS ST7565_LCD_BIAS_9  // actually 6
-#define ST7565_ADC ST7565_ADC_NORMAL
+#define ST7565_LCD_BIAS ST7565_LCD_BIAS_7
 #define ST7565_COM_SCAN ST7565_COM_SCAN_DEC
 #define ST7565_PAGE_ORDER 0, 1, 2, 3
 /*
