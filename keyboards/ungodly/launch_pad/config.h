@@ -44,6 +44,10 @@
 #define SLIDER_PIN F6
 
 /* RGB Matrix configuration */
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_KEYPRESSES
+#endif
+
 #define RGB_DI_PIN F7
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 22
