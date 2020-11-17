@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "duckypad.h"
 
-#ifdef RGB_MATRIX_ENABLE
-#include "rgb_matrix.h"
-
 led_config_t g_led_config = { {
     { 2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12, NO_LED, NO_LED }
 }, {
