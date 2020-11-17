@@ -156,8 +156,8 @@ LLDSPEC void gdisp_lld_flush(GDisplay *g) {
     if (!(g->flags & GDISP_FLG_NEEDFLUSH)) return;
 
     acquire_bus(g);
-    gU8 pagemap[8] = {ST7565_PAGE_ORDER};
-    for (p = 0; p < 8; p++) {
+    gU8 pagemap[] = {ST7565_PAGE_ORDER};
+    for (p = 0; p < sizeof(pagemap); p++) {
         write_cmd(g, ST7565_PAGE | pagemap[p]);
         write_cmd(g, ST7565_COLUMN_MSB | 0);
         write_cmd(g, ST7565_COLUMN_LSB | 0);
