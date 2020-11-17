@@ -34,7 +34,7 @@ def test_compile():
 
 
 def test_compile_json():
-    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json')
+    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json', '-n')
     check_returncode(result)
 
 
