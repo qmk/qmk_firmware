@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, MT(MOD_LALT, KC_CAPS),                  LT(_LAYER2, KC_SPC),               LT(_LAYER1, KC_DEL), KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_LAYER1] = LAYOUT_BIG_BAR(
+    [_LAYER1] = LAYOUT_default(
         KC_MINS,  KC_1,    KC_2,   KC_3,      KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,  _______,
         KC_EQL, _______, _______, _______,   _______, _______, _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_QUOT,          _______,
         _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,
