@@ -9,9 +9,7 @@ enum alt_keycodes {
     DBG_MOU,               // DEBUG Toggle Mouse Prints
     MD_BOOT,               // Restart into bootloader after hold timeout
     QWERTY,                // Switch to QWERTY layout
-    COLEMAK,               // Switch to Colemak layout
     DVORAK,                // Switch to Dvorak layout
-    WORKMAN,               // Switch to Workman layout
 };
 
 #define _DVORAK 0
@@ -21,9 +19,9 @@ enum alt_keycodes {
 #define _LAYOUT 4
 
 #define CTL_ESC  LCTL_T(KC_ESC)    // Tap for ESC, hold for CTRL
-#define MO_FUNC  MO(_FUNCTION)     // Hold for function layer
+#define MO_FUNC  MO(_FNKEYS)     // Hold for function layer
 #define TG_NUMP  TG(_NUMPAD)       // Toggle numpad layer
-#define OSL_LAY  OSL(_LAYOUTS)     // One-shot layer to change layout
+#define OSL_LAY  OSL(_LAYOUT)     // One-shot layer to change layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DVORAK] = LAYOUT_65_ansi_blocker(
@@ -34,10 +32,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO_FUNC, KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     [_QWERTY] = LAYOUT_65_ansi_blocker(
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC, KC_DEL,  \
-        KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS, KC_HOME, \
-        CTL_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,          KC_ENT,  KC_PGUP, \
-        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,          KC_UP,   KC_PGDN, \
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_QUOT, KC_RBRC, KC_BSPC, KC_DEL,  \
+        KC_TAB,  KC_X,    KC_COMM, KC_D,    KC_O,    KC_K,    KC_T,    KC_F,    KC_G,    KC_S,    KC_R,    KC_MINS, KC_EQL,  KC_BSLS, KC_HOME, \
+        CTL_ESC, KC_A,    KC_SCLN, KC_H,    KC_Y,    KC_U,    KC_J,    KC_C,    KC_V,    KC_P,    KC_Z,    KC_Q,             KC_ENT,  KC_PGUP, \
+        KC_LSFT, KC_SLSH, KC_B,    KC_I,    KC_DOT,  KC_N,    KC_L,    KC_M,    KC_W,    KC_E,    KC_LBRC, KC_RSFT,          KC_UP,   KC_PGDN, \
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO_FUNC, KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     [_FNKEYS] = LAYOUT_65_ansi_blocker(
