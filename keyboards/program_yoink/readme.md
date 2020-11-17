@@ -1,6 +1,6 @@
 # program_yoink
 
-![program_yoink](imgur.com image replace me!)
+![program_yoink](https://imgur.com/a/dcxHohh)
 
 A short description of the keyboard/project
 
