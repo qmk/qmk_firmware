@@ -25,7 +25,6 @@
 #define AM_FUL A(S(KC_4))
 
 
-extern keymap_config_t keymap_config;
 
 enum layers {
   _BASE,
