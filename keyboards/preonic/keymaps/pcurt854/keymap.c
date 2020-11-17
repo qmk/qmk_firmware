@@ -332,6 +332,11 @@ void matrix_scan_user(void) {
 
     // sort by first key
 
+    SEQ_ONE_KEY(KC_C) {
+      SEND_STRING(SS_TAP(X_CAPS));
+      did_leader_succeed = true;
+    }
+
     SEQ_ONE_KEY(KC_BSPC) {
       SEND_STRING(SS_TAP(X_DEL));
       did_leader_succeed = true;
@@ -412,7 +417,6 @@ void matrix_scan_user(void) {
       SEND_STRING("]");
       did_leader_succeed = true;
     }
-
 
     leader_end();
   }
