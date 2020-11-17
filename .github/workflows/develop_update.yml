@@ -20,12 +20,13 @@ jobs:
     - name: Update develop from master
       shell: 'bash {0}'
       run: |
+        git fetch origin master develop
+        git checkout develop
+
         if [ -e .locked ]; then
             echo 'Develop branch is locked, aborting update!'
             exit 1
         fi
 
-        git fetch origin master develop
-        git checkout develop
         git merge origin/master
         git push origin develop
