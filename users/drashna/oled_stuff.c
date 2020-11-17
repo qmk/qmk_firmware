@@ -16,8 +16,6 @@
 
 #include "drashna.h"
 
-extern uint8_t is_master;
-
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
 #    define KEYLOGGER_LENGTH ((int)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
@@ -293,7 +291,7 @@ void oled_task_user(void) {
 
     update_log();
 
-    if (is_master) {
+    if (is_keyboard_master()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();

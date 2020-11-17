@@ -231,7 +231,6 @@ void suspend_wakeup_init_keymap(void) {
 }
 // clang-format on
 
-#ifdef RGB_MATRIX_ENABLE
 #    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
 #        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
 void rgb_matrix_indicators_user(void) {

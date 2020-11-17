@@ -16,11 +16,6 @@
 
 #include "drashna.h"
 
-#ifdef RGBLIGHT_ENABLE
-// Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
 
 /*
@@ -123,28 +118,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-#ifndef SPLIT_KEYBOARD
-        if (keycode == RESET && !is_master) {
-            return false;
-        }
-#endif
-    }
-    return true;
-}
-
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-#    ifndef SPLIT_KEYBOARD
-    if (is_master) {
-#    endif
+    if (is_keyboard_master()) {
         return OLED_ROTATION_270;
-#    ifndef SPLIT_KEYBOARD
     }  else {
         return rotation;
     }
-#    endif
 }
 #endif
 
