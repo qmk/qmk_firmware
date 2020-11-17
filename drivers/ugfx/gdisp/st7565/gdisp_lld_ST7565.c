@@ -112,7 +112,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     write_cmd(g, ST7565_START_LINE | 0);
 
     write_cmd2(g, ST7565_CONTRAST, GDISP_INITIAL_CONTRAST * 64 / 101);
-    write_cmd(g, ST7565_RESISTOR_RATIO | 0x3);
+    write_cmd(g, ST7565_RESISTOR_RATIO | 0x1);
 
     // turn on voltage converter (VC=1, VR=0, VF=0)
     write_cmd(g, ST7565_POWER_CONTROL | 0x04);
