@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
 
-#define ____ KC_TRNS
+#define ____ _______
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
