@@ -15,56 +15,11 @@
  */
 #include "tkl_ab87.h"
 
-void matrix_init_kb(void) {  
-
-  // Indicator pins
-  // F0 - Scroll Lock
-  // F1 - Caps Lock
-  // Sinking setup - 5V -> LED/Resistor -> Pin
-  
-  setPinOutput(F0);
-  setPinOutput(F1);
-
-  matrix_init_user();
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(F1, led_state.caps_lock);
+        writePin(F0, led_state.scroll_lock);
+    }
+    return res;
 }
-
-void led_set_kb(uint8_t usb_led) {
-  
-  // Toggle indicator LEDs
-  // Since they are a sinking setup, write HIGH to DISABLE, LOW to ENABLE
-  
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(F1);
-  } else {
-    writePinLow(F1);
-  }
-  
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    writePinHigh(F0);
-  } else {
-    writePinLow(F0);
-  }
-
-  led_set_user(usb_led);
-}
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
-/*
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  // put your per-action keyboard code here
-  // runs for every action, just before processing by the firmware
-
-  return process_record_user(keycode, record);
-}
-
-*/
