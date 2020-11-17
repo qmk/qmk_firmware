@@ -22,6 +22,11 @@ enum layer_names {
     _LAYER2
 };
 
+// Defines Combos for use in the keymap
+enum combo_events {
+  COMBO_SLSH,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_SPLIT_BAR(
         KC_ESC,        KC_Q,                   KC_W,    KC_E,                KC_R,   KC_T,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, KC_MPLY,
