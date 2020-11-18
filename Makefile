@@ -653,7 +653,7 @@ endif
 ifndef SKIP_VERSION
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 else
-BUILD_DATE := NA
+BUILD_DATE := 2020-01-01-00:00:00
 endif
 
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
