@@ -4,9 +4,9 @@
 
 A fairly typical TKL
 
-Keyboard Maintainer: TerryMathews  
-Hardware Supported: TKC TKL A/B87 PCB
-Hardware Availability: TBA
+* Keyboard Maintainer: TerryMathews
+* Hardware Supported: TKC TKL A/B87 PCB
+* Hardware Availability: TBA
 
 Make example for this keyboard (after setting up your build environment):
 
