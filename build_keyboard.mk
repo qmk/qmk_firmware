@@ -136,9 +136,7 @@ ifeq ($(strip $(CTPC)), yes)
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    TARGET := $(TARGET)_proton_c
-    include platforms/chibios/GENERIC_STM32_F303XC/configs/proton_c.mk
-    OPT_DEFS += -DCONVERT_TO_PROTON_C
+    include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
 ifneq ($(FORCE_LAYOUT),)
