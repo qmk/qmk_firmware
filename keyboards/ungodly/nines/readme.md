@@ -1,9 +1,13 @@
 # Nines
 
-![Nines](https://i.imgur.com/zNnmPV9.jpg)
-
 A 9 key (3x3) macropad with rotary encoder support.
 Made by Ungodly Design for Qlavier.
+
+![Nines](https://i.imgur.com/zNnmPV9.jpg)
+
+|Reset Bootloader|   |
+|---|---|
+|Use tweezers to short the two pins to the left of the pro-micro.|![Nines](https://i.imgur.com/ifTZ6Xw.pngl)|
 
 * Keyboard Maintainer: [Luis Godinez](https://github.com/luis-Godinez)
 * Hardware Supported: The Nines PCB
