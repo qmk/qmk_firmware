@@ -8,6 +8,8 @@ Keyboard Maintainer: matthewdias
 Hardware Supported: minim PCB  
 Hardware Availability: [GitHub](https://github.com/matthewdias/minim)
 
+To reset the keyboard into bootloader mode, press the reset switch on the underside.
+
 Make example for this keyboard (after setting up your build environment):
 
     make minim:default
