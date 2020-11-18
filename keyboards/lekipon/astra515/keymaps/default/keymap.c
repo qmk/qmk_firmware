@@ -415,7 +415,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
    * | _____ | UNDO  |  CUT  | COPY  | PASTE |   [   |       | PgUP  |       |   ]   | Enter |       |       |       | _____ |
    * |-------+-------+-------+-------+---------------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-   * | _____ | CAPS  | _____ | _____ | ADJUST| _____ |  Home | PgDN  | End   | _____ | _____ | _____ | _____ | _____ | _____ |
+   * | _____ | _____ | _____ | _____ | ADJUST| _____ |  Home | PgDN  | End   | _____ | _____ | _____ | _____ | _____ | _____ |
    * `-----------------------------------------------------------------------------------------------------------------------'
    */
 [_RAISE] = LAYOUT( /* RAISE */
@@ -423,7 +423,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F11 , XXXXXXX, KC_F12 , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,\
  _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END , KC_ESC , XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______,\
  _______, UNDO   , CUT    , COPY   , PASTE  , KC_LBRC, XXXXXXX, KC_PGUP, XXXXXXX, KC_RBRC, KC_ENT , XXXXXXX, XXXXXXX, XXXXXXX, _______,\
- _______, KC_CAPS, _______, _______, ADJUST , _______, KC_HOME, KC_PGDN, KC_END , _______, _______, _______, _______, _______, _______ \
+ _______, _______, _______, _______, ADJUST , _______, KC_HOME, KC_PGDN, KC_END , _______, _______, _______, _______, _______, _______ \
 ),
 
  /* LOWER (Nums)
@@ -436,7 +436,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
    * | _____ | UNDO  |  CUT  | COPY  | PASTE |   [   |       | PgUP  |       |   ]   |   1   |   2   |   3   |   /   | _____ |
    * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-   * | _____ | CAPS  | _____ | _____ | ______|       |  Home | PgDN  | End   |       |   0   |       |   .   |   *   | _____ |
+   * | _____ | _____ | _____ | _____ | ______|       |  Home | PgDN  | End   |       |   0   |       |   .   |   *   | _____ |
    * `-----------------------------------------------------------------------------------------------------------------------'
    */
 [_LOWER] = LAYOUT( /* LOWER */
@@ -444,7 +444,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TAB , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NLCK, KC_P7  , KC_P8  , KC_P9  , KC_PMNS, _______,\
  KC_ENT , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_ESC , XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, KC_P4  , KC_P5  , KC_P6  , KC_PPLS, KC_PENT,\
  _______, UNDO   , CUT    , COPY   , PASTE  , KC_LBRC, XXXXXXX, KC_PGUP, XXXXXXX, KC_RBRC, KC_P1  , KC_P2  , KC_P3  , KC_PSLS, _______,\
- _______, KC_CAPS, _______, _______, _______, XXXXXXX, KC_HOME, KC_PGDN, KC_END , XXXXXXX, KC_P0  , XXXXXXX, KC_PDOT, KC_PAST, _______
+ _______, _______, _______, _______, _______, XXXXXXX, KC_HOME, KC_PGDN, KC_END , XXXXXXX, KC_P0  , XXXXXXX, KC_PDOT, KC_PAST, _______
 ),
 
  /* ADJUST
