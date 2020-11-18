@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | ____ |      |      |   {  |  {|} |  }   |  /   |   0  | ____ | ____ | PgUp | ____ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | Home | PgDn | End  |
+ * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | tg(3)| Home | PgDn | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_preonic_grid(
@@ -150,7 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, XXXXXXX, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
   _______, XXXXXXX, XXXXXXX, KC_LBRC, SBKPAIR, KC_RBRC, KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
   _______, XXXXXXX, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, KC_PGUP, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
+  _______, _______, _______, _______, _______, _______, _______, TG(_NUMPAD),
+                                                                          _______, KC_HOME, KC_PGDN, KC_END
 ),
 
 /* Symbol layer 4
