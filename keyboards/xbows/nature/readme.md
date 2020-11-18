@@ -7,14 +7,14 @@ If you spend your work days in front of a computer, you have likely felt some di
 
 
 X-Bows was designed with three criteria in mind:
-*Enhancing the comfort and ergonomics of the keyboard
-*Limiting the learning curve for our new layout
-*Creating an attractive design
+* Enhancing the comfort and ergonomics of the keyboard
+* Limiting the learning curve for our new layout
+* Creating an attractive design
 
 
-Keyboard Maintainer: X-BOWS  
-Hardware Supported: X-BOWS Nature  
-Hardware Availability: [X-BOWS](https://x-bows.com/)
+* Keyboard Maintainer: X-BOWS
+* Hardware Supported: X-BOWS Nature
+* Hardware Availability: [X-BOWS](https://x-bows.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
