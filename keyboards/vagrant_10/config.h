@@ -31,7 +31,7 @@ SOFTWARE.
 #define PRODUCT_ID      0x5E99
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Shanduur
-#define PRODUCT         vagrant_10
+#define PRODUCT         Vagrant 10
 
 /* key matrix size */
 #define MATRIX_ROWS 4
