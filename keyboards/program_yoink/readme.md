@@ -2,7 +2,7 @@
 
 ![program_yoink](https://i.imgur.com/2bBLKJrl.jpeg)
 
-A short description of the keyboard/project
+Program Yoink is a 12u main cluster board accompanied by a macro column with optional encoder support and arrow keys.
 
 * Keyboard Maintainer: [melonbred](https://github.com/yourusername)
 * Hardware Supported: The PCBs, controllers supported
