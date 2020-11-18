@@ -66,9 +66,9 @@
 #define APA102_SEND_BIT(byte, bit)               \
     do {                                         \
         writePin(RGB_DI_PIN, (byte >> bit) & 1); \
-        writePinHigh(RGB_CLK_PIN);               \
+        writePinHigh(RGB_CI_PIN);                \
         delay_high();                            \
-        writePinLow(RGB_CLK_PIN);                \
+        writePinLow(RGB_CI_PIN);                 \
         delay_low();                             \
     } while (0)
 
@@ -90,12 +90,15 @@ void apa102_setleds(LED_TYPE *start_led, uint16_t num_leds) {
     apa102_end_frame(num_leds);
 }
 
+// Overwrite the default rgblight_call_driver to use apa102 driver
+void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { apa102_setleds(start_led, num_leds); }
+
 void static apa102_init(void) {
     setPinOutput(RGB_DI_PIN);
-    setPinOutput(RGB_CLK_PIN);
+    setPinOutput(RGB_CI_PIN);
 
     writePinLow(RGB_DI_PIN);
-    writePinLow(RGB_CLK_PIN);
+    writePinLow(RGB_CI_PIN);
 }
 
 void apa102_set_brightness(uint8_t brightness) {
