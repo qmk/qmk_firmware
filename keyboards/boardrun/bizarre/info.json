@@ -6,7 +6,7 @@
     "width": 21,
     "height": 5,
     "layouts": {
-        "LAYOUT_ANY": {
+        "LAYOUT_all": {
             "layout": [
                 {"y":0, "x":0,    "label":"Home"},   
                 
