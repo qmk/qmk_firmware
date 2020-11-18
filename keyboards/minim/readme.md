@@ -1,5 +1,7 @@
 # minim
 
+![](https://raw.githubusercontent.com/matthewdias/minim/main/layout.png)
+
 A symmetrical 50% keyboard.
 
 Keyboard Maintainer: matthewdias
