@@ -1,10 +1,5 @@
 # Launch Pad
-
-![Launch Pad](https://i.imgur.com/ia9uhRQl.png)
-
-PCB Front             |  PCB Back
-:-------------------------:|:-------------------------:
-![Numpad](https://i.imgur.com/f47ZFZZ.png)  |  ![5x4](https://i.imgur.com/wZH76Pp.png)
+The guidance computer inside the [Launch Pad](https://ungodly.design/products/launch-pad) by Ungodly Design.
 
 **Features:**
 * Onboard atmega32u4 controller, 5V @ 16MHz
@@ -18,10 +13,18 @@ PCB Front             |  PCB Back
 * (optional) pin breakout:
   * F5, F4, F1, F0, VBUS, GND
 
+PCB Front             |  PCB Back
+:-------------------------:|:-------------------------:
+![Numpad](https://i.imgur.com/f47ZFZZl.png)  |  ![5x4](https://i.imgur.com/wZH76Ppl.png)
+
 Numpad Layout             |  5x4 Layout
 :-------------------------:|:-------------------------:
-![Numpad](https://i.imgur.com/4XvqCBH.jpg)  |  ![5x4](https://i.imgur.com/mwtGnPS.jpg)
-The guidance computer inside the [Launch Pad](https://ungodly.design/products/launch-pad) by Ungodly Design.
+![Numpad](https://i.imgur.com/4XvqCBHl.jpg)  |  ![5x4](https://i.imgur.com/mwtGnPSl.jpg)
+
+
+|Reset Bootloader|   |
+|---|---|
+|Use tweezers to short the two bottom pins of the J-Link pinout.|![Numpad](https://i.imgur.com/ArSIcK0.pngl)|
 
 * Keyboard Maintainer: [Luis Godinez](https://github.com/luis-Godinez)
 * Hardware Supported: Launch Pad PCB
