@@ -21,29 +21,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xE0E0
-#define PRODUCT_ID      0x0030
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0x0040
+#define DEVICE_VER 		0x0002
 #define MANUFACTURER    Aplyard
 #define PRODUCT         Aplx6
-#define DESCRIPTION     Aplx6 MediaPad
+#define DESCRIPTION     Aplx6 Mediapad rev2
 
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
 
-/* pin-out */
-#define MATRIX_ROW_PINS { E6, B3 }
-#define MATRIX_COL_PINS { F7, B6, F4 }
+/* 9Key PCB default pin-out */
+#define MATRIX_ROW_PINS { B4, B5 }
+#define MATRIX_COL_PINS { C6, D7, E6 }
 #define UNUSED_PINS
-
-
-/* ws2812 RGB LED */
-//#define RGB_DI_PIN X
-
-//#define RGBLIGHT_ANIMATIONS
-//#define RGBLED_NUM X    // Number of LEDs
-
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define TAPPING_TERM 200
+
+/* Encoder */
+#define ENCODERS_PAD_A { F4 }
+#define ENCODERS_PAD_B { F5 }
+#define ENCODER_RESOLUTION 4
+#define ENCODER_DIRECTION_FLIP
+
+#define TAP_CODE_DELAY 50
