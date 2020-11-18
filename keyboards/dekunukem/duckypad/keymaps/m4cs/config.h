@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_TIMEOUT 90000
 #define RGB_DISABLE_TIMEOUT 85000
 
-#define TAPPING_TERM 200
-
 #define MT_0_0 " prev "
 #define MT_0_1 " pl/pa"
 #define MT_0_2 " next "
