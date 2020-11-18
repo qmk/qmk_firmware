@@ -3,6 +3,7 @@ Default duckyPad Layout
 ### Layers:
 
 0: Default Layer w/ Numpad Functionality
+
 1: RGB Menu that allows RGB customization
 
 ### Configuration:
