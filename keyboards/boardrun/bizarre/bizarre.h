@@ -47,7 +47,7 @@
   { KC_NO, k52,   KC_NO, KC_NO, k55, k56, k57, k58, k59, KC_NO, KC_NO, k512, KC_NO, k514,  k515, k516, KC_NO } \
 }
 
-#define LAYOUT_Split_BS( \
+#define LAYOUT_split_bs( \
   k11,  k12, k117, k13, k14, k15, k16, k17,           k18, k19, k110, k111, k112, k113, k114, k115, k116,   \
   k21,      k22,   k23, k24, k25, k26, k27,           k28, k29, k210, k211, k212, k213, k214,   k215,  \
            k32,    k33, k34, k35, k36, k37,           k38, k39, k310, k311, k312, k313,     k315,      \
