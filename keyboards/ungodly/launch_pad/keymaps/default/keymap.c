@@ -42,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------'
  */
  [_BL] = LAYOUT_ortho_5x4(
-   TG(_NV),  KC_PSLS,  KC_PAST,   LT(_FN, KC_BSPC), \
-   KC_7,    KC_8,    KC_9,     KC_PMNS, \
-   KC_4,    KC_5,    KC_6,     KC_PPLS, \
-   KC_1,    KC_2,    KC_3,     KC_PENT, \
+   TG(_NV),  KC_PSLS,  KC_PAST,   LT(_FN, KC_BSPC),
+   KC_7,    KC_8,    KC_9,     KC_PMNS,
+   KC_4,    KC_5,    KC_6,     KC_PPLS,
+   KC_1,    KC_2,    KC_3,     KC_PENT,
    KC_0,    KC_0,  KC_DOT,   KC_PENT
  ),
 
@@ -63,10 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------'
  */
   [_NV] = LAYOUT_ortho_5x4(
-    KC_INS,   KC_HOME,  KC_PGUP,   TG(_NV), \
-    KC_DEL,   KC_END,   KC_PGDN,   XXXXXXX, \
-    XXXXXXX,  KC_UP,    XXXXXXX,   XXXXXXX, \
-    KC_LEFT,  KC_DOWN,  KC_RGHT,   XXXXXXX, \
+    KC_INS,   KC_HOME,  KC_PGUP,   TG(_NV),
+    KC_DEL,   KC_END,   KC_PGDN,   XXXXXXX,
+    XXXXXXX,  KC_UP,    XXXXXXX,   XXXXXXX,
+    KC_LEFT,  KC_DOWN,  KC_RGHT,   XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX
   ),
 
@@ -84,10 +84,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------'
  */
   [_FN] = LAYOUT_ortho_5x4(
-    RGB_MOD,  RGB_M_P,  RGB_TOG,   _______, \
-    RGB_HUD,  RGB_HUI,  XXXXXXX,   XXXXXXX, \
-    RGB_SAD,  RGB_SAI,  XXXXXXX,   XXXXXXX, \
-    RGB_VAD,  RGB_VAI,  XXXXXXX,   XXXXXXX, \
+    RGB_MOD,  RGB_M_P,  RGB_TOG,   _______,
+    RGB_HUD,  RGB_HUI,  XXXXXXX,   XXXXXXX,
+    RGB_SAD,  RGB_SAI,  XXXXXXX,   XXXXXXX,
+    RGB_VAD,  RGB_VAI,  XXXXXXX,   XXXXXXX,
     RESET,    XXXXXXX,  XXXXXXX,   XXXXXXX
   ),
 };
