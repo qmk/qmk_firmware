@@ -2,7 +2,7 @@
 
 ![lunakey_mini](https://i.imgur.com/b1oUINi.jpg)
 
-*This is a 40% split keyboard which has 3x6 vertically staggered keys and 4 thumbnail keys.*
+This is a 40% split keyboard which has 3x6 vertically staggered keys and 4 thumbnail keys.
 
 * Keyboard Maintainer: [Yoichiro Tanaka](https://github.com/yoichiro)
 * Hardware Supported: Lunakey Mini PCB, Pro Micro MCU.
