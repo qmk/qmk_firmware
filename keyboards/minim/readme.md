@@ -4,9 +4,9 @@
 
 A symmetrical 50% keyboard.
 
-Keyboard Maintainer: matthewdias
-Hardware Supported: minim PCB  
-Hardware Availability: [GitHub](https://github.com/matthewdias/minim)
+* Keyboard Maintainer: matthewdias
+* Hardware Supported: minim PCB
+* Hardware Availability: [GitHub](https://github.com/matthewdias/minim)
 
 To reset the keyboard into bootloader mode, press the reset switch on the underside.
 
