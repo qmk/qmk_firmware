@@ -104,7 +104,7 @@
                 {"y":4, "x":20,   "label":"Right"}
             ]
         },
-        "LAYOUT_ANSI": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"y":0, "x":0,    "label":"Home"},   
                 
@@ -199,7 +199,7 @@
                 {"y":4, "x":20,   "label":"Right"}
             ]
         },
-        "LAYOUT_Split_BS": {
+        "LAYOUT_split_bs": {
             "layout": [
                 {"y":0, "x":0,    "label":"Home"},   
                 
@@ -295,7 +295,7 @@
                 {"y":4, "x":20,   "label":"Right"}
             ]
         },
-        "LAYOUT_ISO": {
+        "LAYOUT_iso": {
             "layout": [
                 {"y":0, "x":0,    "label":"Home"},   
                 
