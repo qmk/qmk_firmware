@@ -18,9 +18,9 @@ enum alt_keycodes {
     DBG_MTRX,           //DEBUG Toggle Matrix Prints                                //
     DBG_KBD,            //DEBUG Toggle Keyboard Prints                              //
     DBG_MOU,            //DEBUG Toggle Mouse Prints                                 //
-    MD_BOOT,             //Restart into bootloader after hold timeout                //Working
-    QWERTY,                // Switch to QWERTY layout
-    DVORAK,                // Switch to Dvorak layout
+    MD_BOOT,            //Restart into bootloader after hold timeout                //Working
+    QWERTY,             //Switch to QWERTY layout
+    DVORAK,             //Switch to Dvorak layout
 };
 
 #define _DVORAK 0
@@ -29,11 +29,12 @@ enum alt_keycodes {
 #define _NUMPAD 3
 #define _LAYOUT 4
 
-#define CTL_ESC  LCTL_T(KC_ESC)    // Tap for ESC, hold for CTRL
+#define CTL_ESC  LCTL_T(KC_ESC)  // Tap for ESC, hold for CTRL
 #define MO_FUNC  MO(_FNKEYS)     // Hold for function layer
-#define TG_NUMP  TG(_NUMPAD)       // Toggle numpad layer
-#define OSL_LAY  OSL(_LAYOUT)     // One-shot layer to change layout
+#define TG_NUMP  TG(_NUMPAD)     // Toggle numpad layer
+#define OSL_LAY  OSL(_LAYOUT)    // One-shot layer to change layout
 
+// Layouts assume the OS is set to Dvorak.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DVORAK] = LAYOUT(
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,  \
