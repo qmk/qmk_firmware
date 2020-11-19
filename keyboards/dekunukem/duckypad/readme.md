@@ -8,14 +8,13 @@ A 15 Key Macropad w/ RGB and OLED
 
 Make example for this keyboard (after setting up your build environment):
 
-```bash
-make dekunukem/duckypad:default
-```
+
+    make dekunukem/duckypad:default
+
 
 Flashing example for this keyboard:
 
-```bash
-make dekunukem/duckypad:default:flash
-```
+    make dekunukem/duckypad:default:flash
+
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
