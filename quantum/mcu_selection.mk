@@ -279,7 +279,7 @@ ifneq ($(findstring STM32F411, $(MCU)),)
   DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 endif
 
-ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))
+ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287 at90usb162))
   PROTOCOL = LUFA
 
   # Processor frequency.
