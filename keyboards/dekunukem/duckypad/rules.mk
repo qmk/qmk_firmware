@@ -1,8 +1,6 @@
 # MCU Name
 MCU = STM32F072
 
-BOARD = ST_STM32F072B_DISCOVERY
-
 # Build Options
 # 	change yes to no to disable
 #	change no to yes to enable
