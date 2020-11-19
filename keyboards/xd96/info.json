@@ -234,7 +234,6 @@
       ]
     },
     "LAYOUT_all": {
-      "key_count": 104,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"F1", "x":1, "y":0},
