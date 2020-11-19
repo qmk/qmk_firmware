@@ -182,14 +182,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Qwerty|Colemk|Dvorak| rgb  | rgb  |      |      |      |      |Print |      |
- * |      |      |      |      | 0/1  | saT+ |      |      |      |      |screen|      |
+ * |      |Qwerty|Colemk|Dvorak| rgb  | rgb  |      |      |      |      |Print |RESET |
+ * |      |      |      |      | 0/1  | saT+ |      |      |      |      |screen|RESET |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |Sleep |show  | rgb  | rgb  |finder|mv win|      |Lock  |      |      |
  * |      |      |      |Dsktp | hue+ | mod+ |Hddn  |clkw  |      |screen|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |RESET |      |Virus | rgb  |      | Mute | vol+ |      |      | dsp+ |
- * |      |      |RESET |      |scan  | Brit+|      |      |      |      |      |      |
+ * |      |      |      | Caps |Virus | rgb  |      | Mute | vol+ |      |      | dsp+ |
+ * |      |      |      |      |scan  | Brit+|      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      |      |      |      | vol- |      |      | dsp- |
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -197,12 +197,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  RGB_TOG, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), XXXXXXX,
+  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  RGB_TOG, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), RESET,
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
                                       RGB_HUI, RGB_MOD, SCMD(KC_DOT),
                                                                  LCA(KC_J), XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, RESET,   XXXXXXX, SCMD(KC_V),
+  XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, SCMD(KC_V),
                                                RGB_VAI, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, XXXXXXX, LCAG(KC_UP),
   _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, XXXXXXX, LCAG(KC_DOWN)
 ),
