@@ -66,6 +66,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 /* #define RGBLIGHT_LAYER_BLINK*/
 
+/* Define Indicator LED's */
+#define LED_CAPS_LOCK_PIN C7
+
 /* Define less important options */
 
 /*
