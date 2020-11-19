@@ -105,6 +105,7 @@
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
     * [Joystick](feature_joystick.md)
+    * [LED Indicators](feature_led_indicators.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
