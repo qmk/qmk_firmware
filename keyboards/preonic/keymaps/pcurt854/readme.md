@@ -16,9 +16,9 @@ The middle section, from 1 to 0, plus three rows of letters, follows the traditi
 
 The left border, from top to bottom: Esc when tapped and ~ with Shift and ` with Command, Tab, Esc when tapped and Control when held, and One shot layer 5.
 
-The right border: Backspace, Tap dancing leader key, quotes, and Cap locks when tapped and Right shift when held.
+The right border: Backspace, Tap dancing leader key, quotes, and Layer 6.
 
-Bottom row, left to right: One shot modifier Left shift, Control, Option, Command, One shot layer 4, Enter, Space, Layer 3 double tap to toggle, Left, Down, Up, and Right.
+Bottom row, left to right: One shot modifier Left shift, Control, Option, Command, One shot layer 4, Enter, Space, Layer 3 double tap to toggle, Slash, Left, Down, and Right.
 
 ### Layer 1
 
@@ -46,15 +46,19 @@ Special symbols using a character in their names:
 
 pLus (+), eQual (=), pIpe (|)
 
-anD (&), dollaR
+anD (&), dollaR ($)
 
-At, Backslash, Circumflex, Exclamation, Grave, Hash, Percent, Star, Tilde, Underscore
+At (@), Backslash (\), Circumflex (^), Exclamation (!), Grave (`), Hash (#), Percent (%), Star (*), Tilde (~), Underscore (_)
 
-- is put on J so it's under Underscore, easy to access, and matches the bump on J 
+minus (\-) is put on J so it's under Underscore, easy to access, and matches the bump on J
 
 ### Layer 5
 
 Layout switches and other special functions.
+
+### Layer 6
+
+Numbers arranged in rows of 1-5 and 6-0.
 
 ### To indentify layers
 
@@ -62,10 +66,7 @@ I turned on preonic RGB backlight for Cap locks and layers 3 and above.
 
 ### Tap dancing
 
-With the leader key, tap dance the brackets: <> () [] {}:
-1 tap: the pair, with the cursor returned to the middle
-2 taps: the open bracket
-3 taps; the close bracket
-
+With the leader key, tap dance the brackets: <> () [] {},
+with the cursor returned to the middle.
 
 
