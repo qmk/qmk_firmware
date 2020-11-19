@@ -233,7 +233,7 @@
         {"label":"Enter", "x":18, "y":4, "h":2}
       ]
     },
-    "LAYOUT_ALL": {
+    "LAYOUT_all": {
       "key_count": 104,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
