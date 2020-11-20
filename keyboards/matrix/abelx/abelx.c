@@ -62,7 +62,6 @@ void matrix_scan_user(void) { }
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
 #include "i2c_master.h"
-extern rgblight_config_t rgblight_config;
 
 const aw9523b_led g_aw9523b_leds[AW9523B_RGB_NUM] = {
     {AW9523B_P12_PWM, AW9523B_P11_PWM, AW9523B_P10_PWM},
