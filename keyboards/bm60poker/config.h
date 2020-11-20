@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0xEF8D
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
-#define PRODUCT         BM60POKER
+#define PRODUCT         KP Republic BM60 RGB POKER
 #define DESCRIPTION     An RGB 60% hotswappable standard ansi layout board
 
 /* key matrix size */
