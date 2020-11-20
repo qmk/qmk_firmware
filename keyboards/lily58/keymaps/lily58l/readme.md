@@ -14,12 +14,11 @@ Right encoder: cursor down/up, right/left on LOWER layer
 * Hardware Availability: [Keycapsss.com](https://keycapsss.com)
 
 Make example for this keyboard (after setting up your build environment):
-    make lily58/revlight:lily58l
-    // or
-    qmk compile -kb lily58/revlight -km lily58l
+ 
+    make lily58/light:lily58l
 
 Flashing example for this keyboard:
 
-    make lily58/revlight:lily58l:flash
+    make lily58/light:lily58l:flash
     
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
