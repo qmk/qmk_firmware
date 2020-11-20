@@ -25,7 +25,7 @@ enum preonic_layers {
   _NUMPAD,	// 3
   _SYMBOL,	// 4
   _ADJUST,	// 5
-  _NUMROWS	// 6
+  _BRACKET	// 6
 };
 
 enum preonic_keycodes {
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LCTL_T(KC_ESC),
            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   OSL(_ADJUST),
-           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   OSL(_NUMROWS),
+           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   OSL(_BRACKET),
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
                                                KC_ENT,  KC_SPC,  TT(_NUMPAD),
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LCTL_T(KC_ESC),
            KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   OSL(_ADJUST),
-           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   OSL(_NUMROWS),
+           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   OSL(_BRACKET),
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
                                                KC_ENT,  KC_SPC,  TT(_NUMPAD),
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LCTL_T(KC_ESC),
            KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
   OSL(_ADJUST),
-           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   OSL(_NUMROWS),
+           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   OSL(_BRACKET),
   OSM(MOD_LSFT),
            KC_RCTL, KC_LOPT, KC_LCMD, OSL(_SYMBOL),
                                                KC_ENT,  KC_SPC,  TT(_NUMPAD),
@@ -134,22 +134,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Numpad layer 3
  * ,-----------------------------------------------------------------------------------.
- * | ____ |      |      |   <  |  <|> |  >   |  =+  |   7  |   8  |   9  |   ^  | ____ |
+ * | ____ |   1  |   2  |   3  |   4  |   5  |  =+  |   7  |   8  |   9  |   ^  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ |      |      |   (  |  (|) |  )   |  -_  |   4  |   5  |   6  |   %  | ____ |
+ * | ____ |   6  |   7  |   8  |   9  |   0  |  -_  |   4  |   5  |   6  |   %  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ____ |      |      |   [  |  [|] |  ]   |  *   |   1  |   2  |   3  | ____ | ____ |
+ * | ____ |   1  |   2  |   3  |   4  |   5  |  *   |   1  |   2  |   3  | ____ | ____ |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | ____ |      |      |   {  |  {|} |  }   |  /   |   0  | ____ | ____ | PgUp | ____ |
+ * | ____ |   6  |   7  |   8  |   9  |   0  |  /   |   0  | ____ | ____ | PgUp | ____ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | tg(3)| Home | PgDn | End  |
+ * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | tg(3)| ____ | Home | PgDn | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_preonic_grid(
-  _______, XXXXXXX, XXXXXXX, KC_LABK, ABKPAIR, KC_RABK, KC_EQL,  KC_7,    KC_8,    KC_9,    KC_CIRC, _______,
-  _______, XXXXXXX, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
-  _______, XXXXXXX, XXXXXXX, KC_LBRC, SBKPAIR, KC_RBRC, KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
-  _______, XXXXXXX, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, KC_SLSH, KC_0,    _______, _______, KC_PGUP, _______,
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_EQL,  KC_7,    KC_8,    KC_9,    KC_CIRC, _______,
+  _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_4,    KC_5,    KC_6,    KC_PERC, _______,
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_ASTR, KC_1,    KC_2,    KC_3,    _______, _______,
+  _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_SLSH, KC_0,    _______, _______, KC_PGUP, _______,
   _______, _______, _______, _______, _______, _______, _______, TG(_NUMPAD),
                                                                           _______, KC_HOME, KC_PGDN, KC_END
 ),
@@ -207,24 +207,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, XXXXXXX, LCAG(KC_DOWN)
 ),
 
-/* Numrows layer 6
+/* Bracket layer 6
  * ,-----------------------------------------------------------------------------------.
- * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
+ * |      |      |      |    < | <|>  | >    |      |      |      |      |      | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   6  |   7  |   8  |   9  |   0  |   1  |   2  |   3  |   4  |   5  |      |
+ * |      |      |      |    ( | (|)  | )    |      |      |      |      |      | Lead |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
+ * |      |      |      |    [ | [|]  | ]    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   6  |   7  |   8  |   9  |   0  |   1  |   2  |   3  |   4  |   5  |      |
+ * |      |      |      |    { | {|}  | }    |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_NUMROWS] = LAYOUT_preonic_grid(
-  XXXXXXX, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
-  XXXXXXX, KC_6, KC_7, KC_8, KC_9, KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_LEAD,
-  XXXXXXX, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, XXXXXXX,
-  XXXXXXX, KC_6, KC_7, KC_8, KC_9, KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, XXXXXXX,
+[_BRACKET] = LAYOUT_preonic_grid(
+  XXXXXXX, XXXXXXX, XXXXXXX, KC_LABK, ABKPAIR, KC_RABK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
+  XXXXXXX, XXXXXXX, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEAD,
+  XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, SBKPAIR, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
 
@@ -327,11 +327,11 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    for (int i = 0; i <= _NUMROWS - _NUMPAD; i++) {
+    for (int i = 0; i <= _BRACKET - _NUMPAD; i++) {
         rgblight_set_layer_state(i, false);
     }
     int highest_layer = get_highest_layer(state);
-    if (highest_layer >= _NUMPAD && highest_layer <= _NUMROWS) {
+    if (highest_layer >= _NUMPAD && highest_layer <= _BRACKET) {
         rgblight_set_layer_state(highest_layer-_NUMPAD, true);
     }
 
@@ -339,7 +339,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(_NUMROWS-_NUMPAD+1, led_state.caps_lock);
+    rgblight_set_layer_state(_BRACKET-_NUMPAD+1, led_state.caps_lock);
 
     return true;
 }
