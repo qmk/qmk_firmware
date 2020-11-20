@@ -1,8 +1,8 @@
 # Ergonomic Vertical Keyboard version 1.3
 
-Keyboard Maintainer: [Yang Cui](https://github.com/YangPiCui) 
-Hardware Supported: Ergonomic Vertical Keyboard version 1.3 with Teensy 2.0
-Hardware Availability: Upon custom ordering
+Keyboard Maintainer: [Yang Cui](https://github.com/YangPiCui)   
+Hardware Supported: Ergonomic Vertical Keyboard version 1.3 with Teensy 2.0  
+Hardware Availability: Upon custom ordering  
 
 Make example for this keyboard (after setting up your build environment):
 
