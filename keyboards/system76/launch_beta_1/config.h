@@ -4,12 +4,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x1776
-#define PRODUCT_ID      0x1776
+#define VENDOR_ID       0x3384
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    System76
-#define PRODUCT         Launch Keyboard Beta 1
-#define DESCRIPTION     Launch Keyboard Beta 1
+#define PRODUCT         Launch Configurable Keyboard (launch_beta_1)
+#define DESCRIPTION     Launch Configurable Keyboard (launch_beta_1)
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -46,11 +46,11 @@
     //#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     #define RGB_DISABLE_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
     #define RGB_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_MULTISPLASH // Sets the default mode, if none has been set
     #define RGB_MATRIX_STARTUP_HUE 0
-    #define RGB_MATRIX_STARTUP_SAT 0
+    #define RGB_MATRIX_STARTUP_SAT 255
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
 #endif
