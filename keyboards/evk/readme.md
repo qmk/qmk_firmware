@@ -1,0 +1,7 @@
+![Ergonomic Vertical Keyboard](https://github.com/YangPiCui/ErgonomicVerticalKeyboard)
+
+This keyboard tries to delete our humpback.
+
+* Maintainer: [Yang Cui](https://github.com/YangPiCui)
+* Hardware Supported:
+  * evk_1dot3: Teensy 2.0
