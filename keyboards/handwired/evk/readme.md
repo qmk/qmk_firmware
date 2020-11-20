@@ -7,4 +7,4 @@ The Ergonomic Vertical Keyboard tries to delete our humpback.
 
 * Maintainer: [Yang Cui](https://github.com/YangPiCui)
 * Hardware Supported:
-  * evk_1dot3: Teensy 2.0
+  * [evk_1dot3](evk_1dot3/): Ergonomic Vertical Keyboard version 1.3 with Teensy 2.0
