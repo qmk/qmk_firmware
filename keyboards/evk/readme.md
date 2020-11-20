@@ -1,6 +1,8 @@
+# Ergonomic Vertical Keyboard
+
 ![Ergonomic Vertical Keyboard](https://github.com/YangPiCui/ErgonomicVerticalKeyboard)
 
-This keyboard tries to delete our humpback.
+[Ergonomic Vertical Keyboard](https://github.com/YangPiCui/ErgonomicVerticalKeyboard) tries to delete our humpback.
 
 * Maintainer: [Yang Cui](https://github.com/YangPiCui)
 * Hardware Supported:

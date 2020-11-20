@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2019 RedForty
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +17,6 @@
 
 #include "quantum.h"
 
-#define ___ KC_NO
-
-#ifdef KEYBOARD_maxipad_promicro
-    #include "promicro.h"
-#elif KEYBOARD_maxipad_teensy2
-    #include "teensy2.h"
-#endif
-
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -33,35 +25,18 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_grid( \
+#define LAYOUT(\
     k00, k01, k02, k03, k04, k05, \
     k10, k11, k12, k13, k14, k15, \
     k20, k21, k22, k23, k24, k25, \
     k30, k31, k32, k33, k34, k35, \
-    k40, k41, k42, k43, k44, k45 \
-) \
-{ \
-    { k00, k01, k02, k03, k04, k05 }, \
-    { k10, k11, k12, k13, k14, k15 }, \
-    { k20, k21, k22, k23, k24, k25 }, \
-    { k30, k31, k32, k33, k34, k35 }, \
-    { k40, k41, k42, k43, k44, k45 } \
+    k40, k41, k42, k43, k44,      \
+    k50, k51, k52, k53, k54, k55  \
+) { \
+    { k00,   k01,   k02,   k03,   k04,   k05 }, \
+    { k10,   k11,   k12,   k13,   k14,   k15 }, \
+    { k20,   k21,   k22,   k23,   k24,   k25 }, \
+    { k30,   k31,   k32,   k33,   k34,   k35 }, \
+    { k40,   k41,   k42,   k43,   k44,   KC_NO }, \
+    { k50,   k51,   k52,   k53,   k54,   k55 }  \
 }
-
-#define LAYOUT_1x2uC( \
-    k00, k01, k02, k03, k04, k05, \
-    k10, k11, k12, k13, k14, k15, \
-    k20, k21, k22, k23, k24, k25, \
-    k30, k31, k32, k33, k34, k35, \
-    k40, k41, k42, k43,    k44   \
-) \
-{ \
-    { k00, k01, k02, k03, k04, k05 }, \
-    { k10, k11, k12, k13, k14, k15 }, \
-    { k20, k21, k22, k23, k24, k25 }, \
-    { k30, k31, k32, k33, k34, k35 }, \
-    { k40, k41, k42, k43, ___, k44 } \
-}
-
-#define LAYOUT LAYOUT_grid
-#define LAYOUT_ortho_5x6 LAYOUT_grid

@@ -1,1 +1,1 @@
-# The default keymap for maxipad
+# The default keymap for dactyl_left

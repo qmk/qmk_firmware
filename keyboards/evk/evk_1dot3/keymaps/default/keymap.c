@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2019 RedForty
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,19 +15,43 @@
  */
 #include QMK_KEYBOARD_H
 
+// Defines the keycodes used by our macros in process_record_user
+enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    \
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    \
-    MO(1),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    \
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    \
-    KC_LCTL, KC_LALT, MO(1),   KC_ENT,  KC_GRV,  KC_SPC   \
-  ),
-  [1] = LAYOUT(
-    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   \
-    _______, _______, KC_UP,   _______, _______, _______, \
-    _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
-    _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______  \
-  ),
+    [0] = LAYOUT(/* Base */
+                 KC_SPC, KC_1, KC_2, KC_3, KC_4, KC_5, 
+                 KC_SPC, KC_Q, KC_W, KC_E, KC_R, KC_T, 
+                 KC_SPC, KC_A, KC_S, KC_D, KC_F, KC_G, 
+                 KC_SPC, KC_Z, KC_X, KC_C, KC_V, KC_B, 
+                 KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, 
+                 KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_SPC),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QMKBEST:
+            if (record->event.pressed) {
+                // when keycode QMKBEST is pressed
+                SEND_STRING("QMK is the best thing ever!");
+            } else {
+                // when keycode QMKBEST is released
+            }
+            break;
+        case QMKURL:
+            if (record->event.pressed) {
+                // when keycode QMKURL is pressed
+                SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+            } else {
+                // when keycode QMKURL is released
+            }
+            break;
+    }
+    return true;
+}
+
+void matrix_init_user(void) {}
+
+void matrix_scan_user(void) {}
+
+void led_set_user(uint8_t usb_led) {}
