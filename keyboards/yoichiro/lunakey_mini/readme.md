@@ -1,6 +1,6 @@
 # Lunakey Mini
 
-![lunakey_mini](https://i.imgur.com/b1oUINi.jpg)
+![lunakey_mini](https://i.imgur.com/b1oUINil.jpg)
 
 This is a 40% split keyboard which has 3x6 vertically staggered keys and 4 thumbnail keys.
 
