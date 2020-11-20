@@ -12,6 +12,12 @@ The Boardrun is an evolution of the Boardwalk layout. The Boardwalk proved that 
 
 Make example for this keyboard (after setting up your build environment):
 
+    make boardrun/classic:default
+
+Flashing example for this keyboard:
+    
     make boardrun/classic:default:flash
+
+The board may be reset into bootloader mode via either the reset button (on the bottom of the PCB) or a configured RESET shortcut (which may vary depending on when the PCB was flashed).
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
