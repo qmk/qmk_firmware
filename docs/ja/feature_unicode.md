@@ -47,7 +47,7 @@ UNICODE_ENABLE = yes
 UNICODEMAP_ENABLE = yes
 ```
 
-次に、`X(i)` キーコードをキーマップに追加します。ここで _i_ はマッピングテーブル内の目的の文字のインデックスです。これは数値にすることができますが、インデックスを列挙型に保持し、名前でアクセスすることをお勧めします。
+次に、`X(i)` キーコードをキーマップに追加します。ここで _i_ はマッピングテーブル内の目的の文字のインデックスです。これは数値にできますが、インデックスを列挙型に保持し、名前でアクセスすることをお勧めします。
 
 ```c
 enum unicode_names {
@@ -71,7 +71,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 これは特殊文字がある国際レイアウトのためのキーマップを作成している時に最も役立ちます。別々のキーに文字の大文字および小文字バージョンを置く代わりに、`XP()` を使ってそれら両方を同じキーに持つことができます。これは Unicode キーを通常のアルファベットと混ぜるのに役立ちます。
 
-キーコードのサイズの制約により、_i_ と _j_ はそれぞれ `unicode_map` の最初の128文字のうち1つだけを参照することができます。別の言い方をすると、0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127 です。これはほとんどのユースケースで十分ですが、インデックス計算をカスタマイズしたい場合は、[`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) 関数を上書きすることができます。これにより、例えば Shift/Caps の代わりに Ctrl をチェックすることもできます。
+キーコードのサイズの制約により、_i_ と _j_ はそれぞれ `unicode_map` の最初の128文字のうち1つだけを参照できます。別の言い方をすると、0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127 です。これはほとんどのユースケースで十分ですが、インデックス計算をカスタマイズしたい場合は、[`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) 関数を上書きすることができます。これにより、例えば Shift/Caps の代わりに Ctrl をチェックすることもできます。
 
 <br>
 
@@ -102,7 +102,7 @@ UCIS 入力を使うには、`qk_ucis_start()` を呼び出します。次に、
 
 #### カスタマイズ
 
-この機能をカスタマイズするためにキーマップで定義することができる幾つかの関数があります。
+この機能をカスタマイズするためにキーマップで定義できる幾つかの関数があります。
 
 * `void qk_ucis_start_user(void)` – これは "start" 関数を呼び出す時に実行され、フィードバックを提供するために使うことができます。デフォルトでは、キーボードの絵文字を入力します。
 * `void qk_ucis_success(uint8_t symbol_index)` – これは入力が何かに一致して完了した時に実行されます。デフォルトでは何もしません。
@@ -120,7 +120,7 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 * **`UC_MAC`**: macOS の組み込み Unicode16 進数入力。`0x10FFFF` までのコードポイントをサポートします (全ての利用可能なコードポイント)。
 
    有効にするには、_System Preferences > Keyboard > Input Sources_ に移動し、(_Other_ の下の)リストに _Unicode Hex Input_ を追加し、次にメニューバーの入力ドロップダウンからそれをアクティブにします。
-デフォルトでは、このモードは Unicode 入力のために左オプションキー (`KC_LALT`) を使いますが、これは他のキーで [`UNICODE_KEY_MAC`](#input-key-configuration) を定義することで変更することができます。
+デフォルトでは、このモードは Unicode 入力のために左オプションキー (`KC_LALT`) を使いますが、これは他のキーで [`UNICODE_KEY_MAC`](#input-key-configuration) を定義することで変更できます。
 
    !> _Unicode Hex Input_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかのオプションベースのショートカットを無効にするかもしれません。
 
@@ -133,7 +133,7 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 
 * **`UC_WIN`**: _(非推奨)_ Windows の組み込み16進数テンキー Unicode 入力。`0xFFFF` までのコードポイントをサポートします。
 
-   有効にするには、`HKEY_CURRENT_USER\Control Panel\Input Method` の下に、`EnableHexNumpad` という名前の `REG_SZ` 型を作成し、その値を `1` に設定します。これは、コマンドラインプロンプトから `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` を管理者権限で実行することで行うことができます。その後再起動します。
+   有効にするには、`HKEY_CURRENT_USER\Control Panel\Input Method` の下に、`EnableHexNumpad` という名前の `REG_SZ` 型を作成し、その値を `1` に設定します。これは、コマンドラインプロンプトから `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` を管理者権限で実行することでできます。その後再起動します。
 信頼性と互換性の問題から、このモードはお勧めできません; 代わりに `UC_WINC` モードを使ってください。
 
 * **`UC_BSD`**: _(未実装)_ BSD での Unicode 入力。現時点では実装されていません。BSD ユーザでサポートを追加したい場合は、[GitHub で issue を開いて](https://github.com/qmk/qmk_firmware/issues)ください。
@@ -141,7 +141,7 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 * **`UC_WINC`**: [WinCompose](https://github.com/samhocevar/wincompose) を使った Windows Unicode 入力。v0.9.0 の時点で、`0x10FFFF` (全ての利用可能なコードポイント)をサポートします。
 
    有効にするには、[最新のリリース](https://github.com/samhocevar/wincompose/releases/latest)をインストールします。インストールすると、起動時に WinCompose が自動的に実行されます。このモードはアプリがサポートする全てのバージョンの Windows で確実に動作します。
-デフォルトでは、このモードは Compose キーとして右Alt (`KC_RALT`) を使いますが、これは WinCompose 設定と他のキーで [`UNICODE_KEY_WINC`](#input-key-configuration) を定義することで変更することができます。
+デフォルトでは、このモードは Compose キーとして右Alt (`KC_RALT`) を使いますが、これは WinCompose 設定と他のキーで [`UNICODE_KEY_WINC`](#input-key-configuration) を定義することで変更できます。
 
 
 ## 3. 入力モードの設定 :id=setting-the-input-mode
@@ -182,7 +182,7 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 
 #### オーディオフィードバック
 
-キーボードで[オーディオ機能](ja/feature_audio.md)を有効にした場合、上記のキーを押したときにメロディーを再生するように設定することができます。そのようにして、入力モードを切り替えた時になんらかのオーディオフィードバックを得ることができます。
+キーボードで[オーディオ機能](ja/feature_audio.md)を有効にした場合、上記のキーを押したときにメロディーを再生するように設定できます。そのようにして、入力モードを切り替えた時になんらかのオーディオフィードバックを得ることができます。
 
 例えば、`config.h` ファイルに下記の定義を追加することができます:
 
@@ -201,7 +201,7 @@ Unicode は大規模で多目的な機能のため、システムでより適切
 
 ### 入力関数の開始と終了
 
-プラットフォームで Unicode 入力を開始および終了する機能は、ローカルで上書きすることができます。可能な用途には、デフォルトキーを使用しない場合の入力モードの挙動のカスタマイズ、あるいは Unicode 入力への視覚/音声フィードバックの追加があります。
+プラットフォームで Unicode 入力を開始および終了する機能は、ローカルで上書きできます。可能な用途には、デフォルトキーを使用しない場合の入力モードの挙動のカスタマイズ、あるいは Unicode 入力への視覚/音声フィードバックの追加があります。
 
 * `void unicode_input_start(void)` – これはプラットフォームに Unicode 入力モードの入力を指示する初期シーケンスを送信します。例えば、Windows では左 Alt キーの後に Num+ を押したままにし、Linux では `UNICODE_KEY_LNX` の組み合わせ(デフォルト: Ctrl+Shift+U) を押します。
 * `void unicode_input_finish(void)` – これは、例えば Space を押すか Alt キーを放すなどして、Unicode 入力モードを終了するために呼ばれます。
@@ -210,7 +210,7 @@ Unicode は大規模で多目的な機能のため、システムでより適切
 
 ### 入力キーの設定
 
-`config.h` に対応する定義を追加することで、macOS、Linux、WinCompose で Unicode 入力を引き起こすために使われるキーをカスタマイズすることができます。デフォルト値はプラットフォームのデフォルト設定に一致するため、Unicode 入力が動作しない、あるいは(例えば左あるいは右 Alt を解放するために)異なるキーを使いたい場合はこれを変更する必要はありません。
+`config.h` に対応する定義を追加することで、macOS、Linux、WinCompose で Unicode 入力を引き起こすために使われるキーをカスタマイズできます。デフォルト値はプラットフォームのデフォルト設定に一致するため、Unicode 入力が動作しない、あるいは(例えば左あるいは右 Alt を解放するために)異なるキーを使いたい場合はこれを変更する必要はありません。
 
 | 定義               | 型         | 既定値             | 例                                          |
 |--------------------|------------|--------------------|---------------------------------------------|
@@ -241,7 +241,7 @@ send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
 send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
 ```
 
-[このサイト](https://r12a.github.io/app-conversion/)で結果を "Hex/UTF-32" で取ることで、Unicode 文字列をこの形式に簡単に変換することができます。
+[このサイト](https://r12a.github.io/app-conversion/)で結果を "Hex/UTF-32" で取ることで、Unicode 文字列をこの形式に簡単に変換できます。
 
 
 ## 追加の言語サポート
@@ -263,7 +263,7 @@ mod-tabコンボ `LCAG_T` 用に定義されたマクロがあります。
 この mod-tab マクロをキーボードのキーに追加します。例えば: `LCAG_T(KC_TAB)`。
 これにより、キーを押してすぐ放すとキーはタブキーのように振る舞いますが、他のキーと一緒に使うとモディファイアに変わります。
 
-AutoHotkey のデフォルトのスクリプトで、カスタムホットキーを定義することができます。
+AutoHotkey のデフォルトのスクリプトで、カスタムホットキーを定義できます。
 
     <^<!<#a::Send, ä
     <^<!<#<+a::Send, Ä
