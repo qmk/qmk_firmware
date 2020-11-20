@@ -1,4 +1,4 @@
-# ![Ergonomic Vertical Keyboard](https://github.com/YangPiCui/ErgonomicVerticalKeyboard)
+# [Ergonomic Vertical Keyboard](https://github.com/YangPiCui/ErgonomicVerticalKeyboard)
 
 The Ergonomic Vertical Keyboard tries to delete our humpback.
 
