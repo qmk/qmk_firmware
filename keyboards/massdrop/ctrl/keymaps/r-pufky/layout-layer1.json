@@ -1,6 +1,0 @@
-[{c:"#a663db",a:5},"Eject",{x:1,c:"#cccccc"},"F13","F14","F15","F16",{x:0.5},"F17","F18","F19","F20",{x:0.5},"F21","F22","F23","F24",{x:0.25,c:"#a663db"},"Mute",{c:"#cccccc",a:7},"",""],
-[{y:0.5},"","","","","","","","","","","","","",{w:2},"",{x:0.25,c:"#a663db",a:5},"Play","Stop","Vol+"],
-[{c:"#cccccc",a:7,w:1.5},"",{c:"#eba463",a:5},"RBG\nSpd-","RGB\nBright+","RGB\nSpd+","RGB\nEdge+","RGB\nSat+",{c:"#cccccc",a:7},"","","","","","","",{w:1.5},"",{x:0.25,c:"#a663db",a:5},"Prev","Next","Vol-"],
-[{c:"#cccccc",w:1.75},"Caps Lock",{c:"#eba463"},"RGB\nPatt-","RGB\nBright-","RGB\nPatt+","RGB\nEdge-","RGB\nSat-",{c:"#cccccc",a:7},"",{c:"#ff6161",a:5},"USB\nAuto","GCR\nAuto",{c:"#cccccc",a:7},"","","",{w:2.25},""],
-[{w:2.25},"",{c:"#eba463",a:5},"RGB\nOn/Off",{c:"#cccccc",a:7},"","","",{c:"#3e88de",a:5},"Boot\nLoader","NKRO\nOn/Off",{c:"#cccccc",a:7},"","","","",{w:2.75},"",{x:1.25,a:5},"Bright+"],
-[{a:7,w:1.25},"",{w:1.25},"",{w:1.25},"",{w:6.25},"",{w:1.25},"",{w:1.25},"",{w:1.25},"",{w:1.25},"",{x:0.25,c:"#a663db",a:5},"OSX\nPrev",{c:"#cccccc"},"Bright-",{c:"#a663db"},"OSX\nNext"]
