@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F072
+MCU = STM32F072xB
 
 # Build Options
 #   comment out to disable the options.

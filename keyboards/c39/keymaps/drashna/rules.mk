@@ -1,4 +1,4 @@
-MCU = STM32F303
+MCU = STM32F303xC
 BOOTLOADER =
 
 BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration(+1000)

@@ -1,4 +1,4 @@
-MCU = STM32F103
+MCU = STM32F103x8
 
 # Bootloader selection
 BOOTLOADER = stm32duino

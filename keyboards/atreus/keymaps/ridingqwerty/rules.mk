@@ -1,4 +1,4 @@
-MCU = STM32F303
+MCU = STM32F303xC
 
 # Build Options
 #   comment out to disable the options.
