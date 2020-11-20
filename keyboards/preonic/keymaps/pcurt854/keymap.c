@@ -185,23 +185,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Bracket layer 5
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |    < | <|>  | >    |      | ____ |
+ * |      |plain |breath|      |      |      |      |    < | <|>  | >    |      | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |    ( | (|)  | )    |      | ____ |
+ * |      |snake |knight|      | rgb  | saT+ |      |    ( | (|)  | )    |      | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |    [ | [|]  | ]    |      |      |
+ * |      |rainbw|gradnt|      |      | mod+ | Hue+ |    [ | [|]  | ]    |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |    { | {|}  | }    |      |      |
+ * |      |swirl | Xmas | test |      | Brt+ |      |    { | {|}  | }    |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_BRACKET] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LABK, ABKPAIR, KC_RABK, XXXXXXX, _______,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, XXXXXXX, _______,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, SBKPAIR, KC_RBRC, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, XXXXXXX, XXXXXXX,
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  XXXXXXX, RGB_M_P,  RGB_M_B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LABK, ABKPAIR, KC_RABK, XXXXXXX, _______,
+  XXXXXXX, RGB_M_SN, RGB_M_K, XXXXXXX, RGB_TOG, RGB_SAI, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, XXXXXXX, _______,
+  XXXXXXX, RGB_M_R,  RGB_M_G, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUI, KC_LBRC, SBKPAIR, KC_RBRC, XXXXXXX, XXXXXXX,
+  XXXXXXX, RGB_M_SW, RGB_M_X, RGB_M_T, XXXXXXX, RGB_VAI, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, XXXXXXX, XXXXXXX,
+  _______, _______,  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* Adjust layer 6
@@ -211,14 +211,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Qwerty|Colemk|Dvorak| rgb  | rgb  |      |      |      |      |Print |RESET |
- * |      |      |      |      | 0/1  | saT+ |      |      |      |      |screen|RESET |
+ * |      |Qwerty|Colemk|Dvorak|      |      |      |      |      |      |Print |RESET |
+ * |      |      |      |      |      |      |      |      |      |      |screen|RESET |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |Sleep |show  | rgb  | rgb  |finder|mv win|      |Lock  |      |      |
- * |      |      |      |Dsktp | hue+ | mod+ |Hddn  |clkw  |      |screen|      |      |
+ * |      |      |Sleep |show  |      |      |finder|mv win|      |Lock  |      |      |
+ * |      |      |      |Dsktp |      |      |Hddn  |clkw  |      |screen|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      | Caps |Virus | rgb  |      | Mute | vol+ |      | dsp+ |      |
- * |      |      |      |      |scan  | Brit+|      |      |      |      |      |      |
+ * |      |      |      | Caps |Virus |      |      | Mute | vol+ |      | dsp+ |      |
+ * |      |      |      |      |scan  |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      |      |      |      | vol- |      | dsp- |      |
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -226,13 +226,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  RGB_TOG, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), RESET,
+  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), RESET,
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
-                                      RGB_HUI, RGB_MOD, SCMD(KC_DOT),
+                                      XXXXXXX, XXXXXXX, SCMD(KC_DOT),
                                                                  LCA(KC_J), XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, SCMD(KC_V),
-                                               RGB_VAI, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, LCAG(KC_UP), XXXXXXX,
+                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, LCAG(KC_UP), XXXXXXX,
   _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, LCAG(KC_DOWN), XXXXXXX
 )
 
