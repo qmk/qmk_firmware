@@ -4,7 +4,7 @@
 
 I am an okay letter typist, but often need to look and find special symbols, like $ and ^, on the top row.
 
-The numpad on a full-sized keyboard is helpful.  But it's simply too far away.  Staggered keyboard makes it awkward to move the numpad in.  Preonic is ortholinear, and of the right size.  It's quite natural to move the numpad in on a preonic.
+When entering numbers, I like to use the numpad.  But the numpad on a full-sized keyboard is simply too far away.  Staggered keyboard makes it awkward to move the numpad in.  Preonic is ortholinear, and of the right size.  It's quite natural to move the numpad in on a preonic.
 
 Special symbols like $ and ^ are assigned to keys corresponding to their names.
 
@@ -16,9 +16,9 @@ The middle section, from 1 to 0, plus three rows of letters, follows the traditi
 
 The left border, from top to bottom: Esc when tapped and ~ with Shift and ` with Command, Tab, Esc when tapped and Control when held, and One shot layer 5.
 
-The right border: Backspace, Tap dancing leader key, quotes, and Layer 6.
+The right border: Backspace, Tap dancing leader key, quotes, and One shot layer 6.
 
-Bottom row, left to right: One shot modifier Left shift, Control, Option, Command, One shot layer 4, Enter, Space, Layer 3 double tap to toggle, Slash, Left, Down, and Right.
+Bottom row, left to right: One shot modifier Left shift, Control, Option, Command, One shot layer 4, Enter, Space, Layer 3 double tap to toggle, Slash (moved here to allow for a traditional cluster of arrows), Left, Down, and Right.
 
 ### Layer 1
 
@@ -34,9 +34,7 @@ Border: Same as QWERTY
 
 ### Layer 3
 
-Numpad and common operators around it.
-
-Brackets <> () [] {}
+Numpad and common operators around it, with the left of board filled with rows of 1-5 and 6-0.
 
 Home/End/Page Up/Down in place of arrow keys.
 
@@ -48,25 +46,26 @@ pLus (+), eQual (=), pIpe (|)
 
 anD (&), dollaR ($)
 
-At (@), Backslash (\), Circumflex (^), Exclamation (!), Grave (`), Hash (#), Percent (%), Star (*), Tilde (~), Underscore (_)
+At (@), Backslash (\\), Circumflex (^), Exclamation (!), Grave (`), Hash (#), Percent (%), Star (*), Tilde (~), Underscore (_)
 
 minus (\-) is put on J so it's under Underscore, easy to access, and matches the bump on J
 
+Same Home/End/Page Up/Down cluster as that on Layer 3.
+
 ### Layer 5
 
-Layout switches and other special functions.
+Reset, Caps lock. Base layer switches, RGB backlight controls, Volume controls, and other special functions.
 
 ### Layer 6
 
-Numbers arranged in rows of 1-5 and 6-0.
+Brackets
 
-### To indentify layers
+### RGB backlight
 
-I turned on preonic RGB backlight for Cap locks and layers 3 and above.
+... is used to indicate the status of Cap locks and which of the higher layers is on.
 
 ### Tap dancing
 
-With the leader key, tap dance the brackets: <> () [] {},
-with the cursor returned to the middle.
+With the leader key, tap dance the brackets: <> () [] {}, Cap lock, and some simple phrases.
 
 
