@@ -1,4 +1,4 @@
-/* Copyright 2019 gtips
+/* Copyright 2020 Ungodly Design <hello@ungodly.design>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ #include QMK_KEYBOARD_H
 
-#pragma once
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// place overrides here
+[0] = LAYOUT_ortho_3x3(
+    KC_MPLY, KC_HOME, KC_MUTE,
+    MO(1),   KC_UP,   KC_END,
+    KC_LEFT, KC_DOWN, KC_RGHT
+),
 
+[1] = LAYOUT_ortho_3x3(
+    RESET,   _______, KC_STOP,
+    _______, KC_HOME, _______,
+    KC_MPRV, KC_END , KC_MNXT
+)
+
+};
