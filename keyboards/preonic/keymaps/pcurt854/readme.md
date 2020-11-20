@@ -2,13 +2,11 @@
 
 ### My problem and using preonic to solve it
 
-I am an okay letter typist, but often need to look and find special symbols, like $ and ^, on the top row.
+I am an okay letter typist, but often need to look and find special symbols, like $ and ^, on the top row.  Using layers, I assigned special symbols to keys corresponding to their names.
 
-When entering numbers, I like to use the numpad.  But the numpad on a full-sized keyboard is simply too far away.  Staggered keyboard makes it awkward to move the numpad in.  Preonic is ortholinear, and of the right size.  It's quite natural to move the numpad in on a preonic.
+When entering numbers, I like to use the numpad.  But the numpad on a full-sized keyboard is simply too far away.  Staggered keyboard makes it awkward to move the numpad in.  Preonic is ortholinear, and of the right size.  It's quite natural to move the numpad in.  Along the side of the numpad, I also included rows of 1-5 and 6-0.  Sometimes, it's simpler to enter numbers this way.
 
-Special symbols like $ and ^ are assigned to keys corresponding to their names.
-
-For programmers, parentheses, brackets, and braces are important.  They are moved to the middle of the keyboard in an easy to remember layout as well.
+For programmers, parentheses, brackets, and braces are important.  They are moved to under the fingers in an easy to remember layout as well.
 
 ### Layer 0
 
@@ -34,9 +32,9 @@ Border: Same as QWERTY
 
 ### Layer 3
 
-Numpad and common operators around it, with the left of board filled with rows of 1-5 and 6-0.
+Numpad and common operators around it, with the left of board filled with rows of 1-5 and 6-0
 
-Home/End/Page Up/Down in place of arrow keys.
+Home/End/Page Up/Down in place of arrow keys
 
 ### Layer 4
 
@@ -50,15 +48,15 @@ At (@), Backslash (\\), Circumflex (^), Exclamation (!), Grave (`), Hash (#), Pe
 
 minus (\-) is put on J so it's under Underscore, easy to access, and matches the bump on J
 
-Same Home/End/Page Up/Down cluster as that on Layer 3.
+Same Home/End/Page Up/Down cluster as that on Layer 3
 
 ### Layer 5
 
-Reset, Caps lock. Base layer switches, RGB backlight controls, Volume controls, and other special functions.
+Brackets
 
 ### Layer 6
 
-Brackets
+Reset, Caps lock. Base layer switches, RGB backlight controls, Volume controls, and other special functions
 
 ### RGB backlight
 
@@ -66,6 +64,6 @@ Brackets
 
 ### Tap dancing
 
-With the leader key, tap dance the brackets: <> () [] {}, Cap lock, and some simple phrases.
+With the Leader key, Tap dance the brackets: <> () [] {}, Cap lock, and some simple phrases.
 
 
