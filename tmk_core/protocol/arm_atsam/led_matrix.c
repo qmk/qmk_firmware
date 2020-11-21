@@ -311,9 +311,11 @@ void led_matrix_indicators(void) {
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
 #endif  // KANA
                 (0)) {
-                led_buffer[i].r = 255 - led_buffer[i].r;
-                led_buffer[i].g = 255 - led_buffer[i].g;
-                led_buffer[i].b = 255 - led_buffer[i].b;
+                if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
+                    led_buffer[i].r = 255 - led_buffer[i].r;
+                    led_buffer[i].g = 255 - led_buffer[i].g;
+                    led_buffer[i].b = 255 - led_buffer[i].b;
+                }
             }
         }
     }

@@ -60,6 +60,11 @@ typedef struct {
     USB_Descriptor_Interface_t Keyboard_Interface;
     USB_HID_Descriptor_HID_t   Keyboard_HID;
     USB_Descriptor_Endpoint_t  Keyboard_INEndpoint;
+#else
+    // Shared Interface
+    USB_Descriptor_Interface_t Shared_Interface;
+    USB_HID_Descriptor_HID_t   Shared_HID;
+    USB_Descriptor_Endpoint_t  Shared_INEndpoint;
 #endif
 
 #ifdef RAW_ENABLE
@@ -77,7 +82,7 @@ typedef struct {
     USB_Descriptor_Endpoint_t  Mouse_INEndpoint;
 #endif
 
-#ifdef SHARED_EP_ENABLE
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     // Shared Interface
     USB_Descriptor_Interface_t Shared_Interface;
     USB_HID_Descriptor_HID_t   Shared_HID;
@@ -139,6 +144,7 @@ enum usb_interfaces {
 #ifndef KEYBOARD_SHARED_EP
     KEYBOARD_INTERFACE,
 #else
+    SHARED_INTERFACE,
 #    define KEYBOARD_INTERFACE SHARED_INTERFACE
 #endif
 
@@ -153,7 +159,7 @@ enum usb_interfaces {
     MOUSE_INTERFACE,
 #endif
 
-#ifdef SHARED_EP_ENABLE
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     SHARED_INTERFACE,
 #endif
 
