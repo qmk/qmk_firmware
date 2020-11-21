@@ -13,63 +13,27 @@ An example of using `sudo`, when your controller is ATMega32u4:
 
 or just:
 
-    $ sudo make <keyboard>:<keymap>:dfu
+    $ sudo make <keyboard>:<keymap>:flash
 
 Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
 
 ### Linux `udev` Rules
-On Linux, you'll need proper privileges to access the MCU. You can either use
-`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`. Once added run the following:
-```console
+
+On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or place [this file](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules) into `/etc/udev/rules.d/`.
+
+Once added, run the following:
+
+```
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
-**/etc/udev/rules.d/50-atmel-dfu.rules:**
-```
-# Atmel ATMega32U4
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", TAG+="uaccess", RUN{builtin}+="uaccess"
-# Atmel USBKEY AT90USB1287
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", TAG+="uaccess", RUN{builtin}+="uaccess"
-# Atmel ATMega32U2
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", TAG+="uaccess", RUN{builtin}+="uaccess"
-```
-
-**/etc/udev/rules.d/54-input-club-keyboard.rules:**
+**Note:** With older versions of ModemManager (< 1.12), filtering only works when not in strict mode. The following commands can update that setting:
 
 ```
-# Input Club keyboard bootloader
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", ATTRS{idProduct}=="b007", TAG+="uaccess", RUN{builtin}+="uaccess"
-```
-
-**/etc/udev/rules.d/55-caterina.rules:**
-```
-# ModemManager should ignore the following devices
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9205", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-```
-
-**Note:** With older (before 1.12) ModemManager, filtering only works when not in strict mode, the following commands can update that settings:
-```console
 printf '[Service]\nExecStart=\nExecStart=/usr/sbin/ModemManager --filter-policy=default' | sudo tee /etc/systemd/system/ModemManager.service.d/policy.conf
 sudo systemctl daemon-reload
 sudo systemctl restart ModemManager
-```
-
-**/etc/udev/rules.d/56-dfu-util.rules:**
-```
-# stm32duino
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", TAG+="uaccess", RUN{builtin}+="uaccess"
-# Generic stm32
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess", RUN{builtin}+="uaccess"
-```
-
-**/etc/udev/rules.d/57-bootloadhid.rules:**
-```
-# bootloadHID
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 ### Serial device is not detected in bootloader mode on Linux
@@ -95,46 +59,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
-## BOOTLOADER_SIZE for AVR
-Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
-
-```
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 2048
-#   Atmel DFU loader 4096       (TMK Alt Controller)
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=2048
-```
-
-## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
-
-This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
-
-The solution is to remove and reinstall all affected modules.
-
-```
-brew rm avr-gcc avr-gcc@8 dfu-programmer dfu-util gcc-arm-none-eabi arm-gcc-bin@8 avrdude qmk
-brew install qmk/qmk/qmk
-brew link --force avr-gcc@8
-brew link --force arm-gcc-bin@8
-```
-
-### `avr-gcc` and LUFA
-
-If you updated your `avr-gcc` and you see errors involving LUFA, for example:
-
-`lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
-
-For now, you need to rollback `avr-gcc` to 8 in Homebrew.
-
-```
-brew uninstall --force avr-gcc
-brew install avr-gcc@8
-brew link --force avr-gcc@8
-```
 
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
 Due to how EEPROM works on ARM based chips, saved settings may no longer be valid.  This affects the default layers, and *may*, under certain circumstances we are still figuring out, make the keyboard unusable.  Resetting the EEPROM will correct this.
