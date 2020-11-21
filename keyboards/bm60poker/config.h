@@ -1,5 +1,5 @@
 /*
-Copyright 2020 REPLACE_WITH_YOUR_NAME
+Copyright 2020 ipetepete
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
 #define PRODUCT         KP Republic BM60 RGB POKER
-#define DESCRIPTION     An RGB 60% hotswappable standard ansi layout board
 
 /* key matrix size */
 #define MATRIX_ROWS 5
