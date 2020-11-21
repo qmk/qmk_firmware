@@ -29,7 +29,6 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
     [_BASE] = LAYOUT(
     KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, KC_NO    , KC_NO   ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
     CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , KC_NO    , KC_NO   ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , \
@@ -43,34 +42,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
-    }
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+void matrix_init_user() {
 }
 
-// static void render_logo(void) {
-//     static const char PROGMEM qmk_logo[] = {
-//         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
-//         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
-//         0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
-//     };
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+    return rotation;
+}
 
-//     oled_write_P(qmk_logo, false);
-// }
+static void render_logo(void) {
+    static const char PROGMEM qmk_logo[] = {
+      0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0x9f, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xb5, 0xb6, 0xb7, 0xb8, 0xb9, 0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0xbf, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5, 0xd6, 0xd7, 0xd8, 0xd9, 0xda, 0xdb, 0xdc, 0xdd, 0xde, 0xdf, 0xe0, 0xe1, 0xe2, 0xe3, 0xe4, 0x0
+    };
+    oled_write_P(qmk_logo, false);
+}
+
+void oled_task_user(void) {
+    if (is_keyboard_master()) {
+        render_logo();
+    } else {
+        render_logo();  // Renders a static logo
+        // oled_scroll_left();  // Turns on scrolling
+    }
+}
 #endif

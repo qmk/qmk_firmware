@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0009
+#define VENDOR_ID    0xE2A1
+#define PRODUCT_ID   0x0742
+#define DEVICE_VER   0x0001
 #define MANUFACTURER eswai
 #define PRODUCT      742
 
@@ -54,6 +54,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 #define SPLIT_USB_DETECT
 #define MASTER_LEFT
+
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 1000
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -115,3 +118,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
+
+#define OLED_FONT_H "naginata_font.c"
