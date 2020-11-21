@@ -43,6 +43,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 Closed PRs (for inspiration, previous sets of review comments will help you eliminate ping-pong of your own reviews):
 https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
+- Should follow the [naming conventions](https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject)
 - `info.json`
     - valid URL
     - valid maintainer

@@ -1,11 +1,22 @@
 """Command to look over a keyboard/keymap and check for common mistakes.
 """
+import re
+from pathlib import Path
+
 from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard, keyboard
+
+
+def valid_keyboard_name(name):
+
+    values = Path(name).parts
+    valid_values = list(filter(lambda v: re.fullmatch(r'[a-z0-9][a-z0-9_]*', v), values))
+
+    return set(values) == set(valid_values)
 
 
 @cli.argument('--strict', action='store_true', help='Treat warnings as errors.')
@@ -45,6 +56,11 @@ def lint(cli):
     if not readme_path.exists():
         ok = False
         cli.log.error('Missing %s', readme_path)
+
+    # Check keyboard name is valid
+    if not valid_keyboard_name(cli.config.lint.keyboard):
+        ok = False
+        cli.log.error('Invalid keyboard name')
 
     # Keymap specific checks
     if cli.config.lint.keymap:
