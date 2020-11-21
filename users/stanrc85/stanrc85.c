@@ -44,8 +44,42 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+#if defined(HAS_INDICATORS)
+  static uint8_t led_user = 0;
+#endif
+
+void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
+  td_state = cur_dance(state);
+  switch (td_state) {
+    case SINGLE_TAP: // Ctl + Alt + Del to unlock workstation
+    tap_code16(KC_CAD);
+    #if defined(HAS_INDICATORS)
+      led_user = 0;
+      writePin(INDICATOR_PIN_0, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_1, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_2, !led_user);
+    #endif      
+      break;
+    case SINGLE_HOLD:
+      break;
+    case DOUBLE_TAP: //Lock workstation
+    tap_code16(KC_LOCK);
+    #if defined(HAS_INDICATORS)
+      led_user = 1;
+      writePin(INDICATOR_PIN_2, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_1, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_0, !led_user);
+    #endif    
+      break;
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_WIN] = ACTION_TAP_DANCE_DOUBLE(KC_CAD, KC_LOCK),
+  [TD_WIN] = ACTION_TAP_DANCE_FN(lock_unlock),
   [TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
   [TD_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_copy_finished, ctl_copy_reset)
 };
