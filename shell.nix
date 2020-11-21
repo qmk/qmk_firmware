@@ -2,8 +2,8 @@
 
 let
   nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/903266491b7b9b0379e88709feca0af900def0d9.tar.gz";
-    sha256 = "1b5wjrfgyha6s15k1yjyx41hvrpmd5szpkpkxk6l5hyrfqsr8wip";
+    url = "https://github.com/NixOS/nixpkgs/archive/c4b26e702044dbf40f8236136c099d8ab6778514.tar.gz";
+    sha256 = "0w6hgs01qzni3a7cvgadjlmcdlb6vay3w910vh4k9fc949ii7s60";
   };
 
   pkgs = import nixpkgs { };
@@ -25,6 +25,7 @@ let
     argcomplete
     colorama
     hjson
+    pygments
     # requirements-dev.txt
     nose2
     flake8

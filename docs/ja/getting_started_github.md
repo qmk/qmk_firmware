@@ -1,7 +1,7 @@
 # QMK で GitHub を使う方法
 
 <!---
-  original document: 0.8.82:docs/getting_started_github.md
+  original document: 0.9.43:docs/getting_started_github.md
   git diff 0.9.43 HEAD -- docs/getting_started_github.md | cat
 -->
 

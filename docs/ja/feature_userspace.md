@@ -1,8 +1,8 @@
 # ユーザスペース: キーマップ間でのコードの共有
 
 <!---
-  original document: 0.9.0:docs/feature_userspace.md
-  git diff 0.9.0 HEAD -- docs/feature_userspace.md | cat
+  original document: 0.9.43:docs/feature_userspace.md
+  git diff 0.9.43 HEAD -- docs/feature_userspace.md | cat
 -->
 
 似たキーマップを複数のキーボードで使う場合、それらの間でコードを共有できるという利点が得られることがあります。`users/`に以下の構造でキーマップ(理想的には GitHub のユーザ名、`<name>`)と同じ名前の独自のフォルダを作成します:
@@ -116,7 +116,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## 例
 
-簡単な例については、[`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna) を調べてください。
+簡単な例については、[`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example) を調べてください。
 より複雑な例については、[`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna) のユーザスペースを調べてください。
 
 
