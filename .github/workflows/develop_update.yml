@@ -24,7 +24,7 @@ jobs:
 
     - name: Check if branch locked
       run: |
-        test -e .locked || exit 1
+        test -e .locked
 
     - name: Update develop from master
       run: |
