@@ -18,9 +18,11 @@ import logging
 import os
 import re
 import shlex
+import subprocess
 import sys
 from decimal import Decimal
 from pathlib import Path
+from platform import platform
 from tempfile import NamedTemporaryFile
 from time import sleep
 
@@ -94,29 +96,54 @@ def format_ansi(text):
     return text + ansi_colors['style_reset_all']
 
 
-class ANSIFormatter(logging.Formatter):
-    """A log formatter that inserts ANSI color.
+class ANSIFormatterMixin(object):
+    """A log formatter mixin that inserts ANSI color.
     """
     def format(self, record):
-        msg = super(ANSIFormatter, self).format(record)
+        msg = super(ANSIFormatterMixin, self).format(record)
         return format_ansi(msg)
 
 
-class ANSIEmojiLoglevelFormatter(ANSIFormatter):
-    """A log formatter that makes the loglevel an emoji on UTF capable terminals.
+class ANSIStrippingMixin(object):
+    """A log formatter mixin that strips ANSI.
+    """
+    def format(self, record):
+        msg = super(ANSIStrippingMixin, self).format(record)
+        record.levelname = ansi_escape.sub('', record.levelname)
+        return ansi_escape.sub('', msg)
+
+
+class EmojiLoglevelMixin(object):
+    """A log formatter mixin that makes the loglevel an emoji on UTF capable terminals.
     """
     def format(self, record):
         if UNICODE_SUPPORT:
             record.levelname = EMOJI_LOGLEVELS[record.levelname].format(**ansi_colors)
-        return super(ANSIEmojiLoglevelFormatter, self).format(record)
+        return super(EmojiLoglevelMixin, self).format(record)
 
 
-class ANSIStrippingFormatter(ANSIFormatter):
-    """A log formatter that strips ANSI.
+class ANSIFormatter(ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that colorizes output.
     """
-    def format(self, record):
-        msg = super(ANSIStrippingFormatter, self).format(record)
-        return ansi_escape.sub('', msg)
+    pass
+
+
+class ANSIStrippingFormatter(ANSIStrippingMixin, ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that strips ANSI
+    """
+    pass
+
+
+class ANSIEmojiLoglevelFormatter(EmojiLoglevelMixin, ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that adds Emoji and ANSI
+    """
+    pass
+
+
+class ANSIStrippingEmojiLoglevelFormatter(ANSIStrippingMixin, EmojiLoglevelMixin, ANSIFormatterMixin, logging.Formatter):
+    """A log formatter that adds Emoji and strips ANSI
+    """
+    pass
 
 
 class Configuration(object):
@@ -288,11 +315,12 @@ class MILC(object):
         self.config_file = None
         self.default_arguments = {}
         self.version = 'unknown'
-        self.release_lock()
+        self.platform = platform()
 
         # Figure out our program name
         self.prog_name = sys.argv[0][:-3] if sys.argv[0].endswith('.py') else sys.argv[0]
         self.prog_name = self.prog_name.split('/')[-1]
+        self.release_lock()
 
         # Initialize all the things
         self.read_config_file()
@@ -315,6 +343,8 @@ class MILC(object):
         strings.
 
         If *args or **kwargs are passed they will be used to %-format the strings.
+
+        If `self.config.general.color` is False any ANSI escape sequences in the text will be stripped.
         """
         if args and kwargs:
             raise RuntimeError('You can only specify *args or **kwargs, not both!')
@@ -322,7 +352,26 @@ class MILC(object):
         args = args or kwargs
         text = format_ansi(text)
 
+        if not self.config.general.color:
+            text = ansi_escape.sub('', text)
+
         print(text % args)
+
+    def run(self, command, *args, **kwargs):
+        """Run a command with subprocess.run
+        The *args and **kwargs arguments get passed directly to `subprocess.run`.
+        """
+        if isinstance(command, str):
+            raise TypeError('`command` must be a non-text sequence such as list or tuple.')
+
+        if 'windows' in self.platform.lower():
+            safecmd = map(shlex.quote, command)
+            safecmd = ' '.join(safecmd)
+            command = [os.environ['SHELL'], '-c', safecmd]
+
+        self.log.debug('Running command: %s', command)
+
+        return subprocess.run(command, *args, **kwargs)
 
     def initialize_argparse(self):
         """Prepare to process arguments from sys.argv.
@@ -678,14 +727,13 @@ class MILC(object):
             self.log_print_level = logging.DEBUG
 
         self.log_file = self.config['general']['log_file'] or self.log_file
-        self.log_file_format = self.config['general']['log_file_fmt']
         self.log_file_format = ANSIStrippingFormatter(self.config['general']['log_file_fmt'], self.config['general']['datetime_fmt'])
         self.log_format = self.config['general']['log_fmt']
 
         if self.config.general.color:
-            self.log_format = ANSIEmojiLoglevelFormatter(self.args.log_fmt, self.config.general.datetime_fmt)
+            self.log_format = ANSIEmojiLoglevelFormatter(self.config.general.log_fmt, self.config.general.datetime_fmt)
         else:
-            self.log_format = ANSIStrippingFormatter(self.args.log_fmt, self.config.general.datetime_fmt)
+            self.log_format = ANSIStrippingEmojiLoglevelFormatter(self.config.general.log_fmt, self.config.general.datetime_fmt)
 
         if self.log_file:
             self.log_file_handler = logging.FileHandler(self.log_file, self.log_file_mode)

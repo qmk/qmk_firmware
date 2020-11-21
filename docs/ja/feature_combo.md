@@ -1,8 +1,8 @@
 # コンボ
 
 <!---
-  original document: 0.8.94:docs/feature_combo.md
-  git diff 0.8.94 HEAD -- docs/feature_combo.md | cat
+  original document: 0.10.36:docs/feature_combo.md
+  git diff 0.10.36 HEAD -- docs/feature_combo.md | cat
 -->
 
 コンボ機能は、同時押し方式でのカスタムアクション追加機能です。同時に複数のキーを押して、異なる効果を生み出すことができます。例えば、タッピング時間内で `A` と `S` を押すと、代わりに `ESC` が押されます。もっと複雑なタスクを実行させることもできます。
@@ -60,7 +60,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [XV_PASTE] = COMBO_ACTION(paste_combo),
 };
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case ZC_COPY:
       if (pressed) {
