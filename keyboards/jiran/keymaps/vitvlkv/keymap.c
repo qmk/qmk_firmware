@@ -11,12 +11,12 @@ enum jiran_layers {
   _LOWER
 };
 
-#define KC_RBGI  RGUI_T(KC_RBRC)
 #define KC_BSCT  RCTL_T(KC_BSLS)
 #define KC_QTSH  RSFT_T(KC_QUOT)
 #define KC_SLSF  RSFT_T(KC_LSCR)
 #define KC_NLCT  RCTL_T(KC_LNUM)
 #define KC_ETAL  RALT_T(KC_ENT)
+
 #define LOWER  MO(_LOWER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //          ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
                KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   // ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_LGUI, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBGI,
+      KC_LGUI, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,
   // └────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
                KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QTSH,
   //          ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -39,13 +39,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //          ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
                KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_EQL,
   // ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_F11,  KC_TAB,  _______, _______, _______, _______, RESET,                              RESET,   _______, _______, KC_HOME, KC_INS,  KC_DEL,  KC_F12,
+      KC_F11,  KC_CAPS, _______, _______, _______, _______, RESET,                              RESET,   _______, KC_UP,   _______, KC_PSCR, _______, KC_F12,
   // └────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
-               KC_LSFT, _______, _______, KC_HOME, KC_END,  _______,                            _______, KC_LEFT, KC_UP,   KC_RGHT, KC_PSCR, KC_SLSF,
+               KC_LSFT, _______, _______, KC_HOME, KC_END,  KC_DEL,                             KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_SLSF,
   //          ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-               KC_LCTL, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU,                            KC_PGUP, KC_PGDN, KC_DOWN, KC_END,  KC_PAUS, KC_NLCT,
+               KC_LCTL, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU,                            KC_PGUP, KC_PGDN, _______, _______, KC_PAUS, KC_NLCT,
   //          └────────┴────────┴────────┴────────┼────────┼────────┤                          ├────────┼────────┴────────┴────────┴────────┴────────┘
-                                          KC_TRNS, KC_SPC,  KC_LALT,                            KC_ETAL, KC_BSPC, KC_TRNS
+                                          _______, _______, _______,                            _______, _______, _______
                                     //   └────────┴────────┴────────┘                          └────────┴────────┴────────┘
   ),
 
