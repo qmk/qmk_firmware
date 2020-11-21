@@ -47,9 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_INDICATOR_PIN_0 B0
-#define LED_INDICATOR_PIN_1 B8
-#define LED_INDICATOR_PIN_2 B9
+#define LED_NUM_LOCK_PIN B0
+#define LED_CAPS_LOCK_PIN B8
+#define LED_SCROLL_LOCK_PIN B9
 
 // In-switch LED defines
 #define BACKLIGHT_PIN           A6
