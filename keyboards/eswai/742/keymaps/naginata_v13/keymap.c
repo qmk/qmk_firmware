@@ -133,14 +133,20 @@ void oled_task_user(void) {
   if (timer_elapsed(anim_timer) > FRAME_TIMEOUT) {
     anim_timer = timer_read();
     oled_clear();
-    if (naginata_state()) {
-      naginata_logo();
+    if (is_keyboard_master()) {
+      if (naginata_state()) {
+        oled_write_ln_P(PSTR("   "), false);
+        oled_write_ln_P(PSTR("     NAGINATA V13"), false);
+        oled_write_ln_P(PSTR("   "), false);
+        oled_write_ln_P(PSTR("   "), false);
+      } else {
+        oled_write_ln_P(PSTR("   "), false);
+        oled_write_ln_P(PSTR("      COLEVRAK"), false);
+        oled_write_ln_P(PSTR("   "), false);
+        oled_write_ln_P(PSTR("   "), false);
+      }
     } else {
-      // colevrak_logo();
-      oled_write_ln_P(PSTR("   "), false);
-      oled_write_ln_P(PSTR("   COLEVRAK"), false);
-      oled_write_ln_P(PSTR("   "), false);
-      oled_write_ln_P(PSTR("   "), false);
+      naginata_logo();
     }
   }
 }
