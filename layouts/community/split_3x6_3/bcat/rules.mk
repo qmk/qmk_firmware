@@ -6,5 +6,5 @@ ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
 else ifeq ($(strip $(KEYBOARD)), crkbd/rev1/legacy)
 	BOOTLOADER = atmel-dfu  # Elite-C
 
-	RGB_MATRIX_ENABLE = WS2812  # per-key RGB and underglow
+	RGB_MATRIX_ENABLE = yes  # per-key RGB and underglow
 endif
