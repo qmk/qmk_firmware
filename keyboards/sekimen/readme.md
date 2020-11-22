@@ -2,11 +2,11 @@
 
 ![sekimen](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
+*A split ortholinear keyboard using a single-sided board*
 
-* Keyboard Maintainer: [n2](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [N2-sumikko](https://github.com/N2-Sumikko)
+* Hardware Supported: sekimen PCB, Pro Micro
+* Hardware Availability: *https://github.com/N2-Sumikko/sekimen*
 
 Make example for this keyboard (after setting up your build environment):
 
