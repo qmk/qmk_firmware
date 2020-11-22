@@ -20,17 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0335
+#define VENDOR_ID 0x0335
+#define PRODUCT_ID 0x0007 //7cols
 #define DEVICE_VER 0x0001
 #define MANUFACTURER n2
-#define PRODUCT sekimen
+#define PRODUCT sekimen 7cols
 
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 
 #define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
 
 /*
  * Keyboard Matrix Assignments

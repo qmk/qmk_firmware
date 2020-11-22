@@ -18,28 +18,21 @@
 #include <stdio.h>
 #include "keycode.h"
 
-// If you are using Sekimen's trackball.
-// And if you want to use mousekey feature.
-// Please define SEKIMEN_MOUSEKEY_ENABLE(don't use qmk's MOUSEKEY_ENABLE.).
-//#define SEKIMEN_MOUSEKEY_ENABLE
-
-// Script for the trackball start.
+// Script for the trackball and mousekey start.
 #ifdef POINTING_DEVICE_ENABLE
 #include "paw3204.h"
 #include "pointing_device.h"
 report_mouse_t mouse_rep;
-static int  mouse_wheel_count = 0;
-static bool mouse_key_flag = 0;
-static bool mouse_wheel_flag = 0;
-#ifdef SEKIMEN_MOUSEKEY_ENABLE
+#ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
+report_mouse_t mouse_rep_temp;
+static int  mouse_wheel_count = 0;
+static bool mouse_wheel_flag = 0;
 static int w_offset = 1;
 static int mouse_wheel_interval = 10;
-#else
-static int  mouse_wheel_interval = 1;
 #endif
 #endif
-// Script for the trackball end.
+// Script for the trackball and mousekey end.
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -47,12 +40,6 @@ enum layer_names {
     _RAISE,
     _LOWER
 /*    _FN */
-};
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
 };
 
 #ifdef OLED_DRIVER_ENABLE
@@ -113,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
     * | SHIFT  |   z    |   x    |   c    |   v    |   b    |   7    |   n    |   m    |   ,    |   .    |   /    |   \    | ENTER  |
     * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-    * | CTRL   |  GUI   |  ALT   |        | MUHEN  | SPACE  | LOWER  | RAISE  |   ^    |   \    |  ©    |  ª    |  «    |  ¨    |
+    * | CTRL   |  GUI   |  ALT   |        | MUHEN  | SPACE  | LOWER  | RAISE  |   ^    |   \    |  LEFT  |  UP    |  DOWN  | RIGHT  |
     * `-----------------------------------------------------------------------------------------------------------------------------'
     */
     [_DEFAULT] = LAYOUT(
@@ -166,81 +153,98 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-/*                SEND_STRING("QMK is the best thing ever!");*/
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-/*                SEND_STRING("https://qmk.fm/\n"); */
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
-    };
-
 // Script for the mousekey start.
 #ifdef POINTING_DEVICE_ENABLE
-#ifdef SEKIMEN_MOUSEKEY_ENABLE
-
-    if (record->event.pressed){
-        if (keycode == KC_MS_BTN1){
-            mouse_rep.buttons |= MOUSE_BTN1;
-        }else if (keycode == KC_MS_BTN2){
-            mouse_rep.buttons |= MOUSE_BTN2;
-        }else if (keycode == KC_MS_BTN3){
-            mouse_rep.buttons |= MOUSE_BTN3;
-        }else if (keycode == KC_MS_BTN4){
-            mouse_rep.buttons |= MOUSE_BTN4;
-        }else if (keycode == KC_MS_BTN5){
-            mouse_rep.buttons |= MOUSE_BTN5;
-        }else if (keycode == KC_MS_WH_UP){
-            mouse_rep.v = w_offset;
-            mouse_wheel_flag = 1;
-        }else if (keycode == KC_MS_WH_DOWN){
-            mouse_rep.v = w_offset * -1;
-            mouse_wheel_flag = 1;
-        }else if (keycode == KC_MS_WH_LEFT){
-            mouse_rep.h = w_offset * -1;
-            mouse_wheel_flag = 1;
-        }else if (keycode == KC_MS_WH_RIGHT){
-            mouse_rep.h = w_offset;
-            mouse_wheel_flag = 1;
-        }
-            mouse_key_flag = 1;
-    } else {
-        if (keycode == KC_MS_BTN1){
-            mouse_rep.buttons &= ~MOUSE_BTN1;
-        }else if (keycode == KC_MS_BTN2){
-            mouse_rep.buttons &= ~MOUSE_BTN2;
-        }else if (keycode == KC_MS_BTN3){
-            mouse_rep.buttons &= ~MOUSE_BTN3;
-        }else if (keycode == KC_MS_BTN4){
-            mouse_rep.buttons &= ~MOUSE_BTN4;
-        }else if (keycode == KC_MS_BTN5){
-            mouse_rep.buttons &= ~MOUSE_BTN5;
-        } else if (keycode == KC_MS_WH_UP && mouse_rep.v > 0){
-            mouse_rep.v = 0;
-            mouse_wheel_flag = 0;
-        } else if (keycode == KC_MS_WH_DOWN && mouse_rep.v < 0){
-            mouse_rep.v = 0;
-            mouse_wheel_flag = 0;
-        }else if (keycode == KC_MS_WH_LEFT && mouse_rep.h < 0){
-            mouse_rep.h = 0;
-            mouse_wheel_flag = 0;
-        }else if (keycode == KC_MS_WH_RIGHT && mouse_rep.h > 0){
-            mouse_rep.h = 0;
-            mouse_wheel_flag = 0;
-        }
-            mouse_key_flag = 0;
+#ifdef MOUSEKEY_ENABLE
+    switch (keycode) {
+        case KC_MS_BTN1:                            // Override the behavior of mouse key.
+            if (record->event.pressed) {
+                mouse_rep.buttons |= MOUSE_BTN1;
+            } else {
+                mouse_rep.buttons &= ~MOUSE_BTN1;
+            }
             pointing_device_set_report(mouse_rep);
-    }
+            return false;
+            break;
+        case KC_MS_BTN2:
+            if (record->event.pressed) {
+                mouse_rep.buttons |= MOUSE_BTN2;
+            } else {
+                mouse_rep.buttons &= ~MOUSE_BTN2;
+            }
+            pointing_device_set_report(mouse_rep);
+            return false;
+            break;
+        case KC_MS_BTN3:
+            if (record->event.pressed) {
+                mouse_rep.buttons |= MOUSE_BTN3;
+            } else {
+                mouse_rep.buttons &= ~MOUSE_BTN3;
+            }
+            pointing_device_set_report(mouse_rep);
+            return false;
+            break;
+        case KC_MS_BTN4:
+            if (record->event.pressed) {
+                mouse_rep.buttons |= MOUSE_BTN4;
+            } else {
+                mouse_rep.buttons &= ~MOUSE_BTN4;
+            }
+            pointing_device_set_report(mouse_rep);
+            return false;
+            break;
+        case KC_MS_BTN5:
+            if (record->event.pressed) {
+                mouse_rep.buttons |= MOUSE_BTN5;
+            } else {
+                mouse_rep.buttons &= ~MOUSE_BTN5;
+            }
+            pointing_device_set_report(mouse_rep);
+            return false;
+            break;
+        case KC_MS_WH_UP:
+            if (record->event.pressed) {
+                mouse_rep_temp.v = w_offset;
+                mouse_wheel_flag = 1;
+            } else if(mouse_rep_temp.v > 0){
+                mouse_rep_temp.v = 0;
+                mouse_wheel_flag = 0;
+            }
+            return false;
+            break;
+        case KC_MS_WH_DOWN:
+            if (record->event.pressed) {
+                mouse_rep_temp.v = w_offset * -1;
+                mouse_wheel_flag = 1;
+            } else if(mouse_rep_temp.v < 0){
+                mouse_rep_temp.v = 0;
+                mouse_wheel_flag = 0;
+            }
+            return false;
+            break;
+        case KC_MS_WH_LEFT:
+            if (record->event.pressed) {
+                mouse_rep_temp.h = w_offset * -1;
+                mouse_wheel_flag = 1;
+            } else if(mouse_rep_temp.h < 0){
+                mouse_rep_temp.h = 0;
+                mouse_wheel_flag = 0;
+            }
+            return false;
+            break;
+        case KC_MS_WH_RIGHT:
+            if (record->event.pressed) {
+                mouse_rep_temp.h = w_offset;
+                mouse_wheel_flag = 1;
+            } else if(mouse_rep_temp.h > 0){
+                mouse_rep_temp.h = 0;
+                mouse_wheel_flag = 0;
+            }
+            return false;
+            break;
+        default:
+            break;
+    }  
 #endif
 #endif
 // Script for the mousekey end.
@@ -258,6 +262,23 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
     static int  cnt;
     static bool paw_ready;
+
+// Script for the mousekey start.
+#ifdef MOUSEKEY_ENABLE
+    if (mouse_wheel_flag == 1) {
+        mouse_wheel_count++;
+        if(mouse_wheel_count == mouse_wheel_interval){
+            mouse_rep.v = mouse_rep_temp.v;
+            mouse_rep.h	= mouse_rep_temp.h;
+            pointing_device_set_report(mouse_rep);
+            mouse_rep.v = 0;
+            mouse_rep.h	= 0;	
+            mouse_wheel_count = 0;
+        }
+    }
+#endif
+// Script for the mousekey end.
+
     if (cnt++ % 50 == 0) {
         uint8_t pid = read_pid_paw3204();
         if (pid == 0x30) {
@@ -277,28 +298,13 @@ void matrix_scan_user(void) {
         mouse_rep.x       = y;
         mouse_rep.y       = -x;
 
-
         if (cnt % 10 == 0) {
             dprintf("stat:%3d x:%4d y:%4d\n", stat, mouse_rep.x, mouse_rep.y);
         }
-        if (stat & 0x80 || mouse_key_flag == 1) {
-            if(mouse_wheel_flag == 1){
-                mouse_wheel_count++;
-                if(mouse_wheel_count == mouse_wheel_interval){
-                    pointing_device_set_report(mouse_rep);
-                    mouse_wheel_count = 0;
-                }
-            } else {
+        if (stat & 0x80) {
                 pointing_device_set_report(mouse_rep);
-            }
         }
     }
 }
 #endif
 // Script for the trackball end.
-
-/*
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
