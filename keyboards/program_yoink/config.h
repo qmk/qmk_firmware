@@ -48,9 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /*Encoder Definition*/
-#define ENCODERS_PAD_A { D0 }
-#define ENCODERS_PAD_B { D1 }
-#define ENCODER_DIRECTION_FLIP
+#define ENCODERS_PAD_A { D1 }
+#define ENCODERS_PAD_B { D0 }
 
 /*RGB*/
 #define RGB_DI_PIN D4
