@@ -4,7 +4,7 @@
 
 *A split ortholinear keyboard using a single-sided board*
 
-* Keyboard Maintainer: [N2-sumikko](https://github.com/N2-Sumikko)
+* Keyboard Maintainer: [N2](https://github.com/N2-Sumikko)
 * Hardware Supported: sekimen PCB, Pro Micro
 * Hardware Availability: *https://github.com/N2-Sumikko/sekimen*
 
