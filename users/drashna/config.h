@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
@@ -7,11 +23,6 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 #ifdef AUDIO_ENABLE
-#    if __GNUC__ > 5
-#        if __has_include("drashna_song_list.h")
-#            include "drashna_song_list.h"
-#        endif  // if file exists
-#    endif      // __GNUC__
 
 #    define AUDIO_CLICKY
 #    define STARTUP_SONG SONG(RICK_ROLL)
@@ -49,7 +60,7 @@
 // #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 // #   define EECONFIG_RGB_MATRIX (uint32_t *)16
 
-#    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
+#    if defined(__AVR__) && !defined(__AVR_AT90USB1286__) && !defined(KEYBOARD_launchpad)
 #        define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #        define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #        define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -63,7 +74,7 @@
 #        define DISABLE_RGB_MATRIX_CYCLE_ALL
 #        define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #        define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#        define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
+// #        define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
 // #       define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
 #        define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #        define DISABLE_RGB_MATRIX_DUAL_BEACON
@@ -100,7 +111,7 @@
 
 #ifdef QMK_KEYS_PER_SCAN
 #    undef QMK_KEYS_PER_SCAN
-#    define QMK_KEYS_PER_SCAN 1
+#    define QMK_KEYS_PER_SCAN 2
 #endif  // !QMK_KEYS_PER_SCAN
 
 // this makes it possible to do rolling combos (zx) with keys that
@@ -111,6 +122,7 @@
 #undef PERMISSIVE_HOLD
 //#define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
+#define TAPPING_TERM_PER_KEY
 
 #define FORCE_NKRO
 

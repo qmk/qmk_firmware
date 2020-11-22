@@ -32,4 +32,4 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 UNICODE_ENABLE = no         # Unicode
 
-LAYOUTS = 65_ansi 65_iso
+LAYOUTS = 65_ansi 65_ansi_split_bs 65_iso

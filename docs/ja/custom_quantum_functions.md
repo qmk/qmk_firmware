@@ -232,7 +232,7 @@ void keyboard_pre_init_user(void) {
 }
 ```
 
-### `keyboard_pre_init_*` 関数のドキュメント
+### `keyboard_pre_init_*` 関数のドキュメント :id=keyboard_pre_init_-function-documentation
 
 * キーボード/リビジョン: `void keyboard_pre_init_kb(void)`
 * キーマップ: `void keyboard_pre_init_user(void)`
