@@ -23,10 +23,13 @@ jobs:
         git checkout develop
 
     - name: Check if branch locked
-      run: |
-        test -e .locked || exit 1
+      id: check_locked
+      uses: andstor/file-existence-action@v1
+      with:
+        files: ".locked"
 
     - name: Update develop from master
+      if: steps.check_locked.outputs.files_exists == 'false'
       run: |
         git merge origin/master
         git push origin develop
