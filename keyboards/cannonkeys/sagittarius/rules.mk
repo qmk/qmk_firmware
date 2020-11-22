@@ -5,7 +5,7 @@ MCU = STM32F072
 #   comment out to disable the options.
 #
 
-DFU_SUFFIX_ARGS =
+DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 
 BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
