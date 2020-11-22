@@ -38,12 +38,17 @@ enum custom_keycodes {
     QMKURL
 };
 
+#define FRAME_TIMEOUT (1000/10)
+#define SLEEP_TIMEOUT 60000
+static uint16_t anim_timer = 0;
+static uint32_t oled_sleep_timer = 0;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, KC_NO    , KC_NO   ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
     CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , KC_NO    , KC_NO   ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , \
-    KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , KC_NO    , KC_NO   ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_UP   , \
-    KC_LCTL       ,KC_LWIN,KC_LALT,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_RSFT,KC_LEFT,KC_DOWN ,KC_RGHT
+    KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , KC_NO    , KC_NO   ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , \
+    KC_LCTL       ,KC_LWIN,KC_LALT,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
     ),
 
   [_LOWER] = LAYOUT(
@@ -77,6 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  oled_sleep_timer = timer_read32();
+
   // 薙刀式
   if (!process_naginata(keycode, record))
     return false;
@@ -102,6 +109,8 @@ void matrix_init_user(void) {
   // set_unicode_input_mode(UC_WINC);
   set_unicode_input_mode(UC_LNX);
   // 薙刀式
+
+  oled_sleep_timer = timer_read32();
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -126,10 +135,14 @@ static void naginata_logo(void) {
 //     oled_write_P(cv_logo, false);
 // }
 
-#define FRAME_TIMEOUT (1000/30)
-static uint16_t anim_timer = 0;
-
 void oled_task_user(void) {
+  if (timer_elapsed32(oled_sleep_timer) > SLEEP_TIMEOUT) {
+      oled_off();
+      return;
+  } else {
+      oled_on();
+  }
+
   if (timer_elapsed(anim_timer) > FRAME_TIMEOUT) {
     anim_timer = timer_read();
     oled_clear();
