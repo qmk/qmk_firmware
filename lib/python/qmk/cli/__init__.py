@@ -9,6 +9,7 @@ from milc import cli
 from . import c2json
 from . import cformat
 from . import chibios
+from . import clean
 from . import compile
 from . import config
 from . import docs
@@ -19,6 +20,7 @@ from . import hello
 from . import info
 from . import json
 from . import json2c
+from . import lint
 from . import list
 from . import kle2json
 from . import new

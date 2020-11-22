@@ -31,4 +31,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 UNICODE_ENABLE = no         # Unicode
 
-LAYOUTS = 65_ansi 65_iso
+LAYOUTS = 65_ansi 65_ansi_split_bs 65_iso
