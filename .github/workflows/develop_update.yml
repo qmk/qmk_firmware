@@ -31,5 +31,7 @@ jobs:
     - name: Update develop from master
       if: steps.check_locked.outputs.files_exists == 'false'
       run: |
+        git config --global user.name "QMK Bot"
+        git config --global user.email "hello@qmk.fm"
         git merge origin/master
         git push origin develop
