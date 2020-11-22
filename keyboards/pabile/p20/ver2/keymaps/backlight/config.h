@@ -17,24 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
+#define ENCODERS_PAD_B { D2, F4, F5, B3 }
+#define ENCODERS_PAD_A { D3, F7, B1, F6 }
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6666
-#define PRODUCT_ID      0x6670
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Pabile
-#define PRODUCT         P42 Feather Keyboard
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_BREATHING 1
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 7
-
-/* pin-out for Feather 32U4 Bluefruit LE */
-#define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
-#define MATRIX_COL_PINS { D3, C7, D6, D7, C6, D0, D1 }
-
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
