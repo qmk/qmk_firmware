@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*right side*/
 #define MATRIX_ROW_PINS_RIGHT { B5, F5, F6, B1, F7  }
-#define MATRIX_COL_PINS_RIGHT { F4, B3, B2, B6, C6, }
+#define MATRIX_COL_PINS_RIGHT { F4, B3, B2, B6, C6  }
 
 #define UNUSED_PINS
 /* COL2ROW, ROW2COL*/
