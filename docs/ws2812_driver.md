@@ -31,7 +31,7 @@ The default setting is 280 µs, which should work for most cases, but this can b
 #### Byte Order
 
 Some variants of the WS2812 may have their color components in a different physical or logical order. For example, the WS2812B-2020 has physically swapped red and green LEDs, which causes the wrong color to be displayed, because the default order of the bytes sent over the wire is defined as GRB.
-In this case, you can change the byte order with the following define:
+In this case, you can change the byte order by defining `WS2812_BYTE_ORDER` as one of the following values:
 
 | Byte order                        | Known devices                 |
 |-----------------------------------|-------------------------------|
