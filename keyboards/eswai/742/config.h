@@ -120,4 +120,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_COLUMN 0
 
 #define OLED_FONT_H "naginata_font.c"
+#define OLED_TIMEOUT 60000
 // #define OLED_FONT_END 230

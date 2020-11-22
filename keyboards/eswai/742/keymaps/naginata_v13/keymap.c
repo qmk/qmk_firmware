@@ -38,10 +38,9 @@ enum custom_keycodes {
     QMKURL
 };
 
+// OLED
 #define FRAME_TIMEOUT (1000/10)
-#define SLEEP_TIMEOUT 60000
 static uint16_t anim_timer = 0;
-static uint32_t oled_sleep_timer = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
@@ -67,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
     _______,XXXXXXX,RESET,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,RESET  ,KC_PWR  ,_______, \
-    _______,XXXXXXX,KC_SLEP,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX ,_______, \
+    _______,XXXXXXX,KC_SLEP,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,XXXXXXX,EEP_RST,XXXXXXX,XXXXXXX,XXXXXXX ,_______, \
     _______,XXXXXXX,XXXXXXX,XXXXXXX,KC_MYCM,KC_CALC,XXXXXXX, XXXXXXX,XXXXXXX,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
     _______,_______,_______,_______,_______,     XXXXXXX,     XXXXXXX,_______,_______,_______,_______,_______
   ),
@@ -82,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  oled_sleep_timer = timer_read32();
+  // oled_sleep_timer = timer_read32();
 
   // 薙刀式
   if (!process_naginata(keycode, record))
@@ -109,8 +108,6 @@ void matrix_init_user(void) {
   // set_unicode_input_mode(UC_WINC);
   set_unicode_input_mode(UC_LNX);
   // 薙刀式
-
-  oled_sleep_timer = timer_read32();
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -123,7 +120,13 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 static void naginata_logo(void) {
     static const char PROGMEM ng_logo[] = {
-      0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0x9f, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xb5, 0xb6, 0xb7, 0xb8, 0xb9, 0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0xbf, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5, 0xd6, 0xd7, 0xd8, 0xd9, 0xda, 0xdb, 0xdc, 0xdd, 0xde, 0xdf, 0xe0, 0xe1, 0xe2, 0xe3, 0xe4, 0xe5, 0xe6
+      0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9a, 0x9b, 0x9c, 0x9d, 0x9e,
+      0x9f, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa,
+      0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xb5, 0xb6,
+      0xb7, 0xb8, 0xb9, 0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0xbf, 0xc0, 0xc1, 0xc2,
+      0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce,
+      0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5, 0xd6, 0xd7, 0xd8, 0xd9, 0xda,
+      0xdb, 0xdc, 0xdd, 0xde, 0xdf, 0xe0, 0xe1, 0xe2
     };
     oled_write_P(ng_logo, false);
 }
@@ -136,16 +139,9 @@ static void naginata_logo(void) {
 // }
 
 void oled_task_user(void) {
-  if (timer_elapsed32(oled_sleep_timer) > SLEEP_TIMEOUT) {
-      oled_off();
-      return;
-  } else {
-      oled_on();
-  }
-
   if (timer_elapsed(anim_timer) > FRAME_TIMEOUT) {
     anim_timer = timer_read();
-    oled_clear();
+
     if (is_keyboard_master()) {
       if (naginata_state()) {
         oled_write_ln_P(PSTR("   "), false);
@@ -159,7 +155,7 @@ void oled_task_user(void) {
         oled_write_ln_P(PSTR("   "), false);
       }
     } else {
-      naginata_logo();
+        naginata_logo();
     }
   }
 }
