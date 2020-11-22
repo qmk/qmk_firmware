@@ -17,18 +17,28 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE
+    _BASE = 0,
+    _FN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-                                    KC_MPLY,
-    KC_NUMLOCK, KC_NUBS,  KC_PAST,  KC_PMNS,
-    KC_P7,      KC_P8,    KC_P9,
-    KC_P4,      KC_P5,    KC_P6,    KC_PLUS,
-    KC_P1,      KC_P2,    KC_P3,
-    KC_P0,                KC_PDOT,  KC_PENT
+                                           KC_MPLY,
+    LT(_FN, KC_NLCK),  KC_PSLS,  KC_PAST,  KC_PMNS,
+    KC_P7,             KC_P8,    KC_P9,
+    KC_P4,             KC_P5,    KC_P6,    KC_PPLS,
+    KC_P1,             KC_P2,    KC_P3,
+    KC_P0,                       KC_PDOT,  KC_PENT
+    ),
+    /* Fn */
+    [_FN] = LAYOUT(
+                                KC_NO,
+    KC_NO,   KC_NO,   KC_NO,    KC_NO,
+    RGB_HUI, RGB_SAI, RGB_VAI,
+    RGB_HUD, RGB_SAD, RGB_VAD,  RGB_TOG,
+    KC_NO,   KC_NO,   KC_NO,
+    KC_NO,            KC_NO,    KC_NO
     )
 };
 
@@ -40,14 +50,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 1) {
-        // Page up/Page down
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {

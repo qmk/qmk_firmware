@@ -14,4 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "PistachioMacroPad.h"
+#include "pistachio_mp.h"
