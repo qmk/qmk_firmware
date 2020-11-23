@@ -5,7 +5,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER HID Technologies
 #define PRODUCT Bastyl
-#define DESCRIPTION A high-end split keyboard
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
