@@ -15,7 +15,7 @@ Made to be used with qmk 0.10.40 +
 ### Modify using qmk
 
 * Clone qmk
-* copy the keyboards folder into it, make the required changes to `keymap.c`
+* make the required changes to `keymap.c`
 * `make bastyl_via:via` 
 * flash with qmk toolbox
 
