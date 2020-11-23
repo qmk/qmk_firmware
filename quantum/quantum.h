@@ -208,9 +208,10 @@ typedef uint8_t pin_t;
 
 #    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
 
-/*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal. */
+/*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
+ *   But here's more margin to make it two clocks. */
 #    if !defined(GPIO_INPUT_PIN_DELAY)
-#        define GPIO_INPUT_PIN_DELAY 1
+#        define GPIO_INPUT_PIN_DELAY 2
 #    endif
 #    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
 
