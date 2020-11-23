@@ -17,6 +17,8 @@
 
 #include "quantum.h"
 
+#define XXX KC_NO
+
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -26,15 +28,17 @@
  * represents the switch matrix.
  */
 #define LAYOUT(\
-    k00, k01, k02, k03, k04, k05, \
-    k10, k11, k12, k13, k14, k15, \
-    k20, k21, k22, k23, k24, k25, \
-    k30, k31, k32, k33, k34, k35, \
-    k40, k41, k42, k43, k44,      \
+    k0A, k0B, k0C, k0D, k0E, k0F,    k0G, k0H, k0I, k0J,    k0K, k0L, k0M, k0N, k0O, k0P, \
+    k1A, k1B, k1C, k1D, k1E, k1F,    k1G, k1H, k1I, k1J,    k1K, k1L, k1M, k1N, k1O, k1P, \
+    k2A, k2B, k2C, k2D, k2E, k2F,    k2G, k2H, k2I, k2J,    k2K, k2L, k2M, k2N, k2O, k2P, \
+    k3A, k3B, k3C, k3D, k3E,  k3F,   k3G, k3H, k3I, k3J,   k3K,  k3L, k3M, k3N, k3O, k3P, \
+    k4A, k4B, k4C, k4D,  k4E, k4F,   k4G, k4H, k4I, k4J,   k4K, k4L,  k4M, k4N, k4O, k4P, \
+	     k5B, k5C,                   k5G, k5H, k5I, k5J,                   k5M, k5N, k5P, \
 ) { \
-    { k00,   k01,   k02,   k03,   k04,   k05 }, \
-    { k10,   k11,   k12,   k13,   k14,   k15 }, \
-    { k20,   k21,   k22,   k23,   k24,   k25 }, \
-    { k30,   k31,   k32,   k33,   k34,   k35 }, \
-    { k40,   k41,   k42,   k43,   k44,   KC_NO }, \
+    { k0A, k0B, k0C, k0D, k0E, k0F,    k0G, k0H, k0I, k0J,    k0K, k0L, k0M, k0N, k0O, k0P }, \
+    { k1A, k1B, k1C, k1D, k1E, k1F,    k1G, k1H, k1I, k1J,    k1K, k1L, k1M, k1N, k1O, k1P }, \
+    { k2A, k2B, k2C, k2D, k2E, k2F,    k2G, k2H, k2I, k2J,    k2K, k2L, k2M, k2N, k2O, k2P }, \
+    { k3A, k3B, k3C, k3D, k3E,  k3F,   k3G, k3H, k3I, k3J,   k3K,  k3L, k3M, k3N, k3O, k3P }, \
+    { k4A, k4B, k4C, k4D,  k4E, k4F,   k4G, k4H, k4I, k4J,   k4K, k4L,  k4M, k4N, k4O, k4P }, \
+    { XXX, XXX, k5B, k5C, XXX, XXX,    k5G, k5H, k5I, k5J,    XXX, XXX, XXX, k5M, k5N, XXX }, \
 }
