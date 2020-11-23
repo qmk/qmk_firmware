@@ -47,6 +47,10 @@
 extern keymap_config_t keymap_config;
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -62,7 +66,7 @@ extern keymap_config_t keymap_config;
 
 uint8_t                keyboard_idle __attribute__((aligned(2)))     = 0;
 uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
-uint8_t                keyboard_led_stats                            = 0;
+uint8_t                keyboard_led_state                            = 0;
 volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
 static void            keyboard_idle_timer_cb(void *arg);
@@ -247,6 +251,9 @@ typedef struct {
 #ifdef VIRTSER_ENABLE
             usb_driver_config_t serial_driver;
 #endif
+#ifdef JOYSTICK_ENABLE
+            usb_driver_config_t joystick_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -282,6 +289,14 @@ static usb_driver_configs_t drivers = {
 #    define CDC_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
     .serial_driver = QMK_USB_DRIVER_CONFIG(CDC, CDC_NOTIFICATION_EPNUM, false),
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    define JOYSTICK_IN_CAPACITY 4
+#    define JOYSTICK_OUT_CAPACITY 4
+#    define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
 #endif
 };
 
@@ -386,10 +401,10 @@ static void    set_led_transfer_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
         if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
-            keyboard_led_stats = set_report_buf[1];
+            keyboard_led_state = set_report_buf[1];
         }
     } else {
-        keyboard_led_stats = set_report_buf[0];
+        keyboard_led_state = set_report_buf[0];
     }
 }
 
@@ -610,7 +625,7 @@ static void keyboard_idle_timer_cb(void *arg) {
 }
 
 /* LED status */
-uint8_t keyboard_leds(void) { return keyboard_led_stats; }
+uint8_t keyboard_leds(void) { return keyboard_led_state; }
 
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
@@ -796,9 +811,7 @@ int8_t sendchar(uint8_t c) {
 }
 #endif /* CONSOLE_ENABLE */
 
-void _putchar(char character) {
-    sendchar(character);
-}
+void _putchar(char character) { sendchar(character); }
 
 #ifdef RAW_ENABLE
 void raw_hid_send(uint8_t *data, uint8_t length) {
@@ -866,6 +879,64 @@ void virtser_task(void) {
             virtser_recv(buffer[i]);
         }
     } while (numBytesReceived > 0);
+}
+
+#endif
+
+#ifdef JOYSTICK_ENABLE
+
+void send_joystick_packet(joystick_t *joystick) {
+    joystick_report_t rep = {
+#    if JOYSTICK_AXES_COUNT > 0
+        .axes =
+            {
+                joystick->axes[0],
+
+#        if JOYSTICK_AXES_COUNT >= 2
+                joystick->axes[1],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
+                joystick->axes[2],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
+                joystick->axes[3],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
+                joystick->axes[4],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
+                joystick->axes[5],
+#        endif
+            },
+#    endif  // JOYSTICK_AXES_COUNT>0
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+        .buttons =
+            {
+                joystick->buttons[0],
+
+#        if JOYSTICK_BUTTON_COUNT > 8
+                joystick->buttons[1],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
+                joystick->buttons[2],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
+                joystick->buttons[3],
+#        endif
+            }
+#    endif  // JOYSTICK_BUTTON_COUNT>0
+    };
+
+    // chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    usbStartTransmitI(&USB_DRIVER, JOYSTICK_IN_EPNUM, (uint8_t *)&rep, sizeof(joystick_report_t));
+    osalSysUnlock();
 }
 
 #endif

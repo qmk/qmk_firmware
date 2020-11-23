@@ -91,6 +91,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
+#define LED_NUM_LOCK_PIN C7
+#define LED_CAPS_LOCK_PIN C6
+#define LED_SCROLL_LOCK_PIN B6
+
 /* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

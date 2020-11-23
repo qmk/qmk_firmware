@@ -1,50 +1,22 @@
-# 60_ansi_arrow
-`LAYOUT_60_ansi_arrow`
+# 60_ansi_arrow Keymap
 
-### Default Layer [0]
+by [Sendy YK](https://mr.sendyyk.com).
 
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│Esc│1  │2  │3  │4  │5  │6  │7  │8  │9  │0  │-  │=  │Bspc   │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│Tab  │Q  │W  │E  │R  │T  │Y  │U  │I  │O  │P  │[  │]  │\    │
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│Caps L│A  │S  │D  │F  │G  │H  │J  │K  │L  │;  │'  │Enter   │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│Shift   │Z  │X  │C  │V  │B  │N  │M  │,  │.  │Shift │↑  │/  │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│Ctl │OS  │Alt │          Space         │Alt│Ctl│←  │↓  │→  │
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+## Default Layer
 
-### Fn Layer [1]
-Press and hold *right* **Ctl** key.
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│`  │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Delete │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│Bri+ │   │   │End│Rst│   │   │   │Ins│   │P S│   │   │Eject│
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│Bri-  │   │S L│   │   │   │Hm │   │   │   │   │   │Mute    │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│Vol+    │   │   │Cal│   │   │N L│Ml │   │   │Pause │P U│   │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│Vol-│Rwd │F FD│           Play         │Stp│   │Prv│P D│Nxt│
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+![_BASE](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_base.png)
 
-### Fn Layer [2]
-Press and hold *right* **Alt** key.
-```
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-│   │   │   │   │   │   │   │   │   │   │   │   │   │       │
-├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-│     │R T│R M│Hu+│Hu-│Sa+│Sa-│Br+│Br-│   │   │   │   │     │
-├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-│      │   │   │   │   │   │   │   │   │   │   │   │        │
-├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
-│        │   │   │   │BL-│B T│BL+│B C│   │   │      │   │   │
-├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-│    │    │    │                        │   │   │   │   │   │
-└────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
-```
+## Fn Layer
+
+![_FN](https://raw.githubusercontent.com/mrsendyyk/qmk_firmware/development/images/60_ansi_arrow_keymap_fn.png)
+
+## Build The Firmware
+
+Make example for keyboard (after setting up your build environment):
+
+    make <keyboard_folder>:default_60_ansi_arrow
+
+More information:
+* [Setting Up Your QMK Environment](https://docs.qmk.fm/#/getting_started_build_tools)
+* [More Detailed make Instructions](https://docs.qmk.fm/#/getting_started_make_guide)
+* [The Complete Newbs Guide To QMK](https://docs.qmk.fm/#/newbs)

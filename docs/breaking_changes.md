@@ -6,22 +6,23 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
+* [2020 Aug 29](ChangeLog/20200829.md)
 * [2020 May 30](ChangeLog/20200530.md)
 * [2020 Feb 29](ChangeLog/20200229.md)
 * [2019 Aug 30](ChangeLog/20190830.md)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for Aug 29, 2020.
+The next Breaking Change is scheduled for November 28, 2020.
 
 ### Important Dates
 
-* [x] 2020 May 30 - `develop` is created. It will be rebased weekly.
-* [ ] 2020 Aug 1 - `develop` closed to new PR's.
-* [ ] 2020 Aug 1 - Call for testers.
-* [ ] 2020 Aug 27 - `master` is locked, no PR's merged.
-* [ ] 2020 Aug 29 - Merge `develop` to `master`.
-* [ ] 2020 Aug 29 - `master` is unlocked. PR's can be merged again.
+* [x] 2020 Aug 29 - `develop` is created. It will be rebased weekly.
+* [ ] 2020 Oct 31 - `develop` closed to new PR's.
+* [ ] 2020 Oct 31 - Call for testers.
+* [ ] 2020 Nov 26 - `master` is locked, no PR's merged.
+* [ ] 2020 Nov 28 - Merge `develop` to `master`.
+* [ ] 2020 Nov 28 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
