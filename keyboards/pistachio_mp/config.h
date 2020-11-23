@@ -54,7 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D2
 #define RGBLED_NUM 3
-#define RGBLIGHT_LAYERS
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
@@ -77,6 +76,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-
-#define TAPPING_TERM 170
