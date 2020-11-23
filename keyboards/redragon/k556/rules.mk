@@ -1,3 +1,8 @@
+# project specific files
+SRC = matrix.c
+SRC += led_matrix.c
+SRC += config_led.c
+
 ## chip/board settings
 # - the next two should match the directories in
 #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
@@ -35,7 +40,6 @@ OPT_DEFS = -O2
 # Build Options
 #   comment out to disable the options.
 #
-# EXTRAFLAGS+=-flto
 LTO_ENABLE = no
 BACKLIGHT_ENABLE = no
 MAGIC_ENABLE = yes
@@ -52,7 +56,6 @@ RGBLIGHT_ENABLE = no
 SERIAL_LINK_ENABLE = no
 WAIT_FOR_USB = no
 CUSTOM_MATRIX = yes
+
+# Custom RGB matrix handling
 RGB_MATRIX_ENABLE = custom
-
-
-SRC = matrix.c led_matrix.c
