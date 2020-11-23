@@ -44,23 +44,13 @@ enum custom_keycodes {
   ADJUST,
   ALT_US,
   ALT_JP,
-  MAC_IME,
-  WIN_IME,
-  A_IME_M,
-  A_IME_W,
-  DBG_LAY,
+  ALT_GRV,
 };
 
 // Tap Dance
 enum tap_dances{
-    TD_GRV_ESC = 0 ,
-    TD_Y_LBRC,
-    TD_LSFT_CAPS,
-    TD_LBRC_RBRC,
+    TD_LSFT_CAPS = 0,
     TD_ESC_NUM,
-    TD_MINS_MAC_IME,
-    TD_MINS_WIN_IME,
-    TD_SCLN_MINS,
 };
 
 // Tap Dance state
@@ -82,52 +72,36 @@ void ql_each(qk_tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_Y_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_LBRC),
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_LBRC_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
-    [TD_MINS_MAC_IME] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
-    [TD_MINS_WIN_IME] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, WIN_IME),
-    [TD_SCLN_MINS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 500),
 };
 
 #define ESC_NUM TD(TD_ESC_NUM)
-#define Y_LBRC  TD(TD_Y_LBRC)
 #define S_CAP   TD(TD_LSFT_CAPS)
-#define L_R_BRC TD(TD_LBRC_RBRC)
-#define M_M_IME TD(TD_MINS_MAC_IME)
-#define M_W_IME TD(TD_MINS_WIN_IME)
-#define SCLN_M  TD(TD_SCLN_MINS)
-#define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
-#define SP_ADJ  LT(_ADJUST, KC_SPC)
-#define SP_GUI  MT(MOD_LGUI, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define S_SLS   RSFT_T(KC_SLSH)
-#define C_SCLN  RCTL_T(KC_SCLN)
-#define C_QUOT  RCTL_T(KC_QUOT)
-#define C_MINS  RCTL_T(KC_MINS)
+#define S_SLSH   RSFT_T(KC_SLSH)
 #define C_SLSH  RCTL_T(KC_SLSH)
 #define CT_E     LCTL(KC_E)
 #define CT_A     LCTL(KC_A)
-
+#define ALT_GRV LALT(KC_GRV)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT(
         ESC_NUM, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV, \
             KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,KC_LBRC,KC_RBRC, \
-            KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SCLN_M, KC_ENT, KC_SCLN,KC_QUOT, \
-    RAISE,  S_CAP,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,LOWER,   \
-            RAISE,  RAISE,  KC_LALT, KC_LGUI,SP_SFT,        SP_RAI,         KC_RGUI,A_IME_M,KC_RGUI,KC_LEFT,KC_DOWN,KC_RGHT  \
+            KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_ENT, XXXXXXX,KC_QUOT, \
+    XXXXXXX,S_CAP,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,   LOWER,   \
+            KC_LANG2,XXXXXXX,KC_LALT,KC_LGUI,SP_SFT,       SP_RAI,         KC_RGUI,KC_LANG1,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT  \
     ),
     [_WIN] = LAYOUT(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
-            _______,_______,KC_LGUI,KC_LALT,_______,        _______,        A_IME_W,KC_APP, _______,_______,_______,_______  \
+            ALT_GRV,XXXXXXX,KC_LGUI,KC_LALT,_______,        _______,        KC_RALT,ALT_GRV,_______,_______,_______,_______  \
     ),
     [_NUM] = LAYOUT(
         _______,_______,_______,_______,_______,_______,_______,XXXXXXX,KC_PSLS,KC_PSLS,KC_PAST,_______,_______,_______,_______, \
@@ -141,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_PSCR,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_UP,  KC_END, KC_VOLU,  \
             _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_LEFT,KC_RGHT,_______,KC_VOLD,  \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PGDN,KC_DOWN,_______,KC_PGUP,_______, \
-            ADJUST, _______,_______,_______,_______,        ADJUST,         _______,_______,_______,KC_HOME,KC_PGDN,KC_END  \
+            _______,_______,_______,_______,_______,        ADJUST,         _______,_______,_______,KC_HOME,KC_PGDN,KC_END  \
     ),
     [_RAISE] = LAYOUT(
         KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL, \
@@ -151,10 +125,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,_______,_______,_______,_______,        _______,        _______,_______,_______,KC_HOME,KC_PGDN,KC_END  \
     ),
     [_NUM_RAISE] = LAYOUT(
-        KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV, \
+        ESC_NUM, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV, \
             KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,KC_LBRC,KC_RBRC, \
-            KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_ENT, KC_SCLN,KC_QUOT, \
-    RAISE,  S_CAP,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLS,  KC_RSFT,XXXXXXX,ADJUST,  \
+            KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_ENT, _______,KC_QUOT, \
+    _______,S_CAP,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,   ADJUST,  \
             _______,_______,_______,_______,_______,        ADJUST,         _______,_______,_______,_______,_______,_______  \
     ),
     [_ADJUST] = LAYOUT(
@@ -171,8 +145,6 @@ static bool lower_pressed = false;
 static uint16_t lower_pressed_time = 0;
 static bool raise_pressed = false;
 static uint16_t raise_pressed_time = 0;
-static bool alt_ime_pressed = false;
-static uint16_t alt_ime_pressed_time = 0;
 
 // デフォルトレイヤー格納用
 static uint16_t current_default_layer = 0;
@@ -180,16 +152,6 @@ static uint16_t current_default_layer = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 switch (keycode) {
-    case DBG_LAY:
-        if (current_default_layer == _MAC) {
-            SEND_STRING("L-MAC");
-        } else if (current_default_layer == _WIN) {
-            SEND_STRING("L-WIN");
-        } else {
-            SEND_STRING("L-NO");
-        }
-        return false;
-        break;
     case MAC: // Write default layer to EEPROM
         if (record->event.pressed) {
             set_single_persistent_default_layer(_MAC);
@@ -263,80 +225,11 @@ switch (keycode) {
         }
         return false;
         break;
-    case A_IME_M:
-        if (record->event.pressed) {
-            alt_ime_pressed = true;
-            alt_ime_pressed_time = record->event.time;
-            register_code(KC_RALT);
-        } else {
-            unregister_code(KC_RALT);
-            /*
-            長押し時に入力キャンセルする場合はこれ
-            if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-            */
-            // if (alt_ime_pressed) {
-            if (alt_ime_pressed && (TIMER_DIFF_16(record->event.time, alt_ime_pressed_time) < TAPPING_TERM)) {
-                register_code(KC_LCTL); // for macOS
-                register_code(KC_SPC);
-                unregister_code(KC_SPC);
-                unregister_code(KC_LCTL);
-            }
-            alt_ime_pressed = false;
-        }
-        return false;
-        break;
-    case A_IME_W:
-        if (record->event.pressed) {
-            alt_ime_pressed = true;
-            alt_ime_pressed_time = record->event.time;
-            register_code(KC_RALT);
-        } else {
-            unregister_code(KC_RALT);
-            /*
-            長押し時に入力キャンセルする場合はこれ
-            if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-            */
-            // if (alt_ime_pressed) {
-            if (alt_ime_pressed && (TIMER_DIFF_16(record->event.time, alt_ime_pressed_time) < TAPPING_TERM)) {
-                // register_code(KC_LALT);
-                // register_code(KC_GRV);
-                // unregister_code(KC_GRV);
-                // unregister_code(KC_LALT);
-                SEND_STRING(SS_LALT("`"));
-            }
-            alt_ime_pressed = false;
-        }
-        return false;
-        break;
-    case MAC_IME:
-        if (record->event.pressed) {
-            // when pressed
-            register_code(KC_LCTL);
-            register_code(KC_SPC);
-        } else {
-            // when released
-            unregister_code(KC_SPC);
-            unregister_code(KC_LCTL);
-        }
-        break;
-    case WIN_IME:
-        if (record->event.pressed) {
-            // when pressed
-            register_code(KC_LALT);
-            register_code(KC_GRV);
-        } else {
-            // when released
-            unregister_code(KC_GRV);
-            unregister_code(KC_LALT);
-        }
-        break;
     default:
         if (record->event.pressed) {
             // reset the flags
             lower_pressed = false;
             raise_pressed = false;
-            alt_ime_pressed = false;
-            alt_ime_pressed = false;
         }
         break;
     }
@@ -360,23 +253,23 @@ const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // 2nd LED
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_MAGENTA}
+    {0, 1, HSV_MAGENTA}
 );
 
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_GREEN}
+    {0, 1, HSV_GREEN}
 );
 
 const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_CYAN}
+    {0, 1, HSV_CYAN}
 );
 
 const rgblight_segment_t PROGMEM my_num_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_GOLD}
+    {0, 1, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_RED}
+    {0, 1, HSV_RED}
 );
 
 
@@ -510,32 +403,6 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
                     break;
             }
             break;
-
-        case TD(TD_MINS_MAC_IME):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    register_code(KC_MINS);
-                    break;
-                case DOUBLE_TAP:
-                    //TODO デフォルトレイヤーが何かを読み取り、MAC or WINで処理を変える
-                    register_code(KC_LCTL);
-                    register_code(KC_SPC);
-                    break;
-                }
-            break;
-
-        case TD(TD_SCLN_MINS):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    register_code(KC_SCLN);
-                    break;
-                case DOUBLE_TAP:
-                    register_code(KC_MINS);
-                    break;
-            }
-            break;
     }
 }
 
@@ -547,32 +414,6 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
                 layer_off(_NUM);
             }
             ql_tap_state.state = 0;
-            break;
-
-        case TD(TD_MINS_MAC_IME):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    unregister_code(KC_MINS);
-                    break;
-                case DOUBLE_TAP:
-                    //TODO デフォルトレイヤーが何かを読み取り、MAC or WINで処理を変える
-                    unregister_code(KC_LCTL);
-                    unregister_code(KC_SPC);
-                    break;
-            }
-            break;
-
-        case TD(TD_SCLN_MINS):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    unregister_code(KC_SCLN);
-                    break;
-                case DOUBLE_TAP:
-                    unregister_code(KC_MINS);
-                    break;
-            }
             break;
     }
 }
