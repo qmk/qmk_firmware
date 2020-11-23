@@ -9,6 +9,7 @@ on:
     - 'docs/**'
     - 'users/**'
     - 'layouts/**'
+    - 'api_data/**'
 
 jobs:
   tag:
@@ -18,9 +19,12 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
     - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@master
+      uses: anothrNick/github-tag-action@1.26.0
       env:
-        DEFAULT_BUMP: patch
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BUMP: 'none'
