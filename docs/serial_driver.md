@@ -60,6 +60,7 @@ Configure the hardware via your config.h:
                                    //  5: about 19200 baud
 #define SERIAL_USART_DRIVER SD1 // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
+#define SERIAL_USART_TIMEOUT 100 // USART driver timeout. default 100
 ```
 
 You must also enable the ChibiOS `SERIAL` feature:
