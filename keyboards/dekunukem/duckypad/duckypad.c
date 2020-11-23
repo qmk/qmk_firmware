@@ -48,4 +48,6 @@ void keyboard_pre_init_kb(void) {
     writePinLow(A0);
     wait_ms(10);
     writePinHigh(A0);
+
+    keyboard_pre_init_user();
 }
