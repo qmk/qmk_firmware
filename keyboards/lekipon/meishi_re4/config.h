@@ -58,8 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
-#define RGBLED_NUM 19
-//#define RGBLED_NUM 32
+#define RGBLED_NUM 11
 #define RGBLIGHT_HUE_STEP 4
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
@@ -78,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 4
 //   #define RGBLIGHT_EFFECT_CHRISTMAS
    #define RGBLIGHT_EFFECT_TWINKLE 
-   #define RGBLIGHT_EFFECT_TWINKLE_LIFE 120
+   #define RGBLIGHT_EFFECT_TWINKLE_LIFE 160
    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING

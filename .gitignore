@@ -1,5 +1,6 @@
 .history/
 .dep
+*.hex
 *.o
 *.bin
 *.eep

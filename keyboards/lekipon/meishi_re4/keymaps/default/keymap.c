@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_TOG , RGB_RST , RGB_M_R , RGB_M_SW )
 };
 
-/*
+
 #ifdef RGBLIGHT_ENABLE
 // The first three LEDs are used as indicators for CAPS_LOCK, NUM_LOCK and SCROLL_LOCK.
 void keyboard_post_init_user(void) {
@@ -96,7 +96,7 @@ void led_set_user(uint8_t usb_led) {
     rgblight_set();
 }
 #endif
-*/
+
 
 
 
