@@ -6,24 +6,9 @@
 
 * Keyboard Maintainer: [N2](https://github.com/N2-Sumikko)
 * Hardware Supported: sekimen PCB, Pro Micro
-* Hardware Availability: (Under preparation)
+* Hardware Availability: [PCB & Plate Data](https://github.com/N2-Sumikko/sekimen.git)
 
 Make example for this keyboard (after setting up your build environment):
-
-*   5cols
-
-   ```
-    make sekimen/5cols:default
-   ```
-
-*   7cols
-
-   ```
-    make sekimen/7cols:default
-   ```
-
-Flashing example for this keyboard:
-
 *   5cols
 
    ```
