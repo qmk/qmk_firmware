@@ -40,13 +40,15 @@ Home/End/Page Up/Down in place of arrow keys
 
 Special symbols using a character in their names:
 
-pLus (+), eQual (=), pIpe (|)
+pLus (+), pIpe (|)
 
 anD (&), dollaR ($)
 
 At (@), Backslash (\\), Circumflex (^), Exclamation (!), Grave (`), Hash (#), Percent (%), Star (*), Tilde (~), Underscore (_)
 
 minus (\-) is put on J so it's under Underscore, easy to access, and matches the bump on J
+
+equal sign (=) is put on M, under J, because putting it on Q make accidential Command-Q likely
 
 Same Home/End/Page Up/Down cluster as that on Layer 3
 
