@@ -1,4 +1,4 @@
-/* Copyright 2019 gtips
+/* Copyright 2020 klackygears
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 //   #define RGBLIGHT_HUE_STEP 16
 //   #define RGBLIGHT_SAT_STEP 16
 //   #define RGBLIGHT_VAL_STEP 16
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level. Anything more than this and you'll have problems. */
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 // // /*== all animations enable ==*/
 //   #define RGBLIGHT_ANIMATIONS

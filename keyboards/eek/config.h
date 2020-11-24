@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4A53
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0x0002
+#define DEVICE_VER      0x0004
 #define MANUFACTURER    klackygears
 #define PRODUCT         eek!
-#define DESCRIPTION     A portable 36 key ergo keyboard
+#define DESCRIPTION     A portable 36 key split layout keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -1,6 +1,7 @@
 # eek!
 
-![eek](picture_url)
+![eek](https://i.imgur.com/34O3xKW.jpg)
+![eek_bat](https://i.imgur.com/YrOqmft.jpeg)
 
 The eek! is a 36-key column staggered keyboard, meant to be portable with a 90 degree split angle for holding close to the body.
 
