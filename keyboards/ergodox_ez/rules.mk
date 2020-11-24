@@ -40,3 +40,5 @@ SRC += matrix.c \
 QUANTUM_LIB_SRC += i2c_master.c
 
 LAYOUTS = ergodox
+
+MOUSE_SHARED_EP = no

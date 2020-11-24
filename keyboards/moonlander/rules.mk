@@ -22,3 +22,5 @@ EEPROM_DRIVER      = i2c
 #project specific files
 SRC = matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
+
+MOUSE_SHARED_EP = no
