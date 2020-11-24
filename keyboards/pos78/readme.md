@@ -2,11 +2,10 @@
 
 * Keyboard Maintainer: [smssmssms](https://github.com/smssmssms)
 * Hardware Supported: ATMEGA 32U4 (Adafruit Itsy Bitsy 5v) 
-* Hardware Availability: 1980-90's Partner Tech Corp KB-78 78 key Point-Of-Sale ortholinear keyboard conversion
-  https://www.partner.com.tw/wp-content/uploads/2019/09/KB-78-G-78-1-190911.pdf
+* Hardware Availability: 1980-90's version of the [Partner Tech Corp KB-78](https://www.partner.com.tw/wp-content/uploads/2019/09/KB-78-G-78-1-190911.pdf); a 78 key Point-Of-Sale ortholinear keyboard conversion
+  
 
-
-Example on how to compile and flash the keyboard (after setting up the build environment](https://docs.qmk.fm/#/getting_started_build_tools))
+Example on how to compile and flash the keyboard [after setting up the build environment](https://docs.qmk.fm/#/getting_started_build_tools))
     
     qmk flash -kb pos78 -km default
 
