@@ -101,6 +101,14 @@
 #    endif  // AVR
 #endif      // RGB_MATRIX_ENABLE
 
+#ifdef OLED_DRIVER_ENABLE
+#    ifdef SPLIT_KEYBOARD
+#        define OLED_UPDATE_INTERVAL 60
+#    else
+#        define OLED_UPDATE_INTERVAL 15
+#    endif
+#endif
+
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2
 #endif  // !ONESHOT_TAP_TOGGLE
