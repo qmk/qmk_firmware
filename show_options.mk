@@ -82,8 +82,7 @@ OTHER_OPTION_NAMES = \
   RGB_MATRIX_KEYPRESSES \
   LED_MIRRORED \
   RGBLIGHT_FULL_POWER \
-  Link_Time_Optimization \
-  LINK_TIME_OPTIMIZATION_ENABLE
+  LTO_ENABLE
 
 define NAME_ECHO
 	@echo "  $1 = $($1)		# $(origin $1)"
