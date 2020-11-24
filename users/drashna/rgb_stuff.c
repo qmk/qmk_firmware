@@ -178,7 +178,7 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
         uint8_t mode = layer_state_cmp(state,_MODS) ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
         switch (get_highest_layer(state|default_layer_state)) {
             case _MACROS:
-                rgblight_set_hsv_and_mode(HSV_ORANGE, userspace_config.is_overwatch ? RGBLIGHT_MODE_SNAKE + 2 : RGBLIGHT_MODE_SNAKE + 3);
+                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
                 break;
             case _MEDIA:
                 rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_KNIGHT + 1);
