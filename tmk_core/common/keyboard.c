@@ -222,6 +222,12 @@ void keyboard_setup(void) {
  */
 __attribute__((weak)) bool is_keyboard_master(void) { return true; }
 
+/** \brief is_keyboard_left
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) bool is_keyboard_left(void) { return true; }
+
 /** \brief should_process_keypress
  *
  * Override this function if you have a condition where keypresses processing should change:
