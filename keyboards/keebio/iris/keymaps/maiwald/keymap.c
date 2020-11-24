@@ -13,6 +13,9 @@
 #define A_I RALT_T(KC_I)
 #define C_O RCTL_T(KC_O)
 
+#define G_LBRK LGUI_T(KC_LBRC)
+#define S_RBRK LSFT_T(KC_RBRC)
+
 #define S_P4 RSFT_T(KC_P4)
 #define G_P5 RGUI_T(KC_P5)
 #define A_P6 RALT_T(KC_P6)
@@ -49,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
       XXXXXXX, KC_BRID, KC_BRIU, RGB_TOG, RGB_VAD, RGB_VAI,                            KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            KC_PGUP, KC_HOME, KC_END,  XXXXXXX, KC_DEL,  KC_BSLS,
+      _______, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX,                            KC_PGUP, KC_HOME, KC_END,  XXXXXXX, KC_DEL,  KC_BSLS,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, XXXXXXX,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
+      _______, KC_LCTL, KC_LALT, G_LBRK,  S_RBRK,  XXXXXXX,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, KC_LT,   KC_GT,   KC_LCBR, KC_RCBR, XXXXXXX, _______,          _______, KC_PGDN, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, _______,          _______, KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______, _______, _______,                   _______, _______, _______
                                  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
