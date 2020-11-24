@@ -5,7 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-#  change yes to no to disable
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
