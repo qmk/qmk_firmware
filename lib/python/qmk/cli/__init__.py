@@ -14,6 +14,7 @@ from . import config
 from . import docs
 from . import doctor
 from . import flash
+from . import generate
 from . import hello
 from . import info
 from . import json

@@ -3,6 +3,8 @@
 from array import array
 from math import ceil
 from pathlib import Path
+import os
+from glob import glob
 
 from qmk.c_parse import parse_config_h_file
 from qmk.makefile import parse_rules_mk_file
