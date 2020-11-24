@@ -176,10 +176,6 @@ void __early_init(void) {
     ht32_clock_init();
 }
 
-void matrix_scan_kb() {
-    matrix_scan_user();
-}
-
 /**
  * @brief   Board-specific initialization code.
  * @todo    Add your board-specific code, if any.
