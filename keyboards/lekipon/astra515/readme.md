@@ -22,5 +22,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 
 
-- **[Buildguide](https://github.com/Lekipon/ASTRA515) **
+- [Buildguide](https://github.com/Lekipon/ASTRA515) 
 
