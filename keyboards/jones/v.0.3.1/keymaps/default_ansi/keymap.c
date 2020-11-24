@@ -188,9 +188,6 @@ static uint16_t raise_pressed_time = 0;
 // static bool alt_ime_pressed = false;
 // static uint16_t alt_ime_pressed_time = 0;
 
-// デフォルトレイヤー格納用
-static uint16_t current_default_layer = 0;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 switch (keycode) {
@@ -332,6 +329,9 @@ switch (keycode) {
 #define JONES_LED_INDICATOR_COUNT 2
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1
 #define JONES_LED_DIMMER_LEVEL 200
+
+// デフォルトレイヤー格納用
+static uint16_t current_default_layer = 0;
 
 // 1st LED
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
