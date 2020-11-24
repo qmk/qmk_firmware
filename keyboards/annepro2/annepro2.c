@@ -17,6 +17,7 @@ static uint8_t ledMcuWakeup[11] = {
     0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02
 };
 
+ble_capslock_t BLECapsLock = {._dummy = {0}, .caps_lock = false};
 
 uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS] = {
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -50,13 +51,35 @@ void OVERRIDE keyboard_post_init_kb(void) {
 
     // Give the send uart thread some time to
     // send out the queue before we read back
-    wait_ms(5);
+    wait_ms(15);
+
+    // loop to clear out receive buffer from ble wakeup
+    while(!sdGetWouldBlock(&SD1))
+        sdGet(&SD1);
 
     keyboard_post_init_user();
 }
 
 void OVERRIDE matrix_init_kb(void) {
     matrix_init_user();
+}
+
+void matrix_scan_kb() {
+    // if there's stuff on the ble serial buffer
+    // read it into the capslock struct
+    while(!sdGetWouldBlock(&SD1)) {
+        sdReadTimeout(&SD1, (uint8_t *) &BLECapsLock, sizeof(ble_capslock_t), 10);
+
+        // if it's capslock from ble, darken led
+        if (BLECapsLock.caps_lock) {
+            annepro2LedClearMask(MATRIX_COLS * 2);
+        } else {
+            annepro2LedSetMask(MATRIX_COLS * 2);
+        }
+    }
+
+
+    matrix_scan_user();
 }
 
 /*!
