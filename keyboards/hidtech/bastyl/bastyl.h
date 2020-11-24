@@ -8,14 +8,14 @@
 	#include <avr/interrupt.h>
 #endif
 #endif
-
+// SWITCHED 91 and 95 - check on left ?
 #define LAYOUT( \
 	k00, k01, k02, k03, k04, k05,			k55, k54, k53, k52, k51, k50, \
 	k10, k11, k12, k13, k14, k15,			k65, k64, k63, k62, k61, k60, \
 	k20, k21, k22, k23, k24, k25,			k75, k74, k73, k72, k71, k70, \
 	k30, k31, k32, k33, k34, k35,			k85, k84, k83, k82, k81, k80, \
-		       k41, k42, k43,		        k95, k94, k93, \
-		            k44, k45,                   k92, k91 \
+		       k43, k44, k41,		        k91, k94, k93, \
+		            k45, k42,                   k92, k95 \
 )\
 {\
 	{ k00, k01, k02, k03, k04, k05 }, \

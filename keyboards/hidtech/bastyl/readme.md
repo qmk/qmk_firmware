@@ -25,6 +25,7 @@ Otherwise if you're stuck, open the case and reset manually by shorting Gnd and 
 
 * Clone qmk
 * make the required changes to `keymap.c`
+* disable via by commenting out the line in rules.mk
 * compile 
 * flash with qmk toolbox
 
