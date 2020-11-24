@@ -50,14 +50,21 @@
 #define ADJ_EIS  LT(_ADJUST,KC_LANG2)
 #define MIS_KAN  LT(_MISC,KC_LANG1)
 
-#ifdef RGBLIGHT_ENABLE
-// Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-rgblight_config_t        RGB_current_config;
-
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
 
+// To record the status of Bass Chord (single or dyad, default: dyad.)
+typedef union {
+  uint32_t raw;
+  struct {
+    bool isSingleBass:1;
+  };
+} user_config_t;
+user_config_t user_config;
+
+#define IS_SINGLE_BASS()   (user_config.isSingleBass)
+
+#ifdef RGBLIGHT_ENABLE
 /* used to specify there is no LED on the keylocation. */
 #    define NO_LED 255
 
@@ -107,14 +114,14 @@ const uint8_t PROGMEM convert_key_to_led2[] =
   NO_LED, 84,     83,     82,     81,       80,     79,     NO_LED, NO_LED, NO_LED
 };
 
-#endif
+#endif  //  RGBLIGHT_ENABLE
 
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _C_SYSTEM_BASE,  //  MIDI C-system
     _FAKE_B_SYSTEM,  //  MIDI fake B-system doesn't have correct assignments on top two rows. The bottom 3 rows are B-system.
-    _C_SYSTEM_BASE2ROW,
+    _C_SYSTEM_BASS2ROW,
     _C_SYSTEM_ENTIRELY,
     _CHROMATONE,
     _QWERTY,   //  just in case
@@ -230,7 +237,8 @@ enum custom_keycodes {
     BSYSTEM,
     CNTBASC,
     CSYSALL,
-    CHRTONE
+    CHRTONE,
+    TGLBASS
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -259,8 +267,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_Ab_2, MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3, MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4, MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5
   ),
 
-  /* Base2row */
-  [_C_SYSTEM_BASE2ROW] = LAYOUT(
+  /* BASS2row */
+  [_C_SYSTEM_BASS2ROW] = LAYOUT(
     MI_CH_Fr,     MI_CH_Cr,     MI_CH_Gr,     MI_CH_Dr,     MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,   MI_CH_Csr,   MI_CH_Gsr,   MI_CH_Dsr,   MI_CH_Asr,
     MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr,    MI_CH_Gr,    MI_CH_Dr,    MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,
     MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C,     MI_CH_G,     MI_CH_D,     MI_CH_A,     MI_CH_E,     MI_CH_B,     MI_CH_Fs,
@@ -341,22 +349,81 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Fn */
   [_FN] = LAYOUT(
     CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
-    DF_QWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+    XXXXXXX, XXXXXXX, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
 
+#ifdef RGBLIGHT_ENABLE
+
+// Light up fn layer keys (left side keyboard)
+const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS({0,   5, HSV_ORANGE},      //  MIDI layouts
+                                                                         {11,  1, HSV_RED},         //  RGB_TOG
+                                                                         {12,  1, HSV_WHITE},       //  DF_QWER
+                                                                         {13,  1, HSV_CORAL},       //  TGLBASS
+                                                                         {24,  1, HSV_WHITE},       //  DF_COLE
+#if 0  //  Color Test
+                                                                         {36,  1, HSV_WHITE},
+                                                                         {37,  1, HSV_RED},
+                                                                         {38,  1, HSV_CORAL},
+                                                                         {39,  1, HSV_ORANGE},
+                                                                         {40,  1, HSV_GOLDENROD},
+                                                                         {41,  1, HSV_GOLD},
+                                                                         {42,  1, HSV_YELLOW},
+                                                                         {43,  1, HSV_CHARTREUSE},
+                                                                         {44,  1, HSV_GREEN},
+                                                                         {45,  1, HSV_SPRINGGREEN},
+                                                                         {46,  1, HSV_TURQUOISE},
+                                                                         {47,  1, HSV_TEAL},
+                                                                         {48,  1, HSV_CYAN},
+                                                                         {49,  1, HSV_AZURE},
+                                                                         {50,  1, HSV_BLUE},
+                                                                         {51,  1, HSV_PURPLE},
+                                                                         {52,  1, HSV_MAGENTA},
+                                                                         {53,  1, HSV_PINK},
+#endif
+// Light up fn layer keys (right side keyboard)
+                                                                         {60,  5, HSV_ORANGE},      //  MIDI layouts
+                                                                         {74,  1, HSV_CORAL},       //  TGLBASS
+                                                                         {85,  1, HSV_BLUE},        //  MIDI Oct
+                                                                         {86,  1, HSV_CYAN},        //  MIDI Oct
+                                                                         {87,  1, HSV_SPRINGGREEN}, //  MIDI Oct
+                                                                         {88,  1, HSV_GREEN},       //  MIDI Oct
+                                                                         {89,  1, HSV_CHARTREUSE},  //  MIDI Oct
+                                                                         {98,  5, HSV_ORANGE},      //  MIDI layouts
+                                                                         {110, 1, HSV_RED},         //  RGB_TOG
+                                                                         {112, 1, HSV_CORAL}        //  TGLBASS
+);
+
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_fn_layer);
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Both layers will light up if both kb layers are active
+    rgblight_set_layer_state(0, layer_state_cmp(state, _FN));
+    return state;
+};
+
+#endif  //  RGBLIGHT_ENABLE
+
 void keyboard_post_init_user(void) {
-    //  Set otave to MI_OCT_0
+    //  Set octave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
+    //  load EEPROM data for isSingleBass
+    user_config.raw = eeconfig_read_user();
+
 #ifdef RGBLIGHT_ENABLE
+
+    rgblight_layers = my_rgb_layers;
+
     // Reset LED off
     rgblight_sethsv(HSV_BLACK);
 #    if defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE)
@@ -369,6 +436,23 @@ void keyboard_post_init_user(void) {
 #    endif
 #endif  // RGBLIGHT_ENABLE
 };
+
+void toggle_isSingleBass(void) {
+#ifdef CONSOLE_ENABLE
+  uprintf("isSingleBass(before) %u\n", user_config.isSingleBass);
+#endif
+  user_config.isSingleBass = !user_config.isSingleBass;
+#ifdef CONSOLE_ENABLE
+  uprintf("isSingleBass(after) %u\n", user_config.isSingleBass);
+#endif
+
+  eeconfig_update_user(user_config.raw);
+}
+
+void eeconfig_init_user(void) {
+  user_config.raw = 0;  // default: dyad
+  eeconfig_update_user(user_config.raw);
+}
 
 #ifdef RGBLIGHT_ENABLE
 void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation) {
@@ -403,31 +487,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         //  set default layer and save it to EEPROM when MIDI key layers are selected.
         case CSYSTEM:
-            set_single_persistent_default_layer(_C_SYSTEM_BASE);
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_C_SYSTEM_BASE);
+            }
             break;
 
         case BSYSTEM:
-            set_single_persistent_default_layer(_FAKE_B_SYSTEM);
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_FAKE_B_SYSTEM);
+            }
             break;
 
         case CNTBASC:
-            set_single_persistent_default_layer(_C_SYSTEM_BASE2ROW);
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_C_SYSTEM_BASS2ROW);
+            }
             break;
 
         case CSYSALL:
-            set_single_persistent_default_layer(_C_SYSTEM_ENTIRELY);
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_C_SYSTEM_ENTIRELY);
+            }
             break;
 
         case CHRTONE:
-            set_single_persistent_default_layer(_CHROMATONE);
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_CHROMATONE);
+            }
+            break;
+
+        case TGLBASS:
+            if (record->event.pressed) {
+                toggle_isSingleBass();
+            };
             break;
 
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
-            process_midi(root_note, record);
-            process_midi(root_note + 12, record);  // +1 Octave
-            // process_midi(root_note + 24, record);  // 21 Octave
+            if (IS_SINGLE_BASS()) {
+              process_midi(root_note, record);
+            } else {
+              process_midi(root_note, record);
+              process_midi(root_note + 12, record);  // +1 Octave
+            }
+            // process_midi(root_note + 24, record);  // +2 Octave
 #ifdef RGBLIGHT_ENABLE
             keylight_manager(record, HSV_GOLDENROD, keylocation);
 #endif
@@ -488,7 +592,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
     }
     // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
+#if defined(CONSOLE_ENABLE) && defined(RGBLIGHT_ENABLE)
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     uprintf("r=%d, c=%d, keyloc=%d, keyloc2=%d, matrix_col x r + c = %d\n", r, c, keylocation, keylocation2, MATRIX_COLS * r + c);
 #endif

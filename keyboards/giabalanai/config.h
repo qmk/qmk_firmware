@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Instead, LED data is tranferred from right side to the left via TRRS cable.
 
 #    define RGBLIGHT_LIMIT_VAL 100
-// #define RGBLIGHT_LAYERS
+#    define RGBLIGHT_LAYERS
 
 #    ifndef HSV_BLACK
 #        define HSV_BLACK 0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
