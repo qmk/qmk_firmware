@@ -126,13 +126,13 @@ float caps_song_off[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 
 // Public domain songs
 // To use these if encountering problem in compilation
-// float dpad_song_on[][2] = SONG(ROCK_A_BYE_BABY);
-// float dpad_song_off[][2] = SONG(MAJOR_SOUND);
+float dpad_song_on[][2] = SONG(ROCK_A_BYE_BABY);
+float dpad_song_off[][2] = SONG(MAJOR_SOUND);
 
 // Copyrighted songs, for my own satisfaction
 // Modification of quantum/audio/song_list.h is required
-float dpad_song_on[][2]  = SONG(IMPERIAL_MARCH_SHORT);
-float dpad_song_off[][2] = SONG(VICTORY_FANFARE_SHORT);
+// float dpad_song_on[][2]  = SONG(IMPERIAL_MARCH_SHORT);
+// float dpad_song_off[][2] = SONG(VICTORY_FANFARE_SHORT);
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
