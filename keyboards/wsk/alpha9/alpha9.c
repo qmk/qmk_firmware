@@ -15,18 +15,3 @@
  */
 
 #include "alpha9.h"
-
-void matrix_init_kb(void) {
-    setPinOutput(D3);
-    writePinLow(D3);
-    
-    matrix_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(D3, led_state.num_lock);
-    }
-    return res;
-}
