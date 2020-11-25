@@ -1,13 +1,14 @@
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _FN1 1
-#define _FN2 2
-#define KC_ KC_TRNS
+enum layers {
+    _QWERTY,
+    _FN1,
+    _FN2,
+};
+
 #define KC_X0 LT(_FN2, KC_CAPS)
 #define KC_X1 MO(_FN1)
 #define KC_X2 MO(_FN2)
-#define XXX KC_NO
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
