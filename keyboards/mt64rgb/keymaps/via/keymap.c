@@ -30,15 +30,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 void rgb_matrix_indicators_user(void) {
-	  uint8_t this_led = host_keyboard_leds();
-	  if (!g_suspend_state) {
-	    switch (biton32(layer_state)) {
-	      case 1:
-	        rgb_matrix_set_color(77,0xFF, 0x80, 0x00);
-          break;
-      }
+    if (!g_suspend_state && layer_state_is(1)) {
+        rgb_matrix_set_color(77,0xFF, 0x80, 0x00);
     }
-    if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
           rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
     }
 }
