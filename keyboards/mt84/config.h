@@ -3,11 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D54  // "MT"
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    mt84
-#define PRODUCT         mt84
+##define DESCRIPTION     mt84
+
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -40,11 +37,15 @@
 	#define DRIVER_ADDR_1 0b1010000
 	#define DRIVER_ADDR_2 0b1011111
 
-	#define DRIVER_COUNT 2
+	
+
+    #define DRIVER_COUNT 2
 	#define DRIVER_1_LED_TOTAL 44
 	#define DRIVER_2_LED_TOTAL 40
 	#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-	#define DISABLE_RGB_MATRIX_ALPHAS_MODS
+	
+    
+    #define DISABLE_RGB_MATRIX_ALPHAS_MODS
 	#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 	#define DISABLE_RGB_MATRIX_BREATHING
 	#define DISABLE_RGB_MATRIX_BAND_SAT
