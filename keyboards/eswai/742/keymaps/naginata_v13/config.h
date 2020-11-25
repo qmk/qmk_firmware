@@ -17,6 +17,4 @@
 #define NAGINATA_KOUCHI_SHIFT // シフトを後置でも有効にする
 // 薙刀式
 
-#define OLED_FONT_H "naginata_font.c"
 #define OLED_TIMEOUT 60000
-#define OLED_FONT_END 230
