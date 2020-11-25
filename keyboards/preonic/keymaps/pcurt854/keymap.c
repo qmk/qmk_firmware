@@ -170,17 +170,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | ____ |   @  |   *  |   &  |      |   `  |   #  |   -  |      |   +  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |   ^  |      |   \  |      |   =  |      |      | PgUp | ____ |
+ * |      |      |      |   ^  |      |   \  |      |   =  |      |      | PgUp |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | ____ | ____ | ____ | ____ |      | ____ | ____ |      |      | Home | PgDn | End  |
+ * | ____ | ____ | ____ | ____ | tg(4)| ____ | ____ |      |      | Home | PgDn | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMBOL] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
   _______, XXXXXXX, XXXXXXX, KC_EXLM, KC_DLR,  KC_TILD, XXXXXXX, KC_UNDS, KC_PIPE, XXXXXXX, KC_PERC, _______,
   _______, KC_AT,   KC_ASTR, KC_AMPR, XXXXXXX, KC_GRV,  KC_HASH, KC_MINS, XXXXXXX, KC_PLUS, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, KC_CIRC, XXXXXXX, KC_BSLS, XXXXXXX, KC_EQL,  XXXXXXX, XXXXXXX, KC_PGUP, _______,
-  _______, _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END
+  XXXXXXX, XXXXXXX, XXXXXXX, KC_CIRC, XXXXXXX, KC_BSLS, XXXXXXX, KC_EQL,  XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX,
+  _______, _______, _______, _______, TG(_SYMBOL), _______, _______, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END
 ),
 
 /* Bracket layer 5
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |rainbw|gradnt|      |      | mod+ | Hue+ |    [ | [|]  | ]    |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |swirl | Xmas | test |      | Brt+ |      |    { | {|}  | }    |      |      |
+ * | tg(5)|swirl | Xmas | test |      | Brt+ |      |    { | {|}  | }    |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -200,7 +200,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, RGB_M_P,  RGB_M_B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LABK, ABKPAIR, KC_RABK, XXXXXXX, _______,
   XXXXXXX, RGB_M_SN, RGB_M_K, XXXXXXX, RGB_TOG, RGB_SAI, XXXXXXX, KC_LPRN, RBKPAIR, KC_RPRN, XXXXXXX, _______,
   XXXXXXX, RGB_M_R,  RGB_M_G, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUI, KC_LBRC, SBKPAIR, KC_RBRC, XXXXXXX, XXXXXXX,
-  XXXXXXX, RGB_M_SW, RGB_M_X, RGB_M_T, XXXXXXX, RGB_VAI, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, XXXXXXX, XXXXXXX,
+  TG(_BRACKET),
+           RGB_M_SW, RGB_M_X, RGB_M_T, XXXXXXX, RGB_VAI, XXXXXXX, KC_LCBR, CBKPAIR, KC_RCBR, XXXXXXX, XXXXXXX,
   _______, _______,  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
@@ -217,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |Sleep |show  |      |      |finder|mv win|      |Lock  |      |      |
  * |      |      |      |Dsktp |      |      |Hddn  |clkw  |      |screen|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      | Caps |Virus |      |      | Mute | vol+ |      | dsp+ |      |
+ * |      |      |      | Caps |Virus |      |      | Mute | vol+ |      | dsp+ | tg(6)|
  * |      |      |      |      |scan  |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ____ | ____ | ____ | ____ |      |      |      |      | vol- |      | dsp- |      |
@@ -232,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),
                                                                  LCA(KC_J), XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, SCMD(KC_V),
-                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, LCAG(KC_UP), XXXXXXX,
+                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, LCAG(KC_UP), TG(_ADJUST),
   _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, LCAG(KC_DOWN), XXXXXXX
 )
 
