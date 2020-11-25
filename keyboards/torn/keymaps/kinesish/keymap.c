@@ -142,3 +142,14 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
 }
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case S_EQL:
+            return true;
+        case S_MINS:
+            return true;
+        default:
+            return false;
+    }
+}
