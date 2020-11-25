@@ -24,5 +24,4 @@ UNICODE_ENABLE = no         # Unicode
 
 AUDIO_ENABLE = no           # Audio output on port C6
 BLUETOOTH = AdafruitBLE
-LAYOUTS = 47
 RGBLIGHT_ENABLE = yes
