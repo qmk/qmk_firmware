@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    mt84
 #define PRODUCT         mt84
-#define DESCRIPTION     mt84
 
 /* key matrix size */
 #define MATRIX_ROWS 6
