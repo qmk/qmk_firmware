@@ -1,17 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#ifdef RGB_MATRIX_ENABLE
-#include "rgb_matrix.h"
-#include "i2c_master.h"
-
-extern rgb_config_t rgb_matrix_config;
-#endif
-
-// extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
 
 
 enum mt84_layers {
