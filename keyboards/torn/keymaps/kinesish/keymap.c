@@ -131,3 +131,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     torn_set_led(2, IS_LAYER_ON_STATE(state, _ADJUST));
     return state;
 }
+
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case S_EQL:
+            return false;
+        case S_MINS:
+            return false;
+        default:
+            return true;
+    }
+}
