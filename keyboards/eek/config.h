@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0004
 #define MANUFACTURER    klackygears
 #define PRODUCT         eek!
-//#define DESCRIPTION     A portable 36 key split layout keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
