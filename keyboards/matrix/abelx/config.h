@@ -99,12 +99,9 @@
 
 // rgb light setting
 #define RGBLED_NUM 9
-#define RGB_DI_PIN B5  // reserved for extension
+#define RGB_DI_PIN B4
 #define RGBLIGHT_ANIMATIONS
 
 #define AW9523B_RGB_NUM 4
-
-#define DRIVER_ADDR 0x78
-#define DRIVER_LED_TOTAL RGBLED_NUM
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
