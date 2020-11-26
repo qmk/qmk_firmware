@@ -1,0 +1,44 @@
+{
+  "name": "Geekboards Macropad v2",
+  "vendorId": "0x0483",
+  "productId": "0xA372",
+  "lighting": {
+    "extends":"qmk_rgblight",
+    "underglowEffects": [
+      ["None", 0],
+      ["SOLID_COLOR", 1],
+      ["GRADIENT_UP_DOWN", 1],
+      ["GRADIENT_LEFT_RIGHT", 1],
+      ["BREATHING", 1],
+      ["BAND_VAL", 1],
+      ["CYCLE_ALL", 1],
+      ["CYCLE_LEFT_RIGHT", 1],
+      ["CYCLE_UP_DOWN", 1],
+      ["CYCLE_OUT_IN_DUAL", 1],
+      ["CYCLE_PINWHEEL", 1],
+      ["DUAL_BEACON", 1],
+      ["TYPING_HEATMAP", 1],
+      ["SOLID_REACTIVE", 1],
+      ["SOLID_REACTIVE_WIDE", 1],
+      ["SOLID_REACTIVE_MULTIWIDE", 1],
+      ["SOLID_REACTIVE_NEXUS", 1],
+      ["SOLID_REACTIVE_MULTINEXUS", 1],
+      ["SPLASH", 1],
+      ["MULTISPLASH", 1],
+      ["SOLID_SPLASH", 1],
+      ["SOLID_MULTISPLASH", 1]
+    ],
+    "supportedLightingValues": [
+      128,
+      129,
+      131
+    ]
+  },
+  "matrix": { "rows": 2, "cols": 4 },
+  "layouts": {
+    "keymap": [
+      ["0,0", "0,1", "0,2", "0,3"],
+      ["1,0", "1,1", "1,2", "1,3"]
+    ]
+  }
+}
