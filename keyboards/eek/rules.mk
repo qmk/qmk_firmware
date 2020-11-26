@@ -24,3 +24,6 @@ AUDIO_ENABLE = no           # Audio output
 
 #OPT_DEFS += -DFLIPPED      # Enable if board is flipped to have eek! silk on top
 #RGB_MATRIX_ENABLE = WS2812 # Enable for pretty RGB matrix effects
+
+
+LAYOUTS = split_3x5_3
