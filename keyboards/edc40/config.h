@@ -47,4 +47,4 @@
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
-#define RGB_DI_PIN { C6 }
+#define RGB_DI_PIN C6
