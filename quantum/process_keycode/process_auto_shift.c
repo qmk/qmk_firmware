@@ -40,7 +40,7 @@ static struct {
  *
  *  \return Whether the record should be further processed.
  */
-static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
+static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record) {
     if (!autoshift_flags.enabled) {
         return true;
     }
@@ -51,7 +51,7 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
     }
 #    endif
 #    ifdef AUTO_SHIFT_REPEAT
-    const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
+    const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
 #        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
     if (!autoshift_flags.lastshifted) {
 #        endif
@@ -73,7 +73,7 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
 
     // Record the keycode so we can simulate it later.
     autoshift_lastkey           = keycode;
-    autoshift_time              = record->event.time;
+    autoshift_time              = now;
     autoshift_flags.in_progress = true;
 
 #    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
@@ -178,11 +178,15 @@ uint16_t get_autoshift_timeout(void) { return autoshift_timeout; }
 void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
+    // Note that record->event.time isn't reliable, see:
+    // https://github.com/qmk/qmk_firmware/pull/9826#issuecomment-733559550
+    const uint16_t now = timer_read();
+
     if (record->event.pressed) {
         if (autoshift_flags.in_progress) {
             // Evaluate previous key if there is one. Doing this elsewhere is
             // more complicated and easier to break.
-            autoshift_end(KC_NO, record->event.time, false);
+            autoshift_end(KC_NO, now, false);
         }
         // For pressing another key while keyrepeating shifted autoshift.
         del_weak_mods(MOD_BIT(KC_LSFT));
@@ -226,9 +230,9 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         case KC_NONUS_BSLASH:
 #    endif
             if (record->event.pressed) {
-                return autoshift_press(keycode, record);
+                return autoshift_press(keycode, now, record);
             } else {
-                autoshift_end(keycode, record->event.time, false);
+                autoshift_end(keycode, now, false);
                 return false;
             }
     }
