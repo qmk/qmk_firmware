@@ -37,6 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+#define LED_CAPS_LOCK_PIN B6
+#define LED_PIN_ON_STATE 0
+
 /* number of backlight levels */
 // #define BACKLIGHT_LEVELS  1
 
