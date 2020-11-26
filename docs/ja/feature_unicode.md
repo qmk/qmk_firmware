@@ -33,7 +33,7 @@ QMK は、Unicode 入力を有効にし、キーマップに Unicode 文字を�
 UNICODE_ENABLE = yes
 ```
 
-次に、`UC(c)` キーコードをキーマップに追加します。ここで、_c_ は目的の文字のコードポイントです (できれば最大4桁の長さが望ましいです)。例えば、`UC(0x40B)` は [Ћ](https://unicode-table.com/en/040B/) を出力し、`UC(0x30C4)` は [ツ](https://unicode-table.com/en/30C4) を出力します。
+次に、`UC(c)` キーコードをキーマップに追加します。ここで、_c_ は目的の文字のコードポイントです (できれば16進数で最大4桁の長さが望ましいです)。例えば、`UC(0x40B)` は [Ћ](https://unicode-table.com/en/040B/) を出力し、`UC(0x30C4)` は [ツ](https://unicode-table.com/en/30C4) を出力します。
 
 <br>
 
@@ -119,28 +119,28 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 
 * **`UC_MAC`**: macOS の組み込み Unicode16 進数入力。`0x10FFFF` までのコードポイントをサポートします (全ての利用可能なコードポイント)。
 
-   有効にするには、_System Preferences > Keyboard > Input Sources_ に移動し、(_Other_ の下の)リストに _Unicode Hex Input_ を追加し、次にメニューバーの入力ドロップダウンからそれをアクティブにします。
+有効にするには、_システム環境設定 > キーボード > 入力ソース_ に移動し、(_その他_ の下の)リストに _Unicode 16進数入力_ を追加し、次にメニューバーの入力ドロップダウンからそれをアクティブにします。
 デフォルトでは、このモードは Unicode 入力のために左オプションキー (`KC_LALT`) を使いますが、これは他のキーで [`UNICODE_KEY_MAC`](#input-key-configuration) を定義することで変更できます。
 
-   !> _Unicode Hex Input_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかのオプションベースのショートカットを無効にするかもしれません。
+!> _Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかのオプションベースのショートカットを無効にするかもしれません。
 
-   !> `UC_OSX` は `UC_MAC` の非推奨のエイリアスで、QMK の将来のバージョンで削除されます。全ての新しいキーマップは、`UC_MAC` を使うべきです。
+!> `UC_OSX` は `UC_MAC` の非推奨のエイリアスで、QMK の将来のバージョンで削除されます。全ての新しいキーマップは、`UC_MAC` を使うべきです。
 
 * **`UC_LNX`**: Linux の組み込み IBus Unicode 入力。`0x10FFFF` までのコードポイントをサポートします (全ての利用可能なコードポイント)。
 
-   デフォルトで有効になっていて、IBus が有効になったディストリビューションのほとんどどれでも動作します。IBus が無い場合、このモードは GTK アプリ下で動作しますが、他の場所ではほとんど動作しません。
+デフォルトで有効になっていて、IBus が有効になったディストリビューションのほとんどどれでも動作します。IBus が無い場合、このモードは GTK アプリ下で動作しますが、他の場所ではほとんど動作しません。
 デフォルトでは、このモードは Unicode 入力を開始するために Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) を使いますが、これは他のキー [`UNICODE_KEY_LNX`](#input-key-configuration) を定義することで変更することができます。これは、Ctrl+Shift+U の挙動が Ctrl+Shift+E に統合された IBus バージョン ≥1.5.15 を必要とするかもしれません。
 
 * **`UC_WIN`**: _(非推奨)_ Windows の組み込み16進数テンキー Unicode 入力。`0xFFFF` までのコードポイントをサポートします。
 
-   有効にするには、`HKEY_CURRENT_USER\Control Panel\Input Method` の下に、`EnableHexNumpad` という名前の `REG_SZ` 型を作成し、その値を `1` に設定します。これは、コマンドラインプロンプトから `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` を管理者権限で実行することでできます。その後再起動します。
+有効にするには、レジストリの `HKEY_CURRENT_USER\Control Panel\Input Method` の下に、`EnableHexNumpad` という名前の `REG_SZ` 型を作成し、その値を `1` に設定します。これは、コマンドラインプロンプトから `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` を管理者権限で実行することでできます。その後再起動します。
 信頼性と互換性の問題から、このモードはお勧めできません; 代わりに `UC_WINC` モードを使ってください。
 
 * **`UC_BSD`**: _(未実装)_ BSD での Unicode 入力。現時点では実装されていません。BSD ユーザでサポートを追加したい場合は、[GitHub で issue を開いて](https://github.com/qmk/qmk_firmware/issues)ください。
 
 * **`UC_WINC`**: [WinCompose](https://github.com/samhocevar/wincompose) を使った Windows Unicode 入力。v0.9.0 の時点で、`0x10FFFF` (全ての利用可能なコードポイント)をサポートします。
 
-   有効にするには、[最新のリリース](https://github.com/samhocevar/wincompose/releases/latest)をインストールします。インストールすると、起動時に WinCompose が自動的に実行されます。このモードはアプリがサポートする全てのバージョンの Windows で確実に動作します。
+有効にするには、[最新のリリース](https://github.com/samhocevar/wincompose/releases/latest)をインストールします。インストールすると、起動時に WinCompose が自動的に実行されます。このモードはアプリがサポートする全てのバージョンの Windows で確実に動作します。
 デフォルトでは、このモードは Compose キーとして右Alt (`KC_RALT`) を使いますが、これは WinCompose 設定と他のキーで [`UNICODE_KEY_WINC`](#input-key-configuration) を定義することで変更できます。
 
 
@@ -269,7 +269,7 @@ AutoHotkey のデフォルトのスクリプトで、カスタムホットキー
     <^<!<#<+a::Send, Ä
 
 上のホットキーは、CtrlAltGui と CtrlAltGuiShift に加えて文字 a に対応しています。
-この組み合わせが押されると、AutoHotkey は `Send, ` の右側にテキストを挿入します。
+この組み合わせが押されると、AutoHotkey は `Send, ` の右側にあるテキストを挿入します。
 
 ### US 国際化
 
