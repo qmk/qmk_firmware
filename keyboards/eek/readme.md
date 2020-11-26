@@ -6,9 +6,9 @@ The eek! Is a 36 key per key RGB keyboard with a 90 degree split layout suited f
 
 ![eek_bat](https://i.imgur.com/YrOqmft.jpeg)
 
-Keyboard Maintainer: [klackygears](https://github.com/klackygears)  
-Hardware Supported: The eek! PCBs, Pro Micro supported, Low Profile Elite-C supported 
-Hardware Availability: [Case Data & firmware](https://github.com/klackygears/eek_case)  
+* Keyboard Maintainer: [klackygears](https://github.com/klackygears)
+* Hardware Supported: The eek! PCBs, Pro Micro supported, Low Profile Elite-C supported
+* Hardware Availability: [Case Data & firmware](https://github.com/klackygears/eek_case)
 
 Make example for this keyboard (after setting up your build environment):
 
