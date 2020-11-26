@@ -7,8 +7,8 @@ BOOTLOADER = qmk-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no       # Mouse keys
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
@@ -20,7 +20,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by d
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
-AUDIO_ENABLE = no           # Audio output 
+AUDIO_ENABLE = no           # Audio output
 
 #OPT_DEFS += -DFLIPPED      # Enable if board is flipped to have eek! silk on top
 #RGB_MATRIX_ENABLE = WS2812 # Enable for pretty RGB matrix effects
