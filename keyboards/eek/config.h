@@ -19,38 +19,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
+/* USB Device descriptor parameter
 #define VENDOR_ID       0x4A53
 #define PRODUCT_ID      0x0002
 #define DEVICE_VER      0x0004
 #define MANUFACTURER    klackygears
-#define PRODUCT         eek!
+#define PRODUCT         eek!*/
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
+// #define MATRIX_ROWS 4
+// #define MATRIX_COLS 10
 
-#define MATRIX_ROW_PINS { E6, B4, B5, B6 }
-#if FLIPPED
-   #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, C6, D4 }
-#else
-   #define MATRIX_COL_PINS { D4, C6, B6, B2, B3, B1, F7, F6, F5, F4 }
-#endif
+// #define MATRIX_ROW_PINS { E6, B4, B5, B6 }
+// #if FLIPPED
+//    #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, C6, D4 }
+// #else
+//    #define MATRIX_COL_PINS { D4, C6, B6, B2, B3, B1, F7, F6, F5, F4 }
+// #endif
 
-#define UNUSED_PINS { D2, D1, D0 }
-#define DIODE_DIRECTION COL2ROW
+// #define UNUSED_PINS { D2, D1, D0 }
+// #define DIODE_DIRECTION COL2ROW
 
 
- #define RGB_DI_PIN B3
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 18
-  #define RGBLIGHT_HUE_STEP 4
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
+//  #define RGB_DI_PIN B3
+// #ifdef RGB_DI_PIN
+//   #define RGBLED_NUM 18
+//   #define RGBLIGHT_HUE_STEP 4
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
+//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+// /*== all animations enable ==*/
+//   #define RGBLIGHT_ANIMATIONS
 // /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -67,21 +67,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   /*==== use exp() and sin() ====*/
 //   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
- #endif
+//  #endif
 
- #ifdef RGB_MATRIX_ENABLE
-  #define DRIVER_LED_TOTAL 36
-  #define RGB_MATRIX_LED_FLUSH_LIMIT 16
-  #define RGB_MATRIX_STARTUP_VAL 150
-  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
- #endif
+//  #ifdef RGB_MATRIX_ENABLE
+//   #define DRIVER_LED_TOTAL 36
+//   #define RGB_MATRIX_LED_FLUSH_LIMIT 16
+//   #define RGB_MATRIX_STARTUP_VAL 150
+//   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+//  #endif
 
- #ifdef AUDIO_ENABLE
-  #define B0_AUDIO
- #endif
+//  #ifdef AUDIO_ENABLE
+//   #define B0_AUDIO
+//  #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+// #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -89,9 +89,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+// #define LOCKING_SUPPORT_ENABLE
+// /* Locking resynchronize hack */
+// #define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
