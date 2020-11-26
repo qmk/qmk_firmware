@@ -1,1 +1,1 @@
-# The default keymap for Ergonomic Vertical Keyboard (EVK) version 1.3 with Teensy 2.0
+# The default keymap for this version of the EVK
