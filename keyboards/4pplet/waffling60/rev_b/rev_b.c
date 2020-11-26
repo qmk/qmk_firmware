@@ -16,13 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "rev_b.h"
 
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
-    matrix_init_user();
-}
-
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(CAPS_LOCK_ENABLE){
