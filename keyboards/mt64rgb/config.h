@@ -1,4 +1,4 @@
-* Copyright 2020 MT 
+/* Copyright 2020 MT 
   * 
   * This program is free software: you can redistribute it and/or modify 
   * it under the terms of the GNU General Public License as published by 
@@ -20,7 +20,6 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4D54  // "MT"
 #define PRODUCT_ID      0x0001
-#define DESCRIPTION     mt64rgb
 
 /* key matrix size */
 #define MATRIX_ROWS 5
