@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    4pplet
 #define PRODUCT         bootleg Rev A
-#define DESCRIPTION
 
 /* key matrix size */
 #define MATRIX_ROWS 5
