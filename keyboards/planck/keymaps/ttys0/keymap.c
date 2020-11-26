@@ -171,17 +171,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, volu,
-         del, xxxx, sldn, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, vold,
-        ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, mute,
-        ____, ____, ____, ____, ____, ____, ____, ____, ____, prev, next, play
+         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, ____,
+         del, xxxx, sldn, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, ____,
+        ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
+        ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
     [FUNC] = LAYOUT_planck_grid(
-        rset,   f7,   f5,   f3,   f1,   f9,   f8,  f10,   f2,   f4,   f6, caps,
-        powr,  f17,  f15,  f13,  f11,  f19,  f18,  f20,  f12,  f14,  f16, ____,
-        brup, ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ____,
-        brdn, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
+        rset,   f7,   f5,   f3,   f1,   f9,   f8,  f10,   f2,   f4,   f6, mute,
+        powr,  f17,  f15,  f13,  f11,  f19,  f18,  f20,  f12,  f14,  f16, volu,
+        brup, ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, vold,
+        brdn, caps, ____, ____, ____, ____, ____, ____, prev, next, play, ____
     ),
 };
 
