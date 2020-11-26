@@ -76,18 +76,3 @@ OR
 ```
  #define MASTER_LEFT
 ```
-
-
-Notes on Using Pro Micro 3.3V
------------------------------
-
-Do update the `F_CPU` parameter in `rules.mk` to `8000000` which reflects
-the frequency on the 3.3V board.
-
-Also, if the slave board is producing weird characters in certain columns,
-update the following line in `matrix.c` to the following:
-
-```
-// _delay_us(30);  // without this wait read unstable value.
-_delay_us(300);  // without this wait read unstable value.
-```
