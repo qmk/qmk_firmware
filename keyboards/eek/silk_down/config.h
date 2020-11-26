@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define UNUSED_PINS { D2, D1, D0 }
+
 #define DIODE_DIRECTION COL2ROW
 
 
