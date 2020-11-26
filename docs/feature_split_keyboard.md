@@ -253,7 +253,7 @@ You'll need to cut the small trace between the 5V and center pads on the back of
 
 Once you have done that, you will want to solder the diode from the 5V pad to the center pad.
 
-I had to use the 5V pad from the regulator block above as the pads were too small and placed too closely together.
+You may need to use the 5V pad from the regulator block above as the pads were too small and placed too closely together to place the Schottky diode properly.
 
 ![Teensy++ 2.0](https://cdn.discordapp.com/attachments/440911374571274240/779382993289871360/20201120_082838.jpg)
 
