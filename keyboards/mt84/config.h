@@ -1,4 +1,4 @@
- /* Copyright MT84RGB by MT <704340378@qq.com>
+ /* Copyright 2020  MT <704340378@qq.com>
   * 
   * This program is free software: you can redistribute it and/or modify 
   * it under the terms of the GNU General Public License as published by 
@@ -18,7 +18,9 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-##define DESCRIPTION     mt84
+#define VENDOR_ID       0x4D54  // "MT"
+#define PRODUCT_ID      0x0002
+#define DESCRIPTION     mt84
 
 
 /* key matrix size */
