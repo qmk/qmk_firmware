@@ -98,7 +98,7 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
 
 デフォルトでは、各テーブルエントリの長さは、最大3コードポイントです。この番号は `#define UCIS_MAX_CODE_POINTS n` を `config.h` ファイルに追加することで変更できます。
 
-UCIS 入力を使うには、`qk_ucis_start()` を呼び出します。次に、文字のニーモニック ("rofl" など) を入力し、Space か Enter か Esc を押します。QMK は "rofl" テキストを消去し、笑っている絵文字を挿入しなければなりません。
+UCIS 入力を使うには、`qk_ucis_start()` を呼び出します。次に、文字のニーモニック ("rofl" など) を入力し、Space か Enter か Esc を押します。QMK は "rofl" テキストを消去し、笑っている絵文字を挿入するはずです。
 
 #### カスタマイズ
 
