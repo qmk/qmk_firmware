@@ -2,9 +2,9 @@
 
 An everyday carry 40% keyboard
 
-Keyboard Maintainer: OJ
-Hardware Supported: EDC40 PCB
-Hardware Availabilty: TeslaSkeys
+* Keyboard Maintainer: OJ
+* Hardware Supported: EDC40 PCB
+* Hardware Availabilty: TeslaSkeys
 
 Make example for this keyboard (after setting up your build environment):
 
