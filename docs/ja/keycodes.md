@@ -453,14 +453,14 @@
 |`RGB_SAD`          |          |彩度 (SAT) を減少させ、Shift を押していると増加させます。            |
 |`RGB_VAI`          |          |明度 (VAI/brightness) を増加させ、Shift を押していると減少させます。 |
 |`RGB_VAD`          |          |明度 (VAI/brightness) を減少させ、Shift を押していると増加させます。 |
-|`RGB_MODE_PLAIN`   |`RGB_M_P `|(動き無し) モードに固定します                                        |
+|`RGB_MODE_PLAIN`   |`RGB_M_P `|静止(動き無し) モードに固定します                                    |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |明滅アニメーションモード                                             |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |レインボーアニメーションモード                                       |
 |`RGB_MODE_SWIRL`   |`RGB_M_SW`|渦巻アニメーションモード                                             |
 |`RGB_MODE_SNAKE`   |`RGB_M_SN`|スネークアニメーションモード                                         |
-|`RGB_MODE_KNIGHT`  |`RGB_M_K` |"ナイトライダー" アニメーションモード                                |
+|`RGB_MODE_KNIGHT`  |`RGB_M_K` |「ナイトライダー」アニメーションモード                               |
 |`RGB_MODE_XMAS`    |`RGB_M_X` |クリスマスアニメーションモード                                       |
-|`RGB_MODE_GRADIENT`|`RGB_M_G` |固定諧調アニメーションモード                                         |
+|`RGB_MODE_GRADIENT`|`RGB_M_G` |固定階調アニメーションモード                                         |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |赤、青、緑のテストアニメーションモード                               |
 
 ## RGB マトリックスライト :id=rgb-matrix-lighting
@@ -476,8 +476,8 @@
 |`RGB_HUD`          |          |色相 (HUE) を減少させ、Shift を押していると増加させます。                                               |
 |`RGB_SAI`          |          |彩度 (SAT) を増加させ、Shift を押していると減少させます。                                               |
 |`RGB_SAD`          |          |彩度 (SAT) を減少させ、Shift を押していると増加させます。                                               |
-|`RGB_VAI`          |          |明度 (VAI/brightness) を増加させ、Shift を押していると減少させます。                                    |
-|`RGB_VAD`          |          |明度 (VAI/brightness) を減少させ、Shift を押していると増加させます。                                    |
+|`RGB_VAI`          |          |明度 (VAL/brightness) を増加させ、Shift を押していると減少させます。                                    |
+|`RGB_VAD`          |          |明度 (VAL/brightness) を減少させ、Shift を押していると増加させます。                                    |
 |`RGB_SPI`          |          |エフェクトのスピードを増加 (EEPROM はまだサポートしていません) させ、Shift を押していると減少させます。 |
 |`RGB_SPD`          |          |エフェクトのスピードを減少 (EEPROM はまだサポートしていません) させ、Shift を押していると増加させます。 |
 
