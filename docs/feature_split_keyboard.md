@@ -237,9 +237,9 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
-## Hardware Considerations and mods
+## Hardware Considerations and Mods
 
-While most any Pro Micro can be used, micro controllers like the AVR teensy's and most (if not all) ARM boards require the Split USB Detect.
+While most any Pro Micro can be used, micro controllers like the AVR Teensys and most (if not all) ARM boards require the Split USB Detect.
 
 However, with the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the Split USB detection option.
 
@@ -255,7 +255,7 @@ Once you have done that, you will want to solder the diode from the 5V pad to th
 
 You may need to use the 5V pad from the regulator block above as the pads were too small and placed too closely together to place the Schottky diode properly.
 
-![Teensy++ 2.0](https://cdn.discordapp.com/attachments/440911374571274240/779382993289871360/20201120_082838.jpg)
+![Teensy++ 2.0](https://i.imgur.com/BPEC5n5.png)
 
 ## Additional Resources
 
