@@ -20,17 +20,19 @@
 # Sets the bootloader defined in the keyboard's/keymap's rules.mk
 # Current options:
 #
-# halfkay        PJRC Teensy
-# caterina       Pro Micro (Sparkfun/generic)
-# atmel-dfu      Atmel factory DFU
-# lufa-dfu       LUFA DFU
-# qmk-dfu        QMK DFU (LUFA + blinkenlight)
-# bootloadHID    HIDBootFlash compatible (ATmega32A)
-# USBasp         USBaspLoader (ATmega328P)
-# kiibohd        Input:Club Kiibohd bootloader (only used on their boards)
-# stm32duino     STM32Duino (STM32F103x8)
-# stm32-dfu      STM32 USB DFU in ROM
-# apm32-dfu      APM32 USB DFU in ROM
+# AVR:
+#     halfkay     PJRC Teensy
+#     caterina    Pro Micro (Sparkfun/generic)
+#     atmel-dfu   Atmel factory DFU
+#     lufa-dfu    LUFA DFU
+#     qmk-dfu     QMK DFU (LUFA + blinkenlight)
+#     bootloadHID HIDBootFlash compatible (ATmega32A)
+#     USBasp      USBaspLoader (ATmega328P)
+# ARM:
+#     kiibohd     Input:Club Kiibohd bootloader (only used on their boards)
+#     stm32duino  STM32Duino (STM32F103x8)
+#     stm32-dfu   STM32 USB DFU in ROM
+#     apm32-dfu   APM32 USB DFU in ROM
 #
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
