@@ -11,6 +11,13 @@ A fairly typical TKL
 Make example for this keyboard (after setting up your build environment):
 
     make tkc/tkl_ab87:default
+	
+Reset board in one of two ways:
+
+	1) Short reset header to right of up arrow key
+	![Photo](https://i.imgur.com/S01CTTG.jpg)
+	
+	2) Hold down Esc key while plugging in USB-C
 
 Flashing example for this keyboard:
 
