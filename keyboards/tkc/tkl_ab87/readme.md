@@ -15,7 +15,7 @@ Make example for this keyboard (after setting up your build environment):
 Reset board in one of two ways:
 
 	1) Short reset header to right of up arrow key
-	![Photo](https://i.imgur.com/S01CTTG.jpg)
+![Photo](https://i.imgur.com/S01CTTG.jpg)
 	
 	2) Hold down Esc key while plugging in USB-C
 
