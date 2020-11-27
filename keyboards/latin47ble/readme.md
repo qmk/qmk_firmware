@@ -5,7 +5,7 @@
 macro 47 ble 4.0 RGB keyboard
 
 * Keyboard Maintainer: [latincompass](https://github.com/latincompass)
-* Hardware Availability: https://github.com/latincompass/latin47BLE-kb
+* Hardware Availability: https://github.com/haierwangwei2005/latin47blekeyboard-/blob/main/1%20(2).png
 
 Make example for this keyboard (after setting up your build environment):
 
