@@ -20,6 +20,7 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
+// static int8_t my_counter = 0;
 
 
 // Defines names for use in layer keycodes and the keymap
@@ -81,10 +82,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define S_SLSH   RSFT_T(KC_SLSH)
+#define S_SLSH  RSFT_T(KC_SLSH)
 #define C_SLSH  RCTL_T(KC_SLSH)
-#define CT_E     LCTL(KC_E)
-#define CT_A     LCTL(KC_A)
+#define CT_E    LCTL(KC_E)
+#define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
 
 
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,  \
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC, \
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_ENT,             KC_QUOT, \
-        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,  LOWER,  \
+        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,  LOWER,   \
         KC_MUTE,KC_LANG2,KC_LALT,KC_LGUI,       SP_SFT,         SP_RAI,         KC_RGUI,KC_RALT,KC_LANG1,KC_LEFT,KC_DOWN,KC_RGHT \
     ),
     [_WIN] = LAYOUT_ANSI(
@@ -381,6 +382,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
+    // Set LED effect range
+    // rgblight_set_effect_range(6, 8);
 }
 
 // Enabling and disabling lighting layers
@@ -433,11 +436,49 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     if (index == 1) { /* Second encoder, Left side */
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
+        switch(biton32(layer_state)) {
+            case _LOWER:
+                if (clockwise) {
+                    rgblight_decrease_val();    // RGB LED Brightness Down
+
+                    // ++my_counter;
+                    // if (my_counter > 3) {
+                    //     my_counter = 0;
+                    // }
+                } else {
+                    rgblight_increase_val();    // RGB LED Brightness Up
+
+                    // --my_counter;
+                    // if (my_counter < 0) {
+                    //     my_counter = 3;
+                    // }
+                }
+                break;
+            default:
+                if (clockwise) {
+                    tap_code(KC_VOLD);       // Volume Down
+                } else {
+                    tap_code(KC_VOLU);       // Volume Up
+                }
+                break;
         }
+        // switch (my_counter) {
+        //     case 0:
+        //         rgblight_sethsv_range(0,0,0, 0, 3);
+        //         break;
+        //     case 1:
+        //         rgblight_sethsv_range(HSV_GREEN, 0, 3);
+
+        //         break;
+        //     case 2:
+        //         rgblight_sethsv_range(HSV_YELLOW, 0, 3);
+        //         break;
+        //     case 3:
+        //         rgblight_sethsv_range(HSV_RED, 0, 3);
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 }
 
