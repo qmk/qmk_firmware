@@ -59,7 +59,7 @@
 #endif
 
 #ifndef SERIAL_USART_TIMEOUT
-    #define SERIAL_USART_TIMEOUT 100
+#    define SERIAL_USART_TIMEOUT 100
 #endif
 
 #define HANDSHAKE_MAGIC 7
