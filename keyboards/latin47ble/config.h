@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    latincompass
 #define PRODUCT         Latin47BLE
-#define DESCRIPTION     47key blekeyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
