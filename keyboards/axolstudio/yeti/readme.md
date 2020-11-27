@@ -1,8 +1,8 @@
 # Axolstudio Yeti
 
-![yeti](imgur.com image replace me!)
+![yeti](https://i.imgur.com/ifJFLfF.png)
 
-Alice like keyboard
+**TGR Alice inspired board with some extra heft**
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: Axolstudio Yeti PCB
