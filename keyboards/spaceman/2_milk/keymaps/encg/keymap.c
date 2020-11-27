@@ -36,65 +36,66 @@ const uint32_t PROGMEM unicode_map[] = {
     [WAVE]  = 0x1F44B,  // 👋
 };
 
+/* Emojis stored in an array in order to be randomly accessed */
 const char* emoji[5] = {"🐄", "🧈", "🐔", "🎣", "🌱"};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case SPIN:
-    if (record->event.pressed) {
-      // Seed RNG used by rand() with timer_read() https://beta.docs.qmk.fm/developing-qmk/qmk-reference/ref_functions#software-timers
-      srand(timer_read());
-      int rng1 = rand() % 5; 
-      send_unicode_string(emoji[rng1]);
-      wait_ms(200);    
-      int rng2 = rand() % 5;
-      send_unicode_string(emoji[rng2]);
-      wait_ms(200);
-      int rng3 = rand() % 5;
-      send_unicode_string(emoji[rng3]);
-      wait_ms(200);
-      if (rng1 == rng2 && rng1 == rng3) {
-        if (rng1 == 0) {
-          wait_ms(200);
-          SEND_STRING("   ");
-          send_unicode_string("🧧🧧🧧");
-          wait_ms(200);
-          SEND_STRING("\n");
-        } else if (rng1 == 1) {
-          wait_ms(200);
-          SEND_STRING("   ");
-          send_unicode_string("💰💰💰");
-          wait_ms(200);
-          SEND_STRING("\n");
-        } else if (rng1 == 2) {
-          wait_ms(200);
-          SEND_STRING("   ");
-          send_unicode_string("🤑🤑🤑");
-          wait_ms(200);
-          SEND_STRING("\n");
-        } else if (rng1 == 3) {
-          wait_ms(200);
-          SEND_STRING("   ");
-          send_unicode_string("💲💲💲");
-          wait_ms(200);
-          SEND_STRING("\n");
-        } else if (rng1 == 4) {
-          wait_ms(200);
-          SEND_STRING("   ");
-          send_unicode_string("📈📈📈");
-          wait_ms(200);
-          SEND_STRING("\n");
-        }
-      } else {
-        SEND_STRING("   ");
-        send_unicode_string("👋💸");
-        SEND_STRING("\n");
+    switch (keycode) {
+        case SPIN:
+            if (record->event.pressed) {
+                /* Seed RNG used by rand() with timer_read() https://beta.docs.qmk.fm/developing-qmk/qmk-reference/ref_functions#software-timers */
+                srand(timer_read());
+                int rng1 = rand() % 5; 
+                send_unicode_string(emoji[rng1]);
+                wait_ms(200);    
+                int rng2 = rand() % 5;
+                send_unicode_string(emoji[rng2]);
+                wait_ms(200);
+                int rng3 = rand() % 5;
+                send_unicode_string(emoji[rng3]);
+                wait_ms(200);
+                    if (rng1 == rng2 && rng1 == rng3) {
+                        if (rng1 == 0) {
+                            wait_ms(200);
+                            SEND_STRING("   ");
+                            send_unicode_string("🧧🧧🧧");
+                            wait_ms(200);
+                            SEND_STRING("\n");
+                          } else if (rng1 == 1) {
+                            wait_ms(200);
+                            SEND_STRING("   ");
+                            send_unicode_string("💰💰💰");
+                            wait_ms(200);
+                            SEND_STRING("\n");
+                          } else if (rng1 == 2) {
+                            wait_ms(200);
+                            SEND_STRING("   ");
+                            send_unicode_string("🤑🤑🤑");
+                            wait_ms(200);
+                            SEND_STRING("\n");
+                          } else if (rng1 == 3) {
+                            wait_ms(200);
+                            SEND_STRING("   ");
+                            send_unicode_string("💲💲💲");
+                            wait_ms(200);
+                            SEND_STRING("\n");
+                          } else if (rng1 == 4) {
+                            wait_ms(200);
+                            SEND_STRING("   ");
+                            send_unicode_string("📈📈📈");
+                            wait_ms(200);
+                            SEND_STRING("\n");
+                        }
+                    } else {
+                          SEND_STRING("   ");
+                          send_unicode_string("👋💸");
+                          SEND_STRING("\n");
+                    }
       }
-    }
-    return false;
-    break;
-  case RULES:
-    if (record->event.pressed) {
+            return false;
+            break;
+        case RULES:
+            if (record->event.pressed) {
                 send_unicode_string("🐄");
                 wait_ms(200);
                 send_unicode_string("🐄");
@@ -164,16 +165,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 wait_ms(200);
                 send_unicode_string("📈");
                 SEND_STRING("\n\n");
-    }
+            }
+            return false;
+            break;    
+            }
     return false;
-    break;    
-  }
-  return false;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-      [0] = LAYOUT(
-          SPIN, // bottom button
-          RULES // top button
-          )
+    [0] = LAYOUT(
+        SPIN, /* bottom button */
+        RULES /* top button */
+    )
 };
