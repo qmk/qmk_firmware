@@ -170,13 +170,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
 );
 #endif
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    default:
-      return TAPPING_TERM;
-  }
-}
-
 // レイヤーキーを変換・無変換キーと共用する際に動作を改善する。
 static bool lower_pressed = false;
 static uint16_t lower_pressed_time = 0;
