@@ -197,13 +197,13 @@ switch (keycode) {
 // RGB Light settings
 #ifdef RGBLIGHT_LAYERS
 
-#define JONES_LED_INDICATOR_INDEX 12
-#define JONES_LED_INDICATOR_COUNT 2
-#define JONES_LED_INDICATOR_CHANGE_COUNT 1
-#define JONES_LED_DIMMER_LEVEL 200
+// インジケータLED
+#define JONES_LED_INDICATOR_INDEX 12        // 開始位置
+#define JONES_LED_INDICATOR_COUNT 2         // 個数
+#define JONES_LED_INDICATOR_CHANGE_COUNT 1  // レイヤーキー操作時に色を変える個数
+#define JONES_LED_DIMMER_LEVEL 200          // 明るさ調整
 
-
-// 1st LED
+// デフォルトレイヤー（＝ベースレイヤー）
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_WHITE - JONES_LED_DIMMER_LEVEL}
 );
@@ -214,7 +214,7 @@ const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_YELLOW - JONES_LED_DIMMER_LEVEL}
 );
 
-// 2nd LED
+// レイヤーキー操作時のレイヤー（一時的な変更）
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_MAGENTA - JONES_LED_DIMMER_LEVEL}
 );
@@ -234,7 +234,6 @@ const rgblight_segment_t PROGMEM my_num_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_RED - JONES_LED_DIMMER_LEVEL}
 );
-
 
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
