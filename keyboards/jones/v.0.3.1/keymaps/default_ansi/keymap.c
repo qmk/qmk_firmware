@@ -81,7 +81,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define S_SLSH   RSFT_T(KC_SLSH)
 #define C_SLSH  RCTL_T(KC_SLSH)
 #define CT_E     LCTL(KC_E)
 #define CT_A     LCTL(KC_A)
@@ -173,8 +172,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case S_SLSH:
-      return 0;
     default:
       return TAPPING_TERM;
   }
