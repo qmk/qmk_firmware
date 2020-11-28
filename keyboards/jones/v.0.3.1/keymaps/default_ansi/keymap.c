@@ -76,6 +76,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
 };
 
+// Custom keycodes
 #define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
 #define SP_RAI  LT(_RAISE, KC_SPC)
@@ -158,13 +159,13 @@ static uint16_t raise_pressed_time = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 switch (keycode) {
-    case MAC: // Write default layer to EEPROM
+    case MAC: // Change default ayer --> Write to EEPROM
         if (record->event.pressed) {
             set_single_persistent_default_layer(_MAC);
         }
         return false;
         break;
-    case WIN: // Write default layer to EEPROM
+    case WIN: // Change default ayer --> Write to EEPROM
         if (record->event.pressed) {
             set_single_persistent_default_layer(_WIN);
         }
