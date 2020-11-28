@@ -7,21 +7,20 @@
 #define ALT_X       ALT_T(KC_X)
 #define ALT_N       ALGR_T(KC_N)
 #define CTL_M       RCTL_T(KC_M)
-#define SFT_ENT     RSFT_T(KC_ENT)
 #define WIN_C		LGUI_T(KC_C)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_ortho_3x14(
-    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_0,    KC_7,    KC_8,    KC_9,       
-    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    KC_ESC,  SFT_ENT, KC_4,    KC_5,    KC_6,  
-    CTL_Z,   ALT_X,   WIN_C,   KC_V,    FN2_BSPC, FN1_SPC, FN3_B,   ALT_N,   CTL_M,   KC_RSFT,          KC_1,    KC_2,    KC_3
+    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_0,   KC_7,    KC_8,    KC_9,       
+    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    KC_ESC,  KC_ENT, KC_4,    KC_5,    KC_6,  
+    CTL_Z,   ALT_X,   WIN_C,   KC_V,    FN2_BSPC, FN1_SPC, FN3_B,   ALT_N,   CTL_M,   KC_RSFT,         KC_1,    KC_2,    KC_3
   ),
 
   [1] = LAYOUT_ortho_3x14(
-    _______, _______, _______, RESET,   _______,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, KC_F10,  KC_F7,   KC_F8,   KC_F9,
-    _______, _______, _______, _______, _______,  KC_COMM, KC_DOT,  KC_SLSH, KC_SCLN, KC_QUOT, KC_TAB,  KC_F4,   KC_F5,   KC_F6,
-    _______, _______, KC_LGUI, _______, KC_DEL,	  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,          KC_F1,   KC_F2,   KC_F3
+    _______, _______, _______, RESET,   _______,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, KC_F10, KC_F7,   KC_F8,   KC_F9,
+    _______, _______, _______, _______, _______,  KC_COMM, KC_DOT,  KC_SLSH, KC_SCLN, KC_QUOT, KC_TAB, KC_F4,   KC_F5,   KC_F6,
+    _______, _______, KC_LGUI, _______, KC_DEL,	  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,         KC_F1,   KC_F2,   KC_F3
   ),
 	
   [2] = LAYOUT_ortho_3x14(
@@ -31,10 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [3] = LAYOUT_ortho_3x14(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______, _______, _______
+    RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD,  _______, _______, _______, _______, _______,  _______, RGB_M_P, RGB_M_G,  RGB_M_T, _______,
+    RGB_HUD, RGB_SAD, RGB_VAD, RGB_RMOD, _______, _______, _______, _______, _______,  _______, RGB_TOG, RGB_M_SN, RGB_M_K, RGB_M_X,
+    _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______,          RGB_M_B,  RGB_M_R, RGB_M_SW
   )
 
 };
-
