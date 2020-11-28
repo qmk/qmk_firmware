@@ -8,11 +8,13 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make speedo:default
+    make cozykeys/speedo/v2:default  # for Speedo v2
+    make cozykeys/speedo/v3:default  # for Speedo v3
 
 Flashing example for this keyboard:
 
-    make speedo:default:flash
+    make cozykeys/speedo/v2:default:flash  # for Speedo v2
+    make cozykeys/speedo/v3:default:flash  # for Speedo v3
 
 See the
 [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and
