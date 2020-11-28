@@ -15,13 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-extern rgblight_config_t rgblight_config;
-#endif
-
-
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
     _MAC = 0,
