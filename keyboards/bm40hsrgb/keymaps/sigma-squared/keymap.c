@@ -4,24 +4,21 @@
 
 //game and chat layer led colors
 
-void rgb_matrix_indicators_user(void) {
+const rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { 11, 1, 127, 255, 100}
+);
 
-if(IS_LAYER_ON(GAME)) {
-  rgb_matrix_set_color(11, 0, 204, 255);
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    game_layer
+);
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = my_rgb_layers;
 }
 
-if(IS_LAYER_ON(CHAT)) {
-  rgb_matrix_set_color(11, 0, 255, 10);
-}
-
-if(IS_LAYER_ON(SECGAME)) {
-  rgb_matrix_set_color(11, 255, 0, 0);
-}
-
-if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-    rgb_matrix_set_color(11, 255, 80, 0);
-  }
-
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, GAME));
+    return state;
 }
 
 //actions to do when certain keys are pressed
