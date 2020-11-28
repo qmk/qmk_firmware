@@ -168,12 +168,12 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
+VALID_LED_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 custom
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
-    ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_MATRIX_TYPES)),)
+    ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
         $(error LED_MATRIX_DRIVER="$(LED_MATRIX_DRIVER)" is not a valid matrix type)
     else
         BACKLIGHT_ENABLE = yes
@@ -192,9 +192,10 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
 endif
 
 RGB_MATRIX_ENABLE ?= no
+VALID_RGB_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-    ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_MATRIX_TYPES)),)
+    ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
         $(error "$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
     endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
