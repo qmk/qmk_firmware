@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
-// We're using custom matrix file. So, no need to define DIODE_DIRECTION.
+// Jones uses custom matrix file. So, no need to define DIODE_DIRECTION.
 //#define DIODE_DIRECTION COL2ROW
 
 /* Rotary Encoder */
