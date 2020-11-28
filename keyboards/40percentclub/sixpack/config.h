@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x5350 // "SP"
 #define DEVICE_VER      0x1001
 #define MANUFACTURER    di0ib
-#define PRODUCT         SixPack
+#define PRODUCT         Six Pack
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_LED_COUNT 2
 #define BACKLIGHT_PINS { F4, F5 } // Top Row, Bottom Row
 
