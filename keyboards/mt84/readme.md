@@ -2,8 +2,8 @@
 
 ![Mt84rgb](https://i.imgur.com/2fJg3DDl.png)
 
-A 84% keyboard PCB made by Mt.
-It supports standard 84 keyboard，with hotswap and rgbbacklight
+A 84% keyboard PCB made by MT.
+It supports standard 84-key layout, with hotswap sockets and per-key RGB backlight.
 
 
 * Keyboard Maintainer: [MT](https://github.com/704340378)
