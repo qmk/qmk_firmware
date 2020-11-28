@@ -140,27 +140,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
-// const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
-//     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-//     0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-//     0,0,0,0,0,0,0,0,0,0,0,0,0,
-//     0,    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,
-//     0,  0,  0,  0,   0,  0,  0,  0,  0, 0, 0, 0
-// );
-// const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
-//     20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,
-//     13, 14,15,16,17,18,19,20,21,22,23, 24,25,26,
-//     0,   7, 8, 9,10,11,12,13,14,15,16,   17,18,
-//     0,    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,
-//     0,  0,  0,  0,   0,  0,  0,  0,  0, 0, 0, 0
-// );
-// const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
-//     51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65,
-//     38,   39, 40, 41, 42, 43, 44, 45, 46, 47, 48,       49, 50,
-//     25,   19, 20, 21, 22, 23, 24, 25, 26, 27, 28,  36,  37, 38,
-//     11,     12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-//     0,   1,  2,  3,      4,      5,      6,  7,  8,  9, 10, 11
-// );
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
     51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65,
     38,   39, 40, 41, 42, 43, 44, 45, 46, 47, 48,       49, 50,
@@ -175,8 +154,6 @@ static bool lower_pressed = false;
 static uint16_t lower_pressed_time = 0;
 static bool raise_pressed = false;
 static uint16_t raise_pressed_time = 0;
-// static bool alt_ime_pressed = false;
-// static uint16_t alt_ime_pressed_time = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -254,57 +231,11 @@ switch (keycode) {
         }
         return false;
         break;
-    // case A_IME_M:
-    //     if (record->event.pressed) {
-    //         alt_ime_pressed = true;
-    //         alt_ime_pressed_time = record->event.time;
-    //         register_code(KC_RALT);
-    //     } else {
-    //         unregister_code(KC_RALT);
-    //         /*
-    //         長押し時に入力キャンセルする場合はこれ
-    //         if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-    //         */
-    //         // if (alt_ime_pressed) {
-    //         if (alt_ime_pressed && (TIMER_DIFF_16(record->event.time, alt_ime_pressed_time) < TAPPING_TERM)) {
-    //             register_code(KC_LCTL); // for macOS
-    //             register_code(KC_SPC);
-    //             unregister_code(KC_SPC);
-    //             unregister_code(KC_LCTL);
-    //         }
-    //         alt_ime_pressed = false;
-    //     }
-    //     return false;
-    //     break;
-    // case A_IME_W:
-    //     if (record->event.pressed) {
-    //         alt_ime_pressed = true;
-    //         alt_ime_pressed_time = record->event.time;
-    //         register_code(KC_RALT);
-    //     } else {
-    //         unregister_code(KC_RALT);
-    //         /*
-    //         長押し時に入力キャンセルする場合はこれ
-    //         if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-    //         */
-    //         // if (alt_ime_pressed) {
-    //         if (alt_ime_pressed && (TIMER_DIFF_16(record->event.time, alt_ime_pressed_time) < TAPPING_TERM)) {
-    //             // register_code(KC_LALT);
-    //             // register_code(KC_GRV);
-    //             // unregister_code(KC_GRV);
-    //             // unregister_code(KC_LALT);
-    //             SEND_STRING(SS_LALT("`"));
-    //         }
-    //         alt_ime_pressed = false;
-    //     }
-    //     return false;
-    //     break;
     default:
         if (record->event.pressed) {
             // reset the flags
             lower_pressed = false;
             raise_pressed = false;
-            // alt_ime_pressed = false;
         }
         break;
     }
