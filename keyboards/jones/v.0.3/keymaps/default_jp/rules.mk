@@ -7,7 +7,7 @@
 #
 
 MOUSEKEY_ENABLE = no        # Mouse keys
-AUDIO_ENABLE = yes           # Audio output
+AUDIO_ENABLE = no           # Audio output
 
 
 EXTRAFLAGS += -flto
