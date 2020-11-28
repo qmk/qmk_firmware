@@ -45,23 +45,15 @@ enum custom_keycodes {
   ADJUST,
   ALT_US,
   ALT_JP,
-  MAC_IME,
-  WIN_IME,
   A_IME_M,
   A_IME_W,
-  DBG_LAY,
+  ALT_GRV
 };
 
 // Tap Dance
 enum tap_dances{
-    TD_GRV_ESC = 0 ,
-    TD_Y_LBRC,
-    TD_LSFT_CAPS,
-    TD_LBRC_RBRC,
+    TD_LSFT_CAPS = 0,
     TD_ESC_NUM,
-    TD_MINS_MAC_IME,
-    TD_MINS_WIN_IME,
-    TD_SCLN_MINS,
 };
 
 // Tap Dance state
@@ -83,53 +75,43 @@ void ql_each(qk_tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_Y_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_LBRC),
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_LBRC_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
-    [TD_MINS_MAC_IME] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
-    [TD_MINS_WIN_IME] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, WIN_IME),
-    [TD_SCLN_MINS] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 500),
 };
 
 #define ESC_NUM TD(TD_ESC_NUM)
-#define Y_LBRC  TD(TD_Y_LBRC)
 #define S_CAP   TD(TD_LSFT_CAPS)
-#define L_R_BRC TD(TD_LBRC_RBRC)
-#define M_M_IME TD(TD_MINS_MAC_IME)
-#define M_W_IME TD(TD_MINS_WIN_IME)
-#define SCLN_M  TD(TD_SCLN_MINS)
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
 #define SP_ADJ  LT(_ADJUST, KC_SPC)
 #define SP_GUI  MT(MOD_LGUI, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define S_SLS   RSFT_T(KC_SLSH)
-#define S_BSLS  RSFT_T(KC_RO)
-#define C_SCLN  RCTL_T(KC_SCLN)
-#define C_QUOT  RCTL_T(KC_QUOT)
-#define C_MINS  RCTL_T(KC_MINS)
+#define S_SLS   RSFT_T(JP_SLSH)
+#define S_BSLS  RSFT_T(JP_BSLS)
+#define C_SCLN  RCTL_T(JP_SCLN)
+#define C_MINS  RCTL_T(JP_MINS)
 #define C_SLSH  RCTL_T(KC_SLSH)
-#define CT_E     LCTL(KC_E)
-#define CT_A     LCTL(KC_A)
+#define CT_E    LCTL(KC_E)
+#define CT_A    LCTL(KC_A)
+#define ALT_GRV LALT(KC_GRV)
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT_JP(
-        ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   JP_MINS,KC_BSPC,JP_CIRC,JP_YEN, \
+        ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   JP_MINS,KC_BSPC,JP_CIRC,JP_YEN,  \
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,               JP_AT,  JP_LBRC, \
-        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SCLN_M, KC_ENT,     JP_COLN,JP_RBRC, \
+        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   JP_SCLN, KC_ENT,    JP_COLN,JP_RBRC, \
         S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   JP_COMM,JP_DOT, C_SLSH, S_BSLS, KC_UP,  LOWER,   \
-        KC_MUTE,KC_LALT,KC_LGUI,KC_LANG2,       SP_SFT,         SP_RAI,        KC_LANG1,KC_RGUI,A_IME_M,KC_LEFT,KC_DOWN,KC_RGHT  \
+        KC_MUTE,KC_LALT,KC_LGUI,KC_LANG2,       SP_SFT,         SP_RAI,        KC_LANG1,KC_RGUI,KC_RALT,KC_LEFT,KC_DOWN,KC_RGHT  \
     ),
     [_WIN] = LAYOUT_JP(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,            _______,_______, \
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,_______, \
         _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
-        _______,KC_LGUI,KC_LALT,KC_MHEN,        _______,        _______,        KC_HENK,A_IME_W,KC_APP, _______,_______,_______  \
+        _______,KC_LGUI,KC_LALT,JP_MHEN,        _______,        _______,        JP_HENK,JP_KANA,KC_APP, _______,_______,_______  \
     ),
     [_NUM] = LAYOUT_JP(
         _______,_______,_______,_______,_______,_______,_______,XXXXXXX,KC_PSLS,KC_PSLS,KC_PAST,_______,_______,_______,_______, \
@@ -139,24 +121,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,        _______,        SP_NRAI,        KC_P0,  KC_PDOT,_______,_______,_______,_______  \
     ),
     [_LOWER] = LAYOUT_JP(
-        KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL, \
-        KC_PSCR,    _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,            KC_END, KC_VOLU,  \
-        _______,    _______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_LEFT,KC_RGHT,    _______,KC_VOLD,  \
+        KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,  \
+        KC_PSCR,    _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,            KC_END, KC_VOLU, \
+        _______,    _______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_LEFT,KC_RGHT,    _______,KC_VOLD, \
         _______,        _______,_______,_______,_______,_______,_______,_______,_______,KC_PGDN,KC_DOWN,_______,KC_PGUP,_______, \
-        ADJUST, _______,_______,_______,        _______,        ADJUST,         _______,_______,_______,KC_HOME,KC_PGDN,KC_END  \
+        ADJUST, _______,_______,_______,        _______,        ADJUST,         _______,_______,_______,KC_HOME,KC_PGDN,KC_END   \
     ),
     [_RAISE] = LAYOUT_JP(
-        KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL, \
-        KC_PSCR,    _______,_______,CT_E,   _______,_______,_______,_______,_______,_______,KC_PGUP,            _______,_______,\
-        _______,    CT_A,   _______,KC_DEL, KC_RGHT,KC_ESC, KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_MINS,KC_INS,     _______,_______, \
+        KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,  \
+        KC_PSCR,    _______,_______,CT_E,   _______,_______,_______,_______,_______,_______,KC_PGUP,            _______,_______, \
+        _______,    CT_A,   _______,KC_DEL, KC_RGHT,KC_ESC, KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,_______,_______,    _______,_______, \
         _______,        _______,_______,_______,_______,KC_LEFT,KC_PGDN,KC_ENT, _______,KC_MRWD,KC_MFFD,_______,KC_PGUP,ADJUST,  \
-        _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,KC_HOME,KC_PGDN,KC_END  \
+        _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,KC_HOME,KC_PGDN,KC_END   \
     ),
     [_NUM_RAISE] = LAYOUT_JP(
-        KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV, \
-        KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,               KC_LBRC,KC_RBRC, \
-        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_ENT,    KC_SCLN,KC_QUOT, \
-        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, S_SLS,  S_BSLS, XXXXXXX,ADJUST,  \
+        KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   JP_MINS,KC_BSPC,JP_CIRC,JP_YEN,  \
+        KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,               JP_AT,  JP_LBRC, \
+        KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   JP_SCLN, KC_ENT,    JP_COLN,JP_RBRC, \
+        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   JP_COMM,JP_DOT, C_SLSH, S_BSLS, KC_UP,  ADJUST,  \
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______  \
     ),
     [_ADJUST] = LAYOUT_JP(
@@ -167,6 +149,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______  \
     )
 };
+
+#if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
+    51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65,
+    38,   39, 40, 41, 42, 43, 44, 45, 46, 47, 48,       49, 50,
+    25,   26, 27, 28, 29, 30, 31, 32, 33, 34, 35,  36,  37, 38,
+    11,     12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+    0,   1,  2,  3,      4,      5,      6,  7,  8,  9, 10, 11
+);
+#endif
 
 // レイヤーキーを変換・無変換キーと共用する際に動作を改善する。
 static bool lower_pressed = false;
@@ -182,16 +174,6 @@ static uint16_t current_default_layer = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 switch (keycode) {
-    case DBG_LAY:
-        if (current_default_layer == _MAC) {
-            SEND_STRING("L-MAC");
-        } else if (current_default_layer == _WIN) {
-            SEND_STRING("L-WIN");
-        } else {
-            SEND_STRING("L-NO");
-        }
-        return false;
-        break;
     case MAC: // Write default layer to EEPROM
         if (record->event.pressed) {
             set_single_persistent_default_layer(_MAC);
@@ -309,28 +291,6 @@ switch (keycode) {
             alt_ime_pressed = false;
         }
         return false;
-        break;
-    case MAC_IME:
-        if (record->event.pressed) {
-            // when pressed
-            register_code(KC_LCTL);
-            register_code(KC_SPC);
-        } else {
-            // when released
-            unregister_code(KC_SPC);
-            unregister_code(KC_LCTL);
-        }
-        break;
-    case WIN_IME:
-        if (record->event.pressed) {
-            // when pressed
-            register_code(KC_LALT);
-            register_code(KC_GRV);
-        } else {
-            // when released
-            unregister_code(KC_GRV);
-            unregister_code(KC_LALT);
-        }
         break;
     default:
         if (record->event.pressed) {
@@ -519,32 +479,6 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
                     break;
             }
             break;
-
-        case TD(TD_MINS_MAC_IME):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    register_code(KC_MINS);
-                    break;
-                case DOUBLE_TAP:
-                    //TODO デフォルトレイヤーが何かを読み取り、MAC or WINで処理を変える
-                    register_code(KC_LCTL);
-                    register_code(KC_SPC);
-                    break;
-                }
-            break;
-
-        case TD(TD_SCLN_MINS):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    register_code(KC_SCLN);
-                    break;
-                case DOUBLE_TAP:
-                    register_code(KC_MINS);
-                    break;
-            }
-            break;
     }
 }
 
@@ -556,32 +490,6 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
                 layer_off(_NUM);
             }
             ql_tap_state.state = 0;
-            break;
-
-        case TD(TD_MINS_MAC_IME):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    unregister_code(KC_MINS);
-                    break;
-                case DOUBLE_TAP:
-                    //TODO デフォルトレイヤーが何かを読み取り、MAC or WINで処理を変える
-                    unregister_code(KC_LCTL);
-                    unregister_code(KC_SPC);
-                    break;
-            }
-            break;
-
-        case TD(TD_SCLN_MINS):
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case TAP_HOLD:
-                    unregister_code(KC_SCLN);
-                    break;
-                case DOUBLE_TAP:
-                    unregister_code(KC_MINS);
-                    break;
-            }
             break;
     }
 }
