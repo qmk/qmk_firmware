@@ -82,8 +82,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
 #define C_SLSH  RCTL_T(KC_SLSH)
-#define CT_E     LCTL(KC_E)
-#define CT_A     LCTL(KC_A)
+#define CT_E    LCTL(KC_E)
+#define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
 
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,  \
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,    KC_LBRC,KC_RBRC, \
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_ENT,             KC_QUOT, \
-        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,  LOWER,  \
+        S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,  LOWER,   \
         KC_MUTE,KC_LANG2,KC_LALT,KC_LGUI,       SP_SFT,         SP_RAI,         KC_RGUI,KC_RALT,KC_LANG1,KC_LEFT,KC_DOWN,KC_RGHT \
     ),
     [_WIN] = LAYOUT_ANSI(
@@ -114,14 +114,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSCR,    _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_UP,      KC_END, KC_VOLU, \
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_LEFT,KC_RGHT,            KC_VOLD, \
         _______,        _______,_______,_______,_______,_______,_______,_______,_______,KC_PGDN,KC_DOWN,_______,KC_PGUP,_______, \
-        _______,_______,_______,_______,        _______,        ADJUST,         _______,_______,_______,KC_HOME,KC_PGDN,KC_END  \
+        _______,_______,_______,_______,        _______,        ADJUST,         _______,_______,_______,KC_HOME,KC_PGDN,KC_END   \
     ),
     [_RAISE] = LAYOUT_ANSI(
         KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,  \
         KC_PSCR,    _______,_______,CT_E,   _______,_______,_______,_______,_______,_______,KC_PGUP,KC_DEL,     _______,_______, \
         _______,    CT_A,   _______,KC_DEL, KC_RGHT,KC_ESC, KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_MINS,KC_INS,             _______, \
         _______,        _______,_______,_______,_______,KC_LEFT,KC_PGDN,KC_ENT, _______,KC_MRWD,KC_MFFD,_______,KC_PGUP,ADJUST,  \
-        _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,KC_HOME,KC_PGDN,KC_END  \
+        _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,KC_HOME,KC_PGDN,KC_END   \
     ),
     [_NUM_RAISE] = LAYOUT_ANSI(
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV,  \
