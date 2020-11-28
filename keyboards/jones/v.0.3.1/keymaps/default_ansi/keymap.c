@@ -296,10 +296,35 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     if (index == 1) { /* Second encoder, Left side */
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
+        switch(biton32(layer_state)) {
+            case _LOWER:
+                if (clockwise) {
+                    rgblight_decrease_hue();
+                } else {
+                    rgblight_increase_hue();
+                }
+                break;
+            case _RAISE:
+                if (clockwise) {
+                    rgblight_decrease_val();
+                } else {
+                    rgblight_increase_val();
+                }
+                break;
+            case _ADJUST:
+                if (clockwise) {
+                    rgblight_step_reverse();
+                } else {
+                    rgblight_step();
+                }
+                break;
+            default:
+                if (clockwise) {
+                    tap_code(KC_VOLD);
+                } else {
+                    tap_code(KC_VOLU);
+                }
+                break;
         }
     }
 }
