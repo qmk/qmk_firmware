@@ -19,19 +19,21 @@ SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 # AUTO_SHIFT_ENABLE = yes
 # COMBO_ENABLE = yes
 MOUSEKEY_ENABLE = yes        # Mouse keys(+4700)
+OLED_DRIVER_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 # If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/glcdfont.c \
-        ./lib/rgb_state_reader.c \
-        ./lib/layer_state_reader.c \
-        ./lib/logo_reader.c \
-        ./lib/keylogger.c \
-        naginata_v13.c \
+# SRC +=  ./lib/glcdfont.c \
+#         ./lib/rgb_state_reader.c \
+#         ./lib/layer_state_reader.c \
+#         ./lib/logo_reader.c \
+#         ./lib/keylogger.c \
         # ./lib/mode_icon_reader.c \
         # ./lib/host_led_state_reader.c \
-        # ./lib/timelogger.c \
+        # ./lib/timelogger.c
+
+SRC +=    naginata_v13.c
 
 EXTRAFLAGS += -flto
