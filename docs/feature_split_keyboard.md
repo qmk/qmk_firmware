@@ -247,7 +247,7 @@ You'll only need a few things:
 
 * A knife (x-acto knife, ideally)
 * A solder station or hot air station
-* An appropriate Schokkty diode, such as the [PMEG2005EH](https://www.digikey.com/en/products/detail/nexperia-usa-inc/PMEG2005EH,115/1589924)
+* An appropriate Schottky diode, such as the [PMEG2005EH](https://www.digikey.com/en/products/detail/nexperia-usa-inc/PMEG2005EH,115/1589924)
 
 You'll need to cut the small trace between the 5V and center pads on the back of the Teensy.
 
