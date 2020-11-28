@@ -91,7 +91,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define S_BSLS  RSFT_T(JP_BSLS)
 #define C_SCLN  RCTL_T(JP_SCLN)
 #define C_MINS  RCTL_T(JP_MINS)
-#define C_SLSH  RCTL_T(KC_SLSH)
+#define C_SLSH  RCTL_T(JP_SLSH)
 #define CT_E    LCTL(KC_E)
 #define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
