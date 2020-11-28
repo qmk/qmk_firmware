@@ -6,9 +6,9 @@ A 6-key macropad PCB with its switch and LED pins wired directly to microcontrol
 
 You can find the main blog post about this macropad [here](http://www.40percent.club/2017/05/six-pack-11.html), also the Gerber files and other documentation is located [here](https://git.40percent.club/di0ib/Misc/src/branch/master/Six%20Pack).
 
-Keyboard Maintainer: [The QMK Community](https://github.com/qmk)  
-Hardware Supported: Six Pack PCB, Pro Micro  
-Hardware Availability: [40percent.club](https://git.40percent.club/di0ib/Misc/src/branch/master/Six%20Pack)
+* Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
+* Hardware Supported: Six Pack PCB, Pro Micro
+* Hardware Availability: [40percent.club](https://git.40percent.club/di0ib/Misc/src/branch/master/Six%20Pack)
 
 Make example for this macropad (after setting up your build environment):
 

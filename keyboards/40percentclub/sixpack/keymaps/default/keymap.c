@@ -26,7 +26,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [0] = LAYOUT(/* Default */
-                 KC_MUTE, KC_UP, KC_MPLY, KC_LEFT, KC_DOWN, KC_RGHT),
+                 KC_MUTE, KC_UP,   KC_MPLY,
+                 KC_LEFT, KC_DOWN, KC_RGHT),
 };
-
-void matrix_init_user(void) {}
