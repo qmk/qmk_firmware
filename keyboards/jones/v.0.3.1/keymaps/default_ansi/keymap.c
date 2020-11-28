@@ -202,8 +202,6 @@ switch (keycode) {
 #define JONES_LED_INDICATOR_CHANGE_COUNT 1
 #define JONES_LED_DIMMER_LEVEL 200
 
-// デフォルトレイヤー格納用
-static uint16_t current_default_layer = 0;
 
 // 1st LED
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -271,12 +269,6 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _MAC));
     rgblight_set_layer_state(1, layer_state_cmp(state, _WIN));
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
-
-    if (layer_state_cmp(state, _MAC)) {
-        current_default_layer = _MAC;
-    } else if (layer_state_cmp(state, _WIN)) {
-        current_default_layer = _WIN;
-    }
 
     return state;
 }
