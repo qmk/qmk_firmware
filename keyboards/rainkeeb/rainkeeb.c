@@ -1,4 +1,4 @@
-/* Copyright 2017 Jeremy Cowgar
+/* Copyright 2020 Regan Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,21 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-#include "quantum.h"
-
-#ifndef AUTO_SHIFT_TIMEOUT
-#    define AUTO_SHIFT_TIMEOUT 175
-#endif
-
-bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
-
-void     autoshift_enable(void);
-void     autoshift_disable(void);
-void     autoshift_toggle(void);
-bool     get_autoshift_state(void);
-uint16_t get_autoshift_timeout(void);
-void     set_autoshift_timeout(uint16_t timeout);
-void     autoshift_matrix_scan(void);
+#include "rainkeeb.h"
