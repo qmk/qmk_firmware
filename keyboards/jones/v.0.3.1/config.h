@@ -80,7 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LIMIT_VAL 250 /* The maximum brightness level */
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
   /*== Lighting Layers ==*/
-  #define RGBLIGHT_LAYERS
+  #define RGBLIGHT_LAYERS // Disable to turn off "Layer Indicator". 無効にするとレイヤーインジケータOFF。
   // #define RGBLIGHT_MAX_LAYERS 2
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
   /*== all animations enable ==*/
