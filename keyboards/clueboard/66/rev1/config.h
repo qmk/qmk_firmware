@@ -50,6 +50,8 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+#define LED_CAPS_LOCK_PIN F0
+
 /* Underlight configuration
  */
 #define RGB_DI_PIN B2

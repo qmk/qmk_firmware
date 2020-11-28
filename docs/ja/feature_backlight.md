@@ -1,8 +1,8 @@
 # バックライト :id=backlighting
 
 <!---
-  original document: 0.9.44:docs/feature_backlight.md
-  git diff 0.9.44 HEAD -- docs/feature_backlight.md | cat
+  original document: 0.10.33:docs/feature_backlight.md
+  git diff 0.10.33 HEAD -- docs/feature_backlight.md | cat
 -->
 
 多くのキーボードは、キースイッチを貫通して配置されたり、キースイッチの下に配置された個々の LED によって、バックライトキーをサポートします。この機能は通常スイッチごとに単一の色しか使用できないため、[RGB アンダーグロー](ja/feature_rgblight.md)および [RGB マトリックス](ja/feature_rgb_matrix.md)機能のどちらとも異なりますが、キーボードに複数の異なる単一色の LED を取り付けることは当然可能です。
@@ -164,8 +164,6 @@ BACKLIGHT_DRIVER = pwm
 #### 注意事項 :id=arm-caveats
 
 現在のところ、ハードウェア PWM のみがサポートされ、タイマー支援はなく、自動設定は提供されません。
-
-?> STM32F072 のバックライトサポートのテストは制限されています。人によって違うかもしれません。不明な場合は、`rules.mk` で `BACKLIGHT_ENABLE = no` を設定します。
 
 ### ソフトウェア PWM ドライバ :id=software-pwm-driver
 
