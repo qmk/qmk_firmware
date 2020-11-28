@@ -1,6 +1,6 @@
 # Axolstudio Yeti
 
-![yeti](https://i.imgur.com/ifJFLfF.png)
+![yeti](https://i.imgur.com/eoRH6W1l.png)
 
 **TGR Alice inspired board with some extra heft**
 
