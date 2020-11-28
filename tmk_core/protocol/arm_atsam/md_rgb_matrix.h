@@ -86,7 +86,7 @@ extern uint8_t gcr_actual_last;
 
 void gcr_compute(void);
 
-void led_matrix_indicators(void);
+void md_rgb_matrix_indicators(void);
 
 /*-------------------------  Legacy Lighting Support  ------------------------*/
 

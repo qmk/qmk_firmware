@@ -24,9 +24,10 @@
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
 
-void autoshift_enable(void);
-void autoshift_disable(void);
-void autoshift_toggle(void);
-bool get_autoshift_state(void);
+void     autoshift_enable(void);
+void     autoshift_disable(void);
+void     autoshift_toggle(void);
+bool     get_autoshift_state(void);
 uint16_t get_autoshift_timeout(void);
-void set_autoshift_timeout(uint16_t timeout);
+void     set_autoshift_timeout(uint16_t timeout);
+void     autoshift_matrix_scan(void);
