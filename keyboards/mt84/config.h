@@ -20,7 +20,9 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4D54  // "MT"
 #define PRODUCT_ID      0x0002
-#define DESCRIPTION     mt84
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    MT
+#define PRODUCT         MT84
 
 
 /* key matrix size */
