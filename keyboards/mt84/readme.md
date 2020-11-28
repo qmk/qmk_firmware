@@ -1,6 +1,6 @@
 # Mt84rgb 
 
-![Mt84rgb](https://i.imgur.com/2fJg3DD.png)
+![Mt84rgb](https://i.imgur.com/2fJg3DDl.png)
 
 A 84% keyboard PCB made by Mt.
 It supports standard 84 keyboard，with hotswap and rgbbacklight
