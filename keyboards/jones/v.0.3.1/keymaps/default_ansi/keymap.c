@@ -295,7 +295,7 @@ bool led_update_user(led_t led_state) {
 #endif
 
 //------------------------------------------------------------------------------
-// TEST LEDs
+// for TEST LEDs. LEDの動作確認用。
 // void keyboard_post_init_user(void) {
 //     rgblight_enable_noeeprom();
 //     rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
@@ -324,11 +324,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 //------------------------------------------------------------------------------
 // Tap Dance function
 
-// ESCキーの動作を、次のようにする設定
-// シングルタップ：ESC
-// シングルタップしてホールド：NUMレイヤー
-// トリプルタップ：Numレイヤーをトグル
-// NOTE:ESCを連打（＝タブルタップ）して、Numレイヤーになるのを防止するためトリプルに。
 
 typedef struct {
     bool is_press_action;
@@ -359,18 +354,21 @@ void ql_each(qk_tap_dance_state_t *state, void *user_data) {
 
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
-
     switch(state->keycode) {
-        case TD(TD_ESC_NUM):
+        case TD(TD_ESC_NUM): // ESCキーの動作
             switch (ql_tap_state.state) {
                 case SINGLE_TAP:
                 case DOUBLE_TAP:
+                    // シングルとダブルタップ：ESC
+                    // NOTE: ESCを押すときに連打する癖があるので、ダブルタップまではESCとして動作。
                     tap_code(KC_ESC);
                     break;
                 case TAP_HOLD:
+                    // 押したまま：一時的にNUMレイヤをON（離すと元のレイヤに戻る）
                     layer_on(_NUM);
                     break;
                 case TRIPLE_TAP:
+                    // トリプルタップ：Numレイヤーをトグル
                     // Check to see if the layer is already set
                     if (layer_state_is(_NUM)) {
                         // If already set, then switch it off
