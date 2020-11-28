@@ -17,5 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define ENCODERS_PAD_B { D3, F4 }
-#define ENCODERS_PAD_A { D2, F5 }
+#define ENCODERS_PAD_A { D3, F4 }
+#define ENCODERS_PAD_B { D2, F5 }
