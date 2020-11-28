@@ -199,7 +199,7 @@ void md_rgb_matrix_prepare(void) {
 void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
     if (i < ISSI3733_LED_COUNT) {
 #ifdef USE_MASSDROP_CONFIGURATOR
-        md_rgb_matrix_massdrop_config_override(i);
+        md_rgb_matrix_config_override(i);
 #else
         led_buffer[i].r = r;
         led_buffer[i].g = g;
