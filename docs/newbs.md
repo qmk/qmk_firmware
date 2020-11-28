@@ -1,4 +1,4 @@
-# The Complete Newbs Guide To QMK
+# The QMK Tutorial
 
 Your computer keyboard has a processor inside of it, similar to the one inside your computer. This processor runs software that is responsible for detecting button presses and informing the computer when keys are pressed. QMK Firmware fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom keymap, you are creating an executable program for your keyboard.
 

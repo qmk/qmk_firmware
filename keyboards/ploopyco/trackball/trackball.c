@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "trackball.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -30,6 +30,19 @@
 #ifndef OPT_SCALE
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
+#ifndef PLOOPY_DPI_OPTIONS
+#    define PLOOPY_DPI_OPTIONS { 1200, 1600, 2400 }
+#    ifndef PLOOPY_DPI_DEFAULT
+#        define PLOOPY_DPI_DEFAULT 1
+#    endif
+#endif
+#ifndef PLOOPY_DPI_DEFAULT
+#    define PLOOPY_DPI_DEFAULT 0
+#endif
+
+keyboard_config_t keyboard_config;
+uint16_t dpi_array[] = PLOOPY_DPI_OPTIONS;
+#define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
@@ -127,19 +140,27 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
         // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
-        process_mouse_user(mouse_report, data.dx, data.dy);
+        process_mouse_user(mouse_report, data.dx, -data.dy);
     }
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    if (debug_mouse) {
-        dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    if (true) {
+        xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     }
 
     // Update Timer to prevent accidental scrolls
-    if ((record->event.key.col == 2) && (record->event.key.row == 0)) {
+    if ((record->event.key.col == 1) && (record->event.key.row == 0)) {
         lastMidClick = timer_read();
         is_scroll_clicked = record->event.pressed;
+    }
+
+    if (!process_record_user(keycode, record)) { return false; }
+
+    if (keycode == DPI_CONFIG && record->event.pressed) {
+        keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+        eeconfig_update_kb(keyboard_config.raw);
+        pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
@@ -151,33 +172,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
         if (record->event.pressed) {
-            if (keycode == KC_MS_BTN1)
-                currentReport.buttons |= MOUSE_BTN1;
-            else if (keycode == KC_MS_BTN2)
-                currentReport.buttons |= MOUSE_BTN2;
-            else if (keycode == KC_MS_BTN3)
-                currentReport.buttons |= MOUSE_BTN3;
-            else if (keycode == KC_MS_BTN4)
-                currentReport.buttons |= MOUSE_BTN4;
-            else if (keycode == KC_MS_BTN5)
-                currentReport.buttons |= MOUSE_BTN5;
+            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
         } else {
-            if (keycode == KC_MS_BTN1)
-                currentReport.buttons &= ~MOUSE_BTN1;
-            else if (keycode == KC_MS_BTN2)
-                currentReport.buttons &= ~MOUSE_BTN2;
-            else if (keycode == KC_MS_BTN3)
-                currentReport.buttons &= ~MOUSE_BTN3;
-            else if (keycode == KC_MS_BTN4)
-                currentReport.buttons &= ~MOUSE_BTN4;
-            else if (keycode == KC_MS_BTN5)
-                currentReport.buttons &= ~MOUSE_BTN5;
+            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
         }
         pointing_device_set_report(currentReport);
+        pointing_device_send();
     }
 #endif
 
-    return process_record_user(keycode, record);
+    return true;
 }
 
 // Hardware Setup
@@ -189,10 +193,6 @@ void keyboard_pre_init_kb(void) {
 
     setPinInput(OPT_ENC1);
     setPinInput(OPT_ENC2);
-
-    // This is the debug LED.
-    setPinOutput(F7);
-    writePin(F7, debug_enable);
 
     /* Ground all output pins connected to ground. This provides additional
      * pathways to ground. If you're messing with this, know this: driving ANY
@@ -206,6 +206,13 @@ void keyboard_pre_init_kb(void) {
         writePinLow(unused_pins[i]);
     }
 #endif
+
+    // This is the debug LED.
+#if defined(DEBUG_LED_PIN)
+    setPinOutput(DEBUG_LED_PIN);
+    writePin(DEBUG_LED_PIN, debug_enable);
+#endif
+
     keyboard_pre_init_user();
 }
 
@@ -234,4 +241,25 @@ void pointing_device_task(void) {
     if (has_report_changed(mouse_report, pointing_device_get_report())) {
         pointing_device_send();
     }
+}
+
+void eeconfig_init_kb(void) {
+    keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
+    eeconfig_update_kb(keyboard_config.raw);
+}
+
+void matrix_init_kb(void) {
+    // is safe to just read DPI setting since matrix init
+    // comes before pointing device init.
+    keyboard_config.raw = eeconfig_read_kb();
+    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
+        eeconfig_init_kb();
+    }
+    matrix_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+
+    keyboard_post_init_user();
 }

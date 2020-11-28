@@ -178,6 +178,24 @@ Creates a keymap.json from a keymap.c.
 qmk c2json [--no-cpp] [-o OUTPUT] filename
 ```
 
+## `qmk lint`
+
+Checks over a keyboard and/or keymap and highlights common errors, problems, and anti-patterns.
+
+**Usage**:
+
+```
+qmk lint [-km KEYMAP] [-kb KEYBOARD] [--strict]
+```
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+**Examples**:
+
+Do a basic lint check:
+
+    qmk lint -kb rominronin/katana60/rev2
+
 ## `qmk list-keyboards`
 
 This command lists all the keyboards currently defined in `qmk_firmware`
@@ -210,6 +228,16 @@ This command is directory aware. It will automatically fill in KEYBOARD and/or K
 
 ```
 qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
+```
+
+## `qmk clean`
+
+This command cleans up the `.build` folder. If `--all` is passed, any .hex or .bin files present in the `qmk_firmware` directory will also be deleted.
+
+**Usage**:
+
+```
+qmk clean [-a]
 ```
 
 ---
@@ -258,6 +286,16 @@ This command starts a local HTTP server which you can use for browsing or improv
 qmk docs [-p PORT]
 ```
 
+## `qmk generate-docs`
+
+This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs. External tools such as [serve](https://www.npmjs.com/package/serve) can be used to browse the generated files.
+
+**Usage**:
+
+```
+qmk generate-docs
+```
+
 ## `qmk kle2json`
 
 This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
@@ -299,4 +337,3 @@ This command runs the python test suite. If you make changes to python code you 
 ```
 qmk pytest
 ```
-

@@ -1,8 +1,8 @@
 # `info.json`
 
 <!---
-  original document: 0.9.46:docs/reference_info_json.md
-  git diff 0.9.46 HEAD -- docs/reference_info_json.md | cat
+  original document: 0.10.33:docs/reference_info_json.md
+  git diff 0.10.33 HEAD -- docs/reference_info_json.md | cat
 -->
 
 このファイルは [QMK API](https://github.com/qmk/qmk_api) によって使われます。このファイルは [QMK Configurator](https://config.qmk.fm/) がキーボードの画像を表示するために必要な情報を含んでいます。ここにメタデータを設定することもできます。
