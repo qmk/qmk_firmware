@@ -11,7 +11,8 @@ If you want to use single color LED's you should use the [LED Matrix Subsystem](
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = IS31FL3731
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3731
 ```
 
 Configure the hardware via your `config.h`:
@@ -62,7 +63,8 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = IS31FL3733
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3733
 ```
 
 Configure the hardware via your `config.h`:
@@ -112,7 +114,8 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = WS2812
 ```
 
 Configure the hardware via your `config.h`:

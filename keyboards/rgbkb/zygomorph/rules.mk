@@ -30,6 +30,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+RGB_MATRIX_DRIVER = WS2812
 
 SPLIT_KEYBOARD = yes
 LAYOUTS = ortho_4x12 ortho_5x12
