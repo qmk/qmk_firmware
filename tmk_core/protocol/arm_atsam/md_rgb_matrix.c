@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef USE_MASSDROP_CONFIGURATOR
 __attribute__((weak)) led_instruction_t led_instructions[] = {{.end = 1}};
-static void                             led_matrix_massdrop_config_override(int i);
+static void                             md_rgb_matrix_config_override(int i);
 #endif  // USE_MASSDROP_CONFIGURATOR
 
 void SERCOM1_0_Handler(void) {
@@ -188,7 +188,7 @@ void issi3733_prepare_arrays(void) {
     }
 }
 
-void led_matrix_prepare(void) {
+void md_rgb_matrix_prepare(void) {
     for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
         *led_map[i].rgb.r = 0;
         *led_map[i].rgb.g = 0;
@@ -199,7 +199,7 @@ void led_matrix_prepare(void) {
 void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
     if (i < ISSI3733_LED_COUNT) {
 #ifdef USE_MASSDROP_CONFIGURATOR
-        led_matrix_massdrop_config_override(i);
+        md_rgb_matrix_config_override(i);
 #else
         led_buffer[i].r = r;
         led_buffer[i].g = g;
@@ -219,7 +219,7 @@ void init(void) {
 
     issi3733_prepare_arrays();
 
-    led_matrix_prepare();
+    md_rgb_matrix_prepare();
 
     gcr_min_counter = 0;
     v_5v_cat_hit    = 0;
@@ -290,7 +290,7 @@ void flush(void) {
     i2c_led_q_run();
 }
 
-void led_matrix_indicators(void) {
+void md_rgb_matrix_indicators(void) {
     uint8_t kbled = keyboard_leds();
     if (kbled && rgb_matrix_config.enable) {
         for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
@@ -397,7 +397,7 @@ static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, flo
     }
 }
 
-static void led_matrix_massdrop_config_override(int i) {
+static void md_rgb_matrix_config_override(int i) {
     float ro = 0;
     float go = 0;
     float bo = 0;

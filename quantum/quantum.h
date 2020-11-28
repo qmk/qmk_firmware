@@ -31,7 +31,7 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
-#        include "ledmatrix.h"
+#        include "led_matrix.h"
 #    else
 #        include "backlight.h"
 #    endif
