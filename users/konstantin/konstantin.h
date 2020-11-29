@@ -48,9 +48,6 @@
 #define LCT_CPS LCTL_T(KC_CAPS)
 #define RSF_SLS RSFT_T(KC_SLSH)
 
-#define IS_LAYER_ON_STATE(state, layer)  ( (state) & (1UL << (layer)))
-#define IS_LAYER_OFF_STATE(state, layer) (~(state) & (1UL << (layer)))
-
 // Clear mods, perform action, restore mods
 #define CLEAN_MODS(action) {       \
         uint8_t mods = get_mods(); \
@@ -76,7 +73,7 @@ enum layers_user {
     L_NUMPAD,
 #endif
 
-    L_RANGE_KEYMAP,
+    LAYERS_KEYMAP,
 };
 
 void keyboard_pre_init_keymap(void);

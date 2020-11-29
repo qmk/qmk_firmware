@@ -58,7 +58,7 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 
 ## Interfacing with the code :id=interfacing-with-the-code
 
-The steno code has three interceptible hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
+The steno code has three interceptable hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
 
 ```c
 bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]);

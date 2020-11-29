@@ -51,9 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 
 #ifndef RGBLED_NUM
-  #define RGBLED_NUM 31
+  #define RGBLED_NUM 32
   #define RGBLIGHT_SPLIT
-  #define RGBLED_SPLIT { 11, 20 }
+  #define RGBLED_SPLIT { 11, 21 }
 #endif
 
 #define RGBLIGHT_ANIMATIONS

@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "iwrap.h"
 #ifdef PROTOCOL_VUSB
 #    include "vusb.h"
-#    include "usbdrv.h"
+#    include <usbdrv/usbdrv.h>
 #endif
 #include "uart.h"
 #include "suart.h"

@@ -2,7 +2,7 @@
 
 10-keys DIY mechanical macropad/gamepad. Features staggered columns, 2 thumb keys, symmetric PCB (you can build right-handed and left-handed versions with the same PCB). 
 
-Project page on Github, with build steps and 3d-printable files:
+Project page on GitHub, with build steps and 3d-printable files:
 
 https://github.com/Pimentoso/Paddino02
 

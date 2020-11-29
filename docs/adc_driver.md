@@ -22,7 +22,7 @@ Then place this include at the top of your code:
 
 ### AVR
 
-|Channel|AT90USB64/128|ATmega16/32U4|ATmega32A|ATmega328P|
+|Channel|AT90USB64/128|ATmega16/32U4|ATmega32A|ATmega328/P|
 |-------|-------------|-------------|---------|----------|
 |0      |`F0`         |`F0`         |`A0`     |`C0`      |
 |1      |`F1`         |`F1`         |`A1`     |`C1`      |
@@ -39,7 +39,7 @@ Then place this include at the top of your code:
 |12     |             |`B5`         |         |          |
 |13     |             |`B6`         |         |          |
 
-<sup>\* The ATmega328P possesses two extra ADC channels; however, they are not present on the DIP pinout, and are not shared with GPIO pins. You can use `adc_read()` directly to gain access to these.</sup>
+<sup>\* The ATmega328/P possesses two extra ADC channels; however, they are not present on the DIP pinout, and are not shared with GPIO pins. You can use `adc_read()` directly to gain access to these.</sup>
 
 ### ARM
 

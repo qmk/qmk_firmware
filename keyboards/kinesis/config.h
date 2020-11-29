@@ -136,5 +136,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_stapelberg
     #include "stapelberg/config.h"
 #endif
+#ifdef SUBPROJECT_kint2pp
+    #include "kint2pp/config.h"
+#endif
 
 #endif

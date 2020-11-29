@@ -16,11 +16,17 @@ VPATH += $(TMK_DIR)/protocol/iwrap
 # V-USB
 #
 VUSB_DIR = protocol/vusb
+
+# Path to the V-USB library
+VUSB_PATH = $(LIB_PATH)/vusb
+
+SRC += $(VUSB_DIR)/vusb.c \
+	$(VUSB_PATH)/usbdrv/usbdrv.c \
+	$(VUSB_PATH)/usbdrv/usbdrvasm.S \
+	$(VUSB_PATH)/usbdrv/oddebug.c
+
+# Search Path
+VPATH += $(TMK_PATH)/$(VUSB_DIR)
+VPATH += $(VUSB_PATH)
+
 OPT_DEFS += -DPROTOCOL_VUSB
-SRC +=	$(VUSB_DIR)/vusb.c \
-	$(VUSB_DIR)/usbdrv/usbdrv.c \
-	$(VUSB_DIR)/usbdrv/usbdrvasm.S \
-	$(VUSB_DIR)/usbdrv/oddebug.c
-VPATH += $(TMK_DIR)/protocol/vusb:$(TMK_DIR)/protocol/vusb/usbdrv
-
-

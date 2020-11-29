@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdbool.h>
 #include "debug.h"
+#include "report.h"
 
 #define PS2_MOUSE_SEND(command, message)                                                \
     do {                                                                                \
@@ -173,5 +174,7 @@ void ps2_mouse_set_scaling_1_1(void);
 void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
+
+void ps2_mouse_moved_user(report_mouse_t *mouse_report);
 
 #endif

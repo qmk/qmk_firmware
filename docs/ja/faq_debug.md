@@ -1,8 +1,8 @@
 # デバッグの FAQ
 
 <!---
-  original document: 376419a4f:docs/faq_debug.md
-  git diff 376419a4f HEAD -- docs/faq_debug.md | cat
+  original document: 0.9.10:docs/faq_debug.md
+  git diff 0.9.10 HEAD -- docs/faq_debug.md | cat
 -->
 
 このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。

@@ -156,17 +156,20 @@ dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 define EXEC_AVRDUDE
 	USB= ;\
 	if $(GREP) -q -s Microsoft /proc/version; then \
-		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
+		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using QMK Toolbox, AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
 		printf "Detecting USB port, reset your controller now."; \
-		ls /dev/tty* > /tmp/1; \
+		TMP1=`mktemp`; \
+		TMP2=`mktemp`; \
+		ls /dev/tty* > $$TMP1; \
 		while [ -z $$USB ]; do \
 			sleep 0.5; \
 			printf "."; \
-			ls /dev/tty* > /tmp/2; \
-			USB=`comm -13 /tmp/1 /tmp/2 | $(GREP) -o '/dev/tty.*'`; \
-			mv /tmp/2 /tmp/1; \
+			ls /dev/tty* > $$TMP2; \
+			USB=`comm -13 $$TMP1 $$TMP2 | $(GREP) -o '/dev/tty.*'`; \
+			mv $$TMP2 $$TMP1; \
 		done; \
+		rm $$TMP1; \
 		echo ""; \
 		echo "Device $$USB has appeared; assuming it is the controller."; \
 		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \

@@ -15,6 +15,14 @@
 
 extern const unsigned char font[] PROGMEM;
 
+#ifndef OLED_BLANK_CHAR
+#define OLED_BLANK_CHAR ' '
+#endif
+
+#ifndef OLED_BITS_FILTER
+#define OLED_BITS_FILTER
+#endif
+
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,
 // as the latency of printing most of the debug info messes
@@ -26,8 +34,11 @@ extern const unsigned char font[] PROGMEM;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
 
 // 'last_flush' is declared as uint16_t,
-// so this must be less than 65535 
+// so this must be less than 65535
+#ifndef ScreenOffInterval
 #define ScreenOffInterval 60000 /* milliseconds */
+#endif
+
 #if DEBUG_TO_SCREEN
 static uint8_t displaying;
 #endif
@@ -61,38 +72,32 @@ done:
   return res;
 }
 
-// Write 2-byte command sequence.
-// Returns true on success
-static inline bool _send_cmd2(uint8_t cmd, uint8_t opr) {
-  if (!_send_cmd1(cmd)) {
-    return false;
-  }
-  return _send_cmd1(opr);
-}
-
-// Write 3-byte command sequence.
-// Returns true on success
-static inline bool _send_cmd3(uint8_t cmd, uint8_t opr1, uint8_t opr2) {
-  if (!_send_cmd1(cmd)) {
-    return false;
-  }
-  if (!_send_cmd1(opr1)) {
-    return false;
-  }
-  return _send_cmd1(opr2);
-}
-
 #define send_cmd1(c) if (!_send_cmd1(c)) {goto done;}
-#define send_cmd2(c,o) if (!_send_cmd2(c,o)) {goto done;}
-#define send_cmd3(c,o1,o2) if (!_send_cmd3(c,o1,o2)) {goto done;}
+#define send_cmds(c) if (!_send_cmds(c,sizeof(c))) {goto done;}
+#define cmd1(X) X
+#define cmd2(X,Y) X,Y
+#define cmd3(X,Y,Z) X,Y,Z
+
+static bool _send_cmds(const uint8_t* p,uint8_t sz) {
+  for(uint8_t i=sz;i;i--) {
+    send_cmd1( pgm_read_byte(p++) );
+  }
+  return true;
+done:
+  return false;
+}
+
+#define SEND_CMDS(...) {static const uint8_t _cmds[] PROGMEM = { __VA_ARGS__,0 };send_cmds(_cmds);}
 
 static void clear_display(void) {
   matrix_clear(&display);
 
   // Clear all of the display bits (there can be random noise
   // in the RAM on startup)
-  send_cmd3(PageAddr, 0, (DisplayHeight / 8) - 1);
-  send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
+  SEND_CMDS(
+    cmd3(PageAddr, 0, (DisplayHeight / 8) - 1),
+    cmd3(ColumnAddr, 0, DisplayWidth - 1)
+  );
 
   if (i2c_start_write(SSD1306_ADDRESS)) {
     goto done;
@@ -101,8 +106,8 @@ static void clear_display(void) {
     // Data mode
     goto done;
   }
-  for (uint8_t row = 0; row < MatrixRows; ++row) {
-    for (uint8_t col = 0; col < DisplayWidth; ++col) {
+  for (uint8_t row = MatrixRows;row; row--) {
+    for (uint8_t col = DisplayWidth; col; col--) {
       i2c_master_write(0);
     }
   }
@@ -130,38 +135,47 @@ bool iota_gfx_init(bool rotate) {
   bool success = false;
 
   i2c_master_init();
-  send_cmd1(DisplayOff);
-  send_cmd2(SetDisplayClockDiv, 0x80);
-  send_cmd2(SetMultiPlex, DisplayHeight - 1);
-
-  send_cmd2(SetDisplayOffset, 0);
-
-
-  send_cmd1(SetStartLine | 0x0);
-  send_cmd2(SetChargePump, 0x14 /* Enable */);
-  send_cmd2(SetMemoryMode, 0 /* horizontal addressing */);
+  SEND_CMDS( 
+    cmd1(DisplayOff),
+    cmd2(SetDisplayClockDiv, 0x80),
+    cmd2(SetMultiPlex, DisplayHeight - 1),
+    cmd2(SetDisplayOffset, 0),
+    cmd1(SetStartLine | 0x0),
+    cmd2(SetChargePump, 0x14 /* Enable */),
+    cmd2(SetMemoryMode, 0 /* horizontal addressing */)
+  );
 
   if(rotate){
     // the following Flip the display orientation 180 degrees
-    send_cmd1(SegRemap);
-    send_cmd1(ComScanInc);
+  SEND_CMDS( 
+    cmd1(SegRemap),
+    cmd1(ComScanInc)
+  );
   }else{
     // Flips the display orientation 0 degrees
-    send_cmd1(SegRemap | 0x1);
-    send_cmd1(ComScanDec);
+  SEND_CMDS( 
+      cmd1(SegRemap | 0x1),
+      cmd1(ComScanDec)
+    );
   }
 
-  send_cmd2(SetComPins, 0x2);
-  send_cmd2(SetContrast, 0x8f);
-  send_cmd2(SetPreCharge, 0xf1);
-  send_cmd2(SetVComDetect, 0x40);
-  send_cmd1(DisplayAllOnResume);
-  send_cmd1(NormalDisplay);
-  send_cmd1(DeActivateScroll);
-  send_cmd1(DisplayOn);
-
-  send_cmd2(SetContrast, 0); // Dim
-
+  SEND_CMDS( 
+#ifdef SSD1306_128X64
+	cmd2(SetComPins, 0x12),
+#else
+	cmd2(SetComPins, 0x2),
+#endif
+    cmd2(SetContrast, 0x8f),
+    cmd2(SetPreCharge, 0xf1),
+    cmd2(SetVComDetect, 0x40),
+    cmd1(DisplayAllOnResume),
+    cmd1(NormalDisplay),
+    cmd1(DeActivateScroll),
+    cmd1(DisplayOn),
+  
+    cmd2(SetContrast, 0) // Dim
+  );
+  
   clear_display();
 
   success = true;
@@ -205,7 +219,7 @@ void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c) {
     memmove(&matrix->display[0], &matrix->display[1],
             MatrixCols * (MatrixRows - 1));
     matrix->cursor = &matrix->display[MatrixRows - 1][0];
-    memset(matrix->cursor, ' ', MatrixCols);
+    memset(matrix->cursor, OLED_BLANK_CHAR, MatrixCols);
   }
 }
 
@@ -218,7 +232,7 @@ void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
     uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % MatrixCols;
 
     while (cursor_col++ < MatrixCols) {
-      matrix_write_char_inner(matrix, ' ');
+      matrix_write_char_inner(matrix, OLED_BLANK_CHAR);
     }
     return;
   }
@@ -231,17 +245,15 @@ void iota_gfx_write_char(uint8_t c) {
 }
 
 void matrix_write(struct CharacterMatrix *matrix, const char *data) {
-  const char *end = data + strlen(data);
-  while (data < end) {
+  while (*data) {
     matrix_write_char(matrix, *data);
     ++data;
   }
 }
 
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
-  char data_ln[strlen(data)+2];
-  snprintf(data_ln, sizeof(data_ln), "%s\n", data);
-  matrix_write(matrix, data_ln);
+  matrix_write(matrix, data);
+  matrix_write(matrix, "\n");
 }
 
 void iota_gfx_write(const char *data) {
@@ -264,7 +276,7 @@ void iota_gfx_write_P(const char *data) {
 }
 
 void matrix_clear(struct CharacterMatrix *matrix) {
-  memset(matrix->display, ' ', sizeof(matrix->display));
+  memset(matrix->display, OLED_BLANK_CHAR, sizeof(matrix->display));
   matrix->cursor = &matrix->display[0][0];
   matrix->dirty = true;
 }
@@ -281,8 +293,10 @@ void matrix_render(struct CharacterMatrix *matrix) {
 #endif
 
   // Move to the home position
-  send_cmd3(PageAddr, 0, MatrixRows - 1);
-  send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
+  SEND_CMDS(
+    cmd3(PageAddr, 0, MatrixRows - 1),
+    cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1)
+  );
 
   if (i2c_start_write(SSD1306_ADDRESS)) {
     goto done;
@@ -298,7 +312,7 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
       for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
         uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-        i2c_master_write(colBits);
+        i2c_master_write(colBits OLED_BITS_FILTER);
       }
 
       // 1 column of space between chars (it's not included in the glyph)
@@ -331,7 +345,7 @@ void iota_gfx_task(void) {
     force_dirty = false;
   }
 
-  if (timer_elapsed(last_flush) > ScreenOffInterval) {
+  if (ScreenOffInterval !=0 && timer_elapsed(last_flush) > ScreenOffInterval) {
     iota_gfx_off();
   }
 }

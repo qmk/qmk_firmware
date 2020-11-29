@@ -49,7 +49,7 @@
 #define bspc KC_BSPC
 #define caps KC_CAPS
 #define comm KC_COMM
-#define dash A(KC_MINS)
+#define dash A(KC_MINS) // en-dash (–); or with shift: em-dash (—)
 #define scln KC_SCLN
 #define slsh KC_SLSH
 #define spc KC_SPC
@@ -60,7 +60,6 @@
 #define mins KC_MINS
 #define quot KC_QUOT
 #define esc KC_ESC
-#define gbp A(KC_3)
 
 #define down KC_DOWN
 #define home G(KC_LEFT)
@@ -75,10 +74,19 @@
 #define tabr G(S(KC_RBRC))
 #define fwd G(KC_RBRC)
 #define back G(KC_LBRC)
-#define dtl C(KC_LEFT)
-#define dtr C(KC_RGHT)
-#define slup S(A(KC_UP))
-#define sldn S(A(KC_DOWN))
+#define slup S(A(KC_UP))   // Previous unread in Slack
+#define sldn S(A(KC_DOWN)) // Next unread in Slack
+
+#define ctl1 C(KC_1)
+#define ctl2 C(KC_2)
+#define ctl3 C(KC_3)
+#define ctl4 C(KC_4)
+#define ctl5 C(KC_5)
+#define ctl6 C(KC_6)
+#define ctl7 C(KC_7)
+#define ctl8 C(KC_8)
+#define ctl9 C(KC_9)
+#define ctl0 C(KC_0)
 
 #define f1 KC_F1
 #define f2 KC_F2
@@ -105,8 +113,8 @@
 #define next KC_MNXT
 #define play KC_MPLY
 #define prev KC_MPRV
-#define vold KC_F11
-#define volu KC_F12
+#define vold KC_VOLD
+#define volu KC_VOLU
 
 #define symb MO(SYMB)
 #define move MO(MOVE)
@@ -128,6 +136,7 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
+    // ASCII
     ampr = SAFE_RANGE,
     astr,
     at,
@@ -149,6 +158,11 @@ enum planck_keycodes {
     rprn,
     tild,
 
+    // Curly quotes
+    lcqt,
+    rcqt,
+
+    // "Smart" mods
     cmd,
 };
 
@@ -162,15 +176,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYMB] = LAYOUT_planck_grid(
          esc,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
-         del,   at,  dlr,  eql, lprn, lbrc, rbrc, rprn, astr, hash, plus,  gbp,
+        lcqt,   at,  dlr,  eql, lprn, lbrc, rbrc, rprn, astr, hash, plus, rcqt,
         ____,  grv, pipe, bsls, lcbr, tild, circ, rcbr, ampr, exlm, perc, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, caps,
-         del, xxxx, sldn, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, xxxx,
-        ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
+         esc, ctl1, ctl2, ctl3, ctl4, xxxx, xxxx, home,   up,  end, ctl7, caps,
+         del, ctl5, slup, tabl, tabr, xxxx, xxxx, left, down, rght, ctl8, xxxx,
+        ____, ctl6, sldn, back,  fwd, xxxx, xxxx, pgdn, pgup, ctl0, ctl9, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
@@ -182,78 +196,112 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-bool send_string_if_keydown(keyrecord_t *record, const char *s) {
+bool send_string_if_keydown(
+        keyrecord_t *record,
+        const char *unshifted,
+        const char *shifted) {
     if (record->event.pressed) {
-        send_string(s);
+        if (shifted) {
+            uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
+            if (shifts) {
+                del_mods(shifts);
+                SEND_STRING(shifted);
+                add_mods(shifts);
+            } else {
+                SEND_STRING(unshifted);
+            }
+        } else {
+            SEND_STRING(unshifted);
+        }
     }
     return true;
 }
 
-int cmd_keys_down = 0;
+// Holding both cmd keys will instead register as cmd + ctl
+bool smart_cmd(keyrecord_t *record) {
+    static int cmd_keys_down = 0;
+
+    if (record->event.pressed) {
+        if (cmd_keys_down == 0) {
+            register_code(KC_LCMD);
+        } else {
+            register_code(KC_LCTL);
+        }
+        cmd_keys_down++;
+    } else {
+        if (cmd_keys_down == 1) {
+            unregister_code(KC_LCMD);
+        } else {
+            unregister_code(KC_LCTL);
+        }
+        cmd_keys_down--;
+    }
+    return true;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Override the defualt auto shifted symbols to use SEND_STRING See
         // https://github.com/qmk/qmk_firmware/issues/4072
         case ampr:
-            return send_string_if_keydown(record, "&");
+            return send_string_if_keydown(record, "&", NULL);
         case astr:
-            return send_string_if_keydown(record, "*");
+            return send_string_if_keydown(record, "*", NULL);
         case at:
-            return send_string_if_keydown(record, "@");
+            return send_string_if_keydown(record, "@", NULL);
         case bsls:
-            return send_string_if_keydown(record, "\\");
+            return send_string_if_keydown(record, "\\", NULL);
         case circ:
-            return send_string_if_keydown(record, "^");
+            return send_string_if_keydown(record, "^", NULL);
         case dlr:
-            return send_string_if_keydown(record, "$");
+            return send_string_if_keydown(record, "$", NULL);
         case eql:
-            return send_string_if_keydown(record, "=");
+            return send_string_if_keydown(record, "=", NULL);
         case exlm:
-            return send_string_if_keydown(record, "!");
+            return send_string_if_keydown(record, "!", NULL);
         case grv:
-            return send_string_if_keydown(record, "`");
+            return send_string_if_keydown(record, "`", NULL);
         case hash:
-            return send_string_if_keydown(record, "#");
+            return send_string_if_keydown(record, "#", NULL);
         case lbrc:
-            return send_string_if_keydown(record, "[");
+            return send_string_if_keydown(record, "[", NULL);
         case lcbr:
-            return send_string_if_keydown(record, "{");
+            return send_string_if_keydown(record, "{", NULL);
         case lprn:
-            return send_string_if_keydown(record, "(");
+            return send_string_if_keydown(record, "(", NULL);
         case perc:
-            return send_string_if_keydown(record, "%");
+            return send_string_if_keydown(record, "%", NULL);
         case pipe:
-            return send_string_if_keydown(record, "|");
+            return send_string_if_keydown(record, "|", NULL);
         case plus:
-            return send_string_if_keydown(record, "+");
+            return send_string_if_keydown(record, "+", NULL);
         case rbrc:
-            return send_string_if_keydown(record, "]");
+            return send_string_if_keydown(record, "]", NULL);
         case rcbr:
-            return send_string_if_keydown(record, "}");
+            return send_string_if_keydown(record, "}", NULL);
         case rprn:
-            return send_string_if_keydown(record, ")");
+            return send_string_if_keydown(record, ")", NULL);
         case tild:
-            return send_string_if_keydown(record, "~");
+            return send_string_if_keydown(record, "~", NULL);
+
+        // The macOS shortcuts for curly quotes are horrible, so this rebinds
+        // them so that shift toggles single–double instead of left–right, and
+        // then both varieties of left quote can share one key, and both
+        // varieties of right quote share another.
+        case lcqt:
+            return send_string_if_keydown(
+                    record,
+                    SS_LALT("]"),           // left single quote (‘)
+                    SS_LALT("["));          // left double quote (“)
+        case rcqt:
+            return send_string_if_keydown(
+                    record,
+                    SS_LALT(SS_LSFT("]")),  // right single quote (’)
+                    SS_LALT(SS_LSFT("["))); // right double quote (”)
 
         // cmd + cmd -> cmd + ctl
         case cmd:
-            if (record->event.pressed) {
-                if (cmd_keys_down == 0) {
-                    register_code(KC_LCMD);
-                } else {
-                    register_code(KC_LCTL);
-                }
-                cmd_keys_down++;
-            } else {
-                if (cmd_keys_down == 1) {
-                    unregister_code(KC_LCMD);
-                } else {
-                    unregister_code(KC_LCTL);
-                }
-                cmd_keys_down--;
-            }
-            return true;
+            return smart_cmd(record);
     }
     return true;
 }

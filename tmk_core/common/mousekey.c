@@ -1,19 +1,19 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright 2011 Jun Wako <wakojun@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include <stdint.h>
 #include "keycode.h"
@@ -66,6 +66,8 @@ uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
+#    ifndef MK_COMBINED
+
 static uint8_t move_unit(void) {
     uint16_t unit;
     if (mousekey_accel & (1 << 0)) {
@@ -101,6 +103,46 @@ static uint8_t wheel_unit(void) {
     }
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
+
+#    else /* #ifndef MK_COMBINED */
+
+static uint8_t move_unit(void) {
+    uint16_t unit;
+    if (mousekey_accel & (1 << 0)) {
+        unit = 1;
+    } else if (mousekey_accel & (1 << 1)) {
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / 2;
+    } else if (mousekey_accel & (1 << 2)) {
+        unit = MOUSEKEY_MOVE_MAX;
+    } else if (mousekey_repeat == 0) {
+        unit = MOUSEKEY_MOVE_DELTA;
+    } else if (mousekey_repeat >= mk_time_to_max) {
+        unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
+    } else {
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+    }
+    return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
+}
+
+static uint8_t wheel_unit(void) {
+    uint16_t unit;
+    if (mousekey_accel & (1 << 0)) {
+        unit = 1;
+    } else if (mousekey_accel & (1 << 1)) {
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / 2;
+    } else if (mousekey_accel & (1 << 2)) {
+        unit = MOUSEKEY_WHEEL_MAX;
+    } else if (mousekey_repeat == 0) {
+        unit = MOUSEKEY_WHEEL_DELTA;
+    } else if (mousekey_repeat >= mk_wheel_time_to_max) {
+        unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
+    } else {
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
+    }
+    return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
+}
+
+#    endif /* #ifndef MK_COMBINED */
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently

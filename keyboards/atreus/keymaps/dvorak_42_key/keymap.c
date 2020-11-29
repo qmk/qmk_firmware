@@ -23,6 +23,7 @@
 #define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
 #define AS_CLOSETAB LCTL(KC_F4)
 #define AS_CLOSETOOLWINDOW LCTL(LSFT(KC_F4))
+#define AS_ALTENTER LALT(KC_ENTER)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -35,13 +36,16 @@ enum custom_keycodes {
   CLOUD9_GOTO_LINE,
   CLOUD9_NAVIGATE,
 
+  // Windows 10 macros
+  W10_TASKVIEW,
+  W10_WORKSPACE_LEFT,
+  W10_WORKSPACE_RIGHT,
+
 };
 
 // building instructions:
 // make atreus:dvorak_42_key
 
-// flashing instructions:
-// avrdude -p atmega32u4 -c avr109 -U flash:w:atreus_dvorak_42_key.hex  -P COM7
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
@@ -55,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,             AS_GO_IMPLEMENTATION,  RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_A),                           MEH(KC_B),     KC_HOME,    KC_UP,           KC_END,     KC_PGUP,
     AS_BACK,            AS_SYMBOL,             RSFT(KC_TAB),    KC_TAB,           SHELL_DEL_WORD,                      LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),
     AS_FINDUSAGE,       AS_CLASS,              AS_TABLEFT,      AS_TABRIGHT,      AS_CLOSETAB,                         KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,
-    AS_CLOSETOOLWINDOW, AS_GO_DECLARATION,     KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS, KC_ENTER, KC_SPACE,      KC_BSPC,    RCTL(KC_BSPC),   KC_DELETE,  LCTL(KC_DELETE)
+    AS_CLOSETOOLWINDOW, AS_GO_DECLARATION,     KC_TRNS,         KC_TRNS,          AS_ALTENTER,          KC_TRNS, KC_ENTER, KC_SPACE,      KC_BSPC,    RCTL(KC_BSPC),   KC_DELETE,  LCTL(KC_DELETE)
   ),
 
   [KEYSEL] = LAYOUT(
@@ -73,10 +77,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [BROWSER_CONTROL] = LAYOUT(
-    MEH(KC_0), KC_BTN3,   KC_MS_U,   KC_BTN1,   KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
-    MEH(KC_1), KC_MS_L,   KC_MS_D,   KC_MS_R,   MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
-    MEH(KC_2), MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
-    KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), RSFT(RCTL(KC_TAB)), KC_TRNS,      KC_TRNS,       KC_TRNS
+    MEH(KC_0), KC_BTN3,      KC_MS_U,            KC_BTN1,             KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
+    MEH(KC_1), KC_MS_L,      KC_MS_D,            KC_MS_R,             MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
+    MEH(KC_2), W10_TASKVIEW, W10_WORKSPACE_LEFT, W10_WORKSPACE_RIGHT, MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
+    KC_TRNS,   KC_TRNS,      KC_TRNS,            KC_TRNS,             KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), KC_TRNS,             KC_TRNS,     KC_TRNS,       KC_TRNS
   ),
 };
 
@@ -108,9 +112,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTRL("e"));
             return true;
 			break;
+    case W10_TASKVIEW:
+        tap_code16(G(KC_TAB));
+        return true;    
+        break;
+    case W10_WORKSPACE_LEFT:
+        tap_code16(G(C(KC_LEFT)));
+        return true;
+        break;
+    case W10_WORKSPACE_RIGHT:
+        tap_code16(G(C(KC_RIGHT)));
+        break;      
 	}
   }
 
   return true;
 }
-

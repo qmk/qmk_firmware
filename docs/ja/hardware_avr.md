@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: c9e3fa6f7:docs/hardware_avr.md
-  git diff c9e3fa6f7 HEAD -- docs/hardware_avr.md | cat
+  original document: 0.9.0:docs/hardware_avr.md
+  git diff 0.9.0 HEAD -- docs/hardware_avr.md | cat
 -->
 
 このページでは QMK における AVR マイコンのサポートについて説明します。AVR マイコンには、Atmel 社製の atmega32u4、atmega32u2、at90usb1286 やその他のマイコンを含みます。AVR マイコンは、簡単に動かせるよう設計された8ビットの MCU です。キーボードでよく使用される AVR マイコンには USB 機能や大きなキーボードマトリックスのためのたくさんの GPIO を搭載しています。これらは、現在、キーボードで使われる最も一般的な MCU です。
@@ -73,7 +73,7 @@ or open the directory in your favourite text editor.
 
 `config.h` の先頭には USB に関する設定があります。これらはキーボードが OS からどのように見えるかを制御しています。変更する理由がない場合は、`VENDOR_ID` を `0xFEED` のままにしておく必要があります。`PRODUCT_ID` にはまだ使用されていない番号を選ばなければいけません。
 
-`MANUFACTURER`、 `PRODUCT`、 `DESCRIPTION` をキーボードにあった設定に変更します。
+`MANUFACTURER`、 `PRODUCT` をキーボードにあった設定に変更します。
 
 ```c
 #define VENDOR_ID       0xFEED
@@ -81,7 +81,6 @@ or open the directory in your favourite text editor.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
 #define PRODUCT         my_awesome_keyboard
-#define DESCRIPTION     A custom keyboard
 ```
 
 ?> Windows や macOS では、`MANUFACTURER` と `PRODUCT` が USBデバイスのリストに表示されます。Linux 上の `lsusb` では、代わりにデフォルトで [USB ID Repository](http://www.linux-usb.org/usb-ids.html) によって維持されているリストからこれらを取得します。`lsusb -v` を使用するとデバイスから示された値を表示します。また、接続したときのカーネルログにも表示されます。

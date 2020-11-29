@@ -19,6 +19,15 @@ These LEDs are called "addressable" because instead of using a wire per color, e
 
 ## Driver configuration
 
+### All drivers
+
+Different versions of the addressable LEDs have differing requirements for the T<sub>RST</sub> period between frames.
+The default setting is 280 µs, which should work for most cases, but this can be overridden in your config.h. e.g.:
+
+```c
+#define WS2812_TRST_US 80
+```
+
 ### Bitbang
 Default driver, the absence of configuration assumes this driver. To configure it, add this to your rules.mk:
 
@@ -99,3 +108,14 @@ While not an exhaustive list, the following table provides the scenarios that ha
 | f401/f411 | :heavy_check_mark: |
 
 *Other supported ChibiOS boards and/or pins may function, it will be highly chip and configuration dependent.*
+
+### Push Pull and Open Drain Configuration
+The default configuration is a push pull on the defined pin.
+This can be configured for bitbang, PWM and SPI.
+
+Note: This only applies to STM32 boards.
+
+ To configure the `RGB_DI_PIN` to open drain configuration add this to your config.h file: 
+```c
+ #define WS2812_EXTERNAL_PULLUP 
+```

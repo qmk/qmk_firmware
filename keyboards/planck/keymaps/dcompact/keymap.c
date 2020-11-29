@@ -34,6 +34,9 @@ enum planck_layers {
   _RAISE,
   _FUNC,
   _PLOVER,
+  _GAME,
+  _LNUM,
+  _LFUN,
   _ADJUST,
   _MOUSE
 };
@@ -41,12 +44,16 @@ enum planck_layers {
 enum planck_keycodes {
   BASE = SAFE_RANGE,
   PLOVER,
+  GAME,
+  LNUM,
+  LFUN,
   LOWER,
   RAISE,
   FUNC,
   MOUSE,
   ADJUST,
-  EXT_PLV
+  EXT_PLV,
+  EXT_GM
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -59,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |Del/Sf|  : ; |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |Plover| GUI  | Alt  |Lower |Shift |Space |Raise | Alt  | GUI  |  Fn  |Enter |
+ * | Ctrl | Game | GUI  | Alt  |Lower |Shift |Space |Raise | Alt  | GUI  |  Fn  |Enter |
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = LAYOUT_planck_grid(
     KC_TAB, KC_QUOT, KC_COMM,  KC_DOT,    KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L, KC_SLSH,
     KC_ESC,    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S, KC_MINS,
    DEL_SHF, KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z, KC_BSPC,
-   KC_LCTL,  PLOVER, KC_LGUI, KC_LALT,   LOWER,  KC_LSFT,  KC_SPC,  RAISE, KC_RALT, KC_RGUI,    FUNC,  KC_ENT
+   KC_LCTL,    GAME, KC_LGUI, KC_LALT,   LOWER,  KC_LSFT,  KC_SPC,  RAISE, KC_RALT, KC_RGUI,    FUNC,  KC_ENT
 ),
 
 /* Lower
@@ -122,6 +129,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX,  KC_PWR, KC_MRWD, KC_MPLY, KC_MFFD, XXXXXXX, XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4, XXXXXXX,
    _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX
 ),
+
+/* Game
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |  Q   |  W   |  E   |  H   |  Z   |  I   |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |Shift |  A   |  S   |  D   |  U   |  X   |  P   |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Ctrl |  F   |  G   |  R   |  M   |  C   |  O   |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  |  ~   | Alt  |Space |Shift | LNUM | LFUN |      |      |      |      | Exit |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAME] = LAYOUT_planck_grid(
+    KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_H,    KC_Z,    KC_I, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_U,    KC_X,    KC_P, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   KC_LCTL,    KC_F,    KC_G,    KC_R,    KC_M,    KC_C,    KC_O, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_ESC, KC_TILD, KC_LALT,  KC_SPC, KC_LSFT,    LNUM,    LFUN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  EXT_GM
+),
+
+/* LNum
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |  1   |  2   |  3   |  4   |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |Shift |  5   |  6   |  7   |  8   |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Ctrl |  9   |  10  |  ,   |  .   |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  |      | Alt  |Space |Shift |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_LNUM] = LAYOUT_planck_grid(
+   _______,    KC_1,    KC_2,    KC_3,    KC_4, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   _______,    KC_5,    KC_6,    KC_7,    KC_8, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   _______,    KC_9,    KC_0, KC_COMM,  KC_DOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
+
+/* LFun
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |  F1  |  F2  |  F3  |  F4  |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |Shift |  F5  |  F6  |  F7  |  F8  |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Ctrl |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  |      | Alt  |Space |Shift |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_LFUN] = LAYOUT_planck_grid(
+   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   _______,   KC_F5,   KC_F6,   KC_F7,   KC_F8, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   _______, XXXXXXX, _______, _______, _______, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
+
 
 /* Mouse (Not Reachable on Planck)
  * ,-----------------------------------------------------------------------------------.
@@ -231,6 +293,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(plover_gb_song);
         #endif
         layer_off(_PLOVER);
+      }
+      return false;
+      break;
+    case GAME:
+      if (!record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          stop_all_notes();
+          PLAY_SONG(plover_song);
+        #endif
+        layer_on(_GAME);
+      }
+      return false;
+      break;
+    case EXT_GM:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(plover_gb_song);
+        #endif
+        layer_off(_GAME);
+      }
+      return false;
+      break;
+    case LNUM:
+      if (record->event.pressed) {
+        layer_on(_LNUM);
+      } else {
+        layer_off(_LNUM);
+      }
+      return false;
+      break;
+    case LFUN:
+      if (record->event.pressed) {
+        layer_on(_LFUN);
+      } else {
+        layer_off(_LFUN);
       }
       return false;
       break;

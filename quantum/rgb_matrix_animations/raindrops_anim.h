@@ -22,7 +22,7 @@ static void raindrops_set_color(int i, effect_params_t* params) {
 bool RAINDROPS(effect_params_t* params) {
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
-        if (scale16by8(g_rgb_counters.tick, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
+        if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
             raindrops_set_color(rand() % DRIVER_LED_TOTAL, params);
         }
         return false;

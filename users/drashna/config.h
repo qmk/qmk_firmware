@@ -1,7 +1,7 @@
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
-#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1338
+#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1339
 
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
@@ -98,8 +98,9 @@
 #    define ONESHOT_TIMEOUT 3000
 #endif  // !ONESHOT_TIMEOUT
 
-#ifndef QMK_KEYS_PER_SCAN
-#    define QMK_KEYS_PER_SCAN 4
+#ifdef QMK_KEYS_PER_SCAN
+#    undef QMK_KEYS_PER_SCAN
+#    define QMK_KEYS_PER_SCAN 1
 #endif  // !QMK_KEYS_PER_SCAN
 
 // this makes it possible to do rolling combos (zx) with keys that

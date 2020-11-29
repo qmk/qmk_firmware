@@ -10,7 +10,11 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
+enum more_custom_keycodes {
+    KC_SWAP_NUM = NEW_SAFE_RANGE,
+    PM_SCROLL,
+    PM_PRECISION,
+};
 
 // define layer change stuff for underglow indicator
 bool skip_leds = false;
@@ -33,7 +37,7 @@ bool skip_leds = false;
       LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
       KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
       KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  RCTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E),        \
+      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_BTN1, KC_BTN3, KC_BTN2,   PM_SCROLL, PM_PRECISION,        \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
                                                            KC_APP,                  KC_MENU,                                                        \
                               KC_SPC, LT(_LOWER, KC_BSPC), OS_LWR,                  OS_RSE, LT(_RAISE, KC_DEL), KC_ENT                              \
@@ -281,7 +285,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
              KC_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
-             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EEP_RST,
+             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EEP_RST,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
              _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG(_MODS),
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
@@ -292,6 +296,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 // clang-format on
+
+#ifdef PIMORONI_TRACKBALL_ENABLE
+void run_trackball_cleanup(void) {
+    if (trackball_is_scrolling()) {
+        trackball_set_rgbw(RGB_CYAN, 0x00);
+    } else if (trackball_get_precision() != 1.0) {
+        trackball_set_rgbw(RGB_GREEN, 0x00);
+    } else {
+        trackball_set_rgbw(RGB_MAGENTA, 0x00);
+    }
+}
+
+void keyboard_post_init_keymap(void) {
+    // trackball_set_precision(1.5);
+    trackball_set_rgbw(RGB_MAGENTA, 0x00);
+}
+void shutdown_keymap(void) {
+    trackball_set_rgbw(RGB_RED, 0x00);
+}
+#endif
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -321,6 +345,34 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(userspace_config.raw);
             }
             break;
+#ifdef PIMORONI_TRACKBALL_ENABLE
+        case PM_SCROLL:
+            trackball_set_scrolling(record->event.pressed);
+            run_trackball_cleanup();
+            break;
+        case PM_PRECISION:
+            if (record->event.pressed) {
+                trackball_set_precision(1.5);
+            } else {
+                trackball_set_precision(1);
+            }
+            run_trackball_cleanup();
+            break;
+#if     !defined(MOUSEKEY_ENABLE) && defined(POINTING_DEVICE_ENABLE)
+        case KC_BTN1 ... KC_BTN3:
+        {
+            report_mouse_t currentReport = pointing_device_get_report();
+            if (record->event.pressed) {
+                currentReport.buttons |= (1 << (keycode - KC_BTN1));  // this is defined in report.h
+            } else {
+                currentReport.buttons &= ~(1 << (keycode - KC_BTN1));
+            }
+            pointing_device_set_report(currentReport);
+            pointing_device_send();
+            break;
+        }
+#    endif
+#endif
     }
     // switch (keycode) {
     //  case KC_P00:
@@ -457,7 +509,7 @@ void rgb_matrix_indicators_user(void) {
 
 #endif  // RGB_MATRIX_INIT
 
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
         if (mod_config(keycode & 0xf) & MOD_MASK_ALT) {
             return (2 * TAPPING_TERM);
