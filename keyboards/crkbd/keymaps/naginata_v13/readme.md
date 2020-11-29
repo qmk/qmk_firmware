@@ -8,11 +8,14 @@ Windows用の編集モードも実装しています。編集モードの記号�
 
 MacOS, iOSで使うためには
 
-1. config.hで`NAGINATA_EDIT_WIN`をコメントアウトし、`#define NAGINATA_EDIT_MODE_MAC`を有効にしてください。
+1. config.hで`NAGINATA_EDIT_WIN`と`#define UNICODE_SELECTED_MODES UC_WINC`をコメントアウトし、`#define NAGINATA_EDIT_MODE_MAC`を有効にしてください。
 2. ライプ変換を使っている場合は`#define MAC_LIVE_CONVERSION`を有効にしてください。
    動的にライブ変換対応をオンオフすることもできます。
    カスタムキーを定義して、mac_live_conversion_toggle(), mac_live_conversion_on(), mac_live_conversion_off()を呼びし出してください。
 3. naginata_dictionary.plistを使って辞書登録してください。
+
+Linuxでの入力にも対応しました。
+編集モードも対応しています。`#define NAGINATA_EDIT_LINUX`と`#define UNICODE_SELECTED_MODES UC_LNX`を有効にしてください。
 
 標準では本家の通り縦書きのためのカーソル移動方向になっていますが、
 横書き用にするにはconfig.hの`NAGINATA_TATEGAKI`をコメントアウトし、
@@ -29,13 +32,14 @@ OLEDが有効な場合には左側のOLEDには、日本語入力モードに応
 右側のOLEDには薙刀式のロゴが表示されます。薙刀式のロゴは大岡俊彦氏に帰属します。
 
 ファームウェアのコンパイル、書き込みは以下のコマンドです。
+
 ```make crkbd/rev1/common:naginata_v13:flash```
 
 
 ### 薙刀式とは
 
-【カタナ式ファミリー】カナ配列「薙刀式」
-http://oookaworks.seesaa.net/article/456099128.html
+【薙刀式】v13完成版（仮）最終候補版
+http://oookaworks.seesaa.net/article/478474988.html
 
 ### キーマップ
 

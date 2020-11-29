@@ -68,6 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 _______   ,EISU      ,_______   ,_______   ,_______   ,_______
   ),
 
+// 薙刀式
   [_NAGINATA] = LAYOUT(
     _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,                NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
     _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,                NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______, \
@@ -83,13 +84,6 @@ void matrix_init_user(void) {
   uint16_t ngonkeys[] = {KC_H, KC_J};
   uint16_t ngoffkeys[] = {KC_F, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
-
-  #ifdef NAGINATA_EDIT_MAC
-  set_unicode_input_mode(UC_OSX);
-  #endif
-  #ifdef NAGINATA_EDIT_WIN
-  set_unicode_input_mode(UC_WINC);
-  #endif
   // 薙刀式
 }
 
@@ -127,7 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
+// 薙刀式 OLED表示
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
