@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #include "keycode.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "print.h"
 #include "debug.h"
 #include "command.h"
@@ -255,6 +256,7 @@ __attribute__((weak)) void housekeeping_task_user(void) {}
  */
 void keyboard_init(void) {
     timer_init();
+    sync_timer_init();
     matrix_init();
 #ifdef VIA_ENABLE
     via_init();

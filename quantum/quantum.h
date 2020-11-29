@@ -53,6 +53,7 @@
 #include "eeconfig.h"
 #include "bootloader.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "config_common.h"
 #include "led.h"
 #include "action_util.h"
