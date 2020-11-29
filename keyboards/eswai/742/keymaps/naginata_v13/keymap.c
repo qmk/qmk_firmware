@@ -38,10 +38,6 @@ enum custom_keycodes {
     QMKURL
 };
 
-// OLED
-#define FRAME_TIMEOUT (1000/10)
-static uint16_t anim_timer = 0;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, KC_EQL   , KC_MINS ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
@@ -108,6 +104,10 @@ void matrix_init_user(void) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
+
+#define FRAME_TIMEOUT (1000/10)
+static uint16_t anim_timer = 0;
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
