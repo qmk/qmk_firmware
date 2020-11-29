@@ -144,10 +144,10 @@ void pointing_device_init(void) {
 
 static bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) {
     return (new.buttons != old.buttons) ||
-           (new.x && new.x == old.x) ||
-           (new.y && new.y == old.y) ||
-           (new.h && new.h == old.h) ||
-           (new.v && new.v == old.v);
+           (new.x && new.x != old.x) ||
+           (new.y && new.y != old.y) ||
+           (new.h && new.h != old.h) ||
+           (new.v && new.v != old.v);
 }
 
 void pointing_device_task(void) {
@@ -155,16 +155,9 @@ void pointing_device_task(void) {
     if (!is_keyboard_left()) {
         process_mouse(&mouse_report);
     }
-    if (has_mouse_report_changed(mouse_report, pointing_device_get_report())) {
-        pointing_device_set_report(mouse_report);
-        pointing_device_send();
-    } else {
-        pointing_device_set_report(mouse_report);
-        if (!is_keyboard_master()) {
-            pointing_device_send();
-        }
 
-    }
+    pointing_device_set_report(mouse_report);
+    pointing_device_send();
 }
 #endif
 
@@ -186,13 +179,16 @@ void matrix_init_kb(void) {
 
 #ifdef POINTING_DEVICE_ENABLE
 void pointing_device_send(void) {
+    static report_mouse_t old_report = {};
     report_mouse_t mouseReport = pointing_device_get_report();
     if (is_keyboard_master()) {
         int8_t x = mouseReport.x, y = mouseReport.y;
         mouseReport.x = 0;
         mouseReport.y = 0;
         process_mouse_user(&mouseReport, x, y);
-        host_mouse_send(&mouseReport);
+        if (has_mouse_report_changed(mouseReport, old_report)) {
+            host_mouse_send(&mouseReport);
+        }
     } else {
         master_mouse_send(mouseReport);
     }
@@ -200,6 +196,7 @@ void pointing_device_send(void) {
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
+    old_report = mouseReport;
     pointing_device_set_report(mouseReport);
 }
 #endif
