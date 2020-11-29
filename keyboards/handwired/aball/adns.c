@@ -238,7 +238,8 @@ void readSensor(void) {
 
     delta_x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
     delta_y += convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
-    motion_ind = burst_data[motion];
+    // Only consider the MSB for motion as this byte has other status bits
+    motion_ind = burst_data[motion] & 0b10000000;
     adns_end();
 
 }
@@ -248,9 +249,9 @@ void pointing_device_task(void) {
 
     if(motion_ind) {
         // clamp deltas from -127 to 127
-        report.x = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
+        report.x = delta_x < -127 ? -127 : delta_x > 127 ? 127 : delta_x;
         report.x = -report.x;
-        report.y = delta_y < -127 ? 127 : delta_y > 127 ? 127 : delta_y;
+        report.y = delta_y < -127 ? -127 : delta_y > 127 ? 127 : delta_y;
 
 
         pointing_device_set_report(report);
