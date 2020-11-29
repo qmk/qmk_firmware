@@ -6,33 +6,35 @@ on:
     - master
 
 jobs:
-  format:
+  generate:
     runs-on: ubuntu-latest
-
     container: qmkfm/base_container
 
     # protect against those who develop with their fork on master
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
       with:
         fetch-depth: 1
+
     - name: Install dependencies
       run: |
-        apt install dos2unix
-        pip3 install -r requirements.txt
+        apt-get update && apt-get install -y dos2unix
+
     - name: Format files
       run: |
         bin/qmk cformat
         bin/qmk pyformat
         bin/qmk fileformat
+
     - name: Commit files
       run: |
         git config --global user.name "QMK Bot"
         git config --global user.email "hello@qmk.fm"
         git add .
         git diff-index --quiet HEAD || git commit -m "format code according to conventions for ${GITHUB_SHA} [skip ci]"
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
