@@ -2,7 +2,7 @@
 
 An everyday carry 40% keyboard
 
-* Keyboard Maintainer: OJ
+* Keyboard Maintainer: [OJ](https://github.com/ojthetiny)
 * Hardware Supported: EDC40 PCB
 * Hardware Availabilty: TeslaSkeys
 
