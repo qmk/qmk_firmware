@@ -23,6 +23,55 @@
 #include "apa102.h"
 #include "quantum.h"
 
+#if defined(__AVR__)
+#    define delay_high() \
+        do {             \
+        } while (0)
+#    define delay_low() \
+        do {            \
+        } while (0)
+#elif defined(PROTOCOL_CHIBIOS)
+/* This was taken from the WS2812 library, but NUMBER_NOPS and NOP_FUDGE are
+ * adjusted for shorter delays. */
+#    include "hal.h"
+
+#    ifndef NOP_FUDGE
+#        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX)
+#            define NOP_FUDGE 0.8
+#        else
+#            error("NOP_FUDGE configuration required")
+#            define NOP_FUDGE 1  // this just pleases the compile so the above error is easier to spot
+#        endif
+#    endif
+
+#    define NUMBER_NOPS 3
+#    define CYCLES_PER_SEC (STM32_SYSCLK / NUMBER_NOPS * NOP_FUDGE)
+#    define NS_PER_SEC (1000000000L)  // Note that this has to be SIGNED since we want to be able to check for negative values of derivatives
+#    define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
+#    define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
+
+#    define wait_ns(x)                                  \
+        do {                                            \
+            for (int i = 0; i < NS_TO_CYCLES(x); i++) { \
+                __asm__ volatile("nop\n\t"              \
+                                 "nop\n\t"              \
+                                 "nop\n\t");            \
+            }                                           \
+        } while (0)
+
+#    define delay_high() wait_ns(200)
+#    define delay_low() wait_ns(80)
+#endif
+
+#define APA102_SEND_BIT(byte, bit)               \
+    do {                                         \
+        writePin(RGB_DI_PIN, (byte >> bit) & 1); \
+        writePinHigh(RGB_CLK_PIN);               \
+        delay_high();                            \
+        writePinLow(RGB_CLK_PIN);                \
+        delay_low();                             \
+    } while (0)
+
 uint8_t apa102_led_brightness = APA102_DEFAULT_BRIGHTNESS;
 
 void static apa102_start_frame(void);
@@ -106,13 +155,6 @@ void static apa102_end_frame(uint16_t num_leds) {
 
     apa102_init();
 }
-
-#define APA102_SEND_BIT(byte, bit)               \
-    do {                                         \
-        writePin(RGB_DI_PIN, (byte >> bit) & 1); \
-        writePinHigh(RGB_CLK_PIN);               \
-        writePinLow(RGB_CLK_PIN);                \
-    } while (0)
 
 void static apa102_send_byte(uint8_t byte) {
     APA102_SEND_BIT(byte, 7);
