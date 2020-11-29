@@ -1,4 +1,4 @@
-/* Copyright 2019 Maarten Dekkers <maartenwut@gmail.com>
+/* Copyright 2020 Brett Monje <brett@monje.gg>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
-/* QMK to Via Conversion completed by Brett Monje <brett@monje.gg>
-*
-* Enjoy!
-*
-*/
 
 #include QMK_KEYBOARD_H
 
