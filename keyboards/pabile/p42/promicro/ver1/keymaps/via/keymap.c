@@ -44,21 +44,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_TRNS)
 };
 
-
-#ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) { 
-    if (index == 0) { 
-      if (clockwise) {  
-        rgblight_step(); 
-      } else {  
-        rgblight_step_reverse();  
-      } 
-    } else if (index == 1) { 
-      if (clockwise) { 
-        tap_code(KC_VOLU); /* volume up */
-      } else {
-        tap_code(KC_VOLD); /* volume down */
-      } 
-    }
-}
-#endif

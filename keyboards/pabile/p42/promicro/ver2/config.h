@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6666
 #define PRODUCT_ID      0x6670
-#define DEVICE_VER      0x0001
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    Pabile
 #define PRODUCT         P42v2 Keyboard
 
@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Encoders
+/* Encoders */
 #define ENCODERS_PAD_A { D3, F5 }
 #define ENCODERS_PAD_B { D2, F4 }
-*/
