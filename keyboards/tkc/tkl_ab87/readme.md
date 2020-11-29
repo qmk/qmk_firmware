@@ -1,6 +1,6 @@
 # TKC TKL A/B87
 
-![Photo](https://i.imgur.com/BRHfEbH.jpg)
+![Photo](https://i.imgur.com/BRHfEbHl.jpg)
 
 A fairly typical TKL
 
