@@ -6,7 +6,6 @@ A simple slot machine emulator for the [2% Milk Keyboard](https://github.com/Spa
 
 ## How does it work?
 
-
 The top button outputs all possible winning emoji combinations followed by a corresponding "score." Emojis are output one-by-one with a short delay to simulate the "slots" feel.
 
 ![IMG](https://i.imgur.com/rUc3IOn.gif)
@@ -18,3 +17,10 @@ The bottom button outputs 3 random emojis one by one. The random function takes 
 ## Unicode Setup
 
 This keymap's default unicode input mode is `UC_WINC` which requires [WinCompose](https://github.com/samhocevar/wincompose). For other OSes, see [QMK documentation on unicode input modes](https://docs.qmk.fm/#/feature_unicode?id=input-modes).
+
+## Ideas for the future
+
+- [ ] Factor in emoji hierarchy into RNG algorithm
+- [ ] Random/Wildcard emoji
+- [ ] Keep a count for winng combinations
+- [ ] Implement tap dance for easily switching unicode input types
