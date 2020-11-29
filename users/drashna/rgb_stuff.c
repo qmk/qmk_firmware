@@ -178,7 +178,11 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
         uint8_t mode = layer_state_cmp(state,_MODS) ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
         switch (get_highest_layer(state|default_layer_state)) {
             case _MACROS:
+#    ifdef RGBLIGHT_EFFECT_TWINKLE
                 rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_TWINKLE + 5);
+#    else
+                rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_BREATHING + 3);
+#    endif
                 break;
             case _MEDIA:
                 rgblight_set_hsv_and_mode(HSV_CHARTREUSE, RGBLIGHT_MODE_KNIGHT + 1);
