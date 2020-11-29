@@ -8,9 +8,6 @@ A fairly typical TKL
 * Hardware Supported: TKC TKL A/B87 PCB
 * Hardware Availability: TBA
 
-Make example for this keyboard (after setting up your build environment):
-
-    make tkc/tkl_ab87:default
 	
 Reset board in one of two ways:
 
@@ -18,6 +15,10 @@ Reset board in one of two ways:
 ![Photo](https://i.imgur.com/S01CTTG.jpg)
 	
 	2) Hold down Esc key while plugging in USB-C
+
+Make example for this keyboard (after setting up your build environment):
+
+    make tkc/tkl_ab87:default
 
 Flashing example for this keyboard:
 
