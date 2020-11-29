@@ -72,17 +72,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_RAISE2] = LAYOUT_ortho_4x12( \
-  KC_GRAVE,       KC_1,            KC_2,     KC_3,     KC_4,     KC_5,            KC_6,     KC_ENTER,        KC_DELETE,            KC_DELETE,          KC_DELETE,        ___,      \
-  ___,            KC_F1,           KC_F2,    KC_F3,    KC_F4,    KC_F5,           KC_LEFT,  KC_DOWN,         KC_UP,                KC_RIGHT,           KC_BSPACE,        KC_ENTER, \
-  KC_LSHIFT,      KC_F7,           KC_F8,    KC_F9,    KC_F10,   KC_F11,          KC_EQUAL, KC_ESCAPE,       LCTL(KC_SPACE),       ___,                KC_BSLASH,        KC_ENTER, \
-  KC_LCTRL,       ___,             KC_LALT,  KC_LGUI,  KC_LALT,  LALT(KC_SPACE),  ___,       ___,            KC_MEDIA_NEXT_TRACK,  KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,  KC_AUDIO_MUTE
+  KC_GRAVE,       KC_1,      KC_2,     KC_3,     KC_4,     KC_5,            KC_6,     KC_ENTER,        KC_DELETE,            KC_DELETE,          KC_DELETE,        ___,      \
+  ___,            KC_F1,     KC_F2,    KC_F3,    KC_F4,    KC_F5,           KC_LEFT,  KC_DOWN,         KC_UP,                KC_RIGHT,           KC_BSPACE,        KC_ENTER, \
+  KC_LSHIFT,      KC_F7,     KC_F8,    KC_F9,    KC_F10,   KC_F11,          KC_EQUAL, KC_ESCAPE,       LCTL(KC_SPACE),       ___,                KC_BSLASH,        KC_ENTER, \
+  KC_LCTRL,       KC_F9,     KC_LALT,  KC_LGUI,  KC_LALT,  LALT(KC_SPACE),  ___,       ___,            KC_MEDIA_NEXT_TRACK,  KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,  KC_AUDIO_MUTE
 ),
 
 [_LAYER6] =  LAYOUT_ortho_4x12( \
-  KC_AUDIO_MUTE,   KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,  ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___,    \
-  ___,             KC_BRIGHTNESS_DOWN,  KC_BRIGHTNESS_UP, ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___,    \
-  ___,             KC_F1,               KC_F2,            KC_F3,           KC_F4,           KC_F5,           KC_F6,           KC_F7,           KC_F8,           KC_F9,           KC_F10,          KC_F11, \
-  ___,             ___,                 ___,              ___,             ___,             ___,             ___,             KC_F12,          ___,             ___,             MO(7),           ___
+  KC_AUDIO_MUTE,   KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     ___,       ___,       ___,      ___,      ___,      ___,      ___,       ___,       ___,    \
+  ___,             KC_BRIGHTNESS_DOWN,  KC_BRIGHTNESS_UP,    ___,       ___,       ___,      ___,      ___,      ___,      ___,       ___,       ___,    \
+  KC_F1,           KC_F2,               KC_F3,               KC_F4,     KC_F5,     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_F11,    ___,    \
+  KC_F7,           KC_F8,               KC_F9,               KC_F10,    KC_F11,    KC_F12,   ___,      ___,      ___,      MO(7),     ___,       ___             
 ),
 
 [_LAYER7] =  LAYOUT_ortho_4x12( \
