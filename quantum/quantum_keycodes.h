@@ -67,7 +67,6 @@ enum quantum_keycodes {
     QK_ONE_SHOT_LAYER_MAX   = 0x54FF,
     QK_ONE_SHOT_MOD         = 0x5500,
     QK_ONE_SHOT_MOD_MAX     = 0x55FF,
-    QK_ONE_SHOT_STATUS      = 0x5600,
     QK_TAP_DANCE            = 0x5700,
     QK_TAP_DANCE_MAX        = 0x57FF,
     QK_LAYER_TAP_TOGGLE     = 0x5800,
@@ -548,6 +547,10 @@ enum quantum_keycodes {
     JS_BUTTON31,
     JS_BUTTON_MAX = JS_BUTTON31,
 
+    ONESHOT_ENABLE,
+    ONESHOT_DISABLE,
+    ONESHOT_TOGGLE,
+
 #if defined(SEQUENCER_ENABLE)
     SQ_ON,
     SQ_OFF,
@@ -888,4 +891,6 @@ enum quantum_keycodes {
 #define DM_PLY2 DYN_MACRO_PLAY2
 
 // One Shot toggle
-#define OST_TOG  (QK_ONE_SHOT_STATUS)
+#define OST_TOG ONESHOT_TOGGLE
+#define OST_ON  ONESHOT_ENABLE
+#define OST_OFF ONESHOT_DISABLE

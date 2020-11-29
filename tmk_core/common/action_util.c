@@ -148,12 +148,16 @@ void clear_oneshot_swaphands(void) {
  * FIXME: needs doc
  */
 void set_oneshot_layer(uint8_t layer, uint8_t state) {
-    oneshot_layer_data = layer << 3 | state;
-    layer_on(layer);
+    if (oneshot_active) {
+        oneshot_layer_data = layer << 3 | state;
+        layer_on(layer);
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    oneshot_layer_time = timer_read();
+        oneshot_layer_time = timer_read();
 #    endif
-    oneshot_layer_changed_kb(get_oneshot_layer());
+        oneshot_layer_changed_kb(get_oneshot_layer());
+    } else {
+        layer_on(layer);
+    }
 }
 /** \brief Reset oneshot layer
  *
@@ -173,7 +177,7 @@ void reset_oneshot_layer(void) {
 void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
     uint8_t start_state = oneshot_layer_data;
     oneshot_layer_data &= ~state;
-    if (!get_oneshot_layer_state() && start_state != oneshot_layer_data) {
+    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) || !oneshot_active) {
         layer_off(get_oneshot_layer());
         reset_oneshot_layer();
     }
@@ -187,9 +191,9 @@ bool is_oneshot_layer_active(void) { return get_oneshot_layer_state(); }
 /** \brief set oneshot
  *
  * FIXME: needs doc
- */ 
+ */
 void oneshot_set(bool active) {
-    if(oneshot_active != active) {
+    if (oneshot_active != active) {
         oneshot_active = active;
         dprintf("Oneshot: active: %d\n", active);
     }
@@ -212,6 +216,9 @@ void oneshot_enable(void) { oneshot_set(true); }
  * FIXME: needs doc
  */
 void oneshot_disable(void) { oneshot_set(false); }
+
+bool is_oneshot_enabled(void) { return oneshot_active; }
+
 #endif
 
 /** \brief Send keyboard report
