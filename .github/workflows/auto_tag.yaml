@@ -4,12 +4,15 @@ on:
   push:
     branches:
     - master
-    paths-ignore:
-    - 'keyboards/**'
-    - 'docs/**'
-    - 'users/**'
-    - 'layouts/**'
-    - 'api_data/**'
+    paths:
+    - quantum/**/*
+    - tmk_core/**/*
+    - drivers/**/*
+    - tests/**/*
+    - util/**/*
+    - platforms/**/*
+    - Makefile
+    - '*.mk'
 
 jobs:
   tag:
