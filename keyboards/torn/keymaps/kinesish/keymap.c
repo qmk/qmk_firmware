@@ -118,10 +118,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM encoder_keymaps[][2][2] = {
-    [_QWERTY] =  { { C(S(KC_TAB)), C(KC_TAB) },     { KC_PGUP,      KC_PGDN } },
-    [_LOWER]  =  { { C(KC_LEFT),   C(KC_RGHT) },    { KC__VOLDOWN,  KC__VOLUP } },
-    [_RAISE]  =  { { G(KC_LEFT),   G(KC_RGHT) },    { G(KC_TAB),    G(S(KC_TAB)) } },
-    [_ADJUST] =  { { KC_TRNS,      KC_TRNS },       { KC_TRNS,      KC_TRNS } },
+    [_QWERTY] =  { { C(S(KC_TAB)), C(KC_TAB) },     { G(A(KC_LEFT)), G(A(KC_RIGHT)) } },
+    [_LOWER]  =  { { C(KC_LEFT),   C(KC_RGHT) },    { KC__VOLDOWN,   KC__VOLUP } },
+    [_RAISE]  =  { { G(KC_LEFT),   G(KC_RGHT) },    { G(KC_TAB),     G(S(KC_TAB)) } },
+    [_ADJUST] =  { { KC_TRNS,      KC_TRNS },       { KC_TRNS,       KC_TRNS } },
 };
 // clang-format on
 
