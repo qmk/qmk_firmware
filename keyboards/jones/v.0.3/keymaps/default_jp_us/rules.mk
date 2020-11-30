@@ -7,6 +7,7 @@
 #
 
 MOUSEKEY_ENABLE = no        # Mouse keys
-AUDIO_ENABLE = yes           # Audio output
+AUDIO_ENABLE = yes          # Audio output
+TAP_DANCE_ENABLE = yes      # Tap Dance
 
 EXTRAFLAGS += -flto
