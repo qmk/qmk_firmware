@@ -22,9 +22,8 @@
 #define VENDOR_ID       0x4145 // "AE"
 #define PRODUCT_ID      0xAE65 // AEboards EXT65
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    AEboards
-#define PRODUCT         AEboards Ext65
-#define DESCRIPTION     AEboards Ext65
+#define MANUFACTURER    AEBoards
+#define PRODUCT         AEBoards Ext65
 
 /* key matrix size */
 #define MATRIX_ROWS 10
