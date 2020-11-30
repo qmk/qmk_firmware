@@ -10,7 +10,7 @@ When flashing the eek! with the bat side up follow the second example below and 
 
 * Keyboard Maintainer: [klackygears](https://github.com/klackygears)
 * Hardware Supported: The eek! PCBs, Pro Micro supported, Low Profile Elite-C supported
-* Hardware Availability: [Case Data & firmware](https://github.com/klackygears/eek_case)
+* Hardware Availability: [Case Data & firmware](https://github.com/klackygears/eek_doc)
 
 Make example for this keyboard (after setting up your build environment):
 
