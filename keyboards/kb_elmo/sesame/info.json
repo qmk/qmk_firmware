@@ -5,7 +5,7 @@
   "width": 17.75,
   "height": 5,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_alice": {
       "layout": [
         {"x":0, "y":0},
         {"x":1.25, "y":0},
