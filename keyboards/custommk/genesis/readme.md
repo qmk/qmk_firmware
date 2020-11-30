@@ -3,7 +3,7 @@
 ![Genesis Macro Pad](https://i.imgur.com/voBjLrM.jpeg)
 ![Genesis Macro Pad PCB](https://i.imgur.com/ST2vtkV.jpeg)
 
-Genesis is 5x4 ortholinear layout macro pad designed and produced by customMK. 
+Genesis is a 5x4 ortholinear macro pad designed and produced by customMK. 
 
 * Keyboard Maintainer: [customMK](https://github.com/customMK)
 * Hardware Supported: Genesis Macro Pad
