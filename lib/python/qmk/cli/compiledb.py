@@ -21,8 +21,6 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 @lru_cache(maxsize=10)
 def system_libs(binary: str):
     """Find the system include directory that the given build tool uses.
-
-    Only tested on OSX+homebrew so far.
     """
 
     try:
