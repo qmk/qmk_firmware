@@ -16,13 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-extern rgblight_config_t rgblight_config;
-#endif
-
-
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
     _MAC = 0,
@@ -45,8 +38,6 @@ enum custom_keycodes {
   ADJUST,
   ALT_US,
   ALT_JP,
-  A_IME_M,
-  A_IME_W,
   ALT_GRV
 };
 
@@ -81,21 +72,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 #define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
-#define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_NRAI LT(_NUM_RAISE, KC_SPC)
-#define SP_ADJ  LT(_ADJUST, KC_SPC)
-#define SP_GUI  MT(MOD_LGUI, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define S_SLS   RSFT_T(JP_SLSH)
 #define S_BSLS  RSFT_T(JP_BSLS)
-#define C_SCLN  RCTL_T(JP_SCLN)
-#define C_MINS  RCTL_T(JP_MINS)
 #define C_SLSH  RCTL_T(JP_SLSH)
 #define CT_E    LCTL(KC_E)
 #define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -160,16 +144,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
 );
 #endif
 
-// レイヤーキーを変換・無変換キーと共用する際に動作を改善する。
-static bool lower_pressed = false;
-static uint16_t lower_pressed_time = 0;
-static bool raise_pressed = false;
-static uint16_t raise_pressed_time = 0;
-static bool alt_ime_pressed = false;
-static uint16_t alt_ime_pressed_time = 0;
-
-// デフォルトレイヤー格納用
-static uint16_t current_default_layer = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -188,54 +162,21 @@ switch (keycode) {
         break;
     case LOWER:
         if (record->event.pressed) {
-            lower_pressed = true;
-            lower_pressed_time = record->event.time;
-
             layer_on(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
         } else {
             layer_off(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
-
-            // /*
-            // 長押し時に入力キャンセルする場合
-            // if (lower_pressed && (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM)) {
-            //
-            // 長押しキャンセルなしの場合
-            // if (lower_pressed) {
-            // */
-            // if (lower_pressed && (TIMER_DIFF_16(record->event.time, lower_pressed_time) < TAPPING_TERM)) {
-            //     register_code(KC_LANG1); // for macOS
-            //     register_code(KC_HENK);
-            //     unregister_code(KC_HENK);
-            //     unregister_code(KC_LANG1);
-            // }
-            lower_pressed = false;
         }
         return false;
         break;
     case RAISE:
         if (record->event.pressed) {
-            raise_pressed = true;
-            raise_pressed_time = record->event.time;
-
             layer_on(_RAISE);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
         } else {
             layer_off(_RAISE);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
-
-            // /*
-            // 長押し時に入力キャンセルする場合はこれ
-            // if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-            // */
-            // if (raise_pressed) {
-            //     register_code(KC_LANG2); // for macOS
-            //     register_code(KC_MHEN);
-            //     unregister_code(KC_MHEN);
-            //     unregister_code(KC_LANG2);
-            // }
-            raise_pressed = false;
           }
         return false;
         break;
@@ -247,59 +188,7 @@ switch (keycode) {
         }
         return false;
         break;
-    case A_IME_M:
-        if (record->event.pressed) {
-            alt_ime_pressed = true;
-            alt_ime_pressed_time = record->event.time;
-            register_code(KC_RALT);
-        } else {
-            unregister_code(KC_RALT);
-            /*
-            長押し時に入力キャンセルする場合はこれ
-            if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-            */
-            // if (alt_ime_pressed) {
-            if (alt_ime_pressed && (TIMER_DIFF_16(record->event.time, alt_ime_pressed_time) < TAPPING_TERM)) {
-                register_code(KC_LCTL); // for macOS
-                register_code(KC_SPC);
-                unregister_code(KC_SPC);
-                unregister_code(KC_LCTL);
-            }
-            alt_ime_pressed = false;
-        }
-        return false;
-        break;
-    case A_IME_W:
-        if (record->event.pressed) {
-            alt_ime_pressed = true;
-            alt_ime_pressed_time = record->event.time;
-            register_code(KC_RALT);
-        } else {
-            unregister_code(KC_RALT);
-            /*
-            長押し時に入力キャンセルする場合はこれ
-            if (raise_pressed && (TIMER_DIFF_16(record->event.time, raise_pressed_time) < TAPPING_TERM)) {
-            */
-            // if (alt_ime_pressed) {
-            if (alt_ime_pressed && (TIMER_DIFF_16(record->event.time, alt_ime_pressed_time) < TAPPING_TERM)) {
-                // register_code(KC_LALT);
-                // register_code(KC_GRV);
-                // unregister_code(KC_GRV);
-                // unregister_code(KC_LALT);
-                SEND_STRING(SS_LALT("`"));
-            }
-            alt_ime_pressed = false;
-        }
-        return false;
-        break;
     default:
-        if (record->event.pressed) {
-            // reset the flags
-            lower_pressed = false;
-            raise_pressed = false;
-            alt_ime_pressed = false;
-            alt_ime_pressed = false;
-        }
         break;
     }
     return true;
@@ -341,7 +230,6 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_RED}
 );
 
-
 // Define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_mac_layer,
@@ -375,12 +263,6 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _MAC));
     rgblight_set_layer_state(1, layer_state_cmp(state, _WIN));
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
-
-    if (layer_state_cmp(state, _MAC)) {
-        current_default_layer = _MAC;
-    } else if (layer_state_cmp(state, _WIN)) {
-        current_default_layer = _WIN;
-    }
 
     return state;
 }
@@ -456,7 +338,6 @@ void ql_each(qk_tap_dance_state_t *state, void *user_data) {
 
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
-
     switch(state->keycode) {
         case TD(TD_ESC_NUM):
             switch (ql_tap_state.state) {
