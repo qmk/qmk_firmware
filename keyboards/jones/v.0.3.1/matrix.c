@@ -24,6 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 
+#ifndef MATRIX_IO_DELAY
+#    define MATRIX_IO_DELAY 30
+#endif
+
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
@@ -138,6 +142,8 @@ uint8_t matrix_key_count(void)
 // user-defined overridable functions
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
+__attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
+
 // matrix code
 
 static void select_row(uint8_t row) {
@@ -169,8 +175,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
-    // matrix_io_delay();
-    wait_us(30);
+    matrix_io_delay();
 
     uint8_t col_in_matrix_index = 0;
 
