@@ -70,6 +70,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
 };
 
+// Custom keycodes
 #define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
 #define SP_RAI  LT(_RAISE, KC_SPC)
@@ -148,13 +149,13 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 switch (keycode) {
-    case MAC: // Write default layer to EEPROM
+    case MAC: // Change default ayer --> Write to EEPROM
         if (record->event.pressed) {
             set_single_persistent_default_layer(_MAC);
         }
         return false;
         break;
-    case WIN: // Write default layer to EEPROM
+    case WIN: // Change default ayer --> Write to EEPROM
         if (record->event.pressed) {
             set_single_persistent_default_layer(_WIN);
         }
@@ -198,7 +199,7 @@ switch (keycode) {
 // RGB Light settings
 #ifdef RGBLIGHT_LAYERS
 
-// 1st LED
+// for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_WHITE}
 );
@@ -209,7 +210,7 @@ const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_YELLOW}
 );
 
-// 2nd LED
+// for temporally layer
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_MAGENTA}
 );
@@ -274,7 +275,7 @@ bool led_update_user(led_t led_state) {
 #endif
 
 //------------------------------------------------------------------------------
-// TEST LEDs
+// for TEST LEDs.
 // void keyboard_post_init_user(void) {
 //     rgblight_enable_noeeprom();
 //     rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
@@ -303,11 +304,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 //------------------------------------------------------------------------------
 // Tap Dance function
 
-// ESCキーの動作を、次のようにする設定
-// シングルタップ：ESC
-// シングルタップしてホールド：NUMレイヤー
-// トリプルタップ：Numレイヤーをトグル
-// NOTE:ESCを連打（＝タブルタップ）して、Numレイヤーになるのを防止するためトリプルに。
 
 typedef struct {
     bool is_press_action;
@@ -339,16 +335,19 @@ void ql_each(qk_tap_dance_state_t *state, void *user_data) {
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch(state->keycode) {
-        case TD(TD_ESC_NUM):
+        case TD(TD_ESC_NUM): // ESC key action
             switch (ql_tap_state.state) {
                 case SINGLE_TAP:
                 case DOUBLE_TAP:
+                    // ESC
                     tap_code(KC_ESC);
                     break;
                 case TAP_HOLD:
+                    // temporal layer change
                     layer_on(_NUM);
                     break;
                 case TRIPLE_TAP:
+                    // toggle layer
                     // Check to see if the layer is already set
                     if (layer_state_is(_NUM)) {
                         // If already set, then switch it off
