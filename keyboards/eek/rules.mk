@@ -22,6 +22,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 #RGB_MATRIX_ENABLE = WS2812 # Enable for pretty RGB matrix effects
-
+RGB_MATRIX_DRIVER = WS2812
 DEFAULT_FOLDER = eek/silk_down
 LAYOUTS = split_3x5_3
