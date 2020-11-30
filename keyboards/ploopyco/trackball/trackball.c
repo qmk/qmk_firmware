@@ -108,7 +108,7 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
 }
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
-    report_pmw_t data = pmw_read_burst();
+    report_pmw_t data = pmw3360_read_burst();
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
         if (!data.isMotion) {
@@ -169,7 +169,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (keycode == DPI_CONFIG && record->event.pressed) {
         keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         eeconfig_update_kb(keyboard_config.raw);
-        pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        pmw3360_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
     if (keycode == DRAG_SCROLL) {
@@ -241,7 +241,7 @@ void keyboard_pre_init_kb(void) {
 
 void pointing_device_init(void) {
     // initialize ball sensor
-    pmw_spi_init();
+    pmw3360_spi_init();
     // initialize the scroll wheel's optical encoder
     opt_encoder_init();
 }
@@ -303,7 +303,7 @@ void matrix_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pmw3360_set_cpi(dpi_array[keyboard_config.dpi_config]);
 
     keyboard_post_init_user();
 }

@@ -26,5 +26,7 @@ AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = yes       # Mouse keys
 
+VPATH += drivers/optical
+
 QUANTUM_LIB_SRC += analog.c spi_master.c
 SRC += pmw3360.c opt_encoder.c

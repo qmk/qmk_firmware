@@ -81,3 +81,6 @@
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 
 // #define DEBUG_LED_PIN F7
+
+#define SPI_DIVISOR 4
+#define SPI_CS_PIN B0
