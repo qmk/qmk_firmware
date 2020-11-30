@@ -63,6 +63,8 @@ Aside from accessing the currently active modifiers using `get_mods()`, there ex
 
 Similarly, in addition to `get_oneshot_mods()`, there also exists these functions for one-shot mods:
 
+* `add_oneshot_mods(mods)`: Enable `mods` without affecting any other one-shot modifiers
+* `del_oneshot_mods(mods)`: Disable `mods` without affecting any other one-shot modifiers
 * `set_oneshot_mods(mods)`: Overwrite current one-shot modifier state with `mods`
 * `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers
 
