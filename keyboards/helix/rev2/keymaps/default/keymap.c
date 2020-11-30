@@ -427,9 +427,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case EISU:
       if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
+        if (is_mac_mode()) {
           register_code(KC_LANG2);
-        }else{
+        } else {
           SEND_STRING(SS_LALT("`"));
         }
       } else {
@@ -439,9 +439,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case KANA:
       if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
+        if (is_mac_mode()) {
           register_code(KC_LANG1);
-        }else{
+        } else {
           SEND_STRING(SS_LALT("`"));
         }
       } else {
@@ -582,11 +582,11 @@ void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
   static const char os_logo[][2][3] PROGMEM  ={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-  if(keymap_config.swap_lalt_lgui==false){
+  if (is_mac_mode()) {
     matrix_write_P(matrix, os_logo[0][0]);
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write_P(matrix, os_logo[0][1]);
-  }else{
+  } else {
     matrix_write_P(matrix, os_logo[1][0]);
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write_P(matrix, os_logo[1][1]);
