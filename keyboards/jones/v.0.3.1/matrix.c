@@ -52,7 +52,6 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
-// user functions?
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
     matrix_init_kb();
@@ -161,7 +160,6 @@ static void init_pins(void) {
     }
 }
 
-//TODO
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Store last value of row prior to reading
     matrix_row_t last_row_value = current_matrix[current_row];
@@ -178,11 +176,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        // // Select the col pin to read (active low)
-        // uint8_t pin_state = readPin(col_pins[col_index]);
-        //
-        // // Populate the matrix row with the state of the col pin
-        // current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
 
         // rowと同じインデックスのcol（＝同じピン）は読まない
         if (col_index != current_row) {
