@@ -38,7 +38,7 @@ enum custom_keycodes {
   ADJUST,
   ALT_US,
   ALT_JP,
-  ALT_GRV
+  ALT_GRV,
 };
 
 // Tap Dance
