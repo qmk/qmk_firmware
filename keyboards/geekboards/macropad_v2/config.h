@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    GeekBoards
 #define PRODUCT         GeekBoards Macropad v2
-#define DESCRIPTION     GeekBoards Macropad v2
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
@@ -77,16 +76,12 @@
 #define WAIT_FOR_USB
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 3
+#define DEBOUNCE 3
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
 
-#define PERMISSIVE_HOLD
-#undef TAPPING_TOGGLE
-#define TAPPING_TOGGLE  3
-#define RETRO_TAPPING
 
 #ifndef __ASSEMBLER__
 void eeconfig_update_rgb_matrix(void);

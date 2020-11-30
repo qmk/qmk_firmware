@@ -52,8 +52,6 @@ led_config_t g_led_config = { {
     4,
     2, 2, 2
 } };
-extern LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
-#endif
 
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
@@ -62,3 +60,4 @@ void suspend_power_down_kb(void) {
 void suspend_wakeup_init_kb(void) {
     rgb_matrix_set_suspend_state(false);
 }
+#endif
