@@ -19,18 +19,4 @@ See the [keyboard build instructions](https://hid-technologies.github.io/Bastyl-
 
 If you modify this firmware, make sure to always have a RESET key that can be triggered using only the master side ! This way you ensure that you can always flash the keyboard, even if you mess up.
 
-Otherwise if you're stuck, open the case and reset manually by shorting Gnd and Rst.
-
-### Modify using qmk
-
-* Clone qmk
-* make the required changes to `keymap.c`
-* disable via by commenting out the line in rules.mk
-* compile 
-* flash with qmk toolbox
-
-### Modify using via
-
-* Load `keyboards/bastyl_via/jsons/bastyl.json` into via
-* Connect your keyboard, it should be recognized
-* Make the required changes to the keymap using the gui
+Otherwise if you're stuck, open the case and reset manually by shorting Gnd and Rst, or pressing the RST button.
