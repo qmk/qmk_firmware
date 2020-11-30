@@ -3,16 +3,21 @@
 #pragma once
 
 #define RGBLIGHT_LAYERS
-
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-
 #define RGBLIGHT_ANIMATIONS
 
+//#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define RGBLIGHT_LIMIT_VAL 10
+
+//bootmagic
 #define BOOTMAGIC_KEY_SALT KC_V
 #define BOOTMAGIC_KEY_EEPROM_CLEAR KC_Q
 
 #ifdef RGB_MATRIX_ENABLE
 
+//--------------------------------------------------------------------------------------------------------
+
+//disable broken animations
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define DISABLE_RGB_MATRIX_BREATHING
@@ -56,7 +61,9 @@
 
 #endif
 
+//--------------------------------------------------------------------------------------------------------
 
+//layout
 #define LAYOUT_sigma2(\
 K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K10,   K11,\
 K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K20,   K21,   K22,   K23,\

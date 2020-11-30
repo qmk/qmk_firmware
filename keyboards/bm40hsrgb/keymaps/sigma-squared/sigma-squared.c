@@ -24,8 +24,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MEDR] = LAYOUT_sigma2(
     KC_LALT, KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_TOG,  KC_MOD,  KC_HUI,  KC_SAI,  KC_VAI,  KC_LALT,
     KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,   KC_NU,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_LSFT,
-    KC_LCTL, KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_LCTL,
-    KC_NP,   KC_NP,   KC_NP,  KC_NA,   KC_NA,       KC_MSTP,      KC_MPLY, KC_MUTE, KC_NP,   KC_NP,   KC_NP
+    KC_LCTL, KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_NU,   RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,   KC_LCTL,
+    KC_NP,   KC_NP,   KC_NP,  KC_NA,   KC_NA,       KC_MSTP,       KC_MPLY, KC_MUTE, KC_NP,   KC_NP,   KC_NP
   ),
   [FUNL] = LAYOUT_sigma2(
     KC_LALT, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,  KC_LALT,
