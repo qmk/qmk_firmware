@@ -110,49 +110,49 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MAC] = LAYOUT_JP(
+    [_MAC] = LAYOUT_jp(
         ESC_NUM,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_BSPC,KC_BSLS,KC_GRV, \
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,               KC_LBRC,KC_RBRC, \
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SCLN_M, KC_ENT,     KC_EQL, KC_QUOT, \
         S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,  LOWER,   \
         KC_MUTE,KC_LANG2,KC_LALT,KC_LGUI,       SP_SFT,         SP_RAI,        KC_RGUI,KC_RALT,KC_LANG1,KC_LEFT,KC_DOWN,KC_RGHT  \
     ),
-    [_WIN] = LAYOUT_JP(
+    [_WIN] = LAYOUT_jp(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,            _______,_______, \
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,_______, \
         _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
         _______,ALT_GRV,KC_LGUI,KC_LALT,        _______,        _______,        KC_RALT,KC_APP, ALT_GRV,_______,_______,_______  \
     ),
-    [_NUM] = LAYOUT_JP(
+    [_NUM] = LAYOUT_jp(
         _______,_______,_______,_______,_______,_______,_______,XXXXXXX,KC_PSLS,KC_PSLS,KC_PAST,_______,_______,_______,_______, \
         _______,    _______,_______,_______,_______,_______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PPLS,            _______,_______, \
         _______,    _______,_______,_______,_______,_______,_______,KC_P4,  KC_P5,  KC_P6,  XXXXXXX,_______,    _______,_______, \
         _______,        _______,_______,_______,_______,_______,_______,KC_P1,  KC_P2,  KC_P3,  KC_PENT,_______,_______,_______, \
         _______,_______,_______,_______,        _______,        SP_NRAI,        KC_P0,  KC_PDOT,_______,_______,_______,_______  \
     ),
-    [_LOWER] = LAYOUT_JP(
+    [_LOWER] = LAYOUT_jp(
         KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,  \
         KC_PSCR,    _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,            KC_END, KC_VOLU, \
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_LEFT,KC_UP,      KC_RGHT,KC_VOLD, \
         _______,        _______,_______,_______,_______,_______,_______,_______,_______,KC_PGDN,KC_DOWN,KC_RGHT,KC_PGUP,_______, \
         ADJUST, _______,_______,_______,        _______,        ADJUST,         _______,_______,_______,KC_HOME,KC_PGDN,KC_END   \
     ),
-    [_RAISE] = LAYOUT_JP(
+    [_RAISE] = LAYOUT_jp(
         KC_PAUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,  \
         KC_PSCR,    _______,_______,CT_E,   _______,_______,_______,_______,_______,_______,KC_PGUP,            _______,_______, \
         _______,    CT_A,   _______,KC_DEL, KC_RGHT,KC_ESC, KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_MINS,KC_INS,     _______,_______, \
         _______,        _______,_______,_______,_______,KC_LEFT,KC_PGDN,KC_ENT, _______,KC_MRWD,KC_MFFD,_______,KC_PGUP,ADJUST,  \
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,KC_HOME,KC_PGDN,KC_END   \
     ),
-    [_NUM_RAISE] = LAYOUT_JP(
+    [_NUM_RAISE] = LAYOUT_jp(
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_BSPC,KC_BSLS,KC_GRV,  \
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,               KC_LBRC,KC_RBRC, \
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SCLN_M, KC_ENT,     KC_EQL, KC_QUOT, \
         S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, C_SLSH, KC_RSFT,KC_UP,  ADJUST,  \
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______  \
     ),
-    [_ADJUST] = LAYOUT_JP(
+    [_ADJUST] = LAYOUT_jp(
         _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
         _______,    _______,WIN,    _______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______, \
         _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______, \
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
-const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_JP(
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_jp(
     51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65,
     38,   39, 40, 41, 42, 43, 44, 45, 46, 47, 48,       49, 50,
     25,   26, 27, 28, 29, 30, 31, 32, 33, 34, 35,  36,  37, 38,
