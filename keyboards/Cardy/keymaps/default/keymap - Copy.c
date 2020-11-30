@@ -7,10 +7,11 @@ enum keyboard_layers{
 };
 
 enum custom_keycodes {
-  C_S_T = SAFE_RANGE,
+  C_S_T = SAFE_RANGE
   ALT_A = 0,
   ALT_F=1
-    
+  
+  
 };
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
