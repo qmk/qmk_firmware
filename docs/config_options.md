@@ -135,6 +135,8 @@ If you define these options you will enable the associated feature, which may in
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
   * See [Retro Tapping](tap_hold.md#retro-tapping) for details
+* `#define RETRO_TAPPING_PER_KEY`
+  * enables handling for per key `RETRO_TAPPING` settings
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
