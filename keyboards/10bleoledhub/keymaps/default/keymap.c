@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT( 
-	    KC_PGUP,
+	    KC_PGDOWN,
         KC_KP_7, KC_KP_8, MO(1), 
         KC_P4,   KC_P5,    KC_P6,
         KC_P1,   KC_P2,    KC_P3),
