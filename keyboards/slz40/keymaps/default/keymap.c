@@ -22,12 +22,6 @@ enum layer_names {
 	_FN2
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    PSWD1 = SAFE_RANGE,
-    QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
