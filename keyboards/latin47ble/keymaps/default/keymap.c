@@ -23,7 +23,6 @@ enum layers {
 #define KC_X0 LT(_FN2, KC_GRV)
 #define KC_X1 MO(_FN1)
 #define KC_X2 MO(_FN2)
-#define XXX KC_NO
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
