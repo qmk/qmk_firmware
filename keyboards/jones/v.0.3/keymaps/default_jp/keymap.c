@@ -313,13 +313,26 @@ typedef struct {
 // Determine the current tap dance state
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (!state->pressed) return SINGLE_TAP;
-        else return TAP_HOLD;
+        if (!state->pressed) {
+            return SINGLE_TAP;
+        } else {
+            return TAP_HOLD;
+        }
     } else if (state->count == 2) {
-        if (!state->pressed) return DOUBLE_TAP;
-        else return TAP_HOLD;
-    } else if (state->count == 3) return TRIPLE_TAP;
-    else return 8; // Magic number. At some point this method will expand to work for more presses
+        if (!state->pressed) {
+            return DOUBLE_TAP;
+        } else {
+            return TAP_HOLD;
+        }
+    } else if (state->count == 3) {
+        if (!state->pressed) {
+            return TRIPLE_TAP;
+        } else {
+            return TAP_HOLD;
+        }
+    } else {
+        return 8; // Magic number. At some point this method will expand to work for more presses
+    }
 }
 
 // Initialize tap structure associated with example tap dance key
