@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define TAPPING_TERM_PER_KEY
-
 // place overrides here
 #define TAPPING_TOGGLE 2
 
