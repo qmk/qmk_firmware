@@ -36,3 +36,5 @@ TAP_DANCE_ENABLE = yes		# Tap Dance
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c
+
+EXTRAFLAGS += -flto
