@@ -126,6 +126,8 @@ enum custom_keycodes {
 #define VS_TABRIGHT LCTL(KC_PGDN)
 #define VS_CLOSETAB LCTL(KC_W)
 #define VS_CLOSEPANEL LCTL(LSFT(KC_W))
+#define VS_GROUP_1 LCTL(KC_1)
+#define VS_GROUP_2 LCTL(KC_2)
 #define VS_TERMINAL LCTL(KC_GRAVE)
 #define VS_BUILD LCTL(LSFT(KC_B))
 #define VS_COMMANDS LCTL(LSFT(KC_P))
@@ -382,7 +384,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        VS_CMT_LINE,  VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_BM_LIST,          VS_BM_LISTALL,   VS_BM_TOGGLE,
+       VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
                                        VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
        // thumb cluster
@@ -560,7 +562,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case RGB_SLD:
       if (record->event.pressed) {
-        rgblight_mode(1);
+        // rgblight_mode(1);
       }
       return false;
       break;
