@@ -354,7 +354,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
-    MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, _______,
     CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
     XXXXXXX, XXXXXXX, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
@@ -362,8 +362,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGBLIGHT_ENABLE
 
-// Light up fn layer keys (left side keyboard)
-const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS({0,   5, HSV_ORANGE},      //  MIDI layouts
+// Light up adjust layer keys (left keyboard)
+const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS({1,  10, HSV_ORANGE},
+                                                                             {21,  2, HSV_ORANGE},
+                                                                             {25,  3, HSV_ORANGE},
+                                                                             {30,  5, HSV_ORANGE},
+                                                                             {37,  2, HSV_ORANGE},
+                                                                             {45,  2, HSV_ORANGE},
+                                                                             {57,  2, HSV_ORANGE}
+);
+
+// Light up fn layer keys
+const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
+                                                                         {0,   5, HSV_ORANGE},      //  MIDI layouts
                                                                          {11,  1, HSV_RED},         //  RGB_TOG
                                                                          {12,  1, HSV_WHITE},       //  DF_QWER
                                                                          {13,  1, HSV_CORAL},       //  TGLBASS
@@ -388,7 +399,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS({0,   5
                                                                          {52,  1, HSV_MAGENTA},
                                                                          {53,  1, HSV_PINK},
 #endif
-// Light up fn layer keys (right side keyboard)
+                                                                                                    //  right keyboard
                                                                          {60,  5, HSV_ORANGE},      //  MIDI layouts
                                                                          {74,  1, HSV_CORAL},       //  TGLBASS
                                                                          {85,  1, HSV_BLUE},        //  MIDI Oct
@@ -396,18 +407,21 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS({0,   5
                                                                          {87,  1, HSV_SPRINGGREEN}, //  MIDI Oct
                                                                          {88,  1, HSV_GREEN},       //  MIDI Oct
                                                                          {89,  1, HSV_CHARTREUSE},  //  MIDI Oct
+                                                                         {96,  1, HSV_PINK},        //  EEP_RST
                                                                          {98,  5, HSV_ORANGE},      //  MIDI layouts
                                                                          {110, 1, HSV_RED},         //  RGB_TOG
                                                                          {112, 1, HSV_CORAL}        //  TGLBASS
 );
 
 
+
 // Now define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_fn_layer);
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_fn_layer, my_adjust_layer);
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Both layers will light up if both kb layers are active
     rgblight_set_layer_state(0, layer_state_cmp(state, _FN));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _ADJUST));
     return state;
 };
 
@@ -450,8 +464,12 @@ void toggle_isSingleBass(void) {
 }
 
 void eeconfig_init_user(void) {
+  //  Reset Bass setting
   user_config.raw = 0;  // default: dyad
   eeconfig_update_user(user_config.raw);
+
+  //  Reset the midi keyboard layout
+  set_single_persistent_default_layer(_C_SYSTEM_BASE);
 }
 
 #ifdef RGBLIGHT_ENABLE
