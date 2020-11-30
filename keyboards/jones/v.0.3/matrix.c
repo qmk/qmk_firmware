@@ -1,5 +1,5 @@
 /*
-Copyright 2012-2018 Jun Wako, Jack Humbert, Yiancar
+Copyright 2012-2020 Jun Wako, Jack Humbert, Yiancar, Takeshi Nishio
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
