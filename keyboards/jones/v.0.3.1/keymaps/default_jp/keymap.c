@@ -199,13 +199,13 @@ switch (keycode) {
 // RGB Light settings
 #ifdef RGBLIGHT_LAYERS
 
-// インジケータLED
-#define JONES_LED_INDICATOR_INDEX 12        // 開始位置
-#define JONES_LED_INDICATOR_COUNT 2         // 個数
-#define JONES_LED_INDICATOR_CHANGE_COUNT 1  // レイヤーキー操作時に色を変える個数
-#define JONES_LED_DIMMER_LEVEL 200          // 明るさ調整
+// Indicator LED settings
+#define JONES_LED_INDICATOR_INDEX 12        // where to start indicator
+#define JONES_LED_INDICATOR_COUNT 2         // how many leds for indicator
+#define JONES_LED_INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
+#define JONES_LED_DIMMER_LEVEL 200          // brightness dimmer
 
-// デフォルトレイヤー（＝ベースレイヤー）
+// for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_WHITE - JONES_LED_DIMMER_LEVEL}
 );
@@ -216,7 +216,7 @@ const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_COUNT, HSV_YELLOW - JONES_LED_DIMMER_LEVEL}
 );
 
-// レイヤーキー操作時のレイヤー（一時的な変更）
+// for temporally layer
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {JONES_LED_INDICATOR_INDEX , JONES_LED_INDICATOR_CHANGE_COUNT, HSV_MAGENTA - JONES_LED_DIMMER_LEVEL}
 );
@@ -281,7 +281,7 @@ bool led_update_user(led_t led_state) {
 #endif
 
 //------------------------------------------------------------------------------
-// for TEST LEDs. LEDの動作確認用。
+// for TEST LEDs.
 // void keyboard_post_init_user(void) {
 //     rgblight_enable_noeeprom();
 //     rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
@@ -379,20 +379,19 @@ void ql_each(qk_tap_dance_state_t *state, void *user_data) {
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch(state->keycode) {
-        case TD(TD_ESC_NUM): // ESCキーの動作
+        case TD(TD_ESC_NUM): // ESC key action
             switch (ql_tap_state.state) {
                 case SINGLE_TAP:
                 case DOUBLE_TAP:
-                    // シングルとダブルタップ：ESC
-                    // NOTE: ESCを押すときに連打する癖があるので、ダブルタップまではESCとして動作。
+                    // ESC
                     tap_code(KC_ESC);
                     break;
                 case TAP_HOLD:
-                    // 押したまま：一時的にNUMレイヤをON（離すと元のレイヤに戻る）
+                    // temporal layer change
                     layer_on(_NUM);
                     break;
                 case TRIPLE_TAP:
-                    // トリプルタップ：Numレイヤーをトグル
+                    // toggle layer
                     // Check to see if the layer is already set
                     if (layer_state_is(_NUM)) {
                         // If already set, then switch it off
