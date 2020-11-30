@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION Jones is a 60% keyboard combined with Ortho-Linear and Row-staggered. It has gapless R2-R3 row. GH60 case compatible PCB and keyplate.
 
 /* key matrix size */
+// Same size for Jones' custom Round-Robin matrix.
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 11
 
@@ -41,12 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
+// Same pins for Jones' custom Round-Robin matrix.
 #define MATRIX_ROW_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
 #define MATRIX_COL_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
-// Jones uses custom matrix file. So, no need to define DIODE_DIRECTION.
+// No need to define DIODE_DIRECTION for Jones' custom Round-Robin matrix.
 //#define DIODE_DIRECTION COL2ROW
 
 /* Rotary Encoder */
@@ -57,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define B7_AUDIO
-  #define C6_AUDIO
+  #define C6_AUDIO  // 2nd pin for simultaneous audio.
   #define AUDIO_CLICKY
 #endif
 
@@ -72,15 +74,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 14
-  #define RGBLIGHT_LED_MAP {0,1,2,3,13,12,4,5,6,7,8,9,10,11}
+  #define RGBLED_NUM 14 // Left(4) + Right(2) + Under(8)
+  #define RGBLIGHT_LED_MAP {0,1,2,3,13,12,4,5,6,7,8,9,10,11} // Left --> Right --> Under
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
   /*== Lighting Layers ==*/
-  #define RGBLIGHT_LAYERS // Disable to turn off "Layer Indicator". 無効にするとレイヤーインジケータOFF。
+  #define RGBLIGHT_LAYERS // Disable to turn off "Layer Indicator".
   // #define RGBLIGHT_MAX_LAYERS 2
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
   /*== all animations enable ==*/
