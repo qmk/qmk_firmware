@@ -53,6 +53,11 @@ enum custom_keycodes {
   SCREEN_TAB_LEFT,
   SCREEN_TAB_RIGHT,
 
+  SCREEN_NEW_TAB,
+  SCREEN_DETACH,
+  SCREEN_RENAME,
+  SCREEN_NUMBER,
+
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
@@ -75,11 +80,11 @@ enum custom_keycodes {
 // macros
 // #define SCREEN_TAB_LEFT 4
 // #define SCREEN_TAB_RIGHT 5
-#define SCREEN_NEW_TAB 6
+
 #define SCREEN_COPY_MODE 8
 #define SCREEN_PASTE 9
-#define SCREEN_RENAME 10
-#define SCREEN_NUMBER 11
+
+
 #define SCREEN_0 12
 #define SCREEN_1 13
 #define SCREEN_2 14
@@ -90,7 +95,7 @@ enum custom_keycodes {
 #define SCREEN_7 19
 #define SCREEN_8 20
 #define SCREEN_9 21
-#define SCREEN_DETACH 22
+
 #define SCREEN_UP_JUMP 23
 #define SCREEN_DOWN_JUMP 24
 #define SCREEN_READREG_1 25
@@ -305,11 +310,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
-       KC_TRNS, M(SCREEN_NEW_TAB),  M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), M(SCREEN_RENAME),    KC_TRNS,
+       KC_TRNS, SCREEN_NEW_TAB,     M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), SCREEN_RENAME,       KC_TRNS,
                 SCREEN_TAB_LEFT,    M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), SCREEN_TAB_RIGHT,    KC_TRNS,
-       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), M(SCREEN_NUMBER),    KC_TRNS,
+       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), SCREEN_NUMBER,       KC_TRNS,
                                     // bottom row
-                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             M(SCREEN_DETACH),
+                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             SCREEN_DETACH,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -452,34 +457,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-        case SCREEN_NEW_TAB:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(C), END);
-            }
-        break;
-        case SCREEN_DETACH:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(D), END);
-            }
-        break;
-        case SCREEN_RENAME:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(A), U(LSFT), END);
-            }
-        break;
-        case SCREEN_NUMBER:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),
-                              T(N),
-                              T(U),
-                              T(M),
-                              T(B),
-                              T(E),
-                              T(R),
-                              T(SPC),
-                             END);
-            }
-        break;
+
 
 		MACRO_SCREEN_REG(SCREEN_READREG_1,1);
 		MACRO_SCREEN_REG(SCREEN_READREG_2,2);
@@ -652,6 +630,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case WINDOWS10_TASK_VIEW:
                 SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
                 break;
+        // linux screen shortcuts
         case SCREEN_TAB_LEFT:
             SEND_STRING(SS_LCTL("a"));
             SEND_STRING("p");
@@ -659,6 +638,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SCREEN_TAB_RIGHT:
             SEND_STRING(SS_LCTL("a"));
             SEND_STRING("n");
+            break;
+        case SCREEN_NEW_TAB:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("c");
+            break;
+        case SCREEN_DETACH:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("d");
+            break;
+        case SCREEN_RENAME:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING(SS_LSFT("a"));
+            break;
+        case SCREEN_NUMBER:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING(":number ");
             break;
 
     }
