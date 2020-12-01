@@ -3,7 +3,7 @@
 from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.info import info_json, rgblight_animations, rgblight_properties, rgblight_toggles
+from qmk.info import info_json
 from qmk.path import is_keyboard, normpath
 
 
@@ -12,6 +12,7 @@ from qmk.path import is_keyboard, normpath
 @cli.argument('-kb', '--keyboard', help='Keyboard to generate config.h for.')
 @cli.subcommand('Used by the make system to generate info_config.h from info.json', hidden=True)
 @automagic_keyboard
+@automagic_keymap
 def generate_rules_mk(cli):
     """Generates a rules.mk file from info.json.
     """

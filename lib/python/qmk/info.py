@@ -381,20 +381,6 @@ def _log_error(info_data, message):
     """Send an error message to both JSON and the log.
     """
     info_data['parse_errors'].append(message)
-    cli.log.error('%s: %s', info_data['keyboard_folder'], message)
-
-
-def _log_warning(info_data, message):
-    """Send a warning message to both JSON and the log.
-    """
-    info_data['parse_warnings'].append(message)
-    cli.log.warning('%s: %s', info_data['keyboard_folder'], message)
-
-
-def _log_error(info_data, message):
-    """Send an error message to both JSON and the log.
-    """
-    info_data['parse_errors'].append(message)
     cli.log.error('%s: %s', info_data.get('keyboard_folder', 'Unknown Keyboard!'), message)
 
 

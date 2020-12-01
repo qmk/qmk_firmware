@@ -17,9 +17,6 @@ from qmk.path import is_keyboard
 
 platform_id = platform.platform().lower()
 
-ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
-COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
-
 
 def show_keymap(kb_info_json, title_caps=True):
     """Render the keymap in ascii art.
