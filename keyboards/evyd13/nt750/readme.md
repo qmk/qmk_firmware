@@ -8,7 +8,7 @@ A drop-in replacement PCB for the Leopold FC750R.
 
 ## Flashing
 
-In place of the DIP switches on the original PCB there is a small button. Press that to jump to the bootloader. 
+In place of the DIP switches there is a small button. Press that to jump to the bootloader. 
 
 
 Make example for this keyboard (after setting up your build environment):
