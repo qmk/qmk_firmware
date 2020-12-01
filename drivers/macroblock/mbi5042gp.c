@@ -198,7 +198,7 @@ void MBI5042GP_init( void ) {
         pwm_lld_config_output_channel(PWMA, PWM_CH1, MBI5042GP_REFRESH_SPD, 50);
 
         /* Set interrupt handler */
-        nvicEnableVector(PWMA_IRQn, 1);
+        nvicEnableVector(PWMA_IRQn, 3);
 
         /* Need an interrupt for PWM1 */
         // (PWMA)->PIER = (PWMA)->PIER & ~(PWM_PIER_INT01TYPE_Msk | PWM_PIER_PWMIE1_Msk);
