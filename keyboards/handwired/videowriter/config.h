@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x5657 // "VW"
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Magnavox
-#define PRODUCT Magnavox Videowriter
-#define DESCRIPTION Magnavox Videowriter
+#define PRODUCT Videowriter
 
 /* key matrix size */
 #define MATRIX_ROWS 10
