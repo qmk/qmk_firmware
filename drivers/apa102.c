@@ -120,10 +120,9 @@ void static apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t 
 
 void static apa102_start_frame(void) {
     apa102_init();
-    apa102_send_byte(0);
-    apa102_send_byte(0);
-    apa102_send_byte(0);
-    apa102_send_byte(0);
+    for (uint16_t i = 0; i < 4; i++) {
+        apa102_send_byte(0);
+    }
 }
 
 void static apa102_end_frame(uint16_t num_leds) {
