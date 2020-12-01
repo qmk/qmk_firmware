@@ -26,6 +26,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3737
 
 LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no
