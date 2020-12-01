@@ -5,9 +5,9 @@
 
 A 41 key keyboard.
 
-Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
-Hardware Supported: BDE v2.3 Lefty  
-Hardware Availability: [BIG DILL EXTENDED on MechWild](https://mechwild.com/product/big-dill-extended-bde/)
+* Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
+* Hardware Supported: BDE v2.3 Lefty
+* Hardware Availability: [BIG DILL EXTENDED on MechWild](https://mechwild.com/product/big-dill-extended-bde/)
 
 Make example for this keyboard (after setting up your build environment):
 
