@@ -58,6 +58,17 @@ enum custom_keycodes {
   SCREEN_RENAME,
   SCREEN_NUMBER,
 
+  SCREEN_0,
+  SCREEN_1,
+  SCREEN_2,
+  SCREEN_3,
+  SCREEN_4,
+  SCREEN_5,
+  SCREEN_6,
+  SCREEN_7,
+  SCREEN_8,
+  SCREEN_9,
+
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
@@ -85,16 +96,6 @@ enum custom_keycodes {
 #define SCREEN_PASTE 9
 
 
-#define SCREEN_0 12
-#define SCREEN_1 13
-#define SCREEN_2 14
-#define SCREEN_3 15
-#define SCREEN_4 16
-#define SCREEN_5 17
-#define SCREEN_6 18
-#define SCREEN_7 19
-#define SCREEN_8 20
-#define SCREEN_9 21
 
 #define SCREEN_UP_JUMP 23
 #define SCREEN_DOWN_JUMP 24
@@ -310,11 +311,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
-       KC_TRNS, SCREEN_NEW_TAB,     M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), SCREEN_RENAME,       KC_TRNS,
-                SCREEN_TAB_LEFT,    M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), SCREEN_TAB_RIGHT,    KC_TRNS,
-       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), SCREEN_NUMBER,       KC_TRNS,
+       KC_TRNS, SCREEN_NEW_TAB,     SCREEN_7,    SCREEN_8,    SCREEN_9,    SCREEN_RENAME,       KC_TRNS,
+                SCREEN_TAB_LEFT,    SCREEN_4,    SCREEN_5,    SCREEN_6,    SCREEN_TAB_RIGHT,    KC_TRNS,
+       KC_TRNS, KC_TRNS,            SCREEN_1,    SCREEN_2,    SCREEN_3,    SCREEN_NUMBER,       KC_TRNS,
                                     // bottom row
-                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             SCREEN_DETACH,
+                                    SCREEN_0,    KC_TRNS,     KC_TRNS,     KC_TRNS,             SCREEN_DETACH,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -467,16 +468,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_2,2);
 		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_3,3);
 
-        MACRO_SCREEN_NUM(SCREEN_0,0);
-        MACRO_SCREEN_NUM(SCREEN_1,1);
-        MACRO_SCREEN_NUM(SCREEN_2,2);
-        MACRO_SCREEN_NUM(SCREEN_3,3);
-        MACRO_SCREEN_NUM(SCREEN_4,4);
-        MACRO_SCREEN_NUM(SCREEN_5,5);
-        MACRO_SCREEN_NUM(SCREEN_6,6);
-        MACRO_SCREEN_NUM(SCREEN_7,7);
-        MACRO_SCREEN_NUM(SCREEN_8,8);
-        MACRO_SCREEN_NUM(SCREEN_9,9);
 
 		case SCREEN_UP_JUMP:
             if (record->event.pressed) {
@@ -655,6 +646,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTL("a"));
             SEND_STRING(":number ");
             break;
+        case SCREEN_0:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("0");
+            break;
+        case SCREEN_1:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("1");
+            break;
+        case SCREEN_2:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("2");
+            break;
+        case SCREEN_3:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("3");
+            break;
+        case SCREEN_4:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("4");
+            break;
+        case SCREEN_5:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("5");
+            break;
+        case SCREEN_6:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("6");
+            break;
+        case SCREEN_7:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("7");
+            break;
+        case SCREEN_8:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("8");
+            break;
+        case SCREEN_9:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("9");
+            break;
+
 
     }
   }
