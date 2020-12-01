@@ -35,7 +35,8 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define USB_MAX_POWER_CONSUMPTION 100
+#define LED_CAPS_LOCK_PIN D5
+#define LED_PIN_ON_STATE 0
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
