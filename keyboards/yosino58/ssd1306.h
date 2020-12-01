@@ -70,7 +70,7 @@ struct CharacterMatrix {
   bool dirty;
 };
 
-struct CharacterMatrix display;
+extern struct CharacterMatrix display;
 
 bool iota_gfx_init(bool rotate);
 void iota_gfx_task(void);

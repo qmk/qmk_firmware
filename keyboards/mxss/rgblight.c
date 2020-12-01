@@ -110,9 +110,9 @@ extern LED_TYPE fleds[2];
 hs_set fled_hs[2];
 
 void copyrgb(LED_TYPE *src, LED_TYPE *dst) {
-  (*dst).r = (*src).r;
-  (*dst).g = (*src).g;
-  (*dst).b = (*src).b;
+  dst->r = src->r;
+  dst->g = src->g;
+  dst->b = src->b;
 }
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
@@ -145,11 +145,11 @@ void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) { sethsv_raw(hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val, led1); }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
-    (*led1).r = r;
-    (*led1).g = g;
-    (*led1).b = b;
+    led1->r = r;
+    led1->g = g;
+    led1->b = b;
 #ifdef RGBW
-    (*led1).w = 0;
+    led1->w = 0;
 #endif
 }
 

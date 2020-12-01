@@ -31,20 +31,6 @@ Check:
 - try using 'print' function instead of debug print. See **common/print.h**.
 - disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
-## Linux or UNIX Like System Requires Super User Privilege
-Just use 'sudo' to execute *hid_listen* with privilege.
-```
-$ sudo hid_listen
-```
-
-Or add an *udev rule* for TMK devices with placing a file in rules directory. The directory may vary on each system.
-
-File: /etc/udev/rules.d/52-tmk-keyboard.rules(in case of Ubuntu)
-```
-# tmk keyboard products     https://github.com/tmk/tmk_keyboard
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
-```
-
 ***
 
 # Miscellaneous

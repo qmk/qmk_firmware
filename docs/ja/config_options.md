@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: 0.9.43:docs/config_options.md
-  git diff 0.9.43 HEAD -- docs/config_options.md | cat
+  original document: 0.10.33:docs/config_options.md
+  git diff 0.10.33 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -322,11 +322,9 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
     ```
 * `LAYOUTS`
   * このキーボードがサポートする[レイアウト](ja/feature_layouts.md)のリスト
-* `LINK_TIME_OPTIMIZATION_ENABLE`
+* `LTO_ENABLE`
   * キーボードをコンパイルする時に、Link Time Optimization (LTO) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。
 ただし、LTO が有効な場合、古い TMK のマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。(メモ: これは QMK の [マクロ](ja/feature_macros.md) と [レイヤー](ja/feature_layers.md) には影響を与えません。)
-* `LTO_ENABLE`
-  * LINK_TIME_OPTIMIZATION_ENABLE と同じ意味です。`LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## AVR MCU オプション
 * `MCU = atmega32u4`
@@ -371,10 +369,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * MIDI 制御
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH_ENABLE`
-  * Adafruit EZ-Key HID で Bluetooth を有効にするレガシーオプション。BLUETOOTH を見てください
 * `BLUETOOTH`
-  * 現在のオプションは、AdafruitEzKey、AdafruitBLE、RN42
+  * 現在のオプションは、AdafruitBLE、RN42
 * `SPLIT_KEYBOARD`
   * 分割キーボード (let's split や bakingpy のキーボードのようなデュアル MCU) のサポートを有効にし、quantum/split_common にある全ての必要なファイルをインクルードします
 * `CUSTOM_MATRIX`
