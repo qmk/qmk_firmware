@@ -25,8 +25,6 @@
  */
 #define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
 
-#define LED_CAPS_LOCK_PIN B7
-
 /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1

@@ -20,6 +20,9 @@
     "rgblight": false,
     "unicode": false
   },
+  "indicators": {
+    "caps_lock": "F0"
+  },
   "matrix_pins": {
     "cols": ["B3", " F1", " F4", " F5", " F6", " C7", " C6", " B6", " B5", " B4", " D7", " D6", " D4", " F7", " B0", " B1"],
     "rows": ["D1", " D0", " D2", " D5", " D3"]

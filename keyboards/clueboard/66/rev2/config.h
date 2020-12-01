@@ -2,8 +2,6 @@
 
 #include "config_common.h"
 
-#define LED_CAPS_LOCK_PIN B4
-
 /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1
