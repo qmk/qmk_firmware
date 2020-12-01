@@ -35,7 +35,7 @@ def generate_rules_mk(cli):
             feature = feature.upper()
             enabled = 'yes' if enabled else 'no'
             rules_mk_lines.append(f'{feature}_ENABLE := {enabled}')
-    
+
     # Add community layouts
     if 'community_layouts' in kb_info_json:
         rules_mk_lines.append(f'LAYOUTS = {" ".join(kb_info_json["community_layouts"])}')

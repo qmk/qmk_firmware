@@ -25,7 +25,7 @@ rgblight_properties = {
 
 rgblight_toggles = {
     'sleep': 'RGBLIGHT_SLEEP',
-    'split': 'RGBLIGHT_SPLIT'
+    'split': 'RGBLIGHT_SPLIT',
 }
 
 rgblight_animations = {
@@ -44,6 +44,7 @@ rgblight_animations = {
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
+
 
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
