@@ -1,4 +1,4 @@
-/* Copyright 2020 David Hoelscher (customMK)
+/* Copyright 2020 customMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 #include "genesis.h"
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 	/* top left encoder */
 	if (index == 0) {
 		if (clockwise) {

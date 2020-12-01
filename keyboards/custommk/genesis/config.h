@@ -1,4 +1,4 @@
-/* Copyright 2020 David Hoelscher (customMK)
+/* Copyright 2020 customMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,9 +51,6 @@
 #define ENCODERS_PAD_B { F7, D1 }
 #define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
-
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW 0
 
 #define RGB_DI_PIN E6
 #define RGBLIGHT_ANIMATIONS
