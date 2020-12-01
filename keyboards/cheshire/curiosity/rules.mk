@@ -16,4 +16,4 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 
-LAYOUTS = alice
+LAYOUTS = alice alice_split_bs

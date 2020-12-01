@@ -5,7 +5,7 @@
     "width": 18.25,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_alice_split_bs": {
             "key_count": 66,
             "layout": [
                 {"label":"k10", "x":0, "y":0},
