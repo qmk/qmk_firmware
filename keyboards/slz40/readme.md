@@ -1,6 +1,6 @@
 # slz40
 
-![slz40](imgur.com image replace me!)
+![SLZ40](https://imgur.com/kgXfEBR.jpg)
 
 PCB and keymap files for the SLZ40, a 40s style keyboard with numbers for Zhuyin input.
 
