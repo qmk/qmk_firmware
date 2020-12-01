@@ -4,7 +4,9 @@
   "maintainer": "skullydazed",
   "height": 6.5,
   "width": 24,
-  "debounce": "5",
+  "processor": "at90usb1286",
+  "bootloader": "halfkay",
+  "debounce": 5,
   "diode_direction": "ROW2COL",
   "features": {
     "audio": true,
@@ -24,18 +26,18 @@
     "scroll_lock": "B6"
   },
   "matrix_pins": {
-    "cols": ["D2", " D3", " D4", " D5", " D7", " E0", " E1", " B0", " E6", " B3", " B2"],
-    "rows": ["C0", " C1", " C2", " C3", " C7", " F7", " B1", " F2", " F3", " F4", " F5", " F6"]
+    "cols": ["D2", "D3", "D4", "D5", "D7", "E0", "E1", "B0", "E6", "B3", "B2"],
+    "rows": ["C0", "C1", "C2", "C3", "C7", "F7", "B1", "F2", "F3", "F4", "F5", "F6"]
   },
   "rgblight": {
     "animations": {
       "all": true
     },
-    "brightness_steps": "8",
-    "hue_steps": "8",
-    "led_count": "16",
+    "brightness_steps": 8,
+    "hue_steps": 8,
+    "led_count": 16,
     "pin": "C6",
-    "saturation_steps": "8"
+    "saturation_steps": 8
   },
   "usb": {
     "pid": "0x23A0"

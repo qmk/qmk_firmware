@@ -2,6 +2,7 @@
     "keyboard_name": "Clueboard California",
     "url": "",
     "maintainer": "skullydazed",
+    "processor": "STM32F303",
     "matrix_pins": {
         "direct": [
             ["A10", "A9"],
@@ -11,6 +12,13 @@
             ["A7", "B1"],
             [null, "B2"]
         ]
+    },
+    "features": {
+        "mousekey": true,
+	"extrakey": true,
+	"console": true,
+	"command": true,
+	"audio": true
     },
     "usb": {"pid": "0x23B0"},
     "layouts": {

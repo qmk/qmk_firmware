@@ -4,7 +4,8 @@
   "maintainer": "skullydazed",
   "height": 5,
   "width": 16.5,
-  "debounce": "5",
+  "debounce": 5,
+  "processor": "STM32F303",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,
@@ -21,18 +22,18 @@
     "unicode": false
   },
   "matrix_pins": {
-    "cols": ["B10", " B2", " B1", " B0", " A7", " B4", " B3", " B5"],
-    "rows": ["B11", " A6", " A3", " A2", " A1", " B7", " B6", " C15", " C14", " C13"]
+    "cols": ["B10", "B2", "B1", "B0", "A7", "B4", "B3", "B5"],
+    "rows": ["B11", "A6", "A3", "A2", "A1", "B7", "B6", "C15", "C14", "C13"]
   },
   "rgblight": {
     "animations": {
       "all": true
     },
-    "brightness_steps": "17",
-    "hue_steps": "32",
-    "led_count": "18",
+    "brightness_steps": 17,
+    "hue_steps": 32,
+    "led_count": 18,
     "pin": "D7",
-    "saturation_steps": "17"
+    "saturation_steps": 17
   },
   "usb": {
     "device_ver": "0x0001",
