@@ -163,17 +163,16 @@ void render_status(void) {
     oled_write_P(PSTR("\n"), false);
 
     // Host Keyboard LED Status
-    oled_write_P((host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ?
-                 PSTR("NUMLOCK") : PSTR("       "), false);
-    oled_write_P((host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ?
-                 PSTR("CAPS") : PSTR("    "), false);
-    oled_write_P((host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ?
-                 PSTR("SCLK") : PSTR("    "), false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUMLOCK") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCLK") : PSTR("    "), false);
     oled_write_P(PSTR("\n"), false);
 #    ifdef SSD1306OLED
     render_rgbled_status(true, matrix);
 #    else
     render_rgbled_status(true);
+    oled_write_P(PSTR("\n"), false);
 #    endif
 }
 
