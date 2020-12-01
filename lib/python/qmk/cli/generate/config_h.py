@@ -132,6 +132,23 @@ def layout_aliases(layout_aliases):
     return '\n'.join(aliases)
 
 
+def matrix_pins(matrix_pins):
+    """Add the matrix config to the config.h.
+    """
+    pins = []
+
+    if 'direct' in matrix_pins:
+        pins.append(direct_pins(matrix_pins['direct']))
+
+    if 'cols' in matrix_pins:
+        pins.append(col_pins(matrix_pins['cols']))
+
+    if 'rows' in matrix_pins:
+        pins.append(row_pins(matrix_pins['rows']))
+
+    return '\n'.join(pins)
+
+
 def rgblight(rgblight):
     """Return the config.h lines that setup rgblight.
     """
@@ -159,6 +176,21 @@ def rgblight(rgblight):
             rgblight_config.append('#endif // %s' % (config_key,))
 
     return '\n'.join(rgblight_config)
+
+
+def usb_properties(usb_props):
+    """Return the config.h lines that setup USB params.
+    """
+    usb_lines = []
+
+    for info_name, config_name in usb_props.items():
+        if info_name in usb_props:
+            usb_lines.append('')
+            usb_lines.append('#ifndef ' + config_name)
+            usb_lines.append('#    define %s %s' % (config_name, usb_props[info_name]))
+            usb_lines.append('#endif // ' + config_name)
+
+    return '\n'.join(usb_lines)
 
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
@@ -205,22 +237,10 @@ def generate_config_h(cli):
         config_h_lines.append(rgblight(kb_info_json['rgblight']))
 
     if 'matrix_pins' in kb_info_json:
-        if 'direct' in kb_info_json['matrix_pins']:
-            config_h_lines.append(direct_pins(kb_info_json['matrix_pins']['direct']))
-
-        if 'cols' in kb_info_json['matrix_pins']:
-            config_h_lines.append(col_pins(kb_info_json['matrix_pins']['cols']))
-
-        if 'rows' in kb_info_json['matrix_pins']:
-            config_h_lines.append(row_pins(kb_info_json['matrix_pins']['rows']))
+        config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))
 
     if 'usb' in kb_info_json:
-        for info_name, config_name in usb_properties.items():
-            if info_name in kb_info_json['usb']:
-                config_h_lines.append('')
-                config_h_lines.append('#ifndef ' + config_name)
-                config_h_lines.append('#    define %s %s' % (config_name, kb_info_json['usb'][info_name]))
-                config_h_lines.append('#endif // ' + config_name)
+        config_h_lines.append(usb_properties(kb_info_json['usb']))
 
     # Show the results
     config_h = '\n'.join(config_h_lines)
