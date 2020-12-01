@@ -597,6 +597,7 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
     .iSerialNumber       = 0x03,
 #else
     .iSerialNumber       = 0x00,
+#endif
     .bNumConfigurations  = 1
 };
 
