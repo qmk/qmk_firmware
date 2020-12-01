@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Ethan Durrant (emdarcher)
+Copyright 2020 Stefan Sundin "4pplet" <4pplet@protonmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,31 +14,29 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
-#define VENDOR_ID       0x594D // "YM"
-#define PRODUCT_ID      0x4266 // "Bf"
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    YMDK
-#define PRODUCT         B.face
+#include "config_common.h"
 
-/* matrix size */
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x4444
+#define PRODUCT_ID      0x0004
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    4pplet
+#define PRODUCT         bootleg Rev A
+
+/* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
+// ROWS: Top to bottom, COLS: Left to right
+#define MATRIX_ROW_PINS {D0,C2,C4,D4,D2}
+#define MATRIX_COL_PINS {C5,C6,C7,B7,B6,B5,B4,B3,B2,B1,B0,D6,D5,D3,D1}
 
-//                        0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
-#define MATRIX_ROW_PINS { B7, B6, B5, B4, B3}
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7}
-#define UNUSED_PINS
-
+/* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN       D4
-#define BACKLIGHT_LEVELS    6
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5
 
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 12
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
+#define QMK_ESC_OUTPUT C4 // usually COL
+#define QMK_ESC_INPUT D0 // usually ROW
