@@ -69,6 +69,9 @@ enum custom_keycodes {
   SCREEN_8,
   SCREEN_9,
 
+  SCREEN_COPY_MODE,
+  SCREEN_PASTE,
+
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
@@ -91,10 +94,6 @@ enum custom_keycodes {
 // macros
 // #define SCREEN_TAB_LEFT 4
 // #define SCREEN_TAB_RIGHT 5
-
-#define SCREEN_COPY_MODE 8
-#define SCREEN_PASTE 9
-
 
 
 #define SCREEN_UP_JUMP 23
@@ -339,8 +338,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right hand
        KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,    		  KC_TRNS,
        KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          M(SCREEN_UP_JUMP),   KC_TRNS,
-                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,       		  M(SCREEN_COPY_MODE),
-       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         M(SCREEN_PASTE), M(SCREEN_DOWN_JUMP), MEH(KC_V),
+                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,       		  SCREEN_COPY_MODE,
+       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         SCREEN_PASTE,    M(SCREEN_DOWN_JUMP), MEH(KC_V),
                    // bottom row (match functionality of base layer)
                    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,    KC_TRNS,
        // thumb cluster
@@ -481,16 +480,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
 		break;
 
-        case SCREEN_COPY_MODE:
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(ESC), END);
-            }
-        break;
-        case SCREEN_PASTE:
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END);
-            }
-        break;
 
 	case DEL_TO_HOME:
             if (record->event.pressed) {
@@ -686,7 +675,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTL("a"));
             SEND_STRING("9");
             break;
-
+        case SCREEN_COPY_MODE:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("[");
+            break;
+        case SCREEN_PASTE:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("]");
+            break;
 
     }
   }
