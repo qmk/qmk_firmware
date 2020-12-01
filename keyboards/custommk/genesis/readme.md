@@ -15,7 +15,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make custommk/genesis:default:dfu
+    make custommk/genesis:default:flash
 
 Genesis Macro Pad has qmk-dfu bootloader preinstalled. To enter the bootloader, run the flashing command above, and then either plug in the USB connection while holding the top-left key, or alternatively, plug in the USB connection and then press the reset button on the PCB
 

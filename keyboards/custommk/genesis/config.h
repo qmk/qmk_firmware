@@ -22,8 +22,8 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xF35B
 #define PRODUCT_ID      0xFAB0
-#define MANUFACTURER    customMK
 #define DEVICE_VER      0x0001
+#define MANUFACTURER    customMK
 #define PRODUCT         Genesis
 
 /* key matrix size */
