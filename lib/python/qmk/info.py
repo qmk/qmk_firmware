@@ -4,6 +4,7 @@ import json
 from glob import glob
 from pathlib import Path
 
+import jsonschema
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS, LED_INDICATORS
@@ -12,6 +13,17 @@ from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
+
+led_matrix_properties = {
+    'driver_count': 'LED_DRIVER_COUNT',
+    'driver_addr1': 'LED_DRIVER_ADDR_1',
+    'driver_addr2': 'LED_DRIVER_ADDR_2',
+    'driver_addr3': 'LED_DRIVER_ADDR_3',
+    'driver_addr4': 'LED_DRIVER_ADDR_4',
+    'led_count': 'LED_DRIVER_LED_COUNT',
+    'timeout': 'ISSI_TIMEOUT',
+    'persistence': 'ISSI_PERSISTENCE'
+}
 
 rgblight_properties = {
     'led_count': 'RGBLED_NUM',
@@ -80,6 +92,15 @@ def info_json(keyboard):
     info_data = _extract_config_h(info_data)
     info_data = _extract_rules_mk(info_data)
 
+    # Validate against the jsonschema
+    try:
+        keyboard_api_validate(info_data)
+
+    except jsonschema.ValidationError as e:
+        cli.log.error('Invalid info.json data: %s', e.message)
+        print(dir(e))
+        exit()
+
     # Make sure we have at least one layout
     if not info_data.get('layouts'):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
@@ -102,6 +123,50 @@ def info_json(keyboard):
     return info_data
 
 
+def _json_load(json_file):
+    """Load a json file from disk.
+
+    Note: file must be a Path object.
+    """
+    try:
+        return json.load(json_file.open())
+
+    except json.decoder.JSONDecodeError as e:
+        cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
+        exit(1)
+
+
+def _jsonschema(schema_name):
+    """Read a jsonschema file from disk.
+    """
+    schema_path = Path(f'data/schemas/{schema_name}.jsonschema')
+
+    if not schema_path.exists():
+        schema_path = Path('data/schemas/false.jsonschema')
+
+    return _json_load(schema_path)
+
+
+def keyboard_validate(data):
+    """Validates data against the keyboard jsonschema.
+    """
+    schema = _jsonschema('keyboard')
+    validator = jsonschema.Draft7Validator(schema).validate
+
+    return validator(data)
+
+
+def keyboard_api_validate(data):
+    """Validates data against the api_keyboard jsonschema.
+    """
+    base = _jsonschema('keyboard')
+    relative = _jsonschema('api_keyboard')
+    resolver = jsonschema.RefResolver.from_schema(base)
+    validator = jsonschema.Draft7Validator(relative, resolver=resolver).validate
+
+    return validator(data)
+
+
 def _extract_debounce(info_data, config_c):
     """Handle debounce.
     """
@@ -109,7 +174,7 @@ def _extract_debounce(info_data, config_c):
         _log_warning(info_data, 'Debounce is specified in both info.json and config.h, the config.h value wins.')
 
     if 'DEBOUNCE' in config_c:
-        info_data['debounce'] = config_c.get('DEBOUNCE')
+        info_data['debounce'] = int(config_c['DEBOUNCE'])
 
     return info_data
 
@@ -181,8 +246,36 @@ def _extract_features(info_data, rules):
     return info_data
 
 
+def _extract_led_drivers(info_data, rules):
+    """Find all the LED drivers set in rules.mk.
+    """
+    if 'LED_MATRIX_DRIVER' in rules:
+        if 'led_matrix' not in info_data:
+            info_data['led_matrix'] = {}
+
+        if info_data['led_matrix'].get('driver'):
+            _log_warning(info_data, 'LED Matrix driver is specified in both info.json and rules.mk, the rules.mk value wins.')
+
+        info_data['led_matrix']['driver'] = rules['LED_MATRIX_DRIVER']
+
+    return info_data
+
+
+def _extract_led_matrix(info_data, config_c):
+    """Handle the led_matrix configuration.
+    """
+    led_matrix = info_data.get('led_matrix', {})
+
+    for json_key, config_key in led_matrix_properties.items():
+        if config_key in config_c:
+            if json_key in led_matrix:
+                _log_warning(info_data, 'LED Matrix: %s is specified in both info.json and config.h, the config.h value wins.' % (json_key,))
+
+            led_matrix[json_key] = config_c[config_key]
+
+
 def _extract_rgblight(info_data, config_c):
-    """Handle the rgblight configuration
+    """Handle the rgblight configuration.
     """
     rgblight = info_data.get('rgblight', {})
     animations = rgblight.get('animations', {})
@@ -303,6 +396,7 @@ def _extract_config_h(info_data):
     _extract_indicators(info_data, config_c)
     _extract_matrix_info(info_data, config_c)
     _extract_usb_info(info_data, config_c)
+    _extract_led_matrix(info_data, config_c)
     _extract_rgblight(info_data, config_c)
 
     return info_data
@@ -326,6 +420,7 @@ def _extract_rules_mk(info_data):
 
     _extract_community_layouts(info_data, rules)
     _extract_features(info_data, rules)
+    _extract_led_drivers(info_data, rules)
 
     return info_data
 
@@ -412,13 +507,28 @@ def arm_processor_rules(info_data, rules):
     """Setup the default info for an ARM board.
     """
     info_data['processor_type'] = 'arm'
-    info_data['bootloader'] = rules['BOOTLOADER'] if 'BOOTLOADER' in rules else 'unknown'
-    info_data['processor'] = rules['MCU'] if 'MCU' in rules else 'unknown'
     info_data['protocol'] = 'ChibiOS'
 
-    if info_data['bootloader'] == 'unknown':
+    if 'MCU' in rules:
+        if 'processor' in info_data:
+            _log_warning(info_data, 'Processor/MCU is specified in both info.json and rules.mk, the rules.mk value wins.')
+
+        info_data['processor'] = rules['MCU']
+
+    elif 'processor' not in info_data:
+        info_data['processor'] = 'unknown'
+
+    if 'BOOTLOADER' in rules:
+        if 'bootloader' in info_data:
+            _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
+
+        info_data['bootloader'] = rules['BOOTLOADER']
+
+    else:
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
+        else:
+            info_data['bootloader'] = 'unknown'
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
@@ -436,8 +546,24 @@ def avr_processor_rules(info_data, rules):
     info_data['processor_type'] = 'avr'
     info_data['bootloader'] = rules['BOOTLOADER'] if 'BOOTLOADER' in rules else 'atmel-dfu'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
-    info_data['processor'] = rules['MCU'] if 'MCU' in rules else 'unknown'
     info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
+
+    if 'MCU' in rules:
+        if 'processor' in info_data:
+            _log_warning(info_data, 'Processor/MCU is specified in both info.json and rules.mk, the rules.mk value wins.')
+
+        info_data['processor'] = rules['MCU']
+
+    elif 'processor' not in info_data:
+        info_data['processor'] = 'unknown'
+
+    if 'BOOTLOADER' in rules:
+        if 'bootloader' in info_data:
+            _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
+
+        info_data['bootloader'] = rules['BOOTLOADER']
+    else:
+        info_data['bootloader'] = 'atmel-dfu'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
     # info_data['protocol'] = 'V-USB' if rules.get('PROTOCOL') == 'VUSB' else 'LUFA'
@@ -463,10 +589,13 @@ def merge_info_jsons(keyboard, info_data):
     for info_file in find_info_json(keyboard):
         # Load and validate the JSON data
         try:
-            new_info_data = json.load(info_file.open('r'))
-        except Exception as e:
-            _log_error(info_data, "Invalid JSON in file %s: %s: %s" % (str(info_file), e.__class__.__name__, e))
-            new_info_data = {}
+            new_info_data = _json_load(info_file)
+            keyboard_validate(new_info_data)
+
+        except jsonschema.ValidationError as e:
+            cli.log.error('Invalid info.json data: %s', e.message)
+            cli.log.error('Not including file %s', info_file)
+            continue
 
         if not isinstance(new_info_data, dict):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
@@ -479,7 +608,7 @@ def merge_info_jsons(keyboard, info_data):
 
         # Deep merge certain keys
         # FIXME(skullydazed/anyone): this should be generalized more so that we can inteligently merge more than one level deep. It would be nice if we could filter on valid keys too. That may have to wait for a future where we use openapi or something.
-        for key in ('features', 'layout_aliases', 'matrix_pins', 'rgblight', 'usb'):
+        for key in ('features', 'layout_aliases', 'led_matrix', 'matrix_pins', 'rgblight', 'usb'):
             if key in new_info_data:
                 if key not in info_data:
                     info_data[key] = {}
