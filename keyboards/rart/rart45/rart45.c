@@ -13,19 +13,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "rart45.h"
-
-void keyboard_pre_init_kb(void) {
-    led_init_ports();
-    keyboard_pre_init_user();
-}
-
-void led_init_ports(void) {
-    setPinOutput(D5);
-}
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        writePin(D5, !led_state.caps_lock);
-    }
-    return true;
-}
