@@ -11,14 +11,6 @@
   #include "ssd1306.h"
 #endif
 
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
-extern uint8_t is_master;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -420,7 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           rgblight_mode(RGB_current_mode);
           rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
+          RGB_current_mode = rgblight_get_mode();
         }
       #endif
       return false;
@@ -454,7 +446,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
+          RGB_current_mode = rgblight_get_mode();
         }
       #endif
       break;
@@ -467,7 +459,7 @@ void matrix_init_user(void) {
         startup_user();
     #endif
     #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
+      RGB_current_mode = rgblight_get_mode();
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
@@ -538,15 +530,15 @@ static void render_logo(struct CharacterMatrix *matrix) {
 static void render_rgbled_status(bool full, struct CharacterMatrix *matrix) {
 #ifdef RGBLIGHT_ENABLE
   char buf[30];
-  if (RGBLIGHT_MODES > 1 && rgblight_config.enable) {
+  if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
       if (full) {
           snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
-                   rgblight_config.mode,
-                   rgblight_config.hue/RGBLIGHT_HUE_STEP,
-                   rgblight_config.sat/RGBLIGHT_SAT_STEP,
-                   rgblight_config.val/RGBLIGHT_VAL_STEP);
+                   rgblight_get_mode(),
+                   rgblight_get_hue()/RGBLIGHT_HUE_STEP,
+                   rgblight_get_sat()/RGBLIGHT_SAT_STEP,
+                   rgblight_get_val()/RGBLIGHT_VAL_STEP);
       } else {
-          snprintf(buf, sizeof(buf), "[%2d] ",rgblight_config.mode);
+          snprintf(buf, sizeof(buf), "[%2d] ",rgblight_get_mode());
       }
       matrix_write(matrix, buf);
   }
