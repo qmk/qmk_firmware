@@ -52,18 +52,22 @@ enum usb_interfaces {
     SHARED_INTERFACE = NEXT_INTERFACE,
 #    define KEYBOARD_INTERFACE SHARED_INTERFACE
 #endif
+
 // It is important that the Raw HID interface is at a constant
 // interface number, to support Linux/OSX platforms and chrome.hid
 // If Raw HID is enabled, let it be always 1.
 #ifdef RAW_ENABLE
     RAW_INTERFACE = NEXT_INTERFACE,
 #endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     SHARED_INTERFACE = NEXT_INTERFACE,
 #endif
+
 #ifdef CONSOLE_ENABLE
     CONSOLE_INTERFACE = NEXT_INTERFACE,
 #endif
+
     TOTAL_INTERFACES = NEXT_INTERFACE
 };
 
@@ -481,9 +485,9 @@ const PROGMEM uchar shared_hid_report[] = {
     0x81, 0x06,        //     Input (Data, Variable, Relative)
     0xC0,              //   End Collection
     0xC0,              // End Collection
-#    endif
+#endif
 
-#    ifdef EXTRAKEY_ENABLE
+#ifdef EXTRAKEY_ENABLE
     // Extrakeys report descriptor
     0x05, 0x01,              // Usage Page (Generic Desktop)
     0x09, 0x80,              // Usage (System Control)
@@ -510,7 +514,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x75, 0x10,                //   Report Size (16)
     0x81, 0x00,                //   Input (Data, Array, Absolute)
     0xC0                       // End Collection
-#    endif
+#endif
 #ifdef SHARED_EP_ENABLE
 };
 #endif
@@ -646,7 +650,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bMaxPower           = USB_MAX_POWER_CONSUMPTION / 2
     },
 
-#ifndef KEYBOARD_SHARED_EP
+#    ifndef KEYBOARD_SHARED_EP
     /*
      * Keyboard
      */
@@ -684,7 +688,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
-#endif
+#    endif
 
 #    if defined(RAW_ENABLE)
     /*
@@ -735,6 +739,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
 #    endif
+
 #    ifdef SHARED_EP_ENABLE
     /*
      * Shared
@@ -783,6 +788,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
 #    endif
+
 #    if defined(CONSOLE_ENABLE)
     /*
      * Console
@@ -830,7 +836,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = CONSOLE_EPSIZE,
         .bInterval           = 0x01
-    },
+    }
 #    endif
 };
 
@@ -890,6 +896,7 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
+
 #if defined(CONSOLE_ENABLE)
                 case CONSOLE_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.consoleHID;
@@ -907,6 +914,7 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     len       = sizeof(keyboard_hid_report);
                     break;
 #endif
+
 #if defined(RAW_ENABLE)
                 case RAW_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)raw_hid_report;
@@ -920,6 +928,7 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     len       = sizeof(shared_hid_report);
                     break;
 #endif
+
 #if defined(CONSOLE_ENABLE)
                 case CONSOLE_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)console_hid_report;
