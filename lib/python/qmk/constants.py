@@ -21,3 +21,10 @@ TIME_FORMAT = '%H:%M:%S'
 # Used when generating matrix locations
 COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
 ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
+
+# Mapping between info.json and config.h keys
+LED_INDICATORS = {
+    'caps_lock': 'LED_CAPS_LOCK_PIN',
+    'num_lock': 'LED_NUM_LOCK_PIN',
+    'scrol_lock': 'LED_SCROLL_LOCK_PIN'
+}

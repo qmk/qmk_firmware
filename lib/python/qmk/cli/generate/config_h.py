@@ -2,6 +2,7 @@
 """
 from milc import cli
 
+from qmk.constants import LED_INDICATORS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json, rgblight_animations, rgblight_properties, rgblight_toggles
 from qmk.path import is_keyboard, normpath
@@ -118,18 +119,33 @@ def row_pins(row_pins):
 """ % (row_num, rows)
 
 
+def indicators(config):
+    """Return the config.h lines that setup LED indicators.
+    """
+    defines = []
+
+    for led, define in LED_INDICATORS.items():
+        if led in config:
+            defines.append('')
+            defines.append('#ifndef %s' % (define,))
+            defines.append('#   define %s %s' % (define, config[led]))
+            defines.append('#endif // %s' % (define,))
+
+    return '\n'.join(defines)
+
+
 def layout_aliases(layout_aliases):
     """Return the config.h lines that setup layout aliases.
     """
-    aliases = []
+    defines = []
 
     for alias, layout in layout_aliases.items():
-        aliases.append('')
-        aliases.append('#ifndef %s' % (alias,))
-        aliases.append('#   define %s %s' % (alias, layout))
-        aliases.append('#endif // %s' % (alias,))
+        defines.append('')
+        defines.append('#ifndef %s' % (alias,))
+        defines.append('#   define %s %s' % (alias, layout))
+        defines.append('#endif // %s' % (alias,))
 
-    return '\n'.join(aliases)
+    return '\n'.join(defines)
 
 
 def matrix_pins(matrix_pins):
@@ -149,27 +165,27 @@ def matrix_pins(matrix_pins):
     return '\n'.join(pins)
 
 
-def rgblight(rgblight):
+def rgblight(config):
     """Return the config.h lines that setup rgblight.
     """
     rgblight_config = []
 
     for json_key, config_key in rgblight_properties.items():
-        if json_key in rgblight:
+        if json_key in config:
             rgblight_config.append('')
             rgblight_config.append('#ifndef %s' % (config_key,))
-            rgblight_config.append('#   define %s %s' % (config_key, rgblight[json_key]))
+            rgblight_config.append('#   define %s %s' % (config_key, config[json_key]))
             rgblight_config.append('#endif // %s' % (config_key,))
 
     for json_key, config_key in rgblight_toggles.items():
-        if rgblight.get(json_key):
+        if config.get(json_key):
             rgblight_config.append('')
             rgblight_config.append('#ifndef %s' % (config_key,))
             rgblight_config.append('#   define %s' % (config_key,))
             rgblight_config.append('#endif // %s' % (config_key,))
 
     for json_key, config_key in rgblight_animations.items():
-        if 'animations' in rgblight and rgblight['animations'].get(json_key):
+        if 'animations' in config and config['animations'].get(json_key):
             rgblight_config.append('')
             rgblight_config.append('#ifndef %s' % (config_key,))
             rgblight_config.append('#   define %s' % (config_key,))
@@ -223,6 +239,9 @@ def generate_config_h(cli):
 
     if 'diode_direction' in kb_info_json:
         config_h_lines.append(diode_direction(kb_info_json['diode_direction']))
+
+    if 'indicators' in kb_info_json:
+        config_h_lines.append(indicators(kb_info_json['indicators']))
 
     if 'keyboard_name' in kb_info_json:
         config_h_lines.append(keyboard_name(kb_info_json['keyboard_name']))

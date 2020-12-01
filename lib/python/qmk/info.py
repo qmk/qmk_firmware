@@ -6,7 +6,7 @@ from pathlib import Path
 
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS, LED_INDICATORS
 from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
@@ -122,6 +122,19 @@ def _extract_diode_direction(info_data, config_c):
 
     if 'DIODE_DIRECTION' in config_c:
         info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
+
+    return info_data
+
+
+def _extract_indicators(info_data, config_c):
+    """Find the LED indicator information.
+    """
+    for json_key, config_key in LED_INDICATORS.items():
+        if json_key in info_data.get('indicators', []) and config_key in config_c:
+            _log_warning(info_data, f'Indicator {json_key} is specified in both info.json and config.h, the config.h value wins.')
+
+        if config_key in config_c:
+            info_data['indicators'][json_key] = config_c.get(config_key)
 
     return info_data
 
@@ -284,6 +297,7 @@ def _extract_config_h(info_data):
 
     _extract_debounce(info_data, config_c)
     _extract_diode_direction(info_data, config_c)
+    _extract_indicators(info_data, config_c)
     _extract_matrix_info(info_data, config_c)
     _extract_usb_info(info_data, config_c)
     _extract_rgblight(info_data, config_c)
@@ -456,7 +470,7 @@ def merge_info_jsons(keyboard, info_data):
             continue
 
         # Copy whitelisted keys into `info_data`
-        for key in ('debounce', 'diode_direction', 'keyboard_name', 'manufacturer', 'identifier', 'url', 'maintainer', 'processor', 'bootloader', 'width', 'height'):
+        for key in ('debounce', 'diode_direction', 'indicators', 'keyboard_name', 'manufacturer', 'identifier', 'url', 'maintainer', 'processor', 'bootloader', 'width', 'height'):
             if key in new_info_data:
                 info_data[key] = new_info_data[key]
 
