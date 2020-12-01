@@ -39,7 +39,7 @@ def generate_info_json(cli):
             pared_down_json[key] = kb_info_json[key]
 
     pared_down_json['layouts'] = {}
-    if 'layouts' in pared_down_json:
+    if 'layouts' in kb_info_json:
         for layout_name, layout in kb_info_json['layouts'].items():
             pared_down_json['layouts'][layout_name] = {}
             pared_down_json['layouts'][layout_name]['key_count'] = layout.get('key_count', len(layout['layout']))
