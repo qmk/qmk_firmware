@@ -4,7 +4,8 @@
   "maintainer": "skullydazed",
   "height": 5,
   "width": 15,
-  "debounce": "6",
+  "debounce": 6,
+  "processor": "STM32F303",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,
