@@ -50,6 +50,9 @@ enum custom_keycodes {
   SHELL_EXPAND_OE_LOGPATTERN,
   SHELL_EXPAND_OE_TRANPATTERN,
 
+  SCREEN_TAB_LEFT,
+  SCREEN_TAB_RIGHT,
+
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
@@ -70,8 +73,8 @@ enum custom_keycodes {
 
 
 // macros
-#define SCREEN_TAB_LEFT 4
-#define SCREEN_TAB_RIGHT 5
+// #define SCREEN_TAB_LEFT 4
+// #define SCREEN_TAB_RIGHT 5
 #define SCREEN_NEW_TAB 6
 #define SCREEN_COPY_MODE 8
 #define SCREEN_PASTE 9
@@ -303,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right hand
        KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        KC_TRNS, M(SCREEN_NEW_TAB),  M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), M(SCREEN_RENAME),    KC_TRNS,
-                M(SCREEN_TAB_LEFT), M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), M(SCREEN_TAB_RIGHT), KC_TRNS,
+                SCREEN_TAB_LEFT,    M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), SCREEN_TAB_RIGHT,    KC_TRNS,
        KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), M(SCREEN_NUMBER),    KC_TRNS,
                                     // bottom row
                                     M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             M(SCREEN_DETACH),
@@ -449,16 +452,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-        case SCREEN_TAB_LEFT:
-            if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(P), END);
-            }
-            break;
-        case SCREEN_TAB_RIGHT:
-             if (record->event.pressed) {
-                return MACRO( D(LCTL), T(A), U(LCTL), T(N), END);
-            }
-            break;
         case SCREEN_NEW_TAB:
              if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(C), END);
@@ -639,25 +632,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("htcBounce -j ");
             return true;
             break;
-	case SHELL_EXPAND_OE_LOGPATTERN:
-            SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
-	    break;
-	case SHELL_EXPAND_OE_TRANPATTERN:
-            SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
-	    break;
-        case SHELL_DUMPTLOG:
-            SEND_STRING(" | dumptlog - ");
-            return true;
+        case SHELL_EXPAND_OE_LOGPATTERN:
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
             break;
-        case WINDOWS10_WORKSPACE_LEFT:
-            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
-            return true;
+        case SHELL_EXPAND_OE_TRANPATTERN:
+                SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
             break;
-        case WINDOWS10_WORKSPACE_RIGHT:
-            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            case SHELL_DUMPTLOG:
+                SEND_STRING(" | dumptlog - ");
+                return true;
+                break;
+            case WINDOWS10_WORKSPACE_LEFT:
+                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+                return true;
+                break;
+            case WINDOWS10_WORKSPACE_RIGHT:
+                SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+                break;
+            case WINDOWS10_TASK_VIEW:
+                SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+                break;
+        case SCREEN_TAB_LEFT:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("p");
             break;
-        case WINDOWS10_TASK_VIEW:
-            SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+        case SCREEN_TAB_RIGHT:
+            SEND_STRING(SS_LCTL("a"));
+            SEND_STRING("n");
             break;
 
     }
