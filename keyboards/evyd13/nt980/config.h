@@ -47,6 +47,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_NUM_LOCK_PIN B2
+#define LED_CAPS_LOCK_PIN B3
+#define LED_SCROLL_LOCK_PIN B7
+#define LED_PIN_ON_STATE 0
+
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
