@@ -285,22 +285,23 @@ void matrix_post_scan(void) {
 }
 
 uint8_t matrix_scan(void) {
-    bool changed = matrix_pre_scan();
+    bool local_changed = false;
+    bool remote_changed = matrix_pre_scan();
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-        changed |= read_cols_on_row(raw_matrix, current_row);
+        local_changed |= read_cols_on_row(raw_matrix, current_row);
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        changed |= read_rows_on_col(raw_matrix, current_col);
+        local_changed |= read_rows_on_col(raw_matrix, current_col);
     }
 #endif
 
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
+    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, local_changed);
 
     matrix_post_scan();
-    return (uint8_t)changed;
+    return (uint8_t)(local_changed || remote_changed);
 }
