@@ -1,6 +1,6 @@
 # the_mark
 
-![The Mark: 65](https://i.imgur.com/3zC4PKk.jpg)
+![The Mark: 65](https://i.imgur.com/3zC4PKkl.jpg)
 
 The Mark: 65 is a no compromise 65% keyboard designed and produced by Boardsource. 
 
