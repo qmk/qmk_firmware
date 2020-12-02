@@ -6,7 +6,7 @@ PCB and keymap files for the SLZ40, a 40s style keyboard with numbers for Zhuyin
 
 * Keyboard Maintainer: [SithLord](https://github.com/sithlord121/slz40)
 * Hardware Supported: ProMicro or similar controller is required.
-* Hardware Availability: https://github.com/sithlord121/slz40
+* Hardware Availability: PCB files can be found at https://github.com/sithlord121/slz40
 
 Make example for this keyboard (after setting up your build environment):
 
