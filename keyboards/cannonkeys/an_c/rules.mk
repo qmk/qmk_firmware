@@ -20,6 +20,7 @@ WS2812_DRIVER = spi
 
 LAYOUTS = 60_ansi 60_tsangan_hhkb
 
+# Wildcard to allow APM32 MCU 
 DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

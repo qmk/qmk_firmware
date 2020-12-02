@@ -24,6 +24,7 @@ QWIIC_ENABLE += MICRO_OLED
 
 DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1
 
+# Wildcard to allow APM32 MCU 
 DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
