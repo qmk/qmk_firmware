@@ -4,8 +4,13 @@
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
+#ifdef RGB_MATRIX_ENABLE
+//Following line allows macro to read current RGB settings
+extern rgb_config_t rgb_matrix_config;
+#endif
 
 extern uint8_t is_master;
+
 
 #ifdef OLED_DRIVER_ENABLE
 #    define KEYLOGGER_LENGTH 5
@@ -14,22 +19,22 @@ static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
 static uint16_t log_timer                        = 0;
 // clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
-//   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
+//   0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2',  // 1x
     '3', '4', '5', '6', '7', '8', '9', '0',  20,  19,  27,  26,  22, '-', '=', '[',  // 2x
     ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, ' ', ' ', ' ', ' ', ' ', ' ',  // 3x
-    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', ' ', ' ', ' ',  16, ' ', ' ', ' ',  // 4x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
+    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', 'I', 'H', 'U',  16, 'E', 'D',  26,  // 4x
+     27,  31,  24, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 7x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 8x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 9x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '{', '}', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
+    'M',  30,  31,  26,  27,   7,  14, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Dx
-    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
+    'C', 'S', 'A', 'G', 'C', 'S', 'A', 'G', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
 };
 
@@ -46,6 +51,9 @@ void add_keylog(uint16_t keycode);
 #define _RAISE 3
 #define _ADJUST 4
 
+uint8_t prev = _QWERTY;
+uint32_t desired;
+uint32_t default_desired;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -55,16 +63,34 @@ enum custom_keycodes {
   ADJUST
 };
 
+//Tap Dance Declarations
+enum {
+  ALT_GUI = 0,
+  CTL_ALT,
+  CTL_TAB
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Alt, twice for GUI
+  [ALT_GUI]  = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI),
+  //Tap once for Ctrl, twice for Alt
+  [CTL_ALT]  = ACTION_TAP_DANCE_DOUBLE(KC_RCTL, KC_RALT),
+  //Tap once for CTL, twice for TAB
+  [CTL_TAB]  = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_TAB)
+// Other declarations would go here, separated by commas, if you have them
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_GESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
+      KC_GESC,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
+  TD(CTL_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -77,7 +103,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_MPRV, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,                       KC_BSLS,  KC_GRV, KC_LBRC, KC_RBRC, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -87,21 +113,21 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLU,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_VOLD,  KC_F11,  KC_F12, RGB_TOG, RGB_MOD,   RESET,                      EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
+      KC_VOLD,  KC_F11,  KC_F12, RGB_VAD, RGB_TOG, RGB_VAI,                     RGB_RMOD, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
   ),
 
   [_ADJUST] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET,  EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       DJMAX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+        RESET,  EEP_RST, XXXXXXX,KC_NLCK, KC_CLCK, KC_SLCK,                       DJMAX, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                      XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
   ),
   
@@ -109,26 +135,22 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_GESC,   KC_F1,  KC_F10,    KC_E,    KC_E,    KC_1,                         KC_2,    KC_I,    KC_I, XXXXXXX, KC_PGUP, QWERTY,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,   KC_F9,    KC_S,    KC_D,    KC_F, KC_LSFT,                      KC_RSFT,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL,\
+       KC_TAB,   KC_F9,    KC_S,    KC_D,    KC_F, XXXXXXX,                        KC_F5,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-	  KC_LSFT,   KC_F8, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                          KC_F5, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
+	    KC_LSFT,   KC_F8, XXXXXXX, XXXXXXX, KC_LALT, XXXXXXX,                      XXXXXXX, KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX,KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_SPC, KC_LALT,  LOWER,       RAISE, KC_RALT , KC_ENT  \
+                                          KC_SPC, KC_LCTL,  LOWER,       RAISE, KC_RCTL , KC_ENT  \
                                       //`--------------------------'  `--------------------------'
 
   )
 };
 
 // clang-format on
-
-uint16_t get_tapping_term(uint16_t keycode) {
-  switch (keycode) {
-    case LALT_T(KC_SPC):
-      return TAPPING_TERM + 100;
-    default:
-      return TAPPING_TERM;
-  }
+void matrix_init_user(void) {
+  desired = rgb_matrix_config.mode;
+  default_desired = rgb_matrix_config.mode;
 }
+
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -212,6 +234,14 @@ void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
 }
 
+void render_rgb_status(void) {
+    oled_write_P(PSTR("RGB:"), false);
+    static char temp[20] = {0};
+    snprintf(temp, sizeof(temp) + 1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+    oled_write_P(temp, false);
+}
+
+
 
 void render_status_main(void) {
     /* Show Keyboard Layout  */
@@ -219,6 +249,9 @@ void render_status_main(void) {
     render_keylock_status(host_keyboard_leds());
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
+// #    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+//     render_rgb_status();
+// #    endif
     render_keylogger_status();
 }
 
@@ -272,6 +305,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
+        desired = default_desired;
+        rgb_matrix_mode_noeeprom(desired);
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
@@ -300,13 +335,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ADJUST);
         }
         return false;
-	case DJMAX:
-        if (record->event.pressed) {
-          persistent_default_layer_set(1UL<<_DJMAX);
-		      update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;	
+    case DJMAX:
+          if (record->event.pressed) {
+            desired = RGB_MATRIX_TYPING_HEATMAP;
+            persistent_default_layer_set(1UL<<_DJMAX);
+            update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+          }
+          return false;	
+    case RGB_MOD:
+          if (record->event.pressed) {
+             uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
+                if (shifted) {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step_reverse();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step_reverse();
+#        endif
+                } else {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step();
+#        endif
+                }
+            desired = rgb_matrix_config.mode;
+            default_desired = desired;
+          }
+    case RGB_RMOD:
+          if (record->event.pressed) {
+             uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
+                if (shifted) {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step();
+#        endif
+                } else {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step_reverse();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step_reverse();
+#        endif
+                }
+            desired = rgb_matrix_config.mode;
+            default_desired = desired;
+          }
   }
+
   if (record->event.pressed) {
       #ifdef OLED_DRIVER_ENABLE
               oled_timer = timer_read32();
@@ -319,4 +398,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
   }
   return true;
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  uint8_t layer = biton32(state);
+	  switch (layer) {
+        case _RAISE:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv_noeeprom(128, 255, rgb_matrix_config.hsv.v);
+            break;
+        case _LOWER:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv_noeeprom(28, 255, rgb_matrix_config.hsv.v);
+            break;
+        case _ADJUST:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
+            break;
+        default: //  for any other layers, or the default layer
+            rgb_matrix_mode_noeeprom(desired);
+            break;
+	  }
+  return state;
 }
