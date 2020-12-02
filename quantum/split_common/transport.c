@@ -204,6 +204,7 @@ typedef struct _Serial_m2s_buffer_t {
 #        ifndef NO_ACTION_ONESHOT
     uint8_t oneshot_mods;
 #        endif
+#    endif
 #    ifndef DISABLE_SYNC_TIMER
     uint32_t sync_timer;
 #    endif
@@ -326,6 +327,7 @@ bool transport_master(matrix_row_t matrix[]) {
 #        ifndef NO_ACTION_ONESHOT
     serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
 #        endif
+#    endif
 #    ifndef DISABLE_SYNC_TIMER
     serial_m2s_buffer.sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
