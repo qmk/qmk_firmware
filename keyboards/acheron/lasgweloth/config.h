@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AcheronProect
 #define PRODUCT         Lasgweloth
-#define DESCRIPTION	A leaf-spring tray mount universal 60 percent
 
 /* key matrix size */
 #define MATRIX_ROWS 5
