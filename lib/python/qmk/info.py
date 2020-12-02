@@ -26,13 +26,12 @@ led_matrix_properties = {
 }
 
 rgblight_properties = {
-    'led_count': 'RGBLED_NUM',
-    'pin': 'RGB_DI_PIN',
-    'split_count': 'RGBLED_SPLIT',
-    'max_brightness': 'RGBLIGHT_LIMIT_VAL',
-    'hue_steps': 'RGBLIGHT_HUE_STEP',
-    'saturation_steps': 'RGBLIGHT_SAT_STEP',
-    'brightness_steps': 'RGBLIGHT_VAL_STEP'
+    'led_count': ('RGBLED_NUM', int),
+    'pin': ('RGB_DI_PIN', str),
+    'max_brightness': ('RGBLIGHT_LIMIT_VAL', int),
+    'hue_steps': ('RGBLIGHT_HUE_STEP', int),
+    'saturation_steps': ('RGBLIGHT_SAT_STEP', int),
+    'brightness_steps': ('RGBLIGHT_VAL_STEP', int)
 }
 
 rgblight_toggles = {
@@ -53,6 +52,8 @@ rgblight_animations = {
     'static_gradient': 'RGBLIGHT_EFFECT_STATIC_GRADIENT',
     'twinkle': 'RGBLIGHT_EFFECT_TWINKLE'
 }
+
+usb_properties = {'vid': 'VENDOR_ID', 'pid': 'PRODUCT_ID', 'device_ver': 'DEVICE_VER'}
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
@@ -97,7 +98,8 @@ def info_json(keyboard):
         keyboard_api_validate(info_data)
 
     except jsonschema.ValidationError as e:
-        cli.log.error('Invalid info.json data: %s', e.message)
+        json_path = '.'.join([str(p) for p in e.absolute_path])
+        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
         print(dir(e))
         exit()
 
@@ -198,6 +200,9 @@ def _extract_indicators(info_data, config_c):
         if json_key in info_data.get('indicators', []) and config_key in config_c:
             _log_warning(info_data, f'Indicator {json_key} is specified in both info.json and config.h, the config.h value wins.')
 
+        if 'indicators' not in info_data:
+            info_data['indicators'] = {}
+
         if config_key in config_c:
             if 'indicators' not in info_data:
                 info_data['indicators'] = {}
@@ -226,10 +231,23 @@ def _extract_community_layouts(info_data, rules):
 def _extract_features(info_data, rules):
     """Find all the features enabled in rules.mk.
     """
+    # Special handling for bootmagic which also supports a "lite" mode.
+    if rules.get('BOOTMAGIC_ENABLE') == 'lite':
+        rules['BOOTMAGIC_LITE_ENABLE'] = 'on'
+        del(rules['BOOTMAGIC_ENABLE'])
+    if rules.get('BOOTMAGIC_ENABLE') == 'full':
+        rules['BOOTMAGIC_ENABLE'] = 'on'
+
+    # Skip non-boolean features we haven't implemented special handling for
+    for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
+        if rules.get(feature):
+            del(rules[feature])
+
+    # Process the rest of the rules as booleans
     for key, value in rules.items():
         if key.endswith('_ENABLE'):
             key = '_'.join(key.split('_')[:-1]).lower()
-            value = True if value in true_values else False if value in false_values else value
+            value = True if value.lower() in true_values else False if value.lower() in false_values else value
 
             if 'config_h_features' not in info_data:
                 info_data['config_h_features'] = {}
@@ -280,12 +298,21 @@ def _extract_rgblight(info_data, config_c):
     rgblight = info_data.get('rgblight', {})
     animations = rgblight.get('animations', {})
 
-    for json_key, config_key in rgblight_properties.items():
+    if 'RGBLED_SPLIT' in config_c:
+        raw_split = config_c.get('RGBLED_SPLIT', '').replace('{', '').replace('}', '').strip()
+        rgblight['split_count'] = [int(i) for i in raw_split.split(',')]
+
+    for json_key, config_key_type in rgblight_properties.items():
+        config_key, config_type = config_key_type
+
         if config_key in config_c:
             if json_key in rgblight:
                 _log_warning(info_data, 'RGB Light: %s is specified in both info.json and config.h, the config.h value wins.' % (json_key,))
 
-            rgblight[json_key] = config_c[config_key]
+            try:
+                rgblight[json_key] = config_type(config_c[config_key])
+            except ValueError as e:
+                cli.log.error('%s: config.h: Could not convert "%s" to %s: %s', info_data['keyboard_folder'], config_c[config_key], config_type.__name__, e)
 
     for json_key, config_key in rgblight_toggles.items():
         if config_key in config_c:
@@ -332,11 +359,16 @@ def _extract_matrix_info(info_data, config_c):
 
         info_data['matrix_pins'] = {}
 
+        # FIXME(skullydazed/anyone): Should really check every pin, not just the first
         if row_pins:
-            info_data['matrix_pins']['rows'] = row_pins.split(',')
+            row_pins = [pin.strip() for pin in row_pins.split(',') if pin]
+            if row_pins[0][0] in 'ABCDEFGHIJK' and row_pins[0][1].isdigit():
+                info_data['matrix_pins']['rows'] = row_pins
 
         if col_pins:
-            info_data['matrix_pins']['cols'] = col_pins.split(',')
+            col_pins = [pin.strip() for pin in col_pins.split(',') if pin]
+            if col_pins[0][0] in 'ABCDEFGHIJK' and col_pins[0][1].isdigit():
+                info_data['matrix_pins']['cols'] = col_pins
 
     if direct_pins:
         if 'matrix_pins' in info_data:
@@ -344,6 +376,9 @@ def _extract_matrix_info(info_data, config_c):
 
         info_data['matrix_pins'] = {}
         direct_pin_array = []
+
+        while direct_pins[-1] != '}':
+            direct_pins = direct_pins[:-1]
 
         for row in direct_pins.split('},{'):
             if row.startswith('{'):
@@ -368,8 +403,6 @@ def _extract_matrix_info(info_data, config_c):
 def _extract_usb_info(info_data, config_c):
     """Populate the USB information.
     """
-    usb_properties = {'vid': 'VENDOR_ID', 'pid': 'PRODUCT_ID', 'device_ver': 'DEVICE_VER'}
-
     if 'usb' not in info_data:
         info_data['usb'] = {}
 
@@ -378,10 +411,7 @@ def _extract_usb_info(info_data, config_c):
             if info_name in info_data['usb']:
                 _log_warning(info_data, '%s in config.h is overwriting usb.%s in info.json' % (config_name, info_name))
 
-            info_data['usb'][info_name] = config_c[config_name]
-
-        elif info_name not in info_data['usb']:
-            _log_error(info_data, '%s not specified in config.h, and %s not specified in info.json. One is required.' % (config_name, info_name))
+            info_data['usb'][info_name] = '0x' + config_c[config_name][2:].upper()
 
     return info_data
 
@@ -519,8 +549,9 @@ def arm_processor_rules(info_data, rules):
         info_data['processor'] = 'unknown'
 
     if 'BOOTLOADER' in rules:
-        if 'bootloader' in info_data:
-            _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
+        # FIXME(skullydazed/anyone): need to remove the massive amounts of duplication first
+        # if 'bootloader' in info_data:
+        #     _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
 
         info_data['bootloader'] = rules['BOOTLOADER']
 
@@ -558,8 +589,9 @@ def avr_processor_rules(info_data, rules):
         info_data['processor'] = 'unknown'
 
     if 'BOOTLOADER' in rules:
-        if 'bootloader' in info_data:
-            _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
+        # FIXME(skullydazed/anyone): need to remove the massive amounts of duplication first
+        # if 'bootloader' in info_data:
+        #     _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
 
         info_data['bootloader'] = rules['BOOTLOADER']
     else:
@@ -593,8 +625,8 @@ def merge_info_jsons(keyboard, info_data):
             keyboard_validate(new_info_data)
 
         except jsonschema.ValidationError as e:
-            cli.log.error('Invalid info.json data: %s', e.message)
-            cli.log.error('Not including file %s', info_file)
+            json_path = '.'.join([str(p) for p in e.absolute_path])
+            cli.log.error('Invalid info.json data: %s: %s: %s', info_file, json_path, e.message)
             continue
 
         if not isinstance(new_info_data, dict):

@@ -48,7 +48,7 @@ def generate_api(cli):
             if 'vid' in usb and usb['vid'] not in usb_list['devices']:
                 usb_list['devices'][usb['vid']] = {}
 
-            if 'pid' in usb and usb['pid'] not in usb_list['devices'][usb['vid']]:
+            if 'vid' in usb and usb['pid'] not in usb_list['devices'][usb['vid']]:
                 usb_list['devices'][usb['vid']][usb['pid']] = {}
 
             if 'vid' in usb and 'pid' in usb:
