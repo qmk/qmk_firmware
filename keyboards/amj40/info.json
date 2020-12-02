@@ -1,8 +1,6 @@
 {
   "keyboard_name": "AMJ40", 
-  "url": "", 
   "maintainer": "qmk", 
-  "bootloader": "", 
   "width": 12, 
   "height": 4, 
   "layouts": {

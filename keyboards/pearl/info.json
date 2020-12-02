@@ -1,8 +1,6 @@
 {
   "keyboard_name": "Pearl",
-  "url": "",
   "maintainer": "qmk",
-  "bootloader": "",
   "width": 13,
   "height": 4,
   "layouts": {

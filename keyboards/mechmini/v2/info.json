@@ -2,7 +2,6 @@
   "keyboard_name": "MechMini 2",
   "url": "https://mechkeys.ca/pages/mechmini-2-guide",
   "maintainer": "qmk",
-  "bootloader": "",
   "width": 12,
   "height": 4,
   "layouts": {
