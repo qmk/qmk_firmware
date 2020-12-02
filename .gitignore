@@ -16,6 +16,7 @@
 *.swp
 tags
 *~
+api_data/v1
 build/
 .build/
 *.bak
@@ -24,6 +25,7 @@ quantum/version.h
 .idea/
 CMakeLists.txt
 cmake-build-debug
+.clang_complete
 doxygen/
 .DS_Store
 /util/wsl_downloaded
@@ -47,7 +49,6 @@ doxygen/
 *.iml
 .browse.VC.db*
 *.stackdump
-util/Win_Check_Output.txt
 # Let these ones be user specific, since we have so many different configurations
 .vscode/c_cpp_properties.json
 .vscode/launch.json
@@ -73,3 +74,6 @@ __pycache__
 
 # prerequisites for updating ChibiOS
 /util/fmpp*
+
+# Allow to exist but don't include it in the repo
+user_song_list.h

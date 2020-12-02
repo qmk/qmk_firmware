@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 
 extern uint8_t is_master;
@@ -170,6 +186,13 @@ void render_bootmagic_status(void) {
         {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
     };
 
+    bool is_bootmagic_on;
+    #ifdef OLED_DISPLAY_128X64
+    is_bootmagic_on = !keymap_config.swap_lctl_lgui;
+    #else
+    is_bootmagic_on = keymap_config.swap_lctl_lgui;
+    #endif
+
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NAME), false);
 #ifdef OLED_DISPLAY_128X64
     if (keymap_config.swap_lctl_lgui)
@@ -177,11 +200,11 @@ void render_bootmagic_status(void) {
     oled_write_P(PSTR(" "), false);
 #endif
     {
-        oled_write_P(logo[1][0], false);
+        oled_write_P(logo[1][0], is_bootmagic_on);
 #ifdef OLED_DISPLAY_128X64
     } else {
 #endif
-        oled_write_P(logo[0][0], false);
+        oled_write_P(logo[0][0], !is_bootmagic_on);
     }
     oled_write_P(PSTR(" "), false);
 #ifdef OLED_DISPLAY_128X64
@@ -192,11 +215,11 @@ void render_bootmagic_status(void) {
     if (keymap_config.swap_lctl_lgui)
 #endif
     {
-        oled_write_P(logo[1][1], false);
+        oled_write_P(logo[1][1], is_bootmagic_on);
 #ifdef OLED_DISPLAY_128X64
     } else {
 #endif
-        oled_write_P(logo[0][1], false);
+        oled_write_P(logo[0][1], !is_bootmagic_on);
     }
     oled_write_P(PSTR(" "), false);
 #ifdef OLED_DISPLAY_128X64
@@ -233,7 +256,7 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
 }
 
 void render_status_secondary(void) {
-#if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DRIVER_128x64)
+#if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
 #endif
 #ifdef SPLIT_TRANSPORT_MIRROR

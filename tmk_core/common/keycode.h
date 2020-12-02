@@ -152,11 +152,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Modifiers */
 #define KC_LCTL KC_LCTRL
 #define KC_LSFT KC_LSHIFT
+#define KC_LOPT KC_LALT
 #define KC_LCMD KC_LGUI
 #define KC_LWIN KC_LGUI
 #define KC_RCTL KC_RCTRL
 #define KC_RSFT KC_RSHIFT
 #define KC_ALGR KC_RALT
+#define KC_ROPT KC_RALT
 #define KC_RCMD KC_RGUI
 #define KC_RWIN KC_RGUI
 

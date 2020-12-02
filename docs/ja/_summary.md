@@ -6,6 +6,7 @@
   * [テストとデバッグ](ja/newbs_testing_debugging.md)
   * [手助けを得る/サポート](ja/support.md)
   * [他のリソース](ja/newbs_learn_more_resources.md)
+  * [シラバス](ja/syllabus.md)
 
 * FAQ
   * [一般的な FAQ](ja/faq_general.md)
@@ -33,7 +34,9 @@
     * [機能のカスタマイズ](ja/custom_quantum_functions.md)
     * [Zadig を使ったドライバのインストール](ja/driver_installation_zadig.md)
     * [キーマップの概要](ja/keymap.md)
-    * [Vagrant のガイド](ja/getting_started_vagrant.md)
+    * 開発環境
+      * [Docker のガイド](ja/getting_started_docker.md)
+      * [Vagrant のガイド](ja/getting_started_vagrant.md)
     * 書き込み
       * [書き込み](ja/flashing.md)
       * [ATmega32A の書き込み (ps2avrgb)](ja/flashing_bootloadhid.md)
@@ -52,6 +55,7 @@
   * 単純なキーコード
     * [完全なリスト](ja/keycodes.md)
     * [基本的なキーコード](ja/keycodes_basic.md)
+    * [言語固有のキーコード](ja/reference_keymap_extras.md)
     * [修飾キー](ja/feature_advanced_keycodes.md)
     * [Quantum キーコード](ja/quantum_keycodes.md)
 
@@ -72,9 +76,10 @@
     * [デバウンス API](ja/feature_debounce_type.md)
     * [キーロック](ja/feature_key_lock.md)
     * [レイヤー](ja/feature_layers.md)
-    * [One Shot Keys](ja/one_shot_keys.md)
+    * [ワンショットキー](ja/one_shot_keys.md)
     * [ポインティング デバイス](ja/feature_pointing_device.md)
-    * [Swap Hands](ja/feature_swap_hands.md)
+    * [ロー HID](ja/feature_rawhid.md)
+    * [スワップハンド](ja/feature_swap_hands.md)
     * [タップダンス](ja/feature_tap_dance.md)
     * [タップホールド設定](ja/tap_hold.md)
     * [ターミナル](ja/feature_terminal.md)
@@ -98,18 +103,21 @@
     * [DIP スイッチ](ja/feature_dip_switch.md)
     * [エンコーダ](ja/feature_encoders.md)
     * [触覚フィードバック](ja/feature_haptic_feedback.md)
-    * [Proton C 規約](ja/proton_c_conversion.md)
+    * [Proton C 変換](ja/proton_c_conversion.md)
     * [PS/2 マウス](ja/feature_ps2_mouse.md)
     * [分割キーボード](ja/feature_split_keyboard.md)
-    * [Stenography](ja/feature_stenography.md)
+    * [速記](ja/feature_stenography.md)
     * [感熱式プリンタ](ja/feature_thermal_printer.md)
     * [Velocikey](ja/feature_velocikey.md)
 
 * QMK の開発
-  * 破壊的な変更
+  * [PR チェックリスト](ja/pr_checklist.md)
+  * 互換性を破る変更/Breaking changes
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
     * 履歴
+      * [2020年8月29日](ja/ChangeLog/20200829.md)
+      * [2020年5月30日](ja/ChangeLog/20200530.md)
       * [2020年2月29日](ja/ChangeLog/20200229.md)
       * [2019年8月30日](ja/ChangeLog/20190830.md)
 
@@ -124,7 +132,8 @@
       * [SPI ドライバ](ja/spi_driver.md)
       * [WS2812 ドライバ](ja/ws2812_driver.md)
       * [EEPROM ドライバ](ja/eeprom_driver.md)
-    * [GPIO コントロール](ja/internals_gpio_control.md)
+      * [シリアル ドライバ](ja/serial_driver.md)
+    * [GPIO 制御](ja/internals_gpio_control.md)
     * [キーボード ガイドライン](ja/hardware_keyboard_guidelines.md)
 
   * Python 開発
@@ -135,6 +144,11 @@
     * QMK API
       * [開発環境](ja/api_development_environment.md)
       * [アーキテクチャの概要](ja/api_development_overview.md)
+
+  * ハードウェアプラットフォーム開発
+    * Arm/ChibiOS
+      * [MCU の選択](ja/platformdev_selecting_arm_mcu.md)
+      * [早期初期化](ja/platformdev_chibios_earlyinit.md)
 
   * QMK Reference
     * [QMK への貢献](ja/contributing.md)
@@ -155,9 +169,9 @@
 
   * QMK の内部詳細(作成中)
     * [定義](ja/internals_defines.md)
-    * [Input Callback Reg](ja/internals_input_callback_reg.md)
+    * [入力コールバック登録](ja/internals_input_callback_reg.md)
     * [Midi デバイス](ja/internals_midi_device.md)
     * [Midi デバイスのセットアップ手順](ja/internals_midi_device_setup_process.md)
     * [Midi ユーティリティ](ja/internals_midi_util.md)
-    * [Send Functions](ja/internals_send_functions.md)
+    * [Midi 送信関数](ja/internals_send_functions.md)
     * [Sysex Tools](ja/internals_sysex_tools.md)

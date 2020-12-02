@@ -14,7 +14,7 @@ A ortholinear 5x12 keyboard made and sold by Keycapsss. [More info at Keycapsss.
 
 ---
 
-- Keyboard Maintainer: BenRoe [Github](https://github.com/BenRoe) / [Twitter](https://twitter.com/ben_roe)  
+- Keyboard Maintainer: BenRoe [GitHub](https://github.com/BenRoe) / [Twitter](https://twitter.com/ben_roe)  
 - Hardware Supported: Pro Micro  
 - Hardware Availability: [Keycapsss.com](https://keycapsss.com)  
 

@@ -1,3 +1,19 @@
+/* Copyright 2020 Reid Sox-Harris
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {
@@ -13,12 +29,11 @@ enum custom_keycodes {
     M804,
     M805,
     M806,
-    MAIL_C
 };
 
 // tapdance keycodes
 enum td_keycodes {
-    LAY  // Our example key: `LALT` when held, `(` when tapped. Add additional keycodes for each tapdance.
+    LAY
 };
 
 // define a type containing as many tapdance states as you need
@@ -60,7 +75,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           SEND_STRING("M804" SS_TAP(X_ENTER));
       }
-      break; 
+      break;
     case M805:
       if (record->event.pressed) {
           SEND_STRING("M805" SS_TAP(X_ENTER));
@@ -69,11 +84,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case M806:
       if (record->event.pressed) {
           SEND_STRING("M806" SS_TAP(X_ENTER));
-      }
-      break;
-    case MAIL_C:
-      if (record->event.pressed) {
-          SEND_STRING(SS_TAP(X_ENTER) SS_TAP(X_DOWN) SS_TAP(X_DOWN) SS_TAP(X_ENTER));
       }
       break;
   }
@@ -90,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ├────────┼────────┼────────┤
          KC_LEFT, KC_DOWN, KC_RGHT,
     // ├────────┼────────┼────────┤
-         KC_NO,   KC_NO,   KC_NO
+         KC_MRWD, KC_MPLY, KC_MFFD
     // └────────┴────────┴────────┘
         ),
     [_MACRO] = LAYOUT(
@@ -99,16 +109,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ├────────┼────────┼────────┤
           M801,    M802,    M803,
     // ├────────┼────────┼────────┤
-         MAIL_C,  KC_NO,   EX_ARR
+          KC_NO,  KC_NO,   EX_ARR
     // └────────┴────────┴────────┘
         ),
     [_MOD] = LAYOUT(
     // ┌────────┬────────┬────────┐
         _______,  BL_STEP,TG(_MOD),
     // ├────────┼────────┼────────┤
-         KC_NO,  RGB_MOD,  KC_NO,
+        RGB_TOG, RGB_HUI, RGB_SAI,
     // ├────────┼────────┼────────┤
-         KC_NO,   KC_NO,   KC_NO
+        RGB_MOD, RGB_HUD, RGB_SAD
     // └────────┴────────┴────────┘
         )
 };
@@ -122,6 +132,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+
+// Tapdance! Hold to use as a modifier to the _MOD layout, tap to change it between _BASE and _MACRO
 
 // determine the tapdance state to return
 int cur_dance (qk_tap_dance_state_t *state) {

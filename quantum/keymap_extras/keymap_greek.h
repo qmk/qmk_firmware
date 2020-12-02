@@ -114,7 +114,7 @@
 #define GR_PLUS S(GR_EQL)  // +
 // Row 2
 #define GR_COLN S(GR_SCLN) // :
-#define GR_DTON S(GR_FSIG) // ΅ (dead)
+#define GR_DIAT S(GR_FSIG) // ΅ (dead)
 #define GR_LCBR S(GR_LBRC) // {
 #define GR_RCBR S(GR_RBRC) // }
 // Row 3

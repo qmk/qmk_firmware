@@ -1,10 +1,15 @@
 # AJP10304 Custom JJ40 Layout
-# Also available for the Atreus50 and Planck
+# Also available for the Planck, Shark and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
+
+#### Flashing
+Use sleep to get a chance to get into boot mode.
+
+`make jj40:ajp10304:flash`
 
 ##### Main Qwerty Layer
 
@@ -43,13 +48,13 @@ Activated when `Lower` is held in the above `qwerty` layer.
 | Shift |  \|  |  `¬  |  #~  |  '@  |  -_  |  =+  |  #~  |  [{  |  ]}  |  '@  |Shift |
 |       |      |      |      |Lower | Del  |Space |      | Next | Vol- | Vol+ | Play |
 
- ##### Raise Layer
- Activated when `Raise` is held in the above `qwerty` layer.
+##### Raise Layer
+Activated when `Raise` is held in the above `qwerty` layer.
 
- * Preferred layer for typing brackets.
- * Allows for cursor navigation to be used solely with the right hand.
- * WRDSEL: Select the word where the cursor is.
- * |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
+* Preferred layer for typing brackets.
+* Allows for cursor navigation to be used solely with the right hand.
+* WRDSEL: Select the word where the cursor is.
+* |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
 
 |       |      |      |      |      |      |       |      |      |      |       |      |
 | :---: |:----:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:|
@@ -98,11 +103,17 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      |      |      |      |      |
+| ESC   |      |      |      |      |      |      |      | BTN3 |      |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |
 
-####Manual Flashing of hex file
-Use sleep to get a chance to get into boot mode.
-`sleep 5; bootloadHID -r .build/jj40_ajp10304.hex`
+##### Number Pad Layout
+Activated when holding `Esc` key.
+
+|       |      |      |      |      |      |      |      |      |      |      |      |
+| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
+|       |      |      |      |      |      |NMLOCK|   7  |   8  |   9  |   /  |      |
+|       |      |      |      |      |      |      |   4  |   5  |   6  |   *  |      |
+|       |      |      |      |      |      |      |   1  |   2  |   3  |   +  |      |
+|       |      |      |      |      |      |      |   0  |   .  |   ,  |   -  |      |

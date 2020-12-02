@@ -10,18 +10,17 @@ NKRO_ENABLE = no
 
 SRC += stanrc85.c
 
-ifeq ($(strip $(KEYBOARD)), 1upkeyboards/1up60hse)
-  SRC += layer_rgb.c
-  VIA_ENABLE = yes
-  LTO_ENABLE = yes
-endif
-ifeq ($(strip $(KEYBOARD)), dz60)
-  SRC += layer_rgb.c
-  VIA_ENABLE = yes
-  LTO_ENABLE = yes
-endif
-ifeq ($(strip $(KEYBOARD)), projectkb/alice)
+ifeq ($(strip $(KEYBOARD)), projectkb/alice/rev2)
   SRC += rgblight_layers.c
+  SRC += startup_fanfare.c
+  OPT_DEFS += -DHAS_INDICATORS
   VIA_ENABLE = yes
   LTO_ENABLE = no
+  VELOCIKEY_ENABLE=yes
+endif
+ifeq ($(strip $(KEYBOARD)), tkc/osav2)
+  SRC += rgblight_layers_osa.c
+  VIA_ENABLE = yes
+  LTO_ENABLE = no
+  VELOCIKEY_ENABLE=yes
 endif

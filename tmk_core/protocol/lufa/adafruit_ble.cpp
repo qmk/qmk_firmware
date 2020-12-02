@@ -38,7 +38,7 @@
 
 #ifdef SAMPLE_BATTERY
 #    ifndef BATTERY_LEVEL_PIN
-#        define BATTERY_LEVEL_PIN 7
+#        define BATTERY_LEVEL_PIN B5
 #    endif
 #endif
 
@@ -152,7 +152,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
     bool     ready      = false;
 
     do {
-        ready = spi_write(msg->type, 100) != SdepSlaveNotReady;
+        ready = spi_write(msg->type) != SdepSlaveNotReady;
         if (ready) {
             break;
         }
@@ -165,7 +165,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
 
     if (ready) {
         // Slave is ready; send the rest of the packet
-        spi_transmit(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)) + msg->len, 100);
+        spi_transmit(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)) + msg->len);
         success = true;
     }
 
@@ -205,7 +205,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
 
         do {
             // Read the command type, waiting for the data to be ready
-            msg->type = spi_read(100);
+            msg->type = spi_read();
             if (msg->type == SdepSlaveNotReady || msg->type == SdepSlaveOverflow) {
                 // Release it and let it initialize
                 spi_stop();
@@ -215,11 +215,11 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
             }
 
             // Read the rest of the header
-            spi_receive(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)), 100);
+            spi_receive(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)));
 
             // and get the payload if there is any
             if (msg->len <= SdepMaxPayload) {
-                spi_receive(msg->payload, msg->len, 100);
+                spi_receive(msg->payload, msg->len);
             }
             success = true;
             break;
@@ -556,7 +556,7 @@ void adafruit_ble_task(void) {
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
 
-        state.vbat = analogRead(BATTERY_LEVEL_PIN);
+        state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
     }
 #endif
 }
