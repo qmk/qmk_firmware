@@ -25,7 +25,7 @@
         },
         "processor": {
             "type": "string",
-            "enum": ["MK20DX128", "MK20DX256", "MKL26Z64", "STM32F042", "STM32F072", "STM32F103", "STM32F303", "STM32F401", "STM32F411", "at90usb1286", "at90usb646", "atmega16u2", "atmega328p", "atmega32a", "atmega32u2", "atmega32u4", "attiny85", "cortex-m4"]
+            "enum": ["MK20DX128", "MK20DX256", "MKL26Z64", "STM32F042", "STM32F072", "STM32F103", "STM32F303", "STM32F401", "STM32F411", "at90usb1286", "at90usb646", "atmega16u2", "atmega328p", "atmega32a", "atmega32u2", "atmega32u4", "attiny85", "cortex-m4", "unknown"]
         },
         "bootloader": {
             "type": "string",
