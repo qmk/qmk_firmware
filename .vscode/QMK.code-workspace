@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.h": "c",
+			"*.c": "c",
+			"*.inc": "c",
+			"*.cpp": "cpp",
+			"*.hpp": "cpp",
+			"xstddef": "c",
+			"type_traits": "c",
+			"utility": "c",
+			"ranges": "c"
+		},
+		"terminal.integrated.env.windows": {
+			"MSYSTEM": "MINGW64",
+			"CHERE_INVOKING": "1"
+		},
+		"terminal.integrated.shellArgs.windows": [
+			"--login"
+		],
+		"terminal.integrated.cursorStyle": "line"
+	}
+}

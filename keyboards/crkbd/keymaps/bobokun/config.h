@@ -29,7 +29,7 @@ along with this program.  If not see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #undef USE_I2C
-#define SSD1306OLED
+//#define SSD1306OLED
 
 #define USE_SERIAL_PD2
 
@@ -46,7 +46,7 @@ along with this program.  If not see <http://www.gnu.org/licenses/>.
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash. 
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #    define RGB_MATRIX_HUE_STEP 8
 #    define RGB_MATRIX_SAT_STEP 8
 #    define RGB_MATRIX_VAL_STEP 8
@@ -99,4 +99,4 @@ along with this program.  If not see <http://www.gnu.org/licenses/>.
 //#define OLED_FONT_H "keyboards/crkbd/keymaps/bobokun/glcdfont.c"
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
-#define rgblight_config 
+#define rgblight_config
