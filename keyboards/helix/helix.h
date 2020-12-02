@@ -17,3 +17,6 @@
 #ifdef KEYBOARD_helix_pico
     #include "pico.h"
 #endif
+#ifdef KEYBOARD_helix_rev2_latam
+    #include "rev2.h"
+#endif
