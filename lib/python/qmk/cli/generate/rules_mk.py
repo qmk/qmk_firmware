@@ -41,9 +41,12 @@ def generate_rules_mk(cli):
     # Find features that should be enabled
     if 'features' in kb_info_json:
         for feature, enabled in kb_info_json['features'].items():
-            feature = feature.upper()
-            enabled = 'yes' if enabled else 'no'
-            rules_mk_lines.append(f'{feature}_ENABLE := {enabled}')
+            if feature == 'bootmagic_lite' and enabled:
+                rules_mk_lines.append(f'BOOTMAGIC_ENABLE := lite')
+            else:
+                feature = feature.upper()
+                enabled = 'yes' if enabled else 'no'
+                rules_mk_lines.append(f'{feature}_ENABLE := {enabled}')
 
     # Set the LED driver
     if 'led_matrix' in kb_info_json and 'driver' in kb_info_json['led_matrix']:
