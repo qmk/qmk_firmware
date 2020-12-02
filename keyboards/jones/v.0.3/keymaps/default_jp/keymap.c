@@ -274,12 +274,6 @@ bool led_update_user(led_t led_state) {
 }
 #endif
 
-//------------------------------------------------------------------------------
-// for TEST LEDs.
-// void keyboard_post_init_user(void) {
-//     rgblight_enable_noeeprom();
-//     rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
-// }
 
 //------------------------------------------------------------------------------
 // Rotary Encoder
@@ -386,18 +380,3 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
     }
 }
-
-//------------------------------------------------------------------------------
-/*
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
