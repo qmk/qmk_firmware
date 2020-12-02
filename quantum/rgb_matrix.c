@@ -266,9 +266,9 @@ static bool rgb_matrix_none(effect_params_t *params) {
 
 static void rgb_task_timers(void) {
 #if defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_DISABLE_TIMEOUT > 0
-    uint32_t deltaTime = timer_elapsed32(rgb_timer_buffer);
+    uint32_t deltaTime = sync_timer_elapsed32(rgb_timer_buffer);
 #endif  // defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_DISABLE_TIMEOUT > 0
-    rgb_timer_buffer = timer_read32();
+    rgb_timer_buffer = sync_timer_read32();
 
     // Update double buffer timers
 #if RGB_DISABLE_TIMEOUT > 0
@@ -296,7 +296,7 @@ static void rgb_task_timers(void) {
 
 static void rgb_task_sync(void) {
     // next task
-    if (timer_elapsed32(g_rgb_timer) >= RGB_MATRIX_LED_FLUSH_LIMIT) rgb_task_state = STARTING;
+    if (sync_timer_elapsed32(g_rgb_timer) >= RGB_MATRIX_LED_FLUSH_LIMIT) rgb_task_state = STARTING;
 }
 
 static void rgb_task_start(void) {
