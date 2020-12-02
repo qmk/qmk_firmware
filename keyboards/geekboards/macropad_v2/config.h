@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0xA372
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    GeekBoards
-#define PRODUCT         GeekBoards Macropad v2
+#define PRODUCT         Macropad v2
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
