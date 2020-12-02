@@ -20,11 +20,9 @@
 // These are only required if you want to perform custom actions.
 // For reference, visit https://docs.qmk.fm/#/custom_quantum_functions?id=layer-change-code
 
-
+// keyboard start-up codes
+// runs once when the firmware starts up
 void matrix_init_kb(void) {
-  // keyboard start-up codes
-  // runs once when the firmware starts up
-
     // Set pins as output for lighting the LEDs
     setPinOutput(D4); // Layer 1 Status Light
     setPinOutput(D5); // Caps Lock Status Light
@@ -32,19 +30,19 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-//void matrix_scan_kb(void) {
-//  // looping keyboard codes
-//  // runs every cycle (a lot)
-//
-//    matrix_scan_user();
-//}
+// looping keyboard codes
+// runs every cycle (a lot)
+/*void matrix_scan_kb(void) {
 
-//bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-//  // per-action keyboard codes
-//  // runs for every key-press action, just before processing by the firmware
-//
-//    return process_record_user(keycode, record);
-//}
+    matrix_scan_user();
+}*/
+
+// per-action keyboard codes
+// runs for every key-press action, just before processing by the firmware
+/*bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+
+    return process_record_user(keycode, record);
+}*/
 
 // Set LED based on layer
 layer_state_t layer_state_set_user(layer_state_t state) {
