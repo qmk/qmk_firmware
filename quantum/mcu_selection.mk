@@ -318,6 +318,9 @@ ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 a
   ifeq (,$(filter $(NO_INTERRUPT_CONTROL_ENDPOINT),yes))
     OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
   endif
+  ifneq (,$(filter $(MCU),atmega16u2 atmega32u2))
+    NO_I2C = yes
+  endif
 endif
 
 ifneq (,$(filter $(MCU),atmega32a))
