@@ -1,12 +1,12 @@
 # MCU name
 MCU = STM32F072
 
+# Wildcard to allow APM32 MCU 
+DFU_SUFFIX_ARGS = -p FFFF -v FFFF
+
 # Build Options
 #   comment out to disable the options.
 #
-
-DFU_SUFFIX_ARGS = -p FFFF -v FFFF
-
 BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
