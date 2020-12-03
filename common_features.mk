@@ -371,6 +371,7 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 endif
 
 ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/apa102
     SRC += apa102.c
 endif
 

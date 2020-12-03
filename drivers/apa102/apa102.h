@@ -1,10 +1,5 @@
-/*
- * light weight WS2812 lib include
- *
- * Version 2.3  - Nev 29th 2015
- * Author: Tim (cpldcpu@gmail.com)
- *
- * Please do not change this file! All configuration is handled in "ws2812_config.h"
+/* Copyright 2020 Aldehir Rojas
+ * Copyright 2017 Mikkel (Duckle29)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
