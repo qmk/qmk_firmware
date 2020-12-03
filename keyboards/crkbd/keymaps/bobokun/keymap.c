@@ -437,6 +437,10 @@ uint32_t layer_state_set_user(uint32_t state) {
             rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
             rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
             break;
+        case _ARROW:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv_noeeprom(90, 255, rgb_matrix_config.hsv.v);
+            break;
         default: //  for any other layers, or the default layer
             rgb_matrix_mode_noeeprom(desired);
             break;
