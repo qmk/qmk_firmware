@@ -51,7 +51,7 @@ revert_chibi_files() {
     for file in $(find_chibi_files "$search_path" -name chconf.h -or -name halconf.h -or -name mcuconf.h -or -name board.c -or -name board.h -or -name board.mk -or -name board.chcfg) ; do
         pushd "$search_path" >/dev/null 2>&1
         local relpath=$(realpath --relative-to="$search_path" "$file")
-        git checkout upstream/master -- "$relpath" || git checkout origin/master -- "$relpath" || true
+        git checkout upstream/develop -- "$relpath" || git checkout origin/develop -- "$relpath" || true
         popd >/dev/null 2>&1
     done
 }
@@ -132,6 +132,14 @@ upgrade_chconf_files() {
 
 upgrade_halconf_files() {
     upgrade_conf_files_generic halconf.h update_halconf.sh
+
+    OIFS=$IFS
+    IFS=$'\n'
+    for file in $(find_chibi_files "$qmk_firmware_dir" -name halconf.h) ; do
+        echo $file
+        sed -i 's@#include "mcuconf.h"@#include <mcuconf.h>@g' "$file"
+    done
+    IFS=$OIFS
 }
 
 upgrade_mcuconf_files() {
