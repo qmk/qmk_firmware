@@ -102,7 +102,6 @@ AUDIO_ENABLE = no                      # Audio output on port C6
 FAUXCLICKY_ENABLE = no                 # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no                    # Enable support for HD44780 based LCDs (+400)
 #WAIT_FOR_USB = no                     # Don't wait for USB driver to initialise
-RGB_MATRIX_ENABLE = MBI5042            # Use Macroblock PWM LED driver
 
 CUSTOM_MATRIX = yes                    # Custom keyscan matrix (don't force inputs)
 
