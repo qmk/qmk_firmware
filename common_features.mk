@@ -250,8 +250,6 @@ endif
         SRC += mbi5042gp.c
     endif
 
-
-
     ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
         OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
     endif
@@ -359,7 +357,7 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
-    ifeq ($(strip $(RGB_MATRIX_ENABLE)), MBI5042)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), MBI5042)
         OPT_DEFS += -DUSE_CIE1931_16_CURVE
         LED_TABLES = yes
     else
