@@ -46,10 +46,11 @@ void add_keylog(uint16_t keycode);
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _DJMAX 1
-#define _LOWER 2
-#define _RAISE 3
-#define _ADJUST 4
+#define _ARROW 1
+#define _DJMAX 2
+#define _LOWER 3
+#define _RAISE 4
+#define _ADJUST 5
 
 uint8_t prev = _QWERTY;
 uint32_t desired;
@@ -58,6 +59,7 @@ uint32_t default_desired;
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   DJMAX,
+  ARROW,
   LOWER,
   RAISE,
   ADJUST
@@ -66,7 +68,6 @@ enum custom_keycodes {
 //Tap Dance Declarations
 enum {
   ALT_GUI = 0,
-  CTL_ALT,
   CTL_TAB
 };
 
@@ -74,8 +75,6 @@ enum {
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Alt, twice for GUI
   [ALT_GUI]  = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI),
-  //Tap once for Ctrl, twice for Alt
-  [CTL_ALT]  = ACTION_TAP_DANCE_DOUBLE(KC_RCTL, KC_RALT),
   //Tap once for CTL, twice for TAB
   [CTL_TAB]  = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_TAB)
 // Other declarations would go here, separated by commas, if you have them
@@ -90,7 +89,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  ARROW \
+                                      //`--------------------------'  `--------------------------'
+
+  ),
+
+  [_ARROW] = LAYOUT( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS,  KC_UP,  KC_TRNS, KC_TRNS,  KC_TRNS,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, \
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+	   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  ARROW \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -103,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_MPRV, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,                       KC_BSLS,  KC_GRV, KC_LBRC, KC_RBRC, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  ARROW \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -115,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLD,  KC_F11,  KC_F12, RGB_VAD, RGB_TOG, RGB_VAI,                     RGB_RMOD, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  ARROW \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -127,10 +139,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  ARROW \
                                       //`--------------------------'  `--------------------------'
   ),
-  
+
   [_DJMAX] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_GESC,   KC_F1,  KC_F10,    KC_E,    KC_E,    KC_1,                         KC_2,    KC_I,    KC_I, XXXXXXX, KC_PGUP, QWERTY,\
@@ -215,6 +227,7 @@ void render_layer_state(void) {
     oled_write_P(PSTR("LAYER"), false);
     oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
     oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
+    oled_write_P(PSTR("Arrow"), layer_state_is(_ARROW));
 }
 
 void render_keylock_status(uint8_t led_usb_state) {
@@ -335,13 +348,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ADJUST);
         }
         return false;
+    case ARROW:
+        if (record->event.pressed) {
+          layer_on(_ARROW);
+          update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        } else {
+          layer_off(_ARROW);
+          update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        }
+        return false;
     case DJMAX:
           if (record->event.pressed) {
             desired = RGB_MATRIX_TYPING_HEATMAP;
             persistent_default_layer_set(1UL<<_DJMAX);
             update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
           }
-          return false;	
+          return false;
     case RGB_MOD:
           if (record->event.pressed) {
              uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
