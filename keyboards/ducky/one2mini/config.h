@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ducky
 #define PRODUCT         One2mini
-#define DESCRIPTION     Ducky One 2 mini RGB 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
