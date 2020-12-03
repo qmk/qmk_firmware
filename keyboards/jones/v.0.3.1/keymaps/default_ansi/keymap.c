@@ -33,7 +33,6 @@ enum tap_dances{
 };
 
 // Tap Dance state
-// for toggle layer by ESC
 enum {
     SINGLE_TAP = 1,
     DOUBLE_TAP,
