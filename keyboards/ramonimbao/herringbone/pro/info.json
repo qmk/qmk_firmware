@@ -2,7 +2,7 @@
     "keyboard_name": "Herringbone Pro",
     "url": "",
     "maintainer": "Ramon Imbao",
-    "width": 16.5,
+    "width": 18,
     "height": 6.5,
     "layouts": {
         "LAYOUT_ansi": {
@@ -230,7 +230,9 @@
 
                 {"x": 14, "y": 0},
 
-                {"x": 15.5, "y": 0},
+                {"x": 15, "y": 0},
+                {"x": 16, "y": 0},
+                {"x": 17, "y": 0},
 
                 {"x": 0, "y": 1.25},
                 {"x": 1, "y": 1.25},
