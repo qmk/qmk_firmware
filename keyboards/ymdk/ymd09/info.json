@@ -5,7 +5,7 @@
     "width": 3,
     "height": 3,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x3": {
             "key_count": 9,
             "layout": [
                 {"label": "7", "x": 0, "y": 0},
