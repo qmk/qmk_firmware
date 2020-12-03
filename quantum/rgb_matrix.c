@@ -31,6 +31,8 @@ const point_t k_rgb_matrix_center = {112, 32};
 const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #endif
 
+__attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
+
 // Generic effect runners
 #include "rgb_matrix_runners/effect_runner_dx_dy_dist.h"
 #include "rgb_matrix_runners/effect_runner_dx_dy.h"
@@ -401,6 +403,10 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
+            if (!suspend_backlight) {
+                rgb_matrix_indicators();
+                rgb_matrix_indicators_advanced(&rgb_effect_params);
+            }
             break;
         case FLUSHING:
             rgb_task_flush(effect);
@@ -408,10 +414,6 @@ void rgb_matrix_task(void) {
         case SYNCING:
             rgb_task_sync();
             break;
-    }
-
-    if (!suspend_backlight) {
-        rgb_matrix_indicators();
     }
 }
 
@@ -423,6 +425,28 @@ void rgb_matrix_indicators(void) {
 __attribute__((weak)) void rgb_matrix_indicators_kb(void) {}
 
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {}
+
+void rgb_matrix_indicators_advanced(effect_params_t *params) {
+    /* special handling is needed for "params->iter", since it's already been incremented.
+     * Could move the invocations to rgb_task_render, but then it's missing a few checks
+     * and not sure which would be better. Otherwise, this should be called from
+     * rgb_task_render, right before the iter++ line.
+     */
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+    uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
+    uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;
+    if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#else
+    uint8_t min = 0;
+    uint8_t max = DRIVER_LED_TOTAL;
+#endif
+    rgb_matrix_indicators_advanced_kb(min, max);
+    rgb_matrix_indicators_advanced_user(min, max);
+}
+
+__attribute__((weak)) void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {}
+
+__attribute__((weak)) void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {}
 
 void rgb_matrix_init(void) {
     rgb_matrix_driver.init();
