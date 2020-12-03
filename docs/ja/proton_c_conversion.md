@@ -51,6 +51,7 @@ Proton C には1つのオンボード LED(C13)しかなく、デフォルトで�
 
 ```
 MCU = STM32F303
+BOARD = QMK_PROTON_C
 ```
 
 次の変数が存在する場合は削除します。
