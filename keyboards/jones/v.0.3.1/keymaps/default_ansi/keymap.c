@@ -46,7 +46,6 @@ uint8_t cur_dance(qk_tap_dance_state_t *state);
 // Functions associated with individual tap dances
 void ql_finished(qk_tap_dance_state_t *state, void *user_data);
 void ql_reset(qk_tap_dance_state_t *state, void *user_data);
-void ql_each(qk_tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -330,9 +329,6 @@ static tap ql_tap_state = {
 };
 
 // Functions that control what our tap dance key does
-void ql_each(qk_tap_dance_state_t *state, void *user_data) {
-}
-
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch(state->keycode) {
