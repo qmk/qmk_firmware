@@ -44,8 +44,9 @@
 
 #define TAPPING_TERM 200
 
-// Use the right side as master
-#define MASTER_RIGHT
+// Allows to use either side as the master. Look at the documentation for info:
+// https://docs.qmk.fm/#/config_options?id=setting-handedness
+#define EE_HANDS
 
 // Allows media codes to properly register in macros and rotary encoder code
 #define TAP_CODE_DELAY 10
