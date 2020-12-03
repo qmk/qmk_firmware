@@ -62,7 +62,12 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
 #    ifdef AUTO_SHIFT_REPEAT
     const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
 #        ifndef AUTO_SHIFT_NO_AUTO_REPEAT
-    if (!autoshift_flags.lastshifted) {
+    if (
+#            ifdef RETRO_SHIFT
+        retroshift_lastkey != KC_NO ||
+#            endif
+        !autoshift_flags.lastshifted
+    ) {
 #        endif
         if (elapsed < TAPPING_TERM && keycode == autoshift_lastkey) {
             // Allow a tap-then-hold for keyrepeat.
@@ -216,8 +221,8 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             // Keyrepeat, the down event already happened.
             return false;
         }
-        // The in_progress check prevents interrupting a keyrepeating Retro
-        // Shifted key from triggering its usual hold action.
+        // The in_progress check prevents this from triggering on a keyrepeating
+        // Retro Shifted key and pressing its usual hold action.
         if (retroshift_lastkey != KC_NO && autoshift_flags.in_progress) {
             // Trigger Tap Hold key's hold action which we stopped earlier.
             process_record_handler(&retro_record);
