@@ -11,7 +11,7 @@ A 9-key macropad by [YMDK](https://www.aliexpress.com/store/429151) with per-key
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk/ymd09/rev1:default:bootloadHID
+    make ymdk/ymd09/rev1:default
 
 The keyboard can be placed in DFU mode by holding down the top-left key while plugging in the USB cable. Holding down all the buttons while plugging in the cable also works.
 

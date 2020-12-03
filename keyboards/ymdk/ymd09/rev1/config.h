@@ -36,5 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  /*== all animations enable ==*/
  #define RGBLIGHT_ANIMATIONS
 #endif
-
-#define KEYBOARD_ymd09_rev1

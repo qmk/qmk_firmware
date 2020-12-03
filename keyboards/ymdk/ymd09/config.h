@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x4409 // "D" + 09
 #define MANUFACTURER YMDK
 #define PRODUCT      YMD09
-#define DESCRIPTION  9-Key Macropad
 
 #define UNUSED_PINS
 

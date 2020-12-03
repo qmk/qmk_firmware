@@ -19,5 +19,3 @@
  /*== all animations enable ==*/
  #define RGBLIGHT_ANIMATIONS
 #endif
-
-#define KEYBOARD_ymd09_rev2

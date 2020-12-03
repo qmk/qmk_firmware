@@ -16,10 +16,7 @@ A 9-key macropad by [YMDK](https://ymdk.aliexpress.com/store/429151) with per-ke
 
 Make example for this keyboard (after setting up your build environment):
 
+    make ymdk/ymd09/rev1:default
     make ymdk/ymd09/rev2:default
-
-For the earlier-release `rev1` board:
-
-    make ymdk/ymd09/rev1:default:bootloadHID
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
