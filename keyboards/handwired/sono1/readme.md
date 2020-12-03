@@ -43,6 +43,7 @@ Suggested mount position for the Black Pill (view from the bottom side of the PC
       |            |   |   |   *                       |   |   |   |   *        *   *   *
      GND          L2  L1  L3  L4                      R7  R6  R5  R4  R3       R2  R1  R0
 ```
+Asterisk sign designates pins of the Black Pill that don't align properly with PCB and need to be rewired.
 
 ![Black Pill](https://i.imgur.com/KQjTWVbh.jpeg)
 
