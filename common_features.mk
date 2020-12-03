@@ -159,11 +159,11 @@ VALID_RGBLIGHT_TYPES := WS2812 APA102 custom
 
 ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
     RGBLIGHT_DRIVER ?= custom
-else
-    RGBLIGHT_DRIVER ?= WS2812
 endif
 
-ifneq ($(strip $(RGBLIGHT_ENABLE)), no)
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+    RGBLIGHT_DRIVER ?= WS2812
+
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(error RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
     else
