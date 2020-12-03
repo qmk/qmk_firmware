@@ -33,6 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //   KC_MUTE,    KC_VOLD,  KC_VOLU,  KC_LALT,  KC_LGUI,  KC_SPC,   RAISE,        LOWER, KC_BSPC, KC_LGUI, KC_LALT,  KC_LEFT,  KC_DOWN,  KC_RGHT
   // ),
 
+
   /*
    * !        @     #    $     %        ||     ^    &    *     (    )
    *  del   left  down right pgdn       ||     down    F4    F5    F6   F11
@@ -70,8 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,_______
-)
-
+  )
 };
 
 const uint16_t PROGMEM fn_actions[] = {
