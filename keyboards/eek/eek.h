@@ -17,9 +17,8 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_eek_silk_down
-    #include "silk_down.h"
-#endif
-#ifdef KEYBOARD_eek_silk_up
-    #include "silk_up.h"
+#if defined(KEYBOARD_eek_silk_down)
+#    include "silk_down.h"
+#elif defined(KEYBOARD_eek_silk_up)
+#    include "silk_up.h"
 #endif
