@@ -45,15 +45,8 @@ void matrix_init_kb(void) {
 }*/
 
 // Set LED based on layer
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case 1:
-        writePin(D5, 1);
-        break;
-    default: //  for any other layers, or the default layer
-        writePin(D5, 0);
-        break;
-    }
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(D5, layer_state_cmd(state, 1));
     return state;
 }
 
@@ -65,4 +58,3 @@ bool led_update_kb(led_t led_state) {
     }
     return res;
 }
-
