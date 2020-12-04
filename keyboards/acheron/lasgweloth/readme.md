@@ -16,7 +16,7 @@ The possible layouts consist of a default or 7U bottom row, with possibility of 
 
 ## PCB Documentation
 
-See the [AcheronDocs](https://gondolindrim.github.io/AcheronDocs/lasgweloth/intro.html) page for the Lasgweloth full documentation. You can also check the KiCad PCB files at the [GitHub repository](https://github.com/AcheronProject/Lasgweloth).
+See the [AcheronDocs](https://acheronproject.com/lasgweloth/intro.html) page for the Lasgweloth full documentation. You can also check the KiCad PCB files at the [GitHub repository](https://github.com/AcheronProject/Lasgweloth).
 
 Before using the files for personal or commercial use, please read the [Acheron Open-Hardware License V1.3](https://gondolindrim.github.io/AcheronDocs/license/license.html) under which the Arctic PCB is published.
 
