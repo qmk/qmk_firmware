@@ -7,14 +7,14 @@
 	
 	NOTES:
 	* All special code are specific to Windows (ALT+wincode input method)
-	* Many dead letters are not implemented (lack of alt-code for that)
+	* Many dead letters are not implemented (lack of alt-code for that) - only the one available on an azerty (~, ^, ¨)
 	* fine insecable input a "standard" insecable space, to adapt to Word corectly. Easy to adapt (ALT+8239 instead of AL+255)
-	* Compile with the the option "EXTRAFLAGS += -flto" in your rules.mk, to reduce the size of the hex
+	* Compile with the the option "LTO_ENABLE = yes" in your rules.mk, to reduce the size of the hex
 	
 	At any time, swith possible between bépo and AZERTY:
-	* Left-Shift + AltGr + "^" key = AZERTY
-	* Left-Shift + AltGr + "$" key = BÉPO 
-	Last mode is not (yet) persistent. Default keyboard is bépo at power-on
+	* Shift + AltGr + "^ (azerty)/z (bépo)" key = AZERTY layout
+	* Shift + AltGr + "$ (azerty)/w (bépo)" key = BÉPO emulation layout
+	Last mode is not persistent on the Hasu converter (lack of persistent memory?). Default keyboard is bépo at power-on
 	
 */
 #include QMK_KEYBOARD_H
@@ -96,9 +96,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			case M4_8800: WINALT4(8,8,0,0); break;
 			case M4_8804: WINALT4(8,8,0,4); break;
 			case M4_8805: WINALT4(8,8,0,5); break;
+			//switch to AZERTY Shift + AltGR + KC_LBRC = ^ key on an azerty // Z on bépo
+			case KC_LBRC: 
+				if (record->event.pressed && (keyboard_report->mods & MOD_BIT(KC_RSFT)) && (keyboard_report->mods & MOD_BIT(KC_RALT))) {
+					//default_layer_set(0);
+					set_single_persistent_default_layer(4);
+					return true;
+				} break;
+				
+			//SWITCH to BEPO Shift + AltGR + KC_RBRC = $ key on an azerty // W on bépo
 			case KC_RBRC: 
-				if (keyboard_report->mods & MOD_BIT(KC_RSFT) && keyboard_report->mods & MOD_BIT(KC_RALT)) {
-					default_layer_set(0); return true;
+				if (record->event.pressed && (keyboard_report->mods & MOD_BIT(KC_RSFT)) && (keyboard_report->mods & MOD_BIT(KC_RALT))) {
+					set_single_persistent_default_layer(0);
+					return true;
 				} break;
 		}
 	}
