@@ -7,7 +7,7 @@
 	
 	NOTES:
 	* All special code are specific to Windows (ALT+wincode input method)
-	* Many dead letters are not implemented (lack of alt-code for that) - only the one available on an azerty (~, ^, ¨)
+	* Many dead letters are not implemented (lack of alt-code for that) - only the one available on an azerty (~, ^, ¨, ` )
 	* fine insecable input a "standard" insecable space, to adapt to Word corectly. Easy to adapt (ALT+8239 instead of AL+255)
 	* Compile with the the option "LTO_ENABLE = yes" in your rules.mk, to reduce the size of the hex
 	
