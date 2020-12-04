@@ -44,7 +44,7 @@ void matrix_init_kb(void) {
 
 // Set LED based on layer
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(D5, layer_state_cmd(state, 1));
+    writePin(D5, layer_state_cmp(state, 1));
     return state;
 }
 
