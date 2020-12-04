@@ -27,9 +27,6 @@ enum custom_keycodes {
 };
 
 
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
-#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -50,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         RGBRST,     RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_SPI,
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         RGB_MOD,    RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD,
     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         RGB_TOG,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                      KC_LCTL, LOWER, KC_SPC,         KC_BSPC, RAISE, OSM(MOD_LSFT)
+                      KC_LCTL, _LOWER, KC_SPC,         KC_BSPC, _RAISE, OSM(MOD_LSFT)
   ),
 
   [_LOWER] = LAYOUT_split_3x5_3(
