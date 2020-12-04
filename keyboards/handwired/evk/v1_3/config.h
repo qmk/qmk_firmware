@@ -1,5 +1,4 @@
 /*
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -47,6 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL // the current flows into the rows and then out of the columns
+
+/* define whiche Pins to use for the status LEDs*/
+#define LED_CAPS_LOCK_PIN D4
 
 
 /*
