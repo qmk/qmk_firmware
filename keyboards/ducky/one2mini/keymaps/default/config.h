@@ -17,6 +17,7 @@
 #pragma once
 
 // place overrides here
+#define GRAVE_ESC_GUI_OVERRIDE
 #define MK_3_SPEED
 #define MK_C_OFFSET_UNMOD   400    /* Cursor offset per movement (unmodified) */
 #define MK_C_INTERVAL_UNMOD  5     /* Time between cursor movements (unmodified) */
