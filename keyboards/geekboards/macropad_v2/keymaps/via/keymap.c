@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "quantum.h"
-#include "print.h"
 #include "string.h"
 
 bool is_alt_tab_active = false;
@@ -26,19 +24,19 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_2x4(
         LT(1, KC_MUTE), KC_VOLD, KC_VOLU, MACRO00,
         ALT_TAB,        KC_MPRV, KC_MNXT, KC_MPLY
     ),
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_2x4(
         KC_TRNS, RGB_VAI, RGB_HUI, RGB_SPI,
         RGB_MOD, RGB_VAD, RGB_HUD, RGB_SPD
     ),
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_2x4(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-    [3] = LAYOUT(
+    [3] = LAYOUT_ortho_2x4(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
