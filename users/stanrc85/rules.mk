@@ -23,7 +23,6 @@ ifeq ($(strip $(KEYBOARD)), sneakbox/aliceclone)
   #SRC += startup_fanfare.c
   OPT_DEFS += -DHAS_INDICATORS
   OPT_DEFS += -DHAS_ROTARY
-  OPT_DEFS += -DSNEAKBOX
   VIA_ENABLE = yes
   LTO_ENABLE = no
 endif
