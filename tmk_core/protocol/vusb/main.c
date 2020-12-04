@@ -153,6 +153,10 @@ int main(void) {
                 console_task();
             }
 #endif
+
+            // Run housekeeping
+            housekeeping_task_kb();
+            housekeeping_task_user();
         } else if (suspend_wakeup_condition()) {
             usb_remote_wakeup();
         }

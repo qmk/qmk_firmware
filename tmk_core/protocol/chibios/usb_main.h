@@ -35,6 +35,9 @@
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
 
+/* Restart the USB driver and bus */
+void restart_usb_driver(USBDriver *usbp);
+
 /* ---------------
  * Keyboard header
  * ---------------

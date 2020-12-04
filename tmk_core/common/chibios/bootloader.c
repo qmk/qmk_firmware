@@ -32,7 +32,7 @@
 
 extern uint32_t __ram0_end__;
 
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     // For STM32 MCUs with dual-bank flash, and we're incapable of jumping to the bootloader. The first valid flash
     // bank is executed unconditionally after a reset, so it doesn't enter DFU unless BOOT0 is high. Instead, we do
     // it with hardware...in this case, we pull a GPIO high/low depending on the configuration, connects 3.3V to
@@ -58,7 +58,7 @@ void enter_bootloader_mode_if_requested(void) {}  // not needed at all, but if a
 
 extern uint32_t __ram0_end__;
 
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
     NVIC_SystemReset();
 }
@@ -85,8 +85,8 @@ void enter_bootloader_mode_if_requested(void) {
 #    if defined(BOOTLOADER_KIIBOHD)
 /* Kiibohd Bootloader (MCHCK and Infinity KB) */
 #        define SCB_AIRCR_VECTKEY_WRITEMAGIC 0x05FA0000
-const uint8_t sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff";
-void          bootloader_jump(void) {
+const uint8_t              sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff";
+__attribute__((weak)) void bootloader_jump(void) {
     __builtin_memcpy((void *)VBAT, (const void *)sys_reset_to_loader_magic, sizeof(sys_reset_to_loader_magic));
     // request reset
     SCB->AIRCR = SCB_AIRCR_VECTKEY_WRITEMAGIC | SCB_AIRCR_SYSRESETREQ_Msk;
@@ -95,7 +95,7 @@ void          bootloader_jump(void) {
 #    else /* defined(BOOTLOADER_KIIBOHD) */
 /* Default for Kinetis - expecting an ARM Teensy */
 #        include "wait.h"
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     wait_ms(100);
     __BKPT(0);
 }

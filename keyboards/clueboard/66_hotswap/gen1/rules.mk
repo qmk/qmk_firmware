@@ -2,7 +2,8 @@
 MCU = STM32F303
 
 # LED Configuration
-LED_MATRIX_ENABLE = IS31FL3731
+LED_MATRIX_ENABLE = yes
+LED_MATRIX_DRIVER = IS31FL3731
 
 # Build Options
 #   comment out to disable the options.

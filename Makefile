@@ -272,10 +272,23 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
+    REQUIRE_PLATFORM_KEY :=
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
         KEYBOARD_RULE=all
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-avr),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := avr
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-chibios),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := chibios
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-arm_atsam),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := arm_atsam
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
@@ -447,7 +460,7 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
@@ -466,6 +479,8 @@ define BUILD
         LOG=$$$$($$(MAKE_CMD) $$(MAKE_VARS) SILENT=true 2>&1) ; \
         if [ $$$$? -gt 0 ]; \
             then $$(PRINT_ERROR_PLAIN); \
+        elif [ "$$$$LOG" = "skipped" ] ; \
+            then $$(PRINT_SKIPPED_PLAIN); \
         elif [ "$$$$LOG" != "" ] ; \
             then $$(PRINT_WARNING_PLAIN); \
         else \
@@ -637,12 +652,13 @@ else
 endif
 ifndef SKIP_VERSION
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
+else
+BUILD_DATE := 2020-01-01-00:00:00
+endif
+
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
-else
-BUILD_DATE := NA
-endif
 
 include $(ROOT_DIR)/testlist.mk
