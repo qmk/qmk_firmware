@@ -1,0 +1,6 @@
+#pragma once
+
+#undef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_SLEEP
