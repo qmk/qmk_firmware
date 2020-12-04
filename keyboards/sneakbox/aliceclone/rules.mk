@@ -22,4 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 
-LAYOUTS = alice_split_bs
+LAYOUTS = alice alice_split_bs
