@@ -22,12 +22,12 @@ def json2c(cli):
         # TODO(skullydazed/anyone): Read file contents from STDIN
         cli.log.error('Reading from STDIN is not (yet) supported.')
         cli.print_usage()
-        exit(1)
+        return False
 
     if not cli.args.filename.exists():
         cli.log.error('JSON file does not exist!')
         cli.print_usage()
-        exit(1)
+        return False
 
     # Environment processing
     if cli.args.output and cli.args.output.name == '-':
@@ -38,7 +38,7 @@ def json2c(cli):
         user_keymap = json.load(fd)
 
     # Generate the keymap
-    keymap_c = qmk.keymap.generate(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
+    keymap_c = qmk.keymap.generate_c(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)

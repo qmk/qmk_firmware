@@ -1,8 +1,8 @@
 # より詳細な `make` 手順
 
 <!---
-  original document: 0.9.0:docs/getting_started_make_guide.md
-  git diff 0.9.0 HEAD -- docs/getting_started_make_guide.md | cat
+  original document: 0.10.33:docs/getting_started_make_guide.md
+  git diff 0.10.33 HEAD -- docs/getting_started_make_guide.md | cat
 -->
 
 `make` コマンドの完全な構文は `<keyboard_folder>:<keymap>:<target>` です:
@@ -105,10 +105,6 @@ make コマンド自体にもいくつかの追加オプションがあります
 これにより、送信したい文字に対応するニーモニックを入力することで Unicode 文字を送信することができます。キーマップファイル内にマッピングテーブルを保持する必要があります。可能な全てのコードポイント( `0x10FFFF` まで)がサポートされます。
 
 詳細と制限については、[Unicode ページ](ja/feature_unicode.md) を見てください。
-
-`BLUETOOTH_ENABLE`
-
-これによりキーコードをワイヤレスで送信するために Bluefruit EZ-key と連動することができます。D2 と D3 ピンを使います。
 
 `AUDIO_ENABLE`
 
