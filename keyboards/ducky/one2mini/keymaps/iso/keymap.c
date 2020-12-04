@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, KC_APP,  _______, _______, _______, KC_CALC, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          KC_TRNS,
     _______, KC_APP,  MO(_CLR),                  _______,                            _______, KC_APP,  _______, _______
   ),
-  
+
   [_COLOUR] = LAYOUT_iso(
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_TRNS,
@@ -64,21 +64,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                   RGB_TOG,                            _______, _______, _______, _______
   ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // switch (keycode) {
-  // }
-  return true;
-}
-
-// void matrix_init_user(void) {
-
-// }
-
-// void matrix_scan_user(void) {
-
-// }
-
-// void led_set_user(uint8_t usb_led) {
-
-// }
