@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   [RGBLED] = LAYOUT(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, RGB_SAI, RGB_MOD, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, RGB_SAD, RGB_RMOD, _______, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, RGB_VAI, RGB_HUI, RGB_SAI, RGB_MOD, _______, _______, _______, _______, _______, _______,
+      _______, _______, RGB_VAD, RGB_HUD, RGB_SAD, RGB_RMOD, _______, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______, _______, _______,
       RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, TG(RGBLED)
       ),
 };
@@ -227,9 +227,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
       case RGBLED: // Underglow color
         if (clockwise) {
-          tap_code16(RGB_HUI);
+          rgblight_increase_hue();
         } else {
-          tap_code16(RGB_HUD);
+          rgblight_decrease_hue();
         }
         break;
       default: // No action
@@ -270,9 +270,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
       case RGBLED: // Underglow brightness
         if (clockwise) {
-          tap_code16(RGB_VAI);
+          rgblight_increase_val();
         } else {
-          tap_code16(RGB_VAD);
+          rgblight_decrease_val();
         }
         break;
       default: // No action
