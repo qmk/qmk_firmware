@@ -42,6 +42,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+DIP_SWITCH_ENABLE = yes
 CUSTOM_MATRIX = yes         # Custom keyscan matrix (don't force inputs)
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
