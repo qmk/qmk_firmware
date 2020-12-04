@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Yang Cui
 #define PRODUCT evk v1_3
-#define DESCRIPTION Ergonomic Vertical Keyboard (EVK) version 1.3 with Teensy 2.0
 
 /* key matrix size */
 #define MATRIX_ROWS 6
