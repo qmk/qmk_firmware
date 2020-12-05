@@ -70,6 +70,7 @@ enum custom_keycodes {
 #define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
+#define NUM     TG(_NUM)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,    _______,WIN,    _______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,_______,   _______,_______,
         _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,            _______,
-        _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,TG(_NUM),MAC,   _______,_______,_______,_______,_______,_______,
+        _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )
 };
