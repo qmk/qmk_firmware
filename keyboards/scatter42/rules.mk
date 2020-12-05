@@ -20,6 +20,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-ENCODER_ENABLE = yes
-
-LAYOUTS = alice alice_split_bs
+SPLIT_KEYBOARD = yes
