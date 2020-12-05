@@ -127,9 +127,12 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 break;
 
             case KC_AP_LED_PREV_PROFILE:
-               annepro2LedPrevProfile();
+                annepro2LedPrevProfile();
                 break;
 
+            case KC_AP_LED_NEXT_INTENSITY:
+                annepro2LedNextIntensity();
+                return false;
 
             default:
                 break;
