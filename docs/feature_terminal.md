@@ -1,6 +1,6 @@
 # Terminal
 
-> This feature is currently *huge* at 4400 bytes, and should probably only be put on boards with a lot of memory, or for fun.
+> This feature is currently *huge*, and should probably only be put on boards with a lot of memory, or for fun.
 
 The terminal feature is a command-line-like interface designed to communicate through a text editor with keystrokes. It's beneficial to turn off auto-indent features in your editor.
 
@@ -56,7 +56,7 @@ Outputs the last 5 commands entered
 1. help
 2. about
 3. keymap 0
-4. help 
+4. help
 5. flush-buffer
 ```
 

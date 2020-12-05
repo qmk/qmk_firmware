@@ -108,10 +108,6 @@ enum function_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [0]  = ACTION_LAYER_MOMENTARY(2),  // Momentary Fn overlay
-    [1]  = ACTION_LAYER_TOGGLE(1),     // Toggle Arrow Layer overlay
-    [2]  = ACTION_LAYER_TAP_KEY(2, KC_CAPS), // Tap to toggle caps lock and hold to activate function layer
-    [3]  = ACTION_LAYER_TOGGLE(3),     // Toggle Underglow Layer overlay
     [4]  = ACTION_FUNCTION(RGBLED_TOGGLE), //Turn on/off underglow
     [5]  = ACTION_FUNCTION(RGBLED_STEP_MODE), // Change underglow mode
     [6]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
@@ -121,7 +117,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [10] = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
     [11] = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
     [12] = ACTION_FUNCTION(SHIFT_ESC),
-    [13] = ACTION_LAYER_TAP_KEY(1, KC_SPACE),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

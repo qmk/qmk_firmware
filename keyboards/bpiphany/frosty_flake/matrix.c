@@ -15,42 +15,15 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
 #include <util/delay.h>
-#include "print.h"
-#include "debug.h"
-#include "util.h"
 #include "matrix.h"
 
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
-#endif
-static uint8_t debouncing = DEBOUNCING_DELAY;
-
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
 static matrix_row_t scan_col(void) {
+    // Each of the 8 columns is read off pins as below
+    //   7  6  5  4  3  2  1  0
+    // ,--,--,--,--,--,--,--,--,
+    // |B0|B3|B2|B1|B6|B4|B5|C7|
+    // `--`--`--`--`--`--`--`--`
     return (
         (PINC&(1<<7) ? 0 : ((matrix_row_t)1<<0)) |
         (PINB&(1<<5) ? 0 : ((matrix_row_t)1<<1)) |
@@ -63,8 +36,8 @@ static matrix_row_t scan_col(void) {
     );
 }
 
-static void select_col(uint8_t col) {
-    switch (col) {
+static void select_row(uint8_t row) {
+    switch (row) {
         case  0: PORTD = (PORTD & ~0b01111011) | 0b00011011; break;
         case  1: PORTD = (PORTD & ~0b01111011) | 0b01000011; break;
         case  2: PORTD = (PORTD & ~0b01111011) | 0b01101010; break;
@@ -86,7 +59,7 @@ static void select_col(uint8_t col) {
     }
 }
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
     /* Row output pins */
     DDRD  |=  0b01111011;
     /* Column input pins */
@@ -94,62 +67,19 @@ void matrix_init(void) {
     DDRB  &= ~0b01111111;
     PORTC |=  0b10000000;
     PORTB |=  0b01111111;
-
-    for (uint8_t i=0; i < MATRIX_ROWS; i++)
-        matrix[i] = matrix_debouncing[i] = 0;
-
-    matrix_init_quantum();
 }
 
-uint8_t matrix_scan(void) {
-    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-        select_col(col);
-        _delay_us(3);
-        matrix_row_t col_scan = scan_col();
-        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-            bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
-            bool curr_bit = col_scan & (1<<row);
-            if (prev_bit != curr_bit) {
-                matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
-                debouncing = DEBOUNCING_DELAY;
-            }
-        }
-    }
-
-    if (debouncing) {
-        if (--debouncing)
-            _delay_ms(1);
-        else
-            for (uint8_t i = 0; i < MATRIX_ROWS; i++)
-                matrix[i] = matrix_debouncing[i];
-    }
-
-    matrix_scan_quantum();
-    return 1;
-}
-
-inline matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
-
-void matrix_print(void) {
-#ifndef NO_PRINT
-    print("\nr\\c ABCDEFGHIJKLMNOPQR\n");
+// matrix is 18 uint8_t.
+// we select the row (one of 18), then read the column
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+	bool has_changed = false;
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        matrix_row_t matrix_row = matrix_get_row(row);
-        xprintf("%02X: ", row);
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            bool curr_bit = matrix_row & (1<<col);
-            xprintf("%c", curr_bit ? '*' : '.');
-        }
-        print("\n");
+        matrix_row_t orig = current_matrix[row];
+        select_row(row);
+        _delay_us(3);
+        current_matrix[row] = scan_col();
+        has_changed |= (orig != current_matrix[row]);
     }
-#endif
-}
 
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++)
-        count += bitpop32(matrix[row]);
-    return count;
+    return has_changed;
 }

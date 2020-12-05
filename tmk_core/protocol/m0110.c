@@ -43,98 +43,95 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "m0110.h"
 #include "debug.h"
 
-
-static inline uint8_t raw2scan(uint8_t raw);
-static inline uint8_t inquiry(void);
-static inline uint8_t instant(void);
-static inline void clock_lo(void);
-static inline void clock_hi(void);
-static inline bool clock_in(void);
-static inline void data_lo(void);
-static inline void data_hi(void);
-static inline bool data_in(void);
+static inline uint8_t  raw2scan(uint8_t raw);
+static inline uint8_t  inquiry(void);
+static inline uint8_t  instant(void);
+static inline void     clock_lo(void);
+static inline void     clock_hi(void);
+static inline bool     clock_in(void);
+static inline void     data_lo(void);
+static inline void     data_hi(void);
+static inline bool     data_in(void);
 static inline uint16_t wait_clock_lo(uint16_t us);
 static inline uint16_t wait_clock_hi(uint16_t us);
 static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
-static inline void idle(void);
-static inline void request(void);
+static inline void     idle(void);
+static inline void     request(void);
 
+#define WAIT_US(stat, us, err)  \
+    do {                        \
+        if (!wait_##stat(us)) { \
+            m0110_error = err;  \
+            goto ERROR;         \
+        }                       \
+    } while (0)
 
-#define WAIT_US(stat, us, err) do { \
-    if (!wait_##stat(us)) { \
-        m0110_error = err; \
-        goto ERROR; \
-    } \
-} while (0)
+#define WAIT_MS(stat, ms, err)       \
+    do {                             \
+        uint16_t _ms = ms;           \
+        while (_ms) {                \
+            if (wait_##stat(1000)) { \
+                break;               \
+            }                        \
+            _ms--;                   \
+        }                            \
+        if (_ms == 0) {              \
+            m0110_error = err;       \
+            goto ERROR;              \
+        }                            \
+    } while (0)
 
-#define WAIT_MS(stat, ms, err) do { \
-    uint16_t _ms = ms; \
-    while (_ms) { \
-        if (wait_##stat(1000)) { \
-            break; \
-        } \
-        _ms--; \
-    } \
-    if (_ms == 0) { \
-        m0110_error = err; \
-        goto ERROR; \
-    } \
-} while (0)
-
-#define KEY(raw)        ((raw) & 0x7f)
-#define IS_BREAK(raw)   (((raw) & 0x80) == 0x80)
-
+#define KEY(raw) ((raw)&0x7f)
+#define IS_BREAK(raw) (((raw)&0x80) == 0x80)
 
 uint8_t m0110_error = 0;
 
-
-void m0110_init(void)
-{
+void m0110_init(void) {
     idle();
     _delay_ms(1000);
 
-/* Not needed to initialize in fact.
-    uint8_t data;
-    m0110_send(M0110_MODEL);
-    data = m0110_recv();
-    print("m0110_init model: "); phex(data); print("\n");
+    /* Not needed to initialize in fact.
+        uint8_t data;
+        m0110_send(M0110_MODEL);
+        data = m0110_recv();
+        print("m0110_init model: "); phex(data); print("\n");
 
-    m0110_send(M0110_TEST);
-    data = m0110_recv();
-    print("m0110_init test: "); phex(data); print("\n");
-*/
+        m0110_send(M0110_TEST);
+        data = m0110_recv();
+        print("m0110_init test: "); phex(data); print("\n");
+    */
 }
 
-uint8_t m0110_send(uint8_t data)
-{
+uint8_t m0110_send(uint8_t data) {
     m0110_error = 0;
 
     request();
     WAIT_MS(clock_lo, 250, 1);  // keyboard may block long time
     for (uint8_t bit = 0x80; bit; bit >>= 1) {
         WAIT_US(clock_lo, 250, 3);
-        if (data&bit) {
+        if (data & bit) {
             data_hi();
         } else {
             data_lo();
         }
         WAIT_US(clock_hi, 200, 4);
     }
-    _delay_us(100); // hold last bit for 80us
+    _delay_us(100);  // hold last bit for 80us
     idle();
     return 1;
 ERROR:
-    print("m0110_send err: "); phex(m0110_error); print("\n");
+    print("m0110_send err: ");
+    phex(m0110_error);
+    print("\n");
     _delay_ms(500);
     idle();
     return 0;
 }
 
-uint8_t m0110_recv(void)
-{
+uint8_t m0110_recv(void) {
     uint8_t data = 0;
-    m0110_error = 0;
+    m0110_error  = 0;
 
     WAIT_MS(clock_lo, 250, 1);  // keyboard may block long time
     for (uint8_t i = 0; i < 8; i++) {
@@ -148,7 +145,9 @@ uint8_t m0110_recv(void)
     idle();
     return data;
 ERROR:
-    print("m0110_recv err: "); phex(m0110_error); print("\n");
+    print("m0110_recv err: ");
+    phex(m0110_error);
+    print("\n");
     _delay_ms(500);
     idle();
     return 0xFF;
@@ -199,26 +198,25 @@ During Calc key is hold:
     *b: Shift(d) event is ignored.
     *c: Arrow/Calc(d) event is ignored.
 */
-uint8_t m0110_recv_key(void)
-{
-    static uint8_t keybuf = 0x00;
+uint8_t m0110_recv_key(void) {
+    static uint8_t keybuf  = 0x00;
     static uint8_t keybuf2 = 0x00;
-    static uint8_t rawbuf = 0x00;
-    uint8_t raw, raw2, raw3;
+    static uint8_t rawbuf  = 0x00;
+    uint8_t        raw, raw2, raw3;
 
     if (keybuf) {
-        raw = keybuf;
+        raw    = keybuf;
         keybuf = 0x00;
         return raw;
     }
     if (keybuf2) {
-        raw = keybuf2;
+        raw     = keybuf2;
         keybuf2 = 0x00;
         return raw;
     }
 
     if (rawbuf) {
-        raw = rawbuf;
+        raw    = rawbuf;
         rawbuf = 0x00;
     } else {
         raw = instant();  // Use INSTANT for better response. Should be INQUIRY ?
@@ -233,8 +231,8 @@ uint8_t m0110_recv_key(void)
                 case M0110_ARROW_RIGHT:
                     if (IS_BREAK(raw2)) {
                         // Case B,F,N:
-                        keybuf = (raw2scan(raw2) | M0110_CALC_OFFSET); // Calc(u)
-                        return (raw2scan(raw2) | M0110_KEYPAD_OFFSET); // Arrow(u)
+                        keybuf = (raw2scan(raw2) | M0110_CALC_OFFSET);  // Calc(u)
+                        return (raw2scan(raw2) | M0110_KEYPAD_OFFSET);  // Arrow(u)
                     }
                     break;
             }
@@ -247,7 +245,7 @@ uint8_t m0110_recv_key(void)
                 case M0110_SHIFT:
                     // Case: 5-8,C,G,H
                     rawbuf = raw2;
-                    return raw2scan(raw); // Shift(d/u)
+                    return raw2scan(raw);  // Shift(d/u)
                     break;
                 case M0110_KEYPAD:
                     // Shift + Arrow, Calc, or etc.
@@ -261,38 +259,38 @@ uint8_t m0110_recv_key(void)
                                 if (IS_BREAK(raw3)) {
                                     // Case 4:
                                     print("(4)\n");
-                                    keybuf2 = raw2scan(raw); // Shift(u)
-                                    keybuf  = (raw2scan(raw3) | M0110_CALC_OFFSET); // Calc(u)
-                                    return (raw2scan(raw3) | M0110_KEYPAD_OFFSET);  // Arrow(u)
+                                    keybuf2 = raw2scan(raw);                         // Shift(u)
+                                    keybuf  = (raw2scan(raw3) | M0110_CALC_OFFSET);  // Calc(u)
+                                    return (raw2scan(raw3) | M0110_KEYPAD_OFFSET);   // Arrow(u)
                                 } else {
                                     // Case 3:
                                     print("(3)\n");
-                                    return (raw2scan(raw)); // Shift(u)
+                                    return (raw2scan(raw));  // Shift(u)
                                 }
                             } else {
                                 if (IS_BREAK(raw3)) {
                                     // Case 2:
                                     print("(2)\n");
-                                    keybuf  = (raw2scan(raw3) | M0110_CALC_OFFSET); // Calc(u)
+                                    keybuf = (raw2scan(raw3) | M0110_CALC_OFFSET);  // Calc(u)
                                     return (raw2scan(raw3) | M0110_KEYPAD_OFFSET);  // Arrow(u)
                                 } else {
                                     // Case 1:
                                     print("(1)\n");
-                                    return (raw2scan(raw3) | M0110_CALC_OFFSET); // Calc(d)
+                                    return (raw2scan(raw3) | M0110_CALC_OFFSET);  // Calc(d)
                                 }
                             }
                             break;
                         default:
                             // Shift + Keypad
                             keybuf = (raw2scan(raw3) | M0110_KEYPAD_OFFSET);
-                            return raw2scan(raw);   // Shift(d/u)
+                            return raw2scan(raw);  // Shift(d/u)
                             break;
                     }
                     break;
                 default:
                     // Shift + Normal keys
                     keybuf = raw2scan(raw2);
-                    return raw2scan(raw);   // Shift(d/u)
+                    return raw2scan(raw);  // Shift(d/u)
                     break;
             }
             break;
@@ -303,102 +301,96 @@ uint8_t m0110_recv_key(void)
     }
 }
 
+static inline uint8_t raw2scan(uint8_t raw) { return (raw == M0110_NULL) ? M0110_NULL : ((raw == M0110_ERROR) ? M0110_ERROR : (((raw & 0x80) | ((raw & 0x7F) >> 1)))); }
 
-static inline uint8_t raw2scan(uint8_t raw) {
-    return (raw == M0110_NULL) ?  M0110_NULL : (
-                (raw == M0110_ERROR) ?  M0110_ERROR : (
-                    ((raw&0x80) | ((raw&0x7F)>>1))
-                )
-           );
-}
-
-static inline uint8_t inquiry(void)
-{
+static inline uint8_t inquiry(void) {
     m0110_send(M0110_INQUIRY);
     return m0110_recv();
 }
 
-static inline uint8_t instant(void)
-{
+static inline uint8_t instant(void) {
     m0110_send(M0110_INSTANT);
     uint8_t data = m0110_recv();
     if (data != M0110_NULL) {
-        debug_hex(data); debug(" ");
+        debug_hex(data);
+        debug(" ");
     }
     return data;
 }
 
-static inline void clock_lo()
-{
-    M0110_CLOCK_PORT &= ~(1<<M0110_CLOCK_BIT);
-    M0110_CLOCK_DDR  |=  (1<<M0110_CLOCK_BIT);
+static inline void clock_lo() {
+    M0110_CLOCK_PORT &= ~(1 << M0110_CLOCK_BIT);
+    M0110_CLOCK_DDR |= (1 << M0110_CLOCK_BIT);
 }
-static inline void clock_hi()
-{
+static inline void clock_hi() {
     /* input with pull up */
-    M0110_CLOCK_DDR  &= ~(1<<M0110_CLOCK_BIT);
-    M0110_CLOCK_PORT |=  (1<<M0110_CLOCK_BIT);
+    M0110_CLOCK_DDR &= ~(1 << M0110_CLOCK_BIT);
+    M0110_CLOCK_PORT |= (1 << M0110_CLOCK_BIT);
 }
-static inline bool clock_in()
-{
-    M0110_CLOCK_DDR  &= ~(1<<M0110_CLOCK_BIT);
-    M0110_CLOCK_PORT |=  (1<<M0110_CLOCK_BIT);
+static inline bool clock_in() {
+    M0110_CLOCK_DDR &= ~(1 << M0110_CLOCK_BIT);
+    M0110_CLOCK_PORT |= (1 << M0110_CLOCK_BIT);
     _delay_us(1);
-    return M0110_CLOCK_PIN&(1<<M0110_CLOCK_BIT);
+    return M0110_CLOCK_PIN & (1 << M0110_CLOCK_BIT);
 }
-static inline void data_lo()
-{
-    M0110_DATA_PORT &= ~(1<<M0110_DATA_BIT);
-    M0110_DATA_DDR  |=  (1<<M0110_DATA_BIT);
+static inline void data_lo() {
+    M0110_DATA_PORT &= ~(1 << M0110_DATA_BIT);
+    M0110_DATA_DDR |= (1 << M0110_DATA_BIT);
 }
-static inline void data_hi()
-{
+static inline void data_hi() {
     /* input with pull up */
-    M0110_DATA_DDR  &= ~(1<<M0110_DATA_BIT);
-    M0110_DATA_PORT |=  (1<<M0110_DATA_BIT);
+    M0110_DATA_DDR &= ~(1 << M0110_DATA_BIT);
+    M0110_DATA_PORT |= (1 << M0110_DATA_BIT);
 }
-static inline bool data_in()
-{
-    M0110_DATA_DDR  &= ~(1<<M0110_DATA_BIT);
-    M0110_DATA_PORT |=  (1<<M0110_DATA_BIT);
+static inline bool data_in() {
+    M0110_DATA_DDR &= ~(1 << M0110_DATA_BIT);
+    M0110_DATA_PORT |= (1 << M0110_DATA_BIT);
     _delay_us(1);
-    return M0110_DATA_PIN&(1<<M0110_DATA_BIT);
+    return M0110_DATA_PIN & (1 << M0110_DATA_BIT);
 }
 
-static inline uint16_t wait_clock_lo(uint16_t us)
-{
-    while (clock_in()  && us) { asm(""); _delay_us(1); us--; }
+static inline uint16_t wait_clock_lo(uint16_t us) {
+    while (clock_in() && us) {
+        asm("");
+        _delay_us(1);
+        us--;
+    }
     return us;
 }
-static inline uint16_t wait_clock_hi(uint16_t us)
-{
-    while (!clock_in() && us) { asm(""); _delay_us(1); us--; }
+static inline uint16_t wait_clock_hi(uint16_t us) {
+    while (!clock_in() && us) {
+        asm("");
+        _delay_us(1);
+        us--;
+    }
     return us;
 }
-static inline uint16_t wait_data_lo(uint16_t us)
-{
-    while (data_in() && us)  { asm(""); _delay_us(1); us--; }
+static inline uint16_t wait_data_lo(uint16_t us) {
+    while (data_in() && us) {
+        asm("");
+        _delay_us(1);
+        us--;
+    }
     return us;
 }
-static inline uint16_t wait_data_hi(uint16_t us)
-{
-    while (!data_in() && us)  { asm(""); _delay_us(1); us--; }
+static inline uint16_t wait_data_hi(uint16_t us) {
+    while (!data_in() && us) {
+        asm("");
+        _delay_us(1);
+        us--;
+    }
     return us;
 }
 
-static inline void idle(void)
-{
+static inline void idle(void) {
     clock_hi();
     data_hi();
 }
 
-static inline void request(void)
-{
+static inline void request(void) {
     clock_hi();
     data_lo();
 }
-
-
 
 /*
 Primitive M0110 Library for AVR

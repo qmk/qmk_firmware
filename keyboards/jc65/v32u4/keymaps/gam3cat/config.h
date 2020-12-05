@@ -1,4 +1,8 @@
-#include "../../config.h"
+#pragma once
+
+//Force NKRO to be enabled.
+#define FORCE_NKRO
+
 //GRAVE_ESC override for CTRL+SHIFT+ESC Windows task manager shortcut.
 #define GRAVE_ESC_CTRL_OVERRIDE
 

@@ -26,7 +26,7 @@ void matrix_init_kb(void)
 
 #ifdef AUDIO_ENABLE
     audio_init();
-    PLAY_NOTE_ARRAY(test_sound, false, STACCATO);
+    PLAY_SONG(test_sound);
     // Fix port B5
     cbi(DDRB, 5);
     sbi(PORTB, 5);

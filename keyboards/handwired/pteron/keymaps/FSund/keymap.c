@@ -10,10 +10,8 @@ enum pteron_layers {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-// use S() to produce shifted versions of keys
-// #define S(kc) LSFT(kc) // defined by default
-
 // alt gr
+#undef G
 #define G(kc) RALT(kc)
 
 // custom keycodes

@@ -5,12 +5,12 @@ Helix
 
 A compact split ortholinear keyboard.
 
-Keyboard Maintainer: [Makoto Kurauchi](https://github.com/MakotoKurauchi/) [@pluis9](https://twitter.com/pluis9)  
-Hardware Supported: Helix PCB Alpha, Beta, Pro Micro  
-Hardware Availability: [PCB & Case Data](https://github.com/MakotoKurauchi/helix), [Yushakobo Shop](https://yushakobo.jp/shop/)
+Keyboard Maintainer: [Makoto Kurauchi](https://github.com/MakotoKurauchi/) [@pluis9](https://twitter.com/pluis9) [yushakobo](https://github.com/yushakobo)
+Hardware Supported: Helix PCB Alpha, Beta, Rev3, Pro Micro  
+Hardware Availability: [PCB & Case Data](https://github.com/MakotoKurauchi/helix), [Yushakobo Shop](https://yushakobo.jp/shop/), [Little Keyboards](https://littlekeyboards.com/collections/helix)
 
-Make example for this keyboard (after setting up your build environment):
+## How to build
+ * [Helix how to Customize and Compile](rev2/keymaps/default/readme.md#customize)
+ * [HelixPico how to Customize and Compile](pico/keymaps/default/readme.md#customize)
 
-    make helix:default
-
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

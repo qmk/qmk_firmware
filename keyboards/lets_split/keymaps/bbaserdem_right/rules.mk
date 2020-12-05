@@ -21,6 +21,3 @@ KEY_LOCK_ENABLE = no 		# Allows locking any key. Not used
 UNICODE_ENABLE = no			# Used for unicode character emulation
 EXTRAKEY_ENABLE = no		# OS signals like volume control
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,    KC_T,                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KN_AO,
     OSM_LCTL, KC_A,     KC_S,     KC_D,     KC_F,    KC_G,                       KC_H,    KC_J,    KC_K,    KC_L,    KN_OE,    KN_AE,
     OSM_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,    KC_B,                       KC_N,    KC_M,    KC_COMM, KC_DOT,  KN_MINS,  OSM_LSFT,
-    MO(NAV),  OSM_LCTL, OSM_LALT, KC_LGUI,  MO(SYM), KC_BSPC,  KC_DELT, KC_ENT,  KC_SPC,  MO(SYM), KC_LEAD, KC_LALT, KC_LCTRL, KC_HYP
+    MO(NAV),  OSM_LCTL, OSM_LALT, KC_LGUI,  MO(SYM), KC_BSPC,  KC_DEL,  KC_ENT,  KC_SPC,  MO(SYM), KC_LEAD, KC_LALT, KC_LCTRL, KC_HYP
   ),
 
   [NAV] = LAYOUT(
@@ -170,9 +170,6 @@ static void m_handle_kf (keyrecord_t *record, uint8_t id) {
     unregister_code (code);
   }
 }
-
-const uint16_t PROGMEM fn_actions[] = {
-};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {

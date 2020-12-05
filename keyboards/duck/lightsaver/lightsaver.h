@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIGHTSAVER_H
-#define LIGHTSAVER_H
+#pragma once
 
 #include "quantum.h"
 
@@ -37,4 +36,3 @@
 /* 5 */   { K0A, K0B, K0C, NO,  NO,  NO,  NO,  NO,  K0I, NO,  K0K, NO,  K0M, K0N, K0O,   K0P, K0Q, K0R } \
 }
 
-#endif

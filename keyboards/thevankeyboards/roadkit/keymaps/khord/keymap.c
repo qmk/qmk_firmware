@@ -6,10 +6,6 @@ extern keymap_config_t keymap_config;
 #define _L1 1
 #define _L2 2
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum custom_keycodes {
   NUMPAD = SAFE_RANGE,
   ADMIN,

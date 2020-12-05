@@ -1,5 +1,18 @@
 <!-- -*- mode: markdown; fill-column: 8192 -*- -->
 
+## v1.12
+
+*2018-11-22*
+
+### Overall changes
+
+* Updated to work with QMK master.
+
+### Miscellaneous
+
+* The `😂` symbol can be entered with UCIS.
+* `LEAD r` now inputs `Right Alt`.
+
 ## v1.11
 
 *2017-10-01*

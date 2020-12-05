@@ -17,40 +17,28 @@
 #include "api.h"
 #include "quantum.h"
 
-void dword_to_bytes(uint32_t dword, uint8_t * bytes) {
+void dword_to_bytes(uint32_t dword, uint8_t* bytes) {
     bytes[0] = (dword >> 24) & 0xFF;
-    bytes[1] = (dword >> 16) & 0xFF; 
-    bytes[2] = (dword >> 8) & 0xFF; 
-    bytes[3] = (dword >> 0) & 0xFF; 
+    bytes[1] = (dword >> 16) & 0xFF;
+    bytes[2] = (dword >> 8) & 0xFF;
+    bytes[3] = (dword >> 0) & 0xFF;
 }
 
-uint32_t bytes_to_dword(uint8_t * bytes, uint8_t index) {
-    return ((uint32_t)bytes[index + 0] << 24) | ((uint32_t)bytes[index + 1] << 16) | ((uint32_t)bytes[index + 2] << 8) | (uint32_t)bytes[index + 3];
-}
+uint32_t bytes_to_dword(uint8_t* bytes, uint8_t index) { return ((uint32_t)bytes[index + 0] << 24) | ((uint32_t)bytes[index + 1] << 16) | ((uint32_t)bytes[index + 2] << 8) | (uint32_t)bytes[index + 3]; }
 
-__attribute__ ((weak))
-bool process_api_quantum(uint8_t length, uint8_t * data) {
-    return process_api_keyboard(length, data);
-}
+__attribute__((weak)) bool process_api_quantum(uint8_t length, uint8_t* data) { return process_api_keyboard(length, data); }
 
-__attribute__ ((weak))
-bool process_api_keyboard(uint8_t length, uint8_t * data) {
-    return process_api_user(length, data);
-}
+__attribute__((weak)) bool process_api_keyboard(uint8_t length, uint8_t* data) { return process_api_user(length, data); }
 
-__attribute__ ((weak))
-bool process_api_user(uint8_t length, uint8_t * data) {
-    return true;
-}
+__attribute__((weak)) bool process_api_user(uint8_t length, uint8_t* data) { return true; }
 
-void process_api(uint16_t length, uint8_t * data) {
+void process_api(uint16_t length, uint8_t* data) {
     // SEND_STRING("\nRX: ");
     // for (uint8_t i = 0; i < length; i++) {
     //     send_byte(data[i]);
     //     SEND_STRING(" ");
     // }
-    if (!process_api_quantum(length, data))
-        return;
+    if (!process_api_quantum(length, data)) return;
 
     switch (data[0]) {
         case MT_SET_DATA:
@@ -65,10 +53,10 @@ void process_api(uint16_t length, uint8_t * data) {
                     break;
                 }
                 case DT_RGBLIGHT: {
-                    #ifdef RGBLIGHT_ENABLE
-                        uint32_t rgblight = bytes_to_dword(data, 2);
-                        rgblight_update_dword(rgblight);
-                    #endif
+#ifdef RGBLIGHT_ENABLE
+                    uint32_t rgblight = bytes_to_dword(data, 2);
+                    eeconfig_update_rgblight(rgblight);
+#endif
                     break;
                 }
             }
@@ -79,12 +67,12 @@ void process_api(uint16_t length, uint8_t * data) {
                     break;
                 }
                 case DT_DEBUG: {
-                    uint8_t debug_bytes[1] = { eeprom_read_byte(EECONFIG_DEBUG) };
+                    uint8_t debug_bytes[1] = {eeprom_read_byte(EECONFIG_DEBUG)};
                     MT_GET_DATA_ACK(DT_DEBUG, debug_bytes, 1);
                     break;
                 }
                 case DT_DEFAULT_LAYER: {
-                    uint8_t default_bytes[1] = { eeprom_read_byte(EECONFIG_DEFAULT_LAYER) };
+                    uint8_t default_bytes[1] = {eeprom_read_byte(EECONFIG_DEFAULT_LAYER)};
                     MT_GET_DATA_ACK(DT_DEFAULT_LAYER, default_bytes, 1);
                     break;
                 }
@@ -95,35 +83,35 @@ void process_api(uint16_t length, uint8_t * data) {
                     break;
                 }
                 case DT_AUDIO: {
-                    #ifdef AUDIO_ENABLE
-                        uint8_t audio_bytes[1] = { eeprom_read_byte(EECONFIG_AUDIO) };
-                        MT_GET_DATA_ACK(DT_AUDIO, audio_bytes, 1);
-                    #else
-                        MT_GET_DATA_ACK(DT_AUDIO, NULL, 0);
-                    #endif
+#ifdef AUDIO_ENABLE
+                    uint8_t audio_bytes[1] = {eeprom_read_byte(EECONFIG_AUDIO)};
+                    MT_GET_DATA_ACK(DT_AUDIO, audio_bytes, 1);
+#else
+                    MT_GET_DATA_ACK(DT_AUDIO, NULL, 0);
+#endif
                     break;
                 }
                 case DT_BACKLIGHT: {
-                    #ifdef BACKLIGHT_ENABLE
-                        uint8_t backlight_bytes[1] = { eeprom_read_byte(EECONFIG_BACKLIGHT) };
-                        MT_GET_DATA_ACK(DT_BACKLIGHT, backlight_bytes, 1);
-                    #else
-                        MT_GET_DATA_ACK(DT_BACKLIGHT, NULL, 0);
-                    #endif
+#ifdef BACKLIGHT_ENABLE
+                    uint8_t backlight_bytes[1] = {eeprom_read_byte(EECONFIG_BACKLIGHT)};
+                    MT_GET_DATA_ACK(DT_BACKLIGHT, backlight_bytes, 1);
+#else
+                    MT_GET_DATA_ACK(DT_BACKLIGHT, NULL, 0);
+#endif
                     break;
                 }
                 case DT_RGBLIGHT: {
-                    #ifdef RGBLIGHT_ENABLE
-                        uint8_t rgblight_bytes[4];
-                        dword_to_bytes(eeconfig_read_rgblight(), rgblight_bytes);
-                        MT_GET_DATA_ACK(DT_RGBLIGHT, rgblight_bytes, 4);
-                    #else
-                        MT_GET_DATA_ACK(DT_RGBLIGHT, NULL, 0);
-                    #endif
+#ifdef RGBLIGHT_ENABLE
+                    uint8_t rgblight_bytes[4];
+                    dword_to_bytes(eeconfig_read_rgblight(), rgblight_bytes);
+                    MT_GET_DATA_ACK(DT_RGBLIGHT, rgblight_bytes, 4);
+#else
+                    MT_GET_DATA_ACK(DT_RGBLIGHT, NULL, 0);
+#endif
                     break;
                 }
                 case DT_KEYMAP_OPTIONS: {
-                    uint8_t keymap_bytes[1] = { eeconfig_read_keymap() };
+                    uint8_t keymap_bytes[1] = {eeconfig_read_keymap()};
                     MT_GET_DATA_ACK(DT_KEYMAP_OPTIONS, keymap_bytes, 1);
                     break;
                 }
@@ -172,24 +160,23 @@ void process_api(uint16_t length, uint8_t * data) {
             break;
         case MT_TYPE_ERROR:
             break;
-        default: ; // command not recognised
+        default:;  // command not recognised
             SEND_BYTES(MT_TYPE_ERROR, DT_NONE, data, length);
             break;
 
-        // #ifdef RGBLIGHT_ENABLE
-        // case 0x27: ; // RGB LED functions
-        //     switch (*data++) {
-        //         case 0x00: ; // Update HSV
-        //             rgblight_sethsv((data[0] << 8 | data[1]) % 360, data[2], data[3]);
-        //             break;
-        //         case 0x01: ; // Update RGB
-        //             break;
-        //         case 0x02: ; // Update mode
-        //             rgblight_mode(data[0]);
-        //             break;
-        //     }
-        //     break;
-        // #endif
+            // #ifdef RGBLIGHT_ENABLE
+            // case 0x27: ; // RGB LED functions
+            //     switch (*data++) {
+            //         case 0x00: ; // Update HSV
+            //             rgblight_sethsv((data[0] << 8 | data[1]) % 360, data[2], data[3]);
+            //             break;
+            //         case 0x01: ; // Update RGB
+            //             break;
+            //         case 0x02: ; // Update mode
+            //             rgblight_mode(data[0]);
+            //             break;
+            //     }
+            //     break;
+            // #endif
     }
-
 }

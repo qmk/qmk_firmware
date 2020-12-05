@@ -36,11 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
 
-#if (DEBOUNCING_DELAY > 0)
+#if (DEBOUNCE > 0)
     static uint16_t debouncing_time;
     static bool debouncing = false;
 #endif
@@ -155,7 +155,7 @@ uint8_t matrix_scan(void)
 
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
 
             if (matrix_changed) {
@@ -173,7 +173,7 @@ uint8_t matrix_scan(void)
 
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
             if (matrix_changed) {
                 debouncing = true;
@@ -187,29 +187,29 @@ uint8_t matrix_scan(void)
 
 #endif
 
-#   if (DEBOUNCING_DELAY > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+#   if (DEBOUNCE > 0)
+        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
                 matrix[i] = matrix_debouncing[i];
             }
             debouncing = false;
         }
 #   endif
-        
+
         if (USB_DeviceState != DEVICE_STATE_Configured){
-            txbuffer[1] = 0x55;
+            i2c_slave_reg[1] = 0x55;
             for (uint8_t i = 0; i < MATRIX_ROWS; i++){
-                txbuffer[i+2] = matrix[i]; //send matrix over i2c
+                i2c_slave_reg[i+2] = matrix[i]; //send matrix over i2c
             }
         }
-    
+
     matrix_scan_quantum();
     return 1;
 }
 
 bool matrix_is_modified(void)
 {
-#if (DEBOUNCING_DELAY > 0)
+#if (DEBOUNCE > 0)
     if (debouncing) return false;
 #endif
     return true;
@@ -218,7 +218,7 @@ bool matrix_is_modified(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
@@ -396,9 +396,9 @@ static void unselect_cols(void)
 
 //this replases tmk code
 void matrix_setup(void){
-    
+
     if (USB_DeviceState != DEVICE_STATE_Configured){
-        i2c_init(SLAVE_I2C_ADDRESS); //setup address of slave i2c
+        i2c_slave_init(SLAVE_I2C_ADDRESS); //setup address of slave i2c
         sei(); //enable interupts
     }
 }

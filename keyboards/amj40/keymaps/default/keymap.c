@@ -21,14 +21,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-
-
-
-
-// increase readability 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* Default Layer
      * ,-----------------------------------------------------------.
@@ -45,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,   KC_BSPC,\
         KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_ENT,\
         KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,\
-        KC_LCTL, KC_LGUI, KC_LALT,          F(0),           F(1),        F(2), KC_RALT, KC_RCTL \
+        KC_LCTL, KC_LGUI, KC_LALT,          LT(_LOWER, KC_SPC),LT(_RAISE, KC_SPC),LT(_ADJUST, KC_LGUI), KC_RALT, KC_RCTL \
 		),
 
     /* Function Layer 1 HHKB style
@@ -105,34 +97,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
 
 };
-
-
-		
-
-enum function_id {
-    LAUNCH,
-    RGBLED_TOGGLE,
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-	[0]  = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
-	[1]  = ACTION_LAYER_TAP_KEY(_RAISE, KC_SPC),
-	[2]  = ACTION_LAYER_TAP_KEY(_ADJUST, KC_LGUI),
-
-};
-
-
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-   
-    return MACRO_NONE;
-};
-
-
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  

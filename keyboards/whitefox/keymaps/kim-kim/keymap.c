@@ -20,9 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
 #define ___T___ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
@@ -43,7 +41,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,     KC_DEL, \
         KC_LCTRL, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_NUHS,KC_ENT,      KC_PGUP,\
         KC_LSFT,XXXXXXX,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,     KC_UP,  KC_PGDN,\
-        KC_LALT,KC_FN0,KC_LGUI,               KC_SPC,           KC_RGUI,KC_RALT, XXXXXXX,     KC_LEFT,KC_DOWN,KC_RGHT \
+        KC_LALT,MO(1), KC_LGUI,               KC_SPC,           KC_RGUI,KC_RALT, XXXXXXX,     KC_LEFT,KC_DOWN,KC_RGHT \
     ),
     [1] = LAYOUT( \
         _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,_______,_______,\
@@ -59,8 +57,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define ACTION_LEDS_GAME 2
 
 const uint16_t fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),
-    [1] = ACTION_LAYER_MOMENTARY(2),
     [2] = ACTION_FUNCTION(ACTION_LEDS_ALL),
     [3] = ACTION_FUNCTION(ACTION_LEDS_GAME),
 
@@ -70,24 +66,3 @@ const uint16_t fn_actions[] = {
     [7] = ACTION_USAGE_CONSUMER(0x1A0),
 
 };
-
-/* custom action function */
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  /*
-  (void)opt;
-  switch(id) {
-    case ACTION_LEDS_ALL:
-        if(record->event.pressed) {
-          // signal the LED controller thread
-          chMBPost(&led_mailbox, LED_MSG_GAME_TOGGLE, TIME_IMMEDIATE);
-        }
-      break;
-    case ACTION_LEDS_GAME:
-      if(record->event.pressed) {
-        // signal the LED controller thread
-        chMBPost(&led_mailbox, LED_MSG_ALL_TOGGLE, TIME_IMMEDIATE);
-      }
-      break;
-  }
-  */
-}

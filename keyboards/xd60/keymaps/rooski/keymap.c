@@ -8,9 +8,6 @@
 // Define tapping term
 #define TAPPING_TERM    150
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 // Layer definitions~
 #define _BL 0
 #define _FL 1

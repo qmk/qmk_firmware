@@ -89,32 +89,6 @@ void led_set_kb(uint8_t usb_led) {
 	led_set_user(usb_led);
 }
 
-//void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
-//{
-//#ifdef AUDIO_ENABLE
-//    int8_t sign = 1;
-//#endif
-//    if(id == LFK_ESC_TILDE){
-//        // Send ~ on shift-esc
-//        void (*method)(uint8_t) = (event->event.pressed) ? &add_key : &del_key;
-//        uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-//        method(shifted ? KC_GRAVE : KC_ESCAPE);
-//        send_keyboard_report();
-//    }else if(event->event.pressed){
-//        switch(id){
-//            case LFK_CLEAR:
-//                // Go back to default layer
-//                layer_clear();
-//                break;
-//#ifdef ISSI_ENABLE
-//            case LFK_LED_TEST:
-//                led_test();
-//                break;
-//#endif
-//        }
-//    }
-//}
-
 void reset_keyboard_kb(){
 #ifdef WATCHDOG_ENABLE
     MCUSR = 0;

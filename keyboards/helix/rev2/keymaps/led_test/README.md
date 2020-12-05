@@ -23,5 +23,5 @@ $ make helix:led_test
 
 Execute the 'make' command and press the reset switch on the keyboard.
 ```
-$ make helix:led_test:avrdude
+$ make helix:led_test:flash
 ```

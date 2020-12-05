@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Level 0: Default Layer
      * ,---------------------------------------------------------------------------------------.
@@ -60,21 +57,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, KC_NO,   RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______,
     _______, _______, _______, _______,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12
   )
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
 };
 
 void matrix_init_user(void) {

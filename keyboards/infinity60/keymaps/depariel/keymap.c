@@ -1,4 +1,4 @@
-#include "infinity60.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Fn2 |Gui |Alt |         Space           |RAlt|Prv|PlPs|Next|
      * `-----------------------------------------------------------'
      */
-    [0] = KEYMAP(
+    [0] = LAYOUT_60_ansi_split_bs_rshift(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,            KC_BSLS,  KC_GRV, \
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,           KC_BSPC, \
         KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, LT(5, KC_ENT),  \
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 1: "Toggle" off SpaceFn for League of Legends
      */
-    [1] = KEYMAP(
+    [1] = LAYOUT_60_ansi_split_bs_rshift(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS,  KC_GRV, \
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC, \
         KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  \
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            
     /* Layer 2: "Toggle" off SpaceFn for MapleRoyals
      */
-    [2] = KEYMAP(
+    [2] = LAYOUT_60_ansi_split_bs_rshift(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS,  KC_GRV, \
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC, \
         KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  \
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 3: FN layer 1
      */ 
-    [3] = KEYMAP(
+    [3] = LAYOUT_60_ansi_split_bs_rshift(
         KC_NO,           KC_F1,   KC_F2,   KC_F3,   KC_F4,          KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,   \
         KC_NO,           KC_BTN1, KC_MS_U, KC_BTN2, LALT(KC_F4),    KC_HOME, KC_PGUP, KC_PSCR, KC_SLCK, KC_UP,   KC_NO,   KC_LPRN, KC_RPRN, KC_DEL,      \
         MO(6),           KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,          KC_END,  KC_PGDN, KC_TILD, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,           \
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     /* Layer 4: FN layer 2
      */ 
-    [4] = KEYMAP(
+    [4] = LAYOUT_60_ansi_split_bs_rshift(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PMNS, KC_PPLS, KC_PSLS, TG(2),   \
         KC_CAPS, KC_NO,   KC_UP,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_NO,   KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_BSPC,      \
         KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_P4,   KC_P5,   KC_P6,   KC_PENT,           \
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     /* Layer 5: FN layer 3
      */ 
-    [5] = KEYMAP(
+    [5] = LAYOUT_60_ansi_split_bs_rshift(
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_NO,   \
         KC_TAB , KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_NO,            KC_TRNS,      \
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F17,  KC_F18,  KC_F19,  KC_F20,  LT(5, KC_ENT),           \
@@ -68,16 +68,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     /* Layer 6: FN layer 4
      */ 
-    [6] = KEYMAP(
+    [6] = LAYOUT_60_ansi_split_bs_rshift(
         KC_NO,                 KC_NO,            KC_NO,          KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   \
         LCTL(LSFT(KC_TAB)),    KC_NO,            LGUI(KC_UP),    KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      \
         MO(6),                 LGUI(KC_LEFT),    LGUI(KC_DOWN),  LGUI(KC_RGHT),    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,       \
         KC_TRNS,               KC_NO,            KC_NO,          KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,           \
         KC_TRNS,               KC_TRNS,          KC_TRNS,                   KC_TRNS,                 KC_TRNS, KC_NO,   KC_NO,   KC_NO),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 // Runs just one time when the keyboard initializes.

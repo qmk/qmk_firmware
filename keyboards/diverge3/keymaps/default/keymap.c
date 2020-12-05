@@ -84,7 +84,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 // KEYMAP
-extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _LOWER 1
@@ -94,9 +93,6 @@ enum custom_keycodes {
   ARROW_MACRO,
   PSELF_MACRO
 };
-
-// Make layer undefined do nothing
-#define _______ KC_TRNS
 
 // Macros
 #define KC_PMAC PAREN_MACRO

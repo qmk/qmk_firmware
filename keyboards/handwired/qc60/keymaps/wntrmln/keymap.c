@@ -25,9 +25,6 @@ extern keymap_config_t keymap_config;
 #define _BASE 0
 #define _FN 1
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define FN MO(_FN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

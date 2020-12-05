@@ -1,12 +1,9 @@
-#ifndef V2_H
-#define V2_H
+#pragma once
 
 #include "deltasplit75.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
-//void promicro_bootloader_jmp(bool program);
 //matrix is defined in a weird way here; the layout on both sides are asymmetrical, but the "matrix" is symmetrical but with empty gaps
 //the last column is defined as a separate row because the firmware currently doesnt support more than 8 columns (this layout has 9 columns per side) K45 and K110 are the Bs on both sides; K53 and K106 are extra keys for ISO
 #define LAYOUT_v2( \
@@ -58,5 +55,3 @@
 		{ K120,  K121,  K122,  K123,  KC_NO, KC_NO, K126,  K127}, \
 		{ KC_NO, KC_NO, K132,  K133,  K134,  K135,  K136,  K137} \
 	}
-
-#endif

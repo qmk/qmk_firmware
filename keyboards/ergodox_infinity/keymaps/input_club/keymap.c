@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LGUI, KC_GRV, KC_BSLS, KC_LEFT, KC_RGHT,
                                                       KC_LCTL, KC_LALT,
                                                                KC_HOME,
-                                             KC_BSPC, KC_DELT, KC_END,
+                                             KC_BSPC, KC_DEL,  KC_END,
 /* right hand
  *        +-----+-----+-----+-----+-----+-----+-------+
  *        |LCK-2|  6  |  7  |  8  |  9  |  0  |   -   |
@@ -185,10 +185,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_KP_0
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(L1)                // FN1 - Momentary Layer 1 (Function)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

@@ -30,10 +30,6 @@
 #define GER_BRC_L RALT(KC_8)    // [
 #define GER_BRC_R RALT(KC_9)    // ]
 
-// increase readability 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _DEF: Default Layer
      * ,-----------------------------------------------------------.
@@ -72,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSCR, KC_F1,   KC_F2,   KC_F3,     KC_F4,     KC_F5,     KC_F6,    KC_F7,     KC_F8,     KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
         _______, KC_PAUS, KC_UP,   GER_BRC_L, GER_BRC_R, _______,   _______,  GER_PAR_L, GER_PAR_R, _______, _______, _______, _______, _______, \
         _______, KC_LEFT, KC_DOWN, KC_RIGHT,  _______,   _______,   KC_LEFT,  KC_DOWN,   KC_UP,     KC_RGHT, _______, _______, _______, KC_MPLY, \
-        _______, _______, _______, _______,   GER_ANG_L, GER_ANG_R, KC_SPACE, M(0),      _______,   _______, _______, _______, KC_VOLU, _______, \
+        _______, _______, _______, _______,   GER_ANG_L, GER_ANG_R, KC_SPACE, RALT(KC_SPC),_______, _______, _______, _______, KC_VOLU, _______, \
         _______, _______, _______,                                  _______,                                 _______, KC_MPRV, KC_VOLD, KC_MNXT),
 
     /* Keymap 2: Tab Layer w/ vim pageup, modified with Tab (by holding tab)
@@ -92,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_WAKE, _______, _______, _______, _______, _______, _______, _______,    _______,  _______, _______, _______, _______, KC_INS,  \
         _______, _______, _______, _______, _______, _______, _______, GER_CUR_L, GER_CUR_R, _______, _______, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,    KC_PGUP,  KC_END,  _______, _______, _______, KC_ENT,  \
-        _______, _______, _______, _______, _______, _______, _______, M(1),       _______,  _______, _______, _______, KC_PGUP, _______, \
+        _______, _______, _______, _______, _______, _______, _______, A(KC_F2),   _______,  _______, _______, _______, KC_PGUP, _______, \
         _______, _______, _______,                            _______,                                _______, KC_HOME, KC_PGDN, KC_END),
 
     /* Keymap 3: Split right shift Numpad toggle Layer (by tapping the split rshift key)
@@ -111,35 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SFX] = LAYOUT_iso_splitrshift(
         RESET,   _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9, _______, _______, _______, KC_BSPC, \
         _______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6, _______, _______, _______, KC_BSLS, \
-        _______, F(2),    F(3),    _______, _______, _______, _______, KC_1,    KC_2,    KC_3, _______, _______, XXXXXXX, KC_ENT,  \
-        _______, F(4),    F(5),    F(6),    F(7),    F(8),    F(9),    _______, _______, KC_0, _______, KC_SLSH, KC_UP,   _______, \
+        _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3, _______, _______, XXXXXXX, KC_ENT,  \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_0, _______, KC_SLSH, KC_UP,   _______, \
         _______, _______, _______,                            _______,                         _______, KC_LEFT, KC_DOWN, KC_RGHT),
-};
-
-enum function_id {
-    LAUNCH,
-    RGBLED_TOGGLE,
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1]  = ACTION_FUNCTION(LAUNCH),
-    [10] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ENT),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch(id) {
-        case 0:
-            return (record->event.pressed ? 
-                    MACRO( D(RALT), T(SPC), U(RALT), END )
-                    :MACRO( END ));
-            break;
-        case 1:
-            return (record->event.pressed ? 
-                    MACRO( D(LALT), T(F2), U(LALT), END )
-                    :MACRO( END ));
-            break;
-    }
-    return MACRO_NONE;
 };

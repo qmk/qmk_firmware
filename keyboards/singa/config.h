@@ -15,17 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
+#define VENDOR_ID       0x736B  // SK
+#define PRODUCT_ID      0x7575
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    Singa Keyboards
 #define PRODUCT         Singa
 
-#define RGBLED_NUM 16
+#define RGBLED_NUM 18
 
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 15
@@ -35,15 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
-#define NO_BACKLIGHT_CLOCK
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
+
 #define RGBLIGHT_ANIMATIONS
-
-#define NO_UART 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
-#endif

@@ -33,10 +33,6 @@ const uint8_t flicker_max_levels = 7;
 uint8_t flicker_restore_level = 0;
 #endif
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 

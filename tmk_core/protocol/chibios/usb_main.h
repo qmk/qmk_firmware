@@ -15,7 +15,6 @@
  * GPL v2 or later.
  */
 
-
 #ifndef _USB_MAIN_H_
 #define _USB_MAIN_H_
 
@@ -35,6 +34,9 @@
 
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
+
+/* Restart the USB driver and bus */
+void restart_usb_driver(USBDriver *usbp);
 
 /* ---------------
  * Keyboard header
@@ -66,21 +68,12 @@ void mouse_in_cb(USBDriver *usbp, usbep_t ep);
 #endif /* MOUSE_ENABLE */
 
 /* ---------------
- * Extrakey header
+ * Shared EP header
  * ---------------
  */
 
-#ifdef EXTRAKEY_ENABLE
-
-/* extrakey IN request callback handler */
-void extra_in_cb(USBDriver *usbp, usbep_t ep);
-
-/* extra report structure */
-typedef struct {
-  uint8_t report_id;
-  uint16_t usage;
-} __attribute__ ((packed)) report_extra_t;
-#endif /* EXTRAKEY_ENABLE */
+/* shared IN request callback handler */
+void shared_in_cb(USBDriver *usbp, usbep_t ep);
 
 /* --------------
  * Console header
@@ -96,7 +89,5 @@ int8_t sendchar(uint8_t c);
 void console_flush_output(void);
 
 #endif /* CONSOLE_ENABLE */
-
-void sendchar_pf(void *p, char c);
 
 #endif /* _USB_MAIN_H_ */

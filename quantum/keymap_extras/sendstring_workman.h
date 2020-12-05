@@ -13,29 +13,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* Sendstring definitions for the Workman layout */
-#ifndef SENDSTRING_WORKMAN
-#define SENDSTRING_WORKMAN
+
+// Sendstring lookup tables for Workman layouts
+
+#pragma once
 
 #include "keymap_workman.h"
 
-const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0,       0,      0,       0,       0,       0,       0,      0,
-    KC_BSPC, KC_TAB, KC_ENT,  0,       0,       0,       0,      0,
-    0,       0,      0,       0,       0,       0,       0,      0,
-    0,       0,      0,       KC_ESC,  0,       0,       0,      0,
-    KC_SPC,  KC_1,   KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,   KC_QUOT,
-    KC_9,    KC_0,   KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
-    KC_0,    KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    KC_6,   KC_7,
-    KC_8,    KC_9,   KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,  KC_DOT, KC_SLSH,
-    KC_2,    WK_A,   WK_B,    WK_C,    WK_D,    WK_E,    WK_F,   WK_G,
-    WK_H,    WK_I,   WK_J,    WK_K,    WK_L,    WK_M,    WK_N,   WK_O,
-    WK_P,    WK_Q,   WK_R,    WK_S,    WK_T,    WK_U,    WK_V,   WK_W,
-    WK_X,    WK_Y,   WK_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,   KC_MINS,
-    KC_GRV,  WK_A,   WK_B,    WK_C,    WK_D,    WK_E,    WK_F,   WK_G,
-    WK_H,    WK_I,   WK_J,    WK_K,    WK_L,    WK_M,    WK_N,   WK_O,
-    WK_P,    WK_Q,   WK_R,    WK_S,    WK_T,    WK_U,    WK_V,   WK_W,
-    WK_X,    WK_Y,   WK_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
-};
+// clang-format off
 
-#endif
+const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
+    // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // BS    TAB      LF       VT       FF       CR       SO       SI
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // DLE   DC1      DC2      DC3      DC4      NAK      SYN      ETB
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // CAN   EM       SUB      ESC      FS       GS       RS       US
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+
+    //       !        "        #        $        %        &        '
+    KC_SPC,  WK_1,    WK_QUOT, WK_3,    WK_4,    WK_5,    WK_7,    WK_QUOT,
+    // (     )        *        +        ,        -        .        /
+    WK_9,    WK_0,    WK_8,    WK_EQL,  WK_COMM, WK_MINS, WK_DOT,  WK_SLSH,
+    // 0     1        2        3        4        5        6        7
+    WK_0,    WK_1,    WK_2,    WK_3,    WK_4,    WK_5,    WK_6,    WK_7,
+    // 8     9        :        ;        <        =        >        ?
+    WK_8,    WK_9,    WK_SCLN, WK_SCLN, WK_COMM, WK_EQL,  WK_DOT,  WK_SLSH,
+    // @     A        B        C        D        E        F        G
+    WK_2,    WK_A,    WK_B,    WK_C,    WK_D,    WK_E,    WK_F,    WK_G,
+    // H     I        J        K        L        M        N        O
+    WK_H,    WK_I,    WK_J,    WK_K,    WK_L,    WK_M,    WK_N,    WK_O,
+    // P     Q        R        S        T        U        V        W
+    WK_P,    WK_Q,    WK_R,    WK_S,    WK_T,    WK_U,    WK_V,    WK_W,
+    // X     Y        Z        [        \        ]        ^        _
+    WK_X,    WK_Y,    WK_Z,    WK_LBRC, WK_BSLS, WK_RBRC, WK_6,    WK_MINS,
+    // `     a        b        c        d        e        f        g
+    WK_GRV,  WK_A,    WK_B,    WK_C,    WK_D,    WK_E,    WK_F,    WK_G,
+    // h     i        j        k        l        m        n        o
+    WK_H,    WK_I,    WK_J,    WK_K,    WK_L,    WK_M,    WK_N,    WK_O,
+    // p     q        r        s        t        u        v        w
+    WK_P,    WK_Q,    WK_R,    WK_S,    WK_T,    WK_U,    WK_V,    WK_W,
+    // x     y        z        {        |        }        ~        DEL
+    WK_X,    WK_Y,    WK_Z,    WK_LBRC, WK_BSLS, WK_RBRC, WK_GRV,  KC_DEL
+};

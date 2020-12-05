@@ -131,17 +131,9 @@ file will run on both hands instead of having to flash left and right handed
 versions of the firmware to each half. To flash the EEPROM file for the left
 half run:
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-lefthand.eep
-// or the equivalent in dfu-programmer
-
+make handwired/dactyl_promicro:default:dfu-split-left
+make handwired/dactyl_promicro:default:dfu-split-right
 ```
-and similarly for right half
-```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-righhand.eep
-// or the equivalent in dfu-programmer
-```
-
-NOTE: replace `$(COM_PORT)` with the port of your device (e.g. `/dev/ttyACM0`)
 
 After you have flashed the EEPROM, you then need to set `EE_HANDS` in your config.h, rebuild the hex files and reflash.
 
@@ -162,6 +154,6 @@ Also, if the slave board is producing weird characters in certain columns,
 update the following line in `matrix.c` to the following:
 
 ```
-// _delay_us(30);  // without this wait read unstable value.
-_delay_us(300);  // without this wait read unstable value.
+// wait_us(30);  // without this wait read unstable value.
+wait_us(300);  // without this wait read unstable value.
 ```

@@ -6,11 +6,9 @@
 
 
 // Fillers to make layering more clear
-#define _______   KC_TRNS
 #define ________  KC_TRNS
 #define _________ KC_TRNS
 #define _XXXXXX_  KC_TRNS
-#define XXXXXXX   KC_NO
 
 // KC codes that are too long
 #define DOLLAR    KC_DOLLAR

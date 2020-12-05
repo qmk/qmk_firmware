@@ -1,5 +1,3 @@
-![Clueboard Layout Image](layout.png)
-
 # MouseKeys Layout
 
 This layout adds a mouse layer. When you hold down the spacebar the arrow keys

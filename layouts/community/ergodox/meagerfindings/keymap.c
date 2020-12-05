@@ -42,7 +42,6 @@ enum custom_keycodes {
 };
 
 //Redefine Key Names for Readaibilty
-#define XXXXXXX KC_NO
 #define SCRN_CLIPB LCTL(LGUI(LSFT(KC_4)))
 #define CHRM_L LALT(LGUI(KC_LEFT)) //Move left one tab in Chrome
 #define CHRM_R LALT(LGUI(KC_RIGHT)) //Move right one tab in Chrome

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "prime_exl.h"
-
+/*
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
@@ -41,3 +41,4 @@ void led_set_kb(uint8_t usb_led) {
 
 	led_set_user(usb_led);
 }
+*/

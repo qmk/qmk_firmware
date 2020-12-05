@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SETTINGS] = LAYOUT(
     KC_FN0,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  BL_TOGG,                  RGB_TOG, RGB_VAI, XXXXXXX, XXXXXXX, \
     MU_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_FN2,                   RGB_MOD, RGB_VAD, XXXXXXX, XXXXXXX, \
-    AU_TOG,  KC_F1,   KC_FN3,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          RESET,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    AU_TOG,  KC_FN1,  KC_FN3,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          RESET,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     KC_FN5,  KC_FN2,  KC_FN4,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,     RGB_HUI,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     XXXXXXX, XXXXXXX, XXXXXXX,                            KC_FN12,                            XXXXXXX, XXXXXXX, XXXXXXX,     RGB_SAD, RGB_HUD, RGB_SAI,     XXXXXXX, XXXXXXX           \
   ),
@@ -99,16 +99,6 @@ const uint16_t PROGMEM fn_actions[] = {
     ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER),                  // FN4 - Decrease length of audio click
     ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN5 - Toggle audio click
   };
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch(id) {
-    }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
     // This keymap only has a single base layer, so reset the default if needed

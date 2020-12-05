@@ -18,7 +18,7 @@ keymaps `default` (104) and `tkl` (87) for example layouts.
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: Frosty Flake  
-Hardware Availability: https://1upkeyboards.com/qfr-frosty-flake-controller.html  
+Hardware Availability: [1upkeyboards](https://www.1upkeyboards.com/shop/controllers/qfr-frosty-flake-controller/)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -28,7 +28,7 @@ Make example for this keyboard (after setting up your build environment):
 make bpiphany/frosty_flake:default
 ```
 
-To directly flash the frosty_flake after compiling use
+To directly flash the frosty_flake after compiling use:
 
 ```
 make bpiphany/frosty_flake:default:dfu

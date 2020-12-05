@@ -14,15 +14,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef KB_H
-#define KB_H
+#pragma once
+
 #include "quantum.h"
+#define ___ KC_NO
 
 #define LAYOUT( \
-	K00, K01, \
-	K10, K11, K12 \
+	     K01, K02, \
+	K10, K11, K12  \
 ) { \
-	{ K00, K01, K12, K11, K10 }, \
+	{ ___, K01, K02 }, \
+	{ K10, K11, K12 }  \
 }
-
-#endif

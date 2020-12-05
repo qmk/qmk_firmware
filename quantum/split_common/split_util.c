@@ -1,154 +1,162 @@
-#include <avr/io.h>
-#include <avr/wdt.h>
-#include <avr/power.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-#include <avr/eeprom.h>
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
 #include "config.h"
 #include "timer.h"
-#include "split_flags.h"
+#include "transport.h"
+#include "quantum.h"
+#include "wait.h"
 
-#ifdef RGBLIGHT_ENABLE
-#   include "rgblight.h"
-#endif
-#ifdef BACKLIGHT_ENABLE
-#   include "backlight.h"
-#endif
-
-#ifdef SPLIT_HAND_PIN
-#   include "pincontrol.h"
+#ifdef PROTOCOL_LUFA
+#    include <LUFA/Drivers/USB/USB.h>
 #endif
 
-#if defined(USE_I2C) || defined(EH)
-#  include "i2c.h"
-#else
-#  include "serial.h"
+#ifdef PROTOCOL_VUSB
+#    include "usbdrv.h"
+#endif
+
+#ifdef EE_HANDS
+#    include "eeconfig.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+#    include "rgblight.h"
+#endif
+
+#ifndef SPLIT_USB_TIMEOUT
+#    define SPLIT_USB_TIMEOUT 2000
+#endif
+
+#ifndef SPLIT_USB_TIMEOUT_POLL
+#    define SPLIT_USB_TIMEOUT_POLL 10
+#endif
+
+#ifdef PROTOCOL_CHIBIOS
+#    define SPLIT_USB_DETECT  // Force this on for now
 #endif
 
 volatile bool isLeftHand = true;
 
-volatile uint8_t setTries = 0;
+#if defined(SPLIT_USB_DETECT)
+#    if defined(PROTOCOL_LUFA)
+static inline bool usbHasActiveConnection(void) { return USB_Device_IsAddressSet(); }
+static inline void usbDisable(void) {
+    USB_Disable();
+    USB_DeviceState = DEVICE_STATE_Unattached;
+}
+#    elif defined(PROTOCOL_CHIBIOS)
+static inline bool usbHasActiveConnection(void) { return usbGetDriverStateI(&USBD1) == USB_ACTIVE; }
+static inline void usbDisable(void) { usbStop(&USBD1); }
+#    elif defined(PROTOCOL_VUSB)
+static inline bool usbHasActiveConnection(void) {
+    usbPoll();
+    return usbConfiguration;
+}
+static inline void usbDisable(void) { usbDeviceDisconnect(); }
+#    else
+static inline bool usbHasActiveConnection(void) { return true; }
+static inline void usbDisable(void) {}
+#    endif
 
-static void setup_handedness(void) {
-  #ifdef SPLIT_HAND_PIN
+bool usbIsActive(void) {
+    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
+        // This will return true if a USB connection has been established
+        if (usbHasActiveConnection()) {
+            return true;
+        }
+        wait_ms(SPLIT_USB_TIMEOUT_POLL);
+    }
+
+    // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
+    usbDisable();
+
+    return false;
+}
+#elif defined(PROTOCOL_LUFA) && defined(OTGPADE)
+static inline bool usbIsActive(void) {
+    USB_OTGPAD_On();  // enables VBUS pad
+    wait_us(5);
+
+    return USB_VBUS_GetStatus();  // checks state of VBUS
+}
+#else
+static inline bool usbIsActive(void) { return true; }
+#endif
+
+#ifdef SPLIT_HAND_MATRIX_GRID
+void matrix_io_delay(void);
+
+static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
+    setPinInputHigh(in_pin);
+    setPinOutput(out_pin);
+    writePinLow(out_pin);
+    // It's almost unnecessary, but wait until it's down to low, just in case.
+    wait_us(1);
+    uint8_t pin_state = readPin(in_pin);
+    // Set out_pin to a setting that is less susceptible to noise.
+    setPinInputHigh(out_pin);
+    matrix_io_delay(); // Wait for the pull-up to go HIGH.
+    return pin_state;
+}
+#endif
+
+__attribute__((weak)) bool is_keyboard_left(void) {
+#if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
-    pinMode(SPLIT_HAND_PIN, PinDirectionInput);
-    isLeftHand = digitalRead(SPLIT_HAND_PIN);
-  #else
-    #ifdef EE_HANDS
-      isLeftHand = eeprom_read_byte(EECONFIG_HANDEDNESS);
-    #else
-      // I2C_MASTER_RIGHT is deprecated, use MASTER_RIGHT instead, since this works for both serial and i2c
-      #if defined(I2C_MASTER_RIGHT) || defined(MASTER_RIGHT)
-        isLeftHand = !has_usb();
-      #else
-        isLeftHand = has_usb();
-      #endif
-    #endif
-  #endif
-}
-
-static void keyboard_master_setup(void) {
-#if defined(USE_I2C) || defined(EH)
-  i2c_master_init();
-  #ifdef SSD1306OLED
-    matrix_master_OLED_init ();
-  #endif
-#else
-  serial_master_init();
+    setPinInput(SPLIT_HAND_PIN);
+    return readPin(SPLIT_HAND_PIN);
+#elif defined(SPLIT_HAND_MATRIX_GRID)
+#   ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+#   else
+    return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+#   endif
+#elif defined(EE_HANDS)
+    return eeconfig_read_handedness();
+#elif defined(MASTER_RIGHT)
+    return !is_keyboard_master();
 #endif
 
-    // For master the Backlight info needs to be sent on startup
-    // Otherwise the salve won't start with the proper info until an update
-    BACKLIT_DIRTY = true;
+    return is_keyboard_master();
 }
 
-static void keyboard_slave_setup(void) {
-  timer_init();
-#if defined(USE_I2C) || defined(EH)
-    i2c_slave_init(SLAVE_I2C_ADDRESS);
-#else
-    serial_slave_init();
+__attribute__((weak)) bool is_keyboard_master(void) {
+    static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
+
+    // only check once, as this is called often
+    if (usbstate == UNKNOWN) {
+        usbstate = usbIsActive() ? MASTER : SLAVE;
+    }
+
+    return (usbstate == MASTER);
+}
+
+// this code runs before the keyboard is fully initialized
+void split_pre_init(void) {
+    isLeftHand = is_keyboard_left();
+
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+    uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;
+    if (isLeftHand) {
+        rgblight_set_clipping_range(0, num_rgb_leds_split[0]);
+    } else {
+        rgblight_set_clipping_range(num_rgb_leds_split[0], num_rgb_leds_split[1]);
+    }
 #endif
+
+    if (is_keyboard_master()) {
+#if defined(USE_I2C) && defined(SSD1306OLED)
+        matrix_master_OLED_init();
+#endif
+        transport_master_init();
+    }
 }
 
-bool has_usb(void) {
-   USBCON |= (1 << OTGPADE); //enables VBUS pad
-   _delay_us(5);
-   return (USBSTA & (1<<VBUS));  //checks state of VBUS
-}
-
-void split_keyboard_setup(void) {
-   setup_handedness();
-
-   if (has_usb()) {
-      keyboard_master_setup();
-   } else {
-      keyboard_slave_setup();
-   }
-   sei();
-}
-
-void keyboard_slave_loop(void) {
-   matrix_init();
-   
-   //Init RGB
-   #ifdef RGBLIGHT_ENABLE
-      rgblight_init();
-   #endif
-
-   while (1) {
-    // Matrix Slave Scan
-    matrix_slave_scan();
-    
-    // Read Backlight Info
-    #ifdef BACKLIGHT_ENABLE
-        #ifdef USE_I2C
-            if (BACKLIT_DIRTY) {
-                backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
-                BACKLIT_DIRTY = false;
-            }
-        #else // USE_SERIAL
-            backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
-        #endif
-    #endif
-    // Read RGB Info
-    #ifdef RGBLIGHT_ENABLE
-        #ifdef USE_I2C
-            if (RGB_DIRTY) {
-                // Disable interupts (RGB data is big)
-                cli();
-                // Create new DWORD for RGB data
-                uint32_t dword; 
-                
-                // Fill the new DWORD with the data that was sent over
-                uint8_t *dword_dat = (uint8_t *)(&dword);
-                for (int i = 0; i < 4; i++) {
-                    dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
-                }
-                
-                // Update the RGB now with the new data and set RGB_DIRTY to false
-                rgblight_update_dword(dword);
-                RGB_DIRTY = false;
-                // Re-enable interupts now that RGB is set
-                sei();
-            }
-        #else // USE_SERIAL
-            // Add serial implementation for RGB here
-        #endif
-    #endif
-   }
-}
-
-// this code runs before the usb and keyboard is initialized
-void matrix_setup(void) {
-    split_keyboard_setup();
-
-    if (!has_usb()) {
-        //rgblight_init();
-        keyboard_slave_loop();
+// this code runs after the keyboard is fully initialized
+//   - avoids race condition during matrix_init_quantum where slave can start
+//     receiving before the init process has completed
+void split_post_init(void) {
+    if (!is_keyboard_master()) {
+        transport_slave_init();
     }
 }

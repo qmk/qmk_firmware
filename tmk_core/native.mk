@@ -1,13 +1,13 @@
 SYSTEM_TYPE := $(shell gcc -dumpmachine)
 
 CC = gcc
-OBJCOPY = 
-OBJDUMP = 
-SIZE = 
-AR = 
-NM = 
-HEX = 
-EEP = 
+OBJCOPY =
+OBJDUMP =
+SIZE =
+AR =
+NM =
+HEX =
+EEP =
 BIN =
 
 
@@ -24,6 +24,6 @@ CFLAGS += $(COMPILEFLAGS)
 CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
-CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-exceptions
-CPPFLAGS += -std=gnu++11
+CXXFLAGS += $(COMPILEFLAGS)
+CXXFLAGS += -fno-exceptions
+CXXFLAGS += -std=gnu++11

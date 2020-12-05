@@ -4,7 +4,7 @@ For a lot of people a custom keyboard is about more than sending button presses 
 
 This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
 
-## A Word on Core vs Keyboards vs Keymap
+## A Word on Core vs Keyboards vs Keymap :id=a-word-on-core-vs-keyboards-vs-keymap
 
 We have structured QMK as a hierarchy:
 
@@ -34,7 +34,7 @@ enum my_keycodes {
 };
 ```
 
-## Programming the Behavior of Any Keycode
+## Programming the Behavior of Any Keycode :id=programming-the-behavior-of-any-keycode
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
 
@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // Play a tone when enter is pressed
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // Let QMK send the enter press/release events
     default:
@@ -88,78 +88,85 @@ keyrecord_t record {
 }
 ```
 
-# LED Control
+# Keyboard Initialization Code
 
-This allows you to control the 5 LED's defined as part of the USB Keyboard spec. It will be called when the state of one of those 5 LEDs changes.
+There are several steps in the keyboard initialization process.  Depending on what you want to do, it will influence which function you should use.
 
-* `USB_LED_NUM_LOCK`
-* `USB_LED_CAPS_LOCK`
-* `USB_LED_SCROLL_LOCK`
-* `USB_LED_COMPOSE`
-* `USB_LED_KANA`
+These are the three main initialization functions, listed in the order that they're called.
 
-### Example `led_set_user()` Implementation
+* `keyboard_pre_init_*` - Happens before most anything is started. Good for hardware setup that you want running very early.
+* `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
+* `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
-```c
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        PORTB |= (1<<0);
-    } else {
-        PORTB &= ~(1<<0);
-    }
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        PORTB |= (1<<1);
-    } else {
-        PORTB &= ~(1<<1);
-    }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        PORTB |= (1<<2);
-    } else {
-        PORTB &= ~(1<<2);
-    }
-    if (usb_led & (1<<USB_LED_COMPOSE)) {
-        PORTB |= (1<<3);
-    } else {
-        PORTB &= ~(1<<3);
-    }
-    if (usb_led & (1<<USB_LED_KANA)) {
-        PORTB |= (1<<4);
-    } else {
-        PORTB &= ~(1<<4);
-    }
-}
-```
+!> For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
 
-### `led_set_*` Function Documentation
+## Keyboard Pre Initialization code
 
-* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
-* Keymap: `void led_set_user(uint8_t usb_led)`
+This runs very early during startup, even before the USB has been started. 
 
+Shortly after this, the matrix is initialized.
 
-# Matrix Initialization Code
+For most users, this shouldn't be used, as it's primarily for hardware oriented initialization. 
 
-Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
+However, if you have hardware stuff that you need initialized, this is the best place for it (such as initializing LED pins).
 
+### Example `keyboard_pre_init_user()` Implementation
 
-### Example `matrix_init_user()` Implementation
-
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+This example, at the keyboard level, sets up B0, B1, B2, B3, and B4 as LED pins.
 
 ```c
-void matrix_init_user(void) {
-  // Call the keymap level matrix init.
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
 
   // Set our LED pins as output
-  DDRB |= (1<<1);
-  DDRB |= (1<<2);
-  DDRB |= (1<<3);
+  setPinOutput(B0);
+  setPinOutput(B1);
+  setPinOutput(B2);
+  setPinOutput(B3);
+  setPinOutput(B4);
 }
 ```
+
+### `keyboard_pre_init_*` Function Documentation
+
+* Keyboard/Revision: `void keyboard_pre_init_kb(void)`
+* Keymap: `void keyboard_pre_init_user(void)`
+
+## Matrix Initialization Code
+
+This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized. 
+
+This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started. 
+
 
 ### `matrix_init_*` Function Documentation
 
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
+
+
+## Keyboard Post Initialization code
+
+This is ran as the very last task in the keyboard initialization process. This is useful if you want to make changes to certain features, as they should be initialized by this point.
+
+
+### Example `keyboard_post_init_user()` Implementation
+
+This example, running after everything else has initialized, sets up the rgb underglow configuration.
+
+```c
+void keyboard_post_init_user(void) {
+  // Call the post init code.
+  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+  rgblight_sethsv_noeeprom(180, 255, 255); // sets the color to teal/cyan without saving
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing without saving
+}
+```
+
+### `keyboard_post_init_*` Function Documentation
+
+* Keyboard/Revision: `void keyboard_post_init_kb(void)`
+* Keymap: `void keyboard_post_init_user(void)`
 
 # Matrix Scanning Code
 
@@ -176,49 +183,53 @@ This example has been deliberately omitted. You should understand enough about Q
 
 This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
 
-You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
+You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LEDs or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
+# Keyboard housekeeping
+
+* Keyboard/Revision: `void housekeeping_task_kb(void)`
+* Keymap: `void housekeeping_task_user(void)`
+
+This function gets called at the end of all QMK processing, before starting the next iteration. You can safely assume that QMK has dealt with the last matrix scan at the time that these functions are invoked -- layer states have been updated, USB reports have been sent, LEDs have been updated, and displays have been drawn.
+
+Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throtting their behaviour if you do indeed require implementing something special.
 
 # Keyboard Idling/Wake Code
 
 If the board supports it, it can be "idled", by stopping a number of functions.  A good example of this is RGB lights or backlights.   This can save on power consumption, or may be better behavior for your keyboard.
 
-This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system is board is idled and when it wakes up, respectively.
+This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system board is idled and when it wakes up, respectively.
 
 
 ### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```c
-void suspend_power_down_user(void)
-{
+void suspend_power_down_user(void) {
     rgb_matrix_set_suspend_state(true);
 }
 
-void suspend_wakeup_init_user(void)
-{
+void suspend_wakeup_init_user(void) {
     rgb_matrix_set_suspend_state(false);
 }
-
 ```
 
-### `keyboard_init_*` Function Documentation
+### Keyboard suspend/wake  Function Documentation
 
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
-# Layer Change Code
+# Layer Change Code :id=layer-change-code
 
 This runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling.
 
 ### Example `layer_state_set_*` Implementation
 
-This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example
+This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example.
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
         rgblight_setrgb (0x00,  0x00, 0xFF);
         break;
@@ -238,10 +249,16 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 ```
+
+Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
+
+Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` and `IS_LAYER_OFF(layer)` macros to check global layer state.
+
 ### `layer_state_set_*` Function Documentation
 
-* Keyboard/Revision: `void uint32_t layer_state_set_kb(uint32_t state)`
-* Keymap: `uint32_t layer_state_set_user(uint32_t state)`
+* Keyboard/Revision: `layer_state_t layer_state_set_kb(layer_state_t state)`
+* Keymap: `layer_state_t layer_state_set_user(layer_state_t state)`
+
 
 The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)
 
@@ -256,13 +273,13 @@ Keep in mind that EEPROM has a limited number of writes. While this is very high
 
 * If you don't understand the example, then you may want to avoid using this feature, as it is rather complicated. 
 
-### Example  Implementation
+### Example Implementation
 
 This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.  This is a complex function, and has a lot going on.  In fact, it uses a lot of the above functions to work! 
 
 
 In your keymap.c file, add this to the top:
-```
+```c
 typedef union {
   uint32_t raw;
   struct {
@@ -275,11 +292,11 @@ user_config_t user_config;
 
 This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written. 
 
-We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `matrix_init_user` and `process_record_user` to configure everything. 
+We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything. 
 
-Now, using the `matrix_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
-```
-void matrix_init_user(void) {
+Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
+```c
+void keyboard_post_init_user(void) {
   // Call the keymap level matrix init.
 
   // Read the user config from EEPROM
@@ -288,16 +305,16 @@ void matrix_init_user(void) {
   // Set default layer, if enabled
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_cyan(); 
+    rgblight_sethsv_noeeprom_cyan();
     rgblight_mode_noeeprom(1);
   }
 }
 ```
 The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is converted in a usable structure based on the "union" that you created above. 
 
-```
-uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
+```c
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
         break;
@@ -317,8 +334,8 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 ```
-This will cause the RGB underglow to be changed ONLY if the value was enabled.  Now to configure this value, create a new keycode for `process_record_user` called `RGB_LYR` and `EPRM`. Additionally, we want to make sure that if you use the normal RGB codes, that it turns off  Using the example above, make it look this:
-```
+This will cause the RGB underglow to be changed ONLY if the value was enabled.  Now to configure this value, create a new keycode for `process_record_user` called `RGB_LYR`. Additionally, we want to make sure that if you use the normal RGB codes, that it turns off  Using the example above, make it look this:
+```c
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -332,27 +349,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // Play a tone when enter is pressed
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // Let QMK send the enter press/release events
-    case EPRM:
-        if (record->event.pressed) {
-            eeconfig_init(); // resets the EEPROM to default
-        }
-        return false;
     case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
-        if (record->event.pressed) { 
+        if (record->event.pressed) {
             user_config.rgb_layer_change ^= 1; // Toggles the status
             eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
-            if (user_config.rgb_layer_change) { // if layer state indication is enabled, 
+            if (user_config.rgb_layer_change) { // if layer state indication is enabled,
                 layer_state_set(layer_state);   // then immediately update the layer color
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
-            if (user_config.rgb_layer_change) {        // only if this is enabled 
-                user_config.rgb_layer_change = false;  // disable it, and 
+            if (user_config.rgb_layer_change) {        // only if this is enabled
+                user_config.rgb_layer_change = false;  // disable it, and
                 eeconfig_update_user(user_config.raw); // write the setings to EEPROM
             }
         }
@@ -362,10 +374,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. For example, if you want to set rgb layer indication by default, and save the default valued. 
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued. 
 
-```
-void eeconfig_init_user(void) {  // EEPROM is getting reset! 
+```c
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+  user_config.raw = 0;
   user_config.rgb_layer_change = true; // We want this enabled by default
   eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 

@@ -11,7 +11,7 @@
 #if defined(KEYBOARD_planck_rev5)
   #define RGBLED_NUM 10
   #define RGB_DI_PIN D1
-#elif defined(KEYBOARD_levinson_rev2)
+#elif defined(KEYBOARD_keebio_levinson_rev2)
   #define RGBLED_NUM 12
 #elif defined(KEYBOARD_lets_split_rev2)
   #define RGBLED_NUM 8

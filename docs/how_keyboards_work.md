@@ -12,7 +12,7 @@ place:
 ``` text
 +------+         +-----+       +----------+      +----------+     +----+
 | User |-------->| Key |------>| Firmware |----->| USB wire |---->| OS |
-+------+         +-----+       +----------+      +----------+     |----+
++------+         +-----+       +----------+      +----------+     +----+
 ```
 
 This scheme is a very simple view of what's going on, and more details follow
@@ -33,7 +33,11 @@ The firmware does not send actual letters or characters, but only scancodes.
 Thus, by modifying the firmware, you can only modify what scancode is sent over
 USB for a given key.
 
-## 3. What the Operating System Does
+## 3. What the Event Input/Kernel Does
+
+The *scancode* is mapped to a *keycode* dependent on the keyboard [60-keyboard.hwdb at Master](https://github.com/systemd/systemd/blob/master/hwdb.d/60-keyboard.hwdb). Without this mapping, the operating system will not receive a valid keycode and will be unable to do anything useful with that key press.
+
+## 4. What the Operating System Does
 
 Once the keycode reaches the operating system, a piece of software has to have
 it match an actual character thanks to a keyboard layout. For example, if your
@@ -63,10 +67,10 @@ You may wonder why a keyboard layout containing all of Unicode is not devised th
 
 ## How to (Maybe) Enter Unicode Characters
 
-You can have the firmware send *sequences of keys* to use the [software Unicode Input Method](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_code_input) of the target operating system, thus effectively entering characters independently of the layout defined in the OS.
+You can have the firmware send *sequences of keys* to use the [software Unicode Input Method](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_input) of the target operating system, thus effectively entering characters independently of the layout defined in the OS.
 
 Yet, it does come with multiple disadvantages:
 
- - Tied to a specific OS a a time (need recompilation when changing OS);
+ - Tied to a specific OS at a time (need recompilation when changing OS);
  - Within a given OS, does not work in all software;
  - Limited to a subset of Unicode on some systems.

@@ -11,7 +11,7 @@ Ergo42 用キーマップです。
 
 ## レイアウト
 
-![keyboard-layout](https://user-images.githubusercontent.com/1042121/45888288-aa35ed00-bdf8-11e8-8741-71fe9a0fadc6.png)
+![keyboard-layout](https://user-images.githubusercontent.com/1042121/52666273-32a45e00-2f51-11e9-9e15-c231155f3bed.png)
 
 ## Windows モード/MacOS モード
 

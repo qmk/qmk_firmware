@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "matrix.h"
+#include "eeconfig.h"
 #include "serial_link/system/serial_link.h"
 
 
@@ -44,14 +45,14 @@ static uint16_t debouncing_time = 0;
 
 void matrix_init(void)
 {
-    /* Column(sense) */
+    /* Row(sense) */
     palSetPadMode(GPIOD, 1,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 4,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 5,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 6,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 7,  PAL_MODE_INPUT_PULLDOWN);
 
-    /* Row(strobe) */
+    /* Column(strobe) */
     palSetPadMode(GPIOB, 2,  PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOB, 3,  PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOB, 18, PAL_MODE_OUTPUT_PUSHPULL);
@@ -118,8 +119,12 @@ uint8_t matrix_scan(void)
     }
 
     uint8_t offset = 0;
-#ifdef MASTER_IS_ON_RIGHT
+#if (defined(EE_HANDS) || defined(MASTER_IS_ON_RIGHT))
+#ifdef EE_HANDS
+    if (is_serial_link_master() && !eeconfig_read_handedness()) {
+#else
     if (is_serial_link_master()) {
+#endif
         offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS;
     }
 #endif
@@ -162,7 +167,13 @@ void matrix_print(void)
 
 void matrix_set_remote(matrix_row_t* rows, uint8_t index) {
     uint8_t offset = 0;
-#ifdef MASTER_IS_ON_RIGHT
+#ifdef EE_HANDS
+    if (eeconfig_read_handedness()) {
+        offset = LOCAL_MATRIX_ROWS * (index + 1);
+    } else {
+        offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS * (index + 2);
+    }
+#elif defined(MASTER_IS_ON_RIGHT)
     offset = MATRIX_ROWS - LOCAL_MATRIX_ROWS * (index + 2);
 #else
     offset = LOCAL_MATRIX_ROWS * (index + 1);

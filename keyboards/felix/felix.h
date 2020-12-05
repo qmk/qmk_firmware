@@ -1,5 +1,4 @@
-#ifndef FELIX_H
-#define FELIX_H
+#pragma once
 
 #include "quantum.h"
 
@@ -18,5 +17,3 @@
 }
 
 #define LAYOUT LAYOUT_ortho_5x4
-
-#endif
