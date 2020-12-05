@@ -139,7 +139,9 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP_LED_NEXT_INTENSITY:
                 annepro2LedNextIntensity();
                 return false;
-
+            case KC_AP_LED_SPEED:
+                annepro2LedNextAnimationSpeed();
+                return false;
             default:
                 break;
         }
