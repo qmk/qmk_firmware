@@ -18,7 +18,8 @@
 	
 */
 #include QMK_KEYBOARD_H
-#include <keymap_french.h>
+#include "keymap_french.h"
+
 
 #define WINALT1(A) {SEND_STRING(SS_LALT(SS_TAP(X_KP_ ## A))); return false;}
 #define WINALT2(A, B) {SEND_STRING(SS_LALT(SS_TAP(X_KP_ ## A) SS_TAP(X_KP_ ## B))); return false;}
