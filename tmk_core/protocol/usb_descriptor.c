@@ -386,7 +386,11 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
     .ReleaseNumber              = DEVICE_VER,
     .ManufacturerStrIndex       = 0x01,
     .ProductStrIndex            = 0x02,
+#if defined(SERIAL_NUMBER)
     .SerialNumStrIndex          = 0x03,
+#else
+    .SerialNumStrIndex          = 0x00,
+#endif
     .NumberOfConfigurations     = FIXED_NUM_CONFIGURATIONS
 };
 
@@ -994,10 +998,7 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
     .UnicodeString              = LSTR(PRODUCT)
 };
 
-#ifndef SERIAL_NUMBER
-#    define SERIAL_NUMBER 0
-#endif
-
+#if defined(SERIAL_NUMBER)
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     .Header = {
         .Size                   = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
@@ -1005,6 +1006,7 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     },
     .UnicodeString              = LSTR(SERIAL_NUMBER)
 };
+#endif
 
 // clang-format on
 
@@ -1056,11 +1058,13 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     Size    = pgm_read_byte(&ProductString.Header.Size);
 
                     break;
+#if defined(SERIAL_NUMBER)
                 case 0x03:
                     Address = &SerialNumberString;
                     Size    = pgm_read_byte(&SerialNumberString.Header.Size);
 
                     break;
+#endif
             }
 
             break;
