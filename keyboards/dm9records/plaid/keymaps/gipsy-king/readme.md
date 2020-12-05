@@ -15,3 +15,5 @@ old machine.
 
 When any layer is active, the LEDs are "startled".
 
+There is an autoclicker for minecraft.
+

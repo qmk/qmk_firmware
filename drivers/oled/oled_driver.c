@@ -107,6 +107,7 @@ OLED_BLOCK_TYPE oled_dirty          = 0;
 bool            oled_initialized    = false;
 bool            oled_active         = false;
 bool            oled_scrolling      = false;
+uint8_t         oled_brightness     = OLED_BRIGHTNESS;
 uint8_t         oled_rotation       = 0;
 uint8_t         oled_rotation_width = 0;
 uint8_t         oled_scroll_speed   = 0;  // this holds the speed after being remapped to ssd1306 internal values
@@ -117,6 +118,9 @@ uint32_t oled_timeout;
 #endif
 #if OLED_SCROLL_TIMEOUT > 0
 uint32_t oled_scroll_timeout;
+#endif
+#if OLED_UPDATE_INTERVAL > 0
+uint16_t oled_update_timeout;
 #endif
 
 // Internal variables to reduce math instructions
@@ -193,7 +197,7 @@ bool oled_init(uint8_t rotation) {
         }
     }
 
-    static const uint8_t PROGMEM display_setup2[] = {I2C_CMD, COM_PINS, OLED_COM_PINS, CONTRAST, 0x8F, PRE_CHARGE_PERIOD, 0xF1, VCOM_DETECT, 0x40, DISPLAY_ALL_ON_RESUME, NORMAL_DISPLAY, DEACTIVATE_SCROLL, DISPLAY_ON};
+    static const uint8_t PROGMEM display_setup2[] = {I2C_CMD, COM_PINS, OLED_COM_PINS, CONTRAST, OLED_BRIGHTNESS, PRE_CHARGE_PERIOD, 0xF1, VCOM_DETECT, 0x20, DISPLAY_ALL_ON_RESUME, NORMAL_DISPLAY, DEACTIVATE_SCROLL, DISPLAY_ON};
     if (I2C_TRANSMIT_P(display_setup2) != I2C_STATUS_SUCCESS) {
         print("display_setup2 failed\n");
         return false;
@@ -467,8 +471,9 @@ void oled_write_raw_byte(const char data, uint16_t index) {
 }
 
 void oled_write_raw(const char *data, uint16_t size) {
-    if (size > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE;
-    for (uint16_t i = 0; i < size; i++) {
+    uint16_t cursor_start_index = oled_cursor - &oled_buffer[0];
+    if ((size + cursor_start_index) > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE - cursor_start_index;
+    for (uint16_t i = cursor_start_index; i < cursor_start_index + size; i++) {
         if (oled_buffer[i] == data[i]) continue;
         oled_buffer[i] = data[i];
         oled_dirty |= ((OLED_BLOCK_TYPE)1 << (i / OLED_BLOCK_SIZE));
@@ -510,8 +515,9 @@ void oled_write_ln_P(const char *data, bool invert) {
 }
 
 void oled_write_raw_P(const char *data, uint16_t size) {
-    if (size > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE;
-    for (uint16_t i = 0; i < size; i++) {
+    uint16_t cursor_start_index = oled_cursor - &oled_buffer[0];
+    if ((size + cursor_start_index) > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE - cursor_start_index;
+    for (uint16_t i = cursor_start_index; i < cursor_start_index + size; i++) {
         uint8_t c = pgm_read_byte(data++);
         if (oled_buffer[i] == c) continue;
         oled_buffer[i] = c;
@@ -549,6 +555,20 @@ bool oled_off(void) {
 }
 
 bool is_oled_on(void) { return oled_active; }
+
+uint8_t oled_set_brightness(uint8_t level) {
+    uint8_t set_contrast[] = {I2C_CMD, CONTRAST, level};
+    if (oled_brightness != level) {
+        if (I2C_TRANSMIT(set_contrast) != I2C_STATUS_SUCCESS) {
+            print("set_brightness cmd failed\n");
+            return oled_brightness;
+        }
+        oled_brightness = level;
+    }
+    return oled_brightness;
+}
+
+uint8_t oled_get_brightness(void) { return oled_brightness; }
 
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
@@ -635,9 +655,16 @@ void oled_task(void) {
         return;
     }
 
+#if OLED_UPDATE_INTERVAL > 0
+    if (timer_elapsed(oled_update_timeout) >= OLED_UPDATE_INTERVAL) {
+        oled_update_timeout = timer_read();
+        oled_set_cursor(0, 0);
+        oled_task_user();
+    }
+#else
     oled_set_cursor(0, 0);
-
     oled_task_user();
+#endif
 
 #if OLED_SCROLL_TIMEOUT > 0
     if (oled_dirty && oled_scrolling) {

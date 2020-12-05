@@ -1,6 +1,10 @@
+import platform
+
 from subprocess import STDOUT, PIPE
 
 from qmk.commands import run
+
+is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
@@ -9,14 +13,14 @@ def check_subcommand(command, *args):
     return result
 
 
-def check_returncode(result, expected=0):
+def check_returncode(result, expected=[0]):
     """Print stdout if `result.returncode` does not match `expected`.
     """
-    if result.returncode != expected:
+    if result.returncode not in expected:
         print('`%s` stdout:' % ' '.join(result.args))
         print(result.stdout)
         print('returncode:', result.returncode)
-    assert result.returncode == expected
+    assert result.returncode in expected
 
 
 def test_cformat():
@@ -30,7 +34,7 @@ def test_compile():
 
 
 def test_compile_json():
-    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json')
+    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json', '-n')
     check_returncode(result)
 
 
@@ -41,7 +45,7 @@ def test_flash():
 
 def test_flash_bootloaders():
     result = check_subcommand('flash', '-b')
-    check_returncode(result, 1)
+    check_returncode(result, [1])
 
 
 def test_config():
@@ -58,7 +62,7 @@ def test_kle2json():
 
 def test_doctor():
     result = check_subcommand('doctor', '-n')
-    check_returncode(result)
+    check_returncode(result, [0, 1])
     assert 'QMK Doctor is checking your environment.' in result.stdout
     assert 'QMK is ready to go' in result.stdout
 
@@ -85,43 +89,43 @@ def test_list_keyboards():
 
 def test_list_keymaps():
     result = check_subcommand('list-keymaps', '-kb', 'handwired/onekey/pytest')
-    check_returncode(result, 0)
+    check_returncode(result)
     assert 'default' and 'test' in result.stdout
 
 
 def test_list_keymaps_long():
     result = check_subcommand('list-keymaps', '--keyboard', 'handwired/onekey/pytest')
-    check_returncode(result, 0)
+    check_returncode(result)
     assert 'default' and 'test' in result.stdout
 
 
 def test_list_keymaps_kb_only():
     result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
-    check_returncode(result, 0)
+    check_returncode(result)
     assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb():
     result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
-    check_returncode(result, 0)
+    check_returncode(result)
     assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb_rev():
     result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
-    check_returncode(result, 0)
+    check_returncode(result)
     assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
     result = check_subcommand('list-keymaps', '-kb', 'asdfghjkl')
-    check_returncode(result, 1)
+    check_returncode(result, [1])
     assert 'does not exist' in result.stdout
 
 
 def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json')
-    check_returncode(result, 0)
+    check_returncode(result)
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
 
 
@@ -148,7 +152,11 @@ def test_info_keymap_render():
     check_returncode(result)
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
-    assert '│A │' in result.stdout
+
+    if is_windows:
+        assert '|A |' in result.stdout
+    else:
+        assert '│A │' in result.stdout
 
 
 def test_info_matrix_render():
@@ -157,7 +165,12 @@ def test_info_matrix_render():
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
     assert 'LAYOUT_ortho_1x1' in result.stdout
-    assert '│0A│' in result.stdout
+
+    if is_windows:
+        assert '|0A|' in result.stdout
+    else:
+        assert '│0A│' in result.stdout
+
     assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout
 
 
@@ -171,3 +184,9 @@ def test_c2json_nocpp():
     result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
     check_returncode(result)
     assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+
+
+def test_clean():
+    result = check_subcommand('clean', '-a')
+    check_returncode(result)
+    assert result.stdout.count('done') == 2

@@ -31,4 +31,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 RGBLIGHT_ENABLE = yes       # Use RGB underglow light
 RGB_MATRIX_ENABLE = no      # Use RGB matrix
+RGB_MATRIX_DRIVER = IS31FL3733
 LAYOUTS = 60_ansi 60_hhkb
