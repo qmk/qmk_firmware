@@ -137,13 +137,13 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ansi(
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MAC:  // Change default ayer --> Write to EEPROM
+        case MAC: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_MAC);
             }
             return false;
             break;
-        case WIN:  // Change default ayer --> Write to EEPROM
+        case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WIN);
             }
