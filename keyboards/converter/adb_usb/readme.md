@@ -82,3 +82,4 @@ QMK Port Changelog
 ---------
 - 2018/09/16 - Initial release.
 - 2018/12/23 - Fixed lock LED support.
+- 2020/12/05 - Added M0118 ANSI layout.
