@@ -119,15 +119,16 @@ const uint8_t PROGMEM convert_key_to_led2[] =
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _C_SYSTEM_BASE,  //  MIDI C-system
-    _FAKE_B_SYSTEM,  //  MIDI fake B-system doesn't have correct assignments on top two rows. The bottom 3 rows are B-system.
-    _C_SYSTEM_BASS2ROW,
-    _C_SYSTEM_ENTIRELY,
+    _C_SYSTEM_BASE,      //  MIDI C-system
+    _FAKE_B_SYSTEM,      //  MIDI fake B-system doesn't have correct assignments on top two rows. The bottom 3 rows are B-system.
+    _C_SYSTEM_BASS2ROW,  //  counter bass system
+    _C_SYSTEM_ENTIRELY,  //  single notes for both left and right keybaords.
     _CHROMATONE,
-    _QWERTY,   //  just in case
-    _COLEMAK,  //  just in case
-    _ADJUST,   //  for Fn keys, etc.
-    _FN
+    _CFLIP_BASS2ROW,     //  180 degree flipped layout on right side keyboard
+    _QWERTY,
+    _COLEMAK,
+    _ADJUST,             //  for Fn keys, etc.
+    _FN                  //  for changing layers, octaves, etc.
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -238,6 +239,7 @@ enum custom_keycodes {
     CNTBASC,
     CSYSALL,
     CHRTONE,
+    CFLIP2B,
     TGLBASS
 };
 
@@ -306,6 +308,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MI_C_2,  MI_Db_2, MI_Eb_2, MI_F_2,  MI_G_2,  MI_A_2,  MI_B_2,  MI_Db_3, MI_Eb_3, MI_F_3,  MI_G_3,  MI_A_3,  MI_B_3
   ),
 
+  [_CFLIP_BASS2ROW] = LAYOUT(
+    MI_CH_Fr,     MI_CH_Cr,     MI_CH_Gr,     MI_CH_Dr,     MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,   MI_CH_Csr,   MI_CH_Gsr,   MI_CH_Dsr,   MI_CH_Asr,
+    MI_CH_Dbr,    MI_CH_Abr,    MI_CH_Ebr,    MI_CH_Bbr,    MI_CH_Fr,    MI_CH_Cr,    MI_CH_Gr,    MI_CH_Dr,    MI_CH_Ar,    MI_CH_Er,    MI_CH_Br,    MI_CH_Fsr,
+    MI_CH_Db,     MI_CH_Ab,     MI_CH_Eb,     MI_CH_Bb,     MI_CH_F,     MI_CH_C,     MI_CH_G,     MI_CH_D,     MI_CH_A,     MI_CH_E,     MI_CH_B,     MI_CH_Fs,
+    MI_CH_Dbm,    MI_CH_Abm,    MI_CH_Ebm,    MI_CH_Bbm,    MI_CH_Fm,    MI_CH_Cm,    MI_CH_Gm,    MI_CH_Dm,    MI_CH_Am,    MI_CH_Em,    MI_CH_Bm,    MI_CH_Fsm,
+    MI_CH_DbDom7, MI_CH_AbDom7, MI_CH_EbDom7, MI_CH_BbDom7, MI_CH_FDom7, MI_CH_CDom7, MI_CH_GDom7, MI_CH_DDom7, MI_CH_ADom7, MI_CH_EDom7, MI_CH_BDom7, MI_CH_FsDom7,
+
+    MI_F_5,  MI_D_5,  MI_B_4,  MI_Ab_4, MI_F_4,  MI_D_4,  MI_B_3,  MI_Ab_3, MI_F_3,  MI_D_3,  MI_B_2,  MI_Ab_2, FN_MUTE,
+    MI_Fs_5, MI_Eb_5, MI_C_5,  MI_A_4,  MI_Fs_4, MI_Eb_4, MI_C_4,  MI_A_3,  MI_Fs_3, MI_Eb_3, MI_C_3,  MI_A_2,  MI_Fs_2,
+    MI_G_5,  MI_E_5,  MI_Db_5, MI_Bb_4, MI_G_4,  MI_E_4,  MI_Db_4, MI_Bb_3, MI_G_3,  MI_E_3,  MI_Db_3, MI_Bb_2, MI_G_2
+  ),
+
   /* QWERTY */
   [_QWERTY] = LAYOUT_wrapper(
     KC_GESC, _________________NUMBER_L__________________, _________________NUMBER_R__________________, KC_BSPC,
@@ -348,14 +362,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT(
-    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
     DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, _______,
-    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
     XXXXXXX, XXXXXXX, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
@@ -374,7 +388,7 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS({1,
 
 // Light up fn layer keys
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
-                                                                         {0,   5, HSV_ORANGE},      //  MIDI layouts
+                                                                         {0,   6, HSV_ORANGE},      //  MIDI layouts
                                                                          {11,  1, HSV_RED},         //  RGB_TOG
                                                                          {12,  1, HSV_WHITE},       //  DF_QWER
                                                                          {13,  1, HSV_CORAL},       //  TGLBASS
@@ -400,7 +414,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {53,  1, HSV_PINK},
 #endif
                                                                                                     //  right keyboard
-                                                                         {60,  5, HSV_ORANGE},      //  MIDI layouts
+                                                                         {60,  6, HSV_ORANGE},      //  MIDI layouts
                                                                          {74,  1, HSV_CORAL},       //  TGLBASS
                                                                          {85,  1, HSV_BLUE},        //  MIDI Oct
                                                                          {86,  1, HSV_CYAN},        //  MIDI Oct
@@ -408,7 +422,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {88,  1, HSV_GREEN},       //  MIDI Oct
                                                                          {89,  1, HSV_CHARTREUSE},  //  MIDI Oct
                                                                          {96,  1, HSV_PINK},        //  EEP_RST
-                                                                         {98,  5, HSV_ORANGE},      //  MIDI layouts
+                                                                         {98,  6, HSV_ORANGE},      //  MIDI layouts
                                                                          {110, 1, HSV_RED},         //  RGB_TOG
                                                                          {112, 1, HSV_CORAL}        //  TGLBASS
 );
@@ -531,6 +545,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CHRTONE:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_CHROMATONE);
+            }
+            break;
+
+        case CFLIP2B:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_CFLIP_BASS2ROW);
             }
             break;
 
