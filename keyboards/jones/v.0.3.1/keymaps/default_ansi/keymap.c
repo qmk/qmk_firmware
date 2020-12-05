@@ -70,7 +70,6 @@ enum custom_keycodes {
 #define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
-#define ADJUST  MO(_ADJUST)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
