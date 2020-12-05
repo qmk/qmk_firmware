@@ -17,6 +17,8 @@ static uint8_t ledMcuWakeup[11] = {
     0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02
 };
 
+static bool ledEnabled = false;
+
 ble_capslock_t BLECapsLock = {._dummy = {0}, .caps_lock = false};
 
 uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS] = {
@@ -113,13 +115,17 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 return false;
 
             case KC_AP_LED_OFF:
-                annepro2LedPrevProfile();
                 annepro2LedDisable();
+                ledEnabled = false;
                 break;
 
             case KC_AP_LED_ON:
-                annepro2LedNextProfile();
-                annepro2LedEnable();
+                if (ledEnabled) {
+                    annepro2LedNextProfile();
+                } else {
+                    ledEnabled = true;
+                    annepro2LedEnable();
+                }
                 break;
 
             case KC_AP_LED_NEXT_PROFILE:
