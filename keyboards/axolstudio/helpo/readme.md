@@ -1,6 +1,6 @@
 # Helpo
 
-*ATmega32A powered 20 key THT macropad*
+ATmega32A powered 20 key THT macropad
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: Helpo PCB
