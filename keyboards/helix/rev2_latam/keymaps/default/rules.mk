@@ -6,8 +6,7 @@
 #   See TOP/docs/config_options.md for more information.
 #
 LTO_ENABLE = no  # if firmware size over limit, try this option
-EXTRAKEY_ENABLE = yes    # Audio control and System control
-# AUDIO_ENABLE = yes       # Audio output on port C6
+
 # Helix Spacific Build Options
 # you can uncomment and edit follows 7 Variables
 #  jp: 以下の7つの変数を必要に応じて編集し、コメントアウトをはずします。
