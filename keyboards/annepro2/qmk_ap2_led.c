@@ -54,6 +54,11 @@ void annepro2LedNextProfile()
   sdPut(&SD0, CMD_LED_NEXT_PROFILE);
 }
 
+void annepro2LedNextIntensity()
+{
+  sdPut(&SD0, CMD_LED_NEXT_INTENSITY);
+}
+
 void annepro2LedPrevProfile()
 {
   sdPut(&SD0, CMD_LED_PREV_PROFILE);
