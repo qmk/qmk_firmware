@@ -6,7 +6,7 @@ MCU = atmega32u4
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-BOOTLOADER = caterina
+BOOTLOADER = atmel-dfu
 
 
 # Build Options
@@ -28,3 +28,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 ENCODER_ENABLE = yes
+AUTO_SHIFT_ENABLE = yes

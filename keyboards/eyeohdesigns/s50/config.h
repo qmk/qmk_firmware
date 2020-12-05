@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0001
-#define MANUFACTURER % EYE OH DESIGNS %
-#define PRODUCT % S50K %
+#define MANUFACTURER EYE OH DESIGNS
+#define PRODUCT S50K
 #define DESCRIPTION Kit version of the S50
 
 /* key matrix size */
@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 8
 #define ENCODERS_PAD_A {B2}
 #define ENCODERS_PAD_B {D1}
-#define ENCODER_RESOLUTION 2
+#define ENCODER_RESOLUTION 4
 
 /*
  * Keyboard Matrix Assignments
