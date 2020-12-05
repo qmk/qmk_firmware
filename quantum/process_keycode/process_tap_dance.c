@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "quantum.h"
-#include "action_tapping.h"
 
 #ifndef NO_ACTION_ONESHOT
 uint8_t get_oneshot_mods(void);
