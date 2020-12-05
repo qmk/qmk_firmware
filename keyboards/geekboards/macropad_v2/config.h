@@ -76,9 +76,3 @@
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
-
-
-#ifndef __ASSEMBLER__
-void eeconfig_update_rgb_matrix(void);
-#define eeconfig_update_rgblight_current eeconfig_update_rgb_matrix
-#endif
