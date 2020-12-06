@@ -57,8 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B7_AUDIO
-  #define C6_AUDIO  // 2nd pin for simultaneous audio.
+  #define C6_AUDIO
+  #define B7_AUDIO  // 2nd pin for simultaneous audio.
   #define AUDIO_CLICKY
 #endif
 
@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
   /*== Lighting Layers ==*/
-  #define RGBLIGHT_LAYERS // Disable to turn off "Layer Indicator".
+  #define RGBLIGHT_LAYERS
   // #define RGBLIGHT_MAX_LAYERS 2
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
   /*== all animations enable ==*/
