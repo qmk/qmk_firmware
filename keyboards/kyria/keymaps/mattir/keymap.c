@@ -73,8 +73,11 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end();
 
-    SEQ_ONE_KEY(KC_F) { // using the exqmple fo now
-      SEND_STRING("QMK is awesome.");
+    SEQ_ONE_KEY(KC_A) {
+      tap_code16(SGUI(KC_L));
+    }
+    SEQ_TWO_KEYS(KC_S, KC_S) {
+      tap_code16(SGUI(KC_5));
     }
   }
 }
@@ -244,9 +247,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
       case QWERTY: // Undo / Redo
         if (clockwise) {
-          tap_code16(G(KC_Z));
+          tap_code16(LGUI(KC_Z));
         } else {
-          tap_code16(S(G(KC_Z)));
+          tap_code16(SGUI(KC_Z));
         }
         break;
       case LOWER: // App switching
