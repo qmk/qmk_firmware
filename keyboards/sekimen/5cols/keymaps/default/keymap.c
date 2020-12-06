@@ -222,7 +222,7 @@ void pointing_device_init(void) {
     init_paw3204();
 }
 
-void matrix_scan_user(void) {
+void pointing_device_task(void) {
     static int  cnt;
     static bool paw_ready;
 
