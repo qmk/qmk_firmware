@@ -156,51 +156,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Script for the mousekey start.
 #if defined(POINTING_DEVICE_ENABLE) && defined(MOUSEKEY_ENABLE)
     switch (keycode) {
-        case KC_MS_BTN1:                            // Override the behavior of mouse key.
+        case KC_MS_BTN1 ... KC_MS_BTN5:
             if (record->event.pressed) {
-                mouse_rep.buttons |= MOUSE_BTN1;
+                mouse_rep.buttons |= 1 << (keycode - KC_MS_BTN1);
             } else {
-                mouse_rep.buttons &= ~MOUSE_BTN1;
+                mouse_rep.buttons &= ~(1 << (keycode - KC_MS_BTN1));
             }
             pointing_device_set_report(mouse_rep);
+            pointing_device_send();
             return false;
-            break;
-        case KC_MS_BTN2:
-            if (record->event.pressed) {
-                mouse_rep.buttons |= MOUSE_BTN2;
-            } else {
-                mouse_rep.buttons &= ~MOUSE_BTN2;
-            }
-            pointing_device_set_report(mouse_rep);
-            return false;
-            break;
-        case KC_MS_BTN3:
-            if (record->event.pressed) {
-                mouse_rep.buttons |= MOUSE_BTN3;
-            } else {
-                mouse_rep.buttons &= ~MOUSE_BTN3;
-            }
-            pointing_device_set_report(mouse_rep);
-            return false;
-            break;
-        case KC_MS_BTN4:
-            if (record->event.pressed) {
-                mouse_rep.buttons |= MOUSE_BTN4;
-            } else {
-                mouse_rep.buttons &= ~MOUSE_BTN4;
-            }
-            pointing_device_set_report(mouse_rep);
-            return false;
-            break;
-        case KC_MS_BTN5:
-            if (record->event.pressed) {
-                mouse_rep.buttons |= MOUSE_BTN5;
-            } else {
-                mouse_rep.buttons &= ~MOUSE_BTN5;
-            }
-            pointing_device_set_report(mouse_rep);
-            return false;
-            break;
         case KC_MS_WH_UP:
             if (record->event.pressed) {
                 mouse_rep_temp.v = w_offset;
