@@ -154,8 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Script for the mousekey start.
-#ifdef POINTING_DEVICE_ENABLE
-#ifdef MOUSEKEY_ENABLE
+#if defined(POINTING_DEVICE_ENABLE) && defined(MOUSEKEY_ENABLE)
     switch (keycode) {
         case KC_MS_BTN1:                            // Override the behavior of mouse key.
             if (record->event.pressed) {
