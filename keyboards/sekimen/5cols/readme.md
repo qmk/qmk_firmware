@@ -1,6 +1,6 @@
 # sekimen
 
-*A split ortholinear keyboard using a single-sided board*
+A split ortholinear keyboard using a single-sided board
 
 * Keyboard Maintainer: [N2](https://github.com/N2-Sumikko)
 * Hardware Supported: sekimen PCB, Pro Micro
