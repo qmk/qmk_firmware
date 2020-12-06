@@ -190,7 +190,7 @@ void pointing_device_send(void) {
             host_mouse_send(&mouseReport);
         }
     } else {
-        master_mouse_send(mouseReport);
+        master_mouse_send(mouseReport.x, mouseReport.y);
     }
     mouseReport.x = 0;
     mouseReport.y = 0;

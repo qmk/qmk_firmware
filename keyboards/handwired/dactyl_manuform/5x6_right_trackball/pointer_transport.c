@@ -36,10 +36,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
-#    ifdef POINTING_DEVICE_ENABLE
-static uint16_t device_cpi;
-static report_mouse_t split_mouse_report = {};
-#    endif
+#ifdef POINTING_DEVICE_ENABLE
+static uint16_t device_cpi    = 0;
+static int8_t   split_mouse_x = 0, split_mouse_y = 0;
+#endif
 
 #if defined(USE_I2C)
 
@@ -58,13 +58,9 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
-#    ifdef POINTING_DEVICE_ENABLE
-    report_mouse_t mouse_report;
-    uint16_t       device_cpi;
-#    else
-    uint64_t mouse_report: 40;
+    int8_t   mouse_x;
+    int8_t   mouse_y;
     uint16_t device_cpi;
-#    endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -74,7 +70,8 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, mmatrix)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
-#    define I2C_MOUSE_REPORT_START offsetof(I2C_slave_buffer_t, mouse_report)
+#    define I2C_MOUSE_X_START offsetof(I2C_slave_buffer_t, mouse_x)
+#    define I2C_MOUSE_Y_START offsetof(I2C_slave_buffer_t, mouse_y)
 #    define I2C_MOUSE_DPI_START offsetof(I2C_slave_buffer_t, device_cpi)
 #    define TIMEOUT 100
 
@@ -84,7 +81,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 
 // Get rows from other half over i2c
 bool transport_master(matrix_row_t matrix[]) {
-    i2c_readReg(SLAVE_I2C_ADDRESS, I2C_KEYMAP_SLAVE_START, (void *)slave_matrix, sizeof(i2c_buffer->smatrix), TIMEOUT);
+    i2c_readReg(SLAVE_I2C_ADDRESS, I2C_KEYMAP_START, (void *)matrix, sizeof(i2c_buffer->smatrix), TIMEOUT);
 
     // write backlight info
 #    ifdef BACKLIGHT_ENABLE
@@ -123,13 +120,17 @@ bool transport_master(matrix_row_t matrix[]) {
 #    ifdef POINTING_DEVICE_ENABLE
     if (is_keyboard_left()) {
         report_mouse_t temp_report = pointing_device_get_report();
-        i2c_readReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_REPORT_START, (void *)&i2c_buffer->mouse_report, sizeof(i2c_buffer->mouse_report), TIMEOUT);
-        temp_report.x              = i2c_buffer->mouse_report.x;
-        temp_report.y              = i2c_buffer->mouse_report.y;
-        temp_report.h              = i2c_buffer->mouse_report.h;
-        temp_report.v              = i2c_buffer->mouse_report.v;
+        i2c_readReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_X_START, (void *)&i2c_buffer->mouse_x, sizeof(i2c_buffer->mouse_x), TIMEOUT);
+        temp_report.x = i2c_buffer->mouse_x;
+        i2c_readReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_Y_START, (void *)&i2c_buffer->mouse_y, sizeof(i2c_buffer->mouse_y), TIMEOUT);
+        temp_report.y = i2c_buffer->mouse_y;
         pointing_device_set_report(temp_report);
-        i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_DPI_START, (void *)&i2c_buffer->device_cpi, sizeof(i2c_buffer->device_cpi), TIMEOUT);
+
+        if (device_cpi != i2c_buffer->device_cpi) {
+            if(i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_DPI_START, (void *)&device_cpi, sizeof(device_cpi), TIMEOUT) >= 0) {
+                i2c_buffer->device_cpi = device_cpi
+            }
+        }
     }
 #    endif
 
@@ -137,9 +138,8 @@ bool transport_master(matrix_row_t matrix[]) {
 }
 
 void transport_slave(matrix_row_t matrix[]) {
-
     // Copy matrix to I2C buffer
-    memcpy((void *)i2c_buffer->smatrix, (void *)slave_matrix, sizeof(i2c_buffer->smatrix));
+    memcpy((void *)i2c_buffer->smatrix, (void *)matrix, sizeof(i2c_buffer->smatrix));
 
 // Read Backlight Info
 #    ifdef BACKLIGHT_ENABLE
@@ -162,17 +162,17 @@ void transport_slave(matrix_row_t matrix[]) {
     set_current_wpm(i2c_buffer->current_wpm);
 #    endif
 
-
 #    ifdef POINTING_DEVICE_ENABLE
     if (!is_keyboard_left()) {
         static uint16_t cpi;
-        if (cpi != i2c_buffer->host_leds) {
-            cpi = i2c_buffer->host_leds;
+        if (cpi != i2c_buffer->device_cpi) {
+            cpi = i2c_buffer->device_cpi;
             pmw_set_cpi(cpi);
         }
-        i2c_buffer->mouse_report = split_mouse_report;
-        i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_REPORT_START, (void *)&i2c_buffer->mouse_report, sizeof(i2c_buffer->mouse_report), TIMEOUT);
-
+        i2c_buffer->mouse_x = split_mouse_x;
+        i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_X_START, (void *)&i2c_buffer->mouse_x, sizeof(i2c_buffer->mouse_x), TIMEOUT);
+        i2c_buffer->mouse_y = split_mouse_y;
+        i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_Y_START, (void *)&i2c_buffer->mouse_y, sizeof(i2c_buffer->mouse_y), TIMEOUT);
     }
 
 #    endif
@@ -181,8 +181,6 @@ void transport_slave(matrix_row_t matrix[]) {
 void transport_master_init(void) { i2c_init(); }
 
 void transport_slave_init(void) { i2c_slave_init(SLAVE_I2C_ADDRESS); }
-
-
 
 #else  // USE_SERIAL
 
@@ -194,11 +192,8 @@ typedef struct _Serial_s2m_buffer_t {
 #    ifdef ENCODER_ENABLE
     uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
-#    ifdef POINTING_DEVICE_ENABLE
-    report_mouse_t mouse_report;
-#    else
-    uint64_t mouse_report: 40;
-#    endif
+    int8_t mouse_x;
+    int8_t mouse_y;
 } Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
@@ -208,14 +203,7 @@ typedef struct _Serial_m2s_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
-    uint8_t host_leds;
-#    ifdef POINTING_DEVICE_ENABLE
-    report_mouse_t mouse_report;
-    uint16_t       device_cpi;
-#    else
-    uint64_t mouse_report: 40;
     uint16_t device_cpi;
-#    endif
 } Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -326,10 +314,8 @@ bool transport_master(matrix_row_t matrix[]) {
 #    ifdef POINTING_DEVICE_ENABLE
     if (is_keyboard_left()) {
         report_mouse_t temp_report = pointing_device_get_report();
-        temp_report.x              = serial_s2m_buffer.mouse_report.x;
-        temp_report.y              = serial_s2m_buffer.mouse_report.y;
-        temp_report.h              = serial_s2m_buffer.mouse_report.h;
-        temp_report.v              = serial_s2m_buffer.mouse_report.v;
+        temp_report.x              = serial_s2m_buffer.mouse_x;
+        temp_report.y              = serial_s2m_buffer.mouse_y;
         pointing_device_set_report(temp_report);
         serial_m2s_buffer.device_cpi = device_cpi;
     }
@@ -363,9 +349,10 @@ void transport_slave(matrix_row_t matrix[]) {
         static uint16_t cpi;
         if (cpi != serial_m2s_buffer.device_cpi) {
             cpi = serial_m2s_buffer.device_cpi;
-            pmw_set_cpi(cpi * 1.5);
+            pmw_set_cpi(cpi);
         }
-        serial_s2m_buffer.mouse_report = split_mouse_report;
+        serial_s2m_buffer.mouse_x = split_mouse_x;
+        serial_s2m_buffer.mouse_y = split_mouse_y;
     }
 
 #    endif
@@ -374,12 +361,15 @@ void transport_slave(matrix_row_t matrix[]) {
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
-void master_mouse_send(report_mouse_t mouse_report) { split_mouse_report = mouse_report; }
+void master_mouse_send(int8_t x, int8_t y) {
+    split_mouse_x = x;
+    split_mouse_y = y;
+}
 void trackball_set_cpi(uint16_t cpi) {
     if (!is_keyboard_left()) {
         pmw_set_cpi(cpi);
     } else {
-        device_cpi = cpi;
+        device_cpi = cpi * 1.5;
     }
 }
 #endif

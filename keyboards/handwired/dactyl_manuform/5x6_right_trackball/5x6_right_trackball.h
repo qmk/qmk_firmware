@@ -69,5 +69,5 @@ enum ploopy_keycodes {
     KEYMAP_SAFE_RANGE,
 };
 
-void master_mouse_send(report_mouse_t mouse_report);
+void master_mouse_send(int8_t x, int8_t y);
 void trackball_set_cpi(uint16_t cpi);
