@@ -268,6 +268,7 @@ void pointing_device_task(void) {
                 pointing_device_set_report(mouse_rep);
         }
     }
+    pointing_device_send();
 }
 #endif
 // Script for the trackball end.
