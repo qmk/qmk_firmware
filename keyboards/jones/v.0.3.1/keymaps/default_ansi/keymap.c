@@ -59,7 +59,7 @@ enum custom_keycodes {
   WIN,
 };
 
-// Custom keycodes
+// Key Macro
 #define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
 #define SP_RAI  LT(_RAISE, KC_SPC)
