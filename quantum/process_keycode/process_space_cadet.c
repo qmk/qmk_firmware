@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_space_cadet.h"
+#include "action_tapping.h"
 
 // ********** OBSOLETE DEFINES, STOP USING! (pls?) **********
 // Shift / paren setup
@@ -92,7 +93,12 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
             register_mods(MOD_BIT(holdMod));
         }
     } else {
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode, record)) {
+#ifdef TAPPING_TERM_PER_KEY
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode, record))
+#else
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
+#endif
+        {
             if (holdMod != tapMod) {
                 if (IS_MOD(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
