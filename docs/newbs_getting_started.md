@@ -60,9 +60,12 @@ After Homebrew is installed run this command:
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
-* Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
-* Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
+* Debian / Ubuntu / Devuan: `sudo apt install -y git python3-pip`
+* Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip`
+* Arch / Manjaro: `sudo pacman --needed --noconfirm -S git python-pip libffi`
+* Void: `sudo xbps-install -y git python3-pip`
+* Solus: `sudo eopkg -y install git python3`
+* Sabayon: `sudo equo install dev-vcs/git dev-python/pip`
 
 Install the global CLI to bootstrap your system:
 

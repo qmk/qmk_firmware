@@ -97,7 +97,7 @@ static uint16_t oneshot_layer_time = 0;
 inline bool     has_oneshot_layer_timed_out() { return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT && !(get_oneshot_layer_state() & ONESHOT_TOGGLED); }
 #        ifdef SWAP_HANDS_ENABLE
 static uint16_t oneshot_swaphands_time = 0;
-inline bool     has_oneshot_swaphands_timed_out() { return TIMER_DIFF_16(timer_read(), oneshot_swaphands_time) >= ONESHOT_TIMEOUT && !(swap_hands_oneshot >= SHO_PRESSED); }
+inline bool     has_oneshot_swaphands_timed_out() { return TIMER_DIFF_16(timer_read(), oneshot_swaphands_time) >= ONESHOT_TIMEOUT && (swap_hands_oneshot == SHO_ACTIVE); }
 #        endif
 #    endif
 
@@ -290,6 +290,32 @@ void set_macro_mods(uint8_t mods) { macro_mods = mods; }
 void clear_macro_mods(void) { macro_mods = 0; }
 
 #ifndef NO_ACTION_ONESHOT
+/** \brief get oneshot mods
+ *
+ * FIXME: needs doc
+ */
+uint8_t get_oneshot_mods(void) { return oneshot_mods; }
+
+void add_oneshot_mods(uint8_t mods) {
+    if ((oneshot_mods & mods) != mods) {
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = timer_read();
+#    endif
+        oneshot_mods |= mods;
+        oneshot_mods_changed_kb(mods);
+    }
+}
+
+void del_oneshot_mods(uint8_t mods) {
+    if (oneshot_mods & mods) {
+        oneshot_mods &= ~mods;
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        oneshot_time = oneshot_mods ? timer_read() : 0;
+#    endif
+        oneshot_mods_changed_kb(oneshot_mods);
+    }
+}
+
 /** \brief set oneshot mods
  *
  * FIXME: needs doc
@@ -316,11 +342,6 @@ void clear_oneshot_mods(void) {
         oneshot_mods_changed_kb(oneshot_mods);
     }
 }
-/** \brief get oneshot mods
- *
- * FIXME: needs doc
- */
-uint8_t get_oneshot_mods(void) { return oneshot_mods; }
 #endif
 
 /** \brief Called when the one shot modifiers have been changed.

@@ -45,7 +45,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [BOT_CTR] = COMBO_ACTION(bx_combo),
 };
 
-  void process_combo_event(uint8_t combo_index, bool pressed) {
+  void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
       case MID_R:
       if (pressed) {

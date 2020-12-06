@@ -37,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_CAPS_LOCK_PIN C5
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
