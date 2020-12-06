@@ -1,6 +1,6 @@
 # Aplx6 rev2
 
-![Top View](https://i.imgur.com/92KlXaz.jpeg) 
+![Top View](https://i.imgur.com/92KlXazl.jpeg) 
    
 An updated encoder version, implementing music, browser and document shortcuts. Designed to be assembled as a sandwich with a blank PCB, using M2.5 screws and spacers, your choice of MX- or Alps-compatible switches, and 1N4148 diodes.
 
