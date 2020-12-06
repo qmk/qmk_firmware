@@ -22,4 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 OLED_DRIVER_ENABLE = yes    # Enable Support for Oled Display
-ENCODER_ENABLE = yes		# Enable Support for Encoder
+ENCODER_ENABLE = yes        # Enable Support for Encoder
