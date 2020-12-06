@@ -15,9 +15,12 @@
   */
 #include QMK_KEYBOARD_H
 
-#define _MEDIA 0
-#define _DOC 1
-#define _POWER 2
+enum layer_names {
+    _MEDIA,
+    _DOC,
+    _POWER
+};
+
 #define KC_COPY LCTL(KC_C)              //Mac, change it to LGUI(KC_C)
 #define KC_CUT LCTL(KC_X)               //  >>      >>      LGUI(KC_X)  
 #define KC_PASTE LCTL(KC_V)             //  >>      >>      LGUI(KC_V)
