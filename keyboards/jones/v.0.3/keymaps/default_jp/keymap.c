@@ -34,7 +34,6 @@ enum tap_dances{
 };
 
 // Tap Dance state
-// for toggle layer by ESC
 enum {
     SINGLE_TAP = 1,
     DOUBLE_TAP,
@@ -138,9 +137,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_jp(
 );
 #endif
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
 switch (keycode) {
     case MAC: // Change default ayer --> Write to EEPROM
         if (record->event.pressed) {
