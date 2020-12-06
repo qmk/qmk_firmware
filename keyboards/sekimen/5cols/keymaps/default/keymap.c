@@ -218,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Script for the trackball start.
 #ifdef POINTING_DEVICE_ENABLE
 
-void matrix_init_user(void) {
+void pointing_device_init(void) {
     init_paw3204();
 }
 
