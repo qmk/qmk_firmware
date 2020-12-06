@@ -15,8 +15,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        fetch-depth: 1
 
     - name: Install dependencies
       run: |
@@ -29,13 +27,8 @@ jobs:
         bin/qmk fileformat
 
     - name: Commit files
-      run: |
-        git config --global user.name "QMK Bot"
-        git config --global user.email "hello@qmk.fm"
-        git add .
-        git diff-index --quiet HEAD || git commit -m "format code according to conventions for ${GITHUB_SHA} [skip ci]"
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        commit_message: "Format code according to conventions for ${GITHUB_SHA}"
+        commit_user_name: QMK Bot
+        commit_user_email: hello@qmk.fm
