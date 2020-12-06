@@ -12,7 +12,7 @@ An updated encoder version, implementing music, browser and document shortcuts. 
 ## Firmware
 * Keyboard Maintainer: [Aplyard](https://github.com/Aplyard)
 * Hardware Supported: Aplx6 PCB, Pro Micro (ATmega32U4)
-* Hardware Availability: [GitHub](https://github.com/Aplyard/Aplx6-rev2)
+* Hardware Availability: [GitHub](https://github.com/Aplyard/aplx6/tree/master/rev2)
 
 Make example for this keyboard (after setting up your build environment):
 
