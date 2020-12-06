@@ -1,6 +1,6 @@
 # labyrinth75
 
-![labyrinth75](https://imgur.com/a/nmPGYO5)
+![labyrinth75](https://imgur.com/a/lwR2ynS)
 
 A through hole 75% FR4 sandwich keyboard using a Pro Micro or Elite C
 
