@@ -172,7 +172,7 @@ const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_YELLOW}
 );
 
-// for temporally layer
+// for temporal layer
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_MAGENTA}
 );
