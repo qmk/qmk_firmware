@@ -5,7 +5,7 @@ from milc import cli
 import subprocess
 
 
-@cli.subcommand("Format files according to QMK's style.")
+@cli.subcommand("Format files according to QMK's style.", hidden=True)
 def fileformat(cli):
     """Run several general formatting commands.
     """
