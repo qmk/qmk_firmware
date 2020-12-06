@@ -1,6 +1,7 @@
 # MCU name
 MCU = atmega32u4
 
+# Bootloader selection
 BOOTLOADER = caterina
 
 SRC += sekimen_paw3204.c
