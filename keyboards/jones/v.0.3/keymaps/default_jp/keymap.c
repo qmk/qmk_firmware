@@ -27,20 +27,6 @@ enum layer_number {
     _ADJUST
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  MAC = SAFE_RANGE,
-  WIN,
-  NUM,
-  LOWER,
-  RAISE,
-  NUM_RAISE,
-  ADJUST,
-  ALT_US,
-  ALT_JP,
-  ALT_GRV,
-};
-
 // Tap Dance
 enum tap_dances{
     TD_LSFT_CAPS = 0,
@@ -68,6 +54,12 @@ void ql_each(qk_tap_dance_state_t *state, void *user_data);
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
+};
+
+// Defines the keycodes used by our macros in process_record_user
+enum custom_keycodes {
+  MAC = SAFE_RANGE,
+  WIN,
 };
 
 // Custom keycodes
