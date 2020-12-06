@@ -113,6 +113,7 @@ static void render_logo(void) {
 void oled_task_user(void) {  
     render_logo();
 }
+#endif
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
