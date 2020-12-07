@@ -1,6 +1,6 @@
 # pos78
 
-https://imgur.com/a/DimaAL5
+![](https://i.imgur.com/ml5cPDS.png)
 
 * Keyboard Maintainer: [smssmssms](https://github.com/smssmssms)
 * Hardware Supported: ATMEGA 32U4 (Adafruit Itsy Bitsy 5v) 
