@@ -44,9 +44,3 @@ void bootmagic_lite(void) {
         bootloader_jump();
     }
 }
-
-/**
- * @brief   RGB Matrix LED layout
- * @details We need a layout for ISO and ANSI
- */
-#define USB_LED_CAPSLOCK_INDEX 28 /* Location of CAPS LOCK led in matrix */
