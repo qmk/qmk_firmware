@@ -1,4 +1,11 @@
 SRC += matrix.c
+SRC += $(QUANTUM_DIR)/color.c
+SRC += $(QUANTUM_DIR)/rgb_matrix.c
+SRC += mbi5042gp.c
+CIE1931_CURVE := yes
+RGB_KEYCODES_ENABLE := yes
+OPT_DEFS += -DRGB_MATRIX_ENABLE
+OPT_DEFS += -DMBI5042
 
 # MCU name
 #MCU = at90usb1286
