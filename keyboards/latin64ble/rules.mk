@@ -30,7 +30,6 @@ BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality on B7 by de
 MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output on port C6
-LAYOUTS = 666
 RGBLIGHT_ENABLE = yes
 BLUETOOTH = AdafruitBLE
 OLED_DRIVER_ENABLE = yes
