@@ -331,3 +331,13 @@ bool led_update_user(led_t led_state) {
     return true;
 #endif
 }
+
+#ifdef RGBLIGHT_ENABLE
+void suspend_power_down_user(void) {
+    suspend_power_down_user_rgb();
+}
+
+void suspend_wakeup_init_user(void) {
+    suspend_wakeup_init_user_rgb();
+}
+#endif

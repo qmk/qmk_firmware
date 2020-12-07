@@ -139,6 +139,14 @@ void shutdown_user() {
     rgblight_sethsv_noeeprom(HSV_RED);
 }
 
+void suspend_power_down_user(void) {
+    clear_rgb_layers();
+}
+
+void suspend_wakeup_init_user(void) {
+    do_rgb_layers(layer_state, LAYER_BASE, LAYER_BASE_END);
+}
+
 void spidey_glow(void) {
     rgblight_enable();
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);

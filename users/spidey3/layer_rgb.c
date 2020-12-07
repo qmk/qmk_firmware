@@ -194,6 +194,15 @@ void keyboard_post_init_user_rgb(void) {
     }
 }
 
+void suspend_power_down_user_rgb(void) {
+    clear_rgb_layers();
+}
+
+void suspend_wakeup_init_user_rgb(void) {
+    do_rgb_layers(default_layer_state, LAYER_BASE_DEFAULT + 1, LAYER_BASE_REGULAR);
+    do_rgb_layers(layer_state, LAYER_BASE_REGULAR, LAYER_BASE_END);
+}
+
 layer_state_t default_layer_state_set_user_rgb(layer_state_t state) {
     do_rgb_layers(state, 1u, LAYER_BASE_REGULAR);
     return state;
