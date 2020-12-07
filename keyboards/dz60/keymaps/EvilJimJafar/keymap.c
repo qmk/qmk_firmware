@@ -6,17 +6,20 @@
 #define _NUM 3
 #define _RGB 4
 
-// Combos
+/* Combos
 // Note: When adding a combo, increment COMBO_COUNT in config.h
 
 enum combo_events {
-  SWITCH_WINDOW
+  SWITCH_WINDOW,
+  TILDE
 };
 
 const uint16_t PROGMEM switch_window_combo[] = {KC_LGUI, KC_ESC, COMBO_END};
+const uint16_t PROGMEM tilde_combo[] = {KC_LSHIFT, KC_ESC, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [SWITCH_WINDOW] = COMBO_ACTION(switch_window_combo)
+  [SWITCH_WINDOW] = COMBO_ACTION(switch_window_combo),
+  [TILDE] = COMBO_ACTION(tilde_combo),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -26,9 +29,13 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         tap_code16(LGUI(KC_GRV));
       }
       break;
+    case TILDE:
+      if (pressed) {
+        tap_code16(LSHIFT(KC_GESC));
+      }
   }
 }
-
+*/
 
 /* DZ60 layout using following options (from layouts diagram on KBDfans):
  *  - plate B (2.25u lshift)
@@ -83,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     `-----------------------------------------------------------------------------------------´
     */
     LAYOUT_b_4_9(
-        KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,     KC_EQL,   KC_BSPC,
+        KC_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,     KC_EQL,   KC_BSPC,
         LT(_NAV, KC_TAB),   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,    KC_RBRC,   KC_BSLS,
         KC_LCTL,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,                KC_ENT,
         KC_LSHIFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM, KC_DOT,RSFT_T(KC_SLSH),KC_RSHIFT,  MO(_RGB),
