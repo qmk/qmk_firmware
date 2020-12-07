@@ -18,7 +18,7 @@
 
 #pragma once
 #include "config_common.h"
-#define VENDOR_ID 0x2F8A
+#define VENDOR_ID 0xA76A
 #define PRODUCT_ID 0x1827
 #define DEVICE_VER 0x0001
 #define MANUFACTURER HID Technologies
