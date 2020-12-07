@@ -69,51 +69,19 @@ static void unselect_col(uint8_t col);
 static void select_col(uint8_t col);
 #endif
 
-__attribute__((weak)) void matrix_init_quantum(void) { matrix_init_kb(); }
+__attribute__((weak)) void matrix_init_user(void) {}
 
-__attribute__((weak)) void matrix_scan_quantum(void) { matrix_scan_kb(); }
+__attribute__((weak)) void matrix_scan_user(void) {}
 
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
 
 inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
 
 inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
 
 __attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) { return 0 != ((raw ? raw_matrix[row_index] : matrix[row_index]) & (MATRIX_ROW_SHIFTER << col_index)); }
-
-void matrix_init(void) {
-    unselect_rows();
-    init_cols();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i]     = 0;
-    }
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_quantum();
-}
-
-uint8_t matrix_scan(void) {
-    bool changed = false;
-
-    // Set row, read cols
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        changed |= read_cols_on_row(raw_matrix, current_row);
-    }
-
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
-    matrix_scan_quantum();
-    return (uint8_t)changed;
-}
 
 inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
 
@@ -146,6 +114,17 @@ uint8_t matrix_key_count(void) {
     return count;
 }
 
+static void select_row(uint8_t row) {
+    setPinOutput(row_pins[row]);
+    writePinLow(row_pins[row]);
+}
+static void unselect_row(uint8_t row) { writePinHigh(row_pins[row]); }
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        writePinHigh(row_pins[x]);
+    }
+}
 static void init_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         setPinInputHigh(col_pins[x]);
@@ -178,15 +157,31 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+void matrix_init(void) {
+    unselect_rows();
+    init_cols();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        raw_matrix[i] = 0;
+        matrix[i]     = 0;
+    }
+
+    debounce_init(MATRIX_ROWS);
+
+    matrix_init_quantum();
 }
 
-static void unselect_row(uint8_t row) { writePinHigh(row_pins[row]); }
+uint8_t matrix_scan(void) {
+    bool changed = false;
 
-static void unselect_rows(void) {
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        writePinHigh(row_pins[x]);
+    // Set row, read cols
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        changed |= read_cols_on_row(raw_matrix, current_row);
     }
+
+    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+
+    matrix_scan_quantum();
+    return (uint8_t)changed;
 }
