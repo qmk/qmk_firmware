@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-#define RGBLIGHT_ANIMATIONS
 
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
@@ -52,7 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD    // Enable rainbow mood animation mode.
 #define RGBLIGHT_EFFECT_SNAKE           // Enable snake animation mode.
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT // Enable static gradient mode.
-
 
 
 
