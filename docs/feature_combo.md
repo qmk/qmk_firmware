@@ -110,13 +110,21 @@ These configuration settings can be set in your `config.h` file.
 By default, the timeout for the Combos to be recognized is set to 50ms. This can be changed if accidental combo misfires are happening or if you're having difficulties pressing keys at the same time. For instance, `#define COMBO_TERM 40` would set the timeout period for combos to 40ms.
 
 ## Long Combos
-If you're using long combos, or you have a lot of overlapping combos, you may run into issues with this, as the structure may not be large enough to accommodate what you're doing. In this case, you can configure the size of the data structure used. Be aware, larger combo sizes will increase memory usage!
+If you're using long combos, or you have a lot of overlapping combos, you may run into issues with this, as the buffers may not be large enough to accommodate what you're doing. In this case, you can configure the sizes of the buffers used. Be aware, larger combo sizes and larger buffers will increase memory usage!
+
+To configure the amount of keys a combo can be composed of, change the following:
 
 | Keys | Define to be set     |
 |------|----------------------|
 | 8    | QMK Default          |
 | 16   | `#define EXTRA_LONG_COMBOS`  |
 | 32   | `#define EXTRA_EXTRA_LONG_COMBOS`|
+
+Processing combos has two buffers, one for the key presses, another for the combos being activated. Use the following options to configure the sizes of these buffers:
+
+| Define                              | Default                                              |
+| `#define COMBO_KEY_BUFFER_LENGTH 8` | 8 (the key amount `(EXTRA_)EXTRA_LONG_COMBOS` gives) |
+| `#define COMBO_BUFFER_LENGTH 4`     | 4                                                    |
 
 ## Modifier Combos
 If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_MOD_TERM 150` (default: 200). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.

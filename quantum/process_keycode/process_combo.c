@@ -52,18 +52,17 @@ typedef struct {
     uint16_t combo_index;
     uint16_t keycode;
 } queued_record_t;
-static uint8_t key_buffer_write = 0;
-static uint8_t key_buffer_read = 0;
-static queued_record_t key_buffer[MAX_COMBO_LENGTH];
+static uint8_t key_buffer_size = 0;
+static queued_record_t key_buffer[COMBO_KEY_BUFFER_LENGTH];
 
 typedef struct {
     uint16_t combo_index;
 } queued_combo_t;
 static uint8_t combo_buffer_write= 0;
 static uint8_t combo_buffer_read = 0;
-static queued_combo_t combo_buffer[MAX_COMBO_LENGTH];
+static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 
-#define INCREMENT_MOD(i) i = (i + 1) % MAX_COMBO_LENGTH
+#define INCREMENT_MOD(i) i = (i + 1) % COMBO_BUFFER_LENGTH
 
 #define COMBO_KEY_POS ((keypos_t){.col=254, .row=254})
 
@@ -125,14 +124,11 @@ void clear_combos(void) {
 }
 
 static inline void dump_key_buffer(void) {
-    if (key_buffer_read == key_buffer_write) {
+    if (key_buffer_size == 0) {
         return;
     }
 
-    for (uint8_t key_buffer_i = key_buffer_read;
-            key_buffer_i != key_buffer_write;
-            INCREMENT_MOD(key_buffer_i)
-        ) {
+    for (uint8_t key_buffer_i = 0; key_buffer_i < key_buffer_size; key_buffer_i++) {
 
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
         keyrecord_t *record = &qrecord->record;
@@ -153,7 +149,7 @@ static inline void dump_key_buffer(void) {
         record->event.time = 0;
     }
 
-    key_buffer_read = key_buffer_write;
+    key_buffer_size = 0;
 }
 
 #define NO_COMBO_KEYS_ARE_DOWN (0 == combo->state)
@@ -211,10 +207,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
     uint8_t state = 0;
 #endif
 
-    for (uint8_t key_buffer_i = key_buffer_read;
-            key_buffer_i != key_buffer_write;
-            INCREMENT_MOD(key_buffer_i)
-        ) {
+    for (uint8_t key_buffer_i = 0; key_buffer_i < key_buffer_size; key_buffer_i++) {
 
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
         keyrecord_t *record = &qrecord->record;
@@ -441,12 +434,13 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #   endif
 #endif
 
-        key_buffer[key_buffer_write] = (queued_record_t){
-            .record = *record,
-            .keycode = keycode,
-            .combo_index = -1, // this will be set when applying combos
-        };
-        INCREMENT_MOD(key_buffer_write);
+        if (key_buffer_size < COMBO_KEY_BUFFER_LENGTH) {
+            key_buffer[key_buffer_size++] = (queued_record_t){
+                .record = *record,
+                .keycode = keycode,
+                .combo_index = -1, // this will be set when applying combos
+            };
+        }
     } else {
         if (combo_buffer_read != combo_buffer_write) {
             // some combo is prepared

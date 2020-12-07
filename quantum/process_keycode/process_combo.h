@@ -29,6 +29,13 @@
 #    define MAX_COMBO_LENGTH 8
 #endif
 
+#ifndef COMBO_KEY_BUFFER_LENGTH
+#    define COMBO_KEY_BUFFER_LENGTH MAX_COMBO_LENGTH
+#endif
+#ifndef COMBO_BUFFER_LENGTH
+#    define COMBO_BUFFER_LENGTH 4
+#endif
+
 typedef struct {
     const uint16_t *keys;
     uint16_t        keycode;
