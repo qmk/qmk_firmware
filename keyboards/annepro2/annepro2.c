@@ -89,6 +89,10 @@ void matrix_scan_kb() {
  */
 bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
+        if (AP2_LED_ENABLED && AP2_LED_DYNAMIC_PROFILE) {
+            annepro2LedForwardKeypress(record->event.key.row, record->event.key.col);
+        }
+
         switch (keycode) {
             case KC_AP2_BT1:
                 annepro2_ble_broadcast(0);

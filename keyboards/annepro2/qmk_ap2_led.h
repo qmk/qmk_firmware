@@ -14,6 +14,7 @@
 #define CMD_LED_NEXT_INTENSITY              0xC
 #define CMD_LED_NEXT_ANIMATION_SPEED        0xD
 #define CMD_LED_SET_FOREGROUND_COLOR        0xE
+#define CMD_LED_KEYPRESS                    0xF
 
 void annepro2LedDisable(void);
 void annepro2LedEnable(void);
@@ -30,3 +31,8 @@ void annepro2LedNextIntensity(void);
 void annepro2LedNextAnimationSpeed(void);
 void annepro2LedSetForegroundColor(uint8_t red, uint8_t green, uint8_t blue);
 void annepro2LedResetForegroundColor(void);
+void annepro2LedForwardKeypress(uint8_t row, uint8_t col);
+
+
+extern bool AP2_LED_ENABLED;
+extern bool AP2_LED_DYNAMIC_PROFILE;
