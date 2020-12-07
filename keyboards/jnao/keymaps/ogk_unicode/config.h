@@ -53,7 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define TAPPING_TERM 50
 
+#define PERMISSIVE_HOLD
 
-// #define PERMISSIVE_HOLD
-// #define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT
 
+#define UNICODE_SELECTED_MODES UC_WINC
