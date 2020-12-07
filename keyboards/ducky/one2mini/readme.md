@@ -4,9 +4,9 @@
 
 A 60% keyboard featuring per-key RGB LEDs.
 
-Keyboard Maintainer: [Reza Jelveh](https://github.com/fishman)  
-Hardware Supported: Ducky One 2 Mini RGB / NUC123SD4AN0 / MBI5042GP  
-Hardware Availability: [Ducky Channel](http://www.duckychannel.com.tw/page-en/One_2_Mini_RGB/)
+* Keyboard Maintainer: [Reza Jelveh](https://github.com/fishman)
+* Hardware Supported: Ducky One 2 Mini RGB / NUC123SD4AN0 / MBI5042GP
+* Hardware Availability: [Ducky Channel](http://www.duckychannel.com.tw/page-en/One_2_Mini_RGB/)
 
 Make example for this keyboard (after setting up your build environment):
 

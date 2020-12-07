@@ -11,25 +11,16 @@ MCU_FAMILY = NUMICRO
 MCU_SERIES = NUC123SD4AN0
 
 # linker script to use
-# it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
-#  or <this_dir>/ld/
 MCU_LDSCRIPT = NUC123SD4AN0
 
 # startup code to use
-# is should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
 MCU_STARTUP = NUC123SD4AN0
-
-# it should exist either in <chibios>/os/hal/boards/
-#  or <this_dir>/boards
 BOARD = NUC123SD4AN0
 
 # NUC123 series is Cortex M0
 MCU  = cortex-m0
 # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
 ARMV = 6
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
 #   change yes to no to disable
