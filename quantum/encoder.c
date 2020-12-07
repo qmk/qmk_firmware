@@ -60,6 +60,11 @@ __attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
 
 __attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { encoder_update_user(index, clockwise); }
 
+#ifdef VIAL_ENCODERS_ENABLE
+#include "vial.h"
+#define encoder_update_kb vial_encoder_update
+#endif
+
 void encoder_init(void) {
 #if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
     if (!isLeftHand) {

@@ -17,7 +17,12 @@
 #pragma once
 
 #include <inttypes.h>
+#include <stdbool.h>
 
 #define VIAL_PROTOCOL_VERSION ((uint32_t)0x00000000)
 
 void vial_handle_cmd(uint8_t *data, uint8_t length);
+
+#ifdef VIAL_ENCODERS_ENABLE
+void vial_encoder_update(uint8_t index, bool clockwise);
+#endif

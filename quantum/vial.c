@@ -20,11 +20,15 @@
 #include "protocol/usb_descriptor.h"
 
 #include "vial_generated_keyboard_definition.h"
+#include "dynamic_keymap.h"
+#include "quantum.h"
 
 enum {
     vial_get_keyboard_id = 0x00,
     vial_get_size = 0x01,
     vial_get_def = 0x02,
+    vial_get_encoder = 0x03,
+    vial_set_encoder = 0x04,
 };
 
 void vial_handle_cmd(uint8_t *msg, uint8_t length) {
@@ -66,5 +70,43 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             memcpy_P(msg, &keyboard_definition[start], end - start);
             break;
         }
+#ifdef VIAL_ENCODERS_ENABLE
+        case vial_get_encoder: {
+            uint8_t layer = msg[2];
+            uint8_t idx = msg[3];
+            uint16_t keycode = dynamic_keymap_get_encoder(layer, idx, 0);
+            msg[0]  = keycode >> 8;
+            msg[1]  = keycode & 0xFF;
+            keycode = dynamic_keymap_get_encoder(layer, idx, 1);
+            msg[2] = keycode >> 8;
+            msg[3] = keycode & 0xFF;
+            break;
+        }
+        case vial_set_encoder: {
+            dynamic_keymap_set_encoder(msg[2], msg[3], msg[4], (msg[5] << 8) | msg[6]);
+            break;
+        }
+#endif
     }
 }
+
+#ifdef VIAL_ENCODERS_ENABLE
+void vial_encoder_update(uint8_t index, bool clockwise) {
+    uint16_t code;
+
+    layer_state_t layers = layer_state | default_layer_state;
+    /* check top layer first */
+    for (int8_t i = MAX_LAYER - 1; i >= 0; i--) {
+        if (layers & (1UL << i)) {
+            code = dynamic_keymap_get_encoder(i, index, clockwise);
+            if (code != KC_TRNS) {
+                tap_code16(code);
+                return;
+            }
+        }
+    }
+    /* fall back to layer 0 */
+    code = dynamic_keymap_get_encoder(0, index, clockwise);
+    tap_code16(code);
+}
+#endif

@@ -22,10 +22,6 @@
 #include "dynamic_keymap.h"
 #include "via.h"  // for default VIA_EEPROM_ADDR_END
 
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
-#endif
-
 #ifndef DYNAMIC_KEYMAP_MACRO_COUNT
 #    define DYNAMIC_KEYMAP_MACRO_COUNT 16
 #endif
@@ -57,9 +53,20 @@
 #    endif
 #endif
 
-// Dynamic macro starts after dynamic keymaps
+// Encoders are located right after the dynamic keymap
+#define VIAL_ENCODERS_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
+
+#ifdef VIAL_ENCODERS_ENABLE
+#define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
+static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+#define VIAL_ENCODERS_SIZE (NUMBER_OF_ENCODERS * DYNAMIC_KEYMAP_LAYER_COUNT * 2 * 2)
+#else
+#define VIAL_ENCODERS_SIZE 0
+#endif
+
+// Dynamic macro starts after encoders, or dynamic keymaps if encoders aren't enabled
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_ENCODERS_EEPROM_ADDR + VIAL_ENCODERS_SIZE)
 #endif
 
 // Sanity check that dynamic keymaps fit in available EEPROM
@@ -67,9 +74,7 @@
 // The keyboard should override DYNAMIC_KEYMAP_LAYER_COUNT to reduce it,
 // or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
 // more than the default.
-#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR < 100
-#    error Dynamic keymaps are configured to use more EEPROM than is available.
-#endif
+_Static_assert(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR >= 100, "Dynamic keymaps are configured to use more EEPROM than is available.");
 
 // Dynamic macros are stored after the keymaps and use what is available
 // up to and including DYNAMIC_KEYMAP_EEPROM_MAX_ADDR.
@@ -99,6 +104,31 @@ void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint
     eeprom_update_byte(address + 1, (uint8_t)(keycode & 0xFF));
 }
 
+#ifdef VIAL_ENCODERS_ENABLE
+static void *dynamic_keymap_encoder_to_eeprom_address(uint8_t layer, uint8_t idx, uint8_t dir) {
+    return ((void *)VIAL_ENCODERS_EEPROM_ADDR) + (layer * NUMBER_OF_ENCODERS * 2 * 2) + (idx * 2 * 2) + dir * 2;
+}
+
+uint16_t dynamic_keymap_get_encoder(uint8_t layer, uint8_t idx, uint8_t dir) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || idx >= NUMBER_OF_ENCODERS || dir > 1)
+        return 0;
+
+    void *address = dynamic_keymap_encoder_to_eeprom_address(layer, idx, dir);
+    uint16_t keycode = eeprom_read_byte(address) << 8;
+    keycode |= eeprom_read_byte(address + 1);
+    return keycode;
+}
+
+void dynamic_keymap_set_encoder(uint8_t layer, uint8_t idx, uint8_t dir, uint16_t keycode) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || idx >= NUMBER_OF_ENCODERS || dir > 1)
+        return;
+
+    void *address = dynamic_keymap_encoder_to_eeprom_address(layer, idx, dir);
+    eeprom_update_byte(address, (uint8_t)(keycode >> 8));
+    eeprom_update_byte(address + 1, (uint8_t)(keycode & 0xFF));
+}
+#endif
+
 void dynamic_keymap_reset(void) {
     // Reset the keymaps in EEPROM to what is in flash.
     // All keyboards using dynamic keymaps should define a layout
@@ -109,6 +139,13 @@ void dynamic_keymap_reset(void) {
                 dynamic_keymap_set_keycode(layer, row, column, pgm_read_word(&keymaps[layer][row][column]));
             }
         }
+
+#ifdef VIAL_ENCODERS_ENABLE
+    for (int idx = 0; idx < NUMBER_OF_ENCODERS; ++idx) {
+        dynamic_keymap_set_encoder(layer, idx, 0, KC_TRNS);
+        dynamic_keymap_set_encoder(layer, idx, 1, KC_TRNS);
+    }
+#endif
     }
 }
 

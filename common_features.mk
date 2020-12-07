@@ -375,6 +375,10 @@ $(KEYMAP_OUTPUT)/vial_generated_keyboard_definition.h: $(KEYMAP_PATH)/vial.json
 	python3 util/vial_generate_definition.py $(KEYMAP_PATH)/vial.json $(KEYMAP_OUTPUT)/vial_generated_keyboard_definition.h
 endif
 
+ifeq ($(strip $(VIAL_ENCODERS_ENABLE)), yes)
+    OPT_DEFS += -DVIAL_ENCODERS_ENABLE
+endif
+
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c
