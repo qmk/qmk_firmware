@@ -9,6 +9,9 @@ uint8_t  rgb_sat;
 uint8_t  rgb_val;
 bool     rgb_saved = 0;
 
+extern bool     spi_gflock;
+extern uint16_t spi_replace_mode;
+
 void spidey_glow(void) {
     rgblight_enable();
     rgblight_mode(RGBLIGHT_MODE_TWINKLE + 4);
@@ -201,6 +204,9 @@ void suspend_power_down_user_rgb(void) {
 void suspend_wakeup_init_user_rgb(void) {
     do_rgb_layers(default_layer_state, LAYER_BASE_DEFAULT + 1, LAYER_BASE_REGULAR);
     do_rgb_layers(layer_state, LAYER_BASE_REGULAR, LAYER_BASE_END);
+    led_update_user_rgb(host_keyboard_led_state());
+    rgblight_set_layer_state(MISC_OFFSET + 0, spi_gflock);
+    rgblight_set_layer_state(MISC_OFFSET + 1, spi_replace_mode != SPI_NORMAL);
 }
 
 layer_state_t default_layer_state_set_user_rgb(layer_state_t state) {
@@ -233,9 +239,6 @@ void rgb_layer_ack(layer_ack_t n) {
 
 extern keymap_config_t   keymap_config;
 extern rgblight_config_t rgblight_config;
-
-extern bool     spi_gflock;
-extern uint16_t spi_replace_mode;
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
