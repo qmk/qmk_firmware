@@ -4,8 +4,6 @@ MCU = atmega32u4
 BOOTLOADER = caterina
 F_CPU = 8000000
 
-# Feather uses the caterina bootloader
-OPT_DEFS += -DBOOTLOADER_SIZE=4096 -DCATERINA_BOOTLOADER
 
 # Build Options
 #   change yes to no to disable
