@@ -626,19 +626,13 @@ OSAL_IRQ_HANDLER(NUC123_PWMA_HANDLER) {
     OSAL_IRQ_EPILOGUE();
 }
 
-static void init( void )
-{
-    MBI5042GP_init();
-}
+static void init(void) { MBI5042GP_init(); }
 
-static void flush( void )
-{
-    MBI5042GP_write_pwm_buffers();
-}
+static void flush(void) { MBI5042GP_write_pwm_buffers(); }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = init,
-    .flush = flush,
-    .set_color = MBI5042GP_set_color,
+    .init          = init,
+    .flush         = flush,
+    .set_color     = MBI5042GP_set_color,
     .set_color_all = MBI5042GP_set_color_all,
 };
