@@ -32,4 +32,3 @@ UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = yes
 BLUETOOTH = AdafruitBLE
-OLED_DRIVER_ENABLE = yes
