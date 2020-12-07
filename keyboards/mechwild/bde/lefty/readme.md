@@ -1,7 +1,6 @@
 # BIG DILL EXTENDED
 
 ![BIG DILL EXTENDED](https://i0.wp.com/mechwild.com/wp-content/uploads/2020/10/IMG_4458_web.jpg)
-===
 
 A 41 key keyboard.
 
