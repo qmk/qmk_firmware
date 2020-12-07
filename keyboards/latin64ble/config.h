@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    latincompass
 #define PRODUCT         Latin64BLE
-#define DESCRIPTION     64key blekeyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -53,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD    // Enable rainbow mood animation mode.
 #define RGBLIGHT_EFFECT_SNAKE           // Enable snake animation mode.
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT // Enable static gradient mode.
-
 
 
 
