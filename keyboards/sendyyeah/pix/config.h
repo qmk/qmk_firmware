@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x4e34
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    sendyyeah
-#define PRODUCT         Nakal4x
+#define PRODUCT         Pix
 #define DESCRIPTION     4x macropad and encoder by sendyyeah
 
 /* key matrix size */
