@@ -1,4 +1,3 @@
-SRC += matrix.c
 SRC += $(QUANTUM_DIR)/color.c
 SRC += $(QUANTUM_DIR)/rgb_matrix.c
 SRC += mbi5042gp.c
@@ -39,7 +38,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
-CUSTOM_MATRIX = yes         # Custom keyscan matrix (don't force inputs)
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
