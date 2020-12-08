@@ -165,6 +165,19 @@ static const USBEndpointConfig shared_ep_config = {
 };
 #endif
 
+#if STM32_USB_USE_OTG1
+typedef struct {
+    size_t              queue_capacity_in;
+    size_t              queue_capacity_out;
+    USBInEndpointState  in_ep_state;
+    USBOutEndpointState out_ep_state;
+    USBInEndpointState  int_ep_state;
+    USBEndpointConfig   inout_ep_config;
+    USBEndpointConfig   int_ep_config;
+    const QMKUSBConfig  config;
+    QMKUSBDriver        driver;
+} usb_driver_config_t;
+#else
 typedef struct {
     size_t              queue_capacity_in;
     size_t              queue_capacity_out;
@@ -177,7 +190,54 @@ typedef struct {
     const QMKUSBConfig  config;
     QMKUSBDriver        driver;
 } usb_driver_config_t;
+#endif
 
+#if STM32_USB_USE_OTG1
+/* Reusable initialization structure - see USBEndpointConfig comment at top of file */
+#define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                  \
+    {                                                                                           \
+        .queue_capacity_in = stream##_IN_CAPACITY, .queue_capacity_out = stream##_OUT_CAPACITY, \
+        .inout_ep_config =                                                                         \
+            {                                                                                   \
+                stream##_IN_MODE,      /* Interrupt EP */                                       \
+                NULL,                  /* SETUP packet notification callback */                 \
+                qmkusbDataTransmitted, /* IN notification callback */                           \
+                qmkusbDataReceived,    /* OUT notification callback */                             \
+                stream##_EPSIZE,       /* IN maximum packet size */                             \
+                stream##_EPSIZE,       /* OUT maximum packet size */                            \
+                NULL,                  /* IN Endpoint state */                                  \
+                NULL,                  /* OUT endpoint state */                                 \
+                2,                     /* IN multiplier */                                      \
+                NULL                   /* SETUP buffer (not a SETUP endpoint) */                \
+            },                                                                                  \
+        .int_ep_config =                                                                        \
+            {                                                                                   \
+                USB_EP_MODE_TYPE_INTR,      /* Interrupt EP */                                  \
+                NULL,                       /* SETUP packet notification callback */            \
+                qmkusbInterruptTransmitted, /* IN notification callback */                      \
+                NULL,                       /* OUT notification callback */                     \
+                CDC_NOTIFICATION_EPSIZE,    /* IN maximum packet size */                        \
+                0,                          /* OUT maximum packet size */                       \
+                NULL,                       /* IN Endpoint state */                             \
+                NULL,                       /* OUT endpoint state */                            \
+                2,                          /* IN multiplier */                                 \
+                NULL,                       /* SETUP buffer (not a SETUP endpoint) */           \
+            },                                                                                  \
+        .config = {                                                                             \
+            .usbp        = &USB_DRIVER,                                                         \
+            .bulk_in     = stream##_IN_EPNUM,                                                   \
+            .bulk_out    = stream##_OUT_EPNUM,                                                  \
+            .int_in      = notification,                                                        \
+            .in_buffers  = stream##_IN_CAPACITY,                                                \
+            .out_buffers = stream##_OUT_CAPACITY,                                               \
+            .in_size     = stream##_EPSIZE,                                                     \
+            .out_size    = stream##_EPSIZE,                                                     \
+            .fixed_size  = fixedsize,                                                           \
+            .ib          = (__attribute__((aligned(4))) uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]){},  \
+            .ob          = (__attribute__((aligned(4))) uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY, stream##_EPSIZE)]){}, \
+        }                                                                                       \
+    }
+#else
 /* Reusable initialization structure - see USBEndpointConfig comment at top of file */
 #define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                                              \
     {                                                                                                                       \
@@ -235,6 +295,7 @@ typedef struct {
             .ob          = (__attribute__((aligned(4))) uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY, stream##_EPSIZE)]){}, \
         }                                                                                                                   \
     }
+#endif
 
 typedef struct {
     union {
@@ -327,8 +388,12 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             usbInitEndpointI(usbp, SHARED_IN_EPNUM, &shared_ep_config);
 #endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
+                #if STM32_USB_USE_OTG1
+                usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].inout_ep_config);
+                #else
                 usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].in_ep_config);
                 usbInitEndpointI(usbp, drivers.array[i].config.bulk_out, &drivers.array[i].out_ep_config);
+                #endif
                 if (drivers.array[i].config.int_in) {
                     usbInitEndpointI(usbp, drivers.array[i].config.int_in, &drivers.array[i].int_ep_config);
                 }
@@ -553,12 +618,21 @@ static const USBConfig usbcfg = {
  */
 void init_usb_driver(USBDriver *usbp) {
     for (int i = 0; i < NUM_USB_DRIVERS; i++) {
+        #if STM32_USB_USE_OTG1
+        QMKUSBDriver *driver                       = &drivers.array[i].driver;
+        drivers.array[i].inout_ep_config.in_state  = &drivers.array[i].in_ep_state;
+        drivers.array[i].inout_ep_config.out_state = &drivers.array[i].out_ep_state;
+        drivers.array[i].int_ep_config.in_state    = &drivers.array[i].int_ep_state;
+        qmkusbObjectInit(driver, &drivers.array[i].config);
+        qmkusbStart(driver, &drivers.array[i].config);
+        #else
         QMKUSBDriver *driver                     = &drivers.array[i].driver;
         drivers.array[i].in_ep_config.in_state   = &drivers.array[i].in_ep_state;
         drivers.array[i].out_ep_config.out_state = &drivers.array[i].out_ep_state;
         drivers.array[i].int_ep_config.in_state  = &drivers.array[i].int_ep_state;
         qmkusbObjectInit(driver, &drivers.array[i].config);
         qmkusbStart(driver, &drivers.array[i].config);
+        #endif
     }
 
     /*
@@ -572,6 +646,13 @@ void init_usb_driver(USBDriver *usbp) {
     usbConnectBus(usbp);
 
     chVTObjectInit(&keyboard_idle_timer);
+}
+
+void restart_usb_driver(USBDriver *usbp) {
+    usbStop(usbp);
+    usbDisconnectBus(usbp);
+    usbStart(usbp, &usbcfg);
+    usbConnectBus(usbp);
 }
 
 /* ---------------------------------------------------------

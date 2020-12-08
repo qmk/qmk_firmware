@@ -51,7 +51,7 @@ bool TYPING_HEATMAP(effect_params_t* params) {
             if (!HAS_ANY_FLAGS(g_led_config.flags[led[j]], params->flags)) continue;
 
             HSV hsv = {170 - qsub8(val, 85), rgb_matrix_config.hsv.s, scale8((qadd8(170, val) - 170) * 3, rgb_matrix_config.hsv.v)};
-            RGB rgb = hsv_to_rgb(hsv);
+            RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
             rgb_matrix_set_color(led[j], rgb.r, rgb.g, rgb.b);
         }
 
