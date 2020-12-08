@@ -49,22 +49,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    writePinLow(B7);
+    writePinLow(B6);
     switch (get_highest_layer(state)) {
     case 1:
         writePinHigh(B7);
-        writePinLow(B6);
         break;
     case 2:
-        writePinLow(B7);
         writePinHigh(B6);
         break;
     case 3:
         writePinHigh(B7);
         writePinHigh(B6);
-        break;
-    default:
-        writePinLow(B7);
-        writePinLow(B6);
         break;
     }
     return state;
@@ -84,4 +80,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
-
