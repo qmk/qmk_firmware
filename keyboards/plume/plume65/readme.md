@@ -1,7 +1,7 @@
 # Plume65
 
 ## Support
-* Keyboard Maintainer: [maartenwut](https://github.com/maartenwut)
+* Keyboard Maintainer: [Evyd13](https://github.com/evyd13)
 * Hardware Supported: Plume65
 * Hardware Availability: N/A
 
