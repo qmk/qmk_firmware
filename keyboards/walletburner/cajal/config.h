@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5742 // WB
+#define PRODUCT_ID      0x6361 // CJ
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Walletburner
 #define PRODUCT         Cajal
@@ -57,4 +57,3 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #endif
-
