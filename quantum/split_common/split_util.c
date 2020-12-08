@@ -12,7 +12,7 @@
 #endif
 
 #ifdef PROTOCOL_VUSB
-#    include "usbdrv.h"
+#    include <usbdrv/usbdrv.h>
 #endif
 
 #ifdef EE_HANDS
