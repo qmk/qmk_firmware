@@ -229,8 +229,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             app_switch_active = false;
         }
         if (app_switch_valid_keycode(keycode) == false) {
-          unregister_code(macos_mode ? KC_LGUI : KC_LALT);
-          app_switch_active = false;
+            unregister_code(macos_mode ? KC_LGUI : KC_LALT);
+            app_switch_active = false;
         }
     }
 
@@ -444,7 +444,7 @@ bool handle_show_task_view(bool pressed) {
     return false;
 }
 
- /* Key combo to easily switch virtual desktops ('Spaces' in MacOs). */
+/* Key combo to easily switch virtual desktops ('Spaces' in MacOs). */
 bool handle_switch_desktop(bool previous, bool pressed) {
     if (pressed) {
         if (macos_mode == false) {
