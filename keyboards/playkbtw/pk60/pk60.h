@@ -1,5 +1,4 @@
-#ifndef pk60_H
-#define pk60_H
+#pragma once
 
 #include "quantum.h"
 
@@ -86,5 +85,3 @@
 	{ K30,  K31,  K32,  K33,  K34,   K35,   K36,   K37,  K38,  K39,  K3A,  K3B,  K3C,  K3D,  K3E   }, \
 	{ K40,  K41,  K42,  K43,  KC_NO, KC_NO, KC_NO, K47,  K48,  K49,  K4A,  K4B,  K4C,  K4D,  KC_NO }  \
 }
-
-#endif
