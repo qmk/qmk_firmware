@@ -46,7 +46,7 @@ TODO:
 
 enum layer_names { _DVORAK, _QWERTY, _COLEMAK, _WOW, _DESTINY, _LOWER, _RAISE, _ADJUST };
 
-enum atreus52_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, WOW, DESTINY, LOWER, RAISE, ADJUST };
+enum atreus62_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, WOW, DESTINY, LOWER, RAISE, ADJUST };
 
 // Aliases to make the keymap clearer.
 #define CTL_ENT CTL_T(KC_ENT)
