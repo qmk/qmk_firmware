@@ -5,8 +5,8 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x706B
-#define PRODUCT_ID      0x6001
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0x6003
+#define DEVICE_VER      0x0003
 #define MANUFACTURER    Play Keyboard
 #define PRODUCT         pk60
 #define DESCRIPTION     A 60% keyboard PCB
@@ -22,9 +22,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_CAPS_LOCK_PIN F4
-#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7
@@ -44,7 +41,7 @@
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 12
+#define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
