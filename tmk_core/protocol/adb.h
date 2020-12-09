@@ -97,13 +97,15 @@ POSSIBILITY OF SUCH DAMAGE.
 // ADB host
 void     adb_host_init(void);
 bool     adb_host_psw(void);
-uint16_t adb_host_kbd_recv(uint8_t addr);
 uint16_t adb_host_talk(uint8_t addr, uint8_t reg);
 uint8_t  adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
 void     adb_host_listen(uint8_t addr, uint8_t reg, uint8_t data_h, uint8_t data_l);
 void     adb_host_listen_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
 void     adb_host_flush(uint8_t addr);
-void     adb_host_kbd_led(uint8_t addr, uint8_t led);
+void     adb_host_kbd_led(uint8_t led);
+uint16_t adb_host_kbd_recv(void);
+uint16_t adb_host_mouse_recv(void);
+// ADB Mouse
 void     adb_mouse_task(void);
 void     adb_mouse_init(void);
 

@@ -87,9 +87,9 @@ bool adb_host_psw(void)
  * <http://geekhack.org/index.php?topic=14290.msg1068919#msg1068919>
  * <http://geekhack.org/index.php?topic=14290.msg1070139#msg1070139>
  */
-uint16_t adb_host_kbd_recv(uint8_t addr)
+uint16_t adb_host_kbd_recv(void)
 {
-    return adb_host_talk(addr, ADB_REG_0);
+    return adb_host_talk(ADB_ADDR_KEYBOARD, ADB_REG_0);
 }
 
 #ifdef ADB_MOUSE_ENABLE
@@ -101,6 +101,11 @@ void adb_mouse_init(void) {
 __attribute__ ((weak))
 void adb_mouse_task(void) {
     return;
+}
+
+uint16_t adb_host_mouse_recv(void)
+{
+    return adb_host_talk(ADB_ADDR_MOUSE, ADB_REG_0);
 }
 #endif
 
@@ -255,12 +260,12 @@ void adb_host_flush(uint8_t addr)
 }
 
 // send state of LEDs
-void adb_host_kbd_led(uint8_t addr, uint8_t led)
+void adb_host_kbd_led(uint8_t led)
 {
     // Listen Register2
     //  upper byte: not used
     //  lower byte: bit2=ScrollLock, bit1=CapsLock, bit0=NumLock
-    adb_host_listen(addr, 2, 0, led & 0x07);
+    adb_host_listen(ADB_ADDR_KEYBOARD, ADB_REG_2, 0, led & 0x07);
 }
 
 
