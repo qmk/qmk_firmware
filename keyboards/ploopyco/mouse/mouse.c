@@ -140,7 +140,7 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
         // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
-        process_mouse_user(mouse_report, data.dx, -data.dy);
+        process_mouse_user(mouse_report, data.dx, data.dy);
     }
 }
 
@@ -171,31 +171,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
         if (record->event.pressed) {
-            if (keycode == KC_MS_BTN1)
-                currentReport.buttons |= MOUSE_BTN1;
-            else if (keycode == KC_MS_BTN2)
-                currentReport.buttons |= MOUSE_BTN2;
-            else if (keycode == KC_MS_BTN3)
-                currentReport.buttons |= MOUSE_BTN3;
-            else if (keycode == KC_MS_BTN4)
-                currentReport.buttons |= MOUSE_BTN4;
-            else if (keycode == KC_MS_BTN5)
-                currentReport.buttons |= MOUSE_BTN5;
+            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
         } else {
-            if (keycode == KC_MS_BTN1)
-                currentReport.buttons &= ~MOUSE_BTN1;
-            else if (keycode == KC_MS_BTN2)
-                currentReport.buttons &= ~MOUSE_BTN2;
-            else if (keycode == KC_MS_BTN3)
-                currentReport.buttons &= ~MOUSE_BTN3;
-            else if (keycode == KC_MS_BTN4)
-                currentReport.buttons &= ~MOUSE_BTN4;
-            else if (keycode == KC_MS_BTN5)
-                currentReport.buttons &= ~MOUSE_BTN5;
+            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
         }
         pointing_device_set_report(currentReport);
         pointing_device_send();
     }
+
 #endif
 
     return true;
