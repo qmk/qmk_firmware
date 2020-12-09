@@ -3,6 +3,7 @@
 ![XD75](https://cdn.shopify.com/s/files/1/2711/4238/products/HTB1MzOISXXXXXXgXpXXq6xXFXXXO_1024x1024.jpg)
 
 The XD75 is a 15x5 full-grid ortholinear keyboard manufactured by XIUDI. Available in two different versions: XD75Re with hot swap switch sockets and XD75Am with Alps+MX Stem support that needs soldering.
+
 This port of the QMK firmware is my first shot at using QMK, so if you see any features done wrong (or just plain missing), feel free to fix them and put in a pull request!
 
 * Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
