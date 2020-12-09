@@ -44,9 +44,9 @@ TODO:
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 #include QMK_KEYBOARD_H
 
-enum layer_names { _DVORAK, _QWERTY, _COLEMAK, _WOW, _DESTINY, _LOWER, _RAISE, _ADJUST };
+enum layer_names { _DVORAK, _QWERTY, _COLEMAK, _DESTINY, _WOW, _LOWER, _RAISE, _ADJUST };
 
-enum atreus62_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, WOW, DESTINY, LOWER, RAISE, ADJUST };
+enum atreus62_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, DESTINY, WOW, LOWER, RAISE, ADJUST };
 
 // Aliases to make the keymap clearer.
 #define CTL_ENT CTL_T(KC_ENT)
@@ -81,14 +81,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LGUI, KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
   ),
 
-  [_WOW] = LAYOUT ( /* Dvorak with minor modifications for playing World of Warcraft */
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
-    KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
-    KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
-    KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LALT, CTL_ENT, KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
-  ),
-
   [_DESTINY] = LAYOUT ( /* Dvorak with minor modifications for playing Destiny 2 and other FPS Looters */
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
@@ -97,16 +89,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_DEL,  KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
   ),
 
+  [_WOW] = LAYOUT ( /* Dvorak with minor modifications for playing World of Warcraft */
+    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
+    KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
+    KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
+    KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LALT, CTL_ENT, KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
+  ),
+
   [_LOWER] = LAYOUT (
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
-    KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_PIPE,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______,
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
     _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  MACLOCK, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
   ),
   [_RAISE] = LAYOUT (
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
-    KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_BSLS,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
     KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______,
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
     _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  MACLOCK, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
@@ -145,11 +145,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COLEMAK:
         set_single_persistent_default_layer(_COLEMAK);
       return false;
-    case WOW:
-        set_single_persistent_default_layer(_WOW);
-      return false;
     case DESTINY:
         set_single_persistent_default_layer(_DESTINY);
+      return false;
+    case WOW:
+        set_single_persistent_default_layer(_WOW);
       return false;
    }
   }
