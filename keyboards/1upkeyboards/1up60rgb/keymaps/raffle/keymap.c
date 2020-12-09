@@ -110,21 +110,3 @@ void led_set_user(uint8_t usb_led) {
   }
 
 }
-
-//*********** Empty fxns from default map that I'm not modifying ***********//
-// onboard macro support
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  ;
-
-  switch (id) {
-
-  }
-  return MACRO_NONE;
-}
-
-// initialize matrix 
-void matrix_init_user(void) {
-}
-
-
-
