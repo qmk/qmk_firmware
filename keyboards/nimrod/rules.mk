@@ -22,5 +22,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_4x10
-
-LAYOUTS = ortho_4x10
