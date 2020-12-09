@@ -127,16 +127,16 @@ Ported to QMK by Peter Roe <pete@13bit.me>
    K35,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33, K47,K51,K4B,K43, \
    K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,K24, K59,K5B,K5C,K45, \
    K39,K00,K01,K02,K03,K05,K04,K26,K28,K25,K29,K27,K2A,     K56,K57,K58,K4E, \
-   K38,K0A,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,K7B,K3E, K53,K54,K55,     \
+   K38,K32,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,K7B,K3E, K53,K54,K55,     \
    K36,K3A,K37,            K31,            K7C,K3B,K3C,K3D, K52,    K41,K4C  \
 ) { \
   { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07   }, \
-  { K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F   }, \
+  { K08,   K09,   KC_NO, K0B,   K0C,   K0D,   K0E,   K0F   }, \
   { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17   }, \
   { K18,   K19,   K1A,   K1B,   K1C,   K1D,   K1E,   K1F   }, \
   { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27   }, \
   { K28,   K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F   }, \
-  { K30,   K31,   KC_NO, K33,   KC_NO, K35,   K36,   K37   }, \
+  { K30,   K31,   K32,   K33,   KC_NO, K35,   K36,   K37   }, \
   { K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E,   KC_NO }, \
   { KC_NO, K41,   KC_NO, K43,   KC_NO, K45,   KC_NO, K47   }, \
   { KC_NO, KC_NO, KC_NO, K4B,   K4C,   KC_NO, K4E,   KC_NO }, \
@@ -145,7 +145,7 @@ Ported to QMK by Peter Roe <pete@13bit.me>
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-  { KC_NO, KC_NO, KC_NO, K7B,   K7C, KC_NO, KC_NO, K7F   }  \
+  { KC_NO, KC_NO, KC_NO, K7B,   K7C,   KC_NO, KC_NO, K7F   }  \
 }
 
 #endif
