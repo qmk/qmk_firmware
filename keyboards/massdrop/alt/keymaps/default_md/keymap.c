@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "../../../alt_ctrl_shared/eeprom.h"
+
 enum alt_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase                                   //Working
     L_BRD,              //LED Brightness Decrease                                   //Working
@@ -57,73 +59,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case L_BRI:
             if (record->event.pressed) {
-                if (LED_GCR_STEP > LED_GCR_MAX - gcr_desired) gcr_desired = LED_GCR_MAX;
-                else gcr_desired += LED_GCR_STEP;
-                if (led_animation_breathing) gcr_breathe = gcr_desired;
+                gcr_desired_increase();
             }
             return false;
         case L_BRD:
             if (record->event.pressed) {
-                if (LED_GCR_STEP > gcr_desired) gcr_desired = 0;
-                else gcr_desired -= LED_GCR_STEP;
-                if (led_animation_breathing) gcr_breathe = gcr_desired;
+                gcr_desired_decrease();
             }
             return false;
         case L_PTN:
             if (record->event.pressed) {
-                if (led_animation_id == led_setups_count - 1) led_animation_id = 0;
-                else led_animation_id++;
+                led_pattern_next();
             }
             return false;
         case L_PTP:
             if (record->event.pressed) {
-                if (led_animation_id == 0) led_animation_id = led_setups_count - 1;
-                else led_animation_id--;
+                led_pattern_prev();
             }
             return false;
         case L_PSI:
             if (record->event.pressed) {
-                led_animation_speed += ANIMATION_SPEED_STEP;
+                led_animation_speed_increase();
             }
             return false;
         case L_PSD:
             if (record->event.pressed) {
-                led_animation_speed -= ANIMATION_SPEED_STEP;
-                if (led_animation_speed < 0) led_animation_speed = 0;
+                led_animation_speed_decrease();
             }
             return false;
         case L_T_MD:
             if (record->event.pressed) {
-                led_lighting_mode++;
-                if (led_lighting_mode > LED_MODE_MAX_INDEX) led_lighting_mode = LED_MODE_NORMAL;
+                led_mode_next();
             }
             return false;
         case L_T_ONF:
             if (record->event.pressed) {
-                led_enabled = !led_enabled;
-                I2C3733_Control_Set(led_enabled);
+                led_set_enabled(!kb_config.led_enabled);
             }
             return false;
         case L_ON:
             if (record->event.pressed) {
-                led_enabled = 1;
-                I2C3733_Control_Set(led_enabled);
+                led_set_enabled(true);
             }
             return false;
         case L_OFF:
             if (record->event.pressed) {
-                led_enabled = 0;
-                I2C3733_Control_Set(led_enabled);
+                led_set_enabled(false);
             }
             return false;
         case L_T_BR:
             if (record->event.pressed) {
-                led_animation_breathing = !led_animation_breathing;
-                if (led_animation_breathing) {
-                    gcr_breathe = gcr_desired;
-                    led_animation_breathe_cur = BREATHE_MIN_STEP;
-                    breathe_dir = 1;
-                }
+                led_set_animation_breathing(!led_animation_breathing);
             }
             return false;
         case L_T_PTD:
@@ -163,6 +149,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (timer_elapsed32(key_timer) >= 500) {
                     reset_keyboard();
                 }
+            }
+            return false;
+        case NK_TOGG:
+            if (record->event.pressed) {
+                nkro_toggle();
             }
             return false;
         default:
