@@ -286,6 +286,16 @@ This command starts a local HTTP server which you can use for browsing or improv
 qmk docs [-p PORT]
 ```
 
+## `qmk generate-docs`
+
+This command allows you to generate QMK documentation locally. It can be uses for general browsing or improving the docs. External tools such as [serve](https://www.npmjs.com/package/serve) can be used to browse the generated files.
+
+**Usage**:
+
+```
+qmk generate-docs
+```
+
 ## `qmk kle2json`
 
 This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
