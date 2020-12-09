@@ -13,11 +13,11 @@ GH60 case compatible PCB and keyplate.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jones/v.0.3:default_ansi
+    make jones/v03:default_ansi
     
 Flashing example for this keyboard ([using the command line](https://docs.qmk.fm/#/newbs_flashing?id=flash-your-keyboard-from-the-command-line)):
 
-    make jones/v.0.3:default_ansi:flash
+    make jones/v03:default_ansi:flash
 
 To reset the keyboard into bootloader mode, press the reset switch on the underside.
 
