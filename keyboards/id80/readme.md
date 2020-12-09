@@ -16,7 +16,7 @@ Make example for this keyboard (after setting up your build environment):
     
 ## ISO support:
 
-* Keyboard Maintainer: [Carsten Rose](https://github.com/cwr10010), in curtesy to [Sergey Vlasov](https://github.com/sigprof) who did the ground work for the ID80 ansi
+* Keyboard Maintainer: [Carsten Rose](https://github.com/cwr10010)
 * Hardware Supported: IDOBAO ID80v2
 * Hardware Availability: [IDOBAO](https://www.idobao.net/products/idobao-id80v2-75-hot-swappable-mechanical-keyboard-kit)
 
