@@ -16,31 +16,31 @@
   * [Zadig 驱动安装](zh-cn/driver_installation_zadig.md)
 
 * 配置
-  * [概述](newbs_building_firmware_configurator.md)
-  * [一步一步](configurator_step_by_step.md)
-  * [故障排除](configurator_troubleshooting.md)
+  * [概述](zh-cn/newbs_building_firmware_configurator.md)
+  * [一步一步](zh-cn/configurator_step_by_step.md)
+  * [故障排除](zh-cn/configurator_troubleshooting.md)
   * QMK API
-    * [概述](api_overview.md)
-    * [API 文档](api_docs.md)
-    * [键盘支持](reference_configurator_support.md)
-    * [添加默认键盘映射](configurator_default_keymaps.md)
+    * [概述](zh-cn/api_overview.md)
+    * [API 文档](zh-cn/api_docs.md)
+    * [键盘支持](zh-cn/reference_configurator_support.md)
+    * [添加默认键盘映射](zh-cn/configurator_default_keymaps.md)
 
 * CLI
-    * [概述](cli.md)
-    * [配置](cli_configuration.md)
-    * [命令](cli_commands.md)
+    * [概述](zh-cn/cli.md)
+    * [配置](zh-cn/cli_configuration.md)
+    * [命令](zh-cn/cli_commands.md)
 
 * 使用 QMK
   * 教程
-    * [定制功能](custom_quantum_functions.md)
-    * [使用 Zadig 安装驱动](driver_installation_zadig.md)
-    * [键盘映射概述](keymap.md)
+    * [定制功能](zh-cn/custom_quantum_functions.md)
+    * [使用 Zadig 安装驱动](zh-cn/driver_installation_zadig.md)
+    * [键盘映射概述](zh-cn/keymap.md)
     * 开发环境
-      * [Docker 教程](getting_started_docker.md)
-      * [Vagrant 教程](getting_started_vagrant.md)
+      * [Docker 教程](zh-cn/getting_started_docker.md)
+      * [Vagrant 教程](zh-cn/getting_started_vagrant.md)
     * Flashing
-      * [Flashing](flashing.md)
-      * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
+      * [Flashing](zh-cn/flashing.md)
+      * [Flashing ATmega32A (ps2avrgb)](zh-cn/flashing_bootloadhid.md)
     * IDEs
       * [使用 Eclipse 开发 QMK](zh-cn/other_eclipse.md)
       * [使用 VSCode 开发 QMK](zh-cn/other_vscode.md)
@@ -50,45 +50,45 @@
       * [解决合并冲突](zh-cn/newbs_git_resolving_merge_conflicts.md)
       * [修复分支](zh-cn/newbs_git_resynchronize_a_branch.md)
     * Keyboard Building
-      * [手动连线指南](hand_wire.md)
-      * [ISP Flashing Guide](isp_flashing_guide.md)
+      * [手动连线指南](zh-cn/hand_wire.md)
+      * [ISP Flashing Guide](zh-cn/isp_flashing_guide.md)
 
   * 基础键码
-    * [全列表](keycodes.md)
-    * [基础键码](keycodes_basic.md)
-    * [特定语言键(Language-Specific Keycodes)](reference_extras.md)
-    * [修饰键](feature_advanced_keycodes.md)
-    * [Quantum Keycodes](quantum_keycodes.md)
+    * [全列表](zh-cn/keycodes.md)
+    * [基础键码](zh-cn/keycodes_basic.md)
+    * [特定语言键(Language-Specific Keycodes)](zh-cn/reference_extras.md)
+    * [修饰键](zh-cn/feature_advanced_keycodes.md)
+    * [Quantum Keycodes](zh-cn/quantum_keycodes.md)
 
   * 进阶键码
-    * [命令](feature_command.md)
+    * [命令](zh-cn/feature_command.md)
     * [动态宏指令](zh-cn/feature_dynamic_macros.md)
-    * [Grave Escape](feature_grave_esc.md)
+    * [Grave Escape](zh-cn/feature_grave_esc.md)
     * [重音号和 Esc 复合键](zh-cn/feature_grave_esc.md)
-    * [前缀键(Leader Key)](feature_leader_key.md)
-    * [Mod-Tap](mod_tap.md)
-    * [Macros](feature_macros.md)
+    * [前缀键(Leader Key)](zh-cn/feature_leader_key.md)
+    * [Mod-Tap](zh-cn/mod_tap.md)
+    * [Macros](zh-cn/feature_macros.md)
     * [宏指令](zh-cn/feature_macros.md)
-    * [Space Cadet Shift](feature_space_cadet.md)
-    * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
+    * [Space Cadet Shift](zh-cn/feature_space_cadet.md)
+    * [US ANSI Shifted Keys](zh-cn/keycodes_us_ansi_shifted.md)
 
   * 软件特性
-    * [自动 Shift](feature_auto_shift.md)
-    * [组合](feature_combo.md)
-    * [防抖 API](feature_debounce_type.md)
-    * [键盘锁定](feature_key_lock.md)
-    * [Layers](feature_layers.md)
-    * [One Shot Keys](one_shot_keys.md)
-    * [Pointing Device](feature_pointing_device.md)
-    * [原生 HID](feature_rawhid.md)
-    * [音序器(Sequencer)](feature_sequencer.md)
-    * [Swap Hands](feature_swap_hands.md)
-    * [踢踏舞(Tap Dance)](feature_tap_dance.md)
-    * [Tap-Hold Configuration](tap_hold.md)
-    * [终端](feature_terminal.md)
-    * [Unicode](feature_unicode.md)
-    * [用户控件](feature_userspace.md)
-    * [WPM 计算](feature_wpm.md)
+    * [自动 Shift](zh-cn/feature_auto_shift.md)
+    * [组合](zh-cn/feature_combo.md)
+    * [防抖 API](zh-cn/feature_debounce_type.md)
+    * [键盘锁定](zh-cn/feature_key_lock.md)
+    * [Layers](zh-cn/feature_layers.md)
+    * [One Shot Keys](zh-cn/one_shot_keys.md)
+    * [Pointing Device](zh-cn/feature_pointing_device.md)
+    * [原生 HID](zh-cn/feature_rawhid.md)
+    * [音序器(Sequencer)](zh-cn/feature_sequencer.md)
+    * [Swap Hands](zh-cn/feature_swap_hands.md)
+    * [踢踏舞(Tap Dance)](zh-cn/feature_tap_dance.md)
+    * [Tap-Hold Configuration](zh-cn/tap_hold.md)
+    * [终端](zh-cn/feature_terminal.md)
+    * [Unicode](zh-cn/feature_unicode.md)
+    * [用户控件](zh-cn/feature_userspace.md)
+    * [WPM 计算](zh-cn/feature_wpm.md)
 
   * 硬件特性
     * 显示
@@ -116,10 +116,10 @@
     * [速度键](zh-cn/feature_velocikey.md)
 
 * QMK 开发
-  * [PR 清单](pr_checklist.md)
+  * [PR 清单](zh-cn/pr_checklist.md)
   * 破坏性更改
-    * [概述](breaking_changes.md)
-    * [我的 PR 被标记了](breaking_changes_instructions.md)
+    * [概述](zh-cn/breaking_changes.md)
+    * [我的 PR 被标记了](zh-cn/breaking_changes_instructions.md)
     * 历史
       * [2020年11月28](ChangeLog/20201128.md)
       * [20208月29日](ChangeLog/20200829.md)
@@ -128,45 +128,45 @@
       * [20198月30日](ChangeLog/20190830.md)
 
   * C 开发
-    * [ARM 调试指南](arm_debugging.md)
-    * [AVR 处理器](hardware_avr.md)
-    * [Coding Conventions](coding_conventions_c.md)
-    * [兼容的单片机](compatible_microcontrollers.md)
-    * [驱动](hardware_drivers.md)
-      * [ADC Driver](adc_driver.md)
-      * [I2C Driver](i2c_driver.md)
-      * [SPI Driver](spi_driver.md)
-      * [WS2812 Driver](ws2812_driver.md)
-      * [EEPROM Driver](eeprom_driver.md)
-      * ['serial' Driver](serial_driver.md)
-    * [GPIO 控制](internals_gpio_control.md)
-    * [键盘指南](hardware_keyboard_guidelines.md)
+    * [ARM 调试指南](zh-cn/arm_debugging.md)
+    * [AVR 处理器](zh-cn/hardware_avr.md)
+    * [Coding Conventions](zh-cn/coding_conventions_c.md)
+    * [兼容的单片机](zh-cn/compatible_microcontrollers.md)
+    * [驱动](zh-cn/hardware_drivers.md)
+      * [ADC Driver](zh-cn/adc_driver.md)
+      * [I2C Driver](zh-cn/i2c_driver.md)
+      * [SPI Driver](zh-cn/spi_driver.md)
+      * [WS2812 Driver](zh-cn/ws2812_driver.md)
+      * [EEPROM Driver](zh-cn/eeprom_driver.md)
+      * ['serial' Driver](zh-cn/serial_driver.md)
+    * [GPIO 控制](zh-cn/internals_gpio_control.md)
+    * [键盘指南](zh-cn/hardware_keyboard_guidelines.md)
 
   * Python 开发
-    * [代码书写规范](coding_conventions_python.md)
+    * [代码书写规范](zh-cn/coding_conventions_python.md)
     * [QMK 命令行开发](zh-cn/cli_development.md)
 
   * 开发配置
     * QMK API
-      * [开发环境](api_development_environment.md)
-      * [Architecture Overview](api_development_overview.md)
+      * [开发环境](zh-cn/api_development_environment.md)
+      * [Architecture Overview](zh-cn/api_development_overview.md)
 
   * H硬件平台开发
     * Arm/ChibiOS
-      * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
-      * [Early initialization](platformdev_chibios_earlyinit.md)
+      * [Selecting an MCU](zh-cn/platformdev_selecting_arm_mcu.md)
+      * [Early initialization](zh-cn/platformdev_chibios_earlyinit.md)
   
   * QMK 参考
-    * [为 QMK 做贡献](contributing.md)
-    * [翻译 QMK 文档](translating.md)
-    * [配置文档](config_options.md)
-    * [Make 文档](getting_started_make_guide.md)
-    * [文档最佳实践](documentation_best_practices.md)
-    * [文档模板](documentation_templates.md)
-    * [社区布局(Community Layouts)](feature_layouts.md)
-    * [单元测试](unit_testing.md)
-    * [实用函数](ref_functions.md)
-    * [info.json 格式](reference_info_json.md)
+    * [为 QMK 做贡献](zh-cn/contributing.md)
+    * [翻译 QMK 文档](zh-cn/translating.md)
+    * [配置文档](zh-cn/config_options.md)
+    * [Make 文档](zh-cn/getting_started_make_guide.md)
+    * [文档最佳实践](zh-cn/documentation_best_practices.md)
+    * [文档模板](zh-cn/documentation_templates.md)
+    * [社区布局(Community Layouts)](zh-cn/feature_layouts.md)
+    * [单元测试](zh-cn/unit_testing.md)
+    * [实用函数](zh-cn/ref_functions.md)
+    * [info.json 格式](zh-cn/reference_info_json.md)
   
   * 深入了解
     * [键盘工作原理](zh-cn/how_keyboards_work.md)
