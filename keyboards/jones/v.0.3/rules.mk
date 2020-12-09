@@ -29,4 +29,4 @@ ENCODER_ENABLE = yes		# Rotary Encoder
 CUSTOM_MATRIX = yes			# Custom matrix for "Round-Robin Matrix"
 SRC += matrix.c
 
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
