@@ -2,7 +2,7 @@
 
 ![TOP](https://user-images.githubusercontent.com/30220306/100749285-0fdd8500-3417-11eb-9b06-11a04f9de264.png)
 
-A 40% Ergo Layout Mechanical Keyboard with Atmega328p inspired by Reviung 41 by boardsource and Plaid hgsw based on [IMKG](https://www.facebook.com/groups/indomechanicalkeyboard/) (Indonesia Mechanical Keyboard Group)
+A 40% Ergo Layout Mechanical Keyboard with Atmega328p inspired by the Reviung41 by gtips and the Plaid by hsgw, based on [IMKG](https://www.facebook.com/groups/indomechanicalkeyboard/) (Indonesia Mechanical Keyboard Group).
 
 * Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)
 * Hardware Supported: RART45 PCB, Mini USB, ATMEGA328p with vusb
