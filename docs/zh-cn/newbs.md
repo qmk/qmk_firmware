@@ -1,23 +1,26 @@
-# QMK菜鸟教程
+# QMK 教程
 
-QMK是为你机械硬盘设计的的一个强大的开源固件。使用QMK可以很简单的让你的定制键盘变得强大。看完这篇文章，无论你是菜鸟还是大佬，都可以顺利的使用QMK来定制键盘。
+你的键盘内部有一个和电脑处理器相似的处理器。该处理器运行者一个软件用来检测按钮按下情况并在按下键时通知计算机。QMK 固件就充当该软件的角色，检测按钮的按下并将该信息传递给主机。当你生成自定义键映射时，您正在为键盘创建可执行程序。
 
-你是否为不知道你的键盘能不能运行QMK而苦恼? 如果你的机械键盘是你自己做的，那么这把键盘一般可以运行QMK。我们提供了[一大堆自制键盘](http://qmk.fm/keyboards/), 所以即便你的键盘不能运行QMK你也很容易能找到满足你需求的键盘。
+QMK 通过给你的手注入力量然后将困难的事情简单化，简单的事情傻瓜化。你不必知道如何编程来创建功能强大的键盘映射-只需遵循一些简单的语法规则即可。
+
+你是否为不知道你的键盘能不能运行QMK而苦恼? 如果你的机械键盘是你自己做的，那么这把键盘一般可以运行 QMK。我们提供了 [一大堆自制键盘](http://qmk.fm/keyboards/), 所以即便你的键盘不能运行 QMK 你也很容易能找到满足你需求的键盘。
+
+## 这份教程适合我吗？
+本指南适合想要利用该源代码构建键盘固件的每个人。如果你已经是一个程序员，你会发现giant过程非常熟悉也很易于跟随。如果你对编程感到恐惧，可以使用我们的 [在线 GUI 工具](zh-cn/newbs_building_firmware_configurator.md)。
 
 ## 概览
+这个教程有 4 个主要部分：
 
-这个教程有7个主要部分：
+1. [设置你的环境](newbs_getting_started.md)
+2. [构建你的第一个固件](newbs_building_firmware.md)
+3. [刷新固件](newbs_flashing.md)
+4. [测试和调试](newbs_testing_debugging.md)
 
-* [新手上路](newbs_getting_started.md)
-* [用命令行构建你的第一个固件](newbs_building_firmware.md)
-* [用在线界面构建你的第一个固件](newbs_building_firmware_configurator.md)
-* [刷新固件](newbs_flashing.md)
-* [测试和调试](newbs_testing_debugging.md)
-* [Git最佳实践](newbs_best_practices.md)
-* [其他学习资源](newbs_learn_more_resources.md)
-
-这份教程旨在帮助没有固件构建经验的人，也是根据该目的做出选择和建议。这些程序有很多替代方法，大部分替代我们都支持。如果你对完成一个任务有疑问，可以[向我们寻求帮助](getting_started_getting_help.md).
+这份教程旨在帮助没有固件构建经验的人，也是根据该目的做出选择和建议。这些程序有很多替代方法，大部分替代我们都支持。如果你对完成一个任务有疑问，可以[向我们寻求帮助](zh-cn/getting_started_getting_help.md).
 
 ## 其他资源
+除了该教材，也有几个有助于你了解 QMK 的资源。我们把这些都放在 [学习资源](zh-cn/newbs_learn_more_resources.md) 下了。
 
-* [Thomas Baart的 QMK基础博客](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 这是一个用户创建的博客，涵盖了为新手准备的使用QMK的基础知识。
+## 开源
+QMK 是 GNU 许可证下的开源软件。
