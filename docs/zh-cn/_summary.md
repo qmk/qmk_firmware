@@ -25,7 +25,7 @@
     * [键盘支持](zh-cn/reference_configurator_support.md)
     * [添加默认键盘映射](zh-cn/configurator_default_keymaps.md)
 
-* CLI
+* 命令行工具(CLI)
     * [概述](zh-cn/cli.md)
     * [配置](zh-cn/cli_configuration.md)
     * [命令](zh-cn/cli_commands.md)
