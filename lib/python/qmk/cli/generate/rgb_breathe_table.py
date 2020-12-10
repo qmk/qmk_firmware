@@ -1,7 +1,5 @@
 """Generate rgblight_breathe_table.h
 """
-from pathlib import Path
-
 from milc import cli
 from argparse import ArgumentTypeError
 
