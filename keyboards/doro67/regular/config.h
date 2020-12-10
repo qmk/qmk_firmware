@@ -28,3 +28,6 @@
 #define MATRIX_COL_PINS { B0, B1, B2, B3, D4, D6, D7, B4, B5, B6, C6, C7, F5, F6, F7 }
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN E6
+#define LED_PIN_ON_STATE 0
