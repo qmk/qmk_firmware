@@ -22,11 +22,6 @@ for KB in $(make list-keyboards); do
 		continue
 	fi
 
-	if [[ -e keyboards/${KB}/.noci ]]; then
-		# keyboard has been opted out of CI
-		continue
-	fi
-
 	KEYMAP_ONLY=$(echo "$KEYBOARD_CHANGES" | grep -cv /keymaps/)
 	if [[ $KEYMAP_ONLY -gt 0 ]]; then
 		echo "Making all keymaps for $KB"
