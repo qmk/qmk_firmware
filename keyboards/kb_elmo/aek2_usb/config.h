@@ -47,3 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* reduce VIA layer count because of EEPROM size */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2

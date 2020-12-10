@@ -58,6 +58,10 @@ float bell_song[][2] = SONG(TERMINAL_SOUND);
 #    endif
 #endif
 
+#ifdef AUTO_SHIFT_ENABLE
+#    include "process_auto_shift.h"
+#endif
+
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -228,6 +232,9 @@ bool process_record_quantum(keyrecord_t *record) {
             process_record_via(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
+#if defined(SEQUENCER_ENABLE)
+            process_sequencer(keycode, record) &&
+#endif
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
 #endif
@@ -636,6 +643,10 @@ void matrix_scan_quantum() {
     matrix_scan_music();
 #endif
 
+#ifdef SEQUENCER_ENABLE
+    matrix_scan_sequencer();
+#endif
+
 #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
 #endif
@@ -662,6 +673,10 @@ void matrix_scan_quantum() {
 
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_read(false);
+#endif
+
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_matrix_scan();
 #endif
 
     matrix_scan_kb();
