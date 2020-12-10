@@ -5,7 +5,7 @@
 9-Key Macro Pad
 
 * Keyboard Maintainer: [pabile](https://github.com/pabile)
-* Hardware Supported: Pabile P9 PCB, Pro Micro and Kailh Hotswap Sockets
+* Hardware Supported: Pabile P9 PCB, Pro Micro, EC11 Encoders and Kailh Hotswap Sockets
 * Hardware Availability: [pabileonline.blogspot.com](https://pabileonline.blogspot.com/)
 
 Make example for this keyboard (after setting up your build environment):
