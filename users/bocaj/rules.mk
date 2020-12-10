@@ -1,33 +1,26 @@
 SRC += bocaj.c \
        process_records.c
 
-ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-  SRC += secrets.c
+LEADER_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+
+ifneq ($(PLATFORM),CHIBIOS)
+    LTO_ENABLE        = yes
+endif
+SPACE_CADET_ENABLE    = no
+GRAVE_ESC_ENABLE      = no
+
+ifneq ($(strip $(NO_SECRETS)), yes)
+    ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+        SRC += secrets.c
+    endif
+    ifeq ($(strip $(NO_SECRETS)), lite)
+        OPT_DEFS += -DNO_SECRETS
+    endif
 endif
 
-ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-  SRC += tap_dances.c
-endif
-
-# Caused problems when building via docker on Mac OS
-# EXTRAFLAGS += -flto
-
-ifeq ($(strip $(NO_SECRETS)), yes)
-    OPT_DEFS += -DNO_SECRETS
-endif
-
-ifeq ($(strip $(MACROS_ENABLED)), yes)
-    OPT_DEFS += -DMACROS_ENABLED
-endif
-
-ifeq ($(strip $(UCIS_ENABLE)), yes)
-  SRC += send_unicode.c
-endif
-
-ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
-  SRC += send_unicode.c
-endif
-
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-  SRC += send_unicode.c
+RGB_MATRIX_ENABLE ?= no
+ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
+    SRC += rgb_matrix_stuff.c
 endif
