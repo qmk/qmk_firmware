@@ -64,8 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_CW_KEY  { { 3, 2 },{ 1, 2 } }
 #define ENCODERS_CCW_KEY { { 2, 2 },{ 0, 2 } }
 
-#define ENCODER_RESOLUTION 4
-
 /* Audio */
 
 #define B5_AUDIO
@@ -84,5 +82,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8
 
