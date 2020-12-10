@@ -10,6 +10,13 @@ A mini 1x4 macropad with rotary encoders and OLED screen. Currently the PCB and 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sendyyeah/pix:default
+How to Build the firmware:
+    `make sendyyeah/pix:default`
+    or for VIA supported
+    `make sendyyeah/pix:via`
+
+How to reset and enter bootloader:
+    - Press reset button on the right side of the PCB (twice if the ProMicro is fresh)
+    - Flash with QMK Toolbox or any command line you like
 
     See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
