@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    sendyyeah
 #define PRODUCT         Pix
-#define DESCRIPTION     4x macropad and encoder by sendyyeah
 
 /* key matrix size */
 #define MATRIX_ROWS 1
