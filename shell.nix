@@ -1,9 +1,8 @@
 { avr ? true, arm ? true, teensy ? true }:
-
 let
   nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/1f77a4c8c74bbe896053994836790aa9bf6dc5ba.tar.gz";
-    sha256 = "1j62nmzz3w33dplzf1xz1pg1pfkxii7lwdqmsxmc71cs9cm3s7n1";
+    url = "https://github.com/NixOS/nixpkgs/archive/9e0fc666191ef9d60118cff9fbfdbec867d00e86.tar.gz";
+    sha256 = "014j8d1g2mk9xwsagcgrk1k75x2clnn5sjmc580s06wjzsbn61ds";
   };
 
   pkgs = import nixpkgs { };
