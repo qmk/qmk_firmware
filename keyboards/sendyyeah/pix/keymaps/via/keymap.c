@@ -31,14 +31,6 @@ int get_icon_start_position(int key_position) {
     }
 }
 
-void clear_up_down_indicator(void) {
-    wait_ms(3000);
-    oled_set_cursor(get_icon_start_position(7), 2);
-    oled_write_P(PSTR(" "), false);
-    oled_set_cursor(get_icon_start_position(7), 3);
-    oled_write_P(PSTR(" "), false);
-}
-
 void encoder_update_user(uint8_t index, bool clockwise) {
     static const char PROGMEM UP_ICON[] = {0x1E,0};
     static const char PROGMEM DOWN_ICON[] = {0x1F,0};
