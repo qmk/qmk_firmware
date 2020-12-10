@@ -30,16 +30,6 @@ typedef uint32_t matrix_row_t;
 #    error "MATRIX_COLS: invalid value"
 #endif
 
-#if (MATRIX_ROWS <= 8)
-typedef uint8_t matrix_col_t;
-#elif (MATRIX_ROWS <= 16)
-typedef uint16_t matrix_col_t;
-#elif (MATRIX_ROWS <= 32)
-typedef uint32_t matrix_col_t;
-#else
-#    error "MATRIX_ROWS: invalid value"
-#endif
-
 #define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
 
 #define MATRIX_IS_ON(row, col) (matrix_get_row(row) && (1 << col))
