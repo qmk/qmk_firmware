@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   RGB_VAD, RGB_VAI,
   _______,
-  _______, _______,
+  _______, _______, _______
 ),
 [_5_ARROW] = LAYOUT_ergodox(
   _______, _______, _______, _______, _______, _______, _______,
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   _______, _______,
   _______,
-  _______, _______,
+  _______, _______, _______
 ),
 };
 
