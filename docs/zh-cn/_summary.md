@@ -2,7 +2,7 @@
   * [介绍](zh-cn/newbs.md)
   * [入门](zh-cn/newbs_getting_started.md)
   * [构建你的第一个固件](zh-cn/newbs_building_firmware.md)
-  * [刷新固件](zh-cn/newbs_flashing.md)
+  * [烧录固件](zh-cn/newbs_flashing.md)
   * [测试和调试](zh-cn/newbs_testing_debugging.md)
   * [获取帮助/支持](zh-cn/support.md)
   * [其他资源](zh-cn/newbs_learn_more_resources.md)
@@ -38,9 +38,9 @@
     * 开发环境
       * [Docker 教程](zh-cn/getting_started_docker.md)
       * [Vagrant 教程](zh-cn/getting_started_vagrant.md)
-    * Flashing
-      * [Flashing](zh-cn/flashing.md)
-      * [Flashing ATmega32A (ps2avrgb)](zh-cn/flashing_bootloadhid.md)
+    * 烧录(Flashing)
+      * [烧录](zh-cn/flashing.md)
+      * [烧录 ATmega32A (ps2avrgb)](zh-cn/flashing_bootloadhid.md)
     * IDEs
       * [使用 Eclipse 开发 QMK](zh-cn/other_eclipse.md)
       * [使用 VSCode 开发 QMK](zh-cn/other_vscode.md)
@@ -49,33 +49,32 @@
       * [你的分叉(fork)](zh-cn/newbs_git_using_your_master_branch.md)
       * [解决合并冲突](zh-cn/newbs_git_resolving_merge_conflicts.md)
       * [修复分支](zh-cn/newbs_git_resynchronize_a_branch.md)
-    * Keyboard Building
-      * [手动连线指南](zh-cn/hand_wire.md)
-      * [ISP Flashing Guide](zh-cn/isp_flashing_guide.md)
+    * 键盘组装
+      * [手工连线指南](zh-cn/hand_wire.md)
+      * [ISP 烧录指南](zh-cn/isp_flashing_guide.md)
 
   * 基础键码
     * [全列表](zh-cn/keycodes.md)
     * [基础键码](zh-cn/keycodes_basic.md)
     * [特定语言键(Language-Specific Keycodes)](zh-cn/reference_extras.md)
     * [修饰键](zh-cn/feature_advanced_keycodes.md)
-    * [Quantum Keycodes](zh-cn/quantum_keycodes.md)
+    * [QMK 键码](zh-cn/quantum_keycodes.md)
 
   * 进阶键码
     * [命令](zh-cn/feature_command.md)
     * [动态宏指令](zh-cn/feature_dynamic_macros.md)
-    * [Grave Escape](zh-cn/feature_grave_esc.md)
-    * [重音号和 Esc 复合键](zh-cn/feature_grave_esc.md)
+    * [反引号和 Esc 复合键](zh-cn/feature_grave_esc.md)
     * [前缀键(Leader Key)](zh-cn/feature_leader_key.md)
     * [Mod-Tap](zh-cn/mod_tap.md)
-    * [Macros](zh-cn/feature_macros.md)
     * [宏指令](zh-cn/feature_macros.md)
+    * [Mouse Keys](feature_mouse_keys.md)
     * [Space Cadet Shift](zh-cn/feature_space_cadet.md)
-    * [US ANSI Shifted Keys](zh-cn/keycodes_us_ansi_shifted.md)
+    * [美国 ANSI 标准上档键码(US ANSI Shifted Keys)](zh-cn/keycodes_us_ansi_shifted.md)
 
   * 软件特性
     * [自动 Shift](zh-cn/feature_auto_shift.md)
     * [组合](zh-cn/feature_combo.md)
-    * [防抖 API](zh-cn/feature_debounce_type.md)
+    * [去抖 API](zh-cn/feature_debounce_type.md)
     * [键盘锁定](zh-cn/feature_key_lock.md)
     * [Layers](zh-cn/feature_layers.md)
     * [One Shot Keys](zh-cn/one_shot_keys.md)
@@ -87,7 +86,7 @@
     * [Tap-Hold Configuration](zh-cn/tap_hold.md)
     * [终端](zh-cn/feature_terminal.md)
     * [Unicode](zh-cn/feature_unicode.md)
-    * [用户控件](zh-cn/feature_userspace.md)
+    * [用户空间](zh-cn/feature_userspace.md)
     * [WPM 计算](zh-cn/feature_wpm.md)
 
   * 硬件特性
@@ -98,14 +97,14 @@
       * [背光](zh-cn/feature_backlight.md)
       * [LED 矩阵](zh-cn/feature_led_matrix.md)
       * [RGB 灯光](zh-cn/feature_rgblight.md)
-      * [RGB 阵列](zh-cn/feature_rgb_matrix.md)
+      * [RGB 矩阵](zh-cn/feature_rgb_matrix.md)
     * [音频](zh-cn/feature_audio.md)
     * [蓝牙](zh-cn/feature_bluetooth.md)
     * [热改键(Bootmagic)](zh-cn/feature_bootmagic.md)
     * [Custom Matrix](zh-cn/custom_matrix.md)
     * [拨码开关](zh-cn/feature_dip_switch.md)
-    * [编码器](zh-cn/feature_encoders.md)
-    * [触摸反馈](zh-cn/feature_haptic_feedback.md)
+    * [编码器（旋钮）](zh-cn/feature_encoders.md)
+    * [振动反馈](zh-cn/feature_haptic_feedback.md)
     * [操纵杆](zh-cn/feature_joystick.md)
     * [LED 指示灯](zh-cn/feature_led_indicators.md)
     * [Proton C Conversion](zh-cn/proton_c_conversion.md)
