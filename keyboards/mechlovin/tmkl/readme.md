@@ -1,12 +1,11 @@
 # tmkl
 
-![tmkl](imgur.com image replace me!)
+![tmkl](https://imgur.com/a/bykMBTr)
 
-*A short description of the keyboard/project*
-
-* Keyboard Maintainer: [Team Mechlovin'](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+A PCB for Private 
+* Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
+* Hardware Supported: TMKL rev.1, STM32F303
+* Hardware Availability: Private GB
 
 Make example for this keyboard (after setting up your build environment):
 

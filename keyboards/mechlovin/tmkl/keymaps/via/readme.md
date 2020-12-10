@@ -1,1 +1,1 @@
-# The via keymap for infinity87
+# The via keymap for tmkl
