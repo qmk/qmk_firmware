@@ -1,6 +1,6 @@
 # Pix
 
-![Pix]()
+![Pix](https://i.imgur.com/ZcuDN6zl.jpg)
 
 A mini 1x4 macropad with rotary encoders and OLED screen. Currently the PCB and kits can only be purchased in Indonesia. The PCB source will be available soon on github.
 
