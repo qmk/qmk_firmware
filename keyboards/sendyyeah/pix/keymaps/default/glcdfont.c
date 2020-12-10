@@ -1,14 +1,4 @@
-#pragma once
-
-#ifdef __AVR__
- #include <avr/io.h>
- #include <avr/pgmspace.h>
-#elif defined(ESP8266)
- #include <pgmspace.h>
-#else
- #define PROGMEM
-#endif
-
+#include "progmem.h"
 
 const unsigned char font[] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
