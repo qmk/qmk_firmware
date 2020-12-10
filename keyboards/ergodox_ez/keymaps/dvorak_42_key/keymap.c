@@ -109,6 +109,9 @@ enum custom_keycodes {
 #define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
 #define AS_CLOSETAB LCTL(KC_F4)
 #define AS_CLOSETOOLWINDOW LCTL(LSFT(KC_F4))
+#define AS_COPYLINEDOWN LCTL(KC_D)
+#define AS_DEL_LINE LCTL(KC_Y)
+#define AS_LINE LCTL(KC_G)
 
 // visual studio code shortcuts
 #define VS_FILE LCTL(KC_P)
@@ -185,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
       // left hand
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
+      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(ANDROID_STUDIO),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
       OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
@@ -350,16 +353,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
-       KC_TRNS, KC_TRNS,     KC_TRNS,       AS_FINDUSAGE,     AS_GO_DECLARATION,         AS_GO_IMPLEMENTATION, KC_TRNS,
-                AS_CLOSETAB, AS_TABLEFT,    AS_TABRIGHT,      AS_SYMBOL,                 AS_CLASS,             AS_BACK,
-       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,                   AS_CLOSETOOLWINDOW,   KC_TRNS,
+       KC_TRNS, KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              KC_TRNS,              KC_TRNS,
+       KC_TRNS, AS_COPYLINEDOWN, AS_FINDUSAGE,  AS_GO_DECLARATION, AS_GO_IMPLEMENTATION, AS_LINE,              KC_TRNS,
+                AS_CLOSETAB,     AS_TABLEFT,    AS_TABRIGHT,       AS_SYMBOL,            AS_CLASS,             AS_BACK,
+       KC_TRNS, KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              AS_CLOSETOOLWINDOW,   KC_TRNS,
                          // bottom row
-                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,        KC_TRNS,              KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_TRNS, AS_DEL_LINE, KC_TRNS
   ),
 
     // vscode shortcuts shortcuts

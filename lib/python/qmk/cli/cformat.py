@@ -43,8 +43,8 @@ def cformat(cli):
     # Empty array for files
     files = []
     # Core directories for formatting
-    core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core']
-    ignores = ['tmk_core/protocol/usb_hid', 'quantum/template']
+    core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core', 'platforms']
+    ignores = ['tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios']
     # Find the list of files to format
     if cli.args.files:
         files.extend(normpath(file) for file in cli.args.files)

@@ -18,7 +18,6 @@
 #include "hal.h"
 
 keyboard_config_t keyboard_config;
-
 #ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations

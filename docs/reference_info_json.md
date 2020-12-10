@@ -31,7 +31,7 @@ Within our `info.json` file the `layouts` portion of the dictionary contains sev
 * `height`
   * Optional: The height of the layout in Key Units
 * `key_count`
-  * **Required**: The number of keys in this layout
+  * Optional: The number of keys in this layout
 * `layout`
   * A list of Key Dictionaries describing the physical layout. See the next section for more details.
 

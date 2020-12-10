@@ -17,5 +17,8 @@
 
 #include "quantum.h"
 
-void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, uint8_t keycode);
+void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdMod, uint8_t tapMod, uint8_t keycode);
 bool process_space_cadet(uint16_t keycode, keyrecord_t *record);
+#ifdef NO_ACTION_TAPPING
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record);
+#endif
