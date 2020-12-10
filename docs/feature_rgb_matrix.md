@@ -306,9 +306,11 @@ To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks somethi
 `rgb_matrix_user.inc` should go in the root of the keymap directory.
 `rgb_matrix_kb.inc` should go in the root of the keyboard directory.
 
-To use the newly created custom effect outside of the `rgb_matrix_user/kb.inc` file, it has to be appended to the prefix `RGB_MATRIX_CUSTOM_`.
-As an example, to change the current effect with the new custom effect `my_cool_effect` write:
-`rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);`
+To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+\`\`\`c
+rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
+\`\`\`
 
 ```c
 // !!! DO NOT ADD #pragma once !!! //
