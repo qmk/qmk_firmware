@@ -43,11 +43,10 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "adb.h"
 #include "print.h"
 
-
 // GCC doesn't inline functions normally
-#define data_lo() (ADB_DDR |=  (1<<ADB_DATA_BIT))
-#define data_hi() (ADB_DDR &= ~(1<<ADB_DATA_BIT))
-#define data_in() (ADB_PIN &   (1<<ADB_DATA_BIT))
+#define data_lo() (ADB_DDR |= (1 << ADB_DATA_BIT))
+#define data_hi() (ADB_DDR &= ~(1 << ADB_DATA_BIT))
+#define data_in() (ADB_PIN & (1 << ADB_DATA_BIT))
 
 #ifdef ADB_PSW_BIT
 static inline void psw_lo(void);
@@ -55,17 +54,15 @@ static inline void psw_hi(void);
 static inline bool psw_in(void);
 #endif
 
-static inline void attention(void);
-static inline void place_bit0(void);
-static inline void place_bit1(void);
-static inline void send_byte(uint8_t data);
+static inline void     attention(void);
+static inline void     place_bit0(void);
+static inline void     place_bit1(void);
+static inline void     send_byte(uint8_t data);
 static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
 
-
-void adb_host_init(void)
-{
-    ADB_PORT &= ~(1<<ADB_DATA_BIT);
+void adb_host_init(void) {
+    ADB_PORT &= ~(1 << ADB_DATA_BIT);
     data_hi();
 #ifdef ADB_PSW_BIT
     psw_hi();
@@ -73,10 +70,7 @@ void adb_host_init(void)
 }
 
 #ifdef ADB_PSW_BIT
-bool adb_host_psw(void)
-{
-    return psw_in();
-}
+bool adb_host_psw(void) { return psw_in(); }
 #endif
 
 /*
@@ -87,37 +81,24 @@ bool adb_host_psw(void)
  * <http://geekhack.org/index.php?topic=14290.msg1068919#msg1068919>
  * <http://geekhack.org/index.php?topic=14290.msg1070139#msg1070139>
  */
-uint16_t adb_host_kbd_recv(void)
-{
-    return adb_host_talk(ADB_ADDR_KEYBOARD, ADB_REG_0);
-}
+uint16_t adb_host_kbd_recv(void) { return adb_host_talk(ADB_ADDR_KEYBOARD, ADB_REG_0); }
 
 #ifdef ADB_MOUSE_ENABLE
-__attribute__ ((weak))
-void adb_mouse_init(void) {
-    return;
-}
+__attribute__((weak)) void adb_mouse_init(void) { return; }
 
-__attribute__ ((weak))
-void adb_mouse_task(void) {
-    return;
-}
+__attribute__((weak)) void adb_mouse_task(void) { return; }
 
-uint16_t adb_host_mouse_recv(void)
-{
-    return adb_host_talk(ADB_ADDR_MOUSE, ADB_REG_0);
-}
+uint16_t adb_host_mouse_recv(void) { return adb_host_talk(ADB_ADDR_MOUSE, ADB_REG_0); }
 #endif
 
 // This sends Talk command to read data from register and returns length of the data.
-uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len)
-{
-    for (int8_t i =0; i < len; i++) buf[i] = 0;
+uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len) {
+    for (int8_t i = 0; i < len; i++) buf[i] = 0;
 
     cli();
     attention();
-    send_byte((addr<<4) | ADB_CMD_TALK | reg);
-    place_bit0();               // Stopbit(0)
+    send_byte((addr << 4) | ADB_CMD_TALK | reg);
+    place_bit0();  // Stopbit(0)
     // TODO: Service Request(Srq):
     // Device holds low part of comannd stopbit for 140-260us
     //
@@ -162,14 +143,14 @@ uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len)
     // portion of the stop bit of any command or data transaction. The device must lengthen
     // the stop by a minimum of 140 J.lS beyond its normal duration, as shown in Figure 8-15."
     // http://ww1.microchip.com/downloads/en/AppNotes/00591b.pdf
-    if (!wait_data_hi(500)) {    // Service Request(310us Adjustable Keyboard): just ignored
+    if (!wait_data_hi(500)) {  // Service Request(310us Adjustable Keyboard): just ignored
         xprintf("R");
         sei();
         return 0;
     }
-    if (!wait_data_lo(500)) {   // Tlt/Stop to Start(140-260us)
+    if (!wait_data_lo(500)) {  // Tlt/Stop to Start(140-260us)
         sei();
-        return 0;               // No data from device(not error);
+        return 0;  // No data from device(not error);
     }
 
     // start bit(1)
@@ -184,7 +165,7 @@ uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len)
         return 0;
     }
 
-    uint8_t n = 0; // bit count
+    uint8_t n = 0;  // bit count
     do {
         //
         // |<- bit_cell_max(130) ->|
@@ -195,126 +176,110 @@ uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len)
         // | 130-lo | lo-hi |
         // |________|       |
         //
-        uint8_t lo = (uint8_t) wait_data_hi(130);
-        if (!lo)
-            goto error; // no more bit or after stop bit
+        uint8_t lo = (uint8_t)wait_data_hi(130);
+        if (!lo) goto error;  // no more bit or after stop bit
 
-        uint8_t hi = (uint8_t) wait_data_lo(lo);
-        if (!hi)
-            goto error; // stop bit extedned by Srq?
+        uint8_t hi = (uint8_t)wait_data_lo(lo);
+        if (!hi) goto error;  // stop bit extedned by Srq?
 
-        if (n/8 >= len) continue; // can't store in buf
+        if (n / 8 >= len) continue;  // can't store in buf
 
-        buf[n/8] <<= 1;
+        buf[n / 8] <<= 1;
         if ((130 - lo) < (lo - hi)) {
-            buf[n/8] |= 1;
+            buf[n / 8] |= 1;
         }
-    }
-    while ( ++n );
+    } while (++n);
 
 error:
     sei();
-    return n/8;
+    return n / 8;
 }
 
-uint16_t adb_host_talk(uint8_t addr, uint8_t reg)
-{
+uint16_t adb_host_talk(uint8_t addr, uint8_t reg) {
     uint8_t len;
     uint8_t buf[8];
     len = adb_host_talk_buf(addr, reg, buf, 8);
     if (len != 2) return 0;
-    return (buf[0]<<8 | buf[1]);
+    return (buf[0] << 8 | buf[1]);
 }
 
-void adb_host_listen_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len)
-{
+void adb_host_listen_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len) {
     cli();
     attention();
-    send_byte((addr<<4) | ADB_CMD_LISTEN | reg);
-    place_bit0();               // Stopbit(0)
+    send_byte((addr << 4) | ADB_CMD_LISTEN | reg);
+    place_bit0();  // Stopbit(0)
     // TODO: Service Request
-    _delay_us(200);             // Tlt/Stop to Start
-    place_bit1();               // Startbit(1)
+    _delay_us(200);  // Tlt/Stop to Start
+    place_bit1();    // Startbit(1)
     for (int8_t i = 0; i < len; i++) {
         send_byte(buf[i]);
-        //xprintf("%02X ", buf[i]);
+        // xprintf("%02X ", buf[i]);
     }
-    place_bit0();               // Stopbit(0);
+    place_bit0();  // Stopbit(0);
     sei();
 }
 
-void adb_host_listen(uint8_t addr, uint8_t reg, uint8_t data_h, uint8_t data_l)
-{
-    uint8_t buf[2] = { data_h, data_l };
+void adb_host_listen(uint8_t addr, uint8_t reg, uint8_t data_h, uint8_t data_l) {
+    uint8_t buf[2] = {data_h, data_l};
     adb_host_listen_buf(addr, reg, buf, 2);
 }
 
-void adb_host_flush(uint8_t addr)
-{
+void adb_host_flush(uint8_t addr) {
     cli();
     attention();
-    send_byte((addr<<4) | ADB_CMD_FLUSH);
-    place_bit0();               // Stopbit(0)
-    _delay_us(200);             // Tlt/Stop to Start
+    send_byte((addr << 4) | ADB_CMD_FLUSH);
+    place_bit0();    // Stopbit(0)
+    _delay_us(200);  // Tlt/Stop to Start
     sei();
 }
 
 // send state of LEDs
-void adb_host_kbd_led(uint8_t led)
-{
+void adb_host_kbd_led(uint8_t led) {
     // Listen Register2
     //  upper byte: not used
     //  lower byte: bit2=ScrollLock, bit1=CapsLock, bit0=NumLock
     adb_host_listen(ADB_ADDR_KEYBOARD, ADB_REG_2, 0, led & 0x07);
 }
 
-
 #ifdef ADB_PSW_BIT
-static inline void psw_lo()
-{
-    ADB_DDR  |=  (1<<ADB_PSW_BIT);
-    ADB_PORT &= ~(1<<ADB_PSW_BIT);
+static inline void psw_lo() {
+    ADB_DDR |= (1 << ADB_PSW_BIT);
+    ADB_PORT &= ~(1 << ADB_PSW_BIT);
 }
-static inline void psw_hi()
-{
-    ADB_PORT |=  (1<<ADB_PSW_BIT);
-    ADB_DDR  &= ~(1<<ADB_PSW_BIT);
+static inline void psw_hi() {
+    ADB_PORT |= (1 << ADB_PSW_BIT);
+    ADB_DDR &= ~(1 << ADB_PSW_BIT);
 }
-static inline bool psw_in()
-{
-    ADB_PORT |=  (1<<ADB_PSW_BIT);
-    ADB_DDR  &= ~(1<<ADB_PSW_BIT);
-    return ADB_PIN&(1<<ADB_PSW_BIT);
+static inline bool psw_in() {
+    ADB_PORT |= (1 << ADB_PSW_BIT);
+    ADB_DDR &= ~(1 << ADB_PSW_BIT);
+    return ADB_PIN & (1 << ADB_PSW_BIT);
 }
 #endif
 
-static inline void attention(void)
-{
+static inline void attention(void) {
     data_lo();
-    _delay_us(800-35); // bit1 holds lo for 35 more
+    _delay_us(800 - 35);  // bit1 holds lo for 35 more
     place_bit1();
 }
 
-static inline void place_bit0(void)
-{
+static inline void place_bit0(void) {
     data_lo();
     _delay_us(65);
     data_hi();
     _delay_us(35);
 }
 
-static inline void place_bit1(void)
-{
+static inline void place_bit1(void) {
     data_lo();
     _delay_us(35);
     data_hi();
     _delay_us(65);
 }
 
-static inline void send_byte(uint8_t data)
-{
+static inline void send_byte(uint8_t data) {
     for (int i = 0; i < 8; i++) {
-        if (data&(0x80>>i))
+        if (data & (0x80 >> i))
             place_bit1();
         else
             place_bit0();
@@ -323,28 +288,21 @@ static inline void send_byte(uint8_t data)
 
 // These are carefully coded to take 6 cycles of overhead.
 // inline asm approach became too convoluted
-static inline uint16_t wait_data_lo(uint16_t us)
-{
+static inline uint16_t wait_data_lo(uint16_t us) {
     do {
-        if ( !data_in() )
-            break;
+        if (!data_in()) break;
         _delay_us(1 - (6 * 1000000.0 / F_CPU));
-    }
-    while ( --us );
+    } while (--us);
     return us;
 }
 
-static inline uint16_t wait_data_hi(uint16_t us)
-{
+static inline uint16_t wait_data_hi(uint16_t us) {
     do {
-        if ( data_in() )
-            break;
+        if (data_in()) break;
         _delay_us(1 - (6 * 1000000.0 / F_CPU));
-    }
-    while ( --us );
+    } while (--us);
     return us;
 }
-
 
 /*
 ADB Protocol
