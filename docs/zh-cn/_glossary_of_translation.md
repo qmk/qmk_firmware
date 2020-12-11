@@ -1,0 +1,9 @@
+| 原文            | 译文     |
+| --------------- | -------- |
+| keymap          | 键盘映射 |
+| flash           | 烧录     |
+| firmware        | 固件     |
+| keycodes        | 键码     |
+| matrix          | 矩阵     |
+| microcontroller | 单片机   |
+| serial_driver   | 串口驱动 |
