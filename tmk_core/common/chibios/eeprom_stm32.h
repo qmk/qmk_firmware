@@ -24,8 +24,8 @@
 #ifndef __EEPROM_H
 #define __EEPROM_H
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 #include "flash_stm32.h"
 
 // HACK ALERT. This definition may not match your processor

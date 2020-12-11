@@ -24,7 +24,7 @@ SOFTWARE.
 
 #ifndef LCD_BACKLIGHT_H_
 #define LCD_BACKLIGHT_H_
-#include "stdint.h"
+#include <stdint.h>
 
 // Helper macros for storing hue, staturation and intensity as unsigned integers
 #define LCD_COLOR(hue, saturation, intensity) (hue << 16 | saturation << 8 | intensity)
