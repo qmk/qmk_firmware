@@ -46,7 +46,7 @@
 #include <LUFA/Drivers/USB/USB.h>
 
 #ifdef PROTOCOL_CHIBIOS
-#    include "hal.h"
+#    include <hal.h>
 #endif
 #ifdef WEBUSB_ENABLE
 #include "webusb_descriptor.h"

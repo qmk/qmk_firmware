@@ -1,7 +1,7 @@
 #include "quantum.h"
 #include "ws2812.h"
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 

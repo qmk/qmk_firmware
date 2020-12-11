@@ -24,7 +24,7 @@
  */
 #pragma once
 
-#include "ch.h"
+#include <ch.h>
 #include <hal.h>
 
 #ifdef I2C1_BANK

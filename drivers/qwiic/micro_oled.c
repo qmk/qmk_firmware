@@ -28,7 +28,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "micro_oled.h"
-#include <print.h>
+#include "print.h"
 #include <stdlib.h>
 #include "util/font5x7.h"
 #include "util/font8x16.h"

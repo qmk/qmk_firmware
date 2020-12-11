@@ -7,7 +7,7 @@
 #    include "oryx.h"
 #endif
 #ifdef STM32_EEPROM_ENABLE
-#    include "hal.h"
+#    include <hal.h>
 #    include "eeprom_stm32.h"
 #endif
 

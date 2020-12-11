@@ -21,8 +21,8 @@
 // TESTING
 // extern uint8_t blinkLed;
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 /* -------------------------
  * General USB driver header
