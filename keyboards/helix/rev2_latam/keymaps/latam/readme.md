@@ -12,5 +12,9 @@ The keymap has multiple layers, moving extra keys to different layers.
 
 
  Keymap : http://www.keyboard-layout-editor.com/#/gists/4cd7b4ccda1de5cf9edc56d29b64da30
- ![Keyboard](https://i.imgur.com/Onwmsss.png)
+ 
+ ![Keyboard](helix-keyboard.png)
+ 
+ <!---![Keyboard](https://i.imgur.com/Onwmsss.png) -->
+ 
 
