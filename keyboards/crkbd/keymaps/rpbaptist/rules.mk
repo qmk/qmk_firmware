@@ -1,5 +1,5 @@
 #This enables Link Time Optimization.This can save a good chunk of space(several KB for me), but the macro and function... functions cause it to error out.
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 #Build Options
 #change to "no" to disable the options, or define them in the Makefile in
@@ -21,7 +21,7 @@ UNICODE_ENABLE     = no   # Unicode
 BLUETOOTH_ENABLE   = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 SWAP_HANDS_ENABLE  = no   # Enable one-hand typing
 
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
 
 #Do not enable SLEEP_LED_ENABLE.it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE   = no    # Breathing sleep LED during USB suspend

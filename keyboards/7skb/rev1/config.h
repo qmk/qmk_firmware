@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEB5F
 #define DEVICE_VER      0x0007
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         7skb
@@ -52,9 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 
 #ifndef RGBLED_NUM
-  #define RGBLED_NUM 10
+  #define RGBLED_NUM 12
   #define RGBLIGHT_SPLIT
-  #define RGBLED_SPLIT { 5, 5 }
+  #define RGBLED_SPLIT { 6, 6 }
 #endif
 
 #define RGBLIGHT_ANIMATIONS

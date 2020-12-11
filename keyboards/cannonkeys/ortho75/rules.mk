@@ -1,18 +1,12 @@
 # MCU name
 MCU = STM32F103
 
-# GENERIC STM32F103C8T6 board - stm32duino bootloader
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
-MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
-BOARD = STM32_F103_STM32DUINO
-
-DFU_ARGS = -d 1eaf:0003 -a2 -R
-DFU_SUFFIX_ARGS = -v 1eaf -p 0003
+# Bootloader selection
+BOOTLOADER = stm32duino
 
 # project specific files
 VPATH += keyboards/cannonkeys/bluepill
-SRC =	led.c \
-      keyboard.c
+SRC =	keyboard.c
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
@@ -20,10 +14,10 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
+NKRO_ENABLE = yes	      # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes
-BACKLIGHT_DRIVER = custom
 RGBLIGHT_ENABLE = yes
+WS2812_DRIVER = spi
 ENCODER_ENABLE = yes
 
 LAYOUTS = ortho_5x15

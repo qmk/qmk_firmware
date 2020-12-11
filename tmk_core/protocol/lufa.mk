@@ -15,32 +15,28 @@ else
 endif
 
 LUFA_SRC = lufa.c \
-	   usb_descriptor.c \
-	   outputselect.c \
-	   $(LUFA_SRC_USB)
+	usb_descriptor.c \
+	$(LUFA_SRC_USB)
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
 	include $(TMK_PATH)/protocol/midi.mk
 endif
 
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
-	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
-	$(TMK_DIR)/protocol/serial_uart.c
+	LUFA_SRC += outputselect.c \
+		$(TMK_DIR)/protocol/serial_uart.c
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
-		LUFA_SRC += analog.c
-		LUFA_SRC += $(LUFA_DIR)/adafruit_ble.cpp
-endif
-
-ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)
-	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
-	$(TMK_DIR)/protocol/serial_uart.c
+	LUFA_SRC += spi_master.c \
+		analog.c \
+		outputselect.c \
+		$(LUFA_DIR)/adafruit_ble.cpp
 endif
 
 ifeq ($(strip $(BLUETOOTH)), RN42)
-	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
-	$(TMK_DIR)/protocol/serial_uart.c
+	LUFA_SRC += outputselect.c \
+		$(TMK_DIR)/protocol/serial_uart.c
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)

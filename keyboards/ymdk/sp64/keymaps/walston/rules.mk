@@ -1,0 +1,1 @@
+COMMAND_ENABLE = no

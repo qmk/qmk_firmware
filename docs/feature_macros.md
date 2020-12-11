@@ -6,34 +6,34 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 ## The New Way: `SEND_STRING()` & `process_record_user`
 
-Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string (i.e. a sequence of characters) for you. All ASCII characters that are easily translated to a keycode are supported (e.g. `\n\t`).
+Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
 Here is an example `keymap.c` for a two-key keyboard:
 
 ```c
 enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
+    QMKBEST = SAFE_RANGE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
     case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-
-  }
-  return true;
+        if (record->event.pressed) {
+            // when keycode QMKBEST is pressed
+            SEND_STRING("QMK is the best thing ever!");
+        } else {
+            // when keycode QMKBEST is released
+        }
+        break;
+    }
+    return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = {
-    {QMKBEST, KC_ESC}
-  }
+    [0] = {
+        {QMKBEST, KC_ESC},
+        // ...
+    },
 };
 ```
 
@@ -49,42 +49,45 @@ You can do that by adding another keycode and adding another case to the switch 
 
 ```c
 enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL,
-  MY_OTHER_MACRO
+    QMKBEST = SAFE_RANGE,
+    QMKURL,
+    MY_OTHER_MACRO,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
     case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
+        if (record->event.pressed) {
+            // when keycode QMKBEST is pressed
+            SEND_STRING("QMK is the best thing ever!");
+        } else {
+            // when keycode QMKBEST is released
+        }
+        break;
+
     case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/\n");
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
+        if (record->event.pressed) {
+            // when keycode QMKURL is pressed
+            SEND_STRING("https://qmk.fm/\n");
+        } else {
+            // when keycode QMKURL is released
+        }
+        break;
+
     case MY_OTHER_MACRO:
-      if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("ac")); // selects all and copies
-      }
-      break;
-  }
-  return true;
+        if (record->event.pressed) {
+           SEND_STRING(SS_LCTL("ac")); // selects all and copies
+        }
+        break;
+    }
+    return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = {
-    {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
-  }
+    [0] = {
+        {MY_CUSTOM_MACRO, MY_OTHER_MACRO},
+        // ...
+    },
 };
 ```
 
@@ -161,11 +164,11 @@ There's also a couple of mod shortcuts you can use:
 
 * `SS_LCTL(string)`
 * `SS_LSFT(string)`
-* `SS_LALT(string)`
+* `SS_LALT(string)` or `SS_LOPT(string)`
 * `SS_LGUI(string)`, `SS_LCMD(string)` or `SS_LWIN(string)`
 * `SS_RCTL(string)`
 * `SS_RSFT(string)`
-* `SS_RALT(string)` or `SS_ALGR(string)`
+* `SS_RALT(string)`, `SS_ROPT(string)` or `SS_ALGR(string)`
 * `SS_RGUI(string)`, `SS_RCMD(string)` or `SS_RWIN(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.
@@ -179,7 +182,9 @@ Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - no
 
 By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:
 
-    #include <sendstring_colemak.h>
+```c
+#include "sendstring_colemak.h"
+```
 
 ### Strings in Memory
 

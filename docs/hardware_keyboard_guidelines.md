@@ -3,6 +3,25 @@
 Since starting, QMK has grown by leaps and bounds thanks to people like you who contribute to creating and maintaining our community keyboards. As we've grown we've discovered some patterns that work well, and ask that you conform to them to make it easier for other people to benefit from your hard work.
 
 
+## Use QMK Lint
+
+We have provided a tool, `qmk lint`, which will let you check over your keyboard for problems. We suggest using it frequently while working on your keyboard and keymap. 
+
+Example passing check:
+
+```
+$ qmk lint -kb rominronin/katana60/rev2
+Ψ Lint check passed!
+```
+
+Example failing check:
+
+```
+$ qmk lint -kb clueboard/66/rev3
+☒ Missing keyboards/clueboard/66/rev3/readme.md
+☒ Lint check failed!
+```
+
 ## Naming Your Keyboard/Project
 
 All keyboard names are in lower case, consisting only of letters, numbers, and underscore (`_`). Names may not begin with an underscore. Forward slash (`/`) is used as a sub-folder separation character.
@@ -116,6 +135,21 @@ The `post_config.h` file can be used for additional post-processing, depending o
 
 The presence of this file means that the folder is a keyboard target and can be used in `make` commands. This is where you setup the build environment for your keyboard and configure the default set of features.
 
+The `rules.mk` file can also be placed in a sub-folder, and its reading order is as follows:
+
+* `keyboards/top_folder/rules.mk`
+  * `keyboards/top_folder/sub_1/rules.mk`
+    * `keyboards/top_folder/sub_1/sub_2/rules.mk`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/rules.mk`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
+          * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
+          * `users/a_user_folder/rules.mk`
+* `common_features.mk`
+
+Many of the settings written in the `rules.mk` file are interpreted by `common_features.mk`, which sets the necessary source files and compiler options.
+
+?> See `build_keyboard.mk` and `common_features.mk` for more details.
+
 ### `<keyboard_name.c>`
 
 This is where you will write custom code for your keyboard. Typically you will write code to initialize and interface with the hardware in your keyboard. If your keyboard consists of only a key matrix with no LEDs, speakers, or other auxiliary hardware this file can be blank.
@@ -177,7 +211,7 @@ When developing your keyboard, keep in mind that all warnings will be treated as
 
 ## Copyright Blurb
 
-If you're adapting your keyboard's setup from another project, but not using the same code, but sure to update the copyright header at the top of the files to show your name, in this format:
+If you're adapting your keyboard's setup from another project, but not using the same code, be sure to update the copyright header at the top of the files to show your name, in this format:
 
     Copyright 2017 Your Name <your@email.com>
 

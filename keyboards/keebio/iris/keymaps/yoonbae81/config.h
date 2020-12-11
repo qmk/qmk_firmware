@@ -1,0 +1,6 @@
+#pragma once
+
+#define MOUSEKEY_DELAY 100
+#define MOUSEKEY_INTERVAL 25
+#define MOUSEKEY_MAX_SPEED 7
+#define MOUSEKEY_TIME_TO_MAX 30
