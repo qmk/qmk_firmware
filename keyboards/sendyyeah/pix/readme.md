@@ -10,10 +10,7 @@ A mini 1x4 macropad with rotary encoders and OLED screen. Currently the PCB and 
 
 Make example for this keyboard (after setting up your build environment):
 
-How to Build the firmware:
-    `make sendyyeah/pix:default`
-    or for VIA supported
-    `make sendyyeah/pix:via`
+    make sendyyeah/pix:default
 
 How to reset and enter bootloader:
     - Press reset button on the right side of the PCB (twice if the ProMicro is fresh)
