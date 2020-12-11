@@ -20,6 +20,4 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 AUDIO_ENABLE = yes
 # SERIAL_LINK_ENABLE = yes
 
-# project specific files
-SRC =	led.c
 LAYOUTS = 66_ansi
