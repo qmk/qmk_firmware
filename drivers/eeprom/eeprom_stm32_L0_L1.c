@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "hal.h"
+#include <hal.h>
 #include "eeprom_driver.h"
 #include "eeprom_stm32_L0_L1.h"
 

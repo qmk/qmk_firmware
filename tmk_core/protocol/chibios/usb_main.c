@@ -25,8 +25,8 @@
  *   makes the assumption this is safe to avoid littering with preprocessor directives.
  */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "usb_main.h"
 

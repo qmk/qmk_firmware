@@ -21,7 +21,7 @@
 #    include <avr/interrupt.h>
 #endif
 #if defined(PROTOCOL_CHIBIOS)
-#    include "hal.h"
+#    include <hal.h>
 #    include "chibios_config.h"
 #endif
 
