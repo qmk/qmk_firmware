@@ -51,6 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
+
 /* Backlight configuration */
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_BREATHING

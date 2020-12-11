@@ -58,26 +58,3 @@ To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIO
 The `PLOOPY_DPI_OPTIONS` array sets the values that you want to be able to cycle through, and the order they are in.  The "default" define lets the firmware know which of these options is the default and should be loaded by default. 
 
 The `DPI_CONFIG` macro will cycle through the values in the array, each time you hit it.  And it stores this value in persistent memory, so it will load it the next time the device powers up. 
-
-# Programming QMK-DFU onto the PloopyCo Trackball
-
-If you would rather have DFU on this board, you can use the QMK-DFU bootloader on the device.  To do so, you want to run: 
-
-    make ploopyco/trackball:default:production
-
-Once you have that, you'll need to [ISP Flash](https://docs.qmk.fm/#/isp_flashing_guide) the chip with the new bootloader hex file created (or the production hex), and set the fuses:
-
-
-| Fuse     | Setting          |
-|----------|------------------|
-| Low      | `0xDF`           |
-| High     | `0xD8` or `0x98` |
-| Extended | `0xCB`           |
-
-Original (Caterina) settings: 
-
-| Fuse     | Setting          |
-|----------|------------------|
-| Low      | `0xFF`           |
-| High     | `0xD8`           |
-| Extended | `0xFE`           |

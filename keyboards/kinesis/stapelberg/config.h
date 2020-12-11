@@ -27,7 +27,12 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
- 
+
+#define LED_NUM_LOCK_PIN F2
+#define LED_CAPS_LOCK_PIN F3
+#define LED_SCROLL_LOCK_PIN F1
+#define LED_COMPOSE_PIN F0
+#define LED_PIN_ON_STATE 0
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
