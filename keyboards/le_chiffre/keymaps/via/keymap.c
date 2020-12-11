@@ -125,13 +125,13 @@ void render_keylogger_status(void) {
     oled_write(keylog_str, false);
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(led_t led_state) {
     oled_write_P(PSTR("-----"), false);
-    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_P(PSTR("C"), led_state.caps_lock);
 	oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("N"), led_state.num_lock);
 	oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_P(PSTR("S"), led_state.scroll_lock);
     //oled_write_ln_P(PSTR(" "), false);
 }
 
@@ -148,7 +148,7 @@ void oled_task_user(void) {
     oled_set_cursor(0,3);
     // render_layer_status();	// Renders the current keyboard state (layer, lock, caps, scroll, etc)
 	render_mod_status(get_mods()|get_oneshot_mods());
-	render_keylock_status(host_keyboard_leds());
+	render_keylock_status(host_keyboard_led_state());
 	render_keylogger_status();
 }
 
