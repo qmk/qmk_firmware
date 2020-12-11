@@ -1,1 +1,1 @@
-# The default keymap for sixpack
+# The default keymap for Six Pack
