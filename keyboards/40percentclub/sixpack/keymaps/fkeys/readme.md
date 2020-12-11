@@ -1,1 +1,1 @@
-# F13 to F24 keymap with Tap Dance for sixpack
+# F13 to F24 keymap with Tap Dance for Six Pack

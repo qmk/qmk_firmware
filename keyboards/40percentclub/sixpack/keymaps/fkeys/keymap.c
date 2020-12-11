@@ -33,7 +33,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // Add tap dance item in place of a key code
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* Function keys 2x3 layout
+    /* 2x3 layout
      * .-----------------------------.
      * | F13/F19 | D14/F20 | F15/F21 |
      * |---------+---------+---------+
