@@ -6,7 +6,7 @@ on:
     - master
 
 jobs:
-  generate:
+  format:
     runs-on: ubuntu-latest
     container: qmkfm/base_container
 
@@ -22,7 +22,7 @@ jobs:
 
     - name: Format files
       run: |
-        bin/qmk cformat
+        bin/qmk cformat -a
         bin/qmk pyformat
         bin/qmk fileformat
 
