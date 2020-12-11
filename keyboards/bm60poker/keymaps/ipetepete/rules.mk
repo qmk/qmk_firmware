@@ -1,1 +1,1 @@
-NKRO_ENABLE = no # USB Nkey Rollover
+NKRO_ENABLE = yes # USB Nkey Rollover
