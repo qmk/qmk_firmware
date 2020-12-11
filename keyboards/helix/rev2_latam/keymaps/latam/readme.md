@@ -12,5 +12,5 @@ The keymap has multiple layers, moving extra keys to different layers.
 
 
 
-![keymap](https://i.pinimg.com/originals/ec/36/b2/ec36b2f124c2ca3c635e38c40f7305b0.png)
+![keymap](https://i.pinimg.com/originals/9b/81/44/9b8144c211c59ea0dba6b91e56904292.jpg)
 
