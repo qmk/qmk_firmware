@@ -10,11 +10,11 @@
 
 你需要一个可以编辑 **纯文本** 文件的程序。你可以 Windows 上使用 Notepad，在 Linux 上使用gedit，两者都是简单又实用的文本编辑工具。在 macOS 上，请小心使用 "TextEdit" 这个默认软件：如果你不在 _Format_ 菜单明确地选择 _Make Plain Text_ 选项的话将不会被保存为纯文本。
 
-你也可以安装一个专用编辑器 [Sublime Text](https://www.sublimetext.com/) 或 [VS Code](https://code.visualstudio.com/)。这大概是跨平台的最好方法了，这些编辑器是专门为了编辑代码设计的。
+你也可以安装一个专业编辑器 [Sublime Text](https://www.sublimetext.com/) 或 [VS Code](https://code.visualstudio.com/)。这大概是跨平台的最好方法了，这些编辑器是专门为了编辑代码设计的。
 
 ?> 搞不清用哪种编辑器？Laurence Bradford 写了篇关于编辑器选择的文章 [a great introduction](https://learntocodewith.me/programming/basics/text-editors/)。
 
-### QMK 工具箱(Toolbox)
+### QMK 工具箱(QMK Toolbox)
 
 QMK 工具箱是一个可选用于 Windows 和 macOS 下的图形化工具，它可以对你的定制键盘进行编程和调试。你很有可能会发现它是一个能简单的烧录键盘固件和查看调试信息的神器。
 
