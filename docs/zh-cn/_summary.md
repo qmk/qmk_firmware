@@ -1,4 +1,4 @@
-* [教程]
+* 教程
   * [介绍](zh-cn/newbs.md)
   * [入门](zh-cn/newbs_getting_started.md)
   * [构建你的第一个固件](zh-cn/newbs_building_firmware.md)
@@ -8,7 +8,7 @@
   * [其他资源](zh-cn/newbs_learn_more_resources.md)
   * [大纲](zh-cn/syllabus.md)
 
-* [问题与解答](zh-cn/faq.md)
+* 问题与解答
   * [一般问题](zh-cn/faq_general.md)
   * [QMK 构建/编译](zh-cn/faq_build.md)
   * [QMK 调试/故障排除](zh-cn/faq_debug.md)
