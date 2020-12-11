@@ -25,7 +25,7 @@
 #ifndef USB_DRIVER_H
 #    define USB_DRIVER_H
 
-#    include "hal_usb_cdc.h"
+#    include <hal_usb_cdc.h>
 
 /*===========================================================================*/
 /* Driver constants.                                                         */
