@@ -24,7 +24,7 @@
 #    include "eeprom.h"
 #endif
 #ifdef STM32_EEPROM_ENABLE
-#    include "hal.h"
+#    include <hal.h>
 #    include "eeprom_stm32.h"
 #endif
 #include "wait.h"
@@ -34,7 +34,7 @@
 #include "color.h"
 #include "debug.h"
 #include "led_tables.h"
-#include "lib/lib8tion/lib8tion.h"
+#include <lib/lib8tion/lib8tion.h>
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
@@ -123,9 +123,11 @@ void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.effect_num_leds  = num_leds;
 }
 
+__attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
+
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
     HSV hsv = {hue, sat, val};
-    RGB rgb = hsv_to_rgb(hsv);
+    RGB rgb = rgblight_hsv_to_rgb(hsv);
     setrgb(rgb.r, rgb.g, rgb.b, led1);
 }
 
@@ -981,7 +983,7 @@ void rgblight_task(void) {
 #        ifndef RGBLIGHT_BREATHE_TABLE_SIZE
 #            define RGBLIGHT_BREATHE_TABLE_SIZE 256  // 256 or 128 or 64
 #        endif
-#        include <rgblight_breathe_table.h>
+#        include "rgblight_breathe_table.h"
 #    endif
 
 __attribute__((weak)) const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};

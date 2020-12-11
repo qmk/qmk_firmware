@@ -8,7 +8,7 @@ CONSOLE_ENABLE          = no
 COMMAND_ENABLE          = no
 
 RGBLIGHT_ENABLE         = no
-RGB_MATRIX_ENABLE       = WS2812
+RGB_MATRIX_ENABLE       = yes
 
 OLED_DRIVER_ENABLE      = yes
 

@@ -23,7 +23,6 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
-extern backlight_config_t backlight_config;
 #endif
 
 #ifdef FAUXCLICKY_ENABLE
@@ -57,6 +56,10 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    ifdef SENDSTRING_BELL
 float bell_song[][2] = SONG(TERMINAL_SOUND);
 #    endif
+#endif
+
+#ifdef AUTO_SHIFT_ENABLE
+#    include "process_auto_shift.h"
 #endif
 
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
@@ -229,6 +232,9 @@ bool process_record_quantum(keyrecord_t *record) {
             process_record_via(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
+#if defined(SEQUENCER_ENABLE)
+            process_sequencer(keycode, record) &&
+#endif
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
 #endif
@@ -602,6 +608,10 @@ void matrix_init_quantum() {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
+#if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
+    // TODO: remove calls to led_init_ports from keyboards and remove ifdef
+    led_init_ports();
+#endif
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
     led_matrix_init();
@@ -633,6 +643,10 @@ void matrix_scan_quantum() {
     matrix_scan_music();
 #endif
 
+#ifdef SEQUENCER_ENABLE
+    matrix_scan_sequencer();
+#endif
+
 #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
 #endif
@@ -659,6 +673,10 @@ void matrix_scan_quantum() {
 
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_read(false);
+#endif
+
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_matrix_scan();
 #endif
 
     matrix_scan_kb();
@@ -725,55 +743,6 @@ void api_send_unicode(uint32_t unicode) {
 #endif
 }
 
-/** \brief Lock LED set callback - keymap/user level
- *
- * \deprecated Use led_update_user() instead.
- */
-__attribute__((weak)) void led_set_user(uint8_t usb_led) {}
-
-/** \brief Lock LED set callback - keyboard level
- *
- * \deprecated Use led_update_kb() instead.
- */
-__attribute__((weak)) void led_set_kb(uint8_t usb_led) { led_set_user(usb_led); }
-
-/** \brief Lock LED update callback - keymap/user level
- *
- * \return True if led_update_kb() should run its own code, false otherwise.
- */
-__attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
-
-/** \brief Lock LED update callback - keyboard level
- *
- * \return Ignored for now.
- */
-__attribute__((weak)) bool led_update_kb(led_t led_state) { return led_update_user(led_state); }
-
-__attribute__((weak)) void led_init_ports(void) {}
-
-__attribute__((weak)) void led_set(uint8_t usb_led) {
-#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
-    // Use backlight as Caps Lock indicator
-    uint8_t bl_toggle_lvl = 0;
-
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) && !backlight_config.enable) {
-        // Turning Caps Lock ON and backlight is disabled in config
-        // Toggling backlight to the brightest level
-        bl_toggle_lvl = BACKLIGHT_LEVELS;
-    } else if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK) && backlight_config.enable) {
-        // Turning Caps Lock OFF and backlight is enabled in config
-        // Toggling backlight and restoring config level
-        bl_toggle_lvl = backlight_config.level;
-    }
-
-    // Set level without modify backlight_config to keep ability to restore state
-    backlight_set(bl_toggle_lvl);
-#endif
-
-    led_set_kb(usb_led);
-    led_update_kb((led_t)usb_led);
-}
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
@@ -781,5 +750,3 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
 __attribute__((weak)) void startup_user() {}
 
 __attribute__((weak)) void shutdown_user() {}
-
-//------------------------------------------------------------------------------
