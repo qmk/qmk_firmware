@@ -17,16 +17,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+enum layer_names {
+    _BASE,
+    _TG1
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-     *  
+     *
      *  Left    Middle  Right
      *  VolDn   PgDn    Alt+Tab    (Rotary Counterclockwise)
      *  VolUp   PgUp    Tab        (Rotary Clockwise)
      *  Mute    Play    Next       (Rotary Click)
-     * 
-     * 
-     * 
+     *
+     *
+     *
      *   ┌───┬───┬───┬───┐
      *   │TG1│ / │ * │ - │
      *   ├───┼───┼───┼───┤
@@ -40,17 +45,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *   └───────┴───┴───┘
      */
 
-    [0] = LAYOUT(
+    [_BASE] = LAYOUT(
         KC_MUTE,  KC_MPLY,  KC_MNXT,
         TG(1),    KC_SLSH,  KC_ASTR,  KC_MINS,
         KC_7,     KC_8,     KC_9,     KC_PLUS,
-        KC_4,     KC_5,     KC_6,           
+        KC_4,     KC_5,     KC_6,
         KC_1,     KC_2,     KC_3,     KC_ENT,
                   KC_0,     KC_DOT
     ),
 
     /*
-     *   
+     *
      * ┌─────────┬─────────┬─────────┬─────────┐
      * │   TG1   │    /    │    *    │    -    │
      * ├─────────┼─────────┼─────────┼─────────┤
@@ -64,11 +69,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───────────────────┴─────────┴─────────┘
      */
 
-    [1] = LAYOUT(
+    [_TG1] = LAYOUT(
         _______,        _______,        _______,
         _______,     _______,   _______,   _______,
         A(KC_7),     A(KC_8),   A(KC_9),   _______,
-        A(KC_4),     A(KC_5),   A(KC_6), 
+        A(KC_4),     A(KC_5),   A(KC_6),
         A(KC_1),     A(KC_2),   A(KC_3),   _______,
                      KC_ESC,    KC_DEL
     )
