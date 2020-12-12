@@ -59,7 +59,7 @@ def generate_rgb_breathe_table(cli):
 // Breathing center: {0:.2f}
 // Breathing max:    {1:d}
 
-const uint8_t PROGMEM rgblight_effect_breathe_table[] {{
+const uint8_t PROGMEM rgblight_effect_breathe_table[] = {{
 {2}
 }};
 
