@@ -1,6 +1,7 @@
 # Mode Eighty
 
-![MODE80](https://imgur.com/t/mechanicalkeyboards/8Uf6c2m?nc=1)
+![MODE80](https://i.imgur.com/26uzM3yl.jpg)\
+[Image Gallery](https://imgur.com/t/mechanicalkeyboards/8Uf6c2m?nc=1)
 
 The Mode80 is a tenkeyless high-end keyboard sold by [Mode Designs](https://shop.modedesigns.com/).
 
