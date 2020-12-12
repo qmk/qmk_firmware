@@ -6,5 +6,5 @@
 find keyboards -type f -name rules.mk | grep -v keymaps | while read keyboard; do
 	keyboard=$(echo $keyboard | sed 's!keyboards/\(.*\)/rules.mk!\1!') 
 
-	[ ! -e "keyboards/${keyboard}/.noci" ] && echo "$keyboard"
+	[ "$1" = "noci" -a -e "keyboards/${keyboard}/.noci" ] || echo "$keyboard"
 done

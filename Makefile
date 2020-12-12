@@ -99,14 +99,9 @@ $(eval $(call NEXT_PATH_ELEMENT))
 #     endif
 # endif
 
-define GET_KEYBOARDS
-    KEYBOARDS := $(shell util/list_keyboards.sh | sort -u)
-endef
-
-$(eval $(call GET_KEYBOARDS))
-
-# Only consider folders with makefiles, to prevent errors in case there are extra folders
-#KEYBOARDS += $(patsubst $(ROOD_DIR)/keyboards/%/rules.mk,%,$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
+# Build our list of keyboards
+KEYBOARDS := $(shell util/list_keyboards.sh | sort -u)
+CI_KEYBOARDS := $(shell util/list_keyboards.sh noci | sort -u)
 
 .PHONY: list-keyboards
 list-keyboards:
@@ -397,7 +392,7 @@ endef
 # if we are going to compile all keyboards, match the rest of the rule
 # for each of them
 define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(KEYBOARDS)))
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(CI_KEYBOARDS)))
 endef
 
 # $1 Subproject
