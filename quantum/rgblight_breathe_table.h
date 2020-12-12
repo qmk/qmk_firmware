@@ -7,7 +7,7 @@
 // Breathing center: 1.85
 // Breathing max:    255
 
-const uint8_t PROGMEM rgblight_effect_breathe_table[] {
+const uint8_t PROGMEM rgblight_effect_breathe_table[] = {
 #if RGBLIGHT_BREATHE_TABLE_SIZE == 256
     0x22, 0x23, 0x25, 0x26, 0x28, 0x29, 0x2A, 0x2C,
     0x2D, 0x2F, 0x30, 0x32, 0x33, 0x35, 0x36, 0x38,
