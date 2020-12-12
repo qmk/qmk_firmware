@@ -14,8 +14,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#pragma once
-
 #include "progmem.h"
 
 const unsigned char font[] PROGMEM = {
