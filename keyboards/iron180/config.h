@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    SmithRune
 #define PRODUCT         IRON180
-#define DESCRIPTION	Smith and Rune Iron180
 
 /* key matrix size */
 #define MATRIX_ROWS 6
