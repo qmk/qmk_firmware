@@ -12,10 +12,10 @@ enum jian_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DFLT_L] = LAYOUT_symmetric_left(
-  KC_LSFT, KC_LGUI, KC_Q, KC_W, KC_E,                 KC_R,                KC_T,
-           KC_LCTL, KC_A, KC_S, KC_D,                 KC_F,                KC_G,
-           KC_LALT, KC_Z, KC_X, KC_C,                 KC_V,                KC_B,
-                                LT(_RAIS_L, KC_BSPC), LT(_DFLT_R, KC_SPC), LT(_LOWR_L, KC_ENT)
+  KC_LSFT, LGUI_T(KC_GRV), KC_Q, KC_W, KC_E,                 KC_R,                KC_T,
+           KC_LCTL,        KC_A, KC_S, KC_D,                 KC_F,                KC_G,
+           KC_LALT,        KC_Z, KC_X, KC_C,                 KC_V,                KC_B,
+                                       LT(_RAIS_L, KC_BSPC), LT(_DFLT_R, KC_SPC), LT(_LOWR_L, KC_ENT)
 ),
 [_DFLT_R] = LAYOUT_symmetric_right(
   KC_Y,                KC_U,    KC_I,               KC_O,    KC_P,    RGUI_T(KC_LBRC), RSFT_T(KC_RBRC),
