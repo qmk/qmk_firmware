@@ -175,13 +175,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case HELLO:   SEND_STRING("Hello, world!"); return true;
                 // clang-format on
         }
-    } else {    
+    } else {
         switch (keycode) {
             case CH_CPNL:
             case CH_ASST:
                 host_consumer_send(0);
                 return false;
-        }       
+        }
     }
 
     return true;
