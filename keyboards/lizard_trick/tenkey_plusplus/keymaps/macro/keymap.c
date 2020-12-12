@@ -17,10 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+// Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _TG1
-}
+    _TG1,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -51,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_7,     KC_8,     KC_9,     KC_PLUS,
         KC_4,     KC_5,     KC_6,
         KC_1,     KC_2,     KC_3,     KC_ENT,
-                  KC_0,     KC_DOT
+        KC_0,               KC_DOT
     ),
 
     /*
@@ -75,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         A(KC_7),     A(KC_8),   A(KC_9),   _______,
         A(KC_4),     A(KC_5),   A(KC_6),
         A(KC_1),     A(KC_2),   A(KC_3),   _______,
-                     KC_ESC,    KC_DEL
+        KC_ESC,                 KC_DEL
     )
 };
 
