@@ -1,10 +1,11 @@
 """Generate rgblight_breathe_table.h
 """
-from milc import cli
+import math
 from argparse import ArgumentTypeError
 
+from milc import cli
+
 import qmk.path
-import math
 
 
 def breathing_center(value):
