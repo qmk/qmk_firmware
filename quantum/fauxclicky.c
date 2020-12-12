@@ -15,10 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <timer.h>
-#include <fauxclicky.h>
+#include "timer.h"
+#include "fauxclicky.h"
 #include <stdbool.h>
-#include <musical_notes.h>
+#include "musical_notes.h"
 
 bool     fauxclicky_enabled = true;
 uint16_t note_start         = 0;
