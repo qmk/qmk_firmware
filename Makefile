@@ -101,7 +101,6 @@ $(eval $(call NEXT_PATH_ELEMENT))
 
 # Build our list of keyboards
 KEYBOARDS := $(shell util/list_keyboards.sh | sort -u)
-CI_KEYBOARDS := $(shell util/list_keyboards.sh noci | sort -u)
 
 .PHONY: list-keyboards
 list-keyboards:
@@ -392,7 +391,7 @@ endef
 # if we are going to compile all keyboards, match the rest of the rule
 # for each of them
 define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(CI_KEYBOARDS)))
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell util/list_keyboards.sh noci | sort -u)))
 endef
 
 # $1 Subproject
