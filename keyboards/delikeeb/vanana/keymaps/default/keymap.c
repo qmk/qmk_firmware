@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * -------------------------------------------               -------------------------------------------
      * | Tab  |   Q  |   W  |   E  |   R  |   T  |               |   Y  |   U  |   I  |   O  |   P  | Del  |
      * -------------------------------------------   ---------  --------------------------------------------
-     * | Esc  |   A  |   S  |   D  |   F  |   G  |   | Right |   |   H  |   J  |   K  |   L  |   ;  | "    |
+     * | Esc  |   A  |   S  |   D  |   F  |   G  |   | Right |   |   H  |   J  |   K  |   L  |   ;  |Enter |
      * -------------------------------------------   ---------   -------------------------------------------
-     * | Shift|   Z  |   X  |   C  |   V  |   B  |   | LEFT  |   |   N  |   M  |   ,  |   .  |   /  |Enter |
+     * | Shift|   Z  |   X  |   C  |   V  |   B  |   | LEFT  |   |   N  |   M  |   ,  |   .  |   /  | "    |
      * -------------------------------------------   ---------   -------------------------------------------
      *        | Ctrl | GUI  |  Alt |Lower |Space |               |Space |Raise |Alt   | DOWN | UP   |
      *        ------------------------------------               ------------------------------------
@@ -63,14 +63,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,                       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC,    \
     KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,                       KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_BSLASH,  \
     KC_ESC,     KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_RIGHT,       KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_ENT,     \
-    KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_LEFT,        KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_QUOT,    \
-                KC_LCTL,    KC_LALT,    KC_LGUI,    LOWER,      KC_SPC,                     KC_SPC,     RAISE,      KC_LEFT,    KC_DOWN,    KC_UP                   \
+    KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_LEFT,        KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    MT(MOD_RSFT, KC_QUOT),    \
+                KC_LCTL,    KC_LALT,    KC_LGUI,    LOWER,      KC_SPC,                     KC_SPC,     RAISE,      KC_RALT,    KC_DOWN,    KC_UP                   \
     ),
     [_LOWER] = LAYOUT_vanana( \
     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,                      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
     _______,    _______,    _______,    KC_7,       KC_8,       KC_9,                       _______,    _______,    _______,    _______,    _______,    _______,    \
-    _______,    _______,    KC_0,       KC_4,       KC_5,       KC_6,       _______,        _______,    _______,    _______,    _______,    _______,    _______,    \
-    _______,    _______,    _______,    KC_1,       KC_2,       KC_3,       _______,        _______,    _______,    _______,    _______,    _______,    _______,    \
+    _______,    _______,    KC_0,       KC_4,       KC_5,       KC_6,       KC_UP,          _______,    _______,    _______,    _______,    _______,    _______,    \
+    _______,    _______,    _______,    KC_1,       KC_2,       KC_3,       KC_DOWN,        _______,    _______,    _______,    _______,    _______,    _______,    \
                 _______,    _______,    _______,    _______,    _______,                    _______,    _______,    _______,    _______,    _______                 \
     ),
 
@@ -83,18 +83,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT_vanana( \
     RESET  ,    _______,    _______,    _______,    _______,    _______,                    _______,    _______,    _______,    _______,    _______,    DEBUG,      \
-    _______,    RGB_TOG,    RGBF,       RGBR,       _______,    _______,                    _______,    _______,    _______,    _______,    _______,    _______,    \
-    KC_CAPSLOCK,_______,    _______,    _______,    _______,    _______,    VOLUP,          _______,    _______,    _______,    _______,    _______,    _______,    \
+    _______,    RGB_TOG,    RGBF,       RGBR,       RGB_SAD,    RGB_SAI,                    _______,    _______,    _______,    _______,    _______,    _______,    \
+    KC_CAPSLOCK,_______,    RGB_HUD,    RGB_HUI,    RGB_VAD,    RGB_VAI,    VOLUP,          _______,    _______,    _______,    _______,    _______,    _______,    \
     _______,    AU_ON  ,    AU_OFF ,    _______,    _______,    _______,    VOLDN,          _______,    _______,    _______,    _______,    _______,    _______,    \
                 _______,    _______,    _______,    _______,    _______,                    _______,    _______,    _______,    _______,    _______     \
     )
 };
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-  return state;
-}
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
