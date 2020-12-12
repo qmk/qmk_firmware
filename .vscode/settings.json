@@ -17,10 +17,14 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "stack": "c",
+        "ratio": "c",
+        "exception": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
-    }
+    },
+    "C_Cpp.dimInactiveRegions": false
 }
