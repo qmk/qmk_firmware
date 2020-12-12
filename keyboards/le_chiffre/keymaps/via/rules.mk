@@ -1,3 +1,1 @@
 VIA_ENABLE = yes
-COMBO_ENABLE = no
-OLED_ENABLE = no
