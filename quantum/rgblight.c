@@ -983,7 +983,7 @@ void rgblight_task(void) {
 #        ifndef RGBLIGHT_BREATHE_TABLE_SIZE
 #            define RGBLIGHT_BREATHE_TABLE_SIZE 256  // 256 or 128 or 64
 #        endif
-#        include "rgblight_breathe_table.h"
+#        include <rgblight_breathe_table.h>
 #    endif
 
 __attribute__((weak)) const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
