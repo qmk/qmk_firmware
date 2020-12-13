@@ -246,33 +246,33 @@ static void render_bongo_cat(void) {
 
 static void render_status(void) {
     // WPM
-    oled_write_ln("wpm", false);
+    oled_write_ln_P(PSTR("wpm"), false);
     sprintf(wpm_str, "%03d", get_current_wpm());
     oled_write_ln(wpm_str, false);
-    oled_write_ln("", false);
+    oled_write_ln_P(PSTR(""), false);
 
     // Layer display
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_ln("deflt", false);
+            oled_write_ln_P(PSTR("deflt"), false);
             break;
         case _RAISE:
-            oled_write_ln("raise", false);
+            oled_write_ln_P(PSTR("raise"), false);
             break;
         case _LOWER:
-            oled_write_ln("lower", false);
+            oled_write_ln_P(PSTR("lower"), false);
             break;
         case _ADJUST:
-            oled_write_ln("adjst", false);
+            oled_write_ln_P(PSTR("adjst"), false);
             break;
         default:
-            oled_write_ln("error", false);
+            oled_write_ln_P(PSTR("error"), false);
     }
 
     led_t led_state = host_keyboard_led_state();
-    oled_write_ln("", false);
-    oled_write_ln("", false);
-    oled_write_ln("caps", led_state.caps_lock);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("caps"), led_state.caps_lock);
 }
 
 void oled_task_user(void) {
