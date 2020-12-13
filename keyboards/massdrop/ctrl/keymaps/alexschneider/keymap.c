@@ -27,7 +27,6 @@ static const char * sendstring_commands[] = {
 //Associate our tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LGUI_ML] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _ML),
-    [TD_APP_YL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_APP, _YL),
     [TD_CTRL_TERM] = ACTION_TAP_DANCE_DOUBLE(KC_LCTRL, LCA(KC_T)),
 };
 
@@ -252,11 +251,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (record->event.pressed) {
-        // The Yakuake config uses LGUI+Ctrl+Shift+<keycode>. KC_NO used for undesired key, all mapped ones get mods.
-        if (get_highest_layer(layer_state) == _YL && keycode != TG(_YL)) {
-            tap_code16(C(G(S(keycode))));
-            return false;
-        }
         switch (keycode) {
             case DBG_TOG:
                 TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
