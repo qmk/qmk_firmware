@@ -23,6 +23,8 @@
 #define LT_U_MA KC_8
 #define LT_Z_CA KC_EQL
 
+#define LT_EQL RALT(KC_EQL)
+
 // OLED setup
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 30
@@ -37,7 +39,7 @@ uint32_t anim_sleep         = 0;
 uint8_t  current_idle_frame = 0;
 uint8_t  current_tap_frame  = 0;
 
-static long int oled_timeout = 600000;  // 10 minutes
+static long int oled_timeout = OLED_TIMEOUT;  // 10 minutes
 
 enum layer_number {
     _QWERTY = 0,
@@ -90,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, LT_1,    LT_2,    LT_3,    LT_4,    LT_5,                      LT_6,    LT_7,    LT_8,    LT_9,    LT_0,    KC_GRV,\
         _______, LT_4,    LT_5,    LT_6,    _______, _______,                   _______, _______, _______, _______, _______, _______, \
         _______, LT_7,    LT_8,    LT_9,    LT_0,    _______,                   _______, _______, _______, _______, _______, _______, \
-        _______, KC_PEQL, KC_PPLS, KC_PMNS, KC_PIPE, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, LT_EQL, KC_PPLS, KC_PMNS, KC_PIPE, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
                                    _______, _______, _______, _______, _______, _______, _______, _______\
     ),
 
