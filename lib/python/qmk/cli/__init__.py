@@ -8,11 +8,13 @@ from milc import cli
 
 from . import c2json
 from . import cformat
+from . import chibios
 from . import clean
 from . import compile
 from . import config
 from . import docs
 from . import doctor
+from . import fileformat
 from . import flash
 from . import generate
 from . import hello
