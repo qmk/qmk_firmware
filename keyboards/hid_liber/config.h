@@ -25,9 +25,7 @@
 #define PRODUCT_ID      0xB919
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    "bpiphany"
-#define USBSTR_MANUFACTURER 'b', '\x00', 'p', '\x00', 'i', '\x00', 'p', '\x00', 'h', '\x00', 'a', '\x00', 'n', '\x00', 'y', '\x00'
 #define PRODUCT         "HIDLiberation"
-#define USBSTR_PRODUCT 'H', '\x00', 'I', '\x00', 'D', '\x00', ' ', '\x00', 'L', '\x00', 'i', '\x00', 'b', '\x00', 'e', '\x00', 'r', '\x00', 'a', '\x00', 't', '\x00', 'i', '\x00', 'o', '\x00', 'n', '\x00'
 #define DESCRIPTION     "HID Liberation powered by QMK"
 
 /* key matrix size */

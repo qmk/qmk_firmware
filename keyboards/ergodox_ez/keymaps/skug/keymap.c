@@ -27,6 +27,9 @@
 #define MDIA 2 // media keys
 #define ARRW 3 // arrow + soon mouse
 
+#define SE_LT   SE_LESS
+#define SE_GT   LSFT(SE_LESS)
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -38,8 +41,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   ½    |   !  |  "   |  #   |  #   |  %   | Ins  |           |  L1  |   &  |  /   |  (   |  )   |  =   |  ?     |
- * |   §    |   1  |  2 @ |  3 £ |  4 $ |  5   |      |           |      |   6  |  7 { |  8 [ |  9 ] |  0 } |  + \   |
+ * |  Esc   |   !  |  "   |  #   |  #   |  %   | Ins  |           |  L1  |   &  |  /   |  (   |  )   |  =   |  ?     |
+ * |        |   1  |  2 @ |  3 £ |  4 $ |  5   |      |           |      |   6  |  7 { |  8 [ |  9 ] |  0 } |  + \   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |  Tab   |   Q  |   W  |   E  |   R  |   T  |  L2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   Å    |
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -66,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox_80(  // layer 0 : default
     // left hand
-    SE_HALF,          KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   KC_INS,
+    KC_ESC,           KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   KC_INS,
     KC_TAB,           KC_Q,           KC_W,          KC_E,    KC_R,    KC_T,   TG(SYMB),
     MO(ARRW),         KC_A,           KC_S,          KC_D,    KC_F,    KC_G,
     KC_LSPO,          CTL_T(KC_Z),    KC_X,          KC_C,    KC_V,    KC_B,   KC_WBAK,
@@ -96,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   -  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |    . |   0  |   =  |      |
+ *   |      |      |      |   <  |   >  |                                       |      |    . |   0  |   =  |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -113,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______,KC_EXLM,SE_AT,  SE_LCBR,SE_RCBR,SE_PIPE,_______,
        _______,KC_HASH,SE_DLR, SE_LPRN,SE_RPRN,SE_GRV,
        _______,KC_PERC,SE_CIRC,SE_LBRC,SE_RBRC,SE_TILD,_______,
-          EPRM,_______,_______,_______,_______,
+          EPRM, _______, _______, SE_LT  , SE_GT,
                                        _______,_______,
                                _______,_______,_______,
                                _______,_______,_______,
@@ -171,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
  // Keymap: Ducky Style arrows
 [ARRW] = LAYOUT_ergodox_80(
-        _______, _______, _______, _______, _______, _______, _______,
+        SE_HALF, _______, _______, _______, _______, _______, _______,
         _______, _______, KC_UP  , _______, _______, _______, _______,
         _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,

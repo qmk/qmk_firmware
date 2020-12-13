@@ -13,52 +13,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "panc60.h"
-#ifdef BACKLIGHT_ENABLE
-#include "backlight.h"
-#endif
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-#endif
 
-#include <avr/pgmspace.h>
-
-#include "action_layer.h"
-#include "i2c_master.h"
-#include "quantum.h"
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
 }
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
+void led_init_ports(void) {
+    setPinOutput(D1);
+}
 
-void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = 0;
-            led[i].g = 0;
-            led[i].b = 0;
-        }
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(D1, led_state.caps_lock);
     }
-
-    i2c_init();
-    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-}
-#endif
-
-void backlight_init_ports(void) {
-	DDRD |= (1<<0 | 1<<1 | 1<<4 | 1<<6);
-	PORTD &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6);
-}
-
-void backlight_set(uint8_t level) {
-	if (level == 0) {
-		// Turn out the lights
-		PORTD &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6);
-	} else {
-		// Turn on the lights
-		PORTD |= (1<<0 | 1<<1 | 1<<4 | 1<<6);
-	}
+    return true;
 }

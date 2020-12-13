@@ -81,7 +81,7 @@ i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length,
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
   i2cAcquireBus(&I2C_DRIVER);
-  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, MS2ST(timeout));
+  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, TIME_MS2I(timeout));
   i2cReleaseBus(&I2C_DRIVER);
   return chibios_to_qmk(status);
 }
@@ -90,7 +90,7 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
 {
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
-  msg_t status = i2cMasterReceiveTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, MS2ST(timeout));
+  msg_t status = i2cMasterReceiveTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, TIME_MS2I(timeout));
   return chibios_to_qmk(status);
 }
 
@@ -106,7 +106,7 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
   }
   complete_packet[0] = regaddr;
 
-  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 1, 0, 0, MS2ST(timeout));
+  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 1, 0, 0, TIME_MS2I(timeout));
   return chibios_to_qmk(status);
 }
 
@@ -114,7 +114,7 @@ i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16
 {
   i2c_address = devaddr;
   i2cStart(&I2C_DRIVER, &i2cconfig);
-  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 1, data, length, MS2ST(timeout));
+  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
   return chibios_to_qmk(status);
 }
 

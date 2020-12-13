@@ -1,11 +1,5 @@
 #include <stdio.h>
-
-#ifdef __AVR__
- #include <avr/io.h>
- #include <avr/pgmspace.h>
-#else
- #define PROGMEM
-#endif
+#include "progmem.h"
 
 #define NUM_USB_HID_KEYCODES 255
 #define LEN_KEYCODE_STR 4

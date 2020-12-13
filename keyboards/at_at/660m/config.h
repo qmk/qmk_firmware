@@ -17,12 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* LSE clock */
+#define STM32_LSECLK 32768
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xA22A
 #define PRODUCT_ID      0x6600
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER    AT-AT
 #define PRODUCT         660M
 #define DESCRIPTION     660M Keyboard

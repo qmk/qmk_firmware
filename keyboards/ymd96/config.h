@@ -18,30 +18,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    ymdkey
-#define PRODUCT         ymd96
+#define DEVICE_VER      0x0200
+#define MANUFACTURER    YMDK
+#define PRODUCT         YMD96
 
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
-//#define DIODE_DIRECTION ROW2COL
+#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7 }
 
-//#define RGB_DI_PIN C4
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
-// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
+#define BACKLIGHT_BREATHING
 
 #define TAPPING_TOGGLE 3
 
-#define NO_UART 1
+#define USB_MAX_POWER_CONSUMPTION 100
 
 /* RGB underglow */
 // The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
@@ -49,8 +49,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 18
 #define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
 #define RGBLIGHT_ANIMATIONS
-/*#define RGBLIGHT_VAL_STEP 20
-
-#define NO_UART 1*/
-
-#endif
+/*#define RGBLIGHT_VAL_STEP 20*/

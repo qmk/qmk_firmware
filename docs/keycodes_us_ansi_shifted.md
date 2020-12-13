@@ -12,26 +12,26 @@ To fix this, open Remote Desktop Connection, click on "Show Options", open the t
 
 ## Keycodes
 
-|Key                     |Aliases            |Description        |
-|------------------------|-------------------|-------------------|
-|`KC_TILDE`              |`KC_TILD`          |`~`                |
-|`KC_EXCLAIM`            |`KC_EXLM`          |`!`                |
-|`KC_AT`                 |                   |`@`                |
-|`KC_HASH`               |                   |`#`                |
-|`KC_DOLLAR`             |`KC_DLR`           |`$`                |
-|`KC_PERCENT`            |`KC_PERC`          |`%`                |
-|`KC_CIRCUMFLEX`         |`KC_CIRC`          |`^`                |
-|`KC_AMPERSAND`          |`KC_AMPR`          |`&`                |
-|`KC_ASTERISK`           |`KC_ASTR`          |`*`                |
-|`KC_LEFT_PAREN`         |`KC_LPRN`          |`(`                |
-|`KC_RIGHT_PAREN`        |`KC_RPRN`          |`)`                |
-|`KC_UNDERSCORE`         |`KC_UNDS`          |`_`                |
-|`KC_PLUS`               |                   |`+`                |
-|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`          |`{`                |
-|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`          |`}`                |
-|`KC_PIPE`               |                   |<code>&#124;</code>|
-|`KC_COLON`              |`KC_COLN`          |`:`                |
-|`KC_DOUBLE_QUOTE`       |`KC_DQUO`, `KC_DQT`|`"`                |
-|`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`                |
-|`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
-|`KC_QUESTION`           |`KC_QUES`          |`?`                |
+|Key                     |Aliases            |Description|
+|------------------------|-------------------|-----------|
+|`KC_TILDE`              |`KC_TILD`          |`~`        |
+|`KC_EXCLAIM`            |`KC_EXLM`          |`!`        |
+|`KC_AT`                 |                   |`@`        |
+|`KC_HASH`               |                   |`#`        |
+|`KC_DOLLAR`             |`KC_DLR`           |`$`        |
+|`KC_PERCENT`            |`KC_PERC`          |`%`        |
+|`KC_CIRCUMFLEX`         |`KC_CIRC`          |`^`        |
+|`KC_AMPERSAND`          |`KC_AMPR`          |`&`        |
+|`KC_ASTERISK`           |`KC_ASTR`          |`*`        |
+|`KC_LEFT_PAREN`         |`KC_LPRN`          |`(`        |
+|`KC_RIGHT_PAREN`        |`KC_RPRN`          |`)`        |
+|`KC_UNDERSCORE`         |`KC_UNDS`          |`_`        |
+|`KC_PLUS`               |                   |`+`        |
+|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`          |`{`        |
+|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`          |`}`        |
+|`KC_PIPE`               |                   |`\|`       |
+|`KC_COLON`              |`KC_COLN`          |`:`        |
+|`KC_DOUBLE_QUOTE`       |`KC_DQUO`, `KC_DQT`|`"`        |
+|`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`        |
+|`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
+|`KC_QUESTION`           |`KC_QUES`          |`?`        |

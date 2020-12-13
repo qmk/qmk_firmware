@@ -15,9 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef LED_H
-#define LED_H
+#pragma once
+
 #include "stdint.h"
+#include "stdbool.h"
 
 /* FIXME: Add doxygen comments here. */
 
@@ -32,12 +33,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+typedef union {
+    uint8_t raw;
+    struct {
+        bool    num_lock : 1;
+        bool    caps_lock : 1;
+        bool    scroll_lock : 1;
+        bool    compose : 1;
+        bool    kana : 1;
+        uint8_t reserved : 3;
+    };
+} led_t;
+
 void led_set(uint8_t usb_led);
 
 void led_init_ports(void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

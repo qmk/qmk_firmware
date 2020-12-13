@@ -16,7 +16,7 @@
 
 Arrows, Navigation keys (Insert, Home, Page Up, etc.), and Function keys are here. Also has keys for Calculator, Menu, Volume Control, and shortcuts for Select All, Undo, Cut, Copy, and Paste. Numpad Enter for when I'm working in Adobe Photoshop, because it treats Numpad Enter differently from the regular Enter key.
 
-![Windows Fn layer](https://i.imgur.com/XwCshcz.png)
+![Windows Fn layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/layer_07.png)
 
 
 ----
@@ -27,7 +27,7 @@ Arrows, Navigation keys (Insert, Home, Page Up, etc.), and Function keys are her
 
 Based on my Windows Fn layer, but swaps a few functions for a MacOS environment. Arrow, Navigation, and Function keys are basically unchanged from Layer 2. This layer enables using either `Fn` key as a sort of simulated `Command` key, which I find easier to reach and use.
 
-![MacOS-oriented Fn layer](https://i.imgur.com/Z11kRu2.png)
+![MacOS-oriented Fn layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/layer_08.png)
 
 
 ----
@@ -38,11 +38,11 @@ Based on my Windows Fn layer, but swaps a few functions for a MacOS environment.
 
 Based on the Windows function layer, but removes some functions that are pointless to have while in the game.
 
-![Quake 2 Fn layer](https://i.imgur.com/9PG7yWb.png)
+![Quake 2 Fn layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/layer_09.png)
 
 Keycode(s) Sent                   | Notes
 :-------------------------------- | :----
-[`Q2_GRV`](./keymap.c#L194-L201)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
+[`Q2_GRV`](./keymap.c#L193-L200)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
 
 
 

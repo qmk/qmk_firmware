@@ -24,10 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Driver hardware support.                                                  */
 /*===========================================================================*/
 
-#    define GDISP_HARDWARE_FLUSH TRUE  // This controller requires flushing
-#    define GDISP_HARDWARE_DRAWPIXEL TRUE
-#    define GDISP_HARDWARE_PIXELREAD TRUE
-#    define GDISP_HARDWARE_CONTROL TRUE
+#    define GDISP_HARDWARE_FLUSH GFXON  // This controller requires flushing
+#    define GDISP_HARDWARE_DRAWPIXEL GFXON
+#    define GDISP_HARDWARE_PIXELREAD GFXON
+#    define GDISP_HARDWARE_CONTROL GFXON
 
 #    define GDISP_LLD_PIXELFORMAT GDISP_PIXELFORMAT_GRAY256
 

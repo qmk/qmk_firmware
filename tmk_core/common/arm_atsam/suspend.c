@@ -1,13 +1,14 @@
 #include "matrix.h"
 #include "i2c_master.h"
-#include "led_matrix.h"
+#include "md_rgb_matrix.h"
 #include "suspend.h"
 
 /** \brief Suspend idle
  *
  * FIXME: needs doc
  */
-void suspend_idle(uint8_t time) { /* Note: Not used anywhere currently */ }
+void suspend_idle(uint8_t time) { /* Note: Not used anywhere currently */
+}
 
 /** \brief Run user level Power down
  *

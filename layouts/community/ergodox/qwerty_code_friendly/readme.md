@@ -61,20 +61,20 @@ using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 |--------+------+------+------+------+------|   [  |  |  ]   |------+------+------+------+------+--------|
 | LShift |   Z  |   X  |   C  |   V  |   B  |      |  |      |   N  |   M  |   ,  |   .  |   /  | RShift |
 '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
-  | LCtl |Super | Alt  | ~L1  |Space |                              | Left | Down | Up   |Right | Del  |
+  | LCtl |Super | Alt  | App  | Menu |                              | Left | Down | Up   |Right | Del  |
   '----------------------------------'                              '----------------------------------'
                                      .-------------.  .-------------.
-                                     | Ins  |NumClk|  | Home | End  |
+                                     |BSpace| Del  |  | Home | End  |
                               .------+------+------|  |------+------+------.
                               |      |      |CapsLk|  | PgUp |      |      |
-                              |BSpace| Del  |------|  |------| ~L2  |Enter |
-                              |      |      | ~L3  |  | PgDn |      |      |
+                              |Space | ~L1  |------|  |------| ~L2  |Enter |
+                              |      |      |Insert|  | PgDn |      |      |
                               '--------------------'  '--------------------'
 
 Optional overrides: see CFQ_USER_KEY# defines.
 
 .--------------------------------------------------.  .--------------------------------------------------.
-|        |      |      |      |      |      |      |  |      |      |      |      |      |      | USR0   |
+|        |      |      |      |      |      |      |  |      |      |      |      |      |      | USR9   |
 |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
 |        |      |      |      |      |      |      |  |      |      |      |      |      |      |        |
 |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
@@ -82,7 +82,7 @@ Optional overrides: see CFQ_USER_KEY# defines.
 |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
 |        |      |      |      |      |      |      |  |      |      |      |      |      |      |        |
 '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
-  |      |      |      | USR1 |      |                              |      |      |      |      | USR8 |
+  |      |      |      | USR0 | USR1 |                              |      |      |      |      | USR8 |
   '----------------------------------'                              '----------------------------------'
                                      .-------------.  .-------------.
                                      | USR2 | USR3 |  |      |      |
@@ -93,7 +93,7 @@ Optional overrides: see CFQ_USER_KEY# defines.
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 1: KeyPad, Macro Record
+## Keymap 1: KeyPad, Bracket Pairs & Macro Record
 
 Notes:
 
@@ -115,9 +115,9 @@ Notes:
                                      .-------------.  .-------------.
                                      |Start1|Start2|  |      |      |
                               .------+------+------|  |------+------+------.
-                              |      |      | Stop |  |      |      |      |
-                              |Play1 |Play2 |------|  |------|      |      |
-                              |      |      |      |  |      |      |      |
+                              |      |      |Play1 |  |      |      |      |
+                              | Stop |      |------|  |------|      |      |
+                              |      |      |Play2 |  |      |      |      |
                               '--------------------'  '--------------------'
 ```
 
@@ -145,6 +145,8 @@ Notes:
 ```
 
 ## Keymap 3: User Defined Words & Numbers
+
+Activate by holding L1 & L2.
 
 This is for assigning whole words to single keys.
 You can define the arguments (which must be quoted) using: `CFQ_WORD_[A-Z]`
@@ -177,6 +179,12 @@ Notes:
 ```
 
 ## Changelog
+
+- 2019/11/20
+  Move space to thumb cluster
+  Make L1 and L2 symmetrical.
+  Activate L3 by holding L1 & L2.
+  Add App & Menu keys.
 
 - 2018/10/19
   Move F-Keys to key-pad like layout.

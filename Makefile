@@ -29,6 +29,9 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# avoid 'Entering|Leaving directory' messages
+MAKEFLAGS += --no-print-directory
+
 ON_ERROR := error_occurred=1
 
 BREAK_ON_ERRORS = no
@@ -269,15 +272,30 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
+    REQUIRE_PLATFORM_KEY :=
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
+        KEYBOARD_RULE=all
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-avr),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := avr
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-chibios),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := chibios
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-arm_atsam),true)
+        KEYBOARD_RULE=all
+        REQUIRE_PLATFORM_KEY := arm_atsam
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+        KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     # Otherwise use the KEYBOARD variable, which is determined either by
     # the current directory you run make from, or passed in as an argument
@@ -289,8 +307,8 @@ define PARSE_RULE
         $$(info |  QMK's make format recently changed to use folder locations and colons:)
         $$(info |     make project_folder:keymap[:target])
         $$(info |  Examples:)
-        $$(info |     make planck/rev4:default:dfu)
-        $$(info |     make planck:default)
+        $$(info |     make dz60:default)
+        $$(info |     make planck/rev6:default:flash)
         $$(info |)
     endif
 endef
@@ -380,6 +398,9 @@ define PARSE_KEYBOARD
     # Otherwise try to match the keymap from the current folder, or arguments to the make command
     else ifneq ($$(KEYMAP),)
         $$(eval $$(call PARSE_KEYMAP,$$(KEYMAP)))
+    # Otherwise if we are running make all:<user> just skip
+    else ifeq ($$(KEYBOARD_RULE),all)
+        # $$(info Skipping: No user keymap for $$(CURRENT_KB))
     # Otherwise, make all keymaps, again this is consistent with how it works without
     # any arguments
     else
@@ -439,7 +460,7 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
@@ -458,6 +479,8 @@ define BUILD
         LOG=$$$$($$(MAKE_CMD) $$(MAKE_VARS) SILENT=true 2>&1) ; \
         if [ $$$$? -gt 0 ]; \
             then $$(PRINT_ERROR_PLAIN); \
+        elif [ "$$$$LOG" = "skipped" ] ; \
+            then $$(PRINT_SKIPPED_PLAIN); \
         elif [ "$$$$LOG" != "" ] ; \
             then $$(PRINT_WARNING_PLAIN); \
         else \
@@ -554,14 +577,16 @@ endef
 %:
 	# Check if we have the CMP tool installed
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	# Ensure that python3 is installed. This check can be removed after python is used in more places.
-	if ! python3 --version 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
+	# Ensure that bin/qmk works. This will be a failing check after the next develop merge on 2020 Aug 29.
+	if ! bin/qmk hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 1 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 1 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 1 --init lib/ugfx; fi
-	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 1 --init lib/lufa; fi
+	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
+	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
+	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
+	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
+	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
+	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
@@ -618,15 +643,22 @@ endif
 # Generate the version.h file
 ifndef SKIP_GIT
     GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+    CHIBIOS_VERSION := $(shell cd lib/chibios && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+    CHIBIOS_CONTRIB_VERSION := $(shell cd lib/chibios-contrib && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
 else
     GIT_VERSION := NA
+    CHIBIOS_VERSION := NA
+    CHIBIOS_CONTRIB_VERSION := NA
 endif
 ifndef SKIP_VERSION
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
+else
+BUILD_DATE := 2020-01-01-00:00:00
+endif
+
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
-else
-BUILD_DATE := NA
-endif
+$(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
 
 include $(ROOT_DIR)/testlist.mk

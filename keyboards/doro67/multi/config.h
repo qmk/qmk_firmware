@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xD070
+#define VENDOR_ID       0x4250 // BP for Backprop
+#define PRODUCT_ID      0x4D4C // ML for Multi
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Backprop Studio
 #define PRODUCT         Doro67 Multi PCB
@@ -28,6 +28,9 @@
 #define MATRIX_COL_PINS { B0, B1, B2, B3, D4, D6, D7, B4, B5, B6, C6, C7, F5, F6, F7 }
 
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN E6
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 7

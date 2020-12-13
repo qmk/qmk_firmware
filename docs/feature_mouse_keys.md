@@ -39,10 +39,11 @@ In your keymap you can use the following keycodes to map key presses to mouse ac
 
 ## Configuring mouse keys
 
-Mouse keys supports two different modes to move the cursor:
+Mouse keys supports three different modes to move the cursor:
 
 * **Accelerated (default):** Holding movement keys accelerates the cursor until it reaches its maximum speed.
 * **Constant:** Holding movement keys moves the cursor at constant speeds.
+* **Combined:** Holding movement keys accelerates the cursor until it reaches its maximum speed, but holding acceleration and movement keys simultaneously moves the cursor at constant speeds.
 
 The same principle applies to scrolling.
 
@@ -58,6 +59,8 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 |`MOUSEKEY_INTERVAL`         |50     |Time between cursor movements                            |
 |`MOUSEKEY_MAX_SPEED`        |10     |Maximum cursor speed at which acceleration stops         |
 |`MOUSEKEY_TIME_TO_MAX`      |20     |Time until maximum cursor speed is reached               |
+|`MOUSEKEY_WHEEL_DELAY`      |300    |Delay between pressing a wheel key and wheel movement    |
+|`MOUSEKEY_WHEEL_INTERVAL`   |100    |Time between wheel movements                             |
 |`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
 |`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
 
@@ -66,6 +69,7 @@ Tips:
 * Setting `MOUSEKEY_DELAY` too low makes the cursor unresponsive. Setting it too high makes small movements difficult.
 * For smoother cursor movements, lower the value of `MOUSEKEY_INTERVAL`. If the refresh rate of your display is 60Hz, you could set it to `16` (1/60). As this raises the cursor speed significantly, you may want to lower `MOUSEKEY_MAX_SPEED`.
 * Setting `MOUSEKEY_TIME_TO_MAX` or `MOUSEKEY_WHEEL_TIME_TO_MAX` to `0` will disable acceleration for the cursor or scrolling respectively. This way you can make one of them constant while keeping the other accelerated, which is not possible in constant speed mode.
+* Setting `MOUSEKEY_WHEEL_INTERVAL` too low will make scrolling too fast. Setting it too high will make scrolling too slow when the wheel key is held down.
 
 Cursor acceleration uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
 
@@ -117,3 +121,26 @@ Use the following settings if you want to adjust cursor movement or scrolling:
 |`MK_W_INTERVAL_1`    |120          |Time between scroll steps (`KC_ACL1`)      |
 |`MK_W_OFFSET_2`      |1            |Scroll steps per scroll action (`KC_ACL2`) |
 |`MK_W_INTERVAL_2`    |20           |Time between scroll steps (`KC_ACL2`)      |
+
+### Combined mode
+
+This mode functions like **Accelerated** mode, however, you can hold `KC_ACL0`, `KC_ACL1` and `KC_ACL2`
+to momentarily (while held) set the cursor and scroll speeds to constant speeds. When no acceleration
+keys are held, this mode is identical to **Accelerated** mode, and can be modified using all of the
+relevant settings.
+
+* **KC_ACL0:** This acceleration sets your cursor to the slowest possible speed. This is useful for very
+small and detailed movements of the cursor.
+* **KC_ACL1:** This acceleration sets your cursor to half the maximum (user defined) speed.
+* **KC_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
+useful for moving the cursor large distances without much accuracy.
+
+To use constant speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
+
+```c
+#define MK_COMBINED
+```
+
+## Use with PS/2 Mouse and Pointing Device
+
+Mouse keys button state is shared with [PS/2 mouse](feature_ps2_mouse.md) and [pointing device](feature_pointing_device.md) so mouse keys button presses can be used for clicks and drags.

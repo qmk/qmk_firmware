@@ -21,6 +21,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS

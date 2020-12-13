@@ -9,24 +9,35 @@
 
 ## What is QMK Firmware?
 
-QMK (*Quantum Mechanical Keyboard*) is an open source community that maintains QMK Firmware, QMK Toolbox, qmk.fm, and these docs. QMK Firmware is a keyboard firmware based on the [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
+QMK (*Quantum Mechanical Keyboard*) is an open source community centered around developing computer input devices. The community encompasses all sorts of input devices, such as keyboards, mice, and MIDI devices. A core group of collaborators maintains [QMK Firmware](https://github.com/qmk/qmk_firmware), [QMK Configurator](https://config.qmk.fm), [QMK Toolbox](https://github.com/qmk/qmk_toolbox), [qmk.fm](https://qmk.fm), and this documentation with the help of community members like you.
 
-## How to Get It
+## Get Started
 
-If you plan on contributing a keymap, keyboard, or features to QMK, the easiest thing to do is [fork the repo through Github](https://github.com/qmk/qmk_firmware#fork-destination-box), and clone your repo locally to make your changes, push them, then open a [Pull Request](https://github.com/qmk/qmk_firmware/pulls) from your fork.
+Totally new to QMK? There are two ways to get started:
 
-Otherwise, you can either download it directly ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), or clone it via git (`git@github.com:qmk/qmk_firmware.git`), or https (`https://github.com/qmk/qmk_firmware.git`).
+* Basic: [QMK Configurator](https://config.qmk.fm)
+    * Just select your keyboard from the dropdown and program your keyboard.
+    * We have an [introductory video](https://www.youtube.com/watch?v=-imgglzDMdY) you can watch.
+    * There is also an overview [document you can read](newbs_building_firmware_configurator.md).
+* Advanced: [Use The Source](newbs.md)
+    * More powerful, but harder to use
 
-## How to Compile
+## Make It Yours
 
-Before you are able to compile, you'll need to [install an environment](getting_started_build_tools.md) for AVR or/and ARM development. Once that is complete, you'll use the `make` command to build a keyboard and keymap with the following notation:
+QMK has lots of [features](features.md) to explore, and a good deal of reference documentation to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
 
-    make planck/rev4:default
+## Need help?
 
-This would build the `rev4` revision of the `planck` with the `default` keymap. Not all keyboards have revisions (also called subprojects or folders), in which case, it can be omitted:
+Check out the [support page](support.md) to see how you can get help using QMK.
 
-    make preonic:default
+## Give Back
 
-## How to Customize
+There are a lot of ways you can contribute to the QMK Community. The easiest way to get started is to use it and spread the word to your friends.
 
-QMK has lots of [features](features.md) to explore, and a good deal of [reference documentation](http://docs.qmk.fm) to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
+* Help people out on our forums and chat rooms:
+    * [/r/olkb](https://www.reddit.com/r/olkb/)
+    * [Discord Server](https://discord.gg/Uq7gcHh)
+* Contribute to our documentation by clicking "Edit This Page" at the bottom
+* [Translate our documentation into your language](translating.md)
+* [Report a bug](https://github.com/qmk/qmk_firmware/issues/new/choose)
+* [Open a Pull Request](contributing.md)

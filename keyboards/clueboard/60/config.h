@@ -47,7 +47,7 @@
  *
 */
 #define MATRIX_ROW_PINS { B0, B1, B2, A15, A10 }
-#define MATRIX_COL_PINS { A2, A3, A6, B14, B15, A8, A9, A7, B3, B4, C14, C15, C13, B5, B6 }
+#define MATRIX_COL_PINS { A2, A3, A6, B14, B15, A8, A9, A7, B3, B4, C15, C14, C13, B5, B6 }
 #define UNUSED_PINS { A0, A1, A9, B7, B8, B9, B10, B11, B12, B13 }
 #define DIODE_DIRECTION COL2ROW
 
@@ -121,6 +121,8 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
- /* Backlight configuration
+#define LED_CAPS_LOCK_PIN B7
+
+/* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1

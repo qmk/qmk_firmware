@@ -68,13 +68,3 @@ BL_TOGG, BL_DEC, BL_INC changes the in-switch LEDs
     _______         , _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
     _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______, _______, _______, _______),
 };
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}

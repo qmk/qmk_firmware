@@ -33,11 +33,18 @@ void haptic_init(void) {
         eeconfig_init();
     }
     haptic_config.raw = eeconfig_read_haptic();
-    if (haptic_config.mode < 1) {
-        haptic_config.mode = 1;
-    }
-    if (!haptic_config.mode) {
-        dprintf("No haptic config found in eeprom, setting default configs\n");
+#ifdef SOLENOID_ENABLE
+    solenoid_set_dwell(haptic_config.dwell);
+#endif
+    if ((haptic_config.raw == 0)
+#ifdef SOLENOID_ENABLE
+        || (haptic_config.dwell == 0)
+#endif
+    ) {
+        // this will be called, if the eeprom is not corrupt,
+        // but the previous firmware didn't have haptic enabled,
+        // or the previous firmware didn't have solenoid enabled,
+        // and the current one has solenoid enabled.
         haptic_reset();
     }
 #ifdef SOLENOID_ENABLE
@@ -118,25 +125,37 @@ void haptic_mode_decrease(void) {
 }
 
 void haptic_dwell_increase(void) {
-    uint8_t dwell = haptic_config.dwell + 1;
 #ifdef SOLENOID_ENABLE
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) + SOLENOID_DWELL_STEP_SIZE;
     if (haptic_config.dwell >= SOLENOID_MAX_DWELL) {
-        dwell = 1;
+        // if it's already at max, we wrap back to min
+        next_dwell = SOLENOID_MIN_DWELL;
+    } else if (next_dwell > SOLENOID_MAX_DWELL) {
+        // if we overshoot the max, then cap at max
+        next_dwell = SOLENOID_MAX_DWELL;
     }
-    solenoid_set_dwell(dwell);
+    solenoid_set_dwell(next_dwell);
+#else
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) + 1;
 #endif
-    haptic_set_dwell(dwell);
+    haptic_set_dwell(next_dwell);
 }
 
 void haptic_dwell_decrease(void) {
-    uint8_t dwell = haptic_config.dwell - 1;
 #ifdef SOLENOID_ENABLE
-    if (haptic_config.dwell < SOLENOID_MIN_DWELL) {
-        dwell = SOLENOID_MAX_DWELL;
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) - SOLENOID_DWELL_STEP_SIZE;
+    if (haptic_config.dwell <= SOLENOID_MIN_DWELL) {
+        // if it's already at min, we wrap to max
+        next_dwell = SOLENOID_MAX_DWELL;
+    } else if (next_dwell < SOLENOID_MIN_DWELL) {
+        // if we go below min, then we cap to min
+        next_dwell = SOLENOID_MIN_DWELL;
     }
-    solenoid_set_dwell(dwell);
+    solenoid_set_dwell(next_dwell);
+#else
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) - 1;
 #endif
-    haptic_set_dwell(dwell);
+    haptic_set_dwell(next_dwell);
 }
 
 void haptic_reset(void) {
@@ -150,6 +169,12 @@ void haptic_reset(void) {
 #ifdef SOLENOID_ENABLE
     uint8_t dwell       = SOLENOID_DEFAULT_DWELL;
     haptic_config.dwell = dwell;
+    haptic_config.buzz  = SOLENOID_DEFAULT_BUZZ;
+    solenoid_set_dwell(dwell);
+#else
+    // This is to trigger haptic_reset again, if solenoid is enabled in the future.
+    haptic_config.dwell = 0;
+    haptic_config.buzz  = 0;
 #endif
     eeconfig_update_haptic(haptic_config.raw);
     xprintf("haptic_config.feedback = %u\n", haptic_config.feedback);
@@ -169,12 +194,12 @@ void haptic_set_mode(uint8_t mode) {
 }
 
 void haptic_set_amplitude(uint8_t amp) {
-  haptic_config.amplitude = amp;
-  eeconfig_update_haptic(haptic_config.raw);
-  xprintf("haptic_config.amplitude = %u\n", haptic_config.amplitude);
-  #ifdef DRV2605L
-  DRV_amplitude(amp);
-  #endif
+    haptic_config.amplitude = amp;
+    eeconfig_update_haptic(haptic_config.raw);
+    xprintf("haptic_config.amplitude = %u\n", haptic_config.amplitude);
+#ifdef DRV2605L
+    DRV_amplitude(amp);
+#endif
 }
 
 void haptic_set_buzz(uint8_t buzz) {
@@ -211,51 +236,49 @@ uint8_t haptic_get_dwell(void) {
 }
 
 void haptic_enable_continuous(void) {
-  haptic_config.cont        = 1;
-  xprintf("haptic_config.cont = %u\n", haptic_config.cont);
-  eeconfig_update_haptic(haptic_config.raw);
-  #ifdef DRV2605L
-  DRV_rtp_init();
-  #endif
+    haptic_config.cont = 1;
+    xprintf("haptic_config.cont = %u\n", haptic_config.cont);
+    eeconfig_update_haptic(haptic_config.raw);
+#ifdef DRV2605L
+    DRV_rtp_init();
+#endif
 }
 
 void haptic_disable_continuous(void) {
-  haptic_config.cont        = 0;
-  xprintf("haptic_config.cont = %u\n", haptic_config.cont);
-  eeconfig_update_haptic(haptic_config.raw);
-  #ifdef DRV2605L
-  DRV_write(DRV_MODE,0x00); 
-  #endif
+    haptic_config.cont = 0;
+    xprintf("haptic_config.cont = %u\n", haptic_config.cont);
+    eeconfig_update_haptic(haptic_config.raw);
+#ifdef DRV2605L
+    DRV_write(DRV_MODE, 0x00);
+#endif
 }
 
 void haptic_toggle_continuous(void) {
 #ifdef DRV2605L
-if (haptic_config.cont) {
-  haptic_disable_continuous();
-  } else {
-    haptic_enable_continuous();
-  }
-  eeconfig_update_haptic(haptic_config.raw);
+    if (haptic_config.cont) {
+        haptic_disable_continuous();
+    } else {
+        haptic_enable_continuous();
+    }
+    eeconfig_update_haptic(haptic_config.raw);
 #endif
 }
 
-
 void haptic_cont_increase(void) {
-  uint8_t amp = haptic_config.amplitude + 10;
-  if (haptic_config.amplitude >= 120) {
-    amp = 120;
-  }
-  haptic_set_amplitude(amp);
+    uint8_t amp = haptic_config.amplitude + 10;
+    if (haptic_config.amplitude >= 120) {
+        amp = 120;
+    }
+    haptic_set_amplitude(amp);
 }
 
 void haptic_cont_decrease(void) {
-  uint8_t amp = haptic_config.amplitude - 10;
-  if (haptic_config.amplitude < 20) {
-    amp = 20;
-  }
-  haptic_set_amplitude(amp);
+    uint8_t amp = haptic_config.amplitude - 10;
+    if (haptic_config.amplitude < 20) {
+        amp = 20;
+    }
+    haptic_set_amplitude(amp);
 }
-
 
 void haptic_play(void) {
 #ifdef DRV2605L
@@ -269,7 +292,6 @@ void haptic_play(void) {
 }
 
 bool process_haptic(uint16_t keycode, keyrecord_t *record) {
-
     if (keycode == HPT_ON && record->event.pressed) {
         haptic_enable();
     }
@@ -300,16 +322,16 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HPT_DWLD && record->event.pressed) {
         haptic_dwell_decrease();
     }
-    if (keycode == HPT_CONT && record->event.pressed) { 
-        haptic_toggle_continuous(); 
+    if (keycode == HPT_CONT && record->event.pressed) {
+        haptic_toggle_continuous();
     }
-    if (keycode == HPT_CONI && record->event.pressed) { 
-        haptic_cont_increase(); 
+    if (keycode == HPT_CONI && record->event.pressed) {
+        haptic_cont_increase();
     }
-    if (keycode == HPT_COND && record->event.pressed) { 
-        haptic_cont_decrease(); 
+    if (keycode == HPT_COND && record->event.pressed) {
+        haptic_cont_decrease();
     }
-      
+
     if (haptic_config.enable) {
         if (record->event.pressed) {
             // keypress

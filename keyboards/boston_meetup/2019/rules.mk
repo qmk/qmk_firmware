@@ -1,7 +1,5 @@
-# project specific files
-
-# Cortex version
-MCU  = STM32F303
+# MCU name
+MCU = STM32F303
 
 # Build Options
 #   comment out to disable the options.
@@ -18,7 +16,8 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = no # Custom matrix file
 AUDIO_ENABLE = yes
 RGBLIGHT_ENABLE = no
-RGB_MATRIX_ENABLE = no #WS2812
+RGB_MATRIX_ENABLE = no
+RGB_MATRIX_DRIVER = WS2812
 HAPTIC_ENABLE += DRV2605L
 QWIIC_ENABLE += MICRO_OLED
 # SERIAL_LINK_ENABLE = yes

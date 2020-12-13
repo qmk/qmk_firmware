@@ -11,9 +11,9 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
-MOUSEKEY_ENABLE 	= yes		# Mouse keys(+4700)
-EXTRAKEY_ENABLE 	= yes       # Audio control and System control(+450)
-CONSOLE_ENABLE 		= yes       # Console for debug(+400)
+MOUSEKEY_ENABLE 	= yes		# Mouse keys
+EXTRAKEY_ENABLE 	= yes       # Audio control and System control
+CONSOLE_ENABLE 		= yes       # Console for debug
 COMMAND_ENABLE 		= no		# Commands for debug and configuration
 NKRO_ENABLE 		= yes       # USB Nkey Rollover
 STENO_ENABLE		= yes 		# Needed for chording

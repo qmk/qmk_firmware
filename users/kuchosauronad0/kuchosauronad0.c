@@ -19,10 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  #define KUCHOSAURONAD0_UNICODE_MODE UC_WINC
+#  define KUCHOSAURONAD0_UNICODE_MODE UC_WINC
 #else
-  // set to 2 for UC_WIN, set to 4 for UC_WINC
-  #define KUCHOSAURONAD0_UNICODE_MODE 2
+#  define KUCHOSAURONAD0_UNICODE_MODE 2 // set to 2 for UC_WIN, set to 4 for UC_WINC
 #endif
 
 
@@ -70,7 +69,7 @@ void shutdown_user (void) {
   #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
-    rgblight_setrgb_red();
+    rgblight_setrgb_teal();
   #endif // RGBLIGHT_ENABLE
   #ifdef RGB_MATRIX_ENABLE
     // uint16_t timer_start = timer_read();
@@ -108,11 +107,11 @@ void matrix_scan_user(void){
 
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
 //  run_diablo_macro_check();
-#endif // TAP_DANCE_ENABLE
+#endif // !TAP_DANCE_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
   matrix_scan_rgb();
-#endif // RGBLIGHT_ENABLE
+#endif // !RGBLIGHT_ENABLE
 
   matrix_scan_keymap();
 }
@@ -171,6 +170,8 @@ void eeconfig_init_user(void) {
   #else
     eeprom_update_byte(EECONFIG_UNICODEMODE, KUCHOSAURONAD0_UNICODE_MODE);
   #endif
+  eeconfig_init_keymap();
+  keyboard_init();
 }
 
 // TMUX stuff

@@ -1,61 +1,75 @@
-#+Title: miryoku.org
+# After making changes to code or tables call org-babel-tangle (C-c C-v t).
 
-The miryoku layout is an ergonomic, minimal, orthogonal layout for ergo or ortho
-keyboards, implemented as part of the QMK firmware.  The layout is maintained in
-emacs org-mode tables and converted to QMK keymap data structures using embedded
-python scripts.  The layout is mapped onto keyboards with different physical
-layouts as a subset without code duplication using the QMK userland feature and
-C macros.  Versions of the layout can also be seen outside of the QMK source at
-[[https://github.com/manna-harbour/miryoku/]].
+#+Title: Miryoku [[https://raw.githubusercontent.com/manna-harbour/miryoku/master/miryoku-roa-32.png]]
 
-* Contents
+[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/kle-miryoku-keycodes.png]]
 
+Miryoku is an ergonomic, minimal, orthogonal layout for ergo or ortho keyboards,
+implemented as part of the QMK firmware.
+
+The layout is maintained in emacs org-mode tables and converted to QMK keymap
+data structures using embedded python scripts.  It is mapped onto keyboards with
+different physical layouts as a subset without code duplication using the QMK
+userspace feature and C macros.
+
+Please see the [[https://github.com/manna-harbour/qmk_firmware/blob/miryoku/users/manna-harbour_miryoku/miryoku.org][development branch]] for any [[https://github.com/qmk/qmk_firmware/compare/master...manna-harbour:miryoku][updates not yet merged into QMK]].
+Additional visualisations are provided outside QMK in the [[https://github.com/manna-harbour/miryoku/blob/master/README.org][Miryoku (Extras) repository]].
+
+* Contents                                                              :TOC:
 - [[#layout][Layout]]
+  - [[#general-principles][General Principles]]
+  - [[#details][Details]]
+  - [[#layers][Layers]]
 - [[#code-generation][Code Generation]]
+  - [[#table-conversion-scripts][Table Conversion Scripts]]
+  - [[#data][Data]]
 - [[#subset-mapping][Subset Mapping]]
-
+  - [[#userspace][Userspace]]
+  - [[#layouts][Layouts]]
+  - [[#keyboards][Keyboards]]
+- [[#documentation][Documentation]]
+  - [[#qmk][QMK]]
+  - [[#org-mode][Org Mode]]
+- [[#contact][Contact]]
 
 * Layout
-:PROPERTIES:
-:CUSTOM_ID: layout
-:END:
 
-** Info
+** General Principles
 
-*** General Principles
-
-    - Use layers instead of reaching.
-    - Use both hands instead of contortions.
-    - Use the home positions as much as possible.
-    - Make full use of the thumbs.
-    - Avoid unnecessary complication.
+- Use layers instead of reaching.
+- Use both hands instead of contortions.
+- Use the home positions as much as possible.
+- Make full use of the thumbs.
+- Avoid unnecessary complication.
 
 
-*** Specifics
+** Details
 
-    - 5 columns, 3 rows, 3 thumb keys, 2 hands.
-    - Can be used on almost any split or non-split ergo or ortho keyboard.
-    - Includes all keys found on a US layout TKL keyboard, plus media keys and
-      mouse emulation.
-    - Home row is the middle row, home thumb key is the middle thumb key.
-    - Maximum 1-u movement from home position for fingers and thumbs, and only
-      along one axis (except for the inner index finger column which is
-      deprioritised compared with the home columns).
-    - Dual-function modifiers on home row, mirrored on both hands.
-    - Dual-function layer change on thumbs.
-    - Layers are designed orthogonally with a single purpose per hand and are
-      accessed by holding a thumb key on the opposite hand.
-    - Holding layer change and modifiers on one hand combined with a single key
-      press on the other hand can produce any combination of modifiers and
-      single keys without any finger contortions.
-    - Single function mods are also defined on layers on the same hand as the
-      layer change thumb key so layer change and mods can be held in any order
-      or simultaneously without race conditions.
-    - As mods are only enabled on the opposite hand, auto-repeat is available on
-      the home row on layers for use with cursor and mouse keys.
-    - Tap-hold auto-repeat is disabled to enable faster tap-hold switching on
-      thumbs but thumb tap keys are mirrored onto some layers for use with
-      auto-repeat.
+- 5 columns, 3 rows, 3 thumb keys, 2 hands.
+- Can be used on almost any split or non-split ergo or ortho keyboard.
+- Includes all keys found on a US layout TKL keyboard, plus media keys and mouse
+  emulation.
+- Home row is the middle row, home thumb key is the middle thumb key.
+- Maximum 1-u movement from home position for fingers and thumbs, and only along
+  one axis (except for the inner index finger column which is deprioritised
+  compared with the home columns).
+- Dual-function modifiers on home row, mirrored on both hands.
+- Dual-function layer change on thumbs.
+- Layers are designed orthogonally with a single purpose per hand and are
+  accessed by holding a thumb key on the opposite hand.
+- All layers on the same hand are based on the same basic key arrangement.
+- Holding layer change and modifiers on one hand combined with a single key
+  press on the other hand can produce any combination of modifiers and single
+  keys without any finger contortions.
+- Single function mods are also defined on layers on the same hand as the layer
+  change thumb key so layer change and mods can be held in any order or
+  simultaneously without race conditions.
+- As mods are only enabled on the opposite hand, auto-repeat is available on the
+  home row on layers for use with cursor and mouse keys.
+- Tap-hold auto-repeat is disabled to permit faster tap-hold switching on
+  thumbs, but thumb tap keys are mirrored onto some layers for use with
+  auto-repeat.  On other layers thumb keys are redefined with important
+  functions for that layer.
 
 
 ** Layers
@@ -79,21 +93,72 @@ into the corresponding tap-hold keycodes for mods and layer change.  RST and
 mods will be available on sub layers on the same hand as the layer change thumb
 key.  Unknown names are considered to be layer names.
 
-Base layer alphas are Colemak DHm.  Thumb keys are backspace, enter, delete on
+Base layer alphas are Colemak-DHm.  Thumb keys are backspace, enter, delete on
 the right and space, tab, escape on the left.  Dot, comma and apostrophe are
 included for prose, dot and slash for file and directory names.
 
-#+NAME: tap
+**** Tap
+
+#+NAME: colemakdhm
 | Q    | W    | F    | P    | B    | J    | L    | U    | Y    | '    |
 | A    | R    | S    | T    | G    | M    | N    | E    | I    | O    |
 | Z    | X    | C    | D    | V    | K    | H    | ,    | .    | /    |
 | NP   | NP   | ESC  | SPC  | TAB  | ENT  | BSPC | DEL  | NP   | NP   |
 
+
+**** Hold
+
 #+NAME: hold
 | RST  |      |      |      |      |      |      |      |      | RST  |
 | LGUI | LALT | LCTL | LSFT |      |      | LSFT | LCTL | LALT | LGUI |
-|      |      |      |      |      |      |      |      |      |      |
+|      | ALGR |      |      |      |      |      |      | ALGR |      |
 | NP   | NP   | MEDR | NAVR | MOUR | NSSL | NSL  | FUNL | NP   | NP   |
+
+
+**** Alternative Base Layer Alphas
+
+Alternative base layer alphas are provided. To select, append
+e.g. ~MIRYOKU_ALPHAS=QWERTY~ to the make command line when building.
+
+***** QWERTY (QWERTY)
+#+NAME: qwerty
+| Q    | W    | E    | R    | T    | Y    | U    | I    | O    | P    |
+| A    | S    | D    | F    | G    | H    | J    | K    | L    | '    |
+| Z    | X    | C    | V    | B    | N    | M    | ,    | .    | /    |
+| NP   | NP   | ESC  | SPC  | TAB  | ENT  | BSPC | DEL  | NP   | NP   |
+
+
+***** Dvorak (DVORAK)
+#+NAME: dvorak
+| '    | ,    | .    | P    | Y    | F    | G    | C    | R    | L    |
+| A    | O    | E    | U    | I    | D    | H    | T    | N    | S    |
+| /    | Q    | J    | K    | X    | B    | M    | W    | V    | Z    |
+| NP   | NP   | ESC  | SPC  | TAB  | ENT  | BSPC | DEL  | NP   | NP   |
+
+
+***** Colemak (COLEMAK)
+#+NAME: colemak
+| Q    | W    | F    | P    | G    | J    | L    | U    | Y    | '    |
+| A    | R    | S    | T    | D    | H    | N    | E    | I    | O    |
+| Z    | X    | C    | V    | B    | K    | M    | ,    | .    | /    |
+| NP   | NP   | ESC  | SPC  | TAB  | ENT  | BSPC | DEL  | NP   | NP   |
+
+
+***** Colemak Mod-DH (COLEMAKDH)
+#+NAME: colemakdh
+| Q    | W    | F    | P    | B    | J    | L    | U    | Y    | '    |
+| A    | R    | S    | T    | G    | K    | N    | E    | I    | O    |
+| Z    | X    | C    | D    | V    | M    | H    | ,    | .    | /    |
+| NP   | NP   | ESC  | SPC  | TAB  | ENT  | BSPC | DEL  | NP   | NP   |
+
+
+***** Workman (WORKMAN)
+#+NAME: workman
+| Q    | D    | R    | W    | B    | J    | F    | U    | P    | '    |
+| A    | S    | H    | T    | G    | Y    | N    | E    | O    | I    |
+| Z    | X    | M    | C    | V    | K    | L    | ,    | .    | /    |
+| NP   | NP   | ESC  | SPC  | TAB  | ENT  | BSPC | DEL  | NP   | NP   |
+
 
 
 *** Navigation (NAVR)
@@ -113,25 +178,38 @@ layer to avoid having to layer change mid edit and to enable auto-repeat.
 *** Mouse (MOUR)
 
 Secondary RH layer is mouse emulation.  Mouse movement mirrors cursor navigation
-on home and wheel mirrors line / page movement below.  Buttons are on the
-thumbs.  Mouse movement, click, and drag with modifiers can be performed from
+on home and wheel mirrors line / page movement below.  Buttons are on the thumbs
+(L, M, R).  Mouse movement, click, and drag with modifiers can be performed from
 the home position.  Unused keys are available for other related functions.
 
 #+NAME: mour
 |      |      |      |      |      |
 |      | MS_L | MS_D | MS_U | MS_R |
 |      | WH_L | WH_D | WH_U | WH_R |
-| BTN3 | BTN1 | BTN2 | NP   | NP   |
+| BTN1 | BTN3 | BTN2 | NP   | NP   |
+
+
+**** Mouse Buttons Overlay (MBO)
+
+Available for automatic activation depending on keyboard hardware and
+configuration.  Not activated manually.
+
+#+NAME: mbo
+|      |      |      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |      |      |
+| NP   | NP   |      |      |      | BTN1 | BTN3 | BTN2 | NP   | NP   |
 
 
 *** Media (MEDR)
 
 Tertiary RH layer is media control, with volume up / down and next / prev
-mirroring the navigation keys.  Pause, stop and mute are on thumbs.  Unused keys
-are available for other related functions.
+mirroring the navigation keys.  Pause, stop and mute are on thumbs.  RGB control
+is on the top row (combine with shift to invert). Unused keys are available for
+other related functions.
 
 #+NAME: medr
-|      |      |      |      |      |
+| TOG  | MOD  | HUI  | SAI  | VAI  |
 |      | MPRV | VOLD | VOLU | MNXT |
 |      |      |      |      |      |
 | MSTP | MPLY | MUTE | NP   | NP   |
@@ -203,9 +281,6 @@ Duplicate base layer tap keys on thumbs rather than trans to enable auto-repeat.
 
 
 * Code Generation
-:PROPERTIES:
-:CUSTOM_ID: code-generation
-:END:
 
 ** Table Conversion Scripts
 
@@ -214,14 +289,14 @@ Duplicate base layer tap keys on thumbs rather than trans to enable auto-repeat.
 Produce base layer from separate tap and hold tables.
 
 #+NAME: table-layout-taphold
-#+BEGIN_SRC python :var tap_table=tap :var hold_table=hold :var symbol_names_table=symbol-names :var mods_list=mods :tangle no :results verbatim
+#+BEGIN_SRC python :var layer_name="BASE" :var tap_table=colemakdhm :var hold_table=hold :var symbol_names_table=symbol-names :var mods_list=mods :tangle no :results verbatim
 width = 19
 mods_dict = dict.fromkeys(mods_list)
 symbol_names_dict = {}
 for symbol, name, shifted_symbol, shifted_name in symbol_names_table:
   symbol_names_dict[symbol] = name
   symbol_names_dict[shifted_symbol] = shifted_name
-results = '  [BASE] = LAYOUT_miryoku(\n'
+results = '  [' + layer_name + '] = LAYOUT_miryoku(\n'
 for tap_row, hold_row in map(None, tap_table, hold_table):
   results += '    '
   for tap, hold in map(None, tap_row, hold_row):
@@ -246,7 +321,7 @@ return results
 :   [BASE] = LAYOUT_miryoku(
 :     KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
 :     LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_M,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
-:     KC_Z,              KC_X,              KC_C,              KC_D,              KC_V,              KC_K,              KC_H,              KC_COMM,           KC_DOT,            KC_SLSH,
+:     KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
 :     KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
 :   )
 
@@ -306,6 +381,43 @@ return results
 :   )
 
 
+*** table-layout-full
+
+Produce full layer from single table.  Fill for unused keys is configurable.
+
+#+NAME: table-layout-full
+#+BEGIN_SRC python :var table=mbo :var layer_name="MBO" :var fill="TRNS" :var symbol_names_table=symbol-names :tangle no :results verbatim
+width = 9
+symbol_names_dict = {}
+for symbol, name, shifted_symbol, shifted_name in symbol_names_table:
+  symbol_names_dict[symbol] = name
+  symbol_names_dict[shifted_symbol] = shifted_name
+results = '  [' + layer_name + '] = LAYOUT_miryoku(\n'
+for row in table:
+  results += '    '
+  for key in row:
+    if key == '':
+      code = fill
+    elif key in symbol_names_dict:
+      code = symbol_names_dict[key]
+    else:
+      code = key
+    code = 'KC_' + str(code)
+    results += (code + ', ').ljust(width)
+  results = results.rstrip(' ') + '\n'
+results = results.rstrip('\n, ') + '\n  )'
+return results
+#+END_SRC
+
+#+RESULTS: table-layout-full
+:   [MBO] = LAYOUT_miryoku(
+:     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+:     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+:     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+:     KC_NP,   KC_NP,   KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN3, KC_BTN2, KC_NP,   KC_NP
+:   )
+
+
 *** table-enums
 
 Produce layer enums from layer names in hold table.
@@ -313,7 +425,7 @@ Produce layer enums from layer names in hold table.
 #+NAME: table-enums
 #+BEGIN_SRC python :var hold_table=hold :var mods_list=mods :tangle no
 mods_dict = dict.fromkeys(mods_list)
-results = 'enum layers { BASE, '
+results = 'enum layers { BASE, MBO, '
 for hold_row in hold_table:
   for hold in hold_row:
     if hold not in mods_dict and hold != '' and hold != 'NP' and hold != 'RST':
@@ -323,7 +435,7 @@ return results
 #+END_SRC
 
 #+RESULTS: table-enums
-: enum layers { BASE, MEDR, NAVR, MOUR, NSSL, NSL, FUNL };
+: enum layers { BASE, MBO, MEDR, NAVR, MOUR, NSSL, NSL, FUNL };
 
 
 ** Data
@@ -365,10 +477,8 @@ Modifiers usable in hold table.  Need to have the same name for KC_ and _T versi
 - LCTL
 - LALT
 - LGUI
-- LAGR
+- ALGR
 
-
-** Other
 
 *** header
 
@@ -376,44 +486,77 @@ Header for tangled src files.
 
 #+NAME: header
 #+BEGIN_SRC C :tangle no
-generated from users/manna-harbour_miryoku/miryoku.org
+generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 #+END_SRC
 
 
 * Subset Mapping
-:PROPERTIES:
-:CUSTOM_ID: subset-mapping
-:END:
+
+The keymap, build options, and configuration are shared between keyboards.  The
+layout is mapped onto keyboards with different physical layouts as a subset.
 
 ** Userspace
 
-The keymap and configuration are shared between keyboards.  The keymap is
-defined for LAYOUT_miryoku which is 10x4, with the outer 2 positions on the
-bottom row unused and the rest of the bottom row are the thumb keys.
+The keymap is defined for LAYOUT_miryoku which is 10x4, with the outer 2
+positions on the bottom row unused and the rest of the bottom row being the
+thumb keys.
 
+*** manna-harbour_miryoku.h
 
-*** manna-harbour_miryoku.c
+Keymap-related definitions.  Included from manna-harbour_miryoku.c.  Can be
+included from keymap or layout keymap.c if needed.
 
-Contains the keymap.  Included from keymap.c
-
-[[./manna-harbour_miryoku.c][users/manna-harbour_miryoku/manna-harbour_miryoku.c]]
-#+BEGIN_SRC C :noweb yes :tangle manna-harbour_miryoku.c
-
+[[./manna-harbour_miryoku.h][users/manna-harbour_miryoku/manna-harbour_miryoku.h]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle manna-harbour_miryoku.h
 // <<header>>
+
+#pragma once
 
 #include QMK_KEYBOARD_H
 
 #define KC_NP KC_NO // key is not present
 #define KC_NA KC_NO // present but not available for use
 #define KC_NU KC_NO // available but not used
+
+// non-KC_ keycodes
 #define KC_RST RESET
+#define KC_TOG RGB_TOG
+#define KC_MOD RGB_MOD
+#define KC_HUI RGB_HUI
+#define KC_SAI RGB_SAI
+#define KC_VAI RGB_VAI
 
 <<table-enums()>>
+#+END_SRC
+
+
+*** manna-harbour_miryoku.c
+
+Contains the keymap.  Added from rules.mk.
+
+[[./manna-harbour_miryoku.c][users/manna-harbour_miryoku/manna-harbour_miryoku.c]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle manna-harbour_miryoku.c
+// <<header>>
+
+#include "manna-harbour_miryoku.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-<<table-layout-taphold()>>,
+#if defined MIRYOKU_ALPHAS_QWERTY
+<<table-layout-taphold(layer_name="BASE", tap_table=qwerty, hold_table=hold)>>,
+#elif defined MIRYOKU_ALPHAS_DVORAK
+<<table-layout-taphold(layer_name="BASE", tap_table=dvorak, hold_table=hold)>>,
+#elif defined MIRYOKU_ALPHAS_COLEMAK
+<<table-layout-taphold(layer_name="BASE", tap_table=colemak, hold_table=hold)>>,
+#elif defined MIRYOKU_ALPHAS_COLEMAKDH
+<<table-layout-taphold(layer_name="BASE", tap_table=colemakdh, hold_table=hold)>>,
+#elif defined MIRYOKU_ALPHAS_WORKMAN
+<<table-layout-taphold(layer_name="BASE", tap_table=workman, hold_table=hold)>>,
+#else
+<<table-layout-taphold(layer_name="BASE", tap_table=colemakdhm, hold_table=hold)>>,
+#endif
 <<table-layout-half(layer_name="NAVR", half_table=navr)>>,
 <<table-layout-half(layer_name="MOUR", half_table=mour)>>,
+<<table-layout-full(layer_name="MBO", table=mbo, fill="TRNS")>>,
 <<table-layout-half(layer_name="MEDR", half_table=medr)>>,
 <<table-layout-half(layer_name="FUNL", half_table=funl)>>,
 <<table-layout-half(layer_name="NSL", half_table=nsl)>>,
@@ -427,11 +570,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 Config options.  Automatically included.
 
 [[./config.h][users/manna-harbour_miryoku/config.h]]
-#+BEGIN_SRC C :noweb yes :tangle config.h
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle config.h
 // <<header>>
 
 #pragma once
+
+// default but important
+#define TAPPING_TERM 200
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -442,6 +587,18 @@ Config options.  Automatically included.
 // Recommended for heavy chording.
 #define QMK_KEYS_PER_SCAN 4
 
+// Mouse key speed and acceleration.
+#undef MOUSEKEY_DELAY
+#define MOUSEKEY_DELAY          0
+#undef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL       16
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY    0
+#undef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED      6
+#undef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX    64
+
 #+END_SRC
 
 
@@ -450,13 +607,23 @@ Config options.  Automatically included.
 Build options.  Automatically included.
 
 [[./rules.mk][users/manna-harbour_miryoku/rules.mk]]
-#+BEGIN_SRC makefile :noweb yes :tangle rules.mk
-
+#+BEGIN_SRC makefile :noweb yes :padline no :tangle rules.mk
 # <<header>>
 
-MOUSEKEY_ENABLE = yes        # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes        # Audio control and System control(+450)
+MOUSEKEY_ENABLE = yes # Mouse keys
+EXTRAKEY_ENABLE = yes # Audio control and System control
 
+SRC += manna-harbour_miryoku.c # keymap
+
+# select alternative base layer alphas
+ifneq ($(strip $(MIRYOKU_ALPHAS)),)
+  OPT_DEFS += -DMIRYOKU_ALPHAS_$(MIRYOKU_ALPHAS)
+endif
+
+# select alternative subset mappings
+ifneq ($(strip $(MIRYOKU_MAPPING)),)
+  OPT_DEFS += -DMIRYOKU_MAPPING_$(MIRYOKU_MAPPING)
+endif
 #+END_SRC
 
 
@@ -464,7 +631,9 @@ EXTRAKEY_ENABLE = yes        # Audio control and System control(+450)
 
 To use the keymap on a keyboard supporting the layouts feature, LAYOUT_miryoku
 is defined as a macro mapping onto the layout's own LAYOUT macro, leaving the
-unused keys as KC_NO.  The userspace keymap is then included.
+unused keys as KC_NO.
+
+The following are example layouts.
 
 *** ergodox
 
@@ -473,10 +642,25 @@ secondary thumb keys are the inner and outer 2u thumb keys and the tertiary
 thumb key is the innermost key of the partial bottom row.  The remaining keys
 are unused.
 
-[[../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c][layouts/community/ergodox/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c
+[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/kle-miryoku-mapping-ergodox.png]]
 
+To build for any keyboard using the this layout (ergodone, ergodox_ez,
+ergodox_infinity, hotdox) e.g. the ergodox_ez,
+
+#+BEGIN_SRC sh :tangle no
+make ergodox_ez:manna-harbour_miryoku:flash
+#+END_SRC
+
+
+**** config.h
+
+Contains subset mapping.
+
+[[../../layouts/community/ergodox/manna-harbour_miryoku/config.h][layouts/community/ergodox/manna-harbour_miryoku/config.h]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/config.h
 // <<header>>
+
+#pragma once
 
 #define LAYOUT_miryoku(\
 K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,\
@@ -494,32 +678,62 @@ KC_NO, KC_NO, KC_NO, KC_NO, K32,                               K37,   KC_NO, KC_
                                           KC_NO, KC_NO, \
                             K33,   K34,   KC_NO, KC_NO, K35,   K36 \
 )
-
-#include "manna-harbour_miryoku.c"
-
 #+END_SRC
 
-To build for any keyboard using the this layout (ergodone, ergodox_ez,
-ergodox_infinity, hotdox) e.g. the ergodox_ez,
 
-#+BEGIN_SRC sh :tangle no
-cd ../.. && make ergodox_ez:manna-harbour_miryoku:teensy
+**** keymap.c
+
+Required by the build system.
+
+[[../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c][layouts/community/ergodox/manna-harbour_miryoku/keymap.c]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c
+// <<header>>
 #+END_SRC
-
 
 
 *** ortho_4x12
 
-For the ortho_4x12 layout, the right half as is as follows: The rightmost column
-bottom 3 rows is the pinkie column.  The middle 4 columns top 3 rows are for the
-remaining fingers.  The bottom row left 3 columns are the thumb keys.  The
-remaining keys are unused.
+For the ortho_4x12 layout, the middle two columns, and the 2 keys on each end of
+the bottom row are unused.  This allows the hands to be positioned without ulnar
+deviation of the wrists.
 
-[[../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c][layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c
+In the implementation, the 2 unused middle columns bottom row keys are mapped as
+duplicates of their adjacent keys to support alternative bottom row physical
+layouts including 1x2uC (MIT), 1x2uR, 1x2uL, and 2x2u.
 
+[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/kle-miryoku-mapping-ortho_4x12.png]]
+
+For split keyboards using this layout the halves can be positioned and rotated
+for each hand and so an alternative mapping is provided.  The right half is as
+follows: The rightmost column bottom 3 keys is the pinkie column.  The middle 4
+columns top 3 rows are for the remaining fingers.  The pinkie column is one row
+lower than the other columns to provide some column stagger.  The bottom row
+left 3 keys are the thumb keys.  The remaining keys are unused.  To select this
+mapping, append ~MIRYOKU_MAPPING=SPLIT~ to the make command line when building.
+
+[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/kle-miryoku-mapping-ortho_4x12-split.png]]
+
+To build for any keyboard using this layout (4x4, nori, chimera_ls, contra,
+divergetm2, jj40, lets_split, lets_split_eh, meira, niu_mini, planck, telophase,
+vitamins_included, zinc, zlant, ortho48, kbd4x, levinson, wavelet, plaid):
+
+#+BEGIN_SRC sh :tangle no
+make planck/rev6:manna-harbour_miryoku:flash # planck
+make keebio/levinson:manna-harbour_miryoku:flash MIRYOKU_MAPPING=SPLIT # levinson
+#+END_SRC
+
+
+**** config.h
+
+Contains subset mapping.
+
+[[../../layouts/community/ortho_4x12/manna-harbour_miryoku/config.h][layouts/community/ortho_4x12/manna-harbour_miryoku/config.h]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/config.h
 // <<header>>
 
+#pragma once
+
+#if defined MIRYOKU_MAPPING_SPLIT
 #define LAYOUT_miryoku(\
 K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,\
 K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,\
@@ -532,18 +746,30 @@ K00,   K11,   K12,   K13,   K14,   KC_NO, KC_NO, K15,   K16,   K17,   K18,   K09
 K10,   K21,   K22,   K23,   K24,   KC_NO, KC_NO, K25,   K26,   K27,   K28,   K19,\
 K20,   KC_NO, KC_NO, K32,   K33,   K34,   K35,   K36,   K37,   KC_NO, KC_NO, K29\
 )
-
-#include "manna-harbour_miryoku.c"
-
+#else
+#define LAYOUT_miryoku(\
+K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,\
+K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,\
+K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,\
+N30,   N31,   K32,   K33,   K34,   K35,   K36,   K37,   N38,   N39\
+)\
+LAYOUT_ortho_4x12(\
+K00,   K01,   K02,   K03,   K04,   KC_NO, KC_NO, K05,   K06,   K07,   K08,   K09,\
+K10,   K11,   K12,   K13,   K14,   KC_NO, KC_NO, K15,   K16,   K17,   K18,   K19,\
+K20,   K21,   K22,   K23,   K24,   KC_NO, KC_NO, K25,   K26,   K27,   K28,   K29,\
+KC_NO, KC_NO, K32,   K33,   K34,   K34,   K35,   K35,   K36,   K37,   KC_NO, KC_NO\
+)
+#endif
 #+END_SRC
 
-To build for any keyboard using this layout (4x4, nori, chimera_ls, contra,
-divergetm2, jj40, lets_split, lets_split_eh, meira, niu_mini, planck, telophase,
-vitamins_included, zinc, zlant, ortho48, kbd4x, levinson, wavelet, plaid)
-e.g. the levinson,
 
-#+BEGIN_SRC sh :tangle no
-make keebio/levinson:manna-harbour_miryoku:avrdude
+**** keymap.c
+
+Required by the build system.
+
+[[../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c][layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c
+// <<header>>
 #+END_SRC
 
 
@@ -551,17 +777,29 @@ make keebio/levinson:manna-harbour_miryoku:avrdude
 
 To use the keymap on a keyboard which does not support the layouts feature,
 LAYOUT_miryoku is defined as a macro mapping onto the keyboard's own LAYOUT
-macro, leaving the unused keys as KC_NO.  The userspace keymap is then included.
+macro, leaving the unused keys as KC_NO.
 
+The following are example keyboards.
 
 *** crkbd
 
 The outer columns are unused.
 
-[[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c][keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c
+To build for this keyboard,
 
+#+BEGIN_SRC sh :tangle no
+make crkbd:manna-harbour_miryoku:flash
+#+END_SRC
+
+**** config.h
+
+Contains subset mapping.
+
+[[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h][keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h
 // <<header>>
+
+#pragma once
 
 #define LAYOUT_miryoku( \
        K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09, \
@@ -575,30 +813,33 @@ KC_NO, K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   KC_
 KC_NO, K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   KC_NO, \
                      K32,   K33,   K34,   K35,   K36,   K37 \
 )
-
-#include "manna-harbour_miryoku.c"
-
-#+END_SRC
-
-To build for this keyboard,
-
-#+BEGIN_SRC sh :tangle no
-cd ../.. && make crkbd:manna-harbour_miryoku:avrdude
 #+END_SRC
 
 
-* Related Documentation
+**** keymap.c
+
+Required by the build system.
+
+[[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c][keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c]]
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c
+// <<header>>
+#+END_SRC
+
+
+* Documentation
 
 ** QMK
 
 - https://qmk.fm/
 - https://docs.qmk.fm/#/getting_started_introduction
-- https://docs.qmk.fm/#/hardware_keyboard_guidelines
 - https://docs.qmk.fm/#/config_options
 - https://docs.qmk.fm/#/keycodes
 - https://docs.qmk.fm/#/feature_advanced_keycodes
+- https://docs.qmk.fm/#/feature_layers
+- https://docs.qmk.fm/#/mod_tap
 - https://docs.qmk.fm/#/feature_layouts
 - https://docs.qmk.fm/#/feature_userspace
+- https://docs.qmk.fm/#/feature_mouse_keys
 - https://docs.qmk.fm/#/getting_started_make_guide
 
 
@@ -607,3 +848,13 @@ cd ../.. && make crkbd:manna-harbour_miryoku:avrdude
 - https://orgmode.org/
 - https://orgmode.org/manual/Tables.html
 - https://orgmode.org/manual/Working-with-Source-Code.html
+
+
+* Contact
+
+For issues with this branch, or to request support for additional base layer
+alphas, layouts, or keyboards, please [[https://github.com/manna-harbour/qmk_firmware/issues/new][open an issue]].
+
+For more general discussion, please join a relevant [[https://www.reddit.com/user/manna_harbour/posts/?sort=new][recent thread]] or [[https://www.reddit.com/message/compose/?to=manna_harbour][send a PM]].
+
+[[https://github.com/manna-harbour][https://raw.githubusercontent.com/manna-harbour/miryoku/master/manna-harbour-boa-32.png]]
