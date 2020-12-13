@@ -24,6 +24,7 @@ NGKEYS naginata_keys;
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
+    _QWERTY,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
 // 薙刀式
@@ -46,24 +47,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
     ),
 
+  [_QWERTY] = LAYOUT(
+    KC_TAB        ,KC_Q   ,KC_W   ,KC_E    ,KC_R   ,KC_T   , KC_EQL   , KC_MINS ,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P    ,KC_QUOT , \
+    CTL_T(KC_ESC) ,KC_A   ,KC_S   ,KC_D    ,KC_F   ,KC_G   , KC_GRV   , KC_BSLS ,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN ,KC_SCLN , \
+    KC_LSFT       ,KC_Z   ,KC_X   ,KC_C    ,KC_V   ,KC_B   , KC_LBRC  , KC_RBRC ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT   , \
+    KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
+    ),
+
   [_LOWER] = LAYOUT(
     _______,XXXXXXX,XXXXXXX,KC_COLN,KC_SCLN,XXXXXXX,XXXXXXX, XXXXXXX, KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,KC_DEL , \
     _______,XXXXXXX,KC_LBRC,KC_LCBR,KC_LPRN,KC_LT  ,XXXXXXX, XXXXXXX, KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS,_______, \
     _______,XXXXXXX,KC_RBRC,KC_RCBR,KC_RPRN,KC_GT  ,XXXXXXX, XXXXXXX, KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL ,_______, \
-    _______,_______,_______,_______,_______,    XXXXXXX,          XXXXXXX    ,_______,_______,_______,_______,_______
+    RESET  ,_______,_______,_______,_______,    _______,          _______    ,_______,_______,_______,_______,_______
   ),
 
   [_RAISE] = LAYOUT(
     _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,KC_PERC,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
     _______   ,KC_CIRC   ,KC_AMPR   ,KC_EXLM   ,KC_QUES   ,KC_JYEN,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
     _______   ,KC_PIPE   ,KC_GRV    ,KC_QUOT   ,KC_DQT    ,KC_UNDS,   XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
-    _______   ,_______   ,_______   ,_______   ,_______        ,XXXXXXX,           XXXXXXX        ,_______   ,_______   ,_______   ,_______   ,_______
+    _______   ,_______   ,_______   ,_______   ,_______        ,_______,           XXXXXXX        ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
   [_ADJUST] = LAYOUT(
     _______,EEP_RST,RESET,  KC_F1   ,KC_F2  ,KC_F3   ,KC_F4,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,_______, \
     _______,XXXXXXX,KC_SLEP,KC_F5   ,KC_F6  ,KC_F7   ,KC_F8,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
-    _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
+    _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, XXXXXXX,XXXXXXX,XXXXXXX,DF(_BASE),DF(_QWERTY),XXXXXXX,_______, \
     _______,_______,_______,_______,_______,     XXXXXXX,        XXXXXXX,_______,_______,_______,_______,_______
   ),
 
@@ -106,7 +114,7 @@ void matrix_init_user(void) {
 #ifdef OLED_DRIVER_ENABLE
 
 #define FRAME_TIMEOUT (1000/10)
-static uint16_t anim_timer = 0;
+// static uint16_t anim_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
@@ -142,8 +150,8 @@ static void render_eisu(void) {
 }
 
 void oled_task_user(void) {
-  if (timer_elapsed(anim_timer) > FRAME_TIMEOUT) {
-    anim_timer = timer_read();
+  // if (timer_elapsed(anim_timer) > FRAME_TIMEOUT) {
+  //   anim_timer = timer_read();
 
     if (is_keyboard_master()) {
       if (naginata_state()) {
@@ -154,6 +162,6 @@ void oled_task_user(void) {
     } else {
         naginata_logo();
     }
-  }
+  // }
 }
 #endif
