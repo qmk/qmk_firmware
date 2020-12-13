@@ -1,0 +1,2 @@
+
+#define TAPPING_TOGGLE 2
