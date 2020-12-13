@@ -4,5 +4,5 @@ This keymap is mostly taken from the ctrl endgame layout. A couple of notable ch
 2. New media control layer has been added.
 3. Default color scheme is rainbow left-right.
 
-![Keymap](https://imgur.com/WPHvOv3)
+![Keymap](https://imgur.com/WPHvOv3.png)
 
