@@ -51,6 +51,14 @@ There are some additional layers for:
 - switching between MacOs and Windows modes;
 - access Cut, Copy and Paste shortcuts wirth the right hand, for people that use the mouse with their left hand.
 
+## Bootmagic
+
+This keymap supports Bootmagic Lite. Bootmagic configures the keyboard when initializing (starting up after connecting the USB cable). 
+- hold key in upper left corner while plugging in the USB cable to enter the Bootloader for flashing.
+- hold M key while plugging in the USB cable to use the keyboard in MacOs mode.
+- hold W key while plugging in the USB cable to use the keyboard in Windows mode.
+
+
 ## Build
 
 Owners of an older Planck (rev5 or older, those without a USB-C connector) need to disable audio in file 'rules .mk' before building. Otherwise the firmware size will be too large.

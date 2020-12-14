@@ -18,21 +18,24 @@
 #include "muse.h"
 
 enum planck_layers {
-    _BASELAYER,
+    _BASELAYER_MACOS,
+    _BASELAYER_WINDOWS,
     _LEFTYLAYER,
-    _NUMLAYER,
-    _SYMLAYER,
-    _NAVLAYER,
+    _NUMLAYER_MACOS,
+    _NUMLAYER_WINDOWS,
+    _NAVLAYER_MACOS,
+    _NAVLAYER_WINDOWS,
+    _SYMLAYER_MACOS,
+    _SYMLAYER_WINDOWS,
     _UTILSLAYER
 };
 
 enum planck_keycodes {
     MACOS = SAFE_RANGE, 
     WINDOWS,
-    NUMLAYER, NAVLAYER, SYMLAYER, 
-    LCMDCTRL, RCMDCTRL, LCTRLWIN, RCTRLMENU, 
+    RCMDCTRL, 
     LEFTYCUT, LEFTYCOPY, LEFTYPASTE,
-    PRTSCR, EUROSIGN, HOMEKEY, ENDKEY, LOCKSCREEN, PLUSCOLON,
+    PLUSCOLON,
     APPSWITCH, TASKVIEW, PREVDESK, NEXTDESK,
     QUOTES, DQUOTES,
     POINTYBR, SQUAREBR, CURLYBR, ROUNDBR
@@ -53,19 +56,17 @@ enum bracket_shapes {
     POINTY, SQUARE, CURLY, ROUND
 };
 
-#define NUMLAYER MO(_NUMLAYER)
-#define NAVLAYER MO(_NAVLAYER)
-#define SYMLAYER MO(_SYMLAYER)
+uint8_t windowsmode = 0;
+
+#define L_NUM_M MO(_NUMLAYER_MACOS)
+#define L_NUM_W MO(_NUMLAYER_WINDOWS)
+#define L_NAV_M MO(_NAVLAYER_MACOS)
+#define L_NAV_W MO(_NAVLAYER_WINDOWS)
+#define L_SYM_M MO(_SYMLAYER_MACOS)
+#define L_SYM_W MO(_SYMLAYER_WINDOWS)
 #define UTILSLAYER MO(_UTILSLAYER)
 
-static bool handle_mac_or_win_key(uint16_t mac_keycode, uint16_t win_keycode, bool pressed);
-static bool type_eurosign(bool pressed);
-static bool handle_print_screen(bool pressed);
-static bool handle_lock_screen(bool pressed);
-static bool handle_home_key(bool pressed);
-static bool handle_end_key(bool pressed);
-static bool handle_show_task_view(bool pressed);
-static bool handle_switch_desktop(bool previous, bool pressed);
+static void set_keycodes_for_os(int os);
 static bool handle_app_switch(bool pressed);
 static bool app_switch_valid_keycode(uint16_t keycode);
 static bool handle_right_command_or_control(bool pressed);
@@ -96,11 +97,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Shift|  Win |  Alt | Ctrl |NumLyr|    Space    |NavLyr| Ctrl |  Alt | Menu | Shift|
  * `-----------------------------------------------------------------------------------'
  */
-[_BASELAYER] = LAYOUT_planck_grid(
-    KC_BSPC,   KC_Q,     KC_W,    KC_E,     KC_R,     KC_T,    KC_Y,    KC_U,     KC_I,     KC_O,    KC_P,      KC_DEL,
-    KC_ESC,    KC_A,     KC_S,    KC_D,     KC_F,     KC_G,    KC_H,    KC_J,     KC_K,     KC_L,    KC_SCLN,   KC_ENT,
-    S(KC_TAB), KC_Z,     KC_X,    KC_C,     KC_V,     KC_B,    KC_N,    KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,   KC_TAB,
-    KC_LSFT,   LCTRLWIN, KC_RALT, LCMDCTRL, NUMLAYER, KC_SPC,  KC_SPC,  NAVLAYER, RCMDCTRL, KC_RALT, RCTRLMENU, KC_RSFT
+[_BASELAYER_MACOS] = LAYOUT_planck_grid(
+    KC_BSPC, KC_Q,     KC_W,    KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_DEL,
+    KC_ESC,  KC_A,     KC_S,    KC_D,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,     KC_L,    KC_SCLN,  KC_ENT,
+    _______, KC_Z,     KC_X,    KC_C,     KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,  KC_SLSH,  KC_TAB,
+    KC_LSFT, KC_LCTRL, KC_LALT, KC_LGUI,  L_NUM_M, KC_SPC,  KC_SPC,  L_NAV_M, RCMDCTRL, KC_RALT, KC_RCTRL, KC_RSFT
+),
+[_BASELAYER_WINDOWS] = LAYOUT_planck_grid(
+    KC_BSPC, KC_Q,     KC_W,    KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_DEL,
+    KC_ESC,  KC_A,     KC_S,    KC_D,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,     KC_L,    KC_SCLN,  KC_ENT,
+    _______, KC_Z,     KC_X,    KC_C,     KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,  KC_SLSH,  KC_TAB,
+    KC_LSFT, KC_LGUI,  KC_LALT, KC_LCTRL, L_NUM_W, KC_SPC,  KC_SPC,  L_NAV_W, RCMDCTRL, KC_RALT, KC_APP,   KC_RSFT
 ),
 
 /* Lefty layer:
@@ -134,11 +141,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |(hold)|             |SymLyr|   0  |   .  |   -  |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_NUMLAYER] = LAYOUT_planck_grid(
-    _______, KC_AMPR,  KC_PIPE,  KC_EXLM, KC_PPLS, KC_EQL,  KC_PERC,  KC_7,     KC_8,    KC_9,    KC_PAST,   KC_EQL,
-    _______, KC_AT,    QUOTES,   DQUOTES, KC_MINS, KC_UNDS, EUROSIGN, KC_4,     KC_5,    KC_6,    PLUSCOLON, KC_PENT,
-    _______, POINTYBR, SQUAREBR, CURLYBR, ROUNDBR, KC_BSLS, KC_DLR,   KC_1,     KC_2,    KC_3,    KC_PSLS,   _______,
-    _______, _______,  _______,  _______, _______, _______, _______,  SYMLAYER, KC_0,    KC_PDOT, KC_PMNS,   _______
+[_NUMLAYER_MACOS] = LAYOUT_planck_grid(
+    _______, KC_AMPR,  KC_PIPE,  KC_EXLM, KC_PPLS, KC_EQL,  KC_PERC,    KC_7,    KC_8,    KC_9,    KC_PAST,   KC_EQL,
+    _______, KC_AT,    QUOTES,   DQUOTES, KC_MINS, KC_UNDS, RALT(KC_2), KC_4,    KC_5,    KC_6,    PLUSCOLON, KC_PENT,
+    _______, POINTYBR, SQUAREBR, CURLYBR, ROUNDBR, KC_BSLS, KC_DLR,     KC_1,    KC_2,    KC_3,    KC_PSLS,   _______,
+    _______, _______,  _______,  _______, _______, _______, _______,    L_SYM_M, KC_0,    KC_PDOT, KC_PMNS,   _______
+),
+[_NUMLAYER_WINDOWS] = LAYOUT_planck_grid(
+    _______, KC_AMPR,  KC_PIPE,  KC_EXLM, KC_PPLS, KC_EQL,  KC_PERC,    KC_7,    KC_8,    KC_9,    KC_PAST,   KC_EQL,
+    _______, KC_AT,    QUOTES,   DQUOTES, KC_MINS, KC_UNDS, RALT(KC_5), KC_4,    KC_5,    KC_6,    PLUSCOLON, KC_PENT,
+    _______, POINTYBR, SQUAREBR, CURLYBR, ROUNDBR, KC_BSLS, KC_DLR,     KC_1,    KC_2,    KC_3,    KC_PSLS,   _______,
+    _______, _______,  _______,  _______, _______, _______, _______,    L_SYM_W, KC_0,    KC_PDOT, KC_PMNS,   _______
 ),
 
 /* Symbol layer:
@@ -152,11 +165,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |(hold)|  UtilsLayer |(hold)|      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_SYMLAYER] = LAYOUT_planck_grid(
-    _______, _______, _______, EUROSIGN, _______, KC_TILD,    _______,    KC_UNDS, KC_CIRC, _______, KC_PERC, _______,
-    _______, KC_AT,   KC_DLR,  KC_DLR,   _______, KC_GRV,     KC_HASH,    _______, _______, _______, _______, _______,
-    _______, _______, KC_EXLM, _______,  _______, KC_BSLS,    KC_TILD,    KC_AMPR, _______, _______, KC_EXLM, _______,
-    _______, _______, _______, _______,  _______, UTILSLAYER, UTILSLAYER, _______, _______, _______, _______, _______
+[_SYMLAYER_MACOS] = LAYOUT_planck_grid(
+    _______, XXXXXXX, XXXXXXX, RALT(KC_2), XXXXXXX, KC_TILD,    XXXXXXX,    KC_UNDS, KC_CIRC, XXXXXXX, KC_PERC, _______,
+    _______, KC_AT,   KC_DLR,  KC_DLR,     XXXXXXX, KC_GRV,     KC_HASH,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    _______, XXXXXXX, KC_EXLM, XXXXXXX,    XXXXXXX, KC_BSLS,    KC_TILD,    KC_AMPR, XXXXXXX, XXXXXXX, KC_EXLM, _______,
+    _______, _______, _______, _______,    _______, UTILSLAYER, UTILSLAYER, _______, _______, _______, _______, _______
+),
+[_SYMLAYER_WINDOWS] = LAYOUT_planck_grid(
+    _______, XXXXXXX, XXXXXXX, RALT(KC_5), XXXXXXX, KC_TILD,    XXXXXXX,    KC_UNDS, KC_CIRC, XXXXXXX, KC_PERC, _______,
+    _______, KC_AT,   KC_DLR,  KC_DLR,     XXXXXXX, KC_GRV,     KC_HASH,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    _______, XXXXXXX, KC_EXLM, XXXXXXX,    XXXXXXX, KC_BSLS,    KC_TILD,    KC_AMPR, XXXXXXX, XXXXXXX, KC_EXLM, _______,
+    _______, _______, _______, _______,    _______, UTILSLAYER, UTILSLAYER, _______, _______, _______, _______, _______
 ),
 
 /* Navigation layer:
@@ -170,11 +189,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |SymLyr|             |(hold)|      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_NAVLAYER] = LAYOUT_planck_grid(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,    XXXXXXX, KC_PGUP, HOMEKEY,  KC_UP,   ENDKEY,   PRTSCR,    LOCKSCREEN,
-    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,    XXXXXXX, KC_PGDN, KC_LEFT,  KC_DOWN, KC_RGHT,  APPSWITCH, _______,
-    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,   XXXXXXX, XXXXXXX, PREVDESK, KC_DOWN, NEXTDESK, TASKVIEW,  _______,
-    _______, _______, _______, _______, SYMLAYER, _______, _______, _______,  _______, _______,  _______,   _______
+[_NAVLAYER_MACOS] = LAYOUT_planck_grid(
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, KC_PGUP, G(KC_LEFT), KC_UP,   G(KC_RGHT), SGUI(KC_4), C(G(KC_Q)),
+    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, KC_PGDN, KC_LEFT,    KC_DOWN, KC_RGHT,    APPSWITCH,  _______,
+    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, C(KC_LEFT), KC_DOWN, C(KC_RGHT), C(KC_UP),   _______,
+    _______, _______, _______, _______, L_SYM_M, _______, _______, _______,    _______, _______,    _______,    _______
+),
+[_NAVLAYER_WINDOWS] = LAYOUT_planck_grid(
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, KC_PGUP, KC_HOME,       KC_UP,   KC_END,        KC_PSCR,   G(KC_L),
+    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, KC_PGDN, KC_LEFT,       KC_DOWN, KC_RGHT,       APPSWITCH, _______,
+    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, C(G(KC_LEFT)), KC_DOWN, C(G(KC_RGHT)), G(KC_TAB), _______,
+    _______, _______, _______, _______, L_SYM_W, _______, _______, _______,       _______, _______,       _______,   _______
 ),
 
 /* Utilities layer:
@@ -196,18 +221,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+/* Bootmagic keys (hold when plugging in the USB cable):
+ * ,-----------------------------------------------------------------------------------.
+ * |BootLd|      |  Win |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  Mac |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-bool macos_mode = true;
 bool app_switch_active = false;
 static uint16_t timer;
 static uint16_t duration = 0;
 static bool double_tap = false;
 uint8_t active_modifiers = 0;
 bool shift_modifier_active = false;
+uint8_t keycode_rightcommand;
+uint8_t keycode_appswitch;
 
 /* main loop */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -224,12 +262,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
     /* Keep app_switch_active true, while a valid key is pressed. */
     if (app_switch_active) {
-        if (keycode == NAVLAYER && record->event.pressed == false) {
-            unregister_code(macos_mode ? KC_LGUI : KC_LALT);
+        if ((keycode == L_NAV_M || keycode == L_NAV_W) && record->event.pressed == false) {
+            unregister_code(keycode_appswitch);
             app_switch_active = false;
         }
         if (app_switch_valid_keycode(keycode) == false) {
-            unregister_code(macos_mode ? KC_LGUI : KC_LALT);
+            unregister_code(keycode_appswitch);
             app_switch_active = false;
         }
     }
@@ -240,7 +278,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(plover_song);
             #endif
-            macos_mode = true;
+            set_keycodes_for_os(MACOS);
+            default_layer_set(_BASELAYER_MACOS);
+            layer_on(_BASELAYER_MACOS);
+            layer_off(_BASELAYER_WINDOWS);
             return false;
             break;
         case WINDOWS:
@@ -248,47 +289,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(plover_gb_song);
             #endif
-            macos_mode = false;
+            set_keycodes_for_os(WINDOWS);
+            default_layer_set(_BASELAYER_WINDOWS);
+            layer_on(_BASELAYER_WINDOWS);
+            layer_off(_BASELAYER_MACOS);
             return false;
-            break;
-        case LCMDCTRL:
-            return handle_mac_or_win_key(KC_LGUI, KC_LCTRL, record->event.pressed);
             break;
         case RCMDCTRL:
             return handle_right_command_or_control(record->event.pressed);
             break;
-        case LCTRLWIN:
-            return handle_mac_or_win_key(KC_LCTRL, KC_LGUI, record->event.pressed);
-            break;
-        case RCTRLMENU:
-            return handle_mac_or_win_key(KC_RCTRL, KC_APP, record->event.pressed);
-            break;
-        case EUROSIGN:
-            return type_eurosign(record->event.pressed);
-            break;
-        case PRTSCR:
-            return handle_print_screen(record->event.pressed);
-            break;
-        case LOCKSCREEN:
-            return handle_lock_screen(record->event.pressed);
-            break;
-        case HOMEKEY:
-            return handle_home_key(record->event.pressed);
-            break;
-        case ENDKEY:
-            return handle_end_key(record->event.pressed);
-            break;
         case APPSWITCH:
             return handle_app_switch(record->event.pressed);
-            break;
-        case PREVDESK:
-            return handle_switch_desktop(true, record->event.pressed);
-            break;
-        case NEXTDESK:
-            return handle_switch_desktop(false, record->event.pressed);
-            break;
-        case TASKVIEW:
-            return handle_show_task_view(record->event.pressed);
             break;
         case QUOTES:
             return type_quotes(SINGLE_QUOTE, record->event.pressed);
@@ -315,147 +326,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-/* Type 1 of 2 keycodes, depending on OS mode (MacOs or Windows) */
-bool handle_mac_or_win_key(uint16_t mac_keycode, uint16_t win_keycode, bool pressed) {
-    if (pressed) {
-        register_code(macos_mode ? mac_keycode : win_keycode); 
+void set_keycodes_for_os(int os) {
+    if (os == MACOS) {
+        keycode_rightcommand = KC_RGUI;
+        keycode_appswitch = KC_LGUI;
     } else {
-        unregister_code(macos_mode ? mac_keycode : win_keycode); 
+        keycode_rightcommand = KC_RCTRL;
+        keycode_appswitch = KC_LALT;
     }
-    return false;
 }
 
 /* While lefties use their mouse with their left hand, it is handy to use their right hand for Cut, Copy and Paste. */
 bool handle_right_command_or_control(bool pressed) {
     if (pressed) {
-        register_code(macos_mode ? KC_RGUI : KC_RCTL);
+        register_code(keycode_rightcommand);
         layer_on(_LEFTYLAYER);
     } else {
         layer_off(_LEFTYLAYER);
-        unregister_code(macos_mode ? KC_RGUI : KC_RCTL);
-    }
-    return false;
-}
-
-/* Key combo to type a euro sign. */
-bool type_eurosign(bool pressed) {
-    /* Register_code16 does not seem to work here. */
-    if (pressed) {
-        register_code(KC_RALT); 
-        register_code(macos_mode ? KC_2 : KC_5); 
-    } else {
-        unregister_code(macos_mode ? KC_2 : KC_5); 
-        unregister_code(KC_RALT); 
-    }
-    return false;
-}
-
-/* Key combo for the print screen function */
-bool handle_print_screen(bool pressed) {
-    if (macos_mode) {
-        if (pressed) {
-            register_code16(SGUI(KC_4)); 
-        } else {
-            unregister_code16(SGUI(KC_4)); 
-        }
-    } else {
-        if (pressed) {
-            register_code(KC_PSCR); 
-        } else {
-            unregister_code(KC_PSCR); 
-        }
-    }
-    return false;
-}
-
-/* Key combo that locks the desktop */
-bool handle_lock_screen(bool pressed) {
-    if (macos_mode) {
-        if (pressed){
-            register_code(KC_LCTRL);
-            register_code(KC_LGUI);
-            register_code(KC_Q);
-        } else {
-            unregister_code(KC_Q);
-            unregister_code(KC_LGUI);
-            unregister_code(KC_LCTRL);
-        }
-    } else {
-        if (pressed) {
-            register_code16(G(KC_L));
-        } else {
-            unregister_code16(G(KC_L));
-        }
-    }
-    return false;
-}
-
-/* Handle Home key in Windows, simulate Home key in MacOs. */
-bool handle_home_key(bool pressed) {
-    if (macos_mode) {
-        if (pressed) {
-            register_code16(G(KC_LEFT));
-        } else {
-            unregister_code16(G(KC_LEFT));
-        }
-    } else {
-        if (pressed) {
-            register_code(KC_HOME);
-        } else {
-            unregister_code(KC_HOME);
-        }
-    }
-    return false;
-}
-
-/* Handle End key in Windows, simulate End key in MacOs. */
-bool handle_end_key(bool pressed) {
-    if (macos_mode) {
-        if (pressed) {
-            register_code16(G(KC_RGHT));
-        } else {
-            unregister_code16(G(KC_RGHT));
-        }
-    } else {
-        if (pressed) {
-            register_code(KC_END);
-        } else {
-            unregister_code(KC_END);
-        }
-    }
-    return false;
-}
-
-/* Key combo to show TaskView (Windows) or Mission Control (MacOs). */
-bool handle_show_task_view(bool pressed) {
-    if (macos_mode) {
-        if (pressed) {
-            register_code16(C(KC_UP));
-        } else {
-            unregister_code16(C(KC_UP));
-        }
-    } else {
-        if (pressed) {
-            register_code16(G(KC_TAB));
-        } else {
-            unregister_code16(G(KC_TAB));
-        }
-    }
-    return false;
-}
-
-/* Key combo to easily switch virtual desktops ('Spaces' in MacOs). */
-bool handle_switch_desktop(bool previous, bool pressed) {
-    if (pressed) {
-        if (macos_mode == false) {
-            register_code(KC_LGUI);
-        }
-        register_code16(C(previous ? KC_LEFT : KC_RGHT));
-    } else {
-        unregister_code16(C(previous ? KC_LEFT : KC_RGHT));
-        if (macos_mode == false) {
-            unregister_code(KC_LGUI);
-        }
+        unregister_code(keycode_rightcommand);
     }
     return false;
 }
@@ -465,7 +353,7 @@ bool handle_app_switch(bool pressed) {
     if (pressed) {
         if (app_switch_active == false) {
           app_switch_active = true;
-          register_code(macos_mode ? KC_LGUI : KC_LALT);
+          register_code(keycode_appswitch);
         }
         register_code(KC_TAB);
     } else {
@@ -599,4 +487,47 @@ bool handle_pluscolon(bool pressed) {
         unregister_code(shift_modifier_active ? KC_SCLN : KC_PPLS);
     }
     return false;
+}
+
+// Bootmagic configures the keyboard when initializing (starting up after connecting the USB cable)
+void bootmagic_lite(void) {
+    matrix_scan();
+    wait_ms(DEBOUNCE * 2);
+    matrix_scan();
+    int os;
+
+    // hold key in upper left corner while plugging in the USB cable to enter the Bootloader for flashing.
+    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+        bootloader_jump();
+    }
+
+    // hold M key while plugging in the USB cable to use the keyboard in MacOs mode.
+    if (matrix_get_row(BOOTMAGIC_LITE_MACOS_ROW) & (1 << BOOTMAGIC_LITE_MACOS_COLUMN)) {
+        os = MACOS;
+    }
+
+    // hold W key while plugging in the USB cable to use the keyboard in Windows mode.
+    if (matrix_get_row(BOOTMAGIC_LITE_WIN_ROW) & (1 << BOOTMAGIC_LITE_WIN_COLUMN)) {
+        os = WINDOWS;
+    }
+
+    switch (os){
+        case MACOS:
+            default_layer_set(_BASELAYER_MACOS);
+            layer_on(_BASELAYER_MACOS);
+            layer_off(_BASELAYER_WINDOWS);
+            break;
+        case WINDOWS:
+            default_layer_set(_BASELAYER_WINDOWS);
+            layer_on(_BASELAYER_WINDOWS);
+            layer_off(_BASELAYER_MACOS);
+            break;
+        default:
+            os = MACOS;
+            default_layer_set(_BASELAYER_MACOS);
+            layer_on(_BASELAYER_MACOS);
+            layer_off(_BASELAYER_WINDOWS);
+            break;
+    }
+    set_keycodes_for_os(os);
 }
