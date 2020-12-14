@@ -38,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ),
 
 [_FN1] = LAYOUT(
-	_______	,	xxxx	,	KC_P7	,	KC_P8	,	KC_P9	,	KC_SLSH	,					KC_SLSH	,	KC_P7	,	KC_P8	,	KC_P9	,	_______	,	_______	,	_______	,	_______	,	_______	,	\
-	_______	,	xxxx	,	KC_P4	,	KC_P5	,	KC_P6	,	KC_ASTR	,					KC_ASTR	,	KC_P4	,	KC_P5	,	KC_P6	,	_______	,	_______	,	_______	,			_______	,	\
-	_______	,	xxxx	,	KC_P1	,	KC_P2	,	KC_P3	,	KC_MINUS	,					KC_MINUS	,	KC_P1	,	KC_P2	,	KC_P3	,	_______	,	_______	,					_______	,	\
-	_______	,	KC_EQL	,	KC_COMM	,	KC_DOT	,	KC_P0	,	KC_PLUS	,	_______	,	KC_NLCK	,	KC_PLUS	,	KC_P0	,	KC_COMM	,	KC_DOT	,	_______	,							_______	,	\
-							TO(_QWERTY),	_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______														\
+	_______	,	xxxx	,	KC_EQL	,	KC_COMM	,	KC_DOT	,	xxxx	,					KC_NLCK	,	xxxx	,	xxxx	,	KC_LPRN	,	KC_RPRN	,	_______	,	_______	,	_______	,	_______	,	\
+	_______	,	KC_SLSH	,	KC_MINUS	,	KC_P7	,	KC_P8	,	KC_P9	,					KC_P7	,	KC_P8	,	KC_P9	,	KC_MINUS	,	KC_EQL	,	_______	,	_______	,			_______	,	\
+	_______	,	KC_ASTR	,	KC_PLUS	,	KC_P4	,	KC_P5	,	KC_P6	,					KC_P4	,	KC_P5	,	KC_P6	,	KC_PLUS	,	KC_ASTR	,	KC_COMM	,					_______	,	\
+	_______	,	KC_DOT	,	KC_P0	,	KC_P1	,	KC_P2	,	KC_P3	,	_______	,	KC_P0	,	KC_P1	,	KC_P2	,	KC_P3	,	KC_DOT	,	KC_SLSH	,							_______	,	\
+							TO(_QWERTY)	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______	,	_______														\
 ),
 
 [_FN2] = LAYOUT(
@@ -78,9 +78,10 @@ const rgblight_segment_t PROGMEM rgb_default_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 0, HSV_RED}
 );
 const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {36, 4, HSV_RED},
-    {43, 3, HSV_RED},
-    {46, 3, HSV_RED}
+     {29, 1, HSV_RED},
+   {32, 3, HSV_RED},
+    {37, 3, HSV_RED},
+    {42, 3, HSV_RED}
 
 
 );
@@ -94,7 +95,7 @@ const rgblight_segment_t PROGMEM rgb_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_RED}
 );
 const rgblight_segment_t PROGMEM rgb_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {29, 1, HSV_RED}
+    {35, 1, HSV_GREEN}
 );
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_default_layer,
@@ -126,6 +127,8 @@ bool led_update_user(led_t led_state) {
 
 void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
+    rgblight_enable_noeeprom();
+    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 
 #ifdef CONSOLE_ENABLE
     rgblight_enable_noeeprom();
