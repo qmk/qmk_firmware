@@ -722,7 +722,6 @@ static void udi_hid_raw_setreport_valid(void) {}
 
 void raw_hid_send(uint8_t *data, uint8_t length) {
     if (main_b_raw_enable && !udi_hid_raw_b_report_trans_ongoing && length == UDI_HID_RAW_REPORT_SIZE) {
-        memset(udi_hid_raw_report, 0, UDI_HID_RAW_REPORT_SIZE);
         memcpy(udi_hid_raw_report, data, UDI_HID_RAW_REPORT_SIZE);
         udi_hid_raw_send_report();
     }
