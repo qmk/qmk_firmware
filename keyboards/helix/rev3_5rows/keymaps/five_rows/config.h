@@ -69,3 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #endif /* CONFIG_USER_H */
+
+#ifdef DEBUG_CONFIG
+#  include "debug_config.h"
+#endif
