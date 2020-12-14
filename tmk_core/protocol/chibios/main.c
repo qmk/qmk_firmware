@@ -15,8 +15,8 @@
  * GPL v2 or later.
  */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "usb_main.h"
 
