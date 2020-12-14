@@ -10,12 +10,13 @@
  #      yes, no  +1500
  #      yes, yes +3200
  #      no,  yes +400
+ENCODER_ENABLE = no
 LTO_ENABLE = no  # if firmware size over limit, try this option
 LED_ANIMATIONS = yes
 
 ifneq ($(strip $(HELIX)),)
   define KEYMAP_OPTION_PARSE
-    # parse 'dispoff', 'consle', 'back', 'oled', 'no-ani', 'mini-ani', 'lto', 'no-lto', 'scan'
+    # parse 'dispoff', 'consle', 'back', 'oled', 'no-ani', 'mini-ani', 'lto', 'no-lto', 'no-enc', 'scan'
     $(if $(SHOW_PARCE),$(info parse .$1.))  #debug
     ifeq ($(strip $1),dispoff)
         OLED_DRIVER_ENABLE = no
@@ -23,6 +24,12 @@ ifneq ($(strip $(HELIX)),)
     endif
     ifeq ($(strip $1),console)
         CONSOLE_ENABLE = yes
+    endif
+    ifneq ($(filter enc,$(strip $1)),)
+        ENCODER_ENABLE = yes
+    endif
+    ifneq ($(filter noenc no-enc no_enc,$(strip $1)),)
+        ENCODER_ENABLE = no
     endif
     ifeq ($(strip $1),oled)
         OLED_DRIVER_ENABLE = yes
