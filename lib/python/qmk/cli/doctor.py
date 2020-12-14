@@ -157,7 +157,7 @@ def check_submodules():
 def check_git_repo():
     """Checks that the .git directory exists inside QMK_HOME.
 
-    This is a decent enough indicator that the qmk_firmware direcory is a
+    This is a decent enough indicator that the qmk_firmware directory is a
     proper Git repository, rather than a .zip download from GitHub.
     """
     dot_git_dir = QMK_FIRMWARE / '.git'
