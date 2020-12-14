@@ -50,6 +50,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_ANIMATIONS
 
+#define LED_NUM_LOCK_PIN A15
+#define LED_CAPS_LOCK_PIN B3
+#define LED_SCROLL_LOCK_PIN B4
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
