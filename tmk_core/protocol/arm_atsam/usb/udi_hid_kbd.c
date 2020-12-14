@@ -722,6 +722,7 @@ static void udi_hid_raw_setreport_valid(void) {}
 
 void raw_hid_send(uint8_t *data, uint8_t length) {
     if (main_b_raw_enable && !udi_hid_raw_b_report_trans_ongoing && length == UDI_HID_RAW_REPORT_SIZE) {
+        memset(udi_hid_raw_report, 0, UDI_HID_RAW_REPORT_SIZE);
         memcpy(udi_hid_raw_report, data, UDI_HID_RAW_REPORT_SIZE);
         udi_hid_raw_send_report();
     }
@@ -738,8 +739,8 @@ bool udi_hid_raw_receive_report(void) {
 static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep) {
     UNUSED(ep);
 
-    if (status == UDD_EP_TRANSFER_OK && nb_rcvd <= UDI_HID_RAW_REPORT_SIZE) {
-        UDI_HID_RAW_RECEIVE(udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE);
+    if (status == UDD_EP_TRANSFER_OK) {
+        UDI_HID_RAW_RECEIVE(udi_hid_raw_report_recv, (uint8_t)nb_rcvd);
     }
 }
 
