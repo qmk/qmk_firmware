@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER @haswellep
 #define PRODUCT Willow64_r02
-#define DESCRIPTION Willow 64 rev02
+#define DESCRIPTION Willow64 rev02
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4}
