@@ -1,6 +1,5 @@
 RGBLIGHT_ENABLE = no
-RGB_MATRIX_ENABLE = WS2812
-# RGB_MATRIX_DRIVER = WS2812
+RGB_MATRIX_ENABLE = yes
 
 OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
 ENCODER_ENABLE = yes       # ENables the use of one or more encoders
