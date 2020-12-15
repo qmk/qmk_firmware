@@ -48,5 +48,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		 TD(F16F22), TD(F17F23), TD(F18F24)
 		),
 };
-
-void matrix_init_user(void) {}
