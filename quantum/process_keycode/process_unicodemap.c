@@ -21,7 +21,7 @@ __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
         // Keycode is a pair: extract index based on Shift / Caps Lock state
         uint16_t index = keycode - QK_UNICODEMAP_PAIR;
 
-        uint8_t mods = get_mods();
+        uint8_t mods = get_mods() | get_weak_mods();
 #ifndef NO_ACTION_ONESHOT
         mods |= get_oneshot_mods();
 #endif
