@@ -7,7 +7,7 @@ The keymap has multiple layers, moving extra keys to different layers.
 |Priority|Layer ID|Layer Name|Contents|
 | ---- | ---- | --- | --- |
 ||2|Raise|Underglow RGB config(Red)|
-||1|Lower|Symbols and media(Blue)|
+||1|Lower|Symbols, media, function keys and mouse.(Blue)|
 ||0|Qwerty|Qwerty layout (Base)|
 
 ### The image and link are not up to date.
