@@ -1,0 +1,17 @@
+
+SRC += muse.c
+SRC += leader.c
+SRC += tap.c
+
+EXTRAFLAGS += -flto
+
+TAP_DANCE_ENABLE = yes
+
+RGBLIGHT_ENABLE = yes
+LEADER_ENABLE = yes
+AUDIO_ENABLE = yes
+UNICODE_ENABLE = no
+UNICODEMAP_ENABLE = no
+UCIS_ENABLE = no
+TERMINAL_ENABLE = no
+KEY_LOCK_ENABLE = no
