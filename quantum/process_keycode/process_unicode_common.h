@@ -75,7 +75,6 @@ typedef union {
 } unicode_config_t;
 
 extern unicode_config_t unicode_config;
-extern uint8_t          unicode_saved_mods;
 
 void    unicode_input_mode_init(void);
 uint8_t get_unicode_input_mode(void);
