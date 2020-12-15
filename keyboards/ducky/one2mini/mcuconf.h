@@ -32,7 +32,7 @@
  * 5...0        Lowest...Highest.
  */
 
-#define NUC123SD4AN0_MCUCONF
+#define NUC123_MCUCONF
 
 /*
  * HAL driver system settings.
@@ -86,6 +86,7 @@
  * PWM driver system settings.
  */
 #define NUC123_PWM_USE_ADVANCED              FALSE
+#define NUC123_PWM_USE_PWM1                  TRUE
 #define NUC123_PWM_USE_TIM1                  FALSE
 #define NUC123_PWM_USE_TIM2                  FALSE
 #define NUC123_PWM_USE_TIM3                  TRUE
