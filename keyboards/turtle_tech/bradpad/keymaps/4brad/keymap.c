@@ -1,8 +1,9 @@
 #include QMK_KEYBOARD_H
 
 #define _NATURAL 0
-#define _SHARP 1
-#define _FLAT 2
+#define _SHIFT 1
+#define _SHARP 2
+#define _FLAT 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_NATURAL] = LAYOUT( 
@@ -11,6 +12,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		MI_E, MI_TRNSD, MI_TRNSU, MI_B, \
 		MI_F, MI_OCTD,  MI_OCTU,  MI_C,\
 		     MO(_SHARP), MO(_FLAT)),
+	[_SHIFT] = LAYOUT( 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+		KC_TRNS, MI_TRNSD, MI_TRNSU, KC_TRNS,\
+		     KC_TRNS, KC_TRNS),
     [_SHARP] = LAYOUT( 
 		MI_Cs, KC_TRNS, KC_TRNS, MI_Gs, \
 		MI_Ds, KC_TRNS, KC_TRNS, MI_As, \
