@@ -738,8 +738,8 @@ bool udi_hid_raw_receive_report(void) {
 static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep) {
     UNUSED(ep);
 
-    if (status == UDD_EP_TRANSFER_OK && nb_rcvd >= 32) {
-        UDI_HID_RAW_RECEIVE(udi_hid_raw_report_recv, (uint8_t)nb_rcvd);
+    if (status == UDD_EP_TRANSFER_OK && nb_rcvd == UDI_HID_RAW_REPORT_SIZE) {
+        UDI_HID_RAW_RECEIVE(udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE);
     }
 }
 
