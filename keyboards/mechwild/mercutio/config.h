@@ -40,7 +40,8 @@
 #define ENCODERS_PAD_B { B5 }
 
 /* encoder resolution */
-#define ENCODER_RESOLUTION 4
+#define ENCODER_RESOLUTION 2
+#define TAP_CODE_DELAY 10
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
