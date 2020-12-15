@@ -5,7 +5,7 @@
   "width": 18.25,
   "height": 6.5,
   "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ANSI_87": {
             "layout": [
                 {"label":"K00 (E6,D1)", "x":0, "y":0},
                 {"label":"K01 (E6,D0)", "x":2, "y":0},
