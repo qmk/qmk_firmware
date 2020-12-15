@@ -50,7 +50,8 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGBLED_NUM 60  // Number of LEDs
-#    define RGB_MATRIX_SPLIT { 30, 30 }
+#    define RGB_MATRIX_SPLIT { 30, 30 }  	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
+#    define SPLIT_TRANSPORT_MIRROR  // If RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is enabled, you also will want to enable
 #endif
 
 // Limit the power draw
