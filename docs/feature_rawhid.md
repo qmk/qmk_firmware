@@ -29,7 +29,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-These two functions can receive and send respectively packets from and to the host with length `RAW_EPSIZE` bytes (32 on LUFA/ChibiOS/V-USB, 64 on ATSAM).
+These two functions send and receive packets of length `RAW_EPSIZE` bytes to and from the host (32 on LUFA/ChibiOS/V-USB, 64 on ATSAM).
 
 Make sure to flash raw enabled firmware before proceeding with working on the host side.
 
