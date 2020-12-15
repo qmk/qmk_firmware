@@ -29,7 +29,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-`raw_hid_receive` can receive variable size packets from host with maximum length `RAW_EPSIZE`. `raw_hid_send` on the other hand can send packets to host of exactly `RAW_EPSIZE` length, therefore it should be used with data of length `RAW_EPSIZE`.
+`raw_hid_receive` can receive variable size packets from host with maximum length `RAW_EPSIZE` and minimum length of 32 bytes. `raw_hid_send` on the other hand can send packets to host of exactly `RAW_EPSIZE` length, therefore it should be used with data of length `RAW_EPSIZE`.
 
 Make sure to flash raw enabled firmware before proceeding with working on the host side.
 
