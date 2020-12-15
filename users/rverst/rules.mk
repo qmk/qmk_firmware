@@ -1,4 +1,7 @@
-
-LEADER_ENABLE = yes
-
 SRC += rverst.c
+
+LEADER_ENABLE = no
+MOUSEKEY_ENABLE = no
+LTO_ENABLE = yes
+CONSOLE_ENABLE = yes
+UNICODEMAP_ENABLE = yes
