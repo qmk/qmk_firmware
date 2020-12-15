@@ -35,9 +35,11 @@
 #define MATRIX_COL_PINS { B0, D7, D6, D5, B1, B2, B3}
 #define UNUSED_PINS
 
+/* encoder pins */
 #define ENCODERS_PAD_A { B4 }
 #define ENCODERS_PAD_B { B5 }
 
+/* encoder resolution */
 #define ENCODER_RESOLUTION 4
 
 /* COL2ROW or ROW2COL */
@@ -51,10 +53,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
-
-/* Define custom font */
-#define OLED_FONT_H "keyboards/mechwild/mercutio/lib/mercutiofont.c"

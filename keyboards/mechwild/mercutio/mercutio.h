@@ -17,21 +17,24 @@
 
 #include "quantum.h"
 
-#define _x_ KC_NO
+#define ___ KC_NO
 
 
-#define LAYOUT_ansi_split_space( \
+#define LAYOUT_all( \
                                                          KEN, \
   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19,      K1B, \
-  K20,      K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, \
+  K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, \
   K30, K31, K32,      K34,      K36, K37,      K39, K3A, K3B  \
 ) { \
 	{ K00,   K01,   K02,   K03,   K04,   K05,   K06 }, \
 	{ K10,   K11,   K12,   K13,   K14,   K15,   K16 }, \
-	{ K20,   _x_,   K3B,   K23,   K24,   K25,   K26 }, \
+	{ K20,   ___,   K3B,   K23,   K24,   K25,   K26 }, \
 	{ K30,   K32,   K3A,   K39,   K34,   K36,   K37 }, \
-	{ _x_,   _x_,   KEN,   K0A,   K09,   K08,   K07 }, \
-	{ _x_,   K31,   K0B,   K1B,   K19,   K18,   K17 }, \
-	{ _x_,   K22,   K2B,   K2A,   K29,   K28,   K27 }  \
+	{ ___,   K21,   KEN,   K0A,   K09,   K08,   K07 }, \
+	{ ___,   K31,   K0B,   K1B,   K19,   K18,   K17 }, \
+	{ ___,   K22,   K2B,   K2A,   K29,   K28,   K27 }  \
 }
+
+
+
