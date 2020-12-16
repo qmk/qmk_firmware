@@ -167,7 +167,7 @@ You'll need to perform some modifications to the file above in order to target y
 * `"BMPGDBSerialPort"`: The `COM` port under Windows, or the `/dev/...` path for Linux/macOS.
 * `"svdFile"`: _[Optional]_ The path to the SVD file that defines the register layout for the MCU -- the appropriate file can be downloaded from the [cmsis-svd repository](https://github.com/posborne/cmsis-svd/tree/master/data/STMicro)
 * `"device"`: The name of the MCU, which matches the `<name>` tag at the top of the downloaded `svd` file.
-* `"armToolchainPath"`: _[Optional]_ The path to the ARM toolchain installation location on Windows -- under normal circumstances Linux/macOS will auto-detect this correctly and will not need to be specified. Windows is special, which is why it has its own section.
+* `"armToolchainPath"`: _[Optional]_ The path to the ARM toolchain installation location on Windows -- under normal circumstances Linux/macOS will auto-detect this correctly and will not need to be specified. Windows is special, which is why it has its own section. You can get a copy of the GNU ARM toolchain for Windows from [developer.arm.com](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads).
 
 Optionally, the following modifications should also be made to the keyboard's `rules.mk` file to disable optimisations -- not strictly required but will ensure breakpoints and variable viewing works correctly:
 ```makefile
