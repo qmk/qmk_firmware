@@ -15,21 +15,6 @@
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
 #define FN(km)  LM(5, km)
 
-//enum custom_keycodes {
-//  RGB_SLD = EZ_SAFE_RANGE,
-//  HSV_0_255_255,
-//  HSV_86_255_128,
-//  HSV_172_255_255,
-//  HSV_27_255_255,
-//  HSV_215_255_128,
-//  ST_MACRO_0,
-//  ST_MACRO_1,
-//  ST_MACRO_2,
-//  ST_MACRO_3,
-//  COLEMAK,
-//  QWERTY,
-//};
-
 
 enum my_layers {
   _QWERTY,
@@ -46,7 +31,8 @@ enum my_layers {
 #define MOUSE TT(_MOUSE)
 #define NUMPAD TT(_NUMPAD)
 
-
+#define MY_LOW TD(MOD_LOW)
+#define MY_RAI TD(MOD_RAI)
 
 #define LAYOUT_ergodox_pretty_base( \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \

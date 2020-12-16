@@ -9,7 +9,6 @@
 #include "wrappers.h"
 
 
-
 #define KC_MAC_UNDO LGUI(KC_Z)
 #define KC_MAC_CUT LGUI(KC_X)
 #define KC_MAC_COPY LGUI(KC_C)
@@ -26,26 +25,17 @@
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
 #define BP_NDSH_MAC ALGR(KC_8)
 
-//enum planck_keycodes {
-//
-//  COLEMAK= SAFE_RANGE,
-//  QWERTY,
-//  LOWER,
-//  RAISE,
-//  BACKLIT,
-//  KC_MAKE,
-//  RGB_SLD ,  DVORAK,
-//};
 
-//enum planck_layers {
-//  _COLEMAK,
-//  _QWERTY,
-//  _LOWER,
-//  _RAISE,
-//  _ADJUST,
-//  _NUMPAD,
-//  _MOUSE,
-//};
+
+enum planck_layers {
+  _COLEMAK,
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+  _NUMPAD,
+  _MOUSE,
+};
 
 
 
@@ -104,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_RSPC,_______,_______,_______,_______,_______,_______,KC_NO,_______,_______,RALT_T(KC_HOME),RGUI_T(KC_PGDOWN),RCTL_T(KC_END)),
 
   [_ADJUST] = LAYOUT_planck_grid(KC_PSCREEN,QWERTY,COLEMAK,KC_NO,KC_NO,KC_NO,KC_NO,KC_ASON,KC_ASOFF,KC_ASDN,KC_ASUP,LALT(KC_PSCREEN),
-                                 LALT(LCTL(KC_DELETE)),KC_NO,AU_ON,AU_OFF,AU_TOG,KC_NO,LED_LEVEL,RGB_TOG,RGB_VAI,RGB_VAD,KC_ASRP,RESET,
+                                 LALT(LCTL(KC_DELETE)),KC_NO,AU_ON,AU_OFF,AU_TOG,KC_NO,_______,RGB_TOG,RGB_VAI,RGB_VAD,KC_ASRP,RESET,
                                  KC_CAPSLOCK,KC_NO,MU_ON,MU_OFF,MU_TOG,KC_NO,KC_NO,RGB_MOD,RGB_HUI,RGB_HUD,DYN_MACRO_PLAY2,DYN_REC_STOP,
-                                   _______, _______, _______, _______, WEBUSB_PAIR, TO(_MOUSE), KC_NO, _______, _______, DYN_REC_START1, DYN_REC_START2, DYN_MACRO_PLAY1),
+                                   _______, _______, _______, _______, _______, TO(_MOUSE), KC_NO, _______, _______, DYN_REC_START1, DYN_REC_START2, DYN_MACRO_PLAY1),
 
   [_NUMPAD] = LAYOUT_planck_grid(_______,KC_P1,KC_P2,KC_P3,KC_P4,KC_P5,KC_P6,KC_KP_7,KC_KP_8,KC_KP_9,KC_0,_______,
                                  _______,LCTL(KC_A),_______,_______,_______,LCTL(KC_D),_______,KC_KP_4,KC_KP_5,KC_KP_6,KC_KP_PLUS,KC_KP_MINUS,
@@ -120,71 +110,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-extern bool g_suspend_state;
-extern rgb_config_t rgb_matrix_config;
+//extern bool g_suspend_state;
+//extern rgb_config_t rgb_matrix_config;
 
-void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
-}
+//void keyboard_post_init_user(void) {
+//  rgb_matrix_enable();
+//}
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
-    [1] = { {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {205,255,255}, {205,255,255}, {205,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {205,255,255}, {205,255,255}, {205,255,255} },
+//const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+//    [1] = { {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {205,255,255}, {205,255,255}, {205,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {205,255,255}, {205,255,255}, {205,255,255} },
+//
+//    [2] = { {50,153,244}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {0,0,0}, {0,0,0}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {180,255,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {164,255,233}, {180,255,233}, {180,255,233}, {180,255,233} },
+//
+//    [3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {180, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {180, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+//
+//    [4] = { {0,0,0}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {146,224,255}, {146,224,255}, {146,224,255}, {134,255,213}, {0,0,0}, {0,0,0}, {85,203,158}, {0,0,0}, {0,0,0}, {0,0,0}, {85,203,158}, {0,0,0}, {146,224,255}, {146,224,255}, {146,224,255}, {0,204,255}, {0,204,255}, {105,255,255}, {85,203,158}, {85,203,158}, {85,203,158}, {85,203,158}, {85,203,158}, {0,0,0}, {146,224,255}, {146,224,255}, {146,224,255}, {0,204,255}, {0,204,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {146,224,255}, {146,224,255}, {105,255,255}, {0,0,0} },
+//
+//    [5] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {249, 228, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {195, 61, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {195, 61, 255}, {195, 61, 255}, {195, 61, 255}},
+//
+//};
 
-    [2] = { {50,153,244}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {0,0,0}, {0,0,0}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {180,255,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {164,255,233}, {180,255,233}, {180,255,233}, {180,255,233} },
-
-    [3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {180, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {180, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-
-    [4] = { {0,0,0}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {146,224,255}, {146,224,255}, {146,224,255}, {134,255,213}, {0,0,0}, {0,0,0}, {85,203,158}, {0,0,0}, {0,0,0}, {0,0,0}, {85,203,158}, {0,0,0}, {146,224,255}, {146,224,255}, {146,224,255}, {0,204,255}, {0,204,255}, {105,255,255}, {85,203,158}, {85,203,158}, {85,203,158}, {85,203,158}, {85,203,158}, {0,0,0}, {146,224,255}, {146,224,255}, {146,224,255}, {0,204,255}, {0,204,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {146,224,255}, {146,224,255}, {105,255,255}, {0,0,0} },
-
-    [5] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {249, 228, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {195, 61, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {195, 61, 255}, {195, 61, 255}, {195, 61, 255}},
-
-};
-
-void set_layer_color(int layer) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    HSV hsv = {
-      .h = pgm_read_byte(&ledmap[layer][i][0]),
-      .s = pgm_read_byte(&ledmap[layer][i][1]),
-      .v = pgm_read_byte(&ledmap[layer][i][2]),
-    };
-    if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
-    } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
-    }
-  }
-}
-
-void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
-
-  switch (biton32(layer_state)) {
-    case _LOWER:
-
-      set_layer_color(1);
-      break;
-    case _RAISE:    
-
-      set_layer_color(2);
-      break;
-    case _ADJUST:
-
-      set_layer_color(3);
-      break;
-  case _NUMPAD:
-      set_layer_color(4);
-      break;
-  case _MOUSE:
-      set_layer_color(5);
-      break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
-      rgb_matrix_set_color_all(0, 0, 0);
-    break;
-  }
-}
+//void set_layer_color(int layer) {
+//  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+//    HSV hsv = {
+//      .h = pgm_read_byte(&ledmap[layer][i][0]),
+//      .s = pgm_read_byte(&ledmap[layer][i][1]),
+//      .v = pgm_read_byte(&ledmap[layer][i][2]),
+//    };
+//    if (!hsv.h && !hsv.s && !hsv.v) {
+//        rgb_matrix_set_color( i, 0, 0, 0 );
+//    } else {
+//        RGB rgb = hsv_to_rgb( hsv );
+//        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+//        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+//    }
+//  }
+//}
+//
+//void rgb_matrix_indicators_user(void) {
+//  if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
+//
+//  switch (biton32(layer_state)) {
+//    case _LOWER:
+//
+//      set_layer_color(1);
+//      break;
+//    case _RAISE:
+//
+//      set_layer_color(2);
+//      break;
+//    case _ADJUST:
+//
+//      set_layer_color(3);
+//      break;
+//  case _NUMPAD:
+//      set_layer_color(4);
+//      break;
+//  case _MOUSE:
+//      set_layer_color(5);
+//      break;
+//   default:
+//    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+//      rgb_matrix_set_color_all(0, 0, 0);
+//    break;
+//  }
+//}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -288,40 +278,29 @@ bool music_mask_user(uint16_t keycode) {
 
 
 
-//layer_state_t layer_state_set_keymap(layer_state_t state) {
-//   planck_ez_left_led_off();
-//   planck_ez_right_led_off();
-//   switch (get_highest_layer(state)) {
-//       case _LOWER:
-//           planck_ez_left_led_on();
-//           state =1;
-//           break;
-//       case _RAISE:
-//           planck_ez_right_led_on();
-//           state =2;
-//           break;
-//       case _ADJUST:
-//           planck_ez_right_led_on();
-//           planck_ez_left_led_on();
-//           state =3;
-//           break;
-//       default:
-//           break;
-//   }
-//   return state;
-//}
-
 
 uint32_t layer_state_set_user(uint32_t state) {
     state  = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
    return state;
 }
 
-//qk_tap_dance_action_t tap_dance_actions[] = {
-//
-//    [MOD_LOW] = MOD_LAYER(1, KC_MINS, _LOWER, KC_RSFT, KC_RALT),
-//    [MOD_RAI] = MOD_LAYER(2, KC_EQL , _RAISE, KC_RCTL, KC_RSFT),
-//
-//
-//};
+qk_tap_dance_action_t tap_dance_actions[] = {
+//    [NUM_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, nl_finished, nl_reset, 275),
+//    [MOD_LOW] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, mod_low_finished, mod_low_reset, 275),
+    [MOD_LOW] = MOD_LAYER( 1,KC_MINS, _LOWER, KC_RCTL, KC_RSFT),
+    [MOD_RAI] = MOD_LAYER( 2,KC_EQL, _RAISE, KC_RALT, KC_RSFT),
+    [LBRC_9] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, l_brc_finished, l_brc_reset, 275),
+    [RBRC_0] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, r_brc_finished, r_brc_reset, 275),
+    // Tap Dance definitions
+
+      // Tap once for Escape, twice for Caps Lock
+   [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),      
+    [TD_SPC_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT), 
+    [TD_DEL_INS] = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_INS),
+      [TD_CUT] = ACTION_TAP_DANCE_DOUBLE(KC_X,RSFT(KC_DEL)),
+     [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(KC_C,LCTL(KC_INS)),
+    [TD_PASTE] = ACTION_TAP_DANCE_DOUBLE(KC_V,RSFT(KC_INS)),
+    [TD_PIPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, pipe_finished, pipe_reset)
+
+};
 
