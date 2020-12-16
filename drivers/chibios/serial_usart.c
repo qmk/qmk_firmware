@@ -1,6 +1,6 @@
 #include "quantum.h"
 #include "serial.h"
-#include "printf.h"
+#include "print.h"
 
 #include <ch.h>
 #include <hal.h>

@@ -2,8 +2,8 @@
 #include "print.h"
 #include "debug.h"
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 #include "micro_oled.h"
