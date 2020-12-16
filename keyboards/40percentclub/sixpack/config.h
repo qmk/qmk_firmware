@@ -46,25 +46,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D4, C6, D7 }, \
     { E6, B4, B5 }  \
 }
-#define UNUSED_PINS
+#define UNUSED_PINS { D1, D0, C4, C5, B1, B2, B3 } // TX, RX, SDA, SCL, PB1, PB2, PB3 on expansion connector
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
-
-// #define BACKLIGHT_PIN B7
+/* Backlight */
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_LED_COUNT 2
 #define BACKLIGHT_PINS { F4, F5 } // Top Row, Bottom Row
 
-
-// #define RGB_DI_PIN E2
+// #define RGB_DI_PIN B1 // PB1 on expansion connector
 // #ifdef RGB_DI_PIN
 //   #define RGBLED_NUM 16
 //   #define RGBLIGHT_HUE_STEP 8
@@ -97,11 +89,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
