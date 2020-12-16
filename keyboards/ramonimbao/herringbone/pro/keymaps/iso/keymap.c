@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+#include "pattern.h"
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_iso(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_MUTE,
@@ -33,3 +35,58 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         tap_code(KC_VOLD);
     }
 }
+
+#ifdef OLED_DRIVER_ENABLE
+uint32_t anim_timer = 0;
+uint32_t anim_sleep = 0;
+uint8_t current_frame = 0;
+
+#define FRAME_DURATION 50
+
+static void render_pattern(void) {
+    void animate(void) {
+        oled_set_cursor(4, 0);
+        oled_write_raw_P(pattern_a[current_frame], 96);
+        oled_set_cursor(4, 1);
+        oled_write_raw_P(pattern_b[current_frame], 96);
+        oled_set_cursor(4, 2);
+        oled_write_raw_P(pattern_a[current_frame], 96);
+
+        current_frame = (current_frame + 1) % 32;
+    }
+
+    uint8_t current_wpm = get_current_wpm();
+    if (current_wpm != 000) {
+        oled_on();
+        if (timer_elapsed32(anim_timer) > FRAME_DURATION) {
+            anim_timer = timer_read32();
+            animate();
+        }
+        anim_sleep = timer_read32();
+    } else {
+        if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+            oled_off();
+        } else {
+            anim_timer = timer_read32();
+            animate();
+        }
+    }
+
+}
+
+void oled_task_user(void) {
+    // Render Herringbone pattern
+    render_pattern();
+    oled_render();
+
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_set_cursor(0, 0);
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_set_cursor(0, 1);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_set_cursor(0, 2);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    oled_render();
+}
+#endif

@@ -2,7 +2,7 @@
 
 ![Herringbone Pro](https://i.imgur.com/cewklY5l.png)
 
-A through-hole 75% keyboard with a rotary encoder!
+A through-hole 75% keyboard with a rotary encoder and OLED display!
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: ATmega32A
