@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* when TAPPING_TERM >= 500 same effect PERMISSIVE_HOLD.
    see tmk_core/common/action_tapping.c */
 
+#undef OLED_UPDATE_INTERVAL
+#define OLED_UPDATE_INTERVAL 50
+
 // place overrides here
 
 // If you need more program area, try select and reduce rgblight modes to use.
