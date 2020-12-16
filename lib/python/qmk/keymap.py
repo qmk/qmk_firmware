@@ -144,7 +144,7 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
-def generate_c(keyboard, layout, layers):
+def generate_c(keyboard, layout, layers, encoders=None):
     """Returns a `keymap.c` or `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -171,6 +171,24 @@ def generate_c(keyboard, layout, layers):
 
     keymap = '\n'.join(layer_txt)
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
+
+    if encoders:
+        new_keymap += ENCODER_SUPPORT
+
+        encoders_txt = []
+        for encoder_num, encoder_set in enumerate(encoders):
+            curr_encoder = ENCODER_IF.replace('_ELIF_', 'if' if encoder_num == 0 else 'else if')
+            curr_encoder = curr_encoder.replace('_INDEX_', str(encoder_num))
+
+            clockwise = parse_basic_code(encoder_set.get('clockwise'))
+            counter = parse_basic_code(encoder_set.get('counter'))
+
+            curr_encoder = curr_encoder.replace('_CLOCKWISE_', clockwise)
+            curr_encoder = curr_encoder.replace('_COUNTER_', counter)
+
+            encoders_txt.append(curr_encoder)
+
+        new_keymap = new_keymap.replace('__ENCODERS_GO_HERE__', '\n'.join(encoders_txt))
 
     return new_keymap
 
@@ -244,7 +262,7 @@ def write(keyboard, keymap, layout, layers, encoders=None):
         encoders
             An array of encoders on the keyboard. Each item includes the index and the counter- and clockwise key codes.
     """
-    keymap_content = generate_c(keyboard, layout, layers)
+    keymap_content = generate_c(keyboard, layout, layers, encoders)
     keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
 
     return write_file(keymap_file, keymap_content)

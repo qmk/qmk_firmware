@@ -2,17 +2,12 @@
   "keyboard": "handwired/onekey/pytest",
   "keymap": "encodertest",
   "layout": "LAYOUT",
-  "layers": [
-    [
-      "KC_ENTER"
-    ]
-  ],
-  "author": "",
-  "notes": "",
-  "encoders": [
-    {
+  "layers": [["KC_ENTER"]],
+  "author": "qmk",
+  "notes": "This file is a keymap.json file for handwired/onekey/pytest. It contains encoders",
+  "version": 1,
+  "encoders": [{
       "clockwise": "KC_UP",
       "counter": "KC_DOWN"
-    }
-  ]
+    }]
 }
