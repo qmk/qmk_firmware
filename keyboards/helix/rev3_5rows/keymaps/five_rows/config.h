@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_USER_H
 
 #undef OLED_UPDATE_INTERVAL
-#define OLED_UPDATE_INTERVAL 100
+#define OLED_UPDATE_INTERVAL 50
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
