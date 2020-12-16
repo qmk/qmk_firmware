@@ -296,6 +296,16 @@ This command allows you to generate QMK documentation locally. It can be uses fo
 qmk generate-docs
 ```
 
+## `qmk generate-rgb-breathe-table`
+
+This command generates a lookup table (LUT) header file for the [RGB Lighting](feature_rgblight.md) feature's breathing animation. Place this file in your keyboard or keymap directory as `rgblight_breathe_table.h` to override the default LUT in `quantum/`.
+
+**Usage**:
+
+```
+qmk generate-rgb-breathe-table [-q] [-o OUTPUT] [-m MAX] [-c CENTER]
+```
+
 ## `qmk kle2json`
 
 This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
