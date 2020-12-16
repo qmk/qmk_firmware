@@ -1,6 +1,6 @@
 # Herringbone Pro
 
-![Herringbone Pro](hhttps://i.imgur.com/cewklY5.png)
+![Herringbone Pro](https://i.imgur.com/cewklY5l.png)
 
 A through-hole 75% keyboard with a rotary encoder!
 
