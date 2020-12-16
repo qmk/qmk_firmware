@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make walletburner/cajal:default
 
-    make walletburner/cajal:ortho
+    make walletburner/cajal:default_ortho
 
 Flashing example for this keyboard:
 
