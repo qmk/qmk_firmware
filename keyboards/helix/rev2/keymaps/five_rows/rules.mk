@@ -38,6 +38,12 @@ ifneq ($(strip $(HELIX)),)
     ifeq ($(strip $1),console)
         CONSOLE_ENABLE = yes
     endif
+    ifeq ($(strip $1),debug)
+        DEBUG_CONFIG = yes
+    endif
+    ifneq ($(filter nodebug no-debug no_debug,$(strip $1)),)
+        DEBUG_CONFIG = no
+    endif
     ifneq ($(filter na no_ani no-ani,$(strip $1)),)
         LED_ANIMATIONS = no
     endif
@@ -67,6 +73,10 @@ endif
 ifeq ($(strip $(LED_ANIMATIONS)), mini)
     OPT_DEFS += -DLED_ANIMATIONS_LEVEL=1
     LED_ANIMATIONS = yes
+endif
+
+ifeq ($(strip $(DEBUG_CONFIG)), yes)
+    OPT_DEFS += -DDEBUG_CONFIG
 endif
 
 # convert Helix-specific options (that represent combinations of standard options)
