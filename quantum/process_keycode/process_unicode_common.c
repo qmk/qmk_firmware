@@ -21,6 +21,7 @@
 
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
+bool             unicode_saved_caps_lock;
 
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
@@ -80,11 +81,17 @@ __attribute__((weak)) void unicode_input_start(void) {
     unicode_saved_mods = get_mods();  // Save current mods
     clear_mods();                     // Unregister mods to start from a clean state
 
+    unicode_saved_caps_lock = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
+
     switch (unicode_config.input_mode) {
         case UC_MAC:
             register_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
+            if (unicode_saved_caps_lock) {
+                tap_code(KC_CAPS);
+                wait_ms(UNICODE_TYPE_DELAY);
+            }
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UC_WIN:
@@ -107,6 +114,10 @@ __attribute__((weak)) void unicode_input_finish(void) {
             break;
         case UC_LNX:
             tap_code(KC_SPC);
+            if (unicode_saved_caps_lock) {
+                wait_ms(UNICODE_TYPE_DELAY);
+                tap_code(KC_CAPS);
+            }
             break;
         case UC_WIN:
             unregister_code(KC_LALT);
@@ -125,6 +136,12 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
+            if (unicode_saved_caps_lock) {
+                wait_ms(UNICODE_TYPE_DELAY);
+                tap_code(KC_CAPS);
+            }
+            tap_code(KC_ESC);
+            break;
         case UC_WINC:
             tap_code(KC_ESC);
             break;
