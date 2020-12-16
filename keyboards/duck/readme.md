@@ -14,4 +14,5 @@ Lightsaver V3
 Octagon V1  
 Octagon V2  
 Orion V3  
+TC-V3  
 Viper V2  

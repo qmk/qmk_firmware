@@ -1,8 +1,8 @@
 # エンコーダ
 
 <!---
-  original document: 0.8.123:docs/feature_encoders.md
-  git diff 0.8.123 HEAD -- docs/feature_encoders.md | cat
+  original document: 0.9.43:docs/feature_encoders.md
+  git diff 0.9.43 HEAD -- docs/feature_encoders.md | cat
 -->
 
 以下を `rules.mk` に追加することで基本的なエンコーダがサポートされます:
@@ -31,7 +31,7 @@ ENCODER_ENABLE = yes
 #define ENCODER_DIRECTION_FLIP
 ```
 
-さらに、解像度を同じファイルで指定することができます (デフォルトかつお勧めは4):
+さらに、エンコーダが各戻り止め(デテント)間に登録するパルス数を定義する解像度は、次のように定義できます:
 
 ```c
 #define ENCODER_RESOLUTION 4
@@ -66,7 +66,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_PGUP);
         }
-        } else if (index == 1) { /* Second encoder */  
+    } else if (index == 1) { /* Second encoder */
         if (clockwise) {
             tap_code(KC_DOWN);
         } else {

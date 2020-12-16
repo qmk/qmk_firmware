@@ -32,26 +32,27 @@ enum planck_keycodes {
 #define RAISE MO(_RAISE)
 #define SPACEFN LT(_FN1, KC_SPC)
 #define DPADNUM MO(_DPADNUM)
+#define CTRLTAB CTL_T(KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_QWERTY] = LAYOUT_ortho_4x12(
 		KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-		KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+		CTRLTAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
 		KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTEN,
 		_______, KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT 
-	),
+		),
 
 	[_COLEMAK] = LAYOUT_ortho_4x12(
 		KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
-		KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+		CTRLTAB, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
 		KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTEN,
 		_______, KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT 
 	),
 
 	[_DVORAK] = LAYOUT_ortho_4x12(
 		KC_ESC,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
-		KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_QUOT,
+		CTRLTAB, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_QUOT,
 		KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SHIFTEN,
 		_______, KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT 
 	),
@@ -64,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_RAISE] = LAYOUT_ortho_4x12(
-		KC_GRV,  _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_7,    KC_8,    KC_9,   KC_0, 	   _______, 
+		KC_GRV,  _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_7,   KC_8,    KC_9,   KC_0, 	   _______, 
 		_______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, KC_4, 	KC_5, 	 KC_6, 	 KC_MINUS, KC_BSLS, 
 		_______, _______, _______, _______, _______, _______, _______, KC_1, 	KC_2, 	 KC_3, 	 KC_EQUAL, _______, 
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MPLY
@@ -124,8 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float dpad_song_off[][2] = SONG(MAJOR_SOUND);
 #endif
 
-// Disable LED on Rev6
-#ifdef KEYBOARD_planck_rev6
+#ifndef BACKLIGHT_ENABLE
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }

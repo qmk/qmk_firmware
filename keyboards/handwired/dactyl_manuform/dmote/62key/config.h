@@ -1,7 +1,8 @@
 #pragma once
 
 #include "config_common.h"
-
+#define PRODUCT_ID      0x3632
+#define DEVICE_VER      0x0001
 #define PRODUCT  DMOTE (62-key)
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6
