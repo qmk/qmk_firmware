@@ -77,6 +77,20 @@ void cycle_unicode_input_mode(int8_t offset) {
 
 void persist_unicode_input_mode(void) { eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode); }
 
+void _maybe_register(uint8_t code) {
+    if (unicode_saved_mods & MOD_BIT(code)) {
+        register_code(code);
+        wait_ms(UNICODE_TYPE_DELAY);
+    }
+}
+
+void _maybe_unregister(uint8_t code) {
+    if (unicode_saved_mods & MOD_BIT(code)) {
+        wait_ms(UNICODE_TYPE_DELAY);
+        unregister_code(code);
+    }
+}
+
 __attribute__((weak)) void unicode_input_start(void) {
     unicode_saved_mods = get_mods();  // Save current mods
     clear_mods();                     // Unregister mods to start from a clean state
@@ -92,6 +106,8 @@ __attribute__((weak)) void unicode_input_start(void) {
                 tap_code(KC_CAPS);
                 wait_ms(UNICODE_TYPE_DELAY);
             }
+            _maybe_unregister(KC_LSHIFT);
+            _maybe_unregister(KC_RSHIFT);
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UC_WIN:
@@ -114,6 +130,8 @@ __attribute__((weak)) void unicode_input_finish(void) {
             break;
         case UC_LNX:
             tap_code(KC_SPC);
+            _maybe_register(KC_RSHIFT);
+            _maybe_register(KC_LSHIFT);
             if (unicode_saved_caps_lock) {
                 wait_ms(UNICODE_TYPE_DELAY);
                 tap_code(KC_CAPS);
@@ -136,11 +154,13 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
+            tap_code(KC_ESC);
+            _maybe_register(KC_RSHIFT);
+            _maybe_register(KC_LSHIFT);
             if (unicode_saved_caps_lock) {
                 wait_ms(UNICODE_TYPE_DELAY);
                 tap_code(KC_CAPS);
             }
-            tap_code(KC_ESC);
             break;
         case UC_WINC:
             tap_code(KC_ESC);
