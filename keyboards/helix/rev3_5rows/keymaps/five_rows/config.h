@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_EFFECT_ALTERNATING
 
 #if defined(LED_ANIMATIONS)
-#  if LED_ANIMATIONS > 1
+#  if LED_ANIMATIONS_LEVEL > 1
    #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

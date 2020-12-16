@@ -71,11 +71,13 @@ ifneq ($(strip $(HELIX)),)
 endif
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
-    OPT_DEFS += -DLED_ANIMATIONS=2
+    OPT_DEFS += -DLED_ANIMATIONS
+    OPT_DEFS += -DLED_ANIMATIONS_LEVEL=2
 endif
 
 ifeq ($(strip $(LED_ANIMATIONS)), mini)
-    OPT_DEFS += -DLED_ANIMATIONS=1
+    OPT_DEFS += -DLED_ANIMATIONS
+    OPT_DEFS += -DLED_ANIMATIONS_LEVEL=1
 endif
 
 ifeq ($(strip $(DEBUG_CONFIG)), yes)
