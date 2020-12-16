@@ -38,6 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_B { F4, B1, F6 }
-#define ENCODERS_PAD_A { F7, F5, B3 }
+#define ENCODERS_PAD_B { F4, B1, B3 }
+#define ENCODERS_PAD_A { F7, F5, F6 }
 
