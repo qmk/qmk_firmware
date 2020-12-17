@@ -55,16 +55,23 @@ static void render_pattern(void) {
         current_frame = (current_frame + 1) % 32;
     }
 
-    if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-        oled_off();
-    } else {
+    if (get_current_wpm() != 000) {
         oled_on();
         if (timer_elapsed32(anim_timer) > FRAME_DURATION) {
-            anim_timer = timer_read32();
-            animate();
+                anim_timer = timer_read32();
+                animate();
+            }
+    } else {
+        if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+            oled_off();
+        } else {
+            oled_on();
+            if (timer_elapsed32(anim_timer) > FRAME_DURATION) {
+                anim_timer = timer_read32();
+                animate();
+            }
         }
     }
-
 }
 
 void oled_task_user(void) {
