@@ -25,7 +25,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
-WPM_ENABLE = yes
 
 SRC += pattern.c
 

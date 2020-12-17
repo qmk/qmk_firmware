@@ -107,18 +107,11 @@ static void render_pattern(void) {
         current_frame = (current_frame + 1) % 32;
     }
 
-    uint8_t current_wpm = get_current_wpm();
-    if (current_wpm != 000) {
+    if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+        oled_off();
+    } else {
         oled_on();
         if (timer_elapsed32(anim_timer) > FRAME_DURATION) {
-            anim_timer = timer_read32();
-            animate();
-        }
-        anim_sleep = timer_read32();
-    } else {
-        if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-            oled_off();
-        } else {
             anim_timer = timer_read32();
             animate();
         }
