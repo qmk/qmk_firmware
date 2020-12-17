@@ -178,11 +178,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       if(clockwise){
         tap_code(KC_MNXT);
       }else{
-        register_code(KC_MPRV);
-        while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){
-          // noop
-        }
-        unregister_code(KC_MPRV);
+        tap_code(KC_MPRV);
 
       }
       break;
