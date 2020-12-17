@@ -76,24 +76,28 @@ void matrix_scan_user(void) {
     }
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        encoder_cw.pressed = true;
-        encoder_cw.time = (timer_read() | 1);
-        action_exec(encoder_cw);
-    } else {
-        encoder_ccw.pressed = true;
-        encoder_ccw.time = (timer_read() | 1);
-        action_exec(encoder_ccw);
-    }
-}
-
 #ifdef OLED_DRIVER_ENABLE
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 uint8_t current_frame = 0;
 
 #define FRAME_DURATION 50
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (clockwise) {
+        encoder_cw.pressed = true;
+        encoder_cw.time = (timer_read() | 1);
+        action_exec(encoder_cw);
+        anim_sleep = timer_read32();
+        oled_on();
+    } else {
+        encoder_ccw.pressed = true;
+        encoder_ccw.time = (timer_read() | 1);
+        action_exec(encoder_ccw);
+        anim_sleep = timer_read32();
+        oled_on();
+    }
+}
 
 static void render_pattern(void) {
     void animate(void) {
