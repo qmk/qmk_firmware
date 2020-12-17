@@ -42,70 +42,7 @@ enum custom_keycodes { QWERTY = SAFE_RANGE, LOWER, RAISE, RGBRST };
 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY] = LAYOUT(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_ENT, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_QUOT, KC_NUHS, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_LCTL, KC_ESC, KC_LGUI, KC_LALT, MO(2), MO(1), KC_SPC, KC_SPC, KC_RALT, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_RCTL),
 
-                                                              [_LOWER] = LAYOUT(KC_F1,
-            KC_F2,
-            KC_F3,
-            KC_F4,
-            KC_F5,
-            KC_F6,
-            KC_F7,
-            KC_F8,
-            KC_F9,
-            KC_F10,
-            KC_F11,
-            KC_F12,
-            KC_TRNS,
-            KC_BRID,
-            KC_BRIU,
-            KC_BTN1,
-            KC_BTN2,
-            KC_TRNS,
-            KC_PSCR,
-            KC_MS_U,
-            KC_INS,
-            KC_MINS,
-            KC_EQL,
-            KC_TRNS,
-            KC_TRNS,
-            KC_MUTE,
-            KC_MPLY,
-            KC_VOLD,
-            KC_VOLU,
-            KC_TRNS,
-            KC_MS_L,
-            KC_MS_D,
-            KC_MS_R,
-            KC_LBRC,
-            KC_RBRC,
-            KC_TRNS,
-            KC_TRNS,
-            KC_NUBS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_TRNS,
-            KC_HOME,
-            KC_PGUP,
-            KC_PGDN,
-            KC_END,
-            KC_TRNS),
+                                                              [_LOWER] = LAYOUT(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_MUTE, KC_MPLY, KC_BTN1, KC_BTN2, KC_TRNS, KC_PSCR, KC_TRNS, KC_INS, KC_MINS, KC_EQL, KC_TRNS, KC_NO, KC_BRID, KC_BRIU, KC_VOLD, KC_VOLU, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_LBRC, KC_RBRC, KC_TRNS, KC_TRNS, KC_NUBS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGUP, KC_PGDN, KC_END, KC_TRNS),
 
                                                               [_RAISE] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_M_R, RGB_M_K, RGB_M_SN, RGB_M_SW, RGB_TOG, KC_NO, KC_NO, RGB_RMOD, RGB_MOD, KC_NO, KC_NO, KC_NO, RGB_M_G, RGB_M_B, RGB_M_P, RGB_M_T, RGB_M_X, KC_NO, KC_NO, RGB_HUD, RGB_HUI, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)};
 
@@ -127,8 +64,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     TOG_STATUS = !TOG_STATUS;
 #ifdef RGBLIGHT_ENABLE
-                    RGB_current_mode = rgblight_config.mode;
-                    CURRENT_COLOR    = (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+                    if (!caps_is_active) {
+                        RGB_current_mode = rgblight_config.mode;
+                        CURRENT_COLOR    = (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+                    }
                     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
                     rgblight_sethsv(HSV_BLUE);
 #endif
@@ -136,8 +75,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_LOWER);
             } else {
 #ifdef RGBLIGHT_ENABLE
-                rgblight_mode(RGB_current_mode);
-                rgblight_sethsv(CURRENT_COLOR.h, CURRENT_COLOR.s, CURRENT_COLOR.v);
+                if (!caps_is_active) {
+                    rgblight_mode(RGB_current_mode);
+                    rgblight_sethsv(CURRENT_COLOR.h, CURRENT_COLOR.s, CURRENT_COLOR.v);
+                } else {
+                    rgblight_mode(RGBLIGHT_MODE_ALTERNATING);
+                    rgblight_sethsv(HSV_WHITE);
+                }
 #endif
                 TOG_STATUS = false;
                 layer_off(_LOWER);
@@ -152,8 +96,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     TOG_STATUS = !TOG_STATUS;
 #ifdef RGBLIGHT_ENABLE
-                    RGB_current_mode = rgblight_config.mode;
-                    CURRENT_COLOR    = (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+                   if (!caps_is_active) {
+                        RGB_current_mode = rgblight_config.mode;
+                        CURRENT_COLOR    = (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+                    }
                     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
                     rgblight_sethsv(HSV_RED);
 #endif
@@ -161,12 +107,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_RAISE);
             } else {
 #ifdef RGBLIGHT_ENABLE
-                if(!caps_is_active){
+                if (!caps_is_active) {
                     rgblight_mode(RGB_current_mode);
                     rgblight_sethsv(CURRENT_COLOR.h, CURRENT_COLOR.s, CURRENT_COLOR.v);
-                }else{
-                    RGB_current_mode = rgblight_config.mode;
-                    CURRENT_COLOR    = (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
+                } else {
                     rgblight_mode(RGBLIGHT_MODE_ALTERNATING);
                     rgblight_sethsv(HSV_WHITE);
                 }
@@ -321,7 +265,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_CAPS);
                 caps_is_active = !caps_is_active;
                 if (caps_is_active) {
-                    RGB_current_mode = rgblight_config.mode;
                     CURRENT_COLOR    = (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val};
                     rgblight_mode(RGBLIGHT_MODE_ALTERNATING);
                     rgblight_sethsv(HSV_WHITE);
