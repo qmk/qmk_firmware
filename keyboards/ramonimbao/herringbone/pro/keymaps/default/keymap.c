@@ -28,14 +28,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-}
-
 #ifdef OLED_DRIVER_ENABLE
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
@@ -58,9 +50,10 @@ static void render_pattern(void) {
     if (get_current_wpm() != 000) {
         oled_on();
         if (timer_elapsed32(anim_timer) > FRAME_DURATION) {
-                anim_timer = timer_read32();
-                animate();
-            }
+            anim_timer = timer_read32();
+            animate();
+        }
+        anim_sleep = timer_read32();
     } else {
         if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
             oled_off();
