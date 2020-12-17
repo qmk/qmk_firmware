@@ -1,5 +1,5 @@
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "led.h"
 #include "sleep_led.h"
