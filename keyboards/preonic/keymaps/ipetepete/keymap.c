@@ -191,11 +191,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           }
       }else{
         if(clockwise){
-          register_code(KC_PGUP);
-          while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){
-            // noop
-          }
-          unregister_code(KC_PGUP);
+        tap_code(KC_PGUP);
         }else{
         tap_code();
           }
