@@ -168,17 +168,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     /* rgblight_disable(); */
     switch (get_highest_layer(state)) {
       case _1_NUMBERS:
-        ergodox_right_led_3_on();
+        ergodox_right_led_1_on();
         /* rgblight_enable();
         rgblight_mode(1);
         rgblight_sethsv(HSV_BLUE);*/
         break;
       case _2_MOUSE:
-        ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         break;
       case _3_ARROW:
-        ergodox_right_led_2_on();
         ergodox_right_led_3_on();
         break;
       /* case 7: */
