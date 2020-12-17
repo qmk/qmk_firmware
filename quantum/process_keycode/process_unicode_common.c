@@ -77,40 +77,25 @@ void cycle_unicode_input_mode(int8_t offset) {
 
 void persist_unicode_input_mode(void) { eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode); }
 
-void _maybe_register(uint8_t code) {
-    if (unicode_saved_mods & MOD_BIT(code)) {
-        dprintf("regisering code=%u\n", code);
-        wait_ms(UNICODE_TYPE_DELAY);
-        register_code(code);
-    }
-}
-
-void _maybe_unregister(uint8_t code) {
-    if (unicode_saved_mods & MOD_BIT(code)) {
-        dprintf("unregisering code=%u\n", code);
-        unregister_code(code);
-        wait_ms(UNICODE_TYPE_DELAY);
-    }
-}
-
 __attribute__((weak)) void unicode_input_start(void) {
+    unicode_saved_caps_lock = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
+
+    // Note the order matters here!
+    // Need to do this before we mess around with the mods, or else
+    // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
+    // correctly in the shifted case.
+    if (unicode_config.input_mode == UC_LNX && unicode_saved_caps_lock) {
+        tap_code(KC_CAPS);
+    }
+
     unicode_saved_mods = get_mods();  // Save current mods
     clear_mods();                     // Unregister mods to start from a clean state
-
-    unicode_saved_caps_lock = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
 
     switch (unicode_config.input_mode) {
         case UC_MAC:
             register_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
-            if (unicode_saved_caps_lock) {
-                dprintf("turning off caps lock\n");
-                tap_code(KC_CAPS);
-                _maybe_unregister(KC_LSHIFT);
-                _maybe_unregister(KC_RSHIFT);
-                wait_ms(UNICODE_TYPE_DELAY);
-            }
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UC_WIN:
@@ -134,8 +119,6 @@ __attribute__((weak)) void unicode_input_finish(void) {
         case UC_LNX:
             tap_code(KC_SPC);
             if (unicode_saved_caps_lock) {
-                wait_ms(UNICODE_TYPE_DELAY);
-                dprintf("restoring caps lock\n");
                 tap_code(KC_CAPS);
             }
             break;
@@ -158,8 +141,6 @@ __attribute__((weak)) void unicode_input_cancel(void) {
         case UC_LNX:
             tap_code(KC_ESC);
             if (unicode_saved_caps_lock) {
-                wait_ms(UNICODE_TYPE_DELAY);
-                dprintf("restoring caps lock\n");
                 tap_code(KC_CAPS);
             }
             break;
