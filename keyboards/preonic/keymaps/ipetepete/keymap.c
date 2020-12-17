@@ -205,11 +205,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           }
           unregister_code(KC_PGUP);
         }else{
-            register_code(KC_PGDN);
-            while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){
-              // noop
-            }
-            unregister_code(KC_PGDN);
+        tap_code();
           }
         }
       break;
