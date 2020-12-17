@@ -5,7 +5,7 @@
     "width": 12.5,
     "height": 4,
     "layouts": {
-        "LAYOUT_grid": {
+        "LAYOUT_ortho_4x10": {
             "layout": [
                 { "x": 0, "y": 0, "w": 1.25 },
                 { "x": 1.25, "y": 0, "w": 1.25 },
