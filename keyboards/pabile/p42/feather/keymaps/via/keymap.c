@@ -1,4 +1,4 @@
-/* Copyright 2017 Cole Markham, WoodKeys.click
+/* Copyright 2020 Pabile
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "feather.h"
 
 #include QMK_KEYBOARD_H
 
