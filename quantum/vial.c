@@ -63,7 +63,7 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 return;
             if (end > sizeof(keyboard_definition))
                 end = sizeof(keyboard_definition);
-            memcpy(msg, &keyboard_definition[start], end - start);
+            memcpy_P(msg, &keyboard_definition[start], end - start);
             break;
         }
     }
