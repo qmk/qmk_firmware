@@ -154,11 +154,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RV_SM4S:
             set_mode(WINDOWS_UNI, keycode == RV_SM4S);
             return false;
-        case RV_SM5:
-        case RV_SM5S:
-            set_mode(LINUX_UNI, keycode == RV_SM5S);
-            return false;
-
 
         // Screenshot
         case RV_SNAP:
