@@ -70,8 +70,8 @@ void switch_mode(int mode) {
 #endif
 }
 
-void is_unicode(int mode) {
-    return mode == MAC_UNI || mode == WINDOWS_UNI || mode == LINUX_UNI;
+bool is_unicode(int mode) {
+    return (mode == MAC_UNI) || (mode == WINDOWS_UNI) || (mode == LINUX_UNI);
 }
 
 
