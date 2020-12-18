@@ -16,6 +16,7 @@
  */
 #include "yampad.h"
 
+#if defined(OLED_DRIVER_ENABLE)
 __attribute__((weak))
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;  // flips the display 270 degrees
