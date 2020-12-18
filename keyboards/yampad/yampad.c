@@ -61,3 +61,4 @@ void oled_task_user(void) {
       (uint8_t)(rgblight_get_val() / RGBLIGHT_VAL_STEP));
   oled_write(led_buf, false);
 }
+#endif
