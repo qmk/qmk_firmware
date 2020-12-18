@@ -175,7 +175,7 @@ Creates a keymap.json from a keymap.c.
 **Usage**:
 
 ```
-qmk c2json [--no-cpp] [-o OUTPUT] filename
+qmk c2json -km KEYMAP -kb KEYBOARD [-q] [--no-cpp] [-o OUTPUT] filename
 ```
 
 ## `qmk lint`
