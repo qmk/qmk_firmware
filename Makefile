@@ -101,7 +101,7 @@ $(eval $(call NEXT_PATH_ELEMENT))
 
 .PHONY: list-keyboards
 list-keyboards:
-	util/list_keyboards.sh | tr '\n' ' '
+	util/list_keyboards.sh | sort -u | tr '\n' ' '
 
 .PHONY: generate-keyboards-file
 generate-keyboards-file:
