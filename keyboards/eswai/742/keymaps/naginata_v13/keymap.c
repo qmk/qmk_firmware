@@ -35,8 +35,8 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
+    KANAON = NG_SAFE_RANGE,
+    EISUON
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -58,14 +58,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,XXXXXXX,XXXXXXX,KC_COLN,KC_SCLN,XXXXXXX,XXXXXXX, XXXXXXX, KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,KC_DEL , \
     _______,XXXXXXX,KC_LBRC,KC_LCBR,KC_LPRN,KC_LT  ,XXXXXXX, XXXXXXX, KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS,_______, \
     _______,XXXXXXX,KC_RBRC,KC_RCBR,KC_RPRN,KC_GT  ,XXXXXXX, XXXXXXX, KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL ,_______, \
-    RESET  ,_______,_______,_______,_______,    _______,          _______    ,_______,_______,_______,_______,_______
+    RESET  ,_______,_______,_______,_______,    _______,          KANAON    ,_______,_______,_______,_______,_______
   ),
 
   [_RAISE] = LAYOUT(
     _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,KC_PERC,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
     _______   ,KC_CIRC   ,KC_AMPR   ,KC_EXLM   ,KC_QUES   ,KC_JYEN,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
     _______   ,KC_PIPE   ,KC_GRV    ,KC_QUOT   ,KC_DQT    ,KC_UNDS,   XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
-    _______   ,_______   ,_______   ,_______   ,_______        ,_______,           XXXXXXX        ,_______   ,_______   ,_______   ,_______   ,_______
+    _______   ,_______   ,_______   ,_______   ,_______   ,EISUON      ,           _______        ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
   [_ADJUST] = LAYOUT(
@@ -86,6 +86,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // oled_sleep_timer = timer_read32();
+
+  switch (keycode) {
+    case EISUON:
+      if (record->event.pressed) {
+        // 薙刀式
+        naginata_off();
+        // 薙刀式
+      }
+      return false;
+      break;
+    case KANAON:
+      if (record->event.pressed) {
+        // 薙刀式
+        naginata_on();
+        // 薙刀式
+      }
+      return false;
+      break;
+  }
 
   // 薙刀式
   if (!process_naginata(keycode, record))
