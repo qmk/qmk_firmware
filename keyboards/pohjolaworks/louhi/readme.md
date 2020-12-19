@@ -1,6 +1,6 @@
 # Louhi
 
-![Louhi](Layouts.png)
+![Louhi](https://i.imgur.com/bsXOscK.png)
 
 *A short description of the keyboard/project*
 
