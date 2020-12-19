@@ -71,6 +71,9 @@ void keyboard_pre_init_user(void);
 void keyboard_post_init_kb(void);
 void keyboard_post_init_user(void);
 
+void housekeeping_task_kb(void);
+void housekeeping_task_user(void);
+
 #ifdef __cplusplus
 }
 #endif

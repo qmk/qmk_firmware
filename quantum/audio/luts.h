@@ -19,8 +19,8 @@
 #    include <avr/interrupt.h>
 #    include <avr/pgmspace.h>
 #else
-#    include "ch.h"
-#    include "hal.h"
+#    include <ch.h>
+#    include <hal.h>
 #endif
 
 #ifndef LUTS_H
