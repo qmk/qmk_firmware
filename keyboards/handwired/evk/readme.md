@@ -2,5 +2,5 @@
 
 The Ergonomic Vertical Keyboard (EVK) deletes our humpback.
 
-* Maintainer: [Yang Cui](https://github.com/YangPiCui)
+* Maintainer: [YangPiCui](https://github.com/YangPiCui)
 * Hardware Availability: Upon Custom Ordering
