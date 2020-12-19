@@ -1,4 +1,4 @@
 # The default keymap for Louhi
 
 Base layer
-![Default layout](default.png)
+![Default layout](base-layer.png)
