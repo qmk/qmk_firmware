@@ -27,5 +27,6 @@ MOUSE_SHARED_EP = no
 SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = custom
 
-SRC += pmw3360.c
-QUANTUM_LIB_SRC += pointer_transport.c serial.c i2c_master.c i2c_slave.c spi_master.c
+VPATH += drivers/optical
+SRC += pointer_transport.c pmw3360.c
+QUANTUM_LIB_SRC += serial.c i2c_master.c i2c_slave.c spi_master.c

@@ -70,3 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* serial.c configuration for split keyboard */
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D2
+
+#define SPI_DIVISOR 8
+#define SPI_CS_PIN B0

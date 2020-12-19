@@ -568,7 +568,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
         static uint16_t cpi;
         if (cpi != serial_m2s_buffer.device_cpi) {
             cpi = serial_m2s_buffer.device_cpi;
-            pmw_set_cpi(cpi);
+            pmw3360_set_cpi(cpi);
         }
         serial_s2m_buffer.mouse_x = split_mouse_x;
         serial_s2m_buffer.mouse_y = split_mouse_y;
@@ -608,7 +608,7 @@ void master_mouse_send(int8_t x, int8_t y) {
 }
 void trackball_set_cpi(uint16_t cpi) {
     if (!is_keyboard_left()) {
-        pmw_set_cpi(cpi);
+        pmw3360_set_cpi(cpi);
     } else {
         device_cpi = cpi;
     }
