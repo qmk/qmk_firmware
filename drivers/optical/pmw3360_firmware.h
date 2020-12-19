@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* original source from https://github.com/mrjohnk/PMW3360DM-T2QU */
+
 #pragma once
 
 #define PMW3360_PRODUCT_ID         0x42
