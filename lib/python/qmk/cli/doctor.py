@@ -162,7 +162,7 @@ def check_git_repo():
     """
     dot_git_dir = QMK_FIRMWARE / '.git'
 
-    return CheckStatus.OK if dot_git_dir.exists() else CheckStatus.WARNING
+    return CheckStatus.OK if dot_git_dir.is_dir() else CheckStatus.WARNING
 
 
 def check_udev_rules():
