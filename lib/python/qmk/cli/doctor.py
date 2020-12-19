@@ -281,6 +281,22 @@ def is_executable(command):
     return False
 
 
+def os_tests():
+    """Determine our OS and run platform specific tests
+    """
+    platform_id = platform.platform().lower()
+
+    if 'darwin' in platform_id or 'macos' in platform_id:
+        return os_test_macos()
+    elif 'linux' in platform_id:
+        return os_test_linux()
+    elif 'windows' in platform_id:
+        return os_test_windows()
+    else:
+        cli.log.warning('Unsupported OS detected: %s', platform_id)
+        return CheckStatus.WARNING
+
+
 def os_test_linux():
     """Run the Linux specific tests.
     """
@@ -317,20 +333,8 @@ def doctor(cli):
         * [ ] Compile a trivial program with each compiler
     """
     cli.log.info('QMK Doctor is checking your environment.')
-    status = CheckStatus.OK
 
-    # Determine our OS and run platform specific tests
-    platform_id = platform.platform().lower()
-
-    if 'darwin' in platform_id or 'macos' in platform_id:
-        status = os_test_macos()
-    elif 'linux' in platform_id:
-        status = os_test_linux()
-    elif 'windows' in platform_id:
-        status = os_test_windows()
-    else:
-        cli.log.warning('Unsupported OS detected: %s', platform_id)
-        status = CheckStatus.WARNING
+    status = os_tests()
 
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
