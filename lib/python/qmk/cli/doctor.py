@@ -154,6 +154,17 @@ def check_submodules():
     return CheckStatus.OK
 
 
+def check_git_repo():
+    """Checks that the .git directory exists inside QMK_HOME.
+
+    This is a decent enough indicator that the qmk_firmware directory is a
+    proper Git repository, rather than a .zip download from GitHub.
+    """
+    dot_git_dir = QMK_FIRMWARE / '.git'
+
+    return CheckStatus.OK if dot_git_dir.is_dir() else CheckStatus.WARNING
+
+
 def check_udev_rules():
     """Make sure the udev rules look good.
     """
@@ -337,6 +348,13 @@ def doctor(cli):
     status = os_tests()
 
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
+
+    # Make sure our QMK home is a Git repo
+    git_ok = check_git_repo()
+
+    if git_ok == CheckStatus.WARNING:
+        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
+        status = CheckStatus.WARNING
 
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
