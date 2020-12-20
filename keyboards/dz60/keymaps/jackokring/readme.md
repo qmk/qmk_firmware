@@ -38,7 +38,6 @@ block of keys. The function key was exchanged with the right control key to get 
 
 ## Navigation Shift Layer (Fn Navigation)
 * Scroll lock placed on caps lock.
-* Right alt/win/control/slash form cusor block.
 * Backslash is insert.
 * Backspace is delete.
 * F1 to F12 form top row numbers and minus/equals.
@@ -58,9 +57,22 @@ block of keys. The function key was exchanged with the right control key to get 
 ## Numpad Layer
 * Right control exchanged with function shift key.
 * Numbers on MJKLUIO789.
+* All modifiers are one shot sticky.
+* Function shift is a toggle to the shifted layer.
+* Right alt/win/control/slash form cusor block.
+* Square brackets produce parantheses.
+* Keys enter, - and = produce numpad variants enter, - and +.
+* P key is numpad *.
+* Backslash is numpad /.
+* 0 Key is delete.
+* F1 to F6 form top row 1-6.
+* F7 to F12 form second row Q-Y.
+* F13 to F18 form third row A-H.
+* F19 to F24 form fourth row Z-N.
+* Comma is a plain comma. ===========????
 
 ## Numpad Shift Layer (Fn Numpad)
-* Scroll lock placed on caps lock.
+* Num lock placed on caps lock.
 * Right alt/win/control/slash form cusor block.
 * Backslash is insert.
 * Backspace is delete.
