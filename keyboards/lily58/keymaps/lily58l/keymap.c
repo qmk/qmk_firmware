@@ -261,7 +261,7 @@ void render_status_main(void) {
     // Add a empty line
     oled_write_P(PSTR("-----"), false);
     // Show host keyboard led status
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
     // Add a empty line
     oled_write_P(PSTR("-----"), false);
     // Show modifier status
