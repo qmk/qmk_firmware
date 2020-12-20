@@ -51,7 +51,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
   } else if (index == 1) { /* Second encoder */  
     if (clockwise) {
-     SEND_STRING(SS_LCTL("-")); /* zoom in */
+     tap_code16(C(KC_MINS)); /* zoom in */
     } else { 
      SEND_STRING(SS_LCTL("=")); /* zoom out */
     }
@@ -69,4 +69,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
   }
 }
-
