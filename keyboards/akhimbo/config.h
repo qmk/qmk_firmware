@@ -9,17 +9,17 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rainkeebs
 #define PRODUCT         akhimbo
-#define DESCRIPTION     split traditional, with a touch of weeb
+#define DESCRIPTION     split traditional with a touch of weeb
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 6
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F6, C6, D4, D0 }
 #define MATRIX_COL_PINS { D1, B6, B2, B3, B1, F7 }
 #define MATRIX_ROW_PINS_RIGHT { F4, F7, F6, B6 }
-#define MATRIX_COL_PINS_RIGHT { D4, C6, D7, E6, B4, B5 }, 
+#define MATRIX_COL_PINS_RIGHT { D4, C6, D7, E6, B4, B5 }
 #define UNUSED_PINS
 
 #define ENCODERS_PAD_A { F4 }
