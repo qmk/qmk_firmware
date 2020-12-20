@@ -2,8 +2,8 @@
 
 CMM.Studio Saka68 Keyboard
 
-Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)  
-Hardware Supported: PCB, Atmega32u4
+* Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
+* Hardware Supported: PCB, Atmega32u4
 
 Make example for this keyboard (after setting up your build environment):
 
