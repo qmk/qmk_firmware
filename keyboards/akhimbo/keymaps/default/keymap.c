@@ -1,4 +1,4 @@
-#include "solecito.h"
+#include "akhimbo.h"
 
 enum layers {
   _BASE,
@@ -8,7 +8,6 @@ enum layers {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define TOGGLE TG(_TOGGLE)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_BASE] = LAYOUT(
