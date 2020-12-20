@@ -37,17 +37,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//ANSI shift mode 4 ================================================================================== ANSI shift mode 4
 	LAYOUT_60_ansi(
 		KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_DEL,
-		KC_TRNS,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_HOME, KC_END,  KC_INS,
-		KC_SLCK,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAUS, KC_PSCR, KC_TRNS,
-		KC_TRNS,          KC_TRNS, KC_TRNS, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, KC_TRNS, KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
+		KC_TRNS,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_PWR,  KC_HOME, KC_END,  KC_INS,
+		KC_SLCK,          KC_TRNS, KC_TRNS, UC(176), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UC(163), KC_PAUS, KC_PSCR, KC_TRNS,
+		KC_TRNS,          UC(937), KC_MUTE, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, UC(181), KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
 		DF(1),   DF(3),            DF(2),                     DF(0),                              KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
 	
 	//Navigation shift mode 5 ============================================================================ Navigation shift mode 5
 	LAYOUT_60_ansi(
 		KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_DEL,
 		KC_TRNS,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_INS,
-		KC_SLCK,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAUS, KC_PSCR, KC_ESC,
-		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_QUES,          KC_TRNS,
+		KC_SLCK,          KC_TRNS, KC_TRNS, UC(176), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UC(163), KC_PAUS, KC_PSCR, KC_ESC,
+		KC_TRNS,          UC(937), KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, UC(181), KC_PGUP, KC_PGDN, KC_QUES,          KC_TRNS,
 		DF(1),   DF(3),            DF(2),                     DF(0),                              KC_RALT, KC_SLSH,          KC_RCTL, KC_TRNS),
 	
 	//Numpad shift mode 6 ================================================================================ Numpad shift mode 6
