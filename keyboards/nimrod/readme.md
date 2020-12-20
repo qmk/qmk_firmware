@@ -1,6 +1,6 @@
 # Nimrod
 
-![Nimrod](https://i.imgur.com/OtaetJg.jpg)
+![Nimrod](https://i.imgur.com/OtaetJgl.jpg)
 
 The Nimrod is a 4x10 ortholinear keyboard designed by cjcodell1.
 
