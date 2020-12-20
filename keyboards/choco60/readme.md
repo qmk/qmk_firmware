@@ -5,9 +5,9 @@ A 60% split keyboard for programmers.
 1. [Rev.1](rev2/): Pro Micro supported.
 2. [Rev.2](rev2/): Atmega32u2, USB-C supported.
 
-Keyboard Maintainer: [Naoto Takai](https://github.com/takai)  
-Hardware Supported: Choco60 PCB Rev1, Rev.2  
-Hardware Availability: https://keys.recompile.net/projects/choco60/
+* Keyboard Maintainer: [Naoto Takai](https://github.com/takai)
+* Hardware Supported: Choco60 PCB Rev1, Rev.2
+* Hardware Availability: https://keys.recompile.net/projects/choco60/
 
 Make example for this keyboard (after setting up your build environment):
 
