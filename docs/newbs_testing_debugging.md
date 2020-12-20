@@ -36,7 +36,9 @@ Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_l
 
 Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions.md). Doing so is pretty simple. Start by including `print.h` at the top of your file:
 
-    #include <print.h>
+```c
+#include "print.h"
+```
 
 After that you can use a few different print functions:
 

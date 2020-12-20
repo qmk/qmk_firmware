@@ -49,7 +49,9 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
- /* Backlight configuration
+#define LED_CAPS_LOCK_PIN B4
+
+/* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1
 

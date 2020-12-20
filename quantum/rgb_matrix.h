@@ -57,6 +57,11 @@
         uint8_t max = DRIVER_LED_TOTAL;
 #endif
 
+#define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) \
+    if (i >= led_min && i <= led_max) {            \
+        rgb_matrix_set_color(i, r, g, b);          \
+    }
+
 #define RGB_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
@@ -86,6 +91,7 @@ enum rgb_matrix_effects {
 };
 
 void eeconfig_update_rgb_matrix_default(void);
+void eeconfig_update_rgb_matrix(void);
 
 uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
 uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
@@ -102,6 +108,10 @@ void rgb_matrix_task(void);
 void rgb_matrix_indicators(void);
 void rgb_matrix_indicators_kb(void);
 void rgb_matrix_indicators_user(void);
+
+void rgb_matrix_indicators_advanced(effect_params_t *params);
+void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
 void rgb_matrix_init(void);
 
@@ -150,6 +160,7 @@ led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 
 #ifndef RGBLIGHT_ENABLE
+#    define eeconfig_update_rgblight_current eeconfig_update_rgb_matrix
 #    define rgblight_toggle rgb_matrix_toggle
 #    define rgblight_toggle_noeeprom rgb_matrix_toggle_noeeprom
 #    define rgblight_enable rgb_matrix_enable

@@ -14,7 +14,7 @@
     limitations under the License.
 */
 
-#include "hal.h"
+#include <hal.h>
 
 // Value to place in RTC backup register 10 for persistent bootloader mode
 #define RTC_BOOTLOADER_FLAG 0x424C
