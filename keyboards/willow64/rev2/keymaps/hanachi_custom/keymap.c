@@ -1,4 +1,4 @@
-/* Copyright 2019 @haswellep
+/* Copyright 2020 @haswellep
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,8 +63,7 @@ xxxx	,	xxxx	,	RGB_HUD	,	RGB_HUI	,	KC_ASRP	,	xxxx	,	xxxx	,	xxxx	,	xxxx	,	xxxx	,	x
 
 };
 
-bool numlock_t = false;
-bool capslock_t = false;
+
 int layer = _QWERTY;
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -74,22 +73,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-const rgblight_segment_t PROGMEM rgb_default_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 0, HSV_RED}
-);
 const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-     {29, 1, HSV_RED},
+   {29, 1, HSV_RED},
    {32, 3, HSV_RED},
-    {37, 3, HSV_RED},
-    {42, 3, HSV_RED}
-
-
-);
-const rgblight_segment_t PROGMEM rgb_fn2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {31, 1, HSV_BLUE}
-);
-const rgblight_segment_t PROGMEM rgb_fn3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {41, 1, HSV_GREEN}
+   {37, 3, HSV_RED},
+   {42, 3, HSV_RED}
 );
 const rgblight_segment_t PROGMEM rgb_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_RED}
@@ -98,30 +86,25 @@ const rgblight_segment_t PROGMEM rgb_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {35, 1, HSV_GREEN}
 );
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    rgb_default_layer,
     rgb_numpad_layer,
-    rgb_fn2_layer,
-    rgb_fn3_layer,
     rgb_caps_layer,
     rgb_numlock_layer
     );
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     layer = get_highest_layer(state);
-    rgblight_set_layer_state(1, layer_state_cmp(state, _FN1));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _FN2));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _FN3));
+    rgblight_set_layer_state(0, layer_state_cmp(state, _FN1));
 
     return state;
 }
 
 bool led_update_user(led_t led_state) {
     if (layer == _FN1) {
-        rgblight_set_layer_state(5, IS_HOST_LED_ON(USB_LED_NUM_LOCK));
+        rgblight_set_layer_state(2, IS_HOST_LED_ON(USB_LED_NUM_LOCK));
     } else {
-        rgblight_set_layer_state(5, false);
+        rgblight_set_layer_state(2, false);
     }
-    rgblight_set_layer_state(4, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(1, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
     return true;
 }
 
