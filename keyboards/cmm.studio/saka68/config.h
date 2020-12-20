@@ -23,8 +23,7 @@
 #define PRODUCT_ID      0x534B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    CMM.Studio
-#define PRODUCT         CMM.Studio Saka68
-#define DESCRIPTION     CMM.Studio Saka68
+#define PRODUCT         Saka68
 
 /* key matrix size */
 #define MATRIX_ROWS 5
