@@ -5,39 +5,33 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x726B
-#define PRODUCT_ID      0x7363
+#define PRODUCT_ID      0x616B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rainkeebs
-#define PRODUCT         trail mix
-#define DESCRIPTION     split ortho
+#define PRODUCT         akhimbo
+#define DESCRIPTION     split traditional, with a touch of weeb
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { D1, D7, F7, C6 }
-#define MATRIX_COL_PINS { F6, D4, F5, D0, F4, B6 }
-#define MATRIX_ROW_PINS_RIGHT { D1, D7, F7, C6 }
-#define MATRIX_COL_PINS_RIGHT { F6, D4, F5, D0, F4, B6 }
+#define MATRIX_ROW_PINS { F6, C6, D4, D0 }
+#define MATRIX_COL_PINS { D1, B6, B2, B3, B1, F7 }
+#define MATRIX_ROW_PINS_RIGHT { F4, F7, F6, B6 }
+#define MATRIX_COL_PINS_RIGHT { D4, C6, D7, E6, B4, B5 }, 
 #define UNUSED_PINS
 
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B4 }
-#define ENCODERS_PAD_A_RIGHT { B2 }
-#define ENCODERS_PAD_B_RIGHT { B4 }
+#define ENCODERS_PAD_A { F4 }
+#define ENCODERS_PAD_B { F5 }
+#define ENCODERS_PAD_A_RIGHT { D1 }
+#define ENCODERS_PAD_B_RIGHT { D0 }
 
 /* usb handedness? */
 #define SPLIT_USB_DETECT
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -58,13 +52,5 @@
 
 /* define serial pin */
 #define SOFT_SERIAL_PIN D3
-
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 0
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#endif
 
 #endif
