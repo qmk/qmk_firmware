@@ -1,3 +1,10 @@
+# JACKOKRING
+My [[keyboard]](https://github.com/jackokring/qmk_firmware/tree/master/keyboards/dz60/keymaps/jackokring) first go.
+
+This repository is a clone of upstream with commits into this keyboard and perhaps others listed below.
+
+* DX60 - My first attempt linked above. An advised starter model board.
+
 # Included Keyboards
 QMK runs on a diverse range of keyboards. Some of these keyboards are officially supported and see constant community contributions, while others are part of the repository for historical reasons.
 
