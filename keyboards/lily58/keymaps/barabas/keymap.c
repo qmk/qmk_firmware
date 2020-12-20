@@ -145,11 +145,10 @@ void        set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 
+#    define RAISE_MASK (1 << _RAISE)
+#    define LOWER_MASK (1 << _LOWER)
+#    define GAME_MASK (1 << _GAME)
 const char *read_layer_state(void) {
-    const uint8_t RAISE_MASK = 1 << _RAISE;
-    const uint8_t LOWER_MASK = 1 << _LOWER;
-    const uint8_t GAME_MASK  = 1 << _GAME;
-
     static char layer_state_str[24];
 
     switch (layer_state & (~GAME_MASK)) {
