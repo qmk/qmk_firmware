@@ -19,7 +19,7 @@ Ported to QMK by Peter Roe <pete@13bit.me>
 
 #ifndef LED_H
 #define LED_H
-#include "stdint.h"
+#include <stdint.h>
 
 
 /* keyboard LEDs */

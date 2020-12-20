@@ -61,10 +61,7 @@
 
 // I2C EEPROM
 // 24LC64
-#define EXTERNAL_EEPROM_BYTE_COUNT      65535
-#define EXTERNAL_EEPROM_PAGE_SIZE       32
-#define EXTERNAL_EEPROM_ADDRESS_SIZE    2
-#define EXTERNAL_EEPROM_WRITE_TIME      5
+#define EEPROM_I2C_24LC64
 
 // Dynamic EEPROM
 // Something sensible or else VIA may crash

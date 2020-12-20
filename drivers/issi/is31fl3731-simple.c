@@ -75,7 +75,7 @@ uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}, {0}, {0}};
 #elif LED_DRIVER_COUNT == 4
 uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}, {0}, {0}, {0}};
 #endif
-bool    g_led_control_registers_update_required[LED_DRIVER_COUNT] = {false};
+bool g_led_control_registers_update_required[LED_DRIVER_COUNT] = {false};
 
 // This is the bit pattern in the LED control registers
 // (for matrix A, add one to register for matrix B)
