@@ -19,7 +19,7 @@ block of keys. The function key was exchanged with the right control key to get 
 * Backslash is insert.
 * Backspace is delete.
 * F1 to F12 form top row numbers and minus/equals.
-* Square bracket are home and end.
+* Square brackets are home and end.
 * Comma and period are page up/down.
 * Semicolon is pause.
 * Apostrophy is print screen.
@@ -38,12 +38,12 @@ block of keys. The function key was exchanged with the right control key to get 
 * Backspace is delete.
 * F1 to F12 form top row numbers and minus/equals.
 * F13 to F24 form second row Q-].
-* Right alt/control are home and end.
 * Comma and period are page up/down.
 * Semicolon is pause.
 * Apostrophy is print screen.
 * Escape is backtick.
 * Enter is pure escape for easy shift escape typing.
+* Right control/alt function as modifiers for F1-F24 usage.
 
 ## Macroboard Layer
 * Right control exchanged with function shift key.
@@ -54,7 +54,7 @@ block of keys. The function key was exchanged with the right control key to get 
 * Backslash is insert.
 * Backspace is delete.
 * F1 to F12 form top row numbers and minus/equals.
-* Square bracket are home and end.
+* Square brackets are home and end.
 * Comma and period are page up/down.
 * Semicolon is pause.
 * Apostrophy is print screen.
@@ -71,7 +71,7 @@ block of keys. The function key was exchanged with the right control key to get 
 * Backslash is insert.
 * Backspace is delete.
 * F1 to F12 form top row numbers and minus/equals.
-* Square bracket are home and end.
+* Square brackets are home and end.
 * Comma and period are page up/down.
 * Semicolon is pause.
 * Apostrophy is print screen.

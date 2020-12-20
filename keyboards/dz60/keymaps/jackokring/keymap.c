@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_INS,
 		KC_SLCK,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAUS, KC_PSCR, KC_ESC,
 		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_QUES,          KC_TRNS,
-		DF(1),   DF(3),            DF(2),                     DF(0),                              KC_HOME, KC_SLSH,          KC_END,  KC_TRNS),
+		DF(1),   DF(3),            DF(2),                     DF(0),                              KC_RALT, KC_SLSH,          KC_RCTL, KC_TRNS),
 	
 	//Numpad shift mode 6 ================================================================================ Numpad shift mode 6
 	LAYOUT_60_ansi(
