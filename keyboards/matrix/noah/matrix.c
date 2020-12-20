@@ -5,11 +5,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include "hal.h"
+#include <hal.h>
 #include "quantum.h"
 #include "timer.h"
 #include "wait.h"
-#include "printf.h"
+#include "print.h"
 #include "matrix.h"
 
 /**

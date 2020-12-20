@@ -99,40 +99,13 @@ $(eval $(call NEXT_PATH_ELEMENT))
 #     endif
 # endif
 
-define GET_KEYBOARDS
-ifndef ALT_GET_KEYBOARDS
-    All_RULES_MK := $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/rules.mk))
-    All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
-    All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/rules.mk))
-    All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/*/rules.mk))
-
-    KEYMAPS_MK := $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/keymaps/*/rules.mk))
-    KEYMAPS_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/keymaps/*/rules.mk))
-    KEYMAPS_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/keymaps/*/rules.mk))
-    KEYMAPS_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/*/keymaps/*/rules.mk))
-
-    KEYBOARDS := $$(sort $$(filter-out $$(KEYMAPS_MK), $$(All_RULES_MK)))
-else
-    KEYBOARDS := $(shell find keyboards/ -type f -iname "rules.mk" | grep -v keymaps | sed 's!keyboards/\(.*\)/rules.mk!\1!' | sort | uniq)
-endif
-endef
-
-$(eval $(call GET_KEYBOARDS))
-
-# Only consider folders with makefiles, to prevent errors in case there are extra folders
-#KEYBOARDS += $(patsubst $(ROOD_DIR)/keyboards/%/rules.mk,%,$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
-
 .PHONY: list-keyboards
 list-keyboards:
-	echo $(KEYBOARDS)
-
-define PRINT_KEYBOARD
-	$(info $(PRINTING_KEYBOARD))
-endef
+	util/list_keyboards.sh | sort -u | tr '\n' ' '
 
 .PHONY: generate-keyboards-file
 generate-keyboards-file:
-	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
+	util/list_keyboards.sh | sort -u
 
 .PHONY: clean
 clean:
@@ -159,7 +132,6 @@ endif
 # $(info Keyboard: $(KEYBOARD))
 # $(info Keymap: $(KEYMAP))
 # $(info Subproject: $(SUBPROJECT))
-# $(info Keyboards: $(KEYBOARDS))
 
 
 # Set the default goal depending on where we are running make from
@@ -294,7 +266,7 @@ define PARSE_RULE
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell util/list_keyboards.sh | sort -u)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     # Otherwise use the KEYBOARD variable, which is determined either by
@@ -411,7 +383,7 @@ endef
 # if we are going to compile all keyboards, match the rest of the rule
 # for each of them
 define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(KEYBOARDS)))
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell util/list_keyboards.sh noci | sort -u)))
 endef
 
 # $1 Subproject
