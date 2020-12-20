@@ -26,9 +26,10 @@ block of keys. The function key was exchanged with the right control key to get 
 * RGB controls are Q-I.
 * Backlight controls are C-N.
 * Escape is backtick.
-* Various unicode characters µ(M), °(D), £(L), Ω(Z),
+* Various unicode characters µ(M), °(K), £(L), Ω(Z), ∫(S), ∂(D)
 * System power down on P key.
 * Global mute is X.
+* Browser home key is O, search is A, favorites is F.
  
 ## Navigation Layer
 * Right control exchanged with function shift key.
@@ -47,9 +48,10 @@ block of keys. The function key was exchanged with the right control key to get 
 * Escape is backtick.
 * Enter is pure escape for easy shift escape typing.
 * Right control/alt function as modifiers for F1-F24 usage.
-* Various unicode characters µ(M), °(D), £(L), Ω(Z),
+* Various unicode characters µ(M), °(K), £(L), Ω(Z), ∫(S), ∂(D)
 * Media control prev(C), play(V), next(B), launch(N).
 * Global mute is X.
+* Browser search is A, favorites is F.
 
 ## Macroboard Layer
 * Right control exchanged with function shift key.
