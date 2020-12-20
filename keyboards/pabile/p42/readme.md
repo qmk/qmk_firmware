@@ -9,7 +9,6 @@
 * Hardware Availability: [pabileonline.blogspot.com](https://pabileonline.blogspot.com/)
 
 Make example for this keyboard (after setting up your build environment):
-Pro Micro
 
     make pabile/p42/promicro:default
 
