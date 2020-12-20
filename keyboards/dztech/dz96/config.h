@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DZTECH
 #define PRODUCT         DZ96
-#define DESCRIPTION     TOFU96 PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 8

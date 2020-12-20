@@ -4,9 +4,9 @@
 
 A 96% PCB made by KBDFans. Sold together with the Tofu96 DIY kit.
 
-Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)  
-Hardware Supported: DZ96  
-Hardware Availability: [KBDFans](https://kbdfans.com)  
+* Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
+* Hardware Supported: DZ96
+* Hardware Availability: [KBDFans](https://kbdfans.com)
 
 Make example for this keyboard (after setting up your build environment):
 
