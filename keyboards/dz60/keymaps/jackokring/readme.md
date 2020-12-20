@@ -55,10 +55,11 @@ block of keys. The function key was exchanged with the right control key to get 
 * Browser search is A, favorites is F.
 * Volume is up(J) and down(H).
 
-## Macroboard Layer
+## Numpad Layer
 * Right control exchanged with function shift key.
+* Numbers on MJKLUIO789.
 
-## Macroboard Shift Layer (Fn Macroboard)
+## Numpad Shift Layer (Fn Numpad)
 * Scroll lock placed on caps lock.
 * Right alt/win/control/slash form cusor block.
 * Backslash is insert.
@@ -72,10 +73,10 @@ block of keys. The function key was exchanged with the right control key to get 
 * Backlight controls are C-N.
 * Escape is backtick.
 
-## Numpad Layer
+## Macroboard Layer
 * Right control exchanged with function shift key.
 
-## Numpad Shift Layer (Fn Numpad)
+## Macroboard Shift Layer (Fn Macroboard)
 * Scroll lock placed on caps lock.
 * Right alt/win/control/slash form cusor block.
 * Backslash is insert.
