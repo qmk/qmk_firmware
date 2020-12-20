@@ -228,7 +228,6 @@ void oled_task_user(void) {
             break;
     }
 
-    // Host Keyboard LED Status
 }
 
 #endif
