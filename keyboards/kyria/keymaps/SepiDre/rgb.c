@@ -42,10 +42,6 @@ uint32_t layer_state_set_user(uint32_t state) {
                     rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
                     rgblight_sethsv(15, 255, 255);
                     break;
-                case _NEO2_2:
-                    rgblight_mode(RGBLIGHT_MODE_KNIGHT);
-                    rgblight_sethsv(HSV_PURPLE);
-                    break;
                 case _SYMBOLS:
                     rgblight_mode(RGBLIGHT_MODE_KNIGHT);
                     rgblight_sethsv(HSV_RED);
@@ -56,7 +52,7 @@ uint32_t layer_state_set_user(uint32_t state) {
                     break;
                 case _ADJUST:
                     rgblight_mode(RGBLIGHT_MODE_KNIGHT);
-                    rgblight_sethsv(HSV_RED);
+                    rgblight_sethsv(HSV_PURPLE);
                     break;
                 default:
                     break;

@@ -1,6 +1,5 @@
 enum layers {
     _NEO2 = 0,
-    _NEO2_2,
     _SHOOT,
     _NUMBER,
     _NUMLEFT,
@@ -9,5 +8,6 @@ enum layers {
 };
 
 enum custom_keycodes {
-    ALT_TAB = SAFE_RANGE
+    ALT_TAB = SAFE_RANGE,
+    BACK_TAB = SAFE_RANGE
 };
