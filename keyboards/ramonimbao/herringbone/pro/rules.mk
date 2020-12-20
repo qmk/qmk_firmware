@@ -28,6 +28,3 @@ OLED_DRIVER_ENABLE = yes
 WPM_ENABLE = yes
 
 SRC += pattern.c
-
-# Enable link-time optimization
-EXTRAFLAGS += -flto
