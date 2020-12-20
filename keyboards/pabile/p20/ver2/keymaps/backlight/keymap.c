@@ -53,7 +53,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
      tap_code16(C(KC_MINS)); /* zoom in */
     } else { 
-     SEND_STRING(SS_LCTL("=")); /* zoom out */
+     tap_code16(C(KC_EQL)); /* zoom out */
     }
   } else if (index == 2) { /* Third encoder */  
     if (clockwise) {
