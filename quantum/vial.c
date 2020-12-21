@@ -29,6 +29,7 @@ enum {
     vial_get_def = 0x02,
     vial_get_encoder = 0x03,
     vial_set_encoder = 0x04,
+    vial_get_keymap_fast = 0x05,
 };
 
 void vial_handle_cmd(uint8_t *msg, uint8_t length) {
@@ -87,6 +88,26 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             break;
         }
 #endif
+        /*
+         * Retrieve up to 16 keycodes at once.
+         * First byte: layer to retrieve
+         * Second byte: row to retrieve
+         * 16 more bytes: columns to retrieve (at that layer/row). 0xFF padding used to ignore that position.
+         */
+        case vial_get_keymap_fast: {
+            uint8_t req[16];
+            uint8_t layer = msg[2];
+            uint8_t row = msg[3];
+            memcpy(req, &msg[4], sizeof(req));
+
+            for (int i = 0; i < 16; ++i) {
+                if (req[i] != 0xFF) {
+                    uint16_t keycode = dynamic_keymap_get_keycode(layer, row, req[i]);
+                    msg[2 * i] = keycode >> 8;
+                    msg[2 * i + 1] = keycode & 0xFF;
+                }
+            }
+        }
     }
 }
 
