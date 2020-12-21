@@ -1,6 +1,7 @@
 # CMM.Studio Saka68
 
 CMM.Studio Saka68 Keyboard
+
 solder version pcb view can be seen here
 (<a href="//imgur.com/a/jwmyRoq">saka solder pcb</a></blockquote>)
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
