@@ -4,6 +4,6 @@ else
 	MDLOADER = sudo bin/mdloader_linux
 endif
 
-doflash: .build/massdrop_alt_wdpelkins.hex
+doflash: .build/massdrop_alt_jdelkins_ss.hex
 	$(MDLOADER) --first --download $< --restart
 
