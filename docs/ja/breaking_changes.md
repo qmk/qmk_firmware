@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.0:docs/breaking_changes.md
-  git diff 0.9.0 HEAD -- docs/breaking_changes.md | cat
+  original document: 0.10.33:docs/breaking_changes.md
+  git diff 0.10.33 HEAD -- docs/breaking_changes.md | cat
 -->
 
 このドキュメントは QMK の互換性を破る変更(Breaking change) のプロセスについて説明します。
@@ -15,22 +15,23 @@ Breaking change ピリオドとは、危険な変更、または予想外の変�
 
 ## 過去の Breaking change には何が含まれますか？
 
+* [2020年8月29日](ja/ChangeLog/20200829.md)
 * [2020年5月30日](ja/ChangeLog/20200530.md)
 * [2020年2月29日](ja/ChangeLog/20200229.md)
 * [2019年8月30日](ja/ChangeLog/20190830.md)
 
 ## 次の Breaking change はいつですか？
 
-次の Breaking change は2020年8月29日に予定されています。
+次の Breaking change は2020年11月28日に予定されています。
 
 ### 重要な日付
 
-* [x] 2020年 5月30日 - `develop` が作成されました。毎週リベースされます。
-* [ ] 2020年 8月 1日 - `develop` は新しいPRを取り込みません。
-* [ ] 2020年 8月 1日 - テスターの募集。
-* [ ] 2020年 8月27日 - `master`がロックされ、PR はマージされません。
-* [ ] 2020年 8月29日 - `develop` を `master` にマージします。
-* [ ] 2020年 8月29日 - `master` のロックが解除されます。PR を再びマージすることができます。
+* [x] 2020年 8月29日 - `develop` が作成されました。毎週リベースされます。
+* [ ] 2020年10月31日 - `develop` は新しいPRを取り込みません。
+* [ ] 2020年10月31日 - テスターの募集。
+* [ ] 2020年11月26日 - `master`がロックされ、PR はマージされません。
+* [ ] 2020年11月28日 - `develop` を `master` にマージします。
+* [ ] 2020年11月28日 - `master` のロックが解除されます。PR を再びマージすることができます。
 
 ## どのような変更が含まれますか？
 

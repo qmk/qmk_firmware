@@ -83,7 +83,7 @@ UDC_DESC_STORAGE usb_dev_desc_t udc_device_desc = {.bLength         = sizeof(usb
 #ifdef USB_DEVICE_PRODUCT_NAME
                                                    .iProduct = 2,
 #else
-                                                   .iProduct      = 0,  // No product string
+                                                   .iProduct = 0,  // No product string
 #endif
 #if (defined USB_DEVICE_SERIAL_NAME || defined USB_DEVICE_GET_SERIAL_NAME_POINTER)
                                                    .iSerialNumber = 3,
@@ -120,7 +120,7 @@ UDC_DESC_STORAGE udc_desc_t udc_desc = {
     .conf.iConfiguration      = 0,
     .conf.bmAttributes        = /* USB_CONFIG_ATTR_MUST_SET | */ USB_DEVICE_ATTR,
     .conf.bMaxPower           = USB_CONFIG_MAX_POWER(USB_DEVICE_POWER),
-    .hid_kbd = UDI_HID_KBD_DESC,
+    .hid_kbd                  = UDI_HID_KBD_DESC,
 #ifdef RAW_ENABLE
     .hid_raw = UDI_HID_RAW_DESC,
 #endif

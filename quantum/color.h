@@ -36,20 +36,38 @@
 #    define LED_TYPE RGB
 #endif
 
-// WS2812 specific layout
+#define WS2812_BYTE_ORDER_RGB 0
+#define WS2812_BYTE_ORDER_GRB 1
+
+#ifndef WS2812_BYTE_ORDER
+#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
+#endif
+
 typedef struct PACKED {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
     uint8_t g;
     uint8_t r;
     uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+#endif
 } cRGB;
 
 typedef cRGB RGB;
 
 // WS2812 specific layout
 typedef struct PACKED {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
     uint8_t g;
     uint8_t r;
     uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+#endif
     uint8_t w;
 } cRGBW;
 

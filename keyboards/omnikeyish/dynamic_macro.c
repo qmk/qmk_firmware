@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
 #include <string.h>
 
+dynamic_macro_t dynamic_macros[DYNAMIC_MACRO_COUNT];
+
 void dynamic_macro_init(void) {
   /* zero out macro blocks  */
   memset(&dynamic_macros, 0, DYNAMIC_MACRO_COUNT * sizeof(dynamic_macro_t));

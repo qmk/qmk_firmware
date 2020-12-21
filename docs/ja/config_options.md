@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: 0.9.43:docs/config_options.md
-  git diff 0.9.43 HEAD -- docs/config_options.md | cat
+  original document: 0.10.33:docs/config_options.md
+  git diff 0.10.33 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -34,7 +34,9 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 これは最初に include されるものの 1 つである C ヘッダファイルで、プロジェクト全体(もし含まれる場合)にわたって持続します。多くの変数をここで設定し、他の場所からアクセスすることができます。`config.h` ファイルでは、以下のもの以外の、他の `config.h`  ファイルやその他のファイルの include をしないでください:
 
-    #include "config_common.h"
+```c
+#include "config_common.h"
+```
 
 
 ## ハードウェアオプション
