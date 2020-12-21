@@ -1,7 +1,8 @@
 # CMM.Studio Saka68
 
 CMM.Studio Saka68 Keyboard
-![CMM.Studio Saka68](<a href="//imgur.com/a/jwmyRoq">saka solder pcb</a></blockquote>
+solder version pcb view can be seen here
+(<a href="//imgur.com/a/jwmyRoq">saka solder pcb</a></blockquote>)
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
 * Hardware Supported: PCB, Atmega32u4
 
