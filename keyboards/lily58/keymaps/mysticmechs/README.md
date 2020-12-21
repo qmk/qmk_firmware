@@ -8,7 +8,7 @@ MysticMechs keyboard is a variant of the original [kata0510 Lily58 Pro](https://
 
 ### Build and Flash
 
-    make lily58:mysticmechs:avrdude
+    make lily58:mysticmechs:flash
 
 ### References
 
