@@ -68,19 +68,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const rgblight_segment_t PROGMEM my_caps[] = RGBLIGHT_LAYER_SEGMENTS(
-    {8, 1, HSV_CYAN}
+    {8, 1, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM my_fn[] = RGBLIGHT_LAYER_SEGMENTS(
-    {15, 1, HSV_CYAN}
+    {15, 1, HSV_PINK}
 );
 
 const rgblight_segment_t PROGMEM my_lowbit[] = RGBLIGHT_LAYER_SEGMENTS(
-    {11, 1, HSV_CYAN}
+    {11, 1, HSV_CHARTREUSE}
 );
 
 const rgblight_segment_t PROGMEM my_highbit[] = RGBLIGHT_LAYER_SEGMENTS(
-    {12, 1, HSV_CYAN}
+    {12, 1, HSV_SPRINGGREEN}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
