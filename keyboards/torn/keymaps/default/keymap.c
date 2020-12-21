@@ -103,17 +103,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
-
-const uint16_t PROGMEM encoder_keymaps[][2][2] = {
-    [_QWERTY] =  { { C(S(KC_TAB)), C(KC_TAB) },     { KC_PGDN,      KC_PGUP } },
-    [_LOWER]  =  { { C(KC_LEFT),   C(KC_RGHT) },    { KC__VOLDOWN,  KC__VOLUP } },
-    [_RAISE]  =  { { KC_TRNS,      KC_TRNS },       { G(KC_TAB),    G(S(KC_TAB)) } },
-    [_ADJUST] =  { { KC_TRNS,      KC_TRNS },       { KC_TRNS,      KC_TRNS } },
-};
-// clang-format on
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    torn_set_led(0, IS_LAYER_ON_STATE(state, _RAISE));
-    torn_set_led(1, IS_LAYER_ON_STATE(state, _LOWER));
-    return state;
-}
