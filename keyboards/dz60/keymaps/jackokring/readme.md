@@ -39,6 +39,14 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ## Macroboard Layer
 * Right control exchanged with function shift key.
+* Escape is a pure escape which can be shifted.
+* All modifiers are one shot sticky.
+* Function shift is a toggle to the shifted layer.
+* F1 to F12 form top row numbers and minus/equals.
+* F13 to F24 form second row Q-].
+* F1 to F12 form third row A-enter with an implicit right alt gr applied.
+* F13 to F24 form fourth row Z-right shift with an implicit right alt gr applied.
+* Depending on your system the "Level 3 Shift" may be removed by localization of alt gr. 
 
 ## Macroboard Shift Layer (Fn Macroboard)
 * Scroll lock placed on caps lock.
