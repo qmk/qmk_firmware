@@ -45,8 +45,11 @@ key is not often used. It is available on the macroboard shift layer for complet
 * F1 to F12 form top row numbers and minus/equals.
 * F13 to F24 form second row Q-].
 * F1 to F12 form third row A-enter with an implicit right alt gr applied.
-* F13 to F24 form fourth row Z-right shift with an implicit right alt gr applied.
-* Depending on your system the "Level 3 Shift" may be removed by localization of alt gr. 
+* F13 to F23 form fourth row Z-right shift with an implicit right alt gr applied.
+* Backslash is F24 with an implicit right alt gr applied.
+* Depending on your system the "Level 3 Shift" may be removed by localization of alt gr.
+* A macro can be recorded (128 keys) until power off by backspace (record start/stop).
+* The macro can be played back by space.
 
 ## Macroboard Shift Layer (Fn Macroboard)
 * Scroll lock placed on caps lock.
