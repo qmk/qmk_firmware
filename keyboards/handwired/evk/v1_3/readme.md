@@ -1,6 +1,7 @@
 # [Ergonomic Vertical Keyboard (EVK)](https://github.com/YangPiCui/ErgonomicVerticalKeyboard) version 1.3 with Teensy 2.0
-Keyboard Maintainer: [YangPiCui](https://github.com/YangPiCui)  
-Hardware Supported: Ergonomic Vertical Keyboard (EVK) version 1.3 with Teensy 2.0
+
+* Keyboard Maintainer: [YangPiCui](https://github.com/YangPiCui)
+* Hardware Supported: Ergonomic Vertical Keyboard (EVK) version 1.3 with Teensy 2.0
 
 Make example for this keyboard (after setting up your build environment):
 
