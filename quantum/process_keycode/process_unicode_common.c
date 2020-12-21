@@ -78,7 +78,7 @@ void cycle_unicode_input_mode(int8_t offset) {
 void persist_unicode_input_mode(void) { eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode); }
 
 __attribute__((weak)) void unicode_input_start(void) {
-    unicode_saved_caps_lock = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
+    unicode_saved_caps_lock = host_keyboard_led_state().caps_lock;
 
     // Note the order matters here!
     // Need to do this before we mess around with the mods, or else
