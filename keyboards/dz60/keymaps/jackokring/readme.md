@@ -55,6 +55,8 @@ block of keys. The function key was exchanged with the right control key to get 
 * Volume is up(J) and down(H).
 
 ## Numpad Layer
+* Apostrophy is launch calculator.
+* Semicolon is insert. (A strange choice but assume it can insert an escaped calc instance.)
 * Right control exchanged with function shift key.
 * Numbers on MJKLUIO789.
 * All modifiers are one shot sticky.
@@ -70,6 +72,7 @@ block of keys. The function key was exchanged with the right control key to get 
 * F13 to F18 form third row A-H.
 * F19 to F24 form fourth row Z-N.
 * Comma is a plain comma. ===========????
+* Num lock placed on caps lock.
 
 ## Numpad Shift Layer (Fn Numpad)
 * Num lock placed on caps lock.
