@@ -182,7 +182,9 @@ Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - no
 
 By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:
 
-    #include <sendstring_colemak.h>
+```c
+#include "sendstring_colemak.h"
+```
 
 ### Strings in Memory
 
