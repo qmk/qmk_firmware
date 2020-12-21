@@ -1,10 +1,25 @@
-ifneq ($(EXTERNAL_USERSPACE),)
+ifneq ($(EXTERNAL_USERSPACE), )
     # Look for out-of-tree json keymap file
-    EXT_KM_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)
-    ifneq ("$(wildcard $(EXT_KM_PATH)/keymap.json)", "")
+    ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)/keymap.json)", "")
         KEYMAP_C := $(KEYBOARD_OUTPUT)/src/keymap.c
-        KEYMAP_JSON := $(EXT_KM_PATH)/keymap.json
-        KEYMAP_PATH := $(EXT_KM_PATH)
+        KEYMAP_JSON := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)/keymap.json
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)/keymap.json)", "")
+        KEYMAP_C := $(KEYBOARD_OUTPUT)/src/keymap.c
+        KEYMAP_JSON := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)/keymap.json
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)/keymap.json)", "")
+        KEYMAP_C := $(KEYBOARD_OUTPUT)/src/keymap.c
+        KEYMAP_JSON := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)/keymap.json
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)/keymap.json)", "")
+        KEYMAP_C := $(KEYBOARD_OUTPUT)/src/keymap.c
+        KEYMAP_JSON := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)/keymap.json
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)/keymap.json)", "")
+        KEYMAP_C := $(KEYBOARD_OUTPUT)/src/keymap.c
+        KEYMAP_JSON := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)/keymap.json
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)
     endif
 endif
 

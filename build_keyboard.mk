@@ -100,17 +100,32 @@ MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
 
+
 ifneq ($(EXTERNAL_USERSPACE), )
     # Look for out-of-tree keyboard-specific keymap
-    EXT_KM_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD)/$(KEYMAP)
-    ifneq ("$(wildcard $(EXT_KM_PATH)/keymap.c)", "")
-        -include $(EXT_KM_PATH)/rules.mk
+    ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)/keymap.c
+    endif
+
+    ifneq ("$(wildcard $(KEYMAP_PATH))", "")
+        -include $(KEYMAP_PATH)/rules.mk
         # If EXT_SRC exists, add all files to SRC with the EXT_KM_PATH prefix so make can find it
         ifneq ($(EXT_SRC), )
-            $(foreach SOURCE, $(EXT_SRC), $(eval SRC += $(EXT_KM_PATH)/$(SOURCE)))
+            $(foreach SOURCE, $(EXT_SRC), $(eval SRC += $(KEYMAP_PATH)/$(SOURCE)))
         endif
-        KEYMAP_PATH := $(EXT_KM_PATH)
-        KEYMAP_C := $(EXT_KM_PATH)/keymap.c
     endif
 endif
 
