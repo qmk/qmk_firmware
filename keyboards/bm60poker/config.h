@@ -21,10 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4B50 // "KP"
-#define PRODUCT_ID      0xEF8E
+#define PRODUCT_ID      0xEF8D
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
-#define PRODUCT         BM60POKER
+#define PRODUCT         BM60 RGB POKER
 
 /* key matrix size */
 #define MATRIX_ROWS 5
