@@ -1,7 +1,7 @@
 # CMM.Studio Saka68
 
 CMM.Studio Saka68 Keyboard
-
+![CMM.Studio Saka68](https://imgur.com/a/jwmyRoq)
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
 * Hardware Supported: PCB, Atmega32u4
 
