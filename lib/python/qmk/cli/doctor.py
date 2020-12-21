@@ -9,7 +9,7 @@ from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
 from qmk.commands import run
-from qmk.os_helpers import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo
+from qmk.os_helpers import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo, check_userspace
 
 
 def os_tests():
@@ -26,17 +26,6 @@ def os_tests():
     else:
         cli.log.warning('Unsupported OS detected: %s', platform_id)
         return CheckStatus.WARNING
-
-
-def check_userspace():
-    if cli.config.user.userspace:
-        userspace_path = Path(cli.config.user.userspace)
-        if not userspace_path.exists():
-            cli.log.error('External userspace: {fg_red}%s does not exists', userspace_path)
-        elif not userspace_path.is_absolute():
-            cli.log.warning('External userspace: {fg_yellow}%s is not an absolute path', userspace_path)
-        else:
-            cli.log.info('External userspace: {fg_cyan}%s', userspace_path)
 
 
 def os_test_linux():
@@ -80,14 +69,22 @@ def doctor(cli):
     status = os_tests()
 
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
-    check_userspace()
+
+    # Check the existence of external userspace, if configured
+    if cli.config.user.userspace:
+        userspace_ok = check_userspace()
+        if userspace_ok == CheckStatus.ERROR:
+            status = CheckStatus.ERROR
+        elif userspace_ok == CheckStatus.WARNING and status == CheckStatus.OK:
+            status = CheckStatus.WARNING
 
     # Make sure our QMK home is a Git repo
     git_ok = check_git_repo()
 
     if git_ok == CheckStatus.WARNING:
         cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
-        status = CheckStatus.WARNING
+        if status == CheckStatus.OK:
+            status = CheckStatus.WARNING
 
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
