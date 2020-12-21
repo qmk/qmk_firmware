@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-// OLED setup
+// OLED setup for bongocat
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 30
 #define TAP_FRAMES 2
@@ -25,6 +25,7 @@
 #define ANIM_FRAME_DURATION 200
 #define ANIM_SIZE 512
 
+static long int oled_timeout = 600000; // 10 minutes
 bool gui_on = true;
 char wpm_str[10];
 uint32_t anim_timer = 0;
@@ -32,7 +33,6 @@ uint32_t anim_sleep = 0;
 uint8_t current_idle_frame = 0;
 uint8_t current_tap_frame = 0;
 
-static long int oled_timeout = 600000; // 10 minutes
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -81,51 +81,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    return OLED_ROTATION_180;  // flips the display 180 degrees
 }
 
-//static void render_name(void) {
-//    static const char PROGMEM mercutio_name[] = {
-//        0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0x95, 0xB5, 0x96, 0xD5, 0xB6, 0xB6, 
-//        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
-//        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
-//        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
-//    };
-//    oled_write_P(mercutio_name, false);
-//}
-// static void render_status(void) {
-//     
-//     // WPM
-//     oled_write_P(PSTR("      "), false);
-//     sprintf(wpm_str, "%03d", get_current_wpm());
-//     oled_write(wpm_str, false);
-//     oled_write_P(PSTR("   WPM"), false);
-// 
-//     // GUI keys indicator
-//     if (gui_on) oled_write_P(PSTR("\n       "), false);
-//     else oled_write_P(PSTR("\n      GUI   OFF"), false);
-//     
-//     // Caps lock indicator
-//     led_t led_state = host_keyboard_led_state();
-//     oled_write_P(led_state.caps_lock ? PSTR("\n      CAPS LOCK") : PSTR("\n       "), false);
-// 
-//     // Layer indicator
-//     oled_write_P(PSTR("\n      LAYER "), false);
-// 
-//     switch (get_highest_layer(layer_state)) {
-//         // Layer 1
-//         case 1:
-//             oled_write_P(PSTR("  1"), false);
-//             break;
-//         // Layer 0
-//         default:
-//             oled_write_P(PSTR("  0"), false);
-//             break;
-//     }}
-
-//
-// Render right OLED display animation
-//
 static void render_anim(void) {
 
     // Idle animation
@@ -192,7 +150,6 @@ static void render_anim(void) {
     };
 
     void animation_phase(void) {
-
         if (get_current_wpm() <=IDLE_SPEED) {
             current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
             oled_write_raw_P(idle[abs((IDLE_FRAMES-1)-current_idle_frame)], ANIM_SIZE);
@@ -207,7 +164,7 @@ static void render_anim(void) {
             oled_write_raw_P(tap[abs((TAP_FRAMES-1)-current_tap_frame)], ANIM_SIZE);
         }
     }
-
+    
     if (get_current_wpm() != 000) {
         oled_on();
 
@@ -229,14 +186,12 @@ static void render_anim(void) {
     }
 }
 
-//
-// OLED display rendering
-//
 void oled_task_user(void) {
         render_anim();
+        oled_set_cursor(0,4);
+        sprintf(wpm_str, "WPM: %03d", get_current_wpm());
+        oled_write(wpm_str, false);
+
 }
 
-// void oled_task_user(void) {
-//     render_name(); 
-// }
 #endif
