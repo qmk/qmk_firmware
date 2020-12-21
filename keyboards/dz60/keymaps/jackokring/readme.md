@@ -58,7 +58,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Tab is a one shot sticky win control alt.
 * Caps lock is a one shot sticky win control shift.
 * Left shift is a one shot sticky win shift.
-* Backspace is a one shot sticky win control alt shift.
+* Backspace is a one shot sticky control alt shift.
 * Fn is still sticky and needs pressing to exit the layer shift.
 
 ## Navigation Layer
