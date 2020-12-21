@@ -9,11 +9,11 @@ An 8 key macropad with 2 rotary encoders
 
 Make example for this keyboard (after setting up your build environment):
 
-	make nightly_boards/octopad:default
+    make nightly_boards/octopad:default
 	
 Flashing example for this keyboard:
 
-	make nightly_boards/octopad:default:flash
+    make nightly_boards/octopad:default:flash
 
 You can enter bootloader mode by pressing the physical reset button at the back of the pcb or by holding the upper left key (among the 8 keys) while plugging the usb cable.
 
