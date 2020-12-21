@@ -16,7 +16,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Space is numpad layer select.
 
 ## ANSI Layer
-* Right control exchanged with function shift key.
+* Right control exchanged with function shift key as always.
 
 ## ANSI Shift Layer (Fn ANSI)
 * Scroll lock placed on caps lock.
@@ -38,8 +38,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Volume is up(J) and down(H).
 
 ## Macroboard Layer
-* Right control exchanged with function shift key.
-* Escape is a one shot sticky control alt shift.
+* Escape is a one shot sticky alt shift.
 * Tab is a one shot sticky control alt.
 * Caps lock is a one shot sticky control shift.
 * All modifiers are one shot sticky.
@@ -54,11 +53,15 @@ key is not often used. It is available on the macroboard shift layer for complet
 * The macro can be played back by space.
 
 ## Macroboard Shift Layer (Fn Macroboard)
-* Right alt/control are alt tab window switch )reverse and forward).
+* Right alt/control are alt tab window switch (reverse and forward).
+* Escape is a one shot sticky win alt shift.
+* Tab is a one shot sticky win control alt.
+* Caps lock is a one shot sticky win control shift.
+* Left shift is a one shot sticky win shift.
+* Backspace is a one shot sticky win control alt shift.
 * Fn is still sticky and needs pressing to exit the layer shift.
 
 ## Navigation Layer
-* Right control exchanged with function shift key.
 * Right alt/win/control/slash form cusor block.
 
 ## Navigation Shift Layer (Fn Navigation)
@@ -82,7 +85,6 @@ key is not often used. It is available on the macroboard shift layer for complet
 ## Numpad Layer
 * Apostrophy is launch calculator.
 * Semicolon is insert. (A strange choice but assume it can insert an escaped calc instance.)
-* Right control exchanged with function shift key.
 * Numbers on MJKLUIO789.
 * All modifiers are one shot sticky.
 * Function shift is a toggle to the shifted layer.
