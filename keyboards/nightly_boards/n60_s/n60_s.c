@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "n60.h"
+#include "n60_s.h"
 
 void matrix_scan_kb(void) {
     encoder_action_unregister();

@@ -21,6 +21,7 @@ RGBLIGHT_ENABLE = yes         # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no         # Enable Bluetooth
 AUDIO_ENABLE = yes            # Audio output
 ENCODER_ENABLE = yes          # Enable Rotary Encoders
+LTO_ENABLE = yes
 
 # Added encoder Action
-SRC +=  ../../encoder_action.c
+SRC += encoder_action.c
