@@ -1,5 +1,13 @@
 #include QMK_KEYBOARD_H
 
+/*
+make bootloader install via: (or use via if it's firmwared) => CHOICE
+	cd qmk_firmware
+	sudo make dz60:jackokring:dfu
+	^C
+	sudo make dz60:via:dfu
+*/
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//ANSI lock mode 0 =================================================================================== ANSI lock mode 0
