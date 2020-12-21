@@ -27,7 +27,7 @@ __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
 #endif
 
         bool shift = mods & MOD_MASK_SHIFT;
-        bool caps  = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
+        bool caps  = host_keyboard_led_state().caps_lock;
         if (shift ^ caps) {
             index >>= 7;
         }
