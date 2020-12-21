@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_alice( \
     k16, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12,      k14, \
     k32, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29,      k31, \
     k48, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43, k44,      k30,      \
@@ -32,7 +32,8 @@
     { KC_NO, k61, KC_NO,   k62, KC_NO,   k63,   k64, KC_NO,   k65, KC_NO,   k66, KC_NO, KC_NO, KC_NO, KC_NO,   k67 }  \
 }
 
-#define LAYOUT_all( \
+// Equivalent to LAYOUT_all
+#define LAYOUT_alice_split_bs( \
     k16, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k15, \
     k32, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29,      k31, \
     k48, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43, k44,      k30,      \
@@ -46,7 +47,7 @@
     { KC_NO, k61, KC_NO,   k62, KC_NO,   k63,   k64, KC_NO,   k65, KC_NO,   k66, KC_NO, KC_NO, KC_NO, KC_NO,   k67 }  \
 }
 
-#define LAYOUT_split_bs( \
+#define LAYOUT_alice_split_bs_full_rshift( \
     k16, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k15, \
     k32, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29,      k31, \
     k48, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43, k44,      k30,      \
@@ -60,7 +61,7 @@
     { KC_NO, k61, KC_NO,   k62, KC_NO,   k63,   k64, KC_NO,   k65, KC_NO,   k66, KC_NO, KC_NO, KC_NO, KC_NO,   k67 }  \
 }
 
-#define LAYOUT_full_rshift( \
+#define LAYOUT_alice_full_rshift( \
     k16, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12,      k14, \
     k32, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29,      k31, \
     k48, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43, k44,      k30,      \
