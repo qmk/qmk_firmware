@@ -39,7 +39,9 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ## Macroboard Layer
 * Right control exchanged with function shift key.
-* Escape is a pure escape which can be shifted.
+* Escape is a one shot sticky control alt shift.
+* Tab is a one shot sticky control alt.
+* Caps lock is a one shot sticky control shift.
 * All modifiers are one shot sticky.
 * Function shift is a toggle to the shifted layer.
 * F1 to F12 form top row numbers and minus/equals.
@@ -52,18 +54,8 @@ key is not often used. It is available on the macroboard shift layer for complet
 * The macro can be played back by space.
 
 ## Macroboard Shift Layer (Fn Macroboard)
-* Scroll lock placed on caps lock.
-* Right alt/win/control/slash form cusor block.
-* Backslash is insert.
-* Backspace is delete.
-* F1 to F12 form top row numbers and minus/equals.
-* Square brackets are home and end.
-* Comma and period are page up/down.
-* Semicolon is pause.
-* Apostrophy is print screen.
-* RGB controls are Q-I.
-* Backlight controls are C-N.
-* Escape is backtick.
+* Right alt/control are alt tab window switch )reverse and forward).
+* Fn is still sticky and needs pressing to exit the layer shift.
 
 ## Navigation Layer
 * Right control exchanged with function shift key.
@@ -109,3 +101,4 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ## Numpad Shift Layer (Fn Numpad)
 * Standard ANSI layer except for left modifiers control/win/alt.
+* Fn is still sticky and needs pressing to exit the layer shift.
