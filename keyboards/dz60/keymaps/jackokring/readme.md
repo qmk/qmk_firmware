@@ -4,11 +4,16 @@ My first keyboard edit. A multi-layer ANSI-60 with layers and function shift on 
 Changes from the default keymap include moving RESET, and a prefered arangement for the cusor
 block of keys. The function key was exchanged with the right control key to get it.
 
+## Right Windows is Application Context Menu Instead
+The right Windows key is for getting the application context menu. The right Windows GUI
+key is not often used. It is available on the macroboard shift layer for completeness.
+
 ## Common to All Fn Layers
-* Space is ANSI layer select.
-* Left control is navigation layer select.
+* If on a layer a switch is not necessary so the following keys become themselves.
+* Left control is ANSI layer select.
 * Left win is macroboard layer select.
-* Left alt is numpad layer
+* Left alt is navigation layer select.
+* Space is numpad layer select.
 
 ## ANSI Layer
 * Right control exchanged with function shift key.
@@ -31,7 +36,24 @@ block of keys. The function key was exchanged with the right control key to get 
 * Global mute is X.
 * Browser home key is O, search is A, favorites is F.
 * Volume is up(J) and down(H).
- 
+
+## Macroboard Layer
+* Right control exchanged with function shift key.
+
+## Macroboard Shift Layer (Fn Macroboard)
+* Scroll lock placed on caps lock.
+* Right alt/win/control/slash form cusor block.
+* Backslash is insert.
+* Backspace is delete.
+* F1 to F12 form top row numbers and minus/equals.
+* Square brackets are home and end.
+* Comma and period are page up/down.
+* Semicolon is pause.
+* Apostrophy is print screen.
+* RGB controls are Q-I.
+* Backlight controls are C-N.
+* Escape is backtick.
+
 ## Navigation Layer
 * Right control exchanged with function shift key.
 * Right alt/win/control/slash form cusor block.
@@ -71,36 +93,8 @@ block of keys. The function key was exchanged with the right control key to get 
 * F7 to F12 form second row Q-Y.
 * F13 to F18 form third row A-H.
 * F19 to F24 form fourth row Z-N.
-* Comma is a plain comma. ===========????
+* Comma is a plain comma.
 * Num lock placed on caps lock.
 
 ## Numpad Shift Layer (Fn Numpad)
-* Num lock placed on caps lock.
-* Right alt/win/control/slash form cusor block.
-* Backslash is insert.
-* Backspace is delete.
-* F1 to F12 form top row numbers and minus/equals.
-* Square brackets are home and end.
-* Comma and period are page up/down.
-* Semicolon is pause.
-* Apostrophy is print screen.
-* RGB controls are Q-I.
-* Backlight controls are C-N.
-* Escape is backtick.
-
-## Macroboard Layer
-* Right control exchanged with function shift key.
-
-## Macroboard Shift Layer (Fn Macroboard)
-* Scroll lock placed on caps lock.
-* Right alt/win/control/slash form cusor block.
-* Backslash is insert.
-* Backspace is delete.
-* F1 to F12 form top row numbers and minus/equals.
-* Square brackets are home and end.
-* Comma and period are page up/down.
-* Semicolon is pause.
-* Apostrophy is print screen.
-* RGB controls are Q-I.
-* Backlight controls are C-N.
-* Escape is backtick.
+* Standard ANSI layer except for left modifiers control/win/alt.
