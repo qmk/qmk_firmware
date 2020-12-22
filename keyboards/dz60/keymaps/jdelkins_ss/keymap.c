@@ -28,7 +28,6 @@ uint16_t rgb_idle_seconds = 0;
 uint16_t rgb_timer;
 uint16_t bspc_timer;
 bool rgb_was_enabled;
-extern rgblight_config_t rgblight_config;
 
 enum {
     MY_BSPC = USER_SAFE_RANGE,
@@ -232,19 +231,19 @@ bool led_update_user(led_t led_state) {
 
 void keyboard_post_init_keymap(void) {
     rgblight_layers = my_rgb_layers;
-    rgb_was_enabled = rgblight_config.enable;
+    rgb_was_enabled = rgblight_is_enabled();
     bspc_timer = 0;
 }
 
 LEADER_EXTERNS();
 
 void matrix_scan_keymap(void) {
-    if (rgblight_config.enable && timer_elapsed(rgb_timer) > 1000) {
+    if (rgblight_is_enabled() && timer_elapsed(rgb_timer) > 1000) {
         rgb_idle_seconds++;
         rgb_timer = timer_read();
     }
     if (rgb_idle_seconds > IDLE_TIMEOUT) {
-        rgb_was_enabled = rgblight_config.enable;
+        rgb_was_enabled = rgblight_is_enabled();
         rgblight_disable_noeeprom();
         rgb_idle_seconds = 0;
     }
@@ -321,7 +320,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     bool rc = true;
 
     rgb_idle_seconds = 0;
-    if (!rgblight_config.enable && rgb_was_enabled)
+    if (!rgblight_is_enabled() && rgb_was_enabled)
         rgblight_enable_noeeprom();
 
     switch (keycode) {
