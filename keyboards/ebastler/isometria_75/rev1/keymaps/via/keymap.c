@@ -56,7 +56,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 /* The first if reads the first encoder, not needed on this board which only features a single one */
     if (index == 0) {
         /* The switch case allows for different encoder mappings on different layers, "default" map gets applied for all unspecified layers */
-        switch(biton32(layer_state)){
+        switch(get_highest_layer(layer_state)){
             case 2:
                 if (clockwise) {
                 tap_code(KC_BRIU);
