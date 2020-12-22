@@ -93,12 +93,12 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
-    debug_enable = true;
+    // debug_enable = true;
     // debug_matrix=true;
     // debug_keyboard = true;
 
 #ifdef RGBLIGHT_ENABLE
-    rgblight_sethsv_noeeprom(HSV_BLUE);
+
 #endif
 
     keyboard_post_init_keymap();
@@ -140,19 +140,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RV_SM0:
         case RV_SM0S:
-            set_mode(MAC, keycode == RV_SM0S);
+            set_mode(MAC_UNI, keycode == RV_SM0S);
             return false;
         case RV_SM1:
         case RV_SM1S:
-            set_mode(WINDOWS, keycode == RV_SM1S);
+            set_mode(WINDOWS_UNI, keycode == RV_SM1S);
+            return false;
+        case RV_SM2:
+        case RV_SM2S:
+            set_mode(LINUX_UNI, keycode == RV_SM2S);
             return false;
         case RV_SM3:
         case RV_SM3S:
-            set_mode(MAC_UNI, keycode == RV_SM3S);
+            set_mode(MAC, keycode == RV_SM3S);
             return false;
         case RV_SM4:
         case RV_SM4S:
-            set_mode(WINDOWS_UNI, keycode == RV_SM4S);
+            set_mode(WINDOWS, keycode == RV_SM4S);
+            return false;
+
+        case RV_SAYM:
+            switch (mode) {
+            case MAC:
+                send_string("MacOS (normal)");
+                break;
+            case WINDOWS:
+                send_string("Windows (normal)");
+                break;
+            case MAC_UNI:
+                send_string("MacOS (unicode)");
+                break;
+            case WINDOWS_UNI:
+                send_string("Windows (unicode)");
+                break;
+            case LINUX_UNI:
+                send_string("Linux (unicode)");
+                break;
+            }
             return false;
 
         // Screenshot
@@ -180,7 +204,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
 
         // Umlauts - äÄöÖüÜ
-        // with legacy-mode for MAC and WINDOWS without unicode support
         case RV_AUML:
         case RV_OUML:
         case RV_UUML:

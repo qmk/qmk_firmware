@@ -23,6 +23,7 @@ enum userspace_keycodes {
     RV_SM2S,    // set MAC_UNI and save
     RV_SM3S,    // set WINDOWS_UNI and save
     RV_SM4S,    // set LINUX_UNI and save
+    RV_SAYM,    // say mode
     RV_AUML,    // äÄ
     RV_OUML,    // öÖ
     RV_UUML,    // üÜ
