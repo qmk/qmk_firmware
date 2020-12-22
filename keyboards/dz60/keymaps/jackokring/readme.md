@@ -96,6 +96,9 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Backslash is insert. 
 * Square brackets are home and end.
 * Enter is itself.
+* Various unicode characters µ(M), °(K), £(L), Ω(Z), ∫(S), ∂(D) and √(G).
+* Volume is up(J) and down(H).
+* Browser search is A, favorites is F.
 
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.

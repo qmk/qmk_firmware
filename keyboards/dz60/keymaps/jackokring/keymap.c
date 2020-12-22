@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_60_ansi(
 		KC_GESC, KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_HAEN, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_LOCK, KC_HOME, KC_END,  KC_INS,
-		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_PAUS, KC_PSCR, KC_ENT,
+		KC_CAPS,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_ENT,
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, MOD_RGUI,         KC_RCTL, TG(9))
 	
