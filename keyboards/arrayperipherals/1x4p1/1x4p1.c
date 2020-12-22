@@ -16,7 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "1x4p1.h"
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
