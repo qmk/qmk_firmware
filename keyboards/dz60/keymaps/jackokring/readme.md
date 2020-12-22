@@ -112,6 +112,18 @@ key is not often used. It is available on the macroboard shift layer for complet
 * The level 4 shifts are all lockable on P, while a minus on mouse is more 13th letter freq.
 * Q is the 26th in popularity by frequency count but first left/right, top/bottom.
 
+```The inventor of Morse code, Samuel Morse (1791-1872), needed to know this so that he could give the simplest codes to the most frequently used letters. He did it simply by counting the number of letters in sets of printers' type. The figures he came up with were:	
+12,000	E               2,500	F
+9,000	T	            2,000	W, Y
+8,000	A, I, N, O, S	1,700	G, P
+6,400	H	            1,600	B
+6,200	R	            1,200	V
+4,400	D	            800	K
+4,000	L	            500	Q
+3,400	U	            400	J, X
+3,000	C, M	        200	Z
+```
+
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
 
