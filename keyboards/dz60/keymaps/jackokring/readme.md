@@ -123,6 +123,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 3,400	U	            400	J, X
 3,000	C, M	        200	Z
 ```
+
 ```For word games, it is often the frequency of letters in English vocabulary, regardless of word frequency, which is of more interest. The following is a result of an analysis of the letters occurring in the words listed in the main entries of the Concise Oxford Dictionary (9th edition, 1995) and came up with the following table:	
 E	11.1607%	56.88	M	3.0129%	15.36
 A	8.4966%	43.31	H	3.0034%	15.31
@@ -138,6 +139,10 @@ U	3.6308%	18.51	Z	0.2722%	1.39
 D	3.3844%	17.25	J	0.1965%	1.00
 P	3.1671%	16.14	Q	0.1962%	(1)
 ```
+
+* Did you know that there are 26 simple sporadic groups?
+* Is space the 27th honorary tits group?
+* Has it been a mamalian while in the mamalian `Milky Way`?
 
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
