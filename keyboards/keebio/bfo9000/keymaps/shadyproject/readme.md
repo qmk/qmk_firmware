@@ -1,4 +1,4 @@
-![Shadyproject BFO-9000 layout image](http://shadyproject.net/images/bfo9000.png)
+![Shadyproject BFO-9000 layout image](http://shadyproject.net/images/bfo9000-layout.png)
 
 # Shadyproject BFO-9000 layout
 
