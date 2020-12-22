@@ -100,6 +100,18 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Volume is up(J) and down(H).
 * Browser search is A, favorites is F.
 
+#### Notes on "Level 3 Shift"
+* Ironically not being American I will not test the en_US local without hardware.
+* I'm not sure if that locale supports an alt gr key interpretation of right alt.
+* Hacking linux termcap/gui equivalent files might be possible for the determined.
+* I call it WANKSI for fun! (Worldwide American National Keyboard Standards Institue).
+* I hear they have a galactic space force branch.
+* I'm sure I've included all the language and international keys for `galactic` languages.
+* I think the Unicode allocation for planet Earth is a galactic joke.
+* A universal joke perhaps, with overtones of differentiation through gravity wells.
+* The level 4 shifts are all lockable on P, while a minus on mouse is more 13th letter freq.
+* Q is the 26th in popularity by frequency count but first left/right, top/bottom.
+
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
 
