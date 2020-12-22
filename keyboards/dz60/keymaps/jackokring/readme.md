@@ -85,7 +85,17 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ### Special Shift Layer
 * Fn exits the special shift layer.
-* Numer row and minus/equal is international and korean modifiers with zero being lock. 
+* Minus/equal is korean modifiers.
+* P is key lock for holding down a key until the held key is pressed again.
+* International modifiers are on Q-O.
+* Numbers are the numpad numbers for macro code options.
+* Remaining laguage 3 to 7 are on Z-M.
+* All left and right modifiers are themselves.
+* Comma/period/slash set moise acceleration 1, 2 and 3.
+* Backspace is delete.
+* Backslash is insert. 
+* Square brackets are home and end.
+* Enter is itself.
 
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
