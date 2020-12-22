@@ -16,197 +16,86 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_bepo.h"
+#include "base.h"
 
+/* See
+ *
+ * https://github.com/manna-harbour/qmk_firmware/blob/miryoku/users/manna-harbour_miryoku/manna-harbour_miryoku.h
+ */
+
+/* Macos commands (cancel, paste…) */
 #define U_RDO SCMD(KC_Z)
 #define U_PST LCMD(KC_V)
 #define U_CPY LCMD(KC_C)
 #define U_CUT LCMD(KC_X)
 #define U_UND LCMD(KC_Z)
 
-// Row 1
-// Left
-#define S00 KC_NO
-#define S01 BP_B
-#define S02 BP_E_ACUTE
-#define S03 BP_P
-#define S04 BP_O
-#define S05 BP_E_GRAVE
-// Right
-#define S06 BP_DCRC
-#define S07 BP_V
-#define S08 BP_D
-#define S09 BP_L
-#define S10 BP_J
-#define S11 BP_Z
+/* Miryoku specific keys */
+#define U_NP KC_NO // key is not present
+#define U_NA KC_NO // present but not available for use
+#define U_NU KC_NO // available but not used
 
-// Row 2
-// Left
-#define S12 BP_W                     // TODO : See how I can insert FN_T(BP_W) ? Need it ?
-#define S13 LCTL_T(BP_A)
-#define S14 LALT_T(BP_U)
-#define S15 GUI_T(BP_I)
-#define S16 LSFT(BP_E)
-#define S17 BP_COMMA
-// Right
-#define S18 BP_C
-#define S19 RSFT(BP_T)
-#define S20 GUI_T(BP_S)
-#define S21 RALT_T(BP_R)
-#define S22 RCTL_T(BP_N)
-#define S23 BP_M
-
-// Row 3
-#define S24 KC_NO
-#define S25 BP_A_GRAVE
-#define S26 BP_Y                     // NOTE : LCTL_T(BP_Y) in Original layout
-#define S27 BP_X
-#define S28 BP_DOT
-#define S29 BP_K
-#define S30 KC_NO                      // Top outer key
-#define S31 KC_NO                      // Top outer key
-#define S32 KC_NO                      // Top outer key
-#define S33 KC_NO                      // Top outer key
-#define S34 BP_APOSTROPHE
-#define S35 BP_Q
-#define S36 BP_G
-#define S37 BP_H
-#define S38 BP_F
-#define S39 BP_CCED
-
-// Row 4
+// Modifiers
 #define B00 KC_NO
-#define B01 LT(MEDR, KC_ESC)
-#define B02 LT(NAVR, KC_SPC)
-#define B03 LT(MOUR, KC_TAB)
-#define B04 KC_NO
-#define B05 KC_NO
-#define B06 LT(NSSL, KC_ENT)
-#define B07 LT(NSL, KC_BSPC)
-#define B08 LT(FUNL, KC_DEL)
+#define B01 KC_NO
+#define B02 LT(MEDR, KC_ESC)
+#define B03 LT(NAVR, KC_SPC)
+#define B04 LT(MOUR, KC_TAB)
+#define B05 LT(NSSL, KC_ENT)
+#define B06 LT(NSL, KC_BSPC)
+#define B07 LT(FUNL, KC_DEL)
+#define B08 KC_NO
 #define B09 KC_NO
-
-// NAVR
-// Row1
-// Left
-#define T00 KC_NO
-#define T01 RSFT
-#define T02 KC_NO
-#define T03 KC_NO
-#define T04 KC_NO
-#define T05 KC_NO
-
-// Right
-#define T06 U_RDO
-#define T07 U_PST
-#define T08 U_CPY
-#define T09 U_CUT
-#define T10 U_UND
-#define T11 KC_NO
-
-// Row 2
-// Left
-#define T12 KC_NO
-#define T13 KC_LCTL
-#define T14 KC_LALT
-#define T15 KC_LGUI
-#define T16 LSFT
-#define T17 KC_NO
-
-// Right
-#define T18 KC_LEFT
-#define T19 KC_DOWN
-#define T20 KC_UP
-#define T21 KC_RGHT
-#define T22 KC_CAPS
-#define T23 KC_NO
-
-// Row 3
-// Left
-#define T24 KC_NO
-#define T25 KC_LALT
-#define T26 KC_NO
-#define T28 KC_NO
-#define T29 KC_NO
-#define T30 KC_NO
-// Right
-#define T31 KC_NO
-#define T32 KC_NO
-#define T33 KC_HOME
-#define T34 KC_PGDN
-#define T35 KC_PGUP
-#define T36 KC_END
-#define T37 KC_INS
-#define T38 KC_NO
-
-// Row 4
-#define C00 KC_NO
-#define C01 KC_NO
-#define C02 KC_NO
-#define C03 KC_NO
-#define C04 KC_NO
-#define C05 KC_NO
-#define C06 KC_ENT
-#define C07 KC_BSPC
-#define C08 KC_DEL
-#define C09 KC_NO
-
 
 enum layers { BASE, MBO, MEDR, NAVR, MOUR, NSSL, NSL, FUNL };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [BASE] = LAYOUT(
+  [BASE] = LAYOUT(
       S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
       S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
       S24, S25, S26, S27, S28, S29, S30, S31,     S32, S33, S34, S35, S36, S37, S38, S39,
-                     B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
-    ),
-
-    [NAVR] = LAYOUT(
-      T00, T01, T02, T03, T04, T05,                         T06, T07, T08, T09, T10, T11,
-      T12, T13, T14, T15, T16, T17,                         T18, T19, T20, T21, T22, T23,
-      T24, T25, T26, T27, T28, T29, T30, T31,     T32, T33, T34, T35, T36, T37, T38, T39,
-                     C00, C01, C02, C03, C04,     C05, C06, C07, C08, C09
-    ),
-
-    [MOUR] = LAYOUT(
-      S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
-      S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
-      S24, S25, S26, S27, S28, S29, S30, S31,     S32, S33, S34, S35, S36, S37, S38, S39,
-                     B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
-    ),
-
-    [MBO] = LAYOUT(
-      S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
-      S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
-      S24, S25, S26, S27, S28, S29, S30, S31,     S32, S33, S34, S35, S36, S37, S38, S39,
-                     B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
-    ),
-
-    [MEDR] = LAYOUT(
-      S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
-      S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
-      S24, S25, S26, S27, S28, S29, S30, S31,     S32, S33, S34, S35, S36, S37, S38, S39,
-                     B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
-    ),
-
-    [NSSL] = LAYOUT(
-      S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
-      S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
-      S24, S25, S26, S27, S28, S29, S30, S31,     S32, S33, S34, S35, S36, S37, S38, S39,
-                     B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
-    ),
-
-    [NSL] = LAYOUT(
-      S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
-      S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
-      S24, S25, S26, S27, S28, S29, S30, S31,     S32, S33, S34, S35, S36, S37, S38, S39,
-                     B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
-    ),
-
-    [FUNL] = LAYOUT(
-      S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
-      S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
-      S24, S25, S26, S27, S28, S29, S30, S31,     S32, S33, S34, S35, S36, S37, S38, S39,
-                     B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
-    ),
+      B00, B01, B02, B03, B04,     B05, B06, B07, B08, B09
+      ),
+  [NAVR] = LAYOUT(
+      KC_NO, RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                       U_RDO,    U_PST,   U_CPY,   U_CUT,   U_UND,   KC_NO,
+      KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_SPC,                                     KC_LEFT,  KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, KC_NO,
+      KC_NO, U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA, KC_NO, KC_NO,        KC_NO,  KC_NO,   KC_HOME,  KC_PGDN, KC_PGUP, KC_END,  KC_INS,  KC_NO,
+                               U_NP,    U_NP,    U_NA, U_NA,  U_NA,         KC_ENT, KC_BSPC, KC_DEL,   U_NP,    U_NP
+      ),
+  [MOUR] = LAYOUT(
+      KC_NO, RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    KC_NO,
+      KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,    KC_NO,
+      KC_NO, U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA, KC_NO, KC_NO,        KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,    KC_NO,
+                               U_NP,    U_NP,    U_NA, U_NA,  U_NA,         KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
+     ),
+  [MEDR] = LAYOUT(
+      KC_NO, RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO,
+      KC_NO, KC_LGUI, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,    KC_NO,
+      KC_NO, U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA, KC_NO, KC_NO,        KC_NO,   KC_NO,   U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    KC_NO,
+                               U_NP,    U_NP,    U_NA, U_NA,  U_NA,         KC_MSTP, KC_MPLY, KC_MUTE, U_NP,    U_NP
+      ),
+  [MBO] = LAYOUT(
+      KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,
+      KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,
+      KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,
+                               U_NP,    U_NP,    KC_TRNS, KC_TRNS, KC_TRNS,  KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
+      ),
+  [FUNL] = LAYOUT(
+      KC_NO, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,                                U_NA,    U_NA,    U_NA,    U_NA,    RESET, KC_NO,
+      KC_NO, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,                                U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
+      KC_NO, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, KC_NO,  KC_NO,   KC_NO, KC_NO, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
+                               U_NP,    U_NP,    KC_APP,  KC_SPC, KC_TAB,  U_NA,  U_NA,  U_NA,    U_NP,    U_NP
+      ),
+  [NSL] = LAYOUT(
+      KC_NO, KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC,                                 U_NA,    U_NA,    U_NA,    U_NA,    RESET, KC_NO,
+      KC_NO, KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,                                  U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
+      KC_NO, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NO,   KC_NO,   KC_NO, KC_NO, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
+                               U_NP,    U_NP,    KC_DOT,  KC_0,    KC_MINS, U_NA,  U_NA,  U_NA,    U_NP,    U_NP
+      ),
+  [NSSL] = LAYOUT(
+      KC_NO, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,                                 U_NA,    U_NA,    U_NA,    U_NA,    RESET, KC_NO,
+      KC_NO, KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS,                                 U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
+      KC_NO, KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, KC_NO,   KC_NO,  KC_NO, KC_NO, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
+                      U_NP,    U_NP,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,   U_NA,    U_NA,    U_NP,    U_NP
+      )
 };
