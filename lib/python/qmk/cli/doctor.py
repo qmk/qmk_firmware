@@ -5,11 +5,8 @@ Check out the user's QMK environment and make sure it's ready to compile.
 import platform
 
 from milc import cli
-from milc.questions import yesno
-from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import run
-from qmk.os_helpers import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo, check_userspace
+from qmk.os_helpers import CheckStatus, check_userspace, repo_test, tooling_test
 
 
 def os_tests():
@@ -51,60 +48,6 @@ def os_test_windows():
     cli.log.info("Detected {fg_cyan}Windows.")
 
     return CheckStatus.OK
-
-
-def repo_test():
-    """Run tests related to the health of the Git repo.
-    """
-    # Make sure our QMK home is a Git repo
-    git_ok = check_git_repo()
-
-    if git_ok == CheckStatus.WARNING:
-        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
-        return CheckStatus.WARNING
-
-    # Check out the QMK submodules
-    sub_ok = check_submodules()
-
-    if sub_ok == CheckStatus.OK:
-        cli.log.info('Submodules are up to date.')
-    else:
-        if yesno('Would you like to clone the submodules?', default=True):
-            submodules.update()
-            sub_ok = check_submodules()
-
-        if CheckStatus.ERROR in sub_ok:
-            return CheckStatus.ERROR
-        elif CheckStatus.WARNING in sub_ok:
-            return CheckStatus.WARNING
-        else:
-            return CheckStatus.OK
-
-
-def tooling_test():
-    """Run tests related to the used tools/compilers/etc.
-    """
-    # Make sure the basic CLI tools we need are available and can be executed.
-    bin_ok = check_binaries()
-
-    if not bin_ok:
-        if yesno('Would you like to install dependencies?', default=True):
-            run(['util/qmk_install.sh'])
-            bin_ok = check_binaries()
-
-    if bin_ok:
-        cli.log.info('All dependencies are installed.')
-    else:
-        return CheckStatus.ERROR
-
-    # Make sure the tools are at the correct version
-    ver_ok = check_binary_versions()
-    if CheckStatus.ERROR in ver_ok:
-        return CheckStatus.ERROR
-    elif CheckStatus.WARNING in ver_ok:
-        return CheckStatus.WARNING
-    else:
-        return CheckStatus.OK
 
 
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
