@@ -85,6 +85,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ### Special Shift Layer
 * Fn exits the special shift layer.
+* Numer row and minus/equal is international and korean modifiers with zero being lock. 
 
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
