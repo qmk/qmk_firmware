@@ -218,6 +218,12 @@ If `RETRO_SHIFT` is defined to a value, hold times greater than that value will 
 #define RETRO_SHIFT 500
 ```
 
+This value (if set) must be greater than one's `TAPPING_TERM`, as the key press must be designated as a 'hold' by the time we send the modifier for use with mouse or return true on its release if `RETRO_SHIFT` is exceeded. There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT`.
+
+### Retro Shift and IGNORE_MOD_TAP_INTERRUPT
+
+`IGNORE_MOD_TAP_INTERRUPT` works a little differently when using Retro Shift. Referencing the `TAPPING_TERM` makes little sense, as holding longer will result in shifting one of the keys. Instead, it simply makes rolling from a mod tap (releasing it first) send both keys instead of the modifier on the second.
+
 ## Why do we include the key record for the per key functions? 
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.
