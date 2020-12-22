@@ -53,6 +53,60 @@ def os_test_windows():
     return CheckStatus.OK
 
 
+def repo_test():
+    """Run tests related to the health of the Git repo.
+    """
+    # Make sure our QMK home is a Git repo
+    git_ok = check_git_repo()
+
+    if git_ok == CheckStatus.WARNING:
+        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
+        return CheckStatus.WARNING
+
+    # Check out the QMK submodules
+    sub_ok = check_submodules()
+
+    if sub_ok == CheckStatus.OK:
+        cli.log.info('Submodules are up to date.')
+    else:
+        if yesno('Would you like to clone the submodules?', default=True):
+            submodules.update()
+            sub_ok = check_submodules()
+
+        if CheckStatus.ERROR in sub_ok:
+            return CheckStatus.ERROR
+        elif CheckStatus.WARNING in sub_ok:
+            return CheckStatus.WARNING
+        else:
+            return CheckStatus.OK
+
+
+def tooling_test():
+    """Run tests related to the used tools/compilers/etc.
+    """
+    # Make sure the basic CLI tools we need are available and can be executed.
+    bin_ok = check_binaries()
+
+    if not bin_ok:
+        if yesno('Would you like to install dependencies?', default=True):
+            run(['util/qmk_install.sh'])
+            bin_ok = check_binaries()
+
+    if bin_ok:
+        cli.log.info('All dependencies are installed.')
+    else:
+        return CheckStatus.ERROR
+
+    # Make sure the tools are at the correct version
+    ver_ok = check_binary_versions()
+    if CheckStatus.ERROR in ver_ok:
+        return CheckStatus.ERROR
+    elif CheckStatus.WARNING in ver_ok:
+        return CheckStatus.WARNING
+    else:
+        return CheckStatus.OK
+
+
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
 @cli.argument('-n', '--no', action='store_true', arg_only=True, help='Answer no to all questions.')
 @cli.subcommand('Basic QMK environment checks')
@@ -66,59 +120,19 @@ def doctor(cli):
     """
     cli.log.info('QMK Doctor is checking your environment.')
 
-    status = os_tests()
-
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
-    # Check the existence of external userspace, if configured
-    if cli.config.user.userspace:
-        userspace_ok = check_userspace()
-        if userspace_ok == CheckStatus.ERROR:
+    status = CheckStatus.OK
+
+    # List of checks we need to run
+    checks = (os_tests, check_userspace, repo_test, tooling_test)
+
+    # Run the checks and update 'status' based on their output
+    for check in checks:
+        check_status = check()
+        if check_status == CheckStatus.ERROR:
             status = CheckStatus.ERROR
-        elif userspace_ok == CheckStatus.WARNING and status == CheckStatus.OK:
-            status = CheckStatus.WARNING
-
-    # Make sure our QMK home is a Git repo
-    git_ok = check_git_repo()
-
-    if git_ok == CheckStatus.WARNING:
-        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
-        if status == CheckStatus.OK:
-            status = CheckStatus.WARNING
-
-    # Make sure the basic CLI tools we need are available and can be executed.
-    bin_ok = check_binaries()
-
-    if not bin_ok:
-        if yesno('Would you like to install dependencies?', default=True):
-            run(['util/qmk_install.sh'])
-            bin_ok = check_binaries()
-
-    if bin_ok:
-        cli.log.info('All dependencies are installed.')
-    else:
-        status = CheckStatus.ERROR
-
-    # Make sure the tools are at the correct version
-    ver_ok = check_binary_versions()
-    if CheckStatus.ERROR in ver_ok:
-        status = CheckStatus.ERROR
-    elif CheckStatus.WARNING in ver_ok and status == CheckStatus.OK:
-        status = CheckStatus.WARNING
-
-    # Check out the QMK submodules
-    sub_ok = check_submodules()
-
-    if sub_ok == CheckStatus.OK:
-        cli.log.info('Submodules are up to date.')
-    else:
-        if yesno('Would you like to clone the submodules?', default=True):
-            submodules.update()
-            sub_ok = check_submodules()
-
-        if CheckStatus.ERROR in sub_ok:
-            status = CheckStatus.ERROR
-        elif CheckStatus.WARNING in sub_ok and status == CheckStatus.OK:
+        elif check_status == CheckStatus.WARNING:
             status = CheckStatus.WARNING
 
     # Report a summary of our findings to the user

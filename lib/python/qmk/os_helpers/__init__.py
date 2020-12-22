@@ -172,13 +172,14 @@ def check_userspace():
     If the configured path does not exist or
     not an absolute path, compilation might fail.
     """
-    userspace_path = Path(cli.config.user.userspace)
-    if not userspace_path.exists():
-        cli.log.error('External userspace: {fg_red}%s does not exists', userspace_path)
-        return CheckStatus.ERROR
-    elif not userspace_path.is_absolute():
-        cli.log.warning('External userspace: {fg_yellow}%s is not an absolute path', userspace_path)
-        return CheckStatus.WARNING
-    else:
-        cli.log.info('External userspace: {fg_cyan}%s', userspace_path)
-        return CheckStatus.OK
+    if cli.config.user.userspace:
+        userspace_path = Path(cli.config.user.userspace)
+        if not userspace_path.exists():
+            cli.log.error('External userspace: {fg_red}%s does not exists', userspace_path)
+            return CheckStatus.ERROR
+        elif not userspace_path.is_absolute():
+            cli.log.warning('External userspace: {fg_yellow}%s is not an absolute path', userspace_path)
+            return CheckStatus.WARNING
+        else:
+            cli.log.info('External userspace: {fg_cyan}%s', userspace_path)
+            return CheckStatus.OK
