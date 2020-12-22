@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x1337
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ebastler
-#define PRODUCT         ebastler isometria 75
-#define DESCRIPTION     ebastler isometria 75
+#define PRODUCT        isometria 75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
