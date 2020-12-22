@@ -75,12 +75,13 @@ key is not often used. It is available on the macroboard shift layer for complet
 * All left modifiers are normal with no one shot sticky.
 * Enter and backspace are themselves.
 * Backslash is keyboard reset.
-* F1 to F12 form top row numbers and minus/equals.
+* Equals is numpad equals (for extra macro codes when possible).
+* Comma is numpad comma.
 * The brackets are scroll wheel up and down such the [ is up.
 * Quote is the scroll button.
+* Semicolon is auxilliary mouse button 4 (standard mice don't have this).
 * All the alpha keys are themselves.
-* Comma turns on key lock for the next key (for easier drag 'n' drop for example).
-* Semicolon cycles through unicode composing modes entered via control+shift+U (all modes).
+* Minus turns on key lock for the next key (for easier drag 'n' drop for example).
 
 ### Special Shift Layer
 * Fn exits the special shift layer.
@@ -122,7 +123,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 * F7 to F12 form second row Q-Y.
 * F13 to F18 form third row A-H.
 * F19 to F24 form fourth row Z-N.
-* Comma is a plain comma.
+* Comma is a numpad comma.
 * Num lock placed on caps lock.
 
 ### Numpad Shift Layer (Fn Numpad)
