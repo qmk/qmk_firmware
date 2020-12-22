@@ -187,7 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-extern rgblight_config_t rgblight_config;
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -196,7 +195,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             rgb_layer_ack_yn(debug_enable);
             break;
         case RGB_TOG:
-            rgb_layer_ack_yn(rgblight_config.enable);
+            rgb_layer_ack_yn(rgblight_is_enabled());
             break;
     }
 }
