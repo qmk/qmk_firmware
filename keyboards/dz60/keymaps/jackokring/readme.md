@@ -18,7 +18,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 ## ANSI Layer
 * Right control exchanged with function shift key as always.
 
-## ANSI Shift Layer (Fn ANSI)
+### ANSI Shift Layer (Fn ANSI)
 * Scroll lock placed on caps lock.
 * Right alt/win/control/slash form cusor block.
 * Backslash is insert.
@@ -51,20 +51,44 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Depending on your system the "Level 3 Shift" may be removed by localization of alt gr.
 * A macro can be recorded (128 keys) until power off by backspace (record start/stop).
 * The macro can be played back by space.
-
-## Macroboard Shift Layer (Fn Macroboard)
 * Right alt/control are alt tab window switch (reverse and forward).
+* Right win key is the right win key and not the app context menu key as in other layers.
+
+### Macroboard Shift Layer (Fn Macroboard)
+* The right win key is one shot sticky. 
 * Escape is a one shot sticky win alt shift.
 * Tab is a one shot sticky win control alt.
 * Caps lock is a one shot sticky win control shift.
 * Left shift is a one shot sticky win shift.
 * Backspace is a one shot sticky control alt shift.
 * Fn is still sticky and needs pressing to exit the layer shift.
+* Right control enters the extended shift layer.
+* Right alt enters the special shift layer.
+
+### Extended Shift Layer
+* Fn exits the extended shift layer.
+* Right alt/win/control/slash form mouse movement block.
+* Period is left mouse button.
+* Right shift is right mouse button.
+* Caps lock is shifted tab and with tab can do form navigation.
+* Escape is pure escape.
+* All left modifiers are normal with no one shot sticky.
+* Enter and backspace are themselves.
+* Backslash is keyboard reset.
+* F1 to F12 form top row numbers and minus/equals.
+* The brackets are scroll wheel up and down such the [ is up.
+* Quote is the scroll button.
+* All the alpha keys are themselves.
+* Comma turns on key lock for the next key (for easier drag 'n' drop for example).
+* Semicolon cycles through unicode composing modes entered via control+shift+U (all modes).
+
+### Special Shift Layer
+* Fn exits the special shift layer.
 
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
 
-## Navigation Shift Layer (Fn Navigation)
+### Navigation Shift Layer (Fn Navigation)
 * Scroll lock placed on caps lock.
 * Backslash is insert.
 * Backspace is delete.
@@ -101,6 +125,6 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Comma is a plain comma.
 * Num lock placed on caps lock.
 
-## Numpad Shift Layer (Fn Numpad)
+### Numpad Shift Layer (Fn Numpad)
 * Standard ANSI layer except for left modifiers control/win/alt.
 * Fn is still sticky and needs pressing to exit the layer shift.

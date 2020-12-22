@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		OSM(MOD_LCTL|MOD_LALT),    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  ALGR(KC_F24),
 		OSM(MOD_LCTL|MOD_LSFT),    ALGR(KC_F1),   ALGR(KC_F2),   ALGR(KC_F3),   ALGR(KC_F4),   ALGR(KC_F5),   ALGR(KC_F6),   ALGR(KC_F7),   ALGR(KC_F8),   ALGR(KC_F9),   ALGR(KC_F10),  ALGR(KC_F11),  ALGR(KC_F12),
 		OSM(MOD_LSFT),         	   ALGR(KC_F13),  ALGR(KC_F14),  ALGR(KC_F15),  ALGR(KC_F16),  ALGR(KC_F17),  ALGR(KC_F18),  ALGR(KC_F19),  ALGR(KC_F20),  ALGR(KC_F21),  ALGR(KC_F22),  ALGR(KC_F23),
-		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            DM_PLY1,                            OSM(MOD_RALT),OSM(MOD_RGUI),OSM(MOD_RCTL), TG(7)),
+		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            DM_PLY1,                            LSA(KC_TAB),OSM(MOD_RGUI), LALT(KC_TAB),  TG(7)),
 
 	//ANSI shift mode 4 ================================================================================== ANSI shift mode 4
 	// ISO characters such as £ and control of RGB/backlight and cursor.
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_WHOM, KC_PWR,  KC_HOME, KC_END,  KC_INS,
 		KC_SLCK,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_TRNS,
 		KC_TRNS,          UC(937), KC_MUTE, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, UC(181), KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
-		KC_LCTL, DF(3),            DF(1),                     DF(2),                              KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
+		KC_LCTL, DF(3),            DF(1),                     DF(2),                              KC_LEFT, KC_DOWN,          KC_RIGHT, MO(4)),
 	
 	//Navigation shift mode 5 ============================================================================ Navigation shift mode 5
 	// All function keys, so Home and End were sacrificed.
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_INS,
 		KC_SLCK,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_ESC,
 		KC_TRNS,          UC(937), KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, UC(181), KC_PGUP, KC_PGDN, KC_QUES,          KC_TRNS,
-		DF(0),   DF(3),            KC_LALT,                   DF(2),                              KC_RALT, KC_SLSH,          KC_RCTL, KC_TRNS),
+		DF(0),   DF(3),            KC_LALT,                   DF(2),                              KC_RALT, KC_SLSH,          KC_RCTL, MO(5)),
 	
 	//Numpad shift mode 6 ================================================================================ Numpad shift mode 6
 	// ANSI text entry with no left ctrl/win/alt.
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
 		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-		DF(0),   DF(3),            DF(1),                     KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, KC_TRNS),
+		DF(0),   DF(3),            DF(1),                     KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(6)),
 	
 	//Macro shift mode 7 ================================================================================= Macro shift mode 7
 	// Same macro layer but different modifier grouping for more hot key combinations.
@@ -85,7 +85,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		OSM(MOD_LGUI|MOD_LCTL|MOD_LALT),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		OSM(MOD_LGUI|MOD_LCTL|MOD_LSFT),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		OSM(MOD_LGUI|MOD_LSFT),             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		DF(0),   KC_LGUI,          DF(1),                     DF(2),                              LSA(KC_TAB),OSM(MOD_RGUI), LALT(KC_TAB),KC_TRNS)
+		DF(0),   OSM(KC_LGUI),     DF(1),                     DF(2),                              TG(9),   OSM(MOD_RGUI),TG(8),   TG(7)),
+
+	//Extended shift mode 8 ============================================================================== Extended shift mode 8
+	// A utility layer for things like the mouse.
+	LAYOUT_60_ansi(
+		KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_BSPC,
+		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_WH_U, KC_WH_D, RESET,
+		LSFT(KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_TRNS, KC_BTN3, KC_ENT,
+		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_LOCK, KC_BTN1, KC_MS_U,          KC_BTN2,
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_MS_L, KC_MS_D,          KC_MS_R, TG(8)),
+	
+	//Special shift mode 9 ============================================================================== Special shift mode 9
+	// A utility layer for things like the mouse.
+	LAYOUT_60_ansi(
+		KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_BSPC,
+		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_WH_U, KC_WH_D, RESET,
+		LSFT(KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_TRNS, KC_BTN3, KC_ENT,
+		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_LOCK, KC_BTN1, KC_MS_U,          KC_BTN2,
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_MS_L, KC_MS_D,          KC_MS_R, TG(9))
+	
 };
 
 const rgblight_segment_t PROGMEM my_caps[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -104,11 +123,21 @@ const rgblight_segment_t PROGMEM my_highbit[] = RGBLIGHT_LAYER_SEGMENTS(
     {12, 1, HSV_SPRINGGREEN}
 );
 
+const rgblight_segment_t PROGMEM my_extended[] = RGBLIGHT_LAYER_SEGMENTS(
+    {11, 2, HSV_RED}
+);
+
+const rgblight_segment_t PROGMEM my_special[] = RGBLIGHT_LAYER_SEGMENTS(
+    {11, 2, HSV_BLUE}
+);
+
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_caps,	// Overrides caps lock layer
 	my_fn,		// Overides Fn shifted
     my_lowbit,    
-    my_highbit	// Overrides other layers
+    my_highbit,	// Overrides other layers
+	my_extended,// Extended mode
+	my_special	// Special mode
 );
 
 void keyboard_post_init_user(void) {
@@ -131,6 +160,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	if(layer_state_cmp(state, 2) || layer_state_cmp(state, 3) ||
 		layer_state_cmp(state, 6) || layer_state_cmp(state, 7)) t = true;
     rgblight_set_layer_state(3, t);
+	rgblight_set_layer_state(4, layer_state_cmp(state, 8));
+	rgblight_set_layer_state(5, layer_state_cmp(state, 9));
     return state;
 }
 
