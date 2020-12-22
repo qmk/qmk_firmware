@@ -30,9 +30,9 @@ void led_init_ports(void) {
 /* Set lock LEDs to their states*/
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(A9, !led_state.num_lock);
-        writePin(A13, !led_state.caps_lock);
-        writePin(A8, !led_state.scroll_lock);
+        writePin(A8, !led_state.num_lock);
+        writePin(A9, !led_state.caps_lock);
+        writePin(A13, !led_state.scroll_lock);
     }
     return true;
 }

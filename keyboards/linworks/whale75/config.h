@@ -24,6 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Lx3 Whale-75
 #define DESCRIPTION     Lx3 Whale-75
 
+/* Set 1 kHz polling rate and force USB NKRO*/
+#define USB_POLLING_INTERVAL_MS 1
+#define FORCE_NKRO
+
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
