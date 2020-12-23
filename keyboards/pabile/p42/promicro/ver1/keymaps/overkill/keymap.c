@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ver1.h"
 
 #include QMK_KEYBOARD_H
 
@@ -64,5 +63,4 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
-
 
