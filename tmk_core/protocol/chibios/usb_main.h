@@ -21,8 +21,8 @@
 // TESTING
 // extern uint8_t blinkLed;
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 /* -------------------------
  * General USB driver header
@@ -34,6 +34,9 @@
 
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
+
+/* Restart the USB driver and bus */
+void restart_usb_driver(USBDriver *usbp);
 
 /* ---------------
  * Keyboard header

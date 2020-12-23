@@ -3,6 +3,7 @@
 Compile an info.json for a particular keyboard and pretty-print it.
 """
 import json
+import platform
 
 from milc import cli
 
@@ -11,6 +12,8 @@ from qmk.keyboard import render_layouts, render_layout
 from qmk.keymap import locate_keymap
 from qmk.info import info_json
 from qmk.path import is_keyboard
+
+platform_id = platform.platform().lower()
 
 ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
 COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
@@ -36,13 +39,13 @@ def show_keymap(kb_info_json, title_caps=True):
             else:
                 cli.echo('{fg_cyan}layer_%s{fg_reset}:', layer_num)
 
-            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], layer))
+            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
 
 def show_layouts(kb_info_json, title_caps=True):
     """Render the layouts with info.json labels.
     """
-    for layout_name, layout_art in render_layouts(kb_info_json).items():
+    for layout_name, layout_art in render_layouts(kb_info_json, cli.config.info.ascii).items():
         title = layout_name.title() if title_caps else layout_name
         cli.echo('{fg_cyan}%s{fg_reset}:', title)
         print(layout_art)  # Avoid passing dirty data to cli.echo()
@@ -69,7 +72,7 @@ def show_matrix(kb_info_json, title_caps=True):
         else:
             cli.echo('{fg_blue}matrix_%s{fg_reset}:', layout_name)
 
-        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], labels))
+        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
 
 
 def print_friendly_output(kb_info_json):
@@ -124,6 +127,7 @@ def print_text_output(kb_info_json):
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
+@cli.argument('--ascii', action='store_true', default='windows' in platform_id, help='Render layout box drawings in ASCII only.')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
 @automagic_keymap
@@ -132,7 +136,7 @@ def info(cli):
     """
     # Determine our keyboard(s)
     if not cli.config.info.keyboard:
-        cli.log.error('Missing paramater: --keyboard')
+        cli.log.error('Missing parameter: --keyboard')
         cli.subcommands['info'].print_help()
         return False
 
