@@ -40,14 +40,20 @@
 #define B01 KC_NO
 #define B02 LT(MEDR, KC_ESC)
 #define B03 LT(NAVR, KC_SPC)
-#define B04 LT(MOUR, KC_TAB)
+#define B04 LT(ZOO, KC_TAB)
 #define B05 LT(NSSL, KC_ENT)
 #define B06 LT(NSL, KC_BSPC)
 #define B07 LT(FUNL, KC_DEL)
 #define B08 KC_NO
 #define B09 KC_NO
 
-enum layers { BASE, MBO, MEDR, NAVR, MOUR, NSSL, NSL, FUNL };
+//Zoo layer, display
+#define Z00 LCMD(BP_PLUS)
+#define Z01 LCMD(BP_MINUS)
+#define Z02 LCMD(BP_0)
+#define Z03 LALT(BP_B)
+
+enum layers { BASE, MBO, MEDR, NAVR, ZOO, NSSL, NSL, FUNL };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
@@ -62,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO, U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA, KC_NO, KC_NO,        KC_NO,  KC_NO,   KC_HOME,  KC_PGDN, KC_PGUP, KC_END,  KC_INS,  KC_NO,
                                U_NP,    U_NP,    U_NA, U_NA,  U_NA,         KC_ENT, KC_BSPC, KC_DEL,   U_NP,    U_NP
       ),
-  [MOUR] = LAYOUT(
+  [ZOO] = LAYOUT(
       KC_NO, RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    KC_NO,
-      KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,    KC_NO,
-      KC_NO, U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA, KC_NO, KC_NO,        KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,    KC_NO,
+      KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_SPC,                                      KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,    KC_NO,
+      KC_NO, U_NA,    Z00,     Z01,     Z02,     U_NA, KC_NO, KC_NO,        KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,    KC_NO,
                                U_NP,    U_NP,    U_NA, U_NA,  U_NA,         KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
      ),
   [MEDR] = LAYOUT(
@@ -82,29 +88,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   [FUNL] = LAYOUT(
       KC_NO, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,                                U_NA,    U_NA,    U_NA,    U_NA,    RESET, KC_NO,
-      KC_NO, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,                                U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
+      KC_NO, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,                                U_NA,    KC_RSFT, KC_RGUI, KC_RALT, KC_RALT, KC_NO,
       KC_NO, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, KC_NO,  KC_NO,   KC_NO, KC_NO, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
                                U_NP,    U_NP,    KC_APP,  KC_SPC, KC_TAB,  U_NA,  U_NA,  U_NA,    U_NP,    U_NP
       ),
   [NSL] = LAYOUT(
-      KC_NO, KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC,                                 U_NA,    U_NA,    U_NA,    U_NA,    RESET, KC_NO,
-      KC_NO, KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,                                  U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
-      KC_NO, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NO,   KC_NO,   KC_NO, KC_NO, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
-                               U_NP,    U_NP,    KC_DOT,  KC_0,    KC_MINS, U_NA,  U_NA,  U_NA,    U_NP,    U_NP
+      KC_NO, KC_LBRC, BP_1,    BP_2,    BP_3,    KC_RBRC,                                   U_NA,    U_NA,    U_NA,    U_NA,    RESET, KC_NO,
+      KC_NO, KC_SCLN, BP_4,    BP_5,    BP_6,    KC_EQL,                                    U_NA,    KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
+      KC_NO, KC_GRV,  BP_7,    BP_8,    BP_9,    BP_0   , KC_NO,   KC_NO,     KC_NO, KC_NO, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
+                               U_NP,    U_NP,    KC_DOT,  KC_0,    KC_MINS,   U_NA,  U_NA,  U_NA,    U_NP,    U_NP
       ),
   [NSSL] = LAYOUT(
-      KC_NO, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,                                 U_NA,    U_NA,    U_NA,    U_NA,    RESET, KC_NO,
-      KC_NO, KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS,                                 U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
-      KC_NO, KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, KC_NO,   KC_NO,  KC_NO, KC_NO, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
-                      U_NP,    U_NP,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,   U_NA,    U_NA,    U_NP,    U_NP
+      KC_NO, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,                                 U_NA, U_NA,    U_NA,    U_NA,    RESET, KC_NO,
+      KC_NO, KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS,                                 U_NA, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
+      KC_NO, KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, KC_NO,   KC_NO,  KC_NO, KC_NO, U_NA,  U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
+                      U_NP,    U_NP,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,   U_NA,  U_NA,  U_NP,  U_NP
       )
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, BASE, MBO, MOUR);
-}
-
 #ifdef OLED_DRIVER_ENABLE
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
@@ -125,7 +128,6 @@ static void render_kyria_logo(void) {
 
 
 static void render_status(void) {
-    // QMK Logo and version information
     //oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
 
     // Host Keyboard Layer Status
@@ -142,8 +144,8 @@ static void render_status(void) {
         case NAVR:
             oled_write_P(PSTR("Navigation\n"), false);
             break;
-        case MOUR:
-            oled_write_P(PSTR("Mouse\n"), false);
+        case ZOO:
+            oled_write_P(PSTR("Design\n"), false);
             break;
         case NSSL:
             oled_write_P(PSTR("Shifted symbols\n"), false);
