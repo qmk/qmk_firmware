@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*
- * Keycodes based on HID Keyboard/Keypad Usage Page (0x07) plus media keys from Generic Desktop Page (0x01) and Consumer Page (0x0C)
+ * Keycodes based on HID Keyboard/Keypad U/sage Page (0x07) plus media keys from Generic Desktop Page (0x01) and Consumer Page (0x0C)
  *
  * See https://web.archive.org/web/20060218214400/http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
  * or http://www.usb.org/developers/hidpage/Hut1_12v2.pdf (older)

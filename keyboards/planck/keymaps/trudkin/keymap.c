@@ -1,3 +1,19 @@
+/* Copyright 2020 Terence Rudkin 
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */ 
+
 #include QMK_KEYBOARD_H
 #ifdef AUDIO_ENABLE
 #include "muse.h"
@@ -110,6 +126,75 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+/* need to find a naturally occuring macro to put here */
+#if defined(USE_ZSA)
+extern bool g_suspend_state;
+extern rgb_config_t rgb_matrix_config;
+
+void keyboard_post_init_user(void) {
+  rgb_matrix_enable();
+}
+
+const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+    [1] = { {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {50,153,244}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {205,255,255}, {205,255,255}, {205,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {205,255,255}, {205,255,255}, {205,255,255} },
+
+    [2] = { {50,153,244}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {205,255,255}, {0,0,0}, {0,0,0}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {233,218,217}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {180,255,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {164,255,233}, {180,255,233}, {180,255,233}, {180,255,233} },
+
+    [3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {180, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {180, 255, 233}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+
+    [4] = { {0,0,0}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {134,255,213}, {146,224,255}, {146,224,255}, {146,224,255}, {134,255,213}, {0,0,0}, {0,0,0}, {85,203,158}, {0,0,0}, {0,0,0}, {0,0,0}, {85,203,158}, {0,0,0}, {146,224,255}, {146,224,255}, {146,224,255}, {0,204,255}, {0,204,255}, {105,255,255}, {85,203,158}, {85,203,158}, {85,203,158}, {85,203,158}, {85,203,158}, {0,0,0}, {146,224,255}, {146,224,255}, {146,224,255}, {0,204,255}, {0,204,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {146,224,255}, {146,224,255}, {105,255,255}, {0,0,0} },
+
+    [5] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {154, 86, 255}, {154, 86, 255}, {154, 86, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {249, 228, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {195, 61, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {195, 61, 255}, {195, 61, 255}, {195, 61, 255}},
+
+};
+
+void set_layer_color(int layer) {
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    HSV hsv = {
+      .h = pgm_read_byte(&ledmap[layer][i][0]),
+      .s = pgm_read_byte(&ledmap[layer][i][1]),
+      .v = pgm_read_byte(&ledmap[layer][i][2]),
+    };
+    if (!hsv.h && !hsv.s && !hsv.v) {
+        rgb_matrix_set_color( i, 0, 0, 0 );
+    } else {
+        RGB rgb = hsv_to_rgb( hsv );
+        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+    }
+  }
+}
+
+void rgb_matrix_indicators_user(void) {
+  if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
+
+  switch (biton32(layer_state)) {
+    case _LOWER:
+
+      set_layer_color(1);
+      break;
+    case _RAISE:
+
+      set_layer_color(2);
+      break;
+    case _ADJUST:
+
+      set_layer_color(3);
+      break;
+  case _NUMPAD:
+      set_layer_color(4);
+      break;
+  case _MOUSE:
+      set_layer_color(5);
+      break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
+}
+#endif /*USE_ZSA*/
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

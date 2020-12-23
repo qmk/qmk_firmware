@@ -51,7 +51,7 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________QWERTY_R3_________________        KC_N,    MY_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 
 #define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
@@ -60,7 +60,7 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
 #define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
-#define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________COLEMAK_R3________________       KC_K,    MY_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 #define _________________DVORAK_L1_________________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
 #define _________________DVORAK_L2_________________        KC_A,    KC_O,    KC_E,   KC_U,     KC_I
@@ -68,7 +68,7 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________DVORAK_R1_________________        KC_F,    KC_G,    MY_C,    KC_R,    KC_L
 #define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
-#define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    MY_V,    KC_Z
+#define _________________DVORAK_R3_________________        KC_B,    MY_M,    KC_W,    MY_V,    KC_Z
 
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5

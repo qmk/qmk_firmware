@@ -51,7 +51,10 @@ enum  td_keycodes {
     RBRC_0,
     TD_PIPE,
     MOD_LOW,
-    MOD_RAI
+    MOD_RAI,
+    MOD_LOW1,
+    MOD_RAI1,
+    TD_M
 };
 
 
@@ -64,7 +67,7 @@ enum  td_keycodes {
 #define MY_DEL TD(TD_DEL_INS)
 #define MY_9 TD(LBRC_9)
 #define MY_0 TD(RBRC_0)
-
+#define MY_M TD(TD_M)
 
 
 typedef struct {
