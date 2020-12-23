@@ -31,11 +31,6 @@ enum custom_keycodes {
     ADJUST,
 };
 
-#define L_QWERTY 0
-#define L_LOWER 1 << _LOWER
-#define L_RAISE 1 << _RAISE
-#define L_ADJUST 1 << _ADJUST
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* Default Layer
      * ,-----------------------------------------------------------.
@@ -112,8 +107,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left encoder */
-        switch (layer_state) {
-            case L_QWERTY:
+        switch (get_highest_layer(layer_state)) {
+            case _QWERTY:
                 if (clockwise) {
                     tap_code(KC_TAB);
                 } else {
@@ -121,8 +116,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_TAB);
                     unregister_code(KC_LSFT);
                 }
-            break;
-            case L_RAISE:
+                break;
+            case _RAISE:
                 if (clockwise) {
                 //    tap_code(KC_VOLU);
                     if(keymap_config.swap_lalt_lgui==false){
@@ -137,8 +132,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                         SEND_STRING(SS_LALT("`"));
                     }
                 }
-            break;
-            case L_ADJUST:
+                break;
+            case _ADJUST:
                 if (clockwise) {
                     tap_code(KC_VOLU);
                 } else {
