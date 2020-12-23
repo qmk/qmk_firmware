@@ -18,7 +18,6 @@
 #include QMK_KEYBOARD_H
 
 #include "jdelkins.h"
-#include "rgb_matrix.h"
 #include <print.h>
 
 // Idle handling

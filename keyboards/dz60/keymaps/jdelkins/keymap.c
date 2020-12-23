@@ -18,7 +18,6 @@
 #include QMK_KEYBOARD_H
 
 #include "jdelkins.h"
-#include "rgblight.h"
 
 #undef LAYOUT
 #define LAYOUT LAYOUT_directional_nosplitspace

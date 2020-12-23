@@ -17,7 +17,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "rgb_matrix.h"
 #include <print.h>
 
 // Idle handling
