@@ -22,3 +22,4 @@ endif
 doflash: .build/massdrop_alt_jdelkins_ss.hex
 	$(MDLOADER) --first --download $< --restart
 
+USER_NAME := jdelkins
