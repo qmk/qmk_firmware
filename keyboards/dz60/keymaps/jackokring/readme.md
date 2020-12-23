@@ -190,3 +190,15 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 ### Numpad Shift Layer (Fn Numpad)
 * Standard ANSI layer except for left modifiers control/win/alt.
 * Fn is still sticky and needs pressing to exit the layer shift.
+
+## Old Keys for the Young
+* As everyone knows ecape has two purposes.
+* EscA when running, stop and queue for analysis or bulk closure later.
+* EscB when coding it's the best of origional ASCII for encode something extending the limited system.
+* A what follows is not conformal to assuptions of the past or limits of the present literal.
+* EscC I've got VIM :D.
+* Windows is the OS respond key.
+* Control (produces escape) but few codes are used these days (enter/esc/tab/backspace).
+* Some codes got reused for cut/copy/paste etc.
+* Control+M is a funny example, as is multimedia control+G.
+* Alt enters the alternate expression space and covers a more modern escape at the language level instead of the binary system level.
