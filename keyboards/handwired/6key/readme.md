@@ -1,11 +1,10 @@
-#6key
+# 6key
 
 A 6-key macropad made by Bratzworth.
 
-
-Keyboard Maintainer: [bratzworth](https://github.com/Bratzworth)
-Hardware Supported: Pro Micro ATmega32U4, Teensy 2.0 
-Hardware Availability: [bratzworth](https://github.com/Bratzworth/6key)
+* Keyboard Maintainer: [bratzworth](https://github.com/Bratzworth)
+* Hardware Supported: Pro Micro ATmega32U4, Teensy 2.0
+* Hardware Availability: [bratzworth](https://github.com/Bratzworth/6key)
 
 Make example for this keyboard (after setting up your build environment):
 
