@@ -25,4 +25,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_LOCK_ENABLE = yes
 
-LAYOUTS = 65_all
+LAYOUTS = all
