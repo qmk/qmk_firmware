@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0002
 #define MANUFACTURER KiwiKey
 #define PRODUCT      Kawii9
-#define DESCRIPTION  A fully customizable 3x3 keypad
 
 /* key matrix size */
 #define MATRIX_ROWS 3
