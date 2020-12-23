@@ -7,7 +7,7 @@
     "height": 3,
     "key_count": 9,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x3": {
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k01", "x":1, "y":0},
