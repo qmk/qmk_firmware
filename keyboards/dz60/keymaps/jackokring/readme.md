@@ -84,8 +84,8 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ### Special Shift Layer
 * Fn exits the special shift layer.
-* Minus/equal is korean modifiers.
-* P is key lock for holding down a key until the held key is pressed again.
+* P and equals is korean modifiers.
+* Minus is key lock for holding down a key until the held key is pressed again.
 * International modifiers are on Q-O.
 * Numbers are the numpad numbers for macro code options.
 * Remaining laguage 3 to 7 are on Z-M.
