@@ -7,3 +7,5 @@
   ) { \
     { k01, k02, k03, k04, k05 } \
 }
+
+#define LAYOUT LAYOUT_ortho_1x5 
