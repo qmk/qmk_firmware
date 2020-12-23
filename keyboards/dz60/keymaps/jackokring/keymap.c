@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_LPRN, KC_RPRN, KC_PSLS,
 		KC_NLCK,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_P1,   KC_P2,   KC_P3,   KC_INS,  KC_CALC, KC_PENT,
 		OSM(MOD_LSFT),    KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_P0,   KC_PCMM, KC_PDOT, KC_UP,            UC(8730),
-		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT, TG(6)),//lock Fn
+		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            OSM(MOD_RALT),                      KC_LEFT, KC_DOWN,          KC_RIGHT, TG(6)),//lock Fn
 
 	//Macro lock mode 3 ================================================================================== Macro lock mode 3
 	// A single finger macro launching board producing many modifier and function keys.

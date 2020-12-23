@@ -185,6 +185,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Comma is a numpad comma.
 * Num lock placed on caps lock.
 * Right shift is √.
+* Space is "Level 3 Shift" in case your system supports it.
 
 ### Numpad Shift Layer (Fn Numpad)
 * Standard ANSI layer except for left modifiers control/win/alt.
