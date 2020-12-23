@@ -2,7 +2,7 @@
 
 My first keyboard edit. A multi-layer ANSI-60 with layers and function shift on each layer.
 Changes from the default keymap include moving RESET, and a prefered arangement for the cusor
-block of keys. The function key was exchanged with the right control key to get it.
+block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to rignt be alt/win/control/Fn.
 
 ## Right Windows is Application Context Menu Instead
 The right Windows key is for getting the application context menu. The right Windows GUI
