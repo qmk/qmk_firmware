@@ -26,12 +26,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT
 // #define MASTER_RIGHT
-// #define EE_HANDS
+// S#define EE_HANDS
 
 #define USE_SERIAL_PD2
 
 #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
+// #define TAPPING_TERM 100
+#define TAPPING_TERM 300
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 300
+
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM

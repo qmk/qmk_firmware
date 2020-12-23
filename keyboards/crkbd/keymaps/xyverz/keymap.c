@@ -35,6 +35,10 @@ enum planck_keycodes {
 // Adding macros to make the keymaps below much easier to read.
 #define DELGUI GUI_T(KC_DEL)
 #define ALTENT ALT_T(KC_ENT)
+#define SCLNCTL CTL_T(KC_SCLN)
+#define QUEALT ALT_T(KC_Q)
+#define VEEALT ALT_T(KC_V)
+#define ZEDCTL CTL_T(KC_Z)
 #define ADJUST MO(_ADJUST)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -47,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_ESC,    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                         KC_D,    KC_H,    KC_T,    KC_N,    KC_S, KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,    KC_W,    KC_V,    KC_Z, KC_RSFT,
+      KC_LSFT, SCLNCTL,  QUEALT,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,    KC_W,  VEEALT,  ZEDCTL, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                             LOWER, KC_BSPC,  DELGUI,     KC_ENT,  KC_SPC,   RAISE
                                       //`--------------------------'  `--------------------------'
