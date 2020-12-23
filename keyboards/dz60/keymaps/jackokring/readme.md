@@ -213,3 +213,4 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Of course document language tags will have to be maintained by the OS as the applications literally don't care much beyond a basic control code set embedded within the text. This reduces the document size but does need one of the control codes to kind of be alt, one to be alt gr and one to be OS system request.
 * Say control+S embedded should indicate (possibly ignored as virii exist) the desire to save the following by some means and persistance specification.
 * Post moderner computing should not be a history project.
+* Should an embedded control+A keyword for automatic registration with a search? So that all planet wide might find it reprocessed through a meaning filter to become relevantly formatted even before the vanity of waiting for a publication commit beyond the control+A inserted as a literal character?
