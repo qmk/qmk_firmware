@@ -1,7 +1,7 @@
 SRC += muse.c
 SRC += tap.c
 CONSOLE_ENABLE = no
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 
 RGBLIGHT_ENABLE = yes
 LEADER_ENABLE = no
@@ -14,4 +14,3 @@ KEY_LOCK_ENABLE = no
 COMBO_ENABLE = yes
 
 TAP_DANCE_ENABLE = yes
-
