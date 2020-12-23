@@ -1,12 +1,12 @@
 # DZ96
 
-![DZ96](https://kbdfans.com/products/tofu96-mechanical-keyboard-diy-kit)
+![Tofu96](https://i.imgur.com/MT2L6IQl.jpg)
 
 A 96% PCB made by KBDFans. Sold together with the Tofu96 DIY kit.
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: DZ96
-* Hardware Availability: [KBDFans](https://kbdfans.com)
+* Hardware Availability: [KBDFans](https://kbdfans.com/products/tofu96-mechanical-keyboard-diy-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
