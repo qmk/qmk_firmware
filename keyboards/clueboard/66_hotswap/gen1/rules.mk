@@ -16,10 +16,7 @@ CONSOLE_ENABLE = yes	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
-#CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
 # SERIAL_LINK_ENABLE = yes
 
-# project specific files
-SRC =	led.c
 LAYOUTS = 66_ansi
