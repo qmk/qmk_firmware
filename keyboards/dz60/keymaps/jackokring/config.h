@@ -45,6 +45,7 @@
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_SLEEP
 #    define RGBLIGHT_LAYERS
+#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
