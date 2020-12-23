@@ -33,5 +33,5 @@
     { k60, k61,   k62, k63, k64,   k65,   k66,   KC_NO }, \
     { k70, k71,   k72, k73, k74,   KC_NO, k76,   KC_NO }, \
     { k80, k81,   k82, k83, k84,   KC_NO, k86,   k87 }, \
-    { k90, KC_NO, k92, k93, KC_NO, KC_NO, k86,   KC_NO }, \
+    { k90, KC_NO, k92, k93, KC_NO, KC_NO, k96,   KC_NO }, \
 }
