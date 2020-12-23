@@ -27,7 +27,34 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
+
+#define LAYOUT_ortho_4x13( \
+    K00,  K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,  \
+    K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C,  \
+    K20,  K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,  \
+    K30,  K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C  \
+) { \
+	{ K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C   }, \
+    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C   }, \
+    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C   }, \
+    { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C   }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+}
+
+#define LAYOUT_ortho_4x13_1x2u_c( \
+    K00,  K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,  \
+    K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C,  \
+    K20,  K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,  \
+    K30,  K31, K32, K33, K34, K35, K36,      K38, K39, K3A, K3B, K3C  \
+) { \
+	{ K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C   }, \
+    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C   }, \
+    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C   }, \
+    { K30,   K31,   K32,   K33,   K34,   K35,   K36,   KC_NO, K38,   K39,   K3A,   K3B,   K3C   }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+}
+
+#define LAYOUT_ortho_4x13_encoders( \
     E00A,  E00B, K00,  K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,  \
     E01A,  E01B, K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C,  \
     E02A,  E02B, K20,  K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,  \
