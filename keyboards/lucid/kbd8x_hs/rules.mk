@@ -25,4 +25,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_LOCK_ENABLE = yes
 
-LAYOUTS = tkl_ansi, tkl_ansi_7u, tkl_all
+LAYOUTS = tkl_ansi tkl_ansi_7u tkl_all
