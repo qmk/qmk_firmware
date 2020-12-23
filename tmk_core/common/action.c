@@ -48,7 +48,7 @@ int retro_tapping_counter = 0;
 #endif
 
 #ifdef FAUXCLICKY_ENABLE
-#    include <fauxclicky.h>
+#    include "fauxclicky.h"
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY

@@ -61,7 +61,7 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef AUDIO_ENABLE
-#    include <audio.h>
+#    include "audio.h"
 #endif
 
 #ifdef BLUETOOTH_ENABLE

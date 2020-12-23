@@ -24,7 +24,7 @@
 #    include "eeprom.h"
 #endif
 #ifdef STM32_EEPROM_ENABLE
-#    include "hal.h"
+#    include <hal.h>
 #    include "eeprom_stm32.h"
 #endif
 #include "wait.h"
@@ -34,7 +34,7 @@
 #include "color.h"
 #include "debug.h"
 #include "led_tables.h"
-#include "lib/lib8tion/lib8tion.h"
+#include <lib/lib8tion/lib8tion.h>
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
