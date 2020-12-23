@@ -22,7 +22,7 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_3x3(
+    [_BASE] = LAYOUT_ortho_3x3(
         KC_MUTE,    KC_VOLD,    KC_VOLU,    // Media volume: Mute - Up - Down
         KC_MPLY,    KC_MPRV,    KC_MNXT,    // Media track control: Play/Pause - Previous Track - Next Track
         MO(_FN),    LCTL(KC_C), LCTL(KC_V)  // FN - Copy - Paste
