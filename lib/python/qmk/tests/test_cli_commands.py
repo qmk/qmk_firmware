@@ -8,9 +8,17 @@ is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
-    cmd = ['bin/qmk', command] + list(args)
+    cmd = ['bin/qmk', command, *args]
     result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
+
+
+def check_subcommand_stdin(file_to_read, command, *args):
+    """Pipe content of a file to command.
+    """
+    with open(file_to_read) as my_file:
+        cmd = ['bin/qmk', command, *args]
+        return run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
 
 
 def check_returncode(result, expected=[0]):
@@ -125,6 +133,12 @@ def test_list_keymaps_no_keyboard_found():
 
 def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json')
+    check_returncode(result)
+    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+
+
+def test_json2c_stdin():
+    result = check_subcommand_stdin('keyboards/handwired/onekey/keymaps/default_json/keymap.json', 'json2c', '-')
     check_returncode(result)
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
 
