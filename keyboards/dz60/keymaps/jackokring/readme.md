@@ -201,5 +201,9 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Control (produces escape control+[) but few codes are used these days (enter/esc/tab/backspace/escape).
 * Some codes got reused for cut/copy/paste etc.
 * But `<H1>` is more commom than control+A (origional purpose) these days (circa 2020).
-* Control+M is a funny example, as is multimedia control+G.
-* Alt enters the alternate expression space and covers a more modern escape at the language level instead of the binary system level.
+* Control+M is a funny example (but depends on application level interpretation), as is multimedia control+G.
+* Alt enters the alternate expression space and covers a more modern escape at the language level instead of the binary system level and replace (SI and SO control ASCII).
+* Optimal control replacements such as control+S should redefine the lower 32 symbols.
+* Various combinations not locked by a priority (high priority ordernate OS > intermediate Language > low level App) should do anything if available to assign.
+* Level 3 shift just inserts a more expressive (in intent) layer between win and alt.
+* So why is low level control of application easier to find?
