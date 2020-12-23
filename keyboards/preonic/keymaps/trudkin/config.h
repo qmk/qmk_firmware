@@ -16,6 +16,8 @@
 #pragma once
 
 
+#define TAP_CODE_DELAY 5
+
 
 #ifndef NO_DEBUG
 #define NO_DEBUG

@@ -41,7 +41,7 @@ enum my_layers {
 
 #define USE_2X2_LAYOUT
 
-#define TAP_CODE_DELAY 5
+
 #define MAKE_BOOTLOADER
 
 #define   NUMPAD TG(_NUMPAD)
