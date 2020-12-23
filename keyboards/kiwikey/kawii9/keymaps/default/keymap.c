@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPLY,    KC_MPRV,    KC_MNXT,    // Media track control: Play/Pause - Previous Track - Next Track
         MO(_FN),    LCTL(KC_C), LCTL(KC_V)  // FN - Copy - Paste
     ),
-	[_FN] = LAYOUT_3x3(
+	[_FN] = LAYOUT_ortho_3x3(
         RGB_TOG,    RGB_MODE_REVERSE,    RGB_MODE_FORWARD,
         _______,    RGB_MODE_BREATHE,    RGB_MODE_RAINBOW,
         _______,    _______,             RESET
