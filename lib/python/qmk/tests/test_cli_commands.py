@@ -14,11 +14,12 @@ def check_subcommand(command, *args):
 
 
 def check_subcommand_stdin(file_to_read, command, *args):
-    """Pipe content of a file to command.
+    """Pipe content of a file to a command and return output.
     """
     with open(file_to_read) as my_file:
         cmd = ['bin/qmk', command, *args]
-        return run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+        result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+    return result
 
 
 def check_returncode(result, expected=[0]):
