@@ -1,22 +1,20 @@
-/*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+ /* Copyright 2020 Bratzworth 
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Bratzworth
 #define PRODUCT         6key
-#define DESCRIPTION     6-Key Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -42,5 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#endif
