@@ -4,7 +4,7 @@ My [[keyboard]](https://github.com/jackokring/qmk_firmware/tree/master/keyboards
 This repository is a clone of upstream with commits into this keyboard and perhaps others listed below.
 
 * DX60 - My first attempt linked above. An advised starter model board.
-    * MD5: c5f8fa7eac616b699664de7d863439b3 Version: 1.0
+    * MD5: 76a57b5aa8b878c90b43ddd07bfdbb9b Version: 1.5
 
 # Included Keyboards
 QMK runs on a diverse range of keyboards. Some of these keyboards are officially supported and see constant community contributions, while others are part of the repository for historical reasons.
