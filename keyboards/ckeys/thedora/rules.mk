@@ -7,7 +7,6 @@ BOARD = QMK_PROTON_C
 #
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = yes  # Virtual DIP switch configuration
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 CONSOLE_ENABLE = no  # Console for debug
