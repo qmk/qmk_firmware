@@ -71,7 +71,6 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Period is left mouse button.
 * Right shift is right mouse button.
 * Caps lock is shifted tab and with tab can do form navigation.
-* Escape is pure escape.
 * All left modifiers are normal with no one shot sticky.
 * Enter and backspace are themselves.
 * Backslash is keyboard reset.
@@ -99,6 +98,8 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Various unicode characters µ(M), °(K), £(L), Ω(Z), ∫(S), ∂(D) and √(G).
 * Volume is up(J) and down(H).
 * Browser search is A, favorites is F.
+* Escape is pure escape.
+* Caps lock is num lock.
 
 #### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.

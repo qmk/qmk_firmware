@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//Extended shift mode 8 ============================================================================== Extended shift mode 8
 	// A utility layer for things like the mouse.
 	LAYOUT_60_ansi(
-		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LOCK, KC_PEQL,          KC_BSPC,
+		KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LOCK, KC_PEQL,          KC_BSPC,
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_WH_U, KC_WH_D, RESET,
 		LSFT(KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_BTN4, KC_BTN3, KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_PCMM, KC_BTN1, KC_MS_U,          KC_BTN2,
@@ -99,9 +99,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//Special shift mode 9 ==============================================================================- Special shift mode 9
 	// A utility layer for things not elsewhere, and slow language entry with 0 locking.
 	LAYOUT_60_ansi(
-		KC_GESC, KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_HAEN, KC_HANJ,          KC_DEL,
+		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_HAEN, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_LOCK, KC_HOME, KC_END,  KC_INS,
-		KC_CAPS,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_ENT,
+		KC_NLCK,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_ENT,
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, MOD_RGUI,         KC_RCTL, TG(9))
 	
@@ -131,13 +131,23 @@ const rgblight_segment_t PROGMEM my_special[] = RGBLIGHT_LAYER_SEGMENTS(
     {11, 2, HSV_BLUE}
 );
 
+const rgblight_segment_t PROGMEM my_ivnum[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 1, HSV_PURPLE}
+);
+
+const rgblight_segment_t PROGMEM my_scroll[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 1, HSV_PURPLE}
+);
+
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_caps,	// Overrides caps lock layer
 	my_fn,		// Overides Fn shifted
     my_lowbit,    
     my_highbit,	// Overrides other layers
 	my_extended,// Extended mode
-	my_special	// Special mode
+	my_special,	// Special mode
+	my_ivnum,	// Inverse num lock indication
+	my_scroll	// Scroll lock
 );
 
 void keyboard_post_init_user(void) {
@@ -168,5 +178,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t led_state) {
 	// Caps lock
     rgblight_set_layer_state(0, led_state.caps_lock);
+	rgblight_set_layer_state(6, led_state.num_lock);
+	rgblight_set_layer_state(7, led_state.scroll_lock);
     return true;
 }
