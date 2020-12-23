@@ -56,9 +56,7 @@ void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
 void g_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (cur_dance(state)) {
         case SINGLE_TAP:
-            register_code(KC_LCTL);
-            tap_code(KC_END);
-            unregister_code(KC_LCTL);
+            tap_code16(C(KC_END));
             break;
         case DOUBLE_TAP:
             register_code(KC_LCTL);
@@ -289,5 +287,4 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
-
 
