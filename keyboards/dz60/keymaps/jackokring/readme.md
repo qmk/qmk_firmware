@@ -184,6 +184,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * F19 to F24 form fourth row Z-N.
 * Comma is a numpad comma.
 * Num lock placed on caps lock.
+* Right shift is √.
 
 ### Numpad Shift Layer (Fn Numpad)
 * Standard ANSI layer except for left modifiers control/win/alt.
