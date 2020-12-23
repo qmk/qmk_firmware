@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#include <version.h>
+#include "version.h"
 #include <stdlib.h>
 
 #define RGB_LAYER_ACK_DURATION 500
