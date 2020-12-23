@@ -1,3 +1,3 @@
 # Default Helen 80 Layout
 
-This is the default layout that comes flashed on every Helen 80. All key pins are shown in the file.
+This is the default tkl_ansi layout that comes flashed on every Helen 80.

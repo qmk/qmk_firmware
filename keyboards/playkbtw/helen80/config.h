@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x4845
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Play Keyboard
-#define PRODUCT         helen80
+#define PRODUCT         Helen 80
 
 /* key matrix size */
 #define MATRIX_ROWS 6
