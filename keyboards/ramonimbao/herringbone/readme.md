@@ -6,7 +6,7 @@ Through-hole 75% keyboards. The Pro version has support for rotary knob, OLED di
 * Hardware Supported: ATmega32A
 * Hardware Availability: [Herringbone](https://github.com/ramonimbao/Herringbone)
 
-Make example for this keyboard (after setting up your build environment):
+Make example for these keyboards (after setting up your build environment):
 
     make ramonimbao/herringbone/v1:default
     
