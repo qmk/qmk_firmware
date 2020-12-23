@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Nasp
 #define PRODUCT         QUARK
-#define DESCRIPTION     ortholinear PCB with alternate bottom rows
 
 /* key matrix size */
 #define MATRIX_ROWS 5

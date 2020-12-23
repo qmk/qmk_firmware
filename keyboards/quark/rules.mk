@@ -19,5 +19,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-UNICODE_ENABLE = yes 	    # Unicode
+UNICODE_ENABLE = yes        # Unicode
 
+LAYOUTS = ortho_4x12

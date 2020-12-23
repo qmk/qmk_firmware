@@ -49,7 +49,7 @@
   { k400, k401, KC_NO, KC_NO, k402, KC_NO, KC_NO, k403, KC_NO, KC_NO, k404, k405 } \
 }
 
-#define LAYOUT_4x12_Grid( \
+#define LAYOUT_ortho_4x12( \
   k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, \
   k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, \
   k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, \
