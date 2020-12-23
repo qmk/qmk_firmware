@@ -212,3 +212,4 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * With 32 bits perhaps to indicate a lingual star system before the alternate becomes the locale zone of the expression required to be currently typed, it is critical to reduce the codepage size to get even some sort of eventual recognition in a galaxy that might have life, planets and competing languages upon just one planet.
 * Of course document language tags will have to be maintained by the OS as the applications literally don't care much beyond a basic control code set embedded within the text. This reduces the document size but does need one of the control codes to kind of be alt, one to be alt gr and one to be OS system request.
 * Say control+S embedded should indicate (possibly ignored as virii exist) the desire to save the following by some means and persistance specification.
+* Post moderner computing should not be a history project.
