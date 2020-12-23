@@ -26,7 +26,7 @@
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
  * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │        │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ´ │        │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
  * │        │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │          │
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -72,7 +72,7 @@
 #define US_K    KC_K    // K
 #define US_L    KC_L    // L
 #define US_SCLN KC_SCLN // ;
-#define US_QUOT KC_QUOT // ' (dead)
+#define US_ACUT KC_QUOT // ´ (dead)
 // Row 4
 #define US_Z    KC_Z    // Z
 #define US_X    KC_X    // X
@@ -170,7 +170,7 @@
 #define US_ETH  ALGR(US_D)    // Ð
 #define US_OSTR ALGR(US_L)    // Ø
 #define US_PILC ALGR(US_SCLN) // ¶
-#define US_ACUT ALGR(US_QUOT) // ´
+#define US_QUOT ALGR(US_QUOT) // '
 // Row 4
 #define US_AE   ALGR(US_Z)    // Æ
 #define US_COPY ALGR(US_C)    // ©
