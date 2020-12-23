@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ver1.h"
 
 #include QMK_KEYBOARD_H
 
@@ -45,4 +44,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_WH_D, KC_NO,   RGB_HUI, RGB_SAI, RGB_VAI, RGB_M_B,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_TRNS)
 };
-
