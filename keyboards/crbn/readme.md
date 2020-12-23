@@ -1,4 +1,4 @@
-#CRBN
+# CRBN
 
 A compact 40% (12x4) ortholinear keyboard kit made by Polarity Works and sold by keygem
 
