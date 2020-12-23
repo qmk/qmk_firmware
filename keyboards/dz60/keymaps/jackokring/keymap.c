@@ -178,7 +178,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t led_state) {
 	// Caps lock
     rgblight_set_layer_state(0, led_state.caps_lock);
-	rgblight_set_layer_state(6, led_state.num_lock);
+	rgblight_set_layer_state(6, !led_state.num_lock);
 	rgblight_set_layer_state(7, led_state.scroll_lock);
     return true;
 }
