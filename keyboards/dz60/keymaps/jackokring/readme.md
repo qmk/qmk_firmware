@@ -207,3 +207,6 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Various combinations not locked by a priority (high priority ordernate OS > intermediate Language > low level App) should do anything if available to assign.
 * Level 3 shift just inserts a more expressive (in intent) layer between win and alt.
 * So why is low level control of application easier to find?
+* What control+alt+delete used to do?
+* Apply application control with and alternate linguistic meaning of delete by by stopping the single task that was possible without terminate and stay resident jot key apps.
+* With 32 bits perhaps to indicate a lingual star system before the alternate becomes the locale zone of the expression required to be currently typed, it is critical to reduce the codepage size to get even some sort of eventual recognition in a galaxy that might have life, planets and competing languages upon just one planet.
