@@ -20,9 +20,9 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x1010
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    %MANUFACTURER%
+#define MANUFACTURER    Taylore101
 #define PRODUCT         BigMac
 
 /* key matrix size */
