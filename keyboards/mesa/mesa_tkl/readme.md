@@ -1,6 +1,6 @@
 # Mesa TKL
 
-![Mesa TKL](https://imgur.com/XPLJmr8)
+![Mesa TKL](https://imgur.com/XPLJmr8.png)
 
 Firmware for the Mesa TKL PCB. To reset the board into bootloader mode, short the two exposed pads labeled "RESET" next to the MCU.
 
