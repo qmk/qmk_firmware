@@ -72,10 +72,9 @@ void on_mouse_button(uint8_t mouse_button, bool pressed) {
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _FN
+    _FN,
+    _FN2
 };
-
-
 
 
 // Defines the keycodes used by our macros in process_record_user
@@ -99,16 +98,34 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        RGB_TOG,    RGB_HUI,    RGB_SAI,
-        KC_CPI_UP,   KC_CPI_DOWN,    KC_MOUSEMODE_SCROLL_ON_PRESS,   KC_MOUSEMODE_ARROW_ON_PRESS,
-        KC_BTN1,   MO(_FN),    KC_BTN3,   KC_BTN2
+        LCTL(KC_UP),    LCTL(KC_DOWN),      LCTL(KC_LEFT),  LCTL(KC_RIGHT),
+        KC_ESC,         KC_ENTER,           KC_BTN3,        KC_MOUSEMODE_SCROLL_ON_PRESS,
+        KC_BTN1,        MO(_FN2),   MO(_FN),        LGUI(LSFT(KC_A)),                    KC_BTN2
     ),
     [_FN] = LAYOUT(
-        RGB_MODE_FORWARD,    RGB_HUD,    RGB_SAD,
-        KC_SCROLLSPEED_UP,   KC_SCROLLSPEED_DOWN,    KC_SPC,   KC_SPC,
-        KC_BTN1,   MO(_FN),    KC_BTN3,   KC_BTN2
+        RGB_HUI,    RGB_HUD,   RGB_VAI,    RGB_VAD,
+        RGB_TOG,    RGB_MODE_FORWARD,    RGB_SAI, RGB_SAD,
+        KC_CPI_UP,  KC_CPI_DOWN,  MO(_FN),  KC_SCROLLSPEED_UP,   KC_SCROLLSPEED_DOWN
+    ),
+    [_FN] = LAYOUT(
+        RGB_HUI,    RGB_HUD,   RGB_VAI,    RGB_VAD,
+        RGB_TOG,    RGB_MODE_FORWARD,    RGB_SAI, RGB_SAD,
+        KC_CPI_UP,  KC_CPI_DOWN,  MO(_FN),  KC_SCROLLSPEED_UP,   KC_SCROLLSPEED_DOWN
     )
 };
+// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+//     /* Base */
+//     [_BASE] = LAYOUT(
+//         RGB_TOG,    RGB_HUI,    RGB_SAI,
+//         KC_CPI_UP,   KC_CPI_DOWN,    KC_MOUSEMODE_SCROLL_ON_PRESS,   KC_MOUSEMODE_ARROW_ON_PRESS,
+//         KC_BTN1,   MO(_FN),    KC_BTN3,   KC_BTN2
+//     ),
+//     [_FN] = LAYOUT(
+//         RGB_MODE_FORWARD,    RGB_HUD,    RGB_SAD,
+//         KC_SCROLLSPEED_UP,   KC_SCROLLSPEED_DOWN,    KC_SPC,   KC_SPC,
+//         KC_BTN1,   MO(_FN),    KC_BTN3,   KC_BTN2
+//     )
+// };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -130,6 +147,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 		// handle mouse
 		case KC_BTN1:
+            #ifdef CONSOLE_ENABLE
+            uprintf("left %d\n",record->event.pressed);
+            #endif
+
 			on_mouse_button(MOUSE_BTN1, record->event.pressed);
 			return false;
 
