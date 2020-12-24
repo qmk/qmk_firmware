@@ -15,7 +15,8 @@ MCU_LDSCRIPT = NUC123xD4xx0
 
 # startup code to use
 MCU_STARTUP = NUC123
-BOARD = NUC123SD4AN0
+# BOARD = NUC123SD4AN0
+BOARD = NUTINY-SDK-NUC123-V2.0
 
 # NUC123 series is Cortex M0
 MCU  = cortex-m0
@@ -26,7 +27,7 @@ ARMV = 6
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes       # Mouse keys
+MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
