@@ -26,7 +26,7 @@ As the post modern internet arrived, many of the ASCII control codes became obso
 * V - PIN - Paste Insert - perhaps some extended functionality.
 * W - SCV - Sign Check Verify - checksums and balances.
 * X - CCN - Cut CaNcel - perhaps some extended functionality.
-* Y
+* Y - CAR - Crypt ARchive - apply security and data management for later recovery.
 * Z - TRY - TRaY - minimise to tray for background processing.
 
 ## Keyable but Not Embeddable More Modern Control Code Assignments
