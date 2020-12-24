@@ -18,10 +18,10 @@ As the post modern internet arrived, many of the ASCII control codes became obso
 * N - NWI - NeW Insert - allows a little more functionality.
 * O - OII - Open Include Insert - allows a little more functionality.
 * P - POS - Print Old Skool - go all `old skool` in the data medium.
-* Q
-* R
+* Q - QUT - QUiT - finalize and exit/quit.
+* R - RFH - ReFresH - see if anything is changed since the last time.
 * S - SIC - Save Incorporate Cloud - perhaps some extended functionality.
-* T
+* T - TSK - TaSK - multitask switch.
 * U - UFB - Underline FeedBack - perhaps some extended functionality.
 * V - PIN - Paste Insert - perhaps some extended functionality.
 * W - SCV - Sign Check Verify - checksums and balances.
