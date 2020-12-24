@@ -1,11 +1,11 @@
 {
     "keyboard_name": "BIOI S65",
     "url": "",
-    "maintainer": "Basic I/O Instruments",
+    "maintainer": "scottywei",
     "width": 18.25,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

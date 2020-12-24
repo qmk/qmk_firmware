@@ -1,11 +1,11 @@
 {
     "keyboard_name": "BIOI G60",
     "url": "https://scottywei.github.io/bioi-g60ble/",
-    "maintainer": "Basic I/O Instruments",
+    "maintainer": "scottywei",
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

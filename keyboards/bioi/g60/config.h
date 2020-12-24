@@ -26,7 +26,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Basic IO Instruments
 #define PRODUCT         BIOI G60
-#define DESCRIPTION     G60 BLE Dual Mode Keyboard by Baisc IO Instruments
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -54,7 +53,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define BEBOUNCE 5
+#define DEBOUNCE 5
 
 /* RGB Underglow */
 #define RGB_DI_PIN B1
@@ -63,10 +62,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

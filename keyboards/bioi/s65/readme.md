@@ -4,7 +4,7 @@
 
 Get rid of the F row.
 
-* Keyboard Maintainer: [Baisc I/O Instruments(Scott Wei)](https://github.com/scottywei)
+* Keyboard Maintainer: [Basic I/O Instruments (Scott Wei)](https://github.com/scottywei)
 * Hardware Supported: S65 PCB
 * Hardware Availability: Coming soon
 

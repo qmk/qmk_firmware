@@ -4,7 +4,7 @@
 
 Morgan65 is a 65% custom keyboard by DT Studio, powered by an USB/Bluetooth dual-mode PCB from Basic I/O Instruments.
 
-* Keyboard Maintainer: [Baisc I/O Instruments(Scott Wei)](https://github.com/scottywei)
+* Keyboard Maintainer: [Basic I/O Instruments (Scott Wei)](https://github.com/scottywei)
 * Hardware Supported: Morgan65 PCB
 * Hardware Availability: N/A
 

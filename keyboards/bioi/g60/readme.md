@@ -4,7 +4,7 @@
 
 Inspired by the design of the Cherry G80 series, the G60 is a 60% USB/Bluetooth dual-mode custom keyboard.
 
-* Keyboard Maintainer: [Baisc I/O Instruments(Scott Wei)](https://github.com/scottywei)
+* Keyboard Maintainer: [Basic I/O Instruments (Scott Wei)](https://github.com/scottywei)
 * Hardware Supported: [BIOI G60BLE PCB](https://scottywei.github.io/bioi-g60ble/)
 * Hardware Availability: [BIOI Taobao Store](https://item.taobao.com/item.htm?&id=611933113439) / [Playkeyboard](https://play-keyboard.store/products/bioi-g60ble-pcb-default-version-custom-60-bluetooth-pcb)
 

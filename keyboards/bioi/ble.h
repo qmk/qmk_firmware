@@ -1,5 +1,4 @@
-#ifndef BLE_H
-#define BLE_H
+#pragma once
 
 #include <stdbool.h>
 #include "host_driver.h"
