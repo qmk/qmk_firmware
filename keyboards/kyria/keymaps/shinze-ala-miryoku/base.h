@@ -49,3 +49,5 @@
 #define S38 BP_F
 #define S39 BP_CCED
 
+#define BP_DOL BP_DOLLAR
+
