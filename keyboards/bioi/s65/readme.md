@@ -2,7 +2,7 @@
 
 ![S65](https://img.zfrontier.com/post/20200514/FucHmQHc4zv7NG68UnDMlpOS798l?imageView2/2/format/webp)
 
-A 65% custom keyboard, NOT FROM SAM, get rid of the F row.
+Get rid of the F row.
 
 * Keyboard Maintainer: [Baisc I/O Instruments(Scott Wei)](https://github.com/scottywei)
 * Hardware Supported: S65 PCB
