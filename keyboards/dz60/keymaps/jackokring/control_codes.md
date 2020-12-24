@@ -11,7 +11,7 @@ As the post modern internet arrived, many of the ASCII control codes became obso
 * G 
 * H - BSP - BackSPace - as it always usefully has been.
 * I - TAB - TABulate - as it always usefully has been.
-* J
+* J - ENT - ENTer - as it always usefully has been.
 * K
 * L
 * M
