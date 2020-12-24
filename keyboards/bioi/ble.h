@@ -20,5 +20,3 @@ host_driver_t null_driver;
 void send_str(const char *str);
 void usart_init(void);
 void module_reset(void);
-
-#endif
