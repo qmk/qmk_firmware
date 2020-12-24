@@ -2,11 +2,11 @@
 As the post modern internet arrived, many of the ASCII control codes became obsolete as tgheir protocol handling nature was superseeded by the signalling layer of X.25 and the TCP/IP stack. The rest of this page descibes assignment that would be more suitable and indicative of the type of control needed for a human to computer control layer rather than the origional ASCII intent of a data link PPP control layer.
 
 ## More Modern Embeddable Control Code Assignments
-* A - SSA - Search Select All - literally everything and totality.
+* A - CSA - Context Select All - literally everything and totality.
 * B - BMN - Bold Make Note - may have good clipboard functionality in a modern terminal.
 * C - CCA - Copy Clone Again - could explain what contro+C does in a terminal.
-* D
-* E
+* D - CMP - CoMPletion - mark a completion or favorite for later recall on an index.
+* E - ENQ - ENQuire - perform search and result insert.
 * F - FFD - Favorite Find Default - useful.
 * G - NFY - NotiFY - make some kind of notification or chat/progress message(s) appear.
 * H - BSP - BackSPace - as it always usefully has been.
