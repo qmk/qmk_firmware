@@ -22,4 +22,4 @@ Default Layout:
     
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with the [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-![PCB](https://i.imgur.com/aMii80b.jpg)
+![PCB](https://i.imgur.com/aMii80bl.jpg)
