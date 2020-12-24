@@ -28,7 +28,7 @@ void led_init_ports(void) {
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(B9, led_state.caps_lock);
+        writePin(B9, !led_state.caps_lock);
     }
 
     return true;
