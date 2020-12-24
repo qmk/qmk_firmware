@@ -8,9 +8,9 @@ As the post modern internet arrived, many of the ASCII control codes became obso
 * D
 * E
 * F - FFD - Favorite Find Default - useful.
-* G - BSP - BackSPace - as it always usefully has been.
-* H - TAB - TABulate - as it always usefully has been.
-* I
+* G 
+* H - BSP - BackSPace - as it always usefully has been.
+* I - TAB - TABulate - as it always usefully has been.
 * J
 * K
 * L
