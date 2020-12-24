@@ -212,7 +212,7 @@ To enable Retro Shift, add the following to your `config.h`:
 #define RETRO_SHIFT
 ```
 
-If `RETRO_SHIFT` is defined to a value, hold times greater than that value will not produce a tap on release.  This enables modifiers to be held for combining with mouse clicks without generating taps on release.  For example:
+If `RETRO_SHIFT` is defined to a value, hold times greater than that value will not produce a tap on release for Mod Taps.  This enables modifiers to be held for combining with mouse clicks without generating taps on release.  For example:
 
 ```c
 #define RETRO_SHIFT 500
@@ -220,9 +220,13 @@ If `RETRO_SHIFT` is defined to a value, hold times greater than that value will 
 
 This value (if set) must be greater than one's `TAPPING_TERM`, as the key press must be designated as a 'hold' by the time we send the modifier for use with mouse or return true on its release if `RETRO_SHIFT` is exceeded. There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT`.
 
-### Retro Shift and IGNORE_MOD_TAP_INTERRUPT
+### Retro Shift and Tap Hold Configurations
 
-`IGNORE_MOD_TAP_INTERRUPT` works a little differently when using Retro Shift. Referencing the `TAPPING_TERM` makes little sense, as holding longer will result in shifting one of the keys. Instead, it simply makes rolling from a mod tap (releasing it first) send both keys instead of the modifier on the second.
+`IGNORE_MOD_TAP_INTERRUPT` works a little differently when using Retro Shift. Referencing `TAPPING_TERM` makes little sense, as holding longer will result in shifting one of the keys. Instead, it changes *only* rolling from a mod tap (releasing it first), sending both keys instead of the modifier on the second.
+
+As nested taps were changed to act as though `PERMISSIVE_HOLD` is set unless only `IGNORE_MOD_TAP_INTERRUPT` is (outside of Retro Shift), `PERMISSIVE_HOLD` is identical to `HOLD_ON_OTHER_KEYPRESS` for Layer Taps and has no effect on Mod Taps.
+
+Due to the above and Layer Tap changes (again because referencing `TAPPING_TERM` makes little sense), nested taps will *always* act as though the `TAPPING_TERM` was exceeded and use the Tap Hold's hold action.
 
 ## Why do we include the key record for the per key functions? 
 
