@@ -12,9 +12,9 @@ As the post modern internet arrived, many of the ASCII control codes became obso
 * H - BSP - BackSPace - as it always usefully has been.
 * I - TAB - TABulate - as it always usefully has been.
 * J - ENT - ENTer - as it always usefully has been.
-* K
-* L
-* M
+* K - VRT - ViRtical Tabulate - as it always usefully has been.
+* L - PAG - PAGe - a new page marker or clear screen for blank page.
+* M - RDO - ReDO - allows a little more functionality.
 * N - NWI - NeW Insert - allows a little more functionality.
 * O - OII - Open Include Insert - allows a little more functionality.
 * P - POS - Print Old Skool - go all `old skool` in the data medium.
