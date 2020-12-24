@@ -8,7 +8,7 @@ As the post modern internet arrived, many of the ASCII control codes became obso
 * D
 * E
 * F - FFD - Favorite Find Default - useful.
-* G 
+* G - NFY - NotiFY - make some kind of notification or chat/progress message(s) appear.
 * H - BSP - BackSPace - as it always usefully has been.
 * I - TAB - TABulate - as it always usefully has been.
 * J - ENT - ENTer - as it always usefully has been.
