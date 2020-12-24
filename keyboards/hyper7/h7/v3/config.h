@@ -4,12 +4,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCAFE
+#define VENDOR_ID       0xDEAD
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    yiancar
 #define PRODUCT         hyper7 v3.0
-#define DESCRIPTION     hyper7 v3.0 firmware compiled by bitshifter
+#define DESCRIPTION     hyper7 v3.0 firmware compiled by bit-shifter
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -36,8 +36,8 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+/* prevent stuck modifiers */
+#define PREVENT_STUCK_MODIFIERS
 
 // see: https://docs.qmk.fm/#/feature_leader_key
 #define LEADER_PER_KEY_TIMING
