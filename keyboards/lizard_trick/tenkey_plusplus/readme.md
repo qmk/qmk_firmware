@@ -14,7 +14,6 @@ Make example for default layout (set up QMK build environment first):
     
 Flashing example for this keyboard:
     
-    Press the button on the back of the PCB labeled "RESET"
     make lizard_trick/tenkey_plusplus:default:flash
     
 Default Layout:
