@@ -1,7 +1,6 @@
 """Generate a keymap.json from a keymap.c file.
 """
 import json
-import sys
 
 from milc import cli
 
