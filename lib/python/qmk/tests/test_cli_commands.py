@@ -201,6 +201,18 @@ def test_c2json_nocpp():
     assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
 
 
+def test_c2json_stdin():
+    result = check_subcommand_stdin("keyboards/handwired/onekey/keymaps/default/keymap.c", "c2json", "-kb", "handwired/onekey/pytest", "-km", "default", "-")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+
+
+def test_c2json_nocpp_stdin():
+    result = check_subcommand_stdin("keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c", "c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "-")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+
+
 def test_clean():
     result = check_subcommand('clean', '-a')
     check_returncode(result)
