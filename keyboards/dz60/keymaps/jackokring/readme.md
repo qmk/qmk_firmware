@@ -64,6 +64,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Fn is still sticky and needs pressing to exit the layer shift.
 * Right control enters the extended shift layer.
 * Right alt enters the special shift layer.
+* Right win enters the user shift layer.
 
 ### Extended Shift Layer
 * Fn exits the extended shift layer.
@@ -100,6 +101,10 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Browser search is A, favorites is F.
 * Escape is pure escape.
 * Caps lock is num lock.
+
+### User Shift Layer
+* Fn exits the special shift layer.
+* Currently configured as a guess next mangler mode.
 
 #### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
