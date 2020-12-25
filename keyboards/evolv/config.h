@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED // AP for AcheronProject
-#define PRODUCT_ID      0x0075 // AR for Arctic
+#define VENDOR_ID       0x7865 // NA for NathanAlpha
+#define PRODUCT_ID      0x0E75 // For Evolv75
 #define DEVICE_VER      0x0001 // Revision pre-Alpha
 #define MANUFACTURER    NathanAlpha
 #define PRODUCT         Evolv75
