@@ -112,6 +112,19 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
 }
 
 #ifdef VIAL_ENCODERS_ENABLE
+uint16_t g_vial_magic_keycode_override;
+
+static void exec_keycode(uint16_t keycode) {
+    g_vial_magic_keycode_override = keycode;
+
+    action_exec((keyevent_t){
+        .key = (keypos_t){.row = 254, .col = 254}, .pressed = 1, .time = (timer_read() | 1) /* time should not be 0 */
+    });
+    action_exec((keyevent_t){
+        .key = (keypos_t){.row = 254, .col = 254}, .pressed = 0, .time = (timer_read() | 1) /* time should not be 0 */
+    });
+}
+
 void vial_encoder_update(uint8_t index, bool clockwise) {
     uint16_t code;
 
@@ -121,13 +134,13 @@ void vial_encoder_update(uint8_t index, bool clockwise) {
         if (layers & (1UL << i)) {
             code = dynamic_keymap_get_encoder(i, index, clockwise);
             if (code != KC_TRNS) {
-                tap_code16(code);
+                exec_keycode(code);
                 return;
             }
         }
     }
     /* fall back to layer 0 */
     code = dynamic_keymap_get_encoder(0, index, clockwise);
-    tap_code16(code);
+    exec_keycode(code);
 }
 #endif
