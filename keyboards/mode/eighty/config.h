@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Alexander Fougner <fougner89 at gmail.com>
+Copyright 2020 Alvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x00DE
+#define VENDOR_ID       0x6869
 #define PRODUCT_ID      0x0080
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Mode
