@@ -24,12 +24,12 @@ typedef union {
   struct {
     bool init : 1;
   };
-} user_config_t;
+} keyboard_config_t;
 
-user_config_t ble_config;
+extern keyboard_config_t ble_config;
 
-host_driver_t bluefruit_driver;
-host_driver_t null_driver;
+extern host_driver_t bluefruit_driver;
+extern host_driver_t null_driver;
 
 void send_str(const char *str);
 void usart_init(void);

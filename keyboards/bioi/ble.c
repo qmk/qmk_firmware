@@ -38,7 +38,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "ble.h"
 #include "usart.h"
 
-user_config_t ble_config;
+keyboard_config_t ble_config;
 
 static uint8_t bluefruit_keyboard_leds = 0;
 
