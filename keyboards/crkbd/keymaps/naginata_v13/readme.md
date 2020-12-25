@@ -1,6 +1,6 @@
 # crkbd用 薙刀式カナ配列キーマップ
 
-薙刀式カナ配列による入力をQMKで実現します。薙刀式v13完成版(仮)に準拠しています。
+薙刀式カナ配列による入力をQMKで実現します。薙刀式v13完成版に準拠しています。
 Windows用の編集モードも実装しています。編集モードの記号入力を使用するには以下の設定をしてください。
 
 1. Windowsのキーボード設定を106キーボードにする。
@@ -38,14 +38,10 @@ OLEDが有効な場合には左側のOLEDには、日本語入力モードに応
 
 ### 薙刀式とは
 
-【薙刀式】v13完成版（仮）最終候補版
-http://oookaworks.seesaa.net/article/478474988.html
+【薙刀式】v13完成版、発表。
+http://oookaworks.seesaa.net/article/479173898.html
 
 ### キーマップ
 
 ![My keymap](keymap.svg "Crkbd")
 
-### 他のキーボードのサポート
-
-* [MiniAxe](https://github.com/eswai/qmk_firmware/tree/master/keyboards/miniaxe/keymaps/naginata_v12)
-* [Planck](https://github.com/eswai/qmk_firmware/tree/master/keyboards/planck/keymaps/naginata)

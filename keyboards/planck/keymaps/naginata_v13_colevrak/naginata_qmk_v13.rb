@@ -1,11 +1,11 @@
 tanda = <<ETANDA
-  |き|て|し|{←}|{→}|{BS}|る|す|へ|「|」|
+|き|て|し|{←}|{→}|{BS}|る|す|へ|「|」|
 ろ|け|と|か|っ  |く  |あ  |い|う|ー|’|‘|
 ほ|ひ|は|こ|そ  |た  |な  |ん|ら|れ|？|
 ETANDA
 
 shifted = <<ESHIFTED
-  |ね|り|め|+{←}|+{→}|さ       |よ|え|ゆ|『|』|
+|ね|り|め|+{←}|+{→}|さ       |よ|え|ゆ|『|』|
 せ|ぬ|に|ま|ち   |や   |の       |も|わ|つ|" |~ |
 ほ|ひ|を|、|み   |お   |。{Enter}|む|ふ|れ|！|
 ESHIFTED
@@ -29,9 +29,9 @@ mode2l = <<MEND
 MEND
 
 mode2r = <<MEND
-|||||+{Home}|^x     |^v   |^y    |^z     |  |  |
-|||||^c     |+{→ 5}|+{↑}|{→ 5}|^{PgUp}|  |  |
-|||||+{End} |+{← 5}|+{↓}|{← 5}|^{PgDn}|  |
+|||||+{Home}|^x    |^v     |^y     |^z       |  |  |
+|||||^c     |{→ 5}|+{→ 5}|^{PgUp}|^{PgUp 5}|  |  |
+|||||+{End} |{← 5}|+{← 5}|^{PgDn}|^{PgDn 5}|  |
 MEND
 
 eiji    = %w(Q W E R T  Y U I O P  A S D F G  H J K L SCLN  Z X C V B  N M COMM DOT SLSH)
@@ -97,6 +97,8 @@ r_gairai << %w(sye tye zye dye)
 
 gairai << %w(ふぁ ふぃ ふぇ ふぉ ふゅ)
 r_gairai << %w(fa fi fe fo fyu)
+gairai << %w(いぇ)
+r_gairai << %w(ixe)
 gairai << %w(うぃ うぇ うぉ ゔぁ ゔぃ ゔぇ ゔぉ ゔゅ)
 r_gairai << %w(wi we uxo va vi ve vo vuxyu)
 gairai << %w(くぁ くぃ くぇ くぉ くゎ ぐぁ ぐぃ ぐぇ ぐぉ ぐゎ)
@@ -273,7 +275,7 @@ henshu = {
 "{End}"         => ["kana", "SS_TAP(X_END)", "SS_LCTL(\"e\")"],
 "+{Home}"       => ["kana", "SS_LSFT(SS_TAP(X_HOME))", "SS_LSFT(SS_LCTL(SS_TAP(NGUP)))"],
 "+{End}"        => ["kana", "SS_LSFT(SS_TAP(X_END))", "SS_LSFT(SS_LCTL(\"e\"))"],
-"^{End}"        => ["kana", "SS_LCTL(SS_TAP(X_END))}", "SS_LCMD(SS_LCTL(\"e\"))"],
+"^{End}"        => ["kana", "SS_LCTL(SS_TAP(X_END))", "SS_LCMD(SS_LCTL(\"e\"))"],
 "+{End}{BS}"    => ["kana", "SS_LSFT(SS_TAP(X_END))SS_TAP(X_BSPACE)", "SS_LSFT(SS_LCTL(\"e\"))SS_TAP(X_BSPACE)"], # 末消
 "{vk1Csc079}"   => ["kana", "SS_TAP(X_INT4)"], # 再変換
 "{Del}"         => ["kana", "SS_TAP(X_DELETE)"],
@@ -288,8 +290,10 @@ henshu = {
 "+{← 5}"       => ["kana", "SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))"],
 "{→ 5}"        => ["kana", "SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)"],
 "{← 5}"        => ["kana", "SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)"],
-"^{PgUp}"       => ["kana", "SS_LCTL(SS_TAP(X_PGUP))"],
-"^{PgDn}"       => ["kana", "SS_LCTL(SS_TAP(X_PGDOWN))"],
+"^{PgUp}"       => ["kana", "SS_LCTL(SS_TAP(X_PGUP))", "SS_TAP(X_PGUP)"],
+"^{PgDn}"       => ["kana", "SS_LCTL(SS_TAP(X_PGDOWN))", "SS_TAP(X_PGDOWN)"],
+"^{PgUp 5}"       => ["kana", "SS_LCTL(SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP))", "SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)"],
+"^{PgDn 5}"       => ["kana", "SS_LCTL(SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN))", "SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)"],
 "{Enter}{End}"  => ["kana", "SS_TAP(X_ENTER)SS_TAP(X_END)"],
 "{Home}{改行}{Space 3}{End}"=> ["kana", "SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_END)", "SS_LCTL(\"a\")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_LCTL(\"e\")"], # 台マクロ
 "{Home}{改行}{Space 1}{End}"=> ["kana", "SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_END)", "SS_LCTL(\"a\")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_LCTL(\"e\")"], # ト マクロ
