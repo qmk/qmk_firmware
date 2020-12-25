@@ -28,7 +28,7 @@ def c2json(cli):
         if not cli.args.filename.exists():
             cli.log.error('C file does not exist!')
             cli.print_usage()
-            exit(1)
+            return False
 
     # Environment processing
     if cli.args.output == ('-'):
@@ -42,7 +42,7 @@ def c2json(cli):
         keymap_json = qmk.keymap.generate_json(keymap_json['keymap'], keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'])
     except KeyError:
         cli.log.error('Something went wrong. Try to use --no-cpp.')
-        sys.exit(1)
+        return False
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
