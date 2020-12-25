@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "notes": "",
+    "documentation":"\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
+    "keyboard": "bonksalot/thirty_one_key",
+    "keymap": "thirty_one",
+    "keyboard_name": "thirty_one_key",
+    "url": "https://www.hissing-skuz.de",
+    "maintainer": "filmon",
+    "width": 8,
+    "height": 5,
+    "layout": "LAYOUT",
+    "layers": [
+    [
+      "KC_ESC",
+      "LT(1, RGB_TOG)",
+      "KC_BSPC",
+      "KC_WH_L",
+      "KC_UP",
+      "KC_WH_R",
+      "KC_LEFT",
+      "KC_DOWN",
+      "KC_RIGHT"
+    ],
+    [
+      "RGB_RMOD",
+      "KC_NO",
+      "RGB_MOD",
+      "RGB_HUI",
+      "RGB_VAI",
+      "RGB_SAI",
+      "RGB_HUD",
+      "RGB_VAD",
+      "RGB_SAD"
+    ]
+  ],
+  "author": ""
+}
