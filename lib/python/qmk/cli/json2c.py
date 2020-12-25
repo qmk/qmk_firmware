@@ -19,30 +19,25 @@ def json2c(cli):
     This command uses the `qmk.keymap` module to generate a keymap.c from a configurator export. The generated keymap is written to stdout, or to a file if -o is provided.
     """
 
-    # Parse the configurator from stdin
-    if cli.args.filename and cli.args.filename.name == '-':
-        try:
+    try:
+        # Parse the configurator from stdin
+        if cli.args.filename and cli.args.filename.name == '-':
             user_keymap = json.load(sys.stdin)
-        except json.decoder.JSONDecodeError as ex:
-            cli.log.error(ex.__class__.__name__)
-            cli.log.error(ex)
-            return False
 
-    else:
-        # Error checking
-        if not cli.args.filename.exists():
-            cli.log.error('JSON file does not exist!')
-            cli.print_usage()
-            return False
-
-        # Parse the configurator json
-        with cli.args.filename.open('r') as fd:
-            try:
-                user_keymap = json.load(fd)
-            except json.decoder.JSONDecodeError as ex:
-                cli.log.error(ex.__class__.__name__)
-                cli.log.error(ex)
+        else:
+            # Error checking
+            if not cli.args.filename.exists():
+                cli.log.error('JSON file does not exist!')
                 return False
+
+            # Parse the configurator json file
+            else:
+                user_keymap = json.loads(cli.args.filename.read_text())
+
+    except json.decoder.JSONDecodeError as ex:
+        cli.log.error('The JSON input does not appear to be valid.')
+        cli.log.error(ex)
+        return False
 
     # Environment processing
     if cli.args.output and cli.args.output.name == '-':
