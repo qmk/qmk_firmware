@@ -5,7 +5,6 @@
     "maintainer": "KiwiKey",
     "width": 3,
     "height": 3,
-    "key_count": 9,
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
