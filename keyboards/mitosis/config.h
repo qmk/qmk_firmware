@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5242  // RB for /u/reverse_bias
+#define PRODUCT_ID      0x4d54  // MT for Mitosis
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Unknown
+#define MANUFACTURER    /u/reverse_bias
 #define PRODUCT         Mitosis
 
 /* key matrix size */
