@@ -35,6 +35,7 @@ void cli_puts(const char *str);
 static MSCMD_USER_RESULT usrcmd_version(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_reset(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_advertise(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_disconnect(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_bootloader(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_bonding_information(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_delete_bonding(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
@@ -63,6 +64,7 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {"version", usrcmd_version, "Show version"},
     {"reset", usrcmd_reset, "Reset system"},
     {"adv", usrcmd_advertise, "Start advertising"},
+    {"dis", usrcmd_disconnect, "Disconnect BLE"},
     {"dfu", usrcmd_bootloader, "Jump to bootloader"},
     {"show", usrcmd_bonding_information, "Show bonded devices"},
     {"del", usrcmd_delete_bonding, "Delete bond information"},
@@ -132,6 +134,17 @@ static MSCMD_USER_RESULT usrcmd_advertise(MSOPT *msopt, MSCMD_USER_OBJECT usrobj
         }
     }
 
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_disconnect(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
+    if (msopt->argc >= 2) {
+        print("disconnect all\n");
+        BMPAPI->ble.disconnect(1);
+    } else {
+        print("disconnect device\n");
+        BMPAPI->ble.disconnect(0);
+    }
     return 0;
 }
 

@@ -32,5 +32,6 @@ bool is_ble_connected();
 bool is_usb_connected();
 
 extern int sleep_enter_counter;
+void bmp_enter_sleep();
 void bmp_before_sleep();
 

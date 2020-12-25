@@ -308,6 +308,7 @@ bmp_error_t msc_write_callback(const uint8_t *dat, uint32_t len) {
 }
 
 bmp_error_t webnus_write_callback(const uint8_t *dat, uint32_t len) {
+    tfp_printf("[web config]%s\n", dat);
     if (strnstr((const char *)dat, "show keymap", len) != NULL) {
         BMPAPI->web_config.set_send_buffer(
             (uint8_t *)keymap_string,

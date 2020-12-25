@@ -19,6 +19,7 @@
 #include "crkbd_ecwl.h"
 #include "quantum.h"
 #include "bmp_matrix.h"
+#include "bmp.h"
 
 #include "debug.h"
 #include "i2c_master.h"
@@ -35,9 +36,23 @@ const uint8_t row_pins[] = {7, 8, 9};
 const uint8_t col_pins[] = {15, 14, 13};
 const uint8_t col_sels[] = {6, 4, 3, 0, 1, 2, 5};
 
+// Switch scan threthold
 #define ERROR_TH 3000
 #define HIGH_TH 1000
 #define LOW_TH 800
+
+// Sleep count threthold(x17ms)
+#define STANBY_COUNT (10 * 1000 / 17)         // 10sec
+#define SCAN_RATE_STANBY (2)                  // 2count
+#define SCAN_RATE_DEEP_SLEEP (1 * 1000 / 17)  // 1sec
+
+typedef enum {
+    SCAN_MODE_ACTIVE,
+    SCAN_MODE_STANBY,
+    SCAN_MODE_DEEP_SLEEP,
+} scan_mode_t;
+
+static scan_mode_t scan_mode = SCAN_MODE_ACTIVE;
 
 #define LEN(x) (sizeof(x) / sizeof(x[0]))
 
@@ -92,7 +107,30 @@ uint16_t sw_read[32] = {0};
 uint32_t ecs_get_device_row() { return MATRIX_ROWS_DEFAULT; }
 uint32_t ecs_get_device_col() { return MATRIX_COLS_DEFAULT; }
 uint32_t ecs_matrix_scan(matrix_row_t *matrix_raw) {
-    uint16_t sw_idx = 0;
+    static uint32_t sleep_count = 0;
+    uint16_t        sw_idx      = 0;
+
+    if (scan_mode == SCAN_MODE_DEEP_SLEEP) {
+        if (sleep_count % SCAN_RATE_DEEP_SLEEP == SCAN_RATE_DEEP_SLEEP - 1) {
+            sleep_count++;
+            BMPAPI->ecs.schedule_next_scan();
+            return 0;
+        } else if (sleep_count % SCAN_RATE_DEEP_SLEEP != 0) {
+            sleep_count++;
+            BMPAPI->ecs.shutdown_amp();
+            return 0;
+        }
+    } else if (scan_mode == SCAN_MODE_STANBY) {
+        if (sleep_count % SCAN_RATE_STANBY == SCAN_RATE_STANBY - 1) {
+            sleep_count++;
+            BMPAPI->ecs.schedule_next_scan();
+            return 0;
+        } else if (sleep_count % SCAN_RATE_STANBY != 0) {
+            sleep_count++;
+            BMPAPI->ecs.shutdown_amp();
+            return 0;
+        }
+    }
 
     for (int col_sel_idx = 0; col_sel_idx < LEN(col_sels); col_sel_idx++) {
         BMPAPI->ecs.discharge_capacitor();
@@ -180,6 +218,19 @@ uint32_t ecs_matrix_scan(matrix_row_t *matrix_raw) {
         dprintf("\n");
     }
 
+    if (matrix_changed) {
+        if (scan_mode == SCAN_MODE_DEEP_SLEEP) {
+            BMPAPI->app.reset(0);
+        }
+        sleep_count = 0;
+        scan_mode   = SCAN_MODE_ACTIVE;
+    } else {
+        if ((!is_usb_connected()) && scan_mode == SCAN_MODE_ACTIVE && sleep_count > STANBY_COUNT) {
+            scan_mode = SCAN_MODE_STANBY;
+        }
+        sleep_count++;
+    }
+
     return matrix_changed;
 }
 
@@ -187,6 +238,11 @@ static const bmp_matrix_func_t matrix_func = {
     ecs_matrix_init, ecs_get_device_row, ecs_get_device_col, ecs_matrix_scan};
 
 const bmp_matrix_func_t *get_matrix_func_user() { return &matrix_func; }
+
+void bmp_enter_sleep() {
+    scan_mode = SCAN_MODE_DEEP_SLEEP;
+    BMPAPI->ble.disconnect(1);
+}
 
 void bmp_before_sleep() {}
 

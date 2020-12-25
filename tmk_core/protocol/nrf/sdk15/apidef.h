@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 10
+#define API_VERSION 11
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -212,8 +212,8 @@ typedef struct {
 } bmp_api_keymap_info_t;
 
 typedef struct {
-    uint8_t tx_pin;
-    uint8_t rx_pin;
+    uint8_t  tx_pin;
+    uint8_t  rx_pin;
     uint32_t baudrate;
     void (*rx_callback)(uint8_t recv);
 } bmp_uart_config_t;
@@ -266,8 +266,8 @@ typedef struct {
     char (*serial_getc)(void);
     void (*serial_puts)(uint8_t const*, uint8_t);
     int (*serial_byte_to_read)(void);
-    void (*set_raw_receive_cb)(void (*raw_receive_cb)(const uint8_t *data, uint8_t length));
-    int (*raw_send)(const uint8_t *data, uint8_t length);
+    void (*set_raw_receive_cb)(void (*raw_receive_cb)(const uint8_t* data, uint8_t length));
+    int (*raw_send)(const uint8_t* data, uint8_t length);
     bmp_error_t (*create_file)(const char* sfn, const uint8_t* dat, uint32_t size);
     bmp_error_t (*set_msc_write_cb)(bmp_api_msc_write_cb_t);
 } bmp_api_usb_t;
@@ -276,6 +276,7 @@ typedef struct {
     void (*init)(bmp_api_config_t const* const);
     void (*advertise)(uint8_t);
     void (*scan)(void);
+    void (*disconnect)(uint8_t disconect_all);
     bmp_error_t (*get_bonding_info)(bmp_api_bonding_info_t* info, uint32_t* len);
     void (*delete_bond)(uint8_t);
     void (*send_key)(bmp_api_key_report_t*);
@@ -392,6 +393,7 @@ typedef struct {
     void (*assign_drive_pin)(uint32_t pin);
     void (*sw_read)(uint16_t* res);
     void (*clear_drive_pins)(bmp_ecs_config_t const* const config);
+    void (*shutdown_amp)();
     void (*schedule_next_scan)();
     void (*discharge_capacitor)();
 } bmp_api_ecs_t;

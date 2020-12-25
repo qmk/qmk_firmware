@@ -123,8 +123,7 @@ void bmp_mode_transition_check(void) {
         sleep_enter_counter--;
         if (sleep_enter_counter == 0)
         {
-            bmp_before_sleep();
-            BMPAPI->app.enter_sleep_mode();
+            bmp_enter_sleep();
         }
     }
 
@@ -274,6 +273,7 @@ MATRIX_LOOP_END:
     static uint32_t last_event_time = 0;
     uint32_t auto_sleep_timeout = BMPAPI->app.get_config()->reserved[2] * 10 *
                                   60 * 1000;  // * 10min * 60s/min * 1000ms/s
+
     if (auto_sleep_timeout && key_event_cnt == 0 && !is_usb_connected()) {
         if (timer_elapsed32(last_event_time) > auto_sleep_timeout) {
             sleep_enter_counter = 1;
@@ -681,5 +681,10 @@ bool process_record_user_bmp(uint16_t keycode, keyrecord_t* record) {
 }
 
 __attribute__((weak)) uint32_t keymaps_len() { return 0; }
+
+__attribute__((weak)) void bmp_enter_sleep(void) {
+    bmp_before_sleep();
+    BMPAPI->app.enter_sleep_mode();
+}
 
 __attribute__((weak)) void bmp_before_sleep() {}
