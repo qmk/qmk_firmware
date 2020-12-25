@@ -46,6 +46,7 @@
 #    define RGBLIGHT_SLEEP
 #    define RGBLIGHT_LAYERS
 #    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#    define RGBLIGHT_LAYER_BLINK
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

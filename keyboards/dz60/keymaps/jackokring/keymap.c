@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		OSM(MOD_LGUI|MOD_LCTL|MOD_LALT),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		OSM(MOD_LGUI|MOD_LCTL|MOD_LSFT),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		OSM(MOD_LGUI|MOD_LSFT),             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		DF(0),   OSM(KC_LGUI),     DF(1),                     DF(2),                              TG(9),   OSM(MOD_RGUI),TG(8),   TG(7)),
+		DF(0),   OSM(KC_LGUI),     DF(1),                     DF(2),                              TG(9),   TG(10),  TG(8),   TG(7)),
 
 	//Extended shift mode 8 ============================================================================== Extended shift mode 8
 	// A utility layer for things like the mouse.
@@ -111,14 +111,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_PCMM, KC_BTN1, KC_MS_U,          KC_BTN2,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_MS_L, KC_MS_D,          KC_MS_R, TG(8)),
 	
-	//Special shift mode 9 ==============================================================================- Special shift mode 9
+	//Special shift mode 9 =============================================================================== Special shift mode 9
 	// A utility layer for things not elsewhere, and slow language entry with 0 locking.
 	LAYOUT_60_ansi(
 		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
 		KC_NLCK,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_ENT,
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
-		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, MOD_RGUI,         KC_RCTL, TG(9))
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, MOD_RGUI,         KC_RCTL, TG(9)),
+
+	//User shift mode 10 ================================================================================= User shift mode 10
+	// Everythings apart from Fn can be defined.
+	LAYOUT_60_ansi(
+		KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
+		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, MOD_RGUI,         KC_RCTL, TG(10))	
 	
 };
 
@@ -187,6 +196,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, t);
 	rgblight_set_layer_state(4, layer_state_cmp(state, 8));
 	rgblight_set_layer_state(5, layer_state_cmp(state, 9));
+	if(layer_state_cmp(state, 10)) {
+		rgblight_blink_layer(2, 500);
+		rgblight_blink_layer(3, 500);
+	}
     return state;
 }
 
