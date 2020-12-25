@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Álvaro "Gondolindrim" Volpato  <gondolindrim@acheronproject.com>
+ Copyright 2020 Álvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
