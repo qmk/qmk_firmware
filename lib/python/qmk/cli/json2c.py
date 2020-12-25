@@ -21,7 +21,12 @@ def json2c(cli):
 
     # Parse the configurator from stdin
     if cli.args.filename and cli.args.filename.name == '-':
-        user_keymap = json.load(sys.stdin)
+        try:
+            user_keymap = json.load(sys.stdin)
+        except json.decoder.JSONDecodeError as ex:
+            cli.log.error(ex.__class__.__name__)
+            cli.log.error(ex)
+            return False
 
     else:
         # Error checking
@@ -32,7 +37,12 @@ def json2c(cli):
 
         # Parse the configurator json
         with cli.args.filename.open('r') as fd:
-            user_keymap = json.load(fd)
+            try:
+                user_keymap = json.load(fd)
+            except json.decoder.JSONDecodeError as ex:
+                cli.log.error(ex.__class__.__name__)
+                cli.log.error(ex)
+                return False
 
     # Environment processing
     if cli.args.output and cli.args.output.name == '-':
