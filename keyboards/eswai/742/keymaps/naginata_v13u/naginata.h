@@ -29,6 +29,7 @@ bool naginata_state(void);
 
 void switchOS(uint8_t);
 void ng_set_unicode_mode(uint8_t);
+void ng_show_os(void);
 void mac_live_conversion_toggle(void);
 void mac_live_conversion_on(void);
 void mac_live_conversion_off(void);
@@ -80,9 +81,10 @@ typedef enum naginata_keycodes {
   NGSW_MAC,
   NGSW_LNX,
   NG_MLV,
+  NG_SHOS,
 } NGKEYS;
 
-#define NG_SAFE_RANGE SAFE_RANGE + 36
+#define NG_SAFE_RANGE SAFE_RANGE + 37
 
 #define NG_WIN 1
 #define NG_MAC 2

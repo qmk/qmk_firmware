@@ -553,9 +553,6 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
 };
 
 // 薙刀式のレイヤー、オンオフするキー
-// void set_naginata(uint8_t layer) {
-//   naginata_layer = layer;
-// }
 void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
   naginata_layer = layer;
   ngon_keys[0] = *onk;
@@ -564,8 +561,8 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
   ngoff_keys[1] = *(offk+1);
 
   user_config.raw = eeconfig_read_user();
-  if (user_config.os == 0) {
-    user_config.os = NG_MAC;
+  if (user_config.os != NG_WIN && user_config.os != NG_MAC && user_config.os != NG_LINUX) {
+    user_config.os = NG_WIN;
     user_config.live_conv = 1;
     eeconfig_update_user(user_config.raw);
   }
@@ -664,6 +661,20 @@ void mac_live_conversion_on() {
 void mac_live_conversion_off() {
   user_config.live_conv = 0;
   eeconfig_update_user(user_config.raw);
+}
+
+void ng_show_os(void) {
+  switch (user_config.os) {
+    case NG_WIN:
+      send_string("win");
+      break;
+    case NG_MAC:
+      send_string("mac/:lc");
+      break;
+    case NG_LINUX:
+      send_string("lnx");
+      break;
+  }
 }
 
 void mac_send_string(const char *str) {
@@ -782,6 +793,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         break;
       case NG_MLV:
         mac_live_conversion_toggle();
+        return false;
+        break;
+      case NG_SHOS:
+        ng_show_os();
         return false;
         break;
     }
