@@ -40,8 +40,8 @@
  *
  *  Header file for Descriptors.c.
  */
-#ifndef _DESCRIPTORS_H_
-#define _DESCRIPTORS_H_
+
+#pragma once
 
 #include <LUFA/Drivers/USB/USB.h>
 
@@ -286,4 +286,3 @@ enum usb_endpoints {
 #define JOYSTICK_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
-#endif
