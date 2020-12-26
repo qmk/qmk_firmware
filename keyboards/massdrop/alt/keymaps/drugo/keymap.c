@@ -125,6 +125,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        // Not working
+        // case KC_LALT:
+        //     if (record->event.pressed) {
+        //         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        //             for (uint8_t j = 0; j < MATRIX_COLS; j++){
+        //                 // RGB_MATRIX_TEST_LED_FLAGS();
+        //                 if (keymaps[1][i][j] != KC_TRNS) {
+        //                     rgb_matrix_set_color(i+j, 0, 255, 0);
+        //                 } else {
+        //                     rgb_matrix_set_color(i+j, 255, 50, 0);
+        //                 }
+        //             }
+        //         }
+        //         return true;
+        //     }
         default:
             return true; //Process all other keycodes normally
     }
