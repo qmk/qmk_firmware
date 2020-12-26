@@ -11,9 +11,11 @@ Default Layer
     | Esc* | LAlt| LGui|  spc fn0  |  spc fn1    |RGui|RAlt|RCtl|
     `-----------------------------------------------------------'
 
-      Tab* would activate Left Control when held, and send Tab when tapped.
-      Esc* would activate Left Control when held, and send Escape when tapped.
-      Esc* is useful with a rotary encoder @ upper-left Esc location.
+Tab* would activate Left Control when held, and send Tab when tapped.
+
+Esc* would activate Left Control when held, and send Escape when tapped.
+
+Esc* is useful with a rotary encoder @ upper-left Esc location.
 
 Lower Layer = fn0
     ,-----------------------------------------------------------.
