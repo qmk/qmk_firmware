@@ -33,6 +33,8 @@ void ng_show_os(void);
 void mac_live_conversion_toggle(void);
 void mac_live_conversion_on(void);
 void mac_live_conversion_off(void);
+void tategaki_toggle(void);
+void kouchi_shift_toggle(void);
 
 bool process_naginata(uint16_t, keyrecord_t *);
 // void set_naginata(uint8_t);
@@ -82,9 +84,11 @@ typedef enum naginata_keycodes {
   NGSW_LNX,
   NG_MLV,
   NG_SHOS,
+  NG_TAYO,
+  NG_KOTI,
 } NGKEYS;
 
-#define NG_SAFE_RANGE SAFE_RANGE + 37
+#define NG_SAFE_RANGE SAFE_RANGE + 39
 
 #define NG_WIN 1
 #define NG_MAC 2

@@ -58,6 +58,8 @@ typedef union {
   struct {
     uint8_t os;
     bool live_conv :1;
+    bool tategaki :1;
+    bool kouchi_shift :1;
   };
 } user_config_t;
 
@@ -564,6 +566,8 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
   if (user_config.os != NG_WIN && user_config.os != NG_MAC && user_config.os != NG_LINUX) {
     user_config.os = NG_WIN;
     user_config.live_conv = 1;
+    user_config.tategaki = 1;
+    user_config.kouchi_shift = 0;
     eeconfig_update_user(user_config.raw);
   }
   ng_set_unicode_mode(user_config.os);
@@ -660,6 +664,16 @@ void mac_live_conversion_on() {
 
 void mac_live_conversion_off() {
   user_config.live_conv = 0;
+  eeconfig_update_user(user_config.raw);
+}
+
+void tategaki_toggle() {
+  user_config.tategaki ^= 1;
+  eeconfig_update_user(user_config.raw);
+}
+
+void kouchi_shift_toggle() {
+  user_config.kouchi_shift ^= 1;
   eeconfig_update_user(user_config.raw);
 }
 
@@ -799,6 +813,14 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         ng_show_os();
         return false;
         break;
+      case NG_TAYO:
+        tategaki_toggle();
+        return false;
+        break;
+      case NG_KOTI:
+        kouchi_shift_toggle();
+        return false;
+        break;
     }
   }
   
@@ -812,7 +834,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
-#ifndef NAGINATA_KOUCHI_SHIFT
+        if (!user_config.kouchi_shift) {
         if (ng_chrcount >= 1) {
           naginata_type();
           keycomb = 0UL;
@@ -822,7 +844,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
         return false;
         break;
-#endif
+        }
       case NG_Q ... NG_SLSH:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
