@@ -351,7 +351,10 @@ qwerty.each_with_index do |k, i|
   m =  mode1l[i]
   pk = "B_J|B_K"
   if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .win = #{henshu[m][1]},\t\t.mac = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
+    if henshu[m][2]
+      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
+    end
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
@@ -367,7 +370,10 @@ qwerty.each_with_index do |k, i|
   m =  mode1r[i]
   pk = "B_D|B_F"
   if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .win = #{henshu[m][1]},\t\t.mac = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
+    if henshu[m][2]
+      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
+    end
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
@@ -383,7 +389,10 @@ qwerty.each_with_index do |k, i|
   m =  mode2l[i]
   pk = "B_M|B_COMM"
   if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .win = #{henshu[m][1]},\t\t.mac = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
+    if henshu[m][2]
+      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
+    end
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
@@ -399,7 +408,10 @@ qwerty.each_with_index do |k, i|
   m =  mode2r[i]
   pk = "B_C|B_V"
   if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .win = #{henshu[m][1]},\t\t.mac = #{henshu[m][2] || henshu[m][1]}}, // #{m}"
+    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
+    if henshu[m][2]
+      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
+    end
   end
   if henshu[m][0] == "uc"
     uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
@@ -410,8 +422,11 @@ qwerty.each_with_index do |k, i|
   end
 end
 
-puts "// 編集モード"
+puts "// 編集モード Win/Linux"
 puts hwin
+
+puts "// 編集モード Mac"
+puts hmac
 
 puts "// 編集モードunicode"
 puts uwin
