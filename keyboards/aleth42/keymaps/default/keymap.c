@@ -121,7 +121,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     if(keymap_config.swap_lalt_lgui==false){
                         tap_code(KC_LANG2);
                     }else {
-                        SEND_STRING(SS_LALT("`"));
+                        tap_code16(A(KC_GRV));
                     }
                 } else {
                     if(keymap_config.swap_lalt_lgui==false){
