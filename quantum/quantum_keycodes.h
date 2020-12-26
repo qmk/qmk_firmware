@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef QUANTUM_KEYCODES_H
-#define QUANTUM_KEYCODES_H
+
+#pragma once
 
 #if defined(SEQUENCER_ENABLE)
 #    include "sequencer.h"
@@ -889,5 +889,3 @@ enum quantum_keycodes {
 #define DM_RSTP DYN_REC_STOP
 #define DM_PLY1 DYN_MACRO_PLAY1
 #define DM_PLY2 DYN_MACRO_PLAY2
-
-#endif  // QUANTUM_KEYCODES_H
