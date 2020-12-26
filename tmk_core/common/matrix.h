@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef MATRIX_H
-#define MATRIX_H
+
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -75,6 +75,4 @@ void matrix_scan_user(void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

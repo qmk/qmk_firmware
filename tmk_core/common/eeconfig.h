@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef EECONFIG_H
-#define EECONFIG_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -111,5 +110,3 @@ void     eeconfig_update_haptic(uint32_t val);
 
 bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
-
-#endif
