@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COLOR_H
-#define COLOR_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -86,4 +85,3 @@ RGB hsv_to_rgb_nocie(HSV hsv);
 #ifdef RGBW
 void convert_rgb_to_rgbw(LED_TYPE *led);
 #endif
-#endif  // COLOR_H
