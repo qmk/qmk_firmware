@@ -215,7 +215,7 @@
 // Row 3
 #define US_SECT S(ALGR(US_S))    // §
 #define US_DEG  S(ALGR(US_SCLN)) // °
-#define US_DQUO S(ALGR(US_QUOT)) // "
+#define US_DQUO S(ALGR(US_ACUT)) // "
 // Row 4
 #define US_CENT S(ALGR(US_C))    // ¢
 #define US_CARN S(ALGR(US_DOT))  // ˇ (dead)
