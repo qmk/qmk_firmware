@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ZOO] = LAYOUT(
       KC_NO, RESET,   U_NA,    U_NA,    U_NA,    U_UND,                                        U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    KC_NO,
       KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_SPC,                                       KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,    KC_NO,
-      KC_NO, U_NA,    Z00,     Z01,     Z02,     U_NA,  KC_NO, KC_NO,        KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,    KC_NO,
+      KC_NO, U_NA,    Z00,     Z01,     Z02,     Z03,   KC_NO, KC_NO,        KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,    KC_NO,
                                U_NP,    U_NP,    U_CPY, U_PST, U_NA,         KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
      ),
   [MEDR] = LAYOUT(
@@ -93,18 +93,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   [FUNL] = LAYOUT(
       KC_NO, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,                                U_NA, U_NA,    U_NA,    U_NA,    RESET, KC_NO,
-      KC_NO, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,                                U_NA, KC_RSFT, KC_RGUI, KC_RALT, KC_RALT, KC_NO,
+      KC_NO, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK,                                U_NA, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
       KC_NO, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, KC_NO,  KC_NO,   KC_NO, KC_NO, U_NA, U_NA,    U_NA,    KC_ALGR, U_NA, KC_NO,
                                U_NP,    U_NP,    KC_APP,  KC_SPC, KC_TAB,  U_NA,  U_NA,  U_NA, U_NP,    U_NP
       ),
   [NSL] = LAYOUT(
-      KC_NO, KC_NO, BP_7, BP_8, BP_9, BP_MINUS,                                      U_NA,  U_NA,    U_NA,    U_NA,    RESET, KC_NO,
-      KC_NO, KC_NO, BP_4, BP_5, BP_6, BP_PLUS,                                       U_NA,  KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
-      KC_NO, BP_0,  BP_1, BP_2, BP_3, BP_EQL, KC_NO,  KC_NO,     KC_NO, KC_NO, U_NA, U_NA, U_NA,     KC_ALGR, U_NA, KC_NO,
-                                U_NP, U_NP,   BP_DOT, KC_NO,     KC_NO, U_NA,  U_NA, U_NA, U_NP,     U_NP
+      KC_NO, KC_NO, BP_7, BP_8, BP_9, BP_MINUS,                                      U_NA, U_NA,    U_NA,    U_NA,    RESET,   KC_NO,
+      KC_NO, KC_NO, BP_4, BP_5, BP_6, BP_PLUS,                                       U_NA, KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
+      KC_NO, BP_0,  BP_1, BP_2, BP_3, BP_EQL, KC_NO,  KC_NO,     KC_NO, KC_NO, U_NA, U_NA, U_NA,    KC_ALGR, U_NA, KC_NO,
+                                U_NP, U_NP,   BP_DOT, KC_NO,     KC_NO, U_NA,  U_NA, U_NA, U_NP,    U_NP
       ),
   [NSSL] = LAYOUT(
-      BP_DOL,  BP_DQUO, BP_MINUS, BP_PLUS,  BP_SLASH, BP_ASTR,                                 U_NA,  U_NA,    U_NA,    U_NA,    RESET,   KC_NO,
+      BP_DOL,  BP_DQUO, BP_PLUS,  BP_MINUS, BP_SLASH, BP_ASTR,                                 U_NA,  U_NA,    U_NA,    U_NA,    RESET,   KC_NO,
       BP_HASH, KC_NO,   BP_RPRN,  BP_LPRN,  BP_AT,    BP_EQL,                                  U_NA,  KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
       BP_GRV,  BP_EQL,  BP_DQUO,  BP_LDAQ,  BP_RDAQ,  BP_PERC, KC_NO,   KC_NO,   KC_NO, KC_NO, U_NA,  U_NA,    U_NA,    KC_ALGR, U_NA,    KC_NO,
                                   U_NP,     U_NP,     BP_LPRN, BP_RPRN, KC_NO,   U_NA,  U_NA,  U_NA,  U_NP,    U_NP
@@ -193,19 +193,18 @@ static const char string_to_write[2][2] = {
 };
 
 
-
 static void render_status(void) {
     //oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
 
     // Host Keyboard Layer Status
     switch (get_highest_layer(layer_state)) {
         case BASE:
-            oled_write_P(PSTR("abcdefghijklmnopqrstuvwxyz#123456Z789ABCDEFGHIJKLMNOPQRSTUVWYXZ\n"), false);
+            oled_write_P(PSTR("Bépo\n"), false);
             oled_write(string_to_write[0], false);
             oled_write(string_to_write[1], false);
             break;
         case MBO:
-            oled_write_P(PSTR("NumSym\n"), false);
+            oled_write_P(PSTR("Mouse btn\n"), false);
             break;
         case MEDR:
             oled_write_P(PSTR("Media\n"), false);
@@ -217,10 +216,14 @@ static void render_status(void) {
             oled_write_P(PSTR("Design & mouse\n"), false);
             break;
         case NSSL:
-            oled_write_P(PSTR("Shifted symbols\n"), false);
+            oled_write_P(PSTR("Symbols\n"), false);
+            oled_write_P(PSTR("$ \" - + / *\n"), false);
+            oled_write_P(PSTR("# _  ( ) @ =\n"), false);
+            oled_write_P(PSTR("` = \" « » %\n"), false);
+            oled_write_P(PSTR("              (  )\n"), false);
             break;
         case NSL:
-            oled_write_P(PSTR("Num & Symb\n"), false);
+            oled_write_P(PSTR("Numbers\n"), false);
             break;
         case FUNL:
             oled_write_P(PSTR("Func & Sys\n"), false);

@@ -1,0 +1,1650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="957px" height="376px" viewBox="0 0 957 376" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Layout</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-2">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-3">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-4">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-5">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-6">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-7">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-8">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-9">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-10">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-11">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-12">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-13">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-14">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-15">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-16">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-17">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-18">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-19">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-20">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-21">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-22">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-23">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-24">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-25">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-26">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-27">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-28">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-29">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-30">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-31">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-32">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-33">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-34">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-35">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-36">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-37">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-38">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-39">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-40">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-41">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-42">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-43">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-44">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-45">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-46">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-47">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-48">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-49">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-50">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-51">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-52">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-53">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-54">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-55">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-56">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-57">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-58">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-59">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-60">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-61">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-62">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-63">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-64">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-65">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-66">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-67">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.966730 0 0 0 0 0.983365 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-68">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.035294 0 0 0 0 0.517647 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-69">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.929261 0 0 0 0 0.857965 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-70">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.501961 0 0 0 0 0.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-71">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-72">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-73">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.950772 0 0 0 0 0.885880 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-74">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.568627 0 0 0 0 0.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-75">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-76">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-77">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-78">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-79">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-80">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-81">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-82">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-83">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-84">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-85">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-86">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.035294 0 0 0 0 0.517647 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-87">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-88">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.501961 0 0 0 0 0.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-89">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-90">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-91">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.946704 0 0 0 0 0.973235 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-92">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 0.000000 0 0 0 0 0.498039 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-93">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-94">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-95">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-96">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-97">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-98">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-99">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-100">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-101">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-102">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-103">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <filter id="filter-104">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 0 0.864555 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Layout" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#FFFFFF" x="0" y="0" width="957" height="376"></rect>
+        <g id="Key" transform="translate(57.000000, 105.500000)">
+            <g id="Group">
+                <g filter="url(#filter-1)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-2)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal"></text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="39.869" y="9.625">$</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(107.000000, 105.500000)">
+            <g id="Group">
+                <g filter="url(#filter-3)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-4)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">B</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F12</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="31.094" y="41.625">RST</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">RST</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="40.607" y="9.625">"</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(157.000000, 80.500000)">
+            <g id="Group">
+                <g filter="url(#filter-5)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-6)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">É</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F7</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">7</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="40.094" y="9.625">+</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(57.000000, 155.500000)">
+            <g id="Group">
+                <g filter="url(#filter-7)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-8)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">W</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="39.941" y="9.625">#</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(107.000000, 155.500000)">
+            <g id="Group">
+                <g filter="url(#filter-9)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-10)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">A</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F11</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="19.4228516" y="10">⌃</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(107.000000, 205.500000)">
+            <g id="Group">
+                <g filter="url(#filter-11)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-12)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">À</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F10</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">0</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="40.112" y="9.625">=</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(61.000000, 306.500000)">
+            <g id="Group">
+                <g filter="url(#filter-13)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-14)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="12.2" y="27">KEY</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">funl</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="31.472" y="41.625">zoo</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">nsl</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="29.798" y="9.625">nssl</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="19.418" y="10">LT</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(857.000000, 306.500000)">
+            <g id="Group">
+                <g filter="url(#filter-15)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-16)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="12.2" y="27">KEY</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">medr</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="31.472" y="41.625">zoo</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">navr</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="19.418" y="10">LT</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(57.000000, 205.500000)">
+            <g id="Group">
+                <g filter="url(#filter-17)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-18)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal"></text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="41.561" y="9.625">`</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(257.000000, 80.500000)">
+            <g id="Group">
+                <g filter="url(#filter-19)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-20)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">O</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F9</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">9</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="39.968" y="9.625">/</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(257.000000, 130.500000)">
+            <g id="Group">
+                <g id="Key-BG">
+                    <g filter="url(#filter-21)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-22)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <circle id="Oval" fill="#F6F6F6" cx="23" cy="23" r="10"></circle>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">E</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F6</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">6</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="36.035" y="9.625">@</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="19.76" y="10">⇧</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(257.000000, 180.500000)">
+            <g id="Group">
+                <g filter="url(#filter-23)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-24)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">.</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F3</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="17.747" y="41.625">Zoom 0</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">3</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="39.374" y="9.625">»</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(307.000000, 86.500000)">
+            <g id="Group">
+                <g filter="url(#filter-25)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-26)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">È</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">PrntScr</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">-</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="40.454" y="9.625">*</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(607.000000, 86.500000)">
+            <g id="Group">
+                <g filter="url(#filter-27)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-28)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">^</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Tog.</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">Redo</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(657.000000, 80.500000)">
+            <g id="Group">
+                <g filter="url(#filter-29)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-30)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">V</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Mod.</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">Paste</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(707.000000, 67.500000)">
+            <g id="Group">
+                <g filter="url(#filter-31)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-32)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">D</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Hui.</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">Copy</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(757.000000, 80.500000)">
+            <g id="Group">
+                <g filter="url(#filter-33)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-34)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">L</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Sai.</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">Cut</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(807.000000, 105.500000)">
+            <g id="Group">
+                <g filter="url(#filter-35)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-36)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">J</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Vai.</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">Undo</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(857.000000, 105.500000)">
+            <g id="Group">
+                <g filter="url(#filter-37)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-38)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">Z</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(307.000000, 136.500000)">
+            <g id="Group">
+                <g filter="url(#filter-39)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-40)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">,</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Sclock</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="30.887" y="41.625">SPC</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">+</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="40.112" y="9.625">=</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(607.000000, 136.500000)">
+            <g id="Group">
+                <g filter="url(#filter-41)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-42)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">C</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Prev.</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="25.19" y="41.625">Wh. L</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">←</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(657.000000, 130.500000)">
+            <g id="Group">
+                <g id="Key-BG">
+                    <g filter="url(#filter-43)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-44)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <circle id="Oval" fill="#F6F6F6" cx="23" cy="23" r="10"></circle>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">T</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Vol. D</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="24.002" y="41.625">Wh. D</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">↓</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="19.76" y="10">⇧</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(707.000000, 117.500000)">
+            <g id="Group">
+                <g filter="url(#filter-45)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-46)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">S</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Vol. U</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="23.939" y="41.625">Wh. U</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">↑</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="18.5" y="10">⌘</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(757.000000, 130.500000)">
+            <g id="Group">
+                <g filter="url(#filter-47)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-48)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">R</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Next</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="24.308" y="41.625">Wh. R</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">→</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="18.5" y="10">⌥</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(807.000000, 155.500000)">
+            <g id="Group">
+                <g filter="url(#filter-49)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-50)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">N</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">⇪</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="19.4228516" y="10">⌃</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(857.000000, 155.500000)">
+            <g id="Group">
+                <g filter="url(#filter-51)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-52)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">M</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(307.000000, 186.500000)">
+            <g id="Group">
+                <g filter="url(#filter-53)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-54)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">K</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">Pause</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="29.303" y="41.625">RNR</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">=</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="37.493" y="9.625">%</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(607.000000, 186.500000)">
+            <g id="Group">
+                <g filter="url(#filter-55)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-56)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">’</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="2" y="10">↖︎</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(657.000000, 180.500000)">
+            <g id="Group">
+                <g filter="url(#filter-57)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-58)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">Q</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="2" y="10">⇣</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(707.000000, 167.500000)">
+            <g id="Group">
+                <g filter="url(#filter-59)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-60)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">G</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="2" y="10">⇡</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(757.000000, 180.500000)">
+            <g id="Group">
+                <g filter="url(#filter-61)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-62)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">H</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="2" y="10">↘︎</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Group" transform="translate(732.000000, 230.500000)" opacity="0.2">
+            <g id="Key-BG">
+                <g filter="url(#filter-63)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-64)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group" transform="translate(682.000000, 230.500000)" opacity="0.2">
+            <g id="Key-BG">
+                <g filter="url(#filter-65)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-66)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group" transform="translate(629.000000, 237.500000)">
+            <g id="Key" transform="translate(23.000000, 23.000000) rotate(-15.000000) translate(-23.000000, -23.000000) ">
+                <g id="Key-BG">
+                    <g filter="url(#filter-67)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-68)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                    <tspan x="19.4" y="27">⌦</tspan>
+                </text>
+                <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="2" y="42">Mute</tspan>
+                </text>
+                <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="35.468" y="41.625">B2</tspan>
+                </text>
+                <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="35.468" y="9.625">B2</tspan>
+                </text>
+                <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="15.998" y="10">funl</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group" transform="translate(578.000000, 258.500000)">
+            <g id="Key" transform="translate(23.000000, 23.000000) rotate(-30.000000) translate(-23.000000, -23.000000) ">
+                <g id="Key-BG">
+                    <g filter="url(#filter-69)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-70)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                    <tspan x="19.4" y="27">←</tspan>
+                </text>
+                <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="2" y="42">Play</tspan>
+                </text>
+                <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="35.396" y="41.625">B3</tspan>
+                </text>
+                <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="35.396" y="9.625">B3</tspan>
+                </text>
+                <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="17.7395" y="10">nsl</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group" transform="translate(553.000000, 215.500000)" opacity="0.2">
+            <g id="Key-BG" transform="translate(23.000000, 23.000000) rotate(-30.000000) translate(-23.000000, -23.000000) ">
+                <g filter="url(#filter-71)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-72)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group" transform="translate(534.000000, 291.500000)">
+            <g id="Key" transform="translate(23.000000, 23.000000) rotate(-45.000000) translate(-23.000000, -23.000000) ">
+                <g id="Key-BG">
+                    <g filter="url(#filter-73)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-74)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                    <tspan x="19.4" y="27">⏎</tspan>
+                </text>
+                <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="2" y="42">Stop</tspan>
+                </text>
+                <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="35.909" y="41.625">B1</tspan>
+                </text>
+                <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="35.909" y="9.625">B1</tspan>
+                </text>
+                <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="15.899" y="10">nssl</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group" transform="translate(499.000000, 255.500000)" opacity="0.2">
+            <g id="Key-BG" transform="translate(23.000000, 23.000000) rotate(-45.000000) translate(-23.000000, -23.000000) ">
+                <g filter="url(#filter-75)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-76)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Key" transform="translate(807.000000, 205.500000)">
+            <g id="Group">
+                <g filter="url(#filter-77)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-78)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">F</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">ins</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(857.000000, 205.500000)">
+            <g id="Group">
+                <g filter="url(#filter-79)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-80)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">Ç</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Group" transform="translate(182.000000, 230.500000)" opacity="0.2">
+            <g id="Key-BG">
+                <g filter="url(#filter-81)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-82)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group" transform="translate(232.000000, 230.500000)" opacity="0.2">
+            <g id="Key-BG">
+                <g filter="url(#filter-83)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-84)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group" transform="translate(287.000000, 237.500000)">
+            <g id="Key" transform="translate(23.000000, 23.000000) rotate(-345.000000) translate(-23.000000, -23.000000) ">
+                <g id="Key-BG">
+                    <g filter="url(#filter-85)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-86)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <text fill="#A8A8A8" fill-rule="nonzero" font-family="Menlo-Regular, Menlo" font-size="12" font-weight="normal">
+                    <tspan x="19.3876953" y="27">⎋</tspan>
+                </text>
+                <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="2" y="42">App</tspan>
+                </text>
+                <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="13.721" y="10">medr</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group" transform="translate(336.000000, 259.500000)">
+            <g id="Key" transform="translate(23.000000, 23.000000) rotate(-330.000000) translate(-23.000000, -23.000000) ">
+                <g id="Key-BG">
+                    <g filter="url(#filter-87)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-88)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <text fill="#A8A8A8" fill-rule="nonzero" font-family="Menlo-Regular, Menlo" font-size="12" font-weight="normal">
+                    <tspan x="19.3876953" y="27">␣</tspan>
+                </text>
+                <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="2" y="10">.</tspan>
+                </text>
+                <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="41.489" y="9.625">(</tspan>
+                </text>
+                <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="15.1835" y="10">navr</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group" transform="translate(361.000000, 215.500000)" opacity="0.2">
+            <g id="Key-BG" transform="translate(23.000000, 23.000000) rotate(-330.000000) translate(-23.000000, -23.000000) ">
+                <g filter="url(#filter-89)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-90)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group" transform="translate(380.000000, 292.500000)">
+            <g id="Key" transform="translate(23.000000, 23.000000) rotate(-315.000000) translate(-23.000000, -23.000000) ">
+                <g id="Key-BG">
+                    <g filter="url(#filter-91)" id="BG-Tint">
+                        <g>
+                            <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                    <g filter="url(#filter-92)" id="Border-Tint">
+                        <g>
+                            <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                        </g>
+                    </g>
+                </g>
+                <text fill="#A8A8A8" fill-rule="nonzero" font-family="Menlo-Regular, Menlo" font-size="12" font-weight="normal">
+                    <tspan x="19.3876953" y="27">⇥</tspan>
+                </text>
+                <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+                <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="41.489" y="9.625">)</tspan>
+                </text>
+                <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                    <tspan x="16.736" y="10">zoo</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group" transform="translate(415.000000, 256.500000)" opacity="0.2">
+            <g id="Key-BG" transform="translate(23.000000, 23.000000) rotate(-315.000000) translate(-23.000000, -23.000000) ">
+                <g filter="url(#filter-93)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-94)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Key" transform="translate(157.000000, 130.500000)">
+            <g id="Group">
+                <g filter="url(#filter-95)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-96)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">U</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F4</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">4</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="41.489" y="9.625">(</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="18.5" y="10">⌥</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(207.000000, 68.500000)">
+            <g id="Group">
+                <g filter="url(#filter-97)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-98)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">P</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F8</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">8</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="40.823" y="9.625">-</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(207.000000, 118.500000)">
+            <g id="Group">
+                <g filter="url(#filter-99)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-100)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">I</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F5</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">5</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="41.489" y="9.625">)</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="LucidaGrande, Lucida Grande" font-size="9" font-weight="normal">
+                <tspan x="18.5" y="10">⌘</tspan>
+            </text>
+        </g>
+        <g id="Key" transform="translate(207.000000, 168.500000)">
+            <g id="Group">
+                <g filter="url(#filter-101)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-102)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">X</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F2</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="21.104" y="41.625">Zoom-</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">2</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="39.356" y="9.625">«</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <g id="Key" transform="translate(157.000000, 180.500000)">
+            <g id="Group">
+                <g filter="url(#filter-103)" id="BG-Tint">
+                    <g>
+                        <rect id="BG" fill="#D8D8D8" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+                <g filter="url(#filter-104)" id="Border-Tint">
+                    <g>
+                        <rect id="Border" stroke="#AAAAAA" fill-rule="nonzero" x="3.55271368e-15" y="0" width="46" height="46" rx="3"></rect>
+                    </g>
+                </g>
+            </g>
+            <text fill="#A8A8A8" fill-rule="nonzero" font-family="FiraCode-Regular, Fira Code" font-size="12" font-weight="normal">
+                <tspan x="19.4" y="27">Y</tspan>
+            </text>
+            <text id="Lower" fill="#0080FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="42">F1</tspan>
+            </text>
+            <text id="Adj" fill="#FF007F" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="20.375" y="41.625">Zoom+</tspan>
+            </text>
+            <text id="Num" fill="#FF8000" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="2" y="10">1</tspan>
+            </text>
+            <text id="Sym" fill="#9100FF" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal">
+                <tspan x="40.607" y="9.625">"</tspan>
+            </text>
+            <text id="LT" fill="#595959" fill-rule="nonzero" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="9" font-style="condensed" font-weight="normal"></text>
+        </g>
+        <text id="Shinze-à-la-Miryoku" font-family="FiraSansCondensed-Regular, Fira Sans Condensed" font-size="15" font-style="condensed" font-weight="normal" fill="#454545">
+            <tspan x="57" y="50">Shinze à la Miryoku</tspan>
+        </text>
+    </g>
+</svg>

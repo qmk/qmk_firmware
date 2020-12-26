@@ -34,7 +34,7 @@
 // Row 3
 #define S24 KC_NO
 #define S25 BP_A_GRAVE
-#define S26 BP_Y                       // NOTE : LCTL_T(BP_Y) in Original layout
+#define S26 BP_Y
 #define S27 BP_X
 #define S28 BP_DOT
 #define S29 BP_K
