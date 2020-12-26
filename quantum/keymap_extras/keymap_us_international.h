@@ -171,7 +171,7 @@
 #define US_ETH  ALGR(US_D)    // Ð
 #define US_OE   ALGR(US_K)    // Œ
 #define US_OSTR ALGR(US_L)    // Ø
-#define US_PARA ALGR(US_SCLN) // ¶
+#define US_PILC ALGR(US_SCLN) // ¶
 #define US_QUOT ALGR(US_ACUT) // '
 // Row 4
 #define US_AE   ALGR(US_Z)    // Æ
