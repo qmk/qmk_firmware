@@ -43,7 +43,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
 };
 
-const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
+__attribute__((weak)) const uint8_t ascii_to_space_after_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
