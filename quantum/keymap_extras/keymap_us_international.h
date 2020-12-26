@@ -72,7 +72,7 @@
 #define US_K    KC_K    // K
 #define US_L    KC_L    // L
 #define US_SCLN KC_SCLN // ;
-#define US_ACUT KC_QUOT // ´ (dead)
+#define US_DACU KC_QUOT // ´ (dead)
 // Row 4
 #define US_Z    KC_Z    // Z
 #define US_X    KC_X    // X
@@ -118,7 +118,7 @@
 #define US_PIPE S(US_BSLS) // |
 // Row 3
 #define US_COLN S(US_SCLN) // :
-#define US_DIAE S(US_ACUT) // ¨ (dead)
+#define US_DIAE S(US_DACU) // ¨ (dead)
 // Row 4
 #define US_LABK S(US_COMM) // <
 #define US_RABK S(US_DOT)  // >
@@ -130,7 +130,7 @@
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
  * │     │ Ä │ Å │ É │ ® │ Þ │ Ü │ Ú │ Í │ Ó │ Ö │ « │ » │  ¬  │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │      │ Á │ ß │ Ð │   │   │   │   │ Œ │ Ø │ ¶ │ ' │        │
+ * │      │ Á │ ß │ Ð │   │   │   │   │   │ Ø │ ¶ │ ´ │        │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
  * │        │ Æ │   │ © │   │   │ Ñ │ µ │ Ç │ ˙ │ ¿ │          │
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -172,14 +172,13 @@
 #define US_OE   ALGR(US_K)    // Œ
 #define US_OSTR ALGR(US_L)    // Ø
 #define US_PILC ALGR(US_SCLN) // ¶
-#define US_QUOT ALGR(US_ACUT) // '
+#define US_ACUT ALGR(US_DACU) // ´
 // Row 4
 #define US_AE   ALGR(US_Z)    // Æ
 #define US_COPY ALGR(US_C)    // ©
 #define US_NTIL ALGR(US_N)    // Ñ
 #define US_MICR ALGR(US_M)    // µ
 #define US_CCED ALGR(US_COMM) // Ç
-#define US_DOTA ALGR(US_DOT)  // ˙ (dead)
 #define US_IQUE ALGR(US_SLSH) // ¿
 
 /* Shift+AltGr symbols
@@ -221,4 +220,3 @@
 #define US_CENT S(ALGR(US_C))    // ¢
 #define US_CARN S(ALGR(US_DOT))  // ˇ (dead)
 #define US_HOKA S(ALGR(US_SLSH)) //  ̉ (dead)
-
