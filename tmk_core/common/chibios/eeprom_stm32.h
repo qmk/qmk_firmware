@@ -44,7 +44,7 @@
 #ifndef EEPROM_PAGE_SIZE
 #    if defined(MCU_STM32F103RB) || defined(MCU_STM32F042K6)
 #        define FEE_PAGE_SIZE (uint16_t)0x400  // Page size = 1KByte
-#        define FEE_DENSITY_PAGES 2            // How many pages are used
+#        define FEE_DENSITY_PAGES 8            // How many pages are used
 #    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB)
 #        define FEE_PAGE_SIZE (uint16_t)0x800  // Page size = 2KByte
 #        define FEE_DENSITY_PAGES 4            // How many pages are used
@@ -69,16 +69,19 @@
 #    endif
 #endif
 
-// DONT CHANGE
-// Choose location for the first EEPROM Page address on the top of flash
+/* Start of the emulated eeprom flash area */
 #define FEE_PAGE_BASE_ADDRESS ((uint32_t)(0x8000000 + FEE_MCU_FLASH_SIZE * 1024 - FEE_DENSITY_PAGES * FEE_PAGE_SIZE))
-#define FEE_DENSITY_BYTES ((FEE_PAGE_SIZE / 2) * FEE_DENSITY_PAGES - 1)
+/* End of the emulated eeprom flash area */
 #define FEE_LAST_PAGE_ADDRESS (FEE_PAGE_BASE_ADDRESS + (FEE_PAGE_SIZE * FEE_DENSITY_PAGES))
+/* Size of emulated eeprom */
+#define FEE_DENSITY_BYTES 1024
+/* Flash word value after erase */
 #define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
-#define FEE_ADDR_OFFSET(Address) (Address * 2)  // 1Byte per Word will be saved to preserve Flash
 
-// Use this function to initialize the functionality
-uint16_t EEPROM_Init(void);
+_Static_assert(FEE_DENSITY_PAGES * FEE_PAGE_SIZE >= FEE_DENSITY_BYTES * 8,
+    "flash memory for emulated eeprom is too small; for correct functionality ensure it is at least 8x FEE_DENSITY_BYTES");
+
+void     EEPROM_Init(void);
 void     EEPROM_Erase(void);
-uint16_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte);
+void     EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte);
 uint8_t  EEPROM_ReadDataByte(uint16_t Address);
