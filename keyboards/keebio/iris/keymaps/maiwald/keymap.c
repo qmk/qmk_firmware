@@ -23,8 +23,6 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case EXT_SPC:
     case SYM_SPC:
-    case LSFT_T(KC_ESC):
-    case RSFT_T(KC_TAB):
       return true;
     default:
       return false;
@@ -40,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_ESC,  C_A,     KC_R,    KC_S,    KC_T,    KC_G,                               KC_M,    KC_N,    KC_E,    KC_I,    C_O,     KC_QUOT,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_BSLS, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_BSPC,          KC_ENT,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQL,
+      KC_CAPS, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_BSPC,          KC_ENT,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQL,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                     KC_LGUI, SYM_SPC, LSFT_T(KC_ESC),            RSFT_T(KC_TAB),  EXT_SPC, KC_RGUI
+                                     KC_LGUI, SYM_SPC, KC_LSFT,                   KC_RSFT, EXT_SPC, KC_RALT
                                  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
       ),
 
