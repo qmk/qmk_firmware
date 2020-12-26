@@ -18,6 +18,7 @@ To use these, simply `#include` the corresponding [header file](https://github.c
 |Dutch (Belgium)            |`keymap_belgian.h`              |
 |English (Ireland)          |`keymap_irish.h`                |
 |English (UK)               |`keymap_uk.h`                   |
+|English (US Extended)      |`keymap_us_extended.h`          |
 |English (US International) |`keymap_us_international.h`     |
 |Estonian                   |`keymap_estonian.h`             |
 |Finnish                    |`keymap_finnish.h`              |
