@@ -42,6 +42,3 @@
 // see: https://docs.qmk.fm/#/feature_leader_key
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 250
-
-#define UNICODE_CYCLE_PERSIST false
-#define UNICODE_SELECTED_MODES UC_LNX, UC_MAC, UC_WIN

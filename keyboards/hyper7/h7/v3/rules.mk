@@ -44,7 +44,6 @@ OPT_DEFS += -DBOOTLOADER_SIZE=8192
 # Build Options
 #   change yes to no to disable
 #
-UNICODEMAP_ENABLE = yes
 LEADER_ENABLE = yes      # Enables leader key combination support
 KEY_LOCK_ENABLE = yes	 # Enables key lock
 
@@ -62,4 +61,4 @@ BACKLIGHT_ENABLE = no    # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no     # Enable keyboard RGB underglow
 AUDIO_ENABLE = no        # Audio output
 
-LAYOUTS = h7v3 h7v3_southpaw
+LAYOUTS = h7v3_183 h7v3_183_southpaw h7v3_213 h7v3_213_southpaw
