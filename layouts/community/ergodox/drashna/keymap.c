@@ -446,13 +446,7 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
-#    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
-#        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
-void rgb_matrix_indicators_user(void) {
-    #else
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-#    endif
-    if (g_suspend_state || !rgb_matrix_config.enable) return;
 
     if (layer_state_is(_GAMEPAD)) {
         rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);  // Q
@@ -464,17 +458,13 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF);  // D
         rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF);  // F
 
-        rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF);  // 1
-        rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00);  // 2
+        rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0xFF, 0xFF, 0xFF);  // 1
+        rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0x00, 0xFF, 0x00);  // 2
         rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF);                                          // 3
     }
 
-#    if defined(RGBLIGHT_ENABLE)
-    if (!userspace_config.rgb_layer_change)
-#    else
-    if (userspace_config.rgb_layer_change)
-#    endif
-    {
+
+    if (userspace_config.rgb_layer_change) {
         bool mods_enabled = IS_LAYER_ON(_MODS);
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _GAMEPAD:

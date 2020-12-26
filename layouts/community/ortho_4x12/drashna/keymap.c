@@ -16,9 +16,6 @@
 
 #include "drashna.h"
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
 
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
@@ -231,12 +228,8 @@ void suspend_wakeup_init_keymap(void) {
 }
 // clang-format on
 
-#    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
-#        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
-void rgb_matrix_indicators_user(void) {
-    #else
+
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-#    endif
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
@@ -244,8 +237,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #    ifdef KEYBOARD_planck_ez
     is_ez = true;
 #    endif
-
-    if (g_suspend_state || !rgb_matrix_config.enable) return;
 
 #    if defined(RGBLIGHT_ENABLE)
     if (!userspace_config.rgb_layer_change)

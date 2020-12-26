@@ -17,7 +17,6 @@
 #include "drashna.h"
 
 #define TG_DBLO TG(_DIABLO)
-#define _MOUSE _MEDIA
 
 
 // clang-format off

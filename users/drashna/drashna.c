@@ -88,7 +88,9 @@ void keyboard_post_init_user(void) {
 
 __attribute__((weak)) void shutdown_keymap(void) {}
 
+#ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_update_pwm_buffers(void);
+#endif
 
 void shutdown_user(void) {
 #ifdef RGBLIGHT_ENABLE
