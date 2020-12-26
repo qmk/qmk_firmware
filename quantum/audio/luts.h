@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #if defined(__AVR__)
 #    include <avr/io.h>
 #    include <avr/interrupt.h>
@@ -23,14 +25,9 @@
 #    include <hal.h>
 #endif
 
-#ifndef LUTS_H
-#    define LUTS_H
+#define VIBRATO_LUT_LENGTH 20
 
-#    define VIBRATO_LUT_LENGTH 20
-
-#    define FREQUENCY_LUT_LENGTH 349
+#define FREQUENCY_LUT_LENGTH 349
 
 extern const float    vibrato_lut[VIBRATO_LUT_LENGTH];
 extern const uint16_t frequency_lut[FREQUENCY_LUT_LENGTH];
-
-#endif /* LUTS_H */
