@@ -19,6 +19,7 @@ Esc* would activate Left Control when held, and send Escape when tapped.
 Esc* is useful with a rotary encoder @ upper-left Esc location.
 
 Lower Layer = fn0
+
     ,-----------------------------------------------------------.
     |  ~ |  ! |  @ |  # |  $ |  % |  ^ |  & |  * |  ( |  ) | Del|
     |-----------------------------------------------------------|
