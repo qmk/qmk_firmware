@@ -2,6 +2,7 @@
 .dep
 *.o
 *.bin
+!util/applet-mdflash.bin
 *.eep
 *.elf
 *.hex
@@ -71,6 +72,7 @@ id_rsa_*
 
 # python things
 __pycache__
+.venv
 
 # prerequisites for updating ChibiOS
 /util/fmpp*
