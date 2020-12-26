@@ -3,14 +3,20 @@ A 40% keyboard made first by TheVan Keyboards
 _https://thevankeyboards.com_ now taken over by TKC
 _https://thekey.company_
 
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_vb.jpg)
+
 This keymap functions on Minivan hardware variants with 44, 45 and
 46 keys. It may also function on 12x12x12x[11|12] boards.
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_va.jpg)
+For some ‛common layers’ (numbers pad, movement), different versions can be chosen than shown just below in this by layer view:
 
-  **400% the capability in 40% the size.**
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vd.jpg)
 
-make example:
+By key view:
+
+![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_ve.jpg)
+
+*make example:*
 
      … Download the repository, resolve software dependencies etc..
      … If you want to change compile options: edit user_config.h
@@ -37,6 +43,10 @@ layouts have in common.
 Normal layouts
 --------------
 These are layouts for commonly used configurations, such as Qwerty or Dvorak.
+
+If a base layer pair has its own user configuration options, they are located
+in `./base_NAME.h` by convention. Example: `./base_numpad.c` is configured in
+`./base_numpad.h` and has its manual in `./base_numpad.md`.
 
       • Qwerty
 
@@ -92,13 +102,12 @@ Main features
        characters, the middle led will go from green to red as you go,
        and prevent you going over the limit.
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vc.jpg)
-
 Layer access
 ------------
 This graphic shows how layers are reached from the ‛Default base’ layer.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vc.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vd.jpg)
+
 
 The upper/left key which returns to the base layer (letters) on the number layers
  `_DEF_NSY` and `_ALT_NSY` always point to their base layer: `_DEF_BASE` and
@@ -150,8 +159,6 @@ layer there to have French accented letters in better places for French,
 you will reach that same French adapted `_ACC` layer from either of
 the two BASE layers in the dual layout (one is for instance Qwerty,
 the other Dvorak).
-
-![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vd.jpg)
 
 Led colors for layers
 =====================
@@ -220,12 +227,12 @@ Layer: `ALT_NSY`
 ![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vb.jpg)
 Layer: `_PAD`
 
-^ There is a Base layout for a numbers pad as well, in a different format.
+^ See below for a different configuration of the numbers pad keys. See above for a Base layout for a numbers pad.
 
-![Minivan layout Image ACC](http://socialism.nl/misc/minivan/minivan_acc_layer_va.jpg)
+![Minivan layout Image ACC](http://socialism.nl/misc/minivan/minivan_acc_layer_vb.jpg)
 Layer: `_ACC`
 
-![Minivan layout Image DRA](http://socialism.nl/misc/minivan/minivan_dra_layer_va.jpg)
+![Minivan layout Image DRA](http://socialism.nl/misc/minivan/minivan_dra_layer_vb.jpg)
 Layer: `_DRA`
 
 ![Minivan layout Image BON](http://socialism.nl/misc/minivan/minivan_bon_layer_va.jpg)
@@ -312,6 +319,18 @@ can find the configuration block and mentioned option in `./user_config.h`.
 
 ^ `#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
 
+Numbers pad layer options
+-------------------------
+
+This concerns the numbers pad layer, the one that is part of the common layers.
+
+![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vb.jpg)
+
+![Minivan layout Image PAD squared](http://socialism.nl/misc/minivan/minivan_pad_layer_squared_va.jpg)
+
+^ `#define NUMPAD_COMMON_SQUARE`
+
+
 Compile options
 ===============
 
@@ -393,10 +412,14 @@ Layers (text)
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
-±0.2 second delay, activate a layer where the modifiers are direct (`_PAD`), using the layer toggle on left shift. 
+±0.2 second delay, activate a layer where the modifiers are direct (`_PAD`, `_MOV`), using the layer toggle on
+left shift. 
 
 The two keys with ';' (Del;`_ACC`, Right;`_RAR`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
+
 There is an uncluttered _Delete_ on `_PAD`, an uncluttered _Right_ arrow on the `_MOV` layer.
+
+There is an uncluttered _Tab_ on both the `_DRA` and `_ACC` layers. They can be modified with _Control_ there.
 
 Holding both `_..._NSY` keys left and right of the "split space bar" (enter, space) results in layer `_DRA`.
 
@@ -589,6 +612,20 @@ Cnt/Mx, Cnull CWmin, CRprt: text size measuring. See topic.
 Remarks: The keys between `.DEL` and `*`, `+` and `RSht` constitute sort of
 navigation clusters, to make it easier to find the number pad versions thereof.
 
+This is the variety for `_PAD` layer, which resembles a numerical keypad:
+
+     Layer _PAD (Number pad, square layout)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+                                           <|>
+     BASE     xxx   xxx   xxx   xxx   xxx   | =     7HOME 8UP   9PGUP -   Bspc
+     LCtl     xxx   xxx   xxx   xxx   xxx   | *     4LEFT 5     6RGHT +   RCtl
+     LSht     xxx   xxx   xxx   xxx   xxx   | /     1END  2DOWN 3PGDN ,   RSht  
+     ------------------------------------------------------------------------
+                   LAlt   Del    Tab   ENT  | NUML  0INS  .DEL  RAlt      
+                                           <|>           
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+
 - - -
     
     
@@ -597,10 +634,10 @@ navigation clusters, to make it easier to find the number pad versions thereof.
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                        -*-              <|>                                            //(toggle) on _FUN
      BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
-     xxx   äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß     xxx 
+     Tab   äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl 
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ------------------------------------------------------------------------
-                   Left ___   ___   Ent  | Spc   ___   ___   Right
+                   LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
                         -*-             <|>                                              //(hold) on BASE
                    <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
 
@@ -612,10 +649,10 @@ navigation clusters, to make it easier to find the number pad versions thereof.
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                              -*-        <|>                                            //(toggle) on _FUN
      BASE  “„    ”≤    £≥    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc 
-     xxx   ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀     xxx 
+     LCTL  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀     Tab 
      LSht 「━    」─   °〇   •§    …·    | ☐☒   ☑🗹     ¿¡    《┄    》┅   RSht     //  ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
      -------------------------------------------------------------------------
-                   Left ___   ___   Ent  | Spc   ___   ___   Right
+                   LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
                               -*-       <|>      -*-                                     //(hold) on BASE
                    <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
 
@@ -654,6 +691,9 @@ and closing next to each other.
 
 `_ACC` layer:
 
+  Tab is on the left for `_ACC`, following the logic that you move your thumb
+  to the left to activate `_ACC`, with Right-Control on the right. 
+
   The left hand has vowels, which repeat in three rows with the same accent,
   following Dvorak letter placement. The letter 'å'
   is on the same finger as 'a' but other hand, 'ß' is on the spot of
@@ -681,6 +721,10 @@ and closing next to each other.
                  that right hand side: a on the right, o on the left.
 
 `_DRA` layer, memory aids:
+
+  Tab on the `_DRA` layer is the other option from what it is on `_ACC`
+  layer. Pressing two thumbs has no left or right bias. Tab is therefor
+  on the right on `_DRA`, with Left-Control on the left.
 
         Row 4, Key 2:  “ on '", the opening „“ at the ‛open’ of the keyboard (left/up)
         Row 4, Key 3:  ” to the right of opening “, ≤ on <
@@ -760,10 +804,7 @@ Usage
   most button. Changing keyboard mode (what base layer pairs are active)
   is on the `_RAR` layer (‛Other BASE’).
 
-             Some anomalies:
-
-  If you need ‛Control’ + ‛Tab’, you need to use the `_PAD` layer. ‛Tab’
-  there is on an alternative location, ‛Control’ on the same location.
+  If you need ‛Control’ + ‛Tab’, look for the `_DRA` or `_ACC` layer.
 
   A repeating ‛Enter’ is on `_NSY` layer, same key. 
 
@@ -951,6 +992,9 @@ you want (etc). The idea is to make it easy to change the alphanumerical
 keys, while leaving the modifiers, layer switch keys etc. the same. 
 `YOUR_KEYMAP` stands for a name you choose.
 
+First we will look at a simple keymap, without its own configuration
+options or header file.
+
      ① Make a file named: `./base_YOUR_KEYMAP.c`), with at least 
        those two layers: _..._BASE and _..._NSY. It is probably best to
        copy one of the existing `./base_....c` files, and edit that.
@@ -989,10 +1033,11 @@ You can do that by setting one or more of the `BASESFILE_LAYER_...` defines in
 your own `./base_YOUR_KEYMAP.c` file. See near the top of an existing 
 `./base_....c` file for clues.
 `_ACC` in particular is a layer meant to augment a keymap with special 
-characters for a given language/layout in the base layer(s).
+characters for a given language/layout in the base layer(s). Perhaps you
+want to redefine it, for example.
 
 Example: Having done the above points ① ➡ ④ for a `./base_YOUR_KEYMAP.c` file. 
-Re-arrange keys on `_ACC` to suit ... French.
+Let's say you re-arranged keys on `_ACC` to suit ... French.
 
      ⑦ In your `./base_YOUR_KEYMAP.c`:
        #define `BASESFILE_LAYER_ACC`
@@ -1007,6 +1052,63 @@ You can re-define `_ACC` in your own file.
 
      ⑨ Compile and flash to your keyboard.
 
+Now we will look at a more complicated keymap, where you are also altering
+preprocessor constants defined in `./user_config.h`. (Warning, perhaps this
+is overkill … ;-)
+
+Example: the `./base_numpad.c` has an option to entirely eviscerate the
+`_PAD` layer, for convenience. (Why is this even useful ? Good question !
+One reason could be that it can set up a default, so that anyone who chooses
+this `./base_numpad.c` Base layer, automatically is eviscerating the `_PAD`
+_common_ layer, without having to do anything else. On the downside, it
+could be confusing that one option is configured in two places.)
+
+Having done the above points ⑦ ➡ ⑧ as well, let's say for some reason you
+need to reverse Left GUI and Right GUI.
+
+      ⑨ Copy your User Configuration Block at the top of your `./base_YOUR_KEYMAP.c`
+        and the GPL License, and place that in a new _header_ file: 
+        `./base_YOUR_KEYMAP.h` 
+    
+      ① ⓪  Write the necessary code to set and unset the constant
+           `SWITCH_GUIS` in your `./base_YOUR_KEYMAP.h` file You are encouraged
+           to write code which overrides any setting in `./user_config.h, for
+           those constants which you choose to affect, for simplicity sake. 
+           (This is not a C programming manual, so it won't get into this.)
+   
+      ① ①  Look in `./user_config.h`, and #include your header file there, in
+           a similar way as was done for your C code file. It should be just
+           below the user configuration block, and has a template for you.
+   
+      ① ②  Compile, flash and test.
+   
+      ① ③  It would be nice to put a remark on the general preprocessor constants
+           which you might be affecting, that your keymap could be affecting them.
+           You would edit the ./user_config.h comments with a short one line notice,
+           such as:
+   
+           *
+           * ⚠ Note: ./base_YOUR_KEYMAP.h can overrides this setting, if compiled with that ‛Base’ layer.
+           */
+
+Putting your `*.h` header file in `./user_config.h` isn't strictly
+necessary, unless you alter “general preprocessor constants”
+defined in `./user_config` (not local constants for your keymap only).
+
+Perhaps a separate header file is overkill. On the other hand, whatever
+preprocessor logic is necessary after user configuration has been given,
+can be handled in one place, if #included as suggested. It allows you
+to override the settings in `./user_config.h` from your header file
+(because it is #included immediately below those). If a user is playing with
+keymaps Base compile choices, it could be convenient to play with
+`./base_YOUR_KEYMAP.h` settings, have everything that could be relevant
+close at hand, then forgetting about those settings once compiling
+with another Base layer, and be able to return to it with previous
+configuration already done.
+
+You can also just #include your header file at the top of your 
+`./base_YOUR_KEYMAP.h` file, if it does not touch anything else but your
+local keymap.
 
 Eviscerations
 -------------
@@ -1034,30 +1136,65 @@ numbers on `_DRA`.
 
 Trouble shooting
 ----------------
-  • When you flash your board, suddenly your Unicode doesn't work, or your
+  • Flashing firmware
+
+  When you flash your board, suddenly your Unicode doesn't work, or your
   leds seem to be broken. What seems to happen sometimes is that after
   flashing the value of a user option ends up in a different state than
   you expected.
 
-  • Unicode is chaos: try going to `_RAR` layer, and hit the Unicode
+
+  • Unicode
+
+  Unicode is chaos: try going to `_RAR` layer, and hit the Unicode
   operating system buttons.
 
-  • Leds not working: try going to `_RAR` layer, and hit the key MLeds
+
+  • Leds
+
+  Leds not working: try going to `_RAR` layer, and hit the key MLeds
   and SLeds, which switch Leds on/off.
 
-  • Middle led not showing layer: you may have compiled it with speed
+
+  • Middle led
+
+  Middle led not showing layer: you may have compiled it with speed
   measuring on at startup.
 
-  • You weirdly end up on the `_PAD`, `_FUN` or some other layer while
-  typing ? I also sometimes mistype to the `_PAD` layer. It seems to be a 
-  typing mistake: unnecessary or inaccurately typing on the Shift key.
+
+  • Weird layer jumping
+
+  You weirdly end up on the `_PAD`, `_FUN` or some other layer while
+  typing ? This is a typing mistake. You have to learn that unnecessary
+  pressing of the Shift keys, which on most keyboards and in most 
+  applications has no effect, now suddenly does have an effect.
+
   It should never activate to the layer, if you hit another key to get
   a capital letter. It will always go to a layer, if you hit it by itself.
+
   It can help to set `_PAD` in numerical mode, so that you will just type
   some numbers, rather than fly all over the place with arrows and 
   navigation. For the `_FUN` layer, you could put it in one stroke mode, to
-  reduce the consequences of the mistake.
+  reduce the consequences of the mistake. After a while you will likely
+  stop making the mistake.
 
+
+  • Difficult/impossible key combinations ?
+
+  An example of a difficult key combination is: the modifier Control, 
+  Shift, or Alt, with media key “volume up” (or down, etc). It may 
+  work to press and hold “Control” (which should communicate “Control
+  depressed”), then activate `_RAR` layer with the hold key (which 
+  communicates nothing to the computer attached to the keyboard), 
+  press and let go “volume up” (which should communicate just that), let
+  go of the `_RAR` layer (which again communicates nothing), let go of
+  the Control key (which should communicate “Control released”).. 
+
+  Since this keymap was written on one particular set up, it might be
+  that you run into difficulty with rare key combinations (unknown
+  to the author) which are sometimes used for keyboard shortcuts.
+  If so, you could think of changing the source yourself, contacting the
+  author, or the QMK help system. Perhaps we can work out a solution.
 
 Why you want this layout
 ------------------------
@@ -1138,9 +1275,9 @@ Use case
   LGUI on base layer._ AltGr or Compose seemed difficult to configure /
   use _hence accented and unicode layers._ For use with 3D editing 
   _hence a delete on base layer, Control, Alt, Shift on left edge and
-  quick toggle access to `_PAD,` on left shift for faster modifiers
-  and tab key._ Some input fields used have a text maximum, without
-  showing a character or word count, _hence text size counting._
+  quick toggle access to `_PAD` or `_MOV` on left shift for faster
+  modifiers and tab key._ Some input fields used have a text maximum,
+  without showing a character or word count, _hence text size counting._
 
 
 Todo

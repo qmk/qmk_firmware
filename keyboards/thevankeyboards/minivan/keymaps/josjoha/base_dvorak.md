@@ -23,7 +23,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_vc.jpg)
+![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_ve.jpg)
 
 Layers (text)
 =============
@@ -85,5 +85,5 @@ Key associations
 ----------------
 Key placement associations between layers for Dvorak.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_dvorak_1500_va.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_dvorak_1500_vb.jpg)
 

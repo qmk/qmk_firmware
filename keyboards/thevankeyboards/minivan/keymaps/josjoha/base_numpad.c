@@ -22,25 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                 Configuration:
 // --------------------------------------v---------------------------------------
 
+// See the user configuration file: ./base_numpad.h
 
 // --------------------------------------^---------------------------------------
 //            Below here no more comfortable configuration options.....
 // --------------------------------------^---------------------------------------
 
-        /*                            Redefine a layer in this file
-         *
-         * _Activate_ one or more of the below BASESFILE_LAYER_..., to redefine the layer
-         * in this file. The version in ./keymap.c will be ignored. Keep in mind to use
-         * transparent keys (_______) for “hold” layer switch keys on the BASE map, for
-         * your new layer.
-         */
-// #define BASESFILE_LAYER_ACC 
-// #define BASESFILE_LAYER_DRA 
-// #define BASESFILE_LAYER_BON 
-// #define BASESFILE_LAYER_PAD 
-// #define BASESFILE_LAYER_MOV 
-// #define BASESFILE_LAYER_RAR 
-// #define BASESFILE_LAYER_FUN 
+// This is moved into ./user_config.h, because global #defines are affected.
+//((#include "./base_numpad.h" // Pull in the user configuration))
 
         /*  ⬇ */
 
@@ -53,37 +42,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      *
      * The number 5 is under the middle finger home row, as expected for blind
      * number pad typing.
-     * The “,” is added, because it is used in some languages, where in English 
-     * the “.” is used (such as Dutch).
      *
      * The left/upper key, where normally BASE is located, is now OTHER_BASE.
-     * That switches the board to the ‛Default’ layout (assuming this layout is
-     * compiled on the ‛Alternate’), which is effectively the
+     * That switches the board to the ‛Default’ layout, which is effectively the
      * same way as a return to BASE in the sense of BASE being the letters/layer
-     * switch layer. “Other Base” reached from the normal letters/layer-switching BASE layout
-     * will then turn the keyboard into these number pads.
+     * switch layer. “Other Base” reached from the normal letters/layer-switching 
+     * BASE layout will then turn the keyboard into these number pads layers.
      *
      * A modified Numbers&Symbols layer _NSY is still supplied with this Numbers
-     * Pad layout, to have faster access to more symbols. 
+     * Pad layout (as with other Base layers).
      * 
      * The standard numbers pad layer _PAD also still exists. That one has the
-     * numbers arranged differently. Both these layers provide the numbers in their
-     * numbers pad keycode variant. That is not the same keycode as the other set
-     * of numbers. Some computer programs use the difference, even if they appear the
-     * same and/or are treated the same in other computer programs.
+     * numbers arranged differently. 
      *
-     * (While a keyboard typically has the tactile guide on the keycaps under the
-     * index fingers, while the tactile guide on the numbers pad is under the middle
-     * finger for number 5, I have the tactile key caps guide for under the
-     * middle fingers. This is retained for the numbers pad: tactile guide under
-     * number 5. Perhaps it is a downside in some ways for some, but it is a plus
-     * in that you do not have to move your hand to another key, which would be awkward.)
      */ 
 
 // When putting this layer on ‛Default’, it produced undesired side effects:
 // • _RAR and _MOV hold keys on the ‛Alternate’ letters layer, failed to switch back.
 // • Parts of the Numbers Pad keys got activated through transparent layer switch keys on letters layer.
 // Since there is no use for Numpad on ‛Default’ Base anyway, this is simply not supported, which seems to solve the problem.
+
+
+# ifndef NUMPAD_BASE_SINGLE 
 
     [ _ALT_BASE ] = LAYOUT_redefined (
 
@@ -92,9 +72,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
-     !Alter   Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc
+     !AlterGo Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc  //!AlterGo: to _DEF_BASE
      =         *    4     5     6     +     | *     4     5     6    +      =
-     _SSS¹     /    1     2     3     ,     | /     1     2     3    ,   _SSS¹ 
+     _NSY¹     /    1     2     3     ,     | /     1     2     3    ,   _NSY¹ 
      ------------------------------------------------------------------------
                    xxx     0     .     Ent  | NumL  0     .     Ent
                                            <|>
@@ -105,70 +85,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
                                            <|>
-     !Alter   Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc
-     =         *    Left  xxx   Right +     | *     Left  xxx   Right +      =
-     _SSS¹     /    End   Down  PgDn  ,     | /     End   Down  PgDn  ,   _SSS¹
+     !AlterGo Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc  //!AlterGo: to _DEF_BASE 
+     =         *    Left  5     Right +     | *     Left  5     Right +      =  // modified 5
+     _NSY¹     /    End   Down  PgDn  ,     | /     End   Down  PgDn  ,   _NSY¹
      -------------------------------------------------------------------------
                    xxx     Ins   Del   Ent  | NumL  Ins   Del   Ent
                                            <|>
                    <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
                        xxx                  |                xxx          
  
-     ¹) Toggle to the accompanying Super-Sub-Script (_SSS) layer.
-        With regular Base layers, such as Qwerty/Dvorak, this is 
-        called the Numbers&Symbols (_NSY) layer, and it is still
-        called _NSY in the source code.
+     ¹) Toggle to the accompanying Super-Sub-Script (_NSY) layer.
 
 */
 //
-//      <pink2            , <pinky         , <ring   , <middl  , <indx   ,        <ind|, indx>          , inde>   , midd>   , ring>   , pink>       , pink2>        ,
-//      -*!-              ,                ,         ,         ,         ,           <|,>               ,         ,         ,         ,             ,               ,
-        OTHER_BASE_GO     , KC_BSPC        , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC        , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC       ,
-        KC_KP_EQUAL       , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_KP_EQUAL   ,
-        CTO_NUMS          , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , CTO_NUMS      ,
-//      -----------------------------------------------------------------------------------------------------------------
+//      <pink2        , <pinky         , <ring   , <middl  , <indx   ,        <ind|, indx>          , inde>   , midd>   , ring>   , pink>       , pink2>      ,
+//      -*!-          ,                ,         ,         ,         ,           <|,>               ,         ,         ,         ,             ,             ,
+        OTHER_BASE_GO , KC_BSPC        , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC        , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC     ,
+        KC_KP_EQUAL   , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_KP_EQUAL ,
+        CTO_NUMS      , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , CTO_NUMS    ,
+//      -------------------------------------------------------------------------------------------------------------------------------------------------------
         XXXXXXX
 
-# ifdef TRANSMINIVAN_LEFTSIDE
-                           , TRANS_LEFT
-# endif
-
-# ifdef MORE_KEY__COMMAND
-                           , XXXXXXX
-# endif
-
-                           , KC_KP_0      , KC_KP_DOT , KC_KP_ENTER     
-
-#     ifdef TRANSMINIVAN_MIDLEFT
-                                                      , TRANS_MIDLEFT
+#     ifdef TRANSMINIVAN_LEFTSIDE
+                      , TRANS_LEFT  
 #     endif
 
-                                                                        , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT 
+#     ifdef MORE_KEY__COMMAND
+                      , XXXXXXX
+#     endif
 
-# ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                          , TRANS_RIGHT
-# endif                                                                              
+                      , KC_KP_0    , KC_KP_DOT , KC_KP_ENTER     
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                               , TRANS_MIDLEFT 
+#     endif
+
+                                                               , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT 
+
+#     ifdef TRANSMINIVAN_RIGHTSIDE
+                                                                                                 , TRANS_RIGHT  
+#     endif                                                                              
                                                                                      
-# ifdef MORE_KEY__ARROW                                                              
-                                                                                                          , XXXXXXX
-# endif                                                                              
+#     ifdef MORE_KEY__ARROW                                                              
+                                                                                                 , XXXXXXX
+#     endif                                                                              
                                                                                      
-                                                                                                          , KC_KP_ENTER
-//                         ,              ,           ,               <|,>           ,         ,          ,
-//      <1           ±  ±  , <2           , <3        , <4             |, 4>         , 3>      , 2>       , ±  ±  1>
+                                                                                                               , KC_KP_ENTER
+//                    ,            ,           ,             <|,>           ,         ,          ,
+//      <1      ±  ±  , <2         , <3        , <4           |, 4>         , 3>      , 2>       , ±  ± 1>
 
                       ),
 
         /* ⬆⬇ */
 
-    /* Layer _..._NSY: super-/sub-script numbers numpad, square layout
+    /* Layer _ALT_NSY: super-/sub-script numbers numpad, square layout
      */
-    // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
     [ _ALT_NSY ] = LAYOUT_redefined (
 
 /*
-     Layer _..._BASE (super-/sub-script numbers)
+     Layer _..._BASE (super-/sub-script numbers, Numlock on/off)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
@@ -177,52 +153,207 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      LSht      /    ¹₁    ²₂    ³₃    ,     | /     ¹₁    ²₂    ³₃   ,   RSht
      -*-                                   <|>                            -*- //(toggle) Access on Base
      ------------------------------------------------------------------------
-                   xxx    ⁰₀     .     Ent  | xxx   ⁰₀    .     Ent  
+                   xxx    ⁰₀     .DEL  Ent  | xxx   ⁰₀    .DEL  Ent  
                                            <|>      
                    <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
                        xxx                  |                xxx          
+
 
 */
 //High/low numbers guide:
 //¹₁         ²₂         ³₃         ⁴₄         ⁵₅       | ⁶₆         ⁷₇         ⁸₈         ⁹₉         ⁰₀       
 //XP_DRA_BA  XP_DRA_BB  XP_DRA_BC  XP_DRA_BD  XP_DRA_BE  XP_DRA_BF  XP_DRA_BG  XP_DRA_BH  XP_DRA_BI  XP_DRA_BJ
 //
-//      <pink2            , <pinky         , <ring     , <middl    , <indx     ,        <ind|, indx>          , inde>     , midd>     , ring>     , pink>       , pink2>      ,
-//      -*!-              ,                ,           ,           ,           ,           <|,>               ,           ,           ,           ,             ,             ,
-        CTO_BASE          , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC     ,
-        KC_KP_EQUAL       , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_KP_EQUAL ,
-        KC_LSFT           , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_KP_COMMA , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_KP_COMMA , KC_RSFT     ,
-//      -----------------------------------------------------------------------------------------------------------------
+//      <pink2      , <pinky         , <ring     , <middl    , <indx     ,        <ind|, indx>          , inde>     , midd>     , ring>     , pink>       , pink2>      ,
+//      -*!-        ,                ,           ,           ,           ,           <|,>               ,           ,           ,           ,             ,             ,
+        CTO_BASE    , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC        , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC     ,
+        KC_KP_EQUAL , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_KP_EQUAL ,
+        KC_LSFT     , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_KP_COMMA , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_KP_COMMA , KC_RSFT     ,
+//      -----------------------------------------------------------------------------------------------------------------------------------------------------------------
         XXXXXXX   
 
-# ifdef TRANSMINIVAN_LEFTSIDE
-                           , TRANS_LEFT
-# endif
-
-# ifdef MORE_KEY__COMMAND
-                           , XXXXXXX
-# endif
-
-                           , XP_DRA_BJ      , KC_KP_DOT , KC_KP_ENTER 
-
-#     ifdef TRANSMINIVAN_MIDLEFT
-                                  , TRANS_MIDLEFT
+#     ifdef TRANSMINIVAN_LEFTSIDE
+                    , TRANS_LEFT
 #     endif
 
-                                                                        , XXXXXXX , XP_DRA_BJ , KC_KP_DOT 
+#     ifdef MORE_KEY__COMMAND
+                    , XXXXXXX
+#     endif
 
-# ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                          , TRANS_RIGHT
-# endif                                                                                                   
+                    , XP_DRA_BJ , KC_KP_DOT , KC_KP_ENTER 
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                                          , TRANS_MIDLEFT  
+#     endif
+
+                                                          , XXXXXXX       , XP_DRA_BJ , KC_KP_DOT   
+
+#     ifdef TRANSMINIVAN_RIGHTSIDE
+                                                                                                  , TRANS_RIGHT
+#     endif                                                                                                   
                                                                                                           
-# ifdef MORE_KEY__ARROW                                                                                   
-                                                                                                          , XXXXXXX
-# endif                                                                                                   
+#     ifdef MORE_KEY__ARROW                                                                                   
+                                                                                                  , XXXXXXX
+#     endif                                                                                                   
                                                                                                           
-                                                                                                          , KC_KP_ENTER
-//                         ,              ,           ,               <|,>        ,           ,           ,
-//      <1           ±  ±  , <2           , <3        , <4             |, 4>      , 3>        , 2>        , ±  ±  1>
+                                                                                                  , KC_KP_ENTER
+//                  ,           ,           ,           <|,>              ,           ,           ,
+//      <1    ±  ±  , <2        , <3        , <4         |, 4>            , 3>        , 2>        , ±  ±  1>
 
                       ),
 
         /* ⬆⬇ */
+
+# else // NUMPAD_BASE_SINGLE is defined ====================================================================
+
+    [ _ALT_BASE ] = LAYOUT_redefined (
+
+/*
+     
+     * Layer Numbers Pad on Base:
+     *        « See also documentation in keymap.c at _PAD layer, of which this is almost entirely a copy »
+     *        One difference is the key to go to the _ALT_NSY layer (denoted “NUMS:” just below).
+     *        The other difference is the key to switch to default Base and also immediately goes there
+     *        (denoted “!AlterGo” here).
+     
+     Layer _ALT_BASE (Number pad, with NumLock on)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+                                           <|>
+     !AlterGo NUMS: xxx   xxx   xxx   xxx   | =     7     8     9    -   Bspc  // NUMS: to ¹/₁
+     LCtl     xxx   xxx   xxx   xxx   xxx   | *     4     5     6    +   RCtl
+     LSht     xxx   xxx   xxx   xxx   xxx   | /     1     2     3    ,   RSht  
+     ------------------------------------------------------------------------
+                   LAlt   Del    Tab   Ent  | NumL  0     .     RAlt      
+                                           <|>           
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
+
+     Layer _ALT_BASE (Number pad, with NumLock off)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
+                                           <|>
+     !AlterGo NUMS: xxx   xxx   xxx   xxx   | =     Home  Up    PgUp  -   Bspc  // NUMS: to ¹/₁
+     LCtl     xxx   xxx   xxx   xxx   xxx   | *     Left  5     Right +   RCtl  // modified 5
+     LSht     xxx   xxx   xxx   xxx   xxx   | /     End   Down  PgDn  ,   RSht  
+     -------------------------------------------------------------------------
+                   LAlt   Del    Tab   Ent  | NumL  Ins   Del   RAlt      
+                                           <|>
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
+ 
+*/
+
+//High/low numbers guide:
+//¹₁         ²₂         ³₃         ⁴₄         ⁵₅       | ⁶₆         ⁷₇         ⁸₈         ⁹₉         ⁰₀       
+//XP_DRA_BA  XP_DRA_BB  XP_DRA_BC  XP_DRA_BD  XP_DRA_BE  XP_DRA_BF  XP_DRA_BG  XP_DRA_BH  XP_DRA_BI  XP_DRA_BJ
+//
+//      <pink2        , <pinky   , <ring   , <middl  , <index  , <indx2 |, indx2>         , index>  , middl>  , ring>   , pinky>      , pink2>  ,
+//                    ,          ,         ,         ,         , -*-   <|,>               ,         ,         ,         ,             ,         ,
+        OTHER_BASE_GO , CTO_NUMS , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_EQUAL    , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC ,
+        KC_LCTL       , XXXXXXX  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_RCTL ,
+        KC_LSFT       , XXXXXXX  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , KC_RSFT ,
+//      ------------------------------------------------------------------------------------------------------------------------------------
+        KC_LALT 
+
+#     ifdef TRANSMINIVAN_LEFTSIDE
+                      , TRANS_LEFT  
+#     endif
+
+#     ifdef MORE_KEY__COMMAND
+                      , MORE_key1
+#     endif
+
+                      , KC_DEL     , KC_TAB , KC_KP_ENTER
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                            , TRANS_MIDLEFT
+#     endif
+
+                                                            , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT  
+
+#     ifdef TRANSMINIVAN_RIGHTSIDE
+                                                                                               , TRANS_RIGHT
+#     endif
+
+#     ifdef MORE_KEY__ARROW
+                                                                                               , MORE_key2  
+#     endif
+
+                                                                                               , KC_RALT
+//                    ,            ,        ,             <|,>           ,         ,           ,
+//      <1  ± ±       , <2         , <3     , <4           |, 4>         , 3>      , 2>        , ±  ±  1>
+
+                      ),
+
+        /* ⬆⬇ */
+
+    [ _ALT_NSY ] = LAYOUT_redefined (
+
+/*
+     
+     * Layer Numbers Pad on Base:
+     *        This layer is the same as the above, except the numbers are in super-/sub-script.
+     *
+     
+     Layer _ALT_NSY (Number pad, with NumLock on/off)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+                                           <|>
+     BASE     xxx   xxx   xxx   xxx   xxx   | =     ⁷₇    ⁸₈    ⁹₉   -   Bspc
+     LCtl     xxx   xxx   xxx   xxx   xxx   | *     ⁴₄    ⁵₅    ⁶₆   +   RCtl
+     LSht     xxx   xxx   xxx   xxx   xxx   | /     ¹₁    ²₂    ³₃   ,   RSht  
+     ------------------------------------------------------------------------
+                   LAlt   Del    Tab   Ent  | NumL  ⁰₀    .DEL  RAlt      
+                                           <|>           
+                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                       xxx                  |                xxx          
+
+*/
+
+//High/low numbers guide:
+//¹₁         ²₂         ³₃         ⁴₄         ⁵₅       | ⁶₆         ⁷₇         ⁸₈         ⁹₉         ⁰₀       
+//XP_DRA_BA  XP_DRA_BB  XP_DRA_BC  XP_DRA_BD  XP_DRA_BE  XP_DRA_BF  XP_DRA_BG  XP_DRA_BH  XP_DRA_BI  XP_DRA_BJ
+//
+//      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>         , index>    , middl>    , ring>     , pinky>      , pink2>  ,
+//               ,         ,         ,         ,         , -*-   <|,>               ,           ,           ,           ,             ,         ,
+        CTO_BASE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_EQUAL    , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , KC_KP_MINUS , KC_BSPC ,
+        KC_LCTL  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_ASTERISK , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , KC_KP_PLUS  , KC_RCTL ,
+        KC_LSFT  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_SLASH    , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , KC_KP_COMMA , KC_RSFT ,
+//      -----------------------------------------------------------------------------------------------------------------------------------
+        KC_LALT 
+
+#     ifdef TRANSMINIVAN_LEFTSIDE
+                 , TRANS_LEFT   
+#     endif
+
+#     ifdef MORE_KEY__COMMAND
+                 , MORE_key1
+#     endif
+
+                 , KC_DEL     , KC_TAB , KC_KP_ENTER
+
+#     ifdef TRANSMINIVAN_MIDLEFT
+                                       , TRANS_MIDLEFT
+#     endif
+
+                                                       , KC_NUMLOCK , XP_DRA_BJ , KC_KP_DOT    
+
+#     ifdef TRANSMINIVAN_RIGHTSIDE
+                                                                                            , TRANS_RIGHT
+#     endif
+
+#     ifdef MORE_KEY__ARROW
+                                                                                            , MORE_key2  
+#     endif
+
+                                                                                            , KC_RALT
+//               ,            ,        ,             <|,>           ,           ,           ,
+//      <1  ± ±  , <2         , <3     , <4           |, 4>         , 3>        , 2>        , ±  ±  1>
+
+                      ),
+
+# endif // NUMPAD_BASE_SINGLE 
+
+        /* ⬆⬇ */
+

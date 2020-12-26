@@ -35,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
+             ☐ Put Tab on ACC, DRA layers, graphics documentation: key associations, …
+             ☐ Numbers pad, a special Base layer: graphics documentation single layout
+             ☐ Workman 
              ☐ Qwerty with arrows on top (could be a good pair with regular Qwerty)
              ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
              ☐ Qwertz (                   "                             "                        )
@@ -43,8 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                (such as Qwerty + Colemak), but this could be one. It doesn't seem useful or possible
                to support every game layer quirk someone might prefer, so this way that whole kind of
                thing is isolated: compile this and edit as needed there.
-             ☐ User defining macros (record/play user input), another special Base layer.
-             ☑ Numbers pad, a special Base layer.
+             ? User defining macros (record/play user input), another special Base layer ? Is there 
+               room for this, or how to create it if not.
            …
              ☐ An option to compile the _PAD layer, in the format of the Numbers Pad Base layer.
                The Numbers Pad Base Layer is copied into keymap.c, edited to work as needed.
@@ -87,27 +90,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
 enum {
     _DEF_BASE,  //  Default BASE layer (layer at startup). Typically the letters.
+
 # ifndef MINIFAN_SINGLE_LAYOUT
+
     _ALT_BASE,  //  Alternative BASE layer.
+
 # endif
+
     _DEF_NSY,   //  numbers and symbols
+
 # ifndef MINIFAN_SINGLE_LAYOUT
+
     _ALT_NSY,   //  Alternate version of _DEF_NSY
+
 # endif
+
     _MOV,  //  movement arrows and mouse
     _RAR,  //  keys RARely used, Unicode config, Power keys, Media keys, alternate mode switch, speed/size count, …
+
+# ifndef REMOVE_PAD
+
     _PAD,  //  Numbers pad. These are different versions of the same numbers, that is ‛1’ (_NSY) ≠ ‛1’ (_PAD).
 
+# endif
+
 # ifndef REMOVE_ACC // Removes this layer entirely, if set.
+
     _ACC,  //  Accented letters 
+
 # endif
 
 # ifndef REMOVE_DRA // Removes this layer entirely, if set.
+
     _DRA,  //  Unusual symbols and whatever else
+
 # endif
 
 # ifndef REMOVE_BON // Removes this layer entirely, if set.
+
     _BON,  //  Bonus layer with more Unicode symbols
+
 # endif
 
     _FUN,  //  function keys, layer switcher, given highest order precedence just in case
@@ -386,6 +408,7 @@ void set_led_colors_ (layer_state_t state) {
     }
 #    endif // REMOVE_ACC
 
+#    ifndef REMOVE_PAD
     else if (layer_state_cmp (state, _PAD)) { // numbers pad layer
         if (numlock) {
             led0b = 255; // Blue for the numbers part 
@@ -396,6 +419,8 @@ void set_led_colors_ (layer_state_t state) {
         }
         middle_led_control (60, 20, 100); // yellow (low saturation)
     }
+# endif // REMOVE_PAD
+
     //---
     else if (layer_state_cmp (state, _RAR)) { // layer with special keys
         indicate_base (); // this function already does it all
@@ -543,9 +568,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
 
+//                         * YOUR KEYMAP *
 // # if defined(BASE_YOUR_KEYMAP__DEF_BASE) || defined(BASE_YOUR_KEYMAP__ALT_BASE)
 // #     include "./base_YOUR_KEYMAP.c" // Your Keymap.
 // # endif
+
+// If your keymap also has a ./base_YOUR_KEYMAP.h configuration/header file, #include it in ./user_config.h
+// Look for similar inclusions of base header files, similar to the #includes here.
+// You should be able to just copy what you did here, and only change “.c” into “.h”.
 
 // // ⬆
 
@@ -1125,7 +1155,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         /* ⬆⬇ */
 
-# ifndef BASESFILE_LAYER_PAD // Use a definition of this layer in the ./bases_* file, where this #define can be defined.
+# ifndef REMOVE_PAD // This removes all references to _PAD in the code, therefore is not functionally the same as BASESFILE_LAYER_PAD
+
+#     ifndef BASESFILE_LAYER_PAD // Use a definition of this layer in the ./bases_* file, where this #define can be defined.
+
+#         ifndef NUMPAD_COMMON_SQUARE // Use default _PAD layer, where numbers are aligned as they are on _NSY.
+                                  // Conversely, if this is defined, this layer will resembel a numeric keypad.
+                                  // See also base_numpad.c 
 
     /* Layer _PAD: Numbers pad, for numbers pad version of numbers (computer programs can see the difference).
      *             Number pad navigation will be more or less useless, but there is a repetition of the Numpad
@@ -1157,85 +1193,136 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT  , XXXXXXX , XXXXXXX , KC_KP_SLASH , XXXXXXX , KC_KP_EQUAL , KC_KP_PLUS , KC_KP_3 , KC_KP_1        , KC_KP_7 , KC_KP_9 , KC_RSFT     ,
 //      ----------------------------------------------------------------------------------------------------------------------------------------------
         KC_LALT 
-#     ifdef TRANSMINIVAN_LEFTSIDE
-                , _______ // On Base layers this key typically defaults to MO ( _PAD )
-#     endif
 
-#     ifdef MORE_KEY__COMMAND
+#             ifdef TRANSMINIVAN_LEFTSIDE
+                , _______ // On Base layers this key typically defaults to MO ( _PAD )
+#             endif
+
+#             ifdef MORE_KEY__COMMAND
                 , MORE_key1
-#     endif
+#             endif
 
                 , KC_DEL , KC_TAB , KC_KP_ENTER
 
-#     ifdef TRANSMINIVAN_MIDLEFT
+#             ifdef TRANSMINIVAN_MIDLEFT
                                   , TRANS_MIDLEFT
-#     endif
+#             endif
 
                                                 , KC_NUMLOCK , XXXXXXX , KC__YGUI
 
-#     ifdef TRANSMINIVAN_RIGHTSIDE
+#             ifdef TRANSMINIVAN_RIGHTSIDE
                                                                                   , TRANS_RIGHT
-#     endif
+#             endif
 
-#     ifdef MORE_KEY__ARROW
+#             ifdef MORE_KEY__ARROW
                                                                                   , MORE_key2  
-#     endif
+#             endif
 
                                                                                   , KC_RALT
 //              ,        ,        ,           <|,>           ,         ,          ,
 //      <1  ± ± , <2     , <3     , <4         |, 4>         , 3>      , 2>       , ±  ±  1>
 
-//..............................v
+                      ),
+
+#         else // NUMPAD_COMMON_SQUARE 
+
+    [ _PAD ] = LAYOUT_redefined (
+
 /*
      
      * Layer _PAD: Option for a different _PAD layer in the common layers system.
-     *             This variety obviously resembles the square layout of a numerical keyboard.
+     *             This variety resembles the square layout of a numerical keyboard.
      *             It is different from one of the Numpad Base layer compile options, in that
      *             it only has a number pad for the right hand. It is also different in featuring
-     *             modifiers, and the overall layout is sligthly different (the = symbol).
+     *             modifiers, and the overall layout is sligthly different (Enter, = symbol).
+     *
      *             ‛Tab’ on key 3 left hand is the same as the other _PAD layer option (with the
      *             numbers in a line, equal to the _NSY layer), to retain the same ability to
-     *             type Control-Tab.
+     *             type Control-Tab. It seems better to have RAlt in its usual place, Enter in
+     *             its usual place, than to strictly follow a standard numeric keyboard layout
+     *             (which puts Enter somewhere on the right, row 1). It seems easy enough to
+     *             type Enter on this key as well, even with the right hand. Numlock is also
+     *             in its usual place. Note that ‛Del’ on the left, row 1, is not a numbers pad
+     *             Delete/Dot key, but standard Delete, also in the usual place.
      *
      *             This is probably the better one of the square layout numpads, unless you have a use
-     *             for the both hands version. This is also (going to be XXX) available on ‛Base’ Numpad, as an option 
-     *             (as default, the two handed version becoming the option). Normal keyboards also only have one keypad,
-     *             and with the modifiers available it is just better. There is also a block of keys still free to configure.
-     *
+     *             for the two hands version. This is also (going to be XXX) available on ‛Base’ Numpad, as an option 
+     *             (as default, the two handed version becoming the option).
+     * 
      
-     Layer _..._BASE (Number pad, with NumLock on)
+     Layer _PAD (Number pad, with NumLock on)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
-     !Alter   xxx   xxx   xxx   xxx   xxx   | =     7     8     9    -   Bspc
+     BASE     xxx   xxx   xxx   xxx   xxx   | =     7     8     9    -   Bspc
      LCtl     xxx   xxx   xxx   xxx   xxx   | *     4     5     6    +   RCtl
      LSht     xxx   xxx   xxx   xxx   xxx   | /     1     2     3    ,   RSht  
      ------------------------------------------------------------------------
-                   LAlt   xxx    Tab   xxx  | NumL  0     .     Ent   RAlt      
+                   LAlt   Del    Tab   Ent  | NumL  0     .     RAlt      
                                            <|>           
                    <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
                        xxx                  |                xxx          
 
-     Layer _..._BASE (Number pad, with NumLock off)
+     Layer _PAD (Number pad, with NumLock off)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
                                            <|>
-     !Alter   xxx   xxx   xxx   xxx   xxx   | =     Home  Up    PgUp  -   Bspc
+     BASE     xxx   xxx   xxx   xxx   xxx   | =     Home  Up    PgUp  -   Bspc
      LCtl     xxx   xxx   xxx   xxx   xxx   | *     Left  5     Right +   RCtl
      LSht     xxx   xxx   xxx   xxx   xxx   | /     End   Down  PgDn  ,   RSht  
      -------------------------------------------------------------------------
-                   LAlt   xxx    Tab   xxx  | NumL  Ins   Del   Ent   RAlt      
+                   LAlt   Del    Tab   Ent  | NumL  Ins   Del   RAlt      
                                            <|>
                    <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
                        xxx                  |                xxx          
  
 */
-//..............................^
+
+//
+//      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>         , index>  , middl>  , ring>   , pinky>      , pink2>  ,
+//               ,         ,         ,         ,         , -*-   <|,>               ,         ,         ,         ,             ,         ,
+        CTO_BASE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_EQUAL    , KC_KP_7 , KC_KP_8 , KC_KP_9 , KC_KP_MINUS , KC_BSPC ,
+        KC_LCTL  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_ASTERISK , KC_KP_4 , KC_KP_5 , KC_KP_6 , KC_KP_PLUS  , KC_RCTL ,
+        KC_LSFT  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_KP_SLASH    , KC_KP_1 , KC_KP_2 , KC_KP_3 , KC_KP_COMMA , KC_RSFT ,
+//      -----------------------------------------------------------------------------------------------------------------------------------
+        KC_LALT 
+
+#             ifdef TRANSMINIVAN_LEFTSIDE
+                , TRANS_LEFT  
+#             endif
+
+#             ifdef MORE_KEY__COMMAND
+                , MORE_key1
+#             endif
+
+                , KC_DEL     , KC_TAB , KC_KP_ENTER
+
+#             ifdef TRANSMINIVAN_MIDLEFT
+                                      , TRANS_MIDLEFT
+#             endif
+
+                                                      , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT  
+
+#             ifdef TRANSMINIVAN_RIGHTSIDE
+                                                                                         , TRANS_RIGHT
+#             endif
+
+#             ifdef MORE_KEY__ARROW
+                                                                                         , MORE_key2  
+#             endif
+
+                                                                                         , KC_RALT
+//              ,            ,        ,             <|,>           ,         ,           ,
+//      <1  ± ± , <2         , <3     , <4           |, 4>         , 3>      , 2>        , ±  ±  1>
 
                       ),
 
 
-# endif // BASESFILE_LAYER_PAD
+#         endif // NUMPAD_COMMON_SQUARE 
+
+#     endif // BASESFILE_LAYER_PAD
+
+# endif // REMOVE_PAD
 
         /* ⬆⬇ */
 
@@ -1247,6 +1334,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *             cover Dutch, German, French, Scandinavia, Italy and Spain.
      *          It should helps with remembering what keys are where, if one
      *             knows the logic behind it (however flawed it might be).
+     *          This layer has the uncluttered Tab key (whoohoo!).
      *
      *          The logic is ... Versions of the vowels with accents are
      *                              widened vertically on the board, from their
@@ -1286,10 +1374,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                        -*-              <|>                                            //(toggle) on _FUN
      BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bksp
-     xxx   äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß     xxx 
+     Tab   äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl 
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ------------------------------------------------------------------------
-     Left ___   ___   Ent  | Spc   ___   ___   Right
+     LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
           -*-             <|>                                                            //(hold) on BASE
      <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
  */
@@ -1303,10 +1391,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2   , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>  ,
 //               ,           ,           ,           ,           ,         <|,>-*-       ,           ,           ,           ,           ,         ,
         CTO_BASE , XP_ACC_AA , XP_ACC_AB , XP_ACC_AC , XP_ACC_AD , XP_ACC_AE , XP_ACC_AF , XP_ACC_AG , XP_ACC_AH , XP_ACC_AI , XP_ACC_AJ , KC_BSPC ,
-        XXXXXXX  , XP_ACC_BA , XP_ACC_BB , XP_ACC_BC , XP_ACC_BD , XP_ACC_BE , XP_ACC_BF , XP_ACC_BG , XP_ACC_BH , XP_ACC_BI , XP_ACC_BJ , XXXXXXX ,
+        KC_TAB   , XP_ACC_BA , XP_ACC_BB , XP_ACC_BC , XP_ACC_BD , XP_ACC_BE , XP_ACC_BF , XP_ACC_BG , XP_ACC_BH , XP_ACC_BI , XP_ACC_BJ , KC_RCTL ,
         KC_LSFT  , XP_ACC_CA , XP_ACC_CB , XP_ACC_CC , XP_ACC_CD , XP_ACC_CE , XP_ACC_CF , XP_ACC_CG , XP_ACC_CH , XP_ACC_CI , XP_ACC_CJ , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LEFT 
+        KC_LALT 
 #         ifdef TRANSMINIVAN_LEFTSIDE
                 , TRANS_LEFT
 #         endif
@@ -1331,7 +1419,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                           , MORE_key2  
 #         endif
 
-                                                                          , KC_RIGHT
+                                                                          , KC_RALT
 //              , -*-     ,         ,      <|,>       ,         ,         , 
 //      <1 ± ±  , <2      , <3      , <4    |, 4>     , 3>      , 2>      , ±  ±  1>
 
@@ -1359,10 +1447,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                              -*-        <|>                                            //(toggle) on _FUN
      BASE  “„    ”≤    £≥    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bksp
-     xxx   ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀     xxx 
+     LCTL  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀     Tab 
      LSht 「━    」─   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSht
      -------------------------------------------------------------------------
-     Left ___   ___   Ent  | Spc   ___   ___   Right
+     LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
                 -*-       <|>      -*-                                                   //(hold) on BASE
      <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
  */
@@ -1370,10 +1458,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2   , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>  ,
 //               ,           ,           ,           ,           ,         <|,>          , -*-       ,           ,           ,           ,         ,
         CTO_BASE , XP_DRA_AA , XP_DRA_AB , XP_DRA_AC , XP_DRA_AD , XP_DRA_AE , XP_DRA_AF , XP_DRA_AG , XP_DRA_AH , XP_DRA_AI , XP_DRA_AJ , KC_BSPC ,
-        XXXXXXX  , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , XP_DRA_BJ , XXXXXXX ,
+        KC_LCTL  , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , XP_DRA_BJ , KC_TAB  ,
         KC_LSFT  , XP_DRA_CA , XP_DRA_CB , XP_DRA_CC , XP_DRA_CD , XP_DRA_CE , XP_DRA_CF , XP_DRA_CG , XP_DRA_CH , XP_DRA_CI , XP_DRA_CJ , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LEFT 
+        KC_LALT 
 
 #         ifdef TRANSMINIVAN_LEFTSIDE
                 , TRANS_LEFT
@@ -1399,7 +1487,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                           , MORE_key2  
 #         endif                          
 
-                                                                          , KC_RIGHT
+                                                                          , KC_RALT
 //              ,         ,         ,      <|,>       ,         ,         ,
 //      <1 ± ±  , <2      , <3      , <4    |, 4>     , 3>      , 2>      , ±  ±  1>
 

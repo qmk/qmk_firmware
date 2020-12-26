@@ -23,7 +23,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Qwerty](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_2000_vc.jpg)
+![Minivan illustration Overview layers by key, Qwerty](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_2000_ve.jpg)
 
 Layers (text)
 =============
@@ -92,6 +92,6 @@ Key associations
 ----------------
 Key placement associations between layers for Qwerty.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_qwerty_1500_va.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_qwerty_1500_vb.jpg)
 
 

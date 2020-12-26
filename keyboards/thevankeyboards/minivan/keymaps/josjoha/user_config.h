@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+
 // ------------------------------------- ⬇ --------------------------------------
 //                                 Configuration:
 // ------------------------------------- ⬇ --------------------------------------
@@ -77,6 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //                   (a numerical keypad, one for left hand and one for right hand)
         //  _Activate_ to get Numpad on Alternate. There is no option for Numpad on ‛Default’ base.
   #define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
+        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_numpad.c
         //
         /*                      ➡ Eviscerations ( ① / ② ) ⬅
          */
@@ -115,13 +117,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * This section is for when you want to flash this keymap unto a board with more
          * keys than the Minivan has. 
          *
-         *       Trans-Minivan keymap: 12x12x12x11, 12x12x12x12 keys
+         *       Trans-Minivan keymap: 12x12x12x11, 12x12x12x12, 12x12x12x13 keys
          *                                          Example board: Planck (12x12x12x12)
          *
          * It is assumed that you enabled MORE_KEY__ARROW and
          * MORE_KEY__COMMAND, to get to 12x12x12x10 keys. With this you
          * can get to one, two or three more keys on row 1, without manually
-         * editing all layers.
+         * editing all layers. You could first edit the definition on layers that you have
+         * a specific meaning for these keys, and let the rest be patched with the definitions
+         * here.
          *
          * It can help to inspect the preprocessing with > gcc -E keymap.c | less
          *
@@ -132,6 +136,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * All keys on the left, row 1 (closest to the user) shift one unit to the left, with TRANS_MIDLEFT
          * inserted on what would be the left key of the two unit spacebar (assuming that is a key).
          *
+         *                         Other keyboards formats
+         *
+         * It is always possible to just padd the rows somewhere, if you have even more keys. On the other
+         * hand, to try to cut this layout down to fewer keys than it has at minimum (12x12x12x8), is likely
+         * going to reduce its functionality, and will require some puzzling to keep a well organized BASE
+         * layer, and have “hold key” layer switching work correctly.
          *
          * FIXME: not been compiled or tested for any boards.
          */
@@ -143,7 +153,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                  // (Ignored if TRANSMINIVAN_LEFTSIDE is _removed_).
                                  //
 //#define TRANSMINIVAN_MIDLEFT   // _Activate_ to get yet one more key on the first key from center, row 1.
-  #define TRANS_MIDLEFT KC_SPACE // Define what the TRANSMINIVAN_RIGHTSIDE key should be on all layers at once.
+  #define TRANS_MIDLEFT XXXXXXX  // Define what the TRANSMINIVAN_RIGHTSIDE key should be on all layers at once.
                                  // (Ignored if TRANSMINIVAN_MIDLEFT is _removed_).
                                  //
 //#define TRANSMINIVAN_RIGHTSIDE // _Activate_ to get yet one more key on the right side row 1
@@ -196,6 +206,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
 //#define MORE_key2 <...your choice...> // Right side additional key.
         //
+
+
+        /*                      ➡ Arrows/Navigation cluster ⬅
+         */
         /*          • Navigation cluster configuration
          * 
          * _Activate_ below line to use a "WASD" type layout (on the spot where WASD is in Qwerty).
@@ -211,6 +225,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * The arrows on the additional MOREKEY2_ARROW_CLUSTER also get harmonized to be like vi.
          */
 //#define VI_SWITCHERYDOO //  You have to _remove_ ARROWS_TRIANGLE, or this gets ignored.
+
+
+        /*                      ➡ Number pad Configuration⬅
+         *
+         * This concerns the Numbers Pad layer, which is part of the common layers (not the Bse
+         * layer, which also has a Numbers Pad option).
+         *
+         * There are two compile versions for the number pad layer ‛_PAD’, in the common layers. 
+         *
+         * _Activate_ the below to have the numbers pad _PAD layer resemble the squared layout of
+         * a numerical keyboard, allowing to type all numbers with the right hand.
+         * _Remove_ the below to have the numbers in this layer follow the layout of the _NSY layer,
+         * with the numbers on a line from left to right on the home row, across both hands.
+         */
+  #define NUMPAD_COMMON_SQUARE // _Activate_ to resemble a one handed numerical keyboard.
 
 
         /*                      ➡ Speed measuring ⬅
@@ -270,6 +299,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /*                      ➡ Eviscerations ( ② / ② ) ⬅
          */
+        /*          • Removing the numbers pad _PAD layer
+         *
+         * You may have no use for this common layer, if you have a numerical keypad on the Alternate Base already.
+         *
+         * ⚠ Note: ./base_numpad.h can overrides this setting, if compiled with that ‛Base layers’.
+         */
+  #define REMOVE_PAD // _Activate_ to strip out the _PAD layer, _remove_ to have the _PAD layer.
+        //
         /*          • Removing one or more of the Unicode layers _ACC, _DRA or_BON
          */
         /* Removes the _ACC layer, optionally redirect its key. This can save some 750 bytes. 
@@ -344,10 +381,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // ------------------------------------- ⬆ --------------------------------------
 //            Below here no more comfortable configuration options.....
-//            There may be configuration options in the layout ./bases_....c file you chose.
+//            There may be configuration options in the layout ./bases_....h file you chose.
 // ------------------------------------- ⬆ --------------------------------------
 
 
+
+// ------------------------------------- ⬇ --------------------------------------
+//                                 Base layer headers
+// ------------------------------------- ⬇ --------------------------------------
+
+//                         * Numpad *
+# if defined(BASE_NUMPAD__ALT_BASE)
+#     include "./base_numpad.h" // Numbers pad header
+# endif
+
+// // ⬇ insert your ./base_YOUR_KEYMAP.h #include here:
+
+//                         * YOUR KEYMAP *
+// # if defined(BASE_YOUR_KEYMAP__DEF_BASE) || defined(BASE_YOUR_KEYMAP__ALT_BASE)
+// #     include "./base_YOUR_KEYMAP.h" // Your Keymap header/configuration file.
+// # endif
+
+// // ⬆
+
+// ------------------------------------- ⬆ --------------------------------------
+// Base layer headers are best #included here, so the preprocessor statements 
+// following the user configuration block can pick up on anything that was set.
+//
+// Example: base_numpad.h _activate_ ‛REMOVE_PAD’. Based upon that, the preprocessor
+// constant ‛_PAD’ is changed into ‛_FUN’ in the below statements.
+// ------------------------------------- ⬆ --------------------------------------
 
 
 
@@ -463,13 +526,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # endif
 
 // This resolves compiling “TO (_BON)” on the _FUN layer.
-# ifdef REMOVE_BON // _Activate_ to strip out the _BON layer, _remove_ to have the _BON layer.
+# ifdef REMOVE_BON
 #     undef _BON
 #     ifdef _BON_KEY_ALT_LAYER
 #         define _BON _BON_KEY_ALT_LAYER  // To what user wants
 #     else
 #         define _BON _FUN                // void behavior
 #     endif
+# endif
+
+// This resolves compiling “TO (_PAD)” on the _FUN layer.
+# ifdef REMOVE_PAD
+#     undef _PAD
+#     define _PAD _FUN                // void behavior
 # endif
 
 // If the _ACC layer hold key has no function anymore because the layers _ACC and _BON to which it

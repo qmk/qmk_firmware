@@ -961,7 +961,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             // _RAR was the first idea, but some of its keys are too dangerous regarding accidents.
             if (record->event.pressed) { // key down
 
+# ifndef REMOVE_PAD // The _PAD layer exists, we will use a timer …
+
                 key_timer = timer_read ();
+
+# endif
+
                 SEND_STRING (SS_DOWN (X_LSFT)); 
                 // This key is re-used, for speed and because using both shifts is useless,
                 // .. thus very rare, and also not a usage problem if it occured.
@@ -970,7 +975,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }else{ // key up
 
                 SEND_STRING (SS_UP (X_LSFT)); 
+
                 if (isolate_trigger) { // no other key was hit since key down 
+
+# ifndef REMOVE_PAD // The _PAD layer exists, differentiate meaning by timer.
 
                     // Held medium long: _PAD, long: _MOV.
                     // The reason to have a switch to _MOV on the left hand, is to be able to reach arrows on a toggle,
@@ -984,6 +992,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         layer_move (_MOV); 
 
                     }
+
+# else // _PAD layer was eviscerated
+
+                        layer_move (_MOV); 
+
+# endif
+
                 }
             }
             break;
