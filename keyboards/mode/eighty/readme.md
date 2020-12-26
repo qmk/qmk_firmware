@@ -7,14 +7,19 @@ The Mode80 is a tenkeyless high-end keyboard sold by [Mode Designs](https://shop
 
 * Keyboard Maintainer: [Gondolindrim](https://github.com/gondolindrim)
 * Hardware Supported: proprietary PCB using STM32F072 controller
-* Hardware Availability: You can get a Mode Eighty as of today (dec. 2020) through the in stock sales or special groupbuy editions at https://shop.modedesigns.com/
+* Hardware Availability: you can get a Mode Eighty as of today (dec. 2020) through the in stock sales or special groupbuy editions at https://shop.modedesigns.com/
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mode/eighty:default
+    make mode/eighty/M80S:m80s_default
 
 Flashing example for this keyboard:
 
-    make mode/eighty:default:flash
+    make mode/eighty/M80S:m80s_default:flash
+
+For the hotswap version, use M80H instead of M80S:
+
+    make mode/eighty/M80H:m80h_default
+    make mode/eighty/M80H:m80h_default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

@@ -15,14 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x6869
+#define VENDOR_ID       0x6869 // MD for Mode Design
 #define PRODUCT_ID      0x0080
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Mode
 #define PRODUCT         Eighty
 
@@ -104,3 +104,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#endif
