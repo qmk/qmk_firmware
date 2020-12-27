@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_MIDI_H
-#define PROCESS_MIDI_H
+#pragma once
 
 #include "quantum.h"
 
@@ -53,5 +52,3 @@ uint8_t midi_compute_note(uint16_t keycode);
 #    endif  // MIDI_ADVANCED
 
 #endif  // MIDI_ENABLE
-
-#endif
