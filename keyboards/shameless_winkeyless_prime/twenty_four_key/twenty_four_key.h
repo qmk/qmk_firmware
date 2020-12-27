@@ -14,25 +14,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
-#include "nine_key.h"
+#include "quantum.h"
 
-void keyboard_pre_init_kb(void) {
-    led_init_ports();
-    keyboard_pre_init_user();
+#define LAYOUT( \
+	K00, K01, K02, K03, K04, K05, K06, K07, \
+	K10, K11, K12, K13, K14, K15, K16, K17, \
+	K20, K21, K22, K23, K24, K25, K26, K27, \
+	K30, K31, K32, K33, K34, K35, K36, K37, \
+	K40, K41, K42, K43, K44, K45, K46, K47, \
+	K50, K51, K52, K53, K54, K55, K56, K57 \
+) { \
+	{ K00,   K01,   K02,   K03,  K04,  K05,  K06,  K07 }, \
+	{ K10,   K11,   K12,   K13,  K14,  K15,  K16,  K17 }, \
+	{ K20,   K21,   K22,   K23,  K24,  K25,  K26,  K27 }, \
+	{ K30,   K31,   K32,   K33,  K34,  K35,  K36,  K37 }, \
+	{ K40,   K41,   K42,   K43,  K44,  K45,  K46,  K47 }, \
+	{ K50,   K51,   K52,   K53,  K54,  K55,  K56,  K57 } \
 }
 
-void led_init_ports(void) {
-    setPinOutput(D0);
-    setPinOutput(D1);
-    setPinOutput(D6);
-}
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        writePin(D0, led_state.num_lock);
-        writePin(D1, led_state.caps_lock);
-        writePin(D6, led_state.scroll_lock);
-    }
-    return true;
-}

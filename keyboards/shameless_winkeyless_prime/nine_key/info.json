@@ -1,38 +1,23 @@
 {
-    "version": 1,
-    "notes": "",
-    "documentation":"\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
-    "keyboard": "bonksalot/nine_key",
-    "keymap": "nine",
     "keyboard_name": "nine_key",
-    "url": "https://www.hissing-skuz.de",
+    "url": "",
     "maintainer": "filmon",
     "width": 3,
     "height": 3,
-    "layout": "LAYOUT",
-    "layers": [
-    [
-      "KC_ESC",
-      "LT(1, RGB_TOG)",
-      "KC_BSPC",
-      "KC_WH_L",
-      "KC_UP",
-      "KC_WH_R",
-      "KC_LEFT",
-      "KC_DOWN",
-      "KC_RIGHT"
-    ],
-    [
-      "RGB_RMOD",
-      "KC_NO",
-      "RGB_MOD",
-      "RGB_HUI",
-      "RGB_VAI",
-      "RGB_SAI",
-      "RGB_HUD",
-      "RGB_VAD",
-      "RGB_SAD"
-    ]
-  ],
-  "author": ""
+    "layouts": {
+        "LAYOUT": {
+            "key_count": 9,
+            "layout": [
+                {"label": "7", "x": 0, "y": 0},
+                {"label": "8", "x": 1, "y": 0},
+                {"label": "9", "x": 2, "y": 0},
+                {"label": "4", "x": 0, "y": 1},
+                {"label": "5", "x": 1, "y": 1},
+                {"label": "6", "x": 2, "y": 1},
+                {"label": "1", "x": 0, "y": 2},
+                {"label": "2", "x": 1, "y": 2},
+                {"label": "3", "x": 2, "y": 2}
+            ]
+        }
+    }
 }

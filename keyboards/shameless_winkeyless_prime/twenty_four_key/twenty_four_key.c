@@ -15,26 +15,35 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "twenty_four_key.h"
 
-#include "config_common.h"
+/* LEDs on the top row (4 round buttons) 
+ * First button Left - D4, backlight with the rest of the LEDs under the keys
+ * 2nd - D0
+ * 3rd - D1
+ * 4th - D6
+ *
+*/
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x424D // BM
-#define DEVICE_VER      0x0200
-#define MANUFACTURER    Bonks-a-Lot
-#define PRODUCT         Nine_Key
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    writePinLow(D0);
+    writePinLow(D1);
+    writePinLow(D6);
+    keyboard_pre_init_user();
+}
 
-#define RGBLED_NUM 9
+void led_init_ports(void) {
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D6);
+}
 
-/* matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
-#define MATRIX_COL_PINS { A0, A1, A2 }
-#define MATRIX_ROW_PINS { B0, B1, B2 }
-#define DIODE_DIRECTION COL2ROW
-
-#define RGBLIGHT_ANIMATIONS
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(D0, led_state.num_lock);
+        writePin(D1, led_state.caps_lock);
+        writePin(D6, led_state.scroll_lock);
+    }
+    return true;
+}

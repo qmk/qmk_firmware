@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "", 
+    "url": "", 
+    "maintainer": "qmk", 
+    "width": 8, 
+    "height": 5, 
+    "layouts": {
+        "LAYOUT": {
+            "layout": [{"label":"F1", "x":1, "y":0, "w":0.75, "h":0.75}, {"label":"F2", "x":2, "y":0, "w":0.75, "h":0.75}, {"label":"F3", "x":3, "y":0, "w":0.75, "h":0.75}, {"label":"F4", "x":4, "y":0, "w":0.75, "h":0.75}, {"label":"CCW", "x":6, "y":0, "w":0.75, "h":0.75}, {"label":"CW", "x":7, "y":0, "w":0.75, "h":0.75}, {"label":"ESC", "x":0, "y":1}, {"label":"SEL", "x":1, "y":1}, {"label":"LASSO", "x":2, "y":1}, {"label":"STAR", "x":3, "y":1}, {"label":"FUZZ", "x":4, "y":1}, {"label":"DEL", "x":5, "y":1}, {"label":"CCW", "x":6, "y":1, "w":0.75, "h":0.75}, {"label":"CW", "x":7, "y":1, "w":0.75, "h":0.75}, {"label":"Q", "x":0, "y":2}, {"label":"W", "x":1, "y":2}, {"label":"E", "x":2, "y":2}, {"label":"TRI", "x":3, "y":2}, {"label":"<i class='fa fa-eyedropper'></i>", "x":4, "y":2}, {"label":"<i class='fa fa-hand-stop-o'></i>", "x":5, "y":2}, {"label":"DWN", "x":6, "y":2, "h":0.75}, {"label":"UP", "x":7, "y":2, "h":0.75}, {"label":"A", "x":0, "y":3}, {"label":"S", "x":1, "y":3}, {"label":"D", "x":2, "y":3}, {"label":"<i class='fa fa-eraser'></i>", "x":3, "y":3}, {"label":"<i class='fa fa-caret-up'></i>", "x":4, "y":3}, {"label":"ENTER", "x":5, "y":3}, {"label":"PUSH", "x":6, "y":3, "w":0.75, "h":0.75}, {"label":"PUSH", "x":7, "y":3, "w":0.75, "h":0.75}, {"label":"CTRL", "x":0, "y":4}, {"label":"FN", "x":1, "y":4}, {"label":"BOX", "x":2, "y":4}, {"label":"<i class='fa fa-caret-left'></i>", "x":3, "y":4}, {"label":"<i class='fa fa-caret-down'></i>", "x":4, "y":4}, {"label":"<i class='fa fa-caret-right'></i>", "x":5, "y":4}]
+        }
+    }
+}
