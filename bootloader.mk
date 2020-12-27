@@ -118,3 +118,9 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     DFU_ARGS = -d 1EAF:0003 -a2 -R
     DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 endif
+
+ifeq ($(strip $(BOOTLOADER)), vibl)
+    DFU_ARGS =
+    DFU_SUFFIX_ARGS =
+    VIBL = 1
+endif
