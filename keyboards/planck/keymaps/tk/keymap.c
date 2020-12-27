@@ -84,17 +84,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |-----------------------------------------------------------------------------------|
   |Rotary|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |BspDel|
   |------+------+------+------+------+------+------+------+------+------+------+------|
-  |Shift(|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |)Shift|
+  |CtlTab|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter|
   |------+------+------+------+------+------+------+------+------+------+------+------|
-  |CtlTab|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Enter|
+  |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |)Shift|
   |------+------+------+------+------+------+------+------+------+------+------+------|
   |AltEsc|      |      |      | Raise|  SpaceCaps  | Lower|      |      |      | GUI  |
   |-----------------------------------------------------------------------------------|
  */ 
 [_QWERTY] = LAYOUT_planck_grid(
     ROTARY,  KC_Q,      KC_W,    KC_E,    KC_R,      KC_T,     KC_Y,     KC_U,      KC_I,    KC_O,    KC_P,    BSPC_DEL,
-    KC_LSPO, KC_A,      KC_S,    KC_D,    KC_F,      KC_G,     KC_H,     KC_J,      KC_K,    KC_L,    KC_SCLN, KC_RSPC,
-    CTL_TAB, KC_Z,      KC_X,    KC_C,    KC_V,      KC_B,     KC_N,     KC_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    CTL_TAB, KC_A,      KC_S,    KC_D,    KC_F,      KC_G,     KC_H,     KC_J,      KC_K,    KC_L,    KC_SCLN, KC_ENT,
+    KC_LSPO, KC_Z,      KC_X,    KC_C,    KC_V,      KC_B,     KC_N,     KC_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
     ALT_ESC, _______, _______, _______,   TD(RAISE), SPC_CAPS, SPC_CAPS, TD(LOWER), _______, _______, _______, KC_RGUI
 ),
 
