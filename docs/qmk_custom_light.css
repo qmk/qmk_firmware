@@ -41,3 +41,7 @@
 .docsify-tabs__tab:focus {
   outline: none !important;
 }
+
+.docsify-tabs__content .anchor {
+  transition: none;
+}

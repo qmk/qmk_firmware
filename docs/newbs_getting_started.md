@@ -105,7 +105,7 @@ You will need to install Git and Python. It's possible that you already have bot
 
     pkg install git python3
 
-Make sure that `$HOME/.local/bin` is added to your `$PATH` so that locally install Python packages are available.
+Make sure that `$HOME/.local/bin` is added to your `$PATH` so that locally installed Python packages are available.
 
 #### Installation
 
