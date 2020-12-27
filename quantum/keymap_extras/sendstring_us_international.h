@@ -43,7 +43,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
 };
 
-__attribute__((weak)) const uint8_t ascii_to_space_after_lut[16] PROGMEM = {
+__attribute__((weak)) const uint8_t ascii_to_dead_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -98,4 +98,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     US_X,    US_Y,    US_Z,    US_LBRC, US_BSLS, US_RBRC, US_DGRV, KC_DEL
 };
-
