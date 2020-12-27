@@ -37,7 +37,9 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
 [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
-### Windows
+<!-- tabs:start -->
+
+### ** Windows **
 
 You will need to install MSYS2, Git, and the QMK CLI.
 
@@ -48,7 +50,7 @@ Then, run the following:
     pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
     python3 -m pip install qmk
 
-### macOS
+### ** macOS **
 
 You will need to install Homebrew. Follow the instructions on the [Homebrew homepage](https://brew.sh).
 
@@ -56,7 +58,7 @@ After Homebrew is installed run this command:
 
     brew install qmk/qmk/qmk
 
-### Linux
+### ** Linux **
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
@@ -72,7 +74,7 @@ Install the global CLI to bootstrap your system:
 
 `python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
-### FreeBSD
+###  ** FreeBSD **
 
 You will need to install Git and Python. It's possible that you already have both, but if not, run the following commands to install them:
 
@@ -84,7 +86,29 @@ Once installed, you can install QMK CLI:
 
     python3 -m pip install --user qmk
 
+<!-- tabs:end -->
+
 ## 3. Run QMK Setup :id=set-up-qmk
+
+<!-- tabs:start -->
+
+### ** Windows **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer Yes to all of the prompts.
+
+### ** macOS **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer Yes to all of the prompts.
+
+### ** Linux **
 
 After installing QMK you can set it up with this command:
 
@@ -98,13 +122,24 @@ This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155)
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
 
+###  ** FreeBSD **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer Yes to all of the prompts.
+
 ?>**Note on FreeBSD**:
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
 base system using `pkg`. However the installation will probably fail when run as an unprivileged user.
 To manually install the base dependencies, run `./util/qmk_install.sh` either as `root`, or with `sudo`.
 Once that completes, re-run `qmk setup` to complete the setup and checks.
 
+<!-- tabs:end -->
+
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+
 
 ## 4. Test Your Build Environment
 
