@@ -329,10 +329,10 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
 	$$(eval CMD := $$(CC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
-ifeq ($(DUMP_C_MACROS),yes)
+  ifneq ($$(DUMP_C_MACROS),)
 	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
-	@$$(BUILD_CMD)
-endif
+	@$$(if $$(filter $$(DUMP_C_MACROS),$$(notdir $$<)),$$(BUILD_CMD))
+  endif
 
 # Compile: create object files from C++ source files.
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
