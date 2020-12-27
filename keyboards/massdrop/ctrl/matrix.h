@@ -31,7 +31,9 @@ typedef  uint32_t   matrix_row_t;
 #error "MATRIX_COLS: invalid value"
 #endif
 
+#ifndef MATRIX_IS_ON
 #define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
+#endif
 
 #ifdef __cplusplus
 extern "C" {
