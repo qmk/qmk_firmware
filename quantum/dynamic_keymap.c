@@ -22,6 +22,10 @@
 #include "dynamic_keymap.h"
 #include "via.h"  // for default VIA_EEPROM_ADDR_END
 
+#ifdef VIAL_ENABLE
+#include "vial.h"
+#endif
+
 #ifndef DYNAMIC_KEYMAP_MACRO_COUNT
 #    define DYNAMIC_KEYMAP_MACRO_COUNT 16
 #endif
@@ -183,6 +187,12 @@ extern uint16_t g_vial_magic_keycode_override;
 
 // This overrides the one in quantum/keymap_common.c
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
+#ifdef VIAL_ENABLE
+    /* Disable any keycode processing while unlocking */
+    if (vial_unlock_in_progress)
+        return KC_NO;
+#endif
+
 #ifdef VIAL_ENCODERS_ENABLE
     if (key.row == 254 && key.col == 254)
         return g_vial_magic_keycode_override;

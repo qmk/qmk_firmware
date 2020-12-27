@@ -367,12 +367,16 @@ endif
 ifeq ($(strip $(VIAL_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/vial.c
     EXTRAINCDIRS += $(KEYMAP_OUTPUT)
-    OPT_DEFS += -DVIAL_ENABLE
+    OPT_DEFS += -DVIAL_ENABLE -DNO_DEBUG
 
 $(QUANTUM_DIR)/vial.c: $(KEYMAP_OUTPUT)/vial_generated_keyboard_definition.h
 
 $(KEYMAP_OUTPUT)/vial_generated_keyboard_definition.h: $(KEYMAP_PATH)/vial.json
 	python3 util/vial_generate_definition.py $(KEYMAP_PATH)/vial.json $(KEYMAP_OUTPUT)/vial_generated_keyboard_definition.h
+endif
+
+ifeq ($(strip $(VIAL_INSECURE)), yes)
+    OPT_DEFS += -DVIAL_INSECURE
 endif
 
 ifeq ($(strip $(VIAL_ENCODERS_ENABLE)), yes)
