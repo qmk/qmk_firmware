@@ -2,6 +2,10 @@
 RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+#ifndef HEATMAP_DECREASE_DELAY
+#define HEATMAP_DECREASE_DELAY 1
+#endif
+
 void process_rgb_matrix_typing_heatmap(keyrecord_t* record) {
     uint8_t row   = record->event.key.row;
     uint8_t col   = record->event.key.col;
@@ -27,6 +31,7 @@ void process_rgb_matrix_typing_heatmap(keyrecord_t* record) {
     }
 }
 
+uint8_t tick = 0;
 bool TYPING_HEATMAP(effect_params_t* params) {
     // Modified version of RGB_MATRIX_USE_LIMITS to work off of matrix row / col size
     uint8_t led_min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter;
@@ -37,6 +42,10 @@ bool TYPING_HEATMAP(effect_params_t* params) {
         rgb_matrix_set_color_all(0, 0, 0);
         memset(g_rgb_frame_buffer, 0, sizeof g_rgb_frame_buffer);
     }
+
+    // Increment the tick count, it's ok to overflow since we're just using mod
+    // to decrease the heatmap values every N ticks.
+    tick++;
 
     // Render heatmap & decrease
     for (int i = led_min; i < led_max; i++) {
@@ -55,7 +64,9 @@ bool TYPING_HEATMAP(effect_params_t* params) {
             rgb_matrix_set_color(led[j], rgb.r, rgb.g, rgb.b);
         }
 
-        g_rgb_frame_buffer[row][col] = qsub8(val, 1);
+        if (tick % HEATMAP_DECREASE_DELAY == 0) {
+            g_rgb_frame_buffer[row][col] = qsub8(val, 1);
+        }
     }
 
     return led_max < sizeof(g_rgb_frame_buffer);
