@@ -150,6 +150,9 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
 endif
+ifeq ($(VERBOSE_AS_CMD),yes)
+	ASFLAGS += -v
+endif
 
 #---------------- Library Options ----------------
 # Minimalistic printf version
@@ -191,6 +194,9 @@ CREATE_MAP ?= yes
 
 ifeq ($(CREATE_MAP),yes)
 	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
+ifeq ($(VERBOSE_LD_CMD),yes)
+	LDFLAGS += -v
 endif
 #LDFLAGS += -Wl,--relax
 LDFLAGS += $(EXTMEMOPTS)
