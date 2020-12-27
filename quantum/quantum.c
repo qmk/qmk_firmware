@@ -394,7 +394,7 @@ __attribute__((weak)) const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
 /* Bit-Packed look-up table to convert an ASCII character to whether
  * [Space] needs to be sent after the keycode
  */
-__attribute__((weak)) const uint8_t ascii_to_space_after_lut[16] PROGMEM = {
+__attribute__((weak)) const uint8_t ascii_to_dead_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -554,7 +554,7 @@ void send_char(char ascii_code) {
     uint8_t keycode       = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
     bool    is_shifted    = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
     bool    is_altgred    = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
-    bool    is_spaceafter = PGM_LOADBIT(ascii_to_space_after_lut, (uint8_t)ascii_code);
+    bool    is_dead = PGM_LOADBIT(ascii_to_dead_lut, (uint8_t)ascii_code);
 
     if (is_shifted) {
         register_code(KC_LSFT);
@@ -569,7 +569,7 @@ void send_char(char ascii_code) {
     if (is_shifted) {
         unregister_code(KC_LSFT);
     }
-    if (is_spaceafter) {
+    if (is_dead) {
         tap_code(KC_SPACE);
     }
 }
