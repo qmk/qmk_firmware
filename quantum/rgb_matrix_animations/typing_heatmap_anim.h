@@ -2,8 +2,8 @@
 RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-#ifndef HEATMAP_DECREASE_DELAY
-#define HEATMAP_DECREASE_DELAY 1
+#ifndef RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY
+#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY 1
 #endif
 
 void process_rgb_matrix_typing_heatmap(keyrecord_t* record) {
@@ -64,7 +64,7 @@ bool TYPING_HEATMAP(effect_params_t* params) {
             rgb_matrix_set_color(led[j], rgb.r, rgb.g, rgb.b);
         }
 
-        if (tick % HEATMAP_DECREASE_DELAY == 0) {
+        if (tick % RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY == 0) {
             g_rgb_frame_buffer[row][col] = qsub8(val, 1);
         }
     }
