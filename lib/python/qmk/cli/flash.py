@@ -37,6 +37,7 @@ def print_bootloader_help():
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('QMK Flash.')
 @automagic_keyboard
 @automagic_keymap
@@ -50,6 +51,10 @@ def flash(cli):
 
     If bootloader is omitted the make system will use the configured bootloader for that keyboard.
     """
+    if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
+        command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
+        cli.run(command, capture_output=False)
+
     command = ''
 
     if cli.args.bootloaders:
@@ -81,7 +86,7 @@ def flash(cli):
         cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
         if not cli.args.dry_run:
             cli.echo('\n')
-            compile = subprocess.run(command)
+            compile = cli.run(command, capture_output=False, text=True)
             return compile.returncode
 
     else:

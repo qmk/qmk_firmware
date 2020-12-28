@@ -2,7 +2,6 @@
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
-import subprocess
 from argparse import FileType
 
 from milc import cli
@@ -15,6 +14,7 @@ from qmk.commands import compile_configurator_json, create_make_command, parse_c
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
 @automagic_keymap
@@ -25,6 +25,10 @@ def compile(cli):
 
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
+    if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
+        command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
+        cli.run(command, capture_output=False)
+
     command = None
 
     if cli.args.filename:
@@ -48,7 +52,7 @@ def compile(cli):
         cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
         if not cli.args.dry_run:
             cli.echo('\n')
-            compile = subprocess.run(command)
+            compile = cli.run(command, capture_output=False, text=False)
             return compile.returncode
 
     else:
