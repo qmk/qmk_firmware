@@ -18,13 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "musical_notes.h"
-#include "stdbool.h"
+#include <stdbool.h>
 
 __attribute__((weak)) float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_D4, 0.25);
 __attribute__((weak)) float fauxclicky_released_note[2] = MUSICAL_NOTE(_C4, 0.125);
 __attribute__((weak)) float fauxclicky_beep_note[2]     = MUSICAL_NOTE(_C4, 0.25);
 
-bool fauxclicky_enabled;
+extern bool fauxclicky_enabled;
 
 //
 // tempo in BPM

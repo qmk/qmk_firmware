@@ -1,5 +1,5 @@
-#ifndef RING_BUFFER_H
-#define RING_BUFFER_H
+#pragma once
+
 /*--------------------------------------------------------------------
  * Ring buffer to store scan codes from keyboard
  *------------------------------------------------------------------*/
@@ -43,5 +43,3 @@ static inline bool rbuf_has_data(void) {
 static inline void rbuf_clear(void) {
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { rbuf_head = rbuf_tail = 0; }
 }
-
-#endif /* RING_BUFFER_H */

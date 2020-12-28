@@ -16,7 +16,7 @@
     { K40, K41, K42, K43, K44, K45, K46, K47, K48 }, \
     { K50, K51, K52, K53, K54, K55, K56, K57, K58 }, \
     { K60, K61, K62, K63, K64, K65, K66, K67, K68 }, \
-    { K70, K71, K72, K73, K74 } \
+    { K70, K71, K72, K73, K74, KC_NO, KC_NO, KC_NO, KC_NO } \
 }
 
 #define LAYOUT_kc( \
