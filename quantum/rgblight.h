@@ -170,6 +170,45 @@ enum RGBLIGHT_EFFECT_MODE {
 #        define RGBLIGHT_LIMIT_VAL 255
 #    endif
 
+// velocikey customization
+#    ifndef VELOCIKEY_MIN_INTERVAL_BREATHING
+#        define VELOCIKEY_MIN_INTERVAL_BREATHING 100
+#    endif
+#    ifndef VELOCIKEY_MAX_INTERVAL_BREATHING
+#        define VELOCIKEY_MAX_INTERVAL_BREATHING 1
+#    endif
+#    ifndef VELOCIKEY_MIN_INTERVAL_RAINBOW_MOOD
+#        define VELOCIKEY_MIN_INTERVAL_RAINBOW_MOOD 100
+#    endif
+#    ifndef VELOCIKEY_MAX_INTERVAL_RAINBOW_MOOD
+#        define VELOCIKEY_MAX_INTERVAL_RAINBOW_MOOD 5
+#    endif
+#    ifndef VELOCIKEY_MIN_INTERVAL_RAINBOW_SWIRL
+#        define VELOCIKEY_MIN_INTERVAL_RAINBOW_SWIRL 100
+#    endif
+#    ifndef VELOCIKEY_MAX_INTERVAL_RAINBOW_SWIRL
+#        define VELOCIKEY_MAX_INTERVAL_RAINBOW_SWIRL 1
+#    endif
+#    ifndef VELOCIKEY_MIN_INTERVAL_SNAKE
+#        define VELOCIKEY_MIN_INTERVAL_SNAKE 200
+#    endif
+#    ifndef VELOCIKEY_MAX_INTERVAL_SNAKE
+#        define VELOCIKEY_MAX_INTERVAL_SNAKE 1
+#    endif
+#    ifndef VELOCIKEY_MIN_INTERVAL_KNIGHT
+#        define VELOCIKEY_MIN_INTERVAL_KNIGHT 100
+#    endif
+#    ifndef VELOCIKEY_MAX_INTERVAL_KNIGHT
+#        define VELOCIKEY_MAX_INTERVAL_KNIGHT 5
+#    endif
+// currently twinkle does not support velocikey? based on the code it should...
+#    ifndef VELOCIKEY_MIN_INTERVAL_TWINKLE
+#        define VELOCIKEY_MIN_INTERVAL_TWINKLE 50
+#    endif
+#    ifndef VELOCIKEY_MAX_INTERVAL_TWINKLE
+#        define VELOCIKEY_MAX_INTERVAL_TWINKLE 5
+#    endif
+
 #    define RGBLED_TIMER_TOP F_CPU / (256 * 64)
 // #define RGBLED_TIMER_TOP 0xFF10
 

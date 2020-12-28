@@ -881,35 +881,35 @@ void rgblight_task(void) {
 #    ifdef RGBLIGHT_EFFECT_BREATHING
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
             // breathing mode
-            interval_time = get_interval_time(&RGBLED_BREATHING_INTERVALS[delta], 1, 100);
+            interval_time = get_interval_time(&RGBLED_BREATHING_INTERVALS[delta], VELOCIKEY_MAX_INTERVAL_BREATHING, VELOCIKEY_MIN_INTERVAL_BREATHING);
             effect_func   = rgblight_effect_breathing;
         }
 #    endif
 #    ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) {
             // rainbow mood mode
-            interval_time = get_interval_time(&RGBLED_RAINBOW_MOOD_INTERVALS[delta], 5, 100);
+            interval_time = get_interval_time(&RGBLED_RAINBOW_MOOD_INTERVALS[delta], VELOCIKEY_MAX_INTERVAL_RAINBOW_MOOD, VELOCIKEY_MIN_INTERVAL_RAINBOW_MOOD);
             effect_func   = rgblight_effect_rainbow_mood;
         }
 #    endif
 #    ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) {
             // rainbow swirl mode
-            interval_time = get_interval_time(&RGBLED_RAINBOW_SWIRL_INTERVALS[delta / 2], 1, 100);
+            interval_time = get_interval_time(&RGBLED_RAINBOW_SWIRL_INTERVALS[delta / 2], VELOCIKEY_MAX_INTERVAL_RAINBOW_SWIRL, VELOCIKEY_MIN_INTERVAL_RAINBOW_SWIRL);
             effect_func   = rgblight_effect_rainbow_swirl;
         }
 #    endif
 #    ifdef RGBLIGHT_EFFECT_SNAKE
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_SNAKE) {
             // snake mode
-            interval_time = get_interval_time(&RGBLED_SNAKE_INTERVALS[delta / 2], 1, 200);
+            interval_time = get_interval_time(&RGBLED_SNAKE_INTERVALS[delta / 2], VELOCIKEY_MAX_INTERVAL_SNAKE, VELOCIKEY_MIN_INTERVAL_SNAKE);
             effect_func   = rgblight_effect_snake;
         }
 #    endif
 #    ifdef RGBLIGHT_EFFECT_KNIGHT
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_KNIGHT) {
             // knight mode
-            interval_time = get_interval_time(&RGBLED_KNIGHT_INTERVALS[delta], 5, 100);
+            interval_time = get_interval_time(&RGBLED_KNIGHT_INTERVALS[delta], VELOCIKEY_MAX_INTERVAL_KNIGHT, VELOCIKEY_MIN_INTERVAL_KNIGHT);
             effect_func   = rgblight_effect_knight;
         }
 #    endif
@@ -935,7 +935,7 @@ void rgblight_task(void) {
 #    endif
 #    ifdef RGBLIGHT_EFFECT_TWINKLE
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
-            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 50);
+            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], VELOCIKEY_MAX_INTERVAL_TWINKLE, VELOCIKEY_MIN_INTERVAL_TWINKLE);
             effect_func   = (effect_func_t)rgblight_effect_twinkle;
         }
 #    endif
