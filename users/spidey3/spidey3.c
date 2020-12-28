@@ -126,6 +126,26 @@ bool process_gflock(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    dprintf("key event:\n"
+            "kc: %02X, col: %u, row: %u, pressed: %u\n"
+            "mods: %08b "
+#if !defined(NO_ACTION_ONESHOT)
+            "os: %08b "
+#endif
+            "weak: %08b\n"
+            "      CSAGCSAG "
+#if !defined(NO_ACTION_ONESHOT)
+            "    CSAGCSAG "
+#endif
+            "      CSAGCSAG\n",
+            keycode, record->event.key.col, record->event.key.row, record->event.pressed,
+            bitrev(get_mods()), 
+#if !defined(NO_ACTION_ONESHOT)
+            bitrev(get_oneshot_mods()),
+#endif
+            bitrev(get_weak_mods()));
+
     if (!rand_seeded) {
         srand(record->event.time % keycode);
         rand_seeded = true;
