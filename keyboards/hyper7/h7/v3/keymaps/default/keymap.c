@@ -534,10 +534,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
       // [daughter board] row 1 POS key macros
       case H_HELP:
-        send_string("[HELP] key macro");
+        send_string("[HELP] key");
+        return false;
+      case H_MACRO:
+        send_string("[MACRO] key");
         return false;
       case H_TERMINAL:
-        send_string("[TERMINAL] key macro");
+        send_string("[TERMINAL] key");
         return false;
       case H_QUOTE:
         // wraps selected (editable) text in quotation marks
@@ -557,10 +560,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         // send_string(SS_TAP(X_C)SS_TAP(X_L)SS_TAP(X_S)SS_TAP(KC_ENTER));
         return false;
       case H_HOLD_OUTPUT:
-        send_string("[HOLD OUTPUT] key macro");
+        send_string("[HOLD OUTPUT] key");
         return false;
       case H_STOP_OUTPUT:
-        send_string("[STOP OUTPUT] key macro");
+        send_string("[STOP OUTPUT] key");
         return false;
       case H_ABORT:
         send_string(SS_LCTL(SS_TAP(X_C)));
@@ -572,45 +575,45 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         send_string(SS_TAP(X_F)SS_TAP(X_G)SS_TAP(X_ENTER));
         return false;
       case H_CALL:
-        send_string("[CALL] key macro");
+        send_string("[CALL] key");
         return false;
 
       // [daughter board] row 2 POS key macros
       case H_LOCAL:
-        send_string("[LOCAL] key macro");
+        send_string("[LOCAL] key");
         return false;
       case H_NETWORK:
-        send_string("[NETWORK] key macro");
+        send_string("[NETWORK] key");
         return false;
       case H_SYSTEM:
-        send_string("[SYSTEM] key macro");
+        send_string("[SYSTEM] key");
         return false;
       case H_REFRESH:
         send_string(SS_LCTL(SS_TAP(X_R)));
         return false;
       case H_BUFFER:
-        send_string("[BUFFER] key macro");
+        send_string("[BUFFER] key");
         return false;
       case H_SQUARE:
-        send_string("[SQUARE] key macro");
+        send_string("[SQUARE] key");
         return false;
       case H_CIRCLE:
-        send_string("[CIRCLE] key macro");
+        send_string("[CIRCLE] key");
         return false;
       case H_TRIANGLE:
-        send_string("[TRIANGLE] key macro");
+        send_string("[TRIANGLE] key");
         return false;
       case H_DIAMOND:
-        send_string("[DIAMOND] key macro");
+        send_string("[DIAMOND] key");
         return false;
       case H_REPEAT:
-        send_string("[REPEAT] key macro");
+        send_string("[REPEAT] key");
         return false;
       case H_TRANSMIT:
-        send_string("[TRANSMIT] key macro");
+        send_string("[TRANSMIT] key");
         return false;
       case H_STATUS:
-        send_string("[STATUS] key macro");
+        send_string("[STATUS] key");
         return false;
       case H_SUSPEND:
         send_string(SS_LCTL(SS_TAP(X_Z)));
@@ -669,7 +672,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
       // [main board] row 2
       case H_MARK:
-        send_string("[MARK] macro key");
+        send_string("[MARK] key");
         return false;
       case H_LEFT_PAREN__LEFT_BRACKET:
         if (get_mods() & MODS_SHIFT_MASK) {
@@ -693,10 +696,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
       // [main board] row 3
       case H_SELECT:
-        send_string("[SELECT] macro key");
+        send_string("[SELECT] key");
         return false;
       case H_DEBUG:
-        send_string("[DEBUG] macro key");
+        send_string("[DEBUG] key");
         return false;
       case H_SEMI_COLON__BACK_TICK:
         if (get_mods() & MODS_SHIFT_MASK) {
@@ -716,7 +719,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
       case H_LINE:
-        send_string("[LINE] macro key");
+        send_string("[LINE] key");
         return false;
       case H_PAGE:
         if (get_mods() & MODS_SHIFT_MASK) {
@@ -730,10 +733,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
       // [main board] row 4
       case H_TTY:
-        send_string("[TTY] macro key");
+        send_string("[TTY] key");
         return false;
       case H_LOCK:
-        send_string("[LOCK] macro key");
+        send_string("[LOCK] key");
         return false;
 
       // [main board] row 5
@@ -741,10 +744,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         send_string(SS_LCTL(SS_TAP(X_END)));
         return false;
       case H_7BIT:
-        send_string("[7BIT] macro key");
+        send_string("[7BIT] key");
         return false;
       case H_CIRCLE_SM:
-        send_string("[CIRCLE_SM] macro key");
+        send_string("[CIRCLE_SM] key");
         return false;
     }
   }

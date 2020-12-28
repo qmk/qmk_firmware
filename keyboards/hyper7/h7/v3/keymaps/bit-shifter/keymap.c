@@ -5,6 +5,7 @@
 #include "bit-shifter.h"
 
 // Brevity defines
+#define KN KC_NO
 #define FT KC_TRNS
 
 // UNICODEMAP_ENABLE
@@ -378,9 +379,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  r2: H_7BIT, H_CIRCLE_SM
      */
     [_BASE] = LAYOUT_h7v3_183(
-        H_HELP,            H_MACRO,           H_TERMINAL,           H_QUOTE,             H_OVERSTRIKE,            H_CLEAR_INPUT,           H_CLEAR_SCREEN,                 H_HOLD_OUTPUT,             H_STOP_OUTPUT,          H_ABORT,           H_BREAK,              H_RESUME,            H_CALL,              KC_NLCK,           //14
-        H_LOCAL,           H_NETWORK,         H_SYSTEM,             H_REFRESH,           H_BUFFER,                H_SQUARE,                H_CIRCLE,                       H_TRIANGLE,                H_DIAMOND,              H_REPEAT,          H_TRANSMIT,           H_STATUS,            H_SUSPEND,           KC_CLCK,           //14
-        KC_F1,   KC_F2,    H_CLOSE,  H_OPEN,  KC_ESC,               KC_QUES,    KC_EXLM, X(AT_SYMBOL),    X(GBP), X(EURO),        X(JPY),  X(BACKTICK),    X(DQUOTE_OPEN), X(DQUOTE_CLOSE), X(PRIME), KC_UNDS,       KC_LABK, KC_RABK,  X(PIPE), KC_LCBR,    KC_RCBR,  H_COMPLETE,          KC_CIRC,   KC_PERC,  KC_HASH,  KC_DLR,  //26
+        H_HELP,KN,         H_MACRO,KN,        H_TERMINAL,KN,        H_QUOTE,KN,          H_OVERSTRIKE,KN,         H_CLEAR_INPUT,KN,        H_CLEAR_SCREEN,KN,              H_HOLD_OUTPUT,KN,          H_STOP_OUTPUT,KN,       H_ABORT,KN,        H_BREAK,KN,           H_RESUME,KN,         H_CALL,KN,           KC_NLCK,KN,        //14
+        H_LOCAL,KN,        H_NETWORK,KN,      H_SYSTEM,KN,          H_REFRESH,KN,        H_BUFFER,KN,             H_SQUARE,KN,             H_CIRCLE,KN,                    H_TRIANGLE,KN,             H_DIAMOND,KN,           H_REPEAT,KN,       H_TRANSMIT,KN,        H_STATUS,KN,         H_SUSPEND,KN,        KC_CLCK,KN,        //14
+        KC_F1,   KC_F2,    H_CLOSE,  H_OPEN,  KC_ESC,KN,            KC_QUES,    KC_EXLM, X(AT_SYMBOL),    X(GBP), X(EURO),        X(JPY),  X(BACKTICK),    X(DQUOTE_OPEN), X(DQUOTE_CLOSE), X(PRIME), KC_UNDS,       KC_LABK, KC_RABK,  X(PIPE), KC_LCBR,    KC_RCBR,  H_COMPLETE,KN,       KC_CIRC,   KC_PERC,  KC_HASH,  KC_DLR,  //26
 
         KC_F3,   KC_F4,    KC_FIND,  H_WRITE, KC_LEAD,  H_DOUBLE_QUOTE__PLUS_MINUS, H_COLON__TILDE,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,    KC_6,     KC_7,    KC_8,     KC_9,    KC_0,     KC_MINS,  KC_EQL,  KC_NUBS, H_L_BRACE__L_CHEVRON,  H_R_BRACE__R_CHEVRON,  KC_UNDO,    KC_TILD,   KC_SLSH,  KC_PAST,  KC_PMNS, //27
         KC_F5,   KC_F6,    KC_EXLM,  KC_UNDO, KC_PASTE, KC_CUT ,  KC_TAB ,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,    KC_Y,     KC_U,    KC_I,     KC_O,    KC_P,     KC_LPRN,  KC_RPRN, KC_BSPC, KC_CLEAR, KC_HOME,                                                                 KC_P7,     KC_P8,    KC_P9,    KC_PPLS, //26
@@ -411,9 +412,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
      */
     [_APL] = LAYOUT_h7v3_183(
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
-        FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
+        FT,FT,            FT,FT,              FT,FT,              FT,FT,              FT,FT,              FT,FT,             FT,FT,             FT,FT,              FT,FT,             FT,FT,            FT,FT,              FT,FT,               FT,FT,             FT,FT,
+        FT,FT,            FT,FT,              FT,FT,              FT,FT,              FT,FT,              FT,FT,             FT,FT,             FT,FT,              FT,FT,             FT,FT,            FT,FT,              FT,FT,               FT,FT,             FT,FT,
+        FT,      FT,      FT,       FT,       FT,FT,              FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,FT,               FT,      FT,       FT,      FT,
 
         FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
         FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(N_ARY_LOGICAL_AND), X(N_ARY_LOGICAL_OR), X(N_ARY_INTERSECT), X(N_ARY_UNION), X(SUBSET_OF),X(SUPERSET_OF), X(FORALL),X(LEMNISCATE), X(END_OF_PROOF),X(PARTIAL_DIFFERENTIAL),      FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
@@ -444,9 +445,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
      */
     [_GREEK] = LAYOUT_h7v3_183(
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                FT,                 FT,               FT,                FT,                  FT,                FT,
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                FT,                 FT,               FT,                FT,                  FT,                FT,
-        FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,      FT,       FT,                  FT,      FT,       FT,      FT,
+        FT,FT,            FT,FT,              FT,FT,              FT,FT,              FT,FT,              FT,FT,             FT,FT,             FT,FT,              FT,FT,             FT,FT,            FT,FT,              FT,FT,               FT,FT,             FT,FT,
+        FT,FT,            FT,FT,              FT,FT,              FT,FT,              FT,FT,              FT,FT,             FT,FT,             FT,FT,              FT,FT,             FT,FT,            FT,FT,              FT,FT,               FT,FT,             FT,FT,
+        FT,      FT,      FT,       FT,       FT,FT,              FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,FT,               FT,      FT,       FT,      FT,
 
         FT,      FT,      FT,       FT,       FT, X(CONTOUR_INTEGRAL),  FT,  X(COPTIC_LC_DEI), X(DOUBLE_DAGGER), X(NABLA), X(CENT), X(DEGREE), X(APL_QUAD), X(DIVISION), X(MULTIPLICATION), X(PILCROW), X(LARGE_CIRCLE), X(HORIZONTAL_BAR), X(APPROXIMATELY_EQUAL_TO), X(DOUBLE_VERTICAL_LINE), X(SQUARE_IMAGE_OF), X(SQUARE_ORIGINAL_OF),       FT,       FT,                 FT,       FT,      FT,
         FT,      FT,      FT,       FT,       FT,       FT,       FT,  XP(GREEK_LC_THETA, GREEK_UC_THETA), XP(GREEK_LC_OMEGA, GREEK_UC_OMEGA), XP(GREEK_LC_EPSILON, GREEK_UC_EPSILON), XP(GREEK_LC_RHO, GREEK_UC_RHO), XP(GREEK_LC_TAU, GREEK_UC_TAU),XP(GREEK_LC_PSI, GREEK_UC_PSI), XP(GREEK_LC_UPSILON, GREEK_UC_UPSILON),XP(GREEK_LC_IOTA, GREEK_UC_IOTA), XP(GREEK_LC_OMICRON, GREEK_UC_OMICRON),XP(GREEK_LC_PI, GREEK_UC_PI), X(MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET), X(MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET),     FT,      FT,      FT,                            FT,      FT,       FT,      FT,
@@ -477,9 +478,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
      */
     [_FN] = LAYOUT_h7v3_183(
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,               FT,                 FT,                  FT,                RESET,
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,               FT,                 FT,                  FT,                FT,
-        FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
+        FT,FT,            FT,FT,              FT,FT,              FT,FT,              FT,FT,              FT,FT,             FT,FT,             FT,FT,              FT,FT,             FT,FT,            FT,FT,              FT,FT,               FT,FT,             RESET,FT,
+        FT,FT,            FT,FT,              FT,FT,              FT,FT,              FT,FT,              FT,FT,             FT,FT,             FT,FT,              FT,FT,             FT,FT,            FT,FT,              FT,FT,               FT,FT,             FT,FT,
+        FT,      FT,      FT,       FT,       FT,FT,              FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,FT,               FT,      FT,       FT,      FT,
 
         FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
         FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       UC_M_WI,  FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
@@ -498,10 +499,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
       // [daughter board] row 1 POS key macros
       case H_HELP:
-        send_string("[HELP] key macro");
+        send_string("[HELP] key");
+        return false;
+      case H_MACRO:
+        send_string("[MACRO] key");
         return false;
       case H_TERMINAL:
-        send_string("[TERMINAL] key macro");
+        send_string("[TERMINAL] key");
         return false;
       case H_QUOTE:
         // wraps selected (editable) text in quotation marks
@@ -521,10 +525,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         // send_string(SS_TAP(X_C)SS_TAP(X_L)SS_TAP(X_S)SS_TAP(KC_ENTER));
         return false;
       case H_HOLD_OUTPUT:
-        send_string("[HOLD OUTPUT] key macro");
+        send_string("[HOLD OUTPUT] key");
         return false;
       case H_STOP_OUTPUT:
-        send_string("[STOP OUTPUT] key macro");
+        send_string("[STOP OUTPUT] key");
         return false;
       case H_ABORT:
         send_string(SS_LCTL(SS_TAP(X_C)));
@@ -536,45 +540,45 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         send_string(SS_TAP(X_F)SS_TAP(X_G)SS_TAP(X_ENTER));
         return false;
       case H_CALL:
-        send_string("[CALL] key macro");
+        send_string("[CALL] key");
         return false;
 
       // [daughter board] row 2 POS key macros
       case H_LOCAL:
-        send_string("[LOCAL] key macro");
+        send_string("[LOCAL] key");
         return false;
       case H_NETWORK:
-        send_string("[NETWORK] key macro");
+        send_string("[NETWORK] key");
         return false;
       case H_SYSTEM:
-        send_string("[SYSTEM] key macro");
+        send_string("[SYSTEM] key");
         return false;
       case H_REFRESH:
         send_string(SS_LCTL(SS_TAP(X_R)));
         return false;
       case H_BUFFER:
-        send_string("[BUFFER] key macro");
+        send_string("[BUFFER] key");
         return false;
       case H_SQUARE:
-        send_string("[SQUARE] key macro");
+        send_string("[SQUARE] key");
         return false;
       case H_CIRCLE:
-        send_string("[CIRCLE] key macro");
+        send_string("[CIRCLE] key");
         return false;
       case H_TRIANGLE:
-        send_string("[TRIANGLE] key macro");
+        send_string("[TRIANGLE] key");
         return false;
       case H_DIAMOND:
-        send_string("[DIAMOND] key macro");
+        send_string("[DIAMOND] key");
         return false;
       case H_REPEAT:
-        send_string("[REPEAT] key macro");
+        send_string("[REPEAT] key");
         return false;
       case H_TRANSMIT:
-        send_string("[TRANSMIT] key macro");
+        send_string("[TRANSMIT] key");
         return false;
       case H_STATUS:
-        send_string("[STATUS] key macro");
+        send_string("[STATUS] key");
         return false;
       case H_SUSPEND:
         send_string(SS_LCTL(SS_TAP(X_Z)));
@@ -633,7 +637,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
       // [main board] row 2
       case H_MARK:
-        send_string("[MARK] macro key");
+        send_string("[MARK] key");
         return false;
       case H_LEFT_PAREN__LEFT_BRACKET:
         if (get_mods() & MODS_SHIFT_MASK) {
@@ -657,10 +661,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
       // [main board] row 3
       case H_SELECT:
-        send_string("[SELECT] macro key");
+        send_string("[SELECT] key");
         return false;
       case H_DEBUG:
-        send_string("[DEBUG] macro key");
+        send_string("[DEBUG] key");
         return false;
       case H_SEMI_COLON__BACK_TICK:
         if (get_mods() & MODS_SHIFT_MASK) {
@@ -680,7 +684,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
       case H_LINE:
-        send_string("[LINE] macro key");
+        send_string("[LINE] key");
         return false;
       case H_PAGE:
         if (get_mods() & MODS_SHIFT_MASK) {
@@ -694,10 +698,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
       // [main board] row 4
       case H_TTY:
-        send_string("[TTY] macro key");
+        send_string("[TTY] key");
         return false;
       case H_LOCK:
-        send_string("[LOCK] macro key");
+        send_string("[LOCK] key");
         return false;
 
       // [main board] row 5
@@ -705,10 +709,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         send_string(SS_LCTL(SS_TAP(X_END)));
         return false;
       case H_7BIT:
-        send_string("[7BIT] macro key");
+        send_string("[7BIT] key");
         return false;
       case H_CIRCLE_SM:
-        send_string("[CIRCLE_SM] macro key");
+        send_string("[CIRCLE_SM] key");
         return false;
     }
   }
