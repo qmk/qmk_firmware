@@ -1,4 +1,6 @@
 #include QMK_KEYBOARD_H
+#include "raw_hid.h"
+// #include "print.h"
 
 enum alt_keycodes {
     U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
@@ -9,6 +11,7 @@ enum alt_keycodes {
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
     RGB_FRZ,               //Freezes current RGB effect
+    HID_SND,               //Send test HID
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -21,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_65_ansi_blocker(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE, \
-        F(0)   , RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_HOME, \
-        _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______, _______, \
-        _______, RGB_TOG, RGB_FRZ, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, _______, _______, _______,          KC_VOLU, _______, \
+        F(0)   , RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______,U_T_AUTO,U_T_AGCR, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_HOME, \
+        _______,RGB_RMOD, RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, HID_SND, _______, _______, _______, _______, _______,          _______, _______, \
+        _______, RGB_TOG, RGB_FRZ, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, DBG_KBD,DBG_MTRX, _______, _______,          KC_VOLU, _______, \
         DM_REC1, DM_RSTP, DM_PLY1,                            KC_MPLY,                            _______, _______, KC_MPRV, KC_VOLD, KC_MNXT  \
     ),
     /*
@@ -85,6 +88,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        // case HID_SND:
+        //     if (record->event.pressed) {
+        //         uint8_t data[RAW_EPSIZE];
+        //         data[0] = 1;
+        //         data[1] = 'F';
+        //         data[2] = 'o';
+        //         data[3] = 'r';
+        //         data[4] = 't';
+        //         for (int i = 5; i < RAW_EPSIZE; i++){
+        //             data[i] = 0;
+        //         }
+        //         raw_hid_send(data, RAW_EPSIZE);
+        //     }
+        //     return false;
         case RGB_TOG:
             if (record->event.pressed) {
               switch (rgb_matrix_get_flags()) {
@@ -143,4 +160,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             return true; //Process all other keycodes normally
     }
+}
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    // uint8_t *command_id = &(data[0]);
+    // uint8_t *command_data = &(data[1]);
+    // dprintf("raw hid recv! \n\tcommand_id: %u\n\tcommand_data: %u\n",*command_id, *command_data);
+    if(data[0] == 1){
+        switch (rgb_matrix_get_flags()) {
+            case LED_FLAG_ALL: {
+                rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+            case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
+                rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+            case LED_FLAG_UNDERGLOW: {
+                rgb_matrix_set_flags(LED_FLAG_NONE);
+                rgb_matrix_disable_noeeprom();
+            }
+            break;
+            default: {
+                rgb_matrix_set_flags(LED_FLAG_ALL);
+                rgb_matrix_enable_noeeprom();
+            }
+            break;
+        }
+    }
+    raw_hid_send(data, length);
 }
