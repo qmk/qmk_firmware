@@ -88,6 +88,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       )
 };
 
+void keyboard_post_init_user(void) {
+  rgblight_enable_noeeprom();
+  rgblight_sethsv_noeeprom(0, 0, 0);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+    case _EXTEND:
+      rgblight_sethsv_noeeprom(HSV_YELLOW);
+      break;
+    case _SYMBOLS:
+      rgblight_sethsv_noeeprom(HSV_GREEN);
+      break;
+    case _NUMBERS:
+      rgblight_sethsv_noeeprom(HSV_BLUE);
+      break;
+    default:
+      rgblight_sethsv_noeeprom(0, 0, 0);
+      break;
+  }
+
+  return state;
+}
+
 static uint16_t one_shot_mod_mask = 0;
 static uint16_t ctl_timer, alt_timer, gui_timer, sft_timer;
 
