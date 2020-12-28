@@ -1,5 +1,5 @@
 /*
-Copyright 2020 kuenhlee
+Copyright 2021 kuenhlee and Don Kjer
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,18 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define TKL_DURGOD_K320
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xDEAD
-#define PRODUCT_ID      0xFACE
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Durgod-QMK 
-#define PRODUCT         K320
-#define DESCRIPTION     "A QMK Enabled Durgod TKL"
-
-/* Unicode Input Mode */
-#define UNICODE_SELECTED_MODES UC_WINC
+#define VENDOR_ID       0xD60D
+#define PRODUCT_ID      0x3200
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Hoksi Technology
+#define PRODUCT         DURGOD Taurus K320 (QMK)
 
 /* key matrix size */
 #define MATRIX_ROWS 7
@@ -43,10 +37,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 7
 
 /* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 #define BOOTMAGIC_LITE_ROW                 0
 #define BOOTMAGIC_LITE_COLUMN              0
+
+/* LED indicator pins */
+#define LED_CAPS_LOCK_PIN   C9
+#define LED_SCROLL_LOCK_PIN A8
+#define LED_WIN_LOCK_PIN    A9
+#define LED_MR_LOCK_PIN     A10
+#define LED_PIN_ON_STATE    0
 

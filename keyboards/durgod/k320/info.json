@@ -1,11 +1,11 @@
 {
-  "keyboard_name": "",
-  "url": "",
-  "maintainer": "qmk",
+  "keyboard_name": "DURGOD Taurus K320",
+  "url": "https://www.durgod.com/page9?product_id=47&_l=en",
+  "maintainer": "dkjer",
   "width": 18.25,
   "height": 6.5,
     "layouts": {
-        "LAYOUT_ansi_tkl": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 {
                     "label": "Esc",
