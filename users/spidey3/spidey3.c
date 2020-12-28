@@ -17,8 +17,10 @@ static bool     reported_version  = false;
 static uint32_t matrix_timer           = 0;
 static uint32_t last_matrix_scan_count = 0;
 #    endif
+#endif
 
 void matrix_scan_user(void) {
+#if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
 #    if defined(SPI_DEBUG_SCAN_RATE)
     matrix_scan_count++;
     if (debug_enable) {
@@ -47,8 +49,11 @@ void matrix_scan_user(void) {
         }
     }
 #    endif
-}
 #endif
+#ifdef RGBLIGHT_ENABLE
+    matrix_scan_user_rgb();
+#endif
+}
 
 bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph) {
     uint8_t temp_mod = get_mods();

@@ -11,7 +11,7 @@ bool     rgb_saved = 0;
 
 void spidey_glow(void) {
     rgblight_enable();
-    rgblight_mode(RGBLIGHT_MODE_TWINKLE + 4);
+    rgblight_mode(RGBLIGHT_MODE_TWINKLE + 1);
     rgblight_sethsv(213, 255, 128);
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled()) velocikey_toggle();
@@ -91,7 +91,52 @@ void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
 
 extern rgblight_config_t rgblight_config;
 extern rgblight_status_t rgblight_status;
-static bool              startup_animation_done = false;
+
+#if defined(RGBLIGHT_STARTUP_ANIMATION)
+
+#define STARTUP_ANIMATION_SATURATION 200
+#define STARTUP_ANIMATION_VALUE 255
+#define STARTUP_ANIMATION_FADE_STEP 5
+#define STARTUP_ANIMATION_CYCLE_STEP 2
+#define STARTUP_ANIMATION_RAMP_TO_STEPS 70
+#define STARTUP_ANIMATION_STEP_TIME 10
+#define STARTUP_ANIMATION_INITIAL_DELAY 500
+
+typedef enum {
+    DISABLED,
+    WAITING,
+    RESTART,
+    START,
+    FADE_OLD,
+    FADE_IN,
+    CYCLE,
+    RAMP_DOWN,
+    RAMP_TO,
+    CLEAN_UP,
+    DONE
+} startup_animation_state_t;
+
+static bool    is_enabled;
+static uint8_t old_hue;
+static uint8_t old_sat;
+static uint8_t old_val;
+static uint8_t old_mode;
+static uint8_t old_base_mode;
+static startup_animation_state_t startup_animation_state = DISABLED;
+static uint16_t rgblight_startup_loop_timer;
+
+void startup_animation_init(void) {
+    is_enabled = rgblight_config.enable;
+    old_hue    = rgblight_config.hue;
+    old_sat    = rgblight_config.sat;
+    old_val    = rgblight_config.val;
+    old_mode   = rgblight_config.mode;
+    old_base_mode   = rgblight_status.base_mode;
+    
+    if (!is_enabled)
+        rgblight_enable_noeeprom();
+}
+#endif
 
 void keyboard_post_init_user_rgb(void) {
     // Enable the LED layers
@@ -99,99 +144,156 @@ void keyboard_post_init_user_rgb(void) {
     do_rgb_layers(default_layer_state, LAYER_BASE_DEFAULT + 1, LAYER_BASE_REGULAR);
     do_rgb_layers(layer_state, LAYER_BASE_REGULAR, LAYER_BASE_END);
 
-    // Startup animation
-    {
-        bool    is_enabled = rgblight_config.enable;
-        uint8_t old_hue    = rgblight_config.hue;
-        uint8_t old_sat    = rgblight_config.sat;
-        uint8_t old_val    = rgblight_config.val;
-        uint8_t old_mode   = rgblight_config.mode;
+#if defined(RGBLIGHT_STARTUP_ANIMATION)
+    startup_animation_init();
+    startup_animation_state = WAITING;
+#endif
+}
 
-        bool ramp_down =
+void matrix_scan_user_rgb(void) {
+#if defined(RGBLIGHT_STARTUP_ANIMATION)
+    if (startup_animation_state != DONE && is_keyboard_master()) {
+        if (startup_animation_state == START || timer_elapsed(rgblight_startup_loop_timer) > STARTUP_ANIMATION_STEP_TIME) {
+            static uint8_t counter;
+            rgblight_startup_loop_timer = timer_read();
+
+            switch (startup_animation_state) {
+                case WAITING:
+                    dprintf("WAITING counter=%u\n", counter);
+                    if (counter < STARTUP_ANIMATION_INITIAL_DELAY / STARTUP_ANIMATION_STEP_TIME) {
+                        counter++;
+                    } else {
+                        startup_animation_state = START;
+                    }
+                    break;
+
+                case RESTART:
+                    dprintln("RESTART");
+                    startup_animation_init();
+                case START:
+                    dprintln("START");
+                    startup_animation_state = FADE_OLD;
+                    counter = old_val;
+                    // No break! Just roll into FADE_OLD in the same iteration...
+
+                case FADE_OLD:
+                    dprintf("FADE_OLD counter=%u\n", counter);
+                    if (counter >= STARTUP_ANIMATION_FADE_STEP) {
+                        rgblight_sethsv_noeeprom(old_hue, old_sat, counter);
+                        counter -= STARTUP_ANIMATION_FADE_STEP;
+                    } else {
+                        counter = 0;
+                        startup_animation_state = FADE_IN;
+                        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                    }
+                    break;
+
+                case FADE_IN:
+                    dprintf("FADE_IN counter=%u\n", counter);
+                    if (counter < STARTUP_ANIMATION_VALUE) {
+                        rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, counter);
+                        counter += STARTUP_ANIMATION_FADE_STEP;
+                    } else {
+                        counter = 255;
+                        startup_animation_state = CYCLE;
+                    }
+                    break;
+
+                case CYCLE:
+                    dprintf("CYCLE counter=%u\n", counter);
+                    if (counter >= STARTUP_ANIMATION_CYCLE_STEP) {
+                        rgblight_sethsv_noeeprom((counter + old_hue) % 255, STARTUP_ANIMATION_SATURATION, STARTUP_ANIMATION_VALUE);
+                        counter -= STARTUP_ANIMATION_CYCLE_STEP;
+                    } else {
+                        if ( 
 #ifdef RGBLIGHT_EFFECT_BREATHING
-            (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) ||
+                            (old_base_mode == RGBLIGHT_MODE_BREATHING) ||
 #endif
 #ifdef RGBLIGHT_EFFECT_SNAKE
-            (rgblight_status.base_mode == RGBLIGHT_MODE_SNAKE) ||
+                            (old_base_mode == RGBLIGHT_MODE_SNAKE) ||
 #endif
 #ifdef RGBLIGHT_EFFECT_KNIGHT
-            (rgblight_status.base_mode == RGBLIGHT_MODE_KNIGHT) ||
+                            (old_base_mode == RGBLIGHT_MODE_KNIGHT) ||
 #endif
 #ifdef RGBLIGHT_EFFECT_TWINKLE
-            (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) ||
+                            (old_base_mode == RGBLIGHT_MODE_TWINKLE) ||
 #endif
-            !is_enabled;
-
-        bool ramp_to =
+                            !is_enabled) {
+                            counter = STARTUP_ANIMATION_VALUE;
+                            startup_animation_state = RAMP_DOWN;
+                        } else if (
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
-            (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_GRADIENT) ||
+                            (old_base_mode == RGBLIGHT_MODE_STATIC_GRADIENT) ||
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
-            (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) ||
+                            (old_base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) ||
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
-            (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) ||
+                            (old_base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) ||
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_CHRISTMAS
-            (rgblight_status.base_mode == RGBLIGHT_MODE_CHRISTMAS) ||
+                            (old_base_mode == RGBLIGHT_MODE_CHRISTMAS) ||
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_RGB_TEST_
-            (rgblight_status.base_mode == RGBLIGHT_MODE_RGB_TEST) ||
+                            (old_base_mode == RGBLIGHT_MODE_RGB_TEST) ||
 #endif
-            (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_LIGHT);
+                            (old_base_mode == RGBLIGHT_MODE_STATIC_LIGHT)) {
+                            counter = 0;
+                            startup_animation_state = RAMP_TO;
+                        } else {
+                            startup_animation_state = CLEAN_UP;
+                        }
+                    }
+                    break;
 
-#define STARTUP_ANIMATION_SATURATION 200
-#define STARTUP_ANIMATION_VALUE 255
-#define STARTUP_ANIMATION_STEP 5
+                case RAMP_DOWN:
+                    dprintf("RAMP_DOWN counter=%u\n", counter);
+                    if (counter >= STARTUP_ANIMATION_FADE_STEP) {
+                        rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, counter);
+                        counter -= STARTUP_ANIMATION_FADE_STEP;
+                    } else {
+                        startup_animation_state = CLEAN_UP;
+                    }
+                    break;
 
-        rgblight_enable_noeeprom();
-        if (rgblight_config.enable) {
-            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-            for (uint8_t i = 0; i < STARTUP_ANIMATION_VALUE; i += STARTUP_ANIMATION_STEP) {
-                rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, i);
-                matrix_scan();
-                wait_ms(10);
-            }
-            for (uint8_t i = 255; i > 0; i -= STARTUP_ANIMATION_STEP) {
-                rgblight_sethsv_noeeprom((i + old_hue) % 255, STARTUP_ANIMATION_SATURATION, STARTUP_ANIMATION_VALUE);
-                matrix_scan();
-                wait_ms(10);
-            }
+                case RAMP_TO:
+                    dprintf("RAMP_TO s=%u, v=%u, counter=%u\n", old_sat, old_val, counter);
+                    uint8_t steps = STARTUP_ANIMATION_RAMP_TO_STEPS;
+                    if (counter < steps) {
+                        uint8_t s = STARTUP_ANIMATION_SATURATION + counter * (((float)old_sat - STARTUP_ANIMATION_SATURATION) / (float)steps);
+                        uint8_t v = STARTUP_ANIMATION_VALUE + counter * (((float)old_val - STARTUP_ANIMATION_VALUE) / (float)steps);
+                        rgblight_sethsv_noeeprom(old_hue, s, v);
+                        counter++;
+                    } else {
+                        startup_animation_state = CLEAN_UP;
+                    }
+                    break;
 
-            if (ramp_down) {
-                dprintln("ramp_down");
-                for (uint8_t i = STARTUP_ANIMATION_VALUE; i > 0; i -= STARTUP_ANIMATION_STEP) {
-                    rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, i);
-                    matrix_scan();
-                    wait_ms(10);
-                }
-            } else if (ramp_to) {
-                dprintf("ramp_to s=%u, v=%u\n", old_sat, old_val);
-                uint8_t steps = 50;
-                for (uint8_t i = 0; i < steps; i++) {
-                    uint8_t s = STARTUP_ANIMATION_SATURATION + i * (((float)old_sat - STARTUP_ANIMATION_SATURATION) / (float)steps);
-                    uint8_t v = STARTUP_ANIMATION_VALUE + i * (((float)old_val - STARTUP_ANIMATION_VALUE) / (float)steps);
-                    rgblight_sethsv_noeeprom(old_hue, s, v);
-                    matrix_scan();
-                    wait_ms(10);
-                }
+                case CLEAN_UP:
+                    dprintln("CLEAN_UP");
+                    rgblight_mode_noeeprom(old_mode);
+                    if (is_enabled) {
+                        rgblight_sethsv_noeeprom(old_hue, old_sat, old_val);
+                    } else {
+                        rgblight_disable_noeeprom();
+                        // Hack!
+                        // rgblight_sethsv_noeeprom() doesn't update these if rgblight is disabled,
+                        // but if we do it before disabling we get an ugly flash.
+                        // Note this is probably broken on splits.
+                        rgblight_config.hue = old_hue;
+                        rgblight_config.sat = old_sat;
+                        rgblight_config.val = old_val;
+                    }
+                    startup_animation_state = DONE;
+                    dprintln("DONE");
+                    break;
+
+                default:
+                    break;
             }
-            rgblight_mode_noeeprom(old_mode);
         }
-        if (is_enabled) {
-            rgblight_sethsv_noeeprom(old_hue, old_sat, old_val);
-        } else {
-            rgblight_disable_noeeprom();
-            // Hack!
-            // rgblight_sethsv_noeeprom() doesn't update these if rgblight is disabled,
-            // but if do it before disabling we get an ugly flash.
-            rgblight_config.hue = old_hue;
-            rgblight_config.sat = old_sat;
-            rgblight_config.val = old_val;
-        }
-        dprint("done\n");
-        startup_animation_done = true;
     }
+#endif
 }
 
 layer_state_t default_layer_state_set_user_rgb(layer_state_t state) {
