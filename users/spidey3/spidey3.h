@@ -45,6 +45,7 @@ typedef enum layer_ack {
     ACK_NO = 0,
     ACK_YES,
     ACK_MEH,
+    ACK_HUH,
 } layer_ack_t;
 
 #    define RGB_LAYER_ACK_DURATION 500

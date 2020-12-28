@@ -136,7 +136,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef NO_DEBUG
             // Re-implement this here, but fix the persistence!
             case DEBUG:
-                if (!debug_enable) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    debug_enable   = 0;
+                    debug_keyboard = 0;
+                    debug_matrix   = 0;
+                } else if (!debug_enable) {
                     debug_enable = 1;
 #    if defined(SPI_DEBUG_SCAN_RATE)
                     matrix_timer     = 0;
