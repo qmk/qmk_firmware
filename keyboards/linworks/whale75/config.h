@@ -21,8 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0001      
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Lx3
-#define PRODUCT         Lx3 Whale-75
-#define DESCRIPTION     Lx3 Whale-75
+#define PRODUCT         Whale-75
 
 /* Set 1 kHz polling rate and force USB NKRO*/
 #define USB_POLLING_INTERVAL_MS 1
@@ -48,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PAL_MODE 6
 #define BACKLIGHT_LEVELS 5
 #define BACKLIGHT_ON_STATE 1
+#define BACKLIGHT_PWM_OUTPUT_FREQUENCY 1000 // Increases backlight PWM freq if compiled with an unmerged PR. Does no harm without it.
 
 /* Underglow */
 #define RGB_DI_PIN B9

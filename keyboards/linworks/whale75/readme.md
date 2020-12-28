@@ -2,11 +2,11 @@
 
 * PCB/QMK maintainer: [ebastler](https://github.com/ebastler)
 * Keyboard designer: Lx3
+* Support Discord channel: [discord.gg/UC8gTdVnsj](https://discord.gg/UC8gTdVnsj)
 * Hardware supported: Whale 75
 * Hardware availability: Groupbuy
 
 ## Keyboard specs
-
 * Programmable via QMK and VIA
 * 75% form-factor
 * Centered top side USB-C connector
@@ -23,10 +23,6 @@
 ## Default keymap layout binds
 Layer 1 toggle: FN key (to the right of ralt, left of the arrow cluster)
 
-Alternate layer mod keys (All on layer 1):
-* Home: Insert
-* Backspace: Delete
-
 Alternate layer hardware control keys (All on layer 1):
 * Esc: Enable/disable underglow
 * F1/F2: lower/increase underglow brightness
@@ -34,13 +30,11 @@ Alternate layer hardware control keys (All on layer 1):
 * F5/F6: lower/increase underglow hue
 * F7/F8: lower/increase underglow saturation
 * F9/F10: previous/next underglow effect
-* F11/F12: lower/increase underglow effect speed
-* Print Sreen: Shortcut to static underglow
 
 Encoder mapping (Layer 0):
 * CCW/CW: Decrease/Increase volume
-* Click: Play/Pause
+* Click: Mute audio
 
 Encoder mapping (Layer 1):
 * CCW/CW: Previous/Next track
-* Click: Mute audio
+* Click: Play/Pause

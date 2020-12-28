@@ -15,11 +15,6 @@
  */
 #include "whale75.h"
 
-void matrix_init_kb(void) {
-  matrix_init_user();
-  led_init_ports();
-}
-
 /* Set lock LEDs as outputs */
 void led_init_ports(void) {
     setPinOutput(A8);

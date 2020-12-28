@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 
     [1] = LAYOUT_all(    /* keymap for layer 1 */
-        RGB_TOG, RGB_VAD, RGB_VAI, BL_DEC,  BL_INC,  RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_RMOD, RGB_MOD, RGB_SPD, RGB_SPI,                    KC_MPLY, 
+        RGB_TOG, RGB_VAD, RGB_VAI, BL_DEC,  BL_INC,  RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_RMOD, RGB_MOD, RGB_SPI, RGB_SPI,                    KC_MPLY, 
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_PGUP, 
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_PGDN, 
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -41,12 +41,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 /* The first if reads the first encoder, not needed on this board which only features a single one */
     if (index == 0) {
         /* The switch case allows for different encoder mappings on different layers, "default" map gets applied for all unspecified layers */
-        switch(biton32(layer_state)){
+        switch(get_highest_layer(layer_state)){
             case 1:
                 if (clockwise) {
-                tap_code(KC_MNXT);
+                    tap_code(KC_MNXT);
                 } else {
-                tap_code(KC_MPRV);
+                    tap_code(KC_MPRV);
                 }
                 break;
             default:
