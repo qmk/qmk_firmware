@@ -26,10 +26,10 @@ Single numpad
 
 ──────────Numpad───────────────
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_single_vb.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_single_vc.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_single_vb.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_single_vc.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -88,7 +88,7 @@ Layers (text)
 Dual numpad
 -----------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_vf.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_double_vg.jpg)
 
 ──────────Numpad───────────────
 
