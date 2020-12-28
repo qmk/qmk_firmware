@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#define KC_CSES C(S(KC_ESC))
+
 // Poker fix with set(state transition)
 // Fn + Esc = `
 // Fn + {left, down, up, right}  = {home, pgdown, pgup, end}
@@ -96,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_kc(
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
         TRNS,  FN6,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS, TRNS,       \
-        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN8,  END, TRNS, TRNS,       \
+        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  CSES,  END, TRNS, TRNS,       \
         TRNS, TRNS,  DEL, TRNS, WHOM, MUTE, VOLU, VOLD, TRNS, PGUP, PGDN,  DEL, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS,                    FN5,                    FN4, TRNS, TRNS, TRNS),
     /* 5: Poker Fn'd arrow
@@ -115,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_kc(
          ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
         TRNS,  FN7,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS, TRNS,       \
-        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN8,  END, TRNS, TRNS,       \
+        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  CSES,  END, TRNS, TRNS,       \
         TRNS, TRNS,  DEL, TRNS, WHOM, MUTE, VOLU, VOLD, TRNS, PGUP, PGDN,  DEL, TRNS, PGUP, TRNS, \
         TRNS, TRNS, TRNS,                    FN4,                    FN5, HOME, PGDN,  END),
     /* 6: Poker Fn'd Esc
@@ -134,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_kc(
          GRV,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
         TRNS,  FN4,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS, TRNS,       \
-        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN8,  END, TRNS, TRNS,       \
+        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  CSES,  END, TRNS, TRNS,       \
         TRNS, TRNS,  DEL, TRNS, WHOM, MUTE, VOLU, VOLD, TRNS, PGUP, PGDN,  DEL, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS,                    FN7,                    FN6, TRNS, TRNS, TRNS),
     /* 7: Poker Fn'd Arrow + Esc
@@ -153,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_kc(
          GRV,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
         TRNS,  FN5,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS, TRNS,       \
-        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN8,  END, TRNS, TRNS,       \
+        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS, CSES,  END, TRNS, TRNS,       \
         TRNS, TRNS,  DEL, TRNS, WHOM, MUTE, VOLU, VOLD, TRNS, PGUP, PGDN,  DEL, TRNS, PGUP, TRNS, \
         TRNS, TRNS, TRNS,                    FN6,                    FN7, HOME, PGDN,  END),
 };
@@ -173,6 +175,4 @@ const uint16_t PROGMEM fn_actions[] = {
     [5] = ACTION_LAYER_SET(1, ON_RELEASE),   // FN5 move to arrow            when release
     [6] = ACTION_LAYER_SET(2, ON_RELEASE),   // FN6 move to Esc              when release
     [7] = ACTION_LAYER_SET(3, ON_RELEASE),   // FN7 move to arrow + Esc      when release
-
-    [8] = ACTION_MODS_KEY(MOD_RCTL|MOD_RSFT, KC_ESC), // FN8 Task(RControl,RShift+Esc)
 };

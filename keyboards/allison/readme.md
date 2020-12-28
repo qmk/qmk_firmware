@@ -4,7 +4,7 @@
 
 A custom luxurious 60 with F-row and Macro
 
-* Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)
+* Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
 * Hardware Supported: ATmega32U4
 * Hardware Availability: Small production run by mrpetrov#9585 and [protoTypist](https://discord.gg/UvskpBB)
 

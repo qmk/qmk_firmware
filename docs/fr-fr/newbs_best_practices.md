@@ -44,7 +44,7 @@ git pull upstream master
 git push origin master
 ```
 
-Cela vous change la branche courante en master, synchronise les données de références du dépôt QMK vers votre ordinateur. La commande pull tire les données de références vers votre branche courante puis les y téleverse. La commande push permet de pousser la branche courante (master) vers votre fork github.
+Cela vous change la branche courante en master, synchronise les données de références du dépôt QMK vers votre ordinateur. La commande pull tire les données de références vers votre branche courante puis les y téleverse. La commande push permet de pousser la branche courante (master) vers votre fork GitHub.
 
 ### Faire des changements
 

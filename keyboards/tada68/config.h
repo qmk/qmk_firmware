@@ -37,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS {F0,F1,E6,C7,C6,B7,D4,B1,B0,B5,B4,D7,D6,B3,F4}
 #define UNUSED_PINS
 
-#define BACKLIGHT_PIN B6
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
@@ -53,8 +51,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Backlight configuration
- */
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
+
+/* Backlight configuration */
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 4
 
 /*

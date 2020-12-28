@@ -28,7 +28,7 @@
 #    define SPI_SCK_PIN B7
 #    define SPI_MOSI_PIN B5
 #    define SPI_MISO_PIN B6
-#elif defined(__AVR_ATmega328P__)
+#elif defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
 #    define SPI_SCK_PIN B5
 #    define SPI_MOSI_PIN B3
 #    define SPI_MISO_PIN B4
@@ -140,27 +140,33 @@ spi_status_t spi_read() {
 }
 
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
-    spi_status_t status = SPI_STATUS_ERROR;
+    spi_status_t status;
 
     for (uint16_t i = 0; i < length; i++) {
         status = spi_write(data[i]);
+
+        if (status < 0) {
+            return status;
+        }
     }
 
-    return status;
+    return SPI_STATUS_SUCCESS;
 }
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length) {
-    spi_status_t status = SPI_STATUS_ERROR;
+    spi_status_t status;
 
     for (uint16_t i = 0; i < length; i++) {
         status = spi_read();
 
-        if (status > 0) {
+        if (status >= 0) {
             data[i] = status;
+        } else {
+            return status;
         }
     }
 
-    return (status < 0) ? status : SPI_STATUS_SUCCESS;
+    return SPI_STATUS_SUCCESS;
 }
 
 void spi_stop(void) {

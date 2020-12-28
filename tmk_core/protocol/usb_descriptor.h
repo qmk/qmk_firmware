@@ -40,13 +40,13 @@
  *
  *  Header file for Descriptors.c.
  */
-#ifndef _DESCRIPTORS_H_
-#define _DESCRIPTORS_H_
+
+#pragma once
 
 #include <LUFA/Drivers/USB/USB.h>
 
 #ifdef PROTOCOL_CHIBIOS
-#    include "hal.h"
+#    include <hal.h>
 #endif
 
 /*
@@ -60,6 +60,11 @@ typedef struct {
     USB_Descriptor_Interface_t Keyboard_Interface;
     USB_HID_Descriptor_HID_t   Keyboard_HID;
     USB_Descriptor_Endpoint_t  Keyboard_INEndpoint;
+#else
+    // Shared Interface
+    USB_Descriptor_Interface_t Shared_Interface;
+    USB_HID_Descriptor_HID_t   Shared_HID;
+    USB_Descriptor_Endpoint_t  Shared_INEndpoint;
 #endif
 
 #ifdef RAW_ENABLE
@@ -77,7 +82,7 @@ typedef struct {
     USB_Descriptor_Endpoint_t  Mouse_INEndpoint;
 #endif
 
-#ifdef SHARED_EP_ENABLE
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     // Shared Interface
     USB_Descriptor_Interface_t Shared_Interface;
     USB_HID_Descriptor_HID_t   Shared_HID;
@@ -123,6 +128,13 @@ typedef struct {
     USB_Descriptor_Endpoint_t  CDC_DataOutEndpoint;
     USB_Descriptor_Endpoint_t  CDC_DataInEndpoint;
 #endif
+
+#ifdef JOYSTICK_ENABLE
+    // Joystick HID Interface
+    USB_Descriptor_Interface_t Joystick_Interface;
+    USB_HID_Descriptor_HID_t   Joystick_HID;
+    USB_Descriptor_Endpoint_t  Joystick_INEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
@@ -132,6 +144,7 @@ enum usb_interfaces {
 #ifndef KEYBOARD_SHARED_EP
     KEYBOARD_INTERFACE,
 #else
+    SHARED_INTERFACE,
 #    define KEYBOARD_INTERFACE SHARED_INTERFACE
 #endif
 
@@ -146,7 +159,7 @@ enum usb_interfaces {
     MOUSE_INTERFACE,
 #endif
 
-#ifdef SHARED_EP_ENABLE
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     SHARED_INTERFACE,
 #endif
 
@@ -164,6 +177,9 @@ enum usb_interfaces {
     CDI_INTERFACE,
 #endif
 
+#if defined(JOYSTICK_ENABLE)
+    JOYSTICK_INTERFACE,
+#endif
     TOTAL_INTERFACES
 };
 
@@ -188,8 +204,12 @@ enum usb_endpoints {
 #endif
 
 #ifdef RAW_ENABLE
-    RAW_IN_EPNUM  = NEXT_EPNUM,
+    RAW_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+#        define RAW_OUT_EPNUM RAW_IN_EPNUM
+#    else
     RAW_OUT_EPNUM = NEXT_EPNUM,
+#    endif
 #endif
 
 #ifdef SHARED_EP_ENABLE
@@ -200,29 +220,44 @@ enum usb_endpoints {
     CONSOLE_IN_EPNUM = NEXT_EPNUM,
 
 #    ifdef PROTOCOL_CHIBIOS
-    // ChibiOS has enough memory and descriptor to actually enable the endpoint
-    // It could use the same endpoint numbers, as that's supported by ChibiOS
-    // But the QMK code currently assumes that the endpoint numbers are different
+// ChibiOS has enough memory and descriptor to actually enable the endpoint
+// It could use the same endpoint numbers, as that's supported by ChibiOS
+// But the QMK code currently assumes that the endpoint numbers are different
+#        if STM32_USB_USE_OTG1
+#            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
+#        else
     CONSOLE_OUT_EPNUM = NEXT_EPNUM,
+#        endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #    endif
 #endif
 
 #ifdef MIDI_ENABLE
-    MIDI_STREAM_IN_EPNUM  = NEXT_EPNUM,
+    MIDI_STREAM_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+#        define MIDI_STREAM_OUT_EPNUM MIDI_STREAM_IN_EPNUM
+#    else
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
-#    define MIDI_STREAM_IN_EPADDR (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
-#    define MIDI_STREAM_OUT_EPADDR (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
+#    endif
 #endif
 
 #ifdef VIRTSER_ENABLE
     CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
     CDC_IN_EPNUM           = NEXT_EPNUM,
-    CDC_OUT_EPNUM          = NEXT_EPNUM,
-#    define CDC_NOTIFICATION_EPADDR (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
-#    define CDC_IN_EPADDR (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
-#    define CDC_OUT_EPADDR (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
+#    if STM32_USB_USE_OTG1
+#        define CDC_OUT_EPNUM CDC_IN_EPNUM
+#    else
+    CDC_OUT_EPNUM = NEXT_EPNUM,
+#    endif
+#endif
+#ifdef JOYSTICK_ENABLE
+    JOYSTICK_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+    JOYSTICK_OUT_EPNUM = JOYSTICK_IN_EPNUM,
+#    else
+    JOYSTICK_OUT_EPNUM = NEXT_EPNUM,
+#    endif
 #endif
 };
 
@@ -248,6 +283,6 @@ enum usb_endpoints {
 #define MIDI_STREAM_EPSIZE 64
 #define CDC_NOTIFICATION_EPSIZE 8
 #define CDC_EPSIZE 16
+#define JOYSTICK_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
-#endif
