@@ -16,3 +16,13 @@
 
 #pragma once
 
+
+#ifdef  RGBLED_SPLIT
+  #undef RGBLED_SPLIT
+  #define RGBLED_SPLIT {35, 35}
+#endif
+
+#ifdef RGBLED_NUM
+  #undef RGBLED_NUM
+  #define RGBLED_NUM 70
+#endif

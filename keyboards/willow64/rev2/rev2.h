@@ -39,7 +39,7 @@
         { R30, R31, R32, R33, NOP, NOP, R34, R35 }  \
     }
 
-#define DUMMY KC_A
+#define DUMMY KC_SPC
 
 #define TESTLAYOUT( \
     L01, L02, L03, L04, L05, L06,              R01, R02, R03, R04, R05, R06, R28, R07, R35, \
