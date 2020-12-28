@@ -16,6 +16,47 @@
 #include QMK_KEYBOARD_H
 #include "keymap_italian.h"
 
+/**
+ * Initialize the SPI bus
+ */
+#define SS  B0
+#define SCK B1
+#define SDO B2
+#define SDI B3
+
+void spi_init(void) {
+  // Disable power saving
+  PRR0 &= ~(1<<2); // PRSPI
+
+  // Initialize SPI pins
+  setPinOutput(SS);
+  writePinHigh(SS);
+  setPinOutput(SCK);
+  setPinOutput(SDO);
+  setPinInput(SDI);
+
+  // Initialize SPCR register
+  SPCR &= ~(1<<7); // SPIE (No interrupts)
+  SPCR &= ~(1<<5); // DORD (MSB first)
+  SPCR |= (1<<4); // MSTR (SPI Master)
+  SPCR &= ~(1<<3); // CPOL (Mode 0)
+  SPCR &= ~(1<<2); // CPHA (Mode 0)
+  SPCR &= ~(0b11<<0); // SCK Frequency (F_osc / 4)
+
+  // Enable SPI
+  SPCR |= (1<<6); // SPE
+}
+
+/**
+ * SPI functions
+ */
+
+uint8_t spi_send(uint8_t byte) {
+  SPDR = byte;
+  while (!(SPSR & (1<<7))); // Wait for transmission
+  return SPDR;
+}
+
 #define MT_RSFT_ENT MT(MOD_RSFT, KC_ENT)
 #define MT_RSFT_TAB MT(MOD_RSFT, KC_TAB)
 
@@ -44,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     S(KC_LCTL), S(KC_LALT), S(KC_LGUI), LT(_NUMBER, IT_COLN), LT(_ACCENT, KC_SPC), IT_COLN, S(KC_LEFT), S(KC_DOWN), S(KC_RGHT)
 ),
 [_NUMBER] = LAYOUT(
-  IT_DEGR,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  IT_DEG,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   _______, KC_PPLS, KC_PMNS, KC_PSLS, KC_PAST, IT_MORE, IT_LESS, IT_EQL,  IT_LBRC, IT_RBRC, MT_RSFT_ENT,
   LT(_SYMBOL,IT_DQOT), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   IT_SCLN,  IT_COLN,  LT(_SYMBOL,IT_DQOT),
   KC_LCTL, KC_LALT, KC_LGUI,  _______,  LT(_SERVICE, KC_DEL),             KC_DOT, KC_PGUP, KC_PGDN, KC_END
@@ -68,4 +109,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______,_______, _______,  _______, _______, KC_VOLU, KC_VOLD, KC_MUTE
 )
 
+};
+
+void matrix_init_user(void) {
+  spi_init();
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed)
+    spi_send(keycode);
+  return true;
 };
