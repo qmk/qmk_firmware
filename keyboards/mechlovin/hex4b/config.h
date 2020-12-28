@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_NUM_LOCK_PIN D6
 #define LED_CAPS_LOCK_PIN D7
 #define LED_SCROLL_LOCK_PIN D5
+#define LED_PIN_ON_STATE 0
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
 
