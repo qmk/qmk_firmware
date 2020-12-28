@@ -73,7 +73,7 @@ static void render_status(void) {
             oled_write_P(PSTR("VisualStudio\n"), false);
             break;
         case _MOUSE:
-            oled_write_P(PSTR("Mouse\n"), false);
+            oled_write_P(PSTR("Diff Runner\n"), false);
             break;
         case _FUNCTIONKEYS:
             oled_write_P(PSTR("Function Keys\n"), false);
