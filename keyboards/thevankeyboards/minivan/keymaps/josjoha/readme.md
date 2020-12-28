@@ -48,37 +48,43 @@ If a base layer pair has its own user configuration options, they are located
 in `./base_NAME.h` by convention. Example: `./base_numpad.c` is configured in
 `./base_numpad.h` and has its manual in `./base_numpad.md`.
 
-      • Qwerty
+Qwerty
+------
 
 ![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_vc.jpg)
 
 For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
-      • Dvorak (regular Dvorak).
+Dvorak
+------
 
 ![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_vc.jpg)
 
-
 For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak.md) ⬅
 
-      • Dvorak² (regular Dvorak for a computer already set to Dvorak).
+Dvorak² 
+-------
+
+Regular Dvorak for a computer already set to Dvorak.
 
 For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](./base_dvorak_descramble.md) ⬅
 
-      • Colemak
+Colemak
+-------
 
 ![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_vc.jpg)
 
 For the readme about the Colemak version, see ➡ ![base_colemak.md](./base_colemak.md) ⬅
 
 Special layouts
----------------
+===============
 These are unusual layouts. Most people will probably only want one of these on the ‛Alternate’ layout,
 with a normal layout on ‛Default’. How this works is explained below.
 
-      • Numbers pad
+Numbers pad
+-----------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_vf.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_single_va.jpg)
 
 For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
 

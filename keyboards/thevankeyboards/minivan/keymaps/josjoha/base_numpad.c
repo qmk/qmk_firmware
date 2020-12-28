@@ -304,7 +304,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      LCtl     xxx   xxx   xxx   xxx   xxx   | *     ⁴₄    ⁵₅    ⁶₆   +   RCtl
      LSht     xxx   xxx   xxx   xxx   xxx   | /     ¹₁    ²₂    ³₃   ,   RSht  
      ------------------------------------------------------------------------
-                   LAlt   Del    Tab   Ent  | NumL  ⁰₀    .DEL  RAlt      
+                   LAlt   Del    Tab   Ent  | xxx   ⁰₀    .DEL  RAlt      
                                            <|>           
                    <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
                        xxx                  |                xxx          
@@ -337,19 +337,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                        , TRANS_MIDLEFT
 #     endif
 
-                                                       , KC_NUMLOCK , XP_DRA_BJ , KC_KP_DOT    
+                                                       , XXXXXXX , XP_DRA_BJ , KC_KP_DOT    
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                            , TRANS_RIGHT
+                                                                                         , TRANS_RIGHT
 #     endif
 
 #     ifdef MORE_KEY__ARROW
-                                                                                            , MORE_key2  
+                                                                                         , MORE_key2  
 #     endif
 
-                                                                                            , KC_RALT
-//               ,            ,        ,             <|,>           ,           ,           ,
-//      <1  ± ±  , <2         , <3     , <4           |, 4>         , 3>        , 2>        , ±  ±  1>
+                                                                                         , KC_RALT
+//               ,            ,        ,             <|,>        ,           ,           ,
+//      <1  ± ±  , <2         , <3     , <4           |, 4>      , 3>        , 2>        , ±  ±  1>
 
                       ),
 
