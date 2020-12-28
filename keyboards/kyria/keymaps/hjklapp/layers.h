@@ -7,8 +7,8 @@ enum layers {
     _SYMBOLS,
     _NAVIGATION,
     _VISUALSTUDIO,
-    _MOUSE,
-    _FUNCTIONKEYS
+    _FUNCTIONKEYS,
+    _MOUSE
 };
 
 // forward declaration of keymaps defined in keymap.c
