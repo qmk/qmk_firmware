@@ -14,9 +14,6 @@ enum custom_keycodes {
   VRSN,
 };
 
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keymap 0: Base (Mac)
@@ -229,7 +226,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, KC_0
 ),
 
-/*
+/* Keymap 5: Extra
+ *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -305,11 +303,17 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
+        case 2:
             ergodox_right_led_2_on();
             break;
-        case 2:
+        case 3:
             ergodox_right_led_3_on();
+            break;
+        case 4:
+            ergodox_right_led_3_on();
+            break;
+        case 5:
+            ergodox_right_led_1_on();
             break;
         default:
             // none
