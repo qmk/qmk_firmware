@@ -25,18 +25,6 @@
 
 #define VIAL_UNLOCK_COUNTER_MAX 50
 
-enum {
-    vial_get_keyboard_id = 0x00,
-    vial_get_size = 0x01,
-    vial_get_def = 0x02,
-    vial_get_encoder = 0x03,
-    vial_set_encoder = 0x04,
-    vial_get_lock = 0x05,
-    vial_unlock_start = 0x06,
-    vial_unlock_poll = 0x07,
-    vial_lock = 0x08,
-};
-
 #ifdef VIAL_INSECURE
 #pragma message "Building Vial-enabled firmware in insecure mode."
 int vial_unlocked = 1;

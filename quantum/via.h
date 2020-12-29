@@ -78,6 +78,7 @@ enum via_command_id {
     id_dynamic_keymap_get_layer_count       = 0x11,
     id_dynamic_keymap_get_buffer            = 0x12,
     id_dynamic_keymap_set_buffer            = 0x13,
+    id_vial_prefix                          = 0xFE,
     id_unhandled                            = 0xFF,
 };
 
