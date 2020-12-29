@@ -16,49 +16,8 @@
 #include QMK_KEYBOARD_H
 #include "keymap_italian.h"
 
-/**
- * Initialize the SPI bus
- */
-#define SS  B0
-#define SCK B1
-#define SDO B2
-#define SDI B3
-
-void spi_init(void) {
-  // Disable power saving
-  PRR0 &= ~(1<<2); // PRSPI
-
-  // Initialize SPI pins
-  setPinOutput(SS);
-  writePinHigh(SS);
-  setPinOutput(SCK);
-  setPinOutput(SDO);
-  setPinInput(SDI);
-
-  // Initialize SPCR register
-  SPCR &= ~(1<<7); // SPIE (No interrupts)
-  SPCR &= ~(1<<5); // DORD (MSB first)
-  SPCR |= (1<<4); // MSTR (SPI Master)
-  SPCR &= ~(1<<3); // CPOL (Mode 0)
-  SPCR &= ~(1<<2); // CPHA (Mode 0)
-  SPCR &= ~(0b11<<0); // SCK Frequency (F_osc / 4)
-
-  // Enable SPI
-  SPCR |= (1<<6); // SPE
-}
-
-/**
- * SPI functions
- */
-
-uint8_t spi_send(uint8_t byte) {
-  SPDR = byte;
-  while (!(SPSR & (1<<7))); // Wait for transmission
-  return SPDR;
-}
-
 #define MT_RSFT_ENT MT(MOD_RSFT, KC_ENT)
-#define MT_RSFT_TAB MT(MOD_RSFT, KC_TAB)
+#define MT_RSFT_TAB MT(MOD_RCTL, KC_TAB)
 
 //Friendly Layer Names
 enum prototype30_layers {
@@ -70,13 +29,19 @@ enum prototype30_layers {
   _SYMBOL
 };
 
+enum custom_keycodes {
+    DUMP = SAFE_RANGE,
+};
+
+#define IT_PTVG 0x
+
 keymap_config_t keymap_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-  KC_GESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   MT_RSFT_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   MT_RSFT_ENT,
   LT(_SHIFT, IT_APOS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,  KC_M, KC_COMM, LT(_SHIFT, KC_UP), LT(_SHIFT, KC_PSLS),
-  LCTL_T(KC_DEL), KC_LALT, KC_LGUI, LT(_NUMBER, KC_DEL), LT(_ACCENT, KC_SPC), KC_DOT, KC_LEFT, KC_DOWN, KC_RGHT
+  MT(MOD_RCTL, 0x64), KC_LALT, KC_LGUI, LT(_NUMBER, KC_DEL), LT(_ACCENT, KC_SPC), KC_DOT, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 [_SHIFT] = LAYOUT(
     S(KC_ESC),  S(KC_Q),    S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I), S(KC_O), S(KC_P), KC_DEL,
@@ -105,18 +70,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SERVICE] = LAYOUT(
     RESET,   KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     _______, _______,  _______, _______, _______, _______, _______, _______,_______,_______, KC_F12,
-    KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU, _______,
-    _______, _______,_______, _______,  _______, _______, KC_VOLU, KC_VOLD, KC_MUTE
+    _______,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_VOLU, _______,
+    DUMP, _______,_______, _______,  _______, _______, KC_VOLU, KC_VOLD, KC_MUTE
 )
 
-};
-
-void matrix_init_user(void) {
-  spi_init();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed)
-    spi_send(keycode);
-  return true;
 };

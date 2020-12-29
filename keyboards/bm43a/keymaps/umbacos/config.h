@@ -17,3 +17,7 @@
 #pragma once
 
 // place overrides here
+
+#define RGBLIGHT_SLEEP
+#undef RGBLED_NUM
+#define RGBLED_NUM 6
