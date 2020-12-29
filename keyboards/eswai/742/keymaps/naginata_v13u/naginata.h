@@ -35,6 +35,7 @@ void mac_live_conversion_on(void);
 void mac_live_conversion_off(void);
 void tategaki_toggle(void);
 void kouchi_shift_toggle(void);
+void ty_send_string(char *);
 
 bool process_naginata(uint16_t, keyrecord_t *);
 // void set_naginata(uint8_t);

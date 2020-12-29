@@ -24,26 +24,10 @@
 
 #define NGBUFFER 10 // キー入力バッファのサイズ
 
-#ifdef NAGINATA_TATEGAKI
-  #define NGUP X_UP
-  #define NGDN X_DOWN
-  #define NGLT X_LEFT
-  #define NGRT X_RIGHT
-  #define NGKUP KC_UP
-  #define NGKDN KC_DOWN
-  #define NGKLT KC_LEFT
-  #define NGKRT KC_RIGHT
-#endif
-#ifdef NAGINATA_YOKOGAKI
-  #define NGUP X_LEFT
-  #define NGDN X_RIGHT
-  #define NGLT X_DOWN
-  #define NGRT X_UP
-  #define NGKUP KC_LEFT
-  #define NGKDN KC_RIGHT
-  #define NGKLT KC_DOWN
-  #define NGKRT KC_UP
-#endif
+#define NGUP X_F21
+#define NGDN X_F22
+#define NGLT X_F23
+#define NGRT X_F24
 
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
@@ -706,11 +690,58 @@ void ng_show_os(void) {
       send_string("win");
       break;
     case NG_MAC:
-      send_string("mac/lc:");
+      send_string("mac");
       break;
     case NG_LINUX:
       send_string("lnx");
       break;
+  }
+  if (user_config.tategaki) {
+    send_string("/tate");
+  } else {
+    send_string("/yoko");
+  }
+}
+
+// 出典 https://programming-place.net/ppp/contents/c/rev_res/string014.html
+#include <string.h>
+char* replace(char* s, const char* before, const char* after)
+{
+  const size_t before_len = strlen(before);
+  if (before_len == 0) {
+      return s;
+  }
+
+  const size_t after_len = strlen(after);
+  char* p = s;
+
+  for (;;) {
+    p = strstr(p, before);
+    if (p == NULL) {
+      break;
+    }
+    const char* p2 = p + before_len;
+    memmove(p + after_len, p2, strlen(p2) + 1);
+    memcpy(p, after, after_len);
+    p += after_len;
+  }
+
+  return s;
+}
+
+void ty_send_string(char *str) {
+  if (user_config.tategaki) {
+    replace(str, SS_TAP(NGUP), SS_TAP(X_UP));
+    replace(str, SS_TAP(NGDN), SS_TAP(X_DOWN));
+    replace(str, SS_TAP(NGLT), SS_TAP(X_LEFT));
+    replace(str, SS_TAP(NGRT), SS_TAP(X_RIGHT));
+    send_string(str);
+  } else {
+    replace(str, SS_TAP(NGUP), SS_TAP(X_LEFT));
+    replace(str, SS_TAP(NGDN), SS_TAP(X_RIGHT));
+    replace(str, SS_TAP(NGLT), SS_TAP(X_DOWN));
+    replace(str, SS_TAP(NGRT), SS_TAP(X_UP));
+    send_string(str);
   }
 }
 
@@ -982,7 +1013,7 @@ bool naginata_lookup(int nt, bool shifted) {
           tap_code(KC_ENT);
           tap_code(KC_END);
           ng_send_unicode_string("《》");
-          tap_code(NGKUP);
+          tap_code(NGUP);
           compress_buffer(nt);
           return true;
           break;
@@ -991,7 +1022,7 @@ bool naginata_lookup(int nt, bool shifted) {
           tap_code(KC_END);
           mac_send_string("nagikakkohi5");
           mac_send_string("nagikakkomi5");
-          tap_code(NGKUP);
+          tap_code(NGUP);
           compress_buffer(nt);
           return true;
           break;
@@ -1042,7 +1073,7 @@ bool naginata_lookup(int nt, bool shifted) {
       for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
         memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
         if (keycomb_buf == bngmap.key) {
-          send_string(bngmap.kana);
+          ty_send_string(bngmap.kana);
           compress_buffer(nt);
           return true;
         }
@@ -1052,7 +1083,7 @@ bool naginata_lookup(int nt, bool shifted) {
         for (int i = 0; i < sizeof ngmapl_mac / sizeof bngmapl; i++) {
           memcpy_P(&bngmapl, &ngmapl_mac[i], sizeof(bngmapl));
           if (keycomb_buf == bngmapl.key) {
-            send_string(bngmapl.kana);
+            ty_send_string(bngmapl.kana);
             compress_buffer(nt);
             return true;
           }
@@ -1062,7 +1093,7 @@ bool naginata_lookup(int nt, bool shifted) {
       for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
         memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
         if (keycomb_buf == bngmapl.key) {
-          send_string(bngmapl.kana);
+          ty_send_string(bngmapl.kana);
           compress_buffer(nt);
           return true;
         }
