@@ -47,3 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN A3
 #define RGBLED_NUM 20
 #define RGBLIGHT_ANIMATIONS
+
+#define A4_AUDIO
+#define A5_AUDIO
