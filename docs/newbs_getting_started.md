@@ -37,56 +37,111 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
 [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
-### Windows
+<!-- tabs:start -->
 
-You will need to install MSYS2, Git, and the QMK CLI.
+### ** Windows **
 
-Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org). Close any open MSYS terminals and open a new MinGW 64-bit terminal. **NOTE: This is *not* the same as the MSYS terminal that opens when installation is completed.**
+#### Prerequisites
 
-Then, run the following:
+You will need to install MSYS2, Git and Python. Follow the installation instructions on https://www.msys2.org.
+
+Once MSYS2 is installed, close any open MSYS terminals and open a new MinGW 64-bit terminal.
+
+!> **NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
+
+Then run the following command:
 
     pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
+
+#### Installation
+
+Install the QMK CLI by running:
+
     python3 -m pip install qmk
 
-### macOS
+### ** macOS **
 
-You will need to install Homebrew. Follow the instructions on the [Homebrew homepage](https://brew.sh).
+QMK maintains a Homebrew tap and formula which will automatically install the CLI and all necessary dependencies.
 
-After Homebrew is installed run this command:
+#### Prerequisites
+
+You will need to install Homebrew. Follow the instructions on https://brew.sh.
+
+#### Installation
+
+Install the QMK CLI by running:
 
     brew install qmk/qmk/qmk
 
-### Linux
+### ** Linux/WSL **
+
+#### Prerequisites
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
-* Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
-* Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
+* Debian / Ubuntu / Devuan: `sudo apt install -y git python3-pip`
+* Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip`
+* Arch / Manjaro: `sudo pacman --needed --noconfirm -S git python-pip libffi`
+* Void: `sudo xbps-install -y git python3-pip`
+* Solus: `sudo eopkg -y install git python3`
+* Sabayon: `sudo equo install dev-vcs/git dev-python/pip`
+* Gentoo: `sudo emerge dev-vcs/git dev-python/pip`
 
-Install the global CLI to bootstrap your system:
+#### Installation
 
-`python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
+Install the QMK CLI by running:
 
-### FreeBSD
+    python3 -m pip install --user qmk
+
+On Arch-based distros you can also try the `qmk` package from AUR (**NOTE**: this package is maintained by a community member, and at the time of writing marks some dependencies as optional that should not be):
+
+    yay -S qmk
+
+###  ** FreeBSD **
+
+#### Prerequisites
 
 You will need to install Git and Python. It's possible that you already have both, but if not, run the following commands to install them:
 
     pkg install git python3
 
-Make sure that `$HOME/.local/bin` is added to your `$PATH` so that locally install Python packages are available.
+Make sure that `$HOME/.local/bin` is added to your `$PATH` so that locally installed Python packages are available.
 
-Once installed, you can install QMK CLI:
+#### Installation
+
+Install the QMK CLI by running:
 
     python3 -m pip install --user qmk
 
+<!-- tabs:end -->
+
 ## 3. Run QMK Setup :id=set-up-qmk
+
+<!-- tabs:start -->
+
+### ** Windows **
 
 After installing QMK you can set it up with this command:
 
     qmk setup
 
-In most situations you will want to answer Yes to all of the prompts.
+In most situations you will want to answer `y` to all of the prompts.
+
+### ** macOS **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer `y` to all of the prompts.
+
+### ** Linux/WSL **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer `y` to all of the prompts.
 
 ?>**Note on Debian, Ubuntu and their derivatives**:
 It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
@@ -94,11 +149,21 @@ This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155)
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
 
+###  ** FreeBSD **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer `y` to all of the prompts.
+
 ?>**Note on FreeBSD**:
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
 base system using `pkg`. However the installation will probably fail when run as an unprivileged user.
 To manually install the base dependencies, run `./util/qmk_install.sh` either as `root`, or with `sudo`.
 Once that completes, re-run `qmk setup` to complete the setup and checks.
+
+<!-- tabs:end -->
 
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 

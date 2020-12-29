@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef MATRIX_H
-#define MATRIX_H
+
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -28,16 +28,6 @@ typedef uint16_t matrix_row_t;
 typedef uint32_t matrix_row_t;
 #else
 #    error "MATRIX_COLS: invalid value"
-#endif
-
-#if (MATRIX_ROWS <= 8)
-typedef uint8_t matrix_col_t;
-#elif (MATRIX_ROWS <= 16)
-typedef uint16_t matrix_col_t;
-#elif (MATRIX_ROWS <= 32)
-typedef uint32_t matrix_col_t;
-#else
-#    error "MATRIX_ROWS: invalid value"
 #endif
 
 #define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
@@ -85,6 +75,4 @@ void matrix_scan_user(void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
