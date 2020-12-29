@@ -1,6 +1,6 @@
 # 60 ANSI Arrow Split Backspace & 7U Space Keymap
 
-With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator by [Sendy YK](https://mr.sendyyk.com)
+With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer Indicator by [Sendy YK](https://mr.sendyyk.com).
 
 ## Base Layer
 
