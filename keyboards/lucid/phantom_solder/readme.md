@@ -1,8 +1,6 @@
 # Phantom Solder PCB by Lucid
 
 The following is the QMK Firmware for the Phantom *Solder* PCB for [LucidKB](http://www.lucidkb.cm).
----
-
 * Keyboard Maintainer: Lucid
 * Hardware Supported: Phantom
 
