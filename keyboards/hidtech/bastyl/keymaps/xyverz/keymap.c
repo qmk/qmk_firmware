@@ -27,6 +27,7 @@ enum custom_keycodes { WINDOWS = SAFE_RANGE, MAC, ADJUST };
 #define RGB_SWR RGB_M_SW        // Swirl Animation alias
 #define RGB_SNK RGB_M_SN        // Snake Animation alias
 #define MACLOCK LGUI(LCTL(KC_Q)) // Lock my MacBook!
+#define WINLOCK LGUI(KC_L)      // Lock my PC!
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,  KC_PGDN, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
                              _______, _______, _______, _______, _______, _______, \
-                                      _______, MACLOCK, _______, _______
+                                      _______, MACLOCK, WINLOCK, _______
   ),
 
 [_RAISE] = LAYOUT(
@@ -68,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,  KC_PGDN, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, \
                              _______, _______, _______, _______, _______, _______, \
-                                      _______, MACLOCK, _______, _______
+                                      _______, MACLOCK, WINLOCK, _______
   ),
 
 [_ADJUST] = LAYOUT(
