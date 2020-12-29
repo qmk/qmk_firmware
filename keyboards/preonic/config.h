@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x6F6C //Temporary VID, waiting for guidance from Jack
 #define PRODUCT_ID      0x6061
 #define MANUFACTURER    OLKB
 #define PRODUCT         Preonic
