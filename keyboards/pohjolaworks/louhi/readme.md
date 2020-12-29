@@ -1,9 +1,6 @@
 # Louhi
 
 ![Louhi](https://i.imgur.com/bsXOscK.png)
-
-*A short description of the keyboard/project*
-
 4x13u Orthogonal keyboard with few bottom row layouts and encoder support.
 
 Encoder supported ONLY in one of the two spots at a time.
