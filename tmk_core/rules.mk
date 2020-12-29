@@ -426,9 +426,13 @@ check-size:
 		    fi \
 		fi \
 	fi
+check-md5:
+	md5 $(BUILD_DIR)/$(TARGET).hex
 else
 check-size:
 	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+check-md5:
+	md5 $(BUILD_DIR)/$(TARGET).bin
 endif
 
 # Create build directory
