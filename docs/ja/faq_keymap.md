@@ -1,8 +1,8 @@
 # キーマップの FAQ
 
 <!---
-  original document: 376419a4f:docs/faq_keymap.md
-  git diff 376419a4f HEAD -- docs/faq_keymap.md | cat
+  original document: 0.8.62:docs/faq_keymap.md
+  git diff 0.8.62 HEAD -- docs/faq_keymap.md | cat
 -->
 
 このページは人々がキーマップについてしばしば持つ疑問について説明します。まだ読んだことが無い場合には、[キーマップの概要](ja/keymap.md)を最初に読むべきです。
@@ -19,9 +19,20 @@
 <!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![キーボードのレイアウトイメージ](https://i.imgur.com/5wsh5wM.png)
 
+## 複雑なキーコードのカスタム名を作成する方法はありますか？
+
+時には、読みやすくするために、一部のキーコードにカスタム名を定義すると役に立ちます。人々は、しばしば `#define` を使ってカスタム名を定義します。例えば:
+
+```c
+#define FN_CAPS LT(_FL, KC_CAPSLOCK)
+#define ALT_TAB LALT(KC_TAB)
+```
+
+これにより、キーマップで `FN_CAPS` と `ALT_TAB` を使えるようになり、読みやすくなります。
+
 ## 一部のキーが入れ替わっているか、または動作しない
 
-QMK には2つの機能、ブートマジックとコマンドがあり、これによりその場でキーボードの動作を変更することができます。これには Ctrl/Caps の交換、Gui の無効化、Alt/GUI の交換、Backspace/Backslash の交換、全てのキーの無効化およびその他の動作の変更が含まれますが、これらに限定されません。
+QMK には2つの機能、ブートマジックとコマンドがあり、これによりその場でキーボードの動作を変更することができます。これには Ctrl/Caps の交換、Gui の無効化、Alt/Gui の交換、Backspace/Backslash の交換、全てのキーの無効化およびその他の動作の変更が含まれますが、これらに限定されません。
 
 迅速な解決策として、キーボードを接続している時に `Space`+`Backspace` を押してみてください。これはキーボードに保存されている設定をリセットし、これらのキーを通常の操作に戻します。うまく行かない場合は、以下を見てください:
 
@@ -117,7 +128,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## 単一のキーでの Esc と<code>&#96;</code>
 
-[Grave Escape](feature_grave_esc.md) 機能を見てください。
+[Grave Escape](ja/feature_grave_esc.md) 機能を見てください。
 
 ## Mac OSX での Eject
 `KC_EJCT` キーコードは OSX で動作します。https://github.com/tmk/tmk_keyboard/issues/250

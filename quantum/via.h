@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include <tmk_core/common/eeconfig.h>  // for EECONFIG_SIZE
+#include "tmk_core/common/eeconfig.h"  // for EECONFIG_SIZE
 
 // Keyboard level code can change where VIA stores the magic.
 // The magic is the build date YYMMDD encoded as BCD in 3 bytes,
@@ -35,6 +35,14 @@
 // 1 byte is enough for most uses (i.e. 8 binary states, or 6 binary + 1 ternary/quaternary )
 #ifndef VIA_EEPROM_LAYOUT_OPTIONS_SIZE
 #    define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 1
+#endif
+
+// Allow override of the layout options default value.
+// This requires advanced knowledge of how VIA stores layout options
+// and is only really useful for setting a boolean layout option
+// state to true by default.
+#ifndef VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT
+#    define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00000000
 #endif
 
 // The end of the EEPROM memory used by VIA

@@ -21,7 +21,7 @@
 #define ROW2COL 1
 
 // useful for direct pin mapping
-#define NO_PIN (~0)
+#define NO_PIN (pin_t)(~0)
 
 #ifdef __AVR__
 #    ifndef __ASSEMBLER__
@@ -39,12 +39,12 @@
 #        define PIND_ADDRESS 0x9
 #        define PINE_ADDRESS 0xC
 #        define PINF_ADDRESS 0xF
-#    elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)
+#    elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
 #        define ADDRESS_BASE 0x00
 #        define PINB_ADDRESS 0x3
 #        define PINC_ADDRESS 0x6
 #        define PIND_ADDRESS 0x9
-#    elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__)
+#    elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #        define ADDRESS_BASE 0x00
 #        define PINA_ADDRESS 0x0
 #        define PINB_ADDRESS 0x3
@@ -58,11 +58,9 @@
 #        define PINC_ADDRESS 0x3
 #        define PINB_ADDRESS 0x6
 #        define PINA_ADDRESS 0x9
-#    elif defined(__AVR_ATmega328P__)
-#        define ADDRESS_BASE 0x00
-#        define PINB_ADDRESS 0x3
-#        define PINC_ADDRESS 0x6
-#        define PIND_ADDRESS 0x9
+#    elif defined(__AVR_ATtiny85__)
+#        define ADDRESS_BASE 0x10
+#        define PINB_ADDRESS 0x6
 #    else
 #        error "Pins are not defined"
 #    endif
@@ -215,6 +213,8 @@
 #        define B15 PAL_LINE(GPIOB, 15)
 #        define B16 PAL_LINE(GPIOB, 16)
 #        define B17 PAL_LINE(GPIOB, 17)
+#        define B18 PAL_LINE(GPIOB, 18)
+#        define B19 PAL_LINE(GPIOB, 19)
 #        define C0 PAL_LINE(GPIOC, 0)
 #        define C1 PAL_LINE(GPIOC, 1)
 #        define C2 PAL_LINE(GPIOC, 2)
@@ -279,6 +279,91 @@
 #        define F13 PAL_LINE(GPIOF, 13)
 #        define F14 PAL_LINE(GPIOF, 14)
 #        define F15 PAL_LINE(GPIOF, 15)
+#        define G0 PAL_LINE(GPIOG, 0)
+#        define G1 PAL_LINE(GPIOG, 1)
+#        define G2 PAL_LINE(GPIOG, 2)
+#        define G3 PAL_LINE(GPIOG, 3)
+#        define G4 PAL_LINE(GPIOG, 4)
+#        define G5 PAL_LINE(GPIOG, 5)
+#        define G6 PAL_LINE(GPIOG, 6)
+#        define G7 PAL_LINE(GPIOG, 7)
+#        define G8 PAL_LINE(GPIOG, 8)
+#        define G9 PAL_LINE(GPIOG, 9)
+#        define G10 PAL_LINE(GPIOG, 10)
+#        define G11 PAL_LINE(GPIOG, 11)
+#        define G12 PAL_LINE(GPIOG, 12)
+#        define G13 PAL_LINE(GPIOG, 13)
+#        define G14 PAL_LINE(GPIOG, 14)
+#        define G15 PAL_LINE(GPIOG, 15)
+#        define H0 PAL_LINE(GPIOH, 0)
+#        define H1 PAL_LINE(GPIOH, 1)
+#        define H2 PAL_LINE(GPIOH, 2)
+#        define H3 PAL_LINE(GPIOH, 3)
+#        define H4 PAL_LINE(GPIOH, 4)
+#        define H5 PAL_LINE(GPIOH, 5)
+#        define H6 PAL_LINE(GPIOH, 6)
+#        define H7 PAL_LINE(GPIOH, 7)
+#        define H8 PAL_LINE(GPIOH, 8)
+#        define H9 PAL_LINE(GPIOH, 9)
+#        define H10 PAL_LINE(GPIOH, 10)
+#        define H11 PAL_LINE(GPIOH, 11)
+#        define H12 PAL_LINE(GPIOH, 12)
+#        define H13 PAL_LINE(GPIOH, 13)
+#        define H14 PAL_LINE(GPIOH, 14)
+#        define H15 PAL_LINE(GPIOH, 15)
+#        define I0 PAL_LINE(GPIOI, 0)
+#        define I1 PAL_LINE(GPIOI, 1)
+#        define I2 PAL_LINE(GPIOI, 2)
+#        define I3 PAL_LINE(GPIOI, 3)
+#        define I4 PAL_LINE(GPIOI, 4)
+#        define I5 PAL_LINE(GPIOI, 5)
+#        define I6 PAL_LINE(GPIOI, 6)
+#        define I7 PAL_LINE(GPIOI, 7)
+#        define I8 PAL_LINE(GPIOI, 8)
+#        define I9 PAL_LINE(GPIOI, 9)
+#        define I10 PAL_LINE(GPIOI, 10)
+#        define I11 PAL_LINE(GPIOI, 11)
+#        define I12 PAL_LINE(GPIOI, 12)
+#        define I13 PAL_LINE(GPIOI, 13)
+#        define I14 PAL_LINE(GPIOI, 14)
+#        define I15 PAL_LINE(GPIOI, 15)
+#        define J0 PAL_LINE(GPIOJ, 0)
+#        define J1 PAL_LINE(GPIOJ, 1)
+#        define J2 PAL_LINE(GPIOJ, 2)
+#        define J3 PAL_LINE(GPIOJ, 3)
+#        define J4 PAL_LINE(GPIOJ, 4)
+#        define J5 PAL_LINE(GPIOJ, 5)
+#        define J6 PAL_LINE(GPIOJ, 6)
+#        define J7 PAL_LINE(GPIOJ, 7)
+#        define J8 PAL_LINE(GPIOJ, 8)
+#        define J9 PAL_LINE(GPIOJ, 9)
+#        define J10 PAL_LINE(GPIOJ, 10)
+#        define J11 PAL_LINE(GPIOJ, 11)
+#        define J12 PAL_LINE(GPIOJ, 12)
+#        define J13 PAL_LINE(GPIOJ, 13)
+#        define J14 PAL_LINE(GPIOJ, 14)
+#        define J15 PAL_LINE(GPIOJ, 15)
+// Keyboards can `#define KEYBOARD_REQUIRES_GPIOK` if they need to access GPIO-K pins. These conflict with a whole
+// bunch of layout definitions, so it's intentionally left out unless absolutely required -- in that case, the
+// keyboard designer should use a different symbol when defining their layout macros.
+#        ifdef KEYBOARD_REQUIRES_GPIOK
+#            define K0 PAL_LINE(GPIOK, 0)
+#            define K1 PAL_LINE(GPIOK, 1)
+#            define K2 PAL_LINE(GPIOK, 2)
+#            define K3 PAL_LINE(GPIOK, 3)
+#            define K4 PAL_LINE(GPIOK, 4)
+#            define K5 PAL_LINE(GPIOK, 5)
+#            define K6 PAL_LINE(GPIOK, 6)
+#            define K7 PAL_LINE(GPIOK, 7)
+#            define K8 PAL_LINE(GPIOK, 8)
+#            define K9 PAL_LINE(GPIOK, 9)
+#            define K10 PAL_LINE(GPIOK, 10)
+#            define K11 PAL_LINE(GPIOK, 11)
+#            define K12 PAL_LINE(GPIOK, 12)
+#            define K13 PAL_LINE(GPIOK, 13)
+#            define K14 PAL_LINE(GPIOK, 14)
+#            define K15 PAL_LINE(GPIOK, 15)
+#        endif
 #    endif
 #endif
 
@@ -302,7 +387,7 @@
                 UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
                 sei();                              \
             } while (0)
-#    elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
+#    elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #        define SERIAL_UART_BAUD 115200
 #        define SERIAL_UART_DATA UDR1
 /* UBRR should result in ~16 and set UCSR1A = _BV(U2X1) as per rn42 documentation. HC05 needs baudrate configured accordingly */

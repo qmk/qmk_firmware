@@ -39,10 +39,11 @@ In your keymap you can use the following keycodes to map key presses to mouse ac
 
 ## Configuring mouse keys
 
-Mouse keys supports two different modes to move the cursor:
+Mouse keys supports three different modes to move the cursor:
 
 * **Accelerated (default):** Holding movement keys accelerates the cursor until it reaches its maximum speed.
 * **Constant:** Holding movement keys moves the cursor at constant speeds.
+* **Combined:** Holding movement keys accelerates the cursor until it reaches its maximum speed, but holding acceleration and movement keys simultaneously moves the cursor at constant speeds.
 
 The same principle applies to scrolling.
 
@@ -120,3 +121,26 @@ Use the following settings if you want to adjust cursor movement or scrolling:
 |`MK_W_INTERVAL_1`    |120          |Time between scroll steps (`KC_ACL1`)      |
 |`MK_W_OFFSET_2`      |1            |Scroll steps per scroll action (`KC_ACL2`) |
 |`MK_W_INTERVAL_2`    |20           |Time between scroll steps (`KC_ACL2`)      |
+
+### Combined mode
+
+This mode functions like **Accelerated** mode, however, you can hold `KC_ACL0`, `KC_ACL1` and `KC_ACL2`
+to momentarily (while held) set the cursor and scroll speeds to constant speeds. When no acceleration
+keys are held, this mode is identical to **Accelerated** mode, and can be modified using all of the
+relevant settings.
+
+* **KC_ACL0:** This acceleration sets your cursor to the slowest possible speed. This is useful for very
+small and detailed movements of the cursor.
+* **KC_ACL1:** This acceleration sets your cursor to half the maximum (user defined) speed.
+* **KC_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
+useful for moving the cursor large distances without much accuracy.
+
+To use constant speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
+
+```c
+#define MK_COMBINED
+```
+
+## Use with PS/2 Mouse and Pointing Device
+
+Mouse keys button state is shared with [PS/2 mouse](feature_ps2_mouse.md) and [pointing device](feature_pointing_device.md) so mouse keys button presses can be used for clicks and drags.

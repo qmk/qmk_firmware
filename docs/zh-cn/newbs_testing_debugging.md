@@ -34,7 +34,9 @@ void keyboard_post_init_user(void) {
 
 有时用[custom code](custom_quantum_functions.md)发送自定义调试信息很有用. 这么做很简单. 首先在你文件头部包含`print.h`:
 
-    #include <print.h>
+```c
+#include "print.h"
+```
 
 之后，您可以使用一些不同的打印功能:
 

@@ -17,7 +17,7 @@ OUTPUTS := $(TEST_OBJ)/$(TEST) $(GTEST_OUTPUT)
 GTEST_INC := \
 	$(LIB_PATH)/googletest/googletest/include\
 	$(LIB_PATH)/googletest/googlemock/include\
-	
+
 GTEST_INTERNAL_INC :=\
 	$(LIB_PATH)/googletest/googletest\
 	$(LIB_PATH)/googletest/googlemock
@@ -27,7 +27,7 @@ $(GTEST_OUTPUT)_SRC :=\
 	googletest/src/gtest_main.cc\
 	googlemock/src/gmock-all.cc
 
-$(GTEST_OUTPUT)_DEFS := 
+$(GTEST_OUTPUT)_DEFS :=
 $(GTEST_OUTPUT)_INC := $(GTEST_INC) $(GTEST_INTERNAL_INC)
 
 LDFLAGS += -lstdc++ -lpthread -shared-libgcc
@@ -41,6 +41,7 @@ all: elf
 
 VPATH += $(COMMON_VPATH)
 PLATFORM:=TEST
+PLATFORM_KEY:=test
 
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include tests/$(TEST)/rules.mk
@@ -48,6 +49,7 @@ endif
 
 include common_features.mk
 include $(TMK_PATH)/common.mk
+include $(QUANTUM_PATH)/sequencer/tests/rules.mk
 include $(QUANTUM_PATH)/serial_link/tests/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include build_full_test.mk
@@ -64,4 +66,3 @@ include $(TMK_PATH)/rules.mk
 
 $(shell mkdir -p $(BUILD_DIR)/test 2>/dev/null)
 $(shell mkdir -p $(TEST_OBJ) 2>/dev/null)
-

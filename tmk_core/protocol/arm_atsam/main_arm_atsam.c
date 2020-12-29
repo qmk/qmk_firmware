@@ -206,10 +206,17 @@ void main_subtask_usb_extra_device(void) {
     }
 }
 
+#ifdef RAW_ENABLE
+void main_subtask_raw(void) { udi_hid_raw_receive_report(); }
+#endif
+
 void main_subtasks(void) {
     main_subtask_usb_state();
     main_subtask_power_check();
     main_subtask_usb_extra_device();
+#ifdef RAW_ENABLE
+    main_subtask_raw();
+#endif
 }
 
 int main(void) {
@@ -298,6 +305,10 @@ int main(void) {
             // dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
         }
 #endif  // CONSOLE_ENABLE
+
+        // Run housekeeping
+        housekeeping_task_kb();
+        housekeeping_task_user();
     }
 
     return 1;

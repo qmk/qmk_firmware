@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xCA40
 #define DEVICE_VER      0x0001
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
 #define MANUFACTURER    MECHKEYS
 #define PRODUCT         Mechmini
 #define DESCRIPTION     40% modular keyboard

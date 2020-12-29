@@ -4,7 +4,7 @@ QMK presents itself to the host as a regular HID keyboard device, and as such re
 
 There are two notable exceptions: the Caterina bootloader, usually seen on Pro Micros, and the HalfKay bootloader shipped with PJRC Teensys, appear as a serial port and a generic HID device respectively, and so do not require a driver.
 
-We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with MSYS2 or WSL, the `qmk_install.sh` script will have asked if you want it to install the drivers for you.
+We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with MSYS2, the `qmk_install.sh` script will have already installed the drivers for you.
 
 ## Installation
 
@@ -23,7 +23,7 @@ Zadig will automatically detect the bootloader device. You may sometimes need to
 
 !> If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
 
-If the arrow appears green, select the driver, and click **Install Driver**. The `libusb-win32` driver will usually work for AVR, and `WinUSB` for ARM, but if you still cannot flash the board, try installing a different driver from the list. For flashing a USBaspLoader device via command line with msys2, the `libusbk` driver is recommended, otherwise `libusb-win32` will work fine if you are using QMK Toolbox for flashing.
+If the arrow appears green, select the driver, and click **Install Driver**. The `libusb-win32` driver will usually work for AVR, and `WinUSB` for ARM, but if you still cannot flash the board, try installing a different driver from the list. USBAspLoader devices must use the `libusbK` driver.
 
 ![Zadig with a bootloader driver correctly installed](https://i.imgur.com/b8VgXzx.png)
 

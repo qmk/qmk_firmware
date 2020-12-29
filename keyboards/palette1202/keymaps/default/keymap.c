@@ -116,55 +116,55 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? G(KC_EQL) : G(KC_MINS));
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_EQL));
         } else {
           // Fn Layer
           // rotate canvas
-          tap_code(!clockwise ? KC_QUOT : KC_MINS);
+          tap_code(!clockwise ? KC_MINS : KC_QUOT);
         }
         break;
       case MAC_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? G(KC_EQL) : G(KC_MINS));
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_EQL));
         } else {
           // Fn Layer
           // undo / redo
-          tap_code16(!clockwise ? S(G(KC_Z)) : G(KC_Z));
+          tap_code16(!clockwise ? G(KC_Z) : S(G(KC_Z)));
         }
         break;
       case WIN_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? C(KC_EQL) : C(KC_MINS));
+          tap_code16(!clockwise ? C(KC_MINS) : C(KC_EQL));
         } else {
           // Fn Layer
           // rotate canvas
-          tap_code(!clockwise ? KC_QUOT : KC_MINS);
+          tap_code(!clockwise ? KC_MINS : KC_QUOT);
         }
         break;
       case WIN_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? C(KC_SCLN) : C(KC_MINS));
+          tap_code16(!clockwise ? C(KC_MINS) : C(KC_SCLN));
         } else {
           // Fn Layer
           // undo / redo
-          tap_code16(!clockwise ? C(S(KC_Z)) : C(KC_Z));
+          tap_code16(!clockwise ? C(KC_Z) : C(S(KC_Z)));
         }
         break;
       case IOS_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom 
-          tap_code16(!clockwise ? G(KC_SCLN) : G(KC_MINS));
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_SCLN));
         } else {
           // Fn Layer
           // rotate canvas
-          tap_code(!clockwise ? KC_EQL : KC_MINS);
+          tap_code(!clockwise ? KC_MINS : KC_EQL);
         }
         break;
       default:
@@ -176,55 +176,55 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? G(KC_RBRC) : G(KC_LBRC));
+          tap_code16(!clockwise ? G(KC_LBRC) : G(KC_RBRC));
         }
         break;
       case MAC_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? KC_RCBR : KC_LCBR);
+          tap_code16(!clockwise ? KC_LCBR : KC_RCBR);
         }
         break;
       case WIN_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // rotate canvas
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? C(KC_RBRC) : C(KC_LBRC));
+          tap_code16(!clockwise ? C(KC_LBRC) : C(KC_RBRC));
         }
         break;
       case WIN_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // rotate canvas
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? KC_RCBR : KC_LCBR);
+          tap_code16(!clockwise ? KC_LCBR : KC_RCBR);
         }
         break;
       case IOS_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          tap_code(!clockwise ? KC_BSLS : KC_RBRC);
+          tap_code(!clockwise ? KC_RBRC : KC_BSLS);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? G(KC_BSLS) : G(KC_RBRC));
+          tap_code16(!clockwise ? G(KC_RBRC) : G(KC_BSLS));
         }
         break;
       default:

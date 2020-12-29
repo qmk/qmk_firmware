@@ -44,8 +44,60 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+#if defined(HAS_ROTARY)
+  void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_VOLD);
+        } else {
+            tap_code(KC_VOLU);
+        }
+    }
+  }
+#endif
+
+#if defined(HAS_INDICATORS)
+  static uint8_t led_user = 0;
+#endif
+
+void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
+  td_state = cur_dance(state);
+  switch (td_state) {
+    case SINGLE_TAP: // Ctl + Alt + Del to unlock workstation
+    tap_code16(KC_CAD);
+    #if defined(HAS_INDICATORS)
+      led_user = 0;
+      #if defined(KEYBOARD_sneakbox_aliceclone)
+        led_user = 1;
+      #endif
+      writePin(INDICATOR_PIN_0, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_1, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_2, !led_user);
+    #endif      
+      break;
+    case SINGLE_HOLD:
+      break;
+    case DOUBLE_TAP: //Lock workstation
+    tap_code16(KC_LOCK);
+    #if defined(HAS_INDICATORS)
+      led_user = 1;
+      #if defined(KEYBOARD_sneakbox_aliceclone)
+        led_user = 0;
+      #endif
+      writePin(INDICATOR_PIN_2, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_1, !led_user);
+      wait_ms(200);
+      writePin(INDICATOR_PIN_0, !led_user);
+    #endif    
+      break;
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_WIN] = ACTION_TAP_DANCE_DOUBLE(KC_CAD, KC_LOCK),
+  [TD_WIN] = ACTION_TAP_DANCE_FN(lock_unlock),
   [TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
   [TD_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_copy_finished, ctl_copy_reset)
 };
@@ -56,12 +108,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       uint8_t mods = get_mods();
       clear_mods();
-      send_string_with_delay_P(PSTR("qmk compile -kb " QMK_KEYBOARD " -km " QMK_KEYMAP "\n"), 10); //New way
         if (mods & MOD_MASK_SHIFT) {
-          send_string(SS_LGUI());
-          send_string("qmk toolbox\n");
+          send_string_with_delay_P(PSTR("qmk flash -kb " QMK_KEYBOARD " -km " QMK_KEYMAP "\n"), 10); //New way
           reset_keyboard();
         }
+        else
+          send_string_with_delay_P(PSTR("qmk compile -kb " QMK_KEYBOARD " -km " QMK_KEYMAP "\n"), 10); //New way
       set_mods(mods);
       }
     break;

@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_LEADER_H
-#define PROCESS_LEADER_H
+#pragma once
 
 #include "quantum.h"
 

@@ -162,6 +162,7 @@
 #define SE_BULT SE_CURR
 #define SE_GRTR SE_RABK
 #define SE_AA   SE_ARNG
+#define SE_AE   SE_ADIA
 #define SE_AM   SE_ARNG
 #define SE_MU   SE_MICR
 // Swedish macOS symbols (not vetted)
