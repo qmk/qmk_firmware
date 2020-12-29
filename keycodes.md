@@ -124,17 +124,17 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_F22`               |                              |F22                                            |✔            |             |✔                |
 |`KC_F23`               |                              |F23                                            |✔            |             |✔                |
 |`KC_F24`               |                              |F24                                            |✔            |             |✔                |
-|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                        |            |             |✔                |
-|`KC_HELP`              |                              |Help                                           |            |             |✔                |
-|`KC_MENU`              |                              |Menu                                           |            |             |✔                |
-|`KC_SELECT`            |`KC_SLCT`                     |Select                                         |            |             |✔                |
-|`KC_STOP`              |                              |Stop                                           |            |             |✔                |
-|`KC_AGAIN`             |`KC_AGIN`                     |Again                                          |            |             |✔                |
-|`KC_UNDO`              |                              |Undo                                           |            |             |✔                |
-|`KC_CUT`               |                              |Cut                                            |            |             |✔                |
-|`KC_COPY`              |                              |Copy                                           |            |             |✔                |
-|`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |            |             |✔                |
-|`KC_FIND`              |                              |Find                                           |            |             |✔                |
+|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                        |             |             |✔                |
+|`KC_HELP`              |                              |Help                                           |             |             |✔                |
+|`KC_MENU`              |                              |Menu                                           |             |             |✔                |
+|`KC_SELECT`            |`KC_SLCT`                     |Select                                         |             |             |✔                |
+|`KC_STOP`              |                              |Stop                                           |             |             |✔                |
+|`KC_AGAIN`             |`KC_AGIN`                     |Again                                          |             |             |✔                |
+|`KC_UNDO`              |                              |Undo                                           |             |             |✔                |
+|`KC_CUT`               |                              |Cut                                            |             |             |✔                |
+|`KC_COPY`              |                              |Copy                                           |             |             |✔                |
+|`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |             |             |✔                |
+|`KC_FIND`              |                              |Find                                           |             |             |✔                |
 |`KC__MUTE`             |                              |Mute                                           |             |✔            |✔                |
 |`KC__VOLUP`            |                              |Volume Up                                      |             |✔            |✔                |
 |`KC__VOLDOWN`          |                              |Volume Down                                    |             |✔            |✔                |
