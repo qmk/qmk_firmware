@@ -94,6 +94,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_ADJUST);
             }
             return false;
+        case GAMING:
+            if (record->event.pressed) {
+                layer_on(_GAMING);
+            }
+            return false;
             // == Macros START ===
         case IARROW:
             if (record->event.pressed) SEND_STRING("<-");
