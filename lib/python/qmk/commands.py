@@ -80,8 +80,10 @@ def compile_configurator_json(user_keymap):
     color = 'true' if cli.config.general.color else 'false'
     make_command = [
         'make',
-        '-r', '-R',
-        '-f', 'build_keyboard.mk',
+        '-r',
+        '-R',
+        '-f',
+        'build_keyboard.mk',
         f'KEYBOARD={user_keymap["keyboard"]}',
         f'KEYMAP={user_keymap["keymap"]}',
         f'KEYBOARD_FILESAFE={keyboard_filesafe}',
@@ -97,7 +99,7 @@ def compile_configurator_json(user_keymap):
         f'KEYMAP_PATH={keymap_dir}',
         f'VERBOSE={verbose}',
         f'COLOR={color}',
-        'SILENT=false'
+        'SILENT=false',
     ]
 
     return make_command
