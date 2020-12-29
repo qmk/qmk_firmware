@@ -1,8 +1,6 @@
 # KBD8X Replacement Hotswap PCB by Lucid
 
 The following is the QMK Firmware for the KBD8X Replacement Hotswap PCB by [LucidKB](http://www.lucidkb.cm).
----
-
 * Keyboard Maintainer: Lucid
 * Hardware Supported: KBD8X_HS
 
