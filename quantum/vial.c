@@ -34,6 +34,7 @@ enum {
     vial_get_lock = 0x05,
     vial_unlock_start = 0x06,
     vial_unlock_poll = 0x07,
+    vial_lock = 0x08,
 };
 
 #ifdef VIAL_INSECURE
@@ -148,6 +149,10 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             msg[0] = vial_unlocked;
             msg[1] = vial_unlock_in_progress;
             msg[2] = vial_unlock_counter;
+            break;
+        }
+        case vial_lock: {
+            vial_unlocked = 0;
             break;
         }
     }
