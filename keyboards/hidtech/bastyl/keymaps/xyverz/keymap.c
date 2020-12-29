@@ -18,34 +18,82 @@
 
 #include QMK_KEYBOARD_H
 
+enum layer_names { _WINDOWS, _MAC, _LOWER, _RAISE, _ADJUST };
+
+enum custom_keycodes { WINDOWS = SAFE_RANGE, MAC, ADJUST };
+
+// Aliases to keep the keymap tidy
+#define GUIBSPC GUI_T(KC_BSPC)  // GUI when held, BSPC when tapped.
+#define RGB_SWR RGB_M_SW        // Swirl Animation alias
+#define RGB_SNK RGB_M_SN        // Snake Animation alias
+#define MACLOCK LGUI(LCTL(KC_Q)) // Lock my MacBook!
+#define RAISE MO(_RAISE)
+#define LOWER MO(_LOWER)
+
+
 #define MACLOCK LGUI(LCTL(KC_Q)) // Lock my MacBook!
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[0] = LAYOUT(
+[_WINDOWS] = LAYOUT(
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
   KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-                             MO(1),   KC_BSPC, KC_DEL,  KC_ENT,  KC_SPC,  MO(2), \
+                             LOWER,   KC_BSPC, KC_DEL,  KC_ENT,  KC_SPC,  RAISE, \
                                       KC_LCTL, KC_LALT, KC_RGUI, KC_RCTL
   ),
 
-[1] = LAYOUT(
+[_MAC] = LAYOUT(
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
+  KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
+  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
+                             LOWER,   KC_BSPC, KC_LGUI, KC_ENT,  KC_SPC,  RAISE, \
+                                      KC_LCTL, KC_LALT, KC_RGUI, KC_RCTL
+  ),
+
+[_LOWER] = LAYOUT(
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,  \
   _______, _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,  KC_PGDN, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
                              _______, _______, _______, _______, _______, _______, \
-                                      RESET,   MACLOCK, _______, _______
+                                      _______, MACLOCK, _______, _______
   ),
 
-[2] = LAYOUT(
+[_RAISE] = LAYOUT(
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,  \
   _______, _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,  KC_PGDN, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, \
                              _______, _______, _______, _______, _______, _______, \
-                                      _______, MACLOCK, _______, RESET
+                                      _______, MACLOCK, _______, _______
   ),
+
+[_ADJUST] = LAYOUT(
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, WINDOWS, MAC,     _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+                             _______, _______, _______, _______, _______, _______, \
+                                      _______, _______, _______, _______
+  ),
+
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case WINDOWS:
+                set_single_persistent_default_layer(_WINDOWS);
+                return false;
+            case MAC:
+                set_single_persistent_default_layer(_MAC);
+                return false;
+        }
+    }
+    return true;
+}
