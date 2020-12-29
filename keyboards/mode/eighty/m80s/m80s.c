@@ -11,4 +11,4 @@
   * GNU General Public License for more details. 
   */
 
-#include "M80H.h"
+#include "m80s.h"
