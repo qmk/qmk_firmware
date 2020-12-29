@@ -50,9 +50,8 @@ def keymap(keyboard_name):
 
         keyboard_folder = keyboard_folder.parent
 
-    keyboard_folder = keyboard(keyboard_name) / 'keymaps'
-    logging.debug('Could not find the keymaps directory, creating as %s', keyboard_folder)
-    keyboard_folder.mkdir(parents=True)
+    logging.error('Could not find the keymaps directory!')
+    raise NoSuchKeyboardError('Could not find keymaps directory for: %s' % keyboard_name)
 
 
 def normpath(path):
