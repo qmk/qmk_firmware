@@ -79,7 +79,10 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
+ifdef SKIP_DEBUG_INFO
+  undefine DEBUG_ENABLE
+endif
+ifdef DEBUG_ENABLE
   CFLAGS += -g$(DEBUG)
 endif
 CFLAGS += $(CDEFS)
@@ -110,7 +113,7 @@ CFLAGS += $(CSTANDARD)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
+ifdef DEBUG_ENABLE
   CXXFLAGS += -g$(DEBUG)
 endif
 CXXFLAGS += $(CXXDEFS)
@@ -140,7 +143,7 @@ CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
-ifndef SKIP_DEBUG_INFO
+ifdef DEBUG_ENABLE
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
