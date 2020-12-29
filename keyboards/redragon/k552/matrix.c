@@ -118,11 +118,7 @@ void matrix_init(void) {
                             |mskCT16_PWM13EN_EN \
                             |mskCT16_PWM14EN_EN \
                             |mskCT16_PWM16EN_EN \
-                            |mskCT16_PWM17EN_EN \
-                            |mskCT16_PWM18EN_EN \
-                            |mskCT16_PWM19EN_EN \
-                            |mskCT16_PWM20EN_EN \
-                            |mskCT16_PWM21EN_EN);
+                            |mskCT16_PWM17EN_EN);
 
     // Enable PWM0-PWM3, PWM8-PWM20 IO (except PWM10)
     SN_CT16B1->PWMIOENB =   (mskCT16_PWM0EN_EN  \
@@ -141,11 +137,7 @@ void matrix_init(void) {
                             |mskCT16_PWM13EN_EN \
                             |mskCT16_PWM14EN_EN \
                             |mskCT16_PWM16EN_EN \
-                            |mskCT16_PWM17EN_EN \
-                            |mskCT16_PWM18EN_EN \
-                            |mskCT16_PWM19EN_EN \
-                            |mskCT16_PWM20EN_EN \
-                            |mskCT16_PWM21EN_EN);
+                            |mskCT16_PWM17EN_EN);
 
     // Set match interrupts and TC rest
     SN_CT16B1->MCTRL3 = (mskCT16_MR22IE_EN);
@@ -155,7 +147,7 @@ void matrix_init(void) {
     SN_CT16B1->MR22 = 0xFF;
 
     // Set prescale value
-    SN_CT16B1->PRE = 0x18;
+    SN_CT16B1->PRE = 0x16;
 
     //Set CT16B1 as the up-counting mode.
 	SN_CT16B1->TMRCTRL = (mskCT16_CRST);
@@ -252,10 +244,6 @@ OSAL_IRQ_HANDLER(Vector80) {
         SN_CT16B1->MR14 = led_state[row_ofst + 14].b | 1;
         SN_CT16B1->MR16 = led_state[row_ofst + 15].b | 1;
         SN_CT16B1->MR17 = led_state[row_ofst + 16].b | 1;
-        SN_CT16B1->MR18 = led_state[row_ofst + 17].b | 1;
-        SN_CT16B1->MR19 = led_state[row_ofst + 18].b | 1;
-        SN_CT16B1->MR20 = led_state[row_ofst + 19].b | 1;
-        SN_CT16B1->MR21 = led_state[row_ofst + 20].b | 1;
     }
 
     if(current_row % 3 == 1)
@@ -277,10 +265,6 @@ OSAL_IRQ_HANDLER(Vector80) {
         SN_CT16B1->MR14 = led_state[row_ofst + 14].g  | 1;
         SN_CT16B1->MR16 = led_state[row_ofst + 15].g  | 1;
         SN_CT16B1->MR17 = led_state[row_ofst + 16].g  | 1;
-        SN_CT16B1->MR18 = led_state[row_ofst + 17].g  | 1;
-        SN_CT16B1->MR19 = led_state[row_ofst + 18].g  | 1;
-        SN_CT16B1->MR20 = led_state[row_ofst + 19].g  | 1;
-        SN_CT16B1->MR21 = led_state[row_ofst + 20].g  | 1;
     }
 
     if(current_row % 3 == 2)
@@ -302,10 +286,6 @@ OSAL_IRQ_HANDLER(Vector80) {
         SN_CT16B1->MR14 = led_state[row_ofst + 14].r | 1;
         SN_CT16B1->MR16 = led_state[row_ofst + 15].r | 1;
         SN_CT16B1->MR17 = led_state[row_ofst + 16].r | 1;
-        SN_CT16B1->MR18 = led_state[row_ofst + 17].r | 1;
-        SN_CT16B1->MR19 = led_state[row_ofst + 18].r | 1;
-        SN_CT16B1->MR20 = led_state[row_ofst + 19].r | 1;
-        SN_CT16B1->MR21 = led_state[row_ofst + 20].r | 1;
     }
 
     // Enable PWM outputs on column pins
@@ -325,11 +305,7 @@ OSAL_IRQ_HANDLER(Vector80) {
                             |mskCT16_PWM13EN_EN \
                             |mskCT16_PWM14EN_EN \
                             |mskCT16_PWM16EN_EN \
-                            |mskCT16_PWM17EN_EN \
-                            |mskCT16_PWM18EN_EN \
-                            |mskCT16_PWM19EN_EN \
-                            |mskCT16_PWM20EN_EN \
-                            |mskCT16_PWM21EN_EN);
+                            |mskCT16_PWM17EN_EN);
 
     SN_CT16B1->IC = SN_CT16B1->RIS;  // Clear all for now
     SN_CT16B1->TMRCTRL = CT16_CEN_EN;
