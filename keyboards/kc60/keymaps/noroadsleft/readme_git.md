@@ -46,11 +46,11 @@
     branch-name = "!git rev-parse --abbrev-ref HEAD"
     bn          = "!git branch-name"                 # short-form of the above
     # List branches by the date of their last commit, newest to oldest
-    bbd         = "for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='[33m%(objectname)[0m %(objecttype) [32m%(refname:short)[0m (%(authordate))'"
+    bbd         = "for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='\e[33m%(objectname)\e[0m %(objecttype) \e[32m%(refname:short)\e[0m (%(authordate))'"
 
     # Compare commit counts between current branch and QMK master
     #   e.g. `git cc dev_branch upstream/master` returns how many commits are on `dev_branch` and not on `upstream/master`, and vice versa.
-    cc = "!f() { git fetch upstream; echo \"[0;32m$(git branch-name)[0m vs. [0;31m$2[0m\"; git rev-list --left-right --count $1...$2; }; f"
+    cc = "!f() { git fetch upstream; echo \"\e[0;32m$(git branch-name)\e[0m vs. \e[0;31m$2\e[0m\"; git rev-list --left-right --count $1...$2; }; f"
 
     # Push to origin repo
     po = "push origin $(git branch-name)"
