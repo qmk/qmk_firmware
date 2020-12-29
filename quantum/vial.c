@@ -23,6 +23,8 @@
 #include "dynamic_keymap.h"
 #include "quantum.h"
 
+#include "vial_ensure_keycode.h"
+
 enum {
     vial_get_keyboard_id = 0x00,
     vial_get_size = 0x01,
