@@ -15,8 +15,8 @@ MCU_LDSCRIPT = NUC123xD4xx0
 
 # startup code to use
 MCU_STARTUP = NUC123
-# BOARD = NUC123SD4AN0
-BOARD = NUTINY-SDK-NUC123-V2.0
+BOARD = NUC123SD4AN0
+# BOARD = NUTINY-SDK-NUC123-V2.0
 
 # NUC123 series is Cortex M0
 MCU  = cortex-m0
@@ -39,7 +39,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-DIP_SWITCH_ENABLE = yes
+DIP_SWITCH_ENABLE = no
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
