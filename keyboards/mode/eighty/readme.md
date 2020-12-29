@@ -11,15 +11,12 @@ The Mode80 is a tenkeyless high-end keyboard sold by [Mode Designs](https://shop
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mode/eighty/M80S:m80s_default
+    make mode/eighty/m80h:default # Hotswap
+    make mode/eighty/m80s:default # Soldered
 
 Flashing example for this keyboard:
 
-    make mode/eighty/M80S:m80s_default:flash
-
-For the hotswap version, use M80H instead of M80S:
-
-    make mode/eighty/M80H:m80h_default
-    make mode/eighty/M80H:m80h_default
+    make mode/eighty/m80h:default:flash # Hotswap
+    make mode/eighty/m80s:default:flash # Soldered
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
