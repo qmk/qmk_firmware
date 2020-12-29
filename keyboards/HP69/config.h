@@ -48,3 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B12, B15, B10, B13, B14, B11, B8, A0, A1, B5, B0, B2, B6, B1, B4}
 
 #define DIODE_DIRECTION COL2ROW
+
+#define RGB_DI_PIN A3
+#define RGBLED_NUM 20
+#define RGBLIGHT_ANIMATIONS
