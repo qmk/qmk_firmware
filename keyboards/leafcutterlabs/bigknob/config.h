@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    leafcutterlabs
 #define PRODUCT         bigKNOB
-#define DESCRIPTION     5 key with rotary encoder board
-
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 5
@@ -47,9 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIRECT_PINS {   \
     { B7, D4, D6, F6, F7} \
 }
-//speed for double tap
-#define TAPPING_TERM 300
-
 #define UNUSED_PINS
 
 /* rotary encoder 1,2,3 closest to usb port is 0*/
