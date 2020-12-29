@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
      * │Shift   │Z  │X  │C  │V  │B  │N  │M  │,  │.  │Shift │↑  │/  │
      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
-     * │Ctl │GUI │Alt │Space                   │Alt│GUI│←  │↓  │→  │
+     * │Ctrl│GUI │Alt │Space                   │Alt│GUI│←  │↓  │→  │
      * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
      */
     [_BASE] = LAYOUT_60_ansi_arrow(
