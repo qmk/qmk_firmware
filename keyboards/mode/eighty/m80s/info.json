@@ -5,7 +5,7 @@
     "width": 18.25, 
     "height": 6.5, 
     "layouts": {
-        "LAYOUT_eighty_M80S": {
+        "LAYOUT_eighty_m80s": {
             "layout": [
 			{"label":"Esc", "x":0, "y":0},
 			{"label":"F1", "x":2, "y":0},
