@@ -8,8 +8,17 @@ is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
-    cmd = ['bin/qmk', command] + list(args)
+    cmd = ['bin/qmk', command, *args]
     result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+    return result
+
+
+def check_subcommand_stdin(file_to_read, command, *args):
+    """Pipe content of a file to a command and return output.
+    """
+    with open(file_to_read) as my_file:
+        cmd = ['bin/qmk', command, *args]
+        result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
 
 
@@ -129,6 +138,12 @@ def test_json2c():
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
 
 
+def test_json2c_stdin():
+    result = check_subcommand_stdin('keyboards/handwired/onekey/keymaps/default_json/keymap.json', 'json2c', '-')
+    check_returncode(result)
+    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+
+
 def test_info():
     result = check_subcommand('info', '-kb', 'handwired/onekey/pytest')
     check_returncode(result)
@@ -182,6 +197,18 @@ def test_c2json():
 
 def test_c2json_nocpp():
     result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+
+
+def test_c2json_stdin():
+    result = check_subcommand_stdin("keyboards/handwired/onekey/keymaps/default/keymap.c", "c2json", "-kb", "handwired/onekey/pytest", "-km", "default", "-")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+
+
+def test_c2json_nocpp_stdin():
+    result = check_subcommand_stdin("keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c", "c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "-")
     check_returncode(result)
     assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
 
