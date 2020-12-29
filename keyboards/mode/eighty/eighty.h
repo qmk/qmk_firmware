@@ -1,5 +1,4 @@
-#ifndef EIGHTY_H
-#define EIGHTY_H
+#pragma once
 
 #include "quantum.h"
 
@@ -8,5 +7,3 @@
 #elif defined(KEYBOARD_mode_eighty_M80S)
   #include "M80S.h"
 #endif // Mode80 solderable "S" and hotswap "H" revisions
-
-#endif

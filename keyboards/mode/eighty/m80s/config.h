@@ -15,12 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#include "config_common.h"
-
-#ifndef M80S_CONFIG_H
-#define M80S_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0083 //S for solderable version
-
-#endif

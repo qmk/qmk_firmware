@@ -11,8 +11,6 @@
   * GNU General Public License for more details. 
   */
 
-#ifndef M80S_H
-#define M80S_H
 #pragma once
 
 #include "eighty.h"
@@ -32,5 +30,3 @@
     { K501,   K502,   K503,  K504,  K505,  K506,  K507,  K508,  K509,  K510,  K511,  K512,  K513,  K514, K515,  KC_NO }, \
     { K601,   K602,   K603,  KC_NO, KC_NO, KC_NO, K607,  KC_NO, KC_NO, K610,  K611,  K612,  K613,  K614, K615,  K616 }   \
 }
-
-#endif
