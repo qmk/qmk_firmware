@@ -3,7 +3,6 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
-import subprocess
 from argparse import FileType
 
 from milc import cli
@@ -37,6 +36,7 @@ def print_bootloader_help():
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('QMK Flash.')
 @automagic_keyboard
@@ -55,6 +55,16 @@ def flash(cli):
         command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
         cli.run(command, capture_output=False)
 
+    # Build the environment vars
+    envs = {}
+    for env in cli.args.env:
+        if '=' in env:
+            key, value = env.split('=', 1)
+            envs[key] = value
+        else:
+            cli.log.warning('Invalid environment variable: %s', env)
+
+    # Determine the compile command
     command = ''
 
     if cli.args.bootloaders:
@@ -74,7 +84,7 @@ def flash(cli):
     else:
         if cli.config.flash.keyboard and cli.config.flash.keymap:
             # Generate the make command for a specific keyboard/keymap.
-            command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
+            command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader, **envs)
 
         elif not cli.config.flash.keyboard:
             cli.log.error('Could not determine keyboard!')

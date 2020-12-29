@@ -14,6 +14,7 @@ from qmk.commands import compile_configurator_json, create_make_command, parse_c
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
@@ -29,18 +30,27 @@ def compile(cli):
         command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
         cli.run(command, capture_output=False)
 
+    # Build the environment vars
+    envs = {}
+    for env in cli.args.env:
+        if '=' in env:
+            key, value = env.split('=', 1)
+            envs[key] = value
+        else:
+            cli.log.warning('Invalid environment variable: %s', env)
+
+    # Determine the compile command
     command = None
 
     if cli.args.filename:
         # If a configurator JSON was provided generate a keymap and compile it
-        # FIXME(skullydazed): add code to check and warn if the keymap already exists when compiling a json keymap.
         user_keymap = parse_configurator_json(cli.args.filename)
         command = compile_configurator_json(user_keymap)
 
     else:
         if cli.config.compile.keyboard and cli.config.compile.keymap:
             # Generate the make command for a specific keyboard/keymap.
-            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap)
+            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, **envs)
 
         elif not cli.config.compile.keyboard:
             cli.log.error('Could not determine keyboard!')
