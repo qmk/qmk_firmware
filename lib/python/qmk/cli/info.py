@@ -7,6 +7,8 @@ import platform
 
 from milc import cli
 
+from qmk.info_json_encoder import InfoJSONEncoder
+from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import render_layouts, render_layout
 from qmk.keymap import locate_keymap
@@ -14,9 +16,6 @@ from qmk.info import info_json
 from qmk.path import is_keyboard
 
 platform_id = platform.platform().lower()
-
-ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
-COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
 
 
 def show_keymap(kb_info_json, title_caps=True):
@@ -149,7 +148,7 @@ def info(cli):
 
     # Output in the requested format
     if cli.args.format == 'json':
-        print(json.dumps(kb_info_json))
+        print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
     elif cli.args.format == 'text':
         print_text_output(kb_info_json)
     elif cli.args.format == 'friendly':
