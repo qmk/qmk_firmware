@@ -26,3 +26,5 @@
     { K10,   K11,   K12 }, \
     { K20,   K21,   K22 }  \
 }
+
+#define LAYOUT LAYOUT_ortho_3x3
