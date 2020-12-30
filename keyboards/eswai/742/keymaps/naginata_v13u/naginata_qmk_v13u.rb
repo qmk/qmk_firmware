@@ -267,7 +267,7 @@ end
 
 # 編集モード
 
-henshu = {
+$henshu = {
 "/*ディ*/"          => ["kana", "\"dexi\""],
 "？{改行}"      => ["kana"  , "\"?\"SS_TAP(X_ENTER)"],
 "！{改行}"      => ["kana"  , "\"!\"SS_TAP(X_ENTER)"],
@@ -341,92 +341,69 @@ mode2l = mode2l.split("|").map{|x| x.strip}
 mode2r = mode2r.split("|").map{|x| x.strip}
 
 
-hwin = []
-hmac = []
-uwin = []
-umac = []
+$hwin = []
+$hmac = []
+$uwin = []
+$umac = []
+$htate = []
+
+def outputHenshu(pk, m, k)
+  if $henshu[m][0] == "kana"
+    if ($henshu[m][1].include?("NGUP") || $henshu[m][1].include?("NGDN") || $henshu[m][1].include?("NGLT") || $henshu[m][1].include?("NGRT"))
+      $hwin << "//{.key = #{pk}|B_#{k}\t\t, .kana = #{$henshu[m][1]}}, // #{m}"
+      $htate << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{$henshu[m][1]}}, // #{m}"
+    else
+      $hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{$henshu[m][1]}}, // #{m}"
+      if $henshu[m][2]
+        $hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{$henshu[m][2]}}, // #{m}"
+      end
+    end
+  end
+  if $henshu[m][0] == "uc"
+    $uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{$henshu[m][1]}\",\t\t.mac = \"#{$henshu[m][2] || $henshu[m][1]}\"}, // #{m}"
+    $hwin << "//{.key = #{pk}|B_#{k}\t\t, .win   = \"#{$henshu[m][1]}\",\t\t.mac = \"#{$henshu[m][2] || $henshu[m][1]}\"}, // #{m}"
+  end
+  if $henshu[m][0] == "macro"
+    $hwin << "//{.key = #{pk}|B_#{k}\t\t, .macro , // #{m}"
+  end
+end
 
 qwerty.each_with_index do |k, i|
-  next unless henshu.key? mode1l[i]
+  next unless $henshu.key? mode1l[i]
   m =  mode1l[i]
   pk = "B_J|B_K"
-  if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
-    if henshu[m][2]
-      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
-    end
-  end
-  if henshu[m][0] == "uc"
-    uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-  end
-  if henshu[m][0] == "macro"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .macro , // #{m}"
-  end
+  outputHenshu(pk, m, k)
 end
 
 qwerty.each_with_index do |k, i|
-  next unless henshu.key? mode1r[i]
+  next unless $henshu.key? mode1r[i]
   m =  mode1r[i]
   pk = "B_D|B_F"
-  if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
-    if henshu[m][2]
-      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
-    end
-  end
-  if henshu[m][0] == "uc"
-    uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-  end
-  if henshu[m][0] == "macro"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .macro , // #{m}"
-  end
+  outputHenshu(pk, m, k)
 end
 
 qwerty.each_with_index do |k, i|
-  next unless henshu.key? mode2l[i]
+  next unless $henshu.key? mode2l[i]
   m =  mode2l[i]
   pk = "B_M|B_COMM"
-  if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
-    if henshu[m][2]
-      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
-    end
-  end
-  if henshu[m][0] == "uc"
-    uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-  end
-  if henshu[m][0] == "macro"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .macro , // #{m}"
-  end
+  outputHenshu(pk, m, k)
 end
 
 qwerty.each_with_index do |k, i|
-  next unless henshu.key? mode2r[i]
+  next unless $henshu.key? mode2r[i]
   m =  mode2r[i]
   pk = "B_C|B_V"
-  if henshu[m][0] == "kana"
-    hwin << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][1]}}, // #{m}"
-    if henshu[m][2]
-      hmac << "  {.key = #{pk}|B_#{k}\t\t, .kana = #{henshu[m][2]}}, // #{m}"
-    end
-  end
-  if henshu[m][0] == "uc"
-    uwin << "  {.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .win   = \"#{henshu[m][1]}\",\t\t.mac = \"#{henshu[m][2] || henshu[m][1]}\"}, // #{m}"
-  end
-  if henshu[m][0] == "macro"
-    hwin << "//{.key = #{pk}|B_#{k}\t\t, .macro , // #{m}"
-  end
+  outputHenshu(pk, m, k)
 end
 
 puts "// 編集モード Win/Linux"
-puts hwin
+puts $hwin
+
+puts "// 編集モード 縦横"
+puts $htate
 
 puts "// 編集モード Mac"
-puts hmac
+puts $hmac
 
 puts "// 編集モードunicode"
-puts uwin
+puts $uwin
