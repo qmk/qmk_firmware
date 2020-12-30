@@ -2,7 +2,7 @@
 
 65% with two macro clusters
 
-* Keyboard Maintainer: [kb-elmo<mail@elmo.space>](https://github.com/kb-elmo)
+* Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: Odelia PCB
 * Hardware Availability:
 
