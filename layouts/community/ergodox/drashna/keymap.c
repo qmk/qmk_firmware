@@ -512,6 +512,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 #endif  // RGB_MATRIX_INIT
 
+#ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
         if (mod_config(keycode & 0xf) & MOD_MASK_ALT) {
@@ -520,3 +521,4 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
     return TAPPING_TERM;
 }
+#endif

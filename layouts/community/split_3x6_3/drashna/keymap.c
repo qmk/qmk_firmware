@@ -129,6 +129,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 #endif
 
+#ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ALT_T(KC_A):
@@ -137,9 +138,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
-
 void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
