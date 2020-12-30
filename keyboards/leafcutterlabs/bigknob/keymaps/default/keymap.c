@@ -18,8 +18,7 @@ enum {
 
 void dance_rgb_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    register_code (KC_MEDIA_NEXT_TRACK);
-	unregister_code (KC_MEDIA_NEXT_TRACK);
+    tap_code(KC_MNXT);
   } else if (state->count == 2) {
     rgblight_toggle();
   } else if (state->count == 3) {
