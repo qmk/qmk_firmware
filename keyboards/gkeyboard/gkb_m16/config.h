@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER gkeyboard
 #define PRODUCT      GKB-M16
-#define DESCRIPTION  4x4 Custom Macro Pad with RGB underglow
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
