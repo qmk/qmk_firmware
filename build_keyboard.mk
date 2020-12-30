@@ -368,14 +368,8 @@ endif
 
 build: elf cpfirmware
 check-size: build
+check-md5: build
 objs-size: build
-build-for-compare: SKIP_GIT = yes
-build-for-compare: SKIP_VERSION = yes
-build-for-compare: SKIP_DEBUG_INFO = yes
-build-for-compare: build check-md5
-#	$(info SKIP_GIT=$(SKIP_GIT))
-#	$(info SKIP_VERSION=$(SKIP_VERSION))
-#	$(info SKIP_DEBUG_INFO=$(SKIP_DEBUG_INFO))
 
 include show_options.mk
 include $(TMK_PATH)/rules.mk
