@@ -1,6 +1,6 @@
 # BIGMAC
 
-![BIGMAC]
+![BIGMAC](https://imgur.com/a/4Znn8oD)
 
 A hand wired 5x17 ortholinear with a macro/num pad in the center
 Made by Taylore101 on github / thetlj on reddit
