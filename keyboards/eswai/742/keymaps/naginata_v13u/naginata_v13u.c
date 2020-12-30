@@ -590,6 +590,7 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
     eeconfig_update_user(user_config.raw);
   }
   ng_set_unicode_mode(user_config.os);
+  copyTYtable();
 }
 
 // 薙刀式をオン
@@ -715,19 +716,23 @@ void tategaki_toggle() {
   user_config.tategaki ^= 1;
   eeconfig_update_user(user_config.raw);
 
+  copyTYtable();
+}
+
+void copyTYtable() {
   memcpy_P(&ngmapl_ty, &ngmapl_tate, sizeof(ngmapl_ty));
 
-  for (int i = 0; i < sizeof(ngmapl_tate) / sizeof(ngmapl_tate[0]); i++) {
+  for (int i = 0; i < sizeof(ngmapl_ty) / sizeof(ngmapl_ty[0]); i++) {
     if (user_config.tategaki) {
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGUP), SS_TAP(X_UP));
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGDN), SS_TAP(X_DOWN));
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGLT), SS_TAP(X_LEFT));
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGRT), SS_TAP(X_RIGHT));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGUP), SS_TAP(X_UP));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGDN), SS_TAP(X_DOWN));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGLT), SS_TAP(X_LEFT));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGRT), SS_TAP(X_RIGHT));
     } else {
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGUP), SS_TAP(X_LEFT));
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGDN), SS_TAP(X_RIGHT));
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGLT), SS_TAP(X_DOWN));
-      replace(&(ngmapl_ty[i].kana), SS_TAP(NGRT), SS_TAP(X_UP));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGUP), SS_TAP(X_LEFT));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGDN), SS_TAP(X_RIGHT));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGLT), SS_TAP(X_DOWN));
+      replace(ngmapl_ty[i].kana, SS_TAP(NGRT), SS_TAP(X_UP));
     }
   }
 }
@@ -1111,7 +1116,7 @@ bool naginata_lookup(int nt, bool shifted) {
       }
       // 仮名ロング 縦横
       for (int i = 0; i < sizeof ngmapl_ty / sizeof bngmapl; i++) {
-        memcpy_P(&bngmapl, &ngmapl_ty[i], sizeof(bngmapl));
+        memcpy(&bngmapl, &ngmapl_ty[i], sizeof(bngmapl));
         if (keycomb_buf == bngmapl.key) {
           send_string(bngmapl.kana);
           compress_buffer(nt);
