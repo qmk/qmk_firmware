@@ -1,3 +1,27 @@
+# Custom mapping for the Drop Alt Keyboard.
+
+A really simple set of changes/fixes
+
+# Features and changes:
+
+## *ESC is now Grave Escape.*
+Changes KC_ESC for grave escape - Escape key is also `/~ when used with the modifier key.
+
+## *RGB timer switch off*
+
+There is a timer that turns off RGB lighting after a set time. This is defined by 
+
+    #define  IDLE_TIMER_DURATION  20000  //how many milliseconds before RGB turns off
+
+## *Keyboard chatter fix*
+
+I have left the debounce settings and instead changed
+
+    wait_us(1); //Delay for output
+to 20 instead of 1 which works for other keyboards as I was getting lots of keyboard chatter on all keys previously. Seems to be working well since.
+## ---
+~~also a really poorly implemented and not functional version of velocikey for rgb matrix that I'd rather not talk about.~~
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
