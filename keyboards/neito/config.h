@@ -17,7 +17,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xB9F7
-#define PRODUCT_ID      0x4F47 // "OG"
+#define PRODUCT_ID      0xB44C // "Neito"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Oliver Granlund
 #define PRODUCT         Neito
