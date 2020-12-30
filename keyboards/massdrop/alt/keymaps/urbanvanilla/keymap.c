@@ -43,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint32_t idle_timer; //custom timer to check if keyboard is idled.
 bool rgbkeyIdle = false; //flag for keyboard idling, nil keys for set
-//bool Jelocikey_toggle = false;
-//uint8_t currentWPM;
+bool Jelocikey_toggle = false;
+uint8_t currentWPM;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -134,12 +134,12 @@ idle_timer = timer_read();
                 rgb_matrix_enable_noeeprom();
             }
 
-/*             if (Jelocikey_toggle) {
+            if (Jelocikey_toggle) {
                 rgb_matrix_set_speed_noeeprom(3);
                 currentWPM = get_current_wpm();
                 rgb_matrix_set_speed_noeeprom(currentWPM);
                 rgb_matrix_set_color(13, 100, 255, 255);
-            } */
+            }
             return true; //Process all other keycodes normally
     }
 }
