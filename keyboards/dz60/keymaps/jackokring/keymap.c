@@ -122,6 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//User shift mode 10 ================================================================================= User shift mode 10
 	// Everythings apart from Fn can be defined.
+	// KC_A = 04, KC_Z = 29, KC_BSPC = 42, KC_ENT = 40
 	LAYOUT_60_ansi(
 		KC_GESC, KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_1,    KC_EQL,  KC_MINS,          KC_BSPC,
 		KC_TAB,           KC_U,    KC_A,    KC_R,    KC_E,    KC_H,    KC_O,    KC_T,    KC_N,    KC_U,    KC_E,    KC_RBRC, KC_LBRC, KC_SLSH,
@@ -179,6 +180,8 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 
+static bool my_state = false;
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Layers will light up if kb layers are active
 	bool t;
@@ -196,9 +199,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, t);
 	rgblight_set_layer_state(4, layer_state_cmp(state, 8));
 	rgblight_set_layer_state(5, layer_state_cmp(state, 9));
+	my_state = false;
 	if(layer_state_cmp(state, 10)) {
 		rgblight_blink_layer(2, 500);
 		rgblight_blink_layer(3, 500);
+		my_state = true;
 	}
     return state;
 }
@@ -209,4 +214,25 @@ bool led_update_user(led_t led_state) {
 	rgblight_set_layer_state(6, !led_state.num_lock);
 	rgblight_set_layer_state(7, led_state.scroll_lock);
     return true;
+}
+
+static uint16_t mod = 0;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	if(!my_state) return true;//not crypt
+	if((keycode == KC_BSPC || keycode == KC_ENT) && record->event.pressed)
+		mod = 0;//reset on BSPC or ENTER
+	if(keycode < KC_A || keycode > KC_Z || !record->event.pressed)
+		return true;//not crypt
+	//process simple enigma
+	mod = ((mod << 1) | (mod >> 15)) * keycode;
+	unregister_code(keycode);
+	keycode = mod & 31;//mask
+	keycode += KC_A;//apply logical offset
+	if(keycode > KC_Z) {
+		keycode -= (KC_Z - KC_J);//wrap and jump
+		mod *= keycode;//mix
+	}
+	register_code(keycode);
+	return true; // Process keycodes "normally"
 }
