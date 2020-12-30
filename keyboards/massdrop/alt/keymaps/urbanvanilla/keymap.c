@@ -140,6 +140,7 @@ idle_timer = timer_read();
                 rgb_matrix_set_speed_noeeprom(currentWPM);
                 rgb_matrix_set_color(13, 100, 255, 255);
             }
+            
             return true; //Process all other keycodes normally
     }
 }
