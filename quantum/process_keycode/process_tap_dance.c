@@ -169,7 +169,7 @@ void matrix_scan_tap_dance() {
 #ifdef TAPPING_TERM_PER_KEY
             tap_user_defined = get_tapping_term(action->state.keycode, NULL);
 #else
-            tap_user_defined = 200;
+            tap_user_defined = TAPPING_TERM;
 #endif
         }
         if (action->state.count && timer_elapsed(action->state.timer) > tap_user_defined) {
