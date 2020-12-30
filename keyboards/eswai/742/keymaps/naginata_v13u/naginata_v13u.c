@@ -525,7 +525,7 @@ const PROGMEM naginata_keymap_long ngmapl_tate[] = {
   {.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
 };
 
-static naginata_keymap_long ngmapl_ty[sizeof ngmapl_tate];
+static naginata_keymap_long ngmapl_ty[10];
 
 const PROGMEM naginata_keymap_long ngmapl_mac[] = {
 // 編集モード Mac
@@ -1116,9 +1116,8 @@ bool naginata_lookup(int nt, bool shifted) {
       }
       // 仮名ロング 縦横
       for (int i = 0; i < sizeof ngmapl_ty / sizeof bngmapl; i++) {
-        memcpy(&bngmapl, &ngmapl_ty[i], sizeof(bngmapl));
-        if (keycomb_buf == bngmapl.key) {
-          send_string(bngmapl.kana);
+        if (keycomb_buf == ngmapl_ty[i].key) {
+          send_string(ngmapl_ty[i].kana);
           compress_buffer(nt);
           return true;
         }
