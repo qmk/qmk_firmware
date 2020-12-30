@@ -158,7 +158,7 @@ void write_layer_state(void) {
             oled_write_P(PSTR("Undef-"), false);
             {
                 char s[3];
-                itoa(255, s, 16);
+                itoa(layer_state, s, 16);
                 oled_write(s, false);
             }
             break;
