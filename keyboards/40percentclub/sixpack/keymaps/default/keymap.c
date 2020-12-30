@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * '--------------------------'
      */
 
-    [0] = LAYOUT(/* Default */
+    [0] = LAYOUT_ortho_2x3(/* Default */
                  KC_MUTE, KC_UP,   KC_MPLY,
                  KC_LEFT, KC_DOWN, KC_RGHT),
 };
