@@ -99,7 +99,7 @@ Install the QMK CLI by running:
 
 On Arch-based distros you can install the CLI from the official repositories:
 
-`sudo pacman -S qmk`
+    sudo pacman -S qmk
 
 You can also try the `qmk` package from AUR (**NOTE**: this package at the time of writing marks some dependencies as optional that should not be):
 
