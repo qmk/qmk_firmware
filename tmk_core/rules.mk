@@ -207,7 +207,10 @@ REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
 SECHO = $(SILENT) || echo
-
+MD5SUM ?= md5sum
+ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
+  MD5SUM = md5
+endif
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
@@ -434,11 +437,6 @@ check-size:
 else
 check-size:
 	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
-endif
-
-MD5SUM ?= md5sum
-ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
-  MD5SUM = md5
 endif
 
 check-md5:
