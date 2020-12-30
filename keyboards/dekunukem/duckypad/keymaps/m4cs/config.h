@@ -1,17 +1,46 @@
+<<<<<<< HEAD
 #ifndef NO_DEBUG
 #define NO_DEBUG
 #endif // !NO_DEBUG
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINT
+=======
+/*
+
+M4cs Keymap for dekuNukem/duckyPad QMK firmware
+
+Copyright (C) 2020 Max Bridgland
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
 
+<<<<<<< HEAD
 #define OLED_TIMEOUT 180000
 #define RGB_DISABLE_TIMEOUT 179000
 
 #define TAPPING_TERM 200
+=======
+#define OLED_TIMEOUT 90000
+#define RGB_DISABLE_TIMEOUT 90000
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 #define MT_0_0 " prev "
 #define MT_0_1 " pl/pa"

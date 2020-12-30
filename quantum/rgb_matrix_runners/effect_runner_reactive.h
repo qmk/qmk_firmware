@@ -20,7 +20,7 @@ bool effect_runner_reactive(effect_params_t* params, reactive_f effect_func) {
         }
 
         uint16_t offset = scale16by8(tick, rgb_matrix_config.speed);
-        RGB      rgb    = hsv_to_rgb(effect_func(rgb_matrix_config.hsv, offset));
+        RGB      rgb    = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, offset));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < DRIVER_LED_TOTAL;

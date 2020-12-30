@@ -1,9 +1,33 @@
+<<<<<<< HEAD
 #include "duckypad.h"
 
 #include "stdio.h"
 
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
+=======
+/*
+
+QMK Firmware for dekuNukem/duckyPad
+
+Copyright (C) 2020 Anthony Som
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "duckypad.h"
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 led_config_t g_led_config = { {
     { 2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12, NO_LED, NO_LED }
@@ -27,13 +51,21 @@ led_config_t g_led_config = { {
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 } };
 
+<<<<<<< HEAD
 #endif
 
+=======
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 void keyboard_pre_init_kb(void) {
     setPinOutput(A0);
     writePinHigh(A0);
     writePinLow(A0);
     wait_ms(10);
     writePinHigh(A0);
+<<<<<<< HEAD
     rgb_matrix_toggle_noeeprom();
+=======
+
+    keyboard_pre_init_user();
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 }

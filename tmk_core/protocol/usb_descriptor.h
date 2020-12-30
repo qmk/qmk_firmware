@@ -40,13 +40,13 @@
  *
  *  Header file for Descriptors.c.
  */
-#ifndef _DESCRIPTORS_H_
-#define _DESCRIPTORS_H_
+
+#pragma once
 
 #include <LUFA/Drivers/USB/USB.h>
 
 #ifdef PROTOCOL_CHIBIOS
-#    include "hal.h"
+#    include <hal.h>
 #endif
 
 /*
@@ -204,8 +204,12 @@ enum usb_endpoints {
 #endif
 
 #ifdef RAW_ENABLE
-    RAW_IN_EPNUM  = NEXT_EPNUM,
+    RAW_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+#        define RAW_OUT_EPNUM RAW_IN_EPNUM
+#    else
     RAW_OUT_EPNUM = NEXT_EPNUM,
+#    endif
 #endif
 
 #ifdef SHARED_EP_ENABLE
@@ -216,28 +220,44 @@ enum usb_endpoints {
     CONSOLE_IN_EPNUM = NEXT_EPNUM,
 
 #    ifdef PROTOCOL_CHIBIOS
-    // ChibiOS has enough memory and descriptor to actually enable the endpoint
-    // It could use the same endpoint numbers, as that's supported by ChibiOS
-    // But the QMK code currently assumes that the endpoint numbers are different
+// ChibiOS has enough memory and descriptor to actually enable the endpoint
+// It could use the same endpoint numbers, as that's supported by ChibiOS
+// But the QMK code currently assumes that the endpoint numbers are different
+#        if STM32_USB_USE_OTG1
+#            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
+#        else
     CONSOLE_OUT_EPNUM = NEXT_EPNUM,
+#        endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #    endif
 #endif
 
 #ifdef MIDI_ENABLE
-    MIDI_STREAM_IN_EPNUM  = NEXT_EPNUM,
+    MIDI_STREAM_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+#        define MIDI_STREAM_OUT_EPNUM MIDI_STREAM_IN_EPNUM
+#    else
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
+#    endif
 #endif
 
 #ifdef VIRTSER_ENABLE
     CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
     CDC_IN_EPNUM           = NEXT_EPNUM,
-    CDC_OUT_EPNUM          = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+#        define CDC_OUT_EPNUM CDC_IN_EPNUM
+#    else
+    CDC_OUT_EPNUM = NEXT_EPNUM,
+#    endif
 #endif
 #ifdef JOYSTICK_ENABLE
-    JOYSTICK_IN_EPNUM  = NEXT_EPNUM,
+    JOYSTICK_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+    JOYSTICK_OUT_EPNUM = JOYSTICK_IN_EPNUM,
+#    else
     JOYSTICK_OUT_EPNUM = NEXT_EPNUM,
+#    endif
 #endif
 };
 
@@ -266,4 +286,3 @@ enum usb_endpoints {
 #define JOYSTICK_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
-#endif

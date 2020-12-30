@@ -16,12 +16,19 @@ To change the menu, edit the `MT_X_XX` values in `config.h`. The sytax is as fol
 
 The macros currently just map to Ctrl + Alt + (Different Keys) right now. I have them launching certain shortcuts. I recommend you change these and add your shortcuts to match your shortcut manager.
 
+<<<<<<< HEAD
 To get sysinfo working, run `pip3 install psutil GPUtil` and then `python sysinfo.py`. Now when pressing the bottom right key, you will get an info screen with your updated system info.
 
+=======
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 ### Need Help?
 
 Contact me on discord: macs#0420
 
 or join the duckyPad Discord and find me in there :)
 
+<<<<<<< HEAD
 https://discord.gg/ADtrCjf
+=======
+https://discord.gg/ADtrCjf
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325

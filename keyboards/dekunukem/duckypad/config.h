@@ -1,3 +1,26 @@
+<<<<<<< HEAD
+=======
+/*
+
+QMK Firmware for dekuNukem/duckyPad
+
+Copyright (C) 2020 Max Bridgland <@M4cs>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 #pragma once
 
 #include "config_common.h"
@@ -7,7 +30,10 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER dekuNukem
 #define PRODUCT duckyPad
+<<<<<<< HEAD
 #define DESCRIPTION Open Source Keypad
+=======
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 17
@@ -31,8 +57,13 @@
 #define I2C1_SDA_PAL_MODE 1
 
 #define I2C1_OPMODE OPMODE_I2C
+<<<<<<< HEAD
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+=======
+#define I2C1_CLOCK_SPEED 100000
+#define I2C1_DUTY_CYCLE STD_DUTY_CYCLE
+>>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 #define OLED_DISPLAY_ADDRESS 0x3C
 #define OLED_DISPLAY_128X64
