@@ -438,7 +438,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
     }
+#ifdef VIAL_ENABLE
 skip:
+#endif
     // Return the same buffer, optionally with values changed
     // (i.e. returning state to the host, or the unhandled state).
     raw_hid_send(data, length);
