@@ -440,7 +440,7 @@ check-size:
 endif
 
 check-md5:
-	$(MD5SUM_CMD) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)
+	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)
 
 # Create build directory
 $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
