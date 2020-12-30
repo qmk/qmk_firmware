@@ -187,6 +187,8 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 
 ## Lighting Layers
 
+**Note:** Lighting Layers is an RGB Backlight feature, it will not work for RGB Matrix implementations without custom code.
+
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
