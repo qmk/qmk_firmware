@@ -1,31 +1,3 @@
-
-# Custom mapping for the Drop Alt Keyboard.
-
-A really simple set of changes/fixes
-
-# Features and changes:
-
-## *ESC is now Grave Escape.*
-Changes KC_ESC for grave escape - Escape key is also `/~ when used with the modifier key.
-
-## *RGB timer switch off*
-
-There is a timer that turns off RGB lighting after a set time. This is defined by 
-
-    #define  IDLE_TIMER_DURATION  20000  //how many milliseconds before RGB turns off
-
-## *Keyboard chatter fix*
-
-I have left the debounce settings and instead changed
-
-    wait_us(1); //Delay for output
-to 20 instead of 1 which works for other keyboards as I was getting lots of keyboard chatter on all keys previously. Seems to be working well since.
-
-
-
-
-
-
 # ALT
 
 ![ALT](https://massdrop-s3.imgix.net/product-images/alt-keyboard/FP/WNxwR19gTua3nxiiQWP3_AI7B3311%20copy%20page.jpg?auto=format&fm=jpg&fit=max&w=700&h=467&dpr=1&q=80)
