@@ -10,6 +10,7 @@ Currently QMK supports the following addressable LEDs (however, the white LED in
 
  * WS2811, WS2812, WS2812B, WS2812C, etc.
  * SK6812, SK6812MINI, SK6805
+ * APA102
 
 These LEDs are called "addressable" because instead of using a wire per color, each LED contains a small microchip that understands a special protocol sent over a single wire. The chip passes on the remaining data to the next LED, allowing them to be chained together. In this way, you can easily control the color of the individual LEDs.
 
@@ -21,11 +22,19 @@ On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is n
 RGBLIGHT_ENABLE = yes
 ```
 
-At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
+For APA102 LEDs, add the following to your `rules.mk`:
+
+```make
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_DRIVER = APA102
+```
+
+At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
 
 |Define         |Description                                                                                              |
 |---------------|---------------------------------------------------------------------------------------------------------|
 |`RGB_DI_PIN`   |The pin connected to the data pin of the LEDs                                                            |
+|`RGB_CI_PIN`   |The pin connected to the clock pin of the LEDs (APA102 only)                                             |
 |`RGBLED_NUM`   |The number of LEDs connected                                                                             |
 |`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half directly wired to `RGB_DI_PIN` |
 
