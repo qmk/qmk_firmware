@@ -531,10 +531,6 @@ const PROGMEM uchar console_hid_report[] = {
 };
 #endif
 
-#ifndef SERIAL_NUMBER
-#    define SERIAL_NUMBER 0
-#endif
-
 #ifndef USB_MAX_POWER_CONSUMPTION
 #    define USB_MAX_POWER_CONSUMPTION 500
 #endif
@@ -569,6 +565,7 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
     .bString             = LSTR(PRODUCT)
 };
 
+#if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
         .bLength         = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1),
@@ -576,6 +573,7 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     },
     .bString             = LSTR(SERIAL_NUMBER)
 };
+#endif
 
 /*
  * Device descriptor
@@ -595,7 +593,11 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
     .bcdDevice           = DEVICE_VER,
     .iManufacturer       = 0x01,
     .iProduct            = 0x02,
+#if defined(SERIAL_NUMBER)
     .iSerialNumber       = 0x03,
+#else
+    .iSerialNumber       = 0x00,
+#endif
     .bNumConfigurations  = 1
 };
 
@@ -678,7 +680,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bcdHID              = 0x0101,
         .bCountryCode        = 0x00,
-        .bNumDescriptors     = 2,
+        .bNumDescriptors     = 1,
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(raw_hid_report)
     },
@@ -821,10 +823,12 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorProduct;
                     len       = usbStringDescriptorProduct.header.bLength;
                     break;
+#if defined(SERIAL_NUMBER)
                 case 3:  // iSerialNumber
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorSerial;
                     len       = usbStringDescriptorSerial.header.bLength;
                     break;
+#endif
             }
             break;
         case USBDESCR_HID:
