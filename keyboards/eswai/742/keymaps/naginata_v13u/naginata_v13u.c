@@ -526,7 +526,7 @@ const PROGMEM naginata_keymap_long ngmapl_mac[] = {
   {.key = B_D|B_F|B_SLSH		, .kana = SS_LCTL("j")}, // ^u
   {.key = B_M|B_COMM|B_E		, .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_LCTL("e")}, // {Home}{改行}{Space 3}{End}
   {.key = B_M|B_COMM|B_R		, .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_LCTL("e")}, // {Home}{改行}{Space 1}{End}
-  {.key = B_C|B_V|B_Y		, .kana = SS_LSFT(SS_LCTL(SS_TAP(NGUP)))}, // +{Home}
+  {.key = B_C|B_V|B_Y		, .kana = SS_LSFT(SS_LCTL("a"))}, // +{Home}
   {.key = B_C|B_V|B_U		, .kana = SS_LCMD("x")}, // ^x
   {.key = B_C|B_V|B_I		, .kana = SS_LCMD("v")}, // ^v
   {.key = B_C|B_V|B_O		, .kana = SS_LCMD("y")}, // ^y
