@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER CannonKeys
 #define PRODUCT Onyx
-#define DESCRIPTION Onyx Keyboard
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 19
 
