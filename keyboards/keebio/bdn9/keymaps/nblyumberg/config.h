@@ -15,7 +15,24 @@
  */
 #pragma once
 
-#define ENCODER_DIRECTION_FLIP
 
-#undef RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_EFFECT_BREATHING // Only have Breathing Animation
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
+#define TAP_CODE_DELAY 10
+
+// Time out one shot layers after 3 seconds
+#define ONESHOT_TIMEOUT 3000
+
+
+// Undef and redefine default brightness to half of 255
+#undef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 128
+
+
+//Define a preview timeout for RGB reviews
+#define PREVIEW_TIMEOUT 5000
+
+// Enable Light Layers implementation
+#define RGBLIGHT_LAYERS
+// Allow Light Layers to override RGB off configuration
+#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF

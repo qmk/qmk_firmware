@@ -16,25 +16,21 @@
 
 #include QMK_KEYBOARD_H
 
-
 /**
  * Layer Names
  */
 enum bdn9_layers {
     BASE = 0,
-    APP1,
-    APP2,
-    APP3,
-    APP4,
-    APP5,
-    APP6,
     ADJUST
 };
 
-enum bdn9_keycodes {
-    KC_TEST = KEYMAP_SAFE_RANGE,
-    KC_TEST1,
-    KC_TEST2
+/**
+ * Encoder Names
+ */
+enum encoder_names {
+  _LEFT,
+  _RIGHT,
+  _MIDDLE,
 };
 
 
@@ -42,18 +38,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         Layer: Base
         ┌───────────┐  ┌───────────┐
-        │   Items   │  │    Subs   │
-        │  Prv  Nxt │  │  Prv  Nxt │
+        │   LEnc    │  │    REnc   │
+        │  Prev Nxt │  │ Vol- Vol+ │
         ├────────┬──┴──┴──┬────────┤
-        │ VwBrsw │  Star  │  Sync  │
+        │Ply/Pau │ Layer1 │  Mute  │  //Top Row
         ├────────┼────────┼────────┤
-        │ CmdTab │ TgRead │  Clear │
+        │ ?????? │ ?????? │  ????? │  //Mid Row
         ├────────┼────────┼────────┤
-        │ VwStard│ VwUnrd │  VwAll │
+        │ ???????│ ?????? │  ????? │  //Bottom Row
         └────────┴────────┴────────┘
      */
     [BASE] = LAYOUT(
-        KC_MPLY, RESET, KC_MUTE,
+        KC_MPLY, TG(1), KC_MUTE,
         KC_A, KC_B, KC_C,
         KC_D, KC_E, KC_F
     ),
@@ -70,244 +66,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │  Left  │  Spce  │  Rght  │
         └────────┴────────┴────────┘
      */
-    [APP1] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
-    ),
-    /*
-        Layer: Navigation
-        ┌───────────┐  ┌───────────┐
-        │  Scroll   │  │    Tab    │
-        │  Up   Dn  │  │  Prv  Nxt │
-        ├────────┬──┴──┴──┬────────┤
-        │ ReOTab │ CmdTab │ ClsTab │
-        ├────────┼────────┼────────┤
-        │  PgDn  │   Up   │  PgUp  │
-        ├────────┼────────┼────────┤
-        │  Left  │  Down  │  Rght  │
-        └────────┴────────┴────────┘
-     */
-    [APP2] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
-    ),
-    /*
-        Layer: Macro/Karabiner
-        ┌───────────┐  ┌───────────┐
-        │           │  │           │
-        │   -    +  │  │   .    =  │
-        ├────────┬──┴──┴──┬────────┤
-        │    1   │    2   │    3   │
-        ├────────┼────────┼────────┤
-        │    4   │    5   │    6   │
-        ├────────┼────────┼────────┤
-        │    7   │    8   │    9   │
-        └────────┴────────┴────────┘
-     */
-    [APP2] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
-    ),
-    /*
-        Layer: Lightroom Navigation
-        ┌───────────┐  ┌───────────┐
-        │ Thumbnail │  │ Scrl Grid │
-        │ Dec   Inc │  │ Up     Dn │
-        ├────────┬──┴──┴──┬────────┤
-        │ TgRevw │CylGrdVw│ TgEdit │
-        ├────────┼────────┼────────┤
-        │  Start │   Up   │  End   │
-        ├────────┼────────┼────────┤
-        │  Left  │  Down  │  Rght  │
-        └────────┴────────┴────────┘
-     */
-    [APP3] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
-    ),
-    /*
-        Layer: Review/Rate
-        ┌───────────┐  ┌───────────┐
-        │   Stars   │  │   Flag    │
-        │ Dec   Inc │  │ Dec   Inc │
-        ├────────┬──┴──┴──┬────────┤
-        │ TgLNav │ Yellow │ TgEdit │
-        ├────────┼────────┼────────┤
-        │ NoStar │  Green │ UnFlag │
-        ├────────┼────────┼────────┤
-        │  Left  │  Blue  │  Rght  │
-        └────────┴────────┴────────┘
-     */
-    [APP4] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
-    ),
-    /*
-        Layer: Edit/Develop
-        ┌───────────┐  ┌───────────┐
-        │  Sliders  │  │   Value   │
-        │ Prv   Nxt │  │ Dec   Inc │
-        ├────────┬──┴──┴──┬────────┤
-        │ TgRevw │ Bf/Aft │ TgLNav │
-        ├────────┼────────┼────────┤
-        │ FlgRjt │  Undo  │ FlgPkd │
-        ├────────┼────────┼────────┤
-        │  Left  │  Redo  │  Rght  │
-        └────────┴────────┴────────┘
-     */
-    [APP5] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
-    ),
-    /*
-        Layer: Light
-        ┌───────────┐  ┌───────────┐
-        │  RGB Hue  │  │  RGB Sat  │
-        │ Prv   Nxt │  │ Dec   Inc │
-        ├────────┬──┴──┴──┬────────┤
-        │ RGBTgl │  Val+  │ TgLNav │
-        ├────────┼────────┼────────┤
-        │  Mode- │  Val-  │  Mode+ │
-        ├────────┼────────┼────────┤
-        │ LyrTgl │ NxtThm │  XXXX  │
-        └────────┴────────┴────────┘
-     */
-    [APP6] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
-    ),
-    /*
-        Layer: ADJUST
-        ┌───────────┐  ┌───────────┐
-        │    XXXX   │  │   XXXX    │
-        │           │  │           │
-        ├────────┬──┴──┴──┬────────┤
-        │  MAKE  │ Reeder │  Light │
-        ├────────┼────────┼────────┤
-        │  Media │  Navi  │  Macro │
-        ├────────┼────────┼────────┤
-        │ LR Rvw │ LR Nav │ LR Edt │
-        └────────┴────────┴────────┘
-     */
     [ADJUST] = LAYOUT(
-        KC_MPLY, KC_S, KC_MUTE,
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
+        KC_MPLY, _______, KC_MUTE,
+        KC_U, RESET, KC_W,
+        KC_X, KC_Y, KC_Z
     ),
 };
 
-void keyboard_post_init_keymap(void){
-    // Debug to Console by default
-    debug_enable = true;
+
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Allow for a preview of changes when modifying RGB
+# if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
+  switch (keycode) {
+    case RGB_TOG ... VLK_TOG:
+      for (uint8_t i = 0; i < RGBLIGHT_MAX_LAYERS; i++) {
+        rgblight_set_layer_state(i, false);
+      }
+      rgb_preview_timer = timer_read32();
+      break;
+  }
+# endif
+  return;
 }
 
 /**
  * Encoder
  */
-const uint16_t PROGMEM encoders[][2][2] = {
-    [BASE] = {{ KC_MPRV, KC_MNXT }, { KC_VOLD, KC_VOLU }},
-    [APP1] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }},
-    [APP2] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }},
-    [APP3] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }},
-    [APP4] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }},
-    [APP5] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }},
-    [APP6] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }},
-    [ADJUST] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }}
-};
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t layer = get_highest_layer(layer_state);
-
-    switch (layer) {
-        case BASE:
-            switch (index) {
-                case 0:
-                    if (clockwise) {
-                        tap_code(KC_MPRV);
-                    } else {
-                        tap_code(KC_MNXT);
-                    }
-                    break;
-                case 1:
-                    if (clockwise) {
-                        tap_code(KC_VOLD);
-                    } else {
-                        tap_code(KC_VOLU);
-                    }
-                    break;
-            }
-        case ADJUST:
-            switch (index) {
-                case 0:
-                    if (clockwise) {
-                        rgblight_increase_hue();
-                    } else {
-                        rgblight_decrease_hue();
-                    }
-                    break;
-                case 1:
-                    if (clockwise) {
-                        rgblight_increase_sat();
-                    } else {
-                        rgblight_decrease_sat();
-                    }
-                    break;
-            }
-            break;
-        case APP1:
-
-            break;
-        case APP2:
-
-            break;
-        case APP3:
-
-            break;
-        case APP4:
-
-            break;
-        case APP5:
-
-            break;
-        case APP6:
-
-            break;
-        default:
-            break;
+    if (index == _LEFT) {
+        if (clockwise) {
+            tap_code(KC_A);
+        } else {
+            tap_code(KC_B);
+        }
+    }
+    else if (index == _MIDDLE) {
+        if (clockwise) {
+            tap_code(KC_X);
+        } else {
+            tap_code(KC_Y);
+        }
+    }
+    else if (index == _RIGHT) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
     }
 }
-
-/**
- * Keycodes
- */
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_TEST:
-            if (!record->event.pressed) {
-                tap_code(KC_G);
-                layer_move(APP1);
-            }
-            break;
-        case KC_TEST1:
-            if (!record->event.pressed) {
-                tap_code(KC_E);
-                layer_move(APP2);
-            }
-            break;
-        case KC_TEST2:
-            if (!record->event.pressed) {
-                tap_code(KC_D);
-                layer_move(APP3);
-            }
-            break;
-    }
-    return true;
-}
-
