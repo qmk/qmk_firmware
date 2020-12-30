@@ -36,7 +36,7 @@ enum {
     vial_get_def = 0x02,
     vial_get_encoder = 0x03,
     vial_set_encoder = 0x04,
-    vial_get_lock = 0x05,
+    vial_get_unlock_status = 0x05,
     vial_unlock_start = 0x06,
     vial_unlock_poll = 0x07,
     vial_lock = 0x08,
