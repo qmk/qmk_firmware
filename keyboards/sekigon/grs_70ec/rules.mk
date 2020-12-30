@@ -1,8 +1,3 @@
-
-CUSTOM_MATRIX = lite
-SRC += analog.c ec_switch_matrix.c matrix.c
-SPLIT_KEYBOARD = yes
-
 # MCU name
 MCU = atmega32u4
 
@@ -25,3 +20,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+CUSTOM_MATRIX = lite
+SPLIT_KEYBOARD = yes
+
+SRC += analog.c ec_switch_matrix.c matrix.c
