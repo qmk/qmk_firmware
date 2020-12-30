@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*
 
 QMK Firmware for dekuNukem/duckyPad
@@ -20,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 #pragma once
 
 #include "config_common.h"

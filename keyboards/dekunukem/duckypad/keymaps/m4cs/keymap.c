@@ -21,22 +21,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "stdio.h"
-<<<<<<< HEAD
 #include "raw_hid.h"
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-=======
-#include <unistd.h>
-#include <string.h>
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 #define LOGO_SIZE 384
 
 bool rgbToggled = false;
 bool altToggled = false;
-<<<<<<< HEAD
 bool sysToggled = false;
 
 enum layer_codes {
@@ -51,19 +45,6 @@ enum my_keycodes {
     Z3, Z4, Z5, \
     Z6, Z7, Z8, \
     Z9, Z10, Z11, \
-=======
-
-enum layer_codes {
-  RGB_LAYER = SAFE_RANGE,
-  ALT_LAYER
-};
-
-enum my_keycodes {
-    Z0 = SAFE_RANGE, Z1, Z2,
-    Z3, Z4, Z5,
-    Z6, Z7, Z8,
-    Z9, Z10, Z11,
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
     Z12, Z13, Z14
 };
 
@@ -90,7 +71,6 @@ enum my_keycodes {
 #define _DEFAULT 0
 #define _RGB 1
 #define _ALT 2
-<<<<<<< HEAD
 #define _SYS 3
 
 float cpuFreq = 0;
@@ -99,8 +79,6 @@ int gpuLoad = 0;
 int temp = 0;
 int hour = 0;
 int minute = 0;
-=======
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -114,11 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |=========================================|
   | Macro 4     | Macro 5     | Macro 6     |
   |=========================================| ,---------------------.
-<<<<<<< HEAD
   | Macro 7     | Macro 8     | Sys. Info   | | RGB Menu | Alt Menu |
-=======
-  | Macro 7     | Macro 8     | Macro 9     | | RGB Menu | Alt Menu |
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
   `=========================================' `--------------------'
   */
   [_DEFAULT] = LAYOUT(
@@ -126,11 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,
       MAC_1, MAC_2, MAC_3,
       MAC_4, MAC_5, MAC_6,
-<<<<<<< HEAD
       CLOCK_TOGGLE, MAC_8, SYS_LAYER,
-=======
-      MAC_7, MAC_8, MAC_9,
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
       RGB_LAYER, ALT_LAYER
   ),
   /*
@@ -164,11 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |=========================================|
   | Macro 13    | Macro 14    | Macro 15    |
   |=========================================| ,----------------------.
-<<<<<<< HEAD
   | Macro 16    | Macro 17    | Sys. Info   | | Norm Menu | Alt Menu |
-=======
-  | Macro 16    | Macro 17    | Macro 18    | | Norm Menu | Alt Menu |
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
   `=========================================' `---------------------'
   */
   [_ALT] = LAYOUT(
@@ -176,7 +142,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_UNDO, KC_CUT, KC_COPY,
       KC_PASTE, KC_FIND, KC_PSCR,
       MAC_13, MAC_14, MAC_15,
-<<<<<<< HEAD
       CLOCK_TOGGLE, MAC_17, SYS_LAYER,
       RGB_LAYER, ALT_LAYER
   ),
@@ -186,9 +151,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO, KC_NO, KC_NO,
       KC_NO, KC_NO, KC_NO,
       CLOCK_TOGGLE, KC_NO, SYS_LAYER,
-=======
-      MAC_16, MAC_17, MAC_18,
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
       RGB_LAYER, ALT_LAYER
   )
 };
@@ -203,15 +165,9 @@ static void render_logo(void) {
 }
 
 char* make_menu_text(void){
-<<<<<<< HEAD
   char *s = malloc((30 * 4) * sizeof(*s));
   int width = 3;
   snprintf(s, 120, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
-=======
-  char *s = malloc((30 * 3) * sizeof(*s));
-  int width = 3;
-  sprintf(s, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
     width, MT_0_0, width, MT_0_1, width, MT_0_2,
     width, MT_0_3, width, MT_0_4, width, MT_0_5,
     width, MT_0_6, width, MT_0_7, width, MT_0_8,
@@ -222,17 +178,10 @@ char* make_menu_text(void){
 };
 
 char* make_rgb_text(void){
-<<<<<<< HEAD
   char *s = malloc((30 * 4) * sizeof(*s));
   int width = 3;
   snprintf(
     s, 120, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
-=======
-  char *s = malloc((30 * 3) * sizeof(*s));
-  int width = 3;
-  sprintf(
-    s, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
     width, MT_1_0, width, MT_1_1, width, MT_1_2,
     width, MT_1_3, width, MT_1_4, width, MT_1_5,
     width, MT_1_6, width, MT_1_7, width, MT_1_8,
@@ -243,17 +192,10 @@ char* make_rgb_text(void){
 };
 
 char* make_alt_text(void){
-<<<<<<< HEAD
   char *s = malloc((30 * 4) * sizeof(*s));
   int width = 3;
   snprintf(
     s,  120, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
-=======
-  char *s = malloc((30 * 3) * sizeof(*s));
-  int width = 3;
-  sprintf(
-    s, "%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s\n%-*s %-*s %-*s",
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
     width, MT_2_0, width, MT_2_1, width, MT_2_2,
     width, MT_2_3, width, MT_2_4, width, MT_2_5,
     width, MT_2_6, width, MT_2_7, width, MT_2_8,
@@ -263,7 +205,6 @@ char* make_alt_text(void){
   return s;
 };
 
-<<<<<<< HEAD
 char* make_sys_info_text(void) {
   char *s = malloc((30 * 5) * sizeof(*s));
   snprintf(s, 150, "    cpu: %.1fGHz\n      mem: %d%%\n      gpu: %d%%\n     temp: %dC\n    time: %d:%d", cpuFreq, memPerc, gpuLoad, temp, hour, minute);
@@ -345,25 +286,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         free(s);
     }
 };
-=======
-void oled_task_user(void) {
-  render_logo();
-  oled_set_cursor(0,3);
-  if (rgbToggled) {
-    char *s = make_rgb_text();
-    oled_write_ln_P(s, false);
-    free(s);
-  } else if (altToggled) {
-    char *s = make_alt_text();
-    oled_write_ln_P(s, false);
-    free(s);
-  } else {
-    char *s = make_menu_text();
-    oled_write_ln_P(s, false);
-    free(s);
-  }
-}
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -372,19 +294,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (rgbToggled) {
           rgbToggled = false;
           altToggled = false;
-<<<<<<< HEAD
           sysToggled = false;
           oled_clear();
-=======
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
           layer_clear();
         } else {
           rgbToggled = true;
           altToggled = false;
-<<<<<<< HEAD
           sysToggled = false;
-=======
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
           layer_on(_RGB);
         }
       }
@@ -394,24 +310,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (altToggled) {
           rgbToggled = false;
           altToggled = false;
-<<<<<<< HEAD
           sysToggled = false;
           oled_clear();
           layer_clear();
         } else {
           rgbToggled = false;
           sysToggled = false;
-=======
-          layer_clear();
-        } else {
-          rgbToggled = false;
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
           altToggled = true;
           layer_on(_ALT);
         }
       }
       return false;
-<<<<<<< HEAD
     case SYS_LAYER:
         if (record->event.pressed) {
             if (sysToggled) {
@@ -427,14 +336,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_SYS);
             }
         }
-=======
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
     default:
       return true;
   }
   return false;
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325

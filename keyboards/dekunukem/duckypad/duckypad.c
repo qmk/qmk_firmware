@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-#include "duckypad.h"
-
-#include "stdio.h"
-
-#ifdef RGB_MATRIX_ENABLE
-#include "rgb_matrix.h"
-=======
 /*
 
 QMK Firmware for dekuNukem/duckyPad
@@ -27,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "duckypad.h"
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 led_config_t g_led_config = { {
     { 2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12, NO_LED, NO_LED }
@@ -51,21 +42,12 @@ led_config_t g_led_config = { {
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 } };
 
-<<<<<<< HEAD
-#endif
-
-=======
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 void keyboard_pre_init_kb(void) {
     setPinOutput(A0);
     writePinHigh(A0);
     writePinLow(A0);
     wait_ms(10);
     writePinHigh(A0);
-<<<<<<< HEAD
-    rgb_matrix_toggle_noeeprom();
-=======
 
     keyboard_pre_init_user();
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 }
