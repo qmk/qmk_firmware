@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -224,16 +240,14 @@ void rgb_matrix_indicators_user(void) {
     is_ez = true;
 #    endif
 
-    if (userspace_config.rgb_layer_change &&
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#    endif
+    if (g_suspend_state || !rgb_matrix_config.enable) return;
+
 #    if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
+    if (!userspace_config.rgb_layer_change)
 #    else
-        rgb_matrix_config.enable
+    if (userspace_config.rgb_layer_change)
 #    endif
-    ) {
+    {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
@@ -297,6 +311,7 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21);
             break;
     }
+
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
         if (!layer_state_cmp(layer_state, _ADJUST)) {
             rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);

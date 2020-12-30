@@ -130,7 +130,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCING_DELAY) {
+    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             matrix[row] = 0;
             for (int col = 0; col < MATRIX_COLS; col++) {

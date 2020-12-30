@@ -16,8 +16,9 @@ Make example for this keyboard (after setting up your build environment):
 
 If you would like to use one of the alternative controllers:
 
-    make atreus/astar:default:avrdude
-    make atreus/teensy2:default:teensy
+    make atreus/astar:default:flash
+    make atreus/teensy2:default:flash
+    make atreus/promicro:default:flash
 
 If your keyboard layout is a mirror image of what you expected (i.e. you do not get QWERTY on the left but YTREWQ on the right), then you have an A-Star powered Atreus (older than March 2016) with PCB labels facing *down* instead of up. Specify that by adding `PCBDOWN=yes` to your `make` commands, e.g.
 

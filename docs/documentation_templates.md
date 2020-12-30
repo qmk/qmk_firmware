@@ -2,7 +2,7 @@
 
 This page documents the templates you should use when submitting new Keymaps and Keyboards to QMK.
 
-## Keymap `readme.md` Template
+## Keymap `readme.md` Template :id=keyboard-readmemd-template
 
 Most keymaps have an image depicting the layout. You can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to create an image. Upload it to [Imgur](http://imgur.com) or another hosting service, please do not include images in your Pull Request.
 

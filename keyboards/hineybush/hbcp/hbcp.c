@@ -67,6 +67,15 @@ void led_set_kb(uint8_t usb_led) {
   led_set_user(usb_led);
 }
 
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+  rgblight_enable(); // Enable RGB by default
+  rgblight_sethsv(0, 255, 128);  // Set default HSV - red hue, full saturation, medium brightness
+  rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
+
+  eeconfig_update_kb(0);
+  eeconfig_init_user();
+}
+
 #ifdef RGBLIGHT_ENABLE
 
 __attribute__ ((weak))

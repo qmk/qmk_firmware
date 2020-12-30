@@ -2,7 +2,6 @@
     "keyboard_name": "wilba.tech WT75-A", 
     "url": "https://wilba.tech", 
     "maintainer": "Wilba", 
-    "bootloader": "atmel-dfu", 
     "width": 16, 
     "height": 6, 
     "layouts": {

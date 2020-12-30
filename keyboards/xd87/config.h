@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x7844   // "XD"
+#define PRODUCT_ID      0x8787
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
 #define PRODUCT         XD87 TKL
@@ -53,6 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN D0
 // #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_ON_STATE 0
 
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN

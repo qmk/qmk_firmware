@@ -48,8 +48,6 @@ void led_set_user(uint8_t usb_led){
     } else {
         //set to Hi-Z
         setPinInput(B0);
-        writePinLow(B0);
         setPinInput(D5);
-        writePinLow(D5);
     }
 }

@@ -4,8 +4,7 @@ A layout based on the
 */
 
 
-#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
-#include "planck.h"
+#include QMK_KEYBOARD_H
 #include "nqn-keys-on-quertz-de-latin1.h"
 #include "nqn-basic-layout.h"
 
@@ -35,12 +34,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | CTLR | GUI  | ALT  | L05  | L04  | SPACE| SPACE| L04  | L05  | ALTGR| LFN  | CTLR |
  * `-----------------------------------------------------------------------------------'
  */
-[L01] = {
-  {KC_ESC,                 L01_LEFT_01,                                 L01_RIGHT_01,                 KC_ENTER},
-  {MO(L03),                L01_LEFT_02,                                 L01_RIGHT_02,                 MO(L03)},
-  {KC_LSHIFT,              L01_LEFT_03,                                 L01_RIGHT_03,                 KC_RSFT},
-  {KC_LCTRL,KC_LGUI, KC_LALT, MO(L05), MO(L04), KC_SPC,  KC_SPC,  MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL}
-},
+[L01] = LAYOUT_planck_grid(
+  KC_ESC,                 L01_LEFT_01,                                 L01_RIGHT_01,                 KC_ENTER,
+  MO(L03),                L01_LEFT_02,                                 L01_RIGHT_02,                 MO(L03),
+  KC_LSHIFT,              L01_LEFT_03,                                 L01_RIGHT_03,                 KC_RSFT,
+  KC_LCTRL,KC_LGUI, KC_LALT, MO(L05), MO(L04), KC_SPC,  KC_SPC,  MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL
+),
 
 
 /*
@@ -59,12 +58,12 @@ L02 -> MO(L02): SHIFT (as a layer not used, not defined, not reachable)
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[L03] = {
-  {_______,                L03_LEFT_01,                                 L03_RIGHT_01,                 _______},
-  {_______,                L03_LEFT_02,                                 L03_RIGHT_02,                 _______},
-  {_______,                L03_LEFT_03,                                 L03_RIGHT_03,                 _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
+[L03] = LAYOUT_planck_grid(
+  _______,                L03_LEFT_01,                                 L03_RIGHT_01,                 _______,
+  _______,                L03_LEFT_02,                                 L03_RIGHT_02,                 _______,
+  _______,                L03_LEFT_03,                                 L03_RIGHT_03,                 _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
 
 
 /* L04 -> MO(L04): NAVIGATION AND NUMBERS
@@ -78,12 +77,12 @@ L02 -> MO(L02): SHIFT (as a layer not used, not defined, not reachable)
  * |      |      |      |      |      |      | 0    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[L04] = {
-  {_______,                L04_LEFT_01,                                 L04_RIGHT_01,                 _______},
-  {_______,                L04_LEFT_02,                                 L04_RIGHT_02,                 _______},
-  {_______,                L04_LEFT_03,                                 L04_RIGHT_03,                 _______},
-  {_______, _______, _______, _______, _______, _______, KC_0,    _______, _______, _______, _______, _______}
-},
+[L04] = LAYOUT_planck_grid(
+  _______,                L04_LEFT_01,                                 L04_RIGHT_01,                 _______,
+  _______,                L04_LEFT_02,                                 L04_RIGHT_02,                 _______,
+  _______,                L04_LEFT_03,                                 L04_RIGHT_03,                 _______,
+  _______, _______, _______, _______, _______, _______, KC_0,    _______, _______, _______, _______, _______
+),
 
 
 /* L05 -> MO(L05): ALTERNATE
@@ -97,12 +96,12 @@ L02 -> MO(L02): SHIFT (as a layer not used, not defined, not reachable)
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[L05] = {
-  {_______,                L05_LEFT_01,                                 L05_RIGHT_01,                 _______},
-  {_______,                L05_LEFT_02,                                 L05_RIGHT_02,                 _______},
-  {_______,                L05_LEFT_03,                                 L05_RIGHT_03,                 _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
+[L05] = LAYOUT_planck_grid(
+  _______,                L05_LEFT_01,                                 L05_RIGHT_01,                 _______,
+  _______,                L05_LEFT_02,                                 L05_RIGHT_02,                 _______,
+  _______,                L05_LEFT_03,                                 L05_RIGHT_03,                 _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
 
 
 /*
@@ -121,10 +120,10 @@ L06 -> <TBD>: UNSPECIFIED
  * |VOICE-|VOICE+|MUS ON|MUS OF| LIGHT|      |      | VOL+ | VOL- | MUTE |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[LFN] = {
-  {RESET,                  L06_LEFT_01,                                 L06_RIGHT_01,                 KC_BSPC},
-  {_______,                L06_LEFT_02,                                 L06_RIGHT_02,                 KC_INS},
-  {_______,                L06_LEFT_03,                                 L06_RIGHT_03,                 KC_DEL},
-  {MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______, _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, _______}
-}
+[LFN] = LAYOUT_planck_grid(
+  RESET,                  L06_LEFT_01,                                 L06_RIGHT_01,                 KC_BSPC,
+  _______,                L06_LEFT_02,                                 L06_RIGHT_02,                 KC_INS,
+  _______,                L06_LEFT_03,                                 L06_RIGHT_03,                 KC_DEL,
+  MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______, _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, _______
+)
 };

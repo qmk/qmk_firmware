@@ -12,7 +12,7 @@ extern volatile bool isLeftHand;
 void matrix_slave_scan(void);
 
 void split_keyboard_setup(void);
-bool has_usb(void);
+bool is_helix_master(void);
 
 void matrix_master_OLED_init (void);
 

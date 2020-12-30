@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4096
+#define VENDOR_ID       0x7844   // "XD"
+#define PRODUCT_ID      0x9696
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         XD96
@@ -46,6 +46,10 @@
 
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN C6
+#define LED_CAPS_LOCK_PIN B6
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 10

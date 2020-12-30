@@ -6,7 +6,7 @@ A 50% pseudo-TMO50 clone with an adjusted bottom row, designed on the cheap with
 
 Keyboard Maintainer: [cfbender](https://github.com/cfbender)  
 Hardware Supported: Nightmare case and PCB  
-Hardware Availability: [Github](https://github.com/cfbender/keyboards/tree/master/nightmare)
+Hardware Availability: [GitHub](https://github.com/cfbender/keyboards/tree/master/nightmare)
 
 Make example for this keyboard (after setting up your build environment):
 

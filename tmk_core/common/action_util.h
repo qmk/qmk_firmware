@@ -77,6 +77,7 @@ void    reset_oneshot_layer(void);
 bool    is_oneshot_layer_active(void);
 uint8_t get_oneshot_layer_state(void);
 bool    has_oneshot_layer_timed_out(void);
+bool    has_oneshot_swaphands_timed_out(void);
 
 void oneshot_locked_mods_changed_user(uint8_t mods);
 void oneshot_locked_mods_changed_kb(uint8_t mods);
@@ -87,6 +88,13 @@ void oneshot_layer_changed_kb(uint8_t layer);
 
 /* inspect */
 uint8_t has_anymod(void);
+
+#ifdef SWAP_HANDS_ENABLE
+void set_oneshot_swaphands(void);
+void release_oneshot_swaphands(void);
+void use_oneshot_swaphands(void);
+void clear_oneshot_swaphands(void);
+#endif
 
 #ifdef __cplusplus
 }

@@ -23,7 +23,7 @@
  * be here if shared between boards.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737)
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741)
 
 #    include "i2c_master.h"
 
@@ -31,11 +31,21 @@ static void init(void) {
     i2c_init();
 #    ifdef IS31FL3731
     IS31FL3731_init(DRIVER_ADDR_1);
+#        ifdef DRIVER_ADDR_2
     IS31FL3731_init(DRIVER_ADDR_2);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3731_init(DRIVER_ADDR_3);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3731_init(DRIVER_ADDR_4);
+#        endif
 #    elif defined(IS31FL3733)
     IS31FL3733_init(DRIVER_ADDR_1, 0);
-#    else
+#    elif defined(IS31FL3737)
     IS31FL3737_init(DRIVER_ADDR_1);
+#    else
+    IS31FL3741_init(DRIVER_ADDR_1);
 #    endif
     for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
         bool enabled = true;
@@ -44,26 +54,46 @@ static void init(void) {
         IS31FL3731_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(IS31FL3733)
         IS31FL3733_set_led_control_register(index, enabled, enabled, enabled);
-#    else
+#    elif defined(IS31FL3737)
         IS31FL3737_set_led_control_register(index, enabled, enabled, enabled);
+#    else
+        IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
     }
     // This actually updates the LED drivers
 #    ifdef IS31FL3731
     IS31FL3731_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        ifdef DRIVER_ADDR_2
     IS31FL3731_update_led_control_registers(DRIVER_ADDR_2, 1);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3731_update_led_control_registers(DRIVER_ADDR_3, 2);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3731_update_led_control_registers(DRIVER_ADDR_4, 3);
+#        endif
 #    elif defined(IS31FL3733)
     IS31FL3733_update_led_control_registers(DRIVER_ADDR_1, 0);
     IS31FL3733_update_led_control_registers(DRIVER_ADDR_2, 1);
-#    else
+#    elif defined(IS31FL3737)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_1, DRIVER_ADDR_2);
+#    else
+    IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
 #    endif
 }
 
 #    ifdef IS31FL3731
 static void flush(void) {
     IS31FL3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        ifdef DRIVER_ADDR_2
     IS31FL3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+#        ifdef DRIVER_ADDR_3
+    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#        endif
+#        ifdef DRIVER_ADDR_4
+    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#        endif
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
@@ -84,7 +114,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3733_set_color,
     .set_color_all = IS31FL3733_set_color_all,
 };
-#    else
+#    elif defined(IS31FL3737)
 static void flush(void) { IS31FL3737_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
@@ -93,32 +123,45 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3737_set_color,
     .set_color_all = IS31FL3737_set_color_all,
 };
+#    else
+static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = IS31FL3741_set_color,
+    .set_color_all = IS31FL3741_set_color_all,
+};
 #    endif
 
 #elif defined(WS2812)
+#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_CUSTOM_DRIVER)
+#        pragma message "Cannot use RGBLIGHT and RGB Matrix using WS2812 at the same time."
+#        pragma message "You need to use a custom driver, or re-implement the WS2812 driver to use a different configuration."
+#    endif
 
 // LED color buffer
-LED_TYPE led[DRIVER_LED_TOTAL];
+LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
 
 static void init(void) {}
 
 static void flush(void) {
     // Assumes use of RGB_DI_PIN
-    ws2812_setleds(led, DRIVER_LED_TOTAL);
+    ws2812_setleds(rgb_matrix_ws2812_array, DRIVER_LED_TOTAL);
 }
 
 // Set an led in the buffer to a color
 static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
-    led[i].r = r;
-    led[i].g = g;
-    led[i].b = b;
+    rgb_matrix_ws2812_array[i].r = r;
+    rgb_matrix_ws2812_array[i].g = g;
+    rgb_matrix_ws2812_array[i].b = b;
 #    ifdef RGBW
-    led[i].w = 0;
+    convert_rgb_to_rgbw(&rgb_matrix_ws2812_array[i]);
 #    endif
 }
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < sizeof(led) / sizeof(led[0]); i++) {
+    for (int i = 0; i < sizeof(rgb_matrix_ws2812_array) / sizeof(rgb_matrix_ws2812_array[0]); i++) {
         setled(i, r, g, b);
     }
 }

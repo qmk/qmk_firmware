@@ -21,3 +21,8 @@ SRC = TWIlib.c issi.c lighting.c
 ifeq ($(strip $(ISSI_ENABLE)), yes)
     # TMK_COMMON_DEFS += -DISSI_ENABLE
 endif
+
+# Build Options
+#   change yes to no to disable
+#
+BACKLIGHT_DRIVER = custom

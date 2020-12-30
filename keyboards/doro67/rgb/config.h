@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x4250 // BP for Backprop
+#define PRODUCT_ID      0x5247 // RG for RGB
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Backprop Studio
 #define PRODUCT         Doro67 RGB PCB
@@ -47,6 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN E6
+#define LED_PIN_ON_STATE 0
 
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN B7

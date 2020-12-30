@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x5343 // "SC"
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Space City Keyboards
 #define PRODUCT         OSA
@@ -90,6 +90,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
+
+#define LED_NUM_LOCK_PIN C7
+#define LED_CAPS_LOCK_PIN C6
+#define LED_SCROLL_LOCK_PIN B6
 
 /* number of backlight levels */
 

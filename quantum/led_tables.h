@@ -23,8 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern const uint8_t CIE1931_CURVE[] PROGMEM;
 #endif
 
-#ifdef USE_LED_BREATHING_TABLE
-extern const uint8_t LED_BREATHING_TABLE[] PROGMEM;
-#endif
-
 #endif
