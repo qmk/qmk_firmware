@@ -2,7 +2,7 @@
 
 ![grs_70ec](https://raw.githubusercontent.com/sekigon-gonnoc/GRS-70EC-doc/master/img/GRS-70EC.JPG)
 
-* A split keyboard using electrostatic capacitive switch
+A split keyboard using electrostatic capacitive switch
 
 * Keyboard Maintainer: [sekigon](https://github.com/sekigon-gonnoc)
 * Hardware Supported: GRS-70EC PCB, Pro Micro
