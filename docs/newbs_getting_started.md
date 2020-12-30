@@ -77,14 +77,6 @@ Install the QMK CLI by running:
 
 #### Prerequisites
 
-#### Arch / Manjaro
-
-You can install the CLI from the official repositories (**note**: it's maintained by a community member):
-
-`sudo pacman -S qmk`
-
-#### Other distros
-
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
 * Debian / Ubuntu / Devuan: `sudo apt install -y git python3-pip`
@@ -101,7 +93,15 @@ Install the QMK CLI by running:
 
     python3 -m pip install --user qmk
 
-On Arch-based distros you can also try the `qmk` package from AUR (**NOTE**: this package is maintained by a community member, and at the time of writing marks some dependencies as optional that should not be):
+#### Community packages
+
+**NOTE**: These packages are maintained by a community member
+
+On Arch-based distros you can install the CLI from the official repositories:
+
+`sudo pacman -S qmk`
+
+You can also try the `qmk` package from AUR (**NOTE**: this package at the time of writing marks some dependencies as optional that should not be):
 
     yay -S qmk
 
