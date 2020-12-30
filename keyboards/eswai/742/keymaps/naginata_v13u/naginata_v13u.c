@@ -21,6 +21,8 @@
 
 #define NGBUFFER 10 // キー入力バッファのサイズ
 
+// カーソル定義
+// あとで縦書き横書きに合わせて置換するための仮の定義
 #define NGUP X_F21
 #define NGDN X_F22
 #define NGLT X_F23
@@ -749,6 +751,11 @@ void ng_show_os(void) {
       break;
     case NG_MAC:
       send_string("mac");
+      if (user_config.live_conv) {
+        send_string("/+lc");
+      } else {
+        send_string("/-lc");
+      }
       break;
     case NG_LINUX:
       send_string("lnx");
@@ -758,6 +765,11 @@ void ng_show_os(void) {
     send_string("/tate");
   } else {
     send_string("/yoko");
+  }
+  if (user_config.kouchi_shift) {
+    send_string("/:kouchi");
+  } else {
+    send_string("/-kouchi");
   }
 }
 
