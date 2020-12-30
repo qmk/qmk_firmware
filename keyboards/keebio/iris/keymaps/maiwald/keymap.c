@@ -34,11 +34,11 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
-      KC_GRV,  KC_1,  KC_2,  KC_3, KC_4,    KC_5,                                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
-      KC_TAB,  KC_Q,  KC_W,  KC_F, KC_P,    KC_B,                                       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS,
-      KC_ESC,  CTL_A, KC_R,  KC_S, KC_T,    KC_G,                                       KC_M,    KC_N,    KC_E,    KC_I,    CTL_O,   KC_QUOT,
-      KC_CAPS, KC_Z,  ALT_X, KC_C, KC_D,    KC_V,          KC_BSPC,      KC_ENT,        KC_K,    KC_H,    KC_COMM, ALT_DOT, KC_SLSH, KC_ENT,
-                                   KC_LGUI, OSM(MOD_LSFT), TT(_NUMBERS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
+      KC_GRV,  KC_1,  KC_2,  KC_3, KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
+      KC_TAB,  KC_Q,  KC_W,  KC_F, KC_P,    KC_B,                                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS,
+      KC_ESC,  CTL_A, KC_R,  KC_S, KC_T,    KC_G,                                        KC_M,    KC_N,    KC_E,    KC_I,    CTL_O,   KC_QUOT,
+      KC_CAPS, KC_Z,  ALT_X, KC_C, KC_D,    KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,    KC_COMM, ALT_DOT, KC_SLSH, KC_ENT,
+                                   KC_LGUI, OSM(MOD_LSFT), OSL(_NUMBERS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
       ),
 
   [_EXTEND] = LAYOUT(
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, KC_EXLM, KC_LT,   KC_DLR,  KC_GT,   KC_AT,                     KC_QUOT, KC_LBRC, KC_UNDS, KC_RBRC, XXXXXXX, XXXXXXX,
       XXXXXXX, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                   KC_PERC, KC_LCBR, KC_PEQL, KC_RCBR, KC_PIPE, XXXXXXX,
       XXXXXXX, XXXXXXX, KC_COLN, KC_ASTR, KC_PLUS, XXXXXXX, _______, _______, XXXXXXX, KC_AMPR, KC_CIRC, KC_TILD, KC_QUES, XXXXXXX,
-                                          _______, _______, _______, _______, _______, _______
+                                          _______, KC_SPC,  _______, _______, _______, _______
       ),
 
   [_NUMBERS] = LAYOUT(
