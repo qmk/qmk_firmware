@@ -328,7 +328,7 @@ def _extract_rules_mk(info_data):
 
 
 def _merge_layouts(info_data, new_info_data):
-    """FIXME
+    """Merge new_info_data into info_data in an intelligent way.
     """
     for layout_name, layout_json in new_info_data['layouts'].items():
         if layout_name in info_data['layouts']:
