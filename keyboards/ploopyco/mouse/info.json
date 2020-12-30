@@ -1,7 +1,8 @@
 {
     "keyboard_name": "PloopyCo Mouse",
-    "url": "",
+    "url": "www.ploopy.co",
     "maintainer": "drashna",
+    "manufacturer": "Ploopy Corporation",
     "width": 8,
     "height": 3,
     "layouts": {
