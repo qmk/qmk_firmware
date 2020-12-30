@@ -16,7 +16,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xB9F7
+#define VENDOR_ID       0xB9F7 // "Oliver Granlund"
 #define PRODUCT_ID      0xB44C // "Neito"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Oliver Granlund
