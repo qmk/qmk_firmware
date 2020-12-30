@@ -1,6 +1,6 @@
 # Mercutio
 
-![Mercutio](https://i.imgur.com/23J9GqX.jpg)
+![Mercutio](https://i.imgur.com/23J9GqXl.jpg)
 
 A through-hole 40% keyboard kit featuring an encoder and oled display.
 
