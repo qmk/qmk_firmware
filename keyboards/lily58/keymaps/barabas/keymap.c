@@ -140,37 +140,40 @@ const char *read_keylogs(void);
 #    define RAISE_MASK (1 << _RAISE)
 #    define LOWER_MASK (1 << _LOWER)
 #    define GAME_MASK (1 << _GAME)
-const char *read_layer_state(void) {
-    static char layer_state_str[24];
-
+void write_layer_state(void) {
     switch (layer_state & (~GAME_MASK)) {
         case (RAISE_MASK | LOWER_MASK):
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
+            oled_write_P(PSTR("Adjust"), false);
             break;
         case RAISE_MASK:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+            oled_write_P(PSTR("Raise"), false);
             break;
         case LOWER_MASK:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower");
+            oled_write_P(PSTR("Lower"), false);
             break;
         case 0:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+            oled_write_P(PSTR("Default"), false);
             break;
         default:
-            snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+            oled_write_P(PSTR("Undef-"), false);
+            {
+                char s[3];
+                itoa(255, s, 16);
+                oled_write(s, false);
+            }
             break;
     }
 
     if (layer_state & GAME_MASK) {
-        strncat(layer_state_str, " + Game", sizeof(layer_state_str) - 1);
+        oled_write_P(PSTR(" + Game"), false);
     }
 
-    return layer_state_str;
+    oled_advance_page(true);
 }
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        oled_write_ln(read_layer_state(), false);
+        write_layer_state();
         oled_write_ln(read_keylog(), false);
         oled_write_ln(read_keylogs(), false);
     } else {
