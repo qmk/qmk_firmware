@@ -34,7 +34,7 @@
  * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
  */
 // Row 1
-#define PT_SECT KC_GRV  // §
+#define PT_SECT KC_NUBS // §
 #define PT_1    KC_1    // 1
 #define PT_2    KC_2    // 2
 #define PT_3    KC_3    // 3
@@ -74,7 +74,7 @@
 #define PT_TILD KC_QUOT // ~ (dead)
 #define PT_BSLS KC_NUHS // (backslash)
 // Row 4
-#define PT_LABK KC_NUBS // <
+#define PT_LABK KC_GRV  // <
 #define PT_Z    KC_Z    // Z
 #define PT_X    KC_X    // X
 #define PT_C    KC_C    // C
