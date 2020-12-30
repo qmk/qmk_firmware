@@ -1106,7 +1106,7 @@ bool naginata_lookup(int nt, bool shifted) {
           return true;
         }
       }
-      // 仮名ロング Mac
+      // 編集モード Mac
       if (user_config.os == NG_MAC) {
         for (int i = 0; i < sizeof ngmapl_mac / sizeof bngmapl; i++) {
           memcpy_P(&bngmapl, &ngmapl_mac[i], sizeof(bngmapl));
@@ -1117,7 +1117,7 @@ bool naginata_lookup(int nt, bool shifted) {
           }
         }
       }
-      // 仮名ロング 共通
+      // 編集モード 共通
       for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
         memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
         if (keycomb_buf == bngmapl.key) {
@@ -1126,7 +1126,7 @@ bool naginata_lookup(int nt, bool shifted) {
           return true;
         }
       }
-      // 仮名ロング 縦横
+      // 編集モード 縦書き横書き
       for (int i = 0; i < sizeof ngmapl_ty / sizeof bngmapl; i++) {
         if (keycomb_buf == ngmapl_ty[i].key) {
           send_string(ngmapl_ty[i].kana);
@@ -1134,7 +1134,7 @@ bool naginata_lookup(int nt, bool shifted) {
           return true;
         }
       }
-      // UNICODE文字
+      // 編集モード UNICODE文字
       for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
         memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
         if (keycomb_buf == bngmapu.key) {
