@@ -14,10 +14,14 @@ static uint32_t matrix_scan_count = 0;
 static bool     reported_version  = false;
 
 #    if defined(SPI_DEBUG_SCAN_RATE)
-static uint32_t matrix_timer           = 0;
-static uint32_t last_matrix_scan_count = 0;
+static uint32_t matrix_timer = 0;
 #    endif
 #endif
+
+void report_version(void) {
+    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+    reported_version = true;
+}
 
 void matrix_scan_user(void) {
 #if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
@@ -26,27 +30,19 @@ void matrix_scan_user(void) {
     if (debug_enable) {
         uint32_t timer_now = timer_read32();
         if (matrix_timer == 0) {
-            matrix_timer           = timer_now;
-            last_matrix_scan_count = matrix_scan_count;
-            matrix_scan_count      = 0;
+            matrix_timer      = timer_now;
+            matrix_scan_count = 0;
         } else if (TIMER_DIFF_32(timer_now, matrix_timer) > SPI_SCAN_RATE_INTERVAL * 1000) {
-            matrix_timer           = timer_now;
-            last_matrix_scan_count = matrix_scan_count;
-            matrix_scan_count      = 0;
-            if (!reported_version) {
-                uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-                reported_version = true;
-            }
-            uprintf("scan rate: %lu/s\n", last_matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+            matrix_timer = timer_now;
+            uprintf("scan rate: %lu/s\n", matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+            matrix_scan_count = 0;
+            if (!reported_version) report_version();
         }
     }
 #    else
     if (!reported_version) {
         matrix_scan_count++;
-        if (matrix_scan_count > 300) {
-            uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-            reported_version = true;
-        }
+        if (matrix_scan_count > 300) report_version();
     }
 #    endif
 #endif
@@ -126,7 +122,6 @@ bool process_gflock(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
     dprintf("key event:\n"
             "kc: %02X, col: %u, row: %u, pressed: %u\n"
             "mods: %08b "
@@ -139,8 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             "    CSAGCSAG "
 #endif
             "      CSAGCSAG\n",
-            keycode, record->event.key.col, record->event.key.row, record->event.pressed,
-            bitrev(get_mods()), 
+            keycode, record->event.key.col, record->event.key.row, record->event.pressed, bitrev(get_mods()),
 #if !defined(NO_ACTION_ONESHOT)
             bitrev(get_oneshot_mods()),
 #endif
