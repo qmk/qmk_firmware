@@ -4,8 +4,10 @@
   "maintainer":"Oliver Granlund",
   "width":18.1875,
   "height":14.25,
+  "matrix": {"rows": 10, "cols": 8},
   "layouts":{
      "LAYOUT":{
+        "key_count": 68,
         "layout":[
            {
               "label":"0,7",

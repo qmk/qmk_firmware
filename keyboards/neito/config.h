@@ -21,7 +21,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Oliver Granlund
 #define PRODUCT         Neito
-#define DESCRIPTION     60% Mechanical keyboard
+#define DESCRIPTION     Alice style keyboard with ISO-layout
 
 
 #define MATRIX_ROWS 10
