@@ -1,6 +1,6 @@
 # tmkl
 
-![tmkl](https://imgur.com/a/bykMBTr)
+![tmkl](https://i.imgur.com/CrdsxfMl.png)
 
 A PCB for Private 
 * Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
