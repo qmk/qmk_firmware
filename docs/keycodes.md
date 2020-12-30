@@ -135,9 +135,9 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_COPY`              |                              |Copy                                           |             |             |✔                |
 |`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |             |             |✔                |
 |`KC_FIND`              |                              |Find                                           |             |             |✔                |
-|`KC__MUTE`             |                              |Mute                                           |             |✔            |✔                |
-|`KC__VOLUP`            |                              |Volume Up                                      |             |✔            |✔                |
-|`KC__VOLDOWN`          |                              |Volume Down                                    |             |✔            |✔                |
+|`KC_MUTE`              |                              |Mute                                           |             |✔            |✔                |
+|`KC_VOLUP`             |                              |Volume Up                                      |             |✔            |✔                |
+|`KC_VOLDOWN`           |                              |Volume Down                                    |             |✔            |✔                |
 |`KC_LOCKING_CAPS`      |`KC_LCAP`                     |Locking Caps Lock                              |✔            |✔            |                 |
 |`KC_LOCKING_NUM`       |`KC_LNUM`                     |Locking Num Lock                               |✔            |✔            |                 |
 |`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Locking Scroll Lock                            |✔            |✔            |                 |
