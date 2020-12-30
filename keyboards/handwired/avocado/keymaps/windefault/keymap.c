@@ -110,22 +110,23 @@ enum custom_keycodes {
 	KC_MOUSEMODE_ARROW_ON_PRESS,
 };
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        LCTL(KC_UP),    LCTL(KC_DOWN),      LCTL(KC_LEFT),  LCTL(KC_RIGHT),
+        LGUI(KC_TAB),    LGUI(KC_D),      LALT(LSFT(KC_TAB)),  LALT(KC_TAB),
         KC_ESC,         MO(_FN2),           KC_BTN3,        KC_MOUSEMODE_SCROLL_ON_PRESS,
-        KC_BTN1,    LALT(KC_Y)    ,   MO(_FN),        LGUI(LSFT(KC_A)),                    KC_BTN2
+        KC_BTN1,    LALT(KC_Y)    ,   MO(_FN),        LALT(KC_A),                    KC_BTN2
     ),
     [_FN] = LAYOUT(
         RGB_HUI,    RGB_HUD,   RGB_VAI,    RGB_VAD,
         RGB_TOG,    RGB_MODE_FORWARD,    RGB_SAI, RGB_SAD,
-        KC_CPI_UP,  KC_CPI_DOWN,  MO(_FN),   KC_SCROLLSPEED_DOWN,  KC_SCROLLSPEED_UP
+        KC_CPI_UP,  KC_CPI_DOWN,  MO(_FN),  KC_SCROLLSPEED_DOWN,   KC_SCROLLSPEED_UP
     ),
     [_FN2] = LAYOUT(
-        LGUI(LSFT(LCTL(KC_4))),   LGUI(LSFT(KC_4)), LCTL(LSFT(KC_TAB)),    LCTL(KC_TAB),
-        KC_SPACE,    KC_NO,    KC_ENTER, LGUI(KC_W),
-        KC_SCROLL_INVERSE,  KC_NO,  KC_NO,  LGUI(LSFT(KC_V)),   LGUI(KC_LEFT)
+        LGUI(LSFT(KC_S)),   LGUI(KC_PSCREEN), LCTL(LSFT(KC_TAB)),    LCTL(KC_TAB),
+        KC_SPACE,    KC_NO,    KC_ENTER, LCTL(KC_W),
+        KC_SCROLL_INVERSE,  KC_NO,  KC_NO,  LALT(KC_V),   LALT(KC_LEFT)
     )
 };
 
@@ -359,7 +360,7 @@ void handle_pointing_device_modes(void){
             if(abs(cum_x) > abs(cum_y)) {
                 mouse_report.h = sign(cum_x) * (abs(cum_x) + abs(cum_y)) / cur_factor;
             } else {
-                mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 5 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
+                mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 3 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
             }
             last_v = mouse_report.v;
             cum_x = 0;
