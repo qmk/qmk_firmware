@@ -22,7 +22,7 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
 * `debounce`
   * How many milliseconds (ms) to wait for debounce to happen. (Default: 5)
 * `diode_direction`
-  * The direction diodes face. See [`DIRECT_PINS` in the hardware configuration](https://beta.docs.qmk.fm/developing-qmk/qmk-reference/config_options#hardware-options) for more details.
+  * The direction diodes face. See [`DIRECT_PINS` in the hardware configuration](https://docs.qmk.fm/#/config_options?id=hardware-options) for more details.
 * `layout_aliases`
   * A dictionary containing layout aliases. The key is the alias and the value is a layout in `layouts` it maps to.
 * `layouts`
@@ -31,7 +31,7 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
   * Configure the pins corresponding to columns and rows, or direct pins. See [Matrix Pins](#matrix_pins) for more detail.
 * `rgblight`
   * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb_lighting) section for more detail.
-* `usb'
+* `usb`
   * Configure USB VID, PID, and other parameters. See [USB](#USB) for more detail.
 
 ### Layout Format
