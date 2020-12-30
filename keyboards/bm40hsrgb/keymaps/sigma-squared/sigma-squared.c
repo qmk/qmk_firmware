@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LALT,           KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,              KC_LALT,
     KC_LSFT,           KC_A,              KC_S,              KC_D,              KC_F,              KC_G,              KC_H,              KC_J,              KC_K,              KC_L,              KC_QUOT,           KC_LSFT,
     KC_LCTL,           KC_Z,              KC_X,              KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLSH,           KC_LCTL,
-    G(KC_TAB),         (G(S(KC_S))),      KC_TAB,            LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),         LT(NSSL, KC_ENT),              LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_LGUI,           C(G(KC_LEFT)),     C(G(KC_RIGHT))
+    G(KC_TAB),         (G(S(KC_S))),      KC_TAB,            LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),         LT(NSSL, KC_ENT),              LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_LGUI,           C(KC_GRV),         C(KC_TAB)
   ),
 
 //layers
@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LALT, KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_AGIN, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE,  KC_LALT,
     KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,   KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,  KC_LSFT,
     KC_LCTL, KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,   KC_LCTL,
-    TG(GAME),KC_NP,   KC_NP,   KC_NA,   KC_NA,       KC_ENT,       KC_BSPC, KC_DEL,  KC_NP,   KC_NP,    KC_NP
+    TG(GAME),KC_NP,   KC_NP,   KC_NA,   KC_NA,       KC_ENT,       KC_BSPC, KC_DEL,  KC_NP,   C(G(KC_LEFT)), C(G(KC_RIGHT))
   ),
   [MEDR] = LAYOUT_sigma2(
     KC_LALT, KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_TOG,  KC_MOD,  KC_HUI,  KC_SAI,  KC_VAI,  KC_LALT,
