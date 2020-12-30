@@ -24,14 +24,15 @@ void led_on(void) {
 void led_off(void) { writePinLow(D2); }
 
 void keyboard_post_init_kb() {
-    debug_enable = true;
-    debug_matrix = true;
-
     led_on();
+
+    keyboard_post_init_user();
 }
 
 void keyboard_pre_init_kb(void) {
     // Turn on extern circuit
     setPinOutput(F7);
     writePinHigh(F7);
+
+    keyboard_pre_init_user();
 }
