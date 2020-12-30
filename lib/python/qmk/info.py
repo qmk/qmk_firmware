@@ -234,14 +234,14 @@ def _extract_features(info_data, rules):
     # Special handling for bootmagic which also supports a "lite" mode.
     if rules.get('BOOTMAGIC_ENABLE') == 'lite':
         rules['BOOTMAGIC_LITE_ENABLE'] = 'on'
-        del(rules['BOOTMAGIC_ENABLE'])
+        del rules['BOOTMAGIC_ENABLE']
     if rules.get('BOOTMAGIC_ENABLE') == 'full':
         rules['BOOTMAGIC_ENABLE'] = 'on'
 
     # Skip non-boolean features we haven't implemented special handling for
     for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
         if rules.get(feature):
-            del(rules[feature])
+            del rules[feature]
 
     # Process the rest of the rules as booleans
     for key, value in rules.items():
@@ -337,6 +337,45 @@ def _extract_rgblight(info_data, config_c):
     return info_data
 
 
+def _extract_pins(pins):
+    """Returns a list of pins from a comma separated string of pins.
+    """
+    pins = [pin.strip() for pin in pins.split(',') if pin]
+
+    for pin in pins:
+        if pin[0] not in 'ABCDEFGHIJK' or not pin[1].isdigit():
+            raise ValueError(f'Invalid pin: {pin}')
+
+    return pins
+
+
+def _extract_direct_matrix(info_data, direct_pins):
+    """
+    """
+    info_data['matrix_pins'] = {}
+    direct_pin_array = []
+
+    while direct_pins[-1] != '}':
+        direct_pins = direct_pins[:-1]
+
+    for row in direct_pins.split('},{'):
+        if row.startswith('{'):
+            row = row[1:]
+
+        if row.endswith('}'):
+            row = row[:-1]
+
+        direct_pin_array.append([])
+
+        for pin in row.split(','):
+            if pin == 'NO_PIN':
+                pin = None
+
+            direct_pin_array[-1].append(pin)
+
+    return direct_pin_array
+
+
 def _extract_matrix_info(info_data, config_c):
     """Populate the matrix information.
     """
@@ -349,53 +388,24 @@ def _extract_matrix_info(info_data, config_c):
             _log_warning(info_data, 'Matrix size is specified in both info.json and config.h, the config.h values win.')
 
         info_data['matrix_size'] = {
-            'rows': compute(config_c.get('MATRIX_ROWS', '0')),
             'cols': compute(config_c.get('MATRIX_COLS', '0')),
+            'rows': compute(config_c.get('MATRIX_ROWS', '0')),
         }
 
     if row_pins and col_pins:
         if 'matrix_pins' in info_data:
             _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins'] = {}
-
-        # FIXME(skullydazed/anyone): Should really check every pin, not just the first
-        if row_pins:
-            row_pins = [pin.strip() for pin in row_pins.split(',') if pin]
-            if row_pins[0][0] in 'ABCDEFGHIJK' and row_pins[0][1].isdigit():
-                info_data['matrix_pins']['rows'] = row_pins
-
-        if col_pins:
-            col_pins = [pin.strip() for pin in col_pins.split(',') if pin]
-            if col_pins[0][0] in 'ABCDEFGHIJK' and col_pins[0][1].isdigit():
-                info_data['matrix_pins']['cols'] = col_pins
+        info_data['matrix_pins'] = {
+            'cols': _extract_pins(col_pins),
+            'rows': _extract_pins(row_pins),
+        }
 
     if direct_pins:
         if 'matrix_pins' in info_data:
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_data['matrix_pins'] = {}
-        direct_pin_array = []
-
-        while direct_pins[-1] != '}':
-            direct_pins = direct_pins[:-1]
-
-        for row in direct_pins.split('},{'):
-            if row.startswith('{'):
-                row = row[1:]
-
-            if row.endswith('}'):
-                row = row[:-1]
-
-            direct_pin_array.append([])
-
-            for pin in row.split(','):
-                if pin == 'NO_PIN':
-                    pin = None
-
-                direct_pin_array[-1].append(pin)
-
-            info_data['matrix_pins']['direct'] = direct_pin_array
+        info_data['matrix_pins']['direct'] = _extract_direct_matrix(info_data, direct_pins)
 
     return info_data
 

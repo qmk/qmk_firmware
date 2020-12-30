@@ -8,8 +8,9 @@ from qmk.path import is_keyboard, normpath
 
 info_to_rules = {
     'bootloader': 'BOOTLOADER',
-    'processor': 'MCU'
+    'processor': 'MCU',
 }
+
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -42,7 +43,7 @@ def generate_rules_mk(cli):
     if 'features' in kb_info_json:
         for feature, enabled in kb_info_json['features'].items():
             if feature == 'bootmagic_lite' and enabled:
-                rules_mk_lines.append(f'BOOTMAGIC_ENABLE := lite')
+                rules_mk_lines.append('BOOTMAGIC_ENABLE := lite')
             else:
                 feature = feature.upper()
                 enabled = 'yes' if enabled else 'no'
