@@ -59,8 +59,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,  KC_PGDN, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
-                             _______, _______, _______, _______, _______, _______, \
-                                      MACLOCK, WINLOCK, _______, _______
+                             _______, KC_DEL,  _______, _______, _______, _______, \
+                                      MACLOCK, _______, _______, WINLOCK
   ),
 
 [_RAISE] = LAYOUT(
@@ -68,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, \
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_PGUP, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,  KC_PGDN, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, \
-                             _______, _______, _______, _______, _______, _______, \
-                                      MACLOCK, WINLOCK, _______, _______
+                             _______, KC_DEL,  _______, _______, _______, _______, \
+                                      MACLOCK, _______, _______, WINLOCK
   ),
 
 [_ADJUST] = LAYOUT(
