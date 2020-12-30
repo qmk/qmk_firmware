@@ -104,7 +104,9 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ### User Shift Layer
 * Fn exits the special shift layer.
-* Currently configured as a guess next mangler mode.
+* Currently configured as a enigma mangler mode.
+* Backspace and enter reset the seed.
+* Only one key no roll over as key up event is mangled for later.
 
 #### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
