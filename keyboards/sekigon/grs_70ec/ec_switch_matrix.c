@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 #include "analog.h"
-#include "debug.h"
+#include "print.h"
 
 // sensing channel definitions
 #define S0 0
@@ -150,12 +150,12 @@ bool ecsm_matrix_scan(matrix_row_t current_matrix[]) {
     return updated;
 }
 
-// Debug print key values
-void ecsm_dprint_matrix(void) {
+// Print key values
+void ecsm_print_matrix(void) {
     for (int row = 0; row < sizeof(row_pins); row++) {
         for (int col = 0; col < sizeof(col_channels); col++) {
-            dprintf("%4d", ecsm_sw_value[row][col]);
+            xprintf("%4d", ecsm_sw_value[row][col]);
         }
-        dprintf("\n");
+        xprintf("\n");
     }
 }

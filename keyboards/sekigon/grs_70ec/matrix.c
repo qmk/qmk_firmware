@@ -64,8 +64,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     static int cnt = 0;
     if (cnt++ == 300) {
         cnt = 0;
-        ecsm_dprint_matrix();
-        dprintf("\n");
+        ecsm_print_matrix();
+        print("\n");
     }
 
     return updated;
