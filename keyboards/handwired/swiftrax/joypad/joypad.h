@@ -16,10 +16,6 @@
 #pragma once
 
 #include "quantum.h"
-
-// readability
-#define XXX KC_NO
-
 #define LAYOUT_ortho_6x4( \
     K00, K01, K02, K03, \
     K10, K11, K12, K13, \
