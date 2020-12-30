@@ -431,14 +431,18 @@ check-size:
 		    fi \
 		fi \
 	fi
-check-md5:
-	md5 $(BUILD_DIR)/$(TARGET).hex
 else
 check-size:
 	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
-check-md5:
-	md5 $(BUILD_DIR)/$(TARGET).bin
 endif
+
+MD5SUM_CMD = md5sum
+ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
+  MD5SUM_CMD = md5
+endif
+
+check-md5:
+	$(MD5SUM_CMD) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)
 
 # Create build directory
 $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
