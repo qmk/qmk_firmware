@@ -438,8 +438,6 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_V|B_SHFT        , .kana = ","},
   {.key = B_M|B_SHFT        , .kana = "."SS_TAP(X_ENTER)},
   {.key = B_U               , .kana = SS_TAP(X_BSPACE)},
-  {.key = B_T               , .kana = SS_TAP(NGLT)},
-  {.key = B_Y               , .kana = SS_TAP(NGRT)},
 
   // enter
   {.key = B_V|B_M           , .kana = SS_TAP(X_ENTER)},
@@ -512,6 +510,8 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 };
 
 const PROGMEM naginata_keymap_long ngmapl_tate[] = {
+  {.key = B_T           , .kana = SS_TAP(NGLT)},
+  {.key = B_Y           , .kana = SS_TAP(NGRT)},
 // 編集モード 縦横
   {.key = B_D|B_F|B_J		, .kana = SS_TAP(NGUP)}, // {↑}
   {.key = B_D|B_F|B_K		, .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
@@ -525,7 +525,7 @@ const PROGMEM naginata_keymap_long ngmapl_tate[] = {
   {.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
 };
 
-static naginata_keymap_long ngmapl_ty[10];
+static naginata_keymap_long ngmapl_ty[12];
 
 const PROGMEM naginata_keymap_long ngmapl_mac[] = {
 // 編集モード Mac
