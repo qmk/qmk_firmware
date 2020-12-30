@@ -35,10 +35,12 @@ int vial_unlock_in_progress = 0;
 static int vial_unlock_counter = 0;
 static uint16_t vial_unlock_timer;
 
+#ifndef VIAL_INSECURE
 static uint8_t vial_unlock_combo_rows[] = VIAL_UNLOCK_COMBO_ROWS;
 static uint8_t vial_unlock_combo_cols[] = VIAL_UNLOCK_COMBO_COLS;
 #define VIAL_UNLOCK_NUM_KEYS (sizeof(vial_unlock_combo_rows)/sizeof(vial_unlock_combo_rows[0]))
 _Static_assert(VIAL_UNLOCK_NUM_KEYS < 15, "Max 15 unlock keys");
+#endif
 
 void vial_handle_cmd(uint8_t *msg, uint8_t length) {
     /* All packets must be fixed 32 bytes */
@@ -102,11 +104,13 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             /* First byte of message contains the status: whether board is unlocked */
             msg[0] = !vial_unlocked;
             msg[1] = 0;
+#ifndef VIAL_INSECURE
             /* Rest of the message are keys in the matrix that should be held to unlock the board */
             for (size_t i = 0; i < VIAL_UNLOCK_NUM_KEYS; ++i) {
                 msg[2 + i * 2] = vial_unlock_combo_rows[i];
                 msg[2 + i * 2 + 1] = vial_unlock_combo_cols[i];
             }
+#endif
             break;
         }
         case vial_unlock_start: {
@@ -116,6 +120,7 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             break;
         }
         case vial_unlock_poll: {
+#ifndef VIAL_INSECURE
             if (vial_unlock_in_progress) {
                 int holding = 1;
                 for (size_t i = 0; i < VIAL_UNLOCK_NUM_KEYS; ++i)
@@ -134,13 +139,16 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                     vial_unlock_counter = VIAL_UNLOCK_COUNTER_MAX;
                 }
             }
+#endif
             msg[0] = vial_unlocked;
             msg[1] = vial_unlock_in_progress;
             msg[2] = vial_unlock_counter;
             break;
         }
         case vial_lock: {
+#ifndef VIAL_INSECURE
             vial_unlocked = 0;
+#endif
             break;
         }
     }
