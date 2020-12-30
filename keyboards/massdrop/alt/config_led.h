@@ -189,7 +189,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef USB_LED_INDICATOR_ENABLE     //Scan codes refer to actual key matrix codes, not KC_* (255 to disable)
     #define USB_LED_NUM_LOCK_SCANCODE       255
     #define USB_LED_CAPS_LOCK_SCANCODE      30
-    #define USB_LED_SCROLL_LOCK_SCANCODE    255
+    #define USB_LED_SCROLL_LOCK_SCANCODE    43
     #define USB_LED_COMPOSE_SCANCODE        255
     #define USB_LED_KANA_SCANCODE           255
 #endif //USB_LED_INDICATOR_ENABLE

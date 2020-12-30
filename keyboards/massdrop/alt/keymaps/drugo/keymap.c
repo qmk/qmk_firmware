@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_65_ansi_blocker(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,  \
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_END, \
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
+ CTL_T(KC_CAPS), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
@@ -162,33 +162,70 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+#ifdef RAW_ENABLE
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     // uint8_t *command_id = &(data[0]);
     // uint8_t *command_data = &(data[1]);
     // dprintf("raw hid recv! \n\tcommand_id: %u\n\tcommand_data: %u\n",*command_id, *command_data);
-    if(data[0] == 1){
-        switch (rgb_matrix_get_flags()) {
-            case LED_FLAG_ALL: {
-                rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                rgb_matrix_set_color_all(0, 0, 0);
+    switch(data[0]){
+        // Get RGB state
+        case 3:
+            // uint8_t data_to_send[RAW_EPSIZE];
+            switch(rgb_matrix_get_flags()){
+                case LED_FLAG_ALL: data[0] = 1; break;
+                case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR: data[0] = 2; break;
+                case LED_FLAG_UNDERGLOW: data[0] = 3; break;
+                case LED_FLAG_NONE: data[0] = 4; break;
+                default: data[0] = 0; break;
             }
-            break;
-            case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                rgb_matrix_set_color_all(0, 0, 0);
+            raw_hid_send(data, RAW_EPSIZE);
+        // Set RGB state
+        case 1:
+            switch (data[1]) {
+                case 2: {
+                    rgb_matrix_enable_noeeprom();
+                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                    rgb_matrix_set_color_all(0, 0, 0);
+                }
+                break;
+                case 3: {
+                    rgb_matrix_enable_noeeprom();
+                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                    rgb_matrix_set_color_all(0, 0, 0);
+                }
+                break;
+                case 4: {
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                    rgb_matrix_disable_noeeprom();
+                }
+                break;
+                default: {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                    rgb_matrix_enable_noeeprom();
+                }
+                break;
             }
-            break;
-            case LED_FLAG_UNDERGLOW: {
-                rgb_matrix_set_flags(LED_FLAG_NONE);
-                rgb_matrix_disable_noeeprom();
+        break;
+        // Notifications
+        case 2:
+            // Solid bottom underglow
+            // Note: caller is expected to reset RGB to previous state
+            switch (data[1]) {
+                case 1: {
+                    uint8_t r = data[2];
+                    uint8_t g = data[3];
+                    uint8_t b = data[4];
+                    // uint8_t state = rgb_matrix_get_flags();
+                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                    for (int i = 67; i <= 81; i++) {
+                        rgb_matrix_set_color(i, r, g, b);
+                    }
+                    // rgb_matrix_set_color_all(0, 255, 0);
+                    // rget_flags(state);
+                }
+                break;
             }
-            break;
-            default: {
-                rgb_matrix_set_flags(LED_FLAG_ALL);
-                rgb_matrix_enable_noeeprom();
-            }
-            break;
-        }
     }
-    raw_hid_send(data, length);
+    // raw_hid_send(data, length);
 }
+#endif
