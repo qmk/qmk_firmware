@@ -752,7 +752,7 @@ void ng_show_os(void) {
     case NG_MAC:
       send_string("mac");
       if (user_config.live_conv) {
-        send_string("/+lc");
+        send_string("/:lc");
       } else {
         send_string("/-lc");
       }
