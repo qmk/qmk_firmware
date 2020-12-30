@@ -2,7 +2,7 @@
 
 A 4 key Macropad with Rotatry Encoder based on Atmega32u4.
 
-![](https://github.com/LeafCutterLabs/bigKNOB/blob/master/Media/thinkpad.jpg)
+![](https://i.imgur.com/Px3EpOUl.jpg)
 
 * Keyboard Maintainer: [LeafCutterLabs](https://github.com/LeafCutterLabs)
 * Hardware Supported: Atmega32u4
