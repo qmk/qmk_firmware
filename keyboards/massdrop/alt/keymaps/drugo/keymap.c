@@ -164,21 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef RAW_ENABLE
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // uint8_t *command_id = &(data[0]);
-    // uint8_t *command_data = &(data[1]);
-    // dprintf("raw hid recv! \n\tcommand_id: %u\n\tcommand_data: %u\n",*command_id, *command_data);
     switch(data[0]){
-        // Get RGB state
-        case 3:
-            // uint8_t data_to_send[RAW_EPSIZE];
-            switch(rgb_matrix_get_flags()){
-                case LED_FLAG_ALL: data[0] = 1; break;
-                case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR: data[0] = 2; break;
-                case LED_FLAG_UNDERGLOW: data[0] = 3; break;
-                case LED_FLAG_NONE: data[0] = 4; break;
-                default: data[0] = 0; break;
-            }
-            raw_hid_send(data, RAW_EPSIZE);
         // Set RGB state
         case 1:
             switch (data[1]) {
@@ -215,17 +201,25 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     uint8_t r = data[2];
                     uint8_t g = data[3];
                     uint8_t b = data[4];
-                    // uint8_t state = rgb_matrix_get_flags();
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
                     for (int i = 67; i <= 81; i++) {
                         rgb_matrix_set_color(i, r, g, b);
                     }
-                    // rgb_matrix_set_color_all(0, 255, 0);
-                    // rget_flags(state);
                 }
                 break;
             }
+        break;
+        // Get RGB state
+        case 3:
+            switch(rgb_matrix_get_flags()){
+                case LED_FLAG_ALL: data[0] = 1; break;
+                case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR: data[0] = 2; break;
+                case LED_FLAG_UNDERGLOW: data[0] = 3; break;
+                case LED_FLAG_NONE: data[0] = 4; break;
+                default: data[0] = 0; break;
+            }
+            raw_hid_send(data, RAW_EPSIZE);
+        break;
     }
-    // raw_hid_send(data, length);
 }
 #endif
