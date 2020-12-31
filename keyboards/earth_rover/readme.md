@@ -1,12 +1,13 @@
 # earth_rover
 
-![earth_rover](imgur.com image replace me!)
+![earth_rover](https://pbs.twimg.com/media/Eqh29nYUUAA-9NE?format=jpg)
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [k.bigwheel](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [k.bigwheel](https://github.com/bigwheel)
+* Build Guide: [bigwheel/earth\_rover](https://github.com/bigwheel/earth_rover)
+* Hardware Supported: [無限の可能性 \| MxLEDBitPCB](https://swanmatch.github.io/MxLEDBitPCB/), Pro Micro
+* Hardware Availability: [魔界鍵盤製作所 \- BOOTH](https://swanmatch.booth.pm/), [Pro Micro （コンスルー付き） \| 遊舎工房](https://yushakobo.jp/shop/promicro-spring-pinheader/)
 
 Make example for this keyboard (after setting up your build environment):
 
