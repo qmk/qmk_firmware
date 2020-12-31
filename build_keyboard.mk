@@ -368,6 +368,7 @@ endif
 
 build: elf cpfirmware
 check-size: build
+check-md5: build
 objs-size: build
 
 include show_options.mk
