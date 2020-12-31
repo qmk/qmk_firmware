@@ -228,7 +228,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		return true;//not crypt
 	//process simple enigma
 	if(record->event.pressed) {
-		mod = ((mod << 1) | (mod >> 15)) * keycode;
+		mod = ((mod << 1) | (mod >> 15)) * 7 + keycode;
 		//unregister_code(keycode);
 		keycode = mod & 31;//mask
 		keycode += KC_A;//apply logical offset
@@ -238,7 +238,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		if(mod & 64) register_code(KC_LSFT);
 		if(keycode > KC_Z) {
 			keycode -= (KC_Z - KC_J);//wrap and jump
-			mod *= keycode;//mix
+			mod = mod * 11 + keycode;//mix
 		}
 		register_code(keycode);
 		unregister_code(keycode);
