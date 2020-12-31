@@ -49,6 +49,17 @@ void    del_weak_mods(uint8_t mods);
 void    set_weak_mods(uint8_t mods);
 void    clear_weak_mods(void);
 
+/* weak key override modifier */
+void    set_weak_override_mods(uint8_t mods);
+void    clear_weak_override_mods(void);
+
+/* suppressed modifier */
+uint8_t get_suppressed_mods(void);
+void    add_suppressed_mods(uint8_t mods);
+void    del_suppressed_mods(uint8_t mods);
+void    set_suppressed_mods(uint8_t mods);
+void    clear_suppressed_mods(void);
+
 /* macro modifier */
 uint8_t get_macro_mods(void);
 void    add_macro_mods(uint8_t mods);

@@ -409,6 +409,11 @@ enum quantum_keycodes {
     KC_LAPO,  // 5CF6
     KC_RAPC,  // 5CF7
 
+    // Key Overrides
+    KEY_OVERRIDE_TOGGLE,
+    KEY_OVERRIDE_ON,
+    KEY_OVERRIDE_OFF,
+    
     // Combos
     CMB_ON,   // 5CF8
     CMB_OFF,  // 5CF9

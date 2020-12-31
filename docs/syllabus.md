@@ -40,6 +40,7 @@ These topics start to dig into some of the features that QMK supports. You don't
     * [Tap Dance](feature_tap_dance.md)
     * [Combos](feature_combo.md)
     * [Userspace](feature_userspace.md)
+    * [Key Overrides](feature_key_overrides.md)
 
 # Advanced Topics
 
