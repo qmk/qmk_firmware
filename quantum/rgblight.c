@@ -24,7 +24,7 @@
 #    include "eeprom.h"
 #endif
 #ifdef STM32_EEPROM_ENABLE
-#    include "hal.h"
+#    include <hal.h>
 #    include "eeprom_stm32.h"
 #endif
 #include "wait.h"
@@ -34,7 +34,7 @@
 #include "color.h"
 #include "debug.h"
 #include "led_tables.h"
-#include "lib/lib8tion/lib8tion.h"
+#include <lib/lib8tion/lib8tion.h>
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
@@ -123,20 +123,22 @@ void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.effect_num_leds  = num_leds;
 }
 
+__attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
+
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
     HSV hsv = {hue, sat, val};
-    RGB rgb = hsv_to_rgb(hsv);
+    RGB rgb = rgblight_hsv_to_rgb(hsv);
     setrgb(rgb.r, rgb.g, rgb.b, led1);
 }
 
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) { sethsv_raw(hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val, led1); }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
-    (*led1).r = r;
-    (*led1).g = g;
-    (*led1).b = b;
+    led1->r = r;
+    led1->g = g;
+    led1->b = b;
 #ifdef RGBW
-    (*led1).w = 0;
+    led1->w = 0;
 #endif
 }
 
@@ -406,17 +408,26 @@ void rgblight_decrease_val_helper(bool write_to_eeprom) {
 }
 void rgblight_decrease_val_noeeprom(void) { rgblight_decrease_val_helper(false); }
 void rgblight_decrease_val(void) { rgblight_decrease_val_helper(true); }
-void rgblight_increase_speed(void) {
+
+void rgblight_increase_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed < 3) rgblight_config.speed++;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
-    eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    }
 }
+void rgblight_increase_speed(void) { rgblight_increase_speed_helper(true); }
+void rgblight_increase_speed_noeeprom(void) { rgblight_increase_speed_helper(false); }
 
-void rgblight_decrease_speed(void) {
+void rgblight_decrease_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed > 0) rgblight_config.speed--;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
-    eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    }
 }
+void rgblight_decrease_speed(void) { rgblight_decrease_speed_helper(true); }
+void rgblight_decrease_speed_noeeprom(void) { rgblight_decrease_speed_helper(false); }
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
@@ -1152,16 +1163,39 @@ void rgblight_effect_knight(animation_status_t *anim) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
-void rgblight_effect_christmas(animation_status_t *anim) {
-    uint8_t hue;
-    uint8_t i;
+#    define CUBED(x) ((x) * (x) * (x))
 
-    anim->current_offset = (anim->current_offset + 1) % 2;
+/**
+ * Christmas lights effect, with a smooth animation between red & green.
+ */
+void rgblight_effect_christmas(animation_status_t *anim) {
+    static int8_t increment = 1;
+    const uint8_t max_pos   = 32;
+    const uint8_t hue_green = 85;
+
+    uint32_t xa;
+    uint8_t  hue, val;
+    uint8_t  i;
+
+    // The effect works by animating anim->pos from 0 to 32 and back to 0.
+    // The pos is used in a cubic bezier formula to ease-in-out between red and green, leaving the interpolated colors visible as short as possible.
+    xa  = CUBED((uint32_t)anim->pos);
+    hue = ((uint32_t)hue_green) * xa / (xa + CUBED((uint32_t)(max_pos - anim->pos)));
+    // Additionally, these interpolated colors get shown with a slightly darker value, to make them less prominent than the main colors.
+    val = 255 - (3 * (hue < hue_green / 2 ? hue : hue_green - hue) / 2);
+
     for (i = 0; i < rgblight_ranges.effect_num_leds; i++) {
-        hue = 0 + ((i / RGBLIGHT_EFFECT_CHRISTMAS_STEP + anim->current_offset) % 2) * 85;
-        sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
+        uint8_t local_hue = (i / RGBLIGHT_EFFECT_CHRISTMAS_STEP) % 2 ? hue : hue_green - hue;
+        sethsv(local_hue, rgblight_config.sat, val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
     }
     rgblight_set();
+
+    if (anim->pos == 0) {
+        increment = 1;
+    } else if (anim->pos == max_pos) {
+        increment = -1;
+    }
+    anim->pos += increment;
 }
 #endif
 

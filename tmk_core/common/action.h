@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_H
-#define ACTION_H
+
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -29,7 +29,7 @@ extern "C" {
 #endif
 
 /* Disable macro and function features when LTO is enabled, since they break */
-#ifdef LINK_TIME_OPTIMIZATION_ENABLE
+#ifdef LTO_ENABLE
 #    ifndef NO_ACTION_MACRO
 #        define NO_ACTION_MACRO
 #    endif
@@ -124,5 +124,3 @@ void debug_action(action_t action);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* ACTION_H */
