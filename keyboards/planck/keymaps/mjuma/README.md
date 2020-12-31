@@ -121,7 +121,7 @@ stack of layers                     array_of_action_code[row][column]
 ,-----------------------------------------------------------------------------------.
 |      |RESET |DEBUG |      |      |      |      |DMREC1|DMREC2|      |      |      |
 |------+------+------+------+------+-------------+------+------+------+------+------|
-|      |GAMING|QWERTY|      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
+|      |GAMING|      |      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
 |------+------+------+------+------+------|------+------+------+------+------+------|
 |      |      |      |      |      |      |      |DMRSTP|      |Musoff|Mus on|MusMod|
 |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -177,7 +177,7 @@ util/docker_build.sh planck/rev6:mjuma
 Flashing on linux can be done through the docker image
 
 ```sh
-util/docker_build.sh planck/rev6:mjuma:flash
+sudo util/docker_build.sh planck/rev6:mjuma:flash
 ```
 
 or on Windows using the [QMK Toolbox](https://github.com/qmk/qmk_toolbox)

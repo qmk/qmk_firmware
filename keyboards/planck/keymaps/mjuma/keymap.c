@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |RESET |DEBUG |      |      |      |      |DMREC1|DMREC2|      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |GAMING|QWERTY|      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
+ * |      |GAMING|      |      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |DMRSTP|      |Musoff|Mus on|MusMod|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid(
     _______, RESET,   DEBUG,     _______,   _______,  _______, _______, DM_REC1, DM_REC2,   _______,   _______,   _______,
-    _______, GAMING,  QWERTY,    _______,   _______,  _______, _______, DM_PLY1, DM_PLY2,   AU_OFF,    AU_ON,     _______,
+    _______, TG(_GAMING), ___,   _______,   _______,  _______, _______, DM_PLY1, DM_PLY2,   AU_OFF,    AU_ON,     _______,
     _______, _______, _______,   _______,   _______,  _______, _______, DM_RSTP, _______,   MU_OFF,    MU_ON,     MU_MOD,
     _______, _______, _______,   AG_TOGG,   _______,  _______, _______, _______, _______,   MUV_DE,    MUV_IN,    _______
 )
@@ -182,28 +182,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-/*
- * Extend or override keyboard key functionality
- * Return: true to have qmk process the key
- */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-            break;
-        case GAMING:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_GAMING);
-            }
-            return false;
-            break;
-    }
-    return true;
 }
 
 bool muse_mode = false;
