@@ -20,5 +20,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-ENCODER_ENABLE = yes        # Enable support for EC11 Rotary Encoder
-OLED_DRIVER_ENABLE = yes    # Enable Support for SSD1306 or SH1106 OLED Displays; Communicating over I2C
+ENCODER_ENABLE = yes
+OLED_DRIVER_ENABLE = yes
