@@ -28,11 +28,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //Implement macros here
-    return true;
-}
-
 void matrix_init_user(void) {
   set_scramble_LED(LED_OFF);
 }
