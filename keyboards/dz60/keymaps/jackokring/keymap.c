@@ -127,6 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define CRYPT_SEED 666
 //product line serial number goes above modulo 65536 and serial number recovery is a low
 //security option?
+//GPL and (C) ME? Negatiate dollar UK effective!
 	LAYOUT_60_ansi(
 		KC_GESC, KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_1,    KC_EQL,  KC_MINS,          KC_BSPC,
 		KC_TAB,           KC_U,    KC_A,    KC_R,    KC_E,    KC_H,    KC_O,    KC_T,    KC_N,    KC_U,    KC_E,    KC_RBRC, KC_LBRC, KC_SLSH,
