@@ -123,6 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//User shift mode 10 ================================================================================= User shift mode 10
 	// Everythings apart from Fn can be defined.
 	// KC_A = 04, KC_Z = 29, KC_BSPC = 42, KC_ENT = 40
+#define CRYPT_SEED 666
 	LAYOUT_60_ansi(
 		KC_GESC, KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_1,    KC_EQL,  KC_MINS,          KC_BSPC,
 		KC_TAB,           KC_U,    KC_A,    KC_R,    KC_E,    KC_H,    KC_O,    KC_T,    KC_N,    KC_U,    KC_E,    KC_RBRC, KC_LBRC, KC_SLSH,
@@ -180,7 +181,7 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 
-static bool my_state = false;
+bool my_state = false;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Layers will light up if kb layers are active
@@ -216,19 +217,20 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
-static uint16_t mod = 1;
+uint16_t mod = CRYPT_SEED;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if(!my_state) return true;//not crypt
 	if((keycode == KC_BSPC || keycode == KC_ENT) && record->event.pressed) {
-		mod = 1;//reset on BSPC or ENTER
+		mod = CRYPT_SEED;//reset on BSPC or ENTER
 		return true;//and process
 	}
 	if(keycode < KC_A || keycode > KC_Z)
 		return true;//not crypt
 	//process simple enigma
 	if(record->event.pressed) {
-		mod = ((mod << 1) | (mod >> 15)) * 7 + keycode;
+		mod = (mod + keycode) * 27;//first char mixed better (+ b4 *)
+		mod = (mod << 4) | (mod >> 12);
 		//unregister_code(keycode);
 		keycode = mod & 31;//mask
 		keycode += KC_A;//apply logical offset
@@ -238,7 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		if(mod & 64) register_code(KC_LSFT);
 		if(keycode > KC_Z) {
 			keycode -= (KC_Z - KC_J);//wrap and jump
-			mod = mod * 11 + keycode;//mix
+			mod = (mod + keycode) * 17;//mix secondary 26 modulo
 		}
 		register_code(keycode);
 		unregister_code(keycode);
