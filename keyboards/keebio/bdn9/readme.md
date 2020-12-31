@@ -10,7 +10,7 @@ A 3x3 macropad with support for up to 3 rotary encoders.
 * Rev2 encoder locations: Top Right, Top Middle, Top Left
 
 
-**Keyboard Maintainer:** [Bakingpy/nooges](https://github.com/nooges)  
+**Keyboard Maintainer:** [Bakingpy/nooges](https://github.com/nooges)
 **Hardware Supported:**
 * Rev1: Pro Micro, Elite-C, Proton C
 * Rev2: Integrated STM32F072 microcontroller   
