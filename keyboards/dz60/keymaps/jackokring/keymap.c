@@ -238,11 +238,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		//unregister_code(keycode);
 		keycode = mod & 31;//mask
 		keycode += KC_A;//apply logical offset
+		bool isShifted = get_mods() & MOD_MASK_SHIFT;
+		del_mods(MOD_MASK_SHIFT);
+		if(mod & 64) register_code(KC_LSFT);
 		if(keycode > KC_Z) {
 			keycode -= (KC_Z - KC_J);//wrap and jump
 			mod *= keycode;//mix
 		}
 		register_code(keycode);
+		if (isShifted) {
+          register_code(KC_LSFT);
+        }
 		last_press_me = keycode;
 	} else {
 		if(last_press_me >= KC_A) {
