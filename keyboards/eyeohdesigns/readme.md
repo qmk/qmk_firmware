@@ -10,4 +10,4 @@ I post on reddit and Geekhack as joedinkle. I'm EODesigns#4352 on Discord. My "o
 
 ![SPRH](https://imgur.com/DHR0beS.jpg)
 
-![S50](https://imgur.com/9aGFOUi.jpg)
+![S50](https://i.imgur.com/8zF8uEo.jpg)
