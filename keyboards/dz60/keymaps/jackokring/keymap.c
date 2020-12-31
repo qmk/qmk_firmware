@@ -217,7 +217,6 @@ bool led_update_user(led_t led_state) {
 }
 
 static uint16_t mod = 1;
-static uint16_t last_press_me = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if(!my_state) return true;//not crypt
@@ -229,16 +228,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		return true;//not crypt
 	//process simple enigma
 	if(record->event.pressed) {
-		if(last_press_me >= KC_A) {
-			//one key roll on enigma
-			//unregister_code(keycode);
-			return false;//ignore
-		}
 		mod = ((mod << 1) | (mod >> 15)) * keycode;
 		//unregister_code(keycode);
 		keycode = mod & 31;//mask
 		keycode += KC_A;//apply logical offset
-		bool isShifted = get_mods() & MOD_MASK_SHIFT;
+		bool isShiftedL = get_mods() & MOD_BIT(KC_LSFT);
+		bool isShiftedR = get_mods() & MOD_BIT(KC_RSFT);
 		del_mods(MOD_MASK_SHIFT);
 		if(mod & 64) register_code(KC_LSFT);
 		if(keycode > KC_Z) {
@@ -246,17 +241,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			mod *= keycode;//mix
 		}
 		register_code(keycode);
-		if (isShifted) {
+		unregister_code(keycode);
+		if (isShiftedL) {
           register_code(KC_LSFT);
         }
-		last_press_me = keycode;
-	} else {
-		if(last_press_me >= KC_A) {
-			//one key roll on enigma
-			//unregister_code(keycode);
-			unregister_code(last_press_me);
-			last_press_me = 0;
-		}
+		if (isShiftedR) {
+          register_code(KC_RSFT);
+        }
 	}
 	return false; // Process keycodes "normally" == NO
 }
