@@ -1,85 +1,122 @@
-/* Copyright 2015-2017 Jack Humbert
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
 
+/*
+    ██████╗ ███████╗███████╗██╗███╗   ██╗██╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
+    ██╔══██╗██╔════╝██╔════╝██║████╗  ██║██║╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
+    ██║  ██║█████╗  █████╗  ██║██╔██╗ ██║██║   ██║   ██║██║   ██║██╔██╗ ██║███████╗
+    ██║  ██║██╔══╝  ██╔══╝  ██║██║╚██╗██║██║   ██║   ██║██║   ██║██║╚██╗██║╚════██║
+    ██████╔╝███████╗██║     ██║██║ ╚████║██║   ██║   ██║╚██████╔╝██║ ╚████║███████║
+    ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+*/
+
+#define LCTL_MASK (get_mods() & MOD_BIT(KC_LCTL))
+#define RCTL_MASK (get_mods() & MOD_BIT(KC_RCTL))
+#define CTL_MASK  (LCTL_MASK || RCTL_MASK)
+#define LSFT_MASK (get_mods() & MOD_BIT(KC_LSFT))
+#define RSFT_MASK (get_mods() & MOD_BIT(KC_RSFT))
+#define SFT_MASK  (LSFT_MASK || RSFT_MASK)
+
+// Layers
+
 enum planck_layers {
-    _QWERTY,
-    _COLEMAK,
-    _SYMBOLS,
-    _NAV,
-    _MOUSE,
-    _ADJUST,
-    _CLI,
+    _BASE,
+    _LOWER1,
+    _RAISE1,
+    _LOWER2,
+    _RAISE2,
+    _HYPER,
+    _ROTOR,
 };
 
-enum planck_keycodes {
-    QWERTY = SAFE_RANGE,
-    COLEMAK,
+#define BASE TO(_BASE)
+#define R_MODES OSL(_ROTOR)
 
-    BSPC_DEL,       // normal - backspace, ctrl - delete
-    SPC_CAPS,       // normal - space, ctrl - caps lock
-    ROTARY,
+#define LOWER1 OSL(_LOWER1)
+#define LOWER2 OSL(_LOWER2)
+#define RAISE1 OSL(_RAISE1)
+#define RAISE2 OSL(_RAISE2)
+
+// Rotary encoder states
+
+enum encoder_states {
+    VOLUME,     // volume up/down, toggle mute
+    MEDIA,      // media next/previous, play/pause
+    BRIGHTNESS, // brightness up/down
+    SCROLL_V,   // scroll up/down, middle click
+    SCROLL_H,   // scroll right/left, middle click
+    ARROW_V,    // arrow up/down
+    ARROW_H,    // arrow left/right
 };
 
-enum td_actions {
-    SINGLE_HOLD = 1,
-    SINGLE_TAP,
-    DOUBLE_TAP,
-    TRIPLE_TAP,
+enum encoder_states rotary_state = VOLUME;
+
+// Custom keycodes
+
+enum keycodes {
+    ROTARY = SAFE_RANGE,
+    PANIC,                  // backspace on tap, delete on tap with any modifier
+
+    // rotary adjustment
+    R_VOL, R_MEDIA, R_BRI, R_SC_V, R_SC_H, R_AR_V, R_AR_H,
+
+    // command-line macros
+    CLEAR,      // [clear terminal line]
+    DOTFILE,    // dotfiles
+    GT_ADD,     // git add
+    GT_STAT,    // git status
+    GT_CMT,     // git commit
+    GT_PULL,    // git pull
+    GT_PUSH,    // git push
+    VIM_WQ,     // [ESC]:wq
+    PY_VENV,    // source *env*/bin/activate
+
+    // bracket mode
+    LBK_TG, RBK_TG,                 // toggle left-side and right-side brackets
+    LBK_P, LBK_S, LBK_C, LBK_A,     // left-side brackets
+    RBK_P, RBK_S, RBK_C, RBK_A,     // right-side brackets
+
 };
 
-enum td_keycodes {
-    RAISE, LOWER,   // change layers
-    BKO, BKC,       // brackets
-    MACRO,          // dynamic macros
-};
+#define H(kc) HYPR(kc)
 
-static uint8_t raise_state = 0;
-static uint8_t lower_state = 0;
-static uint8_t bko_state = 0;
-static uint8_t bkc_state = 0;
+#define CT_TAB  MT(MOD_LCTL, KC_TAB)
+#define SH_ESC  MT(MOD_LSFT, KC_ESC)
+#define SH_QUOT MT(MOD_RSFT, KC_QUOT)
 
-#define _RAISE1 _NAV
-#define _RAISE2 _MOUSE
-#define _RAISE3 _MOUSE
-#define _LOWER1 _SYMBOLS
-#define _LOWER2 _SYMBOLS
-#define _LOWER3 _SYMBOLS
+static bool lbk_mode = false;   // left-side bracket mode
+static bool rbk_mode = false;   // right-side bracket mode
 
-#define _RAISE _RAISE1
-#define _LOWER _LOWER1
+// Audio songs
 
-#define COPY LCTL(KC_C)
-#define PASTE LCTL(KC_V)
+#ifdef AUDIO_ENABLE
+//
+float confirm_song[][2]         = SONG(MARIO_COIN);
+float reject_song[][2]          = SONG(MARIO_BUMP);
 
-#define CTL_L LCTL(KC_LEFT)
-#define CTL_R RCTL(KC_RIGHT)
+// layer toggle songs
+float base_song[][2]            = SONG(MARIO_BUMP);
+float hyper_song[][2]           = SONG(MARIO_POWERUP_BLOCK);
+float rotary_song[][2]          = SONG(MARIO_POWERUP);
+float raise1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
+float raise2_song[][2]          = SONG(MARIO_POWERUP);
+float lower1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
+float lower2_song[][2]          = SONG(MARIO_POWERUP);
 
-#define CTL_TAB MT(MOD_LCTL, KC_TAB)
-#define CTL_GRV MT(MOD_LCTL, KC_GRV)
-#define ALT_ESC MT(MOD_LALT, KC_ESC)
+// shortcut songs
+float caps_on_song[][2]         = SONG(MARIO_CAVE_1);
+float caps_off_song[][2]        = SONG(MARIO_CAVE_2);
+float save_song[][2]            = SONG(MARIO_COIN);
+float cut_song[][2]             = SONG(MARIO_STOMP);
+float copy_song[][2]            = SONG(MARIO_STOMP);
+float paste_song[][2]           = SONG(MARIO_FIREBALL);
+float undo_song[][2]            = SONG(MARIO_KICK);
+float redo_song[][2]            = SONG(MARIO_ONEUP);
+#endif
 
-#define SH_CL_L LSFT(LCTL(KC_LEFT))
-#define SH_CL_R LSFT(LCTL(KC_RIGHT))
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
+<<<<<<< HEAD
 /* Qwerty
   |-----------------------------------------------------------------------------------|
   |Rotary|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |BspDel|
@@ -216,477 +253,682 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |      |      |      |      |      |             |      |      |      |      |      |
   |-----------------------------------------------------------------------------------|
  */
+=======
+>>>>>>> 53a9581fb006862e60dc4bab3055280cb84da4b7
 /*
-[_] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-),
+██╗  ██╗███████╗██╗   ██╗███╗   ███╗ █████╗ ██████╗ ███████╗
+██║ ██╔╝██╔════╝╚██╗ ██╔╝████╗ ████║██╔══██╗██╔══██╗██╔════╝
+█████╔╝ █████╗   ╚████╔╝ ██╔████╔██║███████║██████╔╝███████╗
+██╔═██╗ ██╔══╝    ╚██╔╝  ██║╚██╔╝██║██╔══██║██╔═══╝ ╚════██║
+██║  ██╗███████╗   ██║   ██║ ╚═╝ ██║██║  ██║██║     ███████║
+╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝
 */
+
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+    /* Base layer
+
+        |-----------------------------------------------------------------------------------------------|
+        | Rotary|   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | Panic |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |  Tab  |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   | Enter |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |  Esc  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   |   '   |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        | HYPER |  Ctrl |  Meta | Super | LOWER1|     Space     | RAISE1|   Lt  |   Dn  |   Up  |   Rt  |
+        |-----------------------------------------------------------------------------------------------|
+
+        Left-side bracket mode:                                         Right-side bracket mode:
+
+        |-------+-------+-------+-------+-                             -+-------+-------+-------+-------|
+        |  < >  |  { }  |  [ ]  |  ( )  |             . . .             |  ( )  |  [ ]  |  { }  |  < >  |
+        |---------------------------------                             ---------------------------------|
+
+        *
+        * Bracket keys:     Open bracket on tap, close bracket on tap with SHIFT held.
+                            If both bracket modes active, right-side brackets are closed by default.
+        * TAB:              Esc on tap, CTRL on hold, ` on tap with SHIFT or CTRL held. ***TODO
+        * PANIC:            Backspace on tap, delete on tap with SHIFT held.
+        * ESC and ':        SHIFT on hold.
+        *
+
+    */
+
+    [_BASE] = LAYOUT_planck_grid(
+        ROTARY,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    PANIC,
+        CT_TAB,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        SH_ESC,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
+        LBK_A,   LBK_C,   LBK_S,   LBK_P,  LOWER1, KC_SPACE, KC_SPACE, RAISE1, RBK_P,   RBK_S,   RBK_C,   RBK_A
+    ),
+
+    /* Hyper layer
+
+        |-----------------------------------------------------------------------------------------------|
+        | ROTARY|       |       |       |       |       |       |       |       |       |       | Sleep |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        | Reset |       |       |       |       |       |       |       |       |       |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |  Caps |       |       |       |       |       |       |       |       |       |       |  Caps |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       | Tg LBK|      BASE     | Tg RBK|       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+        *
+        * Alphabet keys:    Mod-tap with HYPER; left for custom software implementation.
+        * Tg LBK:           Toggle left-side bracket mode.
+        * Tg RBK:           Toggle right-side bracket mode.
+        *
+
+    */
+    [_HYPER] = LAYOUT_planck_grid(
+        R_MODES, H(KC_Q), H(KC_W), H(KC_E), H(KC_R), H(KC_T), H(KC_Y), H(KC_U), H(KC_I),    H(KC_O),   H(KC_P),    KC_SLEP,
+        RESET,   H(KC_A), H(KC_S), H(KC_D), H(KC_F), H(KC_G), H(KC_H), H(KC_J), H(KC_K),    H(KC_L),   H(KC_SCLN), _______,
+        KC_CAPS, H(KC_Z), H(KC_X), H(KC_C), H(KC_V), H(KC_B), H(KC_N), H(KC_M), H(KC_COMM), H(KC_DOT), H(KC_SLSH), KC_CAPS,
+        _______, _______, _______, _______, LBK_TG,  BASE,    BASE,    RBK_TG,  _______,    _______,   _______,    _______
+    ),
+
+    /* Rotary - rotary encoder mode
+
+        |-----------------------------------------------------------------------------------------------|
+        |       |       |       |       |       |       |       |       |       |       |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |scrll h|scrll v|scrll v|scrll h|       |       |arrow h|arrow v|arrow v|arrow h|       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |  vol  | bright|       | media |       |       |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+    */
+    [_ROTOR] = LAYOUT_planck_grid(
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, R_SC_H,  R_SC_V,  R_SC_V,  R_SC_H,  XXXXXXX, XXXXXXX, R_AR_H,  R_AR_V,  R_AR_V,  R_AR_H,  _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, R_VOL,   R_BRI,   XXXXXXX, R_MEDIA, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
+    ),
+
+    /* Lower I - numbers and brackets
+
+        |-----------------------------------------------------------------------------------------------|
+        |       |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |   4   |   5   |   6   |   .   |       |       |   [   |   ]   |   {   |   }   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |   7   |   8   |   9   |   0   |       |       |       |   <   |   >   |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+    */
+    [_LOWER1] = LAYOUT_planck_grid(
+        _______, KC_1,    KC_2,    KC_3,    KC_4,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+        _______, KC_4,    KC_5,    KC_6,    KC_DOT, _______, _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
+        _______, KC_7,    KC_8,    KC_9,    KC_0,   _______, _______, _______, KC_LABK, KC_RABK, _______, _______,
+        _______, _______, _______, _______, LOWER2, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
+    ),
+
+    /* Lower II - command-line macros
+
+        |-----------------------------------------------------------------------------------------------|
+        |       | wq vim|       |       |       |       |       |       |       |       | g push| clear |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       | g add | g stat|dotfile|       |       |       |       |       | g pull|       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+        * DO NOT INCLUDE DESTRUCTIVE COMMANDS
+
+    */
+    [_LOWER2] = LAYOUT_planck_grid(
+        _______, VIM_WQ,  _______, _______, _______, _______, _______, _______, _______, _______, GT_PUSH,   CLEAR,
+        _______, GT_ADD,  GT_STAT, DOTFILE, _______, _______, _______, _______, _______, GT_PULL, _______, _______,
+        _______, _______, _______,  GT_CMT, PY_VENV, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,    BASE,    BASE,  RAISE1, _______, _______, _______, _______
+    ),
+
+    /* Raise I - symbols, light movement
+
+        |-----------------------------------------------------------------------------------------------|
+        |       |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |   (   |   )   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       | S lt  | S up  | S dn  | S rt  |MS Fast|MS Slow| Left  | Down  |  Up   | Right |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |   \   |   |   |   `   |   ~   |   '   |   "   |   _   |   -   |   +   |   =   |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+    */
+    [_RAISE1] = LAYOUT_planck_grid(
+        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  _______,
+        _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_ACL2, KC_ACL1, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
+        _______, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,   _______,
+        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    RAISE2, _______, _______, _______,   _______
+    ),
+
+    /* Raise II - full navigation
+
+        |-----------------------------------------------------------------------------------------------|
+        |       | Home  | Pg Up | Pg Dn |  End  |       |       | L Ck  | R ck  |       |       |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       | M lt  | M dn  | M up  | M rt  |MS Fast|MS Slow| M lt  | M dn  | M up  | M rt  |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       | S lt  | S up  | S dn  | S rt  |       |       | S lt  | S up  | S dn  | S rt  |       |
+        |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |-----------------------------------------------------------------------------------------------|
+
+    */
+    [_RAISE2] = LAYOUT_planck_grid(
+        _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______,
+        _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_ACL2, KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
+        _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______,
+        _______, _______, _______, _______, _LOWER1, BASE,    BASE,    _______, _______, _______, _______, _______
+    ),
+
 };
 
-// custom sounds - move to config.h
-#ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PLANCK_SOUND)
 
-    #define ONEUP_SOUND         QD_NOTE(_E5), QD_NOTE(_G5), QD_NOTE(_E6), QD_NOTE(_C5), QD_NOTE(_D5), HD_NOTE(_G6)
+/*
+ ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗    ██╗      ██████╗  ██████╗ ██╗ ██████╗
+██╔════╝██║   ██║██╔════╝╚══██╔══╝██╔═══██╗████╗ ████║    ██║     ██╔═══██╗██╔════╝ ██║██╔════╝
+██║     ██║   ██║███████╗   ██║   ██║   ██║██╔████╔██║    ██║     ██║   ██║██║  ███╗██║██║
+██║     ██║   ██║╚════██║   ██║   ██║   ██║██║╚██╔╝██║    ██║     ██║   ██║██║   ██║██║██║
+╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║    ███████╗╚██████╔╝╚██████╔╝██║╚██████╗
+ ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝ ╚═════╝
+*/
 
-    // layer sounds
-    //#define QWERTY_LAYER_SOUND  H__NOTE(_D5), W__NOTE(_G5), H__NOTE(_D5), W__NOTE(_F5)
-    #define SYMBOL_LAYER_SOUND  H__NOTE(_A5), H__NOTE(_E5), H__NOTE(_F5)
-    #define NAV_LAYER_SOUND     H__NOTE(_D5), H__NOTE(_F5), H__NOTE(_C5)
-    #define MOUSE_LAYER_SOUND   H__NOTE(_D5), H__NOTE(_F5), H__NOTE(_C5)
-
-    #define CLI_LAYER_SOUND     W__NOTE(_G4), H__NOTE(_A4), H__NOTE(_C4)
-    #define ADJUST_LAYER_SOUND  W__NOTE(_G4), H__NOTE(_A4), H__NOTE(_C4)
-
-    // button sounds
-    #define CAPS_ON_SOUND       H__NOTE(_A4), H__NOTE(_E5)
-    #define CAPS_OFF_SOUND      H__NOTE(_E5), H__NOTE(_A4)
-    #define SAVE_SOUND          ONEUP_SOUND
-    #define COPY_SOUND          H__NOTE(_C4), H__NOTE(_G4)
-    #define PASTE_SOUND         H__NOTE(_G4), H__NOTE(_C4)
-    #define CUT_SOUND           W__NOTE(_G4), H__NOTE(_A4), H__NOTE(_C4)
-    #define UNDO_SOUND          W__NOTE(_G4), H__NOTE(_A4), H__NOTE(_C4)
-    #define REDO_SOUND          W__NOTE(_G4), H__NOTE(_A4), H__NOTE(_C4)
-#endif
-
-#ifdef AUDIO_ENABLE
-    float qwerty_song[][2]      = SONG(QWERTY_SOUND);
-    float colemak_song[][2]     = SONG(COLEMAK_SOUND);
-    float symbol_song[][2]      = SONG(SYMBOL_LAYER_SOUND);
-    float nav_song[][2]         = SONG(NAV_LAYER_SOUND);
-    float mouse_song[][2]       = SONG(MOUSE_LAYER_SOUND);
-    float cli_song[][2]         = SONG(CLI_LAYER_SOUND);
-    float adjust_song[][2]      = SONG(ADJUST_LAYER_SOUND);
-
-    float caps_on_song[][2]     = SONG(CAPS_ON_SOUND);
-    float caps_off_song[][2]    = SONG(CAPS_OFF_SOUND);
-    float save_song[][2]        = SONG(SAVE_SOUND);
-    float copy_song[][2]        = SONG(COPY_SOUND);
-    float paste_song[][2]       = SONG(PASTE_SOUND);
-    float cut_song[][2]         = SONG(CUT_SOUND);
-    float undo_song[][2]        = SONG(UNDO_SOUND);
-    float redo_song[][2]        = SONG(REDO_SOUND);
-#endif
+// Layers
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-
     // play layer activation audio
     #ifdef AUDIO_ENABLE
-        switch (get_highest_layer(state)) {
-            case _QWERTY:
-                //PLAY_SONG(qwerty_song);
-                break;
-            case _COLEMAK:
-                PLAY_SONG(colemak_song);
-                break;
-            case _SYMBOLS:
-                PLAY_SONG(symbol_song);
-                break;
-            case _NAV:
-                PLAY_SONG(nav_song);
-                break;
-            case _MOUSE:
-                PLAY_SONG(mouse_song);
-                break;
-            case _CLI:
-                PLAY_SONG(cli_song);
-                break;
-            case _ADJUST:
-                PLAY_SONG(adjust_song);
-                break;
-            default:
-                break;
-        }
+    switch (get_highest_layer(state)) {
+        case _BASE:
+            PLAY_SONG(base_song);
+            break;
+        case _HYPER:
+            PLAY_SONG(hyper_song);
+            break;
+        case _ROTOR:
+            PLAY_SONG(rotary_song);
+            break;
+        case _LOWER1:
+            PLAY_SONG(lower1_song);
+            break;
+        case _LOWER2:
+            PLAY_SONG(lower2_song);
+            break;
+        case _RAISE1:
+            PLAY_SONG(raise1_song);
+            break;
+        case _RAISE2:
+            PLAY_SONG(raise2_song);
+            break;
+        default:
+            break;
+    }
     #endif
 
     return state;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // state variables
-    static bool caps_active = false;
-    static bool caps_pressed = false;
-    static bool del_pressed = false;
+void keypress(bool pressed, uint16_t keycode) {
+    if (pressed) {
+        register_code16(keycode);
+    }
+    else {
+        unregister_code16(keycode);
+    }
+}
 
-    // custom keycode logic
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static bool panic_del = false;      // PANIC in delete-mode
+    static bool caps_active = false;
+
     switch (keycode) {
-        // send DELETE if BACKSPACE pressed with LCTRL
-        case BSPC_DEL:
+
+        /*
+        ██   ██ ███████ ██    ██  ██████  ██████  ██████  ███████ ███████ 
+        ██  ██  ██       ██  ██  ██      ██    ██ ██   ██ ██      ██      
+        █████   █████     ████   ██      ██    ██ ██   ██ █████   ███████ 
+        ██  ██  ██         ██    ██      ██    ██ ██   ██ ██           ██ 
+        ██   ██ ███████    ██     ██████  ██████  ██████  ███████ ███████
+        */
+
+        case PANIC:
             if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LCTL)) {
+                if (CTL_MASK) {
                     unregister_code(KC_LCTL);
-                    register_code(KC_DELETE);
-                    del_pressed = true;
+                    register_code(KC_DEL);
+                    panic_del = true;
                 }
                 else {
                     register_code(KC_BSPACE);
-                }          
+                }
             }
             else {
-                if (del_pressed) {
-                    unregister_code(KC_DELETE);
+                if (panic_del) {
                     register_code(KC_LCTL);
-                    del_pressed = false;
+                    unregister_code(KC_DEL);
+                    panic_del = false;
                 }
                 else {
                     unregister_code(KC_BSPACE);
                 }
             }
             return false;
-        // send CAPS LOCK if SPACE pressed with LCTRL
-        case SPC_CAPS:
+        case LBK_TG:
             if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LCTL)) {
-                    tap_code(KC_CAPSLOCK);
-                    caps_pressed = true;
-                    
-                    #ifdef AUDIO_ENABLE
-                        caps_active = !caps_active;
-                        if (caps_active) {
-                            PLAY_SONG(caps_on_song);
-                        }
-                        else {
-                            PLAY_SONG(caps_off_song);
-                        }
-                    #endif
-                }
-                else {
-                    register_code(KC_SPACE);
-                }          
+                lbk_mode = !lbk_mode;
             }
-            else {
-                if (caps_pressed) {
-                    caps_pressed = false;
+            break;
+        case RBK_TG:
+            if (record->event.pressed) {
+                rbk_mode = !rbk_mode;
+            }
+            break;
+        case KC_CAPS:
+            if (record->event.pressed) {
+                caps_active = !caps_active;
+            }
+            break;
+
+        // rotary encoder
+
+        case R_VOL:
+            if (record->event.pressed) {
+                rotary_state = VOLUME;
+            }
+            break;
+        case R_MEDIA:
+            if (record->event.pressed) {
+                rotary_state = MEDIA;
+            }
+            break;
+        case R_BRI:
+            if (record->event.pressed) {
+                rotary_state = BRIGHTNESS;
+            }
+            break;
+        case R_SC_V:
+            if (record->event.pressed) {
+                rotary_state = SCROLL_V;
+            }
+            break;
+        case R_SC_H:
+            if (record->event.pressed) {
+                rotary_state = SCROLL_H;
+            }
+            break;
+        case R_AR_V:
+            if (record->event.pressed) {
+                rotary_state = ARROW_V;
+            }
+            break;
+        case R_AR_H:
+            if (record->event.pressed) {
+                rotary_state = ARROW_H;
+            }
+            break;
+        case ROTARY:
+            if (record->event.pressed) {
+                if (rotary_state == VOLUME) {
+                    tap_code(KC_MUTE);  // toggle mute
                 }
-                else {
-                    unregister_code(KC_SPACE);
+                else if (rotary_state == MEDIA) {
+                    tap_code(KC_MPLY);  // play/pause media
+                }
+                else if (rotary_state == SCROLL_V || rotary_state == SCROLL_H) {
+                    tap_code(KC_BTN3);  // middle mouse button
                 }
             }
             return false;
 
-        // play sound on CTRL+S
-        case KC_S:
-            if (record->event.pressed && (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))) {
-                #ifdef AUDIO_ENABLE
+        /*
+        ███    ███  █████   ██████ ██████   ██████  ███████ 
+        ████  ████ ██   ██ ██      ██   ██ ██    ██ ██      
+        ██ ████ ██ ███████ ██      ██████  ██    ██ ███████ 
+        ██  ██  ██ ██   ██ ██      ██   ██ ██    ██      ██ 
+        ██      ██ ██   ██  ██████ ██   ██  ██████  ███████
+        */
+
+        case CLEAR:
+            if (record->event.pressed) {
+                tap_code16(LCTL(KC_E)); // go to start of line
+                tap_code16(LCTL(KC_U)); // clear to beginning of line
+            }
+            break;
+        case DOTFILE:
+            if (record->event.pressed) {
+                SEND_STRING("dotfiles ");
+            }
+            break;
+        case GT_ADD:
+            if (record->event.pressed) {
+                SEND_STRING("git add ");
+            }
+            break;
+        case GT_STAT:
+            if (record->event.pressed) {
+                SEND_STRING("git status ");
+            }
+            break;
+        case GT_CMT:
+            if (record->event.pressed) {
+                SEND_STRING("git commit -m ''");
+                tap_code(KC_LEFT);
+            }
+            break;
+        case GT_PULL:
+            if (record->event.pressed) {
+                SEND_STRING("git pull ");
+            }
+            break;
+        case GT_PUSH:
+            if (record->event.pressed) {
+                SEND_STRING("git push ");
+            }
+            break;
+        case VIM_WQ:
+            if (record->event.pressed) {
+                tap_code(KC_ESC);
+                SEND_STRING(":wq");
+            }
+            break;
+        case PY_VENV:
+            if (record->event.pressed) {
+                SEND_STRING("source *env*/bin/activate");
+            }
+            break; 
+    };
+
+    /*
+         █████  ██    ██ ██████  ██  ██████ 
+        ██   ██ ██    ██ ██   ██ ██ ██    ██ 
+        ███████ ██    ██ ██   ██ ██ ██    ██ 
+        ██   ██ ██    ██ ██   ██ ██ ██    ██ 
+        ██   ██  ██████  ██████  ██  ██████
+    */
+
+    #ifdef AUDIO_ENABLE
+    if (record->event.pressed) {
+        switch (keycode) {
+            case KC_S: // CTRL+S
+                if (CTL_MASK) {
                     PLAY_SONG(save_song);
-                #endif
-            }
-            return true;
-        // play sound on CTRL+C
-        case KC_C:
-            if (record->event.pressed && (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))) {
-                #ifdef AUDIO_ENABLE
+                }
+                break;
+            case KC_C: // CTRL+C
+                if (CTL_MASK) {
                     PLAY_SONG(copy_song);
-                #endif
-            }
-            return true;
-        // play sound on CTRL+V
-        case KC_V:
-            if (record->event.pressed && (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))) {
-                #ifdef AUDIO_ENABLE
+                }
+                break;
+            case KC_V: // CTRL+V
+                if (CTL_MASK) {
                     PLAY_SONG(paste_song);
-                #endif
-            }
-            return true;
-        // play sound on CTRL+X
-        case KC_X:
-            if (record->event.pressed && (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))) {
-                #ifdef AUDIO_ENABLE
+                }
+                break;
+            case KC_X: // CTRL+X
+                if (CTL_MASK) {
                     PLAY_SONG(cut_song);
-                #endif
-            }
-            return true;
-        // play sound on CTRL+Z
-        case KC_Z:
-            if (record->event.pressed && (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))) {
-                #ifdef AUDIO_ENABLE
+                }
+                break;
+            case KC_Z: // CTRL+Z
+                if (CTL_MASK) {
                     PLAY_SONG(undo_song);
-                #endif
-            }
-            return true;
-        // play sound on CTRL+Y
-        case KC_Y:
-            if (record->event.pressed && (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))) {
-                #ifdef AUDIO_ENABLE
+                }
+                break;
+            case KC_Y: // CTRL+Y
+                if (CTL_MASK) {
                     PLAY_SONG(redo_song);
-                #endif
-            }
-            return true;
+                }
+                break;
+            case KC_CAPS:
+                if (caps_active) {
+                    PLAY_SONG(caps_on_song);
+                }
+                else {
+                    PLAY_SONG(caps_off_song);
+                }
+                break;
 
-        case RAISE:
-            if (record->event.pressed) {
-                layer_on(_RAISE);
-            }
-            else {
-                layer_off(_RAISE);
-            }
-            return false;
-        case LOWER:
-            if (record->event.pressed) {
-                layer_on(_LOWER);
-            }
-            else {
-                layer_off(_LOWER);
-            }
-            return false;
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
+            // rotary encoder
+
+            case R_VOL:
+            case R_MEDIA:
+            case R_BRI:
+            case R_SC_V:
+            case R_SC_H:
+            case R_AR_V:
+            case R_AR_H:
+                PLAY_SONG(confirm_song);
+                break;
+
+            default:
+                if (IS_LAYER_ON(_ROTOR)) {
+                    PLAY_SONG(reject_song);
+                }
+        };
+    }
+    #endif
+
+    /*
+        ██████  ██████   █████   ██████ ██   ██ ███████ ████████ ███████ 
+        ██   ██ ██   ██ ██   ██ ██      ██  ██  ██         ██    ██      
+        ██████  ██████  ███████ ██      █████   █████      ██    ███████ 
+        ██   ██ ██   ██ ██   ██ ██      ██  ██  ██         ██         ██ 
+        ██████  ██   ██ ██   ██  ██████ ██   ██ ███████    ██    ███████
+    */
+
+    bool lbk_key = (keycode == LBK_P || keycode == LBK_S || keycode == LBK_C || keycode == LBK_A);
+    bool rbk_key = (keycode == RBK_P || keycode == RBK_S || keycode == RBK_C || keycode == RBK_A);
+
+    // left-side held modifiers
+    if (lbk_key && /* TODO: key is held */ false) {
+        if (keycode == LBK_P) {
+            keypress(record->event.pressed, KC_LGUI);
         }
+        else if (keycode == LBK_S) {
+            keypress(record->event.pressed, KC_LALT);
+        }
+        else if (keycode == LBK_C) {
+            keypress(record->event.pressed, KC_LCTL);
+        }
+        else if (keycode == LBK_A) {
+            if (record->event.pressed) {
+                layer_on(_HYPER);
+            }
+            else {
+                layer_off(_HYPER);
+            }
+        }
+    }
+
+    // brackets mode
+    else if ((lbk_key && lbk_mode) || (rbk_key && rbk_mode)) {
+        // closed brackets
+        if ((rbk_key && rbk_mode && lbk_mode) || LSFT_MASK || RSFT_MASK) {
+            if (LSFT_MASK) {
+                unregister_code(KC_LSFT);
+            }
+            if (RSFT_MASK) {
+                unregister_code(KC_RSFT);
+            }
+
+            if (keycode == LBK_P || keycode == RBK_P) {
+                keypress(record->event.pressed, KC_RPRN);
+            }
+            else if (keycode == LBK_S || keycode == RBK_S) {
+                keypress(record->event.pressed, KC_RBRC);
+            }
+            else if (keycode == LBK_C || keycode == RBK_C) {
+                keypress(record->event.pressed, KC_RCBR);
+            }
+            else if (keycode == LBK_A || keycode == RBK_A) {
+                keypress(record->event.pressed, KC_RABK);
+            }
+
+            //TODO: persistent modifier memory using linked list
+            if (LSFT_MASK) {
+                register_code(KC_LSFT);
+            }
+            if (RSFT_MASK) {
+                register_code(KC_RSFT);
+            }
+        }
+        // open brackets
+        else {
+            if (keycode == LBK_P || keycode == RBK_P) {
+                keypress(record->event.pressed, KC_LPRN);
+            }
+            else if (keycode == LBK_S || keycode == RBK_S) {
+                keypress(record->event.pressed, KC_LBRC);
+            }
+            else if (keycode == LBK_C || keycode == RBK_C) {
+                keypress(record->event.pressed, KC_LCBR);
+            }
+            else if (keycode == LBK_A || keycode == RBK_A) {
+                keypress(record->event.pressed, KC_LABK);
+            }
+        }
+    }
+
+    // left-side one-shot modifiers
+    else if (lbk_key) {
+        if (keycode == LBK_P) {
+            if (record->event.pressed) {
+                set_oneshot_mods(MOD_LGUI);
+            }
+            keypress(record->event.pressed, KC_LGUI);
+        }
+        else if (keycode == LBK_S) {
+            if (record->event.pressed) {
+                set_oneshot_mods(MOD_LALT);
+            }
+            keypress(record->event.pressed, KC_LALT);
+        }
+        else if (keycode == LBK_C) {
+            if (record->event.pressed) {
+                set_oneshot_mods(MOD_LCTL);
+            }
+            keypress(record->event.pressed, KC_LCTL);
+        }
+        else if (keycode == LBK_A) {
+            if (record->event.pressed) {
+                layer_on(_HYPER);           // TODO: keep HYPER on if no key pressed while held (i.e. OSL)
+                //set_oneshot_layer(_HYPER, ONESHOT_START);
+            }
+            else {
+                layer_off(_HYPER);
+                //clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+        }
+    }
+
+    // right-side arrows keys
+    else if (rbk_key) {
+        if (keycode == RBK_P) {
+            keypress(record->event.pressed, KC_LEFT);
+        }
+        else if (keycode == RBK_S) {
+            keypress(record->event.pressed, KC_DOWN);
+        }
+        else if (keycode == RBK_C) {
+            keypress(record->event.pressed, KC_UP);
+        }
+        else if (keycode == RBK_A) {
+            keypress(record->event.pressed, KC_RIGHT);
+        }
+    }
+
     return true;
 }
 
-// Return an int corresponding to the tap dance that should be executed
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (!state->pressed) {
-            return SINGLE_TAP;
-        }
-        else {
-            return SINGLE_HOLD;
-        }
-    } 
-    else if (state->count == 2) {
-        return DOUBLE_TAP;
-    }
-    else if (state->count == 3) {
-        return TRIPLE_TAP;
-    } else return 8; // this method may expand to work for more presses
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    //if (keycode != LBK_A && IS_LAYER_ON(_HYPER)) {
+    //    layer_off(_HYPER);
+    //}
 }
 
-void raise_finished(qk_tap_dance_state_t *state, void *user_data) {
-    raise_state = cur_dance(state);
-    switch (raise_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            layer_on(_RAISE1);
-            break;
-        case DOUBLE_TAP:
-            layer_on(_RAISE2);
-            break;
-        case TRIPLE_TAP:
-            layer_on(_RAISE3);
-            break;
-    }
-}
 
-void raise_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (raise_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            layer_off(_RAISE1);
-            break;
-        case DOUBLE_TAP:
-            layer_off(_RAISE2);
-            break;
-        case TRIPLE_TAP:
-            layer_off(_RAISE3);
-            break;
-    }
-    raise_state = 0;
-}
+/*
+██████╗  ██████╗ ████████╗ █████╗ ██████╗ ██╗   ██╗    ███████╗███╗   ██╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗
+██╔══██╗██╔═══██╗╚══██╔══╝██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝████╗  ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
+██████╔╝██║   ██║   ██║   ███████║██████╔╝ ╚████╔╝     █████╗  ██╔██╗ ██║██║     ██║   ██║██║  ██║█████╗  ██████╔╝
+██╔══██╗██║   ██║   ██║   ██╔══██║██╔══██╗  ╚██╔╝      ██╔══╝  ██║╚██╗██║██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗
+██║  ██║╚██████╔╝   ██║   ██║  ██║██║  ██║   ██║       ███████╗██║ ╚████║╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║
+╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+*/
 
-void lower_finished(qk_tap_dance_state_t *state, void *user_data) {
-    lower_state = cur_dance(state);
-    switch (lower_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            layer_on(_LOWER1);
-            break;
-        case DOUBLE_TAP:
-            layer_on(_LOWER2);
-            break;
-        case TRIPLE_TAP:
-            layer_on(_LOWER3);
-            break;
-    }
-}
 
-void lower_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (lower_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            layer_off(_LOWER1);
-            break;
-        case DOUBLE_TAP:
-            layer_off(_LOWER2);
-            break;
-        case TRIPLE_TAP:
-            layer_off(_LOWER3);
-            break;
-    }
-    lower_state = 0;
-}
-
-void bko_finished(qk_tap_dance_state_t *state, void *user_data) {
-    bko_state = cur_dance(state);
-    switch (bko_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            register_code16(KC_LBRACKET);
-            break;
-        case DOUBLE_TAP:
-            register_code16(KC_LEFT_CURLY_BRACE);
-            break;
-        case TRIPLE_TAP:
-            register_code16(KC_LEFT_ANGLE_BRACKET);
-            break;
-    }
-}
-
-void bko_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (bko_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            unregister_code16(KC_LBRACKET);
-            break;
-        case DOUBLE_TAP:
-            unregister_code16(KC_LEFT_CURLY_BRACE);
-            break;
-        case TRIPLE_TAP:
-            unregister_code16(KC_LEFT_ANGLE_BRACKET);
-            break;
-    }
-    bko_state = 0;
-}
-
-void bkc_finished(qk_tap_dance_state_t *state, void *user_data) {
-    bkc_state = cur_dance(state);
-    switch (bkc_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            register_code16(KC_RBRACKET);
-            break;
-        case DOUBLE_TAP:
-            register_code16(KC_RIGHT_CURLY_BRACE);
-            break;
-        case TRIPLE_TAP:
-            register_code16(KC_RIGHT_ANGLE_BRACKET);
-            break;
-    }
-}
-
-void bkc_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (bkc_state) {
-        case SINGLE_HOLD:
-        case SINGLE_TAP:
-            unregister_code16(KC_RBRACKET);
-            break;
-        case DOUBLE_TAP:
-            unregister_code16(KC_RIGHT_CURLY_BRACE);
-            break;
-        case TRIPLE_TAP:
-            unregister_code16(KC_RIGHT_ANGLE_BRACKET);
-            break;
-    }
-    bkc_state = 0;
-}
-
-void macro_fn(qk_tap_dance_state_t *state, void *user_data) {
-    static bool macro_recording = false;
-    if (macro_recording) {
-        tap_code16(DYN_REC_STOP);
-        macro_recording = false;
-    }
-    else {
-        switch (cur_dance(state)) {
-            case SINGLE_TAP:
-            case SINGLE_HOLD:
-                tap_code16(DYN_MACRO_PLAY1);
-                break;
-            case DOUBLE_TAP:
-                tap_code16(DYN_REC_START1);
-                macro_recording = true;
-                break;
-        }
-    }
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, raise_finished, raise_reset),
-    [LOWER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lower_finished, lower_reset),
-    [BKO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bko_finished, bko_reset),
-    [BKC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bkc_finished, bkc_reset),
-    [MACRO] = ACTION_TAP_DANCE_FN(macro_fn),
-};
-
-bool muse_mode = false;
-uint8_t last_muse_note = 0;
-uint16_t muse_counter = 0;
-uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
-
-void encoder_update(bool clockwise) {
-    if (muse_mode) {
-        if (IS_LAYER_ON(_ADJUST)) {
+#ifdef ENCODER_ENABLE
+void encoder_update_user(uint8_t index, bool clockwise) {
+    switch (rotary_state) {
+        case VOLUME:
             if (clockwise) {
-                muse_offset++;
-            } else {
-                muse_offset--;
+                tap_code(KC_VOLU);
             }
-        } else {
+            else {
+                tap_code(KC_VOLD);
+            }
+            break;
+        case MEDIA:
             if (clockwise) {
-                muse_tempo+=1;
-            } else {
-                muse_tempo-=1;
+                tap_code(KC_MNXT);
             }
-        }
-    } else {
-        if (clockwise) {
-            #ifdef MOUSEKEY_ENABLE
-                tap_code(KC_MS_WH_DOWN);
-            #else
-                tap_code(KC_PGDN);
-            #endif
-        } else {
-            #ifdef MOUSEKEY_ENABLE
-                tap_code(KC_MS_WH_UP);
-            #else
-                tap_code(KC_PGUP);
-            #endif
-        }
+            else {
+                tap_code(KC_MPRV);
+            }
+            break;
+        case BRIGHTNESS:
+            if (clockwise) {
+                tap_code(KC_BRIU);
+            }
+            else {
+                tap_code(KC_BRID);
+            }
+            break;
+        case SCROLL_V:
+            if (clockwise) {
+                tap_code(KC_WH_D);
+            }
+            else {
+                tap_code(KC_WH_U);
+            }
+            break;
+        case SCROLL_H:
+            if (clockwise) {
+                for (int i=0; i<5; i++) {
+                    tap_code(KC_WH_R);
+                }
+            }
+            else {
+                for (int i=0; i<5; i++) {
+                    tap_code(KC_WH_L);
+                }
+            }
+            break;
+        case ARROW_V:
+            if (clockwise) {
+                tap_code(KC_DOWN);
+            }
+            else {
+                tap_code(KC_UP);
+            }
+            break;
+        case ARROW_H:
+            if (clockwise) {
+                tap_code(KC_RIGHT);
+            }
+            else {
+                tap_code(KC_LEFT);
+            }
+            break;
     }
 }
-
-void matrix_scan_user(void) {
-#ifdef AUDIO_ENABLE
-    if (muse_mode) {
-        if (muse_counter == 0) {
-            uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
-            if (muse_note != last_muse_note) {
-                stop_note(compute_freq_for_midi_note(last_muse_note));
-                play_note(compute_freq_for_midi_note(muse_note), 0xF);
-                last_muse_note = muse_note;
-            }
-        }
-        muse_counter = (muse_counter + 1) % muse_tempo;
-    } else {
-        if (muse_counter) {
-            stop_all_notes();
-            muse_counter = 0;
-        }
-    }
 #endif
-}
-
-// Returns false for keycodes that should still be processed in music mode
-bool music_mask_user(uint16_t keycode) {
-    switch (keycode) {
-        case RAISE:
-        case LOWER:
-            return false;
-        default:
-            return true;
-    }
-}
