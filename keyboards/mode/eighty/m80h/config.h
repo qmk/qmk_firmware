@@ -18,4 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
+<<<<<<< HEAD
+#define PRODUCT_ID      0x0081
+=======
+>>>>>>> 10096fc42e52e5b22acd6ceef941816401468998
 #define DEVICE_VER      0x0072 //H for hotswap version
