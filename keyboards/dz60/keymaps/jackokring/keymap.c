@@ -1,4 +1,3 @@
-#include QMK_KEYBOARD_H
 /* Copyright 2020 Simon Paul Jackson, BEng.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include QMK_KEYBOARD_H
 
 /*
 make linux bootloader install via: (or use via if it's firmwared) => CHOICE
