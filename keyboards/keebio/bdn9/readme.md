@@ -21,16 +21,7 @@ A 3x3 macropad with support for up to 3 rotary encoders.
 
 Make examples for this keyboard (after setting up your build environment):
 
-**Rev1:**
-    
-    make keebio/bdn9/rev1:default 
-      or 
-    qmk compile -kb /keebio/bdn9/rev1 -km default
-    
-**Rev2:**
-
+    make keebio/bdn9/rev1:default
     make keebio/bdn9/rev2:default
-      or 
-    qmk compile -kb /keebio/bdn9/rev1 -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
