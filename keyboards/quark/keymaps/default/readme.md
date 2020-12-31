@@ -1,2 +1,1 @@
 # The Default Quark Layout
-

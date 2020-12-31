@@ -1,12 +1,12 @@
 # Quark
 
-![Quark](https://i.imgur.com/WcvKyf4.jpg)
+![Quark](https://i.imgur.com/WcvKyf4l.jpg)
 
-The Quark PCB is a modified layout for the Planck by OLKB. It's similar to a Planck, but the bottom row was designed to be more useable-larger than 1u keys.  
+The Quark PCB is a modified layout for the Planck by OLKB. It's similar to a Planck, but the bottom row was designed to be more useable-larger than 1u keys.
 
-Keyboard Maintainer: [Nasp](https://github.com/npspears)  
-Hardware Supported: Planck  
-Hardware Availability: https://forms.gle/ZpGtQjBNtsbuSV767
+* Keyboard Maintainer: [Nasp](https://github.com/npspears)
+* Hardware Supported: Planck
+* Hardware Availability: https://forms.gle/ZpGtQjBNtsbuSV767
 
 Make example for this keyboard (after setting up your build environment):
 
