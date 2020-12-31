@@ -216,13 +216,13 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
-static uint16_t mod = 0;
+static uint16_t mod = 1;
 static uint16_t last_press_me = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if(!my_state) return true;//not crypt
 	if((keycode == KC_BSPC || keycode == KC_ENT) && record->event.pressed) {
-		mod = 0;//reset on BSPC or ENTER
+		mod = 1;//reset on BSPC or ENTER
 		return true;//and process
 	}
 	if(keycode < KC_A || keycode > KC_Z)
