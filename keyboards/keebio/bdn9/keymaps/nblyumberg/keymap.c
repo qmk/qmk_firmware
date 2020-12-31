@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
+
 /**
  * Layer Names
  */
@@ -73,23 +74,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-
-
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Allow for a preview of changes when modifying RGB
-# if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-  switch (keycode) {
-    case RGB_TOG ... VLK_TOG:
-      for (uint8_t i = 0; i < RGBLIGHT_MAX_LAYERS; i++) {
-        rgblight_set_layer_state(i, false);
-      }
-      rgb_preview_timer = timer_read32();
-      break;
-  }
-# endif
-  return;
-}
-
 /**
  * Encoder
  */
@@ -97,9 +81,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _LEFT) {
         if (clockwise) {
-            tap_code(KC_A);
+            tap_code(KC_MNXT);
         } else {
-            tap_code(KC_B);
+            tap_code(KC_MPRV);
         }
     }
     else if (index == _MIDDLE) {
