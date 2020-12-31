@@ -70,6 +70,7 @@ enum keycodes {
     GT_PULL,    // git pull
     GT_PUSH,    // git push
     VIM_WQ,     // [ESC]:wq
+    PY_VENV,    // source *env*/bin/activate
 
     // bracket mode
     LBK_TG, RBK_TG,                 // toggle left-side and right-side brackets
@@ -90,28 +91,28 @@ static bool rbk_mode = false;   // right-side bracket mode
 // Audio songs
 
 #ifdef AUDIO_ENABLE
-    //
-    float confirm_song[][2]         = SONG(MARIO_COIN);
-    float reject_song[][2]          = SONG(MARIO_BUMP);
+//
+float confirm_song[][2]         = SONG(MARIO_COIN);
+float reject_song[][2]          = SONG(MARIO_BUMP);
 
-    // layer toggle songs
-    float base_song[][2]            = SONG(MARIO_BUMP);
-    float hyper_song[][2]           = SONG(MARIO_POWERUP_BLOCK);
-    float rotary_song[][2]          = SONG(MARIO_POWERUP);
-    float raise1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
-    float raise2_song[][2]          = SONG(MARIO_POWERUP);
-    float lower1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
-    float lower2_song[][2]          = SONG(MARIO_POWERUP);
+// layer toggle songs
+float base_song[][2]            = SONG(MARIO_BUMP);
+float hyper_song[][2]           = SONG(MARIO_POWERUP_BLOCK);
+float rotary_song[][2]          = SONG(MARIO_POWERUP);
+float raise1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
+float raise2_song[][2]          = SONG(MARIO_POWERUP);
+float lower1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
+float lower2_song[][2]          = SONG(MARIO_POWERUP);
 
-    // shortcut songs
-    float caps_on_song[][2]         = SONG(MARIO_CAVE_1);
-    float caps_off_song[][2]        = SONG(MARIO_CAVE_2);
-    float save_song[][2]            = SONG(MARIO_COIN);
-    float cut_song[][2]             = SONG(MARIO_STOMP);
-    float copy_song[][2]            = SONG(MARIO_STOMP);
-    float paste_song[][2]           = SONG(MARIO_FIREBALL);
-    float undo_song[][2]            = SONG(MARIO_KICK);
-    float redo_song[][2]            = SONG(MARIO_ONEUP);
+// shortcut songs
+float caps_on_song[][2]         = SONG(MARIO_CAVE_1);
+float caps_off_song[][2]        = SONG(MARIO_CAVE_2);
+float save_song[][2]            = SONG(MARIO_COIN);
+float cut_song[][2]             = SONG(MARIO_STOMP);
+float copy_song[][2]            = SONG(MARIO_STOMP);
+float paste_song[][2]           = SONG(MARIO_FIREBALL);
+float undo_song[][2]            = SONG(MARIO_KICK);
+float redo_song[][2]            = SONG(MARIO_ONEUP);
 #endif
 
 
@@ -235,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       | g add | g stat|dotfile|       |       |       |       |       | g pull|       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       | g cmt |       |       |       |       |       |       |       |       |
+        |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
@@ -246,13 +247,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER2] = LAYOUT_planck_grid(
         _______, VIM_WQ,  _______, _______, _______, _______, _______, _______, _______, _______, GT_PUSH,   CLEAR,
         _______, GT_ADD,  GT_STAT, DOTFILE, _______, _______, _______, _______, _______, GT_PULL, _______, _______,
-        _______, _______, _______,  GT_CMT, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
+        _______, _______, _______,  GT_CMT, PY_VENV, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,    BASE,    BASE,  RAISE1, _______, _______, _______, _______
     ),
 
     /* Raise I - symbols, light movement
 
-        |-------------------------------------------------------&&----------------------------------------|
+        |-----------------------------------------------------------------------------------------------|
         |       |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |   (   |   )   |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       | S lt  | S up  | S dn  | S rt  |MS Fast|MS Slow| Left  | Down  |  Up   | Right |       |
@@ -307,31 +308,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     // play layer activation audio
     #ifdef AUDIO_ENABLE
-        switch (get_highest_layer(state)) {
-            case _BASE:
-                PLAY_SONG(base_song);
-                break;
-            case _HYPER:
-                PLAY_SONG(hyper_song);
-                break;
-            case _ROTOR:
-                PLAY_SONG(rotary_song);
-                break;
-            case _LOWER1:
-                PLAY_SONG(lower1_song);
-                break;
-            case _LOWER2:
-                PLAY_SONG(lower2_song);
-                break;
-            case _RAISE1:
-                PLAY_SONG(raise1_song);
-                break;
-            case _RAISE2:
-                PLAY_SONG(raise2_song);
-                break;
-            default:
-                break;
-        }
+    switch (get_highest_layer(state)) {
+        case _BASE:
+            PLAY_SONG(base_song);
+            break;
+        case _HYPER:
+            PLAY_SONG(hyper_song);
+            break;
+        case _ROTOR:
+            PLAY_SONG(rotary_song);
+            break;
+        case _LOWER1:
+            PLAY_SONG(lower1_song);
+            break;
+        case _LOWER2:
+            PLAY_SONG(lower2_song);
+            break;
+        case _RAISE1:
+            PLAY_SONG(raise1_song);
+            break;
+        case _RAISE2:
+            PLAY_SONG(raise2_song);
+            break;
+        default:
+            break;
+    }
     #endif
 
     return state;
@@ -500,6 +501,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(":wq");
             }
             break;
+        case PY_VENV:
+            if (record->event.pressed) {
+                SEND_STRING("source *env*/bin/activate");
+            }
+            break; 
     };
 
     /*
@@ -511,65 +517,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     */
 
     #ifdef AUDIO_ENABLE
-        if (record->event.pressed) {
-            switch (keycode) {
-                case KC_S: // CTRL+S
-                    if (CTL_MASK) {
-                        PLAY_SONG(save_song);
-                    }
-                    break;
-                case KC_C: // CTRL+C
-                    if (CTL_MASK) {
-                        PLAY_SONG(copy_song);
-                    }
-                    break;
-                case KC_V: // CTRL+V
-                    if (CTL_MASK) {
-                        PLAY_SONG(paste_song);
-                    }
-                    break;
-                case KC_X: // CTRL+X
-                    if (CTL_MASK) {
-                        PLAY_SONG(cut_song);
-                    }
-                    break;
-                case KC_Z: // CTRL+Z
-                    if (CTL_MASK) {
-                        PLAY_SONG(undo_song);
-                    }
-                    break;
-                case KC_Y: // CTRL+Y
-                    if (CTL_MASK) {
-                        PLAY_SONG(redo_song);
-                    }
-                    break;
-                case KC_CAPS:
-                    if (caps_active) {
-                        PLAY_SONG(caps_on_song);
-                    }
-                    else {
-                        PLAY_SONG(caps_off_song);
-                    }
-                    break;
+    if (record->event.pressed) {
+        switch (keycode) {
+            case KC_S: // CTRL+S
+                if (CTL_MASK) {
+                    PLAY_SONG(save_song);
+                }
+                break;
+            case KC_C: // CTRL+C
+                if (CTL_MASK) {
+                    PLAY_SONG(copy_song);
+                }
+                break;
+            case KC_V: // CTRL+V
+                if (CTL_MASK) {
+                    PLAY_SONG(paste_song);
+                }
+                break;
+            case KC_X: // CTRL+X
+                if (CTL_MASK) {
+                    PLAY_SONG(cut_song);
+                }
+                break;
+            case KC_Z: // CTRL+Z
+                if (CTL_MASK) {
+                    PLAY_SONG(undo_song);
+                }
+                break;
+            case KC_Y: // CTRL+Y
+                if (CTL_MASK) {
+                    PLAY_SONG(redo_song);
+                }
+                break;
+            case KC_CAPS:
+                if (caps_active) {
+                    PLAY_SONG(caps_on_song);
+                }
+                else {
+                    PLAY_SONG(caps_off_song);
+                }
+                break;
 
-                // rotary encoder
+            // rotary encoder
 
-                case R_VOL:
-                case R_MEDIA:
-                case R_BRI:
-                case R_SC_V:
-                case R_SC_H:
-                case R_AR_V:
-                case R_AR_H:
-                    PLAY_SONG(confirm_song);
-                    break;
+            case R_VOL:
+            case R_MEDIA:
+            case R_BRI:
+            case R_SC_V:
+            case R_SC_H:
+            case R_AR_V:
+            case R_AR_H:
+                PLAY_SONG(confirm_song);
+                break;
 
-                default:
-                    if (IS_LAYER_ON(_ROTOR)) {
-                        PLAY_SONG(reject_song);
-                    }
-            };
-        }
+            default:
+                if (IS_LAYER_ON(_ROTOR)) {
+                    PLAY_SONG(reject_song);
+                }
+        };
+    }
     #endif
 
     /*
