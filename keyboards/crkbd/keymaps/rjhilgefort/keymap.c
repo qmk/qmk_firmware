@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ALT_ESC ALT_T(KC_ESC)
 #define CTL_ESC CTL_T(KC_ESC)
 #define GUI_ESC GUI_T(KC_ESC)
-#define HYPER LCTL(LALT(LGUI))
+#define HYPER LGUI(LSFT(KC_LALT))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // 0 - Base Mac
@@ -111,34 +111,40 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-// #define L_BASE 0
-// #define L_LOWER 2
-// #define L_RAISE 4
-// #define L_ADJUST 8
+#define L_BASE_MAC 0
+#define L_BASE_LINUX 2
+#define L_SYMBOLS 4
+#define L_MAN_MAC 8
+#define L_MAN_LINUX 16
+#define L_EXTRA 32
 
 void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("L: "), false);
+
     switch (layer_state) {
-        case 0:
-            oled_write_ln_P(PSTR("Base (Mac)"), false);
+        case L_BASE_MAC:
+        case L_BASE_LINUX:
+            oled_write_ln_P(PSTR("Base"), false);
             break;
-        case 1:
-            oled_write_ln_P(PSTR("Base (Linux)"), false);
-            break;
-        case 2:
+        case L_SYMBOLS:
             oled_write_ln_P(PSTR("Symbols"), false);
             break;
-        case 3:
-            oled_write_ln_P(PSTR("Media & Numbers (Mac)"), false);
+        case L_MAN_MAC:
+            oled_write_ln_P(PSTR("Media/Num (Mac)"), false);
             break;
-        case 4:
-            oled_write_ln_P(PSTR("Media & Numbers (Linux)"), false);
+        case L_MAN_LINUX:
+            oled_write_ln_P(PSTR("Media/Num (Linux)"), false);
             break;
-        case 5:
+        case L_EXTRA:
+        case L_EXTRA|L_SYMBOLS:
+        case L_EXTRA|L_MAN_MAC:
+        case L_EXTRA|L_MAN_LINUX:
+        case L_EXTRA|L_SYMBOLS|L_MAN_MAC:
+        case L_EXTRA|L_SYMBOLS|L_MAN_LINUX:
             oled_write_ln_P(PSTR("Extra"), false);
             break;
         default:
-            oled_write_ln_P(PSTR(strcat("Unhandled: ", layer_state)), false);
+            oled_write_ln_P(PSTR("Unhandled!"), false);
             break;
     }
 }
