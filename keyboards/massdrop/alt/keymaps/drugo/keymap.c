@@ -201,7 +201,17 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     uint8_t r = data[2];
                     uint8_t g = data[3];
                     uint8_t b = data[4];
-                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                    switch(rgb_matrix_get_flags()){
+                        case LED_FLAG_ALL:
+                            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                        break;
+                        case LED_FLAG_UNDERGLOW:
+                            rgb_matrix_set_flags(LED_FLAG_NONE);
+                        break;
+                        case LED_FLAG_NONE:
+                            rgb_matrix_enable_noeeprom();
+                        break;
+                    }
                     for (int i = 67; i <= 81; i++) {
                         rgb_matrix_set_color(i, r, g, b);
                     }
