@@ -1,5 +1,5 @@
-/* Copyright 2015-2017 Jack Humbert
- * Modified by Nasp for the Quark
+/* Copyright 2020 Nathan Spears
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -71,5 +71,3 @@
 #define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
 #define RGBLIGHT_SAT_STEP 12 // units to step when in/decresing saturation
 #define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
-
-#define TAPPING_TOGGLE 2
