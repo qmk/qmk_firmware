@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = full     # Virtual DIP switch configuration (just Escape!!)
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration (just Escape!!)
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -20,9 +20,5 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-KEY_LOCK_ENABLE = yes		# Keylock mode
 
 LAYOUTS = 60_ansi 60_ansi_arrow 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_abnt2 60_tsangan_hhkb
-
-UNICODE_ENABLE = yes
-DYNAMIC_MACRO_ENABLE = yes
