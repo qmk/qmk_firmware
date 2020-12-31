@@ -136,7 +136,7 @@ const uint32_t ng_key[] = {
 // カナ変換テーブル
 typedef struct {
   uint32_t key;
-  char kana[7];
+  char kana[6];
 } naginata_keymap;
 
 // ロング
