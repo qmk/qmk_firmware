@@ -17,6 +17,9 @@
 #define LSFT_MASK (get_mods() & MOD_BIT(KC_LSFT))
 #define RSFT_MASK (get_mods() & MOD_BIT(KC_RSFT))
 #define SFT_MASK  (LSFT_MASK || RSFT_MASK)
+#define LALT_MASK (get_mods() & MOD_BIT(KC_LALT))
+#define RALT_MASK (get_mods() & MOD_BIT(KC_RALT))
+#define ALT_MASK  (LALT_MASK || RALT_MASK)
 
 // Layers
 
@@ -31,12 +34,33 @@ enum planck_layers {
 };
 
 #define BASE    TO(_BASE)
+#define HYPER   MO(_HYPER)
 #define R_MODES OSL(_ROTOR)
 
 #define LOWER1  OSL(_LOWER1)
 #define LOWER2  OSL(_LOWER2)
 #define RAISE1  OSL(_RAISE1)
 #define RAISE2  OSL(_RAISE2)
+
+// Custom keycodes
+
+#define CTL_TAB MT(MOD_LCTL, KC_TAB)
+#define SH_ESC  MT(MOD_LSFT, KC_ESC)
+#define SH_QUOT MT(MOD_RSFT, KC_QUOT)
+
+enum keycodes {
+    ROTARY = SAFE_RANGE,
+    PANIC,                  // backspace on tap, delete on tap with LALT
+
+    // rotary modes
+    R_VOL, R_MEDIA, R_BRI, R_SC_V, R_SC_H, R_AR_V, R_AR_H,
+
+    // command-line macros
+    CLEAR,      // [clear terminal line]
+    GT_STAT,    // git status
+    GT_CMT,     // git commit
+    PY_VENV,    // source *env*/bin/activate
+};
 
 // Rotary encoder states
 
@@ -51,37 +75,6 @@ enum encoder_states {
 };
 
 enum encoder_states rotary_state = VOLUME;
-
-// Custom keycodes
-
-enum keycodes {
-    ROTARY = SAFE_RANGE,
-    PANIC,                  // backspace on tap, delete on tap with ALT
-
-    // rotary adjustment
-    R_VOL, R_MEDIA, R_BRI, R_SC_V, R_SC_H, R_AR_V, R_AR_H,
-
-    // command-line macros
-    CLEAR,      // [clear terminal line]
-    GT_STAT,    // git status
-    GT_CMT,     // git commit
-    PY_VENV,    // source *env*/bin/activate
-
-    // bracket mode
-    LBK_TG, RBK_TG,                 // toggle left-side and right-side brackets
-    LBK_P, LBK_S, LBK_C, LBK_A,     // left-side brackets
-    RBK_P, RBK_S, RBK_C, RBK_A,     // right-side brackets
-
-};
-
-#define H(kc) HYPR(kc)
-
-#define CTL_TAB MT(MOD_LCTL, KC_TAB)
-#define SH_ESC  MT(MOD_LSFT, KC_ESC)
-#define SH_QUOT MT(MOD_RSFT, KC_QUOT)
-
-static bool lbk_mode = false;   // left-side bracket mode
-static bool rbk_mode = false;   // right-side bracket mode
 
 // Songs
 
@@ -135,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | HYPER |  Ctrl |  Meta | Super | LOWER1|     Space     | RAISE1|       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
-        * PANIC:            BACKSPACE on tap, DELETE on tap with ALT
+        * PANIC:            BACKSPACE on tap, DELETE on tap with LALT
         * TAB:              CTRL on hold
         * ESC and ':        SHIFT on hold
 
@@ -145,19 +138,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ROTARY,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    PANIC,
         CTL_TAB, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
         SH_ESC,  KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
-        LBK_A,   KC_LCTL, KC_LALT, KC_LGUI, LOWER1, KC_SPACE, KC_SPACE, RAISE1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER1, KC_SPACE, KC_SPACE, RAISE1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     /* Hyper -  macros and keyboard adjustments
 
         |-----------------------------------------------------------------------------------------------|
-        | ROTARY|       |       |       |       |       |       |       |       |       |       | Reset |
+        | ROTARY|       |       |       |       |       |       |       |       |       |       | Delete|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       | g stat| clear |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |   -   |       |       |       |       |      BASE     |       |       |       |       | Reset |
         |-----------------------------------------------------------------------------------------------|
 
         * DO NOT INCLUDE DESTRUCTIVE MACROS
@@ -170,10 +163,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     */
     [_HYPER] = LAYOUT_planck_grid(
-        R_MODES, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,
+        R_MODES, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
         _______, XXXXXXX, GT_STAT, CLEAR,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
+        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, RESET
     ),
 
     /* Rotary - change rotary encoder mode
@@ -355,8 +348,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case PANIC:
             if (record->event.pressed) {
-                if (CTL_MASK) {
-                    unregister_code(KC_LCTL);
+                if (LALT_MASK) {
+                    unregister_code(KC_LALT);
                     register_code(KC_DEL);
                     panic_del = true;
                 }
@@ -366,7 +359,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else {
                 if (panic_del) {
-                    register_code(KC_LCTL);
+                    register_code(KC_LALT);
                     unregister_code(KC_DEL);
                     panic_del = false;
                 }
@@ -375,16 +368,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case LBK_TG:
-            if (record->event.pressed) {
-                lbk_mode = !lbk_mode;
-            }
-            break;
-        case RBK_TG:
-            if (record->event.pressed) {
-                rbk_mode = !rbk_mode;
-            }
-            break;
         case KC_CAPS:
             if (record->event.pressed) {
                 caps_active = !caps_active;
@@ -544,142 +527,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     #endif
 
-    /*
-        ██████  ██████   █████   ██████ ██   ██ ███████ ████████ ███████ 
-        ██   ██ ██   ██ ██   ██ ██      ██  ██  ██         ██    ██      
-        ██████  ██████  ███████ ██      █████   █████      ██    ███████ 
-        ██   ██ ██   ██ ██   ██ ██      ██  ██  ██         ██         ██ 
-        ██████  ██   ██ ██   ██  ██████ ██   ██ ███████    ██    ███████
-    */
-
-    bool lbk_key = (keycode == LBK_P || keycode == LBK_S || keycode == LBK_C || keycode == LBK_A);
-    bool rbk_key = (keycode == RBK_P || keycode == RBK_S || keycode == RBK_C || keycode == RBK_A);
-
-    // left-side held modifiers
-    if (lbk_key && /* TODO: key is held */ false) {
-        if (keycode == LBK_P) {
-            keypress(record->event.pressed, KC_LGUI);
-        }
-        else if (keycode == LBK_S) {
-            keypress(record->event.pressed, KC_LALT);
-        }
-        else if (keycode == LBK_C) {
-            keypress(record->event.pressed, KC_LCTL);
-        }
-        else if (keycode == LBK_A) {
-            if (record->event.pressed) {
-                layer_on(_HYPER);
-            }
-            else {
-                layer_off(_HYPER);
-            }
-        }
-    }
-
-    // brackets mode
-    else if ((lbk_key && lbk_mode) || (rbk_key && rbk_mode)) {
-        // closed brackets
-        if ((rbk_key && rbk_mode && lbk_mode) || LSFT_MASK || RSFT_MASK) {
-            if (LSFT_MASK) {
-                unregister_code(KC_LSFT);
-            }
-            if (RSFT_MASK) {
-                unregister_code(KC_RSFT);
-            }
-
-            if (keycode == LBK_P || keycode == RBK_P) {
-                keypress(record->event.pressed, KC_RPRN);
-            }
-            else if (keycode == LBK_S || keycode == RBK_S) {
-                keypress(record->event.pressed, KC_RBRC);
-            }
-            else if (keycode == LBK_C || keycode == RBK_C) {
-                keypress(record->event.pressed, KC_RCBR);
-            }
-            else if (keycode == LBK_A || keycode == RBK_A) {
-                keypress(record->event.pressed, KC_RABK);
-            }
-
-            //TODO: persistent modifier memory using linked list
-            if (LSFT_MASK) {
-                register_code(KC_LSFT);
-            }
-            if (RSFT_MASK) {
-                register_code(KC_RSFT);
-            }
-        }
-        // open brackets
-        else {
-            if (keycode == LBK_P || keycode == RBK_P) {
-                keypress(record->event.pressed, KC_LPRN);
-            }
-            else if (keycode == LBK_S || keycode == RBK_S) {
-                keypress(record->event.pressed, KC_LBRC);
-            }
-            else if (keycode == LBK_C || keycode == RBK_C) {
-                keypress(record->event.pressed, KC_LCBR);
-            }
-            else if (keycode == LBK_A || keycode == RBK_A) {
-                keypress(record->event.pressed, KC_LABK);
-            }
-        }
-    }
-
-    // left-side one-shot modifiers
-    else if (lbk_key) {
-        if (keycode == LBK_P) {
-            if (record->event.pressed) {
-                set_oneshot_mods(MOD_LGUI);
-            }
-            keypress(record->event.pressed, KC_LGUI);
-        }
-        else if (keycode == LBK_S) {
-            if (record->event.pressed) {
-                set_oneshot_mods(MOD_LALT);
-            }
-            keypress(record->event.pressed, KC_LALT);
-        }
-        else if (keycode == LBK_C) {
-            if (record->event.pressed) {
-                set_oneshot_mods(MOD_LCTL);
-            }
-            keypress(record->event.pressed, KC_LCTL);
-        }
-        else if (keycode == LBK_A) {
-            if (record->event.pressed) {
-                layer_on(_HYPER);           // TODO: keep HYPER on if no key pressed while held (i.e. OSL)
-                //set_oneshot_layer(_HYPER, ONESHOT_START);
-            }
-            else {
-                layer_off(_HYPER);
-                //clear_oneshot_layer_state(ONESHOT_PRESSED);
-            }
-        }
-    }
-
-    // right-side arrows keys
-    else if (rbk_key) {
-        if (keycode == RBK_P) {
-            keypress(record->event.pressed, KC_LEFT);
-        }
-        else if (keycode == RBK_S) {
-            keypress(record->event.pressed, KC_DOWN);
-        }
-        else if (keycode == RBK_C) {
-            keypress(record->event.pressed, KC_UP);
-        }
-        else if (keycode == RBK_A) {
-            keypress(record->event.pressed, KC_RIGHT);
-        }
-    }
-
     return true;
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //if (keycode != LBK_A && IS_LAYER_ON(_HYPER)) {
-    //    layer_off(_HYPER);
-    //}
+    
 }
 
 
