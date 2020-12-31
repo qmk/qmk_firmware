@@ -7,3 +7,5 @@
 ) { \
     { k00 } \
 }
+
+#define LAYOUT LAYOUT_ortho_1x1
