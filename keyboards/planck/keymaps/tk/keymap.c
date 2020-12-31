@@ -116,7 +116,7 @@ float redo_song[][2]            = SONG(MARIO_ONEUP);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* Base layer
+    /* Base
 
         |-----------------------------------------------------------------------------------------------|
         | Rotary|   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | Panic |
@@ -141,21 +141,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER1, KC_SPACE, KC_SPACE, RAISE1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
-    /* Hyper -  macros and keyboard adjustments
+    /* Hyper - keyboard adjustments and function keys
 
         |-----------------------------------------------------------------------------------------------|
-        | ROTARY|       |       |       |       |       |       |       |       |       |       | Delete|
+        | ROTARY|  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  | Delete|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       | g stat| clear |       |       |       |       |       |       |       |       |
+        |       |  F11  |  F12  |  F13  |  F14  |  F15  |  F16  |  F17  |  F18  |  F19  |  F20  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
+        |       |  F21  |  F22  |  F23  |  F24  |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |   -   |       |       |       |       |      BASE     |       |       |       |       | Reset |
         |-----------------------------------------------------------------------------------------------|
 
-        * DO NOT INCLUDE DESTRUCTIVE MACROS
-        * macros on alphabet keys, adjustments elsewhere
-        * 
         * TODO:
         *   toggle keyboard audios
         *   toggle music mode and adjust mode
@@ -163,9 +160,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     */
     [_HYPER] = LAYOUT_planck_grid(
-        R_MODES, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
-        _______, XXXXXXX, GT_STAT, CLEAR,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        R_MODES, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+        _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
+        _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, RESET
     ),
 
@@ -213,23 +210,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, LOWER2, _______, _______, RAISE1,  _______, _______, _______, _______
     ),
 
-    /* Lower II - function keys
+    /* Lower II - macros
 
         |-----------------------------------------------------------------------------------------------|
-        |       |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  |       |
+        |       |       |       |       |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |  F11  |  F12  |  F13  |  F14  |  F15  |  F16  |  F17  |  F18  |  F19  |  F20  |       |
+        |       |       | g stat| clear |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |  F21  |  F22  |  F23  |  F24  |       |       |       |       |       |       |       |
+        |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
+        * DO NOT INCLUDE DESTRUCTIVE MACROS
+
     */
     [_LOWER2] = LAYOUT_planck_grid(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-        _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
-        _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, GT_STAT, CLEAR,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, _______, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
 
