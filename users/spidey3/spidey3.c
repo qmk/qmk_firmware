@@ -157,31 +157,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
+#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+            case SPI_LNX: set_unicode_input_mode(UC_LNX); break;
+            case SPI_OSX: set_unicode_input_mode(UC_OSX); break;
+            case SPI_WIN: set_unicode_input_mode(UC_WINC); break;
+#endif
                 // clang-format on
-
-            case SPI_LNX:
-                dprint("SPI_LNX\n");
-                set_single_persistent_default_layer(_BASE);
-                layer_off(_OSX);
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-                set_unicode_input_mode(UC_LNX);
-#endif
-                break;
-            case SPI_OSX:
-                dprint("SPI_OSX\n");
-                set_single_persistent_default_layer(_OSX);
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-                set_unicode_input_mode(UC_OSX);
-#endif
-                break;
-            case SPI_WIN:
-                dprint("SPI_WIN\n");
-                set_single_persistent_default_layer(_BASE);
-                layer_off(_OSX);
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-                set_unicode_input_mode(UC_WINC);
-#endif
-                break;
 
             case SPI_NORMAL ... SPI_FRAKTR:
                 spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL : keycode;
@@ -201,6 +182,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint8_t osm = 0;
 #endif
 
+                // It's kind of a hack, but we use unicode input mode
+                // to determine what Print Screen key should do. The
+                // idea here is to make it consistent across hosts.
                 switch (get_unicode_input_mode()) {
                     case UC_MAC:
                         if ((mods | osm) & MOD_MASK_ALT) {

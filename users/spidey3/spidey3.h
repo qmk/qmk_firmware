@@ -8,7 +8,6 @@
 
 enum userspace_layers {
     _BASE = 0,
-    _OSX,
     _NUMPAD,
     _FN,
 };
