@@ -162,6 +162,7 @@ uint8_t matrix_scan(void)
             switch (code) {
                 case 0x45:
                     matrix_make(0x55);
+                    state = XT_STATE_INIT;
                     break;
                 default:
                     state = XT_STATE_INIT;
@@ -170,8 +171,9 @@ uint8_t matrix_scan(void)
             break;
         case XT_STATE_E1_9D:
             switch (code) {
-                case 0x45:
+                case 0xC5:
                     matrix_break(0x55);
+                    state = XT_STATE_INIT;
                     break;
                 default:
                     state = XT_STATE_INIT;
