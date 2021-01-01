@@ -11,11 +11,11 @@ Hardware Availability: https://kbdfans.com/products/hhkb-ble-mod-upgrade-module
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hhkb_yang:default
+    make hhkb/yang:default
 
 To flash, first boot your keyboard into bootloader (hold ESC and attach usb cable):
 
-    make LUFA_DEVICE=/dev/sda hhkb_yang:default:flash
+    make LUFA_DEVICE=/dev/sda hhkb/yang:default:flash
 
 LUFA_DEVICE should point to the emulated storage device by the lufa-ms
 bootloader. **Caution**: if set to incorrect device it may wipe out

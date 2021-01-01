@@ -1,4 +1,4 @@
-#include "hhkb_yang.h"
+#include "yang.h"
 
 extern uint8_t power_save_level;
 
