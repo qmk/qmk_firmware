@@ -8,11 +8,15 @@
 
 #define ONESHOT_TAP_TOGGLE 5    // taps to toggle a one-shot layer/key persistence
 
-// mouse keys
+// dynamic macros --
+
+#define DYNAMIC_MACRO_SIZE 256
+
+// mouse keys --
 
 #define MK_3_SPEED
 
-// mouse speeds --
+// mouse speeds
 
 // cursor offset per movement
 #define MK_C_OFFSET_1 4
@@ -22,7 +26,7 @@
 #define MK_C_INTERVAL_1 16  // 16 ms = 60 Hz refresh rate
 #define MK_C_INTERVAL_2 16
 
-// scroll speeds --
+// scroll speeds
 
 // scroll steps per scroll action
 #define MK_W_OFFSET_1 1
@@ -34,6 +38,9 @@
 
 
 // audio --
+
+#define AUDIO_CLICKY
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1
 
 #ifdef AUDIO_ENABLE
 
@@ -86,7 +93,7 @@
                                 T__NOTE(_GS6), T__NOTE(_C7),  T__NOTE(_DS7), T__NOTE(_GS7), \
                                 T__NOTE(_DS7), S__NOTE(_AS5), T__NOTE(_D6),  T__NOTE(_F6),  \
                                 T__NOTE(_AS6), T__NOTE(_F6),  T__NOTE(_AS6), T__NOTE(_D7),  \
-                                T__NOTE(_F7), T__NOTE(_AS7), T__NOTE(_F7)
+                                T__NOTE(_F7),  T__NOTE(_AS7), T__NOTE(_F7)
 
 
     #define MARIO_PIPE          X__NOTE(_E7), X__NOTE(_A6), X__NOTE(_D6), X__NOTE(_G5), \
@@ -126,22 +133,22 @@
 
     #define PINK_PANTHER        Q__NOTE(_CS5), QD_NOTE(_D5), Q__NOTE(_REST), Q__NOTE(_DS5), W__NOTE(_E5)
 
-    #define STILL_DRE           QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_CS6), Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_AS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),  \
-                                QD_NOTE(_C6),  Q__NOTE(_F6), QD_NOTE(_GS6),
+    #define STILL_DRE           ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_CS6), E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_AS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_GS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_GS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_GS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_GS6),  \
+                                ED_NOTE(_C6),  E__NOTE(_F6), ED_NOTE(_GS6),
 
     // override default songs
 

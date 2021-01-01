@@ -57,6 +57,8 @@ enum keycodes {
 
     // command-line macros
     CLEAR,      // [clear terminal line]
+    EMAIL,      // [email address]
+    PHONE,      // [phone number]
     GT_STAT,    // git status
     GT_CMT,     // git commit
     PY_VENV,    // source *env*/bin/activate
@@ -79,12 +81,17 @@ enum encoder_states rotary_state = VOLUME;
 // Songs
 
 #ifdef AUDIO_ENABLE
-//
+// feedback songs
 float confirm_song[][2]         = SONG(MARIO_COIN);
 float reject_song[][2]          = SONG(MARIO_BUMP);
 
+// dynamic macro songs
+float dmacro_recs_song[][2]     = SONG(MARIO_CAVE_1);
+float dmacro_rece_song[][2]     = SONG(MARIO_CAVE_2);
+float dmacro_play_song[][2]     = SONG(MARIO_PIPE);
+
 // layer toggle songs
-float base_song[][2]            = SONG(MARIO_BUMP);
+float base_song[][2]            = SONG();
 float hyper_song[][2]           = SONG(MARIO_POWERUP_BLOCK);
 float rotary_song[][2]          = SONG(MARIO_POWERUP);
 float raise1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
@@ -125,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |  Esc  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   |   '   |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        | HYPER |  Ctrl |  Meta | Super | LOWER1|     Space     | RAISE1|       |       |       |       |
+        | HYPER |  Ctrl |  Meta | Super | LOWER1|     Space     | RAISE1|DM1 Rec|DM1 Ply|DM2 Ply|DM2 Rec|
         |-----------------------------------------------------------------------------------------------|
 
         * PANIC:            BACKSPACE on tap, DELETE on tap with LALT
@@ -138,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ROTARY,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    PANIC,
         CTL_TAB, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
         SH_ESC,  KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
-        HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER1, KC_SPACE, KC_SPACE, RAISE1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER1, KC_SPACE, KC_SPACE, RAISE1, DM_REC1, DM_PLY1, DM_PLY2, DM_REC2
     ),
 
     /* Hyper - keyboard adjustments and function keys
@@ -146,23 +153,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-----------------------------------------------------------------------------------------------|
         | ROTARY|  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  | Delete|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |  F11  |  F12  |  F13  |  F14  |  F15  |  F16  |  F17  |  F18  |  F19  |  F20  |       |
+        |T Audio|  F11  |  F12  |  F13  |  F14  |  F15  |  F16  |  F17  |  F18  |  F19  |  F20  |T Music|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |  F21  |  F22  |  F23  |  F24  |       |       |       |       |       |       |       |
+        |T Click|  F21  |  F22  |  F23  |  F24  |       |       |       |       |       |       |C Music|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |   -   |       |       |       |       |      BASE     |       |       |       |       | Reset |
         |-----------------------------------------------------------------------------------------------|
 
-        * TODO:
-        *   toggle keyboard audios
-        *   toggle music mode and adjust mode
-        *   toggle clicky mode
-
     */
     [_HYPER] = LAYOUT_planck_grid(
         R_MODES, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-        _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
-        _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        AU_TOG,  KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  MU_TOG,
+        CK_TOGG, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_MOD,
         _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, RESET
     ),
 
@@ -213,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Lower II - macros
 
         |-----------------------------------------------------------------------------------------------|
-        |       |       |       |       |       |       |       |       |       |       |       |       |
+        |       |       |       | email |       |       |       |       |       |       | phone |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       | g stat| clear |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
@@ -226,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     */
     [_LOWER2] = LAYOUT_planck_grid(
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, EMAIL,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, PHONE,   _______,
         _______, XXXXXXX, GT_STAT, CLEAR,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, _______, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
@@ -286,6 +288,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║    ███████╗╚██████╔╝╚██████╔╝██║╚██████╗
  ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝ ╚═════╝
 */
+
+// Dynamic macros
+
+void dynamic_macro_record_start_user(void) {
+    #ifdef AUDIO_ENABLE
+    PLAY_SONG(dmacro_recs_song);
+    #endif
+    clicky_on();
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    #ifdef AUDIO_ENABLE
+    PLAY_SONG(dmacro_rece_song);
+    #endif
+    clicky_off();
+}
+
+void dynamic_macro_play_user(int8_t direction) {
+    #ifdef AUDIO_ENABLE
+    PLAY_SONG(dmacro_play_song);
+    #endif
+}
 
 // Layers
 
@@ -438,6 +462,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(LCTL(KC_U)); // clear to beginning of line
             }
             break;
+        case EMAIL:
+            if (record->event.pressed) {
+                SEND_STRING(" ");
+            }
+            break;
+        case PHONE:
+            if (record->event.pressed) {
+                SEND_STRING(" ");
+            }
+            break;
         case GT_STAT:
             if (record->event.pressed) {
                 SEND_STRING("git status ");
@@ -453,7 +487,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 SEND_STRING("source *env*/bin/activate");
             }
-            break; 
+            break;
     };
 
     /*
@@ -465,6 +499,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     */
 
     #ifdef AUDIO_ENABLE
+    if (keycode == AU_TOG || keycode == BASE) {
+        PLAY_SONG(caps_on_song);
+    }
+
     if (record->event.pressed) {
         switch (keycode) {
             case KC_S: // CTRL+S
