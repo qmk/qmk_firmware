@@ -34,15 +34,13 @@
 /** Bitfield defining which events are allowed to activate a key override. */
 typedef enum {
     /** When the trigger key is pressed down. */
-    ko_activation_key_down = (1 << 0),
-    /** When another key is released. Only has an effect in conjunction with ko_option_exclusive_key_on_activate. */
-    ko_activation_key_up = (1 << 1),
+    ko_activation_trigger_down = (1 << 0),
     /** When a necessary modifier is pressed down. */
-    ko_activation_mod_down = (1 << 2),
+    ko_activation_required_mod_down = (1 << 1),
     /** When a negative modifier is released. */
-    ko_activation_mod_up = (1 << 3),
+    ko_activation_negative_mod_up = (1 << 2),
 
-    ko_activation_events_all = ko_activation_key_down | ko_activation_key_up | ko_activation_mod_down | ko_activation_mod_up,
+    ko_activation_events_all = ko_activation_trigger_down | ko_activation_required_mod_down | ko_activation_negative_mod_up,
     /** The default activation events used by the ko_make_xxx functions. */
     ko_activation_events_default = ko_activation_key_down,
 } ko_activation_event_t;
@@ -53,18 +51,16 @@ typedef enum {
     ko_option_one_mod = (1 << 0),
     /** If set, the override can only activate if no non-modifier key except the trigger key is down. */
     ko_option_exclusive_key_on_activate = (1 << 1),
-    /** If set, the trigger key has to be the only non-modifier key that is pressed while the override is active. If another key is pressed, the opverride will be deactivated. */
-    ko_option_exclusive_key_during_active = (1 << 2),
     /** Whether the trigger key should be registered again after the override is deactivated (only in case it is still physically pressed). */
-    ko_option_reregister_trigger_on_deactivation = (1 << 3),
+    ko_option_reregister_trigger_on_deactivation = (1 << 2),
 
     /** The default options used by the ko_make_xxx functions. */
-    ko_options_default = ko_option_exclusive_key_during_active,
+    ko_options_default = 0,
 } ko_option_t;
 
 /** Defines a single key override */
 typedef struct {
-    // The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode.
+    // The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode. A key override can only activate when the trigger key is the last non-modifier key that was pressed down. This emulates the standard behavior of how OSes handle keyboard input. As soon as another non-modifier key is pressed down, an active modifier is deactivated, again emulating the behavior of OS keyboard handling, where holding key x, followed by key y unregisters key x as long as it is held.
     uint16_t trigger; 
 
     // Which mods need to be down for activation. If both sides of mod are set (e.g. left ctrl and right ctrl) then only one is required to trigger (e.g. left ctrl suffices).
