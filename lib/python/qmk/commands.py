@@ -48,7 +48,7 @@ def create_make_command(keyboard, keymap, target=None, **env_vars):
     return [make_cmd, *env, ':'.join(make_args)]
 
 
-def compile_configurator_json(user_keymap):
+def compile_configurator_json(user_keymap, **env_vars):
     """Convert a configurator export JSON file into a C file and then compile it.
 
     Args:
@@ -84,6 +84,12 @@ def compile_configurator_json(user_keymap):
         '-R',
         '-f',
         'build_keyboard.mk',
+    ]
+
+    for key, value in env_vars.items():
+        make_command.append(f'{key}={value}')
+
+    make_command.extend([
         f'KEYBOARD={user_keymap["keyboard"]}',
         f'KEYMAP={user_keymap["keymap"]}',
         f'KEYBOARD_FILESAFE={keyboard_filesafe}',
@@ -100,7 +106,7 @@ def compile_configurator_json(user_keymap):
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
-    ]
+    ])
 
     return make_command
 

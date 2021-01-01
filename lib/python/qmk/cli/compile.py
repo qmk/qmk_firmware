@@ -45,7 +45,7 @@ def compile(cli):
     if cli.args.filename:
         # If a configurator JSON was provided generate a keymap and compile it
         user_keymap = parse_configurator_json(cli.args.filename)
-        command = compile_configurator_json(user_keymap)
+        command = compile_configurator_json(user_keymap, **envs)
 
     else:
         if cli.config.compile.keyboard and cli.config.compile.keymap:

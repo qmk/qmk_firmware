@@ -77,7 +77,7 @@ def flash(cli):
         # Handle compiling a configurator JSON
         user_keymap = parse_configurator_json(cli.args.filename)
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
-        command = compile_configurator_json(user_keymap, cli.args.bootloader)
+        command = compile_configurator_json(user_keymap, cli.args.bootloader, **envs)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
