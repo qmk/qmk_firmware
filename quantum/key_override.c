@@ -274,6 +274,12 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
             continue;
         }
 
+        // Check if aleady active
+        if (override == active_override) {
+            key_override_printf("Not activating override: Alerady actived\n");
+            continue;
+        }
+
         // Check if enabled
         if (override->enabled != NULL && !((*(override->enabled) & 1))) {
             key_override_printf("Not activating override: Not enabled\n");
