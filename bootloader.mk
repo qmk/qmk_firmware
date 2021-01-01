@@ -120,6 +120,10 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
 endif
 
 ifeq ($(strip $(BOOTLOADER)), vibl)
+    MCU_LDSCRIPT = STM32_F103_vibl
+    BOARD = STM32_F103_vibl
+    PROGRAM_CMD = echo 'CLI flashing not supported' >&2
+
     DFU_ARGS =
     DFU_SUFFIX_ARGS =
     VIBL = 1
