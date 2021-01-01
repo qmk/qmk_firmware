@@ -39,10 +39,14 @@
 
 // Helpers
 
+// Private functions implemented elsewhere in qmk/tmk
 extern uint8_t extract_mod_bits(uint16_t code);
+extern void    set_weak_override_mods(uint8_t mods);
+extern void    set_suppressed_override_mods(uint8_t mods);
+extern void    clear_suppressed_override_mods(void);
 
 static uint8_t clear_mods_from(uint16_t keycode) {
-    uint16_t all_mods = QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | QK_RCTL | QK_RSFT | QK_RALT | QK_RGUI;
+    static const uint16_t all_mods = QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | QK_RCTL | QK_RSFT | QK_RALT | QK_RGUI;
 
     return (uint8_t)(keycode & ~(all_mods));
 }
@@ -131,11 +135,10 @@ const key_override_t *clear_active_override(void) {
     key_override_printf("Deactivating override\n");
 
     // Clear the suppressed mods
-    clear_suppressed_mods();
+    clear_suppressed_override_mods();
 
     // Unregister the replacement. First remove the weak override mods
     clear_weak_override_mods();
-    // del_suppressed_mods(active_override->suppressed_mods);
 
     const key_override_t *const old = active_override;
 
@@ -319,7 +322,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         active_override                 = override;
         active_override_trigger_is_down = true;
 
-        add_suppressed_mods(override->suppressed_mods);
+        set_suppressed_override_mods(override->suppressed_mods);
 
         hidden_key = override->trigger;
 
