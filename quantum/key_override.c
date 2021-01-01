@@ -42,6 +42,7 @@
 // Private functions implemented elsewhere in qmk/tmk
 extern uint8_t extract_mod_bits(uint16_t code);
 extern void    set_weak_override_mods(uint8_t mods);
+extern void    clear_weak_override_mods(void);
 extern void    set_suppressed_override_mods(uint8_t mods);
 extern void    clear_suppressed_override_mods(void);
 
@@ -105,7 +106,7 @@ static bool key_override_matches_active_modifiers(const key_override_t *override
         return true;
     }
 
-    if (override->one_mod) {
+    if ((override->options & ko_option_one_mod) != 0) {
         // At least one of the trigger modifiers must be down
         return (override->trigger_modifiers & mods) != 0;
     } else {
@@ -332,7 +333,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         }
 
         // If the replacement key is KC_NO, there is nothing to register.
-        const bool register_replacement = override->replacement != KC_NO;
+        bool register_replacement = override->replacement != KC_NO;
 
         // Try firing the custom handler
         if (override->custom_action != NULL) {
@@ -429,8 +430,6 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         // Check if trigger of current override goes up or if override does not allow additional keys to be down and another key goes down
         if (active_override != NULL) {
             const bool is_trigger = keycode == active_override->trigger;
-            const bool trigger_up = is_trigger && !key_down;
-
             bool should_deactivate = false;
             
             // Check if trigger key lifted
@@ -440,6 +439,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
                 key_override_printf("Deactivating override because trigger key up\n");
             }
 
+            // Check if another key was pressed and no other keys are allowed down
             if (!is_trigger && key_down && (active_override->options & ko_option_exclusive_key_during_active) != 0) {
                 key_override_printf("Deactivating override because another key was pressed and no other keys are allowed down\n");
                 should_deactivate = true;
@@ -455,7 +455,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
     const uint8_t layer = read_source_layers_cache(record->event.key);
 
     // Use blocked to ensure the same override is not activated again immediately after it is deactivated
-    const bool send_key_action = try_activating_override(keycode, layer, key_down, effective_mods, blocked);
+    const bool send_key_action = try_activating_override(keycode, layer, key_down, is_mod, effective_mods, blocked);
 
     if (!send_key_action) {
         send_keyboard_report();

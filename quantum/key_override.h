@@ -42,7 +42,8 @@ typedef enum {
     /** When a negative modifier is released. */
     ko_activation_mod_up = (1 << 3),
 
-    /** The default activation events used by the key_override_make_xxx functions. */
+    ko_activation_events_all = ko_activation_key_down | ko_activation_key_up | ko_activation_mod_down | ko_activation_mod_up,
+    /** The default activation events used by the ko_make_xxx functions. */
     ko_activation_events_default = ko_activation_key_down,
 } ko_activation_event_t;
 
@@ -57,7 +58,7 @@ typedef enum {
     /** Whether the trigger key should be registered again after the override is deactivated (only in case it is still physically pressed). */
     ko_option_reregister_trigger_on_deactivation = (1 << 3),
 
-    /** The default options used by the key_override_make_xxx functions. */
+    /** The default options used by the ko_make_xxx functions. */
     ko_options_default = ko_option_exclusive_key_during_active,
 } ko_option_t;
 
@@ -119,18 +120,18 @@ extern bool key_override_is_enabled(void);
 /**
  * Convenience initializer to create a basic key override. Activates the override on all layers.
  */
-#define key_override_make_basic(trigger_mods, trigger_key, replacement_key) \
-    key_override_make_for_layers(trigger_mods, trigger_key, replacement_key, ~0)
+#define ko_make_basic(trigger_mods, trigger_key, replacement_key) \
+    ko_make_for_layers(trigger_mods, trigger_key, replacement_key, ~0)
 
 /**
  * Convenience initializer to create a basic key override. Provide a bitmap (of type layer_state_t) with the bits set for each layer on which the override should activate.
  */
-#define key_override_make_for_layers(trigger_mods, trigger_key, replacement_key, layers) key_override_make_for_layers_and_negative_mods(trigger_mods, trigger_key, replacement_key, layers, 0)
-
-/**
- * Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed.
+#define ko_make_for_layers(trigger_mods, trigger_key, replacement_key, layers) \
+    ko_make_for_layers_and_negative_mods(trigger_mods, trigger_key, replacement_key, layers, 0)
+/**                                                                                                                                                                                                                                                   \
+ * Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed. \
  */
-#define key_override_make_for_layers_and_negative_mods(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask) \
+#define ko_make_for_layers_and_negative_mods(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask) \
     ((const key_override_t){                                                                \
         .trigger_modifiers                      = (trigger_mods),                           \
         .layers                                 = (layer_mask),                             \
