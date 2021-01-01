@@ -32,13 +32,13 @@ __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t sta
  * Static function to set the default layer state, prints debug info and clears keys
  */
 static void default_layer_state_set(layer_state_t state) {
+    state = default_layer_state_set_kb(state);
     static bool has_run = false;
-    if (has_run) {
+    if (has_run) { 
         eeconfig_update_default_layer(state);
     } else {
         has_run = true;
     }
-    state = default_layer_state_set_kb(state);
     debug("default_layer_state: ");
     default_layer_debug();
     debug(" to ");
