@@ -11,12 +11,13 @@ A 3x3 macropad with support for up to 3 rotary encoders.
 
 
 **Keyboard Maintainer:** [Bakingpy/nooges](https://github.com/nooges)
+
 **Hardware Supported:**
 * Rev1: Pro Micro, Elite-C, Proton C
 * Rev2: Integrated STM32F072 microcontroller
 
 **Hardware Availability:**
-* [Keebio - BDN9 Rev1](https://keeb.io/products/bd/n9-3x3-9-key-macropad-rotary-encoder-support)
+* [Keebio - BDN9 Rev1](https://keeb.io/products/bdn9-3x3-9-key-macropad-rotary-encoder-support)
 * [Keebio - BDN9 Rev2](https://keeb.io/products/bdn9-rev-2-3x3-9-key-macropad-rotary-encoder-and-rgb)
 
 Make examples for this keyboard (after setting up your build environment):
