@@ -133,6 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //Maybe I demand publication of the source of your variant onder GPL?
 
 //burn your serial, and don't worry we'll know as "I wondered lonly as a clouds" checksum tally!?
+//send of the smashed duplicate serial shit to the number POX BOX 13.
 	LAYOUT_60_ansi(
 		KC_GESC, KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_1,    KC_EQL,  KC_MINS,          KC_BSPC,
 		KC_TAB,           KC_U,    KC_A,    KC_R,    KC_E,    KC_H,    KC_O,    KC_T,    KC_N,    KC_U,    KC_E,    KC_RBRC, KC_LBRC, KC_SLSH,
