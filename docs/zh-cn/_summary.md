@@ -14,7 +14,7 @@
   * [QMK命令行工具](zh-cn/cli.md)
   * [QMK命令行工具配置](zh-cn/cli_configuration.md)
   * [向QMK贡献代码](zh-cn/contributing.md)
-  * [如何使用Github](zh-cn/getting_started_github.md)
+  * [如何使用GitHub](zh-cn/getting_started_github.md)
   * [获得帮助](zh-cn/getting_started_getting_help.md)
 
 * [非兼容性修改](zh-cn/breaking_changes.md)
@@ -104,6 +104,7 @@
   * [ARM调试指南](zh-cn/arm_debugging.md)
   * [ADC设备](zh-cn/adc_driver.md)
   * [I2C设备](zh-cn/i2c_driver.md)
+  * [SPI设备](zh-cn/spi_driver.md)
   * [WS2812设备](zh-cn/ws2812_driver.md)
   * [EEPROM设备](zh-cn/eeprom_driver.md)
   * [GPIO控制](zh-cn/internals_gpio_control.md)

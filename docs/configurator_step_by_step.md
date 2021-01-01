@@ -12,7 +12,7 @@ I'll say that again because it's important:
 
 !> **MAKE SURE YOU SELECT THE RIGHT VERSION!**
 
-If your keyboard has been advertised to be powered by QMK but is not in the list, chances are a developer hasn't gotten to it yet or we haven't had a chance to merge it in yet. File an issue at [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) requesting to support that particular keyboard, if there is no active [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) for it. There are also QMK powered keyboards that are in their manufacturer's own github accounts. Double check for that as well.  <!-- FIXME(skullydazed): This feels too wordy and I'm not sure we want to encourage these kinds of issues. Also, should we prompt them to bug the manufacutrer? -->
+If your keyboard has been advertised to be powered by QMK but is not in the list, chances are a developer hasn't gotten to it yet or we haven't had a chance to merge it in yet. File an issue at [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) requesting to support that particular keyboard, if there is no active [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) for it. There are also QMK powered keyboards that are in their manufacturer's own GitHub accounts. Double check for that as well.  <!-- FIXME(skullydazed): This feels too wordy and I'm not sure we want to encourage these kinds of issues. Also, should we prompt them to bug the manufacutrer? -->
 
 ## Step 2: Select Your Keyboard Layout
 

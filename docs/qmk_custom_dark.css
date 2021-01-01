@@ -27,3 +27,20 @@
 .markdown-section hr, .search {
     border-bottom: 1px solid #777 !important;
 }
+
+
+:root {
+    --docsifytabs-border-color: #555;
+    --docsifytabs-tab-highlight-color: var(--theme-color,#ea6f5a);
+
+    --docsifytabs-tab-background: #444;
+    --docsifytabs-tab-background-active: #3f3f3f;
+}
+
+.docsify-tabs__tab:focus {
+    outline: none !important;
+}
+
+.docsify-tabs__content .anchor {
+    transition: none;
+}

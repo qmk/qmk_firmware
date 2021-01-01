@@ -13,4 +13,6 @@ ifneq (,$(filter yes,$(UNICODE_ENABLE) $(UNICODEMAP_ENABLE)))
     SRC += unicode.c
 endif
 
-EXTRAFLAGS += -flto
+ifneq ($(PLATFORM),CHIBIOS)
+    LTO_ENABLE = yes
+endif

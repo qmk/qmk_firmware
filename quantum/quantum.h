@@ -21,7 +21,7 @@
 #    include <avr/interrupt.h>
 #endif
 #if defined(PROTOCOL_CHIBIOS)
-#    include "hal.h"
+#    include <hal.h>
 #    include "chibios_config.h"
 #endif
 
@@ -31,7 +31,7 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
-#        include "ledmatrix.h"
+#        include "led_matrix.h"
 #    else
 #        include "backlight.h"
 #    endif
@@ -66,6 +66,11 @@ extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
 extern layer_state_t layer_state;
+#endif
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#    include "process_sequencer.h"
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -142,6 +147,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
 #ifdef GRAVE_ESC_ENABLE
 #    include "process_grave_esc.h"
 #endif
@@ -197,6 +206,8 @@ typedef uint8_t pin_t;
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
+#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 
@@ -207,9 +218,66 @@ typedef ioline_t pin_t;
 
 #    define writePinHigh(pin) palSetLine(pin)
 #    define writePinLow(pin) palClearLine(pin)
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
+#    define writePin(pin, level) ((level) ? (writePinHigh(pin)) : (writePinLow(pin)))
 
 #    define readPin(pin) palReadLine(pin)
+
+#    define togglePin(pin) palToggleLine(pin)
+#endif
+
+// Atomic macro to help make GPIO and other controls atomic.
+#ifdef IGNORE_ATOMIC_BLOCK
+/* do nothing atomic macro */
+#    define ATOMIC_BLOCK for (uint8_t __ToDo = 1; __ToDo; __ToDo = 0)
+#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK
+
+#elif defined(__AVR__)
+/* atomic macro for AVR */
+#    include <util/atomic.h>
+
+#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
+
+#elif defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_ARM_ATSAM)
+/* atomic macro for ChibiOS / ARM ATSAM */
+#    if defined(PROTOCOL_ARM_ATSAM)
+#        include "arm_atsam_protocol.h"
+#    endif
+
+static __inline__ uint8_t __interrupt_disable__(void) {
+#    if defined(PROTOCOL_CHIBIOS)
+    chSysLock();
+#    endif
+#    if defined(PROTOCOL_ARM_ATSAM)
+    __disable_irq();
+#    endif
+    return 1;
+}
+
+static __inline__ void __interrupt_enable__(const uint8_t *__s) {
+#    if defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
+#    endif
+#    if defined(PROTOCOL_ARM_ATSAM)
+    __enable_irq();
+#    endif
+    __asm__ volatile("" ::: "memory");
+    (void)__s;
+}
+
+#    define ATOMIC_BLOCK(type) for (type, __ToDo = __interrupt_disable__(); __ToDo; __ToDo = 0)
+#    define ATOMIC_FORCEON uint8_t sreg_save __attribute__((__cleanup__(__interrupt_enable__))) = 0
+
+#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
+
+/* Other platform */
+#else
+
+#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
+#    define ATOMIC_BLOCK_FORCEON _Static_assert(0, "ATOMIC_BLOCK_FORCEON dose not implement")
+
 #endif
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
@@ -245,15 +313,18 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 
-#define IS_LAYER_ON(layer) (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
+#define IS_LAYER_ON(layer) layer_state_is(layer)
+#define IS_LAYER_OFF(layer) !layer_state_is(layer)
+
+#define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
+#define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
 void     matrix_init_kb(void);
 void     matrix_scan_kb(void);
 void     matrix_init_user(void);
 void     matrix_scan_user(void);
-uint16_t get_record_keycode(keyrecord_t *record);
-uint16_t get_event_keycode(keyevent_t event);
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
