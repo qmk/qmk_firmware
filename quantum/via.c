@@ -218,6 +218,13 @@ __attribute__((weak)) void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     uint8_t *command_id   = &(data[0]);
     uint8_t *command_data = &(data[1]);
+
+#ifdef VIAL_ENABLE
+    /* When unlock is in progress, only command we react to is unlock_poll */
+    if (vial_unlock_in_progress && (data[0] != id_vial_prefix || data[1] != vial_unlock_poll))
+        goto skip;
+#endif
+
     switch (*command_id) {
         case id_get_protocol_version: {
             command_data[0] = VIA_PROTOCOL_VERSION >> 8;
@@ -243,6 +250,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     break;
                 }
                 case id_switch_matrix_state: {
+#ifdef VIAL_ENABLE
+                    /* We don't need this wannabe keylogger */
+                    goto skip;
+#endif
+
 #if ((MATRIX_COLS / 8 + 1) * MATRIX_ROWS <= 28)
                     uint8_t i = 1;
                     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -362,6 +374,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
         case id_dynamic_keymap_macro_set_buffer: {
+#ifdef VIAL_ENABLE
+            /* Until keyboard is unlocked, don't allow changing macros */
+            if (!vial_unlocked)
+                goto skip;
+#endif
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2];  // size <= 28
             if (size <= 28)
@@ -395,6 +412,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
         case id_bootloader_jump: {
+#ifdef VIAL_ENABLE
+            /* Until keyboard is unlocked, don't allow jumping to bootloader */
+            if (!vial_unlocked)
+                goto skip;
+#endif
             // Need to send data back before the jump
             // Informs host that the command is handled
             raw_hid_send(data, length);
@@ -404,7 +426,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
 #ifdef VIAL_ENABLE
-        case 0xFE: {
+        case id_vial_prefix: {
             vial_handle_cmd(data, length);
             break;
         }
@@ -416,7 +438,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
     }
-
+#ifdef VIAL_ENABLE
+skip:
+#endif
     // Return the same buffer, optionally with values changed
     // (i.e. returning state to the host, or the unhandled state).
     raw_hid_send(data, length);

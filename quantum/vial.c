@@ -25,13 +25,24 @@
 
 #include "vial_ensure_keycode.h"
 
-enum {
-    vial_get_keyboard_id = 0x00,
-    vial_get_size = 0x01,
-    vial_get_def = 0x02,
-    vial_get_encoder = 0x03,
-    vial_set_encoder = 0x04,
-};
+#define VIAL_UNLOCK_COUNTER_MAX 50
+
+#ifdef VIAL_INSECURE
+#pragma message "Building Vial-enabled firmware in insecure mode."
+int vial_unlocked = 1;
+#else
+int vial_unlocked = 0;
+#endif
+int vial_unlock_in_progress = 0;
+static int vial_unlock_counter = 0;
+static uint16_t vial_unlock_timer;
+
+#ifndef VIAL_INSECURE
+static uint8_t vial_unlock_combo_rows[] = VIAL_UNLOCK_COMBO_ROWS;
+static uint8_t vial_unlock_combo_cols[] = VIAL_UNLOCK_COMBO_COLS;
+#define VIAL_UNLOCK_NUM_KEYS (sizeof(vial_unlock_combo_rows)/sizeof(vial_unlock_combo_rows[0]))
+_Static_assert(VIAL_UNLOCK_NUM_KEYS < 15, "Max 15 unlock keys");
+#endif
 
 void vial_handle_cmd(uint8_t *msg, uint8_t length) {
     /* All packets must be fixed 32 bytes */
@@ -89,6 +100,59 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             break;
         }
 #endif
+        case vial_get_unlock_status: {
+            /* Reset message to all FF's */
+            memset(msg, 0xFF, length);
+            /* First byte of message contains the status: whether board is unlocked */
+            msg[0] = vial_unlocked;
+            msg[1] = 0;
+#ifndef VIAL_INSECURE
+            /* Rest of the message are keys in the matrix that should be held to unlock the board */
+            for (size_t i = 0; i < VIAL_UNLOCK_NUM_KEYS; ++i) {
+                msg[2 + i * 2] = vial_unlock_combo_rows[i];
+                msg[2 + i * 2 + 1] = vial_unlock_combo_cols[i];
+            }
+#endif
+            break;
+        }
+        case vial_unlock_start: {
+            vial_unlock_in_progress = 1;
+            vial_unlock_counter = VIAL_UNLOCK_COUNTER_MAX;
+            vial_unlock_timer = timer_read();
+            break;
+        }
+        case vial_unlock_poll: {
+#ifndef VIAL_INSECURE
+            if (vial_unlock_in_progress) {
+                int holding = 1;
+                for (size_t i = 0; i < VIAL_UNLOCK_NUM_KEYS; ++i)
+                    holding &= matrix_is_on(vial_unlock_combo_rows[i], vial_unlock_combo_cols[i]);
+
+                if (timer_elapsed(vial_unlock_timer) > 100 && holding) {
+                    vial_unlock_timer = timer_read();
+
+                    vial_unlock_counter--;
+                    if (vial_unlock_counter == 0) {
+                        /* ok unlock succeeded */
+                        vial_unlock_in_progress = 0;
+                        vial_unlocked = 1;
+                    }
+                } else {
+                    vial_unlock_counter = VIAL_UNLOCK_COUNTER_MAX;
+                }
+            }
+#endif
+            msg[0] = vial_unlocked;
+            msg[1] = vial_unlock_in_progress;
+            msg[2] = vial_unlock_counter;
+            break;
+        }
+        case vial_lock: {
+#ifndef VIAL_INSECURE
+            vial_unlocked = 0;
+#endif
+            break;
+        }
     }
 }
 

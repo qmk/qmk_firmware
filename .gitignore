@@ -2,6 +2,7 @@
 .dep
 *.o
 *.bin
+*.vfw
 *.eep
 *.elf
 *.hex

@@ -293,6 +293,9 @@ gccversion :
 		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
 	fi
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
+	if [ ! -z "$(VIBL)" ]; then \
+		python3 util/vial_generate_vfw.py $(TARGET).bin $(TARGET).vfw $(CONFIG_H) ;\
+	fi
 
 BEGIN = gccversion sizebefore
 

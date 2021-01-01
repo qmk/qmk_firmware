@@ -22,6 +22,10 @@
 #include "dynamic_keymap.h"
 #include "via.h"  // for default VIA_EEPROM_ADDR_END
 
+#ifdef VIAL_ENABLE
+#include "vial.h"
+#endif
+
 #ifndef DYNAMIC_KEYMAP_MACRO_COUNT
 #    define DYNAMIC_KEYMAP_MACRO_COUNT 16
 #endif
@@ -90,6 +94,9 @@ void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t c
 }
 
 uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || row >= MATRIX_ROWS || column >= MATRIX_COLS)
+        return KC_NO;
+
     void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
     // Big endian, so we can read/write EEPROM directly from host if we want
     uint16_t keycode = eeprom_read_byte(address) << 8;
@@ -98,6 +105,9 @@ uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column) 
 }
 
 void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode) {
+    if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || row >= MATRIX_ROWS || column >= MATRIX_COLS)
+        return;
+
     void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
     // Big endian, so we can read/write EEPROM directly from host if we want
     eeprom_update_byte(address, (uint8_t)(keycode >> 8));
@@ -183,6 +193,12 @@ extern uint16_t g_vial_magic_keycode_override;
 
 // This overrides the one in quantum/keymap_common.c
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
+#ifdef VIAL_ENABLE
+    /* Disable any keycode processing while unlocking */
+    if (vial_unlock_in_progress)
+        return KC_NO;
+#endif
+
 #ifdef VIAL_ENCODERS_ENABLE
     if (key.row == 254 && key.col == 254)
         return g_vial_magic_keycode_override;
