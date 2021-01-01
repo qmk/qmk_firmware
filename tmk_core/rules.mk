@@ -79,7 +79,12 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
+DEBUG_ENABLE ?= yes
+ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
+  DEBUG_ENABLE=no
+endif
+
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   CFLAGS += -g$(DEBUG)
 endif
 CFLAGS += $(CDEFS)
@@ -110,7 +115,7 @@ CFLAGS += $(CSTANDARD)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-ifndef SKIP_DEBUG_INFO
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   CXXFLAGS += -g$(DEBUG)
 endif
 CXXFLAGS += $(CXXDEFS)
@@ -140,7 +145,7 @@ CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
-ifndef SKIP_DEBUG_INFO
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
@@ -202,7 +207,10 @@ REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
 SECHO = $(SILENT) || echo
-
+MD5SUM ?= md5sum
+ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
+  MD5SUM = md5
+endif
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
@@ -430,6 +438,9 @@ else
 check-size:
 	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
 endif
+
+check-md5:
+	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)
 
 # Create build directory
 $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
