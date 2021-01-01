@@ -6,6 +6,7 @@
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
+  * [Syllabus](syllabus.md)
 
 * FAQs
   * [General FAQ](faq_general.md)
@@ -22,6 +23,7 @@
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
     * [Keyboard Support](reference_configurator_support.md)
+    * [Adding Default Keymaps](configurator_default_keymaps.md)
 
 * CLI
     * [Overview](cli.md)
@@ -33,7 +35,9 @@
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
     * [Keymap Overview](keymap.md)
-    * [Vagrant Guide](getting_started_vagrant.md)
+    * Development Environments
+      * [Docker Guide](getting_started_docker.md)
+      * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
@@ -52,6 +56,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
+    * [Language-Specific Keycodes](reference_keymap_extras.md)
     * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 
@@ -74,6 +79,8 @@
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
+    * [Raw HID](feature_rawhid.md)
+    * [Sequencer](feature_sequencer.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
@@ -98,6 +105,8 @@
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
+    * [Joystick](feature_joystick.md)
+    * [LED Indicators](feature_led_indicators.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
@@ -106,10 +115,14 @@
     * [Velocikey](feature_velocikey.md)
 
 * Developing QMK
+  * [PR Checklist](pr_checklist.md)
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
     * History
+      * [2020 Nov 28](ChangeLog/20201128.md)
+      * [2020 Aug 29](ChangeLog/20200829.md)
+      * [2020 May 30](ChangeLog/20200530.md)
       * [2020 Feb 29](ChangeLog/20200229.md)
       * [2019 Aug 30](ChangeLog/20190830.md)
 
@@ -121,8 +134,10 @@
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
       * [I2C Driver](i2c_driver.md)
+      * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
+      * ['serial' Driver](serial_driver.md)
     * [GPIO Controls](internals_gpio_control.md)
     * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
 
@@ -134,6 +149,11 @@
     * QMK API
       * [Development Environment](api_development_environment.md)
       * [Architecture Overview](api_development_overview.md)
+
+  * Hardware Platform Development
+    * Arm/ChibiOS
+      * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
+      * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

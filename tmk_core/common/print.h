@@ -22,8 +22,7 @@
  * THE SOFTWARE.
  */
 
-#ifndef PRINT_H__
-#define PRINT_H__ 1
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -72,9 +71,7 @@ extern "C"
 
 #    elif defined(PROTOCOL_CHIBIOS) /* PROTOCOL_CHIBIOS */
 
-#        ifndef TERMINAL_ENABLE
-#            include "chibios/printf.h"
-#        endif
+#        include "printf.h"  // lib/printf/printf.h
 
 #        ifdef USER_PRINT /* USER_PRINT */
 
@@ -89,7 +86,6 @@ extern "C"
 #            define uprintf printf
 
 #        else /* NORMAL PRINT */
-
 // Create user & normal print defines
 #            define print(s) printf(s)
 #            define println(s) printf(s "\r\n")
@@ -272,5 +268,3 @@ extern "C"
 #define pbin16(data) print_bin16(data)
 #define pbin_reverse(data) print_bin_reverse8(data)
 #define pbin_reverse16(data) print_bin_reverse16(data)
-
-#endif

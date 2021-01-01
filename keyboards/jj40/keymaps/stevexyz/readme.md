@@ -1,6 +1,7 @@
 # jj28 (aka jj40 super micro edition :))
 
-With this configuration a 4x12 jj40 (with 48 keys) is transformed into an ortholinear PyroL-vderm 28 keys inspired layout one. This keyboard can be actually called jj28!
+With this configuration a 4x12 jj40 (with 48 keys) is being removed 20 keys and transformed into an ortholinear Alpha28 PyroL-vderm 28 keys inspired layout one.
+This keyboard can be actually called jj28!
 
 ![Bare layout](https://i.ibb.co/7GK1LY7/layout-0.jpg)
 
@@ -15,6 +16,6 @@ Surely you have an additional option, and personally, after using it as a daily 
 
 Notes on layout:
 After few tests I found out that the space at the end is the best for people that are very used to “standard” keyboards (basically almost everybody), retaining years of muscle memory.
-Moreover, also shift, fn and numsym layer keys are good to be replicated on central line (and also keeping in the order will allow a single finger shift+fn on the left and also shift+num on the right).
+And moreover, also shift, fn and numsym layer keys are good to be replicated on central line.
 
 [Keyboard layout editor](http://www.keyboard-layout-editor.com/#/) raw data in keyboard-layout-editor-raw-data.txt file.

@@ -1,17 +1,17 @@
 <div dir="rtl" markdown="1">
-# איך להשתמש ב-Github עם QMK
+# איך להשתמש ב-GitHub עם QMK
 
-Github עלול להיות קצת טריקי למי שלא מכיר את העבודה איתו - מדריך זה ילווה אתכם שלב אחר שלב דרך ביצוע פעולות fork, clone ו-pull request עם QMK.
+GitHub עלול להיות קצת טריקי למי שלא מכיר את העבודה איתו - מדריך זה ילווה אתכם שלב אחר שלב דרך ביצוע פעולות fork, clone ו-pull request עם QMK.
 
 ?> מדריך זה מניח שאתם מרגישים בנוח עם הרצה של פקודות בסביבת command line (שורת הפקודה) ו-git מותקן במערכת שלכם.
 
-התחילו ב- [עמוד של QMK ב-Github](https://github.com/qmk/qmk_firmware), ותצמאו כפתור בחלק העליון מימין עם התיכוב "Fork":
+התחילו ב- [עמוד של QMK ב-GitHub](https://github.com/qmk/qmk_firmware), ותצמאו כפתור בחלק העליון מימין עם התיכוב "Fork":
 
-![Fork ב-Github](http://i.imgur.com/8Toomz4.jpg)
+![Fork ב-GitHub](http://i.imgur.com/8Toomz4.jpg)
 
 אם אתם חלק מארגון, תצטרכו לבחור לאיזה חשבון לבצע פעולת fork. ברוב המבקרים, תרצו לבצע fork לתוך החשבון הפרטי שלכם. ברגע שה-fork הסתיים (לפעמים זה יכול לקחת קצת זמן) הקליקו על כפתור ה-"Clone or Download":
 
-![הורדה מ-Github](http://i.imgur.com/N1NYcSz.jpg)
+![הורדה מ-GitHub](http://i.imgur.com/N1NYcSz.jpg)
 
 תוודאו שאתם בוחרים באופצייה של  "HTTPS", בחרו את הקישור והעתיקו אותו:
 

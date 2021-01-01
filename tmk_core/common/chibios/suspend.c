@@ -1,7 +1,7 @@
 /* TODO */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "matrix.h"
 #include "action.h"
@@ -9,6 +9,7 @@
 #include "mousekey.h"
 #include "host.h"
 #include "suspend.h"
+#include "led.h"
 #include "wait.h"
 
 #ifdef BACKLIGHT_ENABLE
@@ -47,6 +48,20 @@ __attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user
  * FIXME: needs doc
  */
 void suspend_power_down(void) {
+#ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#endif
+
+    // Turn off LED indicators
+    uint8_t leds_off = 0;
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off |= (1 << USB_LED_CAPS_LOCK);
+    }
+#endif
+    led_set(leds_off);
+
     // TODO: figure out what to power down and how
     // shouldn't power down TPM/FTM if we want a breathing LED
     // also shouldn't power down USB
@@ -119,6 +134,7 @@ void suspend_wakeup_init(void) {
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif /* BACKLIGHT_ENABLE */
+    led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     is_suspended = false;
     if (rgblight_enabled) {

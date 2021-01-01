@@ -56,7 +56,7 @@ Ported to QMK by Peter Roe <pete@13bit.me>
     { K38,   K39,   K3A,   K3B, K3C,   K3D,   K3E,   KC_NO, }, \
     { KC_NO, K41,   KC_NO, K43, KC_NO, K45,   KC_NO, K47    }, \
     { KC_NO, KC_NO, KC_NO, K4B, K4C,   KC_NO, K4E,   KC_NO, }, \
-    { KC_NO, KC_NO, K52,   K53, K54,   K55,   K56,   K57    }, \
+    { KC_NO, K51,   K52,   K53, K54,   K55,   K56,   K57    }, \
     { K58,   K59,   KC_NO, K5B, K5C,   KC_NO, KC_NO, KC_NO, }, \
     { K60,   K61,   K62,   K63, K64,   K65,   KC_NO, K67    }, \
     { KC_NO, K69,   KC_NO, K6B, KC_NO, K6D,   KC_NO, K6F    }, \
