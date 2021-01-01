@@ -3,6 +3,7 @@
 #include "action.h"
 #include "util.h"
 #include "action_layer.h"
+#include "eeconfig.h"
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
@@ -31,6 +32,7 @@ __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t sta
  * Static function to set the default layer state, prints debug info and clears keys
  */
 static void default_layer_state_set(layer_state_t state) {
+    eeconfig_update_default_layer(state);
     state = default_layer_state_set_kb(state);
     debug("default_layer_state: ");
     default_layer_debug();

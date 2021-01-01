@@ -340,8 +340,7 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
-    eeconfig_update_default_layer((layer_state_t)1 << default_layer);
-    default_layer_set((layer_state_t)1 << default_layer);
+    default_layer_set((layer_state_t)1 << dgitefault_layer);
 }
 
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
