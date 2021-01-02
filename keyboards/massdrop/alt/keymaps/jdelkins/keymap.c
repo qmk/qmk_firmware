@@ -367,9 +367,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     gesc_timer = timer_read();
                 else {
                     if (timer_elapsed(gesc_timer) > AUTO_SHIFT_TIMEOUT || MODS_SHIFT) {
-                        register_code(KC_LSFT);
-                        tap_code(KC_GRV);
-                        unregister_code(KC_LSFT);
+                        tap_code16(S(KC_GRV));
                     } else if (MODS_GUI)
                         tap_code(KC_GRV);
                     else
