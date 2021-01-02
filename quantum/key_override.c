@@ -186,18 +186,18 @@ const key_override_t *clear_active_override(void) {
 
 /** Checks if the key event is an allowed activation event for the provided override. Does not check things like whether the correct mods or correct trigger key is down. */
 static bool check_activation_event(const key_override_t *override, const bool key_down, const bool is_mod) {
-    ko_activation_event_t allowed_events = override->allowed_activation_events;
+    ko_option_t options = override->options;
 
     if (is_mod) {
         if (key_down) {
-            return (allowed_events & ko_activation_required_mod_down) != 0;
+            return (options & ko_option_activation_required_mod_down) != 0;
         } else {
-            return (allowed_events & ko_activation_negative_mod_up) != 0;
+            return (options & ko_option_activation_negative_mod_up) != 0;
         }
     }
     else {
         if (key_down) {
-            return (allowed_events & ko_activation_trigger_down) != 0;
+            return (options & ko_option_activation_trigger_down) != 0;
         } else {
             return false;
         }
@@ -205,7 +205,7 @@ static bool check_activation_event(const key_override_t *override, const bool ke
 }
 
 /** Checks if the options of the override allow activating the override given the current keyboard state. */
-static bool check_options(const key_override_t *const override) {
+static bool check_other_options(const key_override_t *const override) {
     const bool no_trigger = override->trigger == KC_NO;
 
     bool ok = true;
@@ -249,8 +249,8 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
             continue;
         }
 
-        // Check options
-        if (!check_options(override)) {
+        // Check other options
+        if (!check_other_options(override)) {
             key_override_printf("Not activating override: Options not allowing activation\n");
             continue;
         }

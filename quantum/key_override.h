@@ -31,43 +31,33 @@
  * See the documentation here: https://docs.qmk.fm/#/feature_key_overrides
  */
 
-/** Bitfield defining which events are allowed to activate a key override. */
-typedef enum {
-    /** When the trigger key is pressed down. */
-    ko_activation_trigger_down = (1 << 0),
-    /** When a necessary modifier is pressed down. */
-    ko_activation_required_mod_down = (1 << 1),
-    /** When a negative modifier is released. */
-    ko_activation_negative_mod_up = (1 << 2),
-
-    ko_activation_events_all = ko_activation_trigger_down | ko_activation_required_mod_down | ko_activation_negative_mod_up,
-    /** The default activation events used by the ko_make_xxx functions. */
-    ko_activation_events_default = ko_activation_key_down,
-} ko_activation_event_t;
-
 /** Bitfield with various options controlling the behavior of a key override. */
 typedef enum {
+    /** Allow activating when the trigger key is pressed down. */
+    ko_option_activation_trigger_down = (1 << 0),
+    /** Allow activating when a necessary modifier is pressed down. */
+    ko_option_activation_required_mod_down = (1 << 1),
+    /** Allow activating when a negative modifier is released. */
+    ko_option_activation_negative_mod_up = (1 << 2),
+
     /** If set, any of the modifiers in trigger_modifiers will be enough to activate the override (logical OR of modifiers). If not set, all the modifiers in trigger_modifiers have to be pressed (logical AND of modifiers). */
-    ko_option_one_mod = (1 << 0),
+    ko_option_one_mod = (1 << 3),
     /** If set, the override can only activate if no non-modifier key except the trigger key is down. */
-    ko_option_exclusive_key_on_activate = (1 << 1),
-    /** Whether the trigger key should be registered again after the override is deactivated (only in case it is still physically pressed). */
-    ko_option_reregister_trigger_on_deactivation = (1 << 2),
+    ko_option_exclusive_key_on_activate = (1 << 4),
+    /** If set, the trigger key will be registered again after the override is deactivated (only in case it is still physically pressed). */
+    ko_option_reregister_trigger_on_deactivation = (1 << 5),
 
     /** The default options used by the ko_make_xxx functions. */
-    ko_options_default = 0,
+    ko_options_default = ko_option_activation_trigger_down,
 } ko_option_t;
 
 /** Defines a single key override */
 typedef struct {
-    // The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode. A key override can only activate when the trigger key is the last non-modifier key that was pressed down. This emulates the standard behavior of how OSes handle keyboard input. As soon as another non-modifier key is pressed down, an active modifier is deactivated, again emulating the behavior of OS keyboard handling, where holding key x, followed by key y unregisters key x as long as it is held.
+    // The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode. A key override can only activate when the trigger key is the last non-modifier key that was pressed down. This emulates the standard behavior of how OSes handle keyboard input. Moreover, wWhen an override is active and another non-modifier key is pressed down, the modifier is always deactivated, again emulating the behavior of OS keyboard handling.
     uint16_t trigger; 
 
     // Which mods need to be down for activation. If both sides of mod are set (e.g. left ctrl and right ctrl) then only one is required to trigger (e.g. left ctrl suffices).
     uint8_t trigger_modifiers;
-
-    // All activation events that may activate this override.
-    ko_activation_event_t allowed_activation_events;
 
     // This is a BITMASK (!), defining which layers this override applies to. To use this override on layer i set the ith bit (1 << i).
     layer_state_t layers;
@@ -81,7 +71,7 @@ typedef struct {
     // The complex keycode to send as replacement when this override is triggered. This may be a custom keycode or a key-modifier combination. Use in combination with suppressed_mods to get the correct modifiers to be sent if needed.
     uint16_t replacement;
 
-    // Additional options controlling the behavior of the override.
+    // Options controlling the behavior of the override, such as what actions are allowed to activate the override.
     ko_option_t options;
 
     // If not NULL, this function will be called right before the replacement key is registered, along with the provided context and a flag indicating whether the override was activated or deactivated. This function allows you to run some custom actions for specific key overrides. If you return `false`, the replacement key is not registered/unregistered as it would normally. Return `true` to register and unregister the override normally.
@@ -117,23 +107,29 @@ extern bool key_override_is_enabled(void);
  * Convenience initializer to create a basic key override. Activates the override on all layers.
  */
 #define ko_make_basic(trigger_mods, trigger_key, replacement_key) \
-    ko_make_for_layers(trigger_mods, trigger_key, replacement_key, ~0)
+    ko_make_with_layers(trigger_mods, trigger_key, replacement_key, ~0)
 
 /**
  * Convenience initializer to create a basic key override. Provide a bitmap (of type layer_state_t) with the bits set for each layer on which the override should activate.
  */
-#define ko_make_for_layers(trigger_mods, trigger_key, replacement_key, layers) \
-    ko_make_for_layers_and_negative_mods(trigger_mods, trigger_key, replacement_key, layers, 0)
-/**                                                                                                                                                                                                                                                   \
- * Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed. \
+#define ko_make_with_layers(trigger_mods, trigger_key, replacement_key, layers) \
+    ko_make_with_layers_and_negmods(trigger_mods, trigger_key, replacement_key, layers, 0)
+
+/**
+ * Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed.
  */
-#define ko_make_for_layers_and_negative_mods(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask) \
+#define ko_make_with_layers_and_negmods(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask) \
+    ko_make_with_layers_and_negmods(trigger_mods, trigger_key, replacement_key, layers, negative_mask, ko_options_default)
+
+ /**
+  *  Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed. Provide options for additional control of the behavior of the override.
+ */
+#define ko_make_with_layers_negmods_and_options(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask, options) \
     ((const key_override_t){                                                                \
         .trigger_modifiers                      = (trigger_mods),                           \
         .layers                                 = (layer_mask),                             \
         .suppressed_mods                        = (trigger_mods),                           \
-        .allowed_activation_events              = ko_activation_events_default,             \
-        .options                                = ko_options_default,                       \
+        .options                                = (options),                                \
         .negative_modifier_mask                 = (negative_mask),                          \
         .custom_action                          = NULL,                                     \
         .context                                = NULL,                                     \
