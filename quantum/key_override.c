@@ -221,7 +221,7 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 static bool check_activation_event(const key_override_t *override, const bool key_down, const bool is_mod) {
     ko_option_t options = override->options;
 
-    if (options & ko_options_all_activations == 0) {
+    if ((options & ko_options_all_activations) == 0) {
         // No activation option provided at all. This is wrong, but let's assume the default activations (ko_options_all_activations) were meant...
         options = ko_options_all_activations;
     }
