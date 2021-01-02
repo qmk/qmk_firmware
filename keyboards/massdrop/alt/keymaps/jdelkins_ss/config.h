@@ -15,4 +15,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
 #define RGB_MATRIX_STARTUP_SPD 20
