@@ -124,6 +124,10 @@ void eeconfig_init_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t boot_timer;
 
+    if (!process_record_keymap(keycode, record)) {
+        return false;
+    }
+
     switch (keycode) {
         case FW_WRD:
             do_mac_key(LCTL(KC_RIGHT), ROPT(KC_RIGHT), record);
@@ -243,7 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
     }
 
-    return process_record_keymap(keycode, record);
+    return true;
 }
 
 __attribute__ ((weak))
