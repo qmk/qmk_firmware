@@ -263,7 +263,13 @@ void keyboard_init(void) {
     qwiic_init();
 #endif
 #ifdef OLED_DRIVER_ENABLE
+#if defined(SPLIT_KEYBOARD) && defined(USE_I2C)
+    if (is_keyboard_master()) {
+        oled_init(OLED_ROTATION_0);
+    }
+#else
     oled_init(OLED_ROTATION_0);
+#endif
 #endif
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
@@ -404,11 +410,21 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef OLED_DRIVER_ENABLE
+#if defined(SPLIT_KEYBOARD) && defined(USE_I2C)
+    if (is_keyboard_master()) {
+    oled_task();
+    #ifndef OLED_DISABLE_TIMEOUT
+    // Wake up oled if user is using those fabulous keys!
+        if (ret) oled_on();
+    #endif
+    }
+#else
     oled_task();
 #    ifndef OLED_DISABLE_TIMEOUT
     // Wake up oled if user is using those fabulous keys!
     if (ret) oled_on();
 #    endif
+#endif
 #endif
 
 #ifdef MOUSEKEY_ENABLE
