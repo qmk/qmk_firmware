@@ -9,7 +9,7 @@ _qmk_install() {
         python3 \
         avr-binutils avr-gcc avr-libc \
         arm-none-eabi-binutils-cs arm-none-eabi-gcc-cs arm-none-eabi-newlib \
-        avrdude dfu-programmer dfu-util
+        avrdude dfu-programmer dfu-util libusb-devel
 
     python3 -m pip install --user -r $QMK_FIRMWARE_DIR/requirements.txt
 }
