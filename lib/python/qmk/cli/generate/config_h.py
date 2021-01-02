@@ -7,7 +7,7 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json, rgblight_animations, rgblight_properties, rgblight_toggles
 from qmk.path import is_keyboard, normpath
 
-usb_properties = {
+usb_prop_map = {
     'vid': 'VENDOR_ID',
     'pid': 'PRODUCT_ID',
     'device_ver': 'DEVICE_VER',
@@ -199,7 +199,7 @@ def usb_properties(usb_props):
     """
     usb_lines = []
 
-    for info_name, config_name in usb_props.items():
+    for info_name, config_name in usb_prop_map.items():
         if info_name in usb_props:
             usb_lines.append('')
             usb_lines.append('#ifndef ' + config_name)
