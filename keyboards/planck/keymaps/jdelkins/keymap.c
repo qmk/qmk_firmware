@@ -411,9 +411,7 @@ void matrix_scan_keymap(void) {
             send_secret_string(5);
         }
         SEQ_ONE_KEY(KC_C) {
-            register_code(KC_LCTL);
-            tap_code(KC_C);
-            unregister_code(KC_LCTL);
+            tap_code16(C(KC_C));
         }
     }
 }
