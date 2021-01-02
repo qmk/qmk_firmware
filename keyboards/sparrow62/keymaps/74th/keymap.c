@@ -79,7 +79,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(C(G(KC_Q)));
                 return false;
             case ESC_MHEN:
-                SEND_STRING(SS_TAP(X_INT5) SS_TAP(X_ESCAPE));
+                tap_code(KC_INT5);
+                tap_code(KC_ESC);
                 return false;
         }
     }
