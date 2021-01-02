@@ -432,18 +432,18 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         if (active_override != NULL) {
             const bool is_trigger = keycode == active_override->trigger;
             bool should_deactivate = false;
-            
+
             // Check if trigger key lifted
             if (is_trigger && !key_down) {
+                should_deactivate               = true;
                 active_override_trigger_is_down = false;
-                should_deactivate = true;
                 key_override_printf("Deactivating override because trigger key up\n");
             }
 
             // Check if another key was pressed
-            if (!is_trigger && key_down) {
-                key_override_printf("Deactivating override because another key was pressed\n");
+            if (key_down) {
                 should_deactivate = true;
+                key_override_printf("Deactivating override because another key was pressed\n");
             }
 
             if (should_deactivate) {
