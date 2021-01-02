@@ -103,7 +103,7 @@ void clear_rgb_layers() {
 void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
     for (uint8_t i = start; i < end; i++) {
         bool is_on = layer_state_cmp(state, i);
-        dprintf("layer[%u]=%u\n", i, is_on);
+        dprintf("layer[%u]=rl[%u]=%u\n", i, LAYER_OFFSET + i, is_on);
         rgblight_set_layer_state(LAYER_OFFSET + i, is_on);
     }
 }
@@ -112,7 +112,7 @@ void do_rgb_unicode(void) {
     uint8_t uc_mode = get_unicode_input_mode();
     for (uint8_t i = 0; i < UC__COUNT; i++) {
         bool is_on = i == uc_mode;
-        dprintf("unicode[%u]=%u\n", i, is_on);
+        dprintf("unicode[%u]=rl[%u]=%u\n", i, UNICODE_OFFSET + i, is_on);
         rgblight_set_layer_state(UNICODE_OFFSET + i, is_on);
     }
 }
