@@ -4,7 +4,7 @@
 
 #define TAP_CODE_DELAY 10       // delay between key press and release on `tapcode(kc)`
 
-#define TAPPING_TERM 100        // tap dance tap-window
+#define TAPPING_TERM 200        // mod tap tap-window
 
 // oneshot keys --
 
