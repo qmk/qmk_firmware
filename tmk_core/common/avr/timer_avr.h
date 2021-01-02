@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TIMER_AVR_H
-#define TIMER_AVR_H 1
+#pragma once
 
 #include <stdint.h>
 
@@ -37,6 +36,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if (TIMER_RAW_TOP > 255)
 #    error "Timer0 can't count 1ms at this clock freq. Use larger prescaler."
-#endif
-
 #endif

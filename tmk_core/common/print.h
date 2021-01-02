@@ -22,8 +22,7 @@
  * THE SOFTWARE.
  */
 
-#ifndef PRINT_H__
-#define PRINT_H__ 1
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -269,5 +268,3 @@ extern "C"
 #define pbin16(data) print_bin16(data)
 #define pbin_reverse(data) print_bin_reverse8(data)
 #define pbin_reverse16(data) print_bin_reverse16(data)
-
-#endif

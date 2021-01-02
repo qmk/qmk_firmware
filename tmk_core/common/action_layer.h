@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_LAYER_H
-#define ACTION_LAYER_H
+
+#pragma once
 
 #include <stdint.h>
 #include "keyboard.h"
@@ -120,5 +120,3 @@ uint8_t layer_switch_get_layer(keypos_t key);
 
 /* return action depending on current layer status */
 action_t layer_switch_get_action(keypos_t key);
-
-#endif
