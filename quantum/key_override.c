@@ -69,7 +69,7 @@ static bool enabled = true;
 __attribute__((weak)) const key_override_t **key_overrides = NULL;
 
 // Forward decls
-static const key_override_t *clear_active_override(void);
+static const key_override_t *clear_active_override(const bool allow_reregister);
 
 void key_override_on(void) {
     enabled = true;
@@ -78,7 +78,7 @@ void key_override_on(void) {
 
 void key_override_off(void) {
     enabled = false;
-    if (clear_active_override() != NULL) {
+    if (clear_active_override(false) != NULL) {
         send_keyboard_report();
     }
     key_override_printf("Key override OFF\n");
@@ -128,7 +128,7 @@ static bool key_override_matches_active_modifiers(const key_override_t *override
     return false;
 }
 
-const key_override_t *clear_active_override(void) {
+const key_override_t *clear_active_override(const bool allow_reregister) {
     if (active_override == NULL) {
         return NULL;
     }
@@ -162,7 +162,7 @@ const key_override_t *clear_active_override(void) {
     }
 
     // Optionally re-register the trigger if it is still down
-    if ((active_override->options & ko_option_reregister_trigger_on_deactivation) != 0 && active_override_trigger_is_down && active_override->trigger != KC_NO) {
+    if (allow_reregister && (active_override->options & ko_option_reregister_trigger_on_deactivation) != 0 && active_override_trigger_is_down && active_override->trigger != KC_NO) {
         const uint16_t trigger = active_override->trigger;
 
         key_override_printf("Re-registering trigger: %u\n", trigger);
@@ -308,12 +308,18 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         }
 #endif
 
-        // Prevent re-registering the trigger key when deactivating the previous override if they both work on the same key.
+        bool allow_reregister_on_clear = true;
+
         if (active_override != NULL && active_override->trigger == override->trigger && is_mod) {
-            active_override_trigger_is_down = false;
+            // Prevent re-registering the trigger key when deactivating the previous override if they both work on the same key.
+            allow_reregister_on_clear = false;
+        }
+        else if (!is_mod) {
+            // Do not re-register the trigger key for the prior key override because another non-mod key was pressed down after the trigger key.
+            allow_reregister_on_clear = false;
         }
 
-        clear_active_override();
+        clear_active_override(allow_reregister_on_clear);
 
         active_override                 = override;
         active_override_trigger_is_down = true;
@@ -449,7 +455,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
             // Check if necessary modifier of current override goes up or a negative mod goes down
             if (!key_override_matches_active_modifiers(active_override, effective_mods)) {
                 key_override_printf("Deactivating override because necessary modifier lifted or negative mod pressed\n");
-                clear_active_override();
+                clear_active_override(true);
             }
         } else {
             // Check if trigger of current override goes up or if override does not allow additional keys to be down and another key goes down
@@ -470,7 +476,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
             }
 
             if (should_deactivate) {
-                clear_active_override();
+                clear_active_override(false);
             }
         }
     }
