@@ -288,6 +288,7 @@ static __inline__ void __interrupt_enable__(const uint8_t *__s) {
 extern const uint8_t ascii_to_keycode_lut[128];
 extern const uint8_t ascii_to_shift_lut[16];
 extern const uint8_t ascii_to_altgr_lut[16];
+extern const uint8_t ascii_to_dead_lut[16];
 // clang-format off
 #define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
     ( ((a) ? 1 : 0) << 0 \
