@@ -16,10 +16,9 @@
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE
-};
+enum layer_names { _BASE };
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
@@ -29,7 +28,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_K, KC_L, KC_M, KC_N
     )
 };
+// clang-format on
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
