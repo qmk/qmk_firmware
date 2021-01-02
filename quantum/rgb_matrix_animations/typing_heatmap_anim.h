@@ -3,7 +3,7 @@ RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #        ifndef RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY
-#            define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY 1
+#            define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 25
 #        endif
 
 void process_rgb_matrix_typing_heatmap(keyrecord_t* record) {
@@ -31,7 +31,10 @@ void process_rgb_matrix_typing_heatmap(keyrecord_t* record) {
     }
 }
 
-uint8_t heatmap_decrease_timer = 0;
+// A timer to track the last time we decremented all heatmap values.
+static uint16_t heatmap_decrease_timer;
+// Whether we should decrement the heatmap values during the next update.
+static bool decrease_heatmap_values;
 
 bool TYPING_HEATMAP(effect_params_t* params) {
     // Modified version of RGB_MATRIX_USE_LIMITS to work off of matrix row / col size
@@ -44,11 +47,17 @@ bool TYPING_HEATMAP(effect_params_t* params) {
         memset(g_rgb_frame_buffer, 0, sizeof g_rgb_frame_buffer);
     }
 
-    // Increment the heatmap decrease timer, it's ok to overflow since we're
-    // just using mod to decrease the heatmap values every N ticks.
-    heatmap_decrease_timer++;
+    // The heatmap animation might run in several iterations depending on
+    // `RGB_MATRIX_LED_PROCESS_LIMIT`, therefore we only want to update the
+    // timer when the animation starts.
+    if (params->iter == 0) {
+        decrease_heatmap_values = timer_elapsed(heatmap_decrease_timer) >= RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS;
 
-    bool decrease_heatmap_values = heatmap_decrease_timer % RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY == 0;
+        // Restart the timer if we are going to decrease the heatmap this frame.
+        if (decrease_heatmap_values) {
+            heatmap_decrease_timer = timer_read();
+        }
+    }
 
     // Render heatmap & decrease
     for (int i = led_min; i < led_max; i++) {
