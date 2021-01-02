@@ -17,22 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// Disable some RGB effects
-#define DISABLE_RGB_MATRIX_BAND_VAL
-#define DISABLE_RGB_MATRIX_BAND_SAT
-#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#define DISABLE_RGB_MATRIX_RAINDROPS
-#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#define DISABLE_RGB_MATRIX_DUAL_BEACON
-
-// Set default RGB effect
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS
-
-
 //Define number of ISSI3733 drivers being used (1...16)
 #define ISSI3733_DRIVER_COUNT 2
 #define DRIVER_LED_TOTAL ISSI3733_LED_COUNT
@@ -189,7 +173,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef USB_LED_INDICATOR_ENABLE     //Scan codes refer to actual key matrix codes, not KC_* (255 to disable)
     #define USB_LED_NUM_LOCK_SCANCODE       255
     #define USB_LED_CAPS_LOCK_SCANCODE      30
-    #define USB_LED_SCROLL_LOCK_SCANCODE    43
+    #define USB_LED_SCROLL_LOCK_SCANCODE    255
     #define USB_LED_COMPOSE_SCANCODE        255
     #define USB_LED_KANA_SCANCODE           255
 #endif //USB_LED_INDICATOR_ENABLE

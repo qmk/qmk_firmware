@@ -23,14 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID           0x04D8
 #define PRODUCT_ID          0xEED3
 #define DEVICE_VER          0x0101
-/* Necessary for Raw HID */
-#define RAW_USAGE_PAGE      0xFF31
-#define RAW_USAGE_ID        0x62
-
 
 #define MANUFACTURER        "Massdrop Inc."
 #define PRODUCT             "ALT Keyboard"
-#define SERIAL_NUM          "FRT001"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
