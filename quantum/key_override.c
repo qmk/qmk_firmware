@@ -218,7 +218,7 @@ static bool check_other_options(const key_override_t *const override) {
 }
 
 /** Iterates through the list of key overrides and tries activating each, until it finds one that activates or reaches the end of overrides. Returns true if the key action for `keycode` should be sent */
-static bool try_activating_override(const uint16_t keycode, const uint8_t layer, const bool key_down, const bool is_mod, const uint8_t active_mods, const key_override_t *const blocked) {
+static bool try_activating_override(const uint16_t keycode, const uint8_t layer, const bool key_down, const bool is_mod, const uint8_t active_mods, bool *activated) {
     if (key_overrides == NULL) {
         return true;
     }
@@ -266,12 +266,6 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         // If the trigger is KC_NO it means 'no key', so only the required modifiers need to be down.
         const bool no_trigger = override->trigger == KC_NO;
 
-        // Check if blocked
-        if (override == blocked) {
-            key_override_printf("Not activating override: Blocked\n");
-            continue;
-        }
-
         // Check if aleady active
         if (override == active_override) {
             key_override_printf("Not activating override: Alerady actived\n");
@@ -314,6 +308,11 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         }
 #endif
 
+        // Prevent re-registering the trigger key when deactivating the previous override if they both work on the same key.
+        if (active_override != NULL && active_override->trigger == override->trigger && is_mod) {
+            active_override_trigger_is_down = false;
+        }
+
         clear_active_override();
 
         active_override                 = override;
@@ -353,9 +352,13 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
             send_keyboard_report();
         }
 
+        *activated = true;
+
         // If the trigger is down, suppress the event so that it does not get added to the keyboard report.
         return !trigger_down;
     }
+
+    *activated = false;
 
     return true;
 }
@@ -405,8 +408,6 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         return true;
     }
 
-    const key_override_t *blocked = NULL;
-
     // This only takes the physical mods on purpose. Key overrides are currently only supposed to trigger on physical key press events (process_record_quantum).
     uint8_t effective_mods = get_mods();
 
@@ -417,21 +418,43 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         } else {
             effective_mods &= ~MOD_BIT(keycode);
         }
-
-        // Check if necessary modifier of current override goes up or a negative mod goes down
-        if (active_override != NULL && !key_override_matches_active_modifiers(active_override, effective_mods)) {
-            key_override_printf("Deactivating override because necessary modifier lifted or negative mod pressed\n");
-            blocked = clear_active_override();
-        }
     } else {
         if (key_down) {
             last_key_down = keycode;
         }
 
-        // Check if trigger of current override goes up or if override does not allow additional keys to be down and another key goes down
-        if (active_override != NULL) {
-            const bool is_trigger = keycode == active_override->trigger;
-            bool should_deactivate = false;
+        if (!key_down && keycode == last_key_down) {
+            last_key_down = 0;
+        }
+    }
+
+    bool send_key_action = true;
+    bool activated = false;
+
+    // Non-mod key up events never activate a key override
+    if (is_mod || key_down) {
+        // Get the exact layer that was hit. It will be cached at this point
+        const uint8_t layer = read_source_layers_cache(record->event.key);
+
+        // Use blocked to ensure the same override is not activated again immediately after it is deactivated
+        send_key_action &= try_activating_override(keycode, layer, key_down, is_mod, effective_mods, &activated);
+
+        if (!send_key_action) {
+            send_keyboard_report();
+        }
+    }
+
+    if (!activated && active_override != NULL) {
+        if (is_mod) {
+            // Check if necessary modifier of current override goes up or a negative mod goes down
+            if (!key_override_matches_active_modifiers(active_override, effective_mods)) {
+                key_override_printf("Deactivating override because necessary modifier lifted or negative mod pressed\n");
+                clear_active_override();
+            }
+        } else {
+            // Check if trigger of current override goes up or if override does not allow additional keys to be down and another key goes down
+            const bool is_trigger        = keycode == active_override->trigger;
+            bool       should_deactivate = false;
 
             // Check if trigger key lifted
             if (is_trigger && !key_down) {
@@ -447,23 +470,8 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
             }
 
             if (should_deactivate) {
-                blocked = clear_active_override();
+                clear_active_override();
             }
-        }
-    }
-
-    bool send_key_action = true;
-
-    // Non-mod key up events never activate a key override
-    if (is_mod || key_down) {
-        // Get the exact layer that was hit. It will be cached at this point
-        const uint8_t layer = read_source_layers_cache(record->event.key);
-
-        // Use blocked to ensure the same override is not activated again immediately after it is deactivated
-        send_key_action &= try_activating_override(keycode, layer, key_down, is_mod, effective_mods, blocked);
-
-        if (!send_key_action) {
-            send_keyboard_report();
         }
     }
 

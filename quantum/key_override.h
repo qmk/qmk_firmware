@@ -40,6 +40,8 @@ typedef enum {
     /** Allow activating when a negative modifier is released. */
     ko_option_activation_negative_mod_up = (1 << 2),
 
+    ko_options_all_activations = ko_option_activation_negative_mod_up | ko_option_activation_required_mod_down | ko_option_activation_trigger_down,
+
     /** If set, any of the modifiers in trigger_modifiers will be enough to activate the override (logical OR of modifiers). If not set, all the modifiers in trigger_modifiers have to be pressed (logical AND of modifiers). */
     ko_option_one_mod = (1 << 3),
     /** If set, the override can only activate if no non-modifier key except the trigger key is down. */
@@ -103,6 +105,8 @@ extern bool key_override_is_enabled(void);
  *  Preferrably use these macros to create key overrides. They fix many of the options to a standard setting that should satisfy most basic use-cased. Only directly create a key_override_t struct when you need more fine grained control and these macros are not sufficient.
 */
 
+// clang-format off
+
 /**
  * Convenience initializer to create a basic key override. Activates the override on all layers.
  */
@@ -118,18 +122,18 @@ extern bool key_override_is_enabled(void);
 /**
  * Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed.
  */
-#define ko_make_with_layers_and_negmods(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask) \
-    ko_make_with_layers_and_negmods(trigger_mods, trigger_key, replacement_key, layers, negative_mask, ko_options_default)
+#define ko_make_with_layers_and_negmods(trigger_mods, trigger_key, replacement_key, layers, negative_mask) \
+    ko_make_with_layers_negmods_and_options(trigger_mods, trigger_key, replacement_key, layers, negative_mask, ko_options_default)
 
  /**
   *  Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed. Provide options for additional control of the behavior of the override.
  */
-#define ko_make_with_layers_negmods_and_options(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask, options) \
+#define ko_make_with_layers_negmods_and_options(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask, options_) \
     ((const key_override_t){                                                                \
         .trigger_modifiers                      = (trigger_mods),                           \
         .layers                                 = (layer_mask),                             \
         .suppressed_mods                        = (trigger_mods),                           \
-        .options                                = (options),                                \
+        .options                                = (options_),                                \
         .negative_modifier_mask                 = (negative_mask),                          \
         .custom_action                          = NULL,                                     \
         .context                                = NULL,                                     \
@@ -137,3 +141,5 @@ extern bool key_override_is_enabled(void);
         .replacement                            = (replacement_key),                        \
         .enabled                                = NULL                                      \
     })
+
+// clang-format on
