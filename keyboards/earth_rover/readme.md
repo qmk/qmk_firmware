@@ -13,6 +13,8 @@ Make example for this keyboard (after setting up your build environment):
 
     make earth_rover:default
 
+Reset Pro Micro by reset button on ProMicroSocket (Red LED must light).
+
 Flashing example for this keyboard:
 
     make earth_rover:default:avrdude
