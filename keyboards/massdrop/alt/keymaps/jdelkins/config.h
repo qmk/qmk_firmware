@@ -15,6 +15,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
 #define RGB_MATRIX_STARTUP_SPD 20
 #define AUTO_SHIFT_TIMEOUT 160
 #define LEADER_TIMEOUT 400
