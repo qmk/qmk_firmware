@@ -17,7 +17,7 @@
 
 #include QMK_KEYBOARD_H
 
-#include <print.h>
+#include "print.h"
 
 // Idle handling
 
