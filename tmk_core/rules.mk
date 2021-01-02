@@ -335,16 +335,16 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
 	$$(eval CC_EXEC := $$(CC))
     ifneq ($$(VERBOSE_C_CMD),)
-	$$(if $$(filter $$(VERBOSE_C_CMD),$$(notdir $$<)),$$(eval CC_EXEC += -v))
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_CMD)),$$(notdir $$<)),$$(eval CC_EXEC += -v))
     endif
     ifneq ($$(VERBOSE_C_INCLUDE),)
-	$$(if $$(filter $$(VERBOSE_C_INCLUDE),$$(notdir $$<)),$$(eval CC_EXEC += -H))
+	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
     endif
 	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
     ifneq ($$(DUMP_C_MACROS),)
 	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
-	@$$(if $$(filter $$(DUMP_C_MACROS),$$(notdir $$<)),$$(BUILD_CMD))
+	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
     endif
 
 # Compile: create object files from C++ source files.
