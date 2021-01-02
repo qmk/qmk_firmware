@@ -20,7 +20,8 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 
 LAYOUTS = 60_hhkb
 
-BLUETOOTH = AdafruitBLE_UART
+# Disable bluetooth until the UART code is merged
+# BLUETOOTH = AdafruitBLE_UART
 
 # Custom matrix file for the HHKB
 CUSTOM_MATRIX = yes
