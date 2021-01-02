@@ -28,7 +28,8 @@ def compile(cli):
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
         command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean')
-        cli.run(command, capture_output=False)
+        # FIXME(skullydazed/anyone): Remove text=False once milc 1.0.11 has had enough time to be installed everywhere.
+        cli.run(command, capture_output=False, text=False)
 
     # Build the environment vars
     envs = {}
@@ -62,6 +63,7 @@ def compile(cli):
         cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
         if not cli.args.dry_run:
             cli.echo('\n')
+            # FIXME(skullydazed/anyone): Remove text=False once milc 1.0.11 has had enough time to be installed everywhere.
             compile = cli.run(command, capture_output=False, text=False)
             return compile.returncode
 
