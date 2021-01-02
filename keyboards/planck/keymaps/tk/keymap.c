@@ -17,6 +17,9 @@
 #define LSFT_MASK (get_mods() & MOD_BIT(KC_LSFT))
 #define RSFT_MASK (get_mods() & MOD_BIT(KC_RSFT))
 #define SFT_MASK  (LSFT_MASK || RSFT_MASK)
+#define LALT_MASK (get_mods() & MOD_BIT(KC_LALT))
+#define RALT_MASK (get_mods() & MOD_BIT(KC_RALT))
+#define ALT_MASK  (LALT_MASK || RALT_MASK)
 
 // Layers
 
@@ -30,13 +33,36 @@ enum planck_layers {
     _ROTOR,
 };
 
-#define BASE TO(_BASE)
-#define R_MODES OSL(_ROTOR)
+#define BASE    TO(_BASE)
+#define HYPER   MO(_HYPER)
+#define R_MODES MO(_ROTOR)
 
-#define LOWER1 OSL(_LOWER1)
-#define LOWER2 OSL(_LOWER2)
-#define RAISE1 OSL(_RAISE1)
-#define RAISE2 OSL(_RAISE2)
+#define LOWER1  OSL(_LOWER1)
+#define LOWER2  OSL(_LOWER2)
+#define RAISE1  OSL(_RAISE1)
+#define RAISE2  OSL(_RAISE2)
+
+// Custom keycodes
+
+#define CTL_TAB MT(MOD_LCTL, KC_TAB)
+#define SH_ESC  MT(MOD_LSFT, KC_ESC)
+#define SH_QUOT MT(MOD_RSFT, KC_QUOT)
+
+enum keycodes {
+    ROTARY = SAFE_RANGE,
+    PANIC,                  // backspace on tap, delete on tap with LALT
+
+    // rotary modes
+    R_VOL, R_MEDIA, R_BRI, R_SC_V, R_SC_H, R_AR_V, R_AR_H,
+
+    // command-line macros
+    CLEAR,      // [clear terminal line]
+    EMAIL,      // [email address]
+    PHONE,      // [phone number]
+    GT_STAT,    // git status
+    GT_CMT,     // git commit
+    PY_VENV,    // source *env*/bin/activate
+};
 
 // Rotary encoder states
 
@@ -52,48 +78,17 @@ enum encoder_states {
 
 enum encoder_states rotary_state = VOLUME;
 
-// Custom keycodes
-
-enum keycodes {
-    ROTARY = SAFE_RANGE,
-    PANIC,                  // backspace on tap, delete on tap with any modifier
-
-    // rotary adjustment
-    R_VOL, R_MEDIA, R_BRI, R_SC_V, R_SC_H, R_AR_V, R_AR_H,
-
-    // command-line macros
-    CLEAR,      // [clear terminal line]
-    DOTFILE,    // dotfiles
-    GT_ADD,     // git add
-    GT_STAT,    // git status
-    GT_CMT,     // git commit
-    GT_PULL,    // git pull
-    GT_PUSH,    // git push
-    VIM_WQ,     // [ESC]:wq
-    PY_VENV,    // source *env*/bin/activate
-
-    // bracket mode
-    LBK_TG, RBK_TG,                 // toggle left-side and right-side brackets
-    LBK_P, LBK_S, LBK_C, LBK_A,     // left-side brackets
-    RBK_P, RBK_S, RBK_C, RBK_A,     // right-side brackets
-
-};
-
-#define H(kc) HYPR(kc)
-
-#define CT_TAB  MT(MOD_LCTL, KC_TAB)
-#define SH_ESC  MT(MOD_LSFT, KC_ESC)
-#define SH_QUOT MT(MOD_RSFT, KC_QUOT)
-
-static bool lbk_mode = false;   // left-side bracket mode
-static bool rbk_mode = false;   // right-side bracket mode
-
-// Audio songs
+// Songs
 
 #ifdef AUDIO_ENABLE
-//
+// feedback songs
 float confirm_song[][2]         = SONG(MARIO_COIN);
 float reject_song[][2]          = SONG(MARIO_BUMP);
+
+// dynamic macro songs
+float dmacro_recs_song[][2]     = SONG(MARIO_CAVE_1);
+float dmacro_rece_song[][2]     = SONG(MARIO_CAVE_2);
+float dmacro_play_song[][2]     = SONG(MARIO_PIPE);
 
 // layer toggle songs
 float base_song[][2]            = SONG(MARIO_BUMP);
@@ -128,7 +123,7 @@ float redo_song[][2]            = SONG(MARIO_ONEUP);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* Base layer
+    /* Base
 
         |-----------------------------------------------------------------------------------------------|
         | Rotary|   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | Panic |
@@ -137,64 +132,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |  Esc  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   |   '   |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        | HYPER |  Ctrl |  Meta | Super | LOWER1|     Space     | RAISE1|   Lt  |   Dn  |   Up  |   Rt  |
+        | HYPER |  Ctrl |  Meta | Super | LOWER1|     Space     | RAISE1|DM1 Rec|DM1 Ply|DM2 Ply|DM2 Rec|
         |-----------------------------------------------------------------------------------------------|
 
-        Left-side bracket mode:                                         Right-side bracket mode:
-
-        |-------+-------+-------+-------+-                             -+-------+-------+-------+-------|
-        |  < >  |  { }  |  [ ]  |  ( )  |             . . .             |  ( )  |  [ ]  |  { }  |  < >  |
-        |---------------------------------                             ---------------------------------|
-
-        *
-        * Bracket keys:     Open bracket on tap, close bracket on tap with SHIFT held.
-                            If both bracket modes active, right-side brackets are closed by default.
-        * TAB:              Esc on tap, CTRL on hold, ` on tap with SHIFT or CTRL held. ***TODO
-        * PANIC:            Backspace on tap, delete on tap with SHIFT held.
-        * ESC and ':        SHIFT on hold.
-        *
+        * PANIC:            BACKSPACE on tap, DELETE on tap with LALT
+        * TAB:              CTRL on hold
+        * ESC and ':        SHIFT on hold
 
     */
 
     [_BASE] = LAYOUT_planck_grid(
-        ROTARY,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    PANIC,
-        CT_TAB,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        SH_ESC,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
-        LBK_A,   LBK_C,   LBK_S,   LBK_P,  LOWER1, KC_SPACE, KC_SPACE, RAISE1, RBK_P,   RBK_S,   RBK_C,   RBK_A
+        ROTARY,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    PANIC,
+        CTL_TAB, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        SH_ESC,  KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SH_QUOT,
+        HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER1, KC_SPACE, KC_SPACE, RAISE1, DM_REC1, DM_PLY1, DM_PLY2, DM_REC2
     ),
 
-    /* Hyper layer
+    /* Hyper - keyboard adjustments and function keys
 
         |-----------------------------------------------------------------------------------------------|
-        | ROTARY|       |       |       |       |       |       |       |       |       |       | Sleep |
+        | ROTARY|  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |  F7   |  F8   |  F9   |  F10  | Delete|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        | Reset |       |       |       |       |       |       |       |       |       |       |       |
+        |T Audio|  F11  |  F12  |  F13  |  F14  |  F15  |  F16  |  F17  |  F18  |  F19  |  F20  |T Music|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |  Caps |       |       |       |       |       |       |       |       |       |       |  Caps |
+        |T Click|  F21  |  F22  |  F23  |  F24  |       |       |       |       |       |       |C Music|
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       | Tg LBK|      BASE     | Tg RBK|       |       |       |       |
+        |   -   |       |       |       |       |      BASE     |       |       |       |       | Reset |
         |-----------------------------------------------------------------------------------------------|
-
-        *
-        * Alphabet keys:    Mod-tap with HYPER; left for custom software implementation.
-        * Tg LBK:           Toggle left-side bracket mode.
-        * Tg RBK:           Toggle right-side bracket mode.
-        *
 
     */
     [_HYPER] = LAYOUT_planck_grid(
-        R_MODES, H(KC_Q), H(KC_W), H(KC_E), H(KC_R), H(KC_T), H(KC_Y), H(KC_U), H(KC_I),    H(KC_O),   H(KC_P),    KC_SLEP,
-        RESET,   H(KC_A), H(KC_S), H(KC_D), H(KC_F), H(KC_G), H(KC_H), H(KC_J), H(KC_K),    H(KC_L),   H(KC_SCLN), _______,
-        KC_CAPS, H(KC_Z), H(KC_X), H(KC_C), H(KC_V), H(KC_B), H(KC_N), H(KC_M), H(KC_COMM), H(KC_DOT), H(KC_SLSH), KC_CAPS,
-        _______, _______, _______, _______, LBK_TG,  BASE,    BASE,    RBK_TG,  _______,    _______,   _______,    _______
+        R_MODES, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+        AU_TOG,  KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  MU_TOG,
+        CK_TOGG, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_MOD,
+        _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, RESET
     ),
 
-    /* Rotary - rotary encoder mode
+    /* Rotary - change rotary encoder mode
 
         |-----------------------------------------------------------------------------------------------|
-        |       |       |       |       |       |       |       |       |       |       |       |       |
+        |       |       |       |       |       |       |       |scrll h|scrll v|scrll v|scrll h|       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |scrll h|scrll v|scrll v|scrll h|       |       |arrow h|arrow v|arrow v|arrow h|       |
+        |       |       |       |       |       |       |       |arrow h|arrow v|arrow v|arrow h|       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |  vol  | bright|       | media |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
@@ -203,8 +182,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     */
     [_ROTOR] = LAYOUT_planck_grid(
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, R_SC_H,  R_SC_V,  R_SC_V,  R_SC_H,  XXXXXXX, XXXXXXX, R_AR_H,  R_AR_V,  R_AR_V,  R_AR_H,  _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, R_SC_H,  R_SC_V,  R_SC_V,  R_SC_H,  _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, R_AR_H,  R_AR_V,  R_AR_V,  R_AR_H,  _______,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, R_VOL,   R_BRI,   XXXXXXX, R_MEDIA, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, _______, BASE,    BASE,    _______, _______, _______, _______, _______
     ),
@@ -212,83 +191,90 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Lower I - numbers and brackets
 
         |-----------------------------------------------------------------------------------------------|
-        |       |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |       |
+        |       |   1   |   2   |   3   |   $   |   *   |   /   |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |   4   |   5   |   6   |   .   |       |       |   [   |   ]   |   {   |   }   |       |
+        |       |   4   |   5   |   6   |   .   |   +   |   =   |   [   |   ]   |   {   |   }   |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |   7   |   8   |   9   |   0   |       |       |       |   <   |   >   |       |       |
+        |       |   7   |   8   |   9   |   0   |   -   |   _   |   (   |   )   |   <   |   >   |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |       |       |       |       |       |               |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
+
+        * The following symbols are found on other layers: $ * /
+        * It is recommended to not primarily use this layer for those symbols
+        * They are merely on this layer for numerical-typing convenience
 
     */
     [_LOWER1] = LAYOUT_planck_grid(
-        _______, KC_1,    KC_2,    KC_3,    KC_4,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        _______, KC_4,    KC_5,    KC_6,    KC_DOT, _______, _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
-        _______, KC_7,    KC_8,    KC_9,    KC_0,   _______, _______, _______, KC_LABK, KC_RABK, _______, _______,
-        _______, _______, _______, _______, LOWER2, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
+        _______, KC_1,    KC_2,    KC_3,    KC_DLR, KC_ASTR, KC_SLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, KC_4,    KC_5,    KC_6,    KC_DOT, KC_PLUS, KC_EQL,  KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
+        _______, KC_7,    KC_8,    KC_9,    KC_0,   KC_MINS, KC_UNDS, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
+        _______, _______, _______, _______, LOWER2, _______, _______, RAISE1,  _______, _______, _______, _______
     ),
 
-    /* Lower II - command-line macros
+    /* Lower II - macros
 
         |-----------------------------------------------------------------------------------------------|
-        |       | wq vim|       |       |       |       |       |       |       |       | g push| clear |
+        |       |       |       | email |       |       |       |       |       |       | phone |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       | g add | g stat|dotfile|       |       |       |       |       | g pull|       |       |
+        |       |       | g stat| clear |       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
-        * DO NOT INCLUDE DESTRUCTIVE COMMANDS
+        * DO NOT INCLUDE DESTRUCTIVE MACROS
 
     */
     [_LOWER2] = LAYOUT_planck_grid(
-        _______, VIM_WQ,  _______, _______, _______, _______, _______, _______, _______, _______, GT_PUSH,   CLEAR,
-        _______, GT_ADD,  GT_STAT, DOTFILE, _______, _______, _______, _______, _______, GT_PULL, _______, _______,
-        _______, _______, _______,  GT_CMT, PY_VENV, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,    BASE,    BASE,  RAISE1, _______, _______, _______, _______
+        _______, XXXXXXX, XXXXXXX, EMAIL,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, PHONE,   _______,
+        _______, XXXXXXX, GT_STAT, CLEAR,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, _______, _______, _______, _______, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
 
-    /* Raise I - symbols, light movement
+    /* Raise I - symbols and movement
 
         |-----------------------------------------------------------------------------------------------|
-        |       |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |   (   |   )   |       |
+        |       |   !   |   @   |   #   |       |       |       | S lt  | S up  | S dn  | S rt  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       | S lt  | S up  | S dn  | S rt  |MS Fast|MS Slow| Left  | Down  |  Up   | Right |       |
+        |       |   $   |   %   |   ^   |       |       |       | Left  | Down  |  Up   | Right |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |   \   |   |   |   `   |   ~   |   '   |   "   |   _   |   -   |   +   |   =   |       |
+        |       |   &   |   *   |   (   |   )   |       |       |   ~   |   `   |   |   |   \   |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       |       |       |      BASE     |       |       |       |       |       |
+        |       |       |       |       |       |               |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
+
+        * It is not recomended to use the (  ) symbols on this layer
+        * They are merely here for uniformity
 
     */
     [_RAISE1] = LAYOUT_planck_grid(
-        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  _______,
-        _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_ACL2, KC_ACL1, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
-        _______, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, KC_QUOT, KC_DQUO, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,   _______,
-        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    RAISE2, _______, _______, _______,   _______
+        _______, KC_EXLM, KC_AT,   KC_HASH, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,  _______,
+        _______, KC_DLR,  KC_PERC, KC_CIRC, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
+        _______, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, KC_TILD, KC_GRV,  KC_PIPE, KC_BSLS,  _______,
+        _______, _______, _______, _______, LOWER1,  _______, _______, RAISE2,  _______, _______, _______,  _______
     ),
 
-    /* Raise II - full navigation
+    /* Raise II - mouse navigation
 
         |-----------------------------------------------------------------------------------------------|
-        |       | Home  | Pg Up | Pg Dn |  End  |       |       | L Ck  | R ck  |       |       |       |
+        |       |       |       |       |       |       |       | S lt  | S up  | S dn  | S rt  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       | M lt  | M dn  | M up  | M rt  |MS Fast|MS Slow| M lt  | M dn  | M up  | M rt  |       |
+        |       |       |       |       |       |       |       | M lt  | M dn  | M up  | M rt  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       | S lt  | S up  | S dn  | S rt  |       |       | S lt  | S up  | S dn  | S rt  |       |
+        |       |       |       |       |       |       |       | L Ck  | R ck  | Slow  | Fast  |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |       |      BASE     |       |       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
 
     */
     [_RAISE2] = LAYOUT_planck_grid(
-        _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______,
-        _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_ACL2, KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
-        _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______,
-        _______, _______, _______, _______, _LOWER1, BASE,    BASE,    _______, _______, _______, _______, _______
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_ACL1, KC_ACL2, _______,
+        _______, _______, _______, _______, LOWER1,  BASE,    BASE,    _______, _______, _______, _______, _______
     ),
 
 };
@@ -303,6 +289,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝ ╚═════╝
 */
 
+// Dynamic macros
+
+static bool prerecord_clicky = false;
+
+void dynamic_macro_record_start_user(void) {
+    prerecord_clicky = is_clicky_on();
+    if (!prerecord_clicky) {
+        clicky_on();
+    }
+
+    #ifdef AUDIO_ENABLE
+    PLAY_SONG(dmacro_recs_song);
+    #endif
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    if (!prerecord_clicky) {
+        clicky_off();
+    }
+
+    #ifdef AUDIO_ENABLE
+    PLAY_SONG(dmacro_rece_song);
+    #endif
+}
+
+void dynamic_macro_play_user(int8_t direction) {
+    #ifdef AUDIO_ENABLE
+    PLAY_SONG(dmacro_play_song);
+    #endif
+}
+
 // Layers
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -310,7 +327,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     #ifdef AUDIO_ENABLE
     switch (get_highest_layer(state)) {
         case _BASE:
-            PLAY_SONG(base_song);
+            // enabling base layer song breaks a lot of other songs including
+            // - macro recording start song
+            // - rotary feedback songs
+            
+            // PLAY_SONG(base_song);
             break;
         case _HYPER:
             PLAY_SONG(hyper_song);
@@ -338,14 +359,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void keypress(bool pressed, uint16_t keycode) {
-    if (pressed) {
-        register_code16(keycode);
-    }
-    else {
-        unregister_code16(keycode);
-    }
-}
+// Keypresses
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool panic_del = false;      // PANIC in delete-mode
@@ -363,8 +377,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case PANIC:
             if (record->event.pressed) {
-                if (CTL_MASK) {
-                    unregister_code(KC_LCTL);
+                if (LALT_MASK) {
+                    unregister_code(KC_LALT);
                     register_code(KC_DEL);
                     panic_del = true;
                 }
@@ -374,7 +388,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else {
                 if (panic_del) {
-                    register_code(KC_LCTL);
+                    register_code(KC_LALT);
                     unregister_code(KC_DEL);
                     panic_del = false;
                 }
@@ -383,16 +397,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case LBK_TG:
-            if (record->event.pressed) {
-                lbk_mode = !lbk_mode;
-            }
-            break;
-        case RBK_TG:
-            if (record->event.pressed) {
-                rbk_mode = !rbk_mode;
-            }
-            break;
         case KC_CAPS:
             if (record->event.pressed) {
                 caps_active = !caps_active;
@@ -464,14 +468,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(LCTL(KC_U)); // clear to beginning of line
             }
             break;
-        case DOTFILE:
+        case EMAIL:
             if (record->event.pressed) {
-                SEND_STRING("dotfiles ");
+                SEND_STRING(" ");
             }
             break;
-        case GT_ADD:
+        case PHONE:
             if (record->event.pressed) {
-                SEND_STRING("git add ");
+                SEND_STRING(" ");
             }
             break;
         case GT_STAT:
@@ -485,27 +489,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_LEFT);
             }
             break;
-        case GT_PULL:
-            if (record->event.pressed) {
-                SEND_STRING("git pull ");
-            }
-            break;
-        case GT_PUSH:
-            if (record->event.pressed) {
-                SEND_STRING("git push ");
-            }
-            break;
-        case VIM_WQ:
-            if (record->event.pressed) {
-                tap_code(KC_ESC);
-                SEND_STRING(":wq");
-            }
-            break;
         case PY_VENV:
             if (record->event.pressed) {
                 SEND_STRING("source *env*/bin/activate");
             }
-            break; 
+            break;
     };
 
     /*
@@ -578,142 +566,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     #endif
 
-    /*
-        ██████  ██████   █████   ██████ ██   ██ ███████ ████████ ███████ 
-        ██   ██ ██   ██ ██   ██ ██      ██  ██  ██         ██    ██      
-        ██████  ██████  ███████ ██      █████   █████      ██    ███████ 
-        ██   ██ ██   ██ ██   ██ ██      ██  ██  ██         ██         ██ 
-        ██████  ██   ██ ██   ██  ██████ ██   ██ ███████    ██    ███████
-    */
-
-    bool lbk_key = (keycode == LBK_P || keycode == LBK_S || keycode == LBK_C || keycode == LBK_A);
-    bool rbk_key = (keycode == RBK_P || keycode == RBK_S || keycode == RBK_C || keycode == RBK_A);
-
-    // left-side held modifiers
-    if (lbk_key && /* TODO: key is held */ false) {
-        if (keycode == LBK_P) {
-            keypress(record->event.pressed, KC_LGUI);
-        }
-        else if (keycode == LBK_S) {
-            keypress(record->event.pressed, KC_LALT);
-        }
-        else if (keycode == LBK_C) {
-            keypress(record->event.pressed, KC_LCTL);
-        }
-        else if (keycode == LBK_A) {
-            if (record->event.pressed) {
-                layer_on(_HYPER);
-            }
-            else {
-                layer_off(_HYPER);
-            }
-        }
-    }
-
-    // brackets mode
-    else if ((lbk_key && lbk_mode) || (rbk_key && rbk_mode)) {
-        // closed brackets
-        if ((rbk_key && rbk_mode && lbk_mode) || LSFT_MASK || RSFT_MASK) {
-            if (LSFT_MASK) {
-                unregister_code(KC_LSFT);
-            }
-            if (RSFT_MASK) {
-                unregister_code(KC_RSFT);
-            }
-
-            if (keycode == LBK_P || keycode == RBK_P) {
-                keypress(record->event.pressed, KC_RPRN);
-            }
-            else if (keycode == LBK_S || keycode == RBK_S) {
-                keypress(record->event.pressed, KC_RBRC);
-            }
-            else if (keycode == LBK_C || keycode == RBK_C) {
-                keypress(record->event.pressed, KC_RCBR);
-            }
-            else if (keycode == LBK_A || keycode == RBK_A) {
-                keypress(record->event.pressed, KC_RABK);
-            }
-
-            //TODO: persistent modifier memory using linked list
-            if (LSFT_MASK) {
-                register_code(KC_LSFT);
-            }
-            if (RSFT_MASK) {
-                register_code(KC_RSFT);
-            }
-        }
-        // open brackets
-        else {
-            if (keycode == LBK_P || keycode == RBK_P) {
-                keypress(record->event.pressed, KC_LPRN);
-            }
-            else if (keycode == LBK_S || keycode == RBK_S) {
-                keypress(record->event.pressed, KC_LBRC);
-            }
-            else if (keycode == LBK_C || keycode == RBK_C) {
-                keypress(record->event.pressed, KC_LCBR);
-            }
-            else if (keycode == LBK_A || keycode == RBK_A) {
-                keypress(record->event.pressed, KC_LABK);
-            }
-        }
-    }
-
-    // left-side one-shot modifiers
-    else if (lbk_key) {
-        if (keycode == LBK_P) {
-            if (record->event.pressed) {
-                set_oneshot_mods(MOD_LGUI);
-            }
-            keypress(record->event.pressed, KC_LGUI);
-        }
-        else if (keycode == LBK_S) {
-            if (record->event.pressed) {
-                set_oneshot_mods(MOD_LALT);
-            }
-            keypress(record->event.pressed, KC_LALT);
-        }
-        else if (keycode == LBK_C) {
-            if (record->event.pressed) {
-                set_oneshot_mods(MOD_LCTL);
-            }
-            keypress(record->event.pressed, KC_LCTL);
-        }
-        else if (keycode == LBK_A) {
-            if (record->event.pressed) {
-                layer_on(_HYPER);           // TODO: keep HYPER on if no key pressed while held (i.e. OSL)
-                //set_oneshot_layer(_HYPER, ONESHOT_START);
-            }
-            else {
-                layer_off(_HYPER);
-                //clear_oneshot_layer_state(ONESHOT_PRESSED);
-            }
-        }
-    }
-
-    // right-side arrows keys
-    else if (rbk_key) {
-        if (keycode == RBK_P) {
-            keypress(record->event.pressed, KC_LEFT);
-        }
-        else if (keycode == RBK_S) {
-            keypress(record->event.pressed, KC_DOWN);
-        }
-        else if (keycode == RBK_C) {
-            keypress(record->event.pressed, KC_UP);
-        }
-        else if (keycode == RBK_A) {
-            keypress(record->event.pressed, KC_RIGHT);
-        }
-    }
-
     return true;
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //if (keycode != LBK_A && IS_LAYER_ON(_HYPER)) {
-    //    layer_off(_HYPER);
-    //}
+    
 }
 
 
@@ -729,6 +586,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
+    static int scroll_interval = 5;
+
     switch (rotary_state) {
         case VOLUME:
             if (clockwise) {
@@ -756,20 +615,26 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             break;
         case SCROLL_V:
             if (clockwise) {
-                tap_code(KC_WH_D);
+                // tap_code(KC_PGDN);
+                for (int i=0; i<scroll_interval; i++) {
+                    tap_code(KC_WH_D);
+                }
             }
             else {
-                tap_code(KC_WH_U);
+                // tap_code(KC_PGUP);
+                for (int i=0; i<scroll_interval; i++) {
+                    tap_code(KC_WH_U);
+                }
             }
             break;
         case SCROLL_H:
             if (clockwise) {
-                for (int i=0; i<5; i++) {
+                for (int i=0; i<scroll_interval; i++) {
                     tap_code(KC_WH_R);
                 }
             }
             else {
-                for (int i=0; i<5; i++) {
+                for (int i=0; i<scroll_interval; i++) {
                     tap_code(KC_WH_L);
                 }
             }
