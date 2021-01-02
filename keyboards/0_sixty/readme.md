@@ -1,15 +1,10 @@
 # 0-Sixty
 
-![0-Sixty](https://imgur.com/azmMb6R.jpg)
+![0-Sixty](https://imgur.com/azmMb6Rl.jpg)
 
-![0-Sixty PCB](https://i.imgur.com/I0TkQ0R.jpg)
+![0-Sixty PCB](https://i.imgur.com/I0TkQ0Rl.jpg)
 
-0-Sixty (pronounced "zero to sixty") is a 60 key ortholinear keyboard
-inspired by the
-[Discipline](https://github.com/coseyfannitutti/discipline) and the
-[Preonic](https://drop.com/buy/preonic-mechanical-keyboard). It is
-designed as a DIY through-hole kit and uses the ProMicro as its
-controller.
+0-Sixty (pronounced "zero to sixty") is a 60 key ortholinear keyboard inspired by the [Discipline](https://github.com/coseyfannitutti/discipline) and the [Preonic](https://drop.com/buy/preonic-mechanical-keyboard). It is designed as a DIY through-hole kit and uses the ProMicro as its controller.
 
 [More images here](https://imgur.com/a/b0JINqX)
 
@@ -19,9 +14,7 @@ controller.
 
 Getting the board into bootloader mode:
 
-To be able to flash firmware onto this board, you'll need to bring the
-ProMicro into bootloader mode. Simply tap the small reset button
-twice. The button is placed to the right of the ProMicro.
+To be able to flash firmware onto this board, you'll need to bring the ProMicro into bootloader mode. Simply tap the small reset button twice. The button is placed to the right of the ProMicro.
 
 Make example for this keyboard (after setting up your build environment):
 
