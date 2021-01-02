@@ -36,7 +36,9 @@ You can also add extra options at the end of the make command line, after the ta
 * `make VERBOSE_AS_CMD=yes` - execute the as command with the -v option.
 * `make VERBOSE_C_CMD=<c_source_file>` - add the -v option when compiling the specified C source file.
 * `make DUMP_C_MACROS=<c_source_file>` - dump preprocessor macros when compiling the specified C source file.
+* `make DUMP_C_MACROS=<c_source_file> > <logfile>` - dump preprocessor macros to `<logfile>` when compiling the specified C source file.
 * `make VERBOSE_C_INCLUDE=<c_source_file>` - dumps the file names to be included when compiling the specified C source file.
+* `make VERBOSE_C_INCLUDE=<c_source_file> 2> <logfile>` - dumps the file names to be included to `<logfile>` when compiling the specified C source file.
 
 The make command itself also has some additional options, type `make --help` for more information. The most useful is probably `-jx`, which specifies that you want to compile using more than one CPU, the `x` represents the number of CPUs that you want to use. Setting that can greatly reduce the compile times, especially if you are compiling many keyboards/keymaps. I usually set it to one less than the number of CPUs that I have, so that I have some left for doing other things while it's compiling. Note that not all operating systems and make versions supports that option.
 
