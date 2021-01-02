@@ -76,7 +76,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case LOCK:
-                SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_LCTRL) SS_TAP(X_Q) SS_UP(X_LGUI) SS_UP(X_LCTRL));
+                tap_code16(C(G(KC_Q)));
                 return false;
             case ESC_MHEN:
                 SEND_STRING(SS_TAP(X_INT5) SS_TAP(X_ESCAPE));
