@@ -120,8 +120,8 @@ enum jdelkins_keycodes {
 #define MY_CAPS LCTL_T(KC_CAPS)
 #define MY_SPC  LT(_FUNC, KC_SPC)
 
-#define NUMLOCK_ON (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))
-#define CAPSLOCK_ON (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))
+#define NUMLOCK_ON host_keyboard_led_state().num_lock
+#define CAPSLOCK_ON host_keyboard_led_state().caps_lock
 
 #ifdef TAP_DANCE_ENABLE
 
@@ -139,4 +139,3 @@ int cur_dance(qk_tap_dance_state_t *state);      // prefer tap
 int hold_cur_dance(qk_tap_dance_state_t *state); // prefer hold
 
 #endif // TAP_DANCE_ENABLE
-
