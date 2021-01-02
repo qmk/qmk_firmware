@@ -1,6 +1,6 @@
 # Unix60
 
-![unix60](https://i.imgur.com/ldvKr90.jpgl)
+![unix60](https://i.imgur.com/ldvKr90l.jpg)
 
 HHKB layout FR4 Board
 
