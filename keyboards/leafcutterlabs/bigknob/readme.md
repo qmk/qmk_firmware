@@ -1,6 +1,6 @@
 # bigknob
 
-A 4 key Macropad with Rotatry Encoder based on Atmega32u4.
+A 4 key Macropad with Rotary Encoder based on Atmega32u4.
 
 ![](https://i.imgur.com/Px3EpOUl.jpg)
 
