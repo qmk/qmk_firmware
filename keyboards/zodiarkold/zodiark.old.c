@@ -1,7 +1,7 @@
 #include "zodiark.h"
 
 led_config_t g_led_config = { {
-// Key Matrix to LED Index
+  // Key Matrix to LED Index
   // Left Hand
   { 5, 4, 3, 2, 1, 0, 12 },
   { 6, 7, 8, 9, 10, 11, 13 },

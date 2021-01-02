@@ -46,13 +46,15 @@
 #define SPLIT_USB_DETECT
 
 #define RGB_DI_PIN B5
-
-#define DRIVER_LED_TOTAL 68
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#define RGB_MATRIX_HUE_STEP 8
-#define RGB_MATRIX_SAT_STEP 8
-#define RGB_MATRIX_VAL_STEP 8
-#define RGB_MATRIX_SPD_STEP 10
-
+#ifdef RGB_DI_PIN
+#define RGBLED_NUM 68
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT { 34, 34 }
+#define RGBLIGHT_LIMIT_VAL 170
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#endif
 
 #endif
