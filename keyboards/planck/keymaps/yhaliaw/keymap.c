@@ -25,7 +25,6 @@ enum planck_layers {
 
 enum planck_keycodes {
     L_RESET = SAFE_RANGE,
-    CLEAR,
 };
 
 #ifdef AUDIO_ENABLE
@@ -102,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [_ADJUST] = LAYOUT_planck_grid(
-        _______, L_RESET, DEBUG,   CLEAR,   RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,
+        _______, L_RESET, DEBUG,   EEP_RST, RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,
         _______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_SWAP, AG_NORM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, MU_ON,   MU_OFF,  NK_ON,   NK_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -144,7 +143,7 @@ void keyboard_pre_init_user(void) {
 }
 
 void matrix_init_user(void) {
-    // To Fix a audio related problem. See comments in keyboard_pre_init_user().
+    // To fix a audio related problem. See comments in keyboard_pre_init_user().
 #ifdef AUDIO_ENABLE
     if (audio_disable) {
         audio_off();
@@ -155,18 +154,6 @@ void matrix_init_user(void) {
 void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
     rgblight_set_layer_state(0, true);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case CLEAR:
-            if (record->event.pressed) {
-                eeconfig_init();
-            }
-            return false;
-        default:
-            return true;
-    }
 }
 
 bool leader_found;
