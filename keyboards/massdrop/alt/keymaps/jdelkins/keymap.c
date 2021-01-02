@@ -16,7 +16,7 @@
 */
 
 #include "jdelkins.h"
-#include <print.h>
+#include "print.h"
 
 // Idle handling
 
