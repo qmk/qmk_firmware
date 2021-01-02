@@ -21,18 +21,11 @@
 
 // Secrets
 
-#ifndef NO_SECRETS
-#  if __has_include("secrets.h")
-#    include "secrets.h"
-#    define DO_SECRETS
-     void send_secret_string(uint8_t n);
-#  else
-#    pragma message("Warning: secrets.h not found")
-#    define send_secret_string(_)
-#  endif
-#else
-#  define send_secret_string(_)
+#if !defined(NO_SECRETS) && __has_include("secrets.h")
+#  define DO_SECRETS
 #endif
+
+void send_secret_string(uint8_t n);
 
 // standard layers
 

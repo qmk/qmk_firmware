@@ -18,6 +18,14 @@
 #include "jdelkins.h"
 #include "version.h"
 
+#ifdef DO_SECRETS
+#  include "secrets.h"
+#else
+#  ifndef NO_SECRETS
+#    pragma message("Warning: secrets.h not found")
+#  endif
+#endif
+
 user_config_t user_config;
 
 __attribute__ ((weak))
@@ -25,11 +33,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef DO_SECRETS
 void send_secret_string(uint8_t n) {
+#ifdef DO_SECRETS
     send_string(secret[n]);
-}
+#else
+    SEND_STRING("");
 #endif
+}
 
 #ifdef TAP_DANCE_ENABLE
 
