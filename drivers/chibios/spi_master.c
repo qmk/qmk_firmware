@@ -115,21 +115,47 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     return true;
 }
 
-spi_status_t spi_write(uint8_t data) { return spi_transmit(&data, 1); }
+spi_status_t spi_write(uint8_t data) {
+    uint8_t rxData;
+    spiExchange(&SPI_DRIVER, 1, &data, &rxData);
+
+    return rxData;
+}
 
 spi_status_t spi_read(void) {
     uint8_t data = 0;
-    spi_receive(&data, 1);
+    spiReceive(&SPI_DRIVER, 1, &data);
+
     return data;
 }
 
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
-    spiSend(&SPI_DRIVER, length, data);
+    spi_status_t status;
+
+    for (uint16_t i = 0; i < length; i++) {
+        status = spi_write(data[i]);
+
+        if (status < 0) {
+            return status;
+        }
+    }
+
     return SPI_STATUS_SUCCESS;
 }
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length) {
-    spiReceive(&SPI_DRIVER, length, data);
+    spi_status_t status;
+
+    for (uint16_t i = 0; i < length; i++) {
+        status = spi_read();
+
+        if (status >= 0) {
+            data[i] = status;
+        } else {
+            return status;
+        }
+    }
+
     return SPI_STATUS_SUCCESS;
 }
 
