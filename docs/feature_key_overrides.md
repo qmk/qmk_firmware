@@ -107,7 +107,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 In addition to not encountering unexpected bugs on macOS, you can also change the behavior as you wish. Instead setting `GUI` + `ESC` = `` ` `` you may change it to an arbitrary other modifier, for example `Ctrl` + `ESC` = `` ` ``.
 
-## Inner Workings
+## For Advanced Users: Inner Workings
 
 Continuing with the example of `shift` + `backspace` = `delete`, this section explains how a key override works in detail. Understanding this is essential to be able to take full advantage of all the options offered by key overrides.
 
