@@ -189,12 +189,14 @@ bool adafruit_ble_reconnect(void);
 
 bool command_extra(uint8_t code) {
     switch (code) {
+#ifdef BLUETOOTH_ENABLE
 	case KC_R:
 	    adafruit_ble_delbonds();
 	    return true;
 	case KC_S:
 	    adafruit_ble_reconnect();
 	    return true;
+#endif
 	default:
 	    return false;
     }
