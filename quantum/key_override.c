@@ -59,15 +59,22 @@ static bool                  active_override_trigger_is_down = false;
 
 // Used to keep track of what non-modifier key was last pressed down. We never want to activate an override for a trigger key that is not the last non-mod key that was pressed down. OSes internally completely unregister a key that is held when a different key is held down after. We want to respect this here.
 static uint16_t last_key_down = 0;
+// When was the last key pressed down?
 static uint32_t last_key_down_time = 0;
+
+// What timestamp are we comparing to when waiting to register a deferred key?
+static uint32_t defer_reference_time = 0;
+// What delay should pass until deferred key is registered?
+static uint32_t defer_delay = 0;
 
 // Holds the keycode that should be registered at a later time, in order to not get false key presses
 static uint16_t deferred_register = 0;
 
+// Count of physical keys pressed
 static uint8_t key_down_count = 0;
 static uint8_t mod_down_count = 0;
 
-// TODO: in future maybe save in EEPROM
+// TODO: in future maybe save in EEPROM?
 static bool enabled = true;
 
 // Public variables
@@ -143,6 +150,19 @@ static void register_key_to_pending_keyboard_report(const uint16_t keycode) {
     }
 }
 
+static void schedule_deferred_register(const uint16_t keycode) {
+    if (timer_elapsed32(last_key_down_time) < TAPPING_TERM) {
+        // Defer until TAPPING_TERM has passed since the trigger key was pressed down. This emulates the behavior as holding down a key x, then holding down shift shortly after. Usually the shifted key X is not immediately produced, but rather a 'key repeat delay' passes before any repeated character is output.
+        defer_reference_time = last_key_down_time;
+        defer_delay          = TAPPING_TERM;
+    } else {
+        // Wait a very short time when a modifier event triggers the override to avoid false activations when e.g. a modifier is pressed just before a key is released (with the intention of pairing the modifier with a different key), or a modifier is lifted shortly before the trigger key is lifted. Operating systems by default reject modifier-events that happen very close to a non-modifier event.
+        defer_reference_time = timer_read32();
+        defer_delay          = 50;  // 50ms
+    }
+    deferred_register = keycode;
+}
+
 const key_override_t *clear_active_override(const bool allow_reregister) {
     if (active_override == NULL) {
         return NULL;
@@ -182,16 +202,11 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
     if (allow_reregister && (active_override->options & ko_option_reregister_trigger_on_deactivation) != 0 && active_override_trigger_is_down && active_override->trigger != KC_NO) {
         const uint16_t trigger = active_override->trigger;
 
-        key_override_printf("Re-registering trigger: %u\n", trigger);
+        key_override_printf("Re-registering trigger deferred: %u\n", trigger);
 
-        if (timer_elapsed32(last_key_down_time) < TAPPING_TERM) {
-            key_override_printf("Deferring\n");
-            deferred_register = trigger;
-            send_keyboard_report();
-        }
-        else {
-            register_key_to_pending_keyboard_report(trigger);
-        }
+        // This will always be a modifier event, so defer always
+        schedule_deferred_register(trigger);
+        send_keyboard_report();
     } else {
         send_keyboard_report();
     }
@@ -326,18 +341,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         }
 #endif
 
-        bool allow_reregister_on_clear = true;
-
-        if (active_override != NULL && active_override->trigger == override->trigger && is_mod) {
-            // Prevent re-registering the trigger key when deactivating the previous override if they both work on the same key.
-            allow_reregister_on_clear = false;
-        }
-        else if (!is_mod) {
-            // Do not re-register the trigger key for the prior key override because another non-mod key was pressed down after the trigger key.
-            allow_reregister_on_clear = false;
-        }
-
-        clear_active_override(allow_reregister_on_clear);
+        clear_active_override(false);
 
         active_override                 = override;
         active_override_trigger_is_down = true;
@@ -363,9 +367,10 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
             set_weak_override_mods(override_mods);
 
-            if (is_mod && timer_elapsed32(last_key_down_time) < TAPPING_TERM) {
+            // If this is a modifier event that activates the key override we _always_ defer the actual full activation of the override
+            if (is_mod) {
                 key_override_printf("Deferring register replacement key\n");
-                deferred_register = mod_free;
+                schedule_deferred_register(mod_free);
                 send_keyboard_report();
             } else {
                 register_key_to_pending_keyboard_report(mod_free);
@@ -389,10 +394,12 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 void matrix_scan_key_override(void) {
     if (deferred_register == 0) { return; }
 
-    if (timer_elapsed32(last_key_down_time) >= TAPPING_TERM) {
+    if (timer_elapsed32(defer_reference_time) >= defer_delay) {
         key_override_printf("Registering deferred key\n");
         register_code16(deferred_register);
         deferred_register = 0;
+        defer_reference_time = 0;
+        defer_delay = 0;
     }
 }
 
