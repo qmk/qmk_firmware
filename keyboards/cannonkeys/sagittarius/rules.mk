@@ -1,7 +1,7 @@
 # MCU name
 MCU = STM32F072
 
-# Wildcard to allow APM32 MCU 
+# Wildcard to allow APM32 MCU
 DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 
 # Build Options
@@ -13,7 +13,7 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = yes      # Breathing sleep LED during USB suspend
+SLEEP_LED_ENABLE = no      # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
