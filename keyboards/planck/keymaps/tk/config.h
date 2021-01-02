@@ -4,12 +4,17 @@
 
 #define TAP_CODE_DELAY 10       // delay between key press and release on `tapcode(kc)`
 
-#define TAPPING_TERM 200        // tap dance tap-window
+#define TAPPING_TERM 100        // tap dance tap-window
 
-#define ONESHOT_TAP_TOGGLE 5    // taps to toggle a one-shot layer/key persistence
+// oneshot keys --
+
+#define ONESHOT_TAP_TOGGLE 25   // taps to toggle a one-shot layer/key persistence
+
+#define ONESHOT_TIMEOUT 500     // one-shot layer/key timeout
 
 // dynamic macros --
 
+// you can store HALF of this number of keypresses in both macros together
 #define DYNAMIC_MACRO_SIZE 256
 
 // mouse keys --
