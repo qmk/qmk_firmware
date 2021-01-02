@@ -199,7 +199,7 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
     }
 
     // Optionally re-register the trigger if it is still down
-    if (allow_reregister && (active_override->options & ko_option_reregister_trigger_on_deactivation) != 0 && active_override_trigger_is_down && active_override->trigger != KC_NO) {
+    if (allow_reregister && (active_override->options & ko_option_no_reregister_trigger) == 0 && active_override_trigger_is_down && active_override->trigger != KC_NO) {
         const uint16_t trigger = active_override->trigger;
 
         key_override_printf("Re-registering trigger deferred: %u\n", trigger);

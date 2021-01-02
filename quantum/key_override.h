@@ -46,8 +46,8 @@ typedef enum {
     ko_option_one_mod = (1 << 3),
     /** If set, the override can only activate if no non-modifier key except the trigger key is down. */
     ko_option_exclusive_key_on_activate = (1 << 4),
-    /** If set, the trigger key will be registered again after the override is deactivated (only in case it is still physically pressed and no other non-mod key was pressed down later). */
-    ko_option_reregister_trigger_on_deactivation = (1 << 5),
+    /** If set, the trigger key will never be registered again after the override is deactivated. */
+    ko_option_no_reregister_trigger = (1 << 5),
 
     /** The default options used by the ko_make_xxx functions. */
     ko_options_default = ko_options_all_activations,
