@@ -50,7 +50,7 @@ typedef enum {
     ko_option_reregister_trigger_on_deactivation = (1 << 5),
 
     /** The default options used by the ko_make_xxx functions. */
-    ko_options_default = ko_option_activation_trigger_down,
+    ko_options_default = ko_options_all_activations,
 } ko_option_t;
 
 /** Defines a single key override */

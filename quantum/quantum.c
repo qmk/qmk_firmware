@@ -60,6 +60,7 @@ float bell_song[][2] = SONG(TERMINAL_SOUND);
 
 #ifdef KEY_OVERRIDE_ENABLE
 extern bool process_key_override(const uint16_t keycode, const keyrecord_t *const record);
+extern void matrix_scan_key_override(void);
 #endif
 
 uint8_t extract_mod_bits(uint16_t code) {
@@ -417,6 +418,10 @@ void matrix_scan_quantum() {
 
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
+#endif
+
+#ifdef KEY_OVERRIDE_ENABLE
+    matrix_scan_key_override();
 #endif
 
 #ifdef SEQUENCER_ENABLE

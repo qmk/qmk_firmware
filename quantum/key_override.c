@@ -17,18 +17,19 @@
 
 #include QMK_KEYBOARD_H
 #include "report.h"
+#include "timer.h"
 
 #include <debug.h>
+
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 250
+#endif
 
 // For benchmarking the time it takes to call process_key_override on every key press (needs keyboard debugging enabled as well)
 // #define BENCH_KEY_OVERRIDE
 
 // For debug output (needs keyboard debugging enabled as well)
 // #define DEBUG_KEY_OVERRIDE
-
-#ifdef BENCH_KEY_OVERRIDE
-#    include "timer.h"
-#endif
 
 #ifdef DEBUG_KEY_OVERRIDE
 #    define key_override_printf dprintf
@@ -58,6 +59,10 @@ static bool                  active_override_trigger_is_down = false;
 
 // Used to keep track of what non-modifier key was last pressed down. We never want to activate an override for a trigger key that is not the last non-mod key that was pressed down. OSes internally completely unregister a key that is held when a different key is held down after. We want to respect this here.
 static uint16_t last_key_down = 0;
+static uint32_t last_key_down_time = 0;
+
+// Holds the keycode that should be registered at a later time, in order to not get false key presses
+static uint16_t deferred_register = 0;
 
 static uint8_t key_down_count = 0;
 static uint8_t mod_down_count = 0;
@@ -128,12 +133,24 @@ static bool key_override_matches_active_modifiers(const key_override_t *override
     return false;
 }
 
+static void register_key_to_pending_keyboard_report(const uint16_t keycode) {
+    if (IS_KEY(keycode)) {
+        add_key(keycode);
+    } else {
+        key_override_printf("NOT KEY 2\n");
+        send_keyboard_report();
+        register_code(keycode);
+    }
+}
+
 const key_override_t *clear_active_override(const bool allow_reregister) {
     if (active_override == NULL) {
         return NULL;
     }
 
     key_override_printf("Deactivating override\n");
+
+    deferred_register = 0;
 
     // Clear the suppressed mods
     clear_suppressed_override_mods();
@@ -167,12 +184,13 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
         key_override_printf("Re-registering trigger: %u\n", trigger);
 
-        if (IS_KEY(trigger)) {
-            add_key(trigger);
-        } else {
-            key_override_printf("NOT KEY 2\n");
+        if (timer_elapsed32(last_key_down_time) < TAPPING_TERM) {
+            key_override_printf("Deferring\n");
+            deferred_register = trigger;
             send_keyboard_report();
-            register_code(trigger);
+        }
+        else {
+            register_key_to_pending_keyboard_report(trigger);
         }
     } else {
         send_keyboard_report();
@@ -345,13 +363,12 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
             set_weak_override_mods(override_mods);
 
-            if (IS_KEY(mod_free)) {
-                add_key(mod_free);
-            } else {
-                key_override_printf("NOT KEY 3\n");
-                // Have to send keyboard report before reigstering non key, as those are not sent in the keyboard report.
+            if (is_mod && timer_elapsed32(last_key_down_time) < TAPPING_TERM) {
+                key_override_printf("Deferring register replacement key\n");
+                deferred_register = mod_free;
                 send_keyboard_report();
-                register_code(mod_free);
+            } else {
+                register_key_to_pending_keyboard_report(mod_free);
             }
         } else {
             // If not registering the replacement key send keyboard report to update the unregistered keys.
@@ -367,6 +384,16 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
     *activated = false;
 
     return true;
+}
+
+void matrix_scan_key_override(void) {
+    if (deferred_register == 0) { return; }
+
+    if (timer_elapsed32(last_key_down_time) >= TAPPING_TERM) {
+        key_override_printf("Registering deferred key\n");
+        register_code16(deferred_register);
+        deferred_register = 0;
+    }
 }
 
 bool process_key_override(const uint16_t keycode, const keyrecord_t *const record) {
@@ -426,11 +453,15 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         }
     } else {
         if (key_down) {
-            last_key_down = keycode;
+            last_key_down      = keycode;
+            last_key_down_time = timer_read32();
+            deferred_register  = 0;
         }
 
         if (!key_down && keycode == last_key_down) {
-            last_key_down = 0;
+            last_key_down      = 0;
+            last_key_down_time = 0;
+            deferred_register  = 0;
         }
     }
 
