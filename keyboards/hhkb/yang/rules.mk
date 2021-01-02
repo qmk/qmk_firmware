@@ -28,11 +28,3 @@ SRC += matrix.c
 
 # Disable debounce
 DEBOUNCE_TYPE = custom
-
-PROGRAM_CMD = if [ -z "$(LUFA_DEVICE)" ]; then \
-		echo "Abort: set LUFA_DEVICE variable first"; \
-	else \
-		sudo umount $(LUFA_DEVICE) \
-		&& sudo dd if=$(BUILD_DIR)/$(TARGET).bin of=$(LUFA_DEVICE) seek=4 \
-		&& sudo eject $(LUFA_DEVICE); \
-	fi
