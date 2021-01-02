@@ -228,18 +228,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!get_mods()) {
                 if (!record->event.pressed) {
                     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if defined(__ARM__) || defined(__arm__)
-                            ":dfu-util"
-#elif defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU)
-                            ":dfu "
-#elif defined(BOOTLOADER_HALFKAY)
-                            ":teensy "
-#elif defined(BOOTLOADER_CATERINA)
-                            ":avrdude "
+#if defined(__SAMD51J18A__)
+                            ":doflash\n"
 #else
-                            ":doflash "
+                            ":flash\n"
 #endif
-                            SS_TAP(X_ENTER));
+                    );
                     reset_keyboard();
                 }
                 return false;
