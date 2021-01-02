@@ -68,6 +68,8 @@ void keyboard_pre_init_kb(void) {
     // Turn on switch PCB
     setPinOutput(D6);
     writePinLow(D6);
+
+    keyboard_pre_init_user();
 }
 
 void suspend_power_down_kb(void) {
@@ -77,6 +79,8 @@ void suspend_power_down_kb(void) {
         // Power down BLE module
         writePinHigh(D5);
     }
+
+    suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
@@ -84,6 +88,8 @@ void suspend_wakeup_init_kb(void) {
     writePinLow(D5);
     // Enable UART TX
     UCSR1B |= _BV(TXEN1);
+
+    suspend_wakeup_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
