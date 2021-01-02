@@ -35,7 +35,7 @@ enum planck_layers {
 
 #define BASE    TO(_BASE)
 #define HYPER   MO(_HYPER)
-#define R_MODES OSL(_ROTOR)
+#define R_MODES MO(_ROTOR)
 
 #define LOWER1  OSL(_LOWER1)
 #define LOWER2  OSL(_LOWER2)
@@ -91,7 +91,7 @@ float dmacro_rece_song[][2]     = SONG(MARIO_CAVE_2);
 float dmacro_play_song[][2]     = SONG(MARIO_PIPE);
 
 // layer toggle songs
-float base_song[][2]            = SONG();
+float base_song[][2]            = SONG(MARIO_BUMP);
 float hyper_song[][2]           = SONG(MARIO_POWERUP_BLOCK);
 float rotary_song[][2]          = SONG(MARIO_POWERUP);
 float raise1_song[][2]          = SONG(MARIO_POWERUP_BLOCK);
@@ -291,18 +291,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Dynamic macros
 
+static bool prerecord_clicky = false;
+
 void dynamic_macro_record_start_user(void) {
+    prerecord_clicky = is_clicky_on();
+    if (!prerecord_clicky) {
+        clicky_on();
+    }
+
     #ifdef AUDIO_ENABLE
     PLAY_SONG(dmacro_recs_song);
     #endif
-    clicky_on();
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
+    if (!prerecord_clicky) {
+        clicky_off();
+    }
+
     #ifdef AUDIO_ENABLE
     PLAY_SONG(dmacro_rece_song);
     #endif
-    clicky_off();
 }
 
 void dynamic_macro_play_user(int8_t direction) {
@@ -318,7 +327,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     #ifdef AUDIO_ENABLE
     switch (get_highest_layer(state)) {
         case _BASE:
-            PLAY_SONG(base_song);
+            // enabling base layer song breaks a lot of other songs including
+            // - macro recording start song
+            // - rotary feedback songs
+            
+            // PLAY_SONG(base_song);
             break;
         case _HYPER:
             PLAY_SONG(hyper_song);
@@ -346,14 +359,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void keypress(bool pressed, uint16_t keycode) {
-    if (pressed) {
-        register_code16(keycode);
-    }
-    else {
-        unregister_code16(keycode);
-    }
-}
+// Keypresses
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool panic_del = false;      // PANIC in delete-mode
@@ -499,10 +505,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     */
 
     #ifdef AUDIO_ENABLE
-    if (keycode == AU_TOG || keycode == BASE) {
-        PLAY_SONG(caps_on_song);
-    }
-
     if (record->event.pressed) {
         switch (keycode) {
             case KC_S: // CTRL+S
@@ -584,6 +586,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
+    static int scroll_interval = 5;
+
     switch (rotary_state) {
         case VOLUME:
             if (clockwise) {
@@ -611,20 +615,26 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             break;
         case SCROLL_V:
             if (clockwise) {
-                tap_code(KC_WH_D);
+                // tap_code(KC_PGDN);
+                for (int i=0; i<scroll_interval; i++) {
+                    tap_code(KC_WH_D);
+                }
             }
             else {
-                tap_code(KC_WH_U);
+                // tap_code(KC_PGUP);
+                for (int i=0; i<scroll_interval; i++) {
+                    tap_code(KC_WH_U);
+                }
             }
             break;
         case SCROLL_H:
             if (clockwise) {
-                for (int i=0; i<5; i++) {
+                for (int i=0; i<scroll_interval; i++) {
                     tap_code(KC_WH_R);
                 }
             }
             else {
-                for (int i=0; i<5; i++) {
+                for (int i=0; i<scroll_interval; i++) {
                     tap_code(KC_WH_L);
                 }
             }
