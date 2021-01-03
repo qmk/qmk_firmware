@@ -70,7 +70,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
-                layer_off(_GAMING);
                 layer_on(_QWERTY);
             }
             return false;
@@ -93,11 +92,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_ADJUST);
             } else {
                 layer_off(_ADJUST);
-            }
-            return false;
-        case GAMING:
-            if (record->event.pressed) {
-                layer_on(_GAMING);
             }
             return false;
             // == Macros START ===

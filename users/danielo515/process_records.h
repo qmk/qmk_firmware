@@ -8,7 +8,6 @@ enum custom_keycodes {
     SYM,
     NAV,
     ADJUST,
-    GAMING,
     // Macros
     ARROW,
     IARROW,
@@ -51,7 +50,6 @@ enum layers {
     _A,
     _J,
     _K,
-    _GAMING,
     // iris specific - TBD
     _LOWER,
     _RAISE,
