@@ -11,14 +11,14 @@
 #define PRODUCT         Zodiark
 
 
+#define MASTER_LEFT
+
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
   #define OLED_TIMEOUT 300000
 #endif
 
 #define NO_ACTION_MACRO
-#define NO_ACTION_ONESHOT
-#define NO_ACTION_TAPPING
 
 #define USE_SERIAL
 #define SOFT_SERIAL_PIN D3
@@ -43,12 +43,13 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-#define SPLIT_USB_DETECT
-
 #define RGB_DI_PIN B5
 
 #define DRIVER_LED_TOTAL 68
+#define RGB_MATRIX_SPLIT { 34, 34 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_HUE_STEP 8
 #define RGB_MATRIX_SAT_STEP 8
 #define RGB_MATRIX_VAL_STEP 8
