@@ -130,32 +130,12 @@ spi_status_t spi_read(void) {
 }
 
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
-    spi_status_t status;
-
-    for (uint16_t i = 0; i < length; i++) {
-        status = spi_write(data[i]);
-
-        if (status < 0) {
-            return status;
-        }
-    }
-
+    spiSend(&SPI_DRIVER, length, data);
     return SPI_STATUS_SUCCESS;
 }
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length) {
-    spi_status_t status;
-
-    for (uint16_t i = 0; i < length; i++) {
-        status = spi_read();
-
-        if (status >= 0) {
-            data[i] = status;
-        } else {
-            return status;
-        }
-    }
-
+    spiReceive(&SPI_DRIVER, length, data);
     return SPI_STATUS_SUCCESS;
 }
 
