@@ -101,25 +101,29 @@ def kle2json(cli):
     info_json_file = keyboard_dir / 'info.json'
 
     json.dump(kb_info_json, info_json_file.open('w'), indent=4, separators=(', ', ': '), sort_keys=False, cls=InfoJSONEncoder)
-    cli.log.info('Wrote file %s', info_json_file)
+    cli.log.info('Wrote file {fg_cyan}%s', info_json_file)
 
     # Generate and write a keymap
-    keymap = [key.get('label', 'KC_NO') for key in kb_info_json['layouts'][cli.args.layout]['layout']]
-    keymap_json = {
-            'version': 1,
-            'documentation': "This file is a QMK Keymap. You can compile it with `qmk compile` or import it at <https://config.qmk.fm>. It can also be used directly with QMK's source code.",
-            'author': '',
-            'keyboard': kb_info_json['keyboard_name'],
-            'keymap': cli.args.keymap,
-            'layout': cli.args.layout,
-            'layers': [
-                keymap,
-                ['KC_TRNS' for key in keymap],
-            ],
-    }
     keymap_path = keyboard_dir / 'keymaps' / cli.args.keymap
-    keymap_path.mkdir(exist_ok=True, parents=True)
     keymap_file = keymap_path / 'keymap.json'
 
-    json.dump(keymap_json, keymap_file.open('w'), indent=4, separators=(', ', ': '), sort_keys=False)
-    cli.log.info('Wrote file %s', keymap_file)
+    if keymap_path.exists():
+        cli.log.warning('{fg_cyan}%s{fg_reset} already exists, not generating a keymap.', keymap_path)
+    else:
+        keymap = [key.get('label', 'KC_NO') for key in kb_info_json['layouts'][cli.args.layout]['layout']]
+        keymap_json = {
+                'version': 1,
+                'documentation': "This file is a QMK Keymap. You can compile it with `qmk compile` or import it at <https://config.qmk.fm>. It can also be used directly with QMK's source code.",
+                'author': '',
+                'keyboard': kb_info_json['keyboard_name'],
+                'keymap': cli.args.keymap,
+                'layout': cli.args.layout,
+                'layers': [
+                    keymap,
+                    ['KC_TRNS' for key in keymap],
+                ],
+        }
+        keymap_path.mkdir(exist_ok=True, parents=True)
+
+        json.dump(keymap_json, keymap_file.open('w'), indent=4, separators=(', ', ': '), sort_keys=False)
+        cli.log.info('Wrote file %s', keymap_file)
