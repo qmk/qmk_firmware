@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 
+import requests
 from milc import cli
 from kle2xy import KLE2xy
 
@@ -12,6 +13,51 @@ from qmk.converter import kle2qmk
 from qmk.decorators import automagic_keyboard
 from qmk.info import info_json
 from qmk.info_json_encoder import InfoJSONEncoder
+
+
+def fetch_json(url):
+    """Gets the JSON from a url.
+    """
+    response = fetch_url(url)
+
+    if response.status_code == 200:
+        return response.json()
+
+    print(f'ERROR: {url} returned {response.status_code}: {response.text}')
+    return {}
+
+
+def fetch_url(url):
+    """Fetch a URL.
+    """
+    response = requests.get(url, timeout=30)
+    response.encoding='utf-8-sig'
+
+    return response
+
+
+def fetch_gist(id):
+    """Retrieve a gist from gist.github.com
+    """
+    url = f'https://api.github.com/gists/{id}'
+    gist = fetch_json(url)
+
+    for data in gist['files'].values():
+        if data['filename'].endswith('kbd.json'):
+            if data.get('truncated'):
+                return fetch_url(data['raw_url']).text
+            else:
+                return data['content']
+
+    return None
+
+
+def fetch_kle(id):
+    """Fetch the kle data from a gist ID.
+    """
+    gist = fetch_gist(id)
+
+    return gist[1:-1]
 
 
 @cli.argument('kle', arg_only=True, help='A file or KLE id to convert')
@@ -39,11 +85,13 @@ def kle2json(cli):
                 cli.log.error('Invalid KLE url: {fg_cyan}%s', cli.args.kle)
                 return False
             else:
-                print('FIXME: fetch gist')
-                return False
+                raw_code = fetch_kle(kle_path.split('/')[-1])
+
         else:
-            cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
-            return False
+            raw_code = fetch_kle(cli.args.kle)
+            if not raw_code:
+                cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
+                return False
 
     # Make sure the user supplied a keyboard
     if not cli.args.keyboard:
