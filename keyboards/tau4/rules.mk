@@ -1,37 +1,26 @@
 # MCU name
 MCU = atmega32u4
 
-# Processor frequency.
-F_CPU = 16000000
-
-# Input clock frequency
-F_USB = $(F_CPU)
-
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-# Bootloader to use for flashing
+# Bootloader selection
 BOOTLOADER = atmel-dfu
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-# Boot Section Size in *bytes*
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE ?= no	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= no	# Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
-CONSOLE_ENABLE ?= no	# Console for debug(+400)
-COMMAND_ENABLE ?= no    # Commands for debug and configuration
-SLEEP_LED_ENABLE ?= no  # Breathing sleep LED during USB suspend
-NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
-AUDIO_ENABLE ?= no
-RGBLIGHT_ENABLE ?= yes
-# EEPROM_DRIVER ?= i2c   # Buggy, currently disabled
-ENCODER_ENABLE ?= yes
-OLED_DRIVER_ENABLE ?= yes
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+BLUETOOTH_ENABLE = no       # Enable Bluetooth
+AUDIO_ENABLE = no           # Audio output
+ENCODER_ENABLE = yes        # Rotary Encoder support
+OLED_DRIVER_ENABLE = yes    # OLED display support
+# EEPROM_DRIVER ?= i2c        # Driver for external EEPROM chip
+# This is currently not working due to QMK not officially supporting the chip used on the Tau4, I am working on a fix.
