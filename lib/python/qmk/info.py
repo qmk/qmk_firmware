@@ -134,6 +134,9 @@ def _extract_indicators(info_data, config_c):
             _log_warning(info_data, f'Indicator {json_key} is specified in both info.json and config.h, the config.h value wins.')
 
         if config_key in config_c:
+            if 'indicators' not in info_data:
+                info_data['indicators'] = {}
+
             info_data['indicators'][json_key] = config_c.get(config_key)
 
     return info_data
