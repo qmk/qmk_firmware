@@ -61,13 +61,9 @@ def fetch_kle(id):
 
 
 @cli.argument('kle', arg_only=True, help='A file or KLE id to convert')
-@cli.argument('--vid', arg_only=True, default='0x03A8', help='USB VID (Default: 0x03A8)')
-@cli.argument('--pid', arg_only=True, default='0x0000', help='USB PID (Default: 0x0000)')
-@cli.argument('-m', '--manufacturer', arg_only=True, default='', help='Manufacturer of the keyboard')
 @cli.argument('-l', '--layout', arg_only=True, default='LAYOUT', help='The LAYOUT name this KLE represents')
 @cli.argument('-kb', '--keyboard', arg_only=True, required=True, help='The folder name for the keyboard')
 @cli.argument('-km', '--keymap', arg_only=True, default='default', help='The name of the keymap to write (Default: default)')
-@cli.argument('-d', '--diode', arg_only=True, default='COL2ROW', help='The diode direction for the keyboard (COL2ROW, ROW2COL)')
 @cli.subcommand('Use a KLE layout to build info.json and a keymap', hidden=False if cli.config.user.developer else True)
 def kle2json(cli):
     """Convert a KLE layout to QMK's layout format.
@@ -104,10 +100,8 @@ def kle2json(cli):
         kb_info_json = info_json(cli.args.keyboard)
     else:
         kb_info_json = {
-            "manufacturer": cli.args.manufacturer,
             "keyboard_name": cli.args.keyboard,
             "maintainer": "",
-            "diode_direction": cli.args.diode,
             "features": {
                 "console": True,
                 "extrakey": True,
@@ -120,8 +114,8 @@ def kle2json(cli):
             },
             "usb": {
               "device_ver": "0x0001",
-              "pid": cli.args.pid,
-              "vid": cli.args.vid
+              "pid": '0x0000',
+              "vid": '0x03A8',
             },
             "layouts": {},
         }
