@@ -15,14 +15,14 @@ from qmk.info_json_encoder import InfoJSONEncoder
 
 
 @cli.argument('kle', arg_only=True, help='A file or KLE id to convert')
-@cli.argument('--vid', arg_only=True, default='0x03A8', help='USB VID.')
-@cli.argument('--pid', arg_only=True, default='0x0000', help='USB PID.')
-@cli.argument('-m', '--manufacturer', arg_only=True, default='', help='Manufacturer of the keyboard.')
-@cli.argument('-l', '--layout', arg_only=True, default='LAYOUT', help='The LAYOUT name this KLE represents.')
-@cli.argument('-kb', '--keyboard', help='The folder for the keyboard.')
-@cli.argument('-d', '--diode', arg_only=True, default='COL2ROW', help='The diode direction for the keyboard. (COL2ROW, ROW2COL)')
-@cli.subcommand('Use a KLE layout to build info.json and a default keymap', hidden=False if cli.config.user.developer else True)
-@automagic_keyboard
+@cli.argument('--vid', arg_only=True, default='0x03A8', help='USB VID (Default: 0x03A8)')
+@cli.argument('--pid', arg_only=True, default='0x0000', help='USB PID (Default: 0x0000)')
+@cli.argument('-m', '--manufacturer', arg_only=True, default='', help='Manufacturer of the keyboard')
+@cli.argument('-l', '--layout', arg_only=True, default='LAYOUT', help='The LAYOUT name this KLE represents')
+@cli.argument('-kb', '--keyboard', arg_only=True, required=True, help='The folder name for the keyboard')
+@cli.argument('-km', '--keymap', arg_only=True, default='default', help='The name of the keymap to write (Default: default)')
+@cli.argument('-d', '--diode', arg_only=True, default='COL2ROW', help='The diode direction for the keyboard (COL2ROW, ROW2COL)')
+@cli.subcommand('Use a KLE layout to build info.json and a keymap', hidden=False if cli.config.user.developer else True)
 def kle2json(cli):
     """Convert a KLE layout to QMK's layout format.
     """
@@ -46,18 +46,18 @@ def kle2json(cli):
             return False
 
     # Make sure the user supplied a keyboard
-    if not cli.config.kle2json.keyboard:
+    if not cli.args.keyboard:
         cli.log.error('You must pass --keyboard or be in a keyboard directory!')
         cli.print_usage()
         return False
 
     # Check for an existing info.json
-    if qmk.path.is_keyboard(cli.config.kle2json.keyboard):
-        kb_info_json = info_json(cli.config.kle2json.keyboard)
+    if qmk.path.is_keyboard(cli.args.keyboard):
+        kb_info_json = info_json(cli.args.keyboard)
     else:
         kb_info_json = {
             "manufacturer": cli.args.manufacturer,
-            "keyboard_name": cli.config.kle2json.keyboard,
+            "keyboard_name": cli.args.keyboard,
             "maintainer": "",
             "diode_direction": cli.args.diode,
             "features": {
@@ -96,8 +96,30 @@ def kle2json(cli):
     kb_info_json['layouts'][cli.args.layout]['layout'] = kle2qmk(kle)
 
     # Write our info.json
-    keyboard_dir = qmk.path.keyboard(cli.config.kle2json.keyboard)
+    keyboard_dir = qmk.path.keyboard(cli.args.keyboard)
     keyboard_dir.mkdir(exist_ok=True, parents=True)
     info_json_file = keyboard_dir / 'info.json'
+
     json.dump(kb_info_json, info_json_file.open('w'), indent=4, separators=(', ', ': '), sort_keys=False, cls=InfoJSONEncoder)
     cli.log.info('Wrote file %s', info_json_file)
+
+    # Generate and write a keymap
+    keymap = [key.get('label', 'KC_NO') for key in kb_info_json['layouts'][cli.args.layout]['layout']]
+    keymap_json = {
+            'version': 1,
+            'documentation': "This file is a QMK Keymap. You can compile it with `qmk compile` or import it at <https://config.qmk.fm>. It can also be used directly with QMK's source code.",
+            'author': '',
+            'keyboard': kb_info_json['keyboard_name'],
+            'keymap': cli.args.keymap,
+            'layout': cli.args.layout,
+            'layers': [
+                keymap,
+                ['KC_TRNS' for key in keymap],
+            ],
+    }
+    keymap_path = keyboard_dir / 'keymaps' / cli.args.keymap
+    keymap_path.mkdir(exist_ok=True, parents=True)
+    keymap_file = keymap_path / 'keymap.json'
+
+    json.dump(keymap_json, keymap_file.open('w'), indent=4, separators=(', ', ': '), sort_keys=False)
+    cli.log.info('Wrote file %s', keymap_file)
