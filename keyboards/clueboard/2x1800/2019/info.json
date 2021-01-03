@@ -16,7 +16,7 @@
     "midi": false,
     "mousekey": true,
     "nkro": true,
-    "rgblight": true,
+    "rgblight": false,
     "unicode": false
   },
   "matrix_pins": {
