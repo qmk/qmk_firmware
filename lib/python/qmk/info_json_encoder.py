@@ -17,6 +17,17 @@ class InfoJSONEncoder(json.JSONEncoder):
         if not self.indent:
             self.indent = 4
 
+    def default(self, obj):
+        """Fix certain objects that don't encode.
+        """
+        if isinstance(obj, Decimal):
+            if obj == int(obj):
+                return int(obj)
+
+            return float(obj)
+
+        return json.JSONEncoder.default(self, obj)
+
     def encode(self, obj):
         """Encode JSON objects for QMK.
         """
