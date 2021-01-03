@@ -19,7 +19,6 @@
         "utility": "c",
         "ranges": "c"
     },
-    "editor.formatOnSave": false,
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
