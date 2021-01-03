@@ -10,11 +10,11 @@
 
  Make example for this keyboard (after setting up your build environment):
 
-     make lazydesigners/the40:default
+    make lazydesigners/the40:default
 
  Flashing example for this keyboard:
 
-     make lazydesigners/the40:default:flash
+    make lazydesigners/the40:default:flash
 
  **Reset Key:** To enter the bootloader, either push the RESET button on the PCB or the RESET button on the FN layer.
 
