@@ -30,13 +30,13 @@ Here's some highlights/features of the layout.
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |Ctrl//| Enter  |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  |      |Shift | Tab  | ↑ L3 |Alt/Ec|                                       | ↑ L2 |   \  |   '  |Enter |      |
+  |      |Shift | Tab  | ↑ L3 |Alt/Ec|                                       | ↑ L2 |Hyper |   '  |Enter |      |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,---------------.
                                        |      |      |       |      |        |
                                 ,------+------+------|       |------+--------+------.
                                 |      |      |      |       |      |        |      |
-                                | LGui |  <-  |------|       |------|   <-   | Spc  |
+                                | LGui | Bksp |------|       |------| Bkspc  | Spc  |
                                 |      |      |      |       |      |        |      |
                                 `--------------------'       `----------------------'
 ```
@@ -53,13 +53,13 @@ Here's some highlights/features of the layout.
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           | LAlt |   N  |   M  |   ,  |   .  |Ctrl//| Enter  |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  |      |Shift | Tab  | ↑ L4 |Gui/Ec|                                       | ↑ L2 |   \  |   '  |Enter |      |
+  |      |Shift | Tab  | ↑ L4 |Gui/Ec|                                       | ↑ L2 |Hyper |   '  |Enter |      |
   `-----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,---------------.
                                        |      |      |       |      |        |
                                 ,------+------+------|       |------+--------+------.
                                 |      |      |      |       |      |        |      |
-                                | Ctrl |  <-  |------|       |------|   <-   | Spc  |
+                                | Ctrl | Bksp |------|       |------| Bkspc  | Spc  |
                                 |      |      |      |       |      |        |      |
                                 `--------------------'       `----------------------'
 ```
@@ -168,8 +168,8 @@ See the default building and flashing documentation for the Ergodox Infinity, I 
 
 > What's the case you have for your Ergodox Infinity?
 
-It's a case made by Datamancer and I got it [on Drop.com as a group buy](https://drop.com/buy/datamancer-infinity-ergodox-hardwood-case)
+It's a case made by Datamancer and I got it [on Drop.com as a group buy](https://drop.com/buy/datamancer-infinity-ergodox-hardwood-case).
 
 > Why don't you just use the other keys?
 
-I bounce between my Ergodox, Atreus 2, and a couple of Planck keyboards. If I start using keys on my Ergo that I can't on my 40% boards, then my layouts start to diverge and muscle memory is diminished. I like to constrain my bigger boards to my smaller for continuity.
+I bounce between my Ergodox, Atreus 2, CorneKBD, and a couple of Planck keyboards. If I start using keys on my Ergo that I can't on my 40% boards, then my layouts start to diverge and muscle memory is diminished. I like to constrain my bigger boards to my smaller for continuity.
