@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x7461
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Atsushi_Morimoto_74th
-#define PRODUCT      sparrow82
+#define PRODUCT      sparrow62
 
 /* key matrix size */
 #define MATRIX_ROWS 10
