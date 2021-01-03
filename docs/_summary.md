@@ -22,6 +22,7 @@
   * QMK API
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
+    * [KLE To info.json](kle2json_guide.md)
     * [Keyboard Support](reference_configurator_support.md)
     * [Adding Default Keymaps](configurator_default_keymaps.md)
 
