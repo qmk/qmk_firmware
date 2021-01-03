@@ -73,6 +73,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRE_CHARGE_PERIOD 0xD9
 #define VCOM_DETECT 0xDB
 
+// Advance Graphic Commands
+#define FADE_BLINK 0x23
+
 // Charge Pump Commands
 #define CHARGE_PUMP 0x8D
 
@@ -547,7 +550,13 @@ bool oled_on(void) {
     oled_timeout = timer_read32() + OLED_TIMEOUT;
 #endif
 
-    static const uint8_t PROGMEM display_on[] = {I2C_CMD, DISPLAY_ON};
+    static const uint8_t PROGMEM display_on[] =
+#ifdef OLED_DRIVER_DISPLAY_FADE
+        {I2C_CMD, FADE_BLINK, 0x00};
+#else
+        {I2C_CMD, DISPLAY_ON};
+#endif
+
     if (!oled_active) {
         if (I2C_TRANSMIT_P(display_on) != I2C_STATUS_SUCCESS) {
             print("oled_on cmd failed\n");
@@ -563,7 +572,13 @@ bool oled_off(void) {
         return !oled_active;
     }
 
-    static const uint8_t PROGMEM display_off[] = {I2C_CMD, DISPLAY_OFF};
+    static const uint8_t PROGMEM display_off[] =
+#ifdef OLED_DRIVER_DISPLAY_FADE
+        {I2C_CMD, FADE_BLINK, 0x20 | OLED_DRIVER_DISPLAY_FADE_INTERVAL};
+#else
+        {I2C_CMD, DISPLAY_OFF};
+#endif
+
     if (oled_active) {
         if (I2C_TRANSMIT_P(display_off) != I2C_STATUS_SUCCESS) {
             print("oled_off cmd failed\n");
