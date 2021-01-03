@@ -1,23 +1,32 @@
 space space default layout
 
-default layout on space space uses 3 layers + base, 5 combos, layer taps on the split space bars and tap-hold for shift on F & J.
+default layout on space space uses 3 layers + base, 5 combos, layer taps on the split space bars, and tap-hold for shift on F & J.
 
 combos include:
+
 I+O = backspace
+
 K+L = enter
+
 S+D = tab
+
 T+Y = escape
+
 Q+W = delete
 
-the encoders are also set to function differently depending on layer:
 
-Right Encoder
+The encoders are also set to function differently depending on layer:
+
+right encoder
 default = volume up/down
+
 symbol layer (hold space) = media next/previous
 
-Left Encoder
+left encoder
 default = mousewheel up/down
+
 number layer (hold backspace) = page up/down
+
 nav layer (hold Fn) = control tab/control shift tab
 
 Default Layout:
