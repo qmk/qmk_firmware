@@ -76,15 +76,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 			 case _NAV:
                 if (clockwise) {
-                register_code(KC_LCTL);
-                tap_code(KC_TAB);
-                unregister_code(KC_LCTL);
+                tap_code16(C(KC_TAB));
                 } else {
-                register_code(KC_LCTL);
-				register_code(KC_LSFT);
-                tap_code(KC_TAB);
-                unregister_code(KC_LCTL);
-				unregister_code(KC_LSFT);
+                tap_code16(C(S(KC_TAB)));
                 }
                 break;
 

@@ -7,7 +7,7 @@
   "layouts": {
     "LAYOUT_default": {
 	  "key_count": 39,
-	  "layout": {
+	  "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },
         { "x": 2, "y": 0 },
