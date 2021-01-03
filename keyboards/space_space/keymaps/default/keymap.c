@@ -43,7 +43,7 @@ enum custom_keycodes{
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_DEL,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,
-    KC_A,   KC_S,   KC_D,  KC_SF,   KC_G,   KC_BSPC,  KC_H,   KC_SJ,  KC_K,    KC_L,   KC_QUOT,
+    KC_A,   KC_S,   KC_D,  KC_SF,   KC_G,   KC_TAB,  KC_H,   KC_SJ,  KC_K,    KC_L,   KC_QUOT,
     KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LSFT,  KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH,
                   KC_LCTL, MO(_NAV), KC_DN_BSPC,  KC_NO,  KC_UP_SPC, KC_LGUI,   KC_RALT
   ),
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = LAYOUT(
     KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,
-    KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
+    KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS, KC_TRNS, KC_LCAP, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
                     KC_TRNS,  KC_TRNS,  KC_TRNS, KC_NO,  KC_TRNS,  KC_TRNS, KC_TRNS 
   ),
 };

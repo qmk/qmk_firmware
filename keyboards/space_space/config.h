@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 4x0042
-#define PRODUCT_ID 5x9403
+#define VENDOR_ID 0x7170
+#define PRODUCT_ID 0x7373
 #define DEVICE_VER 0x3000
 #define MANUFACTURER qpockets
 #define PRODUCT space_space
@@ -53,3 +53,5 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define DEBOUNCE 7
+
+#define LOCKING_SUPPORT_ENABLE
