@@ -151,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     debug_enable = 1;
 #    if defined(SPI_DEBUG_SCAN_RATE)
                     matrix_timer     = 0;
-                    reported_version = false;
+                    report_version();
 #    endif
                 } else if (!debug_keyboard) {
                     debug_keyboard = 1;
