@@ -56,3 +56,7 @@ qmk kle2json -kb clueboard/60 -l LAYOUT_60_ansi 'http://www.keyboard-layout-edit
 ```
 
 It will fetch the KLE, generate a new `LAYOUT_60_ansi`, and either add a new layout or change the existing layout to match.
+
+## Adding more layouts
+
+At the current time QMK only supports the base layout. Layout Options are allowed for VIA compatibility purposes and will be implemented in QMK at a later date. For now we recommend you create a KLE for each layout you want to support in QMK and call `qmk kle2json` once per layout to set up the info.json.
