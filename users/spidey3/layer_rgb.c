@@ -102,7 +102,7 @@ extern rgblight_status_t rgblight_status;
 #define STARTUP_ANIMATION_CYCLE_STEP 2
 #define STARTUP_ANIMATION_RAMP_TO_STEPS 70
 #define STARTUP_ANIMATION_STEP_TIME 10
-#define STARTUP_ANIMATION_INITIAL_DELAY 500
+#define STARTUP_ANIMATION_INITIAL_DELAY 0 // milliseconds, must be < 255 * STEP_TIME
 
 typedef enum {
     DISABLED,
@@ -118,24 +118,16 @@ typedef enum {
     DONE
 } startup_animation_state_t;
 
-static bool    is_enabled;
-static uint8_t old_hue;
-static uint8_t old_sat;
-static uint8_t old_val;
-static uint8_t old_mode;
+static rgblight_config_t old_config;
 static uint8_t old_base_mode;
 static startup_animation_state_t startup_animation_state = DISABLED;
 static uint16_t rgblight_startup_loop_timer;
 
 void startup_animation_init(void) {
-    is_enabled = rgblight_config.enable;
-    old_hue    = rgblight_config.hue;
-    old_sat    = rgblight_config.sat;
-    old_val    = rgblight_config.val;
-    old_mode   = rgblight_config.mode;
-    old_base_mode   = rgblight_status.base_mode;
+    old_config.raw = rgblight_config.raw;
+    old_base_mode  = rgblight_status.base_mode;
     
-    if (!is_enabled)
+    if (!old_config.enable)
         rgblight_enable_noeeprom();
 }
 #endif
@@ -148,7 +140,7 @@ void keyboard_post_init_user_rgb(void) {
 
 #if defined(RGBLIGHT_STARTUP_ANIMATION)
     startup_animation_init();
-    startup_animation_state = WAITING;
+    startup_animation_state = STARTUP_ANIMATION_INITIAL_DELAY ? WAITING : START;
 #endif
 }
 
@@ -161,7 +153,9 @@ void matrix_scan_user_rgb(void) {
 
             switch (startup_animation_state) {
                 case WAITING:
-                    dprintf("WAITING counter=%u\n", counter);
+#ifdef STARTUP_ANIMATION_DEBUG
+                    dprintf("sua WAITING counter=%u\n", counter);
+#endif
                     if (counter < STARTUP_ANIMATION_INITIAL_DELAY / STARTUP_ANIMATION_STEP_TIME) {
                         counter++;
                     } else {
@@ -170,18 +164,20 @@ void matrix_scan_user_rgb(void) {
                     break;
 
                 case RESTART:
-                    dprintln("RESTART");
+                    dprintln("sua RESTART");
                     startup_animation_init();
                 case START:
-                    dprintln("START");
+                    dprintln("sua START");
                     startup_animation_state = FADE_OLD;
-                    counter = old_val;
+                    counter = old_config.val;
                     // No break! Just roll into FADE_OLD in the same iteration...
 
                 case FADE_OLD:
-                    dprintf("FADE_OLD counter=%u\n", counter);
+#ifdef STARTUP_ANIMATION_DEBUG
+                    dprintf("sua FADE_OLD counter=%u\n", counter);
+#endif
                     if (counter >= STARTUP_ANIMATION_FADE_STEP) {
-                        rgblight_sethsv_noeeprom(old_hue, old_sat, counter);
+                        rgblight_sethsv_noeeprom(old_config.hue, old_config.sat, counter);
                         counter -= STARTUP_ANIMATION_FADE_STEP;
                     } else {
                         counter = 0;
@@ -191,9 +187,11 @@ void matrix_scan_user_rgb(void) {
                     break;
 
                 case FADE_IN:
-                    dprintf("FADE_IN counter=%u\n", counter);
+#ifdef STARTUP_ANIMATION_DEBUG
+                    dprintf("sua FADE_IN counter=%u\n", counter);
+#endif
                     if (counter < STARTUP_ANIMATION_VALUE) {
-                        rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, counter);
+                        rgblight_sethsv_noeeprom(old_config.hue, STARTUP_ANIMATION_SATURATION, counter);
                         counter += STARTUP_ANIMATION_FADE_STEP;
                     } else {
                         counter = 255;
@@ -202,9 +200,11 @@ void matrix_scan_user_rgb(void) {
                     break;
 
                 case CYCLE:
-                    dprintf("CYCLE counter=%u\n", counter);
+#ifdef STARTUP_ANIMATION_DEBUG
+                    dprintf("sua CYCLE counter=%u\n", counter);
+#endif
                     if (counter >= STARTUP_ANIMATION_CYCLE_STEP) {
-                        rgblight_sethsv_noeeprom((counter + old_hue) % 255, STARTUP_ANIMATION_SATURATION, STARTUP_ANIMATION_VALUE);
+                        rgblight_sethsv_noeeprom((counter + old_config.hue) % 255, STARTUP_ANIMATION_SATURATION, STARTUP_ANIMATION_VALUE);
                         counter -= STARTUP_ANIMATION_CYCLE_STEP;
                     } else {
                         if ( 
@@ -220,7 +220,7 @@ void matrix_scan_user_rgb(void) {
 #ifdef RGBLIGHT_EFFECT_TWINKLE
                             (old_base_mode == RGBLIGHT_MODE_TWINKLE) ||
 #endif
-                            !is_enabled) {
+                            !old_config.enable) {
                             counter = STARTUP_ANIMATION_VALUE;
                             startup_animation_state = RAMP_DOWN;
                         } else if (
@@ -249,9 +249,11 @@ void matrix_scan_user_rgb(void) {
                     break;
 
                 case RAMP_DOWN:
-                    dprintf("RAMP_DOWN counter=%u\n", counter);
+#ifdef STARTUP_ANIMATION_DEBUG
+                    dprintf("sua RAMP_DOWN counter=%u\n", counter);
+#endif
                     if (counter >= STARTUP_ANIMATION_FADE_STEP) {
-                        rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, counter);
+                        rgblight_sethsv_noeeprom(old_config.hue, STARTUP_ANIMATION_SATURATION, counter);
                         counter -= STARTUP_ANIMATION_FADE_STEP;
                     } else {
                         startup_animation_state = CLEAN_UP;
@@ -259,35 +261,27 @@ void matrix_scan_user_rgb(void) {
                     break;
 
                 case RAMP_TO:
-                    dprintf("RAMP_TO s=%u, v=%u, counter=%u\n", old_sat, old_val, counter);
-                    uint8_t steps = STARTUP_ANIMATION_RAMP_TO_STEPS;
-                    if (counter < steps) {
-                        uint8_t s = STARTUP_ANIMATION_SATURATION + counter * (((float)old_sat - STARTUP_ANIMATION_SATURATION) / (float)steps);
-                        uint8_t v = STARTUP_ANIMATION_VALUE + counter * (((float)old_val - STARTUP_ANIMATION_VALUE) / (float)steps);
-                        rgblight_sethsv_noeeprom(old_hue, s, v);
-                        counter++;
-                    } else {
-                        startup_animation_state = CLEAN_UP;
+                    {
+#ifdef STARTUP_ANIMATION_DEBUG
+                        dprintf("sua RAMP_TO s=%u, v=%u, counter=%u\n", old_config.sat, old_config.val, counter);
+#endif
+                        uint8_t steps = STARTUP_ANIMATION_RAMP_TO_STEPS;
+                        if (counter < steps) {
+                            uint8_t s = STARTUP_ANIMATION_SATURATION + counter * (((float)old_config.sat - STARTUP_ANIMATION_SATURATION) / (float)steps);
+                            uint8_t v = STARTUP_ANIMATION_VALUE + counter * (((float)old_config.val - STARTUP_ANIMATION_VALUE) / (float)steps);
+                            rgblight_sethsv_noeeprom(old_config.hue, s, v);
+                            counter++;
+                        } else {
+                            startup_animation_state = CLEAN_UP;
+                        }
                     }
                     break;
 
                 case CLEAN_UP:
-                    dprintln("CLEAN_UP");
-                    rgblight_mode_noeeprom(old_mode);
-                    if (is_enabled) {
-                        rgblight_sethsv_noeeprom(old_hue, old_sat, old_val);
-                    } else {
-                        rgblight_disable_noeeprom();
-                        // Hack!
-                        // rgblight_sethsv_noeeprom() doesn't update these if rgblight is disabled,
-                        // but if we do it before disabling we get an ugly flash.
-                        // Note this is probably broken on splits.
-                        rgblight_config.hue = old_hue;
-                        rgblight_config.sat = old_sat;
-                        rgblight_config.val = old_val;
-                    }
+                    dprintln("sua CLEAN_UP");
+                    rgblight_reload_from_eeprom();
                     startup_animation_state = DONE;
-                    dprintln("DONE");
+                    dprintln("sua DONE");
                     break;
 
                 default:
