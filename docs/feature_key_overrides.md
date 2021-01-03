@@ -1,21 +1,23 @@
 # Key Overrides
 
-With key overrides you can define custom actions for arbitrary modifier + key combinations: If `modifiers w` + `key x` are pressed, replace these keys with `modifiers y` + `key z` in the keyboard report. At the core, key overrides give you the power of layers without having to use dedicated layer keys, allowing you to use modifier keys instead (and combinations thereof).
+Key overrides allow you to override modifier-key combinations to send a different modifier-key combination or perform completely custom actions. The behavior is like this: If `modifiers w` + `key x` are pressed, replace these keys with `modifiers y` + `key z` in the keyboard report. You can use key overrides in a similar way to layer keys to activate custom keycodes, with a number of benefits: You completely keep the original use of the modifier keys, while being able to save space by removing layer keys from your keyboard. You can also easily configure _combinations of modifiers_ to trigger different actions than individual modifiers, and much more. The possibilities are quite vast and this documentation contains a few examples for inspiration throughout.
 
-For example, you may configure a key override to send the `delete` key when `shift` + `backspace` are pressed together, or that your volume keys become screen brightness keys when holding `ctrl`. The possibilities are quite vast and this documentation contains a few examples for inspiration.
+For example, you may configure a key override to send `brightness up/down` when holding down `ctrl` and pressing `volume up/down`. You could also configure that pressing `shift` + `backspace` sends `delete`.
+
+Another example use-case of key overrides is to change common keyboard shortcuts (e.g. `ctrl`+`y`) to send a different key combination (e.g. `ctrl`+`shift`+`z`).
 
 ## Setup
 
 To enable this feature, you need to add `KEY_OVERRIDE_ENABLE = yes` to your `rules.mk`.
 
-Then, in your `keymap.c` file, you'll need to define the array `key_overrides`, which defines all available overrides.  Each override is a value of type `key_override_t`. The array `key_overrides` is `NULL`-terminated and contains pointers to `key_override_t` values.
+Then, in your `keymap.c` file, you'll need to define the array `key_overrides`, which defines all key overrides to be used. Each override is a value of type `key_override_t`. The array `key_overrides` is `NULL`-terminated and contains pointers to `key_override_t` values (`const key_override_t **`).
 
 ## Creating Key Overrides
 
-The `key_override_t` struct has many options that allow you to precicely tune your overrides. The full reference is shown below. However, `key_override_t` is quite complex, and to make things simpler, it is suggested to use one of the following three simplified initializers to create key overrides:
+The `key_override_t` struct has many options that allow you to precisely tune your overrides. The full reference is shown below. Instead of manually creating a `key_override_t` value, it is recommended to use these dedicated initializers:
 
 #### `ko_make_basic(modifiers, key, replacement)`
-Sends `replacement` (can be a key-modifer combination), when `key` is pressed while `modifiers` are pressed down.
+Returns a `key_override_t`, which sends `replacement` (can be a key-modifer combination), when `key` and `modifiers` are all pressed down.
 
 #### `ko_make_with_layers(modifiers, key, replacement, layers)`
 Additionally takes a bitmask `layers` that defines on which layers the override is used.
@@ -25,6 +27,8 @@ Additionally takes a bitmask `negative_mods` that defines which modifiers may no
 
 #### `ko_make_with_layers_negmods_and_options(modifiers, key, replacement, layers, negative_mods, options)`
 Additionally takes a bitmask `options` that specifies additional options. See `ko_option_t` for available options.
+
+For more customization possibilities, you may directly create a `key_override_t`, which allows you to customize even more behavior. Read further below for details and examples.
 
 ## Simple Example
 
@@ -39,6 +43,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 	NULL // Null terminate the array of overrides!
 };
 ```
+
+## Difference to Combos
+
+Note that key overrides are very different from [combos](https://docs.qmk.fm/#/feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides are specifically aimed at modifiers-key combinations (only one non-modifier key), and activate just like regular modifier-key combinations would. Key overrides are implemented with much care to behave just like normal modifier-key combinations, in regards to the order of pressed keys, timing, and more, and provide a number of optional settings that can be used to really fine-tune them. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
 
 ## Intermediate Difficulty Examples
 
@@ -59,22 +67,28 @@ The following key overrides will be configured:
 
 
 ```c
-const key_override_t next_track_override = ko_make_with_layers_and_negmods(
-    MOD_MASK_CTRL,       // Trigger modifiers: ctrl
-    KC_MEDIA_PLAY_PAUSE, // Trigger key: play/pause
-    KC_MEDIA_NEXT_TRACK, // Replacement key
-    ~0,                  // Activate on all layers
-    MOD_MASK_SA);        // Do not activate when shift or alt are pressed
+const key_override_t next_track_override = 
+	ko_make_with_layers_negmods_and_options(
+   		MOD_MASK_CTRL,       // Trigger modifiers: ctrl
+    	KC_MPLY,             // Trigger key: play/pause
+    	KC_MNXT,             // Replacement key
+    	~0,                  // Activate on all layers
+    	MOD_MASK_SA,         // Do not activate when shift or alt are pressed
+    	ko_option_no_reregister_trigger); // Specifies that the play key is not registered again after lifting ctrl
     
-const key_override_t prev_track_override = ko_make_with_layers_and_negmods(MOD_MASK_CS, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_PREV_TRACK, ~0, MOD_MASK_ALT);
+const key_override_t prev_track_override = ko_make_with_layers_negmods_and_options(MOD_MASK_CS, KC_MPLY,
+											KC_MPRV, ~0, MOD_MASK_ALT, ko_option_no_reregister_trigger);
 
-const key_override_t vol_up_override = ko_make_with_layers_and_negmods(MOD_MASK_ALT, KC_MEDIA_PLAY_PAUSE, KC_AUDIO_VOL_UP, ~0, MOD_MASK_CS);
+const key_override_t vol_up_override = ko_make_with_layers_negmods_and_options(MOD_MASK_ALT, KC_MPLY,
+											KC_VOLU, ~0, MOD_MASK_CS, ko_option_no_reregister_trigger);
 
-const key_override_t vol_down_override = ko_make_with_layers_and_negmods(MOD_MASK_SA, KC_MEDIA_PLAY_PAUSE, KC_AUDIO_VOL_DOWN, ~0, MOD_MASK_CTRL);
+const key_override_t vol_down_override = ko_make_with_layers_negmods_and_options(MOD_MASK_SA, KC_MPLY,
+											KC_VOLD, ~0, MOD_MASK_CTRL, ko_option_no_reregister_trigger);
 
-const key_override_t brightness_up_override = ko_make_with_layers_and_negmods(MOD_MASK_CA, KC_MEDIA_PLAY_PAUSE, KC_BRIGHTNESS_UP, ~0, MOD_MASK_SHIFT);
+const key_override_t brightness_up_override = ko_make_with_layers_negmods_and_options(MOD_MASK_CA, KC_MPLY,
+											KC_BRIU, ~0, MOD_MASK_SHIFT, ko_option_no_reregister_trigger);
 
-const key_override_t brightness_down_override = ko_make_basic(MOD_MASK_CSA, KC_MEDIA_PLAY_PAUSE, KC_BRIGHTNESS_DOWN);
+const key_override_t brightness_down_override = ko_make_basic(MOD_MASK_CSA, KC_MPLY, KC_BRID);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -107,43 +121,13 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 In addition to not encountering unexpected bugs on macOS, you can also change the behavior as you wish. Instead setting `GUI` + `ESC` = `` ` `` you may change it to an arbitrary other modifier, for example `Ctrl` + `ESC` = `` ` ``.
 
-## For Advanced Users: Inner Workings
-
-Continuing with the example of `shift` + `backspace` = `delete`, this section explains how a key override works in detail. Understanding this is essential to be able to take full advantage of all the options offered by key overrides.
-
-#### Activation
-
-When the necessary keys are pressed (`shift` + `backspace`), the override is 'activated' and the replacement key is registered in the keyboard report (`delete`), while the trigger key (`backspace`) is removed from the keyboard report. The trigger modifiers may also be removed from the keyboard report upon activation of an override. In this example, the `shift` key has to be removed from the keyboard report.
-
-Overrides can activate in three different cases:
-
-1. The trigger key is pressed down and necessary modifiers are already down.
-2. A necessary modifier is pressed down, while the trigger key and other necessary modifiers are already down.
-3. A negative modifier is released, while all necessary modifiers and the trigger key are already down.
-
-Use the `option` member to customize which of these events are allowed to activate your overrides (default: all three).
-
-In any case, a key override can only activate if the trigger key is the _last_ non-modifier key that was pressed down. This emulates the behavior of how standard OSes (macOS, Windows, Linux) handle normal key input (hold down `a`, then also hold down `b`, then hold down `shift`; `B` will be typed but not `A`).
-
-#### Deactivation
-
-An override is 'deactivated' when one of the trigger keys (`shift` or `backspace`) is lifted, another non-modifier key is pressed down, or a negative modifier is pressed down. When an override deactivates, the replacement key (`delete`) is removed from the keyboard report, while the modifiers that are still held down and we previously removed from the keyboard report are re-added to the keyboard report. By default, the trigger key (`backspace`) is re-added to the keyboard report if it is still held down and no other non-modifier key has been pressed since. This again emulates the behavior of how standard OSes handle normal key input (hold down `a`, then also hold down `b` and `shift`, then release `b`; `A` will not be typed even though you are holding the `a` and `shift` keys). Use the option `ko_option_no_reregister_trigger` to prevent re-registering the trigger key in all cases.
-
-#### Key Repeat Interval
-
-A third way in which standard OS-handling of modded (shifted/alted/...) keys is emulated in key overrides is with a 'key repeat interval'. To explain what this is, let's look at how normal keyboard input is handled by mainstream OSes again: If you hold down `a`, followed by `shift`, you will see the letter `a` is first typed, then for a short moment nothing is typed and then repeating `A`s are typed. Take note that, although shift is pressed down just after `a` is pressed, it takes a moment until `A` is typed. This is caused by the aforementioned key repeat interval, and it is a feature that prevents unwanted repeated characters from being typed.
-
-This applies equally to releasing a modifier: When you hold `shift`, then press `a`, the letter `A` is typed. Now if you release `shift` first, followed by `a` shortly after, you will not see the letter `a` being typed even though for a short moment of time you were just holding down the key `a`. This exact behavior is implemented in key overrides as well: If a key override for `shift` + `a` = `b` is active, and `a` is held down, followed by `shift`, you will not immediately see the letter `b` being typed. Instead, this event is deferred for a short moment, just like in the key repeat interval for normal, non overridden keys. The override key (`b`) will not be typed until the key repeat interval has passed, measured from the moment when the trigger key was pressed down.
-
-The duration of the key repeat interval is controlled with the `TAPPING_TERM` macro. Define this value in your `config.h` file to change it. It is 250ms by default.
-
 ## Reference for `key_override_t`
 
 Advanced users may need more customization than what is offered by the simple `ko_make` initializers. For this, directly create a `key_override_t` value and set all members. Below is a reference for all members of `key_override_t`.
 
 | Member                                                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |--------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `uint16_t trigger`                                     | The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode. A key override can only activate when the trigger key is the last non-modifier key that was pressed down. This emulates the standard behavior of how OSes handle keyboard input. Moreover, wWhen an override is active and another non-modifier key is pressed down, the modifier is always deactivated, again emulating the behavior of OS keyboard handling.                                                                                                                                                                                                                                                                                                                                |
+| `uint16_t trigger`                                     | The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode.                                                                                                                                                                                                                                                                                                                                |
 | `uint8_t trigger_modifiers`                            | Which mods need to be down for activation. If both sides of mod are set (e.g. left ctrl and right ctrl) then only one is required to trigger (e.g. left ctrl suffices).                                                                                                                                                                                                                                                                            |
 | `layer_state_t layers`                                 | This is a BITMASK (!), defining which layers this override applies to. To use this override on layer i set the ith bit (1 << i).                                                                                                                                                                                                                                                                                                                   |
 | `uint8_t negative_modifier_mask`                       | Which keys cannot be down: get_mods() & negative_modifier_mask must be 0. Can be used to disallow specific modifiers for fine-grained control.                                                                                                                                                                                                                                                                                                     |
@@ -167,6 +151,38 @@ Bitfield with various options controlling the behavior of a key override.
 | `ko_option_exclusive_key_on_activate`    |  If set, the override can only activate if no non-modifier key except the trigger key is down.                                                                                                                         |
 | `ko_option_no_reregister_trigger`        | If set, the trigger key will never be registered again after the override is deactivated.                                                                                                                              |
 | `ko_options_default`                     | The default options used by the `ko_make_xxx` functions                                                                                                                                                                  |
+
+## For Advanced Users: Inner Workings
+
+This section explains how a key override works in detail, explaining where each member of `key_override_t` comes into play. Understanding this is essential to be able to take full advantage of all the options offered by key overrides.
+
+#### Activation
+
+When the necessary keys are pressed (`trigger_modifiers` + `trigger`), the override is 'activated' and the replacement key is registered in the keyboard report (`replacement`), while the `trigger` key is removed from the keyboard report. The trigger modifiers may also be removed from the keyboard report upon activation of an override (`suppressed_mods`). The override will not activate if any of the `negative_modifiers` are pressed.
+
+Overrides can activate in three different cases:
+
+1. The trigger key is pressed down and necessary modifiers are already down.
+2. A necessary modifier is pressed down, while the trigger key and other necessary modifiers are already down.
+3. A negative modifier is released, while all necessary modifiers and the trigger key are already down.
+
+Use the `option` member to customize which of these events are allowed to activate your overrides (default: all three).
+
+In any case, a key override can only activate if the `trigger` key is the _last_ non-modifier key that was pressed down. This emulates the behavior of how standard OSes (macOS, Windows, Linux) handle normal key input (to understand: Hold down `a`, then also hold down `b`, then hold down `shift`; `B` will be typed but not `A`).
+
+#### Deactivation
+
+An override is 'deactivated' when one of the trigger keys (`trigger_modifiers`, `trigger`) is lifted, another non-modifier key is pressed down, or one of the `negative_modifiers` is pressed down. When an override deactivates, the `replacement` key is removed from the keyboard report, while the `suppressed_mods` that are still held down are re-added to the keyboard report. By default, the `trigger` key is re-added to the keyboard report if it is still held down and no other non-modifier key has been pressed since. This again emulates the behavior of how standard OSes handle normal key input (To understand: hold down `a`, then also hold down `b`, then also `shift`, then release `b`; `A` will not be typed even though you are holding the `a` and `shift` keys). Use the `option` field `ko_option_no_reregister_trigger` to prevent re-registering the trigger key in all cases.
+
+#### Key Repeat Delay
+
+A third way in which standard OS-handling of modifier-key input is emulated in key overrides is with a ['key repeat delay'](https://www.dummies.com/computers/pcs/set-your-keyboards-repeat-delay-and-repeat-rate/). To explain what this is, let's look at how normal keyboard input is handled by mainstream OSes again: If you hold down `a`, followed by `shift`, you will see the letter `a` is first typed, then for a short moment nothing is typed and then repeating `A`s are typed. Take note that, although shift is pressed down just after `a` is pressed, it takes a moment until `A` is typed. This is caused by the aforementioned key repeat delay, and it is a feature that prevents unwanted repeated characters from being typed.
+
+This applies equally to releasing a modifier: When you hold `shift`, then press `a`, the letter `A` is typed. Now if you release `shift` first, followed by `a` shortly after, you will not see the letter `a` being typed, even though for a short moment of time you were just holding down the key `a`. This is because no modified characters are typed until the key repeat delay has passed.
+
+ This exact behavior is implemented in key overrides as well: If a key override for `shift` + `a` = `b` exists, and `a` is pressed and held, followed by `shift`, you will not immediately see the letter `b` being typed. Instead, this event is deferred for a short moment, until the key repeat delay has passed, measured from the moment when the trigger key (`a`) was pressed down.
+
+The duration of the key repeat delay is controlled with the `KEY_OVERRIDE_REPEAT_DELAY` macro. Define this value in your `config.h` file to change it. It is 500ms by default.
 
 ## Advanced Examples
 ### Modifiers as Layer Keys

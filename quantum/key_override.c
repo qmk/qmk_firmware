@@ -21,8 +21,8 @@
 
 #include <debug.h>
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 250
+#ifndef KEY_OVERRIDE_REPEAT_DELAY
+#    define KEY_OVERRIDE_REPEAT_DELAY 500
 #endif
 
 // For benchmarking the time it takes to call process_key_override on every key press (needs keyboard debugging enabled as well)
@@ -151,10 +151,10 @@ static void register_key_to_pending_keyboard_report(const uint16_t keycode) {
 }
 
 static void schedule_deferred_register(const uint16_t keycode) {
-    if (timer_elapsed32(last_key_down_time) < TAPPING_TERM) {
-        // Defer until TAPPING_TERM has passed since the trigger key was pressed down. This emulates the behavior as holding down a key x, then holding down shift shortly after. Usually the shifted key X is not immediately produced, but rather a 'key repeat delay' passes before any repeated character is output.
+    if (timer_elapsed32(last_key_down_time) < KEY_OVERRIDE_REPEAT_DELAY) {
+        // Defer until KEY_OVERRIDE_REPEAT_DELAY has passed since the trigger key was pressed down. This emulates the behavior as holding down a key x, then holding down shift shortly after. Usually the shifted key X is not immediately produced, but rather a 'key repeat delay' passes before any repeated character is output.
         defer_reference_time = last_key_down_time;
-        defer_delay          = TAPPING_TERM;
+        defer_delay          = KEY_OVERRIDE_REPEAT_DELAY;
     } else {
         // Wait a very short time when a modifier event triggers the override to avoid false activations when e.g. a modifier is pressed just before a key is released (with the intention of pairing the modifier with a different key), or a modifier is lifted shortly before the trigger key is lifted. Operating systems by default reject modifier-events that happen very close to a non-modifier event.
         defer_reference_time = timer_read32();

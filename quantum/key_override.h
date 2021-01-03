@@ -55,7 +55,7 @@ typedef enum {
 
 /** Defines a single key override */
 typedef struct {
-    // The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode. A key override can only activate when the trigger key is the last non-modifier key that was pressed down. This emulates the standard behavior of how OSes handle keyboard input. Moreover, wWhen an override is active and another non-modifier key is pressed down, the modifier is always deactivated, again emulating the behavior of OS keyboard handling.
+    // The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode.
     uint16_t trigger; 
 
     // Which mods need to be down for activation. If both sides of mod are set (e.g. left ctrl and right ctrl) then only one is required to trigger (e.g. left ctrl suffices).
