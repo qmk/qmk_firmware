@@ -1,10 +1,12 @@
 ifeq ($(OS),Windows_NT)
-	MDLOADER = bin/mdloader_windows
+	PROGRAM_CMD = bin/mdloader_windows --first --download $(TARGET).hex --restart
 else
-	MDLOADER = sudo bin/mdloader_linux
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+		PROGRAM_CMD = bin/mdloader_mac --first --download $(TARGET).hex --restart
+	else
+		PROGRAM_CMD = sudo bin/mdloader_linux --first --download $(TARGET).hex --restart
+	endif
 endif
-
-doflash: .build/massdrop_alt_jdelkins_ss.hex
-	$(MDLOADER) --first --download $< --restart
 
 USER_NAME := jdelkins

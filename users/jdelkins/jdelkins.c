@@ -227,13 +227,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KB_FLSH:
             if (!get_mods()) {
                 if (!record->event.pressed) {
-                    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if defined(__SAMD51J18A__)
-                            ":doflash\n"
-#else
-                            ":flash\n"
-#endif
-                    );
+                    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":flash\n");
                     reset_keyboard();
                 }
                 return false;
