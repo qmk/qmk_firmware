@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    * | 40 | 41 | 42 |           46          | 4a | 4b | 4c | 4d  |
    * `-----------------------------------------------------------'
  */
-#define KEYMAP_ANSI( \
+#define LAYOUT_ansi( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2c,      k2d, \
@@ -51,3 +51,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 #endif
+
+#define KEYMAP_ANSI LAYOUT_ansi
