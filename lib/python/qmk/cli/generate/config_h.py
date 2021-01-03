@@ -45,7 +45,7 @@ def keyboard_name(keyboard_name):
 #ifndef PRODUCT
 #    define PRODUCT %s
 #endif // PRODUCT
-""" % (keyboard_name, keyboard_name)
+""" % (keyboard_name.replace("'", ""), keyboard_name.replace("'", ""))
 
 
 def manufacturer(manufacturer):
@@ -55,7 +55,7 @@ def manufacturer(manufacturer):
 #ifndef MANUFACTURER
 #    define MANUFACTURER %s
 #endif // MANUFACTURER
-""" % (manufacturer)
+""" % (manufacturer.replace("'", ""))
 
 
 def direct_pins(direct_pins):

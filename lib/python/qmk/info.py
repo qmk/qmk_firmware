@@ -345,7 +345,7 @@ def _merge_layouts(info_data, new_info_data):
         else:
             # Pull in layouts that have matrix data
             missing_matrix = False
-            for key in layout_json['layout']:
+            for key in layout_json.get('layout', {}):
                 if 'matrix' not in key:
                     missing_matrix = True
 
