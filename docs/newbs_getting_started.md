@@ -93,7 +93,15 @@ Install the QMK CLI by running:
 
     python3 -m pip install --user qmk
 
-On Arch-based distros you can also try the `qmk` package from AUR (**NOTE**: this package is maintained by a community member, and at the time of writing marks some dependencies as optional that should not be):
+#### Community Packages
+
+These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
+
+On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):
+
+    sudo pacman -S qmk
+
+You can also try the `qmk` package from AUR:
 
     yay -S qmk
 
