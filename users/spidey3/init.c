@@ -18,12 +18,6 @@ void eeconfig_init_user(void) {
 #endif
 }
 
-void shutdown_user() {
 #ifdef RGBLIGHT_ENABLE
-    clear_rgb_layers();
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    for (int i=0; i<RGBLED_NUM; i++)
-        rgblight_setrgb_at(0xFF, 0x80*(i%2), 0, i);
+void shutdown_user(void) { shutdown_user_rgb(); }
 #endif
-}

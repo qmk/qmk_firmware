@@ -62,6 +62,7 @@ bool          led_update_user_rgb(led_t led_state);
 void          rgb_layer_ack(layer_ack_t n);
 void          rgb_layer_ack_yn(bool yn);
 void          clear_rgb_layers(void);
+void          shutdown_user_rgb(void);
 #endif
 
 #ifdef UNICODEMAP_ENABLE
