@@ -163,10 +163,10 @@ static void exec_keycode(uint16_t keycode) {
     g_vial_magic_keycode_override = keycode;
 
     action_exec((keyevent_t){
-        .key = (keypos_t){.row = 254, .col = 254}, .pressed = 1, .time = (timer_read() | 1) /* time should not be 0 */
+        .key = (keypos_t){.row = VIAL_ENCODER_MATRIX_MAGIC, .col = VIAL_ENCODER_MATRIX_MAGIC}, .pressed = 1, .time = (timer_read() | 1) /* time should not be 0 */
     });
     action_exec((keyevent_t){
-        .key = (keypos_t){.row = 254, .col = 254}, .pressed = 0, .time = (timer_read() | 1) /* time should not be 0 */
+        .key = (keypos_t){.row = VIAL_ENCODER_MATRIX_MAGIC, .col = VIAL_ENCODER_MATRIX_MAGIC}, .pressed = 0, .time = (timer_read() | 1) /* time should not be 0 */
     });
 }
 

@@ -200,7 +200,7 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
 #endif
 
 #ifdef VIAL_ENCODERS_ENABLE
-    if (key.row == 254 && key.col == 254)
+    if (key.row == VIAL_ENCODER_MATRIX_MAGIC && key.col == VIAL_ENCODER_MATRIX_MAGIC)
         return g_vial_magic_keycode_override;
 #endif
 

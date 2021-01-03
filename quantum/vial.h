@@ -41,3 +41,6 @@ enum {
     vial_unlock_poll = 0x07,
     vial_lock = 0x08,
 };
+
+/* Fake encoder position in keyboard matrix, can't use 255 as that is immediately rejected by IS_NOEVENT  */
+#define VIAL_ENCODER_MATRIX_MAGIC 254
