@@ -1,6 +1,6 @@
 # Key Overrides
 
-Key overrides allow you to override modifier-key combinations to send a different modifier-key combination or perform completely custom actions. The behavior is like this: If `modifiers w` + `key x` are pressed, replace these keys with `modifiers y` + `key z` in the keyboard report. You can use key overrides in a similar way to layer keys to activate custom keycodes, with a number of benefits: You completely keep the original use of the modifier keys, while being able to save space by removing layer keys from your keyboard. You can also easily configure _combinations of modifiers_ to trigger different actions than individual modifiers, and much more. The possibilities are quite vast and this documentation contains a few examples for inspiration throughout.
+Key overrides allow you to override modifier-key combinations to send a different modifier-key combination or perform completely custom actions. The behavior is like this: If `modifiers w` + `key x` are pressed, replace these keys with `modifiers y` + `key z` in the keyboard report. You can use key overrides in a similar way to momentary layer/fn keys to activate custom keycodes, with a number of benefits: You completely keep the original use of the modifier keys, while being able to save space by removing fn keys from your keyboard. You can also easily configure _combinations of modifiers_ to trigger different actions than individual modifiers, and much more. The possibilities are quite vast and this documentation contains a few examples for inspiration throughout.
 
 For example, you may configure a key override to send `brightness up/down` when holding down `ctrl` and pressing `volume up/down`. You could also configure that pressing `shift` + `backspace` sends `delete`.
 
@@ -204,7 +204,7 @@ bool momentary_layer(bool key_down, void *layer) {
 const key_override_t fn_override = {.trigger_modifiers      = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
                                    .layers                 = ~(1 << LAYER_FN),                                          //
                                    .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
-                                   .options                = ko_options_default | ko_option_exclusive_key_on_activate,  //
+                                   .options                = ko_option_exclusive_key_on_activate,  //
                                    .negative_modifier_mask = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL)),          //
                                    .custom_action          = momentary_layer,                                           //
                                    .context                = (void *)LAYER_FN,                                          //
