@@ -48,7 +48,7 @@ typedef struct {
 
 #define COMBO_END 0
 #ifndef COMBO_COUNT
-#    define COMBO_COUNT 8
+#    define COMBO_COUNT 0
 #endif
 #ifndef COMBO_TERM
 #    define COMBO_TERM TAPPING_TERM
