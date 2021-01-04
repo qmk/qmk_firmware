@@ -723,8 +723,8 @@ void rgblight_suspend(void) {
 
 #    ifdef RGBLIGHT_LAYER_BLINK
         // make sure any layer blinks don't come back after suspend
-        _blinked_layer_mask = 0;
         rgblight_status.enabled_layer_mask &= ~_blinked_layer_mask;
+        _blinked_layer_mask = 0;
 #    endif
 
         rgblight_disable_noeeprom();
@@ -770,7 +770,7 @@ void rgblight_set(void) {
 
 #    ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL
-#        if defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
+#        if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
         && rgblight_config.enable
 #        elif defined(RGBLIGHT_SLEEP)
         && !is_suspended
