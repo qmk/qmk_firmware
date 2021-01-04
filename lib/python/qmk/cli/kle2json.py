@@ -10,7 +10,6 @@ from kle2xy import KLE2xy
 
 import qmk.path
 from qmk.converter import kle2qmk
-from qmk.decorators import automagic_keyboard
 from qmk.info import info_json
 from qmk.info_json_encoder import InfoJSONEncoder
 
@@ -31,7 +30,7 @@ def fetch_url(url):
     """Fetch a URL.
     """
     response = requests.get(url, timeout=30)
-    response.encoding='utf-8-sig'
+    response.encoding = 'utf-8-sig'
 
     return response
 

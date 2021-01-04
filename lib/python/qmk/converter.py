@@ -1,7 +1,5 @@
 """Functions to convert to and from QMK formats
 """
-from pprint import pprint
-
 from milc import cli
 
 
@@ -9,7 +7,6 @@ def kle2qmk(kle):
     """Convert a KLE layout to QMK's layout format.
     """
     layout = []
-    layout_alternatives = {}
     top_left_corner = None
 
     # Iterate through the KLE classifying keys by layout
