@@ -120,7 +120,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #ifdef COMBO_ENABLE
-const uint16_t PROGMEM combo_bspc[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM combo_bspc[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_ent[] = {KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_T, KC_Y, COMBO_END};
