@@ -21,10 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x176A
-#define DEVICE_VER 0x0030
+#define PRODUCT_ID 0x176B
+#define DEVICE_VER 0x0010
 #define MANUFACTURER jpskenn
-#define PRODUCT Jones
+#define PRODUCT Unison
 
 /* key matrix size */
 // Same size for Jones' custom Round-Robin matrix.
