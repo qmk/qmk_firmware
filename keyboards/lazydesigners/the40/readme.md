@@ -8,11 +8,11 @@ A 40% keyboard designed and produced by [LAZYDESIGNERS](http://lazydesigners.cn)
 * Hardware Supported: THE40
 * Hardware Availability: Check [LAZYDESIGNERS's homepage.](http://lazydesigners.cn)
 
- Make example for this keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make lazydesigners/the40:default
 
- Flashing example for this keyboard:
+Flashing example for this keyboard:
 
     make lazydesigners/the40:default:flash
 
