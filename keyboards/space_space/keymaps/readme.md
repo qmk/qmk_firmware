@@ -4,7 +4,7 @@ Default layout on space space uses 3 layers + base, 5 combos, layer taps on the 
 
 * combos include:
 
-I+O = backspace
+O+P = backspace
 
 K+L = enter
 
