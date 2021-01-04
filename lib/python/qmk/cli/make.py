@@ -49,11 +49,18 @@ def make(cli):
     # Generate the include files
     # FIXME(skullydazed/anyone): Instead of hard-coding a stale age we should compare the timestamp against all the info.json's involved
     config_h_file = f'{keyboard_output}/src/info_config.h'
+    if os.path.exists(config_h_file):
+        config_h_mtime = os.stat(config_h_file).st_mtime
+        config_h_age = time() - config_h_mtime
+    else:
+        config_h_age = file_stale_secs + 1
+
     layouts_h_file = f'{keyboard_output}/src/layouts.h'
-    config_h_mtime = os.stat(config_h_file).st_mtime
-    layouts_h_mtime = os.stat(layouts_h_file).st_mtime
-    config_h_age = time() - config_h_mtime
-    layouts_h_age = time() - layouts_h_mtime
+    if os.path.exists(layouts_h_file):
+        layouts_h_mtime = os.stat(layouts_h_file).st_mtime
+        layouts_h_age = time() - layouts_h_mtime
+    else:
+        layouts_h_age = file_stale_secs + 1
 
     if 'clean' not in cli.args.targets:
         config_h_cmd = ['bin/qmk', 'generate-config-h', '--keyboard', keyboard, '--output', config_h_file]
@@ -65,7 +72,7 @@ def make(cli):
         if config_h_age > file_stale_secs:
             cli.run(config_h_cmd, capture_output=False)
         if layouts_h_age > file_stale_secs:
-            cli.run(layouts_cmd, capture_output=False)
+            cli.run(layouts_h_cmd, capture_output=False)
 
     # Call make
     jobs = '1'
