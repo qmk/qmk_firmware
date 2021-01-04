@@ -2,6 +2,7 @@
 
 #include "spidey3.h"
 #include "velocikey.h"
+#include <lib/lib8tion/lib8tion.h>
 
 uint32_t rgb_mode;
 uint16_t rgb_hue;
@@ -90,6 +91,15 @@ void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
         rgblight_set_layer_state(LAYER_OFFSET + i - 1, is_on);
     }
 }
+
+// flags. 0 = no change, 1 = increment, -1 = decrement.
+int8_t change_hue = 0;
+int8_t change_sat = 0;
+int8_t change_val = 0;
+
+// timer to control color change speed
+uint16_t change_timer = 0;
+const uint16_t change_tick  = 15;
 
 extern rgblight_config_t rgblight_config;
 extern rgblight_status_t rgblight_status;
@@ -290,6 +300,17 @@ void matrix_scan_user_rgb(void) {
         }
     }
 #endif
+
+    if (change_hue != 0 || change_val != 0 || change_sat != 0) {
+        if (timer_elapsed(change_timer) > change_tick) {
+            HSV hsv = rgblight_get_hsv();
+            hsv.h += change_hue;
+            hsv.s = change_sat > 0 ? qadd8(hsv.s, (uint8_t) change_sat) : qsub8(hsv.s, (uint8_t) -change_sat);
+            hsv.v = change_val > 0 ? qadd8(hsv.v, (uint8_t) change_val) : qsub8(hsv.v, (uint8_t) -change_val);
+            rgblight_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
+            change_timer = timer_read();
+        }
+    }
 }
 
 void shutdown_user_rgb(void) {
@@ -341,6 +362,39 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             case SPI_GLO:
                 spidey_glow();
                 return false;
+
+                // clang-format off
+            case RGB_HUI: change_timer = timer_read(); change_hue =  1; return false;
+            case RGB_HUD: change_timer = timer_read(); change_hue = -1; return false;
+            case RGB_SAI: change_timer = timer_read(); change_sat =  1; return false;
+            case RGB_SAD: change_timer = timer_read(); change_sat = -1; return false;
+            case RGB_VAI: change_timer = timer_read(); change_val =  1; return false;
+            case RGB_VAD: change_timer = timer_read(); change_val = -1; return false;
+                // clang-format on
+        }
+    } else {
+        bool rgb_done = false;
+        switch (keycode) {
+            case RGB_HUI:
+            case RGB_HUD:
+                change_hue = 0;
+                rgb_done   = true;
+                break;
+            case RGB_SAI:
+            case RGB_SAD:
+                change_sat = 0;
+                rgb_done   = true;
+                break;
+            case RGB_VAI:
+            case RGB_VAD:
+                change_val = 0;
+                rgb_done   = true;
+                break;
+        }
+
+        if (rgb_done) {
+            HSV final = rgblight_get_hsv();
+            rgblight_sethsv(final.h, final.s, final.v);
         }
     }
 
