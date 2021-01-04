@@ -73,7 +73,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [ACK_OFFSET + ACK_HUH + 1] = NULL
 };
 
-// clang-format on 
+// clang-format on
 
 const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
 
@@ -136,7 +136,7 @@ static uint16_t rgblight_startup_loop_timer;
 void startup_animation_init(void) {
     old_config.raw = rgblight_config.raw;
     old_base_mode  = rgblight_status.base_mode;
-    
+
     if (!old_config.enable)
         rgblight_enable_noeeprom();
 }
@@ -217,7 +217,7 @@ void matrix_scan_user_rgb(void) {
                         rgblight_sethsv_noeeprom((counter + old_config.hue) % 255, STARTUP_ANIMATION_SATURATION, STARTUP_ANIMATION_VALUE);
                         counter -= STARTUP_ANIMATION_CYCLE_STEP;
                     } else {
-                        if ( 
+                        if (
 #ifdef RGBLIGHT_EFFECT_BREATHING
                             (old_base_mode == RGBLIGHT_MODE_BREATHING) ||
 #endif
