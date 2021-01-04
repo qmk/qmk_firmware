@@ -386,7 +386,7 @@ define PARSE_KEYMAP
     # Specify the variables that we are passing forward to submake
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY)
     # And the first part of the make command
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
+    MAKE_CMD := bin/qmk make -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
     MAKE_MSG := $$(MSG_MAKE_KB)
     # We run the command differently, depending on if we want more output or not

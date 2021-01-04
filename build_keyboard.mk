@@ -313,12 +313,6 @@ endif
 
 CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
-$(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
-	bin/qmk generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
-
-$(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
-	bin/qmk generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
-
 # project specific files
 SRC += $(KEYBOARD_SRC) \
     $(KEYMAP_C) \

@@ -24,6 +24,7 @@ from . import json2c
 from . import lint
 from . import list
 from . import kle2json
+from . import make
 from . import new
 from . import pyformat
 from . import pytest
