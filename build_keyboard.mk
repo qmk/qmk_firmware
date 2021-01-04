@@ -319,6 +319,10 @@ $(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
 $(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
 	bin/qmk generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
 
+generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
+
+.INTERMEDIATE : generated-files
+
 # project specific files
 SRC += $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
@@ -393,10 +397,16 @@ all:
 	echo "skipped" >&2
 endif
 
-build: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h elf cpfirmware
+build: elf cpfirmware
 check-size: build
 check-md5: build
 objs-size: build
 
 include show_options.mk
 include $(TMK_PATH)/rules.mk
+
+# Ensure we have generated files available for each of the objects
+define GEN_FILES
+$1: generated-files
+endef
+$(foreach O,$(OBJ),$(eval $(call GEN_FILES,$(patsubst %.a,%.o,$(O)))))
