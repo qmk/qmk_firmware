@@ -16,6 +16,6 @@
 
     make lazydesigners/the40:default:flash
 
- **Reset Key:** To enter the bootloader, either push the RESET button on the PCB or the RESET button on the FN layer.
+**Reset Key:** To enter the bootloader, either push the RESET button on the PCB or the RESET button on the FN layer.
 
- See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
