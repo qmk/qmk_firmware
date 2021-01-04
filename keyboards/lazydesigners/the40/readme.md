@@ -1,12 +1,12 @@
 # THE40
 
- ![the40](https://i.loli.net/2020/12/27/6u9UpyPJCWVEgwM.jpg)
+![the40](https://i.loli.net/2020/12/27/6u9UpyPJCWVEgwM.jpg)
 
- A 40% keyboard designed and produced by [LAZYDESIGNERS](http://lazydesigners.cn).
+A 40% keyboard designed and produced by [LAZYDESIGNERS](http://lazydesigners.cn).
 
- * Keyboard Maintainer: [LAZYDESIGNERS](https://github.com/jackytrabbit)
- * Hardware Supported: THE40
- * Hardware Availability: Check [LAZYDESIGNERS's homepage.](http://lazydesigners.cn)
+* Keyboard Maintainer: [LAZYDESIGNERS](https://github.com/jackytrabbit)
+* Hardware Supported: THE40
+* Hardware Availability: Check [LAZYDESIGNERS's homepage.](http://lazydesigners.cn)
 
  Make example for this keyboard (after setting up your build environment):
 
