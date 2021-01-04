@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is the QMK firmware repository for the CK60i PCB. This is a universal 60% tray mount PCB sold by CandyKeys.
+This is the QMK firmware repository for the CK60i PCB. This is a universal 60% tray mount PCB sold by CandyKeys and designed by Gondolindrim.
 
 ## Layouts
 
@@ -10,7 +10,11 @@ The CK60i supports:
 
 - ISO layout;
 - Tsangan bottom row;
-- Split right shift, split backspace 
+- Split right shift, split backspace
+
+## Availability
+
+The CK60i is available for purchase through [Candy Keys' store](http://candykeys.com).
 
 ## How to compile
 

@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001 // Revision pre-Alpha
 #define MANUFACTURER    CandyKeys
 #define PRODUCT         CK60i
-#define DESCRIPTION	A universal tray mount 60%
 
 /* key matrix size */
 #define MATRIX_ROWS 5
