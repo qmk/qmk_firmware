@@ -27,6 +27,7 @@ def print_bootloader_help():
     cli.echo('\tdfu-util-split-left')
     cli.echo('\tdfu-util-split-right')
     cli.echo('\tst-link-cli')
+    cli.echo('\tst-flash')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 
@@ -80,7 +81,8 @@ def flash(cli):
         cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
         if not cli.args.dry_run:
             cli.echo('\n')
-            subprocess.run(command)
+            compile = subprocess.run(command)
+            return compile.returncode
 
     else:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')

@@ -74,10 +74,9 @@ There are a number of functions (and variables) related to how you can use or ma
 | [`update_tri_layer(x, y, z)`](ref_functions.md#update_tri_layerx-y-z) | Checks if layers `x` and `y` are both on, and sets `z` based on that (on if both on, otherwise off). |
 | [`update_tri_layer_state(state, x, y, z)`](ref_functions.md#update_tri_layer_statestate-x-y-z) | Does the same as `update_tri_layer(x, y, z)`, but from `layer_state_set_*` functions. |
 
+In addition to the functions that you can call, there are a number of callback functions that get called every time the layer changes. This passes the layer state to the function, where it can be read or modified.
 
-In additional to the functions that you can call, there are a number of callback functions that get called every time the layer changes. This passed the layer state to the function, which can be read or modified.
-
-|Callbacks                                     |Description                                                                                    |
+|Callback                                             |Description                                                                             |
 |-----------------------------------------------------|----------------------------------------------------------------------------------------|
 | `layer_state_set_kb(layer_state_t state)`           | Callback for layer functions, for keyboard.                                            |
 | `layer_state_set_user(layer_state_t state)`         | Callback for layer functions, for users.                                               |
@@ -86,9 +85,9 @@ In additional to the functions that you can call, there are a number of callback
 
 ?> For additional details on how you can use these callbacks, check out the [Layer Change Code](custom_quantum_functions.md#layer-change-code) document.
 
-|Check functions                                                  |Description                                                                   |
-|-------------------------------------------|------------------------------------------------------------------------------|
-| `layer_state_cmp(cmp_layer_state, layer)` | This checks the `cmp_layer_state` to see if the specific `layer` is enabled. This is meant for use with the layer callbacks. |
-| `layer_state_is(layer)`                   | This checks the layer state to see if the specific `layer` is enabled. (calls `layer_state_cmp` for the global layer state). |
+It is also possible to check the state of a particular layer using the following functions and macros.
 
-!> There is `IS_LAYER_ON(layer)` as well, however the `layer_state_cmp` function has some additional handling to ensure that on layer 0 that it returns the correct value. Otherwise, if you check to see if layer 0 is on, you may get an incorrect value returned. 
+|Function                         |Description                                                                                      |Aliases
+|---------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| `layer_state_is(layer)`         | Checks if the specified `layer` is enabled globally.                                            | `IS_LAYER_ON(layer)`, `IS_LAYER_OFF(layer)`                           |
+| `layer_state_cmp(state, layer)` | Checks `state` to see if the specified `layer` is enabled. Intended for use in layer callbacks. | `IS_LAYER_ON_STATE(state, layer)`, `IS_LAYER_OFF_STATE(state, layer)` |

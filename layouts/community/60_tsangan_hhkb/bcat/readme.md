@@ -39,6 +39,6 @@ and/or blockers, so there aren't switches installed in those positions.
 
 ## Function 2 layer
 
-![Function 2 layer layout](https://i.imgur.com/37APm7c.png)
+![Function 2 layer layout](https://i.imgur.com/vdNpFae.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/65ac939caec878401603bc36290852d4))

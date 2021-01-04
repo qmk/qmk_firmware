@@ -37,18 +37,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "nodebug.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing_device.h"
+#endif
+
 int tp_buttons;
 
-#ifdef RETRO_TAPPING
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
 int retro_tapping_counter = 0;
 #endif
 
 #ifdef FAUXCLICKY_ENABLE
-#    include <fauxclicky.h>
+#    include "fauxclicky.h"
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
+#endif
+
+#ifdef RETRO_TAPPING_PER_KEY
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
 #ifndef TAP_CODE_DELAY
@@ -67,7 +75,7 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#ifdef RETRO_TAPPING
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
         retro_tapping_counter++;
 #endif
     }
@@ -220,6 +228,19 @@ void process_record_handler(keyrecord_t *record) {
     process_action(record, action);
 }
 
+#if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+void register_button(bool pressed, enum mouse_buttons button) {
+#    ifdef PS2_MOUSE_ENABLE
+    tp_buttons = pressed ? tp_buttons | button : tp_buttons & ~button;
+#    endif
+#    ifdef POINTING_DEVICE_ENABLE
+    report_mouse_t currentReport = pointing_device_get_report();
+    currentReport.buttons        = pressed ? currentReport.buttons | button : currentReport.buttons & ~button;
+    pointing_device_set_report(currentReport);
+#    endif
+}
+#endif
+
 /** \brief Take an action and processes it.
  *
  * FIXME: Needs documentation.
@@ -364,6 +385,8 @@ void process_action(keyrecord_t *record, action_t action) {
                             dprint("MODS_TAP: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
+                            } else {
+                                wait_ms(TAP_CODE_DELAY);
                             }
                             unregister_code(action.key.code);
                         } else {
@@ -400,37 +423,57 @@ void process_action(keyrecord_t *record, action_t action) {
         /* Mouse key */
         case ACT_MOUSEKEY:
             if (event.pressed) {
-                switch (action.key.code) {
-                    case KC_MS_BTN1:
-                        tp_buttons |= (1 << 0);
-                        break;
-                    case KC_MS_BTN2:
-                        tp_buttons |= (1 << 1);
-                        break;
-                    case KC_MS_BTN3:
-                        tp_buttons |= (1 << 2);
-                        break;
-                    default:
-                        break;
-                }
                 mousekey_on(action.key.code);
-                mousekey_send();
-            } else {
                 switch (action.key.code) {
+#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
                     case KC_MS_BTN1:
-                        tp_buttons &= ~(1 << 0);
+                        register_button(true, MOUSE_BTN1);
                         break;
                     case KC_MS_BTN2:
-                        tp_buttons &= ~(1 << 1);
+                        register_button(true, MOUSE_BTN2);
                         break;
                     case KC_MS_BTN3:
-                        tp_buttons &= ~(1 << 2);
+                        register_button(true, MOUSE_BTN3);
                         break;
+#    endif
+#    ifdef POINTING_DEVICE_ENABLE
+                    case KC_MS_BTN4:
+                        register_button(true, MOUSE_BTN4);
+                        break;
+                    case KC_MS_BTN5:
+                        register_button(true, MOUSE_BTN5);
+                        break;
+#    endif
                     default:
+                        mousekey_send();
                         break;
                 }
+            } else {
                 mousekey_off(action.key.code);
-                mousekey_send();
+                switch (action.key.code) {
+#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+                    case KC_MS_BTN1:
+                        register_button(false, MOUSE_BTN1);
+                        break;
+                    case KC_MS_BTN2:
+                        register_button(false, MOUSE_BTN2);
+                        break;
+                    case KC_MS_BTN3:
+                        register_button(false, MOUSE_BTN3);
+                        break;
+#    endif
+#    ifdef POINTING_DEVICE_ENABLE
+                    case KC_MS_BTN4:
+                        register_button(false, MOUSE_BTN4);
+                        break;
+                    case KC_MS_BTN5:
+                        register_button(false, MOUSE_BTN5);
+                        break;
+#    endif
+                    default:
+                        mousekey_send();
+                        break;
+                }
             }
             break;
 #endif
@@ -686,20 +729,23 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    ifdef RETRO_TAPPING
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
     if (!is_tap_action(action)) {
         retro_tapping_counter = 0;
     } else {
         if (event.pressed) {
             if (tap_count > 0) {
                 retro_tapping_counter = 0;
-            } else {
             }
         } else {
             if (tap_count > 0) {
                 retro_tapping_counter = 0;
             } else {
-                if (retro_tapping_counter == 2) {
+                if (
+#        ifdef RETRO_TAPPING_PER_KEY
+                    get_retro_tapping(get_event_keycode(record->event, false), record) &&
+#        endif
+                    retro_tapping_counter == 2) {
                     tap_code(action.layer_tap.code);
                 }
                 retro_tapping_counter = 0;

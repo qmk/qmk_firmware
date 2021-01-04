@@ -1,5 +1,4 @@
-#ifndef SSD1306_H
-#define SSD1306_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -66,7 +65,7 @@ struct CharacterMatrix {
     bool     dirty;
 };
 
-struct CharacterMatrix display;
+extern struct CharacterMatrix display;
 
 bool iota_gfx_init(void);
 void iota_gfx_task(void);
@@ -86,5 +85,3 @@ void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c);
 void matrix_write(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_P(struct CharacterMatrix *matrix, const char *data);
 void matrix_render(struct CharacterMatrix *matrix);
-
-#endif

@@ -29,7 +29,9 @@ This level contains all of the options for that particular keymap. If you wish t
 
 This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
 
-    #include "config_common.h"
+```c
+#include "config_common.h"
+```
 
 
 ## Hardware Options
@@ -43,8 +45,6 @@ This is a C header file that is one of the first things included, and will persi
   * generally who/whatever brand produced the board
 * `#define PRODUCT Board`
   * the name of the keyboard
-* `#define DESCRIPTION a keyboard`
-  * a short description of what the keyboard is
 * `#define MATRIX_ROWS 5`
   * the number of rows in your keyboard's matrix
 * `#define MATRIX_COLS 15`
@@ -137,6 +137,8 @@ If you define these options you will enable the associated feature, which may in
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
   * See [Retro Tapping](tap_hold.md#retro-tapping) for details
+* `#define RETRO_TAPPING_PER_KEY`
+  * enables handling for per key `RETRO_TAPPING` settings
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
@@ -250,7 +252,10 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
 
-* `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` is not defined)
+* `#define SPLIT_HAND_MATRIX_GRID <out_pin>,<in_pin>`
+  * The handedness is determined by using the intersection of the keyswitches in the key matrix, which does not exist. Normally, when this intersection is shorted (level low), it is considered left. If you define `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT`, it is determined to be right when the level is low.
+
+* `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` and `SPLIT_HAND_MATRIX_GRID` are not defined)
   * Reads the handedness value stored in the EEPROM after `eeprom-lefthand.eep`/`eeprom-righthand.eep` has been flashed to their respective halves.
 
 * `#define MASTER_RIGHT`
@@ -323,11 +328,9 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
     ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
-* `LINK_TIME_OPTIMIZATION_ENABLE`
+* `LTO_ENABLE`
   * Enables Link Time Optimization (LTO) when compiling the keyboard.  This makes the process take longer, but it can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).
 However, this will automatically disable the legacy TMK Macros and Functions features, as these break when LTO is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`.  (Note: This does not affect QMK [Macros](feature_macros.md) and [Layers](feature_layers.md).)
-* `LTO_ENABLE`
-  * Has the same meaning as `LINK_TIME_OPTIMIZATION_ENABLE`.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`.
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -372,10 +375,8 @@ Use these to enable or disable building certain features. The more you have enab
   * MIDI controls
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH_ENABLE`
-  * Legacy option to Enable Bluetooth with the Adafruit EZ-Key HID. See BLUETOOTH
 * `BLUETOOTH`
-  * Current options are AdafruitEzKey, AdafruitBLE, RN42
+  * Current options are AdafruitBLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`

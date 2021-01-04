@@ -67,7 +67,7 @@ El archivo `config.h` es donde configuras el hardware y el conjunto de caracter�
 
 En la parte superior de `config.h` encontrarás ajustes relacionados con USB. Estos controlan la apariencia de tu teclado en el Sistema Operativo. Si no tienes una buena razón para cambiar debes dejar el `VENDOR_ID` como `0xFEED`. Para el `PRODUCT_ID` debes seleccionar un número que todavía no esté en uso.
 
-Cambia las líneas de `MANUFACTURER`, `PRODUCT`, y `DESCRIPTION` para reflejar con precisión tu teclado.
+Cambia las líneas de `MANUFACTURER` y `PRODUCT` para reflejar con precisión tu teclado.
 
 ```c
 #define VENDOR_ID       0xFEED
@@ -75,7 +75,6 @@ Cambia las líneas de `MANUFACTURER`, `PRODUCT`, y `DESCRIPTION` para reflejar c
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Tú
 #define PRODUCT         mi_teclado_fantastico
-#define DESCRIPTION     Un teclado personalizado
 ```
 
 ?> Windows y macOS mostrarán el `MANUFACTURER` y `PRODUCT` en la lista de dispositivos USB. `lsusb` en Linux toma estos de la lista mantenida por el [Repositorio de ID USB](http://www.linux-usb.org/usb-ids.html) por defecto. `lsusb -v` mostrará los valores reportados por el dispositivo, y también están presentes en los registros del núcleo después de conectarlo.

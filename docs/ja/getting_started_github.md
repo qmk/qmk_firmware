@@ -1,8 +1,8 @@
 # QMK で GitHub を使う方法
 
 <!---
-  original document: 0.8.82:docs/getting_started_github.md
-  git diff 0.8.82 HEAD -- docs/getting_started_github.md | cat
+  original document: 0.9.43:docs/getting_started_github.md
+  git diff 0.9.43 HEAD -- docs/getting_started_github.md | cat
 -->
 
 GitHub は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
@@ -11,11 +11,11 @@ GitHub は慣れていない人には少し注意が必要です - このガイ�
 
 [QMK GitHub ページ](https://github.com/qmk/qmk_firmware)を開くと、右上に "Fork" というボタンが見えます:
 
-![Git でのフォーク](http://i.imgur.com/8Toomz4.jpg)
+![GitHub でのフォーク](http://i.imgur.com/8Toomz4.jpg)
 
 あなたが組織の一員である場合は、どのアカウントにフォークするかを選択する必要があります。ほとんどの場合、あなたの個人のアカウントにフォークしたいでしょう。フォークが完了したら(しばらく時間が掛かる場合があります)、"Clone or Download" ボタンをクリックします:
 
-![Git からダウンロード](http://i.imgur.com/N1NYcSz.jpg)
+![GitHub からダウンロード](http://i.imgur.com/N1NYcSz.jpg)
 
 必ず "HTTPS" を選択し、リンクを選択してコピーします:
 

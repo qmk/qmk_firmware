@@ -2,7 +2,10 @@
 
 <img src="https://i.imgur.com/XUzcaWG.png" data-canonical-src="Jian" width="600"/>
 
-A 40% ergonomic keyboard kit. Jian supports cherry mx, alps, kailh choc switches PCB and plate mounted. You can assembly keyboard without mounting plate. Jian also supports rgb led strip like ws2812b and 1 color in-switch backlight. Each half can work standalone.
+40% ergonomic keyboard kit. Jian supports Cherry MX, Alps, Kailh Choc switches in PCB mounted and plate mounted variants.
+You can assemble the keyboard without a mounting plate.
+Jian also supports RGB LED underglow (with a strip like WS2812B) and single color in-switch LED backlight.
+Each half can work standalone.
 
 * Keyboard Maintainer: [KGOH](https://github.com/KGOH)
 * Hardware Supported: Jian PCB rev1, rev2, Pro Micro

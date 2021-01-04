@@ -27,6 +27,6 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 SPACE_CADET_ENABLE = no
 # Saves about 5% of space:
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 #LAYOUTS = ortho_1x4
