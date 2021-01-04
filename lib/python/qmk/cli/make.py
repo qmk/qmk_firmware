@@ -1,17 +1,34 @@
 """Generate and run a make command for building a keyboard.
 """
 import os
-import subprocess
-from argparse import FileType
 from time import time
 
 from milc import cli
 
-from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
-
+from qmk.info import find_info_json
 
 file_stale_secs = 86400  # How many seconds old generated files are before being regenerated
+
+
+def is_stale(file_path, *dependencies):
+    """Checks to see if a file is stale and should be regenerated.
+    """
+    if not os.path.exists(file_path):
+        return True
+
+    file_mtime = os.stat(file_path).st_mtime
+
+    # If the file is more than 24 hours old we consider it stale anyway
+    if time() - file_mtime > file_stale_secs:
+        return True
+
+    # Iterate through dependencies, if we find one that's newer return True
+    for dep in dependencies:
+        dep_mtime = os.stat(dep).st_mtime
+        if dep_mtime > file_mtime:
+            return True
+
+    return False
 
 
 @cli.argument('targets', nargs='*', arg_only=True, help='Make targets to run')
@@ -47,31 +64,22 @@ def make(cli):
     keyboard_output = f'{build_dir}/obj_{keyboard_filesafe}'
 
     # Generate the include files
-    # FIXME(skullydazed/anyone): Instead of hard-coding a stale age we should compare the timestamp against all the info.json's involved
+    info_json_files = find_info_json(keyboard)
     config_h_file = f'{keyboard_output}/src/info_config.h'
-    if os.path.exists(config_h_file):
-        config_h_mtime = os.stat(config_h_file).st_mtime
-        config_h_age = time() - config_h_mtime
-    else:
-        config_h_age = file_stale_secs + 1
-
     layouts_h_file = f'{keyboard_output}/src/layouts.h'
-    if os.path.exists(layouts_h_file):
-        layouts_h_mtime = os.stat(layouts_h_file).st_mtime
-        layouts_h_age = time() - layouts_h_mtime
-    else:
-        layouts_h_age = file_stale_secs + 1
 
     if 'clean' not in cli.args.targets:
         config_h_cmd = ['bin/qmk', 'generate-config-h', '--keyboard', keyboard, '--output', config_h_file]
         layouts_h_cmd = ['bin/qmk', 'generate-layouts', '--keyboard', keyboard, '--output', layouts_h_file]
+
         if silent:
             config_h_cmd.append('-q')
             layouts_h_cmd.append('-q')
 
-        if config_h_age > file_stale_secs:
+        if is_stale(config_h_file, *info_json_files):
             cli.run(config_h_cmd, capture_output=False)
-        if layouts_h_age > file_stale_secs:
+
+        if is_stale(layouts_h_file, *info_json_files):
             cli.run(layouts_h_cmd, capture_output=False)
 
     # Call make
