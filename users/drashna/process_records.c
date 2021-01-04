@@ -28,11 +28,7 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-#    if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_keebio_iris_rev2)
-    xprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %u, time: %u, int: %u, count: %u\n", keycode, record->event.key.row, record->event.key.col, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#    else
-    xprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %u, time: %u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#    endif
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif  // KEYLOGGER_ENABLE
 #ifdef OLED_DRIVER_ENABLE
     process_record_user_oled(keycode, record);
