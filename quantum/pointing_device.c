@@ -39,15 +39,10 @@ __attribute__((weak)) void pointing_device_init(void) {
 }
 
 __attribute__((weak)) void pointing_device_send(void) {
-#ifndef POINTING_DEVICE_ALWAYS_SEND_REPORT
     static report_mouse_t old_report = {};
-#endif
 
     // If you need to do other things, like debugging, this is the place to do it.
-#ifndef POINTING_DEVICE_ALWAYS_SEND_REPORT
-    if (has_mouse_report_changed(mouseReport, old_report))
-#endif
-    {
+    if (has_mouse_report_changed(mouseReport, old_report)) {
         host_mouse_send(&mouseReport);
     }
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
@@ -55,9 +50,7 @@ __attribute__((weak)) void pointing_device_send(void) {
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
-#ifndef POINTING_DEVICE_ALWAYS_SEND_REPORT
     old_report = mouseReport;
-#endif
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
