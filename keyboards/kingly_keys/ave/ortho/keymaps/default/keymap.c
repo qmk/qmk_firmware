@@ -190,7 +190,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_DBQT):
             return 235;
         default:
-            return 200;
+            return TAPPING_TERM;
     }
 }
 
