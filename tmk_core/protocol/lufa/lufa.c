@@ -435,7 +435,9 @@ void EVENT_USB_Device_Suspend() {
  */
 void EVENT_USB_Device_WakeUp() {
     print("[W]");
+#if defined(NO_USB_STARTUP_CHECK)
     suspend_wakeup_init();
+#endif
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
@@ -1078,6 +1080,10 @@ int main(void) {
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                 USB_Device_SendRemoteWakeup();
+            }
+            if (USB_DeviceState != DEVICE_STATE_Suspended) {
+                printf("USB_DeviceState = %u\n", USB_DeviceState);
+                suspend_wakeup_init();
             }
         }
 #endif
