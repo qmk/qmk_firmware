@@ -2,7 +2,7 @@
 
 CMM.Studio Saka68 Keyboard
 
-![CMM.Studio Saka68](https://imgur.com/a/tytNfdY.png)
+![CMM.Studio Saka68](https://i.imgur.com/E1S43cs.png)
 
 
 
