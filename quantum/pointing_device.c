@@ -39,7 +39,9 @@ __attribute__((weak)) void pointing_device_init(void) {
 }
 
 __attribute__((weak)) void pointing_device_send(void) {
+#ifndef POINTING_DEVICE_ALWAYS_SEND_REPORT
     static report_mouse_t old_report = {};
+#endif
 
     // If you need to do other things, like debugging, this is the place to do it.
 #ifndef POINTING_DEVICE_ALWAYS_SEND_REPORT
@@ -52,7 +54,9 @@ __attribute__((weak)) void pointing_device_send(void) {
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
+#ifndef POINTING_DEVICE_ALWAYS_SEND_REPORT
     old_report = mouseReport;
+#endif
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
