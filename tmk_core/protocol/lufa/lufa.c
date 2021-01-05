@@ -1085,6 +1085,15 @@ int main(void) {
             }
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                 USB_Device_SendRemoteWakeup();
+                clear_keyboard();
+
+                // Some hubs, kvm switches, and monitors do
+                // weird things, with USB device state bouncing
+                // around wildly on wakeup, yielding race
+                // conditions that can corrupt the keyboard state.
+                //
+                // Pause for a while to let things settle...
+                wait_ms(200);
             }
         }
 
