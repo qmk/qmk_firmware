@@ -1,6 +1,6 @@
 # Herringbone
 
-![Herringbone](https://i.imgur.com/SQyS0j8.png)
+![Herringbone](https://i.imgur.com/SQyS0j8l.png)
 
 A through-hole 75% keyboard.
 
