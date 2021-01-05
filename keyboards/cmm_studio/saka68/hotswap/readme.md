@@ -9,7 +9,7 @@ CMM.Studio Saka68 Keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cmm_studio/saka68:default
+    make cmm_studio/saka68hotswap:default
 
 
 For reset instruction, use the physical reset button on the back of the keyboard to enter bootloader mode
