@@ -126,6 +126,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 //TODO: Getting single LEDs?
                 if (data[2] == CMD_LED_INDEX_ALL) {
                     data[3] = led_v;
+                    data[4] = 255;
                     data[1] = 0;
                 }
             }
