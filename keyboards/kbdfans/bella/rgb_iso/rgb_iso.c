@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "rgb_iso.h"
-
+#ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS18_SW1, CS17_SW1, CS16_SW1},    /* RGB6 */
     {0, CS18_SW3, CS17_SW3, CS16_SW3},    /* RGB32 */
@@ -183,3 +183,4 @@ void rgb_matrix_indicators_user(void)
         rgb_matrix_set_color(44, 0xFF, 0xFF, 0xFF);
     }
 }
+#endif

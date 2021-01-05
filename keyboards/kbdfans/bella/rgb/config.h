@@ -35,6 +35,7 @@
 #define DEBOUNCE 3
 
 /* disable these deprecated features by default */
+#ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
@@ -52,4 +53,5 @@
 #define DRIVER_1_LED_TOTAL 108
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
+#endif
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
