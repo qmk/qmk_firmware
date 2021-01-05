@@ -47,10 +47,17 @@ extern void    clear_weak_override_mods(void);
 extern void    set_suppressed_override_mods(uint8_t mods);
 extern void    clear_suppressed_override_mods(void);
 
-static uint8_t clear_mods_from(uint16_t keycode) {
+static uint16_t clear_mods_from(uint16_t keycode) {
+    switch (keycode) {
+        case QK_MODS ... QK_MODS_MAX:
+            break;
+        default:
+            return keycode;
+    }
+
     static const uint16_t all_mods = QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | QK_RCTL | QK_RSFT | QK_RALT | QK_RGUI;
 
-    return (uint8_t)(keycode & ~(all_mods));
+    return (keycode & ~(all_mods));
 }
 
 // Internal variables
@@ -198,16 +205,23 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
         }
     }
 
-    // Optionally re-register the trigger if it is still down
-    if (allow_reregister && (active_override->options & ko_option_no_reregister_trigger) == 0 && active_override_trigger_is_down && active_override->trigger != KC_NO) {
-        const uint16_t trigger = active_override->trigger;
+    const uint16_t trigger = active_override->trigger;
 
+    const bool reregister_trigger = allow_reregister &&                                                   // Check if allowed from caller
+                                    (active_override->options & ko_option_no_reregister_trigger) == 0 &&  // Check if override allows
+                                    active_override_trigger_is_down &&                                    // Check if trigger is even down
+                                    trigger != KC_NO &&                                                   // KC_NO is never registered
+                                    trigger < SAFE_RANGE;                                                 // A custom keycode should not be registered
+
+    // Optionally re-register the trigger if it is still down
+    if (reregister_trigger) {
         key_override_printf("Re-registering trigger deferred: %u\n", trigger);
 
         // This will always be a modifier event, so defer always
         schedule_deferred_register(trigger);
         send_keyboard_report();
-    } else {
+    }
+    else {
         send_keyboard_report();
     }
 
@@ -366,10 +380,15 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
             register_replacement &= override->custom_action(true, override->context);
         }
 
-        if (register_replacement) {
-            const uint8_t  override_mods = extract_mod_bits(override->replacement);
-            const uint16_t mod_free      = clear_mods_from(override->replacement);
+        const uint16_t mod_free = clear_mods_from(override->replacement);
 
+        // Can't register a custom keycode. Needs to be handled with the custom aciton
+        if (mod_free >= SAFE_RANGE) {
+            register_replacement = false;
+        }
+
+        if (register_replacement) {
+            const uint8_t override_mods = extract_mod_bits(override->replacement);
             set_weak_override_mods(override_mods);
 
             // If this is a modifier event that activates the key override we _always_ defer the actual full activation of the override

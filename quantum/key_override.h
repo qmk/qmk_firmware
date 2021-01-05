@@ -28,7 +28,7 @@
  *
  * For example, you may configure a key override to send the delete key when shift + backspace are pressed together, or that your volume keys become screen brightness keys when holding ctrl. The possibilities are quite vast and the documentation contains a few examples for inspiration.
  *
- * See the documentation here: https://docs.qmk.fm/#/feature_key_overrides
+ * See the documentation and examples here: https://docs.qmk.fm/#/feature_key_overrides
  */
 
 /** Bitfield with various options controlling the behavior of a key override. */
@@ -133,7 +133,7 @@ extern bool key_override_is_enabled(void);
         .trigger_modifiers                      = (trigger_mods),                           \
         .layers                                 = (layer_mask),                             \
         .suppressed_mods                        = (trigger_mods),                           \
-        .options                                = (options_),                                \
+        .options                                = (options_),                               \
         .negative_modifier_mask                 = (negative_mask),                          \
         .custom_action                          = NULL,                                     \
         .context                                = NULL,                                     \

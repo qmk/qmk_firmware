@@ -64,6 +64,13 @@ extern void matrix_scan_key_override(void);
 #endif
 
 uint8_t extract_mod_bits(uint16_t code) {
+    switch (code) {
+        case QK_MODS ... QK_MODS_MAX:
+            break;
+        default:
+            return 0;
+    }
+
     uint8_t mods_to_send = 0;
 
     if (code & QK_RMODS_MIN) {  // Right mod flag is set
@@ -82,13 +89,6 @@ uint8_t extract_mod_bits(uint16_t code) {
 }
 
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
-    switch (code) {
-        case QK_MODS ... QK_MODS_MAX:
-            break;
-        default:
-            return;
-    }
-
     f(extract_mod_bits(code));
 }
 
