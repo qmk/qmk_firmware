@@ -18,6 +18,7 @@ The `<target>` means the following
   Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
   * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:flash`.
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
+* `distclean` removes .hex files and .bin files.
 
 The following `<target>` is for developers.
 
