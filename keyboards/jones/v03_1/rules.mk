@@ -21,7 +21,7 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = yes          # Audio output
 
-ENCODER_ENABLE = yes		# Rotary Encoder
+ENCODER_ENABLE = yes        # Rotary Encoder
 
 CUSTOM_MATRIX = lite        # Custom matrix for "Round-Robin Matrix"
 SRC += matrix.c
