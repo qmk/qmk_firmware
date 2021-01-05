@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rgb.h"
+#include "rgb_iso.h"
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS18_SW1, CS17_SW1, CS16_SW1},    /* RGB6 */
