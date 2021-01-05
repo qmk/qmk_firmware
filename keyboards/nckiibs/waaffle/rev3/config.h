@@ -47,8 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_BREATHING
 
 /*rotary encoder setting*/
-#define ENCODERS_PAD_A { F0, D5 }
-#define ENCODERS_PAD_B { F1, B7 }
+#define ENCODERS_PAD_A { B7, F1 }
+#define ENCODERS_PAD_B { D5, F0 }
 
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN

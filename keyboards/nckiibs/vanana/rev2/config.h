@@ -43,11 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Rotary Encoder and Buzzer */
-#define ENCODERS_PAD_A { B6, F1 }
-#define ENCODERS_PAD_B { B2, C7 }
+#define ENCODERS_PAD_A { B6, F0 }
+#define ENCODERS_PAD_B { B2, F1 }
 #define B7_AUDIO
 
-#define RGB_DI_PIN F0
+#define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 16
 #    define RGBLIGHT_HUE_STEP 8
