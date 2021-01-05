@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
@@ -78,57 +79,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,    _______,    _______,    _______,            _______,        _______,                _______,    _______,                _______,    _______,    _______,    _______
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-
-        case LOWER:
-            if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-        return false;
-
-        case RAISE:
-            if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-        return false;
-
-    }
-    return true;
-}
-
-void encoder_update_user(uint8_t index, bool clockwise) {
-    /* With an if statement we can check which encoder was turned. */
-    if (index == 0) { /* First encoder */
-        /* And with another if statement we can check the direction. */
-        if (clockwise) {
-            if (IS_LAYER_ON(_LOWER)){
-                tap_code(KC_RIGHT);
-            } else {
-                tap_code(KC_VOLU);
-            }
-        } else {
-            if (IS_LAYER_ON(_LOWER)){
-                tap_code(KC_LEFT);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        }
-
-    } else if (index == 1) { /* Second encoder. Only supported by Elite-C */
-        if (clockwise) {
-            tap_code(KC_RIGHT);
-        } else {
-            tap_code(KC_LEFT);
-        }
-    }
-}
