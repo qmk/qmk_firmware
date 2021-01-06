@@ -1,6 +1,6 @@
 # [n]60-s
 
-![n60-s]([https://i.imgur.com/QN74bdJl.png)
+![[n]60-s]([https://i.imgur.com/QN74bdJl.png)
 
 A 60% pcb that supports standard and tsangan bottom row, split backspace, and split right shift. It supports a piezo buzzer right under the spacebar and a rotary encoder either on the right 1u of a split backspace or split right right shift.
 
