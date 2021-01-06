@@ -1,5 +1,5 @@
 # まだ公開してはいけない！
-- `cool836Ami4` ---->  `cool836A`
+- ~~`cool836Ami4` ---->  `cool836A`~~
 - get ready for pull request
 - m.kiさんとゆかりさんから許可を得る
 - ~~キーマップ`Ohasheen`のデフォルト配列をQWERTYに~~
