@@ -173,9 +173,9 @@ def rgblight(config):
     for json_key, config_key in rgblight_properties.items():
         if json_key in config:
             rgblight_config.append('')
-            rgblight_config.append('#ifndef %s' % (config_key,))
-            rgblight_config.append('#   define %s %s' % (config_key, config[json_key]))
-            rgblight_config.append('#endif // %s' % (config_key,))
+            rgblight_config.append('#ifndef %s' % (config_key[0],))
+            rgblight_config.append('#   define %s %s' % (config_key[0], config[json_key]))
+            rgblight_config.append('#endif // %s' % (config_key[0],))
 
     for json_key, config_key in rgblight_toggles.items():
         if config.get(json_key):
