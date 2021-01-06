@@ -78,7 +78,7 @@
 }
 
 // ISO Layout
-#define LAYOUT_iso( \
+#define LAYOUT_96_iso( \
   K00, K01, K02, K03, K04, K60, K61, K62, K63, K05, K06, K07, K08, K72, K09,    K0A, K0B, K0C, K7C, \
   K10, K11, K12, K13, K14, K64, K65, K66, K67, K15, K16, K17, K18,      K71,    K19, K1A, K1B, K1C, \
   K20,    K21, K22, K23, K24, K68, K69, K6A, K6B, K25, K26, K27, K28,           K29, K2A, K2B, K2C, \
@@ -97,3 +97,4 @@
 }
 
 #define LAYOUT_default LAYOUT_96_ansi
+#define LAYOUT_iso LAYOUT_96_iso
