@@ -163,7 +163,8 @@
                         "items": {
                             "oneOf": [
                                 {
-                                    "type": "string"
+                                    "type": "string",
+                                    "pattern": "^[A-K]\\d{1,2}$"
                                 },
                                 {
                                     "type": "null"
@@ -175,13 +176,15 @@
                 "cols": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^[A-K]\\d{1,2}$"
                     }
                 },
                 "rows": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^[A-K]\\d{1,2}$"
                     }
                 }
             }
