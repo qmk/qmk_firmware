@@ -1073,16 +1073,13 @@ int main(void) {
 #endif
 
     print("Keyboard start.\n");
-    bool was_suspended = false;
-
     while (1) {
 #if !defined(NO_USB_STARTUP_CHECK)
+        bool was_suspended = false;
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
-            if (!was_suspended) {
-                print("[s]");
-                suspend_power_down();
-                was_suspended = true;
-            }
+            print("[s]");
+            suspend_power_down();
+            was_suspended = true;
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                 USB_Device_SendRemoteWakeup();
                 clear_keyboard();
