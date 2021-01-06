@@ -75,7 +75,7 @@ static void led_update(void) {
     raw_rgb_r = led_normalize(led_r, led_v);
     raw_rgb_g = led_normalize(led_g, led_v);
     raw_rgb_b = led_normalize(led_b, led_v);
-    rgb_matrix_mode(RGB_MATRIX_CUSTOM_raw_rgb);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_raw_rgb);
 }
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
 
