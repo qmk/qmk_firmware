@@ -16,12 +16,12 @@ static bool     reported_version  = false;
 #    if defined(SPI_DEBUG_SCAN_RATE)
 static uint32_t matrix_timer = 0;
 #    endif
-#endif
 
 void report_version(void) {
     uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
     reported_version = true;
 }
+#endif
 
 void matrix_scan_user(void) {
 #if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
