@@ -17,13 +17,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#define _BASE 1
+#define _BASE 0
+#define _VIA1 1
+#define _VIA2 2
+#define _VIA3 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT(
-    KC_F13, KC_F14, KC_F15,
-    KC_F16, KC_F17, KC_F18
+    KC_F1, KC_F2, KC_F3,
+    KC_F4, KC_F5, KC_F6
+),
+
+[_VIA1] = LAYOUT(
+    _______, _______, _______,
+    _______, _______, _______
+),
+
+[_VIA2] = LAYOUT(
+    _______, _______, _______,
+    _______, _______, _______
+),
+
+[_VIA3] = LAYOUT(
+    _______, _______, _______,
+    _______, _______, _______
 )
 
 };
