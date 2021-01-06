@@ -1,6 +1,5 @@
 #include "zodiark.h"
 
-#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
 // Key Matrix to LED Index
   // Left Hand
@@ -35,4 +34,3 @@ led_config_t g_led_config = { {
   // LED Index to Flag
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
 } };
-#endif
