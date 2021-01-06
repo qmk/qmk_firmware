@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F072CBT6
+MCU = STM32F072
 
 # Build Options
 #   change yes to no to disable
