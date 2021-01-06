@@ -9,11 +9,11 @@ A 4x12 Ortholinear keyboard with left-side macro keys that supports three rotary
 
 Make example for this keyboard (after setting up your build environment):
 
-	make nightly_boards/n40_o:default
+    make nightly_boards/n40_o:default
 	
 Flashing example for this keyboard:
 
-	make nightly_boards/n40_o:default:flash
+    make nightly_boards/n40_o:default:flash
 
 You can enter bootloader mode by pressing the physical reset button at the back of the pcb or by holding the upper left key/rotary encoder while plugging the usb cable.
 
