@@ -239,6 +239,15 @@ int main(void) {
                 /* Remote wakeup */
                 if (suspend_wakeup_condition()) {
                     usbWakeupHost(&USB_DRIVER);
+
+                    // Some hubs, kvm switches, and monitors do
+                    // weird things, with USB device state bouncing
+                    // around wildly on wakeup, yielding race
+                    // conditions that can corrupt the keyboard state.
+                    //
+                    // Pause for a while to let things settle...
+                    wait_ms(100);
+
                     restart_usb_driver(&USB_DRIVER);
                 }
             }
