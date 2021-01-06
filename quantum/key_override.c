@@ -472,9 +472,9 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         return true;
     }
 
-    // This only takes the physical mods on purpose. Key overrides are currently only supposed to trigger on physical key press events (process_record_quantum).
-    uint8_t effective_mods = get_mods();
-
+    // Locked one shot mods are added to get_mods() (why??) while oneshot mods are in get_oneshot_mods().
+    uint8_t effective_mods = get_mods() | get_oneshot_mods();
+    
     if (is_mod) {
         // The mods returned from get_mods() will be updated with this new event _after_ this code runs. Hence we manually update the effective mods here to really know the effective mods.
         if (key_down) {

@@ -229,9 +229,7 @@ bool is_oneshot_enabled(void) { return keymap_config.oneshot_disable; }
  */
 void send_keyboard_report(void) {
     keyboard_report->mods = real_mods;
-    keyboard_report->mods &= ~suppressed_mods;
     keyboard_report->mods |= weak_mods;
-    keyboard_report->mods |= weak_override_mods;
     keyboard_report->mods |= macro_mods;
 
 #ifndef NO_ACTION_ONESHOT
@@ -249,6 +247,11 @@ void send_keyboard_report(void) {
     }
 
 #endif
+
+    // These need to be last to be able to properly control key overrides
+    keyboard_report->mods &= ~suppressed_mods;
+    keyboard_report->mods |= weak_override_mods;
+
     host_keyboard_send(keyboard_report);
 }
 
