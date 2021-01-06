@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | LCTR |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
- * | Shift|  =   |  -   |  +   |   {  |   }  |-------|    |-------|   +   |  [   |   ]  |   :  |   \  | Shift|
+ * | Shift|  =   |  -   |  +   |   {  |   }  |-------|    |-------|   =  |  [   |   ]  |   :  |   \  | Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10,  KC_F11,\
   _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,      KC_0,    KC_F12, \
   _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                       KC_CIRC, KC_AMPR,  KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, \
-  _______,  KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       _______, KC_PLUS , KC_LBRC , KC_RBRC, KC_COLN, KC_BSLS, _______, \
+  _______,  KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       _______, KC_EQL , KC_LBRC , KC_RBRC, KC_COLN, KC_BSLS, _______, \
                        _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______\
 ),
 
@@ -117,24 +117,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |                    |      |      |   /  |   *  |   -  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | RESET|      |QWERTY|COLEMAK|     |      |                    |      |   7  |   8  |   9  |      |      |
+ * | RESET|      |QWERTY|COLEMAK|     |      |                    |      |   7  |   8  |   9  |   +  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |MACWIN|      |      |      |-------.    ,-------|      |   4  |   5  |   6  |      |      |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |   1  |   2  |   3  |      |      |
+ * |      |      |      |      |      |      |-------|    |-------|      |   1  |   2  |   3  | Ent  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE |   0  | RAlt | RGUI |
+ *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE |   0  |  .   | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
   [_ADJUST] = LAYOUT( \
-  XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  RESET  , XXXXXXX,KC_QWERTY,KC_COLEMAK,CG_TOGG,XXXXXXX,                     XXXXXXX, KC_7, KC_8, KC_9, XXXXXXX, _______, \
+  XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                    XXXXXXX, KC_PSLS, KC_PAST, KC_PMNS, XXXXXXX, XXXXXXX, \
+  RESET  , XXXXXXX,KC_QWERTY,KC_COLEMAK,CG_TOGG,XXXXXXX,                        XXXXXXX, KC_7, KC_8, KC_9, KC_PPLS, _______, \
   XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_4, KC_5, KC_6, XXXXXXX, XXXXXXX, \
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_1, KC_2, KC_3, XXXXXXX, XXXXXXX, \
-                   _______, _______, _______, _______, _______,     _______, _______, KC_0, _______, _______ \
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_1, KC_2, KC_3, KC_PENT, XXXXXXX, \
+                   _______, _______, _______, _______, _______,     _______, _______, KC_0, KC_PDOT, _______ \
   )
 };
 
@@ -198,6 +198,8 @@ static void render_logo(void){
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 #define ANIM_SIZE 512 // number of bytes in array, minimize for adequate firmware size, max is 1024
 #define FRAMES 5
+#define BITMAP_LEN 16
+#define BITMAP_WIDTH 4
 
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
@@ -205,7 +207,7 @@ uint8_t current_frame = 0;
 // uint8_t current_prep_frame = 0; // uncomment if PREP_FRAMES >1
 
 static void render_animation(void) {
-  static const char PROGMEM nyan_cat[FRAMES][ANIM_SIZE] = {{
+  static const char PROGMEM nyan_cat[FRAMES][ANIM_SIZE] = {{    
     0x80, 0x80, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 
     0x80, 0x80, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 
     0x80, 0x80, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 
@@ -658,9 +660,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
-            tap_code(KC_VOLU);
+            switch (get_highest_layer(layer_state)) {
+            case _ADJUST:
+                //left
+                break;
+            default:
+                tap_code(KC_VOLU);
+                break;
+            }
         } else {
-            tap_code(KC_VOLD);
+            switch (get_highest_layer(layer_state)) {
+            case _ADJUST:
+                //right
+                break;
+            default:
+                tap_code(KC_VOLD);
+                break;
+            }
         }
     } else if (index == 1) {
         if (clockwise) {
