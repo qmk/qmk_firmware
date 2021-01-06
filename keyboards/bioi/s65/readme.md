@@ -2,7 +2,7 @@
 
 ![S65](https://img.zfrontier.com/post/20200514/FucHmQHc4zv7NG68UnDMlpOS798l?imageView2/2/format/webp)
 
-Get rid of the F row.
+A tenkeyless keyboard without the F row.
 
 * Keyboard Maintainer: [Basic I/O Instruments (Scott Wei)](https://github.com/scottywei)
 * Hardware Supported: S65 PCB
