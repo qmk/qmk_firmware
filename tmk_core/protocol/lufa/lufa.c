@@ -1089,7 +1089,7 @@ int main(void) {
                     // conditions that can corrupt the keyboard state.
                     //
                     // Pause for a while to let things settle...
-                    wait_ms(200);
+                    wait_ms(100);
                 }
             }
             suspend_wakeup_init();
