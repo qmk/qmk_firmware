@@ -19,7 +19,7 @@ Unicode 文字はキーボードから直接入力することができます！
 
 QMK は、Unicode 入力を有効にし、キーマップに Unicode 文字を追加するための3つの異なる方法をサポートします。それぞれに柔軟性と使いやすさの点で長所と短所があります。ユースケースに最適なものを選んでください。
 
-ほとんどのユーザにとって、基本的な方法で十分です。ただし、サポートされる文字の範囲が広い場合(絵文字、珍しい記号など)、Unicode Map を使う必要があります。
+ほとんどのユーザには Basic Unicode で十分です。ただし、サポートされる文字の範囲が広い場合(絵文字、珍しい記号など)には、Unicode Map を使う必要があります。
 
 <br>
 
@@ -69,9 +69,9 @@ const uint32_t PROGMEM unicode_map[] = {
 
 文字は å や Å のような小文字と大文字のペアで提供されることがあります。これらの文字を入力しやすくするために、キーマップで `XP(i, j)` を使うことができます。ここで、_i_ および _j_ はそれぞれ小文字と大文字のマッピングテーブルのインデックスです。キーを押した時に、シフトを押したままか Caps Lock をオンにしている場合は、2番目(大文字)の文字が挿入されます; そうでなければ最初(小文字)バージョンが出力されます。
 
-これは特殊文字がある国際レイアウトのためのキーマップを作成している時に最も役立ちます。別々のキーに文字の大文字および小文字バージョンを置く代わりに、`XP()` を使ってそれら両方を同じキーに持つことができます。これは Unicode キーを通常のアルファベットと混ぜるのに役立ちます。
+これは特殊文字がある国際レイアウトのためのキーマップを作成している時に最も役立ちます。別々のキーに文字の小文字および大文字バージョンを置く代わりに、`XP()` を使ってそれら両方を同じキーに持つことができます。これは Unicode キーを通常のアルファベットと混ぜるのに役立ちます。
 
-キーコードのサイズの制約により、_i_ と _j_ はそれぞれ `unicode_map` の最初の128文字のうち1つだけを参照できます。別の言い方をすると、0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127 です。これはほとんどのユースケースで十分ですが、インデックス計算をカスタマイズしたい場合は、[`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) 関数を上書きすることができます。これにより、例えば Shift/Caps の代わりに Ctrl をチェックすることもできます。
+キーコードのサイズの制約により、_i_ と _j_ はそれぞれ `unicode_map` の最初の128文字のうち1つだけを参照できます。別の言い方をすると、0 ≤ _i_ ≤ 127 かつ 0 ≤ _j_ ≤ 127 です。これはほとんどのユースケースで十分ですが、インデックス計算をカスタマイズしたい場合は、[`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) 関数をオーバーライドすることができます。これにより、例えば Shift/Caps の代わりに Ctrl をチェックすることもできます。
 
 <br>
 
@@ -117,31 +117,31 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 
 以下の入力モードが利用可能です:
 
-* **`UC_MAC`**: macOS の組み込み Unicode16 進数入力。`0x10FFFF` までのコードポイントをサポートします (全ての利用可能なコードポイント)。
+* **`UC_MAC`**: macOS の組み込み Unicode 16進数入力。`0x10FFFF` までのコードポイント(全ての利用可能なコードポイント)をサポートします。
 
-有効にするには、_システム環境設定 > キーボード > 入力ソース_ に移動し、(_その他_ の下の)リストに _Unicode 16進数入力_ を追加し、次にメニューバーの入力ドロップダウンからそれをアクティブにします。
-デフォルトでは、このモードは Unicode 入力のために左オプションキー (`KC_LALT`) を使いますが、これは他のキーで [`UNICODE_KEY_MAC`](#input-key-configuration) を定義することで変更できます。
+有効にするには、_システム環境設定 > キーボード > 入力ソース_ に移動し、(_その他_ の下の) _Unicode 16進数入力_ をリストに追加し、次にメニューバーの入力ドロップダウンからそれをアクティブにします。
+デフォルトでは、このモードは Unicode 入力のために左 Option キー (`KC_LALT`) を使いますが、これは他のキーで [`UNICODE_KEY_MAC`](#input-key-configuration) を定義することで変更できます。
 
-!> _Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかのオプションベースのショートカットを無効にするかもしれません。
+!> _Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかの Option ベースのショートカットを無効にするかもしれません。
 
 !> `UC_OSX` は `UC_MAC` の非推奨のエイリアスで、QMK の将来のバージョンで削除されます。全ての新しいキーマップは、`UC_MAC` を使うべきです。
 
-* **`UC_LNX`**: Linux の組み込み IBus Unicode 入力。`0x10FFFF` までのコードポイントをサポートします (全ての利用可能なコードポイント)。
+* **`UC_LNX`**: Linux の組み込み IBus Unicode 入力。`0x10FFFF` までのコードポイント(全ての利用可能なコードポイント)をサポートします。
 
 デフォルトで有効になっていて、IBus が有効になったディストリビューションのほとんどどれでも動作します。IBus が無い場合、このモードは GTK アプリ下で動作しますが、他の場所ではほとんど動作しません。
-デフォルトでは、このモードは Unicode 入力を開始するために Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) を使いますが、これは他のキー [`UNICODE_KEY_LNX`](#input-key-configuration) を定義することで変更することができます。これは、Ctrl+Shift+U の挙動が Ctrl+Shift+E に統合された IBus バージョン ≥1.5.15 を必要とするかもしれません。
+デフォルトでは、このモードは Unicode 入力を開始するために Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) を使いますが、これは他のこれは他のキーコードで [`UNICODE_KEY_LNX`](#input-key-configuration) を定義することで変更できます。これは、Ctrl+Shift+U の挙動が Ctrl+Shift+E に統合された IBus バージョン 1.5.15 以上を必要とするかもしれません。
 
 * **`UC_WIN`**: _(非推奨)_ Windows の組み込み16進数テンキー Unicode 入力。`0xFFFF` までのコードポイントをサポートします。
 
-有効にするには、レジストリの `HKEY_CURRENT_USER\Control Panel\Input Method` の下に、`EnableHexNumpad` という名前の `REG_SZ` 型を作成し、その値を `1` に設定します。これは、コマンドラインプロンプトから `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` を管理者権限で実行することでできます。その後再起動します。
+有効にするには、`HKEY_CURRENT_USER\Control Panel\Input Method` の下に、`EnableHexNumpad` という名前の `REG_SZ` 型のレジストリキーを作成し、その値を `1` に設定します。これは、管理者権限でコマンドラインプロンプトから `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` を実行することでできます。その後再起動します。
 信頼性と互換性の問題から、このモードはお勧めできません; 代わりに `UC_WINC` モードを使ってください。
 
 * **`UC_BSD`**: _(未実装)_ BSD での Unicode 入力。現時点では実装されていません。BSD ユーザでサポートを追加したい場合は、[GitHub で issue を開いて](https://github.com/qmk/qmk_firmware/issues)ください。
 
-* **`UC_WINC`**: [WinCompose](https://github.com/samhocevar/wincompose) を使った Windows Unicode 入力。v0.9.0 の時点で、`0x10FFFF` (全ての利用可能なコードポイント)をサポートします。
+* **`UC_WINC`**: [WinCompose](https://github.com/samhocevar/wincompose) を使った Windows Unicode 入力。v0.9.0 の時点で、`0x10FFFF` までのコードポイント(全ての利用可能なコードポイント)をサポートします。
 
 有効にするには、[最新のリリース](https://github.com/samhocevar/wincompose/releases/latest)をインストールします。インストールすると、起動時に WinCompose が自動的に実行されます。このモードはアプリがサポートする全てのバージョンの Windows で確実に動作します。
-デフォルトでは、このモードは Compose キーとして右Alt (`KC_RALT`) を使いますが、これは WinCompose 設定と他のキーで [`UNICODE_KEY_WINC`](#input-key-configuration) を定義することで変更できます。
+デフォルトでは、このモードは Compose キーとして右 Alt (`KC_RALT`) を使いますが、これは WinCompose 設定と他のキーで [`UNICODE_KEY_WINC`](#input-key-configuration) を定義することで変更できます。
 
 
 ## 3. 入力モードの設定 :id=setting-the-input-mode
@@ -152,7 +152,7 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 #define UNICODE_SELECTED_MODES UC_LNX
 ```
 
-この例では、キーボードのデフォルトの入力モードを `UC_LNX` に設定します。これは、`UC_MAC` か `UC_WINC` か[上記](#input-modes)にリストされている他のモードのいずれかに置き換えることができます。手動で別のモードに切り替えない限り、キーボードは起動時に選択したモードを自動的に使います([下記](#keycodes)を見てください)。
+この例では、キーボードのデフォルトの入力モードを `UC_LNX` に設定します。これは、`UC_MAC` か `UC_WINC` か[上記](#input-modes)に列挙されている他のモードのいずれかに置き換えることができます。手動で別のモード([下記](#keycodes)を見てください)に切り替えない限り、キーボードは起動時に選択したモードを自動的に使います。
 
 複数の入力モードを選択することもできます。これにより、`UC_MOD`/`UC_RMOD` キーコードを使ってそれらを簡単に切り替えることができます。
 
@@ -164,19 +164,19 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 
 #### キーコード
 
-以下のキーコードを使って、いつでも入力モードを切り替えることができます。これらをキーマップに追加すると、`UNICODE_SELECTED_MODES` にリストされていないモードを含む特定の入力モードに素早く切り替えることができます。
+以下のキーコードを使って、いつでも入力モードを切り替えることができます。これらをキーマップに追加すると、`UNICODE_SELECTED_MODES` に列挙されていないモードを含む特定の入力モードに素早く切り替えることができます。
 
-| キーコード             | Alias     | 入力モード   | 説明                                                               |
+| キーコード             |エイリアス | 入力モード   | 説明                                                               |
 |------------------------|-----------|--------------|--------------------------------------------------------------------|
 | `UNICODE_MODE_FORWARD` | `UC_MOD`  | リストの次へ | 選択したモードを切り替えます。Shift が押された場合は逆方向         |
 | `UNICODE_MODE_REVERSE` | `UC_RMOD` | リストの前へ | 逆方向に選択したモードを切り替えます。Shift が押された場合は順方向 |
 | `UNICODE_MODE_MAC`     | `UC_M_MA` | `UC_MAC`     | macOS 入力に切り替え                                               |
 | `UNICODE_MODE_LNX`     | `UC_M_LN` | `UC_LNX`     | Linux 入力に切り替え                                               |
 | `UNICODE_MODE_WIN`     | `UC_M_WI` | `UC_WIN`     | Windows 入力に切り替え                                             |
-| `UNICODE_MODE_BSD`     | `UC_M_BS` | `UC_BSD`     | BSD 入力に切り替えます _(未実装)_                                  |
-| `UNICODE_MODE_WINC`    | `UC_M_WC` | `UC_WINC`    | WinCompose を使って Windows 入力に切り替え                         |
+| `UNICODE_MODE_BSD`     | `UC_M_BS` | `UC_BSD`     | BSD 入力に切り替え _(未実装)_                                      |
+| `UNICODE_MODE_WINC`    | `UC_M_WC` | `UC_WINC`    | WinCompose を使う Windows 入力に切り替え                           |
 
-コード内で `set_unicode_input_mode(x)` を呼び出すことで、入力モードを切り替えることもできます。ここで、_x_ は上記の入力モード定数のいずれか (例えば、`UC_LNX`)。
+コード内で `set_unicode_input_mode(x)` を呼び出すことで、入力モードを切り替えることもできます。ここで、_x_ は上記の入力モード定数のいずれか (例えば、`UC_LNX`) です。
 
 ?> `matrix_init_user()` または同様の関数の中で `set_unicode_input_mode()` を呼び出すよりも、`UNICODE_SELECTED_MODES` を使うほうが望ましいです。Unicode システムとの統合性が高く、EEPROM への不要な書き込みを回避できるという利点があるからです。
 
@@ -210,7 +210,7 @@ Unicode は大規模で多目的な機能のため、システムでより適切
 
 ### 入力キーの設定
 
-`config.h` に対応する定義を追加することで、macOS、Linux、WinCompose で Unicode 入力を引き起こすために使われるキーをカスタマイズできます。デフォルト値はプラットフォームのデフォルト設定に一致するため、Unicode 入力が動作しない、あるいは(例えば左あるいは右 Alt を解放するために)異なるキーを使いたい場合はこれを変更する必要はありません。
+`config.h` に対応する定義を追加することで、macOS、Linux、WinCompose で Unicode 入力を引き起こすために使われるキーをカスタマイズできます。デフォルト値はプラットフォームのデフォルト設定に一致するため、Unicode 入力が動作しない、あるいは(例えば左あるいは右 Alt を解放するために)異なるキーを使いたい場合以外はこれを変更する必要はありません。
 
 | 定義               | 型         | 既定値             | 例                                          |
 |--------------------|------------|--------------------|---------------------------------------------|
@@ -241,7 +241,7 @@ send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
 send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
 ```
 
-[このサイト](https://r12a.github.io/app-conversion/)で結果を "Hex/UTF-32" で取ることで、Unicode 文字列をこの形式に簡単に変換できます。
+[このサイト](https://r12a.github.io/app-conversion/)で結果を "Hex/UTF-32" で受け取ることで、Unicode 文字列をこの形式に簡単に変換できます。
 
 
 ## 追加の言語サポート
@@ -259,7 +259,7 @@ send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B"
 
 最初にプログラムで使われていないモディファイアの組み合わせを選択する必要があります。
 Ctrl+Alt+Win はあまり広く使われていないため、これに最適なはずです。
-mod-tabコンボ `LCAG_T` 用に定義されたマクロがあります。
+mod-tab コンボ `LCAG_T` 用に定義されたマクロがあります。
 この mod-tab マクロをキーボードのキーに追加します。例えば: `LCAG_T(KC_TAB)`。
 これにより、キーを押してすぐ放すとキーはタブキーのように振る舞いますが、他のキーと一緒に使うとモディファイアに変わります。
 
@@ -268,10 +268,10 @@ AutoHotkey のデフォルトのスクリプトで、カスタムホットキー
     <^<!<#a::Send, ä
     <^<!<#<+a::Send, Ä
 
-上のホットキーは、CtrlAltGui と CtrlAltGuiShift に加えて文字 a に対応しています。
+上のホットキーは、CtrlAltGui と CtrlAltGuiShift + 文字 a の組み合わせです。
 この組み合わせが押されると、AutoHotkey は `Send, ` の右側にあるテキストを挿入します。
 
-### US 国際化
+### 米国インターナショナル
 
-システム上で US 国際化レイアウトを有効にすると、文字にアクセントをつけるために句読点を使います。例えば、"\`a" は à になります。
+システム上で米国インターナショナルレイアウトを有効にすると、文字にアクセントをつけるために区切り文字を使います。例えば、"\`a" は à になります。
 これを有効にする方法は[ここ](https://support.microsoft.com/en-us/help/17424/windows-change-keyboard-layout)で見つかります。
