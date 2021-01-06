@@ -47,20 +47,11 @@
 #   define RGBLIGHT_SPLIT
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGBLED_NUM 60  // Number of LEDs
-#    define RGB_MATRIX_SPLIT { 30, 30 }  	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
-#    define SPLIT_TRANSPORT_MIRROR  // If RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is enabled, you also will want to enable
-#endif
-
 // Limit the power draw
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
-  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 40
 #else
   #define RGBLIGHT_LIMIT_VAL 80
-  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
 #endif
 
 #ifdef ENCODER_ENABLE
@@ -68,20 +59,6 @@
 #   define ENCODERS_PAD_B { F5 }
 #   define ENCODERS_PAD_A_RIGHT { F4 }
 #   define ENCODERS_PAD_B_RIGHT { F5 }
-#endif
-
-#if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
-// USB_MAX_POWER_CONSUMPTION value for Helix keyboard
-//  120  RGBoff, OLEDoff
-//  120  OLED
-//  330  RGB 6
-//  300  RGB 32
-//  310  OLED & RGB 32
-//   #define USB_MAX_POWER_CONSUMPTION 500
-#else
-  // fix iPhone and iPad power adapter issue
-  // iOS device need lessthan 100
-//   #define USB_MAX_POWER_CONSUMPTION 100
 #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
