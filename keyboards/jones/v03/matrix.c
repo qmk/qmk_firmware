@@ -19,13 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "quantum.h"
 
-#if (MATRIX_COLS <= 8)
-#    define ROW_SHIFTER ((uint8_t)1)
-#elif (MATRIX_COLS <= 16)
-#    define ROW_SHIFTER ((uint16_t)1)
-#elif (MATRIX_COLS <= 32)
-#    define ROW_SHIFTER  ((uint32_t)1)
-#endif
+#define ROW_SHIFTER ((uint16_t)1)
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
