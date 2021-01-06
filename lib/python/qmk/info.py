@@ -344,7 +344,7 @@ def _extract_pins(pins):
 
     for pin in pins:
         if pin[0] not in 'ABCDEFGHIJK' or not pin[1].isdigit():
-            cli.log.warning(f'Nonstandard pin format: {pin}')
+            raise ValueError(f'Invalid pin: {pin}')
 
     return pins
 
