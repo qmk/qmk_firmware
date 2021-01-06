@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2020 kb-elmo<mail@elmo.space>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "config_common.h"
-
-#define MATRIX_COL_PINS { A3 }
-#define MATRIX_ROW_PINS { A2 }
-#define UNUSED_PINS
+#include "dz96.h"
