@@ -236,16 +236,21 @@ Everything above just configured the definition of each lighting layer.
 We can now enable and disable the lighting layers whenever the state of the keyboard changes:
 
 ```c
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Both layers will light up if both kb layers are active
-    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
-    return state;
-}
-
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(0, led_state.caps_lock);
     return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, _BASE));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _DVORAK));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(3, layer_state_cmp(state, _FN));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _ADJUST));
+    return state;
 }
 ```
 
