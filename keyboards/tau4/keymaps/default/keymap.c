@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tau4.h"
-#include "stdio.h"
+#include QMK_KEYBOARD_H
 
 enum layers {
     _QWERTY = 0,
