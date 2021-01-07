@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -70,5 +69,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_WIDTH 128
 #define OLED_DISPLAY_HEIGHT 32
 #define OLED_FONT_H "keyboards/tau4/common/glcdfont.c"
-
-#endif
