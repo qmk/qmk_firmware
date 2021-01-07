@@ -58,28 +58,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
+const rgblight_segment_t PROGMEM _RAISE_lighting[] = RGBLIGHT_LAYER_SEGMENTS(
+    {7, 1, 1, 202, 110}
+);
+const rgblight_segment_t PROGMEM _LOWER_lighting[] = RGBLIGHT_LAYER_SEGMENTS(
+    {7, 1, 125, 188, 80}
+);
+const rgblight_segment_t PROGMEM _ADJUST_lighting[] = RGBLIGHT_LAYER_SEGMENTS(
+    {7, 1, 32, 25, 127}
+);
+const rgblight_segment_t PROGMEM _NUMPAD_lighting[] = RGBLIGHT_LAYER_SEGMENTS(
+    {7, 1, HSV_BLUE}
+);
+const rgblight_segment_t PROGMEM _DEFAULT_lighting[] = RGBLIGHT_LAYER_SEGMENTS(
+    {7, 1, HSV_OFF}
+);
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    _DEFAULT_lighting,
+    _NUMPAD_lighting,
+    _LOWER_lighting,
+    _RAISE_lighting,
+    _ADJUST_lighting
+);
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = my_rgb_layers;
+
+    // Uncomment for debug mode
+    /* debug_enable=true;
+    debug_matrix=true; */
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST))) {
-    case _RAISE:
-        setrgb (0x6E,  0x19, 0x17, (LED_TYPE *)&led[7]);
-        break;
-    case _LOWER:
-        setrgb (0x15,  0x50, 0x4C, (LED_TYPE *)&led[7]);
-        break;
-    case _ADJUST:
-        setrgb (0x7E,  0x7B, 0x71, (LED_TYPE *)&led[7]);
-        break;
-    case _NUMPAD:
-        setrgb (0x00,  0x00, 0xFF, (LED_TYPE *)&led[7]);
-        break;
-    default: //  for any other layers, or the default layer
-        setrgb (0x00,  0x00, 0x00, (LED_TYPE *)&led[7]);
-        break;
-    }
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
-    rgblight_set();
+    rgblight_set_layer_state(_QWERTY, layer_state_cmp(state, _QWERTY));
+    rgblight_set_layer_state(_NUMPAD, layer_state_cmp(state, _NUMPAD));
+    rgblight_set_layer_state(_LOWER, layer_state_cmp(state, _LOWER));
+    rgblight_set_layer_state(_RAISE, layer_state_cmp(state, _RAISE));
+    rgblight_set_layer_state(_ADJUST, layer_state_cmp(state, _ADJUST));
 
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return state;
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
@@ -92,14 +111,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
-// Uncomment this function if debug mode is needed
-/* void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-} */
 
 #ifdef OLED_DRIVER_ENABLE
 
