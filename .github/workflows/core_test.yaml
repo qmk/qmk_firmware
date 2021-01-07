@@ -1,0 +1,37 @@
+name: Run unit/integration tests
+
+on:
+  push:
+    branches:
+    - master
+    - future
+  pull_request:
+    paths:
+    - quantum/**/*
+    - tmk_core/**/*
+    - drivers/**/*
+    - tests/**/*
+    - util/**/*
+    - platforms/**/*
+    - Makefile
+    - '*.mk'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/base_container
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: recursive
+
+    - name: Run qmk test
+      shell: 'bash {0}'
+      env:
+        MAKEFLAGS: '-j3 --output-sync'
+      run: |
+        qmk test
+        qmk test -i

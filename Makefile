@@ -50,8 +50,10 @@ STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
 BUILD_DIR := $(ROOT_DIR)/.build
 TEST_DIR := $(BUILD_DIR)/test
 ERROR_FILE := $(BUILD_DIR)/error_occurred
-
 MAKEFILE_INCLUDED=yes
+
+KEYBOARD_DIR ?= keyboards
+ROOT_KEYBOARD_DIR := $(ROOT_DIR)/$(KEYBOARD_DIR)
 
 # Helper function to process the newt element of a space separated path
 # It works a bit like the traditional functional head tail
@@ -267,9 +269,9 @@ define PARSE_KEYBOARD
     DEFAULT_FOLDER := $$(CURRENT_KB)
 
     # We assume that every rules.mk will contain the full default value
-    $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/rules.mk)
+    $$(eval include $(ROOT_KEYBOARD_DIR)/$$(CURRENT_KB)/rules.mk)
     ifneq ($$(DEFAULT_FOLDER),$$(CURRENT_KB))
-        $$(eval include $(ROOT_DIR)/keyboards/$$(DEFAULT_FOLDER)/rules.mk)
+        $$(eval include $(ROOT_KEYBOARD_DIR)/$$(DEFAULT_FOLDER)/rules.mk)
     endif
     CURRENT_KB := $$(DEFAULT_FOLDER)
 
@@ -282,39 +284,39 @@ define PARSE_KEYBOARD
 
     KEYMAPS :=
     # get a list of all keymaps
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
+    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/.)))
+    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/.)))
+    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
+    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
+    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
     # this might be needed, but in a different form
     #KEYMAPS := $$(sort $$(filter-out $$(KEYBOARD_FOLDER_1) $$(KEYBOARD_FOLDER_2) \
         $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
 
     KEYBOARD_LAYOUTS :=
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
+      $$(eval include $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
+      $$(eval include $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
+      $$(eval include $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
+      $$(eval include $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
+      $$(eval include $(ROOT_KEYBOARD_DIR)/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
 
@@ -384,7 +386,7 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY)
+    MAKE_VARS := KEYBOARD_DIR=$$(KEYBOARD_DIR) KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
