@@ -53,13 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B9
 #define WS2812_EXTERNAL_PULLUP
 #define RGBLED_NUM 18
-/* section for PWM WS2812 driver
+/* section for PWM WS2812 driver */
+// #define STM32_DMA_REQUIRED  // ws2812 PWM driver doesn't trigger this apparently
+#define RGB_DI_PIN B9
 #define WS2812_PWM_DRIVER PWMD4
 #define WS2812_PWM_CHANNEL 4
 #define WS2812_PWM_PAL_MODE 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM1
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM7
 #define WS2812_DMA_CHANNEL 7
-*/
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
