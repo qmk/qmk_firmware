@@ -240,13 +240,15 @@ int main(void) {
                 if (suspend_wakeup_condition()) {
                     usbWakeupHost(&USB_DRIVER);
 
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
                     // Some hubs, kvm switches, and monitors do
                     // weird things, with USB device state bouncing
                     // around wildly on wakeup, yielding race
                     // conditions that can corrupt the keyboard state.
                     //
                     // Pause for a while to let things settle...
-                    wait_ms(100);
+                    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
 
                     restart_usb_driver(&USB_DRIVER);
                 }

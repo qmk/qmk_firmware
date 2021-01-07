@@ -1083,13 +1083,15 @@ int main(void) {
                     USB_Device_SendRemoteWakeup();
                     clear_keyboard();
 
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
                     // Some hubs, kvm switches, and monitors do
                     // weird things, with USB device state bouncing
                     // around wildly on wakeup, yielding race
                     // conditions that can corrupt the keyboard state.
                     //
                     // Pause for a while to let things settle...
-                    wait_ms(100);
+                    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
                 }
             }
             suspend_wakeup_init();
