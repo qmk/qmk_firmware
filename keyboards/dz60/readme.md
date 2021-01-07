@@ -1,12 +1,14 @@
-# DZ60
+# DZ60 60% Mechanical Keyboard PCB
 
-![dz60](https://cdn.shopify.com/s/files/1/1473/3902/files/1_6525343b-ee62-47e8-882a-05e316136a3f.jpg?v=1501657073)
+![DZ60](https://cdn.shopify.com/s/files/1/1473/3902/products/c_1.jpg)
 
-A customizable 60% keyboard.
+## A Customizable 60% Mechanical Keyboard PCB
+
+![A Customizable 60% Mechanical Keyboard PCB](https://cdn.shopify.com/s/files/1/1473/3902/files/1_03_abb48769-9486-44bd-a761-7cd39d7e1bda.jpg)
 
 * Keyboard Maintainer: QMK Community
-* Hardware Supported: DZ60
-* Hardware Availability: [KBDfans](https://kbdfans.myshopify.com/collections/pcb/products/dz60-60-pcb?variant=40971616717)
+* Hardware Supported: DZ60 60% Mechanical Keyboard PCB
+* Hardware Availability: [KBDfans](https://kbdfans.com/collections/60/products/dz60-60-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 

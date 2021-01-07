@@ -15,8 +15,8 @@
  * GPL v2 or later.
  */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include "usb_main.h"
 
@@ -31,10 +31,11 @@
 #include "led.h"
 #include "sendchar.h"
 #include "debug.h"
-#include "printf.h"
+#include "print.h"
 
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 // Change this to be TRUE once we've migrated keyboards to the new init system
+// Remember to change docs/platformdev_chibios_earlyinit.md as well.
 #    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 #endif
 
@@ -52,6 +53,9 @@
 #endif
 #ifdef STM32_EEPROM_ENABLE
 #    include "eeprom_stm32.h"
+#endif
+#ifdef EEPROM_DRIVER
+#    include "eeprom_driver.h"
 #endif
 #include "suspend.h"
 #include "wait.h"
@@ -149,6 +153,9 @@ int main(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Init();
 #endif
+#ifdef EEPROM_DRIVER
+    eeprom_driver_init();
+#endif
 
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
@@ -229,6 +236,7 @@ int main(void) {
                 /* Remote wakeup */
                 if (suspend_wakeup_condition()) {
                     usbWakeupHost(&USB_DRIVER);
+                    restart_usb_driver(&USB_DRIVER);
                 }
             }
             /* Woken up */
@@ -257,5 +265,9 @@ int main(void) {
 #ifdef RAW_ENABLE
         raw_hid_task();
 #endif
+
+        // Run housekeeping
+        housekeeping_task_kb();
+        housekeeping_task_user();
     }
 }

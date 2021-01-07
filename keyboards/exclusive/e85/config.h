@@ -21,11 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x4558 // EX
-#define PRODUCT_ID 0xE851 // E8.5 Version 1
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Exclusive
-#define PRODUCT E8.5 Hotswap PCB
-#define DESCRIPTION A custom TKL keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 11
@@ -55,9 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
-// #define BACKLIGHT_PIN B6
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 6
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 6
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
