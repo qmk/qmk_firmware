@@ -20,7 +20,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4c44 // "LD"
+#define VENDOR_ID       0x4C44 // "LD"
 #define PRODUCT_ID      0x0042
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LAZYDESIGNERS
