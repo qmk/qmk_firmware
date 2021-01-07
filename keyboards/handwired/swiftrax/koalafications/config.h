@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEA6E
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0xEA6E //change before PR
+#define DEVICE_VER      0x0001 
 #define MANUFACTURER    Swiftrax
 #define PRODUCT         Koalafications
 /* key matrix size */
