@@ -30,6 +30,8 @@ MIDI_ENABLE = no             # MIDI support
 BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no            # Audio output on port C6
 FAUXCLICKY_ENABLE = no       # Use buzzer to emulate clicky switches
+UNICODE_ENABLE = no          # Unicode
+TAP_DANCE_ENABLE = no
 
 ISSI_ENABLE = yes            # If the I2C pullup resistors aren't installed this must be disabled
 WATCHDOG_ENABLE = no         # Resets keyboard if matrix_scan() isn't run every 250ms
