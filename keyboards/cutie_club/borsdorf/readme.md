@@ -2,8 +2,6 @@
 
 ![Borsdorf](https://cdn.discordapp.com/attachments/431112542882889741/617038871309582356/DSCF1868_edited.png)
 
-A short description of the keyboard/project
-
 * Keyboard Maintainer: [Cutie Club](https://github.com/cutie-club/)
 * Hardware Supported: STM32F072 based keyboard for the Borsdorf
 * Hardware Availability: [Group Buy now completed](https://geekhack.org/index.php?topic=105717.0)
