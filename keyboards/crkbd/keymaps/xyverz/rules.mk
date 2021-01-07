@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 OLED_DRIVER_ENABLE  = no
 RGB_MATRIX_ENABLE = yes
+=======
+OLED_DRIVER_ENABLE  = yes
+>>>>>>> a9442927675f2d2db324d69528b6054413a1dfcd
