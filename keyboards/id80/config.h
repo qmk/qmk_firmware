@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964 /* "id" */
-#define PRODUCT_ID      0x0080
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IDOBAO
-#define PRODUCT         ID80
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 11
