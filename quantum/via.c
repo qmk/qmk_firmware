@@ -220,9 +220,14 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     uint8_t *command_data = &(data[1]);
 
 #ifdef VIAL_ENABLE
-    /* When unlock is in progress, only command we react to is unlock_poll */
-    if (vial_unlock_in_progress && (data[0] != id_vial_prefix || data[1] != vial_unlock_poll))
-        goto skip;
+    /* When unlock is in progress, we can only react to a subset of commands */
+    if (vial_unlock_in_progress) {
+        if (data[0] != id_vial_prefix)
+            goto skip;
+        uint8_t cmd = data[1];
+        if (cmd != vial_get_keyboard_id && cmd != vial_get_size && cmd != vial_get_def && cmd != vial_get_unlock_status && cmd != vial_unlock_start && cmd != vial_unlock_poll)
+            goto skip;
+    }
 #endif
 
     switch (*command_id) {

@@ -105,7 +105,8 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
             memset(msg, 0xFF, length);
             /* First byte of message contains the status: whether board is unlocked */
             msg[0] = vial_unlocked;
-            msg[1] = 0;
+            /* Second byte is whether unlock is in progress */
+            msg[1] = vial_unlock_in_progress;
 #ifndef VIAL_INSECURE
             /* Rest of the message are keys in the matrix that should be held to unlock the board */
             for (size_t i = 0; i < VIAL_UNLOCK_NUM_KEYS; ++i) {
