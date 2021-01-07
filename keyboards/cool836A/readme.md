@@ -9,7 +9,7 @@
 
 # cool836A
 
-- このプロジェクトの詳細については設計者様たる[m.ki様](https://twitter.com/0002ozlet)さんによる[GitHubリポジトリ](https://github.com/telzo2000/cool836A)の記述をご覧ください。
+- このプロジェクトの詳細については設計者様たる[m.ki様](https://twitter.com/0002ozlet)による[GitHubリポジトリ](https://github.com/telzo2000/cool836A)の記述をご覧ください。
 
 - このファームウェアは2021年1月7日現在、cool836A ver.B+ (通称レッドバージョン)のみをサポートしています。ほかのバージョンに対応するコードを書いてくださる方あるいは書いてほしい方はお気軽に私[オオハシ](https://twitter.com/oha_oha_Ohashi)までご連絡ください。
 
