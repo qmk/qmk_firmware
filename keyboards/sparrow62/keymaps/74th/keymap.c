@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] = LAYOUT(
     // /-------+-------+-------+-------+-------+-------\                 /-------+-------+-------+-------+-------+-------.
     // | Lock  |CMD+F1 |Sft+F2 |CMD+F3 |CMD+F4 |CMD+F5 |                 |CMD+F6 |CMD+F7 |CMD+F8 |CMD+F9 |       |       |
-    LOCK,LCMD(KC_F1),SCMD(KC_F2),LCMD(KC_F3),LCMD(KC_F4),LCMD(KC_F5),LCMD(KC_F6),LCMD(KC_F7),LCMD(KC_F8),LCMD(KC_F9),_______,_______,
+    C(G(KC_Q)),LCMD(KC_F1),SCMD(KC_F2),LCMD(KC_F3),LCMD(KC_F4),LCMD(KC_F5),LCMD(KC_F6),LCMD(KC_F7),LCMD(KC_F8),LCMD(KC_F9),_______,_______,
     // |-------+-------+-------+-------+-------+-------+-------\ /-------+-------+-------+-------+-------+-------+-------|
     // | ESC   |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   | |  F6   |  F7   |  F8   |  F9   |  F10  |  F11  |  F12  |
         KC_ESC,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,    KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,
@@ -75,9 +75,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case LOCK:
-                tap_code16(C(G(KC_Q)));
-                return false;
             case ESC_MHEN:
                 tap_code(KC_INT5);
                 tap_code(KC_ESC);
