@@ -11,7 +11,7 @@
 無理でした。Bのキーが事故を起こします。
 
 ## Ohasheen配列について
-フライングオニオオハシ愛用の配列です。[ゆかり様](https://twitter.com/eucalyn_)の[Eucalyn配列](http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout)をほぼそのまま使わせて頂いています。いつもお世話になっておます。
+フライングオニオオハシ愛用の配列です。[ゆかり様](https://twitter.com/eucalyn_)考案の[Eucalyn配列](http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout)をほぼそのまま使わせて頂いています。いつもお世話になっておます。
 
 
 
