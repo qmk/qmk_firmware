@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_F11,  KC_F12, KC_CIRC, KC_TILD, _______,\
 
         _______, _______, _______, _______, _______,   KC_DEL,\
-        KC_MUTE, KC_HOME, KC_END,  KC_PGUP, KC_PGDOWN, _______, \
+        _______, KC_HOME, KC_END,  KC_PGUP, KC_PGDOWN, _______, \
         _______, _______, _______, _______, _______,   RESET 
     ),
     //Mark
@@ -68,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_CIRC,  KC_DLR, KC_BSLS, KC_AMPR, KC_PIPE, \
         _______,  _______, _______, _______, _______, _______, \
         
-        _______, KC_COLN, KC_ASTR, KC_SLSH, KC_TILD, KC_DEL, \
-        KC_UNDS, KC_SCLN, KC_EXLM, KC_QUES, KC_EQL,  _______,\
+        KC_MUTE, KC_COLN, KC_EXLM, KC_QUES, KC_TILD, KC_DEL, \
+        KC_UNDS, KC_SCLN, KC_ASTR, KC_SLSH, KC_EQL,  _______,\
         KC_MPLY, _______, KC_VOLD, KC_VOLU, KC_MPRV,   KC_MNXT
     ),  
     //cursor
