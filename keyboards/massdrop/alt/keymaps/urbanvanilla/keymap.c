@@ -1,3 +1,20 @@
+ /* Copyright 2021 James Teow
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */ 
+
+
 #include QMK_KEYBOARD_H
 
 enum alt_keycodes {
@@ -12,7 +29,7 @@ enum alt_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_65_ansi_blocker(
-        KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,  \
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,  \
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_HOME, \
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
@@ -43,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint32_t idle_timer; //custom timer to check if keyboard is idled.
 bool rgbkeyIdle = false; //flag for keyboard idling, nil keys for set
-bool Jelocikey_toggle = false;
-uint8_t currentWPM;
+//bool Jelocikey_toggle = false;
+//uint8_t currentWPM;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -118,14 +135,14 @@ idle_timer = timer_read();
               }
             }
             return false;
-        case VLK_TOG:
+/*         case VLK_TOG:
             if (record->event.pressed) {
                 Jelocikey_toggle =! Jelocikey_toggle;
             }
             else {
                 rgb_matrix_set_speed_noeeprom(127);
             }
-            return false;
+            return false; */
         default:
 
             if (rgbkeyIdle) {       //check if the keyboards already idle and if it is, turn it back on as key is pressed.
@@ -134,12 +151,12 @@ idle_timer = timer_read();
                 rgb_matrix_enable_noeeprom();
             }
 
-            if (Jelocikey_toggle) {
+/*             if (Jelocikey_toggle) {
                 rgb_matrix_set_speed_noeeprom(3);
                 currentWPM = get_current_wpm();
                 rgb_matrix_set_speed_noeeprom(currentWPM);
-                rgb_matrix_set_color(13, 100, 255, 255);
-            }
+                rgb_matrix_set_color(30, 100, 255, 255);
+            } */
             
             return true; //Process all other keycodes normally
     }

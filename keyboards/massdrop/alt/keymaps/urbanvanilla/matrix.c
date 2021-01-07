@@ -95,7 +95,7 @@ uint8_t matrix_scan(void)
     {
         PORT->Group[col_ports[col]].OUTSET.reg = 1 << col_pins[col]; //Set col output
 
-        wait_us(20); //Delay for output
+        wait_us(40); //Delay for output
 
         scans[PA] = PORT->Group[PA].IN.reg & row_masks[PA]; //Read PA row pins data
         scans[PB] = PORT->Group[PB].IN.reg & row_masks[PB]; //Read PB row pins data

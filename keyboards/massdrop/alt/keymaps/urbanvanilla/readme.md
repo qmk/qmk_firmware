@@ -19,7 +19,7 @@ There is a timer that turns off RGB lighting after a set time. This is defined b
 I have left the debounce settings and instead changed
 
     wait_us(1); //Delay for output
-to 20 instead of 1 which works for other keyboards as I was getting lots of keyboard chatter on all keys previously. Seems to be working well since.
+to 40 instead of 1 which works for other keyboards as I was getting lots of keyboard chatter on all keys previously. 20 seemed to still let key chatter go through. Seems to be working well since.
 
 
 
