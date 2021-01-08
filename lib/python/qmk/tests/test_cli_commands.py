@@ -83,7 +83,7 @@ def test_hello():
 
 
 def test_pyformat():
-    result = check_subcommand('pyformat')
+    result = check_subcommand('pyformat', '--dry-run')
     check_returncode(result)
     assert 'Successfully formatted the python code' in result.stdout
 
