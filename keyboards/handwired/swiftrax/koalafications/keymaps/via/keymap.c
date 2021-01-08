@@ -47,12 +47,15 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 #define IDLE_FRAMES 3
+#define IDLE_SPEED 10
 
 #define ANIM_SIZE 600 // number of bytes in array, minimize for adequate firmware size, max is 1024
 #define ANIM_FRAME_DURATION 200 //how long each frame lasts in ms
 
+char wpm_str[10];
+
 uint32_t anim_timer = 0;
-//uint32_t anim_sleep = 0;
+uint32_t anim_sleep = 0;
 uint8_t current_idle_frame = 0;
 
 static void render_anim(void){
@@ -74,10 +77,30 @@ static void render_anim(void){
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128, 64, 32, 16, 16,  8, 14,  1,  0,  1,  3,  2,  2,  4,  4,  4,  4,  4,  4,  8,  8,  8,  8, 16, 16, 16, 16, 24, 12,  4,  2,124,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
         0,  0,  0,  0,  0,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,  0,  0,  0,  0,  0,  0,224, 24,  4,  3,  0,  0,  0,  0,  6, 15, 15,  6,  0, 32, 16, 16, 16, 16, 32,  0,  0,  0, 24, 60, 60, 24,  0,  0,  0,128,  0,  0,  0,  0,  0,  3, 12, 16, 96,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
         1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  3, 31, 49, 32, 32, 32, 32, 48, 16, 30,  7,  1,  1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  6,  4, 30, 17, 32, 32, 32, 48, 24,  8,  4,  4,  4,  7,  4,  4,  4,  4,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8, 16, 16, 16, 16, 16, 16, 16, 16, 16, 48, 32, 32, 32, 32, 32, 32,
-        },
+        }
     };
-    current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
-    oled_write_raw_P(idle[abs((IDLE_FRAMES-1)-current_idle_frame)], ANIM_SIZE);
+    void animation_phase(void) {
+        current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
+        oled_write_raw_P(idle[abs((IDLE_FRAMES-1)-current_idle_frame)], ANIM_SIZE);
+    }
+
+    if(get_current_wpm() != 000) {
+        oled_on(); // not essential but turns on animation OLED with any alpha keypress
+        if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+            anim_timer = timer_read32();
+            animation_phase();
+        }
+        anim_sleep = timer_read32();
+    } else {
+        if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+            oled_off();
+        } else {
+            if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+                anim_timer = timer_read32();
+                animation_phase();
+            }
+        }
+    }
 }
 
 void oled_task_user(void) {
