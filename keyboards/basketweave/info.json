@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "Basketweave", 
-    "url": "https://github.com/null-ll/basketweave", 
-    "maintainer": "null-ll", 
-    "width": 20, 
-    "height": 5, 
+    "keyboard_name": "Basketweave",
+    "url": "https://github.com/null-ll/basketweave",
+    "maintainer": "null-ll",
+    "width": 20,
+    "height": 5.25,
     "layouts": {
         "LAYOUT_default": {
             "layout": [
@@ -22,8 +22,7 @@
                 {"label":"_", "x":14.5, "y":0},
                 {"label":"+", "x":15.5, "y":0},
                 {"label":"Backspace", "x":16.5, "y":0, "w":2},
-                {"label":"Mute", "x":19, "y":0.5},
-                {"label":"Delete", "x":0, "y":1},
+                {"label":"Insert", "x":0, "y":1},
                 {"label":"Tab", "x":1.5, "y":1, "w":1.5},
                 {"label":"Q", "x":3, "y":1},
                 {"label":"W", "x":4, "y":1},
@@ -38,7 +37,8 @@
                 {"label":"{", "x":15, "y":1},
                 {"label":"}", "x":16, "y":1},
                 {"label":"|", "x":17, "y":1, "w":1.5},
-                {"label":"Insert", "x":0, "y":2},
+                {"label":"Mute", "x":19, "y":0.5},
+                {"label":"Delete", "x":0, "y":2},
                 {"label":"Caps Lock", "x":1.5, "y":2, "w":1.75},
                 {"label":"A", "x":3.25, "y":2},
                 {"label":"S", "x":4.25, "y":2},
@@ -65,17 +65,17 @@
                 {"label":">", "x":13.75, "y":3},
                 {"label":"?", "x":14.75, "y":3},
                 {"label":"Shift", "x":15.75, "y":3, "w":1.75},
-                {"label":"\u2191", "x":17.75, "y":3},
+                {"label":"Up", "x":17.75, "y":3.25},
                 {"label":"Ctrl", "x":1.5, "y":4, "w":1.5},
                 {"label":"Alt", "x":4.5, "y":4, "w":1.5},
-                {"x":6, "y":4, "w":2},
-                {"label":"Fn", "x":8, "y":4, "w":1.25},
-                {"x":9.75, "y":4, "w":2.75},
+                {"label":"Space", "x":6, "y":4, "w":2},
+                {"label":"Fn", "x":8, "y":4},
+                {"label":"Space", "x":9.75, "y":4, "w":2.75},
                 {"label":"Alt", "x":12.5, "y":4, "w":1.5},
                 {"label":"Ctrl", "x":15, "y":4, "w":1.5},
-                {"label":"\u2190", "x":16.75, "y":4},
-                {"label":"\u2193", "x":17.75, "y":4},
-                {"label":"\u2192", "x":18.75, "y":4}
+                {"label":"Left", "x":16.75, "y":4.25},
+                {"label":"Down", "x":17.75, "y":4.25},
+                {"label":"Right", "x":18.75, "y":4.25}
             ]
         }
     }
