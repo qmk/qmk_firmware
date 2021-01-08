@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    moyi4681
 #define PRODUCT         Primus75
-#define DESCRIPTION     Primus75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
