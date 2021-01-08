@@ -118,14 +118,14 @@ idle_timer = timer_read();
               }
             }
             return false;
-        case VLK_TOG:
+/*         case VLK_TOG:
             if (record->event.pressed) {
                 Jelocikey_toggle =! Jelocikey_toggle;
             }
             else {
                 rgb_matrix_set_speed_noeeprom(127);
             }
-            return false;
+            return false; */
         default:
 
             if (rgbkeyIdle) {       //check if the keyboards already idle and if it is, turn it back on as key is pressed.
