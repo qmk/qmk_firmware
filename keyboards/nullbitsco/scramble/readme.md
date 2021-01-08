@@ -12,6 +12,6 @@ Note: If you are seeing issues with MacOS and keyboard hangs after sleep, make s
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb nullbitsco/scramble -km default
+    make nullbitsco/scramble:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
