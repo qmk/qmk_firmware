@@ -107,7 +107,7 @@ Note, you'll see that most `crkbd`'s recommend a target of `avrdude` because mos
 #### CLI
 
 ```
-sudo make crkbd:rjhilgefort:flash
+make crkbd:rjhilgefort:flash
 ```
 
 #### Docker
