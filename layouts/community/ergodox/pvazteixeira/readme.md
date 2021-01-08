@@ -1,4 +1,3 @@
-
 # pedro's ergodoxes
 
 layout shared between the 'classic' and 'infinity' versions
