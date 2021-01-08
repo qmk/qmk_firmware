@@ -225,6 +225,11 @@ def test_clean():
     assert result.stdout.count('done') == 2
 
 
+def test_generate_api():
+    result = check_subcommand('generate-api', '--dry-run')
+    check_returncode(result)
+
+
 def test_generate_rgb_breathe_table():
     result = check_subcommand("generate-rgb-breathe-table", "-c", "1.2", "-m", "127")
     check_returncode(result)
