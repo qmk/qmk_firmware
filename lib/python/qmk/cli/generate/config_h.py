@@ -64,7 +64,7 @@ def direct_pins(direct_pins):
     rows = []
 
     for row in direct_pins:
-        cols = ','.join([col or 'NO_PIN' for col in row])
+        cols = ','.join(map(str, [col or 'NO_PIN' for col in row]))
         rows.append('{' + cols + '}')
 
     col_count = len(direct_pins[0])
@@ -88,7 +88,7 @@ def direct_pins(direct_pins):
 def col_pins(col_pins):
     """Return the config.h lines that set the column pins.
     """
-    cols = ','.join(col_pins)
+    cols = ','.join(map(str, [pin or 'NO_PIN' for pin in col_pins]))
     col_num = len(col_pins)
 
     return """
@@ -105,7 +105,7 @@ def col_pins(col_pins):
 def row_pins(row_pins):
     """Return the config.h lines that set the row pins.
     """
-    rows = ','.join(row_pins)
+    rows = ','.join(map(str, [pin or 'NO_PIN' for pin in row_pins]))
     row_num = len(row_pins)
 
     return """

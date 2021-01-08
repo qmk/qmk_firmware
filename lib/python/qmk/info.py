@@ -315,11 +315,10 @@ def _extract_rgblight(info_data, config_c):
                 cli.log.error('%s: config.h: Could not convert "%s" to %s: %s', info_data['keyboard_folder'], config_c[config_key], config_type.__name__, e)
 
     for json_key, config_key in rgblight_toggles.items():
-        if config_key in config_c:
-            if json_key in rgblight:
-                _log_warning(info_data, 'RGB Light: %s is specified in both info.json and config.h, the config.h value wins.', json_key)
+        if config_key in config_c and json_key in rgblight:
+            _log_warning(info_data, 'RGB Light: %s is specified in both info.json and config.h, the config.h value wins.', json_key)
 
-            rgblight[json_key] = config_c[config_key]
+        rgblight[json_key] = config_key in config_c
 
     for json_key, config_key in rgblight_animations.items():
         if config_key in config_c:
@@ -337,16 +336,30 @@ def _extract_rgblight(info_data, config_c):
     return info_data
 
 
+def _pin_name(pin):
+    """Returns the proper representation for a pin.
+    """
+    pin = pin.strip()
+
+    if not pin:
+        return None
+
+    elif pin.isdigit():
+        return int(pin)
+
+    elif pin == 'NO_PIN':
+        return None
+
+    elif pin[0] in 'ABCDEFGHIJK' and pin[1].isdigit():
+        return pin
+
+    raise ValueError(f'Invalid pin: {pin}')
+
+
 def _extract_pins(pins):
     """Returns a list of pins from a comma separated string of pins.
     """
-    pins = [pin.strip() for pin in pins.split(',') if pin]
-
-    for pin in pins:
-        if pin[0] not in 'ABCDEFGHIJK' or not pin[1].isdigit():
-            raise ValueError(f'Invalid pin: {pin}')
-
-    return pins
+    return [_pin_name(pin) for pin in pins.split(',')]
 
 
 def _extract_direct_matrix(info_data, direct_pins):
