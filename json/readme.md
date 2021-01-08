@@ -30,18 +30,17 @@ make crkbd/rev1/common:filterpaper:dfu-split-right
 
 ## Git cheatsheet
 ### Syncing with upstream
-#### One time setup original as remote "upstream"
+1. One time setup original as remote "upstream"
 `git remote add upstream https://github.com/qmk/qmk_firmware.git`
-
-#### Fetch updated original as "upstream"
+1. Fetch updated original as "upstream"
 `git fetch upstream`
-#### Make sure git is on forked master branch
+1. Make sure git is on forked master branch
 `git checkout master`
-#### Rebase master to merge with remote upstream
+1. Rebase master to merge with remote upstream
 `git merge upstream/master`
-#### Push master changes back to own fork
+1. Push master changes back to own fork
 `git push -f origin master`
 
 ### Commit new changes
-`git commit -a -m ""`
-`git push`
+```git commit -a -m ""
+git push```
