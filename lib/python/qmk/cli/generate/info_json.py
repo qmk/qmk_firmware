@@ -26,15 +26,15 @@ def pruning_validator(validator_class):
         for error in validate_properties(validator, properties, instance, schema):
             yield error
 
-    return validators.extend(validator_class, {"properties" : remove_additional_properties})
+    return validators.extend(validator_class, {"properties": remove_additional_properties})
 
 
 def strip_info_json(kb_info_json):
     """Remove the API-only properties from the info.json.
     """
-    PruningDraft7Validator = pruning_validator(Draft7Validator)
+    pruning_draft_7_validator = pruning_validator(Draft7Validator)
     schema = _jsonschema('keyboard')
-    validator = PruningDraft7Validator(schema).validate
+    validator = pruning_draft_7_validator(schema).validate
 
     return validator(kb_info_json)
 
