@@ -44,13 +44,6 @@
 #define ENCODER_RESOLUTIONS { 3, 4 }
 //#define ENCODER_DIRECTION_FLIP
 
-/* Combos */
-#define COMBO_COUNT 5
-#define COMBO_TERM 50
-
-/* Modtaps */
-#define TAPPING_TERM 175
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define DEBOUNCE 7
 

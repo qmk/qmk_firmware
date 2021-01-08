@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- #include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 
 enum layers{
   _BASE,
@@ -30,11 +30,6 @@ enum combo_events {
  COMBO_ESC,
  COMBO_DEL
 };
-
-enum custom_keycodes{
-	RGBRST = SAFE_RANGE,
-};
-
 #define KC_UP_SPC LT(_SYM, KC_SPC)
 #define KC_GZ LGUI_T(KC_Z)
 #define KC_AA LALT_T(KC_A)
@@ -70,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 1) { /* left encoder*/
-        switch(biton32(layer_state)){
+        switch(get_highest_layer(layer_state)){
 
 			 case _NAV:
                 if (clockwise) {
@@ -98,7 +93,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
       }
     } else if (index == 0) { /* right encoder */
-	           switch(biton32(layer_state)){
+	           switch(get_highest_layer(layer_state)){
 				   
             case _SYM:
                 if (clockwise) {
