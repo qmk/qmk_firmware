@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    CherryB Studio
 #define PRODUCT         CB87
-#define DESCRIPTION     CB87 TKL Rev1
 
 /* key matrix size */
 #define MATRIX_ROWS 9
