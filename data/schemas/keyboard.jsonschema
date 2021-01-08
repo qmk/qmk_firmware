@@ -167,6 +167,10 @@
                                     "pattern": "^[A-K]\\d{1,2}$"
                                 },
                                 {
+                                    "type": "number",
+                                    "multipleOf": 1
+                                },
+                                {
                                     "type": "null"
                                 }
                             ]
@@ -176,15 +180,37 @@
                 "cols": {
                     "type": "array",
                     "items": {
-                        "type": "string",
-                        "pattern": "^[A-K]\\d{1,2}$"
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "pattern": "^[A-K]\\d{1,2}$"
+                            },
+                            {
+                                "type": "number",
+                                "multipleOf": 1
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
                     }
                 },
                 "rows": {
                     "type": "array",
                     "items": {
-                        "type": "string",
-                        "pattern": "^[A-K]\\d{1,2}$"
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "pattern": "^[A-K]\\d{1,2}$"
+                            },
+                            {
+                                "type": "number",
+                                "multipleOf": 1
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
                     }
                 }
             }
