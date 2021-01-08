@@ -11,6 +11,7 @@
     ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 */
 
+
 #define LCTL_MASK (get_mods() & MOD_BIT(KC_LCTL))
 #define RCTL_MASK (get_mods() & MOD_BIT(KC_RCTL))
 #define CTL_MASK  (LCTL_MASK || RCTL_MASK)
@@ -56,11 +57,11 @@ enum keycodes {
     R_VOL, R_MEDIA, R_BRI, R_SC_V, R_SC_H, R_AR_V, R_AR_H,
 
     // command-line macros
-    CLEAR,      // [clear terminal line]
+    DEL_LN,     // [delete line]
     EMAIL,      // [email address]
     PHONE,      // [phone number]
-    GT_STAT,    // git status
-    GT_CMT,     // git commit
+    GT_CMT,     // git commit -m ''
+    SHEBANG,    // #!/usr/bin/env 
     PY_VENV,    // source *env*/bin/activate
 };
 
@@ -217,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-----------------------------------------------------------------------------------------------|
         |       |       |       | email |       |       |       |       |       |       | phone |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       | g stat| clear |       |       |       |       |       |       |       |       |
+        |       |       | g stat| del ln|       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
@@ -229,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_LOWER2] = LAYOUT_planck_grid(
         _______, XXXXXXX, XXXXXXX, EMAIL,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, PHONE,   _______,
-        _______, XXXXXXX, GT_STAT, CLEAR,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, XXXXXXX, SHEBANG, DEL_LN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, XXXXXXX, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
@@ -288,6 +289,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║    ███████╗╚██████╔╝╚██████╔╝██║╚██████╗
  ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝ ╚═════╝
 */
+
 
 // Keyboard initialization
 
@@ -468,7 +470,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         ██      ██ ██   ██  ██████ ██   ██  ██████  ███████
         */
 
-        case CLEAR:
+        case DEL_LN:
             if (record->event.pressed) {
                 tap_code16(LCTL(KC_E)); // go to start of line
                 tap_code16(LCTL(KC_U)); // clear to beginning of line
@@ -476,17 +478,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case EMAIL:
             if (record->event.pressed) {
-                SEND_STRING(" ");
+                SEND_STRING("email macro not set");
             }
             break;
         case PHONE:
             if (record->event.pressed) {
-                SEND_STRING(" ");
+                SEND_STRING("phone macro not set");
             }
             break;
-        case GT_STAT:
+        case SHEBANG:
             if (record->event.pressed) {
-                SEND_STRING("git status ");
+                SEND_STRING("#!/usr/bin/env ");
             }
             break;
         case GT_CMT:
