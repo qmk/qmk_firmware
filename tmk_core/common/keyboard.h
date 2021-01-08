@@ -73,6 +73,8 @@ void keyboard_post_init_user(void);
 void housekeeping_task_kb(void);
 void housekeeping_task_user(void);
 
+uint32_t get_matrix_scan_rate(void);
+
 #ifdef __cplusplus
 }
 #endif
