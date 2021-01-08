@@ -103,7 +103,7 @@ def parse_config_h_file(config_h_file, config_h=None):
 
     if config_h_file.exists():
         config_h_text = config_h_file.read_text()
-        config_h_text = config_h_text.replace('\\\n', '') # Why are you here?
+        config_h_text = config_h_text.replace('\\\n', '')
         config_h_text = strip_multiline_comment(config_h_text)
 
         for linenum, line in enumerate(config_h_text.split('\n')):
