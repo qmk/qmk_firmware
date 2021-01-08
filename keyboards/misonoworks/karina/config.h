@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MisonoWorks
 #define PRODUCT         Karina
-#define DESCRIPTION     30% keyboard with two encoders, nano!
 
 // matrix
 #define MATRIX_ROWS 4
@@ -58,4 +57,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 19
 #define RGBLIGHT_ANIMATIONS
 #endif
-
