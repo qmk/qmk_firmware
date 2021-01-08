@@ -52,7 +52,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #define ANIM_FRAME_DURATION 200 //how long each frame lasts in ms
 
 uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
+//uint32_t anim_sleep = 0;
 uint8_t current_idle_frame = 0;
 
 static void render_anim(void){
