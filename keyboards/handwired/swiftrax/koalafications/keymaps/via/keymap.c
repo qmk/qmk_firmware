@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
+    return OLED_ROTATION_0;
 }
 
 #define IDLE_FRAMES 5
@@ -51,8 +51,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 #define ANIM_SIZE 600 // number of bytes in array, minimize for adequate firmware size, max is 1024
 #define ANIM_FRAME_DURATION 150 //how long each frame lasts in ms
-
-//char wpm_str[10];
 
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
@@ -110,9 +108,8 @@ static void render_anim(void){
         anim_sleep = timer_read32();
     } 
     else {
-        if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+        if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT)
             oled_off();
-        } 
         else {
             if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
                 anim_timer = timer_read32();
