@@ -2,8 +2,8 @@
 
 My Corne KBD layout is inspired by [my Planck Layout](../../../planck/keymaps/rjhilgefort/readme.md), but with some additional features. Namely, this layout has Linux support.
 
-![](https://imgur.com/wp9ksTI.jpg)
-![](https://imgur.com/fnyiCnE.jpg)
+![](https://imgur.com/wp9ksTIl.jpg)
+![](https://imgur.com/fnyiCnEl.jpg)
 
 ## Features
 
