@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_INS,  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_MUTE,
       KC_DEL,  KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
                KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,
-               KC_LCTL, KC_LALT,          KC_SPC,           MO(1),            KC_SPC,           KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+               KC_LCTL, KC_LALT,          KC_SPC,           MO(1),            KC_SPC,           KC_RALT, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RIGHT
     ),
 
 
@@ -36,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,  KC_TRNS,
      /*         shift      Z        X        C        V        B        B        N        M        ,        .        /       shift     up   */
                KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS, KC_RSFT, KC_PGUP,
-     /*         ctrl      alt              space              fn               space              alt      ctrl     left     down     right  */
-               KC_LCTL, KC_LALT,          KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_RALT, KC_RCTL, KC_HOME, KC_PGDN, KC_END
+     /*         ctrl      alt              space              fn               space              alt      ctrl              left     down     right  */
+               KC_LCTL, KC_LALT,          KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_RALT, KC_RCTL,          KC_HOME, KC_PGDN, KC_END
     )
 };
 
