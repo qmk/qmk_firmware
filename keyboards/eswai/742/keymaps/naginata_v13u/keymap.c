@@ -24,6 +24,7 @@ NGKEYS naginata_keys;
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
+    _MAC,
     _QWERTY,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
@@ -45,6 +46,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , KC_GRV   , KC_BSLS ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , \
     KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , KC_LBRC  , KC_RBRC ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , \
     KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
+    ),
+
+  [_MAC] = LAYOUT(
+    KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, KC_EQL   , KC_MINS ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
+    CMD_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , KC_GRV   , KC_BSLS ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , \
+    KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , KC_LBRC  , KC_RBRC ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , \
+    KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
     ),
 
   [_QWERTY] = LAYOUT(
@@ -71,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     _______,EEP_RST,RESET,  KC_F1   ,KC_F2  ,KC_F3   ,KC_F4,  NG_TAYO,NGSW_WIN,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,_______, \
     _______,XXXXXXX,KC_SLEP,KC_F5   ,KC_F6  ,KC_F7   ,KC_F8,  NG_KOTI,NGSW_MAC,NG_MLV ,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
-    _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, NG_SHOS,NGSW_LNX,XXXXXXX,DF(_BASE),DF(_QWERTY),XXXXXXX,_______, \
+    _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, NG_SHOS,NGSW_LNX,XXXXXXX,DF(_BASE),DF(_QWERTY),DF(_MAC),_______, \
     _______,_______,_______,_______,_______,     XXXXXXX,        XXXXXXX,_______,_______,_______,_______,_______
   ),
 
