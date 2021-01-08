@@ -33,7 +33,12 @@ def check_returncode(result, expected=[0]):
 
 
 def test_cformat():
-    result = check_subcommand('cformat', 'quantum/matrix.c')
+    result = check_subcommand('cformat', '-n', 'quantum/matrix.c')
+    check_returncode(result)
+
+
+def test_cformat_all():
+    result = check_subcommand('cformat', '-n', '-a')
     check_returncode(result)
 
 
@@ -85,7 +90,7 @@ def test_hello():
 def test_pyformat():
     result = check_subcommand('pyformat', '--dry-run')
     check_returncode(result)
-    assert 'Successfully formatted the python code' in result.stdout
+    assert 'Python code in `bin/qmk` and `lib/python` is correctly formatted.' in result.stdout
 
 
 def test_list_keyboards():
