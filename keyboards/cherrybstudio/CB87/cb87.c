@@ -14,18 +14,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cb87.h"
 
 void matrix_init_kb(void) {
-    led_init_ports();
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
+
     matrix_init_user();
+    led_init_ports();
 }
 
 void led_init_ports(void) {
-    setPinOutput(CAPS_LOCK_LED_PIN);
+    setPinOutput(F0);
+    writePinLow(F0);
+    setPinOutput(F4);
+    writePinLow(F4);
 }
 
 bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock);
+    if(led_update_user(led_state)) {
+        writePin(F0, led_state.caps_lock);
+        writePin(F4, led_state.scroll_lock);
     }
-    return res;
+
+    return true;
 }
