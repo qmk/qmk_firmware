@@ -23,7 +23,6 @@
 #define MANUFACTURER Pylon
 #define PRODUCT Boston
 #define DESCRIPTION 
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 19
