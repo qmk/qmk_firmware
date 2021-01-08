@@ -70,23 +70,22 @@ def kle2json(cli):
     file_path = Path(os.environ['ORIG_CWD'], cli.args.kle)
 
     # Find our KLE text
-    if file_path.exists():
+    if cli.args.kle.startswith('http') and '#' in cli.args.kle:
+        kle_path = cli.args.kle.split('#', 1)[1]
+        if 'gists' not in kle_path:
+            cli.log.error('Invalid KLE url: {fg_cyan}%s', cli.args.kle)
+            return False
+        else:
+            raw_code = fetch_kle(kle_path.split('/')[-1])
+
+    elif file_path.exists():
         raw_code = file_path.open().read()
 
     else:
-        if cli.args.kle.startswith('http') and '#' in cli.args.kle:
-            kle_path = cli.args.kle.split('#', 1)[1]
-            if 'gists' not in kle_path:
-                cli.log.error('Invalid KLE url: {fg_cyan}%s', cli.args.kle)
-                return False
-            else:
-                raw_code = fetch_kle(kle_path.split('/')[-1])
-
-        else:
-            raw_code = fetch_kle(cli.args.kle)
-            if not raw_code:
-                cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
-                return False
+        raw_code = fetch_kle(cli.args.kle)
+        if not raw_code:
+            cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
+            return False
 
     # Make sure the user supplied a keyboard
     if not cli.args.keyboard:
