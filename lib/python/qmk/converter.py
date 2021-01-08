@@ -16,7 +16,15 @@ def kle2qmk(kle):
                 continue
 
             if key['label_style'] in [0, 4]:
-                matrix, _, _, alt_layout, layout_name, _, keycode = key['name'].split('\n')
+                key_name = key['name'].split('\n')
+                if len(key_name) == 7:
+                    matrix, _, _, alt_layout, layout_name, _, keycode = key_name
+                elif len(key_name) == 5:
+                    matrix, _, _, alt_layout, layout_name = key_name
+                    cli.log.warning('Missing Keycode for key at matrix %s layout %s.', matrix, alt_layout)
+                else:
+                    cli.log.error('Unknown label format: %s', repr(key['name']))
+                    continue
             else:
                 cli.log.error('Unknown label style: %s', key['label_style'])
                 continue
