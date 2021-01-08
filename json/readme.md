@@ -42,5 +42,7 @@ make crkbd/rev1/common:filterpaper:dfu-split-right
 `git push -f origin master`
 
 ### Commit new changes
-```git commit -a -m ""
-git push```
+```
+git commit -a -m ""
+git push
+```
