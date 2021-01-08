@@ -78,6 +78,7 @@ enum keycodes {
     PHONE,      // [phone number]
     GT_CMT,     // git commit -m ''
     SHEBANG,    // #!/usr/bin/env 
+    CHMOD,      // chmod 744 *sh 
     PY_VENV,    // source *env*/bin/activate
 };
 
@@ -236,7 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       | g stat| del ln|       |       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-        |       |       |       | g cmt |py venv|       |       |       |       |       |       |       |
+        |       | CHMOD |       | g cmt |py venv|       |       |       |       |       |       |       |
         |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
         |       |       |       |       |  xXx  |      BASE     | RAISE1|       |       |       |       |
         |-----------------------------------------------------------------------------------------------|
@@ -247,7 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER2] = LAYOUT_planck_grid(
         _______, XXXXXXX, XXXXXXX, EMAIL,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, PHONE,   _______,
         _______, XXXXXXX, SHEBANG, DEL_LN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, CHMOD,   XXXXXXX, GT_CMT,  PY_VENV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, XXXXXXX, BASE,    BASE,    RAISE1,  _______, _______, _______, _______
     ),
 
@@ -505,6 +506,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SHEBANG:
             if (record->event.pressed) {
                 SEND_STRING("#!/usr/bin/env ");
+            }
+            break;
+        case CHMOD:
+            if (record->event.pressed) {
+                SEND_STRING("chmod 744 *.sh ");
             }
             break;
         case GT_CMT:
