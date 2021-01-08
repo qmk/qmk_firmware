@@ -1,6 +1,6 @@
 # Latin64ble
 
-![Latin64ble](https://github.com/latincompass/latin64BLE-kb/blob/main/latin64ble%20(1).JPG)
+![Latin64ble](https://i.imgur.com/zRlOU3ml.jpg)
 
 macro 64 ble 4.0 RGB keyboard
 
