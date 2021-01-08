@@ -23,6 +23,3 @@ if command -v docker >/dev/null; then
         docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container bin/qmk "$@"
     }
 fi
-
-# Install updated python deps
-python3 -m pip install -U -r requirements.txt
