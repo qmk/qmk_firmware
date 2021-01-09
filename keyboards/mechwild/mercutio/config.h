@@ -1,4 +1,4 @@
-/* Copyright 2020 Kyle McCreery 
+/* Copyright 2021 Kyle McCreery 
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the GNU General Public License as published by 
@@ -40,11 +40,7 @@
 #define ENCODERS_PAD_B { B5 }
 
 /* encoder resolution */
-<<<<<<< HEAD
-#define ENCODER_RESOLUTION 4
-=======
 #define ENCODER_RESOLUTION 2
->>>>>>> 3dc5e5af388fce6bd2619730c221be3ac71286dd
 #define TAP_CODE_DELAY 10
 
 /* COL2ROW or ROW2COL */
