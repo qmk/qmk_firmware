@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    Lx3
 #define PRODUCT         Whale-75
 
-/* Set 1 kHz polling rate and force USB NKRO*/
+/* Set 1 kHz polling rate and force USB NKRO */
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
 
@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, B0, B1, B2, B10, B11, B12, B13, B14, B15 }
 #define UNUSED_PINS { C13, C14, C15 }
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
@@ -51,10 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Underglow */
 #define RGB_DI_PIN B9
-#define WS2812_EXTERNAL_PULLUP
+#define WS2812_EXTERNAL_PULLUP // This board uses a pull-up + 5 V tolerant GPIO in open drain config ro generate a 5 V signal
 #define RGBLED_NUM 18
 /* section for PWM WS2812 driver */
-// #define STM32_DMA_REQUIRED  // ws2812 PWM driver doesn't trigger this apparently
 #define RGB_DI_PIN B9
 #define WS2812_PWM_DRIVER PWMD4
 #define WS2812_PWM_CHANNEL 4
