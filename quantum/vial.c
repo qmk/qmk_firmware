@@ -17,11 +17,10 @@
 #include "vial.h"
 
 #include <string.h>
-#include "protocol/usb_descriptor.h"
 
-#include "vial_generated_keyboard_definition.h"
 #include "dynamic_keymap.h"
 #include "quantum.h"
+#include "vial_generated_keyboard_definition.h"
 
 #include "vial_ensure_keycode.h"
 
@@ -44,9 +43,11 @@ static uint8_t vial_unlock_combo_cols[] = VIAL_UNLOCK_COMBO_COLS;
 _Static_assert(VIAL_UNLOCK_NUM_KEYS < 15, "Max 15 unlock keys");
 #endif
 
+#define VIAL_RAW_EPSIZE 32
+
 void vial_handle_cmd(uint8_t *msg, uint8_t length) {
     /* All packets must be fixed 32 bytes */
-    if (length != RAW_EPSIZE)
+    if (length != VIAL_RAW_EPSIZE)
         return;
 
     /* msg[0] is 0xFE -- prefix vial magic */
@@ -74,8 +75,8 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
         /* Retrieve 32-bytes block of the definition, page ID encoded within 2 bytes */
         case vial_get_def: {
             uint32_t page = msg[2] + (msg[3] << 8);
-            uint32_t start = page * RAW_EPSIZE;
-            uint32_t end = start + RAW_EPSIZE;
+            uint32_t start = page * VIAL_RAW_EPSIZE;
+            uint32_t end = start + VIAL_RAW_EPSIZE;
             if (end < start || start >= sizeof(keyboard_definition))
                 return;
             if (end > sizeof(keyboard_definition))
