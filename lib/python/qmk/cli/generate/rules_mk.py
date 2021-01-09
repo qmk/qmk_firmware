@@ -37,26 +37,26 @@ def generate_rules_mk(cli):
 
     # Bring in settings
     for info_key, rule_key in info_to_rules.items():
-        rules_mk_lines.append(f'{rule_key} := {kb_info_json[info_key]}')
+        rules_mk_lines.append(f'{rule_key} ?= {kb_info_json[info_key]}')
 
     # Find features that should be enabled
     if 'features' in kb_info_json:
         for feature, enabled in kb_info_json['features'].items():
             if feature == 'bootmagic_lite' and enabled:
-                rules_mk_lines.append('BOOTMAGIC_ENABLE := lite')
+                rules_mk_lines.append('BOOTMAGIC_ENABLE ?= lite')
             else:
                 feature = feature.upper()
                 enabled = 'yes' if enabled else 'no'
-                rules_mk_lines.append(f'{feature}_ENABLE := {enabled}')
+                rules_mk_lines.append(f'{feature}_ENABLE ?= {enabled}')
 
     # Set the LED driver
     if 'led_matrix' in kb_info_json and 'driver' in kb_info_json['led_matrix']:
         driver = kb_info_json['led_matrix']['driver']
-        rules_mk_lines.append(f'LED_MATRIX_DRIVER = {driver}')
+        rules_mk_lines.append(f'LED_MATRIX_DRIVER ?= {driver}')
 
     # Add community layouts
     if 'community_layouts' in kb_info_json:
-        rules_mk_lines.append(f'LAYOUTS = {" ".join(kb_info_json["community_layouts"])}')
+        rules_mk_lines.append(f'LAYOUTS ?= {" ".join(kb_info_json["community_layouts"])}')
 
     # Show the results
     rules_mk = '\n'.join(rules_mk_lines) + '\n'
