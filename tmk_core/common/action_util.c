@@ -26,9 +26,11 @@ extern keymap_config_t keymap_config;
 
 static uint8_t real_mods  = 0;
 static uint8_t weak_mods  = 0;
-static uint8_t weak_override_mods  = 0;
 static uint8_t macro_mods = 0;
-static uint8_t suppressed_mods = 0;
+#ifdef KEY_OVERRIDE_ENABLE
+static uint8_t weak_override_mods = 0;
+static uint8_t suppressed_mods    = 0;
+#endif
 
 #ifdef USB_6KRO_ENABLE
 #    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
@@ -248,9 +250,11 @@ void send_keyboard_report(void) {
 
 #endif
 
+#ifdef KEY_OVERRIDE_ENABLE
     // These need to be last to be able to properly control key overrides
     keyboard_report->mods &= ~suppressed_mods;
     keyboard_report->mods |= weak_override_mods;
+#endif
 
     host_keyboard_send(keyboard_report);
 }
@@ -307,6 +311,7 @@ void set_weak_mods(uint8_t mods) { weak_mods = mods; }
  */
 void clear_weak_mods(void) { weak_mods = 0; }
 
+#ifdef KEY_OVERRIDE_ENABLE
 /** \brief set weak mods used by key overrides. DO not call this manually
  */
 void set_weak_override_mods(uint8_t mods) { weak_override_mods = mods; }
@@ -320,6 +325,7 @@ void set_suppressed_override_mods(uint8_t mods) { suppressed_mods = mods; }
 /** \brief clear suppressed mods used by key overrides. DO not call this manually
  */
 void clear_suppressed_override_mods(void) { suppressed_mods = 0; }
+#endif
 
 /* macro modifier */
 /** \brief get macro mods
