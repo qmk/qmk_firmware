@@ -31,7 +31,7 @@ OLEDが有効な場合には左側のOLEDには、
 
 ファームウェアのコンパイル、書き込みは以下のコマンドです。
 
-```make crkbd/rev1/common:naginata_v13:flash```
+```make crkbd/rev1/common:naginata_v13u:flash```
 
 ## キーボードの切り替え操作
 
