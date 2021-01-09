@@ -14,6 +14,17 @@ import qmk.keymap
 from qmk.constants import KEYBOARD_OUTPUT_PREFIX
 
 
+def _find_make():
+    """Returns the correct make command for this environment.
+    """
+    make_cmd = os.environ.get('MAKE')
+
+    if not make_cmd:
+        make_cmd = 'gmake' if shutil.which('gmake') else 'make'
+
+    return make_cmd
+
+
 def create_make_command(keyboard, keymap, target=None, **env_vars):
     """Create a make compile command
 
@@ -37,7 +48,7 @@ def create_make_command(keyboard, keymap, target=None, **env_vars):
     """
     env = []
     make_args = [keyboard, keymap]
-    make_cmd = 'gmake' if shutil.which('gmake') else 'make'
+    make_cmd = _find_make()
 
     if target:
         make_args.append(target)
@@ -79,7 +90,7 @@ def compile_configurator_json(user_keymap, **env_vars):
     verbose = 'true' if cli.config.general.verbose else 'false'
     color = 'true' if cli.config.general.color else 'false'
     make_command = [
-        'make',
+        _find_make(),
         '-r',
         '-R',
         '-f',
