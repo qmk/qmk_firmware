@@ -673,6 +673,10 @@ def merge_info_jsons(keyboard, info_data):
             cli.log.error('\t%s: %s', json_path, e.message)
             continue
 
+        # Mark the layouts as coming from json
+        for layout in new_info_data.get('layouts', {}).values():
+            layout['c_macro'] = False
+
         # Update info_data with the new data
         deep_update(info_data, new_info_data)
 
