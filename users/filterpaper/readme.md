@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Common user space code for a few custom keyboards. See https://docs.qmk.fm/#/feature_userspace?id=userspace-sharing-code-between-keymaps for more details.
 ## File list
-* `config.h`: Self-explainatory QMK configuration options
-* `rules.mk`: Makefile rules with common and keyboard specific features
-* `keyboard.c`: Common keyboard code and RGB specific functions
-* `oled.c`: Corne split keyboard OLED code with bongo cat
+* `config.h`	Self-explainatory QMK configuration options
+* `rules.mk`	Makefile rules for common and keyboard-specific features
+* `keyboard.c`	Common keyboard code and RGB specific functions
+* `oled.c`		Corne split keyboard OLED code with bongo cat
