@@ -7,6 +7,7 @@ from qmk.info import info_json
 from qmk.path import is_keyboard, normpath
 
 info_to_rules = {
+    'board': 'BOARD',
     'bootloader': 'BOOTLOADER',
     'processor': 'MCU',
 }

@@ -462,7 +462,7 @@ def _extract_rules_mk(info_data):
     """Pull some keyboard information from existing rules.mk files
     """
     rules = rules_mk(info_data['keyboard_folder'])
-    mcu = rules.get('MCU')
+    mcu = rules.get('MCU', info_data.get('processor'))
 
     if mcu in CHIBIOS_PROCESSORS:
         arm_processor_rules(info_data, rules)
@@ -593,6 +593,12 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = rules['MCU_SERIES']
     elif 'ARM_ATSAM' in rules:
         info_data['platform'] = 'ARM_ATSAM'
+
+    if 'BOARD' in rules:
+        if 'board' in info_data:
+            _log_warning(info_data, 'Board is specified in both info.json and rules.mk, the rules.mk value wins.')
+
+        info_data['board'] = rules['BOARD']
 
     return info_data
 
