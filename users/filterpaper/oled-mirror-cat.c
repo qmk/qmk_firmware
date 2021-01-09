@@ -1,3 +1,10 @@
+/* This includes bongo cat animation that is correctly mirrored
+   for both sides of the OLED, but at the expense of storage.
+   WPM feature must be disabled with WPM_ENABLE = no
+   Code does not work correctly because keystrokes are not
+   sent to the secondary controller without proper transport.
+*/
+
 // OLED information display and bongo cat
 #ifdef OLED_DRIVER_ENABLE
 // OLED setup

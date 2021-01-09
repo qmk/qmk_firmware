@@ -1,3 +1,8 @@
+/* This contains graphical mod display on the primary status side, copied from
+   https://github.com/qmk/qmk_firmware/tree/master/keyboards/crkbd/keymaps/soundmonster
+   Graphical mod icons are currently not displaying correctly on the OLED
+*/
+
 // OLED mod display and bongo cat
 #ifdef OLED_DRIVER_ENABLE
 // Animation frame defaults

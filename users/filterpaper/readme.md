@@ -32,7 +32,7 @@ qmk compile -kb kbdfans/kbd67/mkiirgb/v2 -km filterpaper
 ```
 
 ### Split keyboard
-Corne is configured with EE_HANDS so the controller will check EEPROM values to know which side its on. 
+Corne is configured with EE_HANDS so the controller will check EEPROM values to know which side its on, and USB-C can be connected to either side.
 These are the one time flash commands to write left and right side setting into the Elite-C EEPROM:
 ```
 make crkbd/rev1/common:filterpaper:dfu-split-left

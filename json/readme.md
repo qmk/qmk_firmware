@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Custom layout files for the QMK Configurator
 [https://config.qmk.fm/#/](https://config.qmk.fm/#/)
 
-## Updating files
+## keymap.c update shortcuts
 ```
 qmk json2c ~/qmk_firmware/json/corne.json > ~/qmk_firmware/keyboards/crkbd/keymaps/filterpaper/keymap.c
 qmk json2c ~/qmk_firmware/json/bm40.json > ~/qmk_firmware/keyboards/bm40hsrgb/keymaps/filterpaper/keymap.c
@@ -27,8 +27,8 @@ qmk json2c ~/qmk_firmware/json/d65-cole.json > ~/qmk_firmware/keyboards/kbdfans/
 qmk json2c ~/qmk_firmware/json/mark65.json > ~/qmk_firmware/keyboards/boardsource/the_mark/keymaps/filterpaper/keymap.c
 ```
 
-## Git cheatsheet
-### Syncing with upstream
+# Git cheatsheet
+## Syncing with upstream
 1. One time setup original as remote "upstream"
 `git remote add upstream https://github.com/qmk/qmk_firmware.git`
 1. Fetch updated original as "upstream"
@@ -40,7 +40,7 @@ qmk json2c ~/qmk_firmware/json/mark65.json > ~/qmk_firmware/keyboards/boardsourc
 1. Push master changes back to own fork
 `git push -f origin master`
 
-### Commit new changes
+## Commit new changes
 ```
 git commit -a -m ""
 git push
