@@ -38,7 +38,8 @@ def generate_rules_mk(cli):
 
     # Bring in settings
     for info_key, rule_key in info_to_rules.items():
-        rules_mk_lines.append(f'{rule_key} ?= {kb_info_json[info_key]}')
+        if info_key in kb_info_json:
+            rules_mk_lines.append(f'{rule_key} ?= {kb_info_json[info_key]}')
 
     # Find features that should be enabled
     if 'features' in kb_info_json:
