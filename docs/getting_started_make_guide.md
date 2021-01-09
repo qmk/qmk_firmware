@@ -20,7 +20,7 @@ The `<target>` means the following
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
 * `distclean` removes .hex files and .bin files.
 
-The following `<target>` are for developers.
+The following targets are for developers:
 
 * `show-path` shows the path of the source and object files.
 * `dump-vars` dumps the makefile variable.
