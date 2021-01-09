@@ -15,14 +15,14 @@
  */
 
 /* This includes bongo cat animation that is correctly mirrored
-   for both sides of the OLED, but at the expense of storage.
+   for OLED on both sides, at the expense of storage.
 
    Animation is rendered on primary USB side because key strokes
    are not transmitted to the secondary controller without the
    transport code found inside the WPM function.
  
-   If the compiled firmware is too big turn off WPM with
-   "WPM_ENABLE = no" in rules.mk to save space. 
+   If the compiled firmware is too big, turn off features like
+   WPM, Leader Key or Extra Keys in rules.mk
 */
 
 // OLED information display and bongo cat

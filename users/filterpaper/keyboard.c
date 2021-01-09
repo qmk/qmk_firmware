@@ -25,9 +25,9 @@ enum layers {
   _NAVI,
 };
 
-#ifdef OLED_DRIVER_ENABLE
-#include "oled.c" 	// Primary status with secondary bongo cat
-// #include "oled-mirror-cat.c"	// Primary mirrored bongo cat with secondary logo
+#ifdef OLED_DRIVER_ENABLE		// Include only one of the following OLED feature
+#include "oled-info-cat.c"		// Primary status with secondary bongo cat
+//#include "oled-mirror-cat.c"	// Primary mirrored bongo cat with secondary logo
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

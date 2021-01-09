@@ -14,6 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* This includes layer and WPM display on the primary OLED
+   and animated bongo cat on secondary that reacts to typing.
+
+   WPM function has transport code to send data over to the
+   secondary controller, allowing the animation to read words
+   per minute number.
+
+   Bongo cat is aligned for right side OLED.
+ */
+
 // OLED information display and bongo cat for corne
 #ifdef OLED_DRIVER_ENABLE
 // Animation frame defaults
