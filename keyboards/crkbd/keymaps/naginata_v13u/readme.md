@@ -39,15 +39,15 @@ OLEDが有効な場合には左側のOLEDには、
 設定内容はEEPROMに記録されるので、
 キーボードを取り外しても設定は保存されています。
 
-| 設定項目 | 設定 | キー | キーコード | 
-|---|---|---|---|
-| OS切り替え            | Windows  | Raise + Q  | NGSW_WIN  | 
-|                       | MacOS    | Raise + A  | NGSW_MAC  | 
-|                       | Linux    | Raise + Z  | NGSW_LNX  | 
-| MacOSのライブ変換対応 | ON/OFFトグル   | Raise + Tab  | NG_MLV   | 
-| 縦書き、横書き        | ON/OFFトグル   | Raise + Control  | NG_TAYO    | 
-| 後置シフト            | ON/OFFトグル   | Raise + Escape  | NG_KOTI  | 
-| 現在設定の出力        |   | Raise + W  | NG_SHOS   | 
+| 設定項目 | 設定 | キー | キーコード | 関数呼び出し | 
+|---|---|---|---|---|
+| OS切り替え            | Windows  | Raise + Q  | NGSW_WIN  | switchOS(NG_WIN)  | 
+|                       | MacOS    | Raise + A  | NGSW_MAC  | switchOS(NG_MAC)  | 
+|                       | Linux    | Raise + Z  | NGSW_LNX  | switchOS(NG_LNX)  | 
+| MacOSのライブ変換対応 | ON/OFFトグル   | Raise + Tab  | NG_MLV   | mac_live_conversion_toggle()  | 
+| 縦書き、横書き        | ON/OFFトグル   | Raise + Control  | NG_TAYO    | tategaki_toggle()  | 
+| 後置シフト            | ON/OFFトグル   | Raise + Escape  | NG_KOTI  | kouchi_shift_toggle()  | 
+| 現在設定の出力        |   | Raise + W  | NG_SHOS   | ng_show_os()  | 
 
 本家のDvorakJ版薙刀式は前置シフトですが、
 後置シフトも有効にできます。
