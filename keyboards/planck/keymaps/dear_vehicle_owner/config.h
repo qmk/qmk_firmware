@@ -37,3 +37,5 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
+//switch polling rate to 1000 per second
+#define USB_POLLING_INTERVAL_MS 1
