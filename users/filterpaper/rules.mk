@@ -37,6 +37,7 @@ ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
 	WPM_ENABLE = yes
 	SPLIT_KEYBOARD = yes
 	OLED_DRIVER_ENABLE = yes
+	MOUSEKEY_ENABLE = yes
 endif
 
 # Common keyboard codes

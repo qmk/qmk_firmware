@@ -37,7 +37,6 @@
 #define ANIM_FRAME_DURATION 200
 #define ANIM_SIZE 512
 
-char wpm_str[10];
 uint8_t prev_wpm = 0;
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;

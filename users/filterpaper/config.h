@@ -22,6 +22,14 @@
 #define LEADER_TIMEOUT 500
 #define LEADER_PER_KEY_TIMING
 
+#ifdef MOUSEKEY_ENABLE
+#	define MOUSEKEY_DELAY 0
+#	define MOUSEKEY_MAX_SPEED 7
+#	define MOUSEKEY_INTERVAL 16
+#	define MOUSEKEY_TIME_TO_MAX 50
+#	define MOUSEKEY_WHEEL_DELAY 0
+#endif
+
 #if defined(KEYBOARD_crkbd)
 #	define EE_HANDS
 #	define OLED_TIMEOUT 5000
