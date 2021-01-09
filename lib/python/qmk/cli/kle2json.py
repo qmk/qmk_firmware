@@ -140,7 +140,7 @@ def kle2json(cli):
     keyboard_dir.mkdir(exist_ok=True, parents=True)
     info_json_file = keyboard_dir / 'info.json'
 
-    json.dump(kb_info_json, info_json_file.open('w'), indent=4, separators=(', ', ': '), sort_keys=False, cls=InfoJSONEncoder)
+    json.dump(kb_info_json, info_json_file.open('w', newline='\n'), indent=4, separators=(', ', ': '), sort_keys=False, cls=InfoJSONEncoder)
     cli.log.info('Wrote file {fg_cyan}%s', info_json_file)
 
     # Generate and write a keymap
@@ -165,5 +165,5 @@ def kle2json(cli):
         }
         keymap_path.mkdir(exist_ok=True, parents=True)
 
-        json.dump(keymap_json, keymap_file.open('w'), indent=4, separators=(', ', ': '), sort_keys=False)
+        json.dump(keymap_json, keymap_file.open('w', newline='\n'), indent=4, separators=(', ', ': '), sort_keys=False)
         cli.log.info('Wrote file %s', keymap_file)

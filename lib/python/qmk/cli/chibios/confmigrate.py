@@ -145,17 +145,17 @@ def chibios_confmigrate(cli):
         if "CHCONF_H" in input_defs["dict"] or "_CHCONF_H_" in input_defs["dict"]:
             migrate_chconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
-                with open(cli.args.input, "w") as out_file:
+                with open(cli.args.input, "w", newline='\n') as out_file:
                     migrate_chconf_h(to_override, outfile=out_file)
 
         elif "HALCONF_H" in input_defs["dict"] or "_HALCONF_H_" in input_defs["dict"]:
             migrate_halconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
-                with open(cli.args.input, "w") as out_file:
+                with open(cli.args.input, "w", newline='\n') as out_file:
                     migrate_halconf_h(to_override, outfile=out_file)
 
         elif "MCUCONF_H" in input_defs["dict"] or "_MCUCONF_H_" in input_defs["dict"]:
             migrate_mcuconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
-                with open(cli.args.input, "w") as out_file:
+                with open(cli.args.input, "w", newline='\n') as out_file:
                     migrate_mcuconf_h(to_override, outfile=out_file)
