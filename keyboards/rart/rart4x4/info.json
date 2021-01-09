@@ -1,32 +1,32 @@
 {
-  "keyboard_name": "RART4X4",
-  "url": "",
-  "maintainer": "Alabahuy",
-  "width": 4,
-  "height": 4,
-  "layouts": {
-      "LAYOUT_ortho_4x4": {
+    "keyboard_name": "RART4X4",
+    "url": "",
+    "maintainer": "Alabahuy",
+    "width": 4,
+    "height": 4,
+    "layouts": {
+        "LAYOUT_ortho_4x4": {
             "layout": [
-                {"label": "Numlock", "x": 0, "y": 0},
-                {"label": "/", "x": 1, "y": 0},
-                {"label": "*", "x": 2, "y": 0},
-                {"label": "-", "x": 3, "y": 0},
-                
-                {"label": "7", "x": 0, "y": 1},
-                {"label": "8", "x": 1, "y": 1},
-                {"label": "9", "x": 2, "y": 1},
-                {"label": "=", "x": 3, "y": 1},
-                
-                {"label": "4", "x": 0, "y": 2},
-                {"label": "5", "x": 1, "y": 2},
-                {"label": "6", "x": 2, "y": 2},
-                {"label": "+", "x": 3, "y": 2},
-                
-                {"label": "1", "x": 0, "y": 3},
-                {"label": "2", "x": 1, "y": 3},
-                {"label": "3", "x": 2, "y": 3},
-                {"label": "Esc", "x": 3, "y": 3},
+                {"x": 0, "y": 0},
+                {"x": 1, "y": 0},
+                {"x": 2, "y": 0},
+                {"x": 3, "y": 0},
+
+                {"x": 0, "y": 1},
+                {"x": 1, "y": 1},
+                {"x": 2, "y": 1},
+                {"x": 3, "y": 1},
+
+                {"x": 0, "y": 2},
+                {"x": 1, "y": 2},
+                {"x": 2, "y": 2},
+                {"x": 3, "y": 2},
+
+                {"x": 0, "y": 3},
+                {"x": 1, "y": 3},
+                {"x": 2, "y": 3},
+                {"x": 3, "y": 3}
             ]
-      }
-  }
+        }
+    }
 }

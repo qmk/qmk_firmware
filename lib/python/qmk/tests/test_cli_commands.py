@@ -8,8 +8,17 @@ is_windows = 'windows' in platform.platform().lower()
 
 
 def check_subcommand(command, *args):
-    cmd = ['bin/qmk', command] + list(args)
+    cmd = ['bin/qmk', command, *args]
     result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+    return result
+
+
+def check_subcommand_stdin(file_to_read, command, *args):
+    """Pipe content of a file to a command and return output.
+    """
+    with open(file_to_read) as my_file:
+        cmd = ['bin/qmk', command, *args]
+        result = run(cmd, stdin=my_file, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
 
 
@@ -29,17 +38,17 @@ def test_cformat():
 
 
 def test_compile():
-    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-n')
+    result = check_subcommand('compile', '-kb', 'handwired/pytest/basic', '-km', 'default', '-n')
     check_returncode(result)
 
 
 def test_compile_json():
-    result = check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json', '-n')
+    result = check_subcommand('compile', '-kb', 'handwired/pytest/basic', '-km', 'default_json', '-n')
     check_returncode(result)
 
 
 def test_flash():
-    result = check_subcommand('flash', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-n')
+    result = check_subcommand('flash', '-kb', 'handwired/pytest/basic', '-km', 'default', '-n')
     check_returncode(result)
 
 
@@ -83,20 +92,26 @@ def test_list_keyboards():
     result = check_subcommand('list-keyboards')
     check_returncode(result)
     # check to see if a known keyboard is returned
-    # this will fail if handwired/onekey/pytest is removed
-    assert 'handwired/onekey/pytest' in result.stdout
+    # this will fail if handwired/pytest/basic is removed
+    assert 'handwired/pytest/basic' in result.stdout
 
 
 def test_list_keymaps():
-    result = check_subcommand('list-keymaps', '-kb', 'handwired/onekey/pytest')
+    result = check_subcommand('list-keymaps', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'default' and 'test' in result.stdout
+    assert 'default' and 'default_json' in result.stdout
 
 
 def test_list_keymaps_long():
-    result = check_subcommand('list-keymaps', '--keyboard', 'handwired/onekey/pytest')
+    result = check_subcommand('list-keymaps', '--keyboard', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'default' and 'test' in result.stdout
+    assert 'default' and 'default_json' in result.stdout
+
+
+def test_list_keymaps_community():
+    result = check_subcommand('list-keymaps', '--keyboard', 'handwired/pytest/has_community')
+    check_returncode(result)
+    assert 'test' in result.stdout
 
 
 def test_list_keymaps_kb_only():
@@ -124,34 +139,40 @@ def test_list_keymaps_no_keyboard_found():
 
 
 def test_json2c():
-    result = check_subcommand('json2c', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json')
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json')
+    check_returncode(result)
+    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+
+
+def test_json2c_stdin():
+    result = check_subcommand_stdin('keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json', 'json2c', '-')
     check_returncode(result)
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
 
 
 def test_info():
-    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest')
+    result = check_subcommand('info', '-kb', 'handwired/pytest/basic')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
-    assert 'Processor: STM32F303' in result.stdout
+    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Processor: atmega32u4' in result.stdout
     assert 'Layout:' not in result.stdout
     assert 'k0' not in result.stdout
 
 
 def test_info_keyboard_render():
-    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest', '-l')
+    result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-l')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
-    assert 'Processor: STM32F303' in result.stdout
+    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Processor: atmega32u4' in result.stdout
     assert 'Layouts:' in result.stdout
     assert 'k0' in result.stdout
 
 
 def test_info_keymap_render():
-    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest', '-km', 'default_json')
+    result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-km', 'default_json')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
-    assert 'Processor: STM32F303' in result.stdout
+    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Processor: atmega32u4' in result.stdout
 
     if is_windows:
         assert '|A |' in result.stdout
@@ -160,10 +181,10 @@ def test_info_keymap_render():
 
 
 def test_info_matrix_render():
-    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest', '-m')
+    result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-m')
     check_returncode(result)
-    assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
-    assert 'Processor: STM32F303' in result.stdout
+    assert 'Keyboard Name: handwired/pytest/basic' in result.stdout
+    assert 'Processor: atmega32u4' in result.stdout
     assert 'LAYOUT_ortho_1x1' in result.stdout
 
     if is_windows:
@@ -175,15 +196,27 @@ def test_info_matrix_render():
 
 
 def test_c2json():
-    result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/default/keymap.c")
+    result = check_subcommand("c2json", "-kb", "handwired/pytest/has_template", "-km", "default", "keyboards/handwired/pytest/has_template/keymaps/default/keymap.c")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
 
 
 def test_c2json_nocpp():
-    result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "-km", "default", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
+    result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/pytest/has_template", "-km", "default", "keyboards/handwired/pytest/has_template/keymaps/nocpp/keymap.c")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+
+
+def test_c2json_stdin():
+    result = check_subcommand_stdin("keyboards/handwired/pytest/has_template/keymaps/default/keymap.c", "c2json", "-kb", "handwired/pytest/has_template", "-km", "default", "-")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+
+
+def test_c2json_nocpp_stdin():
+    result = check_subcommand_stdin("keyboards/handwired/pytest/has_template/keymaps/nocpp/keymap.c", "c2json", "--no-cpp", "-kb", "handwired/pytest/has_template", "-km", "default", "-")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
 
 
 def test_clean():

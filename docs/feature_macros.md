@@ -209,7 +209,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
 
-?> You can also use the functions described in [Useful function](ref_functions.md) for additional functionality. For example `reset_keyboard()` allows you to reset the keyboard as part of a macro.
+?> You can also use the functions described in [Useful functions](ref_functions.md) for additional functionality. For example `reset_keyboard()` allows you to reset the keyboard as part of a macro.
 
 ### `record->event.pressed`
 
