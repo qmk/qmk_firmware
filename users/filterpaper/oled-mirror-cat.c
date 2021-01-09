@@ -21,7 +21,7 @@
    are not transmitted to the secondary controller without the
    transport code found inside the WPM function.
  
-   WPM feature is not used and should be disabled with 
+   If the compiled firmware is too big turn off WPM with
    "WPM_ENABLE = no" in rules.mk to save space. 
 */
 
@@ -35,6 +35,9 @@
 #define ANIM_FRAME_DURATION 200
 #define ANIM_SIZE 512
 
+#ifdef WPM_ENABLE
+char wpm_str[10];
+#endif
 bool typing = false;
 bool animation_stopped = true;
 uint32_t typing_timer = 0;
@@ -56,9 +59,17 @@ void render_logo(void) {
 		0x80, 0x81, 0x82, 0x83, 0x84,
 		0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
 		0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0};
-	oled_write_P(PSTR("\n\n\n\n\n"), false);
+
+	oled_write_P(PSTR("\n\n\n"), false);
 	oled_write_P(corne_logo, false);
 	oled_write_P(PSTR("corne"), false);
+
+	// Display simple WPM count
+	#ifdef WPM_ENABLE
+	oled_write_P(PSTR("\n\n WPM\n\n"), false);
+	sprintf(wpm_str, " %03d", get_current_wpm());
+	oled_write(wpm_str, false);
+	#endif
 }
 
 // Render bongo cat OLED animation
