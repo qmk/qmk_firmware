@@ -243,16 +243,29 @@ static void calc_bounds(uint8_t update_start, uint8_t *cmd_array) {
     cmd_array[1] = start_column + OLED_COLUMN_OFFSET;
     cmd_array[4] = start_page;
     cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) % OLED_DISPLAY_WIDTH + cmd_array[1];
-    cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) / OLED_DISPLAY_WIDTH - 1;
+    cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) / OLED_DISPLAY_WIDTH - 1 + cmd_array[4];
 #endif
 }
 
 static void calc_bounds_90(uint8_t update_start, uint8_t *cmd_array) {
+    // Block numbering starts from the bottom left corner, going up and then to
+    // the right.  The controller needs the page and column numbers for the top
+    // left and bottom right corners of that block.
+
+    // Total number of pages across the screen height.
+    const uint8_t height_in_pages = OLED_DISPLAY_HEIGHT / 8;
+
+    // Difference of starting page numbers for adjacent blocks; may be 0 if
+    // blocks are large enough to occupy one or more whole 8px columns.
+    const uint8_t page_inc_per_block = OLED_BLOCK_SIZE % OLED_DISPLAY_HEIGHT / 8;
+
+    // Top page number for a block which is at the bottom edge of the screen.
+    const uint8_t bottom_block_top_page = (height_in_pages - page_inc_per_block) % height_in_pages;
+
     cmd_array[1] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8 + OLED_COLUMN_OFFSET;
-    cmd_array[4] = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT;
+    cmd_array[4] = bottom_block_top_page - (OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT / 8);
     cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8 - 1 + cmd_array[1];
-    ;
-    cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) % OLED_DISPLAY_HEIGHT / 8;
+    cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) % OLED_DISPLAY_HEIGHT / 8 + cmd_array[4];
 }
 
 uint8_t crot(uint8_t a, int8_t n) {
