@@ -148,7 +148,7 @@ typedef struct {
 // UNICODE
 typedef struct {
   uint32_t key;
-  char win[6];
+  char win[7];
   char mac[15];
 } naginata_keymap_unicode;
 
@@ -758,7 +758,7 @@ void ng_show_os(void) {
       }
       break;
     case NG_LINUX:
-      send_string("lnx");
+      send_string("linux");
       break;
   }
   if (user_config.tategaki) {
@@ -782,9 +782,9 @@ void mac_send_string(const char *str) {
 void ng_send_unicode_string(const char *str) {
   switch (user_config.os) {
     case NG_LINUX:
-      tap_code(KC_MHEN); // Win
+      tap_code(KC_MHEN);
       send_unicode_string(str);
-      tap_code(KC_HENK); // Win
+      tap_code(KC_HENK);
       break;
     case NG_WIN:
     case NG_MAC:
@@ -905,7 +905,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         break;
     }
   }
-  
+
   if (!is_naginata)
     // return true;
     return enable_naginata(keycode, record);
