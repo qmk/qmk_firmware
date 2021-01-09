@@ -1,66 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#ifdef RGB_MATRIX_ENABLE
-// Set default RGB effect
-// void matrix_init_user(void) { rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH); }
-
-uint32_t layer_state_set_user(uint32_t state) {
-	switch (biton32(default_layer_state)) {
-	case 1: // Reactive key effects for Colemak layer
-		rgb_matrix_enable_noeeprom();
-		rgb_matrix_sethsv_noeeprom(HSV_WHITE);
-		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
-		break;
-	default: // Off matrix lights if no CAPS lock
-		if (!(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) rgb_matrix_disable_noeeprom();
-		break;
-	}
-	// Layer key effect colours
-	switch (biton32(state)) {
-	case 4: // Both Raise and Lower
-		rgb_matrix_enable_noeeprom();
-		rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
-		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
-		break;
-	case 3: // Raise
-		rgb_matrix_enable_noeeprom();
-		rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
-		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
-		break;
-	case 2: // Lower
-		rgb_matrix_enable_noeeprom();
-		rgb_matrix_sethsv_noeeprom(HSV_BLUE);
-		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
-		break;
-	}
-	return state;
-}
-
-void rgb_matrix_indicators_user(void) {
-	// Light up held layer keys
-	#if defined(KEYBOARD_bm40hsrgb)
-	switch (get_highest_layer(layer_state)) {
-	case 4: // Purple on both Keys
-		rgb_matrix_set_color(40, 255, 0, 255);
-		rgb_matrix_set_color(42, 255, 0, 255);
-		break;
-	case 3: // Yellow raise key
-		rgb_matrix_set_color(42, 255, 255, 0);
-		break;
-	case 2: // Blue lower key
-		rgb_matrix_set_color(40, 0, 0, 255);
-		break;
-	default: // Off
-		rgb_matrix_set_color(40, 0, 0, 0);
-		rgb_matrix_set_color(42, 0, 0, 0);
-		break;
-	}
-	#endif // defined(KEYBOARD_bm40hsrgb)
-	// Light all for CAPS lock
-	if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) rgb_matrix_set_color_all(255, 0, 0);
-}
-#endif // RGB_MATRIX_ENABLE
-
 // OLED information display and bongo cat
 #ifdef OLED_DRIVER_ENABLE
 // OLED setup
@@ -276,46 +215,6 @@ void oled_task_user(void) {
 
 void suspend_power_down_user(void) { oled_off(); }
 #endif // OLED_DRIVER_ENABLE
-
-#ifdef LEADER_ENABLE
-LEADER_EXTERNS();
-#endif
-
-void matrix_scan_user(void) {
-
-	// Leader key macros
-	#ifdef LEADER_ENABLE
-	LEADER_DICTIONARY() {
-		leading = false;
-		leader_end();
-		SEQ_ONE_KEY(KC_P) { SEND_STRING("()"); }
-		SEQ_ONE_KEY(KC_B) { SEND_STRING("{}"); }
-		SEQ_ONE_KEY(KC_Q) { SEND_STRING(":q!"); }
-		SEQ_ONE_KEY(KC_W) { SEND_STRING(":wq"); }
-		SEQ_TWO_KEYS(KC_W,KC_W) { SEND_STRING("ZZ"); }
-	}
-	#endif
-
-	// Unset typing flag to stop animation
-/*	#ifdef OLED_DRIVER_ENABLE
-	if (!typing_timer || timer_elapsed32(typing_timer) > 500) {
-		typing = false;
-		animation_stopped = true;
-		if (!typing_timer) typing_timer = timer_read32();
-	}
-	#endif */
-
-}
-
-// Enable leader key light effects
-#if defined(RGB_MATRIX_ENABLE) && defined(LEADER_ENABLE)
-void leader_start(void) {
-	rgb_matrix_enable_noeeprom();
-	rgb_matrix_sethsv_noeeprom(HSV_BLUE);
-	rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
-}
-void leader_end(void) { rgb_matrix_disable_noeeprom(); }
-#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
