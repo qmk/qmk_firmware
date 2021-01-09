@@ -12,6 +12,7 @@
 
 1. OSのキーボード設定を日本語106キーボードにする。
 2. Windowsの場合は[WinCompose](http://wincompose.info/)をインストールする。
+3. MacOSの場合は、ユーザー辞書にnaginata_dictionary.plistを登録する。
 
 ## QMKファームウェアの設定
 
@@ -39,8 +40,6 @@ OLEDが有効な場合には左側のOLEDには、
 | 後置シフトの切り替え            | ON/OFFトグル   | Raise + Escape  | NG_KOTI  | 
 | 現在設定の出力                  |   | Raise + W  | NG_SHOS   | 
 
-
-  
 ## 薙刀式とは
 
 【薙刀式】v13完成版、発表。
