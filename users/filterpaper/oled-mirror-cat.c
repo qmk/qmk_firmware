@@ -16,9 +16,13 @@
 
 /* This includes bongo cat animation that is correctly mirrored
    for both sides of the OLED, but at the expense of storage.
-   WPM feature must be disabled with WPM_ENABLE = no
-   Code does not work correctly because keystrokes are not
-   sent to the secondary controller without proper transport.
+
+   Animation is rendered on primary USB side because key strokes
+   are not transmitted to the secondary controller without the
+   transport code found inside the WPM function.
+ 
+   WPM feature is not used and should be disabled with 
+   "WPM_ENABLE = no" in rules.mk to save space. 
 */
 
 // OLED information display and bongo cat
@@ -41,47 +45,26 @@ uint8_t current_tap_frame = 0;
 static long int oled_timeout = 5000;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	// if (!is_keyboard_master()) return OLED_ROTATION_270;
-	if (is_keyboard_left()) return OLED_ROTATION_0;
+	if (!is_keyboard_master()) return OLED_ROTATION_270;
+	else if (is_keyboard_left()) return OLED_ROTATION_0;
 	else return OLED_ROTATION_180;
 }
 
-// Render status OLED display information
-static void render_status(void) { // Layout and layer indicator
-	oled_write_P(PSTR("KEYS\n"), false);
-	// Default layouts
-	switch (biton32(default_layer_state)) {
-	// Layer 1
-	case 1:
-		oled_write_P(PSTR("\nColmk"), false);
-		break;
-	// Layer 0
-	default:
-		oled_write_P(PSTR("\nQwert"), false);
-		break;
-	}
-	oled_write_P(PSTR("\n\nLAYER\n"), false);
-	// Shifted layers
-	switch (get_highest_layer(layer_state)) {
-	case 2:
-		oled_write_P(PSTR("Sym"), false);
-		break;
-	case 3:
-		oled_write_P(PSTR("Num"), false);
-		break;
-	case 4:
-		oled_write_P(PSTR("Nav"), false);
-		break;
-	default:
-		oled_write_P(PSTR("   "), false);
-		break;
-	}
+// Render static logo
+void render_logo(void) {
+	static const char PROGMEM corne_logo[] = {
+		0x80, 0x81, 0x82, 0x83, 0x84,
+		0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
+		0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0};
+	oled_write_P(PSTR("\n\n\n\n\n"), false);
+	oled_write_P(corne_logo, false);
+	oled_write_P(PSTR("corne"), false);
 }
 
-// Render cat OLED display animation
+// Render bongo cat OLED animation
 static void render_anim(void) {
 	// Idle animation
-	static const char PROGMEM Lidle[IDLE_FRAMES][ANIM_SIZE] = { // Left
+	static const char PROGMEM left_idle[IDLE_FRAMES][ANIM_SIZE] = { // Left
 		{
 			128,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,64,48,8,4,4,4,8,8,16,16,16,16,16,32,32,32,32,64,64,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 			0,0,0,1,1,1,1,2,2,2,2,4,4,4,4,4,8,8,8,8,8,16,16,16,16,32,32,32,32,64,64,64,64,128,128,128,128,0,0,0,128,64,32,16,8,4,194,193,193,192,0,48,48,0,128,0,0,0,0,0,0,0,0,0,128,128,0,0,0,0,1,2,2,2,2,2,130,100,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -142,7 +125,7 @@ static void render_anim(void) {
 	};
 
 	// Prep animation
-	static const char PROGMEM Lprep[][ANIM_SIZE] = { // Left
+	static const char PROGMEM left_prep[][ANIM_SIZE] = { // Left
 		{
 			128,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,64,48,12,2,1,1,2,4,8,16,16,16,16,32,32,32,32,64,64,128,0,0,0,0,0,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 			0,0,0,1,1,1,1,2,2,2,2,4,4,4,4,4,8,8,8,8,8,16,16,16,16,32,32,32,32,64,64,64,64,128,128,128,128,0,0,124,138,1,53,49,9,6,26,225,1,0,0,48,48,0,128,0,0,0,0,0,0,0,0,0,128,128,0,0,128,128,129,2,2,1,1,0,0,225,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -160,7 +143,7 @@ static void render_anim(void) {
 	};
 
 	// Typing animation
-	static const char PROGMEM Ltap[TAP_FRAMES][ANIM_SIZE] = { // Left
+	static const char PROGMEM left_tap[TAP_FRAMES][ANIM_SIZE] = { // Left
 		{
 			128,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,128,0,0,0,0,0,248,248,248,248,0,0,0,0,0,0,0,128,64,48,12,2,1,1,2,4,8,16,16,16,16,32,32,32,32,64,64,128,0,0,0,0,0,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 			0,0,0,1,1,1,1,2,2,2,2,4,4,4,4,4,8,8,8,8,8,16,16,16,16,32,32,32,32,76,79,95,95,159,190,188,184,0,1,7,135,67,32,16,8,4,2,1,1,0,0,48,48,0,128,0,0,0,0,0,0,0,0,0,128,128,0,0,128,128,129,2,2,1,1,0,0,225,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -192,19 +175,37 @@ static void render_anim(void) {
 	void animation_phase(void) {
 		if (!typing) {
 			current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
-			if (is_keyboard_left()) oled_write_raw_P(Lidle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
-			else oled_write_raw_P(idle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
+			if (is_keyboard_left()) {
+				oled_write_raw_P(left_idle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
+			} else {
+				oled_write_raw_P(idle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
+			}
+
 		} else if (typing && animation_stopped) {
-			if (is_keyboard_left()) oled_write_raw_P(Lprep[0], ANIM_SIZE);
-			else oled_write_raw_P(prep[0], ANIM_SIZE);
+			if (is_keyboard_left()) {
+				oled_write_raw_P(left_prep[0], ANIM_SIZE);
+			} else {
+				oled_write_raw_P(prep[0], ANIM_SIZE);
+			}
 			animation_stopped = false;
+
 		} else if (typing && !animation_stopped) {
 			current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
-			if (is_keyboard_left()) oled_write_raw_P(Ltap[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
-			else oled_write_raw_P(tap[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
+			if (is_keyboard_left()) {
+				oled_write_raw_P(left_tap[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
+			} else {
+				oled_write_raw_P(tap[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
+			}
 		}
 	}
 
+	// Stop animation on idle timer
+    if (timer_elapsed32(typing_timer) > 300) {
+    	typing = false;
+    	animation_stopped = true;
+    }
+
+	// Turn off OLEDs on timeout
     if (typing) {
         oled_on();
         if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
@@ -222,21 +223,21 @@ static void render_anim(void) {
         }
     }
 
-    if (timer_elapsed32(typing_timer) > 300) {
-    	typing = false;
-    	animation_stopped = true;
-    }
 }
 
 // OLED display rendering
 void oled_task_user(void) {
-	if (!is_keyboard_master()) render_status();
-	else render_anim();
+	if (!is_keyboard_master()) render_logo(); // Secondary side
+	else render_anim(); // USB side
 }
 
 void suspend_power_down_user(void) { oled_off(); }
 #endif // OLED_DRIVER_ENABLE
 
+/* If process_record_user() is called in a different file or
+   keymap.c, comment out the following and integrate the key
+   press detection in the main file.
+*/
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	// Set typing flag to start animation

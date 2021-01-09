@@ -32,7 +32,9 @@ https://docs.qmk.fm/#/newbs_git_using_your_master_branch
 
 ## Setup QMK repository as upstream
 One time setup of the original repository as a remote "upstream":
-`git remote add upstream https://github.com/qmk/qmk_firmware.git`
+```
+git remote add upstream https://github.com/qmk/qmk_firmware.git
+```
 
 ## Sync upstream to own fork
 ```
