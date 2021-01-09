@@ -21,3 +21,21 @@ Common user space code for a few custom keyboards. See https://docs.qmk.fm/#/fea
 * `rules.mk`	Makefile rules for common and keyboard-specific features
 * `keyboard.c`	Common keyboard code and RGB specific functions
 * `oled.c`		Corne split keyboard OLED code with bongo cat
+
+## Compile commands
+```
+qmk compile -kb the_mark -km filterpaper
+qmk compile -kb bm40hsrgb -km filterpaper
+qmk compile -kb planck/rev6 -km filterpaper
+qmk compile -kb crkbd/rev1/common -km filterpaper
+qmk compile -kb kbdfans/kbd67/mkiirgb/v2 -km filterpaper
+```
+
+### Split keyboard
+Corne is configured with EE_HANDS so the controller will check EEPROM values to know which side its on. 
+These are the one time flash commands to write left and right side setting into the Elite-C EEPROM:
+```
+make crkbd/rev1/common:filterpaper:dfu-split-left
+make crkbd/rev1/common:filterpaper:dfu-split-right
+```
+The same firmware can be flashed normally to both sides after this.

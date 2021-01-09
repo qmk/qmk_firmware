@@ -27,22 +27,6 @@ qmk json2c ~/qmk_firmware/json/d65-cole.json > ~/qmk_firmware/keyboards/kbdfans/
 qmk json2c ~/qmk_firmware/json/mark65.json > ~/qmk_firmware/keyboards/boardsource/the_mark/keymaps/filterpaper/keymap.c
 ```
 
-## Compile commands
-```
-qmk compile -kb crkbd/rev1/common -km filterpaper
-qmk compile -kb bm40hsrgb -km filterpaper
-qmk compile -kb planck/rev6 -km filterpaper
-qmk compile -kb kbdfans/kbd67/mkiirgb/v2 -km filterpaper
-qmk compile -kb the_mark -km filterpaper
-```
-
-## Split keyboard
-Flash left and ride side recognition for EE_HANDS
-```
-make crkbd/rev1/common:filterpaper:dfu-split-left
-make crkbd/rev1/common:filterpaper:dfu-split-right
-```
-
 ## Git cheatsheet
 ### Syncing with upstream
 1. One time setup original as remote "upstream"
