@@ -1,12 +1,25 @@
 #include QMK_KEYBOARD_H
 
+// Layer number reference
+enum layers {
+  _QWERTY = 0,
+  _COLEMAK,
+  _LOWER,
+  _RAISE,
+  _NAVI,
+};
+
+#ifdef OLED_DRIVER_ENABLE
+#   include "oled.c"
+#endif
+
 #ifdef RGB_MATRIX_ENABLE
 // Set default RGB effect
 // void matrix_init_user(void) { rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH); }
 
 uint32_t layer_state_set_user(uint32_t state) {
 	switch (biton32(default_layer_state)) {
-	case 1: // Reactive key effects on Colemak layer
+	case _COLEMAK: // Reactive key effects on Colemak layer
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_WHITE);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
@@ -17,17 +30,17 @@ uint32_t layer_state_set_user(uint32_t state) {
 	}
 	// Reactive key colour for layers
 	switch (biton32(state)) {
-	case 4: // Both Raise and Lower
+	case _NAVI:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
 		break;
-	case 3: // Raise
+	case _RAISE:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
 		break;
-	case 2: // Lower
+	case _LOWER:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_BLUE);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
@@ -40,17 +53,17 @@ void rgb_matrix_indicators_user(void) {
 	// Light up held layer keys
 	#if defined(KEYBOARD_bm40hsrgb)
 	switch (get_highest_layer(layer_state)) {
-	case 4: // Purple on both Keys
+	case _NAVI: // purple
 		rgb_matrix_set_color(40, 255, 0, 255);
 		rgb_matrix_set_color(42, 255, 0, 255);
 		break;
-	case 3: // Yellow raise key
+	case _RAISE: // yellow
 		rgb_matrix_set_color(42, 255, 255, 0);
 		break;
-	case 2: // Blue lower key
+	case _LOWER: // blue
 		rgb_matrix_set_color(40, 0, 0, 255);
 		break;
-	default: // Off
+	default: // off
 		rgb_matrix_set_color(40, 0, 0, 0);
 		rgb_matrix_set_color(42, 0, 0, 0);
 		break;
@@ -91,8 +104,8 @@ void matrix_scan_user(void) {
 	}
 }
 
-#ifdef RGB_MATRIX_ENABLE
 // Enable leader key light effects
+#ifdef RGB_MATRIX_ENABLE
 void leader_start(void) { // Leader key effect
 	rgb_matrix_enable_noeeprom();
 	rgb_matrix_sethsv_noeeprom(HSV_BLUE);

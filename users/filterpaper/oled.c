@@ -1,5 +1,3 @@
-#include QMK_KEYBOARD_H
-
 // OLED information display and bongo cat for corne
 #ifdef OLED_DRIVER_ENABLE
 // Animation frame defaults
@@ -36,7 +34,7 @@ static void render_status(void) {
 	oled_write_P(PSTR("\n\n\nKEYS\n"), false);
 	// Default layouts
 	switch (biton32(default_layer_state)) {
-	case 1:
+	case _COLEMAK:
 		oled_write_P(PSTR("\nColmk"), false);
 		break;
 	default:
@@ -47,13 +45,13 @@ static void render_status(void) {
 	// Shifted layer indicators
 	oled_write_P(PSTR("\n\nLAYER\n"), false);
 	switch (get_highest_layer(layer_state)) {
-	case 2:
+	case _LOWER:
 		oled_write_P(PSTR("Sym"), false);
 		break;
-	case 3:
+	case _RAISE:
 		oled_write_P(PSTR("Num"), false);
 		break;
-	case 4:
+	case _NAVI:
 		oled_write_P(PSTR("Nav"), false);
 		break;
 	default:

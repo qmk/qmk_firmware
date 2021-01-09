@@ -1,13 +1,3 @@
-#include QMK_KEYBOARD_H
-
-enum layers {
-  _QWERTY,
-  _COLEMAK,
-  _LOWER,
-  _RAISE,
-  _ADJUST
-};
-
 // OLED mod display and bongo cat
 #ifdef OLED_DRIVER_ENABLE
 // Animation frame defaults

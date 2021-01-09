@@ -33,15 +33,13 @@ endif
 ifeq ($(strip $(KEYBOARD)), bm40hsrgb) || ($(strip $(KEYBOARD)), kbdfans/kbd67/mkiirgb/v2)
 	RGB_MATRIX_ENABLE = yes
 endif
-
-# Common keyboard codes
-SRC += keyboard.c
-
-# Split keyboard and OLED codes
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
 	BOOTLOADER = atmel-dfu
 	WPM_ENABLE = yes
 	SPLIT_KEYBOARD = yes
 	OLED_DRIVER_ENABLE = yes
-	SRC += oled.c
 endif
+
+# Common keyboard codes
+SRC += keyboard.c
+

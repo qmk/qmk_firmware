@@ -1,5 +1,3 @@
-#include QMK_KEYBOARD_H
-
 // OLED information display and bongo cat
 #ifdef OLED_DRIVER_ENABLE
 // OLED setup
