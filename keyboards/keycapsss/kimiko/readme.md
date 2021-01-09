@@ -8,9 +8,9 @@ A split keyboard with 4x6 vertically staggered keys and thumb keys.
 - 6 underglow RGB led's per side (SK6812 Mini)
 - Support for 1 rotary encoder per side (two possible positions)
 
-Keyboard Maintainer: [BenRoe](https://github.com/BenRoe/) [@keycapsss](https://twitter.com/keycapsss)  
-Hardware Supported: Pro Micro 5V/16Mhz and compatible  
-Hardware Availability: [keycapsss.com](https://keycapsss.com)
+* Keyboard Maintainer: [BenRoe](https://github.com/BenRoe/) [@keycapsss](https://twitter.com/keycapsss)
+* Hardware Supported: Pro Micro 5V/16Mhz and compatible
+* Hardware Availability: [keycapsss.com](https://keycapsss.com)
 
 Make firmware .hex for this keyboard (after setting up your build environment):
 
