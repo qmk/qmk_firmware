@@ -240,7 +240,7 @@ static void calc_bounds(uint8_t update_start, uint8_t *cmd_array) {
     cmd_array[5] = NOP;
 #else
     // Commands for use in Horizontal Addressing mode.
-    cmd_array[1] = start_column;
+    cmd_array[1] = start_column + OLED_COLUMN_OFFSET;
     cmd_array[4] = start_page;
     cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) % OLED_DISPLAY_WIDTH + cmd_array[1];
     cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) / OLED_DISPLAY_WIDTH - 1;
@@ -248,7 +248,7 @@ static void calc_bounds(uint8_t update_start, uint8_t *cmd_array) {
 }
 
 static void calc_bounds_90(uint8_t update_start, uint8_t *cmd_array) {
-    cmd_array[1] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8;
+    cmd_array[1] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8 + OLED_COLUMN_OFFSET;
     cmd_array[4] = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT;
     cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8 - 1 + cmd_array[1];
     ;
