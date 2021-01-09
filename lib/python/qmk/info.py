@@ -1,6 +1,7 @@
 """Functions that help us generate and use info.json files.
 """
 import json
+from collections.abc import Mapping
 from glob import glob
 from pathlib import Path
 
@@ -140,6 +141,8 @@ def _json_load(json_file):
 
 def _jsonschema(schema_name):
     """Read a jsonschema file from disk.
+
+    FIXME(skullydazed/anyone): Refactor to make this a public function.
     """
     schema_path = Path(f'data/schemas/{schema_name}.jsonschema')
 
@@ -638,49 +641,44 @@ def unknown_processor_rules(info_data, rules):
     return info_data
 
 
+def deep_update(origdict, newdict):
+    """Update a dictionary in place, recursing to do a deep copy.
+    """
+    for key, value in newdict.items():
+        if isinstance(value, Mapping):
+            origdict[key] = deep_update(origdict.get(key, {}), value)
+
+        else:
+            origdict[key] = value
+
+    return origdict
+
+
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
     for info_file in find_info_json(keyboard):
         # Load and validate the JSON data
-        try:
-            new_info_data = _json_load(info_file)
-            keyboard_validate(new_info_data)
-
-        except jsonschema.ValidationError as e:
-            json_path = '.'.join([str(p) for p in e.absolute_path])
-            cli.log.error('Invalid info.json data: %s: %s: %s', info_file, json_path, e.message)
-            continue
+        new_info_data = _json_load(info_file)
 
         if not isinstance(new_info_data, dict):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
-        # Copy whitelisted keys into `info_data`
-        for key in ('debounce', 'diode_direction', 'indicators', 'keyboard_name', 'manufacturer', 'identifier', 'url', 'maintainer', 'processor', 'bootloader', 'width', 'height'):
-            if key in new_info_data:
-                info_data[key] = new_info_data[key]
+        try:
+            keyboard_validate(new_info_data)
+        except jsonschema.ValidationError as e:
+            json_path = '.'.join([str(p) for p in e.absolute_path])
+            cli.log.error('Not including data from file: %s', info_file)
+            cli.log.error('\t%s: %s', json_path, e.message)
+            continue
 
-        # Deep merge certain keys
-        # FIXME(skullydazed/anyone): this should be generalized more so that we can inteligently merge more than one level deep. It would be nice if we could filter on valid keys too. That may have to wait for a future where we use openapi or something.
-        for key in ('features', 'layout_aliases', 'led_matrix', 'matrix_pins', 'rgblight', 'usb'):
-            if key in new_info_data:
-                if key not in info_data:
-                    info_data[key] = {}
+        # Mark the layouts as coming from json
+        for layout in new_info_data.get('layouts', {}).values():
+            layout['c_macro'] = False
 
-                info_data[key].update(new_info_data[key])
-
-        # Merge the layouts
-        if 'community_layouts' in new_info_data:
-            if 'community_layouts' in info_data:
-                for layout in new_info_data['community_layouts']:
-                    if layout not in info_data['community_layouts']:
-                        info_data['community_layouts'].append(layout)
-            else:
-                info_data['community_layouts'] = new_info_data['community_layouts']
-
-        if 'layouts' in new_info_data:
-            _merge_layouts(info_data, new_info_data)
+        # Update info_data with the new data
+        deep_update(info_data, new_info_data)
 
     return info_data
 

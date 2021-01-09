@@ -54,6 +54,10 @@ def generate_layouts(cli):
         if kb_info_json['layouts'][layout_name]['c_macro']:
             continue
 
+        if 'matrix' not in kb_info_json['layouts'][layout_name]['layout'][0]:
+            cli.log.debug('%s/%s: No matrix data!', cli.config.generate_layouts.keyboard, layout_name)
+            continue
+
         layout_keys = []
         layout_matrix = [['KC_NO' for i in range(col_num)] for i in range(row_num)]
 
