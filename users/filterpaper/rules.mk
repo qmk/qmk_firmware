@@ -15,11 +15,10 @@ TAP_DANCE_ENABLE = no
 SWAP_HANDS_ENABLE = no
 SPACE_CADET_ENABLE = no
 
-# Disable RGB by default
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = no
 
-# Ennable common features
+# Common features
 LEADER_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 
@@ -42,4 +41,3 @@ endif
 
 # Common keyboard codes
 SRC += keyboard.c
-

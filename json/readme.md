@@ -28,17 +28,19 @@ qmk json2c ~/qmk_firmware/json/mark65.json > ~/qmk_firmware/keyboards/boardsourc
 ```
 
 # Git cheatsheet
-## Syncing with upstream
-1. One time setup original as remote "upstream"
+https://docs.qmk.fm/#/newbs_git_using_your_master_branch
+
+## Setup QMK repository as upstream
+One time setup of the original repository as a remote "upstream":
 `git remote add upstream https://github.com/qmk/qmk_firmware.git`
-1. Fetch updated original as "upstream"
-`git fetch upstream`
-1. Make sure git is on forked master branch
-`git checkout master`
-1. Rebase master to merge with remote upstream
-`git merge upstream/master`
-1. Push master changes back to own fork
-`git push -f origin master`
+
+## Sync upstream to own fork
+```
+git fetch upstream
+git checkout master
+git merge upstream/master
+git push origin master
+```
 
 ## Commit new changes
 ```
