@@ -8,6 +8,11 @@
 本リリース(V13u)は、OSを動的に切り替えられるようになりました。
 縦書き横書きも動的に切り替えられます。
 
+## 薙刀式とは
+
+【薙刀式】v13完成版、発表。
+http://oookaworks.seesaa.net/article/479173898.html
+
 ## OSの設定
 
 1. OSのキーボード設定を日本語106キーボードにする。
@@ -30,20 +35,25 @@ OLEDが有効な場合には左側のOLEDには、
 
 ## キーボードの切り替え操作
 
+以下の機能を動的に切り替えることができます。
+設定内容はEEPROMに記録されるので、
+キーボードを取り外しても設定は保存されています。
+
 | 設定項目 | 設定 | キー | キーコード | 
 |---|---|---|---|
-| OS切り替え                      | Windows  | Raise + Q  | NGSW_WIN  | 
-|                                 | MacOS    | Raise + A  | NGSW_MAC  | 
-|                                 | Linux    | Raise + Z  | NGSW_LNX  | 
-| MacOSのライブ変換対応の切り替え | ON/OFFトグル   | Raise + Tab  | NG_MLV   | 
-| 縦書き、横書きの切り替え        | ON/OFFトグル   | Raise + Control  | NG_TAYO    | 
-| 後置シフトの切り替え            | ON/OFFトグル   | Raise + Escape  | NG_KOTI  | 
-| 現在設定の出力                  |   | Raise + W  | NG_SHOS   | 
+| OS切り替え            | Windows  | Raise + Q  | NGSW_WIN  | 
+|                       | MacOS    | Raise + A  | NGSW_MAC  | 
+|                       | Linux    | Raise + Z  | NGSW_LNX  | 
+| MacOSのライブ変換対応 | ON/OFFトグル   | Raise + Tab  | NG_MLV   | 
+| 縦書き、横書き        | ON/OFFトグル   | Raise + Control  | NG_TAYO    | 
+| 後置シフト            | ON/OFFトグル   | Raise + Escape  | NG_KOTI  | 
+| 現在設定の出力        |   | Raise + W  | NG_SHOS   | 
 
-## 薙刀式とは
+本家のDvorakJ版薙刀式は前置シフトですが、
+後置シフトも有効にできます。
 
-【薙刀式】v13完成版、発表。
-http://oookaworks.seesaa.net/article/479173898.html
+MacOSでライブ変換が有効な場合、
+記号入力で変換操作が不要なので、ライブ変換対応をオンにしてください。
 
 ## キーマップ
 
