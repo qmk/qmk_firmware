@@ -77,8 +77,8 @@ static void render_status(void) {
 	case _RAISE:
 		oled_write_P(PSTR("Num"), false);
 		break;
-	case _NAVI:
-		oled_write_P(PSTR("Nav"), false);
+	case _ADJUST:
+		oled_write_P(PSTR("Adj"), false);
 		break;
 	default:
 		oled_write_P(PSTR("   "), false);

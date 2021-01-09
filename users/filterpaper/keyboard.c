@@ -22,12 +22,13 @@ enum layers {
   _COLEMAK,
   _LOWER,
   _RAISE,
-  _NAVI,
+  _ADJUST,
 };
 
 #ifdef OLED_DRIVER_ENABLE		// Include only one of the following OLED feature
-#include "oled-info-cat.c"		// Primary status with secondary bongo cat
+#include "oled-mod-status.c"	// Primary graphical modifier & layer with secondary bongo cat
 //#include "oled-mirror-cat.c"	// Primary mirrored bongo cat with secondary logo
+//#include "oled-info-cat.c"	// Primary text status with secondary bongo cat
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -47,7 +48,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 	}
 	// Reactive key colour for layers
 	switch (biton32(state)) {
-	case _NAVI:
+	case _ADJUST:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
@@ -70,7 +71,7 @@ void rgb_matrix_indicators_user(void) {
 	// Light up held layer keys
 	#if defined(KEYBOARD_bm40hsrgb)
 	switch (get_highest_layer(layer_state)) {
-	case _NAVI: // purple
+	case _ADJUST: // purple
 		rgb_matrix_set_color(40, 255, 0, 255);
 		rgb_matrix_set_color(42, 255, 0, 255);
 		break;

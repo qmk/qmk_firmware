@@ -14,9 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* This contains graphical mod display on the primary status side, copied from
-   https://github.com/qmk/qmk_firmware/tree/master/keyboards/crkbd/keymaps/soundmonster
-   Graphical mod icons are currently not displaying correctly on the OLED
+/* This contains graphical mod and layer display, copied from 
+   keyboards/crkbd/keymaps/soundmonster
+
+   Primary will render graphical display of active layer and modifier
+   status, with animated bongo cat on secondary that reacts to typing.
+
+   WPM function has transport code to send data over to the
+   secondary controller, allowing the animation to read words
+   per minute number.
+
+   Bongo cat is aligned for right side OLED.
 */
 
 // OLED mod display and bongo cat
@@ -221,7 +229,9 @@ void render_layer_state(void) {
 static void render_status(void) {
 	render_logo();
 	render_space();
-	// render_layer_state();
+	render_space();
+	render_layer_state();
+	render_space();
 	render_space();
 	render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
 	render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
@@ -324,4 +334,3 @@ void oled_task_user(void) {
 
 void suspend_power_down_user(void) { oled_off(); }
 #endif // OLED_DRIVER_ENABLE
-

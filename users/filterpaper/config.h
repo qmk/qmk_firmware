@@ -25,7 +25,7 @@
 #if defined(KEYBOARD_crkbd)
 #	define EE_HANDS
 #	define OLED_TIMEOUT 5000
-#	define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+#	define OLED_FONT_H "users/filterpaper/glcdfont.c"
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_bm40hsrgb)
