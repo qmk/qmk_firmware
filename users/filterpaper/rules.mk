@@ -27,9 +27,7 @@ ifneq ($(PLATFORM),CHIBIOS)
 	LTO_ENABLE = yes
 endif
 
-ifeq ($(strip $(KEYBOARD)), planck/rev6)
-	RGBLIGHT_ENABLE = yes
-else ifeq ($(strip $(KEYBOARD)), the_mark)
+ifeq ($(strip $(KEYBOARD)), the_mark)
 	RGBLIGHT_ENABLE = yes
 endif
 
@@ -45,8 +43,9 @@ ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
 	SPLIT_KEYBOARD = yes
 	OLED_DRIVER_ENABLE = yes
 	WPM_ENABLE = yes
+	SRC += oled.c
+	#SRC += oled-mods.c
 endif
 
 SRC += keyboard.c
-#SRC += bongo-mirror.c
 
