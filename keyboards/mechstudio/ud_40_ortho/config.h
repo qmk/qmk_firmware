@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    "Mech Studio"
 #define PRODUCT         "UD_40 Ortholinear"
-#define DESCRIPTION     "A 40% keyboard by Goldworms"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
