@@ -14,6 +14,7 @@ from qmk.commands import compile_configurator_json, create_make_command, parse_c
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('Compile a QMK Firmware.')
@@ -46,12 +47,12 @@ def compile(cli):
     if cli.args.filename:
         # If a configurator JSON was provided generate a keymap and compile it
         user_keymap = parse_configurator_json(cli.args.filename)
-        command = compile_configurator_json(user_keymap, **envs)
+        command = compile_configurator_json(user_keymap, parallel=cli.config.compile.parallel, **envs)
 
     else:
         if cli.config.compile.keyboard and cli.config.compile.keymap:
             # Generate the make command for a specific keyboard/keymap.
-            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, **envs)
+            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, parallel=cli.config.compile.parallel, **envs)
 
         elif not cli.config.compile.keyboard:
             cli.log.error('Could not determine keyboard!')

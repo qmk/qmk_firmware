@@ -25,7 +25,7 @@ def _find_make():
     return make_cmd
 
 
-def create_make_command(keyboard, keymap, target=None, **env_vars):
+def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     """Create a make compile command
 
     Args:
@@ -38,6 +38,9 @@ def create_make_command(keyboard, keymap, target=None, **env_vars):
 
         target
             Usually a bootloader.
+
+        parallel
+            The number of make jobs to run in parallel
 
         **env_vars
             Environment variables to be passed to make.
@@ -56,10 +59,10 @@ def create_make_command(keyboard, keymap, target=None, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, *env, ':'.join(make_args)]
+    return [make_cmd, '-j', str(parallel), *env, ':'.join(make_args)]
 
 
-def compile_configurator_json(user_keymap, **env_vars):
+def compile_configurator_json(user_keymap, parallel=1, **env_vars):
     """Convert a configurator export JSON file into a C file and then compile it.
 
     Args:
@@ -69,6 +72,9 @@ def compile_configurator_json(user_keymap, **env_vars):
 
         bootloader
             A bootloader to flash
+
+        parallel
+            The number of make jobs to run in parallel
 
     Returns:
 
@@ -91,6 +97,8 @@ def compile_configurator_json(user_keymap, **env_vars):
     color = 'true' if cli.config.general.color else 'false'
     make_command = [
         _find_make(),
+        '-j',
+        str(parallel),
         '-r',
         '-R',
         '-f',
