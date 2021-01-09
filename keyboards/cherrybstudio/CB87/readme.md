@@ -1,6 +1,6 @@
 # CherryB Studio CB87
 
-![CB87](https://i.imgur.com/balJ20X.png)
+![CB87](https://i.imgur.com/balJ20Xl.png)
 
 A TKL PCB for CherryB Studio Freyr and replacement for some TKL keyboards.
 
