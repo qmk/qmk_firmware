@@ -353,6 +353,8 @@ uint8_t oled_max_lines(void);
 
 !> Scrolling and rotation are unsupported on the SH1106.
 
+!> Scrolling does not work properly on the SSD1306 if the display width is smaller than 128.
+
 ## SSD1306.h Driver Conversion Guide
 
 |Old API                  |Recommended New API              |
