@@ -6,6 +6,7 @@
   "width": 16.5,
   "debounce": 5,
   "processor": "STM32F303",
+  "board": "QMK_PROTON_C",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,

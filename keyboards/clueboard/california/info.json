@@ -3,6 +3,7 @@
     "url": "",
     "maintainer": "skullydazed",
     "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
     "matrix_pins": {
         "direct": [
             ["A10", "A9"],
