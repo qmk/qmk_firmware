@@ -36,32 +36,32 @@ enum combo_events {
 #define KC_SJ RSFT_T(KC_J)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
+  [_BASE] = LAYOUT_default(
     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_DEL,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,
     KC_A,   KC_S,   KC_D,  KC_SF,   KC_G,   KC_TAB,  KC_H,   KC_SJ,  KC_K,    KC_L,   KC_QUOT,
     KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LSFT,  KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH,
-                  KC_LCTL, MO(_NAV), KC_DN_BSPC,  KC_NO,  KC_UP_SPC, KC_LGUI,   KC_RALT
+                  KC_LCTL, MO(_NAV), KC_DN_BSPC,    KC_UP_SPC, KC_LGUI,   KC_RALT
   ),
 
- [_SYM] = LAYOUT(
+ [_SYM] = LAYOUT_default(
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TRNS, KC_CIRC, KC_AMPR, KC_ASTR, KC_EQUAL, KC_MINS,
     KC_PIPE, KC_BSLS, KC_LPRN, KC_LBRC, KC_SCLN, KC_TRNS, KC_COLN, KC_RBRC, KC_RPRN, KC_PLUS,  KC_UNDS,
-                    KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_NO,  KC_TRNS,      KC_TRNS,    KC_TRNS 
+                    KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS 
   ),
 
-  [_NUM] = LAYOUT(
+  [_NUM] = LAYOUT_default(
     KC_PSLS,  KC_P7, KC_P8, KC_P9, KC_PMNS, KC_EQL,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_BSPC,
     KC_PLUS,  KC_P4, KC_P5, KC_P6, KC_BSPC, KC_LSFT, KC_TRNS, KC_TRNS, KC_SCLN,  KC_COLN,  KC_TAB,
     KC_PAST,  KC_P1, KC_P2, KC_P3, KC_ENT,  KC_TAB,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_ENT,
-                    KC_P0,   KC_PDOT,  KC_TRNS, KC_NO,  KC_TRNS,   KC_TRNS, KC_TRNS 
+                    KC_P0,   KC_PDOT,  KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS 
   ),
 
-  [_NAV] = LAYOUT(
+  [_NAV] = LAYOUT_default(
     KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,
     KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS, KC_TRNS, KC_LCAP, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
-                    KC_TRNS,  KC_TRNS,  KC_TRNS, KC_NO,  KC_TRNS,  KC_TRNS, KC_TRNS 
+                    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS 
   ),
 };
 

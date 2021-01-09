@@ -41,25 +41,25 @@ enum combo_events {
 #define KC_GSLSH RGUI_T(KC_SLSH)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
+  [_BASE] = LAYOUT_big_space(
     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_DEL,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,
     KC_AA,   KC_S,   KC_D,  KC_SF,   KC_G,   KC_BSPC,   KC_H,   KC_SJ,  KC_K,    KC_L,   KC_AQUOT,
-    KC_GZ,   KC_X,   KC_C,   KC_V,    KC_B,   KC_LSFT,  KC_N,   KC_M,   KC_CCOMM, KC_DOT, KC_GSLSH,
-                  MO(_NAV), KC_NO, KC_NO,  KC_UP_SPC, KC_NO,   KC_NO,   KC_RALT
+    KC_GZ,   KC_X,   KC_CC,   KC_V,    KC_B,   KC_LSFT,  KC_N,   KC_M,   KC_CCOMM, KC_DOT, KC_GSLSH,
+                  MO(_NAV),  KC_UP_SPC,  KC_RALT
   ),
 
- [_SYM] = LAYOUT(
+ [_SYM] = LAYOUT_big_space(
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TRNS, KC_CIRC, KC_AMPR, KC_ASTR, KC_EQUAL, KC_MINS,
     KC_PIPE, KC_BSLS, KC_LPRN, KC_LBRC, KC_SCLN, KC_TRNS, KC_COLN, KC_RBRC, KC_RPRN, KC_PLUS,  KC_UNDS,
-                    KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,    KC_TRNS 
+                    KC_TRNS,      KC_TRNS,      KC_TRNS 
   ),
 
-  [_NAV] = LAYOUT(
+  [_NAV] = LAYOUT_big_space(
     KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,
     KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
-                    KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS 
+                    KC_TRNS,   KC_TRNS,   KC_TRNS 
   ),
 };
 
