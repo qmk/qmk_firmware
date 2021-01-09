@@ -116,9 +116,9 @@ On Arch-based distros you can install the CLI from the official repositories (NO
 
     sudo pacman -S qmk
 
-You can also try the `qmk` package from AUR:
+You can also try the `qmk-git` package from AUR:
 
-    yay -S qmk
+    yay -S qmk-git
 
 ###  ** FreeBSD **
 
