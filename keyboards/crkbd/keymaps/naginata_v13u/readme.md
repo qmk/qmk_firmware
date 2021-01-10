@@ -59,6 +59,8 @@ MacOSでライブ変換が有効な場合、
 
 ![My keymap](keymap.svg "Crkbd")
 
-![OLED](https://imgur.com/4FT314m)
+OLED
+
+![OLED](https://i.imgur.com/4FT314m.jpg)
 
 
