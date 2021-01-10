@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x2703
+#define VENDOR_ID       0x7856
 #define PRODUCT_ID      0x37FJ
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Lyso1
