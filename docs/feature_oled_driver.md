@@ -10,9 +10,9 @@ Tested combinations:
 |SSD1306  |128x32|AVR     |Primary support         |
 |SSD1306  |128x64|AVR     |Verified working        |
 |SSD1306  |128x32|Arm     |                        |
-|SH1106   |128x64|AVR     |No rotation or scrolling|
-|SH1107   |64x128|AVR     |No rotation or scrolling|
-|SH1107   |64x128|Arm     |No rotation or scrolling|
+|SH1106   |128x64|AVR     |No scrolling            |
+|SH1107   |64x128|AVR     |No scrolling            |
+|SH1107   |64x128|Arm     |No scrolling            |
 
 Hardware configurations using Arm-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
@@ -177,8 +177,6 @@ void oled_task_user(void) {
 
 ### 90 Degree Rotation - Technical Mumbo Jumbo
 
-!> Rotation is unsupported on the SH1106 and SH1107.
-
 ```c
 // OLED Rotation enum values are flags
 typedef enum {
@@ -189,7 +187,7 @@ typedef enum {
 } oled_rotation_t;
 ```
 
-OLED displays driven by SSD1306 drivers only natively support in hardware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an ATmega32U4 board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
+OLED displays driven by SSD1306, SH1106 or SH1107 drivers only natively support in hardware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an ATmega32U4 board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
 
 90 degree rotation is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the display height, width, and block size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
 
@@ -210,6 +208,8 @@ However the local buffer is stored as if it was Height x Width display instead o
 | 0 | 4 |   |   |   |   |
 
 So those precalculated arrays just index the memory offsets in the order in which each one iterates its data.
+
+Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306, because these controllers do not support the “horizontal addressing mode”, which allows transferring the data for the whole rotated block at once; instead, separate address setup commands for every page in the block are required.  The screen refresh time for SH1107 is therefore about 45% higher than for a same size screen with SSD1306 when using STM32 MCUs (on AVR the slowdown is about 20%, because the code which actually rotates the bitmap consumes more time).
 
 ## OLED API
 
@@ -355,7 +355,7 @@ uint8_t oled_max_chars(void);
 uint8_t oled_max_lines(void);
 ```
 
-!> Scrolling and rotation are unsupported on the SH1106 and SH1107.
+!> Scrolling is unsupported on the SH1106 and SH1107.
 
 !> Scrolling does not work properly on the SSD1306 if the display width is smaller than 128.
 
