@@ -24,7 +24,7 @@
 #    include "eeprom.h"
 #endif
 #ifdef STM32_EEPROM_ENABLE
-#    include "hal.h"
+#    include <hal.h>
 #    include "eeprom_stm32.h"
 #endif
 #include "wait.h"
@@ -34,7 +34,7 @@
 #include "color.h"
 #include "debug.h"
 #include "led_tables.h"
-#include "lib/lib8tion/lib8tion.h"
+#include <lib/lib8tion/lib8tion.h>
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
@@ -123,9 +123,11 @@ void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.effect_num_leds  = num_leds;
 }
 
+__attribute__((weak)) RGB rgblight_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv); }
+
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
     HSV hsv = {hue, sat, val};
-    RGB rgb = hsv_to_rgb(hsv);
+    RGB rgb = rgblight_hsv_to_rgb(hsv);
     setrgb(rgb.r, rgb.g, rgb.b, led1);
 }
 
@@ -626,7 +628,7 @@ void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_set
 
 #ifdef RGBLIGHT_LAYERS
 void rgblight_set_layer_state(uint8_t layer, bool enabled) {
-    rgblight_layer_mask_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = (rgblight_layer_mask_t)1 << layer;
     if (enabled) {
         rgblight_status.enabled_layer_mask |= mask;
     } else {
@@ -647,7 +649,7 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
-    rgblight_layer_mask_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = (rgblight_layer_mask_t)1 << layer;
     return (rgblight_status.enabled_layer_mask & mask) != 0;
 }
 
@@ -687,7 +689,7 @@ static uint16_t       _blink_timer;
 
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
     rgblight_set_layer_state(layer, true);
-    _blinked_layer_mask |= 1 << layer;
+    _blinked_layer_mask |= (rgblight_layer_mask_t)1 << layer;
     _blink_timer    = timer_read();
     _blink_duration = duration_ms;
 }
@@ -695,7 +697,7 @@ void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
 void rgblight_unblink_layers(void) {
     if (_blinked_layer_mask != 0 && timer_elapsed(_blink_timer) > _blink_duration) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinked_layer_mask & 1 << layer) != 0) {
+            if ((_blinked_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
                 rgblight_set_layer_state(layer, false);
             }
         }

@@ -13,8 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef QUANTUM_KEYCODES_H
-#define QUANTUM_KEYCODES_H
+
+#pragma once
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#endif
 
 #ifndef MIDI_ENABLE_STRICT
 #    define MIDI_ENABLE_STRICT 0
@@ -343,7 +347,8 @@ enum quantum_keycodes {
     MI_TRNSU,  // transpose up
 
     MIDI_VELOCITY_MIN,
-    MI_VEL_1 = MIDI_VELOCITY_MIN,
+    MI_VEL_0 = MIDI_VELOCITY_MIN,
+    MI_VEL_1,
     MI_VEL_2,
     MI_VEL_3,
     MI_VEL_4,
@@ -548,6 +553,37 @@ enum quantum_keycodes {
     JS_BUTTON30,
     JS_BUTTON31,
     JS_BUTTON_MAX = JS_BUTTON31,
+
+#if defined(SEQUENCER_ENABLE)
+    SQ_ON,
+    SQ_OFF,
+    SQ_TOG,
+
+    SQ_TMPD,  // Decrease tempo
+    SQ_TMPU,  // Increase tempo
+
+    SEQUENCER_RESOLUTION_MIN,
+    SEQUENCER_RESOLUTION_MAX = SEQUENCER_RESOLUTION_MIN + SEQUENCER_RESOLUTIONS,
+    SQ_RESD,  // Decrease resolution
+    SQ_RESU,  // Increase resolution
+
+    SQ_SALL,  // All steps on
+    SQ_SCLR,  // All steps off
+    SEQUENCER_STEP_MIN,
+    SEQUENCER_STEP_MAX = SEQUENCER_STEP_MIN + SEQUENCER_STEPS,
+
+    SEQUENCER_TRACK_MIN,
+    SEQUENCER_TRACK_MAX = SEQUENCER_TRACK_MIN + SEQUENCER_TRACKS,
+
+/**
+ * Helpers to assign a keycode to a step, a resolution, or a track.
+ * Falls back to NOOP if n is out of range.
+ */
+#    define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : XXXXXXX)
+#    define SQ_R(n) (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : XXXXXXX)
+#    define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : XXXXXXX)
+
+#endif
 
     // always leave at the end
     SAFE_RANGE
@@ -853,5 +889,3 @@ enum quantum_keycodes {
 #define DM_RSTP DYN_REC_STOP
 #define DM_PLY1 DYN_MACRO_PLAY1
 #define DM_PLY2 DYN_MACRO_PLAY2
-
-#endif  // QUANTUM_KEYCODES_H

@@ -61,7 +61,7 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef AUDIO_ENABLE
-#    include <audio.h>
+#    include "audio.h"
 #endif
 
 #ifdef BLUETOOTH_ENABLE
@@ -1104,6 +1104,10 @@ int main(void) {
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
 #endif
+
+        // Run housekeeping
+        housekeeping_task_kb();
+        housekeeping_task_user();
     }
 }
 
