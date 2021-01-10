@@ -15,9 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_DRIVER_ENABLE
-#   include "oled.c"
-#endif
 
 
 
