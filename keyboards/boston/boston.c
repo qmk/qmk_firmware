@@ -24,6 +24,14 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
+void keyboard_post_init_kb(void) {
+    /* this is to set an LED color at startup so it's not some random color*/
+    rgblight_enable_noeeprom(); 
+    rgblight_sethsv_noeeprom(0, 0, 128); 
+    keyboard_post_init_user();
+}
+
+
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
         writePin(A0, led_state.num_lock);
