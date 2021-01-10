@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <stdlib.h>
-#include <stdio.h>
 
 #ifdef OLED_DRIVER_ENABLE
 #   include "oled.c"
@@ -53,4 +51,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(1),
       KC_TRNS,  KC_LGUI,  KC_TRNS,                                 KC_TRNS,                               KC_RALT,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 }; 
-
