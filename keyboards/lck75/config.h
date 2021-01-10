@@ -84,14 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif
-
-
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif
 
 #define OLED_FONT_H "keyboards/lck75/glcdfont.c"
 
