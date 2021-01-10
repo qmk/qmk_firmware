@@ -78,7 +78,7 @@ Established materials and techniques include:
 | Short lengths of wire | [u/xicolinguada's ortho build](https://www.reddit.com/r/MechanicalKeyboards/comments/c39k4f/my_first_hand_wired_keyboard_its_not_perfect_but/) | Easier to strip the wire | More difficult to place | ![individual wire lengths](https://i.imgur.com/mBe5vkL.jpg)
 | Magnet/Enamelled wire | [Brett Kosinski's handwired alpha](http://blog.b-ark.ca/Blog-2019-01-27) and [fknraiden's custom board](https://geekhack.org/index.php?topic=74223.0) | Can be directly soldered onto (insulation burns off with heat) | Appearance? | ![Magnet wire](https://i.imgur.com/b4b7KDb.jpg)
 | Bending the legs of the diodes for the rows | [Matt3o's Brownfox](https://deskthority.net/viewtopic.php?f=7&t=6050) | Fewer solder joints required | Uninsulated | ![Bent diode legs](https://i.imgur.com/aTnG8TV.jpg)
-| Using ridid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | Very pretty | More difficult. No physical insulation | ![Hardline hand wire](https://i.imgur.com/CnASmPo.jpg)
+| Using rigid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | Very pretty | More difficult. No physical insulation | ![Hardline hand wire](https://i.imgur.com/CnASmPo.jpg)
 | Bare wire with insulation added after (e.g. kapton tape) | [Matt3o's 65% on his website](https://matt3o.com/hand-wiring-a-custom-keyboard/) | Easier (no wire stripping required) | Not as attractive | ![Bare wire](https://i.imgur.com/AvXZShD.jpg)
 | Copper tape | [ManuForm Dactyl](https://github.com/tshort/dactyl-keyboard) | Very easy | Only really works when your plate/case aligns with the bottom of your switches | ![Copper tape](https://i.imgur.com/RFyNMlL.jpg)
 
@@ -121,7 +121,7 @@ Letting the diode rest, grab your solder, and touch both it and the soldering ir
 
 The smoke that the rosin releases is harmful, so be careful not to breath it or get it in your eyes/face.
 
-After soldering things in place, it may be helpful to blow on the joint to push the smoke away from your face, and cool the solder quicker. You should see the solder develop a matte (not shiny) surface as it solidifies. Keep in mind that it will still be very hot afterwards, and will take a couple minutes to be cool to touch. Blow on it will accelerate this process.
+After soldering things in place, it may be helpful to blow on the joint to push the smoke away from your face, and cool the solder quicker. You should see the solder develop a matte (not shiny) surface as it solidifies. Keep in mind that it will still be very hot afterwards, and will take a couple minutes to be cool to touch. Blowing on it will accelerate this process.
 
 When the first diode is complete, the next one will need to be soldered to both the keyswitch, and the previous diode at the new elbow. That will look something like this:
 
