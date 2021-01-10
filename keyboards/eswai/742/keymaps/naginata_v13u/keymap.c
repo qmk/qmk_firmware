@@ -40,6 +40,8 @@ enum custom_keycodes {
     EISUON
 };
 
+uint32_t oled_sleep_timer;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, KC_EQL   , KC_MINS ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
@@ -93,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // oled_sleep_timer = timer_read32();
+  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
 
   switch (keycode) {
     case EISUON:
@@ -136,6 +138,8 @@ void matrix_init_user(void) {
   uint16_t ngoffkeys[] = {KC_I, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
+
+  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -205,6 +209,14 @@ static void render_eisu(void) {
 }
 
 void oled_task_user(void) {
+    // なぜか明示的にOLEDのスリープ処理が必要
+    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+      oled_off();
+      return;
+    } else {
+      oled_on();
+    }
+
     if (is_keyboard_master()) {
       if (naginata_state()) {
         render_kana();

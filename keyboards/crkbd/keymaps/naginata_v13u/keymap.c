@@ -42,6 +42,8 @@ enum custom_keycodes {
   KANA2,
 };
 
+uint32_t oled_sleep_timer;
+
 #define CTLSPC  CTL_T(KC_SPC)
 #define CTLENT  CTL_T(KC_ENT)
 
@@ -84,9 +86,13 @@ void matrix_init_user(void) {
   uint16_t ngoffkeys[] = {KC_F, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
+
+  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+
   switch (keycode) {
     case EISU:
       if (record->event.pressed) {
@@ -181,6 +187,14 @@ static void render_eisu(void) {
 }
 
 void oled_task_user(void) {
+    // なぜか明示的にOLEDのスリープ処理が必要
+    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+      oled_off();
+      return;
+    } else {
+      oled_on();
+    }
+
     if (is_keyboard_master()) {
       if (naginata_state()) {
         render_kana();
