@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
+// for SH1107: https://www.displayfuture.com/Display/datasheet/controller/SH1107.pdf
 
 // Fundamental Commands
 #define CONTRAST 0x81
@@ -74,6 +75,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Charge Pump Commands
 #define CHARGE_PUMP 0x8D
 
+// Commands specific to the SH1107 chip
+#define SH1107_DISPLAY_START_LINE 0xDC
+#define SH1107_MEMORY_MODE_PAGE 0x20
+#define SH1107_MEMORY_MODE_VERTICAL 0x21
+
 // Misc defines
 #ifndef OLED_BLOCK_COUNT
 #    define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
@@ -83,6 +89,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define OLED_ALL_BLOCKS_MASK (((((OLED_BLOCK_TYPE)1 << (OLED_BLOCK_COUNT - 1)) - 1) << 1) | 1)
+
+#define OLED_IC_HAS_HORIZONTAL_MODE (OLED_IC == OLED_IC_SSD1306)
+#define OLED_IC_COM_PINS_ARE_COLUMNS (OLED_IC == OLED_IC_SH1107)
+
+#ifndef OLED_COM_PIN_COUNT
+#    if OLED_IC == OLED_IC_SSD1306
+#        define OLED_COM_PIN_COUNT 64
+#    elif OLED_IC == OLED_IC_SH1106
+#        define OLED_COM_PIN_COUNT 64
+#    elif OLED_IC == OLED_IC_SH1107
+#        define OLED_COM_PIN_COUNT 128
+#    else
+#        error Invalid OLED_IC value
+#    endif
+#endif
+
+#ifndef OLED_COM_PIN_OFFSET
+#    define OLED_COM_PIN_OFFSET 0
+#endif
 
 // i2c defines
 #define I2C_CMD 0x00
@@ -166,16 +191,26 @@ bool oled_init(uint8_t rotation) {
         DISPLAY_CLOCK,
         0x80,
         MULTIPLEX_RATIO,
+#if OLED_IC_COM_PINS_ARE_COLUMNS
+        OLED_DISPLAY_WIDTH - 1,
+#else
         OLED_DISPLAY_HEIGHT - 1,
-        DISPLAY_OFFSET,
-        0x00,
+#endif
+#if OLED_IC == OLED_IC_SH1107
+	SH1107_DISPLAY_START_LINE,
+	0x00,
+#else
         DISPLAY_START_LINE | 0x00,
+#endif
         CHARGE_PUMP,
         0x14,
-#if (OLED_IC != OLED_IC_SH1106)
+#if OLED_IC_HAS_HORIZONTAL_MODE
         // MEMORY_MODE is unsupported on SH1106 (Page Addressing only)
         MEMORY_MODE,
         0x00,  // Horizontal addressing mode
+#elif OLED_IC == OLED_IC_SH1107
+	// Page addressing mode
+	SH1107_MEMORY_MODE_PAGE,
 #endif
     };
     if (I2C_TRANSMIT_P(display_setup1) != I2C_STATUS_SUCCESS) {
@@ -184,13 +219,25 @@ bool oled_init(uint8_t rotation) {
     }
 
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_180)) {
-        static const uint8_t PROGMEM display_normal[] = {I2C_CMD, SEGMENT_REMAP_INV, COM_SCAN_DEC};
+        static const uint8_t PROGMEM display_normal[] = {
+            I2C_CMD,
+            SEGMENT_REMAP_INV,
+            COM_SCAN_DEC,
+            DISPLAY_OFFSET,
+            OLED_COM_PIN_OFFSET,
+        };
         if (I2C_TRANSMIT_P(display_normal) != I2C_STATUS_SUCCESS) {
             print("oled_init cmd normal rotation failed\n");
             return false;
         }
     } else {
-        static const uint8_t PROGMEM display_flipped[] = {I2C_CMD, SEGMENT_REMAP, COM_SCAN_INC};
+        static const uint8_t PROGMEM display_flipped[] = {
+            I2C_CMD,
+            SEGMENT_REMAP,
+            COM_SCAN_INC,
+            DISPLAY_OFFSET,
+            (OLED_COM_PIN_COUNT - OLED_COM_PIN_OFFSET) % OLED_COM_PIN_COUNT,
+        };
         if (I2C_TRANSMIT_P(display_flipped) != I2C_STATUS_SUCCESS) {
             print("display_flipped failed\n");
             return false;
@@ -229,7 +276,7 @@ static void calc_bounds(uint8_t update_start, uint8_t *cmd_array) {
     // Calculate commands to set memory addressing bounds.
     uint8_t start_page   = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_WIDTH;
     uint8_t start_column = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_WIDTH;
-#if (OLED_IC == OLED_IC_SH1106)
+#if !OLED_IC_HAS_HORIZONTAL_MODE
     // Commands for Page Addressing Mode. Sets starting page and column; has no end bound.
     // Column value must be split into high and low nybble and sent as two commands.
     cmd_array[0] = PAM_PAGE_ADDR | start_page;

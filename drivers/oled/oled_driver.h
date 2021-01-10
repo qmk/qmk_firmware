@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // an enumeration of the chips this driver supports
 #define OLED_IC_SSD1306 0
 #define OLED_IC_SH1106 1
+#define OLED_IC_SH1107 2
 
 #if defined(OLED_DISPLAY_CUSTOM)
 // Expected user to implement the necessary defines
