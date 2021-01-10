@@ -1,12 +1,12 @@
 # shk9
 
-![shk9](imgur.com image replace me!)
+![shk9](https://i.imgur.com/FluRgiH.jpg)
 
-*A short description of the keyboard/project*
+The SHK9 is a tiny 3x3 macropad! Fully configurable with via.
 
-* Keyboard Maintainer: [Sam Hudson](https://github.com/yourusername)
+* Keyboard Maintainer: [Sam Hudson](https://github.com/samsamm777)
 * Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: http://superhuman.io
 
 Make example for this keyboard (after setting up your build environment):
 
