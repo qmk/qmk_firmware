@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Lyso1
 #define PRODUCT         lck75
-#define DESCRIPTION     75% keyboard that can be assembled with only through hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 6
