@@ -135,7 +135,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
-void oled_task_user(void) {
+__attribute__((weak)) void oled_task_user(void) {
   render_anim();
 }
 #endif
