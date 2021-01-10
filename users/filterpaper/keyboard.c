@@ -25,10 +25,8 @@ enum layers {
   _ADJUST,
 };
 
-#ifdef OLED_DRIVER_ENABLE		// Include only one of the following OLED feature
-#include "oled-mod-status.c"	// Primary graphical modifier & layer with secondary bongo cat
-//#include "oled-mirror-cat.c"	// Primary mirrored bongo cat with secondary logo
-//#include "oled-info-cat.c"	// Primary text status with secondary bongo cat
+#ifdef OLED_DRIVER_ENABLE
+#	include  "oled.c" // OLED rendering
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

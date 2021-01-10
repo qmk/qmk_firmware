@@ -20,9 +20,9 @@ Common user space code for a few custom keyboards. See https://docs.qmk.fm/#/fea
 * `config.h`	Self-explainatory QMK configuration options
 * `rules.mk`	Makefile rules for keyboard-specific features, includes keyboard.c
 * `keyboard.c`	Common keyboard code and RGB specific functions
-* `oled-info-cat.c`		Corne keyboard code with primary text info and secondary bongo cat OLED display
-* `oled-mod-status.c`		Corne keyboard code with primary graphical layer and modifier status and secondary bongo cat OLED display
-* `oled-mirror-cat.c`		Corne keyboard code with primary mirrored bongo cat and secondary logo OLED display
+* `oled.c`		OLED rendering code for Corne OLED, includes status and cat module
+* `mod-status.c`	Graphical layer and modifier status rendering module
+* `bongo-cat.c`		Graphical tapping bongo cat rendering module
 * `glcdfont.c`		Corne 8x6 font code with QMK Firmware Logo
 
 ## Compile commands
