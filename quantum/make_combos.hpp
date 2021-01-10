@@ -50,7 +50,7 @@ struct combo_term {
 
 struct combo_urgent {};
 
-static constexpr uint8_t all_layer_combos = 0xff;
+static constexpr uint8_t ALL_LAYER_COMBOS = 0xff;
 
 struct layout_combo_key {
     uint8_t value;
@@ -152,7 +152,7 @@ constexpr void fill_in_combo_layer(combo_layer_ref<LayerId, ComboCount> layer, c
 }
 
 template <uint8_t LayerId, size_t ComboCount, size_t LayerCount, size_t TotalComboCount, size_t UniversalComboCount>
-constexpr void fill_in_combo_layer(combo_layer_ref<LayerId, ComboCount> layer, combo_storage_data<LayerCount, TotalComboCount>& storage_data, size_t& combos_offset, combo_layer_ref<all_layer_combos, UniversalComboCount> universal_combos) {
+constexpr void fill_in_combo_layer(combo_layer_ref<LayerId, ComboCount> layer, combo_storage_data<LayerCount, TotalComboCount>& storage_data, size_t& combos_offset, combo_layer_ref<ALL_LAYER_COMBOS, UniversalComboCount> universal_combos) {
     for (size_t i = 0; i < ComboCount; ++i) {
         copy_combo_template(layer.combos[i], storage_data.combos[combos_offset + i]);
     }
@@ -181,7 +181,7 @@ constexpr auto make_combos_data(combo_layer_ref<LayerIds, ComboCounts>... combo_
 }
 
 template <size_t UniversalComboCount, uint8_t... LayerIds, size_t... ComboCounts>
-constexpr auto make_combos_data(combo_layer_ref<all_layer_combos, UniversalComboCount> universal_combos, combo_layer_ref<LayerIds, ComboCounts>... combo_layers) {
+constexpr auto make_combos_data(combo_layer_ref<ALL_LAYER_COMBOS, UniversalComboCount> universal_combos, combo_layer_ref<LayerIds, ComboCounts>... combo_layers) {
     constexpr uint8_t  n_layers = impl::constexpr_max<LayerIds...>() + 1;
     constexpr uint16_t n_combos = impl::constexpr_sum<ComboCounts...>() + n_layers * UniversalComboCount;
 

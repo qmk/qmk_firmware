@@ -179,9 +179,11 @@ If you define these options you will enable the associated feature, which may in
     scan times? You probably want this.
 * `#define COMBO_TERM 100`
   * The interval in which all keys of a [Combo](feature_combo.md) must be pressed for the combo to be detected. Defaults to `50` if not defined.
-* `#define MAX_COMBO_LENGTH 16`
-  * Maximum number of keys that make up one combo (default: 8)
-  * Possible values: 8, 16, 32
+* `#define COMBO_KEY_COUNT 16`
+  * Maximum number of physical keys that can participate in combos (default: 32)
+  * The value is internally rounded up to a multiple of 16
+* `#define COMBO_BUFFER_SIZE 12`
+  * Maximum number of keys pressed at the same time, for which combos can be formed (default: 8)
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`

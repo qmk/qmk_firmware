@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
+#include "quantum_keycodes.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -206,6 +207,12 @@ void process_record(keyrecord_t *record) {
     if (IS_NOEVENT(record->event)) {
         return;
     }
+
+#ifdef COMBO_ENABLE
+    if (record->keycode == CMB_DUMMY) {
+        return;
+    }
+#endif
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
