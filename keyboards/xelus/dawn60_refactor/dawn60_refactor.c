@@ -213,4 +213,12 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
   .set_color_all = set_color_all
 };
 
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+  rgblight_enable(); // Enable RGB by default
+  rgblight_mode(RGBLIGHT_MODE_RGB_TEST); // set to RGB_RAINBOW_SWIRL by default
+  
+  eeconfig_update_kb(0);
+  eeconfig_init_user();
+}
+
 #endif
