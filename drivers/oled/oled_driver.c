@@ -282,9 +282,6 @@ static void calc_bounds(uint8_t update_start, uint8_t *cmd_array) {
     cmd_array[0] = PAM_PAGE_ADDR | start_page;
     cmd_array[1] = PAM_SETCOLUMN_LSB | ((OLED_COLUMN_OFFSET + start_column) & 0x0f);
     cmd_array[2] = PAM_SETCOLUMN_MSB | ((OLED_COLUMN_OFFSET + start_column) >> 4 & 0x0f);
-    cmd_array[3] = NOP;
-    cmd_array[4] = NOP;
-    cmd_array[5] = NOP;
 #else
     // Commands for use in Horizontal Addressing mode.
     cmd_array[1] = start_column + OLED_COLUMN_OFFSET;
@@ -309,10 +306,19 @@ static void calc_bounds_90(uint8_t update_start, uint8_t *cmd_array) {
     // Top page number for a block which is at the bottom edge of the screen.
     const uint8_t bottom_block_top_page = (height_in_pages - page_inc_per_block) % height_in_pages;
 
+#if !OLED_IC_HAS_HORIZONTAL_MODE
+    // Only the Page Addressing Mode is supported
+    uint8_t start_page   = bottom_block_top_page - (OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT / 8);
+    uint8_t start_column = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8;
+    cmd_array[0] = PAM_PAGE_ADDR | start_page;
+    cmd_array[1] = PAM_SETCOLUMN_LSB | ((OLED_COLUMN_OFFSET + start_column) & 0x0f);
+    cmd_array[2] = PAM_SETCOLUMN_MSB | ((OLED_COLUMN_OFFSET + start_column) >> 4 & 0x0f);
+#else
     cmd_array[1] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8 + OLED_COLUMN_OFFSET;
     cmd_array[4] = bottom_block_top_page - (OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT / 8);
     cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8 - 1 + cmd_array[1];
     cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) % OLED_DISPLAY_HEIGHT / 8 + cmd_array[4];
+#endif
 }
 
 uint8_t crot(uint8_t a, int8_t n) {
@@ -348,7 +354,11 @@ void oled_render(void) {
     }
 
     // Set column & page position
+#if OLED_IC_HAS_HORIZONTAL_MODE
     static uint8_t display_start[] = {I2C_CMD, COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1, PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1};
+#else
+    static uint8_t display_start[] = {I2C_CMD, PAM_PAGE_ADDR, PAM_SETCOLUMN_LSB, PAM_SETCOLUMN_MSB};
+#endif
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
         calc_bounds(update_start, &display_start[1]);  // Offset from I2C_CMD byte at the start
     } else {
@@ -378,11 +388,32 @@ void oled_render(void) {
             rotate_90(&oled_buffer[OLED_BLOCK_SIZE * update_start + source_map[i]], &temp_buffer[target_map[i]]);
         }
 
+#if OLED_IC_HAS_HORIZONTAL_MODE
         // Send render data chunk after rotating
         if (I2C_WRITE_REG(I2C_DATA, &temp_buffer[0], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
             print("oled_render90 data failed\n");
             return;
         }
+#else
+        // For SH1106 or SH1107 the data chunk must be split into separate pieces for each page
+        const uint8_t columns_in_block = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8;
+        const uint8_t num_pages = OLED_BLOCK_SIZE / columns_in_block;
+        for (uint8_t i = 0; i < num_pages; ++i) {
+            // Send column & page position for all pages except the first one
+            if (i > 0) {
+                display_start[1]++;
+                if (I2C_TRANSMIT(display_start) != I2C_STATUS_SUCCESS) {
+                    print("oled_render offset command failed\n");
+                    return;
+                }
+            }
+            // Send data for the page
+            if (I2C_WRITE_REG(I2C_DATA, &temp_buffer[columns_in_block * i], columns_in_block) != I2C_STATUS_SUCCESS) {
+                print("oled_render90 data failed\n");
+                return;
+            }
+        }
+#endif
     }
 
     // Turn on display if it is off
