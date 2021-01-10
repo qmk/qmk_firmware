@@ -207,18 +207,23 @@ static void set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-  .init = init,
-  .flush = flush,
-  .set_color = set_color,
-  .set_color_all = set_color_all
+    .init = init,
+    .flush = flush,
+    .set_color = set_color,
+    .set_color_all = set_color_all
 };
 
-void eeconfig_init_kb(void) {  // EEPROM is getting reset!
-  rgblight_enable(); // Enable RGB by default
-  rgblight_mode(RGBLIGHT_MODE_RGB_TEST); // set to RGB_RAINBOW_SWIRL by default
-  
-  eeconfig_update_kb(0);
-  eeconfig_init_user();
+// void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+//     rgb_matrix_enable();
+//     rgb_matrix_sethsv(0, 255, 128);  // Set default HSV - red hue, full saturation, medium brightness
+//     rgb_matrix_mode(RGB_MATRIX_CUSTOM_rgb_test); // set to RGB_RAINBOW_SWIRL by default
+
+//     eeconfig_update_kb(0);
+//     eeconfig_init_user();
+// }
+
+void keyboard_post_init_kb(void){
+    rgb_matrix_mode(RGB_MATRIX_CUSTOM_rgb_test);
 }
 
 #endif
