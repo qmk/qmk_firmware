@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Graphical bongo cat animation function, requires WPM_ENABLE
+/* Graphical bongo cat animation display, requires WPM_ENABLE
    Cat is aligned for right OLED
 */
 

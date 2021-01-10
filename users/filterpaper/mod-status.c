@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Graphical active layer display and modifier status
+/* Graphical active layer and modifier status display
    Module must be rendered on primary OLED
 */
 
 void render_space(void) {
-	oled_write_P(PSTR("     "), false);
+	oled_write_P(PSTR("\n\n"), false);
 }
 
 void render_logo(void) {
@@ -195,9 +195,7 @@ void render_mod_status_ctrl_shift(uint8_t modifiers) {
 static void render_mod_status(void) {
 	render_logo();
 	render_space();
-	render_space();
 	render_layer_state();
-	render_space();
 	render_space();
 	render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
 	render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
