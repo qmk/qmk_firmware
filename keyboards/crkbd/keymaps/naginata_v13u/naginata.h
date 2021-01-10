@@ -31,8 +31,6 @@ void switchOS(uint8_t);
 void ng_set_unicode_mode(uint8_t);
 void ng_show_os(void);
 void mac_live_conversion_toggle(void);
-void mac_live_conversion_on(void);
-void mac_live_conversion_off(void);
 void tategaki_toggle(void);
 void kouchi_shift_toggle(void);
 void ty_send_string(char *);
@@ -89,6 +87,19 @@ typedef enum naginata_keycodes {
   NG_TAYO,
   NG_KOTI,
 } NGKEYS;
+
+// EEPROMに保存する設定
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t os;
+    bool live_conv :1;
+    bool tategaki :1;
+    bool kouchi_shift :1;
+  };
+} user_config_t;
+
+user_config_t naginata_config;
 
 #define NG_SAFE_RANGE SAFE_RANGE + 39
 
