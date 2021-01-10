@@ -35,18 +35,18 @@ static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各�
 static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
 static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 
-// EEPROMに保存する設定
-typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t os;
-    bool live_conv :1;
-    bool tategaki :1;
-    bool kouchi_shift :1;
-  };
-} user_config_t;
+// // EEPROMに保存する設定
+// typedef union {
+//   uint32_t raw;
+//   struct {
+//     uint8_t os;
+//     bool live_conv :1;
+//     bool tategaki :1;
+//     bool kouchi_shift :1;
+//   };
+// } naginata_config_t;
 
-user_config_t user_config;
+// naginata_config_t naginata_config;
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -583,15 +583,15 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
   ngoff_keys[0] = *offk;
   ngoff_keys[1] = *(offk+1);
 
-  user_config.raw = eeconfig_read_user();
-  if (user_config.os != NG_WIN && user_config.os != NG_MAC && user_config.os != NG_LINUX) {
-    user_config.os = NG_WIN;
-    user_config.live_conv = 1;
-    user_config.tategaki = 1;
-    user_config.kouchi_shift = 0;
-    eeconfig_update_user(user_config.raw);
+  naginata_config.raw = eeconfig_read_user();
+  if (naginata_config.os != NG_WIN && naginata_config.os != NG_MAC && naginata_config.os != NG_LINUX) {
+    naginata_config.os = NG_WIN;
+    naginata_config.live_conv = 1;
+    naginata_config.tategaki = 1;
+    naginata_config.kouchi_shift = 0;
+    eeconfig_update_user(naginata_config.raw);
   }
-  ng_set_unicode_mode(user_config.os);
+  ng_set_unicode_mode(naginata_config.os);
   copyTYtable();
 }
 
@@ -622,17 +622,6 @@ bool naginata_state(void) {
   return is_naginata;
 }
 
-// OSのかな/英数モードをキーボードに合わせる
-void makesure_mode(void) {
-  if (is_naginata) {
-    tap_code(KC_LANG1); // Mac
-    tap_code(KC_HENK); // Win
-  } else {
-    tap_code(KC_LANG2); // Mac
-    tap_code(KC_MHEN); // Win
-  }
-}
-
 // バッファをクリアする
 void naginata_clear(void) {
   for (int i = 0; i < NGBUFFER; i++) {
@@ -655,9 +644,9 @@ void compress_buffer(int n) {
 }
 
 void switchOS(uint8_t os) {
-  user_config.os = os;
-  eeconfig_update_user(user_config.raw);
-  ng_set_unicode_mode(user_config.os);
+  naginata_config.os = os;
+  eeconfig_update_user(naginata_config.raw);
+  ng_set_unicode_mode(naginata_config.os);
 }
 
 void ng_set_unicode_mode(uint8_t os) {
@@ -675,18 +664,8 @@ void ng_set_unicode_mode(uint8_t os) {
 }
 
 void mac_live_conversion_toggle() {
-  user_config.live_conv ^= 1;
-  eeconfig_update_user(user_config.raw);
-}
-
-void mac_live_conversion_on() {
-  user_config.live_conv = 1;
-  eeconfig_update_user(user_config.raw);
-}
-
-void mac_live_conversion_off() {
-  user_config.live_conv = 0;
-  eeconfig_update_user(user_config.raw);
+  naginata_config.live_conv ^= 1;
+  eeconfig_update_user(naginata_config.raw);
 }
 
 // 出典 https://programming-place.net/ppp/contents/c/rev_res/string014.html
@@ -715,8 +694,8 @@ char* replace(char* s, const char* before, const char* after)
 }
 
 void tategaki_toggle() {
-  user_config.tategaki ^= 1;
-  eeconfig_update_user(user_config.raw);
+  naginata_config.tategaki ^= 1;
+  eeconfig_update_user(naginata_config.raw);
 
   copyTYtable();
 }
@@ -725,7 +704,7 @@ void copyTYtable() {
   memcpy_P(&ngmapl_ty, &ngmapl_tate, sizeof(ngmapl_ty));
 
   for (int i = 0; i < sizeof(ngmapl_ty) / sizeof(ngmapl_ty[0]); i++) {
-    if (user_config.tategaki) {
+    if (naginata_config.tategaki) {
       replace(ngmapl_ty[i].kana, SS_TAP(NGUP), SS_TAP(X_UP));
       replace(ngmapl_ty[i].kana, SS_TAP(NGDN), SS_TAP(X_DOWN));
       replace(ngmapl_ty[i].kana, SS_TAP(NGLT), SS_TAP(X_LEFT));
@@ -740,18 +719,18 @@ void copyTYtable() {
 }
 
 void kouchi_shift_toggle() {
-  user_config.kouchi_shift ^= 1;
-  eeconfig_update_user(user_config.raw);
+  naginata_config.kouchi_shift ^= 1;
+  eeconfig_update_user(naginata_config.raw);
 }
 
 void ng_show_os(void) {
-  switch (user_config.os) {
+  switch (naginata_config.os) {
     case NG_WIN:
       send_string("win");
       break;
     case NG_MAC:
       send_string("mac");
-      if (user_config.live_conv) {
+      if (naginata_config.live_conv) {
         send_string("/:lc");
       } else {
         send_string("/-lc");
@@ -761,12 +740,12 @@ void ng_show_os(void) {
       send_string("linux");
       break;
   }
-  if (user_config.tategaki) {
+  if (naginata_config.tategaki) {
     send_string("/tate");
   } else {
     send_string("/yoko");
   }
-  if (user_config.kouchi_shift) {
+  if (naginata_config.kouchi_shift) {
     send_string("/:kouchi");
   } else {
     send_string("/-kouchi");
@@ -775,12 +754,12 @@ void ng_show_os(void) {
 
 void mac_send_string(const char *str) {
   send_string(str);
-  if (!user_config.live_conv) tap_code(KC_SPC);
+  if (!naginata_config.live_conv) tap_code(KC_SPC);
   tap_code(KC_ENT);
 }
 
 void ng_send_unicode_string(const char *str) {
-  switch (user_config.os) {
+  switch (naginata_config.os) {
     case NG_LINUX:
       tap_code(KC_MHEN);
       send_unicode_string(str);
@@ -916,7 +895,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
-        if (!user_config.kouchi_shift) {
+        if (!naginata_config.kouchi_shift) {
           if (ng_chrcount >= 1) {
             naginata_type();
             keycomb = 0UL;
@@ -1019,7 +998,7 @@ bool naginata_lookup(int nt, bool shifted) {
       return true;
       break;
     case B_M|B_COMM|B_B: //　　　×　　　×　　　×{改行 2}
-      switch (user_config.os) {
+      switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
           ng_send_unicode_string("　　　×　　　×　　　×");
@@ -1035,7 +1014,7 @@ bool naginata_lookup(int nt, bool shifted) {
       }
       break;
     case B_M|B_COMM|B_W: // {改行}{End}《》{改行}{↑}
-      switch (user_config.os) {
+      switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
           tap_code(KC_ENT);
@@ -1057,7 +1036,7 @@ bool naginata_lookup(int nt, bool shifted) {
       }
       break;
     case B_M|B_COMM|B_F: // 」{改行 2}「{改行}
-      switch (user_config.os) {
+      switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
           ng_send_unicode_string("」");
@@ -1076,7 +1055,7 @@ bool naginata_lookup(int nt, bool shifted) {
       }
       break;
     case B_M|B_COMM|B_V: // 」{改行 2}{Space}
-      switch (user_config.os) {
+      switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
           ng_send_unicode_string("」");
@@ -1107,7 +1086,7 @@ bool naginata_lookup(int nt, bool shifted) {
         }
       }
       // 編集モード Mac
-      if (user_config.os == NG_MAC) {
+      if (naginata_config.os == NG_MAC) {
         for (int i = 0; i < sizeof ngmapl_mac / sizeof bngmapl; i++) {
           memcpy_P(&bngmapl, &ngmapl_mac[i], sizeof(bngmapl));
           if (keycomb_buf == bngmapl.key) {
@@ -1138,7 +1117,7 @@ bool naginata_lookup(int nt, bool shifted) {
       for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
         memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
         if (keycomb_buf == bngmapu.key) {
-          switch (user_config.os) {
+          switch (naginata_config.os) {
             case NG_WIN:
             case NG_LINUX:
               ng_send_unicode_string(bngmapu.win);
