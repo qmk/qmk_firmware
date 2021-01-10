@@ -177,10 +177,11 @@ If you define these options you will enable the associated feature, which may in
     going to produce the 500 keystrokes a second needed to actually get more than a
     few ms of delay from this. But if you're doing chording on something with 3-4ms
     scan times? You probably want this.
-* `#define COMBO_COUNT 2`
-  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
-* `#define COMBO_TERM 200`
-  * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define COMBO_TERM 100`
+  * The interval in which all keys of a [Combo](feature_combo.md) must be pressed for the combo to be detected. Defaults to `50` if not defined.
+* `#define MAX_COMBO_LENGTH 16`
+  * Maximum number of keys that make up one combo (default: 8)
+  * Possible values: 8, 16, 32
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`

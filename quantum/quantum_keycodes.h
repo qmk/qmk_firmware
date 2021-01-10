@@ -501,6 +501,7 @@ enum quantum_keycodes {
     CMB_ON,
     CMB_OFF,
     CMB_TOG,
+    CMB_DUMMY,
 
     MAGIC_SWAP_LCTL_LGUI,
     MAGIC_SWAP_RCTL_RGUI,

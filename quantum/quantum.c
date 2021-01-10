@@ -147,16 +147,13 @@ void reset_keyboard(void) {
     bootloader_jump();
 }
 
-/* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) { return get_event_keycode(record->event, update_layer_cache); }
-
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
  * "update_layer_cache" is to ensure that it only updates the layer cache when
  * appropriate, otherwise, it will update it and cause layer tap (and other keys)
  * from triggering properly.
  */
-uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
+static uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
@@ -172,6 +169,14 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
     } else
 #endif
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
+}
+
+/* Convert record into usable keycode via the contained event. */
+uint16_t get_record_keycode(const keyrecord_t *record, bool update_layer_cache) {
+#ifdef COMBO_ENABLE
+    if (record->keycode) { return record->keycode; }
+#endif
+    return get_event_keycode(record->event, update_layer_cache);
 }
 
 /* Get keycode, and then call keyboard function */
@@ -258,9 +263,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
-#endif
-#ifdef COMBO_ENABLE
-            process_combo(keycode, record) &&
 #endif
 #ifdef PRINTING_ENABLE
             process_printer(keycode, record) &&
