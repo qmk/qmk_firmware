@@ -1,16 +1,35 @@
+/**
+ * Copyright 2021 Rob Hilgefort <@rjhilgefort>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASEMAC 0 // Base Mac Layer
-#define BASELNX 1 // Base Linux Layer
-#define SYMB 2    // Symbols Layer
-#define MANMAC 3  // Media Numbers Mac Layer
-#define MANLNX 4  // Media Numbers Linux Layer
-#define EXA 5     // Extra Layer
+
+enum custom_layers {
+    BASEMAC, // Base Mac Layer
+    BASELNX, // Base Linux Layer
+    SYMB,    // Symbols Layer
+    MANMAC,  // Media Numbers Mac Layer
+    MANLNX,  // Media Numbers Linux Layer
+    EXA,     // Extra Layer
+};
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
   VRSN,
 };
 
@@ -278,12 +297,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
