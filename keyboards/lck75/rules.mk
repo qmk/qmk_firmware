@@ -39,4 +39,4 @@ WPM_ENABLE = yes
 LTO_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 
-LAYOUTS = lck75_ansi, lck75_layer_1
+LAYOUTS = lck75_ansi
