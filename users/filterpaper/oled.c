@@ -24,15 +24,18 @@
 
 // Orientate OLED display
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	if (is_keyboard_master()) return OLED_ROTATION_270;
+	if (is_keyboard_master())    return OLED_ROTATION_270;
 	else if (is_keyboard_left()) return OLED_ROTATION_0;
-	else return OLED_ROTATION_180;
+	else                         return OLED_ROTATION_180;
 }
 
 // Render status modules on both OLED
 void oled_task_user(void) {
-	if (is_keyboard_master()) render_mod_status(); // USB side
-	else animate_cat(); // Secondary side
+	if (is_keyboard_master()) render_mod_status();
+	else                      animate_cat();
 }
 
-void suspend_power_down_user(void) { oled_off(); }
+void suspend_power_down_user(void) { 
+	oled_off();
+}
+
