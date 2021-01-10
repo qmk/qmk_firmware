@@ -363,7 +363,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
                             if (
 #        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false), record) &&
+                                !get_ignore_mod_tap_interrupt(get_record_keycode(record, false), record) &&
 #        endif
                                 record->tap.interrupted) {
                                 dprint("mods_tap: tap: cancel: add_mods\n");
@@ -743,7 +743,7 @@ void process_action(keyrecord_t *record, action_t action) {
             } else {
                 if (
 #        ifdef RETRO_TAPPING_PER_KEY
-                    get_retro_tapping(get_event_keycode(record->event, false), record) &&
+                    get_retro_tapping(get_record_keycode(record, false), record) &&
 #        endif
                     retro_tapping_counter == 2) {
                     tap_code(action.layer_tap.code);
