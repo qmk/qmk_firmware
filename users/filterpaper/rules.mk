@@ -36,9 +36,10 @@ ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
 	BOOTLOADER = atmel-dfu
 	WPM_ENABLE = yes
 	SPLIT_KEYBOARD = yes
-	OLED_DRIVER_ENABLE = yes
 	MOUSEKEY_ENABLE = yes
+	OLED_DRIVER_ENABLE = yes
 endif
 
-# Common keyboard codes
+# Shared keyboard functions
 SRC += keyboard.c
+

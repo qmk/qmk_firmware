@@ -19,11 +19,10 @@ Common user space code for a few custom keyboards. See https://docs.qmk.fm/#/fea
 ## File list
 * `config.h`	Self-explainatory QMK configuration options
 * `rules.mk`	Makefile rules for keyboard-specific features, includes keyboard.c
-* `keyboard.c`	Common keyboard code and RGB specific functions
-* `oled.c`		OLED rendering code for Corne OLED, includes status and cat module
+* `keyboard.c`	Common keyboard code, RGB and OLED function functions
 * `mod-status.c`	Graphical layer and modifier status rendering module
 * `bongo-cat.c`		Graphical tapping bongo cat rendering module, optimized for right OLED
-* `bongo-cat-left.c`		Graphical tapping bongo cat rendering module, includes another left optimized cat
+* `bongo-cat-left.c`		Graphical tapping bongo cat rendering module, includes left-optimized cat
 * `glcdfont.c`		Corne 8x6 font code with QMK Firmware Logo
 
 ## Compile commands
@@ -43,3 +42,4 @@ make crkbd/rev1/common:filterpaper:dfu-split-left
 make crkbd/rev1/common:filterpaper:dfu-split-right
 ```
 The same firmware can be flashed normally to both sides after this.
+

@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Graphical active layer and modifier status display. Original code
-   is from keyboards/crkbd/keymaps/soundmonster
+/* Graphical active layer and modifier status display. Original code is
+   by keyboards/crkbd/keymaps/soundmonster
 
    Module must be rendered on primary OLED
 */
@@ -50,15 +50,11 @@ void render_layer_state(void) {
 		0x20, 0x9d, 0x9e, 0x9f, 0x20,
 		0x20, 0xbd, 0xbe, 0xbf, 0x20,
 		0x20, 0xdd, 0xde, 0xdf, 0x20, 0};
-	if(layer_state_is(_ADJUST)) {
-		oled_write_P(adjust_layer, false);
-	} else if(layer_state_is(_LOWER)) {
-		oled_write_P(lower_layer, false);
-	} else if(layer_state_is(_RAISE)) {
-		oled_write_P(raise_layer, false);
-	} else {
-		oled_write_P(default_layer, false);
-	}
+
+	if (layer_state_is(_ADJUST)) oled_write_P(adjust_layer, false);
+	else if (layer_state_is(_LOWER)) oled_write_P(lower_layer, false);
+	else if (layer_state_is(_RAISE)) oled_write_P(raise_layer, false);
+	else oled_write_P(default_layer, false);
 }
 
 void render_mod_status_gui_alt(uint8_t modifiers) {
@@ -82,49 +78,27 @@ void render_mod_status_gui_alt(uint8_t modifiers) {
 	static const char PROGMEM on_on_1[] = {0xcb, 0};
 	static const char PROGMEM on_on_2[] = {0xcc, 0};
 
-	if(modifiers & MOD_MASK_GUI) {
-		oled_write_P(gui_on_1, false);
-	} else {
-		oled_write_P(gui_off_1, false);
-	}
+	if (modifiers & MOD_MASK_GUI) oled_write_P(gui_on_1, false);
+	else oled_write_P(gui_off_1, false);
 
-	if ((modifiers & MOD_MASK_GUI) && (modifiers & MOD_MASK_ALT)) {
-		oled_write_P(on_on_1, false);
-	} else if(modifiers & MOD_MASK_GUI) {
-		oled_write_P(on_off_1, false);
-	} else if(modifiers & MOD_MASK_ALT) {
-		oled_write_P(off_on_1, false);
-	} else {
-		oled_write_P(off_off_1, false);
-	}
+	if ((modifiers & MOD_MASK_GUI) && (modifiers & MOD_MASK_ALT)) oled_write_P(on_on_1, false);
+	else if (modifiers & MOD_MASK_GUI) oled_write_P(on_off_1, false);
+	else if (modifiers & MOD_MASK_ALT) oled_write_P(off_on_1, false);
+	else oled_write_P(off_off_1, false);
 
-	if(modifiers & MOD_MASK_ALT) {
-		oled_write_P(alt_on_1, false);
-	} else {
-		oled_write_P(alt_off_1, false);
-	}
+	if (modifiers & MOD_MASK_ALT) oled_write_P(alt_on_1, false);
+	else oled_write_P(alt_off_1, false);
 
-	if(modifiers & MOD_MASK_GUI) {
-		oled_write_P(gui_on_2, false);
-	} else {
-		oled_write_P(gui_off_2, false);
-	}
+	if (modifiers & MOD_MASK_GUI) oled_write_P(gui_on_2, false);
+	else oled_write_P(gui_off_2, false);
 
-	if (modifiers & MOD_MASK_GUI & MOD_MASK_ALT) {
-		oled_write_P(on_on_2, false);
-	} else if(modifiers & MOD_MASK_GUI) {
-		oled_write_P(on_off_2, false);
-	} else if(modifiers & MOD_MASK_ALT) {
-		oled_write_P(off_on_2, false);
-	} else {
-		oled_write_P(off_off_2, false);
-	}
+	if (modifiers & MOD_MASK_GUI & MOD_MASK_ALT) oled_write_P(on_on_2, false);
+	else if (modifiers & MOD_MASK_GUI) oled_write_P(on_off_2, false);
+	else if (modifiers & MOD_MASK_ALT) oled_write_P(off_on_2, false);
+	else oled_write_P(off_off_2, false);
 
-	if(modifiers & MOD_MASK_ALT) {
-		oled_write_P(alt_on_2, false);
-	} else {
-		oled_write_P(alt_off_2, false);
-	}
+	if (modifiers & MOD_MASK_ALT) oled_write_P(alt_on_2, false);
+	else oled_write_P(alt_off_2, false);
 }
 
 void render_mod_status_ctrl_shift(uint8_t modifiers) {
@@ -148,49 +122,27 @@ void render_mod_status_ctrl_shift(uint8_t modifiers) {
 	static const char PROGMEM on_on_1[] = {0xcb, 0};
 	static const char PROGMEM on_on_2[] = {0xcc, 0};
 
-	if(modifiers & MOD_MASK_CTRL) {
-		oled_write_P(ctrl_on_1, false);
-	} else {
-		oled_write_P(ctrl_off_1, false);
-	}
+	if (modifiers & MOD_MASK_CTRL) oled_write_P(ctrl_on_1, false);
+	else oled_write_P(ctrl_off_1, false);
 
-	if ((modifiers & MOD_MASK_CTRL) && (modifiers & MOD_MASK_SHIFT)) {
-		oled_write_P(on_on_1, false);
-	} else if(modifiers & MOD_MASK_CTRL) {
-		oled_write_P(on_off_1, false);
-	} else if(modifiers & MOD_MASK_SHIFT) {
-		oled_write_P(off_on_1, false);
-	} else {
-		oled_write_P(off_off_1, false);
-	}
+	if ((modifiers & MOD_MASK_CTRL) && (modifiers & MOD_MASK_SHIFT)) oled_write_P(on_on_1, false);
+	else if (modifiers & MOD_MASK_CTRL) oled_write_P(on_off_1, false);
+	else if (modifiers & MOD_MASK_SHIFT) oled_write_P(off_on_1, false);
+	else oled_write_P(off_off_1, false);
 
-	if(modifiers & MOD_MASK_SHIFT) {
-		oled_write_P(shift_on_1, false);
-	} else {
-		oled_write_P(shift_off_1, false);
-	}
+	if (modifiers & MOD_MASK_SHIFT) oled_write_P(shift_on_1, false);
+	else oled_write_P(shift_off_1, false);
 
-	if(modifiers & MOD_MASK_CTRL) {
-		oled_write_P(ctrl_on_2, false);
-	} else {
-		oled_write_P(ctrl_off_2, false);
-	}
+	if (modifiers & MOD_MASK_CTRL) oled_write_P(ctrl_on_2, false);
+	else oled_write_P(ctrl_off_2, false);
 
-	if (modifiers & MOD_MASK_CTRL & MOD_MASK_SHIFT) {
-		oled_write_P(on_on_2, false);
-	} else if(modifiers & MOD_MASK_CTRL) {
-		oled_write_P(on_off_2, false);
-	} else if(modifiers & MOD_MASK_SHIFT) {
-		oled_write_P(off_on_2, false);
-	} else {
-		oled_write_P(off_off_2, false);
-	}
+	if (modifiers & MOD_MASK_CTRL & MOD_MASK_SHIFT) oled_write_P(on_on_2, false);
+	else if (modifiers & MOD_MASK_CTRL) oled_write_P(on_off_2, false);
+	else if (modifiers & MOD_MASK_SHIFT) oled_write_P(off_on_2, false);
+	else oled_write_P(off_off_2, false);
 
-	if(modifiers & MOD_MASK_SHIFT) {
-		oled_write_P(shift_on_2, false);
-	} else {
-		oled_write_P(shift_off_2, false);
-	}
+	if (modifiers & MOD_MASK_SHIFT) oled_write_P(shift_on_2, false);
+	else oled_write_P(shift_off_2, false);
 }
 
 // Render everything on OLED

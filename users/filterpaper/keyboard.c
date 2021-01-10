@@ -25,9 +25,6 @@ enum layers {
   _ADJUST,
 };
 
-#ifdef OLED_DRIVER_ENABLE
-#	include  "oled.c" // OLED rendering
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 // Set default RGB effect
@@ -105,6 +102,7 @@ void rgb_matrix_indicators_user(void) {
 }
 #endif // RGB_MATRIX_ENABLE
 
+
 // Leader key macros
 #ifdef LEADER_ENABLE
 LEADER_EXTERNS();
@@ -131,3 +129,26 @@ void leader_start(void) { // Leader key effect
 void leader_end(void) { rgb_matrix_disable_noeeprom(); }
 #endif // RGB_MATRIX_ENABLE
 #endif // LEADER_ENABLE
+
+
+// Render OLED display
+#ifdef OLED_DRIVER_ENABLE
+#include "mod-status.c"
+#include "bongo-cat.c"
+
+// Orientate OLED display
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+	if (is_keyboard_master())    return OLED_ROTATION_270;
+	else if (is_keyboard_left()) return OLED_ROTATION_0;
+	else                         return OLED_ROTATION_180;
+}
+
+// Render status modules on both OLED
+void oled_task_user(void) {
+	if (is_keyboard_master()) render_mod_status();
+	else                      animate_cat();
+}
+
+//void suspend_power_down_user(void) { oled_off(); }
+#endif // OLED_DRIVER_ENABLE
+
