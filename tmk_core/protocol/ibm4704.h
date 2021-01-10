@@ -1,8 +1,8 @@
 /*
 Copyright 2014 Jun WAKO <wakojun@gmail.com>
 */
-#ifndef IBM4704_H
-#define IBM4704_H
+
+#pragma once
 
 #define IBM4704_ERR_NONE 0
 #define IBM4704_ERR_PARITY 0x70
@@ -101,5 +101,3 @@ static inline void inhibit(void) {
     clock_hi();
     data_lo();
 }
-
-#endif

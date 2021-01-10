@@ -19,7 +19,7 @@
 #ifdef LED_MATRIX_ENABLE
     #include "is31fl3731-simple.h"
     #include <math.h>
-    #include <print.h>
+    #include "print.h"
     #include "quantum.h"
 
 const is31_led g_is31_leds[LED_DRIVER_LED_COUNT] = {

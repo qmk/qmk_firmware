@@ -60,7 +60,10 @@
 #define I2C1_TIMINGR_SCLL   9U
 
 // I2C EEPROM
-#define EEPROM_I2C_CAT24C512
+// 24LC64
+#define EEPROM_I2C_24LC64
 
 // Dynamic EEPROM
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 65535
+// Something sensible or else VIA may crash
+// Users may enable more if they wish
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095

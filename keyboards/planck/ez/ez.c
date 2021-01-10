@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ez.h"
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 keyboard_config_t keyboard_config;
 #ifdef RGB_MATRIX_ENABLE
