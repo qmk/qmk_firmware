@@ -55,12 +55,18 @@ OLEDが有効な場合には左側のOLEDには、
 MacOSでライブ変換が有効な場合、
 記号入力で変換操作が不要なので、ライブ変換対応をオンにしてください。
 
+OLEDをオンにしているときは、設定の状態がOLEDに表示されます。
+ * 1行目 OS設定。Windows、Mac、Linuxの頭文字です。
+ * 2行目 縦書き(T)、横書き(Y)
+ * 3行目 後置シフト(Kでオン)
+ * 4行目 ライブ変換(Lでオン)
+
 ## キーマップ
 
 ![My keymap](keymap.svg "Crkbd")
 
 OLED
 
-![OLED](https://i.imgur.com/4FT314m.jpg)
+![OLED](https://i.imgur.com/0RiOER9.jpg)
 
 
