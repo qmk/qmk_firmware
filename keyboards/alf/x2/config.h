@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ALF
 #define PRODUCT         X2
-#define DESCRIPTION     ALF X2 60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
