@@ -1,4 +1,4 @@
-/* Copyright 2020 Kyle McCreery 
+/* Copyright 2021 Kyle McCreery 
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the GNU General Public License as published by 
@@ -50,32 +50,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_ENABLE       // Encoder Functionality
     uint8_t selected_layer = 0;
     void encoder_update_user(uint8_t index, bool clockwise) {
+        #ifdef OLED_DRIVER_ENABLE
+            oled_clear();
+            oled_render();
+        #endif
         switch (index) {
             case 0:         // This is the only encoder right now, keeping for consistency
-                switch (get_highest_layer(layer_state)) {
-                    case 0:                                     // Volume control on Layer 0 (base layer)
-                        if (clockwise) {
-                            tap_code(KC_VOLU);
-                        } else {
-                            tap_code(KC_VOLD);
-                        }
-                        break;
-                    default:                                    // All other layers control the lock layer, to prevent being stuck on a different layer
-                        if (clockwise && selected_layer  < 3) {
-                            #ifdef OLED_DRIVER_ENABLE
-                                if (selected_layer == 0) {
-                                    oled_clear();
-                                    oled_render();
-                                }
-                            #endif
-                            selected_layer ++;
-                            layer_move(selected_layer);
-                        } else if (!clockwise && selected_layer  > 0){
-                            selected_layer --;
-                            layer_move(selected_layer);
-                        }
+                if ( clockwise ) {
+                    if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                        selected_layer ++;
+                        layer_move(selected_layer);
+                    } else {
+                        tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
+                    }
+                } else if ( !clockwise ) {
+                    if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ){
+                        selected_layer --;
+                        layer_move(selected_layer);
+                    } else {
+                        tap_code(KC_VOLD);
+                    }
                 }
-      
         }
     }
 #endif
@@ -126,19 +121,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             oled_set_cursor(8,2);
             switch(selected_layer){
                 case 0:
-                    oled_write_P(PSTR("Layer 0"), false);
+                    oled_write_P(PSTR("Lock Layer 0"), false);
                     break;
                 case 1:
-                    oled_write_P(PSTR("Layer 1"), false);
+                    oled_write_P(PSTR("Lock Layer 1"), false);
                     break;
                 case 2:
-                    oled_write_P(PSTR("Layer 2"), false);
+                    oled_write_P(PSTR("Lock Layer 2"), false);
                     break;
                 case 3:
-                    oled_write_P(PSTR("Layer 3"), false);
+                    oled_write_P(PSTR("Lock Layer 3"), false);
                     break;
                 default:
-                    oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
+                    oled_write_P(PSTR("Lock Layer ?"), false);    // Should never display, here as a catchall
             }
             oled_set_cursor(8,3);
             if (get_highest_layer(layer_state) == selected_layer) {
@@ -146,19 +141,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             } else {
                 switch (get_highest_layer(layer_state)) {
                     case 0:
-                        oled_write_P(PSTR("Layer 0"), false);
+                        oled_write_P(PSTR("Temp Layer 0"), false);
                         break;
                     case 1:
-                        oled_write_P(PSTR("Layer 1"), false);
+                        oled_write_P(PSTR("Temp Layer 1"), false);
                         break;
                     case 2:
-                        oled_write_P(PSTR("Layer 2"), false);
+                        oled_write_P(PSTR("Temp Layer 2"), false);
                         break;
                     case 3:
-                        oled_write_P(PSTR("Layer 3"), false);
+                        oled_write_P(PSTR("Temp Layer 3"), false);
                         break;
                     default:
-                        oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
+                        oled_write_P(PSTR("Temp Layer ?"), false);    // Should never display, here as a catchall
                 }
             }
             uint8_t led_usb_state = host_keyboard_leds();
