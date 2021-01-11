@@ -2,4 +2,4 @@
 
 # Default Breeze Layout
 
-This is the default suggested layout for Breeze Split Keybouard.
+This is the default suggested layout for Breeze Split Keyboard.

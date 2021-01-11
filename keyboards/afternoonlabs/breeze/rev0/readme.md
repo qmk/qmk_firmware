@@ -5,7 +5,7 @@
 Split ergonomics meets productivity. Breeze Rev0 is a split keyboard with 6×4 keys, 4 key thumb cluster, arrow keys, and a 6 key macro cluster, with ortholinear column-staggered.
 
 * Keyboard Maintainer: [Eithan Shavit](https://github.com/eithanshavit)
-* Hardware Supported: Breeze PCB rev0
+* Hardware Supported: Breeze Rev0 PCB
 * Hardware Availability: Coming soon
 
 Make example for this keyboard (after setting up your build environment):
