@@ -2,11 +2,11 @@
 
 ![hp69](https://i.imgur.com/hwXvX1Vl.jpg)
 
-*A 69 key layout keyboard to emulate apple bottom row with 1.5u 1.25u 1.5u bottom layout*
+A 69 key layout keyboard to emulate apple bottom row with 1.5u 1.25u 1.5u bottom layout
 
 * Keyboard Maintainer: [Ananya Kirti](https://github.com/AnanyaKirti)
-* Hardware Supported: *custom stacked acrylic case*
-* Hardware Availability: *Contact bob at IMKC Discord*
+* Hardware Supported: custom stacked acrylic case
+* Hardware Availability: Contact bob at IMKC Discord
 
 Make example for this keyboard (after setting up your build environment):
 
