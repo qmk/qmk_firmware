@@ -110,7 +110,8 @@ static void render_anim(void) {
         }
     }
 
-    if (get_current_wpm() != 000) {
+    if (get_current_wpm() > 0) {
+
         oled_on();
 
         if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
