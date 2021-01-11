@@ -313,6 +313,9 @@ USER_PATH := users/$(USER_NAME)
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
+ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
+    POST_CONFIG_H += $(USER_PATH)/post_config.h
+endif
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
