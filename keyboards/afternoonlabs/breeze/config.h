@@ -18,9 +18,5 @@
 
 #include "config_common.h"
 
-#ifndef NO_ACTION_MACRO
-#    define NO_ACTION_MACRO
-#endif
-#ifndef NO_ACTION_FUNCTION
-#    define NO_ACTION_FUNCTION
-#endif
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
