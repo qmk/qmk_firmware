@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    That-Canadian
 #define PRODUCT         6-Ball
-#define DESCRIPTION     6-Ball Macropuck
 
 /* key matrix size */
 #define MATRIX_ROWS 1
