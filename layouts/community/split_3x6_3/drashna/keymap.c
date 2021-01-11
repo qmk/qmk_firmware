@@ -140,11 +140,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
+
+void matrix_slave_scan_user(void) {
 #ifdef RGB_MATRIX_ENABLE
-void housekeeping_task_user(void) {
-    if (!is_keyboard_master()) rgb_matrix_task();
+    rgb_matrix_task();
+#endif
 }
 
+#ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
@@ -179,6 +182,7 @@ void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t le
 }
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (!is_keyboard_master()) return;
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
