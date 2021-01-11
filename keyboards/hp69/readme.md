@@ -1,6 +1,6 @@
 # hp69
 
-![hp69](https://i.imgur.com/hwXvX1V.jpg)
+![hp69](https://i.imgur.com/hwXvX1Vl.jpg)
 
 *A 69 key layout keyboard to emulate apple bottom row with 1.5u 1.25u 1.5u bottom layout*
 
