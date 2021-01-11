@@ -114,8 +114,3 @@ A combo can call a function with signature `void(bool enabled)`:
 ```
 
 > WARNING: Combo actions defined in this way bypass any preprocessing by such QMK layers as Key Locking and WPM counting. It's instead recommended to assign the combo a custom keycode and then handle it in `combo_action_user`.
-
-## Dictionary Management
-When a large number of combos are present, duplicating code in 3 places can become tedious.
-
-This is issue is solved by the [Combo Engine](http://combos.gboards.ca/), which allows to eliminate duplication. Under the hood, the Combo Feature is used and the above configuration will work with it.
