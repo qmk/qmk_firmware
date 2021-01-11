@@ -2,8 +2,8 @@
 
 My Corne KBD layout is inspired by [my Planck Layout](../../../planck/keymaps/rjhilgefort/readme.md), but with some additional features. Namely, this layout has Linux support.
 
-![](https://imgur.com/wp9ksTI.jpg)
-![](https://imgur.com/fnyiCnE.jpg)
+![](https://imgur.com/wp9ksTIh.jpg)
+![](https://imgur.com/fnyiCnEh.jpg)
 
 ## Features
 
@@ -107,7 +107,7 @@ Note, you'll see that most `crkbd`'s recommend a target of `avrdude` because mos
 #### CLI
 
 ```
-sudo make crkbd:rjhilgefort:flash
+make crkbd:rjhilgefort:flash
 ```
 
 #### Docker
