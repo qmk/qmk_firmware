@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Aplyard
 #define PRODUCT         Aplx6
-#define DESCRIPTION     Aplx6 MediaPad
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -46,4 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-

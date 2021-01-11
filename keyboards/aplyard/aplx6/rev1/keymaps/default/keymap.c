@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*  |  |||||| 	|-----|-----|-----| |
 	*  '--------------------------------'
 	*/
-  [_MAIN] = LAYOUT(
+  [_MAIN] = LAYOUT( 
     KC_MPLY,  KC_VOLU,  MO(1),
     KC_MPRV,  KC_VOLD,  KC_MNXT
   ),
@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*  '--------------------------------'
 	*/
   
-  [_FN] = LAYOUT(
+  [_FN] = LAYOUT( 
     KC_CALC, KC_PGUP, _______,
     KC_MYCM, KC_PGDN, RESET
   )

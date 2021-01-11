@@ -12,11 +12,11 @@ Just wire them to any of the unused ProMicro pins. Don't forget to edit-uncommen
 
 * Keyboard Maintainer: [Aplyard](https://github.com/Aplyard)
 * Hardware Supported: Aplx6 PCB, Pro Micro (ATmega32U4)
-* Hardware Availability: [GitHub](https://github.com/Aplyard/Aplx6)
+* Hardware Availability: [GitHub](https://github.com/Aplyard/aplx6/tree/master/rev1)
 
 Make example for this keyboard (after setting up your build environment):
 
-     make aplx6:default
+     make aplyard/aplx6/rev1:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
