@@ -6,7 +6,7 @@
     "height": 3,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 15,
+            
             "layout": [
                 {"label":"1", "x":0, "y":0},
                 {"label":"2", "x":1, "y":0},
