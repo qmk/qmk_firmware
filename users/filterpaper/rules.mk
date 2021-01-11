@@ -1,5 +1,6 @@
 # Disable defaults for space
 VIA_ENABLE = no
+WPM_ENABLE = no
 NKRO_ENABLE = no
 STENO_ENABLE = no
 UNICODE_ENABLE = no

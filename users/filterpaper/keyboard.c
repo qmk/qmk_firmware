@@ -148,7 +148,23 @@ void oled_task_user(void) {
 	if (is_keyboard_master()) render_mod_status();
 	else                      animate_cat();
 }
-
-//void suspend_power_down_user(void) { oled_off(); }
 #endif // OLED_DRIVER_ENABLE
+
+
+// Handling keyboard suspension
+void suspend_power_down_user(void) {
+	#ifdef RGB_MATRIX_ENABLE
+	rgb_matrix_set_suspend_state(true);
+	#endif
+
+	#ifdef OLED_DRIVER_ENABLE
+	oled_off();
+	#endif
+}
+
+void suspend_wakeup_init_user(void) {
+	#ifdef RGB_MATRIX_ENABLE
+	rgb_matrix_set_suspend_state(false);
+	#endif
+}
 
