@@ -42,7 +42,7 @@ typedef enum {
 
     ko_options_all_activations = ko_option_activation_negative_mod_up | ko_option_activation_required_mod_down | ko_option_activation_trigger_down,
 
-    /** If set, any of the modifiers in trigger_modifiers will be enough to activate the override (logical OR of modifiers). If not set, all the modifiers in trigger_modifiers have to be pressed (logical AND of modifiers). */
+    /** If set, any of the modifiers in trigger_mods will be enough to activate the override (logical OR of modifiers). If not set, all the modifiers in trigger_mods have to be pressed (logical AND of modifiers). */
     ko_option_one_mod = (1 << 3),
     /** If set, the override can only activate if no non-modifier key except the trigger key is down. */
     ko_option_exclusive_key_on_activate = (1 << 4),
@@ -55,22 +55,22 @@ typedef enum {
 
 /** Defines a single key override */
 typedef struct {
-    // The basic keycode that triggers the override. This keycode MUST exclude modifiers. It can also be a custom keycode.
+    // The non-modifier keycode that triggers the override. This keycode, and the necessary modifiers (trigger_mods) must be pressed to activate this override. Set this to the keycode of the key that should activate the override. Set to KC_NO to require only the necessary modifiers to be pressed and no non-modifier.
     uint16_t trigger; 
 
-    // Which mods need to be down for activation. If both sides of mod are set (e.g. left ctrl and right ctrl) then only one is required to trigger (e.g. left ctrl suffices).
-    uint8_t trigger_modifiers;
+    // Which mods need to be down for activation. If both sides of a modifier are set (e.g. left ctrl and right ctrl) then only one is required to be pressed (e.g. left ctrl suffices). Use the MOD_MASK_XXX and MOD_BIT() macros for this.
+    uint8_t trigger_mods;
 
     // This is a BITMASK (!), defining which layers this override applies to. To use this override on layer i set the ith bit (1 << i).
     layer_state_t layers;
 
-    // Which keys cannot be down: get_mods() & negative_modifier_mask must be 0. Can be used to disallow specific modifiers for fine-grained control.
-    uint8_t negative_modifier_mask;
+    // Which modifiers cannot be down. It must hold that (active_mods & negative_mod_mask) == 0, otherwise the key override will not be activated. An active override will be deactivated once this is no longer true.
+    uint8_t negative_mod_mask;
 
-    // Modifiers to suppress when active. Can be used to suppress the trigger modifiers, as a trivial example.
+    // Modifiers to 'suppress' while the override is active. To suppress a modifier means that even though the modifier key is held down, the host OS sees the modifier as not pressed. Can be used to suppress the trigger modifiers, as a trivial example.
     uint8_t suppressed_mods;
 
-    // The complex keycode to send as replacement when this override is triggered. This may be a custom keycode or a key-modifier combination. Use in combination with suppressed_mods to get the correct modifiers to be sent if needed.
+    // The complex keycode to send as replacement when this override is triggered. This can be a simple keycode, a key-modifier combination (e.g. C(KC_A)), or KC_NO (to register no replacement keycode). Use in combination with suppressed_mods to get the correct modifiers to be sent.
     uint16_t replacement;
 
     // Options controlling the behavior of the override, such as what actions are allowed to activate the override.
@@ -79,7 +79,7 @@ typedef struct {
     // If not NULL, this function will be called right before the replacement key is registered, along with the provided context and a flag indicating whether the override was activated or deactivated. This function allows you to run some custom actions for specific key overrides. If you return `false`, the replacement key is not registered/unregistered as it would normally. Return `true` to register and unregister the override normally.
     bool (*custom_action)(bool activated, void *context);
 
-    // A context that will be passed to the custom action function if that is set.
+    // A context that will be passed to the custom action function.
     void *context;
 
     // If this points to false this override will not be used. Set to NULL to always have this override enabled.
@@ -128,13 +128,13 @@ extern bool key_override_is_enabled(void);
  /**
   *  Convenience initializer to create a basic key override. Provide a bitmap with the bits set for each layer on which the override should activate. Also provide a negative modifier mask, that is used to define which modifiers may not be pressed. Provide options for additional control of the behavior of the override.
  */
-#define ko_make_with_layers_negmods_and_options(trigger_mods, trigger_key, replacement_key, layer_mask, negative_mask, options_) \
+#define ko_make_with_layers_negmods_and_options(trigger_mods_, trigger_key, replacement_key, layer_mask, negative_mask, options_) \
     ((const key_override_t){                                                                \
-        .trigger_modifiers                      = (trigger_mods),                           \
+        .trigger_mods                           = (trigger_mods_),                          \
         .layers                                 = (layer_mask),                             \
-        .suppressed_mods                        = (trigger_mods),                           \
+        .suppressed_mods                        = (trigger_mods_),                          \
         .options                                = (options_),                               \
-        .negative_modifier_mask                 = (negative_mask),                          \
+        .negative_mod_mask                      = (negative_mask),                          \
         .custom_action                          = NULL,                                     \
         .context                                = NULL,                                     \
         .trigger                                = (trigger_key),                            \

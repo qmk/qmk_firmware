@@ -116,26 +116,26 @@ bool key_override_is_enabled(void) { return enabled; }
 // Returns whether the modifiers that are pressed are such that the override should activate
 static bool key_override_matches_active_modifiers(const key_override_t *override, const uint8_t mods) {
     // Check that negative keys pass
-    if ((override->negative_modifier_mask & mods) != 0) {
+    if ((override->negative_mod_mask & mods) != 0) {
         return false;
     }
 
     // Immediately return true if the override requires no mods down
-    if (override->trigger_modifiers == 0) {
+    if (override->trigger_mods == 0) {
         return true;
     }
 
     if ((override->options & ko_option_one_mod) != 0) {
         // At least one of the trigger modifiers must be down
-        return (override->trigger_modifiers & mods) != 0;
+        return (override->trigger_mods & mods) != 0;
     } else {
         // All trigger modifiers must be down, but each mod can be active on either side (if both sides are specified).
 
         // Which mods, regardless of side, are required?
-        uint8_t one_sided_required_mods = (override->trigger_modifiers & 0b1111) | (override->trigger_modifiers >> 4);
+        uint8_t one_sided_required_mods = (override->trigger_mods & 0b1111) | (override->trigger_mods >> 4);
 
         // Which of the required modifiers are active?
-        uint8_t active_required_mods = override->trigger_modifiers & mods;
+        uint8_t active_required_mods = override->trigger_mods & mods;
 
         // Move the active requird mods to one side
         uint8_t one_sided_active_required_mods = (active_required_mods & 0b1111) | (active_required_mods >> 4);
@@ -147,7 +147,8 @@ static bool key_override_matches_active_modifiers(const key_override_t *override
     return false;
 }
 
-static void register_key_to_pending_keyboard_report(const uint16_t keycode) {
+// Called only to register a mod-free replacement keycode of a key override to the keyboard report.
+static void register_replacement_key_to_pending_keyboard_report(const uint16_t keycode) {
     if (IS_KEY(keycode)) {
         add_key(keycode);
     } else {
@@ -187,7 +188,11 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     const key_override_t *const old = active_override;
 
-    bool unregister_replacement = active_override->replacement != KC_NO;
+    const uint8_t mod_free_replacement = clear_mods_from(active_override->replacement);
+
+    bool unregister_replacement = mod_free_replacement != KC_NO && // KC_NO is never registered
+                                  mod_free_replacement < SAFE_RANGE; // Custom keycodes are never registered
+
     // Try firing the custom handler
     if (active_override->custom_action != NULL) {
         unregister_replacement &= active_override->custom_action(false, active_override->context);
@@ -195,13 +200,12 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     // Then unregister the mod-free replacement key if desired
     if (unregister_replacement) {
-        const uint8_t replacement = clear_mods_from(active_override->replacement);
-        if (IS_KEY(replacement)) {
-            del_key(replacement);
+        if (IS_KEY(mod_free_replacement)) {
+            del_key(mod_free_replacement);
         } else {
             key_override_printf("NOT KEY 1\n");
             send_keyboard_report();
-            unregister_code(replacement);
+            unregister_code(mod_free_replacement);
         }
     }
 
@@ -284,7 +288,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         }
 
         // Fast, but not full mods check. Most key presses will not have any mods down, and most overrides will require mods. Hence here we filter overrides that require mods to be down while no mods are down
-        if (active_mods == 0 && override->trigger_modifiers != 0) {
+        if (active_mods == 0 && override->trigger_mods != 0) {
             key_override_printf("Not activating override: Modifiers don't match\n");
             continue;
         }
@@ -352,14 +356,6 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
         key_override_printf("Activating override\n");
 
-#ifdef DEBUG_KEY_OVERRIDE
-        // Sanity check
-        if (extract_mod_bits(override->trigger) != 0) {
-            key_override_printf("ERROR! Not activating override: Trigger key includes mod bits. It cannot include any mod bits. Use trigger_modifiers for this.\n");
-            continue;
-        }
-#endif
-
         clear_active_override(false);
 
         active_override                 = override;
@@ -372,19 +368,14 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
             del_key(override->trigger);
         }
 
-        // If the replacement key is KC_NO, there is nothing to register.
-        bool register_replacement = override->replacement != KC_NO;
+        const uint16_t mod_free_replacement = clear_mods_from(override->replacement);
+
+        bool register_replacement = mod_free_replacement != KC_NO &&    // KC_NO is never registered
+                                    mod_free_replacement < SAFE_RANGE;  // Custom keycodes are never registered
 
         // Try firing the custom handler
         if (override->custom_action != NULL) {
             register_replacement &= override->custom_action(true, override->context);
-        }
-
-        const uint16_t mod_free = clear_mods_from(override->replacement);
-
-        // Can't register a custom keycode. Needs to be handled with the custom aciton
-        if (mod_free >= SAFE_RANGE) {
-            register_replacement = false;
         }
 
         if (register_replacement) {
@@ -394,10 +385,10 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
             // If this is a modifier event that activates the key override we _always_ defer the actual full activation of the override
             if (is_mod) {
                 key_override_printf("Deferring register replacement key\n");
-                schedule_deferred_register(mod_free);
+                schedule_deferred_register(mod_free_replacement);
                 send_keyboard_report();
             } else {
-                register_key_to_pending_keyboard_report(mod_free);
+                register_replacement_key_to_pending_keyboard_report(mod_free_replacement);
             }
         } else {
             // If not registering the replacement key send keyboard report to update the unregistered keys.
