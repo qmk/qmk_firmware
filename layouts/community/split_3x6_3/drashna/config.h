@@ -19,9 +19,8 @@
 /* Select hand configuration */
 
 // #define MASTER_LEFT
-// #define MASTER_RIGHT
-#define EE_HANDS
-
+#define MASTER_RIGHT
+// #define EE_HAND
 #undef USE_I2C
 #undef SSD1306OLED
 

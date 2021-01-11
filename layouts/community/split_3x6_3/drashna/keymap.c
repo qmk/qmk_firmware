@@ -141,6 +141,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
+void housekeeping_task_user(void) {
+    if (!is_keyboard_master()) rgb_matrix_task();
+}
+
 void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
