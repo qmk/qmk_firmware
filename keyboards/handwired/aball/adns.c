@@ -214,22 +214,20 @@ void pointing_device_init(void) {
 int16_t convertDeltaToInt(uint8_t high, uint8_t low){
 
     // join bytes into twos compliment
-    uint16_t twos_comp = (high << 8) | low;
-
-    // convert twos comp to int
-    if (twos_comp & 0x8000)
-        return -1 * ((twos_comp ^ 0xffff) + 1);
-
-    return twos_comp;
+    //int16_t twos_comp = (high << 8) | low;
+    //return twos_comp;
+    return (high << 8) | low;
 }
 
 void readSensor(void) {
 
     adns_begin();
 
-    // send adress of the register, with MSBit = 1 to indicate it's a write
+    // read from Motion_Burst to enable burt mode
     spi_write(REG_Motion_Burst & 0x7f);
 
+    // Wait one frame per docs, thanks u/kbjunky
+    wait_us(100);
     uint8_t burst_data[pixel_sum];
 
     for (int i = 0; i < pixel_sum; ++i) {
