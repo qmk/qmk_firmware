@@ -29,10 +29,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
 #ifdef DIRECT_PINS
+#    ifdef DIRECT_PINS_RIGHT
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+#    else
+static const pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+#    endif
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
-static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+#    ifdef MATRIX_ROW_PINS_RIGHT
+static pin_t row_pins[] = MATRIX_ROW_PINS;
+#    else
+static const pin_t row_pins[] = MATRIX_ROW_PINS;
+#    endif
+#    ifdef MATRIX_COL_PINS_RIGHT
+#        define NUM_COL_PINS ({ static const pin_t col_pins[] = MATRIX_COL_PINS; sizeof(col_pins)/sizeof(pin_t); })
+#        define NUM_COL_PINS_RIGHT ({ static const pin_t col_pins_right[] = MATRIX_COL_PINS_RIGHT; sizeof(col_pins_right)/sizeof(pin_t); })
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#    else
+static const pin_t col_pins[] = MATRIX_COL_PINS;
+#    endif
+
+/* Consistency checking of the size of the matrix and the number of pins */
+// clang-format off
+#        define NUM_ROW_PINS (MATRIX_ROWS / 2)
+_Static_assert(NUM_ROW_PINS * 2 == MATRIX_ROWS, "Must be exactly divisible");
+_Static_assert(NUM_ROW_PINS == sizeof(row_pins)/sizeof(pin_t), \
+    "Number of elements in MATRIX_ROW_PINS * 2 must be equal to MATRIX_ROWS");
+#if !defined(MATRIX_COL_PINS_RIGHT)
+_Static_assert(MATRIX_COLS == sizeof(col_pins)/sizeof(pin_t), \
+    "Number of elements in MATRIX_COL_PINS must be equal to MATRIX_COLS");
+#endif
+// clang-format on
+
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -97,17 +124,31 @@ static void select_row(uint8_t row) { setPinOutput_writeLow(row_pins[row]); }
 
 static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
 
+static void unselect_col(uint8_t col) { setPinInputHigh_atomic(col_pins[col]); }
+
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
+        unselect_row(x);
+    }
+}
+
+static void unselect_cols(void) {
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+#ifdef MATRIX_COL_PINS_RIGHT
+        // This will get optimized away at compile time when unnecessary.
+        if (MATRIX_COLS > NUM_COL_PINS || MATRIX_COLS > NUM_COL_PINS_RIGHT) {
+            if (col_pins[x] == NO_PIN) {
+                continue;
+            }
+        }
+#endif
+        unselect_col(x);
     }
 }
 
 static void init_pins(void) {
     unselect_rows();
-    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
-    }
+    unselect_cols();
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
@@ -120,6 +161,14 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+#ifdef MATRIX_COL_PINS_RIGHT
+        // This will get optimized away at compile time when unnecessary.
+        if (MATRIX_COLS > NUM_COL_PINS || MATRIX_COLS > NUM_COL_PINS_RIGHT) {
+            if (col_pins[col_index] == NO_PIN) {
+                continue;
+            }
+        }
+#endif
         // Select the col pin to read (active low)
         uint8_t pin_state = readPin(col_pins[col_index]);
 
@@ -147,17 +196,31 @@ static void select_col(uint8_t col) { setPinOutput_writeLow(col_pins[col]); }
 
 static void unselect_col(uint8_t col) { setPinInputHigh_atomic(col_pins[col]); }
 
+static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
+
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
+#ifdef MATRIX_COL_PINS_RIGHT
+        // This will get optimized away at compile time when unnecessary.
+        if (MATRIX_COLS > NUM_COL_PINS || MATRIX_COLS > NUM_COL_PINS_RIGHT) {
+            if (col_pins[x] == NO_PIN) {
+                continue;
+            }
+        }
+#endif
+        unselect_col(x);
+    }
+}
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+        unselect_row(x);
     }
 }
 
 static void init_pins(void) {
     unselect_cols();
-    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
-    }
+    unselect_rows();
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
@@ -219,15 +282,27 @@ void matrix_init(void) {
         }
 #endif
 #ifdef MATRIX_ROW_PINS_RIGHT
-        const pin_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
-        for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        const pin_t row_pins_right[] = MATRIX_ROW_PINS_RIGHT;
+#define NUM_ROW_PINS_RIGHT (sizeof(row_pins_right)/sizeof(pin_t))
+        _Static_assert(NUM_ROW_PINS_RIGHT == NUM_ROW_PINS, \
+            "Number of elements in MATRIX_ROW_PINS_RIGHT * 2 must be equal to MATRIX_ROWS");
+        for (uint8_t i = 0; i < NUM_ROW_PINS; i++) {
             row_pins[i] = row_pins_right[i];
         }
 #endif
 #ifdef MATRIX_COL_PINS_RIGHT
         const pin_t col_pins_right[MATRIX_COLS] = MATRIX_COL_PINS_RIGHT;
-        for (uint8_t i = 0; i < MATRIX_COLS; i++) {
+        for (uint8_t i = 0; i < NUM_COL_PINS_RIGHT; i++) {
             col_pins[i] = col_pins_right[i];
+        }
+        for (uint8_t i = NUM_COL_PINS_RIGHT; i < MATRIX_COLS; i++) {
+            col_pins[i] = NO_PIN;
+        }
+#endif
+    } else {
+#ifdef MATRIX_COL_PINS_RIGHT
+        for (uint8_t i = NUM_COL_PINS; i < MATRIX_COLS; i++) {
+            col_pins[i] = NO_PIN;
         }
 #endif
     }
@@ -301,6 +376,14 @@ uint8_t matrix_scan(void) {
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+#ifdef MATRIX_COL_PINS_RIGHT
+        // This will get optimized away at compile time when unnecessary.
+        if (MATRIX_COLS > NUM_COL_PINS || MATRIX_COLS > NUM_COL_PINS_RIGHT) {
+            if (col_pins[current_col] == NO_PIN) {
+                continue;
+            }
+        }
+#endif
         local_changed |= read_rows_on_col(raw_matrix, current_col);
     }
 #endif

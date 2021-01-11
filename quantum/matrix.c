@@ -22,10 +22,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef DIRECT_PINS
-static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+static const pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
-static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static const pin_t row_pins[] = MATRIX_ROW_PINS;
+static const pin_t col_pins[] = MATRIX_COL_PINS;
+#define NUM_ROW_PINS (sizeof(row_pins)/sizeof(pin_t))
+#define NUM_COL_PINS (sizeof(col_pins)/sizeof(pin_t))
+
+/* Consistency checking of the size of the matrix and the number of pins */
+_Static_assert(NUM_ROW_PINS == MATRIX_ROWS, \
+    "Number of elements in MATRIX_ROW_PINS must be equal to MATRIX_ROWS");
+_Static_assert(NUM_COL_PINS <= MATRIX_COLS, \
+    "Number of elements in MATRIX_COL_PINS must be equal to or less than MATRIX_COLS");
+
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -84,17 +93,23 @@ static void select_row(uint8_t row) { setPinOutput_writeLow(row_pins[row]); }
 
 static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
 
+static void unselect_col(uint8_t col) { setPinInputHigh_atomic(col_pins[col]); }
+
 static void unselect_rows(void) {
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
+    for (uint8_t x = 0; x < NUM_ROW_PINS; x++) {
+        unselect_row(x);
+    }
+}
+
+static void unselect_cols(void) {
+    for (uint8_t x = 0; x < NUM_COL_PINS; x++) {
+        unselect_col(x);
     }
 }
 
 static void init_pins(void) {
     unselect_rows();
-    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
-    }
+    unselect_cols();
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
@@ -106,7 +121,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     matrix_output_select_delay();
 
     // For each col...
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    for (uint8_t col_index = 0; col_index < NUM_COL_PINS; col_index++) {
         // Select the col pin to read (active low)
         uint8_t pin_state = readPin(col_pins[col_index]);
 
@@ -134,17 +149,23 @@ static void select_col(uint8_t col) { setPinOutput_writeLow(col_pins[col]); }
 
 static void unselect_col(uint8_t col) { setPinInputHigh_atomic(col_pins[col]); }
 
+static void unselect_row(uint8_t row) { setPinInputHigh_atomic(row_pins[row]); }
+
 static void unselect_cols(void) {
-    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh_atomic(col_pins[x]);
+    for (uint8_t x = 0; x < NUM_COL_PINS; x++) {
+        unselect_col(x);
+    }
+}
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < NUM_ROW_PINS; x++) {
+        unselect_row(x);
     }
 }
 
 static void init_pins(void) {
     unselect_cols();
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh_atomic(row_pins[x]);
-    }
+    unselect_rows();
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
@@ -155,7 +176,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     matrix_output_select_delay();
 
     // For each row...
-    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+    for (uint8_t row_index = 0; row_index < NUM_ROW_PINS; row_index++) {
         // Store last value of row prior to reading
         matrix_row_t last_row_value    = current_matrix[row_index];
         matrix_row_t current_row_value = last_row_value;
@@ -217,7 +238,7 @@ uint8_t matrix_scan(void) {
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
-    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+    for (uint8_t current_col = 0; current_col < NUM_COL_PINS; current_col++) {
         changed |= read_rows_on_col(raw_matrix, current_col);
     }
 #endif
