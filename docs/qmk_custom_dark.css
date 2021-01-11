@@ -44,3 +44,16 @@
 .docsify-tabs__content .anchor {
     transition: none;
 }
+
+
+@media only screen and (min-width: 768px) {
+    .flex-container {
+      display:flex;
+      flex-flow:row;
+    }
+    .flex-container > p {
+      flex-basis: 100%;
+      flex: 1;
+      margin: 1em 2em 1em 2em;
+    }
+}

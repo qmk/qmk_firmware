@@ -2,40 +2,20 @@
 
 Before you can build keymaps, you need to install some software and set up your build environment. This only has to be done once no matter how many keyboards you plan to compile firmware for.
 
-## 1. Download Software
+## 1. Prerequisites
 
 There are a few pieces of software you'll need to get started.
 
-### Text Editor
+* [Text editor](newbs_learn_more_resources.md#text-editor-resources)
+  * You’ll need a program that can edit and save plain text files. The default editor that comes with many OS's does not save plain text files, so you'll need to make sure that whatever editor you chose does.
+* [Toolbox (optional)](https://github.com/qmk/qmk_toolbox)
+  * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard
 
-You'll need a program that can edit and save **plain text** files. If you're on Windows you can make do with Notepad, and on Linux you can use gedit. Both of these are simple but functional text editors. On macOS, be careful with the default TextEdit app: it will not save plain text files unless you explicitly select _Make Plain Text_ from the _Format_ menu.
-
-You can also download and install a dedicated text editor like [Sublime Text](https://www.sublimetext.com/) or [VS Code](https://code.visualstudio.com/). This is probably the best way to go regardless of platform, as these programs are specifically made for editing code.
-
-?> Not sure which text editor to use? Laurence Bradford wrote [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) to the subject.
-
-### QMK Toolbox
-
-QMK Toolbox is an optional graphical program for Windows and macOS that allows you to both program and debug your custom keyboard. You will likely find it invaluable for easily flashing your keyboard and viewing debug messages that it prints.
-
-[Download the latest release here.](https://github.com/qmk/qmk_toolbox/releases/latest)
-
-* For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
-* For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
-
-### A Unix-like Environment
-
-Linux and macOS come with unix shells you can execute already. You will only need to setup your build environment.
-
-On Windows you will need to install MSYS2 or WSL and use those environments. Instructions for setting up MSYS2 are provided below.
+?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
 
 ## 2. Prepare Your Build Environment :id=set-up-your-environment
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
-
-?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. These resources will teach you enough to be able to work with QMK:<br>
-[Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
-[Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
 <!-- tabs:start -->
 
@@ -45,9 +25,9 @@ QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also
 
 #### Prerequisites
 
-You will need to install `QMK MSYS`. The latest release is available at https://msys.qmk.fm/.
+You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
 
-Alternatively, if you'd like to manually install msys2, the following section will walk you through the process.
+Alternatively, if you'd like to manually install MSYS2, the following section will walk you through the process.
 
 <details>
   <summary>Manual Install</summary>

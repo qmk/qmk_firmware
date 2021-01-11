@@ -37,17 +37,21 @@ Begin by opening the QMK Toolbox application. You'll want to locate the firmware
 
 If you are on Windows or macOS, there are commands you can use to easily open the current folder in Explorer or Finder.
 
-#### Windows
+<!-- tabs:start -->
+
+#### ** Windows **
 
 ```
 start .
 ```
 
-#### macOS
+#### ** macOS **
 
 ```
 open .
 ```
+
+<!-- tabs:end -->
 
 The firmware file always follows this naming format:
 
