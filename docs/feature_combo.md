@@ -22,7 +22,7 @@ enum combo_keys {
     LBOT1, LBOT2, LBOT3, LBOT4, LBOT5, RBOT1, RBOT2, RBOT3, RBOT4, RBOT5,
 };
 
-constexpr auto combos_data_instance PROGMEM = make_combos_data(
+static constexpr auto combos_data_instance PROGMEM = make_combos_data(
     combo_layer<NAV>({
         {KC_TAB, {LTOP1, LBOT1}},
         {KC_HOME, {LTOP2, RTOP2}},
