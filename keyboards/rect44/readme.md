@@ -1,6 +1,6 @@
 # Rect44
 
-![Rect44](https://i.imgur.com/TWXGnfm.jpg)
+![Rect44](https://i.imgur.com/TWXGnfml.jpg)
 
 A 40% keyboard with various layouts.
 Includes hot-swap switch sockets and bended 1.5mm stainless sheet metal case.
