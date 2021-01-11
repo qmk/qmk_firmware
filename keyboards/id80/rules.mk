@@ -1,3 +1,6 @@
+# Defalt to the ansi version
+DEFAULT_FOLDER = id80/ansi
+
 # MCU name
 MCU = atmega32u4
 
