@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # project specific files
@@ -70,7 +69,7 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 RAW_ENABLE = yes
 
-LAYOUTS = 60_ansi_split_bs_rshift
+LAYOUTS = 60_ansi 60_iso
 
 # Experimental features for zealcmd please do no enable
 #RAW_ENABLE = yes

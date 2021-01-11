@@ -173,23 +173,6 @@ EXTRAKEY_ENABLE = yes          # 音频控制和系统控制
 
 Arduino Leonardo和micro使用**ATMega32U4**，该芯片TMK可用，但Arduino的bootloader会导致问题。
 
-
-## 在USB AVR使用PF4-7针脚?
-你要置位MCUCR寄存器JTD位来将PF4-7设置为GPIO。这些针脚默认是JTAG功能。 像ATMega*U* or AT90USB*这样的MCU会受影响。
-
-如果是用Teensy的话就不需要了。Tennsy自带JTAGEN位未编程来失能该功能。
-<!--翻译问题：上句可能有错，原文为：Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function. -->
-代码如下。
-```
-    // F接口JTAG失能。在四个周期内写入两次JTD位。
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-```
-https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67
-
-阅读ATMega32U4的datasheet中的**26.5.1 MCU Control Register – MCUCR**。
-
-
 ## 为锁定键添加指示灯
 你要自制CapsLock, ScrollLock 和 NumLock指示灯？见下文。
 

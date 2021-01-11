@@ -55,17 +55,17 @@
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 // Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*10*10*2)) = (35+800)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 835
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 189
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
+// Dynamic macro starts after dynamic keymaps (37+(4*10*10*2)) = (37+800)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 837
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 187
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 

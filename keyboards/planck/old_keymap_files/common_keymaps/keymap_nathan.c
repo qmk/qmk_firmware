@@ -3,6 +3,9 @@
 
 #include "keymap.h"
 
+#define KC_MO1 MO(1)
+#define KC_MO2 MO(2)
+
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /* 0: main layer
     * ,-----------------------------------------------------------------------.
@@ -19,7 +22,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
        LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENT,
        RSFT, Z,    X,    C,    V,    B,    N,    M,    LBRC, FN10, FN11, FN12,
-       LGUI, BSLS, SLSH, LALT, FN0,  SPC,  SPC,  FN1,  LEFT, DOWN, UP,   RGHT),
+       LGUI, BSLS, SLSH, LALT, MO1,  SPC,  SPC,  MO2,  LEFT, DOWN, UP,   RGHT),
 
    /* 1: fn left/lower layer
     * The top row are Visual Studio combos:
@@ -73,8 +76,6 @@ enum macro_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_LAYER_MOMENTARY(1), // left/lower layer
-  [1] = ACTION_LAYER_MOMENTARY(2), // right/raise layer
   // Program macros
   [2] = ACTION_MACRO(M_P0),
   [3] = ACTION_MACRO(M_P1),

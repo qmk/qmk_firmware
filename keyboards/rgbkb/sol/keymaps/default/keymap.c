@@ -5,13 +5,6 @@
 #include "split_util.h"
 #endif
 
-extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -23,22 +16,18 @@ enum layer_number {
     _ADJ
 };
 
+// Keycode defines for layers
+#define QWERTY   DF(_QWERTY)
+#define COLEMAK  DF(_COLEMAK)
+#define FN       MO(_FN)
+#define ADJ      MO(_ADJ)
+
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  FN,
-  ADJ,
-  BACKLIT,
-  RGBRST
+  RGBRST = SAFE_RANGE,
+  RGB_MENU
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-
-
-#define FN_ESC  LT(_FN, KC_ESC)
+#define FN_ESC   LT(_FN, KC_ESC)
 #define FN_CAPS  LT(_FN, KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * |FN(CAPS)| A  |   S  |   D  |   F  |   G  |   (  |  |   )  |   H  |   J  |   K  |   L  |   ;  |   '  |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |Shift |   Z  |   X  |   C  |   V  |   B  |   {  |  |   }  |   N  |   M  |   ,  |   .  |   /  |Shift |
+   * |Shift |   Z  |   X  |   C  |   V  |   B  |   {  |  |   }  |   N  |   M  |   ,  |   .  |   /  |Enter |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctrl |  Win |  Alt |  RGB | ADJ  | Space| DEL  |  | Enter| Space|  FN  | Left | Down | Up   |Right |
+   * | Ctrl |  Win |  Alt |  RGB | ADJ  | Space| DEL  | | Enter| Space|  FN  | Left | Down | Up   |Right |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Space| DEL  |  | Enter| Space|
    *                                    `-------------'  `-------------'
@@ -74,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * |FN(CAPS)| A  |   R  |   S  |   T  |   G  |   (  |  |   )  |   K  |   N  |   E  |   I  |   O  |   '  |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |Shift |   Z  |   X  |   C  |   D  |   V  |   {  |  |   }  |   M  |   H  |   ,  |   .  |   /  |Shift |
+   * |Shift |   Z  |   X  |   C  |   D  |   V  |   {  |  |   }  |   M  |   H  |   ,  |   .  |   /  |Enter |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * | Ctrl |  Win |  Alt |  RGB | ADJ  | Space| DEL  |  | Enter| Space|  FN  | Left | Down | Up   |Right |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
@@ -83,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_COLEMAK] = LAYOUT( \
     KC_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_MINS,  KC_EQL,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC, \
-     KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B, KC_LBRC, KC_RBRC,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSLS, \
-    FN_CAPS,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G, KC_LPRN, KC_RPRN,    KC_K,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT, \
-    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, KC_LCBR, KC_RCBR,    KC_M,    KC_H, KC_COMM, KC_DOT,  KC_SLSH,  KC_ENT, \
+     KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_LBRC, KC_RBRC,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSLS, \
+    FN_CAPS,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_LPRN, KC_RPRN,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT, \
+    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_LCBR, KC_RCBR,    KC_K,    KC_M, KC_COMM, KC_DOT,  KC_SLSH,  KC_ENT, \
     KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG,     ADJ,  KC_SPC,  KC_DEL,  KC_ENT,  KC_SPC,      FN, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, \
                                                   KC_SPC,  KC_DEL,  KC_ENT,  KC_SPC \
   ),
@@ -107,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_FN] = LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, _______, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, \
-    _______, KC_PGDN,   KC_UP, KC_PGUP, _______, _______, _______, _______, _______, KC_PGDN,   KC_UP, KC_PGUP, KC_PSCR, KC_HOME, \
-    _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT,  KC_INS,  KC_END, \
+    _______, KC_PGDN,   KC_UP, KC_PGUP, _______, _______, _______, KC_SLCK, _______, KC_PGDN,   KC_UP, KC_PGUP, KC_PSCR, KC_HOME, \
+    _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, KC_NLCK, _______, KC_LEFT, KC_DOWN, KC_RGHT,  KC_INS,  KC_END, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, RGB_MOD, _______, _______, _______, _______, _______, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
                                                  _______, _______, _______, _______ \
@@ -134,120 +123,184 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, _______, _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, \
     _______, RGB_SAD, RGB_VAI, RGB_SAI,   RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, RGB_HUD, RGB_VAD, RGB_HUI,  RGBRST, _______, _______, _______, _______,  QWERTY, COLEMAK, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
-    _______, _______, _______, RGB_MOD, _______, _______, _______, _______, _______, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, \
+    _______, RGB_SPD, _______, RGB_SPI, _______, _______, _______, _______, _______, RGB_SPI, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
+    _______, _______, _______, RGB_MOD, _______, _______, _______, _______, _______, RGB_SPD, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, \
                                                  _______, _______, _______, _______ \
   )
 };
 
+// For RGBRST Keycode
+#if defined(RGB_MATRIX_ENABLE)
+void rgb_matrix_increase_flags(void)
+{
+    switch (rgb_matrix_get_flags()) {
+        case LED_FLAG_ALL: {
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_UNDERGLOW: {
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_disable_noeeprom();
+            }
+            break;
+        default: {
+            rgb_matrix_set_flags(LED_FLAG_ALL);
+            rgb_matrix_enable_noeeprom();
+            }
+            break;
+    }
+}
 
+void rgb_matrix_decrease_flags(void)
+{
+    switch (rgb_matrix_get_flags()) {
+        case LED_FLAG_ALL: {
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_disable_noeeprom();
+            }
+            break;
+        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+            rgb_matrix_set_flags(LED_FLAG_ALL);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_UNDERGLOW: {
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        default: {
+            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+            rgb_matrix_enable_noeeprom();
+            }
+            break;
+    }
+}
+#endif
 
-// define variables for reactive RGB
-bool TOG_STATUS = false;
-int RGB_current_mode;
+#ifdef RGB_OLED_MENU
+uint8_t rgb_encoder_state = 4;
+
+typedef void (*rgb_matrix_f)(void);
+
+const rgb_matrix_f rgb_matrix_functions[6][2] = {
+    { rgb_matrix_increase_hue, rgb_matrix_decrease_hue },
+    { rgb_matrix_increase_sat, rgb_matrix_decrease_sat },
+    { rgb_matrix_increase_val, rgb_matrix_decrease_val },
+    { rgb_matrix_increase_speed, rgb_matrix_decrease_speed },
+    { rgb_matrix_step, rgb_matrix_step_reverse },
+    { rgb_matrix_increase_flags, rgb_matrix_decrease_flags }
+};
+#endif
 
 #ifdef ENCODER_ENABLE
+
+static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+#define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a)/sizeof(pin_t))
+
+const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
+    [_QWERTY] = ENCODER_LAYOUT( \
+        KC_VOLU, KC_VOLD,
+        KC_VOLU, KC_VOLD
+    ),
+    [_COLEMAK] = ENCODER_LAYOUT( \
+        _______, _______,
+        _______, _______
+    ),
+    [_FN] = ENCODER_LAYOUT( \
+        _______, _______,
+        _______, _______
+    ),
+    [_ADJ] = ENCODER_LAYOUT( \
+        _______, _______,
+        _______, _______
+    )
+};
+
 void encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { /* First encoder */
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
+  if (!is_keyboard_master())
+    return;
+
+#ifdef RGB_OLED_MENU
+  if (index == RGB_OLED_MENU) {
+    (*rgb_matrix_functions[rgb_encoder_state][clockwise])();
+  } else
+#endif
+  {
+    uint8_t layer = biton32(layer_state);
+    uint16_t keycode = encoders[layer][index][clockwise];
+    while (keycode == KC_TRANSPARENT && layer > 0)
+    {
+      layer--;
+      if ((layer_state & (1 << layer)) != 0)
+          keycode = encoders[layer][index][clockwise];
     }
-  } else if (index == 1) { /* Second encoder*/
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
+    if (keycode != KC_TRANSPARENT)
+      tap_code16(keycode);
   }
 }
 #endif
 
-// Setting ADJ layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    #ifdef RGBLIGHT_ENABLE
-      //rgblight_mode(RGB_current_mode);
-    #endif
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-
+  static uint16_t reset_timer;
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if(record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case FN:
-      if (record->event.pressed) {
-        //not sure how to have keyboard check mode and set it to a variable, so my work around
-        //uses another variable that would be set to true after the first time a reactive key is pressed.
-        if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
-        } else {
-          TOG_STATUS = !TOG_STATUS;
-          #ifdef RGBLIGHT_ENABLE
-            //rgblight_mode(15);
-          #endif
-        }
-        layer_on(_FN);
-      } else {
-        #ifdef RGBLIGHT_ENABLE
-          //rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
-        #endif
-        layer_off(_FN);
-        TOG_STATUS = false;
-      }
-      return false;
-      break;
-    case ADJ:
-        if (record->event.pressed) {
-          layer_on(_ADJ);
-        } else {
-          layer_off(_ADJ);
-        }
-        return false;
-        break;
-      //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
     case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
         }
-      #endif
-      break;
+#elif defined(RGB_MATRIX_ENABLE)
+        if (record->event.pressed) {
+          eeconfig_update_rgb_matrix_default();
+        }
+#endif
+      return false;
+    case RESET:
+      if (record->event.pressed) {
+          reset_timer = timer_read();
+      } else {
+          if (timer_elapsed(reset_timer) >= 500) {
+              reset_keyboard();
+          }
+      }
+      return false;
+#if defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_rgbkb_sol_rev2)
+    case RGB_TOG:
+      if (record->event.pressed) {
+        rgb_matrix_increase_flags();
+      }
+      return false;
+#endif
+    case RGB_MENU:
+#ifdef RGB_OLED_MENU
+      if (record->event.pressed) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+          rgb_encoder_state = (rgb_encoder_state - 1);
+          if (rgb_encoder_state > 5) {
+            rgb_encoder_state = 5;
+          }
+        } else {
+          rgb_encoder_state = (rgb_encoder_state + 1) % 6;
+        }
+      }
+#endif
+      return false;
   }
   return true;
 }
 
-void matrix_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-  RGB_current_mode = rgblight_config.mode;
-#endif
-}
-
-
 // OLED Driver Logic
 #ifdef OLED_DRIVER_ENABLE
-
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!has_usb())
-    return OLED_ROTATION_180;  // flip 180 for offhand
+  if (is_keyboard_master())
+    return OLED_ROTATION_270;
   return rotation;
 }
 
@@ -255,62 +308,64 @@ static void render_logo(void) {
   static const char PROGMEM sol_logo[] = {
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
-
+    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0
+  };
   oled_write_P(sol_logo, false);
 }
 
-//assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_FN (1<<_FN)
-#define L_ADJ (1<<_ADJ)
-#define L_ADJ_TRI (L_ADJ|L_FN)
-
 static void render_status(void) {
   // Render to mode icon
-  static const char PROGMEM mode_logo[4][4] = {
-    {0x95,0x96,0x0a,0},
-    {0xb5,0xb6,0x0a,0},
-    {0x97,0x98,0x0a,0},
-    {0xb7,0xb8,0x0a,0} };
+  static const char PROGMEM sol_icon[] = {
+    0x9b,0x9c,0x9d,0x9e,0x9f,
+    0xbb,0xbc,0xbd,0xbe,0xbf,
+    0xdb,0xdc,0xdd,0xde,0xdf,0
+  };
+  oled_write_P(sol_icon, false);
 
-  if (keymap_config.swap_lalt_lgui != false) {
-    oled_write_P(mode_logo[0], false);
-    oled_write_P(mode_logo[1], false);
-  } else {
-    oled_write_P(mode_logo[2], false);
-    oled_write_P(mode_logo[3], false);
-  }
-
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  oled_write_P(PSTR("Layer: "), false);
-  switch (layer_state) {
-    case L_BASE:
-      oled_write_P(PSTR("Default\n"), false);
+  // Define layers here
+  oled_write_P(PSTR("Layer"), false);
+  uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
+  switch (layer) {
+    case _QWERTY:
+      oled_write_P(PSTR("BASE "), false);
       break;
-    case L_FN:
-      oled_write_P(PSTR("FN     \n"), false);
+    case _COLEMAK:
+      oled_write_P(PSTR("CLMK "), false);
       break;
-    case L_ADJ:
-    case L_ADJ_TRI:
-      oled_write_P(PSTR("ADJ    \n"), false);
+    case _FN:
+      oled_write_P(PSTR("FN   "), false);
+      break;
+    case _ADJ:
+      oled_write_P(PSTR("ADJ  "), false);
       break;
     default:
-      oled_write_P(PSTR("UNDEF  \n"), false);
+      oled_write_P(PSTR("UNDEF"), false);
   }
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLOCK ") : PSTR("        "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
+    uint8_t led_state = host_keyboard_leds();
+    oled_write_P(PSTR("-----"), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
+
+#ifdef RGB_OLED_MENU
+    static char buffer[31] = { 0 };
+    snprintf(buffer, sizeof(buffer), "h%3d s%3d v%3d s%3d m%3d e%3d ", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v, rgb_matrix_config.speed, rgb_matrix_config.mode, rgb_matrix_get_flags());
+    buffer[4 + rgb_encoder_state * 5] = '<';
+
+    oled_write_P(PSTR("-----"), false);
+    oled_write(buffer, false);
+#endif
 }
 
 void oled_task_user(void) {
-  if (is_keyboard_master())
+  if (is_keyboard_master()) {
     render_status();
-  else
+  } else {
     render_logo();
+    oled_scroll_left();
+  }
 }
 
 #endif

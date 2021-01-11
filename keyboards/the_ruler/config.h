@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maple Computing
 #define PRODUCT         The PCB Ruler
-#define DESCRIPTION     A custom keyboard PCB ruler, can also function as a macro pad
+#define DESCRIPTION     "A custom keyboard PCB ruler, can also function as a macro pad"
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -155,5 +154,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-
-#endif

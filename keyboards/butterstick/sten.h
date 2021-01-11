@@ -13,11 +13,14 @@
 
 extern size_t keymapsCount;			// Total keymaps
 extern uint32_t cChord;				// Current Chord
+extern uint32_t stenoLayers[];		// Chords that simulate QMK layers
+extern size_t stenoLayerCount;		// Number of simulated layers
+uint32_t refChord;					// Reference chord for PC macro
 
 // Function defs
 void 			processChord(bool useFakeSteno);
-uint32_t		processQwerty(bool lookup);
-uint32_t 		processFakeSteno(bool lookup);
+uint32_t	processQwerty(bool lookup);
+uint32_t 	processFakeSteno(bool lookup);
 void 			saveState(uint32_t cChord);
 void 			restoreState(void);
 
@@ -30,6 +33,11 @@ void 			CLICK_MOUSE(uint8_t);
 
 // Keymap helper
 #define P(chord, act) if (cChord == (chord)) { if (!lookup) {act;} return chord;}
+#define PC(chord, act) if (cChord == (chord)) { if (!lookup) {act;} return chord;} \
+	for(int i = 0; i < stenoLayerCount; i++) { \
+		refChord = stenoLayers[i] | chord; \
+		if (cChord == (refChord)) { if (!lookup) {act;} return refChord;}; \
+}
 
 // Shift to internal representation
 // i.e) S(teno)R(ight)F

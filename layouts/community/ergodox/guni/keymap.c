@@ -138,7 +138,6 @@ const uint16_t PROGMEM fn_actions[] = {
 	//[29]  =  ACTION_LAYER_TOGGLE(4),
         [29]  = ACTION_MODS_TAP_KEY(MOD_RSFT,KC_ESC),
 	[30]  =  ACTION_LAYER_TAP_KEY(1, KC_QUOT),
-        [31]  =  ACTION_LAYER_MOMENTARY(2),
 	//[]  =  ACTION_LAYER_TAP_KEY(4, KC_S),
 };
 

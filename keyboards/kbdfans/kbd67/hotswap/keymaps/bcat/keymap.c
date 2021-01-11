@@ -5,8 +5,8 @@ enum layer {
     LAYER_FUNCTION,
 };
 
-/* Switch to function layer when held. */
-#define LY_FUNC MO(LAYER_FUNCTION)
+/* Switch to function layer when held; send menu key when tappped. */
+#define LY_FUNC LT(LAYER_FUNCTION, KC_APP)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default layer: http://www.keyboard-layout-editor.com/#/gists/dd675b40cc4df2c7bb78847ac29f5988 */
@@ -21,9 +21,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Function layer: http://www.keyboard-layout-editor.com/#/gists/f29128427f674c43777f045e363d1b44 */
     [LAYER_FUNCTION] = LAYOUT(
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_DEL,   _______,
-        _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  _______,  _______,  _______,
-        KC_CAPS,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        KC_CAPS,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  _______,  EEP_RST,  RESET,    KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  _______,  _______,  _______,
+        _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  KC_APP,   _______,  _______,  _______,  _______
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
     ),
 };

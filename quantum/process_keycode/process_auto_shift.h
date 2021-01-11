@@ -20,7 +20,7 @@
 #include "quantum.h"
 
 #ifndef AUTO_SHIFT_TIMEOUT
-  #define AUTO_SHIFT_TIMEOUT 175
+#    define AUTO_SHIFT_TIMEOUT 175
 #endif
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);

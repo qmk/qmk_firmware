@@ -70,6 +70,18 @@ replace_placeholders() {
     echo " done"
 }
 
+# Replace %YEAR% with the current year.
+replace_year_placeholders() {
+    local replace_year_filenames=(
+        "${keyboard_dir}/config.h"
+        "${keyboard_dir}/${keyboard_name}.c"
+        "${keyboard_dir}/${keyboard_name}.h"
+        "${keyboard_dir}/keymaps/default/config.h"
+        "${keyboard_dir}/keymaps/default/keymap.c"
+    )
+    replace_placeholders "%YEAR%" "$(date +%Y)" "${replace_year_filenames[@]}"
+}
+
 # Replace %KEYBOARD% with the keyboard name.
 replace_keyboard_placeholders() {
     local replace_keyboard_filenames=(
@@ -149,6 +161,7 @@ echo
 
 copy_templates
 set_sed_i
+replace_year_placeholders
 replace_keyboard_placeholders
 [ -n "$username" ] && replace_name_placeholders
 

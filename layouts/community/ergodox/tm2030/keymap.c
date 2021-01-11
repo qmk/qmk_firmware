@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_DELT,
+        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_DEL,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_BSPC,
         KC_LSFT,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_ENT,
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
         // right hand
-             KC_DELT,     KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_RBRC,
+             KC_DEL,      KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_RBRC,
              KC_BSPC,     KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,
                           KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN,  SFT_T(KC_QUOT),
              KC_ENT,      KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  SFT_T(KC_BSLS),
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [DVRK] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_GRV,   KC_1,      KC_2,    KC_3,    KC_4,   KC_5,   KC_DELT,
+        KC_GRV,   KC_1,      KC_2,    KC_3,    KC_4,   KC_5,   KC_DEL,
         KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,   KC_Y,   KC_BSPC,
         KC_LSFT,  KC_A,      KC_O,    KC_E,    KC_U,   KC_I,
         KC_LSFT,  KC_SCLN,   KC_Q,    KC_J,    KC_K,   KC_X,   KC_ENT,
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
         // right hand
-             KC_DELT,     KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_EQL,
+             KC_DEL,      KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_EQL,
              KC_BSPC,     KC_F,   KC_G,    KC_C,    KC_R,    KC_L,     KC_SLSH,
                           KC_D,   KC_H,    KC_T,    KC_N,    KC_S,     SFT_T(KC_MINS),
              KC_ENT,      KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,     SFT_T(KC_BSLS),
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
-       KC_TRNS, KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
+       KC_TRNS, KC_TRNS, LSFT(KC_DEL), LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
                                            KC_TRNS, KC_TRNS,

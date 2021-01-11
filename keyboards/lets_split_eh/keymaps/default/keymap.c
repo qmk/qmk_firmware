@@ -4,11 +4,13 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _LOWER 3
-#define _RAISE 4
-#define _FUNCTION 15
-#define _ADJUST 16
+enum layers {
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _FUNCTION,
+  _ADJUST,
+};
 
 #define LOWER     MO(_LOWER)
 #define RAISE     MO(_RAISE)
@@ -77,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |Taskmg|      |      |      |      |      |      |      |RGBVAI|RGBSAI|RGBHUI|caltde|
+ * |Taskmg|      |      |      |      |      |      |RGBMOD|RGBVAI|RGBSAI|RGBHUI|caltde|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |RGBVAD|RGBSAD|RGBHUD|RGBTOG|
+ * |      |      |      |      |      |      |      |RGBRMO|RGBVAD|RGBSAD|RGBHUD|RGBTOG|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |BLSTEP|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -87,8 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT( \
-  TSKMGR,  _______, _______, _______, _______, _______, _______, _______, RGB_VAI, RGB_SAI, RGB_HUI, CALTDEL, \
-  _______, _______, _______, _______, _______, _______, _______, _______, RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG, \
+  TSKMGR,  _______, _______, _______, _______, _______, _______, RGB_MOD, RGB_VAI, RGB_SAI, RGB_HUI, CALTDEL, \
+  _______, _______, _______, _______, _______, _______, _______, RGB_RMOD,RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BL_STEP, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET    \
 ),
@@ -115,8 +117,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
 }

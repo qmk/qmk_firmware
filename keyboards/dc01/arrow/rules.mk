@@ -2,7 +2,6 @@ SRC += matrix.c \
        i2c_slave.c
 
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.

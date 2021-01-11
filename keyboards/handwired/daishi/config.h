@@ -52,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* Set up rotary encoder */
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { F1 }
 #define ENCODERS_PAD_B { F0 }
 #define ENCODER_RESOLUTION 2

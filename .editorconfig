@@ -16,6 +16,10 @@ insert_final_newline = true
 trim_trailing_whitespace = false
 indent_size = 4
 
+[{qmk,*.py}]
+charset = utf-8
+max_line_length = 200
+
 # Make these match what we have in .gitattributes
 [*.mk]
 end_of_line = lf

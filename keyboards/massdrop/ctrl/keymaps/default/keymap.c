@@ -102,11 +102,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
               switch (rgb_matrix_get_flags()) {
                 case LED_FLAG_ALL: {
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
+                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
                     rgb_matrix_set_color_all(0, 0, 0);
                   }
                   break;
-                case LED_FLAG_KEYLIGHT: {
+                case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
                     rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
                     rgb_matrix_set_color_all(0, 0, 0);
                   }

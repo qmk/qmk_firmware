@@ -10,7 +10,6 @@ extern keymap_config_t keymap_config;
 
 
 // Fillers to make layering more clear
-#define LMACRO   OSL(_MACROS)
 #define DIABLO   TG(_DIABLO)
 #define GAMEPAD  TG(_GAMEPAD)
 #define MEDIA    TT(_MEDIA)
@@ -23,7 +22,7 @@ extern keymap_config_t keymap_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMLOCK] = LAYOUT_ortho_5x7(
-      LMACRO,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,
+      KC_NO,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,
       MEDIA,   KC_CALC, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PAST,
       KC_HOME, KC_DEL,  KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,
       KC_END,  KC_UP,   KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_PPLS,
@@ -39,21 +38,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_GAMEPAD] = LAYOUT_ortho_5x7(  // Game pad layout designed primarily for Overwatch
-      LMACRO,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4,
+      KC_NO,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4,
       MEDIA,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
       KC_Z,    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
       KC_Y,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
       KC_F1,   KC_U,    KC_I,    KC_Y,    KC_V,    KC_SPC,  KC_V
   ),
-
-  [_MACROS] = LAYOUT_ortho_5x7(
-      LMACRO,      KC_OVERWATCH,GAMEPAD,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_C9,       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_SYMM,     KC_TORB,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_GLHF,     KC_GOODGAME, KC_GGEZ,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      KC_SALT,     KC_MORESALT, KC_SALTHARD, KC_JUSTGAME, KC_AIM,      XXXXXXX,     KC_PENT
-  ),
-
 
   [_MEDIA] = LAYOUT_ortho_5x7(
       KC_MAKE, KC_RESET,MU_TOG,  AU_ON,   AU_OFF,  CK_TOGG, RGB_SAD,

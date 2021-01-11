@@ -12,6 +12,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Combos](feature_combo.md) - Custom actions for multiple key holds.
 * [Command](feature_command.md) - Runtime version of bootmagic (Formerly known as "Magic").
 * [Debounce API](feature_debounce_type.md) - Customization of debouncing algorithms, and the ability to add more/custom debouncing. 
+* [DIP Switch](feature_dip_switch.md) - Toggle switches for customizing board function.
 * [Dynamic Macros](feature_dynamic_macros.md) - Record and playback macros from the keyboard itself.
 * [Encoders](feature_encoders.md) - Rotary encoders! 
 * [Grave Escape](feature_grave_esc.md) - Lets you use a single key for Esc and Grave. 
@@ -30,6 +31,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [RGB Light](feature_rgblight.md) - RGB lighting for your keyboard.
 * [RGB Matrix](feature_rgb_matrix.md) - RGB Matrix lights for per key lighting.
 * [Space Cadet](feature_space_cadet.md) - Use your left/right shift keys to type parenthesis and brackets.
+* [Split Keyboard](feature_split_keyboard.md) 
 * [Stenography](feature_stenography.md) - Put your keyboard into Plover mode for stenography use.
 * [Swap Hands](feature_swap_hands.md) - Mirror your keyboard for one handed usage.
 * [Tap Dance](feature_tap_dance.md) - Make a single key do as many things as you want.

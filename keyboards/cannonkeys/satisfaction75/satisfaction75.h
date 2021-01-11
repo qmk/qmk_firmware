@@ -47,6 +47,12 @@ enum encoder_modes {
   ENC_MODE_CLOCK_SET // This shouldn't be included in the default modes, so we put it after NUM_ENCODER_MODES
 };
 
+enum custom_encoder_behavior {
+    ENC_CUSTOM_CW = 0,
+    ENC_CUSTOM_CCW,
+    ENC_CUSTOM_PRESS
+};
+
 enum oled_modes {
   OLED_DEFAULT,
   OLED_TIME,
@@ -96,6 +102,8 @@ void change_encoder_mode(bool negative);
 uint16_t handle_encoder_clockwise(void);
 uint16_t handle_encoder_ccw(void);
 uint16_t handle_encoder_press(void);
+uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior);
+void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t new_code);
 
 void update_time_config(int8_t increment);
 

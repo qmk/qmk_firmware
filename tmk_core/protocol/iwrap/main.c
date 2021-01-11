@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/interrupt.h>
 #include <avr/io.h>
 //#include <avr/wdt.h>
-#include "wd.h" // in order to use watchdog in interrupt mode
+#include "wd.h"  // in order to use watchdog in interrupt mode
 #include <avr/sleep.h>
 #include <util/delay.h>
 #include <avr/power.h>
@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 #include "iwrap.h"
 #ifdef PROTOCOL_VUSB
-#   include "vusb.h"
-#   include "usbdrv.h"
+#    include "vusb.h"
+#    include "usbdrv.h"
 #endif
 #include "uart.h"
 #include "suart.h"
@@ -38,12 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "command.h"
 
-
-static void sleep(uint8_t term);
-static bool console(void);
-static bool console_command(uint8_t c);
+static void    sleep(uint8_t term);
+static bool    console(void);
+static bool    console_command(uint8_t c);
 static uint8_t key2asc(uint8_t key);
-
 
 /*
 static void set_prr(void)
@@ -78,37 +76,32 @@ static void pullup_pins(void)
 }
 */
 
-
 #ifdef PROTOCOL_VUSB
-static void disable_vusb(void)
-{
+static void disable_vusb(void) {
     // disable interrupt & disconnect to prevent host from enumerating
     USB_INTR_ENABLE &= ~(1 << USB_INTR_ENABLE_BIT);
     usbDeviceDisconnect();
 }
 
-static void enable_vusb(void)
-{
+static void enable_vusb(void) {
     USB_INTR_ENABLE |= (1 << USB_INTR_ENABLE_BIT);
     usbDeviceConnect();
 }
 
-static void init_vusb(void)
-{
+static void init_vusb(void) {
     uint8_t i = 0;
 
     usbInit();
     disable_vusb();
     /* fake USB disconnect for > 250 ms */
-    while(--i){
+    while (--i) {
         _delay_ms(1);
     }
     enable_vusb();
 }
 #endif
 
-void change_driver(host_driver_t *driver)
-{
+void change_driver(host_driver_t *driver) {
     /*
     host_clear_keyboard_report();
     host_swap_keyboard_report();
@@ -120,20 +113,18 @@ void change_driver(host_driver_t *driver)
     host_set_driver(driver);
 }
 
-
-static bool sleeping = false;
-static bool insomniac = false;   // TODO: should be false for power saving
+static bool     sleeping   = false;
+static bool     insomniac  = false;  // TODO: should be false for power saving
 static uint16_t last_timer = 0;
 
-int main(void)
-{
+int main(void) {
     MCUSR = 0;
     clock_prescale_set(clock_div_1);
     WD_SET(WD_OFF);
 
     // power saving: the result is worse than nothing... why?
-    //pullup_pins();
-    //set_prr();
+    // pullup_pins();
+    // set_prr();
 
 #ifdef PROTOCOL_VUSB
     disable_vusb();
@@ -146,11 +137,11 @@ int main(void)
     print("suart init\n");
     // suart init
     // PC4: Tx Output IDLE(Hi)
-    PORTC |= (1<<4);
-    DDRC  |= (1<<4);
+    PORTC |= (1 << 4);
+    DDRC |= (1 << 4);
     // PC5: Rx Input(pull-up)
-    PORTC |= (1<<5);
-    DDRC  &= ~(1<<5);
+    PORTC |= (1 << 5);
+    DDRC &= ~(1 << 5);
     // suart receive interrut(PC5/PCINT13)
     PCMSK1 = 0b00100000;
     PCICR  = 0b00000010;
@@ -164,18 +155,16 @@ int main(void)
     last_timer = timer_read();
     while (true) {
 #ifdef PROTOCOL_VUSB
-        if (host_get_driver() == vusb_driver())
-            usbPoll();
+        if (host_get_driver() == vusb_driver()) usbPoll();
 #endif
         keyboard_task();
 #ifdef PROTOCOL_VUSB
-        if (host_get_driver() == vusb_driver())
-            vusb_transfer_keyboard();
+        if (host_get_driver() == vusb_driver()) vusb_transfer_keyboard();
 #endif
         // TODO: depricated
         if (matrix_is_modified() || console()) {
             last_timer = timer_read();
-            sleeping = false;
+            sleeping   = false;
         } else if (!sleeping && timer_elapsed(last_timer) > 4000) {
             sleeping = true;
             iwrap_check_connection();
@@ -184,7 +173,7 @@ int main(void)
         // TODO: suspend.h
         if (host_get_driver() == iwrap_driver()) {
             if (sleeping && !insomniac) {
-                _delay_ms(1);   // wait for UART to send
+                _delay_ms(1);  // wait for UART to send
                 iwrap_sleep();
                 sleep(WDTO_60MS);
             }
@@ -192,8 +181,7 @@ int main(void)
     }
 }
 
-static void sleep(uint8_t term)
-{
+static void sleep(uint8_t term) {
     WD_SET(WD_IRQ, term);
 
     cli();
@@ -207,51 +195,46 @@ static void sleep(uint8_t term)
     WD_SET(WD_OFF);
 }
 
-static bool console(void)
-{
-        // Send to Bluetoot module WT12
-        static bool breaked = false;
-        if (!uart_available())
-            return false;
-        else {
-            uint8_t c;
-            c = uart_getchar();
-            uart_putchar(c);
-            switch (c) {
-                case 0x00: // BREAK signal
-                    if (!breaked) {
-                        print("break(? for help): ");
-                        breaked = true;
-                    }
-                    break;
-                case '\r':
-                    uart_putchar('\n');
-                    iwrap_buf_send();
-                    break;
-                case '\b':
-                    iwrap_buf_del();
-                    break;
-                default:
-                    if (breaked) {
-                        print("\n");
-                        console_command(c);
-                        breaked = false;
-                    } else {
-                        iwrap_buf_add(c);
-                    }
-                    break;
-            }
-            return true;
+static bool console(void) {
+    // Send to Bluetoot module WT12
+    static bool breaked = false;
+    if (!uart_available())
+        return false;
+    else {
+        uint8_t c;
+        c = uart_getchar();
+        uart_putchar(c);
+        switch (c) {
+            case 0x00:  // BREAK signal
+                if (!breaked) {
+                    print("break(? for help): ");
+                    breaked = true;
+                }
+                break;
+            case '\r':
+                uart_putchar('\n');
+                iwrap_buf_send();
+                break;
+            case '\b':
+                iwrap_buf_del();
+                break;
+            default:
+                if (breaked) {
+                    print("\n");
+                    console_command(c);
+                    breaked = false;
+                } else {
+                    iwrap_buf_add(c);
+                }
+                break;
         }
+        return true;
+    }
 }
 
-bool command_extra(uint8_t code)
-{
-    return console_command(key2asc(code));
-}
+bool command_extra(uint8_t code) { return console_command(key2asc(code)); }
 
-static bool console_command(uint8_t c)
-{
+static bool console_command(uint8_t c) {
     switch (c) {
         case 'h':
         case '?':
@@ -287,11 +270,11 @@ static bool console_command(uint8_t c)
             print("USB mode\n");
             init_vusb();
             change_driver(vusb_driver());
-            //iwrap_kill();
-            //iwrap_sleep();
+            // iwrap_kill();
+            // iwrap_sleep();
             // disable suart receive interrut(PC5/PCINT13)
             PCMSK1 &= ~(0b00100000);
-            PCICR  &= ~(0b00000010);
+            PCICR &= ~(0b00000010);
             return 1;
         case 'w':
             print("iWRAP mode\n");
@@ -299,7 +282,7 @@ static bool console_command(uint8_t c)
             disable_vusb();
             // enable suart receive interrut(PC5/PCINT13)
             PCMSK1 |= 0b00100000;
-            PCICR  |= 0b00000010;
+            PCICR |= 0b00000010;
             return 1;
 #endif
         case 'k':
@@ -315,62 +298,115 @@ static bool console_command(uint8_t c)
 }
 
 // convert keycode into ascii charactor
-static uint8_t key2asc(uint8_t key)
-{
+static uint8_t key2asc(uint8_t key) {
     switch (key) {
-        case KC_A: return 'a';
-        case KC_B: return 'b';
-        case KC_C: return 'c';
-        case KC_D: return 'd';
-        case KC_E: return 'e';
-        case KC_F: return 'f';
-        case KC_G: return 'g';
-        case KC_H: return 'h';
-        case KC_I: return 'i';
-        case KC_J: return 'j';
-        case KC_K: return 'k';
-        case KC_L: return 'l';
-        case KC_M: return 'm';
-        case KC_N: return 'n';
-        case KC_O: return 'o';
-        case KC_P: return 'p';
-        case KC_Q: return 'q';
-        case KC_R: return 'r';
-        case KC_S: return 's';
-        case KC_T: return 't';
-        case KC_U: return 'u';
-        case KC_V: return 'v';
-        case KC_W: return 'w';
-        case KC_X: return 'x';
-        case KC_Y: return 'y';
-        case KC_Z: return 'z';
-        case KC_1: return '1';
-        case KC_2: return '2';
-        case KC_3: return '3';
-        case KC_4: return '4';
-        case KC_5: return '5';
-        case KC_6: return '6';
-        case KC_7: return '7';
-        case KC_8: return '8';
-        case KC_9: return '9';
-        case KC_0: return '0';
-        case KC_ENTER: return '\n';
-        case KC_ESCAPE: return 0x1B;
-        case KC_BSPACE: return '\b';
-        case KC_TAB: return '\t';
-        case KC_SPACE: return ' ';
-        case KC_MINUS: return '-';
-        case KC_EQUAL: return '=';
-        case KC_LBRACKET: return '[';
-        case KC_RBRACKET: return ']';
-        case KC_BSLASH: return '\\';
-        case KC_NONUS_HASH: return '\\';
-        case KC_SCOLON: return ';';
-        case KC_QUOTE: return '\'';
-        case KC_GRAVE: return '`';
-        case KC_COMMA: return ',';
-        case KC_DOT: return '.';
-        case KC_SLASH: return '/';
-        default: return 0x00;
+        case KC_A:
+            return 'a';
+        case KC_B:
+            return 'b';
+        case KC_C:
+            return 'c';
+        case KC_D:
+            return 'd';
+        case KC_E:
+            return 'e';
+        case KC_F:
+            return 'f';
+        case KC_G:
+            return 'g';
+        case KC_H:
+            return 'h';
+        case KC_I:
+            return 'i';
+        case KC_J:
+            return 'j';
+        case KC_K:
+            return 'k';
+        case KC_L:
+            return 'l';
+        case KC_M:
+            return 'm';
+        case KC_N:
+            return 'n';
+        case KC_O:
+            return 'o';
+        case KC_P:
+            return 'p';
+        case KC_Q:
+            return 'q';
+        case KC_R:
+            return 'r';
+        case KC_S:
+            return 's';
+        case KC_T:
+            return 't';
+        case KC_U:
+            return 'u';
+        case KC_V:
+            return 'v';
+        case KC_W:
+            return 'w';
+        case KC_X:
+            return 'x';
+        case KC_Y:
+            return 'y';
+        case KC_Z:
+            return 'z';
+        case KC_1:
+            return '1';
+        case KC_2:
+            return '2';
+        case KC_3:
+            return '3';
+        case KC_4:
+            return '4';
+        case KC_5:
+            return '5';
+        case KC_6:
+            return '6';
+        case KC_7:
+            return '7';
+        case KC_8:
+            return '8';
+        case KC_9:
+            return '9';
+        case KC_0:
+            return '0';
+        case KC_ENTER:
+            return '\n';
+        case KC_ESCAPE:
+            return 0x1B;
+        case KC_BSPACE:
+            return '\b';
+        case KC_TAB:
+            return '\t';
+        case KC_SPACE:
+            return ' ';
+        case KC_MINUS:
+            return '-';
+        case KC_EQUAL:
+            return '=';
+        case KC_LBRACKET:
+            return '[';
+        case KC_RBRACKET:
+            return ']';
+        case KC_BSLASH:
+            return '\\';
+        case KC_NONUS_HASH:
+            return '\\';
+        case KC_SCOLON:
+            return ';';
+        case KC_QUOTE:
+            return '\'';
+        case KC_GRAVE:
+            return '`';
+        case KC_COMMA:
+            return ',';
+        case KC_DOT:
+            return '.';
+        case KC_SLASH:
+            return '/';
+        default:
+            return 0x00;
     }
 }

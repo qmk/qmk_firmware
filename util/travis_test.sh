@@ -22,7 +22,7 @@ fi
 # if docker is installed - call make within the qmk docker image
 if command -v docker >/dev/null; then
   function make() {
-    docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/qmk_firmware make "$@"
+    docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container make "$@"
   }
 fi
 

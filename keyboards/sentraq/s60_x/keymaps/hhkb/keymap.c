@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#define KC_MO1 MO(1)
+
 /*
  * HHKB Layout
  */
@@ -21,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESC,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL, BSLS, GRV, \
         TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSPC,      \
         LCTL,    A,    S,   D,   F,   G,   H,   J,   K,    L, SCLN, QUOT,   NO,  ENT,      \
-        LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH,   NO, RSFT, FN0, \
+        LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH,   NO, RSFT, MO1, \
         NO, LGUI, LALT,                SPC,                   NO, RALT, RGUI,   NO),
     /* 1: HHKB Fn layer
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -42,11 +44,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        TRNS, VOLD, VOLU, MUTE, EJCT, TRNS, PAST, PSLS, HOME, PGUP, LEFT, RGHT,   NO, PENT,       \
        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, PPLS, PMNS,  END, PGDN, DOWN,   NO, TRNS, TRNS, \
        TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS, TRNS, TRNS),
-};
-
-/*
- * Fn action definition
- */
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),
 };

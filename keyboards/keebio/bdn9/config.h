@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { E6, B4, B2 } \
 }
 
-#define NUMBER_OF_ENCODERS 2
 #define ENCODERS_PAD_A { D1, F5 }
 #define ENCODERS_PAD_B { D0, F6 }
 

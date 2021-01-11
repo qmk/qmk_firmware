@@ -45,21 +45,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t processQwerty(bool lookup) {
     // SECRET AGENT CHORDS
     P( LSU | LK | RS | RD,    	SEND_STRING(VERSION); SEND_STRING(__DATE__));
-	P( LR  | ST2| RR | RB, 		SEND(KC_BSPC));
+		P( LR  | ST2| RR | RB, 		SEND(KC_BSPC));
     P( LSD | RZ,   			 	SEND(KC_SPC));
 
     // Dual chords
     P( LP  | LH,    			CLICK_MOUSE(KC_MS_BTN2));
     P( ST1 | RF,    			CLICK_MOUSE(KC_MS_BTN1));
-    P( LSU | LFT,               SEND(KC_ESC));
-	P( LSD | LK,				SEND(KC_LSFT));
-	P( RZ  | RS,				SEND(KC_LSFT));
-	P( ST2 | RR,				SEND(KC_SPC));
+    P( LSU | LFT,         SEND(KC_ESC));
+		P( LSD | LK,					SEND(KC_LSFT));
+		P( RZ  | RS,					SEND(KC_LSFT));
+		P( ST2 | RR,					SEND(KC_SPC));
     P( RP  | RL,    			SEND(KC_LGUI));
     P( RT  | RD,    			SEND(KC_LCTL));
     P( RL  | RT,    			SEND(KC_LALT));
-	P( LSU | LSD | LFT | LK,	SEND(KC_LCTL));
-	P( RS  | RT  | RD  | RZ,	SEND(KC_ENT));
+		P( LSU | LSD | LFT | LK,	SEND(KC_LCTL));
+		P( RS  | RT  | RD  | RZ,	SEND(KC_ENT));
 
     // Function Layer
     P( FUNCT | RF,         SEND(KC_F1));
@@ -178,7 +178,6 @@ uint32_t processQwerty(bool lookup) {
 
     return 0;
 }
-
 
 // Don't fuck with this, thanks.
 size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);

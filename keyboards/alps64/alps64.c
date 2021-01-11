@@ -14,17 +14,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "quantum.h"
+#include "alps64.h"
 
-#define LED_ON()    do { DDRC |= (1<<5); PORTC |= (1<<5); } while (0)
-#define LED_OFF()   do { DDRC &= ~(1<<5); PORTC &= ~(1<<5); } while (0)
-#define LED_TGL()   do { DDRC |= (1<<5); PINC |= (1<<5); } while (0)
+void keyboard_pre_init_kb(void) {
+	// put your keyboard start-up code here
+	// runs once when the firmware starts up
+    setPinOutput(C5);
+    keyboard_pre_init_user();
+}
 
+void led_set_kb(uint8_t usb_led)
+{
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        // output high
+        writePinHigh(C5);
+    } else {
+        // Hi-Z
+        writePinLow(C5);
+    }
 
-void matrix_init_kb(void) {
-    LED_ON();
-    _delay_ms(500);
-    LED_OFF();
-    
-    matrix_init_user();
+    led_set_user(usb_led);
 }

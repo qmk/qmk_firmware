@@ -26,7 +26,11 @@ Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
-**Reset Key:** Short the two holes labeled `FW_JP` beside the Tab key. At this time there is no reset key to press.   
+**Reset Key:** Short the two holes labeled `FW_JP` underneath the PCB, beside the Tab key while plugging in the keyboard. 
+
+Do not confuse this with the LED holes of the switch in the `Tab` position. `FW_JP` is not reachable from the top as the plate blocks access to it. 
+
+It is recommended to program a `RESET` key in your keymap.   
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).

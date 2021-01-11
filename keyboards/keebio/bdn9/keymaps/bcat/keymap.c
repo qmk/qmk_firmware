@@ -11,14 +11,14 @@ enum layer {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* First layer (F1-F6) */
     [LAYER_FIRST] = LAYOUT(
-        KC_MUTE,  LY_SECND, BL_TOGG,
+        KC_MUTE,  LY_SECND, BL_BRTG,
         KC_F4,    KC_F5,    KC_F6,
         KC_F1,    KC_F2,    KC_F3
     ),
 
     /* Second layer (F7-F12) */
     [LAYER_SECOND] = LAYOUT(
-        _______,  _______,  _______,
+        EEP_RST,  _______,  RESET,
         KC_F10,   KC_F11,   KC_F12,
         KC_F7,    KC_F8,    KC_F9
     ),

@@ -67,7 +67,7 @@ The presence of this file means that the folder is a keyboard target and can be 
 
 ### `<keyboard_name.c>`
 
-This is where you will write custom code for your keyboard. Typically you will write code to initialize and interface with the hardware in your keyboard. If your keyboard consists of only a key matrix with no LEDs, speakers, or other auxillary hardware this file can be blank.
+This is where you will write custom code for your keyboard. Typically you will write code to initialize and interface with the hardware in your keyboard. If your keyboard consists of only a key matrix with no LEDs, speakers, or other auxiliary hardware this file can be blank.
 
 The following functions are typically defined in this file:
 

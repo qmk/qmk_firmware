@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NAV_CLUSTER]=
     LAYOUT_60_ansi(
       _____,  PSCR,  SCRL,  PAUS,  NSRT,  HOME,  PGUP,  NMLK,  KSSH,  STAR,  KMIN,  ____,  ____,  ______,
-      ______,  ____,  ____,  ____,  DELT,  END_,  PGDN,  KP_7,  KP_8,  KP_9,  PLUS,  ____,  ____,  _____,
+      ______,  ____,  ____,  ____,  DEL,   END_,  PGDN,  KP_7,  KP_8,  KP_9,  PLUS,  ____,  ____,  _____,
       _______,  ____,  ____,  ____,  ____,  UPUP,  UPUP,  KP_4,  KP_5,  KP_6,  PLUS,  ____,  ___________,
       ________,  ____,  ____,  ____,  LEFT,  D_WN,  RGHT,  KP_1,  KP_2,  KP_3,  KNTR,  _________________,
       ____,  ____,  ____,  /*-----------------*/KC_KP_0/*-----------------*/,  KDOT,  KNTR,  ____,  ____),

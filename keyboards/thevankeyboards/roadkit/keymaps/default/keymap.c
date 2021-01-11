@@ -9,8 +9,9 @@ extern keymap_config_t keymap_config;
 
 #define _NP 0
 
-// Macro name shortcuts
-#define NUMPAD M(_NP)
+enum custom_keycodes {
+  NUMPAD = SAFE_RANGE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NP] = LAYOUT_numpad_4x4( /* Numpad */
@@ -26,14 +27,15 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case _NP:
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+      switch(keycode) {
+        case NUMPAD:
           if (record->event.pressed) {
             persistent_default_layer_set(1UL<<_NP);
           }
-          break;
+          return false;
+        default:
+          return true;
       }
-    return MACRO_NONE;
+    return true;
 };

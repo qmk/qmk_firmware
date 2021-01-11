@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,     KC_2,   KC_3,   KC_4,          KC_5,   KC_LEFT,
-        KC_DELT,        KC_Q,     KC_W,   KC_F,   KC_P,          KC_G,   TG(SYMB),
+        KC_DEL,         KC_Q,     KC_W,   KC_F,   KC_P,          KC_G,   TG(SYMB),
         KC_ESC,         KC_A,     KC_R,   KC_S,   KC_T,          KC_D,
         KC_LSFT,        KC_Z,     KC_X,   KC_C,   KC_V,          KC_B,   KC_EQL,
         LT(SYMB,KC_GRV),KC_QUOT,  LALT(KC_LSFT),  KC_LEFT,       KC_RGHT,
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE_CM] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,     KC_2,   KC_3,   KC_4,          KC_5,   KC_LEFT,
-        KC_DELT,        CM_Q,     CM_W,   CM_F,   CM_P,          CM_G,   TG(SYMB),
+        KC_DEL,         CM_Q,     CM_W,   CM_F,   CM_P,          CM_G,   TG(SYMB),
         KC_ESC,         CM_A,     CM_R,   CM_S,   CM_T,          CM_D,
         KC_LSFT,        CM_Z,     CM_X,   CM_C,   CM_V,          CM_B,   KC_EQL,
         LT(SYMB,KC_GRV),KC_QUOT,  LALT(KC_LSFT),  KC_LEFT,       KC_RGHT,

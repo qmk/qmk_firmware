@@ -1,17 +1,15 @@
 # MCU name
 MCU = atmega32a
-PROTOCOL = VUSB
 
-# unsupported features for now
-NO_UART = yes
-NO_SUSPEND_POWER_DOWN = yes
-
-# Processor frequency.
-F_CPU = 12000000
-
-# Bootloader
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
-
 
 # Build Options
 #   comment out to disable the options.
@@ -30,6 +28,3 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 # custom matrix setup
 CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c
-
-# programming options
-PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

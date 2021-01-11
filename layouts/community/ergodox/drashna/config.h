@@ -14,3 +14,5 @@
 
 #undef DEBOUNCE
 #define DEBOUNCE 15
+
+#define TAPPING_TERM_PER_KEY

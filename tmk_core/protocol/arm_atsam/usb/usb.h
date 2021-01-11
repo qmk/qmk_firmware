@@ -233,8 +233,8 @@ typedef void (*usb_host_pipe_callback_t)(struct usb_module *module_inst, void *)
  * \name Device Callback Functions Types
  * @{
  */
-typedef void (*usb_device_callback_t)(struct usb_module *module_inst, void* pointer);
-typedef void (*usb_device_endpoint_callback_t)(struct usb_module *module_inst, void* pointer);
+typedef void (*usb_device_callback_t)(struct usb_module *module_inst, void *pointer);
+typedef void (*usb_device_endpoint_callback_t)(struct usb_module *module_inst, void *pointer);
 /** @} */
 
 /** USB configurations */
@@ -247,7 +247,7 @@ struct usb_config {
     // enum gclk_generator source_generator;
     uint8_t source_generator;
     /** Speed mode */
-    //enum usb_speed speed_mode;
+    // enum usb_speed speed_mode;
     uint8_t speed_mode;
 };
 
@@ -263,7 +263,7 @@ struct usb_module {
     Usb *hw;
 
     /** Array to store device related callback functions */
-    usb_device_callback_t device_callback[USB_DEVICE_CALLBACK_N];
+    usb_device_callback_t          device_callback[USB_DEVICE_CALLBACK_N];
     usb_device_endpoint_callback_t device_endpoint_callback[USB_EPT_NUM][USB_DEVICE_EP_CALLBACK_N];
     /** Bit mask for device callbacks registered */
     uint16_t device_registered_callback_mask;
@@ -292,7 +292,7 @@ struct usb_endpoint_callback_parameter {
     uint16_t received_bytes;
     uint16_t sent_bytes;
     uint16_t out_buffer_size;
-    uint8_t endpoint_address;
+    uint8_t  endpoint_address;
 };
 
 void usb_enable(struct usb_module *module_inst);
@@ -303,8 +303,7 @@ void usb_disable(struct usb_module *module_inst);
  *
  * \param module_inst Pointer to USB module instance
  */
-static inline uint8_t usb_get_state_machine_status(struct usb_module *module_inst)
-{
+static inline uint8_t usb_get_state_machine_status(struct usb_module *module_inst) {
     /* Sanity check arguments */
     Assert(module_inst);
     Assert(module_inst->hw);
@@ -312,29 +311,22 @@ static inline uint8_t usb_get_state_machine_status(struct usb_module *module_ins
     return module_inst->hw->DEVICE.FSMSTATUS.reg;
 }
 
-void usb_get_config_defaults(struct usb_config *module_config);
-enum status_code usb_init(struct usb_module *module_inst, Usb *const hw,
-        struct usb_config *module_config);
+void             usb_get_config_defaults(struct usb_config *module_config);
+enum status_code usb_init(struct usb_module *module_inst, Usb *const hw, struct usb_config *module_config);
 
 /**
  * \brief Attach USB device to the bus
  *
  * \param module_inst Pointer to USB device module instance
  */
-static inline void usb_device_attach(struct usb_module *module_inst)
-{
-    module_inst->hw->DEVICE.CTRLB.reg &= ~USB_DEVICE_CTRLB_DETACH;
-}
+static inline void usb_device_attach(struct usb_module *module_inst) { module_inst->hw->DEVICE.CTRLB.reg &= ~USB_DEVICE_CTRLB_DETACH; }
 
 /**
  * \brief Detach USB device from the bus
  *
  * \param module_inst Pointer to USB device module instance
  */
-static inline void usb_device_detach(struct usb_module *module_inst)
-{
-    module_inst->hw->DEVICE.CTRLB.reg |= USB_DEVICE_CTRLB_DETACH;
-}
+static inline void usb_device_detach(struct usb_module *module_inst) { module_inst->hw->DEVICE.CTRLB.reg |= USB_DEVICE_CTRLB_DETACH; }
 
 /**
  * \brief Get the speed mode of USB device
@@ -342,8 +334,7 @@ static inline void usb_device_detach(struct usb_module *module_inst)
  * \param module_inst Pointer to USB device module instance
  * \return USB Speed mode (\ref usb_speed).
  */
-static inline enum usb_speed usb_device_get_speed(struct usb_module *module_inst)
-{
+static inline enum usb_speed usb_device_get_speed(struct usb_module *module_inst) {
     if (!(module_inst->hw->DEVICE.STATUS.reg & USB_DEVICE_STATUS_SPEED_Msk)) {
         return USB_SPEED_FULL;
     } else {
@@ -357,10 +348,7 @@ static inline enum usb_speed usb_device_get_speed(struct usb_module *module_inst
  * \param module_inst Pointer to USB device module instance
  * \return USB device address value.
  */
-static inline uint8_t usb_device_get_address(struct usb_module *module_inst)
-{
-    return ((uint8_t)(module_inst->hw->DEVICE.DADD.bit.DADD));
-}
+static inline uint8_t usb_device_get_address(struct usb_module *module_inst) { return ((uint8_t)(module_inst->hw->DEVICE.DADD.bit.DADD)); }
 
 /**
  * \brief Set the speed mode of USB device
@@ -368,10 +356,7 @@ static inline uint8_t usb_device_get_address(struct usb_module *module_inst)
  * \param module_inst Pointer to USB device module instance
  * \param address     USB device address value
  */
-static inline void usb_device_set_address(struct usb_module *module_inst, uint8_t address)
-{
-    module_inst->hw->DEVICE.DADD.reg = USB_DEVICE_DADD_ADDEN | address;
-}
+static inline void usb_device_set_address(struct usb_module *module_inst, uint8_t address) { module_inst->hw->DEVICE.DADD.reg = USB_DEVICE_DADD_ADDEN | address; }
 
 /**
  * \brief Get the frame number of USB device
@@ -379,10 +364,7 @@ static inline void usb_device_set_address(struct usb_module *module_inst, uint8_
  * \param module_inst Pointer to USB device module instance
  * \return USB device frame number value.
  */
-static inline uint16_t usb_device_get_frame_number(struct usb_module *module_inst)
-{
-    return ((uint16_t)(module_inst->hw->DEVICE.FNUM.bit.FNUM));
-}
+static inline uint16_t usb_device_get_frame_number(struct usb_module *module_inst) { return ((uint16_t)(module_inst->hw->DEVICE.FNUM.bit.FNUM)); }
 
 /**
  * \brief Get the micro-frame number of USB device
@@ -390,20 +372,14 @@ static inline uint16_t usb_device_get_frame_number(struct usb_module *module_ins
  * \param module_inst Pointer to USB device module instance
  * \return USB device micro-frame number value.
  */
-static inline uint16_t usb_device_get_micro_frame_number(struct usb_module *module_inst)
-{
-    return ((uint16_t)(module_inst->hw->DEVICE.FNUM.reg));
-}
+static inline uint16_t usb_device_get_micro_frame_number(struct usb_module *module_inst) { return ((uint16_t)(module_inst->hw->DEVICE.FNUM.reg)); }
 
 /**
  * \brief USB device send the resume wakeup
  *
  * \param module_inst Pointer to USB device module instance
  */
-static inline void usb_device_send_remote_wake_up(struct usb_module *module_inst)
-{
-    module_inst->hw->DEVICE.CTRLB.reg |= USB_DEVICE_CTRLB_UPRSM;
-}
+static inline void usb_device_send_remote_wake_up(struct usb_module *module_inst) { module_inst->hw->DEVICE.CTRLB.reg |= USB_DEVICE_CTRLB_UPRSM; }
 
 /**
  * \brief USB device set the LPM mode
@@ -411,67 +387,45 @@ static inline void usb_device_send_remote_wake_up(struct usb_module *module_inst
  * \param module_inst Pointer to USB device module instance
  * \param lpm_mode    LPM mode
  */
-static inline void usb_device_set_lpm_mode(struct usb_module *module_inst,
-        enum usb_device_lpm_mode lpm_mode)
-{
-    module_inst->hw->DEVICE.CTRLB.bit.LPMHDSK = lpm_mode;
-}
+static inline void usb_device_set_lpm_mode(struct usb_module *module_inst, enum usb_device_lpm_mode lpm_mode) { module_inst->hw->DEVICE.CTRLB.bit.LPMHDSK = lpm_mode; }
 
 /**
  * \name USB Device Callback Management
  * @{
  */
-enum status_code usb_device_register_callback(struct usb_module *module_inst,
-        enum usb_device_callback callback_type,
-        usb_device_callback_t callback_func);
-enum status_code usb_device_unregister_callback(struct usb_module *module_inst,
-        enum usb_device_callback callback_type);
-enum status_code usb_device_enable_callback(struct usb_module *module_inst,
-        enum usb_device_callback callback_type);
-enum status_code usb_device_disable_callback(struct usb_module *module_inst,
-        enum usb_device_callback callback_type);
+enum status_code usb_device_register_callback(struct usb_module *module_inst, enum usb_device_callback callback_type, usb_device_callback_t callback_func);
+enum status_code usb_device_unregister_callback(struct usb_module *module_inst, enum usb_device_callback callback_type);
+enum status_code usb_device_enable_callback(struct usb_module *module_inst, enum usb_device_callback callback_type);
+enum status_code usb_device_disable_callback(struct usb_module *module_inst, enum usb_device_callback callback_type);
 /** @} */
 
 /**
  * \name USB Device Endpoint Configuration
  * @{
  */
-void usb_device_endpoint_get_config_defaults(struct usb_device_endpoint_config *ep_config);
-enum status_code usb_device_endpoint_set_config(struct usb_module *module_inst,
-        struct usb_device_endpoint_config *ep_config);
-bool usb_device_endpoint_is_configured(struct usb_module *module_inst, uint8_t ep);
+void             usb_device_endpoint_get_config_defaults(struct usb_device_endpoint_config *ep_config);
+enum status_code usb_device_endpoint_set_config(struct usb_module *module_inst, struct usb_device_endpoint_config *ep_config);
+bool             usb_device_endpoint_is_configured(struct usb_module *module_inst, uint8_t ep);
 /** @} */
 
 /**
  * \name USB Device Endpoint Callback Management
  * @{
  */
-enum status_code usb_device_endpoint_register_callback(
-        struct usb_module *module_inst, uint8_t ep_num,
-        enum usb_device_endpoint_callback callback_type,
-        usb_device_endpoint_callback_t callback_func);
-enum status_code usb_device_endpoint_unregister_callback(
-        struct usb_module *module_inst, uint8_t ep_num,
-        enum usb_device_endpoint_callback callback_type);
-enum status_code usb_device_endpoint_enable_callback(
-        struct usb_module *module_inst, uint8_t ep,
-        enum usb_device_endpoint_callback callback_type);
-enum status_code usb_device_endpoint_disable_callback(
-        struct usb_module *module_inst, uint8_t ep,
-        enum usb_device_endpoint_callback callback_type);
+enum status_code usb_device_endpoint_register_callback(struct usb_module *module_inst, uint8_t ep_num, enum usb_device_endpoint_callback callback_type, usb_device_endpoint_callback_t callback_func);
+enum status_code usb_device_endpoint_unregister_callback(struct usb_module *module_inst, uint8_t ep_num, enum usb_device_endpoint_callback callback_type);
+enum status_code usb_device_endpoint_enable_callback(struct usb_module *module_inst, uint8_t ep, enum usb_device_endpoint_callback callback_type);
+enum status_code usb_device_endpoint_disable_callback(struct usb_module *module_inst, uint8_t ep, enum usb_device_endpoint_callback callback_type);
 /** @} */
 
 /**
  * \name USB Device Endpoint Job Management
  * @{
  */
-enum status_code usb_device_endpoint_write_buffer_job(struct usb_module *module_inst,uint8_t ep_num,
-        uint8_t* pbuf, uint32_t buf_size);
-enum status_code usb_device_endpoint_read_buffer_job(struct usb_module *module_inst,uint8_t ep_num,
-        uint8_t* pbuf, uint32_t buf_size);
-enum status_code usb_device_endpoint_setup_buffer_job(struct usb_module *module_inst,
-        uint8_t* pbuf);
-void usb_device_endpoint_abort_job(struct usb_module *module_inst, uint8_t ep);
+enum status_code usb_device_endpoint_write_buffer_job(struct usb_module *module_inst, uint8_t ep_num, uint8_t *pbuf, uint32_t buf_size);
+enum status_code usb_device_endpoint_read_buffer_job(struct usb_module *module_inst, uint8_t ep_num, uint8_t *pbuf, uint32_t buf_size);
+enum status_code usb_device_endpoint_setup_buffer_job(struct usb_module *module_inst, uint8_t *pbuf);
+void             usb_device_endpoint_abort_job(struct usb_module *module_inst, uint8_t ep);
 /** @} */
 
 /**

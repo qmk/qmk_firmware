@@ -41,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED B0
 #define QMK_SPEAKER C6
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B7 }
 
@@ -79,16 +78,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 // Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 515
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 509    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
+// Dynamic macro starts after dynamic keymaps (37+(4*10*6*2)) = (37+480)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 517
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 507    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

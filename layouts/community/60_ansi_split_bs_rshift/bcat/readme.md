@@ -13,8 +13,8 @@ key on the bottom row activates an adjust layer to control RGB underglow.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/8dr5ktH.png)
+![Function layer layout](https://i.imgur.com/fmvSJJy.png)
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/78PBNt6.png)
+![Adjust layer layout](https://i.imgur.com/KxCtI50.png)
