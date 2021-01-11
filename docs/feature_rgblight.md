@@ -148,7 +148,7 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by              |
 |`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                          |
 |`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                                       |
-|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`200`        |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
 |`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
@@ -195,6 +195,8 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ```
 
 ## Lighting Layers
+
+?> **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix.md?indicators) for details on how to do so.
 
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.

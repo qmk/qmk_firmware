@@ -42,6 +42,9 @@
 #ifndef MIN
 #    define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #endif
+#ifndef MAX
+#    define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#endif
 
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard */
@@ -933,7 +936,7 @@ void rgblight_task(void) {
 #    endif
 #    ifdef RGBLIGHT_EFFECT_TWINKLE
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
-            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 50);
+            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 30);
             effect_func   = (effect_func_t)rgblight_effect_twinkle;
         }
 #    endif
@@ -975,8 +978,7 @@ void rgblight_task(void) {
 
 #endif /* RGBLIGHT_USE_TIMER */
 
-// Effects
-#ifdef RGBLIGHT_EFFECT_BREATHING
+#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_TWINKLE)
 
 #    ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
 #        ifndef RGBLIGHT_BREATHE_TABLE_SIZE
@@ -985,17 +987,24 @@ void rgblight_task(void) {
 #        include <rgblight_breathe_table.h>
 #    endif
 
+static uint8_t breathe_calc(uint8_t pos) {
+    // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
+#    ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
+    return pgm_read_byte(&rgblight_effect_breathe_table[pos / table_scale]);
+#    else
+    return (exp(sin((pos / 255.0) * M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER / M_E) * (RGBLIGHT_EFFECT_BREATHE_MAX / (M_E - 1 / M_E));
+#    endif
+}
+
+#endif
+
+// Effects
+#ifdef RGBLIGHT_EFFECT_BREATHING
+
 __attribute__((weak)) const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 
 void rgblight_effect_breathing(animation_status_t *anim) {
-    float val;
-
-    // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
-#    ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
-    val = pgm_read_byte(&rgblight_effect_breathe_table[anim->pos / table_scale]);
-#    else
-    val = (exp(sin((anim->pos / 255.0) * M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER / M_E) * (RGBLIGHT_EFFECT_BREATHE_MAX / (M_E - 1 / M_E));
-#    endif
+    uint8_t val = breathe_calc(anim->pos);
     rgblight_sethsv_noeeprom_old(rgblight_config.hue, rgblight_config.sat, val);
     anim->pos = (anim->pos + 1);
 }
@@ -1247,48 +1256,54 @@ void rgblight_effect_alternating(animation_status_t *anim) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_TWINKLE
-__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
+__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {30, 15, 5};
 
 typedef struct PACKED {
     HSV     hsv;
     uint8_t life;
-    bool    up;
+    uint8_t max_life;
 } TwinkleState;
 
 static TwinkleState led_twinkle_state[RGBLED_NUM];
 
 void rgblight_effect_twinkle(animation_status_t *anim) {
-    bool random_color = anim->delta / 3;
-    bool restart      = anim->pos == 0;
-    anim->pos         = 1;
+    const bool random_color = anim->delta / 3;
+    const bool restart      = anim->pos == 0;
+    anim->pos               = 1;
+
+    const uint8_t bottom = breathe_calc(0);
+    const uint8_t top    = breathe_calc(127);
+
+    uint8_t frac(uint8_t n, uint8_t d) { return (uint16_t)255 * n / d; }
+    uint8_t scale(uint16_t v, uint8_t scale) { return (v * scale) >> 8; }
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
         HSV *         c = &(t->hsv);
+
+        if (!random_color) {
+            c->h = rgblight_config.hue;
+            c->s = rgblight_config.sat;
+        }
+
         if (restart) {
             // Restart
-            t->life  = 0;
-            t->hsv.v = 0;
+            t->life = 0;
+            c->v    = 0;
         } else if (t->life) {
             // This LED is already on, either brightening or dimming
             t->life--;
-            uint8_t on = t->up ? RGBLIGHT_EFFECT_TWINKLE_LIFE - t->life : t->life;
-            c->v       = (uint16_t)rgblight_config.val * on / RGBLIGHT_EFFECT_TWINKLE_LIFE;
-            if (t->life == 0 && t->up) {
-                t->up   = false;
-                t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
-            }
-            if (!random_color) {
-                c->h = rgblight_config.hue;
-                c->s = rgblight_config.sat;
-            }
-        } else if (rand() < RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY) {
+            uint8_t unscaled = frac(breathe_calc(frac(t->life, t->max_life)) - bottom, top - bottom);
+            c->v             = scale(rgblight_config.val, unscaled);
+        } else if (rand() < scale((uint16_t)RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2)) {
             // This LED is off, but was randomly selected to start brightening
-            c->h    = random_color ? rand() % 0xFF : rgblight_config.hue;
-            c->s    = random_color ? (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2) : rgblight_config.sat;
-            c->v    = 0;
-            t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
-            t->up   = true;
+            if (random_color) {
+                c->h = rand() % 0xFF;
+                c->s = (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2);
+            }
+            c->v        = 0;
+            t->max_life = MAX(20, MIN(RGBLIGHT_EFFECT_TWINKLE_LIFE, rgblight_config.val));
+            t->life     = t->max_life;
         } else {
             // This LED is off, and was NOT selected to start brightening
         }
