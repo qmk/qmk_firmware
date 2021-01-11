@@ -135,7 +135,6 @@
      4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
  } };
 
-#endif
 
 
 void suspend_power_down_kb(void) {
