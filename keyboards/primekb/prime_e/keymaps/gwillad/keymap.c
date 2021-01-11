@@ -70,24 +70,10 @@ void matrix_init_user(void) {
 }
 
 //function for layer indicator LED
-uint32_t layer_state_set_user(uint32_t state)
-{
-    if (biton32(state) == 1) {
-        writePinHigh(B3);
-	} else {
-		writePinLow(B3);
-    }
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(B3, layer_state_cmp(state, 1));
+    writePin(B2, layer_state_cmp(state, 2));
+    writePin(B1, layer_state_cmp(state, 3));
 
-    if (biton32(state) == 2) {
-        writePinHigh(B2);
-	} else {
-		writePinLow(B2);
-    }
-
-    if (biton32(state) == 3) {
-        writePinHigh(B1);
-	} else {
-		writePinLow(B1);
-    }
     return state;
 }
