@@ -29,7 +29,3 @@ ENCODER_ENABLE = yes
 WPM_ENABLE = yes
 LTO_ENABLE = no
 AUTO_SHIFT_ENABLE = no
-
-#ifdef OLED_DRIVER_ENABLE
-#   include "oled.c"
-#endif
