@@ -5,6 +5,7 @@ from collections.abc import Mapping
 from glob import glob
 from pathlib import Path
 
+import hjson
 import jsonschema
 from milc import cli
 
@@ -132,7 +133,7 @@ def _json_load(json_file):
     Note: file must be a Path object.
     """
     try:
-        return json.load(json_file.open())
+        return hjson.load(json_file.open())
 
     except json.decoder.JSONDecodeError as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)

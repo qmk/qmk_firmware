@@ -1,0 +1,37 @@
+# This file maps keys between `config.h` and `info.json`. It is used by QMK 
+# to correctly and consistently map back and forth between the two systems.
+{
+    # Format:
+    # <config.h key>, [<info.json key>, <value_type>]
+    "DEBOUNCE": ["debounce", "int"]
+    "DEVICE_VER": ["usb.device_ver", "str"],
+    "DESCRIPTION": ["keyboard_folder", "str"],
+    "DIODE_DIRECTION": ["diode_direction", "str"],
+    "LAYOUTS": ["layout_aliases", "mapping"],
+    "LED_CAPS_LOCK_PIN": ["indicators.caps_lock", "str"],
+    "LED_NUM_LOCK_PIN": ["indicators.num_lock", "str"],
+    "LED_SCROLL_LOCK_PIN": ["indicators.scroll_lock", "str"],
+    "MANUFACTURER": ["manufacturer", "str"],
+    "RGB_DI_PIN": ["rgblight.pin", "str"],
+    "RGBLED_NUM": ["rgblight.led_count", "int"],
+    "RGBLIGHT_ANIMATIONS": ["rgblight.animations.all", "bool"],
+    "RGBLIGHT_EFFECT_ALTERNATING": ["rgblight.animations.alternating", "bool"],
+    "RGBLIGHT_EFFECT_BREATHING": ["rgblight.animations.breathing", "bool"],
+    "RGBLIGHT_EFFECT_CHRISTMAS": ["rgblight.animations.christmas", "bool"],
+    "RGBLIGHT_EFFECT_KNIGHT": ["rgblight.animations.knight", "bool"],
+    "RGBLIGHT_EFFECT_RAINBOW_MOOD": ["rgblight.animations.rainbow_mood", "bool"],
+    "RGBLIGHT_EFFECT_RAINBOW_SWIRL": ["rgblight.animations.rainbow_swirl", "bool"],
+    "RGBLIGHT_EFFECT_RGB_TEST": ["rgblight.animations.rgb_test", "bool"],
+    "RGBLIGHT_EFFECT_SNAKE": ["rgblight.animations.snake", "bool"],
+    "RGBLIGHT_EFFECT_STATIC_GRADIENT": ["rgblight.animations.static_gradient", "bool"],
+    "RGBLIGHT_EFFECT_TWINKLE": ["rgblight.animations.twinkle", "str"],
+    "RGBLIGHT_LIMIT_VAL": ["rgblight.max_brightness", "int"],
+    "RGBLIGHT_HUE_STEP": ["rgblight.hue_steps", "int"],
+    "RGBLIGHT_SAT_STEP": ["rgblight.saturation_steps", "int"],
+    "RGBLIGHT_VAL_STEP": ["rgblight.brightness_steps", "int"],
+    "RGBLIGHT_SLEEP": ["rgblight.sleep", "bool"],
+    "RGBLIGHT_SPLIT": ["rgblight.split", "bool"],
+    "PRODUCT": ["keyboard_folder", "str"],
+    "PRODUCT_ID": ["usb.pid", "str"],
+    "VENDOR_ID": ["usb.vid", "str"]
+}
