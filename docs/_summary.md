@@ -159,6 +159,7 @@
     * [Contributing to QMK](contributing.md)
     * [Translating the QMK Docs](translating.md)
     * [Config Options](config_options.md)
+    * [Data Driven Configuration](data_driven_config.md)
     * [Make Documentation](getting_started_make_guide.md)
     * [Documentation Best Practices](documentation_best_practices.md)
     * [Documentation Templates](documentation_templates.md)
