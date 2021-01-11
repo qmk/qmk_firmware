@@ -152,3 +152,5 @@ void suspend_wakeup_init_kb(void) {
         rgb_matrix_set_color(45, 0xFF, 0x00, 0x00);
     }
 }
+
+#endif
