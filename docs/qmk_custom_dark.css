@@ -28,6 +28,9 @@
     border-bottom: 1px solid #777 !important;
 }
 
+.markdown-section p.warn > strong {
+    color: #c8c8c8;
+}
 
 :root {
     --docsifytabs-border-color: #555;
@@ -35,25 +38,4 @@
 
     --docsifytabs-tab-background: #444;
     --docsifytabs-tab-background-active: #3f3f3f;
-}
-
-.docsify-tabs__tab:focus {
-    outline: none !important;
-}
-
-.docsify-tabs__content .anchor {
-    transition: none;
-}
-
-
-@media only screen and (min-width: 768px) {
-    .flex-container {
-      display:flex;
-      flex-flow:row;
-    }
-    .flex-container > p {
-      flex-basis: 100%;
-      flex: 1;
-      margin: 1em 2em 1em 2em;
-    }
 }
