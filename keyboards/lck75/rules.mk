@@ -42,5 +42,3 @@ AUTO_SHIFT_ENABLE = no
 #ifdef OLED_DRIVER_ENABLE
 #   include "oled.c"
 #endif
-
-LAYOUTS = lck75_ansi
