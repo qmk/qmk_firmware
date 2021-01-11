@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Copenhagen Click
 #define PRODUCT         Click Pad V1
-#define DESCRIPTION     A single switch macropad given out at the Copenhagen Click 2019 meetup.
 
 /* key matrix size */
 #define MATRIX_ROWS 1

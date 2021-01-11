@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0002
 #define MANUFACTURER dm9records
 #define PRODUCT Plaid
-#define DESCRIPTION 12x4 ortholinear keyboard with through hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 4

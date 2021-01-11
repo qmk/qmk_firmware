@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Bathroom Epiphanies
 #define PRODUCT         frosty_flake
-#define DESCRIPTION     Frosty Flake controller for the CM Storm Quick Fire Rapid
 
 /*
  * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies

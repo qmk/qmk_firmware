@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
 #define PRODUCT         obelus
-#define DESCRIPTION     4x4 QMK test platform
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         Cospad
-#define DESCRIPTION     6x4 numpad with underglow and backlighting
 
 /* key matrix size */
 #define MATRIX_ROWS 6

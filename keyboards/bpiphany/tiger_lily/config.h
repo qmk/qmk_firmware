@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Bathroom Epiphanies
 #define PRODUCT         tiger_lily
-#define DESCRIPTION     Tiger Lily controller for the Filco Majestouch 2
 
 /*
  * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         BigSeries Triple Keyboard
-#define DESCRIPTION     Triple key board for Novelkeys Big Series Switch
 
 /* key matrix size */
 #define MATRIX_ROWS 1

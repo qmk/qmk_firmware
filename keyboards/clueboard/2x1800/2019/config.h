@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Clueboard
 #define PRODUCT         2x1800 2019
-#define DESCRIPTION     Mechanical Drawing Toy Edition
 
 /* key matrix size */
 #define MATRIX_ROWS 13
