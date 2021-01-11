@@ -547,10 +547,6 @@ enum quantum_keycodes {
     JS_BUTTON31,
     JS_BUTTON_MAX = JS_BUTTON31,
 
-    ONESHOT_ENABLE,
-    ONESHOT_DISABLE,
-    ONESHOT_TOGGLE,
-
 #if defined(SEQUENCER_ENABLE)
     SQ_ON,
     SQ_OFF,
@@ -581,6 +577,10 @@ enum quantum_keycodes {
 #    define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : XXXXXXX)
 
 #endif
+
+    ONESHOT_ENABLE,
+    ONESHOT_DISABLE,
+    ONESHOT_TOGGLE,
 
     // always leave at the end
     SAFE_RANGE
