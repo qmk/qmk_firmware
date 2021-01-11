@@ -245,7 +245,7 @@ void matrix_init(void) {
     split_post_init();
 }
 
-bool matrix_pre_scan(void) {
+bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
         static uint8_t error_count;
@@ -253,15 +253,15 @@ bool matrix_pre_scan(void) {
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
         if (!transport_master(slave_matrix)) {
             error_count++;
+
+            if (error_count > ERROR_DISCONNECT_COUNT) {
+                // reset other half if disconnected
+                for (int i = 0; i < ROWS_PER_HAND; ++i) {
+                    slave_matrix[i] = 0;
+                }
+            }
         } else {
             error_count = 0;
-        }
-
-        if (error_count > ERROR_DISCONNECT_COUNT) {
-            // reset other half if disconnected
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                slave_matrix[i] = 0;
-            }
         }
 
         for (int i = 0; i < ROWS_PER_HAND; ++i) {
@@ -270,23 +270,19 @@ bool matrix_pre_scan(void) {
                 changed              = true;
             }
         }
-    }
-    return changed;
-}
 
-void matrix_post_scan(void) {
-    if (is_keyboard_master()) {
         matrix_scan_quantum();
     } else {
         transport_slave(matrix + thisHand);
 
         matrix_slave_scan_user();
     }
+
+    return changed;
 }
 
 uint8_t matrix_scan(void) {
     bool local_changed = false;
-    bool remote_changed = matrix_pre_scan();
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
@@ -302,6 +298,6 @@ uint8_t matrix_scan(void) {
 
     debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, local_changed);
 
-    matrix_post_scan();
+    bool remote_changed = matrix_post_scan();
     return (uint8_t)(local_changed || remote_changed);
 }
