@@ -11,12 +11,11 @@ If the thought of programming intimidates you, please [take a look at our online
 
 ## Overview
 
-This guide is suitable for everyone who wants to build a keyboard firmware using the source code. If you are already a programmer you will find the process very familiar and easier to follow. There are 4 main sections to this guide:
+This guide is suitable for everyone who wants to build a keyboard firmware using the source code. If you are already a programmer you will find the process very familiar and easier to follow. There are 3 main sections to this guide:
 
 1. [Setup Your Environment](newbs_getting_started.md)
 2. [Building Your First Firmware](newbs_building_firmware.md)
 3. [Flashing Firmware](newbs_flashing.md)
-4. [Testing and Debugging](newbs_testing_debugging.md)
 
 This guide is focused on helping someone who has never compiled software before. It makes choices and recommendations based on that viewpoint. There are alternative methods for many of these procedures, and we support most of those alternatives. If you have any doubt about how to accomplish a task you can [ask us for guidance](getting_started_getting_help.md).
 
