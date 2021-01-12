@@ -1,3 +1,7 @@
+**OS設定や縦書き横書きを動的に変更できるV13uをリリースしました。
+[V13u](https://github.com/eswai/qmk_firmware/tree/master/keyboards/crkbd/keymaps/naginata_v13u)がおすすめです。
+今後はV13uをベースに更新していく予定です。**
+
 # crkbd用 薙刀式カナ配列キーマップ
 
 薙刀式カナ配列による入力をQMKで実現します。薙刀式v13完成版に準拠しています。
