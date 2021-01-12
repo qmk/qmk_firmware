@@ -48,4 +48,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
+<<<<<<< HEAD
+#ifdef RGB_MATRIX_ENABLE
+    #define RGBLED_NUM 54  // Number of LEDs
+    #define DRIVER_LED_TOTAL RGBLED_NUM
+#endif
+
+=======
+>>>>>>> a9442927675f2d2db324d69528b6054413a1dfcd
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
