@@ -1,24 +1,24 @@
-#include "uni660.h"
+#include "rev1.h"
 
 void uart_init(void) {
-	SERIAL_UART_INIT();
+    SERIAL_UART_INIT();
 }
 
 void led_init(void) {
-	setPinOutput(D1); // Pin to green, set as output
-	writePinHigh(D1); // Turn it off
-	setPinOutput(F4); // Pins to red and blue, set as output
-	setPinOutput(F5);
-	writePinHigh(F4); // Turn them off
-	writePinHigh(F5);
+    setPinOutput(D1); // Pin to green, set as output
+    writePinHigh(D1); // Turn it off
+    setPinOutput(F4); // Pins to red and blue, set as output
+    setPinOutput(F5);
+    writePinHigh(F4); // Turn them off
+    writePinHigh(F5);
 }
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-	matrix_init_user();
-	uart_init();
-	led_init();
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
+    matrix_init_user();
+    uart_init();
+    led_init();
 }
 
 /*
