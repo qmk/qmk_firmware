@@ -41,6 +41,7 @@ static uint8_t vial_unlock_combo_rows[] = VIAL_UNLOCK_COMBO_ROWS;
 static uint8_t vial_unlock_combo_cols[] = VIAL_UNLOCK_COMBO_COLS;
 #define VIAL_UNLOCK_NUM_KEYS (sizeof(vial_unlock_combo_rows)/sizeof(vial_unlock_combo_rows[0]))
 _Static_assert(VIAL_UNLOCK_NUM_KEYS < 15, "Max 15 unlock keys");
+_Static_assert(sizeof(vial_unlock_combo_rows) == sizeof(vial_unlock_combo_cols), "The number of unlock cols and rows should be the same");
 #endif
 
 #define VIAL_RAW_EPSIZE 32
