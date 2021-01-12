@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ninjin.h"
+// Nothing to see here, move along... ;-)
+#include "akis.h"
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     rgblight_enable(); // Enable RGB by default
@@ -23,6 +24,3 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     eeconfig_update_kb(0);
     eeconfig_init_user();
 }
-
-// Tested and verified working on Ninjin
-void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
