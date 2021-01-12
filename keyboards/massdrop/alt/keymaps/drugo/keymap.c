@@ -194,9 +194,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         break;
         // Notifications
         case 2:
-            // Solid bottom underglow
             // Note: caller is expected to reset RGB to previous state
+            // TODO: set flags on single LEDs so RGB animation isn't interrupted on underglow
             switch (data[1]) {
+                // Solid bottom underglow
                 case 1: {
                     uint8_t r = data[2];
                     uint8_t g = data[3];
@@ -217,6 +218,14 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     }
                 }
                 break;
+                // Full color change
+                case 2: {
+                    uint8_t r = data[2];
+                    uint8_t g = data[3];
+                    uint8_t b = data[4];
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                    rgb_matrix_set_color_all(r, g, b);
+                }
             }
         break;
         // Get RGB state
