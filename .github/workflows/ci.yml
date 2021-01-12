@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+  pull_request:
+    paths:
+    - 'keyboards/**'
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/base_container
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Compile Vial keyboards
+      run: |
+        make git-submodule
+        python3 util/compile_vial_keyboards.py
