@@ -14,12 +14,13 @@ enum custom_keycodes {
   EXT_SFT
 };
 
-#define CTL_A LCTL_T(KC_A)
-#define CTL_O RCTL_T(KC_O)
-#define ALT_X LALT_T(KC_X)
+#define CTL_A   LCTL_T(KC_A)
+#define CTL_O   RCTL_T(KC_O)
+#define ALT_X   LALT_T(KC_X)
 #define ALT_DOT RALT_T(KC_DOT)
 
 #define VIM_ALT S(C(KC_CIRC))
+#define KC_EUR  S(A(KC_2))
 
 #define EXT_SPC LT(_EXTEND, KC_SPC)
 
@@ -51,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMBOLS] = LAYOUT(
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, KC_EXLM, KC_LT,   KC_DLR,  KC_GT,   KC_AT,                     KC_QUOT, KC_LBRC, KC_UNDS, KC_RBRC, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_EXLM, KC_LT,   KC_AT,   KC_GT,   KC_DLR,                    KC_QUOT, KC_LBRC, KC_UNDS, KC_RBRC, KC_EUR,  XXXXXXX,
       XXXXXXX, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                   KC_PERC, KC_LCBR, KC_PEQL, KC_RCBR, KC_PIPE, XXXXXXX,
       XXXXXXX, XXXXXXX, KC_COLN, KC_ASTR, KC_PLUS, XXXXXXX, _______, _______, XXXXXXX, KC_AMPR, KC_CIRC, KC_TILD, KC_QUES, XXXXXXX,
                                           _______, KC_SPC,  _______, _______, _______, _______
