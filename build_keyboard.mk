@@ -273,26 +273,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
 
-# Userspace setup and definitions
-ifeq ("$(USER_NAME)","")
-    USER_NAME := $(KEYMAP)
-endif
-USER_PATH := users/$(USER_NAME)
-
--include $(USER_PATH)/rules.mk
-ifneq ("$(wildcard $(USER_PATH)/config.h)","")
-    CONFIG_H += $(USER_PATH)/config.h
-endif
-
-# Object files directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
-
-ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
-    CONFIG_H += $(KEYMAP_PATH)/config.h
-endif
-
 # Pull in stuff from info.json
 INFO_JSON_FILES :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
@@ -322,6 +302,26 @@ $(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
 generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 .INTERMEDIATE : generated-files
+
+# Userspace setup and definitions
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
+
+-include $(USER_PATH)/rules.mk
+ifneq ("$(wildcard $(USER_PATH)/config.h)","")
+    CONFIG_H += $(USER_PATH)/config.h
+endif
+
+# Object files directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
+
+ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
+    CONFIG_H += $(KEYMAP_PATH)/config.h
+endif
 
 # project specific files
 SRC += $(KEYBOARD_SRC) \
