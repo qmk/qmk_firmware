@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    PyroL
 #define PRODUCT         alpha
-#define DESCRIPTION     28-key keyboard by PyroL
 
 /* key matrix size */
 #define MATRIX_ROWS 3

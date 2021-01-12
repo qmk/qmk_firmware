@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    40 Percent Club
 #define PRODUCT         Gherkin
-#define DESCRIPTION     A 30 key ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
