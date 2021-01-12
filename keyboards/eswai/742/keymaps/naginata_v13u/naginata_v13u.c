@@ -558,21 +558,21 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
   {.key = B_J|B_K|B_W		, .win   = "｜",		.mac = "nagitatesenn"}, // ｜{改行}
   {.key = B_J|B_K|B_T		, .win   = "・",		.mac = "nagichuutenn"}, // ・
   {.key = B_J|B_K|B_A		, .win   = "……",		.mac = "nagitentenn"}, // ……{改行}
-  {.key = B_J|B_K|B_S		, .win   = "《",		.mac = "nagikakkohi5"}, // 《{改行}
-  {.key = B_J|B_K|B_F		, .win   = "「",		.mac = "nagikakkohi3"}, // 「{改行}
-  {.key = B_J|B_K|B_G		, .win   = "(",		.mac = "nagikakkohi6"}, // ({改行}
-  {.key = B_J|B_K|B_Z		, .win   = "││",		.mac = "nagitatesenn2"}, // ││{改行}
-  {.key = B_J|B_K|B_X		, .win   = "》",		.mac = "nagikakkomi5"}, // 》{改行}
-  {.key = B_J|B_K|B_V		, .win   = "」",		.mac = "nagikakkomi3"}, // 」{改行}
-  {.key = B_J|B_K|B_B		, .win   = ")",		.mac = "nagikakkomi6"}, // ){改行}
+  {.key = B_J|B_K|B_S		, .win   = "《",		.mac = "nagikakkohio"}, // 《{改行}
+  {.key = B_J|B_K|B_F		, .win   = "「",		.mac = "nagikakkohiu"}, // 「{改行}
+  {.key = B_J|B_K|B_G		, .win   = "(",		.mac = "nagikakkohika"}, // ({改行}
+  {.key = B_J|B_K|B_Z		, .win   = "││",		.mac = "nagitatesenni"}, // ││{改行}
+  {.key = B_J|B_K|B_X		, .win   = "》",		.mac = "nagikakkomio"}, // 》{改行}
+  {.key = B_J|B_K|B_V		, .win   = "」",		.mac = "nagikakkomiu"}, // 」{改行}
+  {.key = B_J|B_K|B_B		, .win   = ")",		.mac = "nagikakkomika"}, // ){改行}
   {.key = B_M|B_COMM|B_Q		, .win   = "／",		.mac = "naginaname"}, // ／{改行}
   {.key = B_M|B_COMM|B_T		, .win   = "〇",		.mac = "nagimaru"}, // 〇{改行}
-  {.key = B_M|B_COMM|B_A		, .win   = "【",		.mac = "nagikakkohi1"}, // 【{改行}
-  {.key = B_M|B_COMM|B_S		, .win   = "〈",		.mac = "nagikakkohi2"}, // 〈{改行}
-  {.key = B_M|B_COMM|B_D		, .win   = "『",		.mac = "nagikakkohi4"}, // 『{改行}
-  {.key = B_M|B_COMM|B_Z		, .win   = "】",		.mac = "nagikakkomi1"}, // 】{改行}
-  {.key = B_M|B_COMM|B_X		, .win   = "〉",		.mac = "nagikakkomi2"}, // 〉{改行}
-  {.key = B_M|B_COMM|B_C		, .win   = "』",		.mac = "nagikakkomi4"}, // 』{改行}
+  {.key = B_M|B_COMM|B_A		, .win   = "【",		.mac = "nagikakkohia"}, // 【{改行}
+  {.key = B_M|B_COMM|B_S		, .win   = "〈",		.mac = "nagikakkohii"}, // 〈{改行}
+  {.key = B_M|B_COMM|B_D		, .win   = "『",		.mac = "nagikakkohie"}, // 『{改行}
+  {.key = B_M|B_COMM|B_Z		, .win   = "】",		.mac = "nagikakkomia"}, // 】{改行}
+  {.key = B_M|B_COMM|B_X		, .win   = "〉",		.mac = "nagikakkomii"}, // 〉{改行}
+  {.key = B_M|B_COMM|B_C		, .win   = "』",		.mac = "nagikakkomie"}, // 』{改行}
 };
 
 // 薙刀式のレイヤー、オンオフするキー
@@ -1027,8 +1027,8 @@ bool naginata_lookup(int nt, bool shifted) {
         case NG_MAC:
           tap_code(KC_ENT);
           tap_code(KC_END);
-          mac_send_string("nagikakkohi5");
-          mac_send_string("nagikakkomi5");
+          mac_send_string("nagikakkohio");
+          mac_send_string("nagikakkomio");
           tap_code(NGUP);
           compress_buffer(nt);
           return true;
@@ -1046,9 +1046,9 @@ bool naginata_lookup(int nt, bool shifted) {
           return true;
           break;
         case NG_MAC:
-          mac_send_string("nagikakkomi3");
+          mac_send_string("nagikakkomiu");
           tap_code(KC_ENT);
-          mac_send_string("nagikakkohi3");
+          mac_send_string("nagikakkohiu");
           compress_buffer(nt);
           return true;
           break;
@@ -1065,7 +1065,7 @@ bool naginata_lookup(int nt, bool shifted) {
           return true;
           break;
         case NG_MAC:
-          mac_send_string("nagikakkomi3");
+          mac_send_string("nagikakkomiu");
           tap_code(KC_ENT);
           tap_code(KC_SPC);
           compress_buffer(nt);

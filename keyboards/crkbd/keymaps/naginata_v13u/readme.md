@@ -17,7 +17,7 @@ http://oookaworks.seesaa.net/article/479173898.html
 
 1. OSのキーボード設定を日本語106キーボードにする。
 2. Windowsの場合は[WinCompose](http://wincompose.info/)をインストールする。
-3. MacOSの場合は、ユーザー辞書にnaginata_dictionary.plistを登録する。
+3. MacOSの場合は、ユーザー辞書にnaginata_dictionary.plistを登録する。(Big Surではユーザー辞書の入力に数字が使えなくなったので辞書を作り直しました。)
 
 ## QMKファームウェアの設定
 
