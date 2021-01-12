@@ -36,8 +36,26 @@ enum {
   TD_DOT_RABK,
   TD_SLSH_QUES,
   TD_BSLS_PIPE,
-  TD_3_F3
+  TD_3_F3,
+  TD_SHIFT_CAPS
 };
+
+// Shift key action:
+// Shift held down, then use as normal and use Shift Mode of key.
+// Shift tapped, then Capitlize next keystroke only.
+// Shift double-tapped, then CAPSLOCK
+// Shift double-tapped again, CAPS UNLOCKED
+void dance_onshot_lsft(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 1: // =>
+      set_oneshot_mods (MOD_LSFT);
+      break;
+    case 2:
+      register_code (KC_CAPS);
+      //layer_on (LAYER_NAME);
+      break;
+  }
+}
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -59,7 +77,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    [TD_SLSH_QUES]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUES),
    [TD_BSLS_PIPE]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_PIPE),
 
-   [TD_3_F3]  = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_F3)
+   [TD_3_F3]  = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_F3),
+
+   [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN(dance_onshot_lsft)
 };
 
 // Fillers to make layering more clear
@@ -91,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
      KC_HOME        , TD(TD_TAB_TILDE),KC_Q   ,KC_W   ,KC_E      ,KC_R  ,KC_T,KC_Y,KC_U  , KC_I           , KC_O          , KC_P           ,TD(TD_LBRC_LCBR),TD(TD_RBRC_RCBR),
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
-     KC_PGUP        , KC_CAPS         ,KC_A   ,KC_S   ,KC_D      ,KC_F  ,KC_G,KC_H,KC_J  ,KC_K            , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT) ,KC_ENT          ,
+     KC_PGUP        , KC_CAPSLOCK     ,KC_A   ,KC_S   ,KC_D      ,KC_F  ,KC_G,KC_H,KC_J  ,KC_K            , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT) ,KC_ENT          ,
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
-     KC_PGDN        , OSM(MOD_LSFT)   ,KC_Z   ,KC_X   ,KC_C      ,KC_V  ,KC_B,KC_N,KC_M  ,TD(TD_COMM_LABK),TD(TD_DOT_RABK),TD(TD_SLSH_QUES),TD(TD_BSLS_PIPE),KC_RSFT         ,
+     KC_PGDN        ,TD(TD_SHIFT_CAPS),KC_Z   ,KC_X   ,KC_C      ,KC_V  ,KC_B,KC_N,KC_M  ,TD(TD_COMM_LABK),TD(TD_DOT_RABK),TD(TD_SLSH_QUES),TD(TD_BSLS_PIPE),KC_RSFT         ,
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
      KC_END         , KC_LCTRL        ,KC_LGUI,KC_LALT, KC_L1    ,  KC_SPACE ,  KC_SPACE , KC_L2          ,KC_RALT        ,KC_BTN2         ,KC_RCTRL        ,TD(TD_ESC_GRAVE)
   //`---------------+-----------------+-------+-------+----------+------+----+-----------+----------------+---------------+----------------+----------------+----------------'
