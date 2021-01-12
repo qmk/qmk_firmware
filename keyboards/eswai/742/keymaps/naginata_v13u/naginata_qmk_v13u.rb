@@ -323,8 +323,8 @@ $henshu = {
 "　　　×　　　×　　　×{改行 2}"=> ["macro", ""],
 
 "{Space 3}"     => ["kana", "SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)"],
-"^i"            => ["kana", "SS_LCTL(\"i\")", "SS_LCMD(\"i\")"],
-"^u"            => ["kana", "SS_LCTL(\"u\")", "SS_LCTL(\"j\")"],
+"^i"            => ["kana", "SS_LCTL(\"i\")", "SS_LCTL(\"k\")"], # カタカナ
+"^u"            => ["kana", "SS_LCTL(\"u\")", "SS_LCTL(\"j\")"], # ひらがな
 "^s"            => ["kana", "SS_LCTL(\"s\")", "SS_LCMD(\"s\")"],
 "^x"            => ["kana", "SS_LCTL(\"x\")", "SS_LCMD(\"x\")"],
 "^v"            => ["kana", "SS_LCTL(\"v\")", "SS_LCMD(\"v\")"],
