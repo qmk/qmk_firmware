@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    Alsoran
 #define PRODUCT         AL1
-#define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 7
@@ -45,6 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN D0
+#define LED_CAPS_LOCK_PIN B7
+#define LED_SCROLL_LOCK_PIN D1
+#define LED_PIN_ON_STATE 0
 
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_BREATHING

@@ -6,7 +6,6 @@
 #define VENDOR_ID       0x6F75 // OU
 #define MANUFACTURER    1up Keyboards
 #define PRODUCT         Sweet16
-#define DESCRIPTION     4x4 grid
 
 /* key matrix size */
 #define MATRIX_ROWS 4

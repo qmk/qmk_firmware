@@ -24,15 +24,21 @@ section at the end of this file).
 
 /* ---------------------------- Hardware Config ---------------------------- */
 
+#ifndef USB_CFG_IOPORTNAME
 #define USB_CFG_IOPORTNAME      D
+#endif
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
+#ifndef USB_CFG_DMINUS_BIT
 #define USB_CFG_DMINUS_BIT      3
+#endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
  */
+#ifndef USB_CFG_DPLUS_BIT
 #define USB_CFG_DPLUS_BIT       2
+#endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0! [You can also use other interrupts, see section
@@ -79,9 +85,19 @@ section at the end of this file).
 /* If the so-called endpoint 3 is used, it can now be configured to any other
  * endpoint number (except 0) with this macro. Default if undefined is 3.
  */
+#define USB_CFG_HAVE_INTRIN_ENDPOINT4   1
+/* Define this to 1 if you want to compile a version with three endpoints: The
+ * default control endpoint 0, an interrupt-in endpoint 4 (or the number
+ * configured below) and a catch-all default interrupt-in endpoint as above.
+ * You must also define USB_CFG_HAVE_INTRIN_ENDPOINT to 1 for this feature.
+ */
+#define USB_CFG_EP4_NUMBER              4
+/* If the so-called endpoint 4 is used, it can now be configured to any other
+ * endpoint number (except 0) with this macro. Default if undefined is 4.
+ */
 /* #define USB_INITIAL_DATATOKEN           USBPID_DATA1 */
 /* The above macro defines the startup condition for data toggling on the
- * interrupt/bulk endpoints 1 and 3. Defaults to USBPID_DATA1.
+ * interrupt/bulk endpoints 1, 3 and 4. Defaults to USBPID_DATA1.
  * Since the token is toggled BEFORE sending any data, the first packet is
  * sent with the oposite value of this configuration!
  */
@@ -94,10 +110,10 @@ section at the end of this file).
 #define USB_CFG_SUPPRESS_INTR_CODE      0
 /* Define this to 1 if you want to declare interrupt-in endpoints, but don't
  * want to send any data over them. If this macro is defined to 1, functions
- * usbSetInterrupt() and usbSetInterrupt3() are omitted. This is useful if
- * you need the interrupt-in endpoints in order to comply to an interface
- * (e.g. HID), but never want to send any data. This option saves a couple
- * of bytes in flash memory and the transmit buffers in RAM.
+ * usbSetInterrupt(), usbSetInterrupt3() and usbSetInterrupt4() are omitted.
+ * This is useful if you need the interrupt-in endpoints in order to comply
+ * to an interface (e.g. HID), but never want to send any data. This option
+ * saves a couple of bytes in flash memory and the transmit buffers in RAM.
  */
 #define USB_CFG_IS_SELF_POWERED         0
 /* Define this to 1 if the device has its own power supply. Set it to 0 if the
@@ -151,7 +167,9 @@ section at the end of this file).
 /* This macro (if defined) is executed when a USB SET_ADDRESS request was
  * received.
  */
+#ifndef USB_COUNT_SOF
 #define USB_COUNT_SOF                   1
+#endif
 /* define this macro to 1 if you need the global variable "usbSofCount" which
  * counts SOF packets. This feature requires that the hardware interrupt is
  * connected to D- instead of D+.
@@ -321,10 +339,18 @@ section at the end of this file).
 
 /* Set INT1 for D- falling edge to count SOF */
 /* #define USB_INTR_CFG            EICRA */
+#ifndef USB_INTR_CFG_SET
 #define USB_INTR_CFG_SET        ((1 << ISC11) | (0 << ISC10))
+#endif
 /* #define USB_INTR_CFG_CLR        0 */
 /* #define USB_INTR_ENABLE         EIMSK */
+#ifndef USB_INTR_ENABLE_BIT
 #define USB_INTR_ENABLE_BIT     INT1
+#endif
 /* #define USB_INTR_PENDING        EIFR */
+#ifndef USB_INTR_PENDING_BIT
 #define USB_INTR_PENDING_BIT    INTF1
+#endif
+#ifndef USB_INTR_VECTOR
 #define USB_INTR_VECTOR         INT1_vect
+#endif

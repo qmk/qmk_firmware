@@ -16,11 +16,27 @@
 #    define WS2812_SPI_MOSI_PAL_MODE 5
 #endif
 
+// Push Pull or Open Drain Configuration
+// Default Push Pull
+#ifndef WS2812_EXTERNAL_PULLUP
+#    if defined(USE_GPIOV1)
+#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#    else
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL
+#    endif
+#else
+#    if defined(USE_GPIOV1)
+#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#    else
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN
+#    endif
+#endif
+
 #define BYTES_FOR_LED_BYTE 4
 #define NB_COLORS 3
 #define BYTES_FOR_LED (BYTES_FOR_LED_BYTE * NB_COLORS)
 #define DATA_SIZE (BYTES_FOR_LED * RGBLED_NUM)
-#define RESET_SIZE 200
+#define RESET_SIZE (1000 * WS2812_TRST_US / (2 * 1250))
 #define PREAMBLE_SIZE 4
 
 static uint8_t txbuf[PREAMBLE_SIZE + DATA_SIZE + RESET_SIZE] = {0};
@@ -46,17 +62,19 @@ static uint8_t get_protocol_eq(uint8_t data, int pos) {
 static void set_led_color_rgb(LED_TYPE color, int pos) {
     uint8_t* tx_start = &txbuf[PREAMBLE_SIZE];
 
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.g, j);
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.r, j);
     for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
+#endif
 }
 
 void ws2812_init(void) {
-#if defined(USE_GPIOV1)
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-#else
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL);
-#endif
+    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
 
     // TODO: more dynamic baudrate
     static const SPIConfig spicfg = {

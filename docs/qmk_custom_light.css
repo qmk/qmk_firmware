@@ -28,3 +28,20 @@
 .markdown-section pre {
   padding: 0;
 }
+
+
+:root {
+  --docsifytabs-border-color: #ddd;
+  --docsifytabs-tab-highlight-color: var(--theme-color, #0074d9);
+
+  --docsifytabs-tab-background: #f8f8f8;
+  --docsifytabs-tab-background-active: transparent;
+}
+
+.docsify-tabs__tab:focus {
+  outline: none !important;
+}
+
+.docsify-tabs__content .anchor {
+  transition: none;
+}

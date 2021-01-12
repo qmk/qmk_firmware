@@ -41,13 +41,10 @@ A macro which has been recorded on the keyboard and which will be lost when the 
 ## Eclipse
 An IDE that is popular with many C developers.
 
-* [Eclipse Setup Instructions](eclipse.md)
+* [Eclipse Setup Instructions](other_eclipse.md)
 
 ## Firmware
 The software that controls your MCU.
-
-## FLIP
-Software provided by Atmel for flashing AVR devices. We generally recommend [QMK Flasher](https://github.com/qmk/qmk_flasher) instead, but for some advanced use cases FLIP is required.
 
 ## git
 Versioning software used at the command line

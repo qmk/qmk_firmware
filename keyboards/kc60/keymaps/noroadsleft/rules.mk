@@ -1,6 +1,6 @@
 # https://github.com/qmk/qmk_firmware/issues/3448#issuecomment-406636125
 # EXTRAFLAGS        += -flto
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 MOUSEKEY_ENABLE = no        # Mouse keys
 # COMMAND_ENABLE = no         # Commands for debug and configuration

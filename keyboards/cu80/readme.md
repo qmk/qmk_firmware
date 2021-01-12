@@ -2,7 +2,7 @@
 
 ![cu80](https://cdn11.bigcommerce.com/s-vdedjo0w46/images/stencil/900x900/products/287/2336/DSCF3583__16019.1567722956.png?c=2)
 
-A customizable 60% keyboard.
+A customizable 80% keyboard.
 
 * Keyboard Maintainer: [aHolland909](https://github.com/aholland909)
 * Hardware Supported: CU80

@@ -1,8 +1,8 @@
 # Vagrant クイックスタート
 
 <!---
-  original document: 7494490d6:docs/getting_started_vagrant.md
-  git diff 7494490d6 HEAD -- docs/getting_started_vagrant.md | cat
+  original document: 0.9.10:docs/getting_started_vagrant.md
+  git diff 0.9.10 HEAD -- docs/getting_started_vagrant.md | cat
 -->
 
 このプロジェクトは、プライマリオペレーティングシステムに大きな変更を加えることなくキーボードの新しいファームウェアを非常に簡単に構築することができる `Vagrantfile` を含みます。これは、あなたがプロジェクトをクローンしビルドを実行した時に、ビルドのために Vagrantfile を使っている他のユーザと全く同じ環境を持つことも保証します。これにより、人々はあなたが遭遇した問題の解決をより簡単に行えるようになります。
@@ -25,7 +25,6 @@ Vagrant 以外に、適切なプロバイダがインストールされ、その
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox) (推奨)
 * [Teensy ローダー](https://www.pjrc.com/teensy/loader.html)
-* [Atmel FLIP](http://www.atmel.com/tools/flip.aspx)
 
 コマンドラインでプログラムしたい場合は、Vagranfile の ['modifyvm'] 行のコメントを解除して Linux への USB パススルーを有効にし、dfu-util/dfu-programmer のようなコマンドラインツールを使ってプログラムすることができます。あるいは Teensy CLI バージョンをインストールすることができます。
 
