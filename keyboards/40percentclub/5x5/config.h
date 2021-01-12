@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x05B5
 #define MANUFACTURER    di0ib
 #define PRODUCT         The 5x5 Keyboard
-#define DESCRIPTION     A 25 or 50 or 75 key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

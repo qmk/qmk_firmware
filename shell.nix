@@ -86,6 +86,6 @@ mkShell {
   shellHook = ''
     # Prevent the avr-gcc wrapper from picking up host GCC flags
     # like -iframework, which is problematic on Darwin
-    unset NIX_TARGET_CFLAGS_COMPILE
+    unset NIX_CFLAGS_COMPILE_FOR_TARGET
   '';
 }
