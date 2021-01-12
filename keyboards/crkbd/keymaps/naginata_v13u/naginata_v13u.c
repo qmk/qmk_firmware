@@ -816,8 +816,9 @@ static uint16_t fghj_buf = 0;
 bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 
-    if (fghj_buf == 0 && (keycode == ngon_keys[0] || keycode == ngon_keys[1] ||
-        keycode == ngoff_keys[0] || keycode == ngoff_keys[1])) {
+    // if (fghj_buf == 0 && (keycode == ngon_keys[0] || keycode == ngon_keys[1] ||
+    //     keycode == ngoff_keys[0] || keycode == ngoff_keys[1])) {
+    if (fghj_buf == 0 && (keycode == ngon_keys[0] || keycode == ngon_keys[1])) {
       fghj_buf = keycode;
       return false;
     } else if (fghj_buf > 0) {
@@ -826,11 +827,11 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
         naginata_on();
         fghj_buf = 0;
         return false;
-      } else if ((keycode == ngoff_keys[0] && fghj_buf == ngoff_keys[1]) ||
-                 (keycode == ngoff_keys[1] && fghj_buf == ngoff_keys[0])) {
-        naginata_off();
-        fghj_buf = 0;
-        return false;
+      // } else if ((keycode == ngoff_keys[0] && fghj_buf == ngoff_keys[1]) ||
+      //            (keycode == ngoff_keys[1] && fghj_buf == ngoff_keys[0])) {
+      //   naginata_off();
+      //   fghj_buf = 0;
+      //   return false;
       } else {
         tap_code(fghj_buf);
         fghj_buf = 0;
