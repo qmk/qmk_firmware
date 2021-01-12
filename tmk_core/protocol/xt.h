@@ -36,8 +36,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef XT_H
-#define XT_H
+#pragma once
 
 #define XT_DATA_IN()                        \
     do {                                    \
@@ -69,5 +68,3 @@ POSSIBILITY OF SUCH DAMAGE.
 
 void    xt_host_init(void);
 uint8_t xt_host_recv(void);
-
-#endif
