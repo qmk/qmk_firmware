@@ -60,6 +60,7 @@ void keyboard_pre_init_user(void) {
 // customization of the keymap.  Use _keymap instead of _user
 // functions in the keymaps
 __attribute__((weak)) void matrix_init_keymap(void) {}
+__attribute__((weak)) void matrix_init_secret(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
@@ -71,6 +72,8 @@ void matrix_init_user(void) {
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
 #endif
+
+    matrix_init_secret();
     matrix_init_keymap();
 }
 
@@ -116,6 +119,8 @@ void suspend_wakeup_init_user(void) { suspend_wakeup_init_keymap(); }
 
 __attribute__((weak)) void matrix_scan_keymap(void) {}
 
+__attribute__((weak)) void matrix_scan_secret(void) {}
+
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 void matrix_scan_user(void) {
@@ -135,6 +140,8 @@ void matrix_scan_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb_matrix();
 #endif
+
+    matrix_scan_secret();
 
     matrix_scan_keymap();
 }
