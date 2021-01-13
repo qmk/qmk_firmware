@@ -27,8 +27,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   //                      Placing ‛//’ in front of a line, means whatever follows it will be ignored during compilation.
   //                      “_Activate_”   means to *delete* the two ‛//’ in front. Now the rest of the line *will* be compiled
   //                      /* ... */ is another a way to turn “...” into being a comment which is ignored during compilation.
+
+       /*
+        --------------------------------------------------------------------------------------
+                                                                                          ----
+                                                                                            --
+                                                                                             -
+          Table of Contents:
+         
+                            -1- ➡ Letters / Numbers & Symbols layouts ⬅
+                    • Dvorak
+                    • Dvorak descramble mode
+                    • Qwerty
+                    • Colemak
+                    • Numpad
+
+                            -2- ➡ Eviscerations ( ① / ② ) ⬅
+                    • Single layout
+
+                            -3- ➡ Startup layer ⬅
+
+                            -4- ➡ How many hardware keys 1st row ⬅
+
+                            -5- ⚠ ≠ Minivan ⬅
+
+                            -6- ➡ Defining the meaning of the additional hardware keys ⬅
+                    • Defining the additional key for 'South paw' (also called 'Command')
+                    • Defining 'Arrow' hardware layout additional keys
+
+                            -7- ➡ Arrows/Navigation cluster ⬅
+                    • Navigation cluster configuration
+                    • VI editor arrows
+
+                            -8- ➡ Number pad Configuration⬅
+
+                            -9- ➡ Speed measuring ⬅
+
+                           -10- ➡ Text size counting ⬅
+
+                           -11- ➡ Some alternative keys ⬅
+                    • GUI left/right
+                    • Alternate currency symbol
+                    • Check boxes or Pointers
+
+                           -12- ➡ Eviscerations ( ② / ② ) ⬅
+                    • Removing the numbers pad _PAD layer
+                    • Removing one or more of the Unicode layers _ACC, _DRA or_BON
+                    • Removing groups of characters
+
+                           -13- ➡ Middle led BASE layer: last layer color ⬅
+
+        -
+        --
+        ----
+        --------------------------------------------------------------------------------------
+        */
+
+
       
-       /*                       ➡ Letters / Numbers & Symbols layouts ⬅
+       /*                   -1- ➡ Letters / Numbers & Symbols layouts ⬅
         *
         * Here you can configure what letters layer (BASE layer), and number&symbols layer you
         * want. This is a dual layout system, so you can choose a second pair as well. You can
@@ -65,9 +122,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //          • Qwerty
         //                   (a regular Qwerty layout)
         //  _Activate_ one of these two, _remove_ the other.
-//#define BASE_QWERTY__DEF_BASE // _Activate_ if you want Qwerty on the ‛Default’ spot
+          #define BASE_QWERTY__DEF_BASE // _Activate_ if you want Qwerty on the ‛Default’ spot
 //#define BASE_QWERTY__ALT_BASE // _Activate_ if you want Qwerty on the ‛Alternate’ spot
-        // 
+    
         //          • Colemak
         //                   (a regular Colemak layout)
         //  _Activate_ one of these two, _remove_ the other.
@@ -80,7 +137,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
         // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_numpad.c
         //
-        /*                      ➡ Eviscerations ( ① / ② ) ⬅
+        /*                  -2- ➡ Eviscerations ( ① / ② ) ⬅
          */
         /*          • Single layout
          *
@@ -90,7 +147,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MINIFAN_SINGLE_LAYOUT // _Activate_ to only have the ‛Default’ base layers, _remove_ to also have ‛Alternate’.
 
 
-        /*                      ➡ Startup layer ⬅
+        /*                  -3- ➡ Startup layer ⬅
          *
          * You can define which of the two BASE layers is on when powering up the keyboard.
          */
@@ -98,7 +155,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             //              startup in Dvorak
 
 
-        /*                      ➡ How many hardware keys 1st row ⬅
+        /*                  -4- ➡ How many hardware keys 1st row ⬅
          *
          * Define how many keys your keyboard has.
          */
@@ -106,13 +163,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //'Command'              (12x12x12x9 keys) + key on the left
          //'Arrow'                (12x12x12x9 keys) + key on the right
          //'South paw' + 'Arrow'  (12x12x12x10 keys)
-//#define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
-//#define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right, called 'Arrow' layout. 
+  #define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
+  #define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right, called 'Arrow' layout. 
          //
          // See below for how to define your additional key(s).
 
 
-        /*                        ⚠ ≠ Minivan ⬅
+        /*                  -5- ⚠ ≠ Minivan ⬅
          *
          * This section is for when you want to flash this keymap unto a board with more
          * keys than the Minivan has. 
@@ -161,7 +218,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                  // (Ignored if TRANSMINIVAN_RIGHTSIDE is _removed_).
 
 
-        /*                      ➡ Defining the meaning of the additional hardware keys ⬅
+        /*                  -6- ➡ Defining the meaning of the additional hardware keys ⬅
          *
          * Some possibilities you might like:
          *
@@ -176,12 +233,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
          */
-        // Configure here what this key is on the BASE layers
-//#define MORE_key1_BASE KC__XGUI 
-  #define MORE_key1_BASE TG ( _RAR ) // _Activate_ this to get a toggle to layer _RAR.  MO(_RAR) does not follow a BASE switch by ‛Other Base’.
+        // Configure here what this key is on the BASE layers (excluding Base Numpad compile option).
+//#define MORE_key1_BASE TG ( _RAR ) // _Activate_ this to get a toggle to layer _RAR.  MO(_RAR) does not follow a BASE switch by ‛Other Base’.
+//#define MORE_key1_BASE KC_DEL      // Could be useful if you like to toggle to certain layers and stay there for a while.
+  #define MORE_key1_BASE KC__XGUI    // (Default) (Using KC__XGUI makes sure it is the *other* GUI, relative to KC__YGUI.)
         //
         // Configure here what this key is on all other layers
-  #define MORE_key1      KC_DEL  // Configure here what this key is on all other layers
+//#define MORE_key1      KC_DEL   // Configure here what this key is on all other layers (and Base Numpad).
+  #define MORE_key1      KC__XGUI // (Default)
         //
         //
         /*          • Defining 'Arrow' hardware layout additional keys
@@ -197,18 +256,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
   #define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is ignored if MORE_KEY__ARROW is not defined.
                              // This will cost you 'Right Alt' and 'GUI' on the _MOV layer.
-  #define MOREKEY2_ADD_NAVIGATION // Additional navigation keys around arrow cluster MOREKEY2_ARROW_CLUSTER. Ignored if MOREKEY2_ARROW_CLUSTER is not defined.
+//#define MOREKEY2_ADD_NAVIGATION // Additional navigation keys around arrow cluster MOREKEY2_ARROW_CLUSTER. Ignored if MOREKEY2_ARROW_CLUSTER is not defined.
                                 // Note: this will cause mouse buttons 'BTN4' and 'BTN5' on the _MOV layer to be moved.
         /*
-         * Define the key you want on the additional key (leave it to _MOV_UP if you want an arrow cluster, easily
-         * accessed with this key): 
+         * Define the key you want on the additional key. Leave it to _MOV_UP if you want an arrow cluster, easily
+         * accessed with this key.
+         *
+         * If you want to be able to type all arrow cluster keys with both GUI keys, than you cannot have this additional
+         * arrow cluster around the ‛arrow’ additional hardware key, because it eats away the GUI just to the left of
+         * that additional hardware key. 
+         *
+         * For typing both GUIs with the navigation cluster, you also need the left side additional hardware key. In this
+         * case, you can still set the optional hardware key on the right to _MOV_UP, but that is marginally useful
+         * as you already have that on Left Shift. 
+         *
+         * When aiming to type all normally available keys on a 100% keyboard with all modifiers including GUIs, you
+         * could use the right hand side optional hardware key (‛arrow’), because it causes the right side GUI to be
+         * available there. (This kind of stuff affects rare or even never used keyboard shortcuts.)
          */
   #define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
+//#define MORE_key2 KC_DEL  // More or less a random suggestion. Harmonizes well with “.DEL” on Numbers Pad.
+                            // It is convenient to have an uncluttered Delete key on the Base layer.
 //#define MORE_key2 <...your choice...> // Right side additional key.
         //
 
 
-        /*                      ➡ Arrows/Navigation cluster ⬅
+        /*                  -7- ➡ Arrows/Navigation cluster ⬅
          */
         /*          • Navigation cluster configuration
          * 
@@ -227,7 +300,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define VI_SWITCHERYDOO //  You have to _remove_ ARROWS_TRIANGLE, or this gets ignored.
 
 
-        /*                      ➡ Number pad Configuration⬅
+        /*                  -8- ➡ Number pad Configuration⬅
          *
          * This concerns the Numbers Pad layer, which is part of the common layers (not the Bse
          * layer, which also has a Numbers Pad option).
@@ -242,10 +315,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define NUMPAD_COMMON_SQUARE // _Activate_ to resemble a one handed numerical keyboard.
 
 
-        /*                      ➡ Speed measuring ⬅
+        /*                  -9- ➡ Speed measuring ⬅
          *
          */
-  #define SPEED_INIT // _Activate_ for default speed measuring on, _remove_ to set off at startup.
+//#define SPEED_INIT // _Activate_ for default speed measuring on, _remove_ to set off at startup.
         /*
          * Led color configuration. You can see the speed you have configured below directly on the keyboard,
          * after you compiled and flashed it.
@@ -268,28 +341,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define WORDS_PER_MINUTE // _Activate_ to get speed report in words-per-minute, _remove_ to get it in keystrokes-per-second (k/s).
 
 
-        /*                      ➡ Text size counting ⬅
+        /*                 -10- ➡ Text size counting ⬅
          *
          */
-  #define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
+//#define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
 
 
-        /*                      ➡ GUI left/right ⬅
+        /*                 -11- ➡ Some alternative keys ⬅
+         *
+         *          • GUI left/right
          *
          * _Activate_ below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
          * and RGUI where LGUI is.
          */
   #define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
-
-
-        /*                      ➡ Alternate currency symbol ⬅
+        /*
+         *          • Alternate currency symbol
          *
          * _Activate_ the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA layer).
          */
 //#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
-
-
-        /*                      ➡ Check boxes or Pointers ⬅
+        /*    
+         *          • Check boxes or Pointers
          *
          * You can have these symbols (checkboxes):  ☐  ☒  ☑  🗹
          *                     or these (pointers):  ⮘  ⮙  ⮚  ⮛
@@ -297,7 +370,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define POINT_ON_CHECKBOXES // _Activate_ to get arrows, _remove_ to get checkboxes on _DRA layer.
 
 
-        /*                      ➡ Eviscerations ( ② / ② ) ⬅
+        /*                 -12- ➡ Eviscerations ( ② / ② ) ⬅
          */
         /*          • Removing the numbers pad _PAD layer
          *
@@ -370,7 +443,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         //
 
 
-       /*                       ➡ Middle led BASE layer: last layer color ⬅
+       /*                  -13- ➡ Middle led BASE layer: last layer color ⬅
         *
         * It is a bit wacky that in the BASE layer the middle led shows the last active layer. Here you
         * can stop this behavior. This results in the same middle led behavior, given for when the side

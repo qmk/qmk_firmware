@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * This does precisely the same as REMOVE_PAD in ./user_config.h, but this
          * setting here overrides any setting in ./user_config.h
          */
-  #define REMOVES_PAD // _Activate_ to strip out the _PAD layer, _remove_ to have the _PAD layer.
+//#define REMOVES_PAD // _Activate_ to strip out the _PAD layer, _remove_ to have the _PAD layer.
 
 // --------------------------------------^---------------------------------------
 //            Below here no more comfortable configuration options.....

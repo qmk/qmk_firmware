@@ -73,6 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                ┗━━━_BON━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
+          …                                                                    …
      
      ₁) Dual hold for _DRA, single hold for _..._NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
@@ -148,6 +149,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _..._BASE
        <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
+            …                                   …
 */
 //
 //

@@ -218,42 +218,42 @@ will have Qwerty on the ‛default BASE’ and a matching ‛default NSY’
 layer, with Dvorak on the ‛alternate BASE’ and its ‛alternate NSY’ 
 layer.
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_vc.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_vd.jpg)
 Layer: `DEF_BASE`
 
-![Minivan layout Image NSYdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_def_base_va.jpg)
+![Minivan layout Image NSYdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_def_base_vb.jpg)
 Layer: `DEF_NSY`
 
-![Minivan layout Image BASEalt](http://socialism.nl/misc/minivan/minivan_base_layer_hide_alt_base_vc.jpg)
+![Minivan layout Image BASEalt](http://socialism.nl/misc/minivan/minivan_base_layer_hide_alt_base_vd.jpg)
 Layer: `ALT_BASE`
 
-![Minivan layout Image NSYalt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_alt_base_va.jpg)
+![Minivan layout Image NSYalt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_alt_base_vb.jpg)
 Layer: `ALT_NSY`
 
-![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vb.jpg)
+![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vc.jpg)
 Layer: `_PAD`
 
 ^ See below for a different configuration of the numbers pad keys. See above for a Base layout for a numbers pad.
 
-![Minivan layout Image ACC](http://socialism.nl/misc/minivan/minivan_acc_layer_vb.jpg)
+![Minivan layout Image ACC](http://socialism.nl/misc/minivan/minivan_acc_layer_vc.jpg)
 Layer: `_ACC`
 
-![Minivan layout Image DRA](http://socialism.nl/misc/minivan/minivan_dra_layer_vb.jpg)
+![Minivan layout Image DRA](http://socialism.nl/misc/minivan/minivan_dra_layer_vc.jpg)
 Layer: `_DRA`
 
-![Minivan layout Image BON](http://socialism.nl/misc/minivan/minivan_bon_layer_va.jpg)
+![Minivan layout Image BON](http://socialism.nl/misc/minivan/minivan_bon_layer_vb.jpg)
 Layer: `_BON`
 
 ![Minivan layout Image FUN](http://socialism.nl/misc/minivan/minivan_fun_layer_vb.jpg)
 Layer: `_FUN`
 
-![Minivan layout Image MOV](http://socialism.nl/misc/minivan/minivan_mov_layer_triangle_hw-basic-and-allkeys_va.jpg)
+![Minivan layout Image MOV](http://socialism.nl/misc/minivan/minivan_mov_layer_triangle_hw-basic-and-allkeys_vb.jpg)
 Layer: `_MOV`
 
 ^ There is an alternative flat arrow configuration for this layer (see below),
 and options to compile with the 'arrow' hardware layout.
 
-![Minivan layout Image RAR](http://socialism.nl/misc/minivan/minivan_rar_layer_vb.jpg)
+![Minivan layout Image RAR](http://socialism.nl/misc/minivan/minivan_rar_layer_vc.jpg)
 Layer: `_RAR`
 
 Movement layer options
@@ -295,33 +295,33 @@ well, and configure it as a GUI.
 Options to compile it that way are mentioned below the layer. You
 can find the configuration block and mentioned option in `./user_config.h`.
 
-![Minivan layout Image MOV 3 defaultf](http://socialism.nl/misc/minivan/minivan_mov_layer_flat_hw-basic_va.jpg)
+![Minivan layout Image MOV 3 defaultf](http://socialism.nl/misc/minivan/minivan_mov_layer_flat_hw-basic_vb.jpg)
 
-![Minivan layout Image MOV 3b default](http://socialism.nl/misc/minivan/minivan_mov_layer_triangle_hw-basic_va.jpg)
+![Minivan layout Image MOV 3b default](http://socialism.nl/misc/minivan/minivan_mov_layer_triangle_hw-basic_vb.jpg)
 
 ^ `#define ARROWS_TRIANGLE`
 
-![Minivan illustration BASE towards 3](http://socialism.nl/misc/minivan/minivan_layer_illustration_base_mov_hw-arrow_va.jpg)
+![Minivan illustration BASE towards 3](http://socialism.nl/misc/minivan/minivan_layer_illustration_base_mov_hw-arrow_vb.jpg)
 
 ^ Illustration of accessing the arrows/navigation with a key on the BASE layer
 
-![Minivan layout Image MOV 3b + arrow](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_triangle_va.jpg)
+![Minivan layout Image MOV 3b + arrow](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_triangle_vb.jpg)
 
 ^ `#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`
 
-![Minivan layout Image MOV 3b + navig](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_triangle_addnav_va.jpg)
+![Minivan layout Image MOV 3b + navig](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_triangle_addnav_vb.jpg)
 
 ^ `#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3)
 
-![Minivan layout Image MOV 3 + arrows](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_flat_va.jpg)
+![Minivan layout Image MOV 3 + arrows](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_flat_vb.jpg)
 
 ^ `#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`
 
-![Minivan layout Image MOV 3 + naviga](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_flat_addnav_va.jpg)
+![Minivan layout Image MOV 3 + naviga](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_flat_addnav_vb.jpg)
 
 ^ `#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3)
 
-![Minivan layout Image MOV 3 vi arrow](http://socialism.nl/misc/minivan/minivan_mov_layer_vi_va.jpg)
+![Minivan layout Image MOV 3 vi arrow](http://socialism.nl/misc/minivan/minivan_mov_layer_vi_vb.jpg)
 
 ^ `#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
 
@@ -330,9 +330,9 @@ Numbers pad layer options
 
 This concerns the numbers pad layer, the one that is part of the common layers.
 
-![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vb.jpg)
+![Minivan layout Image PAD](http://socialism.nl/misc/minivan/minivan_pad_layer_vc.jpg)
 
-![Minivan layout Image PAD squared](http://socialism.nl/misc/minivan/minivan_pad_layer_squared_va.jpg)
+![Minivan layout Image PAD squared](http://socialism.nl/misc/minivan/minivan_pad_layer_squared_vb.jpg)
 
 ^ `#define NUMPAD_COMMON_SQUARE`
 
@@ -384,9 +384,7 @@ Compile options
 
  • Reduce firmware size/bloat: remove or eviscerate Unicode layer(s).
 
-         Useless
-
- • If the middle led should show the last active layer when on BASE.
+ For the complete list, see `./user_config.h`. It has a table of contents.
 
 Layers (text)
 =============
@@ -400,17 +398,18 @@ Layers (text)
          LSht+_PAD  __    __    __    __    __    | __    __    __    __    __    RSht+_FUN 
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
+     Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) RGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
                hold₍₂₎  ^-┃-----------------------+--------^ ┃                          // ₁₎ both = _DRA
                ┗━━━_BON━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
+        (LGUI)                                                               (_MOV)
      
      ₁) Dual hold for _DRA, single hold for _..._NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
-     ³) 'South paw' hardware configuration 
-     ⁴) 'Arrow' hardware configuration 
+     ³) 'South paw' hardware configuration. Configurable, default shown.
+     ⁴) 'Arrow' hardware configuration  Configurable, default shown.
      ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
           a 12x12x12x11 or 12x12x12x12 layouts.
      ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
@@ -442,9 +441,11 @@ Holding either one of the just above mentioned `_..._NSY` layer keys (<3 and 3>)
      Tab+LCtl __    __    __    __    __    | __    __    __    __   __  __+RCtl
      -+LSht   __    __    __    __    __    | __    __    __    __   __  __+RSht 
      ---------------------------------------------------------------------------
-                 Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
+                 Left+LAlt ___   ___   Ent  | .   ___   RGUI  Right+RAlt
                                  -*-       <|>    -*-                        //(hold) Access on _DEF_BASE
                    <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
+                        ^                                   ^
+                      (LGUI)                              (_MOV)
 
 - - -
      
@@ -457,11 +458,13 @@ Holding either one of the just above mentioned `_..._NSY` layer keys (<3 and 3>)
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
      LSht  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSht     
      ---------------------------------------------------------------------*--       //-*-  toggle on BASE
-              LAlt  LCtl&  LCtl&  LSht&  | FUN< +LCtl&LSht LGUI   RAlt              //... < toggle 'stay'
+              LAlt  LCtl&  LCtl&  LSht&  | FUN< +LCtl&LSht RGUI   RAlt              //... < toggle 'stay'
                     LSht   LAlt   LAlt   |      &LAlt                                    
                     +xxx   +xxx   +xxx   |      +xxx
                                         <|>
               <1  ± <2     <3     <4     | 4>   3>         2>  ±  1>                
+                  ^                                            ^
+                (LGUI)                                       (_MOV)
 
 Remarks.  FUN< toggles an immediate return to the BASE layer after pressing an F-key, 
 or staying on the `_FUN` layer. Right led yellow indicates F-layer stays active.
@@ -478,9 +481,11 @@ This is the _triangle_ configuration for arrows, arrow are on left hand (WASD):
      LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
      LSht   xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  xxx   RSht
      -------------------------------------------------------------------------
-                     LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
+                     LAlt Del   Ent   ___ | PgUp  PgDn  RGUI  RAlt
                                       -*-<|>                                                 
                      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
+                        ^                                   ^
+                      (LGUI)                              (DOWN)
 
 
 Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get this on `BASE`:
@@ -488,7 +493,7 @@ Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get thi
      (…)
      LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
      -------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _..._NSY(_DRA) Enter+_MOV| Space  _..._NSY(_DRA) LGUI  _MOV  Right;_RAR 
+     Left+LAlt Del;_ACC _..._NSY(_DRA) Enter+_MOV| Space  _..._NSY(_DRA) RGUI  _MOV  Right;_RAR 
                                                                                ^^^^     // new key (toggle)
 
 … and this on `_MOV` for the _triangle_ configuration:
@@ -499,6 +504,8 @@ Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get thi
                      LAlt Del   Ent   ___ | PgUp       PgDn  _Left__Down__Right_
                                       -*-<|>                                 
                      <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+                        ^
+                      (LGUI)
 
 … or this on `_MOV` for the _triangle_ arrow configuration with additional _navigation_ keys:
 
@@ -509,6 +516,8 @@ Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get thi
                      LAlt Del   Ent   ___ | PgUp      _End_  _Left__Down__Right_
                                       -*-<|>                                  
                      <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+                        ^
+                      (LGUI)
 
 
 This is the _flat_ configuration for arrows, arrow are on right hand:
@@ -519,9 +528,11 @@ This is the _flat_ configuration for arrows, arrow are on right hand:
      LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSht*- Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
      -------------------------------------------------------------------------
-                     LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
+                     LAlt Del   Ent   ___ | PgUp  PgDn  RGUI  RAlt
                                       -*-<|>                                                
                      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
+                        ^                                   ^
+                      (LGUI)                              (DOWN)
 
 For the Minivan _arrow_ hardware layout with _flat_ arrow cluster, you get this on `_MOV`:
 
@@ -533,6 +544,8 @@ For the Minivan _arrow_ hardware layout with _flat_ arrow cluster, you get this 
                      LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
                                       -*-<|>                                 
                      <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+                        ^   
+                      (LGUI)
 
 … or this on `_MOV` for the _flat_ arrow configuration with additional _navigation_ keys:
 
@@ -543,6 +556,8 @@ For the Minivan _arrow_ hardware layout with _flat_ arrow cluster, you get this 
                      LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
                                       -*-<|>                                  
                      <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+                        ^ 
+                      (LGUI)
 
 … or this on `_MOV` for the _flat_ arrow configuration, […], and vi(1) layout:
 
@@ -555,6 +570,8 @@ For the Minivan _arrow_ hardware layout with _flat_ arrow cluster, you get this 
                      LAlt Del   Ent   ___ | PgUp      _Left_ _Down__Up_  _Right_       // vi as in Qwerty
                                       -*-<|>                                  
                      <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+                        ^
+                      (LGUI)
 
 For the 'arrow' hardware layout (additional key on the right), keys on the first
 row are sacrificed and lost. The right most key on the second row is also lost.
@@ -572,9 +589,11 @@ arrows (those keys are otherwise twice defined for left and right hand).
      CapsL Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute Insert     // • requires Shift
      ☑     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   Bri+  Bri-  xxx     APP     // Ü(nicode) tester
      ----------------------------------------------------------------------------
-                     SLed  MLeds RGUI  xxx  | !Alter  xxx   LGUI  ___   // Mid-led, Side-leds, !Alternate
+                     SLed  MLeds LGUI  xxx  | !Alter  xxx   RGUI  ___   // Mid-led, Side-leds, !Alternate
                                            <|>                    -*-                   // (Hold) on BASE
-                     <1    <2  ± <3    <4   | 4>      3>    2>  ± 1>  
+                     <1  ± <2    <3    <4   | 4>      3>    2>  ± 1>  
+                         ^                                      ^
+                       (LGUI)                                 (_MOV)
 
 Remarks. !Alter switches between normal and alternate BASE layer.
 
@@ -583,8 +602,6 @@ for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
 change is retained between on/off power cycles.
 
 MLed switches on/off the middle led, SLeds switches on/off the side leds.
-The additional hardware key ‛Command’ is shifted one to the right on this
-layer, to keep the led keys next to each other.
 
 The keys marked with • require Shift to be activated, as a means of
 preventing accidents. Shift here is on (BASE) 'Backspace' (upper/right key)
@@ -611,9 +628,11 @@ Cnt/Mx, Cnull CWmin, CRprt: text size measuring. See topic.
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
      LSht     xxx   xxx   /     xxx   =     | +     3PGDN 1END  7HOME 9PGUP RSht
      -*-------------------------------------------------------------------------    //-*-  toggle on BASE
-                  LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
+                  LAlt     Del   Tab   ENT  |  NUML  xxx   RGUI  RAlt
                                            <|>
                   <1   ±   <2    <3    <4   | 4>     3>    2>  ± 1>  
+                       ^                                       ^
+                     (LGUI)                                  (_MOV)
 
 Remarks: The keys between `.DEL` and `*`, `+` and `RSht` constitute sort of
 navigation clusters, to make it easier to find the number pad versions thereof.
@@ -630,7 +649,12 @@ This is the variety for `_PAD` layer, which resembles a numerical keypad:
      ------------------------------------------------------------------------
                    LAlt   Del    Tab   ENT  | NUML  0INS  .DEL  RAlt      
                                            <|>           
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
+                   <1   ±  <2    <3    <4   | 4>    3>  ± 2>    1>  
+                        ^                               ^ 
+                      (LGUI)                          (RGUI)¹
+
+     ₁) Note anomaly, see Base Numpad for details `./base_numpad.md`.
+        Different placement and different meaning, compared to the usual common layers.
 
 - - -
     
@@ -646,6 +670,8 @@ This is the variety for `_PAD` layer, which resembles a numerical keypad:
                    LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
                         -*-             <|>                                              //(hold) on BASE
                    <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
+                      ^                                    ^
+                    (LGUI)                               (_MOV)
 
 - - -
     
@@ -661,6 +687,8 @@ This is the variety for `_PAD` layer, which resembles a numerical keypad:
                    LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
                               -*-       <|>      -*-                                     //(hold) on BASE
                    <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
+                      ^                                    ^
+                    (LGUI)                               (_MOV)
 
 Remarks. ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
 - - -
@@ -676,6 +704,8 @@ Remarks. ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
                   Left  ___   ___   Ent  | Spc   ___   ___   Right
                         -*-   -*-       <|>      -*-                                // Activation on BASE
                   <1  ± <2    <3    <4   | 4>    3>    2>  ± 1>  
+                      ^                                    ^
+                    (LGUI)                               (_MOV)
     
 - - -
 
@@ -1271,17 +1301,17 @@ Why you want this layout
 
 Use case
 --------
-  The use case this keymap was originally designed for: PCs with
-  GNU/Debian/Linux (etc), Linux laptop already set to Dvorak _hence
-  'descramble'_. Being able on the move to operate other operating
-  systems owned by others _hence non-Linux Unicode modes._ Editing in
-  vim / websites etc. _hence no dead keys,_ programming (shell, C (like)
-  languages) _hence decent access to basic symbols._ Writing in Dutch
-  _hence accented characters_. Using a tiling window manager _hence a
-  LGUI on base layer._ AltGr or Compose seemed difficult to configure /
-  use _hence accented and unicode layers._ For use with 3D editing 
-  _hence a delete on base layer, Control, Alt, Shift on left edge and
-  quick toggle access to `_PAD` or `_MOV` on left shift for faster
+  The use case this keymap was originally designed for and on: a PC
+  with GNU/Debian/Linux (etc), secondary Linux laptop already set to
+  Dvorak _hence 'descramble'_. Being able on the move to operate other
+  operating systems owned by others _hence non-Linux Unicode modes._
+  Editing in vim / websites etc. _hence no dead keys,_ programming
+  (shell, C (like) languages) _hence decent access to basic symbols._
+  Writing in Dutch _hence accented characters_. Using a tiling window
+  manager _hence a GUI on base layer._ AltGr or Compose seemed difficult
+  to configure / use _hence accented and unicode layers._ For use with 3D
+  editing _hence a delete on base layer, Control, Alt, Shift on left edge
+  and quick toggle access to `_PAD` or `_MOV` on left shift for faster
   modifiers and tab key._ Some input fields used have a text maximum,
   without showing a character or word count, _hence text size counting._
 
@@ -1325,8 +1355,12 @@ Authors
 
   Written by: Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
-  You can let me know if you find any bugs / problems, have improvements,
-  a new `./base_...c/.md` keymap, or if you like using it too 👍.
+  _Personal note:_ This keymap came about because of a need for an efficient keymap. 
+  Once the two variations of Dvorak where made, it seemed easy to add a Qwerty
+  for those users for a dual layout keymap. Things got out of hand from there …
+
+  You can let me know if you find any bugs / use problems, have improvements,
+  a new `./base_...c/.md` keymap, or just if you like using it too 👍.
 
   Contributions to this key map:
       - …

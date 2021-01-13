@@ -26,10 +26,10 @@ Single numpad
 
 ──────────Numpad───────────────
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_single_vc.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_single_vd.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_single_vc.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_single_vd.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -54,8 +54,8 @@ Layers (text)
      ------------------------------------------------------------------------
                    LAlt   Del    Tab   Ent  | NumL  0     .     RAlt      
                                            <|>           
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                      LGUI                  |        RGUI¹
 
      Layer _ALT_BASE (Number pad, with NumLock off)
     
@@ -67,8 +67,12 @@ Layers (text)
      -------------------------------------------------------------------------
                    LAlt   Del    Tab   Ent  | NumL  Ins   Del   RAlt      
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                        ^                   |          ^
+                       LGUI                 |         RGUI¹         
+
+
+     ₁) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
 
 - - -
  
@@ -82,8 +86,11 @@ Layers (text)
      ------------------------------------------------------------------------
                    LAlt   Del    Tab   Ent  | xxx   ⁰₀    .DEL  RAlt      
                                            <|>           
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                        ^                   |          ^
+                       LGUI                 |         RGUI¹
+
+     ₁) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
 
 Dual numpad
 -----------
@@ -92,10 +99,10 @@ Dual numpad
 
 ──────────Numpad───────────────
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_vg.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_numpad_double_vg.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_vc.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_numpad_double_vd.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -112,37 +119,40 @@ Layers (text)
 
         ───────────────Numpad────────────────
 
-     Layer _ALT_BASE (Number pad, with NumLock on)
+     Layer _..._BASE (Number pad, square layout)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
-     !Alter   Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc
+                                           <|>
+     !AlterGo Bspc  7     8     9     -     | Bspc  7     8     9    -   Bspc  //!AlterGo: to _DEF_BASE
      =         *    4     5     6     +     | *     4     5     6    +      =
      _NSY¹     /    1     2     3     ,     | /     1     2     3    ,   _NSY¹ 
      ------------------------------------------------------------------------
                    xxx     0     .     Ent  | NumL  0     .     Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                        ^                   |          ^
+                       LGUI                 |         RGUI²
 
-
-     Layer _ALT_BASE (Number pad, with NumLock off)
+     Layer _..._BASE (Number pad, with NumLock off)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring >pin>pink2>
                                            <|>
-     !Alter   Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc
+     !AlterGo Bspc  Home  Up    PgUp  -     | Bspc  Home  Up    PgUp  -   Bspc  //!AlterGo: to _DEF_BASE 
      =         *    Left  5     Right +     | *     Left  5     Right +      =  // modified 5
      _NSY¹     /    End   Down  PgDn  ,     | /     End   Down  PgDn  ,   _NSY¹
      -------------------------------------------------------------------------
                    xxx     Ins   Del   Ent  | NumL  Ins   Del   Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>  ± 2>    1>  
+                        ^                   |           ^
+                       LGUI                 |          RGUI²
  
-     ¹) Toggle to the accompanying Super-Sub-Script (_NSY) layer.
+     ₁) Toggle to the accompanying Super-Sub-Script (_NSY) layer.
+     ₂) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
 
 - - -
 
-     Layer _ALT_NSY (super-/sub-script numbers, Numlock on/off)
+     Layer _..._BASE (super-/sub-script numbers, Numlock on/off)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
                                            <|>
@@ -153,8 +163,11 @@ Layers (text)
      ------------------------------------------------------------------------
                    xxx    ⁰₀     .DEL  Ent  | xxx   ⁰₀    .DEL  Ent  
                                            <|>      
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>  ± 2>    1>  
+                        ^                   |           ^
+                       LGUI                 |          RGUI¹
+
+     ₁) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
 
 
 Special Base layer Numpad
@@ -229,11 +242,46 @@ of Numbers Lock on this layer, although a few keys are altered by Numbers
 Lock (Dot/Delete ‛.’, and Enter).
 
 
+‛Arrow’ additional hardware key
+===============================
+
+Unlike with other layers: the optional ‛arrow’ hardware key on the
+right hand is not inserted between the last and second last keys on the
+right, and neither is it set to the configurable default value (toggle
+`_MOV` layer). Instead, this key is inserted one key over to the left,
+and it is set to GUI.
+
+The reason is that this GUI will line up with the GUI on the ‛Base’
+layer. If combined with the ‛command’ hardware key on the right, set
+to the other GUI, you can reach all Numbers Pad keys with all modifiers,
+including both GUIs.
+
+Another reason is that a typical use of the additional hardware
+key on the right (called ‛Arrow’) will by default lead to a navigation
+layer, however the Numbers Pad already has its own navigation. To add
+a toggle to `_MOV` would be a matter of convenience, whereas not being
+able to reach all Numbers Pad keys with either GUI could represent a
+serious problem.
+
+Downsides to this design are the loss of default ‛Arrow’ hardware key
+use on this layer, and a sort of gap of one key in the Numbers Pad layout.
+The downsides seem to be matters of style and convenience, whereas not 
+being able to type whatever you can on a 100% keyboard could be a serious
+problem for someone (keyboard shortcuts mainly).
+
+There is no default solution to type everything with all modifiers
+including the GUIs, without adding the additional hardware key(s).
+Obviously it is possible to just stick a GUI on a free spot, but that 
+makes things chaotic. Single pad Numbers Pad could be re-arranged to
+make room for GUI, which would loose more of its similarity to other 
+keyboards.
+
+
 Numbers pads everywhere ?
 =========================
 
 Perhaps the amount of options for a numberical keypad are a bit overkill.
-It had to do with how the code developed.
+It had to do with how it developed.
 
 For some overview of your options:
 

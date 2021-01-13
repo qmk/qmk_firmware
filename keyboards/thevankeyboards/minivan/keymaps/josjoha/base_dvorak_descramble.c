@@ -102,15 +102,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                ┗━━━━━━━━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
+        (RGUI)                                                               (_MOV)
 
      ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
-     ³) 'South paw' hardware configuration 
-     ⁴) 'Arrow' hardware configuration 
-     ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
+     ₃) 'South paw' hardware configuration. Configurable, default shown.
+     ₄) 'Arrow' hardware configuration  Configurable, default shown.
+     ₃ ₄) There are two more optional hardware keys, to make it easier to compile for
           a 12x12x12x11 or 12x12x12x12 layouts.
-     ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
-     ⁶) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
+     ₅) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
+     ₆) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
 
 
      _ALT_BASE input results in the same as _DEF_BASE with computer side Dvorak remapping. Only shown what changes:
@@ -186,6 +187,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _DEF_BASE
        <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
+            ^                                   ^
+          (RGUI)                              (_MOV)
 
      _ALT_NSY input results in the same as _DEF_NSY with computer side Dvorak remapping. Only shown what changes:
 

@@ -78,8 +78,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      ------------------------------------------------------------------------
                    xxx     0     .     Ent  | NumL  0     .     Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                        …                   |          …²
 
      Layer _..._BASE (Number pad, with NumLock off)
     
@@ -91,10 +91,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      -------------------------------------------------------------------------
                    xxx     Ins   Del   Ent  | NumL  Ins   Del   Ent
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>  ± 2>    1>  
+                        …                   |           …² 
  
-     ¹) Toggle to the accompanying Super-Sub-Script (_NSY) layer.
+     ₁) Toggle to the accompanying Super-Sub-Script (_NSY) layer.
+     ₂) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
 
 */
 //
@@ -111,7 +112,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
-                      , XXXXXXX
+                      , MORE_key1 // Note anomaly, not MORE_key1_BASE: numpad is treated as a common layer here, because that is ± how it functions.
 #     endif
 
                       , KC_KP_0    , KC_KP_DOT , KC_KP_ENTER     
@@ -120,19 +121,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                , TRANS_MIDLEFT 
 #     endif
 
-                                                               , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT 
+                                                               , KC_NUMLOCK , KC_KP_0
+// ---⬇
+// Note anomaly: the additional 'arrow' hardware key is shifted one to the
+// left, compared to other Base layouts, and so is TRANS_RIGHT This is to
+// maintain 'window/command' key on the same key between layers.
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                 , TRANS_RIGHT  
+                                                                                      , TRANS_RIGHT  
 #     endif                                                                              
                                                                                      
 #     ifdef MORE_KEY__ARROW                                                              
-                                                                                                 , XXXXXXX
+                                    
+                                                                                    //, MORE_key2   
+                                                                                      , KC__YGUI
+
+// Note anomaly: not the usual configurable key (MORE_key2), but GUI. This
+// is because position has shifted already, and this GUI allows all the usual
+// keys on a 100% keyboard to be reached with all modifiers, including GUIs,
+// if 'command' hardware key is included. Unfortunately this causes a gap
+// in the numpad layout, but pressing GUI by itself in error will unlikely
+// produce serious mistakes.  Maintaining similar keys between layers seems
+// more important. Since Numpad already is a navigation cluster, it seems
+// more important to allow all keys to be reachable with all modifiers,
+// including GUIs, than to have a quick switch over to the _MOV layer here.
+// Obviously it is fair enough to do this differently, but if someone needs a
+// Numpad + either GUI key combination, that could be a real problem without
+// GUIs here, whereas adding a _MOV switch is a matter of convenience. It
+// seems important to be able to type anything a regular 100% keyboard can,
+// or as near to it as possible.
+//
+// These anomalies are the same for all the Numpad layers here.
+                                                                                  
 #     endif                                                                              
+// ---⬆
+                                                                                      , KC_KP_DOT 
                                                                                      
-                                                                                                               , KC_KP_ENTER
+                                                                                                 , KC_KP_ENTER
 //                    ,            ,           ,             <|,>           ,         ,          ,
-//      <1      ±  ±  , <2         , <3        , <4           |, 4>         , 3>      , 2>       , ±  ± 1>
+//      <1      ±  ±  , <2         , <3        , <4           |, 4>         , 3> ± ±  , 2>       ,      1>
 
                       ),
 
@@ -155,9 +182,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      ------------------------------------------------------------------------
                    xxx    ⁰₀     .DEL  Ent  | xxx   ⁰₀    .DEL  Ent  
                                            <|>      
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3>  ± 2>    1>  
+                        …                   |           …¹  
 
+     ₁) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
 
 */
 //High/low numbers guide:
@@ -177,7 +205,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
-                    , XXXXXXX
+                    , MORE_key1
 #     endif
 
                     , XP_DRA_BJ , KC_KP_DOT , KC_KP_ENTER 
@@ -186,19 +214,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                           , TRANS_MIDLEFT  
 #     endif
 
-                                                          , XXXXXXX       , XP_DRA_BJ , KC_KP_DOT   
+                                                          , XXXXXXX       , XP_DRA_BJ 
+
+// See comment on the first layout in this file (double handed Base layer), about the next few keys:
+// ---⬇
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                  , TRANS_RIGHT
+                                                                                      , TRANS_RIGHT
+#     endif                                                                                       
+                                                                                              
+#     ifdef MORE_KEY__ARROW                                                                       
+                                                                                    //, MORE_key2   
+                                                                                      , KC__YGUI
 #     endif                                                                                                   
-                                                                                                          
-#     ifdef MORE_KEY__ARROW                                                                                   
-                                                                                                  , XXXXXXX
-#     endif                                                                                                   
+// ---⬆
+                                                                                      , KC_KP_DOT   
                                                                                                           
                                                                                                   , KC_KP_ENTER
 //                  ,           ,           ,           <|,>              ,           ,           ,
-//      <1    ±  ±  , <2        , <3        , <4         |, 4>            , 3>        , 2>        , ±  ±  1>
+//      <1    ±  ±  , <2        , <3        , <4         |, 4>            , 3>  ±  ±  , 2>        ,       1>
 
                       ),
 
@@ -226,8 +260,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      ------------------------------------------------------------------------
                    LAlt   Del    Tab   Ent  | NumL  0     .     RAlt      
                                            <|>           
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                        …                   |          …¹
 
      Layer _ALT_BASE (Number pad, with NumLock off)
     
@@ -239,8 +273,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      -------------------------------------------------------------------------
                    LAlt   Del    Tab   Ent  | NumL  Ins   Del   RAlt      
                                            <|>
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                        …                   |          …¹
+
+     ₁) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
  
 */
 
@@ -257,32 +293,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         KC_LALT 
 
 #     ifdef TRANSMINIVAN_LEFTSIDE
-                      , TRANS_LEFT  
+                , TRANS_LEFT  
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
-                      , MORE_key1
+                , MORE_key1
 #     endif
 
-                      , KC_DEL     , KC_TAB , KC_KP_ENTER
+                , KC_DEL     , KC_TAB , KC_KP_ENTER
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                            , TRANS_MIDLEFT
+                                                    , TRANS_MIDLEFT
 #     endif
 
-                                                            , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT  
+                                                    , KC_NUMLOCK , KC_KP_0 
+
+// See comment on the first layout in this file (double handed Base layer), about the next few keys:
+// ---⬇
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                               , TRANS_RIGHT
-#     endif
+                                                                           , TRANS_RIGHT   
+#     endif                                                                                     
+                                                                                            
+#     ifdef MORE_KEY__ARROW                                                                     
+                                                                         //, MORE_key2   
+                                                                           , KC__YGUI
+#     endif                                                                                                 
+// ---⬆
+                                                                           , KC_KP_DOT  
 
-#     ifdef MORE_KEY__ARROW
-                                                                                               , MORE_key2  
-#     endif
-
-                                                                                               , KC_RALT
-//                    ,            ,        ,             <|,>           ,         ,           ,
-//      <1  ± ±       , <2         , <3     , <4           |, 4>         , 3>      , 2>        , ±  ±  1>
+                                                                                         , KC_RALT
+//              ,            ,        ,           <|,>           ,         ,             ,
+//   <1  ± ±    , <2         , <3     , <4         |, 4>         , 3> ± ±  , 2>          ,       1>
 
                       ),
 
@@ -306,8 +348,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      ------------------------------------------------------------------------
                    LAlt   Del    Tab   Ent  | xxx   ⁰₀    .DEL  RAlt      
                                            <|>           
-                   <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                   <1   ±  <2    <3    <4   | 4>    3> ±  2>    1>  
+                        …                   |          …¹                 
+
+     ₁) Note anomaly: additional hardware key ‛arrow’ shifted one to the left.
 
 */
 
@@ -337,19 +381,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                        , TRANS_MIDLEFT
 #     endif
 
-                                                       , XXXXXXX , XP_DRA_BJ , KC_KP_DOT    
+                                                       , XXXXXXX , XP_DRA_BJ
+
+// See comment on the first layout in this file (double handed Base layer), about the next few keys:
+// ---⬇
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                         , TRANS_RIGHT
-#     endif
-
-#     ifdef MORE_KEY__ARROW
-                                                                                         , MORE_key2  
-#     endif
+                                                                             , TRANS_RIGHT
+#     endif                                                                              
+                                                                                     
+#     ifdef MORE_KEY__ARROW                                                              
+                                                                           //, MORE_key2   
+                                                                             , KC__YGUI
+#     endif                                                                                          
+// ---⬆
+                                                                                         , KC_KP_DOT    
 
                                                                                          , KC_RALT
 //               ,            ,        ,             <|,>        ,           ,           ,
-//      <1  ± ±  , <2         , <3     , <4           |, 4>      , 3>        , 2>        , ±  ±  1>
+//      <1  ± ±  , <2         , <3     , <4           |, 4>      , 3>  ± ±   , 2>        ,       1>
 
                       ),
 

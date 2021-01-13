@@ -35,9 +35,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
-             ☐ Put Tab on ACC, DRA layers, graphics documentation: key associations, …
-             ☐ Numbers pad, a special Base layer: graphics documentation single layout
-             ☐ Workman 
+             ☑ South Paw becomes GUI everywhere by default. ‛Arrow’ hardware key is special on Numbers Pad layer.
+               Is graphically listed as _TO_MOV on layers where this is an option (all except Base Numbers layer and _MOV).
+               Could also be configured as DEL.
+               The name ‛Command’ suggests use as GUI. The name ‛Arrow’ suggests use as an arrow cluster. So that will
+               be defaults. 
+               ☑ Base Numbers Pad Code veranderd
+               ☑ Base Numbers Pad geschreven documentatie bĳgewerkt.
+               ☑ Base Numbers Pad testen
+               ☑ Base Numbers Pad grafische documentatie bĳwerken
+               ☑ Common Layer Numbers Pad, single square variant, veranderen als nodig. 
+               ☑ Common Layers code veranderen
+               ☑ Common Layers: GUIs logische volgorde, LGUI-RGUI in geschreven documentatie
+               ☑ Common Layers code testen
+               ☑ Common Layers code geschreven documentatie bĳgewerkt.
+               ☑ Common Layers code grafische documentatie bĳwerken
+               ☑ _RAR layer, re-arrange led on/off keys to harmonize generally
+               ☑ _RAR, update graphical documentation
+               ☑ Alle Base layers bĳwerken inzake GUIs command/arrow.
+             ☐ Preset user config option: Qwerty + Keypad on Alt.Base, eviscerate _PAD.
+               This option is for people who don't want to deal with complexity, just get a most basic keyboard.
+               The majority is probably going to be fine with this setting, anyway.
+               There will have to be 4 basic presets, for the 4 variations of hardware.
+               BASIC_KEYBOARD_PRESET // _Activate_ should yield you a basic keyboard without any other configuration head aches.
+               BASIC_KEYBOARD_PRESET_COMMAND // _Activate_ if you have an additional hardware key on the left side (aka: South-paw or Command).
+               BASIC_KEYBOARD_PRESET_ARROW // _Activate_ if you have an additional hardware key on the right side (aka: Arrow).
+               Now all options need to be set accordingly after the user configuration block,
+               and probably also after the base header files,
+               but before the options get processed.
+               For better or worse, Qwerty is the standard layout, and even other layouts are also often achieved
+               at the PC end. 
+               This helps make it easy for users, if the keyboard firmware is left configured for use by an author
+               with strange keyboard tastes.
+             ☐ Workman layout
              ☐ Qwerty with arrows on top (could be a good pair with regular Qwerty)
              ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
              ☐ Qwertz (                   "                             "                        )
@@ -46,18 +76,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                (such as Qwerty + Colemak), but this could be one. It doesn't seem useful or possible
                to support every game layer quirk someone might prefer, so this way that whole kind of
                thing is isolated: compile this and edit as needed there.
-             ? User defining macros (record/play user input), another special Base layer ? Is there 
+            ?☐ User defining macros (record/play user input), another special Base layer ? Is there 
                room for this, or how to create it if not.
+            ?☐ It seems fun to have a user friendly front end to compile the available variations of this keymap.
+               (Probably not something I (Jos) am going to be able to do.)
            …
-             ☐ An option to compile the _PAD layer, in the format of the Numbers Pad Base layer.
-               The Numbers Pad Base Layer is copied into keymap.c, edited to work as needed.
-               (This implies a compilation with Numbers Pad on alternate Base is redundant; twice the same.)
              ☐ Testing all user configurations
              ☐ Test/fix what happens when leds are undefined with the existing QMK led #define
             ?☐ Leds #on/off startup
             ?☐ Push DEL on _NSY top/right key through documentation
             ?☐ Review/fix C indendation. QMK indentation is not my preferred style, and 
                therefore it is not entirely consistent. 
+
+             ☑ Fixed error link _FUN layer, and color of one key.
+             ☑ Put Tab on ACC, DRA layers, graphics documentation: key associations, …
+             ☑ Numbers pad, a special Base layer: graphics documentation single layout
+             ☑ An option to compile the _PAD layer, in the format of the Numbers Pad Base layer.
+               The Numbers Pad Base Layer is copied into keymap.c, edited to work as needed.
+               (This implies a compilation with Numbers Pad on alternate Base is redundant; twice the same.)
      *
      * */
 
@@ -607,6 +643,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
+        …                                   …
 
      triangle layout, 'arrow' additional hardware key, with arrow cluster (difference marked _):
     
@@ -619,6 +656,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      LAlt Del   Ent   ___ | PgUp       PgDn   _Left__Down__Right_
                                       -*-<|>                                             //(hold) on BASE
                      <1 ± <2    <3    <4  | 4>         3>      2>   _±_    1>  
+                        …     
 
      triangle layout, 'arrow' additional hardware key, with arrow cluster and navigation keys:
     
@@ -631,6 +669,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      LAlt Del   Ent   ___ | PgUp      _End_   _Left__Down__Right_
                                       -*-<|>                                             //(hold) on BASE
                      <1 ± <2    <3    <4  | 4>         3>      2>   _±_    1>  
+                        …
 
 
      flat layout (mouse movement on left hand):
@@ -644,6 +683,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
+        …
 
      flat layout, 'arrow' additional hardware key, with arrow cluster (difference marked _)
    
@@ -656,6 +696,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      LAlt Del   Ent   ___ | PgUp       _Left_ _Up_  _Down__Right_
                                       -*-<|>                                           //(hold) on BASE
                      <1 ± <2    <3    <4  | 4>          3>     2>   _±_    1>  
+                        …
 
      flat layout, 'arrow' additional hardware key, with arrow cluster and additional navigation keys:
    
@@ -668,6 +709,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      LAlt Del   Ent   ___ | PgUp       _Left_ _Up_  _Down__Right_
                                       -*-<|>                                             //(hold) on BASE
                      <1 ± <2    <3    <4  | 4>          3>     2>   _±_    1>  
+                        …
 
      flat layout, 'arrow' additional hardware key, with arrow cluster, additional navigation keys, vi(1) layout:
    
@@ -680,6 +722,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      LAlt Del   Ent   ___ | PgUp       _Left_ _Down__Up_  _Right_
                                       -*-<|>                                             //(hold) on BASE
                      <1 ± <2    <3    <4  | 4>          3>     2>   _±_    1>  
+                        …
  */
 
          /* Inner default navigation/mouse layout. 11 means row 1, column 1, etc.
@@ -1049,7 +1092,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , KC_DEL , KC_ENT , _______ 
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                  , TRANS_MIDLEFT
+                                            , TRANS_MIDLEFT
 #     endif
 
                                             , KC_PGUP 
@@ -1110,7 +1153,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ----------------------------------------------------------------------------
      SLed  MLeds RGUI  xxx  | !Alter  xxx   LGUI  ___            // Middle-led, Side-leds, ! 'alternate'
                            <|>                    -*-                                   // (Hold) on BASE
-     <1    <2  ± <3    <4   | 4>      3>    2>  ± 1>  
+     <1 ±  <2  ± <3    <4   | 4>      3>    2>  ± 1>  
+        …                                       …
  */
 //
 //      <pink2    , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>        , index>  , middl>           , ring>              , pinky>  , pink2>        ,
@@ -1119,35 +1163,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
         XP_DRA_CG , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        LEDS_ON , RGB_TOG 
+        LEDS_ON  
 #     ifdef TRANSMINIVAN_LEFTSIDE
-                          , TRANS_LEFT
+                , TRANS_LEFT
 #     endif
 
 #     ifdef MORE_KEY__COMMAND
-                          , MORE_key1
+                , MORE_key1
 #     endif
 
-                          , KC__XGUI , XXXXXXX 
+                , RGB_TOG , KC__XGUI , XXXXXXX 
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                     , TRANS_MIDLEFT
+                                               , TRANS_MIDLEFT
 #     endif
 
                                                , OTHER_BASE , XXXXXXX 
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                   , TRANS_RIGHT
-#     endif
-
-                                                                   , KC__YGUI
-
-#     ifdef MORE_KEY__ARROW
-                                                                   , MORE_key2  
-#     endif
-                                                                              , _______
-//              ,         ,          ,       <|,>        ,         ,          ,
-//      <1 ± ±  , <2      , <3       , <4     |, 4>      , 3>      , 2>       , ±  ±  1>
+                                                                      , TRANS_RIGHT
+#     endif                                                           
+                                                                      
+                                                                      , KC__YGUI
+                                                                      
+#     ifdef MORE_KEY__ARROW                                           
+                                                                      , MORE_key2  
+#     endif                                                           
+                                                                                 , _______
+//              ,         ,          ,       <|,>        ,            ,          ,
+//      <1 ± ±  , <2      , <3       , <4     |, 4>      , 3>         , 2>       , ±  ±  1>
 
                       ),
 
@@ -1182,6 +1226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
      <1   ±   <2    <3    <4   |  4>    3>    2>  ± 1>  
+          …                                       …
 
  */
 
@@ -1205,7 +1250,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , KC_DEL , KC_TAB , KC_KP_ENTER
 
 #             ifdef TRANSMINIVAN_MIDLEFT
-                                  , TRANS_MIDLEFT
+                                                , TRANS_MIDLEFT
 #             endif
 
                                                 , KC_NUMLOCK , XXXXXXX , KC__YGUI
@@ -1246,8 +1291,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *             Delete/Dot key, but standard Delete, also in the usual place.
      *
      *             This is probably the better one of the square layout numpads, unless you have a use
-     *             for the two hands version. This is also (going to be XXX) available on ‛Base’ Numpad, as an option 
-     *             (as default, the two handed version becoming the option).
+     *             for the two hands version. This is also available on ‛Base’ Numpad.
      * 
      
      Layer _PAD (Number pad, with NumLock on)
@@ -1261,7 +1305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    LAlt   Del    Tab   Ent  | NumL  0     .     RAlt      
                                            <|>           
                    <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                        …                   |                 …           
 
      Layer _PAD (Number pad, with NumLock off)
     
@@ -1274,7 +1318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    LAlt   Del    Tab   Ent  | NumL  Ins   Del   RAlt      
                                            <|>
                    <1   ±  <2    <3    <4   | 4>    3>    2>  ± 1>  
-                       xxx                  |                xxx          
+                        …                   |                 …           
  
 */
 
@@ -1295,25 +1339,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , MORE_key1
 #             endif
 
-                , KC_DEL     , KC_TAB , KC_KP_ENTER
+                , KC_DEL     , KC_TAB , KC_KP_ENTER  
 
 #             ifdef TRANSMINIVAN_MIDLEFT
-                                      , TRANS_MIDLEFT
+                                                    , TRANS_MIDLEFT
 #             endif
 
-                                                      , KC_NUMLOCK , KC_KP_0 , KC_KP_DOT  
+                                                    , KC_NUMLOCK , KC_KP_0 
 
-#             ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                         , TRANS_RIGHT
-#             endif
+// See comment in ./base_numpad.c on the first layout (double handed Base layer), about the next few keys:
+// This layer follows that layout Base Numpad.
+// ---⬇
 
-#             ifdef MORE_KEY__ARROW
-                                                                                         , MORE_key2  
-#             endif
+#     ifdef TRANSMINIVAN_RIGHTSIDE
+                                                                           , TRANS_RIGHT   
+#     endif                                                                                     
+                                                                                            
+#     ifdef MORE_KEY__ARROW                                                                     
+                                                                         //, MORE_key2   
+                                                                           , KC__YGUI
+#     endif                                                                                           
+// ---⬆
+                                                                           , KC_KP_DOT  
 
-                                                                                         , KC_RALT
-//              ,            ,        ,             <|,>           ,         ,           ,
-//      <1  ± ± , <2         , <3     , <4           |, 4>         , 3>      , 2>        , ±  ±  1>
+                                                                                       , KC_RALT
+//              ,            ,        ,           <|,>           ,         ,           ,
+//      <1  ± ± , <2         , <3     , <4         |, 4>         , 3> ± ±  , 2>        ,       1>
 
                       ),
 
@@ -1380,6 +1431,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
           -*-             <|>                                                            //(hold) on BASE
      <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
+        …                                    …
  */
 //
 //      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
@@ -1406,7 +1458,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , _______ , _______ , KC_ENT 
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                    , TRANS_MIDLEFT
+                                             , TRANS_MIDLEFT
 #     endif
 
                                              , KC_SPC , _______ , _______
@@ -1453,6 +1505,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
                 -*-       <|>      -*-                                                   //(hold) on BASE
      <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
+        …                                    …
  */
 //
 //      <pink2   , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>  ,
@@ -1474,7 +1527,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , _______ , _______ , KC_ENT
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                    , TRANS_MIDLEFT
+                                             , TRANS_MIDLEFT
 #     endif
 
                                              , KC_SPC , _______ , _______ 
@@ -1525,6 +1578,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Left  ___   ___   Ent  | Spc   ___   ___   Right
            -*-   -*-       <|>      -*-                                                   // Activation on BASE
      <1  ± <2    <3    <4   | 4>    3>    2>  ± 1>  
+         …                                    …
  */
 //
 //      <pink2      , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>    ,
@@ -1546,7 +1600,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , _______ , _______ , KC_ENT
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                    , TRANS_MIDLEFT
+                                             , TRANS_MIDLEFT
 #     endif
 
                                              , KC_SPC , _______ , _______
@@ -1593,6 +1647,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            +xxx   +xxx   +xxx   |      +xxx
                                <|>
      <1  ± <2     <3     <4     | 4>   3>         2>  ±  1>                
+         …                                            …
  */
 //
 //      <pink2   , <pinky   , <ring       , <middl   , <index   , <indx2    |, indx2>      , index>      , middl>  , ring>   , pinky>  , pink2>  ,
@@ -1613,7 +1668,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX )
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                                                                             , TRANS_MIDLEFT
+                                                                                                                                    , TRANS_MIDLEFT
 #     endif
 
                                                                                                                                     , _FUN_STAY , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , KC__YGUI
@@ -1653,6 +1708,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LAlt+Left Del   ___   Ent  | Spc   ___   ___   RAlt+Right
 //                           <|>
 // <1   ±    <2    <3    <4   | 4>    3>    2>  ± 1>  
+//      …                                       …
 //
 //
 //      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
@@ -1674,7 +1730,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            , KC_DEL , XXXXXXX , KC_ENT
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                              , TRANS_MIDLEFT
+                                                       , TRANS_MIDLEFT
 #     endif
 
                                                        , KC_SPC , XXXXXXX , XXXXXXX

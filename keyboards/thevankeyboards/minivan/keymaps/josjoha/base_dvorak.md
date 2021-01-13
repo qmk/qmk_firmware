@@ -11,10 +11,10 @@ Dvorak keymaps
 
 ──────────Dvorak───────────────
 
-![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_vc.jpg)
+![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_vd.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_va.jpg)
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_vb.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -37,21 +37,22 @@ Layers (text)
          LSht+_PAD  ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) LGUI    Right;_RAR 
+     Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) RGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
                hold₍₂₎  ^-┃-----------------------+--------^ ┃                          // ₁₎ both = _DRA
                ┗━━━_BON━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
+        (LGUI)                                                               (_MOV)
      
      ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
-     ³) 'South paw' hardware configuration 
-     ⁴) 'Arrow' hardware configuration 
-     ³ ⁴) There are two more optional hardware keys, to make it easier to compile for
+     ₃) 'South paw' hardware configuration. Configurable, default shown.
+     ₄) 'Arrow' hardware configuration  Configurable, default shown.
+     ₃ ₄) There are two more optional hardware keys, to make it easier to compile for
           a 12x12x12x11 or 12x12x12x12 layouts.
-     ⁵) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
-     ⁶) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
+     ₅) Left Shift when pressed with another key. Medium long: to toggle _PAD. Long: toggle _MOV.
+     ₆) Right shift when pressed with another key. medium long: to toggle _FUN. Long: toggle _RAR.
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
@@ -75,9 +76,11 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSht   [{    ]}    /?    \|    =+    | +     |     ?     {     }  `~+RSht // limitation prevents ~
      ---------------------------------------------------------------------------
-                 Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
+                 Left+LAlt ___   ___   Ent  | .   ___   RGUI  Right+RAlt
                                  -*-       <|>    -*-                        //(hold) Access on _DEF_BASE
                    <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
+                        ^                                   ^
+                      (LGUI)                              (_MOV)
 
 - - -
 
