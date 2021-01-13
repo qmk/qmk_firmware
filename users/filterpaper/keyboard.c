@@ -35,7 +35,11 @@ uint32_t layer_state_set_user(uint32_t state) {
 	case _COLEMAK: // Reactive key effects on Colemak layer
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_WHITE);
+		#if defined(KEYBOARD_planck_rev6)
+		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+		#else
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
+		#endif
 		break;
 	default: // Switch off RGB if no CAPS lock
 		if (!(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) rgb_matrix_disable_noeeprom();
@@ -46,17 +50,29 @@ uint32_t layer_state_set_user(uint32_t state) {
 	case _ADJUST:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+		#if defined(KEYBOARD_planck_rev6)
+		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+		#else
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
+		#endif
 		break;
 	case _RAISE:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
+		#if defined(KEYBOARD_planck_rev6)
+		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+		#else
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
+		#endif
 		break;
 	case _LOWER:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_BLUE);
+		#if defined(KEYBOARD_planck_rev6)
+		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+		#else
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
+		#endif
 		break;
 	}
 	return state;
@@ -123,7 +139,11 @@ void matrix_scan_user(void) {
 void leader_start(void) { // Leader key effect
 	rgb_matrix_enable_noeeprom();
 	rgb_matrix_sethsv_noeeprom(HSV_BLUE);
+	#if defined(KEYBOARD_planck_rev6)
+	rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+	#else
 	rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
+	#endif
 }
 
 void leader_end(void) { rgb_matrix_disable_noeeprom(); }
