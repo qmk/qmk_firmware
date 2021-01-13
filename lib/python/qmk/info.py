@@ -7,6 +7,7 @@ from pathlib import Path
 
 import hjson
 import jsonschema
+from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS, LED_INDICATORS
@@ -15,47 +16,6 @@ from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
-
-led_matrix_properties = {
-    'driver_count': 'LED_DRIVER_COUNT',
-    'driver_addr1': 'LED_DRIVER_ADDR_1',
-    'driver_addr2': 'LED_DRIVER_ADDR_2',
-    'driver_addr3': 'LED_DRIVER_ADDR_3',
-    'driver_addr4': 'LED_DRIVER_ADDR_4',
-    'led_count': 'LED_DRIVER_LED_COUNT',
-    'timeout': 'ISSI_TIMEOUT',
-    'persistence': 'ISSI_PERSISTENCE'
-}
-
-rgblight_properties = {
-    'led_count': ('RGBLED_NUM', int),
-    'pin': ('RGB_DI_PIN', str),
-    'max_brightness': ('RGBLIGHT_LIMIT_VAL', int),
-    'hue_steps': ('RGBLIGHT_HUE_STEP', int),
-    'saturation_steps': ('RGBLIGHT_SAT_STEP', int),
-    'brightness_steps': ('RGBLIGHT_VAL_STEP', int)
-}
-
-rgblight_toggles = {
-    'sleep': 'RGBLIGHT_SLEEP',
-    'split': 'RGBLIGHT_SPLIT',
-}
-
-rgblight_animations = {
-    'all': 'RGBLIGHT_ANIMATIONS',
-    'alternating': 'RGBLIGHT_EFFECT_ALTERNATING',
-    'breathing': 'RGBLIGHT_EFFECT_BREATHING',
-    'christmas': 'RGBLIGHT_EFFECT_CHRISTMAS',
-    'knight': 'RGBLIGHT_EFFECT_KNIGHT',
-    'rainbow_mood': 'RGBLIGHT_EFFECT_RAINBOW_MOOD',
-    'rainbow_swirl': 'RGBLIGHT_EFFECT_RAINBOW_SWIRL',
-    'rgb_test': 'RGBLIGHT_EFFECT_RGB_TEST',
-    'snake': 'RGBLIGHT_EFFECT_SNAKE',
-    'static_gradient': 'RGBLIGHT_EFFECT_STATIC_GRADIENT',
-    'twinkle': 'RGBLIGHT_EFFECT_TWINKLE'
-}
-
-usb_properties = {'vid': 'VENDOR_ID', 'pid': 'PRODUCT_ID', 'device_ver': 'DEVICE_VER'}
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
@@ -102,7 +62,6 @@ def info_json(keyboard):
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
         cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        print(dir(e))
         exit()
 
     # Make sure we have at least one layout
@@ -173,49 +132,6 @@ def keyboard_api_validate(data):
     return validator(data)
 
 
-def _extract_debounce(info_data, config_c):
-    """Handle debounce.
-    """
-    if 'debounce' in info_data and 'DEBOUNCE' in config_c:
-        _log_warning(info_data, 'Debounce is specified in both info.json and config.h, the config.h value wins.')
-
-    if 'DEBOUNCE' in config_c:
-        info_data['debounce'] = int(config_c['DEBOUNCE'])
-
-    return info_data
-
-
-def _extract_diode_direction(info_data, config_c):
-    """Handle the diode direction.
-    """
-    if 'diode_direction' in info_data and 'DIODE_DIRECTION' in config_c:
-        _log_warning(info_data, 'Diode direction is specified in both info.json and config.h, the config.h value wins.')
-
-    if 'DIODE_DIRECTION' in config_c:
-        info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
-
-    return info_data
-
-
-def _extract_indicators(info_data, config_c):
-    """Find the LED indicator information.
-    """
-    for json_key, config_key in LED_INDICATORS.items():
-        if json_key in info_data.get('indicators', []) and config_key in config_c:
-            _log_warning(info_data, f'Indicator {json_key} is specified in both info.json and config.h, the config.h value wins.')
-
-        if 'indicators' not in info_data:
-            info_data['indicators'] = {}
-
-        if config_key in config_c:
-            if 'indicators' not in info_data:
-                info_data['indicators'] = {}
-
-            info_data['indicators'][json_key] = config_c.get(config_key)
-
-    return info_data
-
-
 def _extract_community_layouts(info_data, rules):
     """Find the community layouts in rules.mk.
     """
@@ -279,63 +195,6 @@ def _extract_led_drivers(info_data, rules):
             _log_warning(info_data, 'LED Matrix driver is specified in both info.json and rules.mk, the rules.mk value wins.')
 
         info_data['led_matrix']['driver'] = rules['LED_MATRIX_DRIVER']
-
-    return info_data
-
-
-def _extract_led_matrix(info_data, config_c):
-    """Handle the led_matrix configuration.
-    """
-    led_matrix = info_data.get('led_matrix', {})
-
-    for json_key, config_key in led_matrix_properties.items():
-        if config_key in config_c:
-            if json_key in led_matrix:
-                _log_warning(info_data, 'LED Matrix: %s is specified in both info.json and config.h, the config.h value wins.' % (json_key,))
-
-            led_matrix[json_key] = config_c[config_key]
-
-
-def _extract_rgblight(info_data, config_c):
-    """Handle the rgblight configuration.
-    """
-    rgblight = info_data.get('rgblight', {})
-    animations = rgblight.get('animations', {})
-
-    if 'RGBLED_SPLIT' in config_c:
-        raw_split = config_c.get('RGBLED_SPLIT', '').replace('{', '').replace('}', '').strip()
-        rgblight['split_count'] = [int(i) for i in raw_split.split(',')]
-
-    for json_key, config_key_type in rgblight_properties.items():
-        config_key, config_type = config_key_type
-
-        if config_key in config_c:
-            if json_key in rgblight:
-                _log_warning(info_data, 'RGB Light: %s is specified in both info.json and config.h, the config.h value wins.' % (json_key,))
-
-            try:
-                rgblight[json_key] = config_type(config_c[config_key])
-            except ValueError as e:
-                cli.log.error('%s: config.h: Could not convert "%s" to %s: %s', info_data['keyboard_folder'], config_c[config_key], config_type.__name__, e)
-
-    for json_key, config_key in rgblight_toggles.items():
-        if config_key in config_c and json_key in rgblight:
-            _log_warning(info_data, 'RGB Light: %s is specified in both info.json and config.h, the config.h value wins.', json_key)
-
-        rgblight[json_key] = config_key in config_c
-
-    for json_key, config_key in rgblight_animations.items():
-        if config_key in config_c:
-            if json_key in animations:
-                _log_warning(info_data, 'RGB Light: animations: %s is specified in both info.json and config.h, the config.h value wins.' % (json_key,))
-
-            animations[json_key] = config_c[config_key]
-
-    if animations:
-        rgblight['animations'] = animations
-
-    if rgblight:
-        info_data['rgblight'] = rgblight
 
     return info_data
 
@@ -448,13 +307,48 @@ def _extract_config_h(info_data):
     """
     config_c = config_h(info_data['keyboard_folder'])
 
-    _extract_debounce(info_data, config_c)
-    _extract_diode_direction(info_data, config_c)
-    _extract_indicators(info_data, config_c)
+    # Pull in data from the json map
+    dotty_info = dotty(info_data)
+    info_config_map = _json_load(Path('data/maps/info_config.json'))
+
+    for config_key, info_dict in info_config_map.items():
+        info_key = info_dict['info_key']
+        key_type = info_dict.get('value_type', 'str')
+        to_json = info_dict.get('to_json', True)
+
+        try:
+            if to_json and config_key in config_c:
+                if dotty_info.get(info_key):
+                    _log_warning(info_data, '%s in config.h is overwriting %s in info.json' % (config_key, info_key))
+
+                if key_type.startswith('array'):
+                    if '.' in key_type:
+                        key_type, array_type = key_type.split('.', 1)
+                    else:
+                        array_type = None
+
+                    config_value = config_c[config_key].replace('{', '').replace('}', '').strip()
+
+                    if array_type == 'int':
+                        dotty_info[info_key] = list(map(int, config_value.split(',')))
+                    else:
+                        dotty_info[info_key] = config_value.split(',')
+                elif key_type == 'bool':
+                    dotty_info[info_key] = config_c[config_key] in true_values
+                elif key_type == 'hex':
+                    dotty_info[info_key] = '0x' + config_c[config_key][2:].upper()
+                elif key_type == 'int':
+                    dotty_info[info_key] = int(config_c[config_key])
+                else:
+                    dotty_info[info_key] = config_c[config_key]
+
+        except Exception as e:
+            _log_warning(info_data, f'{config_key}->{info_key}: {e}')
+
+    info_data.update(dotty_info)
+
+    # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
-    _extract_usb_info(info_data, config_c)
-    _extract_led_matrix(info_data, config_c)
-    _extract_rgblight(info_data, config_c)
 
     return info_data
 

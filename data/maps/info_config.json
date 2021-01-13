@@ -2,36 +2,40 @@
 # to correctly and consistently map back and forth between the two systems.
 {
     # Format:
-    # <config.h key>, [<info.json key>, <value_type>]
-    "DEBOUNCE": ["debounce", "int"]
-    "DEVICE_VER": ["usb.device_ver", "str"],
-    "DESCRIPTION": ["keyboard_folder", "str"],
-    "DIODE_DIRECTION": ["diode_direction", "str"],
-    "LAYOUTS": ["layout_aliases", "mapping"],
-    "LED_CAPS_LOCK_PIN": ["indicators.caps_lock", "str"],
-    "LED_NUM_LOCK_PIN": ["indicators.num_lock", "str"],
-    "LED_SCROLL_LOCK_PIN": ["indicators.scroll_lock", "str"],
-    "MANUFACTURER": ["manufacturer", "str"],
-    "RGB_DI_PIN": ["rgblight.pin", "str"],
-    "RGBLED_NUM": ["rgblight.led_count", "int"],
-    "RGBLIGHT_ANIMATIONS": ["rgblight.animations.all", "bool"],
-    "RGBLIGHT_EFFECT_ALTERNATING": ["rgblight.animations.alternating", "bool"],
-    "RGBLIGHT_EFFECT_BREATHING": ["rgblight.animations.breathing", "bool"],
-    "RGBLIGHT_EFFECT_CHRISTMAS": ["rgblight.animations.christmas", "bool"],
-    "RGBLIGHT_EFFECT_KNIGHT": ["rgblight.animations.knight", "bool"],
-    "RGBLIGHT_EFFECT_RAINBOW_MOOD": ["rgblight.animations.rainbow_mood", "bool"],
-    "RGBLIGHT_EFFECT_RAINBOW_SWIRL": ["rgblight.animations.rainbow_swirl", "bool"],
-    "RGBLIGHT_EFFECT_RGB_TEST": ["rgblight.animations.rgb_test", "bool"],
-    "RGBLIGHT_EFFECT_SNAKE": ["rgblight.animations.snake", "bool"],
-    "RGBLIGHT_EFFECT_STATIC_GRADIENT": ["rgblight.animations.static_gradient", "bool"],
-    "RGBLIGHT_EFFECT_TWINKLE": ["rgblight.animations.twinkle", "str"],
-    "RGBLIGHT_LIMIT_VAL": ["rgblight.max_brightness", "int"],
-    "RGBLIGHT_HUE_STEP": ["rgblight.hue_steps", "int"],
-    "RGBLIGHT_SAT_STEP": ["rgblight.saturation_steps", "int"],
-    "RGBLIGHT_VAL_STEP": ["rgblight.brightness_steps", "int"],
-    "RGBLIGHT_SLEEP": ["rgblight.sleep", "bool"],
-    "RGBLIGHT_SPLIT": ["rgblight.split", "bool"],
-    "PRODUCT": ["keyboard_folder", "str"],
-    "PRODUCT_ID": ["usb.pid", "str"],
-    "VENDOR_ID": ["usb.vid", "str"]
+    # <config.h key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
+    # value_type: one of "array", "array.int", "int", "hex", "mapping"
+    # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
+    # to_c: Default `true`. Set to `false` to exclude this mapping from config.h
+    "DEBOUNCE": {"info_key": "debounce", "value_type": "int"}
+    "DEVICE_VER": {"info_key": "usb.device_ver", "value_type": "hex"},
+    "DESCRIPTION": {"info_key": "keyboard_folder", "to_json": false},
+    "DIODE_DIRECTION": {"info_key": "diode_direction"},
+    "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
+    "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
+    "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
+    "LED_SCROLL_LOCK_PIN": {"info_key": "indicators.scroll_lock"},
+    "MANUFACTURER": {"info_key": "manufacturer"},
+    "RGB_DI_PIN": {"info_key": "rgblight.pin"},
+    "RGBLED_NUM": {"info_key": "rgblight.led_count", "value_type": "int"},
+    "RGBLED_SPLIT": {"info_key": "rgblight.split_count", "value_type": "array.int"},
+    "RGBLIGHT_ANIMATIONS": {"info_key": "rgblight.animations.all", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_ALTERNATING": {"info_key": "rgblight.animations.alternating", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_BREATHING": {"info_key": "rgblight.animations.breathing", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_CHRISTMAS": {"info_key": "rgblight.animations.christmas", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_KNIGHT": {"info_key": "rgblight.animations.knight", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_RAINBOW_MOOD": {"info_key": "rgblight.animations.rainbow_mood", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_RAINBOW_SWIRL": {"info_key": "rgblight.animations.rainbow_swirl", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_RGB_TEST": {"info_key": "rgblight.animations.rgb_test", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_SNAKE": {"info_key": "rgblight.animations.snake", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_STATIC_GRADIENT": {"info_key": "rgblight.animations.static_gradient", "value_type": "bool"},
+    "RGBLIGHT_EFFECT_TWINKLE": {"info_key": "rgblight.animations.twinkle"},
+    "RGBLIGHT_LIMIT_VAL": {"info_key": "rgblight.max_brightness", "value_type": "int"},
+    "RGBLIGHT_HUE_STEP": {"info_key": "rgblight.hue_steps", "value_type": "int"},
+    "RGBLIGHT_SAT_STEP": {"info_key": "rgblight.saturation_steps", "value_type": "int"},
+    "RGBLIGHT_VAL_STEP": {"info_key": "rgblight.brightness_steps", "value_type": "int"},
+    "RGBLIGHT_SLEEP": {"info_key": "rgblight.sleep", "value_type": "bool"},
+    "RGBLIGHT_SPLIT": {"info_key": "rgblight.split", "value_type": "bool"},
+    "PRODUCT": {"info_key": "keyboard_folder", "to_json": false},
+    "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex"},
+    "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex"}
 }
