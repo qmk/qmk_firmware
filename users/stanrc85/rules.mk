@@ -20,7 +20,7 @@ ifeq ($(strip $(KEYBOARD)), projectkb/alice/rev2)
 endif
 ifeq ($(strip $(KEYBOARD)), sneakbox/aliceclone)
   SRC += indicator_layers_sneakbox.c
-  #SRC += startup_fanfare.c
+  SRC += startup_fanfare.c
   OPT_DEFS += -DHAS_INDICATORS
   OPT_DEFS += -DHAS_ROTARY
   VIA_ENABLE = yes
