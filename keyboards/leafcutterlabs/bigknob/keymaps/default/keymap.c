@@ -20,12 +20,6 @@ enum layer_names {
     _BASE
 };
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //buttion closest to usb is first
-  [_BASE] = LAYOUT(
-     KC_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP, TD(TD_RGB)
-  )
-};
-
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { 
     if (clockwise) {
@@ -53,4 +47,10 @@ void dance_rgb_finished (qk_tap_dance_state_t *state, void *user_data) {
 //All tap dance functions would go here. Only showing this one.
 qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_RGB] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_rgb_finished, NULL)
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //buttion closest to usb is first
+  [_BASE] = LAYOUT(
+     KC_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP, TD(TD_RGB)
+  )
 };
