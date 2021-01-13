@@ -307,7 +307,7 @@ In order to change the delay of temperature decrease define
 `RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
 
 ```c
-#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY 50
+#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 ```
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
