@@ -17,12 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#define _COLEMAK_DH  0
-#define _LEFT     1
-#define _LEFT_UP  2
-#define _RIGHT    3
-#define _RIGHT_UP 4
-#define _QWERTY   5
+enum custom_layers {
+ _COLEMAK_DH,
+ _LEFT,
+ _LEFT_UP,
+ _RIGHT,
+ _RIGHT_UP,
+ _QWERTY
+};
 
 #define COLMAK TO(_COLEMAK_DH)
 #define QWERTY TO(_QWERTY)
