@@ -1,0 +1,11 @@
+# This file maps keys between `rules.mk` and `info.json`. It is used by QMK 
+# to correctly and consistently map back and forth between the two systems.
+{
+    # Format:
+    # <rules.mk key>, [<info.json key>, <value_type>]
+    "BOARD": ["board", "str"],
+    "BOOTLOADER": ["bootloader", "str"],
+    "LAYOUTS": ["community_layouts", "array"],
+    "LED_MATRIX_DRIVER": ["led_matrix.driver", "str"],
+    "MCU": ["processor", "str"],
+}

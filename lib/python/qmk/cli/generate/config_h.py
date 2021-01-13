@@ -104,7 +104,13 @@ def generate_config_h(cli):
         except KeyError:
             continue
 
-        if key_type == 'bool':
+        if key_type == 'array':
+            for key, value in config_value.items():
+                config_h_lines.append('')
+                config_h_lines.append(f'#ifndef {key}')
+                config_h_lines.append(f'#   define {key} \{{','.join(value)}\}')
+                config_h_lines.append(f'#endif // {key}')
+        elif key_type == 'bool':
             if config_value:
                 config_h_lines.append('')
                 config_h_lines.append(f'#ifndef {config_key}')
