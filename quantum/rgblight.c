@@ -234,7 +234,7 @@ void rgblight_init(void) {
     is_rgblight_initialized = true;
 }
 
-void rgblight_reset_from_eeprom(void) {
+void rgblight_reload_from_eeprom(void) {
     /* Reset back to what we have in eeprom */
     rgblight_config.raw = eeconfig_read_rgblight();
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;

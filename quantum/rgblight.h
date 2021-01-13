@@ -348,7 +348,7 @@ void    rgblight_set_speed(uint8_t speed);
 void    rgblight_set_speed_noeeprom(uint8_t speed);
 
 /*   reset */
-void rgblight_reset_from_eeprom(void);
+void rgblight_reload_from_eeprom(void);
 
 /*       query */
 uint8_t rgblight_get_mode(void);
