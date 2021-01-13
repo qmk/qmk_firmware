@@ -135,8 +135,6 @@
      4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
  } };
 
-#endif
-
 
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
@@ -153,3 +151,5 @@ void suspend_wakeup_init_kb(void) {
         rgb_matrix_set_color(45, 0xFF, 0x00, 0x00);
     }
 }
+
+#endif
