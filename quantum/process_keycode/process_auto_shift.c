@@ -115,7 +115,9 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             case KC_1 ... KC_0:
 #    endif
 #    ifndef NO_AUTO_SHIFT_SPECIAL
+#    ifndef NO_AUTO_SHIFT_TAB
             case KC_TAB:
+#    endif
             case KC_MINUS ... KC_SLASH:
             case KC_NONUS_BSLASH:
 #    endif
