@@ -28,7 +28,7 @@ qmk json2c ~/qmk_firmware/json/mark65.json > ~/qmk_firmware/keyboards/boardsourc
 ```
 
 # User space code
-Shared keyboard codes are found in (filterpaper user space)[qmk_firmware/users/filterpaper/readme.md]
+Shared keyboard codes are found in [filterpaper user space](qmk_firmware/users/filterpaper/readme.md)
 
 # Git cheatsheet
 https://docs.qmk.fm/#/newbs_git_using_your_master_branch
