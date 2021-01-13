@@ -39,21 +39,21 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_all(  \
+    [_BASE] = LAYOUT_all(
               KC_W,  KC_Z,
-       KC_A,  KC_B,  KC_C,  TD(CTRL),  \
-       KC_E,  KC_F,  KC_G,  KC_H,  \
-       KC_I,  KC_J,  KC_K,  KC_L,  \
-       KC_M,  KC_N,  KC_O,  KC_P,  \
-       KC_Q,  KC_R,  KC_S,  KC_T   \
+       KC_A,  KC_B,  KC_C,  TD(CTRL),
+       KC_E,  KC_F,  KC_G,  KC_H,
+       KC_I,  KC_J,  KC_K,  KC_L,
+       KC_M,  KC_N,  KC_O,  KC_P,
+       KC_Q,  KC_R,  KC_S,  KC_T
 ),
-    [_CTRL] = LAYOUT_all(  \
+    [_CTRL] = LAYOUT_all(
                    RESET,  _______,
-       RGB_TOG, RGB_RMOD,  RGB_MOD,   TD(BASE),  \
-       _______,  RGB_VAD,  RGB_VAI,    _______,  \
-       _______,  RGB_HUD,  RGB_HUI,    _______,  \
-       _______,  RGB_SAD,  RGB_SAI,    _______,  \
-       _______,  _______,  _______,    _______   \
+       RGB_TOG, RGB_RMOD,  RGB_MOD,   TD(BASE),
+       _______,  RGB_VAD,  RGB_VAI,    _______,
+       _______,  RGB_HUD,  RGB_HUI,    _______,
+       _______,  RGB_SAD,  RGB_SAI,    _______,
+       _______,  _______,  _______,    _______
 )
 };
 
