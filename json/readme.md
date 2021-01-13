@@ -22,7 +22,7 @@ Custom layout files for the QMK Configurator
 ```
 qmk json2c ~/qmk_firmware/json/corne.json > ~/qmk_firmware/keyboards/crkbd/keymaps/filterpaper/keymap.c
 qmk json2c ~/qmk_firmware/json/bm40.json > ~/qmk_firmware/keyboards/bm40hsrgb/keymaps/filterpaper/keymap.c
-qmk json2c ~/qmk_firmware/json/planck_mit.json > ~/qmk_firmware/keyboards/planck/keymaps/filterpaper/keymap.c
+qmk json2c ~/qmk_firmware/json/planck.json > ~/qmk_firmware/keyboards/planck/keymaps/filterpaper/keymap.c
 qmk json2c ~/qmk_firmware/json/d65-cole.json > ~/qmk_firmware/keyboards/kbdfans/kbd67/mkiirgb/keymaps/filterpaper/keymap.c
 qmk json2c ~/qmk_firmware/json/mark65.json > ~/qmk_firmware/keyboards/boardsource/the_mark/keymaps/filterpaper/keymap.c
 ```

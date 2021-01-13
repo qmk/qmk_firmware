@@ -114,7 +114,7 @@ void matrix_scan_user(void) {
 		SEQ_ONE_KEY(KC_B) { SEND_STRING("{}"); }
 		SEQ_ONE_KEY(KC_Q) { SEND_STRING(":q!"); }
 		SEQ_ONE_KEY(KC_W) { SEND_STRING(":wq"); }
-		SEQ_TWO_KEYS(KC_W,KC_W) { SEND_STRING("ZZ"); }
+		SEQ_ONE_KEY(KC_Z) { SEND_STRING("ZZ"); }
 	}
 }
 
