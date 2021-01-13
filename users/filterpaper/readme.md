@@ -43,3 +43,6 @@ make crkbd/rev1/common:filterpaper:dfu-split-right
 ```
 The same firmware can be flashed normally to both sides after this.
 
+## Keymap layout
+
+Exported QMK Configurator files are located in the (json folder)[qmk_firmware/json/readme.md) 
