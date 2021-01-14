@@ -10,7 +10,6 @@ import jsonschema
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS, LED_INDICATORS
 from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
@@ -255,22 +254,6 @@ def _extract_matrix_info(info_data, config_c):
     return info_data
 
 
-def _extract_usb_info(info_data, config_c):
-    """Populate the USB information.
-    """
-    if 'usb' not in info_data:
-        info_data['usb'] = {}
-
-    for info_name, config_name in usb_properties.items():
-        if config_name in config_c:
-            if info_name in info_data['usb']:
-                _log_warning(info_data, '%s in config.h is overwriting usb.%s in info.json' % (config_name, info_name))
-
-            info_data['usb'][info_name] = '0x' + config_c[config_name][2:].upper()
-
-    return info_data
-
-
 def _extract_config_h(info_data):
     """Pull some keyboard information from existing config.h files
     """
@@ -341,7 +324,7 @@ def _extract_rules_mk(info_data):
         avr_processor_rules(info_data, rules)
 
     else:
-        cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
+        cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], info_data['processor']))
         unknown_processor_rules(info_data, rules)
 
     # Pull in data from the json map
