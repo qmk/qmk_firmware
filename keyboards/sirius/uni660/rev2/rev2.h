@@ -2,20 +2,18 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_sirius_uni660_rev1
-    #include "rev1.h"
-#elif KEYBOARD_sirius_uni660_rev2_iso
-    #include "iso.h"
+#if KEYBOARD_sirius_uni660_rev2_iso
+#    include "iso.h"
 #elif KEYBOARD_sirius_uni660_rev2_ansi
-	#include "ansi.h"
+#    include "ansi.h"
 #endif
 
-#define red_led_off   writePinHigh(F5)
-#define red_led_on    writePinLow(F5)
-#define blu_led_off   writePinHigh(F4)
-#define blu_led_on    writePinLow(F4)
-#define grn_led_off   writePinHigh(D1)
-#define grn_led_on    writePinLow(D1)
+#define red_led_off writePinHigh(F5)
+#define red_led_on  writePinLow(F5)
+#define blu_led_off writePinHigh(F4)
+#define blu_led_on  writePinLow(F4)
+#define grn_led_off writePinHigh(D1)
+#define grn_led_on  writePinLow(D1)
 
 #define set_led_off     red_led_off; grn_led_off; blu_led_off
 #define set_led_red     red_led_on;  grn_led_off; blu_led_off
