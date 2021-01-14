@@ -891,6 +891,6 @@ enum quantum_keycodes {
 #define DM_PLY2 DYN_MACRO_PLAY2
 
 // One Shot toggle
-#define OST_TOG ONESHOT_TOGGLE
-#define OST_ON  ONESHOT_ENABLE
-#define OST_OFF ONESHOT_DISABLE
+#define OS_TOGG ONESHOT_TOGGLE
+#define OS_ON   ONESHOT_ENABLE
+#define OS_OFF  ONESHOT_DISABLE
