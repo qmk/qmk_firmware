@@ -10,6 +10,7 @@ import jsonschema
 from dotty_dict import dotty
 from milc import cli
 
+from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps
