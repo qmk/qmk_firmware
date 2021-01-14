@@ -28,7 +28,7 @@ enum layer_names {
 #define _A(X) ALT_T(X)
 #define _S(X) SFT_T(X)
 #define _G(X) GUI_T(X)
-#define FN_CAPS LT(_FN, KC_CAPS)
+#define FN_TAB LT(_FN, KC_TAB)
 #define PN_BS LT(_PUNC, KC_BSPC)
 // macOS shortcut
 #define _MSNCTL C(KC_UP)
@@ -49,15 +49,15 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] LAYOUT(
         KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,             KC_QUOT,          KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
-        _A(KC_A),_C(KC_R),_S(KC_S),_G(KC_T),KC_G,       KC_LBRC,    KC_RBRC,    KC_M,    _G(KC_N),_S(KC_E),_C(KC_I),_A(KC_O),
+     _C(KC_A),_A(KC_R),_S(KC_S),_G(KC_T),KC_G,          KC_LBRC,    KC_RBRC,    KC_M, _G(KC_N),_S(KC_E),_A(KC_I),_C(KC_O),
         KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_MINS, KC_GRV,  KC_EQL,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
-                 KC_ESC,  KC_DOWN, KC_UP,   PN_BS,  FN_CAPS,  KC_ENT,  KC_TAB,  KC_SPC,  KC_LEFT, KC_RGHT, KC_BSLS
+                 KC_ESC,  KC_UP,   KC_DOWN, PN_BS,  FN_TAB,   KC_ENT,  KC_CAPS, KC_SPC,  KC_LEFT, KC_RGHT, KC_BSLS
     ),
     [_KAI] LAYOUT(
         KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,             KC_QUOT,          KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
         KC_A,    KC_R,    KC_S,    KC_T,    KC_G,       KC_LBRC,    KC_RBRC,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,
         _S(KC_Z),KC_X,    KC_C,    KC_D,    KC_V,    KC_MINS,TO(_BASE),KC_EQL,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
-        _C(KC_ESC), _A(KC_DOWN), _G(KC_UP), PN_BS,  FN_CAPS,  KC_ENT,  KC_TAB,  KC_SPC,  KC_LEFT, KC_RGHT, KC_BSLS
+        _C(KC_ESC), _A(KC_UP), _G(KC_DOWN), PN_BS,  FN_TAB,  KC_ENT,  KC_CAPS, KC_SPC,  KC_LEFT, KC_RGHT, KC_BSLS
     ),
     [_PUNC] LAYOUT(
         KC_PERC, KC_CIRC, KC_AMPR, KC_DLR,  _______,          _______,          _______, KC_7,    KC_8,    KC_9,    KC_PLUS,
