@@ -278,7 +278,7 @@ def _extract_config_h(info_data):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_config_map = _json_load(Path('data/maps/info_config.json'))
+    info_config_map = _json_load(Path('data/mappings/info_config.json'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
@@ -346,7 +346,7 @@ def _extract_rules_mk(info_data):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_rules_map = _json_load(Path('data/maps/info_rules.json'))
+    info_rules_map = _json_load(Path('data/mappings/info_rules.json'))
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']
