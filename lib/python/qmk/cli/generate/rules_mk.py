@@ -10,6 +10,30 @@ from qmk.info import _json_load, info_json
 from qmk.path import is_keyboard, normpath
 
 
+def process_mapping_rule(kb_info_json, rules_key, info_dict):
+    """Return the rules.mk line(s) for a mapping rule.
+    """
+    if not info_dict.get('to_c', True):
+        return None
+
+    info_key = info_dict['info_key']
+    key_type = info_dict.get('value_type', 'str')
+
+    try:
+        rules_value = kb_info_json[info_key]
+    except KeyError:
+        return None
+
+    if key_type == 'array':
+        return f'{rules_key} ?= {" ".join(rules_value)}'
+    elif key_type == 'bool':
+        return f'{rules_key} ?= {"on" if rules_value else "off"}'
+    elif key_type == 'mapping':
+        return '\n'.join([f'{key} ?= {value}' for key, value in rules_value.items()])
+
+    return f'{rules_key} ?= {rules_value}'
+
+
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', help='Keyboard to generate config.h for.')
@@ -34,26 +58,10 @@ def generate_rules_mk(cli):
 
     # Iterate through the info_rules map to generate basic rules
     for rules_key, info_dict in info_rules_map.items():
-        info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        new_entry = process_mapping_rule(kb_info_json, rules_key, info_dict)
 
-        try:
-            rules_value = kb_info_json[info_key]
-        except KeyError:
-            continue
-
-        if not info_dict.get('to_c', True):
-            continue
-
-        if key_type == 'array':
-            rules_mk_lines.append(f'{rules_key} ?= {" ".join(rules_value)}')
-        elif key_type == 'bool':
-            rules_mk_lines.append(f'{rules_key} ?= {"on" if rules_value else "off"}')
-        elif key_type == 'mapping':
-            for key, value in rules_value.items():
-                rules_mk_lines.append(f'{key} ?= {value}')
-        else:
-            rules_mk_lines.append(f'{rules_key} ?= {rules_value}')
+        if new_entry:
+            rules_mk_lines.append(new_entry)
 
     # Iterate through features to enable/disable them
     if 'features' in kb_info_json:
