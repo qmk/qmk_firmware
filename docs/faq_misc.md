@@ -18,8 +18,8 @@ what things are (and likely aren't) too risky.
 - Too large a .hex file is trouble; `make dfu` will erase the block,
   test the size (oops, wrong order!), which errors out, failing to
   flash the keyboard, leaving it in DFU mode.
-  - To this end, note that the maximum .hex file size on Planck is
-    7000h (28672 decimal)
+  - To this end, note that the maximum .hex file size on e.g. Planck
+    is 7000h (28672 decimal)
 
 ```
 Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
@@ -38,24 +38,24 @@ Size after:
     consume extra memory; watch out for BOOTMAGIC_ENABLE,
     MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
 - DFU tools do /not/ allow you to write into the bootloader (unless
-  you throw in extra fruit salad of options), so there is little risk
+  you throw in an extra fruit salad of options), so there is little risk
   there.
-- EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
-  firmware repeatedly and continually; that'll burn the EEPROM
+- EEPROM has around a 100000 (100k) write cycle.  You shouldn't rewrite
+  the firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
 
 ## NKRO Doesn't work
-First you have to compile firmware with this build option `NKRO_ENABLE` in **Makefile**.
+First you have to compile firmware with the build option `NKRO_ENABLE` in **Makefile**.
 
-Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode, in particular when you are in BIOS.
+Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work and you will need to switch to **6KRO** mode, in particular when you are in BIOS.
 
-If your firmware built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
+If your firmware was built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
 
 https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
 
 ## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)
-Without reset circuit you will have inconsistent result due to improper initialize of the hardware. See circuit schematic of TPM754.
+Without reset circuit you will have inconsistent result due to improper initialization of the hardware. See circuit schematic of TPM754:
 
 - http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
 - http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
@@ -64,7 +64,7 @@ Without reset circuit you will have inconsistent result due to improper initiali
 ## Can't Read Column of Matrix Beyond 16
 Use `1UL<<16` instead of `1<<16` in `read_cols()` in [matrix.h] when your columns goes beyond 16.
 
-In C `1` means one of [int] type which is [16 bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use [unsigned long] type with `1UL`.
+In C `1` means one of [int] type which is [16 bit] in case of AVR, so you can't shift left more than 15. Thus, calculating `1<<16` will unexpectedly equal zero. To work around this, you have to use [unsigned long] type with `1UL`.
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
@@ -75,11 +75,9 @@ You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
 EXTRAKEY_ENABLE = yes          # Audio control and System control
 ```
 
-## Wakeup from Sleep Doesn't Work
+## Wake from Sleep Doesn't Work
 
-In Windows check `Allow this device to wake the computer` setting in Power **Management property** tab of **Device Manager**. Also check BIOS setting.
-
-Pressing any key during sleep should wake host.
+In Windows check `Allow this device to wake the computer` setting in **Power Management** property tab of **Device Manager**. Also check your BIOS settings. Pressing any key during sleep should wake host.
 
 ## Using Arduino?
 
@@ -101,18 +99,19 @@ If you would like to keep JTAG enabled, just add the following to your `config.h
 ```
 
 ## USB 3 Compatibility
-I heard some people have a problem with USB 3 port, try USB 2 port.
+Some problems can be fixed by switching from a USB 3.x port to a USB 2.0 port.
 
 
 ## Mac Compatibility
 ### OS X 10.11 and Hub
-https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
+See here: https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 
-## Problem on BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles
-Some people reported their keyboard stops working on BIOS and/or after resume(power cycles).
+## Problem in BIOS (UEFI) Setup/Resume (Sleep & Wake)/Power Cycles
+Some people reported their keyboard stops working in BIOS and/or after resume(power cycles).
 
-As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others.
+As of now the root cause is not clear, but some build options seem to be related. In Makefile, try to disable options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others.
 
-https://github.com/tmk/tmk_keyboard/issues/266
-https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
+More info:
+- https://github.com/tmk/tmk_keyboard/issues/266
+- https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
