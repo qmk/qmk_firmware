@@ -12,17 +12,18 @@ Now we have support for generating `rules.mk` and `config.h` values from `info.j
 
 ## Overview
 
-On the C side of things nothing really changes. When you need to create a new rule or define you follow the same process:
+On the C side of things nothing changes. When you need to create a new rule or define you follow the same process:
 
 1. Add it to `docs/config_options.md`
 1. Set a default in the appropriate core file
-1. Add your `ifdef` and/or `#ifdef` statements as needed
+1. Add your ifdef statements as needed
 
 You will then need to add support for your new configuration to `info.json`. The basic process is:
 
 1. Add it to the schema in `data/schemas/keyboards.jsonschema`
-1. Add code to extract it from `config.h`/`rules.mk` to `lib/python/qmk/info.py`
-1. Add code to generate it to one of:
+1. Add a mapping in `data/maps`
+1. (optional and discoraged) Add code to extract/generate it to:
+  * `lib/python/qmk/info.py`
   * `lib/python/qmk/cli/generate/config_h.py`
   * `lib/python/qmk/cli/generate/rules_mk.py`
 
@@ -32,11 +33,42 @@ This section describes adding support for a `config.h`/`rules.mk` value to info.
 
 ### Add it to the schema
 
-QMK maintains schema files in `data/schemas`. The values that go into keyboard-specific `info.json` files are kept in `keyboard.jsonschema`. Any value you want to make available to end users to edit must go in here.
+QMK maintains [jsonschema](https://json-schema.org/) files in `data/schemas`. The values that go into keyboard-specific `info.json` files are kept in `keyboard.jsonschema`. Any value you want to make available to end users to edit must go in here.
 
-In some cases you can simply add a new top-level key. Some examples to follow are `keyboard_name`, `maintainer`, `processor`, and `url`. This is appropriate when your option is self-contained and not directly related to other options. In other cases you should group like options together in an `object`. This is particularly true when adding support for a feature. Some examples to follow for this are `indicators`, `matrix_pins`, and `rgblight`. If you are not sure how to integrate your new option(s) [open an issue](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=) or [join #cli on Discord](https://discord.gg/heQPAgy) and start a conversation there.
+In some cases you can simply add a new top-level key. Some examples to follow are `keyboard_name`, `maintainer`, `processor`, and `url`. This is appropriate when your option is self-contained and not directly related to other options.
+
+In other cases you should group like options together in an `object`. This is particularly true when adding support for a feature. Some examples to follow for this are `indicators`, `matrix_pins`, and `rgblight`. If you are not sure how to integrate your new option(s) [open an issue](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=) or [join #cli on Discord](https://discord.gg/heQPAgy) and start a conversation there.
+
+### Add a mapping
+
+In most cases you can add a simple mapping. These are maintained as JSON files in `data/mappings/info_config.json` and `data/mappings/info_rules.json`, and control mapping for `config.h` and `rules.mk`, respectively. Each mapping is keyed by the `config.h` or `rules.mk` variable, and the value is a hash with the following keys:
+
+* `info_key`: (required) The location within `info.json` for this value. See below.
+* `value_type`: (optional) Default `str`. The format for this variable's value. See below.
+* `to_json`: (optional) Default `true`. Set to `false` to exclude this mapping from info.json
+* `to_c`: (optional) Default `true`. Set to `false` to exclude this mapping from config.h
+* `warn_duplicate`: (optional) Default `true`. Set to `false` to turn off warning when a value exists in both places
+
+#### Info Key
+
+We use JSON dot notation to address variables within info.json. For example, to access `info_json["rgblight"]["split_count"]` I would specify `rgblight.split_count`. This allows you to address deeply nested keys with a simple string.
+
+Under the hood we use [Dotty Dict](https://dotty-dict.readthedocs.io/en/latest/), you can refer to that documentation for how these strings are converted to object access.
+
+#### Value Types
+
+By default we treat all values as simple strings. If your value is more complex you can use one of these types to intelligently parse the data:
+
+* `array`: A comma separated array of strings
+* `array.int`: A comma separated array of integers
+* `int`: An integer
+* `hex`: A number formatted as hex
+* `list`: A space separate array of strings
+* `mapping`: A hash of key/value pairs
 
 ### Add code to extract it
+
+Most use cases can be solved by the mapping files described above. If yours can't you can instead write code to extract your config values.
 
 Whenever QMK generates a complete `info.json` it extracts information from `config.h` and `rules.mk`. You will need to add code for your new config value to `lib/python/qmk/info.py`. Typically this means adding a new `_extract_<feature>()` function and then calling your function in either `_extract_config_h()` or `_extract_rules_mk()`.
 
