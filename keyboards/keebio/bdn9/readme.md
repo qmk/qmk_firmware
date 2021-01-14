@@ -20,7 +20,7 @@ A 3x3 macropad with support for up to 3 rotary encoders.
 * [Keebio - BDN9 Rev. 1](https://keeb.io/products/bdn9-3x3-9-key-macropad-rotary-encoder-support)
 * [Keebio - BDN9 Rev. 2](https://keeb.io/products/bdn9-rev-2-3x3-9-key-macropad-rotary-encoder-and-rgb)
 
-Make examples for this keyboard (after setting up your build environment):
+Make examples for this keyboard (after setting up your build environment), select the appropriate line for your PCB revision:
 
     make keebio/bdn9/rev1:default
     make keebio/bdn9/rev2:default
