@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RGB_MATRIX_H
-#define RGB_MATRIX_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -225,6 +224,4 @@ extern last_hit_t g_last_hit_tracker;
 #endif
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
-#endif
-
 #endif

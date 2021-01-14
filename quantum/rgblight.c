@@ -95,6 +95,11 @@ rgblight_config_t rgblight_config;
 rgblight_status_t rgblight_status         = {.timer_enabled = false};
 bool              is_rgblight_initialized = false;
 
+#ifdef RGBLIGHT_SLEEP
+static bool is_suspended;
+static bool pre_suspend_enabled;
+#endif
+
 #ifdef RGBLIGHT_USE_TIMER
 animation_status_t animation_status = {};
 #endif
@@ -628,7 +633,7 @@ void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_set
 
 #ifdef RGBLIGHT_LAYERS
 void rgblight_set_layer_state(uint8_t layer, bool enabled) {
-    rgblight_layer_mask_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = (rgblight_layer_mask_t)1 << layer;
     if (enabled) {
         rgblight_status.enabled_layer_mask |= mask;
     } else {
@@ -649,7 +654,7 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
-    rgblight_layer_mask_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = (rgblight_layer_mask_t)1 << layer;
     return (rgblight_status.enabled_layer_mask & mask) != 0;
 }
 
@@ -689,7 +694,7 @@ static uint16_t       _blink_timer;
 
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
     rgblight_set_layer_state(layer, true);
-    _blinked_layer_mask |= 1 << layer;
+    _blinked_layer_mask |= (rgblight_layer_mask_t)1 << layer;
     _blink_timer    = timer_read();
     _blink_duration = duration_ms;
 }
@@ -697,7 +702,7 @@ void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
 void rgblight_unblink_layers(void) {
     if (_blinked_layer_mask != 0 && timer_elapsed(_blink_timer) > _blink_duration) {
         for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
-            if ((_blinked_layer_mask & 1 << layer) != 0) {
+            if ((_blinked_layer_mask & (rgblight_layer_mask_t)1 << layer) != 0) {
                 rgblight_set_layer_state(layer, false);
             }
         }
@@ -705,6 +710,42 @@ void rgblight_unblink_layers(void) {
     }
 }
 #    endif
+
+#endif
+
+#ifdef RGBLIGHT_SLEEP
+
+void rgblight_suspend(void) {
+    rgblight_timer_disable();
+    if (!is_suspended) {
+        is_suspended        = true;
+        pre_suspend_enabled = rgblight_config.enable;
+
+#    ifdef RGBLIGHT_LAYER_BLINK
+        // make sure any layer blinks don't come back after suspend
+        rgblight_status.enabled_layer_mask &= ~_blinked_layer_mask;
+        _blinked_layer_mask = 0;
+#    endif
+
+        rgblight_disable_noeeprom();
+    }
+}
+
+void rgblight_wakeup(void) {
+    is_suspended = false;
+
+    if (pre_suspend_enabled) {
+        rgblight_enable_noeeprom();
+    }
+#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+    // Need this or else the LEDs won't be set
+    else if (rgblight_status.enabled_layer_mask != 0) {
+        rgblight_set();
+    }
+#    endif
+
+    rgblight_timer_enable();
+}
 
 #endif
 
@@ -729,8 +770,10 @@ void rgblight_set(void) {
 
 #    ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL
-#        ifndef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#        if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
         && rgblight_config.enable
+#        elif defined(RGBLIGHT_SLEEP)
+        && !is_suspended
 #        endif
     ) {
         rgblight_layers_write();
