@@ -4,6 +4,9 @@
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
 
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 100
+
+
 // i2c_master defines
 #    define I2C1_BANK GPIOB
 #    define I2C1_SCL 0 // A2 on pinout = B0
@@ -11,7 +14,7 @@
 #    define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #    define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
 
-#    define I2C_BANK GPIOC
+#    define I2C2_BANK GPIOC
 #    define I2C2_SCL 10 // A2 on pinout = C10
 #    define I2C2_SDA 11 // A2 on pinout = C11
 #    define I2C2_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
