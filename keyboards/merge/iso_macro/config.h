@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Merge
 #define PRODUCT         ISO Macro
-#define DESCRIPTION     ISO Macro
 
 /* key matrix size */
 #define MATRIX_ROWS 3

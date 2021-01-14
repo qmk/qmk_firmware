@@ -25,26 +25,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Encoder B  |   1   |   2   |   3   |        |
  * `---------------------------------------------'
  */
-[0] = LAYOUT( \
+[0] = LAYOUT(
   BL_BRTG, KC_4, KC_5, KC_6, KC_ENT,
   KC_MUTE, KC_1, KC_2, KC_3
 ),
 
-[1] = LAYOUT( \
+[1] = LAYOUT(
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-[2] = LAYOUT( \
+[2] = LAYOUT(
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-[3] = LAYOUT( \
+[3] = LAYOUT(
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-)
-
+),
 };
 
 

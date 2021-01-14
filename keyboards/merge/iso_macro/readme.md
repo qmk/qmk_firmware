@@ -1,6 +1,6 @@
 # ISO Macro
 
-![ISO Macro](https://i.imgur.com/wJoaZ8x.jpg)
+![ISO Macro](https://i.imgur.com/wJoaZ8xl.jpg)
 
 A 7 keys macro pad with 2 encoders made and sold by Merge. [Product page](https://mergedesign.store/products/iso-macro)
 
