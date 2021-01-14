@@ -1,6 +1,6 @@
 # Nightly Boards Adellein
 
-![[Adellein](https://i.imgur.com/WIZvvcDl.png)
+![Adellein](https://i.imgur.com/WIZvvcDl.png)
 
 A 40% alice-like keyboard with rotary encoder support
 
