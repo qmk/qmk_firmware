@@ -90,10 +90,6 @@ i2c_status_t i2c_start(uint8_t index, uint8_t address) {
 i2c_status_t i2c_transmit(uint8_t index, uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = address;
     i2cStart((drivers[index]), &i2cconfig);
-    // uint32_t err = drivers[index]->errors;
-    // if(err) {
-    //     uprintf("Transmit error on driver %d: %d\n", index, err);
-    // }
     msg_t status = i2cMasterTransmitTimeout((drivers[index]), (i2c_address >> 1), data, length, 0, 0, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
