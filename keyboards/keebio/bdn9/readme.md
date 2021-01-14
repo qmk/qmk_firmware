@@ -5,9 +5,9 @@
 A 3x3 macropad with support for up to 3 rotary encoders.
 
 
-* Rev1-Rev1.2 encoder locations: Top Right, Top Left
-* Rev1.3 encoder locations: Top Right, Top Middle, Top Left
-* Rev2 encoder locations: Top Right, Top Middle, Top Left
+* Rev. 1.0-1.2 encoder locations: Top Right, Top Left
+* Rev. 1.3 encoder locations: Top Right, Top Middle, Top Left
+* Rev. 2 encoder locations: Top Right, Top Middle, Top Left
 
 
 **Keyboard Maintainer:** [Bakingpy/nooges](https://github.com/nooges)
