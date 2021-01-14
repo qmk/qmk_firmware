@@ -8,7 +8,8 @@ qmk flash -kb jiran -km vitvlkv
 // Defines names for use in layer keycodes and the keymap
 enum jiran_layers {
   _QWERTY,
-  _LOWER
+  _LOWER,
+  _NUMPAD
 };
 
 #define KC_BSCT  RCTL_T(KC_BSLS)
@@ -17,7 +18,8 @@ enum jiran_layers {
 #define KC_NLCT  RCTL_T(KC_LNUM)
 #define KC_ETAL  RALT_T(KC_ENT)
 
-#define LOWER  MO(_LOWER)
+#define LOWER MO(_LOWER)
+#define NUMPAD MO(_NUMPAD)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -31,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //          ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
                KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSCT,
   //          └────────┴────────┴────────┴────────┼────────┼────────┤                          ├────────┼────────┼────────┴────────┴────────┴────────┘
-                                          KC_LGUI, KC_SPC,  KC_LALT,                            KC_ETAL, LOWER,   KC_EQL
+                                          NUMPAD,  KC_SPC,  KC_LALT,                            KC_ETAL, LOWER,   KC_EQL
                                   //     └────────┴────────┴────────┘                          └────────┴────────┴────────┘
   ),
 
@@ -39,11 +41,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //          ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
                _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_EQL,
   // ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_F11,  KC_CAPS, _______, _______, _______, _______, _______,                            _______, _______, KC_UP,   _______, KC_PSCR, _______, KC_F12,
+      KC_F11,  KC_CAPS, XXXXXXX, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, KC_PSCR, XXXXXXX, KC_F12,
   // └────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
-               KC_LSFT, KC_APP , _______, KC_HOME, KC_END,  KC_DEL,                             KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_SLSF,
+               KC_LSFT, KC_APP , XXXXXXX, KC_HOME, KC_END,  KC_DEL,                             KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_SLSF,
   //          ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-               KC_LCTL, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU,                            KC_PGUP, KC_PGDN, _______, _______, KC_PAUS, KC_NLCT,
+               KC_LCTL, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU,                            KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, KC_PAUS, KC_NLCT,
+  //          └────────┴────────┴────────┴────────┼────────┼────────┤                          ├────────┼────────┴────────┴────────┴────────┴────────┘
+                                          _______, _______, _______,                            _______, _______, _______
+                                    //   └────────┴────────┴────────┘                          └────────┴────────┴────────┘
+  ),
+
+  [_NUMPAD] = LAYOUT(
+  //          ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  // ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
+      XXXXXXX, XXXXXXX,    KC_0,    KC_1,    KC_2,    KC_3, XXXXXXX,                               KC_0,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX, XXXXXXX,
+  // └────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
+               _______, XXXXXXX,    KC_4,    KC_5,    KC_6,  KC_DEL,                            KC_BSPC,    KC_4,    KC_5,    KC_6, XXXXXXX, _______,
+  //          ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+               _______, XXXXXXX,    KC_7,    KC_8,    KC_9,    KC_0,                            XXXXXXX,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //          └────────┴────────┴────────┴────────┼────────┼────────┤                          ├────────┼────────┴────────┴────────┴────────┴────────┘
                                           _______, _______, _______,                            _______, _______, _______
                                     //   └────────┴────────┴────────┘                          └────────┴────────┴────────┘
