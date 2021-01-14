@@ -77,7 +77,7 @@ Do change the `MANUFACTURER` and `PRODUCT` lines to accurately reflect your keyb
 #define PRODUCT         my_awesome_keyboard
 ```
 
-?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead takes these from the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. `lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
+?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead prefers the values in the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html). By default, it will only use `MANUFACTURER` and `PRODUCT` if the list does not contain that `VENDOR_ID` / `PRODUCT_ID`. `sudo lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
 
 ### Keyboard Matrix Configuration
 

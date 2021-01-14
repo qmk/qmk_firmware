@@ -20,6 +20,11 @@
 
 // clang-format off
 
+#ifdef CH_H
+// The ChibiOS ch.h file defines this...
+#    undef CH_H
+#endif
+
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
  * │ § │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ' │ ^ │       │

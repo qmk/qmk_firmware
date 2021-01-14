@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Han Chen
 #define PRODUCT         AMJ60
-#define DESCRIPTION     qmk port of AMJ60 PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -38,10 +37,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F1, F0, E6, C7, C6, B0, D4, B1, B7, B5, B4, D7, D6, B3}
 #define UNUSED_PINS
 
-#define BACKLIGHT_PIN B6
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
+
+#define BACKLIGHT_PIN B6
+
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

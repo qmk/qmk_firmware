@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Switchplate Peripherals
 #define PRODUCT         Lunar
-#define DESCRIPTION     65% AEK keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-#include <serial_config.h>
+#include "serial_config.h"
 
 #define USE_I2C
 #define USE_SERIAL

@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0F25
 #define MANUFACTURER    di0ib
 #define PRODUCT         The 5x5 Keyboard
-#define DESCRIPTION     A split 50 key keyboard
 
 #define USE_SERIAL
 /* serial.c configuration for split keyboard */

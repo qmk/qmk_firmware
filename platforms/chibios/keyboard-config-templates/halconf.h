@@ -17,4 +17,4 @@
 
 // #define HAL_USE_DAC TRUE
 
-#include_next "halconf.h"
+#include_next <halconf.h>
