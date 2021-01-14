@@ -2,10 +2,14 @@
 # to correctly and consistently map back and forth between the two systems.
 {
     # Format:
-    # <rules.mk key>, [<info.json key>, <value_type>]
-    "BOARD": ["board", "str"],
-    "BOOTLOADER": ["bootloader", "str"],
-    "LAYOUTS": ["community_layouts", "array"],
-    "LED_MATRIX_DRIVER": ["led_matrix.driver", "str"],
-    "MCU": ["processor", "str"],
+    # <rules.mk key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
+    # value_type: one of "array", "array.int", "int", "list", "hex", "mapping"
+    # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
+    # to_c: Default `true`. Set to `false` to exclude this mapping from rules.mk
+    # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
+    "BOARD": {"info_key": "board"},
+    "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
+    "LAYOUTS": {"info_key": "community_layouts", "value_type": "list"},
+    "LED_MATRIX_DRIVER": {"info_key": "led_matrix.driver", "to_c": false},
+    "MCU": {"info_key": "processor", "warn_duplicate": false},
 }

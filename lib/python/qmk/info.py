@@ -132,22 +132,6 @@ def keyboard_api_validate(data):
     return validator(data)
 
 
-def _extract_community_layouts(info_data, rules):
-    """Find the community layouts in rules.mk.
-    """
-    community_layouts = rules['LAYOUTS'].split() if 'LAYOUTS' in rules else []
-
-    if 'community_layouts' in info_data:
-        for layout in community_layouts:
-            if layout not in info_data['community_layouts']:
-                community_layouts.append(layout)
-
-    else:
-        info_data['community_layouts'] = community_layouts
-
-    return info_data
-
-
 def _extract_features(info_data, rules):
     """Find all the features enabled in rules.mk.
     """
@@ -180,21 +164,6 @@ def _extract_features(info_data, rules):
 
             info_data['features'][key] = value
             info_data['config_h_features'][key] = value
-
-    return info_data
-
-
-def _extract_led_drivers(info_data, rules):
-    """Find all the LED drivers set in rules.mk.
-    """
-    if 'LED_MATRIX_DRIVER' in rules:
-        if 'led_matrix' not in info_data:
-            info_data['led_matrix'] = {}
-
-        if info_data['led_matrix'].get('driver'):
-            _log_warning(info_data, 'LED Matrix driver is specified in both info.json and rules.mk, the rules.mk value wins.')
-
-        info_data['led_matrix']['driver'] = rules['LED_MATRIX_DRIVER']
 
     return info_data
 
@@ -314,11 +283,10 @@ def _extract_config_h(info_data):
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
         key_type = info_dict.get('value_type', 'str')
-        to_json = info_dict.get('to_json', True)
 
         try:
-            if to_json and config_key in config_c:
-                if dotty_info.get(info_key):
+            if config_key in config_c and info_dict.get('to_json', True):
+                if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
                     _log_warning(info_data, '%s in config.h is overwriting %s in info.json' % (config_key, info_key))
 
                 if key_type.startswith('array'):
@@ -333,12 +301,19 @@ def _extract_config_h(info_data):
                         dotty_info[info_key] = list(map(int, config_value.split(',')))
                     else:
                         dotty_info[info_key] = config_value.split(',')
+
                 elif key_type == 'bool':
                     dotty_info[info_key] = config_c[config_key] in true_values
+
                 elif key_type == 'hex':
                     dotty_info[info_key] = '0x' + config_c[config_key][2:].upper()
+
+                elif key_type == 'list':
+                    dotty_info[info_key] = config_c[config_key].split()
+
                 elif key_type == 'int':
                     dotty_info[info_key] = int(config_c[config_key])
+
                 else:
                     dotty_info[info_key] = config_c[config_key]
 
@@ -357,21 +332,66 @@ def _extract_rules_mk(info_data):
     """Pull some keyboard information from existing rules.mk files
     """
     rules = rules_mk(info_data['keyboard_folder'])
-    mcu = rules.get('MCU', info_data.get('processor'))
+    info_data['processor'] = rules.get('MCU', info_data.get('processor', 'atmega32u4'))
 
-    if mcu in CHIBIOS_PROCESSORS:
+    if info_data['processor'] in CHIBIOS_PROCESSORS:
         arm_processor_rules(info_data, rules)
 
-    elif mcu in LUFA_PROCESSORS + VUSB_PROCESSORS:
+    elif info_data['processor'] in LUFA_PROCESSORS + VUSB_PROCESSORS:
         avr_processor_rules(info_data, rules)
 
     else:
         cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
         unknown_processor_rules(info_data, rules)
 
-    _extract_community_layouts(info_data, rules)
+    # Pull in data from the json map
+    dotty_info = dotty(info_data)
+    info_rules_map = _json_load(Path('data/maps/info_rules.json'))
+
+    for rules_key, info_dict in info_rules_map.items():
+        info_key = info_dict['info_key']
+        key_type = info_dict.get('value_type', 'str')
+
+        try:
+            if rules_key in rules and info_dict.get('to_json', True):
+                if dotty_info.get(info_key) and info_dict.get('warn_duplicate', True):
+                    _log_warning(info_data, '%s in rules.mk is overwriting %s in info.json' % (rules_key, info_key))
+
+                if key_type.startswith('array'):
+                    if '.' in key_type:
+                        key_type, array_type = key_type.split('.', 1)
+                    else:
+                        array_type = None
+
+                    rules_value = rules[rules_key].replace('{', '').replace('}', '').strip()
+
+                    if array_type == 'int':
+                        dotty_info[info_key] = list(map(int, rules_value.split(',')))
+                    else:
+                        dotty_info[info_key] = rules_value.split(',')
+
+                elif key_type == 'list':
+                    dotty_info[info_key] = rules[rules_key].split()
+
+                elif key_type == 'bool':
+                    dotty_info[info_key] = rules[rules_key] in true_values
+
+                elif key_type == 'hex':
+                    dotty_info[info_key] = '0x' + rules[rules_key][2:].upper()
+
+                elif key_type == 'int':
+                    dotty_info[info_key] = int(rules[rules_key])
+
+                else:
+                    dotty_info[info_key] = rules[rules_key]
+
+        except Exception as e:
+            _log_warning(info_data, f'{rules_key}->{info_key}: {e}')
+
+    info_data.update(dotty_info)
+
+    # Merge in config values that can't be easily mapped
     _extract_features(info_data, rules)
-    _extract_led_drivers(info_data, rules)
 
     return info_data
 
@@ -460,23 +480,7 @@ def arm_processor_rules(info_data, rules):
     info_data['processor_type'] = 'arm'
     info_data['protocol'] = 'ChibiOS'
 
-    if 'MCU' in rules:
-        if 'processor' in info_data:
-            _log_warning(info_data, 'Processor/MCU is specified in both info.json and rules.mk, the rules.mk value wins.')
-
-        info_data['processor'] = rules['MCU']
-
-    elif 'processor' not in info_data:
-        info_data['processor'] = 'unknown'
-
-    if 'BOOTLOADER' in rules:
-        # FIXME(skullydazed/anyone): need to remove the massive amounts of duplication first
-        # if 'bootloader' in info_data:
-        #     _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
-
-        info_data['bootloader'] = rules['BOOTLOADER']
-
-    else:
+    if 'bootloader' not in info_data:
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
         else:
@@ -489,12 +493,6 @@ def arm_processor_rules(info_data, rules):
     elif 'ARM_ATSAM' in rules:
         info_data['platform'] = 'ARM_ATSAM'
 
-    if 'BOARD' in rules:
-        if 'board' in info_data:
-            _log_warning(info_data, 'Board is specified in both info.json and rules.mk, the rules.mk value wins.')
-
-        info_data['board'] = rules['BOARD']
-
     return info_data
 
 
@@ -502,26 +500,10 @@ def avr_processor_rules(info_data, rules):
     """Setup the default info for an AVR board.
     """
     info_data['processor_type'] = 'avr'
-    info_data['bootloader'] = rules['BOOTLOADER'] if 'BOOTLOADER' in rules else 'atmel-dfu'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
     info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
 
-    if 'MCU' in rules:
-        if 'processor' in info_data:
-            _log_warning(info_data, 'Processor/MCU is specified in both info.json and rules.mk, the rules.mk value wins.')
-
-        info_data['processor'] = rules['MCU']
-
-    elif 'processor' not in info_data:
-        info_data['processor'] = 'unknown'
-
-    if 'BOOTLOADER' in rules:
-        # FIXME(skullydazed/anyone): need to remove the massive amounts of duplication first
-        # if 'bootloader' in info_data:
-        #     _log_warning(info_data, 'Bootloader is specified in both info.json and rules.mk, the rules.mk value wins.')
-
-        info_data['bootloader'] = rules['BOOTLOADER']
-    else:
+    if 'bootloader' not in info_data:
         info_data['bootloader'] = 'atmel-dfu'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
