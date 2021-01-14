@@ -25,3 +25,5 @@ CUSTOM_MATRIX = yes
 
 # project specific files
 SRC += matrix.c
+
+DEFAULT_FOLDER = sirius/uni660/rev2/ansi
