@@ -24,15 +24,15 @@ def direct_pins(direct_pins):
 
     return """
 #ifndef MATRIX_COLS
-#    define MATRIX_COLS %s
+#   define MATRIX_COLS %s
 #endif // MATRIX_COLS
 
 #ifndef MATRIX_ROWS
-#    define MATRIX_ROWS %s
+#   define MATRIX_ROWS %s
 #endif // MATRIX_ROWS
 
 #ifndef DIRECT_PINS
-#    define DIRECT_PINS {%s}
+#   define DIRECT_PINS {%s}
 #endif // DIRECT_PINS
 """ % (col_count, row_count, ','.join(rows))
 
@@ -45,11 +45,11 @@ def pin_array(define, pins):
 
     return f"""
 #ifndef {define}S
-#    define {define}S {pin_num}
+#   define {define}S {pin_num}
 #endif // {define}S
 
 #ifndef {define}_PINS
-#    define {define}_PINS {{ {pin_array} }}
+#   define {define}_PINS {{ {pin_array} }}
 #endif // {define}_PINS
 """
 
