@@ -26,10 +26,11 @@ static uint16_t autoshift_time    = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
 static uint16_t autoshift_lastkey = KC_NO;
 #    ifdef RETRO_SHIFT
+static keyevent_t autoshift_last_event;
 #define IS_RETRO(kc)       (((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX) || ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX))
 // quantum/keymap_common.c
-#define RETRO_HOLD(kc)     (retro_layer) ? layer_on (((kc) >> 0x8) & 0xF) :        add_mods(((kc) >> 8) & 0x1F)
-#define RETRO_END_HOLD(kc) (retro_layer) ? layer_off(((kc) >> 0x8) & 0xF) : unregister_mods(((kc) >> 8) & 0x1F)
+#define RETRO_HOLD(layer, kc)     (layer) ? layer_on (((kc) >> 0x8) & 0xF) :        add_mods(((kc) >> 8) & 0x1F)
+#define RETRO_END_HOLD(layer, kc) (layer) ? layer_off(((kc) >> 0x8) & 0xF) : unregister_mods(((kc) >> 8) & 0x1F)
 // Stores the last Tap Hold key's down time, as we get the event later and
 // event.time is unreliable.
 static uint16_t retroshift_time = 0;
@@ -113,6 +114,7 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
         autoshift_time    = now;
         autoshift_flags.in_progress = true;
 #    ifdef RETRO_SHIFT
+        autoshift_last_event = record->event;
     }
 #    endif
 
@@ -184,6 +186,10 @@ void autoshift_matrix_scan(void) {
     ) {
         const uint16_t now = timer_read();
 #    ifdef RETRO_SHIFT
+        // This could be rearranged to cause Retro Shift to be evaluated as well
+        // as this, instead of waiting for release, but it doesn't play nicely
+        // with non-AS keys on the layer you're going to. Too much garbage code
+        // for too little gain.
         if (retroshift_lastkey == KC_NO) {
 #    endif
             if (TIMER_DIFF_16(now, autoshift_time) >= autoshift_timeout) {
@@ -240,11 +246,13 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             // The previous key is about to be evaluated, this counts as a nested
             // press, Tap Hold must have hold action.
             if (retroshift_lastkey != KC_NO) {
-                RETRO_HOLD(retroshift_lastkey);
-                if (retro_layer) {
-                    autoshift_lastkey = keymap_key_to_keycode(layer_switch_get_layer(record->event.key), record->event.key);
-                }
+                RETRO_HOLD(retro_layer, retroshift_lastkey);
                 retroshift_lastkey = KC_NO;
+                if (retro_layer) {
+                    autoshift_lastkey = get_event_keycode(autoshift_last_event, true);
+                    process_record(record);
+                    return false;
+                }
             }
 #    endif
             // Evaluate previous key if there is one.
@@ -337,12 +345,13 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                     autoshift_time = temp_time;
                     autoshift_lastkey = temp_lastkey;
                 } else {
-                    RETRO_HOLD(retroshift_lastkey);
+                    RETRO_HOLD(retro_layer, retroshift_lastkey);
                     if (retro_layer) {
+                        // Not using get_event_keycode as this is a release.
                         autoshift_lastkey = keymap_key_to_keycode(layer_switch_get_layer(record->event.key), record->event.key);
                     }
                     autoshift_end(KC_NO, now, false);
-                    RETRO_END_HOLD(retroshift_lastkey);
+                    RETRO_END_HOLD(retro_layer, retroshift_lastkey);
                 }
             } else {
                 autoshift_flags.in_progress = true;
@@ -364,16 +373,19 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             // TODO: This needs testing (for custom disabled Tap Holds, eg. KC_A
             // on but SFT_T(KC_A) disabled). May need to check if is AS key instead.
             if (record->tap.count != 0) {
-                RETRO_END_HOLD(retroshift_lastkey);
+                // We do this ourselves because Tap Hold config could mean
+                // returning true would release the tap action.
+                RETRO_END_HOLD(keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX, keycode);
                 return false;
             } else {
                 return true;
             }
         } else if (retroshift_lastkey != KC_NO) {
-            RETRO_HOLD(retroshift_lastkey);
+            RETRO_HOLD(retro_layer, retroshift_lastkey);
             retroshift_lastkey = KC_NO;
             if (autoshift_flags.in_progress) {
                 if (retro_layer) {
+                    // Not using get_event_keycode as this is a release.
                     autoshift_lastkey = keymap_key_to_keycode(layer_switch_get_layer(record->event.key), record->event.key);
                 }
                 autoshift_end(KC_NO, now, false);
@@ -415,8 +427,9 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     autoshift_lastkey = KC_NO;
 #    ifdef RETRO_SHIFT
     if (record->event.pressed && retroshift_lastkey != KC_NO) {
-        RETRO_HOLD(retroshift_lastkey);
+        RETRO_HOLD(retro_layer, retroshift_lastkey);
         retroshift_lastkey = KC_NO;
+        // This instead of returning true for easy layer change handling.
         process_record(record);
         return false;
     }
