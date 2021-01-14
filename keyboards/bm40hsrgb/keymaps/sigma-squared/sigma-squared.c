@@ -11,12 +11,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LALT,           KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,              KC_LALT,
     KC_LSFT,           KC_A,              KC_S,              KC_D,              KC_F,              KC_G,              KC_H,              KC_J,              KC_K,              KC_L,              KC_QUOT,           KC_LSFT,
     KC_LCTL,           KC_Z,              KC_X,              KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLSH,           KC_LCTL,
-    G(KC_TAB),         (G(S(KC_S))),      KC_TAB,            LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),         LT(NSSL, KC_ENT),              LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_LGUI,           C(KC_GRV),         C(KC_TAB)
+    G(KC_TAB),         (G(S(KC_S))),      KC_ESC,            LT(MEDR, KC_TAB),  LT(NAVR, KC_SPC),         LT(NSSL, KC_ENT),              LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_LGUI,           C(KC_GRV),         C(KC_TAB)
   ),
 
 //layers
   [NAVR] = LAYOUT_sigma2(
-    KC_LALT, KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_AGIN, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE,  KC_LALT,
+    KC_LALT, KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   C(S(KC_Z)), C(KC_Z), C(KC_X),  C(KC_C), C(KC_V),  KC_LALT,
     KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,   KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,  KC_LSFT,
     KC_LCTL, KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,   KC_LCTL,
     TG(GAME),KC_NP,   KC_NP,   KC_NA,   KC_NA,       KC_ENT,       KC_BSPC, KC_DEL,  KC_NP,   C(G(KC_LEFT)), C(G(KC_RIGHT))
@@ -34,10 +34,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NP,   KC_NP,   KC_TAB,  KC_APP,  KC_SPC,      KC_UNDS,      KC_NA,   KC_NA,   KC_NP,   KC_NP,   KC_NP
   ),
   [NSL] = LAYOUT_sigma2(
-    KC_LALT, KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, KC_NA,   KC_NA,    KC_NA,   KC_NA,     KC_RST,     KC_LALT,
-    KC_LSFT, KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  KC_NA,   KC_NA,    KC_NA,   KC_NA,     KC_NA,      KC_LSFT,
-    KC_LCTL, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NA,   M_EMAIL2, KC_COMM, KC_ALGR,   KC_NA,      KC_LCTL,
-    KC_NP,   KC_NP,   KC_BSPC, KC_DOT,  KC_0,        KC_MINS,      KC_NA,    KC_NA,   KC_NA,     KC_NP,      KC_NP
+    KC_LALT, KC_LPRN, KC_7,    KC_8,    KC_9,    KC_RPRN, KC_LBRC, KC_AMPR,  KC_ASTR, KC_LCBR,   KC_RBRC,     KC_BSPC,
+    KC_LSFT, KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  KC_LCBR, KC_DLR,   KC_PERC, KC_CIRC,   KC_RCBR,     KC_LSFT,
+    KC_LCTL, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_PLUS, KC_TILD, KC_EXLM,  KC_COMM, KC_DOT,    KC_SLSH,     KC_LCTL,
+    KC_NP,   C((G(S(KC_S)))),   KC_NP, KC_UNDS,  KC_0,        KC_MINS,      KC_NA,    KC_NA,   KC_NA,     KC_NP,       KC_NP
   ),
   [NSSL] = LAYOUT_sigma2(
     KC_LALT, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,  KC_LALT,
