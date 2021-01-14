@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LFKeyboards/CapsUnlocked
 #define PRODUCT         CU75
-#define DESCRIPTION     A luxurious fully customisable 75%
 
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 6
