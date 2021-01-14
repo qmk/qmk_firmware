@@ -4,8 +4,10 @@ from enum import Enum
 import re
 import shutil
 import subprocess
+from pathlib import Path
 
 from milc import cli
+from milc.questions import yesno
 from qmk.commands import run
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
@@ -163,3 +165,76 @@ def check_git_repo():
     dot_git_dir = QMK_FIRMWARE / '.git'
 
     return CheckStatus.OK if dot_git_dir.is_dir() else CheckStatus.WARNING
+
+
+def check_userspace():
+    """Checks if directory configured as external userpace
+
+    If the configured path does not exist or
+    not an absolute path, compilation might fail.
+    """
+    if cli.config.user.userspace:
+        userspace_path = Path(cli.config.user.userspace)
+        if not userspace_path.exists():
+            cli.log.error('External userspace: {fg_red}%s does not exists', userspace_path)
+            return CheckStatus.ERROR
+        elif not userspace_path.is_absolute():
+            cli.log.warning('External userspace: {fg_yellow}%s is not an absolute path', userspace_path)
+            return CheckStatus.WARNING
+        else:
+            cli.log.info('External userspace: {fg_cyan}%s', userspace_path)
+            return CheckStatus.OK
+
+
+def repo_test():
+    """Run tests related to the health of the Git repo.
+    """
+    # Make sure our QMK home is a Git repo
+    git_ok = check_git_repo()
+
+    if git_ok == CheckStatus.WARNING:
+        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
+        return CheckStatus.WARNING
+
+    # Check out the QMK submodules
+    sub_ok = check_submodules()
+
+    if sub_ok == CheckStatus.OK:
+        cli.log.info('Submodules are up to date.')
+    else:
+        if yesno('Would you like to clone the submodules?', default=True):
+            submodules.update()
+            sub_ok = check_submodules()
+
+        if CheckStatus.ERROR in sub_ok:
+            return CheckStatus.ERROR
+        elif CheckStatus.WARNING in sub_ok:
+            return CheckStatus.WARNING
+        else:
+            return CheckStatus.OK
+
+
+def tooling_test():
+    """Run tests related to the used tools/compilers/etc.
+    """
+    # Make sure the basic CLI tools we need are available and can be executed.
+    bin_ok = check_binaries()
+
+    if not bin_ok:
+        if yesno('Would you like to install dependencies?', default=True):
+            run(['util/qmk_install.sh'])
+            bin_ok = check_binaries()
+
+    if bin_ok:
+        cli.log.info('All dependencies are installed.')
+    else:
+        return CheckStatus.ERROR
+
+    # Make sure the tools are at the correct version
+    ver_ok = check_binary_versions()
+    if CheckStatus.ERROR in ver_ok:
+        return CheckStatus.ERROR
+    elif CheckStatus.WARNING in ver_ok:
+        return CheckStatus.WARNING
+    else:
+        return CheckStatus.OK

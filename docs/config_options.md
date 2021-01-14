@@ -312,6 +312,8 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
+* `EXT_SRC`
+  * Used to add files to the compilation/linking list. (used with [External Userspace](feature_external_userspace.md))
 * `LIB_SRC`
   * Used to add files as a library to the compilation/linking list.  
     The files specified by `LIB_SRC` is linked after the files specified by `SRC`.  

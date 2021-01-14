@@ -100,6 +100,35 @@ MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
 
+
+ifneq ($(EXTERNAL_USERSPACE), )
+    # Look for out-of-tree keyboard-specific keymap
+    ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_5)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_4)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_3)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_2)/$(KEYMAP)/keymap.c
+    else ifneq ("$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)/keymap.c)", "")
+        KEYMAP_PATH := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)
+        KEYMAP_C := $(EXTERNAL_USERSPACE)/keyboards/$(KEYBOARD_FOLDER_PATH_1)/$(KEYMAP)/keymap.c
+    endif
+
+    ifneq ("$(wildcard $(KEYMAP_PATH))", "")
+        -include $(KEYMAP_PATH)/rules.mk
+        # If EXT_SRC exists, add all files to SRC with the EXT_KM_PATH prefix so make can find it
+        ifneq ($(EXT_SRC), )
+            $(foreach SOURCE, $(EXT_SRC), $(eval SRC += $(KEYMAP_PATH)/$(SOURCE)))
+        endif
+    endif
+endif
+
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
     ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
@@ -281,6 +310,19 @@ USER_PATH := users/$(USER_NAME)
 -include $(USER_PATH)/rules.mk
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
+endif
+
+ifneq ($(EXTERNAL_USERSPACE), )
+    # Look for out-of-tree userspace stuff, if set up
+    COMMON_PATH := $(EXTERNAL_USERSPACE)/common
+    -include $(COMMON_PATH)/rules.mk
+    # If EXT_SRC exists, add all files to SRC with the EXT_KM_PATH prefix so make can find it
+    ifneq ($(EXT_SRC), )
+        $(foreach SOURCE, $(EXT_SRC), $(eval SRC += $(COMMON_PATH)/$(SOURCE))) 
+    endif
+    ifneq ("$(wildcard $(COMMON_PATH)/config.h)","")
+        CONFIG_H += $(COMMON_PATH)/config.h
+    endif
 endif
 
 # Object files directory

@@ -321,7 +321,21 @@ define PARSE_KEYBOARD
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
 
-    KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
+    # Look for out-of-tree keymaps
+    # Both keyboard- and layout-specific keymaps are supported
+    ifneq ("$(EXTERNAL_USERSPACE)", "")
+        EXT_KEYMAPS :=
+        EXT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/*/.)))
+        EXT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/*/.)))
+        EXT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/*/.)))
+        EXT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/*/.)))
+        EXT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/*/.)))
+
+        EXT_LAYOUT_KEYMAPS :=
+        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval EXT_LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(EXTERNAL_USERSPACE)/layouts/$$(LAYOUT)/*/.)))))
+    endif
+
+    KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS) $$(EXT_KEYMAPS) $$(EXT_LAYOUT_KEYMAPS))
 
     # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
     # compile all the keymaps

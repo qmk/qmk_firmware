@@ -87,6 +87,7 @@
     * [Terminal](feature_terminal.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
+    * [External Userspace](feature_external_userspace.md)
     * [WPM Calculation](feature_wpm.md)
 
   * Hardware Features

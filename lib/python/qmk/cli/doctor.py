@@ -5,11 +5,8 @@ Check out the user's QMK environment and make sure it's ready to compile.
 import platform
 
 from milc import cli
-from milc.questions import yesno
-from qmk import submodules
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import run
-from qmk.os_helpers import CheckStatus, check_binaries, check_binary_versions, check_submodules, check_git_repo
+from qmk.os_helpers import CheckStatus, check_userspace, repo_test, tooling_test
 
 
 def os_tests():
@@ -66,50 +63,19 @@ def doctor(cli):
     """
     cli.log.info('QMK Doctor is checking your environment.')
 
-    status = os_tests()
-
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
-    # Make sure our QMK home is a Git repo
-    git_ok = check_git_repo()
+    status = CheckStatus.OK
 
-    if git_ok == CheckStatus.WARNING:
-        cli.log.warning("QMK home does not appear to be a Git repository! (no .git folder)")
-        status = CheckStatus.WARNING
+    # List of checks we need to run
+    checks = (os_tests, check_userspace, repo_test, tooling_test)
 
-    # Make sure the basic CLI tools we need are available and can be executed.
-    bin_ok = check_binaries()
-
-    if not bin_ok:
-        if yesno('Would you like to install dependencies?', default=True):
-            run(['util/qmk_install.sh'])
-            bin_ok = check_binaries()
-
-    if bin_ok:
-        cli.log.info('All dependencies are installed.')
-    else:
-        status = CheckStatus.ERROR
-
-    # Make sure the tools are at the correct version
-    ver_ok = check_binary_versions()
-    if CheckStatus.ERROR in ver_ok:
-        status = CheckStatus.ERROR
-    elif CheckStatus.WARNING in ver_ok and status == CheckStatus.OK:
-        status = CheckStatus.WARNING
-
-    # Check out the QMK submodules
-    sub_ok = check_submodules()
-
-    if sub_ok == CheckStatus.OK:
-        cli.log.info('Submodules are up to date.')
-    else:
-        if yesno('Would you like to clone the submodules?', default=True):
-            submodules.update()
-            sub_ok = check_submodules()
-
-        if CheckStatus.ERROR in sub_ok:
+    # Run the checks and update 'status' based on their output
+    for check in checks:
+        check_status = check()
+        if check_status == CheckStatus.ERROR:
             status = CheckStatus.ERROR
-        elif CheckStatus.WARNING in sub_ok and status == CheckStatus.OK:
+        elif check_status == CheckStatus.WARNING:
             status = CheckStatus.WARNING
 
     # Report a summary of our findings to the user
