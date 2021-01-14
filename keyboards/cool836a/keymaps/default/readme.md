@@ -1,7 +1,6 @@
 # m.ki様によるデフォルトキーマップ
 
 [レッドバージョン　ビルドガイド](https://github.com/telzo2000/cool836A/blob/master/buildguide_red.md)で紹介されていたキーマップです。チートシートを見ながらコードに書き写しました。
-<br>
 
 -------
 ## チートシート
