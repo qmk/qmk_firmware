@@ -6,7 +6,6 @@
   "height": 6.5,
   "layouts": {
     "LAYOUT_ansi": {
-      "key_count": 80,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 2, "y": 0 },
@@ -96,7 +95,6 @@
       ]
     },
     "LAYOUT_ansi_wkl": {
-        "key_count": 79,
         "layout": [
           { "x": 0, "y": 0 },
           { "x": 2, "y": 0 },
@@ -185,7 +183,6 @@
         ]
     },
     "LAYOUT_iso": {
-        "key_count": 81,
         "layout": [
           { "x": 0, "y": 0 },
           { "x": 2, "y": 0 },
@@ -276,7 +273,6 @@
         ]
     },
     "LAYOUT_iso_wkl": {
-        "key_count": 80,
         "layout": [
           { "x": 0, "y": 0 },
           { "x": 2, "y": 0 },
