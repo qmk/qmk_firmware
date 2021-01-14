@@ -61,7 +61,11 @@
 #define VIAL_ENCODERS_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
 
 #ifdef VIAL_ENCODERS_ENABLE
+#ifdef SPLIT_KEYBOARD
+#define NUMBER_OF_ENCODERS (2 * sizeof(encoders_pad_a) / sizeof(pin_t))
+#else
 #define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
+#endif
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 #define VIAL_ENCODERS_SIZE (NUMBER_OF_ENCODERS * DYNAMIC_KEYMAP_LAYER_COUNT * 2 * 2)
 #else
