@@ -22,3 +22,5 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 # additional features for ELITE-C
 ENCODER_ENABLE = yes		# Enable Rotary Encoder
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
+
+DEFAULT_FOLDER = nckiibs/waaffle/rev3

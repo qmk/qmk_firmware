@@ -21,3 +21,5 @@ ENCODER_ENABLE = yes		# Enable Rotary Encoder
 # additional features for ELITE-C
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no          # Audio output
+
+DEFAULT_FOLDER = nckiibs/vanana/rev2
