@@ -21,14 +21,13 @@ RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = no
 
 # Common features
-LTO_ENABLE = yes
 LEADER_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 
 # Platform and keyboard specific settings
-#ifneq ($(PLATFORM),CHIBIOS)
-#	LTO_ENABLE = yes
-#endif
+ifneq ($(PLATFORM),CHIBIOS)
+	LTO_ENABLE = yes
+endif
 ifeq ($(strip $(KEYBOARD)), the_mark)
 	RGBLIGHT_ENABLE = yes
 endif
