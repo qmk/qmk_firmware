@@ -77,9 +77,3 @@
     {KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO  }   \
   }
 
-
-
-
-
-
-
