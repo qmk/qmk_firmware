@@ -10,7 +10,6 @@
 #include <string.h>
 
 #include "config_common.h"
-#include "progmem.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,17 +34,17 @@ extern void adafruit_ble_task(void);
  * this set of keys.
  * Also sends a key release indicator, so that the keys do not remain
  * held down. */
-extern bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys);
+extern void adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys);
 
-/* Send a consumer keycode, holding it down for the specified duration
+/* Send a consumer usage.
  * (milliseconds) */
-extern bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration);
+extern void adafruit_ble_send_consumer_key(uint16_t usage);
 
 #ifdef MOUSE_ENABLE
 /* Send a mouse/wheel movement report.
- * The parameters are signed and indicate positive of negative direction
+ * The parameters are signed and indicate positive or negative direction
  * change. */
-extern bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons);
+extern void adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons);
 #endif
 
 /* Compute battery voltage by reading an analog pin.
