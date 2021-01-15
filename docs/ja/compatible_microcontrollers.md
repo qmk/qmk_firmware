@@ -14,6 +14,7 @@ QMK は十分な容量のフラッシュメモリを備えた USB 対応 AVR ま
 * [ATmega16U2](https://www.microchip.com/wwwproducts/en/ATmega16U2) / [ATmega32U2](https://www.microchip.com/wwwproducts/en/ATmega32U2)
 * [ATmega16U4](https://www.microchip.com/wwwproducts/en/ATmega16U4) / [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATmega32U4)
 * [AT90USB64](https://www.microchip.com/wwwproducts/en/AT90USB646) / [AT90USB128](https://www.microchip.com/wwwproducts/en/AT90USB1286)
+* [AT90USB162](https://www.microchip.com/wwwproducts/en/AT90USB162)
 
 組み込みの USB インターフェースを持たない、いくつかの MCU は代わりに [V-USB](https://www.obdev.at/products/vusb/index.html) を使います:
 
