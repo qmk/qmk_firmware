@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ckeys_handwire
 #define PRODUCT         ckeys_handwire
-#define DESCRIPTION     4x4 handwire workshop board
 
 /* key matrix size */
 #define MATRIX_ROWS 4

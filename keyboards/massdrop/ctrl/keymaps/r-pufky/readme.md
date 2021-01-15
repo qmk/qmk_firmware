@@ -18,16 +18,11 @@ in-game overlay keys.
  
 ### Function Layer
 
-![Function Layer](https://i.imgur.com/UhcS0hV.png)
+![Function Layer](https://i.imgur.com/2qGNwVQ.png)
 
 * Purple: Media keys. Note CD Eject on Escape, and OSX Prev/Next on Arrows.
 * Blue: Keyboard adminstration. Toggle NKRO (N Key Rollover) and enable bootloader.
 * Orange: RGB Controls.
-* Red: Danger can break things! USB autodetect (always on) and USB GCR Auto control. 
 * Capslock: Now requires the use of the function key.
-* F13-F14: Extended function keys.
+* F13-F24: Extended function keys.
 * Bright+/-: Monitor Brightness.
-
-## GCR
-GCR is the Global Current Register. Holds the value for current delivered to the LEDs, it's 165
-default and has range 0-255. This should be auto managed.

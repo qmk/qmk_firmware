@@ -22,6 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
+#undef OLED_UPDATE_INTERVAL
+#define OLED_UPDATE_INTERVAL 50
+
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
@@ -33,7 +36,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If you need more program area, try select and reduce rgblight modes to use.
 
 // Selection of RGBLIGHT MODE to use.
+#undef RGBLIGHT_ANIMATIONS
+#undef RGBLIGHT_EFFECT_BREATHING
+#undef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#undef RGBLIGHT_EFFECT_SNAKE
+#undef RGBLIGHT_EFFECT_KNIGHT
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#undef RGBLIGHT_EFFECT_RGB_TEST
+#undef RGBLIGHT_EFFECT_ALTERNATING
+
 #if defined(LED_ANIMATIONS)
+#  if LED_ANIMATIONS_LEVEL > 1
    #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -43,6 +58,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
    //#define RGBLIGHT_EFFECT_RGB_TEST
    //#define RGBLIGHT_EFFECT_ALTERNATING
+#  else
+   #define RGBLIGHT_EFFECT_BREATHING
+   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+   //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+   //#define RGBLIGHT_EFFECT_SNAKE
+   //#define RGBLIGHT_EFFECT_KNIGHT
+   //#define RGBLIGHT_EFFECT_CHRISTMAS
+   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+   //#define RGBLIGHT_EFFECT_RGB_TEST
+   //#define RGBLIGHT_EFFECT_ALTERNATING
+#  endif
 #endif
 
 #endif /* CONFIG_USER_H */
+
+#ifdef DEBUG_CONFIG
+#  include "debug_config.h"
+#endif
