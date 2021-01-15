@@ -251,21 +251,33 @@ void matrix_init(void) {
     split_post_init();
 }
 
-void matrix_post_scan(void) {
+bool matrix_post_scan(void) {
+    bool changed = false;
     if (is_keyboard_master()) {
         static uint8_t error_count;
 
-        if (!transport_master(matrix + thatHand)) {
+        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
+        if (!transport_master(slave_matrix)) {
             error_count++;
 
             if (error_count > ERROR_DISCONNECT_COUNT) {
                 // reset other half if disconnected
                 for (int i = 0; i < ROWS_PER_HAND; ++i) {
                     matrix[thatHand + i] = 0;
+                    slave_matrix[i] = 0;
                 }
+
+                changed = true;
             }
         } else {
             error_count = 0;
+
+            for (int i = 0; i < ROWS_PER_HAND; ++i) {
+                if (matrix[thatHand + i] != slave_matrix[i]) {
+                    matrix[thatHand + i] = slave_matrix[i];
+                    changed              = true;
+                }
+            }
         }
 
         matrix_scan_quantum();
@@ -274,25 +286,27 @@ void matrix_post_scan(void) {
 
         matrix_slave_scan_user();
     }
+
+    return changed;
 }
 
 uint8_t matrix_scan(void) {
-    bool changed = false;
+    bool local_changed = false;
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-        changed |= read_cols_on_row(raw_matrix, current_row);
+        local_changed |= read_cols_on_row(raw_matrix, current_row);
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        changed |= read_rows_on_col(raw_matrix, current_col);
+        local_changed |= read_rows_on_col(raw_matrix, current_col);
     }
 #endif
 
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
+    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, local_changed);
 
-    matrix_post_scan();
-    return (uint8_t)changed;
+    bool remote_changed = matrix_post_scan();
+    return (uint8_t)(local_changed || remote_changed);
 }

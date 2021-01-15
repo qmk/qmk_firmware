@@ -73,6 +73,9 @@ void keyboard_post_init_user(void);
 void housekeeping_task_kb(void);
 void housekeeping_task_user(void);
 
+uint32_t last_matrix_activity_time(void);     // Timestamp of the last matrix activity
+uint32_t last_matrix_activity_elapsed(void);  // Number of milliseconds since the last matrix activity
+
 #ifdef __cplusplus
 }
 #endif
