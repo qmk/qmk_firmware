@@ -8,7 +8,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Basic IO Instruments
 #define PRODUCT BIOI G60 BLE
-#define DESCRIPTION BIOI G60 BLE
 
 /* key matrix size */
 #define MATRIX_ROWS 5
