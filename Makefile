@@ -68,37 +68,8 @@ PATH_ELEMENTS := $(subst /, ,$(STARTING_DIR))
 # Initialize the path elements list for further processing
 $(eval $(call NEXT_PATH_ELEMENT))
 
-# This function sets the KEYBOARD; KEYMAP and SUBPROJECT to the correct
-# variables depending on which directory you stand in.
-# It's really a very simple if else chain, if you squint enough,
-# but the makefile syntax makes it very verbose.
-# If we are in a subfolder of keyboards
-#
-# *** No longer needed **
-#
-# ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
-#     $(eval $(call NEXT_PATH_ELEMENT))
-#     KEYBOARD := $(CURRENT_PATH_ELEMENT)
-#     $(eval $(call NEXT_PATH_ELEMENT))
-#     # If we are in a subfolder of keymaps, or in other words in a keymap
-#     # folder
-#     ifeq ($(CURRENT_PATH_ELEMENT),keymaps)
-#         $(eval $(call NEXT_PATH_ELEMENT))
-#         KEYMAP := $(CURRENT_PATH_ELEMENT)
-#      # else if we are not in the keyboard folder itself
-#     else ifneq ($(CURRENT_PATH_ELEMENT),)
-#         # the we can assume it's a subproject, as no other folders
-#         # should have make files in them
-#         SUBPROJECT := $(CURRENT_PATH_ELEMENT)
-#         $(eval $(call NEXT_PATH_ELEMENT))
-#         # if we are inside a keymap folder of a subproject
-#         ifeq ($(CURRENT_PATH_ELEMENT),keymaps)
-#             $(eval $(call NEXT_PATH_ELEMENT))
-#             KEYMAP := $(CURRENT_PATH_ELEMENT)
-#         endif
-#     endif
-# endif
 
+# Phony targets to enable a few simple make commands outside the main processing below.
 .PHONY: list-keyboards
 list-keyboards:
 	util/list_keyboards.sh | sort -u | tr '\n' ' '
@@ -131,7 +102,6 @@ endif
 # Uncomment these for debugging
 # $(info Keyboard: $(KEYBOARD))
 # $(info Keymap: $(KEYMAP))
-# $(info Subproject: $(SUBPROJECT))
 
 
 # Set the default goal depending on where we are running make from
@@ -189,7 +159,6 @@ endef
 # A recursive helper function for finding the longest match
 # $1 The list to be checked
 # It works by always removing the currently matched item from the list
-# and call itself recursively, until a match is found
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER2
     # Stop the recursion when the list is empty
     ifneq ($1,)
@@ -386,23 +355,6 @@ define PARSE_ALL_KEYBOARDS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell util/list_keyboards.sh noci | sort -u)))
 endef
 
-# $1 Subproject
-# When entering this, the keyboard and subproject are known, so now we need
-# to determine which keymaps are going to get compiled
-# define PARSE_SUBPROJECT
-
-# endef
-
-# If we want to parse all subprojects, but the keyboard doesn't have any,
-# then use defaultsp instead
-# define PARSE_ALL_SUBPROJECTS
-#     ifeq ($$(SUBPROJECTS),)
-#         $$(eval $$(call PARSE_SUBPROJECT,defaultsp))
-#     else
-#         $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$$(SUBPROJECTS)))
-#     endif
-# endef
-
 # Prints a list of all known keymaps for the given keyboard
 define LIST_ALL_KEYMAPS
     COMMAND_true_LIST_KEYMAPS := \
@@ -544,12 +496,12 @@ if [ $$error_occurred -gt 0 ]; then $(HANDLE_ERROR); fi;
 
 endef
 
-# Let's match everything, we handle all the rule parsing ourselves
+# Catch everything and parse the command line ourselves.
 .PHONY: %
 %:
 	# Check if we have the CMP tool installed
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	# Ensure that bin/qmk works. This will be a failing check after the next develop merge on 2020 Aug 29.
+	# Ensure that bin/qmk works. This will be a failing check after the next develop merge
 	if ! bin/qmk hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
@@ -579,25 +531,6 @@ endif
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 	$(foreach TEST,$(sort $(TESTS)),$(RUN_TEST))
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-
-# These no longer work because of the colon system
-
-# All should compile everything
-# .PHONY: all
-# all: all-keyboards test-all
-
-# Define some shortcuts, mostly for compatibility with the old syntax
-# .PHONY: all-keyboards
-# all-keyboards: all\:all\:all
-
-# .PHONY: all-keyboards-defaults
-# all-keyboards-defaults: all\:default
-
-# .PHONY: test
-# test: test-all
-
-# .PHONY: test-clean
-# test-clean: test-all-clean
 
 lib/%:
 	git submodule sync $?

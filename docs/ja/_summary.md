@@ -103,6 +103,7 @@
     * [DIP スイッチ](ja/feature_dip_switch.md)
     * [エンコーダ](ja/feature_encoders.md)
     * [触覚フィードバック](ja/feature_haptic_feedback.md)
+    * [LED インジケータ](ja/feature_led_indicators.md)
     * [Proton C 変換](ja/proton_c_conversion.md)
     * [PS/2 マウス](ja/feature_ps2_mouse.md)
     * [分割キーボード](ja/feature_split_keyboard.md)
