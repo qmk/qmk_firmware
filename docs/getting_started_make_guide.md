@@ -16,7 +16,7 @@ The `<target>` means the following
 * `all` compiles as many keyboard/revision/keymap combinations as specified. For example, `make planck/rev4:default` will generate a single .hex, while `make planck/rev4:all` will generate a hex for every keymap available to the planck.
 * `flash`, `dfu`, `teensy`, `avrdude`, `dfu-util`, or `bootloadHID` compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme. 
   Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
-  * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:flash`.
+  * **Note**: some operating systems need privileged access for these commands to work. This means that you may need to setup [`udev rules`](faq_build.md#linux-udev-rules) to access these without root access, or to run the command with root access (`sudo make planck/rev4:default:flash`).
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
 * `distclean` removes .hex files and .bin files.
 
