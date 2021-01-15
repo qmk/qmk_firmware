@@ -22,6 +22,10 @@
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
 
+#if defined(SPLIT_KEYBOAD)
+#    define SPLIT_MODS_ENABLE
+#endif
+
 #ifdef AUDIO_ENABLE
 
 #    define AUDIO_CLICKY
