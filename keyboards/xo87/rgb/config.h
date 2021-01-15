@@ -24,7 +24,7 @@
 #define PRODUCT_ID      0x584F // XO for XO87
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Monstargear
-#define PRODUCT         Monstargear XO87
+#define PRODUCT         XO87
 #define DESCRIPTION     Monstargear XO87
 
 /* key matrix size */
