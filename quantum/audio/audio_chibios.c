@@ -287,10 +287,14 @@ void audio_init() {
 
     audio_initialized = true;
 
+    if (!audio_config.enable) {
+        stop_all_notes();
+    }
+}
+
+void audio_startup() {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
-    } else {
-        stop_all_notes();
     }
 }
 

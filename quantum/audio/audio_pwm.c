@@ -29,6 +29,11 @@
 
 #define CPU_PRESCALER 8
 
+#ifndef STARTUP_SONG
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
+float startup_song[][2] = STARTUP_SONG;
+
 // Timer Abstractions
 
 // TIMSK3 - Timer/Counter #3 Interrupt Mask Register
@@ -153,6 +158,12 @@ void audio_init() {
 #endif
 
     audio_initialized = true;
+}
+
+void audio_startup() {
+    if (audio_config.enable) {
+        PLAY_SONG(startup_song);
+    }
 }
 
 void stop_all_notes() {
