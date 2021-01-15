@@ -37,7 +37,7 @@ In this case, you can change the byte order by defining `WS2812_BYTE_ORDER` as o
 |-----------------------------------|---------------------------------------|
 | `WS2812_BYTE_ORDER_GRB` (default) | Most WS2812's, SK6812, SK6805         |
 | `WS2812_BYTE_ORDER_RGB`           | WS2812B-2020                          |
-| `WS2812_BYTE_ORDER_BGR`           | some custom keyboard PCBs (MatrixLabs)|
+| `WS2812_BYTE_ORDER_BGR`           | TM1812 and similar                    |
 
 
 ### Bitbang
