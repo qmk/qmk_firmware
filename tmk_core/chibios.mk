@@ -123,6 +123,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/chconf.h)","")
     CHCONFDIR = $(KEYBOARD_PATH_1)
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/chconf.h)","")
     CHCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/configs/chconf.h)","")
+    CHCONFDIR = $(TOP_DIR)/platforms/chibios/common/configs
 endif
 
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf.h)","")
@@ -137,6 +139,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf.h)","")
     HALCONFDIR = $(KEYBOARD_PATH_1)
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/halconf.h)","")
     HALCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/configs/halconf.h)","")
+    HALCONFDIR = $(TOP_DIR)/platforms/chibios/common/configs
 endif
 
 # HAL-OSAL files (optional).
@@ -183,8 +187,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/ld/$(MCU_LDSCRIPT).ld)","")
-    LDSCRIPT = $(TOP_DIR)/platforms/chibios/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/common/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
     USE_CHIBIOS_CONTRIB = yes
@@ -203,12 +207,14 @@ CHIBISRC = $(STARTUPSRC) \
        $(CHIBIOS)/os/various/syscalls.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
-QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM)
+QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
 
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(TOP_DIR)/platforms/chibios/$(BOARD)/configs \
+         $(TOP_DIR)/platforms/chibios/common/configs \
+         $(HALCONFDIR) $(CHCONFDIR) \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)

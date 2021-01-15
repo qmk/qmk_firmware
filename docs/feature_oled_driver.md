@@ -150,6 +150,7 @@ void oled_task_user(void) {
 |`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
 |`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
 |`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
+|`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
  ## 128x64 & Custom sized OLED Displays
 
