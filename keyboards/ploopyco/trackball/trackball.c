@@ -234,7 +234,7 @@ void pointing_device_init(void) {
     opt_encoder_init();
 }
 
-bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
+bool has_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x && new.x != old.x) || (new.y && new.y != old.y) || (new.h && new.h != old.h) || (new.v && new.v != old.v); }
 
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
