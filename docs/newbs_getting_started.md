@@ -41,6 +41,19 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 ### ** Windows **
 
+QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
+
+#### Prerequisites
+
+You will need to install `QMK MSYS`. The latest release is available at https://msys.qmk.fm/.
+
+Alternatively, if you'd like to manually install msys2, the following section will walk you through the process.
+
+<details>
+  <summary>Manual Install</summary>
+
+?> Ignore the following steps if you use `QMK MSYS`.
+
 #### Prerequisites
 
 You will need to install MSYS2, Git and Python. Follow the installation instructions on https://www.msys2.org.
@@ -58,6 +71,8 @@ Then run the following command:
 Install the QMK CLI by running:
 
     python3 -m pip install qmk
+
+</details>
 
 ### ** macOS **
 
@@ -101,9 +116,9 @@ On Arch-based distros you can install the CLI from the official repositories (NO
 
     sudo pacman -S qmk
 
-You can also try the `qmk` package from AUR:
+You can also try the `qmk-git` package from AUR:
 
-    yay -S qmk
+    yay -S qmk-git
 
 ###  ** FreeBSD **
 
