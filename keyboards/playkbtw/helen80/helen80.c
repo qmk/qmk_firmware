@@ -15,15 +15,3 @@
  */
 
 #include "helen80.h"
-
-void keyboard_pre_init_kb(void) {
-  setPinOutput(B3);
-  setPinOutput(B2);
-}
-
-bool led_update_kb(led_t led_state) {
-  writePin(B3, !led_state.caps_lock);
-  writePin(B2, !led_state.scroll_lock);
-
-  return led_update_user(led_state);
-}
