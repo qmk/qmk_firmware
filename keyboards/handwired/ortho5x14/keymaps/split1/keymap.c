@@ -28,9 +28,6 @@ enum {
 #define _MOUSE 5
 #define _ADJUST 16
 
-//TAP DANCE
-int IS_CAPS = 0;
-
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   ALT,
@@ -49,6 +46,8 @@ enum {
   TD_DEL_BSPC ,
   TD_ESC_GRAVE,
   TD_TAB_TILDE,
+  TD_9_LPRN,
+  TD_0_RPRN,
   TD_MINS_UNDS,
   TD_EQL_PLUS,
   TD_LBRC_LCBR,
@@ -59,13 +58,21 @@ enum {
   TD_DOT_RABK,
   TD_SLSH_QUES,
   TD_BSLS_PIPE,
+
+  TD_PGUP_HOME,
+  TD_PGDN_END,
+
   TD_Q_LrALT,
   TD_W_Lyr2,
   TD_E_Lyr3,
-  TD_R_Lyr4,
+  TD_R_LrKey,
   TD_T_LrMS,
-  TD_SHIFT_CAPS
 
+  TD_SHIFT_CAPS,
+  TD_SPC_ENT,
+
+  TD_LayerDn,
+  TD_LayerUp
 };
 
 
@@ -139,7 +146,7 @@ static tap ctltap_state = {
 void ctl_finished (qk_tap_dance_state_t *state, void *user_data) {
   ctltap_state.state = cur_dance(state);
   switch (ctltap_state.state) {
-    case SINGLE_TAP: set_oneshot_layer(_CTRL, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+    case SINGLE_TAP: set_oneshot_mods(MOD_BIT(KC_LCTL)); break;
     case SINGLE_HOLD: register_code(KC_LCTL); break;
     case DOUBLE_TAP: set_oneshot_layer(_CTRL, ONESHOT_START); set_oneshot_layer(_CTRL, ONESHOT_PRESSED); break;
     case DOUBLE_HOLD: register_code(KC_LCTL); layer_on(_CTRL); break;
@@ -159,28 +166,83 @@ void ctl_reset (qk_tap_dance_state_t *state, void *user_data) {
   ctltap_state.state = 0;
 }
 
+
+// Layer Down tap dance
+void layerDown_finished (qk_tap_dance_state_t *state, void *user_data);
+void layerDown_reset (qk_tap_dance_state_t *state, void *user_data);
+
+static tap layerdn_tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void layerDown_finished (qk_tap_dance_state_t *state, void *user_data) {
+  layerdn_tap_state.state = cur_dance(state);
+  switch (layerdn_tap_state.state) {
+    case SINGLE_TAP: break;
+    case SINGLE_HOLD: layer_on(_LOWER); break;
+    case DOUBLE_TAP: layer_move(_QWERTY); break;
+    case DOUBLE_HOLD: break;
+  }
+}
+
+void layerDown_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (layerdn_tap_state.state) {
+    case SINGLE_TAP: break;
+    case SINGLE_HOLD: layer_off(_LOWER); break;
+    case DOUBLE_TAP: break;
+    case DOUBLE_HOLD: break;
+  }
+  layerdn_tap_state.state = 0;
+}
+
+
+
+
 // Shift key action:
 // Shift held down, then use as normal and use Shift Mode of key.
 // Shift tapped, then Capitlize next keystroke only.
 // Shift double-tapped, then CAPSLOCK
 // Shift double-tapped again, CAPS UNLOCKED
-void dance_onshot_lsft(qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->count) {
-    case 1: // =>
-      set_oneshot_mods (MOD_LSFT);
-      break;
-    case 2:
-      tap_code (KC_CAPS);
-      //layer_on (LAYER_NAME);
-      break;
+// void dance_onshot_lsft(qk_tap_dance_state_t *state, void *user_data) {
+void lshift_finished (qk_tap_dance_state_t *state, void *user_data);
+void lshift_reset (qk_tap_dance_state_t *state, void *user_data);
+
+static tap lshifttap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void lshift_finished (qk_tap_dance_state_t *state, void *user_data) {
+  lshifttap_state.state = cur_dance(state);
+  switch (lshifttap_state.state) {
+    case SINGLE_TAP: set_oneshot_mods(MOD_BIT(KC_LSFT)); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); break;
+    case DOUBLE_TAP: tap_code (KC_CAPS); break;
+    case DOUBLE_HOLD: break;
   }
+} v
+
+void lshift_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (lshifttap_state.state) {
+    case SINGLE_TAP: break;
+    case SINGLE_HOLD: unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP: break;
+    case DOUBLE_HOLD: break;
+  }
+  lshifttap_state.state = 0;
 }
+
+
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
    [TD_DEL_BSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_BSPC),
    [TD_ESC_GRAVE]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
    [TD_TAB_TILDE]  = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_TILDE),
+
+   [TD_9_LPRN]  = ACTION_TAP_DANCE_DOUBLE(KC_9, KC_LPRN),
+   [TD_0_RPRN]  = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_RPRN),
 
    [TD_MINS_UNDS]  = ACTION_TAP_DANCE_DOUBLE(KC_MINS, KC_UNDS),
    [TD_EQL_PLUS]  = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),
@@ -196,13 +258,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    [TD_SLSH_QUES]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUES),
    [TD_BSLS_PIPE]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_PIPE),
 
+   [TD_PGUP_HOME]  = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
+   [TD_PGDN_END]   = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_END),
+
    [TD_Q_LrALT] = ACTION_TAP_DANCE_DUAL_ROLE(KC_Q, _ALT),
+   [TD_R_LrKey] = ACTION_TAP_DANCE_DUAL_ROLE(KC_R, _RAISE),
    [TD_T_LrMS]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_T, _MOUSE),
 
-   [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN(dance_onshot_lsft),
+   [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lshift_finished, lshift_reset),
+   [TD_SPC_ENT]    = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_ENT),
 
    [ALT_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset),
-   [CTL_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctl_finished, ctl_reset)
+   [CTL_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctl_finished, ctl_reset),
+   [TD_LayerDn]   =  ACTION_TAP_DANCE_FN_ADVANCED(NULL,layerDown_finished, layerDown_reset)
 
 };
 
@@ -226,21 +294,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------+------+------+------+------+------+------|------+------+------+------+------+------+------|
  * | Shift    |   Z  |   X  |   C  |   V  |   B  | PGDN | END  |   N  |   M  |   ,  |   .  |   /  |   \  |
  * |----------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl     | Win  | Alt  |Lower |Raise |    Enter    |    Space    | <--  |   v  |   ^  | -->  | Esc  |
+ * | Ctrl     | Win  | Alt  |Lower |Raise | Space/Enter |    Space    | <--  |   v  |   ^  | -->  | Esc  |
  * `----------------------------------------------------------------------------------------------------'
  */
   [_QWERTY] = LAYOUT(
-  //,-----------------+--------------+-------------+----------+--------+--------------+-----------------+-----------------+-----+--------+----------------+---------------+---------------+-----------------.
-     TD(TD_DEL_BSPC)  , KC_1         , KC_2        , KC_3     , KC_4   , KC_5         , KC_DELETE       ,  KC_BSPACE      , KC_6, KC_7   , KC_8           , KC_9          , KC_0           ,TD(TD_MINS_UNDS),
-  //|-----------------+--------------+-------------+----------+--------+--------------+-----------------+-----------------+-----+--------+----------------+---------------+---------------+-----------------|
-     TD(TD_TAB_TILDE) ,TD(TD_Q_LrALT), KC_W        , KC_E     , KC_R   , TD(TD_T_LrMS), TD(TD_LBRC_LCBR), TD(TD_RBRC_RCBR), KC_Y, KC_U   , KC_I           , KC_O          , KC_P           ,TD(TD_EQL_PLUS),
-  //|-----------------+--------------+-------------+----------+--------+--------------+-----------------+-----------------+-----+--------+----------------+---------------+----------------+----------------|
-      KC_ENT          , KC_A         , KC_S        , KC_D     , KC_F   , KC_G         , KC_PGUP         , KC_HOME         , KC_H, KC_J   , KC_K           , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT),
-  //|-----------------+--------------+-------------+----------+--------+--------------+-----------------+-----------------+-----+--------+----------------+---------------+----------------+----------------|
-     TD(TD_SHIFT_CAPS), KC_Z         , KC_X        , KC_C     , KC_V   , KC_B         , KC_PGDN         , KC_END          , KC_N, KC_M   ,TD(TD_COMM_LABK),TD(TD_DOT_RABK),TD(TD_SLSH_QUES),TD(TD_BSLS_PIPE),
-  //|-----------------+--------------+-------------+----------+--------+--------------+-----------------+-----------------+-----+--------+----------------+---------------+----------------+----------------|
-      TD(CTL_OSL1)    , KC_LGUI      , TD(ALT_OSL1), KC_L1    , KC_L   ,            KC_ENT              ,        KC_SPACE       , KC_LEFT, KC_DOWN        , KC_UP         ,  KC_RIGHT      ,TD(TD_ESC_GRAVE)
-  //`-----------------+--------------+-------------+----------+--------+--------------------------------+-----------------------+--------+----------------+---------------+----------------+----------------'
+  //,-----------------+--------------+-------------+--------------+--------------+--------------+-----------------+-----------------+------+--------+----------------+---------------+---------------+-----------------.
+     TD(TD_DEL_BSPC)  , KC_1         , KC_2        , KC_3         , KC_4         , KC_5         , KC_DELETE       ,  KC_BSPACE      , KC_6 , KC_7   , KC_8           , TD(TD_9_LPRN) , TD(TD_0_RPRN) ,TD(TD_MINS_UNDS),
+  //|-----------------+--------------+-------------+--------------+--------------+--------------+-----------------+-----------------+------+--------+----------------+---------------+---------------+-----------------|
+     TD(TD_TAB_TILDE) ,TD(TD_Q_LrALT), KC_W        , KC_E         ,TD(TD_R_LrKey), TD(TD_T_LrMS), TD(TD_LBRC_LCBR), TD(TD_RBRC_RCBR), KC_Y , KC_U   , KC_I           , KC_O          , KC_P           ,TD(TD_EQL_PLUS),
+  //|-----------------+--------------+-------------+--------------+--------------+--------------+-----------------+-----------------+------+--------+----------------+---------------+----------------+----------------|
+      KC_ENT          , KC_A         , KC_S        , KC_D         , KC_F         , KC_G         , KC_PGUP         , KC_HOME         , KC_H , KC_J   , KC_K           , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT),
+  //|-----------------+--------------+-------------+--------------+--------------+--------------+-----------------+-----------------+------+--------+----------------+---------------+----------------+----------------|
+     TD(TD_SHIFT_CAPS), KC_Z         , KC_X        , KC_C         , KC_V         , KC_B         , KC_PGDN         , KC_END          , KC_N , KC_M   ,TD(TD_COMM_LABK),TD(TD_DOT_RABK),TD(TD_SLSH_QUES),TD(TD_BSLS_PIPE),
+  //|-----------------+--------------+-------------+--------------+--------------+--------------+-----------------+-----------------+------+--------+----------------+---------------+----------------+----------------|
+      TD(CTL_OSL1)    , KC_LGUI      , TD(ALT_OSL1),TD(TD_LayerDn), KC_L2        ,        TD(TD_SPC_ENT)          ,       TD(TD_SPC_ENT)   , KC_LEFT, KC_DOWN        , KC_UP         ,  KC_RIGHT      ,TD(TD_ESC_GRAVE)
+  //`-----------------+--------------+-------------+--------------+--------------+--------------------------------+------------------------+--------+----------------+---------------+----------------+----------------'
   ),
 
 /* ALT Layout
@@ -253,54 +321,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------+------+------+------+------+------+------|------+------+------+------+------+------+------|
  * | Shift    |   Z  |   X  |   C  |   V  |   B  | PGDN | END  |   N  |   M  |   ,  |   .  |   /  |   \  |
  * |----------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl     | Win  | Alt  |  Fn  |Lower |    RESET    |    Space    | <--  |   v  |   ^  | -->  | Esc  |
+ * | Ctrl     | Win  | Alt  |  Fn  |Lower | Space/Enter |    Space    | <--  |   v  |   ^  | -->  | Esc  |
  * `----------------------------------------------------------------------------------------------------'
  */
   [_ALT] = LAYOUT(
-  //,-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------.
-     KC_TRNS          , KC_F1       , KC_F2       , KC_F3       , KC_F4        , KC_F5   , KC_TRNS         , KC_TRNS         , KC_F6   , KC_F7   , KC_F8          , KC_F9         , KC_F10        , KC_F11,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_F12,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-  // KC_ENT           , KC_A        , KC_S        , KC_D        , KC_F         , KC_G    , KC_PGUP         , KC_HOME         , KC_H    , KC_J    , KC_K           , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT),
-     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-     TD(CTL_OSL1)     , KC_LGUI     , TD(ALT_OSL1), KC_L1       , KC_L2        ,  RESET                    ,     KC_SPACE              , KC_TRNS , KC_TRNS        , KC_TRNS       ,  KC_TRNS      ,TD(TD_ESC_GRAVE)
-  //`-----------------+-------------+-------------+-------------+--------------+---------------------------+---------------------------+---------+----------------+---------------+---------------+----------------'
+  //,-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------.
+     KC_TRNS          , KC_F1       , KC_F2       , KC_F3        , KC_F4        , KC_F5   , KC_TRNS         , KC_TRNS         , KC_F6   , KC_F7   , KC_F8          , KC_F9         , KC_F10        , KC_F11,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_F12,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+  // KC_ENT           , KC_A        , KC_S        , KC_D         , KC_F         , KC_G    , KC_PGUP         , KC_HOME         , KC_H    , KC_J    , KC_K           , KC_L          ,TD(TD_SCLN_COLN),TD(TD_QUOT_DQT),
+     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+     TD(CTL_OSL1)     , KC_LGUI     , TD(ALT_OSL1),TD(TD_LayerDn), KC_L2        ,   TD(TD_SPC_ENT)          ,           TD(TD_SPC_ENT)  , KC_TRNS , KC_TRNS        , KC_TRNS       ,  KC_TRNS      ,TD(TD_ESC_GRAVE)
+  //`-----------------+-------------+-------------+--------------+--------------+---------------------------+---------------------------+---------+----------------+---------------+---------------+----------------'
   ),
 
 /* CTRL Layout
  * ,-----------------------------------------------------------------------------------------------------.
- * | DEL/Bksp |   1  |   2  |   3  |   4  |   5  |  DEL | Bksp |   6  |   7  |   8  |   9  |   0  |   -  |
+ * | DEL/Bksp |  F1  |  F2  |  F3  |  F4  |  F5  |  DEL | Bksp |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
  * |----------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab      |   Q  |   W  |   E  |   R  |   T  |  [   |   ]  |   Y  |   U  |   I  |   O  |   P  |   =  |
+ * | Tab      |   Q  |   W  |   E  |   R  |   T  |  [   |   ]  |   Y  |   U  |   I  |   O  |   P  |  F12 |
  * |----------+------+------+------+------+------+-------------+------+------+------+------+------+------|
  * | Enter    |   A  |   S  |   D  |   F  |   G  | PGUP | HOME |   H  |   J  |   K  |   L  |   ;  |   '  |
  * |----------+------+------+------+------+------+------|------+------+------+------+------+------+------|
  * | Shift    |   Z  |   X  |   C  |   V  |   B  | PGDN | END  |   N  |   M  |   ,  |   .  |   /  |   \  |
  * |----------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl     | Win  | Alt  |  Fn  |Lower |    RESET    |    Space    | <--  |   v  |   ^  | -->  | Esc  |
+ * | Ctrl     | Win  | Alt  |  Fn  |Lower | Space/Enter |    Space    | <--  |   v  |   ^  | -->  | Esc  |
  * `----------------------------------------------------------------------------------------------------'
  */
   [_CTRL] = LAYOUT(
-  //,-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------.
-     KC_TRNS          , KC_F1       , KC_F2       , KC_F3       , KC_F4        , KC_F5   , KC_TRNS         , KC_TRNS         , KC_F6   , KC_F7   , KC_F8          , KC_F9         , KC_F10        , KC_F11,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_F12,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
-  //|-----------------+-------------+-------------+-------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
-     TD(CTL_OSL1)     , KC_LGUI     , TD(ALT_OSL1), KC_L1       , KC_L2        ,  RESET                    ,     KC_SPACE              , KC_TRNS , KC_TRNS        , KC_TRNS       ,  KC_TRNS      ,TD(TD_ESC_GRAVE)
-  //`-----------------+-------------+-------------+-------------+--------------+---------------------------+---------------------------+---------+----------------+---------------+---------------+----------------'
+  //,-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------.
+     KC_TRNS          , KC_F1       , KC_F2       , KC_F3        , KC_F4        , KC_F5   , KC_TRNS         , KC_TRNS         , KC_F6   , KC_F7   , KC_F8          , KC_F9         , KC_F10        , KC_F11,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_F12,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+     KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS      , KC_TRNS      , KC_TRNS , KC_TRNS         , KC_TRNS         , KC_TRNS , KC_TRNS , KC_TRNS        , KC_TRNS       , KC_TRNS       , KC_TRNS,
+  //|-----------------+-------------+-------------+--------------+--------------+---------+-----------------+-----------------+---------+---------+----------------+---------------+---------------+----------------|
+     TD(CTL_OSL1)     , KC_LGUI     , TD(ALT_OSL1),TD(TD_LayerDn), KC_L2        ,   TD(TD_SPC_ENT)          ,         TD(TD_SPC_ENT)    , KC_TRNS , KC_TRNS        , KC_TRNS       ,  KC_TRNS      ,TD(TD_ESC_GRAVE)
+  //`-----------------+-------------+-------------+--------------+--------------+---------------------------+---------------------------+---------+----------------+---------------+---------------+----------------'
   ),
 
 /* Lower
  * ,-------------------------------------------------------------------------------------------------.
- * | INS  |  F1  |  F2  |  F3  |  F4  |  F5  |      |      |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
+ * |  `   |  F1  |  F2  |  F3  |  F4  |  F5  |      |      |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
  * |------+------+------+------+------+------+------+-------------+------+------+------+------+------|
  * |  ~   |      |  UP  |      |      |      |      |      | Prev | Next | Vol- | Vol+ | Play |  F12 |
  * |------+------+------+------+------+------+------+-------------+------+------+------+------+------|
@@ -349,14 +417,14 @@ KC_PAUS
   XXXXXXX           , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_4  , KC_5   , KC_6   , KC_MINS, KC_SLSH,
   XXXXXXX           , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_1  , KC_2   , KC_3   , KC_PLUS, KC_ASTR,
   XXXXXXX           , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_0  , KC_COMM, KC_DOT , KC_EQL , XXXXXXX,
-  LALT(LCTL(KC_DEL)), _______, _______, _______, _______,     _______    ,      KC_ENT      , _______, _______, _______, _______, _______
+  LALT(LCTL(KC_DEL)), _______, _______, _______, _______,     _______     ,     KC_ENT      , _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise)
  * ,-------------------------------------------------------------------------------------------------.
  * |      |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
+ * |      |      |      |      |Reset |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |Audoff|Aud on|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------+------+------|------+------+------+------+------+------|
@@ -366,8 +434,8 @@ KC_PAUS
  * `-------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT(
-  _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-  XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
+  _______, _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
   XXXXXXX, XXXXXXX, XXXXXXX, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, _______, _______, _______, _______,     _______,            _______,    _______,_______,_______, _______, _______
@@ -384,15 +452,15 @@ KC_PAUS
  * |------+------+------+------+------+------+------+------|------+------+------+------+------+------|
  * |SPEED2|      |      |      |      |      |      |      |      | BTN1 | BTN2 | BTN3 |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Win  | Alt  |  Fn  |Lower |    RESET    |    Space    | <--  |   v  |   ^  | -->  | Esc  |
+ * | Ctrl | Win  | Alt  |Lower |Raise | Space/Enter |    Space    | <--  |   v  |   ^  | -->  | Esc  |
  * `-------------------------------------------------------------------------------------------------'
  */
 [_MOUSE] = LAYOUT(
-  _______     , KC_F1     , KC_F2       , KC_F3      , KC_F4  , KC_F5  , XXXXXXX, XXXXXXX, KC_F6  , KC_F7        , KC_F8        , KC_F9         , KC_F10  , KC_F11,
-  KC_MS_ACCEL0, XXXXXXX   , KC_MS_UP    , XXXXXXX    , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX      , KC_MS_WH_UP  , XXXXXXX       , XXXXXXX , KC_F12,
-  KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN  , KC_MS_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, XXXXXXX , XXXXXXX,
-  KC_MS_ACCEL2, XXXXXXX   , XXXXXXX     , XXXXXXX    , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_BTN1   , KC_MS_BTN2   , KC_MS_BTN3    , XXXXXXX , XXXXXXX,
-  TD(CTL_OSL1), KC_LGUI   , TD(ALT_OSL1), KC_L1       , KC_L2 ,      RESET      ,     KC_SPACE    , KC_LEFT      , KC_DOWN      , KC_UP         , KC_RIGHT, TD(TD_ESC_GRAVE)
+  _______     , KC_F1     , KC_F2       , KC_F3          , KC_F4  , KC_F5  , XXXXXXX, XXXXXXX, KC_F6  , KC_F7        , KC_F8        , KC_F9         , KC_F10  , KC_F11,
+  KC_MS_ACCEL0, XXXXXXX   , KC_MS_UP    , XXXXXXX        , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX      , KC_MS_WH_UP  , XXXXXXX       , XXXXXXX , KC_F12,
+  KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN  , KC_MS_RIGHT    , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, XXXXXXX , XXXXXXX,
+  KC_MS_ACCEL2, XXXXXXX   , XXXXXXX     , XXXXXXX        , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_BTN1   , KC_MS_BTN2   , KC_MS_BTN3    , XXXXXXX , XXXXXXX,
+  TD(CTL_OSL1), KC_LGUI   , TD(ALT_OSL1), TD(TD_LayerDn) , KC_L2 ,  TD(TD_SPC_ENT)  ,     KC_SPACE    , KC_LEFT      , KC_DOWN      , KC_UP         , KC_RIGHT, TD(TD_ESC_GRAVE)
 )
 
 
@@ -406,7 +474,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-      case KC_TRNS:
+    case KC_TRNS:
     case KC_NO:
       /* Always cancel one-shot layer when another key gets pressed */
       if (record->event.pressed && is_oneshot_layer_active())
@@ -420,39 +488,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
     case QWERTY:
-        if (record->event.pressed) {
+      if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
-        }
-        return false;
-        break;
+      }
+      return false;
+      break;
     case LOWER:
-        if (record->event.pressed) {
+      if (record->event.pressed) {
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        } else {
+      } else {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;
-        break;
+      }
+      return false;
+      break;
     case RAISE:
-        if (record->event.pressed) {
+      if (record->event.pressed) {
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        } else {
+      } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;
-        break;
-    case MOUSE:
-        if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_MOUSE);
-        }
-        return false;
-        break;
       }
-    return true;
+      return false;
+      break;
+    case MOUSE:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_MOUSE);
+      }
+      return false;
+      break;
+  }
+  return true;
 };
 
 void matrix_init_user(void) {
