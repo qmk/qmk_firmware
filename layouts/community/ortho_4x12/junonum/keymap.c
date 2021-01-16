@@ -1,7 +1,3 @@
-/*
-    Created by Juno Nguyen @JunoNgx
-*/
-
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
@@ -90,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT_ortho_4x12(
-        KC_MENU, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_INS,  _______, _______, KC_UP,   _______, KC_PSCR, _______,
-        KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_DEL ,
-        _______, _______, _______, _______, _______, KC_END,  _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, _______,
+        KC_MENU, DP_ON,   KC_PGDN, KC_UP,   KC_PGUP, KC_INS,  _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, _______,
+        KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_DEL ,
+        _______, _______, _______, _______, _______, KC_END,  KC_END,  _______, KC_VOLD, KC_VOLU, KC_MUTE, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, DP_ON,   _______, _______, _______
     ),
 
@@ -104,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, DPADNUM, KC_SPC,  KC_SPC,  LOWER,   DP_OFF,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    // Extended layer for weapon switching
+    // Extended numeric layer for FPS weapon switching and StarCraft group control
     [_DPADNUM] = LAYOUT_ortho_4x12(
-        XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        KC_LGUI, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    _______, XXXXXXX, XXXXXXX, XXXXXXX, DP_OFF,
+        KC_LCTL, KC_7,    KC_8,    KC_9,    KC_0,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   XXXXXXX,
+        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
         _______, _______, _______, XXXXXXX, DPADNUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
@@ -227,7 +223,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
-// Play audio upon switching Caps Lock and custom layers
+            // Play audio upon switching Caps Lock and custom layers
 
         case KC_CAPS:
             if (record->event.pressed) {
