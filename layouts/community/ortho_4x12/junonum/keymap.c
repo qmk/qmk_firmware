@@ -119,15 +119,20 @@ float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 float caps_song_on[][2]  = SONG(NUM_LOCK_ON_SOUND);
 float caps_song_off[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 
-// Public domain songs
-// To use these if encountering problem in compilation
-float dpad_song_on[][2] = SONG(ROCK_A_BYE_BABY);
-float dpad_song_off[][2] = SONG(MAJOR_SOUND);
+// Custom songs for DPAD layer status
+float dpad_song_on[][2] = {
+	HD_NOTE(_A4), HD_NOTE(_A4), HD_NOTE(_A4),
+	QD_NOTE(_F4), QD_NOTE(_C5), HD_NOTE(_A4),
+	QD_NOTE(_F4),  QD_NOTE(_C5), WD_NOTE(_A4)
+};
 
-// Copyrighted songs, for my own satisfaction
-// Modification of quantum/audio/song_list.h is required
-// float dpad_song_on[][2]  = SONG(IMPERIAL_MARCH_SHORT);
-// float dpad_song_off[][2] = SONG(VICTORY_FANFARE_SHORT);
+float dpad_song_off[][2] = {
+	ED_NOTE(_C6), ED_NOTE(_C6),
+	ED_NOTE(_C6), ED_NOTE(_C6),
+	W__NOTE(_REST), QD_NOTE(_GS5),
+	QD_NOTE(_AS5), Q__NOTE(_C6),
+	Q__NOTE(_AS5), Q__NOTE(_C6)
+};
 #endif
 
 #ifndef BACKLIGHT_ENABLE
