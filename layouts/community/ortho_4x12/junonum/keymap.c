@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Extended numeric layer for FPS weapon switching and StarCraft group control
     [_DPADNUM] = LAYOUT_ortho_4x12(
-        KC_LGUI, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    _______, XXXXXXX, XXXXXXX, XXXXXXX, DP_OFF,
-        KC_LCTL, KC_7,    KC_8,    KC_9,    KC_0,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   XXXXXXX,
+        KC_LGUI, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    XXXXXXX, XXXXXXX, DP_OFF,  XXXXXXX,
+        KC_LCTL, _______, KC_8,    KC_9,    KC_0,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   XXXXXXX,
         KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
         _______, _______, _______, XXXXXXX, DPADNUM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
