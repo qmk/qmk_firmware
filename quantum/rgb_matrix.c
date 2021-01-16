@@ -403,7 +403,7 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
-            if (!suspend_backlight) {
+            if (effect) {
                 rgb_matrix_indicators();
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }

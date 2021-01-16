@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar/CapsUnlocked
 #define PRODUCT         CU24
-#define DESCRIPTION     A luxurious fully customisable numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 6
