@@ -25,3 +25,5 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 RAW_ENABLE = no
+
+LAYOUTS = tkl_ansi
