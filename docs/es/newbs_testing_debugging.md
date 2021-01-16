@@ -41,7 +41,9 @@ Para plataformas compatibles, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) 
 
 A veces, es útil imprimir mensajes de depuración desde tu [código personalizado](custom_quantum_functions.md). Hacerlo es bastante simple. Comienza incluyendo `print.h` al principio de tu fichero:
 
-    #include <print.h>
+```c
+#include "print.h"
+```
 
 Después de eso puedes utilzar algunas funciones print diferentes:
 

@@ -2,9 +2,7 @@
 
 i've swapped the lufa-ms bootloader for caterina
 
-most everything is in my userspace dir
-
-console mode is on, and there's barely any room left!
+most everything is in my [userspace](../../../../users/rupa/)
 
 * win/alt -> alt/cmd
 * alt/fn -> fn/alt
@@ -16,6 +14,6 @@ fn layer:
   * rotate mute/vol
   * backlight -> breathing, step, toggle
   * swap home and ins
-  * unicode chars sprinkled around
-  * script mode!
+  * unicode chars and strings sprinkled around
+  * script modes!
   * (one-shot) right versions of shift/ctl/alt/gui (not working quite right yet)

@@ -22,7 +22,7 @@ Sometimes, you want to activate a one-shot key as part of a macro or tap dance r
 
 For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`.
 
-For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear_oneshot_mods()` to cancel it.
+For one shot mods, you need to call `set_oneshot_mods(MOD_BIT(KC_*))` to set it, or `clear_oneshot_mods()` to cancel it.
 
 !> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
 

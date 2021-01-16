@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.0:docs/hardware_keyboard_guidelines.md
-  git diff 0.9.0 HEAD -- docs/hardware_keyboard_guidelines.md | cat
+  original document: 0.10.33:docs/hardware_keyboard_guidelines.md
+  git diff 0.10.33 HEAD -- docs/hardware_keyboard_guidelines.md | cat
 -->
 
 QMK は開始以来、コミュニティにおけるキーボードの作成や保守に貢献しているあなたのような人たちのおかげで飛躍的に成長しました。私たちが成長するにつれて、うまくやるためのいくつかのパターンを発見しました。他の人たちがあなたの苦労の恩恵を受けやすくするため、それにあわせてもらえるようお願いします。

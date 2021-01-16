@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern volatile bool isLeftHand;
 
 // slave version of matix scan, defined in matrix.c
-void matrix_slave_scan(void);
+uint8_t matrix_slave_scan(void);
 
 void split_keyboard_setup(void);
 bool has_usb(void);
