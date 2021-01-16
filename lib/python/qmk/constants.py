@@ -1,5 +1,6 @@
 """Information that should be available to the python library.
 """
+from os import environ
 from pathlib import Path
 
 # The root of the qmk_firmware tree.
@@ -28,3 +29,7 @@ LED_INDICATORS = {
     'num_lock': 'LED_NUM_LOCK_PIN',
     'scrol_lock': 'LED_SCROLL_LOCK_PIN',
 }
+
+# Constants that should match their counterparts in make
+BUILD_DIR = environ.get('BUILD_DIR', '.build')
+KEYBOARD_OUTPUT_PREFIX = f'{BUILD_DIR}/obj_'
