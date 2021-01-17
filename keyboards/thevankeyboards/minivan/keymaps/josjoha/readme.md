@@ -340,7 +340,9 @@ This concerns the numbers pad layer, the one that is part of the common layers.
 Compile options
 ===============
 
-         Layout (as in Dvorak, Qwerty, Colemak, etc)
+         Layout
+
+ • Currently provided layouts: Qwerty, Dvorak, Coleman.
 
  • You can use the keyboard with two different letters/number-symbols layouts, switching between them.
 
@@ -367,6 +369,12 @@ Compile options
  • Navigation keys around _arrow_ hardware configuration arrow cluster on `_MOV` layer.
 
  • Navigation cluster in a triangle (WASD) (left hand), flat layout with optional vi(1) layout (right hand).
+
+         Numpad
+ 
+ • Numpad with numbers in a row.
+
+ • Numpad with layers in a block form.
 
          Special functions
 

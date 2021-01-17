@@ -511,10 +511,7 @@ void set_led_colors_ (layer_state_t state) {
 
 #     endif
 
-#     ifndef MIDLED_BASELAYER_CONSTANT
-        if (!leds_on)
-#     endif
-           middle_led_control (HSV_TEAL); // seems to be the same as CYAN/AZURE, conflicts with _ACC
+        middle_led_control (HSV_TEAL); // seems to be the same as CYAN/AZURE, conflicts with _ACC
     }
     // Default layer (generally), normal BASE layer
     else if (layer_state_cmp (state, _DEF_BASE)) { // letters
@@ -529,10 +526,7 @@ void set_led_colors_ (layer_state_t state) {
             led0b = 28; // 
         }
 
-#     ifndef MIDLED_BASELAYER_CONSTANT
-        if (!leds_on) 
-#     endif
-            middle_led_control (HSV_TEAL);
+        middle_led_control (HSV_TEAL);
     }
     //---
 

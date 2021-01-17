@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   //                      Placing ‛//’ in front of a line, means whatever follows it will be ignored during compilation.
   //                      “_Activate_”   means to *delete* the two ‛//’ in front. Now the rest of the line *will* be compiled
   //                      /* ... */ is another a way to turn “...” into being a comment which is ignored during compilation.
+  //                      (The documentation here is geared toward people who have no understanding about programming.)
 
        /*
         --------------------------------------------------------------------------------------
@@ -35,10 +36,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                                                              -
           Table of Contents:
          
+                            -0- ➡ Compact configuration file ⬅
+
                             -1- ➡ Letters / Numbers & Symbols layouts ⬅
+                    • Qwerty
                     • Dvorak
                     • Dvorak descramble mode
-                    • Qwerty
                     • Colemak
                     • Numpad
 
@@ -83,6 +86,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         --------------------------------------------------------------------------------------
         */
 
+       /*                   -0- ➡ Compact configuration file ⬅
+        *
+        * If you _activate_ this, this whole heavily documented configuration block below
+        * gets skipped, and instead a bare bones configuration file with all these same options
+        * gets read. There is no functional difference.
+        * 
+        * (You can use the compact configuration if you like that better. It can make communicating
+        * a configuration easier. The fully documented configuration is left in a state of default
+        * when uploaded to QMK, so that it gives the most commonly used layout: Qwerty with Numpad,
+        * basic 44 Minivan keys).
+        */
+  #define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.c (note: mini‛f’an).
+#ifndef MINIFAN_CONFIG_COMPACT // (don't alter this)
 
       
        /*                   -1- ➡ Letters / Numbers & Symbols layouts ⬅
@@ -107,23 +123,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * choose two bases layouts who re-define the same common layer locally, you will need
         * to choose either one by commenting out the other.
         */
+        // 
+        //          • Qwerty
+        //                   (a regular Qwerty layout)
+        //  _Activate_ one of these two, _remove_ the other.
+  #define BASE_QWERTY__DEF_BASE // _Activate_ if you want Qwerty on the ‛Default’ spot
+//#define BASE_QWERTY__ALT_BASE // _Activate_ if you want Qwerty on the ‛Alternate’ spot
         //
         //          • Dvorak
         //                  (a regular Dvorak layout)
         // _Activate_ one of these two, _remove_ the other.
-  #define BASE_DVORAK__DEF_BASE // _Activate_ if you want Dvorak on the ‛Default’ spot
+//#define BASE_DVORAK__DEF_BASE // _Activate_ if you want Dvorak on the ‛Default’ spot
 //#define BASE_DVORAK__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
         // 
         //          • Dvorak descramble mode
         //                  (Dvorak for a computer already remapping to Dvorak)
         //  This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
 //#define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
-        // 
-        //          • Qwerty
-        //                   (a regular Qwerty layout)
-        //  _Activate_ one of these two, _remove_ the other.
-          #define BASE_QWERTY__DEF_BASE // _Activate_ if you want Qwerty on the ‛Default’ spot
-//#define BASE_QWERTY__ALT_BASE // _Activate_ if you want Qwerty on the ‛Alternate’ spot
     
         //          • Colemak
         //                   (a regular Colemak layout)
@@ -163,8 +179,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          //'Command'              (12x12x12x9 keys) + key on the left
          //'Arrow'                (12x12x12x9 keys) + key on the right
          //'South paw' + 'Arrow'  (12x12x12x10 keys)
-  #define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
-  #define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right, called 'Arrow' layout. 
+//#define MORE_KEY__COMMAND // Additional key 1st row on the left. This hardware layout is called 'Command' or 'South paw'.
+//#define MORE_KEY__ARROW   // Additional key 1st row (counting from row with space-bar) on the right, called 'Arrow' layout. 
          //
          // See below for how to define your additional key(s).
 
@@ -312,7 +328,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * _Remove_ the below to have the numbers in this layer follow the layout of the _NSY layer,
          * with the numbers on a line from left to right on the home row, across both hands.
          */
-  #define NUMPAD_COMMON_SQUARE // _Activate_ to resemble a one handed numerical keyboard.
+//#define NUMPAD_COMMON_SQUARE // _Activate_ to resemble a one handed numerical keyboard.
 
 
         /*                  -9- ➡ Speed measuring ⬅
@@ -354,7 +370,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * _Activate_ below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
          * and RGUI where LGUI is.
          */
-  #define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
+//#define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
         /*
          *          • Alternate currency symbol
          *
@@ -378,7 +394,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * ⚠ Note: ./base_numpad.h can overrides this setting, if compiled with that ‛Base layers’.
          */
-  #define REMOVE_PAD // _Activate_ to strip out the _PAD layer, _remove_ to have the _PAD layer.
+//#define REMOVE_PAD // _Activate_ to strip out the _PAD layer, _remove_ to have the _PAD layer.
         //
         /*          • Removing one or more of the Unicode layers _ACC, _DRA or_BON
          */
@@ -443,20 +459,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         //
 
 
-       /*                  -13- ➡ Middle led BASE layer: last layer color ⬅
-        *
-        * It is a bit wacky that in the BASE layer the middle led shows the last active layer. Here you
-        * can stop this behavior. This results in the same middle led behavior, given for when the side
-        * leds are set off: one special color for the BASE layer (cyan) on middle led.
-        */
-  #define MIDLED_BASELAYER_CONSTANT // _Activate_ for one color on middle led for BASE layer, _remove_ to show last layer color
-
-
 // ------------------------------------- ⬆ --------------------------------------
 //            Below here no more comfortable configuration options.....
 //            There may be configuration options in the layout ./bases_....h file you chose.
 // ------------------------------------- ⬆ --------------------------------------
 
+#else                            // (ignore this)
+#    include "./minifan_config_compact.c"
+#endif // MINIFAN_CONFIG_COMPACT
 
 
 // ------------------------------------- ⬇ --------------------------------------
