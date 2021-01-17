@@ -37,7 +37,7 @@ static uint8_t        mousekey_accel        = 0;
 static uint8_t        mousekey_repeat       = 0;
 static uint8_t        mousekey_wheel_repeat = 0;
 #ifdef MK_KINETIC_SPEED
-static uint16_t       mouse_timer     = 0;
+static uint16_t mouse_timer = 0;
 #endif
 
 #ifndef MK_3_SPEED
@@ -123,20 +123,18 @@ static uint8_t wheel_unit(void) {
  * B: base mouse travel speed
  */
 const uint16_t mk_accelerated_speed = MOUSEKEY_ACCELERATED_SPEED;
-const uint16_t mk_base_speed = MOUSEKEY_BASE_SPEED;
+const uint16_t mk_base_speed        = MOUSEKEY_BASE_SPEED;
 const uint16_t mk_decelerated_speed = MOUSEKEY_DECELERATED_SPEED;
-const uint16_t mk_initial_speed = MOUSEKEY_INITIAL_SPEED;
+const uint16_t mk_initial_speed     = MOUSEKEY_INITIAL_SPEED;
 
 static uint8_t move_unit(void) {
     float speed = mk_initial_speed;
 
-    if (mousekey_accel & ((1<<0) | (1<<2))) {
-        speed = mousekey_accel & (1<<2) ? mk_accelerated_speed : mk_decelerated_speed;
+    if (mousekey_accel & ((1 << 0) | (1 << 2))) {
+        speed = mousekey_accel & (1 << 2) ? mk_accelerated_speed : mk_decelerated_speed;
     } else if (mousekey_repeat && mouse_timer) {
         const float time_elapsed = timer_elapsed(mouse_timer) / 50;
-        speed = mk_initial_speed +
-            MOUSEKEY_MOVE_DELTA * time_elapsed +
-            MOUSEKEY_MOVE_DELTA * 0.5 * time_elapsed * time_elapsed;
+        speed                    = mk_initial_speed + MOUSEKEY_MOVE_DELTA * time_elapsed + MOUSEKEY_MOVE_DELTA * 0.5 * time_elapsed * time_elapsed;
 
         speed = speed > mk_base_speed ? mk_base_speed : speed;
     }
@@ -153,14 +151,12 @@ float mk_wheel_interval = 1000.0f / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
 static uint8_t wheel_unit(void) {
     float speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
 
-    if (mousekey_accel & ((1<<0) | (1<<2))) {
-        speed = mousekey_accel & (1<<2) ? MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS : MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS;
+    if (mousekey_accel & ((1 << 0) | (1 << 2))) {
+        speed = mousekey_accel & (1 << 2) ? MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS : MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS;
     } else if (mousekey_repeat && mouse_timer) {
         if (mk_wheel_interval != MOUSEKEY_WHEEL_BASE_MOVEMENTS) {
             const float time_elapsed = timer_elapsed(mouse_timer) / 50;
-            speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS +
-                1 * time_elapsed +
-                1 * 0.5 * time_elapsed * time_elapsed;
+            speed                    = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS + 1 * time_elapsed + 1 * 0.5 * time_elapsed * time_elapsed;
         }
         speed = speed > MOUSEKEY_WHEEL_BASE_MOVEMENTS ? MOUSEKEY_WHEEL_BASE_MOVEMENTS : speed;
     }
@@ -209,7 +205,7 @@ static uint8_t wheel_unit(void) {
 }
 
 #        endif /* #ifndef MK_KINETIC_SPEED */
-#    endif /* #ifndef MK_COMBINED */
+#    endif     /* #ifndef MK_COMBINED */
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently
@@ -260,11 +256,11 @@ void mousekey_task(void) {
 }
 
 void mousekey_on(uint8_t code) {
-#ifdef MK_KINETIC_SPEED
+#    ifdef MK_KINETIC_SPEED
     if (mouse_timer == 0) {
         mouse_timer = timer_read();
     }
-#endif /* #ifdef MK_KINETIC_SPEED */
+#    endif /* #ifdef MK_KINETIC_SPEED */
 
     if (code == KC_MS_UP)
         mouse_report.y = move_unit() * -1;
@@ -335,9 +331,9 @@ void mousekey_off(uint8_t code) {
         mousekey_accel &= ~(1 << 2);
     if (mouse_report.x == 0 && mouse_report.y == 0) {
         mousekey_repeat = 0;
-#ifdef MK_KINETIC_SPEED
+#    ifdef MK_KINETIC_SPEED
         mouse_timer = 0;
-#endif /* #ifdef MK_KINETIC_SPEED */
+#    endif /* #ifdef MK_KINETIC_SPEED */
     }
     if (mouse_report.v == 0 && mouse_report.h == 0) mousekey_wheel_repeat = 0;
 }

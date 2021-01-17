@@ -40,7 +40,7 @@ typedef struct _I2C_slave_buffer_t {
 #        endif
 #    endif
 #    ifdef BACKLIGHT_ENABLE
-    uint8_t      backlight_level;
+    uint8_t backlight_level;
 #    endif
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     rgblight_syncinfo_t rgblight_sync;
@@ -172,9 +172,9 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef SPLIT_MODS_ENABLE
     set_mods(i2c_buffer->real_mods);
     set_weak_mods(i2c_buffer->weak_mods);
-#       ifndef NO_ACTION_ONESHOT
+#        ifndef NO_ACTION_ONESHOT
     set_oneshot_mods(i2c_buffer->oneshot_mods);
-#       endif
+#        endif
 #    endif
 }
 
@@ -191,27 +191,27 @@ typedef struct _Serial_s2m_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
 
 #    ifdef ENCODER_ENABLE
-    uint8_t encoder_state[NUMBER_OF_ENCODERS];
+    uint8_t      encoder_state[NUMBER_OF_ENCODERS];
 #    endif
 
 } Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
 #    ifdef SPLIT_MODS_ENABLE
-    uint8_t real_mods;
-    uint8_t weak_mods;
+    uint8_t  real_mods;
+    uint8_t  weak_mods;
 #        ifndef NO_ACTION_ONESHOT
-    uint8_t oneshot_mods;
+    uint8_t  oneshot_mods;
 #        endif
 #    endif
 #    ifndef DISABLE_SYNC_TIMER
     uint32_t sync_timer;
 #    endif
 #    ifdef BACKLIGHT_ENABLE
-    uint8_t backlight_level;
+    uint8_t  backlight_level;
 #    endif
 #    ifdef WPM_ENABLE
-    uint8_t current_wpm;
+    uint8_t  current_wpm;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -317,18 +317,18 @@ bool transport_master(matrix_row_t matrix[]) {
 
 #    ifdef WPM_ENABLE
     // Write wpm to slave
-    serial_m2s_buffer.current_wpm = get_current_wpm();
+    serial_m2s_buffer.current_wpm  = get_current_wpm();
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE
-    serial_m2s_buffer.real_mods = get_mods();
-    serial_m2s_buffer.weak_mods = get_weak_mods();
+    serial_m2s_buffer.real_mods    = get_mods();
+    serial_m2s_buffer.weak_mods    = get_weak_mods();
 #        ifndef NO_ACTION_ONESHOT
     serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
 #        endif
 #    endif
 #    ifndef DISABLE_SYNC_TIMER
-    serial_m2s_buffer.sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
+    serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
     return true;
 }

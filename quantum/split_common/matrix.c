@@ -264,7 +264,7 @@ bool matrix_post_scan(void) {
                 // reset other half if disconnected
                 for (int i = 0; i < ROWS_PER_HAND; ++i) {
                     matrix[thatHand + i] = 0;
-                    slave_matrix[i] = 0;
+                    slave_matrix[i]      = 0;
                 }
 
                 changed = true;
