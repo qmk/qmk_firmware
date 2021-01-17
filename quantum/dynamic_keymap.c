@@ -112,6 +112,11 @@ void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint
     if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || row >= MATRIX_ROWS || column >= MATRIX_COLS)
         return;
 
+#ifdef VIAL_ENABLE
+    if (keycode == RESET && !vial_unlocked)
+        return;
+#endif
+
     void *address = dynamic_keymap_key_to_eeprom_address(layer, row, column);
     // Big endian, so we can read/write EEPROM directly from host if we want
     eeprom_update_byte(address, (uint8_t)(keycode >> 8));
@@ -137,6 +142,11 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t idx, uint8_t dir, uint16_
     if (layer >= DYNAMIC_KEYMAP_LAYER_COUNT || idx >= NUMBER_OF_ENCODERS || dir > 1)
         return;
 
+#ifdef VIAL_ENABLE
+    if (keycode == RESET && !vial_unlocked)
+        return;
+#endif
+
     void *address = dynamic_keymap_encoder_to_eeprom_address(layer, idx, dir);
     eeprom_update_byte(address, (uint8_t)(keycode >> 8));
     eeprom_update_byte(address + 1, (uint8_t)(keycode & 0xFF));
@@ -144,6 +154,12 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t idx, uint8_t dir, uint16_
 #endif
 
 void dynamic_keymap_reset(void) {
+#ifdef VIAL_ENABLE
+    /* temporarily unlock the keyboard so we can set hardcoded RESET keycode */
+    int vial_unlocked_prev = vial_unlocked;
+    vial_unlocked = 1;
+#endif
+
     // Reset the keymaps in EEPROM to what is in flash.
     // All keyboards using dynamic keymaps should define a layout
     // for the same number of layers as DYNAMIC_KEYMAP_LAYER_COUNT.
@@ -161,6 +177,11 @@ void dynamic_keymap_reset(void) {
     }
 #endif
     }
+
+#ifdef VIAL_ENABLE
+    /* re-lock the keyboard */
+    vial_unlocked = vial_unlocked_prev;
+#endif
 }
 
 void dynamic_keymap_get_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
@@ -182,6 +203,49 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
     uint16_t dynamic_keymap_eeprom_size = DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2;
     void *   target                     = (void *)(DYNAMIC_KEYMAP_EEPROM_ADDR + offset);
     uint8_t *source                     = data;
+
+#ifdef VIAL_ENABLE
+    /* ensure the writes are bounded */
+    if (offset >= dynamic_keymap_eeprom_size || dynamic_keymap_eeprom_size - offset < size)
+        return;
+
+    /* Check whether it is trying to send a RESET keycode; only allow setting these if unlocked */
+    if (!vial_unlocked) {
+        /* how much of the input array we'll have to check in the loop */
+        uint16_t chk_offset = 0;
+        uint16_t chk_sz = size;
+
+        /* initial byte misaligned -- this means the first keycode will be a combination of existing and new data */
+        if (offset % 2 != 0) {
+            uint16_t kc = (eeprom_read_byte((uint8_t*)target - 1) << 8) | data[0];
+            if (kc == RESET)
+                data[0] = 0xFF;
+
+            /* no longer have to check the first byte */
+            chk_offset += 1;
+        }
+
+        /* final byte misaligned -- this means the last keycode will be a combination of new and existing data */
+        if ((offset + size) % 2 != 0) {
+            uint16_t kc = (data[size - 1] << 8) | eeprom_read_byte((uint8_t*)target + size);
+            if (kc == RESET)
+                data[size - 1] = 0xFF;
+
+            /* no longer have to check the last byte */
+            chk_sz -= 1;
+        }
+
+        /* check the entire array, replace any instances of RESET with invalid keycode 0xFFFF */
+        for (uint16_t i = chk_offset; i < chk_sz; i += 2) {
+            uint16_t kc = (data[i] << 8) | data[i + 1];
+            if (kc == RESET) {
+                data[i] = 0xFF;
+                data[i + 1] = 0xFF;
+            }
+        }
+    }
+#endif
+
     for (uint16_t i = 0; i < size; i++) {
         if (offset + i < dynamic_keymap_eeprom_size) {
             eeprom_update_byte(target, *source);

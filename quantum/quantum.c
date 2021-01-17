@@ -125,12 +125,6 @@ __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
 void reset_keyboard(void) {
-#ifdef VIAL_ENABLE
-    /* Until keyboard is unlocked, disable processing of the RESET keycode */
-    if (!vial_unlocked)
-        return;
-#endif
-
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
     process_midi_all_notes_off();
