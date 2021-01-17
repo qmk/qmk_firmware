@@ -91,7 +91,7 @@ def write_version_h(git_version, build_date, chibios_version, chibios_contrib_ve
         f'#define QMK_VERSION "{git_version}"',
         f'#define QMK_BUILD_DATE "{build_date}"',
         f'#define CHIBIOS_VERSION "{chibios_version}"',
-        f'#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"'
+        f'#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"',
     ]
 
     version_h_file = Path('quantum/version.h')
@@ -170,7 +170,7 @@ def compile_configurator_json(user_keymap, parallel=1, **env_vars):
         f'MAIN_KEYMAP_PATH_5={keymap_output}',
         f'KEYMAP_C={keymap_c}',
         f'KEYMAP_PATH={keymap_dir}',
-        f'VERBOSE=0',
+        f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
     ])
