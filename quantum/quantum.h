@@ -248,9 +248,9 @@ typedef ioline_t pin_t;
  */
 #    if !defined(GPIO_INPUT_PIN_DELAY)
 #        if defined(STM32_SYSCLK)
-#            define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK/1000000L / 4)
+#            define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK / 1000000L / 4)
 #        elif defined(KINETIS_SYSCLK_FREQUENCY)
-#            define GPIO_INPUT_PIN_DELAY (KINETIS_SYSCLK_FREQUENCY/1000000L / 4)
+#            define GPIO_INPUT_PIN_DELAY (KINETIS_SYSCLK_FREQUENCY / 1000000L / 4)
 #        endif
 #    endif
 #    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
