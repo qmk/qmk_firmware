@@ -1,6 +1,7 @@
 """Format C code according to QMK's style.
 """
 import subprocess
+from argparse import SUPPRESS
 from os import environ
 from pathlib import Path
 from shutil import which
@@ -62,7 +63,7 @@ def cformat_run(files):
         return False
 
 
-@cli.argument('--ci', arg_only=True, action='store_true', hidden=True, help="Operate on files supplied by trilom/file-changes-action")
+@cli.argument('--ci', arg_only=True, action='store_true', help=SUPPRESS)
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
@@ -77,7 +78,7 @@ def cformat(cli):
     # Find the list of files to format
     if cli.args.ci:
         if cli.args.files or cli.args.all_files:
-            cli.log.warning('Filename or -a passed with --ci, only formatting CI files.)
+            cli.log.warning('Filename or -a passed with --ci, only formatting CI files.')
 
         files_json = Path(environ.get('HOME', '~'), 'files.json').resolve()
         print('files.json:', files_json.read_text())
