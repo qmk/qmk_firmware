@@ -13,12 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rgb.h"
-#include "rgb_matrix_types.h"
-#include <print.h>
-#include "raw_hid.h"
-#include "usb_descriptor.h"
-#include "rgb_matrix.h"
+#include "quantum.h"
 
 led_config_t g_led_config = { {
   // esc  f1   f2   f3   f4   f5   f6   f7     f8    f9    f10   f11   f12   prtscr scrl  brk
