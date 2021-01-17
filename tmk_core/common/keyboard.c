@@ -97,9 +97,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "dip_switch.h"
 #endif
 
+static uint32_t last_input_modification_time = 0;
+uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
+uint32_t        last_input_activity_elapsed(void) { return timer_elapsed32(last_input_modification_time); }
+
 static uint32_t last_matrix_modification_time = 0;
 uint32_t        last_matrix_activity_time(void) { return last_matrix_modification_time; }
 uint32_t        last_matrix_activity_elapsed(void) { return timer_elapsed32(last_matrix_modification_time); }
+void            last_matrix_activity_trigger(void) { last_matrix_modification_time = last_input_modification_time = timer_read32(); }
+
+static uint32_t last_encoder_modification_time = 0;
+uint32_t        last_encoder_activity_time(void) { return last_encoder_modification_time; }
+uint32_t        last_encoder_activity_elapsed(void) { return timer_elapsed32(last_encoder_modification_time); }
+void            last_encoder_activity_trigger(void) { last_encoder_modification_time = last_input_modification_time = timer_read32(); }
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -343,7 +353,7 @@ void keyboard_task(void) {
     housekeeping_task_user();
 
     uint8_t matrix_changed = matrix_scan();
-    if (matrix_changed) last_matrix_modification_time = timer_read32();
+    if (matrix_changed) last_matrix_activity_trigger();
 
     if (should_process_keypress()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
@@ -399,7 +409,8 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef ENCODER_ENABLE
-    encoder_read();
+    bool encoders_changed = encoder_read();
+    if (encoders_changed) last_encoder_activity_trigger();
 #endif
 
 #ifdef QWIIC_ENABLE
@@ -410,7 +421,7 @@ MATRIX_LOOP_END:
     oled_task();
 #    ifndef OLED_DISABLE_TIMEOUT
     // Wake up oled if user is using those fabulous keys!
-    if (matrix_changed) oled_on();
+    if (matrix_changed || encoders_changed) oled_on();
 #    endif
 #endif
 
