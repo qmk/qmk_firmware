@@ -30,7 +30,7 @@ jobs:
     - name: Run qmk cformat and qmk pyformat
       shell: 'bash {0}'
       run: |
-        qmk cformat -n -ci
+        qmk cformat -n --ci
         cformat_exit=$?
         qmk pyformat -n
         pyformat_exit=$?
