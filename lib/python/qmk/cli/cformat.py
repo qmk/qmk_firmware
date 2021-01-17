@@ -3,7 +3,7 @@
 import json
 import subprocess
 from argparse import SUPPRESS
-from os import environ
+from os import environ, path
 from pathlib import Path
 from shutil import which
 
@@ -54,7 +54,7 @@ def cformat_run(files):
     clang_format = [find_clang_format(), '-i']
 
     try:
-        cli.run(clang_format + [file for file in files], check=True, capture_output=False)
+        cli.run(clang_format + map(str, files), check=True, capture_output=False)
         cli.log.info('Successfully formatted the C code.')
         return True
 
@@ -83,9 +83,8 @@ def cformat(cli):
             cli.log.warning('Filename or -a passed with --ci, only formatting CI files.')
 
         files_json = Path(environ.get('HOME', '~'), 'files.json').resolve()
-        print('files.json:', files_json.read_text())
         all_changed_files = json.load(files_json.open())
-        files = [file for file in all_changed_files if file.suffix in c_file_suffixes]
+        files = [file for file in all_changed_files if file.split('.')[-1] in c_file_suffixes]
 
     elif cli.args.files:
         files = cli.args.files
@@ -111,8 +110,7 @@ def cformat(cli):
 
         for file in git_diff.stdout.strip().split('\n'):
             if not any([file.startswith(ignore) for ignore in ignored]):
-                file = Path(file)
-                if file.exists() and file.suffix in c_file_suffixes:
+                if path.exists(file) and file.split('.')[-1] in c_file_suffixes:
                     files.append(file)
 
     # Sanity check
