@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    coseyfannitutti
 #define PRODUCT         ROMEO
-#define DESCRIPTION     staggered layout 40% keyboard assembled with only through hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 4

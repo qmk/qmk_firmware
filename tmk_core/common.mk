@@ -99,11 +99,15 @@ ifeq ($(strip $(COMMAND_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
-    ifneq ($(PROTOCOL),VUSB)
+    ifeq ($(PROTOCOL), VUSB)
+        $(info NKRO is not currently supported on V-USB, and has been disabled.)
+    else ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+        $(info NKRO is not currently supported with Bluetooth, and has been disabled.)
+    else ifneq ($(BLUETOOTH),)
+        $(info NKRO is not currently supported with Bluetooth, and has been disabled.)
+    else
         TMK_COMMON_DEFS += -DNKRO_ENABLE
         SHARED_EP_ENABLE = yes
-    else
-        $(info NKRO is not currently supported on V-USB, and has been disabled.)
     endif
 endif
 
@@ -161,6 +165,8 @@ ifeq ($(strip $(LTO_ENABLE)), yes)
     EXTRAFLAGS += -flto
     TMK_COMMON_DEFS += -DLTO_ENABLE
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATON_ENABLE
+else ifdef LINK_TIME_OPTIMIZATION_ENABLE
+    $(error The LINK_TIME_OPTIMIZATION_ENABLE flag has been renamed to LTO_ENABLE.)
 endif
 
 # Search Path

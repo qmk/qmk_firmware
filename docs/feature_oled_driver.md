@@ -140,8 +140,8 @@ void oled_task_user(void) {
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
 |`OLED_FONT_H`              |`"glcdfont.c"`   |The font code file to use for custom fonts                                                                                |
-|`OLED_FONT_START`          |`0`              |The starting characer index for custom fonts                                                                              |
-|`OLED_FONT_END`            |`223`            |The ending characer index for custom fonts                                                                                |
+|`OLED_FONT_START`          |`0`              |The starting character index for custom fonts                                                                             |
+|`OLED_FONT_END`            |`223`            |The ending character index for custom fonts                                                                               |
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
 |`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
@@ -149,6 +149,8 @@ void oled_task_user(void) {
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
 |`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
 |`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
+|`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
+|`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
  ## 128x64 & Custom sized OLED Displays
 
@@ -299,6 +301,16 @@ bool oled_on(void);
 // Can be used to manually turn off the screen if it is on
 // Returns true if the screen was off or turns off
 bool oled_off(void);
+
+// Returns true if the oled is currently on, false if it is
+// not
+bool is_oled_on(void);
+
+// Sets the brightness level of the display
+uint8_t oled_set_brightness(uint8_t level);
+
+// Gets the current brightness level of the display
+uint8_t oled_get_brightness(void);
 
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);

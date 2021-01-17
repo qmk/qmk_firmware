@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         bm16a
-#define DESCRIPTION     KPrepublic bm16a
 
 /* key matrix size */
 #define MATRIX_ROWS 4

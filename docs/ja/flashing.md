@@ -1,8 +1,8 @@
 # 書き込みの手順とブートローダ情報
 
 <!---
-  original document: 0.9.10:docs/flashing.md
-  git diff 0.9.10 HEAD -- docs/flashing.md | cat
+  original document: 0.10.33:docs/flashing.md
+  git diff 0.10.33 HEAD -- docs/flashing.md | cat
 -->
 
 キーボードが使用するブートローダにはかなり多くの種類があり、ほぼ全てが異なる書き込みの方法を使います。幸いなことに、[QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) のようなプロジェクトは、あまり深く考える必要無しに様々なタイプと互換性を持つことを目指していますが、この文章では様々なタイプのブートローダとそれらを書き込むために利用可能な方法について説明します。
@@ -244,3 +244,4 @@ BOOTLOADER = bootloadHID
 * `:dfu-util-split-left` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「左側の」 EEPROM の設定も行われます。
 * `:dfu-util-split-right` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「右側の」 EEPROM の設定も行われます。
 * `:st-link-cli` - dfu-util ではなく、ST-LINK の CLI ユーティリティを介してファームウェアを書き込めます。
+* `:st-flash` - dfu-util ではなく、[STLink Tools](https://github.com/stlink-org/stlink) の `st-flash` ユーティリティを介してファームウェアを書き込めます。

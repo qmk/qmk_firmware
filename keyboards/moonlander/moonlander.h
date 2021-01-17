@@ -1,6 +1,6 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Drashna Jael're  <drashna@live.com>
+ * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,6 +63,7 @@ extern bool mcp23018_leds[];
 
 enum planck_ez_keycodes {
     TOGGLE_LAYER_COLOR = SAFE_RANGE,
+    LED_LEVEL,
     ML_SAFE_RANGE,
 };
 
@@ -75,6 +76,8 @@ typedef union {
   struct {
     bool         disable_layer_led   :1;
     bool         rgb_matrix_enable   :1;
+    bool         led_level           :1;
+    uint8_t      led_level_res       :2; // DO NOT REMOVE
   };
 } keyboard_config_t;
 

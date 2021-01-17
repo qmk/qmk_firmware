@@ -22,6 +22,11 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+
+#define LED_NUM_LOCK_PIN C6
+#define LED_CAPS_LOCK_PIN B6
+#define LED_SCROLL_LOCK_PIN B5
+
 /* number of backlight levels */
 
 #ifdef BACKLIGHT_PIN
