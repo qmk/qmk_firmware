@@ -1,4 +1,4 @@
-name: PR Lint C Format
+name: PR Lint Format
 
 on:
   pull_request:
