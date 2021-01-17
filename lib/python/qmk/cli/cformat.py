@@ -1,5 +1,6 @@
 """Format C code according to QMK's style.
 """
+import json
 import subprocess
 from argparse import SUPPRESS
 from os import environ
@@ -11,6 +12,10 @@ from milc import cli
 
 from qmk.path import normpath
 from qmk.c_parse import c_source_files
+
+c_file_suffixes = ('.c', '.h', '.cpp')
+core_dirs = ('drivers', 'quantum', 'tests', 'tmk_core', 'platforms')
+ignored = ('tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios')
 
 
 def find_clang_format():
@@ -72,9 +77,6 @@ def cformat_run(files):
 def cformat(cli):
     """Format C code according to QMK's style.
     """
-    core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core', 'platforms']
-    ignored = ['tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios']
-
     # Find the list of files to format
     if cli.args.ci:
         if cli.args.files or cli.args.all_files:
@@ -82,7 +84,8 @@ def cformat(cli):
 
         files_json = Path(environ.get('HOME', '~'), 'files.json').resolve()
         print('files.json:', files_json.read_text())
-        files = _json_load(files_json)
+        all_changed_files = json.load(files_json.open())
+        files = [file for file in all_changed_files if file.suffix in c_file_suffixes]
 
     elif cli.args.files:
         files = cli.args.files
@@ -109,7 +112,7 @@ def cformat(cli):
         for file in git_diff.stdout.strip().split('\n'):
             if not any([file.startswith(ignore) for ignore in ignored]):
                 file = Path(file)
-                if file.exists() and file.suffix in ('.c', '.h', '.cpp'):
+                if file.exists() and file.suffix in c_file_suffixes:
                     files.append(file)
 
     # Sanity check

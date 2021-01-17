@@ -6,6 +6,7 @@ on:
     - 'drivers/**'
     - 'lib/arm_atsam/**'
     - 'lib/lib8tion/**'
+    - 'lib/python/**'
     - 'platforms/**'
     - 'quantum/**'
     - 'tests/**'
