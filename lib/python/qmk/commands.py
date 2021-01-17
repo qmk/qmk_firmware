@@ -16,6 +16,7 @@ from qmk.constants import KEYBOARD_OUTPUT_PREFIX
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
+
 def _find_make():
     """Returns the correct make command for this environment.
     """
@@ -169,7 +170,7 @@ def compile_configurator_json(user_keymap, parallel=1, **env_vars):
         f'MAIN_KEYMAP_PATH_5={keymap_output}',
         f'KEYMAP_C={keymap_c}',
         f'KEYMAP_PATH={keymap_dir}',
-        f'VERBOSE={verbose}',
+        f'VERBOSE=0',
         f'COLOR={color}',
         'SILENT=false',
     ])
