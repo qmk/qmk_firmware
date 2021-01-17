@@ -13,65 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
-
-#define u8 uint8_t
-#define u16 uint16_t
-
 #pragma once
 
-#define KEYLED_ROWS 6
-#define KEYLED_COLS 16
-
-#define XaxisMax 18
-#define YaxisMax 6
-
-#define RhythmLedColumMax 18
-typedef struct{
-	u8 onf;
-	u8 hightLevel;
-	u8 ColumHeight[RhythmLedColumMax];
-
-}RhythmLed_;
-
-typedef struct{
-	u8 r,g,b;
-
-}rgb_;
-#define colorAGSize 10
-#define colorBGSize RGBLED_NUM-10
-
-typedef struct{
-	rgb_ colorAG[colorAGSize];
-    rgb_ colorBG[RGBLED_NUM-10];
-}backLedRgbG_;
-
-#define Lseg0 E5
-#define Lseg1 B4
-#define Lseg2 B5
-#define Lseg3 F0
-#define Lseg4 C6
-#define Lseg5 D5
-
-#define Lcom0 C4
-#define Lcom1 C2
-#define Lcom2 C0
-#define Lcom3 E0
-#define Lcom4 D4
-#define Lcom5 E4
-#define Lcom6 B6
-#define Lcom7 B2
-#define Lcom8 F4
-#define Lcom9 A0
-#define Lcom10 F2
-#define Lcom11 A4
-#define Lcom12 F1
-#define Lcom13 A7
-#define Lcom14 D3
-#define Lcom15 A3
-
-#define KEYLED_ROW_PINS { E5,B4, B5, F0, C6,D5 }//
-#define KEYLED_COL_PINS { C4,C2,C0,E0,D4,E4,B6,B2,F4,A0,F2,A4,F1,A7,D3,A3 }
+#include "quantum.h"
 
 #define LAYOUT_tkl_ansi( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, \
@@ -88,12 +32,3 @@ typedef struct{
 	{ K400,  KC_NO, K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  K412,  K413,  K414,  K415 }, \
 	{ K500,  K501,  KC_NO, K503,  KC_NO, KC_NO, K506,  KC_NO, KC_NO, KC_NO, K510,  K511,  K512,  K513,  K514,  K515 }  \
 }
-
-extern void keyLedDriver(void);
-extern void KeyLedCom(void);
-u8 getKeyLedIndexForXY(u8 x,u8 y);
-
-extern void ledCapsSet(bool onf);
-extern void ledNumSet(bool onf);
-extern void ledSollSet(bool onf);
-void reflashLedState(void);
