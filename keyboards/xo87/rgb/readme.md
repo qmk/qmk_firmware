@@ -14,7 +14,9 @@ Make example for this keyboard (after setting up your build environment):
 make xo87/rgb:default        # builds the default firmware
 make xo87/rgb:via            # builds the via firmware
 ```
-The keyboard uses a DFU bootloader. To make a keymap and use dfu to flash it:
+The keyboard uses a DFU bootloader.<br>
+To enter DFU mode, hold the escape key while plugging in your keyboard.<br>
+To make a keymap and use dfu to flash it:
 
 ```sh
 make xo87/rgb:default:flash  # builds and flashes the default version
