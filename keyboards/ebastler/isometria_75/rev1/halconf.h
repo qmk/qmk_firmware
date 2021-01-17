@@ -15,9 +15,6 @@
  */
 #pragma once
 
-/* no clue, wouldn't compile without */
-#define HAL_USE_DAC                         FALSE
-#define HAL_USE_GPT                         FALSE
-#define HAL_USE_I2C                         FALSE
+#define HAL_USE_PWM TRUE
 
 #include_next <halconf.h>
