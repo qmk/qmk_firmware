@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 30  /*Change for the number of leds on the strip you attach*/
+  #define RGBLED_NUM 10  /*Change for the number of leds on the strip you attach*/
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
