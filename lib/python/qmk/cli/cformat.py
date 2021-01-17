@@ -8,8 +8,11 @@ from milc import cli
 from qmk.path import normpath
 from qmk.c_parse import c_source_files
 
+core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core', 'platforms']
+ignores = ['tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios']
 
-def cformat_run(files, all_files):
+
+def cformat_run(files):
     """Spawn clang-format subprocess with proper arguments
     """
     # Determine which version of clang-format to use
@@ -38,11 +41,10 @@ def cformat_run(files, all_files):
 def cformat(cli):
     """Format C code according to QMK's style.
     """
+
     # Empty array for files
     files = []
-    # Core directories for formatting
-    core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core', 'platforms']
-    ignores = ['tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios']
+
     # Find the list of files to format
     if cli.args.files:
         files.extend(normpath(file) for file in cli.args.files)
@@ -62,4 +64,4 @@ def cformat(cli):
         files.extend(file for file in filtered_files if file.exists() and file.suffix in ['.c', '.h', '.cpp'])
 
     # Run clang-format on the files we've found
-    cformat_run(files, cli.args.all_files)
+    cformat_run(files)

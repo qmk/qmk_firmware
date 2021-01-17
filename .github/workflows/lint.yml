@@ -20,36 +20,20 @@ jobs:
       id: file_changes
       with:
         output: '\n'
+        fileOutput: '\n'
 
-    - name: Print info
+    - name: Print git info
       run: |
         git rev-parse --short HEAD
         echo ${{ github.event.pull_request.base.sha }}
         echo '${{ steps.file_changes.outputs.files}}'
 
+    - name: Run qmk info
+      shell: 'bash {0}'
+      run: |
+        qmk select --filter=kb $(cat $HOME/files.txt) | xargs -l1 qmk info -l -kb
+
     - name: Run qmk lint
       shell: 'bash {0}'
       run: |
-        QMK_CHANGES=$(echo -e '${{ steps.file_changes.outputs.files}}')
-        QMK_KEYBOARDS=$(qmk list-keyboards)
-
-        exit_code=0
-        for KB in $QMK_KEYBOARDS; do
-          KEYBOARD_CHANGES=$(echo "$QMK_CHANGES" | grep -E '^(keyboards/'${KB}'/)')
-          if [[ -z "$KEYBOARD_CHANGES" ]]; then
-            # skip as no changes for this keyboard
-            continue
-          fi
-
-          KEYMAP_ONLY=$(echo "$KEYBOARD_CHANGES" | grep -cv /keymaps/)
-          if [[ $KEYMAP_ONLY -gt 0 ]]; then
-            echo "linting ${KB}"
-
-            qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB}
-            exit_code=$(($exit_code + $?))
-          fi
-        done
-        if [[ $exit_code -gt 255 ]]; then
-            exit 255
-        fi
-        exit $exit_code
+        qmk select --filter=kb $(cat $HOME/files.txt) | xargs -l1 qmk lint -kb

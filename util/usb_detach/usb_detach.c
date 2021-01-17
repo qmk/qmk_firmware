@@ -31,4 +31,4 @@ int main(int argc, char**argv)
                 printf ("usage: %s /dev/bus/usb/BUS/DEVICE\n",argv[0]);
                 printf("Release all interfaces of this usb device for usage in virtualisation\n");
         }
-}
+}//asdf
