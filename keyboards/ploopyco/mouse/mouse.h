@@ -48,6 +48,8 @@ typedef union {
 
 extern keyboard_config_t keyboard_config;
 
+extern uint16_t dpi_array[];
+
 enum ploopy_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     PLOOPY_SAFE_RANGE,
