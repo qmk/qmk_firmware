@@ -5,6 +5,7 @@ ifeq ($(COLOR),true)
 	OK_COLOR=\033[32;01m
 	ERROR_COLOR=\033[31;01m
 	WARN_COLOR=\033[33;01m
+	SKIPPED_COLOR=\033[36;01m
 	BLUE=\033[0;34m
 	BOLD=\033[1m
 endif
@@ -20,6 +21,7 @@ ON_ERROR ?= exit 1
 OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)\n
 ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)\n
 WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)\n
+SKIPPED_STRING=$(SKIPPED_COLOR)[SKIPPED]$(NO_COLOR)\n
 
 TAB_LOG = printf "\n%s\n\n" "$$LOG" | $(AWK) '{ sub(/^/," | "); print }'
 TAB_LOG_PLAIN = printf "%s\n" "$$LOG"
@@ -29,6 +31,7 @@ PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_L
 PRINT_WARNING = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
 PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && $(ON_ERROR)
 PRINT_WARNING_PLAIN = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
+PRINT_SKIPPED_PLAIN = ($(SILENT) || printf " $(SKIPPED_STRING)" | $(AWK_STATUS))
 PRINT_OK = $(SILENT) || printf " $(OK_STRING)" | $(AWK_STATUS)
 BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 MAKE_MSG_FORMAT = $(AWK) '{ printf "%-118s", $$0;}'

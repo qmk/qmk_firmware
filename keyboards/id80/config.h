@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964 /* "id" */
-#define PRODUCT_ID      0x0080
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IDOBAO
-#define PRODUCT         ID80
-#define DESCRIPTION     A 75% hotswap keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 11
@@ -62,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B6
-// #define BACKLIGHT_BREATHING
+#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 
 #define CAPS_LOCK_LED_PIN C7
@@ -77,16 +69,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
     #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//     #define RGBLIGHT_EFFECT_BREATHING
-//     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//     #define RGBLIGHT_EFFECT_SNAKE
-//     #define RGBLIGHT_EFFECT_KNIGHT
-//     #define RGBLIGHT_EFFECT_CHRISTMAS
-//     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//     #define RGBLIGHT_EFFECT_RGB_TEST
-//     #define RGBLIGHT_EFFECT_ALTERNATING
+/*== or choose animations ==*/
+//    #define RGBLIGHT_EFFECT_BREATHING
+//    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//    #define RGBLIGHT_EFFECT_SNAKE
+//    #define RGBLIGHT_EFFECT_KNIGHT
+//    #define RGBLIGHT_EFFECT_CHRISTMAS
+//    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//    #define RGBLIGHT_EFFECT_RGB_TEST
+//    #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
 
 /* Bootmagic Lite key configuration: use the Esc key */

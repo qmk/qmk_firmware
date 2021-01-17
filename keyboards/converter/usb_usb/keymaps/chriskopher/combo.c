@@ -33,7 +33,7 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 
 // Called after a combo event is triggered
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case SD_LAYER_COMBO:
             if (pressed) {

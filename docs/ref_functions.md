@@ -26,7 +26,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -36,7 +35,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     }
   return true;
 }
@@ -45,7 +43,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ### `update_tri_layer_state(state, x, y, z)`
 The other function is `update_tri_layer_state(state, x, y, z)`.  This function is meant to be called from the [`layer_state_set_*` functions](custom_quantum_functions.md#layer-change-code).  This means that any time that you use a keycode to change the layer, this will be checked.  So you could use `LT(layer, kc)` to change the layer and it will trigger the same layer check.
 
-The caveat to this method is that you cannot access the `z` layer without having `x` and `y` layers on, since if you try to activate just layer `z`, it will run this code and turn off layer `z` before you could use it.
+There are a couple of caveats to this method:
+1. You cannot access the `z` layer without having `x` and `y` layers on, since if you try to activate just layer `z`, it will run this code and turn off layer `z` before you could use it.
+2. Because layers are processed from the highest number `z` should be a higher layer than `x` and `y` or you may not be able to access it.
 
 #### Example
 
@@ -99,7 +99,7 @@ To wipe the EEPROM, run `eeconfig_init()` from your function or macro to reset m
 
 ## Tap random key
 
-If you want to send a random character to the host computer, you can use the `tap_random_base64()` function. This [pseudorandomly](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) selects a number between 0 and 63, and then sends a key press based on that selection. (0–25 is `A`–`Z`, 26–51 is `a`–`z`, 52–61 is `0`–`9`, 62 is `+` and 63 is `/`).  
+If you want to send a random character to the host computer, you can use the `tap_random_base64()` function. This [pseudorandomly](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) selects a number between 0 and 63, and then sends a key press based on that selection. (0–25 is `A`–`Z`, 26–51 is `a`–`z`, 52–61 is `0`–`9`, 62 is `+` and 63 is `/`).
 
 ?> Needless to say, but this is _not_ a cryptographically secure method of generating random Base64 keys or passwords.
 

@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: c9e3fa6f7:docs/hardware_keyboard_guidelines.md
-  git diff c9e3fa6f7 HEAD -- docs/hardware_keyboard_guidelines.md | cat
+  original document: 0.10.33:docs/hardware_keyboard_guidelines.md
+  git diff 0.10.33 HEAD -- docs/hardware_keyboard_guidelines.md | cat
 -->
 
 QMK は開始以来、コミュニティにおけるキーボードの作成や保守に貢献しているあなたのような人たちのおかげで飛躍的に成長しました。私たちが成長するにつれて、うまくやるためのいくつかのパターンを発見しました。他の人たちがあなたの苦労の恩恵を受けやすくするため、それにあわせてもらえるようお願いします。
@@ -66,9 +66,76 @@ Clueboard は、サブフォルダをまとめるためとキーボードのリ�
 
 全てのプロジェクトには、マトリックスサイズ、製品名、USB VID/PID、説明、その他の設定などが含まれた `config.h` ファイルが必要です。一般に、このファイルを使用して常に機能するキーボードの重要な情報やデフォルトを設定します。
 
+また、`config.h` ファイルはサブフォルダにも置くことができ、その読み込み順は以下の通りです。
+
+* `keyboards/top_folder/config.h`
+  * `keyboards/top_folder/sub_1/config.h`
+    * `keyboards/top_folder/sub_1/sub_2/config.h`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/config.h`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/config.h`
+          * `users/a_user_folder/config.h`
+          * `keyboards/top_folder/keymaps/a_keymap/config.h`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/post_config.h`
+    * `keyboards/top_folder/sub_1/sub_2/post_config.h`
+  * `keyboards/top_folder/sub_1/post_config.h`
+* `keyboards/top_folder/post_config.h`
+
+`post_config.h` ファイルは、`config.h` ファイルで指定された内容に応じて、追加の後処理を行うために使用することができます。
+例えば、キーマップレベルの `config.h` ファイルで `IOS_DEVICE_ENABLE` マクロを以下のように定義すると、`post_config.h` ファイルでより詳細な設定を行うことができます。
+
+* `keyboards/top_folder/keymaps/a_keymap/config.h`
+  ```c
+  #define IOS_DEVICE_ENABLE
+  ```
+* `keyboards/top_folder/post_config.h`
+  ```c
+  #ifndef IOS_DEVICE_ENABLE
+    // USB_MAX_POWER_CONSUMPTION value for this keyboard
+    #define USB_MAX_POWER_CONSUMPTION 400
+  #else
+    // fix iPhone and iPad power adapter issue
+    // iOS device need lessthan 100
+    #define USB_MAX_POWER_CONSUMPTION 100
+  #endif
+  
+  #ifdef RGBLIGHT_ENABLE
+    #ifndef IOS_DEVICE_ENABLE
+      #define RGBLIGHT_LIMIT_VAL 200
+      #define RGBLIGHT_VAL_STEP 17
+    #else
+      #define RGBLIGHT_LIMIT_VAL 35
+      #define RGBLIGHT_VAL_STEP 4
+    #endif
+    #ifndef RGBLIGHT_HUE_STEP
+      #define RGBLIGHT_HUE_STEP 10
+    #endif
+    #ifndef RGBLIGHT_SAT_STEP
+      #define RGBLIGHT_SAT_STEP 17
+    #endif
+  #endif
+  ```
+
+?> 上記の例のように `post_config.h` でオプションを定義する場合、キーボードやユーザレベルの `config.h` で同じオプションを定義してはいけません。
+
 ### `rules.mk`
 
 このファイルが存在するということは、フォルダがキーボードであり、`make` コマンドで使用できることを意味します。ここでキーボードのビルド環境を構築し、デフォルトの機能を設定します。
+
+`rules.mk` ファイルはサブフォルダにも置くことができ、その読み込み順は以下の通りです。
+
+* `keyboards/top_folder/rules.mk`
+  * `keyboards/top_folder/sub_1/rules.mk`
+    * `keyboards/top_folder/sub_1/sub_2/rules.mk`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/rules.mk`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
+          * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
+          * `users/a_user_folder/rules.mk`
+* `common_features.mk`
+
+`rules.mk` ファイルに書かれた多くの設定は `common_features.mk` によって解釈され、必要なソースファイルやコンパイラのオプションが設定されます。
+
+?> 詳しくは `build_keyboard.mk` と `common_features.mk` を見てください。
 
 ### `<keyboard_name.c>`
 

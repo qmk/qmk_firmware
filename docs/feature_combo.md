@@ -55,7 +55,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [XV_PASTE] = COMBO_ACTION(paste_combo),
 };
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case ZC_COPY:
       if (pressed) {

@@ -6,34 +6,34 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 ## The New Way: `SEND_STRING()` & `process_record_user`
 
-Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string (i.e. a sequence of characters) for you. All ASCII characters that are easily translated to a keycode are supported (e.g. `\n\t`).
+Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
 Here is an example `keymap.c` for a two-key keyboard:
 
 ```c
 enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
+    QMKBEST = SAFE_RANGE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
     case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-
-  }
-  return true;
+        if (record->event.pressed) {
+            // when keycode QMKBEST is pressed
+            SEND_STRING("QMK is the best thing ever!");
+        } else {
+            // when keycode QMKBEST is released
+        }
+        break;
+    }
+    return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = {
-    {QMKBEST, KC_ESC}
-  }
+    [0] = {
+        {QMKBEST, KC_ESC},
+        // ...
+    },
 };
 ```
 
@@ -49,42 +49,45 @@ You can do that by adding another keycode and adding another case to the switch 
 
 ```c
 enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL,
-  MY_OTHER_MACRO
+    QMKBEST = SAFE_RANGE,
+    QMKURL,
+    MY_OTHER_MACRO,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
     case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
+        if (record->event.pressed) {
+            // when keycode QMKBEST is pressed
+            SEND_STRING("QMK is the best thing ever!");
+        } else {
+            // when keycode QMKBEST is released
+        }
+        break;
+
     case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/\n");
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
+        if (record->event.pressed) {
+            // when keycode QMKURL is pressed
+            SEND_STRING("https://qmk.fm/\n");
+        } else {
+            // when keycode QMKURL is released
+        }
+        break;
+
     case MY_OTHER_MACRO:
-      if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("ac")); // selects all and copies
-      }
-      break;
-  }
-  return true;
+        if (record->event.pressed) {
+           SEND_STRING(SS_LCTL("ac")); // selects all and copies
+        }
+        break;
+    }
+    return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = {
-    {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
-  }
+    [0] = {
+        {MY_CUSTOM_MACRO, MY_OTHER_MACRO},
+        // ...
+    },
 };
 ```
 
@@ -179,7 +182,9 @@ Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - no
 
 By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:
 
-    #include <sendstring_colemak.h>
+```c
+#include "sendstring_colemak.h"
+```
 
 ### Strings in Memory
 
@@ -204,7 +209,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
 
-?> You can also use the functions described in [Useful function](ref_functions.md) for additional functionality. For example `reset_keyboard()` allows you to reset the keyboard as part of a macro.
+?> You can also use the functions described in [Useful functions](ref_functions.md) for additional functionality. For example `reset_keyboard()` allows you to reset the keyboard as part of a macro.
 
 ### `record->event.pressed`
 

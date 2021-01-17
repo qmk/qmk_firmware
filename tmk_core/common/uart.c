@@ -31,7 +31,7 @@
 
 #include "uart.h"
 
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__)
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
 #    define UDRn UDR0
 #    define UBRRnL UBRR0L
 #    define UCSRnA UCSR0A

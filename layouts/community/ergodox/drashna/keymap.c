@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 
 #ifdef UNICODEMAP_ENABLE
@@ -6,11 +22,12 @@
 #ifndef UNICODE_ENABLE
 #    define UC(x) KC_NO
 #endif
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
 
-enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
+enum more_custom_keycodes {
+    KC_SWAP_NUM = NEW_SAFE_RANGE,
+    PM_SCROLL,
+    PM_PRECISION,
+};
 
 // define layer change stuff for underglow indicator
 bool skip_leds = false;
@@ -33,7 +50,7 @@ bool skip_leds = false;
       LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
       KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
       KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  RCTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E),        \
+      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_BTN1, KC_BTN3, KC_BTN2,   PM_SCROLL, PM_PRECISION,        \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
                                                            KC_APP,                  KC_MENU,                                                        \
                               KC_SPC, LT(_LOWER, KC_BSPC), OS_LWR,                  OS_RSE, LT(_RAISE, KC_DEL), KC_ENT                              \
@@ -281,7 +298,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
              KC_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
-             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EEP_RST,
+             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EEP_RST,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
              _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG(_MODS),
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
@@ -292,6 +309,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 // clang-format on
+
+#ifdef PIMORONI_TRACKBALL_ENABLE
+void run_trackball_cleanup(void) {
+    if (trackball_is_scrolling()) {
+        trackball_set_rgbw(RGB_CYAN, 0x00);
+    } else if (trackball_get_precision() != 1.0) {
+        trackball_set_rgbw(RGB_GREEN, 0x00);
+    } else {
+        trackball_set_rgbw(RGB_MAGENTA, 0x00);
+    }
+}
+
+void keyboard_post_init_keymap(void) {
+    // trackball_set_precision(1.5);
+    trackball_set_rgbw(RGB_MAGENTA, 0x00);
+}
+void shutdown_keymap(void) {
+    trackball_set_rgbw(RGB_RED, 0x00);
+}
+
+static bool mouse_button_one, trackball_button_one;
+
+void trackball_check_click(bool pressed, report_mouse_t* mouse) {
+    if (mouse_button_one | pressed) {
+        mouse->buttons |= MOUSE_BTN1;
+    } else {
+        mouse->buttons &= ~MOUSE_BTN1;
+    }
+    trackball_button_one = pressed;
+}
+#endif
+
+
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -321,18 +371,33 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(userspace_config.raw);
             }
             break;
+#ifdef PIMORONI_TRACKBALL_ENABLE
+        case PM_SCROLL:
+            trackball_set_scrolling(record->event.pressed);
+            run_trackball_cleanup();
+            break;
+        case PM_PRECISION:
+            if (record->event.pressed) {
+                trackball_set_precision(1.5);
+            } else {
+                trackball_set_precision(1);
+            }
+            run_trackball_cleanup();
+            break;
+#if !defined(MOUSEKEY_ENABLE)
+                    case KC_MS_BTN1:
+                        mouse_button_one = record->event.pressed;
+                        trackball_register_button(mouse_button_one | trackball_button_one, MOUSE_BTN1);
+                        break;
+                    case KC_MS_BTN2:
+                        trackball_register_button(record->event.pressed, MOUSE_BTN2);
+                        break;
+                    case KC_MS_BTN3:
+                        trackball_register_button(record->event.pressed, MOUSE_BTN3);
+                        break;
+#    endif
+#endif
     }
-    // switch (keycode) {
-    //  case KC_P00:
-    //    if (!record->event.pressed) {
-    //      register_code(KC_KP_0);
-    //      unregister_code(KC_KP_0);
-    //      register_code(KC_KP_0);
-    //      unregister_code(KC_KP_0);
-    //    }
-    //    return false;
-    //    break;
-    //}
     return true;
 }
 
@@ -405,7 +470,8 @@ void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change)
 #    endif
     {
-        switch (get_highest_layer(layer_state)) {
+        bool mods_enabled = IS_LAYER_ON(_MODS);
+        switch (get_highest_layer(layer_state|default_layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
@@ -421,36 +487,30 @@ void rgb_matrix_indicators_user(void) {
             case _ADJUST:
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
-            default: {
-                bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (get_highest_layer(default_layer_state)) {
-                    case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                }
+            case _QWERTY:
+                rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
-            }
+            case _COLEMAK:
+                rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _DVORAK:
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _WORKMAN:
+                rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _NORMAN:
+                rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _MALTRON:
+                rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _EUCALYN:
+                rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _CARPLAX:
+                rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
         }
     }
 }

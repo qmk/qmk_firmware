@@ -26,19 +26,26 @@ If your encoder's clockwise directions are incorrect, you can swap the A & B pad
 #define ENCODER_DIRECTION_FLIP
 ```
 
-Additionally, the resolution can be specified in the same file (the default & suggested is 4):
+Additionally, the resolution, which defines how many pulses the encoder registers between each detent, can be defined with:
 
 ```c
 #define ENCODER_RESOLUTION 4
 ```
 
+It can also be defined per-encoder, by instead defining:
+
+```c
+#define ENCODER_RESOLUTIONS { 4, 2 }
+```
+
 ## Split Keyboards
 
-If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout for the right half like this:
+If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout (and optionally, resolutions) for the right half like this:
 
 ```c
 #define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
 #define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+#define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
 ```
 
 ## Callbacks

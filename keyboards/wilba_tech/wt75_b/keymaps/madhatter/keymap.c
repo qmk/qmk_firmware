@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-enum my_layers {
+enum singav3_layers {
     _QWERTY,
     _FNMS
 };

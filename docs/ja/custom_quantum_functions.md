@@ -1,8 +1,8 @@
 # キーボードの挙動をカスタマイズする方法
 
 <!---
-  original document: 0.8.62:docs/custom_quantum_functions.md
-  git diff 0.8.62 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.10.52:docs/custom_quantum_functions.md
+  git diff 0.10.52 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 多くの人にとって、カスタムキーボードはボタンの押下をコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいでしょう。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズできるフックがあります。
@@ -93,106 +93,6 @@ keyrecord_t record {
 }
 ```
 
-# LED 制御
-
-QMK は HID 仕様で定義された5つの LED の読み取りメソッドを提供します:
-
-* Num Lock
-* Caps Lock
-* Scroll Lock
-* Compose
-* Kana
-
-ロック LED の状態を取得するには2つの方法があります:
-
-* `bool led_update_kb(led_t led_state)` あるいは `_user(led_t led_state)` を実装する、または
-* `led_t host_keyboard_led_state()` を呼び出す
-
-!> `host_keyboard_led_state()` は `led_update_user()` が呼ばれる前に新しい値を既に反映している場合があります。
-
-LED の状態を `uint8_t` として提供する2つの非推奨の関数があります:
-
-* `uint8_t led_set_kb(uint8_t usb_led)` と `_user(uint8_t usb_led)`
-* `uint8_t host_keyboard_leds()`
-
-## `led_update_user()`
-
-この関数はこれら5つの LED のいずれかの状態が変化すると呼ばれます。LED の状態を構造体のパラメータとして受け取ります。
-
-慣例により、`led_update_kb()` にそのコードを実行するようフックさせるために `led_update_user()` から `true` を返し、`led_update_kb()` でコードを実行したくない場合は `false` を返します。
-
-以下はいくつかの例です:
-
-- レイヤー表示のような何かのために LED を使うために LED を上書きする
-   - `_kb()` 関数を実行したくないので、`false`  を返します。これはレイヤーの挙動を上書きするためです。
-- LED がオンあるいはオフになった時に音楽を再生する。
-   - `_kb` 関数を実行したいので、`true` を返します。これはデフォルトの LED の挙動に追加されます。
-
-?> `led_set_*` 関数は `bool` の代わりに `void` を返すため、キーボードの LED 制御を上書きすることができません。従って、代わりに `led_update_*` を使うことをお勧めします。
-
-### `led_update_kb()` の実装例
-
-```c
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        // writePin は 1 でピンを high に、0 で low に設定します。
-        // この例では、ピンは反転していて、
-        // low/0 は LED がオンになり、high/1 は LED がオフになります。
-        // この挙動は、LED がピンと VCC の間にあるか、ピンと GND の間にあるかどうかに依存します。
-        writePin(B0, !led_state.num_lock);
-        writePin(B1, !led_state.caps_lock);
-        writePin(B2, !led_state.scroll_lock);
-        writePin(B3, !led_state.compose);
-        writePin(B4, !led_state.kana);
-    }
-    return res;
-}
-```
-
-### `led_update_user()` の実装例
-
-この不完全な例は Caps Lock がオンまたはオフになった場合に音を再生します。また LED の状態を保持する必要があるため、`true` を返します。
-
-```c
-#ifdef AUDIO_ENABLE
-  float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
-  float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
-#endif
-
-bool led_update_user(led_t led_state) {
-    #ifdef AUDIO_ENABLE
-    static uint8_t caps_state = 0;
-    if (caps_state != led_state.caps_lock) {
-        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
-        caps_state = led_state.caps_lock;
-    }
-    #endif
-    return true;
-}
-```
-
-### `led_update_*` 関数のドキュメント
-
-* キーボード/リビジョン: `bool led_update_kb(led_t led_state)`
-* キーマップ: `bool led_update_user(led_t led_state)`
-
-## `host_keyboard_led_state()`
-
-最後に受信した LED の状態を `led_t` として取得するためにこの関数を呼びます。これは、`led_update_*` の外部から、例えば [`matrix_scan_user()`](#matrix-scanning-code) の中で LED の状態を読み取るのに便利です。
-
-## 物理的な LED の状態の設定
-
-一部のキーボードの実装は、物理的な LED の状態を設定するための便利なメソッドを提供しています。
-
-### Ergodox キーボード
-
-Ergodox の実装は、個々の LED をオンあるいはオフにするために `ergodox_right_led_1`/`2`/`3_on`/`off()` と、インデックスによってそれらをオンあるいはオフにするために `ergodox_right_led_on`/`off(uint8_t led)` を提供します。
-
-さらに、LED の明度を指定することができます。全ての LED に同じ明度を指定するなら `ergodox_led_all_set(uint8_t n)` を使い、個別の LED の明度を指定するなら `ergodox_right_led_1`/`2`/`3_set(uint8_t n)` を使い、LED のインデックスを指定して明度を指定するには  `ergodox_right_led_set(uint8_t led, uint8_t n)` を使います。
-
-Ergodox キーボードは、最低の明度として `LED_BRIGHTNESS_LO` を、最高の輝度(これはデフォルトです)として `LED_BRIGHTNESS_HI` も定義しています。
-
 # キーボードの初期化コード
 
 キーボードの初期化プロセスには幾つかのステップがあります。何をしたいかによって、どの関数を使うべきかに影響します。
@@ -232,7 +132,7 @@ void keyboard_pre_init_user(void) {
 }
 ```
 
-### `keyboard_pre_init_*` 関数のドキュメント
+### `keyboard_pre_init_*` 関数のドキュメント :id=keyboard_pre_init_-function-documentation
 
 * キーボード/リビジョン: `void keyboard_pre_init_kb(void)`
 * キーマップ: `void keyboard_pre_init_user(void)`
@@ -346,6 +246,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 ```
+
+特定のレイヤーの状態を確認するには、`IS_LAYER_ON_STATE(state, layer)` と `IS_LAYER_OFF_STATE(state, layer)` マクロを使います。
+
+`layer_state_set_*` 関数の外では、グローバルなレイヤー状態を確認するために `IS_LAYER_ON(layer)` と `IS_LAYER_OFF(layer)` マクロを使えます。
+
 ### `layer_state_set_*` 関数のドキュメント
 
 * キーボード/リビジョン: `layer_state_t layer_state_set_kb(layer_state_t state)`
@@ -451,7 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // すぐにレイヤーの色を更新します
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 任意の RGB コード に対して(quantum_keycodes.h を見てください。400行目参照)
         if (record->event.pressed) { // これはレイヤー表示を無効にします。これを変更する場合は、無効にしたいだろうため。
             if (user_config.rgb_layer_change) {        // 有効な場合のみ
@@ -488,56 +393,3 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
 * キーマップ: `void eeconfig_init_user(void)`、`uint32_t eeconfig_read_user(void)` および `void eeconfig_update_user(uint32_t val)`
 
 `val` は EEPROM に書き込みたいデータの値です。`eeconfig_read_*` 関数は EEPROM から32ビット(DWORD) 値を返します。
-
-# カスタムタッピング期間
-
-デフォルトでは、タッピング期間と(`IGNORE_MOD_TAP_INTERRUPT` のような)関連オプションはグローバルに設定されていて、キーでは設定することができません。ほとんどのユーザにとって、これは全然問題ありません。しかし、場合によっては、`LT` キーとは異なるタイムアウトによって、デュアルファンクションキーが大幅に改善されます。なぜなら、一部のキーは他のキーよりも押し続けやすいためです。それぞれにカスタムキーコードを使う代わりに、キーごとに設定可能なタイムアウトの挙動を設定できます。
-
-キーごとのタイムアウトの挙動を制御するための2つの設定可能なオプションがあります:
-
-- `TAPPING_TERM_PER_KEY`
-- `IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
-
-必要な機能ごとに、`config.h` に `#define` 行を追加する必要があります。
-
-```
-#define TAPPING_TERM_PER_KEY
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-```
-
-
-## `get_tapping_term` の実装例
-
-キーコードに基づいて `TAPPING_TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
-
-```c
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SFT_T(KC_SPC):
-      return TAPPING_TERM + 1250;
-    case LT(1, KC_GRV):
-      return 130;
-    default:
-      return TAPPING_TERM;
-  }
-}
-```
-
-## `get_ignore_mod_tap_interrupt` の実装例
-
-キーコードに基づいて `IGNORE_MOD_TAP_INTERRUPT` の値を変更するには、次のようなものを `keymap.c` ファイルに追加します:
-
-```c
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SFT_T(KC_SPC):
-      return true;
-    default:
-      return false;
-  }
-}
-```
-
-## `get_tapping_term` / `get_ignore_mod_tap_interrupt` 関数のドキュメント
-
-ここにある他の多くの関数とは異なり、quantum あるいはキーボードレベルの関数を持つ必要はありません (または理由さえありません)。ここではユーザレベルの関数だけが有用なため、そのようにマークする必要はありません。

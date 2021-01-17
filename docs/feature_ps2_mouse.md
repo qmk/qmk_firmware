@@ -294,3 +294,13 @@ To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 #define PS2_MOUSE_DEBUG_HID
 #define PS2_MOUSE_DEBUG_RAW
 ```
+
+### Movement Hook :id=movement-hook
+
+Process mouse movement in the keymap before it is sent to the host.  Example
+uses include filtering noise, adding acceleration, and automatically activating
+a layer.  To use, define the following function in your keymap:
+
+```c
+void ps2_mouse_moved_user(report_mouse_t *mouse_report);
+```

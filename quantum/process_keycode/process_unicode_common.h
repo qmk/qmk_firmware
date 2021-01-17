@@ -75,7 +75,6 @@ typedef union {
 } unicode_config_t;
 
 extern unicode_config_t unicode_config;
-extern uint8_t          unicode_saved_mods;
 
 void    unicode_input_mode_init(void);
 uint8_t get_unicode_input_mode(void);
@@ -89,6 +88,8 @@ void unicode_input_cancel(void);
 
 void register_hex(uint16_t hex);
 void register_hex32(uint32_t hex);
+void register_unicode(uint32_t code_point);
+
 void send_unicode_hex_string(const char *str);
 void send_unicode_string(const char *str);
 

@@ -20,30 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xC0C0
-#define PRODUCT_ID      0x3000
+#define VENDOR_ID       0x524B // recompile keys
+#define PRODUCT_ID      0x4E31 // Nomu30
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Naoto Takai
-#define PRODUCT         nomu30
-#define DESCRIPTION     A 30% keyboard with ISO enter.
+#define MANUFACTURER    recompile keys
+#define PRODUCT         Nomu30
+#define DESCRIPTION     recompile keys Nomu30
 
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 12
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { D1, D0, D4 }
-#define MATRIX_COL_PINS { C6, D7, E6, B4, F4, F5, F6, F7, B1, B3, B2, B6 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 11

@@ -23,8 +23,6 @@ def cformat_run(files, all_files):
         if not files:
             cli.log.warn('No changes detected. Use "qmk cformat -a" to format all files')
             return False
-        if files and all_files:
-            cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(files))
         subprocess.run(clang_format + [file for file in files], check=True)
         cli.log.info('Successfully formatted the C code.')
 
@@ -43,11 +41,13 @@ def cformat(cli):
     # Empty array for files
     files = []
     # Core directories for formatting
-    core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core']
-    ignores = ['tmk_core/protocol/usb_hid', 'quantum/template']
+    core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core', 'platforms']
+    ignores = ['tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios']
     # Find the list of files to format
     if cli.args.files:
         files.extend(normpath(file) for file in cli.args.files)
+        if cli.args.all_files:
+            cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(map(str, files)))
     # If -a is specified
     elif cli.args.all_files:
         all_files = c_source_files(core_dirs)
