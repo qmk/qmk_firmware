@@ -97,9 +97,7 @@ void key_override_on(void) {
 
 void key_override_off(void) {
     enabled = false;
-    if (clear_active_override(false) != NULL) {
-        send_keyboard_report();
-    }
+    clear_active_override(false);
     key_override_printf("Key override OFF\n");
 }
 
@@ -145,17 +143,6 @@ static bool key_override_matches_active_modifiers(const key_override_t *override
     }
 
     return false;
-}
-
-// Called only to register a mod-free replacement keycode of a key override to the keyboard report.
-static void register_replacement_key_to_pending_keyboard_report(const uint16_t keycode) {
-    if (IS_KEY(keycode)) {
-        add_key(keycode);
-    } else {
-        key_override_printf("NOT KEY 2\n");
-        send_keyboard_report();
-        register_code(keycode);
-    }
 }
 
 static void schedule_deferred_register(const uint16_t keycode) {
@@ -223,11 +210,9 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
         // This will always be a modifier event, so defer always
         schedule_deferred_register(trigger);
-        send_keyboard_report();
     }
-    else {
-        send_keyboard_report();
-    }
+
+    send_keyboard_report();
 
     active_override                 = NULL;
     active_override_trigger_is_down = false;
@@ -388,7 +373,13 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
                 schedule_deferred_register(mod_free_replacement);
                 send_keyboard_report();
             } else {
-                register_replacement_key_to_pending_keyboard_report(mod_free_replacement);
+                if (IS_KEY(mod_free_replacement)) {
+                    add_key(mod_free_replacement);
+                } else {
+                    key_override_printf("NOT KEY 2\n");
+                    send_keyboard_report();
+                    register_code(mod_free_replacement);
+                }
             }
         } else {
             // If not registering the replacement key send keyboard report to update the unregistered keys.
