@@ -15,9 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _BASE 0
-#define _SUB  1
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
           BASE LAYER
@@ -28,14 +25,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      |---------|---------|---------|---------|
      |    1    |    2    |    3    |   Tab   |
      |---------|---------|---------|---------|
-     | TT(SUB) |    0    |    .    |  Enter  |
+     |  TT(1)  |    0    |    .    |  Enter  |
      \---------------------------------------'
     */
-    [_BASE] = LAYOUT(
+    [0] = LAYOUT(
         KC_7,      KC_8,    KC_9,     KC_BSPC,
         KC_4,      KC_5,    KC_6,     KC_ESC,
         KC_1,      KC_2,    KC_3,     KC_TAB,
-        TT(_SUB),  KC_0,    KC_DOT,   KC_ENTER
+        TT(1),     KC_0,    KC_DOT,   KC_ENTER
     ),
     /*
             SUB LAYER
@@ -49,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |         |         |         |    =    |
     \---------------------------------------'
     */
-    [_SUB] = LAYOUT(
+    [1] = LAYOUT(
         _______,     _______,     _______,      RESET,
         _______,     _______,     _______,      KC_KP_PLUS,
         _______,     _______,     _______,      KC_KP_MINUS,
@@ -95,7 +92,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
      */
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
-            case _BASE:
+            case 0:
                 // main layer - move mouse right (CW) and left (CCW)
                 if (clockwise) {
                     tap_code(KC_MS_R);
@@ -115,7 +112,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         switch (biton32(layer_state)) {
-            case _BASE:
+            case 0:
                 // main layer - volume up (CW) and down (CCW)
                 if (clockwise) {
                     tap_code(KC_VOLU);
