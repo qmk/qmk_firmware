@@ -34,15 +34,15 @@ qmk compile -kb crkbd/rev1/common -km filterpaper
 ```
 
 ### Split keyboard
-Corne is configured with EE_HANDS so the controller will check EEPROM values to know which side its on, and USB-C can be connected to either side.
+Corne is configured with EE_HANDS, the controllers will check EEPROM values to know which side it's on and USB-C can be used on either.
 These are the one time flash commands to write left and right side setting into the Elite-C EEPROM:
 ```
 make crkbd/rev1/common:filterpaper:dfu-split-left
 make crkbd/rev1/common:filterpaper:dfu-split-right
 ```
-The same firmware can be flashed normally to both sides after this.
+Following this, same firmware can be flashed normally to both sides.
 
 ## Keymap layout
 
 Individual keymap.c for each keyboard will have to be generated and saved within their respective keymaps directory. See 
-the [json folder](json/readme.md) for more details and list of exported QMK Configurator layouts.
+the [json folder](json/) for details and list of exported QMK Configurator layouts.

@@ -119,7 +119,7 @@ static void animate_cat(void) {
 	}
 
 	// Animate on WPM, turn off OLED on idle
-	if (get_current_wpm() != 000) {
+	if (get_current_wpm() != 000 && get_current_wpm() >=prev_wpm) {
 		oled_on();
 		if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
 			anim_timer = timer_read32();
