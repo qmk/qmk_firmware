@@ -86,6 +86,10 @@ def cformat(cli):
         all_changed_files = json.load(files_json.open())
         files = [file for file in all_changed_files if file.split('.')[-1] in c_file_suffixes]
 
+        if not files:
+            cli.log.info('No C files in changeset: %s', ', '.join(all_changed_files))
+            exit(0)
+
     elif cli.args.files:
         files = cli.args.files
 
