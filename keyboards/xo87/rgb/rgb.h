@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "quantum.h"
+
 #define u8 uint8_t
 #define u16 uint16_t
 
 #pragma once
-
-#include "quantum.h"
 
 #define KEYLED_ROWS 6
 #define KEYLED_COLS 16
