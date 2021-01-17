@@ -97,6 +97,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "dip_switch.h"
 #endif
 
+static uint32_t last_matrix_modification_time = 0;
+uint32_t        last_matrix_activity_time(void) { return last_matrix_modification_time; }
+uint32_t        last_matrix_activity_elapsed(void) { return timer_elapsed32(last_matrix_modification_time); }
+
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
 static uint32_t matrix_timer      = 0;
@@ -338,11 +342,8 @@ void keyboard_task(void) {
     housekeeping_task_kb();
     housekeeping_task_user();
 
-#if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
-    uint8_t ret = matrix_scan();
-#else
-    matrix_scan();
-#endif
+    uint8_t matrix_changed = matrix_scan();
+    if (matrix_changed) last_matrix_modification_time = timer_read32();
 
     if (should_process_keypress()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
@@ -409,7 +410,7 @@ MATRIX_LOOP_END:
     oled_task();
 #    ifndef OLED_DISABLE_TIMEOUT
     // Wake up oled if user is using those fabulous keys!
-    if (ret) oled_on();
+    if (matrix_changed) oled_on();
 #    endif
 #endif
 
