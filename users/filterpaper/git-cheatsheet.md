@@ -13,23 +13,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# QMK Configurator layout files
-
-Custom layout files for the QMK Configurator
-[https://config.qmk.fm/#/](https://config.qmk.fm/#/)
-
-## keymap.c update shortcuts
-```
-qmk json2c ~/qmk_firmware/json/corne.json > ~/qmk_firmware/keyboards/crkbd/keymaps/filterpaper/keymap.c
-qmk json2c ~/qmk_firmware/json/bm40.json > ~/qmk_firmware/keyboards/bm40hsrgb/keymaps/filterpaper/keymap.c
-qmk json2c ~/qmk_firmware/json/planck.json > ~/qmk_firmware/keyboards/planck/keymaps/filterpaper/keymap.c
-qmk json2c ~/qmk_firmware/json/d65-cole.json > ~/qmk_firmware/keyboards/kbdfans/kbd67/mkiirgb/keymaps/filterpaper/keymap.c
-qmk json2c ~/qmk_firmware/json/mark65.json > ~/qmk_firmware/keyboards/boardsource/the_mark/keymaps/filterpaper/keymap.c
-```
-
-# User space code
-Shared keyboard codes are found in [filterpaper user space](https://github.com/filterpaper/qmk_firmware/tree/master/users/filterpaper/readme.md)
-
 # Git cheatsheet
 https://docs.qmk.fm/#/newbs_git_using_your_master_branch
 

@@ -31,7 +31,7 @@ endif
 ifeq ($(strip $(KEYBOARD)), the_mark)
 	RGBLIGHT_ENABLE = yes
 endif
-ifeq ($(KEYBOARD),$(filter $(KEYBOARD),bm40hsrgb planck/rev6 kbdfans/kbd67/mkiirgb/v2))
+ifeq ($(KEYBOARD),$(filter $(KEYBOARD),bm40hsrgb planck/rev6))
 	RGB_MATRIX_ENABLE = yes
 endif
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)

@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Summary
 
-Common user space code for a few custom keyboards. See https://docs.qmk.fm/#/feature_userspace?id=userspace-sharing-code-between-keymaps for more details.
+Personal user space to share code for a few custom keyboards. See https://docs.qmk.fm/#/feature_userspace?id=userspace-sharing-code-between-keymaps for more details.
 ## File list
 * `config.h`	Self-explainatory QMK configuration options
 * `rules.mk`	Makefile rules for keyboard-specific features, includes keyboard.c
@@ -31,7 +31,6 @@ qmk compile -kb the_mark -km filterpaper
 qmk compile -kb bm40hsrgb -km filterpaper
 qmk compile -kb planck/rev6 -km filterpaper
 qmk compile -kb crkbd/rev1/common -km filterpaper
-qmk compile -kb kbdfans/kbd67/mkiirgb/v2 -km filterpaper
 ```
 
 ### Split keyboard
@@ -45,4 +44,5 @@ The same firmware can be flashed normally to both sides after this.
 
 ## Keymap layout
 
-Exported QMK Configurator files are located in the [json folder](https://github.com/filterpaper/qmk_firmware/tree/master/json)
+Individual keymap.c for each keyboard will have to be generated and saved within their respective keymaps directory. See 
+the [json folder](json/readme.md) for more details and list of exported QMK Configurator layouts.
