@@ -20,8 +20,6 @@
 #include "usb_descriptor.h"
 #include "rgb_matrix.h"
 
-#define noLed {255,255}
-
 led_config_t g_led_config = { {
   // esc  f1   f2   f3   f4   f5   f6   f7     f8    f9    f10   f11   f12   prtscr scrl  brk
   {  91,  95,  96,  97,  98,  99,  100,  101,  102,  103,  104,  105,  106,  107,  108,  109 },
