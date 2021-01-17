@@ -12,7 +12,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 // clang-format off
 #define WRAPPER_ergodox_pretty(...)          LAYOUT_ergodox_pretty(__VA_ARGS__)
-#define WRAPPER_ortho_4x12(...)              LAYOUT_planck_mit(__VA_ARGS__)
+#define WRAPPER_ortho_4x12(...)              LAYOUT_ortho_4x12(__VA_ARGS__)
 
 /*  ---------- LEFT HAND -----------   ---------- RIGHT HAND ---------- */
 #define WRAPPER_ergodox_bocaj(                                           \
@@ -62,25 +62,25 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
   K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \
   K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, \
   K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, \
-  K31, K32, K33, K34, K35,    K36,   K37, K38, K39, K3A, K3B  \
+  K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C  \
 )\
   WRAPPER_ortho_4x12( \
     K01,       K02,        K03,        K04,            K05,        K06,         K07,            K08,        K09,        K0A,        K0B,  K0C, \
     K11,       K12,  SFT_T(K13), GUI_T(K14),     ALT_T(K15),       K16,         K17,      ALT_T(K18), GUI_T(K19), SFT_T(K1A),       K1B,  K1C,  \
     K21, CTL_T(K22),       K23,        K24,            K25,        K26,         K27,            K28,        K29,        K2A,  CTL_T(K2B), K2C, \
-    K31,       K32,        K33,        K34, LT(_LOWER, K35),              K36,       LT(_RAISE, K37),       K38,        K39,        K3A,  K3B )
+    K31,       K32,        K33,        K34, LT(_LOWER, K35),       K36,         K37, LT(_RAISE, K38),       K39,        K3A,        K3B,  K3C )
 
 #define WRAPPER_planck_bocaj_WIN( \
   K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \
   K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, \
   K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, \
-  K31, K32, K33, K34, K35,    K36,   K37, K38, K39, K3A, K3B  \
+  K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C  \
 )\
   WRAPPER_ortho_4x12( \
     K01,       K02,        K03,        K04,            K05,        K06,         K07,            K08,        K09,        K0A,        K0B,  K0C, \
     K11,       K12,  SFT_T(K13), CTL_T(K14),     ALT_T(K15),       K16,         K17,      ALT_T(K18), CTL_T(K19), SFT_T(K1A),       K1B,  K1C,  \
     K21, GUI_T(K22),       K23,        K24,            K25,        K26,         K27,            K28,        K29,        K2A,  GUI_T(K2B), K2C, \
-    K31,       K32,        K33,        K34, LT(_LOWER, K35),              K36,       LT(_RAISE, K37),       K38,        K39,        K3A,  K3B )
+    K31,       K32,        K33,        K34, LT(_LOWER, K35),       K36,         K37, LT(_RAISE, K38),       K39,        K3A,        K3B,  K3C )
 
 #define WRAPPER_planck_bocaj_base( \
  K01, K02, K03, K04, K05,      K06, K07, K08, K09, K0A, \
@@ -91,7 +91,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
     KC_ESC,   K01,     K02,   K03,     K04,        K05,        K06,  K07,      K08,      K09,     K0A,    KC_MINS, \
     KC_TAB,   K11,     K12,   K13,     K14,  ALL_T(K15), MEH_T(K16), K17,      K18,      K19,     K1A,    KC_QUOT, \
     KC_LSFT,  K21,     K22,   K23,     K24,        K25,        K26,  K27,      K28,      K29,     K2A,    _______,  \
-    _______,  KC_LEAD, KC_UP, KC_LEFT, KC_BSPC,         KC_SPC,      KC_ENTER, KC_RIGHT, KC_DOWN, QWERTY, WORKMAN  \
+    _______,  KC_LEAD, KC_UP, KC_LEFT, KC_BSPC,    KC_SPC,     KC_SPC,    KC_ENTER, KC_RIGHT, KC_DOWN, QWERTY, WORKMAN  \
   )
 
 #define WRAPPER_planck_bocaj_base_WIN( \
@@ -103,7 +103,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
     KC_ESC,   K01,     K02,   K03,     K04,        K05,        K06,  K07,      K08,      K09,     K0A,    KC_MINS, \
     KC_TAB,   K11,     K12,   K13,     K14,  ALL_T(K15), MEH_T(K16), K17,      K18,      K19,     K1A,    KC_QUOT, \
     KC_LSFT,  K21,     K22,   K23,     K24,        K25,        K26,  K27,      K28,      K29,     K2A,    _______,  \
-    _______,  KC_LEAD, KC_UP, KC_LEFT, KC_BSPC,         KC_SPC,      KC_ENTER, KC_RIGHT, KC_DOWN, QWERTY, WORKMAN  \
+    _______,  KC_LEAD, KC_UP, KC_LEFT, KC_BSPC,    KC_SPC,     KC_SPC,    KC_ENTER, KC_RIGHT, KC_DOWN, QWERTY, WORKMAN  \
   )
 
 /*
