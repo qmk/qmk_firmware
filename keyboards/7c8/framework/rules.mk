@@ -1,14 +1,4 @@
-# MCU name
-MCU = atmega328
-
-# Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
-#   ATmega328P   USBasp
+MCU = atmega328p
 BOOTLOADER = USBasp
 
 BOOTMAGIC_ENABLE = no

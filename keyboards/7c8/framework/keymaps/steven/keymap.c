@@ -78,6 +78,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        // qq, alt+f4 close window
+        SEQ_TWO_KEYS(KC_Q, KC_Q) {
+            tap_code16(A(KC_F4));
+        }
+
+        // ee, open explorer
+        SEQ_TWO_KEYS(KC_E, KC_E) {
+            tap_code16(G(KC_E));
+        }
+
+        // rr, windows run prompt
+        SEQ_TWO_KEYS(KC_R, KC_R) {
+            tap_code16(G(KC_R));
+        }
+
+        // ww, maximize window
+        SEQ_TWO_KEYS(KC_W, KC_W) {
+            tap_code16(G(KC_UP));
+        }
+
+        // ss, minimize window
+        SEQ_TWO_KEYS(KC_S, KC_S) {
+            tap_code16(G(KC_DOWN));
+        }
+
+        // <space><space>, toggle desktop
+        SEQ_TWO_KEYS(KC_SPC, KC_SPC) {
+            tap_code16(G(KC_D));
+        }
+    }
+} 
+
 void encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = biton32(layer_state);
     if (index == 0) {

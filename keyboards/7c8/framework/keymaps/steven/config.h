@@ -14,29 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-#include "config_common.h"
+/* VIA specific defines to increase dynamic layer count */
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 3
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
 
-#define VENDOR_ID 0x07c8
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0000
-#define MANUFACTURER 7c8
-#define PRODUCT Framework
-#define DESCRIPTION 5x12 ortholinear with a knob
-
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
-#define MATRIX_ROW_PINS { B0, B1, D7, B2, D6, B3, D5, B4, D4, B5 }
-#define MATRIX_COL_PINS { C0, C1, C2, C3, C4, C5 }
-#define ENCODERS_PAD_A  { D0 }
-#define ENCODERS_PAD_B  { D1 }
-
-#define ENCODER_RESOLUTION 4
-#define TAP_CODE_DELAY 16
-#define UNUSED_PINS
-#define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
-
-#define LEADER_TIMEOUT 250
-#define LEADER_PER_KEY_TIMING 150
+/* defining an extra row for encoder assignment in VIA */
+#undef MATRIX_ROWS
+#define MATRIX_ROWS 11
