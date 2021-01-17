@@ -17,7 +17,6 @@
 #pragma once
 
 #include "config_common.h"
-#define brightnessMax 8
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4D47 // MG for Monstargear
