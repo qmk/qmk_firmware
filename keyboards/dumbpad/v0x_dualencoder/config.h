@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0006
-#define DESCRIPTION     4x4 macro/numpad with two rotary encoders
 
 /* Column/Row IO definitions - dualencoder version is true 4x4 */
 #define MATRIX_ROWS 4
