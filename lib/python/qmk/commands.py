@@ -139,15 +139,19 @@ def compile_configurator_json(user_keymap, parallel=1, **env_vars):
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
     color = 'true' if cli.config.general.color else 'false'
-    make_command = [
-        _find_make(),
+    make_command = [_find_make()]
+
+    if not cli.config.general.verbose:
+        make_command.append('-s')
+
+    make_command.extend([
         '-j',
         str(parallel),
         '-r',
         '-R',
         '-f',
         'build_keyboard.mk',
-    ]
+    ])
 
     for key, value in env_vars.items():
         make_command.append(f'{key}={value}')
