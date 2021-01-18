@@ -26,7 +26,7 @@
 #define PRODUCT         XO87
 
 /* key matrix size */
-#define MATRIX_ROWS 6
+#define MATRIX_ROWS 8
 #define MATRIX_COLS 16
 
 #define BACKLIGHT_PIN F5
