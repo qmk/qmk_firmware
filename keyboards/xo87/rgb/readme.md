@@ -10,18 +10,11 @@ A TKL custom keyboard made by Monstar Gear.
 
 Make example for this keyboard (after setting up your build environment):
 
-```sh
-make xo87/rgb:default        # builds the default firmware
-make xo87/rgb:via            # builds the via firmware
-```
-The keyboard uses a DFU bootloader.<br>
-To enter DFU mode, hold the escape key while plugging in your keyboard.<br>
-To make a keymap and use dfu to flash it:
+    make xo87/rgb:default
 
-```sh
-make xo87/rgb:default:flash  # builds and flashes the default version
-make xo87/rgb:via:flash      # builds and flashes the via version
-```
+Flashing example for this keyboard:
+
+    make xo87/rgb:default:flash
 
 Please be aware that Monstar Gear has not yet switched to this firmware and any PCB that is running the pre-installed firmware will need to use ISP to flash their board for the first time.
 
