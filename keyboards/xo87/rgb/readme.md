@@ -4,7 +4,7 @@
 
 A TKL custom keyboard made by Monstargear 
 
-* Keyboard Maintainer: qmk
+* Keyboard Maintainer: The QMK Community
 * Hardware Supported: XO87 RGB Hot-Swap version
 * Hardware Availability: [Monstargear](https://monstargears.com)
 
