@@ -49,20 +49,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-	switch (id) {
-		case 0:
-			if (record->event.pressed) {
-				return MACRO( T(1), T(2), D(3), D(4), U(3), D(5), U(4), U(5), END );
-			}
-			break;
-		case 1:
-			if (record->event.pressed) {
-				return MACRO( T(Q), T(W), T(E), T(R), T(T), END );
-			}
-			break;
-	}
-	return MACRO_NONE;
-}
