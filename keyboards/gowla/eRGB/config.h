@@ -19,10 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xE9B6
+#define PRODUCT_ID      0x0007
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Gowla
-#define PRODUCT         Gowla Macro Board
+#define PRODUCT         Gowla Macro eRGB
+#define DESCRIPTION     3x3 PCB
 
 /* Matrix size */
 #define MATRIX_ROWS 3
@@ -35,3 +36,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ROW2COL */
 #define DIODE_DIRECTION ROW2COL
+
+/* RGB */
+#undef RGBW
+#undef RGBW_BB_TWI
+#define RGB_DI_PIN B3
+#define RGBLED_NUM 3
+#define RGBLIGHT_EFFECT_STATIC_LIGHT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_LIMIT_VAL 225
+
+/* Rotary Encoder*/
+#define ENCODERS_PAD_A { B6 }
+#define ENCODERS_PAD_B { B2 }
+#define ENCODER_RESOLUTION 4
+
