@@ -49,6 +49,16 @@ void torn_set_led(uint8_t led, bool state) {
     mcp23018_writeReg(IODIRB, &iodir, 1);
 }
 
+void sleep_led_init(void) {
+}
+
+void sleep_led_enable(void) {
+    oled_off();
+}
+
+void sleep_led_disable(void) {
+}
+
 // clang-format off
 const char PROGMEM bongocat_logo[] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf8, 0xf8, 0x98, 0x98, 0x98, 0x98, 0x98, 0x18, 0x18, 0x98,

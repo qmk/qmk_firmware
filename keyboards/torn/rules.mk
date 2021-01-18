@@ -29,3 +29,6 @@ SRC += matrix.c \
     torn_encoder.c
 
 QUANTUM_LIB_SRC += i2c_master.c
+
+# We use our own SLEEP_LED_ENABLE to turn off the OLED display when connected to a powered usb hub
+OPT_DEFS += -DSLEEP_LED_ENABLE
