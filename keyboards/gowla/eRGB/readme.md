@@ -1,7 +1,7 @@
 # Gowla Macro eRGB
 
 <p align="center">
-  <img src="https://github.com/SamGowland/Gowla-Macro-Board/blob/master/Images/eRGB_case.jpg" height="400">
+  <img src="https://github.com/SamGowland/Gowla-Macro-Board/blob/master/Images/eRGB_case.JPG" height="400">
 </p>
 
 Simple Compact 3x3 Macro Board for use with QMK, designed and sold by Gowla.
