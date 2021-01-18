@@ -80,7 +80,7 @@
                 {"label": "r4_08", "x": 14, "y": 4},
                 {"label": "r4_09", "x": 15, "y": 4}
             ]
-        }
+        },
         "LAYOUT_65_iso_blocker": {
             "key_count": 68,
             "layout": [
@@ -159,7 +159,7 @@
                 {"label": "r4_08", "x": 14, "y": 4},
                 {"label": "r4_09", "x": 15, "y": 4}
             ]
-        }
+        },
         "LAYOUT_65_ansi_blocker_doublebs": {
             "key_count": 68,
             "layout": [
@@ -236,7 +236,7 @@
                 {"label": "r4_08", "x": 14, "y": 4},
                 {"label": "r4_09", "x": 15, "y": 4}
             ]
-        }
+        },
         "LAYOUT_65_iso_blocker_doublebs": {
             "key_count": 68,
             "layout": [
