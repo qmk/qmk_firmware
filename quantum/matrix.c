@@ -122,7 +122,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         uint8_t pin_state = readPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
-        current_row_value |= pin_state ? 1 : (MATRIX_ROW_SHIFTER << col_index);
+        current_row_value |= !pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
 
     // Unselect row
