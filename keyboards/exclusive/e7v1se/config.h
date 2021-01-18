@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Exclusive / E-Team
 #define PRODUCT E7-V1 SE
-#define DESCRIPTION E7-V1 SE
 
 /* key matrix size */
 #define MATRIX_ROWS 6

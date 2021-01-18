@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER nickolaij
 #define PRODUCT abacus
-#define DESCRIPTION A first attempt at a custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
