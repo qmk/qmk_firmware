@@ -38,14 +38,13 @@ const PALConfig pal_default_config =
  * any other initialization.
  */
 void __early_init(void) {
-
   stm32_clock_init();
+  
 }
 
 /*
  * Board-specific initialization code.
  */
 void boardInit(void) {
-	AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
-  
+
 }
