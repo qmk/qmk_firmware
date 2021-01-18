@@ -98,13 +98,16 @@ static void init_pins(void) {
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    #ifndef PORTSCAN
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
+    #endif
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
     matrix_io_delay();
 
+    #ifndef PORTSCAN
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
@@ -123,6 +126,16 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         return true;
     }
     return false;
+
+    #else
+    uint8_t port_state = ~PINx_ADDRESS(PORTSCAN) & PORTSCAN_PINS;
+    unselect_row(current_row);
+    if (current_matrix[current_row] != port_state) {
+      current_matrix[current_row] = port_state;
+      return true;
+    }
+    return false;
+    #endif
 }
 
 #    elif (DIODE_DIRECTION == ROW2COL)
