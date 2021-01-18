@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         Minitomic
-#define DESCRIPTION     A 45% staggered keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
