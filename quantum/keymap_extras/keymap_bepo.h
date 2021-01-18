@@ -129,7 +129,7 @@
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
  * │     │ | │ ´ │ & │ Œ │ ` │ ¡ │ ˇ │ Ð │ / │ Ĳ │ Ə │ ˘ │     │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ Æ │ Ù │ ¨ │ € │   │ © │ Þ │ ẞ │ ® │ ~ │ ¯ │ ¸ │    │
+ * │      │ Æ │ Ù │ ¨ │ € │ ’ │ © │ Þ │ ẞ │ ® │ ~ │ ¯ │ ¸ │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
  * │    │   │ \ │ { │ } │ … │ ~ │ ¿ │ ° │   │ † │ ˛ │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -168,6 +168,7 @@
 #define BP_UGRV ALGR(BP_U)    // Ù
 #define BP_DIAE ALGR(BP_I)    // ¨ (dead)
 #define BP_EURO ALGR(BP_E)    // €
+#define BP_TAPO ALGR(BP_COMM) // ’
 #define BP_COPY ALGR(BP_C)    // ©
 #define BP_THRN ALGR(BP_T)    // Þ
 #define BP_SS   ALGR(BP_S)    // ẞ
@@ -316,8 +317,7 @@
 #define BP_U_GRAVE BP_UGRV
 #define BP_DEAD_TREMA BP_DIAE
 #define BP_DTRM BP_DIAE
-#define BP_TYPOGRAPHICAL_APOSTROPHE BP_COMM
-#define BP_TAPO BP_COMM
+#define BP_TYPOGRAPHICAL_APOSTROPHE BP_TAPO
 #define BP_COPYRIGHT BP_COPY
 #define BP_CPRT BP_COPY
 #define BP_THORN BP_THRN
