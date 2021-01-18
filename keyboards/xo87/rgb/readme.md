@@ -2,7 +2,7 @@
 
 ![XO87](https://cdn.imweb.me/thumbnail/20201120/c90a5bdb75264.png) 
 
-A TKL custom keyboard made by Monstargear 
+A TKL custom keyboard made by Monstar Gear.
 
 * Keyboard Maintainer: The QMK Community
 * Hardware Supported: XO87 RGB Hot-Swap version
