@@ -22,13 +22,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P4,   KC_P5,   KC_P6,
         KC_P1,   KC_P2,   KC_P3
     ),
-    [1] = LAYOUT_ortho_4x3( /* Base */
+    [1] = LAYOUT_ortho_4x3( /* Layer 1 */
         RESET,   _______, XXXXXXX,
         AU_ON,   AU_OFF,  XXXXXXX,
         CK_TOGG, XXXXXXX, CK_UP,
         CK_RST,  XXXXXXX, CK_DOWN
     ),
-    [2] = LAYOUT_ortho_4x3( /* Base */
+    [2] = LAYOUT_ortho_4x3( /* Layer 2*/
         RGB_TOG, RGB_MOD, _______,
         RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_HUD, RGB_SAD, RGB_VAD,

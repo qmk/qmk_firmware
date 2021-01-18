@@ -6,7 +6,7 @@ A short description of the keyboard/project
 
 * Keyboard Maintainer: [Thomas Baart](https://github.com/splitkb)
 * Hardware Supported: Onboard ATmega32u4 with speaker, encoder, RGB underglow, OLED and haptic support, with a Type C connector
-* Hardware Availability: [SplitKB](https://splitkb.com/collections/keyboard-kits/products/zima)
+* Hardware Availability: [splitkb.com](https://splitkb.com/collections/keyboard-kits/products/zima)
 
 Make example for this keyboard (after setting up your build environment):
 

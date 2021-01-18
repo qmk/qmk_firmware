@@ -39,12 +39,12 @@ __attribute__((weak)) void oled_task_user(void) {
     if (timer_elapsed32(oled_timer) < 30000) {
         oled_on();
         oled_scroll_off();
-        oled_write_P(PSTR("SplitKB's Zima"), false);
+        oled_write_P(PSTR("splitkb Zima"), false);
         char layer[2] = {0};
         snprintf(layer, sizeof(layer), "%d", get_highest_layer(layer_state));
         oled_write_P(PSTR("   L:"), false);
         oled_write_ln(layer, false);
-        oled_write_ln_P(PSTR("--------------"), false);
+        oled_write_ln_P(PSTR("------------"), false);
         if (rgblight_is_enabled()) {
             oled_write_P(PSTR("HSV: "), false);
             char rgbs[14];
