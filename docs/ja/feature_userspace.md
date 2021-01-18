@@ -1,8 +1,8 @@
 # ユーザスペース: キーマップ間でのコードの共有
 
 <!---
-  original document: 0.9.0:docs/feature_userspace.md
-  git diff 0.9.0 HEAD -- docs/feature_userspace.md | cat
+  original document: 0.9.43:docs/feature_userspace.md
+  git diff 0.9.43 HEAD -- docs/feature_userspace.md | cat
 -->
 
 似たキーマップを複数のキーボードで使う場合、それらの間でコードを共有できるという利点が得られることがあります。`users/`に以下の構造でキーマップ(理想的には GitHub のユーザ名、`<name>`)と同じ名前の独自のフォルダを作成します:
@@ -116,7 +116,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## 例
 
-簡単な例については、[`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna) を調べてください。
+簡単な例については、[`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example) を調べてください。
 より複雑な例については、[`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna) のユーザスペースを調べてください。
 
 
@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 最初に、全ての `keymap.c` ファイルを調べ、代わりに `process_record_user` を `process_record_keymap` に置き換えます。この方法では、これらのキーボードでキーボード固有のコードを使用でき、カスタムの "global" キーコードも使うことができます。また、`SAFE_RANGE` を `NEW_SAFE_RANGE` に置き換えて、キーコードが重複しないようにすることもできます。
 
-次に、全ての keymap.c ファイルに `#include <name.h>` を追加します。これにより、各キーマップでそれらを再定義することなく新しいキーコードを使うことができます。
+次に、全ての keymap.c ファイルに `#include "<name>.h"` を追加します。これにより、各キーマップでそれらを再定義することなく新しいキーコードを使うことができます。
 
 それが完了したら、必要なキーコードの定義を `<name>.h` ファイルに設定します。例えば:
 ```c

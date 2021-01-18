@@ -14,4 +14,4 @@ BOOTLOADER = caterina
 RGBLIGHT_ENABLE = yes
 BACKLIGHT_ENABLE = no # Enable keyboard backlight functionality
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes

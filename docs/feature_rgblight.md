@@ -41,6 +41,8 @@ Changing the **Hue** cycles around the circle.<br>
 Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.<br>
 Changing the **Value** sets the overall brightness.<br>
 
+![QMK Color Wheel with HSV Values](https://i.imgur.com/vkYVo66.jpg)
+
 ## Keycodes
 
 |Key                |Aliases   |Description                                                         |
@@ -126,19 +128,19 @@ Use these defines to add or remove animations from the firmware. When you are ru
 
 The following options are used to tweak the various animations:
 
-|Define                              |Default      |Description                                                                          |
-|------------------------------------|-------------|-------------------------------------------------------------------------------------|
+|Define                              |Default      |Description                                                                                    |
+|------------------------------------|-------------|-----------------------------------------------------------------------------------------------|
 |`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
-|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
-|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
-|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
-|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
-|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
-|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
-|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                |
-|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
-|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)  |
-|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                   |
+|`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255                       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`40`         |How long (in milliseconds) to wait between animation steps for the "Christmas" animation       |
+|`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation              |
+|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                                       |
+|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                                      |
+|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by              |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                          |
+|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                                       |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)            |
+|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
   1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
@@ -184,6 +186,8 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ```
 
 ## Lighting Layers
+
+?> **Note:** Lighting Layers is an RGB Light feature, it will not work for RGB Matrix. See [RGB Matrix Indicators](feature_rgb_matrix.md?indicators) for details on how to do so.
 
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
@@ -366,16 +370,27 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_increase_hue_noeeprom()`          |Increase the hue for effect range LEDs. This wraps around at maximum hue (not written to EEPROM) |
 |`rgblight_decrease_hue()`                   |Decrease the hue for effect range LEDs. This wraps around at minimum hue |
 |`rgblight_decrease_hue_noeeprom()`          |Decrease the hue for effect range LEDs. This wraps around at minimum hue (not written to EEPROM) |
-|`rgblight_increase_sat()`                   |Increase the saturation for effect range LEDs. This wraps around at maximum saturation |
-|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for effect range LEDs. This wraps around at maximum saturation (not written to EEPROM) |
-|`rgblight_decrease_sat()`                   |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation |
-|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation (not written to EEPROM) |
-|`rgblight_increase_val()`                   |Increase the value for effect range LEDs. This wraps around at maximum value |
-|`rgblight_increase_val_noeeprom()`          |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
-|`rgblight_decrease_val()`                   |Decrease the value for effect range LEDs. This wraps around at minimum value |
-|`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
+|`rgblight_increase_sat()`                   |Increase the saturation for effect range LEDs. This stops at maximum saturation |
+|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for effect range LEDs. This stops at maximum saturation (not written to EEPROM) |
+|`rgblight_decrease_sat()`                   |Decrease the saturation for effect range LEDs. This stops at minimum saturation |
+|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for effect range LEDs. This stops at minimum saturation (not written to EEPROM) |
+|`rgblight_increase_val()`                   |Increase the value for effect range LEDs. This stops at maximum value |
+|`rgblight_increase_val_noeeprom()`          |Increase the value for effect range LEDs. This stops at maximum value (not written to EEPROM) |
+|`rgblight_decrease_val()`                   |Decrease the value for effect range LEDs. This stops at minimum value |
+|`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This stops at minimum value (not written to EEPROM) |
 |`rgblight_sethsv(h, s, v)`                  |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgblight_sethsv_noeeprom(h, s, v)`         |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
+
+#### Speed functions
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_increase_speed()`                 |Increases the animation speed |
+|`rgblight_increase_speed_noeeprom()`        |Increases the animation speed (not written to EEPROM) |
+|`rgblight_decrease_speed()`                 |Decreases the animation speed |
+|`rgblight_decrease_speed_noeeprom()`        |Decreases the animation speed (not written to EEPROM) |
+|`rgblight_set_speed()`                      |Sets the speed. Value is between 0 and 255 |
+|`rgblight_set_speed_noeeprom()`             |Sets the speed. Value is between 0 and 255 (not written to EEPROM) |
+
 
 #### layer functions
 |Function                                    |Description  |

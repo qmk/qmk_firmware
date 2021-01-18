@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x1146
+#define PRODUCT_ID      0x2146
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         Levinson
@@ -51,8 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-
 #define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_SPLIT { 6, 6 }
 
 /* Backlight LEDs */
 #define BACKLIGHT_PIN B5

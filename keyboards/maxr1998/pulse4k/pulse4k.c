@@ -30,7 +30,7 @@ combo_t key_combos[COMBO_COUNT] = {
 
 bool led_adjust_active = false;
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     if (combo_index == LED_ADJUST) {
         led_adjust_active = pressed;
     }

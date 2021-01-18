@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Maarten Dekkers <maartenwut@gmail.com>
+Copyright 2019 Evy Dekkers
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5746 //WF
+#define PRODUCT_ID      0x0001 //Blocked65
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Dou
 #define PRODUCT         Blocked65

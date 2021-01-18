@@ -23,14 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0200
 
 #define MANUFACTURER    YMDK
 #define PRODUCT         YMD75 / MT84
-#define DESCRIPTION     75% Keyboard
 
-
-#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
 
 #define RGB_DI_PIN E2
