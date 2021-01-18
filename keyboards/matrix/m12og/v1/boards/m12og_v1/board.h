@@ -77,6 +77,30 @@
  * Please refer to the STM32 Reference Manual for details.
  */
 
+#define LINE_ROW_1                  PAL_LINE(GPIOA, 0U)
+#define LINE_ROW_2                  PAL_LINE(GPIOA, 1U)
+#define LINE_ROW_3                  PAL_LINE(GPIOA, 2U)
+#define LINE_ROW_4                  PAL_LINE(GPIOA, 3U)
+#define LINE_ROW_5                  PAL_LINE(GPIOA, 4U)
+#define LINE_ROW_6                  PAL_LINE(GPIOA, 5U)
+
+#define LINE_COL_1                  PAL_LINE(GPIOC, 0U)
+#define LINE_COL_2                  PAL_LINE(GPIOC, 1U)
+#define LINE_COL_3                  PAL_LINE(GPIOC, 2U)
+#define LINE_COL_4                  PAL_LINE(GPIOC, 3U)
+#define LINE_COL_5                  PAL_LINE(GPIOC, 4U)
+#define LINE_COL_6                  PAL_LINE(GPIOC, 5U)
+#define LINE_COL_7                  PAL_LINE(GPIOC, 6U)
+#define LINE_COL_8                  PAL_LINE(GPIOC, 7U)
+#define LINE_COL_9                  PAL_LINE(GPIOC, 8U)
+#define LINE_COL_10                 PAL_LINE(GPIOC, 9U)
+#define LINE_COL_11                 PAL_LINE(GPIOC, 10U)
+#define LINE_COL_12                 PAL_LINE(GPIOC, 11U)
+#define LINE_COL_13                 PAL_LINE(GPIOC, 12U)
+#define LINE_COL_14                 PAL_LINE(GPIOC, 13U)
+#define LINE_COL_15                 PAL_LINE(GPIOC, 14U)
+#define LINE_COL_16                 PAL_LINE(GPIOC, 15U)
+
 /*
  * Port A setup.
  * Everything input with pull-up except:

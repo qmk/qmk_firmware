@@ -27,19 +27,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT      m12og_v1
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 16
 
 /* Keyboard Matrix Assignments */
 
-#define MATRIX_ROW_PINS { A0, A1 }
-#define MATRIX_COL_PINS { C0, C1, C2 }
+#define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5 }
+#define MATRIX_COL_PINS { C0, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Caps LED */
+/* Status LEDs */
 #define LED_CAPS_LOCK_PIN B6
+#define LED_SCROLL_LOCK_PIN B5
 
 /* RGB */
 #define RGB_DI_PIN B8
