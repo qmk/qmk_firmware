@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MANUFACTURER Yiancar-Designs
 #define PRODUCT Siemens Tastatur
-#define DESCRIPTION Practice
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -71,7 +71,7 @@ in
 mkShell {
   name = "qmk-firmware";
 
-  buildInputs = [ dfu-programmer dfu-util diffutils git pythonEnv ]
+  buildInputs = [ clang-tools dfu-programmer dfu-util diffutils git pythonEnv ]
     ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
@@ -86,6 +86,6 @@ mkShell {
   shellHook = ''
     # Prevent the avr-gcc wrapper from picking up host GCC flags
     # like -iframework, which is problematic on Darwin
-    unset NIX_TARGET_CFLAGS_COMPILE
+    unset NIX_CFLAGS_COMPILE_FOR_TARGET
   '';
 }

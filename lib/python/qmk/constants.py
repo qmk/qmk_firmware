@@ -1,5 +1,6 @@
 """Information that should be available to the python library.
 """
+from os import environ
 from pathlib import Path
 
 # The root of the qmk_firmware tree.
@@ -17,3 +18,7 @@ VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 DATE_FORMAT = '%Y-%m-%d'
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
 TIME_FORMAT = '%H:%M:%S'
+
+# Constants that should match their counterparts in make
+BUILD_DIR = environ.get('BUILD_DIR', '.build')
+KEYBOARD_OUTPUT_PREFIX = f'{BUILD_DIR}/obj_'
