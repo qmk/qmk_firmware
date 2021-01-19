@@ -141,6 +141,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(OLED_FONT_HEIGHT)
 #    define OLED_FONT_HEIGHT 8
 #endif
+// Default brightness level
+#if !defined(OLED_BRIGHTNESS)
+#    define OLED_BRIGHTNESS 255
+#endif
 
 #if !defined(OLED_TIMEOUT)
 #    if defined(OLED_DISABLE_TIMEOUT)
@@ -260,6 +264,12 @@ bool oled_off(void);
 // Returns true if the oled is currently on, false if it is
 // not
 bool is_oled_on(void);
+
+// Sets the brightness of the display
+uint8_t oled_set_brightness(uint8_t level);
+
+// Gets the current brightness of the display
+uint8_t oled_get_brightness(void);
 
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);

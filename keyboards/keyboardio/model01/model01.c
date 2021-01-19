@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <quantum.h>
-#include <i2c_master.h>
+#include "quantum.h"
+#include "i2c_master.h"
 #include <string.h>
 #include "model01.h"
 

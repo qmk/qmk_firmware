@@ -237,6 +237,26 @@ This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_
 ```
 This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
+## Hardware Considerations and Mods
+
+While most any Pro Micro can be used, micro controllers like the AVR Teensys and most (if not all) ARM boards require the Split USB Detect.
+
+However, with the Teensy 2.0 and Teensy++ 2.0, there is a simple hardware mod that you can perform to add VBUS detection, so you don't need the Split USB detection option.
+
+You'll only need a few things:
+
+* A knife (x-acto knife, ideally)
+* A solder station or hot air station
+* An appropriate Schottky diode, such as the [PMEG2005EH](https://www.digikey.com/en/products/detail/nexperia-usa-inc/PMEG2005EH,115/1589924)
+
+You'll need to cut the small trace between the 5V and center pads on the back of the Teensy.
+
+Once you have done that, you will want to solder the diode from the 5V pad to the center pad.
+
+You may need to use the 5V pad from the regulator block above as the pads were too small and placed too closely together to place the Schottky diode properly.
+
+![Teensy++ 2.0](https://i.imgur.com/BPEC5n5.png)
+
 ## Additional Resources
 
 Nicinabox has a [very nice and detailed guide](https://github.com/nicinabox/lets-split-guide) for the Let's Split keyboard, that covers most everything you need to know, including troubleshooting information. 

@@ -30,7 +30,8 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 RGBLIGHT_ENABLE = no        # Use RGB underglow light
-RGB_MATRIX_ENABLE = yes     # Use RGB matrix
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3731 # Use RGB matrix
 
 LAYOUTS = 60_ansi 60_hhkb 60_iso 60_ansi_split_bs_rshift
 

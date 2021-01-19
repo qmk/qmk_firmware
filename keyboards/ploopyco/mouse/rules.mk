@@ -5,7 +5,7 @@ MCU = atmega32u4
 F_CPU = 8000000
 
 # Bootloader selection
-BOOTLOADER = caterina
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -27,4 +27,4 @@ POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 QUANTUM_LIB_SRC += analog.c spi_master.c
-SRC += pmw3600.c opt_encoder.c
+SRC += pmw3360.c opt_encoder.c

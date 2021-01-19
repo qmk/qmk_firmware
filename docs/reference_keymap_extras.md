@@ -46,6 +46,7 @@ To use these, simply `#include` the corresponding [header file](https://github.c
 |Norwegian                  |`keymap_norwegian.h`            |
 |Polish                     |`keymap_polish.h`               |
 |Portuguese                 |`keymap_portuguese.h`           |
+|Portuguese (macOS, ISO)    |`keymap_portuguese_osx_iso.h`   |
 |Portuguese (Brazil)        |`keymap_br_abnt2.h`             |
 |Romanian                   |`keymap_romanian.h`             |
 |Russian*                   |`keymap_russian.h`              |

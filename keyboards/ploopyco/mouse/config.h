@@ -24,7 +24,7 @@
 #define VENDOR_ID 0x5043
 #define PRODUCT_ID 0x4D6F
 #define DEVICE_VER 0x0001
-#define MANUFACTURER Ploopyco
+#define MANUFACTURER PloopyCo
 #define PRODUCT Mouse
 
 /* key matrix size */
@@ -57,6 +57,7 @@
 /* Much more so than a keyboard, speed matters for a mouse. So we'll go for as high
    a polling rate as possible. */
 #define USB_POLLING_INTERVAL_MS 1
+#define USB_MAX_POWER_CONSUMPTION 100
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -71,3 +72,12 @@
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 3
+
+#define RGB_DI_PIN B5
+#define RGBLED_NUM 4
+#define RGBLIGHT_LIMIT_VAL 40
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+
+// #define DEBUG_LED_PIN F7
