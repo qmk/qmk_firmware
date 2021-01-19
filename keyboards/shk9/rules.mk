@@ -20,8 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-LINK_TIME_OPTIMIZATION_ENABLE = yes
-FAUXCLICKY_ENABLE = no
 UNICODE_ENABLE = no
 MIDI_ENABLE = no
 
