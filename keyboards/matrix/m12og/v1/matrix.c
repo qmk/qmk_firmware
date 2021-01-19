@@ -1,172 +1,96 @@
-/**
- * matrix.c
+/* Copyright 2021 xyzz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <stdint.h>
-#include <stdio.h>
 #include <stdbool.h>
-#include <string.h>
-#include "quantum.h"
-#include "timer.h"
-#include "wait.h"
-#include "print.h"
+#include "util.h"
 #include "matrix.h"
+#include "debounce.h"
+#include "quantum.h"
 
-/**
- *
- * Row pins are input with internal pull-down.
- * Column pins are output and strobe with high.
- * Key is high or 1 when it turns on.
- *
- */
-/* matrix state(1:on, 0:off) */
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_COLS];
-static bool debouncing = false;
-static uint16_t debouncing_time = 0;
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
-void matrix_init(void)
-{
-    //debug_enable = true;
-    setPinOutput(C0);
-    setPinOutput(C1);
-    setPinOutput(C2);
-    setPinOutput(C3);
-    setPinOutput(C4);
-    setPinOutput(C5);
-    setPinOutput(C6);
-    setPinOutput(C7);
-    setPinOutput(C8);
-    setPinOutput(C9);
-    setPinOutput(C10);
-    setPinOutput(C11);
-    setPinOutput(C12);
-    setPinOutput(C13);
-    setPinOutput(C14);
-    setPinOutput(C15);
-
-    setPinInputLow(A0);
-    setPinInputLow(A1);
-    setPinInputLow(A2);
-    setPinInputLow(A3);
-    setPinInputLow(A4);
-    setPinInputLow(A5);
-
-    writePinLow(C0);
-    writePinLow(C1);
-    writePinLow(C2);
-    writePinLow(C3);
-    writePinLow(C4);
-    writePinLow(C5);
-    writePinLow(C6);
-    writePinLow(C7);
-    writePinLow(C8);
-    writePinLow(C9);
-    writePinLow(C10);
-    writePinLow(C11);
-    writePinLow(C12);
-    writePinLow(C13);
-    writePinLow(C14);
-    writePinLow(C15);
-
-    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
-
-    matrix_init_quantum();
+static void select_col(uint8_t col) {
+    setPinOutput(col_pins[col]);
+    writePinHigh(col_pins[col]);
 }
 
-uint8_t matrix_scan(void)
-{
-    for (int col = 0; col < MATRIX_COLS; col++) {
-        matrix_row_t data = 0;
-        switch (col) {
-            case 0: writePinHigh(C0); break;
-            case 1: writePinHigh(C1); break;
-            case 2: writePinHigh(C2); break;
-            case 3: writePinHigh(C3); break;
-            case 4: writePinHigh(C4); break;
-            case 5: writePinHigh(C5); break;
-            case 6: writePinHigh(C6); break;
-            case 7: writePinHigh(C7); break;
-            case 8: writePinHigh(C8); break;
-            case 9: writePinHigh(C9); break;
-            case 10: writePinHigh(C10); break;
-            case 11: writePinHigh(C11); break;
-            case 12: writePinHigh(C12); break;
-            case 13: writePinHigh(C13); break;
-            case 14: writePinHigh(C14); break;
-            case 15: writePinHigh(C15); break;
+static void unselect_col(uint8_t col) { setPinInputLow(col_pins[col]); }
+
+static void unselect_cols(void) {
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        setPinInputLow(col_pins[x]);
+    }
+}
+
+static void init_pins(void) {
+    unselect_cols();
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInputLow(row_pins[x]);
+    }
+}
+
+static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+    bool matrix_changed = false;
+
+    // Select col and wait for col selecton to stabilize
+    select_col(current_col);
+    matrix_io_delay();
+
+    // For each row...
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+        // Store last value of row prior to reading
+        matrix_row_t last_row_value    = current_matrix[row_index];
+        matrix_row_t current_row_value = last_row_value;
+
+        // Check row pin state
+        if (readPin(row_pins[row_index]) != 0) {
+            // Pin LO, set col bit
+            current_row_value |= (MATRIX_ROW_SHIFTER << current_col);
+        } else {
+            // Pin HI, clear col bit
+            current_row_value &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
-        // need wait to settle pin state
-        wait_us(20);
-
-        data = (
-            (readPin(A0) << 0 ) |
-            (readPin(A1) << 1 ) |
-            (readPin(A2) << 2 ) |
-            (readPin(A3) << 3 ) |
-            (readPin(A4) << 4 ) |
-            (readPin(A5) << 5 )
-        );
-
-        switch (col) {
-            case 0: writePinLow(C0); break;
-            case 1: writePinLow(C1); break;
-            case 2: writePinLow(C2); break;
-            case 3: writePinLow(C3); break;
-            case 4: writePinLow(C4); break;
-            case 5: writePinLow(C5); break;
-            case 6: writePinLow(C6); break;
-            case 7: writePinLow(C7); break;
-            case 8: writePinLow(C8); break;
-            case 9: writePinLow(C9); break;
-            case 10: writePinLow(C10); break;
-            case 11: writePinLow(C11); break;
-            case 12: writePinLow(C12); break;
-            case 13: writePinLow(C13); break;
-            case 14: writePinLow(C14); break;
-            case 15: writePinLow(C15); break;
-        }
-
-        if (matrix_debouncing[col] != data) {
-            matrix_debouncing[col] = data;
-            debouncing = true;
-            debouncing_time = timer_read();
+        // Determine if the matrix changed state
+        if ((last_row_value != current_row_value)) {
+            matrix_changed |= true;
+            current_matrix[row_index] = current_row_value;
         }
     }
 
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
-        for (int row = 0; row < MATRIX_ROWS; row++) {
-            matrix[row] = 0;
-            for (int col = 0; col < MATRIX_COLS; col++) {
-                matrix[row] |= ((matrix_debouncing[col] & (1 << row) ? 1 : 0) << col);
-            }
-        }
-        debouncing = false;
-    }
+    // Unselect col
+    unselect_col(current_col);
 
-    matrix_scan_quantum();
-
-    return 1;
+    return matrix_changed;
 }
 
-bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1<<col)); }
+void matrix_init_custom(void) {
+    // initialize key pins
+    init_pins();
+}
 
-matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
+uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool changed = false;
 
-void matrix_print(void)
-{
-    // printf("\nr/c 01234567\n");
-    // for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    //     printf("%X0: ", row);
-    //     matrix_row_t data = matrix_get_row(row);
-    //     for (int col = 0; col < MATRIX_COLS; col++) {
-    //         if (data & (1<<col))
-    //             printf("1");
-    //         else
-    //             printf("0");
-    //     }
-    //     printf("\n");
-    // }
+    // Set col, read rows
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+        changed |= read_rows_on_col(current_matrix, current_col);
+    }
+
+    return (uint8_t)changed;
 }
