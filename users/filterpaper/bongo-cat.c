@@ -109,12 +109,12 @@ static void animate_cat(void) {
 		if (get_current_wpm() <=IDLE_SPEED) {
 			render_cat_idle();
 		}
-
+		// Animate prep when WPM drops from paused typing
 		if (get_current_wpm() >IDLE_SPEED && (get_current_wpm() <TAP_SPEED || get_current_wpm() <prev_wpm)) {
 			render_cat_prep();
 			prev_wpm = get_current_wpm()+1;
 		}
-
+		// Animate tapping when WPM is sustained
 		if (get_current_wpm() >=TAP_SPEED && get_current_wpm() >=prev_wpm) {
 			render_cat_tap();
 			prev_wpm = get_current_wpm();
