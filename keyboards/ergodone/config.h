@@ -4,7 +4,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED  // You may want to use 0x47EC for "KTEC", which doesn't seem to be in official use as of October 2017.
+#define VENDOR_ID       0x47EC  // You may want to use 0x47EC for "KTEC", which doesn't seem to be in official use as of October 2017.
 #define PRODUCT_ID      0xE60D  // For "EGOD"/"ErgoDone".
 // The official ErgoDone VID and PID are documented at http://pid.codes/1209/2328/.
 #define DEVICE_VER      0x0001
