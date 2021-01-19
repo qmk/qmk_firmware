@@ -2,7 +2,7 @@
     "keyboard_name": "unix60", 
     "url": "https://github.com/mkdl/Unix60", 
     "maintainer": "mkdl", 
-    "width": 17.25, 
+    "width": 15, 
     "height": 5, 
     "layouts": {
         "LAYOUT_all": {
