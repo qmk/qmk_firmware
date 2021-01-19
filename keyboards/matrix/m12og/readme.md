@@ -8,5 +8,5 @@ There are two versions of the PCB available.
 
 |Version|Features                                             |
 |-------|-----------------------------------------------------|
-|rev1   |Green/Yellow PCB / ARM STM32 controller / ANSI only  | 
+|rev1   |Green/Yellow PCB / ARM STM32 controller / ANSI only  |
 |rev2   |White PCB / Atmel AVR controller / ANSI/ISO          |
