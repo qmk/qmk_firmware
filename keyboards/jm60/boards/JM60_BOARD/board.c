@@ -46,6 +46,4 @@ void __early_init(void) {
  * Board-specific initialization code.
  */
 void boardInit(void) {
-	AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
-
 }
