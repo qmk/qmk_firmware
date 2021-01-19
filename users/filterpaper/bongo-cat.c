@@ -16,6 +16,9 @@
 
 /* Graphical bongo cat animation display, requires WPM_ENABLE
    Cat is aligned for right OLED
+
+   @j-inc is the original author the bongo cat code
+   (qmk_firmware/tree/master/keyboards/kyria/keymaps/j-inc)
 */
 
 // Animation frame defaults

@@ -15,9 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Summary
 
-Personal user space to share code for a few custom keyboards. See https://docs.qmk.fm/#/feature_userspace?id=userspace-sharing-code-between-keymaps for more details.
+Personal user space to share code for a few custom keyboards. See https://docs.qmk.fm/#/feature_userspace?id=userspace-sharing-code-between-keymaps for details and [custom quantum funtions](../../docs/custom_quantum_functions.md) for customisation.
 ## File list
-* `config.h`	Self-explainatory QMK configuration options
+* `config.h`	QMK configuration options, see [configuring QMK](../../docs/config_options.md)
 * `rules.mk`	Makefile rules for keyboard-specific features, includes keyboard.c
 * `keyboard.c`	Common keyboard code, RGB and OLED function functions
 * `mod-status.c`	Graphical layer and modifier status rendering module
@@ -40,7 +40,7 @@ These are the one time flash commands to write left and right side setting into 
 make crkbd/rev1/common:filterpaper:dfu-split-left
 make crkbd/rev1/common:filterpaper:dfu-split-right
 ```
-Following this, same firmware can be flashed normally to both sides.
+Following this, the same firmware binary can be flashed normally to both sides. See [split keyboard features](../../docs/feature_split_keyboard.md) for more details.
 
 ## Keymap layout
 

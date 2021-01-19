@@ -14,10 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Graphical active layer and modifier status display. @soundmonster is
-   the original author of this code (keyboards/crkbd/keymaps/soundmonster)
+/* Graphical active layer and modifier status display. Module must be 
+   rendered on primary OLED
 
-   Module must be rendered on primary OLED
+   @soundmonster is the original author of this code 
+   (qmk_firmware/keyboards/crkbd/keymaps/soundmonster)
 */
 
 void render_space(void) {

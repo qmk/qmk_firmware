@@ -18,6 +18,9 @@
    It has both left and right aligned animation optimized for 
    both OLEDs at the expensive of space. This module will may 
    cause firmware size to exceed limit.
+
+   @j-inc is the original author the bongo cat code
+   (qmk_firmware/tree/master/keyboards/kyria/keymaps/j-inc)
 */
 
 // Animation frame defaults

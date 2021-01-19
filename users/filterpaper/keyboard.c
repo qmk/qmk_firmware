@@ -26,10 +26,9 @@ enum layers {
 };
 
 #ifdef RGB_MATRIX_ENABLE
-// Set default RGB effect
-// void matrix_init_user(void) { rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH); }
 
-uint32_t layer_state_set_user(uint32_t state) {
+#ifdef KEYBOARD_bm40hsrgb
+layer_state_t layer_state_set_user(layer_state_t state) {
 
 	switch (biton32(default_layer_state)) {
 	case _COLEMAK: // RGB effect for Colemak default layer
@@ -38,43 +37,41 @@ uint32_t layer_state_set_user(uint32_t state) {
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
 		break;
 	default: // Disable RGB if no CAPS lock on
-		if (!(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) rgb_matrix_disable_noeeprom();
-		break;
+		if (!host_keyboard_led_state().caps_lock) rgb_matrix_disable_noeeprom();
 	}
 
 	// RGB effects for layers
 	switch (biton32(state)) {
 	case _ADJUST:
 		rgb_matrix_enable_noeeprom();
-		rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+		rgb_matrix_sethsv_noeeprom(HSV_TEAL);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_WIDE);
 		break;
 	case _RAISE:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_WIDE);
-		rgb_matrix_set_color(42, RGB_YELLOW);
 		break;
 	case _LOWER:
 		rgb_matrix_enable_noeeprom();
 		rgb_matrix_sethsv_noeeprom(HSV_BLUE);
 		rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_WIDE);
-		rgb_matrix_set_color(40, RGB_BLUE);
 		break;
 	}
-
+	
 	return state;
 }
+#endif // KEYBOARD_bm40hsrgb
 
 
 void rgb_matrix_indicators_user(void) {
 
 	// Light up held layer layers
 	switch (get_highest_layer(layer_state)) {
-	#if defined(KEYBOARD_bm40hsrgb)
+#ifdef KEYBOARD_bm40hsrgb
 	case _ADJUST:
-		rgb_matrix_set_color(40, RGB_PURPLE);
-		rgb_matrix_set_color(42, RGB_PURPLE);
+		rgb_matrix_set_color(42, RGB_TEAL);
+		rgb_matrix_set_color(40, RGB_TEAL);
 		break;
 	case _RAISE:
 		rgb_matrix_set_color(42, RGB_YELLOW);
@@ -82,9 +79,16 @@ void rgb_matrix_indicators_user(void) {
 	case _LOWER:
 		rgb_matrix_set_color(40, RGB_BLUE);
 		break;
-	#else
+	default:
+		if (host_keyboard_led_state().caps_lock) {
+			rgb_matrix_set_color_all(RGB_ORANGE);
+		} else {
+			rgb_matrix_set_color(42, RGB_OFF);
+			rgb_matrix_set_color(40, RGB_OFF);	
+		}		
+#else
 	case _ADJUST:
-		rgb_matrix_set_color_all(RGB_PURPLE);
+		rgb_matrix_set_color_all(RGB_TEAL);
 		break;
 	case _RAISE:
 		rgb_matrix_set_color_all(RGB_YELLOW);
@@ -92,30 +96,30 @@ void rgb_matrix_indicators_user(void) {
 	case _LOWER:
 		rgb_matrix_set_color_all(RGB_BLUE);
 		break;
-	#endif
+	default:
+		if (host_keyboard_led_state().caps_lock) rgb_matrix_set_color_all(RGB_ORANGE);
+		else                                     rgb_matrix_set_color_all(RGB_OFF);
+#endif // KEYBOARD_bm40hsrgb
 	}
 
-	// Light up non KC_TRANS or KC_NO on layers
-/*	uint8_t layer = get_highest_layer(layer_state);
-	if (layer > 1) {
-		for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-			for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+/*	// Light up non KC_TRANS / KC_NO on layers
+	#if defined(KEYBOARD_bm40hsrgb)
+	uint8_t layer = get_highest_layer(layer_state);
+	if (layer >1) {
+		for (uint8_t row = 0; row <MATRIX_ROWS; row++) {
+			for (uint8_t col = 0; col <MATRIX_COLS; col++) {
 				uint8_t led_index = g_led_config.matrix_co[row][col];
 				keypos_t pos = { col, row };
 				uint16_t keycode = keymap_key_to_keycode(layer, pos);
-				if (led_index != NO_LED && keycode != KC_TRNS && keycode != KC_NO) {
+				if (led_index !=NO_LED && keycode !=KC_TRNS && keycode !=KC_NO) {
 					switch (layer) {
 					case _ADJUST:
-						rgb_matrix_set_color(40, RGB_PURPLE);
-						rgb_matrix_set_color(42, RGB_PURPLE);
 						rgb_matrix_set_color(led_index, RGB_PURPLE);
 						break;
 					case _RAISE:
-						rgb_matrix_set_color(42, RGB_YELLOW);
 						rgb_matrix_set_color(led_index, RGB_YELLOW);
 						break;
 					case _LOWER:
-						rgb_matrix_set_color(40, RGB_BLUE);
 						rgb_matrix_set_color(led_index, RGB_BLUE);
 						break;
 					default:
@@ -124,10 +128,8 @@ void rgb_matrix_indicators_user(void) {
 				}
 			}
 		}
-	} */
-
-	// Light all keys for CAPS lock
-	if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) rgb_matrix_set_color_all(RGB_ORANGE);
+	}
+	#endif */
 }
 #endif // RGB_MATRIX_ENABLE
 
@@ -148,15 +150,16 @@ void matrix_scan_user(void) {
 }
 
 // Enable leader key light effects
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_bm40hsrgb)
 void leader_start(void) { // Leader key effect
 	rgb_matrix_enable_noeeprom();
-	rgb_matrix_sethsv_noeeprom(HSV_BLUE);
-	rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
+	rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+	rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_WIDE);
 }
+// Turn off leader key effect is no capslock
+void leader_end(void) { if (!host_keyboard_led_state().caps_lock) rgb_matrix_disable_noeeprom(); }
+#endif // RGB_MATRIX_ENABLE && KEYBOARD_bm40hsrgb
 
-void leader_end(void) { rgb_matrix_disable_noeeprom(); }
-#endif // RGB_MATRIX_ENABLE
 #endif // LEADER_ENABLE
 
 
@@ -182,18 +185,33 @@ void oled_task_user(void) {
 
 // Handling keyboard suspension
 void suspend_power_down_user(void) {
-	#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 	rgb_matrix_set_suspend_state(true);
-	#endif
+#endif
 
-	#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_DRIVER_ENABLE
 	oled_off();
-	#endif
+#endif
 }
 
 void suspend_wakeup_init_user(void) {
-	#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 	rgb_matrix_set_suspend_state(false);
-	#endif
+#endif
 }
 
+// Setup defaults when EEPROM is reset
+void eeconfig_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+	rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+	rgblight_mode(RGBLIGHT_MODE_BREATHING);
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+	backlight_enable();
+	backlight_level(BACKLIGHT_LEVELS);
+#endif
+}
