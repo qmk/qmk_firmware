@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         nt660
-#define DESCRIPTION     Replacement PCB for Leopold FC660M
 
 /* key matrix size */
 #define MATRIX_ROWS 5
