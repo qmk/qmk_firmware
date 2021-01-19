@@ -7,7 +7,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFANS
 #define PRODUCT         MAJA
-#define DESCRIPTION     MAJA RGB keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
