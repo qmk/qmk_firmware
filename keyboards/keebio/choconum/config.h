@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0100
 #define MANUFACTURER Keebio
 #define PRODUCT Choconum
-#define DESCRIPTION Low-Profile Numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
