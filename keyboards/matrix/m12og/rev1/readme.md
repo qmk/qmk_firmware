@@ -2,7 +2,7 @@
 
 ![Matrix 8XV1.2 OG](https://i.imgur.com/NELL6Sbl.jpg)
 
-This was the Matrix 8XV1.2 OG keyboard made by the Matrix team. 
+This was the Matrix 8XV1.2 OG keyboard made by the Matrix team.  
 Note: This firmware only support ANSI only version (green/yellow PCB), and DOES NOT support the 8XV1.2 OG ISO/ANSI only version.
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
