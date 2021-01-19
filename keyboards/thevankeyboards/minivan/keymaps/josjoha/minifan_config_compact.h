@@ -16,15 +16,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  * © 2020,2021 by Jos Boersema
  */
+
+/* 
+ * If MINIFAN_CONFIG_COMPACT in ./user_config.h ⬇
+ */
       
 //#define BASE_QWERTY__DEF_BASE 
 //#define BASE_QWERTY__ALT_BASE
   #define BASE_DVORAK__DEF_BASE
 //#define BASE_DVORAK__ALT_BASE
-//#define BASE_DVORAK_DESCRAMBLE__ALT_BASE 
+  #define BASE_DVORAK_DESCRAMBLE__ALT_BASE 
 //#define BASE_COLEMAK__DEF_BASE
 //#define BASE_COLEMAK__ALT_BASE 
-  #define BASE_NUMPAD__ALT_BASE 
+//#define BASE_NUMPAD__ALT_BASE 
 
 //#define MINIFAN_SINGLE_LAYOUT 
 //#define STARTUP_ALTERNATE 
@@ -65,6 +69,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define SWITCH_GUIS 
 //#define UNICODE_CURRENCY 0x20ac 
 //#define POINT_ON_CHECKBOXES 
+//#define SWITCH_BASE_ROW1_23 
+//#define SWITCH_HOLD_ACC_NSY 
 
 //#define REMOVE_PAD 
 //#define REMOVE_ACC 

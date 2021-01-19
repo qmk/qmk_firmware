@@ -218,13 +218,13 @@ will have Qwerty on the ‛default BASE’ and a matching ‛default NSY’
 layer, with Dvorak on the ‛alternate BASE’ and its ‛alternate NSY’ 
 layer.
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_vd.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_ve.jpg)
 Layer: `DEF_BASE`
 
 ![Minivan layout Image NSYdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_def_base_vb.jpg)
 Layer: `DEF_NSY`
 
-![Minivan layout Image BASEalt](http://socialism.nl/misc/minivan/minivan_base_layer_hide_alt_base_vd.jpg)
+![Minivan layout Image BASEalt](http://socialism.nl/misc/minivan/minivan_base_layer_hide_alt_base_ve.jpg)
 Layer: `ALT_BASE`
 
 ![Minivan layout Image NSYalt](http://socialism.nl/misc/minivan/minivan_nsy_layer_hide_alt_base_vb.jpg)

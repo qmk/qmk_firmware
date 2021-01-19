@@ -13,7 +13,7 @@ Colemak keymaps
 
 ──────────Colemak──────────────
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_colemak_vd.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_colemak_ve.jpg)
 Layer: `..._BASE`
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_vb.jpg)

@@ -143,7 +143,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            , MORE_key1_BASE
 # endif
 
-                           , CHOLTAP_ACCE , DUO_HOLD , LT__MOV__KC_ENT 
+# ifdef SWITCH_HOLD_ACC_NSY 
+                           , DUO_HOLD , CHOLTAP_ACCE 
+# else
+                           , CHOLTAP_ACCE , DUO_HOLD
+# endif
+
+                                                     , LT__MOV__KC_ENT 
 
 #     ifdef TRANSMINIVAN_MIDLEFT
                                                      , TRANS_MIDLEFT
@@ -211,25 +217,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            , MORE_key1
 # endif
 
-                           , _______ , DUO_HOLD , KC_ENT 
+                           , _______ , _______ , KC_ENT 
 
-#     ifdef TRANSMINIVAN_MIDLEFT
-                                                , TRANS_MIDLEFT
-#     endif
-
-                                                         , KC_DOT , DUO_HOLD , KC__YGUI
-
-# ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                        , XXXXXXX
+# ifdef TRANSMINIVAN_MIDLEFT
+                                               , TRANS_MIDLEFT
 # endif
 
-# ifdef MORE_KEY__ARROW
-                                                                                        , MORE_key2  
-# endif                                    
+                                                               , KC_DOT , DUO_HOLD , KC__YGUI  
 
-                                                                                        , RALT_T ( KC_RIGHT )
-//                         ,        , -*-       ,      <|,>       , -*-      ,          ,
-//      <1           ±  ±  , <2     , <3        , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
+# ifdef TRANSMINIVAN_RIGHTSIDE
+                                                                                              , XXXXXXX
+# endif                                                                                   
+                                                                                          
+# ifdef MORE_KEY__ARROW                                                                   
+                                                                                              , MORE_key2  
+# endif                                                                                   
+                                                                                          
+                                                                                              , RALT_T ( KC_RIGHT )
+//                         ,         , -*-     ,             <|,>       , -*-      ,          ,
+//      <1           ±  ±  , <2      , <3      , <4           |, 4>     , 3>       , 2>       , ±  ±  1>
 
                       ),
 

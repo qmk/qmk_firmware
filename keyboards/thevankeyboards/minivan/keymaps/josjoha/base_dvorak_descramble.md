@@ -21,7 +21,7 @@ Dvorak² keymaps
 
 ──────────Dvorak───────────────
 
-![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_vd.jpg)
+![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_ve.jpg)
 Layer: `..._BASE`
 
 ![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_vb.jpg)

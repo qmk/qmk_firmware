@@ -35,38 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
-             ☑ South Paw becomes GUI everywhere by default. ‛Arrow’ hardware key is special on Numbers Pad layer.
-               Is graphically listed as _TO_MOV on layers where this is an option (all except Base Numbers layer and _MOV).
-               Could also be configured as DEL.
-               The name ‛Command’ suggests use as GUI. The name ‛Arrow’ suggests use as an arrow cluster. So that will
-               be defaults. 
-               ☑ Base Numbers Pad Code veranderd
-               ☑ Base Numbers Pad geschreven documentatie bĳgewerkt.
-               ☑ Base Numbers Pad testen
-               ☑ Base Numbers Pad grafische documentatie bĳwerken
-               ☑ Common Layer Numbers Pad, single square variant, veranderen als nodig. 
-               ☑ Common Layers code veranderen
-               ☑ Common Layers: GUIs logische volgorde, LGUI-RGUI in geschreven documentatie
-               ☑ Common Layers code testen
-               ☑ Common Layers code geschreven documentatie bĳgewerkt.
-               ☑ Common Layers code grafische documentatie bĳwerken
-               ☑ _RAR layer, re-arrange led on/off keys to harmonize generally
-               ☑ _RAR, update graphical documentation
-               ☑ Alle Base layers bĳwerken inzake GUIs command/arrow.
-             ☐ Preset user config option: Qwerty + Keypad on Alt.Base, eviscerate _PAD.
-               This option is for people who don't want to deal with complexity, just get a most basic keyboard.
-               The majority is probably going to be fine with this setting, anyway.
-               There will have to be 4 basic presets, for the 4 variations of hardware.
-               BASIC_KEYBOARD_PRESET // _Activate_ should yield you a basic keyboard without any other configuration head aches.
-               BASIC_KEYBOARD_PRESET_COMMAND // _Activate_ if you have an additional hardware key on the left side (aka: South-paw or Command).
-               BASIC_KEYBOARD_PRESET_ARROW // _Activate_ if you have an additional hardware key on the right side (aka: Arrow).
-               Now all options need to be set accordingly after the user configuration block,
-               and probably also after the base header files,
-               but before the options get processed.
-               For better or worse, Qwerty is the standard layout, and even other layouts are also often achieved
-               at the PC end. 
-               This helps make it easy for users, if the keyboard firmware is left configured for use by an author
-               with strange keyboard tastes.
              ☐ Workman layout
              ☐ Qwerty with arrows on top (could be a good pair with regular Qwerty)
              ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
@@ -79,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             ?☐ User defining macros (record/play user input), another special Base layer ? Is there 
                room for this, or how to create it if not.
             ?☐ It seems fun to have a user friendly front end to compile the available variations of this keymap.
-               (Probably not something I (Jos) am going to be able to do.)
+               Such a front end could edit minifan_config_compact.h
            …
              ☐ Testing all user configurations
              ☐ Test/fix what happens when leds are undefined with the existing QMK led #define
@@ -88,6 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             ?☐ Review/fix C indendation. QMK indentation is not my preferred style, and 
                therefore it is not entirely consistent. 
 
+             ☑ South Paw becomes GUI everywhere by default.
+             ☑ A default configuration in user_config.h, by having minifan_config_compact.h
              ☑ Fixed error link _FUN layer, and color of one key.
              ☑ Put Tab on ACC, DRA layers, graphics documentation: key associations, …
              ☑ Numbers pad, a special Base layer: graphics documentation single layout

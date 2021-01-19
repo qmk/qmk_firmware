@@ -72,6 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • GUI left/right
                     • Alternate currency symbol
                     • Check boxes or Pointers
+                    • Switch _ACC and *left* side _NSY hold keys
 
                            -12- ➡ Eviscerations ( ② / ② ) ⬅
                     • Removing the numbers pad _PAD layer
@@ -97,7 +98,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * when uploaded to QMK, so that it gives the most commonly used layout: Qwerty with Numpad,
         * basic 44 Minivan keys).
         */
-  #define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.c (note: mini‛f’an).
+  #define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
 #ifndef MINIFAN_CONFIG_COMPACT // (don't alter this)
 
       
@@ -384,6 +385,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *                     or these (pointers):  ⮘  ⮙  ⮚  ⮛
          */
 //#define POINT_ON_CHECKBOXES // _Activate_ to get arrows, _remove_ to get checkboxes on _DRA layer.
+        /*    
+         *          • Switch _ACC and *left* side _NSY hold keys
+         *
+         * If you type a lot of _ACC layer (accented keys), you might like to switch the _ACC hold
+         * key, and the left side _NSY key, if you find it awkward to reach to the left with your thumb.
+         * These two keys are next to each other. Only the Base layer is affected.
+         */
+  #define SWITCH_HOLD_ACC_NSY // _Activate_ to switch the *left* _NSY and _ACC layer hold keys, on Base layer.
 
 
         /*                 -12- ➡ Eviscerations ( ② / ② ) ⬅
@@ -465,7 +474,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ------------------------------------- ⬆ --------------------------------------
 
 #else                            // (ignore this)
-#    include "./minifan_config_compact.c"
+#    include "./minifan_config_compact.h"
 #endif // MINIFAN_CONFIG_COMPACT
 
 
