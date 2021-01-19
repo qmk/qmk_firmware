@@ -14,7 +14,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
+#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug
@@ -26,8 +26,6 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 # MIDI_ENABLE = YES 		# MIDI controls
 UNICODE_ENABLE = YES 		# Unicode
-VIA_ENABLE = yes
-LTO_ENABLE = yes 
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 USB = /dev/ttyACM0
@@ -41,4 +39,3 @@ SRC = matrix.c
 
 # upload: build
 # 	$(REDOX_W_UPLOAD_COMMAND)
-
