@@ -14,5 +14,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = LAYOUT_65_ansi_blocker LAYOUT_65_iso_blocker LAYOUT_65_ansi_blocker_doublebs LAYOUT_65_iso_blocker_doublebs

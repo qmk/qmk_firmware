@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-
 #undef MATRIX_ROW_PINS
 #undef MATRIX_COL_PINS
 
@@ -36,18 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A9, A8, F0, A2, A3, A4, B9, B8, B7, B6, B5, B4, B3, A15, A14, A13}
 #define UNUSED_PINS
 
-
 #define DIODE_DIRECTION COL2ROW
-
 
 #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

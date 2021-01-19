@@ -1,6 +1,8 @@
 # Pizza Keyboards Pizza65
 Pizza65 is the first project from Pizza Keyboards: a seamless design 65% top-mount board, designed in Italy and made in Germany.
 
+![pizza65](https://imgur.com/VxRVrK9)
+
 * Keyboard Maintainer: [mm0nte](https://github.com/mm0nte)
 * Hardware Supported: PizzaPCB for Pizza65
 * Hardware Availability: www.keyboards.pizza
