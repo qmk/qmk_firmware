@@ -6,7 +6,7 @@ The SHK9 is a tiny 3x3 macropad! Fully configurable with via.
 
 * Keyboard Maintainer: [Sam Hudson](https://github.com/samsamm777)
 * Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: http://superhuman.io
+* Hardware Availability: http://superhuman.website
 
 Make example for this keyboard (after setting up your build environment):
 
