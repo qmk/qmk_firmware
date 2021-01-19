@@ -1,6 +1,8 @@
 # MCU name
 MCU = atmega32u4
 
+BOOTLOADER = caterina
+
 # Build Options
 #   comment out to disable the options.
 #
