@@ -29,8 +29,8 @@ led_config_t g_led_config = { {
   //ctrl win  alt                             space                           alt  win  mod  left down right
   {  30,  29,  28,  NO_LED,  NO_LED,  NO_LED,  27,  NO_LED,  NO_LED,  NO_LED,  26,  25,  24,  22,  21,  20 },
   //underglow lights
-  { 10,  11,  12,  13,  14,  15,  16,  17,  18,  19 },
-  {  0,   1,   2,   3,   4,   5,   6,   7,   8,   9 }
+  //{ 10,  11,  12,  13,  14,  15,  16,  17,  18,  19 },
+  //{  0,   1,   2,   3,   4,   5,   6,   7,   8,   9 }
 
 }, {
     // Underglow lights
