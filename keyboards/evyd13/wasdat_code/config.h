@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         Wasdat Code
-#define DESCRIPTION     Custom controller for the WASD CODE TKL and 104-key keyboards
 
 /* key matrix size */
 #define MATRIX_ROWS 8

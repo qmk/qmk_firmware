@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         Eon75
-#define DESCRIPTION     A 75% PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 12

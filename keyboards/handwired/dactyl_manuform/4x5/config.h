@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 
 #define MANUFACTURER    tshort
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
 // Rows are doubled-up
