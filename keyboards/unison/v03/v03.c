@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "v01.h"
+#include "v03.h"
 
 // MusicーModeは使わない予定
 // #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
