@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "v1.h"
+#include "rev1.h"
 
 void board_init(void) {
     writePinLow(A8);

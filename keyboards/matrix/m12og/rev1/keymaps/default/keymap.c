@@ -47,4 +47,4 @@ bool led_update_user(led_t led_state) {
         caps_state = led_state.caps_lock;
     }
     return true;
-}
+};
