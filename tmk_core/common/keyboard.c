@@ -348,6 +348,9 @@ void keyboard_task(void) {
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
 #endif
+#ifdef ENCODER_ENABLE
+    bool encoders_changed = false;
+#endif
 
     housekeeping_task_kb();
     housekeeping_task_user();
@@ -409,7 +412,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef ENCODER_ENABLE
-    bool encoders_changed = encoder_read();
+    encoders_changed = encoder_read();
     if (encoders_changed) last_encoder_activity_trigger();
 #endif
 
@@ -420,8 +423,12 @@ MATRIX_LOOP_END:
 #ifdef OLED_DRIVER_ENABLE
     oled_task();
 #    ifndef OLED_DISABLE_TIMEOUT
-    // Wake up oled if user is using those fabulous keys!
+    // Wake up oled if user is using those fabulous keys or spinning those encoders!
+#        ifdef ENCODER_ENABLE
     if (matrix_changed || encoders_changed) oled_on();
+#        else
+    if (matrix_changed) oled_on();
+#        endif
 #    endif
 #endif
 
