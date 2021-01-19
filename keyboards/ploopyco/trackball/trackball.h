@@ -52,6 +52,7 @@ typedef union {
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
+extern uint16_t          dpi_array[];
 
 enum ploopy_keycodes {
 #ifdef VIA_ENABLE
