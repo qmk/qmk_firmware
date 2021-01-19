@@ -18,6 +18,8 @@ def main():
                 uid = re.findall(r"#define.*VIAL_KEYBOARD_UID.*{(.*)}", line)
                 if uid:
                     break
+        if uid:
+            break
     if not uid:
         print("Cannot identify keyboard UID from configuration files {}, ensure that you have VIAL_KEYBOARD_UID defined!".format(configs))
         return 1
