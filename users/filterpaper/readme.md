@@ -15,14 +15,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Summary
 
-Personal user space to share code for a few custom keyboards. See https://docs.qmk.fm/#/feature_userspace?id=userspace-sharing-code-between-keymaps for details and [custom quantum funtions](../../docs/custom_quantum_functions.md) for customisation.
+Personal user space to share code for a few custom keyboards. See [Sharing Code Between Keymaps](https://docs.qmk.fm/#/feature_userspace?id=userspace-sharing-code-between-keymaps) for details and [custom quantum funtions](../../docs/custom_quantum_functions.md) for customisation.
 ## File list
 * `config.h`	QMK configuration options, see [configuring QMK](../../docs/config_options.md)
 * `rules.mk`	Makefile rules for keyboard-specific features, includes keyboard.c
 * `keyboard.c`	Common keyboard code, RGB and OLED function functions
 * `mod-status.c`	Graphical layer and modifier status rendering module
 * `bongo-cat.c`		Graphical tapping bongo cat rendering module, optimized for right OLED
-* `bongo-cat-left.c`		Graphical tapping bongo cat rendering module, includes left-optimized cat
+* `bongo-cat-left.c`		Graphical tapping bongo cat rendering module, optimized for both sides
 * `glcdfont.c`		Corne 8x6 font code with QMK Firmware Logo
 
 ## Compile commands
