@@ -27,6 +27,7 @@ enum custom_keycodes { WINDOWS = SAFE_RANGE, MAC, ADJUST };
 #define RGB_SNK RGB_M_SN        // Snake Animation alias
 #define MACLOCK LGUI(LCTL(KC_Q)) // Lock my MacBook!
 #define WINLOCK LGUI(KC_L)      // Lock my PC!
+#define DELGUI GUI_T(KC_DEL)
 #define SCLNCTL CTL_T(KC_SCLN)
 #define QUEALT ALT_T(KC_Q)
 #define VEEALT ALT_T(KC_V)
@@ -53,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,        KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
   KC_GRV,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,        KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
   KC_LSFT, SCLNCTL, QUEALT,  KC_J,    KC_K,    KC_X,        KC_B,    KC_M,    KC_W,    VEEALT,  ZEDCTL,  KC_RSFT, \
-                             LOWER,   KC_BSPC, KC_LGUI,     KC_ENT,  KC_SPC,  RAISE, \
+                             LOWER,   KC_BSPC, DELGUI,      KC_ENT,  KC_SPC,  RAISE, \
                                       KC_LCTL, KC_LALT,     KC_RGUI, KC_RCTL
   ),
 
