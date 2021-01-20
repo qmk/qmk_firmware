@@ -50,7 +50,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 ## Difference to Combos
 
-Note that key overrides are very different from [combos](https://docs.qmk.fm/#/feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and more, and provide a number of optional settings that can be used to really fine-tune the. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
+Note that key overrides are very different from [combos](https://docs.qmk.fm/#/feature_combo). Combos require that you press down several keys almost _at the same time_ and can work with any combination of non-modifier keys. Key overrides work like keyboard shortcuts (e.g. `ctrl` + `z`): They take combinations of _multiple_ modifiers and _one_ non-modifier key to then perform some custom action. Key overrides are implemented with much care to behave just like normal keyboard shortcuts would in regards to the order of pressed keys, timing, and interacton with other pressed keys. There are a number of optional settings that can be used to really fine-tune the behavior of each key override as well. Using key overrides also does not delay key input for regular key presses, which inherently happens in combos and may be undesirable.
 
 ## Intermediate Difficulty Examples
 
