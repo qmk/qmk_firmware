@@ -20,7 +20,7 @@ void board_init(void) {
     writePinLow(A8);
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(5, 255, 255);
     rgblight_mode_noeeprom(37);
