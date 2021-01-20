@@ -51,7 +51,7 @@ void midi_init(void) {
     midi_config.modulation_interval = 8;
 
     for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++) {
-        tone_status[i] = MIDI_INVALID_NOTE;
+        tone_status[i] = 0;
     }
 
     midi_modulation       = 0;
@@ -68,19 +68,17 @@ bool process_midi(uint16_t keycode, keyrecord_t *record) {
             uint8_t tone     = keycode - MIDI_TONE_MIN;
             uint8_t velocity = midi_config.velocity;
             if (record->event.pressed) {
-                if (tone_status[tone] == MIDI_INVALID_NOTE) {
-                    uint8_t note = midi_compute_note(keycode);
-                    midi_send_noteon(&midi_device, channel, note, velocity);
-                    dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
-                    tone_status[tone] = note;
-                }
+                uint8_t note = midi_compute_note(keycode);
+                midi_send_noteon(&midi_device, channel, note, velocity);
+                dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                tone_status[tone] += 1;
             } else {
-                uint8_t note = tone_status[tone];
-                if (note != MIDI_INVALID_NOTE) {
+                tone_status[tone] -= 1;
+                if (tone_status[tone] == 0) {
+                    uint8_t note = midi_compute_note(keycode);
                     midi_send_noteoff(&midi_device, channel, note, velocity);
                     dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
                 }
-                tone_status[tone] = MIDI_INVALID_NOTE;
             }
             return false;
         }
