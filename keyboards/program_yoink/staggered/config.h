@@ -16,4 +16,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #define PRODUCT_ID 0xF10B
-#define PRODUCT program_yoink
+#define PRODUCT Program Yoink! Staggered

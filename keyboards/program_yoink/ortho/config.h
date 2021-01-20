@@ -15,5 +15,5 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define PRODUCT_ID 0xF10B
-#define PRODUCT program_yoink
+#define PRODUCT_ID 0xF10C
+#define PRODUCT Program Yoink! Ortho
