@@ -1,1 +1,1 @@
-# The default keymap for program_yoink
+# The split space bar keymap for the Program Yoink! Staggered

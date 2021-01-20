@@ -1,1 +1,1 @@
-# The default keymap for program_yoink
+# The default keymap for the Program Yoink! Staggered

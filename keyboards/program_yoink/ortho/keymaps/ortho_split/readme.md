@@ -1,1 +1,1 @@
-# The split space bar keymap for ortho program_yoink
+# The split space bar keymap for the Program Yoink! Ortho
