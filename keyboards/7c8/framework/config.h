@@ -17,7 +17,7 @@
 #pragma once
 #include "config_common.h"
 
-#define VENDOR_ID 0x07c8
+#define VENDOR_ID 0x77c8
 #define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0000
 #define MANUFACTURER 7c8
