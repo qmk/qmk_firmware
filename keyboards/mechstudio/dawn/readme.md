@@ -1,6 +1,6 @@
 # Dawn
 
-![Dawn](https://storage.googleapis.com/mechstudio-media/images/<>)
+![Dawn](https://storage.googleapis.com/mechstudio-media/images/IMG_1087.2e16d0ba.fill-1850x850.jpg)
 
 ## Support
 * Keyboard Maintainer: [NecromanX](https://github.com/dejaeghered)
