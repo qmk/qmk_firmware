@@ -32,7 +32,7 @@ enum framework_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = framework_grid(
+[_BASE] = LAYOUT_ortho_5x12(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MEDIA_PLAY_PAUSE,
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT, FN,      LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
-[_LOWER] = framework_grid(
+[_LOWER] = LAYOUT_ortho_5x12(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  _______,
     KC_LEAD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS,
     KC_DEL,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, _______, _______, _______, _______, _______,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, _______, _______, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
-[_RAISE] = framework_grid(
+[_RAISE] = LAYOUT_ortho_5x12(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, KC_TRNS, _______, _______, KC_TRNS, _______, _______, _______, _______
 ),
 
-[_BOTH] = framework_grid(
+[_BOTH] = LAYOUT_ortho_5x12(
     _______, _______,     _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
     _______, LALT(KC_F4), _______, KC_MYCM, LGUI(KC_R), _______, _______, _______, _______, _______, _______, _______,
     _______, _______,     _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______,     _______, _______, _______,    _______, _______, _______, _______, _______, _______, DEBUG
 ),
 
-[_FN] = framework_grid(
+[_FN] = LAYOUT_ortho_5x12(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
