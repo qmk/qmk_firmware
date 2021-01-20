@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,
         _______, _______, _______
     ),
-    [2] = LAYLAYOUT_ortho_3x3OUT_3x3(
+    [2] = LAYOUT_ortho_3x3(
         _______, _______, _______,
         _______, _______, _______,
         _______, _______, _______
