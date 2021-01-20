@@ -14,12 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "quantum.h"
-
-#if defined(KEYBOARD_program_yoink_staggered)
-    #include "staggered.h"
-#elif defined(KEYBOARD_program_yoink_ortho)
-    #include "ortho.h"
-#endif
+#include "staggered.h"
