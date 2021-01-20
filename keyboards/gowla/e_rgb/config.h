@@ -37,7 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* RGB */
-#define RGB_DI_PIN B3
+#undef RGBW
+#undef RGBW_BB_TWI
+#define RGB_DI_PIN B6
 #define RGBLED_NUM 3
 #define RGBLIGHT_EFFECT_STATIC_LIGHT
 #define RGBLIGHT_EFFECT_RGB_TEST
@@ -46,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 225
 
 /* Rotary Encoder*/
-#define ENCODERS_PAD_A { B6 }
-#define ENCODERS_PAD_B { B2 }
+#define ENCODERS_PAD_A { B2 }
+#define ENCODERS_PAD_B { B3 }
 #define ENCODER_RESOLUTION 4
+

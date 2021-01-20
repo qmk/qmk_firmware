@@ -1,4 +1,4 @@
-/* Copyright 2021	Gowla
+/* Copyright 2021 Gowla
   * 
   * This program is free software: you can redistribute it and/or modify 
   * it under the terms of the GNU General Public License as published by 
@@ -42,8 +42,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 #ifdef RGBLIGHT_ENABLE
 void keyboard_post_init_user(void) {
 	// led hue, sat, val, led
-	sethsv(HSV_CYAN, (LED_TYPE *)&led[0]); // led 0
-	sethsv(HSV_CYAN,   (LED_TYPE *)&led[1]); // led 1
+	rgblight_sethsv_range(HSV_CYAN, 0, 2);
 	rgblight_sethsv_noeeprom(HSV_CYAN);
 }
 #endif
