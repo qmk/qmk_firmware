@@ -26,12 +26,7 @@ SLEEP_LED_ENABLE = no          # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes              # USB Nkey Rollover
 BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
-MIDI_ENABLE = no               # MIDI support
-BLUETOOTH_ENABLE = no          # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no              # Audio output on port C6
-FAUXCLICKY_ENABLE = no         # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no            # Enable support for HD44780 based LCDs
-RGB_MATRIX_ENABLE = IS31FL3733 # Use RGB matrix
-NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
-
-LAYOUTS = 60_latin_hhkb
+BLUETOOTH_ENABLE = no          # Enable Bluetooth
+AUDIO_ENABLE = no              # Audio output
+RGB_MATRIX_ENABLE = yes        # Use RGB matrix
+RGB_MATRIX_DRIVER = IS31FL3733 
