@@ -22,4 +22,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = no
 
-LAYOUTS = 3x3
+LAYOUTS = ortho_3x3
