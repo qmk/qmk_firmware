@@ -17,8 +17,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x544E
-#define PRODUCT_ID      0x7034
+#define VENDOR_ID       0x544E // "TN"
+#define PRODUCT_ID      0x7034 // "P4"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    tamanishi
 #define PRODUCT         Pinky4
