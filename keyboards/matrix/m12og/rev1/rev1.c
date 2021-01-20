@@ -25,11 +25,3 @@ void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(5, 255, 255);
     rgblight_mode_noeeprom(37);
 }
-
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
