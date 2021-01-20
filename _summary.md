@@ -3,7 +3,6 @@
   * [Setup](newbs_getting_started.md)
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
-  * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
   * [Syllabus](syllabus.md)
@@ -11,7 +10,8 @@
 * FAQs
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
-  * [Debugging/Troubleshooting QMK](faq_debug.md)
+  * [Troubleshooting QMK](faq_misc.md)
+  * [Debugging QMK](faq_debug.md)
   * [Keymap FAQ](faq_keymap.md)
   * [Glossary](reference_glossary.md)
 
