@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Franklin Harding
 #define PRODUCT         pdxkbc
-#define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3

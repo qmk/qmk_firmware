@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    monksoffunk
 #define PRODUCT         zinc rev.1
-#define DESCRIPTION     A split keyboard
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
