@@ -116,7 +116,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 return state;
 }
 
-int RGB_current_mode;
+uint8_t RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool result = false;
   switch (keycode) {
