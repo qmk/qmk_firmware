@@ -1,3 +1,19 @@
+/* Copyright 2021 Mike Tsao
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 // config.h
 
 #pragma once
@@ -8,9 +24,9 @@
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x8889
 #define DEVICE_VER 0x0001
-#define MANUFACTURER Mike Tsao
+#define MANUFACTURER github.com/sowbug
 #define PRODUCT ANSI TKL
-#define DESCRIPTION A keyboard
+#define DESCRIPTION A tenkeyless ANSI-layout keyboard
 
 // key matrix size
 #define MATRIX_ROWS 6
@@ -27,13 +43,14 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN B9
+#define RGB_MATRIX_KEYPRESSES
+#define DRIVER_LED_TOTAL (87)
+#define RGBLED_NUM (DRIVER_LED_TOTAL)
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
+
 // Want backlighting and RGB Matrix patterns? See the note in the readme,
 // apply the patches, and then uncomment the line below as well as the ones
 // in rules.mk.
 //
 // #define BACKLIGHT_PIN rgb_matrix
-#ifdef RGB_DI_PIN
-#    define RGB_MATRIX_KEYPRESSES
-#    define DRIVER_LED_TOTAL (87)
-#    define RGBLED_NUM (DRIVER_LED_TOTAL)
-#endif

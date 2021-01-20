@@ -10,5 +10,4 @@ See the note about backlighting for sowbug/68keys.
 
 ## Building and flashing
 
-* `qmk compile -kb sowbug/ansi_tkl -km default`
-* `dfu-util -d 1eaf:0003 -a 2 -D sowbug_ansi_tkl_default.bin`
+`qmk flash -kb sowbug/ansi_tkl -km default`

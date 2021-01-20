@@ -30,5 +30,4 @@ to your copy of QMK and then enable it in config.h and rules.mk.
 
 ## Building and flashing
 
-* `qmk compile -kb sowbug/68keys -km default`
-* `dfu-util -d 1eaf:0003 -a 2 -D sowbug_68keys_default.bin`
+`qmk flash -kb sowbug/68keys -km default`
