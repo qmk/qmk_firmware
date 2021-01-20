@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ZealPC
 #define PRODUCT         Zeal60
-#define DESCRIPTION     Zeal60
 
 // key matrix size
 #define MATRIX_ROWS 5
