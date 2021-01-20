@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 #define PRODUCT         Clueboard 66% rev4
-#define DESCRIPTION     QMK keyboard firmware for Clueboard
 
 /* Address for jumping to bootloader on STM32 chips. */
 /* It is chip dependent, the correct number can be looked up here:

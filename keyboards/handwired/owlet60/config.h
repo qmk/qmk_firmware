@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    worthlessowl
 #define PRODUCT         Owlet60
-#define DESCRIPTION     TGR Alice inspired 65 or 60 percent keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 9

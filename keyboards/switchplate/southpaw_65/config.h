@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Switchplate Peripherals
 #define PRODUCT         Southpaw Extended 65%
-#define DESCRIPTION     A Left Hand Number Pad 65% Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

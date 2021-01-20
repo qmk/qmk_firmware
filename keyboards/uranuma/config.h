@@ -8,7 +8,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER yohewi
 #define PRODUCT UraNuma
-#define DESCRIPTION Series of numa
 
 /* key matrix size */
 #define MATRIX_ROWS 5
