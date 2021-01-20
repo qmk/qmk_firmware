@@ -37,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* RGB */
-#undef RGBW
-#undef RGBW_BB_TWI
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 3
 #define RGBLIGHT_EFFECT_STATIC_LIGHT
