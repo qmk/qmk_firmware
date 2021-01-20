@@ -118,7 +118,7 @@ void matrix_scan_user(void) {
 } 
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
     if (index == 0) {
         if (clockwise) {
             tap_code16(dynamic_keymap_get_keycode(layer, 10, 1));
