@@ -37,7 +37,5 @@
 
 #define CH_CFG_USE_MAILBOXES TRUE
 
-#define CH_CFG_USE_MEMCORE TRUE
-
 #include_next <chconf.h>
 
