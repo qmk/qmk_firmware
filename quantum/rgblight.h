@@ -258,6 +258,9 @@ typedef struct _rgblight_status_t {
     bool    timer_enabled;
 #    ifdef RGBLIGHT_SPLIT
     uint8_t change_flags;
+#    ifdef VELOCIKEY_ENABLE
+    uint8_t typing_speed;
+#    endif
 #    endif
 #    ifdef RGBLIGHT_LAYERS
     rgblight_layer_mask_t enabled_layer_mask;

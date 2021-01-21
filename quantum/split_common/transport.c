@@ -15,6 +15,11 @@
 #    include "backlight.h"
 #endif
 
+#ifdef VELOCIKEY_ENABLE
+#    include "velocikey.h"
+uint8_t velocikey_typing_speed = 0;
+#endif
+
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 static pin_t encoders_pad[] = ENCODERS_PAD_A;
@@ -201,12 +206,25 @@ void transport_slave_init(void) { soft_serial_target_init(transactions, TID_LIMI
 // rgblight synchronization information communication.
 
 void transport_rgblight_master(void) {
+#    if defined(VELOCIKEY_ENABLE)
+    uint8_t typing_speed = velocikey_enabled() ? velocikey_get_typing_speed() : 0;
+    // Only send update on speed change,
+    // trigger slave toggle when disabled on master (speed=0)
+    if (rgblight_get_change_flags() || velocikey_typing_speed != typing_speed) {
+#    else
     if (rgblight_get_change_flags()) {
+#    endif
         rgblight_get_syncinfo((rgblight_syncinfo_t *)&serial_rgblight.rgblight_sync);
+#    if defined(VELOCIKEY_ENABLE)
+        serial_rgblight.rgblight_sync.status.typing_speed = typing_speed;
+#    endif
         if (soft_serial_transaction(PUT_RGBLIGHT) == TRANSACTION_END) {
             rgblight_clear_change_flags();
         }
     }
+#    if defined(VELOCIKEY_ENABLE)
+    velocikey_typing_speed = typing_speed;
+#    endif
 }
 
 void transport_rgblight_slave(void) {

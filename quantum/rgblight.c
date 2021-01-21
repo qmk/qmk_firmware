@@ -829,6 +829,18 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
         rgblight_sethsv_eeprom_helper(syncinfo->config.hue, syncinfo->config.sat, syncinfo->config.val, write_to_eeprom);
         // rgblight_config.speed = config->speed; // NEED???
     }
+#    if defined(VELOCIKEY_ENABLE)
+    bool velocikey_is_enabled = velocikey_enabled();
+    // Toggle velocikey on slave based on typing speed value
+    if (syncinfo->status.typing_speed) {
+        if (!velocikey_is_enabled) {
+            velocikey_toggle();
+        }
+        velocikey_set_typing_speed(syncinfo->status.typing_speed);
+    } else if (velocikey_is_enabled) {
+        velocikey_toggle();
+    }
+#    endif
 #    ifdef RGBLIGHT_USE_TIMER
     if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_TIMER) {
         if (syncinfo->status.timer_enabled) {
