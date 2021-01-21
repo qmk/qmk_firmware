@@ -44,6 +44,18 @@
 #    define SERIAL_DRIVER SD1
 #endif
 
+#ifndef SD1_CR1
+#    define SD1_CR1 0
+#endif
+
+#ifndef SD1_CR2
+#    define SD1_CR2 0
+#endif
+
+#ifndef SD1_CR3
+#    define SD1_CR3 0
+#endif
+
 #ifdef USE_GPIOV1
 #    ifndef SD1_TX_PAL_MODE
 #        define SD1_TX_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN

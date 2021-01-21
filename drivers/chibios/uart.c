@@ -20,9 +20,9 @@
 
 static SerialConfig serialConfig = {
     SERIAL_DEFAULT_BITRATE,
-    0,
-    USART_CR2_STOP_1,
-    0
+    SD1_CR1,
+    SD1_CR2,
+    SD1_CR3
 };
 
 void uart_init(uint32_t baud) {
