@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 
-#define _MAIN 0
-#define _FN1 1
-#define _FN2 2
-#define _FN3 3
+enum via_layers {
+    _MAIN,
+    _FN1,
+    _FN2,
+    _FN3,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default Layer
