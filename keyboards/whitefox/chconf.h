@@ -29,10 +29,9 @@
 
 #define CH_CFG_USE_WAITEXIT TRUE
 
-#define CH_CFG_USE_MEMCORE TRUE
-
 #define CH_CFG_USE_HEAP TRUE
 
 #define CH_CFG_USE_DYNAMIC TRUE
 
 #include_next <chconf.h>
+
