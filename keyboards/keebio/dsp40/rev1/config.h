@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B10, B2, A3, A4, B7, B6, A10, C13, C14, C15, F0, F1 }
 #define ENCODERS_PAD_A { A1 }
 #define ENCODERS_PAD_B { A2 }
+#define TAP_CODE_DELAY 10
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN A6
