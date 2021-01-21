@@ -40,11 +40,14 @@
 #	define OLED_FONT_H "users/filterpaper/glcdfont.c"
 #endif
 
+#ifdef KEYBOARD_boardsource_the_mark
+#	define DRIVER_LED_TOTAL 24
+#endif
+
 #ifdef RGB_MATRIX_ENABLE
 #	define RGB_MATRIX_KEYPRESSES
 #	define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #	define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
-//#	define USB_MAX_POWER_CONSUMPTION 500
 // Disable decoractive effects
 #	define DISABLE_RGB_MATRIX_BAND_SAT
 #	define DISABLE_RGB_MATRIX_BAND_VAL
@@ -65,13 +68,13 @@
 #	define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 #	define DISABLE_RGB_MATRIX_RAINDROPS
 #	define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-// Define custom layer colours and effects
-#	define RGB_DEFAULT	RGB_TURQUOISE
+// Define custom layer RGB and effects
+#	define RGB_GRAY	91, 147, 153 // RGB_AZURE substitute
+#	define RGB_DEFAULT	RGB_GRAY
 #	define RGB_LOWER	RGB_BLUE
 #	define RGB_RAISE	RGB_YELLOW
 #	define RGB_ADJUST	RGB_TEAL
-#	define HSV_DEFAULT	HSV_TURQUOISE
-#	define HSV_COLEMAK	HSV_WHITE
+#	define HSV_DEFAULT	HSV_AZURE
 #	define HSV_LOWER	HSV_BLUE
 #	define HSV_RAISE	HSV_YELLOW
 #	define HSV_ADJUST	HSV_TEAL

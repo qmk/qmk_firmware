@@ -18,16 +18,41 @@
 
 // Layer number reference
 enum layers {
-  _QWERTY = 0,
-  _COLEMAK,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
+	_QWERTY = 0,
+	_COLEMAK,
+	_LOWER,
+	_RAISE,
+	_ADJUST,
 };
 
 
 /////// RGB LIGHTING ///////
 #ifdef RGB_MATRIX_ENABLE
+
+//RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
+//	hsv.v = (uint8_t)(hsv.v * 0.1);
+//	return hsv_to_rgb(hsv);
+//};
+
+#ifdef KEYBOARD_boardsource_the_mark
+led_config_t g_led_config = { {
+	// Key Matrix to LED Index
+	{ NO_LED, 10    , 9     , NO_LED, 8     , 7     , NO_LED, 6     , 5     , NO_LED, 4     , 3     , NO_LED, 2     , 1     , NO_LED },
+	{ NO_LED, 11    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 0     , NO_LED },
+	{ NO_LED, 12    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 23    , NO_LED },
+	{ NO_LED, 13    , 14    , NO_LED, 15    , 16    , NO_LED, 17    , 18    , NO_LED, 19    , 20    , NO_LED, 21    , 22    , NO_LED },
+	{ NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+}, {
+	// LED Index to Physical Position
+	{224, 42}, {224, 21}, {209, 21}, {179, 21}, {164, 21}, {134, 21}, {119, 21}, {89, 21}, {74, 21}, {45, 21}, {30, 21}, {30, 42},
+	{30, 64}, {30, 85}, {45, 85}, {74, 85}, {89, 85}, {119, 85}, {134, 85}, {164, 85}, {179, 85}, {209, 85}, {224, 85}, {224, 64}
+}, {
+	// LED Index to Flag
+	LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+	LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+	LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
+} };
+#endif
 
 void matrix_init_user(void) {
 	rgb_matrix_sethsv_noeeprom(HSV_DEFAULT);
@@ -52,19 +77,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void rgb_matrix_indicators_user(void) {
 
-	// Layer lighting
+	// Layer key lighting
 	switch (get_highest_layer(layer_state)) {
 #ifdef KEYBOARD_bm40hsrgb
 		case _LOWER:
-			//rgb_matrix_sethsv_noeeprom(HSV_LOWER);
+			rgb_matrix_sethsv_noeeprom(HSV_LOWER);
 			rgb_matrix_set_color(40, RGB_LOWER);
 			break;
 		case _RAISE:
-			//rgb_matrix_sethsv_noeeprom(HSV_RAISE);
+			rgb_matrix_sethsv_noeeprom(HSV_RAISE);
 			rgb_matrix_set_color(42, RGB_RAISE);
 			break;
 		case _ADJUST:
-			//rgb_matrix_sethsv_noeeprom(HSV_ADJUST);
+			rgb_matrix_sethsv_noeeprom(HSV_ADJUST);
 			rgb_matrix_set_color(42, RGB_ADJUST);
 			rgb_matrix_set_color(40, RGB_ADJUST);
 			break;
@@ -74,17 +99,27 @@ void rgb_matrix_indicators_user(void) {
 				rgb_matrix_set_color_all(RGB_DEFAULT);
 			} else {
 				rgb_matrix_set_color(42, RGB_OFF);
-				rgb_matrix_set_color(40, RGB_OFF);	
+				rgb_matrix_set_color(40, RGB_OFF);
 			}
-#else // Backlight for non RGB matrix board
+#elif KEYBOARD_planck_rev6
+/* Planck Rev6 LED number layout are:
+     6   5   4   3
+           0
+     7   8   1   2
+ */
 		case _LOWER:
-			rgb_matrix_set_color_all(RGB_LOWER);
+			rgb_matrix_set_color(5, RGB_LOWER);
+			rgb_matrix_set_color(8, RGB_LOWER);
 			break;
 		case _RAISE:
-			rgb_matrix_set_color_all(RGB_RAISE);
+			rgb_matrix_set_color(1, RGB_RAISE);
+			rgb_matrix_set_color(4, RGB_RAISE);
 			break;
 		case _ADJUST:
-			rgb_matrix_set_color_all(RGB_ADJUST);
+			rgb_matrix_set_color(3, RGB_ADJUST);
+			rgb_matrix_set_color(4, RGB_ADJUST);
+			rgb_matrix_set_color(5, RGB_ADJUST);
+			rgb_matrix_set_color(6, RGB_ADJUST);
 			break;
 		default:
 			if (host_keyboard_led_state().caps_lock || get_highest_layer(default_layer_state) == _COLEMAK) {
@@ -92,7 +127,7 @@ void rgb_matrix_indicators_user(void) {
 			} else {
 				rgb_matrix_set_color_all(RGB_OFF);
 			}
-#endif // KEYBOARD_bm40hsrgb
+#endif
 	}
 
 /*	// Light up non KC_TRANS / KC_NO on layers

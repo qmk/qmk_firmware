@@ -28,11 +28,11 @@ EXTRAKEY_ENABLE = yes
 ifneq ($(PLATFORM),CHIBIOS)
 	LTO_ENABLE = yes
 endif
-ifeq ($(strip $(KEYBOARD)), the_mark)
-	RGBLIGHT_ENABLE = yes
-endif
-ifeq ($(KEYBOARD),$(filter $(KEYBOARD), bm40hsrgb planck/rev6))
+ifeq ($(KEYBOARD),$(filter $(KEYBOARD), bm40hsrgb planck/rev6 boardsource/the_mark))
 	RGB_MATRIX_ENABLE = yes
+endif
+ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
+	RGB_MATRIX_DRIVER = WS2812
 endif
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
 	BOOTLOADER = atmel-dfu

@@ -36,10 +36,10 @@ Personal user space to share code for a few custom keyboards. See [Sharing Code 
 
 ## Build commands
 ```
-qmk compile -kb the_mark -km filterpaper
 qmk compile -kb bm40hsrgb -km filterpaper
 qmk compile -kb planck/rev6 -km filterpaper
 qmk compile -kb crkbd/rev1/common -km filterpaper
+qmk compile -kb boardsource/the_mark -km filterpaper
 ```
 
 ## Corne Split Setup
