@@ -24,7 +24,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Alexander Tulloh
 #define PRODUCT Oddball
-#define DESCRIPTION A ballin keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

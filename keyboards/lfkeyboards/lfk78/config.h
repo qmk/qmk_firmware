@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LFKeyboards
 #define PRODUCT         LFK78
-#define DESCRIPTION     QMK keyboard firmware for LFK78
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

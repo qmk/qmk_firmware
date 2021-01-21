@@ -26,7 +26,7 @@
 #define PRODUCT         XO87
 
 /* key matrix size */
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 6
 #define MATRIX_COLS 16
 
 #define BACKLIGHT_PIN F5
@@ -39,7 +39,7 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 100 out of 255.
-#define RGBLIGHT_LIMIT_VAL 100 // limits maximum brightness of LEDs to 100 out of 255. 
+#define RGBLIGHT_LIMIT_VAL 100 // limits maximum brightness of LEDs to 100 out of 255.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGBLED_NUM 110

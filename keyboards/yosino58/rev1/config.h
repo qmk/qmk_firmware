@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    sakuranbo0046
 #define PRODUCT         yosino58
-#define DESCRIPTION     yosino58 is 6x4+5keys column-staggered split keyboard.
 
 /* key matrix size */
 // Rows are doubled-up
