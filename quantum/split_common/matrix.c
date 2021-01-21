@@ -33,6 +33,17 @@ static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+
+void test_for_matrix_macro_consistency_at_compile_time(void) {
+    /* If the definitions of MATRIX_ROWS and MATRIX_ROW_PINS
+     * and MATRIX_COLS and MATRIX_COL_PINS are inconsistent,
+     * compiler report error */
+    pin_t row_pins_test[] = MATRIX_ROW_PINS;
+    pin_t col_pins_test[] = MATRIX_COL_PINS;
+
+    _Static_assert(sizeof(row_pins) == sizeof(row_pins_test), "MATRIX_ROW_PINS and MATRIX_ROWS are inconsistent.");
+    _Static_assert(sizeof(col_pins) == sizeof(col_pins_test), "MATRIX_COL_PINS and MATRIX_COLS are inconsistent.");
+}
 #endif
 
 /* matrix state(1:on, 0:off) */
