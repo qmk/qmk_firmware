@@ -27,6 +27,8 @@ from . import kle2json
 from . import new
 from . import pyformat
 from . import pytest
+from . import status
+from . import up
 
 if sys.version_info[0] != 3 or sys.version_info[1] < 6:
     cli.log.error('Your Python is too old! Please upgrade to Python 3.6 or later.')

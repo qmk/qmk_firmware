@@ -5,6 +5,8 @@ from pathlib import Path
 
 # The root of the qmk_firmware tree.
 QMK_FIRMWARE = Path.cwd()
+# Upstream repo url
+QMK_FIRMWARE_URL = 'https://github.com/qmk/qmk_firmware.git'
 
 # This is the number of directories under `qmk_firmware/keyboards` that will be traversed. This is currently a limitation of our make system.
 MAX_KEYBOARD_SUBFOLDERS = 5

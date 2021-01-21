@@ -84,6 +84,50 @@ def get_git_version(repo_dir='.', check_dir='.'):
     return strftime(time_fmt)
 
 
+def get_git_branch(repo_dir='.', check_dir='.'):
+    """Returns the current branch for a repo, or None.
+    """
+    # TODO: use 'git branch --show-current' if Git 2.22?
+    git_branch_cmd = ['git', 'rev-parse', '--abbrev-ref', 'HEAD']
+
+    if Path(check_dir).exists():
+        git_branch = cli.run(git_branch_cmd, cwd=repo_dir)
+
+        if git_branch.returncode == 0:
+            return git_branch.stdout.strip()
+
+
+def git_is_dirty():
+    """Returns the current remotes for a repo, or None.
+    """
+    git_diff_staged_cmd = ['git', 'diff', '--quiet', '--exit-code']
+    git_diff_unstaged_cmd = [*git_diff_staged_cmd, '--cached']
+
+    unstaged = cli.run(git_diff_staged_cmd)
+    staged = cli.run(git_diff_unstaged_cmd)
+
+    return unstaged.returncode != 0 or staged.returncode != 0
+
+
+def get_git_remotes(repo_dir='.', check_dir='.'):
+    """Returns the current remotes for a repo.
+    """
+    remotes = {}
+
+    git_remote_show_cmd = ['git', 'remote', 'show']
+    git_remote_get_cmd = ['git', 'remote', 'get-url']
+
+    if Path(check_dir).exists():
+        git_remote_show = cli.run(git_remote_show_cmd, cwd=repo_dir)
+
+        if git_remote_show.returncode == 0:
+            for name in git_remote_show.stdout.splitlines():
+                git_remote_name = cli.run([*git_remote_get_cmd, name], cwd=repo_dir)
+                remotes[name.strip()] = {"url": git_remote_name.stdout.strip()}
+
+    return remotes
+
+
 def write_version_h(git_version, build_date, chibios_version, chibios_contrib_version):
     """Generate and write quantum/version.h
     """

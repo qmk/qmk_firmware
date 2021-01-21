@@ -59,7 +59,6 @@ MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
 MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are out of date or modified.\n\
 Please consider running $(BOLD)make git-submodule$(NO_COLOR).\n\n
-MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
 
 define GENERATE_MSG_MAKE_KB
     MSG_MAKE_KB_ACTUAL := Making $$(KB_SP) with keymap $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
@@ -86,9 +85,7 @@ MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT
 MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
 MSG_FILE_JUST_RIGHT = The firmware size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
 MSG_FILE_NEAR_LIMIT = The firmware size is approaching the maximum - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
-MSG_PYTHON_MISSING = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
-	Can not run bin/qmk! This tool will be required when the develop branch is merged on 2020 Aug 29.\n\n\
-	Please run $(BOLD)util/qmk_install.sh$(NO_COLOR) to install all the dependencies QMK requires.\n\n
+MSG_PYTHON_MISSING = $(ERROR_COLOR)Can not run bin/qmk:$(NO_COLOR) Please refer to https://docs.qmk.fm/\#/newbs_getting_started on how to update/fix your environment.\n\n
 MSG_FLASH_BOOTLOADER = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's bootloader is not specified or is not supported by the \":flash\" target at this time.\n\n
 MSG_FLASH_ARCH = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's architecture is not supported by the \":flash\" target at this time.\n\n
 MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) Bootloader not found. Trying again in 5s.\n

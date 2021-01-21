@@ -499,25 +499,11 @@ endef
 # Catch everything and parse the command line ourselves.
 .PHONY: %
 %:
-	# Check if we have the CMP tool installed
-	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Ensure that bin/qmk works. This will be a failing check after the next develop merge
 	if ! bin/qmk hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
-	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
-	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
-	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
-	git submodule status --recursive 2>/dev/null | \
-	while IFS= read -r x; do \
-		case "$$x" in \
-			\ *) ;; \
-			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
-		esac \
-	done
+	if ! bin/qmk status --submodule-dirty 1> /dev/null 2>&1; then printf "$(MSG_SUBMODULE_DIRTY)"; fi
 endif
 	rm -f $(ERROR_FILE) > /dev/null 2>&1
 	$(eval $(call PARSE_RULE,$@))
@@ -531,15 +517,6 @@ endif
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 	$(foreach TEST,$(sort $(TESTS)),$(RUN_TEST))
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-
-lib/%:
-	git submodule sync $?
-	git submodule update --init $?
-
-.PHONY: git-submodule
-git-submodule:
-	git submodule sync --recursive
-	git submodule update --init --recursive --progress
 
 ifdef SKIP_VERSION
 SKIP_GIT := yes
