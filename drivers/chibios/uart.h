@@ -20,28 +20,40 @@
 
 #include <hal.h>
 
-#ifdef SD1_BANK
-#    define SD1_TX_BANK SD1_BANK
-#    define SD1_RX_BANK SD1_BANK
-#endif
-
-#ifndef SD1_TX_BANK
-#    define SD1_TX_BANK GPIOA
-#endif
-
-#ifndef SD1_RX_BANK
-#    define SD1_RX_BANK GPIOA
-#endif
-
-#ifndef SD1_TX
-#    define SD1_TX 9
-#endif
-#ifndef SD1_RX
-#    define SD1_RX 10
-#endif
-
 #ifndef SERIAL_DRIVER
 #    define SERIAL_DRIVER SD1
+#endif
+
+#ifndef SD1_TX_PIN
+#    define SD1_TX_PIN A9
+#endif
+
+#ifndef SD1_TX_PAL_MODE
+#    define SD1_TX_PAL_MODE 7
+#endif
+
+#ifndef SD1_RX_PIN
+#    define SD1_RX_PIN A10
+#endif
+
+#ifndef SD1_RX_PAL_MODE
+#    define SD1_RX_PAL_MODE 7
+#endif
+
+#ifndef SD1_CTS_PIN
+#    define SD1_CTS_PIN A11
+#endif
+
+#ifndef SD1_CTS_PAL_MODE
+#    define SD1_CTS_PAL_MODE 7
+#endif
+
+#ifndef SD1_RTS_PIN
+#    define SD1_RTS_PIN A12
+#endif
+
+#ifndef SD1_RTS_PAL_MODE
+#    define SD1_RTS_PAL_MODE 7
 #endif
 
 #ifndef SD1_CR1
@@ -54,23 +66,6 @@
 
 #ifndef SD1_CR3
 #    define SD1_CR3 0
-#endif
-
-#ifdef USE_GPIOV1
-#    ifndef SD1_TX_PAL_MODE
-#        define SD1_TX_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
-#    endif
-#    ifndef SD1_RX_PAL_MODE
-#        define SD1_RX_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
-#    endif
-#else
-// The default PAL alternate modes are used to signal that the pins are used for USART
-#    ifndef SD1_TX_PAL_MODE
-#        define SD1_TX_PAL_MODE 7
-#    endif
-#    ifndef SD1_RX_PAL_MODE
-#        define SD1_RX_PAL_MODE 7
-#    endif
 #endif
 
 void uart_init(uint32_t baud);
