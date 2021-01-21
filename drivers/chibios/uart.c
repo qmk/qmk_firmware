@@ -54,7 +54,6 @@ uint8_t uart_getchar(void) {
     return (uint8_t)res;
 }
 
-uint8_t uart_available(void) {
-    // TODO
-    return 0;
+bool uart_available(void) {
+    return !sdGetWouldBlock(&SERIAL_DRIVER);
 }

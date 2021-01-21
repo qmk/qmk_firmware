@@ -79,4 +79,4 @@ void uart_putchar(uint8_t c);
 
 uint8_t uart_getchar(void);
 
-uint8_t uart_available(void);
+bool uart_available(void);

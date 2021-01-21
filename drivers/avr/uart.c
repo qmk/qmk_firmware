@@ -131,16 +131,16 @@ uint8_t uart_getchar(void) {
     return c;
 }
 
-// Return the number of bytes waiting in the receive buffer.
+// Return whether the number of bytes waiting in the receive buffer is nonzero.
 // Call this before uart_getchar() to check if it will need
 // to wait for a byte to arrive.
-uint8_t uart_available(void) {
+bool uart_available(void) {
     uint8_t head, tail;
 
     head = rx_buffer_head;
     tail = rx_buffer_tail;
-    if (head >= tail) return head - tail;
-    return RX_BUFFER_SIZE + head - tail;
+    if (head >= tail) return (head - tail) > 0;
+    return (RX_BUFFER_SIZE + head - tail) > 0;
 }
 
 // Transmit Interrupt
