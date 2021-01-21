@@ -68,8 +68,8 @@
 #	define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 #	define DISABLE_RGB_MATRIX_RAINDROPS
 #	define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-// Define custom layer RGB and effects
-#	define RGB_GRAY	91, 147, 153 // RGB_AZURE substitute
+// Layer color and effect definitions
+#	define RGB_GRAY		91, 147, 153 // RGB_AZURE substitute
 #	define RGB_DEFAULT	RGB_GRAY
 #	define RGB_LOWER	RGB_BLUE
 #	define RGB_RAISE	RGB_YELLOW

@@ -29,10 +29,15 @@ enum layers {
 /////// RGB LIGHTING ///////
 #ifdef RGB_MATRIX_ENABLE
 
-//RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
-//	hsv.v = (uint8_t)(hsv.v * 0.1);
-//	return hsv_to_rgb(hsv);
-//};
+/*
+// Code snippet for 60% animation brightness
+// to reduce USB power consumption
+// Courtesy of @tzarc
+RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
+	hsv.v = (uint8_t)(hsv.v * 0.6);
+	return hsv_to_rgb(hsv);
+}; */
+
 
 #ifdef KEYBOARD_boardsource_the_mark
 led_config_t g_led_config = { {
@@ -54,84 +59,88 @@ led_config_t g_led_config = { {
 } };
 #endif
 
+
+#ifndef KEYBOARD_planck_rev6
 void matrix_init_user(void) {
 	rgb_matrix_sethsv_noeeprom(HSV_DEFAULT);
 	rgb_matrix_mode_noeeprom(MATRIX_NORMAL);
 }
 
-#ifdef KEYBOARD_bm40hsrgb
+
 layer_state_t layer_state_set_user(layer_state_t state) {
 
 	// Default layer keypress effects
 	switch (get_highest_layer(default_layer_state)) {
-		case _COLEMAK:
-			rgb_matrix_mode_noeeprom(MATRIX_SPECIAL);
-			break;
-		case _QWERTY:
-			rgb_matrix_mode_noeeprom(MATRIX_NORMAL);
-			break;
+	case _COLEMAK:
+		rgb_matrix_mode_noeeprom(MATRIX_SPECIAL);
+		break;
+	case _QWERTY:
+		rgb_matrix_mode_noeeprom(MATRIX_NORMAL);
+		break;
 	}
 	return state;
 }
-#endif // KEYBOARD_bm40hsrgb
+#endif // KEYBOARD_planck_rev6
+
 
 void rgb_matrix_indicators_user(void) {
 
 	// Layer key lighting
 	switch (get_highest_layer(layer_state)) {
 #ifdef KEYBOARD_bm40hsrgb
-		case _LOWER:
-			rgb_matrix_sethsv_noeeprom(HSV_LOWER);
-			rgb_matrix_set_color(40, RGB_LOWER);
-			break;
-		case _RAISE:
-			rgb_matrix_sethsv_noeeprom(HSV_RAISE);
-			rgb_matrix_set_color(42, RGB_RAISE);
-			break;
-		case _ADJUST:
-			rgb_matrix_sethsv_noeeprom(HSV_ADJUST);
-			rgb_matrix_set_color(42, RGB_ADJUST);
-			rgb_matrix_set_color(40, RGB_ADJUST);
-			break;
-		default:
-			rgb_matrix_sethsv_noeeprom(HSV_DEFAULT);
-			if (host_keyboard_led_state().caps_lock) {
-				rgb_matrix_set_color_all(RGB_DEFAULT);
-			} else {
-				rgb_matrix_set_color(42, RGB_OFF);
-				rgb_matrix_set_color(40, RGB_OFF);
-			}
+	// Index 40 and 42 are the lower and raise
+	// keys on both sides of BM40 space bar
+	case _LOWER:
+		rgb_matrix_sethsv_noeeprom(HSV_LOWER);
+		rgb_matrix_set_color(40, RGB_LOWER);
+		break;
+	case _RAISE:
+		rgb_matrix_sethsv_noeeprom(HSV_RAISE);
+		rgb_matrix_set_color(42, RGB_RAISE);
+		break;
+	case _ADJUST:
+		rgb_matrix_sethsv_noeeprom(HSV_ADJUST);
+		rgb_matrix_set_color(42, RGB_ADJUST);
+		rgb_matrix_set_color(40, RGB_ADJUST);
+		break;
+	default:
+		rgb_matrix_sethsv_noeeprom(HSV_DEFAULT);
+		if (host_keyboard_led_state().caps_lock) {
+			rgb_matrix_set_color_all(RGB_DEFAULT);
+		} else {
+			rgb_matrix_set_color(42, RGB_OFF);
+			rgb_matrix_set_color(40, RGB_OFF);
+		}
 #elif KEYBOARD_planck_rev6
-/* Planck Rev6 LED number layout are:
-     6   5   4   3
-           0
-     7   8   1   2
- */
-		case _LOWER:
-			rgb_matrix_set_color(5, RGB_LOWER);
-			rgb_matrix_set_color(8, RGB_LOWER);
-			break;
-		case _RAISE:
-			rgb_matrix_set_color(1, RGB_RAISE);
-			rgb_matrix_set_color(4, RGB_RAISE);
-			break;
-		case _ADJUST:
-			rgb_matrix_set_color(3, RGB_ADJUST);
-			rgb_matrix_set_color(4, RGB_ADJUST);
-			rgb_matrix_set_color(5, RGB_ADJUST);
-			rgb_matrix_set_color(6, RGB_ADJUST);
-			break;
-		default:
-			if (host_keyboard_led_state().caps_lock || get_highest_layer(default_layer_state) == _COLEMAK) {
-				rgb_matrix_set_color_all(RGB_DEFAULT);
-			} else {
-				rgb_matrix_set_color_all(RGB_OFF);
-			}
+	// Planck rev6 LED index position:
+	//    6   5   4   3
+	//          0
+	//    7   8   1   2
+	case _LOWER:
+		rgb_matrix_set_color(5, RGB_LOWER);
+		rgb_matrix_set_color(8, RGB_LOWER);
+		break;
+	case _RAISE:
+		rgb_matrix_set_color(1, RGB_RAISE);
+		rgb_matrix_set_color(4, RGB_RAISE);
+		break;
+	case _ADJUST:
+		rgb_matrix_set_color(3, RGB_ADJUST);
+		rgb_matrix_set_color(4, RGB_ADJUST);
+		rgb_matrix_set_color(5, RGB_ADJUST);
+		rgb_matrix_set_color(6, RGB_ADJUST);
+		break;
+	default:
+		if (host_keyboard_led_state().caps_lock || get_highest_layer(default_layer_state) == _COLEMAK) {
+			rgb_matrix_set_color_all(RGB_DEFAULT);
+		} else {
+			rgb_matrix_set_color_all(RGB_OFF);
+		}
 #endif
 	}
 
-/*	// Light up non KC_TRANS / KC_NO on layers
-#ifdef KEYBOARD_bm40hsrgb
+/*	// Light up non KC_TRANS or KC_NO on layers
+	// by u/richardgoulter/
 	uint8_t layer = get_highest_layer(layer_state);
 	if (layer >1) {
 		for (uint8_t row = 0; row <MATRIX_ROWS; row++) {
@@ -141,21 +150,20 @@ void rgb_matrix_indicators_user(void) {
 				uint16_t keycode = keymap_key_to_keycode(layer, pos);
 				if (led_index !=NO_LED && keycode !=KC_TRNS && keycode !=KC_NO) {
 					switch (layer) {
-						case _ADJUST:
-							rgb_matrix_set_color(led_index, RGB_PURPLE);
-							break;
-						case _RAISE:
-							rgb_matrix_set_color(led_index, RGB_YELLOW);
-							break;
-						case _LOWER:
-							rgb_matrix_set_color(led_index, RGB_BLUE);
-							break;
+					case _ADJUST:
+						rgb_matrix_set_color(led_index, RGB_PURPLE);
+						break;
+					case _RAISE:
+						rgb_matrix_set_color(led_index, RGB_YELLOW);
+						break;
+					case _LOWER:
+						rgb_matrix_set_color(led_index, RGB_BLUE);
+						break;
 					}
 				}
 			}
 		}
-	}
-#endif // KEYBOARD_bm40hsrgb */
+	} */
 
 }
 #endif // RGB_MATRIX_ENABLE
@@ -177,14 +185,11 @@ void matrix_scan_user(void) {
 }
 
 // Enable leader key effects
-#if defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_bm40hsrgb)
-void leader_start(void) {
-	rgb_matrix_mode_noeeprom(MATRIX_SPECIAL);
-}
-void leader_end(void) { 
-	rgb_matrix_mode_noeeprom(MATRIX_NORMAL);
-}
-#endif // RGB_MATRIX_ENABLE && KEYBOARD_bm40hsrgb
+#if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_planck_rev6)
+void leader_start(void)	{ rgb_matrix_mode_noeeprom(MATRIX_SPECIAL); }
+void leader_end(void)	{ rgb_matrix_mode_noeeprom(MATRIX_NORMAL); }
+#endif // RGB_MATRIX_ENABLE && !KEYBOARD_planck_rev6
+
 #endif // LEADER_ENABLE
 
 
@@ -214,7 +219,6 @@ void suspend_power_down_user(void) {
 #ifdef RGB_MATRIX_ENABLE
 	rgb_matrix_set_suspend_state(true);
 #endif
-
 #ifdef OLED_DRIVER_ENABLE
 	oled_off();
 #endif

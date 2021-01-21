@@ -30,6 +30,7 @@ ifneq ($(PLATFORM),CHIBIOS)
 endif
 ifeq ($(KEYBOARD),$(filter $(KEYBOARD), bm40hsrgb planck/rev6 boardsource/the_mark))
 	RGB_MATRIX_ENABLE = yes
+	RGB_MATRIX_CUSTOM_USER = yes
 endif
 ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
 	RGB_MATRIX_DRIVER = WS2812
