@@ -23,19 +23,7 @@
 
 #define CH_CFG_ST_TIMEDELTA 0
 
-#define CH_CFG_USE_TM FALSE
-
 #define CH_CFG_USE_CONDVARS_TIMEOUT FALSE
-
-#define CH_CFG_USE_MEMCORE TRUE
-
-#define CH_CFG_USE_MEMPOOLS FALSE
-
-#define CH_CFG_USE_OBJ_FIFOS FALSE
-
-#define CH_CFG_USE_PIPES FALSE
-
-#define CH_CFG_USE_DYNAMIC FALSE
 
 #include_next <chconf.h>
 

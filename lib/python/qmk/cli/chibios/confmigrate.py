@@ -111,6 +111,7 @@ def migrate_mcuconf_h(to_override, outfile):
 @cli.argument('-r', '--reference', type=normpath, arg_only=True, help='Specify the reference file to compare against')
 @cli.argument('-o', '--overwrite', arg_only=True, action='store_true', help='Overwrites the input file during migration.')
 @cli.argument('-d', '--delete', arg_only=True, action='store_true', help='If the file has no overrides, migration will delete the input file.')
+@cli.argument('-f', '--force', arg_only=True, action='store_true', help='Re-migrates an already migrated file, even if it doesn\'t detect a full ChibiOS config.')
 @cli.subcommand('Generates a migrated ChibiOS configuration file, as a result of comparing the input against a reference')
 def chibios_confmigrate(cli):
     """Generates a usable ChibiOS replacement configuration file, based on a fully-defined conf and a reference config.
@@ -142,19 +143,19 @@ def chibios_confmigrate(cli):
 
         eprint('--------------------------------------')
 
-        if "CHCONF_H" in input_defs["dict"] or "_CHCONF_H_" in input_defs["dict"]:
+        if cli.args.input.name == "chconf.h" and ("CHCONF_H" in input_defs["dict"] or "_CHCONF_H_" in input_defs["dict"] or cli.args.force):
             migrate_chconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
                 with open(cli.args.input, "w") as out_file:
                     migrate_chconf_h(to_override, outfile=out_file)
 
-        elif "HALCONF_H" in input_defs["dict"] or "_HALCONF_H_" in input_defs["dict"]:
+        elif cli.args.input.name == "halconf.h" and ("HALCONF_H" in input_defs["dict"] or "_HALCONF_H_" in input_defs["dict"] or cli.args.force):
             migrate_halconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
                 with open(cli.args.input, "w") as out_file:
                     migrate_halconf_h(to_override, outfile=out_file)
 
-        elif "MCUCONF_H" in input_defs["dict"] or "_MCUCONF_H_" in input_defs["dict"]:
+        elif cli.args.input.name == "mcuconf.h" and ("MCUCONF_H" in input_defs["dict"] or "_MCUCONF_H_" in input_defs["dict"] or cli.args.force):
             migrate_mcuconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
                 with open(cli.args.input, "w") as out_file:
