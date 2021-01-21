@@ -1,6 +1,6 @@
 {
     "keyboard_name": "oem_iso_handwire",
-    "url": "",
+    "url": "https://github.com/andresteare/qmk_firmware",
     "maintainer": "andresteare",
     "width": 22.5,
     "height": 6.5,
