@@ -1,5 +1,3 @@
-// TODO: Teensy support(ATMega32u4/AT90USB128)
-// Fixed for Arduino Duemilanove ATmega168p by Jun Wako
 /* UART Example for Teensy USB Development Board
  * http://www.pjrc.com/teensy/
  * Copyright (c) 2009 PJRC.COM, LLC
@@ -31,22 +29,7 @@
 
 #include "uart.h"
 
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
-#    define UDRn UDR0
-#    define UBRRnL UBRR0L
-#    define UCSRnA UCSR0A
-#    define UCSRnB UCSR0B
-#    define UCSRnC UCSR0C
-#    define U2Xn U2X0
-#    define RXENn RXEN0
-#    define TXENn TXEN0
-#    define RXCIEn RXCIE0
-#    define UCSZn1 UCSZ01
-#    define UCSZn0 UCSZ00
-#    define UDRIEn UDRIE0
-#    define USARTn_UDRE_vect USART_UDRE_vect
-#    define USARTn_RX_vect USART_RX_vect
-#elif defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#if defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #    define UDRn UDR1
 #    define UBRRnL UBRR1L
 #    define UCSRnA UCSR1A
@@ -74,6 +57,21 @@
 #    define UCSZn1 UCSZ1
 #    define UCSZn0 UCSZ0
 #    define UDRIEn UDRIE
+#    define USARTn_UDRE_vect USART_UDRE_vect
+#    define USARTn_RX_vect USART_RX_vect
+#elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+#    define UDRn UDR0
+#    define UBRRnL UBRR0L
+#    define UCSRnA UCSR0A
+#    define UCSRnB UCSR0B
+#    define UCSRnC UCSR0C
+#    define U2Xn U2X0
+#    define RXENn RXEN0
+#    define TXENn TXEN0
+#    define RXCIEn RXCIE0
+#    define UCSZn1 UCSZ01
+#    define UCSZn0 UCSZ00
+#    define UDRIEn UDRIE0
 #    define USARTn_UDRE_vect USART_UDRE_vect
 #    define USARTn_RX_vect USART_RX_vect
 #endif
