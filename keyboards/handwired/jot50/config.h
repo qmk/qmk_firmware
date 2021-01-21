@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Jotix
 #define PRODUCT         Jot50
-#define DESCRIPTION     A 5x12 compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER yushakobo
 #define PRODUCT quick7
-#define DESCRIPTION A simple macropad with rotary encoders.
 
 /* key matrix size */
 #define MATRIX_ROWS 3

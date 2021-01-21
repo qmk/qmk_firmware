@@ -809,7 +809,7 @@ static void send_consumer(uint16_t data) {
 
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #        ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_consumer_key(data, 0);
+        adafruit_ble_send_consumer_key(data);
 #        elif MODULE_RN42
         static uint16_t last_data = 0;
         if (data == last_data) return;

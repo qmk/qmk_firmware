@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER keebzdotnet
 #define PRODUCT wazowski 23-19
-#define DESCRIPTION A modern keyboard from an animated monster movie keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3

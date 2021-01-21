@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Sentraq
 #define PRODUCT         Sentraq Number Pad
-#define DESCRIPTION     RBG backlit number pad kit
 
 /* key matrix size */
 #define MATRIX_ROWS 5

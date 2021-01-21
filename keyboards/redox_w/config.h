@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Mattia Dal Ben
 #define PRODUCT         Redox_wireless
-#define DESCRIPTION     q.m.k. keyboard firmware for Redox-w
 
 /* key matrix size */
 #define MATRIX_ROWS 5
