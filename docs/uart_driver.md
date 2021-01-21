@@ -2,7 +2,7 @@
 
 The UART drivers used in QMK have a set of common functions to allow portability between MCUs.
 
-Currently, this driver does not support enabling hardware flow control (the `RTS` and `CTS` pins) if available, but will do so in future.
+Currently, this driver does not support enabling hardware flow control (the `RTS` and `CTS` pins) if available, but may do so in future.
 
 ## AVR Configuration
 
@@ -20,7 +20,8 @@ No special setup is required - just connect the `RX` and `TX` pins of your UART 
 
 You'll need to determine which pins can be used for UART -- as an example, STM32 parts generally have multiple UART peripherals, labeled USART1, USART2, USART3 etc.
 
-To enable UART, modify your board's `mcuconf.h` to enable the peripheral you've chosen -- in the case of using USART2, modify `STM32_SERIAL_USE_USART2` to be `TRUE`.
+To enable UART, modify your board's `halconf.h` to enable the serial driver - `HAL_USE_SERIAL` should be `TRUE`.
+Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen -- in the case of using USART2, modify `STM32_SERIAL_USE_USART2` to be `TRUE`.
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
