@@ -20,10 +20,20 @@ You may use more than one slave select pin, not just the `SS` pin. This is usefu
 
 You'll need to determine which pins can be used for SPI -- as an example, STM32 parts generally have multiple SPI peripherals, labeled SPI1, SPI2, SPI3 etc.
 
-To enable SPI, modify your board's `halconf.h` to enable SPI - both `HAL_USE_SPI` and `SPI_USE_WAIT` should be `TRUE`, and `SPI_SELECT_MODE` should be `SPI_SELECT_MODE_PAD`.
-Then, modify your board's `mcuconf.h` to enable the SPI peripheral you've chosen -- in the case of using SPI2, modify `STM32_SPI_USE_SPI2` to be `TRUE`.
+To enable SPI, modify your board's `halconf.h` to enable SPI:
 
-As per the AVR configuration, you may select any other standard GPIO as a slave select pin, and can be supplied to `spi_start()`.
+```c
+#define HAL_USE_SPI TRUE
+#define SPI_USE_WAIT TRUE
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+```
+
+Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
+
+```c
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 TRUE
+```
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
@@ -36,6 +46,8 @@ Configuration-wise, you'll need to set up the peripheral as per your MCU's datas
 |`SPI_MOSI_PAL_MODE`|The alternate function mode for MOSI                         |`5`    |
 |`SPI_MISO_PIN`     |The pin to use for MISO                                      |`B14`  |
 |`SPI_MISO_PAL_MODE`|The alternate function mode for MISO                         |`5`    |
+
+As per the AVR configuration, you may choose any other standard GPIO as a slave select pin, which should be supplied to `spi_start()`.
 
 ## Functions
 

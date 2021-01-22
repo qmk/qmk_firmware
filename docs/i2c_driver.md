@@ -40,8 +40,18 @@ No further setup is required - just connect the `SDA` and `SCL` pins of your I2C
 
 You'll need to determine which pins can be used for I2C -- a an example, STM32 parts generally have multiple I2C peripherals, labeled I2C1, I2C2, I2C3 etc.
 
-To enable I2C, modify your board's `halconf.h` to enable I2C - `HAL_USE_I2C` should be `TRUE`.
-Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen -- in the case of using I2C2, modify `STM32_I2C_USE_I2C2` to be `TRUE`.
+To enable I2C, modify your board's `halconf.h` to enable I2C:
+
+```c
+#define HAL_USE_I2C TRUE
+```
+
+Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
+
+```c
+#undef STM32_I2C_USE_I2C2
+#define STM32_I2C_USE_I2C2 TRUE
+```
 
 |`mcuconf.h` Setting         |Description                                                                       |Default|
 |----------------------------|----------------------------------------------------------------------------------|-------|
