@@ -153,9 +153,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	}
 }
 
-
-/*NOTE - THE RGBLEDS USED HAVE REVERSED RED AND GREEN CHANNELS. CURRENTLY COMPENSATED AT THE HSV LEVEL */
-
 /*Default layer is white.*/
 /*Remember to also change the color in keyboard_post_init_kb in boston.c to make the startup color match the layer 0 color */
 const rgblight_segment_t PROGMEM layer_0[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -163,31 +160,31 @@ const rgblight_segment_t PROGMEM layer_0[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM layer_1[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, 85, 255, 128} /*Supposed to be red */
+    {0, 4, 0, 255, 128} /*Red*/
 );
 
 const rgblight_segment_t PROGMEM layer_2[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, 65, 255, 128} /*Supposed to be orange*/
+    {0, 4, 21, 255, 128} /*Orange*/
 );
 
 const rgblight_segment_t PROGMEM layer_3[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, 55, 255, 128} /*Supposed to be yellow*/
+    {0, 4, 43, 255, 128} /*Yellow*/
 );
 
 const rgblight_segment_t PROGMEM layer_4[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, 0, 255, 128} /*Supposed to be green*/
+    {0, 4, 75, 255, 128} /*Green*/
 );
 
 const rgblight_segment_t PROGMEM layer_5[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, 213, 255, 128} /*Supposed to be teal*/
+    {0, 4, 135, 255, 128} /*Teal*/
 );
 
 const rgblight_segment_t PROGMEM layer_6[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, 170, 255, 128} /*Supposed to be blue*/
+    {0, 4, 160, 255, 128} /*Blue*/
 );
 
 const rgblight_segment_t PROGMEM layer_7[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, 128, 255, 128} /*Supposed to me magenta*/
+    {0, 4, 190, 255, 128} /*Magenta*/
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
