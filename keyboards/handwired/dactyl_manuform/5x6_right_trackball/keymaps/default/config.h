@@ -19,9 +19,4 @@
 #pragma once
 
 
-#define USE_SERIAL
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-//#define EE_HANDS
-// Rows are doubled-up
+#include "../drashna/config.h"
