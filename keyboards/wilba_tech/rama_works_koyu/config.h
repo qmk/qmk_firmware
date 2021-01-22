@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA WORKS
 #define PRODUCT         RAMA WORKS KOYU
-#define DESCRIPTION     RAMA WORKS KOYU
 
 
 

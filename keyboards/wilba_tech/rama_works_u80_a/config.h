@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA WORKS
 #define PRODUCT         RAMA WORKS U80-A
-#define DESCRIPTION     RAMA WORKS U80-A
 
 /* key matrix size */
 #define MATRIX_ROWS 6

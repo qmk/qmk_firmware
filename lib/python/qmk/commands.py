@@ -89,7 +89,7 @@ def write_version_h(git_version, build_date, chibios_version, chibios_contrib_ve
     """
     version_h = [
         f'#define QMK_VERSION "{git_version}"',
-        f'#define QMK_BUILD_DATE "{build_date}"',
+        f'#define QMK_BUILDDATE "{build_date}"',
         f'#define CHIBIOS_VERSION "{chibios_version}"',
         f'#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"',
     ]
