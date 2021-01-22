@@ -17,7 +17,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_f_row( \
+#define LAYOUT_fn_row( \
     K000,       K001, K002, K003, K004,    K005, K006, K007, K008,    K009, K010, K011, K012 \
 ) { \
     { K000,  K001,  K002,  K003,  K004,  K005,  K006, }, \
