@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         PocketType
-#define DESCRIPTION     A small 4x12 ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
