@@ -17,6 +17,8 @@
 #pragma once
 
 // #define USE_I2C
+#define SELECT_SOFT_SERIAL_SPEED 0
+#define SERIAL_USE_MULTI_TRANSACTION
 
 #define EE_HANDS
 #define TRACKBALL_DPI_OPTIONS \
@@ -34,5 +36,6 @@
 
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 0
+#define SPLIT_MODS_ENABLE
 
 #define MK_KINETIC_SPEED
