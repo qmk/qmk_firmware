@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK
 #define PRODUCT         QMK USB-USB Converter
-#define DESCRIPTION     USB to USB Keyboard Converter with QMK
 
 /* size of virtual matrix */
 #define MATRIX_ROWS 16

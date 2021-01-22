@@ -22,7 +22,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Pylon
 #define PRODUCT Boston
-#define DESCRIPTION 
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 19

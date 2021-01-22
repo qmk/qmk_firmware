@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    The Key Company
 #define PRODUCT         M0lly
-#define DESCRIPTION     QMK keyboard firmware for M0lly
 
 /* key matrix size */
 #define MATRIX_ROWS 5

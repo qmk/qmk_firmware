@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER KBDClack
 #define PRODUCT kaishi65
-#define DESCRIPTION KBDClack made 65% PCB based on the MULLET from coseyfannitutti
 
 /* key matrix size */
 #define MATRIX_ROWS 5
