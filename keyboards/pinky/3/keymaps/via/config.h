@@ -1,4 +1,4 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2018 'Masayuki Sunahara'
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,4 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// placeholder
+#pragma once
+
+//#define USE_MATRIX_I2C
+
+/* Select hand configuration */
+
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
+
+#define USE_SERIAL_PD2
+
+#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 200
+#define RETRO_TAPPPING
