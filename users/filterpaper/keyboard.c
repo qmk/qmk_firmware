@@ -29,16 +29,17 @@ enum layers {
 /////// RGB LIGHTING ///////
 #ifdef RGB_MATRIX_ENABLE
 
+/* Code snippet for 60% animation brightness
+   to reduce USB power consumption
+   Courtesy of @tzarc */
 /*
-// Code snippet for 60% animation brightness
-// to reduce USB power consumption
-// Courtesy of @tzarc
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 	hsv.v = (uint8_t)(hsv.v * 0.6);
 	return hsv_to_rgb(hsv);
 }; */
 
 
+// Draft code for Mark65 LED matrix layout
 #ifdef KEYBOARD_boardsource_the_mark
 led_config_t g_led_config = { {
 	// Key Matrix to LED Index
@@ -140,7 +141,7 @@ void rgb_matrix_indicators_user(void) {
 	}
 
 /*	// Light up non KC_TRANS or KC_NO on layers
-	// by u/richardgoulter/
+	// by u/richardgoulter/ (@rgoulter)
 	uint8_t layer = get_highest_layer(layer_state);
 	if (layer >1) {
 		for (uint8_t row = 0; row <MATRIX_ROWS; row++) {
@@ -188,7 +189,7 @@ void matrix_scan_user(void) {
 #if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_planck_rev6)
 void leader_start(void)	{ rgb_matrix_mode_noeeprom(MATRIX_SPECIAL); }
 void leader_end(void)	{ rgb_matrix_mode_noeeprom(MATRIX_NORMAL); }
-#endif // RGB_MATRIX_ENABLE && !KEYBOARD_planck_rev6
+#endif
 
 #endif // LEADER_ENABLE
 
