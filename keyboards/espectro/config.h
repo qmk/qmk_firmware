@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MECHKEYS
 #define PRODUCT         Espectro
-#define DESCRIPTION     96% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

@@ -1,5 +1,5 @@
 /*
-Copyright 2017 REPLACE_WITH_YOUR_NAME
+Copyright 2017
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         woodpad
-#define DESCRIPTION     Basic numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
