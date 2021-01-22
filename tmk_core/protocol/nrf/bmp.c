@@ -221,7 +221,7 @@ MATRIX_LOOP_END:
     oled_task();
 #ifndef OLED_DISABLE_TIMEOUT
     // Wake up oled if user is using those fabulous keys!
-    if (ret)
+    if (key_event_cnt)
         oled_on();
 #endif
 #endif
