@@ -192,7 +192,7 @@ uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS]
  * Updates the cached keys when changing layers
  */
 void update_source_layers_cache(keypos_t key, uint8_t layer) {
-    const uint8_t key_number  = key.col + (key.row * MATRIX_COLS);
+    const uint32_t key_number  = key.col + (key.row * MATRIX_COLS);
     const uint8_t storage_row = key_number / 8;
     const uint8_t storage_bit = key_number % 8;
 
@@ -206,7 +206,7 @@ void update_source_layers_cache(keypos_t key, uint8_t layer) {
  * reads the cached keys stored when the layer was changed
  */
 uint8_t read_source_layers_cache(keypos_t key) {
-    const uint8_t key_number  = key.col + (key.row * MATRIX_COLS);
+    const uint32_t key_number  = key.col + (key.row * MATRIX_COLS);
     const uint8_t storage_row = key_number / 8;
     const uint8_t storage_bit = key_number % 8;
     uint8_t       layer       = 0;
