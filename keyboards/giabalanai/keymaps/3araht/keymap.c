@@ -615,6 +615,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
             break;
 
+#ifdef RGBLIGHT_ENABLE
+        case KC_A ... KC_RGUI:                // for QWERTY
+        case KC_GESC:
+        case ADJ_EIS:
+        case MO_ADJ:
+        case SHIF_UP:
+            keylight_manager(record, HSV_GOLDENROD, keylocation);
+            break;
+#endif
+
+
             // Keycodes on the right side.
 
 #ifdef RGBLIGHT_ENABLE
