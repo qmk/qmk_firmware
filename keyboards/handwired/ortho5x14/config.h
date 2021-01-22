@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MPInc
 #define PRODUCT         Ortho 5x14
-#define DESCRIPTION     Handwired 5x14 ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
