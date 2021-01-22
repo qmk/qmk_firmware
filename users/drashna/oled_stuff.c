@@ -257,21 +257,20 @@ void render_status_secondary(void) {
 #if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
 #endif
-#ifdef SPLIT_TRANSPORT_MIRROR
     /* Show Keyboard Layout  */
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
     render_keylogger_status();
 
-#endif
 }
 // clang-format on
 
 void render_status_main(void) {
+    oled_driver_render_logo();
     /* Show Keyboard Layout  */
     render_default_layer_state();
-    render_keylock_status(host_keyboard_leds());
+    // render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
     render_user_status();
 
@@ -285,12 +284,9 @@ void oled_task_user(void) {
         if (timer_elapsed32(oled_timer) > 30000) {
             oled_off();
             return;
-        }
-#ifndef SPLIT_KEYBOARD
-        else {
+        } else {
             oled_on();
         }
-#endif
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
