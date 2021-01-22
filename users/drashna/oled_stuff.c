@@ -24,7 +24,7 @@
 // #    endif
 #endif
 
-static uint32_t oled_timer                       = 0;
+uint32_t oled_timer                       = 0;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
 static uint16_t log_timer                        = 0;
 

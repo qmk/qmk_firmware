@@ -37,6 +37,7 @@
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 0
 #define OLED_BRIGHTNESS 100
+#define OLED_FONT_H "hue_manitee_font.h"
 #define SPLIT_MODS_ENABLE
 
 #define MK_KINETIC_SPEED
