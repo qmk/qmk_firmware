@@ -16,8 +16,6 @@
 
 #include "drashna.h"
 
-extern uint8_t is_master;
-
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
 #    define KEYLOGGER_LENGTH ((int)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
@@ -187,11 +185,11 @@ void render_bootmagic_status(void) {
     };
 
     bool is_bootmagic_on;
-    #ifdef OLED_DISPLAY_128X64
+#ifdef OLED_DISPLAY_128X64
     is_bootmagic_on = !keymap_config.swap_lctl_lgui;
-    #else
+#else
     is_bootmagic_on = keymap_config.swap_lctl_lgui;
-    #endif
+#endif
 
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NAME), false);
 #ifdef OLED_DISPLAY_128X64
@@ -259,21 +257,20 @@ void render_status_secondary(void) {
 #if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
 #endif
-#ifdef SPLIT_TRANSPORT_MIRROR
     /* Show Keyboard Layout  */
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
     render_keylogger_status();
 
-#endif
 }
 // clang-format on
 
 void render_status_main(void) {
+    oled_driver_render_logo();
     /* Show Keyboard Layout  */
     render_default_layer_state();
-    render_keylock_status(host_keyboard_leds());
+    // render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
     render_user_status();
 
@@ -281,19 +278,15 @@ void render_status_main(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
-        oled_off();
-        return;
-    }
-#ifndef SPLIT_KEYBOARD
-    else {
-        oled_on();
-    }
-#endif
-
     update_log();
 
-    if (is_master) {
+    if (is_keyboard_master()) {
+        if (timer_elapsed32(oled_timer) > 30000) {
+            oled_off();
+            return;
+        } else {
+            oled_on();
+        }
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();

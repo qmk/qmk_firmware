@@ -196,14 +196,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-#    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
-#        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
-void rgb_matrix_indicators_user(void) {
-    #else
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-#    endif
-    if (g_suspend_state || !rgb_matrix_config.enable) return;
-
     if (layer_state_is(_GAMEPAD)) {
         RGB_MATRIX_INDICATOR_SET_COLOR(11, 0x00, 0xFF, 0x00);  // Q
         RGB_MATRIX_INDICATOR_SET_COLOR(16, 0x00, 0xFF, 0xFF);  // W
@@ -214,51 +207,51 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(22, 0x00, 0xFF, 0xFF);  // D
         RGB_MATRIX_INDICATOR_SET_COLOR(27, 0x7A, 0x00, 0xFF);  // F
 
-        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 10 : 15), 0xFF, 0xFF, 0xFF);  // 1
-        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 15 : 10), 0x00, 0xFF, 0x00);  // 2
+        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 15 : 10), 0xFF, 0xFF, 0xFF);  // 1
+        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 10 : 15), 0x00, 0xFF, 0x00);  // 2
         RGB_MATRIX_INDICATOR_SET_COLOR(20, 0x7A, 0x00, 0xFF);                                          // 3
     }
 
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _QWERTY:
-                rgb_matrix_layer_helper(HSV_CYAN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_CYAN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _COLEMAK:
-                rgb_matrix_layer_helper(HSV_MAGENTA, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_MAGENTA, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DVORAK:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _WORKMAN:
-                rgb_matrix_layer_helper(HSV_GOLDENROD, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_GOLDENROD, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _NORMAN:
-                rgb_matrix_layer_helper(HSV_CORAL, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_CORAL, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _MALTRON:
-                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _EUCALYN:
-                rgb_matrix_layer_helper(HSV_PINK, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_PINK, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _CARPLAX:
-                rgb_matrix_layer_helper(HSV_BLUE, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_BLUE, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
         }
     }
