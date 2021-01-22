@@ -12,6 +12,8 @@ enum Command {
     CMD_BOARD = 2,
     // Read version string
     CMD_VERSION = 3,
+    // Reset to bootloader
+    CMD_RESET = 6,
     // Get keyboard map index
     CMD_KEYMAP_GET = 9,
     // Set keyboard map index
@@ -99,6 +101,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case CMD_VERSION:
             strncpy((char *)&data[2], QMK_VERSION, length - 2);
             data[1] = 0;
+            break;
+        case CMD_RESET:
+            bootloader_jump();
             break;
         case CMD_KEYMAP_GET:
             {
