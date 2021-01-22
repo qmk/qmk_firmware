@@ -35,18 +35,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
+             ☐ _BON layer must have `~ on home row, furthest left, to provide uncluttered repeating versions.
+               This requires many graphics files to be updated.
+             ☑ Qwerty with arrows on top (could be a good pair with regular Qwerty)
+               ☐ by key graphic (postponed due to _BON change)
              ☐ Workman layout
-             ☐ Qwerty with arrows on top (could be a good pair with regular Qwerty)
              ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
              ☐ Qwertz (                   "                             "                        )
-             ☐ Fun and games: replicate Evan's “game layer”, also as a stub for others to edit
-               that as their game layer. Many people probably do not have much use for the dual layout
-               (such as Qwerty + Colemak), but this could be one. It doesn't seem useful or possible
-               to support every game layer quirk someone might prefer, so this way that whole kind of
-               thing is isolated: compile this and edit as needed there.
-            ?☐ User defining macros (record/play user input), another special Base layer ? Is there 
-               room for this, or how to create it if not.
-            ?☐ It seems fun to have a user friendly front end to compile the available variations of this keymap.
+             ☐ It seems fun to have a user friendly front end to compile the available variations of this keymap.
                Such a front end could edit minifan_config_compact.h
            …
              ☐ Testing all user configurations
@@ -64,6 +60,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              ☑ An option to compile the _PAD layer, in the format of the Numbers Pad Base layer.
                The Numbers Pad Base Layer is copied into keymap.c, edited to work as needed.
                (This implies a compilation with Numbers Pad on alternate Base is redundant; twice the same.)
+
+            ?☒ Fun and games: replicate Evan's “game layer”, also as a stub for others to edit
+               that as their game layer. Many people probably do not have much use for the dual layout
+               (such as Qwerty + Colemak), but this could be one. It doesn't seem useful or possible
+               to support every game layer quirk someone might prefer, so this way that whole kind of
+               thing is isolated: compile this and edit as needed there.
+               ➡ This is probably too much bloat. People who want to go this far, probably know how to do it.
+                 It should be easy enough as it is.
+            ?☒ User defining macros (record/play user input), another special Base layer ? Is there 
+               room for this, or how to create it if not.
+               ➡ It seems a bit odd to have a keyboard with internal registers. Probably better handled at the
+                 application level, so that the keyboard remains a basic input device.
      *
      * */
 
@@ -553,8 +561,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //                         * Qwerty *
 # if defined(BASE_QWERTY__DEF_BASE) || defined(BASE_QWERTY__ALT_BASE)
-#     include "./base_qwerty.c" // Regular Dvorak.
+#     include "./base_qwerty.c" // Regular Qwerty.
 # endif
+    
+//                         * Qwerty arrows on Base *
+# if defined(BASE_QWERTY_ARROW__DEF_BASE) || defined(BASE_QWERTY_ARROW__ALT_BASE)
+#     include "./base_qwerty_basearrow.c" // Qwerty + arrows
+# endif
+
 
 //                         * Colemak *
 # if defined(BASE_COLEMAK__DEF_BASE) || defined(BASE_COLEMAK__ALT_BASE)
@@ -567,6 +581,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 # endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
+
 
 //                         * YOUR KEYMAP *
 // # if defined(BASE_YOUR_KEYMAP__DEF_BASE) || defined(BASE_YOUR_KEYMAP__ALT_BASE)

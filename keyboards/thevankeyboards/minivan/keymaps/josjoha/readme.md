@@ -19,7 +19,7 @@ By key view:
 *make example:*
 
      … Download the repository, resolve software dependencies etc..
-     … If you want to change compile options: edit user_config.h
+     … To change compile options: edit user_config.h (or `minifan_config_compact.h`)
      > cd […]/qmk_firmware
      > make thevankeyboards/minivan:josjoha
      > su
@@ -55,6 +55,13 @@ Qwerty
 
 For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
+Qwerty with arrows on Base
+--------------------------
+
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_va.jpg)
+
+For the readme about this Qwerty variation, see ➡ ![base_qwerty_basearrow.md](./base_qwerty_basearrow.md) ⬅
+
 Dvorak
 ------
 
@@ -64,6 +71,8 @@ For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak
 
 Dvorak² 
 -------
+
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_descramble_va.jpg)
 
 Regular Dvorak for a computer already set to Dvorak.
 

@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                             -1- ➡ Letters / Numbers & Symbols layouts ⬅
                     • Qwerty
+                    • Qwerty with Base arrows
                     • Dvorak
                     • Dvorak descramble mode
                     • Colemak
@@ -72,7 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • GUI left/right
                     • Alternate currency symbol
                     • Check boxes or Pointers
-                    • Switch _ACC and *left* side _NSY hold keys
+         *          • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
 
                            -12- ➡ Eviscerations ( ② / ② ) ⬅
                     • Removing the numbers pad _PAD layer
@@ -130,6 +131,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //  _Activate_ one of these two, _remove_ the other.
   #define BASE_QWERTY__DEF_BASE // _Activate_ if you want Qwerty on the ‛Default’ spot
 //#define BASE_QWERTY__ALT_BASE // _Activate_ if you want Qwerty on the ‛Alternate’ spot
+        //                   Note: you still need to set if you have the additional ‛arrow’ hardware key. You
+        //                         can ignore what it should be defined as, because it will be a plain arrow on Base.
+        // 
+        //          • Qwerty with Base arrows
+        //                   (provides direct access to arrows)
+        //  _Activate_ one of these two, _remove_ the other.
+//#define BASE_QWERTY_ARROW__DEF_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Default’ spot
+//#define BASE_QWERTY_ARROW__ALT_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Alternate’ spot
         //
         //          • Dvorak
         //                  (a regular Dvorak layout)
@@ -386,13 +395,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
 //#define POINT_ON_CHECKBOXES // _Activate_ to get arrows, _remove_ to get checkboxes on _DRA layer.
         /*    
-         *          • Switch _ACC and *left* side _NSY hold keys
+         *          • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
          *
-         * If you type a lot of _ACC layer (accented keys), you might like to switch the _ACC hold
-         * key, and the left side _NSY key, if you find it awkward to reach to the left with your thumb.
-         * These two keys are next to each other. Only the Base layer is affected.
+         * If you type a lot of _ACC layer (accented keys), and not much _DRA layer, you might like to
+         * switch the _ACC hold key, and the left side _NSY key, if you find it awkward to reach to the
+         * left with your thumb. These two keys are next to each other. Only the Base layer is affected. 
          */
-  #define SWITCH_HOLD_ACC_NSY // _Activate_ to switch the *left* _NSY and _ACC layer hold keys, on Base layer.
+//#define SWITCH_HOLD_ACC_NSY // _Activate_ to switch the *left* _NSY and _ACC layer hold keys, on Base layer.
 
 
         /*                 -12- ➡ Eviscerations ( ② / ② ) ⬅
