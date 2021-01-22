@@ -1,3 +1,19 @@
+/* Copyright 2021 Richard Nunez <antebios1@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 // Keep track of key presses for Modifier
@@ -221,7 +237,7 @@ void lshift_finished (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_TAP: tap_code (KC_CAPS); break;
     case DOUBLE_HOLD: break;
   }
-} v
+}
 
 void lshift_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (lshifttap_state.state) {
@@ -463,14 +479,8 @@ KC_PAUS
   TD(CTL_OSL1), KC_LGUI   , TD(ALT_OSL1), TD(TD_LayerDn) , KC_L2 ,  TD(TD_SPC_ENT)  ,     KC_SPACE    , KC_LEFT      , KC_DOWN      , KC_UP         , KC_RIGHT, TD(TD_ESC_GRAVE)
 )
 
-
 };
 
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -489,7 +499,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
@@ -515,17 +525,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MOUSE:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_MOUSE);
+        set_single_persistent_default_layer(_MOUSE);
       }
       return false;
       break;
   }
   return true;
 };
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
 

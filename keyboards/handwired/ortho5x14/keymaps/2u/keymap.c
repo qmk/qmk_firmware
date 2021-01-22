@@ -1,3 +1,19 @@
+/* Copyright 2021 Richard Nunez <antebios1@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #include "print.h"
 
@@ -497,17 +513,10 @@ KC_PAUS
   TD(CTL_OSL1), OSM(MOD_LGUI), TD(ALT_OSL1), TD(TD_LayerDn) , KC_L2       ,    TD(TD_SPC_ENT)     ,    KC_MS_BTN1          , KC_LEFT      , KC_DOWN       , KC_UP   , KC_RIGHT, TD(TD_ESC_GRAVE)
 )
 
-
 };
 
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //print("hello keypress.\n");
   #ifdef CONSOLE_ENABLE
     //uprintf("%s keycode\n", keycode);
     uprintf("process --> KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
@@ -529,7 +538,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
@@ -555,7 +564,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MOUSE:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_MOUSE);
+        set_single_persistent_default_layer(_MOUSE);
       }
       return false;
       break;
@@ -587,11 +596,5 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
   }
-}
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
 }
 
