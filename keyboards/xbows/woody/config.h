@@ -5,7 +5,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    X-BOWS
 #define PRODUCT         WOO-DY
-#define DESCRIPTION     XBOWS 65RGB keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15

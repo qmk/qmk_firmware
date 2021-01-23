@@ -1,4 +1,4 @@
-#include "hal.h"
+#include <hal.h>
 #include "usb_main.h"
 #include "phoenix.h"
 

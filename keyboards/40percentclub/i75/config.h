@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0175
 #define MANUFACTURER    di0ib
 #define PRODUCT         i75
-#define DESCRIPTION     i75 15x5 ortholinear keyboard
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

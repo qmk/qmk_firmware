@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-extern uint8_t is_master;
-
 #include "crkbd.h"
 #if defined(KEYBOARD_crkbd_rev1_legacy)
 #    include "legacy.h"
