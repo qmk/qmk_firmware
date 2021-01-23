@@ -29,10 +29,11 @@ Personal user space to share code for a few custom keyboards. See [Sharing Code 
 * `config.h`	QMK configuration options, see [configuring QMK](../../docs/config_options.md)
 * `rules.mk`	Makefile rules for keyboard-specific features, includes keyboard.c
 * `keyboard.c`	Common keyboard code, RGB matrix and OLED function functions, see [RGB matrix lighting](../../docs/feature_rgb_matrix.md)
-* `mod-status.c`	Graphical layer and modifier status rendering module
+* `mod-status.c`	Graphical layer and modifier status rendering module for primary controller
 * `bongo-cat.c`		Graphical tapping bongo cat rendering module, optimized for right OLED
 * `bongo-cat-left.c`		Graphical tapping bongo cat rendering module, optimized for both sides
 * `glcdfont.c`		Corne 8x6 font code with QMK Firmware Logo
+* `rgb_matrix_user.inc` Custom RGB matrix effect collected from Reddit, see [Custom RGB Matrix](../../docs/feature_rgb_matrix.md#custom-rgb-matrix-effects-idcustom-rgb-matrix-effects)
 
 ## Build commands
 ```

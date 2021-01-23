@@ -48,7 +48,7 @@
 #	define RGB_MATRIX_KEYPRESSES
 #	define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #	define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
-// Disable decoractive effects
+// Disable unused effects
 #	define DISABLE_RGB_MATRIX_BAND_SAT
 #	define DISABLE_RGB_MATRIX_BAND_VAL
 #	define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT

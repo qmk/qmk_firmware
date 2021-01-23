@@ -26,11 +26,12 @@ enum layers {
 };
 
 
+
 /////// RGB LIGHTING ///////
 #ifdef RGB_MATRIX_ENABLE
 
-/* Code snippet for 60% animation brightness
-   to reduce USB power consumption
+/* Code snippet for 60% matrix effect
+   brightness to reduce USB power.
    Courtesy of @tzarc */
 /*
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
@@ -60,14 +61,13 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-
-#ifndef KEYBOARD_planck_rev6
+/*
 void matrix_init_user(void) {
 	rgb_matrix_sethsv_noeeprom(HSV_DEFAULT);
 	rgb_matrix_mode_noeeprom(MATRIX_NORMAL);
-}
+} */
 
-
+#ifndef KEYBOARD_planck_rev6
 layer_state_t layer_state_set_user(layer_state_t state) {
 
 	// Default layer keypress effects
@@ -81,15 +81,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	}
 	return state;
 }
-#endif // KEYBOARD_planck_rev6
-
+#endif
 
 void rgb_matrix_indicators_user(void) {
 
 	// Layer key lighting
 	switch (get_highest_layer(layer_state)) {
 #ifdef KEYBOARD_bm40hsrgb
-	// Index 40 and 42 are the lower and raise
+	// Index 40 and 42 are lower and raise
 	// keys on both sides of BM40 space bar
 	case _LOWER:
 		rgb_matrix_sethsv_noeeprom(HSV_LOWER);
@@ -108,9 +107,6 @@ void rgb_matrix_indicators_user(void) {
 		rgb_matrix_sethsv_noeeprom(HSV_DEFAULT);
 		if (host_keyboard_led_state().caps_lock) {
 			rgb_matrix_set_color_all(RGB_DEFAULT);
-		} else {
-			rgb_matrix_set_color(42, RGB_OFF);
-			rgb_matrix_set_color(40, RGB_OFF);
 		}
 #elif KEYBOARD_planck_rev6
 	// Planck rev6 LED index position:
@@ -134,8 +130,6 @@ void rgb_matrix_indicators_user(void) {
 	default:
 		if (host_keyboard_led_state().caps_lock || get_highest_layer(default_layer_state) == _COLEMAK) {
 			rgb_matrix_set_color_all(RGB_DEFAULT);
-		} else {
-			rgb_matrix_set_color_all(RGB_OFF);
 		}
 #endif
 	}
@@ -170,6 +164,7 @@ void rgb_matrix_indicators_user(void) {
 #endif // RGB_MATRIX_ENABLE
 
 
+
 /////// LEADER KEY MACROS ///////
 #ifdef LEADER_ENABLE
 LEADER_EXTERNS();
@@ -194,6 +189,7 @@ void leader_end(void)	{ rgb_matrix_mode_noeeprom(MATRIX_NORMAL); }
 #endif // LEADER_ENABLE
 
 
+
 /////// OLED DISPLAY RENDERING ///////
 #ifdef OLED_DRIVER_ENABLE
 #include "mod-status.c" // For render_mod_status();
@@ -212,6 +208,7 @@ void oled_task_user(void) {
 	else                      animate_cat();
 }
 #endif // OLED_DRIVER_ENABLE
+
 
 
 /////// INIT AND SUSPENSION ///////
