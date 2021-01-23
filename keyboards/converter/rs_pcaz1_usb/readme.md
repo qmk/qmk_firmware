@@ -1,89 +1,55 @@
-# Sun to USB keyboard protocol converter
+# Rohde & Schwarze PCA-Z1 keyboard protocol converter
 
-A converter for using non-USB Sun keyboards.
+A converter for using Rohde & Schwarze PCA-Z1 keyboards.
 
-Original code from the [TMK firmware](https://github.com/tmk/tmk_keyboard/tree/master/converter/sun_usb). Ported to QMK by [Yann Hodique](https://github.com/sigma).
+Protocole documented by [Mihai Gaitos](https://hawk.ro/stories/rs_kbd/). Ported to QMK by [Kamel Makhloufi](https://github.com/melka).
 
-Keyboard Maintainer: [Yann Hodique](https://github.com/sigma)  
+Keyboard Maintainer: [Kamel Makhloufi](https://github.com/melka)  
 Hardware Supported: See hardware section below  
 Hardware Availability: self-built
 
 Make example for this keyboard (after setting up your build environment):
 
-    make converter/sun_usb/type5:default
+    make converter/rs_pca-z1_usb:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 
 ## Hardware
 
-Target MCU is ATMega32u4 but other USB capable AVR will also work. The maintainer mostly uses Teensy 2.0 boards.
-Supported keyboards: Sun Type 3 and 5 Keyboards,
+Target MCU is ATMega32u4 but other USB capable AVR will also work. Tested on an Arduino ProMicro clone.
+Supported keyboards: Rohde & Schwarze PCA-Z1
 
 ### Connector
 
-8Pin mini DIN
-
-       ___ ___
-      /  |_|  \
-     / 8  7  6 \
-    | 5    4  3 |
-     \_ 2   1 _/
-       \_____/
-    (receptacle)
-
+6.35mm Mono Jack (TRS)
+    
+     _____
+    |     |______ ___ ___
+    |     |  1   | 2 | 3 \
+    |     |______|___|___/
+    |     |
+    |_____|
+      | |
+      | |
+    (plug)
 
 Wiring:
 
-    Pin mini DIN        MCU
-    ----------------------------------
-    1   GND             GND
-    2   GND             GND
-    3   5V
-    4   RX/TX(Mouse)
-    5   RX              PD3
-    6   TX              PD2
-    7   GND             GND
-    8   5V              VCC
-
+    Pin TRS        MCU
+    -------------------
+    1   GND        GND
+    2   Signal     PD0
+    3   5V         VCC
 
 ### Protocol
 
-    Signal: Asynchronous, Negative logic, 1200baud, No Flow control
-    Frame format: 1-Start bit, 8-Data bits, No-Parity, 1-Stop bit
+Signal: Asynchronous, 2400baud, No Flow control
+Frame format: 1-Start bit, 8-Data bits, No-Parity, 1-Stop bit
+    
+### Caveats
 
-    AVR USART engine expects positive logic while Sun keyboard signal is negative.
-    To use AVR UART engine you need external inverter in front of RX and TX pin.
-    Otherwise you can software serial routine to communicate the keyboard.
-
-This converter uses software method, you doesn't need any inverter part.
-
-
-Commands From System To Keyboard
-
-    0x01 Reset
-            Keyboard responds with following byte sequence:
-            Success: 0xFF 0x04 0x7F
-            Fail:    0x7E 0x01 0x7F
-    0x02 Bell On
-    0x03 Bell Off
-    0x0A Click On
-    0x0B Click Off
-    0x0E LED
-            followed by LED status byte:
-            bit: 3       2       1       0
-            LED: CapsLk  ScrLk   Compose NumLk
-    0x0F Layout
-            Keyboard responds with 'Layout Response' 0xFE 0xXX
-
-Commands From Keyboard To System
-
-    0x7F Idle
-            means no keys pressed.
-    0xFE Layout Response
-    0xFF Reset Response(followed by 0x04)
-     
-References
-
-* http://kentie.net/article/sunkbd/page2.htm
-* http://kentie.net/article/sunkbd/KBD.pdf
+The MCU inside the keyboard doesn't send modifiers, only modified keys (ASCII code).
+ie : "a" is 0x61, "shift+a" or "A" is 0x41
+Some key combinations are therefore impossible.
+See [protocol documentation](https://hawk.ro/stories/rs_kbd/) for more informations

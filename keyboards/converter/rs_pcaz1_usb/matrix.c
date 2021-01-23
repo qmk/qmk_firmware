@@ -1,6 +1,4 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -18,25 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "protocol/serial.h"
 
-/*
- * Matrix Array usage:
- *
- * ROW: 16(4bits)
- * COL:  8(3bits)
- *
- *    8bit wide
- *   +---------+
- *  0|00 ... 07|
- *  1|08 ... 0F|
- *  :|   ...   |
- *  :|   ...   |
- *  E|70 ... 77|
- *  F|78 ... 7F|
- *   +---------+
- */
-static uint8_t matrix[MATRIX_ROWS];
-// #define ROW(code)      ((code>>3)&0xF)
-// #define COL(code)      (code&0x07)
+// matrix state buffer(1:on, 0:off)
+static matrix_row_t matrix[MATRIX_ROWS];
+
+static void register_key(uint8_t key);
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -72,12 +55,11 @@ void matrix_init(void)
 {
     debug_enable = true;
     debug_matrix = true;
-    debug_keyboard=true;
-    debug_mouse=true;
+    debug_keyboard = true;
+    debug_mouse = true;
 
     serial_init();
 
-    // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
     _delay_ms(500);
@@ -88,75 +70,123 @@ void matrix_init(void)
 
 uint8_t matrix_scan(void)
 {
-    uint8_t code;
+
+    uint8_t code = 0;
+    uint8_t new_code = 0;
+    uint8_t new_mods = 0;
+    uint8_t saved_mods = get_mods();
+    del_mods(saved_mods);
 
     code = serial_recv();
-    if (!code) return 0;
 
-    debug_hex(code); debug(" ");
+    if (code >= 0x61 && code <= 0x7A) {
+        // convert ASCII min to matrix pos 0x00 to 0x19
+        new_code = code - 0x61;
+        register_key(new_code);
+    } else if (code >= 0x41 && code <= 0x5A) {
+        // convert ASCII maj to Shift + matrix pos 0x00 to 0x19
+        new_code = code - 0x41;
+        new_mods = MOD_BIT(KC_LSHIFT);
+        register_key(new_code);
+        add_mods(new_mods);
+    /* } else if (code >= 0x01 && code <= 0x1A) {  // CONFLICTS WITH TAB / LF / CR
+        // convert ASCII ctrl to Control + matrix pos 0x00 to 0x19
+        new_code = code - 0x01;
+        new_mods = MOD_BIT(KC_LCTRL);
+        register_key(new_code);
+        add_mods(new_mods); */
+    } else if (code >= 0x30 && code <= 0x39) {
+        // convert ASCII number line to matrix pos 0x1A to 0x23
+        new_code = code - 0x16;
+        register_key(new_code);
+    } else if (code >= 0x21 && code <= 0x29) {
+        // convert ASCII number line to Shift + matrix pos 0x1A to 0x23
+        new_code = code - 0x06;
+        new_mods = MOD_BIT(KC_LSHIFT);
+        register_key(new_code);
+        add_mods(new_mods);
+    } else if (code >= 0xE0 && code <= 0xE9) {
+        // convert F1 - F10 to matrix pos 0x24
+        new_code = code - 0xBC;
+        register_key(new_code);
+    } else if (code >= 0xC0 && code <= 0xC9) {
+        // convert Shift + F1 - F10 to Shift + matrix pos 0x24
+        new_code = code - 0x9C;
+        new_mods = MOD_BIT(KC_LSHIFT);
+        register_key(new_code);
+        add_mods(new_mods);
+    } else if (code >= 0x80 && code <= 0x89) {
+        // convert Shift + F1 - F10 to Shift + matrix pos 0x24
+        new_code = code - 0x5C;
+        new_mods = MOD_BIT(KC_LCTRL);
+        register_key(new_code);
+        add_mods(new_mods);
+    } else {
+        switch(code) {
+            case 0x1B:  // ESC > 0x25
+                new_code = 0x25;
+                register_key(new_code);
+                break;
+            case 0x09: // TAB > 0x26
+                new_code = 0x26;
+                register_key(new_code);
+                break;
+            case 0x0A: // LINEFEED > 0x27
+                new_code = 0x27;
+                register_key(new_code);
+                break;
+            case 0x0D: // ENTER/CR > 0x28
+                new_code = 0x28;
+                register_key(new_code);
+                break;
+            case 0xFF: // BREAK > 0x29
+                new_code = 0x29;
+                register_key(new_code);
+                break;
+            case 0x20: // SPACE > 0x2A
+                new_code = 0x2A;
+                register_key(new_code);
+                break;
+            case 0xEA: // ENC LEFT
+                new_code = 0x5A;
+                register_key(new_code);
+                break;
+            case 0xEB: // ENC RIGHT
+                new_code = 0x5B;
+                register_key(new_code);
+                break;
+            case 0xCA: // ENC DOWN
+                new_code = 0x5C;
+                register_key(new_code);
+                break;
+            case 0xCB: // ENC UP
+                new_code = 0x5D;
+                register_key(new_code);
+                break;
+            case 0x8A: // ENC CTRL DOWN
+                new_code = 0x5E;
+                register_key(new_code);
+                break;
+            case 0x8B: // ENC CTRL UP
+                new_code = 0x5F;
+                register_key(new_code);
+                break;
+            default:
+                // Reset Matrix
+                for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
+                break;
+        }
 
-    switch (code) {
-        default:
-            xprintf("0x%02X  %08b\n", code, code);
-            return 0;
-        // case 0xFF:  // reset success: FF 04
-        //     print("reset: ");
-        //     _delay_ms(500);
-        //     code = serial_recv();
-        //     xprintf("%02X\n", code);
-        //     if (code == 0x04) {
-        //         // LED status
-        //         led_set(host_keyboard_leds());
-        //     }
-        //     return 0;
-        // case 0xFE:  // layout: FE <layout>
-        //     print("layout: ");
-        //     _delay_ms(500);
-        //     xprintf("%02X\n", serial_recv());
-        //     return 0;
-        // case 0x7E:  // reset fail: 7E 01
-        //     print("reset fail: ");
-        //     _delay_ms(500);
-        //     xprintf("%02X\n", serial_recv());
-        //     return 0;
-        // case 0x7F:
-        //     // all keys up
-        //     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
-        //     return 0;
     }
 
-    // if (code&0x80) {
-    //     // break code
-    //     if (matrix_is_on(ROW(code), COL(code))) {
-    //         matrix[ROW(code)] &= ~(1<<COL(code));
-    //     }
-    // } else {
-    //     // make code
-    //     if (!matrix_is_on(ROW(code), COL(code))) {
-    //         matrix[ROW(code)] |=  (1<<COL(code));
-    //     }
-    // }
+    if (code != 0 && debug_enable == true) {
+        xprintf("\n>>> ASCII  : 0x%02X\n", code);
+        xprintf("\n>>> MATRIX : 0x%02X\n", new_code);
+    }
 
     matrix_scan_quantum();
-    return code;
-}
 
-inline
-bool matrix_has_ghost(void)
-{
-    return false;
-}
-
-inline
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-    return (matrix[row] & (1<<col));
-}
-
-inline
-uint8_t matrix_get_row(uint8_t row)
-{
-    return matrix[row];
+    return 1;
 }
 
 void matrix_print(void)
@@ -169,11 +199,20 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
+inline
+matrix_row_t matrix_get_row(uint8_t row)
 {
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop(matrix[i]);
+    return matrix[row];
+}
+
+inline
+static void register_key(uint8_t key)
+{
+    uint8_t col, row;
+    col = key&0x07;
+    row = (key>>3)&0x0F;
+    if (debug_enable == true) {
+        xprintf("\n>>> col : 0x%02X row : 0x%02X", col, row);
     }
-    return count;
+    matrix[row] |=  (1<<col);
 }

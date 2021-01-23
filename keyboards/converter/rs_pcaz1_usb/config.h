@@ -1,6 +1,4 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -26,30 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Rohde & Schwarz PCA-Z1 converter
 
 /* matrix size */
-#define MATRIX_ROWS 16
+#define MATRIX_ROWS 12
 #define MATRIX_COLS 8
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) || \
-    get_mods() == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)) || \
-    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-// 0x20 = 0010 0000
-// 0xFC = 1111 1100
-
-// 0xEA = 1110 1010
-// 0xFA = 1111 1010
-
-// 0xEB = 1110 1011
-// 0xF5 = 1111 0101
-
-// 0xCA = 1100 1010
-// 0xF2 = 1111 0010
-
-// 0xCB = 1100 1011
-// 0xE5 = 1110 0101
 
 /* Serial(USART) configuration
  *     asynchronous, negative logic, 9600baud, no flow control
