@@ -17,9 +17,6 @@ F_CPU = 8000000
 # Feather uses the caterina bootloader
 OPT_DEFS += -DBOOTLOADER_SIZE=4096 -DCATERINA_BOOTLOADER
 
-
-
-
 # Build Options
 #   change yes to no to disable
 #
@@ -41,7 +38,7 @@ MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 
 AUDIO_ENABLE = no           # Audio output on port C6
-#BLUETOOTH = AdafruitBLE
+BLUETOOTH = AdafruitBLE
 LAYOUTS = pad
 RGBLIGHT_ENABLE = yes
 
