@@ -1,16 +1,13 @@
-# Program Yoink!
-
-![Program Yoink! Staggered](https://i.imgur.com/2bBLKJrl.jpeg)
+# Program Yoink! Ortho
 
 Program Yoink is a 12u main cluster board accompanied by a macro column with optional encoder support and arrow keys.
 
 * Keyboard Maintainer: [melonbred](https://github.com/melonbred)
-* Hardware Supported: [Program Yoink! Staggered](staggered/) and [Ortho](ortho/) PCBs (ATmega32u2)
+* Hardware Supported: Program Yoink! Ortho PCB (ATmega32u2)
 * Hardware Availability: [P3D Store](https://p3dstore.com/products/yoink-gb)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make program_yoink/staggered:default
     make program_yoink/ortho:default
 
 To reset the board into bootloader mode, do one of the following:
