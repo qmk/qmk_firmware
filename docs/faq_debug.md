@@ -98,7 +98,7 @@ When debug console of your device is not ready you will see like this:
 Waiting for device:.........
 ```
 
-once the device is plugged in then *hid_listen* finds it you will get this message:
+Once the device is plugged in then *hid_listen* finds it you will get this message:
 
 ```
 Waiting for new device:.........................
@@ -107,13 +107,12 @@ Listening:
 
 If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes` in [Makefile]
 
-You may need privilege to access the device on OS like Linux.
-- try `sudo hid_listen`
+You may need privileges to access the device an OS like Linux. Try `sudo hid_listen`.
 
 ## Can't Get Message on Console
 Check:
 - *hid_listen* finds your device. See above.
-- Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- set `debug_enable=true`. See [Debugging](#debugging)
-- try using 'print' function instead of debug print. See **common/print.h**.
-- disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
+- Enable debug by pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
+- Set `debug_enable=true`. See [Debugging](#debugging)
+- Try using `print` function instead of debug print. See **common/print.h**.
+- Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
