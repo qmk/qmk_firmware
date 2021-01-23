@@ -39,21 +39,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGBLED_NUM 4
 #define DRIVER_LED_TOTAL RGBLED_NUM
 
+#define DIODE_DIRECTION ROW2COL
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-     #define RGBLIGHT_HUE_STEP 8
-     #define RGBLIGHT_SAT_STEP 8
-     #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-     #define RGBLIGHT_ANIMATIONS
+
+#define RGBLIGHT_VAL_STEP 25
+#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 20
+#define RGBLIGHT_ANIMATIONS             // Run RGB animations
 #define OLED_FONT_H "./lib/glcdfont.c"
 
 #define ENCODERS_PAD_A { C7 }
 #define ENCODERS_PAD_B { F7 }
 
 #define ENCODER_RESOLUTION 4
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+
