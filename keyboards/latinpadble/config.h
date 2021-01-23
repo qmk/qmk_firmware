@@ -39,8 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGBLED_NUM 4
 #define DRIVER_LED_TOTAL RGBLED_NUM
 
-#define DIODE_DIRECTION ROW2COL
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
