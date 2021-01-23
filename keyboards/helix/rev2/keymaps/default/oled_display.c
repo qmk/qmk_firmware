@@ -135,6 +135,7 @@ static void render_layer_status(void) {
         snprintf(buf,sizeof(buf), "%ld", layer_state);
         oled_write(buf, false);
     }
+    oled_write_P(PSTR("\n"), false);
 }
 
 #    ifdef SSD1306OLED
@@ -160,7 +161,6 @@ void render_status(void) {
 #    else
     render_layer_status();
 #    endif
-    oled_write_P(PSTR("\n"), false);
 
     // Host Keyboard LED Status
     led_t led_state = host_keyboard_led_state();

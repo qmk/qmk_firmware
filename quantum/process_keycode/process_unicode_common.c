@@ -21,6 +21,7 @@
 
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
+bool             unicode_saved_caps_lock;
 
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
@@ -77,6 +78,16 @@ void cycle_unicode_input_mode(int8_t offset) {
 void persist_unicode_input_mode(void) { eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode); }
 
 __attribute__((weak)) void unicode_input_start(void) {
+    unicode_saved_caps_lock = host_keyboard_led_state().caps_lock;
+
+    // Note the order matters here!
+    // Need to do this before we mess around with the mods, or else
+    // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
+    // correctly in the shifted case.
+    if (unicode_config.input_mode == UC_LNX && unicode_saved_caps_lock) {
+        tap_code(KC_CAPS);
+    }
+
     unicode_saved_mods = get_mods();  // Save current mods
     clear_mods();                     // Unregister mods to start from a clean state
 
@@ -107,6 +118,9 @@ __attribute__((weak)) void unicode_input_finish(void) {
             break;
         case UC_LNX:
             tap_code(KC_SPC);
+            if (unicode_saved_caps_lock) {
+                tap_code(KC_CAPS);
+            }
             break;
         case UC_WIN:
             unregister_code(KC_LALT);
@@ -125,6 +139,11 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
+            tap_code(KC_ESC);
+            if (unicode_saved_caps_lock) {
+                tap_code(KC_CAPS);
+            }
+            break;
         case UC_WINC:
             tap_code(KC_ESC);
             break;

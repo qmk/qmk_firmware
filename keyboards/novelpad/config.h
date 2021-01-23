@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    NovelKeys.xyz
 #define PRODUCT         Novelpad
-#define DESCRIPTION     5x4 Hotswap MX numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5

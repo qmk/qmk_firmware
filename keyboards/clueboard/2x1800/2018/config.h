@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 #define PRODUCT         2x1800 2018
-#define DESCRIPTION     What does it mean?
 
 /* key matrix size */
 #define MATRIX_ROWS 12

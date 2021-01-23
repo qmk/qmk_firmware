@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGBLIGHT_H
-#define RGBLIGHT_H
+
+#pragma once
 
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
@@ -357,6 +357,8 @@ HSV     rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);
+void     rgblight_suspend(void);
+void     rgblight_wakeup(void);
 uint32_t rgblight_read_dword(void);
 void     rgblight_update_dword(uint32_t dword);
 uint32_t eeconfig_read_rgblight(void);
@@ -437,4 +439,3 @@ void rgblight_effect_twinkle(animation_status_t *anim);
 #    endif
 
 #endif  // #ifndef RGBLIGHT_H_DUMMY_DEFINE
-#endif  // RGBLIGHT_H

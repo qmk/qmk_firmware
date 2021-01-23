@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Eucalyn
 #define PRODUCT         Mint60
-#define DESCRIPTION     A row staggered split keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10
