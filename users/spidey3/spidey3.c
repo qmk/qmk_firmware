@@ -174,6 +174,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 dprintf("spi_gflock = %u\n", spi_gflock);
                 break;
 
+            case SPI_KP_00:
+                tap_code(KC_KP_0);
+#if TAP_CODE_DELAY > 0
+                wait_ms(TAP_CODE_DELAY);
+#endif
+                register_code(KC_KP_0);
+                return false;
+
             case KC_PSCR: {
                 uint8_t mods = get_mods();
 #ifndef NO_ACTION_ONESHOT
@@ -248,6 +256,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CH_CPNL:
             case CH_ASST:
                 host_consumer_send(0);
+                return false;
+
+            case SPI_KP_00:
+                unregister_code(KC_KP_0);
                 return false;
         }
     }
