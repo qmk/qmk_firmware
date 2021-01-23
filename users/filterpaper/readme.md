@@ -28,7 +28,7 @@ Personal user space to share code for a few custom keyboards. See [Sharing Code 
 
 * `config.h`	QMK configuration options, see [configuring QMK](../../docs/config_options.md)
 * `rules.mk`	Makefile rules for keyboard-specific features, includes keyboard.c
-* `keyboard.c`	Common keyboard code, RGB matrix and OLED function functions, see [RGB matrix lighting](../../docs/feature_rgb_matrix.md)
+* `keyboard.c`	Main file with shared codes, RGB matrix and OLED functions, see [RGB matrix lighting](../../docs/feature_rgb_matrix.md)
 * `mod-status.c`	Graphical layer and modifier status rendering module for primary controller
 * `bongo-cat.c`		Graphical tapping bongo cat rendering module, optimized for right OLED
 * `bongo-cat-left.c`		Graphical tapping bongo cat rendering module, optimized for both sides
@@ -45,14 +45,14 @@ qmk compile -kb boardsource/the_mark -km filterpaper
 
 ## Corne Split Setup
 Corne is configured with EE_HANDS, the controllers will check EEPROM values to know which side it's on and USB-C can be used on either.
-These are the one time flash commands to write left and right side setting into the Elite-C EEPROM:
+These are the one-time flash commands to write left and right side setting into the Elite-C EEPROM:
 ```
 make crkbd/rev1/common:filterpaper:dfu-split-left
 make crkbd/rev1/common:filterpaper:dfu-split-right
 ```
-Following this, the same firmware binary can be flashed normally to both sides. See [split keyboard features](../../docs/feature_split_keyboard.md) for details.
+Following this, the same firmware binary can be flashed normally on both sides. See [split keyboard features](../../docs/feature_split_keyboard.md) for details.
 
 # Keymap layout
 
-Individual keymap.c for each keyboard will have to be generated and saved within their respective keymaps directory. See 
+Individual keymap.c for each keyboard will have to be created and saved within their respective keymaps directory. See 
 the [json folder](json/) for details and list of exported QMK Configurator layouts.

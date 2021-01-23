@@ -35,3 +35,15 @@ git push origin master
 git commit -a -m ""
 git push
 ```
+
+## Branching a keyboard edit
+Create a new branch just for keyboard changes
+```
+git fetch upstream master:<keyboard_updates>
+git checkout <keyboard_updates>
+```
+Make edits to that keyboard branch, and push changes back to personal fork:
+```
+ git push -u <fork name> <keyboard_updates>
+ ```
+

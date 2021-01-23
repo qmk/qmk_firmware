@@ -30,21 +30,15 @@ enum layers {
 /////// RGB LIGHTING ///////
 #ifdef RGB_MATRIX_ENABLE
 
-<<<<<<< HEAD
-/* Code snippet for 60% matrix effect
-   brightness to reduce USB power.
-=======
 /* Code snippet for 60% animation brightness to reduce 
    USB power consumption. Applies only to matrix effects 
    using rgb_matrix_hsv_to_rgb() for color selection.
->>>>>>> 25929887ba3d7ad9b4379fe8916cd51f8ce1470b
    Courtesy of @tzarc */
 /*
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 	hsv.v = (uint8_t)(hsv.v * 0.6);
 	return hsv_to_rgb(hsv);
 }; */
-
 
 // Draft code for Mark65 LED matrix layout
 #ifdef KEYBOARD_boardsource_the_mark
