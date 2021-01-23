@@ -29,8 +29,9 @@ enum layers {
 /////// RGB LIGHTING ///////
 #ifdef RGB_MATRIX_ENABLE
 
-/* Code snippet for 60% animation brightness
-   to reduce USB power consumption
+/* Code snippet for 60% animation brightness to reduce 
+   USB power consumption. Applies only to matrix effects 
+   using rgb_matrix_hsv_to_rgb() for color selection.
    Courtesy of @tzarc */
 /*
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
