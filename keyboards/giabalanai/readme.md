@@ -11,7 +11,8 @@
 
 * Keyboard Maintainer: [3araht](https://github.com/3araht)
 * Hardware Supported: giabalanai keyboard, a split keyboard mainly work as MIDI keyboard.
-* Hardware Availability: The keyboard kit is available [here](https://yushakobo.jp/shop/consign_giabalanai/).
+* Hardware Availability: [Yushakobo](https://yushakobo.jp/shop/consign_giabalanai/) or [BOOTH](https://3araht.booth.pm/). Click [here](https://www.tenso.com/en/static/lp_shop_booth) for BOOTH overseas shipping!
+
 
 Make example for this keyboard (after setting up your build environment):
 
