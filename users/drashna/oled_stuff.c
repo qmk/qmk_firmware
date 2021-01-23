@@ -132,14 +132,14 @@ void render_layer_state(void) {
     oled_write_P(PSTR(" "), false);
 #endif
     oled_write_P(PSTR(OLED_RENDER_LAYER_RAISE), layer_state_is(_RAISE));
-#if _MODS
-#    ifdef OLED_DISPLAY_128X64
-    oled_write_P(PSTR(" "), false);
-#    endif
-    oled_write_P(PSTR(OLED_RENDER_LAYER_MODS), layer_state_is(_MODS));
-#endif
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("GamePad"), layer_state_is(_GAMEPAD));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("Diablo"), layer_state_is(_DIABLO));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("Mouse"), layer_state_is(_MOUSE));
 #endif
 }
 
@@ -254,7 +254,7 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
 }
 
 void render_status_secondary(void) {
-#if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DISPLAY_128X64)
+#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
 #endif
     /* Show Keyboard Layout  */
@@ -267,7 +267,9 @@ void render_status_secondary(void) {
 // clang-format on
 
 void render_status_main(void) {
+#if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
+#endif
     /* Show Keyboard Layout  */
     render_default_layer_state();
     // render_keylock_status(host_keyboard_leds());

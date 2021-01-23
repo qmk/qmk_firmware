@@ -36,7 +36,7 @@ extern uint32_t oled_timer;
 #    define OLED_RENDER_LAYOUT_EUCALYN "Eucalyn"
 #    define OLED_RENDER_LAYOUT_CARPLAX "Carplax"
 
-#    define OLED_RENDER_LAYER_NAME   "Layer:\n"
+#    define OLED_RENDER_LAYER_NAME   "Layer:"
 #    define OLED_RENDER_LAYER_LOWER  "Lower"
 #    define OLED_RENDER_LAYER_RAISE  "Raise"
 #    define OLED_RENDER_LAYER_ADJUST "Adjust"
