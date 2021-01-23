@@ -73,43 +73,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void matrix_init_user(void) {
-  // set CapsLock LED to output and low
-  setPinOutput(B1);
-  writePinLow(B1);
-  // set NumLock LED to output and low
-  setPinOutput(B2);
-  writePinLow(B2);
-  // set ScrollLock LED to output and low
-  setPinOutput(B3);
-  writePinLow(B3);
-}
-
-void matrix_scan_user(void) {
-
-}
-
-
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinHigh(B2);
-  } else {
-    writePinLow(B2);
-  }
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(B1);
-  } else {
-    writePinLow(B1);
-  }
-/*
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    writePinHigh(B3);
-  } else {
-    writePinLow(B3);
-  }*/
-
-}
-
 //function for layer indicator LED
 uint32_t layer_state_set_user(uint32_t state)
 {
