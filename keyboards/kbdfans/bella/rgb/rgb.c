@@ -116,22 +116,6 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS36_SW2, CS35_SW2, CS34_SW2},    /* RGB25 */
     {0, CS3_SW9, CS2_SW9, CS1_SW9},    /* RGB105 */
     {0, CS3_SW4, CS2_SW4, CS1_SW4},    /* RGB40 */
-
-    {0, CS3_SW5, CS2_SW5, CS1_SW5},    /* RGB40 */
-    {0, CS3_SW6, CS2_SW6, CS1_SW6},    /* RGB40 */
-    {0, CS3_SW7, CS2_SW7, CS1_SW7},    /* RGB40 */
-    {0, CS3_SW8, CS2_SW8, CS1_SW8},    /* RGB40 */
-    {0, CS6_SW2, CS5_SW2, CS4_SW2},    /* RGB93 */
-    {0, CS6_SW9, CS5_SW9, CS4_SW9},    /* RGB93 */
-    {0, CS15_SW9, CS14_SW9, CS13_SW9},    /* RGB96 */
-    {0, CS21_SW9, CS20_SW9, CS19_SW9},    /* RGB98 */
-    {0, CS27_SW9, CS26_SW9, CS25_SW9},    /* RGB100 */
-    {0, CS30_SW6, CS29_SW6, CS28_SW6},    /* RGB88 */
-    {0, CS30_SW8, CS29_SW8, CS28_SW8},    /* RGB88 */
-    {0, CS30_SW9, CS29_SW9, CS28_SW9},    /* RGB88 */
-    {0, CS33_SW8, CS32_SW8, CS31_SW8},    /* RGB115 */
-    {0, CS36_SW1, CS35_SW1, CS34_SW1},    /* RGB103 */
-
 };
 
 led_config_t g_led_config = {
