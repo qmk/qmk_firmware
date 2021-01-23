@@ -1,32 +1,3 @@
- /* Keymap _0: (Base Layer) Default Layer
-
-   * .----.
-   * |PGUP|  
-   * |-----------------------.
-   * |  7  |  8  |  9  | MO1 |
-   * |-----|-----|-----|-----|
-   * |  4  |  5  |  6  |  +  |
-   * |-----|-----|-----|-----|
-   * |  1  |  2  |  3  |  —  |
-   * |-----|-----|-----|-----|
-   * |  0  |  .  | DEL |Enter|
-   * .-----------------------.
-   */
-     /* Keymap _1: (Second Layer) second Layer
-
-   * .--------.
-   * |NUMLOCK|
-   * |--------------------------------.
-   * |RGB_TOG|RGB_MOD|RGB_M_K|RGB_M_X |
-   * |-------|-------|-------|--------|
-   * |RGB_SAI|RGB_SAD|RGB_HUI|RGB_HUD |
-   * |-------|-------|-------|--------|
-   * |RGB_VAI|RGB_VAD|RGB_SPI|RGB_SPD |
-   * |-------|-------|-------|--------|
-   * |RGB_SPI|RGB_SPD|RGB_TOG|KC_TRNS |
-   * .--------------------------------.
-*/
-
 #include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_pad( 
