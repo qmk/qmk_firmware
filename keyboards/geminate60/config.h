@@ -5,7 +5,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x7764
-#define PRODUCT_ID 0x676D
+#define PRODUCT_ID 0x676d
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Weirdo
 #define PRODUCT Geminate60
@@ -24,6 +24,7 @@
 
 #define RGB_DI_PIN A6
 #define RGBLED_NUM 1
+#define RGBLIGHT_LED_MAP {0}
 //#define RGBLIGHT_DISABLE_KEYCODES
 
 
