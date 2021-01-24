@@ -11,7 +11,9 @@ enum custom_keycodes {
   EXT_CTL = SAFE_RANGE,
   EXT_ALT,
   EXT_GUI,
-  EXT_SFT
+  EXT_SFT,
+  MY_DOT,
+  MY_COMM
 };
 
 #define CTL_A   LCTL_T(KC_A)
@@ -36,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV,  KC_1,  KC_2, KC_3, KC_4,    KC_5,                                        KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_EQL,
       KC_TAB,  KC_Q,  KC_W, KC_F, KC_P,    KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_MINS,
       KC_ESC,  CTL_A, KC_R, KC_S, KC_T,    KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   CTL_O,   KC_QUOT,
-      KC_CAPS, KC_Z,  KC_X, KC_C, KC_D,    KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   KC_COMM, KC_DOT, KC_SLSH, KC_ENT,
+      KC_CAPS, KC_Z,  KC_X, KC_C, KC_D,    KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, KC_ENT,
                                   KC_LGUI, OSM(MOD_LSFT), OSL(_NUMBERS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
       ),
 
@@ -107,6 +109,9 @@ void handle_ex_mod(keyrecord_t *record, uint16_t mod, uint16_t *timer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  uint16_t mod_state = get_mods();
+  uint16_t one_shot_mod_state = get_oneshot_mods();
+
   switch (keycode) {
     case EXT_CTL:
       handle_ex_mod(record, KC_LCTL, &ctl_timer);
@@ -131,12 +136,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       one_shot_mod_mask = 0;
       return true;
     case KC_ESC:
-      if (get_oneshot_mods()) {
+      if (one_shot_mod_state) {
         clear_oneshot_mods();
         return false;
       } else {
         return true;
       }
+    case MY_COMM:
+      if (record->event.pressed) {
+        if ((mod_state | one_shot_mod_state) & MOD_MASK_SHIFT) {
+          set_mods(mod_state & ~MOD_MASK_SHIFT);
+          set_oneshot_mods(one_shot_mod_state & ~MOD_MASK_SHIFT);
+          tap_code(KC_SCLN);
+          set_mods(mod_state);
+        } else {
+          tap_code(KC_COMM);
+        }
+      }
+      return false;
+    case MY_DOT:
+      if (record->event.pressed) {
+        if ((mod_state | one_shot_mod_state) & MOD_MASK_SHIFT) {
+          // this is with a shift mod active, so KC_SCLN becomes S(KC_SCLN)
+          tap_code(KC_SCLN);
+        } else {
+          tap_code(KC_DOT);
+        }
+      }
+      return false;
     default:
       return true;
   }
