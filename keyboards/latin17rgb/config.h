@@ -49,10 +49,10 @@
 #define DEBOUNCE 3
 
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-#    define NO_ACTION_MACRO
-#    define NO_ACTION_FUNCTION
-#endif
+//#ifndef LINK_TIME_OPTIMIZATION_ENABLE
+//#    define NO_ACTION_MACRO
+//#    define NO_ACTION_FUNCTION
+//#endif
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
