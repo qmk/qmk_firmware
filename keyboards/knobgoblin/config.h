@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MrT1ddl3s
 #define PRODUCT         knobgoblin
-#define DESCRIPTION     numpad macropad 2x encoders and oled support
 
 /* key matrix size */
 #define MATRIX_ROWS 5
