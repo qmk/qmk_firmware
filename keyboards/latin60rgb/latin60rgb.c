@@ -123,5 +123,4 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(41, 0xFF, 0xFF, 0xFF);
     }
 }
-    };
 #endif
