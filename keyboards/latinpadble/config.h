@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define MANUFACTURER    haierwangwei2005
 #define PRODUCT         latinpadble
 
-#define NO_ACTION_LAYER
-#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
+// #define NO_ACTION_LAYER
+// #define NO_ACTION_TAPPING
+// #define NO_ACTION_ONESHOT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
