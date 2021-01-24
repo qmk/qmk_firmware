@@ -32,7 +32,11 @@ The presence of one or more specific modifiers in the current modifier state can
 Thus, to give an example, `01000010` would be the internal representation of LShift+RAlt.
 For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
 
-In practice, this means that you can check modifier state with `get_mods() & MOD_BIT(KC_<mod>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<mod>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
+In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
+
+To check that *only* a specific set of mods is active at a time, AND the modifier state and your desired mod mask as explained above and compare the result to the mod mask itself: `get_mods() & <mod mask> == <mod mask>`.
+
+For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
 
 The full list of mod masks is as follows:
 
@@ -74,17 +78,17 @@ The following examples use [advanced macro functions](feature_macros.md#advanced
 
 ### Alt + Escape for Alt + Tab :id=alt-escape-for-alt-tab
 
-Simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications. Keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut. Though it keeps the ability to do AltGr+Escape.
+Simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications. This example strictly checks if only Left Alt is active, meaning you can't do Alt+Shift+Esc to switch between applications in reverse order. Also keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut, though it keeps the ability to do AltGr+Escape.
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
     case KC_ESC:
-        // Detect the activation of Left Alt only, not Right Alt aka AltGr
-        if (get_mods() & MOD_BIT(KC_LALT)) {
+        // Detect the activation of only Left Alt
+        if (get_mods() & MOD_BIT(KC_LALT) == MOD_BIT(KC_LALT)) {
             if (record->event.pressed) {
-                // Only KC_TAB is registered because Alt is already active.
+                // No need to register KC_LALT because it's already active.
                 // The Alt modifier will apply on this KC_TAB.
                 register_code(KC_TAB);
             } else {
@@ -104,6 +108,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ### Shift + Backspace for Delete :id=shift-backspace-for-delete
 
 Advanced example where the original behaviour of shift is cancelled when chorded with `KC_BSPC` and is instead fully replaced by `KC_DEL`. Two main variables are created to make this work well: `mod_state` and `delkey_registered`. The first one stores the modifier state and is used to restore it after registering `KC_DEL`. The second variable is a boolean variable (true or false) which keeps track of the status of `KC_DEL` to manage the release of the whole Backspace/Delete key correctly.
+
+As opposed to the previous example, this doesn't use strict modifier checking. Pressing `KC_BSPC` while one or two shifts are active is enough to trigger this custom code, regardless of the state of other modifiers. That approach offers some perks: Ctrl+Shift+Backspace lets us delete the next word (Ctrl+Delete) and Ctrl+Alt+Shift+Backspace lets us execute the Ctrl+Alt+Del keyboard shortcut.
 
 ```c
 // Initialize variable holding the binary
