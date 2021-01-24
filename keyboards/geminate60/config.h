@@ -5,7 +5,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x7764
-#define PRODUCT_ID 0x676d
+#define PRODUCT_ID 0x676D
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Weirdo
 #define PRODUCT Geminate60
