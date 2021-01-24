@@ -16,8 +16,6 @@ enum custom_keycodes {
 
 #define CTL_A   LCTL_T(KC_A)
 #define CTL_O   RCTL_T(KC_O)
-#define ALT_X   LALT_T(KC_X)
-#define ALT_DOT RALT_T(KC_DOT)
 
 #define VIM_ALT S(C(KC_CIRC))
 #define KC_EUR  S(A(KC_2))
@@ -35,11 +33,11 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
-      KC_GRV,  KC_1,  KC_2,  KC_3, KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
-      KC_TAB,  KC_Q,  KC_W,  KC_F, KC_P,    KC_B,                                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS,
-      KC_ESC,  CTL_A, KC_R,  KC_S, KC_T,    KC_G,                                        KC_M,    KC_N,    KC_E,    KC_I,    CTL_O,   KC_QUOT,
-      KC_CAPS, KC_Z,  ALT_X, KC_C, KC_D,    KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,    KC_COMM, ALT_DOT, KC_SLSH, KC_ENT,
-                                   KC_LGUI, OSM(MOD_LSFT), OSL(_NUMBERS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
+      KC_GRV,  KC_1,  KC_2, KC_3, KC_4,    KC_5,                                        KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_EQL,
+      KC_TAB,  KC_Q,  KC_W, KC_F, KC_P,    KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_MINS,
+      KC_ESC,  CTL_A, KC_R, KC_S, KC_T,    KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   CTL_O,   KC_QUOT,
+      KC_CAPS, KC_Z,  KC_X, KC_C, KC_D,    KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   KC_COMM, KC_DOT, KC_SLSH, KC_ENT,
+                                  KC_LGUI, OSM(MOD_LSFT), OSL(_NUMBERS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
       ),
 
   [_EXTEND] = LAYOUT(
