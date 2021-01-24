@@ -8,8 +8,8 @@
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    System76
-#define PRODUCT         Launch Configurable Keyboard (launch_beta_1)
-#define DESCRIPTION     Launch Configurable Keyboard (launch_beta_1)
+#define PRODUCT         Launch Configurable Keyboard (launch_1)
+#define DESCRIPTION     Launch Configurable Keyboard (launch_1)
 
 /* key matrix size */
 #define MATRIX_ROWS 6

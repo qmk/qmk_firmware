@@ -1,7 +1,7 @@
 #include "dynamic_keymap.h"
 #include "tmk_core/common/eeprom.h"
 
-#include "launch_beta_1.h"
+#include "launch_1.h"
 #include "usb_mux.h"
 
 #if RGB_MATRIX_ENABLE

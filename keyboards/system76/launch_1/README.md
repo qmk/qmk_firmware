@@ -5,18 +5,18 @@
 * To build the firmware without flashing the keyboard, use `make (keyboard name):(layout name)`
    - For example, if you want to build the `default` layout for the Launch keyboard, run:
 ```
-make system76/launch_beta_1:default
+make system76/launch_1:default
 ```
 * To flash the firmware, you'll use the same build command, but with `dfu` added to the end:
 ```
-make system76/launch_beta_1:default:dfu
+make system76/launch_1:default:dfu
 ```
    - After it builds, you will see a message that says `Detecting USB port, reset your controller now...`. You then want to hit the "RESET" key on the keyboard if it is programmed into the layout.
    - In the default layout, it is Fn+Esc. If a RESET key is not programmed into the layout, you will have to manually reset the controller.
 * To flash the firmware using ISP, you will need a USBasp device, and a tag connect cable.
   - Build the firmware and bootloader with:
 ```
-make system76/launch_beta_1:default:production
+make system76/launch_1:default:production
 ```
   - Run avrdude to flash the fuses:
 ```
@@ -24,7 +24,7 @@ avrdude -c usbasp -p atmega32u4 -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0
 ```
   - Run avrdude to flash the ROM:
 ```
-avrdude -c usbasp -p atmega32u4 -U flash:w:system76_launch_beta_1_default_production.hex
+avrdude -c usbasp -p atmega32u4 -U flash:w:system76_launch_1_default_production.hex
 ```
 
 ## Making your own layout:
