@@ -1,0 +1,4 @@
+OLED_DRIVER_ENABLE = yes
+MOUSEKEY_ENABLE    = yes
+MIDI_ENABLE        = no
+TAP_DANCE_ENABLE   = yes
