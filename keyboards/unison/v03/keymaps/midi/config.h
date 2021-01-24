@@ -60,3 +60,8 @@
 */
 #   define MIDI_ADVANCED
 #endif
+
+/* test BOOTMAGIC */
+// #define BOOTMAGIC_LITE_ROW 2
+// #define BOOTMAGIC_LITE_COLUMN 8
+// #define BOOTMAGIC_KEY_SALT KC_TAB
