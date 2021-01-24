@@ -5,7 +5,7 @@
 * Second layer is RGB control layer
 * Third layer is user specific (ie customised) Photoshop keys (customised keybinds included below)
 * Forth layer is an alternate numberpad for Photoshop ease of use (Shift, 'X', and 'D' included) - 
-* Fifth layer is Destiny 2 macros for lazt people (not impliemnted yet)
+* Fifth layer is Destiny 2 macros for lazy people (not implimented yet)
 * OLED support
 
 #Photoshop keybinds
