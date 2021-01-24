@@ -26,28 +26,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LGUI,   KC_LALT,                       KC_SPC,                              KC_RALT,   KC_RGUI,   MO(1),     KC_RCTL,      KC_LEFT, KC_DOWN, KC_RGHT,   KC_P0,            KC_PDOT
     ),
     [1] = LAYOUT(
-        KC_TRNS,          KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS,     KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, RESET, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_MPLY, KC_VOLU,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,      KC_TRNS, KC_MSTP, KC_VOLD,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_CALC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_BRIU,            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,                      KC_TRNS,                              KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,      KC_TRNS, KC_BRID, KC_TRNS,   KC_TRNS,          KC_TRNS
-    ),
-    [2] = LAYOUT(
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,                      KC_TRNS,                              KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,          KC_TRNS
-    ),
-    [3] = LAYOUT(
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,                      KC_TRNS,                              KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,          KC_TRNS
+        _______,          _______, KC_MPRV, KC_MNXT, _______,     KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU,      _______, _______, _______, _______,   _______, RESET, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, KC_MPLY, KC_VOLU,   _______, _______, _______, _______,
+        _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,      _______, KC_MSTP, KC_VOLD,   _______, _______, _______, _______,
+        _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                                            _______, _______, _______,
+        _______,   _______, _______, _______, KC_CALC, _______, _______, _______, _______, _______, _______, _______, _______,                            KC_BRIU,            _______, _______, _______, _______,
+        _______,   _______,   _______,                      _______,                              _______,   _______,   _______,   _______,      _______, KC_BRID, _______,   _______,          _______
     ),
 
 };
