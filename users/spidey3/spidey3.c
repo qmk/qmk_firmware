@@ -295,7 +295,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     set_mods(mods);
                     return false;
                 }
-            } else { // on release of KC_BSPC
+            } else {  // on release of KC_BSPC
                 // In case KC_DEL is still being sent even after the release of KC_BSPC
                 if (delkey_registered) {
                     unregister_code(KC_DEL);
