@@ -19,10 +19,10 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x8F99
+#define PRODUCT_ID      0x9875
 #define DEVICE_VER      0x0001
-#define MANUFACTURER   teclado
+#define MANUFACTURER   Gamdias
 #define PRODUCT         teclado_oscar
 
 /* key matrix size */

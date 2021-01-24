@@ -19,11 +19,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ibm
-#define PRODUCT         ibmwheelwriter2
+#define VENDOR_ID       0x8767
+#define PRODUCT_ID      0x5f89
+#define DEVICE_VER      0x0002
+#define MANUFACTURER    IBM
+#define PRODUCT         ibmwheelwriter4
 
 /* key matrix size */
 #define MATRIX_ROWS 8
