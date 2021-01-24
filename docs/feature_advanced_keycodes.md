@@ -61,7 +61,9 @@ The full list of mod masks is as follows:
 Aside from accessing the currently active modifiers using `get_mods()`, there exists some other functions you can use to modify the modifier state, where the `mods` argument refers to the modifiers bitmask.
 
 * `add_mods(mods)`: Enable `mods` without affecting any other modifiers
+* `register_mods(mods)`: Like `add_mods` but send a keyboard report immediately.
 * `del_mods(mods)`: Disable `mods` without affecting any other modifiers
+* `unregister_mods(mods)`: Like `del_mods` but send a keyboard report immediately.
 * `set_mods(mods)`: Overwrite current modifier state with `mods`
 * `clear_mods()`: Reset the modifier state by disabling all modifiers
 
