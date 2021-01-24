@@ -15,38 +15,20 @@
  */
 #include "prime_e.h"
 
-void matrix_init_kb(void) {
-    // set CapsLock LED to output and low
-    setPinOutput(B1);
-    writePinLow(B1);
-    // set NumLock LED to output and low
+void keyboard_pre_init_kb(void) {
     setPinOutput(B2);
-    writePinLow(B2);
-    // set ScrollLock LED to output and low
+    setPinOutput(B1);
     setPinOutput(B3);
-    writePinLow(B3);
 
-    matrix_init_user();
+    keyboard_pre_init_user();
 }
 
-void led_set_kb(uint8_t usb_led) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(B2);
-    } else {
-        writePinLow(B2);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B2, led_state.num_lock);
+        writePin(B1, led_state.caps_lock);
+        writePin(B3, led_state.scroll_lock);
     }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(B1);
-    } else {
-        writePinLow(B1);
-    }
-    /*
-      if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinHigh(B3);
-      } else {
-        writePinLow(B3);
-      }*/
-
-    led_set_user(usb_led);
+    return res;
 }
