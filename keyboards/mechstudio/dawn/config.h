@@ -1,4 +1,5 @@
-/* Copyright 2020 Alabahuy
+/* Copyright 2020 David Dejaeghere
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -18,30 +19,30 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x0045
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         Rart45
+#define VENDOR_ID       0x4D53
+#define PRODUCT_ID      0x0004
+#define DEVICE_VER      0x0004
+#define MANUFACTURER    Mech Studio
+#define PRODUCT         Dawn
 
 /* key matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 15
 
-#define MATRIX_ROW_PINS { D1, C2, C1, B1, D0, C3, C0, D7, B0 }
-#define MATRIX_COL_PINS { D6, D4, B2, B5, B4, B3 }
-#define UNUSED_PINS
+// ROWS: Top to bottom, COLS: Left to right
+
+#define MATRIX_ROW_PINS {B1,B2,B3,D1,D6,D4}
+#define MATRIX_COL_PINS {F0,F1,F4,F5,F6,F7,C7,C6,B6,B5,B4,D7,D5,D3,D2}
+#define UNUSED_PINS {B0,B7,D0,E6}
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN D5
-#define LED_PIN_ON_STATE 0
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+/* set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+/* define if matrix has ghost (lacks anti-ghosting diodes) */
+//#define MATRIX_HAS_GHOST
+
+#define QMK_ESC_OUTPUT F0 // usually COL
+#define QMK_ESC_INPUT B1 // usually ROW
