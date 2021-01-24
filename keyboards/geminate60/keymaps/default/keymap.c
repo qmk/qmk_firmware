@@ -13,10 +13,7 @@
   * You should have received a copy of the GNU General Public License 
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
   */ 
-#include "geminate60.h"
-#ifdef CONSOLE_ENABLE
-#include <print.h>
-#endif
+#include QMK_KEYBOARD_H
 
 
 // [Keymaps] -----------------------------------------------------------------//
