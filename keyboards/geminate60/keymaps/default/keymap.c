@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool led_update_user(led_t led_state) {
 
-    if(led_state.caps_lock == 1){
+    if(led_state.caps_lock){
         rgblight_setrgb_at(192, 192, 192, 0);
     }else{
         rgblight_setrgb_at(0, 0, 0, 0);
