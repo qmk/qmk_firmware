@@ -20,3 +20,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+RGB_MATRIX_ENABLE = no		# RGB Matrix feature support, disabled by default
+RGB_MATRIX_DRIVER = WS2812	# RGB Matrix driver name
