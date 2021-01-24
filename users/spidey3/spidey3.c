@@ -50,13 +50,7 @@ void matrix_scan_user(void) {
 }
 #endif
 
-bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph) {
-    uint8_t temp_mod = get_mods();
-#ifndef NO_ACTION_ONESHOT
-    uint8_t temp_osm = get_oneshot_mods();
-#else
-    uint8_t temp_osm = 0;
-#endif
+bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph, uint8_t temp_mod, uint8_t temp_osm) {
     if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
         switch (keycode) {
             case KC_A ... KC_Z:
@@ -126,6 +120,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rand_seeded = true;
     }
 
+    uint8_t mods = get_mods();
+#ifndef NO_ACTION_ONESHOT
+    uint8_t osm = get_oneshot_mods();
+#else
+    uint8_t osm = 0;
+#endif
+
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_DEBUG
@@ -183,13 +184,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
 
             case KC_PSCR: {
-                uint8_t mods = get_mods();
-#ifndef NO_ACTION_ONESHOT
-                uint8_t osm = get_oneshot_mods();
-#else
-                uint8_t osm = 0;
-#endif
-
                 // It's kind of a hack, but we use unicode input mode
                 // to determine what Print Screen key should do. The
                 // idea here is to make it consistent across hosts.
@@ -269,32 +263,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_SPACE:
             switch (spi_replace_mode) {
                 case SPI_WIDE:
-                    return process_record_glyph_replacement(keycode, record, 0xFF41, 0xFF21, 0xFF10, 0xFF11, 0x2003);
+                    return process_record_glyph_replacement(keycode, record, 0xFF41, 0xFF21, 0xFF10, 0xFF11, 0x2003, mods, osm);
                 case SPI_SCRIPT:
-                    return process_record_glyph_replacement(keycode, record, 0x1D4EA, 0x1D4D0, 0x1D7CE, 0x1D7CF, 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1D4EA, 0x1D4D0, 0x1D7CE, 0x1D7CF, 0x2002, mods, osm);
                 case SPI_BLOCKS:
-                    return process_record_glyph_replacement(keycode, record, 0x1F170, 0x1F170, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F170, 0x1F170, '0', '1', 0x2002, mods, osm);
                 case SPI_CIRCLE:
-                    return process_record_glyph_replacement(keycode, record, 0x1F150, 0x1F150, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F150, 0x1F150, '0', '1', 0x2002, mods, osm);
                 case SPI_SQUARE:
-                    return process_record_glyph_replacement(keycode, record, 0x1F130, 0x1F130, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F130, 0x1F130, '0', '1', 0x2002, mods, osm);
                 case SPI_PARENS:
-                    return process_record_glyph_replacement(keycode, record, 0x1F110, 0x1F110, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1F110, 0x1F110, '0', '1', 0x2002, mods, osm);
                 case SPI_FRAKTR:
-                    return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002);
+                    return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002, mods, osm);
             }
             break;
 
         case KC_F1 ... KC_F12:
             return process_gflock(keycode, record);
+
+        case KC_BSPC: {
+            static bool delkey_registered;
+            if (record->event.pressed) {
+                if ((mods | osm) & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+#ifndef NO_ACTION_ONESHOT
+                    clear_oneshot_mods();
+#endif
+                    register_code(KC_DEL);
+                    delkey_registered = true;
+                    set_mods(mods);
+                    return false;
+                }
+            } else { // on release of KC_BSPC
+                // In case KC_DEL is still being sent even after the release of KC_BSPC
+                if (delkey_registered) {
+                    unregister_code(KC_DEL);
+                    delkey_registered = false;
+                    return false;
+                }
+            }
+        }
     }
 
 #ifdef RGBLIGHT_ENABLE
-    bool res = process_record_user_rgb(keycode, record);
-    if (!res) return false;
-#endif
-
+    return process_record_user_rgb(keycode, record);
+#else
     return true;
+#endif
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
