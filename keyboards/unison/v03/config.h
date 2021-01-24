@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Rotary Encoder */
 #define ENCODERS_PAD_A { B0, D2, D5, D6, B4 }
-#define ENCODERS_PAD_B { B1, D2, D4, D7, B5 }
+#define ENCODERS_PAD_B { B1, D3, D4, D7, B5 }
 #define ENCODER_RESOLUTION 4  //the default & suggested is 4
 
 /* Audio */
@@ -53,11 +53,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB Lighting */
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 16 // Layer Indicator(3) + Rotary Encoder(5) + Underglow(8)
-//   #define RGBLIGHT_LED_MAP {0,1,2,3,13,12,4,5,6,7,8,9,10,11} // Left --> Right --> Under 〓実物確認
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
+  #define RGBLED_NUM 8 // Layer Indicator(3) + Rotary Encoder(5), optional Underglow(8)
+  #define RGBLIGHT_LED_MAP {1, 2, 3, 0, 4, 5, 6, 7} // Layer Indicator --> R.E. --> Under 〓実物確認
+  #define RGBLIGHT_HUE_STEP 4
+  #define RGBLIGHT_SAT_STEP 16
+  #define RGBLIGHT_VAL_STEP 16
   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
   /*== Lighting Layers ==*/
@@ -67,13 +67,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   /*== all animations enable ==*/
   // #define RGBLIGHT_ANIMATIONS
   /*== or choose animations ==*/
-  // #define RGBLIGHT_EFFECT_BREATHING
-  // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+  #define RGBLIGHT_EFFECT_BREATHING
+  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   // #define RGBLIGHT_EFFECT_SNAKE
   #define RGBLIGHT_EFFECT_KNIGHT
   // #define RGBLIGHT_EFFECT_CHRISTMAS
-  // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
   // #define RGBLIGHT_EFFECT_RGB_TEST
   // #define RGBLIGHT_EFFECT_ALTERNATING
   // /*== customize breathing effect ==*/

@@ -41,7 +41,6 @@ FULL 10x10 ROUND-ROBIN MATRIX for Reference
  * represents the switch matrix.
  */
 #define LAYOUT( \
-            ka1,                ka2,    ka3,    ka4,    ka5,    k92,     \
     k16,k21,k26,k31,k36,k41,k46,k51,k56,k61,k76,k71,k86,k81,k96,k91,ka6, \
     k17,k12,k27,k32,k37,k42,k47,k52,k57,k62,k67,k72,k87,k82,k97,    ka7, \
     k18,k13,k28,k23,k38,k43,k48,k53,k58,k63,k68,k73,k78,k83,k98,    ka8, \
@@ -49,11 +48,11 @@ FULL 10x10 ROUND-ROBIN MATRIX for Reference
     k1a,k15,k2a,k25,k3a,k35,k4a,k45,k5a,k65,k6a,k75,k7a,k85,k8a,k95,k9a  \
 ) \
 { \
-    { KC_NO, k21,   k31,   k41,   k51,   k61,   k71,   k81,   k91,   ka1,   }, \
-    { k12,   KC_NO, k32,   k42,   k52,   k62,   k72,   k82,   k92,   ka2,   }, \
-    { k13,   k23,   KC_NO, k43,   k53,   k63,   k73,   k83,   KC_NO, ka3,   }, \
-    { k14,   k24,   k34,   KC_NO, k54,   k64,   k74,   k84,   k94,   ka4,   }, \
-    { k15,   k25,   k35,   k45,   KC_NO, k65,   k75,   k85,   k95,   ka5,   }, \
+    { KC_NO, k21,   k31,   k41,   k51,   k61,   k71,   k81,   k91,   KC_NO, }, \
+    { k12,   KC_NO, k32,   k42,   k52,   k62,   k72,   k82,   KC_NO, KC_NO, }, \
+    { k13,   k23,   KC_NO, k43,   k53,   k63,   k73,   k83,   KC_NO, KC_NO, }, \
+    { k14,   k24,   k34,   KC_NO, k54,   k64,   k74,   k84,   k94,   KC_NO, }, \
+    { k15,   k25,   k35,   k45,   KC_NO, k65,   k75,   k85,   k95,   KC_NO, }, \
     { k16,   k26,   k36,   k46,   k56,   KC_NO, k76,   k86,   k96,   ka6,   }, \
     { k17,   k27,   k37,   k47,   k57,   k67,   KC_NO, k87,   k97,   ka7,   }, \
     { k18,   k28,   k38,   k48,   k58,   k68,   k78,   KC_NO, k98,   ka8,   }, \
