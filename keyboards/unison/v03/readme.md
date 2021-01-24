@@ -1,23 +1,21 @@
-# Jones v.0.3.1
+# Unison
 
-![Jones, ANSI style](https://github.com/jpskenn/Jones/raw/master/assets/IMG_2204.jpeg)
+![Unison](https://github.com/jpskenn/〓)
 
-![Jones, JP style](https://github.com/jpskenn/Jones/raw/master/assets/DSC_7189.jpeg)
-
-A 60% keyboard combined with Ortho-Linear and Row-staggered. It has gapless R2-R3 row.  
-GH60 case compatible PCB and keyplate.
+A narrow pitch keyboard combined with Ortho-Linear and Row-staggered. It has gapless R2-R3 row.
+GH60 case compatible PCB.
 
 * Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
-* Hardware Supported: Jones PCB, Keyplate
-* Hardware Availability: [GitHub](https://github.com/jpskenn/Jones), [BOOTH](https://jpskenn.booth.pm)
+* Hardware Supported: PCB
+* Hardware Availability: [GitHub](https://github.com/jpskenn/Unison), <!-- [BOOTH](https://jpskenn.booth.pm) -->
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jones/v03_1:default_ansi
+    make unison:default
     
 Flashing example for this keyboard ([using the command line](https://docs.qmk.fm/#/newbs_flashing?id=flash-your-keyboard-from-the-command-line)):
 
-    make jones/v03_1:default_ansi:flash
+    make unison:default:flash
 
 To reset the keyboard into bootloader mode, press the reset switch on the underside.
 
