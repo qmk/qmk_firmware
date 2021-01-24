@@ -55,7 +55,8 @@ void matrix_scan_user(void) {
 }
 
 static uint32_t math_glyph_exceptions(const uint16_t keycode, const bool shifted) {
-    if (shifted) {
+    bool caps = host_keyboard_led_state().caps_lock;
+    if (shifted != caps) {
         switch (keycode) {
             // clang-format off
             case KC_C: return 0x2102;
@@ -97,7 +98,8 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
                     clear_oneshot_mods();
 #endif
 
-                    uint32_t base = shifted ? baseAlphaUpper : baseAlphaLower;
+                    bool caps = host_keyboard_led_state().caps_lock;
+                    uint32_t base = ((shifted == caps) ? baseAlphaLower : baseAlphaUpper);
                     _register(base + (keycode - KC_A));
                     set_mods(temp_mod);
                 }
