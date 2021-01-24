@@ -54,6 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #define RGBLED_NUM 24    // Number of LEDs
+#define DRIVER_LED_TOTAL 24
 #endif
 
 /*
