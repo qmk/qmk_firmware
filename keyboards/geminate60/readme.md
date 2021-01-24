@@ -1,6 +1,6 @@
 # Geminate60
 
-![%KEYBOARD%](https://www.hualigs.cn/image/600d9391f16d7.jpg)
+![Geminate60](https://www.hualigs.cn/image/600d9391f16d7.jpg)
 
 A 60% keyboard based on STM32f303
 
