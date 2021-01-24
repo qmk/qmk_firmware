@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    haierwangwei2005
 #define PRODUCT         latinpadble
-#define DESCRIPTION     Panasonic rotary encoder BLE pad
 
 #define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING
@@ -100,4 +99,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define ENCODERS_PAD_B { F7 }
 
 #define ENCODER_RESOLUTION 4
-
