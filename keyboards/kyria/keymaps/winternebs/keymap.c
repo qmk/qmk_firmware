@@ -251,6 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 	{{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}, {6, 4}, {7, 4}},
@@ -267,6 +268,8 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Rename to lowercase
 =======
 >>>>>>> rebase and add back nyquist that was lost by rename
+=======
+>>>>>>> b02d6a4300ef26ff580e2c4ab6284a529ea0bc10
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;

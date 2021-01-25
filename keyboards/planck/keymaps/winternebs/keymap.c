@@ -18,11 +18,14 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 extern keymap_config_t keymap_config;
 >>>>>>> Rename to lowercase
 =======
 >>>>>>> Update keyboards/planck/keymaps/winterNebs/keymap.c
+=======
+>>>>>>> b02d6a4300ef26ff580e2c4ab6284a529ea0bc10
 
 enum planck_layers {
   _QWERTY,

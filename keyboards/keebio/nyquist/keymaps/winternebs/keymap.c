@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add licenses
+=======
+>>>>>>> b02d6a4300ef26ff580e2c4ab6284a529ea0bc10
 /* Copyright 2020 winterNebs <winternebs@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,10 +21,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> rebase and add back nyquist that was lost by rename
 =======
 >>>>>>> Add licenses
+=======
+>>>>>>> b02d6a4300ef26ff580e2c4ab6284a529ea0bc10
 #include QMK_KEYBOARD_H
 
 
