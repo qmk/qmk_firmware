@@ -5,7 +5,7 @@
   "width": 4,
   "height": 5,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_numpad_5x4": {
       "layout": [
                 {"label":"Num Lock", "x":0, "y":0, "w":1, "h":1},
                 {"label":"/", "x":1, "y":0, "w":1, "h":1},
