@@ -17,22 +17,18 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_17_latin_pad( 
-	    KC_NUMLOCK, KC_KP_SLASH, KC_KP_ASTERISK, MO(1),
-	    KC_KP_7,    KC_KP_8,     KC_KP_9,        KC_KP_PLUS,
-        KC_P4, KC_P5, KC_P6, 
-        KC_P1, KC_P2, KC_P3, KC_KP_ENTER,
-        KC_P0, KC_PDOT),
+    [0] = LAYOUT_numpad_5x4( 
+	    KC_NLCK, KC_PSLS, KC_PAST, MO(1),
+	    KC_P7,   KC_P8,   KC_P9,       
+        KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+        KC_P1,   KC_P2,   KC_P3, 
+        KC_P0,   KC_PDOT,          KC_PENT
+    ),
     [1] = LAYOUT_17_latin_pad( 
-	    RGB_TOG, RGB_MOD, KC_KP_MINUS, MO(1),
-	    KC_KP_7, KC_KP_8, KC_KP_9, KC_PGDOWN,
-        KC_P4, KC_P5, KC_P6, 
-        KC_P1, KC_P2, KC_P3, KC_KP_ENTER,
-        KC_P0, KC_PDOT),
-	[2] = LAYOUT_17_latin_pad( 
-	    RGB_TOG, RGB_MOD, KC_KP_7, KC_KP_8,
-	    KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_5,
-        KC_P4, KC_P5, KC_P6, 
-        KC_P1, KC_P2, KC_P3, KC_KP_ENTER,
-        KC_P0, KC_PDOT),
+	    RGB_TOG, RGB_MOD, KC_PMNS, _______,
+	    _______, _______, _______,
+        _______, _______, _______, KC_PGDN,
+        _______, _______, _______,
+        _______, _______,          _______
+	),
 };
