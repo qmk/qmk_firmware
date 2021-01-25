@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTZ] = LAYOUT_planck_grid(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    DE_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    SCROLL,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    DE_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,   KC_G,    KC_H,    KC_J,    KC_K,    KC_L, DE_PLUS,    DE_MINS,
 LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT,   KC_UP,    KC_SFTENT,
     KC_LCTL, KC_LGUI, NUMPD,   KC_LALT, LOWER,  KC_SPC,  KC_SPC,   RAISE,  KC_DEL, KC_LEFT, KC_DOWN,  KC_RGHT
@@ -139,7 +139,7 @@ LCTL_T(KC_COPY),KC_PDOT, KC_P0, KC_COMMA, NUMPD, KC_ENT, KC_ENT,  _______, KC_LE
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-|  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+ * |PowOff|      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -148,7 +148,7 @@ LCTL_T(KC_COPY),KC_PDOT, KC_P0, KC_COMMA, NUMPD, KC_ENT, KC_ENT,  _______, KC_LE
  */
 [_ADJUST] = LAYOUT_planck_grid(
     _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  _______, _______, _______,
+    KC_POWER,_______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______,  _______, _______, _______,
     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 )
@@ -195,8 +195,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
           scroll = false;
       }
+    default:
+      return true;
   }
-  return true;
 }
 
 void encoder_update(bool clockwise) {
@@ -232,13 +233,6 @@ void encoder_update(bool clockwise) {
 void matrix_scan_user(void) {
 }
 
-void led_set_keymap(uint8_t usb_led) {
-  if (!(usb_led & (1<<USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
-    unregister_code(KC_NUMLOCK);
-  }
-}
-
 bool music_mask_user(uint16_t keycode) {
   switch (keycode) {
     case RAISE:
@@ -249,16 +243,16 @@ bool music_mask_user(uint16_t keycode) {
   }
 }
 const rgblight_segment_t PROGMEM numbers_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 9, HSV_GREEN}
+    {3, 4, HSV_GREEN}
 );
 const rgblight_segment_t PROGMEM symbols_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 9, HSV_PURPLE}
+    {2, 5, HSV_PURPLE}
 );
 const rgblight_segment_t PROGMEM numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {5, 4, HSV_RED}       // Light 4 LEDs, starting with LED 6
 );
 const rgblight_segment_t PROGMEM config_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {2, 7, HSV_YELLOW}
+    {2, 6, HSV_YELLOW}
 );
 
 // Now define the array of layers. Later layers take precedence
