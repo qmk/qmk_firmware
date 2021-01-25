@@ -15,6 +15,7 @@
   */ 
 
 #include QMK_KEYBOARD_H
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_17_latin_pad( 
 	    KC_NUMLOCK, KC_KP_SLASH, KC_KP_ASTERISK, MO(1),
