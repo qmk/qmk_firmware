@@ -33,4 +33,4 @@
     { K40, K41           }  \
 }
 
-#define LAYOUT_pad LAYOUT_17_latin_pad
+#define LAYOUT_pad LAYOUT_numpad_5x4
