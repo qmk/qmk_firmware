@@ -1,5 +1,7 @@
 # oem_iso_fullsize
 
+Top view of the keyboard: (https://imgur.com/gallery/icfarZh)
+
 I handwired a Gamdias 7 Colors that had a dead PCB and manage to revive it with a teensy
 
 * Keyboard Maintainer: [Andres Teare](https://github.com/andresteare)
