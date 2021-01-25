@@ -1,6 +1,6 @@
 # MCU name
 MCU = STM32F072
-BOARD = ST_STM32F072B_DISCOVERY
+BOARD = GENERIC_STM32_F072XB
 
 # Build Options
 #   comment out to disable the options.
@@ -24,6 +24,8 @@ QWIIC_ENABLE += MICRO_OLED
 
 DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1
 
+# Wildcard to allow APM32 MCU 
+DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

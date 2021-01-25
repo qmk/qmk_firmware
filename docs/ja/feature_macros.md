@@ -187,7 +187,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 デフォルトでは、QWERTY レイアウトの US キーマップを想定しています; それを変更したい場合(例えば OS がソフトウェア Colemak を使う場合)、キーマップのどこかに以下を含めます:
 
-    #include <sendstring_colemak.h>
+```c
+#include "sendstring_colemak.h"
+```
 
 ### メモリ内の文字列
 

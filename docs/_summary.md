@@ -3,7 +3,6 @@
   * [Setup](newbs_getting_started.md)
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
-  * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
   * [Syllabus](syllabus.md)
@@ -11,7 +10,8 @@
 * FAQs
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
-  * [Debugging/Troubleshooting QMK](faq_debug.md)
+  * [Troubleshooting QMK](faq_misc.md)
+  * [Debugging QMK](faq_debug.md)
   * [Keymap FAQ](faq_keymap.md)
   * [Glossary](reference_glossary.md)
 
@@ -80,6 +80,7 @@
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Raw HID](feature_rawhid.md)
+    * [Sequencer](feature_sequencer.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
@@ -105,6 +106,7 @@
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
     * [Joystick](feature_joystick.md)
+    * [LED Indicators](feature_led_indicators.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
@@ -118,6 +120,7 @@
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
     * History
+      * [2020 Nov 28](ChangeLog/20201128.md)
       * [2020 Aug 29](ChangeLog/20200829.md)
       * [2020 May 30](ChangeLog/20200530.md)
       * [2020 Feb 29](ChangeLog/20200229.md)

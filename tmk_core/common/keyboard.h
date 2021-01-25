@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -63,14 +62,17 @@ void keyboard_task(void);
 void keyboard_set_leds(uint8_t leds);
 /* it runs whenever code has to behave differently on a slave */
 bool is_keyboard_master(void);
+/* it runs whenever code has to behave differently on left vs right split */
+bool is_keyboard_left(void);
 
 void keyboard_pre_init_kb(void);
 void keyboard_pre_init_user(void);
 void keyboard_post_init_kb(void);
 void keyboard_post_init_user(void);
 
+void housekeeping_task_kb(void);
+void housekeeping_task_user(void);
+
 #ifdef __cplusplus
 }
-#endif
-
 #endif
