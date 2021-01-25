@@ -62,6 +62,8 @@
 #endif
 
 /* test BOOTMAGIC */
-#define BOOTMAGIC_LITE_ROW 6
-#define BOOTMAGIC_LITE_COLUMN 0
-// #define BOOTMAGIC_KEY_SALT KC_TAB
+#ifdef BOOTMAGIC_ENABLE
+//   #define BOOTMAGIC_LITE_ROW 6
+//   #define BOOTMAGIC_LITE_COLUMN 0
+  #define BOOTMAGIC_KEY_SALT KC_TAB
+#endif
