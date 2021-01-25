@@ -34,6 +34,6 @@ HD44780_ENABLE = no            # Enable support for HD44780 based LCDs
 
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
 
-LAYOUTS = 17_latin_pad
+LAYOUTS = numpad_5x4
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731
