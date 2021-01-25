@@ -24,7 +24,6 @@ enum layer_number {
     _QWERTY = 0,
     _RAISE,
     _LOWER,
-    _ADJUST,
 };
 
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
