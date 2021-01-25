@@ -27,8 +27,6 @@ enum layer_number {
     _ADJUST,
 };
 
-#define KC_ KC_TRNS
-#define KC_RST RESET
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
 #define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
 #define KC_G_JA LGUI_T(KC_LANG1)     // cmd or win
