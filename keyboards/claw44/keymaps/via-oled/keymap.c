@@ -36,7 +36,7 @@ enum layer_number {
 #define KC_A_DEL ALT_T(KC_DEL)       // alt
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT( \
+    [_QWERTY] = LAYOUT(
     //,--------+--------+---------+--------+---------+--------.   ,--------+---------+--------+---------+--------+--------.
         KC_ESC , KC_Q   , KC_W    , KC_E   , KC_R    , KC_T   ,     KC_Y   , KC_U    , KC_I   , KC_O    , KC_P   , KC_MINS,
     //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
