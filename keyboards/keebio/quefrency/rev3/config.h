@@ -20,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x2257
-#define DEVICE_VER      0x0200
+#define PRODUCT_ID      0x3257
+#define DEVICE_VER      0x0300
 #define MANUFACTURER    Keebio
-#define PRODUCT         Quefrency Rev. 2
+#define PRODUCT         Quefrency Rev. 3
 
 /* key matrix size */
 // Rows are doubled-up
