@@ -42,6 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B1, D3, D4, D7, B5 }
 #define ENCODER_RESOLUTION 3  //the default & suggested is 4
 
+#define DIODE_DIRECTION COL2ROW
+
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define B6_AUDIO
