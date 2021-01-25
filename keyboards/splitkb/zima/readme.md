@@ -2,7 +2,7 @@
 
 ![Zima](https://cdn.shopify.com/s/files/1/0227/9171/6941/products/Zima_Clear_Side.jpg?v=1596531772)
 
-A short description of the keyboard/project
+A feature-packed twelve key macropad the size of a creditcard.
 
 * Keyboard Maintainer: [Thomas Baart](https://github.com/splitkb)
 * Hardware Supported: Onboard ATmega32u4 with speaker, encoder, RGB underglow, OLED and haptic support, with a Type C connector
