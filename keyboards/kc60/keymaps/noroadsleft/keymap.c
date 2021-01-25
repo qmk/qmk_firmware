@@ -15,9 +15,9 @@
  */
 
 #include "noroadsleft.h"
-#include <sendstring_dvorak.h>
-//#include <sendstring_colemak.h>
-#include <print.h>
+#include "sendstring_dvorak.h"
+//#include "sendstring_colemak.h"
+#include "print.h"
 
 
 /**********************

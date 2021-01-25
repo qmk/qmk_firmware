@@ -18,7 +18,6 @@
 
 #undef MANUFACTURER
 #undef PRODUCT
-#undef DESCRIPTION
 #define MANUFACTURER    KBDfans
 #define PRODUCT         KBD75 rev1
 
