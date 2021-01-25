@@ -1,6 +1,8 @@
 /**
  * config.h
  *
+ * Copyright 2020 astro <yuleiz@gmail.com>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -22,8 +24,7 @@
 #define PRODUCT_ID 0xAB87   // abelx keyboard
 #define DEVICE_VER 0x0001
 #define MANUFACTURER MATRIX
-#define PRODUCT Matrix ABELX
-#define DESCRIPTION Matrix abelx keyboard
+#define PRODUCT ABELX
 
 /* key matrix size */
 #define MATRIX_ROWS 6
