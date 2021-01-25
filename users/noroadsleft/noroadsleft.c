@@ -26,6 +26,9 @@ __attribute__((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_keymap(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
         case VRSN:
             if (record->event.pressed) {
@@ -146,5 +149,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
     }  // switch()
-    return process_record_keymap(keycode, record);
+    return true;
 };
