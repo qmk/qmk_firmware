@@ -68,7 +68,7 @@ Install the QMK CLI by running:
 
     brew install qmk/qmk/qmk
 
-### ** Linux/WSL **
+### ** Linux **
 
 ?> **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
 
@@ -101,6 +101,20 @@ On Arch-based distros you can install the CLI from the official repositories (NO
 You can also try the `qmk-git` package from AUR:
 
     yay -S qmk-git
+
+### ** WSL **
+
+QMK maintains a WSL distro with the CLI and all necessary dependencies.
+
+Alternatively, if you'd like to manually install against the WSL distro of your choice, follow the `Linux` part of this guide after installing WSL.
+
+#### Prerequisites
+
+You will need to install WSL. Follow the instructions [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+#### Installation
+
+You will need to install the `QMK WSL` distro. The latest release is available at <https://github.com/zvecr/qmk_distro_wsl/releases/latest>.
 
 ###  ** FreeBSD **
 
@@ -140,7 +154,7 @@ After installing QMK you can set it up with this command:
 
 In most situations you will want to answer `y` to all of the prompts.
 
-### ** Linux/WSL **
+### ** Linux **
 
 After installing QMK you can set it up with this command:
 
@@ -153,6 +167,15 @@ It's possible, that you will get an error saying something like: `bash: qmk: com
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
+
+
+### ** WSL **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer `y` to all of the prompts.
 
 ###  ** FreeBSD **
 
