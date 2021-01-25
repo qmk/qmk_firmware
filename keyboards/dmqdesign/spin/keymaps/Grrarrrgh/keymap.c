@@ -8,9 +8,10 @@
 enum layers {
     _NUMPAD,	//	This is a standard Numberpad layer
     _RGB,		//	This is the RGB control layer
+	_FNUM,		//	This has F keys with modifiers
     _PS,		//	This is the Photoshop layer
-	_PSBRUSH,	//	This is alternate Nuumberpad for Photoshop ease of use
-	_D2			//	This is the Destiny 2 layer
+	_PSDPAD,	//	This is the arrows - merge into other PS layer if possible
+	_D2			//	This is the Destiny 2 layer, for lazy Guardians which doesn't exist yet becasue macros are hard
 };
 
 #define HIGHEST_LAYER _D2 // When adding a new layer or chaing their order make sure this is updated
@@ -18,49 +19,181 @@ enum layers {
 
 
 //Photoshop Shortcuts
-#define UNDO LCTL(KC_Z)
+#define	UNDO	LCTL(KC_Z)
+#define	NXTDOC	LCTL(KC_TAB)
 
 // Tap Dance declarations
 enum {
-    TD_X_D,
+    TD_A_I,
+	TD_N_G,
+	TD_X_C,
+	TD_V_D,
+	TD_S_E,
+	TD_P_K,
+	TD_L_Z,
+	TD_ENT_BSPACE,
+	TD_F1_F10,
+	TD_F2_F11,																							
+	TD_F3_F12,
+	TD_F4_F13,
+	TD_F5_F14,
+	TD_F6_F15,
+	TD_F7_F16,
+	TD_F8_F17,
+	TD_F9_F18,
 };
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for X, twice for D - Photoshop switch swatches, and reset swatches shortcuts respectively
-    [TD_X_D] = ACTION_TAP_DANCE_DOUBLE(KC_X, KC_D),
-};
+	[TD_A_I] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_I), // Ref Photohop
+	[TD_N_G] = ACTION_TAP_DANCE_DOUBLE(KC_N, KC_G), // Ref Photohop
+	[TD_X_C] = ACTION_TAP_DANCE_DOUBLE(KC_X, KC_C), // Ref Photohop
+	[TD_V_D] = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_D), // Ref Photohop
+	[TD_S_E] = ACTION_TAP_DANCE_DOUBLE(KC_S, KC_E), // Ref Photohop
+	[TD_P_K] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_K), // Ref Photohop
+	[TD_L_Z] = ACTION_TAP_DANCE_DOUBLE(KC_L, KC_Z), // Ref Photohop
+	[TD_ENT_BSPACE] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_BSPACE), // Ref Photohop
+	[TD_F1_F10] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F10), // Ref Photohop
+	[TD_F2_F11] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F11), // Ref Photohop					
+	[TD_F3_F12] = ACTION_TAP_DANCE_DOUBLE(KC_F3, KC_F12), // Ref Photohop
+	[TD_F4_F13] = ACTION_TAP_DANCE_DOUBLE(KC_F4, KC_F13), // Ref Photohop
+	[TD_F5_F14] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F14), // Ref Photohop
+	[TD_F6_F15] = ACTION_TAP_DANCE_DOUBLE(KC_F6, KC_F15), // Ref Photohop
+	[TD_F7_F16] = ACTION_TAP_DANCE_DOUBLE(KC_F7, KC_F16), // Ref Photohop
+	[TD_F8_F17] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_F17), // Ref Photohop
+	[TD_F9_F18] = ACTION_TAP_DANCE_DOUBLE(KC_F9, KC_F18), // Ref Photohop
+	};
 
 
 
 // These are the layer layouts
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+// _NUMPAD keymap
+// .--------------------------------.
+// |		   |		  |			|
+// |   Mute	   |   Reset  |  To PS  |
+// |		   |		  |			|
+// |--------------------------------|
+// |		|		|		|		|
+// |	7	|	8	|	9	|	0	|
+// |		|		|		|		|
+// |--------+-------+-------+-------|
+// |		|		|		|		|
+// |	4	|	5	|	6	|	.	|
+// |		|		|		|		|
+// |--------+-------+-------+-------|
+// |		|		|		|		|
+// |	1	|	2	|	3	|   Ent |
+// |		|		|		|		|
+//  -------------------------------- 
     [_NUMPAD] = LAYOUT(/* Base */
-                KC_7, KC_8, KC_9, KC_AUDIO_MUTE,
-                KC_4, KC_5, KC_6, RESET,
-                KC_1, KC_2, KC_3, TO(_PS),
-                KC_0, KC_DOT, KC_ENT
+                KC_AUDIO_MUTE, RESET, TO(_PS),
+                KC_7, KC_8, KC_9, KC_0,
+                KC_4, KC_5, KC_6, KC_DOT,
+                KC_1, KC_2, KC_3, KC_ENT
                 ),
+
+// _RGB keymap
+// .--------------------------------.
+// |		   |		  |			|
+// |   	 	   |   		  |		    |
+// |		   |		  |			|
+// |--------------------------------|
+// |		|		|		|		|
+// |  +Hue	|  +Sat	|+Bright|Nxt RGB|
+// |		|		|		|		|
+// |--------+-------+-------+-------|
+// |		|		|		|		|
+// |  -Hue	|  -Sat	|-Bright|Prv RGB|
+// |		|		|		|		|
+// |--------+-------+-------+-------|
+// |		|		|		|		|
+// | Numpad	|   PS	| Reset	|Tog RGB|
+// |		|		|		|		|
+//  -------------------------------- 
 
     [_RGB] = LAYOUT(/* Base */
-                RGB_HUI,  RGB_SAI, RGB_VAI, KC_TRNS,
-                RGB_HUD,  RGB_SAD, RGB_VAD, KC_TRNS,
-                RGB_RMOD,    RGB_TOG,   RGB_MOD,   TO(_NUMPAD),
-                TO(_NUMPAD), TO(_PS), RESET
-                ),
-
-    [_PS] = LAYOUT(/* Base */
-                KC_L, KC_G, KC_N, KC_V,
-                KC_K, KC_S, TD(TD_X_D), KC_O,
-                KC_LSHIFT, KC_Z, KC_M, TO(_NUMPAD),
-                KC_LCTL, KC_LALT, KC_SPACE
+				KC_TRNS, KC_TRNS, KC_TRNS,
+				RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD,
+				RGB_HUD, RGB_SAD, RGB_VAD, RGB_RMOD,
+				TO(_NUMPAD), TO(_PS), RESET, RGB_TOG
                 ),
 				
-	[_PSBRUSH] = LAYOUT(/* Base */
-                KC_7, KC_8, KC_9, KC_B,
-                KC_4, KC_5, KC_6, KC_D,
-                KC_1, KC_2, KC_3, TO(_PS),
-                KC_0, KC_LSHIFT, TD(TD_X_D)
+// _FNUM keymap
+// .------------------------------------.
+// |		   |		   |	 		|
+// |   	 	   |   	   	   |		    |
+// |		   |		   |			|
+// |------------------------------------|
+// |		|		 |		  |			|
+// | F1 F10	| F2 F11 | F3 F12 | F4 F13	|
+// |		|		 |		  |			|
+// |--------+--------+--------+---------|
+// |		|		 |		  |			|
+// |  SHFT	| F6 F15 | F7 F16 | F8 F17	|
+// |		|		 |		  |			|
+// |--------+--------+--------+---------|
+// |		|		 |		  |			|
+// |  CTRL	|	ALT  | F8 F17 | F9 F18	|
+// |		|		 |		  |			|
+//  ------------------------------------
+
+[_FNUM] = LAYOUT(/* Base */
+				KC_TRNS, KC_TRNS, KC_TRNS,
+				TD(TD_F1_F10), TD(TD_F2_F11), TD(TD_F3_F12), TD(TD_F4_F13),
+				KC_LSHIFT, TD(TD_F5_F14), TD(TD_F6_F15), TD(TD_F7_F16),
+				KC_LCTL, KC_LALT, TD(TD_F8_F17), TD(TD_F9_F18)
+                ),    
+
+// _PS keymap
+// .--------------------------------.
+// |		   |		  |			|
+// |   	 	   | Next Doc |	Numpad  |
+// |		   |		  |			|
+// |--------------------------------|
+// |		|		|		|		|
+// |   A I	|  N G	|  X C	|  V D	|
+// |		|		|		|		|
+// |--------+-------+-------+-------|
+// |		|		|		|		|
+// |  SHFT	|  S E	|  P K	|  L Z	|
+// |		|		|		|		|
+// |--------+-------+-------+-------|
+// |		|		|		|		|
+// |  CTRL	|  ALT	|  SPC	|  ENT	|
+// |		|		|		|		|
+//  -------------------------------- 
+    [_PS] = LAYOUT(/* Base */
+				KC_TRNS, NXTDOC, TO(_NUMPAD),
+				TD(TD_A_I), TD(TD_N_G), TD(TD_X_C), TD(TD_V_D),
+				KC_LSHIFT, TD(TD_S_E), TD(TD_P_K), TD(TD_L_Z),
+				KC_LCTL, KC_LALT, KC_SPACE, TD(TD_ENT_BSPACE)
+                ),
+				
+// _PSDPAD keymap
+// .------------------------------------.
+// |		   |		   |	 		|
+// |   	 	   |   	   	   |		    |
+// |		   |		   |			|
+// |------------------------------------|
+// |		|		 |		  |			|
+// | 		| 		 | 		  | 		|
+// |		|		 |		  |			|
+// |--------+--------+--------+---------|
+// |		|		 |		  |			|
+// |  		| 	UP	 | 		  | 		|
+// |		|		 |		  |			|
+// |--------+--------+--------+---------|
+// |		|		 |		  |			|
+// |  LEFT	|	DOWN | RIGHT  | 		|
+// |		|		 |		  |			|
+//  ------------------------------------
+	[_PSDPAD] = LAYOUT(/* Base */
+                KC_NO, KC_NO, KC_NO,
+				KC_NO, KC_NO, KC_NO, KC_NO,
+				KC_NO, KC_UP, KC_NO, KC_NO,
+				KC_LEFT, KC_DOWN, KC_RIGHT, KC_NO
                 ),
 				
 	[_D2] = LAYOUT(/* Base */
@@ -198,11 +331,14 @@ void oled_task_user(void) {
         case _RGB:
             oled_write_P(PSTR("RGB\n"), false);
             break;
+        case _FNUM:
+            oled_write_P(PSTR("F NUMBERS\n"), false);
+            break;
         case _PS:
             oled_write_P(PSTR("Photoshop\n"), false);
             break;
-        case _PSBRUSH:
-            oled_write_P(PSTR("PS Numpad\n"), false);
+        case _PSDPAD:
+            oled_write_P(PSTR("Arrows\n"), false);
             break;
         case _D2:
             oled_write_P(PSTR("Destiny 2\n"), false);
