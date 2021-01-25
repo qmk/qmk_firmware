@@ -2,8 +2,8 @@
   "keyboard_name": "latin17rgb",
   "url": "",
   "maintainer": "18438880",
-  "width": 4,
-  "height": 5,
+  "width": 5,
+  "height": 4,
   "layouts": {
     "LAYOUT_numpad_5x4": {
       "layout": [
