@@ -17,13 +17,4 @@
 #define KC_VAI RGB_VAI
 
 //define layers
-enum layers { BASE, MEDR, NAVR, NSSL, NSL, FUNL, GAME, SECGAME, CHAT, NAVR2, NSSL2, NSL2};
-
-//define macro names
-enum {
-  M_EMAIL1 = SAFE_RANGE,
-  M_EMAIL2,
-  M_MATRIKEL,
-  M_PHONE,
-  M_ADDRESS,
-};
+enum layers { BASE, MEDR, NAVR, NSSL, NSL, FUNL, GAME, SECGAME};

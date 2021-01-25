@@ -10,10 +10,6 @@ if(IS_LAYER_ON(GAME)) {
   rgb_matrix_set_color(11, 0, 4, 5);
 }
 
-if(IS_LAYER_ON(CHAT)) {
-  rgb_matrix_set_color(11, 0, 5, 0.19);
-}
-
 if(IS_LAYER_ON(SECGAME)) {
   rgb_matrix_set_color(11, 5, 0, 0);
 }
@@ -105,17 +101,4 @@ if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
     rgb_matrix_set_color_all(5, 1.56, 0);
   }
 
-}
-
-//actions to do when certain keys are pressed
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //send message when going back to game layer from chat layer
-    switch (keycode) {
-        case TG(CHAT):
-            if (record->event.pressed) {
-                tap_code(KC_ENT);
-            }
-            return true;
-    }
-    return true;
 }
