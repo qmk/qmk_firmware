@@ -14,8 +14,12 @@ extern uint16_t spi_replace_mode;
 
 void spidey_glow(void) {
     rgblight_enable();
-    rgblight_mode(RGBLIGHT_MODE_TWINKLE + 4);
     rgblight_sethsv(213, 255, 128);
+    if ((RGBLIGHT_MODE_TWINKLE <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_TWINKLE_end)) {
+        rgblight_step();
+    } else {
+        rgblight_mode(RGBLIGHT_MODE_TWINKLE);
+    }
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled()) velocikey_toggle();
 #endif
