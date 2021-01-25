@@ -58,7 +58,7 @@
    - Virtual sustain, portamento, and modulation wheel
    - etc.
 */
-#   define MIDI_ADVANCED
+  #define MIDI_ADVANCED
 #endif
 
 /* test BOOTMAGIC */
