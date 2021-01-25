@@ -38,8 +38,8 @@
 typedef struct {
     const uint16_t *keys;
     uint16_t        keycode;
-    bool            disabled : 1;
-    bool            active : 1;
+    bool            disabled;
+    bool            active;
 #if defined(EXTRA_EXTRA_LONG_COMBOS)
     uint32_t state;
 #elif defined(EXTRA_LONG_COMBOS)
