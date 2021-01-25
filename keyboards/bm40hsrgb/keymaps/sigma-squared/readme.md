@@ -26,9 +26,9 @@ Sigma Squared modifies on **Miryoku** in the following ways:
 
 
 
-## Layout
+# Layout
 
-### BASE
+## BASE
 
 Tap the layer keys to use the black legends, hold them to activate the corresponding layer.
 
@@ -38,7 +38,7 @@ If you are using MacOS I recommend swapping your *Ctrl* and *Cmd* keys in the sy
 
 ![img](https://i.imgur.com/xA1xkex.png)
 
-### NAVIGATION
+## NAVIGATION
 
 Provides access to all essential navigation keys, comfortably under your home row. Modifiers remain identical to **BASE** layer to be used for navigating lines and words.
 
@@ -50,7 +50,7 @@ Bottom right keys are used to swap between Virtual Desktops. You might need to m
 
 
 
-### MEDIA
+## MEDIA
 
 Provides access to all basic media keys, emulating the arrow keys on the home row.
 
@@ -58,7 +58,7 @@ Also gives access to RGB controls.
 
 ![img](https://i.imgur.com/1jWOvvH.png)
 
-### NUMBER
+## NUMBER
 
 Numbers are arranged in a numpad layout beneath home row, with 0 being positioned under the thumb resting position. Layer includes all most commonly needed symbols to reduce amount of layer switching needed to type longer calculations.
 
@@ -66,7 +66,7 @@ Top right key changed to *Back Space* so corrections can be made without leaving
 
 ![img](https://i.imgur.com/LGJT3so.png)
 
-### SYMBOL
+## SYMBOL
 
 Symbols are positioned over respective numbers from the **NUMBER** layer.
 
@@ -76,19 +76,19 @@ Also includes *Back Space* key for corrections.
 
 ![img](https://i.imgur.com/ihOcdPj.png)
 
-### Fn
+## Fn
 
 Fn keys are arranged in the same layout as the numbers, with *F10* to *F12* added to the left
 
 ![img](https://i.imgur.com/bPpI8KN.png)
 
-### GAME
+## GAME
 
 Somewhat emulates a regular layout needed for gaming. Top right key LED will indicate that you are on the **GAME** layer, and can be pressed to exit it. Holding one of the *Second Game* keys will give you access to **SECOND GAME**
 
 ![img](https://i.imgur.com/r9KIWLX.png)
 
-### SECOND GAME
+## SECOND GAME
 
 Top right key will turn red to indicate you are in the layer
 
@@ -96,6 +96,6 @@ Top right key will turn red to indicate you are in the layer
 
 
 
-## Contact
+# Contact
 
 If you have any issues or questions you can reach me through Reddit at u/Signynt or on the QMK Discord
