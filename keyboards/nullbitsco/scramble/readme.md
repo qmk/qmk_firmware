@@ -10,7 +10,9 @@ A 6-switch key tester macropad built by nullbits. [More info at nullbits.co](htt
 
 Note: If you are seeing issues with MacOS and keyboard hangs after sleep, make sure `NO_USB_STARTUP_CHECK = yes` is set in your rules.mk.
 
-Make example for this keyboard (after setting up your build environment):
+In order to enter the bootloader, hold switch #6 while plugging in the USB cable. The LED will stay on to indicate that it's in DFU mode.
+
+Flashing example for this keyboard:
 
     make nullbitsco/scramble:default
 
