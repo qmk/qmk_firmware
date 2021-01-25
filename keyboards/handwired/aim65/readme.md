@@ -1,6 +1,6 @@
 # Hi-Tek AIM-65
 
-![Hi-Tek AIM-65 Keyboard](https://imgur.com/7Gam1f2.jpg)
+![Hi-Tek AIM-65 Keyboard](https://imgur.com/7Gam1f2l.jpg)
 
 The keboard assembly that came with the Rockwell AIM-65, a microcomputer from the '70s [Wikipedia article](https://en.wikipedia.org/wiki/AIM-65)
 
