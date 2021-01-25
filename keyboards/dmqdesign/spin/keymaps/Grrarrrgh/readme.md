@@ -23,15 +23,13 @@
 * 1 - ], [, Mute
 * 2 - Opacity/Fill/Flow (with Shift modifier) +3%, -3%, Next Document (CTRL+TAB)
 * 3 - Next layer, Previous layer, Numberpad layer
-* Note that the opacity/fill/flow functionality cannot read the current value from Photoshop, instead a value of 60% is chosen as the start point 
-* (when the keypad is connected)and for each detent turn cw that value is increased by 3, rememberred, and sent as a keypress. Turning anti-cw 
-* reduces the value by 3 and sends as a keypress. ie on first use it will **always** set the opacity/fill/flow to 60% and increase/decrease form there.  
+* Note that the opacity/fill/flow functionality cannot read the current value from Photoshop, instead a value of 60% is chosen as the start point (when the keypad is connected)and for each detent turn cw that value is increased by 3, rememberred, and sent as a keypress. Turning anti-cw  reduces the value by 3 and sends as a keypress. ie on first use it will **always** set the opacity/fill/flow to 60% and increase/decrease form there.  
 <br />
 
 * Fifth layer is arrow keys (aiming to merge these into another layer).  Encoders as numberpad.  
 <br />
 
-* Sixth layer is Destiny 2 macros for lazy people (not implimented yet becasue timed macros).  Encoders as numberpad.  
+* Sixth layer is Destiny 2 macros for lazy Guardians (not implimented yet becasue timed macros).  Encoders as numberpad.  
 <br />
 <br />
 
