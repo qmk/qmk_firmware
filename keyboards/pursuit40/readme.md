@@ -1,6 +1,6 @@
 # Pursuit40
 
-![Pursuit40](https://i.imgur.com/Ay3k75t.jpg)
+![Pursuit40](https://i.imgur.com/Ay3k75tl.jpg)
 
 The Pursuit40 PCB is a modified layout Panc40 by Alex Panc. It's similar to traditional ortho but the bottom row keys are larger than 1u. 
 
