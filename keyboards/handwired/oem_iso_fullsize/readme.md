@@ -1,4 +1,4 @@
-# miteclado
+# oem_iso_fullsize
 
 Backlight pins  A1, A2, A7, B5, E3, E4
 space led negative -|> R88 Pin A7

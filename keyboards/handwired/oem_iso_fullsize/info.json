@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "oem_iso_handwire",
+    "keyboard_name": "oem_iso_fullsize",
     "url": "https://github.com/andresteare/qmk_firmware",
     "maintainer": "andresteare",
     "width": 22.5,
