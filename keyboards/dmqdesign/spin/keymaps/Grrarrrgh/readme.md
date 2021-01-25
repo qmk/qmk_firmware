@@ -9,7 +9,9 @@
 * Encoders (CW, !CW, Press):
 1. VolUp, VolDn, Mute
 1. ScrollUp, ScrollDn, Reset
-1. Next layer, Previous layer, Photoshop layer\
+1. Next layer, Previous layer, Photoshop layer
+<br />
+<br />
 
 
 * Second layer is RGB control layer. Encoders as numberpad.
