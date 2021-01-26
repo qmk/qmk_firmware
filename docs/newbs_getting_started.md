@@ -114,7 +114,7 @@ You will need to install WSL. Follow the instructions [here](https://docs.micros
 
 #### Installation
 
-You will need to install the `QMK WSL` distro. The latest release is available at <https://github.com/zvecr/qmk_distro_wsl/releases/latest>.
+You will need to install the `QMK WSL` distro. The latest release is available at <https://github.com/qmk/qmk_distro_wsl/releases/latest>.
 
 ###  ** FreeBSD **
 
