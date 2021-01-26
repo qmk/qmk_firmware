@@ -59,6 +59,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 enum custom_keycodes {
   MAC = SAFE_RANGE,
   WIN,
+  M_PSCR,
 };
 
 // Key Macro
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,XXXXXXX,KC_MUTE,XXXXXXX,KC_P1,  KC_P2,  KC_P3,  KC_P4,  XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,KC_GRV, KC_BSLS,KC_RBRC,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,       KC_BSPC,
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_SCLN,KC_NLCK,KC_ESC, KC_QUOT,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,    KC_ENT,
-        KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_PSCR,KC_INS, KC_HOME,XXXXXXX,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_UP,  SFT_SLS,
+        KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   M_PSCR,KC_INS, KC_HOME,XXXXXXX,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_UP,  SFT_SLS,
         KC_CAPS,KC_CAPS,KC_LALT,XXXXXXX,KC_LGUI,SP_LOW, SP_LOW, KC_P0,  KC_DEL, KC_END, KC_PENT,SP_RAI, SP_RAI, KC_RCTL,KC_LEFT,KC_DOWN,KC_RGHT
     ),
     [_WIN] = LAYOUT(
@@ -150,6 +151,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WIN);
+            }
+            return false;
+            break;
+        case M_PSCR: // Mac's advanced screen capture
+            if (record->event.pressed) {
+                tap_code16(LSFT(LGUI(KC_5)));
             }
             return false;
             break;
