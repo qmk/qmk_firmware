@@ -1,2 +1,2 @@
-RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
-AUDIO_ENABLE = no          # Audio output
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+AUDIO_ENABLE = yes          # Audio output
