@@ -33,7 +33,7 @@
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                        OS_LALT, OS_LGUI,                                                TG_GAME, TG_DBLO, \
                                 OS_LGUI, KC_GRV,                                        OS_RGUI,  \
-                                         KC_SPC,  _______,                     KC_ENT,  \
+                                         KC_SPC,  TT(_MOUSE),                     KC_ENT,  \
                                          BK_LWER, MO(_MOUSE),      MO(_MOUSE), DL_RAIS  \
   )
 #define LAYOUT_5x6_right_trackball_base_wrapper(...)       LAYOUT_5x6_right_trackball_base(__VA_ARGS__)
@@ -149,12 +149,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,    KC_NUKE, _______
     ),
 };
-// clang-format off
-
+// clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
-static uint16_t mouse_timer = 0;
-static uint16_t mouse_debounce_timer = 0;
+static uint16_t mouse_timer           = 0;
+static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
 
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
@@ -164,7 +163,7 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
             layer_on(_MOUSE);
         }
     }
-    if (timer_elapsed(mouse_debounce_timer) > 125 || layer_state_is(_GAMEPAD) ) {
+    if (timer_elapsed(mouse_debounce_timer) > 125 || layer_state_is(_GAMEPAD)) {
         mouse_report->x = x;
         mouse_report->y = y;
     }
@@ -177,11 +176,33 @@ void matrix_scan_keymap(void) {
     }
 }
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode){
+bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case TT(_MOUSE): {
+            if (record->event.pressed) {
+                mouse_keycode_tracker++;
+            } else {
+#    if TAPPING_TOGGLE != 0
+
+                static bool tap_toggling = false;
+                if (record->tap.count == TAPPING_TOGGLE) {
+                    tap_toggling ^= 1;
+#if TAPPING_TOGGLE == 1
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
+#else
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
+#endif
+                } else {
+                    mouse_keycode_tracker--;
+                }
+#    endif
+            }
+            mouse_timer = timer_read();
+            break;
+        }
         case MO(_MOUSE):
         case DPI_CONFIG:
-        case KC_MS_UP...KC_MS_WH_RIGHT:
+        case KC_MS_UP ... KC_MS_WH_RIGHT:
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
             break;
@@ -196,14 +217,15 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
-
 #ifdef OLED_DRIVER_ENABLE
 void oled_driver_render_logo(void) {
+    // clang-format off
     static const char PROGMEM raw_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,128,192,192,224, 96,112, 48, 56, 24, 12, 12, 30, 12,128,  0,  0,  0,  0,  0,  0,  0,  0,128,192,224,240, 56, 28, 14,  7,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,128,128,128,128,128,  0,  0,128, 64,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,128,  0,  0,  0,  0,128,128,192,192, 96, 96, 48, 16,  0,  0,  0,  0,  0,  0,  0,  0,  0,
         0,  0,  0,  0,  0, 16, 48, 48,112,120,120,124,124,126, 62, 63, 63, 59, 59, 57, 57, 56, 56, 56, 56, 56, 56, 56, 60, 56, 24,143,223,248,124,190,223,247,251,253,254,239,115, 59, 27, 31,239,247,255,126,111,111,111,111,109,189,225,249, 63, 63, 57,121,121,125,237,237,205,199,199,135,199,227,224,248,126, 63, 55, 51, 59, 27, 25, 25, 13,237,255,191,199,231,227,240,124,222,231,251, 62, 63,252,224,248, 62,207,243,252, 63, 31, 31, 60,126,118,243,227,129,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 32, 48, 24, 30, 15,  3,  1,  0,  0,  0,  1,  3,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  7,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,225,121, 62, 31,  7,  1,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  0,  0,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  3,  2,  6,  4,  8, 24, 16, 48, 32, 96,  0,  0,  0,  0,  0,
     };
+    // clang-format on
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
     oled_set_cursor(0, 3);
 }
