@@ -6,33 +6,22 @@ Compiled for: Qwerty with arrows on Base
 This version of Qwerty puts arrows on Base, and assumes the 'arrow' hardware key.
 
 You have to manually set *#define `MORE_KEY__ARROW`* in `./user_config.h`, 
-When not compiled with ‛Arrow’ hardware key, Base will not contain ‛Down arrow’.
-You do however not have to worry about what to set the additional hardware key to.
-This will default to Down Arrow on Base.
+If not compiled with ‛Arrow’ hardware key, Base will not contain ‛Down arrow’.
+
+You do not have to worry about what to set the additional hardware key to, on
+the Base layer. This will be set to Down Arrow, to complete that arrow cluster.
 
 
-Weighing the options
-====================
+Is arrows on Base efficient ?
+=============================
 
-     Summary: The regular Qwerty compile option probably provides superior arrow access.
+This variation of Qwerty is not necessarily the recommended version of
+Qwerty for a board with the additional ‛Arrow’ hardware key.
+The regular Qwerty compile option can provide good arrow access. 
 
-This variation of Qwerty is not necessarily the recommended version
-of Qwerty for a board with the additional ‛Arrow’ hardware key. Use
-this compile option with caution, because this is a costly trade-off
-for marginal benefits.
-
-For all compile cases, this and regular Qwerty included: you already
-have a hold key to the `_MOV` (movement) layer under what is colloqually
-known as the ‛left space bar’, which leads to convenient arrow keys
-in the home row, and there are Left and Right arrow keys on the Base layer
-(non repeating).
-
-Since regular Qwerty with the ‛Arrow’ key arrow cluster, also affords arrows
-in the same spot, putting arrow legend keycaps there will be functional, without
-the need to put arrows directly on the Base layer.
-
-Putting directional arrow keys on the Base layer will cost you several keys on 
-the Base layer: hold to layer `_RAR` (power, media, etc. layer), GUI, and ‛/?’. 
+Putting directional arrow keys on the Base layer will cost you several
+keys on the Base layer: hold to layer `_RAR` (power, media, etc. layer),
+GUI, and ‛/?’.
 
 • The ‛/?’ key is displaced to the `_NSY` (numbers & symbols) layer, and is not 
   in the default spot for a Qwerty layout.
@@ -44,31 +33,13 @@ the Base layer: hold to layer `_RAR` (power, media, etc. layer), GUI, and ‛/?�
   right shift toggle, which is on a short timer.
 
 
-Recommended strategy
-====================
+Have it both ways
+=================
 
-If you are a 10 fingers typist, look first if you can make things work
-with regular Qwerty.  If you find that you are constantly using the
-toggle to the `_MOV` layer to reach the arrow cluster at the right /
-close-in corner of the board, you could start thinking about making
-that faster by using this “Qwerty with arrows on Base” variety,
-if the cost of loosing/displacing keys does not bother you.
-
-If you are not a 10 finger typist, arrows on Base could be a better
-option for you.
-
-
-Going caveman with space age tools
-==================================
-
-Most people prefer mini keyboards, because you can leave your hands at the
-home row. It is a faster and more certain way of typing. While on 100%
-keyboards you may have to clumsily reach over for all kinds of keys,
-including the arrow cluster, this is not something you would want to
-replicate on a superior keyboard.
-
-Don't use your precious 40% keyboard to dig holes in the ground, my man. 
-100% keyboards are made for that job. That is why they are so big. 
+You could compile regular Qwerty on one of the Base pairs (‛Default’ or 
+‛Alternate’), and Qwerty _with Arrows on Base_ on the other. That way
+you can switch to see what works for you. You could leave it like
+that, and choose what you want depending on what you are doing. 
 
 
 Qwerty keymaps
@@ -88,7 +59,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Qwerty arrows on Base](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_basearrow_2000_va.jpg)
+![Minivan illustration Overview layers by key, Qwerty arrows on Base](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_basearrow_2000_vf.jpg)
 
 Layers (text)
 =============

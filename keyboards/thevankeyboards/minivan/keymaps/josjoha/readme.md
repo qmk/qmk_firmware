@@ -10,11 +10,11 @@ This keymap functions on Minivan hardware variants with 44, 45 and
 
 For some ‛common layers’ (numbers pad, movement), different versions can be chosen than shown just below in this by layer view:
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vd.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_ve.jpg)
 
 By key view:
 
-![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_ve.jpg)
+![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vf.jpg)
 
 *make example:*
 
@@ -121,7 +121,7 @@ Layer access
 ------------
 This graphic shows how layers are reached from the ‛Default base’ layer.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vd.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_ve.jpg)
 
 
 The upper/left key which returns to the base layer (letters) on the number layers
@@ -250,7 +250,7 @@ Layer: `_ACC`
 ![Minivan layout Image DRA](http://socialism.nl/misc/minivan/minivan_dra_layer_vc.jpg)
 Layer: `_DRA`
 
-![Minivan layout Image BON](http://socialism.nl/misc/minivan/minivan_bon_layer_vb.jpg)
+![Minivan layout Image BON](http://socialism.nl/misc/minivan/minivan_bon_layer_vc.jpg)
 Layer: `_BON`
 
 ![Minivan layout Image FUN](http://socialism.nl/misc/minivan/minivan_fun_layer_vb.jpg)
@@ -715,7 +715,7 @@ Remarks. ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                    -*-  <|>                                            //(toggle) on _FUN
      BASE  ‛ 🛠  ’ ⬆   ¤ 🄯   ∑ ©   ‰ ‱   | ★ ٭   😊 ⍨  ×  ⃰   √     ⁻ ⁺    Bksp
-     xxx   ① ⬅   ② ⬇   ③ ➡   ④ ┏   ⑤  ┓  | ⑥ ┃   ⑦ ┇   ⑧ ╋   ⑨     ⓪ ∞    — ≈     // — is a dash (larger)
+     `~    ① ⬅   ② ⬇   ③ ➡   ④ ┏   ⑤  ┓  | ⑥ ┃   ⑦ ┇   ⑧ ╋   ⑨     ⓪ ∞    — ≈     // — is a dash (larger)
      LSht  ‹     ›     ÷     ☞ ┗   ≠  ┛  | ✗ ┣   ✓ ┫   ⚠     «     »      RSht
      -------------------------------------------------------------------------
                   Left  ___   ___   Ent  | Spc   ___   ___   Right
@@ -740,7 +740,7 @@ hand (left) is used on the 2nd layer, it becomes ‛›’ in one layer,
 and ‛」’ in another. These are all brace related symbols, opening
 and closing next to each other.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_va.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_vb.jpg)
 
 `_ACC` layer:
 

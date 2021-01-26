@@ -35,10 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
-             ☐ _BON layer must have `~ on home row, furthest left, to provide uncluttered repeating versions.
-               This requires many graphics files to be updated.
-             ☑ Qwerty with arrows on top (could be a good pair with regular Qwerty)
-               ☐ by key graphic (postponed due to _BON change)
+             ☑ _BON layer must have `~ on home row, furthest left, to provide uncluttered repeating versions.
+             ☑ Qwerty with arrows on top
+               ☑ by key graphic
              ☐ Workman layout
              ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
              ☐ Qwertz (                   "                             "                        )
@@ -1551,7 +1550,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                    -*-  <|>
      BASE  ‛ 🛠  ’ ⬆   ¤ 🄯   ∑ ©   ‰ ‱   | ★ ٭   😊 ⍨  ×  ⃰   √     ⁻ ⁺    Bksp
-     xxx   ① ⬅   ② ⬇   ③ ➡   ④ ┏   ⑤  ┓  | ⑥ ┃   ⑦ ┇   ⑧ ╋   ⑨     ⓪ ∞    — ≈    // — is a dash (larger), not hyphen
+     `~    ① ⬅   ② ⬇   ③ ➡   ④ ┏   ⑤  ┓  | ⑥ ┃   ⑦ ┇   ⑧ ╋   ⑨     ⓪ ∞    — ≈    // — is a dash (larger), not hyphen
      LSht  ‹     ›     ÷     ☞ ┗   ≠  ┛  | ✗ ┣   ✓ ┫   ⚠     «     »      RSht
      -------------------------------------------------------------------------
      Left  ___   ___   Ent  | Spc   ___   ___   Right
@@ -1563,7 +1562,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2      , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>    ,
 //                  ,           ,           ,           ,           ,         <|,>          ,           ,           ,           ,           ,           ,
         CTO_BASE    , XP_BON_AA , XP_BON_AB , XP_BON_AC , XP_BON_AD , XP_BON_AE , XP_BON_AF , XP_BON_AG , XP_BON_AH , XP_BON_AI , XP_BON_AJ , KC_BSPC   ,
-        XXXXXXX     , XP_BON_BA , XP_BON_BB , XP_BON_BC , XP_BON_BD , XP_BON_BE , XP_BON_BF , XP_BON_BG , XP_BON_BH , XP_BON_BI , XP_BON_BJ , XP_BON_BK ,
+        KC_GRV      , XP_BON_BA , XP_BON_BB , XP_BON_BC , XP_BON_BD , XP_BON_BE , XP_BON_BF , XP_BON_BG , XP_BON_BH , XP_BON_BI , XP_BON_BJ , XP_BON_BK ,
         KC_LSFT     , XP_BON_CA , XP_BON_CB , XP_BON_CC , XP_BON_CD , XP_BON_CE , XP_BON_CF , XP_BON_CG , XP_BON_CH , XP_BON_CI , XP_BON_CJ , KC_RSFT   ,
 //      -------------------------------------------------------------------------------------------------------------------------------------------------
         KC_LEFT 
