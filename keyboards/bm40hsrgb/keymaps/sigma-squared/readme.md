@@ -15,7 +15,7 @@ Sigma Squared is an adaptation & modification of the Layout [Miryoku](https://gi
 Sigma Squared modifies on **Miryoku** in the following ways:
 
 - Added the Mods to the outer most columns to be easily accessed while typing with the pinkies
-- Extended the **NUMBER** layer to include symbols on the right side to allow calcualtion to be done more easily without haveing to move between layers
+- Extended the **NUMBER** layer to include symbols on the right side to allow calcualtion to be typed more easily without haveing to move between layers
 - Added a **GAME** layer to be used for gaming that emulates a more standard keyboard that most games expect
   - moves *left shift* and *left ctrl* down
   - *esc* moved to top left
@@ -44,9 +44,9 @@ Sigma Squared modifies on **Miryoku** in the following ways:
 
 Tap the layer keys to use the black legends, hold them to activate the corresponding layer.
 
-The Shortcut keys can be modified to suit your needs, or change them in you OS to match the keys.
+The Shortcut keys can be modified to suit your needs, or change them in your OS to match the keys.
 
-If you are using MacOS I recommend swapping your *Ctrl* and *Cmd* keys in the system preferences
+If you are using MacOS I recommend swapping your *Ctrl* and *Cmd* keys in system preferences
 
 ![img](https://i.imgur.com/xA1xkex.png)
 
