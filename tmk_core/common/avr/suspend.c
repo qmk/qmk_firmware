@@ -179,9 +179,6 @@ void suspend_wakeup_init(void) {
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     is_suspended = false;
     if (rgblight_enabled) {
-#    ifdef BOOTLOADER_TEENSY
-        wait_ms(10);
-#    endif
         rgblight_enable_noeeprom();
     }
     rgblight_timer_enable();
