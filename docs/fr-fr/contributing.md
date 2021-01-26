@@ -23,7 +23,7 @@ Merci de garder ceci en tête:
 
 # Aperçu du projet
 
-QMK est majoritairement écrit en C, avec quelques fonctions et parties spécifiques écrites en C++. Il est destiné aux processeurs intégrés que l'on trouve dans des clavier, particulièrement AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) et ARM ([ChibiOS](https://www.chibios.com)). Si vous maîtrisez déjà la programmation sur Arduino, vous trouverez beaucoup de concepts et de limitations familiers. Une expérience préalable avec les Arduino n'est pas nécessaire à contribuer avec succès à QMK.
+QMK est majoritairement écrit en C, avec quelques fonctions et parties spécifiques écrites en C++. Il est destiné aux processeurs intégrés que l'on trouve dans des clavier, particulièrement AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) et ARM ([ChibiOS](https://www.chibios.org)). Si vous maîtrisez déjà la programmation sur Arduino, vous trouverez beaucoup de concepts et de limitations familiers. Une expérience préalable avec les Arduino n'est pas nécessaire à contribuer avec succès à QMK.
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 

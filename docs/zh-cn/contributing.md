@@ -23,7 +23,7 @@
 
 # 项目概况
 
-Q酱很大一部分是用C语言组成的，不过有一小部分特性是C++的。怎么说呢，都是我的一部分，两个我都爱。Q酱一般是在键盘上的嵌入式处理器那里工作的，尤其与AVR([LUFA](https://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](https://www.chibios.com))两小哥哥搭配，干活不累，嘻嘻。如果您精通Arduino的话您会发现很多熟悉的概念，但也有点不爽，因为您以前的经验可能没法用来帮助Q酱。
+Q酱很大一部分是用C语言组成的，不过有一小部分特性是C++的。怎么说呢，都是我的一部分，两个我都爱。Q酱一般是在键盘上的嵌入式处理器那里工作的，尤其与AVR([LUFA](https://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](https://www.chibios.org))两小哥哥搭配，干活不累，嘻嘻。如果您精通Arduino的话您会发现很多熟悉的概念，但也有点不爽，因为您以前的经验可能没法用来帮助Q酱。
 
 <!-- 需要修正: 这里放些学习C语言的资源。另外感谢修正的小可爱。谢谢您了。-->
 
