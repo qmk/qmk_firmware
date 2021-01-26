@@ -17,4 +17,4 @@
 #define KC_VAI RGB_VAI
 
 //define layers
-enum layers { BASE, MEDR, NAVR, NSSL, NSL, FUNL, GAME, SECGAME};
+enum layers {BASE, MEDR, NAVR, NSSL, NSL, FUNL, GAME, SECGAME};

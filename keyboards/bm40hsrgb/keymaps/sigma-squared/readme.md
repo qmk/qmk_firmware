@@ -1,6 +1,6 @@
 # Sigma Squared
 
-Sigma Squared is an adaptation & modifikation of the Layout [Miryoku](https://github.com/manna-harbour/qmk_firmware/blob/miryoku/users/manna-harbour_miryoku/miryoku.org#miryoku-) by *manna-harbour*
+Sigma Squared is an adaptation & modification of the Layout [Miryoku](https://github.com/manna-harbour/qmk_firmware/blob/miryoku/users/manna-harbour_miryoku/miryoku.org#miryoku-) by *manna-harbour*
 
 *manna-harbour* lays out the general principles of the layout as follows:
 
@@ -23,6 +23,18 @@ Sigma Squared modifies on **Miryoku** in the following ways:
 - Added Shortcuts to the bottom row to reduce the amount of keycombos needed to use commonly needed features
   - Mission Control, Screenshot, Cycling Apps & Windows
 - Added LED indicators to display what layer is currently active (only active while RGB is turned on)
+
+
+
+### Flashing
+
+- to directly flash to board:
+
+  `qmk flash -kb bm40hsrgb -km sigma-squared`
+
+- to only compile:
+
+  `qmk compile -kb bm40hsrgb -km sigma-squared`
 
 
 

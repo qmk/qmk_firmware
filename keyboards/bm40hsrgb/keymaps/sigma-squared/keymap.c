@@ -6,6 +6,8 @@
 
 void rgb_matrix_indicators_user(void) {
 
+//game indicators
+
 if(IS_LAYER_ON(GAME)) {
   rgb_matrix_set_color(11, 0, 4, 5);
 }
@@ -14,7 +16,7 @@ if(IS_LAYER_ON(SECGAME)) {
   rgb_matrix_set_color(11, 5, 0, 0);
 }
 
-
+//layer indicators
 
 if(IS_LAYER_ON(NAVR)) {
   rgb_matrix_set_color(40, 0, 4, 5);
@@ -96,6 +98,8 @@ if(IS_LAYER_ON(NSSL)) {
   rgb_matrix_set_color(29, 0, 5, 0.19);
 
 }
+
+//capslock leds
 
 if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
     rgb_matrix_set_color_all(5, 1.56, 0);
