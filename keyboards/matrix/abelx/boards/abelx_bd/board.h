@@ -25,8 +25,8 @@
 /*
  * Board identifier.
  */
-#define BOARD_MATRIX_NOAH
-#define BOARD_NAME                  "Matrix 8XV2.0 ADD keyboard"
+#define BOARD_MATRIX_ABELX
+#define BOARD_NAME                  "Matrix ABELX keyboard"
 #define BOARD_OTG_NOVBUSSENS
 
 /*
