@@ -1,4 +1,4 @@
-# MechMerlin's Userspace v0.2.0
+# MechMerlin's Userspace v0.4.0
 
 This is a collection of my most commonly used QMK features. 
 
