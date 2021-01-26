@@ -32,10 +32,7 @@
 
 static uint8_t i2c_address;
 
-I2CDriver *drivers[2] = {
-    &I2CD1,
-    &I2CD2
-};
+I2CDriver *drivers[I2C_COUNT];
 
 static const I2CConfig i2cconfig = {
 #if defined(USE_I2CV1_CONTRIB)
@@ -44,6 +41,10 @@ static const I2CConfig i2cconfig = {
     I2C1_OPMODE,
     I2C1_CLOCK_SPEED,
     I2C1_DUTY_CYCLE,
+#else
+    // This configures the I2C clock to 400khz assuming a 72Mhz clock
+    // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
+    STM32_TIMINGR_PRESC(I2C1_TIMINGR_PRESC) | STM32_TIMINGR_SCLDEL(I2C1_TIMINGR_SCLDEL) | STM32_TIMINGR_SDADEL(I2C1_TIMINGR_SDADEL) | STM32_TIMINGR_SCLH(I2C1_TIMINGR_SCLH) | STM32_TIMINGR_SCLL(I2C1_TIMINGR_SCLL), 0, 0
 #endif
 };
 
@@ -59,51 +60,63 @@ static i2c_status_t chibios_to_qmk(const msg_t* status) {
     }
 }
 
-__attribute__((weak)) void i2c_init(void) {
-    static bool is_initialised = false;
-    if (!is_initialised) {
-        is_initialised = true;
-
+__attribute__((weak)) void i2c_init(I2CDriver *driver, ioportid_t scl_port, ioportid_t sda_port, iopadid_t scl_pad, iopadid_t sda_pad) {
+    static uint8_t index = 0;
+    if (index < I2C_COUNT) {
+        
         // Try releasing special pins for a short time
-        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
-        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
-
-        palSetPadMode(I2C2_SCL_BANK, I2C2_SCL, PAL_MODE_INPUT);
-        palSetPadMode(I2C2_SDA_BANK, I2C2_SDA, PAL_MODE_INPUT);
+        palSetPadMode(scl_port, scl_pad, PAL_MODE_INPUT);
+        palSetPadMode(sda_port, sda_pad, PAL_MODE_INPUT);
 
         chThdSleepMilliseconds(10);
 
-        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, I2C1_SCL_PAL_MODE);
-        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, I2C1_SDA_PAL_MODE);
+#if defined(USE_GPIOV1)
+        palSetPadMode(scl_port, scl_pad, I2C1_SCL_PAL_MODE);
+        palSetPadMode(sda_port, sda_pad, I2C1_SDA_PAL_MODE);
+#else
+        palSetPadMode(scl_port, scl_pad, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+        palSetPadMode(sda_port, sda_pad, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+#endif
 
-        palSetPadMode(I2C2_SCL_BANK, I2C2_SCL, I2C2_SCL_PAL_MODE);
-        palSetPadMode(I2C2_SDA_BANK, I2C2_SDA, I2C2_SDA_PAL_MODE);
+        drivers[index++] = driver;
     }
 }
 
 i2c_status_t i2c_start(uint8_t index, uint8_t address) {
+    if(index >= I2C_COUNT) {
+        return I2C_STATUS_ERROR;
+    }
     i2c_address = address;
-    i2cStart((drivers[index]), &i2cconfig);
+    i2cStart(drivers[index], &i2cconfig);
     return I2C_STATUS_SUCCESS;
 }
 
 i2c_status_t i2c_transmit(uint8_t index, uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
+    if(index >= I2C_COUNT) {
+        return I2C_STATUS_ERROR;
+    }
     i2c_address = address;
-    i2cStart((drivers[index]), &i2cconfig);
-    msg_t status = i2cMasterTransmitTimeout((drivers[index]), (i2c_address >> 1), data, length, 0, 0, TIME_MS2I(timeout));
+    i2cStart(drivers[index], &i2cconfig);
+    msg_t status = i2cMasterTransmitTimeout(drivers[index], (i2c_address >> 1), data, length, 0, 0, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
 i2c_status_t i2c_receive(uint8_t index, uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
+    if(index >= I2C_COUNT) {
+        return I2C_STATUS_ERROR;
+    }
     i2c_address = address;
-    i2cStart((drivers[index]), &i2cconfig);
-    msg_t status = i2cMasterReceiveTimeout((drivers[index]), (i2c_address >> 1), data, length, TIME_MS2I(timeout));
+    i2cStart(drivers[index], &i2cconfig);
+    msg_t status = i2cMasterReceiveTimeout(drivers[index], (i2c_address >> 1), data, length, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
 i2c_status_t i2c_writeReg(uint8_t index, uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+    if(index >= I2C_COUNT) {
+        return I2C_STATUS_ERROR;
+    }
     i2c_address = devaddr;
-    i2cStart((drivers[index]), &i2cconfig);
+    i2cStart(drivers[index], &i2cconfig);
 
     uint8_t complete_packet[length + 1];
     for (uint8_t i = 0; i < length; i++) {
@@ -111,15 +124,22 @@ i2c_status_t i2c_writeReg(uint8_t index, uint8_t devaddr, uint8_t regaddr, const
     }
     complete_packet[0] = regaddr;
 
-    msg_t status = i2cMasterTransmitTimeout((drivers[index]), (i2c_address >> 1), complete_packet, length + 1, 0, 0, TIME_MS2I(timeout));
+    msg_t status = i2cMasterTransmitTimeout(drivers[index], (i2c_address >> 1), complete_packet, length + 1, 0, 0, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
 i2c_status_t i2c_readReg(uint8_t index, uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+    if(index >= I2C_COUNT) {
+        return I2C_STATUS_ERROR;
+    }
     i2c_address = devaddr;
-    i2cStart((drivers[index]), &i2cconfig);
-    msg_t status = i2cMasterTransmitTimeout((drivers[index]), (i2c_address >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
+    i2cStart(drivers[index], &i2cconfig);
+    msg_t status = i2cMasterTransmitTimeout(drivers[index], (i2c_address >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
-void i2c_stop(void) { i2cStop(&I2CD1); i2cStop(&I2CD2); }
+void i2c_stop(uint8_t index) {
+    if(index < I2C_COUNT) {
+        i2cStop(drivers[index]);
+    }
+}

@@ -121,7 +121,7 @@ bool IS31FL3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffe
     return true;
 }
 
-void IS31FL3733_init(uint8_t addr, uint8_t sync) {
+void IS31FL3733_init(uint8_t bus, uint8_t addr, uint8_t sync) {
     // In order to avoid the LEDs being driven with garbage data
     // in the LED driver's PWM registers, shutdown is enabled last.
     // Set up the mode and other settings, clear the PWM registers,
@@ -129,46 +129,30 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
     // Sync is passed so set it according to the datasheet.
 
     // Unlock the command register.
-    IS31FL3733_write_register(0, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-    IS31FL3733_write_register(1, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-
+    IS31FL3733_write_register(bus, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
     // Select PG0
-    IS31FL3733_write_register(0, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL);
-    IS31FL3733_write_register(1, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL);
+    IS31FL3733_write_register(bus, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL);
     // Turn off all LEDs.
     for (int i = 0x00; i <= 0x17; i++) {
-        IS31FL3733_write_register(0, addr, i, 0x00);
-        IS31FL3733_write_register(1, addr, i, 0x00);
+        IS31FL3733_write_register(bus, addr, i, 0x00);
     }
-
     // Unlock the command register.
-    IS31FL3733_write_register(0, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-    IS31FL3733_write_register(1, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-
+    IS31FL3733_write_register(bus, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
     // Select PG1
-    IS31FL3733_write_register(0, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
-    IS31FL3733_write_register(1, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
+    IS31FL3733_write_register(bus, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
     // Set PWM on all LEDs to 0
     // No need to setup Breath registers to PWM as that is the default.
     for (int i = 0x00; i <= 0xBF; i++) {
-        IS31FL3733_write_register(0, addr, i, 0x00);
-        IS31FL3733_write_register(1, addr, i, 0x00);
+        IS31FL3733_write_register(bus, addr, i, 0x00);
     }
-
     // Unlock the command register.
-    IS31FL3733_write_register(0, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-    IS31FL3733_write_register(1, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-
+    IS31FL3733_write_register(bus, addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
     // Select PG3
-    IS31FL3733_write_register(0, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
-    IS31FL3733_write_register(1, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
+    IS31FL3733_write_register(bus, addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
     // Set global current to maximum.
-    IS31FL3733_write_register(0, addr, ISSI_REG_GLOBALCURRENT, 0xFF);
-    IS31FL3733_write_register(1, addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3733_write_register(bus, addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Disable software shutdown.
-    IS31FL3733_write_register(0, addr, ISSI_REG_CONFIGURATION, (sync << 6) | 0x01);
-    IS31FL3733_write_register(1, addr, ISSI_REG_CONFIGURATION, (sync << 6) | 0x01);
-
+    IS31FL3733_write_register(bus, addr, ISSI_REG_CONFIGURATION, (sync << 6) | 0x01);
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);
 }
