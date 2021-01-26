@@ -2,9 +2,9 @@
 
 Custom handwired ortho5x14 keyboard.
 
-Keyboard Maintainer: [Richard Nunez](https://github.com/Antebios)  
-Hardware Supported: Custom handwired 5x14 ortho keyboard  
-Hardware Availability: 
+* Keyboard Maintainer: [Richard Nunez](https://github.com/Antebios)
+* Hardware Supported: Custom handwired 5x14 ortho keyboard
+* Hardware Availability: 
 
 Make example for this keyboard (after setting up your build environment):
 

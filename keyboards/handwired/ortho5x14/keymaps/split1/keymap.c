@@ -36,13 +36,15 @@ enum {
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _ALT 1
-#define _CTRL 2
-#define _LOWER 3
-#define _RAISE 4
-#define _MOUSE 5
-#define _ADJUST 16
+enum custom_layer {
+  _QWERTY,
+  _ALT,
+  _CTRL,
+  _LOWER,
+  _RAISE,
+  _MOUSE,
+  _ADJUST,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
