@@ -17,7 +17,9 @@
 #pragma once
 
 // Tempo Placeholder
-#define TEMPO_DEFAULT 100
+#ifndef TEMPO_DEFAULT
+#    define TEMPO_DEFAULT 100
+#endif
 
 #define SONG(notes...) \
     { notes }
@@ -60,8 +62,9 @@
 #define TIMBRE_25 0.250f
 #define TIMBRE_50 0.500f
 #define TIMBRE_75 0.750f
-#define TIMBRE_DEFAULT TIMBRE_50
-
+#ifndef TIMBRE_DEFAULT
+#    define TIMBRE_DEFAULT TIMBRE_50
+#endif
 // Notes - # = Octave
 
 #ifdef __arm__
