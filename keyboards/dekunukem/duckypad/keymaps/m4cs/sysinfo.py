@@ -26,9 +26,22 @@ import psutil
 import GPUtil
 import datetime
 
-h = hid.device()
-h.open(0xFEED, 0x0B91)
-h.set_nonblocking(1)
+vendor_id  = 0x444E
+product_id = 0x4450
+
+usage_page = 0xFF60
+usage      = 0x61
+
+device_interfaces = hid.enumerate(vendor_id, product_id)
+raw_hid_interfaces = [i for i in device_interfaces if i['usage_page'] == usage_page and i['usage'] == usage]
+
+if len(raw_hid_interfaces) == 0:
+    return None
+
+interface = hid.device()
+interface.open_path(raw_hid_interfaces[0]['path'])
+print("Manufacturer: %s" % interface.get_manufacturer_string())
+print("Product: %s" % interface.get_product_string())
 time.sleep(0.05)
 while True:
     time.sleep(0.75)
@@ -61,4 +74,4 @@ while True:
     data.append(int(now_min[0]))
     data.append(int(now_min[1]))
     data.append(13)
-    h.write(data)
+    interface.write(data)
