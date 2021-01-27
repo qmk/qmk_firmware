@@ -81,8 +81,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 
 #    define I2C_BACKLIGHT_START offsetof(I2C_slave_buffer_t, backlight_level)
 #    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
-#    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, mmatrix)
-#    define I2C_SYNC_TIME_START offsetof(I2C_slave_buffer_t, sync_timer)
+#    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_REAL_MODS_START offsetof(I2C_slave_buffer_t, real_mods)
 #    define I2C_WEAK_MODS_START offsetof(I2C_slave_buffer_t, weak_mods)
 #    define I2C_ONESHOT_MODS_START offsetof(I2C_slave_buffer_t, oneshot_mods)
@@ -90,9 +89,9 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
 #    define I2C_MOUSE_X_START offsetof(I2C_slave_buffer_t, mouse_x)
 #    define I2C_MOUSE_Y_START offsetof(I2C_slave_buffer_t, mouse_y)
-#    define I2C_OLED_ON_START offsetof(I2C_slave_buffent, oled_on)
-#    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffent, t_layer_state)
-#    define I2C_DEFAULT_LAYER_STATE_START offsetof(I2C_slave_buffent, t_default_layer_state)
+#    define I2C_OLED_ON_START offsetof(I2C_slave_buffer_t, oled_on)
+#    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_layer_state)
+#    define I2C_DEFAULT_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_default_layer_state)
 
 #    define TIMEOUT 100
 
@@ -244,7 +243,7 @@ void transport_slave(matrix_row_t matrix[]) {
         layer_state_set(i2c_buffer->t_layer_state);
     }
     if (default_layer_state != i2c_buffer->t_default_layer_state) {
-        default_layer_state_set(i2c_buffer->t_default_layer_state);
+        default_layer_set(i2c_buffer->t_default_layer_state);
     }
 
 #    ifdef OLED_DRIVER_ENABLE
@@ -281,9 +280,6 @@ typedef struct _Serial_m2s_buffer_t {
 #        ifndef NO_ACTION_ONESHOT
     uint8_t       oneshot_mods;
 #        endif
-#    endif
-#    ifndef DISABLE_SYNC_TIMER
-    uint32_t      sync_timer;
 #    endif
 #    ifdef BACKLIGHT_ENABLE
     uint8_t       backlight_level;
