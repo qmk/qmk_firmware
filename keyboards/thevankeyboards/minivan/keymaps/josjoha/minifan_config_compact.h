@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       
 //#define BASE_QWERTY__DEF_BASE 
 //#define BASE_QWERTY__ALT_BASE
-//#define BASE_QWERTY_ARROW__DEF_BASE
-//#define BASE_QWERTY_ARROW__ALT_BASE
+//#define BASE_QWERTY_BASEARROW__DEF_BASE
+//#define BASE_QWERTY_BASEARROW__ALT_BASE
   #define BASE_DVORAK__DEF_BASE
 //#define BASE_DVORAK__ALT_BASE
 //#define BASE_DVORAK_DESCRAMBLE__ALT_BASE 

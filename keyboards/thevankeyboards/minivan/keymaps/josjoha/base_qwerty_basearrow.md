@@ -7,9 +7,13 @@ This version of Qwerty puts arrows on Base, and assumes the 'arrow' hardware key
 
 You have to manually set *#define `MORE_KEY__ARROW`* in `./user_config.h`, 
 If not compiled with ‛Arrow’ hardware key, Base will not contain ‛Down arrow’.
-
 You do not have to worry about what to set the additional hardware key to, on
 the Base layer. This will be set to Down Arrow, to complete that arrow cluster.
+
+The option `QWERTY_BASEARROW_HARMONIZE` in `./base_qwerty_basearrow.h` is set
+by default, causing the key ‛/?’ in the _regular_ Qwerty layout to _also_ be
+located in the same spot as in this ‛Qwerty with Arrows on Base’ layout. See
+the header file `./base_qwerty_basearrow.h` for more details.
 
 
 Is arrows on Base efficient ?

@@ -84,9 +84,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */ 
 
 // Process user configuration wrt ‛Default’ or ‛Alternative’ spot for this layout.
-# if   defined(BASE_QWERTY_ARROW__DEF_BASE)
+# if   defined(BASE_QWERTY_BASEARROW__DEF_BASE)
     [ _DEF_BASE ] = LAYOUT_redefined (
-# elif defined(BASE_QWERTY_ARROW__ALT_BASE)
+# elif defined(BASE_QWERTY_BASEARROW__ALT_BASE)
     [ _ALT_BASE ] = LAYOUT_redefined (
 # endif
 
@@ -176,9 +176,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
 // Process user configuration wrt ‛Default’ or ‛Alternative’ spot for this layout.
-# if   defined(BASE_QWERTY_ARROW__DEF_BASE)
+# if   defined(BASE_QWERTY_BASEARROW__DEF_BASE)
     [ _DEF_NSY ] = LAYOUT_redefined (
-# elif defined(BASE_QWERTY_ARROW__ALT_BASE)
+# elif defined(BASE_QWERTY_BASEARROW__ALT_BASE)
     [ _ALT_NSY ] = LAYOUT_redefined (
 # endif
 

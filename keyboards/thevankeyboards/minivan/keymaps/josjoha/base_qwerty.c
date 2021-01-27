@@ -164,7 +164,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
 //                         , -*-     ,         ,         ,         ,       <|,>        ,         ,         ,         ,         ,                    ,
         CTO_BASE           , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL             ,
-        LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
+        LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0
+// Harmonizes with ‛Qwerty Base Arrow’, so that if both are compiled, the user isn't
+// messing up this key on this Qwerty layout, which has to be different in the other Qwerty.
+# ifdef QWERTY_BASEARROW_HARMONIZE
+                                                                                                                               , KC_SLSH            , // Same as in ‛Qwerty Base Arrow’
+# else
+                                                                                                                               , RCTL_T ( KC_GRV )  , // Default
+# endif
         LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_MINS , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_UNDS , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) 

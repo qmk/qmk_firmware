@@ -564,7 +564,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 # endif
     
 //                         * Qwerty arrows on Base *
-# if defined(BASE_QWERTY_ARROW__DEF_BASE) || defined(BASE_QWERTY_ARROW__ALT_BASE)
+# if defined(BASE_QWERTY_BASEARROW__DEF_BASE) || defined(BASE_QWERTY_BASEARROW__ALT_BASE)
 #     include "./base_qwerty_basearrow.c" // Qwerty + arrows
 # endif
 

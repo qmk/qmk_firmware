@@ -99,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * when uploaded to QMK, so that it gives the most commonly used layout: Qwerty with Numpad,
         * basic 44 Minivan keys).
         */
-//#define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
+  #define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
 #ifndef MINIFAN_CONFIG_COMPACT // (don't alter this)
 
       
@@ -137,8 +137,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //          • Qwerty with Base arrows
         //                   (provides direct access to arrows)
         //  _Activate_ one of these two, _remove_ the other.
-//#define BASE_QWERTY_ARROW__DEF_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Default’ spot
-//#define BASE_QWERTY_ARROW__ALT_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Alternate’ spot
+//#define BASE_QWERTY_BASEARROW__DEF_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Default’ spot
+//#define BASE_QWERTY_BASEARROW__ALT_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Alternate’ spot
         //
         //          • Dvorak
         //                  (a regular Dvorak layout)
@@ -494,6 +494,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                         * Numpad *
 # if defined(BASE_NUMPAD__ALT_BASE)
 #     include "./base_numpad.h" // Numbers pad header
+# endif
+//                         * Qwerty Base Arrow *
+# if defined(BASE_QWERTY_BASEARROW__DEF_BASE) || defined(BASE_QWERTY_BASEARROW__ALT_BASE)
+#     include "./base_qwerty_basearrow.h" // Your Keymap header/configuration file.
 # endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.h #include here:

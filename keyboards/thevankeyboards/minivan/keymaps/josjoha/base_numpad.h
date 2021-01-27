@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                 Configuration:
 // --------------------------------------v---------------------------------------
 
-        /*                      ➡ Number pad Configuration⬅
+        /*                      ➡ Number pad Configuration ⬅
          *
          * This concerns this Base layer in the shape of a numerical key pad, not the numerical
          * key pad layer which is part of the common layer system, which is defined and configured
@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
 
 
-        /*          • Removing the numbers pad _PAD layer
+        /*                      ➡ Removing the numbers pad _PAD layer ⬅
          *
          * You may have no use for this common layer, if you have a numerical
          * keypad on the Alternate Base already.
