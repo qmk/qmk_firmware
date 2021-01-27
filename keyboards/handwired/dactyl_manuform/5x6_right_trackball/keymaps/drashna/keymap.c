@@ -88,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MOUSE] = LAYOUT_5x6_right_trackball(
         _______, _______, _______, _______, _______, _______,                     DPI_CONFIG, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,                        KC_WH_U, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, _______, _______,
-        _______, _______, _______, _______, _______, _______,                        _______, KC_BTN4, KC_BTN5, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
+        _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
                                             _______, _______,                                 _______,
                                                      _______, _______,               _______,
@@ -98,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAMEPAD] = LAYOUT_5x6_right_trackball(
         KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,                        DPI_CONFIG, _______, _______, _______, _______, _______,
         KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,                           KC_WH_U, _______, _______, _______, _______, _______,
-        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                           KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, _______, _______,
-        KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_H,                           _______, KC_BTN4, KC_BTN5, _______, _______, _______,
+        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                           KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
+        KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_H,                           KC_BTN6, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           KC_I,    KC_T,                                                               TG_GAME, KC_NO,
                                             KC_V,    KC_O,                                    _______,
                                                      KC_SPC,  KC_P,                  _______,
