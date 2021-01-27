@@ -24,6 +24,8 @@ QUANTUM_SRC += \
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
     CONSOLE_ENABLE = yes
+else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
+    OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
