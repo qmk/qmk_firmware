@@ -208,8 +208,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
 	
 	if (is_keyboard_master())
 	{
-		
-		current_layer = biton32(state);
 		serial_m2s_buffer.current_layer = biton32(state);
 		
 		// If left half, do the LED toggle thing

@@ -21,11 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
-#define PRODUCT_ID      0x1146
+#define PRODUCT_ID      0x2146
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         Levinson
-#define DESCRIPTION     Split 40 percent ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up

@@ -16,7 +16,7 @@
 
 #include "quantum.h"
 #include "analog.h"
-#include "ch.h"
+#include <ch.h>
 #include <hal.h>
 
 #if !HAL_USE_ADC

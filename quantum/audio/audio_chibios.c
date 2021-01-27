@@ -15,8 +15,8 @@
  */
 
 #include "audio.h"
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #include <string.h>
 #include "print.h"
