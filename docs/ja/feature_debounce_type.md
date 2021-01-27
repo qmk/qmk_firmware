@@ -1,8 +1,8 @@
 # 接点バウンス / 接点チャタリング
 
 <!---
-  original document: 0.10.33:docs/feature_debounce_type.md
-  git diff 0.10.33 HEAD -- docs/feature_debounce_type.md | cat
+  original document: 0.11.53:docs/feature_debounce_type.md
+  git diff 0.11.53 HEAD -- docs/feature_debounce_type.md | cat
 -->
 
 メカニカルスイッチは押した状態と放した状態の間の移行が単純ではないことが良くあります。
