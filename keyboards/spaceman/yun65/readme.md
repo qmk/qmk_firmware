@@ -1,9 +1,10 @@
 # Yun65
 
-65% Keyboard
+65% Keyboard designed by Saurabh
 
 Keyboard Maintainer: [Spaceman](https://github.com/Spaceman)
-Hardware Availability: N/A
+
+Hardware Availability: TBA
 
 Make example for this keyboard (after setting up your build environment):
 
