@@ -29,6 +29,9 @@ In your keymap you can use the following keycodes to map key presses to mouse ac
 |`KC_MS_BTN3`    |`KC_BTN3`|Press button 3   |
 |`KC_MS_BTN4`    |`KC_BTN4`|Press button 4   |
 |`KC_MS_BTN5`    |`KC_BTN5`|Press button 5   |
+|`KC_MS_BTN6`    |`KC_BTN6`|Press button 6   |
+|`KC_MS_BTN7`    |`KC_BTN7`|Press button 7   |
+|`KC_MS_BTN8`    |`KC_BTN8`|Press button 8   |
 |`KC_MS_WH_UP`   |`KC_WH_U`|Move wheel up    |
 |`KC_MS_WH_DOWN` |`KC_WH_D`|Move wheel down  |
 |`KC_MS_WH_LEFT` |`KC_WH_L`|Move wheel left  |
