@@ -16,32 +16,32 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = Macro_LAYOUT(
         KC_NLCK, KC_PAST, KC_PSLS, KC_BSPC,
-        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-        KC_P4,   KC_P5,   KC_P6,   KC_PMNS,
+        KC_P7,   KC_P8,   KC_P9,   KC_PMNS,
+        KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-        KC_P0,   KC_PDOT, MO(1)
+        KC_P0,   KC_PDOT, TG(1),   RGB_TOG
     ),
-    [1] = LAYOUT(
+    [1] = Macro_LAYOUT(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         KC_MPRV, KC_MPLY, KC_MNXT, _______,
         KC_VOLD, KC_MUTE, KC_VOLU, _______,
-        _______, MO(2),   _______
+        _______, TG(2),   _______, _______
     ),
-    [2] = LAYOUT(
+    [2] = Macro_LAYOUT(
         RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______
+        BL_TOGG, BL_ON,   BL_INC,  BL_STEP,
+        _______, BL_OFF,  BL_DEC,  BL_BRTG,
+        _______, _______, _______, _______
     ),
-    [3] = LAYOUT(
+    [3] = Macro_LAYOUT(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, _______, _______
+        _______, _______, _______, _______
     )
 };

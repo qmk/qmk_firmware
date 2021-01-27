@@ -5,7 +5,7 @@
     "width": 4,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "Macro_LAYOUT": {
             "layout": [
                 {"label":"K00 (B7,C6)", "x":0, "y":0},
                 {"label":"K01 (B7,C7)", "x":1, "y":0},
@@ -22,10 +22,11 @@
                 {"label":"K30 (D1,C6)", "x":0, "y":3},
                 {"label":"K31 (D1,C7)", "x":1, "y":3},
                 {"label":"K32 (D1,D4)", "x":2, "y":3},
-                {"label":"K33 (D1,D6)", "x":3, "y":3, "h":2},
+                {"label":"K33 (D1,D6)", "x":3, "y":3},
                 {"label":"K40 (D5,C6)", "x":0, "y":4},
                 {"label":"K41 (D5,C7)", "x":1, "y":4},
-                {"label":"K42 (D5,D4)", "x":2, "y":4}
+                {"label":"K42 (D5,D4)", "x":2, "y":4},
+                {"label":"K43 (D5,D6)", "x":3, "y":4}
             ]
         }
     }
