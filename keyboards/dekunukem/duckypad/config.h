@@ -38,9 +38,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 15
 #define DRIVER_LED_TOTAL 15
 
+#ifdef RGB_MATRIX_ENABLE
+
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #define RGB_MATRIX_STARTUP_HUE 221
+
+
+#endif
 
 #define I2C1_SCL 8
 #define I2C1_SDA 9
