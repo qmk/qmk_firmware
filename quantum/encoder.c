@@ -81,12 +81,35 @@ void encoder_init(void) {
     }
 #endif
 
+#ifdef ENC_PUP
     for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         setPinInputHigh(encoders_pad_a[i]);
         setPinInputHigh(encoders_pad_b[i]);
 
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
+#elif ENC_PDOWN
+    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+        setPinInputLow(encoders_pad_a[i]);
+        setPinInputLow(encoders_pad_b[i]);
+
+        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+    }
+#elif ENC_FLOAT
+    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+        setPinInput(encoders_pad_a[i]);
+        setPinInput(encoders_pad_b[i]);
+
+        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+    }
+#else
+    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+        setPinInputHigh(encoders_pad_a[i]);
+        setPinInputHigh(encoders_pad_b[i]);
+
+        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+    }
+#endif
 
 #ifdef SPLIT_KEYBOARD
     thisHand = isLeftHand ? 0 : NUMBER_OF_ENCODERS;
