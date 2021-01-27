@@ -1,9 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
@@ -31,5 +28,5 @@ CUSTOM_MATRIX = lite        # Lite custom matrix
 SRC += matrix.c \
        bitc_led.c \
        big_led.c \
-       remote_kb.c \
-       tmk_core/common/uart.c
+       remote_kb.c
+QUANTUM_LIB_SRC += uart.c
