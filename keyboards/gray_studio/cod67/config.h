@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Gray Studio
 #define PRODUCT         COD67
-#define DESCRIPTION     60% custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
