@@ -36,7 +36,8 @@ device_interfaces = hid.enumerate(vendor_id, product_id)
 raw_hid_interfaces = [i for i in device_interfaces if i['usage_page'] == usage_page and i['usage'] == usage]
 
 if len(raw_hid_interfaces) == 0:
-    return None
+    print('Couldnt find any interfaces')
+    exit()
 
 interface = hid.device()
 interface.open_path(raw_hid_interfaces[0]['path'])
