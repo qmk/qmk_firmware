@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fox Lab
 #define PRODUCT         Leaf 60 Hotswap
-#define DESCRIPTION     A custom hotswap 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

@@ -131,7 +131,6 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define LED_DRIVER_ADDR_1 0b1110100
-#define I2C1_BANK GPIOB
 #define I2C1_SCL 8
 #define I2C1_SDA 9
 

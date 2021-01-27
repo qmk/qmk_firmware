@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    g Heavy Industries 
 #define PRODUCT         ErgoTaco
-#define DESCRIPTION     QMK keyboard firmware for ErgoTaco
 
 /* key matrix size */
 #define MATRIX_ROWS 12
