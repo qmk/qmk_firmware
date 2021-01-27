@@ -64,6 +64,7 @@ extern uint32_t oled_timer;
 #    define OLED_RENDER_USER_LAYR "Layr"
 #    define OLED_RENDER_USER_NUKE "Nuke"
 
+#    define OLED_RENDER_WPM_COUNTER "WPM: "
 #else
 #    define OLED_RENDER_KEYLOGGER "KLogr"
 
@@ -104,5 +105,7 @@ extern uint32_t oled_timer;
 #    define OLED_RENDER_USER_ANIM "Anim"
 #    define OLED_RENDER_USER_LAYR "Layr"
 #    define OLED_RENDER_USER_NUKE "Nuke"
+
+#    define OLED_RENDER_WPM_COUNTER "WPM: "
 
 #endif

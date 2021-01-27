@@ -176,6 +176,8 @@ void matrix_scan_keymap(void) {
     }
 }
 
+bool tap_toggling = false;
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case TT(_MOUSE): {
@@ -184,7 +186,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             } else {
 #    if TAPPING_TOGGLE != 0
 
-                static bool tap_toggling = false;
                 if (record->tap.count == TAPPING_TOGGLE) {
                     tap_toggling ^= 1;
 #if TAPPING_TOGGLE == 1

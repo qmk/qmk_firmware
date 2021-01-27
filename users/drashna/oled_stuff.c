@@ -15,6 +15,7 @@
  */
 
 #include "drashna.h"
+#include <stdio.h>
 
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
@@ -24,7 +25,7 @@
 // #    endif
 #endif
 
-uint32_t oled_timer                       = 0;
+uint32_t        oled_timer                       = 0;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
 static uint16_t log_timer                        = 0;
 
@@ -230,11 +231,20 @@ void render_bootmagic_status(void) {
 #endif
 }
 
+#if defined(POINTING_DEVICE_ENABLE)
+extern bool tap_toggling;
+#endif
+
 void render_user_status(void) {
     oled_write_P(PSTR(OLED_RENDER_USER_NAME), false);
     oled_write_P(PSTR(" "), false);
+#if  defined(RGB_MATRIX_ENABLE)
     oled_write_P(PSTR(OLED_RENDER_USER_ANIM), userspace_config.rgb_matrix_idle_anim);
     oled_write_P(PSTR(" "), false);
+#elif defined(POINTING_DEVICE_ENABLE)
+    oled_write_P(PSTR("MLCK"), tap_toggling);
+    oled_write_P(PSTR(" "), false);
+#endif
     oled_write_P(PSTR(OLED_RENDER_USER_LAYR), userspace_config.rgb_layer_change);
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_USER_NUKE), userspace_config.nuke_switch);
@@ -253,6 +263,19 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
+void render_wpm(void) {
+#ifdef WPM_ENABLE
+#    ifdef OLED_DISPLAY_128X64
+    char wpm_counter[4];
+#    else
+    char wpm_counter[6];
+#    endif
+    snprintf(wpm_counter, sizeof(wpm_counter), "%3d", get_current_wpm());
+    oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
+    oled_write_ln(wpm_counter, false);
+#endif
+}
+
 void render_status_secondary(void) {
 #if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
@@ -262,16 +285,16 @@ void render_status_secondary(void) {
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
     render_keylogger_status();
-
 }
-// clang-format on
 
 void render_status_main(void) {
 #if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
+    render_wpm();
+#else
+    render_default_layer_state();
 #endif
     /* Show Keyboard Layout  */
-    render_default_layer_state();
     // render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
     render_user_status();
