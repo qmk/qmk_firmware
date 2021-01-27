@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
 #define PRODUCT         kbd8x
-#define DESCRIPTION     Custom TKL Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6

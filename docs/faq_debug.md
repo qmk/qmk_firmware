@@ -2,7 +2,94 @@
 
 This page details various common questions people have about troubleshooting their keyboards.
 
-# Debug Console
+## Debugging :id=debugging
+
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+
+```c
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+```
+
+## Debugging Tools
+
+There are two different tools you can use to debug your keyboard.
+
+### Debugging With QMK Toolbox
+
+For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can be used to display debug messages from your keyboard.
+
+### Debugging With hid_listen
+
+Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
+
+## Sending Your Own Debug Messages
+
+Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions.md). Doing so is pretty simple. Start by including `print.h` at the top of your file:
+
+```c
+#include "print.h"
+```
+
+After that you can use a few different print functions:
+
+* `print("string")`: Print a simple string.
+* `uprintf("%s string", var)`: Print a formatted string
+* `dprint("string")` Print a simple string, but only when debug mode is enabled
+* `dprintf("%s string", var)`: Print a formatted string, but only when debug mode is enabled
+
+## Debug Examples
+
+Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+
+### Which matrix position is this keypress?
+
+When porting, or when attempting to diagnose pcb issues, it can be useful to know if a keypress is scanned correctly. To enable logging for this scenario, add the following code to your keymaps `keymap.c`
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+#endif 
+  return true;
+}
+```
+
+Example output
+```text
+Waiting for device:.......
+Listening:
+KL: kc: 169, col: 0, row: 0, pressed: 1
+KL: kc: 169, col: 0, row: 0, pressed: 0
+KL: kc: 174, col: 1, row: 0, pressed: 1
+KL: kc: 174, col: 1, row: 0, pressed: 0
+KL: kc: 172, col: 2, row: 0, pressed: 1
+KL: kc: 172, col: 2, row: 0, pressed: 0
+```
+
+### How long did it take to scan for a keypress?
+
+When testing performance issues, it can be useful to know the frequency at which the switch matrix is being scanned. To enable logging for this scenario, add the following code to your keymaps `config.h`
+
+```c
+#define DEBUG_MATRIX_SCAN_RATE
+```
+
+Example output
+```text
+  > matrix scan frequency: 315
+  > matrix scan frequency: 313
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+```
 
 ## `hid_listen` Can't Recognize Device
 When debug console of your device is not ready you will see like this:
@@ -11,7 +98,7 @@ When debug console of your device is not ready you will see like this:
 Waiting for device:.........
 ```
 
-once the device is plugged in then *hid_listen* finds it you will get this message:
+Once the device is plugged in then *hid_listen* finds it you will get this message:
 
 ```
 Waiting for new device:.........................
@@ -20,129 +107,12 @@ Listening:
 
 If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes` in [Makefile]
 
-You may need privilege to access the device on OS like Linux.
-- try `sudo hid_listen`
+You may need privileges to access the device an OS like Linux. Try `sudo hid_listen`.
 
 ## Can't Get Message on Console
 Check:
 - *hid_listen* finds your device. See above.
-- Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- set `debug_enable=true`. See [Testing and Debugging](newbs_testing_debugging.md#debugging)
-- try using 'print' function instead of debug print. See **common/print.h**.
-- disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
-
-***
-
-# Miscellaneous
-## Safety Considerations
-
-You probably don't want to "brick" your keyboard, making it impossible
-to rewrite firmware onto it.  Here are some of the parameters to show
-what things are (and likely aren't) too risky.
-
-- If your keyboard map does not include RESET, then, to get into DFU
-  mode, you will need to press the reset button on the PCB, which
-  requires unscrewing the bottom.
-- Messing with tmk_core / common files might make the keyboard
-  inoperable
-- Too large a .hex file is trouble; `make dfu` will erase the block,
-  test the size (oops, wrong order!), which errors out, failing to
-  flash the keyboard, leaving it in DFU mode.
-  - To this end, note that the maximum .hex file size on Planck is
-    7000h (28672 decimal)
-
-```
-Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
-Creating load file for Flash: .build/planck_rev4_cbbrowne.hex                                       [OK]
-
-Size after:
-   text    data     bss     dec     hex filename
-      0   22396       0   22396    577c planck_rev4_cbbrowne.hex
-```
-
-  - The above file is of size 22396/577ch, which is less than
-    28672/7000h
-  - As long as you have a suitable alternative .hex file around, you
-    can retry, loading that one
-  - Some of the options you might specify in your keyboard's Makefile
-    consume extra memory; watch out for BOOTMAGIC_ENABLE,
-    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
-- DFU tools do /not/ allow you to write into the bootloader (unless
-  you throw in extra fruit salad of options), so there is little risk
-  there.
-- EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
-  firmware repeatedly and continually; that'll burn the EEPROM
-  eventually.
-
-## NKRO Doesn't work
-First you have to compile firmware with this build option `NKRO_ENABLE` in **Makefile**.
-
-Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode, in particular when you are in BIOS.
-
-If your firmware built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
-
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
-
-
-## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)
-Without reset circuit you will have inconsistent result due to improper initialize of the hardware. See circuit schematic of TPM754.
-
-- http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
-- http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
-
-
-## Can't Read Column of Matrix Beyond 16
-Use `1UL<<16` instead of `1<<16` in `read_cols()` in [matrix.h] when your columns goes beyond 16.
-
-In C `1` means one of [int] type which is [16 bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use [unsigned long] type with `1UL`.
-
-http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
-
-## Special Extra Key Doesn't Work (System, Audio Control Keys)
-You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
-
-```
-EXTRAKEY_ENABLE = yes          # Audio control and System control
-```
-
-## Wakeup from Sleep Doesn't Work
-
-In Windows check `Allow this device to wake the computer` setting in Power **Management property** tab of **Device Manager**. Also check BIOS setting.
-
-Pressing any key during sleep should wake host.
-
-## Using Arduino?
-
-**Note that Arduino pin naming is different from actual chip.** For example, Arduino pin `D0` is not `PD0`. Check circuit with its schematics yourself.
-
-- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
-
-Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
-
-## Enabling JTAG
-
-By default, the JTAG debugging interface is disabled as soon as the keyboard starts up. JTAG-capable MCUs come from the factory with the `JTAGEN` fuse set, and it takes over certain pins of the MCU that the board may be using for the switch matrix, LEDs, etc.
-
-If you would like to keep JTAG enabled, just add the following to your `config.h`:
-
-```c
-#define NO_JTAG_DISABLE
-```
-
-## USB 3 Compatibility
-I heard some people have a problem with USB 3 port, try USB 2 port.
-
-
-## Mac Compatibility
-### OS X 10.11 and Hub
-https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
-
-
-## Problem on BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles
-Some people reported their keyboard stops working on BIOS and/or after resume(power cycles).
-
-As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others.
-
-https://github.com/tmk/tmk_keyboard/issues/266
-https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
+- Enable debug by pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
+- Set `debug_enable=true`. See [Debugging](#debugging)
+- Try using `print` function instead of debug print. See **common/print.h**.
+- Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).

@@ -18,6 +18,6 @@ FAUXCLICKY_ENABLE = no     # Use buzzer to emulate clicky switches
 
 BOOTLOADER = atmel-dfu
 
-SPLIT_TRANSPORT = mirror
+# SPLIT_TRANSPORT = mirror
 
-TAP_DANCE_ENABLE = yes
+# TAP_DANCE_ENABLE = yes
