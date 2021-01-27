@@ -2,7 +2,7 @@
 
 ![cornelius](https://i.imgur.com/kGoUGZg.jpg)
 
-*Gasket mounted 40% column staggered keyboard*
+*Gasket mounted 40% column staggered keyboard manufactured by Yushakobo*
 
 * Keyboard Maintainer: [foostan](https://github.com/foostan/)
 * Hardware Supported: *Cornelius PCBs*
