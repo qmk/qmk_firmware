@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef CTRL_MOD
+// Modifier to use for Ctrl+<key> combinations
 #define CTRL_MOD KC_LGUI
 
 // place overrides here

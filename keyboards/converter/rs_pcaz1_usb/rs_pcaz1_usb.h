@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {  K2B ,  K2C ,  K2D ,  K3B ,  K3C ,  K49 ,  K4A ,  K4B  }, /*  @      [      ]      ;      :      ,      .      /   */ \
     {  K5C ,  K58 ,  K59 ,  K5A ,  K54 ,  K55 ,  K56 ,  K50  }, /*  np0    np1    np2    np3    np4    np5    np6    np7 */ \
     {  K51 ,  K52 ,  XXX ,  XXX ,  XXX ,  XXX ,  K5D ,  K57  }, /*  np8    np9                                npdot  np- */ \
-    {  XXX ,  XXX ,  XXX ,  XXX ,  XXX ,  XXX ,  XXX ,  XXX  }, \
+    {  XXX ,  XXX ,  XXX ,  XXX ,  XXX ,  XXX ,  XXX ,  XXX  }, /*                                                       */ \
     {  XXX ,  XXX ,  K0A ,  K0B ,  K0C ,  K0D ,  K0E ,  K0F  }  /*                ENC+   ENC-   ESHF+  ESHF-  ECTR+  ECTR-*/\
 }
 

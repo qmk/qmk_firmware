@@ -22,15 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x3333
 #define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         Rohde & Schwarz PCA-Z1 converter
+#define MANUFACTURER    Rohde & Schwarz
+#define PRODUCT         PCA-Z1 converter
 
 /* matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 8
-
-/* Modifier to use for Ctrl+key combinations */
-#define CTRL_MOD KC_LCTRL
 
 /* Serial(USART) configuration
  *     asynchronous, negative logic, 9600baud, no flow control

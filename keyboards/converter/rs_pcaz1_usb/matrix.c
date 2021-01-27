@@ -23,23 +23,13 @@ static matrix_row_t matrix[MATRIX_ROWS];
 
 static void register_key(uint8_t key);
 
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
 
-__attribute__ ((weak))
-void matrix_init_user(void) {
-}
+__attribute__((weak)) void matrix_init_user(void) {}
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
+__attribute__((weak)) void matrix_scan_user(void) {}
 
 inline
 uint8_t matrix_rows(void)
@@ -55,10 +45,10 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    debug_enable = true;
-    debug_matrix = true;
-    debug_keyboard = true;
-    debug_mouse = true;
+    // debug_enable = true;
+    // debug_matrix = true;
+    // debug_keyboard = true;
+    // debug_mouse = true;
 
     serial_init();
 
@@ -73,6 +63,7 @@ void matrix_init(void)
 
 uint8_t matrix_scan(void)
 {
+    bool matrix_has_changed = false;
 
     uint8_t code = 0;
     uint8_t new_code = 0;
@@ -124,9 +115,7 @@ uint8_t matrix_scan(void)
         // convert Ctrl + np0 - np9 to Ctrl + matrix pos 0x40 - 0x49
         new_code = code - 0xB0;
         new_mods = MOD_BIT(CTRL_MOD);
-    }
-
-    else {
+    } else {
         switch(code) {
             case 0x1B:  // ESC
                 new_code = 0x2E;
@@ -314,6 +303,7 @@ uint8_t matrix_scan(void)
     }
 
     if (code != 0) {
+        matrix_has_changed = true;
         register_key(new_code);
         add_mods(new_mods);
         xprintf(">>> ASCII  : 0x%02X\n", code);
@@ -322,7 +312,7 @@ uint8_t matrix_scan(void)
 
     matrix_scan_quantum();
 
-    return 1;
+    return matrix_has_changed;
 }
 
 void matrix_print(void)
