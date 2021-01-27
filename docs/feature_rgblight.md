@@ -361,6 +361,7 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_step_noeeprom()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM) |
 |`rgblight_step_reverse()`                   |Change the mode to the previous RGB animation in the list of enabled RGB animations |
 |`rgblight_step_reverse_noeeprom()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM) |
+|`rgblight_reload_from_eeprom()`             |Reload the effect configuration (enabled, mode and color) from EEPROM |
 
 #### effects mode disable/enable
 |Function                                    |Description  |
