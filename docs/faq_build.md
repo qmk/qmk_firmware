@@ -17,7 +17,7 @@ or just:
 
 Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
 
-### Linux `udev` Rules
+### Linux `udev` Rules :id=linux-udev-rules
 
 On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or place [this file](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules) into `/etc/udev/rules.d/`.
 
