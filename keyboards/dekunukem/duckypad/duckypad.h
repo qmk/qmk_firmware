@@ -28,5 +28,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     k20, k21, k22, \
     k30, k31, k32, \
     k40, k41, k42, \
-    kDown, kUp \
-) {{k00, k01, k02, k10, k11, k12, k20, k21, k22, k30, k31, k32, k40, k41, k42, kDown, kUp}}
+    k43, k44 \
+) {{k00, k01, k02, k10, k11, k12, k20, k21, k22, k30, k31, k32, k40, k41, k42, k43, k44}}
