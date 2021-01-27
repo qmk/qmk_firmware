@@ -18,7 +18,10 @@
 
 #include "quantum.h"
 
-#define SPI_SS_PIN B0
+#if !defined(SPI_SS_PIN)
+#    define SPI_SS_PIN B0
+#endif
+
 #define SPI_SCK_PIN B1
 #define SPI_MOSI_PIN B2
 #define SPI_MISO_PIN B3

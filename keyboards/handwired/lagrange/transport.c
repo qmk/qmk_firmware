@@ -14,6 +14,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <spi_master.h>
+
 #include "quantum.h"
 #include "split_util.h"
 #include "timer.h"
@@ -78,14 +80,23 @@ bool transport_master(matrix_row_t matrix[]) {
      * while transmitting LED and layer states. */
 
     shake_hands(true);
-    writePinLow(SPI_SS_PIN);
+
+    spi_start(SPI_SS_PIN, 0, 0, 4);
 
     for (i = 0 ; i < sizeof(matrix_row_t[MATRIX_ROWS / 2]) ; i += 1) {
-        ((uint8_t *)matrix)[i] = transceive(i < sizeof(struct led_context) ?
-                                            ((uint8_t *)&context)[i] : 0);
+        spi_status_t x;
+
+        x = spi_write(i < sizeof(struct led_context) ?
+                      ((uint8_t *)&context)[i] : 0);
+
+        if (x == SPI_STATUS_TIMEOUT) {
+            return false;
+        }
+
+        ((uint8_t *)matrix)[i] = (uint8_t)x;
     }
 
-    writePinHigh(SPI_SS_PIN);
+    spi_stop();
 
     return true;
 }
@@ -130,13 +141,14 @@ void transport_slave(matrix_row_t matrix[]) {
 }
 
 void transport_master_init(void) {
+    /* We need to set the SS pin as output as the handshake logic
+     * above depends on it and the SPI master driver won't do it
+     * before we call spi_start(). */
+
     writePinHigh(SPI_SS_PIN);
     setPinOutput(SPI_SS_PIN);
-    setPinOutput(SPI_SCK_PIN);
-    setPinOutput(SPI_MOSI_PIN);
-    setPinInput(SPI_MISO_PIN);
 
-    SPCR = (_BV(SPE) | _BV(MSTR));
+    spi_init();
 
     shake_hands(true);
 }

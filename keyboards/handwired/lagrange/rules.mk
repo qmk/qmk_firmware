@@ -24,4 +24,4 @@ UNICODE_ENABLE = yes
 SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = custom
 
-SRC += transport.c
+SRC += transport.c spi_master.c
