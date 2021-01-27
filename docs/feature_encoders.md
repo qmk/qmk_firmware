@@ -48,6 +48,16 @@ If you are using different pinouts for the encoders on each half of a split keyb
 #define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
 ```
 
+## Configuring Input Pins
+
+Rarely, you may want to set the MCU pin hooked up to the encoder to use its internal pull-down or be left floating, instead of the default which is to use an internal pull-up. This is mainly relevant for non-mechanical encoders, such as optical or hall effect. These options can be configured by placing these `#define`s in your `config.h`:
+
+|Define         |Description                                                                                              |
+|---------------|---------------------------------------------------------------------------------------------------------|
+|`ENC_PUP`      |Toggles on the internal pull-up                                                                          |
+|`ENC_PDOWN `   |Toggles on the internal pull-down                                                                        |
+|`ENC_FLOAT`    |Leaves the pin as floating                                                                               |
+
 ## Callbacks
 
 The callback functions can be inserted into your `<keyboard>.c`:
