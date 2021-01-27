@@ -1,6 +1,6 @@
 /*
 
-Default Keymap for dekuNukem/duckyPad QMK firmware
+Via Keymap for dekuNukem/duckyPad QMK firmware
 
 Copyright (C) 2020 Max Bridgland
 
@@ -20,9 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#include <stdio.h>
 #include <unistd.h>
-#include <string.h>
 
 #define LOGO_SIZE 384
 
