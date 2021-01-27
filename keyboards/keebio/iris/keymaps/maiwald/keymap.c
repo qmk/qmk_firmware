@@ -3,17 +3,12 @@
 enum layers {
   _COLEMAK = 0,
   _EXTEND,
-  _SYMBOLS,
-  _NUMBERS
+  _SYMBOLS
 };
 
 enum custom_keycodes {
-  EXT_CTL = SAFE_RANGE,
-  EXT_ALT,
-  EXT_GUI,
-  EXT_SFT,
+  MY_COMM = SAFE_RANGE,
   MY_DOT,
-  MY_COMM,
   KC_AE,
   KC_OE,
   KC_UE,
@@ -52,32 +47,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB, KC_Q,  KC_W, KC_F, KC_P,   KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_UE,   KC_MINS,
       KC_ESC, CTL_A, KC_R, KC_S, KC_T,   KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   CTL_O,   KC_AE,
       KC_SZ,  KC_Z,  KC_X, KC_C, KC_D,   KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, KC_OE,
-                                 MY_GUI, OSM(MOD_LSFT), OSL(_NUMBERS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
+                                 MY_GUI, OSM(MOD_LSFT), OSL(_SYMBOLS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
       ),
 
   [_EXTEND] = LAYOUT(
       XXXXXXX, KC_BRID, KC_BRIU, RGB_TOG, RGB_VAD, RGB_VAI,                   KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX,
-      _______, XXXXXXX, XXXXXXX, VIM_ALT, XXXXXXX, XXXXXXX,                   KC_HOME, KC_PGUP, XXXXXXX, XXXXXXX, KC_DEL,  XXXXXXX,
-      _______, EXT_CTL, EXT_ALT, EXT_GUI, EXT_SFT, XXXXXXX,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                          _______, KC_BSPC, _______, _______, _______, _______
+      _______, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   XXXXXXX,                   KC_HOME, KC_PGUP, VIM_ALT, XXXXXXX, KC_DEL,  XXXXXXX,
+      _______, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   XXXXXXX,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_P0,   _______, RESET,   KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                          _______, _______, KC_LALT, _______, _______, _______
       ),
 
   [_SYMBOLS] = LAYOUT(
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, KC_EXLM, KC_LT,   KC_AT,   KC_GT,   KC_DLR,                    KC_QUOT, KC_LBRC, KC_UNDS, KC_RBRC, KC_EUR,  XXXXXXX,
+      XXXXXXX, KC_EXLM, KC_LT,   KC_AT,   KC_GT,   KC_DLR,                    KC_CIRC, KC_LBRC, KC_UNDS, KC_RBRC, KC_MINS, XXXXXXX,
       XXXXXXX, KC_BSLS, KC_LPRN, KC_DQUO, KC_RPRN, KC_HASH,                   KC_PERC, KC_LCBR, KC_PEQL, KC_RCBR, KC_PIPE, XXXXXXX,
-      XXXXXXX, XXXXXXX, KC_COLN, KC_ASTR, KC_PLUS, XXXXXXX, _______, _______, XXXXXXX, KC_AMPR, KC_CIRC, KC_TILD, KC_QUES, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_COLN, KC_ASTR, KC_PLUS, KC_EUR,  _______, _______, XXXXXXX, KC_AMPR, KC_QUOT, KC_TILD, KC_QUES, XXXXXXX,
                                           _______, KC_SPC,  _______, _______, _______, _______
       ),
-
-  [_NUMBERS] = LAYOUT(
-      RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS,                   XXXXXXX, KC_7,    KC_8,    KC_9,    KC_PAST, KC_PSLS,
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_PIPE,                   KC_PEQL, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PMNS,
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, _______, _______, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_COMM, KC_DOT,
-                                          _______, _______, _______, _______, KC_P0,   _______
-      )
 };
 
 void keyboard_post_init_user(void) {
@@ -93,9 +80,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case _SYMBOLS:
       rgblight_sethsv_noeeprom(HSV_RED);
       break;
-    case _NUMBERS:
-      rgblight_sethsv_noeeprom(HSV_GREEN);
-      break;
     default:
       rgblight_sethsv_noeeprom(0, 0, 0);
       break;
@@ -104,22 +88,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-static uint16_t one_shot_mod_mask = 0;
-static uint16_t ctl_timer, alt_timer, gui_timer, sft_timer;
-
-void handle_ex_mod(keyrecord_t *record, uint16_t mod, uint16_t *timer) {
-  if (record->event.pressed) {
-    *timer = record->event.time;
-    register_code(mod);
-  } else {
-    if (record->event.time - *timer <= TAPPING_TERM) {
-      one_shot_mod_mask ^= MOD_BIT(mod);
-    } else {
-      one_shot_mod_mask &= ~MOD_BIT(mod);
-    }
-    unregister_code(mod);
-  }
-}
 
 void handle_umlaut(uint16_t base_key, keyrecord_t *record, uint16_t mod_state, uint16_t one_shot_mod_state) {
   if (record->event.pressed) {
@@ -137,28 +105,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   uint16_t one_shot_mod_state = get_oneshot_mods();
 
   switch (keycode) {
-    case EXT_CTL:
-      handle_ex_mod(record, KC_LCTL, &ctl_timer);
-      return false;
-    case EXT_ALT:
-      handle_ex_mod(record, KC_LALT, &alt_timer);
-      return false;
-    case EXT_GUI:
-      handle_ex_mod(record, KC_LGUI, &gui_timer);
-      return false;
-    case EXT_SFT:
-      handle_ex_mod(record, KC_LSFT, &sft_timer);
-      return false;
-    case EXT_SPC:
-      if (record->event.pressed) {
-        clear_oneshot_mods();
-      } else {
-        if (one_shot_mod_mask) {
-          set_oneshot_mods(one_shot_mod_mask);
-        }
-      }
-      one_shot_mod_mask = 0;
-      return true;
     case KC_ESC:
       if (one_shot_mod_state) {
         clear_oneshot_mods();
