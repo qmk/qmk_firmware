@@ -22,15 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0B91
-#define DEVICE_VER      0x0001
+#define VENDOR_ID       0x444E // "DN"
+#define PRODUCT_ID      0x4450 // "DP"
+#define DEVICE_VER      0x0001 // 1.0
 #define MANUFACTURER dekuNukem
 #define PRODUCT duckyPad
-<<<<<<< HEAD
-#define DESCRIPTION Open Source Keypad
-=======
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
+#define DESCRIPTION duckyPad
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 17
@@ -54,13 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PAL_MODE 1
 
 #define I2C1_OPMODE OPMODE_I2C
-<<<<<<< HEAD
-#define I2C1_CLOCK_SPEED 400000
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-=======
 #define I2C1_CLOCK_SPEED 100000
 #define I2C1_DUTY_CYCLE STD_DUTY_CYCLE
->>>>>>> 0f5f6a6a75b26d06ae5ee2b726eb97a67d04d325
 
 #define OLED_DISPLAY_ADDRESS 0x3C
 #define OLED_DISPLAY_128X64
