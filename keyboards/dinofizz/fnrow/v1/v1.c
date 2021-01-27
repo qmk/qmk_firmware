@@ -14,3 +14,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "v1.h"
+
+void keyboard_pre_init_user(void) {
+    // Immediately set the LED pin as an output and set it ON
+    palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPad(GPIOA, 15);
+}
+
+void keyboard_post_init_user(void) {
+    // Blink the LED so we know everything is running OK
+    // Finish with LED OFF
+    palClearPad(GPIOA, 15);
+    wait_ms(100);
+    palSetPad(GPIOA, 15);
+    wait_ms(100);
+    palClearPad(GPIOA, 15);
+}
