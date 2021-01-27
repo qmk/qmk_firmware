@@ -296,6 +296,19 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`              |Disables `RGB_MATRIX_SOLID_SPLASH`             |
 |`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
+### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
+
+This effect will color the RGB matrix according to a heatmap of recently pressed
+keys. Whenever a key is pressed its "temperature" increases as well as that of
+its neighboring keys. The temperature of each key is then decreased
+automatically every 25 milliseconds by default.
+
+In order to change the delay of temperature decrease define
+`RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 

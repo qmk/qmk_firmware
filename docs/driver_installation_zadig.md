@@ -71,7 +71,7 @@ The device name here is the name that appears in Zadig, and may not be what the 
 |`caterina`   |Arduino Micro                 |`2A03:0037`   |usbser |
 |`bootloadHID`|HIDBoot                       |`16C0:05DF`   |HidUsb |
 |`USBasp`     |USBasp                        |`16C0:05DC`   |libusbK|
-|`apm32-dfu`  |???                           |`314B:0106`   |WinUSB |
+|`apm32-dfu`  |APM32 DFU ISP Mode            |`314B:0106`   |WinUSB |
 |`stm32-dfu`  |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
 |`kiibohd`    |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
 |`stm32duino` |Maple 003                     |`1EAF:0003`   |WinUSB |

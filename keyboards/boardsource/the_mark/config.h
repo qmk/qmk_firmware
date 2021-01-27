@@ -53,6 +53,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 24    // Number of LEDs
 #endif
 
+/* RGB matrix support */
+#ifdef RGB_MATRIX_ENABLE
+#define DRIVER_LED_TOTAL 24 // Number of LEDs
+#endif
+
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */

@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         Eon40
-#define DESCRIPTION     A 40% ortholinear PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 4

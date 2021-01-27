@@ -18,4 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
+#define PRODUCT_ID      0x0080
 #define DEVICE_VER      0x0083 //S for solderable version
