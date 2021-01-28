@@ -1,4 +1,19 @@
-#include "usb_descriptor.h"
+/* Copyright 2021 datafx
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "solderable.h"
 #include "quantum.h"
 
@@ -8,10 +23,7 @@
 #define ledNumSP (80+7)
 #define ledCapSP (80+8)
 
-
 void backlight_init_ports(void) {
-    // Optional - runs on startup
-    //   Usually you want to configure pins here
     setPinOutput(Lseg0);
     setPinOutput(Lseg1);
     setPinOutput(Lseg2);
@@ -37,14 +49,9 @@ void backlight_init_ports(void) {
 }
 
 void backlight_set(uint8_t level) {
-    // Optional - runs on level change
-    //   Usually you want to respond to the new value
 }
 
 void backlight_task(void) {
-    // Optional - runs periodically
-    //   Note that this is called in the main keyboard loop,
-    //   so long running actions here can cause performance issues
     // This is a temporary workaround to get the status LEDs working until we can figure out the LED matrix
     led_t host_leds = host_keyboard_led_state();
     if (host_leds.scroll_lock) {
@@ -65,6 +72,5 @@ void backlight_task(void) {
     } else {
     writePinLow(Lcom8);
     }
-
 }
 

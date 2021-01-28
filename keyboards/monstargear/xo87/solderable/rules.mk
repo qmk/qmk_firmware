@@ -22,5 +22,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 RAW_ENABLE = no
 BACKLIGHT_DRIVER = custom
-#LED_MATRIX_ENABLE = yes
-#LED_MATRIX_DRIVER = custom
