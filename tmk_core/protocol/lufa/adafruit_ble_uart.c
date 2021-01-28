@@ -6,6 +6,7 @@
 #include "protocol/serial.h"
 #include "debug.h"
 #include "timer.h"
+#include "progmem.h"
 
 #define TIMEOUT 100
 #define SAMPLE_BATTERY
@@ -286,7 +287,7 @@ static bool process_queue_item(struct queue_item *item) {
     }
 }
 
-bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys) {
+void adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys) {
     struct queue_item item;
 
     item.queue_type   = QTKeyReport;
@@ -301,31 +302,31 @@ bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nk
         item.key.keys[5] = nkeys >= 5 ? keys[5] : 0;
 
         if (!enqueue(&send_queue, &item)) {
-            return false;
+            return;
         }
 
         if (nkeys <= 6) {
-            return true;
+            return;
         }
 
         nkeys -= 6;
         keys += 6;
     }
 
-    return true;
+    return;
 }
 
-bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration) {
+void adafruit_ble_send_consumer_key(uint16_t usage) {
     struct queue_item item;
 
     item.queue_type = QTConsumer;
-    item.consumer   = keycode;
+    item.consumer   = usage;
 
-    return enqueue(&send_queue, &item);
+    enqueue(&send_queue, &item);
 }
 
 #ifdef MOUSE_ENABLE
-bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
+void adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
     struct queue_item item;
 
     item.queue_type        = QTMouseMove;
@@ -335,7 +336,7 @@ bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan,
     item.mousemove.pan     = pan;
     item.mousemove.buttons = buttons;
 
-    return enqueue(&send_queue, &item);
+    enqueue(&send_queue, &item);
 }
 #endif
 
