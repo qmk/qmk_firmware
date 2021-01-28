@@ -167,7 +167,9 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
         mouse_report->x = x;
         mouse_report->y = y;
     }
+#ifdef OLED_DRIVER_ENABLE
     if (x || y) oled_timer = timer_read32();
+#endif
 }
 
 void matrix_scan_keymap(void) {
