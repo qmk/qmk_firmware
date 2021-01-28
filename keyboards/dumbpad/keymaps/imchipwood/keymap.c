@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    | Play/Pause  | TT(SUB) |    0    |    .    |  Enter  |
    \-----------------------------------------------------'
   */
-  [_BASE] = LAYOUT(
+  [_BASE] = LAYOUT_default(
                    KC_P7,     KC_P8,   KC_P9,    KC_BSPC, 
                    KC_P4,     KC_P5,   KC_P6,    KC_KP_PLUS, 
                    KC_P1,     KC_P2,   KC_P3,    KC_KP_ASTERISK, 
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    |  MO(_DBG)   |         |         |         |    =    |
    \-----------------------------------------------------'
   */
-  [_SUB] = LAYOUT(
+  [_SUB] = LAYOUT_default(
                  _______,     _______,     _______,      KC_NLCK, 
                  _______,     _______,     _______,      KC_KP_MINUS, 
                  _______,     _______,     _______,      KC_KP_SLASH, 
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    |             |         |         |         |         |
    \-----------------------------------------------------'
   */
-  [_DBG] = LAYOUT(
+  [_DBG] = LAYOUT_default(
                  _______,     _______,     _______,      RESET, 
                  _______,     _______,     _______,      _______, 
                  _______,     _______,     _______,      _______, 
