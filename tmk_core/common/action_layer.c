@@ -34,11 +34,15 @@ __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t sta
 static void default_layer_state_set(layer_state_t state) {
     state = default_layer_state_set_kb(state);
     static bool has_run = false;
-    if (has_run) { 
+#ifdef SPLIT_KEYBOARD // if split, only run on master
+    if (has_run && is_keyboard_master())
+#else     // so this only writes to eeprom after first run, as it's run at startup, by default.
+    if (has_run)
+#endif
+    {
         eeconfig_update_default_layer(state);
-    } else {
-        has_run = true;
     }
+    has_run = true;
     debug("default_layer_state: ");
     default_layer_debug();
     debug(" to ");
