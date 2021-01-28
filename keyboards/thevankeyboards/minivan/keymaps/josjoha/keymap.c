@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
              ☑ _BON layer must have `~ on home row, furthest left, to provide uncluttered repeating versions.
              ☑ Qwerty with arrows on top
                ☑ by key graphic
-             ☐ Workman layout
+             ☑ Workman layout
              ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
              ☐ Qwertz (                   "                             "                        )
              ☐ It seems fun to have a user friendly front end to compile the available variations of this keymap.
@@ -568,10 +568,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #     include "./base_qwerty_basearrow.c" // Qwerty + arrows
 # endif
 
-
 //                         * Colemak *
 # if defined(BASE_COLEMAK__DEF_BASE) || defined(BASE_COLEMAK__ALT_BASE)
 #     include "./base_colemak.c" // Regular Colemak.
+# endif
+
+//                         * Workman *
+# if defined(BASE_WORKMAN__DEF_BASE) || defined(BASE_WORKMAN__ALT_BASE)
+#     include "./base_workman.c" // Regular Workman.
 # endif
 
 //                         * Numpad *

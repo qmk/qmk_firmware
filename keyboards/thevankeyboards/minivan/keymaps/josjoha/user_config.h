@@ -44,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • Dvorak
                     • Dvorak descramble mode
                     • Colemak
+                    • Workman
                     • Numpad
 
                             -2- ➡ Eviscerations ( ① / ② ) ⬅
@@ -73,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • GUI left/right
                     • Alternate currency symbol
                     • Check boxes or Pointers
-         *          • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
+                    • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
 
                            -12- ➡ Eviscerations ( ② / ② ) ⬅
                     • Removing the numbers pad _PAD layer
@@ -150,12 +151,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //                  (Dvorak for a computer already remapping to Dvorak)
         //  This layout is only available on ‛Alternate’, because of the special _HALF_ descramble mode.
 //#define BASE_DVORAK_DESCRAMBLE__ALT_BASE // _Activate_ if you want Dvorak on the ‛Alternate’ spot
-    
+        // 
         //          • Colemak
         //                   (a regular Colemak layout)
         //  _Activate_ one of these two, _remove_ the other.
 //#define BASE_COLEMAK__DEF_BASE // _Activate_ if you want Colemak on the ‛Default’ spot
 //#define BASE_COLEMAK__ALT_BASE // _Activate_ if you want Colemak on the ‛Alternate’ spot
+        // 
+        //          • Workman
+        //                   (a regular Workman layout)
+        //  _Activate_ one of these two, _remove_ the other.
+//#define BASE_WORKMAN__DEF_BASE // _Activate_ if you want Workman on the ‛Default’ spot
+//#define BASE_WORKMAN__ALT_BASE // _Activate_ if you want Workman on the ‛Alternate’ spot
         // 
         //          • Numpad
         //                   (a numerical keypad, one for left hand and one for right hand)

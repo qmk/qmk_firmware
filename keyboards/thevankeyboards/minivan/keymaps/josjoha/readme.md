@@ -51,28 +51,28 @@ in `./base_NAME.h` by convention. Example: `./base_numpad.c` is configured in
 Qwerty
 ------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_vc.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_vc.jpg)
 
 For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
 Qwerty with arrows on Base
 --------------------------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_va.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_va.jpg)
 
 For the readme about this Qwerty variation, see ➡ ![base_qwerty_basearrow.md](./base_qwerty_basearrow.md) ⬅
 
 Dvorak
 ------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_vc.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_vc.jpg)
 
 For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak.md) ⬅
 
 Dvorak² 
 -------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_descramble_va.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_descramble_va.jpg)
 
 Regular Dvorak for a computer already set to Dvorak.
 
@@ -81,9 +81,16 @@ For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](
 Colemak
 -------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_vc.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_vc.jpg)
 
 For the readme about the Colemak version, see ➡ ![base_colemak.md](./base_colemak.md) ⬅
+
+Workman
+-------
+
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_workman_va.jpg)
+
+For the readme about the Workman version, see ➡ ![base_workman.md](./base_workman.md) ⬅
 
 Special layouts
 ===============
@@ -93,7 +100,7 @@ with a normal layout on ‛Default’. How this works is explained below.
 Numbers pad
 -----------
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_single_va.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_single_va.jpg)
 
 For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
 
@@ -101,7 +108,7 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 The common system
 =================
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan_keycapview_common_vc.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_common_vc.jpg)
 
 Main features 
 -------------

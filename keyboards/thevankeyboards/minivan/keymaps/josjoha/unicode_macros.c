@@ -364,12 +364,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
-    // Detect if right shift was pressed in isolation, by seeing if another key was pressed during the time
+    // Detect if Shift was pressed in isolation, by seeing if another key was pressed during the time
     // the right shift key was held down.
+    // This system is also used by CHOLTAP_ACCE
+    // This helps make sure a tapped use of these keys is correctly differentiated from their use as a  
+    // modifier/layer-hold key. The Shift and CHOLTAP_ACCE should not normally interfere with each other.
     if (isolate_trigger) { // speed: hoping this statement to execute a little quicker overall, than the next 
         if ((keycode != CHOLTAP_RSHFT)   // not right shift up
              &&
-            (keycode != CHOLTAP_LSHFT)) { // not left shift up
+            (keycode != CHOLTAP_LSHFT)   // not left shift up
+             &&
+            (keycode != CHOLTAP_ACCE)) { //
             isolate_trigger = FALSE; // another key was pressed
         }
     }
@@ -725,6 +730,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CHOLTAP_ACCE: // Works with DUO_HOLD macro to activate one of several layers.
             if (record->event.pressed) { // key down
                 key_timer = timer_read ();
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed.
 
                 duo_press_acc_bon ++; // This signals to the two DUO_HOLD keys, whether a move to _BON is desired.
 
@@ -778,8 +784,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                 }
 
-                if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
-                    SEND_STRING (SS_TAP (X_DEL));
+                // Pressed in isolation
+                if (isolate_trigger) 
+                {
+                    if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                        SEND_STRING (SS_TAP (X_DEL));
+                    }
                 }
             }
             break;
@@ -930,13 +940,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             if (record->event.pressed) { // key down
 
-                key_timer = timer_read ();
                 SEND_STRING (SS_DOWN (X_RSFT)); 
+                shift_ison = 1; // shift depressed
+
+                key_timer = timer_read ();
                 isolate_trigger = TRUE; // keep track of whether another key gets pressed until key-up
 
             }else{ // key up
 
                 SEND_STRING (SS_UP (X_RSFT)); 
+                shift_ison = 0; // shift released
+
                 if (isolate_trigger) { // no other key was hit since key down 
 
 
@@ -961,20 +975,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             // _RAR was the first idea, but some of its keys are too dangerous regarding accidents.
             if (record->event.pressed) { // key down
 
+                SEND_STRING (SS_DOWN (X_LSFT)); 
+                shift_ison = 1; // shift depressed
+
 # ifndef REMOVE_PAD // The _PAD layer exists, we will use a timer …
 
                 key_timer = timer_read ();
 
 # endif
 
-                SEND_STRING (SS_DOWN (X_LSFT)); 
-                // This key is re-used, for speed and because using both shifts is useless,
+
+                // This variable is re-used, for speed and because using both shifts is useless,
                 // .. thus very rare, and also not a usage problem if it occured.
                 isolate_trigger = TRUE; // keep track of whether another key gets pressed.
 
             }else{ // key up
 
                 SEND_STRING (SS_UP (X_LSFT)); 
+                shift_ison = 0; // shift released
 
                 if (isolate_trigger) { // no other key was hit since key down 
 

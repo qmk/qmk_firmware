@@ -1,17 +1,19 @@
 # Minifan layout
 
-Compiled for: Qwerty
-====================
+Compiled for: Workman
+=====================
 
-This file details the compile version `#define BASE_QWERTY__DEF_BASE, BASE_QWERTY__ALT_BASE`.
-This is a Qwerty layout.
+This file details the compile version `#define BASE_WORKMAN__DEF_BASE, BASE_WORKMAN__ALT_BASE`.
+This is a Workman layout. 
 
-Qwerty keymaps
---------------
+The number & symbols layer (`_NSY`) is the same as for Qwerty.
 
-──────────Qwerty───────────────
+Workman keymaps
+---------------
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_qwerty_ve.jpg)
+─────────Workman───────────────
+
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_workman_va.jpg)
 Layer: `..._BASE`
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_vb.jpg)
@@ -23,31 +25,31 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Qwerty](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_2000_vf.jpg)
+![Minivan illustration Overview layers by key, Workman](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_workman_2000_va.jpg)
 
 Layers (text)
 =============
 
-        ───────────────Qwerty─────────────────
+        ───────────────Workman─────────────────
 
-         Layer _..._BASE (Letters). This is standard Qwerty 
+     Layer _..._BASE (Letters). This is Workman 
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
          -o-                                     <|>                                    ... //-o- BASE access
-         Esc        qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
-         Tab+LCtl   aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-         LSht+_PAD  zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht+_FUN
+         Esc        qQ    dD    rR    wW    bB    | jJ    fF    uU    pP    :;         Bksp
+         Tab+LCtl   aA    sS    hH    tT    gG    | yY    nN    eE    oO    iI           '"
+         LSht+_PAD  zZ    xX    mM    cC    vV    | kK    lL    ,<    .>    /?    RSht+_FUN
              +_MOV⁵                               |                                   +_RAR⁶
      ---------------------------------------------------------------------------------------
-     Left+LAlt Del;_ACC _DEF_NSY(_DRA)  Enter+_MOV| Space  _DEF_NSY(_DRA) RGUI    Right;_RAR 
+     Left+LAlt Del;_ACC _..._NSY(_DRA)  Enter+_MOV| Space  _..._NSY(_DRA) LGUI    Right;_RAR 
                hold     hold₍₁,₂٭₎      hold      |        hold₍₁,₂٭₎             hold     // switch type
                hold₍₂₎  ^-┃-----------------------+--------^ ┃                          // ₁₎ both = _DRA
                ┗━━━_BON━━━╋┅───────────┄┄┄«or»┄┄┄─+─────────┅┛                          // ₂₎ both = _BON
      <1   ±    <2       <3              <4        | 4>     3>             2>   ±  1>    // Keys by number
           ^³                                                                   ^⁴   // Optional more keys
-        (LGUI)                                                               (_MOV)
+        (RGUI)                                                               (_MOV)
 
-     ₁) Dual hold for _DRA, single hold for _DEF_NSY. Marked by: ^--…--^
+     ₁) Dual hold for _DRA, single hold for _..._NSY. Marked by: ^--…--^
      ₂) Hold key “<2” with either٭ key “<3” or “3>” for _BON, single hold “<2” for _ACC. Marked: ┗━━…━━┛
      ₃) 'South paw' hardware configuration. Configurable, default shown.
      ₄) 'Arrow' hardware configuration  Configurable, default shown.
@@ -72,7 +74,7 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
 - - -
 
 
-     Layer _..._NSY (Numbers and SYmbols). This fits the above Qwerty layer _DEF_BASE
+     Layer _..._NSY (Numbers and SYmbols). This fits the above Workman layer _DEF_BASE
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                  //(toggle) Access on _FUN
@@ -90,11 +92,4 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
 
 
 - - -
-
-Key associations
-----------------
-Key placement associations between layers for Qwerty.
-
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_qwerty_1500_vc.jpg)
-
 
