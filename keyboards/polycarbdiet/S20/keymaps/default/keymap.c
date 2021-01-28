@@ -1,4 +1,4 @@
-/* Copyright 2020 Muhammad Galib <muhammadmgalib@gmail.com>
+/* Copyright 2020 Muhammad Galib (polycarbdiet) <pd.keyboards@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,24 +17,31 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = Macro_LAYOUT(
-        KC_NLCK, KC_PAST, KC_PSLS, KC_BSPC,
+        KC_ESC,  KC_PAST, KC_PSLS, KC_BSPC,
         KC_P7,   KC_P8,   KC_P9,   KC_PMNS,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-        KC_P0,   KC_PDOT, TG(1),   RGB_TOG
+        KC_P0,   KC_PDOT, MO(1),   RGB_TOG
     ),
     [1] = Macro_LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        KC_MPRV, KC_MPLY, KC_MNXT, _______,
-        KC_VOLD, KC_MUTE, KC_VOLU, _______,
-        _______, TG(2),   _______, _______
+        KC_NLCK, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
+        KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS,
+        KC_TRNS, MO(2),   KC_TRNS, KC_TRNS
     ),
     [2] = Macro_LAYOUT(
         RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
         BL_TOGG, BL_ON,   BL_INC,  BL_STEP,
-        _______, BL_OFF,  BL_DEC,  BL_BRTG,
-        _______, _______, _______, _______
+        KC_TRNS, BL_OFF,  BL_DEC,  BL_BRTG,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
+    [3] = Macro_LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    )
 };
