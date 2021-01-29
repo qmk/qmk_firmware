@@ -111,7 +111,12 @@ void shutdown_user(void) {
 
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
-void suspend_power_down_user(void) { suspend_power_down_keymap(); }
+void suspend_power_down_user(void) {
+#ifdef OLED_DRIVER_ENABLE
+    oled_off();
+#endif
+    suspend_power_down_keymap();
+}
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 
@@ -152,7 +157,7 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (!is_keyboard_master()) { return state; }
-    
+
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
