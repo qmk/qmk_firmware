@@ -238,7 +238,7 @@ extern bool tap_toggling;
 void render_user_status(void) {
     oled_write_P(PSTR(OLED_RENDER_USER_NAME), false);
     oled_write_P(PSTR(" "), false);
-#if  defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
     oled_write_P(PSTR(OLED_RENDER_USER_ANIM), userspace_config.rgb_matrix_idle_anim);
     oled_write_P(PSTR(" "), false);
 #elif defined(POINTING_DEVICE_ENABLE)
@@ -272,9 +272,21 @@ void render_wpm(void) {
 #    endif
     snprintf(wpm_counter, sizeof(wpm_counter), "%3d", get_current_wpm());
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
-    oled_write_ln(wpm_counter, false);
+    oled_write(wpm_counter, false);
 #endif
 }
+
+#ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
+extern keyboard_config_t keyboard_config;
+extern uint16_t          dpi_array[];
+
+void render_pointing_dpi_status(void) {
+    char dpi_status[6];
+    snprintf(dpi_status, sizeof(dpi_status), "%5d", dpi_array[keyboard_config.dpi_config]);
+    oled_write_P(PSTR("  DPI: "), false);
+    oled_write(dpi_status, false);
+}
+#endif
 
 void render_status_secondary(void) {
 #if defined(OLED_DISPLAY_128X64)
@@ -291,6 +303,10 @@ void render_status_main(void) {
 #if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
     render_wpm();
+#    ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
+    render_pointing_dpi_status();
+#    endif
+    oled_write_P(PSTR("\n"), false);
 #else
     render_default_layer_state();
 #endif
