@@ -36,6 +36,7 @@ Configuration-wise, you'll need to set up the peripheral as per your MCU's datas
 `#define SPI_MOSI_PAL_MODE` | The alternate function mode for the MOSI pin                  | `5`
 `#define SPI_MISO_PIN`      | The pin to use for the MISO                                   | `B14`
 `#define SPI_MISO_PAL_MODE` | The alternate function mode for the MISO pin                  | `5`
+`#define SPI_DATA_SIZE`     | The data length the SPI controller transfers                  | `8`
 
 ## Functions
 

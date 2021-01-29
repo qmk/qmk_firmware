@@ -104,6 +104,48 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             break;
     }
 
+    switch (SPI_DATA_SIZE) {
+        case 4:
+            spiConfig.cr2 |= SPI_CR2_DS_1 | SPI_CR2_DS_0;
+            break;
+        case 5:
+            spiConfig.cr2 |= SPI_CR2_DS_2;
+            break;
+        case 6:
+            spiConfig.cr2 |= SPI_CR2_DS_2 | SPI_CR2_DS_0;
+            break;
+        case 7:
+            spiConfig.cr2 |= SPI_CR2_DS_2 | SPI_CR2_DS_1;
+            break;
+        case 8:
+            spiConfig.cr2 |= SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0;
+            break;
+        case 9:
+            spiConfig.cr2 |= SPI_CR2_DS_3;
+            break;
+        case 10:
+            spiConfig.cr2 |= SPI_CR2_DS_3 | SPI_CR2_DS_0;
+            break;
+        case 11:
+            spiConfig.cr2 |= SPI_CR2_DS_3 | SPI_CR2_DS_1;
+            break;
+        case 12:
+            spiConfig.cr2 |= SPI_CR2_DS_3 | SPI_CR2_DS_1 | SPI_CR2_DS_0;
+            break;
+        case 13:
+            spiConfig.cr2 |= SPI_CR2_DS_3 | SPI_CR2_DS_2;
+            break;
+        case 14:
+            spiConfig.cr2 |= SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_0;
+            break;
+        case 15:
+            spiConfig.cr2 |= SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_1;
+            break;
+        case 16:
+            spiConfig.cr2 |= SPI_CR2_DS_3 | SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0;
+            break;
+    }
+
     currentSlavePin  = slavePin;
     spiConfig.ssport = PAL_PORT(slavePin);
     spiConfig.sspad  = PAL_PAD(slavePin);

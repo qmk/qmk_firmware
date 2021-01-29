@@ -48,6 +48,10 @@
 #    define SPI_MISO_PAL_MODE 5
 #endif
 
+#ifndef SPI_DATA_SIZE
+#    define SPI_DATA_SIZE 8
+#endif
+
 typedef int16_t spi_status_t;
 
 #define SPI_STATUS_SUCCESS (0)
