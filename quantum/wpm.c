@@ -17,8 +17,8 @@
 
 #include "wpm.h"
 
-#ifndef WPM_REGRESSION_AMOUNT
-#    define WPM_REGRESSION_AMOUNT
+#ifndef WPM_CTL_REGRESSION_AMOUNT
+#    define WPM_CTL_REGRESSION_AMOUNT 5
 #endif
 #ifndef WPM_SMOOTHING
 #    define WPM_SMOOTHING 0.0487
@@ -53,17 +53,20 @@ __attribute__((weak)) bool wpm_keycode_user(uint16_t keycode) {
 }
 
 #ifdef WPM_ALLOW_COUNT_REGRESSION
-__attribute__((weak)) bool wpm_regress_count(uint16_t keycode) {
+__attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
+    bool weak_modded = (keycode >= QK_LCTL && keycode < QK_LSFT) || (keycode >= QK_RCTL && keycode < QK_RSFT);
+
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
         keycode = keycode & 0xFF;
     } else if (keycode > 0xFF) {
         keycode = 0;
     }
-    if (mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL && (keycode == KC_DEL || keycode == KC_BSPC)) {
-        return true;
+    if (((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL} || weak_modded) && (keycode == KC_DEL || keycode == KC_BSPC)) {
+        return WPM_CTL_REGRESSION_AMOUNT;
     }
-
-    return false;
+    if (keycode == KC_DEL || keycode == KC_BSPC) {
+        return 1;
+    }
 }
 #endif
 
