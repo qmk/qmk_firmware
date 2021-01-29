@@ -16,28 +16,28 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = Macro_LAYOUT(
+    [0] = LAYOUT_MacroPad(
         KC_ESC,  KC_PAST, KC_PSLS, KC_BSPC,
         KC_P7,   KC_P8,   KC_P9,   KC_PMNS,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,   KC_P2,   KC_P3,   KC_PENT,
         KC_P0,   KC_PDOT, MO(1),   RGB_TOG
     ),
-    [1] = Macro_LAYOUT(
+    [1] = LAYOUT_MacroPad(
         KC_NLCK, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
         KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS,
-        KC_TRNS, MO(2),   KC_TRNS, KC_TRNS
+        RESET,   MO(2),   KC_TRNS, KC_TRNS
     ),
-    [2] = Macro_LAYOUT(
+    [2] = LAYOUT_MacroPad(
         RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
         BL_TOGG, BL_ON,   BL_INC,  BL_STEP,
         KC_TRNS, BL_OFF,  BL_DEC,  BL_BRTG,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
-    [3] = Macro_LAYOUT(
+    [3] = LAYOUT_MacroPad(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
