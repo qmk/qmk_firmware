@@ -175,6 +175,9 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
 void matrix_scan_keymap(void) {
     if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
         layer_off(_MOUSE);
+    } else if (timer_elapsed(mouse_timer) > 1500 && mouse_keycode_tracker) {
+        mouse_keycode_tracker = 0;
+        layer_off(_MOUSE);
     }
 }
 
@@ -212,6 +215,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
         default:
             if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
                 layer_off(_MOUSE);
+                mouse_keycode_tracker = 0;
             }
             mouse_debounce_timer = timer_read();
             break;
