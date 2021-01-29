@@ -46,6 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COEL_BI  0x153 //       ''        "AO" for ao, 'L' for lower, "BI" for two-character: œ
 #define COEU_BI  0x152 //       ''              ''     'U' for upper,       ''              ; Œ
 
+   // Mu (French)
+#define C_MU_L   0x03BC //      ''        "MU" for Mu (Greek letter), 'L' for lower: 
+
     // C with cedilla
 #define CCL_CDL  0xe7 //        ''        'C' for c, 'L' for lower, "CDL" for cedilla: ç 
 #define CCU_CDL  0xc7 //        ''             ''    'U' for upper,        ''        : Ç
@@ -214,7 +217,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CS_PROTT  0x2031 //   ''     ,    ''       , "PRO" for pro-, "TT" for ten-thousandth: ‱
 #define CS_SQRT   0x221A //   ''     ,    ''       , "SQRT" for square root: √
 #define CS_UNEQL  0x2260 //   ''     ,    ''       , "UNEQL" for unequal: ≠
-
+ 
 # ifdef POINT_ON_CHECKBOXES
     // pointers
 #     define CS_CHECK_H 0x2B9B // ''     ,    ''       , "H" for Down,          ''      : ⮛

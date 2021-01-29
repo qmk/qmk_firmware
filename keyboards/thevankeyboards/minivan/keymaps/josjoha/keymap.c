@@ -35,38 +35,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
-             ☑ _BON layer must have `~ on home row, furthest left, to provide uncluttered repeating versions.
-             ☑ Qwerty with arrows on top
-               ☑ by key graphic
-             ☑ Workman layout
-             ☐ Azerty (doesn't fit the hardware well, but we have the accented characters already)
-             ☐ Qwertz (                   "                             "                        )
+             ☑ _BON layer update graphics: Control-Tab/μ
+             ☑ _DRA layer update graphics: reverse Control/Tab
+               ☐ Clear layers view update all graphics for _BON, _DRA change
+               ☐ By key layers view update all graphics for _BON, _DRA change
+               ☐ Key associations graphics, same.
+             ☐ Option to change _RAR hold on Base to RAlt, to allow Alt-Gr code stuff.
+               ☐ Do check for second concurrent key press to differentiate 
+
+             ☐ Leading graphic: “Dual layout” rotated
+             ☐ Qwerty Base Arrow keycap view: green on black arrows
+
+             ☐ Fun and games: game layer.
+
+
+                       § Further development
+
+           The following seem interesting for further development. However following the “scratch your
+           own itch” rule, perhaps it should be someone else's interest. Contributions welcomed !
+
              ☐ It seems fun to have a user friendly front end to compile the available variations of this keymap.
-               Such a front end could edit minifan_config_compact.h
-           …
+               Such a front end could edit minifan_config_compact.h 
+           
+             ☐ Language specific keyboards, such as Qwertz and Azerty, etc.
+               • Using an include like #include keymap_german.h (etc), and matching computer operating side
+                 remapping does seem to make a lot possible and simpler, while on the other hand it seems doubtful
+                 that the Unicode symbols would still be interpreted correctly ? Unknown to author here atm. It
+                 could mean the Unicode output needs a special descramble type functionality (see Dvorak Descramble).
+                 Can it be efficient to type various dead key combinations ?
+               • If a language specific #include and computer language setting is not used, but merely some basics
+                 such as a matching basic alphabet ABC…XYZ on Base, with some Unicode symbols for that language on _ACC,
+                 it will be a lot simpler to do, also avoid the dead key problem. While this seems simpler, it might
+                 not be good enough if Unicode support is not as good as computer operating system side language support.
+                 There are a lot of keys available however, so perhaps it could work: 5 layers for symbols (Base, _NSY,
+                 _ACC, _DRA, _BON).
+
+
+                       § Other:
+
              ☐ Testing all user configurations
-             ☐ Test/fix what happens when leds are undefined with the existing QMK led #define
-            ?☐ Leds #on/off startup
-            ?☐ Push DEL on _NSY top/right key through documentation
-            ?☐ Review/fix C indendation. QMK indentation is not my preferred style, and 
+             ☐ Porting to Planck keyboard. This has been cooked into the code already, at least to a degree,
+               but it remains untested. If someone has a Planck they could try it. 
+             ☐ Test/fix what happens when leds are undefined with the existing QMK led #define(s)
+             ☐ Review/fix C indendation. QMK indentation is not my preferred style, and 
                therefore it is not entirely consistent. 
+            ?☐ Leds #on/off startup
+            ?☐ A lock mode, so that others cannot type on it if you walk off ?
 
-             ☑ South Paw becomes GUI everywhere by default.
-             ☑ A default configuration in user_config.h, by having minifan_config_compact.h
-             ☑ Fixed error link _FUN layer, and color of one key.
-             ☑ Put Tab on ACC, DRA layers, graphics documentation: key associations, …
-             ☑ Numbers pad, a special Base layer: graphics documentation single layout
-             ☑ An option to compile the _PAD layer, in the format of the Numbers Pad Base layer.
-               The Numbers Pad Base Layer is copied into keymap.c, edited to work as needed.
-               (This implies a compilation with Numbers Pad on alternate Base is redundant; twice the same.)
-
-            ?☒ Fun and games: replicate Evan's “game layer”, also as a stub for others to edit
-               that as their game layer. Many people probably do not have much use for the dual layout
-               (such as Qwerty + Colemak), but this could be one. It doesn't seem useful or possible
-               to support every game layer quirk someone might prefer, so this way that whole kind of
-               thing is isolated: compile this and edit as needed there.
-               ➡ This is probably too much bloat. People who want to go this far, probably know how to do it.
-                 It should be easy enough as it is.
             ?☒ User defining macros (record/play user input), another special Base layer ? Is there 
                room for this, or how to create it if not.
                ➡ It seems a bit odd to have a keyboard with internal registers. Probably better handled at the
@@ -1404,58 +1419,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
      Layer _ACC (ACCented characters, see _RAR layer for input modes)
     
-     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+     <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                        -*-              <|>                                            //(toggle) on _FUN
-     BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bksp
-     Tab   äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl 
-     LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
-     ------------------------------------------------------------------------
+     BASE      áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bksp
+     RCTL(Tab) äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß       μ
+     LSht      àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
+     ----------------------------------------------------------------------------
      LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
           -*-             <|>                                                            //(hold) on BASE
      <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
         …                                    …
  */
 //
-//      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
-//                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
-//      CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XP ( CIJL_BI , CIJU_BI ) , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
-//      KC_TAB      , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-//      KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
-
-//      <pink2   , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>  ,
-//               ,           ,           ,           ,           ,         <|,>-*-       ,           ,           ,           ,           ,         ,
-        CTO_BASE , XP_ACC_AA , XP_ACC_AB , XP_ACC_AC , XP_ACC_AD , XP_ACC_AE , XP_ACC_AF , XP_ACC_AG , XP_ACC_AH , XP_ACC_AI , XP_ACC_AJ , KC_BSPC ,
-        KC_TAB   , XP_ACC_BA , XP_ACC_BB , XP_ACC_BC , XP_ACC_BD , XP_ACC_BE , XP_ACC_BF , XP_ACC_BG , XP_ACC_BH , XP_ACC_BI , XP_ACC_BJ , KC_RCTL ,
-        KC_LSFT  , XP_ACC_CA , XP_ACC_CB , XP_ACC_CC , XP_ACC_CD , XP_ACC_CE , XP_ACC_CF , XP_ACC_CG , XP_ACC_CH , XP_ACC_CI , XP_ACC_CJ , KC_RSFT ,
-//      --------------------------------------------------------------------------------------------------------------------------------------------
+//      <pink2          , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>    ,
+//                      ,           ,           ,           ,           ,         <|,>-*-       ,           ,           ,           ,           ,           ,
+        CTO_BASE        , XP_ACC_AA , XP_ACC_AB , XP_ACC_AC , XP_ACC_AD , XP_ACC_AE , XP_ACC_AF , XP_ACC_AG , XP_ACC_AH , XP_ACC_AI , XP_ACC_AJ , KC_BSPC   ,
+        LCTL ( KC_TAB ) , XP_ACC_BA , XP_ACC_BB , XP_ACC_BC , XP_ACC_BD , XP_ACC_BE , XP_ACC_BF , XP_ACC_BG , XP_ACC_BH , XP_ACC_BI , XP_ACC_BJ , XP_ACC_BK , 
+        KC_LSFT         , XP_ACC_CA , XP_ACC_CB , XP_ACC_CC , XP_ACC_CD , XP_ACC_CE , XP_ACC_CF , XP_ACC_CG , XP_ACC_CH , XP_ACC_CI , XP_ACC_CJ , KC_RSFT   ,
+//      ----------------------------------------------------------------------------------------------------------------------------------------------
         KC_LALT 
 #         ifdef TRANSMINIVAN_LEFTSIDE
-                , TRANS_LEFT
+                        , TRANS_LEFT
 #         endif
 
 #         ifdef MORE_KEY__COMMAND
-                , MORE_key1
+                        , MORE_key1
 #         endif
 
-                , _______ , _______ , KC_ENT 
+                        , _______ , _______ , KC_ENT  
 
 #     ifdef TRANSMINIVAN_MIDLEFT
-                                             , TRANS_MIDLEFT
+                                                     , TRANS_MIDLEFT
 #     endif
 
-                                             , KC_SPC , _______ , _______
+                                                     , KC_SPC , _______ , _______ 
 
 #         ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                          , TRANS_RIGHT
-#         endif
-
-#         ifdef MORE_KEY__ARROW
-                                                                          , MORE_key2  
-#         endif
-
-                                                                          , KC_RALT
-//              , -*-     ,         ,      <|,>       ,         ,         , 
-//      <1 ± ±  , <2      , <3      , <4    |, 4>     , 3>      , 2>      , ±  ±  1>
+                                                                                  , TRANS_RIGHT
+#         endif                                              
+                                                             
+#         ifdef MORE_KEY__ARROW                              
+                                                                                  , MORE_key2  
+#         endif                                              
+                                                             
+                                                                                  , KC_RALT
+//              , -*-     ,         ,      <|,>               ,         ,         , 
+//      <1 ± ±  , <2      , <3      , <4    |, 4>             , 3>      , 2>      , ±  ±  1>
 
                       ),
 
@@ -1481,7 +1490,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                              -*-        <|>                                            //(toggle) on _FUN
      BASE  “„    ”≤    £≥    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bksp
-     LCTL  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀     Tab 
+     Tab   ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCTL
      LSht 「━    」─   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSht
      -------------------------------------------------------------------------
      LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
@@ -1493,7 +1502,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2   , <pinky    , <ring     , <middl    , <index    , <indx2   |, indx2>    , index>    , middl>    , ring>     , pinky>    , pink2>  ,
 //               ,           ,           ,           ,           ,         <|,>          , -*-       ,           ,           ,           ,         ,
         CTO_BASE , XP_DRA_AA , XP_DRA_AB , XP_DRA_AC , XP_DRA_AD , XP_DRA_AE , XP_DRA_AF , XP_DRA_AG , XP_DRA_AH , XP_DRA_AI , XP_DRA_AJ , KC_BSPC ,
-        KC_LCTL  , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , XP_DRA_BJ , KC_TAB  ,
+        KC_TAB   , XP_DRA_BA , XP_DRA_BB , XP_DRA_BC , XP_DRA_BD , XP_DRA_BE , XP_DRA_BF , XP_DRA_BG , XP_DRA_BH , XP_DRA_BI , XP_DRA_BJ , KC_RCTL ,
         KC_LSFT  , XP_DRA_CA , XP_DRA_CB , XP_DRA_CC , XP_DRA_CD , XP_DRA_CE , XP_DRA_CF , XP_DRA_CG , XP_DRA_CH , XP_DRA_CI , XP_DRA_CJ , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------------------------------------------
         KC_LALT 

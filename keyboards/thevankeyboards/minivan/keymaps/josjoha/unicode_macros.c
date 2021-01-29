@@ -191,7 +191,8 @@ enum custom_keycodes {
     XP_ACC_BG ,
     XP_ACC_BH ,
     XP_ACC_BI ,
-    XP_ACC_BJ ,// XP_ACC_BK , // no 'BK' key definition on this layer
+    XP_ACC_BJ ,
+    XP_ACC_BK ,
     XP_ACC_CA ,
     XP_ACC_CB ,
     XP_ACC_CC ,
@@ -1378,13 +1379,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case XP_ACC_BI: // because n
             if (record->event.pressed) { // key down
-                unicode_hex2output (CNL_TLD, CNU_TLD);// ñ Ñ
+                unicode_hex2output_single (CNL_TLD);// ñ Ñ
             }
             break;
 
         case XP_ACC_BJ: // because s
             if (record->event.pressed) { // key down
-                unicode_hex2output (CSL_SHP, CSL_SHP);// ß ß
+                unicode_hex2output_single (CSL_SHP);// ß ß
+            }
+            break;
+
+        case XP_ACC_BK: // because roughly the location on French keyboard
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (C_MU_L);//
             }
             break;
 
