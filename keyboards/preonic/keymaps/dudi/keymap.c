@@ -236,44 +236,13 @@ uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
 
-// void encoder_update_user(uint8_t index, bool clockwise) {
-//   if (muse_mode) {
-//     if (IS_LAYER_ON(_RAISE)) {
-//       if (clockwise) {
-//         muse_offset++;
-//       } else {
-//         muse_offset--;
-//       }
-//     } else {
-//       if (clockwise) {
-//         muse_tempo+=1;
-//       } else {
-//         muse_tempo-=1;
-//       }
-//     }
-//   } else {
-//     if (clockwise) {
-//       register_code(KC_VOLD);
-//       unregister_code(KC_VOLD);
-//     } else {
-//       register_code(KC_VOLU);
-//       unregister_code(KC_VOLU);
-//     }
-//   }
-// }
- 
-
-void encoder_update_user(uint8_t index, bool clockwise) {
-        tap_code(KC_VOLU);
-        if (clockwise) {
-           // tap_code(KC_VOLD);
-      tap_code(KC_VOLU);
-        } else {
-            //tap_code(KC_VOLU);
-      tap_code(KC_VOLD);
-        }
+void encoder_update_kb(uint8_t index, bool clockwise) {
+    if (clockwise) {
+        tap_code(KC__VOLDOWN);
+    } else {
+        tap_code(KC__VOLUP);
     }
-
+}
 
 
 void dip_switch_update_user(uint8_t index, bool active) {
