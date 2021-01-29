@@ -17,13 +17,19 @@
 
 #include "wpm.h"
 
+#ifndef WPM_REGRESSION_AMOUNT
+#    define WPM_REGRESSION_AMOUNT
+#endif
+#ifndef WPM_SMOOTHING
+#    define WPM_SMOOTHING 0.0487
+#endif
+
 // WPM Stuff
 static uint8_t  current_wpm = 0;
-static uint8_t  latest_wpm  = 0;
 static uint16_t wpm_timer   = 0;
 
 // This smoothing is 40 keystrokes
-static const float wpm_smoothing = 0.0487;
+static const float wpm_smoothing = WPM_SMOOTHING;
 
 void set_current_wpm(uint8_t new_wpm) { current_wpm = new_wpm; }
 
@@ -46,19 +52,38 @@ __attribute__((weak)) bool wpm_keycode_user(uint16_t keycode) {
     return false;
 }
 
+#ifdef WPM_ALLOW_COUNT_REGRESSION
+__attribute__((weak)) bool wpm_regress_count(uint16_t keycode) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        keycode = keycode & 0xFF;
+    } else if (keycode > 0xFF) {
+        keycode = 0;
+    }
+    if (mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL && (keycode == KC_DEL || keycode == KC_BSPC)) {
+        return true;
+    }
+
+    return false;
+}
+#endif
+
 void update_wpm(uint16_t keycode) {
     if (wpm_keycode(keycode)) {
         if (wpm_timer > 0) {
-            latest_wpm  = 60000 / timer_elapsed(wpm_timer) / 5;
-            current_wpm = (latest_wpm - current_wpm) * wpm_smoothing + current_wpm;
+            current_wpm += ((60000 / timer_elapsed(wpm_timer) / 5) - current_wpm) * wpm_smoothing;
         }
         wpm_timer = timer_read();
     }
+#ifdef WPM_ALLOW_COUNT_REGRESSION
+    if (wpm_regress_count(keycode)) {
+        current_wpm -= WPM_REGRESSION_AMOUNT;
+    }
+#endif
 }
 
 void decay_wpm(void) {
     if (timer_elapsed(wpm_timer) > 1000) {
-        current_wpm = (0 - current_wpm) * wpm_smoothing + current_wpm;
-        wpm_timer   = timer_read();
+        current_wpm += -current_wpm * wpm_smoothing;
+        wpm_timer = timer_read();
     }
 }
