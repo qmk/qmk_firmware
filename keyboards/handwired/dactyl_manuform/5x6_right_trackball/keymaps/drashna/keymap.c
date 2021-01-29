@@ -18,7 +18,6 @@
 
 #define TG_DBLO TG(_DIABLO)
 
-
 // clang-format off
 #define LAYOUT_5x6_right_trackball_wrapper(...) LAYOUT_5x6_right_trackball(__VA_ARGS__)
 #define LAYOUT_5x6_right_trackball_base( \
@@ -155,6 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint16_t mouse_timer           = 0;
 static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
+bool     tap_toggling          = false;
 
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     if ((x || y) && timer_elapsed(mouse_timer) > 125) {
@@ -167,21 +167,21 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
         mouse_report->x = x;
         mouse_report->y = y;
     }
-#ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_DRIVER_ENABLE
     if (x || y) oled_timer = timer_read32();
-#endif
+#    endif
 }
 
 void matrix_scan_keymap(void) {
-    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
-        layer_off(_MOUSE);
-    } else if (timer_elapsed(mouse_timer) > 1500 && mouse_keycode_tracker) {
-        mouse_keycode_tracker = 0;
+    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
         layer_off(_MOUSE);
     }
+    if (tap_toggling) {
+        if (!layer_state_is(_MOUSE)) {
+            layer_on(_MOUSE);
+        }
+    }
 }
-
-bool tap_toggling = false;
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -190,14 +190,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
                 mouse_keycode_tracker++;
             } else {
 #    if TAPPING_TOGGLE != 0
-
                 if (record->tap.count == TAPPING_TOGGLE) {
                     tap_toggling ^= 1;
-#if TAPPING_TOGGLE == 1
+#        if TAPPING_TOGGLE == 1
                     if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
-#else
+#        else
                     if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
-#endif
+#        endif
                 } else {
                     mouse_keycode_tracker--;
                 }
