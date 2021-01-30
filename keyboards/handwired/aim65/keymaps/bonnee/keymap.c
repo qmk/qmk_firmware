@@ -19,8 +19,8 @@
 #define CTESC LCTL_T(KC_ESC)
 
 enum layer {
-    BL = 0,
-    FL = 1
+    BL,
+    FL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
