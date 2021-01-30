@@ -71,7 +71,7 @@ endif
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
         SPLIT_TRANSPORT = custom
-        SRC += drashna_transport.c
+        QUANTUM_LIB_SRC += drashna_transport.c
         OPT_DEFS += -DDRASHNA_CUSTOM_TRANSPORT
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)
