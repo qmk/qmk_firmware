@@ -20,11 +20,12 @@
 #include "keymap_german.h"
 
 
-#define _BASE 0
-#define _GAME 1 /* WASD shifted right once  */
-#define _LOWER 2
-#define _RAISE 3
-#define _ADJUST 4 /* when both LOWER and RAISE pressed */
+enum layer_names {
+    _BASE,
+    _GAME, /* WASD shifted right once  */
+    _LOWER,
+    _RAISE,
+    _ADJUST /* when both LOWER and RAISE pressed */
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
