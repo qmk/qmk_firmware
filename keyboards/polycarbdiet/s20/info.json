@@ -58,7 +58,7 @@
                 {"x":2, "y":4}
             ]
         },
-        "LAYOUT_Enter": {
+        "LAYOUT_enter": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
