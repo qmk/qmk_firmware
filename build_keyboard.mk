@@ -317,6 +317,9 @@ ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
     POST_CONFIG_H += $(USER_PATH)/post_config.h
 endif
 
+# Disable features that a keyboard doesn't support
+-include disable_features.mk
+
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
