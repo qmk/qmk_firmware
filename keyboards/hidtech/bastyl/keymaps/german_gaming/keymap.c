@@ -26,6 +26,7 @@ enum layer_names {
     _LOWER,
     _RAISE,
     _ADJUST /* when both LOWER and RAISE pressed */
+};
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
