@@ -33,7 +33,7 @@
 キーマップをファームウェアにコンパイルするには、単純に JSON を `/v1/compile` エンドポイントに POST します。以下の例では、JSON ペイロードを `json_data` という名前のファイルに配置しています。
 
 ```
-$ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" http://api.qmk.fm/v1/compile
+$ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" https://api.qmk.fm/v1/compile
 {
   "enqueued": true,
   "job_id": "ea1514b3-bdfc-4a7b-9b5c-08752684f7f6"
@@ -45,7 +45,7 @@ $ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" http://ap
 キーマップをサブミットした後で、簡単な HTTP GET 呼び出しを使って状態をチェックすることができます:
 
 ```
-$ curl http://api.qmk.fm/v1/compile/ea1514b3-bdfc-4a7b-9b5c-08752684f7f6
+$ curl https://api.qmk.fm/v1/compile/ea1514b3-bdfc-4a7b-9b5c-08752684f7f6
 {
   "created_at": "Sat, 19 Aug 2017 21:39:12 GMT",
   "enqueued_at": "Sat, 19 Aug 2017 21:39:12 GMT",
