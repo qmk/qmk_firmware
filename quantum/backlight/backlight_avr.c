@@ -68,7 +68,7 @@
 #        define COMxx1 COM3A1
 #        define OCRxx OCR3A
 #    endif
-#elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+#elif (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
 #    define HARDWARE_PWM
 #    define ICRx ICR1
 #    define TCCRxA TCCR1A
