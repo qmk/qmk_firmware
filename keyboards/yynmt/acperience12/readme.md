@@ -1,18 +1,18 @@
 # Acperience12
 
-![acperience12](imgur.com image replace me!)
+![Acperience12](https://raw.githubusercontent.com/yynmt/Acperience12/main/images/main_image.jpg)
 
-*A short description of the keyboard/project*
+Acperience12 is 12 keys macropad.
 
 * Keyboard Maintainer: [yynmt](https://github.com/yynmt)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: The A12 PCB
+* Hardware Availability: [This repository](https://github.com/yynmt/Acperience12) has the plate files and other files.
 
-Make example for this keyboard (after setting up your build environment):
+Make example for this macropad (after setting up your build environment):
 
     make yynmt/acperience12:default
 
-Flashing example for this keyboard:
+Flashing example for this macropad:
 
     make yynmt/acperience12:default:flash
 
