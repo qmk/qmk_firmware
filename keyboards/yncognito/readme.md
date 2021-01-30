@@ -1,4 +1,4 @@
-# sl8 
+# Slide8
 
 ![sl8](https://i.imgur.com/UxANjLA.jpg)
 
