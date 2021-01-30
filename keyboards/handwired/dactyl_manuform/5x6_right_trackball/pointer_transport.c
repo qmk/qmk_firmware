@@ -77,7 +77,7 @@ typedef struct _I2C_slave_buffer_t {
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
-} I2C_slave_buffer_t;
+} __attribute__((packed)) I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
 
@@ -286,7 +286,7 @@ typedef struct _Serial_s2m_buffer_t {
 #    endif
     int8_t       mouse_x;
     int8_t       mouse_y;
-} Serial_s2m_buffer_t;
+}  __attribute__((packed)) Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
 #    ifdef SPLIT_MODS_ENABLE
@@ -309,7 +309,7 @@ typedef struct _Serial_m2s_buffer_t {
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
-} Serial_m2s_buffer_t;
+}  __attribute__((packed)) Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 // When MCUs on both sides drive their respective RGB LED chains,
