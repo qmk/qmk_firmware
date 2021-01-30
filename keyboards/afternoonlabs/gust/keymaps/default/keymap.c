@@ -14,11 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include QMK_KEYBOARD_H
 
-#ifdef KEYBOARD_afternoonlabs_breeze_rev0
-#    include "rev0.h"
-#endif
-#ifdef KEYBOARD_afternoonlabs_breeze_rev1
-#    include "rev1.h"
-#endif
+enum layer_names {
+    _MAIN,
+};
+
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+  [_MAIN] = LAYOUT(
+  //┌─────────┬─────────┬─────────┐
+     KC_1,     KC_2,     KC_3,
+  //├─────────┼─────────┼─────────┤
+     KC_4,     KC_5,     KC_6
+  //└─────────┴─────────┴─────────┘
+  )
+
+};

@@ -16,9 +16,15 @@
 
 #pragma once
 
-#ifdef KEYBOARD_afternoonlabs_breeze_rev0
-#    include "rev0.h"
-#endif
-#ifdef KEYBOARD_afternoonlabs_breeze_rev1
-#    include "rev1.h"
-#endif
+#include "gust.h"
+
+#include "quantum.h"
+
+#define LAYOUT( \
+    M00, M01, M02, \
+    M10, M11, M12  \
+) \
+{ \
+    { M00, M01, M02 }, \
+    { M10, M11, M12 }  \
+}
