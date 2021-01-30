@@ -125,8 +125,8 @@ QMK のほとんどのキーボードは、vendor ID として、`0xFEED` を使
 https://github.com/tmk/tmk_keyboard/issues/150
 
 ここで本当にユニークな VID:PID を買うことができます。個人的な使用にはこれは必要ないと思います。
-- http://www.obdev.at/products/vusb/license.html
-- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+- https://www.obdev.at/products/vusb/license.html
+- https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ### キーボードに書き込んだが何も起こらない、あるいはキーの押下が登録されない - ARM (rev6 planck、clueboard 60、hs60v2 など) でも同じ (Feb 2019)
 ARM ベースのチップ上での EEPROM の動作によって、保存された設定が無効になる場合があります。これはデフォルトレイヤに影響し、まだ調査中の特定の環境下でキーボードが使えなくなる*しれません*。EEPROM のリセットでこれが修正されます。
