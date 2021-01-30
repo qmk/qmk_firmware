@@ -5,7 +5,7 @@
   RGB PAD use IS31FL3731 IC
 
 * Keyboard Maintainer: [18438880](https://github.com/18438880)
-* Hardware Availability: https://github.com/18438880/latin17RGB-pad/blob/main/latin17RGB%20PAD.jpg
+* Hardware Availability: 
 
 Make example for this keyboard (after setting up your build environment):
 
