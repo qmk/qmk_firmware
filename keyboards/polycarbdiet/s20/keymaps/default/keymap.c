@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS,
         RESET,   MO(2),   KC_TRNS, KC_TRNS
     ),
-    [2] = LAYOUT_MacroPad(
+    [2] = LAYOUT_ortho_5x4(
         RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
         BL_TOGG, BL_ON,   BL_INC,  BL_STEP,
