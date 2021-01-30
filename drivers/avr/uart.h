@@ -24,6 +24,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 void uart_init(uint32_t baud);
 
