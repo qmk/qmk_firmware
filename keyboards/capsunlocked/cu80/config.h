@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Set USB polling to 1000Hz */
+#define USB_POLLING_INTERVAL_MS 1
 
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
