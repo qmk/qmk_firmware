@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P1,   KC_P2,   KC_P3,   KC_PENT,
         KC_P0,   KC_PDOT, MO(1),   RGB_TOG
     ),
-    [1] = LAYOUT_MacroPad(
+    [1] = LAYOUT_ortho_5x4(
         KC_NLCK, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
