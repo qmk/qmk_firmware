@@ -4,9 +4,9 @@
 
 A 75% keyboard made by Exclusive and run in a Geekhack group buy.
 
-Keyboard Maintainer: [masterzen](https://github.com/masterzen)  
-Hardware Supported: E7 - V1 QMK PCB LED  
-Hardware Availability: [https://geekhack.org/index.php?topic=97182.msg2654226#msg2654226](https://geekhack.org/index.php?topic=97182.msg2654226#msg2654226)
+* Keyboard Maintainer: [masterzen](https://github.com/masterzen)
+* Hardware Supported: E7-V1 QMK PCB
+* Hardware Availability: [GeekHack Group Buy in 2018](https://geekhack.org/index.php?topic=97182.msg2654226#msg2654226)
 
 Make example for this keyboard (after setting up your build environment):
 

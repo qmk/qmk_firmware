@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef AUDIO_H
-#define AUDIO_H
+
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -99,12 +99,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
 // length. This works around the limitation of C's sizeof operation on pointers.
 // The global float array for the song must be used here.
 #define NOTE_ARRAY_SIZE(x) ((int16_t)(sizeof(x) / (sizeof(x[0]))))
-#define PLAY_NOTE_ARRAY(note_array, note_repeat, deprecated_arg)           \
-    play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat)); \
-    _Pragma("message \"'PLAY_NOTE_ARRAY' macro is deprecated\"")
 #define PLAY_SONG(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), false)
 #define PLAY_LOOP(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
 
 bool is_playing_notes(void);
-
-#endif

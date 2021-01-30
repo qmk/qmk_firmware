@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Tokyo Keyboard
 #define PRODUCT         Tokyo60
-#define DESCRIPTION     q.m.k. keyboard firmware for Tokyo60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -18,7 +17,6 @@
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_ON_STATE 1
 #endif
 
 /* COL2ROW or ROW2COL */

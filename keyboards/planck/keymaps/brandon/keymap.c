@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [BASE_QWERTY_LAYER] = LAYOUT_planck_grid(
     TD(TD_ESC_GRV),  KC_Q,           KC_W,          KC_E,    KC_R,  KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,          KC_P,           KC_QUOT,
-    F(5),            KC_A,           KC_S,          KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,          LT_NAVS,        F(6),
+    MT(MOD_LCTL, KC_TAB),            KC_A,           KC_S,          KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,          LT_NAVS,        MT(MOD_RCTL, KC_ENT),
     KC_LSPO,         KC_Z,           KC_X,          KC_C,    KC_V,  KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,        KC_SLSH,        KC_RSPC,
     LT_GUIL,         ALL_T(KC_RBRC), M(LALT_BRACE), KC_LGUI, LOWER, KC_SPC, KC_BSPC, RAISE, KC_RGUI, M(RALT_BRACE), ALL_T(KC_LBRC), LT_GUIR
   ),
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [LOWER_LAYER] = LAYOUT_planck_grid(
     LGUI(KC_GRV), KC_F1,          KC_F2,         KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,         KC_F10,         S(KC_3),
-    F(5),         KC_1,           KC_2,          KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,          KC_0,           F(6),
+    MT(MOD_LCTL, KC_TAB),         KC_1,           KC_2,          KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,          KC_0,           MT(MOD_RCTL, KC_ENT),
     KC_LSPO,      KC_MINS,        KC_EQL,        KC_GRV,  KC_BSLS, ___x___, KC_NDSH, KC_MDSH, KC_COMM, KC_DOT,        KC_SLSH,        KC_RSPC,
     LT_GUIL,      ALL_T(KC_LBRC), M(LALT_BRACE), KC_LGUI, LOWER,   KC_BSPC, KC_BSPC, RAISE,   KC_RGUI, M(RALT_BRACE), ALL_T(KC_RBRC), LT_GUIR
   ),
@@ -222,12 +222,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___x___, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  ___x___, ___x___, AU_ON,   AU_OFF,  ___x___,
     ___x___, ___x___, ___x___, ___x___, LOWER,   BL_TOGG, BL_TOGG, RAISE,   BL_TOGG, BL_DEC,  BL_INC,  ___x___
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  // Modifiers
-  [5] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_TAB),
-  [6] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ENT),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

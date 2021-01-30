@@ -6,7 +6,7 @@ Keyboard Maintainer: QMK Community
 Hardware Supported: Alps64 PCB  
 Hardware Availability: https://geekhack.org/index.php?topic=69666.0
 
-QMK is not the Alps64 official firmware. To use the official tools, refer to  [TMK Keymap Editor](http://www.tmk-kbd.com/tmk_keyboard/editor/unimap/?alps64) or [TMK Keyboard Firmware on Github](https://github.com/tmk/tmk_keyboard).
+QMK is not the Alps64 official firmware. To use the official tools, refer to  [TMK Keymap Editor](http://www.tmk-kbd.com/tmk_keyboard/editor/unimap/?alps64) or [TMK Keyboard Firmware on GitHub](https://github.com/tmk/tmk_keyboard).
 
 Make example for this keyboard (after setting up your build environment):
 

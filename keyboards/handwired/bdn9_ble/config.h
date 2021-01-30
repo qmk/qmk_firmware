@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    KeyPCB/Keebio
 #define PRODUCT         BDN9-BLE
-#define DESCRIPTION     3x3 Bluetooth Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -41,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN F6
 // #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_ON_STATE 1
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

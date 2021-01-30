@@ -145,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NUMPAD_LOCK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_numpad, false, 0);
+          PLAY_SONG(tone_numpad);
         #endif
         persistant_default_layer_set(1UL<<_NUMPAD);
       }
@@ -154,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NAVIGATION_LOCK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_navigation, false, 0);
+          PLAY_SONG(tone_navigation);
         #endif
         persistant_default_layer_set(1UL<<_NAVIGATION);
       }
@@ -163,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EXCEL_LOCK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_excel, false, 0);
+          PLAY_SONG(tone_excel);
         #endif
         persistant_default_layer_set(1UL<<_EXCEL);
       }

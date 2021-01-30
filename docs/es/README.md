@@ -9,11 +9,11 @@
 
 ## ¿Qué es el firmware QMK?
 
-QMK (*Quantum Mechanical Keyboard*) es una comunidad open source que mantiene el firmware QMK, QMK Toolbox, qmk.fm, y estos documentos. El firmware QMK es un firmware para teclados basado en [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) con algunas características útiles para controladores Atmel AVR, y más específicamente, la [línea de productos OLKB](http://olkb.com), el teclado [ErgoDox EZ](http://www.ergodox-ez.com), y la [línea de productos Clueboard](http://clueboard.co/). También ha sido portado a chips ARM chips usando ChibiOS. Lo puedes utilizar para manejar tu propio teclado ya sea cableado a mano o basado en una PCB personalizada.
+QMK (*Quantum Mechanical Keyboard*) es una comunidad open source que mantiene el firmware QMK, QMK Toolbox, qmk.fm, y estos documentos. El firmware QMK es un firmware para teclados basado en [tmk\_keyboard](https://github.com/tmk/tmk_keyboard) con algunas características útiles para controladores Atmel AVR, y más específicamente, la [línea de productos OLKB](https://olkb.com), el teclado [ErgoDox EZ](https://www.ergodox-ez.com), y la [línea de productos Clueboard](https://clueboard.co/). También ha sido portado a chips ARM chips usando ChibiOS. Lo puedes utilizar para manejar tu propio teclado ya sea cableado a mano o basado en una PCB personalizada.
 
 ## Cómo conseguirlo
 
-Si estás pensando en contribuir con un keymap, teclado, or característica a QMK, la manera más sencilla es hacer un [fork del repositorio en Github](https://github.com/qmk/qmk_firmware#fork-destination-box), y clonar tu repositorio localmente para hacer los cambios, subirlos, y abir un [Pull Request](https://github.com/qmk/qmk_firmware/pulls) desde tu fork.
+Si estás pensando en contribuir con un keymap, teclado, or característica a QMK, la manera más sencilla es hacer un [fork del repositorio en GitHub](https://github.com/qmk/qmk_firmware#fork-destination-box), y clonar tu repositorio localmente para hacer los cambios, subirlos, y abir un [Pull Request](https://github.com/qmk/qmk_firmware/pulls) desde tu fork.
 
 De cualquier manera, también puedes descargarlo directamente en formatos ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), o clonarlo via git (`git@github.com:qmk/qmk_firmware.git`), o https (`https://github.com/qmk/qmk_firmware.git`).
 
@@ -29,4 +29,4 @@ Este ejemplo compilaría la revisión `rev4` del teclado `planck` con el keymap 
 
 ## Cómo personalizar
 
-QMK tiene montones de [características](es/features.md) para explorar, y una buena cantidad de [documentación de referencia](http://docs.qmk.fm) en la que sumergirse. Se pueden sacar provecho de la mayoría de las características modificando tu [keymap](es/keymap.md), y cambiando los [keycodes](es/keycodes.md).
+QMK tiene montones de [características](es/features.md) para explorar, y una buena cantidad de [documentación de referencia](https://docs.qmk.fm) en la que sumergirse. Se pueden sacar provecho de la mayoría de las características modificando tu [keymap](es/keymap.md), y cambiando los [keycodes](es/keycodes.md).

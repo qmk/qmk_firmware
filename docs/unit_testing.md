@@ -7,7 +7,7 @@ Instead I recommend these two books, explaining two different styles of Unit Tes
 * "Test Driven Development: By Example: Kent Beck"
 * "Growing Object-Oriented Software, Guided By Tests: Steve Freeman, Nat Pryce"
 
-If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](http://www.jamesshore.com/Blog/Lets-Play) video series.
+If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](https://www.jamesshore.com/Blog/Lets-Play) video series.
 
 ## Google Test and Google Mock
 It's possible to Unit Test your code using [Google Test](https://github.com/google/googletest). The Google Test framework also includes another component for writing testing mocks and stubs, called "Google Mock". For information how to write the actual tests, please refer to the documentation on that site.
@@ -50,7 +50,7 @@ In that model you would emulate the input, and expect a certain output from the 
 
 # Tracing Variables :id=tracing-variables
 
-Sometimes you might wonder why a variable gets changed and where, and this can be quite tricky to track down without having a debugger. It's of course possible to manually add print statements to track it, but you can also enable the variable trace feature. This works for both for variables that are changed by the code, and when the variable is changed by some memory corruption.
+Sometimes you might wonder why a variable gets changed and where, and this can be quite tricky to track down without having a debugger. It's of course possible to manually add print statements to track it, but you can also enable the variable trace feature. This works for both variables that are changed by the code, and when the variable is changed by some memory corruption.
 
 To take the feature into use add `VARIABLE_TRACE=x` to the end of you make command. `x` represents the number of variables you want to trace, which is usually 1.
 
