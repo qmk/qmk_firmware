@@ -1,4 +1,5 @@
 // qmk flash -kb bm40hsrgb -km sigma-squared
+
 /* Copyright 2021 Vincenzo Mitchell Barroso
  *
  * This program is free software: you can redistribute it and/or modify
