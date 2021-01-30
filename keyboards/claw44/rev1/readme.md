@@ -4,9 +4,9 @@
 
 A split keyboard with 3x6 vertically staggered keys and 4 thumb keys.
 
-Keyboard Maintainer: [@yfuku_](https://twitter.com/yfuku_)  
-Hardware Supported: Claw44 PCB, ProMicro  
-Hardware Availability: https://yfuku.booth.pm/  
+* Keyboard Maintainer: [@yfuku_](https://twitter.com/yfuku_)
+* Hardware Supported: Claw44 PCB, ProMicro
+* Hardware Availability: https://yfuku.booth.pm/
 
 Make example for this keyboard (after setting up your build environment):
 
