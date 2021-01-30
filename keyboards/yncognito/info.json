@@ -1,0 +1,24 @@
+{
+    "keyboard_name": "sl8",
+    "url": "",
+    "maintainer": "yncognito",
+    "width": 8,
+    "height": 3,
+    "layouts": {
+        "LAYOUT_1x8_knob": {
+            "key_count": 8,
+            "layout": [
+                {"label":"K04 (B4,B5)", "x":7, "y":0},
+                {"label":"K00 (B4,B0)", "x":0, "y":1},
+                {"label":"K10 (D7,B0)", "x":1, "y":1},
+                {"label":"K01 (B4,B1)", "x":2, "y":1},
+                {"label":"K11 (D7,B1)", "x":3, "y":1},
+                {"label":"K02 (B4,B2)", "x":4, "y":1},
+                {"label":"K12 (D7,B2)", "x":5, "y":1},
+                {"label":"K03 (B4,B3)", "x":6, "y":1},
+                {"label":"K13 (D7,B3)", "x":7, "y":1},
+                {"label":"K14 (D7,B5)", "x":7, "y":2}
+            ]
+        }
+    }
+}
