@@ -18,7 +18,7 @@
 
 #define CTESC LCTL_T(KC_ESC)
 
-enum layer {
+enum layer_names {
     BL,
     FL
 };
