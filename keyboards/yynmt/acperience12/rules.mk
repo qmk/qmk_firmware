@@ -22,4 +22,4 @@ HD44780_ENABLE = no 		    # Enable support for HD44780 based LCDs
 DEBUG_ENABLE = no
 CUSTOM_MATRIX = no         # Use custom matrix code
 
-DEFAULT_FOLDER = acperience12/rev1
+DEFAULT_FOLDER = yynmt/acperience12/rev1
