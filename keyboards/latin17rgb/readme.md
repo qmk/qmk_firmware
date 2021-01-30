@@ -1,6 +1,6 @@
 # Latin17RGB
 
-![Latin17rgb](https://github.com/18438880/latin17RGB-pad/blob/main/latin17RGB%20PAD.jpg)
+![Latin17rgb](https://i.imgur.com/UoGWpw9l.jpg)
 
   RGB PAD use IS31FL3731 IC
 
