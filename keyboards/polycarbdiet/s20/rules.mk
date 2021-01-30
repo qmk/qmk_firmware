@@ -20,4 +20,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = MacroPad NumberPad Enter
+LAYOUTS = ortho_5x4 numpad_5x4
