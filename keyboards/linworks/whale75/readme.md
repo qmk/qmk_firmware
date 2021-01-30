@@ -3,6 +3,7 @@
 | F13 version | Knob version |
 :-------------------------:|:-------------------------:
 ![F13 version](https://i.imgur.com/M5jGi9h.jpg) | ![knob version](https://i.imgur.com/V85xqyJ.jpg)
+
 The Lin Whale 75 is a 75% keyboard designed by Lin/Lx3. It is a 75% board, with optional rotary encoder, underglow and single color 3mm LED backlight.
 
 * Keyboard maintainer: [ebastler](https://github.com/ebastler)
