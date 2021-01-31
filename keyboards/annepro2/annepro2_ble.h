@@ -19,6 +19,7 @@
 #include "annepro2.h"
 #include "quantum.h"
 
+void annepro2_ble_bootload(void);
 void annepro2_ble_startup(void);
 void annepro2_ble_broadcast(uint8_t port);
 void annepro2_ble_connect(uint8_t port);

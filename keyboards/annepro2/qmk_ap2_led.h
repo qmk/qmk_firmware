@@ -15,7 +15,9 @@
 #define CMD_LED_NEXT_ANIMATION_SPEED        0xD
 #define CMD_LED_SET_FOREGROUND_COLOR        0xE
 #define CMD_LED_KEYPRESS                    0xF
+#define CMD_LED_IAP                         0x10
 
+void annepro2SetIAP(void);
 void annepro2LedDisable(void);
 void annepro2LedEnable(void);
 void annepro2LedUpdate(uint8_t row, uint8_t col);
