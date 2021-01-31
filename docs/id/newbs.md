@@ -1,6 +1,6 @@
 # Tutorial QMK
 
-Papan ketik anda memiliki sebuah prosesor di dalamnya. Tak begitu beda dengan prosesor yang ada di dalam komputer anda. Prosesor ini menjalankan perangkat lunak yang bertugas untuk mendeteksi terjadinya tombol yang tertekan. Selain itu, prosesor tersebut juga berkewajiban untuk mengabarkan kejadian tersebut ke komputer. Pada peran inilah Perangat Tegar QMK menempatkan dirinya. QMK akan mendeteksi adanya tombol yang tertekan dan mengabarkan hal tersebut kepada komputer inang. Saat anda membangun tata letak papan ketik anda, anda membuat sebuah program yang dapat dieksekusi untuk papan ketik and.  
+Papan ketik anda memiliki sebuah prosesor di dalamnya yang tidak begitu berbeda dengan prosesor yang ada di dalam komputer anda. Prosesor ini menjalankan perangkat lunak yang bertugas untuk mendeteksi terjadinya tombol yang tertekan. Selain itu, prosesor tersebut juga berkewajiban untuk mengabarkan kejadian tersebut ke komputer. Pada peran inilah Perangat Tegar QMK menempatkan dirinya. QMK akan mendeteksi adanya tombol yang tertekan dan mengabarkan hal tersebut kepada komputer inang. Saat anda membangun tata letak papan ketik anda, anda membuat sebuah program yang dapat dieksekusi untuk papan ketik and.  
 
 QMK berusaha untuk memberdayakan anda dengan mempermudah hal yang memang mudah dan memungkinkan hal yang susah. Anda tidak harus tahu bagaimana cara memprogram untuk membuat tata letak yang manjur. Anda hanya perlu mengikuti beberapa aturan aturan sintaksis yang sederhana.
 
