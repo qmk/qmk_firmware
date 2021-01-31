@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "util.h"
 #include "debug.h"
-#ifdef SPLIT_KEYBOARD
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_HOST_SYNC_ENABLE)
 #    include "split_util.h"
 #endif
 
@@ -44,18 +44,18 @@ uint8_t host_keyboard_leds_raw(void) {
 }
 
 uint8_t host_keyboard_leds(void) {
-#ifndef SPLIT_KEYBOARD
-    return host_keyboard_leds_raw();;
-#else
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_HOST_SYNC_ENABLE)
     return get_split_host_leds();
+#else
+    return host_keyboard_leds_raw();
 #endif
 }
 
 led_t host_keyboard_led_state(void) {
-#ifndef SPLIT_KEYBOARD
-    return (led_t)host_keyboard_leds_raw();
-#else
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_HOST_SYNC_ENABLE)
     return (led_t)get_split_host_leds();
+#else
+    return (led_t)host_keyboard_leds_raw();
 #endif
 }
 
