@@ -1,7 +1,7 @@
 # BELLA RGB ISO (Hotswap)
 
 * Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
-* Hardware Supported: BELLA_RGB_ISO
+* Hardware Supported: BELLA RGB ISO (ATmega32U4)
 * Hardware Availability: [KBDFans](https://kbdfans.cn/)
 
 Make example for this keyboard (after setting up your build environment):
