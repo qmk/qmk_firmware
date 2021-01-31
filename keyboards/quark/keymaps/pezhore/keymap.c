@@ -32,7 +32,8 @@ enum ortho_4x12_keycodes {
   TFLIP,  // (╯°□°)╯︵ ┻━┻
   POOP,   // 💩
   DPOINT, // (ಠ_ಠ)
-  STRUT   // ᕕ( ᐛ )ᕗ
+  STRUT,  // ᕕ( ᐛ )ᕗ
+  SARCSM, // ⸮
 };
 
 
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |UC_Wnc|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |UC_Lin|
+ * |      |SHRUG |TFLIP | POOP |DPOINT|STRUT |      |      |      |      |SARCSM|UC_Lin|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * `-----------------------------------------------------------------------------------'
@@ -70,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FN] = LAYOUT_ortho_4x12(
    KC_GRV,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  POOP,     KC_PSCR,  KC_DEL,
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_M_WC,
-  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  UC_M_LN,
+  _______,    SHRUG,    TFLIP,     POOP,   DPOINT,    STRUT,  _______,  _______,  _______,  _______,   SARCSM,  UC_M_LN,
   _______,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,  _______
 ),
 
@@ -181,6 +182,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case STRUT:
           if (record->event.pressed) {
             send_unicode_string("ᕕ( ᐛ )ᕗ");
+          }
+          return false;
+          break;
+        case SARCSM:
+          if (record->event.pressed) {
+            send_unicode_string("⸮");
           }
           return false;
           break;
