@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* SUPER
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |Trans | XXXX | XXXX | XXXX | XXXX | XXXX |                    |  \|  |  `~  |BackSP|  -_  |  =+  |BackSP|
+ * | Pwr  |Pwr Dn| Sleep| Wake | XXXX | XXXX |                    |  \|  |  `~  |BackSP|  -_  |  =+  |BackSP|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |  Tab | Tab  | ESC  |Enter |LCTRL |  {   |                    |   }  |  Tab |  Up  |  {[  |  ]}  |  \|  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_SUPER] = LAYOUT( \
-  KC_TRNS,   KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_NO,                         KC_BSLS,  KC_GRV,   KC_BSPC,  KC_MINS,  KC_EQL,  KC_BSPC,\
+  KC_POWER,  KC_PWR,   KC_SLEP,  KC_WAKE,  KC_NO,     KC_NO,                         KC_BSLS,  KC_GRV,   KC_BSPC,  KC_MINS,  KC_EQL,  KC_BSPC,\
   KC_TAB,    KC_TAB,   KC_ESC,   KC_ENT,   KC_LCTRL,  KC_LCBR,                       KC_RCBR,  KC_TAB,   KC_UP,    KC_LBRC,  KC_RBRC, KC_TRNS, \
   KC_LSFT,   KC_LSFT,  KC_LGUI,  KC_LALT,  KC_UNDS,   KC_LPRN,                       KC_RPRN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_EQL,  KC_ENT, \
   KC_LCTL,   KC_LCTL,  KC_HOME,  KC_PGUP,  KC_PGDN,   KC_END,   KC_CAPS, KC_BSPC,    KC_B,     KC_V,     KC_C,     KC_X,     KC_Z,    KC_RSFT, \
