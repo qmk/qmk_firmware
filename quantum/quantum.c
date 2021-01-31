@@ -656,6 +656,26 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
+#if defined(AUDIO_ENABLE)
+    // There are some tasks that need to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    //
+    // At the moment the only feature that needs this is the
+    // startup song.
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
+#endif
+
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
 #endif

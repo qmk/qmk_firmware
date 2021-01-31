@@ -83,6 +83,7 @@ void increase_tempo(uint8_t tempo_change);
 void decrease_tempo(uint8_t tempo_change);
 
 void audio_init(void);
+void audio_startup(void);
 
 #ifdef PWM_AUDIO
 void play_sample(uint8_t* s, uint16_t l, bool r);

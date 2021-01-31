@@ -282,6 +282,12 @@ void audio_init() {
     dacStart(&DACD2, &dac1cfg2);
 
     /*
+     * Start the note timer
+     */
+    gptStart(&GPTD8, &gpt8cfg1);
+    gptStartContinuous(&GPTD8, 2U);
+
+    /*
      * Starting GPT6/7 driver, it is used for triggering the DAC.
      */
     START_CHANNEL_1();
@@ -295,10 +301,12 @@ void audio_init() {
 
     audio_initialized = true;
 
+    stop_all_notes();
+}
+
+void audio_startup() {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
-    } else {
-        stop_all_notes();
     }
 }
 
@@ -638,6 +646,9 @@ bool is_playing_notes(void) { return playing_notes; }
 bool is_audio_on(void) { return (audio_config.enable != 0); }
 
 void audio_toggle(void) {
+    if (audio_config.enable) {
+        stop_all_notes();
+    }
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
     if (audio_config.enable) {
