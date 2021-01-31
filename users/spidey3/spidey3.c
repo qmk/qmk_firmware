@@ -14,41 +14,42 @@ static uint32_t matrix_scan_count = 0;
 static bool     reported_version  = false;
 
 #    if defined(SPI_DEBUG_SCAN_RATE)
-static uint32_t matrix_timer           = 0;
-static uint32_t last_matrix_scan_count = 0;
+static uint32_t matrix_timer = 0;
 #    endif
 
+void report_version(void) {
+    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+    reported_version = true;
+}
+#endif
+
 void matrix_scan_user(void) {
+#if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
 #    if defined(SPI_DEBUG_SCAN_RATE)
     matrix_scan_count++;
     if (debug_enable) {
         uint32_t timer_now = timer_read32();
         if (matrix_timer == 0) {
-            matrix_timer           = timer_now;
-            last_matrix_scan_count = matrix_scan_count;
-            matrix_scan_count      = 0;
+            matrix_timer      = timer_now;
+            matrix_scan_count = 0;
         } else if (TIMER_DIFF_32(timer_now, matrix_timer) > SPI_SCAN_RATE_INTERVAL * 1000) {
-            matrix_timer           = timer_now;
-            last_matrix_scan_count = matrix_scan_count;
-            matrix_scan_count      = 0;
-            if (!reported_version) {
-                uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-                reported_version = true;
-            }
-            uprintf("scan rate: %lu/s\n", last_matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+            matrix_timer = timer_now;
+            uprintf("scan rate: %lu/s\n", matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+            matrix_scan_count = 0;
+            if (!reported_version) report_version();
         }
     }
 #    else
     if (!reported_version) {
         matrix_scan_count++;
-        if (matrix_scan_count > 300) {
-            uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-            reported_version = true;
-        }
+        if (matrix_scan_count > 300) report_version();
     }
 #    endif
-}
 #endif
+#ifdef RGBLIGHT_ENABLE
+    matrix_scan_user_rgb();
+#endif
+}
 
 bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph, uint8_t temp_mod, uint8_t temp_osm) {
     if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
@@ -115,6 +116,17 @@ bool process_gflock(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    dprintf("key event: kc: %02X, col: %02u, row: %02u, pressed: %u mods: %08b "
+#if !defined(NO_ACTION_ONESHOT)
+            "os: %08b "
+#endif
+            "weak: %08b\n",
+            keycode, record->event.key.col, record->event.key.row, record->event.pressed, bitrev(get_mods()),
+#if !defined(NO_ACTION_ONESHOT)
+            bitrev(get_oneshot_mods()),
+#endif
+            bitrev(get_weak_mods()));
+
     if (!rand_seeded) {
         srand(record->event.time % keycode);
         rand_seeded = true;
@@ -132,11 +144,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef NO_DEBUG
             // Re-implement this here, but fix the persistence!
             case DEBUG:
-                if (!debug_enable) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    debug_enable   = 0;
+                    debug_keyboard = 0;
+                    debug_matrix   = 0;
+                } else if (!debug_enable) {
                     debug_enable = 1;
 #    if defined(SPI_DEBUG_SCAN_RATE)
-                    matrix_timer     = 0;
-                    reported_version = false;
+                    matrix_timer = 0;
+                    report_version();
 #    endif
                 } else if (!debug_keyboard) {
                     debug_keyboard = 1;
