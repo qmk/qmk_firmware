@@ -1,4 +1,4 @@
-/* Copyright 2021 REPLACE_WITH_YOUR_NAME
+/* Copyright 2021 jereksel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SpiderIsland
-#define PRODUCT         Winry 25tc
+#define VENDOR_ID    0xFEED
+#define PRODUCT_ID   0x0000
+#define DEVICE_VER   0x0001
+#define MANUFACTURER SpiderIsland
+#define PRODUCT      Winry 25tc
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 5
