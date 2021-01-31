@@ -19,7 +19,6 @@
 enum ortho_4x12_layers {
   _QWERTY,
   _FN,
-  _NUMPAD,
   _LOWER,
   _RAISE,
   _ADJUST
