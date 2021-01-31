@@ -227,7 +227,9 @@ void audio_init() {
 
         audio_initialized = true;
     }
+}
 
+void audio_startup() {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
     }

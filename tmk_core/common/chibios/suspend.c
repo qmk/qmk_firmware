@@ -12,6 +12,10 @@
 #include "led.h"
 #include "wait.h"
 
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif /* AUDIO_ENABLE */
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -73,6 +77,9 @@ void suspend_power_down(void) {
         rgblight_disable_noeeprom();
     }
 #endif
+#ifdef AUDIO_ENABLE
+    stop_all_notes();
+#endif /* AUDIO_ENABLE */
 
     suspend_power_down_kb();
     // on AVR, this enables the watchdog for 15ms (max), and goes to
