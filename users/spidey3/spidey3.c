@@ -282,6 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_F1 ... KC_F12:
             return process_gflock(keycode, record);
 
+#ifdef SHIFT_BACKSPACE_DELETE
         case KC_BSPC: {
             static bool delkey_registered;
             if (record->event.pressed) {
@@ -304,6 +305,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
         }
+#endif
     }
 
 #ifdef RGBLIGHT_ENABLE
