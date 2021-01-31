@@ -1,4 +1,4 @@
-# BELLA_RGB_ISO (Hotswap)
+# BELLA RGB ISO (Hotswap)
 
 * Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
 * Hardware Supported: BELLA_RGB_ISO
