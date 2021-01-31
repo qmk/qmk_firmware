@@ -19,6 +19,14 @@
 
 #include "quantum.h"
 
+
+#ifndef WPM_ESTIMATED_WORD_SIZE
+#    define WPM_ESTIMATED_WORD_SIZE 5
+#endif
+#ifndef WPM_SMOOTHING
+#    define WPM_SMOOTHING 0.0487
+#endif
+
 bool wpm_keycode(uint16_t keycode);
 bool wpm_keycode_kb(uint16_t keycode);
 bool wpm_keycode_user(uint16_t keycode);

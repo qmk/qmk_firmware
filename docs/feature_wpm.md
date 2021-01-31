@@ -10,11 +10,11 @@ For split keyboards using soft serial, the computed WPM score will be available 
 
 ## Configuration
 
-|Define                       |Default       | Description                                                                            |
-|-----------------------------|--------------|----------------------------------------------------------------------------------------|
-|`WPM_SMOOTHING`              |`0.0487`      | Sets the smoothing to about 40 keystrokes                                              |
-|`WPM_ALLOW_COUNT_REGRESSOIN` |_Not defined_ | If defined allows the WPM to be decreased when hitting Delete or Backspace             |
-|`WPM_CTL_REGRESSION_AMOUNT`  |`5`           | When holding Control (or GUI/CMD when Ctrl-GUI swap is enabled), how much to decrease  |
+|Define                       |Default       | Description                                                                              |
+|-----------------------------|--------------|------------------------------------------------------------------------------------------|
+|`WPM_SMOOTHING`              |`0.0487`      | Sets the smoothing to about 40 keystrokes                                                |
+|`WPM_ESTIMATED_WORD_SIZE`    |`5`           | This is the value used when estimating average word size (for regression and normal use) |
+|`WPM_ALLOW_COUNT_REGRESSOIN` |_Not defined_ | If defined allows the WPM to be decreased when hitting Delete or Backspace               |
 ## Public Functions
 
 |Function                  |Description                                       |
@@ -54,7 +54,7 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
         keycode = 0;
     }
     if (((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL} || weak_modded) && (keycode == KC_DEL || keycode == KC_BSPC)) {
-        return WPM_CTL_REGRESSION_AMOUNT;
+        return WPM_ESTIMATED_WORD_SIZE;
     }
     if (keycode == KC_DEL || keycode == KC_BSPC) {
         return 1;

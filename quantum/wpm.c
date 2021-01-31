@@ -17,13 +17,6 @@
 
 #include "wpm.h"
 
-#ifndef WPM_CTL_REGRESSION_AMOUNT
-#    define WPM_CTL_REGRESSION_AMOUNT 5
-#endif
-#ifndef WPM_SMOOTHING
-#    define WPM_SMOOTHING 0.0487
-#endif
-
 // WPM Stuff
 static uint8_t  current_wpm = 0;
 static uint16_t wpm_timer   = 0;
@@ -62,7 +55,7 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
         keycode = 0;
     }
     if (((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL} || weak_modded) && (keycode == KC_DEL || keycode == KC_BSPC)) {
-        return WPM_CTL_REGRESSION_AMOUNT;
+        return WPM_ESTIMATED_WORD_SIZE;
     }
     if (keycode == KC_DEL || keycode == KC_BSPC) {
         return 1;
@@ -73,13 +66,13 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
 void update_wpm(uint16_t keycode) {
     if (wpm_keycode(keycode)) {
         if (wpm_timer > 0) {
-            current_wpm += ((60000 / timer_elapsed(wpm_timer) / 5) - current_wpm) * wpm_smoothing;
+            current_wpm += ((60000 / timer_elapsed(wpm_timer) / WPM_ESTIMATED_WORD_SIZE) - current_wpm) * wpm_smoothing;
         }
         wpm_timer = timer_read();
     }
 #ifdef WPM_ALLOW_COUNT_REGRESSION
     if (wpm_regress_count(keycode)) {
-        current_wpm -= WPM_REGRESSION_AMOUNT;
+        current_wpm -= WPM_ESTIMATED_WORD_SIZE;
     }
 #endif
 }
