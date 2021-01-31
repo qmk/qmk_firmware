@@ -201,6 +201,12 @@ displaying status on an OLED screen).
 
 This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side.  This adds a few bytes of data to the split communication protocol and may impact the matrix scan speed when enabled. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to Keypresses).
 
+```c
+#define SPLIT_HOST_SYNC_ENABLE
+```
+
+This enables syncingo of the Host LED status (caps lock, num lock, etc) betwen both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the Host LED status. 
+
 ###  Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 

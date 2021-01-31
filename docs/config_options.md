@@ -300,13 +300,19 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_USB_DETECT`
   * Detect (with timeout) USB connection when delegating master/slave
   * Default behavior for ARM
-  * Required for AVR Teensy
+  * Required for AVR Teensy (without hardware mods)
 
 * `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define SPLIT_MODS_ENABLE`
+  * Allows mod status to be sent to slave side
+  
+* `#define SPLIT_HOST_SYNC_ENABLE`
+  * Syncs the Host LED (caps, num lock, etc) between master/slave.
 
 # The `rules.mk` File
 
