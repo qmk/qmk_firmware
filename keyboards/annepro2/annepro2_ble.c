@@ -54,12 +54,20 @@ static uint8_t bleMcuUnpair[10] = {
     0x7b, 0x10, 0x53, 0x10, 0x02, 0x00, 0x00, 0x7d, 0x40, 0x05,
 };
 
+static uint8_t bleMcuBootload[11] = {
+    0x7b, 0x10, 0x51, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x01
+};
+
 static host_driver_t *lastHostDriver = NULL;
 #ifdef NKRO_ENABLE
 static bool lastNkroStatus = false;
 #endif // NKRO_ENABLE
 
 /* -------------------- Public Function Implementation ---------------------- */
+
+void annepro2_ble_bootload(void) {
+    sdWrite(&SD1, bleMcuBootload, 11);
+}
 
 void annepro2_ble_startup(void) {
     sdWrite(&SD1, bleMcuWakeup, 11);
