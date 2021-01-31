@@ -25,7 +25,7 @@ void keyboard_pre_init_kb(void){
 
 //Initialize all RGB indicators to 'off'
 __attribute__((weak))
-void keyboard_post_init_user(void) {
+void keyboard_pre_init_user(void) {
     rgblight_setrgb_at(0, 0, 0, 0); // [..., 0] = top LED
     rgblight_setrgb_at(0, 0, 0, 1); // [..., 1] = middle LED
     rgblight_setrgb_at(0, 0, 0, 2); // [..., 2] = bottom LED
