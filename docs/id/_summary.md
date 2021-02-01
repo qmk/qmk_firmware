@@ -8,12 +8,12 @@
   * [Silabus](id/syllabus.md)
 
 * FAQs
-  * [Soal Sering Ditanya Umum](faq_general.md)
-  * [Membangun QMK](faq_build.md)
-  * [*Troubleshooting* QMK](faq_misc.md)
-  * [Debugging QMK](faq_debug.md)
-  * [Soal Sering Ditanya Tata Letak Papan Tombol](faq_keymap.md)
-  * [Glosarium](reference_glossary.md)
+  * [Soal Sering Ditanya Umum](id/faq_general.md)
+  * [Membangun QMK](id/faq_build.md)
+  * [*Troubleshooting* QMK](id/faq_misc.md)
+  * [Debugging QMK](id/faq_debug.md)
+  * [Soal Sering Ditanya Tata Letak Papan Tombol](id/faq_keymap.md)
+  * [Glosarium](id/reference_glossary.md)
 
 * Configurator
   * [Ikhtisar](newbs_building_firmware_configurator.md)
