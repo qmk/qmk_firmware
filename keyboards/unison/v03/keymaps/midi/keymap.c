@@ -19,11 +19,9 @@
 enum layer_number {
     _MAC = 0,
     _WIN,
-    _NUM,
     _MIDI,
     _LOWER,
     _RAISE,
-    _NUM_RAISE,
     _ADJUST,
     _CAPS, // This is not a "REAL" layer. Define here to use for RGB light layer.
 };
@@ -31,7 +29,6 @@ enum layer_number {
 // Tap Dance
 enum tap_dances{
     TD_LSFT_CAPS = 0,
-    TD_ESC_NUM,
 };
 
 // Tap Dance state
@@ -42,17 +39,9 @@ enum {
     TAP_HOLD,
 };
 
-// Declare the functions to be used with your tap dance key(s)
-// Function associated with all tap dances
-uint8_t cur_dance(qk_tap_dance_state_t *state);
-// Functions associated with individual tap dances
-void ql_finished(qk_tap_dance_state_t *state, void *user_data);
-void ql_reset(qk_tap_dance_state_t *state, void *user_data);
-
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -67,11 +56,9 @@ enum custom_keycodes {
 };
 
 // Key Macro
-#define ESC_NUM TD(TD_ESC_NUM)
 #define S_CAP   TD(TD_LSFT_CAPS)
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
-#define SP_NRAI LT(_NUM_RAISE, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
 #define SLS_LOW LT(_LOWER, KC_SLSH)
 #define SFT_SLS RSFT_T(KC_SLSH)
@@ -80,7 +67,6 @@ enum custom_keycodes {
 #define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
-#define NUM     TG(_NUM)
 #define HENKAN  LGUI(KC_GRV)
 #define MIDI    TG(_MIDI)
 #define ALT_EN  LALT_T(KC_LANG2)
@@ -177,9 +163,6 @@ const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_COUNT, HSV_BLUE - DIMMER_LEVEL}
 );
-const rgblight_segment_t PROGMEM my_num_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_YELLOW - DIMMER_LEVEL}
-);
 const rgblight_segment_t PROGMEM my_midi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_COUNT, HSV_PINK - DIMMER_LEVEL}
 );
@@ -191,10 +174,6 @@ const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_CYAN - DIMMER_LEVEL}
-);
-
-const rgblight_segment_t PROGMEM my_num_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_GOLD - DIMMER_LEVEL}
 );
 
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -210,11 +189,9 @@ const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_mac_layer,
     my_win_layer,
-    my_num_layer,
     my_midi_layer,
     my_lower_layer,
     my_raise_layer,
-    my_num_raise_layer,
     my_adjust_layer,
     my_caps_layer
 );
@@ -230,11 +207,9 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
-    rgblight_set_layer_state(_NUM, layer_state_cmp(state, _NUM));
     rgblight_set_layer_state(_MIDI, layer_state_cmp(state, _MIDI));
     rgblight_set_layer_state(_LOWER, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(_RAISE, layer_state_cmp(state, _RAISE));
-    rgblight_set_layer_state(_NUM_RAISE, layer_state_cmp(state, _NUM_RAISE));
     rgblight_set_layer_state(_ADJUST, layer_state_cmp(state, _ADJUST));
 
     return state;
@@ -326,115 +301,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         //         }
         //         break;
         // }
-
-//------------------------------------------------------------------------------
-// Tap Dance function
-typedef struct {
-    bool is_press_action;
-    uint8_t state;
-} tap;
-
-// Determine the current tap dance state
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (!state->pressed) {
-            return SINGLE_TAP;
-        } else {
-            return TAP_HOLD;
-        }
-    } else if (state->count == 2) {
-        if (!state->pressed) {
-            return DOUBLE_TAP;
-        } else {
-            return TAP_HOLD;
-        }
-    } else if (state->count == 3) {
-        if (!state->pressed) {
-            return TRIPLE_TAP;
-        } else {
-            return TAP_HOLD;
-        }
-    } else {
-        return 8; // Magic number. At some point this method will expand to work for more presses
-    }
-}
-
-// Initialize tap structure associated with example tap dance key
-static tap ql_tap_state = {
-    .is_press_action = true,
-    .state = 0
-};
-
-// Functions that control what our tap dance key does
-void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
-    ql_tap_state.state = cur_dance(state);
-    switch(state->keycode) {
-        case TD(TD_ESC_NUM): // ESC key action
-            switch (ql_tap_state.state) {
-                case SINGLE_TAP:
-                case DOUBLE_TAP:
-                    // ESC
-                    tap_code(KC_ESC);
-                    break;
-                case TAP_HOLD:
-                    // temporal layer change
-                    layer_on(_NUM);
-                    break;
-                case TRIPLE_TAP:
-                    // toggle layer
-                    // Check to see if the layer is already set
-                    if (layer_state_is(_NUM)) {
-                        // If already set, then switch it off
-                        layer_off(_NUM);
-                    } else {
-                        // If not already set, then switch the layer on
-                        layer_on(_NUM);
-                    }
-                    break;
-            }
-            break;
-    }
-}
-
-void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch(state->keycode) {
-        case TD(TD_ESC_NUM):
-            // If the key was held down and now is released then switch off the layer
-            if (ql_tap_state.state == TAP_HOLD) {
-                layer_off(_NUM);
-            }
-            ql_tap_state.state = 0;
-            break;
-    }
-}
-
-
-//------------------------------------------------------------------------------
-// OLED
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _MAC:
-            oled_write_P(PSTR("Mac\n"), false);
-            break;
-        case _WIN:
-            oled_write_P(PSTR("Win\n"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("ADJUST\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
-    }
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-}
-#endif
