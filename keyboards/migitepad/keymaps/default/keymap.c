@@ -58,4 +58,3 @@ void oled_task_user(void) {
   oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("       "), false);
 }
 #endif
-
