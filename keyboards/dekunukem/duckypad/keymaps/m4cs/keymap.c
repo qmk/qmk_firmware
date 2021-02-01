@@ -40,14 +40,6 @@ enum layer_codes {
   CLOCK_TOGGLE
 };
 
-enum my_keycodes {
-    Z0 = SAFE_RANGE, Z1, Z2, \
-    Z3, Z4, Z5, \
-    Z6, Z7, Z8, \
-    Z9, Z10, Z11, \
-    Z12, Z13, Z14
-};
-
 #define MAC_1 LCTL(LALT(KC_MINS))
 #define MAC_2 LCTL(LALT(KC_EQL))
 #define MAC_3 LCTL(LALT(KC_LBRC))

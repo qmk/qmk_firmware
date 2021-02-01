@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001 // 1.0
 #define MANUFACTURER dekuNukem
 #define PRODUCT duckyPad
-#define DESCRIPTION duckyPad
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 17
