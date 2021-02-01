@@ -16,15 +16,15 @@
 
 #pragma once
 
-#define AUTO_SHIFT_TIMEOUT 170
-#define TAPPING_TERM 120    // TapからHoldに切り替わるまでの押下時間(ms)。デフォルト値は200。
+#define AUTO_SHIFT_TIMEOUT 200
+#define TAPPING_TERM 200    // TapからHoldに切り替わるまでの押下時間(ms)。デフォルト値は200。
 #define PERMISSIVE_HOLD     // TAPPING_TERM経過前に他のキーを押すと、Holdとして扱われるようになる。キーの同時押しが速い ひとにおすすめ。
 //#define RETRO_TAPPING       // TAPPING_TERMを経過しても、他のキーを押していなければTapとして扱われるようになる。
                             // TAPPING_TERMが短くてTapのつもりがHold扱いになってしまう場合の対策になるが、好み次第。
                             // TAPPING_TERMを500以上に設定していると、自動的に有効になる。
 //#define TAPPING_FORCE_HOLD  // Mod Tap keyをTap後にすぐにHoldしたときに、Holdとして扱われるようになる
 //#define IGNORE_MOD_TAP_INTERRUPT    // Mod Tap keyと通常キーを連続して高速に押したとき、両方のキーをTapとして扱うよう になる。
-
+//#define AUTO_SHIFT_REPEAT
 
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_MAX_LAYERS 8
