@@ -37,3 +37,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,        KC_LALT, KC_LGUI,                            KC_SPC,                    KC_RALT, TO(0),   KC_LEFT,         KC_DOWN, KC_RGHT
     )
 };
+
+void rgb_matrix_indicators_user(void) {
+	uint8_t this_led = host_keyboard_leds();
+
+	if (this_led & (1 << USB_LED_CAPS_LOCK)) {
+        // Tab key = 27
+		rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF);
+	}
+}
