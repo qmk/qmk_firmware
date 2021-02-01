@@ -1,14 +1,8 @@
 {
     "keyboard_name": "duckyPad",
-    "name": "duckyPad",
-    "description": "duckyPad",
-    "manufacturer": "dekuNukem",
     "url": "https://github.com/dekuNukem/",
     "maintainer": "M4cs",
     "width": 3,
-    "lighting": "qmk_rgblight",
-    "vendorId": "0x444E",
-    "productId": "0x4450",
     "height": 5,
     "layouts": {
         "LAYOUT": {
@@ -31,13 +25,6 @@
                 {"x": 3, "y": 4},
                 {"x": 4, "y": 4}
             ]
-        },
-        "keymap": [
-            ["0,0","0,1","0,2"],
-            ["1,0","1,1","1,2"],
-            ["2,0","2,1","2,2"],
-            ["3,0","3,1","3,2"],
-            ["4,0","4,1","4,2","4,3","4,4"]
-        ]
+        }
     }
 }
