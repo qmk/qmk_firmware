@@ -387,6 +387,12 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             else if (get_combo_must_tap(combo_index, combo)) {
                 // immediately apply tap-only combo
                 apply_combo(combo_index, combo);
+                apply_combos(); // also apply other prepared combos and dump key buffer
+#    ifdef COMBO_PROCESS_KEY_RELEASE
+                if (process_combo_key_release(combo_index, combo, key_index, keycode)) {
+                    release_combo(combo_index, combo);
+                }
+#    endif
             }
 #endif
         } else if (combo->active
