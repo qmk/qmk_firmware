@@ -42,7 +42,7 @@ __attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 /* byte map for the goblin logo, knob goblin text, and level text */
-static void render_logo(void) {
+static void render_goblin_logo(void) {
     static const char PROGMEM my_logo[] = {
 		0x00, 0xe0, 0x40, 0x80, 0x80, 0x00, 0x00, 0x80, 0x80, 0xc0, 0x60, 0x20, 0x10, 0x08, 0x08, 0x08, 
 		0x08, 0x08, 0x08, 0x10, 0x20, 0x60, 0xc0, 0x80, 0x80, 0x00, 0x00, 0x80, 0x80, 0x40, 0xe0, 0x00, 
@@ -71,9 +71,9 @@ static void render_logo(void) {
 }
 
 /* text display for layer indication */
-void oled_task_user(void) {
+__attribute__((weak)) void oled_task_user(void) {
 	
-	render_logo();
+	render_goblin_logo();
 	
 	switch (get_highest_layer(layer_state)) {
 		case 0:
