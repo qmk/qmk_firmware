@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Backprop Studio
 #define PRODUCT         Doro67 Regular PCB
-#define DESCRIPTION     65% custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

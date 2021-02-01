@@ -95,6 +95,11 @@ rgblight_config_t rgblight_config;
 rgblight_status_t rgblight_status         = {.timer_enabled = false};
 bool              is_rgblight_initialized = false;
 
+#ifdef RGBLIGHT_SLEEP
+static bool is_suspended;
+static bool pre_suspend_enabled;
+#endif
+
 #ifdef RGBLIGHT_USE_TIMER
 animation_status_t animation_status = {};
 #endif
@@ -227,6 +232,17 @@ void rgblight_init(void) {
     }
 
     is_rgblight_initialized = true;
+}
+
+void rgblight_reload_from_eeprom(void) {
+    /* Reset back to what we have in eeprom */
+    rgblight_config.raw = eeconfig_read_rgblight();
+    RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
+    rgblight_check_config();
+    eeconfig_debug_rgblight();  // display current eeprom values
+    if (rgblight_config.enable) {
+        rgblight_mode_noeeprom(rgblight_config.mode);
+    }
 }
 
 uint32_t rgblight_read_dword(void) { return rgblight_config.raw; }
@@ -708,6 +724,42 @@ void rgblight_unblink_layers(void) {
 
 #endif
 
+#ifdef RGBLIGHT_SLEEP
+
+void rgblight_suspend(void) {
+    rgblight_timer_disable();
+    if (!is_suspended) {
+        is_suspended        = true;
+        pre_suspend_enabled = rgblight_config.enable;
+
+#    ifdef RGBLIGHT_LAYER_BLINK
+        // make sure any layer blinks don't come back after suspend
+        rgblight_status.enabled_layer_mask &= ~_blinked_layer_mask;
+        _blinked_layer_mask = 0;
+#    endif
+
+        rgblight_disable_noeeprom();
+    }
+}
+
+void rgblight_wakeup(void) {
+    is_suspended = false;
+
+    if (pre_suspend_enabled) {
+        rgblight_enable_noeeprom();
+    }
+#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+    // Need this or else the LEDs won't be set
+    else if (rgblight_status.enabled_layer_mask != 0) {
+        rgblight_set();
+    }
+#    endif
+
+    rgblight_timer_enable();
+}
+
+#endif
+
 __attribute__((weak)) void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { ws2812_setleds(start_led, num_leds); }
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
@@ -729,8 +781,10 @@ void rgblight_set(void) {
 
 #    ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL
-#        ifndef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#        if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
         && rgblight_config.enable
+#        elif defined(RGBLIGHT_SLEEP)
+        && !is_suspended
 #        endif
     ) {
         rgblight_layers_write();
