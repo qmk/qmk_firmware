@@ -3,12 +3,14 @@ A 40% keyboard made first by TheVan Keyboards
 _https://thevankeyboards.com_ now taken over by TKC
 _https://thekey.company_
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_vb.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_vc.jpg)
 
 Table of Contents
 =================
 
       0  Overview
+          0.1 Hardware compatibility
+          0.2 Software compatibility
       1  'make' example
       2  Base layouts
           2.1  Normal layouts
@@ -49,25 +51,49 @@ Table of Contents
      13 Why you want this layout
      14 Use case
      15 Todo
+     16 BUGS
      17 Author(s)
 
 0 Overview
 ==========
+✓ _A layout for the demanding keyboard user (10 fingers / blind)._ 
+Designed for intuitive key placement, home row typing with certainty, 
+more symbols than standard English keyboard, speed and text size measuring.
+*400%* _the capability in_ *40%* _the size_ (by key function count).
 
-_A layout for the demanding 'puter nerd._ *400%* _the capability in_ *40%* _the size._
-
+0.1 Hardware compatibility
+==========================
 This keymap functions on _Minivan_ hardware variants with 44, 45 and
 46 keys. It may also function on 12x12x12x[11|12] boards.
 
 For some ‛common layers’ (numbers pad, movement), different versions
 can be chosen than shown just below in this by layer view:
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_ve.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization_1500_vf.jpg)
 
 By key view:
 
-![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vf.jpg)
+![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vh.jpg)
 
+
+0.2 Software compatibility
+==========================
+✓ This keymap relies on Unicode, in an attempt to avoid the 
+“dead key” system for accented characters on many non-English keyboards.
+On a Linux computer operating system, this keymap is designed to work
+with this keyboard/language setting:
+
+        > setxkbmap -layout us
+        > echo $LANG
+        `en_US.UTF-8`
+
+If that works for you, you can type the most important characters in
+the western European group of languages, native from the keyboard
+(see chapter 6 _Language support_).
+
+✗ This improvement over the “dead key” system can at the same time be
+its drawback for people for whom Unicode input does not work well enough.
+See also chapter 6 _Language support_.
 
 1 'make' example
 ================
@@ -112,7 +138,7 @@ For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty
 2.1.2 Qwerty with arrows on Base
 --------------------------------
 
-![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_va.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_vb.jpg)
 
 For the readme about this Qwerty variation, see ➡ ![base_qwerty_basearrow.md](./base_qwerty_basearrow.md) ⬅
 
@@ -181,7 +207,7 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
 ----------------
 This graphic shows how layers are reached from the ‛Default base’ layer.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_ve.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vf.jpg)
 
 
 The upper/left key which returns to the base layer (letters) on the number layers
@@ -1140,7 +1166,7 @@ hand (left) is used on the 2nd layer, it becomes ‛›’ in one layer,
 and ‛」’ in another. These are all brace related symbols, opening
 and closing next to each other.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_vb.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_vd.jpg)
 
 `_ACC` layer:
 
@@ -1375,19 +1401,29 @@ and closing next to each other.
 
 14 Use case
 ===========
-  The use case this keymap was originally designed for and on: a PC
-  with GNU/Debian/Linux (etc), secondary Linux laptop already set to
-  Dvorak _hence 'descramble'_. Being able on the move to operate other
-  operating systems owned by others _hence non-Linux Unicode modes._
-  Editing in vim / websites etc. _hence no dead keys,_ programming
-  (shell, C (like) languages) _hence decent access to basic symbols._
-  Writing in Dutch _hence accented characters_. Using a tiling window
-  manager _hence a GUI on base layer._ AltGr or Compose seemed difficult
-  to configure / use _hence accented and unicode layers._ For use with 3D
-  editing _hence a delete on base layer, Control, Alt, Shift on left edge
-  and quick toggle access to `_PAD` or `_MOV` on left shift for faster
-  modifiers and tab key._ Some input fields used have a text maximum,
-  without showing a character or word count, _hence text size counting._
+  The use case this keymap was originally designed for and on: a PC with
+  GNU/Debian/Linux (etc), secondary Linux laptop already set to Dvorak
+  _hence 'descramble'_. Language setting: `en_US.UTF-8`;
+
+  Being able on the move to operate other operating systems owned by
+  others _hence non-Linux Unicode modes._ 
+
+  Editing in vim, _hence no dead keys,_ programming (shell, C (like)
+  languages) _hence decent access to basic symbols_ (less use of pinky 
+  finger).
+
+  Writing in Dutch _hence accented characters_.
+
+  Using a tiling window manager _hence a GUI on base layer._ AltGr
+  or Compose seemed difficult to configure / use _hence accented and
+  unicode layers._
+
+  For use with 3D editing _hence a delete on base layer, Control, Alt,
+  Shift on left edge and quick toggle access to `_PAD` or `_MOV` on left
+  shift for faster modifiers and tab key._
+
+  Some input fields used have a text maximum, without showing a character
+  or word count, _hence text size counting._
 
 
 15 Todo

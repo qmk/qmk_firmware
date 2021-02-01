@@ -35,16 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      * Todo:
 
            Base layers:
-             ☑ _BON layer update graphics: Control-Tab/μ
-             ☑ _DRA layer update graphics: reverse Control/Tab
-               ☐ Clear layers view update all graphics for _BON, _DRA change
-               ☐ By key layers view update all graphics for _BON, _DRA change
-               ☐ Key associations graphics, same.
              ☐ Option to change _RAR hold on Base to RAlt, to allow Alt-Gr code stuff.
                ☐ Do check for second concurrent key press to differentiate 
-
-             ☐ Leading graphic: “Dual layout” rotated
-             ☐ Qwerty Base Arrow keycap view: green on black arrows
+             ☐ Option: Leds not on at startup.
 
              ☐ Fun and games: game layer.
 
@@ -59,20 +52,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
            
              ☐ Language specific keyboards, such as Qwertz and Azerty, etc.
                • Using an include like #include keymap_german.h (etc), and matching computer operating side
-                 remapping does seem to make a lot possible and simpler, while on the other hand it seems doubtful
-                 that the Unicode symbols would still be interpreted correctly ? Unknown to author here atm. It
-                 could mean the Unicode output needs a special descramble type functionality (see Dvorak Descramble).
-                 Can it be efficient to type various dead key combinations ?
+                 remapping does seem to make a lot possible and simpler. FIXME: find out if this works, or is
+                 a headache with Unicode. XXX
                • If a language specific #include and computer language setting is not used, but merely some basics
-                 such as a matching basic alphabet ABC…XYZ on Base, with some Unicode symbols for that language on _ACC,
-                 it will be a lot simpler to do, also avoid the dead key problem. While this seems simpler, it might
-                 not be good enough if Unicode support is not as good as computer operating system side language support.
-                 There are a lot of keys available however, so perhaps it could work: 5 layers for symbols (Base, _NSY,
-                 _ACC, _DRA, _BON).
-
+                 such as a matching basic alphabet ABC…XYZ on Base, with some additional Unicode symbols for that
+                 language on _ACC and or other Unicode layers, it might be simple to make, and avoid the dead key
+                 problem.
 
                        § Other:
 
+             ☑ _BON layer update graphics: Control-Tab/μ
+             ☑ _DRA layer update graphics: reverse Control/Tab
+             ☑ Leading graphic: “Dual layout” rotated
+             ☑ Qwerty Base Arrow keycap view: green on black arrows
              ☐ Testing all user configurations
              ☐ Porting to Planck keyboard. This has been cooked into the code already, at least to a degree,
                but it remains untested. If someone has a Planck they could try it. 

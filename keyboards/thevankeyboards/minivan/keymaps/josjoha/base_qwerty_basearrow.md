@@ -63,7 +63,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Qwerty arrows on Base](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_basearrow_2000_vf.jpg)
+![Minivan illustration Overview layers by key, Qwerty arrows on Base](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_qwerty_basearrow_2000_vh.jpg)
 
 Layers (text)
 =============
