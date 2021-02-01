@@ -2,10 +2,10 @@
   * [Mukadimah](id/newbs.md)
   * [Persiapan](id/newbs_getting_started.md)
   * [Membangun Perangkat Tegar Pertama Anda](id/newbs_building_firmware.md)
-  * [Flashing Perangkat Tegar](newbs_flashing.md)
-  * [Bantuan](support.md)
-  * [Sumber Daya Lain](newbs_learn_more_resources.md)
-  * [Silabus](syllabus.md)
+  * [Flashing Perangkat Tegar](id/newbs_flashing.md)
+  * [Bantuan](id/support.md)
+  * [Sumber Daya Lain](id/newbs_learn_more_resources.md)
+  * [Silabus](id/syllabus.md)
 
 * FAQs
   * [Soal Sering Ditanya Umum](faq_general.md)
