@@ -12,6 +12,7 @@ TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
 # Extra variables
 LOCAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 QMK_CHANGES=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE})
+NUM_CORE_CHANGES=$(echo "$QMK_CHANGES" | grep -Ec -e '^Makefile' -e '^[^/]*.mk' -e '^drivers/' -e '^lib/atsam' -e '^lib/lib8tion/' -e '^platforms' -e '^quantum' -e '^tests' -e '^tmk_core')
 
 # if docker is installed - patch calls to within the qmk docker image
 if command -v docker >/dev/null; then

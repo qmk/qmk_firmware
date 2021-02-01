@@ -14,16 +14,11 @@ Some keyboards may have specific instructions for entering the bootloader. For e
 To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
 Alternatively, hold `BOOT` while inserting the USB cable.
 
-Zadig will automatically detect the bootloader device. You may sometimes need to check **Options → List All Devices**.
-
- - For keyboards with Atmel AVR MCUs, the bootloader will be named something similar to `ATm32U4DFU`, and have a Vendor ID of `03EB`.
- - USBasp bootloaders will appear as `USBasp`, with a VID/PID of `16C0:05DC`.
- - AVR keyboards flashed with the QMK-DFU bootloader will be named `<keyboard name> Bootloader` and will also have the VID `03EB`.
- - For most ARM keyboards, it will be called `STM32 BOOTLOADER`, and have a VID/PID of `0483:DF11`.
+Zadig should automatically detect the bootloader device, but you may sometimes need to check **Options → List All Devices** and select the device from the dropdown instead.
 
 !> If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
 
-If the arrow appears green, select the driver, and click **Install Driver**. The `libusb-win32` driver will usually work for AVR, and `WinUSB` for ARM, but if you still cannot flash the board, try installing a different driver from the list. USBAspLoader devices must use the `libusbK` driver.
+If the arrow appears green, select the driver, and click **Install Driver**. See the [list of known bootloaders](#list-of-known-bootloaders) for the correct driver to install.
 
 ![Zadig with a bootloader driver correctly installed](https://i.imgur.com/b8VgXzx.png)
 
@@ -43,6 +38,40 @@ Right-click it and hit **Uninstall device**. Make sure to tick **Delete the driv
 
 ![The Device Uninstall dialog, with the "delete driver" checkbox ticked](https://i.imgur.com/aEs2RuA.png)
 
-Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again!
+Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again! Otherwise, repeat the process until Zadig reports the correct driver.
 
 ?> A full reboot of your computer may sometimes be necessary at this point, to get Windows to pick up the new driver.
+
+## List of Known Bootloaders
+
+This is a list of known bootloader devices and their USB vendor and product IDs, as well as the correct driver to assign for flashing with QMK. Note that the usbser and HidUsb drivers are built in to Windows, and cannot be assigned with Zadig - if your device has an incorrect driver, you must use the Device Manager to uninstall it as described in the previous section.
+
+The device name here is the name that appears in Zadig, and may not be what the Device Manager or QMK Toolbox displays.
+
+|Bootloader   |Device Name                   |VID/PID       |Driver |
+|-------------|------------------------------|--------------|-------|
+|`atmel-dfu`  |ATmega16u2 DFU                |`03EB:2FEF`   |libusb0|
+|`atmel-dfu`  |ATmega32U2 DFU                |`03EB:2FF0`   |libusb0|
+|`atmel-dfu`  |ATm16U4 DFU V1.0.2            |`03EB:2FF3`   |libusb0|
+|`atmel-dfu`  |ATm32U4DFU                    |`03EB:2FF4`   |libusb0|
+|`atmel-dfu`  |*none* (AT90USB64)            |`03EB:2FF9`   |libusb0|
+|`atmel-dfu`  |AT90USB128 DFU                |`03EB:2FFB`   |libusb0|
+|`qmk-dfu`    |(keyboard name) Bootloader    |As `atmel-dfu`|libusb0|
+|`halfkay`    |*none*                        |`16C0:0478`   |HidUsb |
+|`caterina`   |Pro Micro 3.3V                |`1B4F:9203`   |usbser |
+|`caterina`   |Pro Micro 5V                  |`1B4F:9205`   |usbser |
+|`caterina`   |LilyPadUSB                    |`1B4F:9207`   |usbser |
+|`caterina`   |Pololu A-Star 32U4 Bootloader |`1FFB:0101`   |usbser |
+|`caterina`   |Arduino Leonardo              |`2341:0036`   |usbser |
+|`caterina`   |Arduino Micro                 |`2341:0037`   |usbser |
+|`caterina`   |Adafruit Feather 32u4         |`239A:000C`   |usbser |
+|`caterina`   |Adafruit ItsyBitsy 32u4 3V    |`239A:000D`   |usbser |
+|`caterina`   |Adafruit ItsyBitsy 32u4 5V    |`239A:000E`   |usbser |
+|`caterina`   |Arduino Leonardo              |`2A03:0036`   |usbser |
+|`caterina`   |Arduino Micro                 |`2A03:0037`   |usbser |
+|`bootloadHID`|HIDBoot                       |`16C0:05DF`   |HidUsb |
+|`USBasp`     |USBasp                        |`16C0:05DC`   |libusbK|
+|`apm32-dfu`  |APM32 DFU ISP Mode            |`314B:0106`   |WinUSB |
+|`stm32-dfu`  |STM32 BOOTLOADER              |`0483:DF11`   |WinUSB |
+|`kiibohd`    |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
+|`stm32duino` |Maple 003                     |`1EAF:0003`   |WinUSB |

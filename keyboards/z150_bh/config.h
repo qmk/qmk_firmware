@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    blindassassin111
 #define PRODUCT         Z-150 PCB
-#define DESCRIPTION     Replacement for Zenith Z-150 PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -21,6 +20,10 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_NUM_LOCK_PIN E7
+#define LED_CAPS_LOCK_PIN B0
+#define LED_SCROLL_LOCK_PIN E6
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

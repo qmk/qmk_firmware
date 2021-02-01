@@ -283,6 +283,9 @@ ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
 
+# Disable features that a keyboard doesn't support
+-include disable_features.mk
+
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
@@ -316,6 +319,13 @@ SRC += $(patsubst %.c,%.clib,$(QUANTUM_LIB_SRC))
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
+
+SKIP_COMPILE := no
+ifneq ($(REQUIRE_PLATFORM_KEY),)
+    ifneq ($(REQUIRE_PLATFORM_KEY),$(PLATFORM_KEY))
+        SKIP_COMPILE := yes
+    endif
+endif
 
 include $(TMK_PATH)/$(PLATFORM_KEY).mk
 ifneq ($(strip $(PROTOCOL)),)
@@ -352,9 +362,16 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
+ifeq ($(SKIP_COMPILE),no)
 all: build check-size
+else
+all:
+	echo "skipped" >&2
+endif
+
 build: elf cpfirmware
 check-size: build
+check-md5: build
 objs-size: build
 
 include show_options.mk

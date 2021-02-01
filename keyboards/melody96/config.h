@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    YMDK
 #define PRODUCT         Melody96
-#define DESCRIPTION     Melody96
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -21,6 +20,11 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
+
+#define LED_NUM_LOCK_PIN C6
+#define LED_CAPS_LOCK_PIN C7
+#define LED_SCROLL_LOCK_PIN B5
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 #define BACKLIGHT_PIN B6

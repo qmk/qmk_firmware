@@ -21,4 +21,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = 65_ansi_blocker
+LAYOUTS = 65_ansi_blocker 65_iso_blocker_split_bs

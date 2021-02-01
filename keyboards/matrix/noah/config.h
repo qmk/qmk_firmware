@@ -11,7 +11,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER matrix
 #define PRODUCT NOAH
-#define DESCRIPTION 65% keybaord of the Matrix abel family
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -25,7 +24,6 @@
 #define DEBOUNCE    5
 
 // i2c setting
-#define USE_I2CV1
 #define I2C1_SCL 8
 #define I2C1_SDA 9
 #define I2C1_CLOCK_SPEED 400000

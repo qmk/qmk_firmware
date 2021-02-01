@@ -15,7 +15,8 @@ RGB LED を使いたい場合は、代わりに [RGB マトリックスサブシ
 
 I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED マトリックスライトのための基本的なサポートがあります:有効にするには、`rules.mk` に以下を追加します:
 
-    LED_MATRIX_ENABLE = IS31FL3731
+    LED_MATRIX_ENABLE = yes
+    LED_MATRIX_DRIVER = IS31FL3731
 
 1から4個の IS31FL3731 IC を使うことができます。キーボード上に存在しない IC の `LED_DRIVER_ADDR_<N>` 定義を指定しないでください。`config.h` に以下の項目を定義することができます:
 
@@ -60,7 +61,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
     ....
     }
 
-ここで、`Cx_y` は[データシート](http://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
+ここで、`Cx_y` は[データシート](https://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
 
 ## キーコード
 

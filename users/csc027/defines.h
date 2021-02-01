@@ -1,3 +1,20 @@
+/*
+Copyright 2020 Constantine Chen @csc027
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #pragma once
 #include "csc027.h"
 
@@ -14,12 +31,12 @@
  *  - There is a "Nxt L" function that cycles through the QWERTY and
  *    game layers.  This has been implemented by hard coding the jump to the
  *    next layer in each of the layers using the TO() macro.  Currently, the
- *    "Nxt L" function skips over the momentary layers (i.e., Mouse, Git,
- *    Lower, Raise, and Convenience layers).
+ *    "Nxt L" function skips over the momentary layers (i.e., Mouse, Lower,
+ *    Raise, Windows Terminal, and Convenience layers).
  *  - There is a "Rst L" function that resets the current layer to the
  *    QWERTY layer.
- *  - The "Git" one shot function goes to the macro layer which has Git
- *    commands implemented.
+ *  - The "Wt" momentary function goes to the macro layer which has Windows
+ *    Terminal shortcuts.
  *  - The Right Shift key also doubles as an Enter key if it is tapped rather
  *    than held.
  *
@@ -30,7 +47,7 @@
  * |-----------------------------------|  |-----------------------------------|
  * |Shift|  Z  |  X  |  C  |  V  |  B  |  |  N  |  M  |  ,  |  .  |  /  |Sf/En|
  * |-----------------------------------|  |-----------------------------------|
- * |Cntrl|Super| Alt |Convc|Lower|Space|  |Space|Raise|  \  | Git |Nxt L|Rst L|
+ * |Cntrl|Super| Alt |Convc|Lower|Space|  |Space|Raise|  \  |  Wt |Nxt L|Rst L|
  * `-----------------------------------'  `-----------------------------------'
  */
 
@@ -42,7 +59,7 @@
 #define _____________________QWERTY_R1_____________________  KC_Y,     KC_U,     KC_I,     KC_O,      KC_P,     KC_BSPC
 #define _____________________QWERTY_R2_____________________  KC_H,     KC_J,     KC_K,     KC_L,      KC_SCLN,  KC_QUOT
 #define _____________________QWERTY_R3_____________________  KC_N,     KC_M,     KC_COMM,  KC_DOT,    KC_SLSH,  MC_RSFE
-#define _____________________QWERTY_R4_____________________  KC_SPC,   RAISE,    KC_BSLS,  OSL(_GT),  TO(_GG),  XXXXXXX
+#define _____________________QWERTY_R4_____________________  KC_SPC,   RAISE,    KC_BSLS,  MO(_WT),   TO(_GG),  XXXXXXX
 
 /* Raise Layer
  *
@@ -123,8 +140,7 @@
 #define ______________________LOWER_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ______________________LOWER_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
-
-/* MIT Layout (Mouse)
+/* Mouse Layer
  *
  *  The mouse layer adds keys to use the keyboard like a mouse.
  *
@@ -149,33 +165,7 @@
 #define ______________________MOUSE_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ______________________MOUSE_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
-/* MIT Layout (Git)
- *
- *  The macro layer that has common git commands.
- *
- * ,-----------------------------------.  ,-----------------------------------.
- * |     |Chery| Show|Rebas|Reset| Tag |  |     | Pull| Init|Rmote| Push|     |
- * |-----------------------------------|  |-----------------------------------|
- * |     | Add |Sttus| Diff|Fetch| Grep|  |Stash|     |ChkOt| Log |     |     |
- * |-----------------------------------|  |-----------------------------------|
- * |     |     |     |Comit| Move|Brnch|  |     |Merge|     |     |     |     |
- * |-----------------------------------|  |-----------------------------------|
- * |     |     |     |     |     |     |  |     |     |     |     |     |     |
- * `-----------------------------------'  `-----------------------------------'
- */
-
-#define _______________________GIT_L1______________________  XXXXXXX,   MC_cherrypick,  MC_show,      MC_rebase,  MC_reset,  MC_tag
-#define _______________________GIT_L2______________________  _______,   MC_add,         MC_status,    MC_diff,    MC_fetch,  MC_grep
-#define _______________________GIT_L3______________________  _______,   XXXXXXX,        XXXXXXX,      MC_commit,  MC_mv,     MC_branch
-#define _______________________GIT_L4______________________  _______,   _______,        _______,      _______,    _______,   _______
-
-#define _______________________GIT_R1______________________  XXXXXXX,   MC_pull,        MC_init,      MC_remote,  MC_push,   XXXXXXX
-#define _______________________GIT_R2______________________  MC_stash,  XXXXXXX,        MC_checkout,  MC_log,     XXXXXXX,   XXXXXXX
-#define _______________________GIT_R3______________________  XXXXXXX,   MC_merge,       XXXXXXX,      XXXXXXX,    XXXXXXX,   _______
-#define _______________________GIT_R4______________________  _______,   _______,        _______,      _______,    XXXXXXX,   XXXXXXX
-
-
-/* MIT Layout (Convenience)
+/* Convenience Layer
  *
  *  The Convenience layer adds miscellaneous chords to the keyboard.
  *
@@ -208,6 +198,29 @@
 #define ___________________CONVENIENCE_R2__________________  MC_vtdl,  MC_vtdc,  MC_vtdn,  MC_vtdr,  XXXXXXX,  XXXXXXX
 #define ___________________CONVENIENCE_R3__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ___________________CONVENIENCE_R4__________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+
+/* Windows Terminal Layer
+ *
+ * ,-----------------------------------.  ,-----------------------------------.
+ * |     |     |     |     |     |     |  |     |     |     |     |     |BkSpc|
+ * |-----------------------------------|  |-----------------------------------|
+ * |     |     |Split|Close|     |     |  |FcsLf|FcsDn|FcsUp|FcsRt|     |     |
+ * |-----------------------------------|  |-----------------------------------|
+ * |     |     |     |     |VSplt|     |  |     |     |     |     |     |     |
+ * |-----------------------------------|  |-----------------------------------|
+ * |     |     |     |     |     |     |  |     |     |     |     |     |     |
+ * `-----------------------------------'  `-----------------------------------'
+ */
+
+#define ________________WINDOWS_TERMINAL_L1________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+#define ________________WINDOWS_TERMINAL_L2________________  _______,  XXXXXXX,  MC_trps,  MC_trpc,  XXXXXXX,  XXXXXXX
+#define ________________WINDOWS_TERMINAL_L3________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MC_trpv,  XXXXXXX
+#define ________________WINDOWS_TERMINAL_L4________________  _______,  _______,  _______,  _______,  _______,  _______
+
+#define ________________WINDOWS_TERMINAL_R1________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC
+#define ________________WINDOWS_TERMINAL_R2________________  MC_trpl,  MC_trpd,  MC_trpu,  MC_trpr,  XXXXXXX,  XXXXXXX
+#define ________________WINDOWS_TERMINAL_R3________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
+#define ________________WINDOWS_TERMINAL_R4________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
 
 /* General Game Layer
  *
@@ -281,32 +294,17 @@
  * These macros help synchronize the keycodes between the string declaration, string pointer declaration, and enum order.
  */
 
-
 #define CUSTOM_MACROS(CUSTOM_NAME, CUSTOM_STRING, CUSTOM_DELIM) \
-    CUSTOM_NAME(add)        CUSTOM_STRING("git add ")                              CUSTOM_DELIM() \
-    CUSTOM_NAME(branch)     CUSTOM_STRING("git branch ")                           CUSTOM_DELIM() \
-    CUSTOM_NAME(checkout)   CUSTOM_STRING("git checkout ")                         CUSTOM_DELIM() \
-    CUSTOM_NAME(cherrypick) CUSTOM_STRING("git cherry-pick ")                      CUSTOM_DELIM() \
-    CUSTOM_NAME(commit)     CUSTOM_STRING("git commit -m \"\""SS_TAP(X_LEFT))      CUSTOM_DELIM() \
-    CUSTOM_NAME(diff)       CUSTOM_STRING("git diff ")                             CUSTOM_DELIM() \
-    CUSTOM_NAME(fetch)      CUSTOM_STRING("git fetch ")                            CUSTOM_DELIM() \
-    CUSTOM_NAME(grep)       CUSTOM_STRING("git grep ")                             CUSTOM_DELIM() \
-    CUSTOM_NAME(log)        CUSTOM_STRING("git log --decorate --oneline --graph ") CUSTOM_DELIM() \
-    CUSTOM_NAME(init)       CUSTOM_STRING("git init ")                             CUSTOM_DELIM() \
-    CUSTOM_NAME(mv)         CUSTOM_STRING("git mv ")                               CUSTOM_DELIM() \
-    CUSTOM_NAME(merge)      CUSTOM_STRING("git merge ")                            CUSTOM_DELIM() \
-    CUSTOM_NAME(push)       CUSTOM_STRING("git push ")                             CUSTOM_DELIM() \
-    CUSTOM_NAME(pull)       CUSTOM_STRING("git pull ")                             CUSTOM_DELIM() \
-    CUSTOM_NAME(rebase)     CUSTOM_STRING("git rebase ")                           CUSTOM_DELIM() \
-    CUSTOM_NAME(remote)     CUSTOM_STRING("git remote ")                           CUSTOM_DELIM() \
-    CUSTOM_NAME(reset)      CUSTOM_STRING("git reset ")                            CUSTOM_DELIM() \
-    CUSTOM_NAME(show)       CUSTOM_STRING("git show ")                             CUSTOM_DELIM() \
-    CUSTOM_NAME(stash)      CUSTOM_STRING("git stash ")                            CUSTOM_DELIM() \
-    CUSTOM_NAME(status)     CUSTOM_STRING("git status ")                           CUSTOM_DELIM() \
-    CUSTOM_NAME(tag)        CUSTOM_STRING("git tag ")                              CUSTOM_DELIM() \
-    CUSTOM_NAME(rdcc)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_HOME))))        CUSTOM_DELIM() \
-    CUSTOM_NAME(lcad)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_DELETE))))      CUSTOM_DELIM() \
-    CUSTOM_NAME(vtdl)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))        CUSTOM_DELIM() \
-    CUSTOM_NAME(vtdc)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_F4))))          CUSTOM_DELIM() \
-    CUSTOM_NAME(vtdn)       CUSTOM_STRING(SS_LCTL(SS_LGUI("d")))                   CUSTOM_DELIM() \
+    CUSTOM_NAME(rdcc)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_HOME))))   CUSTOM_DELIM() \
+    CUSTOM_NAME(lcad)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_DELETE)))) CUSTOM_DELIM() \
+    CUSTOM_NAME(trps)       CUSTOM_STRING(SS_LALT(SS_LSFT("-")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trpv)       CUSTOM_STRING(SS_LALT(SS_LSFT("+")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trpc)       CUSTOM_STRING(SS_LCTL(SS_LSFT("w")))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trpl)       CUSTOM_STRING(SS_LALT(SS_TAP(X_LEFT)))            CUSTOM_DELIM() \
+    CUSTOM_NAME(trpd)       CUSTOM_STRING(SS_LALT(SS_TAP(X_DOWN)))            CUSTOM_DELIM() \
+    CUSTOM_NAME(trpu)       CUSTOM_STRING(SS_LALT(SS_TAP(X_UP)))              CUSTOM_DELIM() \
+    CUSTOM_NAME(trpr)       CUSTOM_STRING(SS_LALT(SS_TAP(X_RIGHT)))           CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdl)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))   CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdc)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_F4))))     CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdn)       CUSTOM_STRING(SS_LCTL(SS_LGUI("d")))              CUSTOM_DELIM() \
     CUSTOM_NAME(vtdr)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))))

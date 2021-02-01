@@ -15,6 +15,8 @@
  */
 
 #include "riblee.h"
+#include "raw_hid.h"
+#include <string.h>
 
 const uint8_t shift = MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT);
 
@@ -150,6 +152,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case HUNGARIAN:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_HUNGARIAN);
+            }
+            return false;
+            break;
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(keycode_config(KC_LGUI));
@@ -164,3 +172,59 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+
+#ifdef OLED_DRIVER_ENABLE
+
+static char receive_buffer[128] = {};
+static uint8_t receive_buffer_length = 0;
+
+void oled_task_user(void) {
+    // Keyboard Layer Status
+    oled_write_P(PSTR("Layer: "), false);
+
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR("Default\n"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Lower\n"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("Raise\n"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Adjust\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undefined\n"), false);
+    }
+
+    // Print string received via HID RAW
+    oled_write_ln(receive_buffer, false);
+}
+
+#ifdef RAW_ENABLE
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+
+    // Append data to receive_buffer, without the first byte
+    memcpy(receive_buffer + receive_buffer_length, data + 1, length - 1);
+    receive_buffer_length += (length - 1);
+
+    // First byte indicate if we will recive more package for the current string
+    // If it's 1 then this was the last package and we can reset the offset
+    if (data[0] == 1) {
+        // Reset the offset for memcpy to the begining of our buffer
+        receive_buffer_length = 0;
+    }
+
+    // Reset the offset to prevent overwriting memory outside of the buffer
+    if (receive_buffer_length + 32 >= 128) {
+        receive_buffer_length = 0;
+    }
+
+}
+
+#endif
+
+#endif
