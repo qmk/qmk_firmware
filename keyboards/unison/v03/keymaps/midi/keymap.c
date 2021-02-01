@@ -292,9 +292,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 4) {
         if (clockwise) {
-            rgblight_step();
+            // rgblight_step();
+            tap_code(KC_MS_WH_UP);
         } else {
-            rgblight_step_reverse();
+            tap_code(KC_MS_WH_DOWN);
+            // rgblight_step_reverse();
         }
     }
 }
