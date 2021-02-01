@@ -3,11 +3,11 @@
 
 ![Tau.4](http://gaskell.tech/tau/images/tau4.jpg)
 
-A 40% ortholinear keyboard, developed by Oliver Gaskell. More info on [gaskell.tech](http://gaskell.tech/tau/)
+A 40% ortholinear keyboard, developed by Oliver Gaskell. More info on [gaskell.tech](https://gaskell.tech/tau/four.html)
 
 * Keyboard Maintainer: [Oliver Gaskell](https://github.com/ogaskell)
-* Hardware Supported: Tau4 PCB rev1.0
-* Hardware Availability: Currently none; coming soon
+* Hardware Supported: Tau4 PCB rev1.0, Tau4 PCB rev1.1
+* Hardware Availability: Group Buy - Opens 05 Feb 2021 [More Details](https://gaskell.tech/tau/four.html)
 
 Default keymap:
 
