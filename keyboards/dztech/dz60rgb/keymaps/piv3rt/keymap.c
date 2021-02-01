@@ -38,6 +38,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+void reset_leds(void) {
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_noeeprom(155, 255, 220);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+}
+
+void keyboard_post_init_user(void) {
+    reset_leds();
+}
+
 void rgb_matrix_indicators_user(void) {
     uint8_t this_led = host_keyboard_leds();
 
