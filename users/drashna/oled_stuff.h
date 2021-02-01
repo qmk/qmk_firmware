@@ -85,15 +85,15 @@ extern uint32_t oled_timer;
 #    define OLED_RENDER_LAYER_MODS   " Mods"
 
 #    define OLED_RENDER_LOCK_NAME "Lock:"
-#    define OLED_RENDER_LOCK_NUML "N"
-#    define OLED_RENDER_LOCK_CAPS "C"
-#    define OLED_RENDER_LOCK_SCLK "S"
+#    define OLED_RENDER_LOCK_NUML "NumL"
+#    define OLED_RENDER_LOCK_CAPS "CapL"
+#    define OLED_RENDER_LOCK_SCLK "ScrL"
 
 #    define OLED_RENDER_MODS_NAME "Mods: "
-#    define OLED_RENDER_MODS_SFT  "S"
-#    define OLED_RENDER_MODS_CTL  "C"
-#    define OLED_RENDER_MODS_ALT  "A"
-#    define OLED_RENDER_MODS_GUI  "G"
+#    define OLED_RENDER_MODS_SFT  "Shft"
+#    define OLED_RENDER_MODS_CTL  "Ctrl"
+#    define OLED_RENDER_MODS_ALT  "Alt\n"
+#    define OLED_RENDER_MODS_GUI  "GUI\n"
 
 #    define OLED_RENDER_BOOTMAGIC_NAME  "BTMGK"
 #    define OLED_RENDER_BOOTMAGIC_NKRO  "NKRO"

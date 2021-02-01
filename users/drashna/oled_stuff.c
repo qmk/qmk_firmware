@@ -148,13 +148,9 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR(OLED_RENDER_LOCK_NAME), false);
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), led_usb_state & (1 << USB_LED_NUM_LOCK));
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#endif
     oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#endif
     oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
 #ifndef OLED_DISPLAY_128X64
     oled_advance_page(true);
@@ -164,17 +160,11 @@ void render_keylock_status(uint8_t led_usb_state) {
 void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
     oled_write_P(PSTR(OLED_RENDER_MODS_SFT), (modifiers & MOD_MASK_SHIFT));
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#endif
     oled_write_P(PSTR(OLED_RENDER_MODS_CTL), (modifiers & MOD_MASK_CTRL));
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#endif
     oled_write_P(PSTR(OLED_RENDER_MODS_ALT), (modifiers & MOD_MASK_ALT));
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#endif
     oled_write_P(PSTR(OLED_RENDER_MODS_GUI), (modifiers & MOD_MASK_GUI));
 }
 
@@ -205,29 +195,32 @@ void render_bootmagic_status(void) {
 #endif
         oled_write_P(logo[0][0], !is_bootmagic_on);
     }
+#ifndef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
-#ifdef OLED_DISPLAY_128X64
+        oled_write_P(logo[1][1], is_bootmagic_on);
+        oled_write_P(logo[0][1], !is_bootmagic_on);
+#endif
+    oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
-    oled_write_ln_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), !keymap_config.no_gui);
-    oled_write_P(PSTR("Magic "), false);
-    if (keymap_config.swap_lctl_lgui)
-#endif
-    {
-        oled_write_P(logo[1][1], is_bootmagic_on);
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), !keymap_config.no_gui);
 #ifdef OLED_DISPLAY_128X64
+    oled_advance_page(true);
+    oled_write_P(PSTR("Magic"), false);
+    oled_write_P(PSTR(" "), false);
+    if (keymap_config.swap_lctl_lgui)    {
+        oled_write_P(logo[1][1], is_bootmagic_on);
     } else {
-#endif
         oled_write_P(logo[0][1], !is_bootmagic_on);
     }
+#endif
     oled_write_P(PSTR(" "), false);
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_GRV), keymap_config.swap_grave_esc);
-    oled_write_P(PSTR("  "), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_CAPS), keymap_config.swap_control_capslock);
+#ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
-#else
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
 #endif
 }
 
