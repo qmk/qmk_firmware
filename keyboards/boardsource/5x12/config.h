@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Boardsource
 #define PRODUCT         5x12
-#define DESCRIPTION     50 percent ortho keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -122,9 +121,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LazyDesigners
 #define PRODUCT         THE60
-#define DESCRIPTION     A 60% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
