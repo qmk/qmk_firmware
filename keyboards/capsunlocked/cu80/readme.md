@@ -1,6 +1,6 @@
-# CU80
+# CU80 v2
 
-The CU80 is a TKL with two hotswap PCB variants. One fixed layout ISO and one fixed layout ANSI. This single firmware tree supports both, with the `default` being ISO.
+The CU80 v2 is the PCB for round 3 of the CU80 TKL keyboard, with two hotswap PCB variants. One fixed layout ISO and one fixed layout ANSI. This single firmware tree supports both, with the `default` being ISO.
 
 To place the keyboard into bootloader mode in order to flash it, hold the ESC key while plugging the board in.
 
