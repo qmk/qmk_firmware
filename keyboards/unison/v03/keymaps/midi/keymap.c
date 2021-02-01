@@ -173,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Indicator LED settings
 #define INDICATOR_INDEX 1        // where to start indicator
 #define INDICATOR_COUNT 3         // how many leds for indicator
-#define INDICATOR_CHANGE_COUNT 2  // how meny leds to change color for temporally layer
+#define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
 #define DIMMER_LEVEL 0          // brightness dimmer
 
 // for Default layer (= Base layer)
@@ -209,7 +209,7 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // for Lock indicator
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
+    {INDICATOR_INDEX + 2 , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
 );
 
 // Define the array of layers. Later layers take precedence
@@ -229,7 +229,7 @@ void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
     // Set effect range to non-indicator led range.
-    // rgblight_set_effect_range(3, 8);
+    // rgblight_set_effect_range(3, 5);
 }
 
 // Enabling and disabling lighting layers
