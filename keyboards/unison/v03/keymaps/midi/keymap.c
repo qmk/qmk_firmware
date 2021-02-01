@@ -15,6 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
+// MIDI: Used to set octave to MI_OCT_0
+extern midi_config_t midi_config;
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
     _MAC = 0,
@@ -46,13 +49,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  MAC = SAFE_RANGE,
-  WIN,
-  M_PSCR,
-  ALT_EN,
-  ALT_JA,
-  GUI_EN,
-  GUI_JA,
+    MAC = SAFE_RANGE,
+    WIN,
+    MIDI,
+    LOWER,
+    RAISE,
+    M_PSCR,
+    ALT_EN,
+    ALT_JA,
+    GUI_EN,
+    GUI_JA,
 };
 
 // Key Macro
@@ -67,8 +73,9 @@ enum custom_keycodes {
 #define CT_A    LCTL(KC_A)
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
+#define RAISE   MO(_RAISE)
 #define HENKAN  LGUI(KC_GRV)
-#define MIDI    TG(_MIDI)
+#define MIDI    DF(_MIDI)
 #define ALT_EN  LALT_T(KC_LANG2)
 #define ALT_JA  LALT_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
@@ -80,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,XXXXXXX,KC_MUTE,XXXXXXX,KC_1,   KC_2,   KC_3,   KC_4,   XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,       KC_BSPC,
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_P4,  KC_P5,  KC_P6,  KC_PPLS,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,    KC_ENT,
-        KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_P1,  KC_P2,  KC_P3,  KC_PENT,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_UP,  SFT_SLS,
+        S_CAP,  S_CAP,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_P1,  KC_P2,  KC_P3,  KC_PENT,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_UP,  SFT_SLS,
         KC_CAPS,KC_CAPS,ALT_JA, XXXXXXX,GUI_EN, SP_LOW, SP_LOW, KC_P0,  KC_P0,  KC_PDOT,SP_RAI, SP_RAI, SP_RAI, KC_RCTL,KC_LEFT,KC_DOWN,KC_RGHT
     ),
     [_WIN] = LAYOUT(
@@ -91,11 +98,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,GUI_JA, _______,ALT_EN, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
     [_MIDI] = LAYOUT(
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,MI_F_3, MI_G_3, MI_A_3, MI_B_3, MI_C_4, MI_D_4, MI_E_4, MI_F_4, MI_G_4, MI_A_4, MI_B_4, MI_C_5, MI_D_5,     MI_E_5,
-        _______,_______,_______,MI_Fs_2,MI_Gs_2,MI_As_2,XXXXXXX,MI_Cs_3,MI_Ds_3,XXXXXXX,MI_Fs_3,MI_Gs_3,MI_As_3,XXXXXXX,MI_Cs_4,   MI_Ds_4,
-        _______,_______,MI_F_2,_______,MI_G_2, MI_A_2, MI_B_2, MI_C_3, MI_D_3, MI_E_3, MI_F_3, MI_G_3, MI_A_3, MI_B_3, MI_C_4, XXXXXXX,_______,
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+        XXXXXXX,XXXXXXX,KC_MUTE,XXXXXXX,KC_1,   KC_2,   KC_3,   KC_4,   XXXXXXX,MI_VEL_9,XXXXXXX,MI_OCT_0,XXXXXXX,MI_TRNS_0,XXXXXXX,KC_MUTE,XXXXXXX,
+        MI_TRNSD,   MI_TRNS_0,MI_TRNSU,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        MI_VELD,    MI_VEL_9,MI_VELU,MI_Fs_2,MI_Gs_2,MI_As_2,XXXXXXX,MI_Cs_3,MI_Ds_3,XXXXXXX,MI_Fs_3,MI_Gs_3,MI_As_3,XXXXXXX,MI_Cs_4,    MI_Ds_4,
+        _______,_______,_______,MI_F_2, MI_G_2, MI_A_2, MI_B_2, MI_C_3, MI_D_3, MI_E_3, MI_F_3, MI_G_3, MI_A_3, MI_B_3, MI_C_4, MI_D_4, MI_E_4,
+        MI_OCTD,MI_OCT_0,MI_OCTU,XXXXXXX,XXXXXXX,LOWER,  LOWER,  XXXXXXX,XXXXXXX,XXXXXXX,RAISE,  RAISE,  RAISE,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_LOWER] = LAYOUT(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
@@ -154,7 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define INDICATOR_INDEX 1        // where to start indicator
 #define INDICATOR_COUNT 3         // how many leds for indicator
 #define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
-#define DIMMER_LEVEL 200          // brightness dimmer
+#define DIMMER_LEVEL 230          // brightness dimmer
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -164,7 +171,7 @@ const rgblight_segment_t PROGMEM my_win_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_COUNT, HSV_BLUE - DIMMER_LEVEL}
 );
 const rgblight_segment_t PROGMEM my_midi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_PINK - DIMMER_LEVEL}
+    {INDICATOR_INDEX , INDICATOR_COUNT, HSV_ORANGE - DIMMER_LEVEL}
 );
 
 // for temporal layer
@@ -201,13 +208,15 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
     // Set effect range to non-indicator led range.
     // rgblight_set_effect_range(3, 5);
+
+    // MIDI: Set octave to MI_OCT_0
+    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 }
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
-    rgblight_set_layer_state(_MIDI, layer_state_cmp(state, _MIDI));
     rgblight_set_layer_state(_LOWER, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(_RAISE, layer_state_cmp(state, _RAISE));
     rgblight_set_layer_state(_ADJUST, layer_state_cmp(state, _ADJUST));
@@ -217,9 +226,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    // rgblight_set_layer_state(_MAC, layer_state_cmp(state, _MAC));
-    // rgblight_set_layer_state(_WIN, layer_state_cmp(state, _WIN));
-    // rgblight_set_layer_state(_NUM, layer_state_cmp(state, _NUM));
+    rgblight_set_layer_state(_MAC, layer_state_cmp(state, _MAC));
+    rgblight_set_layer_state(_WIN, layer_state_cmp(state, _WIN));
+    rgblight_set_layer_state(_MIDI, layer_state_cmp(state, _MIDI));
 
     return state;
 }
@@ -235,38 +244,104 @@ bool led_update_user(led_t led_state) {
 // Rotary Encoder
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder, Right side */
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) { /* Second encoder, Left side */
-        if (clockwise) {
-            rgblight_increase_val();
-        } else {
-            rgblight_decrease_val();
-        }
-    } else if (index == 2) {
-        if (clockwise) {
-            rgblight_increase_hue();
-        } else {
-            rgblight_decrease_hue();
-        }
-    } else if (index == 3) {
-        if (clockwise) {
-            rgblight_increase_sat();
-        } else {
-            rgblight_decrease_sat();
-        }
-    } else if (index == 4) {
-        if (clockwise) {
-            // rgblight_step();
-            tap_code(KC_MS_WH_UP);
-        } else {
-            tap_code(KC_MS_WH_DOWN);
-            // rgblight_step_reverse();
-        }
+    switch(biton32(default_layer_state)) {
+        case _MIDI:
+            if (index == 0) { /* First encoder, Right side */
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+            } else if (index == 1) { /* Second encoder, Left side */
+                if (clockwise) {
+                    if (midi_config.velocity < 127) {
+                        if (midi_config.velocity < 115) {
+                            midi_config.velocity += 13;
+                        } else {
+                            midi_config.velocity = 127;
+                        }
+                    }
+                } else {
+                    if (midi_config.velocity > 0) {
+                        if (midi_config.velocity == 127) {
+                            midi_config.velocity -= 10;
+                        } else if (midi_config.velocity > 12) {
+                            midi_config.velocity -= 13;
+                        } else {
+                            midi_config.velocity = 0;
+                        }
+                    }
+                }
+            } else if (index == 2) {
+                if (clockwise) {
+                    // TODO オクターブ変化、上端、下端の判定がおかしい
+                    if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN)) {
+                        midi_config.octave++;
+                    }
+                } else {
+                    if (midi_config.octave > 0) {
+                        midi_config.octave--;
+                    }
+                }
+            } else if (index == 3) {
+                if (clockwise) {
+                    if (midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
+                        const bool positive = midi_config.transpose > 0;
+                        midi_config.transpose++;
+                        if (positive && midi_config.transpose < 0) {
+                            midi_config.transpose--;
+                        }
+                    }
+                } else {
+                    if (midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
+                        midi_config.transpose--;
+                    }
+                }
+            } else if (index == 4) {
+                if (clockwise) {
+                    // rgblight_step();
+                    tap_code(KC_MS_WH_UP);
+                } else {
+                    tap_code(KC_MS_WH_DOWN);
+                    // rgblight_step_reverse();
+                }
+            }
+            break;
+        default:
+            if (index == 0) { /* First encoder, Right side */
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+            } else if (index == 1) { /* Second encoder, Left side */
+                if (clockwise) {
+                    rgblight_increase_val();
+                } else {
+                    rgblight_decrease_val();
+                }
+            } else if (index == 2) {
+                if (clockwise) {
+                    rgblight_increase_hue();
+                } else {
+                    rgblight_decrease_hue();
+                }
+            } else if (index == 3) {
+                if (clockwise) {
+                    rgblight_increase_sat();
+                } else {
+                    rgblight_decrease_sat();
+                }
+            } else if (index == 4) {
+                if (clockwise) {
+                    rgblight_step();
+                    // tap_code(KC_MS_WH_UP);
+                } else {
+                    rgblight_step_reverse();
+                    // tap_code(KC_MS_WH_DOWN);
+                }
+            }
+            break;
     }
 }
 #endif
