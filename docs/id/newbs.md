@@ -21,6 +21,4 @@ Tujuan utama dari panduan ini adalah untuk membantu siapapun yang belum pernah m
 
 ## Sumber Daya Tambahan
 
-Beyond this guide there are several resources you may find helpful while you learn QMK. We've collected them on the [Syllabus](syllabus.md) and [Learning Resources](newbs_learn_more_resources.md) pages.
-
 Selain panduan ini, ada beberapa literatur yang mungkin bisa membantu anda dalam mempelajari QMK. Kami sudah mengumpulkannya pada [Silabus](id/syllabus.md) dan [Sumber Daya](id/newbs_learn_more_resources.md).
