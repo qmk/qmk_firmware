@@ -3,6 +3,11 @@
 #include "backlight_driver_common.h"
 #include "debug.h"
 
+// Maximum duty cycle limit
+#ifndef BACKLIGHT_LIMIT_VAL
+#    define BACKLIGHT_LIMIT_VAL 255
+#endif
+
 // This logic is a bit complex, we support 3 setups:
 //
 //   1. Hardware PWM when backlight is wired to a PWM pin.
@@ -240,6 +245,9 @@ static uint16_t cie_lightness(uint16_t v) {
     }
 }
 
+// rescale the supplied backlight value to be in terms of the value limit
+static uint32_t rescale_limit_val(uint32_t val) { return (val * (BACKLIGHT_LIMIT_VAL + 1)) / 256; }
+
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) { OCRxx = val; }
 
@@ -269,7 +277,7 @@ void backlight_set(uint8_t level) {
 #endif
     }
     // Set the brightness
-    set_pwm(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
+    set_pwm(cie_lightness(rescale_limit_val(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS)));
 }
 
 void backlight_task(void) {}
@@ -375,7 +383,7 @@ ISR(TIMERx_OVF_vect)
         breathing_interrupt_disable();
     }
 
-    set_pwm(cie_lightness(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * 0x0101U)));
+    set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * 0x0101U))));
 }
 
 #endif  // BACKLIGHT_BREATHING

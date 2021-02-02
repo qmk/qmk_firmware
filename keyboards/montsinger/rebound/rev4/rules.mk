@@ -31,3 +31,7 @@ ENCODER_ENABLE = yes
 LAYOUTS = ortho_4x12
 LAYOUTS_HAS_RGB = no
 
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

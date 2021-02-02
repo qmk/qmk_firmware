@@ -14,6 +14,6 @@ SRC += pvinis.c # add userspace file
 
 ## Some extra stuff to make firmware smaller.
 
-# LINK_TIME_OPTIMIZATION_ENABLE = yes
+# LTO_ENABLE = yes
 # CONSOLE_ENABLE = no
 # COMMAND_ENABLE = no

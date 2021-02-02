@@ -105,7 +105,7 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX)), yes)
   RGBLIGHT_ENABLE = no
-  RGB_MATRIX_ENABLE = WS2812
+  RGB_MATRIX_ENABLE = yes
 endif
 
 ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)

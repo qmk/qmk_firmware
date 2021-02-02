@@ -122,6 +122,8 @@ void bootmagic(void) {
         default_layer = eeconfig_read_default_layer();
         default_layer_set((layer_state_t)default_layer);
     }
+    /* Also initialize layer state to trigger callback functions for layer_state */
+    layer_state_set_kb((layer_state_t)layer_state);
 
     /* EE_HANDS handedness */
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_LEFT)) {

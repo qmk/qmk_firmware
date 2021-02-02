@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    BathroomEpiphanies
 #define PRODUCT         Unloved Bastard
-#define DESCRIPTION     Unloved Bastard controller for CM Masterkeys S
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -34,6 +33,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+
+#define LED_NUM_LOCK_PIN B7
+#define LED_CAPS_LOCK_PIN C5
+#define LED_SCROLL_LOCK_PIN C6
+#define LED_PIN_ON_STATE 0
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -140,9 +144,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

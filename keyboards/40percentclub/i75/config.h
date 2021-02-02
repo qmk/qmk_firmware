@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0175
 #define MANUFACTURER    di0ib
 #define PRODUCT         i75
-#define DESCRIPTION     i75 15x5 ortholinear keyboard
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -134,9 +133,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
