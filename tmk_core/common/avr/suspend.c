@@ -110,7 +110,6 @@ static void power_down(uint8_t wdto) {
         rgblight_disable_noeeprom();
     }
 #    endif
-    suspend_power_down_kb();
 
     // TODO: more power saving
     // See PicoPower application note
