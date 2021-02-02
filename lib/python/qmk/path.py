@@ -2,8 +2,8 @@
 """
 import logging
 import os
+import argparse
 from pathlib import Path
-from argparse import FileType as _FileType
 
 from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE
 from qmk.errors import NoSuchKeyboardError
@@ -68,9 +68,9 @@ def normpath(path):
     return Path(os.environ['ORIG_CWD']) / path
 
 
-class FileType(_FileType):
+class FileType(argparse.FileType):
     def __call__(self, string):
-        maybe_relative = Path(os.environ['ORIG_CWD'], string)
+        maybe_relative = normpath(string)
         if maybe_relative.exists():
             string = maybe_relative.resolve()
         return super().__call__(string)
