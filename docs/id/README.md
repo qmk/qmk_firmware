@@ -38,7 +38,7 @@ Ada banyak cara bila anda ingin berkontribusi balik ke komunitas QMK. Cara yang 
 * Bantu khalayak pada forum-forum dan ruang obrolan kami:
     * [/r/olkb](https://www.reddit.com/r/olkb/)
     * [Server Discord](https://discord.gg/Uq7gcHh)
-* Kontribusi dokumentasi kami dengan mengeklik "Sunting Laman Ini" pada bagian bawah
+* Kontribusi dokumentasi kami dengan mengeklik "*Edit This Page*" pada bagian bawah
 * [Terjemahkan dokumentasi kami ke bahasa anda](id/translating.md)
 * [Laporkan kutu](https://github.com/qmk/qmk_firmware/issues/new/choose)
 * [Buka Permintaan Tarik](id/contributing.md)
