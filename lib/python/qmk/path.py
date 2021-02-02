@@ -70,7 +70,4 @@ def normpath(path):
 
 class FileType(argparse.FileType):
     def __call__(self, string):
-        maybe_relative = normpath(string)
-        if maybe_relative.exists():
-            string = maybe_relative.resolve()
-        return super().__call__(string)
+        return super().__call__(normpath(string))
