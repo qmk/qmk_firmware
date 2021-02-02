@@ -1,6 +1,11 @@
 # Neito
+### by Oliver Granlund
 
 ISO-variant of TGR Alice with a few tweaks!
+
+![First prototype](https://i.redd.it/5ujrp8fupid61.jpg)
+
+GB:s of this board are hosted on [https://olli.works](https://olli.works)
 
 Make example for this keyboard (after setting up your build environment):
 
