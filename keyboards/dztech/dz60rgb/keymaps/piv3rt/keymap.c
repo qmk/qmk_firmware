@@ -9,8 +9,17 @@ enum piv3rt_layers {
 };
 
 enum piv3rt_keycodes {
-    RGBRST = SAFE_RANGE,
+    RGB_RST = SAFE_RANGE,
+    RGB_PCY, // Cycle through RGB profiles
 };
+
+enum piv3rt_rgbprofiles {
+    CSGO,
+    TEXT,
+    OFF, // Should be the last item
+};
+
+enum piv3rt_rgbprofiles current_profile = OFF;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEF] = LAYOUT(
@@ -30,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RGB] = LAYOUT(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
         _______, RGB_TOG, _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_MOD, _______, _______, _______, RESET,
-        _______, _______, _______, _______, _______, _______, _______, _______, RGB_SPI, RGB_SPD, _______, _______,          EEP_RST,
+        _______, _______, _______, _______, _______, RGB_PCY, _______, _______, RGB_SPI, RGB_SPD, _______, _______,          EEP_RST,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______,                            RGBRST,                    _______, _______, _______, _______, _______
+        _______, _______, _______,                            RGB_RST,                   _______, _______, _______, _______, _______
     ),
     [_NUM] = LAYOUT(
         KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, _______,
@@ -51,16 +60,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void reset_leds(void) {
+    current_profile = OFF;
     rgblight_enable();
-    rgblight_sethsv(155, 255, 220);
     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgb_matrix_sethsv(0x9f, 0xff, 0xff);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case RGBRST:
+    case RGB_RST:
         if (record->event.pressed) {
             reset_leds();
+        }
+        return false;
+        break;
+    case RGB_PCY:
+        if (record->event.pressed) {
+            // Cycle through RGB profiles
+            current_profile = current_profile == OFF ? 0 : current_profile + 1;
         }
         return false;
         break;
@@ -71,8 +88,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void rgb_matrix_indicators_user(void) {
     uint8_t this_led = host_keyboard_leds();
 
-    if (this_led & (1 << USB_LED_CAPS_LOCK)) {
-        // Tab key = 27
-        rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF);
+    if (!g_suspend_state && rgb_matrix_config.enable) {
+        if (this_led & (1 << USB_LED_CAPS_LOCK)) {
+            // Tab key = 27
+            rgb_matrix_set_color(27, 0xff, 0xff, 0xff);
+        }
+
+        if (current_profile == CSGO) {
+            // Moves
+            rgb_matrix_set_color(25, 0xff, 0x00, 0x00);
+            rgb_matrix_set_color(39, 0xff, 0x00, 0x00);
+            rgb_matrix_set_color(38, 0xff, 0x00, 0x00);
+            rgb_matrix_set_color(37, 0xff, 0x00, 0x00);
+
+            // Grenades
+            rgb_matrix_set_color(4, 0x00, 0xff, 0x00);
+            rgb_matrix_set_color(3, 0xff, 0x66, 0x00);
+            rgb_matrix_set_color(2, 0x66, 0x66, 0x22);
+            rgb_matrix_set_color(1, 0xff, 0xff, 0xff);
+
+            // Primary
+            rgb_matrix_set_color(18, 0xff, 0x00, 0x00);
+            rgb_matrix_set_color(17, 0x99, 0x33, 0x00);
+            rgb_matrix_set_color(16, 0x00, 0xff, 0x00);
+            rgb_matrix_set_color(15, 0x00, 0x00, 0xff);
+
+            // Secondary
+            rgb_matrix_set_color(32, 0x66, 0x66, 0x22);
+            rgb_matrix_set_color(31, 0x00, 0x00, 0xff);
+
+            // Equipment
+            rgb_matrix_set_color(30, 0xff, 0x00, 0xff);
+            rgb_matrix_set_color(29, 0x00, 0x00, 0xff);
+            rgb_matrix_set_color(28, 0x33, 0x66, 0x99);
+            rgb_matrix_set_color(0, 0x33, 0x66, 0x99);
+        } else if (current_profile == TEXT) {
+            // Letters
+            for (int i=0; i<7; i++) {
+                rgb_matrix_set_color(17 + i, 0x33, 0x66, 0x99);
+                rgb_matrix_set_color(31 + i, 0x33, 0x66, 0x99);
+                rgb_matrix_set_color(46 + i, 0x33, 0x66, 0x99);
+            }
+            rgb_matrix_set_color(38, 0x33, 0x66, 0x99);
+            rgb_matrix_set_color(39, 0x33, 0x66, 0x99);
+            rgb_matrix_set_color(24, 0x33, 0x66, 0x99);
+            rgb_matrix_set_color(25, 0x33, 0x66, 0x99);
+            rgb_matrix_set_color(26, 0x33, 0x66, 0x99);
+        }
     }
 }
