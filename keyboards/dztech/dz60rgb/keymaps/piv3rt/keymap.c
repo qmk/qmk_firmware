@@ -99,6 +99,20 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(13, 0xff, 0xff, 0xff);
         }
 
+        if (layer_state_is(_NUM)) {
+            // Exit with \ |
+            rgb_matrix_set_color(14, 0xff, 0x00, 0x00);
+            // Num pad
+            for (int i=0; i<3; i++) {
+                rgb_matrix_set_color(17 + i, 0xff, 0xff, 0xff);
+                rgb_matrix_set_color(30 + i, 0xff, 0xff, 0xff);
+                rgb_matrix_set_color(43 + i, 0xff, 0xff, 0xff);
+            }
+            rgb_matrix_set_color(58, 0xff, 0xff, 0xff);
+            rgb_matrix_set_color(57, 0xff, 0xff, 0xff);
+            return;
+        }
+
         if (current_profile == CSGO) {
             // Moves
             rgb_matrix_set_color(25, 0xff, 0x00, 0x00);
