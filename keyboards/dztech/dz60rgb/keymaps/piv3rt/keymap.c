@@ -88,10 +88,10 @@ void rgb_matrix_indicators_user(void) {
     if (!g_suspend_state && rgb_matrix_config.enable) {
         if (led_state.caps_lock) {
             // Tab key = 27
-            rgb_matrix_set_color(27, 0xff, 0xff, 0xff);
+            rgb_matrix_set_color(27, 0xff, 0x00, 0x00);
         }
 
-        if (led_state.num_lock) {
+        if (led_state.num_lock && (layer_state_is(_FNC) || layer_state_is(_NUM))) {
             // ESC key = 13
             rgb_matrix_set_color(13, 0xff, 0xff, 0xff);
         }
