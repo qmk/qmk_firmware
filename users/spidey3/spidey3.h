@@ -29,6 +29,8 @@ enum custom_keycodes {
     SPI_SQUARE,
     SPI_PARENS,
     SPI_FRAKTR,
+    SPI_BOLD,
+    SPI_MATH,
     SPI_GFLOCK,
     SPI_KP_00,
 };
