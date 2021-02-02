@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #define LT_DEL  LT(_RGB, KC_DEL)
-#define LT_CAPS LT(_FNC, KC_DEL)
+#define LT_CAPS LT(_FNC, KC_CAPS)
 #define LM_LALT LM(_FNC, MOD_LALT)
 #define RSFT_SL RSFT_T(KC_SLSH)
 
