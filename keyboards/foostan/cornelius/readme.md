@@ -1,6 +1,6 @@
 # cornelius
 
-![cornelius](https://i.imgur.com/kGoUGZg.jpg)
+![cornelius](https://i.imgur.com/kGoUGZgl.jpg)
 
 *Gasket mounted 40% column staggered keyboard manufactured by Yushakobo*
 
