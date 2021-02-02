@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
-// convert to L string
-#define LSTR(s) XLSTR(s)
-#define XLSTR(s) L## #s
-// convert to string
-#define STR(s) XSTR(s)
-#define XSTR(s) #s
-
 #ifdef __cplusplus
 extern "C" {
 #endif

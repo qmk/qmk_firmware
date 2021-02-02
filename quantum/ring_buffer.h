@@ -1,14 +1,13 @@
 #pragma once
 
-/*--------------------------------------------------------------------
- * Ring buffer to store scan codes from keyboard
- *------------------------------------------------------------------*/
-#ifndef RBUF_SIZE
-#    define RBUF_SIZE 32
-#endif
 #include <util/atomic.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+#ifndef RBUF_SIZE
+#    define RBUF_SIZE 32
+#endif
+
 static uint8_t     rbuf[RBUF_SIZE];
 static uint8_t     rbuf_head = 0;
 static uint8_t     rbuf_tail = 0;
