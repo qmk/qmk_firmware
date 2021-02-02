@@ -7,7 +7,7 @@
   * [Sumber Daya Lain](id/newbs_learn_more_resources.md)
   * [Silabus](id/syllabus.md)
 
-* FAQs
+* Soal Sering Ditanya
   * [Soal Sering Ditanya Umum](id/faq_general.md)
   * [Membangun QMK](id/faq_build.md)
   * [*Troubleshooting* QMK](id/faq_misc.md)
@@ -15,15 +15,15 @@
   * [Soal Sering Ditanya Tata Letak Papan Tombol](id/faq_keymap.md)
   * [Glosarium](id/reference_glossary.md)
 
-* Configurator
-  * [Ikhtisar](newbs_building_firmware_configurator.md)
-  * [Langkah Demi Langkah](configurator_step_by_step.md)
-  * [*Troubleshooting*](configurator_troubleshooting.md)
+* Konfigurator
+  * [Ikhtisar](id/newbs_building_firmware_configurator.md)
+  * [Langkah Demi Langkah](id/configurator_step_by_step.md)
+  * [*Troubleshooting*](id/configurator_troubleshooting.md)
   * QMK *API*
-    * [Ikhtisar](api_overview.md)
-    * [Dokumentasi *API*](api_docs.md)
-    * [Keyboard Support](reference_configurator_support.md)
-    * [Adding Default Keymaps](configurator_default_keymaps.md)
+    * [Ikhtisar](id/api_overview.md)
+    * [Dokumentasi *API*](id/api_docs.md)
+    * [Keyboard Support](id/reference_configurator_support.md)
+    * [Adding Default Keymaps](id/configurator_default_keymaps.md)
 
 * CLI
     * [Overview](cli.md)
