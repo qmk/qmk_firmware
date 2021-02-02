@@ -435,7 +435,9 @@ void EVENT_USB_Device_Suspend() {
  */
 void EVENT_USB_Device_WakeUp() {
     print("[W]");
+#if defined(NO_USB_STARTUP_CHECK)
     suspend_wakeup_init();
+#endif
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
@@ -1073,12 +1075,26 @@ int main(void) {
     print("Keyboard start.\n");
     while (1) {
 #if !defined(NO_USB_STARTUP_CHECK)
-        while (USB_DeviceState == DEVICE_STATE_Suspended) {
+        if (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
-            suspend_power_down();
-            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
-                USB_Device_SendRemoteWakeup();
+            while (USB_DeviceState == DEVICE_STATE_Suspended) {
+                suspend_power_down();
+                if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
+                    USB_Device_SendRemoteWakeup();
+                    clear_keyboard();
+
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+                    // Some hubs, kvm switches, and monitors do
+                    // weird things, with USB device state bouncing
+                    // around wildly on wakeup, yielding race
+                    // conditions that can corrupt the keyboard state.
+                    //
+                    // Pause for a while to let things settle...
+                    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
+                }
             }
+            suspend_wakeup_init();
         }
 #endif
 

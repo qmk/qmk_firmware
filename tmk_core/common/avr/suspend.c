@@ -102,7 +102,6 @@ static void power_down(uint8_t wdto) {
 #    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_suspend();
 #    endif
-    suspend_power_down_kb();
 
     // TODO: more power saving
     // See PicoPower application note
