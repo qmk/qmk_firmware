@@ -3,7 +3,9 @@
 #define LT_DEL  LT(_RGB, KC_DEL)
 #define LT_CAPS LT(_FNC, KC_CAPS)
 #define LM_LALT LM(_FNC, MOD_LALT)
+#define LM_NALT LM(_NUM, MOD_LALT)
 #define RSFT_SL RSFT_T(KC_SLSH)
+#define RALT_F6 RALT_T(KC_F6)
 
 enum piv3rt_layers {
     _DEF,
@@ -15,6 +17,10 @@ enum piv3rt_layers {
 enum piv3rt_keycodes {
     RGB_RST = SAFE_RANGE,
     RGB_PCY, // Cycle through RGB profiles
+    RGB_000, // Turn everything off except profiles
+    EACUTE,  // French É for Windows
+    CCED,    // French Ç for Windows
+    AGRAVE,  // French À for Windows
 };
 
 enum piv3rt_rgbprofiles {
@@ -31,20 +37,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC, KC_RBRC, KC_BSLS,
         LT_CAPS,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,          KC_ENT,
         KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   RSFT_SL, KC_UP,   LT_DEL,
-        KC_LCTL,  KC_LGUI, LM_LALT,                            KC_SPC,                    KC_RALT, MO(_FNC), KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL,  KC_LGUI, LM_LALT,                            KC_SPC,                    RALT_F6, MO(_FNC), KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FNC] = LAYOUT(
         TO(_NUM), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
-        _______,  _______, KC_UP,   _______, _______, _______, KC_CALC, _______, KC_INS,  _______, KC_PSCR,  KC_SLCK, KC_PAUS, RESET,
-        _______,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, KC_HOME,  KC_PGUP,          EEP_RST,
-        _______,           _______, _______, _______, _______, _______, NK_TOGG, _______, _______, KC_END,   KC_PGDN, KC_VOLU, KC_MUTE,
-        _______,  _______, _______,                            _______,                   _______, _______,  KC_MPRV, KC_VOLD, KC_MNXT
+        _______,  AGRAVE,  KC_UP,   EACUTE,  _______, _______, _______, _______, KC_UP,   KC_UP,   KC_PGUP,  KC_HOME, KC_PSCR, _______,
+        _______,  KC_HOME, KC_DOWN, KC_END,  _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_END,           KC_F8,
+        _______,           _______, KC_CALC, CCED,    _______, _______, _______, _______, _______, _______,  _______, KC_VOLU, KC_MUTE,
+        _______,  _______, LM_NALT,                            _______,                   KC_MPLY, _______,  KC_MPRV, KC_VOLD, KC_MNXT
     ),
     [_RGB] = LAYOUT(
         _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
         _______,  RGB_TOG, _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_MOD, _______,  _______, _______, RESET,
         _______,  _______, _______, _______, _______, RGB_PCY, _______, _______, RGB_SPI, RGB_SPD, _______,  _______,          EEP_RST,
-        _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
+        _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, RGB_000, _______,
         _______,  _______, _______,                            RGB_RST,                   _______, _______,  _______, _______, _______
     ),
     [_NUM] = LAYOUT(
@@ -75,6 +81,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // Cycle through RGB profiles
             current_profile = current_profile == OFF ? 0 : current_profile + 1;
+        }
+        return false;
+        break;
+    case RGB_000:
+        if (record->event.pressed) {
+            rgb_matrix_sethsv(0, 0, 0);
+        }
+        return false;
+        break;
+    case EACUTE:
+        if (record->event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P1) SS_UP(X_LALT));
+        }
+        return false;
+        break;
+    case CCED:
+        if (record->event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P9) SS_TAP(X_P9) SS_UP(X_LALT));
+        }
+        return false;
+        break;
+    case AGRAVE:
+        if (record->event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P9) SS_TAP(X_P2) SS_UP(X_LALT));
         }
         return false;
         break;
@@ -127,7 +157,6 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(18, 0xff, 0x00, 0x00);
             rgb_matrix_set_color(17, 0x99, 0x33, 0x00);
             rgb_matrix_set_color(16, 0x00, 0xff, 0x00);
-            rgb_matrix_set_color(15, 0x00, 0x00, 0xff);
 
             // Secondary
             rgb_matrix_set_color(32, 0x66, 0x66, 0x22);
