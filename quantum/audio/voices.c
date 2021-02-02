@@ -15,7 +15,7 @@
  */
 #include "voices.h"
 #include "audio.h"
-#include "stdlib.h"
+#include <stdlib.h>
 
 // these are imported from audio.c
 extern uint16_t envelope_index;

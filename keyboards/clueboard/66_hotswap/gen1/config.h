@@ -27,8 +27,6 @@
 /* Address for jumping to bootloader on STM32 chips. */
 /* It is chip dependent, the correct number can be looked up here:
  * http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
- * This also requires a patch to chibios:
- *  <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
  */
 #define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
 
@@ -102,9 +100,6 @@
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -133,7 +128,6 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define LED_DRIVER_ADDR_1 0b1110100
-#define I2C1_BANK GPIOB
 #define I2C1_SCL 8
 #define I2C1_SDA 9
 

@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    EDI/SCI
 #define PRODUCT         412 64 Model 00
-#define DESCRIPTION     A compact 60% keyboard inspired by the 4x4x4x4x4
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -145,9 +144,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

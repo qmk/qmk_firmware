@@ -9,7 +9,7 @@
 
 ## Qu'est-ce que QMK Firmware ?
 
-QMK (*Quantum Mechanical Keyboard*) est une communauté open source qui maintient le firmware QMK, la QMK Toolbox (*Boite à outil*), qmk.fm et leurs documentations. QMK Firmware est un firmware dédié aux claviers qui est basé sur [tmk\_keyboard](http://github.com/tmk/tmk_keyboard). Il offre des fonctionnalités très utiles pour les contrôleurs Atmel AVR, et, plus spécifiquement pour [les produits d'OLKB](http://olkb.com), le clavier [ErgoDox EZ](http://www.ergodox-ez.com), et pour les [produits Clueboard](http://clueboard.co/). Il prend désormais aussi en charge les processeurs ARM qui utilisent ChibiOS. Vous pouvez l'utiliser pour contrôler un clavier personnalisé soudé à la main ou alors sur un clavier avec un PCB personnalisé.
+QMK (*Quantum Mechanical Keyboard*) est une communauté open source qui maintient le firmware QMK, la QMK Toolbox (*Boite à outil*), qmk.fm et leurs documentations. QMK Firmware est un firmware dédié aux claviers qui est basé sur [tmk\_keyboard](https://github.com/tmk/tmk_keyboard). Il offre des fonctionnalités très utiles pour les contrôleurs Atmel AVR, et, plus spécifiquement pour [les produits d'OLKB](https://olkb.com), le clavier [ErgoDox EZ](https://www.ergodox-ez.com), et pour les [produits Clueboard](https://clueboard.co/). Il prend désormais aussi en charge les processeurs ARM qui utilisent ChibiOS. Vous pouvez l'utiliser pour contrôler un clavier personnalisé soudé à la main ou alors sur un clavier avec un PCB personnalisé.
 
 ## Comment l'obtenir
 
@@ -29,4 +29,4 @@ Cette commande compilera la révision `rev4` du clavier `planck` avec la disposi
 
 ## Comment le personnaliser
 
-QMK a beaucoup de [fonctionnalités](fr-fr/features.md) à explorer, et [une documentation](http://docs.qmk.fm) très abondante que vous pourrez parcourir. La plupart des fonctionnalités vous permettrons de modifier vos [dispositions](fr-fr/keymap.md) (keymaps) et de changer [les codes de caractères](fr-fr/keycodes.md) (keycodes).
+QMK a beaucoup de [fonctionnalités](fr-fr/features.md) à explorer, et [une documentation](https://docs.qmk.fm) très abondante que vous pourrez parcourir. La plupart des fonctionnalités vous permettrons de modifier vos [dispositions](fr-fr/keymap.md) (keymaps) et de changer [les codes de caractères](fr-fr/keycodes.md) (keycodes).

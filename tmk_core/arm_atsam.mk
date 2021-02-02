@@ -56,4 +56,8 @@ bin: $(BUILD_DIR)/$(TARGET).hex
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 flash: bin
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_ARCH)"
+endif

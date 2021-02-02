@@ -9,7 +9,7 @@
 
 ## Was ist QMK Firmware?
 
-QMK (*Quantum Mechanical Keyboard*) ist eine Open-Source-Community, welche die QMK-Firmware, die QMK-Toolbox, [qmk.fm](https://qmk.fm) und diese Dokumententation betreut. QMK-Firmware ist eine Weiterentwicklung der [tmk\_keyboard](http://github.com/tmk/tmk_keyboard)-Tastatur-Firmware mit vielen nützlichen Zusatzfunktionen für Atmel AVR-Prozessoren. Ursprünglich wurde sie für Produkte von [OLKB](http://olkb.com), das [ErgoDox EZ](http://www.ergodox-ez.com) und das [Clueboard](http://clueboard.co/) entwickelt. Im Laufe der Zeit wurde sie mit Hilfe von [ChibiOS](http://chibios.org) auch für die ARM-Architektur angepasst. Außerdem ist es inzwischen möglich, auch handverdrahtete Tastaturen und selbst geätzte PCBs mit QMK zu verwenden.
+QMK (*Quantum Mechanical Keyboard*) ist eine Open-Source-Community, welche die QMK-Firmware, die QMK-Toolbox, [qmk.fm](https://qmk.fm) und diese Dokumententation betreut. QMK-Firmware ist eine Weiterentwicklung der [tmk\_keyboard](https://github.com/tmk/tmk_keyboard)-Tastatur-Firmware mit vielen nützlichen Zusatzfunktionen für Atmel AVR-Prozessoren. Ursprünglich wurde sie für Produkte von [OLKB](https://olkb.com), das [ErgoDox EZ](https://www.ergodox-ez.com) und das [Clueboard](https://clueboard.co/) entwickelt. Im Laufe der Zeit wurde sie mit Hilfe von [ChibiOS](https://chibios.org) auch für die ARM-Architektur angepasst. Außerdem ist es inzwischen möglich, auch handverdrahtete Tastaturen und selbst geätzte PCBs mit QMK zu verwenden.
 
 ## Bezugsquelle für QMK
 

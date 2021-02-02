@@ -20,25 +20,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-
-#define VENDOR_ID       0x5352			// "SR"
-#define PRODUCT_ID      0x0202			// Second Product Second Version
-#define DEVICE_VER      0x2004			// 2020.12
-#define MANUFACTURER    SiRius
-#define PRODUCT         SiRius Uni660 V2
-#define DESCRIPTION     SiRius Uni660 V2
+#define VENDOR_ID    0x5352 // "SR"
+#define PRODUCT_ID   0x0202 // Second Product Second Version
+#define DEVICE_VER   0x2004 // 2020.12
+#define MANUFACTURER SiRius
+#define PRODUCT      Uni660 V2
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-//#define BACKLIGHT_LEVELS 3
-
 #define ONESHOT_TIMEOUT 500
+
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+//#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+//#define LOCKING_RESYNC_ENABLE
 
 /*
  * Feature disable options
@@ -55,8 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 //UART settings for communication with the RF microcontroller
 #define SERIAL_UART_BAUD 1000000
@@ -65,14 +64,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
 #define SERIAL_UART_RXD_PRESENT (UCSR1A & _BV(RXC1))
 #define SERIAL_UART_INIT() do { \
-    	/* baud rate */ \
-    	UBRR1L = SERIAL_UART_UBRR; \
-    	/* baud rate */ \
-    	UBRR1H = SERIAL_UART_UBRR >> 8; \
-    	/* enable TX and RX */ \
-    	UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
-    	/* 8-bit data */ \
-    	UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
-  	} while(0)
+    /* baud rate */ \
+    UBRR1L = SERIAL_UART_UBRR; \
+    /* baud rate */ \
+    UBRR1H = SERIAL_UART_UBRR >> 8; \
+    /* enable TX and RX */ \
+    UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
+    /* 8-bit data */ \
+    UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
+} while (0)
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4

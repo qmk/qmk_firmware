@@ -1,8 +1,8 @@
 # `info.json`
 
 <!---
-  original document: 0.9.46:docs/reference_info_json.md
-  git diff 0.9.46 HEAD -- docs/reference_info_json.md | cat
+  original document: 0.10.33:docs/reference_info_json.md
+  git diff 0.10.33 HEAD -- docs/reference_info_json.md | cat
 -->
 
 このファイルは [QMK API](https://github.com/qmk/qmk_api) によって使われます。このファイルは [QMK Configurator](https://config.qmk.fm/) がキーボードの画像を表示するために必要な情報を含んでいます。ここにメタデータを設定することもできます。
@@ -42,7 +42,7 @@
 
 ### キー辞書形式
 
-レイアウトの各キー辞書は、キーの物理プロパティを記述します。<http://keyboard-layout-editor.com> の Raw Code に精通している場合、多くの概念が同じであることが分かります。可能な限り同じキー名とレイアウトの選択を再利用しますが、keyboard-layout-editor とは異なって各キーはステートレスで、前のキーからプロパティを継承しません。
+レイアウトの各キー辞書は、キーの物理プロパティを記述します。<https://keyboard-layout-editor.com> の Raw Code に精通している場合、多くの概念が同じであることが分かります。可能な限り同じキー名とレイアウトの選択を再利用しますが、keyboard-layout-editor とは異なって各キーはステートレスで、前のキーからプロパティを継承しません。
 
 全てのキーの位置と回転は、キーボードの左上と、各キーの左上を基準にして指定されます。
 
