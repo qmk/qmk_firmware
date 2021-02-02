@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yatara
 #define PRODUCT         Drink Me
-#define DESCRIPTION     4% Ergo Macropad
 
 /* Key matrix size */
 #define MATRIX_ROWS 1

@@ -28,7 +28,7 @@ As you can see the payload describes all aspects of a keyboard necessary to crea
 To compile your keymap into a firmware simply POST your JSON to the `/v1/compile` endpoint. In the following example we've placed the JSON payload into a file named `json_data`.
 
 ```
-$ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" http://api.qmk.fm/v1/compile
+$ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" https://api.qmk.fm/v1/compile
 {
   "enqueued": true,
   "job_id": "ea1514b3-bdfc-4a7b-9b5c-08752684f7f6"
@@ -40,7 +40,7 @@ $ curl -H "Content-Type: application/json" -X POST -d "$(< json_data)" http://ap
 After submitting your keymap you can check the status using a simple HTTP GET call:
 
 ```
-$ curl http://api.qmk.fm/v1/compile/ea1514b3-bdfc-4a7b-9b5c-08752684f7f6
+$ curl https://api.qmk.fm/v1/compile/ea1514b3-bdfc-4a7b-9b5c-08752684f7f6
 {
   "created_at": "Sat, 19 Aug 2017 21:39:12 GMT",
   "enqueued_at": "Sat, 19 Aug 2017 21:39:12 GMT",
