@@ -145,17 +145,17 @@ ___TOLONG DIBENAHI___
 
 `real_mods` ditujukan untuk mencatat kondisi dari tombol *modifier* fisik sedangkan `weak_mods` menahan kondisi *modifier* virtual / temporer yang, seharusnya` tidak berpengaruh pada kondisi *modifier* fisik.
 
-Misalkan, anda menahan tombol *shift* kiri dan menekan `ACTION_MODS_KEY(LSHIFT, KC_A)`,
+Misalkan, anda menahan tombol *shift* kiri dan mengetuk `ACTION_MODS_KEY(LSHIFT, KC_A)`,
 
 dengan `weak_mods`,
 * (1) menahan *shift* kiri: `read_mods |= MOD_BIT(LSHIFT)`
-* (2) menekan `ACTION_MODS_KEY(LSHIFT, KC_A)`: `weak_mods &= ~MOD_BIT(LSHIFT)`
+* (2) mengetuk `ACTION_MODS_KEY(LSHIFT, KC_A)`: `weak_mods &= ~MOD_BIT(LSHIFT)`
 * (3) melepas `ACTION_MODS_KEY(LSHIFT, KC_A)`: `weak_mods &= ~MOD_BIT(LSHIFT)`
 `read_mods` tetap mencatat kondisi modifier.
 
 tanpa `weak_mods`,
 * (1) menahan *shift* kiri: `real_mods |= MOD_BIT(LSHIFT)`
-* (2) menekan `ACTION_MODS_KEY(LSHIFT, KC_A)`: `real_mods |= MOD_BIT(LSHIFT)`
+* (2) mengetuk `ACTION_MODS_KEY(LSHIFT, KC_A)`: `real_mods |= MOD_BIT(LSHIFT)`
 * (3) melepas `ACTION_MODS_KEY(LSHIFT, KC_A)`: `real_mods |= MOD_BIT(LSHIFT)`
 `real_mods` disini kehilangan catatan kondisi dari tombol fisik *shift* kiri.
 

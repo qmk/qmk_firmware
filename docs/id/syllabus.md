@@ -30,7 +30,7 @@ Topik-topik berikut mulai mendalami beberapa fitur yang didukung oleh QMK. Anda 
         * [Matriks LED](id/feature_led_matrix.md)
         * [Cahaya RGB](id/feature_rgblight.md)
         * [Matriks RGB](id/feature_rgb_matrix.md)
-    * [Konfigurasi Tekan-Tahan](tap_hold.md)
+    * [Konfigurasi Ketuk-Tahan](tap_hold.md)
 * **Learn More About Keymaps**
 * **Mempelajari Lebih Lanjut Tentang Tata Letak**
     * [Tata Letak](id/keymap.md)

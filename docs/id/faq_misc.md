@@ -2,13 +2,13 @@
 
 ## Bagaimana Saya Mengetes Papan Ketik Saya? :id=testing
 
-Mengetes papan ketik anda biasanya sangat mudah. Tekan setiap tombol dan pastikan tombol tersebut mengirim kode tombol yang anda harapkan. Anda bisa menggunakan mode tes [Konfigurator QMK](https://config.qmk.fm/#/test/) untuk memeriksa papan ketik anda, walaupun papan ketik tersebut tidak menjalankan QMK.
+Mengetes papan ketik anda biasanya sangat mudah. Ketuk setiap tombol dan pastikan tombol tersebut mengirim kode tombol yang anda harapkan. Anda bisa menggunakan mode tes [Konfigurator QMK](https://config.qmk.fm/#/test/) untuk memeriksa papan ketik anda, walaupun papan ketik tersebut tidak menjalankan QMK.
 
 ## Pertimbangan Keselamatan
 
 Kemungkinan besar anda tidak ingin papan ketik anda "*brick*" yang membuat tidak mungkin untuk menulis ulang perangkat tegar ke papan ketik tersebut. Berikut ada beberapa hal yang mungkin terlalu berisiko.
 
-- Bila papan ketika anda tidak memiliki tombol RESET, maka untuk memindahkan mode papan ketik ke DFU, anda harus menekan tombol fisik yang ada pada PCB. Hal ini berarti anda harus melepas sekrup pada bagian bawah.
+- Bila papan ketika anda tidak memiliki tombol RESET, maka untuk memindahkan mode papan ketik ke DFU, anda harus mengetuk tombol fisik yang ada pada PCB. Hal ini berarti anda harus melepas sekrup pada bagian bawah.
 - Bermain-main dengan `tmk_core` ataupun berkas berkas yang berkaitan bisa jadi membuat papan ketik tidak dapat digunakan.
 - Berkas `.hex` yang terlalu besar bisa menyebabkan masalah. `make dfu` akan menghapus blok memori, mengetes ukuran (urutan yang salah), yang menghasilkan galat dan menyebabkan gagal *flash* dan pada akhirnya papan ketik akan berada pada mode DFU tanpa tindak lanjut.
   - Pastikan ukuran maksimal berkas `.hex` pada Planck dlsb adalah 7000h (28672 desimal).
@@ -65,7 +65,7 @@ EXTRAKEY_ENABLE = yes          # Audio control and System control
 
 ## Wake from Sleep Doesn't Work
 
-Pada Windows, centang pengaturan `Allow this device to wake the computer` pada label **Power Management** di **Device Manager**. Juga pastikan untuk memeriksa pengaturan BIOS anda. Penekanan tombol manapun saat *sleep* seharusnya menyalakan inang.
+Pada Windows, centang pengaturan `Allow this device to wake the computer` pada label **Power Management** di **Device Manager**. Juga pastikan untuk memeriksa pengaturan BIOS anda. Pengetukan tombol manapun saat *sleep* seharusnya menyalakan inang.
 
 ## Menggunakan Arduino?
 

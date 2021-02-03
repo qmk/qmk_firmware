@@ -62,7 +62,7 @@ Anda juga dapat membeli VID:PID yang unik disini. Walaupun kami kira, anda tidak
 - https://www.obdev.at/products/vusb/license.html
 - https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
-### Saya baru saja menge-*flash* papan ketik saya dan sekarang papan ketik tersebut tidak mengirimkan apapun saat ditekan - papan ketik tersebut juga menggunakan ARM (planck revisi 6, clueboard60, hs60v2, dll...) (Februari 2019) 
+### Saya baru saja menge-*flash* papan ketik saya dan sekarang papan ketik tersebut tidak mengirimkan apapun saat diketuk - papan ketik tersebut juga menggunakan ARM (planck revisi 6, clueboard60, hs60v2, dll...) (Februari 2019) 
 Dikarenakan cara kerja EEPROM pada chip berbasis ARM, pengaturan yang tersimpan bisa jadi tidak lagi valid. Hal ini berpengaruh pada *layer* bawaan, dan *bisa jadi*, pada situasi yang masih kami pelajari, membuat papan ketik tidak lagi dapat digunakan. Melakukan reset pada EEPROM akan membenahi situasi ini.
 
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) dapat digunakan untuk memaksa reset pada eeprom. Setelah menge-*flash* citra ini, *flash* perangkat tegar anda lagi yang seharusnya mengembalikan papan ketik anda ke kondisi _normal_.

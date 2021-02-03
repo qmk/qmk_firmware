@@ -8,11 +8,11 @@ Agar anda dapat menge-*flash* perangkat tegar *custom* and, anda harus mengubah 
 
 Yang patut diperhatikan adalah, papan ketik yang berbeda, memiliki cara yang berbeda agar dapat berpindah ke moda khusus ini. Bila PCB anda menjalankan QMK, TMK, atau PS2AVRGB (Bootmapper Client) dan anda tidak diberikan instruksi khusus, coba langkah-langkah berikut, secara runut:
 
-* Tahan kedua tombol *shift* dan tekan `Pause`
-* Tahan kedua tombol *shift* dan tekan `B`
-* Lepas sambungkan papan ketika anda, tekan spasi dan `B` secara bersamaan, lalu sambungkan ke komputer, dan tunggu satu detik sebelum melepas kedua tombol tersebut
-* Lepas sambungan papan ketik, anda, tekan tombol kiri yang paling atas atau paling bawah (biasanya Escape atau Kontrol Kiri) dan sambungkan ke komputer
-* Tekan tombol  `RESET` fisik, biasanya terletak pada bagian bawah PCB
+* Tahan kedua tombol *shift* dan ketuk `Pause`
+* Tahan kedua tombol *shift* dan ketuk `B`
+* Lepas sambungkan papan ketika anda, ketuk spasi dan `B` secara bersamaan, lalu sambungkan ke komputer, dan tunggu satu detik sebelum melepas kedua tombol tersebut
+* Lepas sambungan papan ketik, anda, ketuk tombol kiri yang paling atas atau paling bawah (biasanya Escape atau Kontrol Kiri) dan sambungkan ke komputer
+* Ketuk tombol  `RESET` fisik, biasanya terletak pada bagian bawah PCB
 * Cari pin *header*  pada PCB yang dilabeli dengan `RESET` dan `GND` lalu arus-pendekkan keduanya saat PCB tersambung dengan komputer
 
 Bila anda masih gagal walaupun sudah mencoba langkah-langkah di atas dan *chip* pada papan bertanda `STM32`, maka hal ini akan menjadi lebih rumit. Pada umumnya, langkah yang paling bijak adalah bertanya pada [Discord](https://discord.gg/Uq7gcHh). Sangat mungkin beberapa foto dari papan anda akan diminta. 
@@ -115,6 +115,6 @@ Bila hal ini yang terjadi, anda harus menentukan *bootloader* secara manual. Sil
 Saat ini, papan ketik anda sudah diprogram menggunakan perangkat tegar *custom* anda dan anda sudah siap untuk mencobanya.
 
 Bila anda beruntung, semua akan berjalan sesuai dengan harapan. Namun, bila tidak, ada beberapa langkah yang akan membantu anda untuk menentukan apa yang salah.
-Testing papan ketik anda biasanya cukup sederhana. Cukup tekan setiap tombol dan pastikan tombol tersebut mengirimkan kode tombol yang diharapkan. Anda bisa menggunakan mode tes [Konfigurator QMK](https://config.qmk.fm/#/test) untuk memeriksa papan ketik anda, walau papan ketik tersebut tidak menggunakan QMK.
+Testing papan ketik anda biasanya cukup sederhana. Cukup ketuk setiap tombol dan pastikan tombol tersebut mengirimkan kode tombol yang diharapkan. Anda bisa menggunakan mode tes [Konfigurator QMK](https://config.qmk.fm/#/test) untuk memeriksa papan ketik anda, walau papan ketik tersebut tidak menggunakan QMK.
 
 Bila masih tidak berfungsi, silakan ramban topik Pertanyaan yang Sering Ditanya atau [mengobrol dengan kami pada Discord](https://discord.gg/Uq7gcHh).

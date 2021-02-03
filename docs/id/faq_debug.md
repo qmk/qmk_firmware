@@ -47,7 +47,7 @@ Setelah it, anda dapat menggunakan beberapa fungsi cetak yang berbeda:
 
 Berikut merupakan kumpulan contoh pengawakutuan yang digunakan di dunia nyata. Sebagai informasi utama, silakan mengacu pada [Pengawakutuan dan/atau *Troubleshoot* QMK](id/faq_debug.md).
 
-### Pada posisi matriks mana penekanan tombol ini?
+### Pada posisi matriks mana pengetukan tombol ini?
 
 Saat melakukan porting maupun saat melakukan diagnosis terhadap masalah pcb, mengetahui apakah sebuah penankanan tombol benar benar dipindai dengan benar. Untuk menyalakan pencatatan log pada skenario ini, beberapa baris kode berikut pada `keymap.c` tata letak anda
 
@@ -55,7 +55,7 @@ Saat melakukan porting maupun saat melakukan diagnosis terhadap masalah pcb, men
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, kolom: %u, baris: %u, tertekan: %b, waktu: %u, interupsi: %b, jumlah: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    uprintf("KL: kc: 0x%04X, kolom: %u, baris: %u, terketuk: %b, waktu: %u, interupsi: %b, jumlah: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif 
   return true;
 }
@@ -65,15 +65,15 @@ Contoh keluaran
 ```text
 Waiting for device:.......
 Listening:
-KL: kc: 169, kolom: 0, baris: 0, tertekan: 1
-KL: kc: 169, kolom: 0, baris: 0, tertekan: 0
-KL: kc: 174, kolom: 1, baris: 0, tertekan: 1
-KL: kc: 174, kolom: 1, baris: 0, tertekan: 0
-KL: kc: 172, kolom: 2, baris: 0, tertekan: 1
-KL: kc: 172, kolom: 2, baris: 0, tertekan: 0
+KL: kc: 169, kolom: 0, baris: 0, terketuk: 1
+KL: kc: 169, kolom: 0, baris: 0, terketuk: 0
+KL: kc: 174, kolom: 1, baris: 0, terketuk: 1
+KL: kc: 174, kolom: 1, baris: 0, terketuk: 0
+KL: kc: 172, kolom: 2, baris: 0, terketuk: 1
+KL: kc: 172, kolom: 2, baris: 0, terketuk: 0
 ```
 
-### Berapa lama waktu yang dibutuhkan untuk memindai sebuah penekanan tombol?
+### Berapa lama waktu yang dibutuhkan untuk memindai sebuah pengetukan tombol?
 
 Saat memeriksa masalah performa, diketahuinya frekuensi pemindaian matriks tombol bisa sangat berguna. Untuk menyalakan pencatatan log pada skenario ini, tambahkan kode berikut pada `config.h` tata letak anda
 
@@ -114,7 +114,7 @@ Mungkin anda juga membutuhkan privilese khusu untuk mengakses piranti pada siste
 ## Tidak Menerima Pesan pada Konsol
 Periksa:
 - *hid_listen* melihat piranti anda. Lihat diatas.
-- Nyalakan pengawakutuan dengan menekan **Magic**+d. Lihat [*Magic Commonads*](https://github.com/tmk/tmk_keyboard#magic-commands).
+- Nyalakan pengawakutuan dengan mengetuk **Magic**+d. Lihat [*Magic Commonads*](https://github.com/tmk/tmk_keyboard#magic-commands).
 - Set `debug_enable=true`. Lihat [Pengawakutuan](#debugging)
 - Coba gunakan fungsi `print`, bukan *debug print*. alihat **common/print.h**.
 - Lepaskan sambungan piranti lain yang juga memiliki fungsi konsol. Lihat [*Issue* #97](https://github.com/tmk/tmk_keyboard/issues/97).
