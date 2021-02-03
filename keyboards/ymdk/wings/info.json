@@ -2,7 +2,7 @@
     "keyboard_name": "YMDK Wings",
     "url": "http://ymdkey.com/",
     "maintainer": "qmk",
-    "width": 20,
+    "width": 20.25,
     "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
