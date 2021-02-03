@@ -54,11 +54,14 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
     } else if (keycode > 0xFF) {
         keycode = 0;
     }
-    if (((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL} || weak_modded) && (keycode == KC_DEL || keycode == KC_BSPC)) {
-        return WPM_ESTIMATED_WORD_SIZE;
-    }
     if (keycode == KC_DEL || keycode == KC_BSPC) {
-        return 1;
+        if (((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) || weak_modded) {
+            return WPM_ESTIMATED_WORD_SIZE;
+        } else {
+            return 1;
+        }
+    } else {
+        return 0;
     }
 }
 #endif
@@ -66,20 +69,18 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
 void update_wpm(uint16_t keycode) {
     if (wpm_keycode(keycode)) {
         if (wpm_timer > 0) {
-            current_wpm += ((60000 / timer_elapsed(wpm_timer) / WPM_ESTIMATED_WORD_SIZE) - current_wpm) * wpm_smoothing;
+            current_wpm = ((60000 / timer_elapsed(wpm_timer) / WPM_ESTIMATED_WORD_SIZE) - current_wpm) * wpm_smoothing + current_wpm;
         }
         wpm_timer = timer_read();
     }
 #ifdef WPM_ALLOW_COUNT_REGRESSION
-    if (wpm_regress_count(keycode)) {
-        current_wpm -= WPM_ESTIMATED_WORD_SIZE;
-    }
+    current_wpm -= wpm_regress_count(keycode);
 #endif
 }
 
 void decay_wpm(void) {
     if (timer_elapsed(wpm_timer) > 1000) {
-        current_wpm += -current_wpm * wpm_smoothing;
-        wpm_timer = timer_read();
+        current_wpm = (0 - current_wpm) * wpm_smoothing * current_wpm;
+        wpm_timer   = timer_read();
     }
 }
