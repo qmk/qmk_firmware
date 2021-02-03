@@ -263,7 +263,7 @@ void render_wpm(void) {
 #    else
     char wpm_counter[6];
 #    endif
-    snprintf(wpm_counter, sizeof(wpm_counter), "%3d", get_current_wpm());
+    snprintf(wpm_counter, sizeof(wpm_counter), "%3u", get_current_wpm());
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
     oled_write(wpm_counter, false);
 #endif
@@ -275,7 +275,7 @@ extern uint16_t          dpi_array[];
 
 void render_pointing_dpi_status(void) {
     char dpi_status[6];
-    snprintf(dpi_status, sizeof(dpi_status), "%5d", dpi_array[keyboard_config.dpi_config]);
+    snprintf(dpi_status, sizeof(dpi_status), "%5u", dpi_array[keyboard_config.dpi_config]);
     oled_write_P(PSTR("  DPI: "), false);
     oled_write(dpi_status, false);
 }
