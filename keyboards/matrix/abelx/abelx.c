@@ -1,6 +1,6 @@
 /**
  * abelx.c
- * 
+ *
  * Copyright 2020 astro <yuleiz@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -49,11 +49,10 @@ void matrix_init_kb(void) {
 }
 
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     aw9523b_update_pwm_buffers(AW9523B_ADDR);
 #endif
-    matrix_scan_user();
 }
 
 #ifdef RGBLIGHT_ENABLE
@@ -70,7 +69,7 @@ const aw9523b_led g_aw9523b_leds[AW9523B_RGB_NUM] = {
 void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
 {
     uint8_t num = num_leds < AW9523B_RGB_NUM ? num_leds : AW9523B_RGB_NUM;
-    
+
     ws2812_setleds(start_led, num);
 
     for (int i = 0; i < num; i++) {
