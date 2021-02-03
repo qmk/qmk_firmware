@@ -17,6 +17,10 @@
 
 #include "planck.h"
 
+#ifdef KEYBOARD_planck_ez_glow
+#    include "glow.h"
+#endif
+
 #define LAYOUT_planck_1x2uC( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, \
@@ -63,6 +67,10 @@ enum planck_ez_keycodes {
     TOGGLE_LAYER_COLOR,
     EZ_SAFE_RANGE,
 };
+
+#ifndef WEBUSB_ENABLE
+#    define WEBUSB_PAIR KC_NO
+#endif
 
 typedef union {
   uint32_t raw;

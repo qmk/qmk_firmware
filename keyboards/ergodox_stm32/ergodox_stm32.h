@@ -4,7 +4,7 @@
 #include "action_layer.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "hal.h"
+#include <hal.h>
 
 // #define I2C_ADDR 0b01000000
 #define I2C_ADDR 0b01000000

@@ -5,7 +5,7 @@ Zeal60
 
 This is a 60% PCB with per-key RGB LEDs and supports ANSI, ISO, winkey/winkeyless bottom row, HHKB-layout (split right shift and backspace).
 
-Keyboard Maintainer: [Wilba](http://wilba.tech/) and on [github](https://github.com/Wilba6582)  
+Keyboard Maintainer: [Wilba](http://wilba.tech/) and on [GitHub](https://github.com/Wilba6582)  
 Hardware Supported: Zeal60 PCB Rev 0-3  
 Hardware Availability: https://zealpc.net/collections/group-buy-pre-orders/products/zeal60rgb
 

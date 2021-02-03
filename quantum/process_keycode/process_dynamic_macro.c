@@ -216,11 +216,13 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
+            case DYN_REC_START1:
+            case DYN_REC_START2:
             case DYN_REC_STOP:
                 /* Stop the macro recording. */
-                if (record->event.pressed) { /* Ignore the initial release
-                                              * just after the recoding
-                                              * starts. */
+                if (record->event.pressed ^ (keycode != DYN_REC_STOP)) { /* Ignore the initial release
+                                                                          * just after the recording
+                                                                          * starts for DYN_REC_STOP. */
                     switch (macro_id) {
                         case 1:
                             dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);

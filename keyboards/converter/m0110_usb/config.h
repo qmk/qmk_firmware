@@ -26,7 +26,6 @@ Ported to QMK by Techsock <info@techsock.com>
 #define DEVICE_VER      0x0101
 #define MANUFACTURER    Apple
 #define PRODUCT         M0110(A)
-#define DESCRIPTION     Converts M0110(A) to USB and/or BT
 
 /* matrix size */
 #define MATRIX_ROWS 14

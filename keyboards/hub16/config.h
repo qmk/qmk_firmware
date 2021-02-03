@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x8F73
+#define VENDOR_ID 0x6A6A
+#define PRODUCT_ID 0x4810
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Josh Johnson
 #define PRODUCT Hub16
-#define DESCRIPTION Macro Pad with USB Hub and Encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -42,9 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS \
-    { F0, C7, C6, B6, E6}  
+    { F0, C7, C6, B6, E6}
 #define MATRIX_COL_PINS \
-    { F4, F1, D5, D3 }  
+    { F4, F1, D5, D3 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -81,8 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 20
 
 /* ENCODER THINGS */
-
-// #define NUMBER_OF_ENCODERS 2
+// #define ENCODER_DIRECTION_FLIP
 #define ENCODERS_PAD_A \
     { F6, B4 }
 #define ENCODERS_PAD_B \

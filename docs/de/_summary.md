@@ -11,7 +11,7 @@
   * [QMK CLI](de/cli.md)
   * [QMK CLI Konfiguration](de/cli_configuration.md)
   * [Zu QMK beitragen](de/contributing.md)
-  * [Anleitung für Github](de/getting_started_github.md)
+  * [Anleitung für GitHub](de/getting_started_github.md)
   * [Nach Hilfe fragen](de/getting_started_getting_help.md)
 
 * [Breaking Changes](de/breaking_changes.md)
@@ -77,7 +77,7 @@
   * [Macros](de/feature_macros.md)
   * [Mouse Keys](de/feature_mouse_keys.md)
   * [OLED Driver](de/feature_oled_driver.md)
-  * [One Shot Keys](de/feature_advanced_keycodes.md#one-shot-keys)
+  * [One Shot Keys](de/one_shot_keys.md)
   * [Pointing Device](de/feature_pointing_device.md)
   * [PS/2 Mouse](de/feature_ps2_mouse.md)
   * [RGB Lighting](de/feature_rgblight.md)
@@ -98,6 +98,7 @@
   * [ISP Flashing Guide](de/isp_flashing_guide.md)
   * [ARM Debugging Guide](de/arm_debugging.md)
   * [I2C Driver](de/i2c_driver.md)
+  * [SPI Driver](de/spi_driver.md)
   * [GPIO Controls](de/internals_gpio_control.md)
   * [Proton C Conversion](de/proton_c_conversion.md)
 
@@ -108,7 +109,7 @@
 * Andere Themen
   * [Eclipse mit QMK](de/other_eclipse.md)
   * [VSCode mit QMK](de/other_vscode.md)
-  * [Support](de/support.md)
+  * [Support](de/getting_started_getting_help.md)
   * [Übersetzungen](de/translating.md)
 
 * QMK Internals (In Progress)

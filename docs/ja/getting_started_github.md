@@ -1,25 +1,25 @@
-# QMK で Github を使う方法
+# QMK で GitHub を使う方法
 
 <!---
-  original document: d598f01cb:docs/getting_started_github.md
-  git diff d598f01cb HEAD -- docs/getting_started_github.md | cat
+  original document: 0.9.43:docs/getting_started_github.md
+  git diff 0.9.43 HEAD -- docs/getting_started_github.md | cat
 -->
 
-Github は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
+GitHub は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
 
 ?> このガイドでは、あなたがコマンドラインでの実行にある程度慣れており、システムに git がインストールされていることを前提にしています。
 
-[QMK Github ページ](https://github.com/qmk/qmk_firmware)を開くと、右上に "Fork" というボタンが見えます:
+[QMK GitHub ページ](https://github.com/qmk/qmk_firmware)を開くと、右上に "Fork" というボタンが見えます:
 
-![Git でのフォーク](http://i.imgur.com/8Toomz4.jpg)
+![GitHub でのフォーク](https://i.imgur.com/8Toomz4.jpg)
 
 あなたが組織の一員である場合は、どのアカウントにフォークするかを選択する必要があります。ほとんどの場合、あなたの個人のアカウントにフォークしたいでしょう。フォークが完了したら(しばらく時間が掛かる場合があります)、"Clone or Download" ボタンをクリックします:
 
-![Git からダウンロード](http://i.imgur.com/N1NYcSz.jpg)
+![GitHub からダウンロード](https://i.imgur.com/N1NYcSz.jpg)
 
 必ず "HTTPS" を選択し、リンクを選択してコピーします:
 
-![HTTPS リンク](http://i.imgur.com/eGO0ohO.jpg)
+![HTTPS リンク](https://i.imgur.com/eGO0ohO.jpg)
 
 ここから、`git clone --recurse-submodules ` をコマンドラインに入力し、リンクを貼り付けます:
 
@@ -59,12 +59,12 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-あなたの変更は今では Github 上のフォークにあります - フォーク (`https://github.com/<whoeveryouare>/qmk_firmware`)に戻ると、"New Pull Request" ボタンをクリックすることで新しいプルリクエストを作成することができます:
+あなたの変更は今では GitHub 上のフォークにあります - フォーク (`https://github.com/<whoeveryouare>/qmk_firmware`)に戻ると、"New Pull Request" ボタンをクリックすることで新しいプルリクエストを作成することができます:
 
-![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
+![New Pull Request](https://i.imgur.com/DxMHpJ8.jpg)
 
 ここでは、コミットした内容を正確に確認することができます - 全て良いように見える場合は、"Create Pull Request" をクリックすることで最終的に承認することができます:
 
-![Create Pull Request](http://i.imgur.com/Ojydlaj.jpg)
+![Create Pull Request](https://i.imgur.com/Ojydlaj.jpg)
 
 サブミットの後で、私たちはあなたの変更について話し、変更を依頼し、最終的にそれを受け入れるでしょう！QMK に貢献してくれてありがとう :)

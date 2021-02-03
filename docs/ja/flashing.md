@@ -1,13 +1,13 @@
 # 書き込みの手順とブートローダ情報
 
 <!---
-  original document: 7494490d6:docs/flashing.md
-  git diff 7494490d6 HEAD -- docs/flashing.md | cat
+  original document: 0.10.33:docs/flashing.md
+  git diff 0.10.33 HEAD -- docs/flashing.md | cat
 -->
 
 キーボードが使用するブートローダにはかなり多くの種類があり、ほぼ全てが異なる書き込みの方法を使います。幸いなことに、[QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) のようなプロジェクトは、あまり深く考える必要無しに様々なタイプと互換性を持つことを目指していますが、この文章では様々なタイプのブートローダとそれらを書き込むために利用可能な方法について説明します。
 
-`rules.mk` の `BOOTLOADER` 変数で選択されたブートローダがある場合、QMK は .hex ファイルがデバイスに書き込むのに適切なサイズかどうかを自動的に計算し、合計サイズをバイト単位で(最大値とともに)出力します。この処理を手動で実行するには、`check-size` を付けてコンパイルします。例えば、`make planck/rev4:default:check-size`。
+`rules.mk` の `BOOTLOADER` 変数で選択されたブートローダがある場合、QMK は .hex ファイルがデバイスに書き込むのに適切なサイズかどうかを自動的に計算し、合計サイズをバイト単位で(最大値とともに)出力します。
 
 ## DFU
 
@@ -31,7 +31,6 @@ BOOTLOADER = atmel-dfu
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * QMK の [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` (推奨のコマンドライン)
-* [Atmel の Flip](http://www.microchip.com/developmenttools/productdetails.aspx?partno=flip) (非推奨)
 
 書き込み手順:
 
@@ -90,7 +89,7 @@ BOOTLOADER = caterina
 互換性のあるフラッシャ:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
-* avr109 を使った [avrdude](http://www.nongnu.org/avrdude/) / `:avrdude` (推奨のコマンドライン)
+* avr109 を使った [avrdude](https://www.nongnu.org/avrdude/) / `:avrdude` (推奨のコマンドライン)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 書き込み手順:
@@ -105,7 +104,7 @@ BOOTLOADER = caterina
     make <keyboard>:<keymap>:avrdude
 
 
-#### Caterina コマンド
+### Caterina コマンド
 
 ファームウェアを DFU デバイスに書き込むために使用できる DFU コマンドがいくつかあります。
 
@@ -168,7 +167,7 @@ BOOTLOADER = USBasp
 互換性のあるフラッシャ:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
-* `usbasp` プログラマを使った [avrdude](http://www.nongnu.org/avrdude/)
+* `usbasp` プログラマを使った [avrdude](https://www.nongnu.org/avrdude/)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 書き込み手順:
@@ -245,3 +244,4 @@ BOOTLOADER = bootloadHID
 * `:dfu-util-split-left` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「左側の」 EEPROM の設定も行われます。
 * `:dfu-util-split-right` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「右側の」 EEPROM の設定も行われます。
 * `:st-link-cli` - dfu-util ではなく、ST-LINK の CLI ユーティリティを介してファームウェアを書き込めます。
+* `:st-flash` - dfu-util ではなく、[STLink Tools](https://github.com/stlink-org/stlink) の `st-flash` ユーティリティを介してファームウェアを書き込めます。

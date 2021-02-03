@@ -23,8 +23,6 @@ See: https://docs.qmk.fm/#/feature_userspace
 |K_LOCK | MacOS shortcut to execute lock command Cmd + CTRL + Q |
 |K_CSCN | MacOS shortcut to copy a portion of the screen to the clipboard |
 |K_MDSH | MacOS shortcut to get em-dash `–` |
-|K_RAPP | MacOS shortcut to switch apps to the right |
-|K_LAPP | MacOS shortcut to switch apps to the left |
 |K_CPRF | Cmd + Shift + M. Used for switching Google Chrome profiles | 
 
 ### [Layers](ninjonas.h)
@@ -32,17 +30,12 @@ See: https://docs.qmk.fm/#/feature_userspace
 |---|---|
 |LT_LOW | Tap for ENTER, hold for RAISE |
 |LT_RAI | Tap for SPACE, hold for LOWER |
-|LT_LOW + LT_RAI | Hold for ADJUST  |
-|LM_LOW | Dedicated key to momentarily toggle to use LOWER layer |
-|LM_RAI | Dedicated key to momentarily toggle to use RAISE layer |
-|LG_LOW | Press to toggle LOWER layer |
-|LG_RAI | Press to toggle RAISE layer |
 
 ### [Mod-Taps](ninjonas.h)
 |Code | Description |
 |---|---|
-|MT_DEL | Tap for Delete, hold for Cmd + ALT + SHIFT |
-|MT_EQL | Tap for =, hold for ALT + SHIFT |
+|MT_DEL | Tap for Delete, hold for ALT + SHIFT |
+|MT_EQL | Tap for =, SHIFT |
 
 ### [Layout Blocks](ninjonas.h)
 Predefined keyboard layout templates to speed up configuring split keyboards
@@ -72,7 +65,6 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |M_SHFT | Sends Cmd + alt + shift to a keycode to activate [ShiftIt](https://github.com/fikovnik/ShiftIt) |
 |M_CODE | Opens [Visual Studio Code](https://code.visualstudio.com/) on current directory |
 |M_TERM | Launches Spotlight and calls Terminal |
-|M_COPA | Single key copy/paste |
 |M_XXX1 to M_XXX5 | Reserved for secret macros see [Secrets](#secrets)  |
 
 ### [Tap-Dance](tap_dances.h)
@@ -84,10 +76,17 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |T_TAB | Tap once for TAB, double for CTRL + TAB |
 |T_GRV | Tap once for GRV, double for Cmd + GRV |
 |T_GUI | Tap once for Cmd, double to open spotlight |
-|T_W | Tap for W, double tap for Cmd + W |
-|T_Q | Tap for Q, double tap for Cmd + Q |
-|T_CPNU | Tap for Cmd + V, hold for Cmd + C, double tap for NUMPAD layer |
+|T_CPAP | Tap for Cmd + V, hold for Cmd + C, double tap to open [Line](https://line.me/en/) app, triple tap for itunes. |
 |T_Y | Tap for Y, double tap for NUMPAD layer |
+
+### [Combos](combos.h)
+|Code | Description |
+|---|---|
+|EQ_QUIT | Press E + Q will trigger Cmd + Q |
+|RW_CLOSE | Press R + W will trigger Cmd + W|
+|ET_TAB | Press E + T will trigger Cmd + T| 
+|ZC_COPY | Press Z + C will trigger Cmd + C| 
+|XV_PASTE | Press X + V will trigger Cmd + V| 
 
 ### Secrets
 There's times where you have macros you don't want to share like emails, an address you need but you always forget, passwords 😱, & and private strings. Based off [drashna's secret macros](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/readme_secrets.md), it's now possible to do this. All you need to do is create a `secrets.c` file. Below is an example of how this is used.

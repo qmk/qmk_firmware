@@ -1,8 +1,8 @@
 # Hub16
 
-Hub16 is a 16 Key Macro Pad with inbuilt USB 2.0 hub and dual rotary encoders. 
+Hub16 is a 16 Key Macro Pad with an inbuilt USB 2.0 hub and dual rotary encoders. 
 
-For more information regarding the keyboard, please visit the [Hub16 Webpage](https://www.joshajohnson.com/hub16-keyboard/) or [GitHub Repo](https://github.com/joshajohnson/Hub16).
+For more information regarding the keyboard, please visit the [Hub16 Website](https://www.joshajohnson.com/hub16-keyboard/) or [GitHub Repo](https://github.com/joshajohnson/Hub16).
 
 * Keyboard Maintainer: [Josh Johnson](https://github.com/joshajohnson)
 * Hardware Supported: Hub16 PCB (atmega32u4)
