@@ -4,7 +4,7 @@
 
 A keyboard inspired by the Arisu, which is inspired by Lyn's EM7 and TGR Alice
 
-* Keyboard Maintainer: alittlepeace
+* Keyboard Maintainer: [alittlepeace](https://github.com/alittlepeace)
 * Hardware Supported: YMDK Wings
 * Hardware Availability: [YMDK](https://ymdkey.com/products/ymdk-wings-aluminum-cnc-top-bottom-qmk-pcb-full-assembly-keyboard-jade-navy-cream-switches)
 
