@@ -56,15 +56,15 @@ Table of Contents
 
 0 Overview
 ==========
-✓ _A layout for the demanding keyboard user (10 fingers / blind)._ 
-Designed for intuitive key placement, home row typing with certainty, 
-more symbols than standard English keyboard, speed and text size measuring.
+_A layout for the demanding keyboard user (10 fingers / blind)._
+Designed for intuitive key placement, more symbols than standard English
+keyboard, speed and text size measuring.
 *400%* _the capability in_ *40%* _the size_ (by key function count).
 
-0.1 Hardware compatibility
-==========================
-This keymap functions on _Minivan_ hardware variants with 44, 45 and
-46 keys. It may also function on 12x12x12x[11|12] boards.
+⚠ Caution: this is a keymap with Unicode symbols, for a neutral
+(English/US) keyboard language setting in the computer operating
+system. You also need to have a (QMK supported) Unicode input method
+working on your computer.
 
 For some ‛common layers’ (numbers pad, movement), different versions
 can be chosen than shown just below in this by layer view:
@@ -75,6 +75,13 @@ By key view:
 
 ![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vh.jpg)
 
+0.1 Hardware compatibility
+==========================
+This keymap functions on _Minivan_ hardware variants with 44, 45 and
+46 keys.
+
+(It may also be fairly easily ported to 12x12x12x[11|12] boards, but
+this hasn't been done yet.)
 
 0.2 Software compatibility
 ==========================
@@ -93,6 +100,9 @@ the western European group of languages, native from the keyboard
 
 ✗ This improvement over the “dead key” system can at the same time be
 its drawback for people for whom Unicode input does not work well enough.
+It may not function as expected if you want to use a different keyboard 
+language setting in your operating system.
+
 See also chapter 6 _Language support_.
 
 1 'make' example
@@ -110,7 +120,8 @@ This “Mini*fan*” layout is explained in several readme files, with
 links to the others files in this readme. The common system is explained
 in this readme.md file. The options for the letters and number/symbol
 layer pairs (two pairs in the dual layout) are explained in their
-separate readme file, see immediately below.
+separate readme file, see immediately below. Compile options are detailed
+in `./user_config.h`.
 
 2 Base layouts
 ==============
@@ -215,15 +226,9 @@ The upper/left key which returns to the base layer (letters) on the number layer
 `_ALT_BASE` respectively. All the other layers also point to the appropriate base
 or numbers layer, depending on which base layer (default or alternate) is active.
 
-(There are some unimportant artefacts due to some transparent layer
-switching keys, allowing for example to switch from a toggled `_NSY`
-layer to the `_ACC` layer with a key on the first row, or to go back
-to base from a toggled `_MOV` layer with what is the `<enter>` key on 
-BASE, etc. These accidental layer switching possibilities are not shown.)
-
 You can switch between the default base layer (typically letters), and
 another base layer, the alternate base layer (also typically letters),
-on the `_RAR` layer with key ‛Other BASE’. Each base layer comes
+on the `_RAR` layer with key ‛Other Base’. Each base layer comes
 with its own second layer, typically numbers-symbols. The other 
 layers are used common between the default and alternate base layers.
 
@@ -231,15 +236,15 @@ Example: The default base layer can be a Dvorak layout, and the alternate
 base layer can be a Qwerty layout, or vice versa. Both will use the same
 layer for Function keys, movement, number pad, additional unicode, etc.
 
-The BASE layers and their numbers layer are detailed in files beginning
+The Base layers and their numbers layer are detailed in files beginning
 with `./base_…` (links below).
 
                    Layer overview:                    Defined in:
 
-        • Default Letters / BASE                   ┓
+        • Default Letters / Base                   ┓
         • Default Numbers-symbols                  ┃
                                                    ┣ ./base_….c/md files
-              • Alternate Letters / BASE           ┃
+              • Alternate Letters / Base           ┃
               • Alternate numbers-symbols layout   ┛
 
            • Numbers pad                           ┓
@@ -258,25 +263,31 @@ in the dual layout system.
 Example: if a layout defined in ./base….c/md redefines the `_ACC`
 layer there to have French accented letters in better places for French,
 you will reach that same French adapted `_ACC` layer from either of
-the two BASE layers in the dual layout (one is for instance Qwerty,
+the two Base layers in the dual layout (one is for instance Qwerty,
 the other Dvorak).
+
+(There are some unimportant artefacts due to some transparent layer
+switching keys, allowing for example to switch from a toggled `_NSY`
+layer to the `_ACC` layer with a key on the first row, or to go back
+to base from a toggled `_MOV` layer with what is the ‛Enter’ key on 
+Base, etc. These accidental layer switching possibilities are not shown.)
 
 3.3 Layout in graphics
 ----------------------
-Below you will first see the **‛default BASE layer’,** with the
+Below you will first see the **‛default Base layer’,** with the
 keys that are different in various common layouts (Qwerty, Dvorak,
 etc) blanked out. Then its accompanying **‛default `_NSY` layer’**
 (numbers and symbols `123...!@#...`), also with such keys just showing
-blanks. After that the same for the **‛alternate BASE layer’** and
+blanks. After that the same for the **‛alternate Base layer’** and
 its accompanying **‛alternate `_NSY` layer’** (the second layout in
 the dual layout). What comes in the blanks is typically to be defined
-at compile time, by what set of BASE layer pairs to choose. The ‛BASE’
+at compile time, by what set of Base layer pairs to choose. The ‛Base’
 and ‛`_NSY`’ layers have their own readme files, which show what comes
 on the blanks (see above).
 
 Example: if you choose the ‛Qwerty + Dvorak’ compile option, you
-will have Qwerty on the ‛default BASE’ and a matching ‛default NSY’ 
-layer, with Dvorak on the ‛alternate BASE’ and its ‛alternate NSY’ 
+will have Qwerty on the ‛default Base’ and a matching ‛default NSY’ 
+layer, with Dvorak on the ‛alternate Base’ and its ‛alternate NSY’ 
 layer.
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_ve.jpg)
@@ -322,7 +333,7 @@ Layer: `_RAR`
          Layer _DEF_BASE (Letters layer, see ./base* files for what comes on ‛__’)
                                                   | Right hand
          <pink2     <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>   // Keys by finger
-         -o-                                     <|>                                    ... //-o- BASE access
+         -o-                                     <|>                                    ... //-o- Base access
          Esc        __    __    __    __    __    | __    __    __    __    __         Bksp
          Tab+LCtl   __    __    __    __    __    | __    __    __    __    __           __
          LSht+_PAD  __    __    __    __    __    | __    __    __    __    __    RSht+_FUN 
@@ -387,7 +398,7 @@ Holding either one of the just above mentioned `_..._NSY` layer keys (<3 and 3>)
      BASE: NUMS: _PAD  _ACC  _DRA  _BON  | _MOV  _RAR  xxx   xxx   xxx   Bspc       //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
      LSht  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSht     
-     ---------------------------------------------------------------------*--       //-*-  toggle on BASE
+     ---------------------------------------------------------------------*--       //-*-  toggle on Base
               LAlt  LCtl&  LCtl&  LSht&  | FUN< +LCtl&LSht RGUI   RAlt              //... < toggle 'stay'
                     LSht   LAlt   LAlt   |      &LAlt                                    
                     +xxx   +xxx   +xxx   |      +xxx
@@ -396,7 +407,7 @@ Holding either one of the just above mentioned `_..._NSY` layer keys (<3 and 3>)
                   ^                                            ^
                 (LGUI)                                       (_MOV)
 
-Remarks.  FUN< toggles an immediate return to the BASE layer after pressing an F-key, 
+Remarks.  FUN< toggles an immediate return to the Base layer after pressing an F-key, 
 or staying on the `_FUN` layer. Right led yellow indicates F-layer stays active.
 
 - - -
@@ -407,7 +418,7 @@ This is the _triangle_ configuration for arrows, arrow are on left hand (WASD):
     
      <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                          <|>-*-                                
-     BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
+     Base   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
      LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
      LSht   xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  xxx   RSht
      -------------------------------------------------------------------------
@@ -418,7 +429,7 @@ This is the _triangle_ configuration for arrows, arrow are on left hand (WASD):
                       (LGUI)                              (DOWN)
 
 
-Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get this on `BASE`:
+Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get this on ‛Base’:
 
      (…)
      LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
@@ -511,7 +522,7 @@ arrows (those keys are otherwise twice defined for left and right hand).
 
 - - -
     
-     _RAR (RARe keys. Power keys, Unicode mode, Alternate BASE, Media, Brightness, Speed, Size, leds, …)
+     _RAR (RARe keys. Power keys, Unicode mode, Alternate Base, Media, Brightness, Speed, Size, leds, …)
     
      <pink2<pinky <ring <middl <indexx<indx2| indx2>index>middl>ring> pinky> pink2>
                                            <|>      -*-                                //(toggle) on _FUN
@@ -520,12 +531,12 @@ arrows (those keys are otherwise twice defined for left and right hand).
      ☑     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   Bri+  Bri-  xxx     APP     // Ü(nicode) tester
      ----------------------------------------------------------------------------
                      SLed  MLeds LGUI  xxx  | !Alter  xxx   RGUI  ___   // Mid-led, Side-leds, !Alternate
-                                           <|>                    -*-                   // (Hold) on BASE
+                                           <|>                    -*-                   // (Hold) on Base
                      <1  ± <2    <3    <4   | 4>      3>    2>  ± 1>  
                          ^                                      ^
                        (LGUI)                                 (_MOV)
 
-Remarks. !Alter switches between normal and alternate BASE layer.
+Remarks. !Alter switches between normal and alternate Base layer.
 
 ☑ is a Unicode tester key. uLNX for Linux Unicode input encoding, uBSD
 for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
@@ -534,7 +545,7 @@ change is retained between on/off power cycles.
 MLed switches on/off the middle led, SLeds switches on/off the side leds.
 
 The keys marked with • require Shift to be activated, as a means of
-preventing accidents. Shift here is on (BASE) 'Backspace' (upper/right key)
+preventing accidents. Shift here is on (Base) 'Backspace' (upper/right key)
 which also reduces accidents (combinations which are never pressed
 normally). If you press these keys without 'shift' they print their own
 name between angled brackets. Example: pressing the 2nd key on the 3rd
@@ -557,7 +568,7 @@ Cnt/Mx, Cnull CWmin, CRprt: text size measuring. See topic.
      BASE     xxx   xxx   .DEL  4LEFT 2DOWN | 8UP   6RGHT *     xxx   xxx   Bspc
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
      LSht     xxx   xxx   /     xxx   =     | +     3PGDN 1END  7HOME 9PGUP RSht
-     -*-------------------------------------------------------------------------    //-*-  toggle on BASE
+     -*-------------------------------------------------------------------------    //-*-  toggle on Base
                   LAlt     Del   Tab   ENT  |  NUML  xxx   RGUI  RAlt
                                            <|>
                   <1   ±   <2    <3    <4   | 4>     3>    2>  ± 1>  
@@ -598,7 +609,7 @@ This is the variety for `_PAD` layer, which resembles a numerical keypad:
      LSht      àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ----------------------------------------------------------------------------
                        LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
-                            -*-             <|>                                        //(hold) on BASE
+                            -*-             <|>                                        //(hold) on Base
                        <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
                           …                                    …
 
@@ -614,7 +625,7 @@ This is the variety for `_PAD` layer, which resembles a numerical keypad:
      LSht 「━    」─   °〇   •§    …·    | ☐☒   ☑🗹     ¿¡    《┄    》┅   RSht     //  ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
      -------------------------------------------------------------------------
                    LAlt ___   ___   Ent  | Spc   ___   ___   RAlt 
-                              -*-       <|>      -*-                                     //(hold) on BASE
+                              -*-       <|>      -*-                                     //(hold) on Base
                    <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
                       ^                                    ^
                     (LGUI)                               (_MOV)
@@ -631,7 +642,7 @@ Remarks. ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
      LSht  ‹     ›     ÷     ☞ ┗   ≠  ┛  | ✗ ┣   ✓ ┫   ⚠     «     »      RSht
      -------------------------------------------------------------------------
                   Left  ___   ___   Ent  | Spc   ___   ___   Right
-                        -*-   -*-       <|>      -*-                                // Activation on BASE
+                        -*-   -*-       <|>      -*-                                // Activation on Base
                   <1  ± <2    <3    <4   | 4>    3>    2>  ± 1>  
                       ^                                    ^
                     (LGUI)                               (_MOV)
@@ -646,7 +657,7 @@ can either have _triangle_ configuration arrows on the _left_ hand
 the _right_ hand (with navigation above it).
 
 You can configure for the _arrow_ hardware layout (one additional hardware
-key on the right). The additional key on the BASE layer can toggle to the
+key on the right). The additional key on the Base layer can toggle to the
 movement layer, and than becomes part of the arrow cluster. For both
 versions (_triangle_ arrows left hand or _flat_ arrows right hand) you
 can compile this second arrow cluster to be completed with navigation keys
@@ -668,7 +679,7 @@ hand, and those arrows being there for the right hand.
 If you use a tiling *window manager* (such as i3wm), you may want
 to press GUI with an arrow quite often. If the GUI is displaced by the
 arrow cluster on `_MOV`, you will need to activate the movement
-layer (`_MOV`) *after* BASE layer GUI. To have to press keys in a specific
+layer (`_MOV`) *after* Base layer GUI. To have to press keys in a specific
 order is slightly less comfortable. To resolve this you can activate
 the left side additional hardware key (‛South Paw’ or ‛Command’) as
 well, and configure it as a GUI.
@@ -684,7 +695,7 @@ can find the configuration block and mentioned option in `./user_config.h`.
 
 ![Minivan illustration BASE towards 3](http://socialism.nl/misc/minivan/minivan_layer_illustration_base_mov_hw-arrow_vb.jpg)
 
-^ Illustration of accessing the arrows/navigation with a key on the BASE layer
+^ Illustration of accessing the arrows/navigation with a key on the Base layer
 
 ![Minivan layout Image MOV 3b + arrow](http://socialism.nl/misc/minivan/minivan_mov_layer_hardw-arrow_triangle_vb.jpg)
 
@@ -743,8 +754,8 @@ This concerns the numbers pad layer, the one that is part of the common layers.
                           text size counting set to a maximum is active.
                         - When text size counting is active and set to a maximum amount, the middle led color 
                           indicates progress to the limit from green to red, flipping white/red on the limit.
-                        - When on BASE layer it shows a teal color, or (compile option) the layer most recently active.
-                        - When the left/right leds are off, when on BASE, it shows a teal color (not last active), even
+                        - When on Base layer it shows a teal color, or (compile option) the layer most recently active.
+                        - When the left/right leds are off, when on Base, it shows a teal color (not last active), even
                           if so compiled.
             • Leds can be switched on/off on the _RAR layer (SLeds, MLed).
 
@@ -807,14 +818,15 @@ One is to use a language specific remapping on the computer operating side, and
 to use the QMK supplied symbols in the keymaps. This may include the use of a “dead key”.
 Presumably you can also still use the Unicode symbols. 
 
-*There are currently no such Base pair layouts available. If this is the method you want,
+⚠ *There are currently no such Base pair layouts available. If this is the method you want,
 you may want to look elsewhere.*
 
-The other way is to type the additional symbols in Unicode. _The computer operating
-must understand these special sequences._  Several input modes are available, which
-can be changed while the keyboard is running. There is no need for a “dead key”.
-The language setting in the computer operating system can be set to English. This
-layout is designed for this method, to avoid the dead key problem.
+The other way is to type the additional symbols in Unicode. _The computer
+operating must understand these special sequences._  Several Unicode
+input modes are available, which can be changed while the keyboard is
+running. There is no need for a “dead key”.  The language setting
+in the computer operating system can be set to English. This layout is
+designed for this method, to avoid the dead key problem.
 
 6.2 Unicode symbols
 ===================
@@ -877,7 +889,7 @@ The time starts running immediately on the first 25 keys when you press
 ‛Speed’. ‛Speed Report’ always reports on the last already completed
 25 keys, which matches the middle led color on that moment (not a
 running average on the point of pressing, which would be the next batch
-shown). Shift, backspace, delete and BASE layer activated layer changes
+shown). Shift, backspace, delete and Base layer activated layer changes
 do not count as keypresses. Delete and backspace therefore produce speed
 penalties. Typical text keys all get counted.  Navigation / arrow keys
 on the `_MOV` layer do not get counted.  Some unusual keypresses
@@ -887,7 +899,7 @@ In practice this means: you can type; take a long break without it
 affecting your average (batch with 0 k/s is ignored, or at worst you
 have one slow batch reducing your total average if the break was not
 long enough to fall down to 0 k/s); finish typing; take your time
-pressing `_RAR` on the BASE layer and then ‛Speed Report’ to get your
+pressing `_RAR` on the Base layer and then ‛Speed Report’ to get your
 speed written as if you typed it on the keyboard.
 
 7.1 Speed Led color compilation assist
@@ -1007,7 +1019,7 @@ if you want to count in characters.
 9 Making your own base layer(s)
 ===============================
 You can insert your own `_DEF_BASE`, `_DEF_NSY` and/or `_ALT_BASE`, `_ALT_NSY`
-BASE plus number/symbols layer pairs, integrate it nicely with the rest 
+Base plus number/symbols layer pairs, integrate it nicely with the rest 
 of the code, and re-define a special characters layer to go with it if
 you want (etc). The idea is to make it easy to change the alphanumerical
 keys, while leaving the modifiers, layer switch keys etc. the same. 
@@ -1337,7 +1349,7 @@ and closing next to each other.
 ===========================
 ☞  This layout seems easy to learn and predictable.
 
-☞  The Dvorak/Qwerty layer (BASE) is an unaltered standard Dvorak/Qwerty
+☞  The Dvorak/Qwerty layer (Base) is an unaltered standard Dvorak/Qwerty
   layout, except what physically cannot fit (numbers, right pinky
   symbols). 
 
@@ -1350,7 +1362,7 @@ and closing next to each other.
 ☞  On all layers possible / needed the modifiers are in their usual spots.
 
 ☞  Because one often uses an F-key only once, the layer can switch back
-  to BASE after an F-key is used.
+  to Base after an F-key is used.
 
 ☞  Because it is hard to touch more than 3 keys, there are modifier
   combination keys on `_FUN` layer for use with F-keys.
@@ -1460,17 +1472,23 @@ and closing next to each other.
 ============
   This keymap.c was edited from the Minivan default, original LED
   support was copied/edited from ../jetpacktuxedo/ keymap. Thanks to 
-  QMK support for their help. Written on the Minivan.
+  QMK support for their help.
 
-  Written by: Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
+  _Personal note:_ This keymap came about because of a sudden need
+  for a replacement keyboard. it took over a year to make (≈ 1.5 h/day).
 
-  _Personal note:_ This keymap came about because of a need for an efficient keymap. 
-  Once the two variations of Dvorak where made, it seemed easy to add a Qwerty
-  for those users for a dual layout keymap. Things got a little out of hand from there …
+  The design changed from Dvorak only, numbers on one hand, flat arrows
+  and no Unicode, to: Unicode hold(`_ACC`) replacing (R)Alt-Gr, numbers
+  in a line (spread fatigue / more secure); default triangle arrows
+  (intuitive); most layer switching on thumbs (easy and allows almost
+  full keyboard reach); having optional standard layouts. Things came
+  full circle with Numpad and (R)Alt-Gr back on Base options.
 
-  You can let me know if you find any bugs / use problems, have improvements,
-  a new `./base_...c/.md` keymap, or just if you like using it too 👍. See ./keymap.c
-  at the top “Todo” for some ideas regarding further development.
+  You can let me know if you: find any bugs or usage problems, have
+  improvements, have a new Base pair keymap, or just if you like
+  using it too 👍.
+
+  Written on the Minivan: Jos Boersema. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
   Contributions to this key map:
       - …

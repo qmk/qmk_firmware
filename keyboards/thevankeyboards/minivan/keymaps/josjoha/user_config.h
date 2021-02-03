@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             -2- ➡ Eviscerations ( ① / ② ) ⬅
                     • Single layout
 
-                            -3- ➡ Startup layer ⬅
+                            -3- ➡ Startup settings ⬅
 
                             -4- ➡ How many hardware keys 1st row ⬅
 
@@ -71,6 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            -10- ➡ Text size counting ⬅
 
                            -11- ➡ Some alternative keys ⬅
+                    • Right Alt or hold(_RAR) on Base
                     • GUI left/right
                     • Alternate currency symbol
                     • Check boxes or Pointers
@@ -82,9 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • Removing groups of characters
 
                            -13- ➡ Middle led BASE layer: last layer color ⬅
-
-        -
-        --
+- --
         ----
         --------------------------------------------------------------------------------------
         */
@@ -100,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * when uploaded to QMK, so that it gives the most commonly used layout: Qwerty with Numpad,
         * basic 44 Minivan keys).
         */
-  #define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
+//#define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
 #ifndef MINIFAN_CONFIG_COMPACT // (don't alter this)
 
       
@@ -180,13 +179,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MINIFAN_SINGLE_LAYOUT // _Activate_ to only have the ‛Default’ base layers, _remove_ to also have ‛Alternate’.
 
 
-        /*                  -3- ➡ Startup layer ⬅
+        /*                  -3- ➡ Startup settings ⬅
          *
          * You can define which of the two BASE layers is on when powering up the keyboard.
          */
 //#define STARTUP_ALTERNATE // Example: For BASES_QWERTY_DVORAK defined: _remove_ is startup in Qwerty, _active_ is
                             //              startup in Dvorak
-
+        /* Leds on/off at startup.
+         */
+//#define STARTUP_SIDE_LEDS_OFF // _Activate_ to have side leds be off at keyboard startup (when you plug it in / computer powers on).
+//#define STARTUP_MID_LED_OFF // _Activate_ to have middle led be off at keyboard startup.
 
         /*                  -4- ➡ How many hardware keys 1st row ⬅
          *
@@ -381,7 +383,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
         /*                 -11- ➡ Some alternative keys ⬅
+         */
+        /*
+         *          • Right Alt or hold(_RAR) on Base
          *
+         * _Activate_ below line to get Right-Alt or Alt-Gr (same thing) on Base.
+         * _Remove_ to have a layer hold key to the _RAR layer there
+         * You can always reach _RAR by holding the Right-Shift shift key, for a short while.
+         *
+         * Notice that with keys like this, which combine with other functions (this with an Arrow on tap),
+         * usage is not always what you expect from a “pure” uncluttered key. For example, if tapping this
+         * key it will send a Right-Arrow, however it will also briefly activate Right-Alt (Alt-Gr). If you
+         * use this key with another key, it won't send a Right-Arrow.
+         */
+//#define BASE_RIGHT_ALT // _Activate_ to get Right-Alt instead of _RAR on Base layer.
+        /*
          *          • GUI left/right
          *
          * _Activate_ below line to have LGUI (also called OS or Win key, etc) where RGUI is, 

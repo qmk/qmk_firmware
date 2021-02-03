@@ -31,55 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     /* Configurable keymap for Minivan layouts 44, 45, 46 keys.  
      * May work for 12×12×12×[11-12] keys as well.
      * Configuration in ./user_config.h
-     *
-     * Todo:
-
-           Base layers:
-             ☐ Option to change _RAR hold on Base to RAlt, to allow Alt-Gr code stuff.
-               ☐ Do check for second concurrent key press to differentiate 
-             ☐ Option: Leds not on at startup.
-
-             ☐ Fun and games: game layer.
-
-
-                       § Further development
-
-           The following seem interesting for further development. However following the “scratch your
-           own itch” rule, perhaps it should be someone else's interest. Contributions welcomed !
-
-             ☐ It seems fun to have a user friendly front end to compile the available variations of this keymap.
-               Such a front end could edit minifan_config_compact.h 
-           
-             ☐ Language specific keyboards, such as Qwertz and Azerty, etc.
-               • Using an include like #include keymap_german.h (etc), and matching computer operating side
-                 remapping does seem to make a lot possible and simpler. FIXME: find out if this works, or is
-                 a headache with Unicode. XXX
-               • If a language specific #include and computer language setting is not used, but merely some basics
-                 such as a matching basic alphabet ABC…XYZ on Base, with some additional Unicode symbols for that
-                 language on _ACC and or other Unicode layers, it might be simple to make, and avoid the dead key
-                 problem.
-
-                       § Other:
-
-             ☑ _BON layer update graphics: Control-Tab/μ
-             ☑ _DRA layer update graphics: reverse Control/Tab
-             ☑ Leading graphic: “Dual layout” rotated
-             ☑ Qwerty Base Arrow keycap view: green on black arrows
-             ☐ Testing all user configurations
-             ☐ Porting to Planck keyboard. This has been cooked into the code already, at least to a degree,
-               but it remains untested. If someone has a Planck they could try it. 
-             ☐ Test/fix what happens when leds are undefined with the existing QMK led #define(s)
-             ☐ Review/fix C indendation. QMK indentation is not my preferred style, and 
-               therefore it is not entirely consistent. 
-            ?☐ Leds #on/off startup
-            ?☐ A lock mode, so that others cannot type on it if you walk off ?
-
-            ?☒ User defining macros (record/play user input), another special Base layer ? Is there 
-               room for this, or how to create it if not.
-               ➡ It seems a bit odd to have a keyboard with internal registers. Probably better handled at the
-                 application level, so that the keyboard remains a basic input device.
-     *
-     * */
+     */
 
   /* Overview of the code
    *
@@ -181,7 +133,7 @@ bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). 
 #define TRUE 1
 #define FALSE 0
 bool _fun_stay = FALSE; // for making _FUN layer not return to BASE after pressing an F-key
-bool leds_on = TRUE; // toggle leds on/off
+bool leds_on; // toggle leds on/off
 bool isolate_trigger = FALSE; // detects if _FUN layer move was pressed, and no other key (no normal use of Shift).
 bool capslock; // keeps track of capslock state
 bool numlock; // keeps track of numlock state
@@ -212,10 +164,18 @@ bool     sizecount_max_type; // is size counting by word or by character
 #include "./unicode_macros.c"
 
 
-// pre-existing function
+// Pre-existing function, run when the keyboard starts up.
 void keyboard_post_init_user (void) {
 
 # ifdef RGBLIGHT_ENABLE
+
+// Set side leds on/off startup
+#     ifdef STARTUP_SIDE_LEDS_OFF
+    leds_on = FALSE;
+#     else
+    leds_on = TRUE;
+#     endif
+
     // Set up RGB effects on _only_ the first LED 
     rgblight_set_effect_range (1, 1); // Takes a range: 1st arg is start, 2nd how many
     rgblight_sethsv_noeeprom (HSV_WHITE); // Startup color of keyboard.
@@ -225,14 +185,21 @@ void keyboard_post_init_user (void) {
     // Init the first and last LEDs to a static color.
     setrgb (0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
     setrgb (0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
+
+// The logic seems to be to establish the effect first, and then toggle it on/off.
+#     ifdef STARTUP_MID_LED_OFF
+    rgblight_disable (); // 
+#     endif
+
     isolate_rgblight_set ();
+
 # endif //RGBLIGHT_ENABLE
 
 // Set startup layer
-# ifndef STARTUP_ALTERNATE 
-    layer_move (_DEF_BASE);
-# else
+# ifdef STARTUP_ALTERNATE 
     layer_move (_ALT_BASE);
+# else
+    layer_move (_DEF_BASE);
 # endif
 
 }

@@ -35,7 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define BASE_NUMPAD__ALT_BASE 
 
 //#define MINIFAN_SINGLE_LAYOUT 
+
 //#define STARTUP_ALTERNATE 
+  #define STARTUP_SIDE_LEDS_OFF
+  #define STARTUP_MID_LED_OFF 
 
 //#define MORE_KEY__COMMAND 
 //#define MORE_KEY__ARROW  
@@ -70,6 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define WORDS_PER_MINUTE 
 //#define COUNT_INIT 
 
+//#define BASE_RIGHT_ALT 
   #define SWITCH_GUIS 
 //#define UNICODE_CURRENCY 0x20ac 
 //#define POINT_ON_CHECKBOXES 

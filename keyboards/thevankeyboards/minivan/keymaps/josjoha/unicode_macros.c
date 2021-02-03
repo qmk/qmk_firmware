@@ -375,7 +375,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              &&
             (keycode != CHOLTAP_LSHFT)   // not left shift up
              &&
-            (keycode != CHOLTAP_ACCE)) { //
+            (keycode != CHOLTAP_ACCE)    // _ACC layer (and others)
+             &&
+            (keycode != CHOLTAP_LAYR)) { // _RAR layer, or RAlt/Alt-Gr
             isolate_trigger = FALSE; // another key was pressed
         }
     }
@@ -799,22 +801,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CHOLTAP_LAYR: //to _RAR on hold, otherwise a keycode
             if (record->event.pressed) { // key down
                 key_timer = timer_read ();
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed.
+
+# ifdef BASE_RIGHT_ALT
+                SEND_STRING (SS_DOWN (X_RALT)); 
+# else
                 layer_move (_RAR); // activates descrambled drawings layer
+# endif
+
             }else{ // key up
-                 // Go back to base layer
-                 if (speed_measure) speed_led (speed); // The _RAR layer overwrites the middle led, 
-                   //.. for use with alternate _HALF_ led colors (middle); thus needs to be set back to speed
-                   // led color upon leaving.
+                // Go back to base layer
+                if (speed_measure) speed_led (speed); // The _RAR layer overwrites the middle led, 
+                  //.. for use with alternate _HALF_ led colors (middle); thus needs to be set back to speed
+                  // led color upon leaving.
 
-                 if (alternate) { 
-                     layer_move (_ALT_BASE); 
-                 }else{
-                     layer_move (_DEF_BASE);
-                 }
+# ifdef BASE_RIGHT_ALT
+                SEND_STRING (SS_UP (X_RALT)); 
+# else
+                if (alternate) { 
+                    layer_move (_ALT_BASE); 
+                }else{
+                    layer_move (_DEF_BASE);
+                }
+# endif
 
-                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
-                     SEND_STRING (SS_TAP (X_RIGHT));
-                 }
+                // Pressed in isolation
+                if (isolate_trigger) 
+                {
+                    if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                        SEND_STRING (SS_TAP (X_RIGHT));
+                    }
+                }
             }
             break;
 
