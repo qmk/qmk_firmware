@@ -5,7 +5,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    X-BOWS
 #define PRODUCT         KNIGHT
-#define DESCRIPTION     XBOWS SPLIT keyboard
 
 /* key matrix size */
 // Rows are doubled-up

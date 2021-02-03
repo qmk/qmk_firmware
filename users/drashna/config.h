@@ -22,6 +22,10 @@
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
 
+#if defined(SPLIT_KEYBOAD)
+#    define SPLIT_MODS_ENABLE
+#endif
+
 #ifdef AUDIO_ENABLE
 
 #    define AUDIO_CLICKY
@@ -40,9 +44,9 @@
 #endif  // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-#    undef RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_SLEEP
 #    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
-#        define RGBLIGHT_SLEEP
+#        undef RGBLIGHT_ANIMATIONS
 #        define RGBLIGHT_EFFECT_BREATHING
 #        define RGBLIGHT_EFFECT_SNAKE
 #        define RGBLIGHT_EFFECT_KNIGHT
@@ -100,6 +104,14 @@
 #        define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif  // AVR
 #endif      // RGB_MATRIX_ENABLE
+
+#ifdef OLED_DRIVER_ENABLE
+#    ifdef SPLIT_KEYBOARD
+#        define OLED_UPDATE_INTERVAL 60
+#    else
+#        define OLED_UPDATE_INTERVAL 15
+#    endif
+#endif
 
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2

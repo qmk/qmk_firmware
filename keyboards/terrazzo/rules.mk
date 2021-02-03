@@ -26,7 +26,8 @@ NKRO_ENABLE = yes      # USB Nkey Rollover - if this doesn't work, see here: htt
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
-LED_MATRIX_ENABLE = IS31FL3731
+LED_MATRIX_ENABLE = yes
+LED_MATRIX_DRIVER = IS31FL3731
 ENCODER_ENABLE = yes
 WPM_ENABLE = yes
 

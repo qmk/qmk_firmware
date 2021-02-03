@@ -41,7 +41,7 @@ Nous avons essayé de rendre QMK aussi simple que possible à configurer. Vous a
 
 Vous devez installer MSYS2 et Git.
 
-* Suivez les instructions d'installation sur la [page de MSYS2](http://www.msys2.org).
+* Suivez les instructions d'installation sur la [page de MSYS2](https://www.msys2.org).
 * Fermez tous les terminaux MSYS2 éventuellement ouverts et ouvrez un nouveau terminal MSYS2 MinGW 64-bit.
 * Installez Git en lançant la commande: `pacman -S git`.
 

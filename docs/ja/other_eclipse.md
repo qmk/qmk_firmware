@@ -28,7 +28,7 @@ Eclipse のような IDE の使用は、プレーンテキストエディタの�
 Eclipse は Java アプリケーションであるため、実行するには Java 8 以降をインストールする必要があります。JRE または JDK を選択できますが、Java 開発を行う場合は後者が役に立ちます。
 
 # Eclipse とプラグインのインストール
-Eclipse は用途に応じて[いくつかのフレーバー](http://www.eclipse.org/downloads/eclipse-packages/)で提供されます。AVR スタックを構成するパッケージは無いため、Eclipse CDT (C/C++ 開発ツール)から始め、必要なプラグインをインストールする必要があります。
+Eclipse は用途に応じて[いくつかのフレーバー](https://www.eclipse.org/downloads/eclipse-packages/)で提供されます。AVR スタックを構成するパッケージは無いため、Eclipse CDT (C/C++ 開発ツール)から始め、必要なプラグインをインストールする必要があります。
 
 ## Eclipse CDT のダウンロードとインストール
 システムに既に Eclipse CDT がある場合は、この手順をスキップできます。ただし、より良いサポートのために最新の状態に保つことをお勧めします。
@@ -37,7 +37,7 @@ Eclipse は用途に応じて[いくつかのフレーバー](http://www.eclipse
 
 インストールは非常に簡単です: [5 Steps to install Eclipse](https://eclipse.org/downloads/eclipse-packages/?show_instructions=TRUE) に従い、ステップ3で **Eclipse IDE for C/C++ Developers** を選択します。
 
-あるいは、直接 [Eclipse IDE for C/C++ Developers をダウンロード](http://www.eclipse.org/downloads/eclipse-packages/)([現在のバージョンへの直接リンク](http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/neonr))し、選択した場所にパッケージを解凍することもできます (これにより `eclipse` フォルダが作成されます)。
+あるいは、直接 [Eclipse IDE for C/C++ Developers をダウンロード](https://www.eclipse.org/downloads/eclipse-packages/)([現在のバージョンへの直接リンク](https://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/neonr))し、選択した場所にパッケージを解凍することもできます (これにより `eclipse` フォルダが作成されます)。
 
 ## 最初の起動
 インストールが完了したら、<kbd>Launch</kbd> ボタンをクリックします。(パッケージを手動で解凍した場合は、Eclipse をインストールしたフォルダを開き、`eclipse` 実行可能ファイルをダブルクリックします)
@@ -49,8 +49,8 @@ Workspace 選択で入力を促された場合は、Eclipse メタデータと�
 ## 必要なプラグインをインストール
 注意: プラグインをインストールするごとに、Eclipse を再起動する必要はありません。全てのプラグインがインストールされたら単に1回再起動します。
 
-### [The AVR Plugin](http://avr-eclipse.sourceforge.net/)
-これは最も重要なプラグインで、Eclipse が AVR C コードを_理解_できるようになります。[更新サイトを使うための指示](http://avr-eclipse.sourceforge.net/wiki/index.php/Plugin_Download#Update_Site)に従い、未署名コンテンツのセキュリティ警告に同意します。
+### [The AVR Plugin](https://avr-eclipse.sourceforge.net/)
+これは最も重要なプラグインで、Eclipse が AVR C コードを_理解_できるようになります。[更新サイトを使うための指示](https://avr-eclipse.sourceforge.net/wiki/index.php/Plugin_Download#Update_Site)に従い、未署名コンテンツのセキュリティ警告に同意します。
 
 ### [ANSI Escape in Console](https://marketplace.eclipse.org/content/ansi-escape-console)
 このプラグインは QMK makefile によって生成された色付きビルド出力を適切に表示するために必要です。
@@ -71,7 +71,7 @@ Workspace 選択で入力を促された場合は、Eclipse メタデータと�
 * _AVR-GCC Toolchain_ を選択します;
 * 残りをそのままにして、<kbd>Finish</kbd> をクリックします
 
-![Eclipse での QMK のインポート](http://i.imgur.com/oHYR1yW.png)
+![Eclipse での QMK のインポート](https://i.imgur.com/oHYR1yW.png)
 
 3. これでプロジェクトがロードされインデックスされます。左側の _Project Explorer_ から、簡単にファイルを参照できます。
 

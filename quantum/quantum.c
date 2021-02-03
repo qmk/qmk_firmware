@@ -58,6 +58,10 @@ float bell_song[][2] = SONG(TERMINAL_SOUND);
 #    endif
 #endif
 
+#ifdef AUTO_SHIFT_ENABLE
+#    include "process_auto_shift.h"
+#endif
+
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -228,6 +232,9 @@ bool process_record_quantum(keyrecord_t *record) {
             process_record_via(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
+#if defined(SEQUENCER_ENABLE)
+            process_sequencer(keycode, record) &&
+#endif
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
 #endif
@@ -564,32 +571,22 @@ void tap_random_base64(void) {
 #endif
     switch (key) {
         case 0 ... 25:
-            register_code(KC_LSFT);
-            register_code(key + KC_A);
-            unregister_code(key + KC_A);
-            unregister_code(KC_LSFT);
+            send_char(key + 'A');
             break;
         case 26 ... 51:
-            register_code(key - 26 + KC_A);
-            unregister_code(key - 26 + KC_A);
+            send_char(key - 26 + 'a');
             break;
         case 52:
-            register_code(KC_0);
-            unregister_code(KC_0);
+            send_char('0');
             break;
         case 53 ... 61:
-            register_code(key - 53 + KC_1);
-            unregister_code(key - 53 + KC_1);
+            send_char(key - 53 + '1');
             break;
         case 62:
-            register_code(KC_LSFT);
-            register_code(KC_EQL);
-            unregister_code(KC_EQL);
-            unregister_code(KC_LSFT);
+            send_char('+');
             break;
         case 63:
-            register_code(KC_SLSH);
-            unregister_code(KC_SLSH);
+            send_char('/');
             break;
     }
 }
@@ -636,6 +633,10 @@ void matrix_scan_quantum() {
     matrix_scan_music();
 #endif
 
+#ifdef SEQUENCER_ENABLE
+    matrix_scan_sequencer();
+#endif
+
 #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
 #endif
@@ -662,6 +663,10 @@ void matrix_scan_quantum() {
 
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_read(false);
+#endif
+
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_matrix_scan();
 #endif
 
     matrix_scan_kb();
@@ -693,20 +698,7 @@ void send_byte(uint8_t number) {
 }
 
 void send_nibble(uint8_t number) {
-    switch (number) {
-        case 0:
-            register_code(KC_0);
-            unregister_code(KC_0);
-            break;
-        case 1 ... 9:
-            register_code(KC_1 + (number - 1));
-            unregister_code(KC_1 + (number - 1));
-            break;
-        case 0xA ... 0xF:
-            register_code(KC_A + (number - 0xA));
-            unregister_code(KC_A + (number - 0xA));
-            break;
-    }
+    tap_code16(hex_to_keycode(number));
 }
 
 __attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {

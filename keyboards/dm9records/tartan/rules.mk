@@ -33,3 +33,8 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso 60_iso_split_bs_rshift
 LAYOUTS_HAS_RGB = no
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no
