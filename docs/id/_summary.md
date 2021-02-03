@@ -11,7 +11,7 @@
   * [Soal Sering Ditanya Umum](id/faq_general.md)
   * [Membangun QMK](id/faq_build.md)
   * [*Troubleshooting* QMK](id/faq_misc.md)
-  * [Debugging QMK](id/faq_debug.md)
+  * [Pengawakutuan QMK](id/faq_debug.md)
   * [Soal Sering Ditanya Tata Letak Papan Tombol](id/faq_keymap.md)
   * [Glosarium](id/reference_glossary.md)
 
