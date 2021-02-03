@@ -48,8 +48,6 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-__attribute__((weak))
-void matrix_init_user(void) { }
 
 void matrix_scan_kb(void) {
 #ifdef RGBLIGHT_ENABLE
@@ -57,9 +55,6 @@ void matrix_scan_kb(void) {
 #endif
     matrix_scan_user();
 }
-
-__attribute__((weak))
-void matrix_scan_user(void) { }
 
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
@@ -81,24 +76,6 @@ void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
     for (int i = 0; i < num; i++) {
         aw9523b_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
-}
-
-void i2c_init(void)
-{
-    static bool initialized = false;
-    if (initialized) {
-        return;
-    } else {
-        initialized = true;
-    }
-
-    // Try releasing special pins for a short time
-    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
-    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
-
-    chThdSleepMilliseconds(10);
-    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
-    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
 }
 
 #endif
