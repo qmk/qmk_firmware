@@ -560,7 +560,7 @@ void adafruit_ble_task(void) {
         state.last_battery_update = timer_read();
 
         state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
-<<<<<<< HEAD
+
         
         if (state.vbat >= 862) // around 4.17V, li-ion can charge usually to max of 4.19V
             state.vbat = 100;
@@ -571,8 +571,6 @@ void adafruit_ble_task(void) {
         snprintf(cmdbuf, sizeof(cmdbuf), "AT+BLEBATTVAL=%d", state.vbat);
         at_command(cmdbuf, NULL, 0, false);
 
-=======
->>>>>>> c0de49e393cf481f60f2bbd6c18ecb13d37c6254
     }
 #endif
 }

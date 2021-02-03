@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "alix60",
+    "url": "", 
+    "maintainer": "qmk", 
+    "width": 12,
+    "height": 4,
+    "layouts": {
+        "LAYOUT_40_alix": {
+            "layout": [{"label":"Tab", "x":0, "y":0}, {"label":"Q", "x":1, "y":0}, {"label":"W", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"R", "x":4, "y":0}, {"label":"T", "x":5, "y":0}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}]
+        }
+    }
+}
