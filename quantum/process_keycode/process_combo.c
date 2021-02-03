@@ -83,7 +83,7 @@ static inline void release_combo(uint16_t combo_index, combo_t *combo) {
 #ifndef NO_ACTION_TAPPING
         action_tapping_process(record);
 #else
-        process_record(record);
+        process_record(&record);
 #endif
     } else {
         process_combo_event(combo_index, false);
