@@ -36,3 +36,7 @@ SPLIT_KEYBOARD = yes
 LAYOUTS = ortho_4x12 ortho_5x12
 
 DEFAULT_FOLDER = rgbkb/zygomorph/rev1
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

@@ -61,7 +61,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
     ....
     }
 
-ここで、`Cx_y` は[データシート](http://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
+ここで、`Cx_y` は[データシート](https://www.issi.com/WW/pdf/31FL3731.pdf)およびヘッダファイル `drivers/issi/is31fl3731-simple.h` で定義されるマトリックス内の LED の位置です。`driver` は `config.h` で定義したドライバのインデックス(`0`、`1`、`2`、`3`のいずれか)です。
 
 ## キーコード
 
