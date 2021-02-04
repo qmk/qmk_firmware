@@ -6,7 +6,7 @@ The Pursuit40 PCB is a modified layout Panc40 by Alex Panc. It's similar to trad
 
 * Keyboard Maintainer: [Nasp](https://github.com/npspears)
 * Hardware Supported: Panc40
-* Hardware Availability: https://panc.co/store/ols/products/panc40-keyboard
+* Hardware Availability: https://panc.co/store/ols/products/panc40-keyboard-pnc-kyb1
 
 Make example for this keyboard (after setting up your build environment):
 
