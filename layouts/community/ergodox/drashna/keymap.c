@@ -40,6 +40,9 @@ bool skip_leds = false;
  * ease of use. K## is a placeholder to pass through the individual keycodes
  */
 // clang-format off
+#define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
+#define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
+
 #define LAYOUT_ergodox_pretty_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
