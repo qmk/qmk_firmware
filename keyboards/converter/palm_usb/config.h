@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    QMK
 #define PRODUCT         Stowaway converter
-#define DESCRIPTION     USB converter for Stowaway keyboard
 
 // IO pins to serial
 // https://deskthority.net/wiki/Arduino_Pro_Micro for pin lookup

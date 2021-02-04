@@ -10,7 +10,7 @@
 
 ## מה היא קושחת QMK?
 
-QMK (*Quantum Mechanical Keyboard*) היא קהילת קוד פתוח (open source) שמתחזקת את קושחת QMK, QMK Toolbox, qmk.fm, והמסמכים המתאימים. קושחת QMK היא קושחה עבור מקלדות המבוססת על [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) עם כמה תוספות עבור בקרי Atmel AVR ובאופן ספציפי יותר - [מוצרי OLKB](http://olkb.com), מקלדת [ErgoDox EZ](http://www.ergodox-ez.com), וגם [מוצרי Clueboard](http://clueboard.co/). בנוסף, הקושחה עברה פורט עבור שבבי ARM באמצעות ChibiOS. ניתן להשתמש בה על מנת להפעיל את מקלדות ה PCB המקוסטמות שלך.
+QMK (*Quantum Mechanical Keyboard*) היא קהילת קוד פתוח (open source) שמתחזקת את קושחת QMK, QMK Toolbox, qmk.fm, והמסמכים המתאימים. קושחת QMK היא קושחה עבור מקלדות המבוססת על [tmk\_keyboard](https://github.com/tmk/tmk_keyboard) עם כמה תוספות עבור בקרי Atmel AVR ובאופן ספציפי יותר - [מוצרי OLKB](https://olkb.com), מקלדת [ErgoDox EZ](https://www.ergodox-ez.com), וגם [מוצרי Clueboard](https://clueboard.co/). בנוסף, הקושחה עברה פורט עבור שבבי ARM באמצעות ChibiOS. ניתן להשתמש בה על מנת להפעיל את מקלדות ה PCB המקוסטמות שלך.
 
 ## איך להשיג אותה
 
@@ -30,5 +30,5 @@ QMK (*Quantum Mechanical Keyboard*) היא קהילת קוד פתוח (open sour
 
 ## איך להתאים
 
-לQMK יש המון [יכולות](he-il/features.md) שאפשר לנווט בהן, וכמות נכבדת של [תיעוד ודוקומנטציה](http://docs.qmk.fm) בה אפשר לנבור. רוב הפיצ׳רים באים לידי ביטוי על ידי שינוי  [מיפוי המקלדת](he-il/keymap.md) ושינוי  [קודי המקשים](he-il/keycodes.md).
+לQMK יש המון [יכולות](he-il/features.md) שאפשר לנווט בהן, וכמות נכבדת של [תיעוד ודוקומנטציה](https://docs.qmk.fm) בה אפשר לנבור. רוב הפיצ׳רים באים לידי ביטוי על ידי שינוי  [מיפוי המקלדת](he-il/keymap.md) ושינוי  [קודי המקשים](he-il/keycodes.md).
 </div>
