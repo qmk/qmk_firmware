@@ -6,7 +6,7 @@ A 5x4 numpad with 2x rotary encoder and OLED support.
 
 * Keyboard Maintainer: [MrT1ddl3s](https://github.com/mrT1ddl3s)
 * Hardware Supported: knobgoblin PCB
-* Hardware Availability: Occasional group buy.[knob-goblin.com](https://knob-goblin.com)
+* Hardware Availability: Occasional group buy - [knob-goblin.com](https://knob-goblin.com)
 
 Make example for this keyboard (after setting up your build environment):
 
