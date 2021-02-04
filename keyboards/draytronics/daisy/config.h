@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x4454 //DT for DrayTronics
 #define PRODUCT_ID      0x4441 //DA for Daisy
-#define DEVICE_VER      0x1000 //Version 1
+#define DEVICE_VER      0x0100 //Version 1
 #define MANUFACTURER    Draytronics
 #define PRODUCT         DAISY
-#define USB_MAX_POWER_CONSUMPTION 250
+
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 4
@@ -58,22 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-//Underglow
-#define RGB_DI_PIN D4 // Underglow led pin
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 4
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-  /*== all animations enable ==*/
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#endif
-
-
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
  */
@@ -114,3 +98,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
+//Underglow
+#define RGB_DI_PIN D5 // Underglow led pin
+#ifdef RGB_DI_PIN
+  #define RGBLED_NUM 4
+  #define RGBLIGHT_HUE_STEP 8
+  #define RGBLIGHT_SAT_STEP 8
+  #define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+  /*== all animations enable ==*/
+  #define RGBLIGHT_ANIMATIONS
+#endif
