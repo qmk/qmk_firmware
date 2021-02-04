@@ -78,13 +78,13 @@ __attribute__((weak)) void oled_task_user(void) {
 	switch (get_highest_layer(layer_state)) {
 		case 0:
 			oled_set_cursor(0,11);
-			oled_advance_char();
-			oled_write_P(PSTR("ONE\n"), false);
+			/*oled_advance_char();*/
+			oled_write_P(PSTR(" ONE\n"), false);
 			break;
 		case 1:
 			oled_set_cursor(0,11);
-			oled_advance_char();
-			oled_write_P(PSTR("TWO\n"), false);
+			/*oled_advance_char();*/
+			oled_write_P(PSTR(" TWO\n"), false);
 			break;
 		case 2:
 			oled_set_cursor(0,11);
