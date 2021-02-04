@@ -388,13 +388,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *          • Right Alt or hold(_RAR) on Base
          *
          * _Activate_ below line to get Right-Alt or Alt-Gr (same thing) on Base.
-         * _Remove_ to have a layer hold key to the _RAR layer there
-         * You can always reach _RAR by holding the Right-Shift shift key, for a short while.
+         * A short tap results in RAlt briefly pressed, plus Right-Arrow.
+         * When pressed with another key, however short, results only in RAlt, and no Right-Arrow.
+         * Held a little longer than tapping it, results in only RAlt being pressed, no Right-Arrow.
          *
-         * Notice that with keys like this, which combine with other functions (this with an Arrow on tap),
-         * usage is not always what you expect from a “pure” uncluttered key. For example, if tapping this
-         * key it will send a Right-Arrow, however it will also briefly activate Right-Alt (Alt-Gr). If you
-         * use this key with another key, it won't send a Right-Arrow.
+         * _Remove_ to have a layer hold key to the _RAR layer there, instead of RAlt, together with tapped Right-Arrow.
          */
 //#define BASE_RIGHT_ALT // _Activate_ to get Right-Alt instead of _RAR on Base layer.
         /*
