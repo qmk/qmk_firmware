@@ -1,7 +1,6 @@
 """Generate a keymap.c from a configurator export.
 """
 import json
-import sys
 
 from milc import cli
 
