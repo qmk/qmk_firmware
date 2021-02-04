@@ -246,7 +246,7 @@ To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
-If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](http://www.engbedded.com/fusecalc/) to find a better value for you.
+If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](https://www.engbedded.com/fusecalc/) to find a better value for you.
 
 ## Help 
 

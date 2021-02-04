@@ -8,6 +8,9 @@
 #ifdef KEYBOARD_keebio_quefrency_rev2
     #include "rev2.h"
 #endif
+#ifdef KEYBOARD_keebio_quefrency_rev3
+    #include "rev3.h"
+#endif
 
 // Used to create a keymap using only KC_ prefixed keys
 #define LAYOUT_kc( \

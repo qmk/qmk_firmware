@@ -17,7 +17,7 @@
 #pragma once
 #include "drashna.h"
 
-#if defined(KEYMAP_SAFE_RANGE)
+#if defined(KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball)
 #    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
 #else
 #    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
