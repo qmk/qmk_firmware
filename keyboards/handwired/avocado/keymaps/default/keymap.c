@@ -62,6 +62,8 @@ uint16_t cursor_multiplier = CPI_DEFAULT;
 int8_t last_v = 0;
 
 int16_t cur_factor;
+bool mouse_scroll_need_move = false;
+bool mouse_v_plus = false;
 
 void update_user_config_from_local(void) {
     user_config.cursor_multiplier = cursor_multiplier;
@@ -348,6 +350,7 @@ void handle_pointing_device_modes(void){
         cur_factor = cursor_multiplier;
 		mouse_report.x = CLAMP_HID( sensor_y * cur_factor / 10);
 		mouse_report.y = CLAMP_HID( sensor_x * cur_factor / 10);
+        mouse_scroll_need_move = true;
         break;
     case carret_mode:
         cur_factor = carret_threshold;
@@ -358,8 +361,21 @@ void handle_pointing_device_modes(void){
         if(abs(cum_x) + abs(cum_y) >= cur_factor) {
             if(abs(cum_x) > abs(cum_y)) {
                 mouse_report.h = sign(cum_x) * (abs(cum_x) + abs(cum_y)) / cur_factor;
+                #ifdef CONSOLE_ENABLE
+                uprintf("mouse_report.h %d\n",mouse_report.h);
+                #endif
             } else {
                 mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 5 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
+                if (mouse_scroll_need_move) {
+                    mouse_report.y = (mouse_v_plus? +1 : -1) * 20;
+                    mouse_v_plus = !mouse_v_plus;
+                    if (mouse_v_plus == true) {
+                        mouse_scroll_need_move = false;
+                    }
+                }
+                #ifdef CONSOLE_ENABLE
+                uprintf("mouse_report.v %d\n",mouse_report.v);
+                #endif
             }
             last_v = mouse_report.v;
             cum_x = 0;
@@ -369,6 +385,11 @@ void handle_pointing_device_modes(void){
     default:
         break;
     }
+                #ifdef CONSOLE_ENABLE
+                if (mouse_report.v != 0) {
+                    uprintf("mouse_report.v 2 %d\n",mouse_report.v);
+                }
+                #endif
 	pointing_device_set_report(mouse_report);
 	pointing_device_send();
 }
