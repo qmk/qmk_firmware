@@ -21,7 +21,7 @@
 #define PRODUCT_ID      0x0009
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFANS
-#define PRODUCT         BELLA_RGB_ISO
+#define PRODUCT         BELLA RGB ISO
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
