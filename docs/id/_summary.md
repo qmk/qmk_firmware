@@ -53,12 +53,12 @@
       * [Hand Wiring Guide](hand_wire.md)
       * [ISP Flashing Guide](isp_flashing_guide.md)
 
-  * Simple Keycodes
-    * [Full List](keycodes.md)
-    * [Basic Keycodes](keycodes_basic.md)
-    * [Language-Specific Keycodes](reference_keymap_extras.md)
-    * [Modifier Keys](feature_advanced_keycodes.md)
-    * [Quantum Keycodes](quantum_keycodes.md)
+  * Kode Tombol Sederhana
+    * [Daftar Lengkap](id/keycodes.md)
+    * [Kode Tombol Dasar](id/keycodes_basic.md)
+    * [Kode Tombol Spesifik Bahasa](id/reference_keymap_extras.md)
+    * [Tombol *Modifier*](id/feature_advanced_keycodes.md)
+    * [Kode Tombol Quantum](id/quantum_keycodes.md)
 
   * Advanced Keycodes
     * [Command](feature_command.md)
