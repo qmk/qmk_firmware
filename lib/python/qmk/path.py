@@ -70,4 +70,8 @@ def normpath(path):
 
 class FileType(argparse.FileType):
     def __call__(self, string):
-        return super().__call__(normpath(string))
+        """normalize and check exists
+            otherwise magic strings like '-' for stdin resolve to bad paths
+        """
+        norm = normpath(string)
+        return super().__call__(norm if norm.exists() else string)
