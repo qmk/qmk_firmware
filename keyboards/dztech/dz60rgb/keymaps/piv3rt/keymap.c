@@ -6,6 +6,8 @@
 #define LM_NALT LM(_NUM, MOD_LALT)
 #define RSFT_SL RSFT_T(KC_SLSH)
 #define RALT_F6 RALT_T(KC_F6)
+#define CTLINS  LCTL(KC_INS) // Ctrl + Insert (terminal copy)
+#define SFTINS  LSFT(KC_INS) // Shift + Insert (terminal paste)
 
 enum piv3rt_layers {
     _DEF,
@@ -43,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FNC] = LAYOUT(
         TO(_NUM), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,
-        _______,  AGRAVE,  KC_UP,   EACUTE,  _______, _______, _______, _______, KC_UP,   KC_UP,   KC_PGUP,  KC_HOME, KC_PSCR, KC_NUBS,
-        _______,  KC_HOME, KC_DOWN, KC_END,  _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_END,           KC_F8,
+        _______,  AGRAVE,  KC_UP,   EACUTE,  _______, KC_INS,  _______, _______, KC_UP,   KC_UP,   KC_PGUP,  KC_HOME, KC_PSCR, KC_NUBS,
+        _______,  KC_HOME, KC_DOWN, KC_END,  CTLINS,  SFTINS,  _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_END,           KC_F8,
         _______,           _______, KC_CALC, CCED,    _______, _______, _______, _______, FRQLT,   FRQGT,    _______, KC_VOLU, KC_MUTE,
         _______,  _______, LM_NALT,                            _______,                   KC_MPLY, _______,  KC_MPRV, KC_VOLD, KC_MNXT
     ),
@@ -53,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  RGB_TOG, _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_MOD, _______,  _______, _______, RESET,
         _______,  _______, _______, _______, _______, RGB_PCY, _______, _______, RGB_SPI, RGB_SPD, _______,  _______,          EEP_RST,
         _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, RGB_000, _______,
-        _______,  _______, _______,                            RGB_RST,                   _______, _______,  _______, _______, _______
+        _______,  _______, _______,                            RGB_RST,                   _______, _______,  KC_PWR,  _______, _______
     ),
     [_NUM] = LAYOUT(
         KC_NLCK,  KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, _______, _______, _______, _______, KC_PSLS, KC_PAST,  KC_PMNS, KC_PPLS, _______,
