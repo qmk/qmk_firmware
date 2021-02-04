@@ -30,10 +30,10 @@
     * [Configuration](cli_configuration.md)
     * [Commands](cli_commands.md)
 
-* Using QMK
-  * Guides
-    * [Customizing Functionality](custom_quantum_functions.md)
-    * [Driver Installation with Zadig](driver_installation_zadig.md)
+* Menggunakan QMK
+  * Panduan
+    * [Mengubah Fungsionalitas](id/custom_quantum_functions.md)
+    * [Pemasangan Penggerak dengan Zadig](id/driver_installation_zadig.md)
     * [Keymap Overview](keymap.md)
     * Development Environments
       * [Docker Guide](getting_started_docker.md)
