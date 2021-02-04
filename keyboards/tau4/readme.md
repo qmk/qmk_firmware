@@ -1,5 +1,4 @@
-τ.4
-===
+# τ.4
 
 ![Tau.4](http://gaskell.tech/tau/images/tau4.jpg)
 
