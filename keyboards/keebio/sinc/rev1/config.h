@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Sinc Rev. 1
-#define DESCRIPTION     Split 75 percent staggered keyboard
 
 /* key matrix size */
 // Rows are doubled-up
