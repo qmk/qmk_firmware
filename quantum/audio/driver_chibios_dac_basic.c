@@ -100,9 +100,14 @@ static const DACConversionGroup dac_conv_grp_ch2 = {.num_channels = 1U, .trigger
 void channel_1_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
+    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
 }
 
-void channel_1_stop(void) { gptStopTimer(&GPTD6); }
+void channel_1_stop(void) {
+    gptStopTimer(&GPTD6);
+    palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPad(GPIOA, 4);
+}
 
 static float channel_1_frequency = 0.0f;
 void         channel_1_set_frequency(float freq) {
@@ -120,9 +125,14 @@ float channel_1_get_frequency(void) { return channel_1_frequency; }
 void channel_2_start(void) {
     gptStart(&GPTD7, &gpt7cfg1);
     gptStartContinuous(&GPTD7, 2U);
+    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
 }
 
-void channel_2_stop(void) { gptStopTimer(&GPTD7); }
+void channel_2_stop(void) {
+    gptStopTimer(&GPTD7);
+    palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL); \
+    palSetPad(GPIOA, 5);
+}
 
 static float channel_2_frequency = 0.0f;
 void         channel_2_set_frequency(float freq) {
