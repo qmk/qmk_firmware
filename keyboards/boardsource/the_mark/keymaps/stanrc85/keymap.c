@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "stanrc85.h"
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Base */
 [_QWERTY] = LAYOUT_all(
@@ -50,3 +49,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+void rgb_matrix_indicators_user(void) {
+  uint8_t layer = biton32(layer_state);
+  switch (layer) {
+    case _QWERTY:
+      rgb_matrix_set_color(10, 0, 0, 0); 
+      break;
+    case _FN1_60:
+      rgb_matrix_set_color(10, 0, 0, 255); 
+      break;
+    case _FN2_60:
+      rgb_matrix_set_color(10, 255, 255, 255); 
+      break;
+    case _DEFAULT:
+      rgb_matrix_set_color(10, 0, 255, 0); 
+      break;
+    default:
+      break;
+  }
+  if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        rgb_matrix_set_color(10, 255, 0, 0);
+  }
+}
+
+void matrix_init_kb(void){
+
+#ifdef RGB_MATRIX_ENABLE
+
+  g_led_config = (led_config_t){ {
+    // Key Matrix to LED Index
+    { 10    , 10    , 9     , 9     , 8     , 7     , 7     , 6     , 5     , 5     , 4     , 3     , 3     , 2     , 1     , 1      },
+    { NO_LED, 11    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 0     , 1      },
+    { NO_LED, 12    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 23    , 1      },
+    { NO_LED, 13    , 14    , NO_LED, 15    , 16    , NO_LED, 17    , 18    , NO_LED, 19    , 20    , NO_LED, 21    , 22    , NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+  }, {
+    // LED Index to Physical Position
+    {224, 42}, {224, 21}, {209, 21}, {179, 21}, {164, 21}, {134, 21}, {119, 21}, {89, 21}, {74, 21}, {45, 21}, {30, 21}, {30, 42},
+    {30, 64}, {30, 85}, {45, 85}, {74, 85}, {89, 85}, {119, 85}, {134, 85}, {164, 85}, {179, 85}, {209, 85}, {224, 85}, {224, 64}
+  }, {
+    // LED Index to Flag
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
+  } };
+
+#endif
+  matrix_init_user();
+}
