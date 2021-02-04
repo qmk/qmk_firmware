@@ -99,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_FUNCTION
 
 //Underglow
-#define RGB_DI_PIN D5 // Underglow led pin
+#define RGB_DI_PIN D4 // Underglow led pin
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 4
   #define RGBLIGHT_HUE_STEP 8
