@@ -61,11 +61,6 @@ Designed for intuitive key placement, more symbols than standard English
 keyboard, speed and text size measuring.
 *400%* _the capability in_ *40%* _the size_ (by key function count).
 
-⚠ Caution: this is a keymap with Unicode symbols, for a neutral
-(English/US) keyboard language setting in the computer operating
-system. You also need to have a (QMK supported) Unicode input method
-working on your computer.
-
 For some ‛common layers’ (numbers pad, movement), different versions
 can be chosen than shown just below in this by layer view:
 
@@ -80,13 +75,15 @@ By key view:
 This keymap functions on _Minivan_ hardware variants with 44, 45 and
 46 keys.
 
-(It may also be fairly easily ported to 12x12x12x[11|12] boards, but
-this hasn't been done yet.)
+It may also be fairly easily ported to 12x12x12x[11|12] boards, but
+this hasn't been done/tested yet.
 
 0.2 Software compatibility
 ==========================
-✓ This keymap relies on Unicode, in an attempt to avoid the 
+This keymap relies on Unicode, in an attempt to avoid the 
 “dead key” system for accented characters on many non-English keyboards.
+You need to have Unicode input working on your computer.
+
 On a Linux computer operating system, this keymap is designed to work
 with this keyboard/language setting:
 
@@ -98,10 +95,8 @@ If that works for you, you can type the most important characters in
 the western European group of languages, native from the keyboard
 (see chapter 6 _Language support_).
 
-✗ This improvement over the “dead key” system can at the same time be
-its drawback for people for whom Unicode input does not work well enough.
-It may not function as expected if you want to use a different keyboard 
-language setting in your operating system.
+This keymap might not function as expected if you want to use a
+different keyboard language setting in your operating system.
 
 See also chapter 6 _Language support_.
 
