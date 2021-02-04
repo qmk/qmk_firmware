@@ -75,8 +75,7 @@ By key view:
 This keymap functions on _Minivan_ hardware variants with 44, 45 and
 46 keys.
 
-It may also be fairly easily ported to 12x12x12x[11|12] boards, but
-this hasn't been done/tested yet.
+It may be fairly easily ported to 12x12x12x[11|12|13] keyboards.
 
 0.2 Software compatibility
 ==========================
@@ -92,8 +91,7 @@ with this keyboard/language setting:
         `en_US.UTF-8`
 
 If that works for you, you can type the most important characters in
-the western European group of languages, native from the keyboard
-(see chapter 6 _Language support_).
+the western European group of languages, native from the keyboard.
 
 This keymap might not function as expected if you want to use a
 different keyboard language setting in your operating system.
@@ -773,7 +771,7 @@ This concerns the numbers pad layer, the one that is part of the common layers.
  • What the additional hardware keys for _arrow,_ _south paw_ should be.
 
  • It is possible to compile the keymap with 11, 12, 13 keys on the bottom row (see 
-   `TRANSMINIVAN_LEFTSIDE`, etc). Untested FIXME.
+   `TRANSMINIVAN_LEFTSIDE`, etc).
 
          Navigation cluster
 
@@ -1459,8 +1457,6 @@ and closing next to each other.
   The eviscerations may not have been worked out yet into the ultimate scrubbing of
   everything that may have become redundent, because it does complicate the code with
   a lot of #defines. Perhaps it should be done eventually, if there is an actual need.
-
-  Only tested on Linux (FIXME).
 
 
 17 Author(s)
