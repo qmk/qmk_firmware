@@ -1,6 +1,6 @@
 # Claw44
 
-![Claw44](https://i.imgur.com/5a8iogl.jpg)
+![Claw44](https://i.imgur.com/5a8iogll.jpg)
 
 A split keyboard with 3x6 vertically staggered keys and 4 thumb keys.
 
