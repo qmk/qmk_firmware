@@ -222,6 +222,8 @@ void audio_decrease_tempo(uint8_t tempo_change);
 uint16_t audio_duration_to_ms(uint16_t duration_bpm);
 uint16_t audio_ms_to_duration(uint16_t duration_ms);
 
+void audio_startup(void);
+
 //     __  __               __
 //    / / / /___ __________/ /      ______ __________
 //   / /_/ / __ `/ ___/ __  / | /| / / __ `/ ___/ _  /
