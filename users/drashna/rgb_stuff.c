@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef RGBLIGHT_ENABLE
+
 #include "drashna.h"
 #include "rgb_stuff.h"
 #include "eeprom.h"
@@ -232,3 +234,5 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
 
     return state;
 }
+
+#endif
