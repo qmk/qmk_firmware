@@ -1,4 +1,4 @@
-/* Copyright 2017 MechMerlin
+/* Copyright 2020 Erik Bakker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,3 +15,13 @@
  */
 
 #pragma once
+
+#define ENCODER_RESOLUTION 4
+#define TAPPING_TERM 175
+#define TAPPING_TOGGLE 3
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_MACOS_ROW 2
+#define BOOTMAGIC_LITE_MACOS_COLUMN 7
+#define BOOTMAGIC_LITE_WIN_ROW 0
+#define BOOTMAGIC_LITE_WIN_COLUMN 2
