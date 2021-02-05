@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x4753
+#define PRODUCT_ID      0x4000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Gray Studio
-#define PRODUCT         THINK6.5
-#define DESCRIPTION     65% 6.5 degree custom keyboard
+#define MANUFACTURER    Graystudio
+#define PRODUCT         Think6.5°
 
 /* key matrix size */
 #define MATRIX_ROWS 5

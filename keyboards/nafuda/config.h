@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0012
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         nafuda
-#define DESCRIPTION     A custom cursorpad
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -35,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D1, D0, D4 }
 #define MATRIX_COL_PINS { F4, F5, F6 }
+
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

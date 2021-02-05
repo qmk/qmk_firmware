@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wilba.tech
 #define PRODUCT         wilba.tech WT69-A
-#define DESCRIPTION     wilba.tech WT69-A
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -160,9 +159,6 @@
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -178,26 +174,3 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-// Does not use WT_MONO_BACKLIGHT
-//#define WT_MONO_BACKLIGHT
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
-// Dynamic macro starts after dynamic keymaps (37+(4*5*17*2)) = (37+680)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 717
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 307
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16

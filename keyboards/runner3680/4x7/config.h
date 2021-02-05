@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0005
 #define MANUFACTURER    Omkbd
 #define PRODUCT         runner3680
-#define DESCRIPTION     A split keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -33,6 +32,8 @@
 #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2 ,B6 }
 // #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5 } //uncomment this line and comment line above if you need to reverse left-to-right key order
+
+#define DIODE_DIRECTION COL2ROW
 
 /* define tapping term */
 #define TAPPING_TERM 120

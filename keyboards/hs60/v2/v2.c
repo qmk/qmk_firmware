@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef RGB_BACKLIGHT_HS60
-#error RGB_BACKLIGHT_M60_A not defined, recheck config.h
+#error RGB_BACKLIGHT_HS60 not defined, recheck config.h
 #endif

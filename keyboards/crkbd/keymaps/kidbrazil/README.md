@@ -1,6 +1,6 @@
 # KidBrazil's custom CRKBD Layout
 
-![Crkbd](https://user-images.githubusercontent.com/736191/40575636-6fba63a4-6123-11e8-9ca0-3f990f1f9f4c.jpg)
+![Loose Transistor Crkbd](https://user-images.githubusercontent.com/4823043/71268460-0862c000-231b-11ea-8f32-2fe8da4d348a.jpg)
 
 This is a simple layout that I use for both programming and gaming. It is very
 closely based on the original CRKBD layout with some modifications to the
@@ -45,8 +45,19 @@ customize this with showing layer and USB information. I also tried my best to
 get a dormant / sleep state going but it is hit or miss and often only works on
 the master hand.
 
+## OLED & RGB Matrix timeout
+This keymap will set a automated timeout system for the OLED screen and the RGB
+matrix. After 3 minutes or so the LED screen will display the logo on both
+halves and 5 minutes after that both the LED and the Matrix will be switched
+off.
+
+Once a user hits the keys again, the LED matrix will turn back on unless the
+user has disabled it via RGB_TOG.
+
+## Flashing
+To flash this on your CRKBD simply use the `make crkbd:kidbrazil:flash`
+command.
+
 ### TODO
-- Fix OLED and Backlight so they turn off when the computer sleeps, currently
-  only the left hand does that and the LEDs still stay on.
 - Wait for Spit_common to be implemented in CRKBD and revisit the special color
   layers and animations

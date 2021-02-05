@@ -1,20 +1,15 @@
 #include QMK_KEYBOARD_H
+#include "enums.h"
+#include "layer.h"
 
 // [Init Variables] ----------------------------------------------------------//
 extern uint8_t is_master;
 // Oled timer similar to Drashna's
 static uint32_t oled_timer = 0;
-// Boolean to store
-bool eeprom_oled_enabled = false;
-
-// [CRKBD layers Init] -------------------------------------------------------//
-enum crkbd_layers {
-    _QWERTY,
-    _NUM,
-    _SYM,
-    _GAME,
-    _WEAPON
-};
+// Boolean to store LED state
+bool user_led_enabled = true;
+// Boolean to store the master LED clear so it only runs once.
+bool master_oled_cleared = false;
 
 // [Keymaps] -----------------------------------------------------------------//
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -34,8 +29,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	  [_SYM] = LAYOUT(
       KC_ESC, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,                                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-      LSFT_T(KC_TAB), RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,                        KC_MINS, KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_GRV,
-      KC_LCTL, RGB_VAD, RGB_RMOD, RGB_HUD, RGB_SAD, TG(_GAME),                            KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
+      LSFT_T(KC_TAB), RGB_TOG, KC_MPLY, KC_MUTE, KC_VOLU, KC_VOLD,                        KC_MINS, KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_GRV,
+      KC_LCTL, KC_CALC, KC_MYCM, KC_MPRV, KC_MNXT, TG(_GAME),                             KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
                                           LGUI_T(KC_PGUP), KC_TRNS, KC_SPC,       KC_ENT, KC_TRNS, LALT_T(KC_PGDN)
     ),
 
@@ -49,29 +44,88 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  [_WEAPON] = LAYOUT(
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5,                                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_LSFT, KC_A, KC_S, KC_D, KC_F,                               KC_6, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_LCTL, KC_Z, KC_X, KC_C, KC_V,                               KC_7, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_LCTL, KC_Z, KC_X, KC_C, KC_V,                               KC_7, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EEP_RST,
                                 KC_TRNS, KC_TAB, KC_TRNS,             KC_SPC, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
 
-//int RGB_current_mode;
-
+// [Post Init] --------------------------------------------------------------//
+void keyboard_post_init_user(void) {
+    // Set RGB to known state
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_set_color_all(RGB_GREEN);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    user_led_enabled = true;
+}
 // [Process User Input] ------------------------------------------------------//
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Use process_record_keymap to reset timer on keypress
-    if (record->event.pressed) {
-        #ifdef OLED_DRIVER_ENABLE
-            oled_timer = timer_read32();
-        #endif
-        // Restore LEDs if they are enabled in eeprom
-        rgb_matrix_enable_noeeprom();
+    switch (keycode) {
+      // Handle RGB Changes sans eeprom - necessary due to the layer dependent RGB color
+      // changes in marrix_scan_user
+      case RGB_TOG:
+          if (record->event.pressed) {
+              // Toggle matrix on key press
+              user_led_enabled ? rgb_matrix_disable_noeeprom() : rgb_matrix_enable_noeeprom();
+              // Toggle boolean flag
+              user_led_enabled = !user_led_enabled;
+          }
+          return false;
+      default:
+          // Use process_record_keymap to reset timer on all other keypresses to awaken from idle.
+          if (record->event.pressed) {
+              #ifdef OLED_DRIVER_ENABLE
+                  oled_timer = timer_read32();
+              #endif
+              // Restore LEDs if they are enabled by user
+              if (user_led_enabled) {
+                  rgb_matrix_enable_noeeprom();
+              }
+          }
+          return true;
     }
-    return true;
 }
 
+// [Matrix Scan] ------------------------------------------------------------//
+void matrix_scan_user(void) {
+     // Iddle timer to return to default layer if left on game layer
+     if (timer_elapsed32(oled_timer) > 380000 && timer_elapsed32(oled_timer) < 479999) {
+         // Reset layer in case it got left on _GAME
+         // This prevents the issue where the master side sometimes wont switch off as expected
+         // in the next step.
+         if (get_highest_layer(layer_state) == _GAME) {
+             layer_off(_GAME);
+             layer_on(_QWERTY);
+         }
+         return;
+     }
+     // Timeout to turn off LEDs
+     else if (timer_elapsed32(oled_timer) > 480000) {
+         rgb_matrix_disable_noeeprom();
+         return;
+     }
+     // Set RGB Matrix color based on layers
+     if (user_led_enabled) {
+         switch (get_highest_layer(layer_state)){
+            case _GAME:
+                rgb_matrix_set_color_all(RGB_PURPLE);
+                break;
+            case _NUM:
+            case _SYM:
+            case _QWERTY:
+                rgb_matrix_set_color_all(RGB_GREEN);
+                break;
+            default:
+                rgb_matrix_set_color_all(RGB_GREEN);
+                break;
+
+          }
+     } else {
+         rgb_matrix_disable_noeeprom();
+         return;
+     }
+}
 // [OLED Configuration] ------------------------------------------------------//
 #ifdef OLED_DRIVER_ENABLE
-
 // Init Oled and Rotate....
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!has_usb())
@@ -83,74 +137,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 const char *read_logo(void);
 
 // {OLED helpers} -----------------------------------------------//
-
-// Render Blank Space
-void render_space(void) {
-    oled_write_ln_P(PSTR("     "), false);
-}
-
-// Render separator lines for oled display
-void render_separator(void) {
-    switch (get_highest_layer(layer_state)){
-        case _GAME:
-        case _WEAPON:
-            oled_write_ln_P(PSTR("===================="), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("++++++++++++++++++++"), false);
-    }
-}
-
-// Render current layer state
-void render_layer_state(void){
-	// If you want to change the display of OLED, you need to change here
-    switch (get_highest_layer(layer_state)){
-        case _QWERTY:
-            oled_write_ln_P(PSTR("| MODE | QWRTY     ]"), false);
-            break;
-        case _NUM:
-            oled_write_ln_P(PSTR("| MODE | NUMBERS   ]"), false);
-            break;
-        case _SYM:
-            oled_write_ln_P(PSTR("| MODE | SYMBOLS   ]"), false);
-            break;
-        case _GAME:
-            oled_write_ln_P(PSTR("|    G  A  M  E    ]"), false);
-            break;
-        case _WEAPON:
-            oled_write_ln_P(PSTR("| W  E  A  P  O  N ]"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("| MODE | UNDEF     ]"), false);
-    }
-}
-
-// Render USB State
-void render_usb_state(void) {
-    switch (USB_DeviceState) {
-      case DEVICE_STATE_Unattached:
-			    oled_write_ln_P(PSTR("| USB  | FREE      ]"), false);
-          break;
-      case DEVICE_STATE_Suspended:
-          oled_write_ln_P(PSTR("| USB  | SLEEP     ]"), false);
-          break;
-      case DEVICE_STATE_Configured:
-          oled_write_ln_P(PSTR("| USB  | READY     ]"), false);
-          break;
-      case DEVICE_STATE_Powered:
-          oled_write_ln_P(PSTR("| USB  | PWRD      ]"), false);
-          break;
-      case DEVICE_STATE_Default:
-          oled_write_ln_P(PSTR("| USB  | DFLT      ]"), false);
-          break;
-      case DEVICE_STATE_Addressed:
-          oled_write_ln_P(PSTR("| USB  | ADDRS     ]"), false);
-          break;
-      default:
-          oled_write_ln_P(PSTR("| USB  | INVALID   ]"), false);
-    }
-}
-
 // Render Logo
 void render_logo(void) {
     oled_write(read_logo(), false);
@@ -180,35 +166,48 @@ void render_master_oled(void) {
     }
 }
 
-// lave OLED scren (Right Hand)
+// Slave OLED scren (Right Hand)
 void render_slave_oled(void) {
     render_logo();
 }
 
 // {OLED Task} -----------------------------------------------//
 void oled_task_user(void) {
-      // Drashna style timeout for LED and OLED Roughly 8mins
-      if (timer_elapsed32(oled_timer) > 480000) {
-          oled_off();
-          rgb_matrix_disable_noeeprom();
-          return;
-      }
-      else {
-          oled_on();
-      }
-      // Show logo when USB dormant
-      switch (USB_DeviceState) {
-          case DEVICE_STATE_Unattached:
-          case DEVICE_STATE_Powered:
-          case DEVICE_STATE_Suspended:
-            render_logo();
-            break;
-          default:
-            if (is_master) {
-                render_master_oled();
-            } else {
-                render_slave_oled();
-            }
-      }
+    // First time out switches to logo as first indication of iddle.
+    if (timer_elapsed32(oled_timer) > 100000 && timer_elapsed32(oled_timer) < 479999) {
+        // Render logo on both halves before full timeout
+        if (is_master && !master_oled_cleared) {
+            // Clear master OLED once so the logo renders properly
+            oled_clear();
+            master_oled_cleared = true;
+        }
+        render_logo();
+        return;
+    }
+    // Drashna style timeout for LED and OLED Roughly 8mins
+    else if (timer_elapsed32(oled_timer) > 480000) {
+        oled_off();
+        rgb_matrix_disable_noeeprom();
+        return;
+    }
+    else {
+        oled_on();
+        // Reset OLED Clear flag
+        master_oled_cleared = false;
+        // Show logo when USB dormant
+        switch (USB_DeviceState) {
+            case DEVICE_STATE_Unattached:
+            case DEVICE_STATE_Powered:
+            case DEVICE_STATE_Suspended:
+                render_logo();
+                break;
+            default:
+                if (is_master) {
+                    render_master_oled();
+                } else {
+                    render_slave_oled();
+                }
+        }
+    }
 }
 #endif

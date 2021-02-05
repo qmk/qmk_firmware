@@ -21,7 +21,7 @@
 #    include <avr/interrupt.h>
 #endif
 #if defined(PROTOCOL_CHIBIOS)
-#    include "hal.h"
+#    include <hal.h>
 #    include "chibios_config.h"
 #endif
 
@@ -31,7 +31,7 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
-#        include "ledmatrix.h"
+#        include "led_matrix.h"
 #    else
 #        include "backlight.h"
 #    endif
@@ -56,6 +56,7 @@
 #include "config_common.h"
 #include "led.h"
 #include "action_util.h"
+#include "action_tapping.h"
 #include "print.h"
 #include "send_string_keycodes.h"
 #include "suspend.h"
@@ -66,6 +67,11 @@ extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
 extern layer_state_t layer_state;
+#endif
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#    include "process_sequencer.h"
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -86,6 +92,10 @@ extern layer_state_t layer_state;
 
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 #    include "process_music.h"
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+#    include "process_backlight.h"
 #endif
 
 #ifdef LEADER_ENABLE
@@ -138,6 +148,14 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif
@@ -162,11 +180,23 @@ extern layer_state_t layer_state;
 #    include "process_dynamic_macro.h"
 #endif
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#    include "dynamic_keymap.h"
+#endif
+
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
+
+#ifdef WPM_ENABLE
+#    include "wpm.h"
+#endif
+
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
 
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
 #    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
 #    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
@@ -176,6 +206,9 @@ typedef uint8_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+
+#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 
@@ -186,17 +219,86 @@ typedef ioline_t pin_t;
 
 #    define writePinHigh(pin) palSetLine(pin)
 #    define writePinLow(pin) palClearLine(pin)
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
+#    define writePin(pin, level) ((level) ? (writePinHigh(pin)) : (writePinLow(pin)))
 
 #    define readPin(pin) palReadLine(pin)
+
+#    define togglePin(pin) palToggleLine(pin)
+#endif
+
+// Atomic macro to help make GPIO and other controls atomic.
+#ifdef IGNORE_ATOMIC_BLOCK
+/* do nothing atomic macro */
+#    define ATOMIC_BLOCK for (uint8_t __ToDo = 1; __ToDo; __ToDo = 0)
+#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK
+
+#elif defined(__AVR__)
+/* atomic macro for AVR */
+#    include <util/atomic.h>
+
+#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
+
+#elif defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_ARM_ATSAM)
+/* atomic macro for ChibiOS / ARM ATSAM */
+#    if defined(PROTOCOL_ARM_ATSAM)
+#        include "arm_atsam_protocol.h"
+#    endif
+
+static __inline__ uint8_t __interrupt_disable__(void) {
+#    if defined(PROTOCOL_CHIBIOS)
+    chSysLock();
+#    endif
+#    if defined(PROTOCOL_ARM_ATSAM)
+    __disable_irq();
+#    endif
+    return 1;
+}
+
+static __inline__ void __interrupt_enable__(const uint8_t *__s) {
+#    if defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
+#    endif
+#    if defined(PROTOCOL_ARM_ATSAM)
+    __enable_irq();
+#    endif
+    __asm__ volatile("" ::: "memory");
+    (void)__s;
+}
+
+#    define ATOMIC_BLOCK(type) for (type, __ToDo = __interrupt_disable__(); __ToDo; __ToDo = 0)
+#    define ATOMIC_FORCEON uint8_t sreg_save __attribute__((__cleanup__(__interrupt_enable__))) = 0
+
+#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
+
+/* Other platform */
+#else
+
+#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
+#    define ATOMIC_BLOCK_FORCEON _Static_assert(0, "ATOMIC_BLOCK_FORCEON dose not implement")
+
 #endif
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
-extern const bool    ascii_to_shift_lut[128];
-extern const bool    ascii_to_altgr_lut[128];
+// Look-Up Tables (LUTs) to convert ASCII character to keycode sequence.
 extern const uint8_t ascii_to_keycode_lut[128];
+extern const uint8_t ascii_to_shift_lut[16];
+extern const uint8_t ascii_to_altgr_lut[16];
+// clang-format off
+#define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
+    ( ((a) ? 1 : 0) << 0 \
+    | ((b) ? 1 : 0) << 1 \
+    | ((c) ? 1 : 0) << 2 \
+    | ((d) ? 1 : 0) << 3 \
+    | ((e) ? 1 : 0) << 4 \
+    | ((f) ? 1 : 0) << 5 \
+    | ((g) ? 1 : 0) << 6 \
+    | ((h) ? 1 : 0) << 7 )
+// clang-format on
 
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
@@ -212,18 +314,23 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 
-#define IS_LAYER_ON(layer) (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
+#define IS_LAYER_ON(layer) layer_state_is(layer)
+#define IS_LAYER_OFF(layer) !layer_state_is(layer)
+
+#define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
+#define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
 void     matrix_init_kb(void);
 void     matrix_scan_kb(void);
 void     matrix_init_user(void);
 void     matrix_scan_user(void);
-uint16_t get_record_keycode(keyrecord_t *record);
-uint16_t get_event_keycode(keyevent_t event);
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
+void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
+void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 #ifndef BOOTMAGIC_LITE_COLUMN
 #    define BOOTMAGIC_LITE_COLUMN 0
@@ -242,30 +349,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void);
-void backlight_task(void);
-void backlight_task_internal(void);
-void backlight_on(pin_t backlight_pin);
-void backlight_off(pin_t backlight_pin);
-
-#    ifdef BACKLIGHT_BREATHING
-void breathing_task(void);
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-void breathing_intensity_default(void);
-void breathing_period_default(void);
-void breathing_period_set(uint8_t value);
-void breathing_period_inc(void);
-void breathing_period_dec(void);
-#    endif
-#endif
 
 void     send_dword(uint32_t number);
 void     send_word(uint16_t number);

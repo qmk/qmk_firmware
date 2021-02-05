@@ -1,4 +1,4 @@
-# ANSI Keymap for the HID Liberation Device
+# The default keymap for the HID Liberation Device
 
 A basic keymap intended for the HID Liberation Device using the standard ANSI layout.
 
@@ -19,9 +19,9 @@ This keymap has two layers. To access the functions on the second layer, hold do
      |-----------------------------------------------------------| '-----------'
      |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
      |-----------------------------------------------------------|     ,---.
-     |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |
+     |Sft |ISO|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |
      |-----------------------------------------------------------| ,-----------.
-     |Ctl|Gui|Alt|             Space             |Alt|Gui|Fn |Ctl| |Lef|Dow|Rig|
+     |Ctl |Gui |Alt |         Space          |Alt |Gui |Fn  |Ctl | |Lef|Dow|Rig|
      `-----------------------------------------------------------' `-----------'
 
 ### Layer 2: Media Layer
@@ -35,7 +35,7 @@ This keymap has two layers. To access the functions on the second layer, hold do
      |-----------------------------------------------------------| '-----------'
      |      |   |   |   |   |   |   |   |   |   |   |   |        |
      |-----------------------------------------------------------|     ,---.
-     |        |   |   |   |   |   |   |   |   |   |   |          |     |   |
+     |    |   |   |   |   |   |   |   |   |   |   |   |          |     |   |
      |-----------------------------------------------------------| ,-----------.
-     |   |   |   |                               |   |   |   |   | |   |   |   |
+     |    |    |    |                        |    |    |    |    | |   |   |   |
      `-----------------------------------------------------------' `-----------'

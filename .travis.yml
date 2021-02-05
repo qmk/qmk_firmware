@@ -12,21 +12,21 @@ env:
   - MAKEFLAGS="-j3 --output-sync"
 services:
   - docker
-install:
-  - npm install -g moxygen
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-7
+    packages:
+    - diffutils
+    - clang-format-7
+    - libstdc++-7-dev
 script:
+  - git fetch --depth=50 origin $TRAVIS_BRANCH:$TRAVIS_BRANCH
   - git rev-parse --short HEAD
   - git diff --name-only HEAD $TRAVIS_BRANCH
   - bash util/travis_test.sh
   - bash util/travis_build.sh
-  - bash util/travis_docs.sh
-addons:
-  apt:
-    packages:
-    - pandoc
-    - diffutils
-    - dos2unix
-    - doxygen
 after_script:
   bash util/travis_compiled_push.sh
 notifications:

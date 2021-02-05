@@ -96,11 +96,13 @@
 /* Modifiers */
 #define X_LCTL X_LCTRL
 #define X_LSFT X_LSHIFT
+#define X_LOPT X_LALT
 #define X_LCMD X_LGUI
 #define X_LWIN X_LGUI
 #define X_RCTL X_RCTRL
 #define X_RSFT X_RSHIFT
 #define X_ALGR X_RALT
+#define X_ROPT X_RALT
 #define X_RCMD X_RGUI
 #define X_RWIN X_RGUI
 
@@ -136,6 +138,24 @@
 /* System Specific */
 #define X_BRMU X_PAUSE
 #define X_BRMD X_SCROLLLOCK
+
+/* Mouse Keys */
+#define X_MS_U X_MS_UP
+#define X_MS_D X_MS_DOWN
+#define X_MS_L X_MS_LEFT
+#define X_MS_R X_MS_RIGHT
+#define X_BTN1 X_MS_BTN1
+#define X_BTN2 X_MS_BTN2
+#define X_BTN3 X_MS_BTN3
+#define X_BTN4 X_MS_BTN4
+#define X_BTN5 X_MS_BTN5
+#define X_WH_U X_MS_WH_UP
+#define X_WH_D X_MS_WH_DOWN
+#define X_WH_L X_MS_WH_LEFT
+#define X_WH_R X_MS_WH_RIGHT
+#define X_ACL0 X_MS_ACCEL0
+#define X_ACL1 X_MS_ACCEL1
+#define X_ACL2 X_MS_ACCEL2
 
 /* Keyboard/Keypad Page (0x07) */
 #define X_A                  04
@@ -341,18 +361,40 @@
 #define X_BRIGHTNESS_UP      bd
 #define X_BRIGHTNESS_DOWN    be
 
+/* Mouse Buttons (unallocated range in HID spec) */
+#define X_MS_UP              f0
+#define X_MS_DOWN            f1
+#define X_MS_LEFT            f2
+#define X_MS_RIGHT           f3
+#define X_MS_BTN1            f4
+#define X_MS_BTN2            f5
+#define X_MS_BTN3            f6
+#define X_MS_BTN4            f7
+#define X_MS_BTN5            f8
+#define X_MS_WH_UP           f9
+#define X_MS_WH_DOWN         fa
+#define X_MS_WH_LEFT         fb
+#define X_MS_WH_RIGHT        fc
+#define X_MS_ACCEL0          fd
+#define X_MS_ACCEL1          fe
+#define X_MS_ACCEL2          ff
+
 // Send string macros
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x##y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
 
+#define SS_QMK_PREFIX 1
+
 #define SS_TAP_CODE 1
 #define SS_DOWN_CODE 2
 #define SS_UP_CODE 3
+#define SS_DELAY_CODE 4
 
-#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
-#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
-#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
+#define SS_TAP(keycode) "\1\1" SYMBOL_STR(keycode)
+#define SS_DOWN(keycode) "\1\2" SYMBOL_STR(keycode)
+#define SS_UP(keycode) "\1\3" SYMBOL_STR(keycode)
+#define SS_DELAY(msecs) "\1\4" STRINGIZE(msecs) "|"
 
 // `string` arguments must not be parenthesized
 #define SS_LCTL(string) SS_DOWN(X_LCTL) string SS_UP(X_LCTL)

@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    hineybush keyboards
 #define PRODUCT         h87a
-#define DESCRIPTION     QMK-programmable TKL PCB for custom keyboards
 
 #define CONFIG_H
 
@@ -72,5 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP // RGB will turn off when PC is put to sleep
 #endif

@@ -43,6 +43,7 @@ enum aranck_layers {
 #define VERTICAL_PIPE RALT(KC_EQL)
 #define BACKTICK RALT(KC_BSLS)
 #define TILDE RALT(KC_RBRC)
+#define NUMBER_SIGN RALT(KC_3)
 #define LOCKSCREEN LCTL(LSFT(KC_POWER)) // Screen Lock shortcut for OSX
 
 /* 
@@ -93,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Sda|<>| Ctrl | Alt  |  OS  |Lowr|,|    Space*   |Rise|"| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = LAYOUT_aranck_mit(
+[_QWERTY] = LAYOUT_planck_mit(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     LT(_NUMPAD, KC_ESC),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    LSFT_T(KC_CAPS), KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT /*KC_ENT*/,
+    LSFT_T(KC_CAPS), KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
     LT(_SODA, KC_GRV), KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, KC_BSLS), LT(_SPACE, KC_SPC),  LT(_RAISE, KC_NONUS_BSLASH), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
@@ -106,15 +107,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   ?  |   _  |  Ğ   |  Ü   |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 | "$"  | "{"  | "}"  |  ,   | ">"  |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  "$" |  "{" |  "}" |  <   |  ">" |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | "["  | "]"  |  '   |  "   |
+ * |      |      |      |      |      |             |      |  "[" |  "]" |  '   |   "  |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_aranck_mit(
+[_LOWER] = LAYOUT_planck_mit(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LBRC, KC_RBRC, KC_EQL,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DOLLAR_SIGN, CURLY_OPEN, CURLY_CLOSE, KC_BSLS, LSFT(KC_GRV),
+    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DOLLAR_SIGN, CURLY_OPEN, CURLY_CLOSE, KC_GRV, LSFT(KC_GRV),
     _______, _______, _______, _______, _______,      _______,      _______,   SQUARE_OPEN, SQUARE_CLOSE, LSFT(KC_2), KC_NONUS_BSLASH
 ),
 
@@ -125,15 +126,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Del |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   *  |   -  | "\"  | "|"  |  ,   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   ,  |   "  | "~"  | "`"  |  <>| |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   #  |   "  | "~"  | "`"  |  <>| |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_aranck_mit(
+[_RAISE] = LAYOUT_planck_mit(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  BACKSLASH, VERTICAL_PIPE, KC_BSLS,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, TILDE, BACKTICK, KC_GRV,
+    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  NUMBER_SIGN, KC_NUBS, TILDE, BACKTICK, KC_GRV,
     _______, _______, _______, _______, _______,      _______,     _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -148,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |Brght▼|Brght▲|
  * `-----------------------------------------------------------------------------------'
  */
-[_SODA] = LAYOUT_aranck_mit(
+[_SODA] = LAYOUT_planck_mit(
     _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MUTE,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,
@@ -166,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |Brght▼|Brght▲|
  * `-----------------------------------------------------------------------------------'
  */
-[_SPACE] = LAYOUT_aranck_mit(
+[_SPACE] = LAYOUT_planck_mit(
     _______, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), LGUI(KC_6), LGUI(KC_7), LGUI(KC_8),  LGUI(KC_9), LGUI(KC_0), LOCKSCREEN,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,  _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,
@@ -181,15 +182,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      | Enter|   4  |   5  |   6  |   +  |   *  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   1  |   2  |   3  |   +  |   /  |
+ * |      |      |      |      |      |      | Enter|   1  |   2  |   3  |   +  |   /  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |   0  |   0  |   .  |   ,  |   =  |
  * `-----------------------------------------------------------------------------------'
  */
-[_NUMPAD] = LAYOUT_aranck_mit(
+[_NUMPAD] = LAYOUT_planck_mit(
     _______, _______, _______, _______, _______, _______, _______, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_BSPC,
     _______, _______, _______, _______, _______, _______, KC_PENT, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_PAST,
-    _______, _______, _______, _______, _______, _______, _______, KC_P1, KC_P2, KC_P3, KC_PPLS, KC_PSLS,
+    _______, _______, _______, _______, _______, _______, KC_PENT, KC_P1, KC_P2, KC_P3, KC_PPLS, KC_PSLS,
     _______, _______, _______, _______, _______,      _______,     KC_P0, KC_P0, KC_SLSH, KC_PDOT, KC_PEQL
 ),
 
@@ -204,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_aranck_mit(
+[_ADJUST] = LAYOUT_planck_mit(
     _______, RESET, EEP_RST, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
     _______, _______, MU_MOD,  AU_ON, AU_OFF, _______, _______, _______,  _______,  _______,  _______,  _______,
     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF, _______, _______, _______, _______, _______,  _______,  _______,
@@ -217,9 +218,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-
-void matrix_init_user(void) {}
-
-void matrix_scan_user(void) {}
-
-void led_set_user(uint8_t usb_led) {}

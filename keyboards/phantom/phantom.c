@@ -13,51 +13,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "phantom.h"
 
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
+void keyboard_pre_init_kb(void) {
     led_init_ports();
-    matrix_init_user();
-}
 
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
-
-    return process_record_user(keycode, record);
+    keyboard_pre_init_user();
 }
 
 void led_init_ports(void) {
-    DDRB |= (1<<6) | (1<<7); // OUT
+    setPinOutput(B6);
+    setPinOutput(B7);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK))
-    {
-        PORTB |= (1<<6); // HI
-    }
-    else
-    {
-        PORTB &= ~(1<<6); // LO
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(B6, led_state.caps_lock);
+        writePin(B7, led_state.scroll_lock);
     }
 
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK))
-    {
-        PORTB |= (1<<7); // HI
-    }
-    else
-    {
-        PORTB &= ~(1<<7); // LO
-    }
-
-    led_set_user(usb_led);
+    return true;
 }

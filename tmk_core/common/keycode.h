@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * See https://web.archive.org/web/20060218214400/http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
  * or http://www.usb.org/developers/hidpage/Hut1_12v2.pdf (older)
  */
-#ifndef KEYCODE_H
-#define KEYCODE_H
+
+#pragma once
 
 /* FIXME: Add doxygen comments here */
 
@@ -152,11 +152,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Modifiers */
 #define KC_LCTL KC_LCTRL
 #define KC_LSFT KC_LSHIFT
+#define KC_LOPT KC_LALT
 #define KC_LCMD KC_LGUI
 #define KC_LWIN KC_LGUI
 #define KC_RCTL KC_RCTRL
 #define KC_RSFT KC_RSHIFT
 #define KC_ALGR KC_RALT
+#define KC_ROPT KC_RALT
 #define KC_RCMD KC_RGUI
 #define KC_RWIN KC_RGUI
 
@@ -540,4 +542,3 @@ enum mouse_keys {
     KC_MS_ACCEL1,
     KC_MS_ACCEL2
 };
-#endif

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    nglgzz
 #define PRODUCT         42
-#define DESCRIPTION     BT
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -28,7 +27,7 @@
 #define MATRIX_ROW_PINS { D2, D3, D0, D1 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

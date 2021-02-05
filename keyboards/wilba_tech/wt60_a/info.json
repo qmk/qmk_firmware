@@ -2,7 +2,6 @@
     "keyboard_name": "wilba.tech WT60-A", 
     "url": "https://wilba.tech", 
     "maintainer": "Wilba", 
-    "bootloader": "atmel-dfu", 
     "width": 15, 
     "height": 5, 
     "layouts": {

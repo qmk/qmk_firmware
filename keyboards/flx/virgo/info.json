@@ -1,12 +1,11 @@
 {
-    "keyboard_name": "flx-virgo-default",
+    "keyboard_name": "FLX Virgo",
     "url": "",
     "maintainer": "qmk",
     "width": 20.25,
     "height": 6.25,
     "layouts": {
         "LAYOUT": {
-            "key_count": 91,
             "layout": [
                 {"label":"K00 (C6,F0)", "x":0, "y":0},
                 {"label":"K01 (C6,F1)", "x":1.5, "y":0},
