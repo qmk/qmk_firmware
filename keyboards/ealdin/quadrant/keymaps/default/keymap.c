@@ -17,7 +17,7 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_Quadrant_5x14(
+  [0] = LAYOUT_ortho_5x14(
     /* Base
       * ,-------------------------------------------------------------------------------------------------.
       * | Ctrl |  GUI | CpsLk|  Alt |  Fn2 | Space| Space| Space| Space|  Fn1 | Left | Down |  Up  | Right|
