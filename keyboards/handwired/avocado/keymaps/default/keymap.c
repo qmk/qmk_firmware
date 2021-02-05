@@ -65,6 +65,9 @@ int16_t cur_factor;
 bool mouse_scroll_need_move = false;
 bool mouse_v_plus = false;
 
+float mouse_move_x_left = 0;
+float mouse_move_y_left = 0;
+
 void update_user_config_from_local(void) {
     user_config.cursor_multiplier = cursor_multiplier;
     user_config.scroll_threshold = scroll_threshold;
@@ -348,8 +351,22 @@ void handle_pointing_device_modes(void){
     {
     case cursor_mode:
         cur_factor = cursor_multiplier;
-		mouse_report.x = CLAMP_HID( sensor_y * cur_factor / 10);
-		mouse_report.y = CLAMP_HID( sensor_x * cur_factor / 10);
+        #ifdef CONSOLE_ENABLE
+        if (sensor_x!=0 || sensor_y !=0) {
+            uprintf("sensor_xy %d %d\n",sensor_x,sensor_y);
+        }
+        #endif
+
+        float move_x = sensor_y * cur_factor / 10.0 + mouse_move_x_left;
+        int sign_x = move_x >= 0 ? 1 : -1;
+        mouse_move_x_left = sign_x * ((move_x * sign_x) - (int)(move_x*sign_x));
+		mouse_report.x = CLAMP_HID((int)move_x);
+
+        float move_y = sensor_x * cur_factor / 10.0 + mouse_move_y_left;
+        int sign_y = move_y >= 0 ? 1 : -1;
+        mouse_move_y_left = sign_y * ((move_y * sign_y) - (int)(move_y*sign_y));
+		mouse_report.y = CLAMP_HID((int)move_y);
+
         mouse_scroll_need_move = true;
         break;
     case carret_mode:
@@ -386,8 +403,8 @@ void handle_pointing_device_modes(void){
         break;
     }
                 #ifdef CONSOLE_ENABLE
-                if (mouse_report.v != 0) {
-                    uprintf("mouse_report.v 2 %d\n",mouse_report.v);
+                if (mouse_report.x != 0 || mouse_report.y!=0) {
+                    uprintf("mouse_report.x y %d %d\n",mouse_report.x,mouse_report.y);
                 }
                 #endif
 	pointing_device_set_report(mouse_report);
