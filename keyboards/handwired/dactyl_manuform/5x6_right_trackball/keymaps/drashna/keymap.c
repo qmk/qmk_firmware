@@ -22,13 +22,13 @@
 #define LAYOUT_5x6_right_trackball_wrapper(...) LAYOUT_5x6_right_trackball(__VA_ARGS__)
 #define LAYOUT_5x6_right_trackball_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_5x6_right_trackball_wrapper( \
      KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, KC_MINS, \
      SH_TT,  K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     SH_TT, \
-     LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(KC_QUOT), \
+     LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                        OS_LALT, OS_LGUI,                                                TG_GAME, TG_DBLO, \
                                 OS_LGUI, KC_GRV,                                        OS_RGUI,  \
