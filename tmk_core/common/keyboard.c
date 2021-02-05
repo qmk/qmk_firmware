@@ -98,8 +98,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE)
-static uint32_t matrix_timer      = 0;
-static uint32_t matrix_scan_count = 0;
+static uint32_t matrix_timer           = 0;
+static uint32_t matrix_scan_count      = 0;
 static uint32_t last_matrix_scan_count = 0;
 
 void matrix_scan_perf_task(void) {
@@ -111,14 +111,12 @@ void matrix_scan_perf_task(void) {
         dprintf("matrix scan frequency: %lu\n", matrix_scan_count);
 #    endif
         last_matrix_scan_count = matrix_scan_count;
-        matrix_timer      = timer_now;
-        matrix_scan_count = 0;
+        matrix_timer           = timer_now;
+        matrix_scan_count      = 0;
     }
 }
 
-uint32_t get_matrix_scan_rate(void) {
-    return last_matrix_scan_count;
-}
+uint32_t get_matrix_scan_rate(void) { return last_matrix_scan_count; }
 #else
 #    define matrix_scan_perf_task()
 #endif
