@@ -1479,7 +1479,7 @@ and closing next to each other.
   improvements, have a new Base pair keymap, or just if you like
   using it too 👍.
 
-![Keycaps blanks](http://socialism.nl/misc/minivan/keycaps_blanks.jpg)
+![Keycaps blanks](http://socialism.nl/misc/minivan/keycaps_blanks_va.jpg)
 
   Written on the Minivan: Jos Boersema. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
