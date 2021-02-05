@@ -26,9 +26,6 @@ void quadrant_led_off() {
 
 // Rotary encoder functions:
 
-#define MEDIA_KEY_DELAY 5
-
-uint8_t layer = 0;
 
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
