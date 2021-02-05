@@ -35,7 +35,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
   uint16_t mapped_code = 0;
   if (index == 0) {
     if (clockwise) {
-        switch(layer){
+        switch(get_highest_layer(layer_state)){
             case 0:
             default:
                 mapped_code = KC_VOLD;
