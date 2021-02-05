@@ -9,9 +9,6 @@ enum layers {
 enum custom_keycodes {
   MY_COMM = SAFE_RANGE,
   MY_DOT,
-  KC_AE,
-  KC_OE,
-  KC_UE,
 };
 
 enum {
@@ -42,9 +39,9 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
       KC_GRV,  KC_1, KC_2, KC_3, KC_4,   KC_5,                                        KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_EQL,
-      KC_TAB,  KC_Q, KC_W, KC_F, KC_P,   KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_UE,   KC_MINS,
+      KC_TAB,  KC_Q, KC_W, KC_F, KC_P,   KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_MINS,
       MY_ESC,  KC_A, KC_R, KC_S, KC_T,   KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   KC_O,    KC_RCTL,
-      KC_LSFT, KC_Z, KC_X, KC_C, KC_D,   KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, KC_OE,
+      KC_LSFT, KC_Z, KC_X, KC_C, KC_D,   KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, XXXXXXX,
                                  MY_GUI, OSM(MOD_LSFT), OSL(_SYMBOLS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
       ),
 
@@ -131,15 +128,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code(KC_DOT);
         }
       }
-      return false;
-    case KC_UE:
-      handle_umlaut(KC_U, record, mod_state, one_shot_mod_state);
-      return false;
-    case KC_AE:
-      handle_umlaut(KC_A, record, mod_state, one_shot_mod_state);
-      return false;
-    case KC_OE:
-      handle_umlaut(KC_O, record, mod_state, one_shot_mod_state);
       return false;
     default:
       return true;
