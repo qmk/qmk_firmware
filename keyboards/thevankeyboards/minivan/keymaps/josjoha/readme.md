@@ -156,7 +156,7 @@ For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak
 2.1.4 Dvorak² 
 -------------
 
-![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_descramble_va.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_descramble_vb.jpg)
 
 Regular Dvorak for a computer already set to Dvorak.
 
