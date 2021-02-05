@@ -10,7 +10,7 @@
 // Left-hand HR Mods
 #define ALT_A ALT_T(KC_A)
 #define GUI_S GUI_T(KC_S)
-#define SFT_L SFT_T(KC_D)
+#define SFT_D SFT_T(KC_D)
 #define CTL_F CTL_T(KC_F)
 
 // Right-hand HR Mods
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT( \
   KC_Q, KC_W, KC_E,    KC_R,    KC_T,                                       KC_Y, KC_U,    KC_I,    KC_O,   KC_P,    \
-  ALT_A, GUI_S, SFT_L, CTL_F,    KC_G,                                      KC_H, CTL_J,   SFT_K,   GUI_L,  ALT_SC, \
+  ALT_A, GUI_S, SFT_D, CTL_F,    KC_G,                                      KC_H, CTL_J,   SFT_K,   GUI_L,  ALT_SC, \
   KC_Z, KC_X, KC_C,    KC_V,    KC_B,                                       KC_N, KC_M,    KC_COMM, KC_DOT, KC_SLSH, \
               LOWER, KC_SPC, KC_TAB,                                   KC_BSPC, KC_ENT,   RAISE \
 ),
