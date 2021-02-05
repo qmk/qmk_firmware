@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Noxary
 #define PRODUCT         220
-#define DESCRIPTION     A fully customizable numpad keyboard.
 
 
 /* key matrix size */
