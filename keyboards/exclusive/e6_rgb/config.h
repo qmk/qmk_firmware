@@ -12,7 +12,6 @@
 #define DEVICE_VER      0x0062
 #define MANUFACTURER    astro
 #define PRODUCT         e6rgb
-#define DESCRIPTION     60% rgb keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

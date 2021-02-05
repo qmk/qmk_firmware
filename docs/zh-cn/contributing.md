@@ -23,7 +23,7 @@
 
 # 项目概况
 
-Q酱很大一部分是用C语言组成的，不过有一小部分特性是C++的。怎么说呢，都是我的一部分，两个我都爱。Q酱一般是在键盘上的嵌入式处理器那里工作的，尤其与AVR([LUFA](http://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](http://www.chibios.com))两小哥哥搭配，干活不累，嘻嘻。如果您精通Arduino的话您会发现很多熟悉的概念，但也有点不爽，因为您以前的经验可能没法用来帮助Q酱。
+Q酱很大一部分是用C语言组成的，不过有一小部分特性是C++的。怎么说呢，都是我的一部分，两个我都爱。Q酱一般是在键盘上的嵌入式处理器那里工作的，尤其与AVR([LUFA](https://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](https://www.chibios.org))两小哥哥搭配，干活不累，嘻嘻。如果您精通Arduino的话您会发现很多熟悉的概念，但也有点不爽，因为您以前的经验可能没法用来帮助Q酱。
 
 <!-- 需要修正: 这里放些学习C语言的资源。另外感谢修正的小可爱。谢谢您了。-->
 
@@ -102,7 +102,7 @@ int foo(void) {
 # Clang-format的自动格式化
 [Clang-format](https://clang.llvm.org/docs/ClangFormat.html) 是LLVM的一部分，可以帮你自动格式化代码。我们给你准备好了一个适用于以上规范的配置文件，会帮你调整缩进和换行，你只需要写好括号就好。有了它，你再也不用担心调整代码格式太耗时，没有时间陪伴自己（虚构）的另一半了。
 
-使用[LLVM 完整安装](http://llvm.org/builds/)可以在Windows上安装clang-format, Ubuntu用户要用`sudo apt install clang-format`。
+使用[LLVM 完整安装](https://llvm.org/builds/)可以在Windows上安装clang-format, Ubuntu用户要用`sudo apt install clang-format`。
 
 命令行的朋友们, 加上 `-style=file`选项就会自动在QMK的根目录寻找.clang-format配置文件了。
 
