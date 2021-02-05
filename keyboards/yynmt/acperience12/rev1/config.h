@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    yynmt
 #define PRODUCT         Acperience12
-#define DESCRIPTION     12keys macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 6
