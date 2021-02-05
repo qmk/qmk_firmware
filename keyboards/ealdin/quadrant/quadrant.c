@@ -45,7 +45,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
                 break;
         }
     } else {
-        switch(layer){
+        switch(get_highest_layer(layer_state)){
             case 0:
             default:
                 mapped_code = KC_VOLU;
@@ -58,7 +58,6 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
                 break;
         }
     }
-    uint16_t held_keycode_timer = timer_read();
     tap_code(mapped_code);
   }
 }

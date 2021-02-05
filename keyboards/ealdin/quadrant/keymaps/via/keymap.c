@@ -22,7 +22,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_Quadrant_5x14(
+  [0] = LAYOUT_ortho_5x14(
     /* Base
       * ,-------------------------------------------------------------------------------------------------.
       * | Ctrl |  GUI | CpsLk|  Alt |  Fn2 | Space| Space| Space| Space|  Fn1 | Left | Down |  Up  | Right|
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC \
   ),
   
-  [1] = LAYOUT_Quadrant_5x14( 
+  [1] = LAYOUT_ortho_5x14( 
     /* Layer 1 
       * ,-------------------------------------------------------------------------------------------------.
       * | Reset|      |      |      |      |      |      |      |      |      |      |      |      |ScrLk |
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR \
   ),
 
-  [2] = LAYOUT_Quadrant_5x14(
+  [2] = LAYOUT_ortho_5x14(
   /* Layer 2 
       * ,-------------------------------------------------------------------------------------------------.
       * |      |      |      |      |      |      | Stop | Play |      |      | Prev | Vol+ | Vol+ | Next |
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_TOG, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS \
   ),
 
-  [3] = LAYOUT_Quadrant_5x14(
+  [3] = LAYOUT_ortho_5x14(
   /* Layer 3 
       * ,-------------------------------------------------------------------------------------------------.
       * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |

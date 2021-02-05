@@ -56,7 +56,6 @@
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d }, \
     { k40, k41, k42, k43, k44, k45, ___, k47, k48, k49, k4a, k4b, k4c, k4d } \
 }
-}
 
 #define LAYOUT_ortho_5x14_1x2uL( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, \
