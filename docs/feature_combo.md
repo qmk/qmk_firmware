@@ -274,6 +274,12 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
     return false;
 }
 ```
+## Layer independent combos
+
+If you, for example, use multiple layers for different key layouts, one for QWERTY, another for Colemac, you might want your combos to work from the same key positions on all layers. Defining the same combos again for another layout is redundant and takes more memory. The solution is to just check the keycodes from one layer.
+
+With `#define COMBO_ONLY_FROM_LAYER _LAYER_A` the combos' keys are always checked from layer `_LAYER_A` even though the active layer would be `_LAYER_B`.
+
 ## User callbacks
 
 In addition to the keycodes, there are a few functions that you can use to set the status, or check it:
