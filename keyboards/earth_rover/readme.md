@@ -2,7 +2,7 @@
 
 ![earth_rover](https://pbs.twimg.com/media/Eqh29nYUUAA-9NE?format=jpg)
 
-*Mechanical warm, or just cubic macro pad*
+Mechanical warm, or just cubic macro pad.
 
 * Keyboard Maintainer: [k.bigwheel](https://github.com/bigwheel)
 * Build Guide: [bigwheel/earth\_rover](https://github.com/bigwheel/earth_rover)
