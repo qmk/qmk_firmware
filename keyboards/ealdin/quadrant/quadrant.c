@@ -23,11 +23,6 @@ void quadrant_led_off() {
   writePinLow(F0);
 }
 
-void keyboard_pre_init_kb(void) {
-  // Initialize Caps Lock LED
-  setPinOutput(F0);
-  keyboard_pre_init_user();
-}
 
 // Rotary encoder functions:
 
