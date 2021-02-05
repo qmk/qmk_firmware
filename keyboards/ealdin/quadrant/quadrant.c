@@ -59,8 +59,6 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
         }
     }
     uint16_t held_keycode_timer = timer_read();
-    register_code(mapped_code);
-    while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
-    unregister_code(mapped_code);
+    tap_code(mapped_code);
   }
 }
