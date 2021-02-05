@@ -350,8 +350,8 @@ void matrix_print(void)
 {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
 }
