@@ -130,10 +130,10 @@ const uint16_t mk_accelerated_speed = MOUSEKEY_ACCELERATED_SPEED;
 const uint16_t mk_base_speed        = MOUSEKEY_BASE_SPEED;
 const uint16_t mk_decelerated_speed = MOUSEKEY_DECELERATED_SPEED;
 const uint16_t mk_initial_speed     = MOUSEKEY_INITIAL_SPEED;
-float speed = mk_initial_speed;
-
 
 static uint8_t move_unit(void) {
+    float speed = (float)mk_initial_speed;
+    
     if (mousekey_accel & ((1 << 0) | (1 << 2))) {
         speed = mousekey_accel & (1 << 2) ? mk_accelerated_speed : mk_decelerated_speed;
     } else if (mousekey_repeat && mouse_timer) {
