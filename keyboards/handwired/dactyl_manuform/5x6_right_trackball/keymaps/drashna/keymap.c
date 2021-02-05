@@ -16,8 +16,6 @@
 
 #include "drashna.h"
 
-#define TG_DBLO TG(_DIABLO)
-
 // clang-format off
 #define LAYOUT_5x6_right_trackball_wrapper(...) LAYOUT_5x6_right_trackball(__VA_ARGS__)
 #define LAYOUT_5x6_right_trackball_base( \
