@@ -56,6 +56,7 @@
 #include "config_common.h"
 #include "led.h"
 #include "action_util.h"
+#include "action_tapping.h"
 #include "print.h"
 #include "send_string_keycodes.h"
 #include "suspend.h"

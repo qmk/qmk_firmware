@@ -32,7 +32,7 @@ Esto creará todos los archivos necesarios para tu nuevo teclado, y rellenará l
 
 ## `readme.md`
 
-Aquí es donde describirás tu teclado. Por favor sigue la [Plantilla del readme de teclados](documentation_templates.md#keyboard-readmemd-template) al escribir tu `readme.md`. Te animamos a colocar una imagen en la parte superior de tu `readme.md`. Por favor, utiliza un servicio externo como [Imgur](http://imgur.com) para alojar las imágenes.
+Aquí es donde describirás tu teclado. Por favor sigue la [Plantilla del readme de teclados](documentation_templates.md#keyboard-readmemd-template) al escribir tu `readme.md`. Te animamos a colocar una imagen en la parte superior de tu `readme.md`. Por favor, utiliza un servicio externo como [Imgur](https://imgur.com) para alojar las imágenes.
 
 ## `<keyboard>.c`
 
