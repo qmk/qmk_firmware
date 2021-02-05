@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC \
   ),
   
-  [1] = LAYOUT_Quadrant_5x14( 
+  [1] = LAYOUT_ortho_5x14( 
     /* Layer 1 
       * ,-------------------------------------------------------------------------------------------------.
       * | Reset|      |      |      |      |      |      |      |      |      |      |      |      |ScrLk |
