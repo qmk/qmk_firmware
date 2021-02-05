@@ -2,7 +2,7 @@
 
 A 80% replacement PCB for OTD keyboards.
 
-![UTD80 PCB](https://i.imgur.com/U0X8XmA.jpg)
+![UTD80 PCB](https://i.imgur.com/U0X8XmAl.jpg)
 
 
 * Keyboard Maintainer: [UTDKeyboard](https://github.com/utdkeyboard)
