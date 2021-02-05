@@ -35,11 +35,6 @@ void keyboard_pre_init_kb(void) {
 
 uint8_t layer = 0;
 
-uint32_t layer_state_set_kb(uint32_t state) {
-  state = layer_state_set_user(state);
-  layer = biton32(state);
-  return state;
-}
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
   uint16_t mapped_code = 0;
