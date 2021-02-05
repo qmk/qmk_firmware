@@ -252,10 +252,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    endif
 
     if (layer_state != i2c_buffer->t_layer_state) {
-        layer_state_set(i2c_buffer->t_layer_state);
+        layer_state = i2c_buffer->t_layer_state;
     }
     if (default_layer_state != i2c_buffer->t_default_layer_state) {
-        default_layer_set(i2c_buffer->t_default_layer_state);
+        default_layer_state = i2c_buffer->t_default_layer_state;
     }
 
 #    ifdef OLED_DRIVER_ENABLE
@@ -480,10 +480,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    endif
 
     if (layer_state != serial_m2s_buffer.t_layer_state) {
-        layer_state_set(serial_m2s_buffer.t_layer_state);
+        layer_state = serial_m2s_buffer.t_layer_state;
     }
     if (default_layer_state != serial_m2s_buffer.t_default_layer_state) {
-        default_layer_set(serial_m2s_buffer.t_default_layer_state);
+        default_layer_state = serial_m2s_buffer.t_default_layer_state;
     }
 #    ifdef OLED_DRIVER_ENABLE
     if (serial_m2s_buffer.oled_on) {
