@@ -6,8 +6,8 @@
 * Hardware Supported: STM32F072CBT6 with WS2812C LEDs
 
 V1 PCBs are generally identified by: 
-*Having a holographic sticker on the front reading "QC1"
-*By visually identifying which LEDs you have in reference to the abvove image. 
+* Having a holographic sticker on the front reading "QC1"
+* By visually identifying which LEDs you have in reference to the abvove image. 
 
 Make example for this keyboard (after setting up your build environment):
 
