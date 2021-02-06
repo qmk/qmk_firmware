@@ -4,11 +4,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5154 // "QT"
+#define PRODUCT_ID      0x0010
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         keyboard
+#define MANUFACTURER    Quantrik
+#define PRODUCT         SX60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
