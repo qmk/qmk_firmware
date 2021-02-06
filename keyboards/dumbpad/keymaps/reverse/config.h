@@ -16,3 +16,5 @@
 
 #pragma once
 #define TAPPING_TOGGLE 2
+
+#define ENCODER_DIRECTION_FLIP
