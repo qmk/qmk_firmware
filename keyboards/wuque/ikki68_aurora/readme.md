@@ -6,7 +6,7 @@ Hope this kit is the same as ikki, every rebirth will be stronger
 More Info at[wuquestudio](https://shop.wuquestudio.com/).
 ​
 * Keyboard Maintainer: [wuquestudio](https://shop.wuquestudio.com)
-* Hardware Supported: ikki68 aurora Standard
+* Hardware Supported: ikki68_aurora Standard
 * Hardware Availability: [wuquestudio](http://aurora.wuquestudio.com/)
 ​
 Make example for this keyboard (after setting up your build environment):
