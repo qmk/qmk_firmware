@@ -4,11 +4,11 @@ This project includes a `Vagrantfile` that will allow you to build a new firmwar
 
 ## Requirements
 
-Using the `Vagrantfile` in this repository requires you have [Vagrant](http://www.vagrantup.com/) as well as a supported provider installed:
+Using the `Vagrantfile` in this repository requires you have [Vagrant](https://www.vagrantup.com/) as well as a supported provider installed:
 
 * [VirtualBox](https://www.virtualbox.org/) (Version at least 5.0.12)
   * Sold as 'the most accessible platform to use Vagrant'
-* [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](http://www.vagrantup.com/vmware)
+* [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](https://www.vagrantup.com/vmware)
   * The (paid) VMware plugin requires a licensed copy of VMware Workstation/Fusion
 * [Docker](https://www.docker.com/)
 
