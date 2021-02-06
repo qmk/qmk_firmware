@@ -34,8 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 3
-#define WS2812_SPI SPID2
-#define WS2812_SPI_MOSI_PAL_MODE 0
+
+//Data Transfer Time
+#define T0H 375 //350 for QC5/3 - 375 for QC1
+#define T1H 900 //975 for QC5/3 - 900 for QC1
+#define T0L 900 //975 for QC5/3 - 900 for QC1
+#define T1L 900 //350 for QC5/3 - 900 for QC1
+#define WS2812_TRST_US 350  //80 for QC5/3 - 350 for QC1
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
