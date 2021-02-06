@@ -11,7 +11,7 @@ A mini 1x4 macropad with rotary encoders and OLED screen. Currently the PCB and 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sendyyeah/pix:default
+    make sendyyeah/bevi:default
 
 How to reset and enter bootloader:
     - Press reset button on the right side of the PCB (twice if the ProMicro is fresh)
