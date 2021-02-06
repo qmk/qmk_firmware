@@ -21,8 +21,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Oliver Granlund
 #define PRODUCT         Neito
-#define DESCRIPTION     Alice style keyboard with ISO-layout
-
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -50,3 +48,5 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 200
+
+#define TAP_CODE_DELAY 10
