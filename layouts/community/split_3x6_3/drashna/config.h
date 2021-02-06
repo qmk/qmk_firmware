@@ -90,9 +90,5 @@
 #else
 #    define PRODUCT Drashna Hacked Corne Keyboard
 #endif
-#define OLED_FONT_H "layouts/community/split_3x6_3/drashna/glcdfont.c"
-// #define OLED_FONT_WIDTH 5
-// #define OLED_FONT_HEIGHT 7
 
-#define OLED_DISABLE_TIMEOUT
 #define TAPPING_TERM_PER_KEY

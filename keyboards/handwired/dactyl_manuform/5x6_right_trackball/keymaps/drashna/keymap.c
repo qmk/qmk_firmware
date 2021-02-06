@@ -221,7 +221,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifndef OLED_DRIVER_ENABLE
 void oled_driver_render_logo(void) {
     // clang-format off
     static const char PROGMEM raw_logo[] = {
