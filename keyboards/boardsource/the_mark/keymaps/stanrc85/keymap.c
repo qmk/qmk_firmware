@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void rgb_matrix_indicators_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   switch (layer) {
     case _QWERTY:
       rgb_matrix_set_color(10, 0, 0, 0); 
@@ -68,7 +68,7 @@ void rgb_matrix_indicators_user(void) {
     default:
       break;
   }
-  if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+  if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(10, 255, 0, 0);
   }
 }
