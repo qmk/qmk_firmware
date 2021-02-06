@@ -5,9 +5,9 @@
 * Keyboard Maintainer: [Holten Campbell](https://github.com/holtenc)
 * Hardware Supported: STM32F072CBT6 with KTR-1010RGBC-1812-4 LEDs
 
-V1 PCBs are generally identified by: 
-*Having a holographic sticker on the front reading "QC3" or "QC5"
-*By visually identifying which LEDs you have in reference to the abvove image. 
+V1.1 PCBs are generally identified by:
+* Having a holographic sticker on the front reading "QC3" or "QC5".
+* By visually identifying which LEDs you have in reference to the abvove image. 
 
 Make example for this keyboard (after setting up your build environment):
 
