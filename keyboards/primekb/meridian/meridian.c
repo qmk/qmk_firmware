@@ -35,19 +35,19 @@ void keyboard_pre_init_user(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(B12, !led_state.caps_lock);  //Un-comment this line to enable in-switch capslock indicator
+        writePin(B12, !led_state.caps_lock);
     if (led_state.caps_lock) {
-        rgblight_setrgb_at(0, 255, 0, 0); //green
+        rgblight_setrgb_at(255, 255, 255, 0);
     } else {
         rgblight_setrgb_at(0, 0, 0, 0);
     }
     if (led_state.num_lock) {
-        rgblight_setrgb_at(0, 0, 255, 1); //blue
+        rgblight_setrgb_at(255, 255, 255, 1);
     } else {
         rgblight_setrgb_at(0, 0, 0, 1);
     }
    if (led_state.scroll_lock) {          
-        rgblight_setrgb_at(255, 0, 0, 2); //red
+        rgblight_setrgb_at(255, 255, 255, 2);
     } else {
         rgblight_setrgb_at(0, 0, 0, 2);
     }
