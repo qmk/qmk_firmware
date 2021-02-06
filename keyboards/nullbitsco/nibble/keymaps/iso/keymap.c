@@ -15,8 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _MA 0
-#define _FN 1
+enum layer_names {
+  _MA,
+  _FN
+};
 
 enum custom_keycodes {
   KC_CUST = SAFE_RANGE,
