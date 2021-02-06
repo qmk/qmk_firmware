@@ -1,6 +1,6 @@
 # Bevi
 
-![Bevi](https://i.imgur.com/AoNgXb5.jpg)
+![Bevi](https://i.imgur.com/i3fpHgC.png)
 
 A mini 1x4 macropad with rotary encoders and OLED screen. Currently the PCB and kits can only be purchased in Indonesia. The PCB source will be available soon on github.
 
