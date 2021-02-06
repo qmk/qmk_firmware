@@ -3,7 +3,9 @@
 
 ISO-variant of TGR Alice with a few tweaks!
 
-![First prototype](https://i.redd.it/5ujrp8fupid61.jpg)
+![First prototype](https://i.imgur.com/GbZAnIp.jpg)
+
+![First prototypes backside](https://i.imgur.com/h7Hx6EU.jpg)
 
 GB:s of this board are hosted on [https://olli.works](https://olli.works)
 
