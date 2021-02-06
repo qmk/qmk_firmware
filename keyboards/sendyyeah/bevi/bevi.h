@@ -27,7 +27,7 @@
           K40 , K50 , K41 ,   K51   , K42 , K52 , K43 , K53 , K44 , K54 , K45 , K55 , K46 , K56 , K47 ,     K57   , \
 /*  ENT    1     2     3        SFT      Z     X     C     V     B     N     M     ,     .     /         SFT      */\
     K93 , K60 , K70 , K61 ,     K71   , K62 , K72 , K63 , K73 , K64 , K74 , K65 , K75 , K66 , K76 ,      K67      , \
-/*         .     00    0     CTR     ALT     CMD                SPC                   CMD     ALT     CTX     CTR */\
+/*         0     00    .     CTR     ALT     CMD                SPC                   CMD     ALT     CTX     CTR */\
           K80 , K90 , K81 ,  K91  ,  K82  ,  K92  ,             K83                ,  K95  ,  K86  ,  K96  ,  K87   \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, K07 }, \

@@ -1,9 +1,10 @@
 # Bevi
 
-![Bevi](https://i.imgur.com/ZcuDN6zl.jpg)
+![Bevi](https://i.imgur.com/AoNgXb5.jpg)
 
 A mini 1x4 macropad with rotary encoders and OLED screen. Currently the PCB and kits can only be purchased in Indonesia. The PCB source will be available soon on github.
 
+* Keyboard Layout: [KLE](http://www.keyboard-layout-editor.com/#/gists/dd70b976b25180acf42ef0943c102a60)
 * Keyboard Maintainer: [sendz](https://github.com/sendz)
 * Hardware Supported: Pix PCB, Arduino Pro Micro, EC11 Rotary Encoder, OLED Screen, Acrylic Case, Encoder Knob
 * Hardware Availability: [Tokopedia/Sell Stuffs](https://tokopedia.com/sell-stuffs) (Indonesia only) or any electronic part store.
