@@ -28,3 +28,7 @@ SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm
 
 LAYOUTS = ortho_4x12
+
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no
