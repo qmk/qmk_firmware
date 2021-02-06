@@ -73,6 +73,10 @@ void reset_leds(void) {
     rgb_matrix_sethsv(0x9f, 0xff, 0xff);
 }
 
+void suspend_wakeup_init_user(void) {
+    current_profile = OFF;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case RGB_RST:
