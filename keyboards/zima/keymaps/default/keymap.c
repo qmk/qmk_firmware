@@ -20,7 +20,7 @@ int micstate = 1;
 // Defines the keycodes used by our macros in process_record_user
 // enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
 enum custom_keycodes {
-    MICMUTE = SAFE_RANGE,
+    MICMUTE = SAFE_RANGE, TERMINAL, LIGHTSOFF
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -28,17 +28,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MICMUTE:
         if (record->event.pressed) {
             if (micstate == 1){
-                SEND_STRING(SS_LCMD(SS_LSFT(SS_TAP(X_F12)))); // shortcut to enable/disable system microphone (macOS) based on an automator (apple)script
+                // SEND_STRING(SS_LCMD(SS_LSFT(SS_TAP(X_F12)))); // shortcut to enable/disable system microphone (macOS) based on an automator (apple)script
+                SEND_STRING(SS_LCMD(SS_LSFT(SS_TAP(X_M))));
                 rgblight_mode(RGBLIGHT_MODE_BREATHING + 1);
+                oled_write_P(PSTR("MIC DISABLED\n"), false);
                 micstate = 0;
             }
             else {
-                SEND_STRING(SS_LCMD(SS_LSFT(SS_TAP(X_F12)))); // shortcut to enable/disable system microphone (macOS) based on an automator (apple)script
+                // SEND_STRING(SS_LCMD(SS_LSFT(SS_TAP(X_F12)))); // shortcut to enable/disable system microphone (macOS) based on an automator (apple)script
+                SEND_STRING(SS_LCMD(SS_LSFT(SS_TAP(X_M))));
                 rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2);
+                oled_write_P(PSTR("MIC ENABLED\n"), false);
                 micstate = 1;
             }
         } else {
             // when keycode MICMUTE is released
+        }
+        break;
+    case TERMINAL:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCMD(SS_LSFT(SS_TAP(X_1))));
+            oled_write_P(PSTR("TERMINAL\n"), false);
+        } else {
+
+        }
+        break;
+    case LIGHTSOFF:
+        if (record->event.pressed) {
+                rgblight_disable();
+                oled_off();
+        } else {
+
         }
         break;
     }
@@ -47,8 +67,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(/* Base */
-                 KC_MUTE,  RGB_MOD,  MICMUTE,
-                 KC_P3,  KC_P4,  KC_P5,
+                 KC_MUTE,  RGB_MOD,  LIGHTSOFF,
+                 TERMINAL,  MICMUTE,  KC_P5,
                  KC_P6,   KC_P7,  KC_P8,
                  KC_MEDIA_PREV_TRACK,  KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK)
 };
