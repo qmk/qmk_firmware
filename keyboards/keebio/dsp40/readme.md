@@ -2,9 +2,9 @@
 
 A 40% keyboard with ortho and staggered layout options.
 
-Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)  
-Hardware Supported: STM32F072CBT6  
-Hardware Availability: [Keebio](https://keeb.io/)  
+* Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)
+* Hardware Supported: STM32F072CBT6
+* Hardware Availability: [Keebio](https://keeb.io/)
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         DSP40 Rev. 1
-#define DESCRIPTION     40% Keyboard with identity crisis
 
 /* key matrix size */
 #define MATRIX_ROWS 4
