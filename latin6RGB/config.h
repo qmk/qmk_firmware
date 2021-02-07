@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x7C97 // "lp" = latin6RGB
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    18438880
-#define PRODUCT         Latin6RGB
+#define PRODUCT         Latin6rgb
 
 /* key matrix size */
 #define MATRIX_ROWS 2
