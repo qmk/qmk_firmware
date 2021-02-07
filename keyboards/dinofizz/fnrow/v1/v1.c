@@ -17,16 +17,16 @@
 
 void keyboard_pre_init_user(void) {
     // Immediately set the LED pin as an output and set it ON
-    palSetPadMode(GPIOA, LED_PIN, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPad(GPIOA, LED_PIN);
+    setPinOutput(A15);
+    writePinHigh(A15);
 }
 
 void keyboard_post_init_user(void) {
     // Blink the LED so we know everything is running OK
     // Finish with LED OFF
-    palClearPad(GPIOA, LED_PIN);
+    writePinLow(A15);
     wait_ms(100);
-    palSetPad(GPIOA, LED_PIN);
+    writePinHigh(A15);
     wait_ms(100);
-    palClearPad(GPIOA, LED_PIN);
+    writePinLow(A15);
 }
