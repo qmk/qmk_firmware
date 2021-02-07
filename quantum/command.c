@@ -103,94 +103,120 @@ bool command_console_extra(uint8_t code) {
 /***********************************************************
  * Command common
  ***********************************************************/
+
 static void command_common_help(void) {
-    print("\n\t- Magic -\n" STR(MAGIC_KEY_DEBUG) ":	Debug Message Toggle\n" STR(MAGIC_KEY_DEBUG_MATRIX) ":	Matrix Debug Mode Toggle - Show keypresses in matrix grid\n" STR(MAGIC_KEY_DEBUG_KBD) ":	Keyboard Debug Toggle - Show keypress report\n" STR(MAGIC_KEY_DEBUG_MOUSE) ":	Debug Mouse Toggle\n" STR(MAGIC_KEY_VERSION) ":	Version\n" STR(MAGIC_KEY_STATUS) ":	Status\n" STR(MAGIC_KEY_CONSOLE) ":	Activate Console Mode\n"
+    print(/* clang-format off */
+        "\n\t- Magic -\n"
+
+        STR(MAGIC_KEY_DEBUG) ":	Debug Message Toggle\n"
+        STR(MAGIC_KEY_DEBUG_MATRIX) ":	Matrix Debug Mode Toggle"
+            " - Show keypresses in matrix grid\n"
+        STR(MAGIC_KEY_DEBUG_KBD) ":	Keyboard Debug Toggle"
+            " - Show keypress report\n"
+        STR(MAGIC_KEY_DEBUG_MOUSE) ":	Debug Mouse Toggle\n"
+        STR(MAGIC_KEY_VERSION) ":	Version\n"
+        STR(MAGIC_KEY_STATUS) ":	Status\n"
+        STR(MAGIC_KEY_CONSOLE) ":	Activate Console Mode\n"
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-          STR(MAGIC_KEY_LAYER0) ":	Switch to Layer 0\n" STR(MAGIC_KEY_LAYER1) ":	Switch to Layer 1\n" STR(MAGIC_KEY_LAYER2) ":	Switch to Layer 2\n" STR(MAGIC_KEY_LAYER3) ":	Switch to Layer 3\n" STR(MAGIC_KEY_LAYER4) ":	Switch to Layer 4\n" STR(MAGIC_KEY_LAYER5) ":	Switch to Layer 5\n" STR(MAGIC_KEY_LAYER6) ":	Switch to Layer 6\n" STR(MAGIC_KEY_LAYER7) ":	Switch to Layer 7\n" STR(MAGIC_KEY_LAYER8) ":	Switch to Layer 8\n" STR(MAGIC_KEY_LAYER9) ":	Switch to Layer 9\n"
+        STR(MAGIC_KEY_LAYER0) ":	Switch to Layer 0\n"
+        STR(MAGIC_KEY_LAYER1) ":	Switch to Layer 1\n"
+        STR(MAGIC_KEY_LAYER2) ":	Switch to Layer 2\n"
+        STR(MAGIC_KEY_LAYER3) ":	Switch to Layer 3\n"
+        STR(MAGIC_KEY_LAYER4) ":	Switch to Layer 4\n"
+        STR(MAGIC_KEY_LAYER5) ":	Switch to Layer 5\n"
+        STR(MAGIC_KEY_LAYER6) ":	Switch to Layer 6\n"
+        STR(MAGIC_KEY_LAYER7) ":	Switch to Layer 7\n"
+        STR(MAGIC_KEY_LAYER8) ":	Switch to Layer 8\n"
+        STR(MAGIC_KEY_LAYER9) ":	Switch to Layer 9\n"
 #endif
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "F1-F10:	Switch to Layer 0-9 (F10 = L0)\n"
+        "F1-F10:	Switch to Layer 0-9 (F10 = L0)\n"
 #endif
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "0-9:	Switch to Layer 0-9\n"
+        "0-9:	Switch to Layer 0-9\n"
 #endif
 
-          STR(MAGIC_KEY_LAYER0_ALT) ":	Switch to Layer 0 (alternate)\n"
+        STR(MAGIC_KEY_LAYER0_ALT) ":	Switch to Layer 0 (alternate)\n"
 
-          STR(MAGIC_KEY_BOOTLOADER) ":	Jump to Bootloader\n" STR(MAGIC_KEY_BOOTLOADER_ALT) ":	Jump to Bootloader (alternate)\n"
+        STR(MAGIC_KEY_BOOTLOADER) ":	Jump to Bootloader\n"
+        STR(MAGIC_KEY_BOOTLOADER_ALT) ":	Jump to Bootloader (alternate)\n"
 
 #ifdef KEYBOARD_LOCK_ENABLE
-          STR(MAGIC_KEY_LOCK) ":	Lock Keyboard\n"
+        STR(MAGIC_KEY_LOCK) ":	Lock Keyboard\n"
 #endif
 
-          STR(MAGIC_KEY_EEPROM) ":	Print EEPROM Settings\n" STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
+        STR(MAGIC_KEY_EEPROM) ":	Print EEPROM Settings\n"
+        STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
 
 #ifdef NKRO_ENABLE
-          STR(MAGIC_KEY_NKRO) ":	NKRO Toggle\n"
+        STR(MAGIC_KEY_NKRO) ":	NKRO Toggle\n"
 #endif
 
 #ifdef SLEEP_LED_ENABLE
-          STR(MAGIC_KEY_SLEEP_LED) ":	Sleep LED Test\n"
+        STR(MAGIC_KEY_SLEEP_LED) ":	Sleep LED Test\n"
 #endif
-    );
+    ); /* clang-format on */
 }
 
 static void print_version(void) {
-    // print version & information
-    print("\n\t- Version -\n");
-    print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
-                                                       "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
-                                                                                                "VER: " STR(DEVICE_VER) "\n");
-    print("BUILD:  (" __DATE__ ")\n");
+    print(/* clang-format off */
+        "\n\t- Version -\n"
+        "VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
+        "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
+        "VER: " STR(DEVICE_VER) "\n"
+        "BUILD:  (" __DATE__ ")\n"
 #ifndef SKIP_VERSION
 #    ifdef PROTOCOL_CHIBIOS
-    print("CHIBIOS: " STR(CHIBIOS_VERSION) ", CONTRIB: " STR(CHIBIOS_CONTRIB_VERSION) "\n");
+        "CHIBIOS: " STR(CHIBIOS_VERSION)
+            ", CONTRIB: " STR(CHIBIOS_CONTRIB_VERSION) "\n"
 #    endif
 #endif
 
     /* build options */
-    print("OPTIONS:"
+        "OPTIONS:"
 
 #ifdef PROTOCOL_LUFA
-          " LUFA"
+        " LUFA"
 #endif
 #ifdef PROTOCOL_VUSB
-          " VUSB"
+        " VUSB"
 #endif
 #ifdef BOOTMAGIC_ENABLE
-          " BOOTMAGIC"
+        " BOOTMAGIC"
 #endif
 #ifdef MOUSEKEY_ENABLE
-          " MOUSEKEY"
+        " MOUSEKEY"
 #endif
 #ifdef EXTRAKEY_ENABLE
-          " EXTRAKEY"
+        " EXTRAKEY"
 #endif
 #ifdef CONSOLE_ENABLE
-          " CONSOLE"
+        " CONSOLE"
 #endif
 #ifdef COMMAND_ENABLE
-          " COMMAND"
+        " COMMAND"
 #endif
 #ifdef NKRO_ENABLE
-          " NKRO"
+        " NKRO"
 #endif
 #ifdef LTO_ENABLE
-          " LTO"
+        " LTO"
 #endif
 
-          " " STR(BOOTLOADER_SIZE) "\n");
+        " " STR(BOOTLOADER_SIZE) "\n"
 
-    print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__)
+        "GCC: " STR(__GNUC__)
+            "." STR(__GNUC_MINOR__)
+            "." STR(__GNUC_PATCHLEVEL__)
 #if defined(__AVR__)
-              " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__ " AVR_ARCH: avr" STR(__AVR_ARCH__)
+        " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__
+        " AVR_ARCH: avr" STR(__AVR_ARCH__)
 #endif
-                  "\n");
-
-    return;
+        "\n"
+    ); /* clang-format on */
 }
 
 static void print_status(void) {
