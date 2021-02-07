@@ -15,9 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "audio.h"
-
-extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
