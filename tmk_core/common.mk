@@ -68,10 +68,6 @@ ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
 endif
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
-    TMK_COMMON_SRC += $(COMMON_DIR)/mousekey.c
-    TMK_COMMON_DEFS += -DMOUSEKEY_ENABLE
-    TMK_COMMON_DEFS += -DMOUSE_ENABLE
-
     ifeq ($(strip $(MOUSE_SHARED_EP)), yes)
         TMK_COMMON_DEFS += -DMOUSE_SHARED_EP
         SHARED_EP_ENABLE = yes
