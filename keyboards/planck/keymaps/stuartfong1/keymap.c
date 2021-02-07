@@ -187,14 +187,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 #endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
-        case _PLOVER:
+    bool is_plover_on = layer_state_cmp(state, _PLOVER);
+    bool static was_plover_on = false, autoshift_on;
+    if (is_plover_on != was_plover_on) {
+        if (is_plover_on) {
+            autoshift_on = get_autoshift_state();
             autoshift_disable();
-            break;
-        default:
-            autoshift_enable();
-            break;
-    }
+        } else {
+            if (autoshift_on) {
+                autoshift_enable();
+                autoshift_on = false;
+            }
+        }
+        was_plover_on = is_plover_on;
+     }
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
