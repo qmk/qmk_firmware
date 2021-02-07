@@ -424,7 +424,23 @@ bool audio_update_state(void) {
 
                 // '- delta': Skip forward in the next note's length if we've over shot
                 //            the last, so the overall length of the song is the same
-                uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]) - delta;
+                uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
+
+                // Skip forward past any completely missed notes
+                while (delta > duration && current_note < notes_count - 1) {
+                    delta -= duration;
+                    current_note++;
+                    duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
+                }
+
+                if (delta < duration) {
+                    duration -= delta;
+                } else {
+                    // Only way to get here is if it is the last note and
+                    // we have completely missed it. Play it for 1ms...
+                    duration = 1;
+                }
+
                 audio_play_note((*notes_pointer)[current_note][0], duration);
                 melody_current_note_duration = duration;
             }
