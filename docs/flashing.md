@@ -73,7 +73,7 @@ BOOTLOADER = caterina
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](http://www.nongnu.org/avrdude/) with the `avr109` programmer / `:avrdude` target in QMK (recommended command line)
+* [avrdude](https://www.nongnu.org/avrdude/) with the `avr109` programmer / `:avrdude` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Flashing sequence:
@@ -133,7 +133,7 @@ BOOTLOADER = USBasp
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](http://www.nongnu.org/avrdude/) with the `usbasp` programmer / `:usbasp` target in QMK (recommended command line)
+* [avrdude](https://www.nongnu.org/avrdude/) with the `usbasp` programmer / `:usbasp` target in QMK (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Flashing sequence:
@@ -185,7 +185,7 @@ BOOTLOADER = stm32-dfu
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [dfu-util](http://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
 
 Flashing sequence:
 
@@ -218,7 +218,7 @@ BOOTLOADER = stm32duino
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [dfu-util](http://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
 
 Flashing sequence:
 
@@ -239,7 +239,7 @@ The `rules.mk` setting for this bootloader is `kiibohd`, but since this bootload
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [dfu-util](http://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
 
 Flashing sequence:
 
