@@ -137,6 +137,22 @@ typedef struct {
     // int8_t curve = 0;
 } mousekey_t;
 
+#define MOUSEKEY_MOUSE_DEFAULT \
+{ \
+    .delay       = MOUSEKEY_DELAY / 10, \
+    .interval    = MOUSEKEY_INTERVAL, \
+    .max_speed   = MOUSEKEY_MAX_SPEED, \
+    .time_to_max = MOUSEKEY_TIME_TO_MAX \
+}
+
+#define MOUSEKEY_WHEEL_DEFAULT \
+{ \
+    .delay       = MOUSEKEY_WHEEL_DELAY / 10, \
+    .interval    = MOUSEKEY_WHEEL_INTERVAL, \
+    .max_speed   = MOUSEKEY_WHEEL_MAX_SPEED, \
+    .time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX \
+}
+
 extern mousekey_t mouse, wheel;
 
 void mousekey_task(void);

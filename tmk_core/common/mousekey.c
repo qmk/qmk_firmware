@@ -49,19 +49,8 @@ static uint16_t last_timer_w = 0;
  *  speed = delta * max_speed * (repeat / time_to_max)**((1000+curve)/1000)
  */
 
-mousekey_t mouse = {
-    .delay       = MOUSEKEY_DELAY / 10,
-    .interval    = MOUSEKEY_INTERVAL,
-    .max_speed   = MOUSEKEY_MAX_SPEED,
-    .time_to_max = MOUSEKEY_TIME_TO_MAX
-};
-
-mousekey_t wheel = {
-    .delay       = MOUSEKEY_WHEEL_DELAY / 10,
-    .interval    = MOUSEKEY_WHEEL_INTERVAL,
-    .max_speed   = MOUSEKEY_WHEEL_MAX_SPEED,
-    .time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX
-};
+mousekey_t mouse = MOUSEKEY_MOUSE_DEFAULT;
+mousekey_t wheel = MOUSEKEY_WHEEL_DEFAULT;
 
 // G G G G-Unit!
 static uint16_t g_unit(const mousekey_t *what, uint8_t repeat, uint8_t delta) {

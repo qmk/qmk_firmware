@@ -55,7 +55,9 @@ static bool command_console(uint8_t code);
 static void command_console_help(void);
 #if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
 static bool mousekey_console(uint8_t code);
+#    if defined(NO_PRINT) || defined(USER_PRINT)
 static void mousekey_console_help(void);
+#    endif
 #endif
 
 static void switch_default_layer(uint8_t layer);
@@ -553,7 +555,9 @@ static bool command_console(uint8_t code) {
             return false;
 #if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
         case KC_M:
+#           if defined(NO_PRINT) || defined(USER_PRINT)
             mousekey_console_help();
+#           endif /* NO_PRINT || USER_PRINT */
             print("M> ");
             command_state = MOUSEKEY;
             return true;
@@ -569,38 +573,29 @@ static bool command_console(uint8_t code) {
  * Mousekey console
  ***********************************************************/
 
-static void mousekey_param_print(void) {
-// Print these variables if NO_PRINT or USER_PRINT are not defined.
-#    if !defined(NO_PRINT) && !defined(USER_PRINT)
-    xprintf("\n\t- Values -\n"
+#if defined(NO_PRINT) || defined(USER_PRINT)
+static void mousekey_param_print(uint8_t n, mousekey_t *what) {
+    xprintf(
+        "%u: delay(*10ms): %u\n"
+        "%u: interval(ms): %u\n"
+        "%u: max_speed: %u\n"
+        "%u: time_to_max: %u\n"
 
-        "1: delay(*10ms): %u\n"
-        "2: interval(ms): %u\n"
-        "3: max_speed: %u\n"
-        "4: time_to_max: %u\n"
-        "5: wheel_max_speed: %u\n"
-        "6: wheel_time_to_max: %u\n"
-
-        , mouse.delay
-        , mouse.interval
-        , mouse.max_speed
-        , mouse.time_to_max
-        , wheel.max_speed
-        , wheel.time_to_max
+        , n + 1, what->delay
+        , n + 2, what->interval
+        , n + 3, what->max_speed
+        , n + 4, what->time_to_max
 
         );
-#    endif /* !NO_PRINT */
 }
 
 static void mousekey_console_help(void) {
     xprintf("\n\t- Mousekey -\n"
-        "ESC/q:	quit\n"
-        "1:	delay(*10ms)\n"
-        "2:	interval(ms)\n"
-        "3:	max_speed\n"
-        "4:	time_to_max\n"
-        "5:	wheel_max_speed\n"
-        "6:	wheel_time_to_max\n"
+        "mouse/wheel\n"
+        "1/5:	delay(*10ms)\n"
+        "2/6:	interval(ms)\n"
+        "3/7:	max_speed\n"
+        "4/8:	time_to_max\n"
         "\n"
         "p:	print values\n"
         "d:	set defaults\n"
@@ -608,6 +603,7 @@ static void mousekey_console_help(void) {
         "down:	-1\n"
         "pgup:	+10\n"
         "pgdown:	-10\n"
+        "ESC/q:	quit\n"
         "\n"
         "speed = delta * max_speed * (repeat / time_to_max)\n"
         "where delta: cursor=%d, wheel=%d\n"
@@ -615,6 +611,7 @@ static void mousekey_console_help(void) {
         , MOUSEKEY_MOVE_DELTA, MOUSEKEY_WHEEL_DELTA
     );
 }
+#endif /* NO_PRINT || USER_PRINT */
 
 static bool mousekey_console(uint8_t code) {
     static uint8_t param = 0;
@@ -626,7 +623,9 @@ static bool mousekey_console(uint8_t code) {
     switch (code) {
         case KC_H:
         case KC_SLASH: /* ? */
+#           if defined(NO_PRINT) || defined(USER_PRINT)
             mousekey_console_help();
+#           endif
             break;
         case KC_Q:
         case KC_ESC:
@@ -641,9 +640,13 @@ static bool mousekey_console(uint8_t code) {
             }
             break;
         case KC_P:
-            mousekey_param_print();
+#           if defined(NO_PRINT) || defined(USER_PRINT)
+            print("\n\t- Values -\n");
+            mousekey_param_print(0, &mouse);
+            mousekey_param_print(4, &wheel);
+#           endif
             break;
-        case KC_1 ... KC_6:
+        case KC_1 ... KC_8:
             param = 1 + code - KC_1;
 #           define PARAM(n, v) case n: pp = &(v); desc = #v; break
             switch (param) {
@@ -651,8 +654,10 @@ static bool mousekey_console(uint8_t code) {
                 PARAM(2, mouse.interval);
                 PARAM(3, mouse.max_speed);
                 PARAM(4, mouse.time_to_max);
-                PARAM(5, wheel.max_speed);
-                PARAM(6, wheel.time_to_max);
+                PARAM(5, wheel.delay);
+                PARAM(6, wheel.interval);
+                PARAM(7, wheel.max_speed);
+                PARAM(8, wheel.time_to_max);
             }
 #           undef PARAM
             break;
@@ -661,12 +666,8 @@ static bool mousekey_console(uint8_t code) {
         case KC_PGUP: change = +10; break;
         case KC_PGDN: change = -10; break;
         case KC_D:
-            mouse.delay       = MOUSEKEY_DELAY / 10;
-            mouse.interval    = MOUSEKEY_INTERVAL;
-            mouse.max_speed   = MOUSEKEY_MAX_SPEED;
-            mouse.time_to_max = MOUSEKEY_TIME_TO_MAX;
-            wheel.max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
-            wheel.time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+            mouse = (mousekey_t)MOUSEKEY_MOUSE_DEFAULT;
+            wheel = (mousekey_t)MOUSEKEY_WHEEL_DEFAULT;
             print("set default\n");
             break;
         default:
