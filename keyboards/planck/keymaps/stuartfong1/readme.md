@@ -1,7 +1,4 @@
-# Personal Planck Layout
-By Stuart Fong
-
-**This is my personal layout for the Planck, a 4x12 programmable ortholinear keyboard made by OLKB.**
+# stuartfong1's Plank Layout
 
 I made this layout to improve ergonomics during daily usage, and to make access to symbols easier when writing code. The main idea is to make all keys easily accessible while reducing the risk of finger strain. 
 
