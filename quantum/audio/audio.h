@@ -286,7 +286,6 @@ bool audio_update_state(void);
 //            /____/           /____/
 // legacy and back-warts compatibility stuff
 
-
 // LEGACY defines - TODO: remove and replace these in all keyboards using them
 #ifdef A4_AUDIO
 #    define AUDIO_PIN A4
@@ -294,23 +293,27 @@ bool audio_update_state(void);
 #ifdef A5_AUDIO
 #    define AUDIO_PIN A5
 #endif
-#ifdef B5_AUDIO
-#    define AUDIO_PIN_ALT B5
+#if !defined(AUDIO_PIN_ALT)
+#    ifdef B5_AUDIO
+#        define AUDIO_PIN_ALT B5
+#    endif
+#    ifdef B6_AUDIO
+#        define AUDIO_PIN_ALT B6
+#    endif
+#    ifdef B7_AUDIO
+#        define AUDIO_PIN_ALT B7
+#    endif
 #endif
-#ifdef B6_AUDIO
-#    define AUDIO_PIN_ALT B6
-#endif
-#ifdef B7_AUDIO
-#    define AUDIO_PIN_ALT B7
-#endif
-#ifdef C4_AUDIO
-#    define AUDIO_PIN C4
-#endif
-#ifdef C5_AUDIO
-#    define AUDIO_PIN C5
-#endif
-#ifdef C6_AUDIO
-#    define AUDIO_PIN C6
+#if !defined(AUDIO_PIN)
+#    ifdef C4_AUDIO
+#        define AUDIO_PIN C4
+#    endif
+#    ifdef C5_AUDIO
+#        define AUDIO_PIN C5
+#    endif
+#    ifdef C6_AUDIO
+#        define AUDIO_PIN C6
+#    endif
 #endif
 
 #define is_audio_on() audio_is_on()
