@@ -98,7 +98,7 @@ def write_version_h(git_version, build_date, chibios_version, chibios_contrib_ve
     version_h_file.write_text('\n'.join(version_h))
 
 
-def compile_configurator_json(user_keymap, parallel=1, **env_vars):
+def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
     """Convert a configurator export JSON file into a C file and then compile it.
 
     Args:
@@ -152,6 +152,9 @@ def compile_configurator_json(user_keymap, parallel=1, **env_vars):
         '-f',
         'build_keyboard.mk',
     ])
+
+    if bootloader:
+        make_command.append(bootloader)
 
     for key, value in env_vars.items():
         make_command.append(f'{key}={value}')
