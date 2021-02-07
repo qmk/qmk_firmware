@@ -1,9 +1,10 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "ninjonas.h"
+#include "ssd1306.h"
 
 #if defined(OLED_DRIVER_ENABLE) & !defined(KEYBOARD_kyria_rev1)
-
+const char *read_keylogs(void);
 static uint32_t oled_timer = 0;
 extern uint8_t is_master;
 
@@ -74,10 +75,23 @@ void render_mod_state(uint8_t modifiers) {
 }
 
 void render_status(void){
-  render_layout_state();
+//  render_layout_state();
+  const char *k_log=NULL;
+  k_log=read_keylogs();
+  oled_write_P(k_log,false);
+
   oled_write_P(PSTR("\n"), false);
   render_layer_state();
   render_mod_state(get_mods()|get_oneshot_mods());
+}
+
+// Setting ADJUST layer RGB back to default
+void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
+    layer_on(layer3);
+  } else {
+    layer_off(layer3);
+  }
 }
 
 static void render_logo(void) {
