@@ -644,7 +644,7 @@ static bool mousekey_console(uint8_t code) {
             mousekey_param_print();
             break;
         case KC_1 ... KC_6:
-            param = numkey2num(code);
+            param = 1 + code - KC_1;
 #           define PARAM(n, v) case n: pp = &(v); desc = #v; break
             switch (param) {
                 PARAM(1, mk_delay);
@@ -697,31 +697,6 @@ static bool mousekey_console(uint8_t code) {
 /***********************************************************
  * Utilities
  ***********************************************************/
-uint8_t numkey2num(uint8_t code) {
-    switch (code) {
-        case KC_1:
-            return 1;
-        case KC_2:
-            return 2;
-        case KC_3:
-            return 3;
-        case KC_4:
-            return 4;
-        case KC_5:
-            return 5;
-        case KC_6:
-            return 6;
-        case KC_7:
-            return 7;
-        case KC_8:
-            return 8;
-        case KC_9:
-            return 9;
-        case KC_0:
-            return 0;
-    }
-    return 0;
-}
 
 static void switch_default_layer(uint8_t layer) {
     xprintf("L%d\n", layer);
