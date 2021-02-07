@@ -17,6 +17,7 @@ SERIAL_PATH := $(QUANTUM_PATH)/serial_link
 
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
+    $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
@@ -34,6 +35,11 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     MIDI_ENABLE=yes
     SRC += $(QUANTUM_DIR)/api/api_sysex.c
     SRC += $(QUANTUM_DIR)/api.c
+endif
+
+ifeq ($(strip $(COMMAND_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/command.c
+    OPT_DEFS += -DCOMMAND_ENABLE
 endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
