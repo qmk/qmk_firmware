@@ -23,6 +23,9 @@ void keyboard_pre_init_kb(void){
     keyboard_pre_init_user();
 }
 
+//Refernce the following QMK documentation for implementing Lighting Layers and layer change indication:
+// https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgblight#lighting-layers
+
 // Light the top LED when caps lock is active.
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_WHITE}       // Light 1 LEDs, starting with LED 0
