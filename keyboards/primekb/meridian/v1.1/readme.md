@@ -9,6 +9,10 @@ V1.1 PCBs are generally identified by:
 * Having a holographic sticker on the front reading "QC3" or "QC5".
 * By visually identifying which LEDs you have in reference to the abvove image. 
 
+Enter bootloader mode by either:
+* Pressing the physical reset button on the back of the PCB
+* Holding left spacebar and pressing escape (assuming default keymap)
+
 Make example for this keyboard (after setting up your build environment):
 
     make primekb/meridian/v1.1:default
