@@ -34,7 +34,7 @@ enum layer_number {
 
 // Sequencer
 enum unison_sequencer_tracks {
-    KICK,   // Kick
+    KICK = 0,   // Kick
     SNARE,  // Snare
     HIHAT1, // Hihat closed
     HIHAT2, // Hihat open
