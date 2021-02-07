@@ -18,10 +18,7 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-  _BASE = 0,
-  _LOWER,
-  _RAISE,
-  _ADJUST
+  _BASE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
