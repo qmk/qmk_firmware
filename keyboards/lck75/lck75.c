@@ -15,3 +15,5 @@
  */
 
 #include "lck75.h"
+#include "oled.c"
+#include "encoder.c"
