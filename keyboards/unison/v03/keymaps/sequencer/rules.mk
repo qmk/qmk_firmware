@@ -1,4 +1,4 @@
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 
 # Audio feature can cause HUGE firmware size impact.
 # You should turn off MIDI and OLED.
