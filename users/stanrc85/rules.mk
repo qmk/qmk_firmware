@@ -32,3 +32,7 @@ ifeq ($(strip $(KEYBOARD)), tkc/osav2)
   LTO_ENABLE = no
   VELOCIKEY_ENABLE=yes
 endif
+ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
+  RGB_MATRIX_ENABLE = yes
+  RGBLIGHT_ENABLE = no
+endif
