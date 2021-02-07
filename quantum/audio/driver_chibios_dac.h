@@ -15,6 +15,13 @@
  */
 #pragma once
 
+#ifndef A4
+#    define A4 PAL_LINE(GPIOA, 4)
+#endif
+#ifndef A5
+#    define A5 PAL_LINE(GPIOA, 5)
+#endif
+
 /**
  * Size of the dac_buffer arrays. All must be the same size.
  */
