@@ -25,7 +25,5 @@ FAUXCLICKY_ENABLE = no         # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no            # Enable support for HD44780 based LCDs
 
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
-
-LAYOUTS = numpad_2x3
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731
