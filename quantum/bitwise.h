@@ -13,31 +13,28 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-Ported to QMK by Peter Roe <pete@13bit.me>
 */
 
-#ifndef LED_H
-#define LED_H
+#pragma once
+
 #include <stdint.h>
-
-
-/* keyboard LEDs */
-#define USB_LED_NUM_LOCK                0
-#define USB_LED_CAPS_LOCK               1
-#define USB_LED_SCROLL_LOCK             2
-#define USB_LED_COMPOSE                 3
-#define USB_LED_KANA                    4
-
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void led_set(uint8_t usb_led);
+uint8_t bitpop(uint8_t bits);
+uint8_t bitpop16(uint16_t bits);
+uint8_t bitpop32(uint32_t bits);
+
+uint8_t biton(uint8_t bits);
+uint8_t biton16(uint16_t bits);
+uint8_t biton32(uint32_t bits);
+
+uint8_t  bitrev(uint8_t bits);
+uint16_t bitrev16(uint16_t bits);
+uint32_t bitrev32(uint32_t bits);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
