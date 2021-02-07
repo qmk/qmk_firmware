@@ -30,11 +30,11 @@ void keyboard_pre_init_kb(void){
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_WHITE}       // Light 1 LEDs, starting with LED 0
 );
-// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
+// Light the middle LED when num lock is active. 
 const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_WHITE}       // Light 1 LEDs, starting with LED 1
 );
-// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
+// Light the bottom LED when scroll lock is active. 
 const rgblight_segment_t PROGMEM my_scroll_lock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {2, 1, HSV_WHITE}       // Light 1 LEDs, starting with LED 2
 );
