@@ -1,15 +1,7 @@
-# Quadrant
+# Ealdin Firmware
 
-![Quadrant](https://i.imgur.com/S5f1Tn7.jpg)
+All files related to firmware of keyboards designed by Ealdin.
 
-A 5x14 ortholinear keyboard with "barebone" design using Elite-C.
+## Keyboards
 
-Keyboard Maintainer: [Ealdin](https://github.com/Ealdin)  
-Hardware Supported: Quadrant E-C   
-Hardware Availability: Group Buy via /r/mk
-
-Make example for this keyboard (after setting up your build environment):
-
-    make ealdin/quadrant:default
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+* [Quadrant](./quadrant/): maintainer [Ealdin](https://github.com/Ealdin)
