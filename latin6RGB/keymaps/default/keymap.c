@@ -1,0 +1,38 @@
+/* Copyright 2021 18438880
+  * 
+  * This program is free software: you can redistribute it and/or modify 
+  * it under the terms of the GNU General Public License as published by 
+  * the Free Software Foundation, either version 2 of the License, or 
+  * (at your option) any later version. 
+  * 
+  * This program is distributed in the hope that it will be useful, 
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+  * GNU General Public License for more details. 
+  * 
+  * You should have received a copy of the GNU General Public License 
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+  */ 
+
+#include QMK_KEYBOARD_H
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT_numpad_2x3( 
+        KC_P4, KC_P5, MO(1), 
+        KC_P1, KC_P2, KC_P3),
+    [1] = LAYOUT_numpad_2x3( 
+        AU_ON,   AU_OFF, MO(1), 
+        MU_ON,   MU_OFF,  MI_ON),
+	[2] = LAYOUT_numpad_2x3( 
+        KC_P4, KC_P5, MO(1), 
+        KC_P1, KC_P2, KC_P3),
+};
+
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_numpad_2x3(
+     3,  4,  5,
+     0,  1,  2
+);
+
+#ifdef AUDIO_ENABLE
+  float plover_song[][2]     = SONG(PLOVER_SOUND);
+  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+#endif
