@@ -1,11 +1,11 @@
 # Latin6RGB
 
-![Latin6rgb](https://github.com/18438880/Latin6RGB/blob/main/Latin6RGB%20(22).png)
+![Latin6rgb](https://github.com/18438880/Latin6RGB/blob/main/6RGB%20(1).png)
 
   6 Key RGB PAD use IS31FL3731 IC
 
 * Keyboard Maintainer: [18438880](https://github.com/18438880)
-* Hardware Availability: https://github.com/18438880/Latin6RGB/blob/main/Latin6RGB%20(22).png
+* Hardware Availability: https://github.com/18438880/Latin6RGB/blob/main/6RGB%20(1).png
 
 Make example for this keyboard (after setting up your build environment):
 
