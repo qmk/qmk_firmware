@@ -311,6 +311,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 );
 
 void keyboard_post_init_user(void) {
+    debug_enable=true;
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
     // Set effect range to non-indicator led range.

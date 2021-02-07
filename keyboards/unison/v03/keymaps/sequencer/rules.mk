@@ -1,5 +1,7 @@
 TAP_DANCE_ENABLE = no
 
+MOUSEKEY_ENABLE = no
+
 # Audio feature can cause HUGE firmware size impact.
 # You should turn off MIDI and OLED.
 AUDIO_ENABLE = no
