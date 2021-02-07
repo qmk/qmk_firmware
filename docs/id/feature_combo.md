@@ -73,7 +73,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 Kode di atas akan mengirim `Ctrl+C` bila anda menekan `Z` dan `C`, `Ctrl+V` bila anda menekan `X` dan `V`. Anda juga dapat mengubah kode tersebut untuk berpindah *layer*, memainkan suara, ataupun mengubah pengaturan.
 
-## Additional Configuration
 ## Konfigurasi Tambahan
 
 Bila anda menggunakan kombo yang panjang, anda akan mungkin mengalami beberapa permasalahan yang disebabkan karena struktur data yang digunakan oleh fitur ini tidak cukup.
