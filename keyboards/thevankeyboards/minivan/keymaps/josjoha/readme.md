@@ -142,7 +142,7 @@ For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty
 2.1.2 Qwerty with arrows on Base
 --------------------------------
 
-![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_vb.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_vc.jpg)
 
 For the readme about this Qwerty variation, see ➡ ![base_qwerty_basearrow.md](./base_qwerty_basearrow.md) ⬅
 
@@ -1466,7 +1466,9 @@ and closing next to each other.
   QMK support for their help.
 
   _Personal note:_ This keymap came about because of a sudden need
-  for a replacement keyboard. it took over a year to make (≈ 1.5 h/day).
+  for a replacement keyboard. It took over a year to make (≈ 1.5 h/day).
+  The goal became to make a good keymap for everyone without the time to
+  make one, in the best keyboard format: “40%”.
 
   The design changed from Dvorak only, numbers on one hand, flat arrows
   and no Unicode, to: Unicode hold(`_ACC`) replacing (R)Alt-Gr, numbers
