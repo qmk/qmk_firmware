@@ -3,7 +3,6 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
-from argparse import FileType
 
 from milc import cli
 
@@ -30,7 +29,7 @@ def print_bootloader_help():
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 
-@cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), help='The configurator export JSON to compile.')
+@cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), help='The configurator export JSON to compile.')
 @cli.argument('-b', '--bootloaders', action='store_true', help='List the available bootloaders.')
 @cli.argument('-bl', '--bootloader', default='flash', help='The flash command, corresponding to qmk\'s make options of bootloaders.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
