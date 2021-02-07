@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ealdin
 #define PRODUCT         Quadrant E-C
-#define DESCRIPTION     A 5x14 ortholinear keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
