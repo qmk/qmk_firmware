@@ -51,6 +51,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • Single layout
 
                             -3- ➡ Startup settings ⬅
+                    • Alternate Base
+                    • Leds on/off at startup.
+                    • Speed measuring
+                    • Text size counting ⬅
 
                             -4- ➡ How many hardware keys 1st row ⬅
 
@@ -68,22 +72,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                             -9- ➡ Speed measuring ⬅
 
-                           -10- ➡ Text size counting ⬅
-
-                           -11- ➡ Some alternative keys ⬅
+                           -10- ➡ Some alternative keys ⬅
                     • Right Alt or hold(_RAR) on Base
                     • GUI left/right
                     • Alternate currency symbol
                     • Check boxes or Pointers
                     • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
 
-                           -12- ➡ Eviscerations ( ② / ② ) ⬅
+                           -11- ➡ Eviscerations ( ② / ② ) ⬅
                     • Removing the numbers pad _PAD layer
                     • Removing one or more of the Unicode layers _ACC, _DRA or_BON
                     • Removing groups of characters
 
-                           -13- ➡ Middle led BASE layer: last layer color ⬅
-- --
+        - 
+        --
         ----
         --------------------------------------------------------------------------------------
         */
@@ -97,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * (You can use the compact configuration if you like that better. It can make communicating
         * a configuration easier. The fully documented configuration is left in a state of default
         * when uploaded to QMK, so that it gives the most commonly used layout: Qwerty with Numpad,
-        * basic 44 Minivan keys).
+        * basic 44 Minivan keys. The compact version its state is whatever it is.)
         */
 //#define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
 #ifndef MINIFAN_CONFIG_COMPACT // (don't alter this)
@@ -180,15 +182,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
         /*                  -3- ➡ Startup settings ⬅
+         */
+        /*          • Alternate Base
          *
          * You can define which of the two BASE layers is on when powering up the keyboard.
          */
 //#define STARTUP_ALTERNATE // Example: For BASES_QWERTY_DVORAK defined: _remove_ is startup in Qwerty, _active_ is
-                            //              startup in Dvorak
-        /* Leds on/off at startup.
+                            //          startup in Dvorak
+        /*          • Leds on/off at startup.
          */
 //#define STARTUP_SIDE_LEDS_OFF // _Activate_ to have side leds be off at keyboard startup (when you plug it in / computer powers on).
 //#define STARTUP_MID_LED_OFF // _Activate_ to have middle led be off at keyboard startup.
+        //
+        /*          • Speed measuring
+         */
+//#define STARTUP_SPEED // _Activate_ for default speed measuring on, _remove_ to set off at startup.
+        //
+        /*          • Text size counting ⬅
+         */
+//#define STARTUP_COUNT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
+
+
 
         /*                  -4- ➡ How many hardware keys 1st row ⬅
          *
@@ -351,9 +365,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
         /*                  -9- ➡ Speed measuring ⬅
-         *
          */
-//#define SPEED_INIT // _Activate_ for default speed measuring on, _remove_ to set off at startup.
         /*
          * Led color configuration. You can see the speed you have configured below directly on the keyboard,
          * after you compiled and flashed it.
@@ -376,13 +388,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define WORDS_PER_MINUTE // _Activate_ to get speed report in words-per-minute, _remove_ to get it in keystrokes-per-second (k/s).
 
 
-        /*                 -10- ➡ Text size counting ⬅
-         *
-         */
-//#define COUNT_INIT // _Activate_ for default character/word counting on, _remove_ to set off at startup.
-
-
-        /*                 -11- ➡ Some alternative keys ⬅
+        /*                 -10- ➡ Some alternative keys ⬅
          */
         /*
          *          • Right Alt or hold(_RAR) on Base
@@ -425,7 +431,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SWITCH_HOLD_ACC_NSY // _Activate_ to switch the *left* _NSY and _ACC layer hold keys, on Base layer.
 
 
-        /*                 -12- ➡ Eviscerations ( ② / ② ) ⬅
+        /*                 -11- ➡ Eviscerations ( ② / ② ) ⬅
          */
         /*          • Removing the numbers pad _PAD layer
          *
@@ -615,13 +621,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // Process user config setting for speed measuring
-# ifdef SPEED_INIT
+# ifdef STARTUP_SPEED
 #     define SPEED_INIT_VALUE TRUE
 # else
 #     define SPEED_INIT_VALUE FALSE
 # endif
 // Process user config setting for text size measuring
-# ifdef COUNT_INIT
+# ifdef STARTUP_COUNT
 #     define COUNT_INIT_VALUE TRUE
 # else
 #     define COUNT_INIT_VALUE FALSE

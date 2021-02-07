@@ -39,6 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define STARTUP_ALTERNATE 
   #define STARTUP_SIDE_LEDS_OFF
   #define STARTUP_MID_LED_OFF 
+//#define STARTUP_SPEED
+//#define STARTUP_COUNT
 
 //#define MORE_KEY__COMMAND 
 //#define MORE_KEY__ARROW  
@@ -66,12 +68,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define NUMPAD_COMMON_SQUARE 
 
-//#define SPEED_INIT 
   #define SPEED_COUNTDOWN 25 
   #define SPEED_HUE_STEP 8 
   #define SPEED_HUE_START 160 
   #define WORDS_PER_MINUTE 
-//#define COUNT_INIT 
 
 //#define BASE_RIGHT_ALT 
   #define SWITCH_GUIS 
