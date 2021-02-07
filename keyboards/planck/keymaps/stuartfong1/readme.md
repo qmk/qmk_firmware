@@ -1,4 +1,4 @@
-# stuartfong1's Plank Layout
+# stuartfong1's Planck Layout
 
 I made this layout to improve ergonomics during daily usage, and to make access to symbols easier when writing code. The main idea is to make all keys easily accessible while reducing the risk of finger strain. 
 
