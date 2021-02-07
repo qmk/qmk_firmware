@@ -13,9 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-//Data Transfer Time for WS2812C LEDs as per datasheet spec.
-#define T0H 375
-#define T1H 900
-#define T0L 900
-#define T1L 900
-#define WS2812_TRST_US 350
+//Data Transfer Time for KTR-1010RGBC-1812-4 LEDs as per datasheet spec. 
+#define T0H 350
+#define T1H 975
+#define T0L 975
+#define T1L 350
+#define WS2812_TRST_US 80

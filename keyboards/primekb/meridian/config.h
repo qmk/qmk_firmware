@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 3
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
