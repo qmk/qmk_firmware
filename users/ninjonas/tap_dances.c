@@ -61,20 +61,20 @@ void copy_paste_app_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 // END: Copy, Paste, Apps
 
-// BEGIN: Y, NUMPAD
-static tap y_numpad_tap_state = {
+// BEGIN: GUI, NUMPAD
+static tap gui_numpad_tap_state = {
   .is_press_action = true,
   .state = 0
 };
 
-void y_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
-  y_numpad_tap_state.state = cur_dance(state);
-  switch (y_numpad_tap_state.state) {
+void gui_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
+  gui_numpad_tap_state.state = cur_dance(state);
+  switch (gui_numpad_tap_state.state) {
     case SINGLE_TAP: 
-      tap_code(KC_Y); 
+      tap_code(KC_LGUI);
       break;
     case SINGLE_HOLD: 
-      register_code16(KC_Y);
+      register_code16(KC_LGUI);
       break;
     case DOUBLE_TAP: 
       if (layer_state_is(_NUMPAD)) {
@@ -86,13 +86,13 @@ void y_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void y_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (y_numpad_tap_state.state) {
+void gui_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (gui_numpad_tap_state.state) {
     case SINGLE_HOLD:
-      unregister_code16(KC_Y); 
+      unregister_code16(KC_LGUI);
       break;
   }
-  y_numpad_tap_state.state = 0;
+  gui_numpad_tap_state.state = 0;
 }
 // END: Y, NUMPAD
 
@@ -104,9 +104,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_RBRC_FWD]     = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, LGUI(KC_RBRC)),
   [TD_TAB_CTRLTAB]  = ACTION_TAP_DANCE_DOUBLE(KC_TAB, LCTL(KC_TAB)),
   [TD_GRV_CTRLGRV]  = ACTION_TAP_DANCE_DOUBLE(KC_GRV, LGUI(KC_GRV)),
-  [TD_GUI_GUISPC]   = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, LGUI(KC_SPC)),
+//  [TD_GUI_GUISPC]   = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, LGUI(KC_SPC)),
 
   // Advanced Tap Dances
   [TD_COPY_PASTE_APP] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, copy_paste_app_finished, copy_paste_app_reset, 300),
-  [TD_Y_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, y_numpad_finished, y_numpad_reset, 300),
+//  [TD_Y_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, y_numpad_finished, y_numpad_reset, 300),
+  [TD_GUI_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, gui_numpad_finished, gui_numpad_reset, 300),
 };

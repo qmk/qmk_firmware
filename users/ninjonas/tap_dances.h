@@ -22,9 +22,10 @@ enum custom_tapdances{
   TD_RBRC_FWD,
   TD_TAB_CTRLTAB,
   TD_GRV_CTRLGRV,
-  TD_GUI_GUISPC,
+//  TD_GUI_GUISPC,
   TD_COPY_PASTE_APP,
-  TD_Y_NUMPAD,
+//  TD_Y_NUMPAD,
+  TD_GUI_NUMPAD,
 };
 
 #define T_ESC  TD(TD_ESC_CAPS)    // Tap for ESC, double tap for CAPSLOCK
@@ -32,6 +33,7 @@ enum custom_tapdances{
 #define T_RBRC TD(TD_RBRC_FWD)    // Tap for ], double tap for forward browser
 #define T_TAB  TD(TD_TAB_CTRLTAB) // Tap for TAB, double tap for CTRL + TAB
 #define T_GRV  TD(TD_GRV_CTRLGRV) // Tap for GRV, double tap for Cmd + GRV
-#define T_GUI  TD(TD_GUI_GUISPC)  // Tap for Cmd, double tap for Cmd + Space
+//#define T_GUI  TD(TD_GUI_GUISPC)  // Tap for Cmd, double tap for Cmd + Space
 #define T_CPAP TD(TD_COPY_PASTE_APP)  // Tap for paste, hold for copy, double tap for Line App
-#define T_Y    TD(TD_Y_NUMPAD)     // Tap for Y, double tap for NUMPAD
+//#define T_Y    TD(TD_Y_NUMPAD)     // Tap for Y, double tap for NUMPAD
+#define T_GUI  TD(TD_GUI_NUMPAD)  // Tap for Cmd, double tap for NUMPAD on/off

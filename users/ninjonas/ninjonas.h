@@ -52,15 +52,18 @@ uint16_t encoder_rotated_timer;
 #define LT_RAI LT(_RAISE, KC_SPC)
 
 // Mod-Tap Keys
-#define MT_DEL MT(MOD_LALT | MOD_LSFT, KC_DEL)
+//#define MT_DEL MT(MOD_LALT | MOD_LSFT, KC_DEL)
+#define MT_DEL MT(MOD_LALT, KC_DEL)
 #define MT_EQL MT(MOD_RSFT, KC_EQL) 
 
 // Layout blocks
-#define _____________________QWERTY_L1______________________ T_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T
-#define _____________________QWERTY_L2______________________ T_ESC, KC_A, KC_S, KC_D, KC_F, KC_G
+#define _____________________QWERTY_L1______________________ T_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T
+#define _____________________QWERTY_L2______________________ T_TAB, KC_A, KC_S, KC_D, KC_F, KC_G
 #define _____________________QWERTY_L3______________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
+//#define _____________________QWERTY_L3______________________ KC_LALT, KC_Z, KC_X, KC_C, KC_V, KC_B
 
-#define _____________________QWERTY_R1______________________ T_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS
+//#define _____________________QWERTY_R1______________________ T_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS
+#define _____________________QWERTY_R1______________________ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS
 #define _____________________QWERTY_R2______________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT
 #define _____________________QWERTY_R3______________________ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MT_EQL
 
@@ -116,7 +119,7 @@ uint16_t encoder_rotated_timer;
 #endif
 #define _____________________ADJUST_R2______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
-#define _____________________NUMPAD_1_______________________ T_Y, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PAST
+#define _____________________NUMPAD_1_______________________ KC_LGUI, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PAST
 #define _____________________NUMPAD_2_______________________ XXXXXXX, KC_P4, KC_P5, KC_P6, KC_PMNS, KC_PSLS
 #define _____________________NUMPAD_3_______________________ KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT, KC_COLN
 
@@ -136,8 +139,9 @@ uint16_t encoder_rotated_timer;
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
 
 #if defined(KEYBOARD_crkbd_rev1) || defined(KEYBOARD_kyria_rev1)
-  #define ________MOD_LEFT_________ T_GUI, KC_LCTL, LT_RAI
-  #define ________MOD_RIGHT________ LT_LOW, KC_BSPC, MT_DEL
+  #define ________MOD_LEFT_________       T_GUI, KC_LCTL, LT_RAI
+  #define ________MOD_RIGHT________       LT_LOW, KC_BSPC, MT_DEL
+  #define ________MOD__RISE_RIGHT________ _______, _______, _______
 #else
   #define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
   #define ________MOD_RIGHT________ KC_BSPC, MT_DEL, T_CPAP

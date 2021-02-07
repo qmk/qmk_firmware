@@ -19,3 +19,5 @@
     #define COMBO_COUNT 5
     #define COMBO_TERM 60
 #endif
+
+#define SSD1306OLED
