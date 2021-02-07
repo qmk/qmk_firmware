@@ -16,5 +16,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 UNICODEMAP_ENABLE = yes
-LINK_TIME_OPTIMIZATION_ENABLE = yes   # To reduce space
-
+LTO_ENABLE = yes            # To reduce space
