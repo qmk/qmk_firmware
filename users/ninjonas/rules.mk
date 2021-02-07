@@ -12,8 +12,6 @@ SRC += ninjonas.c \
        combos.c \
        ./lib/layer_state_reader.c \
        ./lib/keylogger.c \
-       ./keyboards/crkbd/rev1/legacy/ssd1306.h \
-       ./keyboards/crkbd/rev1/legacy/ssd1306.c
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
     SRC += secrets.c
