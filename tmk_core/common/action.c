@@ -1035,16 +1035,16 @@ void clear_keyboard_but_mods(void) {
  * FIXME: Needs documentation.
  */
 void clear_keyboard_but_mods_and_keys() {
+#ifdef EXTRAKEY_ENABLE
+    host_system_send(0);
+    host_consumer_send(0);
+#endif
     clear_weak_mods();
     clear_macro_mods();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
-#endif
-#ifdef EXTRAKEY_ENABLE
-    host_system_send(0);
-    host_consumer_send(0);
 #endif
 }
 
