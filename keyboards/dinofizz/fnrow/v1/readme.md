@@ -1,9 +1,10 @@
 # FnRow v1 
 
-A keyboard featuring a single horizontal row of switches in the style of a "fucntion row" layout.
+A keyboard featuring a single horizontal row of switches in the style of a "function row" layout.
 
 * Keyboard Maintainer: [Dino Fizzotti](https://www.dinofizzotti.com)
-* Blog post: []()
+* [PCB Schematic and layout](https://github.com/dinofizz/fnrow-pcb)
+* [Blog post](https://www.dinofizzotti.com/blog/2021-02-07-fnrow-v1-a-configurable-function-row-layout-mechanical-keyboard/)
 
 ##  Features
 
