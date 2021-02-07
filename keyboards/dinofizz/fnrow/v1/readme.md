@@ -13,13 +13,15 @@ A keyboard featuring a single horizontal row of switches in the style of a "func
 * Dedicated reset switch to enable DFU mode
 * Optional status LED
 
-## Compilation and Flashing
+## Compilation
 
 Make compilation example for this keyboard (after setting up your build environment):
 
     make dinofizz/fnrow/v1:default
 
-Make flash example for this keyboard:
+# Flashing
+
+The FnRow features a hardware reset push-button to the left of the USB-C port. To flash new firmware you will need to enter the bootloader mode first. Plug the FnRow in to your computer using a USB cable and press the reset button momentarily. The board will then show up as an STM32 flash bootloader device. You can then use the following command to flash new firmware to the board.
     
     make dinofizz/fnrow/v1:default:flash
 
