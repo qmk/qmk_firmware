@@ -63,83 +63,39 @@ mousekey_t wheel = {
     .time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX
 };
 
-#    ifndef MK_COMBINED
-
-static uint8_t move_unit(void) {
-    uint16_t unit;
+// G G G G-Unit!
+static uint16_t g_unit(const mousekey_t *what, uint8_t repeat, uint8_t delta) {
     if (mousekey_accel & (1 << 0)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed) / 4;
+#       ifndef MK_COMBINED
+        return (delta * what->max_speed) / 4;
+#       else
+        return 1;
+#       endif
     } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed) / 2;
+        return (delta * what->max_speed) / 2;
     } else if (mousekey_accel & (1 << 2)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed);
-    } else if (mousekey_repeat == 0) {
-        unit = MOUSEKEY_MOVE_DELTA;
-    } else if (mousekey_repeat >= mouse.time_to_max) {
-        unit = MOUSEKEY_MOVE_DELTA * mouse.max_speed;
+#       ifndef MK_COMBINED
+        return (delta * what->max_speed);
+#       else
+        return UINT16_MAX; // will be clamp()'d
+#       endif
+    } else if (repeat == 0) {
+        return delta;
+    } else if (repeat >= what->time_to_max) {
+        return delta * what->max_speed;
     } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed * mousekey_repeat) / mouse.time_to_max;
+        return (delta * what->max_speed * repeat) / what->time_to_max;
     }
-    return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }
 
-static uint8_t wheel_unit(void) {
-    uint16_t unit;
-    if (mousekey_accel & (1 << 0)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed) / 4;
-    } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed) / 2;
-    } else if (mousekey_accel & (1 << 2)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed);
-    } else if (mousekey_wheel_repeat == 0) {
-        unit = MOUSEKEY_WHEEL_DELTA;
-    } else if (mousekey_wheel_repeat >= wheel.time_to_max) {
-        unit = MOUSEKEY_WHEEL_DELTA * wheel.max_speed;
-    } else {
-        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed * mousekey_wheel_repeat) / wheel.time_to_max;
-    }
-    return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
+static inline uint8_t clamp(uint8_t n, uint8_t min, uint8_t max) {
+    if (n < min) return min;
+    if (n > max) return max;
+    return n;
 }
 
-#    else /* #ifndef MK_COMBINED */
-
-static uint8_t move_unit(void) {
-    uint16_t unit;
-    if (mousekey_accel & (1 << 0)) {
-        unit = 1;
-    } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed) / 2;
-    } else if (mousekey_accel & (1 << 2)) {
-        unit = MOUSEKEY_MOVE_MAX;
-    } else if (mousekey_repeat == 0) {
-        unit = MOUSEKEY_MOVE_DELTA;
-    } else if (mousekey_repeat >= mouse.time_to_max) {
-        unit = MOUSEKEY_MOVE_DELTA * mouse.max_speed;
-    } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed * mousekey_repeat) / mouse.time_to_max;
-    }
-    return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
-}
-
-static uint8_t wheel_unit(void) {
-    uint16_t unit;
-    if (mousekey_accel & (1 << 0)) {
-        unit = 1;
-    } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed) / 2;
-    } else if (mousekey_accel & (1 << 2)) {
-        unit = MOUSEKEY_WHEEL_MAX;
-    } else if (mousekey_repeat == 0) {
-        unit = MOUSEKEY_WHEEL_DELTA;
-    } else if (mousekey_repeat >= wheel.time_to_max) {
-        unit = MOUSEKEY_WHEEL_DELTA * wheel.max_speed;
-    } else {
-        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed * mousekey_repeat) / wheel.time_to_max;
-    }
-    return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
-}
-
-#    endif /* #ifndef MK_COMBINED */
+#define move_unit()  clamp(g_unit(&mouse, mousekey_repeat,       MOUSEKEY_MOVE_DELTA),  1, MOUSEKEY_MOVE_MAX)
+#define wheel_unit() clamp(g_unit(&wheel, mousekey_wheel_repeat, MOUSEKEY_WHEEL_DELTA), 1, MOUSEKEY_WHEEL_MAX)
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently
