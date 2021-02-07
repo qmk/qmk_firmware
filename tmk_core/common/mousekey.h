@@ -124,12 +124,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-extern uint8_t mk_delay;
-extern uint8_t mk_interval;
-extern uint8_t mk_max_speed;
-extern uint8_t mk_time_to_max;
-extern uint8_t mk_wheel_max_speed;
-extern uint8_t mk_wheel_time_to_max;
+typedef struct {
+    /* milliseconds between the initial key press and first repeated motion event (0-2550) */
+    uint8_t delay;
+    /* milliseconds between repeated motion events (0-255) */
+    uint8_t interval;
+    /* steady speed (in action_delta units) applied each event (0-255) */
+    uint8_t max_speed;
+    /* number of events (count) accelerating to steady speed (0-255) */
+    uint8_t time_to_max;
+    /* ramp used to reach maximum pointer speed (NOT SUPPORTED) */
+    // int8_t curve = 0;
+} mousekey_t;
+
+extern mousekey_t mouse, wheel;
 
 void mousekey_task(void);
 void mousekey_on(uint8_t code);

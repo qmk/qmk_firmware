@@ -581,12 +581,12 @@ static void mousekey_param_print(void) {
         "5: wheel_max_speed: %u\n"
         "6: wheel_time_to_max: %u\n"
 
-        , mk_delay
-        , mk_interval
-        , mk_max_speed
-        , mk_time_to_max
-        , mk_wheel_max_speed
-        , mk_wheel_time_to_max
+        , mouse.delay
+        , mouse.interval
+        , mouse.max_speed
+        , mouse.time_to_max
+        , wheel.max_speed
+        , wheel.time_to_max
 
         );
 #    endif /* !NO_PRINT */
@@ -647,12 +647,12 @@ static bool mousekey_console(uint8_t code) {
             param = 1 + code - KC_1;
 #           define PARAM(n, v) case n: pp = &(v); desc = #v; break
             switch (param) {
-                PARAM(1, mk_delay);
-                PARAM(2, mk_interval);
-                PARAM(3, mk_max_speed);
-                PARAM(4, mk_time_to_max);
-                PARAM(5, mk_wheel_max_speed);
-                PARAM(6, mk_wheel_time_to_max);
+                PARAM(1, mouse.delay);
+                PARAM(2, mouse.interval);
+                PARAM(3, mouse.max_speed);
+                PARAM(4, mouse.time_to_max);
+                PARAM(5, wheel.max_speed);
+                PARAM(6, wheel.time_to_max);
             }
 #           undef PARAM
             break;
@@ -661,12 +661,12 @@ static bool mousekey_console(uint8_t code) {
         case KC_PGUP: change = +10; break;
         case KC_PGDN: change = -10; break;
         case KC_D:
-            mk_delay             = MOUSEKEY_DELAY / 10;
-            mk_interval          = MOUSEKEY_INTERVAL;
-            mk_max_speed         = MOUSEKEY_MAX_SPEED;
-            mk_time_to_max       = MOUSEKEY_TIME_TO_MAX;
-            mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
-            mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+            mouse.delay       = MOUSEKEY_DELAY / 10;
+            mouse.interval    = MOUSEKEY_INTERVAL;
+            mouse.max_speed   = MOUSEKEY_MAX_SPEED;
+            mouse.time_to_max = MOUSEKEY_TIME_TO_MAX;
+            wheel.max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
+            wheel.time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
             print("set default\n");
             break;
         default:

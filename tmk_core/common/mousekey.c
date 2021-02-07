@@ -48,40 +48,37 @@ static uint16_t last_timer_w = 0;
  *
  *  speed = delta * max_speed * (repeat / time_to_max)**((1000+curve)/1000)
  */
-/* milliseconds between the initial key press and first repeated motion event (0-2550) */
-uint8_t mk_delay = MOUSEKEY_DELAY / 10;
-/* milliseconds between repeated motion events (0-255) */
-uint8_t mk_interval = MOUSEKEY_INTERVAL;
-/* steady speed (in action_delta units) applied each event (0-255) */
-uint8_t mk_max_speed = MOUSEKEY_MAX_SPEED;
-/* number of events (count) accelerating to steady speed (0-255) */
-uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
-/* ramp used to reach maximum pointer speed (NOT SUPPORTED) */
-// int8_t mk_curve = 0;
-/* wheel params */
-/* milliseconds between the initial key press and first repeated motion event (0-2550) */
-uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY / 10;
-/* milliseconds between repeated motion events (0-255) */
-uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
-uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
-uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+
+mousekey_t mouse = {
+    .delay       = MOUSEKEY_DELAY / 10,
+    .interval    = MOUSEKEY_INTERVAL,
+    .max_speed   = MOUSEKEY_MAX_SPEED,
+    .time_to_max = MOUSEKEY_TIME_TO_MAX
+};
+
+mousekey_t wheel = {
+    .delay       = MOUSEKEY_WHEEL_DELAY / 10,
+    .interval    = MOUSEKEY_WHEEL_INTERVAL,
+    .max_speed   = MOUSEKEY_WHEEL_MAX_SPEED,
+    .time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX
+};
 
 #    ifndef MK_COMBINED
 
 static uint8_t move_unit(void) {
     uint16_t unit;
     if (mousekey_accel & (1 << 0)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / 4;
+        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed) / 4;
     } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / 2;
+        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed) / 2;
     } else if (mousekey_accel & (1 << 2)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
+        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed);
     } else if (mousekey_repeat == 0) {
         unit = MOUSEKEY_MOVE_DELTA;
-    } else if (mousekey_repeat >= mk_time_to_max) {
-        unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
+    } else if (mousekey_repeat >= mouse.time_to_max) {
+        unit = MOUSEKEY_MOVE_DELTA * mouse.max_speed;
     } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed * mousekey_repeat) / mouse.time_to_max;
     }
     return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }
@@ -89,17 +86,17 @@ static uint8_t move_unit(void) {
 static uint8_t wheel_unit(void) {
     uint16_t unit;
     if (mousekey_accel & (1 << 0)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / 4;
+        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed) / 4;
     } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / 2;
+        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed) / 2;
     } else if (mousekey_accel & (1 << 2)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed);
+        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed);
     } else if (mousekey_wheel_repeat == 0) {
         unit = MOUSEKEY_WHEEL_DELTA;
-    } else if (mousekey_wheel_repeat >= mk_wheel_time_to_max) {
-        unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
+    } else if (mousekey_wheel_repeat >= wheel.time_to_max) {
+        unit = MOUSEKEY_WHEEL_DELTA * wheel.max_speed;
     } else {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_wheel_repeat) / mk_wheel_time_to_max;
+        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed * mousekey_wheel_repeat) / wheel.time_to_max;
     }
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
@@ -111,15 +108,15 @@ static uint8_t move_unit(void) {
     if (mousekey_accel & (1 << 0)) {
         unit = 1;
     } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / 2;
+        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed) / 2;
     } else if (mousekey_accel & (1 << 2)) {
         unit = MOUSEKEY_MOVE_MAX;
     } else if (mousekey_repeat == 0) {
         unit = MOUSEKEY_MOVE_DELTA;
-    } else if (mousekey_repeat >= mk_time_to_max) {
-        unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
+    } else if (mousekey_repeat >= mouse.time_to_max) {
+        unit = MOUSEKEY_MOVE_DELTA * mouse.max_speed;
     } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+        unit = (MOUSEKEY_MOVE_DELTA * mouse.max_speed * mousekey_repeat) / mouse.time_to_max;
     }
     return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }
@@ -129,15 +126,15 @@ static uint8_t wheel_unit(void) {
     if (mousekey_accel & (1 << 0)) {
         unit = 1;
     } else if (mousekey_accel & (1 << 1)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / 2;
+        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed) / 2;
     } else if (mousekey_accel & (1 << 2)) {
         unit = MOUSEKEY_WHEEL_MAX;
     } else if (mousekey_repeat == 0) {
         unit = MOUSEKEY_WHEEL_DELTA;
-    } else if (mousekey_repeat >= mk_wheel_time_to_max) {
-        unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
+    } else if (mousekey_repeat >= wheel.time_to_max) {
+        unit = MOUSEKEY_WHEEL_DELTA * wheel.max_speed;
     } else {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
+        unit = (MOUSEKEY_WHEEL_DELTA * wheel.max_speed * mousekey_repeat) / wheel.time_to_max;
     }
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
@@ -153,7 +150,7 @@ void mousekey_task(void) {
     mouse_report.v = 0;
     mouse_report.h = 0;
 
-    if ((tmpmr.x || tmpmr.y) && timer_elapsed(last_timer_c) > (mousekey_repeat ? mk_interval : mk_delay * 10)) {
+    if ((tmpmr.x || tmpmr.y) && timer_elapsed(last_timer_c) > (mousekey_repeat ? mouse.interval : mouse.delay * 10)) {
         if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
         if (tmpmr.x != 0) mouse_report.x = move_unit() * ((tmpmr.x > 0) ? 1 : -1);
         if (tmpmr.y != 0) mouse_report.y = move_unit() * ((tmpmr.y > 0) ? 1 : -1);
@@ -170,7 +167,7 @@ void mousekey_task(void) {
             }
         }
     }
-    if ((tmpmr.v || tmpmr.h) && timer_elapsed(last_timer_w) > (mousekey_wheel_repeat ? mk_wheel_interval : mk_wheel_delay * 10)) {
+    if ((tmpmr.v || tmpmr.h) && timer_elapsed(last_timer_w) > (mousekey_wheel_repeat ? wheel.interval : wheel.delay * 10)) {
         if (mousekey_wheel_repeat != UINT8_MAX) mousekey_wheel_repeat++;
         if (tmpmr.v != 0) mouse_report.v = wheel_unit() * ((tmpmr.v > 0) ? 1 : -1);
         if (tmpmr.h != 0) mouse_report.h = wheel_unit() * ((tmpmr.h > 0) ? 1 : -1);
