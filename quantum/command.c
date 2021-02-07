@@ -568,7 +568,6 @@ static bool command_console(uint8_t code) {
 /***********************************************************
  * Mousekey console
  ***********************************************************/
-static uint8_t mousekey_param = 0;
 
 static void mousekey_param_print(void) {
 // Print these variables if NO_PRINT or USER_PRINT are not defined.
@@ -593,126 +592,37 @@ static void mousekey_param_print(void) {
 #    endif /* !NO_PRINT */
 }
 
-//#define PRINT_SET_VAL(v)  print(#v " = "); print_dec(v); print("\n");
-#    define PRINT_SET_VAL(v) xprintf(#    v " = %d\n", (v))
-static void mousekey_param_inc(uint8_t param, uint8_t inc) {
-    switch (param) {
-        case 1:
-            if (mk_delay + inc < UINT8_MAX)
-                mk_delay += inc;
-            else
-                mk_delay = UINT8_MAX;
-            PRINT_SET_VAL(mk_delay);
-            break;
-        case 2:
-            if (mk_interval + inc < UINT8_MAX)
-                mk_interval += inc;
-            else
-                mk_interval = UINT8_MAX;
-            PRINT_SET_VAL(mk_interval);
-            break;
-        case 3:
-            if (mk_max_speed + inc < UINT8_MAX)
-                mk_max_speed += inc;
-            else
-                mk_max_speed = UINT8_MAX;
-            PRINT_SET_VAL(mk_max_speed);
-            break;
-        case 4:
-            if (mk_time_to_max + inc < UINT8_MAX)
-                mk_time_to_max += inc;
-            else
-                mk_time_to_max = UINT8_MAX;
-            PRINT_SET_VAL(mk_time_to_max);
-            break;
-        case 5:
-            if (mk_wheel_max_speed + inc < UINT8_MAX)
-                mk_wheel_max_speed += inc;
-            else
-                mk_wheel_max_speed = UINT8_MAX;
-            PRINT_SET_VAL(mk_wheel_max_speed);
-            break;
-        case 6:
-            if (mk_wheel_time_to_max + inc < UINT8_MAX)
-                mk_wheel_time_to_max += inc;
-            else
-                mk_wheel_time_to_max = UINT8_MAX;
-            PRINT_SET_VAL(mk_wheel_time_to_max);
-            break;
-    }
-}
-
-static void mousekey_param_dec(uint8_t param, uint8_t dec) {
-    switch (param) {
-        case 1:
-            if (mk_delay > dec)
-                mk_delay -= dec;
-            else
-                mk_delay = 0;
-            PRINT_SET_VAL(mk_delay);
-            break;
-        case 2:
-            if (mk_interval > dec)
-                mk_interval -= dec;
-            else
-                mk_interval = 0;
-            PRINT_SET_VAL(mk_interval);
-            break;
-        case 3:
-            if (mk_max_speed > dec)
-                mk_max_speed -= dec;
-            else
-                mk_max_speed = 0;
-            PRINT_SET_VAL(mk_max_speed);
-            break;
-        case 4:
-            if (mk_time_to_max > dec)
-                mk_time_to_max -= dec;
-            else
-                mk_time_to_max = 0;
-            PRINT_SET_VAL(mk_time_to_max);
-            break;
-        case 5:
-            if (mk_wheel_max_speed > dec)
-                mk_wheel_max_speed -= dec;
-            else
-                mk_wheel_max_speed = 0;
-            PRINT_SET_VAL(mk_wheel_max_speed);
-            break;
-        case 6:
-            if (mk_wheel_time_to_max > dec)
-                mk_wheel_time_to_max -= dec;
-            else
-                mk_wheel_time_to_max = 0;
-            PRINT_SET_VAL(mk_wheel_time_to_max);
-            break;
-    }
-}
-
 static void mousekey_console_help(void) {
-    print("\n\t- Mousekey -\n"
-          "ESC/q:	quit\n"
-          "1:	delay(*10ms)\n"
-          "2:	interval(ms)\n"
-          "3:	max_speed\n"
-          "4:	time_to_max\n"
-          "5:	wheel_max_speed\n"
-          "6:	wheel_time_to_max\n"
-          "\n"
-          "p:	print values\n"
-          "d:	set defaults\n"
-          "up:	+1\n"
-          "down:	-1\n"
-          "pgup:	+10\n"
-          "pgdown:	-10\n"
-          "\n"
-          "speed = delta * max_speed * (repeat / time_to_max)\n");
-    xprintf("where delta: cursor=%d, wheel=%d\n"
-            "See http://en.wikipedia.org/wiki/Mouse_keys\n",
-            MOUSEKEY_MOVE_DELTA, MOUSEKEY_WHEEL_DELTA);
+    xprintf("\n\t- Mousekey -\n"
+        "ESC/q:	quit\n"
+        "1:	delay(*10ms)\n"
+        "2:	interval(ms)\n"
+        "3:	max_speed\n"
+        "4:	time_to_max\n"
+        "5:	wheel_max_speed\n"
+        "6:	wheel_time_to_max\n"
+        "\n"
+        "p:	print values\n"
+        "d:	set defaults\n"
+        "up:	+1\n"
+        "down:	-1\n"
+        "pgup:	+10\n"
+        "pgdown:	-10\n"
+        "\n"
+        "speed = delta * max_speed * (repeat / time_to_max)\n"
+        "where delta: cursor=%d, wheel=%d\n"
+        "See http://en.wikipedia.org/wiki/Mouse_keys\n"
+        , MOUSEKEY_MOVE_DELTA, MOUSEKEY_WHEEL_DELTA
+    );
 }
 
 static bool mousekey_console(uint8_t code) {
+    static uint8_t param = 0;
+    static uint8_t * pp = NULL;
+    static char * desc = NULL;
+
+    int8_t change = 0;
+
     switch (code) {
         case KC_H:
         case KC_SLASH: /* ? */
@@ -720,8 +630,10 @@ static bool mousekey_console(uint8_t code) {
             break;
         case KC_Q:
         case KC_ESC:
-            if (mousekey_param) {
-                mousekey_param = 0;
+            if (param) {
+                param = 0;
+                pp = NULL;
+                desc = NULL;
             } else {
                 print("C> ");
                 command_state = CONSOLE;
@@ -731,26 +643,23 @@ static bool mousekey_console(uint8_t code) {
         case KC_P:
             mousekey_param_print();
             break;
-        case KC_1:
-        case KC_2:
-        case KC_3:
-        case KC_4:
-        case KC_5:
-        case KC_6:
-            mousekey_param = numkey2num(code);
+        case KC_1 ... KC_6:
+            param = numkey2num(code);
+#           define PARAM(n, v) case n: pp = &(v); desc = #v; break
+            switch (param) {
+                PARAM(1, mk_delay);
+                PARAM(2, mk_interval);
+                PARAM(3, mk_max_speed);
+                PARAM(4, mk_time_to_max);
+                PARAM(5, mk_wheel_max_speed);
+                PARAM(6, mk_wheel_time_to_max);
+            }
+#           undef PARAM
             break;
-        case KC_UP:
-            mousekey_param_inc(mousekey_param, 1);
-            break;
-        case KC_DOWN:
-            mousekey_param_dec(mousekey_param, 1);
-            break;
-        case KC_PGUP:
-            mousekey_param_inc(mousekey_param, 10);
-            break;
-        case KC_PGDN:
-            mousekey_param_dec(mousekey_param, 10);
-            break;
+        case KC_UP:   change =  +1; break;
+        case KC_DOWN: change =  -1; break;
+        case KC_PGUP: change = +10; break;
+        case KC_PGDN: change = -10; break;
         case KC_D:
             mk_delay             = MOUSEKEY_DELAY / 10;
             mk_interval          = MOUSEKEY_INTERVAL;
@@ -764,8 +673,20 @@ static bool mousekey_console(uint8_t code) {
             print("?");
             return false;
     }
-    if (mousekey_param) {
-        xprintf("M%d> ", mousekey_param);
+
+    if (change) {
+        int16_t val = *pp + change;
+        if (val > UINT8_MAX)
+            *pp = UINT8_MAX;
+        else if (val < 0)
+            *pp = 0;
+        else
+            *pp = (uint8_t)val;
+        xprintf("%s = %d\n", desc, val);
+    }
+
+    if (desc) {
+        xprintf("M%u:%s> ", param, desc);
     } else {
         print("M>");
     }
