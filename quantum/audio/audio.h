@@ -65,11 +65,6 @@ typedef struct {
     // uint8_t timbre;     // range: [0,100] TODO: this currently kept track of globally, should we do this per tone instead?
 } musical_tone_t;
 
-//     ____        __    ___
-//    / __ \__  __/ /_  / (_)____
-//   / /_/ / / / / __ \/ / / ___/
-//  / ____/ /_/ / /_/ / / / /__
-// /_/    \__,_/_.___/_/_/\___/
 // public interface
 
 /**
@@ -224,11 +219,6 @@ uint16_t audio_ms_to_duration(uint16_t duration_ms);
 
 void audio_startup(void);
 
-//     __  __               __
-//    / / / /___ __________/ /      ______ __________
-//   / /_/ / __ `/ ___/ __  / | /| / / __ `/ ___/ _  /
-//  / __  / /_/ / /  / /_/ /| |/ |/ / /_/ / /  /  __/
-// /_/ /_/\__,_/_/   \__,_/ |__/|__/\__,_/_/   \___/
 // hardware interface
 
 // implementation in the driver_avr/arm_* respective parts
@@ -278,12 +268,6 @@ float audio_get_processed_frequency(uint8_t tone_index);
  */
 bool audio_update_state(void);
 
-//     __
-//    / /   ___  ____ _____ ________  __
-//   / /   / _ \/ __ `/ __ `/ ___/ / / /
-//  / /___/  __/ /_/ / /_/ / /__/ /_/ /
-// /_____/\___/\__, /\__,_/\___/\__, /
-//            /____/           /____/
 // legacy and back-warts compatibility stuff
 
 // LEGACY defines - TODO: remove and replace these in all keyboards using them
