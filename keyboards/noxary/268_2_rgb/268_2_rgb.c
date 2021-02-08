@@ -13,4 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "268_2_RGB.h"
+#include "268_2_rgb.h"
