@@ -2,11 +2,7 @@
 
 The keyboard can be made to be recognized as a joystick HID device by the operating system.
 
-This is enabled by adding the following to `rules.mk`:
-
-```makefile
-JOYSTICK_ENABLE = yes
-```
+This is enabled by adding `JOYSTICK_ENABLE` to `rules.mk`. You can set this value to `analog`, `digital`, or `no`.
 
 !> Joystick support is not currently available on V-USB devices.
 
@@ -18,6 +14,12 @@ Both services can be used without the other, depending on whether you just want 
 or send gamepad reports based on values computed by the keyboard.
 
 ### Analog Input
+
+To use analog input you must first enable it in `rules.mk`:
+
+```makefile
+JOYSTICK_ENABLE = analog
+```
 
 An analog device such as a potentiometer found on a gamepad's analog axes is based on a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider).
 It is composed of three connectors linked to the ground, the power input and power output (usually the middle one). The power output holds the voltage that varies based on the position of the cursor,
@@ -75,7 +77,7 @@ You assign a value by writing to `joystick_status.axes[axis_index]` a signed 8-b
 The following example writes two axes based on keypad presses, with `KC_P5` as a precision modifier:
 
 ```c
-#ifdef JOYSTICK_ENABLE
+#ifdef ANALOG_JOYSTICK_ENABLE
 static uint8_t precision_val = 70;
 static uint8_t axesFlags = 0;
 enum axes {
@@ -89,7 +91,7 @@ enum axes {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-#ifdef JOYSTICK_ENABLE
+#ifdef ANALOG_JOYSTICK_ENABLE
         // virtual joystick
 #    if JOYSTICK_AXES_COUNT > 1
         case KC_P8:
@@ -138,6 +140,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 ```
+
+### Axis Resolution
+
+By default, the resolution of each axis is 8 bit, giving a range of -127 to +127. If you need higher precision, you can increase it by defining eg. `JOYSTICK_AXES_RESOLUTION 12` in your `config.h`. The resolution must be between 8 and 16.
+
+Note that the supported AVR MCUs have a 10-bit ADC, and 12-bit for most STM32 MCUs.
 
 ### Triggering Joystick Buttons
 

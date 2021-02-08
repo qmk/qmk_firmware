@@ -1,3 +1,5 @@
+MCU_ORIG := $(MCU)
+
 ifneq ($(findstring MKL26Z64, $(MCU)),)
   # Cortex version
   MCU = cortex-m0plus
@@ -14,7 +16,6 @@ ifneq ($(findstring MKL26Z64, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  # - NOTE: a custom ld script is needed for EEPROM on Teensy LC
   MCU_LDSCRIPT ?= MKL26Z64
 
   # Startup code to use
@@ -80,37 +81,37 @@ ifneq ($(findstring MK20DX256, $(MCU)),)
   BOARD ?= PJRC_TEENSY_3_1
 endif
 
-ifneq ($(findstring STM32F303, $(MCU)),)
+ifneq ($(findstring STM32F042, $(MCU)),)
   # Cortex version
-  MCU = cortex-m4
+  MCU = cortex-m0
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
-  ARMV = 7
+  ARMV = 6
 
   ## chip/board settings
   # - the next two should match the directories in
   #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
-  MCU_SERIES = STM32F3xx
+  MCU_SERIES = STM32F0xx
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F303xC
+  MCU_LDSCRIPT ?= STM32F042x6
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
-  MCU_STARTUP ?= stm32f3xx
+  MCU_STARTUP ?= stm32f0xx
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= GENERIC_STM32_F303XC
+  BOARD ?= GENERIC_STM32_F042X6
 
-  USE_FPU ?= yes
+  USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 endif
 
 ifneq ($(findstring STM32F072, $(MCU)),)
@@ -142,41 +143,8 @@ ifneq ($(findstring STM32F072, $(MCU)),)
   USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
-endif
-
-ifneq ($(findstring STM32F042, $(MCU)),)
-  # Cortex version
-  MCU = cortex-m0
-
-  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
-  ARMV = 6
-
-  ## chip/board settings
-  # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
-  MCU_FAMILY = STM32
-  MCU_SERIES = STM32F0xx
-
-  # Linker script to use
-  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
-  #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32F042x6
-
-  # Startup code to use
-  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
-  MCU_STARTUP ?= stm32f0xx
-
-  # Board: it should exist either in <chibios>/os/hal/boards/,
-  # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= GENERIC_STM32_F042X6
-
-  USE_FPU ?= no
-
-  # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 endif
 
 ifneq ($(findstring STM32F103, $(MCU)),)
@@ -208,11 +176,110 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
-  DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
 endif
 
-ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb1286))
+ifneq ($(findstring STM32F303, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F3xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32F303xC
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32f3xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_F303XC
+
+  USE_FPU ?= yes
+
+  # Options to pass to dfu-util when flashing
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+endif
+
+ifneq ($(findstring STM32F401, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32F401xC
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32f4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= BLACKPILL_STM32_F401
+
+  USE_FPU ?= yes
+
+  # Options to pass to dfu-util when flashing
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+endif
+
+ifneq ($(findstring STM32F411, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32F411xE
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32f4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= BLACKPILL_STM32_F411
+
+  USE_FPU ?= yes
+
+  # Options to pass to dfu-util when flashing
+  DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS ?= -v 0483 -p DF11
+endif
+
+ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))
   PROTOCOL = LUFA
 
   # Processor frequency.
@@ -250,6 +317,9 @@ ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 a
   ifeq (,$(filter $(NO_INTERRUPT_CONTROL_ENDPOINT),yes))
     OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
   endif
+  ifneq (,$(filter $(MCU),atmega16u2 atmega32u2))
+    NO_I2C = yes
+  endif
 endif
 
 ifneq (,$(filter $(MCU),atmega32a))
@@ -266,13 +336,29 @@ ifneq (,$(filter $(MCU),atmega32a))
   F_CPU ?= 12000000
 
   # unsupported features for now
-  NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
 ifneq (,$(filter $(MCU),atmega328p))
   # MCU name for avrdude
   AVRDUDE_MCU = m328p
+
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 16000000
+
+  # unsupported features for now
+  NO_SUSPEND_POWER_DOWN ?= yes
+endif
+
+ifneq (,$(filter $(MCU),atmega328))
+  # MCU name for avrdude
+  AVRDUDE_MCU = m328
 
   PROTOCOL = VUSB
 
@@ -299,6 +385,5 @@ ifneq (,$(filter $(MCU),attiny85))
   F_CPU ?= 16500000
 
   # unsupported features for now
-  NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
 endif

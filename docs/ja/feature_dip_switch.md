@@ -1,8 +1,8 @@
 # DIP スイッチ
 
 <!---
-  original document: 0.8.94:docs/feature_dip_switch.md
-  git diff 0.8.94 HEAD -- docs/feature_dip_switch.md | cat
+  original document: 0.9.43:docs/feature_dip_switch.md
+  git diff 0.9.43 HEAD -- docs/feature_dip_switch.md | cat
 -->
 
 DIP スイッチは、以下を `rules.mk` に追加することでサポートされます:
@@ -12,7 +12,15 @@ DIP スイッチは、以下を `rules.mk` に追加することでサポート�
 さらに、以下を `config.h` に追加します:
 
 ```c
+// Connects each switch in the dip switch to the GPIO pin of the MCU
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
+```
+
+あるいは
+
+```c
+// Connect each switch in the DIP switch to an unused intersections in the key matrix.
+#define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {2,6} } // List of row and col pairs
 ```
 
 ## コールバック
@@ -92,4 +100,10 @@ void dip_switch_update_mask_user(uint32_t state) {
 
 ## ハードウェア
 
+### DIP スイッチの各スイッチを MCU の GPIO ピンに接続する
+
 DIP スイッチの片側は MCU のピンへ直接配線し、もう一方の側はグラウンドに配線する必要があります。機能的に同じであるため、どちら側がどちらに接続されているかは問題にはならないはずです。
+
+### DIP スイッチの各スイッチをキーマトリクスの未使用の交点に接続する
+
+キースイッチと同じように、ダイオードと DIP スイッチが ROW 線と COL 線に接続します。

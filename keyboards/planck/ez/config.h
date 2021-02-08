@@ -17,6 +17,14 @@
 
 #pragma once
 
+#undef VENDOR_ID
+#define VENDOR_ID       0x3297
+#undef PRODUCT_ID
+#define PRODUCT_ID      0xC6CE
+#undef MANUFACTURER
+#define MANUFACTURER    ZSA Technology Labs
+#undef PRODUCT
+#define PRODUCT         Planck EZ
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0000
 
@@ -100,9 +108,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

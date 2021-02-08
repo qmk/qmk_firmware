@@ -2,7 +2,7 @@
 
 QMK es un poderoso firmware Open Source para tu teclado mecánico. Puedes utilizar QMK para personalizar tu teclado en maneras a la vez simples y potentes. Gente de todos los niveles de habilidad, desde completos novatos hasta expertos programadores, han utilizado con éxito QMK para personalizar sus teclados. Esta guía te ayudará a hacer lo mismo, sin importar tu nivel de habilidad.
 
-¿No estás seguro de si tu teclado puede ejecutar QMK? Si es un teclado mecánico construido por ti mismo probablemente puedas. Damos soporte a [gran número de placas de hobbistas](http://qmk.fm/keyboards/), e incluso si tu teclado actual no pudiera ejecutar QMK no deberías tener problemas encontrando uno que cumpliera tus necesidades.
+¿No estás seguro de si tu teclado puede ejecutar QMK? Si es un teclado mecánico construido por ti mismo probablemente puedas. Damos soporte a [gran número de placas de hobbistas](https://qmk.fm/keyboards/), e incluso si tu teclado actual no pudiera ejecutar QMK no deberías tener problemas encontrando uno que cumpliera tus necesidades.
 
 ## Visión general
 

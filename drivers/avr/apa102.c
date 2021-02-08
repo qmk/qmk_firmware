@@ -2,7 +2,7 @@
  * APA102 lib V1.0a
  *
  * Controls APA102 RGB-LEDs
- * Author: Mikkel (Duckle29 on github)
+ * Author: Mikkel (Duckle29 on GitHub)
  *
  * Dec 22th, 2017  v1.0a Initial Version
  *

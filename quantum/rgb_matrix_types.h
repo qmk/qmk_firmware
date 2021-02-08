@@ -44,13 +44,6 @@ typedef struct PACKED {
 } effect_params_t;
 
 typedef struct PACKED {
-    // Global tick at 20 Hz
-    uint32_t tick;
-    // Ticks since this key was last hit.
-    uint32_t any_key_hit;
-} rgb_counters_t;
-
-typedef struct PACKED {
     uint8_t x;
     uint8_t y;
 } point_t;
@@ -63,6 +56,7 @@ typedef struct PACKED {
 #define LED_FLAG_MODIFIER 0x01
 #define LED_FLAG_UNDERGLOW 0x02
 #define LED_FLAG_KEYLIGHT 0x04
+#define LED_FLAG_INDICATOR 0x08
 
 #define NO_LED 255
 

@@ -1,7 +1,7 @@
 SRC += kuchosauronad0.c \
 	   process_records.c
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 SPACE_CADET_ENABLE            = no
 
 ifneq ($(strip $(RGBLIGHT_ENABLE)),yes )
@@ -24,7 +24,7 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
      SRC += leader.c
 endif
 
-ifneq ("$(wildcard $(USER_PATH)/secrets.c)","") 
+ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
      SRC += secrets.c
 endif
 ifeq ($(strip $(NO_SECRETS)), yes)

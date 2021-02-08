@@ -1,12 +1,18 @@
-BACKLIGHT_ENABLE   = no
+# Generic features
 BOOTMAGIC_ENABLE   = no
 COMMAND_ENABLE     = yes
 CONSOLE_ENABLE     = yes
 EXTRAKEY_ENABLE    = yes
-GRAVE_ESC_ENABLE   = no
 MOUSEKEY_ENABLE    = yes
 NKRO_ENABLE        = yes
-SPACE_CADET_ENABLE = no
 TAP_DANCE_ENABLE   = yes
 UNICODEMAP_ENABLE  = yes
+
+# Keyboard-specific features
+BACKLIGHT_ENABLE   = no
 VISUALIZER_ENABLE  = no
+
+# Firmware size reduction
+GRAVE_ESC_ENABLE   = no
+MAGIC_ENABLE       = no
+SPACE_CADET_ENABLE = no

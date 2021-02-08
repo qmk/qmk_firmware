@@ -48,8 +48,9 @@ enum mouse_buttons {
  * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=75
  */
 enum consumer_usages {
-    // 15.5 Display Controls (https://www.usb.org/sites/default/files/hutrr41_0.pdf)
-    BRIGHTNESS_UP          = 0x06F,
+    // 15.5 Display Controls
+    SNAPSHOT               = 0x065,
+    BRIGHTNESS_UP          = 0x06F, // https://www.usb.org/sites/default/files/hutrr41_0.pdf
     BRIGHTNESS_DOWN        = 0x070,
     // 15.7 Transport Controls
     TRANSPORT_RECORD       = 0x0B2,
@@ -59,6 +60,7 @@ enum consumer_usages {
     TRANSPORT_PREV_TRACK   = 0x0B6,
     TRANSPORT_STOP         = 0x0B7,
     TRANSPORT_EJECT        = 0x0B8,
+    TRANSPORT_RANDOM_PLAY  = 0x0B9,
     TRANSPORT_STOP_EJECT   = 0x0CC,
     TRANSPORT_PLAY_PAUSE   = 0x0CD,
     // 15.9.1 Audio Controls - Volume
@@ -73,6 +75,7 @@ enum consumer_usages {
     AL_LOCK                = 0x19E,
     AL_CONTROL_PANEL       = 0x19F,
     AL_ASSISTANT           = 0x1CB,
+    AL_KEYBOARD_LAYOUT     = 0x1AE,
     // 15.16 Generic GUI Application Controls
     AC_MINIMIZE            = 0x206,
     AC_SEARCH              = 0x221,
@@ -120,12 +123,6 @@ enum desktop_usages {
 #endif
 
 #define KEYBOARD_REPORT_KEYS 6
-
-/* VUSB hardcodes keyboard and mouse+extrakey only */
-#if defined(PROTOCOL_VUSB)
-#    undef KEYBOARD_SHARED_EP
-#    undef MOUSE_SHARED_EP
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -190,7 +187,11 @@ typedef struct {
 
 typedef struct {
 #if JOYSTICK_AXES_COUNT > 0
+#    if JOYSTICK_AXES_RESOLUTION > 8
+    int16_t axes[JOYSTICK_AXES_COUNT];
+#    else
     int8_t axes[JOYSTICK_AXES_COUNT];
+#    endif
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0
