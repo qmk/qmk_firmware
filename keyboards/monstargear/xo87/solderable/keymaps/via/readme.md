@@ -1,1 +1,1 @@
-# The default keymap for soldered
+# The default VIA keymap for the XO87 Solderable PCB
