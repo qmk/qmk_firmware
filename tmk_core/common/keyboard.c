@@ -60,9 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif
-#ifdef FAUXCLICKY_ENABLE
-#    include "fauxclicky.h"
-#endif
 #ifdef SERIAL_LINK_ENABLE
 #    include "serial_link/system/serial_link.h"
 #endif
@@ -311,9 +308,6 @@ void keyboard_init(void) {
 #endif
 #ifdef STENO_ENABLE
     steno_init();
-#endif
-#ifdef FAUXCLICKY_ENABLE
-    fauxclicky_init();
 #endif
 #ifdef POINTING_DEVICE_ENABLE
     pointing_device_init();

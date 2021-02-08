@@ -80,11 +80,6 @@ ifeq ($(strip $(VIRTSER_ENABLE)), yes)
     OPT_DEFS += -DVIRTSER_ENABLE
 endif
 
-ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
-    OPT_DEFS += -DFAUXCLICKY_ENABLE
-    SRC += $(QUANTUM_DIR)/fauxclicky.c
-endif
-
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     OPT_DEFS += -DMOUSEKEY_ENABLE
     OPT_DEFS += -DMOUSE_ENABLE

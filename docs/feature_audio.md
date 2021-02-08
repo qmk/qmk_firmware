@@ -215,12 +215,6 @@ This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to s
     AU_OFF,
     AU_TOG,
 
-    #ifdef FAUXCLICKY_ENABLE
-        FC_ON,
-        FC_OFF,
-        FC_TOG,
-    #endif
-
     // Music mode on/off/toggle
     MU_ON,
     MU_OFF,
