@@ -30,7 +30,8 @@ enum hid_report_ids {
     REPORT_ID_SYSTEM,
     REPORT_ID_CONSUMER,
     REPORT_ID_NKRO,
-    REPORT_ID_JOYSTICK
+    REPORT_ID_JOYSTICK,
+    REPORT_ID_GAMEPAD
 };
 
 /* Mouse buttons */
@@ -196,6 +197,29 @@ typedef struct {
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
 } __attribute__((packed)) joystick_report_t;
+
+#ifdef GAMEPAD_ENABLE
+typedef struct {
+#ifdef SWITCH_CONTROLLER_ENABLE
+    uint16_t Button; // 16 buttons; see JoystickButtons_t for bit mapping
+    uint8_t  HAT;    // HAT switch; one nibble w/ unused nibble
+    uint8_t  LX;     // Left  Stick X
+    uint8_t  LY;     // Left  Stick Y
+    uint8_t  RX;     // Right Stick X
+    uint8_t  RY;     // Right Stick Y
+    uint8_t  VendorSpec;
+#else
+    // TODO add generic gamepad report
+    uint16_t Button; // 16 buttons; see JoystickButtons_t for bit mapping
+    uint8_t  HAT;    // HAT switch; one nibble w/ unused nibble
+    uint8_t  LX;     // Left  Stick X
+    uint8_t  LY;     // Left  Stick Y
+    uint8_t  RX;     // Right Stick X
+    uint8_t  RY;     // Right Stick Y
+    uint8_t  VendorSpec;
+#endif
+} report_gamepad_t;
+#endif
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {

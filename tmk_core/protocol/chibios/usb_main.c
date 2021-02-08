@@ -51,6 +51,10 @@ extern keymap_config_t keymap_config;
 #    include "joystick.h"
 #endif
 
+#ifdef GAMEPAD_ENABLE
+#    include "gamepad.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -109,7 +113,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
         return &desc;
 }
 
-#ifndef KEYBOARD_SHARED_EP
+#if !defined(KEYBOARD_SHARED_EP) && defined(KEYBOARD_ENABLE)
 /* keyboard endpoint state structure */
 static USBInEndpointState kbd_ep_state;
 /* keyboard endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
@@ -254,6 +258,9 @@ typedef struct {
 #ifdef JOYSTICK_ENABLE
             usb_driver_config_t joystick_driver;
 #endif
+#ifdef GAMEPAD_ENABLE
+            usb_driver_config_t gamepad_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -298,6 +305,14 @@ static usb_driver_configs_t drivers = {
 #    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
     .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
 #endif
+
+#ifdef GAMEPAD_ENABLE
+#    define GAMEPAD_IN_CAPACITY 4
+#    define GAMEPAD_OUT_CAPACITY 4
+#    define GAMEPAD_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define GAMEPAD_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .gamepad_driver = QMK_USB_DRIVER_CONFIG(GAMEPAD, 0, false),
+#endif
 };
 
 #define NUM_USB_DRIVERS (sizeof(drivers) / sizeof(usb_driver_config_t))
@@ -317,7 +332,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
         case USB_EVENT_CONFIGURED:
             osalSysLockFromISR();
             /* Enable the endpoints specified into the configuration. */
-#ifndef KEYBOARD_SHARED_EP
+#if !defined(KEYBOARD_SHARED_EP) && defined(KEYBOARD_ENABLE)
             usbInitEndpointI(usbp, KEYBOARD_IN_EPNUM, &kbd_ep_config);
 #endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
@@ -426,11 +441,12 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                 switch (usbp->setup[1]) { /* bRequest */
                     case HID_GET_REPORT:
                         switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
+#ifdef KEYBOARD_ENABLE
                             case KEYBOARD_INTERFACE:
                                 usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
                                 return TRUE;
                                 break;
-
+#endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
                             case MOUSE_INTERFACE:
                                 usbSetupTransfer(usbp, (uint8_t *)&mouse_report_blank, sizeof(mouse_report_blank), NULL);
@@ -446,7 +462,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                         break;
 
                     case HID_GET_PROTOCOL:
-                        if ((usbp->setup[4] == KEYBOARD_INTERFACE) && (usbp->setup[5] == 0)) { /* wIndex */
+                        if ((usbp->setup[4] == 0) && (usbp->setup[5] == 0)) { /* wIndex */
                             usbSetupTransfer(usbp, &keyboard_protocol, 1, NULL);
                             return TRUE;
                         }
@@ -463,7 +479,9 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                 switch (usbp->setup[1]) { /* bRequest */
                     case HID_SET_REPORT:
                         switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
+#ifdef KEYBOARD_ENABLE
                             case KEYBOARD_INTERFACE:
+#endif
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                             case SHARED_INTERFACE:
 #endif
@@ -474,7 +492,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                         break;
 
                     case HID_SET_PROTOCOL:
-                        if ((usbp->setup[4] == KEYBOARD_INTERFACE) && (usbp->setup[5] == 0)) { /* wIndex */
+                        if ((usbp->setup[4] == 0) && (usbp->setup[5] == 0)) { /* wIndex */
                             keyboard_protocol = ((usbp->setup[2]) != 0x00);                    /* LSB(wValue) */
 #ifdef NKRO_ENABLE
                             keymap_config.nkro = !!keyboard_protocol;
@@ -579,7 +597,7 @@ void init_usb_driver(USBDriver *usbp) {
  * ---------------------------------------------------------
  */
 /* keyboard IN callback hander (a kbd report has made it IN) */
-#ifndef KEYBOARD_SHARED_EP
+#if !defined(KEYBOARD_SHARED_EP) && defined(KEYBOARD_ENABLE)
 void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
     /* STUB */
     (void)usbp;
@@ -612,9 +630,11 @@ static void keyboard_idle_timer_cb(void *arg) {
     if (keyboard_idle && keyboard_protocol) {
 #endif /* NKRO_ENABLE */
         /* TODO: are we sure we want the KBD_ENDPOINT? */
+#ifdef KEYBOARD_ENABLE
         if (!usbGetTransmitStatusI(usbp, KEYBOARD_IN_EPNUM)) {
             usbStartTransmitI(usbp, KEYBOARD_IN_EPNUM, (uint8_t *)&keyboard_report_sent, KEYBOARD_EPSIZE);
         }
+#endif
         /* rearm the timer */
         chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
     }
@@ -630,6 +650,7 @@ uint8_t keyboard_leds(void) { return keyboard_led_stats; }
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
+#ifdef KEYBOARD_ENABLE
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         goto unlock;
@@ -686,6 +707,7 @@ void send_keyboard(report_keyboard_t *report) {
 
 unlock:
     osalSysUnlock();
+#endif
 }
 
 /* ---------------------------------------------------------
@@ -936,6 +958,38 @@ void send_joystick_packet(joystick_t *joystick) {
 
     usbStartTransmitI(&USB_DRIVER, JOYSTICK_IN_EPNUM, (uint8_t *)&rep, sizeof(joystick_report_t));
     osalSysUnlock();
+}
+
+#endif
+
+#ifdef GAMEPAD_ENABLE
+
+void send_gamepad(report_gamepad_t *report) {
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    usbStartTransmitI(&USB_DRIVER, GAMEPAD_IN_EPNUM, (uint8_t *)report, sizeof(report_gamepad_t));
+    osalSysUnlock();
+}
+
+bool recv_gamepad_packet(report_gamepad_t *const report) {
+    size_t size = chnReadTimeout(&drivers.gamepad_driver.driver, (uint8_t *)report, sizeof(report_gamepad_t), TIME_IMMEDIATE);
+    return size == sizeof(report_gamepad_t);
+}
+
+void gamepad_ep_task(void) {
+    uint8_t buffer[GAMEPAD_EPSIZE];
+    size_t  size = 0;
+    do {
+        size_t size = chnReadTimeout(&drivers.gamepad_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+        if (size > 0) {
+            report_gamepad_t report;
+            recv_gamepad_packet(&report);
+        }
+    } while (size > 0);
 }
 
 #endif

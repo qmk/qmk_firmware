@@ -55,7 +55,7 @@
 typedef struct {
     USB_Descriptor_Configuration_Header_t Config;
 
-#ifndef KEYBOARD_SHARED_EP
+#if !defined(KEYBOARD_SHARED_EP) && defined(KEYBOARD_ENABLE)
     // Keyboard HID Interface
     USB_Descriptor_Interface_t Keyboard_Interface;
     USB_HID_Descriptor_HID_t   Keyboard_HID;
@@ -129,16 +129,30 @@ typedef struct {
     USB_Descriptor_Interface_t Joystick_Interface;
     USB_HID_Descriptor_HID_t   Joystick_HID;
     USB_Descriptor_Endpoint_t  Joystick_INEndpoint;
+    #ifdef SWITCH_CONTROLLER_ENABLE
+    USB_Descriptor_Endpoint_t  Joystick_OUTEndpoint;
+    #endif
 #endif
+
+#ifdef GAMEPAD_ENABLE
+    // Gamepad HID Interface
+    USB_Descriptor_Interface_t Gamepad_Interface;
+    USB_HID_Descriptor_HID_t   Gamepad_HID;
+    USB_Descriptor_Endpoint_t  Gamepad_INEndpoint;
+    USB_Descriptor_Endpoint_t  Gamepad_OUTEndpoint;
+#endif
+
 } USB_Descriptor_Configuration_t;
 
 /*
  * Interface indexes
  */
 enum usb_interfaces {
-#ifndef KEYBOARD_SHARED_EP
+#if !defined(KEYBOARD_SHARED_EP) && defined(KEYBOARD_ENABLE)
     KEYBOARD_INTERFACE,
-#else
+#endif
+
+#ifdef KEYBOARD_SHARED_EP
 #    define KEYBOARD_INTERFACE SHARED_INTERFACE
 #endif
 
@@ -171,8 +185,12 @@ enum usb_interfaces {
     CDI_INTERFACE,
 #endif
 
-#if defined(JOYSTICK_ENABLE)
+#ifdef JOYSTICK_ENABLE
     JOYSTICK_INTERFACE,
+#endif
+
+#ifdef GAMEPAD_ENABLE
+    GAMEPAD_INTERFACE,
 #endif
     TOTAL_INTERFACES
 };
@@ -185,9 +203,10 @@ enum usb_interfaces {
 enum usb_endpoints {
     __unused_epnum__ = NEXT_EPNUM,  // Endpoint numbering starts at 1
 
-#ifndef KEYBOARD_SHARED_EP
+#if !defined(KEYBOARD_SHARED_EP) && defined(KEYBOARD_ENABLE)
     KEYBOARD_IN_EPNUM = NEXT_EPNUM,
-#else
+#endif
+#ifdef KEYBOARD_SHARED_EP
 #    define KEYBOARD_IN_EPNUM SHARED_IN_EPNUM
 #endif
 
@@ -234,9 +253,15 @@ enum usb_endpoints {
 #    define CDC_IN_EPADDR (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
 #    define CDC_OUT_EPADDR (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
 #endif
+    
 #ifdef JOYSTICK_ENABLE
     JOYSTICK_IN_EPNUM  = NEXT_EPNUM,
     JOYSTICK_OUT_EPNUM = NEXT_EPNUM,
+#endif
+
+#ifdef GAMEPAD_ENABLE
+    GAMEPAD_IN_EPNUM  = NEXT_EPNUM,
+    GAMEPAD_OUT_EPNUM = NEXT_EPNUM,
 #endif
 };
 
@@ -262,6 +287,7 @@ enum usb_endpoints {
 #define MIDI_STREAM_EPSIZE 64
 #define CDC_NOTIFICATION_EPSIZE 8
 #define CDC_EPSIZE 16
+#define GAMEPAD_EPSIZE 64
 #define JOYSTICK_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);

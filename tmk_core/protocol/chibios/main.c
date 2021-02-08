@@ -82,8 +82,13 @@ void raw_hid_task(void);
 #ifdef CONSOLE_ENABLE
 void console_task(void);
 #endif
+
 #ifdef MIDI_ENABLE
 void midi_ep_task(void);
+#endif
+
+#ifdef GAMEPAD_ENABLE
+void gamepad_ep_task(void);
 #endif
 
 /* TESTING
@@ -253,6 +258,9 @@ int main(void) {
 #endif
 #ifdef MIDI_ENABLE
         midi_ep_task();
+#endif   
+#ifdef GAMEPAD_ENABLE
+        gamepad_ep_task();
 #endif
 #ifdef VIRTSER_ENABLE
         virtser_task();

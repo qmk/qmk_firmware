@@ -20,6 +20,11 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
+KEYBOARD_ENABLE ?= yes
+ifeq ($(strip $(KEYBOARD_ENABLE)), yes)
+    OPT_DEFS += -DKEYBOARD_ENABLE
+endif
+
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     OPT_DEFS += -DAPI_SYSEX_ENABLE
     OPT_DEFS += -DAPI_ENABLE
@@ -522,4 +527,9 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
     SRC += analog.c
+endif
+
+ifeq ($(strip $(SWITCH_CONTROLLER_ENABLE)), yes)
+    OPT_DEFS += -DSWITCH_CONTROLLER_ENABLE
+    OPT_DEFS += -DGAMEPAD_ENABLE
 endif
