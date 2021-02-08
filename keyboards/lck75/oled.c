@@ -1,3 +1,4 @@
+/* Copyright 2020 @wafflekeebs/@waffle#6666(oled code) */
 #pragma once
 
 extern uint8_t is_master;
