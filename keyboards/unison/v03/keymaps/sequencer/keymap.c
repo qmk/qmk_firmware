@@ -75,15 +75,15 @@ enum custom_keycodes {
     ALT_JA,
     GUI_EN,
     GUI_JA,
-    SQT_0,
-    SQT_1,
-    SQT_2,
-    SQT_3,
-    SQT_4,
-    SQT_5,
-    SQT_6,
-    SQT_7,
     SEQ_TOG,
+    SEQ_TT0,
+    SEQ_TT1,
+    SEQ_TT2,
+    SEQ_TT3,
+    SEQ_TT4,
+    SEQ_TT5,
+    SEQ_TT6,
+    SEQ_TT7,
 };
 
 // Key Macro
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,SEQ_TOG,_______,SQ_TMPD,SQ_TMPU,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         SQ_0,       SQ_1,   SQ_2,   SQ_3,   SQ_4,   SQ_5,   SQ_6,   SQ_7,   SQ_8,   SQ_9,   SQ_10,  SQ_11,  SQ_12,  SQ_13,  SQ_14,      SQ_15,
         SQ_16,      SQ_17,  SQ_18,  SQ_19,  SQ_20,  SQ_21,  SQ_22,  SQ_23,  SQ_24,  SQ_25,  SQ_26,  SQ_27,  SQ_28,  SQ_29,  SQ_30,      SQ_31,
-        SQT_BD, SQT_BD, SQT_SN, SQT_HC, SQT_HO, SQT_CR, SQT_RD, _______,_______,SQ_T(0),SQ_T(1),SQT_2,SQT_3,SQT_4,SQT_5,SQT_6,SQT_7,
+        SQT_BD, SQT_BD, SQT_SN, SQT_HC, SQT_HO, SQT_CR, SQT_RD, _______,_______,SEQ_TT0,SEQ_TT1,SEQ_TT2,SEQ_TT3,SEQ_TT4,SEQ_TT5,SEQ_TT6,SEQ_TT7,
         SQ_SALL,SQ_SCLR,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
     [_LOWER] = LAYOUT(
@@ -232,15 +232,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SQT_0: // Toggle Sqeuencer on/off
+        case SEQ_TT0 ... SEQ_TT7:
             if (record->event.pressed) {
-                sequencer_deactivate_track(0);
-            }
-            return false;
-            break;
-        case SQT_1: // Toggle Sqeuencer on/off
-            if (record->event.pressed) {
-                sequencer_deactivate_track(1);
+                sequencer_toggle_track_activation(keycode - SEQ_TT0);
+                // if (is_sequencer_track_active(keycode - SEQ_TT0)) {
+                //     sequencer_deactivate_track(keycode - SEQ_TT0);
+                // } else {
+                //     sequencer_activate_track(keycode - SEQ_TT0);
+                // }
             }
             return false;
             break;
