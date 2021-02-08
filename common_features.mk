@@ -636,3 +636,11 @@ endif
 ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
     OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
 endif
+
+USBPD_ENABLE ?= no
+ifeq ($(strip $(USBPD_ENABLE)), yes)
+    OPT_DEFS += -DUSBPD_ENABLE
+    ifeq ($(MCU_SERIES), STM32G4xx)
+        SRC += usbpd_stm32g4.c
+    endif
+endif
