@@ -75,7 +75,6 @@ enum custom_keycodes {
     ALT_JA,
     GUI_EN,
     GUI_JA,
-    TOG_SEQ,
     SQT_0,
     SQT_1,
     SQT_2,
@@ -84,6 +83,7 @@ enum custom_keycodes {
     SQT_5,
     SQT_6,
     SQT_7,
+    SEQ_TOG,
 };
 
 // Key Macro
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_OCTD,MI_OCT_0,MI_OCTU,XXXXXXX,XXXXXXX,LOWER,  LOWER,  XXXXXXX,XXXXXXX,XXXXXXX,RAISE,  RAISE,  RAISE,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_SEQUENCER] = LAYOUT(
-        _______,_______,_______,_______,TOG_SEQ,_______,SQ_TMPD,SQ_TMPU,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,SEQ_TOG,_______,SQ_TMPD,SQ_TMPU,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         SQ_0,       SQ_1,   SQ_2,   SQ_3,   SQ_4,   SQ_5,   SQ_6,   SQ_7,   SQ_8,   SQ_9,   SQ_10,  SQ_11,  SQ_12,  SQ_13,  SQ_14,      SQ_15,
         SQ_16,      SQ_17,  SQ_18,  SQ_19,  SQ_20,  SQ_21,  SQ_22,  SQ_23,  SQ_24,  SQ_25,  SQ_26,  SQ_27,  SQ_28,  SQ_29,  SQ_30,      SQ_31,
         SQT_BD, SQT_BD, SQT_SN, SQT_HC, SQT_HO, SQT_CR, SQT_RD, _______,_______,SQ_T(0),SQ_T(1),SQT_2,SQT_3,SQT_4,SQT_5,SQT_6,SQT_7,
@@ -220,7 +220,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case TOG_SEQ: // Toggle Sqeuencer on/off
+        case SEQ_TOG: // Toggle Sqeuencer on/off
             if (record->event.pressed) {
                 if(is_sequencer_on()) {
                     sequencer_off();
