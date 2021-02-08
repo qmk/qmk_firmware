@@ -90,13 +90,13 @@ __attribute__((weak)) void oled_task_user(void) {
 			oled_set_cursor(0,11);
 			oled_write_P(PSTR("THREE\n"), false);
 			break;
-        case 3:
+		case 3:
 			oled_set_cursor(0,11);
-			oled_write_P(PSTR("FOUR\n"), false);
+			oled_write_P(PSTR(" FOUR\n"), false);
 			break;
 		case 4:
 			oled_set_cursor(0,11);
-			oled_write_P(PSTR("FIVE\n"), false);
+			oled_write_P(PSTR(" FIVE\n"), false);
 			break;
 		case 5:
 			oled_set_cursor(0,11);
