@@ -33,7 +33,7 @@ def main():
         firmware = inf.read()
 
     with open(out, "wb") as outf:
-        outf.write(b"VIALFW00")
+        outf.write(b"VIALFW01")
         outf.write(uid)
         outf.write(struct.pack("<Q", int(time.time())))
         outf.write(b"\x00" * 8)
