@@ -33,7 +33,7 @@
 #define QUARTER_NOTE(note) MUSICAL_NOTE(note, 16)
 #define EIGHTH_NOTE(note) MUSICAL_NOTE(note, 8)
 #define SIXTEENTH_NOTE(note) MUSICAL_NOTE(note, 4)
-#define THIRTYTWOTH_NOTE(note) MUSICAL_NOTE(note, 2)
+#define THIRTYSECOND_NOTE(note) MUSICAL_NOTE(note, 2)
 
 #define BREVE_DOT_NOTE(note) MUSICAL_NOTE(note, 128 + 64)
 #define WHOLE_DOT_NOTE(note) MUSICAL_NOTE(note, 64 + 32)
@@ -41,6 +41,7 @@
 #define QUARTER_DOT_NOTE(note) MUSICAL_NOTE(note, 16 + 8)
 #define EIGHTH_DOT_NOTE(note) MUSICAL_NOTE(note, 8 + 4)
 #define SIXTEENTH_DOT_NOTE(note) MUSICAL_NOTE(note, 4 + 2)
+#define THIRTYSECOND_DOT_NOTE(note) MUSICAL_NOTE(note, 2 + 1)
 // duration of 64 units == one beat == one whole note
 // with a tempo of 60bpm this comes to a length of one second
 
@@ -52,13 +53,14 @@
 #define Q__NOTE(n) QUARTER_NOTE(n)
 #define E__NOTE(n) EIGHTH_NOTE(n)
 #define S__NOTE(n) SIXTEENTH_NOTE(n)
-#define T__NOTE(n) THIRTYTWOTH_NOTE(n)
+#define T__NOTE(n) THIRTYSECOND_NOTE(n)
 #define BD_NOTE(n) BREVE_DOT_NOTE(n)
 #define WD_NOTE(n) WHOLE_DOT_NOTE(n)
 #define HD_NOTE(n) HALF_DOT_NOTE(n)
 #define QD_NOTE(n) QUARTER_DOT_NOTE(n)
 #define ED_NOTE(n) EIGHTH_DOT_NOTE(n)
 #define SD_NOTE(n) SIXTEENTH_DOT_NOTE(n)
+#define TD_NOTE(n) THIRTYSECOND_DOT_NOTE(n)
 
 // Note Timbre
 // Changes how the notes sound
