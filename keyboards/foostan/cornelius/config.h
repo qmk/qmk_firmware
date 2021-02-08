@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Yushakobo
 #define PRODUCT      Cornelius
-#define DESCRIPTION  Gasket mounted 40% column staggered keyboard.
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
