@@ -18,10 +18,3 @@
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 #    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 #endif
-
-
-#if defined(AUDIO_ENABLE) && defined(AUDIO_DRIVER_DAC) && !defined(AUDIO_PIN)
-#    define AUDIO_PIN A5
-#    define AUDIO_PIN_ALT A4
-#    define AUDIO_PIN_ALT_AS_NEGATIVE
-#endif

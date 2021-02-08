@@ -22,3 +22,7 @@
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 2   // The led to start at
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 5  // How many LEDs to travel
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4    // How many LEDs wide to light up
+
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE

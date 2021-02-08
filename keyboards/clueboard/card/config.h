@@ -23,4 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 6
 
 // Enable audio
-#define C6_AUDIO
+#define AUDIO_PIN C6

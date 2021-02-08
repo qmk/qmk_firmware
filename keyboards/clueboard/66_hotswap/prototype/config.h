@@ -3,7 +3,7 @@
 
 /* Speaker configuration
  */
-#define B7_AUDIO
+#define AUDIO_PIN B7
 #define NO_MUSIC_MODE
 #define AUDIO_CLICKY
 
