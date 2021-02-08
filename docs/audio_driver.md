@@ -17,6 +17,7 @@ The possible configurations are:
 | two speakers | C4,C5 or C6 | B4, B5 or B7 |
 
 Currently there is only one/default driver for AVR based boards, which is automatically configured to:
+
 ```make
 AUDIO_DRIVER = pwm_hardware
 ```
@@ -54,12 +55,59 @@ piezo speakers are marked with :one: for the first/primary and :two: for the sec
 The default driver for ARM boards, in absence of an overriding configuration.
 This driver needs one Timer per enabled/used DAC channel, to trigger conversion; and a third timer to trigger state updates with the audio-core.
 
+Additionally, in the board config, you'll want to make changes to enable the DACs, GPT for Timers 6, 7 and 8:
+
+``` c
+//halconf.h:
+#define HAL_USE_DAC                 TRUE
+#define HAL_USE_GPT                 TRUE
+```
+
+``` c
+// mcuconf.h:
+#define STM32_DAC_USE_DAC1_CH1              TRUE
+#define STM32_DAC_USE_DAC1_CH2              TRUE
+#define STM32_GPT_USE_TIM6                  TRUE
+#define STM32_GPT_USE_TIM7                  TRUE
+#define STM32_GPT_USE_TIM8                  TRUE
+```
+
 
 ### DAC additive :id=dac-additive
 
 only needs one timer (GPTD6, Tim6) to trigger the DAC unit to do a conversion; the audio state updates are in turn triggered during the DAC callback.
 
+Additionally, in the board config, you'll want to make changes to enable the DACs, GPT for Timer 6:
+
+``` c
+//halconf.h:
+#define HAL_USE_DAC                 TRUE
+#define HAL_USE_GPT                 TRUE
+```
+
+``` c
+// mcuconf.h:
+#define STM32_DAC_USE_DAC1_CH1              TRUE
+#define STM32_DAC_USE_DAC1_CH2              TRUE
+#define STM32_GPT_USE_TIM6                  TRUE
+```
+
 ### DAC Config
+
+| Define                           | Defaults                   | Description                                                --------------------------------------------------------------------------------------------- |
+| `AUDIO_DAC_SAMPLE_MAX`           | `4095U`                    | Highest value allowed. Lower value means lower volume. And 4095U is the upper limit, since this is limited to a 12 bit value. Only effects non-pregenerated samples.  |
+| `AUDIO_DAC_OFF_VALUE`            | `AUDIO_DAC_SAMPLE_MAX / 2` | The value of the DAC when notplaying anything. Some setups may require a high (`AUDIO_DAC_SAMPLE_MAX`) or low (`0`) value here.                                        |
+| `AUDIO_MAX_SIMULTANEOUS_TONES`   | __see next table__         | The number of tones that can be played simultaneously.  A value that is too high may freeze the controller or glitch out when too many tones are being played.        |
+| `AUDIO_DAC_SAMPLE_RATE`          | __see next table__         | Effective bit rate of the DAC (in hertz), higher limits simultaneous tones, and lower sacrifices quality.                                                          |
+
+There are a number of predefined quality settings that you can use, with "sane minimum" being the default.  You can use custom values by simply defining the sample rate and number of simultaneous tones, instead of using one of the listed presets. 
+
+| Define                            | Sample Rate | Simultaneous tones  |
+| `AUDIO_DAC_QUALITY_VERY_LOW`      | `11025U`    | `8`                 |
+| `AUDIO_DAC_QUALITY_LOW`           | `22040U`    | `4`                 |
+| `AUDIO_DAC_QUALITY_HIGH`          | `44100U`    | `2`                 |
+| `AUDIO_DAC_QUALITY_VERY_HIGH`     | `88200U`    | `1`                 |
+| `AUDIO_DAC_QUALITY_SANE_MINIMUM`  | `16384U`    | `8`                 |
 
 
 ```c

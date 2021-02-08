@@ -9,17 +9,18 @@ On Atmega32U4 based boards, up to two simultaneous tones can be rendered.
 With one speaker connected to a PWM capable pin on PORTC driven by timer 3 and the other on one of the PWM pins on PORTB driven by timer 1.
 
 The following pins can be configured as audio outputs in `config.h` - for one speaker set eiter one out of:
-`#define AUDIO_PIN C4`
-`#define AUDIO_PIN C5`
-`#define AUDIO_PIN C6`
-`#define AUDIO_PIN B5`
-`#define AUDIO_PIN B6`
-`#define AUDIO_PIN B7`
+
+* `#define AUDIO_PIN C4`
+* `#define AUDIO_PIN C5`
+* `#define AUDIO_PIN C6`
+* `#define AUDIO_PIN B5`
+* `#define AUDIO_PIN B6`
+* `#define AUDIO_PIN B7`
 
 and *optionally*, for a second speaker, one of:
-`#define AUDIO_PIN_ALT B5`
-`#define AUDIO_PIN_ALT B6`
-`#define AUDIO_PIN_ALT B7`
+* `#define AUDIO_PIN_ALT B5`
+* `#define AUDIO_PIN_ALT B6`
+* `#define AUDIO_PIN_ALT B7`
 
 ### Wiring
 per speaker is - for example with a piezo buzzer - the black lead to Ground, and the red lead connected to the selected AUDIO_PIN for the primary; and similarly with AUDIO_PIN_ALT for the secondary.
@@ -28,13 +29,14 @@ per speaker is - for example with a piezo buzzer - the black lead to Ground, and
 ## ARM based boards
 for more technical details, see the notes on [Audio driver](audio_driver.md).
 
+<!-- because I'm not sure where to fit this in: https://waveeditonline.com/ -->
 ### DAC (basic)
 Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac_basic` to `rules.mk` and set in `config.h` either:
-`#define AUDIO_PIN A4`
-OR
-`#define AUDIO_PIN A5`
+
+`#define AUDIO_PIN A4` or `#define AUDIO_PIN A5`
 
 the other DAC channel can optionally be used with a secondary speaker, just set:
+
 `#define AUDIO_PIN_ALT A4` or `#define AUDIO_PIN_ALT A5`
 
 Do note though that the dac_basic driver is only capable of reproducing one tone per speaker/channel at a time, for more tones simultaneously, try the dac_additive driver.
@@ -48,12 +50,12 @@ wiring red to A4 and black to A5 (or the other way round) and add `#define AUDIO
 ##### Proton-C Example:
 The Proton-C comes (optionally) with one 'builtin' piezo, which is wired to A4+A5.
 For this board `config.h` would include these defines:
+
 ```c
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
 ```
-
 
 ### DAC (additive)
 Another option, besides dac_basic (which produces sound through a square-wave), is to use the DAC to do additive wave synthesis.
@@ -61,10 +63,12 @@ With a number of predefined wave-forms or by providing your own implementation t
 To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`, and select in `config.h` EITHER `#define AUDIO_PIN A4` or `#define AUDIO_PIN A5`.
 
 The used waveform *defaults* to sine, but others can be selected by adding one of the following defines to `config.h`:
-`#define AUDIO_DAC_SAMPLE_WAVEFORM_SINE`
-`#define AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE`
-`#define AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID`
-`#define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE`
+
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_SINE`
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE`
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID`
+* `#define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE`
+
 Should you rather choose to generate and use your own sample-table with the DAC unit, implement `uint16_t dac_value_generate(void)` with your keyboard - for an example implementation see keyboards/planck/keymaps/synth_sample or keyboards/planck/keymaps/synth_wavetable
 
 
@@ -73,9 +77,9 @@ if the DAC pins are unavailable (or the MCU has no usable DAC at all, like STM32
 Note that there is currently only one speaker/pin supported.
 
 set in `rules.mk`:
-`AUDIO_DRIVER = pwm_software` and in `config.h`
-`#define AUDIO_PIN C13` (can be any pin)
-to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
+
+`AUDIO_DRIVER = pwm_software` and in `config.h`: 
+`#define AUDIO_PIN C13` (can be any pin) to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
 
 #### Wiring
 the usual piezo wiring: red goes to the selected AUDIO_PIN, black goes to ground.
