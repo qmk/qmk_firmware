@@ -59,6 +59,26 @@ This driver needs one Timer per enabled/used DAC channel, to trigger conversion;
 
 only needs one timer (GPTD6, Tim6) to trigger the DAC unit to do a conversion; the audio state updates are in turn triggered during the DAC callback.
 
+### DAC Config
+
+
+```c
+        /* zero crossing (or approach, whereas zero == DAC_OFF_VALUE, which can be configured to anything from 0 to DAC_SAMPLE_MAX)
+         * ============================*=*========================== AUDIO_DAC_SAMPLE_MAX
+         *                          *       *
+         *                        *           *
+         * ---------------------------------------------------------
+         *                     *                 *                  } AUDIO_DAC_SAMPLE_MAX/100
+         * --------------------------------------------------------- AUDIO_DAC_OFF_VALUE
+         *                  *                       *               } AUDIO_DAC_SAMPLE_MAX/100
+         * ---------------------------------------------------------
+         *               *
+         * *           *
+         *   *       *
+         * =====*=*================================================= 0x0
+         */
+```
+
 
 ### PWM hardware :id=pwm-hardware
 
