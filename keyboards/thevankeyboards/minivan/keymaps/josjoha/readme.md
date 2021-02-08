@@ -52,7 +52,8 @@ Table of Contents
      14 Use case
      15 Todo
      16 BUGS
-     17 Author(s)
+     17 Resources
+     18 Author(s)
 
 0 Overview
 ==========
@@ -1459,7 +1460,14 @@ and closing next to each other.
   a lot of #defines. Perhaps it should be done eventually, if there is an actual need.
 
 
-17 Author(s)
+17 Resources
+============
+This links to an external file, with some development resources like
+Gimp .xcf files, and whatever else relating to this ‛Minifan’ layout.
+
+[Resources](http://socialism.nl/misc/minivan/ "Additional resources")
+
+18 Author(s)
 ============
   This keymap.c was edited from the Minivan default, original LED
   support was copied/edited from ../jetpacktuxedo/ keymap. Thanks to 
