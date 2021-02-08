@@ -4,9 +4,9 @@
 
 A fully customizable 65% keyboard with RGB.
 
-Keyboard Maintainer: [Rozakiin](https://github.com/rozakiin)  
-Hardware Supported: 268.2 RGB PCB  
-Hardware Availability: [Noxary](https://noxary.co/collections/268-2-polycarbonate-r3)
+* Keyboard Maintainer: [Rozakiin](https://github.com/rozakiin)
+* Hardware Supported: 268.2 RGB PCB
+* Hardware Availability: [Noxary](https://noxary.co/collections/268-2-polycarbonate-r3)
 
 Make example for this keyboard (after setting up your build environment):
 
