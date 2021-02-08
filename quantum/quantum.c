@@ -697,9 +697,7 @@ void send_byte(uint8_t number) {
     send_nibble(number & 0xF);
 }
 
-void send_nibble(uint8_t number) {
-    tap_code16(hex_to_keycode(number));
-}
+void send_nibble(uint8_t number) { tap_code16(hex_to_keycode(number)); }
 
 __attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {
     hex = hex & 0xF;
