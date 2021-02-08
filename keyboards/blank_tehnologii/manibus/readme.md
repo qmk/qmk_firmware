@@ -1,5 +1,7 @@
 # Manibus keyboard
 
+![Imgur](https://i.imgur.com/0l17Xyy.jpg)
+
 A 5x7 split ergonomic keyboard designed and sold by [Blank Tehnologii](https://blank.computer/).
 
 Keyboard Maintainer: [Alex Paulescu/SamuraiKek](https://github.com/SamuraiKek)
