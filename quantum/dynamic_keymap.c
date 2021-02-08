@@ -209,6 +209,7 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
     if (offset >= dynamic_keymap_eeprom_size || dynamic_keymap_eeprom_size - offset < size)
         return;
 
+#ifndef VIAL_INSECURE
     /* Check whether it is trying to send a RESET keycode; only allow setting these if unlocked */
     if (!vial_unlocked) {
         /* how much of the input array we'll have to check in the loop */
@@ -244,6 +245,7 @@ void dynamic_keymap_set_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
             }
         }
     }
+#endif
 #endif
 
     for (uint16_t i = 0; i < size; i++) {
