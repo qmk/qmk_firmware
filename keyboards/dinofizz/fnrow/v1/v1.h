@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include <hal.h>
 #include "quantum.h"
 
 #define LAYOUT_fn_row( \
