@@ -18,7 +18,6 @@ MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 
-
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm

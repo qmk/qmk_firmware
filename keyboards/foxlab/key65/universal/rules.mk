@@ -25,5 +25,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 AUDIO_ENABLE = no           # Audio output
 
-
 LAYOUTS = 65_ansi_blocker_split_bs # Support community layouts

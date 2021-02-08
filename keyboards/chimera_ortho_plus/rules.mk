@@ -28,7 +28,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
-
 UNICODE_ENABLE = yes
 CUSTOM_MATRIX = yes
 

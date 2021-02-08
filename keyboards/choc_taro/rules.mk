@@ -29,6 +29,5 @@ MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 
-
 CUSTOM_MATRIX = lite
 SRC += matrix.c
