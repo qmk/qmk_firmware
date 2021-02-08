@@ -19,7 +19,7 @@
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
-
+#pragma once
 
 #define ORYX_CONFIGURATOR
 #define ONESHOT_TAP_TOGGLE 1
@@ -35,5 +35,4 @@
 #define LEADER_TIMEOUT 450
 
 #define TAP_CODE_DELAY 40
-
 
