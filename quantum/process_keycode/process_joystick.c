@@ -17,7 +17,6 @@ bool process_joystick(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-
 __attribute__((weak)) void joystick_task(void) {
     if (process_joystick_analogread() && (joystick_status.status & JS_UPDATED)) {
         send_joystick_packet(&joystick_status);
