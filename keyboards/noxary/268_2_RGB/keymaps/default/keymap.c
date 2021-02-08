@@ -21,9 +21,7 @@
 // entirely and just use numbers.
 enum layer_names {
     _BL,
-    _FL1,
-    _FL2,
-    _FL3
+    _FL1
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
