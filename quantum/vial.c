@@ -167,6 +167,13 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
 uint16_t g_vial_magic_keycode_override;
 
 static void exec_keycode(uint16_t keycode) {
+#ifdef VIAL_ENCODER_SIMPLE_TAP
+    register_code16(keycode);
+#if VIAL_ENCODER_KEYCODE_DELAY > 0
+    wait_ms(VIAL_ENCODER_KEYCODE_DELAY);
+#endif
+    unregister_code16(keycode);
+#else
     g_vial_magic_keycode_override = keycode;
 
     action_exec((keyevent_t){
@@ -178,6 +185,7 @@ static void exec_keycode(uint16_t keycode) {
     action_exec((keyevent_t){
         .key = (keypos_t){.row = VIAL_ENCODER_MATRIX_MAGIC, .col = VIAL_ENCODER_MATRIX_MAGIC}, .pressed = 0, .time = (timer_read() | 1) /* time should not be 0 */
     });
+#endif
 }
 
 void vial_encoder_update(uint8_t index, bool clockwise) {
