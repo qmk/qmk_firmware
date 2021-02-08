@@ -31,6 +31,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
+#define TAPPING_TERM 200
+
 //--------------------------------------------------------------------------------------------------------
 
 //disable broken animations

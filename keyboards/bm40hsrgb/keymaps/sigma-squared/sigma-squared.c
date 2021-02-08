@@ -18,12 +18,26 @@
 
 #include "sigma-squared.h"
 
+
+// Tap Dance declarations
+enum {
+    TD_SNOTES,
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_SNOTES] = ACTION_TAP_DANCE_DOUBLE( G(A(C(KC_SPC))) , G(A(C(KC_N))) ),
+};
+
+#define KC_TD(TD_SNOTES) TD(TD_SNOTES)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_sigma2(
     KC_LALT,              KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,              KC_LALT,
     KC_LSFT,              KC_A,              KC_S,              KC_D,              KC_F,              KC_G,              KC_H,              KC_J,              KC_K,              KC_L,              KC_QUOT,           KC_LSFT,
     KC_LCTL,              KC_Z,              KC_X,              KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLSH,           KC_LCTL,
-    G(KC_TAB),            (G(S(KC_S))),      KC_ESC,            LT(MEDR, KC_TAB),  LT(NAVR, KC_SPC),      LT(NSSL, KC_ENT),                 LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_LGUI,           C(KC_GRV),         CMD_TAB
+    G(KC_TAB),            (G(S(KC_S))),      KC_ESC,            LT(MEDR, KC_TAB),  LT(NAVR, KC_SPC),      LT(NSSL, KC_ENT),                 LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_LGUI,           KC_TD(TD_SNOTES),     CMD_TAB
   ),
 
 //layers
