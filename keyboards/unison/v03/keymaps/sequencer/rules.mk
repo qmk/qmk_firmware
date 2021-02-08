@@ -18,3 +18,5 @@ ENCODER_ENABLE = yes
 SEQUENCER_ENABLE = yes
 
 SRC += muse.c
+
+CONSOLE_ENABLE = no
