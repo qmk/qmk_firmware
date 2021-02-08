@@ -220,99 +220,103 @@ static void print_version(void) {
 }
 
 static void print_status(void) {
-    print("\n\t- Status -\n");
+    xprintf(/* clang-format off */
+        "\n\t- Status -\n"
 
-    print_val_hex8(host_keyboard_leds());
+        "host_keyboard_leds(): %02X\n"
 #ifndef PROTOCOL_VUSB
-    // these aren't set on the V-USB protocol, so we just ignore them for now
-    print_val_hex8(keyboard_protocol);
-    print_val_hex8(keyboard_idle);
+        "keyboard_protocol: %02X\n"
+        "keyboard_idle: %02X\n"
 #endif
 #ifdef NKRO_ENABLE
-    print_val_hex8(keymap_config.nkro);
+        "keymap_config.nkro: %02X\n"
 #endif
-    print_val_hex32(timer_read32());
-    return;
+        "timer_read32(): %08lX\n"
+
+        , host_keyboard_leds()
+#ifndef PROTOCOL_VUSB
+        /* these aren't set on the V-USB protocol, so we just ignore them for now */
+        , keyboard_protocol
+        , keyboard_idle
+#endif
+#ifdef NKRO_ENABLE
+        , keymap_config.nkro
+#endif
+        , timer_read32()
+
+    ); /* clang-format on */
 }
 
-static void print_eeconfig(void) {
-// Print these variables if NO_PRINT or USER_PRINT are not defined.
 #if !defined(NO_PRINT) && !defined(USER_PRINT)
-
-    print("default_layer: ");
-    print_dec(eeconfig_read_default_layer());
-    print("\n");
+static void print_eeconfig(void) {
+    xprintf("eeconfig:\ndefault_layer: %u\n", eeconfig_read_default_layer());
 
     debug_config_t dc;
     dc.raw = eeconfig_read_debug();
-    print("debug_config.raw: ");
-    print_hex8(dc.raw);
-    print("\n");
-    print(".enable: ");
-    print_dec(dc.enable);
-    print("\n");
-    print(".matrix: ");
-    print_dec(dc.matrix);
-    print("\n");
-    print(".keyboard: ");
-    print_dec(dc.keyboard);
-    print("\n");
-    print(".mouse: ");
-    print_dec(dc.mouse);
-    print("\n");
+    xprintf(/* clang-format off */
+
+        "debug_config.raw: %02X\n"
+        ".enable: %u\n"
+        ".matrix: %u\n"
+        ".keyboard: %u\n"
+        ".mouse: %u\n"
+
+        , dc.raw
+        , dc.enable
+        , dc.matrix
+        , dc.keyboard
+        , dc.mouse
+    ); /* clang-format on */
 
     keymap_config_t kc;
     kc.raw = eeconfig_read_keymap();
-    print("keymap_config.raw: ");
-    print_hex8(kc.raw);
-    print("\n");
-    print(".swap_control_capslock: ");
-    print_dec(kc.swap_control_capslock);
-    print("\n");
-    print(".capslock_to_control: ");
-    print_dec(kc.capslock_to_control);
-    print("\n");
-    print(".swap_lctl_lgui: ");
-    print_dec(kc.swap_lctl_lgui);
-    print("\n");
-    print(".swap_rctl_rgui: ");
-    print_dec(kc.swap_rctl_rgui);
-    print("\n");
-    print(".swap_lalt_lgui: ");
-    print_dec(kc.swap_lalt_lgui);
-    print("\n");
-    print(".swap_ralt_rgui: ");
-    print_dec(kc.swap_ralt_rgui);
-    print("\n");
-    print(".no_gui: ");
-    print_dec(kc.no_gui);
-    print("\n");
-    print(".swap_grave_esc: ");
-    print_dec(kc.swap_grave_esc);
-    print("\n");
-    print(".swap_backslash_backspace: ");
-    print_dec(kc.swap_backslash_backspace);
-    print("\n");
-    print(".nkro: ");
-    print_dec(kc.nkro);
-    print("\n");
+    xprintf(/* clang-format off */
+
+        "keymap_config.raw: %02X\n"
+        ".swap_control_capslock: %u\n"
+        ".capslock_to_control: %u\n"
+        ".swap_lctl_lgui: %u\n"
+        ".swap_rctl_rgui: %u\n"
+        ".swap_lalt_lgui: %u\n"
+        ".swap_ralt_rgui: %u\n"
+        ".no_gui: %u\n"
+        ".swap_grave_esc: %u\n"
+        ".swap_backslash_backspace: %u\n"
+        ".nkro: %u\n"
+
+        , kc.raw
+        , kc.swap_control_capslock
+        , kc.capslock_to_control
+        , kc.swap_lctl_lgui
+        , kc.swap_rctl_rgui
+        , kc.swap_lalt_lgui
+        , kc.swap_ralt_rgui
+        , kc.no_gui
+        , kc.swap_grave_esc
+        , kc.swap_backslash_backspace
+        , kc.nkro
+    ); /* clang-format on */
 
 #    ifdef BACKLIGHT_ENABLE
+
     backlight_config_t bc;
     bc.raw = eeconfig_read_backlight();
-    print("backlight_config.raw: ");
-    print_hex8(bc.raw);
-    print("\n");
-    print(".enable: ");
-    print_dec(bc.enable);
-    print("\n");
-    print(".level: ");
-    print_dec(bc.level);
-    print("\n");
-#    endif /* BACKLIGHT_ENABLE */
+    xprintf(/* clang-format off */
+        "backlight_config"
 
-#endif /* !NO_PRINT */
+        ".raw: %02X\n"
+        ".enable: %u\n"
+        ".level: %u\n"
+
+        , bc.raw
+        , bc.enable
+        , bc.level
+
+    ); /* clang-format on */
+
+#    endif /* BACKLIGHT_ENABLE */
 }
+#endif /* !NO_PRINT && !USER_PRINT */
 
 static bool command_common(uint8_t code) {
 #ifdef KEYBOARD_LOCK_ENABLE
@@ -332,8 +336,9 @@ static bool command_common(uint8_t code) {
 
         // print stored eeprom config
         case MAGIC_KC(MAGIC_KEY_EEPROM):
-            print("eeconfig:\n");
+#if !defined(NO_PRINT) && !defined(USER_PRINT)
             print_eeconfig();
+#endif /* !NO_PRINT && !USER_PRINT */
             break;
 
         // clear eeprom
@@ -545,7 +550,8 @@ static bool command_console(uint8_t code) {
         case KC_H:
         case KC_SLASH: /* ? */
             command_console_help();
-            break;
+            print("C> ");
+            return true;
         case KC_Q:
         case KC_ESC:
             command_state = ONESHOT;
@@ -561,8 +567,6 @@ static bool command_console(uint8_t code) {
             print("?");
             return false;
     }
-    print("C> ");
-    return true;
 }
 
 #if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
@@ -571,30 +575,28 @@ static bool command_console(uint8_t code) {
  ***********************************************************/
 static uint8_t mousekey_param = 0;
 
-static void mousekey_param_print(void) {
-// Print these variables if NO_PRINT or USER_PRINT are not defined.
 #    if !defined(NO_PRINT) && !defined(USER_PRINT)
-    print("\n\t- Values -\n");
-    print("1: delay(*10ms): ");
-    print_dec(mk_delay);
-    print("\n");
-    print("2: interval(ms): ");
-    print_dec(mk_interval);
-    print("\n");
-    print("3: max_speed: ");
-    print_dec(mk_max_speed);
-    print("\n");
-    print("4: time_to_max: ");
-    print_dec(mk_time_to_max);
-    print("\n");
-    print("5: wheel_max_speed: ");
-    print_dec(mk_wheel_max_speed);
-    print("\n");
-    print("6: wheel_time_to_max: ");
-    print_dec(mk_wheel_time_to_max);
-    print("\n");
-#    endif /* !NO_PRINT */
+static void mousekey_param_print(void) {
+    xprintf(/* clang-format off */
+        "\n\t- Values -\n"
+
+        "1: delay(*10ms): %u\n"
+        "2: interval(ms): %u\n"
+        "3: max_speed: %u\n"
+        "4: time_to_max: %u\n"
+        "5: wheel_max_speed: %u\n"
+        "6: wheel_time_to_max: %u\n"
+
+        , mk_delay
+        , mk_interval
+        , mk_max_speed
+        , mk_time_to_max
+        , mk_wheel_max_speed
+        , mk_wheel_time_to_max
+
+    ); /* clang-format on */
 }
+#    endif /* !NO_PRINT && !USER_PRINT */
 
 //#define PRINT_SET_VAL(v)  print(#v " = "); print_dec(v); print("\n");
 #    define PRINT_SET_VAL(v) xprintf(#    v " = %d\n", (v))
@@ -732,7 +734,9 @@ static bool mousekey_console(uint8_t code) {
             }
             break;
         case KC_P:
+#    if !defined(NO_PRINT) && !defined(USER_PRINT)
             mousekey_param_print();
+#    endif
             break;
         case KC_1:
         case KC_2:
