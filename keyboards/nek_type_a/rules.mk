@@ -29,7 +29,6 @@ MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = yes      # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-
 CUSTOM_MATRIX = yes
 DEBUG_ENABLE = yes
 BLUETOOTH = AdafruitBLE

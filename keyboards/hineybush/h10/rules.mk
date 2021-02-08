@@ -22,5 +22,4 @@ MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 
-
 LAYOUTS = ortho_6x4 numpad_6x4

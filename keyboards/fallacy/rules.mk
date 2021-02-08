@@ -22,7 +22,6 @@ MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 
-
 # project specific files
 SRC += indicators.c \
        drivers/issi/is31fl3731-simple.c

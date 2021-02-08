@@ -30,7 +30,6 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
-
 DEBUG_ENABLE = no
 CUSTOM_MATRIX = no         # Use custom matrix code
 SPLIT_KEYBOARD = yes        # Use shared split_common code

@@ -18,7 +18,6 @@ MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-
 SPLIT_KEYBOARD = yes
 
 LAYOUTS = split_3x5_3

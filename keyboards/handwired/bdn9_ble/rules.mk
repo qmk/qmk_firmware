@@ -32,5 +32,4 @@ MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH = AdafruitBLE       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output on port C6
-
 ENCODER_ENABLE = no

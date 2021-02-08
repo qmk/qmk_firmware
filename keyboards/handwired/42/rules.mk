@@ -31,7 +31,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 AUDIO_ENABLE = no           # Audio output on port C6
 
-
 UNICODE_ENABLE = no         # Unicode
 UNICODEMAP_ENABLE = no      # ^^
 UCIS_ENABLE = no            # ^^

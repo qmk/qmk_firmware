@@ -29,7 +29,6 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
-
 #UNICODEMAP_ENABLE = yes # for emoji user
 #RGBLIGHT_ENABLE = yes # uncomment if you want addressable led strips
 

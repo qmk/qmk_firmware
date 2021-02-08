@@ -29,7 +29,6 @@ MIDI_ENABLE = no            # MIDI support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
-
 LAYOUTS = 66_ansi 66_iso
 
 # Disable unsupported hardware
