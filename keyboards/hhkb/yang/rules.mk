@@ -24,8 +24,8 @@ LAYOUTS = 60_hhkb
 # BLUETOOTH = AdafruitBLE_UART
 
 # Custom matrix file for the HHKB
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 SRC += matrix.c
 
 # Disable debounce
-DEBOUNCE_TYPE = custom
+DEBOUNCE = 0
