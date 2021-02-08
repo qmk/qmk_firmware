@@ -3,25 +3,12 @@
 import json
 import os
 from pathlib import Path
-from decimal import Decimal
-from collections import OrderedDict
 
 from milc import cli
 from kle2xy import KLE2xy
 
 from qmk.converter import kle2qmk
-
-
-class CustomJSONEncoder(json.JSONEncoder):
-    def default(self, obj):
-        try:
-            if isinstance(obj, Decimal):
-                if obj % 2 in (Decimal(0), Decimal(1)):
-                    return int(obj)
-                return float(obj)
-        except TypeError:
-            pass
-        return json.JSONEncoder.default(self, obj)
+from qmk.info_json_encoder import InfoJSONEncoder
 
 
 @cli.argument('filename', help='The KLE raw txt to convert')
@@ -52,24 +39,22 @@ def kle2json(cli):
         cli.log.error('Could not parse KLE raw data: %s', raw_code)
         cli.log.exception(e)
         return False
-    keyboard = OrderedDict(
-        keyboard_name=kle.name,
-        url='',
-        maintainer='qmk',
-        width=kle.columns,
-        height=kle.rows,
-        layouts={'LAYOUT': {
-            'layout': 'LAYOUT_JSON_HERE'
-        }},
-    )
-    # Initialize keyboard with json encoded from ordered dict
-    keyboard = json.dumps(keyboard, indent=4, separators=(', ', ': '), sort_keys=False, cls=CustomJSONEncoder)
-    # Initialize layout with kle2qmk from converter module
-    layout = json.dumps(kle2qmk(kle), separators=(', ', ':'), cls=CustomJSONEncoder)
-    # Replace layout in keyboard json
-    keyboard = keyboard.replace('"LAYOUT_JSON_HERE"', layout)
+    keyboard = {
+        'keyboard_name': kle.name,
+        'url': '',
+        'maintainer': 'qmk',
+        'width': kle.columns,
+        'height': kle.rows,
+        'layouts': {
+            'LAYOUT': {
+                'layout': kle2qmk(kle)
+            }
+        },
+    }
+
     # Write our info.json
-    file = open(out_path / "info.json", "w")
-    file.write(keyboard)
-    file.close()
+    keyboard = json.dumps(keyboard, indent=4, separators=(', ', ': '), sort_keys=False, cls=InfoJSONEncoder)
+    info_json_file = out_path / 'info.json'
+
+    info_json_file.write_text(keyboard)
     cli.log.info('Wrote out {fg_cyan}%s/info.json', out_path)

@@ -45,7 +45,8 @@
 #define COL15_MASK 0x04
 #define COL16_MASK 0x02
 
-#define MATRIX_ROW_PINS { \
+// Note: MATRIX_ROW_PINS only works with standard pin names.
+#define MATRIX_M20_ROW_PINS { \
     DEF_PIN(TCA6424_PORT2, 7), \
     DEF_PIN(TCA6424_PORT2, 6), \
     DEF_PIN(TCA6424_PORT2, 0), \
@@ -53,7 +54,8 @@
     DEF_PIN(TCA6424_PORT2, 4), \
     DEF_PIN(TCA6424_PORT2, 5) }
 
-#define MATRIX_COL_PINS { \
+// Note: MATRIX_COL_PINS only works with standard pin names.
+#define MATRIX_M20_COL_PINS { \
     DEF_PIN(TCA6424_PORT2, 1), \
     DEF_PIN(TCA6424_PORT1, 7), \
     DEF_PIN(TCA6424_PORT1, 6), \

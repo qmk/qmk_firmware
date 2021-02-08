@@ -90,12 +90,15 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
 
-
 MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
+
+# Pull in rules from info.json
+INFO_RULES_MK = $(shell bin/qmk generate-rules-mk --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
+include $(INFO_RULES_MK)
 
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
@@ -136,9 +139,7 @@ ifeq ($(strip $(CTPC)), yes)
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    TARGET := $(TARGET)_proton_c
-    include platforms/chibios/GENERIC_STM32_F303XC/configs/proton_c.mk
-    OPT_DEFS += -DCONVERT_TO_PROTON_C
+    include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
 ifneq ($(FORCE_LAYOUT),)
@@ -272,6 +273,36 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
 
+# Pull in stuff from info.json
+INFO_JSON_FILES :=
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_1)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_2)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_3)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_4)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_5)/info.json
+endif
+
+CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
+
+$(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
+	bin/qmk generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
+
+$(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
+	bin/qmk generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
+
+generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
+
+.INTERMEDIATE : generated-files
+
 # Userspace setup and definitions
 ifeq ("$(USER_NAME)","")
     USER_NAME := $(KEYMAP)
@@ -376,3 +407,9 @@ objs-size: build
 
 include show_options.mk
 include $(TMK_PATH)/rules.mk
+
+# Ensure we have generated files available for each of the objects
+define GEN_FILES
+$1: generated-files
+endef
+$(foreach O,$(OBJ),$(eval $(call GEN_FILES,$(patsubst %.a,%.o,$(O)))))

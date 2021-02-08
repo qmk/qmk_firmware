@@ -3,5 +3,6 @@ appdirs
 argcomplete
 colorama
 hjson
+jsonschema
 milc
 pygments

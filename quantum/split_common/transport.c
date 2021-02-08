@@ -6,6 +6,7 @@
 #include "quantum.h"
 
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
+#define SYNC_TIMER_OFFSET 2
 
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
@@ -27,8 +28,20 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    include "i2c_slave.h"
 
 typedef struct _I2C_slave_buffer_t {
+#    ifndef DISABLE_SYNC_TIMER
+    uint32_t sync_timer;
+#    endif
     matrix_row_t smatrix[ROWS_PER_HAND];
+#    ifdef SPLIT_MODS_ENABLE
+    uint8_t real_mods;
+    uint8_t weak_mods;
+#        ifndef NO_ACTION_ONESHOT
+    uint8_t oneshot_mods;
+#        endif
+#    endif
+#    ifdef BACKLIGHT_ENABLE
     uint8_t      backlight_level;
+#    endif
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     rgblight_syncinfo_t rgblight_sync;
 #    endif
@@ -42,9 +55,13 @@ typedef struct _I2C_slave_buffer_t {
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
 
+#    define I2C_SYNC_TIME_START offsetof(I2C_slave_buffer_t, sync_timer)
+#    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
+#    define I2C_REAL_MODS_START offsetof(I2C_slave_buffer_t, real_mods)
+#    define I2C_WEAK_MODS_START offsetof(I2C_slave_buffer_t, weak_mods)
+#    define I2C_ONESHOT_MODS_START offsetof(I2C_slave_buffer_t, oneshot_mods)
 #    define I2C_BACKLIGHT_START offsetof(I2C_slave_buffer_t, backlight_level)
 #    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
-#    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
 
@@ -91,10 +108,43 @@ bool transport_master(matrix_row_t matrix[]) {
         }
     }
 #    endif
+
+#    ifdef SPLIT_MODS_ENABLE
+    uint8_t real_mods = get_mods();
+    if (real_mods != i2c_buffer->real_mods) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_REAL_MODS_START, (void *)&real_mods, sizeof(real_mods), TIMEOUT) >= 0) {
+            i2c_buffer->real_mods = real_mods;
+        }
+    }
+
+    uint8_t weak_mods = get_weak_mods();
+    if (weak_mods != i2c_buffer->weak_mods) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_WEAK_MODS_START, (void *)&weak_mods, sizeof(weak_mods), TIMEOUT) >= 0) {
+            i2c_buffer->weak_mods = weak_mods;
+        }
+    }
+
+#        ifndef NO_ACTION_ONESHOT
+    uint8_t oneshot_mods = get_oneshot_mods();
+    if (oneshot_mods != i2c_buffer->oneshot_mods) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_ONESHOT_MODS_START, (void *)&oneshot_mods, sizeof(oneshot_mods), TIMEOUT) >= 0) {
+            i2c_buffer->oneshot_mods = oneshot_mods;
+        }
+    }
+#        endif
+#    endif
+
+#    ifndef DISABLE_SYNC_TIMER
+    i2c_buffer->sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_SYNC_TIME_START, (void *)&i2c_buffer->sync_timer, sizeof(i2c_buffer->sync_timer), TIMEOUT);
+#    endif
     return true;
 }
 
 void transport_slave(matrix_row_t matrix[]) {
+#    ifndef DISABLE_SYNC_TIMER
+    sync_timer_update(i2c_buffer->sync_timer);
+#    endif
     // Copy matrix to I2C buffer
     memcpy((void *)i2c_buffer->smatrix, (void *)matrix, sizeof(i2c_buffer->smatrix));
 
@@ -118,6 +168,14 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef WPM_ENABLE
     set_current_wpm(i2c_buffer->current_wpm);
 #    endif
+
+#    ifdef SPLIT_MODS_ENABLE
+    set_mods(i2c_buffer->real_mods);
+    set_weak_mods(i2c_buffer->weak_mods);
+#       ifndef NO_ACTION_ONESHOT
+    set_oneshot_mods(i2c_buffer->oneshot_mods);
+#       endif
+#    endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -133,12 +191,22 @@ typedef struct _Serial_s2m_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
 
 #    ifdef ENCODER_ENABLE
-    uint8_t      encoder_state[NUMBER_OF_ENCODERS];
+    uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
 
 } Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
+#    ifdef SPLIT_MODS_ENABLE
+    uint8_t real_mods;
+    uint8_t weak_mods;
+#        ifndef NO_ACTION_ONESHOT
+    uint8_t oneshot_mods;
+#        endif
+#    endif
+#    ifndef DISABLE_SYNC_TIMER
+    uint32_t sync_timer;
+#    endif
 #    ifdef BACKLIGHT_ENABLE
     uint8_t backlight_level;
 #    endif
@@ -251,11 +319,26 @@ bool transport_master(matrix_row_t matrix[]) {
     // Write wpm to slave
     serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
+
+#    ifdef SPLIT_MODS_ENABLE
+    serial_m2s_buffer.real_mods = get_mods();
+    serial_m2s_buffer.weak_mods = get_weak_mods();
+#        ifndef NO_ACTION_ONESHOT
+    serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
+#        endif
+#    endif
+#    ifndef DISABLE_SYNC_TIMER
+    serial_m2s_buffer.sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
+#    endif
     return true;
 }
 
 void transport_slave(matrix_row_t matrix[]) {
     transport_rgblight_slave();
+#    ifndef DISABLE_SYNC_TIMER
+    sync_timer_update(serial_m2s_buffer.sync_timer);
+#    endif
+
     // TODO: if MATRIX_COLS > 8 change to pack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_s2m_buffer.smatrix[i] = matrix[i];
@@ -270,6 +353,14 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
+#    endif
+
+#    ifdef SPLIT_MODS_ENABLE
+    set_mods(serial_m2s_buffer.real_mods);
+    set_weak_mods(serial_m2s_buffer.weak_mods);
+#        ifndef NO_ACTION_ONESHOT
+    set_oneshot_mods(serial_m2s_buffer.oneshot_mods);
+#        endif
 #    endif
 }
 

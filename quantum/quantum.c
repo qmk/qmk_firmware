@@ -148,7 +148,13 @@ void reset_keyboard(void) {
 }
 
 /* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) { return get_event_keycode(record->event, update_layer_cache); }
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
+#ifdef COMBO_ENABLE
+    if (record->keycode) { return record->keycode; }
+#endif
+    return get_event_keycode(record->event, update_layer_cache);
+}
+
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
@@ -172,6 +178,18 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
     } else
 #endif
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
+}
+
+/* Get keycode, and then process pre tapping functionality */
+bool pre_process_record_quantum(keyrecord_t *record) {
+    if (!(
+#ifdef COMBO_ENABLE
+        process_combo(get_record_keycode(record, true), record) &&
+#endif
+        true)) {
+        return false;
+    }
+    return true; // continue processing
 }
 
 /* Get keycode, and then call keyboard function */
@@ -258,9 +276,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
-#endif
-#ifdef COMBO_ENABLE
-            process_combo(keycode, record) &&
 #endif
 #ifdef PRINTING_ENABLE
             process_printer(keycode, record) &&
@@ -372,6 +387,29 @@ __attribute__((weak)) const uint8_t ascii_to_shift_lut[16] PROGMEM = {
  * [AltGr] needs to be sent with the keycode.
  */
 __attribute__((weak)) const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+};
+
+/* Bit-Packed look-up table to convert an ASCII character to whether
+ * [Space] needs to be sent after the keycode
+ */
+__attribute__((weak)) const uint8_t ascii_to_dead_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -528,9 +566,10 @@ void send_char(char ascii_code) {
     }
 #endif
 
-    uint8_t keycode    = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
-    bool    is_shifted = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
-    bool    is_altgred = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
+    uint8_t keycode       = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
+    bool    is_shifted    = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
+    bool    is_altgred    = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
+    bool    is_dead = PGM_LOADBIT(ascii_to_dead_lut, (uint8_t)ascii_code);
 
     if (is_shifted) {
         register_code(KC_LSFT);
@@ -544,6 +583,9 @@ void send_char(char ascii_code) {
     }
     if (is_shifted) {
         unregister_code(KC_LSFT);
+    }
+    if (is_dead) {
+        tap_code(KC_SPACE);
     }
 }
 

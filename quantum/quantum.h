@@ -53,6 +53,7 @@
 #include "eeconfig.h"
 #include "bootloader.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "config_common.h"
 #include "led.h"
 #include "action_util.h"
@@ -209,6 +210,13 @@ typedef uint8_t pin_t;
 
 #    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
 
+/*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
+ *   But here's more margin to make it two clocks. */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        define GPIO_INPUT_PIN_DELAY 2
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 
@@ -224,6 +232,28 @@ typedef ioline_t pin_t;
 #    define readPin(pin) palReadLine(pin)
 
 #    define togglePin(pin) palToggleLine(pin)
+
+#endif
+
+#if defined(__ARMEL__) || defined(__ARMEB__)
+/* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
+ * to which the GPIO is connected.
+ * The connected buses differ depending on the various series of MCUs.
+ * And since the instruction execution clock of the CPU and the bus clock of GPIO are different,
+ * there is a delay of several clocks to read the change of the input signal.
+ *
+ * Define this delay with the GPIO_INPUT_PIN_DELAY macro.
+ * If the GPIO_INPUT_PIN_DELAY macro is not defined, the following default values will be used.
+ * (A fairly large value of 0.25 microseconds is set.)
+ */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        if defined(STM32_SYSCLK)
+#            define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK/1000000L / 4)
+#        elif defined(KINETIS_SYSCLK_FREQUENCY)
+#            define GPIO_INPUT_PIN_DELAY (KINETIS_SYSCLK_FREQUENCY/1000000L / 4)
+#        endif
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
 #endif
 
 // Atomic macro to help make GPIO and other controls atomic.
@@ -288,6 +318,7 @@ static __inline__ void __interrupt_enable__(const uint8_t *__s) {
 extern const uint8_t ascii_to_keycode_lut[128];
 extern const uint8_t ascii_to_shift_lut[16];
 extern const uint8_t ascii_to_altgr_lut[16];
+extern const uint8_t ascii_to_dead_lut[16];
 // clang-format off
 #define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
     ( ((a) ? 1 : 0) << 0 \

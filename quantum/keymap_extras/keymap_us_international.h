@@ -26,7 +26,7 @@
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
  * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │        │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ´ │        │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
  * │        │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │          │
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -34,7 +34,7 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define US_GRV  KC_GRV  // ` (dead)
+#define US_DGRV KC_GRV  // ` (dead)
 #define US_1    KC_1    // 1
 #define US_2    KC_2    // 2
 #define US_3    KC_3    // 3
@@ -72,7 +72,7 @@
 #define US_K    KC_K    // K
 #define US_L    KC_L    // L
 #define US_SCLN KC_SCLN // ;
-#define US_QUOT KC_QUOT // ' (dead)
+#define US_ACUT KC_QUOT // ´ (dead)
 // Row 4
 #define US_Z    KC_Z    // Z
 #define US_X    KC_X    // X
@@ -91,7 +91,7 @@
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
  * │     │   │   │   │   │   │   │   │   │   │   │ { │ } │  |  │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │      │   │   │   │   │   │   │   │   │   │ : │ " │        │
+ * │      │   │   │   │   │   │   │   │   │   │ : │ ¨ │        │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
  * │        │   │   │   │   │   │   │   │ < │ > │ ? │          │
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -99,13 +99,13 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define US_TILD S(US_GRV)  // ~ (dead)
+#define US_DTIL S(US_DGRV) // ~ (dead)
 #define US_EXLM S(US_1)    // !
-#define US_AT   S(US_2)    // "
+#define US_AT   S(US_2)    // @
 #define US_HASH S(US_3)    // #
 #define US_DLR  S(US_4)    // $
 #define US_PERC S(US_5)    // %
-#define US_CIRC S(US_6)    // ^
+#define US_DCIR S(US_6)    // ^ (dead)
 #define US_AMPR S(US_7)    // &
 #define US_ASTR S(US_8)    // *
 #define US_LPRN S(US_9)    // (
@@ -118,7 +118,7 @@
 #define US_PIPE S(US_BSLS) // |
 // Row 3
 #define US_COLN S(US_SCLN) // :
-#define US_DQUO S(US_QUOT) // " (dead)
+#define US_DIAE S(US_ACUT) // ¨ (dead)
 // Row 4
 #define US_LABK S(US_COMM) // <
 #define US_RABK S(US_DOT)  // >
@@ -170,7 +170,7 @@
 #define US_ETH  ALGR(US_D)    // Ð
 #define US_OSTR ALGR(US_L)    // Ø
 #define US_PILC ALGR(US_SCLN) // ¶
-#define US_ACUT ALGR(US_QUOT) // ´
+#define US_NDAC ALGR(US_ACUT) // ´
 // Row 4
 #define US_AE   ALGR(US_Z)    // Æ
 #define US_COPY ALGR(US_C)    // ©
@@ -201,6 +201,6 @@
 // Row 3
 #define US_SECT S(ALGR(US_S))    // §
 #define US_DEG  S(ALGR(US_SCLN)) // °
-#define US_DIAE S(ALGR(US_QUOT)) // ¨
+#define US_NDDR S(ALGR(US_ACUT)) // ¨
 // Row 4
 #define US_CENT S(ALGR(US_C))    // ¢

@@ -1,12 +1,27 @@
 """Functions for working with config.h files.
 """
 from pathlib import Path
+import re
 
 from milc import cli
 
 from qmk.comment_remover import comment_remover
 
 default_key_entry = {'x': -1, 'y': 0, 'w': 1}
+single_comment_regex = re.compile(r' */[/*].*$')
+multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
+
+
+def strip_line_comment(string):
+    """Removes comments from a single line string.
+    """
+    return single_comment_regex.sub('', string)
+
+
+def strip_multiline_comment(string):
+    """Removes comments from a single line string.
+    """
+    return multi_comment_regex.sub('', string)
 
 
 def c_source_files(dir_names):
@@ -53,7 +68,8 @@ def find_layouts(file):
             parsed_layout = [_default_key(key) for key in layout.split(',')]
 
             for key in parsed_layout:
-                key['matrix'] = matrix_locations.get(key['label'])
+                if key['label'] in matrix_locations:
+                    key['matrix'] = matrix_locations[key['label']]
 
             parsed_layouts[macro_name] = {
                 'key_count': len(parsed_layout),
@@ -88,12 +104,10 @@ def parse_config_h_file(config_h_file, config_h=None):
     if config_h_file.exists():
         config_h_text = config_h_file.read_text()
         config_h_text = config_h_text.replace('\\\n', '')
+        config_h_text = strip_multiline_comment(config_h_text)
 
         for linenum, line in enumerate(config_h_text.split('\n')):
-            line = line.strip()
-
-            if '//' in line:
-                line = line[:line.index('//')].strip()
+            line = strip_line_comment(line).strip()
 
             if not line:
                 continue
@@ -156,6 +170,6 @@ def _parse_matrix_locations(matrix, file, macro_name):
         row = row.replace('{', '').replace('}', '')
         for col_num, identifier in enumerate(row.split(',')):
             if identifier != 'KC_NO':
-                matrix_locations[identifier] = (row_num, col_num)
+                matrix_locations[identifier] = [row_num, col_num]
 
     return matrix_locations
