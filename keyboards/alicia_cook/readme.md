@@ -2,9 +2,7 @@
 
 ![Alicia Cook](https://raw.githubusercontent.com/ibnuda/alicia-cook/master-of-puppets/alicia-cook.jpg)
 
-*A short description of the keyboard/project*
 40% Alice-style keyboard that can be split and uses IDC connector.
-
 
 * Keyboard Maintainer: [Ibnu D. Aji](https://github.com/ibnuda)
 * Hardware Supported: [Alicia Cook](https://github/ibnuda/alicia-cook)
