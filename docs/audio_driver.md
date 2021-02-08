@@ -72,6 +72,13 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 #define STM32_GPT_USE_TIM8                  TRUE
 ```
 
+?> Note: DAC1 (A4) uses TIM6, DAC2 (A5) uses TIM7, and the audio state timer uses TIM8 (configurable). 
+
+You can also change the timer used for the overall audio state by defining the driver.  For instance: 
+
+```c
+#define AUDIO_STATE_TIMER GPTD9
+```
 
 ### DAC additive :id=dac-additive
 
@@ -170,6 +177,12 @@ On 'larger' STM32s, GPIOv2 or GPIOv3 are used; with them it is also necessary to
 
 This driver uses the PWM callbacks from PWMD1 with TIM1_CH1 to toggle the selected AUDIO_PIN in software.
 During the same callback, with AUDIO_PIN_ALT_AS_NEGATIVE set, the AUDIO_PIN_ALT is toggled inversely to AUDIO_PIN. This is useful for setups that drive a piezo from two pins (instead of one and Gnd).
+
+You can also change the timer used for software PWM by defining the driver.  For instance: 
+
+```c
+#define AUDIO_STATE_TIMER GPTD8
+```
 
 
 ### Testing Notes :id=testing-notes
