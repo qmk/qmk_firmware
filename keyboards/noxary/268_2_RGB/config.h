@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Noxary
 #define PRODUCT         268.2_RGB
-#define DESCRIPTION     A fully customizable 65% keyboard with RGB.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
