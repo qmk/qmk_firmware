@@ -250,6 +250,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void matrix_scan_user(void) {
+    if (is_sequencer_on()) {
+        switch (sequencer_get_current_step()) {
+        case 0:
+            rgblight_sethsv_at(HSV_RED, 4);
+            break;
+        case 16:
+            rgblight_sethsv_at(HSV_BLUE, 4);
+            break;
+        case 4:
+            rgblight_sethsv_at(HSV_RED, 5);
+            break;
+        case 20:
+            rgblight_sethsv_at(HSV_BLUE, 5);
+            break;
+        case 8:
+            rgblight_sethsv_at(HSV_RED, 6);
+            break;
+        case 24:
+            rgblight_sethsv_at(HSV_BLUE, 6);
+            break;
+        case 12:
+            rgblight_sethsv_at(HSV_RED, 7);
+            break;
+        case 28:
+            rgblight_sethsv_at(HSV_BLUE, 7);
+            break;
+        default:
+        // rgblight_sethsv_at(hsv_BLACK, 6);
+            break;
+        }
+    }
+ }
+
 //------------------------------------------------------------------------------
 // RGB Light settings
 #ifdef RGBLIGHT_LAYERS
