@@ -1,8 +1,9 @@
-# Wete
+# Monarch
 
-![Wete Keyboard](https://i.imgur.com/dZ4FRar.jpg)
+![Monarch Keyboard](https://i.imgur.com/3nnybLk.jpg)
 
-A southpaw full-sized keyboard.
+A 65percent keyboard with a rotary encoder and interchangeable inserts.
+www.kingkbs.com
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: STM32F072CBT6
