@@ -49,13 +49,13 @@ FULL 10x10 ROUND-ROBIN MATRIX for Reference
 ) \
 { \
     { KC_NO, k12,   k13,   k14,   k15,   k16,   k17,   k18,   k19,   KC_NO, }, \
-    { KC_NO, KC_NO, k23,   k24,   k25,   k26,   k27,   k28,   KC_NO, k21,   }, \
-    { KC_NO, k32,   KC_NO, k34,   k35,   k36,   k37,   k38,   KC_NO, k31,   }, \
-    { KC_NO, k42,   k43,   KC_NO, k45,   k46,   k47,   k48,   k49,   k41,   }, \
-    { KC_NO, k52,   k53,   k54,   KC_NO, k56,   k57,   k58,   k59,   k51,   }, \
-    { k6a,   k62,   k63,   k64,   k65,   KC_NO, k67,   k68,   k69,   k61,   }, \
-    { k7a,   k72,   k73,   k74,   k75,   k76,   KC_NO, k78,   k79,   k71,   }, \
-    { k8a,   k82,   k83,   k84,   k85,   k86,   k87,   KC_NO, k89,   k81,   }, \
-    { k9a,   k92,   k93,   k94,   k95,   k96,   k97,   k98,   KC_NO, k91,   }, \
-    { KC_NO, ka2,   ka3,   ka4,   ka5,   ka6,   ka7,   ka8,   ka9,   ka1,   }  \
+    { k21,   KC_NO, k23,   k24,   k25,   k26,   k27,   k28,   KC_NO, KC_NO, }, \
+    { k31,   k32,   KC_NO, k34,   k35,   k36,   k37,   k38,   KC_NO, KC_NO, }, \
+    { k41,   k42,   k43,   KC_NO, k45,   k46,   k47,   k48,   k49,   KC_NO, }, \
+    { k51,   k52,   k53,   k54,   KC_NO, k56,   k57,   k58,   k59,   KC_NO, }, \
+    { k61,   k62,   k63,   k64,   k65,   KC_NO, k67,   k68,   k69,   k6a,   }, \
+    { k71,   k72,   k73,   k74,   k75,   k76,   KC_NO, k78,   k79,   k7a,   }, \
+    { k81,   k82,   k83,   k84,   k85,   k86,   k87,   KC_NO, k89,   k8a,   }, \
+    { k91,   k92,   k93,   k94,   k95,   k96,   k97,   k98,   KC_NO, k9a,   }, \
+    { ka1,   ka2,   ka3,   ka4,   ka5,   ka6,   ka7,   ka8,   ka9,   KC_NO, }  \
 }
