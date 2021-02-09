@@ -16,15 +16,14 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define QRTY 0 // qwerty above workman to make sure transparent does not catch unwanted keycode
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
-#define EXTRA 3 // added extra layer for via
+enum layer_names {
+    QRTY, // qwerty above workman to make sure transparent does not catch unwanted keycode
+    SYMB, // symbols
+    MDIA, // media keys
+    EXTRA, // added extra layer for via
+};
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
- 
-  VRSN,
-  
+  VRSN = SAFE_RANGE // can always be here
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -173,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
-),
+)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
