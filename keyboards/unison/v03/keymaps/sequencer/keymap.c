@@ -61,14 +61,6 @@ enum custom_keycodes {
     GUI_EN,
     GUI_JA,
     SEQ_TOG,
-    SEQ_TT0,
-    SEQ_TT1,
-    SEQ_TT2,
-    SEQ_TT3,
-    SEQ_TT4,
-    SEQ_TT5,
-    SEQ_TT6,
-    SEQ_TT7,
 };
 
 // Key Macro
@@ -85,44 +77,10 @@ enum custom_keycodes {
 #define RAISE   MO(_RAISE)
 #define HENKAN  LGUI(KC_GRV)
 #define MIDI    DF(_MIDI)
-#define SEQ     DF(_SEQUENCER)
 #define ALT_EN  LALT_T(KC_LANG2)
 #define ALT_JA  LALT_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
 #define GUI_JA  LGUI_T(KC_LANG1)
-// Key Macro for Sequencer
-#define SQ_0    SQ_S(0)
-#define SQ_1    SQ_S(1)
-#define SQ_2    SQ_S(2)
-#define SQ_3    SQ_S(3)
-#define SQ_4    SQ_S(4)
-#define SQ_5    SQ_S(5)
-#define SQ_6    SQ_S(6)
-#define SQ_7    SQ_S(7)
-#define SQ_8    SQ_S(8)
-#define SQ_9    SQ_S(9)
-#define SQ_10   SQ_S(10)
-#define SQ_11   SQ_S(11)
-#define SQ_12   SQ_S(12)
-#define SQ_13   SQ_S(13)
-#define SQ_14   SQ_S(14)
-#define SQ_15   SQ_S(15)
-#define SQ_16   SQ_S(16)
-#define SQ_17   SQ_S(17)
-#define SQ_18   SQ_S(18)
-#define SQ_19   SQ_S(19)
-#define SQ_20   SQ_S(20)
-#define SQ_21   SQ_S(21)
-#define SQ_22   SQ_S(22)
-#define SQ_23   SQ_S(23)
-#define SQ_24   SQ_S(24)
-#define SQ_25   SQ_S(25)
-#define SQ_26   SQ_S(26)
-#define SQ_27   SQ_S(27)
-#define SQ_28   SQ_S(28)
-#define SQ_29   SQ_S(29)
-#define SQ_30   SQ_S(30)
-#define SQ_31   SQ_S(31)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -148,11 +106,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_OCTD,MI_OCT_0,MI_OCTU,XXXXXXX,XXXXXXX,LOWER,  LOWER,  XXXXXXX,XXXXXXX,XXXXXXX,RAISE,  RAISE,  RAISE,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_SEQUENCER] = LAYOUT(
-        _______,_______,_______,_______,SEQ_TOG,_______,SQ_TMPD,SQ_TMPU,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        SQ_0,       SQ_1,   SQ_2,   SQ_3,   SQ_4,   SQ_5,   SQ_6,   SQ_7,   SQ_8,   SQ_9,   SQ_10,  SQ_11,  SQ_12,  SQ_13,  SQ_14,      SQ_15,
-        SQ_16,      SQ_17,  SQ_18,  SQ_19,  SQ_20,  SQ_21,  SQ_22,  SQ_23,  SQ_24,  SQ_25,  SQ_26,  SQ_27,  SQ_28,  SQ_29,  SQ_30,      SQ_31,
-        SQ_T(0),SQ_T(0),SQ_T(1),SQ_T(2),SQ_T(3),SQ_T(4),SQ_T(5),SQ_T(6),SQ_T(7),_______,_______,_______,_______,_______,_______,_______,_______,
-        SQ_SALL,SQ_SCLR,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+        _______, _______, _______, _______, SEQ_TOG, _______, SQ_TMPD, SQ_TMPU, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        SQ_S(0),     SQ_S(1), SQ_S(2), SQ_S(3), SQ_S(4), SQ_S(5), SQ_S(6), SQ_S(7), SQ_S(8), SQ_S(9), SQ_S(10),SQ_S(11),SQ_S(12),SQ_S(13),SQ_S(14),     SQ_S(15),
+        SQ_S(16),    SQ_S(17),SQ_S(18),SQ_S(19),SQ_S(20),SQ_S(21),SQ_S(22),SQ_S(23),SQ_S(24),SQ_S(25),SQ_S(26),SQ_S(27),SQ_S(28),SQ_S(29),SQ_S(30),     SQ_S(31),
+        SQ_T(0), SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), _______, _______, _______, _______, _______, _______, _______, _______,
+        SQ_SALL, SQ_SCLR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
     [_LOWER] = LAYOUT(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
@@ -184,12 +142,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MAC: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
+                // revert LED animation
+                rgblight_reload_from_eeprom();
+
                 set_single_persistent_default_layer(_MAC);
             }
             return false;
             break;
         case WIN: // Change default ayer --> Write to EEPROM
             if (record->event.pressed) {
+                // revert LED animation
+                rgblight_reload_from_eeprom();
+
                 set_single_persistent_default_layer(_WIN);
             }
             return false;
@@ -197,6 +161,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_PSCR: // Mac's advanced screen capture
             if (record->event.pressed) {
                 tap_code16(LSFT(LGUI(KC_5)));
+            }
+            return false;
+            break;
+        case SEQ:
+            if (record->event.pressed) {
+                // Stop LED animation for Sequencer display.
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_sethsv_noeeprom(HSV_BLACK);
+
+                default_layer_set(1UL << _SEQUENCER);
             }
             return false;
             break;
