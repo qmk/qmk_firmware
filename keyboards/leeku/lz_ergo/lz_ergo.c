@@ -17,21 +17,9 @@
 #include "lz_ergo.h"
 #include <avr/io.h>
 #include <avr/wdt.h>
-#include "../i2c.h"
+#include "i2c_master.h"
 #include "../tinycmdapi.h"
-
-typedef enum
-{
-    LED_EFFECT_FADING          = 0,
-    LED_EFFECT_FADING_PUSH_ON  = 1,
-    LED_EFFECT_PUSHED_LEVEL    = 2,
-    LED_EFFECT_PUSH_ON         = 3,
-    LED_EFFECT_PUSH_OFF        = 4,
-    LED_EFFECT_ALWAYS          = 5,
-    LED_EFFECT_BASECAPS        = 6,
-    LED_EFFECT_OFF             = 7,
-    LED_EFFECT_NONE
-}LED_MODE;
+#include "../led_l3.h"
 
 void keyboard_pre_init_kb(void)
 {
@@ -57,30 +45,11 @@ void keyboard_pre_init_kb(void)
     DDRC	= 0x00; // input
     PORTD   = 0xF1; // col(pull up) D-(pull up) D+(pull up) PS2PU(low) USBSHIFT(high)
     DDRD    = 0x03; // input
-    i2c_init(I2C_BITRATE_KHZ);
     #ifdef WATCHDOG_ENABLE
     wdt_enable(WDTO_2S);
     #endif
-    uint8_t ret = 0;
-    uint16_t retry = 0;
-    while(ret == 0 && (retry++ < 20))
-    {
-        // Make sure the MCU's responding
-        _delay_ms(50);
-        ret = tinycmd_ver(true);
-        _delay_ms(50);
-        if(ret)
-        {
-            // Turn off the backlight and RGB.
-            // This is because of several reports (myself included) of a corrupted bootloader due to voltage issues using the original firmware.
-            uint8_t led_preset[3][5] = {{LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF},
-                                {LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF},
-                                {LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF}};
-            tinycmd_led_config_preset((uint8_t *)led_preset, true); // turn off the backlight
-            tinycmd_rgb_all(0, 0, 0, 0, false); // turn off the RGB
-            break;
-        }
-    }
+    i2c_init();
+    backlight_rgblight_disable();
 }
 
 void matrix_scan_kb(void)

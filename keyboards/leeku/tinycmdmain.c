@@ -19,13 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tinycmd.h"
 #include "tinycmdpkt.h"
 #include "hwaddress.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include <util/delay.h>     /* for _delay_ms() */
 
 uint8_t localBuffer[0x4B]; // I2C_WRSIZE
 
 #define WAIT_RETRY      10
-
+#define I2C_TIMEOUT     100
 #define LEDMODE_INDEX_MAX       3
 #define LED_BLOCK_MAX           5
 #define LEDMODE_ARRAY_SIZE      (LEDMODE_INDEX_MAX*LED_BLOCK_MAX)
@@ -34,10 +34,16 @@ static uint8_t waitResponse(uint8_t cmd)
 {
     tinycmd_rsp_type *p_rsp = 0;
     uint8_t i, ret = 0;
+    if((i2c_start(I2C_TARGET_ADDR, I2C_TIMEOUT)) != I2C_STATUS_SUCCESS)
+    {
+        i2c_stop();
+        return ret;
+    }
+
     for(i = 0; i < WAIT_RETRY; i++)
     {
         // then read n byte(s) from the selected MegaIO register
-        i2c_recv(I2C_TARGET_ADDR, (uint8_t*) localBuffer, sizeof(tinycmd_rsp_type));
+        i2c_receive(I2C_TARGET_ADDR, (uint8_t*) localBuffer, sizeof(tinycmd_rsp_type), I2C_TIMEOUT);
         p_rsp = (tinycmd_rsp_type *)localBuffer;
         if(p_rsp->cmd_code == cmd)
         {
@@ -46,6 +52,7 @@ static uint8_t waitResponse(uint8_t cmd)
         }
         _delay_us(100);     // wait 100us
     }
+    i2c_stop();
     return ret;
 }
 
@@ -53,20 +60,26 @@ static uint8_t sendCommand(tinycmd_pkt_req_type *p_req, uint8_t len, uint8_t rsp
 {
     uint8_t ret = 0;
     uint8_t cmd = p_req->cmd_code;
+    if(i2c_start(I2C_TARGET_ADDR, I2C_TIMEOUT) != I2C_STATUS_SUCCESS)
+    {
+        i2c_stop();
+        return ret;
+    }
     // If need to wait response from the slave
     if(rsp)
     {
       p_req->cmd_code |= TINY_CMD_RSP_MASK;
-      if(i2c_send(I2C_TARGET_ADDR, (uint8_t *)p_req, len))
+      if(i2c_transmit(I2C_TARGET_ADDR, (uint8_t *)p_req, len, I2C_TIMEOUT) == I2C_STATUS_SUCCESS)
       {
         ret = waitResponse(cmd & TINY_CMD_CMD_MASK);
       }
     }
     else
     {
-      i2c_send(I2C_TARGET_ADDR, (uint8_t *)p_req, len);
+      i2c_transmit(I2C_TARGET_ADDR, (uint8_t *)p_req, len, I2C_TIMEOUT);
       ret = 1;
     }
+    i2c_stop();
     return ret;
 }
 

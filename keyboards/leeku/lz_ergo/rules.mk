@@ -37,18 +37,17 @@ RGBLIGHT_ENABLE = no              # There are known issues with the RGB on this 
 # BACKLIGHT_DRIVER = custom       # Enable this if you want to use the backlight
 # RGBLIGHT_CUSTOM_DRIVER = yes	  # Enable this if you want to use the RGBling
 
-# USB Config
-# SHARED_EP_ENABLE = no
-# MOUSE_SHARED_EP = no
-# KEYBOARD_SHARED_EP = no
+# USB Config needed for stability on QMK > 11.x
+SHARED_EP_ENABLE = yes
+KEYBOARD_SHARED_EP = yes
 
 # includes
 SRC += 	led_l3.c \
-		tinycmdmain.c \
-		i2c.c
+		tinycmdmain.c
 
+QUANTUM_LIB_SRC += i2c_master.c
 
-# WATCHDOG_ENABLE = yes		# Resets keyboard if matrix_scan isn't run every 250ms
-# ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-#     TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-# endif
+WATCHDOG_ENABLE = yes		# Resets keyboard if matrix_scan isn't run every 250ms
+ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
+     TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
+endif

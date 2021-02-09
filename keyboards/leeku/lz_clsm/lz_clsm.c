@@ -17,7 +17,7 @@
 #include "lz_clsm.h"
 #include <avr/io.h>
 #include <avr/wdt.h>
-#include "../i2c.h"
+#include "i2c_master.h"
 #include "../tinycmdapi.h"
 
 void keyboard_pre_init_kb(void)
@@ -44,10 +44,10 @@ void keyboard_pre_init_kb(void)
     DDRC	= 0x00; // input
     PORTD   = 0xF1; // col(pull up) D-(pull up) D+(pull up) PS2PU(low) USBSHIFT(high)
     DDRD    = 0x03; // input
-    i2c_init(I2C_BITRATE_KHZ);
     #ifdef WATCHDOG_ENABLE
     wdt_enable(WDTO_2S);
     #endif
+    i2c_init();
 }
 
 void matrix_scan_kb(void)

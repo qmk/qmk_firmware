@@ -105,7 +105,6 @@ void led_speed(void) {
     tinycmd_rgb_effect_speed(kbdConf.rgb_limit, true);
 }
 
-
 // Backlighting
 void backlight_init_ports(void) {
     #ifdef RGBLIGHT_CLIP_START
@@ -132,6 +131,31 @@ void backlight_init_ports(void) {
             tinycmd_rgb_set_effect(kbdConf.rgb_effect_index, false);
             wait_ms(5);
             tinycmd_config(21, kbdConf.rgb_limit, false); // ugly hard-coded var.`
+            break;
+        }
+    }
+}
+
+void backlight_rgblight_disable(void) {
+    uint8_t ret = 0;
+    uint16_t retry = 0;
+    while(ret == 0 && (retry++ < TINY_DETECT_RETRY))
+    {
+        // Make sure the MCU's responding
+        _delay_ms(50);
+        ret = tinycmd_ver(true);
+        _delay_ms(50);
+        if(ret)
+        {
+            // If it's alive go ahead and configure it
+            tinycmd_rgb_all(0, 0, 0, 0, false);
+            wait_ms(10);
+            uint8_t led_preset[3][5] = {{LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF},
+                                        {LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF},
+                                        {LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF}};
+            tinycmd_led_config_preset((uint8_t *)led_preset, false);
+            wait_ms(10);
+            tinycmd_config(21, 0, false); // ugly hard-coded var.
             break;
         }
     }
