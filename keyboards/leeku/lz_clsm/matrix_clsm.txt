@@ -1,0 +1,6 @@
+[a-a][a-b][a-c][a-d][a-e][a-f][a-g][a-h][a-i][a-j][a-k][a-l][a-m][a-n][a-o][a-p]
+[b-a][b-b][b-c][b-d][b-e][b-f][b-g][b-h][b-i][b-j][b-k][b-l][b-m][b-n][b-o][b-p]
+[c-a][c-b][c-c][c-d][c-e][c-f][c-g][c-h][c-i][c-j][c-k][c-l][c-m][c-n][c-o]
+[d-a][d-b][d-c][d-d][d-e][d-f][d-g][d-h][d-i][d-j][d-k][d-l][d-n][d-o]
+[e-a][e-c][e-d][e-e][e-f][e-g][e-h][e-i][e-j][e-k][e-l][e-m][e-o][e-p]
+[f-a][f-b][f-c][f-g][f-j][f-m][f-n][f-o][f-p]
