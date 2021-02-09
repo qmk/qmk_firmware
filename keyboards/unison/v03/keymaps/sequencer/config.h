@@ -74,5 +74,5 @@
 
 #ifdef SEQUENCER_ENABLE
     #define SEQUENCER_STEPS 32  // default: 16
-    #define SEQUENCER_TRACKS 6
+    #define SEQUENCER_TRACKS 8
 #endif

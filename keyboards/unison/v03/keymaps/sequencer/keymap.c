@@ -36,13 +36,24 @@ enum layer_number {
 enum unison_sequencer_tracks {
     KICK = 0,   // Kick
     SNARE,  // Snare
-    HIHAT1, // Hihat closed
-    HIHAT2, // Hihat open
+    HIHAT_C, // Hihat closed
+    HIHAT_O, // Hihat open
     CRASH,  // Crash
     RIDE,    // Ride
+    TOM_H,
+    TOM_L,
 };
 
-const uint16_t unison_sequencer_track_notes[SEQUENCER_TRACKS] = {[KICK] = MI_C_1, [SNARE] = MI_D_1, [HIHAT1] = MI_Fs_1, [HIHAT2] = MI_As_1, [CRASH] = MI_Cs_2, [RIDE] = MI_Ds_2};
+const uint16_t unison_sequencer_track_notes[SEQUENCER_TRACKS] = {
+    [KICK] = MI_C_1,
+    [SNARE] = MI_D_1,
+    [HIHAT_C] = MI_Fs_1,
+    [HIHAT_O] = MI_As_1,
+    [CRASH] = MI_Cs_2,
+    [RIDE] = MI_Ds_2,
+    [TOM_H] = MI_D_2,
+    [TOM_L] = MI_A_1,
+};
 
 // Tap Dance
 enum tap_dances{
@@ -139,12 +150,6 @@ enum custom_keycodes {
 #define SQ_29   SQ_S(29)
 #define SQ_30   SQ_S(30)
 #define SQ_31   SQ_S(31)
-#define SQT_BD  SQ_T(KICK)
-#define SQT_SN  SQ_T(SNARE)
-#define SQT_HC  SQ_T(HIHAT1)
-#define SQT_HO  SQ_T(HIHAT2)
-#define SQT_CR  SQ_T(CRASH)
-#define SQT_RD  SQ_T(RIDE)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -173,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,SEQ_TOG,_______,SQ_TMPD,SQ_TMPU,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         SQ_0,       SQ_1,   SQ_2,   SQ_3,   SQ_4,   SQ_5,   SQ_6,   SQ_7,   SQ_8,   SQ_9,   SQ_10,  SQ_11,  SQ_12,  SQ_13,  SQ_14,      SQ_15,
         SQ_16,      SQ_17,  SQ_18,  SQ_19,  SQ_20,  SQ_21,  SQ_22,  SQ_23,  SQ_24,  SQ_25,  SQ_26,  SQ_27,  SQ_28,  SQ_29,  SQ_30,      SQ_31,
-        SQT_BD, SQT_BD, SQT_SN, SQT_HC, SQT_HO, SQT_CR, SQT_RD, _______,_______,SEQ_TT0,SEQ_TT1,SEQ_TT2,SEQ_TT3,SEQ_TT4,SEQ_TT5,SEQ_TT6,SEQ_TT7,
+        SQ_T(0),SQ_T(0),SQ_T(1),SQ_T(2),SQ_T(3),SQ_T(4),SQ_T(5),SQ_T(6),SQ_T(7),_______,_______,_______,_______,_______,_______,_______,_______,
         SQ_SALL,SQ_SCLR,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
     [_LOWER] = LAYOUT(
@@ -199,6 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#define SEQ_LED_DIMMER 200
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -220,7 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SEQ_TOG: // Toggle Sqeuencer on/off
+        case SEQ_TOG: // Toggle Sqeuencer playback on/off
             if (record->event.pressed) {
                 if(is_sequencer_on()) {
                     sequencer_off();
@@ -232,16 +238,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SEQ_TT0 ... SEQ_TT7:
+        case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
             if (record->event.pressed) {
-                sequencer_toggle_track_activation(keycode - SEQ_TT0);
+                // sequencer_toggle_track_activation(keycode - SEQ_TT0);
                 // if (is_sequencer_track_active(keycode - SEQ_TT0)) {
                 //     sequencer_deactivate_track(keycode - SEQ_TT0);
                 // } else {
                 //     sequencer_activate_track(keycode - SEQ_TT0);
                 // }
+                if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
+                    rgblight_sethsv_at(HSV_WHITE - SEQ_LED_DIMMER, 0);
+                } else {
+                    switch (keycode - SEQUENCER_TRACK_MIN) {
+                    case 0:
+                        rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 0);
+                        break;
+                    case 1:
+                        rgblight_sethsv_at(HSV_ORANGE - SEQ_LED_DIMMER, 0);
+                        break;
+                    case 2:
+                        rgblight_sethsv_at(HSV_CHARTREUSE - SEQ_LED_DIMMER, 0);
+                        break;
+                    case 3:
+                        rgblight_sethsv_at(HSV_GREEN - SEQ_LED_DIMMER, 0);
+                        break;
+                    case 4:
+                        rgblight_sethsv_at(HSV_SPRINGGREEN - SEQ_LED_DIMMER, 0);
+                        break;
+                    case 5:
+                        rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 0);
+                        break;
+                    case 6:
+                        rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DIMMER, 0);
+                        break;
+                    case 7:
+                        rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DIMMER, 0);
+                        break;
+                    }
+                }
             }
-            return false;
+            return true;  // continue processing keycode.
             break;
         default:
             break;
@@ -253,28 +289,28 @@ void matrix_scan_user(void) {
     if (is_sequencer_on()) {
         switch (sequencer_get_current_step()) {
         case 0:
-            rgblight_sethsv_at(HSV_RED, 4);
-            break;
-        case 16:
-            rgblight_sethsv_at(HSV_BLUE, 4);
+            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 4);
             break;
         case 4:
-            rgblight_sethsv_at(HSV_RED, 5);
-            break;
-        case 20:
-            rgblight_sethsv_at(HSV_BLUE, 5);
+            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 5);
             break;
         case 8:
-            rgblight_sethsv_at(HSV_RED, 6);
-            break;
-        case 24:
-            rgblight_sethsv_at(HSV_BLUE, 6);
+            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 6);
             break;
         case 12:
-            rgblight_sethsv_at(HSV_RED, 7);
+            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 7);
+            break;
+        case 16:
+            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 4);
+            break;
+        case 20:
+            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 5);
+            break;
+        case 24:
+            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 6);
             break;
         case 28:
-            rgblight_sethsv_at(HSV_BLUE, 7);
+            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 7);
             break;
         default:
         // rgblight_sethsv_at(hsv_BLACK, 6);
