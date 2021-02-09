@@ -35,4 +35,6 @@ endif
 ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
   RGB_MATRIX_ENABLE = yes
   RGBLIGHT_ENABLE = no
+  VIA_ENABLE = yes
+  LTO_ENABLE = yes
 endif
