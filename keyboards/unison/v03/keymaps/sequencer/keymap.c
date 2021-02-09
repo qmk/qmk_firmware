@@ -58,23 +58,7 @@ const uint16_t unison_sequencer_track_notes[SEQUENCER_TRACKS] = {
     [TOM_L] = MI_A_1,
 };
 
-// Tap Dance
-enum tap_dances{
-    TD_LSFT_CAPS = 0,
 };
-
-// Tap Dance state
-enum {
-    SINGLE_TAP = 1,
-    DOUBLE_TAP,
-    TRIPLE_TAP,
-    TAP_HOLD,
-};
-
-// Tap Dance definitions
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-// };
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -101,7 +85,6 @@ enum custom_keycodes {
 };
 
 // Key Macro
-// #define S_CAP   TD(TD_LSFT_CAPS)
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
 #define SP_SFT  MT(MOD_LSFT, KC_SPC)
