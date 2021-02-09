@@ -80,19 +80,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, KC_MSTP, KC_MPLY, _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT \
   ),
 };
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-// #define USB_LED_CAPS_LOCK
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    quadrant_led_on();
-  }
-  else {
-    quadrant_led_off();
-  }
-}

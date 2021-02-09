@@ -15,20 +15,9 @@
  */
 #include "quadrant.h"
 
-void quadrant_led_on() {
-  writePinHigh(F0);
-}
-
-void quadrant_led_off() {
-  writePinLow(F0);
-}
-
 
 // Rotary encoder functions:
-
-
-
-void encoder_update_kb(uint8_t index, bool clockwise) {
+__attribute__((weak)) void encoder_update_user(uint8_t index, bool clockwise) {
   uint16_t mapped_code = 0;
   if (index == 0) {
     if (clockwise) {
@@ -61,3 +50,17 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
     tap_code(mapped_code);
   }
 }
+
+void keyboard_pre_init_kb(void) {
+    setPinOutput(F0);
+
+    keyboard_pre_init_user();
+}
+
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(F0, led_state.caps_lock);
+    }
+    return true;
+}
+

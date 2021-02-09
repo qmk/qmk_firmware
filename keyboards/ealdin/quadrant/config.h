@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { F1 }
 #define ENCODER_RESOLUTION 4
 
-#define LED_CAPS_LOCK_PIN B0
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN
    #define RGBLED_NUM 7
