@@ -3,7 +3,6 @@
 * Keyboard Maintainer: [MajorKoos](https://github.com/MajorKoos)
 * Hardware Supported: LZ ST, atmega32
 * There are stability issues with QMK versions > 0.10.54, perhaps related to VUSB and the additional endpoint added in 0.11?
-* Compiled 10.54 version of the firmware along with the VIA JSON files is [here](https://github.com/MajorKoos/KBDParts/tree/master/Firmware/l3-qmk-10.54)
 
 ## Hardware information
 
