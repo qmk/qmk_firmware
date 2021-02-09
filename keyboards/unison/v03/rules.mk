@@ -26,7 +26,4 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
 ENCODER_ENABLE = yes		# Rotary Encoder
 
-# CUSTOM_MATRIX = lite        # Custom matrix for "Round-Robin Matrix"
-# SRC += matrix.c
-
 LTO_ENABLE = yes
