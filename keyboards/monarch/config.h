@@ -33,10 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Rotary encoder pins */
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B4 }
+#define ENCODERS_PAD_A { B4 }
+#define ENCODERS_PAD_B { B5 }
 #define ENCODER_RESOLUTION 1
-#define ENCODER_DIRECTION_FLIP
 
 //LEDS A6
 #define BACKLIGHT_PIN A6
