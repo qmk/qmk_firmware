@@ -16,33 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define KBD_ACTIVATION              ((void *)2)
-#define KBD_ACTIVATION_BIT          (0x5)
-
-
-#define EEPADDR_BOOTLOADER_ACT      ((void *)0)
-#define EEPVAL_BOOTLOADER_BIT       (0xCA)
-
-
-#define EEPADDR_MACRO_SET           ((uint8_t *)0x80)    // 256-511 (1Byte x 52)
-#define EEPVAL_MACRO_BIT            (0xCA)                // 0xCA :macro is recorded
-
-#define EEPADDR_KBD_CONF            ((void *)0x100)    // 256 - 128
-
-#define EEPADDR_KEYMAP_LAYER0       ((void *)0x200)    // 512 - 128
-#define EEPADDR_KEYMAP_LAYER1       ((void *)0x280)    // 640 - 128
-#define EEPADDR_KEYMAP_LAYER2       ((void *)0x300)    // 768 - 128
-#define EEPADDR_KEYMAP_LAYER3       ((void *)0x380)    // 896 - 128
-
-#define EEPSIZE_KEYMAP              (0x80)
-
-
-#define EEP_KEYMAP_ADDR(layer)  (EEPADDR_KEYMAP_LAYER0 + (EEPSIZE_KEYMAP * layer))
-
-
-
-#define MAX_RGB_CHAIN       20
-
 enum
 {
     RGB_EFFECT_BOOTHID = 0,
@@ -69,7 +42,6 @@ typedef struct {
     uint8_t accel_mode;
 } rgb_effect_param_type;
 
-
 typedef struct kbd_conf
 {
     uint8_t led_preset_index;               // LED effect  preset index
@@ -80,8 +52,3 @@ typedef struct kbd_conf
     uint8_t rgb_chain;                      // RGB5050 numbers (H/W dependent)
     rgb_effect_param_type rgb_effect_param[RGB_EFFECT_MAX]; // RGB effect parameter
 }kbd_configuration_t;
-
-#define MACRO_ADDR_START      0x4400     // 0x4400 ~ 0x6FFF  (7KBytes - 256B x 44)
-
-extern kbd_configuration_t kbdConf;
-extern void updateConf(void);

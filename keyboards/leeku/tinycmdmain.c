@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tinycmdpkt.h"
 #include "hwaddress.h"
 #include "i2c_master.h"
-#include "wait.h"     /* for _delay_ms() */
+#include "wait.h"
 
-uint8_t localBuffer[0x4B]; // I2C_WRSIZE
+uint8_t localBuffer[0x4B];      // I2C_WRSIZE
 
-#define WAIT_RETRY      10
-#define I2C_TIMEOUT     100
+#define WAIT_RETRY              10
+#define I2C_TIMEOUT             100
 #define LEDMODE_INDEX_MAX       3
 #define LED_BLOCK_MAX           5
 #define LEDMODE_ARRAY_SIZE      (LEDMODE_INDEX_MAX*LED_BLOCK_MAX)

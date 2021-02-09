@@ -30,11 +30,6 @@ typedef enum
     LED_EFFECT_NONE
 }LED_MODE;
 
-enum backlight_level {
-    BACKLIGHT_PCB      = 0b0000001,
-    BACKLIGHT_SWITCH   = 0b0000010
-};
-
 void led_off(void);
 void led_on(void);
 void rgb_on(void);

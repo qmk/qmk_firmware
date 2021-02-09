@@ -27,8 +27,7 @@ extern rgblight_config_t rgblight_config;
 const uint8_t rgb_map[] = RGBLIGHT_LED_MAP;
 #endif
 
-#define TINY_DETECT_RETRY      20
-
+uint8_t tiny_detect_retry      = 20;
 uint8_t led_mode               = LED_EFFECT_ALWAYS;
 uint8_t rgb_effect_index       = 0;
 
@@ -68,7 +67,6 @@ void led_set(uint8_t usb_led) {
                         usb_led & (1 << USB_LED_SCROLL_LOCK),
                         false);
     }
-
 
 // In-switch LEDs
 void led_off(void) {
@@ -110,7 +108,7 @@ void backlight_init_ports(void) {
     // Need WDT?
     uint8_t ret = 0;
     uint16_t retry = 0;
-    while(ret == 0 && (retry++ < TINY_DETECT_RETRY))
+    while(ret == 0 && (retry++ < tiny_detect_retry))
     {
         // Make sure the MCU's responding
         _delay_ms(50);
@@ -136,7 +134,7 @@ void backlight_init_ports(void) {
 void backlight_rgblight_disable(void) {
     uint8_t ret = 0;
     uint16_t retry = 0;
-    while(ret == 0 && (retry++ < TINY_DETECT_RETRY))
+    while(ret == 0 && (retry++ < tiny_detect_retry))
     {
         // Make sure the MCU's responding
         _delay_ms(50);

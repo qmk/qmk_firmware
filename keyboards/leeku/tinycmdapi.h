@@ -39,5 +39,3 @@ uint8_t tinycmd_led_set_effect(uint8_t index, uint8_t rsp);
 uint8_t tinycmd_led_set_preset(uint8_t preset, uint8_t block, uint8_t mode, uint8_t rsp);
 uint8_t tinycmd_led_config_preset(uint8_t *p_led_mode_array, uint8_t rsp);
 uint8_t tinycmd_led_effect_on(uint8_t on, uint8_t rsp);
-
-
