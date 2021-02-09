@@ -13,3 +13,7 @@
   #define INDICATOR_PIN_1 D6
   #define INDICATOR_PIN_2 D4 
 #endif
+
+#ifdef KEYBOARD_boardsource_the_mark
+  #define RGB_MATRIX_KEYPRESSES
+#endif
