@@ -53,14 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_CLIP_LEDS 16 // <= RGBLED_NUM
 /* #define RGBLIGHT_LED_MAP {2, 3, 1, 4, 5, 6, 7, 8, 0, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19} */
 
-/* USb Config
-#define USB_MAX_POWER_CONSUMPTION 400
-*/
-
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0

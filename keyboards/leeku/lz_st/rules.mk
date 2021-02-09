@@ -36,7 +36,6 @@ BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 BACKLIGHT_DRIVER = custom
 RGBLIGHT_CUSTOM_DRIVER = yes
-# ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled
 
 # USB Config needed for stability on QMK > 11.x
 SHARED_EP_ENABLE = yes

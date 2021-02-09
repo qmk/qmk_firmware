@@ -41,28 +41,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_BITRATE_KHZ 400
 #define I2C_TARGET_ADDR 0xB0
 
-/* bling */
+/* bling - disabled in rules.mk */
 #define BACKLIGHT_LEVELS 1
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_VAL_STEP 17
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
-#define RGBLED_NUM 10
-/*
-#define RGBLIGHT_CLIP_START 2
-#define RGBLIGHT_CLIP_LEDS 16 // <= RGBLED_NUM
-#define RGBLIGHT_LED_MAP {2, 3, 1, 4, 5, 6, 7, 8, 0, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}
-*/
-
-/* USb Config
-#define USB_MAX_POWER_CONSUMPTION 400
-*/
+#define RGBLED_NUM 20
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
