@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 8 // Layer Indicator(3) + Rotary Encoder(5), optional Underglow(8)
-  #define RGBLIGHT_LED_MAP {1, 2, 3, 0, 4, 5, 6, 7} // Layer Indicator --> R.E. --> Under 〓実物確認
+  #define RGBLIGHT_LED_MAP {1, 2, 3, 0, 4, 5, 6, 7} // Left to Right
   #define RGBLIGHT_HUE_STEP 4
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
@@ -118,26 +118,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
