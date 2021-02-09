@@ -1,4 +1,4 @@
-/* A standard layout for the Dactyl Manuform 5x6 Keyboard */ 
+/* A standard layout for the Dactyl Manuform 5x6 Keyboard */
 
 #include QMK_KEYBOARD_H
 #include <print.h>
@@ -27,7 +27,7 @@
 #define PLAY_TRK KC_MEDIA_PLAY_PAUSE
 #define AUD_MUTE KC_AUDIO_MUTE
 #define AUD_UP  KC_AUDIO_VOL_UP
-#define AUD_DOWN KC_AUDIO_VOL_DOWN 
+#define AUD_DOWN KC_AUDIO_VOL_DOWN
 #define SCR_LOCK KC_SCROLLLOCK
 
 // A Alt
@@ -55,25 +55,25 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MAIN] = LAYOUT_5x6_alexgirarddev(
-     //KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE, 
+     //KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
      _____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,
-     KC_TAB,       KC_QUOTE,     KC_COMMA,     KC_DOT,       KC_P,         KC_Y,                                                   KC_F,         KC_G,         KC_C,         KC_R,         KC_L,         KC_HOME, 
-     KC_LCTRL,     KC_A,         KC_O,         KC_E,         KC_U,         KC_I,                                                   KC_D,         KC_H,         KC_T,         KC_N,         KC_S,         KC_END, 
-     KC_LALT,      KC_SLASH,     KC_Q,         KC_J,         KC_K,         KC_X,                                                   KC_B,         KC_M,         KC_W,         KC_V,         KC_Z,         KC_ENTER, 
-     KC_LGUI,      KC_UP,        KC_DOWN,                                                                                                                                    KC_LEFT,      KC_RIGHT,     KC_APPLICATION, 
-                                               KC_SPC,       KC_LSHIFT,                                                                          RED,          GREEN, 
-                                                                           BLUE,         KC_BSPACE,                  KC_DELETE,    SYMBOL, 
-                                                                           RED,          TO(_GAME),                  _____________,_____________
-  ), 
+     KC_TAB,       KC_QUOTE,     KC_COMMA,     KC_DOT,       KC_P,         KC_Y,                                                   KC_F,         KC_G,         KC_C,         KC_R,         KC_L,         KC_HOME,
+     KC_LCTRL,     KC_A,         KC_O,         KC_E,         KC_U,         KC_I,                                                   KC_D,         KC_H,         KC_T,         KC_N,         KC_S,         KC_END,
+     KC_LALT,      KC_SLASH,     KC_Q,         KC_J,         KC_K,         KC_X,                                                   KC_B,         KC_M,         KC_W,         KC_V,         KC_Z,         KC_ENTER,
+     KC_LGUI,      KC_UP,        KC_DOWN,                                                                                                                                    KC_LEFT,      KC_RIGHT,     KC_APPLICATION,
+                                               KC_SPC,       KC_LSHIFT,                                                                          RED,          GREEN,
+                                                                           BLUE,         KC_BSPACE,                  KC_DELETE,    SYMBOL,
+                                                                           RED,          TO(_GAME),                  TO(_QWERTY),    _____________
+  ),
    [_GAME] = LAYOUT_5x6_alexgirarddev(
      //_____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
-     KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE, 
+     KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
      _____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
      _____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
      _____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
      _____________,_____________,_____________,                                                                                                                              _____________,_____________,_____________,
-                                               _____________,_____________,                                                                      _____________,_____________, 
-                                                                           KC_LALT,         KC_BSPACE,                  _____________,_____________, 
+                                               _____________,_____________,                                                                      _____________,_____________,
+                                                                           KC_LALT,         KC_BSPACE,                  _____________,_____________,
                                                                            KC_LCTRL,        TO(_MAIN),                  _____________,_____________
   ),
   [_SYMBOL] = LAYOUT_5x6_alexgirarddev(
@@ -86,32 +86,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                _____________,_____________,                                                                      _____________,_____________,
                                                                            _____________,_____________,              _____________,_____________,
                                                                            _____________,_____________,              _____________,_____________
-  ), 
+  ),
   [_RED] = LAYOUT_5x6_alexgirarddev(
-    //KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_F5,        KC_F6,                                                  KC_F7,        KC_F8,        KC_F9,        KC_F10,       KC_F11,       KC_F12, 
+    //KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_F5,        KC_F6,                                                  KC_F7,        KC_F8,        KC_F9,        KC_F10,       KC_F11,       KC_F12,
 
     LALT(KC_F4),  _____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,LCTL(LALT(KC_DEL)),
-    LALT(KC_F4),  KC_DITTO,     LCTL(KC_X),   LCTL(KC_C),   LCTL(KC_V),   KC_PSCREEN,                                             KC_F14,       KC_F15,       KC_F16,       KC_F17,       KC_F18,       KC_F19, 
-    _____________,KC_UP,        KC_DOWN,      KC_LEFT,      KC_RIGHT,     KC_MS_BTN4,                                             KC_F22,       KC_F23,       KC_F24,       RSFT(KC_F14), RSFT(KC_F15), RSFT(KC_F16), 
-    _____________,LCTL(KC_Z),   LCTL(KC_Y),   LCTL(KC_A),   _____________,KC_MS_BTN5,                                             RSFT(KC_F17), RSFT(KC_F18), RSFT(KC_F19), RSFT(KC_F20), RSFT(KC_F21), RSFT(KC_F22), 
-    PREV_TRK,     KC_PGUP,      KC_PGDOWN,                                                                                                                                  RSFT(KC_F23), RSFT(KC_F24), RCTL(KC_F13), 
+    LALT(KC_F4),  KC_DITTO,     LCTL(KC_X),   LCTL(KC_C),   LCTL(KC_V),   KC_PSCREEN,                                             KC_F14,       KC_F15,       KC_F16,       KC_F17,       KC_F18,       KC_F19,
+    _____________,KC_UP,        KC_DOWN,      KC_LEFT,      KC_RIGHT,     KC_MS_BTN4,                                             KC_F22,       KC_F23,       KC_F24,       RSFT(KC_F14), RSFT(KC_F15), RSFT(KC_F16),
+    _____________,LCTL(KC_Z),   LCTL(KC_Y),   LCTL(KC_A),   _____________,KC_MS_BTN5,                                             RSFT(KC_F17), RSFT(KC_F18), RSFT(KC_F19), RSFT(KC_F20), RSFT(KC_F21), RSFT(KC_F22),
+    PREV_TRK,     KC_PGUP,      KC_PGDOWN,                                                                                                                                  RSFT(KC_F23), RSFT(KC_F24), RCTL(KC_F13),
                                               AUD_MUTE,     _____________,                                                                      _____________,_____________,
                                                                           AUD_UP,       AUD_DOWN,                   _____________,_____________,
                                                                           PLAY_TRK,     NEXT_TRK,                   _____________,_____________
-  ), 
+  ),
   [_GREEN] = LAYOUT_5x6_alexgirarddev(
 //  _____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,
-    RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21),                                           RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24), 
-    RCTL(KC_F23), RCTL(KC_F24), RALT(KC_F13), RALT(KC_F14), RALT(KC_F15), RALT(KC_F16),                                           R_CS(KC_F13), R_CS(KC_F14), R_CS(KC_F15), R_CS(KC_F16), R_CS(KC_F17), R_CS(KC_F18), 
-    RALT(KC_F17), LGUI(KC_UP),  LGUI(KC_DOWN),L_GS(KC_LEFT),L_GS(KC_RIGHT),RALT(KC_F18),                                          R_CS(KC_F19), R_CS(KC_F20), R_CS(KC_F21), R_CS(KC_F22), R_CS(KC_F23), R_CS(KC_F24), 
-    RALT(KC_F19), RALT(KC_F20), RALT(KC_F21), RALT(KC_F22), RALT(KC_F23), RALT(KC_F24),                                           R_AS(KC_F13), R_AS(KC_F14), R_AS(KC_F15), R_AS(KC_F16), R_AS(KC_F17), R_AS(KC_F18), 
-    RGUI(KC_F15), RGUI(KC_F16), RGUI(KC_F17),                                                                                                                               R_AS(KC_F19), R_AS(KC_F20), R_AS(KC_F21), 
+    RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21),                                           RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24),
+    RCTL(KC_F23), RCTL(KC_F24), RALT(KC_F13), RALT(KC_F14), RALT(KC_F15), RALT(KC_F16),                                           R_CS(KC_F13), R_CS(KC_F14), R_CS(KC_F15), R_CS(KC_F16), R_CS(KC_F17), R_CS(KC_F18),
+    RALT(KC_F17), LGUI(KC_UP),  LGUI(KC_DOWN),L_GS(KC_LEFT),L_GS(KC_RIGHT),RALT(KC_F18),                                          R_CS(KC_F19), R_CS(KC_F20), R_CS(KC_F21), R_CS(KC_F22), R_CS(KC_F23), R_CS(KC_F24),
+    RALT(KC_F19), RALT(KC_F20), RALT(KC_F21), RALT(KC_F22), RALT(KC_F23), RALT(KC_F24),                                           R_AS(KC_F13), R_AS(KC_F14), R_AS(KC_F15), R_AS(KC_F16), R_AS(KC_F17), R_AS(KC_F18),
+    RGUI(KC_F15), RGUI(KC_F16), RGUI(KC_F17),                                                                                                                               R_AS(KC_F19), R_AS(KC_F20), R_AS(KC_F21),
                                               KC_ESCAPE,    _____________,                                                                      _____________,_____________,
                                                                            _____________,_____________,              _____________,_____________,
                                                                            _____________,_____________,              _____________,_____________
   ),
   [_BLUE] = LAYOUT_5x6_alexgirarddev(
-  //RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21),                                           RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24), 
+  //RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21),                                           RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24),
     R_GS(KC_F13), KC_CAPSLOCK,  KC_NUMLOCK,   SCR_LOCK,     RESET,        R_GS(KC_F14),                                           R_CG(KC_F17), R_CG(KC_F18), R_CG(KC_F19), _____________,_____________,R_CG(KC_F20),
     R_GS(KC_F16), R_GS(KC_F17), R_GS(KC_F18), R_GS(KC_F19), R_GS(KC_F20),R_GS(KC_F21),                                            R_CG(KC_F22), _____________,_____________,_____________,R_CG(KC_F23), R_CG(KC_F24),
     KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_F5,        KC_F6,                                                  KC_F7,        KC_F8,        KC_F9,        KC_F10,       KC_F11,       KC_F12,
@@ -120,6 +120,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               _____________,_____________,                                                                      _____________,_____________,
                                                                           _____________,_____________,              _____________,_____________,
                                                                           _____________,_____________,              _____________,_____________
+  ),
+  [_QWERTY] = LAYOUT_5x6_alexgirarddev(
+     //KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
+     KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
+     KC_TAB,       KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                                   KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,         KC_HOME,
+     KC_LCTRL,     KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                                                   KC_H,         KC_J,         KC_K,         KC_L,         KC_L,         KC_END,
+     KC_LALT,      KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,                                                   KC_N,         KC_M,         KC_W,         KC_W,         KC_W,         KC_ENTER,
+     KC_LGUI,      KC_UP,        KC_DOWN,                                                                                                                                    KC_LEFT,      KC_RIGHT,     KC_APPLICATION,
+                                               KC_SPC,       KC_LSHIFT,                                                                          RED,          GREEN,
+                                                                           BLUE,         KC_BSPACE,                  KC_DELETE,    SYMBOL,
+                                                                           RED,          TO(_GAME),                  TO(_MAIN),    _____________
   )
 };
 
@@ -197,6 +208,9 @@ static void render_status(void) {
         case _GAME:
             oled_write_raw_P(GameIcon, sizeof(GameIcon));
             break;
+        case _QWERTY:
+            oled_clear();
+
     }
 }
 
