@@ -21,7 +21,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 DIP_SWITCH_ENABLE = no
-OLED_DRIVER_ENABLE = yes
 LTO_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 
