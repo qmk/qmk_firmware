@@ -35,29 +35,16 @@ enum layer_number {
     _SEQPLAYBACK, // This is not a "REAL" layer. Define here to use for RGB light layer.
 };
 
-// Sequencer
-enum unison_sequencer_tracks {
-    KICK = 0,   // Kick
-    SNARE,  // Snare
-    HIHAT_C, // Hihat closed
-    HIHAT_O, // Hihat open
-    CRASH,  // Crash
-    RIDE,    // Ride
-    TOM_H,
-    TOM_L,
-};
-
+// Sequencer Tracks
 const uint16_t unison_sequencer_track_notes[SEQUENCER_TRACKS] = {
-    [KICK] = MI_C_1,
-    [SNARE] = MI_D_1,
-    [HIHAT_C] = MI_Fs_1,
-    [HIHAT_O] = MI_As_1,
-    [CRASH] = MI_Cs_2,
-    [RIDE] = MI_Ds_2,
-    [TOM_H] = MI_D_2,
-    [TOM_L] = MI_A_1,
-};
-
+    MI_C_1,
+    MI_D_1,
+    MI_Fs_1,
+    MI_As_1,
+    MI_Cs_2,
+    MI_Ds_2,
+    MI_D_2,
+    MI_A_1,
 };
 
 // Defines the keycodes used by our macros in process_record_user
