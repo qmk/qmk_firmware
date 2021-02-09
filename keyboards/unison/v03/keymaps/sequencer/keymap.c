@@ -16,6 +16,9 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+static void display_sequencer_steps(uint8_t, uint8_t);
+static uint8_t step_frame_index;
+
 // MIDI: Used to set octave to MI_OCT_0
 // extern midi_config_t midi_config;
 
@@ -204,7 +207,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#define SEQ_LED_DIMMER 200
+#define SEQ_LED_DIMMER 100
+#define SEQ_LED_STEP_OFF_DIMMER 200
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -231,6 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if(is_sequencer_on()) {
                     sequencer_off();
                     rgblight_set_layer_state(_SEQPLAYBACK, false);
+                    // 再生を停止したら、右4LEDにstepを表示
                 } else {
                     sequencer_on();
                     rgblight_set_layer_state(_SEQPLAYBACK, true);
@@ -274,6 +279,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     case 7:
                         rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DIMMER, 0);
                         break;
+                    default:
+                        break;
+                    }
+                    //TODO playbackがOFFだったら、ステップを右4LEDに表示
+                   if(!is_sequencer_on()) {
+                        step_frame_index = 0;
+                        // display_sequencer_steps(keycode - SEQUENCER_TRACK_MIN, step_frame_index);
                     }
                 }
             }
@@ -285,36 +297,105 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_user(void) {
-    if (is_sequencer_on()) {
-        switch (sequencer_get_current_step()) {
+void display_sequencer_steps(uint8_t track, uint8_t index) {
+    sequencer_activate_track(track);
+
+    // int led_index_left1 = 4;
+    // int led_index_left2 = 5;
+    // int led_index_left3 = 6;
+    // int led_index_left4 = 7;
+    int hue;
+    switch (step_frame_index) {
         case 0:
-            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 4);
+            hue = 0;    // red
+            break;
+        case 1:
+            hue = 28;   // orange
+            break;
+        case 2:
+            hue = 64;   // chartreuse
+            break;
+        case 3:
+            hue = 85;   // green
             break;
         case 4:
-            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 5);
+            hue = 106;  // spring green
             break;
-        case 8:
-            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 6);
+        case 5:
+            hue = 170;  // blue
             break;
-        case 12:
-            rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 7);
+        case 6:
+            hue = 191;  // purple
             break;
-        case 16:
-            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 4);
+        case 7:
+            hue = 213;  // magenta
             break;
-        case 20:
-            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 5);
-            break;
-        case 24:
-            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 6);
-            break;
-        case 28:
-            rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 7);
-            break;
-        default:
-        // rgblight_sethsv_at(hsv_BLACK, 6);
-            break;
+    }
+
+    if (is_sequencer_step_on(index * 4 + 0)) {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 4);
+    } else {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 4);
+    }
+
+    if (is_sequencer_step_on(index * 4 + 1)) {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 5);
+    } else {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 5);
+    }
+
+    if (is_sequencer_step_on(index * 4 + 2)) {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 6);
+    } else {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 6);
+    }
+
+    if (is_sequencer_step_on(index * 4 + 3)) {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 7);
+    } else {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 7);
+    }
+}
+
+
+void matrix_scan_user(void) {
+    if (biton32(default_layer_state) == _SEQUENCER) {
+        if (is_sequencer_on()) {
+            switch (sequencer_get_current_step()) {
+            case 0:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 4);
+                break;
+            case 4:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 5);
+                break;
+            case 8:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 6);
+                break;
+            case 12:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 7);
+                break;
+            case 16:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 4);
+                break;
+            case 20:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 5);
+                break;
+            case 24:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 6);
+                break;
+            case 28:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 7);
+                break;
+            // default:
+            // rgblight_sethsv_at(hsv_BLACK, 6);
+                // break;
+            }
+        } else {
+            for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
+                if (is_sequencer_track_active(i)) {
+                    display_sequencer_steps(i, step_frame_index);
+                }
+            }
         }
     }
  }
@@ -536,10 +617,25 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 3) {
-        if (clockwise) {
-            rgblight_increase_sat();
-        } else {
-            rgblight_decrease_sat();
+        switch(biton32(default_layer_state)) {
+            case _SEQUENCER:
+                if (clockwise) {
+                    if (step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
+                        step_frame_index++;
+                    }
+                } else {
+                    if (step_frame_index > 0) {
+                        step_frame_index--;
+                    }
+                }
+                break;
+            default:
+                if (clockwise) {
+                    rgblight_increase_sat();
+                } else {
+                    rgblight_decrease_sat();
+                }
+                break;
         }
     } else if (index == 4) {
         if (clockwise) {
