@@ -37,8 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MINIFAN_SINGLE_LAYOUT 
 
 //#define STARTUP_ALTERNATE 
-  #define STARTUP_SIDE_LEDS_OFF
-  #define STARTUP_MID_LED_OFF 
+//#define STARTUP_SIDE_LEDS_OFF
+//#define STARTUP_MID_LED_OFF 
 //#define STARTUP_SPEED
 //#define STARTUP_COUNT
 
@@ -96,3 +96,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define FULL_DRA_2NDROW 
   #define FULL_DRA_4THROW 
   #define FULL_BON_4THROW 
+
+  #define LEDS_OFF_BASE_DEF 

@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Authors: This QMK keymap file is a combination of the default
  * keymap, led code original copied/edited from ../jetpacktuxedo, some
  * copy/paste from QMK documentation code examples (etc).
- * Remainder: © 2019,2020 by Jos Boersema
+ * Remainder: © 2019, 2020, 2021 by Jos Boersema
  */
 
 // --------------------------------------v---------------------------------------
@@ -130,10 +130,15 @@ short alternate = _FULL_; //
 //* Shift detection
 bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
                      //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
-#define TRUE 1
-#define FALSE 0
+# define TRUE 1
+# define FALSE 0
 bool _fun_stay = FALSE; // for making _FUN layer not return to BASE after pressing an F-key
 bool leds_on; // toggle leds on/off
+
+# ifdef LEDS_OFF_BASE_DEF  
+bool led_middle_on = TRUE; // Set to off later, if startup setting is off.
+# endif
+
 bool isolate_trigger = FALSE; // detects if _FUN layer move was pressed, and no other key (no normal use of Shift).
 bool capslock; // keeps track of capslock state
 bool numlock; // keeps track of numlock state
@@ -189,6 +194,9 @@ void keyboard_post_init_user (void) {
 // The logic seems to be to establish the effect first, and then toggle it on/off.
 #     ifdef STARTUP_MID_LED_OFF
     rgblight_disable (); // 
+#         ifdef LEDS_OFF_BASE_DEF  // This messes with led effect on/off, so we need to track the state of this setting now.
+    led_middle_on = FALSE;
+#         endif
 #     endif
 
     isolate_rgblight_set ();
@@ -244,6 +252,7 @@ int write_number (long int input, short divide10) {
 // switching (showing the layer color, that is), when another 
 // functionality takes precedent over the middle led.
 void middle_led_control (short hsv_h, short hsv_s, short hsv_v ) {
+# ifdef RGBLIGHT_ENABLE
 
     if (FALSE == speed_measure) { // only touch middle led if no speed measuring going on
        if ( ! ((TRUE == sizecount_measure) && (0 != sizecount_max)) ) { // only touch middle led if no text size
@@ -252,22 +261,30 @@ void middle_led_control (short hsv_h, short hsv_s, short hsv_v ) {
             rgblight_sethsv_noeeprom (hsv_h, hsv_s, hsv_v); // set it
         }
     }
+
+# endif
 }
 
 
 // Set middle led color for speed system. Needed in various places.
 void speed_led (int speed) {
+# ifdef RGBLIGHT_ENABLE
+
     speed /= 10; // argument is in 10 times its value
     if ( ! ((TRUE == sizecount_measure) && (0 != sizecount_max)) ) { // only touch middle led if no text size
            // counting set to a maximum is going on.
         rgblight_sethsv_noeeprom (SPEED_HUE_STEP * speed + SPEED_HUE_START, 255, 128); // full saturation, but half lit
         rgblight_set (); // only center led is altered, no need to go through isolate_rgblight_set()
     }
+
+# endif
 }
 
 
 // do this in one place to handle left/right leds being off here
 void isolate_rgblight_set () {
+# ifdef RGBLIGHT_ENABLE
+
     if (!leds_on) { // left/right leds are off
         // overwrite previously colors
         uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
@@ -282,13 +299,15 @@ void isolate_rgblight_set () {
         setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
     }
     rgblight_set ();
+
+# endif
 }
 
 
 // _FUN layer leds.
 void indicate_fun_stay (void) {
-
 # ifdef RGBLIGHT_ENABLE
+
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
     // See also below under _FUN layer led
@@ -304,16 +323,16 @@ void indicate_fun_stay (void) {
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
     isolate_rgblight_set ();
-# endif //RGBLIGHT_ENABLE
 
+# endif //RGBLIGHT_ENABLE
 }
 
 
 // _RAR layer leds
 // It is a function because this is called when the Base layer OTHER_BASE key is pressed
 void indicate_base (void) {
-
 # ifdef RGBLIGHT_ENABLE
+
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
     // See also below under _FUN layer led
@@ -345,19 +364,29 @@ void indicate_base (void) {
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
     isolate_rgblight_set ();
-# endif //RGBLIGHT_ENABLE
 
+# endif //RGBLIGHT_ENABLE
 }
 
 
 // Sets led colors for all layers. Including Capslock/Numlock changes. See a computer side activated function for that too:
 //                                                                                    led_update_user (…)
 void set_led_colors_ (layer_state_t state) {
-
 # ifdef RGBLIGHT_ENABLE
+
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
     short color_ddl = 28 ;
+
+#     ifdef LEDS_OFF_BASE_DEF 
+    // Special case of switching centre led effect on/off
+    if (!layer_state_cmp (state, _DEF_BASE)) { // letters
+        //if (rgblight_is_enabled())
+        if (led_middle_on) { // Follows user setting based on _RAR key.
+            rgblight_enable_noeeprom (); // Would be easier if middle_led_control (…) could set brightness to dark, but seems to not work.
+        }
+    }
+#     endif
 
     // The order should be the reverse of the #defines of layer number of the layers on top
     // because higher layer number is higher priority if activated
@@ -406,7 +435,7 @@ void set_led_colors_ (layer_state_t state) {
         }
         middle_led_control (60, 20, 100); // yellow (low saturation)
     }
-# endif // REMOVE_PAD
+#     endif // REMOVE_PAD
 
     //---
     else if (layer_state_cmp (state, _RAR)) { // layer with special keys
@@ -467,6 +496,12 @@ void set_led_colors_ (layer_state_t state) {
     // Default layer (generally), normal BASE layer
     else if (layer_state_cmp (state, _DEF_BASE)) { // letters
 
+#     ifdef LEDS_OFF_BASE_DEF 
+        led0r = 0; // All leds off when in Default Base
+        led0g = 0; // 
+        led0b = 0; // 
+        rgblight_disable_noeeprom ();
+#     else
         if (capslock) {
             led0r = 255; // Brighter version to indicate capslock
             led0g = 255; // 
@@ -478,18 +513,22 @@ void set_led_colors_ (layer_state_t state) {
         }
 
         middle_led_control (HSV_TEAL);
+#     endif // LEDS_OFF_BASE_DEF 
     }
     //---
 
     setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+
     isolate_rgblight_set ();
-#endif //RGBLIGHT_ENABLE
+
+# endif //RGBLIGHT_ENABLE
 }
 
 // Pre-existing QMK function, called when NumLock/CapsLock key is pressed, including on another keyboard.
 // This function sets two booleans that keep track of the current capslock/numlock state, for use in layer led colors.
 bool led_update_user (led_t led_state) {
+
     if (led_state.num_lock) { // This doesn't look at the keyboard leds or any other actual leds. It seems to look at whether
                               // or not the computer has numlock in the on/off state.
         numlock = TRUE;
@@ -1128,7 +1167,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , MORE_key1
 #     endif
 
-                , RGB_TOG , KC__XGUI , XXXXXXX 
+#     ifdef LEDS_OFF_BASE_DEF  // This messes with led effect on/off, so we need to track the state of this setting now.
+                , RGBTOG_ 
+#     else                     // Here we don't mess with led effect on/off, so we can use QMK key blindly.
+                , RGB_TOG
+#     endif
+                          , KC__XGUI , XXXXXXX 
 
 #     ifdef TRANSMINIVAN_MIDLEFT
                                                , TRANS_MIDLEFT

@@ -84,6 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • Removing one or more of the Unicode layers _ACC, _DRA or_BON
                     • Removing groups of characters
 
+                           -12- ➡ Leds ⬅
         - 
         --
         ----
@@ -503,6 +504,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         // Thinned out 4th row: BASE  ‛     ’⬆               ‰    ★           ×               Bkspc
                         //
 
+
+        /*                 -12- ➡ Leds ⬅
+         *
+         * Leds off for the Default Base Layer.
+         * Implies: no indication on Default Base for: Caps-lock, typing speed, typing amount done of a limit.
+         * Speed / typing amount will be visible by going to another layer.
+         */
+//#define LEDS_OFF_BASE_DEF // _Activate_ to make leds dark when in ‛Default Base’ layer.
 
 // ------------------------------------- ⬆ --------------------------------------
 //            Below here no more comfortable configuration options.....

@@ -135,7 +135,7 @@ enum custom_keycodes {
 
 # ifndef CHOLTAP_ACCE_NOP
     CHOLTAP_ACCE, // Go to accented layer, or others in combination with other keys.
-#endif 
+# endif 
 
 // Keys can be pressed together for a separate layer (like 'adjust layer' on the Planck).
     DUO_HOLD,
@@ -156,8 +156,9 @@ enum custom_keycodes {
     C_KC_SLEP, // sleep computer
     C_KC_PAUS, // pauze computer
 
-// Toggles side leds on/off. Note that RGB_TOG is a build-in keycode, which toggles the breathing led.
+// Toggles side leds on/off. 
     LEDS_ON,
+    RGBTOG_, 
 
 // Typing speed measuring 
     SPEED_TOG,
@@ -391,7 +392,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) { // key down
                 if (speed_measure) {
                     speed_measure = FALSE;
+
+# ifdef RGBLIGHT_ENABLE
                     rgblight_sethsv_noeeprom (HSV_PURPLE); // indicates stop (_RAR color)
+# endif
+
                 }else{
                     // initialization of measurements
                     speed_measure = TRUE; // activates
@@ -401,10 +406,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     speed_add = 0;// speed average accumulator, it keeps adding the *speed* of each batch to this total
                     speed_batches = 0; // divider for speed_add to get the average
 
+# ifdef RGBLIGHT_ENABLE
                     // set middle led
                     rgblight_sethsv_noeeprom (HSV_WHITE); // indicates start
+# endif
+
                 }
+
+# ifdef RGBLIGHT_ENABLE
                 isolate_rgblight_set ();
+# endif
+
             }
             break; 
 
@@ -492,14 +504,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if (sizecount_measure) {
 
                         sizecount_measure = FALSE;
+
+# ifdef RGBLIGHT_ENABLE
                         rgblight_sethsv_noeeprom (HSV_PURPLE); // indicates stop (color of _RAR)
                         isolate_rgblight_set ();
+# endif
 
                     }else{
 
                         sizecount_measure = TRUE; // start counting
                         sizecount_word = FALSE; // detect double blanks. leading blanks are not a word
 
+# ifdef RGBLIGHT_ENABLE
                         if (0 == sizecount_max) {
                             rgblight_sethsv_noeeprom (HSV_BLUE); // indicates start/activated, but only without maximum set
                             isolate_rgblight_set (); // .. if maximum set, led goes green to red.
@@ -507,6 +523,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             rgblight_sethsv_noeeprom (HSV_GREEN); // indicates start/activated, but only without maximum set
                             isolate_rgblight_set (); // .. if maximum set, led goes green to red.
                         }
+# endif
+
                     }
                 }else{ // held longer
                     sizecount_menu = TRUE;
@@ -520,8 +538,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) { // key up
                 sizecount_blanks = 0; // 
                 sizecount_chars = 0;
+
+# ifdef RGBLIGHT_ENABLE
                 rgblight_sethsv_noeeprom (HSV_CYAN); // indicates reset
                 isolate_rgblight_set ();
+# endif
+
             }
             break;
 
@@ -1114,6 +1136,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
+# ifdef LEDS_OFF_BASE_DEF  // This messes with led effect on/off, so we need to track the state of this setting now.
+        case RGBTOG_: // Toggles middle led on or off
+            if (record->event.pressed) { // key down
+                if (led_middle_on == FALSE) { 
+                    led_middle_on = TRUE;
+                    rgblight_enable_noeeprom (); 
+                }else{
+                    led_middle_on = FALSE;
+                    rgblight_disable_noeeprom (); 
+                }
+            }
+            break;
+# endif   
+
         // Some keycodes treated specially for the two counting systems (speed, text size)
         // Deletions:
         case KC_BSPC: // non-counting speed
@@ -1227,7 +1263,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (sizecount_measure) {
         if (record->event.pressed) { 
             bool within = TRUE; // When text size is maximized, this indicates we are not yet at that maximum.
+
+# ifdef RGBLIGHT_ENABLE
             unsigned short size_fraction = 0; // Used to compute led color as a fraction of a set maximum which is already typed.
+# endif
 
             // ignoring blanks wordcount
             if ((keycode != KC_SPC)
@@ -1249,14 +1288,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }else{ // count chars
                     if (sizecount_chars > sizecount_max) within = FALSE;
                 }
+
                 // led colors
                 if (within) { // green to red middle led
+
+# ifdef RGBLIGHT_ENABLE
                     if (SIZECOUNT_WORD == sizecount_max_type) {
                         size_fraction = (90 * sizecount_blanks) / sizecount_max; 
                     }else{
                         size_fraction = (90 * sizecount_chars) / sizecount_max;
                     } 
+
                     rgblight_sethsv_noeeprom (90 - size_fraction , 255, 255); // green to red, full saturation, full lit
+# endif
                 
                 }else{ // when at or over the limit: blink led red/white
                     if ((KC_BSPC != keycode) 
@@ -1266,13 +1310,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         SEND_STRING (SS_TAP(X_BSPC)); // refuses to type further, the user is stopped from typing to make it obvious
 
                     }
+
+# ifdef RGBLIGHT_ENABLE
                     if (sizecount_chars & 0x1) { // flip by every keypress
                         rgblight_sethsv_noeeprom (HSV_RED);
                     }else{
                         rgblight_sethsv_noeeprom (HSV_WHITE); 
                     }
+# endif
+
                 }
+
+# ifdef RGBLIGHT_ENABLE
                 rgblight_set (); // only center led is altered, no need to go through isolate_rgblight_set()
+# endif
+
             }
         }
     }
@@ -1822,7 +1874,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #     endif
             }
             break;
-#endif // REMOVE_DRA
+# endif // REMOVE_DRA
 
 
         /* _BON layer definitions. Due to running out of X(…), XP(…) space.*/
