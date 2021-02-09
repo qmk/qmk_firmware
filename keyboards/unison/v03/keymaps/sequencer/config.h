@@ -61,12 +61,6 @@
   #define MIDI_ADVANCED
 #endif
 
-/* test BOOTMAGIC */
-#ifdef BOOTMAGIC_ENABLE
-//   #define BOOTMAGIC_LITE_ROW 6
-//   #define BOOTMAGIC_LITE_COLUMN 0
-//   #define BOOTMAGIC_KEY_SALT KC_TAB
-#endif
 
 #ifdef NKRO_ENABLE
     #define FORCE_NKRO

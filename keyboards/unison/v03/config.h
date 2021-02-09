@@ -90,6 +90,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /*
+ * BOOTMAGIC
+ * Left-Top key posision in matrix is (6,0).
+ * NOTE: With Round-Robin matrix, (0,0) is always High(=pressed).
+ */
+#ifdef BOOTMAGIC_ENABLE
+  #define BOOTMAGIC_LITE_ROW 6
+  #define BOOTMAGIC_LITE_COLUMN 0
+#endif
+
+/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
