@@ -15,13 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "wait.h"
-#include <stdint.h>
-#include <stdbool.h>
 #include "led.h"
 #include "led_l3.h"
 #include "tinycmdapi.h"
 #include "hwaddress.h"
-#include "print.h"
 #include "rgblight.h"
 #include "ws2812.h"
 

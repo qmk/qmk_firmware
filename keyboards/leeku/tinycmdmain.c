@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tinycmdpkt.h"
 #include "hwaddress.h"
 #include "i2c_master.h"
-#include <util/delay.h>     /* for _delay_ms() */
+#include "wait.h"     /* for _delay_ms() */
 
 uint8_t localBuffer[0x4B]; // I2C_WRSIZE
 
@@ -50,7 +50,7 @@ static uint8_t waitResponse(uint8_t cmd)
             ret = 1;
             break;
         }
-        _delay_us(100);     // wait 100us
+        wait_us(100);     // wait 100us
     }
     i2c_stop();
     return ret;
