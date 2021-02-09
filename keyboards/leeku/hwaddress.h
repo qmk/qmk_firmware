@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HWADDRESS_H
-#define HWADDRESS_H
+#pragma once
 
 #define KBD_ACTIVATION              ((void *)2)
 #define KBD_ACTIVATION_BIT          (0x5)
@@ -86,5 +85,3 @@ typedef struct kbd_conf
 
 extern kbd_configuration_t kbdConf;
 extern void updateConf(void);
-
-#endif // HWADDRESS_H

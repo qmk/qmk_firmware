@@ -1,5 +1,0 @@
-[b-a][b-b][b-c][b-d][b-e][b-f][b-g][b-h][b-i][b-j][b-k][b-l][b-m][b-o]  [b-p]
-[c-a][c-b][c-c][c-d][c-e][c-f][c-g][c-h][c-i][c-j][c-k][c-l][c-m][c-n]  [c-p]
-[d-a][d-b][d-c][d-d][d-e][d-f][d-g][d-h][d-i][d-j][d-k][d-l][d-n]
-[e-a][e-c][e-d][e-e][e-f][e-g][e-h][e-i][e-j][e-k][e-l][e-m][e-o]
-[f-a][f-b][f-c][f-g][f-j][f-k][f-m][f-n][f-o][f-p]

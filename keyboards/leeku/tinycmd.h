@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TINYCMD_H
-#define TINYCMD_H
+#pragma once
 
 #define TINY_CMD_CMD_MASK               0x3F
 #define TINY_CMD_RSP_MASK               0x80
@@ -49,6 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TINY_CMD_MAX                    127
 
 
-
-#endif // TINYCMD_H
 

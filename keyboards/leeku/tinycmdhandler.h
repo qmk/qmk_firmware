@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TINYCMDHANDLER_H
-#define TINYCMDHANDLER_H
+#pragma once
 
 #include "tinycmdpkt.h"
 
@@ -26,5 +25,4 @@ typedef struct {
     tinycmd_handler_func p_func;
 }tinycmd_handler_array_type;
 
-#endif // TINYCMDHANDLER_H
 

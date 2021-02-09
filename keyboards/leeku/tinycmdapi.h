@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TINYCMDAPI_H
-#define TINYCMDAPI_H
+#pragma once
 
 #include "tinycmd.h"
 #include "tinycmdpkt.h"
@@ -41,6 +40,4 @@ uint8_t tinycmd_led_set_preset(uint8_t preset, uint8_t block, uint8_t mode, uint
 uint8_t tinycmd_led_config_preset(uint8_t *p_led_mode_array, uint8_t rsp);
 uint8_t tinycmd_led_effect_on(uint8_t on, uint8_t rsp);
 
-
-#endif // TINYCMDAPI_H
 

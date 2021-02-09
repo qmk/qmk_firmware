@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef L3LED_H
-#define L3LED_H
+#pragma once
 
 typedef enum
 {
@@ -50,4 +49,3 @@ void rgb_set_mode(uint8_t mode);
 void rgb_set_all(uint8_t on, uint8_t r, uint8_t g, uint8_t b);
 void rgblight_set(void);
 
-#endif // L3LED_H

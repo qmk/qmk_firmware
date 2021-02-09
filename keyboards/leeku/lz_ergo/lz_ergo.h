@@ -18,12 +18,10 @@
 
 #include "quantum.h"
 
-#define _NO KC_NO
-
 // Bottom row
 // K0A, K0B, K0C, K0E, K0D,      K0G, K0I, K0J, K0K, K0L, K0H, K0M, K0F,         K0N, K0O, K0P
 // 0    1    2    4    3         6    8     9   10   11   7    12   5            13   14   15
-#define LAYOUT_TKL( \
+#define LAYOUT_tkl( \
   K5A,      K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M,         K5N, K5O, K5P, \
   K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M, K4N, K4O,    K4P, K3O, K3P, \
   K3A, K3B, K3C, K3D, K3E, K3F, K3G, K3H, K3I, K3J, K3K, K3L, K3M, K3N,         K1P, K2O, K2P, \

@@ -14,5 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 VIA_ENABLE = yes            # VIA support should be enabled here due to the main() loop will be compiled first.
-BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration
 LTO_ENABLE = yes

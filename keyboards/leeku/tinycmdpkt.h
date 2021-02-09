@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TINYCMDPKT_H
-#define TINYCMDPKT_H
+#pragma once
 
 #include "hwaddress.h" // for rgb effect. temporary
 
@@ -241,5 +240,5 @@ typedef union
   tinycmd_ver_rsp_type ver;   // for version
 } tinycmd_pkt_rsp_type;
 
-#endif // TINYCMDPKT_H
+
 
