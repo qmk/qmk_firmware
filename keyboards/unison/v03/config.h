@@ -49,7 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define B6_AUDIO
   #define C6_AUDIO
   #define AUDIO_CLICKY
-//   #define NO_MUSIC_MODE  // MIDI使わないなら、AUDIO_CLICKYとMUSIC_MODEを同時使用可能
 #endif
 
 /* RGB Lighting */
