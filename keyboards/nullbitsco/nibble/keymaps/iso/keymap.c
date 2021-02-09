@@ -105,7 +105,7 @@ void change_RGB(bool clockwise) {
     }
 }
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
   if (layer_state_is(1)) {
     //change RGB settings
     change_RGB(clockwise);
