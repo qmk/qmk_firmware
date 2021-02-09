@@ -25,10 +25,6 @@
 #    include "backlight.h"
 #endif
 
-#ifdef FAUXCLICKY_ENABLE
-#    include "fauxclicky.h"
-#endif
-
 #ifdef API_ENABLE
 #    include "api.h"
 #endif
@@ -310,17 +306,6 @@ bool process_record_quantum(keyrecord_t *record) {
             case EEPROM_RESET:
                 eeconfig_init();
                 return false;
-#ifdef FAUXCLICKY_ENABLE
-            case FC_TOG:
-                FAUXCLICKY_TOGGLE;
-                return false;
-            case FC_ON:
-                FAUXCLICKY_ON;
-                return false;
-            case FC_OFF:
-                FAUXCLICKY_OFF;
-                return false;
-#endif
 #ifdef VELOCIKEY_ENABLE
             case VLK_TOG:
                 velocikey_toggle();
