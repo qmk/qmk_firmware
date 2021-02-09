@@ -1,14 +1,14 @@
 # MCU name
 MCU = atmega32u4
 
-# Bootloader
+# Bootloader selection
 BOOTLOADER = caterina
 
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
-EXTRAKEY_ENABLE = no        # Audio control and System control
+EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
@@ -19,5 +19,11 @@ BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+SPLIT_KEYBOARD = yes
+DIP_SWITCH_ENABLE = no
+OLED_DRIVER_ENABLE = yes
+LTO_ENABLE = yes
+RGB_MATRIX_DRIVER = WS2812
+SRC += oled_display.c
 
 DEFAULT_FOLDER = rura66/rev1

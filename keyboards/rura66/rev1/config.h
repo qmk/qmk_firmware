@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 10
-#define MATRIX_COLS 8
+#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments
@@ -102,8 +102,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/rura66/common/glcdfont.c"
 
 /* Encorder */
-#define ENCODERS_PAD_A { B6 }
-#define ENCODERS_PAD_B { B5 }
+// #define ENCODERS_PAD_A { B6 }
+// #define ENCODERS_PAD_B { B5 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
