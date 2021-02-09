@@ -38,7 +38,6 @@
 
 #define RGBLIGHT_MAX_LAYERS 10
 
-
 #ifdef MIDI_ENABLE
 /*
  * MIDI options
@@ -58,7 +57,7 @@
    - Virtual sustain, portamento, and modulation wheel
    - etc.
 */
-  #define MIDI_ADVANCED
+    #define MIDI_ADVANCED
 #endif
 
 
