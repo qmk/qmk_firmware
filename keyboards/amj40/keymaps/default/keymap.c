@@ -66,12 +66,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LOWER] = LAYOUT(
         KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
-		KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS,    KC_LCBR,    KC_RCBR,          KC_PIPE,
-		KC_F7,            KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), BL_TOGG, BL_INC,  BL_DEC,
-		_______, _______, _______,                   _______, KC_LEFT,                         KC_DOWN, KC_UP,   KC_RGHT
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS,    KC_LCBR,    KC_RCBR,          KC_PIPE,
+        KC_F7,            KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), BL_TOGG, BL_INC,  BL_DEC,
+        _______, _______, _______,                   _______, KC_LEFT,                         KC_DOWN, KC_UP,   KC_RGHT
     ),
 
-	/* Function Layer 1 HHKB style
+    /* Function Layer 1 HHKB style
      * ,-----------------------------------------------.
      * | ` | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 |BS |
      * |-----------------------------------------------|
@@ -84,12 +84,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_RAISE] = LAYOUT(
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-		KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,          KC_BSLS,
-		KC_F7,            KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, KC_DEL,
-		_______, _______, _______,                   _______, _______,                   _______, _______, RGB_TOG
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,          KC_BSLS,
+        KC_F7,            KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, KC_DEL,
+        _______, _______, _______,                   _______, _______,                   _______, _______, RGB_TOG
     ),
 
-	/* Function Layer 1 HHKB style
+    /* Function Layer 1 HHKB style
      * ,-----------------------------------------------.
      * |   |RST|   |   |   |   |   |   |   |   |   |Del|
      * |-----------------------------------------------|
@@ -102,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_ADJUST] = LAYOUT(
         _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
-		_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______,          _______,
-		_______,          _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,
-		KC_SLEP, _______, _______,                   _______, _______,                   _______, _______, _______
+        _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______,          _______,
+        _______,          _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,
+        KC_SLEP, _______, _______,                   _______, _______,                   _______, _______, _______
     ),
 };
 
