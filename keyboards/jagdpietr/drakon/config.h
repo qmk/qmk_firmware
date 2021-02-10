@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x7776
+#define VENDOR_ID 0x4B4B //0xFEED
+#define PRODUCT_ID 0xD41E //0x7776
 #define DEVICE_VER 0x0001
 #define MANUFACTURER jagdpietr
 #define PRODUCT drakon
@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { F0 }
-
+#define ENCODER_RESOLUTION 2 // encoder detent sensitivity
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */

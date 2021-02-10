@@ -33,7 +33,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 enum Layer_names {
 _Base,
 _FN,
-_Lyr2
+_Lyr2,
+_Lyr3
 };
 
 __attribute__((weak))
@@ -57,6 +58,9 @@ static void render_status(void) {
         case _Lyr2:
             oled_write_P(PSTR("Lyr2\n"), false);
             break;
+        case _Lyr3:
+            oled_write_P(PSTR("Lyr3\n"), false);
+            break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
@@ -70,12 +74,12 @@ static void render_status(void) {
 
 // WPM-responsive animation stuff here
 #define IDLE_FRAMES 5
-#define IDLE_SPEED 40 // below this wpm value your animation will idle
+#define IDLE_SPEED 20 // below this wpm value your animation will idle
 
 // #define PREP_FRAMES 1 // uncomment if >1
 
 #define TAP_FRAMES 2
-#define TAP_SPEED 60 // above this wpm value typing animation to triggere
+#define TAP_SPEED 45 // above this wpm value typing animation to triggere
 
 #define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing

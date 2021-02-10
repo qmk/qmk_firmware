@@ -1,0 +1,1 @@
+# Modified VIA keymap for the Drakon. Includes Super Alt/Tab macro linked to encoder rotation and a MOCkiNg sPOngEBOB function toggled through LCTL+LSFT+RSFT
