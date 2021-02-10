@@ -20,8 +20,7 @@
 #include "i2c_master.h"
 #include "../tinycmdapi.h"
 
-void keyboard_pre_init_kb(void)
-{
+void keyboard_pre_init_kb(void){
     /*
     PA  [0:7]   col[0:7]
     PB  [0:7]   col[8:15]
@@ -50,8 +49,7 @@ void keyboard_pre_init_kb(void)
     i2c_init();
 }
 
-void matrix_scan_kb(void)
-{
+void matrix_scan_kb(void){
     #ifdef WATCHDOG_ENABLE
     wdt_reset();
     #endif

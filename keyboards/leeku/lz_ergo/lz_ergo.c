@@ -21,8 +21,7 @@
 #include "../tinycmdapi.h"
 #include "../led_l3.h"
 
-void keyboard_pre_init_kb(void)
-{
+void keyboard_pre_init_kb(void){
     /*
     PA  [0:7]   col[0:7]
     PB  [0:7]   col[8:15]
@@ -52,8 +51,7 @@ void keyboard_pre_init_kb(void)
     backlight_rgblight_disable();
 }
 
-void matrix_scan_kb(void)
-{
+void matrix_scan_kb(void){
     #ifdef WATCHDOG_ENABLE
     wdt_reset();
     #endif

@@ -17,8 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-typedef enum
-{
+typedef enum {
     LED_EFFECT_FADING          = 0,
     LED_EFFECT_FADING_PUSH_ON  = 1,
     LED_EFFECT_PUSHED_LEVEL    = 2,

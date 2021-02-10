@@ -16,8 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-enum
-{
+enum {
     RGB_EFFECT_BOOTHID = 0,
     RGB_EFFECT_FADE_BUF,
     RGB_EFFECT_FADE_LOOP,
@@ -42,8 +41,7 @@ typedef struct {
     uint8_t accel_mode;
 } rgb_effect_param_type;
 
-typedef struct kbd_conf
-{
+typedef struct kbd_conf {
     uint8_t led_preset_index;               // LED effect  preset index
     uint8_t led_preset[3][5];               // Block configuration for LED effect  preset
     uint8_t rgb_effect_index;               // RGB effect index

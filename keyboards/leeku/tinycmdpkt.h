@@ -31,44 +31,38 @@ enum {
 } reset_type_e;
 #endif
 
-typedef struct
-{
+typedef struct {
   uint8_t g;
   uint8_t r;
   uint8_t b;
 } tinycmd_led_type;
 
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t rgb_num;
   uint16_t rgb_limit;
 } tinycmd_config_req_type;
 
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
 } tinycmd_ver_req_type;
 
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t type;
 } tinycmd_reset_req_type;
 
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t lock;
 } tinycmd_three_lock_req_type;
 
 // TINY_CMD_RGB_ALL_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t on; // on or off
@@ -76,8 +70,7 @@ typedef struct
 } tinycmd_rgb_all_req_type;
 
 // TINY_CMD_RGB_POS_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t pos; // position
@@ -85,8 +78,7 @@ typedef struct
 } tinycmd_rgb_pos_req_type;
 
 // TINY_CMD_RGB_RANGE_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t num;
@@ -95,8 +87,7 @@ typedef struct
 } tinycmd_rgb_range_req_type;
 
 // TINY_CMD_RGB_BUFFER_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t num;
@@ -105,16 +96,14 @@ typedef struct
 } tinycmd_rgb_buffer_req_type;
 
 // TINY_CMD_RGB_SET_EFFECT_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t index;
 } tinycmd_rgb_set_effect_req_type;
 
 // TINY_CMD_RGB_SET_PRESET_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t index;
@@ -122,24 +111,21 @@ typedef struct
 } tinycmd_rgb_set_preset_req_type;
 
 // TINY_CMD_RGB_EFFECT_SPEED_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint16_t speed; // 2: fast, 3: normal, 4: slow
 } tinycmd_rgb_effect_speed_req_type;
 
 // TINY_CMD_RGB_EFFECT_ON_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t on; // 0: off, TRUE: on
 } tinycmd_rgb_effect_on_req_type;
 
 // TINY_CMD_LED_LEVEL_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t channel;
@@ -147,16 +133,14 @@ typedef struct
 } tinycmd_led_level_req_type;
 
 // TINY_CMD_LED_SET_EFFECT_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t preset;
 } tinycmd_led_set_effect_req_type;
 
 // TINY_CMD_LED_SET_PRESET_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t preset;
@@ -165,37 +149,32 @@ typedef struct
 } tinycmd_led_set_preset_req_type;
 
 // TINY_CMD_LED_CONFIG_PRESET_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t data[15];
 } tinycmd_led_config_preset_req_type;
 
 // TINY_CMD_LED_EFFECT_ON_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t on; // 0: off TRUE: on
 } tinycmd_led_effect_on_req_type;
 
 // TINY_CMD_DIRTY_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
 } tinycmd_dirty_req_type;
 
 // TINY_CMD_SLEEP_F
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t sleep; // 1 means sleep
 } tinycmd_sleep_req_type;
 
-typedef union
-{
+typedef union {
   uint8_t cmd_code;
   tinycmd_config_req_type              config;                   // TINY_CMD_CONFIG_F
   tinycmd_ver_req_type                 ver;                      // TINY_CMD_VER_F
@@ -220,21 +199,18 @@ typedef union
 
 
 // Response type
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
 } tinycmd_rsp_type;
 
 
-typedef struct
-{
+typedef struct {
   uint8_t cmd_code;
   uint8_t pkt_len;
   uint8_t version;
 } tinycmd_ver_rsp_type;
 
-typedef union
-{
+typedef union {
   uint8_t cmd_code;
   tinycmd_rsp_type gen;       // general response
   tinycmd_ver_rsp_type ver;   // for version

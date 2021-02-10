@@ -37,8 +37,7 @@ uint8_t led_sleep_preset[3][5] = {
         {LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF}
     };
 
-kbd_configuration_t kbdConf =
-{
+kbd_configuration_t kbdConf = {
     0,                  // led_preset_index
     {{LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_ALWAYS, LED_EFFECT_ALWAYS}, //led_preset
      {LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_ALWAYS, LED_EFFECT_ALWAYS},
@@ -56,7 +55,7 @@ kbd_configuration_t kbdConf =
 };
 
 // Indicator LEDs
-void led_set(uint8_t usb_led) {
+void led_set(uint8_t usb_led){
     tinycmd_three_lock(usb_led & (1 << USB_LED_NUM_LOCK),
                        usb_led & (1 << USB_LED_CAPS_LOCK),
                        usb_led & (1 << USB_LED_SCROLL_LOCK),
@@ -69,21 +68,21 @@ void led_set(uint8_t usb_led) {
     }
 
 // In-switch LEDs
-void led_off(void) {
+void led_off(void){
     uint8_t led_preset[3][5] = {{LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF},
                                 {LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF},
                                 {LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF, LED_EFFECT_OFF}};
     tinycmd_led_config_preset((uint8_t *)led_preset, true);
 }
 
-void led_on(void) {
+void led_on(void){
     uint8_t led_preset[3][5] = {{LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE, led_mode, LED_EFFECT_NONE},
                                 {LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE},
                                 {LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE, LED_EFFECT_NONE}};
     tinycmd_led_config_preset((uint8_t *)led_preset, true);
 }
 
-void led_change_mode(void) {
+void led_change_mode(void){
     if (led_mode == LED_EFFECT_ALWAYS) {
         led_mode = LED_EFFECT_FADING;
     } else if (led_mode == LED_EFFECT_FADING) {
@@ -96,12 +95,12 @@ void led_change_mode(void) {
     led_on();
 }
 
-void led_speed(void) {
+void led_speed(void){
     tinycmd_rgb_effect_speed(kbdConf.rgb_limit, true);
 }
 
 // Backlighting
-void backlight_init_ports(void) {
+void backlight_init_ports(void){
     #ifdef RGBLIGHT_CLIP_START
     rgblight_set_clipping_range(RGBLIGHT_CLIP_START, RGBLIGHT_CLIP_LEDS);
     #endif
@@ -131,7 +130,7 @@ void backlight_init_ports(void) {
     }
 }
 
-void backlight_rgblight_disable(void) {
+void backlight_rgblight_disable(void){
     uint8_t ret = 0;
     uint16_t retry = 0;
     while(ret == 0 && (retry++ < tiny_detect_retry))
@@ -156,7 +155,7 @@ void backlight_rgblight_disable(void) {
     }
 }
 
-void backlight_set(uint8_t level) {
+void backlight_set(uint8_t level){
     if (level) {
         led_on();
     } else {
@@ -166,7 +165,7 @@ void backlight_set(uint8_t level) {
 
 #ifdef RGBLIGHT_CUSTOM_DRIVER
 
-void rgblight_set(void) {
+void rgblight_set(void){
     if (!rgblight_config.enable) {
         tinycmd_rgb_all(0, 0, 0, 0, false);
         return;
@@ -199,10 +198,10 @@ void rgblight_set(void) {
 #endif
 
 // Power management
-void led_restore(void) {
+void led_restore(void){
     // tinycmd_sleep(0, true);
 }
 
-void led_sleep(void) {
+void led_sleep(void){
     // tinycmd_sleep(1, true);
 }
