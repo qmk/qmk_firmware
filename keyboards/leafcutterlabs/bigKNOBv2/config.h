@@ -24,7 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0007
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    leafcutterlabs
-#define PRODUCT         bigKNOB
+#define PRODUCT         bigKNOBv2
+#define DESCRIPTION     5 key with rotary  board
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -46,14 +47,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIRECT_PINS {   \
     { B7, D4, D6, F6, F7} \
 }
+//speed for double tap
+#define TAPPING_TERM 300
+
 #define UNUSED_PINS
 
 /* rotary encoder 1,2,3 closest to usb port is 0*/
 #define ENCODERS_PAD_A { D0}
 #define ENCODERS_PAD_B { D2}
-#define ENCODER_RESOLUTION 4 //default/suggested
+#define ENCODER_RESOLUTION 8 //default/suggested
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN C7 //D3 - underglow C7 - backlight
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 5    // Number of LEDs
+
+#define MUSIC_MASK (keycode != KC_NO)
+#define MIDI_ADVANCED
