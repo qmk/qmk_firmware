@@ -1,4 +1,4 @@
-/* Copyright 2018-2020 James Young (@noroadsleft)
+/* Copyright 2020 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,23 @@
 
 #pragma once
 
-#define PERMISSIVE_HOLD // https://docs.qmk.fm/#/feature_advanced_keycodes?id=permissive-hold
+#include QMK_KEYBOARD_H
 
-// Enable single-color backlighting
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
-#define BREATHING_PERIOD 4
+#define MOD_MASK_RALT (MOD_BIT(KC_RALT))
+extern bool macroMode;
 
-#ifdef LOCKING_SUPPORT_ENABLE
-#   undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#   undef LOCKING_RESYNC_ENABLE
-#endif
+enum userspace_keycodes {
+    VRSN = SAFE_RANGE,
+    G_PUSH,
+    G_FTCH,
+    G_BRCH,
+    M_SALL,
+    M_UNDO,
+    M_CUT,
+    M_COPY,
+    M_PASTE,
+    M_MDSWP,
+    KEYMAP_SAFE_RANGE
+};
 
-#define NO_ACTION_ONESHOT
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
