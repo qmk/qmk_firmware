@@ -68,20 +68,27 @@ static void render_logo(void) {
 //     };
 
     oled_set_cursor(4, 0);
+    oled_write_char(0x80, false);
     oled_write_char(0x81, false);
     oled_write_char(0x82, false);
-    oled_set_cursor(3, 1);
+    oled_write_char(0x83, false);
+    oled_write_char(0x84, false);
+    oled_set_cursor(4, 1);
     oled_write_char(0xA0, false);
     oled_write_char(0xA1, false);
     oled_write_char(0xA2, false);
-    oled_set_cursor(1, 2);
-    oled_write_char(0x83, false);
-    oled_write_char(0x84, false);
-    oled_write_char(0x85, false);
-    oled_set_cursor(1, 3);
     oled_write_char(0xA3, false);
     oled_write_char(0xA4, false);
+    oled_write_char(0xA5, false);
+    oled_set_cursor(4, 2);
+    oled_write_char(0xC0, false);
+    oled_write_char(0xC1, false);
+    oled_write_char(0xC2, false);
+    oled_write_char(0xC3, false);
+    oled_write_char(0xC4, false);
 
+    oled_set_cursor(12, 0);
+    oled_write_P(PSTR("After L0"), false);
 
     //oled_write_raw_P(myLogo, sizeof(myLogo));
     //oled_write_P(myLogo, false);
