@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -71,8 +70,11 @@ void keyboard_pre_init_user(void);
 void keyboard_post_init_kb(void);
 void keyboard_post_init_user(void);
 
+void housekeeping_task_kb(void);
+void housekeeping_task_user(void);
+
+uint32_t get_matrix_scan_rate(void);
+
 #ifdef __cplusplus
 }
-#endif
-
 #endif

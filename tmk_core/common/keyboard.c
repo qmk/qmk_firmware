@@ -97,21 +97,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // Only enable this if console is enabled to print to
-#if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
-static uint32_t matrix_timer      = 0;
-static uint32_t matrix_scan_count = 0;
+#if defined(DEBUG_MATRIX_SCAN_RATE)
+static uint32_t matrix_timer           = 0;
+static uint32_t matrix_scan_count      = 0;
+static uint32_t last_matrix_scan_count = 0;
 
 void matrix_scan_perf_task(void) {
     matrix_scan_count++;
 
     uint32_t timer_now = timer_read32();
     if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
-        dprintf("matrix scan frequency: %d\n", matrix_scan_count);
-
-        matrix_timer      = timer_now;
-        matrix_scan_count = 0;
+#    if defined(CONSOLE_ENABLE)
+        dprintf("matrix scan frequency: %lu\n", matrix_scan_count);
+#    endif
+        last_matrix_scan_count = matrix_scan_count;
+        matrix_timer           = timer_now;
+        matrix_scan_count      = 0;
     }
 }
+
+uint32_t get_matrix_scan_rate(void) { return last_matrix_scan_count; }
 #else
 #    define matrix_scan_perf_task()
 #endif
@@ -235,6 +240,20 @@ __attribute__((weak)) bool is_keyboard_left(void) { return true; }
  */
 __attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_master(); }
 
+/** \brief housekeeping_task_kb
+ *
+ * Override this function if you have a need to execute code for every keyboard main loop iteration.
+ * This is specific to keyboard-level functionality.
+ */
+__attribute__((weak)) void housekeeping_task_kb(void) {}
+
+/** \brief housekeeping_task_user
+ *
+ * Override this function if you have a need to execute code for every keyboard main loop iteration.
+ * This is specific to user/keymap-level functionality.
+ */
+__attribute__((weak)) void housekeeping_task_user(void) {}
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -291,6 +310,10 @@ void keyboard_init(void) {
     dip_switch_init();
 #endif
 
+#if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
+    debug_enable = true;
+#endif
+
     keyboard_post_init_kb(); /* Always keep this last */
 }
 
@@ -314,6 +337,9 @@ void keyboard_task(void) {
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
 #endif
+
+    housekeeping_task_kb();
+    housekeeping_task_user();
 
 #if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
     uint8_t ret = matrix_scan();

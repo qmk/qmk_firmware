@@ -7,15 +7,15 @@ GitHub עלול להיות קצת טריקי למי שלא מכיר את העב�
 
 התחילו ב- [עמוד של QMK ב-GitHub](https://github.com/qmk/qmk_firmware), ותצמאו כפתור בחלק העליון מימין עם התיכוב "Fork":
 
-![Fork ב-GitHub](http://i.imgur.com/8Toomz4.jpg)
+![Fork ב-GitHub](https://i.imgur.com/8Toomz4.jpg)
 
 אם אתם חלק מארגון, תצטרכו לבחור לאיזה חשבון לבצע פעולת fork. ברוב המבקרים, תרצו לבצע fork לתוך החשבון הפרטי שלכם. ברגע שה-fork הסתיים (לפעמים זה יכול לקחת קצת זמן) הקליקו על כפתור ה-"Clone or Download":
 
-![הורדה מ-GitHub](http://i.imgur.com/N1NYcSz.jpg)
+![הורדה מ-GitHub](https://i.imgur.com/N1NYcSz.jpg)
 
 תוודאו שאתם בוחרים באופצייה של  "HTTPS", בחרו את הקישור והעתיקו אותו:
 
-![קישור HTTPS](http://i.imgur.com/eGO0ohO.jpg)
+![קישור HTTPS](https://i.imgur.com/eGO0ohO.jpg)
 
 מכאן והלאה, הקיש `git clone --recurse-submodules ` בשורת הפקודה והדביקו את הלינק שלכם:
 
@@ -65,11 +65,11 @@ To https://github.com/whoeveryouare/qmk_firmware.git
 
 השינויים שלכם יופיעו ב-fork שלכם ב-GitHub - אם תחזרו לשם  (`https://github.com/<whoeveryouare>/qmk_firmware`), תוכלו ליצור "Pull Request חדש" ע״י הקשה על הכפתור הבא:
 
-![Pull Request חדש](http://i.imgur.com/DxMHpJ8.jpg)
+![Pull Request חדש](https://i.imgur.com/DxMHpJ8.jpg)
 
 כאן תוכלו לראות בדיוק למה עשיתם commit - אם הכל נראה תקין, תוכלו להשלים את הפעולה ע״י הקשה על  "Create Pull Request":
 
-![צרו Pull Request](http://i.imgur.com/Ojydlaj.jpg)
+![צרו Pull Request](https://i.imgur.com/Ojydlaj.jpg)
 
 אחרי שהגשתם, אנו עלולים לפנות אליכם לגבי השינויים שהצעתם, נבקש שתבצעו שינויים ובסופו של דבר נקבל את השינויים! תודה שתרמתם לפרוייקט QMK :)
 </div>
