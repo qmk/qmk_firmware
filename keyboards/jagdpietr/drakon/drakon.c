@@ -74,12 +74,12 @@ static void render_status(void) {
 
 // WPM-responsive animation stuff here
 #define IDLE_FRAMES 5
-#define IDLE_SPEED 20 // below this wpm value your animation will idle
+#define IDLE_SPEED 40 // below this wpm value your animation will idle
 
 // #define PREP_FRAMES 1 // uncomment if >1
 
 #define TAP_FRAMES 2
-#define TAP_SPEED 45 // above this wpm value typing animation to triggere
+#define TAP_SPEED 60 // above this wpm value typing animation to triggere
 
 #define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
