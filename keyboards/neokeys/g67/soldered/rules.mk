@@ -20,3 +20,5 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+
+LAYOUTS = 65_ansi 65_ansi_blocker 65_ansi_blocker_tsangan 65_iso 65_iso_blocker # 65_iso_blocker_tsangan
