@@ -141,9 +141,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
             return false;
             break;
-            // Estos faltan agregar...
-            // RGB_SPI,RGB_VAI,RGB_SAI,
-            // RGB_SPD,RGB_VAD,RGB_SAD,
         case RGB_M_R:
 #ifdef RGBLIGHT_ENABLE
             if (record->event.pressed) {
