@@ -21,13 +21,6 @@ enum _layer {
     _FUNC
 };
 
-static bool win_key_locked = false;
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    KC_TGUI = SAFE_RANGE   // Toggle between GUI Lock or Unlock
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BASE: Base Layer (Default Layer)
    * ,-----------------------------------------------------------.  ,--------------.
@@ -65,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------|        ,----.
    * |     |  |   |   |   |   |   |   |   |   |   |   |          |        |    |
    * |-----------------------------------------------------------|   ,-------------.
-   * |    |Lock|    |                       |    |Func |    |    |   |   |    |    |
+   * |    |    |    |                       |    |Func |    |    |   |   |    |    |
    * `-----------------------------------------------------------'   `-------------'
    */
   [_FUNC] = LAYOUT_tkl_iso( /* Function Layer */
@@ -74,23 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,
-      _______,  KC_TGUI,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,
+      _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,
                                                                                                                                                             _______
   )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_TGUI:
-            if (!record->event.pressed) {
-                // Toggle GUI lock on key release
-                win_key_locked = !win_key_locked;
-                writePin(LED_WIN_LOCK_PIN, !win_key_locked);
-            }
-            break;
-        case KC_LGUI:
-            if (win_key_locked) { return false; }
-            break;
-    }
-    return true;
-}
