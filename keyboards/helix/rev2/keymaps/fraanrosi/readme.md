@@ -12,13 +12,13 @@ The keymap has multiple layers, moving extra keys to different layers.
 
 Keymap : http://www.keyboard-layout-editor.com/#/gists/4cd7b4ccda1de5cf9edc56d29b64da30
 ### First layer (qwerty).
-![first-layer](https://i.imgur.com/BaVDVdB.png)
+![first-layer](https://i.imgur.com/jRE5KLI.png)
 ### Second layer (Lower).
-![second-layer](https://i.imgur.com/HbDVTfp.png)
+![second-layer](https://i.imgur.com/l5DqtHf.png)
 ### Third layer (Raise).
-![third-layer](https://i.imgur.com/IlZuDL7.png)
+![third-layer](https://i.imgur.com/7WgUIl7.png)
 ### All the layers.
- ![all-the-layers](https://i.imgur.com/8h9UB6a.png)
+ ![all-the-layers](https://i.imgur.com/1PuhJfM.png)
  
  <!---![Keyboard](https://i.imgur.com/Onwmsss.png) -->
  
