@@ -32,8 +32,8 @@
 #define DIODE_DIRECTION ROW2COL
 
 #define RGB_DI_PIN D2
-#define RGBLED_NUM 21
-#define RGBLIGHT_SPLIT
+#define RGBLED_NUM 42
+#define RGBLED_SPLIT { 21, 21 }
 #define RGBLIGHT_ANIMATIONS
 
 #define DEBOUNCE 5
