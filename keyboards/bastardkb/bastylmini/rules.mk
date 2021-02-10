@@ -21,3 +21,9 @@ RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
+
+AUDIO_SUPPORTED = no
+RGB_MATRIX_SUPPORTED = no
+RGBLIGHT_SUPPORTED = yes
+
+LAYOUTS = split_3x6_3
