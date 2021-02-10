@@ -25,7 +25,7 @@
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
-
+#define RGBLIGHT_LIMIT_VAL 180
 #define MATRIX_ROW_PINS { B5, F7, F6, B6 }
 #define MATRIX_COL_PINS { B4, E6, C6, B1, B3, B2 }
 
