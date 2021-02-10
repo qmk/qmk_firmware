@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // If you need more program area, try select and reduce rgblight modes to use.
 
+#define RGBLIGHT_ANIMATIONS
+
 // Selection of RGBLIGHT MODE to use.
 #if defined(LED_ANIMATIONS)
    #define RGBLIGHT_EFFECT_BREATHING
@@ -33,6 +35,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_KNIGHT
    #define RGBLIGHT_EFFECT_CHRISTMAS
    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-   //#define RGBLIGHT_EFFECT_RGB_TEST
-   //#define RGBLIGHT_EFFECT_ALTERNATING
+   #define RGBLIGHT_EFFECT_RGB_TEST
+   #define RGBLIGHT_EFFECT_ALTERNATING
+#endif
+
+
+#ifdef MOUSEKEY_ENABLE
+   #undef MOUSEKEY_INTERVAL
+   #define MOUSEKEY_INTERVAL 20
+
+   #undef MOUSEKEY_TIME_TO_MAX
+   #define MOUSEKEY_TIME_TO_MAX 40
+
+   #undef MOUSEKEY_MAX_SPEED
+   #define MOUSEKEY_MAX_SPEED 6
+  
+   #undef MOUSEKEY_MOVE_DELTA
+   #define MOUSEKEY_MOVE_DELTA 5
+
+   #undef MOUSEKEY_DELAY
+   #define MOUSEKEY_DELAY 0
 #endif
