@@ -2,6 +2,7 @@
 
 #define TAPPING_TERM 250
 #define RETRO_TAPPING
+#define FORCE_NKRO
 
 #ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_LAYERS
