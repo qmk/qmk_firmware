@@ -20,6 +20,23 @@
 #include "tap.h"
 #include "wrappers.h"
 #include "print.h" 
+#include "trudkin.h"
+
+
+enum ergo {
+      HSV_0_255_255 =NEW_SAFE_RANGE,
+      RGB_SLD,  
+   HSV_86_255_128,                
+   HSV_27_255_255,           
+   HSV_172_255_255, 
+      HSV_215_255_128,
+    ST_MACRO_0,
+    ST_MACRO_1,
+    ST_MACRO_2,
+    ST_MACRO_3,
+    ST_MACRO_4
+};
+
 
 
 #define ES_LESS_MAC KC_GRAVE
@@ -31,20 +48,8 @@
 #define FN(km)  LM(5, km)
 
 
-enum my_layers {
-  _QWERTY,
-  _COLEMAK,
-  _DVORAK,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-  _NUMPAD,
-  _MOUSE,
- _FUNCTION,
-};
-
 #define MOUSE TT(_MOUSE)
-#define NUMPAD TT(_NUMPAD)
+
 
 #define MY_LOW TD(MOD_LOW)
 #define MY_RAI TD(MOD_RAI)

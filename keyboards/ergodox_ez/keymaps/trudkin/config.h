@@ -34,5 +34,4 @@
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 450
 
-#define TAP_CODE_DELAY 40
 

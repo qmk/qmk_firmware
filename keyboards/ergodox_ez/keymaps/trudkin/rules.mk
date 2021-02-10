@@ -2,7 +2,7 @@
 # See rules at https://docs.qmk.fm/#/config_options?id=the-rulesmk-file
 
 SRC += matrix.c
-
+SRC += tap.c
 
 LTO_ENABLE = yes
 COMMAND_ENABLE = no
