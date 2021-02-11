@@ -6,8 +6,10 @@
 #define LM_NALT LM(_NUM, MOD_LALT)
 #define RSFT_SL RSFT_T(KC_SLSH)
 #define RALT_F6 RALT_T(KC_F6)
-#define CTLINS  LCTL(KC_INS) // Ctrl + Insert (terminal copy)
-#define SFTINS  LSFT(KC_INS) // Shift + Insert (terminal paste)
+#define CTLINS  LCTL(KC_INS)     // Ctrl + Insert (terminal copy)
+#define SFTINS  LSFT(KC_INS)     // Shift + Insert (terminal paste)
+#define AMDREP  LCTL(LSFT(KC_S)) // AMD Replay
+#define AMDREC  LCTL(LSFT(KC_E)) // AMD Record
 
 enum piv3rt_layers {
     _DEF,
@@ -55,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  RGB_TOG, _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_MOD, _______,  _______, _______, RESET,
         _______,  _______, _______, _______, _______, RGB_PCY, _______, _______, RGB_SPI, RGB_SPD, _______,  _______,          EEP_RST,
         _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, RGB_000, _______,
-        _______,  _______, _______,                            RGB_RST,                   _______, _______,  KC_PWR,  _______, _______
+        _______,  _______, _______,                            RGB_RST,                   _______, _______,  KC_PWR,  AMDREC,  AMDREP
     ),
     [_NUM] = LAYOUT(
         KC_NLCK,  KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, _______, _______, _______, _______, KC_PSLS, KC_PAST,  KC_PMNS, KC_PPLS, _______,
@@ -158,6 +160,12 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(58, 0xff, 0xff, 0xff);
             rgb_matrix_set_color(57, 0xff, 0xff, 0xff);
             return;
+        }
+
+        if (layer_state_is(_RGB)) {
+            // AMD record and replay
+            rgb_matrix_set_color(54, 0x00, 0xff, 0x00);
+            rgb_matrix_set_color(55, 0xff, 0x00, 0x00);
         }
 
         if (current_profile == CSGO) {
