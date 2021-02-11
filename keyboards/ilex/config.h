@@ -40,17 +40,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F6, F4, F5, F7 }
-#define MATRIX_COL_PINS { D3, B1, B3, D7, E6, B2 }
+#define MATRIX_ROW_PINS { F6, B1, F5, F7 }
+#define MATRIX_COL_PINS { D3, F4, B3, D7, E6, B2 }
 // #define MATRIX_COL_PINS { B2, E6, D7, B3, B1, D3} 
 #define UNUSED_PINS
 
 /* encoder pins */
 #define ENCODERS_PAD_A { D4 }
-#define ENCODERS_PAD_B { D5 }
+#define ENCODERS_PAD_B { C6 }
 
 /* encoder resolution */
-#define ENCODER_RESOLUTION 2
+#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
 
 
@@ -62,10 +62,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-//#define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
-//#define USE_SERIAL
+#define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
+#define USE_SERIAL
 /* Select hand configuration */
-//#define MASTER_LEFT
+#define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
@@ -89,6 +89,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
 #    define RGBLIGHT_ANIMATIONS
+/*== split keyboard light sync ==*/
+#    define RGBLIGHT_SPLIT
 /*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
