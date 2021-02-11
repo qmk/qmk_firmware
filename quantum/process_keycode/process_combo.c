@@ -190,7 +190,7 @@ static inline void _find_key_index_and_count(const uint16_t *keys, uint16_t keyc
 }
 
 void drop_combo_from_buffer(uint16_t combo_index) {
-    /* Mark a combo as processed from the buffer. I the buffer is in the
+    /* Mark a combo as processed from the buffer. If the buffer is in the
      * beginning of the buffer, drop it.  */
     uint8_t i = combo_buffer_read;
     while (i != combo_buffer_write) {
