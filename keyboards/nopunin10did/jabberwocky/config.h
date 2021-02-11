@@ -26,8 +26,8 @@
 #define PRODUCT             Jabberwocky
 
 /* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 10
+#define MATRIX_ROWS         12
+#define MATRIX_COLS         10
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS     { E6, B4, B5, B7, D5, C7, F1, F0, B1, B3, B2, B6 }
@@ -42,7 +42,7 @@
 #define DIODE_DIRECTION     COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
+#define DEBOUNCE            5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
