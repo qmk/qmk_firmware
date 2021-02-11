@@ -6,6 +6,7 @@
 #   See TOP/docs/config_options.md for more information.
 #
 LTO_ENABLE = no  # if firmware size over limit, try this option
+MOUSEKEY_ENABLE = yes    # Mouse keys
 EXTRAKEY_ENABLE = yes    # Audio control and System control
 # AUDIO_ENABLE = yes       # Audio output on port C6
 # Helix Spacific Build Options
