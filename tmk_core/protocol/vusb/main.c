@@ -78,7 +78,6 @@ static void setup_usb(void) {
     initForUsbConnectivity();
 
     // for Console_Task
-    print_set_sendchar(sendchar);
 }
 
 /** \brief Main

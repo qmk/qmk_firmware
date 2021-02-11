@@ -1,4 +1,4 @@
-/* Copyright 2012,2013 Jun Wako <wakojun@gmail.com> */
+/* Copyright 2012 Jun Wako <wakojun@gmail.com> */
 /* Very basic print functions, intended to be used with usb_debug_only.c
  * http://www.pjrc.com/teensy/
  * Copyright (c) 2008 PJRC.COM, LLC
@@ -21,27 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#pragma once
 
-#include <stdint.h>
-#include "print.h"
+#include "arm_atsam/printf.h"
 
-#ifndef NO_PRINT
-
-#    if defined(__AVR__)
-
-#        define sendchar(c) xputc(c)
-
-void print_set_sendchar(int8_t (*sendchar_func)(uint8_t)) { xdev_out(sendchar_func); }
-
-#    elif defined(PROTOCOL_CHIBIOS) /* __AVR__ */
-
-// don't need anything extra
-
-#    elif defined(__arm__) /* __AVR__ */
-
-// TODO
-// void print_set_sendchar(int8_t (*sendchar_func)(uint8_t)) { }
-
-#    endif /* __AVR__ */
-
-#endif
+// Create user & normal print defines
+#define xprintf(fmt, ...) __xprintf(fmt, ##__VA_ARGS__)
+#define print(s) xprintf(s)
+#define println(s) xprintf(s "\r\n")
+#define uprint(s) print(s)
+#define uprintln(s) println(s)
+#define uprintf(fmt, ...) xprintf(fmt, ##__VA_ARGS__)
