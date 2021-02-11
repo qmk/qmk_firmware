@@ -15,7 +15,6 @@
   */ 
 #pragma once
 
-#include "../../config.h"
 
 #define TAP_CODE_DELAY 5
 
