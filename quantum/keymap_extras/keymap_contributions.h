@@ -164,3 +164,50 @@
 #define PT_OSX_RDQU S(A(KC_COMM)) // ”
 #define PT_OSX_MDDT S(A(KC_DOT))  // ·
 #define PT_OSX_NDSH S(A(PT_OSX_MINS)) // –
+
+// Swiss French aliases to avoid collisions with Swiss german ones
+#define FRCH_SECT KC_GRV
+#define FRCH_QUOT KC_MINS
+#define FRCH_CIRC KC_EQL
+#define FRCH_EGRV KC_LBRC
+#define FRCH_DIAE KC_RBRC
+#define FRCH_EACU KC_SCLN
+#define FRCH_AGRV KC_QUOT
+#define FRCH_DLR KC_NUHS
+#define FRCH_LABK KC_NUBS
+#define FRCH_DEG S(FRCH_SECT)
+#define FRCH_PLUS S(KC_1)
+#define FRCH_DQUO S(KC_2)
+#define FRCH_ASTR S(KC_3)
+#define FRCH_CCED S(KC_4)
+#define FRCH_PERC S(KC_5)
+#define FRCH_AMPR S(KC_6)
+#define FRCH_SLSH S(KC_7)
+#define FRCH_LPRN S(KC_8)
+#define FRCH_RPRN S(KC_9)
+#define FRCH_EQL S(KC_0)
+#define FRCH_QUES S(FRCH_QUOT)
+#define FRCH_GRV S(FRCH_CIRC)
+#define FRCH_UDIA S(FRCH_EGRV)
+#define FRCH_EXLM S(FRCH_DIAE)
+#define FRCH_ODIA S(FRCH_EACU)
+#define FRCH_ADIA S(FRCH_AGRV)
+#define FRCH_PND S(FRCH_DLR)
+#define FRCH_RABK S(FRCH_LABK)
+#define FRCH_SCLN S(KC_COMM)
+#define FRCH_COLN S(KC_DOT)
+#define FRCH_UNDS S(KC_MINS)
+#define FRCH_BRKP ALGR(CH_1)
+#define FRCH_AT ALGR(KC_2)
+#define FRCH_HASH ALGR(KC_3)
+#define FRCH_NOT ALGR(KC_6)
+#define FRCH_PIPE ALGR(KC_7)
+#define FRCH_CENT ALGR(KC_8)
+#define FRCH_ACUT ALGR(FRCH_QUOT)
+#define FRCH_TILD ALGR(FRCH_CIRC)
+#define FRCH_EURO ALGR(KC_E)
+#define FRCH_LBRC ALGR(FRCH_EGRV)
+#define FRCH_RBRC ALGR(FRCH_DIAE)
+#define FRCH_LCBR ALGR(FRCH_AGRV)
+#define FRCH_RCBR ALGR(FRCH_DLR)
+#define FRCH_BSLS ALGR(FRCH_LABK)
