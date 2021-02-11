@@ -47,20 +47,20 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________QWERTY_L3_________________        KC_Z,    MY_X,    MY_C,    MY_V,    KC_B
+#define _________________QWERTY_L3_________________        KC_Z,    MY_X,    MY_C,    MY_V,    MY_B
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________        KC_N,    MY_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 
 #define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
 #define _________________COLEMAK_L2________________       KC_A,    KC_R,    KC_S,    KC_T,    KC_D
-#define _________________COLEMAK_L3________________       KC_Z,    MY_X,    MY_C,    MY_V,    KC_B
+#define _________________COLEMAK_L3________________       KC_Z,    MY_X,    MY_C,    MY_V,    MY_B
 
 #define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
 #define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
-#define _________________COLEMAK_R3________________       KC_K,    MY_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________COLEMAK_R3________________       MY_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 #define _________________DVORAK_L1_________________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
 #define _________________DVORAK_L2_________________        KC_A,    KC_O,    KC_E,   KC_U,     KC_I
@@ -68,18 +68,18 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________DVORAK_R1_________________        KC_F,    KC_G,    MY_C,    KC_R,    KC_L
 #define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
-#define _________________DVORAK_R3_________________        KC_B,    MY_M,    KC_W,    MY_V,    KC_Z
+#define _________________DVORAK_R3_________________        MY_B,    KC_M,    KC_W,    MY_V,    KC_Z
 
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define _____________MY_NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    MY_9,    MY_0
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 #define ___________________BLANK___________________        _______, _______, _______, _______, _______
 #define _______________CONTROL_KEYS_2______________        LCTL(KC_A),_______, _______, _______,LCTL(KC_D)
-#define _______________CONTROL_KEYS_3______________        LCTL(KC_Z),LSFT(KC_DEL),LCTL(KC_INS),LSFT(KC_INS),LCTL(KC_B )
-
+#define _______________CONTROL_KEYS_3______________        LCTL(KC_Z),RSFT(KC_DEL),RCTL(KC_INS),RSFT(KC_INS),RCTL(KC_B)
 
 
 
@@ -104,16 +104,17 @@ NOTE: These are all the same length.  If you do a search/replace
 
 
 
-#define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________ADJUST_L2_________________        MU_TOG , _______, AU_ON,   AU_OFF,  _______
-#define _________________ADJUST_L3_________________        RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, _______
+#define _________________ADJUST_L1_________________        QWERTY, COLEMAK, DVORAK,  KC_PSCR, KC_NLCK
+#define _________________ADJUST_L2_________________        RESET, DEBUG,  TERM_ON, TERM_OFF, CK_TOGG
+#define _________________ADJUST_L3_________________        CMB_ON, MU_MOD, AU_ON, AU_OFF, AG_NORM     
+#define _________________ADJUST_L4_________________        MUV_DE, MUV_IN, MU_ON, MU_OFF, AG_SWAP     
 
-#define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
-#define _________________ADJUST_R2_________________        _______, QWERTY,  COLEMAK, DVORAK,  _______
-#define _________________ADJUST_R3_________________        _______, KC_MUTE, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP, KC_MNXT
+#define _________________ADJUST_R1_________________        RGB_SPI, RGB_SPD, RGB_MOD, RGB_RMOD, RGB_TOG
+#define _________________ADJUST_R2_________________        RGB_VAI, RGB_VAD, RGB_M_R, RGB_M_P,  RGB_M_B
+#define _________________ADJUST_R3_________________        RGB_HUI, RGB_HUD, RGB_M_K, RGB_M_SW, RGB_M_SN
+#define _________________ADJUST_R4_________________        RGB_SAI, RGB_SAD, RGB_M_T, RGB_M_X,  RGB_M_G
 
-
-#define _________________MOD_LEFT__________________         LCTL_T(KC_LBRC), LGUI_T(KC_RBRC), MY_PIPE, KC_MINS, MY_LOW
+#define _________________MOD_LEFT__________________         LCTL_T(KC_LBRC),  MY_LGUI, LALT_T(KC_RBRC),KC_MINS, MY_LOW
 #define _________________MOD_RIGHT_________________         MY_RAI, KC_EQL, RALT_T(KC_LEFT), RGUI_T(KC_DOWN), RCTL_T(KC_RGHT)
 
 
@@ -124,8 +125,9 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _______NUMPAD_4________                             KC_PENT, KC_P0, KC_PDOT
 #define _________________NUMPAD_4__________________         KC_LPRN, _______NUMPAD_4________, KC_RPRN
 
-
-
+#define _________________MOUSE_1___________________         KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U, _______
+#define _________________MOUSE_2___________________         KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______
+#define _________________MOUSE_3___________________         KC_BTN1, KC_BTN3, KC_BTN2, _______, _______
 // clang-format on
 
 
@@ -133,8 +135,6 @@ NOTE: These are all the same length.  If you do a search/replace
 
 
 
-#define _________________MOD_LEFT__________________          LCTL_T(KC_LBRC), LGUI_T(KC_RBRC), MY_PIPE, KC_MINS, MY_LOW
-#define _________________MOD_RIGHT_________________          MY_RAI, KC_EQL, RALT_T(KC_LEFT), RGUI_T(KC_DOWN), RCTL_T(KC_RGHT)
 
 
 

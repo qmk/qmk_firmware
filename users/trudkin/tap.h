@@ -17,57 +17,12 @@
 
 
 
-enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
-  RAISE,
-  BACKLIT,
-  KC_MAKE,
-  RGB_SLD, 
-  HSV_0_255_255,
-  HSV_86_255_128,
-  HSV_172_255_255,
-  HSV_27_255_255,
-  HSV_215_255_128,
-  ST_MACRO_0,
-  ST_MACRO_1,
-  ST_MACRO_2,
-  ST_MACRO_3,
-};
 
 
 
-enum  td_keycodes {
-     TD_ESC_CAPS,
-    TD_DEL_INS,
-    TD_SPC_ENT,
-    TD_CUT,
-    TD_COPY,
-    TD_PASTE,
-    NUM_LAYR,
-    LBRC_9,
-    RBRC_0,
-    TD_PIPE,
-    MOD_LOW,
-    MOD_RAI,
-    MOD_LOW1,
-    MOD_RAI1,
-    TD_M
-};
 
 
-#define MY_ESC TD(TD_ESC_CAPS)
-#define MY_Q TD(NUM_LAYR)
-#define MY_X TD(TD_CUT)
-#define MY_C TD(TD_COPY)
-#define MY_V TD(TD_PASTE)
-#define MY_PIPE TD(TD_PIPE)
-#define MY_DEL TD(TD_DEL_INS)
-#define MY_9 TD(LBRC_9)
-#define MY_0 TD(RBRC_0)
-#define MY_M TD(TD_M)
+
 
 
 typedef struct {

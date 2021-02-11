@@ -1,5 +1,7 @@
-SRC += muse.c
 SRC += tap.c
+SRC += process_records.c 
+
+
 CONSOLE_ENABLE = no
 LTO_ENABLE = yes
 

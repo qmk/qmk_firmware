@@ -15,16 +15,16 @@
   */ 
 #pragma once
 
+#include "../../config.h"
 
 #define TAP_CODE_DELAY 5
 
+#define COMBO_COUNT 8
+#define COMBO_TERM 600
 
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif 
+#define USE_CUA
+#define CUA_MOD MOD_BIT(KC_LCTRL)
+
 #define RGBLIGHT_LIMIT_VAL 255
 
 
@@ -39,7 +39,7 @@
 #define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  
 #define TAPPING_TERM 200 
-#define TAPPING_TERM_PER_KEY
+//#define TAPPING_TERM_PER_KEY
 
 /*#define RETRO_TAPPING*/ 
 
@@ -50,15 +50,15 @@
 #define LEADER_TIMEOUT 450
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PREONIC_SOUND)
+    #define STARTUP_SONG SONG(GOOD_EATS)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
+    #define DEFAULT_LAYER_SONGS { SONG(COLEMAK_SOUND), \
+                                  SONG(QWERTY_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
 #endif
-
+#define AUDIO_CLICKY
 #define MUSIC_MASK (keycode != KC_NO)
 
 /*
@@ -85,4 +85,4 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
-
+#define LAYER_STATE_8BIT 

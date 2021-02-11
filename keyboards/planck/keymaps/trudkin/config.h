@@ -19,6 +19,8 @@
 #define MAX_LMT 8
 
 #define USE_ZSA
+#define USE_CUA
+#define CUA_MOD MOD_BIT(KC_LCTRL)
 
 #define RGB_DI_PIN A1
 #define RGBLED_NUM 9
@@ -26,7 +28,8 @@
 
 
 #ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(PLANCK_SOUND)
+#define STARTUP_SONG SONG(GOOD_EATS)
+//#define STARTUP_SONG SONG(PLANCK_SOUND)
 #endif
 
 #define MIDI_BASIC
@@ -50,11 +53,11 @@
 
 
 #ifndef PLANCK_EZ_LED_LOWER
-#    define PLANCK_EZ_LED_LOWER 2
+#    define PLANCK_EZ_LED_LOWER 3
 #endif
 #ifndef PLANCK_EZ_LED_RAISE
-#    define PLANCK_EZ_LED_RAISE 3
+#    define PLANCK_EZ_LED_RAISE 4
 #endif
 #ifndef PLANCK_EZ_LED_ADJUST
-#    define PLANCK_EZ_LED_ADJUST 4
+#    define PLANCK_EZ_LED_ADJUST 7
 #endif
