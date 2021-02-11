@@ -82,6 +82,9 @@ void encoder_init(void) {
 #endif
 
 #ifdef ENCODER_PINS
+#    define PULL_DOWN 1
+#    define PULL_UP 2
+#    define FLOAT 3
 #    if (ENCODER_PINS == PULL_DOWN)
 #        ifdef __AVR__
 #            error Pull Down is not supported on AVR
