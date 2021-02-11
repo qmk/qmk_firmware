@@ -166,8 +166,20 @@ void render_mod_status(uint8_t modifiers) {
     };
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
     oled_write_P(mod_status[0], (modifiers & MOD_MASK_SHIFT));
+#if !defined(OLED_DISPLAY_128X64)
+    oled_advance_page(true);
+    oled_write_P(PSTR(" "), false);
+#endif
     oled_write_P(mod_status[3], (modifiers & MOD_MASK_GUI));
+#if !defined(OLED_DISPLAY_128X64)
+    oled_advance_page(true);
+    oled_write_P(PSTR(" "), false);
+#endif
     oled_write_P(mod_status[2], (modifiers & MOD_MASK_ALT));
+#if !defined(OLED_DISPLAY_128X64)
+    oled_advance_page(true);
+    oled_write_P(PSTR(" "), false);
+#endif
     oled_write_P(mod_status[1], (modifiers & MOD_MASK_CTRL));
     oled_advance_page(true);
 
@@ -247,11 +259,17 @@ void render_user_status(void) {
 #ifdef AUDIO_ENABLE
     static const char PROGMEM audio_status[2][3] = { {0xE0, 0xE1, 0}, {0xE2, 0xE3, 0}};
     oled_write_P(audio_status[is_audio_on()], false);
+#if !defined(OLED_DISPLAY_128X64)
+    oled_advance_page(true);
+#endif
     oled_write_P(PSTR(" "), false);
 #endif
 
     static const char PROGMEM rgb_layer_status[2][3] = { {0xEC, 0xED, 0}, {0xEE, 0xEF, 0}};
     oled_write_P(rgb_layer_status[userspace_config.rgb_layer_change], false);
+#if !defined(OLED_DISPLAY_128X64)
+    oled_advance_page(true);
+#endif
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_USER_NUKE), userspace_config.nuke_switch);
 #ifdef OLED_DISPLAY_128X64
