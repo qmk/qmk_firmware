@@ -94,6 +94,7 @@ void encoder_init(void) {
 #    else
 #        error ENCODER_PINS must be PULL_UP, PULL_DOWN, or FLOAT
 #        define setEncPinInput(x) setPinInputHigh(x)
+#    endif
 #else
 #    define setEncPinInput(x) setPinInputHigh(x)
 #endif
