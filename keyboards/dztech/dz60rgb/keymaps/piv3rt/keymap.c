@@ -70,7 +70,7 @@ void reset_leds(void) {
     current_profile = OFF;
     rgblight_enable();
     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgb_matrix_sethsv(0x9f, 0xff, 0xff);
+    rgb_matrix_sethsv(0x6a, 0x33, 0xff);
 }
 
 void suspend_wakeup_init_user(void) {
