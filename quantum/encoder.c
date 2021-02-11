@@ -81,35 +81,29 @@ void encoder_init(void) {
     }
 #endif
 
-#ifdef ENC_PUP
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        setPinInputHigh(encoders_pad_a[i]);
-        setPinInputHigh(encoders_pad_b[i]);
-
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-    }
-#elif ENC_PDOWN
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        setPinInputLow(encoders_pad_a[i]);
-        setPinInputLow(encoders_pad_b[i]);
-
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-    }
-#elif ENC_FLOAT
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        setPinInput(encoders_pad_a[i]);
-        setPinInput(encoders_pad_b[i]);
-
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-    }
+#ifdef ENCODER_PINS
+#    if (ENCODER_PINS == PULL_DOWN)
+#        ifdef __AVR__
+#            error Pull Down is not supported on AVR
+#        endif
+#        define setEncPinInput(x) setPinInputLow(x)
+#    elif (ENCODER_PINS == PULL_UP)
+#        define setEncPinInput(x) setPinInputHigh(x)
+#    elif (ENCODER_PINS == FLOAT)
+#        define setEncPinInput(x) setPinInput(x)
+#    else
+#        error ENCODER_PINS must be PULL_UP, PULL_DOWN, or FLOAT
+#        define setEncPinInput(x) setPinInputHigh(x)
 #else
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
-        setPinInputHigh(encoders_pad_a[i]);
-        setPinInputHigh(encoders_pad_b[i]);
-
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-    }
+#    define setEncPinInput(x) setPinInputHigh(x)
 #endif
+
+for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+    setEncPinInput(encoders_pad_a[i]);
+    setEncPinInput(encoders_pad_b[i]);
+
+    encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+}
 
 #ifdef SPLIT_KEYBOARD
     thisHand = isLeftHand ? 0 : NUMBER_OF_ENCODERS;
