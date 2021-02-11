@@ -1,12 +1,12 @@
-##[Phrygian Design ph100](https://phrygiandesign.com/products/ph100-mechanical-keyboard)
------------------------------
+## Phrygian Design ph100
 
 ![ph100](https://cdn.shopify.com/s/files/1/0470/8814/0443/products/DSCF0064_1080x.png)
 
+The ph100 is a 100-key modular keyboard from Phrygian Design.
 
-###The ph100 is a 100-key modular keyboard from Phrygian Design.
-
-Phrygian Design's Github: https://github.com/phrygiandesign
+* Keyboard Maintainer: https://github.com/phrygiandesign
+* Hardware Supported: ph100 PCB
+* Hardware Availability: https://phrygiandesign.com/products/ph100-mechanical-keyboard
 Keyboard support: contact@phrygiandesign.com
 
 Make example for this keyboard:
