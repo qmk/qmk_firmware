@@ -1,4 +1,4 @@
-# ergocheap handwired keyboard
+# Ergocheap handwired keyboard
 
 Ergocheap is an ergonomic keyboard with layout forked from adelheid with some minor adjustment in 13-15th row and standard keycaps size
 ![Ergocheap](https://i.imgur.com/II3aBYg.jpg)
