@@ -50,13 +50,13 @@ If you are using different pinouts for the encoders on each half of a split keyb
 
 ## Configuring Input Pins
 
-Rarely, you may want to set the MCU pin hooked up to the encoder to use its internal pull-down or be left floating, instead of the default which is to use an internal pull-up. This is mainly relevant for non-mechanical encoders, such as optical or hall effect. These options can be configured by placing these `#define`s in your `config.h`:
+Rarely, you may want to set the MCU pin hooked up to the encoder to be left floating or use an internal pull down (not available on AVR), instead of the default which is to use an internal pull-up. This is mainly relevant for non-mechanical encoders, such as optical or hall effect. To use this feature `#define` ENCODER_PINS in your `config.h` as one of the following:
 
 |Define         |Description                                                                                              |
 |---------------|---------------------------------------------------------------------------------------------------------|
-|`ENC_PUP`      |Toggles on the internal pull-up                                                                          |
-|`ENC_PDOWN `   |Toggles on the internal pull-down                                                                        |
-|`ENC_FLOAT`    |Leaves the pin as floating                                                                               |
+|`PULL_UP`      |Toggles on the internal pull-up (default behavior)                                                       |
+|`PULL_DOWN`    |Toggles on the internal pull-down (not on AVR)                                                           |
+|`FLOAT`        |Leaves the pin as floating                                                                               |
 
 ## Callbacks
 
