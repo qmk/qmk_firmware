@@ -1,18 +1,19 @@
-/* Copyright 2020 @haswellep
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/*
+Copyright 2021 Hanachi
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include QMK_KEYBOARD_H
 
@@ -22,7 +23,6 @@
 #define _FN2 3
 #define _FN3 4
 
-// Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
 };
@@ -68,7 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
 int layer = _QWERTY;
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -82,12 +81,10 @@ const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
    {0, 64, RGB_BLACK},
    {32, 4, HSV_PURPLE},
    {50, 1, HSV_PURPLE},
-
    {37, 4, HSV_RED},
    {42, 3, HSV_RED},
    {42, 3, HSV_RED},
    {47, 3, HSV_RED}
-
 );
 const rgblight_segment_t PROGMEM rgb_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_RED}
@@ -99,12 +96,11 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_numpad_layer,
     rgb_caps_layer,
     rgb_numlock_layer
-    );
+);
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     layer = get_highest_layer(state);
     rgblight_set_layer_state(0, layer_state_cmp(state, _FN1));
-
     return state;
 }
 
@@ -122,8 +118,6 @@ void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
-//  rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
-
 
 #ifdef CONSOLE_ENABLE
     rgblight_enable_noeeprom();
@@ -133,13 +127,11 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
-
 #ifdef VIRTSER_ENABLE
-void virtser_recv(const uint8_t ch)
-{
-#ifdef CONSOLE_ENABLE
+void virtser_recv(const uint8_t ch) {
+#    ifdef CONSOLE_ENABLE
     uprintf("recv  %u\n", ch);
-#endif
-    rgblight_set_layer_state(0, ch=='a');
+#    endif
+    rgblight_set_layer_state(0, ch == 'a');
 }
 #endif
