@@ -58,6 +58,9 @@ enum custom_keycodes {
     GUI_EN,
     GUI_JA,
     SEQ_TOG,
+    SEQ_FRM,
+    SEQ_TMP,
+    SEQ_RES,
 };
 
 // Key Macro
@@ -96,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_OCTD,MI_OCT_0,MI_OCTU,XXXXXXX,XXXXXXX,LOWER,  LOWER,  XXXXXXX,XXXXXXX,XXXXXXX,RAISE,  RAISE,  RAISE,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_SEQUENCER] = LAYOUT_music(
-                          _______,          SEQ_TOG, _______, SQ_TMPD, SQ_TMPU,          _______,          _______,          _______,          _______,
+                          _______,          SEQ_TOG, _______, SQ_TMPD, SQ_TMPU,          SEQ_TMP,          SEQ_RES,          SEQ_FRM,          XXXXXXX,
         SQ_S(0),     SQ_S(1), SQ_S(2), SQ_S(3), SQ_S(4), SQ_S(5), SQ_S(6), SQ_S(7), SQ_S(8), SQ_S(9), SQ_S(10),SQ_S(11),SQ_S(12),SQ_S(13),SQ_S(14),     SQ_S(15),
         SQ_S(16),    SQ_S(17),SQ_S(18),SQ_S(19),SQ_S(20),SQ_S(21),SQ_S(22),SQ_S(23),SQ_S(24),SQ_S(25),SQ_S(26),SQ_S(27),SQ_S(28),SQ_S(29),SQ_S(30),     SQ_S(31),
         SQ_T(0), SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -178,6 +181,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     rgblight_set_layer_state(_SEQPLAYBACK, true);
                 }
             }
+            return false;
+            break;
+        case SEQ_FRM: // Reset display frame index to the head(=0).
+            step_frame_index = 0;
+            return false;
+            break;
+        case SEQ_TMP: // Reset sequencer tempo.
+            sequencer_set_tempo(SEQ_TEMPO);
+            return false;
+            break;
+        case SEQ_RES: // Reset sequencer resolution.
+            sequencer_set_resolution(SQ_RES_4);
             return false;
             break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
@@ -536,6 +551,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 } else {
                     midi_config.channel--;
                 }
+                break;
+            case _SEQUENCER:
                 break;
             default:
                 if (clockwise) {
