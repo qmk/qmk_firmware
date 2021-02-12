@@ -23,6 +23,11 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+/* indicator LEDs */
+#define LED_NUM_LOCK_PIN F5
+#define LED_CAPS_LOCK_PIN F4
+#define LED_SCROLL_LOCK_PIN F1
+
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
