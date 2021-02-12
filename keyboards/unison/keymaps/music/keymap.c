@@ -28,20 +28,20 @@ enum layer_number {
     _LOWER,
     _RAISE,
     _ADJUST,
-    _CAPS, // This is not a "REAL" layer. Define here to use for RGB light layer.
-    _SEQPLAYBACK, // This is not a "REAL" layer. Define here to use for RGB light layer.
+    _CAPS,          // This is not a "REAL" layer. Define here to use for RGB light layer.
+    _SEQPLAYBACK,   // This is not a "REAL" layer. Define here to use for RGB light layer.
 };
 
-// Sequencer Tracks
+// Sequencer Track note
 const uint16_t unison_sequencer_track_notes[SEQUENCER_TRACKS] = {
-    MI_C_1,
-    MI_D_1,
-    MI_Fs_1,
-    MI_As_1,
-    MI_Cs_2,
-    MI_Ds_2,
-    MI_D_2,
-    MI_A_1,
+    MI_C_1,     // Kick
+    MI_D_1,     // Snare
+    MI_Fs_1,    // Hi-Hat Closed
+    MI_As_1,    // Hi-Hat Open
+    MI_Cs_2,    // Crash
+    MI_Ds_2,    // Ride
+    MI_D_2,     // High Tom
+    MI_A_1,     // Low Tom
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -133,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MAC:
             if (record->event.pressed) {
-                // revert LED animation
+                // revert LED animation, turned off by SEQ
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_MAC);
@@ -142,14 +142,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case WIN:
             if (record->event.pressed) {
-                // revert LED animation
+                // revert LED animation, turned off by SEQ
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_WIN);
             }
             return false;
             break;
-        case M_PSCR: // Mac's advanced screen capture
+        case M_PSCR: // provide Mac's advanced screen capture
             if (record->event.pressed) {
                 tap_code16(LSFT(LGUI(KC_5)));
             } else {
@@ -323,8 +323,9 @@ void matrix_scan_user(void) {
     }
  }
 
-//------------------------------------------------------------------------------
-// RGB Light settings
+/* ------------------------------------------------------------------------------
+   RGB Light settings
+------------------------------------------------------------------------------ */
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
@@ -411,8 +412,9 @@ bool led_update_user(led_t led_state) {
 #endif
 
 
-//------------------------------------------------------------------------------
-// Rotary Encoder
+/* ------------------------------------------------------------------------------
+   Rotary Encoder
+------------------------------------------------------------------------------ */
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* 1st encoder, Left side */
@@ -550,23 +552,23 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 void keyboard_post_init_user(void) {
-    // for debugging
+    // Debugging
     // debug_enable=true;
 
-#ifdef RGBLIGHT_LAYERS
-    // Enable the LED layers
+    #ifdef RGBLIGHT_LAYERS
+    // RGB Lighting Layers: Enable LED layers
     rgblight_layers = my_rgb_layers;
-#endif
 
-    // Set effect range to non-indicator led range.
+    // RGB Lighting: Set effect range to non-indicator led range.
     // rgblight_set_effect_range(3, 5);
+    #endif
 
-    // Reset the octave offset to 0
+    // MIDI & Sequencer: Reset the octave offset to 0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
-    // Configure the sequencer to use the notes defined in the beginning of this file
+    // Sequencer: use defined notes
     sequencer_set_track_notes(unison_sequencer_track_notes);
 
-    // Sets the initial tempo to something that is closer to what I expect
     sequencer_set_tempo(100);
+    // Sequencer: initial tempo
 }
