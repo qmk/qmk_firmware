@@ -1,4 +1,4 @@
-/* Copyright 2021 Gazeddy
+/* Copyright 2021 Gareth Edwards
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
