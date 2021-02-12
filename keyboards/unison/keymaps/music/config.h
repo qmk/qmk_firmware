@@ -24,7 +24,7 @@
 #endif
 
 #ifdef RGB_DI_PIN
-    // // settings for adding Underglow
+    /* Example settings for Underglow */
     // #undef RGBLED_NUM
     // #define RGBLED_NUM 15 // Layer Indicator(2) + Rotary Encoder(5) + Under(8)
 
@@ -35,24 +35,9 @@
 #define RGBLIGHT_MAX_LAYERS 10
 
 #ifdef MIDI_ENABLE
-/*
- * MIDI options
- */
+    /* MIDI Basic for sequencer */
+    #define MIDI_BASIC
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
     #define MIDI_ADVANCED
 #endif
 
