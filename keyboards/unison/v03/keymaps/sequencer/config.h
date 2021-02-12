@@ -23,10 +23,10 @@
 #define TAPPING_TERM 200
 
 #ifdef AUDIO_ENABLE
-// Music-Modeは使用しないので、mapいらない
+//TODO
 // music map for music-mode
 // #   define MUSIC_MAP
-  #undef AUDIO_CLICKY
+//   #undef AUDIO_CLICKY
 #endif
 
 // #ifdef RGB_DI_PIN
