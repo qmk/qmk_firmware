@@ -19,10 +19,8 @@ NKRO_ENABLE = no              # USB Nkey Rollover
 BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 
-BLUETOOTH_ENABLE = no          # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no              # Audio output on port B7
-FAUXCLICKY_ENABLE = no         # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no            # Enable support for HD44780 based LCDs
+BLUETOOTH_ENABLE = no          # Enable Bluetooth
+AUDIO_ENABLE = no              # Audio output
 
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
 RGB_MATRIX_ENABLE = yes
