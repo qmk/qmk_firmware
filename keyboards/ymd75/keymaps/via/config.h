@@ -1,3 +1,0 @@
-#if DEVICE_VER == 0x0100
-	#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#endif
