@@ -113,32 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-        case FN_MO13:
-          if (record->event.pressed) {
-              layer_on(1);
-              update_tri_layer(1, 2, 3);
-          } else {
-              layer_off(1);
-              update_tri_layer(1, 2, 3);
-          }
-          return false;
-          break;
-        case FN_MO23:
-          if (record->event.pressed) {
-              layer_on(2);
-              update_tri_layer(1, 2, 3);
-          } else {
-              layer_off(2);
-              update_tri_layer(1, 2, 3);
-          }
-          return false;
-          break;
-      }
-    return true;
-};
-
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
