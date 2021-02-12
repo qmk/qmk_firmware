@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define SEQ_LED_DIMMER 100
 #define SEQ_LED_STEP_OFF_DIMMER 200
-
+#define SEQ_TEMPO 100
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -569,6 +569,6 @@ void keyboard_post_init_user(void) {
     // Sequencer: use defined notes
     sequencer_set_track_notes(unison_sequencer_track_notes);
 
-    sequencer_set_tempo(100);
     // Sequencer: initial tempo
+    sequencer_set_tempo(SEQ_TEMPO);
 }
