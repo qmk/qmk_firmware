@@ -24,7 +24,7 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  KC_CUST = SAFE_RANGE,
+    KC_CUST = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -46,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
-  if (clockwise) {
-      tap_code(KC_VOLU);
-  } else {
-      tap_code(KC_VOLD);
-  }
+    if (clockwise) {
+        tap_code(KC_VOLU);
+    } else {
+        tap_code(KC_VOLD);
+    }
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -61,12 +61,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_
 #define IDLE_FRAME_DURATION 200 // idle animation iteration rate in ms
 #define ANIM_SIZE 512 // number of bytes in array, max is 1024 (minimize where possible)
 
-uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
-uint8_t current_idle_frame = 0;
+uint32_t anim_timer         = 0;
+uint32_t anim_sleep         = 0;
+uint8_t  current_idle_frame = 0;
 
 char wpm_str[10];
-bool tap_anim = false;
+bool tap_anim        = false;
 bool tap_anim_toggle = false;
 
 static const char PROGMEM idle_frames[IDLE_FRAMES][ANIM_SIZE] = {
@@ -313,52 +313,52 @@ static const char PROGMEM tap_frames[TAP_FRAMES][ANIM_SIZE] = {
   };
 
 static void render_anim(void) {
-  // idle anim
-  void animation_phase(void) {
-    if (!tap_anim) {
-      current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
-      oled_write_raw_P(idle_frames[abs((IDLE_FRAMES-1)-current_idle_frame)], ANIM_SIZE);
+    // idle anim
+    void animation_phase(void) {
+        if (!tap_anim) {
+            current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
+            oled_write_raw_P(idle_frames[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
+        }
     }
-  }
 
-  // idle behaviour
-  if (get_current_wpm() != 000) { // prevent sleep
-    oled_on();
-    if(timer_elapsed32(anim_timer) > IDLE_FRAME_DURATION) {
-      anim_timer = timer_read32();
-      animation_phase();
+    // idle behaviour
+    if (get_current_wpm() != 000) {  // prevent sleep
+        oled_on();
+        if (timer_elapsed32(anim_timer) > IDLE_FRAME_DURATION) {
+            anim_timer = timer_read32();
+            animation_phase();
+        }
+        anim_sleep = timer_read32();
+    } else {  // turn off screen when timer threshold elapsed or reset time since last input
+        if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+            oled_off();
+        } else {
+            if (timer_elapsed32(anim_timer) > IDLE_FRAME_DURATION) {
+                anim_timer = timer_read32();
+                animation_phase();
+            }
+        }
     }
-    anim_sleep = timer_read32();
-  } else { // turn off screen when timer threshold elapsed or reset time since last input
-    if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-      oled_off();
-    } else {
-      if(timer_elapsed32(anim_timer) > IDLE_FRAME_DURATION) {
-        anim_timer = timer_read32();
-        animation_phase();
-      }
-    }
-  }
 }
 
 // animate tap?
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  process_record_remote_kb(keycode, record);
-  // check if non-mod
-  if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
-    if (record->event.pressed) {
-      // display tap frames
-      tap_anim_toggle = !tap_anim_toggle;
-      oled_write_raw_P(tap_frames[tap_anim_toggle], ANIM_SIZE); // hacky; only 2 frames so bool works in this scenario (return 0/1)
+    process_record_remote_kb(keycode, record);
+    // check if non-mod
+    if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
+        if (record->event.pressed) {
+            // display tap frames
+            tap_anim_toggle = !tap_anim_toggle;
+            oled_write_raw_P(tap_frames[tap_anim_toggle], ANIM_SIZE);  // hacky; only 2 frames so bool works in this scenario (return 0/1)
+        }
     }
-  }
-  return true;
+    return true;
 }
 
 void oled_task_user(void) {
-  render_anim();
-  oled_set_cursor(0, 14);
-  sprintf(wpm_str, ">%04d", get_current_wpm());
-  oled_write_ln(wpm_str, false);
+    render_anim();
+    oled_set_cursor(0, 14);
+    sprintf(wpm_str, ">%04d", get_current_wpm());
+    oled_write_ln(wpm_str, false);
 }
 #endif
