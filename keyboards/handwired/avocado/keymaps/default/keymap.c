@@ -397,6 +397,9 @@ void handle_pointing_device_modes(void){
             last_v = mouse_report.v;
             cum_x = 0;
             cum_y = 0;
+        } else {
+            mouse_report.v = 0;
+            mouse_report.h = 0;
         }
         break;
     default:
