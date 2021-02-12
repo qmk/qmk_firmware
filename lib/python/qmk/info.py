@@ -230,11 +230,15 @@ def merge_info_jsons(keyboard, info_data):
     """
     for info_file in find_info_json(keyboard):
         # Load and validate the JSON data
-        with info_file.open('r') as info_fd:
-            new_info_data = json.load(info_fd)
+        try:
+            with info_file.open('r') as info_fd:
+                new_info_data = json.load(info_fd)
+        except Exception as e:
+            _log_error(info_data, "Invalid JSON in file %s: %s: %s" % (str(info_file), e.__class__.__name__, e))
+            continue
 
         if not isinstance(new_info_data, dict):
-            _log_error(info_data, "Invalid file %s, root object should be a dictionary.", str(info_file))
+            _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
         # Copy whitelisted keys into `info_data`

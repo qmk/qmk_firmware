@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 #define PRODUCT         Clueboard 60%
-#define DESCRIPTION     Clueboard 60%
 
 /* Address for jumping to bootloader on STM32 chips. */
 /* It is chip dependent, the correct number can be looked up here:
@@ -101,9 +100,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

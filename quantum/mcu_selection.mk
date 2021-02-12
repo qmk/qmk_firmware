@@ -16,7 +16,6 @@ ifneq ($(findstring MKL26Z64, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  # - NOTE: a custom ld script is needed for EEPROM on Teensy LC
   MCU_LDSCRIPT ?= MKL26Z64
 
   # Startup code to use

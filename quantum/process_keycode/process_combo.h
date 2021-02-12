@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_COMBO_H
-#define PROCESS_COMBO_H
+#pragma once
 
 #include "progmem.h"
 #include "quantum.h"
@@ -62,5 +61,3 @@ void combo_enable(void);
 void combo_disable(void);
 void combo_toggle(void);
 bool is_combo_enabled(void);
-
-#endif

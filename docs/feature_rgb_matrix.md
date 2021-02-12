@@ -53,7 +53,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
 ---
 ### IS31FL3733/IS31FL3737 :id=is31fl3733is31fl3737
@@ -105,7 +105,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
 
 ---
 
@@ -296,6 +296,19 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`              |Disables `RGB_MATRIX_SOLID_SPLASH`             |
 |`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
+### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
+
+This effect will color the RGB matrix according to a heatmap of recently pressed
+keys. Whenever a key is pressed its "temperature" increases as well as that of
+its neighboring keys. The temperature of each key is then decreased
+automatically every 25 milliseconds by default.
+
+In order to change the delay of temperature decrease define
+`RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 
@@ -305,6 +318,12 @@ To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks somethi
 
 `rgb_matrix_user.inc` should go in the root of the keymap directory.
 `rgb_matrix_kb.inc` should go in the root of the keyboard directory.
+
+To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
+```
 
 ```c
 // !!! DO NOT ADD #pragma once !!! //

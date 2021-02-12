@@ -14,7 +14,7 @@
     limitations under the License.
 */
 
-#include "hal.h"
+#include <hal.h>
 
 /**
  * @brief   PAL setup.
