@@ -1,13 +1,13 @@
 # Unison
 
-![Unison](https://github.com/jpskenn/〓)
+![Unison](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/DSC_7287.jpg)
 
-A narrow pitch keyboard combined with Ortho-Linear and Row-staggered. It has gapless R2-R3 row.
-GH60 case compatible PCB.
+A narrow pitch keyboard with irregular Row-staggered, compatible with GH60 case.  
+It has two layout, for music instrument and for computers.
 
 * Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
 * Hardware Supported: PCB
-* Hardware Availability: [GitHub](https://github.com/jpskenn/Unison), <!-- [BOOTH](https://jpskenn.booth.pm) -->
+* Hardware Availability: [GitHub](https://github.com/jpskenn/Unison), [BOOTH](https://jpskenn.booth.pm)
 
 Make example for this keyboard (after setting up your build environment):
 
