@@ -19,9 +19,6 @@
 static void display_sequencer_steps(uint8_t, uint8_t);
 static uint8_t step_frame_index;
 
-// MIDI: Used to set octave to MI_OCT_0
-// extern midi_config_t midi_config;
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
     _MAC = 0,
@@ -189,12 +186,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
             if (record->event.pressed) {
-                // sequencer_toggle_track_activation(keycode - SEQ_TT0);
-                // if (is_sequencer_track_active(keycode - SEQ_TT0)) {
-                //     sequencer_deactivate_track(keycode - SEQ_TT0);
-                // } else {
-                //     sequencer_activate_track(keycode - SEQ_TT0);
-                // }
                 if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                     rgblight_sethsv_at(HSV_WHITE - SEQ_LED_DIMMER, 0);
                 } else {
@@ -244,10 +235,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void display_sequencer_steps(uint8_t track, uint8_t index) {
     sequencer_activate_track(track);
 
-    // int led_index_left1 = 4;
-    // int led_index_left2 = 5;
-    // int led_index_left3 = 6;
-    // int led_index_left4 = 7;
     int hue;
     switch (step_frame_index) {
         case 0:
@@ -301,7 +288,6 @@ void display_sequencer_steps(uint8_t track, uint8_t index) {
     }
 }
 
-
 void matrix_scan_user(void) {
     if (biton32(default_layer_state) == _SEQUENCER) {
         if (is_sequencer_on()) {
@@ -330,9 +316,6 @@ void matrix_scan_user(void) {
             case 28:
                 rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 7);
                 break;
-            // default:
-            // rgblight_sethsv_at(hsv_BLACK, 6);
-                // break;
             }
         } else {
             for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
@@ -403,26 +386,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_caps_layer,
     my_seqplayback_layer
 );
-
-void keyboard_post_init_user(void) {
-    debug_enable=true;
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-    // Set effect range to non-indicator led range.
-    // rgblight_set_effect_range(3, 5);
-
-    // MIDI: Set octave to MI_OCT_0
-    // midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
-
-    // Reset the octave offset to 0
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
-
-    // Configure the sequencer to use the notes defined in the beginning of this file
-    sequencer_set_track_notes(unison_sequencer_track_notes);
-
-    // Sets the initial tempo to something that is closer to what I expect
-    sequencer_set_tempo(100);
-}
 
 // Enabling and disabling lighting layers
 layer_state_t layer_state_set_user(layer_state_t state) {
