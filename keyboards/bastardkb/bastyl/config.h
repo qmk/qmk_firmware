@@ -1,6 +1,5 @@
 /* 
  * Copyright 2020 Quentin LEBASTARD <qlebastard@gmail.com>
- * Copyright 2020 Anthony MARIN <anthony@hidtech.ca>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +17,10 @@
 
 #pragma once
 #include "config_common.h"
-#define VENDOR_ID 0xA8F7
+#define VENDOR_ID 0xA8F8
 #define PRODUCT_ID 0x1827
 #define DEVICE_VER 0x0001
-#define MANUFACTURER HID Technologies
+#define MANUFACTURER Bastard Keyboards
 #define PRODUCT Bastyl
 
 #define MATRIX_ROWS 10
