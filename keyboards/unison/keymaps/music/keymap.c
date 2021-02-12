@@ -19,9 +19,6 @@
 static void display_sequencer_steps(uint8_t, uint8_t);
 static uint8_t step_frame_index;
 
-#define UNISON_MIDI_OCTAVE_MAX MIDI_OCTAVE_MAX - 1
-#define UNISON_MIDI_OCTAVE_MIN MIDI_OCTAVE_MIN - 1
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
     _MAC = 0,
@@ -66,23 +63,15 @@ enum custom_keycodes {
 // Key Macro
 #define SP_LOW  LT(_LOWER, KC_SPC)
 #define SP_RAI  LT(_RAISE, KC_SPC)
-#define SP_SFT  MT(MOD_LSFT, KC_SPC)
-#define SLS_LOW LT(_LOWER, KC_SLSH)
 #define SFT_SLS RSFT_T(KC_SLSH)
-#define C_SLSH  RCTL_T(KC_SLSH)
 #define C_ESC   LCTL_T(KC_ESC)
-#define CT_E    LCTL(KC_E)
-#define CT_A    LCTL(KC_A)
-#define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
-#define HENKAN  LGUI(KC_GRV)
 #define MIDI    DF(_MIDI)
 #define ALT_EN  LALT_T(KC_LANG2)
 #define ALT_JA  LALT_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
 #define GUI_JA  LGUI_T(KC_LANG1)
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT_music(
@@ -559,37 +548,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
-
-        // switch(biton32(layer_state)) {
-        //     case _LOWER:
-        //         if (clockwise) {
-        //             rgblight_decrease_hue();
-        //         } else {
-        //             rgblight_increase_hue();
-        //         }
-        //         break;
-        //     case _RAISE:
-        //         if (clockwise) {
-        //             rgblight_decrease_val();
-        //         } else {
-        //             rgblight_increase_val();
-        //         }
-        //         break;
-        //     case _ADJUST:
-        //         if (clockwise) {
-        //             rgblight_step_reverse();
-        //         } else {
-        //             rgblight_step();
-        //         }
-        //         break;
-        //     default:
-        //         if (clockwise) {
-        //             tap_code(KC_VOLD);
-        //         } else {
-        //             tap_code(KC_VOLU);
-        //         }
-        //         break;
-        // }
 
 void keyboard_post_init_user(void) {
     // for debugging
