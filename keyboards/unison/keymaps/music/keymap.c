@@ -154,9 +154,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case M_PSCR: // provide Mac's advanced screen capture
             if (record->event.pressed) {
-                tap_code16(LSFT(LGUI(KC_5)));
-            } else {
-                tap_code(KC_PSCR);
+                switch(biton32(default_layer_state)) {
+                case _WIN:
+                    tap_code(KC_PSCR);
+                    break;
+                default:
+                    tap_code16(LSFT(LGUI(KC_5)));
+                    break;
+                }
             }
             return false;
             break;
