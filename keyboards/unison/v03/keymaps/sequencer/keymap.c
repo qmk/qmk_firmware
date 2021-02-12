@@ -97,10 +97,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,GUI_JA, _______,ALT_EN, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
     [_MIDI] = LAYOUT(
-        XXXXXXX,XXXXXXX,KC_MUTE,XXXXXXX,KC_1,   KC_2,   KC_3,   KC_4,   XXXXXXX,MI_VEL_9,XXXXXXX,MI_OCT_0,XXXXXXX,MI_TRNS_0,XXXXXXX,KC_MUTE,XXXXXXX,
+        XXXXXXX,XXXXXXX,KC_MUTE,XXXXXXX,KC_1,   KC_2,   KC_3,   KC_4,   XXXXXXX,MI_VEL_9,XXXXXXX,MI_OCT_0,XXXXXXX,MI_TRNS_0,XXXXXXX,MI_CH1,XXXXXXX,
         MI_TRNSD,   MI_TRNS_0,MI_TRNSU,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
-        MI_VELD,    MI_VEL_9,MI_VELU,MI_Fs_2,MI_Gs_2,MI_As_2,XXXXXXX,MI_Cs_3,MI_Ds_3,XXXXXXX,MI_Fs_3,MI_Gs_3,MI_As_3,XXXXXXX,MI_Cs_4,    MI_Ds_4,
-        _______,_______,_______,MI_F_2, MI_G_2, MI_A_2, MI_B_2, MI_C_3, MI_D_3, MI_E_3, MI_F_3, MI_G_3, MI_A_3, MI_B_3, MI_C_4, MI_D_4, MI_E_4,
+        MI_VELD,    MI_VEL_9,MI_VELU,  MI_Fs_1,MI_Gs_1,MI_As_1,XXXXXXX,MI_Cs_2,MI_Ds_2,XXXXXXX,MI_Fs_2,MI_Gs_2,MI_As_2,XXXXXXX,MI_Cs_3,    MI_Ds_3,
+        _______,_______,_______,MI_F_1, MI_G_1, MI_A_1, MI_B_1, MI_C_2, MI_D_2, MI_E_2, MI_F_2, MI_G_2, MI_A_2, MI_B_2, MI_C_3, MI_D_3, MI_E_3,
         MI_OCTD,MI_OCT_0,MI_OCTU,XXXXXXX,XXXXXXX,LOWER,  LOWER,  XXXXXXX,XXXXXXX,XXXXXXX,RAISE,  RAISE,  RAISE,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_SEQUENCER] = LAYOUT(
@@ -136,22 +136,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define SEQ_LED_DIMMER 100
 #define SEQ_LED_STEP_OFF_DIMMER 200
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MAC: // Change default ayer --> Write to EEPROM
+        case MAC:
             if (record->event.pressed) {
                 // revert LED animation
                 rgblight_reload_from_eeprom();
-
+                // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_MAC);
             }
             return false;
             break;
-        case WIN: // Change default ayer --> Write to EEPROM
+        case WIN:
             if (record->event.pressed) {
                 // revert LED animation
                 rgblight_reload_from_eeprom();
-
+                // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_WIN);
             }
             return false;
@@ -159,6 +160,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_PSCR: // Mac's advanced screen capture
             if (record->event.pressed) {
                 tap_code16(LSFT(LGUI(KC_5)));
+            } else {
+                tap_code(KC_PSCR);
             }
             return false;
             break;
@@ -167,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // Stop LED animation for Sequencer display.
                 rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
                 rgblight_sethsv_noeeprom(HSV_BLACK);
-
+                // Change default layer
                 default_layer_set(1UL << _SEQUENCER);
             }
             return false;
@@ -218,10 +221,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     default:
                         break;
                     }
-                    //TODO playbackがOFFだったら、ステップを右4LEDに表示
+
+                    // reset display frame index
                    if(!is_sequencer_on()) {
                         step_frame_index = 0;
-                        // display_sequencer_steps(keycode - SEQUENCER_TRACK_MIN, step_frame_index);
                     }
                 }
             }
@@ -236,7 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void display_sequencer_steps(uint8_t track, uint8_t index) {
     sequencer_activate_track(track);
 
-    int hue;
+    uint8_t hue;
     switch (step_frame_index) {
         case 0:
             hue = 0;    // red
@@ -420,78 +423,35 @@ bool led_update_user(led_t led_state) {
 // Rotary Encoder
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-
-        // case _MIDI:
-        //     if (index == 0) { /* First encoder, Right side */
-        //         if (clockwise) {
-        //             tap_code(KC_VOLU);
-        //         } else {
-        //             tap_code(KC_VOLD);
-        //         }
-        //     } else if (index == 1) { /* Second encoder, Left side */
-        //         if (clockwise) {
-        //             if (midi_config.velocity < 127) {
-        //                 if (midi_config.velocity < 115) {
-        //                     midi_config.velocity += 13;
-        //                 } else {
-        //                     midi_config.velocity = 127;
-        //                 }
-        //             }
-        //         } else {
-        //             if (midi_config.velocity > 0) {
-        //                 if (midi_config.velocity == 127) {
-        //                     midi_config.velocity -= 10;
-        //                 } else if (midi_config.velocity > 12) {
-        //                     midi_config.velocity -= 13;
-        //                 } else {
-        //                     midi_config.velocity = 0;
-        //                 }
-        //             }
-        //         }
-        //     } else if (index == 2) {
-        //         if (clockwise) {
-        //             // TODO オクターブ変化、上端、下端の判定がおかしい
-        //             if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN)) {
-        //                 midi_config.octave++;
-        //             }
-        //         } else {
-        //             if (midi_config.octave > 0) {
-        //                 midi_config.octave--;
-        //             }
-        //         }
-        //     } else if (index == 3) {
-        //         if (clockwise) {
-        //             if (midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
-        //                 const bool positive = midi_config.transpose > 0;
-        //                 midi_config.transpose++;
-        //                 if (positive && midi_config.transpose < 0) {
-        //                     midi_config.transpose--;
-        //                 }
-        //             }
-        //         } else {
-        //             if (midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
-        //                 midi_config.transpose--;
-        //             }
-        //         }
-        //     } else if (index == 4) {
-        //         if (clockwise) {
-        //             // rgblight_step();
-        //             tap_code(KC_MS_WH_UP);
-        //         } else {
-        //             tap_code(KC_MS_WH_DOWN);
-        //             // rgblight_step_reverse();
-        //         }
-        //     }
-        //     break;
-
-    if (index == 0) { /* First encoder, Left side */
+    if (index == 0) { /* 1st encoder, Left side */
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
-    } else if (index == 1) { /* Second encoder, Right side */
+    } else if (index == 1) { /* 2nd encoder, Right side */
         switch(biton32(default_layer_state)) {
+            case _MIDI:
+                if (clockwise) {
+                    if (midi_config.velocity < 127) {
+                        if (midi_config.velocity < 115) {
+                            midi_config.velocity += 13;
+                        } else {
+                            midi_config.velocity = 127;
+                        }
+                    }
+                } else {
+                    if (midi_config.velocity > 0) {
+                        if (midi_config.velocity == 127) {
+                            midi_config.velocity -= 10;
+                        } else if (midi_config.velocity > 12) {
+                            midi_config.velocity -= 13;
+                        } else {
+                            midi_config.velocity = 0;
+                        }
+                    }
+                }
+                break;
             case _SEQUENCER:
                 if (clockwise) {
                     sequencer_increase_tempo();
@@ -507,8 +467,22 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
         }
-    } else if (index == 2) {
+    } else if (index == 2) { /* 3rd encoder, Right side */
         switch(biton32(default_layer_state)) {
+            case _MIDI:
+                if (clockwise) {
+                    // TODO オクターブ変化、上端、下端の判定がおかしい
+                    // if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN)) {
+                    if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
+                        midi_config.octave++;
+                    }
+                } else {
+                    // if (midi_config.octave > 0) {
+                    if (midi_config.octave > 0) {
+                        midi_config.octave--;
+                    }
+                }
+                break;
             case _SEQUENCER:
                 if (clockwise) {
                     sequencer_increase_resolution();
@@ -524,8 +498,23 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
         }
-    } else if (index == 3) {
+    } else if (index == 3) { /* 4th encoder, Right side */
         switch(biton32(default_layer_state)) {
+            case _MIDI:
+                if (clockwise) {
+                    if (midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
+                        const bool positive = midi_config.transpose > 0;
+                        midi_config.transpose++;
+                        if (positive && midi_config.transpose < 0) {
+                            midi_config.transpose--;
+                        }
+                    }
+                } else {
+                    if (midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
+                        midi_config.transpose--;
+                    }
+                }
+                break;
             case _SEQUENCER:
                 if (clockwise) {
                     if (step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
@@ -545,13 +534,24 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
         }
-    } else if (index == 4) {
-        if (clockwise) {
-            rgblight_step();
-            // tap_code(KC_MS_WH_UP);
-        } else {
-            rgblight_step_reverse();
-            // tap_code(KC_MS_WH_DOWN);
+    } else if (index == 4) { /* 5th encoder, Right side */
+        switch(biton32(default_layer_state)) {
+            case _MIDI:
+                if (clockwise) {
+                    midi_config.channel++;
+                } else {
+                    midi_config.channel--;
+                }
+                break;
+            default:
+                if (clockwise) {
+                    rgblight_step();
+                    // tap_code(KC_MS_WH_UP);
+                } else {
+                    rgblight_step_reverse();
+                    // tap_code(KC_MS_WH_DOWN);
+                }
+                break;
         }
     }
 }
@@ -587,3 +587,25 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         //         }
         //         break;
         // }
+
+void keyboard_post_init_user(void) {
+    // for debugging
+    // debug_enable=true;
+
+#ifdef RGBLIGHT_LAYERS
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+#endif
+
+    // Set effect range to non-indicator led range.
+    // rgblight_set_effect_range(3, 5);
+
+    // Reset the octave offset to 0
+    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+
+    // Configure the sequencer to use the notes defined in the beginning of this file
+    sequencer_set_track_notes(unison_sequencer_track_notes);
+
+    // Sets the initial tempo to something that is closer to what I expect
+    sequencer_set_tempo(100);
+}
