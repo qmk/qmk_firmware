@@ -85,50 +85,50 @@ enum custom_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MAC] = LAYOUT(
-        XXXXXXX,XXXXXXX,KC_MUTE,XXXXXXX,KC_1,   KC_2,   KC_3,   KC_4,   XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,KC_MUTE,XXXXXXX,
+    [_MAC] = LAYOUT_music(
+                        KC_MUTE,        KC_1,   KC_2,   KC_3,   KC_4,           KC_MUTE,        KC_MUTE,        KC_MUTE,        KC_MUTE,
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,       KC_BSPC,
         C_ESC,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_P4,  KC_P5,  KC_P6,  KC_PPLS,KC_H,   KC_J,   KC_K,   KC_L,   KC_MINS,    KC_ENT,
         KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_P1,  KC_P2,  KC_P3,  KC_PENT,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_UP,  SFT_SLS,
         KC_CAPS,KC_CAPS,ALT_JA, XXXXXXX,GUI_EN, SP_LOW, SP_LOW, KC_P0,  KC_P0,  KC_PDOT,SP_RAI, SP_RAI, SP_RAI, KC_RCTL,KC_LEFT,KC_DOWN,KC_RGHT
     ),
-    [_WIN] = LAYOUT(
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+    [_WIN] = LAYOUT_music(
+                        _______,        _______,_______,_______,_______,        _______,        _______,        _______,        _______,
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
         _______,    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,GUI_JA, _______,ALT_EN, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
-    [_MIDI] = LAYOUT(
-        XXXXXXX,XXXXXXX,KC_MUTE,XXXXXXX,KC_1,   KC_2,   KC_3,   KC_4,   XXXXXXX,MI_VEL_9,XXXXXXX,MI_OCT_0,XXXXXXX,MI_TRNS_0,XXXXXXX,MI_CH1,XXXXXXX,
+    [_MIDI] = LAYOUT_music(
+                        KC_MUTE,        KC_1,   KC_2,   KC_3,   KC_4,           MI_VEL_9,        MI_OCT_0,        MI_TRNS_0,        MI_CH1,
         MI_TRNSD,   MI_TRNS_0,MI_TRNSU,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
         MI_VELD,    MI_VEL_9,MI_VELU,  MI_Fs_1,MI_Gs_1,MI_As_1,XXXXXXX,MI_Cs_2,MI_Ds_2,XXXXXXX,MI_Fs_2,MI_Gs_2,MI_As_2,XXXXXXX,MI_Cs_3,    MI_Ds_3,
         _______,_______,_______,MI_F_1, MI_G_1, MI_A_1, MI_B_1, MI_C_2, MI_D_2, MI_E_2, MI_F_2, MI_G_2, MI_A_2, MI_B_2, MI_C_3, MI_D_3, MI_E_3,
         MI_OCTD,MI_OCT_0,MI_OCTU,XXXXXXX,XXXXXXX,LOWER,  LOWER,  XXXXXXX,XXXXXXX,XXXXXXX,RAISE,  RAISE,  RAISE,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
-    [_SEQUENCER] = LAYOUT(
-        _______, _______, _______, _______, SEQ_TOG, _______, SQ_TMPD, SQ_TMPU, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    [_SEQUENCER] = LAYOUT_music(
+                          _______,          SEQ_TOG, _______, SQ_TMPD, SQ_TMPU,          _______,          _______,          _______,          _______,
         SQ_S(0),     SQ_S(1), SQ_S(2), SQ_S(3), SQ_S(4), SQ_S(5), SQ_S(6), SQ_S(7), SQ_S(8), SQ_S(9), SQ_S(10),SQ_S(11),SQ_S(12),SQ_S(13),SQ_S(14),     SQ_S(15),
         SQ_S(16),    SQ_S(17),SQ_S(18),SQ_S(19),SQ_S(20),SQ_S(21),SQ_S(22),SQ_S(23),SQ_S(24),SQ_S(25),SQ_S(26),SQ_S(27),SQ_S(28),SQ_S(29),SQ_S(30),     SQ_S(31),
         SQ_T(0), SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), _______, _______, _______, _______, _______, _______, _______, _______,
         SQ_SALL, SQ_SCLR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-    [_LOWER] = LAYOUT(
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+    [_LOWER] = LAYOUT_music(
+                        _______,        _______,_______,_______,_______,        _______,        _______,        _______,        _______,
         KC_ESC,     KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_PSLS,KC_PSLS,KC_PAST,_______,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,    KC_DEL,
         _______,    M_PSCR, _______,_______,_______,_______,_______,_______,_______,_______,KC_GRV, KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,    KC_BSLS,
         _______,_______,KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,_______,_______,_______,_______,KC_TILD,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,
         _______,_______,KC_APP, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_END
     ),
-    [_RAISE] = LAYOUT(
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+    [_RAISE] = LAYOUT_music(
+                        _______,        _______,_______,_______,_______,        _______,        _______,        _______,        _______,
         KC_ESC,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   _______,_______,_______,_______,KC_6,   KC_7,   KC_8,   KC_9,   KC_0,       KC_DEL,
         _______,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_SCLN,    KC_QUOT,
         _______,_______,KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, _______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_COLN,KC_DQUO,
         _______,_______,KC_F11, _______,KC_F12,_______,_______,_______,_______,_______,_______,_______,_______,KC_ESC,  _______,_______,_______
     ),
-    [_ADJUST] = LAYOUT(
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+    [_ADJUST] = LAYOUT_music(
+                        _______,        _______,_______,_______,_______,        _______,        _______,        _______,        _______,
         SEQ,        MAC,    WIN,    MIDI,   RESET,  _______,_______,_______,_______,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,   _______,
         _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,_______,_______,_______,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,    _______,
         _______,_______,CK_RST, CK_DOWN,CK_UP,  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
