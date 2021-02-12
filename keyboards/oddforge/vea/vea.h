@@ -54,7 +54,3 @@ K65,  K75,  K00,  K01,  K02,              K77, K66,               K6E,  K0A,  K0
 { KC_NO,  K61,    K62,    K63,    K64,    K65,    K66,    KC_NO,  K68,    K69,    K6A,    K6B,    K6C,    K6D,    K6E   }, \
 { KC_NO,  K71,    K72,    K73,    K74,    K75,    KC_NO,  K77,    K78,    K79,    K7A,    K7B,    K7C,    KC_NO,  KC_NO }  \
 }
-
-#define NUMLOCK_LED_PIN D0
-#define CAPSLOCK_LED_PIN D1
-#define SCROLLLOCK_LED_PIN D6
