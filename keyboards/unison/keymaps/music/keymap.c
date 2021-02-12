@@ -342,7 +342,7 @@ void matrix_scan_user(void) {
 #define INDICATOR_INDEX 1        // where to start indicator
 #define INDICATOR_COUNT 3         // how many leds for indicator
 #define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
-#define DIMMER_LEVEL 230          // brightness dimmer
+#define DIMMER_LEVEL 150          // brightness dimmer
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
