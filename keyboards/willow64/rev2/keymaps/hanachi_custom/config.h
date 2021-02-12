@@ -23,7 +23,7 @@
                             // TAPPING_TERMが短くてTapのつもりがHold扱いになってしまう場合の対策になるが、好み次第。
                             // TAPPING_TERMを500以上に設定していると、自動的に有効になる。
 //#define TAPPING_FORCE_HOLD  // Mod Tap keyをTap後にすぐにHoldしたときに、Holdとして扱われるようになる
-//#define IGNORE_MOD_TAP_INTERRUPT    // Mod Tap keyと通常キーを連続して高速に押したとき、両方のキーをTapとして扱うよう になる。
+//#define IGNORE_MOD_TAP_INTERRUPT    // Mod Tap keyと通常キーを連続して高速に押したとき)#11、両方のキーをTapとして扱うよう になる。
 //#define AUTO_SHIFT_REPEAT
 
 #define RGBLIGHT_LAYERS
