@@ -90,17 +90,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_MIDI] = LAYOUT_music(
                         KC_MUTE,        KC_1,   KC_2,   KC_3,   KC_4,           MI_VEL_9,        MI_OCT_0,        MI_TRNS_0,        MI_CH1,
-        MI_TRNSD,   MI_TRNS_0,MI_TRNSU,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,
+        MI_TRNSD,   MI_TRNS_0,MI_TRNSU,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,    XXXXXXX,
         MI_VELD,    MI_VEL_9,MI_VELU,  MI_Fs_1,MI_Gs_1,MI_As_1,XXXXXXX,MI_Cs_2,MI_Ds_2,XXXXXXX,MI_Fs_2,MI_Gs_2,MI_As_2,XXXXXXX,MI_Cs_3,    MI_Ds_3,
-        _______,_______,_______,MI_F_1, MI_G_1, MI_A_1, MI_B_1, MI_C_2, MI_D_2, MI_E_2, MI_F_2, MI_G_2, MI_A_2, MI_B_2, MI_C_3, MI_D_3, MI_E_3,
+        XXXXXXX,XXXXXXX,XXXXXXX,MI_F_1, MI_G_1, MI_A_1, MI_B_1, MI_C_2, MI_D_2, MI_E_2, MI_F_2, MI_G_2, MI_A_2, MI_B_2, MI_C_3, MI_D_3, MI_E_3,
         MI_OCTD,MI_OCT_0,MI_OCTU,XXXXXXX,XXXXXXX,LOWER,  LOWER,  XXXXXXX,XXXXXXX,XXXXXXX,RAISE,  RAISE,  RAISE,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     ),
     [_SEQUENCER] = LAYOUT_music(
                           _______,          SEQ_TOG, _______, SQ_TMPD, SQ_TMPU,          _______,          _______,          _______,          _______,
         SQ_S(0),     SQ_S(1), SQ_S(2), SQ_S(3), SQ_S(4), SQ_S(5), SQ_S(6), SQ_S(7), SQ_S(8), SQ_S(9), SQ_S(10),SQ_S(11),SQ_S(12),SQ_S(13),SQ_S(14),     SQ_S(15),
         SQ_S(16),    SQ_S(17),SQ_S(18),SQ_S(19),SQ_S(20),SQ_S(21),SQ_S(22),SQ_S(23),SQ_S(24),SQ_S(25),SQ_S(26),SQ_S(27),SQ_S(28),SQ_S(29),SQ_S(30),     SQ_S(31),
-        SQ_T(0), SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), _______, _______, _______, _______, _______, _______, _______, _______,
-        SQ_SALL, SQ_SCLR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        SQ_T(0), SQ_T(0), SQ_T(1), SQ_T(2), SQ_T(3), SQ_T(4), SQ_T(5), SQ_T(6), SQ_T(7), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        SQ_SALL, SQ_SCLR, XXXXXXX, XXXXXXX, XXXXXXX, LOWER, LOWER, XXXXXXX, XXXXXXX, XXXXXXX, RAISE, RAISE, RAISE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_LOWER] = LAYOUT_music(
                         _______,        _______,_______,_______,_______,        _______,        _______,        _______,        _______,
