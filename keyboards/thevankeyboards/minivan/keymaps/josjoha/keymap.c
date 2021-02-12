@@ -58,6 +58,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+// Bit masks for the Base layers, to set them as Default, in order to make transparency look back to the right one.
+#define _DEF_BASE_MASK 0x1 // Some functions take a bit-mask, where layer 0 (zero) is called 0x1 instead.
+#define _ALT_BASE_MASK 0x2 // Some functions take a bit-mask, where layer 0 (zero) is called 0x1 instead.
+
 // Below #defines the internal order of the layers.
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
 enum {
@@ -108,7 +112,7 @@ enum {
 } ;
 // The default and alternate base layers needs to have a low order
 // number, so that the other layers can be accessed on top of it.
-// It seems that setting the “default layer” as it is called in QMK itself is not needed: no need for DF(layer).
+// Default Layer is set, according to active Base pair.
 
 // What BASE layer is active.
 enum {

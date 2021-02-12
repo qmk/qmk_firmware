@@ -628,17 +628,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 # ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate layers
+                    default_layer_set (_ALT_BASE_MASK); // This is needed only for a rare case,
+                                 //  where _DEF_BASE and _ALT_BASE their layer switching keys don't line up,
+                                 //  such as with Qwerty Base Arrow
                 } else if (_HALF_ == alternate) {
                     alternate = _NORMAL_;// normal layers
+                    default_layer_set (_DEF_BASE_MASK);
                 }else{ // _FULL_ == alternate
                     alternate = _HALF_;// alternate layers, without 'descramble' recomputing Unicode
+                    //default_layer_set (_ALT_BASE_MASK);
+                    // it cycles, and this comes always after it was set _FULL_
                 }
 # else          // Only switching the BASE layers between alternate and default
 
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate base layers
+                    default_layer_set (_ALT_BASE_MASK);
                 }else{
                     alternate = _NORMAL_;// default base layers
+                    default_layer_set (_DEF_BASE_MASK);
                 } 
 # endif
 
@@ -654,22 +662,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }else{ // key up
 
                 // Cycles through the modes
-#     ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
+# ifdef DVORAK_DESCRAMBLE_HALF // version Dvorak+Dvorak-descramble has 3 modes
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate layers
+                    default_layer_set (_ALT_BASE_MASK);
                 } else if (_HALF_ == alternate) {
                     alternate = _NORMAL_;// normal layers
+                    default_layer_set (_DEF_BASE_MASK);
                 }else{ // _FULL_ == alternate
                     alternate = _HALF_;// alternate layers, without 'descramble' recomputing Unicode
+                    //default_layer_set (_ALT_BASE_MASK);
+                    // it cycles, and this comes always after it was set _FULL_
                 }
-#     else          // Only switching the BASE layers between alternate and default
+# else          // Only switching the BASE layers between alternate and default
 
                 if (_NORMAL_ == alternate) {
                     alternate = _FULL_;// alternate base layers
+                    default_layer_set (_ALT_BASE_MASK);
                 }else{
                     alternate = _NORMAL_;// default base layers
+                    default_layer_set (_DEF_BASE_MASK);
                 } 
-#     endif
+# endif
                 // make the switch to the other Base layer
                 if (alternate) { // 
                     layer_move (_ALT_BASE); 

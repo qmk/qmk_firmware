@@ -414,7 +414,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * _Activate_ the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA layer).
          */
-//#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
+  #define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
         /*    
          *          • Check boxes or Pointers
          *

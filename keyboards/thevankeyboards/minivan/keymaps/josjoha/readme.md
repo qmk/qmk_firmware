@@ -1463,7 +1463,7 @@ and closing next to each other.
 17 Resources
 ============
 This links to an external file, with some development resources like
-Gimp .xcf files, and whatever else relating to this ‛Minifan’ layout.
+Gimp .xcf files, pre-compiled hex files, …
 
 [Resources](http://socialism.nl/misc/minivan/ "Additional resources")
 
@@ -1471,7 +1471,7 @@ Gimp .xcf files, and whatever else relating to this ‛Minifan’ layout.
 ============
   This keymap.c was edited from the Minivan default, original LED
   support was copied/edited from ../jetpacktuxedo/ keymap. Thanks to 
-  QMK support for their help.
+  QMK support for their help, especially Drashna.
 
   _Personal note:_ This keymap came about because of a sudden need
   for a replacement keyboard. It took over a year to make (≈ 1.5 h/day).
