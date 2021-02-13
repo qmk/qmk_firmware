@@ -15,14 +15,13 @@
  * GPL v2 or later.
  */
 
-#ifndef _USB_MAIN_H_
-#define _USB_MAIN_H_
+#pragma once
 
 // TESTING
 // extern uint8_t blinkLed;
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 /* -------------------------
  * General USB driver header
@@ -89,5 +88,3 @@ int8_t sendchar(uint8_t c);
 void console_flush_output(void);
 
 #endif /* CONSOLE_ENABLE */
-
-#endif /* _USB_MAIN_H_ */

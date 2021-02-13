@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RGB_MATRIX_H
-#define RGB_MATRIX_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -91,6 +90,7 @@ enum rgb_matrix_effects {
 };
 
 void eeconfig_update_rgb_matrix_default(void);
+void eeconfig_update_rgb_matrix(void);
 
 uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
 uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
@@ -159,6 +159,7 @@ led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 
 #ifndef RGBLIGHT_ENABLE
+#    define eeconfig_update_rgblight_current eeconfig_update_rgb_matrix
 #    define rgblight_toggle rgb_matrix_toggle
 #    define rgblight_toggle_noeeprom rgb_matrix_toggle_noeeprom
 #    define rgblight_enable rgb_matrix_enable
@@ -223,6 +224,4 @@ extern last_hit_t g_last_hit_tracker;
 #endif
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
-#endif
-
 #endif

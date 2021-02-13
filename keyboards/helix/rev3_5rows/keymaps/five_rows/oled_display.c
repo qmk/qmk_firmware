@@ -17,12 +17,12 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #ifdef CONSOLE_ENABLE
-  #include <print.h>
+  #include "print.h"
 #endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
-#include "string.h"
+#include <string.h>
 #include "layer_number.h"
 
 extern int current_default_layer;

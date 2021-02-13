@@ -16,11 +16,27 @@
 
 #include QMK_KEYBOARD_H
 
+#define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
+#define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
+#define MODS_ALT    (get_mods() & MOD_MASK_ALT)
+
 enum ctrl_keycodes {
-    U_T_AUTO = SAFE_RANGE, // USB Extra Port Toggle Auto Detect / Always Active
+    U_T_AUTO = SAFE_RANGE, // USB Extra Port Toggle Auto Detect/Always Active
     U_T_AGCR,              // USB Toggle Automatic GCR control
+    L_BRI = SAFE_RANGE,    // LED Brightness Increase
+    L_BRD,                 // LED Brightness Decrease
+    L_PTN,                 // LED Pattern Select Next
+    L_PTP,                 // LED Pattern Select Previous
+    L_PSI,                 // LED Pattern Speed Increase
+    L_PSD,                 // LED Pattern Speed Decrease
+    L_T_MD,                // LED Toggle Mode
+    L_T_ONF,               // LED Toggle On / Off //Broken
+    L_ON,                  // LED On              //Broken
+    L_OFF,                 // LED Off             //Broken
+    L_T_BR,                // LED Toggle Breath Effect
+    L_T_PTD,               // LED Toggle Scrolling Pattern Direction
     DBG_TOG,               // DEBUG Toggle On / Off
-    DBG_MTRX,              // DEBUG Toggle Matrix Prints
+    DBG_MTRX,              // DEBUG Toggle Matrix Print
     DBG_KBD,               // DEBUG Toggle Keyboard Prints
     DBG_MOU,               // DEBUG Toggle Mouse Prints
     MD_BOOT,               // Restart into bootloader after hold timeout
@@ -38,30 +54,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         KC_EJCT, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,             KC_MUTE, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MPLY, KC_MSTP, KC_VOLU,
-        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
+        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
         KC_CAPS, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                              KC_BRIU,
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,            KC_MRWD, KC_BRID, KC_MFFD
     ),
 };
 
-// Runs just one time when the keyboard initializes.
+// Init keyboard static color with underglow off.
 void matrix_init_user(void) {
-  // https://old.reddit.com/r/MechanicalKeyboards/comments/by8zv9/editing_rgb_backlighting_with_qmk/
-  // https://docs.qmk.fm/#/feature_rgblight?id=colors
-  rgblight_sethsv(HSV_BLUE);
-  // Disable underglow by default
-  rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
-  rgb_matrix_set_color_all(0, 0, 0);
+  rgblight_sethsv(HSV_BACKLIGHT_COLOR);
+  rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 };
-
-#define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
-#define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
-#define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
@@ -110,13 +118,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
               switch (rgb_matrix_get_flags()) {
                 case LED_FLAG_ALL: {
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
-                    rgb_matrix_set_color_all(0, 0, 0);
+                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                    rgb_matrix_set_color_all(RGB_OFF);
                   }
                   break;
-                case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+                case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
                     rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                    rgb_matrix_set_color_all(0, 0, 0);
+                    rgb_matrix_set_color_all(RGB_OFF);
                   }
                   break;
                 case LED_FLAG_UNDERGLOW: {

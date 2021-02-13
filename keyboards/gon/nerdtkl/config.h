@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    GON
 #define PRODUCT         NerD TKL
-#define DESCRIPTION     QMK port for the GON NerD TKL PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 10

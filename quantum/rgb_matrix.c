@@ -23,7 +23,7 @@
 #include <string.h>
 #include <math.h>
 
-#include "lib/lib8tion/lib8tion.h"
+#include <lib/lib8tion/lib8tion.h>
 
 #ifndef RGB_MATRIX_CENTER
 const point_t k_rgb_matrix_center = {112, 32};
@@ -403,7 +403,7 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
-            if (!suspend_backlight) {
+            if (effect) {
                 rgb_matrix_indicators();
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
