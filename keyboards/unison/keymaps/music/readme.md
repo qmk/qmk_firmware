@@ -1,4 +1,4 @@
-# Demonstration keymap for Unison music style
+# Demonstration keymap for Unison Music style
 
 Sequencer and MIDI enebled.  
 See how it works.
