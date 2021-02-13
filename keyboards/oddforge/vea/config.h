@@ -35,7 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
-#define RGBLED_NUM 9
+#define RGBLED_NUM 18
+#define RGBLED_SPLIT { 9, 9 }
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 
