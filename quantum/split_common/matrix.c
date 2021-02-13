@@ -257,7 +257,7 @@ bool matrix_post_scan(void) {
         static uint8_t error_count;
 
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
-        if (!transport_master(matrix + thisHand, matrix + thatHand)) {
+        if (!transport_master(matrix + thisHand, slave_matrix)) {
             error_count++;
 
             if (error_count > ERROR_DISCONNECT_COUNT) {
