@@ -21,4 +21,3 @@ SLEEP_LED_ENABLE = yes       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-DEFAULT_FOLDER = ergocheap
