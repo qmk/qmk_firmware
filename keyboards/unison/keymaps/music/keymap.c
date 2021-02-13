@@ -70,7 +70,6 @@ enum custom_keycodes {
 #define C_ESC   LCTL_T(KC_ESC)
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
-#define MIDI    DF(_MIDI)
 #define ALT_EN  LALT_T(KC_LANG2)
 #define ALT_JA  LALT_T(KC_LANG1)
 #define GUI_EN  LGUI_T(KC_LANG2)
@@ -137,6 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MAC:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
+                rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_MAC);
@@ -146,22 +146,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WIN:
             if (record->event.pressed) {
                 // revert LED animation, turned off by SEQ
+                rgblight_sethsv_at(HSV_BLACK, 0);
                 rgblight_reload_from_eeprom();
                 // Change default layer --> Write to EEPROM
                 set_single_persistent_default_layer(_WIN);
             }
             return false;
             break;
-        case M_PSCR: // provide Mac's advanced screen capture
+        case MIDI:
             if (record->event.pressed) {
-                switch(biton32(default_layer_state)) {
-                case _WIN:
-                    tap_code(KC_PSCR);
-                    break;
-                default:
-                    tap_code16(LSFT(LGUI(KC_5)));
-                    break;
-                }
+                // revert LED animation, turned off by SEQ
+                rgblight_sethsv_at(HSV_BLACK, 0);
+                rgblight_reload_from_eeprom();
+                // Change default layer
+                default_layer_set(1UL << _MIDI);
             }
             return false;
             break;
@@ -244,6 +242,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;  // continue processing keycode.
+            break;
+        case M_PSCR: // provide Mac's advanced screen capture
+            if (record->event.pressed) {
+                switch(biton32(default_layer_state)) {
+                case _WIN:
+                    tap_code(KC_PSCR);
+                    break;
+                default:
+                    tap_code16(LSFT(LGUI(KC_5)));
+                    break;
+                }
+            }
+            return false;
             break;
         default:
             break;
@@ -554,8 +565,8 @@ void keyboard_post_init_user(void) {
     #endif
 
     #ifdef RGB_DI_PIN
-    // RGB Lighting: Set effect range to non-indicator led range.
-    // rgblight_set_effect_range(3, 5);
+    // RGB Lighting: Set effect range to right Rotary Encoder LEDs.
+    rgblight_set_effect_range(3, 4);
     #endif
 
     // MIDI & Sequencer: Reset the octave offset to 0
