@@ -13,6 +13,9 @@
 #ifdef PROTOCOL_LUFA
 #    include "lufa.h"
 #endif
+#ifdef PROTOCOL_VUSB
+#    include "vusb.h"
+#endif
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -52,7 +55,7 @@ __attribute__((weak)) void suspend_power_down_user(void) {}
  */
 __attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
 
-#ifndef NO_SUSPEND_POWER_DOWN
+#if !defined(NO_SUSPEND_POWER_DOWN) && defined(WDT_vect)
 /** \brief Power down MCU with watchdog timer
  *
  * wdto: watchdog timer timeout defined in <avr/wdt.h>
@@ -74,36 +77,10 @@ static uint8_t wdt_timeout = 0;
  * FIXME: needs doc
  */
 static void power_down(uint8_t wdto) {
-#    ifdef PROTOCOL_LUFA
-    if (USB_DeviceState == DEVICE_STATE_Configured) return;
-#    endif
     wdt_timeout = wdto;
 
     // Watchdog Interrupt Mode
     wdt_intr_enable(wdto);
-
-#    ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
-#    endif
-
-    // Turn off LED indicators
-    uint8_t leds_off = 0;
-#    if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
-    if (is_backlight_enabled()) {
-        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
-        leds_off |= (1 << USB_LED_CAPS_LOCK);
-    }
-#    endif
-    led_set(leds_off);
-
-#    ifdef AUDIO_ENABLE
-    // This sometimes disables the start-up noise, so it's been disabled
-    // stop_all_notes();
-#    endif /* AUDIO_ENABLE */
-#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-    rgblight_suspend();
-#    endif
-    suspend_power_down_kb();
 
     // TODO: more power saving
     // See PicoPower application note
@@ -129,8 +106,44 @@ static void power_down(uint8_t wdto) {
 void suspend_power_down(void) {
     suspend_power_down_kb();
 
+#ifdef PROTOCOL_LUFA
+    if (USB_DeviceState == DEVICE_STATE_Configured) return;
+#endif
+#ifdef PROTOCOL_VUSB
+    if (!vusb_suspended) return;
+#endif
+
 #ifndef NO_SUSPEND_POWER_DOWN
+    // Turn off backlight
+#    ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#    endif
+
+    // Turn off LED indicators
+    uint8_t leds_off = 0;
+#    if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off |= (1 << USB_LED_CAPS_LOCK);
+    }
+#    endif
+    led_set(leds_off);
+
+    // Turn off audio
+#    ifdef AUDIO_ENABLE
+    // This sometimes disables the start-up noise, so it's been disabled
+    // stop_all_notes();
+#    endif
+
+    // Turn off underglow
+#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_suspend();
+#    endif
+
+    // Enter sleep state if possible
+#    if defined(WDT_vect)
     power_down(WDTO_15MS);
+#    endif
 #endif
 }
 
@@ -164,17 +177,24 @@ __attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_us
 void suspend_wakeup_init(void) {
     // clear keyboard state
     clear_keyboard();
+
+    // Turn on backlight
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
+
+    // Restore LED indicators
     led_set(host_keyboard_leds());
+
+    // Wake up underglow
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
 #endif
+
     suspend_wakeup_init_kb();
 }
 
-#ifndef NO_SUSPEND_POWER_DOWN
+#if !defined(NO_SUSPEND_POWER_DOWN) && defined(WDT_vect)
 /* watchdog timeout */
 ISR(WDT_vect) {
     // compensate timer for sleep
