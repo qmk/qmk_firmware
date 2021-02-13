@@ -44,6 +44,7 @@ ifeq ($(strip $(VIRTSER_ENABLE)), yes)
 endif
 
 SRC += $(LUFA_SRC)
+SRC += $(LUFA_DIR)/usb_util.c
 
 # Search Path
 VPATH += $(TMK_PATH)/$(LUFA_DIR)

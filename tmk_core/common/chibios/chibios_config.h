@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#define SPLIT_USB_DETECT  // Force this on for now
+
 #if defined(STM32F1XX)
 #    define USE_GPIOV1
 #endif
