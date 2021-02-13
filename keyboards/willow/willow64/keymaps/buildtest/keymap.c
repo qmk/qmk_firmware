@@ -1,4 +1,4 @@
-/* Copyright 2020 @haswellep
+/* Copyright 2021 Hanachi
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 #define DUMMY KC_SPC
 
-#define TESTLAYOUT( \
+#define LAYOUT_test( \
     L01, L02, L03, L04, L05, L06,              R01, R02, R03, R04, R05, R06, R28, R07, R35, \
     L07, L08, L09, L10, L11, L12,              R08, R09, R10, R11, R12, R13, R34, R14, \
     L13, L14, L15, L16, L17, L18,              R15, R16, R17, R18, R19, R20, R21,  \
@@ -40,7 +40,7 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = TESTLAYOUT(
+[0] = LAYOUT_test(
 	KC_ESC	,	KC_1	,	KC_2	,	KC_3	,	KC_4	,	KC_5	,					KC_6	,	KC_7	,	KC_8	,	KC_9	,	KC_0	,	KC_MINS	,	KC_EQL	,	KC_GRV	,	KC_BSPC	,	\
 	KC_TAB	,	KC_Q	,	KC_W	,	KC_E	,	KC_R	,	KC_T	,					KC_Y	,	KC_U	,	KC_I	,	KC_O	,	KC_P	,	KC_LBRC	,	KC_RBRC	,			KC_BSLS	,	\
 	KC_LCTL	,	KC_A	,	KC_S	,	KC_D	,	KC_F	,	KC_G	,					KC_H	,	KC_J	,	KC_K	,	KC_L	,	KC_SCLN	,	KC_QUOT	,					KC_ENT	,	\
