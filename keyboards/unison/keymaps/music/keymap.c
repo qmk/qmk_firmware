@@ -555,9 +555,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
    Post Init
 ------------------------------------------------------------------------------ */
 void keyboard_post_init_user(void) {
-    // Debugging
-    // debug_enable=true;
-
     #ifdef RGBLIGHT_LAYERS
     // RGB Lighting Layers: Enable LED layers
     rgblight_layers = my_rgb_layers;
