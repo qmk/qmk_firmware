@@ -103,7 +103,7 @@ __attribute__((weak)) bool is_keyboard_master(void) {
         usbstate = usbIsActive() ? MASTER : SLAVE;
 
         // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
-        if (usbstate == UNKNOWN) {
+        if (usbstate == SLAVE) {
             usb_disable();
         }
     }
