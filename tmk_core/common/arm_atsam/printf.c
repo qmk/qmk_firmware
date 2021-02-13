@@ -69,4 +69,4 @@ void console_printf(char *fmt, ...) {
 
 #endif  // CONSOLE_ENABLE
 
-void print_set_sendchar(SendcharFunc send) {}
+void print_set_sendchar(sendchar_func_t send) {}

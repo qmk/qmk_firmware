@@ -30,7 +30,7 @@
 #include "sendchar.h"
 #include "progmem.h"
 
-void print_set_sendchar(SendcharFunc send);
+void print_set_sendchar(sendchar_func_t func);
 
 #ifndef NO_PRINT
 #    if __has_include_next("_print.h")

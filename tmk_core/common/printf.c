@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // bind lib/printf to console interface - sendchar
 
-static SendcharFunc func = NULL;
+static sendchar_func_t func = NULL;
 
-void print_set_sendchar(SendcharFunc send) { func = send; }
+void print_set_sendchar(sendchar_func_t send) { func = send; }
 
 void _putchar(char character) {
     if (func) func(character);
