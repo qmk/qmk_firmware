@@ -247,7 +247,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
+/* ------------------------------------------------------------------------------
+   RGB Lighting for Sequencer
+------------------------------------------------------------------------------ */
 void display_sequencer_steps(uint8_t track, uint8_t index) {
     sequencer_activate_track(track);
 
@@ -305,7 +307,7 @@ void display_sequencer_steps(uint8_t track, uint8_t index) {
 }
 
 /* ------------------------------------------------------------------------------
-   RGB Light settings
+   RGB Light Layer settings
 ------------------------------------------------------------------------------ */
 #ifdef RGBLIGHT_LAYERS
 
@@ -534,6 +536,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
+
+/* ------------------------------------------------------------------------------
+   Post Init
+------------------------------------------------------------------------------ */
 void keyboard_post_init_user(void) {
     // Debugging
     // debug_enable=true;
