@@ -16,9 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "vea.h"
 
-
-extern LED_TYPE leds;
-
 void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { vea_setleds(start_led, num_leds); }
 
 void vea_rgb_init(void) { i2c_init(); }
