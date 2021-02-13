@@ -2,7 +2,7 @@
 
 A split ergonomic keyboard.
 
-* Keyboard Maintainer: [HID Technologies](https://github.com/HID-Technologies)
+* Keyboard Maintainer: [Bastard Keyboards](https://github.com/Bastardkb/)
 * Hardware Supported: elite-C V4
 * Hardware Availability: [Bastard Keyboards](https://www.bastardkb.com/)
 

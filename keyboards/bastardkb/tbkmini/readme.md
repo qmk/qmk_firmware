@@ -2,7 +2,7 @@
 
 A split, compact ergonomic keyboard.
 
-* Keyboard Maintainer: [BastardKb](https://github.com/Bastardkb/)
+* Keyboard Maintainer: [Bastard Keyboards](https://github.com/Bastardkb/)
 * Hardware Supported: elite-C V4
 * Hardware Availability: [Bastardkb.com](https://bastardkb.com/)
 
