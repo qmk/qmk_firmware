@@ -17,15 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* LSE clock */
+#define STM32_LSECLK 32768
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x57F5
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
-#define DESCRIPTION Satisfaction 75 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -37,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { B9 }
 #define ENCODERS_PAD_B { B8 }
+
+#define ENCODER_RESOLUTION 2
 
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24

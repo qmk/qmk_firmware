@@ -1,13 +1,14 @@
 import os
+from pathlib import Path
 
 import qmk.path
 
 
-def test_keymap_onekey_pytest():
-    path = qmk.path.keymap('handwired/onekey/pytest')
-    assert path == 'keyboards/handwired/onekey/keymaps'
+def test_keymap_pytest_basic():
+    path = qmk.path.keymap('handwired/pytest/basic')
+    assert path.samefile('keyboards/handwired/pytest/basic/keymaps')
 
 
 def test_normpath():
     path = qmk.path.normpath('lib/python')
-    assert path == os.path.join(os.environ['ORIG_CWD'], 'lib/python')
+    assert path.samefile(Path(os.environ['ORIG_CWD']) / 'lib/python')

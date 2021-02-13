@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2020 DonutCables <contact@donutcables.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,13 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0200
+#define VENDOR_ID       0xDCDC
+#define PRODUCT_ID      0x0002
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    DonutCables
-#define PRODUCT         budget96
+#define PRODUCT         Budget96
 
-#define RGBLED_NUM 16
+#define RGBLED_NUM 18
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15

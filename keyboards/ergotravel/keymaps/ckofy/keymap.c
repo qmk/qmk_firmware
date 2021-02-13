@@ -18,17 +18,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-/* Fn keys */
-
-enum {
-
-  F_SFT = 0,
-  F_ALT,
-  F_CTRL,
-  F_NUMPAD
-// F_LOWER,
-//  F_RAISE,
-};
 
 #define KC_ KC_TRNS
 #define KC_XXXX KC_NO
@@ -57,8 +46,8 @@ enum {
 #define KC_UDO LCTL(KC_Z)
 #define KC_CUT LCTL(KC_X)
 #define KC_SVE LCTL(KC_S)
-#define KC_OSH F(F_SFT)
-#define KC_OCTL F(F_CTRL)
+#define KC_OSH OSM(MOD_LSFT)
+#define KC_OCTL OSM(MOD_LCTL)
 #define KC_NUMP TT(_NUMPAD)
 #define KC_SHESC MT(MOD_LSFT,KC_ESC)
 #define KC_SHENT MT(MOD_RSFT,KC_ENT)
@@ -141,14 +130,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-  [F_SFT]  = ACTION_MODS_ONESHOT (MOD_LSFT)
-  ,[F_ALT]  = ACTION_MODS_ONESHOT (MOD_LALT)
-  ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
-};
-
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

@@ -15,9 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef MOUSEKEY_H
-#    define MOUSEKEY_H
-#endif
+#pragma once
 
 #include <stdbool.h>
 #include "host.h"
@@ -54,6 +52,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #    ifndef MOUSEKEY_TIME_TO_MAX
 #        define MOUSEKEY_TIME_TO_MAX 20
+#    endif
+#    ifndef MOUSEKEY_WHEEL_DELAY
+#        define MOUSEKEY_WHEEL_DELAY 300
+#    endif
+#    ifndef MOUSEKEY_WHEEL_INTERVAL
+#        define MOUSEKEY_WHEEL_INTERVAL 100
 #    endif
 #    ifndef MOUSEKEY_WHEEL_MAX_SPEED
 #        define MOUSEKEY_WHEEL_MAX_SPEED 8

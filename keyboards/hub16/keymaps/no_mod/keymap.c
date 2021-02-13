@@ -15,19 +15,22 @@
  */
 #include QMK_KEYBOARD_H
 
-// Function key we are 'wrapping' usual key presses in
-#define KC_WRAP KC_F24
+// Keyboard Layers
+enum keyboard_layers{
+    _BASE = 0,
+    _CONTROL
+};
 
 // Tap Dance Declarations
-enum { TD_TO_LED = 0, TD_TO_DEFAULT = 1 };
+enum tap_dance { TD_TO_LED = 0, TD_TO_DEFAULT = 1 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for HID, twice to toggle layer 1
-    [TD_TO_LED]     = ACTION_TAP_DANCE_DUAL_ROLE(_______, 1),
-    [TD_TO_DEFAULT] = ACTION_TAP_DANCE_DUAL_ROLE(_______, 0)};
+    // Tap once for standard key, twice to toggle to control layer
+    [TD_TO_LED]     = ACTION_TAP_DANCE_DUAL_ROLE(KC_P, _CONTROL),
+    [TD_TO_DEFAULT] = ACTION_TAP_DANCE_DUAL_ROLE(KC_P, _BASE)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
+  [_BASE] = LAYOUT( /* Base */
         KC_S,      KC_V,    
     KC_A, KC_B, KC_C, KC_D, 
     KC_E, KC_F, KC_G, KC_H, 
@@ -35,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_M, KC_N, KC_O, TD(TD_TO_LED) 
   ),
 
-  [1] = LAYOUT( /* LED Control */
+  [_CONTROL] = LAYOUT( /* LED Control */
           KC_NO,            KC_NO,        
     _______, RGB_MOD, RGB_RMOD, RGB_TOG,
     RGB_VAD, RGB_VAI, RGB_HUD,  RGB_HUI, 
@@ -44,8 +47,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-// Keyboard is setup to 'warp' the pressed key with F24,
-// allowing for easy differentiation from a real keyboard.
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
         if (clockwise) {
@@ -61,3 +62,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // Example of "pressing" CONTROL+SHIFT+V instead of "A" on keyboard
+    // More info: https://docs.qmk.fm/#/feature_macros
+    // case KC_A:
+    //   if (record->event.pressed) {
+    //     SEND_STRING(SS_LCTL(SS_LSFT("v")));
+    //   } else {
+    //   }
+    //   break; 
+  }
+  return true;
+};

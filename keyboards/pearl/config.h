@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0200
 #define MANUFACTURER Pearl Boards
 #define PRODUCT      Pearl
-#define DESCRIPTION  40% keyboard
-
-#define NO_UART 1
 
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 12

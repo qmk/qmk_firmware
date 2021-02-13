@@ -6,7 +6,7 @@ from milc import cli
 
 
 @cli.argument('-n', '--name', default='World', help='Name to greet.')
-@cli.subcommand('QMK Hello World.')
+@cli.subcommand('QMK Hello World.', hidden=False if cli.config.user.developer else True)
 def hello(cli):
     """Log a friendly greeting.
     """

@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0x20A0
+#define VENDOR_ID       0x5053 /* PS */
 #define PRODUCT_ID      0x422D
 #define DEVICE_VER      0x0200
 
-#define MANUFACTURER    Percent
+#define MANUFACTURER    Percent Studios
 #define PRODUCT         Skog TKL
 
 /* matrix size */
@@ -37,5 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 5
-
-#define NO_UART 1

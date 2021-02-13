@@ -14,10 +14,11 @@ Certain MCUs which do not have native USB will use [V-USB](https://www.obdev.at/
 
 * [ATmega32A](https://www.microchip.com/wwwproducts/en/ATmega32A)
 * [ATmega328P](https://www.microchip.com/wwwproducts/en/ATmega328P)
+* [ATmega328](https://www.microchip.com/wwwproducts/en/ATmega328)
 
 ## ARM
 
-You can also use any ARM chip with USB that [ChibiOS](http://www.chibios.org) supports. Most have plenty of flash. Known to work are:
+You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) supports. Most have plenty of flash. Known to work are:
 
 ### STMicroelectronics (STM32)
 

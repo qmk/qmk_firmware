@@ -54,7 +54,7 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`6`               |Make layer 6 the default layer               |
 |`7`               |Make layer 7 the default layer               |
 
-## Keycodes
+## Keycodes :id=keycodes
 
 |Key                               |Aliases  |Description                                                               |
 |----------------------------------|---------|--------------------------------------------------------------------------|
@@ -121,9 +121,9 @@ If you would like to change the hotkey assignments for Bootmagic, `#define` thes
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_6`         |`KC_6`       |Make layer 6 the default layer                     |
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_7`         |`KC_7`       |Make layer 7 the default layer                     |
 
-# Bootmagic Lite
+# Bootmagic Lite :id=bootmagic-lite
 
-In addition to the full blown Bootmagic feature, is the Bootmagic Lite feature that only handles jumping into the bootloader.  This is great for boards that don't have a physical reset button but you need a way to jump into the bootloader, and don't want to deal with the headache that Bootmagic can cause.
+In addition to the full blown Bootmagic feature, is the Bootmagic Lite feature that only handles jumping into the bootloader. This is great for boards that don't have a physical reset button but you need a way to jump into the bootloader, and don't want to deal with the headache that Bootmagic can cause.
 
 To enable this version of Bootmagic, you need to enable it in your `rules.mk` with:
 
@@ -131,7 +131,7 @@ To enable this version of Bootmagic, you need to enable it in your `rules.mk` wi
 BOOTMAGIC_ENABLE = lite
 ```
 
-Additionally, you may want to specify which key to use.  This is especially useful for keyboards that have unusual matrices.  To do so, you need to specify the row and column of the key that you want to use. Add these entries to your `config.h` file:
+Additionally, you may want to specify which key to use. This is especially useful for keyboards that have unusual matrices. To do so, you need to specify the row and column of the key that you want to use. Add these entries to your `config.h` file:
 
 ```c
 #define BOOTMAGIC_LITE_ROW 0
@@ -144,9 +144,20 @@ And to trigger the bootloader, you hold this key down when plugging the keyboard
 
 !> Using bootmagic lite will **always reset** the EEPROM, so you will lose any settings that have been saved.
 
+## Split Keyboards
+
+When handedness is predetermined via an option like `SPLIT_HAND_PIN`, you might need to configure a different key between halves. This To do so, add these entries to your `config.h` file:
+
+```c
+#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 1
+```
+
+By default, these values are not set.
+
 ## Advanced Bootmagic Lite
 
-The `bootmagic_lite` function is defined weakly, so that you can replace this in your code, if you need.  A great example of this is the Zeal60 boards that have some additional handling needed.
+The `bootmagic_lite` function is defined weakly, so that you can replace this in your code, if you need. A great example of this is the Zeal60 boards that have some additional handling needed.
 
 To replace the function, all you need to do is add something like this to your code:
 
@@ -163,4 +174,4 @@ void bootmagic_lite(void) {
 }
 ```
 
-You can additional feature here. For instance, resetting the eeprom or requiring additional keys to be pressed to trigger bootmagic.  Keep in mind that `bootmagic_lite` is called before a majority of features are initialized in the firmware.
+You can additional feature here. For instance, resetting the eeprom or requiring additional keys to be pressed to trigger bootmagic. Keep in mind that `bootmagic_lite` is called before a majority of features are initialized in the firmware.

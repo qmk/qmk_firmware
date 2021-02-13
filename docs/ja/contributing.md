@@ -1,8 +1,8 @@
 # 貢献方法
 
 <!---
-  original document: d47809575:docs/contributing.md
-  git diff d47809575 HEAD -- docs/contributing.md | cat
+  original document: 0.8.62:docs/contributing.md
+  git diff 0.8.62 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 まず、これを読み貢献する時間を作ってくれてありがとうございます！🎉👍
@@ -28,7 +28,7 @@ QMK について質問したい場合は、[OLKB Subreddit](https://reddit.com/r
 
 # プロジェクトの概要 :id=project-overview
 
-QMK は主に C で書かれており、特定の機能と部品は C++ で書かれています。QMK は、キーボードの中の組み込みプロセッサ、特に AVR ([LUFA](http://www.fourwalledcubicle.com/LUFA.php)) と ARM ([ChibiOS](http://www.chibios.com)) を対象にしています。すでに Arduino プログラミングに精通している場合は、多くの概念と制限がおなじみのものです。QMK に貢献するには Arduino を使用した経験は必要ありません。
+QMK は主に C で書かれており、特定の機能と部品は C++ で書かれています。QMK は、キーボードの中の組み込みプロセッサ、特に AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) と ARM ([ChibiOS](https://www.chibios.org)) を対象にしています。すでに Arduino プログラミングに精通している場合は、多くの概念と制限がおなじみのものです。QMK に貢献するには Arduino を使用した経験は必要ありません。
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 
@@ -106,7 +106,7 @@ enum my_keycodes {
 };
 ```
 
-### ドキュメントのプレビュー
+### ドキュメントのプレビュー :id=previewing-the-documentation
 
 開発環境をセットアップした場合は、プルリクエストを開く前に以下のコマンドを `qmk_firmware/` フォルダから実行することで、あなたの変更をプレビューすることができます:
 
@@ -122,7 +122,7 @@ enum my_keycodes {
 
 ほとんどの初めての QMK 貢献者は、個人のキーマップから始めます。キーマップの標準はかなりカジュアルなものにしようとしています(キーマップは結局のところ作成者の性格を反映しています)が、他の人があなたのキーマップを簡単に見つけて学ぶことができるように、これらのガイドラインに従うようにお願いします。
 
-* [the template](documentation_templates.md) を使って `readme.md` を書きます。
+* [テンプレート](documentation_templates.md) を使って `readme.md` を書きます。
 * 全てのキーマップの PR は squash されるため、コミットがどのように squash されるかを気にする場合は、自分で行う必要があります。
 * キーマップの PR に機能をまとめないでください。最初に機能をサブミットし、次にキーマップのための2つ目の PR をサブミットします。
 * `Makefile` をキーマップフォルダに含めないでください(もう使われていません)。
@@ -134,7 +134,7 @@ enum my_keycodes {
 
 また以下のガイドラインに従うことをお願いします:
 
-* [the template](ja/documentation_templates.md) を使って `readme.md` を書きます。
+* [テンプレート](ja/documentation_templates.md) を使って `readme.md` を書きます。
 * コミットの数を適切に保ってください。そうでなければあなたの PR を squash します。
 * コア機能を新しいキーボードにまとめないでください。最初に機能をサブミットし、次にキーボード用に別の PR をサブミットしてください。
 * `.c`/`.h` ファイルにすぐ上の親フォルダに従って名前を付けます。例えば、`/keyboards/<kb1>/<kb2>/<kb2>.[ch]`

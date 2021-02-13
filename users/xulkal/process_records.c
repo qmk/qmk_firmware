@@ -37,7 +37,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
                     reset_keyboard();
             }
             return false;
-#ifdef RGB_MATRIX_TOG_LAYERS
+#if defined(RGB_MATRIX_TOG_LAYERS) && defined(RGB_ENABLE)
         case RGB_TOG:
             if (record->event.pressed) {
               rgb_matrix_increase_flags();
