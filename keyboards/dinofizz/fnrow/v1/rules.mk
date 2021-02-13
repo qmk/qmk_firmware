@@ -6,7 +6,7 @@ MCU = STM32F042
 #
 BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no				# Mouse keys
 EXTRAKEY_ENABLE = yes				# Audio control and System control
 CONSOLE_ENABLE = no					# Console for debug
