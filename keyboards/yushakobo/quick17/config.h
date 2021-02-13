@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x3265
-#define PRODUCT_ID   0x0005
+#define PRODUCT_ID   0x0006
 #define DEVICE_VER   0x0001
 #define MANUFACTURER yushakobo
 #define PRODUCT      quick17
@@ -87,6 +87,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_MAX_LAYERS 8
 
+#endif
+
+#ifdef ENCODER_ENABLE
+#define ENCODERS_PAD_A { B4 }
+#define ENCODERS_PAD_B { B5 }
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
