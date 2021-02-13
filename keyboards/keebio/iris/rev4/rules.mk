@@ -33,3 +33,5 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
 ENCODER_ENABLE = yes
+
+DYNAMIC_MACRO_ENABLE = yes
