@@ -179,11 +179,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if(is_sequencer_on()) {
                     sequencer_off();
+                    #ifdef RGB_LIGHT_LAYER
                     rgblight_set_layer_state(_SEQPLAYBACK, false);
-                    // 再生を停止したら、右4LEDにstepを表示
+                    #endif
                 } else {
                     sequencer_on();
+                    #ifdef RGB_LIGHT_LAYER
                     rgblight_set_layer_state(_SEQPLAYBACK, true);
+                    #endif
                 }
             }
             return false;
@@ -548,6 +551,9 @@ void keyboard_post_init_user(void) {
     // RGB Lighting Layers: Enable LED layers
     rgblight_layers = my_rgb_layers;
 
+    #endif
+
+    #ifdef RGB_DI_PIN
     // RGB Lighting: Set effect range to non-indicator led range.
     // rgblight_set_effect_range(3, 5);
     #endif
