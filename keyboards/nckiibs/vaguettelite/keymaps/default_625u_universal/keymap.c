@@ -34,48 +34,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* BASE
      * ---------------------------------------------------------------------------------------------------------
-     * |  `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  -   |  =   | Bspc | Mute |
+     * |  `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  -  |   =   | BSpc | Mute |
      * ---------------------------------------------------------------------------------------------------------
      * | Tab     |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |    \    |   [  |  ]   |
      *----------------------------------------------------------------------------------------------------------
-     * |   Esc      |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  | Enter |  N/A |  '  |
+     * |   Esc      |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |     Enter    |  '  |
      *----------------------------------------------------------------------------------------------------------
-     * |  N/A  |  Shift |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  Shift   | DEL |
+     * |     Shift      |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |     Shift      |
      *----------------------------------------------------------------------------------------------------------
-     * | Ctrl |  GUI |  Alt  | Lower |  Space  |  Space  |  Space  | Raise |  Alt | Left | Down |  Up  | Right |
+     * | Ctrl |  GUI |  Alt  |                Space                     |  Raise  | Left | Down |  Up  | Right |
      *----------------------------------------------------------------------------------------------------------
      */
 
-    [_BASE] = LAYOUT_all(
+    [_BASE] = LAYOUT_625u_universal(
     KC_GRV ,                KC_1   ,    KC_2   ,    KC_3   ,    KC_4   ,    KC_5   ,    KC_6   ,    KC_7   ,    KC_8   ,    KC_9   ,    KC_0   ,    KC_MINS,    KC_MINS,    KC_BSPC,    KC_AUDIO_MUTE,
-    KC_TAB ,                KC_Q   ,    KC_W   ,    KC_E   ,    KC_R   ,    KC_T   ,    KC_Y   ,    KC_U   ,    KC_I   ,    KC_O   ,    KC_P   ,        KC_BSLS,            KC_LBRC,    KC_RBRC,
-    KC_ESC ,                KC_A   ,    KC_S   ,    KC_D   ,    KC_F   ,    KC_G   ,    KC_H   ,    KC_J   ,    KC_K   ,    KC_L   ,    KC_SCLN,        KC_ENT ,            KC_NO,      KC_QUOT,
-    KC_NO  ,    KC_LSFT,    KC_Z   ,    KC_X   ,    KC_C   ,    KC_V   ,    KC_B   ,    KC_N   ,    KC_M   ,    KC_COMM,    KC_DOT ,    KC_SLSH,            RSFT_T(KC_QUOT),            KC_DEL,
-    KC_LCTL,    KC_LGUI,    KC_LALT,    LOWER  ,    KC_SPC ,            KC_SPC ,        KC_SPC ,                RAISE,      KC_RALT,                KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT
+    KC_TAB ,                KC_Q   ,    KC_W   ,    KC_E   ,    KC_R   ,    KC_T   ,    KC_Y   ,    KC_U   ,    KC_I   ,    KC_O   ,    KC_P   ,            KC_BSLS,        KC_LBRC,    KC_RBRC,
+    KC_ESC ,                KC_A   ,    KC_S   ,    KC_D   ,    KC_F   ,    KC_G   ,    KC_H   ,    KC_J   ,    KC_K   ,    KC_L   ,    KC_SCLN,            KC_ENT ,                    KC_QUOT,
+                KC_LSFT,    KC_Z   ,    KC_X   ,    KC_C   ,    KC_V   ,    KC_B   ,    KC_N   ,    KC_M   ,    KC_COMM,    KC_DOT ,    KC_SLSH,            RSFT_T(KC_QUOT),
+    KC_LCTL,    KC_LGUI,    KC_LALT,                            KC_SPC ,                            RAISE  ,    KC_LEFT,    KC_DOWN,    KC_UP  ,    KC_RGHT
     ),
 
-    [_LOWER] = LAYOUT_all(
-    _______,                KC_F1  ,    KC_F2  ,    KC_F3  ,    KC_F4  ,    KC_F5  ,    KC_F6  ,    KC_F7  ,    KC_F8  ,    KC_F9  ,    KC_F10  ,   KC_F11 ,    KC_F12 ,    KC_F12 ,    _______,
-    KC_BSPC,                KC_EQL ,    KC_7   ,    KC_8   ,    KC_9   ,    KC_SLSH,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_AT  ,    KC_EXLM,        KC_BSLS,            _______,    _______,
-    KC_ENT ,                KC_0   ,    KC_4   ,    KC_5   ,    KC_6   ,    KC_MINS,    KC_UNDS,    KC_LPRN,    KC_RPRN,    KC_HASH,    KC_DQUO ,       _______,            _______,    _______,
-    KC_DLR ,    KC_DLR ,    KC_PAST,    KC_1   ,    KC_2   ,    KC_3   ,    KC_PPLS,    KC_PIPE,    KC_LCBR,    KC_RCBR,    KC_PERC,    KC_AMPR,                _______,                _______,
-    _______,    _______,    _______,    _______,    _______,            _______,        _______,                _______,    _______,                _______,    _______,    _______,    _______
+    [_LOWER] = LAYOUT_625u_universal(
+    _______,                KC_F1  ,    KC_F2  ,    KC_F3  ,    KC_F4  ,    KC_F5  ,    KC_F6  ,    KC_F7  ,    KC_F8  ,    KC_F9  ,    KC_F10,     KC_F11 ,    KC_F12 ,    KC_F12 ,    _______,
+    KC_BSPC,                KC_EQL ,    KC_7   ,    KC_8   ,    KC_9   ,    KC_SLSH,    KC_CIRC,    KC_LBRC,    KC_RBRC,    KC_AT  ,    KC_EXLM,            KC_BSLS,        _______,    _______,
+    KC_ENT ,                KC_0   ,    KC_4   ,    KC_5   ,    KC_6   ,    KC_MINS,    KC_UNDS,    KC_LPRN,    KC_RPRN,    KC_HASH,    KC_DQUO,            _______,                    _______,
+                KC_DLR ,    KC_PAST,    KC_1   ,    KC_2   ,    KC_3   ,    KC_PPLS,    KC_PIPE,    KC_LCBR,    KC_RCBR,    KC_PERC,    KC_AMPR,            _______,
+    _______,    _______,    _______,                            _______,                            _______,    _______,    _______,    _______,    _______
     ),
 
-    [_RAISE] = LAYOUT_all(
+    [_RAISE] = LAYOUT_625u_universal(
     _______,                _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-    _______,                _______,    _______,    _______,    _______,    _______,    _______,    KC_HOME,    KC_BSPC,    KC_DEL,     KC_END ,        _______,            _______,    _______,
-    _______,                _______,    _______,    _______,    _______,    _______,    KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_QUOT,        _______,            _______,    _______,
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_PGUP,    _______,    _______,    KC_PGDN,                _______,                _______,
-    _______,    _______,    _______,    _______,    _______,            _______,        _______,                _______,    _______,                _______,    _______,    _______,    _______
+    _______,                _______,    _______,    _______,    _______,    _______,    _______,    KC_HOME,    KC_BSPC,    KC_DEL,     KC_END ,            _______,        _______,    _______,
+    _______,                _______,    _______,    _______,    _______,    _______,    KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_QUOT,            _______,                    _______,
+                _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_PGUP,    _______,    _______,    KC_PGDN,            _______,
+    _______,    _______,    _______,                            _______,                            _______,    _______,    _______,    _______,    _______
     ),
 
-    [_ADJUST] = LAYOUT_all(
+    [_ADJUST] = LAYOUT_625u_universal(
     RESET  ,                _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,   DEBUG,
-    _______,                RGB_TOG,    RGB_RMOD,   RGB_MOD,    RGB_VAD,    RGB_VAI,    _______,    _______,    _______,    _______,    _______,        _______,            _______,    _______,
-    KC_CAPS,                _______,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    _______,    _______,    _______,    _______,    _______,        _______,            _______,    _______,
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,                _______,
-    _______,    _______,    _______,    _______,    _______,            _______,        _______,                _______,    _______,                _______,    _______,    _______,    _______
+    _______,                RGB_TOG,    RGB_RMOD,   RGB_MOD,    RGB_VAD,    RGB_VAI,    _______,    _______,    _______,    _______,    _______,            _______,        _______,    _______,
+    KC_CAPS,                _______,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    _______,    _______,    _______,    _______,    _______,            _______,                    _______,
+                _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,            _______,
+    _______,    _______,    _______,                            _______,                            _______,    _______,    _______,    _______,    _______
     )
 };
 
