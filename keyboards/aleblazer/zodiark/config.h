@@ -26,10 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Zodiark
 #define MASTER_LEFT
 
-#ifdef OLED_DRIVER_ENABLE
-  #define OLED_TIMEOUT 400000
-#endif
-
 #define NO_ACTION_MACRO
 
 #define USE_SERIAL
