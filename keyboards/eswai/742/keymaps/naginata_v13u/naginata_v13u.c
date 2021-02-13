@@ -821,7 +821,7 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
     // 1キー目、JKの前に他のキーを押していないこと
     if (fghj_buf == 0 && nkeypress == 1) {
       // かなオンキーの場合
-      if (keycode == ngon_keys[0] || keycode == ngon_keys[1]) {
+      if (keycode == ngon_keys[0] || keycode == ngon_keys[1] || keycode == ngoff_keys[0] || keycode == ngoff_keys[1]) {
         fghj_buf = keycode;
         return false;
       }
@@ -831,6 +831,11 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
       if ((keycode == ngon_keys[0] && fghj_buf == ngon_keys[1]) ||
           (keycode == ngon_keys[1] && fghj_buf == ngon_keys[0])) {
         naginata_on();
+        fghj_buf = 0;
+        return false;
+      } else if ((keycode == ngoff_keys[0] && fghj_buf == ngoff_keys[1]) ||
+          (keycode == ngoff_keys[1] && fghj_buf == ngoff_keys[0])) {
+        naginata_off();
         fghj_buf = 0;
         return false;
       // ２キー目はかなオンキーではない
