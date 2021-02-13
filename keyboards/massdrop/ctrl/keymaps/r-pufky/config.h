@@ -23,5 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
 #define RGB_MATRIX_STARTUP_VAL 100
-#define RGB_BACKLIGHT_COLOR_1 RGB_BLUE
-#define RGB_BACKLIGHT_COLOR_2 RGB_BLUE
+#define HSV_BACKLIGHT_COLOR HSV_BLUE

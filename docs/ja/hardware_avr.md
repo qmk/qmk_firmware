@@ -38,7 +38,7 @@ or open the directory in your favourite text editor.
 
 ## `readme.md`
 
-このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` の上部に画像を配置することをお勧めします。画像は [Imgur](http://imgur.com) のような外部サービスを利用してください。
+このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` の上部に画像を配置することをお勧めします。画像は [Imgur](https://imgur.com) のような外部サービスを利用してください。
 
 ## `<keyboard>.c`
 

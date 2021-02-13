@@ -31,3 +31,8 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 LAYOUTS = ortho_4x4  ortho_4x8  ortho_4x12  ortho_4x16
+
+# Disable unsupported hardware
+RGBLIGHT_SUPPORTED = no
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no

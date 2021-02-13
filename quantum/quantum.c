@@ -571,32 +571,22 @@ void tap_random_base64(void) {
 #endif
     switch (key) {
         case 0 ... 25:
-            register_code(KC_LSFT);
-            register_code(key + KC_A);
-            unregister_code(key + KC_A);
-            unregister_code(KC_LSFT);
+            send_char(key + 'A');
             break;
         case 26 ... 51:
-            register_code(key - 26 + KC_A);
-            unregister_code(key - 26 + KC_A);
+            send_char(key - 26 + 'a');
             break;
         case 52:
-            register_code(KC_0);
-            unregister_code(KC_0);
+            send_char('0');
             break;
         case 53 ... 61:
-            register_code(key - 53 + KC_1);
-            unregister_code(key - 53 + KC_1);
+            send_char(key - 53 + '1');
             break;
         case 62:
-            register_code(KC_LSFT);
-            register_code(KC_EQL);
-            unregister_code(KC_EQL);
-            unregister_code(KC_LSFT);
+            send_char('+');
             break;
         case 63:
-            register_code(KC_SLSH);
-            unregister_code(KC_SLSH);
+            send_char('/');
             break;
     }
 }
@@ -707,22 +697,7 @@ void send_byte(uint8_t number) {
     send_nibble(number & 0xF);
 }
 
-void send_nibble(uint8_t number) {
-    switch (number) {
-        case 0:
-            register_code(KC_0);
-            unregister_code(KC_0);
-            break;
-        case 1 ... 9:
-            register_code(KC_1 + (number - 1));
-            unregister_code(KC_1 + (number - 1));
-            break;
-        case 0xA ... 0xF:
-            register_code(KC_A + (number - 0xA));
-            unregister_code(KC_A + (number - 0xA));
-            break;
-    }
-}
+void send_nibble(uint8_t number) { tap_code16(hex_to_keycode(number)); }
 
 __attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {
     hex = hex & 0xF;

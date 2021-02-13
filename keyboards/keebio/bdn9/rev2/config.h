@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         BDN9 Rev. 2
-#define DESCRIPTION     3x3 Macropad with Rotary Encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -40,7 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Left, Right, Middle
 #define ENCODERS_PAD_A { A8, B3, A10 }
-#define ENCODERS_PAD_B { B11, A15, A9 }
+#define ENCODERS_PAD_B { A4, A15, A9 }
+#define TAP_CODE_DELAY 10
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN

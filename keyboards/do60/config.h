@@ -26,7 +26,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Shopkey by Doyu Studio
 #define PRODUCT         Do60
-#define DESCRIPTION     Do60 Keyboard PCB by Doyu Studio
 
 /* key matrix size */
 #define MATRIX_ROWS 5
