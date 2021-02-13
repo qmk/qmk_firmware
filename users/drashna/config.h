@@ -24,7 +24,7 @@
 
 #if defined(SPLIT_KEYBOARD)
 #    define SPLIT_MODS_ENABLE
-// #    define SPLIT_TRANSPORT_MIRROR
+#    define SPLIT_TRANSPORT_MIRROR
 #    define SERIAL_USE_MULTI_TRANSACTION
 // #    define SPLIT_NUM_TRANSACTIONS_KB 2
 #endif
