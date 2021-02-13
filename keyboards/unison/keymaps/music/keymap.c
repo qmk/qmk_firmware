@@ -280,68 +280,29 @@ void display_sequencer_steps(uint8_t track, uint8_t index) {
     }
 
     if (is_sequencer_step_on(index * 4 + 0)) {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 3);
+    } else {
+        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 3);
+    }
+
+    if (is_sequencer_step_on(index * 4 + 1)) {
         rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 4);
     } else {
         rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 4);
     }
 
-    if (is_sequencer_step_on(index * 4 + 1)) {
+    if (is_sequencer_step_on(index * 4 + 2)) {
         rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 5);
     } else {
         rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 5);
     }
 
-    if (is_sequencer_step_on(index * 4 + 2)) {
+    if (is_sequencer_step_on(index * 4 + 3)) {
         rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 6);
     } else {
         rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 6);
     }
-
-    if (is_sequencer_step_on(index * 4 + 3)) {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_DIMMER, 7);
-    } else {
-        rgblight_sethsv_at(hue, 255, 255 - SEQ_LED_STEP_OFF_DIMMER, 7);
-    }
 }
-
-void matrix_scan_user(void) {
-    if (biton32(default_layer_state) == _SEQUENCER) {
-        if (is_sequencer_on()) {
-            switch (sequencer_get_current_step()) {
-            case 0:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 4);
-                break;
-            case 4:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 5);
-                break;
-            case 8:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 6);
-                break;
-            case 12:
-                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 7);
-                break;
-            case 16:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 4);
-                break;
-            case 20:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 5);
-                break;
-            case 24:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 6);
-                break;
-            case 28:
-                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 7);
-                break;
-            }
-        } else {
-            for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
-                if (is_sequencer_track_active(i)) {
-                    display_sequencer_steps(i, step_frame_index);
-                }
-            }
-        }
-    }
- }
 
 /* ------------------------------------------------------------------------------
    RGB Light settings
@@ -350,7 +311,7 @@ void matrix_scan_user(void) {
 
 // Indicator LED settings
 #define INDICATOR_INDEX 1        // where to start indicator
-#define INDICATOR_COUNT 3         // how many leds for indicator
+#define INDICATOR_COUNT 2         // how many leds for indicator
 #define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
 #define DIMMER_LEVEL 150          // brightness dimmer
 
@@ -383,12 +344,12 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // for Lock indicator
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX + 2 , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
+    {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
 );
 
 // for Sequencer Playback indicator
 const rgblight_segment_t PROGMEM my_seqplayback_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {INDICATOR_INDEX + 2 , INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - DIMMER_LEVEL}
+    {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - DIMMER_LEVEL}
 );
 
 // Define the array of layers. Later layers take precedence
@@ -593,4 +554,47 @@ void keyboard_post_init_user(void) {
 
     // Sequencer: initial tempo
     sequencer_set_tempo(SEQ_TEMPO);
+}
+
+
+/* ------------------------------------------------------------------------------
+   Matrix Scan
+------------------------------------------------------------------------------ */
+void matrix_scan_user(void) {
+    if (biton32(default_layer_state) == _SEQUENCER) {
+        if (is_sequencer_on()) {
+            switch (sequencer_get_current_step()) {
+            case 0:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 3);
+                break;
+            case 4:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 4);
+                break;
+            case 8:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 5);
+                break;
+            case 12:
+                rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 6);
+                break;
+            case 16:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 3);
+                break;
+            case 20:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 4);
+                break;
+            case 24:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 5);
+                break;
+            case 28:
+                rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 6);
+                break;
+            }
+        } else {
+            for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
+                if (is_sequencer_track_active(i)) {
+                    display_sequencer_steps(i, step_frame_index);
+                }
+            }
+        }
+    }
 }

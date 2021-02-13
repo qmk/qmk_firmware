@@ -57,8 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB Lighting */
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 8 // Layer Indicator(3) + Rotary Encoder(5), optional Underglow(8)
-  #define RGBLIGHT_LED_MAP {1, 2, 3, 0, 4, 5, 6, 7} // Left to Right
+  #define RGBLED_NUM 7 // Layer Indicator(2) + Rotary Encoder(5), NOT used: optional Indicator(2), optional Underglow(8)
+  #define RGBLIGHT_LED_MAP {1, 2, 0, 3, 4, 5, 6} // align LEDs from Left to Right
   #define RGBLIGHT_HUE_STEP 4
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
