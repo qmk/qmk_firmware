@@ -2,7 +2,7 @@
 
 ![Tiger910](https://www.hualigs.cn/image/60272570d2764.jpg)
 
-A 60% keyboard based on STM32f303
+A 65% keyboard based on STM32f103
 
 * Keyboard Maintainer:  [Weirdo](https://weirdo-f.github.io)(https://github.com/1248314361)
 * Hardware Supported: Tiger910
