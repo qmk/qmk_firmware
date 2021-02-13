@@ -74,11 +74,7 @@ static void usb_remote_wakeup(void) {
  *
  * FIXME: Needs doc
  */
-static void setup_usb(void) {
-    initForUsbConnectivity();
-
-    // for Console_Task
-}
+static void setup_usb(void) { initForUsbConnectivity(); }
 
 /** \brief Main
  *
