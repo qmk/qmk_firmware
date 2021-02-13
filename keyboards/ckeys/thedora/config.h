@@ -24,7 +24,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER ckeys
 #define PRODUCT thedora
-#define DESCRIPTION A board for keyboard exploration.
 
 #define ENCODERS_PAD_A { B13 }
 #define ENCODERS_PAD_B { B15 }
@@ -39,7 +38,7 @@
 
 // #define UNUSED_PINS { B14 }
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 //#define BACKLIGHT_PIN B7
@@ -66,9 +65,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

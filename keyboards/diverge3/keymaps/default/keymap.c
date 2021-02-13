@@ -84,7 +84,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 // KEYMAP
-extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _LOWER 1

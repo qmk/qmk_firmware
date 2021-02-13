@@ -2,7 +2,6 @@
 #define SOLENOID_H
 
 #include <timer.h>
-#include "pincontrol.h"
 
 
 #define SOLENOID_DEFAULT_DWELL 12
@@ -45,7 +44,7 @@ void solenoid_toggle(void) {
 }
 
 void solenoid_stop(void) {
-  digitalWrite(SOLENOID_PIN, PinLevelLow);
+  writePinLow(SOLENOID_PIN);
   solenoid_on = false;
   solenoid_buzzing = false;
 }
@@ -59,7 +58,7 @@ void solenoid_fire(void) {
   solenoid_on = true;
   solenoid_buzzing = true;
   solenoid_start = timer_read();
-  digitalWrite(SOLENOID_PIN, PinLevelHigh);
+  writePinHigh(SOLENOID_PIN);
 }
 
 void solenoid_check(void) {
@@ -80,20 +79,20 @@ void solenoid_check(void) {
     if (elapsed / SOLENOID_MIN_DWELL % 2 == 0){
       if (!solenoid_buzzing) {
         solenoid_buzzing = true;
-        digitalWrite(SOLENOID_PIN, PinLevelHigh);
+        writePinHigh(SOLENOID_PIN);
       }
     }
     else {
       if (solenoid_buzzing) {
         solenoid_buzzing = false;
-        digitalWrite(SOLENOID_PIN, PinLevelLow);
+        writePinLow(SOLENOID_PIN);
       }
     }
   }
 }
 
 void solenoid_setup(void) {
-  pinMode(SOLENOID_PIN, PinDirectionOutput);
+  setPinOutput(SOLENOID_PIN);
 }
 
 #endif

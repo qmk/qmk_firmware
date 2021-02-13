@@ -1,29 +1,20 @@
-#ifndef USERSPACE
-#define USERSPACE
-
-#include "quantum.h"
-#include "wrappers.h"
-
 #pragma once
-#include "quantum.h"
-#include "version.h"
-#include "eeprom.h"
 
+#include QMK_KEYBOARD_H
+
+#include "wrappers.h"
+#include "eeprom.h"
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dances.h"
 #endif // TAP_DANCE_ENABLE
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-
-#endif
-
 enum layer_number {
-    _MACBASE = 0,
-    _WINBASE,
+    _WINBASE = 0,
+    _MACBASE,
     _QWERTY,
     _GAMER,
+    _GAMR1,
+    _GAMR2,
     _NGMR,
     _NUMB,
     _MNMB,
@@ -33,10 +24,13 @@ enum layer_number {
     _MEME
 };
 
-enum custom_keycodes {
-  MACBASE = SAFE_RANGE,
-  WINBASE,
-  QWERTY,
+enum userspace_custom_keycodes {
+  KC_MACBASE = SAFE_RANGE,
+  KC_QWERTY,
+  KC_WINBASE,
+  KC_GAMER,
+  KC_GAMR1,
+  KC_GAMR2,
   NUMB,
   MNMB,
   SYMB,
@@ -47,15 +41,9 @@ enum custom_keycodes {
   MAKEKF,
   SHRUG,
   //DYNAMIC_MACRO_RANGE,
+  SAFE_RANGE_KEYMAP
 };
 
-enum userspace_custom_keycodes {
-  KC_MACBASE,
-  KC_PROTECT, //for some reason, this position does not work. This is just a placeholder
-  KC_QWERTY,
-  KC_WINBASE,
-  //NEW_SAFE_RANGE
-};
 
 /*
 #ifdef UNICODEMAP_ENABLE
@@ -72,13 +60,13 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 #endif // UNICODEMAP_ENABLE
 */
+
+
 //#include "dynamic_macro.h"
 
 
 
-#define KC_____ KC_TRNS
-#define KC_XXXXX KC_NO
-
-int RGB_current_mode;
+#if RGBLIGHT_ENABLE
+uint8_t RGB_current_mode;
 
 #endif

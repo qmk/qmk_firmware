@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    nrtkbb
 #define PRODUCT         uzu42
-#define DESCRIPTION     A split keyboard with 4x5 vertically staggered keys and 1 thumb keys
 
 /* key matrix size */
 // Rows are doubled-up
@@ -35,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 // #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
+
+#define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

@@ -6,7 +6,7 @@ Add Setta21 maps to the salicylic layout.
 |  1   |  2   |  3   |  4   |
 |:----:|:----:|:----:|:----:|
 |   ESC|    F2|     =|   DEL|
-|Ad+Num|     /|     *|     -|
+|   Num|     /|     *|     -|
 |     7|     8|     9|      |
 |     4|     5|     6|     +|
 |     1|     2|     3|      |
@@ -36,7 +36,7 @@ Add Setta21 maps to the salicylic layout.
 |  1   |  2   |  3   |  4   |
 |:----:|:----:|:----:|:----:|
 |   ESC|    F2|     =|   DEL|
-|ADJUST| XXXXX| XXXXX|     -|
+| XXXXX| XXXXX| XXXXX|     -|
 |LED_SAD|LED_SAI| XXXXX|      |
 |LED_HUD|LED_HUI| XXXXX|     +|
 |LED_VAD|LED_VAI| XXXXX|      |

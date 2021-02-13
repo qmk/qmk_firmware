@@ -5,7 +5,7 @@ from milc import cli
 import subprocess
 
 
-@cli.subcommand("Format python code according to QMK's style.")
+@cli.subcommand("Format python code according to QMK's style.", hidden=False if cli.config.user.developer else True)
 def pyformat(cli):
     """Format python code according to QMK's style.
     """

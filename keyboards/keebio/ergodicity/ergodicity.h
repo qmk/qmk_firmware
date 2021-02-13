@@ -37,5 +37,5 @@
     { kB1, kB2, kB3, kB4, kB5, kB6, kB7, kB8, kB9, kB10, kB11, kB12, kB13, kB14, kB15 }, \
     { kC1, kC2, kC3, kC4, kC5, kC6, kC7, kC8, kC9, kC10, kC11, kC12, kC13, KC_NO, kC15 }, \
     { KC_NO, kD2, kD3, kD4, kD5, kD6, kD7, kD8, kD9, kD10, kD11, kD12, kD13, kD14, kD15 }, \
-    { KC_NO, kE2, kE3, kE4, KC_NO, kE6, kE7, KC_NO, kE9, KC_NO, kE11, KC_NO, KC_NO, kE15 } \
+    { KC_NO, kE2, kE3, kE4, KC_NO, kE6, kE7, KC_NO, kE9, KC_NO, kE11, KC_NO, KC_NO, KC_NO, kE15 } \
 }

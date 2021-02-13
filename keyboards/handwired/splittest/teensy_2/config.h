@@ -18,6 +18,9 @@
 
 #include "config_common.h"
 
+// use I2C on AVR
+#define USE_I2C
+
 // wiring of each half
 #define MATRIX_ROW_PINS { F5 }
 #define MATRIX_COL_PINS { F7 }
@@ -29,5 +32,3 @@
 
 // teensy has vbus detection issues - use usb detection instead
 #define SPLIT_USB_DETECT
-// required for teensy slave otherwise it "locks up" during startup
-#define NO_USB_STARTUP_CHECK

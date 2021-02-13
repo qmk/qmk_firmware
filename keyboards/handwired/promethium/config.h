@@ -19,19 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define USB_VENDOR_ID_LENOVO            0x17ef
-#define USB_DEVICE_ID_LENOVO_TPKBD      0x6009
-#define USB_DEVICE_ID_LENOVO_CUSBKBD    0x6047
-#define USB_DEVICE_ID_LENOVO_CBTKBD     0x6048
-#define USB_DEVICE_ID_LENOVO_TPPRODOCK  0x6067
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       USB_VENDOR_ID_LENOVO
-#define PRODUCT_ID      USB_DEVICE_ID_LENOVO_CBTKBD
+#define VENDOR_ID       0x17EF // Lenovo
+//#define PRODUCT_ID    0x6009 // ThinkPad Keyboard with TrackPoint
+//#define PRODUCT_ID    0x6047 // ThinkPad Compact USB Keyboard with TrackPoint
+#define PRODUCT_ID      0x6048 // ThinkPad Compact Bluetooth Keyboard with TrackPoint
+//#define PRODUCT_ID    0x6067 // ThinkPad Pro Docking Station
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Priyadi
 #define PRODUCT         Promethium Keyboard
-#define DESCRIPTION
 
 /* key matrix size */
 #define MATRIX_COLS 6
@@ -153,7 +149,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 #define PS2_MOUSE_INIT_DELAY 2000
-#define BATTERY_PIN 9
 #define BATTERY_POLL 30000
 #define MAX_VOLTAGE 4.2
 #define MIN_VOLTAGE 3.2

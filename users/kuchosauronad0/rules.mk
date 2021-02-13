@@ -1,11 +1,12 @@
 SRC += kuchosauronad0.c \
 	   process_records.c
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
+SPACE_CADET_ENABLE            = no
 
-#ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-#     SRC += secrets.c
-#endif
+ifneq ($(strip $(RGBLIGHT_ENABLE)),yes )
+     SRC += rgblight_user.c
+endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
      SRC += tap_dances.c
@@ -14,6 +15,7 @@ endif
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
      SRC += encoder.c
 endif
+
 ifeq ($(strip $(COMBO_ENABLE)), yes)
      SRC += combo.c
 endif
@@ -22,7 +24,7 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
      SRC += leader.c
 endif
 
-ifneq ("$(wildcard $(USER_PATH)/secrets.c)","") 
+ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
      SRC += secrets.c
 endif
 ifeq ($(strip $(NO_SECRETS)), yes)

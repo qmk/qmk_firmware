@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    di0ib
 #define PRODUCT         Nano
-#define DESCRIPTION     8 key microswitch board
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -49,9 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D1, D0, D4, C6 }, \
 }
 #define UNUSED_PINS
-
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-//#define DIODE_DIRECTION CUSTOM_MATRIX
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3

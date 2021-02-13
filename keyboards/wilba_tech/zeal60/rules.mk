@@ -1,10 +1,3 @@
-# project specific files
-SRC =	keyboards/wilba_tech/wt_main.c \
-		keyboards/wilba_tech/wt_rgb_backlight.c \
-		quantum/color.c \
-		drivers/issi/is31fl3731.c \
-		drivers/avr/i2c_master.c
-
 # MCU name
 MCU = atmega32u4
 
@@ -27,10 +20,10 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = no         # Console for debug(+400)
+BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
@@ -41,10 +34,15 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
+SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-RAW_ENABLE = yes
-DYNAMIC_KEYMAP_ENABLE = yes
 CIE1931_CURVE = yes
 
 LAYOUTS = 60_ansi 60_iso 60_hhkb 60_ansi_split_bs_rshift
+
+# project specific files
+SRC =	keyboards/wilba_tech/wt_main.c \
+		keyboards/wilba_tech/wt_rgb_backlight.c \
+		quantum/color.c \
+		drivers/issi/is31fl3731.c \
+		drivers/avr/i2c_master.c

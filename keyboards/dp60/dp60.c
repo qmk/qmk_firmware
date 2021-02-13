@@ -1,5 +1,17 @@
 /**
  * dp60.c
+ *
+  Copyright 2020 astro <yuleiz@gmail.com>
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "dp60.h"
@@ -160,3 +172,27 @@ webusb_pos_t webusb_keymap[] = {
     {4, 0}, {4, 1}, {4, 2}, {4, 6}, {4, 10}, {4, 11}, {4, 12}, {4, 13},
 };
 #endif
+
+#ifndef RAW_ENABLE
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+#else
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#endif
+  if (record->event.pressed) {
+    switch(keycode) {
+    #ifdef RGBLIGHT_ENABLE
+        #ifdef RGB_MATRIX_ENABLE
+        case KC_F13: // toggle rgb matrix
+            rgb_matrix_toggle();
+            return false;
+        case KC_F14:
+            rgb_matrix_step();
+            return false;
+        #endif
+    #endif
+        default:
+        break;
+    }
+  }
+  return true;
+}

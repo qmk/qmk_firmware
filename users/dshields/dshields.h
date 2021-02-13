@@ -1,10 +1,5 @@
 #pragma once
 
-// dynamic macro keys
-#define DM_PLAY DYN_MACRO_PLAY1
-#define DM_STRT DYN_REC_START1
-#define DM_STOP DYN_REC_STOP
-
 // one-shot layer keys
 #define OSL_RSE OSL(RSE)
 #define OSL_LWR OSL(LWR)
@@ -21,21 +16,27 @@
 // mod-tap keys
 #define MT_SPC  SFT_T(KC_SPC)
 
+// LED/RGB controls
 #ifdef KEYBOARD_planck_light
     #define LGT_TOG RGB_TOG
     #define LGT_MOD RGB_MOD
     #define LGT_BRT _______
+    #define LGT_INC RGB_HUI
+    #define LGT_DEC RGB_HUD
 #endif
 #ifdef KEYBOARD_planck_rev3
     #define LGT_TOG BL_TOGG
     #define LGT_MOD BL_STEP
     #define LGT_BRT BL_BRTG
+    #define LGT_INC BL_INC
+    #define LGT_DEC BL_DEC
 #endif
 #ifdef KEYBOARD_planck_rev6
     #define LGT_TOG _______
     #define LGT_MOD _______
     #define LGT_BRT _______
+    #define LGT_INC _______
+    #define LGT_DEC _______
 #endif
 
 enum layers   { DEF, LWR, RSE, FUN };
-enum keycodes { DYNAMIC_MACRO_RANGE = SAFE_RANGE };

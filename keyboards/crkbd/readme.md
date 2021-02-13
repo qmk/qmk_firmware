@@ -27,7 +27,7 @@ In your keymap's `rules.mk` file, add the following:
 
 ```make
 RGBLIGHT_ENABLE = no
-RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = yes
 ```
 
 And in your `config.h` file, add the following:
@@ -80,14 +80,5 @@ And in your `config.h` file, add the following:
 // #   define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 ```
-
-However, to properly handle the LED matrix, two LED maps had to be used. One for the left half, and one for the right half.  For the left, you don't need to do anything. That's the default setup.  But for the right side, you need to add `RGB_MATRIX_SPLIT_RIGHT=yes` needs to be added to the command.  
-
-First, compile and flash the left half.  Then when that's done, recompile with the setting above.  It should look something like: 
-
-```sh
-make crkbd:default RGB_MATRIX_SPLIT_RIGHT=yes
-```
-And then flash this new firmware image. 
 
 After this is done, you should be able to use the normal RGB keycodes, but you'll see the RGB Matrix effects in use, giving a much better experience. 

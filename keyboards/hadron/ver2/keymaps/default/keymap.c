@@ -5,7 +5,6 @@
 #ifdef SSD1306OLED
 #include "ssd1306.h"
 #endif
-extern keymap_config_t keymap_config;
 
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -310,7 +309,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 //Functions for ver2
 #ifdef KEYBOARD_hadron_ver2
-#include "LUFA/Drivers/Peripheral/TWI.h"
+#include <LUFA/Drivers/Peripheral/TWI.h>
 void matrix_init_user(void) {
   #ifdef USE_I2C
     i2c_master_init();

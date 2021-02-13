@@ -13,24 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef MINT60_H
-#define MINT60_H
+#pragma once
 
 #include "quantum.h"
-
-#ifdef RGBLIGHT_ENABLE
-//rgb led driver
-#include "ws2812.h"
-#endif
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-  #include <avr/io.h>
-  #include <avr/interrupt.h>
-#endif
-#endif
-
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
@@ -55,5 +40,3 @@
   { R30, R31, R32, R33, R34, R35, R36, R37 }, \
   { R40, R41, KC_NO, R43, KC_NO, R45, R46, R47 }, \
 }
-
-#endif

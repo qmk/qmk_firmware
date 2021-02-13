@@ -6,11 +6,8 @@
 
 enum custom_keycodes {
     M_EXAMPLE1 = SAFE_RANGE,
-	M_EXAMPLE2,
-	DYNAMIC_MACRO_RANGE,
+	M_EXAMPLE2
 };
-
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -33,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_QW] = LAYOUT( /* QWERTY */
-  KC_ESC , _______, _______, _______, _______, _______, _______, _______, _______, _______,DYN_MACRO_PLAY1,DYN_MACRO_PLAY2,DYN_REC_STOP, KC_PSCR, KC_SLCK, KC_PAUS, MO(_FN), KC_MUTE,
+  KC_ESC , _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_PLY1, DM_PLY2, DM_RSTP, KC_PSCR, KC_SLCK, KC_PAUS, MO(_FN), KC_MUTE,
   KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_DEL , KC_HOME, KC_PGUP, KC_END , KC_INS , KC_NLCK,
   KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSPC, KC_PGDN, KC_PSLS, KC_PAST, KC_PMNS,
   KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC, KC_BSLS, KC_P7  , KC_P8  , KC_P9  , KC_PPLS,
@@ -61,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  
  [_FN] = LAYOUT( /* Function */
-  RESET  , KC_F13 , KC_F14 , KC_F15 , KC_F16 , KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_F21 ,DYN_REC_START1,DYN_REC_START2,DYN_REC_STOP, _______, _______, _______, MO(_FN), DEBUG,
+  RESET  , KC_F13 , KC_F14 , KC_F15 , KC_F16 , KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_F21 , DM_REC1, DM_REC2, DM_RSTP, _______, _______, _______, MO(_FN), DEBUG,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -72,9 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
     if (record->event.pressed) {
         switch(keycode) {
             case M_EXAMPLE1:

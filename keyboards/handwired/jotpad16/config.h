@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Jotix
 #define PRODUCT         JotPad16
-#define DESCRIPTION     A Jotantastic compact NumPad
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -16,13 +15,14 @@
 
 /* pro_micro pin-out */
 #define MATRIX_ROW_PINS { B6, B2, D2, D3 }
-#define MATRIX_COL_PINS { B5, B4, B3, B1 }
+#define MATRIX_COL_PINS { E6, D7, B3, B1 }
 #define UNUSED_PINS
 
 /* leds */
-#define QMK_LED E6
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_PIN D7
+#define JOTPAD16_LEDS
+#define JOTPAD16_LED1 B5
+#define JOTPAD16_LED2 B4
+#define QMK_LED B5
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

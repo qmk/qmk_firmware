@@ -1,1 +1,3 @@
 BACKLIGHT_ENABLE = no
+
+LAYOUTS = split_3x5_3

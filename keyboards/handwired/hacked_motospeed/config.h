@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MMO_Corp
 #define PRODUCT         hacked_motospeed
-#define DESCRIPTION     Motospeed Numpads wired to Teensy++2.0
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -43,14 +42,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //                        WR  XR  YR  ZR  VR  ZL  YL  XL  WL  VL
-#define MATRIX_ROW_PINS { B3, B5, F1, B4, B6, D5, D4, D6, D7, C4}
+#define MATRIX_ROW_PINS { B3, B4, F1, B5, B6, D5, D4, D6, D7, C4}
 
 //                        ER  DR  CR  BR  AR  FR  FL  AL  BL  CL  DL  EL
 #define MATRIX_COL_PINS { F7, F6, F5, F4, F3, F2, E0, E1, C0, C1, C2, C3 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
-//#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION COL2ROW
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -120,7 +119,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * power-up.
  *
  */
-#define FORCE_NKRO
 
 /*
  * Magic Key Options
@@ -197,9 +195,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -215,34 +210,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-/*
- * HD44780 LCD Display Configuration
- */
-/*
-#define LCD_LINES           2     //< number of visible lines of the display
-#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
-#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
-#if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
-#endif
-*/
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

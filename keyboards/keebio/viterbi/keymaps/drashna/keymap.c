@@ -1,24 +1,31 @@
-#include QMK_KEYBOARD_H
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 
-extern keymap_config_t keymap_config;
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-
-
 // Fillers to make layering more clear
-#define DIABLO   TG(_DIABLO)
-#define GAMEPAD  TG(_GAMEPAD)
-#define MEDIA    TT(_MEDIA)
+#define DIABLO TG(_DIABLO)
+#define GAMEPAD TG(_GAMEPAD)
+#define MEDIA TT(_MEDIA)
 
-
-//enum more_custom_keycodes {
+// enum more_custom_keycodes {
 //  KC_P00 = NEW_SAFE_RANGE
 //};
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMLOCK] = LAYOUT_ortho_5x7(
@@ -55,32 +62,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
-
-
+// clang-format on
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-
-  //switch (keycode) {
-  //case KC_P00:
-  //  if (!record->event.pressed) {
-  //    tap(KC_KP_0);
-  //    tap(KC_KP_0);
-  //  }
-  //  return false;
-  //  break;
-  //}
-  return true;
+    // switch (keycode) {
+    // case KC_P00:
+    //  if (!record->event.pressed) {
+    //    tap(KC_KP_0);
+    //    tap(KC_KP_0);
+    //  }
+    //  return false;
+    //  break;
+    //}
+    return true;
 }
 
-
-
-
 void matrix_init_keymap(void) {
-  #ifndef CONVERT_TO_PROTON_C
+#ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
     writePinHigh(D5);
 
     setPinOutput(B0);
     writePinHigh(B0);
-  #endif
+#endif
 }

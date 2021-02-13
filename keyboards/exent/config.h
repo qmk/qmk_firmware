@@ -19,12 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x20A0
-#define PRODUCT_ID 0x422D
-#define DEVICE_VER 0x0001
+#define VENDOR_ID    0x5143 // "QC"
+#define PRODUCT_ID   0x4558 // "EX"
+#define DEVICE_VER   0x0001
 #define MANUFACTURER Quadcube
-#define PRODUCT Exent
-#define DESCRIPTION 65% Keyboard
+#define PRODUCT      Exent
 
 #define RGBLED_NUM 18
 
@@ -39,10 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define BACKLIGHT_LEVELS 1
-#define RGBLIGHT_ANIMATIONS
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 
-#define NO_UART 1
+#define RGBLIGHT_ANIMATIONS
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */

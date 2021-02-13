@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_CODE_H
-#define ACTION_CODE_H
+
+#pragma once
 
 /** \brief Action codes
  *
@@ -86,11 +86,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 1100|opt | id(8)      Macro play?
  * 1100|1111| id(8)      Macro record?
  *
- * ACT_BACKLIGHT(1101):
- * 1101|opt |level(8)    Backlight commands
- *
- * ACT_COMMAND(1110):
- * 1110|opt | id(8)      Built-in Command exec
+ * 1101|xxxx xxxx xxxx   (reserved)
+ * 1110|xxxx xxxx xxxx   (reserved)
  *
  * ACT_FUNCTION(1111):
  * 1111| address(12)     Function?
@@ -115,10 +112,8 @@ enum action_kind_id {
     ACT_LAYER_TAP     = 0b1010, /* Layer  0-15 */
     ACT_LAYER_TAP_EXT = 0b1011, /* Layer 16-31 */
     /* Extensions */
-    ACT_MACRO     = 0b1100,
-    ACT_BACKLIGHT = 0b1101,
-    ACT_COMMAND   = 0b1110,
-    ACT_FUNCTION  = 0b1111
+    ACT_MACRO    = 0b1100,
+    ACT_FUNCTION = 0b1111
 };
 
 /** \brief Action Code Struct
@@ -169,16 +164,6 @@ typedef union {
         uint8_t  page : 2;
         uint8_t  kind : 4;
     } usage;
-    struct action_backlight {
-        uint8_t level : 8;
-        uint8_t opt : 4;
-        uint8_t kind : 4;
-    } backlight;
-    struct action_command {
-        uint8_t id : 8;
-        uint8_t opt : 4;
-        uint8_t kind : 4;
-    } command;
     struct action_function {
         uint8_t id : 8;
         uint8_t opt : 4;
@@ -290,30 +275,10 @@ enum layer_param_tap_op {
 #define ACTION_DEFAULT_LAYER_BIT_XOR(part, bits) ACTION_LAYER_BITOP(OP_BIT_XOR, (part), (bits), 0)
 #define ACTION_DEFAULT_LAYER_BIT_SET(part, bits) ACTION_LAYER_BITOP(OP_BIT_SET, (part), (bits), 0)
 
-/** \brief Extensions
- */
-enum backlight_opt {
-    BACKLIGHT_INCREASE = 0,
-    BACKLIGHT_DECREASE = 1,
-    BACKLIGHT_TOGGLE   = 2,
-    BACKLIGHT_STEP     = 3,
-    BACKLIGHT_ON       = 4,
-    BACKLIGHT_OFF      = 5,
-};
-
 /* Macro */
 #define ACTION_MACRO(id) ACTION(ACT_MACRO, (id))
 #define ACTION_MACRO_TAP(id) ACTION(ACT_MACRO, FUNC_TAP << 8 | (id))
 #define ACTION_MACRO_OPT(id, opt) ACTION(ACT_MACRO, (opt) << 8 | (id))
-/* Backlight */
-#define ACTION_BACKLIGHT_INCREASE() ACTION(ACT_BACKLIGHT, BACKLIGHT_INCREASE << 8)
-#define ACTION_BACKLIGHT_DECREASE() ACTION(ACT_BACKLIGHT, BACKLIGHT_DECREASE << 8)
-#define ACTION_BACKLIGHT_TOGGLE() ACTION(ACT_BACKLIGHT, BACKLIGHT_TOGGLE << 8)
-#define ACTION_BACKLIGHT_STEP() ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP << 8)
-#define ACTION_BACKLIGHT_ON() ACTION(ACT_BACKLIGHT, BACKLIGHT_ON << 8)
-#define ACTION_BACKLIGHT_OFF() ACTION(ACT_BACKLIGHT, BACKLIGHT_OFF << 8)
-/* Command */
-#define ACTION_COMMAND(id, opt) ACTION(ACT_COMMAND, (opt) << 8 | (id))
 /* Function */
 enum function_opts {
     FUNC_TAP = 0x8, /* indciates function is tappable */
@@ -329,15 +294,15 @@ enum swap_hands_param_tap_op {
     OP_SH_OFF_ON,
     OP_SH_OFF,
     OP_SH_ON,
+    OP_SH_ONESHOT,
 };
 
 #define ACTION_SWAP_HANDS() ACTION_SWAP_HANDS_ON_OFF()
 #define ACTION_SWAP_HANDS_TOGGLE() ACTION(ACT_SWAP_HANDS, OP_SH_TOGGLE)
 #define ACTION_SWAP_HANDS_TAP_TOGGLE() ACTION(ACT_SWAP_HANDS, OP_SH_TAP_TOGGLE)
+#define ACTION_SWAP_HANDS_ONESHOT() ACTION(ACT_SWAP_HANDS, OP_SH_ONESHOT)
 #define ACTION_SWAP_HANDS_TAP_KEY(key) ACTION(ACT_SWAP_HANDS, key)
 #define ACTION_SWAP_HANDS_ON_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_ON_OFF)
 #define ACTION_SWAP_HANDS_OFF_ON() ACTION(ACT_SWAP_HANDS, OP_SH_OFF_ON)
 #define ACTION_SWAP_HANDS_ON() ACTION(ACT_SWAP_HANDS, OP_SH_ON)
 #define ACTION_SWAP_HANDS_OFF() ACTION(ACT_SWAP_HANDS, OP_SH_OFF)
-
-#endif /* ACTION_CODE_H */

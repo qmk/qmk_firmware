@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
 #define PRODUCT         KBD66
-#define DESCRIPTION     QMK keyboard firmware for KBD66
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -47,12 +46,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
- 
 #define BACKLIGHT_PIN B6
+#ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
-
+#endif
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -161,9 +160,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

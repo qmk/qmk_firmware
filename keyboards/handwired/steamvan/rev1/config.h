@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    John M Daly
 #define PRODUCT         SteamVan rev1
-#define DESCRIPTION     An open hardware forty percent PCB
 
 /* Address for jumping to bootloader on STM32 chips. */
 /* It is chip dependent, the correct number can be looked up here:
@@ -43,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A9, A8, B15, B14, B13, A10, B9, B6, B5, B4, B3, A15 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -57,9 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight configuration
  * Backlight LEDs on B8
  */
-#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_PIN B8
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
+
+#define WS2812_SPI SPID1
+#define WS2812_SPI_MOSI_PAL_MODE 5
 
 #define RGBLIGHT_ANIMATIONS
 

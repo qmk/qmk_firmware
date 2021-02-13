@@ -7,7 +7,6 @@
 #define KC_X0 LT(_FN2, KC_GRV)
 #define KC_X1 MO(_FN1)
 #define NAV_ESC LT(_FN1, KC_ESC)
-#define KC_GUI MAGIC_UNNO_GUI
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(

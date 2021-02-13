@@ -76,3 +76,20 @@ uint8_t pca9555_readPins(uint8_t slave_addr, uint8_t port) {
     }
     return data;
 }
+
+uint16_t pca9555_readAllPins(uint8_t slave_addr) {
+    uint8_t addr = SLAVE_TO_ADDR(slave_addr);
+
+    typedef union {
+        uint8_t  u8[2];
+        uint16_t u16;
+    } data16;
+
+    data16 data;
+
+    i2c_status_t ret = i2c_readReg(addr, CMD_INPUT_0, &data.u8[0], sizeof(data), TIMEOUT);
+    if (ret != I2C_STATUS_SUCCESS) {
+        print("pca9555_readAllPins::FAILED\n");
+    }
+    return data.u16;
+}

@@ -17,16 +17,22 @@
 #include "e65.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(B6);
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
+
     matrix_init_user();
+    led_init_ports();
 }
 
-void led_set_kb(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(B6);
-    } else {
-        writePinLow(B6);
+void led_init_ports(void) {
+    setPinOutput(B6);
+    writePinHigh(B6);
+}
+
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(B6, !led_state.caps_lock);
     }
 
-    led_set_user(usb_led);
+    return true;
 }
