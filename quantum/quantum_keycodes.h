@@ -85,6 +85,7 @@ enum quantum_keycodes {
     QK_SWAP_HANDS     = 0x5B00,
     QK_SWAP_HANDS_MAX = 0x5BFF,
 #endif
+    // Warning: 0x5C00+ are not free to use (see below)
     QK_MOD_TAP     = 0x6000,
     QK_MOD_TAP_MAX = 0x7FFF,
 #ifdef UNICODE_ENABLE
