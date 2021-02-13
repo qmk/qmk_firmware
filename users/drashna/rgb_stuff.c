@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 #include "rgb_stuff.h"
 #include "eeprom.h"
@@ -152,14 +168,15 @@ void matrix_scan_rgb_light(void) {
 
 void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode) {
     rgblight_sethsv_noeeprom(hue, sat, val);
-    wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
+    // wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
     rgblight_mode_noeeprom(mode);
 }
 
 layer_state_t layer_state_set_rgb_light(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
     if (userspace_config.rgb_layer_change) {
-        switch (get_highest_layer(state)) {
+        uint8_t mode = layer_state_cmp(state,_MODS) ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
+        switch (get_highest_layer(state|default_layer_state)) {
             case _MACROS:
                 rgblight_set_hsv_and_mode(HSV_ORANGE, userspace_config.is_overwatch ? RGBLIGHT_MODE_SNAKE + 2 : RGBLIGHT_MODE_SNAKE + 3);
                 break;
@@ -181,37 +198,30 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
             case _ADJUST:
                 rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_KNIGHT + 2);
                 break;
-            default:  //  for any other layers, or the default layer
-            {
-                uint8_t mode = get_highest_layer(state) == _MODS ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
-                switch (get_highest_layer(default_layer_state)) {
-                    case _COLEMAK:
-                        rgblight_set_hsv_and_mode(HSV_MAGENTA, mode);
-                        break;
-                    case _DVORAK:
-                        rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
-                        break;
-                    case _WORKMAN:
-                        rgblight_set_hsv_and_mode(HSV_GOLDENROD, mode);
-                        break;
-                    case _NORMAN:
-                        rgblight_set_hsv_and_mode(HSV_CORAL, mode);
-                        break;
-                    case _MALTRON:
-                        rgblight_set_hsv_and_mode(HSV_YELLOW, mode);
-                        break;
-                    case _EUCALYN:
-                        rgblight_set_hsv_and_mode(HSV_PINK, mode);
-                        break;
-                    case _CARPLAX:
-                        rgblight_set_hsv_and_mode(HSV_BLUE, mode);
-                        break;
-                    default:
-                        rgblight_set_hsv_and_mode(HSV_CYAN, mode);
-                        break;
-                }
+            case _COLEMAK:
+                rgblight_set_hsv_and_mode(HSV_MAGENTA, mode);
                 break;
-            }
+            case _DVORAK:
+                rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
+                break;
+            case _WORKMAN:
+                rgblight_set_hsv_and_mode(HSV_GOLDENROD, mode);
+                break;
+            case _NORMAN:
+                rgblight_set_hsv_and_mode(HSV_CORAL, mode);
+                break;
+            case _MALTRON:
+                rgblight_set_hsv_and_mode(HSV_YELLOW, mode);
+                break;
+            case _EUCALYN:
+                rgblight_set_hsv_and_mode(HSV_PINK, mode);
+                break;
+            case _CARPLAX:
+                rgblight_set_hsv_and_mode(HSV_BLUE, mode);
+                break;
+            default:
+                rgblight_set_hsv_and_mode(HSV_CYAN, mode);
+                break;
         }
     }
 #endif  // RGBLIGHT_ENABLE

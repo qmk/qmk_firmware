@@ -42,6 +42,11 @@
 #    endif
 #endif
 
+// Due to usage of uint16_t check for max 65535
+#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 65535
+#    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR must be less than 65536
+#endif
+
 // If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
 // default it start after VIA_EEPROM_CUSTOM_ADDR+VIA_EEPROM_CUSTOM_SIZE
 #ifndef DYNAMIC_KEYMAP_EEPROM_ADDR

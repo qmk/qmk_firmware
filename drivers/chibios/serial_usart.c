@@ -1,9 +1,9 @@
 #include "quantum.h"
 #include "serial.h"
-#include "printf.h"
+#include "print.h"
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #ifndef USART_CR1_M0
 #    define USART_CR1_M0 USART_CR1_M  // some platforms (f1xx) dont have this so

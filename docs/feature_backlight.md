@@ -62,14 +62,15 @@ Valid driver values are `pwm`, `software`, `custom` or `no`. See below for help 
 
 To configure the backlighting, `#define` these in your `config.h`:
 
-|Define               |Default      |Description                                                                          |
-|---------------------|-------------|-------------------------------------------------------------------------------------|
-|`BACKLIGHT_PIN`      |*Not defined*|The pin that controls the LED(s)                                                     |
-|`BACKLIGHT_LEVELS`   |`3`          |The number of brightness levels (maximum 31 excluding off)                           |
-|`BACKLIGHT_CAPS_LOCK`|*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)     |
-|`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if supported                                             |
-|`BREATHING_PERIOD`   |`6`          |The length of one backlight "breath" in seconds                                      |
-|`BACKLIGHT_ON_STATE` |`1`          |The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low|
+| Define                 | Default       | Description                                                                                                       |
+|------------------------|---------------|-------------------------------------------------------------------------------------------------------------------|
+| `BACKLIGHT_PIN`        | *Not defined* | The pin that controls the LED(s)                                                                                  |
+| `BACKLIGHT_LEVELS`     | `3`           | The number of brightness levels (maximum 31 excluding off)                                                        |
+| `BACKLIGHT_CAPS_LOCK`  | *Not defined* | Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                                  |
+| `BACKLIGHT_BREATHING`  | *Not defined* | Enable backlight breathing, if supported                                                                          |
+| `BREATHING_PERIOD`     | `6`           | The length of one backlight "breath" in seconds                                                                   |
+| `BACKLIGHT_ON_STATE`   | `1`           | The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low                             |
+| `BACKLIGHT_LIMIT_VAL ` | `255`         | The maximum duty cycle of the backlight -- `255` allows for full brightness, any lower will decrease the maximum. |
 
 Unless you are designing your own keyboard, you generally should not need to change the `BACKLIGHT_PIN` or `BACKLIGHT_ON_STATE`.
 

@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 
 #ifdef UNICODEMAP_ENABLE
@@ -5,9 +21,6 @@
 #endif  // UNICODEMAP_ENABLE
 #ifndef UNICODE_ENABLE
 #    define UC(x) KC_NO
-#endif
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
 #endif
 
 enum more_custom_keycodes {
@@ -315,7 +328,20 @@ void keyboard_post_init_keymap(void) {
 void shutdown_keymap(void) {
     trackball_set_rgbw(RGB_RED, 0x00);
 }
+
+static bool mouse_button_one, trackball_button_one;
+
+void trackball_check_click(bool pressed, report_mouse_t* mouse) {
+    if (mouse_button_one | pressed) {
+        mouse->buttons |= MOUSE_BTN1;
+    } else {
+        mouse->buttons &= ~MOUSE_BTN1;
+    }
+    trackball_button_one = pressed;
+}
 #endif
+
+
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -358,33 +384,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             run_trackball_cleanup();
             break;
-#if     !defined(MOUSEKEY_ENABLE) && defined(POINTING_DEVICE_ENABLE)
-        case KC_BTN1 ... KC_BTN3:
-        {
-            report_mouse_t currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= (1 << (keycode - KC_BTN1));  // this is defined in report.h
-            } else {
-                currentReport.buttons &= ~(1 << (keycode - KC_BTN1));
-            }
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
-            break;
-        }
+#if !defined(MOUSEKEY_ENABLE)
+                    case KC_MS_BTN1:
+                        mouse_button_one = record->event.pressed;
+                        trackball_register_button(mouse_button_one | trackball_button_one, MOUSE_BTN1);
+                        break;
+                    case KC_MS_BTN2:
+                        trackball_register_button(record->event.pressed, MOUSE_BTN2);
+                        break;
+                    case KC_MS_BTN3:
+                        trackball_register_button(record->event.pressed, MOUSE_BTN3);
+                        break;
 #    endif
 #endif
     }
-    // switch (keycode) {
-    //  case KC_P00:
-    //    if (!record->event.pressed) {
-    //      register_code(KC_KP_0);
-    //      unregister_code(KC_KP_0);
-    //      register_code(KC_KP_0);
-    //      unregister_code(KC_KP_0);
-    //    }
-    //    return false;
-    //    break;
-    //}
     return true;
 }
 
@@ -457,7 +470,8 @@ void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change)
 #    endif
     {
-        switch (get_highest_layer(layer_state)) {
+        bool mods_enabled = IS_LAYER_ON(_MODS);
+        switch (get_highest_layer(layer_state|default_layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
@@ -473,36 +487,30 @@ void rgb_matrix_indicators_user(void) {
             case _ADJUST:
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
-            default: {
-                bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (get_highest_layer(default_layer_state)) {
-                    case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                    case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                        break;
-                }
+            case _QWERTY:
+                rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
-            }
+            case _COLEMAK:
+                rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _DVORAK:
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _WORKMAN:
+                rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _NORMAN:
+                rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _MALTRON:
+                rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _EUCALYN:
+                rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _CARPLAX:
+                rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
         }
     }
 }

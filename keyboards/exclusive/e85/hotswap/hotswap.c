@@ -15,3 +15,18 @@
  */
 
 #include "hotswap.h"
+
+void keyboard_pre_init_kb(void) {
+    setPinOutput(C7);
+    setPinOutput(B5);
+
+    keyboard_pre_init_user();
+}
+
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(C7, led_state.caps_lock);
+        writePin(B5, led_state.scroll_lock);
+    }
+    return true;
+}

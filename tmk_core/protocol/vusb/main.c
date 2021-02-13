@@ -98,14 +98,13 @@ int main(void) {
     clock_prescale_set(clock_div_1);
 #endif
     keyboard_setup();
-
-    host_set_driver(vusb_driver());
     setup_usb();
     sei();
+    keyboard_init();
+    host_set_driver(vusb_driver());
 
     wait_ms(50);
 
-    keyboard_init();
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
@@ -153,6 +152,10 @@ int main(void) {
                 console_task();
             }
 #endif
+
+            // Run housekeeping
+            housekeeping_task_kb();
+            housekeeping_task_user();
         } else if (suspend_wakeup_condition()) {
             usb_remote_wakeup();
         }
