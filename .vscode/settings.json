@@ -22,11 +22,7 @@
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
-    }
-    "terminal.integrated.shell.windows": "C:\\Program Files\\QMK_MSYS\\usr\\bin\\bash.exe",
-     "terminal.integrated.env.windows": {
-         "MSYSTEM": "MINGW64",
-         "CHERE_INVOKING": "1"
+   
      },
      "terminal.integrated.shellArgs.windows": [
          "--login"
