@@ -67,6 +67,8 @@ enum quantum_keycodes {
     QK_ONE_SHOT_LAYER_MAX   = 0x54FF,
     QK_ONE_SHOT_MOD         = 0x5500,
     QK_ONE_SHOT_MOD_MAX     = 0x55FF,
+    QK_LAYER_MOD_R          = 0x5600,
+    QK_LAYER_MOD_R_MAX      = 0x56FF,
     QK_TAP_DANCE            = 0x5700,
     QK_TAP_DANCE_MAX        = 0x57FF,
     QK_LAYER_TAP_TOGGLE     = 0x5800,
@@ -789,8 +791,8 @@ enum quantum_keycodes {
 // One-shot layer - 256 layer max
 #define OSL(layer) (QK_ONE_SHOT_LAYER | ((layer)&0xFF))
 
-// L-ayer M-od: Momentary switch layer with modifiers active - 16 layer max, left mods only
-#define LM(layer, mod) (QK_LAYER_MOD | (((layer)&0xF) << 4) | ((mod)&0xF))
+// L-ayer M-od: Momentary switch layer with modifiers active - 16 layer max, left or right mods only
+#define LM(layer, mod) ((((mod)&MOD_R_BIT) ? QK_LAYER_MOD_R : QK_LAYER_MOD) | (((layer)&0xF) << 4) | ((mod)&0xF))
 
 // One-shot mod
 #define OSM(mod) (QK_ONE_SHOT_MOD | ((mod)&0xFF))

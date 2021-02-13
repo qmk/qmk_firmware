@@ -200,6 +200,7 @@ enum mods_bit {
     MOD_RALT = 0x14,
     MOD_RGUI = 0x18,
 };
+#define MOD_R_BIT 0x10
 enum mods_codes {
     MODS_ONESHOT    = 0x00,
     MODS_TAP_TOGGLE = 0x01,

@@ -146,6 +146,11 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
             action_layer = (keycode >> 4) & 0xF;
             action.code  = ACTION_LAYER_MODS(action_layer, mod);
             break;
+        case QK_LAYER_MOD_R ... QK_LAYER_MOD_R_MAX:
+            mod          = mod_config(MOD_R_BIT | (keycode & 0xF));
+            action_layer = (keycode >> 4) & 0xF;
+            action.code  = ACTION_LAYER_MODS(action_layer, (mod & 0xF) << 4);
+            break;
 #endif
 #ifndef NO_ACTION_TAPPING
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
