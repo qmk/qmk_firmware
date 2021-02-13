@@ -1,4 +1,4 @@
-/* Copyright 2019 Biacco42
+/* Copyright 2021 Atsushi Nagase
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,10 +25,10 @@ enum meishi2_moc_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DEFAULT] = LAYOUT( /* Base */
-    RAISE, KC_B, KC_N, KC_SPC \
+    RAISE, KC_B, KC_N, KC_SPC
   ),
   [_RAISE] = LAYOUT( /* Raise */
-    _______, KC_LEFT, KC_RGHT, LSFT(KC_S) \
+    _______, KC_LEFT, KC_RGHT, LSFT(KC_S)
   )
 };
 
