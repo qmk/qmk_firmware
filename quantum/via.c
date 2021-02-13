@@ -371,16 +371,20 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
         case id_eeprom_reset: {
+#ifdef VIA_YES_I_UNDERSTAND_THIS_IS_AN_ATTACK_VECTOR
             via_eeprom_reset();
+#endif  // VIA_YES_I_UNDERSTAND_THIS_IS_AN_ATTACK_VECTOR
             break;
         }
         case id_bootloader_jump: {
+#ifdef VIA_YES_I_UNDERSTAND_THIS_IS_AN_ATTACK_VECTOR
             // Need to send data back before the jump
             // Informs host that the command is handled
             raw_hid_send(data, length);
             // Give host time to read it
             wait_ms(100);
             bootloader_jump();
+#endif  // VIA_YES_I_UNDERSTAND_THIS_IS_AN_ATTACK_VECTOR
             break;
         }
         default: {
