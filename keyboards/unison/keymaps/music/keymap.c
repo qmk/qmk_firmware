@@ -496,15 +496,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
             case _SEQUENCER:
-                if (clockwise) {
-                    if (step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
-                        step_frame_index++;
-                    }
-                } else {
-                    if (step_frame_index > 0) {
-                        step_frame_index--;
-                    }
-                }
                 break;
             default:
                 if (clockwise) {
@@ -524,6 +515,15 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
             case _SEQUENCER:
+                if (clockwise) {
+                    if (step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
+                        step_frame_index++;
+                    }
+                } else {
+                    if (step_frame_index > 0) {
+                        step_frame_index--;
+                    }
+                }
                 break;
             default:
                 if (clockwise) {
