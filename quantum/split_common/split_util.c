@@ -53,9 +53,7 @@ static bool usbIsActive(void) {
     return false;
 }
 #else
-static inline bool usbIsActive(void) {
-    return usb_vbus_state();
-}
+static inline bool usbIsActive(void) { return usb_vbus_state(); }
 #endif
 
 #ifdef SPLIT_HAND_MATRIX_GRID
