@@ -42,7 +42,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    ifdef CONVERT_TO_PROTON_C
 #        undef RGB_DI_PIN
-#        define RGB_DI_PIN PAL_LINE(GPIOA, 3)
+#        define RGB_DI_PIN A3
 #    endif
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
@@ -69,7 +69,6 @@
 #    define SOFT_SERIAL_PIN D3
 #    define SERIAL_USART_DRIVER SD1     // USART driver of TX pin. default: SD1
 #    define SERIAL_USART_TX_PAL_MODE 7  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
-
 
 // #define INIT_EE_HANDS_LEFT
 // #define INIT_EE_HANDS_RIGHT

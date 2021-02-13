@@ -19,6 +19,7 @@
 // Use custom magic number so that when switching branches, EEPROM always gets reset
 #define EECONFIG_MAGIC_NUMBER (uint16_t)0x1339
 
+
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
 
@@ -173,4 +174,23 @@
 #endif
 #ifdef LOCKING_RESYNC_ENABLE
 #    undef LOCKING_RESYNC_ENABLE
+#endif
+
+#ifdef CONVERT_TO_PROTON_C
+// pins that are available but not present on Pro Micro
+#    define A3 PAL_LINE(GPIOA, 3)
+#    define A4 PAL_LINE(GPIOA, 4)
+#    define A5 PAL_LINE(GPIOA, 5)
+#    define A6 PAL_LINE(GPIOA, 6)
+#    define A7 PAL_LINE(GPIOA, 7)
+#    define A8 PAL_LINE(GPIOA, 8)
+#    define A13 PAL_LINE(GPIOA, 13)
+#    define A14 PAL_LINE(GPIOA, 14)
+#    define A15 PAL_LINE(GPIOA, 15)
+#    define B10 PAL_LINE(GPIOB, 10)
+#    define B11 PAL_LINE(GPIOB, 11)
+#    define B12 PAL_LINE(GPIOB, 12)
+#    define C13 PAL_LINE(GPIOC, 13)
+#    define C14 PAL_LINE(GPIOC, 14)
+#    define C15 PAL_LINE(GPIOC, 15)
 #endif
