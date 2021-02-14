@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SEQ_FRM: // Reset display frame index to the head(=0).
+        case SEQ_FRM: // Reset display frame index to the head.
             step_frame_index = 0;
             return false;
             break;
