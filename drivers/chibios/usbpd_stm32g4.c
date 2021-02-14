@@ -64,7 +64,7 @@ __attribute__((weak)) usbpd_allowance_t usbpd_get_allowance(void) {
         switch (vstate_max) {
             case 0:
             case 1:
-                return USBPD_500MA; // Note that this is 500mA (i.e. max USB 2.0), not 900mA, as we're not using USB 3.1 as a sink device.
+                return USBPD_500MA;  // Note that this is 500mA (i.e. max USB 2.0), not 900mA, as we're not using USB 3.1 as a sink device.
             case 2:
                 return USBPD_1500MA;
             case 3:
