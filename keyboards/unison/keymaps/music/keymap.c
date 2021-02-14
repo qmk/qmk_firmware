@@ -18,6 +18,7 @@
 
 static void display_sequencer_track(uint8_t, uint8_t, uint8_t);
 static void display_sequencer_steps(uint8_t, uint8_t);
+static void turn_off_display_sequencer_steps(void);
 static uint8_t step_frame_index;
 
 // Defines names for use in layer keycodes and the keymap
@@ -187,6 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     #ifdef RGB_LIGHT_LAYER
                     rgblight_set_layer_state(_SEQPLAYBACK, true);
                     #endif
+                    turn_off_display_sequencer_steps();
                 }
             }
             return false;
@@ -207,6 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
                     display_sequencer_track(HSV_WHITE);
+                    turn_off_display_sequencer_steps();
                 } else {
                     switch (keycode - SEQUENCER_TRACK_MIN) {
                     case 0:
@@ -269,6 +272,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void display_sequencer_track(uint8_t h, uint8_t s, uint8_t v) {
     rgblight_sethsv_at(h, s, v - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_POSITION);
 
+}
+
+void turn_off_display_sequencer_steps(void) {
+    rgblight_sethsv_range(HSV_BLACK, 3, 7);
 }
 
 void display_sequencer_steps(uint8_t track, uint8_t index) {
