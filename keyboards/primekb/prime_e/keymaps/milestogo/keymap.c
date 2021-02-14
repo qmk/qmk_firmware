@@ -118,7 +118,12 @@ void led_set_user(uint8_t usb_led) {
         writePinLow(B2);
     }
 
-    // in use for Colemak indicator
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        writePinLow(B1);
+    } else {
+        writePinHigh(B1);
+    }
+
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
         writePinHigh(B3);
     } else {
