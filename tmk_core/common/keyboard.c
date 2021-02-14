@@ -229,6 +229,7 @@ void keyboard_setup(void) {
 #ifndef NO_JTAG_DISABLE
     disable_jtag();
 #endif
+    print_set_sendchar(sendchar);
     matrix_setup();
     keyboard_pre_init_kb();
 }

@@ -1025,7 +1025,6 @@ static void setup_usb(void) {
 
     // for Console_Task
     USB_Device_EnableSOFEvents();
-    print_set_sendchar(sendchar);
 }
 
 /** \brief Main

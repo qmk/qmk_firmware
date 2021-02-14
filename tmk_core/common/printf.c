@@ -14,12 +14,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "debug.h"
+#include <stddef.h>
+#include "sendchar.h"
 
-debug_config_t debug_config = {
-    .enable   = false,  //
-    .matrix   = false,  //
-    .keyboard = false,  //
-    .mouse    = false,  //
-    .reserved = 0       //
-};
+// bind lib/printf to console interface - sendchar
+
+static int8_t          null_sendchar_func(uint8_t c) { return 0; }
+static sendchar_func_t func = null_sendchar_func;
+
+void print_set_sendchar(sendchar_func_t send) { func = send; }
+
+void _putchar(char character) { func(character); }
