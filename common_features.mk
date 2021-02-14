@@ -631,3 +631,27 @@ endif
 ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
     OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
 endif
+
+USBPD_ENABLE ?= no
+VALID_USBPD_DRIVER_TYPES = custom vendor
+USBPD_DRIVER ?= vendor
+ifeq ($(strip $(USBPD_ENABLE)), yes)
+    ifeq ($(filter $(strip $(USBPD_DRIVER)),$(VALID_USBPD_DRIVER_TYPES)),)
+        $(error USBPD_DRIVER="$(USBPD_DRIVER)" is not a valid USBPD driver)
+    else
+        OPT_DEFS += -DUSBPD_ENABLE
+        ifeq ($(strip $(USBPD_DRIVER)), vendor)
+            # Vendor-specific implementations
+            OPT_DEFS += -DUSBPD_VENDOR
+            ifeq ($(strip $(MCU_SERIES)), STM32G4xx)
+                OPT_DEFS += -DUSBPD_STM32G4
+                SRC += usbpd_stm32g4.c
+            else
+                $(error There is no vendor-provided USBPD driver available)
+            endif
+        else ifeq ($(strip $(USBPD_DRIVER)), custom)
+            OPT_DEFS += -DUSBPD_CUSTOM
+            # Board designers can add their own driver to $(SRC)
+        endif
+    endif
+endif

@@ -193,6 +193,10 @@ extern layer_state_t layer_state;
 #    include "wpm.h"
 #endif
 
+#ifdef USBPD_ENABLE
+#    include "usbpd.h"
+#endif
+
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
