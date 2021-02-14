@@ -144,3 +144,10 @@ void babble_modeswitch_user(uint8_t mode) {
 #    endif
 #endif  // bablepaste
 }
+
+
+// we always return true here, so that each keyboard can use it's own
+// led_update_kb() function
+bool led_update_user(led_t led_state ) {
+    return true;
+}

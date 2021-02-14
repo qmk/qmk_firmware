@@ -46,8 +46,8 @@
     K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K112, \
     K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211) \
     {\
-        {KC_TAB, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, KC_NO, KC_NO}, \
-        {LT(_MOV,KC_ESC), K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, KC_NO, K112, KC_NO, KC_NO}, \
+        {KC_TRNS, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, KC_NO, KC_NO}, \
+        {KC_TRNS, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, KC_NO, K112, KC_NO, KC_NO}, \
         {KC_LSFT, K201, K202, K203, K204, K205, KC_TRNS, K207, K208, K209, K210, K211, KC_TRNS, KC_NO, KC_NO}, \
         {KC_LALT, KC_TRNS, KC_NO, KC_TRNS, KC_TRNS, KC_NO, KC_TRNS, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_RSFT, KC_NO, KC_NO}, \
         {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, B_1ME, KC_ENTER } \
@@ -56,8 +56,8 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_wrap_m2primee(\
-KC_GRAVE, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_MINS, KC_EQL,
-KC_TAB, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT, 
+KC_TAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_MINS, KC_EQL,
+LT(_MOV,KC_ESC), _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT, 
 KC_LSFT, _________________QWERTY_L3_________________, MO(_SYM), _________________QWERTY_R3_________________, KC_RSFT, 
 B_2ME, KC_LALT, LT(_NUM, KC_DEL), KC_BSPC, KC_SPC, LT(_NUM, KC_ESC), B_2ME, KC_RALT, 
 B_1ME, KC_ENTER),
@@ -107,15 +107,14 @@ void matrix_init_user(void) {
     backlight_level(2);
 }
 
-void matrix_scan_user(void) {}
-
-void led_set_user(uint8_t usb_led) {
-#ifndef USE_BABLEPASTE
-    // if we aren't using the LEDs to show bablepaste mode, use them to show standard keyboard stuff
+bool led_update_kb(led_t led_state) {
+#ifndef USE_BABBLEPASTE
+    // if we aren't using the LEDs to show bablepaste options, use them to show standard keyboard stuff
     writePin(B1, led_state.caps_lock);
     writePin(B2, led_state.num_lock);
     writePin(B3, led_state.scroll_lock);
 #endif
+    return true;
 }
 
 void babble_modeswitch_kb(uint8_t mode) {
@@ -145,7 +144,7 @@ void babble_modeswitch_kb(uint8_t mode) {
 
 // function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Turn on bottom LED if we are in colemak, off for qwerty.
+    // Turn on top LED if we are in colemak, off for qwerty.
     writePin(B1, layer_state_cmp(state, _CDH));
     return state;
 }
