@@ -32,6 +32,8 @@ enum custom_keycodes {
     LOWER,
     RAISE,
     M_PSCR,
+    M_VOLD,
+    M_VOLU,
     ALT_EN,
     ALT_JA,
     GUI_EN,
@@ -70,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         KC_GRV,     KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_PSLS,KC_PSLS,KC_PAST,_______,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,    KC_DEL,
         _______,    M_PSCR, KC_SLCK,KC_PAUS,_______,_______,_______,_______,_______,_______,KC_GRV, KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,    KC_BSLS,
-        _______,_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,_______,_______,_______,KC_TILD,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,
+        _______,_______,KC_MUTE,M_VOLD, M_VOLU,_______,_______,_______,_______,_______,_______,KC_TILD,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_END
     ),
     [_RAISE] = LAYOUT_all(
@@ -113,6 +115,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     break;
                 default:
                     tap_code16(LSFT(LGUI(KC_5)));
+                    break;
+                }
+            }
+            return false;
+            break;
+        case M_VOLD:
+            if (record->event.pressed) {
+                switch(biton32(default_layer_state)) {
+                case _WIN:
+                    tap_code(KC_VOLD);
+                    break;
+                default:
+                    tap_code16(LSFT(LOPT(KC_VOLD)));
+                    break;
+                }
+            }
+            return false;
+            break;
+        case M_VOLU:
+            if (record->event.pressed) {
+                switch(biton32(default_layer_state)) {
+                case _WIN:
+                    tap_code(KC_VOLU);
+                    break;
+                default:
+                    tap_code16(LSFT(LOPT(KC_VOLU)));
                     break;
                 }
             }
