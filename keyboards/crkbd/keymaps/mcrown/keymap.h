@@ -13,13 +13,6 @@
 
 #include "rgb.h"
 
-extern keymap_config_t keymap_config;
-extern uint8_t is_master;
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 /* Layout blocks */
 
 #define _____________MOD_LEFT_____________ KC_GUIEI, KC_LOWER, KC_SPC
@@ -33,6 +26,24 @@ extern rgblight_config_t rgblight_config;
 #define   _____________________QWERTY_R1______________________ KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC
 #define   _____________________QWERTY_R2______________________ KC_H,     KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT
 #define   _____________________QWERTY_R3______________________ KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT
+
+#define   _____________________LOWER_L1_______________________ KC_CAPS,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+//#define   _____________________LOWER_L2_______________________ KC_LSFT,  KC_MPLY, KC_VOLU, KC_VOLD, KC_4,    KC_5
+#define   _____________________LOWER_L2_______________________ KC_LSFT,  XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN
+#define   _____________________LOWER_L3_______________________ KC_CTLTB, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+
+#define   _____________________LOWER_R1_______________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC
+#define   _____________________LOWER_R2_______________________ KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT,KC_HOME,  KC_END
+#define   _____________________LOWER_R3_______________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11
+
+#define   _____________________RAISE_L1_______________________ KC_TAB,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC
+#define   _____________________RAISE_L2_______________________ KC_LSFT, KC_MPLY, KC_VOLU, KC_VOLD, XXXXXXX,  XXXXXXX
+#define   _____________________RAISE_L3_______________________ KC_CTLTB,KC_CALC, KC_MPRV, KC_MNXT, KC_BRIU,  KC_BRID
+
+#define   _____________________RAISE_R1_______________________ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL
+#define   _____________________RAISE_R2_______________________ KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE,  KC_GRV
+#define   _____________________RAISE_R3_______________________ KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,  KC_TILD
+
 
 #define   _____________________ADJUST_L1______________________ XXXXXXX,  EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
@@ -52,8 +63,6 @@ extern rgblight_config_t rgblight_config;
   #define _____________________ADJUST_R3______________________ XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #endif
 #define   _____________________ADJUST_R2______________________ RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-
-extern uint8_t is_master;
 
 /* Each layer gets a name for readability */
 #define _QWERTY 0
@@ -81,6 +90,9 @@ extern uint8_t is_master;
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
+#define FALSE false
+#define TRUE true
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -93,5 +105,13 @@ enum custom_keycodes {
 enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
+
+
+extern keymap_config_t keymap_config;
+extern uint8_t is_master;
+#ifdef RGBLIGHT_ENABLE
+//Following line allows macro to read current RGB settings
+extern rgblight_config_t rgblight_config;
+#endif
 
 #endif /* End of #ifndef QMK_KEYBOARD_H_LIB */
