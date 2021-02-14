@@ -29,5 +29,5 @@ void vea_setleds(LED_TYPE *ledarray, uint16_t leds) {
     }
 
     i2c_transmit(WS2812_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * (leds >> 1), WS2812_TIMEOUT);
-    i2c_transmit(WS2812_ADDRESS_SPLIT, (uint8_t *)ledarray+(3 * (leds >> 1)), sizeof(LED_TYPE) * (leds - (leds >> 1)), WS2812_TIMEOUT);
+    i2c_transmit(WS2812_ADDRESS_SPLIT, (uint8_t *)ledarray+(sizeof(LED_TYPE) * (leds >> 1)), sizeof(LED_TYPE) * (leds - (leds >> 1)), WS2812_TIMEOUT);
 };
