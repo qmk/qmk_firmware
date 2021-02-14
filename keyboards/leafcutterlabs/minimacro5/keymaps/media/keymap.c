@@ -65,7 +65,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //buttion closest to usb is first
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //button closest to USB is first
     [_MAIN] = LAYOUT(
         KC_MUTE, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP, TD(TD_RGB) 
     )
