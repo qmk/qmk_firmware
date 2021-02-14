@@ -36,12 +36,18 @@ enum babble_modes {
 #    ifdef BABL_EMACS
     BABL_EMACS_MODE,
 #    endif
+#    ifdef BABL_NANO
+    BABL_NANO_MODE,
+#    endif
+#    ifdef BABL_KITTY
+    BABL_KITTY_MODE,
+#    endif
 #    ifdef BABL_CHROMEOS
     BABL_CHROMEOS_MODE,
 #    endif
 #    ifdef BABL_LINUX
     BABL_LINUX_MODE,
-#    endif  
+#    endif
     BABL_MODEMAX
 };
 
@@ -178,6 +184,7 @@ enum babble_keycodes {
 #        endif                    // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
     BABL_APP_MULTI_SELECT, /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
+    BABL_APP_SET_MARK, // set editor mark
 #        endif             // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING
     // These aren't useful on most oses.
@@ -203,6 +210,12 @@ enum babble_keycodes {
 #    endif
 #    ifdef BABL_EMACS
     BABL_DO_EMACS,
+#    endif
+#    ifdef BABL_NANO
+    BABL_DO_NANO,
+#    endif
+#    ifdef BABL_KITTY
+    BABL_DO_KITTY,
 #    endif
 #    ifdef BABL_VI
     BABL_DO_VI,
@@ -236,6 +249,14 @@ bool babblePaste_linux(uint16_t keycode);
 #    ifdef BABL_EMACS
 #        define B_EMACS BABL_DO_EMACS
 bool babblePaste_emacs(uint16_t keycode);
+#    endif
+#    ifdef BABL_NANO
+#        define B_NANO BABL_DO_NANO
+bool babblePaste_nano(uint16_t keycode);
+#    endif
+#    ifdef BABL_KITTY
+#        define B_KITTY BABL_DO_KITTY
+bool babblePaste_kitty(uint16_t keycode);
 #    endif
 #    ifdef BABL_VI
 #        define B_VI BABL_DO_VI
@@ -346,6 +367,7 @@ bool babblePaste_chromeos(uint16_t keycode);
 #        endif  // BABL_APP_CELLS
 #        ifdef BABL_APP_EDITOR
 #            define B_MSEL BABL_APP_MULTI_SELECT
+#            define B_MARK BABL_APP_SET_MARK
 /* www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html */
 #        endif  // BABL_APP_EDITOR
 #        ifdef BABL_APP_WINDOWSPLITTING

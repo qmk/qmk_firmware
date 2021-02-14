@@ -41,17 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, D6, D4, D5, D3, D2, D1, D0, B6, D7} 
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-
 // Babble config
 #define USE_BABBLEPASTE
 #define BABL_MODSWAP
 #define BABL_READMUX
-#define BABL_VI
+#define BABL_NANO
 #define BABL_MAC
 #define BABL_LINUX

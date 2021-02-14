@@ -176,6 +176,26 @@ if (keycode == BABL_MODE_DECREMENT) {
         babblePaste_emacs(keycode);
     }
 #    endif
+#    ifdef BABL_NANO
+    if (keycode == BABL_DO_NANO) {
+        set_babble_mode(BABL_NANO_MODE);
+        babble_modeswitch_kb(babble_mode);
+        return true;
+    }
+    if (babble_mode == BABL_NANO_MODE) {
+        babblePaste_nano(keycode);
+    }
+#    endif
+#    ifdef BABL_KITTY
+    if (keycode == BABL_DO_KITY) {
+        set_babble_mode(BABL_KITTY_MODE);
+        babble_modeswitch_kb(babble_mode);
+        return true;
+    }
+    if (babble_mode == BABL_KITTY_MODE) {
+        babblePaste_kitty(keycode);
+    }
+#    endif
 #    ifdef BABL_CHROMEOS
     if (keycode == BABL_DO_CHROMEOS) {
         set_babble_mode(BABL_CHROMEOS_MODE);
