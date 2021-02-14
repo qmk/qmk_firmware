@@ -17,6 +17,9 @@
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B1, B2, B3, C6, B6 }
 #define MATRIX_COL_PINS { F6, B5, B4, D7, D6, D5, D3, D2 }
+// MCP23018 pinout:
+// Rows: B4, B3, B2, B1, B0
+// Cols: A0, A1, A2, A3, A4, A5, A6, A7
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
