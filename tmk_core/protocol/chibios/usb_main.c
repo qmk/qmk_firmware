@@ -874,7 +874,7 @@ void send_mouse(report_mouse_t *report) {
 }
 
 #else  /* MOUSE_ENABLE */
-void   send_mouse(report_mouse_t *report) { (void)report; }
+void send_mouse(report_mouse_t *report) { (void)report; }
 #endif /* MOUSE_ENABLE */
 
 /* ---------------------------------------------------------
