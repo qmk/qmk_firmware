@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wilba.tech
 #define PRODUCT         wilba.tech WT60-B
-#define DESCRIPTION     wilba.tech WT60-B
 
 /* key matrix size */
 #define MATRIX_ROWS 5

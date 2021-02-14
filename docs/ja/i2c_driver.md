@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.8.62:docs/i2c_driver.md
-  git diff 0.8.62 HEAD -- docs/i2c_driver.md | cat
+  original document: 0.10.33:docs/i2c_driver.md
+  git diff 0.10.33 HEAD -- docs/i2c_driver.md | cat
 -->
 
 QMK で使われる I2C マスタドライバには、MCU 間のポータビリティを提供するための一連の関数が用意されています。
@@ -83,8 +83,8 @@ STM32 MCU では、使用するハードウェアドライバにより、さま�
 |-----------------------|--------------------------------------------------------------------------------------------------|---------|
 | `I2C1_SCL_BANK`       | SCL に使うピンのバンク (`GPIOA`, `GPIOB`, `GPIOC`)                                               | `GPIOB` |
 | `I2C1_SDA_BANK`       | SDA に使うピンのバンク (`GPIOA`, `GPIOB`, `GPIOC`)                                               | `GPIOB` |
-| `I2C1_SCL`            | SCL のピン番号 (0-9)                                                                             | `6`     |
-| `I2C1_SDA`            | SDA のピン番号 (0-9)                                                                             | `7`     |
+| `I2C1_SCL`            | SCL のピン番号 (0-15)                                                                            | `6`     |
+| `I2C1_SDA`            | SDA のピン番号 (0-15)                                                                            | `7`     |
 | `I2C1_BANK`（非推奨） | 使用するピンのバンク (`GPIOA`, `GPIOB`, `GPIOC`)。後継は `I2C1_SCL_BANK`, `I2C1_SDA_BANK` です。 | `GPIOB` |
 
 ChibiOS I2C ドライバの設定項目は STM32 MCU の種類に依存します。

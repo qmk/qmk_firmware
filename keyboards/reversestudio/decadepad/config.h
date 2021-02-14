@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ReverseStudio
 #define PRODUCT         DecadePad
-#define DESCRIPTION     6x4Pad
 
 /* key matrix size */
 #define MATRIX_ROWS 6

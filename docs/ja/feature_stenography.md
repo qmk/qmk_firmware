@@ -1,13 +1,13 @@
 # QMK での速記 :id=stenography-in-qmk
 
 <!---
-  original document: 0.9.19:docs/feature_stenography.md
-  git diff 0.9.19 HEAD -- docs/feature_stenography.md | cat
+  original document: 0.10.33:docs/feature_stenography.md
+  git diff 0.10.33 HEAD -- docs/feature_stenography.md | cat
 -->
 
 [速記](https://en.wikipedia.org/wiki/Stenotype)は裁判所のレポート、字幕および耳が不自由な人のためのリアルタイムの文字起こしで最もよく使われる記述方法です。速記では単語はスペル、音声およびショートカット(短い)ストロークが混在する音節ごとに音節化されます。プロの速記者は、標準的なタイピングで通常見られる負担を掛けずに、はるかに少ないエラー(99.9%より高い精度)で、200-300 WPM に到達できます。
 
-[Open Steno Project](http://www.openstenoproject.org/)は、速記ストロークを単語とコマンドにリアルタイムに変換する Plover と呼ばれるオープンソースプログラムを構築しました。確立された辞書とサポートがあります。
+[Open Steno Project](https://www.openstenoproject.org/)は、速記ストロークを単語とコマンドにリアルタイムに変換する Plover と呼ばれるオープンソースプログラムを構築しました。確立された辞書とサポートがあります。
 
 ## QWERTY キーボードを使った Plover :id=plover-with-qwerty-keyboard
 
@@ -57,7 +57,6 @@ void matrix_init_user() {
 ## 速記の学習 :id=learning-stenography
 
 * [Learn Plover!](https://sites.google.com/site/learnplover/)
-* [QWERTY Steno](http://qwertysteno.com/Home/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki のより多くのリソース
 

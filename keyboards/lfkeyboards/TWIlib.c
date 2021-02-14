@@ -8,8 +8,21 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "TWIlib.h"
-#include "util/delay.h"
+#include <util/delay.h>
 #include "print.h"
+
+// Global transmit buffer
+volatile uint8_t *TWITransmitBuffer;
+// Global receive buffer
+volatile uint8_t TWIReceiveBuffer[RXMAXBUFLEN];
+// Buffer indexes
+volatile int TXBuffIndex; // Index of the transmit buffer. Is volatile, can change at any time.
+int RXBuffIndex; // Current index in the receive buffer
+// Buffer lengths
+int TXBuffLen; // The total length of the transmit buffer
+int RXBuffLen; // The total number of bytes to read (should be less than RXMAXBUFFLEN)
+
+TWIInfoStruct TWIInfo;
 
 void TWIInit()
 {

@@ -13,4 +13,4 @@ def json_keymap(cli):
     """Renamed to `qmk json2c`.
     """
     cli.log.error('This command has been renamed to `qmk json2c`.')
-    exit(1)
+    return False
