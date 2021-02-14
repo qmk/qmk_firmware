@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "pro_micro.h"
+#include "twpair_on_jis.h"
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     extern RGB_CONFIG_t RGB_CONFIG;
@@ -7,12 +8,10 @@
     bool RGB_momentary_on;
 #endif
 
-bool MAC_mode = true;
-bool NumLock_Mode = true;
-
 enum layer_number {
     _NUM = 0,
     _CUR,
+    _LCUR,
     _BRC,
     _RGB,
 };
@@ -29,13 +28,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_PEQL, KC_P7  , KC_P8  , KC_P9,
 	KC_PDOT, KC_P4  , KC_P5  , KC_P6,
 	KC_P0  , KC_P1  , KC_P2  , KC_P3,
-	LT(_CUR,KC_PMNS), LT(_BRC,KC_PPLS) , LT(_CUR,KC_PAST) , LT(_RGB,KC_PSLS)),
+	LT(_CUR,KC_PMNS), LT(_BRC,KC_PPLS) , LT(_LCUR,KC_PAST) , LT(_RGB,KC_PSLS)),
 
 [_CUR]= LAYOUT_ortho_4x4(
 	KC_PENT, KC_BSPC  , KC_UP    , KC_DEL,
 	KC_PCMM, KC_LEFT  , KC_DOWN  , KC_RGHT,
+	XXXXXXX, KC_SPC   , XXXXXXX  , XXXXXXX,
+	_______, XXXXXXX  , XXXXXXX  , XXXXXXX),
+
+[_LCUR]= LAYOUT_ortho_4x4(
+	XXXXXXX, KC_HOME  , KC_PGUP  , KC_END,
+	XXXXXXX, C(KC_LEFT), KC_PGDN , C(KC_RGHT),
 	XXXXXXX, XXXXXXX  , XXXXXXX  , XXXXXXX,
-	_______, XXXXXXX  , XXXXXXX , XXXXXXX),
+	_______, XXXXXXX  , XXXXXXX  , XXXXXXX),
 
 [_BRC]= LAYOUT_ortho_4x4(
 	KC_LBRC, KC_LPRN  , KC_LT   , KC_DQT,
@@ -224,6 +229,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	default:
 	  break;
     }
+
+  // typewriter pairing on jis keyboard
+  if (!twpair_on_jis(keycode, record))
+    return false;
+
     return true;
 }
 

@@ -99,3 +99,4 @@ endif
 # $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
 # $(info -- OPT_DEFS=$(OPT_DEFS))
 # $(info )
+SRC += twpair_on_jis.c
