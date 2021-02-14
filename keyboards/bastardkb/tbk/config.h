@@ -31,6 +31,7 @@
 
 #define RGB_DI_PIN D2
 #define RGBLED_NUM 38
+#define RGBLED_SPLIT { 19, 19 }
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_ANIMATIONS
 #define DEBOUNCE 5
