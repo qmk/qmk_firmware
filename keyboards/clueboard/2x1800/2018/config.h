@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* audio support */
-#define B7_AUDIO
-#define C4_AUDIO
+#define AUDIO_PIN_ALT B7
+#define AUDIO_PIN C4
 #define AUDIO_CLICKY
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

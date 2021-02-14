@@ -74,7 +74,7 @@
 #endif
 
 #ifdef AUDIO_ENABLE
-#    define B6_AUDIO
+#    define AUDIO_PIN B6
 #    define NO_MUSIC_MODE
 #endif
 

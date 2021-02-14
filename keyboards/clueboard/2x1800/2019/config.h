@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 4
 
 /* audio support */
-#define B7_AUDIO
-#define C4_AUDIO
+#define AUDIO_PIN_ALT B7
+#define AUDIO_PIN C4
 #define AUDIO_CLICKY
 
 /*
