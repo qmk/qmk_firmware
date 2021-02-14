@@ -24,19 +24,19 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, \
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,  \
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,           \
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,           \
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,           \
-        MO(_FN), KC_LCTL, KC_LALT,                   KC_SPC,  KC_ENT          \
+        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,
+        MO(_FN), KC_LCTL, KC_LALT,                   KC_SPC,  KC_ENT
     ),
     [_FN] = LAYOUT(
-        RESET,             _______, _______, _______, _______, _______, _______, \
-        RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, \
-        _______, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,          \
-        _______, _______,  _______, _______, _______, _______, _______,          \
-        _______, _______,  _______, _______, _______, _______, _______,          \
-        _______, _______, _______,                    _______, _______           \
+        RESET,             _______, _______, _______, _______, _______, _______,
+        RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______,
+        _______, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,
+        _______, _______,  _______, _______, _______, _______, _______,
+        _______, _______,  _______, _______, _______, _______, _______,
+        _______, _______, _______,                    _______, _______
     )
 };
