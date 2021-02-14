@@ -61,14 +61,21 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 //halconf.h:
 #define HAL_USE_DAC                 TRUE
 #define HAL_USE_GPT                 TRUE
+#include_next <halconf.h>
 ```
 
 ``` c
 // mcuconf.h:
+#include_next <mcuconf.h>
+#undef STM32_DAC_USE_DAC1_CH1
 #define STM32_DAC_USE_DAC1_CH1              TRUE
+#undef STM32_DAC_USE_DAC1_CH2
 #define STM32_DAC_USE_DAC1_CH2              TRUE
+#undef STM32_GPT_USE_TIM6
 #define STM32_GPT_USE_TIM6                  TRUE
+#undef STM32_GPT_USE_TIM7
 #define STM32_GPT_USE_TIM7                  TRUE
+#undef STM32_GPT_USE_TIM8
 #define STM32_GPT_USE_TIM8                  TRUE
 ```
 
@@ -90,12 +97,17 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 //halconf.h:
 #define HAL_USE_DAC                 TRUE
 #define HAL_USE_GPT                 TRUE
+#include_next <halconf.h>
 ```
 
 ``` c
 // mcuconf.h:
+#include_next <mcuconf.h>
+#undef STM32_DAC_USE_DAC1_CH1
 #define STM32_DAC_USE_DAC1_CH1              TRUE
+#undef STM32_DAC_USE_DAC1_CH2
 #define STM32_DAC_USE_DAC1_CH2              TRUE
+#undef STM32_GPT_USE_TIM6
 #define STM32_GPT_USE_TIM6                  TRUE
 ```
 
@@ -146,11 +158,15 @@ A configuration example for the STM32F103C8 would be:
 #define HAL_USE_PWM                 TRUE
 #define HAL_USE_PAL                 TRUE
 #define HAL_USE_GPT                 TRUE
+#include_next <halconf.h>
 ```
 
 ``` c
 // mcuconf.h:
+#include_next <mcuconf.h>
+#undef STM32_PWM_USE_TIM1
 #define STM32_PWM_USE_TIM1                  TRUE
+#undef STM32_GPT_USE_TIM4
 #define STM32_GPT_USE_TIM4                  TRUE
 ```
 
