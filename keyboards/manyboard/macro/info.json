@@ -1,6 +1,6 @@
 {
     "keyboard_name": "manyboard_macro",
-    "url": "",
+    "url": "https://github.com/WillEhman/qmk_firmware/tree/dev_create_mb_macro",
     "maintainer": "William Ehman",
     "width": 4,
     "height": 4,
