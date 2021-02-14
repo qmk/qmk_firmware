@@ -15,7 +15,7 @@ With RGB Lighting/LED/Underglow as Caps Lock, Num Lock, Scroll Lock, and Layer I
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
      * │Shift   │Z  │X  │C  │V  │B  │N  │M  │,  │.  │Shift │↑  │/  │
      * ├─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴──┬───┼───┼───┤
-     * │Ctrl │Opt│Cmd  │Space                      │Fn │←  │↓  │→  │
+     * │Ctrl │OS │Alt  │Space                      │Fn │←  │↓  │→  │
      * └─────┴───┴─────┴───────────────────────────┴───┴───┴───┴───┘
      */
 ```
