@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+static void display_sequencer_track(uint8_t, uint8_t, uint8_t);
 static void display_sequencer_steps(uint8_t, uint8_t);
 static uint8_t step_frame_index;
 
@@ -127,6 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#define SEQ_TRACK_INDICATOR_POSITION 0
 #define SEQ_LED_DIMMER 100
 #define SEQ_LED_STEP_OFF_DIMMER 200
 #define SEQ_TEMPO 100
@@ -204,32 +206,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
             if (record->event.pressed) {
                 if(is_sequencer_track_active(keycode - SEQUENCER_TRACK_MIN)) {
-                    rgblight_sethsv_at(HSV_WHITE - SEQ_LED_DIMMER, 0);
+                    display_sequencer_track(HSV_WHITE);
                 } else {
                     switch (keycode - SEQUENCER_TRACK_MIN) {
                     case 0:
-                        rgblight_sethsv_at(HSV_RED - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_RED);
                         break;
                     case 1:
-                        rgblight_sethsv_at(HSV_ORANGE - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_ORANGE);
                         break;
                     case 2:
-                        rgblight_sethsv_at(HSV_CHARTREUSE - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_CHARTREUSE);
                         break;
                     case 3:
-                        rgblight_sethsv_at(HSV_GREEN - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_GREEN);
                         break;
                     case 4:
-                        rgblight_sethsv_at(HSV_SPRINGGREEN - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_SPRINGGREEN);
                         break;
                     case 5:
-                        rgblight_sethsv_at(HSV_BLUE - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_BLUE);
                         break;
                     case 6:
-                        rgblight_sethsv_at(HSV_PURPLE - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_PURPLE);
                         break;
                     case 7:
-                        rgblight_sethsv_at(HSV_MAGENTA - SEQ_LED_DIMMER, 0);
+                        display_sequencer_track(HSV_MAGENTA);
                         break;
                     default:
                         break;
@@ -264,6 +266,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* ------------------------------------------------------------------------------
    RGB Lighting for Sequencer
 ------------------------------------------------------------------------------ */
+void display_sequencer_track(uint8_t h, uint8_t s, uint8_t v) {
+    rgblight_sethsv_at(h, s, v - SEQ_LED_DIMMER, SEQ_TRACK_INDICATOR_POSITION);
+
+}
+
 void display_sequencer_steps(uint8_t track, uint8_t index) {
     sequencer_activate_track(track);
 
