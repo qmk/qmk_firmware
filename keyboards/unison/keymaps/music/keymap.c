@@ -32,7 +32,7 @@ enum layer_number {
     _SEQPLAYBACK,   // This is not a "REAL" layer. Define here to use for RGB light layer.
 };
 
-// Sequencer Track note
+// Sequencer Track note, General MIDI Drum mapping
 const uint16_t unison_sequencer_track_notes[SEQUENCER_TRACKS] = {
     MI_C_1,     // Kick
     MI_D_1,     // Snare
@@ -326,12 +326,12 @@ void display_sequencer_steps(uint8_t track, uint8_t index) {
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
-#define INDICATOR_INDEX 1        // where to start indicator
-#define INDICATOR_COUNT 2         // how many leds for indicator
-#define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
+#define INDICATOR_INDEX 1         // where to start indicator
+#define INDICATOR_COUNT 2         // how many LEDs for indicator
+#define INDICATOR_CHANGE_COUNT 1  // how meny LEDs to change color for temporally layer
 #define DIMMER_LEVEL 150          // brightness dimmer
 
-// for Default layer (= Base layer)
+// Default layers (= Base layers)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_COUNT, HSV_WHITE - DIMMER_LEVEL}
 );
@@ -345,7 +345,7 @@ const rgblight_segment_t PROGMEM my_sequencer_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_COUNT, HSV_SPRINGGREEN - DIMMER_LEVEL}
 );
 
-// for temporal layer
+// Temporal layers
 const rgblight_segment_t PROGMEM my_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_GREEN - DIMMER_LEVEL}
 );
@@ -358,12 +358,12 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX , INDICATOR_CHANGE_COUNT, HSV_RED - DIMMER_LEVEL}
 );
 
-// for Lock indicator
+// Lock indicator
 const rgblight_segment_t PROGMEM my_caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_MAGENTA - DIMMER_LEVEL}
 );
 
-// for Sequencer Playback indicator
+// Sequencer Playback indicator
 const rgblight_segment_t PROGMEM my_seqplayback_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {INDICATOR_INDEX + 1 , INDICATOR_CHANGE_COUNT, HSV_CHARTREUSE - DIMMER_LEVEL}
 );
@@ -381,7 +381,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_seqplayback_layer
 );
 
-// Enabling and disabling lighting layers
+// Enabling and disabling lighting layers for temporal layer
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
@@ -402,6 +402,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+// Enabling and disabling lighting layers for Lock indicator
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(_CAPS, led_state.caps_lock);
     return true;
@@ -572,7 +573,7 @@ void keyboard_post_init_user(void) {
     // Sequencer: use defined notes
     sequencer_set_track_notes(unison_sequencer_track_notes);
 
-    // Sequencer: initial tempo
+    // Sequencer: set initial tempo
     sequencer_set_tempo(SEQ_TEMPO);
 }
 
