@@ -328,7 +328,7 @@ endif
 VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
-ifeq ($(PLATFORM),CHIBIOS)
+ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     BACKLIGHT_DRIVER ?= software
 else
     BACKLIGHT_DRIVER ?= pwm
