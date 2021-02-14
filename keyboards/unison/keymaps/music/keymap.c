@@ -477,13 +477,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch(biton32(default_layer_state)) {
             case _MIDI:
                 if (clockwise) {
-                    // TODO オクターブ変化、上端、下端の判定がおかしい
-                    // if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN)) {
                     if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
                         midi_config.octave++;
                     }
                 } else {
-                    // if (midi_config.octave > 0) {
                     if (midi_config.octave > 0) {
                         midi_config.octave--;
                     }
@@ -554,10 +551,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             default:
                 if (clockwise) {
                     rgblight_step();
-                    // tap_code(KC_MS_WH_UP);
                 } else {
                     rgblight_step_reverse();
-                    // tap_code(KC_MS_WH_DOWN);
                 }
                 break;
         }
