@@ -1,6 +1,5 @@
 #pragma once
 
-
 // General Configs
 
 #define NO_ACTION_ONESHOT
