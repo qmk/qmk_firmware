@@ -112,23 +112,9 @@ void matrix_scan_user(void) {}
 void led_set_user(uint8_t usb_led) {
 #ifndef USE_BABLEPASTE
     // if we aren't using the LEDs to show bablepaste mode, use them to show standard keyboard stuff
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(B2);
-    } else {
-        writePinLow(B2);
-    }
-
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(B1);
-    } else {
-        writePinHigh(B1);
-    }
-
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinHigh(B3);
-    } else {
-        writePinLow(B3);
-    }
+    writePin(B1, led_state.caps_lock);
+    writePin(B2, led_state.num_lock);
+    writePin(B3, led_state.scroll_lock);
 #endif
 }
 
@@ -160,11 +146,6 @@ void babble_modeswitch_kb(uint8_t mode) {
 // function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Turn on bottom LED if we are in colemak, off for qwerty.
-    if (get_highest_layer(state) == _CDH) {
-        writePinHigh(B1);
-
-    } else {
-        writePinLow(B1);
-    }
+    writePin(B1, layer_state_cmp(state, _CDH));
     return state;
 }
