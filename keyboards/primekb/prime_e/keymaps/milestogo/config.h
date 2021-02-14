@@ -45,6 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_BABBLEPASTE
 #define BABL_MODSWAP
 #define BABL_READMUX
-#define BABL_NANO
+#define BABL_KITTY
 #define BABL_MAC
 #define BABL_LINUX
