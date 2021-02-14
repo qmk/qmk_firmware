@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 qk_tap_dance_action_t tap_dance_actions[] = {
 };
-uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
     case 0:
       sethsv(HSV_WHITE, (LED_TYPE *)&led[0]);
 	  rgblight_set();
