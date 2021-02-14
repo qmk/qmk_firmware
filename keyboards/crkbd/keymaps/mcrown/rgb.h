@@ -8,4 +8,4 @@ extern int RGB_current_mode;
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 
-#endif /* End of #ifndef MCROWN_RGB_H_LIB */
+#endif /* End oF MCROWN_RGB_H_LIB */
