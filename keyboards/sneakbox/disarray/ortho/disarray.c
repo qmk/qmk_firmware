@@ -16,16 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "disarray.h"
-
-void keyboard_pre_init_kb() {
-    setPinOutput(B1);
-    keyboard_pre_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(B1, led_state.num_lock);
-    }
-    return res;
-}
