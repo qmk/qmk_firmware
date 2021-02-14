@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 15
 
 #define MATRIX_COL_PINS { A8, A9, B14, B12, B13, B15, B3, B11, A4, A5, A6, A7, B0, B1, B10 }
-#define MATRIX_ROW_PINS { B5, B6, B7, B8, B9 }
+#define MATRIX_ROW_PINS { B5, B6, B7, B9, B8 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX    _HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE   5
+#define DEBOUNCE   8
 #define TAPPING_TERM 500
 
 /*
