@@ -36,11 +36,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,  KC_TRNS,  KC_TRNS,  TO(0)
   ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
 qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
