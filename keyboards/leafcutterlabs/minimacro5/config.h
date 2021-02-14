@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    leafcutterlabs
 #define PRODUCT         miniMACRO5
-#define DESCRIPTION     5 key/rotary  board
+#define DESCRIPTION     5 key/rotary board
 
 /* key matrix size */
 #define MATRIX_ROWS 1
