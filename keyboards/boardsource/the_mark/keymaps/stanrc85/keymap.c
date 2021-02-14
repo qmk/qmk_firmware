@@ -53,9 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void rgb_matrix_indicators_user(void) {
   uint8_t layer = get_highest_layer(layer_state);
   switch (layer) {
-    case _QWERTY:
-      rgb_matrix_set_color(10, 0, 0, 0); 
-      break;
     case _FN1_60:
       rgb_matrix_set_color(10, 0, 0, 255); 
       break;
