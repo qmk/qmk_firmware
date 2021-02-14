@@ -143,7 +143,7 @@ For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty
 2.1.2 Qwerty with arrows on Base
 --------------------------------
 
-![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_vc.jpg)
+![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_vd.jpg)
 
 For the readme about this Qwerty variation, see ➡ ![base_qwerty_basearrow.md](./base_qwerty_basearrow.md) ⬅
 
@@ -1343,12 +1343,15 @@ and closing next to each other.
 ===========================
 ☞  This layout seems easy to learn and predictable.
 
-☞  The Dvorak/Qwerty layer (Base) is an unaltered standard Dvorak/Qwerty
+☞  This layout has been obsessively tweaked and tested. 
+
+☞  The Dvorak/Qwerty/… layer (Base) is an unaltered standard Dvorak/Qwerty
   layout, except what physically cannot fit (numbers, right pinky
   symbols). 
 
 ☞  Every time you have 0-9 enumerations / numbers, they are on the same
-  fingers as a standard keyboard.
+  fingers as a standard keyboard. Right hand pinky is no longer overused,
+  as it is on regular keyboards.
 
 ☞  The symbols normally reached by shifting a number, are also still on
   the same fingers.
@@ -1372,7 +1375,7 @@ and closing next to each other.
 
 ☞  The accented layer makes it possible to set the keyboard in a mode
   on the computer side without dead-keys. Dead-keys slow typing down, and
-  make some editors (like vi) hard to use.
+  make some editors (like vi) harder to use.
 
 ☞  The first Unicode layer adds a fair amount of fun stuff to spice up 
   your writing. Write H₂O, 2⁷·⁰=128, ±8 °C, §2.1, 2 ³/₈", a note⁴, £ 6.²⁵
@@ -1399,11 +1402,24 @@ and closing next to each other.
 ☞  Because a 40% keyboard is small, you may be able take it where needed and
   not have your typing get confused by typing on something else. 
 
+☞  A fair amount of things are configurable from the configuration file, so
+  you can tweak your keyboard without programming hassle.
+
+☞  If you do want to reprogram the code, it has a lot of comments to make
+  it easier to follow. In total the code does seem to be somewhat complex,
+  because that which it is supposed to do is a bit more involved than on a
+  basic keyboard setup, but it is stable and trouble free (in my experience).
+
+☞  If you are new to 40% keyboards, this layout could be an easy starting
+  point. Get back to work right away, without spending weeks on programming
+  a keymap.
+
+☞  As you can see, there is rather too much rather than too little
+  documentation. ;-)
+
 ➡ Conclusion: most is as normal or has some logic to it to help you
   remember, a bunch is better than your normal keyboard, some things
-  will just have to be learned. There is a lot more on it than on your
-  normal keyboard, and you never have to leave the home row for it.
-
+  will just have to be learned.
 
 14 Use case
 ===========

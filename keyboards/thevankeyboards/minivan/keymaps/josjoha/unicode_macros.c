@@ -1013,11 +1013,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // all by the left hand, when the right hand is on the mouse.
                     if ((timer_elapsed (key_timer) <= 200)) { // tapped medium-long (milliseconds)
 
+# ifndef SWITCH_RSHIFT_FUN_RAR // user config to reverse what this key its timing toggles to
+
                         layer_move (_FUN); // activates function layer as a toggle
 
                     } else { // held for longer
 
                         layer_move (_RAR); 
+ 
+# else
+
+                        layer_move (_RAR); // activates function layer as a toggle
+
+                    } else { // held for longer
+
+                        layer_move (_FUN); 
+
+# endif
+ 
 
                     }
                 }
@@ -1057,11 +1070,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // all by the left hand, when the right hand is on the mouse.
                     if ((timer_elapsed (key_timer) <= 200)) { // tapped medium-long (milliseconds)
 
+#     ifndef SWITCH_LSHIFT_PAD_MOV // user config to reverse what this key its timing toggles to
+
                         layer_move (_PAD); 
 
                     } else { // held for longer
 
                         layer_move (_MOV); 
+
+#     else
+
+                        layer_move (_MOV); 
+
+                    } else { // held for longer
+
+                        layer_move (_PAD); 
+
+#     endif
 
                     }
 

@@ -79,6 +79,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define POINT_ON_CHECKBOXES 
 //#define SWITCH_BASE_ROW1_23 
 //#define SWITCH_HOLD_ACC_NSY 
+  #define SWITCH_LSHIFT_PAD_MOV
+  #define SWITCH_RSHIFT_FUN_RAR
 
 //#define REMOVE_PAD 
 //#define REMOVE_ACC 

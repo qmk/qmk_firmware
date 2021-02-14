@@ -78,6 +78,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • Alternate currency symbol
                     • Check boxes or Pointers
                     • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
+                    • Switch _PAD and _MOV on Left Shift toggle
+                    • Switch _FUN and _RAR on Right Shift toggle
 
                            -11- ➡ Eviscerations ( ② / ② ) ⬅
                     • Removing the numbers pad _PAD layer
@@ -430,6 +432,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * left with your thumb. These two keys are next to each other. Only the Base layer is affected. 
          */
 //#define SWITCH_HOLD_ACC_NSY // _Activate_ to switch the *left* _NSY and _ACC layer hold keys, on Base layer.
+        /*    
+         *          • Switch _PAD and _MOV on Left Shift toggle
+         *
+         * Recommended if you use _MOV more than _PAD
+         */
+//#define SWITCH_LSHIFT_PAD_MOV // _Activate_ to make _MOV layer be on the fast tap, and _PAD on a short hold toggle
+        /*    
+         *          • Switch _FUN and _RAR on Right Shift toggle
+         *
+         * Recommended if you use _RAR more than _FUN
+         */
+//#define SWITCH_RSHIFT_FUN_RAR // _Activate_ to make _RAR layer be on the fast tap, and _FUN on a short hold toggle
 
 
         /*                 -11- ➡ Eviscerations ( ② / ② ) ⬅
