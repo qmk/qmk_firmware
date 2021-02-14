@@ -57,12 +57,32 @@ bool encoder_update_user(uint8_t index, bool clockwise){
 #ifdef OLED_ENABLE
 
 #define ANIM_FRAMES 3
-#define ANIM_FRAME_DURATION 200 // Number of milliseconds per frame
+#define ANIM_FRAME_DURATION 100 // Number of milliseconds per frame
+#define BACKGROUND_FRAMES 21
+#define ROCKET_CENTER_POS 3
 
 uint32_t anim_timer = 0;
 uint8_t current_frame = 0;
-uint8_t rocket_rendered = 0;
+uint8_t rocket_y_position = 3;
+uint8_t rocket_pos_change = 0;
+uint8_t background_frame = 0;
 
+const char star_background [8] [21] =
+{
+    {0x88, 0x00, 0x00, 0x00, 0x90, 0x00, 0x00, 0x8C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x89, 0x00, 0x00, 0x00, 0x00, 0x93},
+    {0x00, 0x00, 0x89, 0x00, 0x00, 0x00, 0x8D, 0x00, 0x00, 0x00, 0x00, 0x91, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8E, 0x00, 0x00},
+    {0x00, 0x8F, 0x00, 0x00, 0x8A, 0x00, 0x00, 0x00, 0x00, 0x92, 0x00, 0x00, 0x00, 0x88, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x8B, 0x00, 0x00, 0x00, 0x8D, 0x00, 0x00, 0x00, 0x00, 0x8C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x00},
+    {0x8D, 0x00, 0x89, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8B, 0x00, 0x00, 0x00, 0x00, 0x8F, 0x8B, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x8A, 0x00, 0x00, 0x8E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x91, 0x00, 0x00, 0x8D, 0x00, 0x00, 0x00, 0x8F, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x8C, 0x00, 0x00, 0x8F, 0x00, 0x89, 0x00, 0x00, 0x88, 0x00, 0x00, 0x00, 0x8D, 0x00, 0x00, 0x00, 0x8F},
+    {0x00, 0x8B, 0x00, 0x00, 0x91, 0x00, 0x00, 0x92, 0x00, 0x00, 0x00, 0x8E, 0x00, 0x00, 0x90, 0x00, 0x00, 0x8C, 0x00, 0x00},
+};
+
+// Prints the exhaust characters in an order determined by the phase for animation purposes
+// startX - The x axis starting point in characters for the exhaust (3 behind the rocket)
+// startY - The y axis starting point in characters for the exhaust (middle of the rocket)
+// phase - The "phase" of the animation, no real rhyme or reason to the exact number, but each frame move +1 to make the animation work
 static void render_exhaust(uint8_t startX, uint8_t startY, uint8_t phase)
 {
     oled_set_cursor(startX, startY);
@@ -72,6 +92,90 @@ static void render_exhaust(uint8_t startX, uint8_t startY, uint8_t phase)
     phase++;
     oled_write_char(0x85 + (phase % 3), false);
 }
+
+// Renders the "stars" behind the rocket
+// startY - The starting Y location (in characters) of the rocket so that stars aren't rendered on top of the rocket
+static void render_stars(uint8_t startY, uint8_t phase)
+{
+    // // Line 0
+    // if(startY != 0)
+    // {
+    //     oled_set_cursor(0, 0);
+    //     for(int i = 0; i < 21; i++)
+    //     {
+    //         oled_write_char(star_background[0][(i + phase) % 21], false);
+    //     }
+    // }
+    // Line 1
+    if(startY > 1)
+    {
+        oled_set_cursor(0, 1);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[1][(i + phase) % 21], false);
+        }
+    }
+    // Line 2
+    if(startY > 2)
+    {
+        oled_set_cursor(0, 2);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[2][(i + phase) % 21], false);
+        }
+    }
+    // Line 3
+    if(startY > 3 || startY == 0)
+    {
+        oled_set_cursor(0, 3);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[3][(i + phase) % 21], false);
+        }
+    }
+    // Line 4
+    if(startY > 4 || startY <= 1)
+    {
+        oled_set_cursor(0, 4);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[4][(i + phase) % 21], false);
+        }
+    }
+    // Line 5
+    if(startY > 5 || startY <= 2)
+    {
+        oled_set_cursor(0, 5);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[5][(i + phase) % 21], false);
+        }
+    }
+    // Line 6
+    if(startY > 6 || startY <= 3)
+    {
+        oled_set_cursor(0, 6);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[6][(i + phase) % 21], false);
+        }
+    }
+    // Line 7
+    // if(startY > 7 || startY <= 4)
+    // {
+    //     oled_set_cursor(0, 7);
+    //     for(int i = 0; i < 21; i++)
+    //     {
+    //         oled_write_char(star_background[7][(i + phase) % 21], false);
+    //     }
+    // }
+}
+
+
+// static void animate_stars(uint8_t startY, uint8_t phase)
+// {
+
+// }
 
 static void render_logo(uint8_t startX, uint8_t startY)
 {
@@ -100,17 +204,53 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_
 
 void oled_task_user(void)
 {
-    if(!rocket_rendered)
-    {
-        render_logo(9, 3); // Render the rocket
-        rocket_rendered++;
-    }
+    // if(!background_rendered)
+    // {
+    //     render_stars(8);
+    //     background_rendered++;
+    // }
+
+    // if(!rocket_rendered)
+    // {
+    //     render_logo(9, 3); // Render the rocket
+    //     rocket_rendered++;
+    // }
+
 
     if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION)
     {
         anim_timer = timer_read32();
         current_frame = (current_frame + 1) % ANIM_FRAMES;
-        render_exhaust(6, 4, current_frame);
+        background_frame = (background_frame + 1) % BACKGROUND_FRAMES;
+
+        if((rocket_pos_change / 9) == 0)
+        {
+            rocket_y_position = ROCKET_CENTER_POS;
+        }
+        else if((rocket_pos_change / 9) == 1)
+        {
+            rocket_y_position = ROCKET_CENTER_POS + 1;
+        }
+        else if((rocket_pos_change / 9) == 2)
+        {
+            rocket_y_position = ROCKET_CENTER_POS;
+        }
+        if((rocket_pos_change / 9) == 3)
+        {
+            rocket_y_position = ROCKET_CENTER_POS - 1;
+        }
+
+        render_stars(8, background_frame);
+        render_exhaust(6, rocket_y_position + 1, current_frame);
+        render_logo(9, rocket_y_position); // Render the rocket
+        if(rocket_pos_change < 36)
+        {
+            rocket_pos_change++;
+        }
+        else
+        {
+            rocket_pos_change = 0;
+        }
     }
 }
 #endif
