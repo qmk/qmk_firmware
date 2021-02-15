@@ -24,7 +24,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH = AdafruitBLE    # Enable Bluetooth with the MDBT40 HID (AdafruitBLE)
-BLUETOOTH_ENABLE = OUT_AUTO
+BLUETOOTH_ENABLE = OUT_AUTO #
 AUDIO_ENABLE = no           # Audio output on port C6
 CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
@@ -33,3 +33,5 @@ BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable RGB light
 
 LAYOUTS = LAYOUT_40_alix
+
+EXTRAFLAGS += -flto

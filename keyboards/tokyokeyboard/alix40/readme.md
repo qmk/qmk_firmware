@@ -15,8 +15,8 @@ Make example for this keyboard (after setting up your build environment):
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 Note:
-i) Be very careful and gentle when disassembling the PCB from the bottom case
-ii) alix40 battery power switch (shown in the image below) is used to toggle battery usage (on: battery will be charged when USB is connected, keyboard will be on when USB is disconnected/off:battery will not be charged when USB is connected, keyboard will be off when USB is disconnected)
+1. Be very careful and gentle when disassembling the PCB from the bottom case
+2. alix40 battery power switch (shown in the image below) is used to toggle battery usage (on: battery will be charged when USB is connected, keyboard will be on when USB is disconnected/off:battery will not be charged when USB is connected, keyboard will be off when USB is disconnected)
 ![alix40pwrtoggle](https://i.imgur.com/YPX6R2T.jpg)
-iii) Install the slider on the battery power switch (bundled together with the 3M feets)
-iv) Underglow RGBs are switched off when alix40 is running on battery power (hardware feature to extend battery usage time)
+3. Install the slider on the battery power switch (bundled together with the 3M feets)
+4. Underglow RGBs are switched off when alix40 is running on battery power (hardware feature to extend battery usage time)
