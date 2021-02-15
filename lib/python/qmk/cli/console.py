@@ -1,9 +1,24 @@
-"""hid_listen
+"""Acquire debugging information from usb hid devices
+
+cli implementation of https://www.pjrc.com/teensy/hid_listen.html
+
+State machine is implemented as follows:
+     +-+
+     +-+                                                More Data?
+      |                                              +------------+
+      |                                              |            |
++-----+-------+      +-----------------+       +-----+------+     |
+|             |      |                 |       |            |     |
+|   Search    +----->+     Connect     +------>+   Read     +<----+
+|             |      |                 |       |            |
++-----^-------+      +-----------------+       +------+-----+
+      |                                               |
+      +-----------------------------------------------+
+                      Disconnect/Error
 """
 import hid
 import asyncio
 import signal
-from pathlib import Path
 
 from milc import cli
 
@@ -23,41 +38,41 @@ def list_devices():
         cli.log.info("  %02x:%02x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
 
 
-def state_search(loop):
+def state_search(state_machine):
     print('.', end='', flush=True)
     found = _search()
     selected = found[0] if found[0:] else None
 
     if selected:
-        loop.call_later(1, state_connect, loop, selected)
+        state_machine.call_later(1, state_connect, state_machine, selected)
     else:
-        loop.call_later(1, state_search, loop)
+        state_machine.call_later(1, state_search, state_machine)
 
 
-def state_connect(loop, selected):
+def state_connect(state_machine, selected):
     print()
     print('Listening to %s:' % selected['path'].decode())
     device = hid.Device(path=selected['path'])
-    loop.call_soon(state_read, loop, device)
+    state_machine.call_soon(state_read, state_machine, device)
 
 
-def state_read(loop, device):
+def state_read(state_machine, device):
     print(device.read(32).decode('ascii'), end='')
-    loop.call_later(0.1, state_read, loop, device)
+    state_machine.call_later(0.1, state_read, state_machine, device)
 
 
-def state_exception(loop, context):
+def state_exception(state_machine, context):
     # print('Exception handler called')
     # print(context)
     print('Device disconnected.')
     print('Waiting for new device:')
-    loop.call_soon(state_search, loop)
+    state_machine.call_soon(state_search, state_machine)
 
 
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available hid_listen devices.')
-@cli.subcommand('kinda hid_listen ish.')
+@cli.subcommand('Acquire debugging information from usb hid devices.', hidden=False if cli.config.user.developer else True)
 def console(cli):
-    """TODO:
+    """Acquire debugging information from usb hid devices
     """
 
     if cli.args.list:
@@ -65,13 +80,13 @@ def console(cli):
 
     print('Waiting for device:')
 
-    loop = asyncio.get_event_loop()
+    state_machine = asyncio.get_event_loop()
 
-    loop.add_signal_handler(signal.SIGINT, loop.stop)  # Handle ctrl+c
-    loop.set_exception_handler(state_exception)  # Handle disconnect/connect errors
-    loop.call_soon(state_search, loop)
+    state_machine.add_signal_handler(signal.SIGINT, state_machine.stop)  # Handle ctrl+c
+    state_machine.set_exception_handler(state_exception)  # Handle disconnect/connect errors
+    state_machine.call_soon(state_search, state_machine)
 
     try:
-        loop.run_forever()
+        state_machine.run_forever()
     finally:
-        loop.close()
+        state_machine.close()
