@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _BASE 0
+#define _SPEC 1 // Special layer
 
 // Use the following format to create custom key codes to make macros out of and such
 /*
@@ -28,13 +29,20 @@ enum custom_keycodes {
 */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
- [_BASE] = LAYOUT_default(
-   RGB_MODE_FORWARD,                KC_NUMLOCK,
-   KC_KP_7, KC_KP_8, KC_KP_9,       KC_DELETE,
-   KC_KP_4, KC_KP_5, KC_KP_6,       KC_END,
-   KC_KP_1, KC_KP_2, KC_KP_3,       KC_AUDIO_VOL_UP,
-   KC_KP_0, RGB_TOG, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN
- )
+    [_BASE] = LAYOUT_default(
+        RGB_MODE_FORWARD,                KC_NUMLOCK,
+        KC_KP_7, KC_KP_8, KC_KP_9,       KC_DELETE,
+        KC_KP_4, KC_KP_5, KC_KP_6,       KC_END,
+        KC_KP_1, KC_KP_2, KC_KP_3,       KC_F13,
+        KC_KP_0, MO(1),   KC_KP_DOT,     KC_KP_ENTER
+    ),
+    [_SPEC] = LAYOUT_default(
+        RGB_MODE_REVERSE,               KC_AUDIO_MUTE,
+        KC_NO,   KC_NO,   KC_NO,         KC_NO,
+        KC_NO,   KC_NO,   KC_NO,         KC_NO,
+        RESET,   RGB_TOG, RGB_SPI,       RGB_SPD,
+        KC_NO,   _______, KC_NO,         KC_NO
+    )
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise){
