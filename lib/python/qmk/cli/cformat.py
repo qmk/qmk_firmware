@@ -78,7 +78,6 @@ def filter_files(files):
             cli.log.debug('Skipping file %s', file)
 
 
-@cli.argument('--ci', arg_only=True, action='store_true', help=SUPPRESS)
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
