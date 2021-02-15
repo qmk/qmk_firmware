@@ -32,18 +32,18 @@
 #define   _____________________LOWER_L2_______________________ KC_LSFT,  XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN
 #define   _____________________LOWER_L3_______________________ KC_CTLTB, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 
-#define   _____________________LOWER_R1_______________________ KC_6,    KC_7,    KC_8,    KC_9,     KC_0,     KC_BSPC
-#define   _____________________LOWER_R2_______________________ KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_HOME,  KC_END
-#define   _____________________LOWER_R3_______________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11
+#define   _____________________LOWER_R1_______________________ KC_6,     KC_7,    KC_8,    KC_9,     KC_0,     KC_BSPC
+#define   _____________________LOWER_R2_______________________ KC_LEFT,  KC_UP,   KC_DOWN, KC_RIGHT, KC_HOME,  KC_END
+#define   _____________________LOWER_R3_______________________ KC_F6,    KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11
 
 /* ------------------------------------------------------------COL1------COL2-----COL3-----COL4-----COL5-----COL6--------- */
-#define   _____________________RAISE_L1_______________________ KC_TAB,  KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,   KC_PERC
-#define   _____________________RAISE_L2_______________________ KC_LSFT, KC_MPLY, KC_VOLU, KC_VOLD,  XXXXXXX,  XXXXXXX
-#define   _____________________RAISE_L3_______________________ KC_CTLTB,KC_CALC, KC_MPRV, KC_MNXT,  KC_BRIU,  KC_BRID
+#define   _____________________RAISE_L1_______________________ KC_TAB,   KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,   KC_PERC
+#define   _____________________RAISE_L2_______________________ KC_LSFT,  KC_MPLY, KC_VOLU, KC_VOLD,  XXXXXXX,  XXXXXXX
+#define   _____________________RAISE_L3_______________________ KC_CTLTB  KC_CALC, KC_MPRV, KC_MNXT,  KC_BRIU,  KC_BRID
 
-#define   _____________________RAISE_R1_______________________ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,  KC_RPRN,  KC_DEL
-#define   _____________________RAISE_R2_______________________ KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR,  KC_PIPE,  KC_GRV
-#define   _____________________RAISE_R3_______________________ KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC,  KC_BSLS,  KC_TILD
+#define   _____________________RAISE_R1_______________________ KC_CIRC,  KC_AMPR, KC_ASTR, KC_LPRN,  KC_RPRN,  KC_DEL
+#define   _____________________RAISE_R2_______________________ KC_MINS,  KC_EQL,  KC_LCBR, KC_RCBR,  KC_PIPE,  KC_GRV
+#define   _____________________RAISE_R3_______________________ KC_UNDS,  KC_PLUS, KC_LBRC, KC_RBRC,  KC_BSLS,  KC_TILD
 
 /* ------------------------------------------------------------COL1------COL2-----COL3-----COL4-----COL5-----COL6--------- */
 #define   _____________________ADJUST_L1______________________ XXXXXXX,  EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
