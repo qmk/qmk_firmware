@@ -88,7 +88,7 @@ def cformat(cli):
         files = list(filter_files(cli.args.files))
 
         if not files:
-            cli.log.error('No C files in filelist: %s', ', '.join(cli.args.files))
+            cli.log.error('No C files in filelist: %s', ', '.join(map(str, cli.args.files)))
             exit(0)
 
         if cli.args.all_files:
