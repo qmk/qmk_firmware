@@ -62,7 +62,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_VOLD);
     }
 };
-
-bool led_update_user(led_t led_state) {
-    return true;
-}

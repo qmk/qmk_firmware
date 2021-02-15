@@ -29,7 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 #undef RGBLED_NUM
-
-// Via stuff?
-// #define PRODUCT_ID 3406832214
-// #define MANUFACTURER keebio
