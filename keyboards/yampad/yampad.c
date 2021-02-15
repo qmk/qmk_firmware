@@ -27,13 +27,13 @@ void oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer"), false);
   switch (get_highest_layer(layer_state)) {
-    case _BL:
+    case 0:
       oled_write_ln_P(PSTR(" BAS"), false);
       break;
-    case _NV:
+    case 1:
       oled_write_ln_P(PSTR(" NAV"), false);
       break;
-    case _FN:
+    case 2:
       oled_write_ln_P(PSTR(" RGB"), false);
       break;
     default:
