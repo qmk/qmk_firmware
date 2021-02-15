@@ -161,7 +161,13 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
             layer_on(_MOUSE);
         }
     }
-    if (timer_elapsed(mouse_debounce_timer) > 125 || layer_state_is(_GAMEPAD)) {
+
+#ifdef TAPPING_TERM_PER_KEY
+    if (timer_elapsed(mouse_debounce_timer) > get_tapping_term(KC_BTN1, NULL)
+#else
+    if (timer_elapsed(mouse_debounce_timer) > TAPPING_TERM
+#endif
+    || layer_state_is(_GAMEPAD)) {
         mouse_report->x = x;
         mouse_report->y = y;
     }
