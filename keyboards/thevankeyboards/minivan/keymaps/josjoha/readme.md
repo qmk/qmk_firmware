@@ -1349,9 +1349,14 @@ and closing next to each other.
   layout, except what physically cannot fit (numbers, right pinky
   symbols). 
 
+☞  The normally most used layer after letters is “numbers & symbols” 
+  (123…, !@#…, []/…, called `_NSY`). This layer you can access by either
+  your left or right thumb, to spread fatigue.
+
+☞  Right hand pinky is no longer overused, as it is on regular keyboards.
+
 ☞  Every time you have 0-9 enumerations / numbers, they are on the same
-  fingers as a standard keyboard. Right hand pinky is no longer overused,
-  as it is on regular keyboards.
+  fingers as a standard keyboard. 
 
 ☞  The symbols normally reached by shifting a number, are also still on
   the same fingers.
@@ -1374,14 +1379,13 @@ and closing next to each other.
   right hand, you can quickly get uncluttered such keys by tapping left shift.
 
 ☞  The accented layer makes it possible to set the keyboard in a mode
-  on the computer side without dead-keys. Dead-keys slow typing down, and
-  make some editors (like vi) harder to use.
+  on the computer side without dead-keys.
 
-☞  The first Unicode layer adds a fair amount of fun stuff to spice up 
+☞  The second Unicode layer adds a fair amount of fun stuff to spice up 
   your writing. Write H₂O, 2⁷·⁰=128, ±8 °C, §2.1, 2 ³/₈", a note⁴, £ 6.²⁵
   etc.
         
-☞  The second Unicode layer adds a proper dash — and French style
+☞  The third Unicode layer adds a proper dash — and French style
   quotations «»‹› and other stuff. ①  «Ça va bien», ②  5 × 3 ≠ 14,
   ③  .083% ÷ 2 ≈ 4‱ ➡  4.₁₅‱
 
@@ -1390,20 +1394,13 @@ and closing next to each other.
                 ┅━╋━━━━━━┛
                   ┇ ④
 
-☞  With the 'descramble' mode (Dvorak² Compile option), you never have
-  to fear not being able to use your keyboard. Plug and play.
-
-☞  Easy to create your own dual layout for letters / numbers.
-
-☞  On average every key has more than 9 meanings (including upper/lower case).
-
-☞  Speed and text size measuring.
-
-☞  Because a 40% keyboard is small, you may be able take it where needed and
-  not have your typing get confused by typing on something else. 
+☞  Speed and text size measuring, including to set a maximum on your text input.
+  These are features not part off regular keyboards.
 
 ☞  A fair amount of things are configurable from the configuration file, so
   you can tweak your keyboard without programming hassle.
+
+☞  Easy to create your own dual layout for letters / numbers.
 
 ☞  If you do want to reprogram the code, it has a lot of comments to make
   it easier to follow. In total the code does seem to be somewhat complex,
@@ -1411,15 +1408,17 @@ and closing next to each other.
   basic keyboard setup, but it is stable and trouble free (in my experience).
 
 ☞  If you are new to 40% keyboards, this layout could be an easy starting
-  point. Get back to work right away, without spending weeks on programming
-  a keymap.
+  point.
 
-☞  As you can see, there is rather too much rather than too little
-  documentation. ;-)
+☞  With 9 effective layers, and two more which can be switched for the dual
+  layout, this equals a larger key space than has a regular 100% keyboard.
+  This keyboard is about 4 times as large as a regular 100% keyboard because
+  most keys represent 9 meanings, plus another two for the dual layout.
 
-➡ Conclusion: most is as normal or has some logic to it to help you
-  remember, a bunch is better than your normal keyboard, some things
-  will just have to be learned.
+☞  Because a 40% keyboard is small, you may be able take it where needed and
+  not have your typing get confused by typing on something else. 
+
+☞  As you can see, there is too much rather than too little documentation. ;-)
 
 14 Use case
 ===========
