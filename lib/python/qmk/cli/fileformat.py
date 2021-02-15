@@ -17,8 +17,6 @@ def _get_chunks(it, size):
 def dos2unix_run(files):
     """Spawn multiple dos2unix subprocess avoiding too long commands on formatting everything
     """
-    #if True:
-    #    dos2unix = subprocess.run(['dos2unix', *files])
     for chunk in _get_chunks(files, 10):
         dos2unix = subprocess.run(['dos2unix', *chunk])
 
