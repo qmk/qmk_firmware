@@ -57,7 +57,7 @@ bool encoder_update_user(uint8_t index, bool clockwise){
 #ifdef OLED_ENABLE
 
 #define ANIM_FRAMES 3
-#define ANIM_FRAME_DURATION 100 // Number of milliseconds per frame
+#define ANIM_FRAME_DURATION 110 // Number of milliseconds per frame (no faster than 110ms, last line struggles)
 #define BACKGROUND_FRAMES 21
 #define ROCKET_CENTER_POS 3
 
@@ -97,15 +97,15 @@ static void render_exhaust(uint8_t startX, uint8_t startY, uint8_t phase)
 // startY - The starting Y location (in characters) of the rocket so that stars aren't rendered on top of the rocket
 static void render_stars(uint8_t startY, uint8_t phase)
 {
-    // // Line 0
-    // if(startY != 0)
-    // {
-    //     oled_set_cursor(0, 0);
-    //     for(int i = 0; i < 21; i++)
-    //     {
-    //         oled_write_char(star_background[0][(i + phase) % 21], false);
-    //     }
-    // }
+    // Line 0
+    if(startY != 0)
+    {
+        oled_set_cursor(0, 0);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[0][(i + phase) % 21], false);
+        }
+    }
     // Line 1
     if(startY > 1)
     {
@@ -161,14 +161,14 @@ static void render_stars(uint8_t startY, uint8_t phase)
         }
     }
     // Line 7
-    // if(startY > 7 || startY <= 4)
-    // {
-    //     oled_set_cursor(0, 7);
-    //     for(int i = 0; i < 21; i++)
-    //     {
-    //         oled_write_char(star_background[7][(i + phase) % 21], false);
-    //     }
-    // }
+    if(startY > 7 || startY <= 4)
+    {
+        oled_set_cursor(0, 7);
+        for(int i = 0; i < 21; i++)
+        {
+            oled_write_char(star_background[7][(i + phase) % 21], false);
+        }
+    }
 }
 
 
