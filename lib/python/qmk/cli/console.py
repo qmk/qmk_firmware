@@ -8,15 +8,15 @@ from time import sleep
 from milc import cli
 
 def patch_linux(dev):
-    platform_id = platform.platform().lower()
-    if 'linux' in platform_id:
-        hidraw = Path(dev['path'].decode('UTF-8')).name
-        descriptor_path = Path('/sys/class/hidraw/') / hidraw / 'device/report_descriptor'
+    # platform_id = platform.platform().lower()
+    # if 'linux' in platform_id:
+    #     hidraw = Path(dev['path'].decode('UTF-8')).name
+    #     descriptor_path = Path('/sys/class/hidraw/') / hidraw / 'device/report_descriptor'
 
-        report = descriptor_path.read_bytes()
+    #     report = descriptor_path.read_bytes()
 
-        dev['usage_page'] = (report[2] << 8) + report[1];
-        dev['usage'] = report[4];
+    #     dev['usage_page'] = (report[2] << 8) + report[1];
+    #     dev['usage'] = report[4];
     return dev
 
 def is_console_hid(x):
@@ -29,7 +29,7 @@ def search():
 @cli.argument('-i', '--index', default=0, type=int, help='Device index.')
 @cli.subcommand('kinda hid_listen ish.')
 def console(cli):
-    """TODO.
+    """TODO:
     """
 
     if cli.args.list:
@@ -39,18 +39,26 @@ def console(cli):
             cli.log.info("%02x:%02x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
         return
 
-    print('Waiting for device:')
+    try:
+        print('Waiting for device:')
 
-    selected = None
-    while selected is None:
-        found = search()
-        selected = found[cli.args.index] if found[cli.args.index:] else None
+        while True:
+            selected = None
+            while selected is None:
+                found = search()
+                selected = found[cli.args.index] if found[cli.args.index:] else None
+                print('.', end = '', flush=True)
+                sleep(1)
 
-        print('.', end = '', flush=True)
-        sleep(1)
+            print()
+            print('Listening to %s:' % selected['path'].decode())
+            device = hid.Device(path=selected['path'])
+            try:
+                while True:
+                    print(device.read(32).decode('ascii'), end = '')
 
-    print()
-    print('Listening to %s:' % selected['path'].decode())
-    device = hid.Device(path=selected['path'])
-    while True:
-        print(device.read(32).decode('ascii'), end = '')
+            except hid.HIDException:
+                print('Device disconnected.')
+                print('Waiting for new device:')
+    except KeyboardInterrupt:
+        pass
