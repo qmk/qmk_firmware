@@ -1,64 +1,77 @@
 """hid_listen
 """
 import hid
-import platform
+import asyncio
+import signal
 from pathlib import Path
-from time import sleep
 
 from milc import cli
 
-def patch_linux(dev):
-    # platform_id = platform.platform().lower()
-    # if 'linux' in platform_id:
-    #     hidraw = Path(dev['path'].decode('UTF-8')).name
-    #     descriptor_path = Path('/sys/class/hidraw/') / hidraw / 'device/report_descriptor'
 
-    #     report = descriptor_path.read_bytes()
-
-    #     dev['usage_page'] = (report[2] << 8) + report[1];
-    #     dev['usage'] = report[4];
-    return dev
-
-def is_console_hid(x):
+def _is_console_hid(x):
     return x['usage_page'] == 0xFF31 and x['usage'] == 0x0074
 
-def search():
-    return list(filter(is_console_hid, map(patch_linux, hid.enumerate())))
+
+def _search():
+    return list(filter(_is_console_hid, hid.enumerate()))
+
+
+def list_devices():
+    cli.log.info('Available devices:')
+    devices = _search()
+    for dev in devices:
+        cli.log.info("  %02x:%02x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
+
+
+def state_search(loop):
+    print('.', end='', flush=True)
+    found = _search()
+    selected = found[0] if found[0:] else None
+
+    if selected:
+        loop.call_later(1, state_connect, loop, selected)
+    else:
+        loop.call_later(1, state_search, loop)
+
+
+def state_connect(loop, selected):
+    print()
+    print('Listening to %s:' % selected['path'].decode())
+    device = hid.Device(path=selected['path'])
+    loop.call_soon(state_read, loop, device)
+
+
+def state_read(loop, device):
+    print(device.read(32).decode('ascii'), end='')
+    loop.call_later(0.1, state_read, loop, device)
+
+
+def state_exception(loop, context):
+    # print('Exception handler called')
+    # print(context)
+    print('Device disconnected.')
+    print('Waiting for new device:')
+    loop.call_soon(state_search, loop)
+
 
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available hid_listen devices.')
-@cli.argument('-i', '--index', default=0, type=int, help='Device index.')
 @cli.subcommand('kinda hid_listen ish.')
 def console(cli):
     """TODO:
     """
 
     if cli.args.list:
-        cli.log.info('Available devices:')
-        devices = search()
-        for dev in devices:
-            cli.log.info("%02x:%02x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
-        return
+        return list_devices()
+
+    print('Waiting for device:')
+
+    loop = asyncio.get_event_loop()
+
+    loop.add_signal_handler(signal.SIGINT, loop.stop)  # Handle ctrl+c
+    loop.set_exception_handler(state_exception)  # Handle disconnect/connect errors
+    loop.call_soon(state_search, loop)
 
     try:
-        print('Waiting for device:')
-
-        while True:
-            selected = None
-            while selected is None:
-                found = search()
-                selected = found[cli.args.index] if found[cli.args.index:] else None
-                print('.', end = '', flush=True)
-                sleep(1)
-
-            print()
-            print('Listening to %s:' % selected['path'].decode())
-            device = hid.Device(path=selected['path'])
-            try:
-                while True:
-                    print(device.read(32).decode('ascii'), end = '')
-
-            except hid.HIDException:
-                print('Device disconnected.')
-                print('Waiting for new device:')
-    except KeyboardInterrupt:
-        pass
+        loop.run_forever()
+    finally:
+        loop.close()
