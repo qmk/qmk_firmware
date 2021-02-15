@@ -27,4 +27,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN D4
 #define DIODE_DIRECTION COL2ROW
 #define DEVICE_VER      0x0100
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
