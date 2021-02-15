@@ -54,7 +54,7 @@ def cformat_run(files):
     clang_format = [find_clang_format(), '-i']
 
     try:
-        cli.run(clang_format + map(str, files), check=True, capture_output=False)
+        cli.run(clang_format + list(map(str, files)), check=True, capture_output=False)
         cli.log.info('Successfully formatted the C code.')
         return True
 
@@ -68,6 +68,16 @@ def cformat_run(files):
         return False
 
 
+def filter_files(files):
+    """Yield only files to be formatted and skip the rest
+    """
+    for file in files:
+        if file.split('.')[-1] in c_file_suffixes:
+            yield(file)
+        else:
+            cli.log.debug('Skipping file %s', file)
+
+
 @cli.argument('--ci', arg_only=True, action='store_true', help=SUPPRESS)
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
@@ -78,20 +88,12 @@ def cformat(cli):
     """Format C code according to QMK's style.
     """
     # Find the list of files to format
-    if cli.args.ci:
-        if cli.args.files or cli.args.all_files:
-            cli.log.warning('Filename or -a passed with --ci, only formatting CI files.')
-
-        files_json = Path(environ.get('HOME', '~'), 'files.json').resolve()
-        all_changed_files = json.load(files_json.open())
-        files = [file for file in all_changed_files if file.split('.')[-1] in c_file_suffixes]
+    if cli.args.files:
+        files = list(filter_files(cli.args.files))
 
         if not files:
-            cli.log.info('No C files in changeset: %s', ', '.join(all_changed_files))
+            cli.log.error('No C files in filelist: %s', ', '.join(cli.args.files))
             exit(0)
-
-    elif cli.args.files:
-        files = cli.args.files
 
         if cli.args.all_files:
             cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(map(str, files)))
