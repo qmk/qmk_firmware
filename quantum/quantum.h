@@ -55,6 +55,8 @@
 #include "timer.h"
 #include "sync_timer.h"
 #include "config_common.h"
+#include "gpio.h"
+#include "atomic_util.h"
 #include "led.h"
 #include "action_util.h"
 #include "action_tapping.h"
@@ -199,20 +201,6 @@ extern layer_state_t layer_state;
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
-typedef uint8_t pin_t;
-
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
-
-#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
 
 /*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
  *   But here's more margin to make it two clocks. */
@@ -221,25 +209,8 @@ typedef uint8_t pin_t;
 #    endif
 #    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
 
-#elif defined(PROTOCOL_CHIBIOS)
-typedef ioline_t pin_t;
+#elif defined(__ARMEL__) || defined(__ARMEB__)
 
-#    define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
-#    define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
-#    define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
-#    define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
-
-#    define writePinHigh(pin) palSetLine(pin)
-#    define writePinLow(pin) palClearLine(pin)
-#    define writePin(pin, level) ((level) ? (writePinHigh(pin)) : (writePinLow(pin)))
-
-#    define readPin(pin) palReadLine(pin)
-
-#    define togglePin(pin) palToggleLine(pin)
-
-#endif
-
-#if defined(__ARMEL__) || defined(__ARMEB__)
 /* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
  * to which the GPIO is connected.
  * The connected buses differ depending on the various series of MCUs.
@@ -258,63 +229,8 @@ typedef ioline_t pin_t;
 #        endif
 #    endif
 #    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
-#endif
-
-// Atomic macro to help make GPIO and other controls atomic.
-#ifdef IGNORE_ATOMIC_BLOCK
-/* do nothing atomic macro */
-#    define ATOMIC_BLOCK for (uint8_t __ToDo = 1; __ToDo; __ToDo = 0)
-#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK
-#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK
-
-#elif defined(__AVR__)
-/* atomic macro for AVR */
-#    include <util/atomic.h>
-
-#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
-
-#elif defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_ARM_ATSAM)
-/* atomic macro for ChibiOS / ARM ATSAM */
-#    if defined(PROTOCOL_ARM_ATSAM)
-#        include "arm_atsam_protocol.h"
-#    endif
-
-static __inline__ uint8_t __interrupt_disable__(void) {
-#    if defined(PROTOCOL_CHIBIOS)
-    chSysLock();
-#    endif
-#    if defined(PROTOCOL_ARM_ATSAM)
-    __disable_irq();
-#    endif
-    return 1;
-}
-
-static __inline__ void __interrupt_enable__(const uint8_t *__s) {
-#    if defined(PROTOCOL_CHIBIOS)
-    chSysUnlock();
-#    endif
-#    if defined(PROTOCOL_ARM_ATSAM)
-    __enable_irq();
-#    endif
-    __asm__ volatile("" ::: "memory");
-    (void)__s;
-}
-
-#    define ATOMIC_BLOCK(type) for (type, __ToDo = __interrupt_disable__(); __ToDo; __ToDo = 0)
-#    define ATOMIC_FORCEON uint8_t sreg_save __attribute__((__cleanup__(__interrupt_enable__))) = 0
-
-#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
-#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
-
-/* Other platform */
-#else
-
-#    define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE dose not implement")
-#    define ATOMIC_BLOCK_FORCEON _Static_assert(0, "ATOMIC_BLOCK_FORCEON dose not implement")
 
 #endif
-
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 

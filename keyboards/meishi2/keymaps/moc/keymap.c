@@ -1,4 +1,4 @@
-/* Copyright 2015-2018 Jack Humbert
+/* Copyright 2021 Atsushi Nagase
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#pragma once
+enum meishi2_moc_layers {
+    _DEFAULT,
+    _RAISE
+};
 
-#ifndef __ASSEMBLER__
-#    include "pin_defs.h"
-#endif
+#define PRO_MICRO_LED_TX D5
+#define RAISE MO(_RAISE)
 
-/* diode directions */
-#define COL2ROW 0
-#define ROW2COL 1
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [_DEFAULT] = LAYOUT( /* Base */
+    RAISE, KC_B, KC_N, KC_SPC
+  ),
+  [_RAISE] = LAYOUT( /* Raise */
+    _______, KC_LEFT, KC_RGHT, LSFT(KC_S)
+  )
+};
 
-#define API_SYSEX_MAX_SIZE 32
+void matrix_init_user(void) {
+  setPinOutput(PRO_MICRO_LED_TX);
+  writePinHigh(PRO_MICRO_LED_TX);
+}
 
-#include "song_list.h"
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (keycode == RAISE) {
+    writePin(PRO_MICRO_LED_TX, !record->event.pressed);
+  }
+  return true;
+}

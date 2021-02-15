@@ -1,4 +1,4 @@
-/* Copyright 2015-2018 Jack Humbert
+/* Copyright 2021 Atsushi Nagase
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,4 @@
 
 #pragma once
 
-#ifndef __ASSEMBLER__
-#    include "pin_defs.h"
-#endif
-
-/* diode directions */
-#define COL2ROW 0
-#define ROW2COL 1
-
-#define API_SYSEX_MAX_SIZE 32
-
-#include "song_list.h"
+// place overrides here
