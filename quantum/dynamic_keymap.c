@@ -153,6 +153,12 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t idx, uint8_t dir, uint16_
 }
 #endif
 
+#if defined(VIAL_ENCODERS_ENABLE) && defined(VIAL_ENCODER_DEFAULT)
+static const uint16_t PROGMEM vial_encoder_default[] = VIAL_ENCODER_DEFAULT;
+_Static_assert(sizeof(vial_encoder_default)/sizeof(*vial_encoder_default) == 2 * DYNAMIC_KEYMAP_LAYER_COUNT * NUMBER_OF_ENCODERS,
+    "There should be DYNAMIC_KEYMAP_LAYER_COUNT * NUMBER_OF_ENCODERS * 2 entries in the VIAL_ENCODER_DEFAULT array.");
+#endif
+
 void dynamic_keymap_reset(void) {
 #ifdef VIAL_ENABLE
     /* temporarily unlock the keyboard so we can set hardcoded RESET keycode */
@@ -172,8 +178,13 @@ void dynamic_keymap_reset(void) {
 
 #ifdef VIAL_ENCODERS_ENABLE
     for (int idx = 0; idx < NUMBER_OF_ENCODERS; ++idx) {
+#ifdef VIAL_ENCODER_DEFAULT
+        dynamic_keymap_set_encoder(layer, idx, 0, pgm_read_word(&vial_encoder_default[2 * (layer * NUMBER_OF_ENCODERS + idx)]));
+        dynamic_keymap_set_encoder(layer, idx, 1, pgm_read_word(&vial_encoder_default[2 * (layer * NUMBER_OF_ENCODERS + idx) + 1]));
+#else
         dynamic_keymap_set_encoder(layer, idx, 0, KC_TRNS);
         dynamic_keymap_set_encoder(layer, idx, 1, KC_TRNS);
+#endif
     }
 #endif
     }
