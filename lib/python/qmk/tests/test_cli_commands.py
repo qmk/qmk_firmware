@@ -39,7 +39,7 @@ def test_cformat():
 
 def test_cformat_all():
     result = check_subcommand('cformat', '-n', '-a')
-    check_returncode(result)
+    check_returncode(result, [0, 1])
 
 
 def test_compile():

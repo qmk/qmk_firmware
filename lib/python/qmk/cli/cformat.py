@@ -1,10 +1,7 @@
 """Format C code according to QMK's style.
 """
-import json
 import subprocess
-from argparse import SUPPRESS
-from os import environ, path
-from pathlib import Path
+from os import path
 from shutil import which
 
 from argcomplete.completers import FilesCompleter
@@ -72,8 +69,8 @@ def filter_files(files):
     """Yield only files to be formatted and skip the rest
     """
     for file in files:
-        if file.split('.')[-1] in c_file_suffixes:
-            yield(file)
+        if file.name.split('.')[-1] in c_file_suffixes:
+            yield file
         else:
             cli.log.debug('Skipping file %s', file)
 
