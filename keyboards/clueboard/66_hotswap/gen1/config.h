@@ -107,7 +107,7 @@
 #define I2C1_SDA 9
 
 #define LED_DRIVER_COUNT 1
-#define LED_DRIVER_LED_COUNT 71
+#define DRIVER_LED_TOTAL 71
 
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
