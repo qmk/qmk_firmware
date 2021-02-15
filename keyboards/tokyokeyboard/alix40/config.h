@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -60,6 +59,3 @@
 #define AdafruitBleResetPin D4
 #define AdafruitBleCSPin    B4
 #define AdafruitBleIRQPin   E6
-
-
-#endif

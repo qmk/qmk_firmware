@@ -32,6 +32,6 @@ NKRO_ENABLE = no        # USB Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable RGB light
 
-LAYOUTS = LAYOUT_40_alix
+LAYOUTS = 40_alix
 
 EXTRAFLAGS += -flto
