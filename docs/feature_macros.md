@@ -237,7 +237,7 @@ Sends `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if 
 
 If `TAP_CODE_DELAY` is defined (default 0), this function waits that many milliseconds before calling `unregister_code(<kc>)`. This can be useful when you are having issues with taps (un)registering.
 
-If the keycode is `KC_CAPS`, it waits `CAPS_LOCK_DELAY` milliseconds instead (default 80), as macOS prevents accidental Caps Lock activation by waiting for the key to be held for a certain amount of time.
+If the keycode is `KC_CAPS`, it waits `TAP_HOLD_CAPS_DELAY` milliseconds instead (default 80), as macOS prevents accidental Caps Lock activation by waiting for the key to be held for a certain amount of time.
 
 ### `tap_code_delay(<kc>, <delay>);`
 
