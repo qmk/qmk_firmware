@@ -24,11 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Aleblazer
 #define PRODUCT         Zodiark
-#define MASTER_LEFT
 
 #define NO_ACTION_MACRO
 
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN D3
 #define SERIAL_USE_MULTI_TRANSACTION
 #define SELECT_SOFT_SERIAL_SPEED 1
