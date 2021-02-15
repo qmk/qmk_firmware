@@ -1,12 +1,12 @@
 # soup10
 
-![soup10](imgur.com image replace me!)
+![soup10](https://i.imgur.com/YIMB3kK.jpg)
 
-*A short description of the keyboard/project*
+A 4x3 10 key macropad by Sadeed aka icesoup
 
 * Keyboard Maintainer: [icesoup](https://github.com/Sadeeed)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Pro Micro
+* Hardware Availability: [Repository](https://github.com/Sadeeed/Soup10)
 
 Make example for this keyboard (after setting up your build environment):
 

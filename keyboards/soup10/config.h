@@ -20,20 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-<<<<<<< HEAD
 #define VENDOR_ID    0x5375
 #define PRODUCT_ID   0x0001
 #define DEVICE_VER   0x0001
 #define MANUFACTURER icesoup
 #define PRODUCT      soup10
 #define DESCRIPTION  Soup10
-=======
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER icesoup
-#define PRODUCT      soup10
->>>>>>> 9db8823a8fcc3f8d39a53f0a8e57d5d8925498c2
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 1
 
