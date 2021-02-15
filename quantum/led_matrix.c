@@ -59,7 +59,7 @@ bool g_suspend_state = false;
 uint32_t g_tick = 0;
 
 // Ticks since this key was last hit.
-uint8_t g_key_hit[LED_DRIVER_LED_COUNT];
+uint8_t g_key_hit[DRIVER_LED_TOTAL];
 
 // Ticks since any key was last hit.
 uint32_t g_any_key_hit = 0;
@@ -152,7 +152,7 @@ void led_matrix_task(void) {
         g_any_key_hit++;
     }
 
-    for (int led = 0; led < LED_DRIVER_LED_COUNT; led++) {
+    for (int led = 0; led < DRIVER_LED_TOTAL; led++) {
         if (g_key_hit[led] < 255) {
             if (g_key_hit[led] == 254) g_last_led_count = MAX(g_last_led_count - 1, 0);
             g_key_hit[led]++;
@@ -217,7 +217,7 @@ void led_matrix_init(void) {
     wait_ms(500);
 
     // clear the key hits
-    for (int led = 0; led < LED_DRIVER_LED_COUNT; led++) {
+    for (int led = 0; led < DRIVER_LED_TOTAL; led++) {
         g_key_hit[led] = 255;
     }
 
@@ -265,7 +265,7 @@ static uint8_t decrement(uint8_t value, uint8_t step, uint8_t min, uint8_t max) 
 //     uint8_t led[8];
 //     uint8_t led_count = map_row_column_to_led(row, column, led);
 //     for(uint8_t i = 0; i < led_count; i++) {
-//         if (led[i] < LED_DRIVER_LED_COUNT) {
+//         if (led[i] < DRIVER_LED_TOTAL) {
 //             void *address = backlight_get_custom_key_value_eeprom_address(led[i]);
 //             eeprom_update_byte(address, value);
 //         }
