@@ -37,9 +37,9 @@
 #define   _____________________LOWER_R3_______________________ KC_F6,    KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11
 
 /* ------------------------------------------------------------COL1------COL2-----COL3-----COL4-----COL5-----COL6--------- */
-#define   _____________________RAISE_L1_______________________ KC_TAB,   KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,   KC_PERC
-#define   _____________________RAISE_L2_______________________ KC_LSFT,  KC_MPLY, KC_VOLU, KC_VOLD,  XXXXXXX,  XXXXXXX
-#define   _____________________RAISE_L3_______________________ KC_CTLTB  KC_CALC, KC_MPRV, KC_MNXT,  KC_BRIU,  KC_BRID
+#define   _____________________RAISE_L1_______________________ KC_ESC,   KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,   KC_PERC
+#define   _____________________RAISE_L2_______________________ KC_LSFT,  KC_MPLY, KC_VOLU, KC_MNXT,  XXXXXXX,  XXXXXXX
+#define   _____________________RAISE_L3_______________________ KC_CTLTB, KC_CALC, KC_VOLD, KC_MPRV,  KC_BRIU,  KC_BRID
 
 #define   _____________________RAISE_R1_______________________ KC_CIRC,  KC_AMPR, KC_ASTR, KC_LPRN,  KC_RPRN,  KC_DEL
 #define   _____________________RAISE_R2_______________________ KC_MINS,  KC_EQL,  KC_LCBR, KC_RCBR,  KC_PIPE,  KC_GRV
