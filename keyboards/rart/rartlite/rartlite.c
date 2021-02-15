@@ -14,8 +14,10 @@
  */
 #include "rartlite.h"
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
   setPinOutput(B1);
+  
+  keyboard_pre_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
