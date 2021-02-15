@@ -3,6 +3,7 @@
 cli implementation of https://www.pjrc.com/teensy/hid_listen.html
 
 State machine is implemented as follows:
+
      +-+
      +-+                                                More Data?
       |                                              +------------+
@@ -11,10 +12,10 @@ State machine is implemented as follows:
 |             |      |                 |       |            |     |
 |   Search    +----->+     Connect     +------>+   Read     +<----+
 |             |      |                 |       |            |
-+-----^-------+      +-----------------+       +------+-----+
-      |                                               |
++-----+-------+      +-----------------+       +------+-----+
+      ^                                               |
+      |               Disconnect/Error?               |
       +-----------------------------------------------+
-                      Disconnect/Error
 """
 import hid
 import asyncio
