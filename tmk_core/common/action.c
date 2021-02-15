@@ -940,18 +940,23 @@ void unregister_code(uint8_t code) {
 #endif
 }
 
-/** \brief Utilities for actions. (FIXME: Needs better description)
+/** \brief Tap a keycode with a delay.
  *
- * FIXME: Needs documentation.
+ * \param code The basic keycode to tap.
+ * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
+ */
+void tap_code_delay(uint8_t code, uint16_t delay) {
+    register_code(code);
+    wait_ms(delay);
+    unregister_code(code);
+}
+
+/** \brief Tap a keycode with the default delay.
+ *
+ * \param code The basic keycode to tap. If `code` is `KC_CAPS`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
 void tap_code(uint8_t code) {
-    register_code(code);
-    if (code == KC_CAPS) {
-        wait_ms(TAP_HOLD_CAPS_DELAY);
-    } else {
-        wait_ms(TAP_CODE_DELAY);
-    }
-    unregister_code(code);
+    tap_code_delay(code, code == KC_CAPS ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
 }
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
