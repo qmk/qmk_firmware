@@ -54,8 +54,8 @@ def select(cli):
 
     files = []
 
-    if not sys.stdin.isatty():
-        files = sys.stdin.readlines()
+    if cli.args.files == ['-']:
+        files = sys.stdin.read().splitlines()
     elif cli.args.files:
         files = cli.args.files
     elif cli.args.all_files:
