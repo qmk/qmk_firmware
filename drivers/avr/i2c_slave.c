@@ -52,7 +52,7 @@ ISR(TWI_vect) {
 
         case TW_SR_DATA_ACK:
             // This device is a slave receiver and has received data
-            // First byte is the location then the bytes will be writen in buffer with auto-incriment
+            // First byte is the location then the bytes will be writen in buffer with auto-increment
             if (!slave_has_register_set) {
                 buffer_address = TWDR;
 
@@ -60,7 +60,7 @@ ISR(TWI_vect) {
                     ack            = 0;
                     buffer_address = 0;
                 }
-                slave_has_register_set = true;  // address has been receaved now fill in buffer
+                slave_has_register_set = true;  // address has been received now fill in buffer
             } else {
                 i2c_slave_reg[buffer_address] = TWDR;
                 buffer_address++;

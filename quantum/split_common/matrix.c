@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "split_util.h"
 #include "config.h"
-#include "transport.h"
+#include "transactions.h"
 
 #define ERROR_DISCONNECT_COUNT 5
 
