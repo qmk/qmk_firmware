@@ -96,6 +96,7 @@ __attribute__((weak)) void oled_task_user(void) {
 		case 5:
 			oled_write_P(PSTR(" SIX\n"), false);
 			break;
+
 	}
 }
 #endif

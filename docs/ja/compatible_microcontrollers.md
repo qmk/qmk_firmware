@@ -23,7 +23,7 @@ QMK は十分な容量のフラッシュメモリを備えた USB 対応 AVR ま
 
 ## ARM
 
-[ChibiOS](http://www.chibios.org) がサポートする USB 付きの ARM チップを使うこともできます。ほとんどのチップには十分な容量のフラッシュメモリがあります。動作するとわかっているのは:
+[ChibiOS](https://www.chibios.org) がサポートする USB 付きの ARM チップを使うこともできます。ほとんどのチップには十分な容量のフラッシュメモリがあります。動作するとわかっているのは:
 
 ### STMicroelectronics (STM32)
 

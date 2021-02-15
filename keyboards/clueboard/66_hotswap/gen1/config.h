@@ -100,9 +100,6 @@
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -135,4 +132,4 @@
 #define I2C1_SDA 9
 
 #define LED_DRIVER_COUNT 1
-#define LED_DRIVER_LED_COUNT 71
+#define DRIVER_LED_TOTAL 71

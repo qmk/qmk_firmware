@@ -17,6 +17,7 @@ SERIAL_PATH := $(QUANTUM_PATH)/serial_link
 
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
+    $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
@@ -24,6 +25,8 @@ QUANTUM_SRC += \
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
     CONSOLE_ENABLE = yes
+else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
+    OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
@@ -32,6 +35,11 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     MIDI_ENABLE=yes
     SRC += $(QUANTUM_DIR)/api/api_sysex.c
     SRC += $(QUANTUM_DIR)/api.c
+endif
+
+ifeq ($(strip $(COMMAND_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/command.c
+    OPT_DEFS += -DCOMMAND_ENABLE
 endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
@@ -167,7 +175,6 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         WS2812_DRIVER_REQUIRED := yes
     endif
 endif
-
 
 LED_MATRIX_ENABLE ?= no
 VALID_LED_MATRIX_TYPES := IS31FL3731 custom
