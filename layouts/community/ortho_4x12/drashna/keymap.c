@@ -16,9 +16,6 @@
 
 #include "drashna.h"
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-#endif
 
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
@@ -231,7 +228,8 @@ void suspend_wakeup_init_keymap(void) {
 }
 // clang-format on
 
-void rgb_matrix_indicators_user(void) {
+
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
@@ -239,8 +237,6 @@ void rgb_matrix_indicators_user(void) {
 #    ifdef KEYBOARD_planck_ez
     is_ez = true;
 #    endif
-
-    if (g_suspend_state || !rgb_matrix_config.enable) return;
 
 #    if defined(RGBLIGHT_ENABLE)
     if (!userspace_config.rgb_layer_change)
@@ -250,46 +246,46 @@ void rgb_matrix_indicators_user(void) {
     {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             default: {
                 bool mods_enabled = IS_LAYER_ON(_MODS);
                 switch (get_highest_layer(default_layer_state)) {
                     case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                     case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                         break;
                 }
                 break;
@@ -299,35 +295,35 @@ void rgb_matrix_indicators_user(void) {
 
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0xFF);
             break;
         case _COLEMAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xFF, 0x00, 0xFF);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xFF, 0x00, 0xFF);
             break;
         case _DVORAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0x00, 0xFF, 0x00);
             break;
         case _WORKMAN:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21);
+            RGB_MATRIX_INDICATOR_SET_COLOR((is_ez ? 41 : 42), 0xD9, 0xA5, 0x21);
             break;
     }
 
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
         if (!layer_state_cmp(layer_state, _ADJUST)) {
-            rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
+            RGB_MATRIX_INDICATOR_SET_COLOR(24, 0x00, 0xFF, 0x00);
         }
-        rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(36, 0x00, 0xFF, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_CTRL) {
-        rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
-        rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(34, 0xFF, 0x00, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(37, 0xFF, 0x00, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_GUI) {
-        rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
+        RGB_MATRIX_INDICATOR_SET_COLOR(39, 0xFF, 0xD9, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_ALT) {
-        rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
+        RGB_MATRIX_INDICATOR_SET_COLOR(38, 0x00, 0x00, 0xFF);
     }
 }
 
