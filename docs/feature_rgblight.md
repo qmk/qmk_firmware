@@ -82,15 +82,20 @@ Changing the **Value** sets the overall brightness.<br>
 
 Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
 
-|Define               |Default      |Description                                                                  |
-|---------------------|-------------|-----------------------------------------------------------------------------|
-|`RGBLIGHT_HUE_STEP`  |`10`         |The number of steps to cycle through the hue by                              |
-|`RGBLIGHT_SAT_STEP`  |`17`         |The number of steps to increment the saturation by                           |
-|`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
-|`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
-|`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
-|`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
-|`RGBLIGHT_DISABLE_KEYCODES`|*not defined*|If defined, disables the ability to control RGB Light from the keycodes. You must use code functions to control the feature| 
+|Define                     |Default                     |Description                                                                                                                |
+|---------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------|
+|`RGBLIGHT_HUE_STEP`        |`10`                        |The number of steps to cycle through the hue by                                                                            |
+|`RGBLIGHT_SAT_STEP`        |`17`                        |The number of steps to increment the saturation by                                                                         |
+|`RGBLIGHT_VAL_STEP`        |`17`                        |The number of steps to increment the brightness by                                                                         |
+|`RGBLIGHT_LIMIT_VAL`       |`255`                       |The maximum brightness level                                                                                               |
+|`RGBLIGHT_SLEEP`           |*Not defined*               |If defined, the RGB lighting will be switched off when the host goes to sleep                                              |
+|`RGBLIGHT_SPLIT`           |*Not defined*               |If defined, synchronization functionality for split keyboards is added                                                     |
+|`RGBLIGHT_DISABLE_KEYCODES`|*Not defined*               |If defined, disables the ability to control RGB Light from the keycodes. You must use code functions to control the feature|
+|`RGBLIGHT_DEFAULT_MODE`    |`RGBLIGHT_MODE_STATIC_LIGHT`|The default mode to use upon clearing the EEPROM                                                                           |
+|`RGBLIGHT_DEFAULT_HUE`     |`0` (red)                   |The default hue to use upon clearing the EEPROM                                                                            |
+|`RGBLIGHT_DEFAULT_SAT`     |`UINT8_MAX` (255)           |The default saturation to use upon clearing the EEPROM                                                                     |
+|`RGBLIGHT_DEFAULT_VAL`     |`RGBLIGHT_LIMIT_VAL`        |The default value (brightness) to use upon clearing the EEPROM                                                             |
+|`RGBLIGHT_DEFAULT_SPD`     |`0`                         |The default speed to use upon clearing the EEPROM                                                                          |
 
 ## Effects and Animations
 

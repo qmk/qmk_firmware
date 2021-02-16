@@ -84,6 +84,26 @@ static uint8_t mode_base_table[] = {
 #include "rgblight_modes.h"
 };
 
+#if !defined(RGBLIGHT_DEFAULT_MODE)
+#    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_HUE)
+#    define RGBLIGHT_DEFAULT_HUE 0
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_SAT)
+#    define RGBLIGHT_DEFAULT_SAT UINT8_MAX
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_VAL)
+#    define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL
+#endif
+
+#if !defined(RGBLIGHT_DEFAULT_SPD)
+#    define RGBLIGHT_DEFAULT_SPD 0
+#endif
+
 static inline int is_static_effect(uint8_t mode) { return memchr(static_effect_table, mode, sizeof(static_effect_table)) != NULL; }
 
 #ifdef RGBLIGHT_LED_MAP
@@ -183,11 +203,11 @@ void eeconfig_update_rgblight_current(void) { eeconfig_update_rgblight(rgblight_
 
 void eeconfig_update_rgblight_default(void) {
     rgblight_config.enable = 1;
-    rgblight_config.mode   = RGBLIGHT_MODE_STATIC_LIGHT;
-    rgblight_config.hue    = 0;
-    rgblight_config.sat    = UINT8_MAX;
-    rgblight_config.val    = RGBLIGHT_LIMIT_VAL;
-    rgblight_config.speed  = 0;
+    rgblight_config.mode   = RGBLIGHT_DEFAULT_MODE;
+    rgblight_config.hue    = RGBLIGHT_DEFAULT_HUE;
+    rgblight_config.sat    = RGBLIGHT_DEFAULT_SAT;
+    rgblight_config.val    = RGBLIGHT_DEFAULT_VAL;
+    rgblight_config.speed  = RGBLIGHT_DEFAULT_SPD;
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     eeconfig_update_rgblight(rgblight_config.raw);
 }
