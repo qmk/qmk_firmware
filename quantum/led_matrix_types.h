@@ -49,8 +49,8 @@ typedef struct PACKED {
 
 typedef struct PACKED {
     uint8_t matrix_co[MATRIX_ROWS][MATRIX_COLS];
-    point_t point[LED_DRIVER_LED_COUNT];
-    uint8_t flags[LED_DRIVER_LED_COUNT];
+    point_t point[DRIVER_LED_TOTAL];
+    uint8_t flags[DRIVER_LED_TOTAL];
 } led_config_t;
 
 typedef union {

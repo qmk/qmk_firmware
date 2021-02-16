@@ -1,4 +1,4 @@
-/* Copyright 2018 Yiancar
+/* Copyright 2021 Atsushi Nagase
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,24 +15,31 @@
  */
 #include QMK_KEYBOARD_H
 
+enum meishi2_moc_layers {
+    _DEFAULT,
+    _RAISE
+};
+
+#define PRO_MICRO_LED_TX D5
+#define RAISE MO(_RAISE)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = LAYOUT_iso( /* Base */
-            KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS, KC_EQL, KC_BSPC, \
-    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC, KC_RBRC,         \
-    KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT, KC_NUHS,KC_ENT,  \
-    KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,                 KC_RSFT, \
-    KC_SPC,    KC_SPC,     KC_RALT, KC_RGUI,     KC_RGUI,    KC_RCTL  \
-),
+  [_DEFAULT] = LAYOUT( /* Base */
+    RAISE, KC_B, KC_N, KC_SPC
+  ),
+  [_RAISE] = LAYOUT( /* Raise */
+    _______, KC_LEFT, KC_RGHT, LSFT(KC_S)
+  )
 };
 
 void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
+  setPinOutput(PRO_MICRO_LED_TX);
+  writePinHigh(PRO_MICRO_LED_TX);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (keycode == RAISE) {
+    writePin(PRO_MICRO_LED_TX, !record->event.pressed);
+  }
   return true;
 }
