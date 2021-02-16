@@ -1,4 +1,4 @@
-/* Copyright 2021 UTDKeyboard 
+/* Copyright 2021 UTDKeyboard & Dominic Gan
  * 
  * this program is free software: you can redistribute it and/or modify 
  * it under the terms of the gnu general public license as published by 
