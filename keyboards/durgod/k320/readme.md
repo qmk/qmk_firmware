@@ -1,6 +1,6 @@
 # K320
 
-This is a standard fixed ANSI TKL from off the shelf Durgod Taurus K320 without Backlight.
+This is a standard off the shelf Durgod Taurus K320 TKL keyboard without Backlight.
 
 * Keyboard Maintainer: [dkjer](https://github.com/dkjer)
 * Hardware Supported: Durgod Taurus K320 board with STM32F070RBT6
