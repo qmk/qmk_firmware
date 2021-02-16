@@ -160,7 +160,9 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) { return state; }
+    if (!is_keyboard_master()) {
+        return state;
+    }
 
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGBLIGHT_ENABLE)
@@ -170,7 +172,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     static bool is_gamepad_on = false;
     if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
         is_gamepad_on = layer_state_cmp(state, _GAMEPAD);
-        if (is_gamepad_on) { PLAY_LOOP(doom_song); } else { stop_all_notes(); }
+        if (is_gamepad_on) {
+            PLAY_LOOP(doom_song);
+        } else {
+            stop_all_notes();
+        }
     }
 #endif
     return layer_state_set_keymap(state);
@@ -180,7 +186,9 @@ __attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t
 
 // Runs state check and changes underglow color and animation
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) { return state; }
+    if (!is_keyboard_master()) {
+        return state;
+    }
 
     state = default_layer_state_set_keymap(state);
 #if 0

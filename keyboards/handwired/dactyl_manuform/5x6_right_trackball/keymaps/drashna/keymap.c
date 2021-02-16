@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static uint16_t mouse_timer           = 0;
 static uint16_t mouse_debounce_timer  = 0;
 static uint8_t  mouse_keycode_tracker = 0;
-bool     tap_toggling          = false;
+bool            tap_toggling          = false;
 
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     if ((x || y) && timer_elapsed(mouse_timer) > 125) {
@@ -162,12 +162,12 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
         }
     }
 
-#ifdef TAPPING_TERM_PER_KEY
+#    ifdef TAPPING_TERM_PER_KEY
     if (timer_elapsed(mouse_debounce_timer) > get_tapping_term(KC_BTN1, NULL)
-#else
+#    else
     if (timer_elapsed(mouse_debounce_timer) > TAPPING_TERM
-#endif
-    || layer_state_is(_GAMEPAD)) {
+#    endif
+        || layer_state_is(_GAMEPAD)) {
         mouse_report->x = x;
         mouse_report->y = y;
     }

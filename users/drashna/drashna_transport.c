@@ -283,25 +283,25 @@ typedef struct _Serial_s2m_buffer_t {
     // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
     matrix_row_t smatrix[ROWS_PER_HAND];
 #    ifdef ENCODER_ENABLE
-    uint8_t      encoder_state[NUMBER_OF_ENCODERS];
+    uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
-    int8_t       mouse_x;
-    int8_t       mouse_y;
+    int8_t mouse_x;
+    int8_t mouse_y;
 } __attribute__((packed)) Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
 #    ifdef SPLIT_MODS_ENABLE
-    uint8_t       real_mods;
-    uint8_t       weak_mods;
+    uint8_t real_mods;
+    uint8_t weak_mods;
 #        ifndef NO_ACTION_ONESHOT
-    uint8_t       oneshot_mods;
+    uint8_t oneshot_mods;
 #        endif
 #    endif
 #    ifdef BACKLIGHT_ENABLE
-    uint8_t       backlight_level;
+    uint8_t backlight_level;
 #    endif
 #    ifdef WPM_ENABLE
-    uint8_t       current_wpm;
+    uint8_t current_wpm;
 #    endif
     bool          oled_on;
     layer_state_t t_layer_state;
@@ -411,12 +411,12 @@ bool transport_master(matrix_row_t matrix[]) {
 
 #    ifdef WPM_ENABLE
     // Write wpm to slave
-    serial_m2s_buffer.current_wpm  = get_current_wpm();
+    serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE
-    serial_m2s_buffer.real_mods    = get_mods();
-    serial_m2s_buffer.weak_mods    = get_weak_mods();
+    serial_m2s_buffer.real_mods = get_mods();
+    serial_m2s_buffer.weak_mods = get_weak_mods();
 #        ifndef NO_ACTION_ONESHOT
     serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
 #        endif
@@ -431,10 +431,10 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 #    endif
 
-    serial_m2s_buffer.t_layer_state           = layer_state;
-    serial_m2s_buffer.t_default_layer_state   = default_layer_state;
+    serial_m2s_buffer.t_layer_state         = layer_state;
+    serial_m2s_buffer.t_default_layer_state = default_layer_state;
 #    ifdef OLED_DRIVER_ENABLE
-    serial_m2s_buffer.oled_on                 = is_oled_on();
+    serial_m2s_buffer.oled_on = is_oled_on();
 #    endif
 
 #    ifdef RGB_MATRIX_ENABLE
