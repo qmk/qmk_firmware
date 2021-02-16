@@ -410,74 +410,22 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_MOUSEKEY:
             if (event.pressed) {
                 mousekey_on(action.key.code);
-                switch (action.key.code) {
-#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-                    case KC_MS_BTN1:
-                        register_button(true, MOUSE_BTN1);
-                        break;
-                    case KC_MS_BTN2:
-                        register_button(true, MOUSE_BTN2);
-                        break;
-                    case KC_MS_BTN3:
-                        register_button(true, MOUSE_BTN3);
-                        break;
-#    endif
-#    ifdef POINTING_DEVICE_ENABLE
-                    case KC_MS_BTN4:
-                        register_button(true, MOUSE_BTN4);
-                        break;
-                    case KC_MS_BTN5:
-                        register_button(true, MOUSE_BTN5);
-                        break;
-                    case KC_MS_BTN6:
-                        register_button(true, MOUSE_BTN6);
-                        break;
-                    case KC_MS_BTN7:
-                        register_button(true, MOUSE_BTN7);
-                        break;
-                    case KC_MS_BTN8:
-                        register_button(true, MOUSE_BTN8);
-                        break;
-#    endif
-                    default:
-                        mousekey_send();
-                        break;
-                }
             } else {
                 mousekey_off(action.key.code);
-                switch (action.key.code) {
+            }
+            switch (action.key.code) {
 #    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-                    case KC_MS_BTN1:
-                        register_button(false, MOUSE_BTN1);
-                        break;
-                    case KC_MS_BTN2:
-                        register_button(false, MOUSE_BTN2);
-                        break;
-                    case KC_MS_BTN3:
-                        register_button(false, MOUSE_BTN3);
-                        break;
+#        ifdef POINTING_DEVICE_ENABLE
+                case KC_MS_BTN1 ... KC_MS_BTN8:
+#        else
+                case KC_MS_BTN1 ... KC_MS_BTN3:
+#        endif
+                    register_button(event.pressed, MOUSE_BTN_MASK(action.key.code - KC_MS_BTN1));
+                    break;
 #    endif
-#    ifdef POINTING_DEVICE_ENABLE
-                    case KC_MS_BTN4:
-                        register_button(false, MOUSE_BTN4);
-                        break;
-                    case KC_MS_BTN5:
-                        register_button(false, MOUSE_BTN5);
-                        break;
-                    case KC_MS_BTN6:
-                        register_button(false, MOUSE_BTN6);
-                        break;
-                    case KC_MS_BTN7:
-                        register_button(false, MOUSE_BTN7);
-                        break;
-                    case KC_MS_BTN8:
-                        register_button(false, MOUSE_BTN8);
-                        break;
-#    endif
-                    default:
-                        mousekey_send();
-                        break;
-                }
+                default:
+                    mousekey_send();
+                    break;
             }
             break;
 #endif
