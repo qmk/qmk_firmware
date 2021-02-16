@@ -214,6 +214,8 @@ void keyboard_post_init_user (void) {
     layer_move (_DEF_BASE);
 # endif
 
+    _fun_stay = TRUE; // startup with F-keys not returning to Base after stroke (_FUN)
+
 }
 
 

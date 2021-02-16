@@ -8,52 +8,51 @@ _https://thekey.company_
 Table of Contents
 =================
 
-      0  Overview
-          0.1 Hardware compatibility
-          0.2 Software compatibility
-      1  'make' example
-      2  Base layouts
-          2.1  Normal layouts
-                2.1.1 Qwerty
-                2.1.2 Qwerty with arrows on Base
-                2.1.3 Dvorak
-                2.1.4 Dvorak² 
-                2.1.5 Colemak
-                2.1.6 Workman
-          2.2 Special layouts
-                2.2.1 Numbers pad
-      3 The common system
-          3.1 Main features 
-          3.2 Layer access
-          3.3 Layout in graphics
-          3.4 Layout in text
-          3.5 Movement layer options
-          3.6 Numbers pad layer options
-      4 Led colors for layers
-      5 Compile options
-      6 Language support
-          6.1 Input methods
-          6.2 Unicode symbols
-      7 Speed measuring
-          7.1 Speed Led color compilation assist
-      8 Text size measuring
-          8.1 Text size Usage
-      9 Making your own base layer(s)
-     10 Eviscerations
-     11 Key associations
-     12 Trouble shooting
-        • Flashing firmware
+      1  Overview
+          1.1 Hardware compatibility
+          1.2 Software compatibility
+      2  'make' example
+      3  Base layouts
+          3.1  Normal layouts
+                3.1.1 Qwerty
+                3.1.2 Qwerty with arrows on Base
+                3.1.3 Dvorak
+                3.1.4 Dvorak² 
+                3.1.5 Colemak
+                3.1.6 Workman
+          3.2 Special layouts
+                3.2.1 Numbers pad
+      4 The common system
+          4.1 Main features 
+          4.2 Layer access
+          4.3 Layout in graphics
+          4.4 Layout in text
+          4.5 Movement layer options
+          4.6 Numbers pad layer options
+      5 Led colors for layers
+      6 Compile options
+      7 Language support
+          7.1 Input methods
+          7.2 Unicode symbols
+      8 Speed measuring
+          8.1 Speed Led color compilation assist
+      9 Text size measuring
+          9.1 Text size Usage
+     10 Making your own base layer(s)
+     11 Eviscerations
+     12 Key associations
+     13 Trouble shooting
+        • Compiling
         • Unicode
         • Leds
-        • Middle led
         • Weird layer jumping
         • Difficult/impossible key combinations ?
-     13 Why you want this layout
-     14 BUGS
-     15 Resources
-     16 Author(s)
+     14 Why you want this layout
+     15 BUGS
+     16 Resources
+     17 Author(s)
 
-0 Overview
+1 Overview
 ==========
 _A layout for the demanding keyboard user (10 fingers / blind)._
 Designed for intuitive key placement, more symbols than standard English
@@ -69,14 +68,14 @@ By key view:
 
 ![Minivan illustration Overview layers by key](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_2000_vh.jpg)
 
-0.1 Hardware compatibility
+1.1 Hardware compatibility
 ==========================
 This keymap functions on _Minivan_ hardware variants with 44, 45 and
 46 keys.
 
 It may be fairly easily ported to 12x12x12x[11|12|13] keyboards.
 
-0.2 Software compatibility
+1.2 Software compatibility
 ==========================
 This keymap relies on Unicode, in an attempt to avoid the 
 “dead key” system for accented characters on many non-English keyboards.
@@ -97,7 +96,7 @@ different keyboard language setting in your operating system.
 
 See also chapter 6 _Language support_.
 
-1 'make' example
+2 'make' example
 ================
      … Download the repository, resolve software dependencies etc..
      … To change compile options: edit user_config.h (or `minifan_config_compact.h`)
@@ -115,38 +114,38 @@ layer pairs (two pairs in the dual layout) are explained in their
 separate readme file, see immediately below. Compile options are detailed
 in `./user_config.h`.
 
-2 Base layouts
+3 Base layouts
 ==============
 Layouts are presented here in a sort of simplified keycaps view.  If a
 base layer pair has its own user configuration options, they are located
 in `./base_NAME.h`.
 
-2.1 Normal layouts
+3.1 Normal layouts
 ------------------
 These are layouts for commonly used configurations, such as Qwerty or Dvorak.
 
-2.1.1 Qwerty
+3.1.1 Qwerty
 ------------
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_vc.jpg)
 
 For the readme about the Qwerty version, see ➡ ![base_qwerty.md](./base_qwerty.md) ⬅
 
-2.1.2 Qwerty with arrows on Base
+3.1.2 Qwerty with arrows on Base
 --------------------------------
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_qwerty_basearrow_vd.jpg)
 
 For the readme about this Qwerty variation, see ➡ ![base_qwerty_basearrow.md](./base_qwerty_basearrow.md) ⬅
 
-2.1.3 Dvorak
+3.1.3 Dvorak
 -------------
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_vc.jpg)
 
 For the readme about the Dvorak version, see ➡ ![base_dvorak.md](./base_dvorak.md) ⬅
 
-2.1.4 Dvorak² 
+3.1.4 Dvorak² 
 -------------
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_dvorak_descramble_vb.jpg)
@@ -155,26 +154,26 @@ Regular Dvorak for a computer already set to Dvorak.
 
 For the readme about the Dvorak² version, see ➡ ![base_dvorak_descramble.md](./base_dvorak_descramble.md) ⬅
 
-2.1.5 Colemak
+3.1.5 Colemak
 -------------
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_colemak_vc.jpg)
 
 For the readme about the Colemak version, see ➡ ![base_colemak.md](./base_colemak.md) ⬅
 
-2.1.6 Workman
+3.1.6 Workman
 -------------
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_workman_va.jpg)
 
 For the readme about the Workman version, see ➡ ![base_workman.md](./base_workman.md) ⬅
 
-2.2 Special layouts
+3.2 Special layouts
 ===================
 These are unusual layouts. Most people will probably only want one of these on the ‛Alternate’ layout,
 with a normal layout on ‛Default’. How this works is explained below.
 
-2.2.1 Numbers pad
+3.2.1 Numbers pad
 -----------------
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_numpad_single_va.jpg)
@@ -182,12 +181,12 @@ with a normal layout on ‛Default’. How this works is explained below.
 For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad.md) ⬅
 
 
-3 The common system
+4 The common system
 ===================
 
 ![Minivan layout impression](http://socialism.nl/misc/minivan/minivan_keycapview_common_vc.jpg)
 
-3.1 Main features 
+4.1 Main features 
 -----------------
      • Dual layout. Several layouts to choose from (example: Qwerty
        and Dvorak dual layout). Easy to add more layouts.
@@ -200,7 +199,7 @@ For the readme about the Numpad version, see ➡ ![base_numpad.md](./base_numpad
        characters, the middle led will go from green to red as you go,
        and prevent you going over the limit.
 
-3.2 Layer access
+4.2 Layer access
 ----------------
 This graphic shows how layers are reached from the ‛Default base’ layer.
 
@@ -235,7 +234,7 @@ There are some additional layer switching keys due to key transparency
 artefacts, allowing for example to go back to ‛Base’ from a toggled `_MOV` 
 layer with what is the ‛Enter’ key on Base.
 
-3.3 Layout in graphics
+4.3 Layout in graphics
 ----------------------
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_ve.jpg)
@@ -276,7 +275,7 @@ and options to compile with the 'arrow' hardware layout.
 ![Minivan layout Image RAR](http://socialism.nl/misc/minivan/minivan_rar_layer_vc.jpg)
 Layer: `_RAR`
 
-3.4 Layout in text
+4.4 Layout in text
 ------------------
          Layer _DEF_BASE (Letters layer, see ./base* files for what comes on ‛__’)
                                                   | Right hand
@@ -597,7 +596,7 @@ Remarks. ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
     
 - - -
 
-3.5 Movement layer options
+4.5 Movement layer options
 --------------------------
 The movement layer (`_MOV`) has several configuration options. You
 can either have _triangle_ configuration arrows on the _left_ hand
@@ -641,7 +640,7 @@ can compile this second arrow cluster to be completed with navigation keys
 
 ^ `#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
 
-3.6 Numbers pad layer options
+4.6 Numbers pad layer options
 -----------------------------
 This concerns the numbers pad layer, the one that is part of the common layers.
 
@@ -651,7 +650,7 @@ This concerns the numbers pad layer, the one that is part of the common layers.
 
 ^ `#define NUMPAD_COMMON_SQUARE`
 
-4 Led colors for layers
+5 Led colors for layers
 =======================
       • letters                          Led: low-white/teal/off⁽¹⁾          _DEF_BASE "Default base"
         • letters (alternate)              Led: off/teal/low-white           _ALT_BASE "Alternate base"
@@ -684,7 +683,7 @@ This concerns the numbers pad layer, the one that is part of the common layers.
             • Leds can be switched on/off on the _RAR layer (SLeds, MLed).
 
 
-5 Compile options
+6 Compile options
 =================
          Layout
 
@@ -729,10 +728,10 @@ This concerns the numbers pad layer, the one that is part of the common layers.
 
  For the complete list, see `./user_config.h`.
 
-6 Language support
+7 Language support
 ==================
 
-6.1 Input methods
+7.1 Input methods
 =================
 There seem to generally be two ways in QMK for typing a language other than English.
 One is to use a language specific remapping on the computer operating side, and
@@ -749,7 +748,7 @@ running. There is no need for a “dead key”.  The language setting
 in the computer operating system can be set to English. This layout is
 designed for this method, to avoid the dead key problem.
 
-6.2 Unicode symbols
+7.2 Unicode symbols
 ===================
 For the remainder of this chapter the Unicode input method is assumed.
 
@@ -775,7 +774,7 @@ See the `_ACC` _accented characters_ layer for all characters with diacretic mar
 If you miss a symbol, you could replace one you don't use and add it yourself (by
 reprogramming the source code).
 
-7 Speed measuring
+8 Speed measuring
 =================
       ‛Speed’ starts speed measuring.
       ‛SRprt’ stands for ‛Speed Report’:
@@ -804,14 +803,14 @@ Example: <150wpm;108wpm20x25keys>
 Batches with 0 k/s are not counted to the average. You can take a
 longer break without it affecting your average.
 
-7.1 Speed Led color compilation assist
+8.1 Speed Led color compilation assist
 --------------------------------------
 If you hold the ‛Speed Report’ key for one second, it will increment the
 speed, and led color accordingly. This can be helpful when configuring
 your speed measuring compile settings. This works best with speed
 measuring set off.
 
-8 Text size measuring
+9 Text size measuring
 =====================
       ‛Cnt/Mx’ stands for ‛Count/Maximum’: 
                 • Tap to start counting, tap again to suspend.
@@ -875,7 +874,7 @@ If you have a maximum established and use it across different articles,
 you no longer have the total count. You can activate speed measuring,
 which in its report includes the total characters pressed.
 
-8.1 Text size Usage
+9.1 Text size Usage
 -------------------
 It is assumed that you will take the report in the document you are
 editing, and then delete it. If you do character counting, the value of 
@@ -910,8 +909,8 @@ Navigation, arrow and mouse keys do not get counted. Auto-repeating
 of keys does not affect the *character* count, therefore should be avoided
 if you want to count in characters.
 
-9 Making your own base layer(s)
-===============================
+10 Making your own base layer(s)
+================================
 You can insert your own `_DEF_BASE`, `_DEF_NSY` and/or `_ALT_BASE`, `_ALT_NSY`
 Base plus number/symbols layer pairs, integrate it nicely with the rest 
 of the code, and re-define a special characters layer to go with it if
@@ -1037,7 +1036,7 @@ You can also just #include your header file at the top of your
 `./base_YOUR_KEYMAP.h` file, if it does not touch anything else but your
 local keymap.
 
-10 Eviscerations
+11 Eviscerations
 ================
 Cutting down the keymap reduces the firmware size, and helps reducing
 mental clutter from having masses of symbols you might never want to use.
@@ -1054,7 +1053,7 @@ You can remove a set of symbols from one or more of Unicode layers,
 such as not having box drawing characters on `_BON`, or no sub-script
 numbers on `_DRA`.
 
-11 Key associations
+12 Key associations
 ===================
 The keymap was designed to have the same or similar keys on the same key
 or close to it, on different layers. Sometimes the association goes by
@@ -1064,14 +1063,13 @@ another layer.
 
 ![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_vd.jpg)
 
-12 Trouble shooting
+13 Trouble shooting
 ===================
-  • Flashing firmware
+  • Compiling
 
-  When you flash your board, suddenly your Unicode doesn't work, or your
-  leds seem to be broken. What seems to happen sometimes is that after
-  flashing the value of a user option ends up in a different state than
-  you expected.
+  If the firmware is too large, you can try using a different version
+  of the compiler, or you may have to reduce size by removing certain
+  options.
 
   • Unicode
 
@@ -1080,19 +1078,14 @@ another layer.
 
   • Leds
 
-  Leds not working: try going to `_RAR` layer, and hit the key MLeds
-  and SLeds, which switch Leds on/off.
-
-  • Middle led
-
-  Middle led not showing layer: you may have compiled it with speed
-  measuring on at startup.
+  Leds not working after flashing firmware: try going to `_RAR` layer, 
+  and hit the key MLeds and SLeds, which switch Leds on/off.
 
   • Weird layer jumping
 
   You weirdly end up on the `_PAD`, `_FUN` or some other layer while
-  typing ? This is a typing mistake. You have to learn that unnecessary
-  pressing of the Shift keys.
+  typing ? If you jump to layers which are on Shift key toggles, this
+  is a typing mistake. 
 
   • Difficult/impossible key combinations ?
 
@@ -1105,7 +1098,7 @@ another layer.
   go of the `_RAR` layer (which again communicates nothing), let go of
   the Control key (which should communicate “Control released”).. 
 
-13 Why you want this layout
+14 Why you want this layout
 ===========================
 ☞  This layout seems easy to learn and predictable.
 
@@ -1160,7 +1153,7 @@ another layer.
   it easier to follow.
 
 
-14 BUGS
+15 BUGS
 =======
   No real bugs known currently. Just some minor issues …
 
@@ -1178,14 +1171,14 @@ another layer.
   a lot of #defines. Perhaps it should be done eventually, if there is an actual need.
 
 
-15 Resources
+16 Resources
 ============
 This links to an external file, with some development resources like
 Gimp .xcf files, pre-compiled hex files, …
 
 [Resources](http://socialism.nl/misc/minivan/ "Additional resources")
 
-16 Author(s)
+17 Author(s)
 ============
   This keymap.c was edited from the Minivan default, original LED
   support was copied/edited from ../jetpacktuxedo/ keymap. Thanks to 
