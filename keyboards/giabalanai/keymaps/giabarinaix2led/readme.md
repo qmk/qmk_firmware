@@ -1,1 +1,1 @@
-# The default keymap for giabalanai
+# A keymap for giabaRInaix2 with LEDs.
