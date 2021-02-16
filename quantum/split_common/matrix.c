@@ -257,7 +257,7 @@ bool matrix_post_scan(void) {
         static uint8_t error_count;
 
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
-        if (!transport_master(slave_matrix)) {
+        if (!transport_master(matrix + thisHand, slave_matrix)) {
             error_count++;
 
             if (error_count > ERROR_DISCONNECT_COUNT) {
@@ -282,7 +282,7 @@ bool matrix_post_scan(void) {
 
         matrix_scan_quantum();
     } else {
-        transport_slave(matrix + thisHand);
+        transport_slave(matrix + thatHand, matrix + thisHand);
 
         matrix_slave_scan_user();
     }

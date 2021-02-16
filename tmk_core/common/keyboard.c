@@ -54,6 +54,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
@@ -304,6 +307,9 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init();
+#endif
 #ifdef ENCODER_ENABLE
     encoder_init();
 #endif
@@ -326,6 +332,17 @@ void keyboard_init(void) {
 #endif
 
     keyboard_post_init_kb(); /* Always keep this last */
+}
+
+/** \brief key_event_task
+ *
+ * This function is responsible for calling into other systems when they need to respond to electrical switch press events.
+ * This is differnet than keycode events as no layer processing, or filtering occurs.
+ */
+void switch_events(uint8_t row, uint8_t col, bool pressed) {
+#if defined(RGB_MATRIX_ENABLE)
+    process_rgb_matrix(row, col, pressed);
+#endif
 }
 
 /** \brief Keyboard task: Do keyboard routine jobs
@@ -358,32 +375,35 @@ void keyboard_task(void) {
     uint8_t matrix_changed = matrix_scan();
     if (matrix_changed) last_matrix_activity_trigger();
 
-    if (should_process_keypress()) {
-        for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-            matrix_row    = matrix_get_row(r);
-            matrix_change = matrix_row ^ matrix_prev[r];
-            if (matrix_change) {
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+        matrix_row    = matrix_get_row(r);
+        matrix_change = matrix_row ^ matrix_prev[r];
+        if (matrix_change) {
 #ifdef MATRIX_HAS_GHOST
-                if (has_ghost_in_row(r, matrix_row)) {
-                    continue;
-                }
+            if (has_ghost_in_row(r, matrix_row)) {
+                continue;
+            }
 #endif
-                if (debug_matrix) matrix_print();
-                matrix_row_t col_mask = 1;
-                for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
-                    if (matrix_change & col_mask) {
+            if (debug_matrix) matrix_print();
+            matrix_row_t col_mask = 1;
+            for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
+                if (matrix_change & col_mask) {
+                    if (should_process_keypress()) {
                         action_exec((keyevent_t){
                             .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & col_mask), .time = (timer_read() | 1) /* time should not be 0 */
                         });
-                        // record a processed key
-                        matrix_prev[r] ^= col_mask;
-#ifdef QMK_KEYS_PER_SCAN
-                        // only jump out if we have processed "enough" keys.
-                        if (++keys_processed >= QMK_KEYS_PER_SCAN)
-#endif
-                            // process a key per task call
-                            goto MATRIX_LOOP_END;
                     }
+                    // record a processed key
+                    matrix_prev[r] ^= col_mask;
+
+                    switch_events(r, c, (matrix_row & col_mask));
+
+#ifdef QMK_KEYS_PER_SCAN
+                    // only jump out if we have processed "enough" keys.
+                    if (++keys_processed >= QMK_KEYS_PER_SCAN)
+#endif
+                        // process a key per task call
+                        goto MATRIX_LOOP_END;
                 }
             }
         }
@@ -403,6 +423,10 @@ MATRIX_LOOP_END:
 
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_task();
 #endif
 
 #if defined(BACKLIGHT_ENABLE)

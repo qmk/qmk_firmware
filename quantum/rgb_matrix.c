@@ -184,11 +184,12 @@ void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) { rgb_matrix_driver.set_color_all(red, green, blue); }
 
-bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
+void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
+#ifndef RGB_MATRIX_SPLIT
+    if (!is_keyboard_master()) return;
+#endif
 #if RGB_DISABLE_TIMEOUT > 0
-    if (record->event.pressed) {
-        rgb_anykey_timer = 0;
-    }
+    rgb_anykey_timer = 0;
 #endif  // RGB_DISABLE_TIMEOUT > 0
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
@@ -196,12 +197,12 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     uint8_t led_count = 0;
 
 #    if defined(RGB_MATRIX_KEYRELEASES)
-    if (!record->event.pressed)
+    if (!pressed)
 #    elif defined(RGB_MATRIX_KEYPRESSES)
-    if (record->event.pressed)
+    if (pressed)
 #    endif  // defined(RGB_MATRIX_KEYRELEASES)
     {
-        led_count = rgb_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+        led_count = rgb_matrix_map_row_column_to_led(row, col, led);
     }
 
     if (last_hit_buffer.count + led_count > LED_HITS_TO_REMEMBER) {
@@ -224,11 +225,9 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
     if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
-        process_rgb_matrix_typing_heatmap(record);
+        process_rgb_matrix_typing_heatmap(row, col);
     }
 #endif  // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
-
-    return true;
 }
 
 void rgb_matrix_test(void) {

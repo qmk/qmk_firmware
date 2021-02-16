@@ -221,9 +221,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
 #endif  // HAPTIC_ENABLE
-#if defined(RGB_MATRIX_ENABLE)
-            process_rgb_matrix(keycode, record) &&
-#endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
@@ -624,9 +621,6 @@ void matrix_init_quantum() {
 #ifdef AUDIO_ENABLE
     audio_init();
 #endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
-#endif
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
 #endif
@@ -679,10 +673,6 @@ void matrix_scan_quantum() {
 
 #ifdef LED_MATRIX_ENABLE
     led_matrix_task();
-#endif
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_task();
 #endif
 
 #ifdef WPM_ENABLE
