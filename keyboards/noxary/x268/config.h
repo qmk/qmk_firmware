@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4E58 //"NX"
-#define PRODUCT_ID      0x010C //268
+#define PRODUCT_ID      0x0A7B //2683
 #define DEVICE_VER      0x0078 //"x"
 #define MANUFACTURER    Noxary
 #define PRODUCT         x268
