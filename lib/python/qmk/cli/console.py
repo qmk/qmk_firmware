@@ -18,10 +18,33 @@ State machine is implemented as follows:
       +-----------------------------------------------+
 """
 import hid
-import asyncio
-import signal
+import queue
+import time
 
 from milc import cli
+
+
+class StateMachine(queue.Queue):
+    def transition(self, func, *args):
+        self.put(lambda: func(self, *args))
+
+    def transition_later(self, delay, func, *args):
+        time.sleep(delay)
+        self.put(lambda: func(self, *args))
+
+    def on_exception(self, func):
+        self._except_func = func
+
+    def run_forever(self):
+        while True:
+            try:
+                f = self.get()
+                f()
+            except KeyboardInterrupt:
+                break
+            except BaseException as e:
+                if self._except_func:
+                    self._except_func(e)
 
 
 def _is_console_hid(x):
@@ -39,35 +62,35 @@ def list_devices():
         cli.log.info("  %02x:%02x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
 
 
-def state_search(state_machine):
+def state_search(sm):
     print('.', end='', flush=True)
+
     found = _search()
     selected = found[0] if found[0:] else None
 
     if selected:
-        state_machine.call_later(1, state_connect, state_machine, selected)
+        sm.transition_later(0.5, state_connect, selected)
     else:
-        state_machine.call_later(1, state_search, state_machine)
+        sm.transition_later(1, state_search)
 
 
-def state_connect(state_machine, selected):
+def state_connect(sm, selected):
     print()
     print('Listening to %s:' % selected['path'].decode())
     device = hid.Device(path=selected['path'])
-    state_machine.call_soon(state_read, state_machine, device)
+    sm.transition_later(1, state_read, device)
 
 
-def state_read(state_machine, device):
+def state_read(sm, device):
     print(device.read(32).decode('ascii'), end='')
-    state_machine.call_later(0.1, state_read, state_machine, device)
+    sm.transition(state_read, device)
 
 
-def state_exception(state_machine, context):
-    # print('Exception handler called')
-    # print(context)
+def state_exception(sm, context):
+    # print(str(e))
     print('Device disconnected.')
     print('Waiting for new device:')
-    state_machine.call_soon(state_search, state_machine)
+    sm.transition(state_search)
 
 
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available hid_listen devices.')
@@ -81,13 +104,8 @@ def console(cli):
 
     print('Waiting for device:')
 
-    state_machine = asyncio.get_event_loop()
+    sm = StateMachine()
+    sm.transition(state_search)
+    sm.on_exception(lambda e: sm.transition(state_exception, e))
 
-    state_machine.add_signal_handler(signal.SIGINT, state_machine.stop)  # Handle ctrl+c
-    state_machine.set_exception_handler(state_exception)  # Handle disconnect/connect errors
-    state_machine.call_soon(state_search, state_machine)
-
-    try:
-        state_machine.run_forever()
-    finally:
-        state_machine.close()
+    sm.run_forever()
