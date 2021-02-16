@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-  QWERTY = 0,
+  QWERTY,
   LOWER,
   RAISE,
   FUNCS
