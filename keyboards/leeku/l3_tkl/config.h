@@ -48,13 +48,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 17
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
-#define RGBLED_NUM 20
 
-/*
+/* The RGB on this PCB is strange so I've limited it to 16 on the bottom */
+#define RGBLED_NUM 20
 #define RGBLIGHT_CLIP_START 2
-#define RGBLIGHT_CLIP_LEDS 16 // <= RGBLED_NUM
-#define RGBLIGHT_LED_MAP {2, 3, 1, 4, 5, 6, 7, 8, 0, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}
-*/
+#define RGBLIGHT_CLIP_LEDS 16
+
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
