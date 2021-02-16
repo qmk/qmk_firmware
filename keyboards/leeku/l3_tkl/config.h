@@ -38,8 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* i2c */
-#define I2C_BITRATE_KHZ 400
-#define I2C_TARGET_ADDR 0xB0
+#define WS2812_ADDRESS 0xb0
+#define WS2812_TIMEOUT 100
 
 /* bling */
 #define BACKLIGHT_LEVELS 1
@@ -48,10 +48,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 17
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
-#define RGBLED_NUM 16
+#define RGBLED_NUM 20
+
+/*
 #define RGBLIGHT_CLIP_START 2
 #define RGBLIGHT_CLIP_LEDS 16 // <= RGBLED_NUM
-/* #define RGBLIGHT_LED_MAP {2, 3, 1, 4, 5, 6, 7, 8, 0, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19} */
+#define RGBLIGHT_LED_MAP {2, 3, 1, 4, 5, 6, 7, 8, 0, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}
+*/
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO

@@ -33,21 +33,14 @@ AUDIO_ENABLE = no
 # Bling
 SLEEP_LED_ENABLE = no        # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
+BACKLIGHT_DRIVER = custom    # It's on i2c driver
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
-BACKLIGHT_DRIVER = custom
-RGBLIGHT_CUSTOM_DRIVER = yes
+WS2812_DRIVER = i2c
 
-# USB Config needed for stability on QMK > 11.x
-SHARED_EP_ENABLE = yes
-KEYBOARD_SHARED_EP = yes
-
-# includes
-SRC += 	led_l3.c \
-		tinycmdmain.c
-
+SRC += 	l3_common.c
 QUANTUM_LIB_SRC += i2c_master.c
 
-WATCHDOG_ENABLE = yes		# Resets keyboard if matrix_scan isn't run every 250ms
+WATCHDOG_ENABLE = yes		# Resets keyboard if matrix_scan isn't run every 2 seconds
 ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
      TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
 endif

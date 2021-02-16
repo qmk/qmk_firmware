@@ -38,8 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* i2c */
-#define I2C_BITRATE_KHZ 400
-#define I2C_TARGET_ADDR 0xB0
+#define WS2812_ADDRESS 0xb0
+#define WS2812_TIMEOUT 100
 
 /* bling - disabled in rules.mk */
 #define BACKLIGHT_LEVELS 1

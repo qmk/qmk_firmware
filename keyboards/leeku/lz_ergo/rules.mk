@@ -30,21 +30,14 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 AUDIO_ENABLE = no
 
-# Bling
-SLEEP_LED_ENABLE = no             # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-BACKLIGHT_ENABLE = no             # There are known issues with the backlight LEDs on this PCB.  Be careful or you may need an ISP programmer to recover it.
-RGBLIGHT_ENABLE = no              # There are known issues with the RGB on this PCB.  Be careful or you may need an ISP programmer to recover it.
-# BACKLIGHT_DRIVER = custom       # Enable this if you want to use the backlight
-# RGBLIGHT_CUSTOM_DRIVER = yes	  # Enable this if you want to use the RGBling
+# Bling - Be careful because the LZ Ergo has known issues with the LEDs.
+# SLEEP_LED_ENABLE = no        # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+# BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
+# BACKLIGHT_DRIVER = custom    # It's on i2c driver
+# RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
+# WS2812_DRIVER = i2c
 
-# USB Config needed for stability on QMK > 11.x
-SHARED_EP_ENABLE = yes
-KEYBOARD_SHARED_EP = yes
-
-# includes
-SRC += 	led_l3.c \
-		tinycmdmain.c
-
+SRC += 	l3_common.c
 QUANTUM_LIB_SRC += i2c_master.c
 
 WATCHDOG_ENABLE = yes		# Resets keyboard if matrix_scan isn't run every 250ms
