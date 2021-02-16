@@ -114,7 +114,7 @@ Special feature: 'Descramble' mode
   encoding selection). This more or less means there is one more Unicode
   encoding option than already standard in QMK: 'descrambled' version for 
   Linux (Shift-Control-U HEX) encoding, for use on a computer *already* set to
-  Dvorak. t
+  Dvorak.
 
   To test it, (in Debian/Linux) go to a terminal in X and type (normal user)
 
