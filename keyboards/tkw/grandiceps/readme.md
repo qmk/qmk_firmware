@@ -1,4 +1,4 @@
-# stoutgat v2
+# grandiceps
 
 ![grandiceps](https://i.imgur.com/FMtsboV.jpg)
 
