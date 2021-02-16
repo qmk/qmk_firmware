@@ -213,6 +213,9 @@ void eeconfig_init_user(void) {
     userspace_config.rgb_layer_change = true;
     eeconfig_update_user(userspace_config.raw);
     eeconfig_init_keymap();
+#ifdef VIA_ENABLE
+    via_eeprom_reset();
+#endif
     keyboard_init();
 }
 
