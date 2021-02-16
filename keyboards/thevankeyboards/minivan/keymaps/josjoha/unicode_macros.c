@@ -1487,7 +1487,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case XP_ACC_BI: // because n
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (CNL_TLD);// ñ Ñ
+                unicode_hex2output (CNL_TLD, CNU_TLD);// ñ Ñ
             }
             break;
 
@@ -1499,7 +1499,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case XP_ACC_BK: // because roughly the location on French keyboard
             if (record->event.pressed) { // key down
-                unicode_hex2output_single (C_MU_L);//
+                unicode_hex2output_single (C_MU_L);// μ
             }
             break;
 
