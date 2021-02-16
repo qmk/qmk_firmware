@@ -106,84 +106,55 @@ static void render_exhaust(uint8_t startX, uint8_t startY, uint8_t phase)
 static void render_stars(uint8_t startY, uint8_t phase)
 {
     // Line 0
-    if(startY != 0)
+    oled_set_cursor(0, 0);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 0);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[0][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[0][(i + phase) % 21], false);
     }
     // Line 1
-    if(startY > 1)
+    oled_set_cursor(0, 1);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 1);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[1][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[1][(i + phase) % 21], false);
     }
     // Line 2
-    if(startY > 2)
+    oled_set_cursor(0, 2);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 2);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[2][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[2][(i + phase) % 21], false);
     }
     // Line 3
-    if(startY > 3 || startY == 0)
+    oled_set_cursor(0, 3);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 3);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[3][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[3][(i + phase) % 21], false);
     }
     // Line 4
-    if(startY > 4 || startY <= 1)
+    oled_set_cursor(0, 4);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 4);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[4][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[4][(i + phase) % 21], false);
     }
     // Line 5
-    if(startY > 5 || startY <= 2)
+    oled_set_cursor(0, 5);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 5);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[5][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[5][(i + phase) % 21], false);
     }
     // Line 6
-    if(startY > 6 || startY <= 3)
+    oled_set_cursor(0, 6);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 6);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[6][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[6][(i + phase) % 21], false);
     }
     // Line 7
-    if(startY > 7 || startY <= 4)
+    oled_set_cursor(0, 7);
+    for(int i = 0; i < 21; i++)
     {
-        oled_set_cursor(0, 7);
-        for(int i = 0; i < 21; i++)
-        {
-            oled_write_char(star_background[7][(i + phase) % 21], false);
-        }
+        oled_write_char(star_background[7][(i + phase) % 21], false);
     }
+
 }
-
-
-// static void animate_stars(uint8_t startY, uint8_t phase)
-// {
-
-// }
 
 static void render_logo(uint8_t startX, uint8_t startY)
 {
@@ -212,19 +183,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_
 
 void oled_task_user(void)
 {
-    // if(!background_rendered)
-    // {
-    //     render_stars(8);
-    //     background_rendered++;
-    // }
-
-    // if(!rocket_rendered)
-    // {
-    //     render_logo(9, 3); // Render the rocket
-    //     rocket_rendered++;
-    // }
-
-
     if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION)
     {
         anim_timer = timer_read32();
