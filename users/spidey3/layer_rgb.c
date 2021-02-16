@@ -287,7 +287,7 @@ void matrix_scan_user_rgb(void) {
 #    ifdef RGBLIGHT_EFFECT_RAINBOW_CHRISTMAS
                             (old_base_mode == RGBLIGHT_MODE_CHRISTMAS) ||
 #    endif
-#    ifdef RGBLIGHT_EFFECT_RAINBOW_RGB_TEST_
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_RGB_TEST
                             (old_base_mode == RGBLIGHT_MODE_RGB_TEST) ||
 #    endif
                             (old_base_mode == RGBLIGHT_MODE_STATIC_LIGHT)) {
