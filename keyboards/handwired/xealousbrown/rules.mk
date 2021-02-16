@@ -30,6 +30,7 @@ BLUETOOTH_ENABLE = no               # Enable Bluetooth with the Adafruit EZ-Key 
 AUDIO_ENABLE = no                   # Audio output on port C6
 SPACE_CADET_ENABLE = no             # Unneeded feature.
 
+LAYOUTS = 60_ansi
 
 # special sauce for this keyboard
 DEBOUNCE_TYPE = eager_pk            # Debounce using eager_pk.
