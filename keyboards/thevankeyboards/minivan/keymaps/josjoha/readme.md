@@ -49,11 +49,9 @@ Table of Contents
         • Weird layer jumping
         • Difficult/impossible key combinations ?
      13 Why you want this layout
-     14 Use case
-     15 Todo
-     16 BUGS
-     17 Resources
-     18 Author(s)
+     14 BUGS
+     15 Resources
+     16 Author(s)
 
 0 Overview
 ==========
@@ -119,15 +117,9 @@ in `./user_config.h`.
 
 2 Base layouts
 ==============
-You can have two of these layouts on your keyboard, and switch between them.
-They are presented here in a sort of simplified keycaps view. See the manual for
-each layout for more details. See further down for the *other layers* that these
-layouts have in common.
-
-If a base layer pair has its own user configuration options, they are located
-in `./base_NAME.h` by convention. Example: `./base_numpad.c` is configured in
-`./base_numpad.h` and has its manual in `./base_numpad.md`.
-
+Layouts are presented here in a sort of simplified keycaps view.  If a
+base layer pair has its own user configuration options, they are located
+in `./base_NAME.h`.
 
 2.1 Normal layouts
 ------------------
@@ -214,21 +206,11 @@ This graphic shows how layers are reached from the ‛Default base’ layer.
 
 ![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-default-base-layer-activation_1500_vf.jpg)
 
-
-The upper/left key which returns to the base layer (letters) on the number layers
- `_DEF_NSY` and `_ALT_NSY` always point to their base layer: `_DEF_BASE` and
-`_ALT_BASE` respectively. All the other layers also point to the appropriate base
-or numbers layer, depending on which base layer (default or alternate) is active.
-
 You can switch between the default base layer (typically letters), and
 another base layer, the alternate base layer (also typically letters),
 on the `_RAR` layer with key ‛Other Base’. Each base layer comes
 with its own second layer, typically numbers-symbols. The other 
 layers are used common between the default and alternate base layers.
-
-Example: The default base layer can be a Dvorak layout, and the alternate
-base layer can be a Qwerty layout, or vice versa. Both will use the same
-layer for Function keys, movement, number pad, additional unicode, etc.
 
 The Base layers and their numbers layer are detailed in files beginning
 with `./base_…` (links below).
@@ -249,40 +231,12 @@ with `./base_…` (links below).
            • Function keys / layer toggles         ┃
            • Power, media, Speed, Text size, etc.  ┛
 
-A layout defined in `./base_…` can have the common layers re-defined
-from what is detailed in _this_ file that you read now. The re-defined
-layer will be the same one for both the ‛default’ and ‛alternate’ layouts
-in the dual layout system. 
-
-Example: if a layout defined in ./base….c/md redefines the `_ACC`
-layer there to have French accented letters in better places for French,
-you will reach that same French adapted `_ACC` layer from either of
-the two Base layers in the dual layout (one is for instance Qwerty,
-the other Dvorak).
-
-(There are some unimportant artefacts due to some transparent layer
-switching keys, allowing for example to switch from a toggled `_NSY`
-layer to the `_ACC` layer with a key on the first row, or to go back
-to base from a toggled `_MOV` layer with what is the ‛Enter’ key on 
-Base, etc. These accidental layer switching possibilities are not shown.)
+There are some additional layer switching keys due to key transparency
+artefacts, allowing for example to go back to ‛Base’ from a toggled `_MOV` 
+layer with what is the ‛Enter’ key on Base.
 
 3.3 Layout in graphics
 ----------------------
-Below you will first see the **‛default Base layer’,** with the
-keys that are different in various common layouts (Qwerty, Dvorak,
-etc) blanked out. Then its accompanying **‛default `_NSY` layer’**
-(numbers and symbols `123...!@#...`), also with such keys just showing
-blanks. After that the same for the **‛alternate Base layer’** and
-its accompanying **‛alternate `_NSY` layer’** (the second layout in
-the dual layout). What comes in the blanks is typically to be defined
-at compile time, by what set of Base layer pairs to choose. The ‛Base’
-and ‛`_NSY`’ layers have their own readme files, which show what comes
-on the blanks (see above).
-
-Example: if you choose the ‛Qwerty + Dvorak’ compile option, you
-will have Qwerty on the ‛default Base’ and a matching ‛default NSY’ 
-layer, with Dvorak on the ‛alternate Base’ and its ‛alternate NSY’ 
-layer.
 
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_hide_def_base_ve.jpg)
 Layer: `DEF_BASE`
@@ -645,7 +599,7 @@ Remarks. ☐ ☒ ☑ 🗹 or ⮘ ⮙ ⮚ ⮛
 
 3.5 Movement layer options
 --------------------------
-The movement layer (`_MOV`) has quite a few configuration options. You
+The movement layer (`_MOV`) has several configuration options. You
 can either have _triangle_ configuration arrows on the _left_ hand
 (with navigation keys around it), or a _flat_ arrow configuration on
 the _right_ hand (with navigation above it).
@@ -656,30 +610,6 @@ movement layer, and than becomes part of the arrow cluster. For both
 versions (_triangle_ arrows left hand or _flat_ arrows right hand) you
 can compile this second arrow cluster to be completed with navigation keys
 (Home, End, PageUp, PageDown).
-
-      Weighing the options …
-
-To get arrow keys under easy reach, it may be good to realize that
-you can in any case quite easily reach the `_MOV` layer in three ways.
-Both a hold and a toggle can be done by the left hand alone.
-①  press and hold the 4th key on the 1st row;
-②  hold the left shift key for a short while, toggles;
-②  hardest: by toggling first to the `_FUN` layer, and then toggle to `_MOV`. 
-
-The *arrow* hardware layout with the compile option for arrow cluster,
-allows additionally a toggle to the `_MOV` layer done only by the right 
-hand, and those arrows being there for the right hand.
-
-If you use a tiling *window manager* (such as i3wm), you may want
-to press GUI with an arrow quite often. If the GUI is displaced by the
-arrow cluster on `_MOV`, you will need to activate the movement
-layer (`_MOV`) *after* Base layer GUI. To have to press keys in a specific
-order is slightly less comfortable. To resolve this you can activate
-the left side additional hardware key (‛South Paw’ or ‛Command’) as
-well, and configure it as a GUI.
-
-Options to compile it that way are mentioned below the layer. You
-can find the configuration block and mentioned option in `./user_config.h`.
 
 ![Minivan layout Image MOV 3 defaultf](http://socialism.nl/misc/minivan/minivan_mov_layer_flat_hw-basic_vb.jpg)
 
@@ -758,9 +688,9 @@ This concerns the numbers pad layer, the one that is part of the common layers.
 =================
          Layout
 
- • Several layouts to choose from: Qwerty, Dvorak, … (see above).
+ • Several layouts to choose from: Qwerty, Dvorak, Colemak, Workman, Numpad.
 
- • You can use the keyboard with two different letters/number-symbols layouts, switching between them.
+ • You can use the keyboard with two different letters/number-symbols layouts.
 
          Hardware
 
@@ -771,16 +701,13 @@ This concerns the numbers pad layer, the one that is part of the common layers.
 
  • What the additional hardware keys for _arrow,_ _south paw_ should be.
 
- • It is possible to compile the keymap with 11, 12, 13 keys on the bottom row (see 
-   `TRANSMINIVAN_LEFTSIDE`, etc).
-
          Navigation cluster
 
  • An arrow cluster for _arrow_ hardware configuration, on the `_MOV` layer.
 
- • Navigation keys around _arrow_ hardware configuration arrow cluster on `_MOV` layer.
+ • All navigation keys around _arrow_ hardware configuration arrow cluster on `_MOV` layer.
 
- • Navigation cluster in a triangle (WASD) (left hand), flat layout with optional vi(1) layout (right hand).
+ • Navigation cluster in a triangle (WASD) (left hand), or flat layout with optional vi(1) layout.
 
          Numpad (in common layers)
  
@@ -800,7 +727,7 @@ This concerns the numbers pad layer, the one that is part of the common layers.
 
  • Reduce firmware size/bloat: remove or eviscerate Unicode layer(s).
 
- For the complete list, see `./user_config.h`. It has a table of contents.
+ For the complete list, see `./user_config.h`.
 
 6 Language support
 ==================
@@ -858,10 +785,10 @@ reprogramming the source code).
         when a maximum is set, over layer colors or speed measurement.
 
 With the key ‛Speed’ on the `_RAR` layer, the speed of your latest
-25 keypresses is computed, as well as a the average of your batches of
-25 keys. The speed is displayed as the color of the middle led, which
-otherwise shows the layer color. A bright white middle led indicates
-‛Speed’ has just been activated.
+completed batch of 25 keypresses is computed, as well as the average of
+all your batches of 25 keys. The speed is displayed as the color of the
+middle led, which otherwise shows the layer color. A bright white middle
+led indicates ‛Speed’ has just been activated.
 
 With the key ‛SRprt’ (short for ‛Speed Report’), the keyboard
 will write your typing speed either in keystrokes per second (k/s)
@@ -874,38 +801,15 @@ When using “Words per minute”, A is in word-per-minute, B is also
 in words-per-minute: `<A wpm B wpm Cx25keys>`, no decimal precision.
 Example: <150wpm;108wpm20x25keys>
 
-Batches with 0 k/s are not counted to the average.  This computation
-is different from total-keys / total-time, which is not supported (you
-could arrive at it by keeping time separately). When you get the report,
-the led shows the color for the average, until you switch layers.
-
-The time starts running immediately on the first 25 keys when you press
-‛Speed’. ‛Speed Report’ always reports on the last already completed
-25 keys, which matches the middle led color on that moment (not a
-running average on the point of pressing, which would be the next batch
-shown). Shift, backspace, delete and Base layer activated layer changes
-do not count as keypresses. Delete and backspace therefore produce speed
-penalties. Typical text keys all get counted.  Navigation / arrow keys
-on the `_MOV` layer do not get counted.  Some unusual keypresses
-might be undefined whether or not they get counted (test to find out).
-
-In practice this means: you can type; take a long break without it
-affecting your average (batch with 0 k/s is ignored, or at worst you
-have one slow batch reducing your total average if the break was not
-long enough to fall down to 0 k/s); finish typing; take your time
-pressing `_RAR` on the Base layer and then ‛Speed Report’ to get your
-speed written as if you typed it on the keyboard.
+Batches with 0 k/s are not counted to the average. You can take a
+longer break without it affecting your average.
 
 7.1 Speed Led color compilation assist
 --------------------------------------
 If you hold the ‛Speed Report’ key for one second, it will increment the
 speed, and led color accordingly. This can be helpful when configuring
 your speed measuring compile settings. This works best with speed
-measuring set off. Press on/off to reset to 0. See `./user_config.h`
-Multiply the number with 12 to get the words-per-minute equivalent.
-1k/s = 12wpm, 2k/s = 24wpm, 3k/s = 36wpm, 4k/s = 48wpm, 5k/s = 60 wpm
-6k/s = 72wpm, 7k/s = 84wpm, 8k/s = 96wpm, 9k/s = 108wpm, 10k/s = 120wpm
-11k/s = 132wpm, 12k/s = 144wpm, 13k/s = 156wpm, 14k/s = 168wpm.
+measuring set off.
 
 8 Text size measuring
 =====================
@@ -992,7 +896,7 @@ Words are counted by counting Space and Enter key presses. Immediately
 repeating blanks do not add to the word count.  You can only manually
 subtract from the word count, using the key ‛CWmin’ short for ‛Count
 Word minus’. This means that if you delete sections in your document,
-while counting in words, you need to manually subtract the same words.
+you need to manually subtract the same words.
 
 Example: after typing something and then typing `<Enter>` twice to start a
 new paragraph, counts for one word. When deleting three words with their
@@ -1000,10 +904,6 @@ three blank areas, then tapping ‛Count Word minus’ three times,
 should result in an accurate word count. To add words to the count,
 type mock ones and then delete them: “x x x x” adds *three* words,
 “y y  y ” also adds three words (three separate blank spaces).
-
-Keep in mind that it is not actually words that are counted, but the
-blanks in between. The keyboard only knows your current and
-last characters, it has no idea how it looks what you end up typing.
 
 Layer changes, shift and unusual/complex keys do not get counted.
 Navigation, arrow and mouse keys do not get counted. Auto-repeating
@@ -1150,11 +1050,6 @@ the ‛Alternate’ layer in a dual layout compilation.
 You can remove the layers `_ACC`, `_DRA` and/or `_BON` (see
 `./user_config.h` around `REMOVE_ACC`). 
 
-➡ If you remove `_ACC` and `_BON` *without* repurposing the key
-which changes to the `_ACC` layer by not _activating_ one of the
-provided #defines there, that key will become a good old Delete key
-(which repeats).
-
 You can remove a set of symbols from one or more of Unicode layers,
 such as not having box drawing characters on `_BON`, or no sub-script
 numbers on `_DRA`.
@@ -1165,118 +1060,9 @@ The keymap was designed to have the same or similar keys on the same key
 or close to it, on different layers. Sometimes the association goes by
 what finger is used, and/or on what row. For example the symbol ‛(’
 on the numbers-symbols layer (`_NSY`), becomes the symbol ‛⁽’ on
-another layer.  When the same finger (right hand ring finger) is moved
-from the 4th row (up) instead down to the 2nd, it becomes ‛《’ in
-one layer, and ‛«’ on another.  When the ring finger on the other
-hand (left) is used on the 2nd layer, it becomes ‛›’ in one layer,
-and ‛」’ in another. These are all brace related symbols, opening
-and closing next to each other.
+another layer.
 
 ![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_common_1500_vd.jpg)
-
-`_ACC` layer:
-
-  Offers a Left-Control+Tab tap key, the one thing `_DRA` isn't allowing.
-  It can be convenient to have that be one touch (Control+Tab).
-
-  The left hand has vowels, which repeat in three rows with the same accent,
-  following Dvorak letter placement. The letter 'å'
-  is on the same finger as 'a' but other hand, 'ß' is on the spot of
-  's', etc. Some things are clustered, perhaps vaguely.
-
-              Grave is a line going up, thus on upper row. é
-              Acute is a line going down, thus on lower row. è
-              Diaereses is dots going horizontal, thus middle. ë
-              Diareses is umlaut which is most frequent if
-                 including German, thus home row. ë
-              There is no room for Caret on the left, thus it is
-                 on the right, following same-finger logic (O 
-                 is ring finger, etc).
-              Caret is on the lower row to make room for versions 
-                 of 'n' and 'c' near their normal position.
-              There is no room for ÿŸ on the normal y, because
-                 íÍ is on it, which is more important, and to
-                 keep the logic of that block, therefore it is
-                 as close to it as can be.
-              øØ and åÅ follow the same-finger logic (a is left
-                 hand pinky, etc), and are on remaining spots.
-              œŒ and æÆ are on remaining spots, both close
-                 to êÊ for the e in there, the œŒ being further
-                 to the left to follow the same finger logic on
-                 that right hand side: a on the right, o on the left.
-
-`_DRA` layer, memory aids:
-
-  Tab on the `_DRA` layer allows all the other modifiers from what it is on
-  `_ACC` regarding Tab.
-
-        Row 4, Key 2:  “ on '", the opening „“ at the ‛open’ of the keyboard (left/up)
-        Row 4, Key 3:  ” to the right of opening “, ≤ on <
-        Row 4, Key 4:  £ this is where the £ is on an English keyboard, on 'any' money symbols ¤; ≥ on >
-        Row 4, Key 5:  ∅ looks like ¢, and ¢ (cent) is on $ (money) 
-        Row 4, Key 6:  ± percentages %‰‱ and money ƒ are numerical ?
-        Row 4, Key 7:  ❦ ♥ left of 🙂, on top of ★
-        Row 4, Key 8:  🙂 🙁 on 😊 ⍨ 
-        Row 4, Key 9:  👍 👎 «no reason», next to 😊 (emoticons)
-        Row 4, Key 10: ⁽₍ on (
-        Row 4, Key 11: ⁾₎ on )
-        Row 3, Key 2:  ¹₁ on 1
-        Row 3, Key 3:  ²₂ on 2
-        Row 3, Key 4:  ³₃ on 3
-        Row 3, Key 5:  ⁴₄ on 4
-        Row 3, Key 6:  ⁵₅ on 5
-        Row 3, Key 7:  ⁶₆ on 6
-        Row 3, Key 8:  ⁷₇ on 7
-        Row 3, Key 9:  ⁸₈ on 8
-        Row 3, Key 10: ⁹₉ on 9
-        Row 3, Key 11: ⁰₀ on 0
-        Row 2, Key 2: 「 on [, ━ mirrors other side ┅, the heavy ones are on the outside of the board, like a shell
-        Row 2, Key 3:  」 on ], ─ mirrors other side ┄
-        Row 2, Key 4:  ° «no reason», 〇 also a circle
-        Row 2, Key 5:  • «no reason», § also an item marker
-        Row 2, Key 6:  … «no reason», · also a dot
-        Row 2, Key 7:  ☐ ☒  «no reason» (+ resembles ‛☒’), ✗
-        Row 2, Key 8:  ☑ 🗹  next to ✗ ☐ ☒
-        Row 2, Key 9:  ¿¡ on ‛?’
-        Row 2, Key 10: 《 on {, ┄ «no reason» (opposite side from ━)
-        Row 2, Key 11: 》 on }, ┅ «no reason» (opposite side from ─)
-
-`_BON` layer, memory aids:
-
-        Row 4, Key 2: ‛ on ' (`_DEF_BASE`), 🛠 «no reason»
-        Row 4, Key 3: ’ (closing) to the right of ‛ (opening); ⬆ on UP arrow in WASD `_MOV` layer configuration
-        Row 4, Key 4: ¤ (‛any currency’)on £ (`_DEF_BASE`); 🄯 (‛Copyleft’), sortof money(legal), ¤ is a circle for ‛social’
-        Row 4, Key 5: ∑ on $ (`_..._NSY`) and ¢ (`_DRA`) money symbols, money is often added; © (‛Copyright’), ∑$ for ‛accumulate money’
-        Row 4, Key 6: ‰ ‱ on % (`_..._NSY`)
-        Row 4, Key 7: ★ ٭ on ♥ ❦ (`_DRA`)
-        Row 4, Key 8: 😊 ⍨ on 🙂 🙁 (`_DRA`)
-        Row 4, Key 9: × (multiplication)  ⃰(up asterisk) on * (`_..._NSY`)
-        Row 4, Key 10: √ because Øø (`_ACC`) seems to divide something, and √ also does that, proximity to ⁻⁺ (exponential)
-        Row 4, Key 11: ⁻⁺ on Åå (`_ACC`) because circle suggests exponent placement, row 4/key 11 is up/right on keyboard
-        Row 3, Key 2: ① on 1 (`_..._NSY`); ⬅  on LEFT arrow in WASD `_MOV` layer configuration
-        Row 3, Key 3: ② on 2 (`_..._NSY`); ⬇ on DOWN arrow in WASD `_MOV` layer configuration
-        Row 3, Key 4: ③ on 3 (`_..._NSY`); ➡ on RIGHT arrow in WASD `_MOV` layer configuration
-        Row 3, Key 5: ④ on 4 (`_..._NSY`); ┏ forms a square with box drawing on row 2 (See note¹).
-        Row 3, Key 6: ⑤ on 5 (`_..._NSY`); ┓          ''                 ''
-        Row 3, Key 7: ⑥ on 6 (`_..._NSY`); ┃ continue box drawing on right hand symmetry
-        Row 3, Key 8: ⑦ on 7 (`_..._NSY`); ┇          ''                 ''
-        Row 3, Key 9: ⑧ on 8 (`_..._NSY`); ╋ continues box drawings, figure ‛8’ also has a crossing of 2 lines
-        Row 3, Key 10: ⑨ on 9 (`_..._NSY`); 
-        Row 3, Key 11: ⓪ on 0 (`_..._NSY`); ∞ on 0 for round & round, forever
-        Row 3, Key 12: — (dash) on - (`_..._BASE`) (hyphen); ≈ on ~ (`_..._NSY`)
-        Row 2, Key 2: ⑪ on 1 row above (`_..._NSY`); ‹ on 「 (`_DRA`)
-        Row 2, Key 3: ⑫ on 2 row above (`_..._NSY`); › on 」 (`_DRA`)
-        Row 2, Key 4: ⑬ on 3 row above (`_..._NSY`); ÷ on / (`_..._NSY`) (divisions)
-        Row 2, Key 5: ⑭ on 4 row above (`_..._NSY`); ☞ on • (`_DRA`); ┗   forms a square with box drawing on row 3
-        Row 2, Key 6: ⑮ on 5 row above (`_..._NSY`); ≠ on = (`_..._NSY`); ┛        ''                 ''
-        Row 2, Key 7: ⑯ on 6 row above (`_..._NSY`); ✗ on ☒ (`_..._NSY`); ┣ continues right-hand symmetry & line from row 3
-        Row 2, Key 8: ⑰ on 7 row above (`_..._NSY`); ✓ on ☑ 🗹 (`_DRA`); ┫                ''                       ''
-        Row 2, Key 9: ⑱ on 8 row above (`_..._NSY`); ⚠ on ¡ (`_DRA`) (inverted !)
-        Row 2, Key 10: ⑲ on 9 row above (`_..._NSY`); « on { (`_..._NSY`), 《 (`_DRA`)
-        Row 2, Key 11: ⑩ on 0 row above (`_..._NSY`); » on } (`_..._NSY`), 》 (`_DRA`)
-   
-  ¹) Fitting horizontal bars for the box drawings ┅ ━ are on `_DRA`.
-
 
 12 Trouble shooting
 ===================
@@ -1287,40 +1073,26 @@ and closing next to each other.
   flashing the value of a user option ends up in a different state than
   you expected.
 
-
   • Unicode
 
   Unicode is chaos: try going to `_RAR` layer, and hit the Unicode
   operating system buttons.
-
 
   • Leds
 
   Leds not working: try going to `_RAR` layer, and hit the key MLeds
   and SLeds, which switch Leds on/off.
 
-
   • Middle led
 
   Middle led not showing layer: you may have compiled it with speed
   measuring on at startup.
 
-
   • Weird layer jumping
 
   You weirdly end up on the `_PAD`, `_FUN` or some other layer while
   typing ? This is a typing mistake. You have to learn that unnecessary
-  pressing of the Shift keys, which on most keyboards and in most 
-  applications has no effect, now suddenly does have an effect.
-
-  It should never activate to the layer, if you hit another key to get
-  a capital letter. It will always go to a layer, if you hit it by itself.
-
-  It can help to set `_PAD` in numerical mode, so that you will just type
-  some numbers, rather than fly all over the place with arrows and 
-  navigation. For the `_FUN` layer, you could put it in one stroke mode, to
-  reduce the consequences of the mistake. After a while you will likely
-  stop making the mistake.
+  pressing of the Shift keys.
 
   • Difficult/impossible key combinations ?
 
@@ -1333,21 +1105,9 @@ and closing next to each other.
   go of the `_RAR` layer (which again communicates nothing), let go of
   the Control key (which should communicate “Control released”).. 
 
-  Since this keymap was written on one particular set up, it might be
-  that you run into difficulty with rare key combinations (unknown
-  to the author) which are sometimes used for keyboard shortcuts.
-  If so, you could think of changing the source yourself, contacting the
-  author, or the QMK help system. Perhaps we can work out a solution.
-
 13 Why you want this layout
 ===========================
 ☞  This layout seems easy to learn and predictable.
-
-☞  This layout has been obsessively tweaked and tested. 
-
-☞  The Dvorak/Qwerty/… layer (Base) is an unaltered standard Dvorak/Qwerty
-  layout, except what physically cannot fit (numbers, right pinky
-  symbols). 
 
 ☞  The normally most used layer after letters is “numbers & symbols” 
   (123…, !@#…, []/…, called `_NSY`). This layer you can access by either
@@ -1355,19 +1115,16 @@ and closing next to each other.
 
 ☞  Right hand pinky is no longer overused, as it is on regular keyboards.
 
-☞  Every time you have 0-9 enumerations / numbers, they are on the same
-  fingers as a standard keyboard. 
+☞  0-9 enumerations / numbers, they are on the same fingers as a standard
+  keyboard. 
 
 ☞  The symbols normally reached by shifting a number, are also still on
   the same fingers.
 
-☞  On all layers possible / needed the modifiers are in their usual spots.
-
 ☞  Because one often uses an F-key only once, the layer can switch back
   to Base after an F-key is used.
 
-☞  Because it is hard to touch more than 3 keys, there are modifier
-  combination keys on `_FUN` layer for use with F-keys.
+☞  Modifier combination keys on `_FUN` layer for use with F-keys.
 
 ☞  The movement layer has a bunch of layout options, and allows for mouse
   use.
@@ -1397,67 +1154,13 @@ and closing next to each other.
 ☞  Speed and text size measuring, including to set a maximum on your text input.
   These are features not part off regular keyboards.
 
-☞  A fair amount of things are configurable from the configuration file, so
-  you can tweak your keyboard without programming hassle.
-
 ☞  Easy to create your own dual layout for letters / numbers.
 
 ☞  If you do want to reprogram the code, it has a lot of comments to make
-  it easier to follow. In total the code does seem to be somewhat complex,
-  because that which it is supposed to do is a bit more involved than on a
-  basic keyboard setup, but it is stable and trouble free (in my experience).
-
-☞  If you are new to 40% keyboards, this layout could be an easy starting
-  point.
-
-☞  With 9 effective layers, and two more which can be switched for the dual
-  layout, this equals a larger key space than has a regular 100% keyboard.
-  This keyboard is about 4 times as large as a regular 100% keyboard because
-  most keys represent 9 meanings, plus another two for the dual layout.
-
-☞  Because a 40% keyboard is small, you may be able take it where needed and
-  not have your typing get confused by typing on something else. 
-
-☞  As you can see, there is too much rather than too little documentation. ;-)
-
-14 Use case
-===========
-  The use case this keymap was originally designed for and on: a PC with
-  GNU/Debian/Linux (etc), secondary Linux laptop already set to Dvorak
-  _hence 'descramble'_. Language setting: `en_US.UTF-8`;
-
-  Being able on the move to operate other operating systems owned by
-  others _hence non-Linux Unicode modes._ 
-
-  Editing in vim, _hence no dead keys,_ programming (shell, C (like)
-  languages) _hence decent access to basic symbols_ (less use of pinky 
-  finger).
-
-  Writing in Dutch _hence accented characters_.
-
-  Using a tiling window manager _hence a GUI on base layer._ AltGr
-  or Compose seemed difficult to configure / use _hence accented and
-  unicode layers._
-
-  For use with 3D editing _hence a delete on base layer, Control, Alt,
-  Shift on left edge and quick toggle access to `_PAD` or `_MOV` on left
-  shift for faster modifiers and tab key._
-
-  Some input fields used have a text maximum, without showing a character
-  or word count, _hence text size counting._
+  it easier to follow.
 
 
-15 Todo
-=======
-        … Support for more common layouts, specific national layouts ?
-
-        … Support/testing for other keyboards. If this is to support
-          keyboards other than 12×12×12×[8-12] and/or different leds,
-          it seems best to isolate all Minivan layers in one subdirectory, 
-          then copy/edit that to other subdirectories for those keyboards.
-
-
-16 BUGS
+14 BUGS
 =======
   No real bugs known currently. Just some minor issues …
 
@@ -1475,14 +1178,14 @@ and closing next to each other.
   a lot of #defines. Perhaps it should be done eventually, if there is an actual need.
 
 
-17 Resources
+15 Resources
 ============
 This links to an external file, with some development resources like
 Gimp .xcf files, pre-compiled hex files, …
 
 [Resources](http://socialism.nl/misc/minivan/ "Additional resources")
 
-18 Author(s)
+16 Author(s)
 ============
   This keymap.c was edited from the Minivan default, original LED
   support was copied/edited from ../jetpacktuxedo/ keymap. Thanks to 
@@ -1492,17 +1195,6 @@ Gimp .xcf files, pre-compiled hex files, …
   for a replacement keyboard. It took over a year to make (≈ 1.5 h/day).
   The goal became to make a good keymap for everyone without the time to
   make one, in the best keyboard format: “40%”.
-
-  The design changed from Dvorak only, numbers on one hand, flat arrows
-  and no Unicode, to: Unicode hold(`_ACC`) replacing (R)Alt-Gr, numbers
-  in a line (spread fatigue / more secure); default triangle arrows
-  (intuitive); most layer switching on thumbs (easy and allows almost
-  full keyboard reach); having optional standard layouts. Things came
-  full circle with Numpad and (R)Alt-Gr back on Base options.
-
-  You can let me know if you: find any bugs or usage problems, have
-  improvements, have a new Base pair keymap, or just if you like
-  using it too 👍.
 
 ![Keycaps blanks](http://socialism.nl/misc/minivan/keycaps_blanks_va.jpg)
 

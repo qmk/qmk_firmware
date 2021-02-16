@@ -4,17 +4,11 @@ Compiled for: Dvorak²
 =====================
 
 This file details the compile version `#define BASE_DVORAK_DESCRAMBLE__ALT_BASE`
-which has a special version of Dvorak so that you can
-type Dvorak on a computer *already* set to do Dvorak layout re-mapping.
+which has a special version of Dvorak so that you can type Dvorak on a computer
+*already* set to do Dvorak layout re-mapping.
 
 This can be useful on for example a laptop, for which the build-in
-keyboard should to be in Dvorak. An external keyboard which normally
-types Dvorak, will not yield Dvorak in this case, unless you reconfigure
-something on your computer.
-
-With the regular Dvorak and *this* Dvorak² keymap, you can type both
-normally in Dvorak, plus by activating its ‛descramble’ mode (see
-Chapter below) you can directly type on a computer already set to Dvorak.
+keyboard should to be in Dvorak.
 
 Dvorak² keymaps
 ---------------
@@ -117,11 +111,10 @@ Special feature: 'Descramble' mode
   With the middle led set to white, you can take advantage of a Unicode
   input mode that works on your system, if it is the same when the
   computer is set to Dvorak or not (see `_RAR` layer for Unicode input
-  encoding selection). (The speed measurement middle led use is overridden
-  by the `_RAR` layer.) This more or less means there is one more Unicode
+  encoding selection). This more or less means there is one more Unicode
   encoding option than already standard in QMK: 'descrambled' version for 
   Linux (Shift-Control-U HEX) encoding, for use on a computer *already* set to
-  Dvorak.
+  Dvorak. t
 
   To test it, (in Debian/Linux) go to a terminal in X and type (normal user)
 
@@ -131,7 +124,7 @@ Special feature: 'Descramble' mode
 
         > setxkbmap -layout us
 
-  Unicode on Windos may require to install something special.
+  Unicode on Windos operating system may require to install something special.
 
 
 Key associations
