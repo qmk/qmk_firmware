@@ -1,0 +1,359 @@
+   1               		.file	"bootmagic_lite.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.bootmagic_lite_reset_eeprom,"ax",@progbits
+  11               		.weak	bootmagic_lite_reset_eeprom
+  13               	bootmagic_lite_reset_eeprom:
+  14               	.LFB117:
+  15               		.file 1 "tmk_core/common/bootmagic_lite.c"
+   1:tmk_core/common/bootmagic_lite.c **** #include "quantum.h"
+   2:tmk_core/common/bootmagic_lite.c **** 
+   3:tmk_core/common/bootmagic_lite.c **** /** \brief Reset eeprom
+   4:tmk_core/common/bootmagic_lite.c ****  *
+   5:tmk_core/common/bootmagic_lite.c ****  * ...just incase someone wants to only change the eeprom behaviour
+   6:tmk_core/common/bootmagic_lite.c ****  */
+   7:tmk_core/common/bootmagic_lite.c **** __attribute__((weak)) void bootmagic_lite_reset_eeprom(void) {
+  16               		.loc 1 7 62 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+   8:tmk_core/common/bootmagic_lite.c **** #if defined(VIA_ENABLE)
+   9:tmk_core/common/bootmagic_lite.c ****     via_eeprom_reset();
+  10:tmk_core/common/bootmagic_lite.c **** #else
+  11:tmk_core/common/bootmagic_lite.c ****     eeconfig_disable();
+  22               		.loc 1 11 5 view .LVU1
+  23 0000 0C94 0000 		jmp eeconfig_disable
+  24               	.LVL0:
+  25               		.cfi_endproc
+  26               	.LFE117:
+  28               		.section	.text.bootmagic_lite,"ax",@progbits
+  29               		.weak	bootmagic_lite
+  31               	bootmagic_lite:
+  32               	.LFB118:
+  12:tmk_core/common/bootmagic_lite.c **** #endif
+  13:tmk_core/common/bootmagic_lite.c **** }
+  14:tmk_core/common/bootmagic_lite.c **** 
+  15:tmk_core/common/bootmagic_lite.c **** /** \brief The lite version of TMK's bootmagic based on Wilba.
+  16:tmk_core/common/bootmagic_lite.c ****  *
+  17:tmk_core/common/bootmagic_lite.c ****  *  100% less potential for accidentally making the keyboard do stupid things.
+  18:tmk_core/common/bootmagic_lite.c ****  */
+  19:tmk_core/common/bootmagic_lite.c **** __attribute__((weak)) void bootmagic_lite(void) {
+  33               		.loc 1 19 49 view -0
+  34               		.cfi_startproc
+  35               	/* prologue: function */
+  36               	/* frame size = 0 */
+  37               	/* stack size = 0 */
+  38               	.L__stack_usage = 0
+  20:tmk_core/common/bootmagic_lite.c ****     // We need multiple scans because debouncing can't be turned off.
+  21:tmk_core/common/bootmagic_lite.c ****     matrix_scan();
+  39               		.loc 1 21 5 view .LVU3
+  40 0000 0E94 0000 		call matrix_scan
+  41               	.LVL1:
+  22:tmk_core/common/bootmagic_lite.c **** #if defined(DEBOUNCE) && DEBOUNCE > 0
+  23:tmk_core/common/bootmagic_lite.c ****     wait_ms(DEBOUNCE * 2);
+  42               		.loc 1 23 5 view .LVU4
+  43               	.LBB4:
+  44               	.LBI4:
+  45               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\util\\delay.h"
+   1:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    All rights reserved.
+   5:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+   6:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+   9:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    * Redistributions of source code must retain the above copyright
+  10:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  12:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      the documentation and/or other materials provided with the
+  15:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      distribution.
+  16:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  17:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      contributors may be used to endorse or promote products derived
+  19:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      from this software without specific prior written permission.
+  20:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  21:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  33:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /* $Id: delay.h.in 2506 2016-02-08 10:05:45Z joerg_wunsch $ */
+  34:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  35:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef _UTIL_DELAY_H_
+  36:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #define _UTIL_DELAY_H_ 1
+  37:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  38:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef __DOXYGEN__
+  39:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #  ifndef __HAS_DELAY_CYCLES
+  40:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #    define __HAS_DELAY_CYCLES 1
+  41:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #  endif
+  42:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif  /* __DOXYGEN__ */
+  43:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  44:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #include <inttypes.h>
+  45:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #include <util/delay_basic.h>
+  46:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #include <math.h>
+  47:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  48:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /** \file */
+  49:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  50:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \code
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  52:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     //#define F_CPU 14.7456E6
+  53:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     #include <util/delay.h>
+  54:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \endcode
+  55:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  56:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \note As an alternative method, it is possible to pass the
+  57:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  58:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     Obviously, in that case, no \c \#define statement should be
+  59:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     used.
+  60:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  61:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     The functions in this header file are wrappers around the basic
+  62:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  63:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     convenience functions where actual time values can be specified
+  64:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  65:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     that compile-time constant expressions will be eliminated by
+  66:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     compiler optimization so floating-point expressions can be used
+  67:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  68:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     frequency passed by the macro F_CPU.
+  69:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \note In order for these functions to work as intended, compiler
+  71:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  72:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     <em>must</em> be an expression that is a known constant at
+  73:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     compile-time.  If these requirements are not met, the resulting
+  74:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     delay will be much longer (and basically unpredictable), and
+  75:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     applications that otherwise do not use floating-point calculations
+  76:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     will experience severe code bloat by the floating-point library
+  77:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     routines linked into the application.
+  78:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  79:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     The functions available allow the specification of microsecond, and
+  80:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     millisecond delays directly, using the application-supplied macro
+  81:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  82:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  83:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** */
+  84:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  85:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #if !defined(__DOXYGEN__)
+  86:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** static __inline__ void _delay_us(double __us) __attribute__((__always_inline__));
+  87:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
+  88:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+  89:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  90:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef F_CPU
+  91:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /* prevent compiler error by supplying a default */
+  92:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  93:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /** \ingroup util_delay
+  94:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \def F_CPU
+  95:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \brief CPU frequency in Hz
+  96:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  97:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     The macro F_CPU specifies the CPU frequency to be considered by
+  98:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     the delay macros.  This macro is normally supplied by the
+  99:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     environment (e.g. from within a project header, or the project's
+ 100:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     Makefile).  The value 1 MHz here is only provided as a "vanilla"
+ 101:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     fallback if no such user-provided definition could be found.
+ 102:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 103:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     In terms of the delay functions, the CPU frequency can be given as
+ 104:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     a floating-point constant (e.g. 3.6864E6 for 3.6864 MHz).
+ 105:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     However, the macros in <util/setbaud.h> require it to be an
+ 106:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     integer value.
+ 107:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****  */
+ 108:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** # define F_CPU 1000000UL
+ 109:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+ 110:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 111:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef __OPTIMIZE__
+ 112:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+ 113:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+ 114:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 115:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 116:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 117:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   __STDC_HOSTED__
+ 118:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #  include <math.h>
+ 119:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+ 120:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 121:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /**
+ 122:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \ingroup util_delay
+ 123:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 124:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 125:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 126:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The macro F_CPU is supposed to be defined to a
+ 127:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 128:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 129:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 130:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 131:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    When the user request delay which exceed the maximum possible one,
+ 132:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 133:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 134:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 135:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    user will not be informed about decreased resolution.
+ 136:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 137:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles()
+ 138:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 139:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    values greater than the maximal possible delay, overflows results in
+ 140:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    no delay i.e., 0ms.
+ 141:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 142:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Conversion of \c __ms into clock cycles may not always result in
+ 143:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    integer.  By default, the clock cycles rounded up to next
+ 144:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    integer. This ensures that the user gets at least \c __ms
+ 145:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    microseconds of delay.
+ 146:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 147:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Alternatively, by defining the macro \c __DELAY_ROUND_DOWN__, or
+ 148:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \c __DELAY_ROUND_CLOSEST__, before including this header file, the
+ 149:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    algorithm can be made to round down, or round to closest integer,
+ 150:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    respectively.
+ 151:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 152:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \note
+ 153:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 154:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The implementation of _delay_ms() based on
+ 155:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    __builtin_avr_delay_cycles() is not backward compatible with older
+ 156:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    implementations.  In order to get functionality backward compatible
+ 157:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    with previous versions, the macro \c "__DELAY_BACKWARD_COMPATIBLE__"
+ 158:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    must be defined before including this header file. Also, the
+ 159:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    backward compatible algorithm will be chosen if the code is
+ 160:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    compiled in a <em>freestanding environment</em> (GCC option
+ 161:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \c -ffreestanding), as the math functions required for rounding are
+ 162:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    not available to the compiler then.
+ 163:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 164:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****  */
+ 165:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** void
+ 166:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** _delay_ms(double __ms)
+  46               		.loc 2 166 1 view .LVU5
+  47               	.LBB5:
+ 167:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** {
+ 168:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	double __tmp ;
+  48               		.loc 2 168 2 view .LVU6
+ 169:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 170:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 171:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   __STDC_HOSTED__
+ 172:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	uint32_t __ticks_dc;
+  49               		.loc 2 172 2 view .LVU7
+ 173:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+  50               		.loc 2 173 2 view .LVU8
+ 174:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+  51               		.loc 2 174 2 view .LVU9
+ 175:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 176:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 177:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 178:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 179:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 180:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 181:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 182:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#else
+ 183:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		//round up by default
+ 184:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+  52               		.loc 2 184 3 view .LVU10
+ 185:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#endif
+ 186:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 187:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+  53               		.loc 2 187 2 view .LVU11
+  54 0004 8FE1      		ldi r24,lo8(19999)
+  55 0006 9EE4      		ldi r25,hi8(19999)
+  56 0008 0197      	1:	sbiw r24,1
+  57 000a 01F4      		brne 1b
+  58 000c 00C0      		rjmp .
+  59 000e 0000      		nop
+  60               	.LVL2:
+  61               		.loc 2 187 2 is_stmt 0 view .LVU12
+  62               	.LBE5:
+  63               	.LBE4:
+  24:tmk_core/common/bootmagic_lite.c **** #else
+  25:tmk_core/common/bootmagic_lite.c ****     wait_ms(30);
+  26:tmk_core/common/bootmagic_lite.c **** #endif
+  27:tmk_core/common/bootmagic_lite.c ****     matrix_scan();
+  64               		.loc 1 27 5 is_stmt 1 view .LVU13
+  65 0010 0E94 0000 		call matrix_scan
+  66               	.LVL3:
+  28:tmk_core/common/bootmagic_lite.c **** 
+  29:tmk_core/common/bootmagic_lite.c ****     // If the configured key (commonly Esc) is held down on power up,
+  30:tmk_core/common/bootmagic_lite.c ****     // reset the EEPROM valid state and jump to bootloader.
+  31:tmk_core/common/bootmagic_lite.c ****     // This isn't very generalized, but we need something that doesn't
+  32:tmk_core/common/bootmagic_lite.c ****     // rely on user's keymaps in firmware or EEPROM.
+  33:tmk_core/common/bootmagic_lite.c ****     uint8_t row = BOOTMAGIC_LITE_ROW;
+  67               		.loc 1 33 5 view .LVU14
+  34:tmk_core/common/bootmagic_lite.c ****     uint8_t col = BOOTMAGIC_LITE_COLUMN;
+  68               		.loc 1 34 5 view .LVU15
+  35:tmk_core/common/bootmagic_lite.c **** 
+  36:tmk_core/common/bootmagic_lite.c **** #if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_R
+  37:tmk_core/common/bootmagic_lite.c ****     if (!is_keyboard_left()) {
+  38:tmk_core/common/bootmagic_lite.c ****         row = BOOTMAGIC_LITE_ROW_RIGHT;
+  39:tmk_core/common/bootmagic_lite.c ****         col = BOOTMAGIC_LITE_COLUMN_RIGHT;
+  40:tmk_core/common/bootmagic_lite.c ****     }
+  41:tmk_core/common/bootmagic_lite.c **** #endif
+  42:tmk_core/common/bootmagic_lite.c **** 
+  43:tmk_core/common/bootmagic_lite.c ****     if (matrix_get_row(row) & (1 << col)) {
+  69               		.loc 1 43 5 view .LVU16
+  70               		.loc 1 43 9 is_stmt 0 view .LVU17
+  71 0014 80E0      		ldi r24,0
+  72 0016 0E94 0000 		call matrix_get_row
+  73               	.LVL4:
+  74               		.loc 1 43 8 view .LVU18
+  75 001a 80FF      		sbrs r24,0
+  76 001c 00C0      		rjmp .L2
+  44:tmk_core/common/bootmagic_lite.c ****         bootmagic_lite_reset_eeprom();
+  77               		.loc 1 44 9 is_stmt 1 view .LVU19
+  78 001e 0E94 0000 		call bootmagic_lite_reset_eeprom
+  79               	.LVL5:
+  45:tmk_core/common/bootmagic_lite.c **** 
+  46:tmk_core/common/bootmagic_lite.c ****         // Jump to bootloader.
+  47:tmk_core/common/bootmagic_lite.c ****         bootloader_jump();
+  80               		.loc 1 47 9 view .LVU20
+  81 0022 0C94 0000 		jmp bootloader_jump
+  82               	.LVL6:
+  83               	.L2:
+  84               	/* epilogue start */
+  48:tmk_core/common/bootmagic_lite.c ****     }
+  49:tmk_core/common/bootmagic_lite.c **** }
+  85               		.loc 1 49 1 is_stmt 0 view .LVU21
+  86 0026 0895      		ret
+  87               		.cfi_endproc
+  88               	.LFE118:
+  90               		.text
+  91               	.Letext0:
+  92               		.file 3 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+  93               		.file 4 "c:\\program files\\qmk_msys\\mingw64\\lib\\gcc\\avr\\8.4.0\\include\\stddef.h"
+  94               		.file 5 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+  95               		.file 6 "tmk_core/common/action.h"
+  96               		.file 7 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+  97               		.file 8 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+  98               		.file 9 "lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.h"
+  99               		.file 10 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdio.h"
+ 100               		.file 11 "tmk_core/common/report.h"
+ 101               		.file 12 "tmk_core/common/host.h"
+ 102               		.file 13 "tmk_core/common/debug.h"
+ 103               		.file 14 "quantum/keycode_config.h"
+ 104               		.file 15 "quantum/keymap.h"
+ 105               		.file 16 "tmk_core/common/action_layer.h"
+ 106               		.file 17 "tmk_core/common/timer.h"
+ 107               		.file 18 "tmk_core/common/action_util.h"
+ 108               		.file 19 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdlib.h"
+ 109               		.file 20 "quantum/quantum.h"
+ 110               		.file 21 "tmk_core/common/matrix.h"
+ 111               		.file 22 "tmk_core/common/bootloader.h"
+ 112               		.file 23 "tmk_core/common/eeconfig.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bootmagic_lite.c
+C:\Users\gazed\AppData\Local\Temp\ccezVISU.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccezVISU.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccezVISU.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccezVISU.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccezVISU.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccezVISU.s:13     .text.bootmagic_lite_reset_eeprom:0000000000000000 bootmagic_lite_reset_eeprom
+C:\Users\gazed\AppData\Local\Temp\ccezVISU.s:31     .text.bootmagic_lite:0000000000000000 bootmagic_lite
+
+UNDEFINED SYMBOLS
+eeconfig_disable
+matrix_scan
+matrix_get_row
+bootloader_jump

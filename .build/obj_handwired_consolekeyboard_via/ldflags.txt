@@ -1,0 +1,1 @@
+-Wl,--gc-sections -Wl,-Map=.build/handwired_consolekeyboard_via.map,--cref     -lm 

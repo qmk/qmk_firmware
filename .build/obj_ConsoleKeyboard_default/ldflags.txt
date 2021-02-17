@@ -1,0 +1,1 @@
+-Wl,--gc-sections -Wl,-Map=.build/consolekeyboard_default.map,--cref     -lm 

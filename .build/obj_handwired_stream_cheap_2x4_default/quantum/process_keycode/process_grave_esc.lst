@@ -1,0 +1,243 @@
+   1               		.file	"process_grave_esc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.process_grave_esc,"ax",@progbits
+  11               	.global	process_grave_esc
+  13               	process_grave_esc:
+  14               	.LVL0:
+  15               	.LFB117:
+  16               		.file 1 "quantum/process_keycode/process_grave_esc.c"
+   1:quantum/process_keycode/process_grave_esc.c **** /* Copyright 2020
+   2:quantum/process_keycode/process_grave_esc.c ****  *
+   3:quantum/process_keycode/process_grave_esc.c ****  * This program is free software: you can redistribute it and/or modify
+   4:quantum/process_keycode/process_grave_esc.c ****  * it under the terms of the GNU General Public License as published by
+   5:quantum/process_keycode/process_grave_esc.c ****  * the Free Software Foundation, either version 2 of the License, or
+   6:quantum/process_keycode/process_grave_esc.c ****  * (at your option) any later version.
+   7:quantum/process_keycode/process_grave_esc.c ****  *
+   8:quantum/process_keycode/process_grave_esc.c ****  * This program is distributed in the hope that it will be useful,
+   9:quantum/process_keycode/process_grave_esc.c ****  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  10:quantum/process_keycode/process_grave_esc.c ****  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  11:quantum/process_keycode/process_grave_esc.c ****  * GNU General Public License for more details.
+  12:quantum/process_keycode/process_grave_esc.c ****  *
+  13:quantum/process_keycode/process_grave_esc.c ****  * You should have received a copy of the GNU General Public License
+  14:quantum/process_keycode/process_grave_esc.c ****  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  15:quantum/process_keycode/process_grave_esc.c ****  */
+  16:quantum/process_keycode/process_grave_esc.c **** #include "process_grave_esc.h"
+  17:quantum/process_keycode/process_grave_esc.c **** 
+  18:quantum/process_keycode/process_grave_esc.c **** /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwis
+  19:quantum/process_keycode/process_grave_esc.c ****  * Used to ensure that the correct keycode is released if the key is released.
+  20:quantum/process_keycode/process_grave_esc.c ****  */
+  21:quantum/process_keycode/process_grave_esc.c **** static bool grave_esc_was_shifted = false;
+  22:quantum/process_keycode/process_grave_esc.c **** 
+  23:quantum/process_keycode/process_grave_esc.c **** bool process_grave_esc(uint16_t keycode, keyrecord_t *record) {
+  17               		.loc 1 23 63 view -0
+  18               		.cfi_startproc
+  19               		.loc 1 23 63 is_stmt 0 view .LVU1
+  20 0000 CF93      		push r28
+  21               	.LCFI0:
+  22               		.cfi_def_cfa_offset 3
+  23               		.cfi_offset 28, -2
+  24 0002 DF93      		push r29
+  25               	.LCFI1:
+  26               		.cfi_def_cfa_offset 4
+  27               		.cfi_offset 29, -3
+  28               	/* prologue: function */
+  29               	/* frame size = 0 */
+  30               	/* stack size = 2 */
+  31               	.L__stack_usage = 2
+  32 0004 EB01      		movw r28,r22
+  24:quantum/process_keycode/process_grave_esc.c ****     if (keycode == GRAVE_ESC) {
+  33               		.loc 1 24 5 is_stmt 1 view .LVU2
+  34               		.loc 1 24 8 is_stmt 0 view .LVU3
+  35 0006 8631      		cpi r24,22
+  36 0008 9C45      		sbci r25,92
+  37 000a 01F4      		brne .L8
+  38               	.LBB2:
+  25:quantum/process_keycode/process_grave_esc.c ****         const uint8_t mods    = get_mods();
+  39               		.loc 1 25 9 is_stmt 1 view .LVU4
+  40               		.loc 1 25 33 is_stmt 0 view .LVU5
+  41 000c 0E94 0000 		call get_mods
+  42               	.LVL1:
+  26:quantum/process_keycode/process_grave_esc.c ****         uint8_t       shifted = mods & MOD_MASK_SG;
+  43               		.loc 1 26 9 is_stmt 1 view .LVU6
+  27:quantum/process_keycode/process_grave_esc.c **** 
+  28:quantum/process_keycode/process_grave_esc.c **** #ifdef GRAVE_ESC_ALT_OVERRIDE
+  29:quantum/process_keycode/process_grave_esc.c ****         // if ALT is pressed, ESC is always sent
+  30:quantum/process_keycode/process_grave_esc.c ****         // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
+  31:quantum/process_keycode/process_grave_esc.c ****         if (mods & MOD_MASK_ALT) {
+  32:quantum/process_keycode/process_grave_esc.c ****             shifted = 0;
+  33:quantum/process_keycode/process_grave_esc.c ****         }
+  34:quantum/process_keycode/process_grave_esc.c **** #endif
+  35:quantum/process_keycode/process_grave_esc.c **** 
+  36:quantum/process_keycode/process_grave_esc.c **** #ifdef GRAVE_ESC_CTRL_OVERRIDE
+  37:quantum/process_keycode/process_grave_esc.c ****         // if CTRL is pressed, ESC is always sent
+  38:quantum/process_keycode/process_grave_esc.c ****         // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
+  39:quantum/process_keycode/process_grave_esc.c ****         if (mods & MOD_MASK_CTRL) {
+  40:quantum/process_keycode/process_grave_esc.c ****             shifted = 0;
+  41:quantum/process_keycode/process_grave_esc.c ****         }
+  42:quantum/process_keycode/process_grave_esc.c **** #endif
+  43:quantum/process_keycode/process_grave_esc.c **** 
+  44:quantum/process_keycode/process_grave_esc.c **** #ifdef GRAVE_ESC_GUI_OVERRIDE
+  45:quantum/process_keycode/process_grave_esc.c ****         // if GUI is pressed, ESC is always sent
+  46:quantum/process_keycode/process_grave_esc.c ****         if (mods & MOD_MASK_GUI) {
+  47:quantum/process_keycode/process_grave_esc.c ****             shifted = 0;
+  48:quantum/process_keycode/process_grave_esc.c ****         }
+  49:quantum/process_keycode/process_grave_esc.c **** #endif
+  50:quantum/process_keycode/process_grave_esc.c **** 
+  51:quantum/process_keycode/process_grave_esc.c **** #ifdef GRAVE_ESC_SHIFT_OVERRIDE
+  52:quantum/process_keycode/process_grave_esc.c ****         // if SHIFT is pressed, ESC is always sent
+  53:quantum/process_keycode/process_grave_esc.c ****         if (mods & MOD_MASK_SHIFT) {
+  54:quantum/process_keycode/process_grave_esc.c ****             shifted = 0;
+  55:quantum/process_keycode/process_grave_esc.c ****         }
+  56:quantum/process_keycode/process_grave_esc.c **** #endif
+  57:quantum/process_keycode/process_grave_esc.c **** 
+  58:quantum/process_keycode/process_grave_esc.c ****         if (record->event.pressed) {
+  44               		.loc 1 58 9 view .LVU7
+  45               		.loc 1 58 12 is_stmt 0 view .LVU8
+  46 0010 9A81      		ldd r25,Y+2
+  47 0012 9923      		tst r25
+  48 0014 01F0      		breq .L3
+  26:quantum/process_keycode/process_grave_esc.c ****         uint8_t       shifted = mods & MOD_MASK_SG;
+  49               		.loc 1 26 23 view .LVU9
+  50 0016 8A7A      		andi r24,lo8(-86)
+  51               	.LVL2:
+  59:quantum/process_keycode/process_grave_esc.c ****             grave_esc_was_shifted = shifted;
+  52               		.loc 1 59 13 is_stmt 1 view .LVU10
+  53               		.loc 1 59 35 is_stmt 0 view .LVU11
+  54 0018 91E0      		ldi r25,lo8(1)
+  55 001a 01F4      		brne .L4
+  56 001c 90E0      		ldi r25,0
+  57               	.L4:
+  58 001e 9093 0000 		sts grave_esc_was_shifted,r25
+  60:quantum/process_keycode/process_grave_esc.c ****             add_key(shifted ? KC_GRAVE : KC_ESCAPE);
+  59               		.loc 1 60 13 is_stmt 1 view .LVU12
+  60 0022 8111      		cpse r24,__zero_reg__
+  61 0024 00C0      		rjmp .L9
+  62 0026 89E2      		ldi r24,lo8(41)
+  63               	.LVL3:
+  64               	.L5:
+  65               		.loc 1 60 13 is_stmt 0 discriminator 4 view .LVU13
+  66 0028 0E94 0000 		call add_key
+  67               	.LVL4:
+  68               	.L6:
+  61:quantum/process_keycode/process_grave_esc.c ****         } else {
+  62:quantum/process_keycode/process_grave_esc.c ****             del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
+  63:quantum/process_keycode/process_grave_esc.c ****         }
+  64:quantum/process_keycode/process_grave_esc.c **** 
+  65:quantum/process_keycode/process_grave_esc.c ****         send_keyboard_report();
+  69               		.loc 1 65 9 is_stmt 1 view .LVU14
+  70 002c 0E94 0000 		call send_keyboard_report
+  71               	.LVL5:
+  66:quantum/process_keycode/process_grave_esc.c ****         return false;
+  72               		.loc 1 66 9 view .LVU15
+  73               		.loc 1 66 16 is_stmt 0 view .LVU16
+  74 0030 80E0      		ldi r24,0
+  75               	.L1:
+  76               	/* epilogue start */
+  77               		.loc 1 66 16 view .LVU17
+  78               	.LBE2:
+  67:quantum/process_keycode/process_grave_esc.c ****     }
+  68:quantum/process_keycode/process_grave_esc.c **** 
+  69:quantum/process_keycode/process_grave_esc.c ****     // Not a grave keycode so continue processing
+  70:quantum/process_keycode/process_grave_esc.c ****     return true;
+  71:quantum/process_keycode/process_grave_esc.c **** }
+  79               		.loc 1 71 1 view .LVU18
+  80 0032 DF91      		pop r29
+  81 0034 CF91      		pop r28
+  82               	.LVL6:
+  83               		.loc 1 71 1 view .LVU19
+  84 0036 0895      		ret
+  85               	.LVL7:
+  86               	.L9:
+  87               	.LBB3:
+  60:quantum/process_keycode/process_grave_esc.c ****         } else {
+  88               		.loc 1 60 13 view .LVU20
+  89 0038 85E3      		ldi r24,lo8(53)
+  90               	.LVL8:
+  60:quantum/process_keycode/process_grave_esc.c ****         } else {
+  91               		.loc 1 60 13 view .LVU21
+  92 003a 00C0      		rjmp .L5
+  93               	.LVL9:
+  94               	.L3:
+  62:quantum/process_keycode/process_grave_esc.c ****         }
+  95               		.loc 1 62 13 is_stmt 1 view .LVU22
+  96 003c 8091 0000 		lds r24,grave_esc_was_shifted
+  97               	.LVL10:
+  62:quantum/process_keycode/process_grave_esc.c ****         }
+  98               		.loc 1 62 13 is_stmt 0 view .LVU23
+  99 0040 8111      		cpse r24,__zero_reg__
+ 100 0042 00C0      		rjmp .L10
+ 101 0044 89E2      		ldi r24,lo8(41)
+ 102               	.L7:
+  62:quantum/process_keycode/process_grave_esc.c ****         }
+ 103               		.loc 1 62 13 discriminator 4 view .LVU24
+ 104 0046 0E94 0000 		call del_key
+ 105               	.LVL11:
+ 106 004a 00C0      		rjmp .L6
+ 107               	.L10:
+  62:quantum/process_keycode/process_grave_esc.c ****         }
+ 108               		.loc 1 62 13 view .LVU25
+ 109 004c 85E3      		ldi r24,lo8(53)
+ 110 004e 00C0      		rjmp .L7
+ 111               	.LVL12:
+ 112               	.L8:
+  62:quantum/process_keycode/process_grave_esc.c ****         }
+ 113               		.loc 1 62 13 view .LVU26
+ 114               	.LBE3:
+  70:quantum/process_keycode/process_grave_esc.c **** }
+ 115               		.loc 1 70 12 view .LVU27
+ 116 0050 81E0      		ldi r24,lo8(1)
+ 117               	.LVL13:
+  70:quantum/process_keycode/process_grave_esc.c **** }
+ 118               		.loc 1 70 12 view .LVU28
+ 119 0052 00C0      		rjmp .L1
+ 120               		.cfi_endproc
+ 121               	.LFE117:
+ 123               		.section	.bss.grave_esc_was_shifted,"aw",@nobits
+ 126               	grave_esc_was_shifted:
+ 127 0000 00        		.zero	1
+ 128               		.text
+ 129               	.Letext0:
+ 130               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+ 131               		.file 3 "c:\\program files\\qmk_msys\\mingw64\\lib\\gcc\\avr\\8.4.0\\include\\stddef.h"
+ 132               		.file 4 "tmk_core/common/keyboard.h"
+ 133               		.file 5 "tmk_core/common/action.h"
+ 134               		.file 6 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+ 135               		.file 7 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+ 136               		.file 8 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+ 137               		.file 9 "lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.h"
+ 138               		.file 10 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdio.h"
+ 139               		.file 11 "tmk_core/common/report.h"
+ 140               		.file 12 "tmk_core/common/host.h"
+ 141               		.file 13 "tmk_core/common/debug.h"
+ 142               		.file 14 "quantum/keycode_config.h"
+ 143               		.file 15 "tmk_core/common/keycode.h"
+ 144               		.file 16 "quantum/quantum_keycodes.h"
+ 145               		.file 17 "quantum/keymap.h"
+ 146               		.file 18 "tmk_core/common/action_layer.h"
+ 147               		.file 19 "tmk_core/common/timer.h"
+ 148               		.file 20 "tmk_core/common/action_util.h"
+ 149               		.file 21 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdlib.h"
+ 150               		.file 22 "quantum/quantum.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 process_grave_esc.c
+C:\Users\gazed\AppData\Local\Temp\ccE1SXhT.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccE1SXhT.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccE1SXhT.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccE1SXhT.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccE1SXhT.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccE1SXhT.s:13     .text.process_grave_esc:0000000000000000 process_grave_esc
+C:\Users\gazed\AppData\Local\Temp\ccE1SXhT.s:126    .bss.grave_esc_was_shifted:0000000000000000 grave_esc_was_shifted
+
+UNDEFINED SYMBOLS
+get_mods
+add_key
+send_keyboard_report
+del_key
+__do_clear_bss

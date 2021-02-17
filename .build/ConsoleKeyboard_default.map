@@ -1,0 +1,1931 @@
+Archive member included to satisfy reference by file (symbol)
+
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+                              c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o (exit)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_byte.o)
+                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin) (eeprom_read_byte)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+                              .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin) (eeprom_read_dword)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_word.o)
+                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin) (eeprom_read_word)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_byte.o)
+                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin) (eeprom_update_byte)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+                              .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin) (eeprom_update_dword)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin) (eeprom_update_word)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_block.o)
+                              c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o) (eeprom_read_blraw)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                              C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o (__udivmodhi4)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+                              C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o (__tablejump2__)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+                              C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o (__do_copy_data)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+                              C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o (__do_clear_bss)
+c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libc.a(memchr.o)
+                              C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o (memchr)
+
+Allocating common symbols
+Common symbol       size              file
+
+rgblight_config     0x5               .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+USB_IsInitialized   0x1               .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+keymap_config       0x2               .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+USB_DeviceState     0x1               .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+USB_Device_ConfigurationNumber
+                    0x1               .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+led                 0x12              .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+raw_matrix          0x4               .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+USB_Device_CurrentlySelfPowered
+                    0x1               .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+matrix              0x4               .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+USB_ControlRequest  0x8               .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+tp_buttons          0x2               .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+USB_Device_RemoteWakeupEnabled
+                    0x1               .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+timer_count         0x4               .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+
+Discarded input sections
+
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ .trampolines   0x0000000000000000        0x0 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+ .comment       0x0000000000000000      0x3a8 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+ .text          0x0000000000000000        0x0 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .data          0x0000000000000000        0x0 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss           0x0000000000000000        0x0 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.led_set  0x0000000000000000        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text          0x0000000000000000      0x15c .build/obj_consolekeyboard_default/common/avr/xprintf.o
+ .data          0x0000000000000000        0x0 .build/obj_consolekeyboard_default/common/avr/xprintf.o
+ .bss           0x0000000000000000        0x2 .build/obj_consolekeyboard_default/common/avr/xprintf.o
+ .stab          0x0000000000000000      0x8b8 .build/obj_consolekeyboard_default/common/avr/xprintf.o
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc   0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_byte.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_byte.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_byte.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_word.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_word.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_word.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_byte.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_byte.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_byte.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_block.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_block.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_block.o)
+ .text          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libc.a(memchr.o)
+ .data          0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libc.a(memchr.o)
+ .bss           0x0000000000000000        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libc.a(memchr.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x0000000000000000 0x0000000000020000 xr
+data             0x0000000000800060 0x000000000000ffa0 rw !x
+eeprom           0x0000000000810000 0x0000000000010000 rw !x
+fuse             0x0000000000820000 0x0000000000000400 rw !x
+lock             0x0000000000830000 0x0000000000000400 rw !x
+signature        0x0000000000840000 0x0000000000000400 rw !x
+user_signatures  0x0000000000850000 0x0000000000000400 rw !x
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+LOAD .build/obj_consolekeyboard_default/keyboards/consolekeyboard/consolekeyboard.o
+LOAD C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+LOAD C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+LOAD .build/obj_consolekeyboard_default/keyboards/consolekeyboard/keymaps/default/keymap.o
+LOAD .build/obj_consolekeyboard_default/quantum/quantum.o
+LOAD .build/obj_consolekeyboard_default/quantum/led.o
+LOAD .build/obj_consolekeyboard_default/quantum/keymap_common.o
+LOAD .build/obj_consolekeyboard_default/quantum/keycode_config.o
+LOAD .build/obj_consolekeyboard_default/quantum/matrix_common.o
+LOAD .build/obj_consolekeyboard_default/quantum/matrix.o
+LOAD .build/obj_consolekeyboard_default/quantum/debounce/sym_defer_g.o
+LOAD .build/obj_consolekeyboard_default/quantum/color.o
+LOAD .build/obj_consolekeyboard_default/quantum/rgblight.o
+LOAD .build/obj_consolekeyboard_default/quantum/process_keycode/process_rgb.o
+LOAD .build/obj_consolekeyboard_default/ws2812.o
+LOAD .build/obj_consolekeyboard_default/quantum/led_tables.o
+LOAD .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o
+LOAD .build/obj_consolekeyboard_default/quantum/process_keycode/process_magic.o
+LOAD .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o
+LOAD .build/obj_consolekeyboard_default/common/host.o
+LOAD .build/obj_consolekeyboard_default/common/keyboard.o
+LOAD .build/obj_consolekeyboard_default/common/action.o
+LOAD .build/obj_consolekeyboard_default/common/action_tapping.o
+LOAD .build/obj_consolekeyboard_default/common/action_macro.o
+LOAD .build/obj_consolekeyboard_default/common/action_layer.o
+LOAD .build/obj_consolekeyboard_default/common/action_util.o
+LOAD .build/obj_consolekeyboard_default/common/print.o
+LOAD .build/obj_consolekeyboard_default/common/debug.o
+LOAD .build/obj_consolekeyboard_default/common/sendchar_null.o
+LOAD .build/obj_consolekeyboard_default/common/util.o
+LOAD .build/obj_consolekeyboard_default/common/eeconfig.o
+LOAD .build/obj_consolekeyboard_default/common/report.o
+LOAD .build/obj_consolekeyboard_default/common/avr/suspend.o
+LOAD .build/obj_consolekeyboard_default/common/avr/timer.o
+LOAD .build/obj_consolekeyboard_default/common/avr/bootloader.o
+LOAD .build/obj_consolekeyboard_default/common/avr/xprintf.o
+LOAD .build/obj_consolekeyboard_default/common/bootmagic_lite.o
+LOAD .build/obj_consolekeyboard_default/common/magic.o
+LOAD .build/obj_consolekeyboard_default/common/command.o
+LOAD .build/obj_consolekeyboard_default/lufa.o
+LOAD .build/obj_consolekeyboard_default/usb_descriptor.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Class/Common/HIDParser.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Device_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Host_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/PipeStream_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Pipe_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/ConfigDescriptors.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/Events.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.o
+LOAD .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o
+LOAD c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libm.a
+START GROUP
+LOAD c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a
+LOAD c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libm.a
+LOAD c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libc.a
+LOAD c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a
+END GROUP
+                0x0000000000020000                __TEXT_REGION_LENGTH__ = DEFINED (__TEXT_REGION_LENGTH__)?__TEXT_REGION_LENGTH__:0x20000
+                0x000000000000ffa0                __DATA_REGION_LENGTH__ = DEFINED (__DATA_REGION_LENGTH__)?__DATA_REGION_LENGTH__:0xffa0
+                0x0000000000010000                __EEPROM_REGION_LENGTH__ = DEFINED (__EEPROM_REGION_LENGTH__)?__EEPROM_REGION_LENGTH__:0x10000
+                0x0000000000000400                __FUSE_REGION_LENGTH__ = DEFINED (__FUSE_REGION_LENGTH__)?__FUSE_REGION_LENGTH__:0x400
+                0x0000000000000400                __LOCK_REGION_LENGTH__ = DEFINED (__LOCK_REGION_LENGTH__)?__LOCK_REGION_LENGTH__:0x400
+                0x0000000000000400                __SIGNATURE_REGION_LENGTH__ = DEFINED (__SIGNATURE_REGION_LENGTH__)?__SIGNATURE_REGION_LENGTH__:0x400
+                0x0000000000000400                __USER_SIGNATURE_REGION_LENGTH__ = DEFINED (__USER_SIGNATURE_REGION_LENGTH__)?__USER_SIGNATURE_REGION_LENGTH__:0x400
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x0000000000000000     0x39ea
+ *(.vectors)
+ .vectors       0x0000000000000000       0xac c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+                0x0000000000000000                __vector_default
+                0x0000000000000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+                0x00000000000000ac                . = ALIGN (0x2)
+                0x00000000000000ac                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000000000000ac        0x0 linker stubs
+ *(.trampolines*)
+                0x00000000000000ac                __trampolines_end = .
+ *libprintf_flt.a:*(.progmem.data)
+ *libc.a:*(.progmem.data)
+ *(.progmem.*)
+ .progmem.data.CIE1931_CURVE
+                0x00000000000000ac      0x100 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.rgblight_effect_breathe_table
+                0x00000000000001ac      0x100 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.keymaps
+                0x00000000000002ac       0x30 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.RGBLED_BREATHING_INTERVALS
+                0x00000000000002dc        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.SharedReport
+                0x00000000000002e0       0x6d C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.KeyboardReport
+                0x000000000000034d       0x40 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.ConfigurationDescriptor
+                0x000000000000038d       0x3b C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.DeviceDescriptor
+                0x00000000000003c8       0x12 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.ProductString
+                0x00000000000003da       0x24 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.ManufacturerString
+                0x00000000000003fe       0x1c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .progmem.data.LanguageString
+                0x000000000000041a        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x000000000000041e                . = ALIGN (0x2)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000000000000041e                __ctors_start = .
+ *(.ctors)
+                0x000000000000041e                __ctors_end = .
+                0x000000000000041e                __dtors_start = .
+ *(.dtors)
+                0x000000000000041e                __dtors_end = .
+ SORT_BY_NAME(*)(.ctors)
+ SORT_BY_NAME(*)(.dtors)
+ *(.init0)
+ .init0         0x000000000000041e        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+                0x000000000000041e                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000000000000041e        0xc c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ *(.init2)
+ *(.init3)
+ .init3         0x000000000000042a       0x54 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x000000000000042a                bootloader_jump_after_watchdog_reset
+ *(.init3)
+ *(.init4)
+ .init4         0x000000000000047e       0x16 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+                0x000000000000047e                __do_copy_data
+ .init4         0x0000000000000494       0x10 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000000000000494                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000000000004a4        0x8 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ *(.init9)
+ *(.text)
+ .text          0x00000000000004ac        0x4 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+                0x00000000000004ac                __vector_38
+                0x00000000000004ac                __vector_22
+                0x00000000000004ac                __vector_28
+                0x00000000000004ac                __vector_1
+                0x00000000000004ac                __vector_32
+                0x00000000000004ac                __vector_34
+                0x00000000000004ac                __vector_24
+                0x00000000000004ac                __bad_interrupt
+                0x00000000000004ac                __vector_6
+                0x00000000000004ac                __vector_31
+                0x00000000000004ac                __vector_35
+                0x00000000000004ac                __vector_39
+                0x00000000000004ac                __vector_3
+                0x00000000000004ac                __vector_23
+                0x00000000000004ac                __vector_30
+                0x00000000000004ac                __vector_25
+                0x00000000000004ac                __vector_13
+                0x00000000000004ac                __vector_17
+                0x00000000000004ac                __vector_19
+                0x00000000000004ac                __vector_7
+                0x00000000000004ac                __vector_41
+                0x00000000000004ac                __vector_27
+                0x00000000000004ac                __vector_5
+                0x00000000000004ac                __vector_33
+                0x00000000000004ac                __vector_37
+                0x00000000000004ac                __vector_4
+                0x00000000000004ac                __vector_9
+                0x00000000000004ac                __vector_2
+                0x00000000000004ac                __vector_15
+                0x00000000000004ac                __vector_36
+                0x00000000000004ac                __vector_29
+                0x00000000000004ac                __vector_40
+                0x00000000000004ac                __vector_8
+                0x00000000000004ac                __vector_26
+                0x00000000000004ac                __vector_14
+                0x00000000000004ac                __vector_16
+                0x00000000000004ac                __vector_18
+                0x00000000000004ac                __vector_20
+                0x00000000000004ac                __vector_42
+                0x00000000000004b0                . = ALIGN (0x2)
+ *(.text.*)
+ .text.USB_Disable
+                0x00000000000004b0       0x3e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.Endpoint_WaitUntilReady
+                0x00000000000004ee       0x62 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.Endpoint_Write_Stream_LE.constprop.0
+                0x0000000000000550       0x54 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.Endpoint_ClearStatusStage
+                0x00000000000005a4       0x3e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.Endpoint_ConfigureEndpoint_Prv
+                0x00000000000005e2       0x64 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.USB_Init
+                0x0000000000000646       0xc2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.Endpoint_Write_Control_Stream_LE
+                0x0000000000000708       0xbc C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_effect_dummy
+                0x00000000000007c4        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.send_mouse
+                0x00000000000007c6        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.keyboard_leds
+                0x00000000000007c8        0x6 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.timer_elapsed
+                0x00000000000007ce       0x1e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.timer_read
+                0x00000000000007ec       0x18 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.del_key_from_report
+                0x0000000000000804       0x54 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.add_key_to_report
+                0x0000000000000858       0x6a C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.clear_oneshot_mods
+                0x00000000000008c2        0xc C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.send_keyboard_report
+                0x00000000000008ce       0x8a C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.read_source_layers_cache
+                0x0000000000000958       0x50 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.update_source_layers_cache
+                0x00000000000009a8       0x58 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.debug_waiting_buffer
+                0x0000000000000a00       0x14 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.unregister_mods
+                0x0000000000000a14       0x16 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.register_mods
+                0x0000000000000a2a       0x14 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.host_consumer_send
+                0x0000000000000a3e       0x2c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.host_system_send
+                0x0000000000000a6a       0x2c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.clear_keyboard_but_mods_and_keys
+                0x0000000000000a96       0x1c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.layer_state_set
+                0x0000000000000ab2       0x14 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.layer_off
+                0x0000000000000ac6       0x46 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.clear_oneshot_layer_state
+                0x0000000000000b0c       0x30 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.layer_on
+                0x0000000000000b3c       0x42 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.default_layer_state_set
+                0x0000000000000b7e       0x14 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.unregister_code
+                0x0000000000000b92       0x64 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.host_keyboard_leds
+                0x0000000000000bf6       0x18 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.handleKeycodeRGB
+                0x0000000000000c0e        0xa C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_check_config
+                0x0000000000000c18       0x1e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.sethsv_raw
+                0x0000000000000c36      0x12c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.setPinInputHigh_atomic
+                0x0000000000000d62       0x2e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.mod_config
+                0x0000000000000d90       0x86 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.action_for_key
+                0x0000000000000e16      0x316 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.layer_switch_get_layer
+                0x000000000000112c       0x84 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.layer_switch_get_action
+                0x00000000000011b0       0x14 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.is_tap_key
+                0x00000000000011c4       0x48 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.send_extra
+                0x000000000000120c       0x66 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.send_consumer
+                0x0000000000001272        0x8 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.send_system
+                0x000000000000127a        0x8 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.send_keyboard
+                0x0000000000001282       0x80 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.bootloader_jump
+                0x0000000000001302       0x48 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_set
+                0x000000000000134a       0x6a C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_setrgb
+                0x00000000000013b4       0x22 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_effect_breathing
+                0x00000000000013d6       0x5c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.matrix_scan
+                0x0000000000001432      0x13e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.eeconfig_read_keymap
+                0x0000000000001570       0x1c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.eeconfig_update_rgblight
+                0x000000000000158c       0x24 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_sethsv_eeprom_helper
+                0x00000000000015b0       0x92 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_decrease_val
+                0x0000000000001642       0x18 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_increase_val
+                0x000000000000165a       0x18 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_decrease_sat
+                0x0000000000001672       0x18 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_increase_sat
+                0x000000000000168a       0x18 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_decrease_hue
+                0x00000000000016a2       0x12 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_increase_hue
+                0x00000000000016b4       0x12 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_decrease_speed
+                0x00000000000016c6       0x22 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_increase_speed
+                0x00000000000016e8       0x22 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.eeconfig_update_rgblight_default
+                0x000000000000170a       0x1e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.eeconfig_init_quantum
+                0x0000000000001728       0xd4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.clear_keyboard
+                0x00000000000017fc       0x2a C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.USB_Device_ProcessControlRequest
+                0x0000000000001826      0x572 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.switch_default_layer
+                0x0000000000001d98       0x2e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.command_common
+                0x0000000000001dc6       0xd6 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.register_code
+                0x0000000000001e9c      0x12a C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.perform_space_cadet.constprop.18
+                0x0000000000001fc6       0xce C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_timer_enable
+                0x0000000000002094       0x2c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_mode_eeprom_helper
+                0x00000000000020c0       0x76 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_step_reverse
+                0x0000000000002136       0x12 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.rgblight_step
+                0x0000000000002148       0x14 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.handleKeycodeRGBMode.constprop.20
+                0x000000000000215c       0x1e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.process_record
+                0x000000000000217a      0xa5a C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.waiting_buffer_scan_tap
+                0x0000000000002bd4       0xac C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.process_tapping
+                0x0000000000002c80      0x314 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.action_exec
+                0x0000000000002f94      0x11a C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .text.__vector_11
+                0x00000000000030ae       0x88 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x00000000000030ae                __vector_11
+ .text.__vector_10
+                0x0000000000003136      0x1d8 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x0000000000003136                __vector_10
+ .text.startup.main
+                0x000000000000330e      0x476 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x000000000000330e                main
+ .text.__vector_21
+                0x0000000000003784       0x48 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x0000000000003784                __vector_21
+ .text.__vector_12
+                0x00000000000037cc       0x4e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x00000000000037cc                __vector_12
+ .text.libgcc.div
+                0x000000000000381a       0x28 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x000000000000381a                __udivmodhi4
+ .text.libgcc   0x0000000000003842        0xc c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x0000000000003842                __tablejump2__
+ .text.avr-libc
+                0x000000000000384e       0x10 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_byte.o)
+                0x000000000000384e                eeprom_read_byte
+ .text.avr-libc
+                0x000000000000385e        0xc c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+                0x000000000000385e                eeprom_read_float
+                0x000000000000385e                eeprom_read_dword
+ .text.avr-libc
+                0x000000000000386a        0xc c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_word.o)
+                0x000000000000386a                eeprom_read_word
+ .text.avr-libc
+                0x0000000000003876       0x24 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_byte.o)
+                0x0000000000003876                eeprom_update_byte
+                0x0000000000003878                eeprom_update_r18
+ .text.avr-libc
+                0x000000000000389a       0x18 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+                0x000000000000389a                eeprom_update_float
+                0x000000000000389a                eeprom_update_dword
+ .text.avr-libc
+                0x00000000000038b2        0xc c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+                0x00000000000038b2                eeprom_update_word
+ .text.avr-libc
+                0x00000000000038be       0x20 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_block.o)
+                0x00000000000038be                eeprom_read_block
+                0x00000000000038c2                eeprom_read_blraw
+ .text.avr-libc
+                0x00000000000038de       0x1a c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libc.a(memchr.o)
+                0x00000000000038de                memchr
+                0x00000000000038f8                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000000000038f8        0x0 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+                0x00000000000038f8                _exit
+                0x00000000000038f8                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000000000038f8        0x4 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+ *(.hightext)
+ *(.hightext*)
+ *(.progmemx.*)
+                0x00000000000038fc                . = ALIGN (0x2)
+ *(.jumptables)
+ *(.jumptables*)
+ .jumptables.gcc.is_tap_key
+                0x00000000000038fc       0x1c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .jumptables.gcc.USB_Device_ProcessControlRequest
+                0x0000000000003918       0x14 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .jumptables.gcc.command_common
+                0x000000000000392c       0x7e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .jumptables.gcc.process_record
+                0x00000000000039aa       0x40 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                0x00000000000039ea                _etext = .
+
+.data           0x0000000000800100       0x52 load address 0x00000000000039ea
+                0x0000000000800100                PROVIDE (__data_start = .)
+ *(.data)
+ *(.data*)
+ .data.static_effect_table
+                0x0000000000800100        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .data.lufa_driver
+                0x0000000000800101        0xa C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .data.keyboard_protocol
+                0x000000000080010b        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ *(.gnu.linkonce.d*)
+ *(.rodata)
+ *(.rodata*)
+ .rodata.mode_base_table
+                0x000000000080010c        0x6 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .rodata.CSWTCH.0
+                0x0000000000800112        0x3 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .rodata.CSWTCH.1
+                0x0000000000800115       0x2e C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .rodata.row_pins
+                0x0000000000800143        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .rodata.col_pins
+                0x0000000000800145        0xc C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ *(.gnu.linkonce.r*)
+                0x0000000000800152                . = ALIGN (0x2)
+ *fill*         0x0000000000800151        0x1 
+                0x0000000000800152                _edata = .
+                0x0000000000800152                PROVIDE (__data_end = .)
+
+.bss            0x0000000000800152       0xe8
+                0x0000000000800152                PROVIDE (__bss_start = .)
+ *(.bss)
+ *(.bss*)
+ .bss.__compound_literal.0
+                0x0000000000800152       0x20 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.debouncing_time
+                0x0000000000800172        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.debouncing
+                0x0000000000800174        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.led       0x0000000000800175       0x12 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.last_system_report
+                0x0000000000800187        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.last_consumer_report
+                0x0000000000800189        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.grave_esc_was_shifted
+                0x000000000080018b        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.tapping_key
+                0x000000000080018c        0x6 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.waiting_buffer_head
+                0x0000000000800192        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.waiting_buffer
+                0x0000000000800193       0x30 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.waiting_buffer_tail
+                0x00000000008001c3        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.source_layers_cache
+                0x00000000008001c4        0xf C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.oneshot_layer_data
+                0x00000000008001d3        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.macro_mods
+                0x00000000008001d4        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.weak_mods
+                0x00000000008001d5        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.real_mods
+                0x00000000008001d6        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.oneshot_mods
+                0x00000000008001d7        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.default_layer_state
+                0x00000000008001d8        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.timer_count
+                0x00000000008001dc        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.command_state
+                0x00000000008001e0        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.raw_matrix
+                0x00000000008001e1        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.layer_state
+                0x00000000008001e5        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.keymap_config
+                0x00000000008001e9        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.is_rgblight_initialized
+                0x00000000008001eb        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.driver    0x00000000008001ec        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.wdt_timeout
+                0x00000000008001ee        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.matrix    0x00000000008001ef        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.animation_status
+                0x00000000008001f3        0x6 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.rgblight_status
+                0x00000000008001f9        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.led_status.5960
+                0x00000000008001fb        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.debug_config
+                0x00000000008001fc        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.matrix_prev.5959
+                0x00000000008001fd        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.USB_IsInitialized
+                0x0000000000800201        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.pre_suspend_enabled
+                0x0000000000800202        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.is_suspended
+                0x0000000000800203        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.keyboard_idle
+                0x0000000000800204        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.keyboard_led_state
+                0x0000000000800205        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.keyboard_report_sent
+                0x0000000000800206       0x20 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.USB_Device_CurrentlySelfPowered
+                0x0000000000800226        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.USB_Device_RemoteWakeupEnabled
+                0x0000000000800227        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.USB_DeviceState
+                0x0000000000800228        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.USB_Device_ConfigurationNumber
+                0x0000000000800229        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.USB_ControlRequest
+                0x000000000080022a        0x8 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.sc_timer  0x0000000000800232        0x2 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.sc_last   0x0000000000800234        0x1 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ .bss.rgblight_config
+                0x0000000000800235        0x5 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ *(COMMON)
+                0x000000000080023a                PROVIDE (__bss_end = .)
+                0x00000000000039ea                __data_load_start = LOADADDR (.data)
+                0x0000000000003a3c                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x000000000080023a        0x4
+                [!provide]                        PROVIDE (__noinit_start = .)
+ *(.noinit*)
+ .noinit        0x000000000080023a        0x4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                [!provide]                        PROVIDE (__noinit_end = .)
+                0x000000000080023e                _end = .
+                [!provide]                        PROVIDE (__heap_start = .)
+
+.eeprom         0x0000000000810000        0x0
+ *(.eeprom*)
+                0x0000000000810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr        0x0000000000000000       0x8a
+ *(.stabstr)
+ .stabstr       0x0000000000000000       0x8a .build/obj_consolekeyboard_default/common/avr/xprintf.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000       0x11
+ *(.comment)
+ .comment       0x0000000000000000       0x11 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                         0x12 (size before relaxing)
+
+.note.gnu.avr.deviceinfo
+                0x0000000000000000       0x40
+ .note.gnu.avr.deviceinfo
+                0x0000000000000000       0x40 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x0000000000000000      0x2b0
+ *(.debug_aranges)
+ .debug_aranges
+                0x0000000000000000      0x2b0 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x0000000000000000    0x22801
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x0000000000000000      0x9f4 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ .debug_info    0x00000000000009f4    0x1aeb8 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                0x00000000000009f4                consolekeyboard.c.d21439d8
+                0x0000000000001228                keymap.c.69083313
+                0x0000000000001e85                quantum.c.37b2b36c
+                0x0000000000003daf                led.c.fa29ea1e
+                0x0000000000004721                keymap_common.c.548e2eca
+                0x0000000000006716                keycode_config.c.9fbb5b42
+                0x0000000000006d1c                matrix_common.c.ab02d6a9
+                0x0000000000007047                matrix.c.d3da33fb
+                0x0000000000007aa3                sym_defer_g.c.c7382569
+                0x0000000000008371                color.c.3e4e72a5
+                0x0000000000008590                rgblight.c.31eeec2e
+                0x00000000000097a4                process_rgb.c.eca4d1c9
+                0x000000000000b0e2                ws2812.c.927752a2
+                0x000000000000b29f                led_tables.c.73181575
+                0x000000000000b32c                process_space_cadet.c.ff04c5b0
+                0x000000000000cb9a                process_magic.c.5f69bcda
+                0x000000000000df88                process_grave_esc.c.ccdc29ce
+                0x000000000000f7ef                host.c.6301755a
+                0x000000000000ff7e                keyboard.c.c17031b9
+                0x000000000001082a                action.c.f712403c
+                0x0000000000011d25                action_tapping.c.0351663d
+                0x0000000000012888                action_macro.c.5f0b87ac
+                0x0000000000012c45                action_layer.c.f038ad04
+                0x0000000000013460                action_util.c.2465c825
+                0x0000000000013d7f                print.c.c33bb4af
+                0x0000000000013dd5                debug.c.c9def146
+                0x0000000000013edf                sendchar_null.c.3094c1d4
+                0x0000000000013f66                util.c.cd644d3f
+                0x000000000001412f                eeconfig.c.5fddc0c6
+                0x00000000000143af                report.c.235dc7da
+                0x0000000000014e59                suspend.c.c344a333
+                0x000000000001562d                timer.c.d84c4219
+                0x0000000000015836                bootloader.c.9757163b
+                0x0000000000015b29                bootmagic_lite.c.baf75111
+                0x00000000000163d8                magic.c.e1fc6b7b
+                0x000000000001685b                command.c.5b24a7e6
+                0x00000000000175f7                lufa.c.4d1546a7
+                0x00000000000184e9                usb_descriptor.c.e844e3f4
+                0x0000000000018e06                HIDParser.c.1e283240
+                0x0000000000019475                Device_AVR8.c.b995ccf0
+                0x00000000000195d5                EndpointStream_AVR8.c.6c4be154
+                0x000000000001a0e8                Endpoint_AVR8.c.6cb0242b
+                0x000000000001a518                Host_AVR8.c.111fe126
+                0x000000000001a56e                PipeStream_AVR8.c.2396fcef
+                0x000000000001a5c4                Pipe_AVR8.c.160d2c9d
+                0x000000000001a61a                USBController_AVR8.c.22e7ccad
+                0x000000000001a937                USBInterrupt_AVR8.c.30ec3551
+                0x000000000001acc0                ConfigDescriptors.c.5e00032a
+                0x000000000001b01a                DeviceStandardReq.c.238a2e39
+                0x000000000001b5b6                Events.c.373295e8
+                0x000000000001b666                HostStandardReq.c.11f99cc6
+                0x000000000001b6bc                USBTask.c.98e2b469
+ .debug_info    0x000000000001b8ac     0x6f55 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+
+.debug_abbrev   0x0000000000000000     0x5ea0
+ *(.debug_abbrev)
+ .debug_abbrev  0x0000000000000000      0x96a c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ .debug_abbrev  0x000000000000096a     0x5182 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+ .debug_abbrev  0x0000000000005aec      0x3b4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+
+.debug_line     0x0000000000000000     0xeef4
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x0000000000000000       0x1d c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ .debug_line    0x000000000000001d     0x4d23 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+ .debug_line    0x0000000000004d40     0xa1b4 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+
+.debug_frame    0x0000000000000000      0x888
+ *(.debug_frame)
+ .debug_frame   0x0000000000000000      0x888 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+
+.debug_str      0x0000000000000000     0x7212
+ *(.debug_str)
+ .debug_str     0x0000000000000000      0x371 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+ .debug_str     0x0000000000000371     0x6d95 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                      0x1d1c4 (size before relaxing)
+ .debug_str     0x0000000000007106      0x10c C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                        0x13c (size before relaxing)
+
+.debug_loc      0x0000000000000000     0x5e2f
+ *(.debug_loc)
+ .debug_loc     0x0000000000000000     0x5e2f C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x0000000000000000     0x1508
+ *(.debug_ranges)
+ .debug_ranges  0x0000000000000000     0x1508 C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+
+.debug_macro
+ *(.debug_macro)
+
+.debug_addr
+ *(.debug_addr)
+OUTPUT(.build/consolekeyboard_default.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+CALLBACK_HIDParser_FilterHIDReportItem            .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Class/Common/HIDParser.o (symbol from plugin)
+CALLBACK_USB_GetDescriptor                        .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+CIE1931_CURVE                                     .build/obj_consolekeyboard_default/quantum/led_tables.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/color.o (symbol from plugin)
+ConfigDescriptors.c.5e00032a                      C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+ConfigurationDescriptor                           .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+DeviceDescriptor                                  .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+DeviceStandardReq.c.238a2e39                      C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+Device_AVR8.c.b995ccf0                            C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+EVENT_USB_Device_ConfigurationChanged             .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+EVENT_USB_Device_Connect                          .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+EVENT_USB_Device_ControlRequest                   .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+EVENT_USB_Device_Disconnect                       .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+EVENT_USB_Device_Reset                            .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+EVENT_USB_Device_StartOfFrame                     .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/Events.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+EVENT_USB_Device_Suspend                          .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+EVENT_USB_Device_WakeUp                           .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+EndpointStream_AVR8.c.6c4be154                    C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+Endpoint_AVR8.c.6cb0242b                          C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+Endpoint_ClearEndpoints                           .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o (symbol from plugin)
+Endpoint_ClearStatusStage                         .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+Endpoint_ConfigureEndpointTable                   .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o (symbol from plugin)
+Endpoint_ConfigureEndpoint_Prv                    .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+Endpoint_Discard_Stream                           .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Null_Stream                              .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_Control_EStream_BE                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_Control_EStream_LE                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_Control_Stream_BE                   .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_Control_Stream_LE                   .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_EStream_BE                          .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_EStream_LE                          .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_Stream_BE                           .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Read_Stream_LE                           .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_WaitUntilReady                           .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_Control_EStream_BE                 .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_Control_EStream_LE                 .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_Control_PStream_BE                 .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_Control_PStream_LE                 .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+Endpoint_Write_Control_Stream_BE                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_Control_Stream_LE                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+Endpoint_Write_EStream_BE                         .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_EStream_LE                         .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_PStream_BE                         .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_PStream_LE                         .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_Stream_BE                          .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+Endpoint_Write_Stream_LE                          .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+Events.c.373295e8                                 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+HIDParser.c.1e283240                              C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+HostStandardReq.c.11f99cc6                        C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+Host_AVR8.c.111fe126                              C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+KeyboardReport                                    .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+LanguageString                                    .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+ManufacturerString                                .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+PipeStream_AVR8.c.2396fcef                        C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+Pipe_AVR8.c.160d2c9d                              C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+ProductString                                     .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+RGBLED_BREATHING_INTERVALS                        .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+SharedReport                                      .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+USBController_AVR8.c.22e7ccad                     C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+USBInterrupt_AVR8.c.30ec3551                      C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+USBTask.c.98e2b469                                C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+USB_ControlRequest                                .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+USB_DeviceState                                   .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Endpoint_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+USB_Device_ConfigurationNumber                    .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+USB_Device_CurrentlySelfPowered                   .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+USB_Device_ProcessControlRequest                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+USB_Device_RemoteWakeupEnabled                    .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/DeviceStandardReq.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+USB_Device_SendRemoteWakeup                       .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/Device_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+USB_Disable                                       .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+USB_Event_Stub                                    .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/Events.o (symbol from plugin)
+USB_Event_Stub_2                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/Events.o (symbol from plugin)
+USB_Event_Stub_3                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/Events.o (symbol from plugin)
+USB_GetHIDReportItemInfo                          .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Class/Common/HIDParser.o (symbol from plugin)
+USB_GetHIDReportSize                              .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Class/Common/HIDParser.o (symbol from plugin)
+USB_GetNextDescriptorComp                         .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/ConfigDescriptors.o (symbol from plugin)
+USB_GetNextDescriptorOfType                       .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/ConfigDescriptors.o (symbol from plugin)
+USB_GetNextDescriptorOfTypeAfter                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/ConfigDescriptors.o (symbol from plugin)
+USB_GetNextDescriptorOfTypeBefore                 .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/ConfigDescriptors.o (symbol from plugin)
+USB_INT_ClearAllInterrupts                        .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+USB_INT_DisableAllInterrupts                      .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+USB_Init                                          .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+USB_IsInitialized                                 .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+USB_ProcessHIDReport                              .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Class/Common/HIDParser.o (symbol from plugin)
+USB_ResetInterface                                .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.o (symbol from plugin)
+USB_SetHIDReportItemInfo                          .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Class/Common/HIDParser.o (symbol from plugin)
+USB_USBTask                                       .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/USBTask.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+__bad_interrupt                                   c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__bss_end                                         c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+__data_end                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+__data_start                                      c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+__do_clear_bss                                    c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_clear_bss.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+__do_copy_data                                    c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_copy_data.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+__heap_end                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__init                                            c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__stack                                           c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__tablejump2__                                    c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_tablejump2.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+__udivmodhi4                                      c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+__vector_1                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_10                                       C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_11                                       C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/USBInterrupt_AVR8.o (symbol from plugin)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_12                                       C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_13                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_14                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_15                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_16                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_17                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_18                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_19                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_2                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_20                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_21                                       C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_22                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_23                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_24                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_25                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_26                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_27                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_28                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_29                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_3                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_30                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_31                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_32                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_33                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_34                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_35                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_36                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_37                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_38                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_39                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_4                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_40                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_41                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_42                                       c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_5                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_6                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_7                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_8                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_9                                        c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vector_default                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__vectors                                         c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+__xprintf                                         .build/obj_consolekeyboard_default/common/avr/xprintf.o
+_exit                                             c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+action.c.f712403c                                 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+action_exec                                       .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+action_for_key                                    .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+action_function                                   .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+action_get_macro                                  .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+action_layer.c.f038ad04                           C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+action_macro.c.5f0b87ac                           C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+action_tapping.c.0351663d                         C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+action_tapping_process                            .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+action_util.c.2465c825                            C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+add_key                                           .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+add_key_bit                                       .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+add_key_byte                                      .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+add_key_to_report                                 .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+add_macro_mods                                    .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+add_mods                                          .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+add_oneshot_mods                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+add_weak_mods                                     .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+animation_status                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+api_send_unicode                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+ascii_to_altgr_lut                                .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+ascii_to_keycode_lut                              .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+ascii_to_shift_lut                                .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+biton                                             .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+biton16                                           .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+biton32                                           .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+bitpop                                            .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+bitpop16                                          .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+bitpop32                                          .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+bitrev                                            .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+bitrev16                                          .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+bitrev32                                          .build/obj_consolekeyboard_default/common/util.o (symbol from plugin)
+bootloader.c.9757163b                             C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+bootloader_jump                                   .build/obj_consolekeyboard_default/common/avr/bootloader.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/bootmagic_lite.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+bootloader_jump_after_watchdog_reset              C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/common/avr/bootloader.o (symbol from plugin)
+bootmagic_lite                                    .build/obj_consolekeyboard_default/common/bootmagic_lite.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+bootmagic_lite.c.baf75111                         C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+bootmagic_lite_reset_eeprom                       .build/obj_consolekeyboard_default/common/bootmagic_lite.o (symbol from plugin)
+clear_keyboard                                    .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+clear_keyboard_but_mods                           .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+clear_keyboard_but_mods_and_keys                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+clear_keys                                        .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+clear_keys_from_report                            .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+clear_macro_mods                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+clear_mods                                        .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+clear_oneshot_layer_state                         .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+clear_oneshot_locked_mods                         .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+clear_oneshot_mods                                .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+clear_weak_mods                                   .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+color.c.3e4e72a5                                  C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+command.c.5b24a7e6                                C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+command_console_extra                             .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+command_extra                                     .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+command_proc                                      .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+command_state                                     .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+consolekeyboard.c.d21439d8                        C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+debounce                                          .build/obj_consolekeyboard_default/quantum/debounce/sym_defer_g.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+debounce_active                                   .build/obj_consolekeyboard_default/quantum/debounce/sym_defer_g.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+debounce_init                                     .build/obj_consolekeyboard_default/quantum/debounce/sym_defer_g.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+debug.c.c9def146                                  C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+debug_action                                      .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+debug_config                                      .build/obj_consolekeyboard_default/common/debug.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+debug_event                                       .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+debug_record                                      .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+default_layer_and                                 .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+default_layer_debug                               .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+default_layer_or                                  .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+default_layer_set                                 .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+default_layer_state                               .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+default_layer_state_set_kb                        .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+default_layer_state_set_user                      .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+default_layer_xor                                 .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+del_key                                           .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+del_key_bit                                       .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+del_key_byte                                      .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+del_key_from_report                               .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+del_macro_mods                                    .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+del_mods                                          .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+del_oneshot_mods                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+del_weak_mods                                     .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+disable_action_cache                              .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+disable_jtag                                      .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+eeconfig.c.5fddc0c6                               C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+eeconfig_debug_rgblight                           .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+eeconfig_disable                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/bootmagic_lite.o (symbol from plugin)
+eeconfig_enable                                   .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_init                                     .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+eeconfig_init_kb                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_init_quantum                             .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_init_user                                .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_is_disabled                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_is_enabled                               .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+eeconfig_read_audio                               .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_read_backlight                           .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_read_debug                               .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+eeconfig_read_default_layer                       .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+eeconfig_read_handedness                          .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_read_haptic                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_read_kb                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_read_keymap                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_magic.o (symbol from plugin)
+eeconfig_read_rgblight                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+eeconfig_read_user                                .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_update_audio                             .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_update_backlight                         .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_update_debug                             .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_update_default_layer                     .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+eeconfig_update_handedness                        .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_magic.o (symbol from plugin)
+eeconfig_update_haptic                            .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_update_kb                                .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeconfig_update_keymap                            .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_magic.o (symbol from plugin)
+eeconfig_update_rgblight                          .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+eeconfig_update_rgblight_current                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+eeconfig_update_rgblight_default                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+eeconfig_update_user                              .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeprom_read_block                                 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_block.o)
+eeprom_read_blraw                                 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_block.o)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_word.o)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+eeprom_read_byte                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_byte.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeprom_read_dword                                 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+eeprom_read_float                                 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_dword.o)
+eeprom_read_word                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eerd_word.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeprom_update_byte                                c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_byte.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+                                                  .build/obj_consolekeyboard_default/lib/lufa/LUFA/Drivers/USB/Core/AVR8/EndpointStream_AVR8.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+eeprom_update_dword                               c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+eeprom_update_float                               c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+eeprom_update_r18                                 c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_byte.o)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_dword.o)
+eeprom_update_word                                c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libatmega32u4.a(eeupd_word.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/common/eeconfig.o (symbol from plugin)
+exit                                              c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/avr5\libgcc.a(_exit.o)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+fn_actions                                        .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+get_event_keycode                                 .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+get_first_key                                     .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+get_macro_mods                                    .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+get_mods                                          .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_rgb.o (symbol from plugin)
+get_oneshot_layer                                 .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+get_oneshot_layer_state                           .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+get_oneshot_locked_mods                           .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+get_oneshot_mods                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+get_record_keycode                                .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+get_tapping_term                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+get_usb_descriptor                                .build/obj_consolekeyboard_default/usb_descriptor.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+get_weak_mods                                     .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+gnu_lto_v1                                        C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+has_anykey                                        .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+has_anymod                                        .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+has_oneshot_mods_timed_out                        .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+hex_to_keycode                                    .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+host.c.6301755a                                   C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+host_consumer_send                                .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+host_get_driver                                   .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+host_keyboard_led_state                           .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+host_keyboard_leds                                .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+host_keyboard_send                                .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+host_last_consumer_report                         .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+host_last_system_report                           .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+host_mouse_send                                   .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+host_set_driver                                   .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+host_system_send                                  .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+housekeeping_task_kb                              .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+housekeeping_task_user                            .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+hsv_to_rgb                                        .build/obj_consolekeyboard_default/quantum/color.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+hsv_to_rgb_impl                                   .build/obj_consolekeyboard_default/quantum/color.o (symbol from plugin)
+hsv_to_rgb_nocie                                  .build/obj_consolekeyboard_default/quantum/color.o (symbol from plugin)
+is_key_pressed                                    .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+is_keyboard_left                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+is_keyboard_master                                .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+is_oneshot_layer_active                           .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+is_rgblight_initialized                           .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+is_tap_action                                     .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+is_tap_key                                        .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+keyboard.c.c17031b9                               C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+keyboard_idle                                     .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+keyboard_init                                     .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+keyboard_post_init_kb                             .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+keyboard_post_init_user                           .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+keyboard_pre_init_kb                              .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+keyboard_pre_init_user                            .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+keyboard_protocol                                 .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+keyboard_report                                   .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+keyboard_set_leds                                 .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+keyboard_setup                                    .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+keyboard_task                                     .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+keycode_config                                    .build/obj_consolekeyboard_default/quantum/keycode_config.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+keycode_config.c.9fbb5b42                         C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+keymap.c.69083313                                 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+keymap_common.c.548e2eca                          C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+keymap_config                                     .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/report.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/host.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/keycode_config.o (symbol from plugin)
+keymap_function_id_to_action                      .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+keymap_key_to_keycode                             .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+keymaps                                           .build/obj_consolekeyboard_default/keyboards/consolekeyboard/keymaps/default/keymap.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+layer_and                                         .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_clear                                       .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_debug                                       .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_invert                                      .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_move                                        .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_off                                         .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_on                                          .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_or                                          .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_state                                       .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+layer_state_cmp                                   .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+layer_state_is                                    .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+layer_state_set                                   .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+layer_state_set_kb                                .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+layer_state_set_user                              .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+layer_switch_get_action                           .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+layer_switch_get_layer                            .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+layer_xor                                         .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+led                                               .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+led.c.fa29ea1e                                    C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+led_init_ports                                    .build/obj_consolekeyboard_default/quantum/led.o (symbol from plugin)
+led_set                                           .build/obj_consolekeyboard_default/quantum/led.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+led_set_kb                                        .build/obj_consolekeyboard_default/quantum/led.o (symbol from plugin)
+led_set_user                                      .build/obj_consolekeyboard_default/quantum/led.o (symbol from plugin)
+led_tables.c.73181575                             C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+led_update_kb                                     .build/obj_consolekeyboard_default/quantum/led.o (symbol from plugin)
+led_update_user                                   .build/obj_consolekeyboard_default/quantum/led.o (symbol from plugin)
+lufa.c.4d1546a7                                   C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+lufa_driver                                       .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+magic                                             .build/obj_consolekeyboard_default/common/magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+magic.c.e1fc6b7b                                  C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+main                                              C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+                                                  c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5/crtatmega32u4.o
+matrix                                            .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+matrix.c.d3da33fb                                 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+matrix_cols                                       .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_common.c.ab02d6a9                          C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+matrix_get_row                                    .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/bootmagic_lite.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+matrix_init                                       .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+matrix_init_custom                                .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_init_kb                                    .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+matrix_init_quantum                               .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_init_user                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_io_delay                                   .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+matrix_is_modified                                .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_is_on                                      .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_key_count                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_power_down                                 .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+matrix_power_up                                   .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+matrix_print                                      .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+matrix_rows                                       .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_scan                                       .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/bootmagic_lite.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+matrix_scan_custom                                .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_scan_kb                                    .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+matrix_scan_quantum                               .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_scan_user                                  .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+matrix_setup                                      .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+memchr                                            c:/program files/qmk_msys/mingw64/bin/../lib/gcc/avr/8.4.0/../../../../avr/lib/avr5\libc.a(memchr.o)
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+mod_config                                        .build/obj_consolekeyboard_default/quantum/keycode_config.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/keymap_common.o (symbol from plugin)
+numkey2num                                        .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+oneshot_layer_changed_kb                          .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+oneshot_layer_changed_user                        .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+oneshot_locked_mods_changed_kb                    .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+oneshot_locked_mods_changed_user                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+oneshot_mods_changed_kb                           .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+oneshot_mods_changed_user                         .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+peek_matrix                                       .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+perform_space_cadet                               .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o (symbol from plugin)
+post_process_record_kb                            .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+post_process_record_quantum                       .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+post_process_record_user                          .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+print.c.c33bb4af                                  C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+process_action                                    .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+process_action_kb                                 .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_grave_esc                                 .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_grave_esc.c.ccdc29ce                      C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+process_magic                                     .build/obj_consolekeyboard_default/quantum/process_keycode/process_magic.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_magic.c.5f69bcda                          C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+process_record                                    .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+process_record_handler                            .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+process_record_kb                                 .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_record_nocache                            .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+process_record_quantum                            .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_record_tap_hint                           .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action_tapping.o (symbol from plugin)
+process_record_user                               .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_rgb                                       .build/obj_consolekeyboard_default/quantum/process_keycode/process_rgb.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_rgb.c.eca4d1c9                            C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+process_space_cadet                               .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+process_space_cadet.c.ff04c5b0                    C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+quantum.c.37b2b36c                                C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+raw_matrix                                        .build/obj_consolekeyboard_default/quantum/matrix_common.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/matrix.o (symbol from plugin)
+read_source_layers_cache                          .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+register_code                                     .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+register_code16                                   .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+register_mods                                     .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+register_weak_mods                                .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+report.c.235dc7da                                 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+reset_key                                         .build/obj_consolekeyboard_default/common/avr/bootloader.o (symbol from plugin)
+reset_keyboard                                    .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/command.o (symbol from plugin)
+reset_oneshot_layer                               .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+rgblight.c.31eeec2e                               C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+rgblight_call_driver                              .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_check_config                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_config                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease                                 .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_hue                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_hue_helper                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_hue_noeeprom                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_sat                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_sat_helper                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_sat_noeeprom                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_speed                           .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_speed_helper                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_speed_noeeprom                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_val                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_val_helper                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_decrease_val_noeeprom                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_disable                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_disable_noeeprom                         .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_effect_breathe_table                     .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_effect_breathing                         .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_enable                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_enable_noeeprom                          .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_get_hsv                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_get_hue                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_get_mode                                 .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_rgb.o (symbol from plugin)
+rgblight_get_sat                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_get_speed                                .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_get_val                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_hsv_to_rgb                               .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase                                 .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_hue                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_hue_helper                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_hue_noeeprom                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_sat                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_sat_helper                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_sat_noeeprom                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_speed                           .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_speed_helper                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_speed_noeeprom                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_val                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_val_helper                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_increase_val_noeeprom                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_init                                     .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+rgblight_is_enabled                               .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_mode                                     .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_rgb.o (symbol from plugin)
+rgblight_mode_eeprom_helper                       .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_mode_noeeprom                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_ranges                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_read_dword                               .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_reload_from_eeprom                       .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_set                                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_set_clipping_range                       .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_set_effect_range                         .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_set_speed                                .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_set_speed_eeprom_helper                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_set_speed_noeeprom                       .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv_at                                .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv_eeprom_helper                     .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv_master                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv_noeeprom                          .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv_noeeprom_old                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv_range                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_sethsv_slave                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_setrgb                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_setrgb_at                                .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_setrgb_master                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_setrgb_range                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_setrgb_slave                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_show_solid_color                         .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_status                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_step                                     .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_step_helper                              .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_step_noeeprom                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_step_reverse                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_step_reverse_helper                      .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_step_reverse_noeeprom                    .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_suspend                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+rgblight_task                                     .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+rgblight_timer_disable                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_timer_enable                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_timer_init                               .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_timer_toggle                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_toggle                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_toggle_noeeprom                          .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_update_dword                             .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+rgblight_wakeup                                   .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+send_byte                                         .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_char                                         .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_dword                                        .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_keyboard_report                              .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_grave_esc.o (symbol from plugin)
+send_nibble                                       .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_string                                       .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_string_P                                     .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_string_with_delay                            .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_string_with_delay_P                          .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+send_word                                         .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+sendchar                                          .build/obj_consolekeyboard_default/common/sendchar_null.o (symbol from plugin)
+sendchar_null.c.3094c1d4                          C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+set_macro_mods                                    .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+set_mods                                          .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+set_oneshot_layer                                 .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+set_oneshot_locked_mods                           .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+set_oneshot_mods                                  .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+set_single_persistent_default_layer               .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+set_weak_mods                                     .build/obj_consolekeyboard_default/common/action_util.o (symbol from plugin)
+sethsv                                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+sethsv_raw                                        .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+setrgb                                            .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+should_process_keypress                           .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+shutdown_user                                     .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+source_layers_cache                               .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+startup_user                                      .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+store_or_get_action                               .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+suspend.c.c344a333                                C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+suspend_idle                                      .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+suspend_power_down                                .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+suspend_power_down_kb                             .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+suspend_power_down_user                           .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+suspend_wakeup_condition                          .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+suspend_wakeup_init                               .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/lufa.o (symbol from plugin)
+suspend_wakeup_init_kb                            .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+suspend_wakeup_init_user                          .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+sym_defer_g.c.c7382569                            C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+tap_code                                          .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+tap_code16                                        .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+tap_random_base64                                 .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+timer.c.d84c4219                                  C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+timer_clear                                       .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+timer_count                                       .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/avr/suspend.o (symbol from plugin)
+timer_elapsed                                     .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/debounce/sym_defer_g.o (symbol from plugin)
+timer_elapsed32                                   .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+timer_init                                        .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+timer_read                                        .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/common/keyboard.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/debounce/sym_defer_g.o (symbol from plugin)
+timer_read32                                      .build/obj_consolekeyboard_default/common/avr/timer.o (symbol from plugin)
+tp_buttons                                        .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+unregister_code                                   .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+unregister_code16                                 .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+unregister_mods                                   .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/process_keycode/process_space_cadet.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+unregister_weak_mods                              .build/obj_consolekeyboard_default/common/action.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+update_source_layers_cache                        .build/obj_consolekeyboard_default/common/action_layer.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+update_tri_layer                                  .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+update_tri_layer_state                            .build/obj_consolekeyboard_default/quantum/quantum.o (symbol from plugin)
+usb_descriptor.c.e844e3f4                         C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+util.c.cd644d3f                                   C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+ws2812.c.927752a2                                 C:\Users\gazed\AppData\Local\Temp\ccoP704tdebugobj
+                                                  C:\Users\gazed\AppData\Local\Temp\ccKYCj3d.ltrans0.ltrans.o
+ws2812_setleds                                    .build/obj_consolekeyboard_default/ws2812.o (symbol from plugin)
+                                                  .build/obj_consolekeyboard_default/quantum/rgblight.o (symbol from plugin)
+xfunc_out                                         .build/obj_consolekeyboard_default/common/avr/xprintf.o
+xitoa                                             .build/obj_consolekeyboard_default/common/avr/xprintf.o
+xputc                                             .build/obj_consolekeyboard_default/common/avr/xprintf.o
+xputs                                             .build/obj_consolekeyboard_default/common/avr/xprintf.o

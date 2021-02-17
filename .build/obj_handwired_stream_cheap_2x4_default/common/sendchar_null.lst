@@ -1,0 +1,62 @@
+   1               		.file	"sendchar_null.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.sendchar,"ax",@progbits
+  11               		.weak	sendchar
+  13               	sendchar:
+  14               	.LVL0:
+  15               	.LFB0:
+  16               		.file 1 "tmk_core/common/sendchar_null.c"
+   1:tmk_core/common/sendchar_null.c **** /*
+   2:tmk_core/common/sendchar_null.c **** Copyright 2011 Jun Wako <wakojun@gmail.com>
+   3:tmk_core/common/sendchar_null.c **** 
+   4:tmk_core/common/sendchar_null.c **** This program is free software: you can redistribute it and/or modify
+   5:tmk_core/common/sendchar_null.c **** it under the terms of the GNU General Public License as published by
+   6:tmk_core/common/sendchar_null.c **** the Free Software Foundation, either version 2 of the License, or
+   7:tmk_core/common/sendchar_null.c **** (at your option) any later version.
+   8:tmk_core/common/sendchar_null.c **** 
+   9:tmk_core/common/sendchar_null.c **** This program is distributed in the hope that it will be useful,
+  10:tmk_core/common/sendchar_null.c **** but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:tmk_core/common/sendchar_null.c **** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  12:tmk_core/common/sendchar_null.c **** GNU General Public License for more details.
+  13:tmk_core/common/sendchar_null.c **** 
+  14:tmk_core/common/sendchar_null.c **** You should have received a copy of the GNU General Public License
+  15:tmk_core/common/sendchar_null.c **** along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  16:tmk_core/common/sendchar_null.c **** */
+  17:tmk_core/common/sendchar_null.c **** #include "sendchar.h"
+  18:tmk_core/common/sendchar_null.c **** 
+  19:tmk_core/common/sendchar_null.c **** __attribute__((weak)) int8_t sendchar(uint8_t c) { return 0; }
+  17               		.loc 1 19 50 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  23               		.loc 1 19 52 view .LVU1
+  24               		.loc 1 19 1 is_stmt 0 view .LVU2
+  25 0000 80E0      		ldi r24,0
+  26               	.LVL1:
+  27               	/* epilogue start */
+  28               		.loc 1 19 1 view .LVU3
+  29 0002 0895      		ret
+  30               		.cfi_endproc
+  31               	.LFE0:
+  33               		.text
+  34               	.Letext0:
+  35               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sendchar_null.c
+C:\Users\gazed\AppData\Local\Temp\cc4cPIhf.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\cc4cPIhf.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\cc4cPIhf.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\cc4cPIhf.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\cc4cPIhf.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\cc4cPIhf.s:13     .text.sendchar:0000000000000000 sendchar
+
+NO UNDEFINED SYMBOLS

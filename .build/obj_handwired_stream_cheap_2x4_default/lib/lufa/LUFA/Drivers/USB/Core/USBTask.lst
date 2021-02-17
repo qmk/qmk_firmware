@@ -1,0 +1,657 @@
+   1               		.file	"USBTask.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.USB_USBTask,"ax",@progbits
+  11               	.global	USB_USBTask
+  13               	USB_USBTask:
+  14               	.LFB85:
+  15               		.file 1 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.c"
+   1:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** /*
+   2:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****              LUFA Library
+   3:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****      Copyright (C) Dean Camera, 2019.
+   4:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+   5:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   dean [at] fourwalledcubicle [dot] com
+   6:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****            www.lufa-lib.org
+   7:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** */
+   8:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+   9:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** /*
+  10:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   Copyright 2019  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  12:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   Permission to use, copy, modify, distribute, and sell this
+  13:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   software and its documentation for any purpose is hereby granted
+  14:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   without fee, provided that the above copyright notice appear in
+  15:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   all copies and that both that the copyright notice and this
+  16:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   permission notice and warranty disclaimer appear in supporting
+  17:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   documentation, and that the name of the author not be used in
+  18:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   advertising or publicity pertaining to distribution of the
+  19:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   software without specific, written prior permission.
+  20:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  21:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   The author disclaims all warranties with regard to this
+  22:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   software, including all implied warranties of merchantability
+  23:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   and fitness.  In no event shall the author be liable for any
+  24:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   special, indirect or consequential damages or any damages
+  25:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   whatsoever resulting from loss of use, data or profits, whether
+  26:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   in an action of contract, negligence or other tortious action,
+  27:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   arising out of or in connection with the use or performance of
+  28:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c ****   this software.
+  29:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** */
+  30:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  31:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #define  __INCLUDE_FROM_USBTASK_C
+  32:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  33:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #include "USBTask.h"
+  34:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  35:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** volatile bool        USB_IsInitialized;
+  36:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** USB_Request_Header_t USB_ControlRequest;
+  37:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  38:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #if defined(USB_CAN_BE_HOST) && !defined(HOST_STATE_AS_GPIOR)
+  39:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** volatile uint8_t     USB_HostState;
+  40:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #endif
+  41:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  42:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #if defined(USB_CAN_BE_DEVICE) && !defined(DEVICE_STATE_AS_GPIOR)
+  43:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** volatile uint8_t     USB_DeviceState;
+  44:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #endif
+  45:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  46:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** void USB_USBTask(void)
+  47:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** {
+  16               		.loc 1 47 1 view -0
+  17               		.cfi_startproc
+  18 0000 CF93      		push r28
+  19               	.LCFI0:
+  20               		.cfi_def_cfa_offset 3
+  21               		.cfi_offset 28, -2
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* stack size = 1 */
+  25               	.L__stack_usage = 1
+  48:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	#if defined(USB_CAN_BE_BOTH)
+  49:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 		if (USB_CurrentMode == USB_MODE_Device)
+  50:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 		  USB_DeviceTask();
+  51:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 		else if (USB_CurrentMode == USB_MODE_Host)
+  52:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 		  USB_HostTask();
+  53:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	#elif defined(USB_CAN_BE_HOST)
+  54:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 		USB_HostTask();
+  55:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	#elif defined(USB_CAN_BE_DEVICE)
+  56:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 		USB_DeviceTask();
+  26               		.loc 1 56 3 view .LVU1
+  27               	.LBB26:
+  28               	.LBI26:
+  57:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	#endif
+  58:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** }
+  59:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  60:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** #if defined(USB_CAN_BE_DEVICE)
+  61:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** static void USB_DeviceTask(void)
+  29               		.loc 1 61 13 view .LVU2
+  30               	.LBB27:
+  62:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** {
+  63:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	if (USB_DeviceState == DEVICE_STATE_Unattached)
+  31               		.loc 1 63 2 view .LVU3
+  32               		.loc 1 63 22 is_stmt 0 view .LVU4
+  33 0002 8091 0000 		lds r24,USB_DeviceState
+  34               		.loc 1 63 5 view .LVU5
+  35 0006 8823      		tst r24
+  36 0008 01F0      		breq .L1
+  64:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	  return;
+  65:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  66:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
+  37               		.loc 1 66 2 is_stmt 1 view .LVU6
+  38               	.LBB28:
+  39               	.LBI28:
+  40               		.file 2 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h"
+   1:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** /*
+   2:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****              LUFA Library
+   3:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****      Copyright (C) Dean Camera, 2019.
+   4:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+   5:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   dean [at] fourwalledcubicle [dot] com
+   6:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****            www.lufa-lib.org
+   7:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** */
+   8:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+   9:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** /*
+  10:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   Copyright 2019  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  12:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   software and its documentation for any purpose is hereby granted
+  14:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   without fee, provided that the above copyright notice appear in
+  15:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   all copies and that both that the copyright notice and this
+  16:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   permission notice and warranty disclaimer appear in supporting
+  17:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   documentation, and that the name of the author not be used in
+  18:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   advertising or publicity pertaining to distribution of the
+  19:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   software without specific, written prior permission.
+  20:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  21:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   The author disclaims all warranties with regard to this
+  22:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   software, including all implied warranties of merchantability
+  23:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   and fitness.  In no event shall the author be liable for any
+  24:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   special, indirect or consequential damages or any damages
+  25:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   in an action of contract, negligence or other tortious action,
+  27:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   arising out of or in connection with the use or performance of
+  28:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****   this software.
+  29:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** */
+  30:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  31:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** /** \file
+  32:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \brief USB Endpoint definitions for the AVR8 microcontrollers.
+  33:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \copydetails Group_EndpointManagement_AVR8
+  34:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *
+  35:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \note This file should not be included directly. It is automatically included as needed by the 
+  36:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *        dispatch header located in LUFA/Drivers/USB/USB.h.
+  37:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  */
+  38:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  39:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** /** \ingroup Group_EndpointRW
+  40:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \defgroup Group_EndpointRW_AVR8 Endpoint Data Reading and Writing (AVR8)
+  41:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \brief Endpoint data read/write definitions for the Atmel AVR8 architecture.
+  42:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *
+  43:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  Functions, macros, variables, enums and types related to data reading and writing from and to e
+  44:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  */
+  45:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  46:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** /** \ingroup Group_EndpointPrimitiveRW
+  47:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \defgroup Group_EndpointPrimitiveRW_AVR8 Read/Write of Primitive Data Types (AVR8)
+  48:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \brief Endpoint primitive read/write definitions for the Atmel AVR8 architecture.
+  49:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *
+  50:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  Functions, macros, variables, enums and types related to data reading and writing of primitive 
+  51:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  from and to endpoints.
+  52:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  */
+  53:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  54:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** /** \ingroup Group_EndpointPacketManagement
+  55:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \defgroup Group_EndpointPacketManagement_AVR8 Endpoint Packet Management (AVR8)
+  56:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \brief Endpoint packet management definitions for the Atmel AVR8 architecture.
+  57:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *
+  58:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  Functions, macros, variables, enums and types related to packet management of endpoints.
+  59:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  */
+  60:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  61:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** /** \ingroup Group_EndpointManagement
+  62:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \defgroup Group_EndpointManagement_AVR8 Endpoint Management (AVR8)
+  63:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  \brief Endpoint management definitions for the Atmel AVR8 architecture.
+  64:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *
+  65:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
+  66:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  module contains the endpoint management macros, as well as endpoint interrupt and data
+  67:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  send/receive functions for various data types.
+  68:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *
+  69:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  *  @{
+  70:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h ****  */
+  71:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  72:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** #ifndef __ENDPOINT_AVR8_H__
+  73:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** #define __ENDPOINT_AVR8_H__
+  74:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  75:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 	/* Includes: */
+  76:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		#include "../../../../Common/Common.h"
+  77:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		#include "../USBTask.h"
+  78:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		#include "../USBInterrupt.h"
+  79:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  80:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 	/* Enable C linkage for C++ Compilers: */
+  81:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		#if defined(__cplusplus)
+  82:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			extern "C" {
+  83:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		#endif
+  84:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  85:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 	/* Preprocessor Checks: */
+  86:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+  87:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+  88:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		#endif
+  89:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+  90:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 	/* Private Interface - For use in library only: */
+  91:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 	#if !defined(__DOXYGEN__)
+  92:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		/* Inline Functions: */
+  93:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT A
+  94:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                                                       ATTR_ALWAYS_INLINE;
+  95:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
+  96:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+  97:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				uint8_t  MaskVal    = 0;
+  98:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				uint16_t CheckBytes = 8;
+  99:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 100:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				while (CheckBytes < Bytes)
+ 101:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				{
+ 102:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					MaskVal++;
+ 103:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					CheckBytes <<= 1;
+ 104:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				}
+ 105:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 106:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return (MaskVal << EPSIZE0);
+ 107:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 108:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 109:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		/* Function Prototypes: */
+ 110:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			void Endpoint_ClearEndpoints(void);
+ 111:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
+ 112:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                    const uint8_t UECFG0XData,
+ 113:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                    const uint8_t UECFG1XData);
+ 114:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 115:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 	#endif
+ 116:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 117:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 	/* Public Interface - May be used in end-application: */
+ 118:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		/* Macros: */
+ 119:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
+ 120:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				/** Default size of the default control endpoint's bank, until altered by the control endpoint 
+ 121:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				 *  value in the device descriptor. Not available if the \c FIXED_CONTROL_ENDPOINT_SIZE token i
+ 122:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				 */
+ 123:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
+ 124:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			#endif
+ 125:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 126:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			#if !defined(CONTROL_ONLY_DEVICE) || defined(__DOXYGEN__)
+ 127:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defi
+ 128:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					/** Total number of endpoints (including the default control endpoint at address 0) which may
+ 129:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+ 130:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
+ 131:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					 */
+ 132:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        7
+ 133:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#else
+ 134:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        5
+ 135:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 136:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			#else
+ 137:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#define ENDPOINT_TOTAL_ENDPOINTS            1
+ 138:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			#endif
+ 139:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 140:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		/* Enums: */
+ 141:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Enum for the possible error return codes of the \ref Endpoint_WaitUntilReady() function.
+ 142:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 143:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointRW_AVR8
+ 144:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 145:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			enum Endpoint_WaitUntilReady_ErrorCodes_t
+ 146:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 147:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				ENDPOINT_READYWAIT_NoError                 = 0, /**< Endpoint is ready for next packet, no erro
+ 148:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				ENDPOINT_READYWAIT_EndpointStalled         = 1, /**< The endpoint was stalled during the stream
+ 149:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 *   transfer by the host or device.
+ 150:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 */
+ 151:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				ENDPOINT_READYWAIT_DeviceDisconnected      = 2,	/**< Device was disconnected from the host whil
+ 152:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 *   waiting for the endpoint to become ready.
+ 153:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 */
+ 154:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				ENDPOINT_READYWAIT_BusSuspended            = 3, /**< The USB bus has been suspended by the host
+ 155:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 *   no USB endpoint traffic can occur until th
+ 156:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 *   has resumed.
+ 157:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 */
+ 158:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				ENDPOINT_READYWAIT_Timeout                 = 4, /**< The host failed to accept or send the next
+ 159:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 *   within the software timeout period set by 
+ 160:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 *   \ref USB_STREAM_TIMEOUT_MS macro.
+ 161:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                                 */
+ 162:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			};
+ 163:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 164:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 		/* Inline Functions: */
+ 165:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Configures the specified endpoint address with the given endpoint type, bank size and number
+ 166:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  banks. Once configured, the endpoint may be read from or written to, depending on its direct
+ 167:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 168:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \param[in] Address    Endpoint address to configure.
+ 169:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 170:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \param[in] Type       Type of endpoint to configure, a \c EP_TYPE_* mask. Not all endpoint t
+ 171:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *                        are available on Low Speed USB devices - refer to the USB 2.0 specific
+ 172:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 173:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \param[in] Size       Size of the endpoint's bank, where packets are stored before they are 
+ 174:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *                        to the USB host, or after they have been received from the USB host (d
+ 175:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *                        the endpoint's data direction). The bank size must indicate the maximu
+ 176:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *                        that the endpoint can handle.
+ 177:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 178:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \param[in] Banks      Number of banks to use for the endpoint being configured.
+ 179:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 180:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \attention When the \c ORDERED_EP_CONFIG compile time option is used, Endpoints <b>must</b> 
+ 181:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *             ascending order, or bank corruption will occur.
+ 182:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 183:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \note Different endpoints may have different maximum packet sizes based on the endpoint's in
+ 184:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *        refer to the chosen microcontroller model's datasheet to determine the maximum bank si
+ 185:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *        \n\n
+ 186:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 187:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \note The default control endpoint should not be manually configured by the user application
+ 188:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *        it is automatically configured by the library internally.
+ 189:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *        \n\n
+ 190:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 191:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \note This routine will automatically select the specified endpoint upon success. Upon failu
+ 192:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *        which failed to reconfigure correctly will be selected.
+ 193:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 194:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
+ 195:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 196:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 197:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                              const uint8_t Type,
+ 198:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                              const uint16_t Size,
+ 199:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                              const uint8_t Banks) ATTR_ALWAYS_INLINE;
+ 200:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 201:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                              const uint8_t Type,
+ 202:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                              const uint16_t Size,
+ 203:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			                                              const uint8_t Banks)
+ 204:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 205:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				uint8_t Number = (Address & ENDPOINT_EPNUM_MASK);
+ 206:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 207:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				if (Number >= ENDPOINT_TOTAL_ENDPOINTS)
+ 208:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				  return false;
+ 209:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 210:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return Endpoint_ConfigureEndpoint_Prv(Number,
+ 211:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                      ((Type << EPTYPE0) | ((Address & ENDPOINT_DIR_IN) ? (1 <<
+ 212:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				                                      ((1 << ALLOC) | ((Banks > 1) ? (1 << EPBK0) : 0) | Endpoi
+ 213:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 214:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 215:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
+ 216:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 217:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointRW_AVR8
+ 218:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 219:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer.
+ 220:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 221:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE
+ 222:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint16_t Endpoint_BytesInEndpoint(void)
+ 223:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 224:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+ 225:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					return UEBCX;
+ 226:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#elif defined(USB_SERIES_4_AVR)
+ 227:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					return (((uint16_t)UEBCHX << 8) | UEBCLX);
+ 228:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#elif defined(USB_SERIES_2_AVR)
+ 229:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					return UEBCLX;
+ 230:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 231:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 232:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 233:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines the currently selected endpoint's direction.
+ 234:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 235:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return The currently selected endpoint's direction, as a \c ENDPOINT_DIR_* mask.
+ 236:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 237:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_IN
+ 238:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetEndpointDirection(void)
+ 239:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 240:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return (UECFG0X & (1 << EPDIR)) ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT;
+ 241:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 242:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 243:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
+ 244:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  the currently selected endpoint so that it can be restored after another endpoint has been
+ 245:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  manipulated.
+ 246:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 247:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Index of the currently selected endpoint.
+ 248:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 249:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetCurrentEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLI
+ 250:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
+  41               		.loc 2 250 26 view .LVU7
+  42               	.LBB29:
+ 251:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 252:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#if !defined(CONTROL_ONLY_DEVICE)
+ 253:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					return ((UENUM & ENDPOINT_EPNUM_MASK) | Endpoint_GetEndpointDirection());
+  43               		.loc 2 253 6 view .LVU8
+  44               		.loc 2 253 15 is_stmt 0 view .LVU9
+  45 000a C091 E900 		lds r28,233
+  46               		.loc 2 253 21 view .LVU10
+  47 000e CF70      		andi r28,lo8(15)
+  48               	.LBB30:
+  49               	.LBI30:
+ 238:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+  50               		.loc 2 238 26 is_stmt 1 view .LVU11
+  51               	.LBB31:
+ 240:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+  52               		.loc 2 240 5 view .LVU12
+ 240:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+  53               		.loc 2 240 13 is_stmt 0 view .LVU13
+  54 0010 9091 EC00 		lds r25,236
+ 240:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+  55               		.loc 2 240 55 view .LVU14
+  56 0014 892F      		mov r24,r25
+  57 0016 8170      		andi r24,lo8(1)
+  58 0018 90FD      		sbrc r25,0
+  59 001a 80E8      		ldi r24,lo8(-128)
+  60               	.L3:
+  61               	.LBE31:
+  62               	.LBE30:
+  63               		.loc 2 253 44 view .LVU15
+  64 001c C82B      		or r28,r24
+  65               	.LVL0:
+  66               		.loc 2 253 44 view .LVU16
+  67               	.LBE29:
+  68               	.LBE28:
+  67:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  68:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+  69               		.loc 1 68 2 is_stmt 1 view .LVU17
+  70               	.LBB32:
+  71               	.LBI32:
+ 254:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#else
+ 255:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					return ENDPOINT_CONTROLEP;
+ 256:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 257:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 258:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 259:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Selects the given endpoint address.
+ 260:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 261:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  Any endpoint operations which do not require the endpoint address to be indicated will opera
+ 262:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  the currently selected endpoint.
+ 263:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 264:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \param[in] Address Endpoint address to select.
+ 265:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 266:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address) ATTR_ALWAYS_INLINE;
+ 267:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address)
+  72               		.loc 2 267 23 view .LVU18
+  73               	.LBB33:
+ 268:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 269:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#if !defined(CONTROL_ONLY_DEVICE)
+ 270:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					UENUM = (Address & ENDPOINT_EPNUM_MASK);
+  74               		.loc 2 270 6 view .LVU19
+  75               		.loc 2 270 12 is_stmt 0 view .LVU20
+  76 001e 1092 E900 		sts 233,__zero_reg__
+  77               	.LVL1:
+  78               		.loc 2 270 12 view .LVU21
+  79               	.LBE33:
+  80               	.LBE32:
+  69:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  70:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	if (Endpoint_IsSETUPReceived())
+  81               		.loc 1 70 2 is_stmt 1 view .LVU22
+  82               	.LBB34:
+  83               	.LBI34:
+ 271:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 272:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 273:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 274:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB control
+ 275:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  data In and Out pointers to the bank's contents.
+ 276:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 277:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \param[in] Address  Endpoint address whose FIFO buffers are to be reset.
+ 278:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 279:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_ResetEndpoint(const uint8_t Address) ATTR_ALWAYS_INLINE;
+ 280:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_ResetEndpoint(const uint8_t Address)
+ 281:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 282:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				UERST = (1 << (Address & ENDPOINT_EPNUM_MASK));
+ 283:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				UERST = 0;
+ 284:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 285:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 286:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Enables the currently selected endpoint so that data can be sent and received through it to
+ 287:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  and from a host.
+ 288:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 289:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \note Endpoints must first be configured properly via \ref Endpoint_ConfigureEndpoint().
+ 290:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 291:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_EnableEndpoint(void) ATTR_ALWAYS_INLINE;
+ 292:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_EnableEndpoint(void)
+ 293:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 294:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				UECONX |= (1 << EPEN);
+ 295:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 296:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 297:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Disables the currently selected endpoint so that data cannot be sent and received through it
+ 298:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  to and from a host.
+ 299:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 300:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_DisableEndpoint(void) ATTR_ALWAYS_INLINE;
+ 301:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_DisableEndpoint(void)
+ 302:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 303:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				UECONX &= ~(1 << EPEN);
+ 304:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 305:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 306:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
+ 307:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 308:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 * \return Boolean \c true if the currently selected endpoint is enabled, \c false otherwise.
+ 309:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 310:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 311:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsEnabled(void)
+ 312:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 313:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return ((UECONX & (1 << EPEN)) ? true : false);
+ 314:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 315:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 316:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Retrieves the number of busy banks in the currently selected endpoint, which have been queue
+ 317:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  transmission via the \ref Endpoint_ClearIN() command, or are awaiting acknowledgment via the
+ 318:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ref Endpoint_ClearOUT() command.
+ 319:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 320:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointPacketManagement_AVR8
+ 321:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 322:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Total number of busy banks in the selected endpoint.
+ 323:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 324:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetBusyBanks(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+ 325:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetBusyBanks(void)
+ 326:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 327:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return (UESTA0X & (0x03 << NBUSYBK0));
+ 328:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 329:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 330:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
+ 331:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  has been queued for transmission to the host via \ref Endpoint_ClearIN(). This function
+ 332:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  will terminate all queued transactions, resetting the endpoint banks ready for a new
+ 333:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  packet.
+ 334:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 335:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointPacketManagement_AVR8
+ 336:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 337:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline void Endpoint_AbortPendingIN(void)
+ 338:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 339:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				while (Endpoint_GetBusyBanks() != 0)
+ 340:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				{
+ 341:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					UEINTX |= (1 << RXOUTI);
+ 342:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 					while (UEINTX & (1 << RXOUTI));
+ 343:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				}
+ 344:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 345:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 346:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the en
+ 347:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is
+ 348:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  direction). This function will return false if an error has occurred in the endpoint, if the
+ 349:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  is an OUT direction and no packet (or an empty packet) has been received, or if the endpoint
+ 350:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  direction and the endpoint bank is full.
+ 351:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 352:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointPacketManagement_AVR8
+ 353:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 354:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Boolean \c true if the currently selected endpoint may be read from or written to, d
+ 355:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *          on its direction.
+ 356:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 357:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 358:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsReadWriteAllowed(void)
+ 359:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 360:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return ((UEINTX & (1 << RWAL)) ? true : false);
+ 361:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 362:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 363:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines if the currently selected endpoint is configured.
+ 364:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 365:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Boolean \c true if the currently selected endpoint has been configured, \c false oth
+ 366:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 367:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 368:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsConfigured(void)
+ 369:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 370:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return ((UESTA0X & (1 << CFGOK)) ? true : false);
+ 371:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 372:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 373:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
+ 374:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  interrupt duration has elapsed. Which endpoints have interrupted can be determined by
+ 375:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  masking the return value against <tt>(1 << <i>{Endpoint Number}</i>)</tt>.
+ 376:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 377:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Mask whose bits indicate which endpoints have interrupted.
+ 378:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 379:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetEndpointInterrupts(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_I
+ 380:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline uint8_t Endpoint_GetEndpointInterrupts(void)
+ 381:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 382:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return UEINT;
+ 383:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 384:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 385:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines if the specified endpoint number has interrupted (valid only for INTERRUPT type
+ 386:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  endpoints).
+ 387:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 388:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \param[in] Address  Address of the endpoint whose interrupt flag should be tested.
+ 389:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 390:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Boolean \c true if the specified endpoint has interrupted, \c false otherwise.
+ 391:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 392:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t Address) ATTR_WARN_UNUSED_RESUL
+ 393:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t Address)
+ 394:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 395:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return ((Endpoint_GetEndpointInterrupts() & (1 << (Address & ENDPOINT_EPNUM_MASK))) ? true : fa
+ 396:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 397:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 398:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines if the selected IN endpoint is ready for a new packet to be sent to the host.
+ 399:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 400:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointPacketManagement_AVR8
+ 401:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 402:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Boolean \c true if the current endpoint is ready for an IN packet, \c false otherwis
+ 403:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 404:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 405:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsINReady(void)
+ 406:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 407:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return ((UEINTX & (1 << TXINI)) ? true : false);
+ 408:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 409:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 410:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines if the selected OUT endpoint has received new packet from the host.
+ 411:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 412:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointPacketManagement_AVR8
+ 413:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 414:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Boolean \c true if current endpoint is has received an OUT packet, \c false otherwis
+ 415:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 416:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 417:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsOUTReceived(void)
+ 418:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 419:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return ((UEINTX & (1 << RXOUTI)) ? true : false);
+ 420:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			}
+ 421:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 
+ 422:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
+ 423:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 424:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \ingroup Group_EndpointPacketManagement_AVR8
+ 425:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *
+ 426:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 *  \return Boolean \c true if the selected endpoint has received a SETUP packet, \c false other
+ 427:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			 */
+ 428:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 429:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			static inline bool Endpoint_IsSETUPReceived(void)
+  84               		.loc 2 429 23 view .LVU23
+  85               	.LBB35:
+ 430:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 431:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				return ((UEINTX & (1 << RXSTPI)) ? true : false);
+  86               		.loc 2 431 5 view .LVU24
+  87               		.loc 2 431 14 is_stmt 0 view .LVU25
+  88 0022 8091 E800 		lds r24,232
+  89               	.LBE35:
+  90               	.LBE34:
+  91               		.loc 1 70 5 view .LVU26
+  92 0026 83FD      		sbrc r24,3
+  71:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	  USB_Device_ProcessControlRequest();
+  93               		.loc 1 71 4 is_stmt 1 view .LVU27
+  94 0028 0E94 0000 		call USB_Device_ProcessControlRequest
+  95               	.LVL2:
+  96               	.L4:
+  72:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+  73:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 	Endpoint_SelectEndpoint(PrevEndpoint);
+  97               		.loc 1 73 2 view .LVU28
+  98               	.LBB36:
+  99               	.LBI36:
+ 267:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 			{
+ 100               		.loc 2 267 23 view .LVU29
+ 101               	.LBB37:
+ 270:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 102               		.loc 2 270 6 view .LVU30
+ 270:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 103               		.loc 2 270 23 is_stmt 0 view .LVU31
+ 104 002c CF70      		andi r28,lo8(15)
+ 105               	.LVL3:
+ 270:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 106               		.loc 2 270 12 view .LVU32
+ 107 002e C093 E900 		sts 233,r28
+ 108               	.L1:
+ 109               	/* epilogue start */
+ 270:lib/lufa/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h **** 				#endif
+ 110               		.loc 2 270 12 view .LVU33
+ 111               	.LBE37:
+ 112               	.LBE36:
+ 113               	.LBE27:
+ 114               	.LBE26:
+  58:lib/lufa/LUFA/Drivers/USB/Core/USBTask.c **** 
+ 115               		.loc 1 58 1 view .LVU34
+ 116 0032 CF91      		pop r28
+ 117 0034 0895      		ret
+ 118               		.cfi_endproc
+ 119               	.LFE85:
+ 121               		.comm	USB_DeviceState,1,1
+ 122               		.comm	USB_ControlRequest,8,1
+ 123               		.comm	USB_IsInitialized,1,1
+ 124               		.text
+ 125               	.Letext0:
+ 126               		.file 3 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+ 127               		.file 4 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+ 128               		.file 5 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+ 129               		.file 6 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+ 130               		.file 7 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../Device.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 USBTask.c
+C:\Users\gazed\AppData\Local\Temp\ccIXfzAP.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccIXfzAP.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccIXfzAP.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccIXfzAP.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccIXfzAP.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccIXfzAP.s:13     .text.USB_USBTask:0000000000000000 USB_USBTask
+                            *COM*:0000000000000001 USB_DeviceState
+                            *COM*:0000000000000008 USB_ControlRequest
+                            *COM*:0000000000000001 USB_IsInitialized
+
+UNDEFINED SYMBOLS
+USB_Device_ProcessControlRequest
+__do_clear_bss

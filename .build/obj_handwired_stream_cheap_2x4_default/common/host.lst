@@ -1,0 +1,467 @@
+   1               		.file	"host.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.host_set_driver,"ax",@progbits
+  11               	.global	host_set_driver
+  13               	host_set_driver:
+  14               	.LVL0:
+  15               	.LFB102:
+  16               		.file 1 "tmk_core/common/host.c"
+   1:tmk_core/common/host.c **** /*
+   2:tmk_core/common/host.c **** Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
+   3:tmk_core/common/host.c **** 
+   4:tmk_core/common/host.c **** This program is free software: you can redistribute it and/or modify
+   5:tmk_core/common/host.c **** it under the terms of the GNU General Public License as published by
+   6:tmk_core/common/host.c **** the Free Software Foundation, either version 2 of the License, or
+   7:tmk_core/common/host.c **** (at your option) any later version.
+   8:tmk_core/common/host.c **** 
+   9:tmk_core/common/host.c **** This program is distributed in the hope that it will be useful,
+  10:tmk_core/common/host.c **** but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:tmk_core/common/host.c **** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  12:tmk_core/common/host.c **** GNU General Public License for more details.
+  13:tmk_core/common/host.c **** 
+  14:tmk_core/common/host.c **** You should have received a copy of the GNU General Public License
+  15:tmk_core/common/host.c **** along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  16:tmk_core/common/host.c **** */
+  17:tmk_core/common/host.c **** 
+  18:tmk_core/common/host.c **** #include <stdint.h>
+  19:tmk_core/common/host.c **** //#include <avr/interrupt.h>
+  20:tmk_core/common/host.c **** #include "keycode.h"
+  21:tmk_core/common/host.c **** #include "host.h"
+  22:tmk_core/common/host.c **** #include "util.h"
+  23:tmk_core/common/host.c **** #include "debug.h"
+  24:tmk_core/common/host.c **** 
+  25:tmk_core/common/host.c **** #ifdef NKRO_ENABLE
+  26:tmk_core/common/host.c **** #    include "keycode_config.h"
+  27:tmk_core/common/host.c **** extern keymap_config_t keymap_config;
+  28:tmk_core/common/host.c **** #endif
+  29:tmk_core/common/host.c **** 
+  30:tmk_core/common/host.c **** static host_driver_t *driver;
+  31:tmk_core/common/host.c **** static uint16_t       last_system_report   = 0;
+  32:tmk_core/common/host.c **** static uint16_t       last_consumer_report = 0;
+  33:tmk_core/common/host.c **** 
+  34:tmk_core/common/host.c **** void host_set_driver(host_driver_t *d) { driver = d; }
+  17               		.loc 1 34 40 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  23               		.loc 1 34 42 view .LVU1
+  24               		.loc 1 34 49 is_stmt 0 view .LVU2
+  25 0000 9093 0000 		sts driver+1,r25
+  26 0004 8093 0000 		sts driver,r24
+  27               	/* epilogue start */
+  28               		.loc 1 34 1 view .LVU3
+  29 0008 0895      		ret
+  30               		.cfi_endproc
+  31               	.LFE102:
+  33               		.section	.text.host_get_driver,"ax",@progbits
+  34               	.global	host_get_driver
+  36               	host_get_driver:
+  37               	.LFB103:
+  35:tmk_core/common/host.c **** 
+  36:tmk_core/common/host.c **** host_driver_t *host_get_driver(void) { return driver; }
+  38               		.loc 1 36 38 is_stmt 1 view -0
+  39               		.cfi_startproc
+  40               	/* prologue: function */
+  41               	/* frame size = 0 */
+  42               	/* stack size = 0 */
+  43               	.L__stack_usage = 0
+  44               		.loc 1 36 40 view .LVU5
+  45               		.loc 1 36 1 is_stmt 0 view .LVU6
+  46 0000 8091 0000 		lds r24,driver
+  47 0004 9091 0000 		lds r25,driver+1
+  48               	/* epilogue start */
+  49 0008 0895      		ret
+  50               		.cfi_endproc
+  51               	.LFE103:
+  53               		.section	.text.host_keyboard_leds,"ax",@progbits
+  54               	.global	host_keyboard_leds
+  56               	host_keyboard_leds:
+  57               	.LFB104:
+  37:tmk_core/common/host.c **** 
+  38:tmk_core/common/host.c **** uint8_t host_keyboard_leds(void) {
+  58               		.loc 1 38 34 is_stmt 1 view -0
+  59               		.cfi_startproc
+  60               	/* prologue: function */
+  61               	/* frame size = 0 */
+  62               	/* stack size = 0 */
+  63               	.L__stack_usage = 0
+  39:tmk_core/common/host.c ****     if (!driver) return 0;
+  64               		.loc 1 39 5 view .LVU8
+  65               		.loc 1 39 9 is_stmt 0 view .LVU9
+  66 0000 E091 0000 		lds r30,driver
+  67 0004 F091 0000 		lds r31,driver+1
+  68               		.loc 1 39 8 view .LVU10
+  69 0008 3097      		sbiw r30,0
+  70 000a 01F0      		breq .L4
+  40:tmk_core/common/host.c ****     return (*driver->keyboard_leds)();
+  71               		.loc 1 40 5 is_stmt 1 view .LVU11
+  72               		.loc 1 40 13 is_stmt 0 view .LVU12
+  73 000c 0190      		ld __tmp_reg__,Z+
+  74 000e F081      		ld r31,Z
+  75 0010 E02D      		mov r30,__tmp_reg__
+  76 0012 0994      		ijmp
+  77               	.LVL1:
+  78               	.L4:
+  41:tmk_core/common/host.c **** }
+  79               		.loc 1 41 1 view .LVU13
+  80 0014 80E0      		ldi r24,0
+  81               	/* epilogue start */
+  82 0016 0895      		ret
+  83               		.cfi_endproc
+  84               	.LFE104:
+  86               		.section	.text.host_keyboard_led_state,"ax",@progbits
+  87               	.global	host_keyboard_led_state
+  89               	host_keyboard_led_state:
+  90               	.LFB105:
+  42:tmk_core/common/host.c **** 
+  43:tmk_core/common/host.c **** led_t host_keyboard_led_state(void) {
+  91               		.loc 1 43 37 is_stmt 1 view -0
+  92               		.cfi_startproc
+  93               	/* prologue: function */
+  94               	/* frame size = 0 */
+  95               	/* stack size = 0 */
+  96               	.L__stack_usage = 0
+  44:tmk_core/common/host.c ****     if (!driver) return (led_t){0};
+  97               		.loc 1 44 5 view .LVU15
+  98               		.loc 1 44 9 is_stmt 0 view .LVU16
+  99 0000 E091 0000 		lds r30,driver
+ 100 0004 F091 0000 		lds r31,driver+1
+ 101               		.loc 1 44 8 view .LVU17
+ 102 0008 3097      		sbiw r30,0
+ 103 000a 01F4      		brne .L6
+ 104               		.loc 1 44 18 is_stmt 1 discriminator 1 view .LVU18
+ 105               		.loc 1 44 25 is_stmt 0 discriminator 1 view .LVU19
+ 106 000c 80E0      		ldi r24,0
+ 107 000e 0895      		ret
+ 108               	.L6:
+  45:tmk_core/common/host.c ****     return (led_t)((*driver->keyboard_leds)());
+ 109               		.loc 1 45 5 is_stmt 1 view .LVU20
+ 110               		.loc 1 45 21 is_stmt 0 view .LVU21
+ 111 0010 0190      		ld __tmp_reg__,Z+
+ 112 0012 F081      		ld r31,Z
+ 113 0014 E02D      		mov r30,__tmp_reg__
+ 114 0016 0995      		icall
+ 115               	.LVL2:
+ 116               	/* epilogue start */
+  46:tmk_core/common/host.c **** }
+ 117               		.loc 1 46 1 view .LVU22
+ 118 0018 0895      		ret
+ 119               		.cfi_endproc
+ 120               	.LFE105:
+ 122               		.section	.text.host_keyboard_send,"ax",@progbits
+ 123               	.global	host_keyboard_send
+ 125               	host_keyboard_send:
+ 126               	.LVL3:
+ 127               	.LFB106:
+  47:tmk_core/common/host.c **** 
+  48:tmk_core/common/host.c **** /* send report */
+  49:tmk_core/common/host.c **** void host_keyboard_send(report_keyboard_t *report) {
+ 128               		.loc 1 49 52 is_stmt 1 view -0
+ 129               		.cfi_startproc
+ 130               	/* prologue: function */
+ 131               	/* frame size = 0 */
+ 132               	/* stack size = 0 */
+ 133               	.L__stack_usage = 0
+  50:tmk_core/common/host.c ****     if (!driver) return;
+ 134               		.loc 1 50 5 view .LVU24
+ 135               		.loc 1 50 9 is_stmt 0 view .LVU25
+ 136 0000 E091 0000 		lds r30,driver
+ 137 0004 F091 0000 		lds r31,driver+1
+ 138               		.loc 1 50 8 view .LVU26
+ 139 0008 3097      		sbiw r30,0
+ 140 000a 01F0      		breq .L8
+  51:tmk_core/common/host.c **** #if defined(NKRO_ENABLE) && defined(NKRO_SHARED_EP)
+  52:tmk_core/common/host.c ****     if (keyboard_protocol && keymap_config.nkro) {
+ 141               		.loc 1 52 5 is_stmt 1 view .LVU27
+ 142               		.loc 1 52 8 is_stmt 0 view .LVU28
+ 143 000c 2091 0000 		lds r18,keyboard_protocol
+ 144 0010 2223      		tst r18
+ 145 0012 01F0      		breq .L10
+ 146               		.loc 1 52 27 discriminator 1 view .LVU29
+ 147 0014 2091 0000 		lds r18,keymap_config
+ 148 0018 27FF      		sbrs r18,7
+ 149 001a 00C0      		rjmp .L10
+  53:tmk_core/common/host.c ****         /* The callers of this function assume that report->mods is where mods go in.
+  54:tmk_core/common/host.c ****          * But report->nkro.mods can be at a different offset if core keyboard does not have a repo
+  55:tmk_core/common/host.c ****          */
+  56:tmk_core/common/host.c ****         report->nkro.mods      = report->mods;
+ 150               		.loc 1 56 9 is_stmt 1 view .LVU30
+ 151               		.loc 1 56 32 is_stmt 0 view .LVU31
+ 152 001c DC01      		movw r26,r24
+ 153 001e 2C91      		ld r18,X
+ 154 0020 1196      		adiw r26,1
+ 155 0022 2C93      		st X,r18
+ 156 0024 1197      		sbiw r26,1
+  57:tmk_core/common/host.c ****         report->nkro.report_id = REPORT_ID_NKRO;
+ 157               		.loc 1 57 9 is_stmt 1 view .LVU32
+ 158               		.loc 1 57 32 is_stmt 0 view .LVU33
+ 159 0026 25E0      		ldi r18,lo8(5)
+ 160 0028 2C93      		st X,r18
+ 161               	.L10:
+  58:tmk_core/common/host.c ****     } else
+  59:tmk_core/common/host.c **** #endif
+  60:tmk_core/common/host.c ****     {
+  61:tmk_core/common/host.c **** #ifdef KEYBOARD_SHARED_EP
+  62:tmk_core/common/host.c ****         report->report_id = REPORT_ID_KEYBOARD;
+  63:tmk_core/common/host.c **** #endif
+  64:tmk_core/common/host.c ****     }
+ 162               		.loc 1 64 5 is_stmt 1 view .LVU34
+  65:tmk_core/common/host.c ****     (*driver->send_keyboard)(report);
+ 163               		.loc 1 65 5 view .LVU35
+ 164               		.loc 1 65 6 is_stmt 0 view .LVU36
+ 165 002a 0280      		ldd __tmp_reg__,Z+2
+ 166 002c F381      		ldd r31,Z+3
+ 167 002e E02D      		mov r30,__tmp_reg__
+ 168 0030 0994      		ijmp
+ 169               	.LVL4:
+ 170               	.L8:
+ 171               	/* epilogue start */
+  66:tmk_core/common/host.c **** 
+  67:tmk_core/common/host.c ****     if (debug_keyboard) {
+  68:tmk_core/common/host.c ****         dprint("keyboard_report: ");
+  69:tmk_core/common/host.c ****         for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
+  70:tmk_core/common/host.c ****             dprintf("%02X ", report->raw[i]);
+  71:tmk_core/common/host.c ****         }
+  72:tmk_core/common/host.c ****         dprint("\n");
+  73:tmk_core/common/host.c ****     }
+  74:tmk_core/common/host.c **** }
+ 172               		.loc 1 74 1 view .LVU37
+ 173 0032 0895      		ret
+ 174               		.cfi_endproc
+ 175               	.LFE106:
+ 177               		.section	.text.host_mouse_send,"ax",@progbits
+ 178               	.global	host_mouse_send
+ 180               	host_mouse_send:
+ 181               	.LVL5:
+ 182               	.LFB107:
+  75:tmk_core/common/host.c **** 
+  76:tmk_core/common/host.c **** void host_mouse_send(report_mouse_t *report) {
+ 183               		.loc 1 76 46 is_stmt 1 view -0
+ 184               		.cfi_startproc
+ 185               	/* prologue: function */
+ 186               	/* frame size = 0 */
+ 187               	/* stack size = 0 */
+ 188               	.L__stack_usage = 0
+  77:tmk_core/common/host.c ****     if (!driver) return;
+ 189               		.loc 1 77 5 view .LVU39
+ 190               		.loc 1 77 9 is_stmt 0 view .LVU40
+ 191 0000 E091 0000 		lds r30,driver
+ 192 0004 F091 0000 		lds r31,driver+1
+ 193               		.loc 1 77 8 view .LVU41
+ 194 0008 3097      		sbiw r30,0
+ 195 000a 01F0      		breq .L14
+  78:tmk_core/common/host.c **** #ifdef MOUSE_SHARED_EP
+  79:tmk_core/common/host.c ****     report->report_id = REPORT_ID_MOUSE;
+  80:tmk_core/common/host.c **** #endif
+  81:tmk_core/common/host.c ****     (*driver->send_mouse)(report);
+ 196               		.loc 1 81 5 is_stmt 1 view .LVU42
+ 197               		.loc 1 81 6 is_stmt 0 view .LVU43
+ 198 000c 0480      		ldd __tmp_reg__,Z+4
+ 199 000e F581      		ldd r31,Z+5
+ 200 0010 E02D      		mov r30,__tmp_reg__
+ 201 0012 0994      		ijmp
+ 202               	.LVL6:
+ 203               	.L14:
+ 204               	/* epilogue start */
+  82:tmk_core/common/host.c **** }
+ 205               		.loc 1 82 1 view .LVU44
+ 206 0014 0895      		ret
+ 207               		.cfi_endproc
+ 208               	.LFE107:
+ 210               		.section	.text.host_system_send,"ax",@progbits
+ 211               	.global	host_system_send
+ 213               	host_system_send:
+ 214               	.LVL7:
+ 215               	.LFB108:
+  83:tmk_core/common/host.c **** 
+  84:tmk_core/common/host.c **** void host_system_send(uint16_t report) {
+ 216               		.loc 1 84 40 is_stmt 1 view -0
+ 217               		.cfi_startproc
+ 218               	/* prologue: function */
+ 219               	/* frame size = 0 */
+ 220               	/* stack size = 0 */
+ 221               	.L__stack_usage = 0
+  85:tmk_core/common/host.c ****     if (report == last_system_report) return;
+ 222               		.loc 1 85 5 view .LVU46
+ 223               		.loc 1 85 8 is_stmt 0 view .LVU47
+ 224 0000 2091 0000 		lds r18,last_system_report
+ 225 0004 3091 0000 		lds r19,last_system_report+1
+ 226 0008 2817      		cp r18,r24
+ 227 000a 3907      		cpc r19,r25
+ 228 000c 01F0      		breq .L16
+  86:tmk_core/common/host.c ****     last_system_report = report;
+ 229               		.loc 1 86 5 is_stmt 1 view .LVU48
+ 230               		.loc 1 86 24 is_stmt 0 view .LVU49
+ 231 000e 9093 0000 		sts last_system_report+1,r25
+ 232 0012 8093 0000 		sts last_system_report,r24
+  87:tmk_core/common/host.c **** 
+  88:tmk_core/common/host.c ****     if (!driver) return;
+ 233               		.loc 1 88 5 is_stmt 1 view .LVU50
+ 234               		.loc 1 88 9 is_stmt 0 view .LVU51
+ 235 0016 E091 0000 		lds r30,driver
+ 236 001a F091 0000 		lds r31,driver+1
+ 237               		.loc 1 88 8 view .LVU52
+ 238 001e 3097      		sbiw r30,0
+ 239 0020 01F0      		breq .L16
+  89:tmk_core/common/host.c ****     (*driver->send_system)(report);
+ 240               		.loc 1 89 5 is_stmt 1 view .LVU53
+ 241               		.loc 1 89 6 is_stmt 0 view .LVU54
+ 242 0022 0680      		ldd __tmp_reg__,Z+6
+ 243 0024 F781      		ldd r31,Z+7
+ 244 0026 E02D      		mov r30,__tmp_reg__
+ 245 0028 0994      		ijmp
+ 246               	.LVL8:
+ 247               	.L16:
+ 248               	/* epilogue start */
+  90:tmk_core/common/host.c **** }
+ 249               		.loc 1 90 1 view .LVU55
+ 250 002a 0895      		ret
+ 251               		.cfi_endproc
+ 252               	.LFE108:
+ 254               		.section	.text.host_consumer_send,"ax",@progbits
+ 255               	.global	host_consumer_send
+ 257               	host_consumer_send:
+ 258               	.LVL9:
+ 259               	.LFB109:
+  91:tmk_core/common/host.c **** 
+  92:tmk_core/common/host.c **** void host_consumer_send(uint16_t report) {
+ 260               		.loc 1 92 42 is_stmt 1 view -0
+ 261               		.cfi_startproc
+ 262               	/* prologue: function */
+ 263               	/* frame size = 0 */
+ 264               	/* stack size = 0 */
+ 265               	.L__stack_usage = 0
+  93:tmk_core/common/host.c ****     if (report == last_consumer_report) return;
+ 266               		.loc 1 93 5 view .LVU57
+ 267               		.loc 1 93 8 is_stmt 0 view .LVU58
+ 268 0000 2091 0000 		lds r18,last_consumer_report
+ 269 0004 3091 0000 		lds r19,last_consumer_report+1
+ 270 0008 2817      		cp r18,r24
+ 271 000a 3907      		cpc r19,r25
+ 272 000c 01F0      		breq .L23
+  94:tmk_core/common/host.c ****     last_consumer_report = report;
+ 273               		.loc 1 94 5 is_stmt 1 view .LVU59
+ 274               		.loc 1 94 26 is_stmt 0 view .LVU60
+ 275 000e 9093 0000 		sts last_consumer_report+1,r25
+ 276 0012 8093 0000 		sts last_consumer_report,r24
+  95:tmk_core/common/host.c **** 
+  96:tmk_core/common/host.c ****     if (!driver) return;
+ 277               		.loc 1 96 5 is_stmt 1 view .LVU61
+ 278               		.loc 1 96 9 is_stmt 0 view .LVU62
+ 279 0016 E091 0000 		lds r30,driver
+ 280 001a F091 0000 		lds r31,driver+1
+ 281               		.loc 1 96 8 view .LVU63
+ 282 001e 3097      		sbiw r30,0
+ 283 0020 01F0      		breq .L23
+  97:tmk_core/common/host.c ****     (*driver->send_consumer)(report);
+ 284               		.loc 1 97 5 is_stmt 1 view .LVU64
+ 285               		.loc 1 97 6 is_stmt 0 view .LVU65
+ 286 0022 0084      		ldd __tmp_reg__,Z+8
+ 287 0024 F185      		ldd r31,Z+9
+ 288 0026 E02D      		mov r30,__tmp_reg__
+ 289 0028 0994      		ijmp
+ 290               	.LVL10:
+ 291               	.L23:
+ 292               	/* epilogue start */
+  98:tmk_core/common/host.c **** }
+ 293               		.loc 1 98 1 view .LVU66
+ 294 002a 0895      		ret
+ 295               		.cfi_endproc
+ 296               	.LFE109:
+ 298               		.section	.text.host_last_system_report,"ax",@progbits
+ 299               	.global	host_last_system_report
+ 301               	host_last_system_report:
+ 302               	.LFB110:
+  99:tmk_core/common/host.c **** 
+ 100:tmk_core/common/host.c **** uint16_t host_last_system_report(void) { return last_system_report; }
+ 303               		.loc 1 100 40 is_stmt 1 view -0
+ 304               		.cfi_startproc
+ 305               	/* prologue: function */
+ 306               	/* frame size = 0 */
+ 307               	/* stack size = 0 */
+ 308               	.L__stack_usage = 0
+ 309               		.loc 1 100 42 view .LVU68
+ 310               		.loc 1 100 1 is_stmt 0 view .LVU69
+ 311 0000 8091 0000 		lds r24,last_system_report
+ 312 0004 9091 0000 		lds r25,last_system_report+1
+ 313               	/* epilogue start */
+ 314 0008 0895      		ret
+ 315               		.cfi_endproc
+ 316               	.LFE110:
+ 318               		.section	.text.host_last_consumer_report,"ax",@progbits
+ 319               	.global	host_last_consumer_report
+ 321               	host_last_consumer_report:
+ 322               	.LFB111:
+ 101:tmk_core/common/host.c **** 
+ 102:tmk_core/common/host.c **** uint16_t host_last_consumer_report(void) { return last_consumer_report; }
+ 323               		.loc 1 102 42 is_stmt 1 view -0
+ 324               		.cfi_startproc
+ 325               	/* prologue: function */
+ 326               	/* frame size = 0 */
+ 327               	/* stack size = 0 */
+ 328               	.L__stack_usage = 0
+ 329               		.loc 1 102 44 view .LVU71
+ 330               		.loc 1 102 1 is_stmt 0 view .LVU72
+ 331 0000 8091 0000 		lds r24,last_consumer_report
+ 332 0004 9091 0000 		lds r25,last_consumer_report+1
+ 333               	/* epilogue start */
+ 334 0008 0895      		ret
+ 335               		.cfi_endproc
+ 336               	.LFE111:
+ 338               		.section	.bss.last_consumer_report,"aw",@nobits
+ 341               	last_consumer_report:
+ 342 0000 0000      		.zero	2
+ 343               		.section	.bss.last_system_report,"aw",@nobits
+ 346               	last_system_report:
+ 347 0000 0000      		.zero	2
+ 348               		.section	.bss.driver,"aw",@nobits
+ 351               	driver:
+ 352 0000 0000      		.zero	2
+ 353               		.text
+ 354               	.Letext0:
+ 355               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+ 356               		.file 3 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+ 357               		.file 4 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+ 358               		.file 5 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+ 359               		.file 6 "lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.h"
+ 360               		.file 7 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdio.h"
+ 361               		.file 8 "tmk_core/common/report.h"
+ 362               		.file 9 "tmk_core/common/host_driver.h"
+ 363               		.file 10 "tmk_core/common/led.h"
+ 364               		.file 11 "tmk_core/common/host.h"
+ 365               		.file 12 "tmk_core/common/debug.h"
+ 366               		.file 13 "quantum/keycode_config.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 host.c
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:13     .text.host_set_driver:0000000000000000 host_set_driver
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:351    .bss.driver:0000000000000000 driver
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:36     .text.host_get_driver:0000000000000000 host_get_driver
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:56     .text.host_keyboard_leds:0000000000000000 host_keyboard_leds
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:89     .text.host_keyboard_led_state:0000000000000000 host_keyboard_led_state
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:125    .text.host_keyboard_send:0000000000000000 host_keyboard_send
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:180    .text.host_mouse_send:0000000000000000 host_mouse_send
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:213    .text.host_system_send:0000000000000000 host_system_send
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:346    .bss.last_system_report:0000000000000000 last_system_report
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:257    .text.host_consumer_send:0000000000000000 host_consumer_send
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:341    .bss.last_consumer_report:0000000000000000 last_consumer_report
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:301    .text.host_last_system_report:0000000000000000 host_last_system_report
+C:\Users\gazed\AppData\Local\Temp\ccywgHch.s:321    .text.host_last_consumer_report:0000000000000000 host_last_consumer_report
+
+UNDEFINED SYMBOLS
+keyboard_protocol
+keymap_config
+__do_clear_bss

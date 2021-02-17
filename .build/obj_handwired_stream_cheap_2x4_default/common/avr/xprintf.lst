@@ -1,0 +1,855 @@
+   1               	# 1 "tmk_core/common/avr/xprintf.S"
+   1               	;---------------------------------------------------------------------------;
+   0               	
+   0               	
+   1               	#pragma once
+   2               	
+   3               	#include "config_common.h"
+   1               	/* Copyright 2015-2018 Jack Humbert
+   2               	 *
+   3               	 * This program is free software: you can redistribute it and/or modify
+   4               	 * it under the terms of the GNU General Public License as published by
+   5               	 * the Free Software Foundation, either version 2 of the License, or
+   6               	 * (at your option) any later version.
+   7               	 *
+   8               	 * This program is distributed in the hope that it will be useful,
+   9               	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  10               	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  11               	 * GNU General Public License for more details.
+  12               	 *
+  13               	 * You should have received a copy of the GNU General Public License
+  14               	 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  15               	 */
+  16               	
+  17               	#pragma once
+  18               	
+  19               	/* diode directions */
+  20               	#define COL2ROW 0
+  21               	#define ROW2COL 1
+  22               	
+  23               	// useful for direct pin mapping
+  24               	#define NO_PIN (pin_t)(~0)
+  25               	
+  26               	#ifdef __AVR__
+  27               	#    ifndef __ASSEMBLER__
+  28               	#        include <avr/io.h>
+  29               	#    endif
+  30               	#    define PORT_SHIFTER 4  // this may be 4 for all AVR chips
+  31               	
+  32               	// If you want to add more to this list, reference the PINx definitions in these header
+  33               	// files: https://github.com/vancegroup-mirrors/avr-libc/tree/master/avr-libc/include/avr
+  34               	
+  35               	#    if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega16U4__)
+  36               	#        define ADDRESS_BASE 0x00
+  37               	#        define PINB_ADDRESS 0x3
+  38               	#        define PINC_ADDRESS 0x6
+  39               	#        define PIND_ADDRESS 0x9
+  40               	#        define PINE_ADDRESS 0xC
+  41               	#        define PINF_ADDRESS 0xF
+  42               	#    elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega328P__)
+  43               	#        define ADDRESS_BASE 0x00
+  44               	#        define PINB_ADDRESS 0x3
+  45               	#        define PINC_ADDRESS 0x6
+  46               	#        define PIND_ADDRESS 0x9
+  47               	#    elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__
+  48               	#        define ADDRESS_BASE 0x00
+  49               	#        define PINA_ADDRESS 0x0
+  50               	#        define PINB_ADDRESS 0x3
+  51               	#        define PINC_ADDRESS 0x6
+  52               	#        define PIND_ADDRESS 0x9
+  53               	#        define PINE_ADDRESS 0xC
+  54               	#        define PINF_ADDRESS 0xF
+  55               	#    elif defined(__AVR_ATmega32A__)
+  56               	#        define ADDRESS_BASE 0x10
+  57               	#        define PIND_ADDRESS 0x0
+  58               	#        define PINC_ADDRESS 0x3
+  59               	#        define PINB_ADDRESS 0x6
+  60               	#        define PINA_ADDRESS 0x9
+  61               	#    elif defined(__AVR_ATtiny85__)
+  62               	#        define ADDRESS_BASE 0x10
+  63               	#        define PINB_ADDRESS 0x6
+  64               	#    else
+  65               	#        error "Pins are not defined"
+  66               	#    endif
+  67               	
+  68               	/* I/O pins */
+  69               	#    define PINDEF(port, pin) ((PIN##port##_ADDRESS << PORT_SHIFTER) | pin)
+  70               	
+  71               	#    ifdef PORTA
+  72               	#        define A0 PINDEF(A, 0)
+  73               	#        define A1 PINDEF(A, 1)
+  74               	#        define A2 PINDEF(A, 2)
+  75               	#        define A3 PINDEF(A, 3)
+  76               	#        define A4 PINDEF(A, 4)
+  77               	#        define A5 PINDEF(A, 5)
+  78               	#        define A6 PINDEF(A, 6)
+  79               	#        define A7 PINDEF(A, 7)
+  80               	#    endif
+  81               	#    ifdef PORTB
+  82               	#        define B0 PINDEF(B, 0)
+  83               	#        define B1 PINDEF(B, 1)
+  84               	#        define B2 PINDEF(B, 2)
+  85               	#        define B3 PINDEF(B, 3)
+  86               	#        define B4 PINDEF(B, 4)
+  87               	#        define B5 PINDEF(B, 5)
+  88               	#        define B6 PINDEF(B, 6)
+  89               	#        define B7 PINDEF(B, 7)
+  90               	#    endif
+  91               	#    ifdef PORTC
+  92               	#        define C0 PINDEF(C, 0)
+  93               	#        define C1 PINDEF(C, 1)
+  94               	#        define C2 PINDEF(C, 2)
+  95               	#        define C3 PINDEF(C, 3)
+  96               	#        define C4 PINDEF(C, 4)
+  97               	#        define C5 PINDEF(C, 5)
+  98               	#        define C6 PINDEF(C, 6)
+  99               	#        define C7 PINDEF(C, 7)
+ 100               	#    endif
+ 101               	#    ifdef PORTD
+ 102               	#        define D0 PINDEF(D, 0)
+ 103               	#        define D1 PINDEF(D, 1)
+ 104               	#        define D2 PINDEF(D, 2)
+ 105               	#        define D3 PINDEF(D, 3)
+ 106               	#        define D4 PINDEF(D, 4)
+ 107               	#        define D5 PINDEF(D, 5)
+ 108               	#        define D6 PINDEF(D, 6)
+ 109               	#        define D7 PINDEF(D, 7)
+ 110               	#    endif
+ 111               	#    ifdef PORTE
+ 112               	#        define E0 PINDEF(E, 0)
+ 113               	#        define E1 PINDEF(E, 1)
+ 114               	#        define E2 PINDEF(E, 2)
+ 115               	#        define E3 PINDEF(E, 3)
+ 116               	#        define E4 PINDEF(E, 4)
+ 117               	#        define E5 PINDEF(E, 5)
+ 118               	#        define E6 PINDEF(E, 6)
+ 119               	#        define E7 PINDEF(E, 7)
+ 120               	#    endif
+ 121               	#    ifdef PORTF
+ 122               	#        define F0 PINDEF(F, 0)
+ 123               	#        define F1 PINDEF(F, 1)
+ 124               	#        define F2 PINDEF(F, 2)
+ 125               	#        define F3 PINDEF(F, 3)
+ 126               	#        define F4 PINDEF(F, 4)
+ 127               	#        define F5 PINDEF(F, 5)
+ 128               	#        define F6 PINDEF(F, 6)
+ 129               	#        define F7 PINDEF(F, 7)
+ 130               	#    endif
+ 131               	
+ 132               	#    ifndef __ASSEMBLER__
+ 133               	#        define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset))
+ 134               	// Port X Input Pins Address
+ 135               	#        define PINx_ADDRESS(p) _PIN_ADDRESS(p, 0)
+ 136               	// Port X Data Direction Register,  0:input 1:output
+ 137               	#        define DDRx_ADDRESS(p) _PIN_ADDRESS(p, 1)
+ 138               	// Port X Data Register
+ 139               	#        define PORTx_ADDRESS(p) _PIN_ADDRESS(p, 2)
+ 140               	#    endif
+ 141               	
+ 142               	#elif defined(PROTOCOL_CHIBIOS)
+ 143               	// Defines mapping for Proton C replacement
+ 144               	#    ifdef CONVERT_TO_PROTON_C
+ 145               	// Left side (front)
+ 146               	#        define D3 PAL_LINE(GPIOA, 9)
+ 147               	#        define D2 PAL_LINE(GPIOA, 10)
+ 148               	//      GND
+ 149               	//      GND
+ 150               	#        define D1 PAL_LINE(GPIOB, 7)
+ 151               	#        define D0 PAL_LINE(GPIOB, 6)
+ 152               	#        define D4 PAL_LINE(GPIOB, 5)
+ 153               	#        define C6 PAL_LINE(GPIOB, 4)
+ 154               	#        define D7 PAL_LINE(GPIOB, 3)
+ 155               	#        define E6 PAL_LINE(GPIOB, 2)
+ 156               	#        define B4 PAL_LINE(GPIOB, 1)
+ 157               	#        define B5 PAL_LINE(GPIOB, 0)
+ 158               	
+ 159               	// Right side (front)
+ 160               	//      RAW
+ 161               	//      GND
+ 162               	//      RESET
+ 163               	//      VCC
+ 164               	#        define F4 PAL_LINE(GPIOA, 2)
+ 165               	#        define F5 PAL_LINE(GPIOA, 1)
+ 166               	#        define F6 PAL_LINE(GPIOA, 0)
+ 167               	#        define F7 PAL_LINE(GPIOB, 8)
+ 168               	#        define B1 PAL_LINE(GPIOB, 13)
+ 169               	#        define B3 PAL_LINE(GPIOB, 14)
+ 170               	#        define B2 PAL_LINE(GPIOB, 15)
+ 171               	#        define B6 PAL_LINE(GPIOB, 9)
+ 172               	
+ 173               	// LEDs (only D5/C13 uses an actual LED)
+ 174               	#        ifdef CONVERT_TO_PROTON_C_RXLED
+ 175               	#            define D5 PAL_LINE(GPIOC, 14)
+ 176               	#            define B0 PAL_LINE(GPIOC, 13)
+ 177               	#        else
+ 178               	#            define D5 PAL_LINE(GPIOC, 13)
+ 179               	#            define B0 PAL_LINE(GPIOC, 14)
+ 180               	#        endif
+ 181               	#    else
+ 182               	#        define A0 PAL_LINE(GPIOA, 0)
+ 183               	#        define A1 PAL_LINE(GPIOA, 1)
+ 184               	#        define A2 PAL_LINE(GPIOA, 2)
+ 185               	#        define A3 PAL_LINE(GPIOA, 3)
+ 186               	#        define A4 PAL_LINE(GPIOA, 4)
+ 187               	#        define A5 PAL_LINE(GPIOA, 5)
+ 188               	#        define A6 PAL_LINE(GPIOA, 6)
+ 189               	#        define A7 PAL_LINE(GPIOA, 7)
+ 190               	#        define A8 PAL_LINE(GPIOA, 8)
+ 191               	#        define A9 PAL_LINE(GPIOA, 9)
+ 192               	#        define A10 PAL_LINE(GPIOA, 10)
+ 193               	#        define A11 PAL_LINE(GPIOA, 11)
+ 194               	#        define A12 PAL_LINE(GPIOA, 12)
+ 195               	#        define A13 PAL_LINE(GPIOA, 13)
+ 196               	#        define A14 PAL_LINE(GPIOA, 14)
+ 197               	#        define A15 PAL_LINE(GPIOA, 15)
+ 198               	#        define B0 PAL_LINE(GPIOB, 0)
+ 199               	#        define B1 PAL_LINE(GPIOB, 1)
+ 200               	#        define B2 PAL_LINE(GPIOB, 2)
+ 201               	#        define B3 PAL_LINE(GPIOB, 3)
+ 202               	#        define B4 PAL_LINE(GPIOB, 4)
+ 203               	#        define B5 PAL_LINE(GPIOB, 5)
+ 204               	#        define B6 PAL_LINE(GPIOB, 6)
+ 205               	#        define B7 PAL_LINE(GPIOB, 7)
+ 206               	#        define B8 PAL_LINE(GPIOB, 8)
+ 207               	#        define B9 PAL_LINE(GPIOB, 9)
+ 208               	#        define B10 PAL_LINE(GPIOB, 10)
+ 209               	#        define B11 PAL_LINE(GPIOB, 11)
+ 210               	#        define B12 PAL_LINE(GPIOB, 12)
+ 211               	#        define B13 PAL_LINE(GPIOB, 13)
+ 212               	#        define B14 PAL_LINE(GPIOB, 14)
+ 213               	#        define B15 PAL_LINE(GPIOB, 15)
+ 214               	#        define B16 PAL_LINE(GPIOB, 16)
+ 215               	#        define B17 PAL_LINE(GPIOB, 17)
+ 216               	#        define B18 PAL_LINE(GPIOB, 18)
+ 217               	#        define B19 PAL_LINE(GPIOB, 19)
+ 218               	#        define C0 PAL_LINE(GPIOC, 0)
+ 219               	#        define C1 PAL_LINE(GPIOC, 1)
+ 220               	#        define C2 PAL_LINE(GPIOC, 2)
+ 221               	#        define C3 PAL_LINE(GPIOC, 3)
+ 222               	#        define C4 PAL_LINE(GPIOC, 4)
+ 223               	#        define C5 PAL_LINE(GPIOC, 5)
+ 224               	#        define C6 PAL_LINE(GPIOC, 6)
+ 225               	#        define C7 PAL_LINE(GPIOC, 7)
+ 226               	#        define C8 PAL_LINE(GPIOC, 8)
+ 227               	#        define C9 PAL_LINE(GPIOC, 9)
+ 228               	#        define C10 PAL_LINE(GPIOC, 10)
+ 229               	#        define C11 PAL_LINE(GPIOC, 11)
+ 230               	#        define C12 PAL_LINE(GPIOC, 12)
+ 231               	#        define C13 PAL_LINE(GPIOC, 13)
+ 232               	#        define C14 PAL_LINE(GPIOC, 14)
+ 233               	#        define C15 PAL_LINE(GPIOC, 15)
+ 234               	#        define D0 PAL_LINE(GPIOD, 0)
+ 235               	#        define D1 PAL_LINE(GPIOD, 1)
+ 236               	#        define D2 PAL_LINE(GPIOD, 2)
+ 237               	#        define D3 PAL_LINE(GPIOD, 3)
+ 238               	#        define D4 PAL_LINE(GPIOD, 4)
+ 239               	#        define D5 PAL_LINE(GPIOD, 5)
+ 240               	#        define D6 PAL_LINE(GPIOD, 6)
+ 241               	#        define D7 PAL_LINE(GPIOD, 7)
+ 242               	#        define D8 PAL_LINE(GPIOD, 8)
+ 243               	#        define D9 PAL_LINE(GPIOD, 9)
+ 244               	#        define D10 PAL_LINE(GPIOD, 10)
+ 245               	#        define D11 PAL_LINE(GPIOD, 11)
+ 246               	#        define D12 PAL_LINE(GPIOD, 12)
+ 247               	#        define D13 PAL_LINE(GPIOD, 13)
+ 248               	#        define D14 PAL_LINE(GPIOD, 14)
+ 249               	#        define D15 PAL_LINE(GPIOD, 15)
+ 250               	#        define E0 PAL_LINE(GPIOE, 0)
+ 251               	#        define E1 PAL_LINE(GPIOE, 1)
+ 252               	#        define E2 PAL_LINE(GPIOE, 2)
+ 253               	#        define E3 PAL_LINE(GPIOE, 3)
+ 254               	#        define E4 PAL_LINE(GPIOE, 4)
+ 255               	#        define E5 PAL_LINE(GPIOE, 5)
+ 256               	#        define E6 PAL_LINE(GPIOE, 6)
+ 257               	#        define E7 PAL_LINE(GPIOE, 7)
+ 258               	#        define E8 PAL_LINE(GPIOE, 8)
+ 259               	#        define E9 PAL_LINE(GPIOE, 9)
+ 260               	#        define E10 PAL_LINE(GPIOE, 10)
+ 261               	#        define E11 PAL_LINE(GPIOE, 11)
+ 262               	#        define E12 PAL_LINE(GPIOE, 12)
+ 263               	#        define E13 PAL_LINE(GPIOE, 13)
+ 264               	#        define E14 PAL_LINE(GPIOE, 14)
+ 265               	#        define E15 PAL_LINE(GPIOE, 15)
+ 266               	#        define F0 PAL_LINE(GPIOF, 0)
+ 267               	#        define F1 PAL_LINE(GPIOF, 1)
+ 268               	#        define F2 PAL_LINE(GPIOF, 2)
+ 269               	#        define F3 PAL_LINE(GPIOF, 3)
+ 270               	#        define F4 PAL_LINE(GPIOF, 4)
+ 271               	#        define F5 PAL_LINE(GPIOF, 5)
+ 272               	#        define F6 PAL_LINE(GPIOF, 6)
+ 273               	#        define F7 PAL_LINE(GPIOF, 7)
+ 274               	#        define F8 PAL_LINE(GPIOF, 8)
+ 275               	#        define F9 PAL_LINE(GPIOF, 9)
+ 276               	#        define F10 PAL_LINE(GPIOF, 10)
+ 277               	#        define F11 PAL_LINE(GPIOF, 11)
+ 278               	#        define F12 PAL_LINE(GPIOF, 12)
+ 279               	#        define F13 PAL_LINE(GPIOF, 13)
+ 280               	#        define F14 PAL_LINE(GPIOF, 14)
+ 281               	#        define F15 PAL_LINE(GPIOF, 15)
+ 282               	#        define G0 PAL_LINE(GPIOG, 0)
+ 283               	#        define G1 PAL_LINE(GPIOG, 1)
+ 284               	#        define G2 PAL_LINE(GPIOG, 2)
+ 285               	#        define G3 PAL_LINE(GPIOG, 3)
+ 286               	#        define G4 PAL_LINE(GPIOG, 4)
+ 287               	#        define G5 PAL_LINE(GPIOG, 5)
+ 288               	#        define G6 PAL_LINE(GPIOG, 6)
+ 289               	#        define G7 PAL_LINE(GPIOG, 7)
+ 290               	#        define G8 PAL_LINE(GPIOG, 8)
+ 291               	#        define G9 PAL_LINE(GPIOG, 9)
+ 292               	#        define G10 PAL_LINE(GPIOG, 10)
+ 293               	#        define G11 PAL_LINE(GPIOG, 11)
+ 294               	#        define G12 PAL_LINE(GPIOG, 12)
+ 295               	#        define G13 PAL_LINE(GPIOG, 13)
+ 296               	#        define G14 PAL_LINE(GPIOG, 14)
+ 297               	#        define G15 PAL_LINE(GPIOG, 15)
+ 298               	#        define H0 PAL_LINE(GPIOH, 0)
+ 299               	#        define H1 PAL_LINE(GPIOH, 1)
+ 300               	#        define H2 PAL_LINE(GPIOH, 2)
+ 301               	#        define H3 PAL_LINE(GPIOH, 3)
+ 302               	#        define H4 PAL_LINE(GPIOH, 4)
+ 303               	#        define H5 PAL_LINE(GPIOH, 5)
+ 304               	#        define H6 PAL_LINE(GPIOH, 6)
+ 305               	#        define H7 PAL_LINE(GPIOH, 7)
+ 306               	#        define H8 PAL_LINE(GPIOH, 8)
+ 307               	#        define H9 PAL_LINE(GPIOH, 9)
+ 308               	#        define H10 PAL_LINE(GPIOH, 10)
+ 309               	#        define H11 PAL_LINE(GPIOH, 11)
+ 310               	#        define H12 PAL_LINE(GPIOH, 12)
+ 311               	#        define H13 PAL_LINE(GPIOH, 13)
+ 312               	#        define H14 PAL_LINE(GPIOH, 14)
+ 313               	#        define H15 PAL_LINE(GPIOH, 15)
+ 314               	#        define I0 PAL_LINE(GPIOI, 0)
+ 315               	#        define I1 PAL_LINE(GPIOI, 1)
+ 316               	#        define I2 PAL_LINE(GPIOI, 2)
+ 317               	#        define I3 PAL_LINE(GPIOI, 3)
+ 318               	#        define I4 PAL_LINE(GPIOI, 4)
+ 319               	#        define I5 PAL_LINE(GPIOI, 5)
+ 320               	#        define I6 PAL_LINE(GPIOI, 6)
+ 321               	#        define I7 PAL_LINE(GPIOI, 7)
+ 322               	#        define I8 PAL_LINE(GPIOI, 8)
+ 323               	#        define I9 PAL_LINE(GPIOI, 9)
+ 324               	#        define I10 PAL_LINE(GPIOI, 10)
+ 325               	#        define I11 PAL_LINE(GPIOI, 11)
+ 326               	#        define I12 PAL_LINE(GPIOI, 12)
+ 327               	#        define I13 PAL_LINE(GPIOI, 13)
+ 328               	#        define I14 PAL_LINE(GPIOI, 14)
+ 329               	#        define I15 PAL_LINE(GPIOI, 15)
+ 330               	#        define J0 PAL_LINE(GPIOJ, 0)
+ 331               	#        define J1 PAL_LINE(GPIOJ, 1)
+ 332               	#        define J2 PAL_LINE(GPIOJ, 2)
+ 333               	#        define J3 PAL_LINE(GPIOJ, 3)
+ 334               	#        define J4 PAL_LINE(GPIOJ, 4)
+ 335               	#        define J5 PAL_LINE(GPIOJ, 5)
+ 336               	#        define J6 PAL_LINE(GPIOJ, 6)
+ 337               	#        define J7 PAL_LINE(GPIOJ, 7)
+ 338               	#        define J8 PAL_LINE(GPIOJ, 8)
+ 339               	#        define J9 PAL_LINE(GPIOJ, 9)
+ 340               	#        define J10 PAL_LINE(GPIOJ, 10)
+ 341               	#        define J11 PAL_LINE(GPIOJ, 11)
+ 342               	#        define J12 PAL_LINE(GPIOJ, 12)
+ 343               	#        define J13 PAL_LINE(GPIOJ, 13)
+ 344               	#        define J14 PAL_LINE(GPIOJ, 14)
+ 345               	#        define J15 PAL_LINE(GPIOJ, 15)
+ 346               	// Keyboards can `#define KEYBOARD_REQUIRES_GPIOK` if they need to access GPIO-K pins. These confli
+ 347               	// bunch of layout definitions, so it's intentionally left out unless absolutely required -- in tha
+ 348               	// keyboard designer should use a different symbol when defining their layout macros.
+ 349               	#        ifdef KEYBOARD_REQUIRES_GPIOK
+ 350               	#            define K0 PAL_LINE(GPIOK, 0)
+ 351               	#            define K1 PAL_LINE(GPIOK, 1)
+ 352               	#            define K2 PAL_LINE(GPIOK, 2)
+ 353               	#            define K3 PAL_LINE(GPIOK, 3)
+ 354               	#            define K4 PAL_LINE(GPIOK, 4)
+ 355               	#            define K5 PAL_LINE(GPIOK, 5)
+ 356               	#            define K6 PAL_LINE(GPIOK, 6)
+ 357               	#            define K7 PAL_LINE(GPIOK, 7)
+ 358               	#            define K8 PAL_LINE(GPIOK, 8)
+ 359               	#            define K9 PAL_LINE(GPIOK, 9)
+ 360               	#            define K10 PAL_LINE(GPIOK, 10)
+ 361               	#            define K11 PAL_LINE(GPIOK, 11)
+ 362               	#            define K12 PAL_LINE(GPIOK, 12)
+ 363               	#            define K13 PAL_LINE(GPIOK, 13)
+ 364               	#            define K14 PAL_LINE(GPIOK, 14)
+ 365               	#            define K15 PAL_LINE(GPIOK, 15)
+ 366               	#        endif
+ 367               	#    endif
+ 368               	#endif
+ 369               	
+ 370               	/* USART configuration */
+ 371               	#ifdef BLUETOOTH_ENABLE
+ 372               	#    ifdef __AVR_ATmega32U4__
+ 373               	#        define SERIAL_UART_BAUD 9600
+ 374               	#        define SERIAL_UART_DATA UDR1
+ 375               	#        define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
+ 376               	#        define SERIAL_UART_RXD_VECT USART1_RX_vect
+ 377               	#        define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+ 378               	#        define SERIAL_UART_INIT()                  \
+ 379               	            do {                                    \
+ 380               	                /* baud rate */                     \
+ 381               	                UBRR1L = SERIAL_UART_UBRR;          \
+ 382               	                /* baud rate */                     \
+ 383               	                UBRR1H = SERIAL_UART_UBRR >> 8;     \
+ 384               	                /* enable TX */                     \
+ 385               	                UCSR1B = _BV(TXEN1);                \
+ 386               	                /* 8-bit data */                    \
+ 387               	                UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
+ 388               	                sei();                              \
+ 389               	            } while (0)
+ 390               	#    elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__
+ 391               	#        define SERIAL_UART_BAUD 115200
+ 392               	#        define SERIAL_UART_DATA UDR1
+ 393               	/* UBRR should result in ~16 and set UCSR1A = _BV(U2X1) as per rn42 documentation. HC05 needs baudr
+ 394               	#        define SERIAL_UART_UBRR (F_CPU / (8UL * SERIAL_UART_BAUD) - 1)
+ 395               	#        define SERIAL_UART_RXD_VECT USART1_RX_vect
+ 396               	#        define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+ 397               	#        define SERIAL_UART_INIT()                  \
+ 398               	            do {                                    \
+ 399               	                UCSR1A = _BV(U2X1);                 \
+ 400               	                /* baud rate */                     \
+ 401               	                UBRR1L = SERIAL_UART_UBRR;          \
+ 402               	                /* baud rate */                     \
+ 403               	                UBRR1H = SERIAL_UART_UBRR >> 8;     \
+ 404               	                /* enable TX */                     \
+ 405               	                UCSR1B = _BV(TXEN1);                \
+ 406               	                /* 8-bit data */                    \
+ 407               	                UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
+ 408               	                sei();                              \
+ 409               	            } while (0)
+ 410               	#    else
+ 411               	#        error "USART configuration is needed."
+ 412               	#    endif
+ 413               	#endif
+ 414               	
+ 415               	#define API_SYSEX_MAX_SIZE 32
+ 416               	
+ 417               	#include "song_list.h"
+   1               	/* Any song or sound without a license explicitly stated is:
+   2               	 *
+   3               	 * Copyright 2016 Jack Humbert
+   4               	 * Copyright 2017 Zach White
+   5               	 *
+   6               	 * This program is free software: you can redistribute it and/or modify
+   7               	 * it under the terms of the GNU General Public License as published by
+   8               	 * the Free Software Foundation, either version 2 of the License, or
+   9               	 * (at your option) any later version.
+  10               	 *
+  11               	 * This program is distributed in the hope that it will be useful,
+  12               	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  13               	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  14               	 * GNU General Public License for more details.
+  15               	 *
+  16               	 * You should have received a copy of the GNU General Public License
+  17               	 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  18               	 */
+  19               	#pragma once
+  20               	
+  21               	#include "musical_notes.h"
+   1               	/* Copyright 2016 Jack Humbert
+   2               	 *
+   3               	 * This program is free software: you can redistribute it and/or modify
+   4               	 * it under the terms of the GNU General Public License as published by
+   5               	 * the Free Software Foundation, either version 2 of the License, or
+   6               	 * (at your option) any later version.
+   7               	 *
+   8               	 * This program is distributed in the hope that it will be useful,
+   9               	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  10               	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  11               	 * GNU General Public License for more details.
+  12               	 *
+  13               	 * You should have received a copy of the GNU General Public License
+  14               	 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  15               	 */
+  16               	
+  17               	#pragma once
+  18               	
+  22               	
+   4               	
+   2               	; Extended itoa, puts, printf and atoi                     (C)ChaN, 2011
+   3               	;---------------------------------------------------------------------------;
+   4               	
+  19               	.list
+  20               	
+  21               	#ifdef SPM_PAGESIZE	// Recent devices have "lpm Rd,Z+" and "movw".
+  22               	.macro	_LPMI	reg
+  23               		lpm	\reg, Z+
+  24               	.endm
+  25               	.macro	_MOVW	dh,dl, sh,sl
+  26               		movw	\dl, \sl
+  27               	.endm
+  28               	#else			// Earlier devices do not have "lpm Rd,Z+" nor "movw".
+  29               	.macro	_LPMI	reg
+  30               		lpm
+  31               		mov	\reg, r0
+  32               		adiw	ZL, 1
+  33               	.endm
+  34               	.macro	_MOVW	dh,dl, sh,sl
+  35               		mov	\dl, \sl
+  36               		mov	\dh, \sh
+  37               	.endm
+  38               	#endif
+  39               	
+  40               	
+  41               	
+  42               	;---------------------------------------------------------------------------
+  43               	; Stub function to forward to user output function
+  44               	;
+  45               	;Prototype: void xputc (char chr	// a character to be output
+  46               	;			);
+  47               	;Size: 12/12 words
+  48               	
+  49               	.section .bss
+  50               	.global xfunc_out	; xfunc_out must be initialized before using this module.
+  51 0000 0000      	xfunc_out:	.ds.w	1
+  52               	.section .text
+  53               	
+  54               	
+  55               	.func xputc
+  56               	.global xputc
+  57               	xputc:
+  58               	#if CR_CRLF
+  59:tmk_core/common/avr/xprintf.S **** 	cpi	r24, 10		;LF --> CRLF
+  60:tmk_core/common/avr/xprintf.S **** 	brne	1f		;
+  61:tmk_core/common/avr/xprintf.S **** 	ldi	r24, 13		;
+  62:tmk_core/common/avr/xprintf.S **** 	rcall	1f		;
+  63:tmk_core/common/avr/xprintf.S **** 	ldi	r24, 10		;/
+  64:tmk_core/common/avr/xprintf.S **** 1:
+  65:tmk_core/common/avr/xprintf.S **** #endif
+  66:tmk_core/common/avr/xprintf.S **** 	push	ZH
+  67:tmk_core/common/avr/xprintf.S **** 	push	ZL
+  68:tmk_core/common/avr/xprintf.S **** 	lds	ZL, xfunc_out+0	;Pointer to the registered output function.
+  69:tmk_core/common/avr/xprintf.S **** 	lds	ZH, xfunc_out+1	;/
+  70:tmk_core/common/avr/xprintf.S **** 	sbiw	ZL, 0		;Skip if null
+  71:tmk_core/common/avr/xprintf.S **** 	breq	2f		;/
+  72:tmk_core/common/avr/xprintf.S **** 	icall
+  73:tmk_core/common/avr/xprintf.S **** 2:	pop	ZL
+  74:tmk_core/common/avr/xprintf.S **** 	pop	ZH
+  75:tmk_core/common/avr/xprintf.S **** 	ret
+  76               	.endfunc
+  77               	
+  78               	
+  79               	
+  80               	;---------------------------------------------------------------------------
+  81               	; Direct ROM string output
+  82               	;
+  83               	;Prototype: void xputs (const char *str_p // rom string to be output
+  84               	;			);
+  85               	
+  86               	.func xputs
+  87               	.global xputs
+  88               	xputs:
+  89:tmk_core/common/avr/xprintf.S **** 	_MOVW	ZH,ZL, r25,r24	; Z = pointer to rom string
+  90:tmk_core/common/avr/xprintf.S **** 1:	_LPMI	r24
+  91:tmk_core/common/avr/xprintf.S **** 	cpi	r24, 0
+  92:tmk_core/common/avr/xprintf.S **** 	breq	2f
+  93:tmk_core/common/avr/xprintf.S **** 	rcall	xputc
+  94:tmk_core/common/avr/xprintf.S **** 	rjmp	1b
+  95:tmk_core/common/avr/xprintf.S **** 2:	ret
+  96               	.endfunc
+  97               	
+  98               	
+  99               	;---------------------------------------------------------------------------
+ 100               	; Extended direct numeral string output (32bit version)
+ 101               	;
+ 102               	;Prototype: void xitoa (long value,	// value to be output
+ 103               	;                       char radix,	// radix
+ 104               	;                       char width);	// minimum width
+ 105               	;
+ 106               	
+ 107               	.func xitoa
+ 108               	.global xitoa
+ 109               	xitoa:
+ 110               					;r25:r22 = value, r20 = base, r18 = digits
+ 111:tmk_core/common/avr/xprintf.S **** 	clr	r31		;r31 = stack level
+ 112:tmk_core/common/avr/xprintf.S **** 	ldi	r30, ' '	;r30 = sign
+ 113:tmk_core/common/avr/xprintf.S **** 	ldi	r19, ' '	;r19 = filler
+ 114:tmk_core/common/avr/xprintf.S **** 	sbrs	r20, 7		;When base indicates signd format and the value
+ 115:tmk_core/common/avr/xprintf.S **** 	rjmp	0f		;is minus, add a '-'.
+ 116:tmk_core/common/avr/xprintf.S **** 	neg	r20		;
+ 117:tmk_core/common/avr/xprintf.S **** 	sbrs	r25, 7		;
+ 118:tmk_core/common/avr/xprintf.S **** 	rjmp	0f		;
+ 119:tmk_core/common/avr/xprintf.S **** 	ldi	r30, '-'	;
+ 120:tmk_core/common/avr/xprintf.S **** 	com	r22		;
+ 121:tmk_core/common/avr/xprintf.S **** 	com	r23		;
+ 122:tmk_core/common/avr/xprintf.S **** 	com	r24		;
+ 123:tmk_core/common/avr/xprintf.S **** 	com	r25		;
+ 124:tmk_core/common/avr/xprintf.S **** 	adc	r22, r1		;
+ 125:tmk_core/common/avr/xprintf.S **** 	adc	r23, r1		;
+ 126:tmk_core/common/avr/xprintf.S **** 	adc	r24, r1		;
+ 127:tmk_core/common/avr/xprintf.S **** 	adc	r25, r1		;/
+ 128:tmk_core/common/avr/xprintf.S **** 0:	sbrs	r18, 7		;When digits indicates zero filled,
+ 129:tmk_core/common/avr/xprintf.S **** 	rjmp	1f		;filler is '0'.
+ 130:tmk_core/common/avr/xprintf.S **** 	neg	r18		;
+ 131:tmk_core/common/avr/xprintf.S **** 	ldi	r19, '0'	;/
+ 132               					;----- string conversion loop
+ 133:tmk_core/common/avr/xprintf.S **** 1:	ldi	r21, 32		;r26 = r25:r22 % r20
+ 134:tmk_core/common/avr/xprintf.S **** 	clr	r26		;r25:r22 /= r20
+ 135:tmk_core/common/avr/xprintf.S **** 2:	lsl	r22		;
+ 136:tmk_core/common/avr/xprintf.S **** 	rol	r23		;
+ 137:tmk_core/common/avr/xprintf.S **** 	rol	r24		;
+ 138:tmk_core/common/avr/xprintf.S **** 	rol	r25		;
+ 139:tmk_core/common/avr/xprintf.S **** 	rol	r26		;
+ 140:tmk_core/common/avr/xprintf.S **** 	cp	r26, r20	;
+ 141:tmk_core/common/avr/xprintf.S **** 	brcs	3f		;
+ 142:tmk_core/common/avr/xprintf.S **** 	sub	r26, r20	;
+ 143:tmk_core/common/avr/xprintf.S **** 	inc	r22		;
+ 144:tmk_core/common/avr/xprintf.S **** 3:	dec	r21		;
+ 145:tmk_core/common/avr/xprintf.S **** 	brne	2b		;/
+ 146:tmk_core/common/avr/xprintf.S **** 	cpi	r26, 10		;r26 is a numeral digit '0'-'F'
+ 147:tmk_core/common/avr/xprintf.S **** 	brcs	4f		;
+ 148:tmk_core/common/avr/xprintf.S **** 	subi	r26, -7		;
+ 149:tmk_core/common/avr/xprintf.S **** 4:	subi	r26, -'0'	;/
+ 150:tmk_core/common/avr/xprintf.S **** 	push	r26		;Stack it
+ 151:tmk_core/common/avr/xprintf.S **** 	inc	r31		;/
+ 152:tmk_core/common/avr/xprintf.S **** 	cp	r22, r1		;Repeat until r25:r22 gets zero
+ 153:tmk_core/common/avr/xprintf.S **** 	cpc	r23, r1		;
+ 154:tmk_core/common/avr/xprintf.S **** 	cpc	r24, r1		;
+ 155:tmk_core/common/avr/xprintf.S **** 	cpc	r25, r1		;
+ 156:tmk_core/common/avr/xprintf.S **** 	brne	1b		;/
+ 157               	
+ 158:tmk_core/common/avr/xprintf.S **** 	cpi	r30, '-'	;Minus sign if needed
+ 159:tmk_core/common/avr/xprintf.S **** 	brne	5f		;
+ 160:tmk_core/common/avr/xprintf.S **** 	push	r30		;
+ 161:tmk_core/common/avr/xprintf.S **** 	inc	r31		;/
+ 162:tmk_core/common/avr/xprintf.S **** 5:	cp	r31, r18	;Filler
+ 163:tmk_core/common/avr/xprintf.S **** 	brcc	6f		;
+ 164:tmk_core/common/avr/xprintf.S **** 	push	r19		;
+ 165:tmk_core/common/avr/xprintf.S **** 	inc	r31		;
+ 166:tmk_core/common/avr/xprintf.S **** 	rjmp	5b		;/
+ 167               	
+ 168:tmk_core/common/avr/xprintf.S **** 6:	pop	r24		;Flush stacked digits and exit
+ 169:tmk_core/common/avr/xprintf.S **** 	rcall	xputc		;
+ 170:tmk_core/common/avr/xprintf.S **** 	dec	r31		;
+ 171:tmk_core/common/avr/xprintf.S **** 	brne	6b		;/
+ 172               	
+ 173:tmk_core/common/avr/xprintf.S **** 	ret
+ 174               	.endfunc
+ 175               	
+ 176               	
+ 177               	
+ 178               	;---------------------------------------------------------------------------;
+ 179               	; Formatted string output (16/32bit version)
+ 180               	;
+ 181               	;Prototype:
+ 182               	; void __xprintf (const char *format_p, ...);
+ 183               	; void __xsprintf(char*, const char *format_p, ...);
+ 184               	; void __xfprintf(void(*func)(char), const char *format_p, ...);
+ 185               	;
+ 186               	
+ 187               	#if USE_XPRINTF
+ 188               	
+ 189               	.func xvprintf
+ 190               	xvprintf:
+ 191:tmk_core/common/avr/xprintf.S **** 	ld	ZL, Y+		;Z = pointer to format string
+ 192:tmk_core/common/avr/xprintf.S **** 	ld	ZH, Y+		;/
+ 193               	
+ 194:tmk_core/common/avr/xprintf.S **** 0:	_LPMI	r24		;Get a format char
+ 195:tmk_core/common/avr/xprintf.S **** 	cpi	r24, 0		;End of format string?
+ 196:tmk_core/common/avr/xprintf.S **** 	breq	90f		;/
+ 197:tmk_core/common/avr/xprintf.S **** 	cpi	r24, '%'	;Is format?
+ 198:tmk_core/common/avr/xprintf.S **** 	breq	20f		;/
+ 199:tmk_core/common/avr/xprintf.S **** 1:	rcall	xputc		;Put a normal character
+ 200:tmk_core/common/avr/xprintf.S **** 	rjmp	0b		;/
+ 201:tmk_core/common/avr/xprintf.S **** 90:	ret
+ 202               	
+ 203:tmk_core/common/avr/xprintf.S **** 20:	ldi	r18, 0		;r18: digits
+ 204:tmk_core/common/avr/xprintf.S **** 	clt			;T: filler
+ 205:tmk_core/common/avr/xprintf.S **** 	_LPMI	r21		;Get flags
+ 206:tmk_core/common/avr/xprintf.S **** 	cpi	r21, '%'	;Is a %?
+ 207:tmk_core/common/avr/xprintf.S **** 	breq	1b		;/
+ 208:tmk_core/common/avr/xprintf.S **** 	cpi	r21, '0'	;Zero filled?
+ 209:tmk_core/common/avr/xprintf.S **** 	brne	23f		;
+ 210:tmk_core/common/avr/xprintf.S **** 	set			;/
+ 211:tmk_core/common/avr/xprintf.S **** 22:	_LPMI	r21		;Get width
+ 212:tmk_core/common/avr/xprintf.S **** 23:	cpi	r21, '9'+1	;
+ 213:tmk_core/common/avr/xprintf.S **** 	brcc	24f		;
+ 214:tmk_core/common/avr/xprintf.S **** 	subi	r21, '0'	;
+ 215:tmk_core/common/avr/xprintf.S **** 	brcs	90b		;
+ 216:tmk_core/common/avr/xprintf.S **** 	lsl	r18		;
+ 217:tmk_core/common/avr/xprintf.S **** 	mov	r0, r18		;
+ 218:tmk_core/common/avr/xprintf.S **** 	lsl	r18		;
+ 219:tmk_core/common/avr/xprintf.S **** 	lsl	r18		;
+ 220:tmk_core/common/avr/xprintf.S **** 	add	r18, r0		;
+ 221:tmk_core/common/avr/xprintf.S **** 	add	r18, r21	;
+ 222:tmk_core/common/avr/xprintf.S **** 	rjmp	22b		;/
+ 223               	
+ 224:tmk_core/common/avr/xprintf.S **** 24:	brtc	25f		;get value (low word)
+ 225:tmk_core/common/avr/xprintf.S **** 	neg	r18		;
+ 226:tmk_core/common/avr/xprintf.S **** 25:	ld	r24, Y+		;
+ 227:tmk_core/common/avr/xprintf.S **** 	ld	r25, Y+		;/
+ 228:tmk_core/common/avr/xprintf.S **** 	cpi	r21, 'c'	;Is type character?
+ 229:tmk_core/common/avr/xprintf.S **** 	breq	1b		;/
+ 230:tmk_core/common/avr/xprintf.S **** 	cpi	r21, 's'	;Is type RAM string?
+ 231:tmk_core/common/avr/xprintf.S **** 	breq	50f		;/
+ 232:tmk_core/common/avr/xprintf.S **** 	cpi	r21, 'S'	;Is type ROM string?
+ 233:tmk_core/common/avr/xprintf.S **** 	breq	60f		;/
+ 234:tmk_core/common/avr/xprintf.S **** 	_MOVW	r23,r22,r25,r24	;r25:r22 = value
+ 235:tmk_core/common/avr/xprintf.S **** 	clr	r24		;
+ 236:tmk_core/common/avr/xprintf.S **** 	clr	r25		;
+ 237:tmk_core/common/avr/xprintf.S **** 	clt			;/
+ 238:tmk_core/common/avr/xprintf.S **** 	cpi	r21, 'l'	;Is long int?
+ 239:tmk_core/common/avr/xprintf.S **** 	brne	26f		;
+ 240:tmk_core/common/avr/xprintf.S **** 	ld	r24, Y+		;get value (high word)
+ 241:tmk_core/common/avr/xprintf.S **** 	ld	r25, Y+		;
+ 242:tmk_core/common/avr/xprintf.S **** 	set			;
+ 243:tmk_core/common/avr/xprintf.S **** 	_LPMI	r21		;/
+ 244:tmk_core/common/avr/xprintf.S **** 26:	cpi	r21, 'd'	;Is type signed decimal?
+ 245:tmk_core/common/avr/xprintf.S **** 	brne	27f		;/
+ 246:tmk_core/common/avr/xprintf.S **** 	ldi	r20, -10	;
+ 247:tmk_core/common/avr/xprintf.S **** 	brts	40f		;
+ 248:tmk_core/common/avr/xprintf.S **** 	sbrs	r23, 7		;
+ 249:tmk_core/common/avr/xprintf.S **** 	rjmp	40f		;
+ 250:tmk_core/common/avr/xprintf.S **** 	ldi	r24, -1		;
+ 251:tmk_core/common/avr/xprintf.S **** 	ldi	r25, -1		;
+ 252:tmk_core/common/avr/xprintf.S **** 	rjmp	40f		;/
+ 253:tmk_core/common/avr/xprintf.S **** 27:	cpi	r21, 'u'	;Is type unsigned decimal?
+ 254:tmk_core/common/avr/xprintf.S **** 	ldi	r20, 10		;
+ 255:tmk_core/common/avr/xprintf.S **** 	breq	40f		;/
+ 256:tmk_core/common/avr/xprintf.S **** 	cpi	r21, 'X'	;Is type hexdecimal?
+ 257:tmk_core/common/avr/xprintf.S **** 	ldi	r20, 16		;
+ 258:tmk_core/common/avr/xprintf.S **** 	breq	40f		;/
+ 259:tmk_core/common/avr/xprintf.S **** 	cpi	r21, 'b'	;Is type binary?
+ 260:tmk_core/common/avr/xprintf.S **** 	ldi	r20, 2		;
+ 261:tmk_core/common/avr/xprintf.S **** 	breq	40f		;/
+ 262:tmk_core/common/avr/xprintf.S **** 	ret			;abort
+ 263:tmk_core/common/avr/xprintf.S **** 40:	push	ZH		;Output the value
+ 264:tmk_core/common/avr/xprintf.S **** 	push	ZL		;
+ 265:tmk_core/common/avr/xprintf.S **** 	rcall	xitoa		;
+ 266:tmk_core/common/avr/xprintf.S **** 42:	pop	ZL		;
+ 267:tmk_core/common/avr/xprintf.S **** 	pop	ZH		;
+ 268:tmk_core/common/avr/xprintf.S **** 	rjmp	0b		;/
+ 269               	
+ 270:tmk_core/common/avr/xprintf.S **** 50:	push	ZH		;Put a string on the RAM
+ 271:tmk_core/common/avr/xprintf.S **** 	push	ZL
+ 272:tmk_core/common/avr/xprintf.S **** 	_MOVW	ZH,ZL, r25,r24
+ 273:tmk_core/common/avr/xprintf.S **** 51:	ld	r24, Z+
+ 274:tmk_core/common/avr/xprintf.S **** 	cpi	r24, 0
+ 275:tmk_core/common/avr/xprintf.S **** 	breq	42b
+ 276:tmk_core/common/avr/xprintf.S **** 	rcall	xputc
+ 277:tmk_core/common/avr/xprintf.S **** 	rjmp	51b
+ 278               	
+ 279:tmk_core/common/avr/xprintf.S **** 60:	push	ZH		;Put a string on the ROM
+ 280:tmk_core/common/avr/xprintf.S **** 	push	ZL
+ 281:tmk_core/common/avr/xprintf.S **** 	rcall	xputs
+ 282:tmk_core/common/avr/xprintf.S **** 	rjmp	42b
+ 283               	.endfunc
+ 284               	
+ 285               	
+ 286               	.func __xprintf
+ 287               	.global __xprintf
+ 288               	__xprintf:
+ 289:tmk_core/common/avr/xprintf.S **** 	push	YH
+ 290:tmk_core/common/avr/xprintf.S **** 	push	YL
+ 291:tmk_core/common/avr/xprintf.S **** 	in	YL, _SFR_IO_ADDR(SPL)
+ 292               	#ifdef SPH
+ 293:tmk_core/common/avr/xprintf.S **** 	in	YH, _SFR_IO_ADDR(SPH)
+ 294               	#else
+ 295               		clr	YH
+ 296               	#endif
+ 297:tmk_core/common/avr/xprintf.S **** 	adiw	YL, 5		;Y = pointer to arguments
+ 298:tmk_core/common/avr/xprintf.S **** 	rcall	xvprintf
+ 299:tmk_core/common/avr/xprintf.S **** 	pop	YL
+ 300:tmk_core/common/avr/xprintf.S **** 	pop	YH
+ 301:tmk_core/common/avr/xprintf.S **** 	ret
+ 302               	.endfunc
+ 303               	
+ 304               	
+ 305               	#if USE_XSPRINTF
+ 306               	
+ 307               	.func __xsprintf
+ 308               	putram:
+ 309               		_MOVW	ZH,ZL, r15,r14
+ 310               		st	Z+, r24
+ 311               		_MOVW	r15,r14, ZH,ZL
+ 312               		ret
+ 313               	.global __xsprintf
+ 314               	__xsprintf:
+ 315               		push	YH
+ 316               		push	YL
+ 317               		in	YL, _SFR_IO_ADDR(SPL)
+ 318               	#ifdef SPH
+ 319               		in	YH, _SFR_IO_ADDR(SPH)
+ 320               	#else
+ 321               		clr	YH
+ 322               	#endif
+ 323               		adiw	YL, 5		;Y = pointer to arguments
+ 324               		lds	ZL, xfunc_out+0	;Save registered output function
+ 325               		lds	ZH, xfunc_out+1	;
+ 326               		push	ZL		;
+ 327               		push	ZH		;/
+ 328               		ldi	ZL, lo8(pm(putram));Set local output function
+ 329               		ldi	ZH, hi8(pm(putram));
+ 330               		sts	xfunc_out+0, ZL	;
+ 331               		sts	xfunc_out+1, ZH	;/
+ 332               		push	r15		;Initialize pointer to string buffer
+ 333               		push	r14		;
+ 334               		ld	r14, Y+		;
+ 335               		ld	r15, Y+		;/
+ 336               		rcall	xvprintf
+ 337               		_MOVW	ZH,ZL, r15,r14	;Terminate string
+ 338               		st	Z, r1		;
+ 339               		pop	r14		;
+ 340               		pop	r15		;/
+ 341               		pop	ZH		;Restore registered output function
+ 342               		pop	ZL		;
+ 343               		sts	xfunc_out+0, ZL	;
+ 344               		sts	xfunc_out+1, ZH	;/
+ 345               		pop	YL
+ 346               		pop	YH
+ 347               		ret
+ 348               	.endfunc
+ 349               	#endif
+ 350               	
+ 351               	
+ 352               	#if USE_XFPRINTF
+ 353               	.func __xfprintf
+ 354               	.global __xfprintf
+ 355               	__xfprintf:
+ 356               		push	YH
+ 357               		push	YL
+ 358               		in	YL, _SFR_IO_ADDR(SPL)
+ 359               	#ifdef SPH
+ 360               		in	YH, _SFR_IO_ADDR(SPH)
+ 361               	#else
+ 362               		clr	YH
+ 363               	#endif
+ 364               		adiw	YL, 5		;Y = pointer to arguments
+ 365               		lds	ZL, xfunc_out+0	;Save registered output function
+ 366               		lds	ZH, xfunc_out+1	;
+ 367               		push	ZL		;
+ 368               		push	ZH		;/
+ 369               		ld	ZL, Y+		;Set output function
+ 370               		ld	ZH, Y+		;
+ 371               		sts	xfunc_out+0, ZL	;
+ 372               		sts	xfunc_out+1, ZH	;/
+ 373               		rcall	xvprintf
+ 374               		pop	ZH		;Restore registered output function
+ 375               		pop	ZL		;
+ 376               		sts	xfunc_out+0, ZL	;
+ 377               		sts	xfunc_out+1, ZH	;/
+ 378               		pop	YL
+ 379               		pop	YH
+ 380               		ret
+ 381               	.endfunc
+ 382               	#endif
+ 383               	
+ 384               	#endif
+ 385               	
+ 386               	
+ 387               	
+ 388               	;---------------------------------------------------------------------------
+ 389               	; Extended numeral string input
+ 390               	;
+ 391               	;Prototype:
+ 392               	; char xatoi (           /* 1: Successful, 0: Failed */
+ 393               	;      const char **str, /* pointer to pointer to source string */
+ 394               	;      long *res         /* result */
+ 395               	; );
+ 396               	;
+DEFINED SYMBOLS
+tmk_core/common/avr/xprintf.S:51     .bss:0000000000000000 xfunc_out
+tmk_core/common/avr/xprintf.S:57     .text:0000000000000000 xputc
+tmk_core/common/avr/xprintf.S:88     .text:0000000000000018 xputs
+tmk_core/common/avr/xprintf.S:109    .text:0000000000000026 xitoa
+tmk_core/common/avr/xprintf.S:190    .text:000000000000009c xvprintf
+tmk_core/common/avr/xprintf.S:288    .text:000000000000014a __xprintf
+
+NO UNDEFINED SYMBOLS

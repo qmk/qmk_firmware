@@ -1,0 +1,1359 @@
+   1               		.file	"action_macro.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.file 1 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+   8               		.file 2 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+   9               		.file 3 "tmk_core/common/action.h"
+  10               		.file 4 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+  11               		.file 5 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+  12               		.file 6 "lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.h"
+  13               		.file 7 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdio.h"
+  14               		.file 8 "tmk_core/common/report.h"
+  15               		.file 9 "tmk_core/common/action_util.h"
+  16               		.file 10 "tmk_core/common/avr/xprintf.h"
+  17               		.file 11 "tmk_core/common/debug.h"
+  18               		.section	.gnu.debuglto_.debug_info,"",@progbits
+  19               	.Ldebug_info0:
+  20               		.hidden	action_macro.c.9e7337a1
+  21               		.weak	action_macro.c.9e7337a1
+  22               	action_macro.c.9e7337a1:
+  23 0000 D903 0000 		.long	0x3d9
+  24 0004 0200      		.word	0x2
+  25 0006 0000 0000 		.long	.Ldebug_abbrev0
+  26 000a 04        		.byte	0x4
+  27 000b 01        		.uleb128 0x1
+  28 000c 0000 0000 		.long	.LASF47
+  29 0010 0C        		.byte	0xc
+  30 0011 0000 0000 		.long	.LASF48
+  31 0015 0000 0000 		.long	.LASF49
+  32 0019 0000 0000 		.long	.Ldebug_line0
+  33 001d 02        		.uleb128 0x2
+  34 001e 01        		.byte	0x1
+  35 001f 06        		.byte	0x6
+  36 0020 0000 0000 		.long	.LASF0
+  37 0024 03        		.uleb128 0x3
+  38 0025 0000 0000 		.long	.LASF2
+  39 0029 01        		.byte	0x1
+  40 002a 7E        		.byte	0x7e
+  41 002b 16        		.byte	0x16
+  42 002c 3500 0000 		.long	0x35
+  43 0030 04        		.uleb128 0x4
+  44 0031 2400 0000 		.long	0x24
+  45 0035 02        		.uleb128 0x2
+  46 0036 01        		.byte	0x1
+  47 0037 08        		.byte	0x8
+  48 0038 0000 0000 		.long	.LASF1
+  49 003c 05        		.uleb128 0x5
+  50 003d 02        		.byte	0x2
+  51 003e 05        		.byte	0x5
+  52 003f 696E 7400 		.string	"int"
+  53 0043 03        		.uleb128 0x3
+  54 0044 0000 0000 		.long	.LASF3
+  55 0048 01        		.byte	0x1
+  56 0049 80        		.byte	0x80
+  57 004a 16        		.byte	0x16
+  58 004b 4F00 0000 		.long	0x4f
+  59 004f 02        		.uleb128 0x2
+  60 0050 02        		.byte	0x2
+  61 0051 07        		.byte	0x7
+  62 0052 0000 0000 		.long	.LASF4
+  63 0056 02        		.uleb128 0x2
+  64 0057 04        		.byte	0x4
+  65 0058 05        		.byte	0x5
+  66 0059 0000 0000 		.long	.LASF5
+  67 005d 02        		.uleb128 0x2
+  68 005e 04        		.byte	0x4
+  69 005f 07        		.byte	0x7
+  70 0060 0000 0000 		.long	.LASF6
+  71 0064 02        		.uleb128 0x2
+  72 0065 08        		.byte	0x8
+  73 0066 05        		.byte	0x5
+  74 0067 0000 0000 		.long	.LASF7
+  75 006b 02        		.uleb128 0x2
+  76 006c 08        		.byte	0x8
+  77 006d 07        		.byte	0x7
+  78 006e 0000 0000 		.long	.LASF8
+  79 0072 02        		.uleb128 0x2
+  80 0073 01        		.byte	0x1
+  81 0074 02        		.byte	0x2
+  82 0075 0000 0000 		.long	.LASF9
+  83 0079 04        		.uleb128 0x4
+  84 007a 7200 0000 		.long	0x72
+  85 007e 06        		.uleb128 0x6
+  86 007f 0000 0000 		.long	.LASF16
+  87 0083 03        		.byte	0x3
+  88 0084 4B        		.byte	0x4b
+  89 0085 0D        		.byte	0xd
+  90 0086 7200 0000 		.long	0x72
+  91 008a 01        		.byte	0x1
+  92 008b 01        		.byte	0x1
+  93 008c 07        		.uleb128 0x7
+  94 008d 08        		.byte	0x8
+  95 008e 02        		.byte	0x2
+  96 008f A3        		.byte	0xa3
+  97 0090 0C        		.byte	0xc
+  98 0091 E100 0000 		.long	0xe1
+  99 0095 08        		.uleb128 0x8
+ 100 0096 0000 0000 		.long	.LASF10
+ 101 009a 02        		.byte	0x2
+ 102 009b A5        		.byte	0xa5
+ 103 009c 0E        		.byte	0xe
+ 104 009d 2400 0000 		.long	0x24
+ 105 00a1 02        		.byte	0x2
+ 106 00a2 23        		.byte	0x23
+ 107 00a3 00        		.uleb128 0
+ 108 00a4 08        		.uleb128 0x8
+ 109 00a5 0000 0000 		.long	.LASF11
+ 110 00a9 02        		.byte	0x2
+ 111 00aa A6        		.byte	0xa6
+ 112 00ab 0E        		.byte	0xe
+ 113 00ac 2400 0000 		.long	0x24
+ 114 00b0 02        		.byte	0x2
+ 115 00b1 23        		.byte	0x23
+ 116 00b2 01        		.uleb128 0x1
+ 117 00b3 08        		.uleb128 0x8
+ 118 00b4 0000 0000 		.long	.LASF12
+ 119 00b8 02        		.byte	0x2
+ 120 00b9 A7        		.byte	0xa7
+ 121 00ba 0E        		.byte	0xe
+ 122 00bb 4300 0000 		.long	0x43
+ 123 00bf 02        		.byte	0x2
+ 124 00c0 23        		.byte	0x23
+ 125 00c1 02        		.uleb128 0x2
+ 126 00c2 08        		.uleb128 0x8
+ 127 00c3 0000 0000 		.long	.LASF13
+ 128 00c7 02        		.byte	0x2
+ 129 00c8 A8        		.byte	0xa8
+ 130 00c9 0E        		.byte	0xe
+ 131 00ca 4300 0000 		.long	0x43
+ 132 00ce 02        		.byte	0x2
+ 133 00cf 23        		.byte	0x23
+ 134 00d0 04        		.uleb128 0x4
+ 135 00d1 08        		.uleb128 0x8
+ 136 00d2 0000 0000 		.long	.LASF14
+ 137 00d6 02        		.byte	0x2
+ 138 00d7 A9        		.byte	0xa9
+ 139 00d8 0E        		.byte	0xe
+ 140 00d9 4300 0000 		.long	0x43
+ 141 00dd 02        		.byte	0x2
+ 142 00de 23        		.byte	0x23
+ 143 00df 06        		.uleb128 0x6
+ 144 00e0 00        		.byte	0
+ 145 00e1 03        		.uleb128 0x3
+ 146 00e2 0000 0000 		.long	.LASF15
+ 147 00e6 02        		.byte	0x2
+ 148 00e7 AA        		.byte	0xaa
+ 149 00e8 12        		.byte	0x12
+ 150 00e9 8C00 0000 		.long	0x8c
+ 151 00ed 06        		.uleb128 0x6
+ 152 00ee 0000 0000 		.long	.LASF17
+ 153 00f2 04        		.byte	0x4
+ 154 00f3 5E        		.byte	0x5e
+ 155 00f4 13        		.byte	0x13
+ 156 00f5 2400 0000 		.long	0x24
+ 157 00f9 01        		.byte	0x1
+ 158 00fa 01        		.byte	0x1
+ 159 00fb 06        		.uleb128 0x6
+ 160 00fc 0000 0000 		.long	.LASF18
+ 161 0100 04        		.byte	0x4
+ 162 0101 6E        		.byte	0x6e
+ 163 0102 11        		.byte	0x11
+ 164 0103 7200 0000 		.long	0x72
+ 165 0107 01        		.byte	0x1
+ 166 0108 01        		.byte	0x1
+ 167 0109 06        		.uleb128 0x6
+ 168 010a 0000 0000 		.long	.LASF19
+ 169 010e 04        		.byte	0x4
+ 170 010f 78        		.byte	0x78
+ 171 0110 11        		.byte	0x11
+ 172 0111 7200 0000 		.long	0x72
+ 173 0115 01        		.byte	0x1
+ 174 0116 01        		.byte	0x1
+ 175 0117 06        		.uleb128 0x6
+ 176 0118 0000 0000 		.long	.LASF20
+ 177 011c 05        		.byte	0x5
+ 178 011d 51        		.byte	0x51
+ 179 011e 19        		.byte	0x19
+ 180 011f 7900 0000 		.long	0x79
+ 181 0123 01        		.byte	0x1
+ 182 0124 01        		.byte	0x1
+ 183 0125 06        		.uleb128 0x6
+ 184 0126 0000 0000 		.long	.LASF21
+ 185 012a 05        		.byte	0x5
+ 186 012b 5B        		.byte	0x5b
+ 187 012c 21        		.byte	0x21
+ 188 012d E100 0000 		.long	0xe1
+ 189 0131 01        		.byte	0x1
+ 190 0132 01        		.byte	0x1
+ 191 0133 06        		.uleb128 0x6
+ 192 0134 0000 0000 		.long	.LASF22
+ 193 0138 05        		.byte	0x5
+ 194 0139 90        		.byte	0x90
+ 195 013a 1E        		.byte	0x1e
+ 196 013b 3000 0000 		.long	0x30
+ 197 013f 01        		.byte	0x1
+ 198 0140 01        		.byte	0x1
+ 199 0141 06        		.uleb128 0x6
+ 200 0142 0000 0000 		.long	.LASF23
+ 201 0146 06        		.byte	0x6
+ 202 0147 67        		.byte	0x67
+ 203 0148 13        		.byte	0x13
+ 204 0149 2400 0000 		.long	0x24
+ 205 014d 01        		.byte	0x1
+ 206 014e 01        		.byte	0x1
+ 207 014f 09        		.uleb128 0x9
+ 208 0150 02        		.byte	0x2
+ 209 0151 0A        		.uleb128 0xa
+ 210 0152 0000 0000 		.long	.LASF33
+ 211 0156 0E        		.byte	0xe
+ 212 0157 07        		.byte	0x7
+ 213 0158 F4        		.byte	0xf4
+ 214 0159 08        		.byte	0x8
+ 215 015a DC01 0000 		.long	0x1dc
+ 216 015e 0B        		.uleb128 0xb
+ 217 015f 6275 6600 		.string	"buf"
+ 218 0163 07        		.byte	0x7
+ 219 0164 F5        		.byte	0xf5
+ 220 0165 08        		.byte	0x8
+ 221 0166 DC01 0000 		.long	0x1dc
+ 222 016a 02        		.byte	0x2
+ 223 016b 23        		.byte	0x23
+ 224 016c 00        		.uleb128 0
+ 225 016d 08        		.uleb128 0x8
+ 226 016e 0000 0000 		.long	.LASF24
+ 227 0172 07        		.byte	0x7
+ 228 0173 F6        		.byte	0xf6
+ 229 0174 10        		.byte	0x10
+ 230 0175 3500 0000 		.long	0x35
+ 231 0179 02        		.byte	0x2
+ 232 017a 23        		.byte	0x23
+ 233 017b 02        		.uleb128 0x2
+ 234 017c 08        		.uleb128 0x8
+ 235 017d 0000 0000 		.long	.LASF25
+ 236 0181 07        		.byte	0x7
+ 237 0182 F7        		.byte	0xf7
+ 238 0183 0A        		.byte	0xa
+ 239 0184 2400 0000 		.long	0x24
+ 240 0188 02        		.byte	0x2
+ 241 0189 23        		.byte	0x23
+ 242 018a 03        		.uleb128 0x3
+ 243 018b 0C        		.uleb128 0xc
+ 244 018c 0000 0000 		.long	.LASF26
+ 245 0190 07        		.byte	0x7
+ 246 0191 0701      		.word	0x107
+ 247 0193 06        		.byte	0x6
+ 248 0194 3C00 0000 		.long	0x3c
+ 249 0198 02        		.byte	0x2
+ 250 0199 23        		.byte	0x23
+ 251 019a 04        		.uleb128 0x4
+ 252 019b 0D        		.uleb128 0xd
+ 253 019c 6C65 6E00 		.string	"len"
+ 254 01a0 07        		.byte	0x7
+ 255 01a1 0801      		.word	0x108
+ 256 01a3 06        		.byte	0x6
+ 257 01a4 3C00 0000 		.long	0x3c
+ 258 01a8 02        		.byte	0x2
+ 259 01a9 23        		.byte	0x23
+ 260 01aa 06        		.uleb128 0x6
+ 261 01ab 0D        		.uleb128 0xd
+ 262 01ac 7075 7400 		.string	"put"
+ 263 01b0 07        		.byte	0x7
+ 264 01b1 0901      		.word	0x109
+ 265 01b3 08        		.byte	0x8
+ 266 01b4 0402 0000 		.long	0x204
+ 267 01b8 02        		.byte	0x2
+ 268 01b9 23        		.byte	0x23
+ 269 01ba 08        		.uleb128 0x8
+ 270 01bb 0D        		.uleb128 0xd
+ 271 01bc 6765 7400 		.string	"get"
+ 272 01c0 07        		.byte	0x7
+ 273 01c1 0A01      		.word	0x10a
+ 274 01c3 08        		.byte	0x8
+ 275 01c4 1A02 0000 		.long	0x21a
+ 276 01c8 02        		.byte	0x2
+ 277 01c9 23        		.byte	0x23
+ 278 01ca 0A        		.uleb128 0xa
+ 279 01cb 0C        		.uleb128 0xc
+ 280 01cc 0000 0000 		.long	.LASF27
+ 281 01d0 07        		.byte	0x7
+ 282 01d1 0B01      		.word	0x10b
+ 283 01d3 08        		.byte	0x8
+ 284 01d4 4F01 0000 		.long	0x14f
+ 285 01d8 02        		.byte	0x2
+ 286 01d9 23        		.byte	0x23
+ 287 01da 0C        		.uleb128 0xc
+ 288 01db 00        		.byte	0
+ 289 01dc 0E        		.uleb128 0xe
+ 290 01dd 02        		.byte	0x2
+ 291 01de E201 0000 		.long	0x1e2
+ 292 01e2 02        		.uleb128 0x2
+ 293 01e3 01        		.byte	0x1
+ 294 01e4 08        		.byte	0x8
+ 295 01e5 0000 0000 		.long	.LASF28
+ 296 01e9 0F        		.uleb128 0xf
+ 297 01ea 01        		.byte	0x1
+ 298 01eb 3C00 0000 		.long	0x3c
+ 299 01ef FE01 0000 		.long	0x1fe
+ 300 01f3 10        		.uleb128 0x10
+ 301 01f4 E201 0000 		.long	0x1e2
+ 302 01f8 10        		.uleb128 0x10
+ 303 01f9 FE01 0000 		.long	0x1fe
+ 304 01fd 00        		.byte	0
+ 305 01fe 0E        		.uleb128 0xe
+ 306 01ff 02        		.byte	0x2
+ 307 0200 5101 0000 		.long	0x151
+ 308 0204 0E        		.uleb128 0xe
+ 309 0205 02        		.byte	0x2
+ 310 0206 E901 0000 		.long	0x1e9
+ 311 020a 0F        		.uleb128 0xf
+ 312 020b 01        		.byte	0x1
+ 313 020c 3C00 0000 		.long	0x3c
+ 314 0210 1A02 0000 		.long	0x21a
+ 315 0214 10        		.uleb128 0x10
+ 316 0215 FE01 0000 		.long	0x1fe
+ 317 0219 00        		.byte	0
+ 318 021a 0E        		.uleb128 0xe
+ 319 021b 02        		.byte	0x2
+ 320 021c 0A02 0000 		.long	0x20a
+ 321 0220 11        		.uleb128 0x11
+ 322 0221 FE01 0000 		.long	0x1fe
+ 323 0225 2B02 0000 		.long	0x22b
+ 324 0229 12        		.uleb128 0x12
+ 325 022a 00        		.byte	0
+ 326 022b 13        		.uleb128 0x13
+ 327 022c 0000 0000 		.long	.LASF29
+ 328 0230 07        		.byte	0x7
+ 329 0231 9701      		.word	0x197
+ 330 0233 17        		.byte	0x17
+ 331 0234 2002 0000 		.long	0x220
+ 332 0238 01        		.byte	0x1
+ 333 0239 01        		.byte	0x1
+ 334 023a 11        		.uleb128 0x11
+ 335 023b 2400 0000 		.long	0x24
+ 336 023f 4A02 0000 		.long	0x24a
+ 337 0243 14        		.uleb128 0x14
+ 338 0244 4F00 0000 		.long	0x4f
+ 339 0248 05        		.byte	0x5
+ 340 0249 00        		.byte	0
+ 341 024a 11        		.uleb128 0x11
+ 342 024b 2400 0000 		.long	0x24
+ 343 024f 5A02 0000 		.long	0x25a
+ 344 0253 14        		.uleb128 0x14
+ 345 0254 4F00 0000 		.long	0x4f
+ 346 0258 07        		.byte	0x7
+ 347 0259 00        		.byte	0
+ 348 025a 07        		.uleb128 0x7
+ 349 025b 08        		.byte	0x8
+ 350 025c 08        		.byte	0x8
+ 351 025d 98        		.byte	0x98
+ 352 025e 05        		.byte	0x5
+ 353 025f 9102 0000 		.long	0x291
+ 354 0263 08        		.uleb128 0x8
+ 355 0264 0000 0000 		.long	.LASF30
+ 356 0268 08        		.byte	0x8
+ 357 0269 9C        		.byte	0x9c
+ 358 026a 11        		.byte	0x11
+ 359 026b 2400 0000 		.long	0x24
+ 360 026f 02        		.byte	0x2
+ 361 0270 23        		.byte	0x23
+ 362 0271 00        		.uleb128 0
+ 363 0272 08        		.uleb128 0x8
+ 364 0273 0000 0000 		.long	.LASF31
+ 365 0277 08        		.byte	0x8
+ 366 0278 9D        		.byte	0x9d
+ 367 0279 11        		.byte	0x11
+ 368 027a 2400 0000 		.long	0x24
+ 369 027e 02        		.byte	0x2
+ 370 027f 23        		.byte	0x23
+ 371 0280 01        		.uleb128 0x1
+ 372 0281 08        		.uleb128 0x8
+ 373 0282 0000 0000 		.long	.LASF32
+ 374 0286 08        		.byte	0x8
+ 375 0287 9E        		.byte	0x9e
+ 376 0288 11        		.byte	0x11
+ 377 0289 3A02 0000 		.long	0x23a
+ 378 028d 02        		.byte	0x2
+ 379 028e 23        		.byte	0x23
+ 380 028f 02        		.uleb128 0x2
+ 381 0290 00        		.byte	0
+ 382 0291 0A        		.uleb128 0xa
+ 383 0292 0000 0000 		.long	.LASF34
+ 384 0296 20        		.byte	0x20
+ 385 0297 08        		.byte	0x8
+ 386 0298 A1        		.byte	0xa1
+ 387 0299 0C        		.byte	0xc
+ 388 029a CC02 0000 		.long	0x2cc
+ 389 029e 08        		.uleb128 0x8
+ 390 029f 0000 0000 		.long	.LASF35
+ 391 02a3 08        		.byte	0x8
+ 392 02a4 A3        		.byte	0xa3
+ 393 02a5 11        		.byte	0x11
+ 394 02a6 2400 0000 		.long	0x24
+ 395 02aa 02        		.byte	0x2
+ 396 02ab 23        		.byte	0x23
+ 397 02ac 00        		.uleb128 0
+ 398 02ad 08        		.uleb128 0x8
+ 399 02ae 0000 0000 		.long	.LASF30
+ 400 02b2 08        		.byte	0x8
+ 401 02b3 A5        		.byte	0xa5
+ 402 02b4 11        		.byte	0x11
+ 403 02b5 2400 0000 		.long	0x24
+ 404 02b9 02        		.byte	0x2
+ 405 02ba 23        		.byte	0x23
+ 406 02bb 01        		.uleb128 0x1
+ 407 02bc 08        		.uleb128 0x8
+ 408 02bd 0000 0000 		.long	.LASF36
+ 409 02c1 08        		.byte	0x8
+ 410 02c2 A6        		.byte	0xa6
+ 411 02c3 11        		.byte	0x11
+ 412 02c4 CC02 0000 		.long	0x2cc
+ 413 02c8 02        		.byte	0x2
+ 414 02c9 23        		.byte	0x23
+ 415 02ca 02        		.uleb128 0x2
+ 416 02cb 00        		.byte	0
+ 417 02cc 11        		.uleb128 0x11
+ 418 02cd 2400 0000 		.long	0x24
+ 419 02d1 DC02 0000 		.long	0x2dc
+ 420 02d5 14        		.uleb128 0x14
+ 421 02d6 4F00 0000 		.long	0x4f
+ 422 02da 1D        		.byte	0x1d
+ 423 02db 00        		.byte	0
+ 424 02dc 15        		.uleb128 0x15
+ 425 02dd 20        		.byte	0x20
+ 426 02de 08        		.byte	0x8
+ 427 02df 96        		.byte	0x96
+ 428 02e0 09        		.byte	0x9
+ 429 02e1 0303 0000 		.long	0x303
+ 430 02e5 16        		.uleb128 0x16
+ 431 02e6 7261 7700 		.string	"raw"
+ 432 02ea 08        		.byte	0x8
+ 433 02eb 97        		.byte	0x97
+ 434 02ec 0D        		.byte	0xd
+ 435 02ed 4A02 0000 		.long	0x24a
+ 436 02f1 17        		.uleb128 0x17
+ 437 02f2 5A02 0000 		.long	0x25a
+ 438 02f6 18        		.uleb128 0x18
+ 439 02f7 0000 0000 		.long	.LASF37
+ 440 02fb 08        		.byte	0x8
+ 441 02fc A7        		.byte	0xa7
+ 442 02fd 07        		.byte	0x7
+ 443 02fe 9102 0000 		.long	0x291
+ 444 0302 00        		.byte	0
+ 445 0303 03        		.uleb128 0x3
+ 446 0304 0000 0000 		.long	.LASF38
+ 447 0308 08        		.byte	0x8
+ 448 0309 A9        		.byte	0xa9
+ 449 030a 1B        		.byte	0x1b
+ 450 030b DC02 0000 		.long	0x2dc
+ 451 030f 06        		.uleb128 0x6
+ 452 0310 0000 0000 		.long	.LASF39
+ 453 0314 09        		.byte	0x9
+ 454 0315 1B        		.byte	0x1b
+ 455 0316 1B        		.byte	0x1b
+ 456 0317 1D03 0000 		.long	0x31d
+ 457 031b 01        		.byte	0x1
+ 458 031c 01        		.byte	0x1
+ 459 031d 0E        		.uleb128 0xe
+ 460 031e 02        		.byte	0x2
+ 461 031f 0303 0000 		.long	0x303
+ 462 0323 19        		.uleb128 0x19
+ 463 0324 01        		.byte	0x1
+ 464 0325 2F03 0000 		.long	0x32f
+ 465 0329 10        		.uleb128 0x10
+ 466 032a 2400 0000 		.long	0x24
+ 467 032e 00        		.byte	0
+ 468 032f 06        		.uleb128 0x6
+ 469 0330 0000 0000 		.long	.LASF40
+ 470 0334 0A        		.byte	0xa
+ 471 0335 0E        		.byte	0xe
+ 472 0336 0F        		.byte	0xf
+ 473 0337 3D03 0000 		.long	0x33d
+ 474 033b 01        		.byte	0x1
+ 475 033c 01        		.byte	0x1
+ 476 033d 0E        		.uleb128 0xe
+ 477 033e 02        		.byte	0x2
+ 478 033f 2303 0000 		.long	0x323
+ 479 0343 07        		.uleb128 0x7
+ 480 0344 01        		.byte	0x1
+ 481 0345 0B        		.byte	0xb
+ 482 0346 1F        		.byte	0x1f
+ 483 0347 05        		.byte	0x5
+ 484 0348 A703 0000 		.long	0x3a7
+ 485 034c 1A        		.uleb128 0x1a
+ 486 034d 0000 0000 		.long	.LASF41
+ 487 0351 0B        		.byte	0xb
+ 488 0352 20        		.byte	0x20
+ 489 0353 11        		.byte	0x11
+ 490 0354 7200 0000 		.long	0x72
+ 491 0358 01        		.byte	0x1
+ 492 0359 01        		.byte	0x1
+ 493 035a 07        		.byte	0x7
+ 494 035b 02        		.byte	0x2
+ 495 035c 23        		.byte	0x23
+ 496 035d 00        		.uleb128 0
+ 497 035e 1A        		.uleb128 0x1a
+ 498 035f 0000 0000 		.long	.LASF42
+ 499 0363 0B        		.byte	0xb
+ 500 0364 21        		.byte	0x21
+ 501 0365 11        		.byte	0x11
+ 502 0366 7200 0000 		.long	0x72
+ 503 036a 01        		.byte	0x1
+ 504 036b 01        		.byte	0x1
+ 505 036c 06        		.byte	0x6
+ 506 036d 02        		.byte	0x2
+ 507 036e 23        		.byte	0x23
+ 508 036f 00        		.uleb128 0
+ 509 0370 1A        		.uleb128 0x1a
+ 510 0371 0000 0000 		.long	.LASF43
+ 511 0375 0B        		.byte	0xb
+ 512 0376 22        		.byte	0x22
+ 513 0377 11        		.byte	0x11
+ 514 0378 7200 0000 		.long	0x72
+ 515 037c 01        		.byte	0x1
+ 516 037d 01        		.byte	0x1
+ 517 037e 05        		.byte	0x5
+ 518 037f 02        		.byte	0x2
+ 519 0380 23        		.byte	0x23
+ 520 0381 00        		.uleb128 0
+ 521 0382 1A        		.uleb128 0x1a
+ 522 0383 0000 0000 		.long	.LASF44
+ 523 0387 0B        		.byte	0xb
+ 524 0388 23        		.byte	0x23
+ 525 0389 11        		.byte	0x11
+ 526 038a 7200 0000 		.long	0x72
+ 527 038e 01        		.byte	0x1
+ 528 038f 01        		.byte	0x1
+ 529 0390 04        		.byte	0x4
+ 530 0391 02        		.byte	0x2
+ 531 0392 23        		.byte	0x23
+ 532 0393 00        		.uleb128 0
+ 533 0394 1A        		.uleb128 0x1a
+ 534 0395 0000 0000 		.long	.LASF31
+ 535 0399 0B        		.byte	0xb
+ 536 039a 24        		.byte	0x24
+ 537 039b 11        		.byte	0x11
+ 538 039c 2400 0000 		.long	0x24
+ 539 03a0 01        		.byte	0x1
+ 540 03a1 04        		.byte	0x4
+ 541 03a2 00        		.byte	0
+ 542 03a3 02        		.byte	0x2
+ 543 03a4 23        		.byte	0x23
+ 544 03a5 00        		.uleb128 0
+ 545 03a6 00        		.byte	0
+ 546 03a7 15        		.uleb128 0x15
+ 547 03a8 01        		.byte	0x1
+ 548 03a9 0B        		.byte	0xb
+ 549 03aa 1E        		.byte	0x1e
+ 550 03ab 09        		.byte	0x9
+ 551 03ac C203 0000 		.long	0x3c2
+ 552 03b0 17        		.uleb128 0x17
+ 553 03b1 4303 0000 		.long	0x343
+ 554 03b5 16        		.uleb128 0x16
+ 555 03b6 7261 7700 		.string	"raw"
+ 556 03ba 0B        		.byte	0xb
+ 557 03bb 26        		.byte	0x26
+ 558 03bc 0D        		.byte	0xd
+ 559 03bd 2400 0000 		.long	0x24
+ 560 03c1 00        		.byte	0
+ 561 03c2 03        		.uleb128 0x3
+ 562 03c3 0000 0000 		.long	.LASF45
+ 563 03c7 0B        		.byte	0xb
+ 564 03c8 27        		.byte	0x27
+ 565 03c9 03        		.byte	0x3
+ 566 03ca A703 0000 		.long	0x3a7
+ 567 03ce 06        		.uleb128 0x6
+ 568 03cf 0000 0000 		.long	.LASF46
+ 569 03d3 0B        		.byte	0xb
+ 570 03d4 29        		.byte	0x29
+ 571 03d5 17        		.byte	0x17
+ 572 03d6 C203 0000 		.long	0x3c2
+ 573 03da 01        		.byte	0x1
+ 574 03db 01        		.byte	0x1
+ 575 03dc 00        		.byte	0
+ 576               		.section	.gnu.debuglto_.debug_abbrev,"",@progbits
+ 577               	.Ldebug_abbrev0:
+ 578 0000 01        		.uleb128 0x1
+ 579 0001 11        		.uleb128 0x11
+ 580 0002 01        		.byte	0x1
+ 581 0003 25        		.uleb128 0x25
+ 582 0004 0E        		.uleb128 0xe
+ 583 0005 13        		.uleb128 0x13
+ 584 0006 0B        		.uleb128 0xb
+ 585 0007 03        		.uleb128 0x3
+ 586 0008 0E        		.uleb128 0xe
+ 587 0009 1B        		.uleb128 0x1b
+ 588 000a 0E        		.uleb128 0xe
+ 589 000b 10        		.uleb128 0x10
+ 590 000c 06        		.uleb128 0x6
+ 591 000d 00        		.byte	0
+ 592 000e 00        		.byte	0
+ 593 000f 02        		.uleb128 0x2
+ 594 0010 24        		.uleb128 0x24
+ 595 0011 00        		.byte	0
+ 596 0012 0B        		.uleb128 0xb
+ 597 0013 0B        		.uleb128 0xb
+ 598 0014 3E        		.uleb128 0x3e
+ 599 0015 0B        		.uleb128 0xb
+ 600 0016 03        		.uleb128 0x3
+ 601 0017 0E        		.uleb128 0xe
+ 602 0018 00        		.byte	0
+ 603 0019 00        		.byte	0
+ 604 001a 03        		.uleb128 0x3
+ 605 001b 16        		.uleb128 0x16
+ 606 001c 00        		.byte	0
+ 607 001d 03        		.uleb128 0x3
+ 608 001e 0E        		.uleb128 0xe
+ 609 001f 3A        		.uleb128 0x3a
+ 610 0020 0B        		.uleb128 0xb
+ 611 0021 3B        		.uleb128 0x3b
+ 612 0022 0B        		.uleb128 0xb
+ 613 0023 39        		.uleb128 0x39
+ 614 0024 0B        		.uleb128 0xb
+ 615 0025 49        		.uleb128 0x49
+ 616 0026 13        		.uleb128 0x13
+ 617 0027 00        		.byte	0
+ 618 0028 00        		.byte	0
+ 619 0029 04        		.uleb128 0x4
+ 620 002a 35        		.uleb128 0x35
+ 621 002b 00        		.byte	0
+ 622 002c 49        		.uleb128 0x49
+ 623 002d 13        		.uleb128 0x13
+ 624 002e 00        		.byte	0
+ 625 002f 00        		.byte	0
+ 626 0030 05        		.uleb128 0x5
+ 627 0031 24        		.uleb128 0x24
+ 628 0032 00        		.byte	0
+ 629 0033 0B        		.uleb128 0xb
+ 630 0034 0B        		.uleb128 0xb
+ 631 0035 3E        		.uleb128 0x3e
+ 632 0036 0B        		.uleb128 0xb
+ 633 0037 03        		.uleb128 0x3
+ 634 0038 08        		.uleb128 0x8
+ 635 0039 00        		.byte	0
+ 636 003a 00        		.byte	0
+ 637 003b 06        		.uleb128 0x6
+ 638 003c 34        		.uleb128 0x34
+ 639 003d 00        		.byte	0
+ 640 003e 03        		.uleb128 0x3
+ 641 003f 0E        		.uleb128 0xe
+ 642 0040 3A        		.uleb128 0x3a
+ 643 0041 0B        		.uleb128 0xb
+ 644 0042 3B        		.uleb128 0x3b
+ 645 0043 0B        		.uleb128 0xb
+ 646 0044 39        		.uleb128 0x39
+ 647 0045 0B        		.uleb128 0xb
+ 648 0046 49        		.uleb128 0x49
+ 649 0047 13        		.uleb128 0x13
+ 650 0048 3F        		.uleb128 0x3f
+ 651 0049 0C        		.uleb128 0xc
+ 652 004a 3C        		.uleb128 0x3c
+ 653 004b 0C        		.uleb128 0xc
+ 654 004c 00        		.byte	0
+ 655 004d 00        		.byte	0
+ 656 004e 07        		.uleb128 0x7
+ 657 004f 13        		.uleb128 0x13
+ 658 0050 01        		.byte	0x1
+ 659 0051 0B        		.uleb128 0xb
+ 660 0052 0B        		.uleb128 0xb
+ 661 0053 3A        		.uleb128 0x3a
+ 662 0054 0B        		.uleb128 0xb
+ 663 0055 3B        		.uleb128 0x3b
+ 664 0056 0B        		.uleb128 0xb
+ 665 0057 39        		.uleb128 0x39
+ 666 0058 0B        		.uleb128 0xb
+ 667 0059 01        		.uleb128 0x1
+ 668 005a 13        		.uleb128 0x13
+ 669 005b 00        		.byte	0
+ 670 005c 00        		.byte	0
+ 671 005d 08        		.uleb128 0x8
+ 672 005e 0D        		.uleb128 0xd
+ 673 005f 00        		.byte	0
+ 674 0060 03        		.uleb128 0x3
+ 675 0061 0E        		.uleb128 0xe
+ 676 0062 3A        		.uleb128 0x3a
+ 677 0063 0B        		.uleb128 0xb
+ 678 0064 3B        		.uleb128 0x3b
+ 679 0065 0B        		.uleb128 0xb
+ 680 0066 39        		.uleb128 0x39
+ 681 0067 0B        		.uleb128 0xb
+ 682 0068 49        		.uleb128 0x49
+ 683 0069 13        		.uleb128 0x13
+ 684 006a 38        		.uleb128 0x38
+ 685 006b 0A        		.uleb128 0xa
+ 686 006c 00        		.byte	0
+ 687 006d 00        		.byte	0
+ 688 006e 09        		.uleb128 0x9
+ 689 006f 0F        		.uleb128 0xf
+ 690 0070 00        		.byte	0
+ 691 0071 0B        		.uleb128 0xb
+ 692 0072 0B        		.uleb128 0xb
+ 693 0073 00        		.byte	0
+ 694 0074 00        		.byte	0
+ 695 0075 0A        		.uleb128 0xa
+ 696 0076 13        		.uleb128 0x13
+ 697 0077 01        		.byte	0x1
+ 698 0078 03        		.uleb128 0x3
+ 699 0079 0E        		.uleb128 0xe
+ 700 007a 0B        		.uleb128 0xb
+ 701 007b 0B        		.uleb128 0xb
+ 702 007c 3A        		.uleb128 0x3a
+ 703 007d 0B        		.uleb128 0xb
+ 704 007e 3B        		.uleb128 0x3b
+ 705 007f 0B        		.uleb128 0xb
+ 706 0080 39        		.uleb128 0x39
+ 707 0081 0B        		.uleb128 0xb
+ 708 0082 01        		.uleb128 0x1
+ 709 0083 13        		.uleb128 0x13
+ 710 0084 00        		.byte	0
+ 711 0085 00        		.byte	0
+ 712 0086 0B        		.uleb128 0xb
+ 713 0087 0D        		.uleb128 0xd
+ 714 0088 00        		.byte	0
+ 715 0089 03        		.uleb128 0x3
+ 716 008a 08        		.uleb128 0x8
+ 717 008b 3A        		.uleb128 0x3a
+ 718 008c 0B        		.uleb128 0xb
+ 719 008d 3B        		.uleb128 0x3b
+ 720 008e 0B        		.uleb128 0xb
+ 721 008f 39        		.uleb128 0x39
+ 722 0090 0B        		.uleb128 0xb
+ 723 0091 49        		.uleb128 0x49
+ 724 0092 13        		.uleb128 0x13
+ 725 0093 38        		.uleb128 0x38
+ 726 0094 0A        		.uleb128 0xa
+ 727 0095 00        		.byte	0
+ 728 0096 00        		.byte	0
+ 729 0097 0C        		.uleb128 0xc
+ 730 0098 0D        		.uleb128 0xd
+ 731 0099 00        		.byte	0
+ 732 009a 03        		.uleb128 0x3
+ 733 009b 0E        		.uleb128 0xe
+ 734 009c 3A        		.uleb128 0x3a
+ 735 009d 0B        		.uleb128 0xb
+ 736 009e 3B        		.uleb128 0x3b
+ 737 009f 05        		.uleb128 0x5
+ 738 00a0 39        		.uleb128 0x39
+ 739 00a1 0B        		.uleb128 0xb
+ 740 00a2 49        		.uleb128 0x49
+ 741 00a3 13        		.uleb128 0x13
+ 742 00a4 38        		.uleb128 0x38
+ 743 00a5 0A        		.uleb128 0xa
+ 744 00a6 00        		.byte	0
+ 745 00a7 00        		.byte	0
+ 746 00a8 0D        		.uleb128 0xd
+ 747 00a9 0D        		.uleb128 0xd
+ 748 00aa 00        		.byte	0
+ 749 00ab 03        		.uleb128 0x3
+ 750 00ac 08        		.uleb128 0x8
+ 751 00ad 3A        		.uleb128 0x3a
+ 752 00ae 0B        		.uleb128 0xb
+ 753 00af 3B        		.uleb128 0x3b
+ 754 00b0 05        		.uleb128 0x5
+ 755 00b1 39        		.uleb128 0x39
+ 756 00b2 0B        		.uleb128 0xb
+ 757 00b3 49        		.uleb128 0x49
+ 758 00b4 13        		.uleb128 0x13
+ 759 00b5 38        		.uleb128 0x38
+ 760 00b6 0A        		.uleb128 0xa
+ 761 00b7 00        		.byte	0
+ 762 00b8 00        		.byte	0
+ 763 00b9 0E        		.uleb128 0xe
+ 764 00ba 0F        		.uleb128 0xf
+ 765 00bb 00        		.byte	0
+ 766 00bc 0B        		.uleb128 0xb
+ 767 00bd 0B        		.uleb128 0xb
+ 768 00be 49        		.uleb128 0x49
+ 769 00bf 13        		.uleb128 0x13
+ 770 00c0 00        		.byte	0
+ 771 00c1 00        		.byte	0
+ 772 00c2 0F        		.uleb128 0xf
+ 773 00c3 15        		.uleb128 0x15
+ 774 00c4 01        		.byte	0x1
+ 775 00c5 27        		.uleb128 0x27
+ 776 00c6 0C        		.uleb128 0xc
+ 777 00c7 49        		.uleb128 0x49
+ 778 00c8 13        		.uleb128 0x13
+ 779 00c9 01        		.uleb128 0x1
+ 780 00ca 13        		.uleb128 0x13
+ 781 00cb 00        		.byte	0
+ 782 00cc 00        		.byte	0
+ 783 00cd 10        		.uleb128 0x10
+ 784 00ce 05        		.uleb128 0x5
+ 785 00cf 00        		.byte	0
+ 786 00d0 49        		.uleb128 0x49
+ 787 00d1 13        		.uleb128 0x13
+ 788 00d2 00        		.byte	0
+ 789 00d3 00        		.byte	0
+ 790 00d4 11        		.uleb128 0x11
+ 791 00d5 01        		.uleb128 0x1
+ 792 00d6 01        		.byte	0x1
+ 793 00d7 49        		.uleb128 0x49
+ 794 00d8 13        		.uleb128 0x13
+ 795 00d9 01        		.uleb128 0x1
+ 796 00da 13        		.uleb128 0x13
+ 797 00db 00        		.byte	0
+ 798 00dc 00        		.byte	0
+ 799 00dd 12        		.uleb128 0x12
+ 800 00de 21        		.uleb128 0x21
+ 801 00df 00        		.byte	0
+ 802 00e0 00        		.byte	0
+ 803 00e1 00        		.byte	0
+ 804 00e2 13        		.uleb128 0x13
+ 805 00e3 34        		.uleb128 0x34
+ 806 00e4 00        		.byte	0
+ 807 00e5 03        		.uleb128 0x3
+ 808 00e6 0E        		.uleb128 0xe
+ 809 00e7 3A        		.uleb128 0x3a
+ 810 00e8 0B        		.uleb128 0xb
+ 811 00e9 3B        		.uleb128 0x3b
+ 812 00ea 05        		.uleb128 0x5
+ 813 00eb 39        		.uleb128 0x39
+ 814 00ec 0B        		.uleb128 0xb
+ 815 00ed 49        		.uleb128 0x49
+ 816 00ee 13        		.uleb128 0x13
+ 817 00ef 3F        		.uleb128 0x3f
+ 818 00f0 0C        		.uleb128 0xc
+ 819 00f1 3C        		.uleb128 0x3c
+ 820 00f2 0C        		.uleb128 0xc
+ 821 00f3 00        		.byte	0
+ 822 00f4 00        		.byte	0
+ 823 00f5 14        		.uleb128 0x14
+ 824 00f6 21        		.uleb128 0x21
+ 825 00f7 00        		.byte	0
+ 826 00f8 49        		.uleb128 0x49
+ 827 00f9 13        		.uleb128 0x13
+ 828 00fa 2F        		.uleb128 0x2f
+ 829 00fb 0B        		.uleb128 0xb
+ 830 00fc 00        		.byte	0
+ 831 00fd 00        		.byte	0
+ 832 00fe 15        		.uleb128 0x15
+ 833 00ff 17        		.uleb128 0x17
+ 834 0100 01        		.byte	0x1
+ 835 0101 0B        		.uleb128 0xb
+ 836 0102 0B        		.uleb128 0xb
+ 837 0103 3A        		.uleb128 0x3a
+ 838 0104 0B        		.uleb128 0xb
+ 839 0105 3B        		.uleb128 0x3b
+ 840 0106 0B        		.uleb128 0xb
+ 841 0107 39        		.uleb128 0x39
+ 842 0108 0B        		.uleb128 0xb
+ 843 0109 01        		.uleb128 0x1
+ 844 010a 13        		.uleb128 0x13
+ 845 010b 00        		.byte	0
+ 846 010c 00        		.byte	0
+ 847 010d 16        		.uleb128 0x16
+ 848 010e 0D        		.uleb128 0xd
+ 849 010f 00        		.byte	0
+ 850 0110 03        		.uleb128 0x3
+ 851 0111 08        		.uleb128 0x8
+ 852 0112 3A        		.uleb128 0x3a
+ 853 0113 0B        		.uleb128 0xb
+ 854 0114 3B        		.uleb128 0x3b
+ 855 0115 0B        		.uleb128 0xb
+ 856 0116 39        		.uleb128 0x39
+ 857 0117 0B        		.uleb128 0xb
+ 858 0118 49        		.uleb128 0x49
+ 859 0119 13        		.uleb128 0x13
+ 860 011a 00        		.byte	0
+ 861 011b 00        		.byte	0
+ 862 011c 17        		.uleb128 0x17
+ 863 011d 0D        		.uleb128 0xd
+ 864 011e 00        		.byte	0
+ 865 011f 49        		.uleb128 0x49
+ 866 0120 13        		.uleb128 0x13
+ 867 0121 00        		.byte	0
+ 868 0122 00        		.byte	0
+ 869 0123 18        		.uleb128 0x18
+ 870 0124 0D        		.uleb128 0xd
+ 871 0125 00        		.byte	0
+ 872 0126 03        		.uleb128 0x3
+ 873 0127 0E        		.uleb128 0xe
+ 874 0128 3A        		.uleb128 0x3a
+ 875 0129 0B        		.uleb128 0xb
+ 876 012a 3B        		.uleb128 0x3b
+ 877 012b 0B        		.uleb128 0xb
+ 878 012c 39        		.uleb128 0x39
+ 879 012d 0B        		.uleb128 0xb
+ 880 012e 49        		.uleb128 0x49
+ 881 012f 13        		.uleb128 0x13
+ 882 0130 00        		.byte	0
+ 883 0131 00        		.byte	0
+ 884 0132 19        		.uleb128 0x19
+ 885 0133 15        		.uleb128 0x15
+ 886 0134 01        		.byte	0x1
+ 887 0135 27        		.uleb128 0x27
+ 888 0136 0C        		.uleb128 0xc
+ 889 0137 01        		.uleb128 0x1
+ 890 0138 13        		.uleb128 0x13
+ 891 0139 00        		.byte	0
+ 892 013a 00        		.byte	0
+ 893 013b 1A        		.uleb128 0x1a
+ 894 013c 0D        		.uleb128 0xd
+ 895 013d 00        		.byte	0
+ 896 013e 03        		.uleb128 0x3
+ 897 013f 0E        		.uleb128 0xe
+ 898 0140 3A        		.uleb128 0x3a
+ 899 0141 0B        		.uleb128 0xb
+ 900 0142 3B        		.uleb128 0x3b
+ 901 0143 0B        		.uleb128 0xb
+ 902 0144 39        		.uleb128 0x39
+ 903 0145 0B        		.uleb128 0xb
+ 904 0146 49        		.uleb128 0x49
+ 905 0147 13        		.uleb128 0x13
+ 906 0148 0B        		.uleb128 0xb
+ 907 0149 0B        		.uleb128 0xb
+ 908 014a 0D        		.uleb128 0xd
+ 909 014b 0B        		.uleb128 0xb
+ 910 014c 0C        		.uleb128 0xc
+ 911 014d 0B        		.uleb128 0xb
+ 912 014e 38        		.uleb128 0x38
+ 913 014f 0A        		.uleb128 0xa
+ 914 0150 00        		.byte	0
+ 915 0151 00        		.byte	0
+ 916 0152 00        		.byte	0
+ 917               		.section	.gnu.debuglto_.debug_line,"",@progbits
+ 918               	.Ldebug_line0:
+ 919 0000 6A01 0000 		.long	.LELT0-.LSLT0
+ 920               	.LSLT0:
+ 921 0004 0200      		.word	0x2
+ 922 0006 6401 0000 		.long	.LELTP0-.LASLTP0
+ 923               	.LASLTP0:
+ 924 000a 01        		.byte	0x1
+ 925 000b 01        		.byte	0x1
+ 926 000c F6        		.byte	0xf6
+ 927 000d F2        		.byte	0xf2
+ 928 000e 0D        		.byte	0xd
+ 929 000f 00        		.byte	0
+ 930 0010 01        		.byte	0x1
+ 931 0011 01        		.byte	0x1
+ 932 0012 01        		.byte	0x1
+ 933 0013 01        		.byte	0x1
+ 934 0014 00        		.byte	0
+ 935 0015 00        		.byte	0
+ 936 0016 00        		.byte	0
+ 937 0017 01        		.byte	0x1
+ 938 0018 00        		.byte	0
+ 939 0019 00        		.byte	0
+ 940 001a 01        		.byte	0x1
+ 941 001b 633A 5C70 		.ascii	"c:\\program files\\qmk_msys\\mingw64\\avr\\include"
+ 941      726F 6772 
+ 941      616D 2066 
+ 941      696C 6573 
+ 941      5C71 6D6B 
+ 942 0048 00        		.byte	0
+ 943 0049 6C69 622F 		.ascii	"lib/lufa/LUFA/Drivers/USB/Core"
+ 943      6C75 6661 
+ 943      2F4C 5546 
+ 943      412F 4472 
+ 943      6976 6572 
+ 944 0067 00        		.byte	0
+ 945 0068 6C69 622F 		.ascii	"lib/lufa/LUFA/Drivers/USB/Core/AVR8/.."
+ 945      6C75 6661 
+ 945      2F4C 5546 
+ 945      412F 4472 
+ 945      6976 6572 
+ 946 008e 00        		.byte	0
+ 947 008f 746D 6B5F 		.ascii	"tmk_core/common"
+ 947      636F 7265 
+ 947      2F63 6F6D 
+ 947      6D6F 6E
+ 948 009e 00        		.byte	0
+ 949 009f 746D 6B5F 		.ascii	"tmk_core/common/avr"
+ 949      636F 7265 
+ 949      2F63 6F6D 
+ 949      6D6F 6E2F 
+ 949      6176 72
+ 950 00b2 00        		.byte	0
+ 951 00b3 00        		.byte	0
+ 952 00b4 7374 6469 		.string	"stdint.h"
+ 952      6E74 2E68 
+ 952      00
+ 953 00bd 01        		.uleb128 0x1
+ 954 00be 00        		.uleb128 0
+ 955 00bf 00        		.uleb128 0
+ 956 00c0 4156 5238 		.string	"AVR8/../StdRequestType.h"
+ 956      2F2E 2E2F 
+ 956      5374 6452 
+ 956      6571 7565 
+ 956      7374 5479 
+ 957 00d9 02        		.uleb128 0x2
+ 958 00da 00        		.uleb128 0
+ 959 00db 00        		.uleb128 0
+ 960 00dc 6163 7469 		.string	"action.h"
+ 960      6F6E 2E68 
+ 960      00
+ 961 00e5 04        		.uleb128 0x4
+ 962 00e6 00        		.uleb128 0
+ 963 00e7 00        		.uleb128 0
+ 964 00e8 4156 5238 		.string	"AVR8/../DeviceStandardReq.h"
+ 964      2F2E 2E2F 
+ 964      4465 7669 
+ 964      6365 5374 
+ 964      616E 6461 
+ 965 0104 02        		.uleb128 0x2
+ 966 0105 00        		.uleb128 0
+ 967 0106 00        		.uleb128 0
+ 968 0107 5553 4254 		.string	"USBTask.h"
+ 968      6173 6B2E 
+ 968      6800 
+ 969 0111 02        		.uleb128 0x2
+ 970 0112 00        		.uleb128 0
+ 971 0113 00        		.uleb128 0
+ 972 0114 486F 7374 		.string	"HostStandardReq.h"
+ 972      5374 616E 
+ 972      6461 7264 
+ 972      5265 712E 
+ 972      6800 
+ 973 0126 02        		.uleb128 0x2
+ 974 0127 00        		.uleb128 0
+ 975 0128 00        		.uleb128 0
+ 976 0129 7374 6469 		.string	"stdio.h"
+ 976      6F2E 6800 
+ 977 0131 01        		.uleb128 0x1
+ 978 0132 00        		.uleb128 0
+ 979 0133 00        		.uleb128 0
+ 980 0134 7265 706F 		.string	"report.h"
+ 980      7274 2E68 
+ 980      00
+ 981 013d 04        		.uleb128 0x4
+ 982 013e 00        		.uleb128 0
+ 983 013f 00        		.uleb128 0
+ 984 0140 6163 7469 		.string	"action_util.h"
+ 984      6F6E 5F75 
+ 984      7469 6C2E 
+ 984      6800 
+ 985 014e 04        		.uleb128 0x4
+ 986 014f 00        		.uleb128 0
+ 987 0150 00        		.uleb128 0
+ 988 0151 6176 722F 		.string	"avr/xprintf.h"
+ 988      7870 7269 
+ 988      6E74 662E 
+ 988      6800 
+ 989 015f 04        		.uleb128 0x4
+ 990 0160 00        		.uleb128 0
+ 991 0161 00        		.uleb128 0
+ 992 0162 6465 6275 		.string	"debug.h"
+ 992      672E 6800 
+ 993 016a 04        		.uleb128 0x4
+ 994 016b 00        		.uleb128 0
+ 995 016c 00        		.uleb128 0
+ 996 016d 00        		.byte	0
+ 997               	.LELTP0:
+ 998               	.LELT0:
+ 999               		.section	.gnu.debuglto_.debug_str,"MS",@progbits,1
+ 1000               	.LASF11:
+ 1001 0000 6252 6571 		.string	"bRequest"
+ 1001      7565 7374 
+ 1001      00
+ 1002               	.LASF34:
+ 1003 0009 6E6B 726F 		.string	"nkro_report"
+ 1003      5F72 6570 
+ 1003      6F72 7400 
+ 1004               	.LASF44:
+ 1005 0015 6D6F 7573 		.string	"mouse"
+ 1005      6500 
+ 1006               	.LASF23:
+ 1007 001b 5553 425F 		.string	"USB_Host_ConfigurationNumber"
+ 1007      486F 7374 
+ 1007      5F43 6F6E 
+ 1007      6669 6775 
+ 1007      7261 7469 
+ 1008               	.LASF21:
+ 1009 0038 5553 425F 		.string	"USB_ControlRequest"
+ 1009      436F 6E74 
+ 1009      726F 6C52 
+ 1009      6571 7565 
+ 1009      7374 00
+ 1010               	.LASF33:
+ 1011 004b 5F5F 6669 		.string	"__file"
+ 1011      6C65 00
+ 1012               	.LASF4:
+ 1013 0052 756E 7369 		.string	"unsigned int"
+ 1013      676E 6564 
+ 1013      2069 6E74 
+ 1013      00
+ 1014               	.LASF41:
+ 1015 005f 656E 6162 		.string	"enable"
+ 1015      6C65 00
+ 1016               	.LASF18:
+ 1017 0066 5553 425F 		.string	"USB_Device_RemoteWakeupEnabled"
+ 1017      4465 7669 
+ 1017      6365 5F52 
+ 1017      656D 6F74 
+ 1017      6557 616B 
+ 1018               	.LASF16:
+ 1019 0085 6469 7361 		.string	"disable_action_cache"
+ 1019      626C 655F 
+ 1019      6163 7469 
+ 1019      6F6E 5F63 
+ 1019      6163 6865 
+ 1020               	.LASF8:
+ 1021 009a 6C6F 6E67 		.string	"long long unsigned int"
+ 1021      206C 6F6E 
+ 1021      6720 756E 
+ 1021      7369 676E 
+ 1021      6564 2069 
+ 1022               	.LASF12:
+ 1023 00b1 7756 616C 		.string	"wValue"
+ 1023      7565 00
+ 1024               	.LASF1:
+ 1025 00b8 756E 7369 		.string	"unsigned char"
+ 1025      676E 6564 
+ 1025      2063 6861 
+ 1025      7200 
+ 1026               	.LASF31:
+ 1027 00c6 7265 7365 		.string	"reserved"
+ 1027      7276 6564 
+ 1027      00
+ 1028               	.LASF13:
+ 1029 00cf 7749 6E64 		.string	"wIndex"
+ 1029      6578 00
+ 1030               	.LASF35:
+ 1031 00d6 7265 706F 		.string	"report_id"
+ 1031      7274 5F69 
+ 1031      6400 
+ 1032               	.LASF15:
+ 1033 00e0 5553 425F 		.string	"USB_Request_Header_t"
+ 1033      5265 7175 
+ 1033      6573 745F 
+ 1033      4865 6164 
+ 1033      6572 5F74 
+ 1034               	.LASF38:
+ 1035 00f5 7265 706F 		.string	"report_keyboard_t"
+ 1035      7274 5F6B 
+ 1035      6579 626F 
+ 1035      6172 645F 
+ 1035      7400 
+ 1036               	.LASF14:
+ 1037 0107 774C 656E 		.string	"wLength"
+ 1037      6774 6800 
+ 1038               	.LASF6:
+ 1039 010f 6C6F 6E67 		.string	"long unsigned int"
+ 1039      2075 6E73 
+ 1039      6967 6E65 
+ 1039      6420 696E 
+ 1039      7400 
+ 1040               	.LASF22:
+ 1041 0121 5553 425F 		.string	"USB_DeviceState"
+ 1041      4465 7669 
+ 1041      6365 5374 
+ 1041      6174 6500 
+ 1042               	.LASF39:
+ 1043 0131 6B65 7962 		.string	"keyboard_report"
+ 1043      6F61 7264 
+ 1043      5F72 6570 
+ 1043      6F72 7400 
+ 1044               	.LASF48:
+ 1045 0141 746D 6B5F 		.string	"tmk_core/common/action_macro.c"
+ 1045      636F 7265 
+ 1045      2F63 6F6D 
+ 1045      6D6F 6E2F 
+ 1045      6163 7469 
+ 1046               	.LASF49:
+ 1047 0160 433A 5C55 		.string	"C:\\Users\\gazed\\qmk_firmware"
+ 1047      7365 7273 
+ 1047      5C67 617A 
+ 1047      6564 5C71 
+ 1047      6D6B 5F66 
+ 1048               	.LASF24:
+ 1049 017c 756E 6765 		.string	"unget"
+ 1049      7400 
+ 1050               	.LASF25:
+ 1051 0182 666C 6167 		.string	"flags"
+ 1051      7300 
+ 1052               	.LASF26:
+ 1053 0188 7369 7A65 		.string	"size"
+ 1053      00
+ 1054               	.LASF28:
+ 1055 018d 6368 6172 		.string	"char"
+ 1055      00
+ 1056               	.LASF2:
+ 1057 0192 7569 6E74 		.string	"uint8_t"
+ 1057      385F 7400 
+ 1058               	.LASF47:
+ 1059 019a 474E 5520 		.string	"GNU C99 8.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -gdwarf-2 -Os -std=gnu99 -funsigned-ch
+ 1059      4339 3920 
+ 1059      382E 342E 
+ 1059      3020 2D6D 
+ 1059      6E2D 666C 
+ 1060               	.LASF20:
+ 1061 0282 5553 425F 		.string	"USB_IsInitialized"
+ 1061      4973 496E 
+ 1061      6974 6961 
+ 1061      6C69 7A65 
+ 1061      6400 
+ 1062               	.LASF7:
+ 1063 0294 6C6F 6E67 		.string	"long long int"
+ 1063      206C 6F6E 
+ 1063      6720 696E 
+ 1063      7400 
+ 1064               	.LASF45:
+ 1065 02a2 6465 6275 		.string	"debug_config_t"
+ 1065      675F 636F 
+ 1065      6E66 6967 
+ 1065      5F74 00
+ 1066               	.LASF40:
+ 1067 02b1 7866 756E 		.string	"xfunc_out"
+ 1067      635F 6F75 
+ 1067      7400 
+ 1068               	.LASF30:
+ 1069 02bb 6D6F 6473 		.string	"mods"
+ 1069      00
+ 1070               	.LASF42:
+ 1071 02c0 6D61 7472 		.string	"matrix"
+ 1071      6978 00
+ 1072               	.LASF36:
+ 1073 02c7 6269 7473 		.string	"bits"
+ 1073      00
+ 1074               	.LASF10:
+ 1075 02cc 626D 5265 		.string	"bmRequestType"
+ 1075      7175 6573 
+ 1075      7454 7970 
+ 1075      6500 
+ 1076               	.LASF17:
+ 1077 02da 5553 425F 		.string	"USB_Device_ConfigurationNumber"
+ 1077      4465 7669 
+ 1077      6365 5F43 
+ 1077      6F6E 6669 
+ 1077      6775 7261 
+ 1078               	.LASF3:
+ 1079 02f9 7569 6E74 		.string	"uint16_t"
+ 1079      3136 5F74 
+ 1079      00
+ 1080               	.LASF46:
+ 1081 0302 6465 6275 		.string	"debug_config"
+ 1081      675F 636F 
+ 1081      6E66 6967 
+ 1081      00
+ 1082               	.LASF5:
+ 1083 030f 6C6F 6E67 		.string	"long int"
+ 1083      2069 6E74 
+ 1083      00
+ 1084               	.LASF19:
+ 1085 0318 5553 425F 		.string	"USB_Device_CurrentlySelfPowered"
+ 1085      4465 7669 
+ 1085      6365 5F43 
+ 1085      7572 7265 
+ 1085      6E74 6C79 
+ 1086               	.LASF0:
+ 1087 0338 7369 676E 		.string	"signed char"
+ 1087      6564 2063 
+ 1087      6861 7200 
+ 1088               	.LASF37:
+ 1089 0344 6E6B 726F 		.string	"nkro"
+ 1089      00
+ 1090               	.LASF32:
+ 1091 0349 6B65 7973 		.string	"keys"
+ 1091      00
+ 1092               	.LASF27:
+ 1093 034e 7564 6174 		.string	"udata"
+ 1093      6100 
+ 1094               	.LASF9:
+ 1095 0354 5F42 6F6F 		.string	"_Bool"
+ 1095      6C00 
+ 1096               	.LASF29:
+ 1097 035a 5F5F 696F 		.string	"__iob"
+ 1097      6200 
+ 1098               	.LASF43:
+ 1099 0360 6B65 7962 		.string	"keyboard"
+ 1099      6F61 7264 
+ 1099      00
+ 1100               		.text
+ 1101               		.section	.gnu.lto_.profile.59accd7c,"",@progbits
+ 1102 0000 789C 6367 		.string	"x\234cg`f`d"
+ 1102      6066 6064 
+ 1102      00
+ 1103 0009 0200      		.string	"\002"
+ 1104 000b 00        		.string	""
+ 1105 000c 6200      		.string	"b"
+ 1106 000e 0C        		.ascii	"\f"
+ 1107               		.text
+ 1108               		.section	.gnu.lto_.icf.59accd7c,"",@progbits
+ 1109 0000 789C 6367 		.string	"x\234cg`f`b@\006"
+ 1109      6066 6062 
+ 1109      4006 00
+ 1110 000b 00        		.string	""
+ 1111 000c DC00      		.string	"\334"
+ 1112 000e 0D        		.ascii	"\r"
+ 1113               		.text
+ 1114               		.section	.gnu.lto_.jmpfuncs.59accd7c,"",@progbits
+ 1115 0000 789C 6367 		.string	"x\234cg`f`b@\006"
+ 1115      6066 6062 
+ 1115      4006 00
+ 1116 000b 00        		.string	""
+ 1117 000c DC00      		.string	"\334"
+ 1118 000e 0D        		.ascii	"\r"
+ 1119               		.text
+ 1120               		.section	.gnu.lto_.inline.59accd7c,"",@progbits
+ 1121 0000 789C 6367 		.string	"x\234cg`f`b@\006"
+ 1121      6066 6062 
+ 1121      4006 00
+ 1122 000b 00        		.string	""
+ 1123 000c DC00      		.string	"\334"
+ 1124 000e 0D        		.ascii	"\r"
+ 1125               		.text
+ 1126               		.section	.gnu.lto_.pureconst.59accd7c,"",@progbits
+ 1127 0000 789C 6367 		.string	"x\234cg`f`d"
+ 1127      6066 6064 
+ 1127      00
+ 1128 0009 0200      		.string	"\002"
+ 1129 000b 00        		.string	""
+ 1130 000c 6200      		.string	"b"
+ 1131 000e 0C        		.ascii	"\f"
+ 1132               		.text
+ 1133               		.section	.gnu.lto_.symbol_nodes.59accd7c,"",@progbits
+ 1134 0000 789C 6367 		.string	"x\234cg`f`b"
+ 1134      6066 6062 
+ 1134      00
+ 1135 0009 0100      		.string	"\001"
+ 1136 000b 00        		.string	""
+ 1137 000c 7400      		.string	"t"
+ 1138 000e 0D        		.ascii	"\r"
+ 1139               		.text
+ 1140               		.section	.gnu.lto_.refs.59accd7c,"",@progbits
+ 1141 0000 789C 6367 		.string	"x\234cg`f`d"
+ 1141      6066 6064 
+ 1141      00
+ 1142 0009 0200      		.string	"\002"
+ 1143 000b 00        		.string	""
+ 1144 000c 6200      		.string	"b"
+ 1145 000e 0C        		.ascii	"\f"
+ 1146               		.text
+ 1147               		.section	.gnu.lto_.decls.59accd7c,"",@progbits
+ 1148 0000 789C 6367 		.string	"x\234cg`f"
+ 1148      6066 00
+ 1149 0007 0146 2056 		.string	"\001F V\001\342\377@"
+ 1149      01E2 FF40 
+ 1149      00
+ 1150 0010 625F 6420 		.string	"b_d "
+ 1150      00
+ 1151 0015 00        		.string	""
+ 1152 0016 C16A 04FE 		.ascii	"\301j\004\376"
+ 1153               		.text
+ 1154               		.section	.gnu.lto_.symtab.59accd7c,"",@progbits
+ 1155               		.text
+ 1156               		.section	.gnu.lto_.opts,"",@progbits
+ 1157 0000 272D 666E 		.string	"'-fno-openmp' '-fno-openacc' '-fno-pie' '-mn-flash=1' '-mno-skip-bug' '-mmcu=avr5' '-Os' 
+ 1157      6F2D 6F70 
+ 1157      656E 6D70 
+ 1157      2720 272D 
+ 1157      666E 6F2D 
+ 1158               		.text
+ 1159               		.comm	__gnu_lto_v1,1,1
+ 1160               		.comm	__gnu_lto_slim,1,1
+ 1161               		.ident	"GCC: (GNU) 8.4.0"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 action_macro.c
+C:\Users\gazed\AppData\Local\Temp\ccwhIhrg.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccwhIhrg.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccwhIhrg.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccwhIhrg.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccwhIhrg.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccwhIhrg.s:22     .gnu.debuglto_.debug_info:0000000000000000 action_macro.c.9e7337a1
+                            *COM*:0000000000000001 __gnu_lto_v1
+                            *COM*:0000000000000001 __gnu_lto_slim
+
+NO UNDEFINED SYMBOLS

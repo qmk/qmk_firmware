@@ -1,0 +1,215 @@
+   1               		.file	"keymap.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.process_record_user,"ax",@progbits
+  11               	.global	process_record_user
+  13               	process_record_user:
+  14               	.LVL0:
+  15               	.LFB117:
+  16               		.file 1 "keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c"
+   1:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** #include QMK_KEYBOARD_H
+   2:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** 
+   3:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** 
+   4:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** enum layers {
+   5:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****   NORMAL_LAYER = 0,
+   6:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****   SECOND_LAYER
+   7:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** };
+   8:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** 
+   9:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** enum custom_keycode {
+  10:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****     VS_COMMENT = SAFE_RANGE,
+  11:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****     VS_UNCOMMENT,
+  12:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****     TST_STRING
+  13:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** };
+  14:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** 
+  15:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** 
+  16:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  17               		.loc 1 16 65 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  23               		.loc 1 16 65 is_stmt 0 view .LVU1
+  24 0000 FB01      		movw r30,r22
+  17:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****     switch (keycode) {
+  25               		.loc 1 17 5 is_stmt 1 view .LVU2
+  26 0002 8A32      		cpi r24,42
+  27 0004 2DE5      		ldi r18,93
+  28 0006 9207      		cpc r25,r18
+  29 0008 01F0      		breq .L2
+  30 000a 8B32      		cpi r24,43
+  31 000c 2DE5      		ldi r18,93
+  32 000e 9207      		cpc r25,r18
+  33 0010 01F0      		breq .L3
+  34 0012 8932      		cpi r24,41
+  35 0014 9D45      		sbci r25,93
+  36 0016 01F4      		brne .L4
+  18:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****         case VS_COMMENT:
+  19:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             if (record->event.pressed) {
+  37               		.loc 1 19 13 view .LVU3
+  38               		.loc 1 19 16 is_stmt 0 view .LVU4
+  39 0018 8281      		ldd r24,Z+2
+  40               	.LVL1:
+  41               		.loc 1 19 16 view .LVU5
+  42 001a 8823      		tst r24
+  43 001c 01F0      		breq .L4
+  20:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING(SS_LCTL("kc"));
+  44               		.loc 1 20 17 is_stmt 1 view .LVU6
+  45               	.LBB2:
+  46               		.loc 1 20 17 view .LVU7
+  47               		.loc 1 20 17 view .LVU8
+  48               	.LBE2:
+  49 001e 80E0      		ldi r24,lo8(__c.6035)
+  50 0020 90E0      		ldi r25,hi8(__c.6035)
+  51               	.L14:
+  21:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  22:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             break;
+  23:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****         case VS_UNCOMMENT:
+  24:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             if (record->event.pressed) {
+  25:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING(SS_LCTL("ku"));
+  26:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  27:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             break;
+  28:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****         case TST_STRING:
+  29:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             if (record->event.pressed) {
+  30:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING("12345\n");
+  52               		.loc 1 30 17 is_stmt 0 view .LVU9
+  53 0022 0E94 0000 		call send_string_P
+  54               	.LVL2:
+  55               	.L4:
+  31:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  32:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             break;
+  33:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** 
+  34:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****     }
+  35:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****     return true;
+  56               		.loc 1 35 5 is_stmt 1 view .LVU10
+  36:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c **** }
+  57               		.loc 1 36 1 is_stmt 0 view .LVU11
+  58 0026 81E0      		ldi r24,lo8(1)
+  59               	/* epilogue start */
+  60 0028 0895      		ret
+  61               	.LVL3:
+  62               	.L2:
+  24:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING(SS_LCTL("ku"));
+  63               		.loc 1 24 13 is_stmt 1 view .LVU12
+  24:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING(SS_LCTL("ku"));
+  64               		.loc 1 24 16 is_stmt 0 view .LVU13
+  65 002a 8281      		ldd r24,Z+2
+  66               	.LVL4:
+  24:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING(SS_LCTL("ku"));
+  67               		.loc 1 24 16 view .LVU14
+  68 002c 8823      		tst r24
+  69 002e 01F0      		breq .L4
+  25:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  70               		.loc 1 25 17 is_stmt 1 view .LVU15
+  71               	.LBB3:
+  25:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  72               		.loc 1 25 17 view .LVU16
+  25:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  73               		.loc 1 25 17 view .LVU17
+  74               	.LBE3:
+  75 0030 80E0      		ldi r24,lo8(__c.6039)
+  76 0032 90E0      		ldi r25,hi8(__c.6039)
+  77 0034 00C0      		rjmp .L14
+  78               	.LVL5:
+  79               	.L3:
+  29:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING("12345\n");
+  80               		.loc 1 29 13 view .LVU18
+  29:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING("12345\n");
+  81               		.loc 1 29 16 is_stmt 0 view .LVU19
+  82 0036 8281      		ldd r24,Z+2
+  83               	.LVL6:
+  29:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****                 SEND_STRING("12345\n");
+  84               		.loc 1 29 16 view .LVU20
+  85 0038 8823      		tst r24
+  86 003a 01F0      		breq .L4
+  30:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  87               		.loc 1 30 17 is_stmt 1 view .LVU21
+  88               	.LBB4:
+  30:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  89               		.loc 1 30 17 view .LVU22
+  30:keyboards/handwired/stream_cheap/2x4/keymaps/default/keymap.c ****             }
+  90               		.loc 1 30 17 view .LVU23
+  91               	.LBE4:
+  92 003c 80E0      		ldi r24,lo8(__c.6042)
+  93 003e 90E0      		ldi r25,hi8(__c.6042)
+  94 0040 00C0      		rjmp .L14
+  95               		.cfi_endproc
+  96               	.LFE117:
+  98               		.section	.progmem.data.__c.6042,"a"
+ 101               	__c.6042:
+ 102 0000 3132 3334 		.string	"12345\n"
+ 102      350A 00
+ 103               		.section	.progmem.data.__c.6039,"a"
+ 106               	__c.6039:
+ 107 0000 0102 E06B 		.string	"\001\002\340ku\001\003\340"
+ 107      7501 03E0 
+ 107      00
+ 108               		.section	.progmem.data.__c.6035,"a"
+ 111               	__c.6035:
+ 112 0000 0102 E06B 		.string	"\001\002\340kc\001\003\340"
+ 112      6301 03E0 
+ 112      00
+ 113               	.global	keymaps
+ 114               		.section	.progmem.data.keymaps,"a"
+ 117               	keymaps:
+ 118 0000 2900      		.word	41
+ 119 0002 0601      		.word	262
+ 120 0004 1901      		.word	281
+ 121 0006 2B04      		.word	1067
+ 122 0008 0901      		.word	265
+ 123 000a 1301      		.word	275
+ 124 000c 4600      		.word	70
+ 125 000e 1150      		.word	20497
+ 126 0010 005C      		.word	23552
+ 127 0012 0100      		.word	1
+ 128 0014 0100      		.word	1
+ 129 0016 0100      		.word	1
+ 130 0018 0100      		.word	1
+ 131 001a 0100      		.word	1
+ 132 001c 0100      		.word	1
+ 133 001e 1050      		.word	20496
+ 134               		.text
+ 135               	.Letext0:
+ 136               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+ 137               		.file 3 "c:\\program files\\qmk_msys\\mingw64\\lib\\gcc\\avr\\8.4.0\\include\\stddef.h"
+ 138               		.file 4 "tmk_core/common/keyboard.h"
+ 139               		.file 5 "tmk_core/common/keycode.h"
+ 140               		.file 6 "tmk_core/common/action_code.h"
+ 141               		.file 7 "tmk_core/common/action.h"
+ 142               		.file 8 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+ 143               		.file 9 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+ 144               		.file 10 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+ 145               		.file 11 "lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.h"
+ 146               		.file 12 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdio.h"
+ 147               		.file 13 "tmk_core/common/report.h"
+ 148               		.file 14 "tmk_core/common/host.h"
+ 149               		.file 15 "tmk_core/common/debug.h"
+ 150               		.file 16 "quantum/keycode_config.h"
+ 151               		.file 17 "quantum/quantum_keycodes.h"
+ 152               		.file 18 "quantum/keymap.h"
+ 153               		.file 19 "tmk_core/common/action_layer.h"
+ 154               		.file 20 "tmk_core/common/timer.h"
+ 155               		.file 21 "tmk_core/common/action_util.h"
+ 156               		.file 22 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdlib.h"
+ 157               		.file 23 "quantum/quantum.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 keymap.c
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:13     .text.process_record_user:0000000000000000 process_record_user
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:111    .progmem.data.__c.6035:0000000000000000 __c.6035
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:106    .progmem.data.__c.6039:0000000000000000 __c.6039
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:101    .progmem.data.__c.6042:0000000000000000 __c.6042
+C:\Users\gazed\AppData\Local\Temp\cc5dYbsg.s:117    .progmem.data.keymaps:0000000000000000 keymaps
+
+UNDEFINED SYMBOLS
+send_string_P

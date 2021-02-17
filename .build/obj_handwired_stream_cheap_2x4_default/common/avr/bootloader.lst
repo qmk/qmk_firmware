@@ -1,0 +1,922 @@
+   1               		.file	"bootloader.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.bootloader_jump,"ax",@progbits
+  11               	.global	bootloader_jump
+  13               	bootloader_jump:
+  14               	.LFB102:
+  15               		.file 1 "tmk_core/common/avr/bootloader.c"
+   1:tmk_core/common/avr/bootloader.c **** #include <stdint.h>
+   2:tmk_core/common/avr/bootloader.c **** #include <stdbool.h>
+   3:tmk_core/common/avr/bootloader.c **** #include <avr/io.h>
+   4:tmk_core/common/avr/bootloader.c **** #include <avr/eeprom.h>
+   5:tmk_core/common/avr/bootloader.c **** #include <avr/interrupt.h>
+   6:tmk_core/common/avr/bootloader.c **** #include <avr/wdt.h>
+   7:tmk_core/common/avr/bootloader.c **** #include <util/delay.h>
+   8:tmk_core/common/avr/bootloader.c **** #include "bootloader.h"
+   9:tmk_core/common/avr/bootloader.c **** #include <avr/boot.h>
+  10:tmk_core/common/avr/bootloader.c **** 
+  11:tmk_core/common/avr/bootloader.c **** #ifdef PROTOCOL_LUFA
+  12:tmk_core/common/avr/bootloader.c **** #    include <LUFA/Drivers/USB/USB.h>
+  13:tmk_core/common/avr/bootloader.c **** #endif
+  14:tmk_core/common/avr/bootloader.c **** 
+  15:tmk_core/common/avr/bootloader.c **** /** \brief Bootloader Size in *bytes*
+  16:tmk_core/common/avr/bootloader.c ****  *
+  17:tmk_core/common/avr/bootloader.c ****  * AVR Boot section size are defined by setting BOOTSZ fuse in fact. Consult with your MCU datashee
+  18:tmk_core/common/avr/bootloader.c ****  * Note that 'Word'(2 bytes) size and address are used in datasheet while TMK uses 'Byte'.
+  19:tmk_core/common/avr/bootloader.c ****  *
+  20:tmk_core/common/avr/bootloader.c ****  * Size of Bootloaders in bytes:
+  21:tmk_core/common/avr/bootloader.c ****  *   Atmel DFU loader(ATmega32U4)   4096
+  22:tmk_core/common/avr/bootloader.c ****  *   Atmel DFU loader(AT90USB128)   8192
+  23:tmk_core/common/avr/bootloader.c ****  *   LUFA bootloader(ATmega32U4)    4096
+  24:tmk_core/common/avr/bootloader.c ****  *   Arduino Caterina(ATmega32U4)   4096
+  25:tmk_core/common/avr/bootloader.c ****  *   USBaspLoader(ATmega***)        2048
+  26:tmk_core/common/avr/bootloader.c ****  *   Teensy   halfKay(ATmega32U4)   512
+  27:tmk_core/common/avr/bootloader.c ****  *   Teensy++ halfKay(AT90USB128)   1024
+  28:tmk_core/common/avr/bootloader.c ****  *
+  29:tmk_core/common/avr/bootloader.c ****  * AVR Boot section is located at the end of Flash memory like the followings.
+  30:tmk_core/common/avr/bootloader.c ****  *
+  31:tmk_core/common/avr/bootloader.c ****  * byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB128)
+  32:tmk_core/common/avr/bootloader.c ****  * 0x0000   +---------------+               0x00000  +---------------+
+  33:tmk_core/common/avr/bootloader.c ****  *          |               |                        |               |
+  34:tmk_core/common/avr/bootloader.c ****  *          |               |                        |               |
+  35:tmk_core/common/avr/bootloader.c ****  *          |  Application  |                        |  Application  |
+  36:tmk_core/common/avr/bootloader.c ****  *          |               |                        |               |
+  37:tmk_core/common/avr/bootloader.c ****  *          =               =                        =               =
+  38:tmk_core/common/avr/bootloader.c ****  *          |               | 32KB-4KB               |               | 128KB-8KB
+  39:tmk_core/common/avr/bootloader.c ****  * 0x7000   +---------------+               0x1E000  +---------------+
+  40:tmk_core/common/avr/bootloader.c ****  *          |  Bootloader   | 4KB                    |  Bootloader   | 8KB
+  41:tmk_core/common/avr/bootloader.c ****  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
+  42:tmk_core/common/avr/bootloader.c ****  *
+  43:tmk_core/common/avr/bootloader.c ****  *
+  44:tmk_core/common/avr/bootloader.c ****  * byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB128)
+  45:tmk_core/common/avr/bootloader.c ****  * 0x0000   +---------------+               0x00000  +---------------+
+  46:tmk_core/common/avr/bootloader.c ****  *          |               |                        |               |
+  47:tmk_core/common/avr/bootloader.c ****  *          |               |                        |               |
+  48:tmk_core/common/avr/bootloader.c ****  *          |  Application  |                        |  Application  |
+  49:tmk_core/common/avr/bootloader.c ****  *          |               |                        |               |
+  50:tmk_core/common/avr/bootloader.c ****  *          =               =                        =               =
+  51:tmk_core/common/avr/bootloader.c ****  *          |               | 32KB-512B              |               | 128KB-1KB
+  52:tmk_core/common/avr/bootloader.c ****  * 0x7E00   +---------------+               0x1FC00  +---------------+
+  53:tmk_core/common/avr/bootloader.c ****  *          |  Bootloader   | 512B                   |  Bootloader   | 1KB
+  54:tmk_core/common/avr/bootloader.c ****  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
+  55:tmk_core/common/avr/bootloader.c ****  */
+  56:tmk_core/common/avr/bootloader.c **** #define FLASH_SIZE (FLASHEND + 1L)
+  57:tmk_core/common/avr/bootloader.c **** 
+  58:tmk_core/common/avr/bootloader.c **** #if !defined(BOOTLOADER_SIZE)
+  59:tmk_core/common/avr/bootloader.c **** uint16_t bootloader_start;
+  60:tmk_core/common/avr/bootloader.c **** #endif
+  61:tmk_core/common/avr/bootloader.c **** 
+  62:tmk_core/common/avr/bootloader.c **** // compatibility between ATMega8 and ATMega88
+  63:tmk_core/common/avr/bootloader.c **** #if !defined(MCUCSR)
+  64:tmk_core/common/avr/bootloader.c **** #    if defined(MCUSR)
+  65:tmk_core/common/avr/bootloader.c **** #        define MCUCSR MCUSR
+  66:tmk_core/common/avr/bootloader.c **** #    endif
+  67:tmk_core/common/avr/bootloader.c **** #endif
+  68:tmk_core/common/avr/bootloader.c **** 
+  69:tmk_core/common/avr/bootloader.c **** /** \brief Entering the Bootloader via Software
+  70:tmk_core/common/avr/bootloader.c ****  *
+  71:tmk_core/common/avr/bootloader.c ****  * http://www.fourwalledcubicle.com/files/LUFA/Doc/120730/html/_page__software_bootloader_start.htm
+  72:tmk_core/common/avr/bootloader.c ****  */
+  73:tmk_core/common/avr/bootloader.c **** #define BOOTLOADER_RESET_KEY 0xB007B007
+  74:tmk_core/common/avr/bootloader.c **** uint32_t reset_key __attribute__((section(".noinit,\"aw\",@nobits;")));
+  75:tmk_core/common/avr/bootloader.c **** 
+  76:tmk_core/common/avr/bootloader.c **** /** \brief initialize MCU status by watchdog reset
+  77:tmk_core/common/avr/bootloader.c ****  *
+  78:tmk_core/common/avr/bootloader.c ****  * FIXME: needs doc
+  79:tmk_core/common/avr/bootloader.c ****  */
+  80:tmk_core/common/avr/bootloader.c **** void bootloader_jump(void) {
+  16               		.loc 1 80 28 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  81:tmk_core/common/avr/bootloader.c **** #if !defined(BOOTLOADER_SIZE)
+  82:tmk_core/common/avr/bootloader.c ****     uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
+  83:tmk_core/common/avr/bootloader.c **** 
+  84:tmk_core/common/avr/bootloader.c ****     if (high_fuse & ~(FUSE_BOOTSZ0 & FUSE_BOOTSZ1)) {
+  85:tmk_core/common/avr/bootloader.c ****         bootloader_start = (FLASH_SIZE - 512) >> 1;
+  86:tmk_core/common/avr/bootloader.c ****     } else if (high_fuse & ~(FUSE_BOOTSZ1)) {
+  87:tmk_core/common/avr/bootloader.c ****         bootloader_start = (FLASH_SIZE - 1024) >> 1;
+  88:tmk_core/common/avr/bootloader.c ****     } else if (high_fuse & ~(FUSE_BOOTSZ0)) {
+  89:tmk_core/common/avr/bootloader.c ****         bootloader_start = (FLASH_SIZE - 2048) >> 1;
+  90:tmk_core/common/avr/bootloader.c ****     } else {
+  91:tmk_core/common/avr/bootloader.c ****         bootloader_start = (FLASH_SIZE - 4096) >> 1;
+  92:tmk_core/common/avr/bootloader.c ****     }
+  93:tmk_core/common/avr/bootloader.c **** #endif
+  94:tmk_core/common/avr/bootloader.c **** 
+  95:tmk_core/common/avr/bootloader.c ****     // Something like this might work, but it compiled larger than the block above
+  96:tmk_core/common/avr/bootloader.c ****     // bootloader_start = FLASH_SIZE - (256 << (~high_fuse & 0b110 >> 1));
+  97:tmk_core/common/avr/bootloader.c **** 
+  98:tmk_core/common/avr/bootloader.c **** #if defined(BOOTLOADER_HALFKAY)
+  99:tmk_core/common/avr/bootloader.c ****     //  http://www.pjrc.com/teensy/jump_to_bootloader.html
+ 100:tmk_core/common/avr/bootloader.c ****     cli();
+ 101:tmk_core/common/avr/bootloader.c ****     // disable watchdog, if enabled (it's not)
+ 102:tmk_core/common/avr/bootloader.c ****     // disable all peripherals
+ 103:tmk_core/common/avr/bootloader.c ****     // a shutdown call might make sense here
+ 104:tmk_core/common/avr/bootloader.c ****     UDCON  = 1;
+ 105:tmk_core/common/avr/bootloader.c ****     USBCON = (1 << FRZCLK);  // disable USB
+ 106:tmk_core/common/avr/bootloader.c ****     UCSR1B = 0;
+ 107:tmk_core/common/avr/bootloader.c ****     _delay_ms(5);
+ 108:tmk_core/common/avr/bootloader.c **** #    if defined(__AVR_AT90USB162__)  // Teensy 1.0
+ 109:tmk_core/common/avr/bootloader.c ****     EIMSK  = 0;
+ 110:tmk_core/common/avr/bootloader.c ****     PCICR  = 0;
+ 111:tmk_core/common/avr/bootloader.c ****     SPCR   = 0;
+ 112:tmk_core/common/avr/bootloader.c ****     ACSR   = 0;
+ 113:tmk_core/common/avr/bootloader.c ****     EECR   = 0;
+ 114:tmk_core/common/avr/bootloader.c ****     TIMSK0 = 0;
+ 115:tmk_core/common/avr/bootloader.c ****     TIMSK1 = 0;
+ 116:tmk_core/common/avr/bootloader.c ****     UCSR1B = 0;
+ 117:tmk_core/common/avr/bootloader.c ****     DDRB   = 0;
+ 118:tmk_core/common/avr/bootloader.c ****     DDRC   = 0;
+ 119:tmk_core/common/avr/bootloader.c ****     DDRD   = 0;
+ 120:tmk_core/common/avr/bootloader.c ****     PORTB  = 0;
+ 121:tmk_core/common/avr/bootloader.c ****     PORTC  = 0;
+ 122:tmk_core/common/avr/bootloader.c ****     PORTD  = 0;
+ 123:tmk_core/common/avr/bootloader.c ****     asm volatile("jmp 0x3E00");
+ 124:tmk_core/common/avr/bootloader.c **** #    elif defined(__AVR_ATmega32U4__)   // Teensy 2.0
+ 125:tmk_core/common/avr/bootloader.c ****     EIMSK  = 0;
+ 126:tmk_core/common/avr/bootloader.c ****     PCICR  = 0;
+ 127:tmk_core/common/avr/bootloader.c ****     SPCR   = 0;
+ 128:tmk_core/common/avr/bootloader.c ****     ACSR   = 0;
+ 129:tmk_core/common/avr/bootloader.c ****     EECR   = 0;
+ 130:tmk_core/common/avr/bootloader.c ****     ADCSRA = 0;
+ 131:tmk_core/common/avr/bootloader.c ****     TIMSK0 = 0;
+ 132:tmk_core/common/avr/bootloader.c ****     TIMSK1 = 0;
+ 133:tmk_core/common/avr/bootloader.c ****     TIMSK3 = 0;
+ 134:tmk_core/common/avr/bootloader.c ****     TIMSK4 = 0;
+ 135:tmk_core/common/avr/bootloader.c ****     UCSR1B = 0;
+ 136:tmk_core/common/avr/bootloader.c ****     TWCR   = 0;
+ 137:tmk_core/common/avr/bootloader.c ****     DDRB   = 0;
+ 138:tmk_core/common/avr/bootloader.c ****     DDRC   = 0;
+ 139:tmk_core/common/avr/bootloader.c ****     DDRD   = 0;
+ 140:tmk_core/common/avr/bootloader.c ****     DDRE   = 0;
+ 141:tmk_core/common/avr/bootloader.c ****     DDRF   = 0;
+ 142:tmk_core/common/avr/bootloader.c ****     TWCR   = 0;
+ 143:tmk_core/common/avr/bootloader.c ****     PORTB  = 0;
+ 144:tmk_core/common/avr/bootloader.c ****     PORTC  = 0;
+ 145:tmk_core/common/avr/bootloader.c ****     PORTD  = 0;
+ 146:tmk_core/common/avr/bootloader.c ****     PORTE  = 0;
+ 147:tmk_core/common/avr/bootloader.c ****     PORTF  = 0;
+ 148:tmk_core/common/avr/bootloader.c ****     asm volatile("jmp 0x7E00");
+ 149:tmk_core/common/avr/bootloader.c **** #    elif defined(__AVR_AT90USB646__)   // Teensy++ 1.0
+ 150:tmk_core/common/avr/bootloader.c ****     EIMSK  = 0;
+ 151:tmk_core/common/avr/bootloader.c ****     PCICR  = 0;
+ 152:tmk_core/common/avr/bootloader.c ****     SPCR   = 0;
+ 153:tmk_core/common/avr/bootloader.c ****     ACSR   = 0;
+ 154:tmk_core/common/avr/bootloader.c ****     EECR   = 0;
+ 155:tmk_core/common/avr/bootloader.c ****     ADCSRA = 0;
+ 156:tmk_core/common/avr/bootloader.c ****     TIMSK0 = 0;
+ 157:tmk_core/common/avr/bootloader.c ****     TIMSK1 = 0;
+ 158:tmk_core/common/avr/bootloader.c ****     TIMSK2 = 0;
+ 159:tmk_core/common/avr/bootloader.c ****     TIMSK3 = 0;
+ 160:tmk_core/common/avr/bootloader.c ****     UCSR1B = 0;
+ 161:tmk_core/common/avr/bootloader.c ****     TWCR   = 0;
+ 162:tmk_core/common/avr/bootloader.c ****     DDRA   = 0;
+ 163:tmk_core/common/avr/bootloader.c ****     DDRB   = 0;
+ 164:tmk_core/common/avr/bootloader.c ****     DDRC   = 0;
+ 165:tmk_core/common/avr/bootloader.c ****     DDRD   = 0;
+ 166:tmk_core/common/avr/bootloader.c ****     DDRE   = 0;
+ 167:tmk_core/common/avr/bootloader.c ****     DDRF   = 0;
+ 168:tmk_core/common/avr/bootloader.c ****     PORTA  = 0;
+ 169:tmk_core/common/avr/bootloader.c ****     PORTB  = 0;
+ 170:tmk_core/common/avr/bootloader.c ****     PORTC  = 0;
+ 171:tmk_core/common/avr/bootloader.c ****     PORTD  = 0;
+ 172:tmk_core/common/avr/bootloader.c ****     PORTE  = 0;
+ 173:tmk_core/common/avr/bootloader.c ****     PORTF  = 0;
+ 174:tmk_core/common/avr/bootloader.c ****     asm volatile("jmp 0xFC00");
+ 175:tmk_core/common/avr/bootloader.c **** #    elif defined(__AVR_AT90USB1286__)  // Teensy++ 2.0
+ 176:tmk_core/common/avr/bootloader.c ****     EIMSK  = 0;
+ 177:tmk_core/common/avr/bootloader.c ****     PCICR  = 0;
+ 178:tmk_core/common/avr/bootloader.c ****     SPCR   = 0;
+ 179:tmk_core/common/avr/bootloader.c ****     ACSR   = 0;
+ 180:tmk_core/common/avr/bootloader.c ****     EECR   = 0;
+ 181:tmk_core/common/avr/bootloader.c ****     ADCSRA = 0;
+ 182:tmk_core/common/avr/bootloader.c ****     TIMSK0 = 0;
+ 183:tmk_core/common/avr/bootloader.c ****     TIMSK1 = 0;
+ 184:tmk_core/common/avr/bootloader.c ****     TIMSK2 = 0;
+ 185:tmk_core/common/avr/bootloader.c ****     TIMSK3 = 0;
+ 186:tmk_core/common/avr/bootloader.c ****     UCSR1B = 0;
+ 187:tmk_core/common/avr/bootloader.c ****     TWCR   = 0;
+ 188:tmk_core/common/avr/bootloader.c ****     DDRA   = 0;
+ 189:tmk_core/common/avr/bootloader.c ****     DDRB   = 0;
+ 190:tmk_core/common/avr/bootloader.c ****     DDRC   = 0;
+ 191:tmk_core/common/avr/bootloader.c ****     DDRD   = 0;
+ 192:tmk_core/common/avr/bootloader.c ****     DDRE   = 0;
+ 193:tmk_core/common/avr/bootloader.c ****     DDRF   = 0;
+ 194:tmk_core/common/avr/bootloader.c ****     PORTA  = 0;
+ 195:tmk_core/common/avr/bootloader.c ****     PORTB  = 0;
+ 196:tmk_core/common/avr/bootloader.c ****     PORTC  = 0;
+ 197:tmk_core/common/avr/bootloader.c ****     PORTD  = 0;
+ 198:tmk_core/common/avr/bootloader.c ****     PORTE  = 0;
+ 199:tmk_core/common/avr/bootloader.c ****     PORTF  = 0;
+ 200:tmk_core/common/avr/bootloader.c ****     asm volatile("jmp 0x1FC00");
+ 201:tmk_core/common/avr/bootloader.c **** #    endif
+ 202:tmk_core/common/avr/bootloader.c **** 
+ 203:tmk_core/common/avr/bootloader.c **** #elif defined(BOOTLOADER_CATERINA)
+ 204:tmk_core/common/avr/bootloader.c ****     // this block may be optional
+ 205:tmk_core/common/avr/bootloader.c ****     // TODO: figure it out
+ 206:tmk_core/common/avr/bootloader.c **** 
+ 207:tmk_core/common/avr/bootloader.c ****     uint16_t *const bootKeyPtr = (uint16_t *)0x0800;
+  22               		.loc 1 207 5 view .LVU1
+  23               	.LVL0:
+ 208:tmk_core/common/avr/bootloader.c **** 
+ 209:tmk_core/common/avr/bootloader.c ****     // Value used by Caterina bootloader use to determine whether to run the
+ 210:tmk_core/common/avr/bootloader.c ****     // sketch or the bootloader programmer.
+ 211:tmk_core/common/avr/bootloader.c ****     uint16_t bootKey = 0x7777;
+  24               		.loc 1 211 5 view .LVU2
+ 212:tmk_core/common/avr/bootloader.c **** 
+ 213:tmk_core/common/avr/bootloader.c ****     *bootKeyPtr = bootKey;
+  25               		.loc 1 213 5 view .LVU3
+  26               		.loc 1 213 17 is_stmt 0 view .LVU4
+  27 0000 87E7      		ldi r24,lo8(119)
+  28 0002 97E7      		ldi r25,lo8(119)
+  29 0004 9093 0108 		sts 2048+1,r25
+  30 0008 8093 0008 		sts 2048,r24
+ 214:tmk_core/common/avr/bootloader.c **** 
+ 215:tmk_core/common/avr/bootloader.c ****     // setup watchdog timeout
+ 216:tmk_core/common/avr/bootloader.c ****     wdt_enable(WDTO_60MS);
+  31               		.loc 1 216 5 is_stmt 1 view .LVU5
+  32               	.LVL1:
+  33               	.LBB7:
+  34               	.LBI7:
+  35               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\avr\\wdt.h"
+   1:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /* Copyright (c) 2002, 2004 Marek Michalkiewicz
+   2:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    Copyright (c) 2005, 2006, 2007 Eric B. Weddington
+   3:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    All rights reserved.
+   4:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+   5:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    Redistribution and use in source and binary forms, with or without
+   6:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    modification, are permitted provided that the following conditions are met:
+   7:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+   8:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    * Redistributions of source code must retain the above copyright
+   9:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****      notice, this list of conditions and the following disclaimer.
+  10:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  11:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    * Redistributions in binary form must reproduce the above copyright
+  12:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****      notice, this list of conditions and the following disclaimer in
+  13:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****      the documentation and/or other materials provided with the
+  14:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****      distribution.
+  15:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  16:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    * Neither the name of the copyright holders nor the names of
+  17:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****      contributors may be used to endorse or promote products derived
+  18:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****      from this software without specific prior written permission.
+  19:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  20:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  21:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  22:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  23:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  24:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  25:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  26:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  27:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  28:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  29:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  30:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  31:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  32:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /* $Id: wdt.h 2503 2016-02-07 22:59:47Z joerg_wunsch $ */
+  33:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  34:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /*
+  35:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    avr/wdt.h - macros for AVR watchdog timer
+  36:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****  */
+  37:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  38:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #ifndef _AVR_WDT_H_
+  39:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define _AVR_WDT_H_
+  40:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  41:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #include <avr/io.h>
+  42:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #include <stdint.h>
+  43:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  44:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /** \file */
+  45:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /** \defgroup avr_watchdog <avr/wdt.h>: Watchdog timer handling
+  46:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     \code #include <avr/wdt.h> \endcode
+  47:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  48:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     This header file declares the interface to some inline macros
+  49:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     handling the watchdog timer present in many AVR devices.  In order
+  50:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     to prevent the watchdog timer configuration from being
+  51:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     accidentally altered by a crashing application, a special timed
+  52:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     sequence is required in order to change it.  The macros within
+  53:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     this header file handle the required sequence automatically
+  54:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     before changing any value.  Interrupts will be disabled during
+  55:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     the manipulation.
+  56:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  57:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     \note Depending on the fuse configuration of the particular
+  58:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     device, further restrictions might apply, in particular it might
+  59:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     be disallowed to turn off the watchdog timer.
+  60:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  61:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     Note that for newer devices (ATmega88 and newer, effectively any
+  62:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     AVR that has the option to also generate interrupts), the watchdog
+  63:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     timer remains active even after a system reset (except a power-on
+  64:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     condition), using the fastest prescaler value (approximately 15
+  65:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     ms).  It is therefore required to turn off the watchdog early
+  66:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     during program startup, the datasheet recommends a sequence like
+  67:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     the following:
+  68:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  69:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     \code
+  70:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     #include <stdint.h>
+  71:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     #include <avr/wdt.h>
+  72:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  73:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     uint8_t mcusr_mirror __attribute__ ((section (".noinit")));
+  74:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  75:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     void get_mcusr(void) \
+  76:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       __attribute__((naked)) \
+  77:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       __attribute__((section(".init3")));
+  78:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     void get_mcusr(void)
+  79:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     {
+  80:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       mcusr_mirror = MCUSR;
+  81:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       MCUSR = 0;
+  82:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       wdt_disable();
+  83:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     }
+  84:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     \endcode
+  85:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  86:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     Saving the value of MCUSR in \c mcusr_mirror is only needed if the
+  87:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     application later wants to examine the reset source, but in particular, 
+  88:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     clearing the watchdog reset flag before disabling the
+  89:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     watchdog is required, according to the datasheet.
+  90:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** */
+  91:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  92:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /**
+  93:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    \ingroup avr_watchdog
+  94:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    Reset the watchdog timer.  When the watchdog timer is enabled,
+  95:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    a call to this instruction is required before the timer expires,
+  96:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    otherwise a watchdog-initiated device reset will occur. 
+  97:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** */
+  98:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+  99:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define wdt_reset() __asm__ __volatile__ ("wdr")
+ 100:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 101:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #ifndef __DOXYGEN__
+ 102:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 103:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #if defined(WDP3)
+ 104:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** # define _WD_PS3_MASK       _BV(WDP3)
+ 105:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #else
+ 106:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** # define _WD_PS3_MASK       0x00
+ 107:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #endif
+ 108:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 109:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #if defined(WDTCSR)
+ 110:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #  define _WD_CONTROL_REG     WDTCSR
+ 111:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #elif defined(WDTCR)
+ 112:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #  define _WD_CONTROL_REG     WDTCR
+ 113:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #else
+ 114:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #  define _WD_CONTROL_REG     WDT
+ 115:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #endif
+ 116:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 117:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #if defined(WDTOE)
+ 118:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define _WD_CHANGE_BIT      WDTOE
+ 119:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #else
+ 120:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define _WD_CHANGE_BIT      WDCE
+ 121:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #endif
+ 122:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 123:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #endif	/* !__DOXYGEN__ */
+ 124:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 125:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 126:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /**
+ 127:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    \ingroup avr_watchdog
+ 128:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    Enable the watchdog timer, configuring it for expiry after
+ 129:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    \c timeout (which is a combination of the \c WDP0 through
+ 130:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    \c WDP2 bits to write into the \c WDTCR register; For those devices 
+ 131:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    that have a \c WDTCSR register, it uses the combination of the \c WDP0 
+ 132:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    through \c WDP3 bits).
+ 133:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 134:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    See also the symbolic constants \c WDTO_15MS et al.
+ 135:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** */
+ 136:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 137:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 138:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #if defined(__AVR_XMEGA__)
+ 139:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 140:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** /*
+ 141:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    wdt_enable(timeout) for xmega devices
+ 142:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** ** write signature (CCP_IOREG_gc) that enables change of protected I/O
+ 143:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    registers to the CCP register
+ 144:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** ** At the same time,
+ 145:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    1) set WDT change enable (WDT_CEN_bm)
+ 146:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    2) enable WDT (WDT_ENABLE_bm)
+ 147:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    3) set timeout (timeout)
+ 148:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** ** Synchronization starts when ENABLE bit of WDT is set. So, wait till it
+ 149:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    finishes (SYNCBUSY of STATUS register is automatically cleared after the
+ 150:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****    sync is finished).
+ 151:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** */
+ 152:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define wdt_enable(timeout) \
+ 153:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** do { \
+ 154:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** uint8_t temp; \
+ 155:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __asm__ __volatile__ (         \
+ 156:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "in __tmp_reg__, %[rampd]"              "\n\t" \
+ 157:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[rampd], __zero_reg__"            "\n\t" \
+ 158:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[ccp_reg], %[ioreg_cen_mask]"     "\n\t" \
+ 159:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "sts %[wdt_reg], %[wdt_enable_timeout]" "\n\t" \
+ 160:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "1:lds %[tmp], %[wdt_status_reg]"       "\n\t" \
+ 161:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "sbrc %[tmp], %[wdt_syncbusy_bit]"      "\n\t" \
+ 162:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "rjmp 1b"                               "\n\t" \
+ 163:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[rampd], __tmp_reg__"             "\n\t" \
+ 164:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : [tmp]                "=r" (temp) \
+ 165:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : [rampd]              "I" (_SFR_IO_ADDR(RAMPD)),      \
+ 166:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [ccp_reg]            "I" (_SFR_IO_ADDR(CCP)),        \
+ 167:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [ioreg_cen_mask]     "r" ((uint8_t)CCP_IOREG_gc),     \
+ 168:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [wdt_reg]            "n" (_SFR_MEM_ADDR(WDT_CTRL)),   \
+ 169:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [wdt_enable_timeout] "r" ((uint8_t)(WDT_CEN_bm | WDT_ENABLE_bm | timeout)), \
+ 170:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [wdt_status_reg]     "n" (_SFR_MEM_ADDR(WDT_STATUS)), \
+ 171:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [wdt_syncbusy_bit]   "I" (WDT_SYNCBUSY_bm)            \
+ 172:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : "r0" \
+ 173:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** ); \
+ 174:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** } while(0)
+ 175:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 176:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define wdt_disable() \
+ 177:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __asm__ __volatile__ (  \
+ 178:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "in __tmp_reg__, %[rampd]"          "\n\t" \
+ 179:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[rampd], __zero_reg__"        "\n\t" \
+ 180:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[ccp_reg], %[ioreg_cen_mask]" "\n\t" \
+ 181:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "sts %[wdt_reg], %[disable_mask]"   "\n\t" \
+ 182:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[rampd], __tmp_reg__"         "\n\t" \
+ 183:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : \
+ 184:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : [rampd]             "I" (_SFR_IO_ADDR(RAMPD)),    \
+ 185:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [ccp_reg]           "I" (_SFR_IO_ADDR(CCP)),      \
+ 186:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [ioreg_cen_mask]    "r" ((uint8_t)CCP_IOREG_gc),   \
+ 187:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [wdt_reg]           "n" (_SFR_MEM_ADDR(WDT_CTRL)), \
+ 188:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [disable_mask]      "r" ((uint8_t)((~WDT_ENABLE_bm) | WDT_CEN_bm)) \
+ 189:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : "r0" \
+ 190:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** );
+ 191:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 192:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #elif defined(__AVR_TINY__)
+ 193:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 194:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define wdt_enable(value) \
+ 195:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __asm__ __volatile__ ( \
+ 196:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "in __tmp_reg__,__SREG__" "\n\t"  \
+ 197:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "cli" "\n\t"  \
+ 198:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "wdr" "\n\t"  \
+ 199:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[CCPADDRESS],%[SIGNATURE]" "\n\t"  \
+ 200:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[WDTREG],%[WDVALUE]" "\n\t"  \
+ 201:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out __SREG__,__tmp_reg__" "\n\t"  \
+ 202:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : /* no outputs */  \
+ 203:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : [CCPADDRESS] "I" (_SFR_IO_ADDR(CCP)),  \
+ 204:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [SIGNATURE] "r" ((uint8_t)0xD8), \
+ 205:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [WDTREG] "I" (_SFR_IO_ADDR(_WD_CONTROL_REG)), \
+ 206:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [WDVALUE] "r" ((uint8_t)((value & 0x08 ? _WD_PS3_MASK : 0x00) \
+ 207:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       | _BV(WDE) | (value & 0x07) )) \
+ 208:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : "r16" \
+ 209:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** )
+ 210:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 211:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #define wdt_disable() \
+ 212:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** do { \
+ 213:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** uint8_t temp_wd; \
+ 214:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __asm__ __volatile__ ( \
+ 215:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "in __tmp_reg__,__SREG__" "\n\t"  \
+ 216:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "cli" "\n\t"  \
+ 217:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "wdr" "\n\t"  \
+ 218:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[CCPADDRESS],%[SIGNATURE]" "\n\t"  \
+ 219:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "in  %[TEMP_WD],%[WDTREG]" "\n\t" \
+ 220:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "cbr %[TEMP_WD],%[WDVALUE]" "\n\t" \
+ 221:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out %[WDTREG],%[TEMP_WD]" "\n\t" \
+ 222:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     "out __SREG__,__tmp_reg__" "\n\t" \
+ 223:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : /*no output */ \
+ 224:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : [CCPADDRESS] "I" (_SFR_IO_ADDR(CCP)), \
+ 225:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [SIGNATURE] "r" ((uint8_t)0xD8), \
+ 226:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [WDTREG] "I" (_SFR_IO_ADDR(_WD_CONTROL_REG)), \
+ 227:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [TEMP_WD] "d" (temp_wd), \
+ 228:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****       [WDVALUE] "n" (1 << WDE) \
+ 229:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****     : "r16" \
+ 230:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** ); \
+ 231:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** }while(0)
+ 232:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 233:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #elif defined(CCP)
+ 234:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 235:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** static __inline__
+ 236:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __attribute__ ((__always_inline__))
+ 237:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** void wdt_enable (const uint8_t value)
+ 238:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** {
+ 239:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	if (!_SFR_IO_REG_P (CCP) && !_SFR_IO_REG_P (_WD_CONTROL_REG))
+ 240:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 241:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+ 242:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"in __tmp_reg__,__SREG__" "\n\t"
+ 243:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"cli" "\n\t"
+ 244:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"wdr" "\n\t"
+ 245:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"sts %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 246:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"sts %[WDTREG],%[WDVALUE]" "\n\t"
+ 247:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out __SREG__,__tmp_reg__" "\n\t"
+ 248:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: /* no outputs */
+ 249:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: [CCPADDRESS] "n" (_SFR_MEM_ADDR(CCP)),
+ 250:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[SIGNATURE] "r" ((uint8_t)0xD8),
+ 251:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDTREG] "n" (_SFR_MEM_ADDR(_WD_CONTROL_REG)),
+ 252:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDVALUE] "r" ((uint8_t)((value & 0x08 ? _WD_PS3_MASK : 0x00)
+ 253:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				| _BV(WDE) | (value & 0x07) ))
+ 254:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: "r0"
+ 255:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			);
+ 256:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 257:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else if (!_SFR_IO_REG_P (CCP) && _SFR_IO_REG_P (_WD_CONTROL_REG))
+ 258:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 259:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+ 260:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"in __tmp_reg__,__SREG__" "\n\t"
+ 261:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"cli" "\n\t"
+ 262:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"wdr" "\n\t"
+ 263:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"sts %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 264:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out %[WDTREG],%[WDVALUE]" "\n\t"
+ 265:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out __SREG__,__tmp_reg__" "\n\t"
+ 266:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: /* no outputs */
+ 267:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: [CCPADDRESS] "n" (_SFR_MEM_ADDR(CCP)),
+ 268:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[SIGNATURE] "r" ((uint8_t)0xD8),
+ 269:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDTREG] "I" (_SFR_IO_ADDR(_WD_CONTROL_REG)),
+ 270:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDVALUE] "r" ((uint8_t)((value & 0x08 ? _WD_PS3_MASK : 0x00)
+ 271:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				| _BV(WDE) | (value & 0x07) ))
+ 272:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: "r0"
+ 273:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			);
+ 274:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 275:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else if (_SFR_IO_REG_P (CCP) && !_SFR_IO_REG_P (_WD_CONTROL_REG))
+ 276:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 277:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+ 278:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"in __tmp_reg__,__SREG__" "\n\t"
+ 279:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"cli" "\n\t"
+ 280:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"wdr" "\n\t"
+ 281:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 282:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"sts %[WDTREG],%[WDVALUE]" "\n\t"
+ 283:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out __SREG__,__tmp_reg__" "\n\t"
+ 284:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: /* no outputs */
+ 285:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: [CCPADDRESS] "I" (_SFR_IO_ADDR(CCP)),
+ 286:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[SIGNATURE] "r" ((uint8_t)0xD8),
+ 287:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDTREG] "n" (_SFR_MEM_ADDR(_WD_CONTROL_REG)),
+ 288:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDVALUE] "r" ((uint8_t)((value & 0x08 ? _WD_PS3_MASK : 0x00)
+ 289:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				| _BV(WDE) | (value & 0x07) ))
+ 290:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: "r0"
+ 291:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			);
+ 292:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 293:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else
+ 294:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****  	{
+ 295:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+ 296:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"in __tmp_reg__,__SREG__" "\n\t"
+ 297:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"cli" "\n\t"
+ 298:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"wdr" "\n\t"
+ 299:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 300:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out %[WDTREG],%[WDVALUE]" "\n\t"
+ 301:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			"out __SREG__,__tmp_reg__" "\n\t"
+ 302:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: /* no outputs */
+ 303:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: [CCPADDRESS] "I" (_SFR_IO_ADDR(CCP)),
+ 304:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[SIGNATURE] "r" ((uint8_t)0xD8),
+ 305:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDTREG] "I" (_SFR_IO_ADDR(_WD_CONTROL_REG)),
+ 306:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			[WDVALUE] "r" ((uint8_t)((value & 0x08 ? _WD_PS3_MASK : 0x00)
+ 307:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				| _BV(WDE) | (value & 0x07) ))
+ 308:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			: "r0"
+ 309:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 			);
+ 310:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 311:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** }
+ 312:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 313:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** static __inline__
+ 314:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __attribute__ ((__always_inline__))
+ 315:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** void wdt_disable (void)
+ 316:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** {
+ 317:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	if (!_SFR_IO_REG_P (CCP) && !_SFR_IO_REG_P(_WD_CONTROL_REG))
+ 318:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 319:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         uint8_t temp_wd;
+ 320:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         __asm__ __volatile__ (
+ 321:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in __tmp_reg__,__SREG__" "\n\t"
+ 322:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cli" "\n\t"
+ 323:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"wdr" "\n\t"
+ 324:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"sts %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 325:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"lds %[TEMP_WD],%[WDTREG]" "\n\t"
+ 326:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
+ 327:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"sts %[WDTREG],%[TEMP_WD]" "\n\t"
+ 328:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out __SREG__,__tmp_reg__" "\n\t"
+ 329:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: /*no output */
+ 330:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: [CCPADDRESS] "n" (_SFR_MEM_ADDR(CCP)),
+ 331:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[SIGNATURE] "r" ((uint8_t)0xD8),
+ 332:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDTREG] "n" (_SFR_MEM_ADDR(_WD_CONTROL_REG)),
+ 333:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[TEMP_WD] "d" (temp_wd),
+ 334:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDVALUE] "n" (1 << WDE)
+ 335:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "r0"
+ 336:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				);
+ 337:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 338:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else if (!_SFR_IO_REG_P (CCP) && _SFR_IO_REG_P(_WD_CONTROL_REG))
+ 339:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 340:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         uint8_t temp_wd;
+ 341:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         __asm__ __volatile__ (
+ 342:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in __tmp_reg__,__SREG__" "\n\t"
+ 343:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cli" "\n\t"
+ 344:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"wdr" "\n\t"
+ 345:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"sts %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 346:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in %[TEMP_WD],%[WDTREG]" "\n\t"
+ 347:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
+ 348:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %[WDTREG],%[TEMP_WD]" "\n\t"
+ 349:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out __SREG__,__tmp_reg__" "\n\t"
+ 350:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: /*no output */
+ 351:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: [CCPADDRESS] "n" (_SFR_MEM_ADDR(CCP)),
+ 352:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[SIGNATURE] "r" ((uint8_t)0xD8),
+ 353:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDTREG] "I" (_SFR_IO_ADDR(_WD_CONTROL_REG)),
+ 354:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[TEMP_WD] "d" (temp_wd),
+ 355:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDVALUE] "n" (1 << WDE)
+ 356:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "r0"
+ 357:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				);
+ 358:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 359:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else if (_SFR_IO_REG_P (CCP) && !_SFR_IO_REG_P(_WD_CONTROL_REG))
+ 360:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 361:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         uint8_t temp_wd;
+ 362:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         __asm__ __volatile__ (
+ 363:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in __tmp_reg__,__SREG__" "\n\t"
+ 364:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cli" "\n\t"
+ 365:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"wdr" "\n\t"
+ 366:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 367:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"lds %[TEMP_WD],%[WDTREG]" "\n\t"
+ 368:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
+ 369:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"sts %[WDTREG],%[TEMP_WD]" "\n\t"
+ 370:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out __SREG__,__tmp_reg__" "\n\t"
+ 371:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: /*no output */
+ 372:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: [CCPADDRESS] "I" (_SFR_IO_ADDR(CCP)),
+ 373:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[SIGNATURE] "r" ((uint8_t)0xD8),
+ 374:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDTREG] "n" (_SFR_MEM_ADDR(_WD_CONTROL_REG)),
+ 375:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[TEMP_WD] "d" (temp_wd),
+ 376:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDVALUE] "n" (1 << WDE)
+ 377:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "r0"
+ 378:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				);
+ 379:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 380:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else
+ 381:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 382:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         uint8_t temp_wd;
+ 383:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         __asm__ __volatile__ (
+ 384:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in __tmp_reg__,__SREG__" "\n\t"
+ 385:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cli" "\n\t"
+ 386:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"wdr" "\n\t"
+ 387:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %[CCPADDRESS],%[SIGNATURE]" "\n\t"
+ 388:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in %[TEMP_WD],%[WDTREG]" "\n\t"
+ 389:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cbr %[TEMP_WD],%[WDVALUE]" "\n\t"
+ 390:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %[WDTREG],%[TEMP_WD]" "\n\t"
+ 391:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out __SREG__,__tmp_reg__" "\n\t"
+ 392:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: /*no output */
+ 393:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: [CCPADDRESS] "I" (_SFR_IO_ADDR(CCP)),
+ 394:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[SIGNATURE] "r" ((uint8_t)0xD8),
+ 395:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDTREG] "I" (_SFR_IO_ADDR(_WD_CONTROL_REG)),
+ 396:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[TEMP_WD] "d" (temp_wd),
+ 397:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDVALUE] "n" (1 << WDE)
+ 398:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "r0"
+ 399:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				);
+ 400:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 401:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** }
+ 402:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 403:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** #else
+ 404:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 405:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** static __inline__
+ 406:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __attribute__ ((__always_inline__))
+ 407:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** void wdt_enable (const uint8_t value)
+  36               		.loc 2 407 6 view .LVU6
+  37               	.LBB8:
+ 408:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** {
+ 409:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	if (_SFR_IO_REG_P (_WD_CONTROL_REG))
+  38               		.loc 2 409 2 view .LVU7
+ 410:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 411:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+ 412:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in __tmp_reg__,__SREG__" "\n\t"
+ 413:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cli" "\n\t"
+ 414:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"wdr" "\n\t"
+ 415:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %0, %1" "\n\t"
+ 416:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out __SREG__,__tmp_reg__" "\n\t"
+ 417:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %0, %2" "\n \t"
+ 418:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: /* no outputs */
+ 419:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "I" (_SFR_IO_ADDR(_WD_CONTROL_REG)),
+ 420:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"r" ((uint8_t)(_BV(_WD_CHANGE_BIT) | _BV(WDE))),
+ 421:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"r" ((uint8_t) ((value & 0x08 ? _WD_PS3_MASK : 0x00) |
+ 422:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 						_BV(WDE) | (value & 0x07)) )
+ 423:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "r0"
+ 424:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		);
+ 425:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 426:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else
+ 427:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 428:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+  39               		.loc 2 428 3 view .LVU8
+  40 000c 88E1      		ldi r24,lo8(24)
+  41 000e 9AE0      		ldi r25,lo8(10)
+  42               	/* #APP */
+  43               	 ;  428 "c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h" 1
+  44 0010 0FB6      		in __tmp_reg__,__SREG__
+  45 0012 F894      		cli
+  46 0014 A895      		wdr
+  47 0016 8093 6000 		sts 96, r24
+  48 001a 0FBE      		out __SREG__,__tmp_reg__
+  49 001c 9093 6000 		sts 96, r25
+  50               	 	
+  51               	 ;  0 "" 2
+  52               	/* #NOAPP */
+  53               	.L2:
+  54               	.LBE8:
+  55               	.LBE7:
+ 217:tmk_core/common/avr/bootloader.c **** 
+ 218:tmk_core/common/avr/bootloader.c ****     while (1) {
+  56               		.loc 1 218 5 discriminator 1 view .LVU9
+ 219:tmk_core/common/avr/bootloader.c ****     }  // wait for watchdog timer to trigger
+  57               		.loc 1 219 5 discriminator 1 view .LVU10
+ 218:tmk_core/common/avr/bootloader.c ****     }  // wait for watchdog timer to trigger
+  58               		.loc 1 218 11 discriminator 1 view .LVU11
+  59 0020 00C0      		rjmp .L2
+  60               		.cfi_endproc
+  61               	.LFE102:
+  63               		.section	.init3,"ax",@progbits
+  64               	.global	bootloader_jump_after_watchdog_reset
+  66               	bootloader_jump_after_watchdog_reset:
+  67               	.LFB103:
+ 220:tmk_core/common/avr/bootloader.c **** 
+ 221:tmk_core/common/avr/bootloader.c **** #elif defined(BOOTLOADER_USBASP)
+ 222:tmk_core/common/avr/bootloader.c ****     // Taken with permission of Stephan Baerwolf from https://github.com/tinyusbboard/API/blob/mast
+ 223:tmk_core/common/avr/bootloader.c ****     wdt_enable(WDTO_15MS);
+ 224:tmk_core/common/avr/bootloader.c ****     wdt_reset();
+ 225:tmk_core/common/avr/bootloader.c ****     asm volatile("cli                    \n\t"
+ 226:tmk_core/common/avr/bootloader.c ****                  "ldi    r29 ,       %[ramendhi] \n\t"
+ 227:tmk_core/common/avr/bootloader.c ****                  "ldi    r28 ,       %[ramendlo] \n\t"
+ 228:tmk_core/common/avr/bootloader.c **** #    if (FLASHEND > 131071)
+ 229:tmk_core/common/avr/bootloader.c ****                  "ldi    r18 ,       %[bootaddrhi]   \n\t"
+ 230:tmk_core/common/avr/bootloader.c ****                  "st     Y+,         r18     \n\t"
+ 231:tmk_core/common/avr/bootloader.c **** #    endif
+ 232:tmk_core/common/avr/bootloader.c ****                  "ldi    r18 ,       %[bootaddrme]   \n\t"
+ 233:tmk_core/common/avr/bootloader.c ****                  "st     Y+,     r18     \n\t"
+ 234:tmk_core/common/avr/bootloader.c ****                  "ldi    r18 ,       %[bootaddrlo]   \n\t"
+ 235:tmk_core/common/avr/bootloader.c ****                  "st     Y+,     r18     \n\t"
+ 236:tmk_core/common/avr/bootloader.c ****                  "out    %[mcucsrio],    __zero_reg__    \n\t"
+ 237:tmk_core/common/avr/bootloader.c ****                  "bootloader_startup_loop%=:         \n\t"
+ 238:tmk_core/common/avr/bootloader.c ****                  "rjmp bootloader_startup_loop%=     \n\t"
+ 239:tmk_core/common/avr/bootloader.c ****                  :
+ 240:tmk_core/common/avr/bootloader.c ****                  : [mcucsrio] "I"(_SFR_IO_ADDR(MCUCSR)),
+ 241:tmk_core/common/avr/bootloader.c **** #    if (FLASHEND > 131071)
+ 242:tmk_core/common/avr/bootloader.c ****                    [ramendhi] "M"(((RAMEND - 2) >> 8) & 0xff), [ramendlo] "M"(((RAMEND - 2) >> 0) &
+ 243:tmk_core/common/avr/bootloader.c **** #    else
+ 244:tmk_core/common/avr/bootloader.c ****                    [ramendhi] "M"(((RAMEND - 1) >> 8) & 0xff), [ramendlo] "M"(((RAMEND - 1) >> 0) &
+ 245:tmk_core/common/avr/bootloader.c **** #    endif
+ 246:tmk_core/common/avr/bootloader.c ****                    [bootaddrme] "M"((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 8) & 0xff), [bootaddr
+ 247:tmk_core/common/avr/bootloader.c **** 
+ 248:tmk_core/common/avr/bootloader.c **** #else  // Assume remaining boards are DFU, even if the flag isn't set
+ 249:tmk_core/common/avr/bootloader.c **** 
+ 250:tmk_core/common/avr/bootloader.c **** #    if !(defined(__AVR_ATmega32A__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__) |
+ 251:tmk_core/common/avr/bootloader.c ****     UDCON  = 1;
+ 252:tmk_core/common/avr/bootloader.c ****     USBCON = (1 << FRZCLK);  // disable USB
+ 253:tmk_core/common/avr/bootloader.c ****     UCSR1B = 0;
+ 254:tmk_core/common/avr/bootloader.c ****     _delay_ms(5);  // 5 seems to work fine
+ 255:tmk_core/common/avr/bootloader.c **** #    endif
+ 256:tmk_core/common/avr/bootloader.c **** 
+ 257:tmk_core/common/avr/bootloader.c **** #    ifdef BOOTLOADER_BOOTLOADHID
+ 258:tmk_core/common/avr/bootloader.c ****     // force bootloadHID to stay in bootloader mode, so that it waits
+ 259:tmk_core/common/avr/bootloader.c ****     // for a new firmware to be flashed
+ 260:tmk_core/common/avr/bootloader.c ****     eeprom_write_byte((uint8_t *)1, 0x00);
+ 261:tmk_core/common/avr/bootloader.c **** #    endif
+ 262:tmk_core/common/avr/bootloader.c **** 
+ 263:tmk_core/common/avr/bootloader.c ****     // watchdog reset
+ 264:tmk_core/common/avr/bootloader.c ****     reset_key = BOOTLOADER_RESET_KEY;
+ 265:tmk_core/common/avr/bootloader.c ****     wdt_enable(WDTO_250MS);
+ 266:tmk_core/common/avr/bootloader.c ****     for (;;)
+ 267:tmk_core/common/avr/bootloader.c ****         ;
+ 268:tmk_core/common/avr/bootloader.c **** #endif
+ 269:tmk_core/common/avr/bootloader.c **** }
+ 270:tmk_core/common/avr/bootloader.c **** 
+ 271:tmk_core/common/avr/bootloader.c **** /* this runs before main() */
+ 272:tmk_core/common/avr/bootloader.c **** void bootloader_jump_after_watchdog_reset(void) __attribute__((used, naked, section(".init3")));
+ 273:tmk_core/common/avr/bootloader.c **** void bootloader_jump_after_watchdog_reset(void) {
+  68               		.loc 1 273 49 view -0
+  69               		.cfi_startproc
+  70               	/* prologue: naked */
+  71               	/* frame size = 0 */
+  72               	/* stack size = 0 */
+  73               	.L__stack_usage = 0
+ 274:tmk_core/common/avr/bootloader.c **** #ifndef BOOTLOADER_HALFKAY
+ 275:tmk_core/common/avr/bootloader.c ****     if ((MCUCSR & (1 << WDRF)) && reset_key == BOOTLOADER_RESET_KEY) {
+  74               		.loc 1 275 5 view .LVU13
+  75               		.loc 1 275 8 is_stmt 0 view .LVU14
+  76 0000 04B6      		in __tmp_reg__,0x34
+  77 0002 03FE      		sbrs __tmp_reg__,3
+  78 0004 00C0      		rjmp .L3
+  79               		.loc 1 275 32 discriminator 1 view .LVU15
+  80 0006 8091 0000 		lds r24,reset_key
+  81 000a 9091 0000 		lds r25,reset_key+1
+  82 000e A091 0000 		lds r26,reset_key+2
+  83 0012 B091 0000 		lds r27,reset_key+3
+  84 0016 8730      		cpi r24,7
+  85 0018 904B      		sbci r25,-80
+  86 001a A740      		sbci r26,7
+  87 001c B04B      		sbci r27,-80
+  88 001e 01F4      		brne .L3
+ 276:tmk_core/common/avr/bootloader.c ****         reset_key = 0;
+  89               		.loc 1 276 9 is_stmt 1 view .LVU16
+  90               		.loc 1 276 19 is_stmt 0 view .LVU17
+  91 0020 1092 0000 		sts reset_key,__zero_reg__
+  92 0024 1092 0000 		sts reset_key+1,__zero_reg__
+  93 0028 1092 0000 		sts reset_key+2,__zero_reg__
+  94 002c 1092 0000 		sts reset_key+3,__zero_reg__
+ 277:tmk_core/common/avr/bootloader.c **** 
+ 278:tmk_core/common/avr/bootloader.c ****         // My custom USBasploader requires this to come up.
+ 279:tmk_core/common/avr/bootloader.c ****         MCUCSR = 0;
+  95               		.loc 1 279 9 is_stmt 1 view .LVU18
+  96               		.loc 1 279 16 is_stmt 0 view .LVU19
+  97 0030 14BE      		out 0x34,__zero_reg__
+ 280:tmk_core/common/avr/bootloader.c **** 
+ 281:tmk_core/common/avr/bootloader.c ****         // Seems like Teensy halfkay loader requires clearing WDRF and disabling watchdog.
+ 282:tmk_core/common/avr/bootloader.c ****         MCUCSR &= ~(1 << WDRF);
+  98               		.loc 1 282 9 is_stmt 1 view .LVU20
+  99               		.loc 1 282 16 is_stmt 0 view .LVU21
+ 100 0032 84B7      		in r24,0x34
+ 101 0034 877F      		andi r24,lo8(-9)
+ 102 0036 84BF      		out 0x34,r24
+ 283:tmk_core/common/avr/bootloader.c ****         wdt_disable();
+ 103               		.loc 1 283 9 is_stmt 1 view .LVU22
+ 104               	.LBB9:
+ 105               	.LBI9:
+ 429:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in __tmp_reg__,__SREG__" "\n\t"
+ 430:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cli" "\n\t"
+ 431:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"wdr" "\n\t"
+ 432:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"sts %0, %1" "\n\t"
+ 433:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out __SREG__,__tmp_reg__" "\n\t"
+ 434:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"sts %0, %2" "\n \t"
+ 435:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: /* no outputs */
+ 436:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "n" (_SFR_MEM_ADDR(_WD_CONTROL_REG)),
+ 437:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"r" ((uint8_t)(_BV(_WD_CHANGE_BIT) | _BV(WDE))),
+ 438:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"r" ((uint8_t) ((value & 0x08 ? _WD_PS3_MASK : 0x00) |
+ 439:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 						_BV(WDE) | (value & 0x07)) )
+ 440:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "r0"
+ 441:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		);
+ 442:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 443:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** }
+ 444:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 
+ 445:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** static __inline__
+ 446:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** __attribute__ ((__always_inline__))
+ 447:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** void wdt_disable (void)
+ 106               		.loc 2 447 6 view .LVU23
+ 107               	.LBE9:
+ 448:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** {
+ 449:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	if (_SFR_IO_REG_P (_WD_CONTROL_REG))
+ 108               		.loc 2 449 2 view .LVU24
+ 109               	.LBB11:
+ 110               	.LBB10:
+ 450:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 451:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         uint8_t register temp_reg;
+ 452:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+ 453:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in __tmp_reg__,__SREG__"    "\n\t"
+ 454:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"cli"                        "\n\t"
+ 455:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"wdr"                        "\n\t"
+ 456:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"in  %[TEMPREG],%[WDTREG]"   "\n\t"
+ 457:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"ori %[TEMPREG],%[WDCE_WDE]" "\n\t"
+ 458:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %[WDTREG],%[TEMPREG]"   "\n\t"
+ 459:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out %[WDTREG],__zero_reg__" "\n\t"
+ 460:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				"out __SREG__,__tmp_reg__"   "\n\t"
+ 461:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: [TEMPREG] "=d" (temp_reg)
+ 462:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: [WDTREG]  "I"  (_SFR_IO_ADDR(_WD_CONTROL_REG)),
+ 463:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				[WDCE_WDE]  "n"  ((uint8_t)(_BV(_WD_CHANGE_BIT) | _BV(WDE)))
+ 464:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 				: "r0"
+ 465:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		);
+ 466:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	}
+ 467:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	else
+ 468:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 	{
+ 469:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h ****         uint8_t register temp_reg;
+ 111               		.loc 2 469 9 view .LVU25
+ 470:c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h **** 		__asm__ __volatile__ (
+ 112               		.loc 2 470 3 view .LVU26
+ 113               	/* #APP */
+ 114               	 ;  470 "c:\program files\qmk_msys\mingw64\avr\include\avr\wdt.h" 1
+ 115 0038 0FB6      		in __tmp_reg__,__SREG__
+ 116 003a F894      		cli
+ 117 003c A895      		wdr
+ 118 003e 8091 6000 		lds r24,96
+ 119 0042 8861      		ori r24,24
+ 120 0044 8093 6000 		sts 96,r24
+ 121 0048 1092 6000 		sts 96,__zero_reg__
+ 122 004c 0FBE      		out __SREG__,__tmp_reg__
+ 123               		
+ 124               	 ;  0 "" 2
+ 125               	/* #NOAPP */
+ 126               	.LBE10:
+ 127               	.LBE11:
+ 284:tmk_core/common/avr/bootloader.c **** 
+ 285:tmk_core/common/avr/bootloader.c **** // This is compled into 'icall', address should be in word unit, not byte.
+ 286:tmk_core/common/avr/bootloader.c **** #    ifdef BOOTLOADER_SIZE
+ 287:tmk_core/common/avr/bootloader.c ****         ((void (*)(void))((FLASH_SIZE - BOOTLOADER_SIZE) >> 1))();
+ 128               		.loc 1 287 9 view .LVU27
+ 129 004e E0E0      		ldi r30,0
+ 130 0050 F8E3      		ldi r31,lo8(56)
+ 131 0052 0995      		icall
+ 132               	.LVL2:
+ 133               	.L3:
+ 134               	/* epilogue start */
+ 288:tmk_core/common/avr/bootloader.c **** #    else
+ 289:tmk_core/common/avr/bootloader.c ****         asm("ijmp" ::"z"(bootloader_start));
+ 290:tmk_core/common/avr/bootloader.c **** #    endif
+ 291:tmk_core/common/avr/bootloader.c ****     }
+ 292:tmk_core/common/avr/bootloader.c **** #endif
+ 293:tmk_core/common/avr/bootloader.c **** }
+ 135               		.loc 1 293 1 is_stmt 0 view .LVU28
+ 136               		.cfi_endproc
+ 137               	.LFE103:
+ 139               	.global	reset_key
+ 140               		.section	.noinit,"aw",@nobits;,"aw"
+ 143               	reset_key:
+ 144 0000 0000 0000 		.zero	4
+ 145               		.text
+ 146               	.Letext0:
+ 147               		.file 3 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+ 148               		.file 4 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+ 149               		.file 5 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+ 150               		.file 6 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+ 151               		.file 7 "lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.h"
+ 152               		.file 8 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdio.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bootloader.c
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:13     .text.bootloader_jump:0000000000000000 bootloader_jump
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:66     .init3:0000000000000000 bootloader_jump_after_watchdog_reset
+C:\Users\gazed\AppData\Local\Temp\ccptSG6i.s:143    .noinit:0000000000000000 reset_key
+
+NO UNDEFINED SYMBOLS

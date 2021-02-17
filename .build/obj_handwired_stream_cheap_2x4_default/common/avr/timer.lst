@@ -1,0 +1,686 @@
+   1               		.file	"timer.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.timer_init,"ax",@progbits
+  11               	.global	timer_init
+  13               	timer_init:
+  14               	.LFB5:
+  15               		.file 1 "tmk_core/common/avr/timer.c"
+   1:tmk_core/common/avr/timer.c **** /*
+   2:tmk_core/common/avr/timer.c **** Copyright 2011 Jun Wako <wakojun@gmail.com>
+   3:tmk_core/common/avr/timer.c **** 
+   4:tmk_core/common/avr/timer.c **** This program is free software: you can redistribute it and/or modify
+   5:tmk_core/common/avr/timer.c **** it under the terms of the GNU General Public License as published by
+   6:tmk_core/common/avr/timer.c **** the Free Software Foundation, either version 2 of the License, or
+   7:tmk_core/common/avr/timer.c **** (at your option) any later version.
+   8:tmk_core/common/avr/timer.c **** 
+   9:tmk_core/common/avr/timer.c **** This program is distributed in the hope that it will be useful,
+  10:tmk_core/common/avr/timer.c **** but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:tmk_core/common/avr/timer.c **** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  12:tmk_core/common/avr/timer.c **** GNU General Public License for more details.
+  13:tmk_core/common/avr/timer.c **** 
+  14:tmk_core/common/avr/timer.c **** You should have received a copy of the GNU General Public License
+  15:tmk_core/common/avr/timer.c **** along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  16:tmk_core/common/avr/timer.c **** */
+  17:tmk_core/common/avr/timer.c **** 
+  18:tmk_core/common/avr/timer.c **** #include <avr/io.h>
+  19:tmk_core/common/avr/timer.c **** #include <avr/interrupt.h>
+  20:tmk_core/common/avr/timer.c **** #include <util/atomic.h>
+  21:tmk_core/common/avr/timer.c **** #include <stdint.h>
+  22:tmk_core/common/avr/timer.c **** #include "timer_avr.h"
+  23:tmk_core/common/avr/timer.c **** #include "timer.h"
+  24:tmk_core/common/avr/timer.c **** 
+  25:tmk_core/common/avr/timer.c **** // counter resolution 1ms
+  26:tmk_core/common/avr/timer.c **** // NOTE: union { uint32_t timer32; struct { uint16_t dummy; uint16_t timer16; }}
+  27:tmk_core/common/avr/timer.c **** volatile uint32_t timer_count;
+  28:tmk_core/common/avr/timer.c **** 
+  29:tmk_core/common/avr/timer.c **** /** \brief timer initialization
+  30:tmk_core/common/avr/timer.c ****  *
+  31:tmk_core/common/avr/timer.c ****  * FIXME: needs doc
+  32:tmk_core/common/avr/timer.c ****  */
+  33:tmk_core/common/avr/timer.c **** void timer_init(void) {
+  16               		.loc 1 33 23 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  34:tmk_core/common/avr/timer.c **** #if TIMER_PRESCALER == 1
+  35:tmk_core/common/avr/timer.c ****     uint8_t prescaler = _BV(CS00);
+  36:tmk_core/common/avr/timer.c **** #elif TIMER_PRESCALER == 8
+  37:tmk_core/common/avr/timer.c ****     uint8_t prescaler = _BV(CS01);
+  38:tmk_core/common/avr/timer.c **** #elif TIMER_PRESCALER == 64
+  39:tmk_core/common/avr/timer.c ****     uint8_t prescaler = _BV(CS00) | _BV(CS01);
+  22               		.loc 1 39 5 view .LVU1
+  23               	.LVL0:
+  40:tmk_core/common/avr/timer.c **** #elif TIMER_PRESCALER == 256
+  41:tmk_core/common/avr/timer.c ****     uint8_t prescaler = _BV(CS02);
+  42:tmk_core/common/avr/timer.c **** #elif TIMER_PRESCALER == 1024
+  43:tmk_core/common/avr/timer.c ****     uint8_t prescaler = _BV(CS00) | _BV(CS02);
+  44:tmk_core/common/avr/timer.c **** #else
+  45:tmk_core/common/avr/timer.c **** #    error "Timer prescaler value is not valid"
+  46:tmk_core/common/avr/timer.c **** #endif
+  47:tmk_core/common/avr/timer.c **** 
+  48:tmk_core/common/avr/timer.c **** #if defined(__AVR_ATmega32A__)
+  49:tmk_core/common/avr/timer.c ****     // Timer0 CTC mode
+  50:tmk_core/common/avr/timer.c ****     TCCR0 = _BV(WGM01) | prescaler;
+  51:tmk_core/common/avr/timer.c **** 
+  52:tmk_core/common/avr/timer.c ****     OCR0  = TIMER_RAW_TOP;
+  53:tmk_core/common/avr/timer.c ****     TIMSK = _BV(OCIE0);
+  54:tmk_core/common/avr/timer.c **** #elif defined(__AVR_ATtiny85__)
+  55:tmk_core/common/avr/timer.c ****     // Timer0 CTC mode
+  56:tmk_core/common/avr/timer.c ****     TCCR0A = _BV(WGM01);
+  57:tmk_core/common/avr/timer.c ****     TCCR0B = prescaler;
+  58:tmk_core/common/avr/timer.c **** 
+  59:tmk_core/common/avr/timer.c ****     OCR0A = TIMER_RAW_TOP;
+  60:tmk_core/common/avr/timer.c ****     TIMSK = _BV(OCIE0A);
+  61:tmk_core/common/avr/timer.c **** #else
+  62:tmk_core/common/avr/timer.c ****     // Timer0 CTC mode
+  63:tmk_core/common/avr/timer.c ****     TCCR0A = _BV(WGM01);
+  24               		.loc 1 63 5 view .LVU2
+  25               		.loc 1 63 12 is_stmt 0 view .LVU3
+  26 0000 82E0      		ldi r24,lo8(2)
+  27 0002 84BD      		out 0x24,r24
+  64:tmk_core/common/avr/timer.c ****     TCCR0B = prescaler;
+  28               		.loc 1 64 5 is_stmt 1 view .LVU4
+  29               		.loc 1 64 12 is_stmt 0 view .LVU5
+  30 0004 93E0      		ldi r25,lo8(3)
+  31 0006 95BD      		out 0x25,r25
+  65:tmk_core/common/avr/timer.c **** 
+  66:tmk_core/common/avr/timer.c ****     OCR0A  = TIMER_RAW_TOP;
+  32               		.loc 1 66 5 is_stmt 1 view .LVU6
+  33               		.loc 1 66 12 is_stmt 0 view .LVU7
+  34 0008 9DE7      		ldi r25,lo8(125)
+  35 000a 97BD      		out 0x27,r25
+  67:tmk_core/common/avr/timer.c ****     TIMSK0 = _BV(OCIE0A);
+  36               		.loc 1 67 5 is_stmt 1 view .LVU8
+  37               		.loc 1 67 12 is_stmt 0 view .LVU9
+  38 000c 8093 6E00 		sts 110,r24
+  39               	/* epilogue start */
+  68:tmk_core/common/avr/timer.c **** #endif
+  69:tmk_core/common/avr/timer.c **** }
+  40               		.loc 1 69 1 view .LVU10
+  41 0010 0895      		ret
+  42               		.cfi_endproc
+  43               	.LFE5:
+  45               		.section	.text.timer_clear,"ax",@progbits
+  46               	.global	timer_clear
+  48               	timer_clear:
+  49               	.LFB6:
+  70:tmk_core/common/avr/timer.c **** 
+  71:tmk_core/common/avr/timer.c **** /** \brief timer clear
+  72:tmk_core/common/avr/timer.c ****  *
+  73:tmk_core/common/avr/timer.c ****  * FIXME: needs doc
+  74:tmk_core/common/avr/timer.c ****  */
+  75:tmk_core/common/avr/timer.c **** inline void timer_clear(void) {
+  50               		.loc 1 75 31 is_stmt 1 view -0
+  51               		.cfi_startproc
+  52               	/* prologue: function */
+  53               	/* frame size = 0 */
+  54               	/* stack size = 0 */
+  55               	.L__stack_usage = 0
+  76:tmk_core/common/avr/timer.c ****     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { timer_count = 0; }
+  56               		.loc 1 76 5 view .LVU12
+  57               	.LBB27:
+  58               		.loc 1 76 5 view .LVU13
+  59 0000 8FB7      		in r24,__SREG__
+  60               	.LVL1:
+  61               	.LBB28:
+  62               	.LBI28:
+  63               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\util\\atomic.h"
+   1:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** /* Copyright (c) 2007 Dean Camera
+   2:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****    All rights reserved.
+   3:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+   4:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****    Redistribution and use in source and binary forms, with or without
+   5:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****    modification, are permitted provided that the following conditions are met:
+   6:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+   7:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****    * Redistributions of source code must retain the above copyright
+   8:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****      notice, this list of conditions and the following disclaimer.
+   9:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  10:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****    * Redistributions in binary form must reproduce the above copyright
+  11:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****      notice, this list of conditions and the following disclaimer in
+  12:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****      the documentation and/or other materials provided with the
+  13:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****      distribution.
+  14:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  15:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****    * Neither the name of the copyright holders nor the names of
+  16:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****      contributors may be used to endorse or promote products derived
+  17:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****      from this software without specific prior written permission.
+  18:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  19:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  20:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  21:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  22:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  23:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  24:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  25:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  26:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  27:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  28:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  29:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****   POSSIBILITY OF SUCH DAMAGE.
+  30:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** */
+  31:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  32:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** /* $Id: atomic.h 2158 2010-06-10 15:48:28Z joerg_wunsch $ */
+  33:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  34:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** #ifndef _UTIL_ATOMIC_H_
+  35:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** #define _UTIL_ATOMIC_H_ 1
+  36:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  37:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** #include <avr/io.h>
+  38:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** #include <avr/interrupt.h>
+  39:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  40:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** #if !defined(__DOXYGEN__)
+  41:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** /* Internal helper functions. */
+  42:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** static __inline__ uint8_t __iSeiRetVal(void)
+  43:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+  44:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     sei();
+  45:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     return 1;
+  46:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+  47:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  48:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** static __inline__ uint8_t __iCliRetVal(void)
+  64               		.loc 2 48 27 view .LVU14
+  65               	.LBB29:
+  49:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+  50:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     cli();
+  66               		.loc 2 50 5 view .LVU15
+  67               	/* #APP */
+  68               	 ;  50 "c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h" 1
+  69 0002 F894      		cli
+  70               	 ;  0 "" 2
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     return 1;
+  71               		.loc 2 51 5 view .LVU16
+  72               	.LVL2:
+  73               		.loc 2 51 5 is_stmt 0 view .LVU17
+  74               	/* #NOAPP */
+  75               	.LBE29:
+  76               	.LBE28:
+  77               		.loc 1 76 5 is_stmt 1 view .LVU18
+  78               		.loc 1 76 41 view .LVU19
+  79               		.loc 1 76 53 is_stmt 0 view .LVU20
+  80 0004 1092 0000 		sts timer_count,__zero_reg__
+  81 0008 1092 0000 		sts timer_count+1,__zero_reg__
+  82 000c 1092 0000 		sts timer_count+2,__zero_reg__
+  83 0010 1092 0000 		sts timer_count+3,__zero_reg__
+  84               		.loc 1 76 5 is_stmt 1 view .LVU21
+  85               	.LVL3:
+  86               		.loc 1 76 5 view .LVU22
+  87               	.LBB30:
+  88               	.LBI30:
+  52:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+  53:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  54:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** static __inline__ void __iSeiParam(const uint8_t *__s)
+  55:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+  56:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     sei();
+  57:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+  58:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     (void)__s;
+  59:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+  60:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  61:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** static __inline__ void __iCliParam(const uint8_t *__s)
+  62:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+  63:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     cli();
+  64:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+  65:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     (void)__s;
+  66:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+  67:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** 
+  68:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** static __inline__ void __iRestore(const  uint8_t *__s)
+  89               		.loc 2 68 24 view .LVU23
+  90               	.LBB31:
+  69:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     SREG = *__s;
+  91               		.loc 2 70 5 view .LVU24
+  92               		.loc 2 70 10 is_stmt 0 view .LVU25
+  93 0014 8FBF      		out __SREG__,r24
+  71:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+  94               		.loc 2 71 5 is_stmt 1 view .LVU26
+  95               	.LVL4:
+  96               	/* epilogue start */
+  97               		.loc 2 71 5 is_stmt 0 view .LVU27
+  98               	.LBE31:
+  99               	.LBE30:
+ 100               	.LBE27:
+  77:tmk_core/common/avr/timer.c **** }
+ 101               		.loc 1 77 1 view .LVU28
+ 102 0016 0895      		ret
+ 103               		.cfi_endproc
+ 104               	.LFE6:
+ 106               		.section	.text.timer_read,"ax",@progbits
+ 107               	.global	timer_read
+ 109               	timer_read:
+ 110               	.LFB7:
+  78:tmk_core/common/avr/timer.c **** 
+  79:tmk_core/common/avr/timer.c **** /** \brief timer read
+  80:tmk_core/common/avr/timer.c ****  *
+  81:tmk_core/common/avr/timer.c ****  * FIXME: needs doc
+  82:tmk_core/common/avr/timer.c ****  */
+  83:tmk_core/common/avr/timer.c **** inline uint16_t timer_read(void) {
+ 111               		.loc 1 83 34 is_stmt 1 view -0
+ 112               		.cfi_startproc
+ 113               	/* prologue: function */
+ 114               	/* frame size = 0 */
+ 115               	/* stack size = 0 */
+ 116               	.L__stack_usage = 0
+  84:tmk_core/common/avr/timer.c ****     uint32_t t;
+ 117               		.loc 1 84 5 view .LVU30
+  85:tmk_core/common/avr/timer.c **** 
+  86:tmk_core/common/avr/timer.c ****     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { t = timer_count; }
+ 118               		.loc 1 86 5 view .LVU31
+ 119               	.LBB32:
+ 120               		.loc 1 86 5 view .LVU32
+ 121 0000 2FB7      		in r18,__SREG__
+ 122               	.LVL5:
+ 123               	.LBB33:
+ 124               	.LBI33:
+  48:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 125               		.loc 2 48 27 view .LVU33
+ 126               	.LBB34:
+  50:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     return 1;
+ 127               		.loc 2 50 5 view .LVU34
+ 128               	/* #APP */
+ 129               	 ;  50 "c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h" 1
+ 130 0002 F894      		cli
+ 131               	 ;  0 "" 2
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 132               		.loc 2 51 5 view .LVU35
+ 133               	.LVL6:
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 134               		.loc 2 51 5 is_stmt 0 view .LVU36
+ 135               	/* #NOAPP */
+ 136               	.LBE34:
+ 137               	.LBE33:
+ 138               		.loc 1 86 5 is_stmt 1 view .LVU37
+ 139               		.loc 1 86 41 view .LVU38
+ 140               		.loc 1 86 43 is_stmt 0 view .LVU39
+ 141 0004 8091 0000 		lds r24,timer_count
+ 142 0008 9091 0000 		lds r25,timer_count+1
+ 143 000c A091 0000 		lds r26,timer_count+2
+ 144 0010 B091 0000 		lds r27,timer_count+3
+ 145               		.loc 1 86 5 is_stmt 1 view .LVU40
+ 146               	.LVL7:
+ 147               		.loc 1 86 5 view .LVU41
+ 148               	.LBB35:
+ 149               	.LBI35:
+  68:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 150               		.loc 2 68 24 view .LVU42
+ 151               	.LBB36:
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 152               		.loc 2 70 5 view .LVU43
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 153               		.loc 2 70 10 is_stmt 0 view .LVU44
+ 154 0014 2FBF      		out __SREG__,r18
+ 155               		.loc 2 71 5 is_stmt 1 view .LVU45
+ 156               	.LVL8:
+ 157               		.loc 2 71 5 is_stmt 0 view .LVU46
+ 158               	.LBE36:
+ 159               	.LBE35:
+ 160               	.LBE32:
+  87:tmk_core/common/avr/timer.c **** 
+  88:tmk_core/common/avr/timer.c ****     return (t & 0xFFFF);
+ 161               		.loc 1 88 5 is_stmt 1 view .LVU47
+ 162               	/* epilogue start */
+  89:tmk_core/common/avr/timer.c **** }
+ 163               		.loc 1 89 1 is_stmt 0 view .LVU48
+ 164 0016 0895      		ret
+ 165               		.cfi_endproc
+ 166               	.LFE7:
+ 168               		.section	.text.timer_read32,"ax",@progbits
+ 169               	.global	timer_read32
+ 171               	timer_read32:
+ 172               	.LFB8:
+  90:tmk_core/common/avr/timer.c **** 
+  91:tmk_core/common/avr/timer.c **** /** \brief timer read32
+  92:tmk_core/common/avr/timer.c ****  *
+  93:tmk_core/common/avr/timer.c ****  * FIXME: needs doc
+  94:tmk_core/common/avr/timer.c ****  */
+  95:tmk_core/common/avr/timer.c **** inline uint32_t timer_read32(void) {
+ 173               		.loc 1 95 36 is_stmt 1 view -0
+ 174               		.cfi_startproc
+ 175               	/* prologue: function */
+ 176               	/* frame size = 0 */
+ 177               	/* stack size = 0 */
+ 178               	.L__stack_usage = 0
+  96:tmk_core/common/avr/timer.c ****     uint32_t t;
+ 179               		.loc 1 96 5 view .LVU50
+  97:tmk_core/common/avr/timer.c **** 
+  98:tmk_core/common/avr/timer.c ****     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { t = timer_count; }
+ 180               		.loc 1 98 5 view .LVU51
+ 181               	.LBB37:
+ 182               		.loc 1 98 5 view .LVU52
+ 183 0000 2FB7      		in r18,__SREG__
+ 184               	.LVL9:
+ 185               	.LBB38:
+ 186               	.LBI38:
+  48:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 187               		.loc 2 48 27 view .LVU53
+ 188               	.LBB39:
+  50:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     return 1;
+ 189               		.loc 2 50 5 view .LVU54
+ 190               	/* #APP */
+ 191               	 ;  50 "c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h" 1
+ 192 0002 F894      		cli
+ 193               	 ;  0 "" 2
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 194               		.loc 2 51 5 view .LVU55
+ 195               	.LVL10:
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 196               		.loc 2 51 5 is_stmt 0 view .LVU56
+ 197               	/* #NOAPP */
+ 198               	.LBE39:
+ 199               	.LBE38:
+ 200               		.loc 1 98 5 is_stmt 1 view .LVU57
+ 201               		.loc 1 98 41 view .LVU58
+ 202               		.loc 1 98 43 is_stmt 0 view .LVU59
+ 203 0004 6091 0000 		lds r22,timer_count
+ 204 0008 7091 0000 		lds r23,timer_count+1
+ 205 000c 8091 0000 		lds r24,timer_count+2
+ 206 0010 9091 0000 		lds r25,timer_count+3
+ 207               	.LVL11:
+ 208               		.loc 1 98 5 is_stmt 1 view .LVU60
+ 209               		.loc 1 98 5 view .LVU61
+ 210               	.LBB40:
+ 211               	.LBI40:
+  68:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 212               		.loc 2 68 24 view .LVU62
+ 213               	.LBB41:
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 214               		.loc 2 70 5 view .LVU63
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 215               		.loc 2 70 10 is_stmt 0 view .LVU64
+ 216 0014 2FBF      		out __SREG__,r18
+ 217               		.loc 2 71 5 is_stmt 1 view .LVU65
+ 218               	.LVL12:
+ 219               		.loc 2 71 5 is_stmt 0 view .LVU66
+ 220               	.LBE41:
+ 221               	.LBE40:
+ 222               	.LBE37:
+  99:tmk_core/common/avr/timer.c **** 
+ 100:tmk_core/common/avr/timer.c ****     return t;
+ 223               		.loc 1 100 5 is_stmt 1 view .LVU67
+ 224               	/* epilogue start */
+ 101:tmk_core/common/avr/timer.c **** }
+ 225               		.loc 1 101 1 is_stmt 0 view .LVU68
+ 226 0016 0895      		ret
+ 227               		.cfi_endproc
+ 228               	.LFE8:
+ 230               		.section	.text.timer_elapsed,"ax",@progbits
+ 231               	.global	timer_elapsed
+ 233               	timer_elapsed:
+ 234               	.LVL13:
+ 235               	.LFB9:
+ 102:tmk_core/common/avr/timer.c **** 
+ 103:tmk_core/common/avr/timer.c **** /** \brief timer elapsed
+ 104:tmk_core/common/avr/timer.c ****  *
+ 105:tmk_core/common/avr/timer.c ****  * FIXME: needs doc
+ 106:tmk_core/common/avr/timer.c ****  */
+ 107:tmk_core/common/avr/timer.c **** inline uint16_t timer_elapsed(uint16_t last) {
+ 236               		.loc 1 107 46 is_stmt 1 view -0
+ 237               		.cfi_startproc
+ 238               	/* prologue: function */
+ 239               	/* frame size = 0 */
+ 240               	/* stack size = 0 */
+ 241               	.L__stack_usage = 0
+ 242               		.loc 1 107 46 is_stmt 0 view .LVU70
+ 243 0000 9C01      		movw r18,r24
+ 108:tmk_core/common/avr/timer.c ****     uint32_t t;
+ 244               		.loc 1 108 5 is_stmt 1 view .LVU71
+ 109:tmk_core/common/avr/timer.c **** 
+ 110:tmk_core/common/avr/timer.c ****     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { t = timer_count; }
+ 245               		.loc 1 110 5 view .LVU72
+ 246               	.LBB42:
+ 247               		.loc 1 110 5 view .LVU73
+ 248 0002 4FB7      		in r20,__SREG__
+ 249               	.LVL14:
+ 250               	.LBB43:
+ 251               	.LBI43:
+  48:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 252               		.loc 2 48 27 view .LVU74
+ 253               	.LBB44:
+  50:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     return 1;
+ 254               		.loc 2 50 5 view .LVU75
+ 255               	/* #APP */
+ 256               	 ;  50 "c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h" 1
+ 257 0004 F894      		cli
+ 258               	 ;  0 "" 2
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 259               		.loc 2 51 5 view .LVU76
+ 260               	.LVL15:
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 261               		.loc 2 51 5 is_stmt 0 view .LVU77
+ 262               	/* #NOAPP */
+ 263               	.LBE44:
+ 264               	.LBE43:
+ 265               		.loc 1 110 5 is_stmt 1 view .LVU78
+ 266               		.loc 1 110 41 view .LVU79
+ 267               		.loc 1 110 43 is_stmt 0 view .LVU80
+ 268 0006 8091 0000 		lds r24,timer_count
+ 269 000a 9091 0000 		lds r25,timer_count+1
+ 270 000e A091 0000 		lds r26,timer_count+2
+ 271 0012 B091 0000 		lds r27,timer_count+3
+ 272               	.LVL16:
+ 273               		.loc 1 110 5 is_stmt 1 view .LVU81
+ 274               		.loc 1 110 5 view .LVU82
+ 275               	.LBB45:
+ 276               	.LBI45:
+  68:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 277               		.loc 2 68 24 view .LVU83
+ 278               	.LBB46:
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 279               		.loc 2 70 5 view .LVU84
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 280               		.loc 2 70 10 is_stmt 0 view .LVU85
+ 281 0016 4FBF      		out __SREG__,r20
+ 282               		.loc 2 71 5 is_stmt 1 view .LVU86
+ 283               	.LVL17:
+ 284               		.loc 2 71 5 is_stmt 0 view .LVU87
+ 285               	.LBE46:
+ 286               	.LBE45:
+ 287               	.LBE42:
+ 111:tmk_core/common/avr/timer.c **** 
+ 112:tmk_core/common/avr/timer.c ****     return TIMER_DIFF_16((t & 0xFFFF), last);
+ 288               		.loc 1 112 5 is_stmt 1 view .LVU88
+ 113:tmk_core/common/avr/timer.c **** }
+ 289               		.loc 1 113 1 is_stmt 0 view .LVU89
+ 290 0018 821B      		sub r24,r18
+ 291 001a 930B      		sbc r25,r19
+ 292               	/* epilogue start */
+ 293 001c 0895      		ret
+ 294               		.cfi_endproc
+ 295               	.LFE9:
+ 297               		.section	.text.timer_elapsed32,"ax",@progbits
+ 298               	.global	timer_elapsed32
+ 300               	timer_elapsed32:
+ 301               	.LVL18:
+ 302               	.LFB10:
+ 114:tmk_core/common/avr/timer.c **** 
+ 115:tmk_core/common/avr/timer.c **** /** \brief timer elapsed32
+ 116:tmk_core/common/avr/timer.c ****  *
+ 117:tmk_core/common/avr/timer.c ****  * FIXME: needs doc
+ 118:tmk_core/common/avr/timer.c ****  */
+ 119:tmk_core/common/avr/timer.c **** inline uint32_t timer_elapsed32(uint32_t last) {
+ 303               		.loc 1 119 48 is_stmt 1 view -0
+ 304               		.cfi_startproc
+ 305               		.loc 1 119 48 is_stmt 0 view .LVU91
+ 306 0000 CF92      		push r12
+ 307               	.LCFI0:
+ 308               		.cfi_def_cfa_offset 3
+ 309               		.cfi_offset 12, -2
+ 310 0002 DF92      		push r13
+ 311               	.LCFI1:
+ 312               		.cfi_def_cfa_offset 4
+ 313               		.cfi_offset 13, -3
+ 314 0004 EF92      		push r14
+ 315               	.LCFI2:
+ 316               		.cfi_def_cfa_offset 5
+ 317               		.cfi_offset 14, -4
+ 318 0006 FF92      		push r15
+ 319               	.LCFI3:
+ 320               		.cfi_def_cfa_offset 6
+ 321               		.cfi_offset 15, -5
+ 322               	/* prologue: function */
+ 323               	/* frame size = 0 */
+ 324               	/* stack size = 4 */
+ 325               	.L__stack_usage = 4
+ 120:tmk_core/common/avr/timer.c ****     uint32_t t;
+ 326               		.loc 1 120 5 is_stmt 1 view .LVU92
+ 121:tmk_core/common/avr/timer.c **** 
+ 122:tmk_core/common/avr/timer.c ****     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { t = timer_count; }
+ 327               		.loc 1 122 5 view .LVU93
+ 328               	.LBB47:
+ 329               		.loc 1 122 5 view .LVU94
+ 330 0008 2FB7      		in r18,__SREG__
+ 331               	.LVL19:
+ 332               	.LBB48:
+ 333               	.LBI48:
+  48:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 334               		.loc 2 48 27 view .LVU95
+ 335               	.LBB49:
+  50:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     return 1;
+ 336               		.loc 2 50 5 view .LVU96
+ 337               	/* #APP */
+ 338               	 ;  50 "c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h" 1
+ 339 000a F894      		cli
+ 340               	 ;  0 "" 2
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 341               		.loc 2 51 5 view .LVU97
+ 342               	.LVL20:
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** }
+ 343               		.loc 2 51 5 is_stmt 0 view .LVU98
+ 344               	/* #NOAPP */
+ 345               	.LBE49:
+ 346               	.LBE48:
+ 347               		.loc 1 122 5 is_stmt 1 view .LVU99
+ 348               		.loc 1 122 41 view .LVU100
+ 349               		.loc 1 122 43 is_stmt 0 view .LVU101
+ 350 000c C090 0000 		lds r12,timer_count
+ 351 0010 D090 0000 		lds r13,timer_count+1
+ 352 0014 E090 0000 		lds r14,timer_count+2
+ 353 0018 F090 0000 		lds r15,timer_count+3
+ 354               	.LVL21:
+ 355               		.loc 1 122 5 is_stmt 1 view .LVU102
+ 356               		.loc 1 122 5 view .LVU103
+ 357               	.LBB50:
+ 358               	.LBI50:
+  68:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h **** {
+ 359               		.loc 2 68 24 view .LVU104
+ 360               	.LBB51:
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 361               		.loc 2 70 5 view .LVU105
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\atomic.h ****     __asm__ volatile ("" ::: "memory");
+ 362               		.loc 2 70 10 is_stmt 0 view .LVU106
+ 363 001c 2FBF      		out __SREG__,r18
+ 364               		.loc 2 71 5 is_stmt 1 view .LVU107
+ 365               	.LVL22:
+ 366               		.loc 2 71 5 is_stmt 0 view .LVU108
+ 367               	.LBE51:
+ 368               	.LBE50:
+ 369               	.LBE47:
+ 123:tmk_core/common/avr/timer.c **** 
+ 124:tmk_core/common/avr/timer.c ****     return TIMER_DIFF_32(t, last);
+ 370               		.loc 1 124 5 is_stmt 1 view .LVU109
+ 371               		.loc 1 124 12 is_stmt 0 view .LVU110
+ 372 001e A701      		movw r20,r14
+ 373 0020 9601      		movw r18,r12
+ 374 0022 261B      		sub r18,r22
+ 375 0024 370B      		sbc r19,r23
+ 376 0026 480B      		sbc r20,r24
+ 377 0028 590B      		sbc r21,r25
+ 378 002a CA01      		movw r24,r20
+ 379 002c B901      		movw r22,r18
+ 380               	.LVL23:
+ 381               	/* epilogue start */
+ 125:tmk_core/common/avr/timer.c **** }
+ 382               		.loc 1 125 1 view .LVU111
+ 383 002e FF90      		pop r15
+ 384 0030 EF90      		pop r14
+ 385 0032 DF90      		pop r13
+ 386 0034 CF90      		pop r12
+ 387               	.LVL24:
+ 388               		.loc 1 125 1 view .LVU112
+ 389 0036 0895      		ret
+ 390               		.cfi_endproc
+ 391               	.LFE10:
+ 393               		.section	.text.__vector_21,"ax",@progbits
+ 394               	.global	__vector_21
+ 396               	__vector_21:
+ 397               	.LFB11:
+ 126:tmk_core/common/avr/timer.c **** 
+ 127:tmk_core/common/avr/timer.c **** // excecuted once per 1ms.(excess for just timer count?)
+ 128:tmk_core/common/avr/timer.c **** #ifndef __AVR_ATmega32A__
+ 129:tmk_core/common/avr/timer.c **** #    define TIMER_INTERRUPT_VECTOR TIMER0_COMPA_vect
+ 130:tmk_core/common/avr/timer.c **** #else
+ 131:tmk_core/common/avr/timer.c **** #    define TIMER_INTERRUPT_VECTOR TIMER0_COMP_vect
+ 132:tmk_core/common/avr/timer.c **** #endif
+ 133:tmk_core/common/avr/timer.c **** ISR(TIMER_INTERRUPT_VECTOR, ISR_NOBLOCK) { timer_count++; }
+ 398               		.loc 1 133 42 is_stmt 1 view -0
+ 399               		.cfi_startproc
+ 400 0000 7894      		sei
+ 401 0002 1F92 1FB6 		__gcc_isr 1
+ 401      1F92 1124 
+ 401      8F93 
+ 402 000c 9F93      		push r25
+ 403               	.LCFI4:
+ 404               		.cfi_def_cfa_offset 3
+ 405               		.cfi_offset 25, -2
+ 406 000e AF93      		push r26
+ 407               	.LCFI5:
+ 408               		.cfi_def_cfa_offset 4
+ 409               		.cfi_offset 26, -3
+ 410 0010 BF93      		push r27
+ 411               	.LCFI6:
+ 412               		.cfi_def_cfa_offset 5
+ 413               		.cfi_offset 27, -4
+ 414               	/* prologue: Interrupt */
+ 415               	/* frame size = 0 */
+ 416               	/* stack size = 3...7 */
+ 417               	.L__stack_usage = 3 + __gcc_isr.n_pushed
+ 418               		.loc 1 133 44 view .LVU114
+ 419               		.loc 1 133 55 is_stmt 0 view .LVU115
+ 420 0012 8091 0000 		lds r24,timer_count
+ 421 0016 9091 0000 		lds r25,timer_count+1
+ 422 001a A091 0000 		lds r26,timer_count+2
+ 423 001e B091 0000 		lds r27,timer_count+3
+ 424 0022 0196      		adiw r24,1
+ 425 0024 A11D      		adc r26,__zero_reg__
+ 426 0026 B11D      		adc r27,__zero_reg__
+ 427 0028 8093 0000 		sts timer_count,r24
+ 428 002c 9093 0000 		sts timer_count+1,r25
+ 429 0030 A093 0000 		sts timer_count+2,r26
+ 430 0034 B093 0000 		sts timer_count+3,r27
+ 431               	/* epilogue start */
+ 432               		.loc 1 133 1 view .LVU116
+ 433 0038 BF91      		pop r27
+ 434 003a AF91      		pop r26
+ 435 003c 9F91      		pop r25
+ 436 003e 8F91 1F90 		__gcc_isr 2
+ 436      1FBE 1F90 
+ 437 0046 1895      		reti
+ 438               		__gcc_isr 0,r24
+ 439               		.cfi_endproc
+ 440               	.LFE11:
+ 442               		.comm	timer_count,4,1
+ 443               		.text
+ 444               	.Letext0:
+ 445               		.file 3 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+ 446               		.file 4 "tmk_core/common/timer.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 timer.c
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:13     .text.timer_init:0000000000000000 timer_init
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:48     .text.timer_clear:0000000000000000 timer_clear
+                            *COM*:0000000000000004 timer_count
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:109    .text.timer_read:0000000000000000 timer_read
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:171    .text.timer_read32:0000000000000000 timer_read32
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:233    .text.timer_elapsed:0000000000000000 timer_elapsed
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:300    .text.timer_elapsed32:0000000000000000 timer_elapsed32
+C:\Users\gazed\AppData\Local\Temp\ccj83gcY.s:396    .text.__vector_21:0000000000000000 __vector_21
+                            *ABS*:0000000000000003 __gcc_isr.n_pushed.001
+
+UNDEFINED SYMBOLS
+__do_clear_bss

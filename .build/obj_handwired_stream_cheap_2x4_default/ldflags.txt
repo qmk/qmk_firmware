@@ -1,0 +1,1 @@
+-Wl,--gc-sections -Wl,-Map=.build/handwired_stream_cheap_2x4_default.map,--cref     -lm 

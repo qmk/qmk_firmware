@@ -1,0 +1,37 @@
+   1               		.file	"2x4.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.Letext0:
+  11               		.file 1 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+  12               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\lib\\gcc\\avr\\8.4.0\\include\\stddef.h"
+  13               		.file 3 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../StdRequestType.h"
+  14               		.file 4 "tmk_core/common/action.h"
+  15               		.file 5 "lib/lufa/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h"
+  16               		.file 6 "lib/lufa/LUFA/Drivers/USB/Core/USBTask.h"
+  17               		.file 7 "lib/lufa/LUFA/Drivers/USB/Core/HostStandardReq.h"
+  18               		.file 8 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdio.h"
+  19               		.file 9 "tmk_core/common/report.h"
+  20               		.file 10 "tmk_core/common/host.h"
+  21               		.file 11 "tmk_core/common/debug.h"
+  22               		.file 12 "quantum/keycode_config.h"
+  23               		.file 13 "quantum/keymap.h"
+  24               		.file 14 "tmk_core/common/action_layer.h"
+  25               		.file 15 "tmk_core/common/timer.h"
+  26               		.file 16 "tmk_core/common/action_util.h"
+  27               		.file 17 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdlib.h"
+  28               		.file 18 "quantum/quantum.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 2x4.c
+C:\Users\gazed\AppData\Local\Temp\ccs7OHcU.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccs7OHcU.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccs7OHcU.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccs7OHcU.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccs7OHcU.s:6      *ABS*:0000000000000001 __zero_reg__
+
+NO UNDEFINED SYMBOLS

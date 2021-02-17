@@ -1,0 +1,152 @@
+   1               		.file	"Events.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.USB_Event_Stub,"ax",@progbits
+  11               	.global	USB_Event_Stub
+  13               	USB_Event_Stub:
+  14               	.LFB16:
+  15               		.file 1 "lib/lufa/LUFA/Drivers/USB/Core/Events.c"
+   1:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** /*
+   2:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****              LUFA Library
+   3:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****      Copyright (C) Dean Camera, 2019.
+   4:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+   5:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   dean [at] fourwalledcubicle [dot] com
+   6:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****            www.lufa-lib.org
+   7:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** */
+   8:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+   9:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** /*
+  10:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   Copyright 2019  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+  12:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   Permission to use, copy, modify, distribute, and sell this
+  13:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   software and its documentation for any purpose is hereby granted
+  14:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   without fee, provided that the above copyright notice appear in
+  15:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   all copies and that both that the copyright notice and this
+  16:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   permission notice and warranty disclaimer appear in supporting
+  17:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   documentation, and that the name of the author not be used in
+  18:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   advertising or publicity pertaining to distribution of the
+  19:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   software without specific, written prior permission.
+  20:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+  21:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   The author disclaims all warranties with regard to this
+  22:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   software, including all implied warranties of merchantability
+  23:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   and fitness.  In no event shall the author be liable for any
+  24:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   special, indirect or consequential damages or any damages
+  25:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   whatsoever resulting from loss of use, data or profits, whether
+  26:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   in an action of contract, negligence or other tortious action,
+  27:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   arising out of or in connection with the use or performance of
+  28:lib/lufa/LUFA/Drivers/USB/Core/Events.c ****   this software.
+  29:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** */
+  30:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+  31:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** #define  __INCLUDE_FROM_EVENTS_C
+  32:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  33:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** #include "Events.h"
+  34:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+  35:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** void USB_Event_Stub(void)
+  36:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** {
+  16               		.loc 1 36 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  37:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+  38:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** }
+  22               		.loc 1 38 1 view .LVU1
+  23               	/* epilogue start */
+  24 0000 0895      		ret
+  25               		.cfi_endproc
+  26               	.LFE16:
+  28               		.weak	EVENT_USB_Device_StartOfFrame
+  29               		.set	EVENT_USB_Device_StartOfFrame,USB_Event_Stub
+  30               		.weak	EVENT_USB_Device_Reset
+  31               		.set	EVENT_USB_Device_Reset,USB_Event_Stub
+  32               		.weak	EVENT_USB_Device_WakeUp
+  33               		.set	EVENT_USB_Device_WakeUp,USB_Event_Stub
+  34               		.weak	EVENT_USB_Device_Suspend
+  35               		.set	EVENT_USB_Device_Suspend,USB_Event_Stub
+  36               		.weak	EVENT_USB_Device_ConfigurationChanged
+  37               		.set	EVENT_USB_Device_ConfigurationChanged,USB_Event_Stub
+  38               		.weak	EVENT_USB_Device_ControlRequest
+  39               		.set	EVENT_USB_Device_ControlRequest,USB_Event_Stub
+  40               		.weak	EVENT_USB_Device_Disconnect
+  41               		.set	EVENT_USB_Device_Disconnect,USB_Event_Stub
+  42               		.weak	EVENT_USB_Device_Connect
+  43               		.set	EVENT_USB_Device_Connect,USB_Event_Stub
+  44               		.section	.text.USB_Event_Stub_2,"ax",@progbits
+  45               	.global	USB_Event_Stub_2
+  47               	USB_Event_Stub_2:
+  48               	.LVL0:
+  49               	.LFB17:
+  39:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+  40:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** void USB_Event_Stub_2(const uint8_t _1)
+  41:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** {
+  50               		.loc 1 41 1 view -0
+  51               		.cfi_startproc
+  52               	/* prologue: function */
+  53               	/* frame size = 0 */
+  54               	/* stack size = 0 */
+  55               	.L__stack_usage = 0
+  42:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 	(void)_1;
+  56               		.loc 1 42 2 view .LVU3
+  43:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 	USB_Event_Stub();
+  57               		.loc 1 43 2 view .LVU4
+  58               	/* epilogue start */
+  44:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** }
+  59               		.loc 1 44 1 is_stmt 0 view .LVU5
+  60 0000 0895      		ret
+  61               		.cfi_endproc
+  62               	.LFE17:
+  64               		.section	.text.USB_Event_Stub_3,"ax",@progbits
+  65               	.global	USB_Event_Stub_3
+  67               	USB_Event_Stub_3:
+  68               	.LVL1:
+  69               	.LFB18:
+  45:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 
+  46:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** void USB_Event_Stub_3(const uint8_t _1, const uint8_t _2)
+  47:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** {
+  70               		.loc 1 47 1 is_stmt 1 view -0
+  71               		.cfi_startproc
+  72               	/* prologue: function */
+  73               	/* frame size = 0 */
+  74               	/* stack size = 0 */
+  75               	.L__stack_usage = 0
+  48:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 	(void)_1;
+  76               		.loc 1 48 2 view .LVU7
+  49:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 	(void)_2;
+  77               		.loc 1 49 2 view .LVU8
+  50:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** 	USB_Event_Stub();
+  78               		.loc 1 50 2 view .LVU9
+  79               	/* epilogue start */
+  51:lib/lufa/LUFA/Drivers/USB/Core/Events.c **** }
+  80               		.loc 1 51 1 is_stmt 0 view .LVU10
+  81 0000 0895      		ret
+  82               		.cfi_endproc
+  83               	.LFE18:
+  85               		.text
+  86               	.Letext0:
+  87               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Events.c
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 USB_Event_Stub
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_StartOfFrame
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_Reset
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_WakeUp
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_Suspend
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_ConfigurationChanged
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_ControlRequest
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_Disconnect
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:13     .text.USB_Event_Stub:0000000000000000 EVENT_USB_Device_Connect
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:47     .text.USB_Event_Stub_2:0000000000000000 USB_Event_Stub_2
+C:\Users\gazed\AppData\Local\Temp\ccHZF7vh.s:67     .text.USB_Event_Stub_3:0000000000000000 USB_Event_Stub_3
+
+NO UNDEFINED SYMBOLS

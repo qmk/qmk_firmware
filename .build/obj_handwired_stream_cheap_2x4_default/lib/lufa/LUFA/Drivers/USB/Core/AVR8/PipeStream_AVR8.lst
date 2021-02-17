@@ -1,0 +1,19 @@
+   1               		.file	"PipeStream_AVR8.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 PipeStream_AVR8.c
+C:\Users\gazed\AppData\Local\Temp\cc2G6owa.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\cc2G6owa.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\cc2G6owa.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\cc2G6owa.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\cc2G6owa.s:6      *ABS*:0000000000000001 __zero_reg__
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,956 @@
+   1               		.file	"matrix_common.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.matrix_init_user,"ax",@progbits
+  11               		.weak	matrix_init_user
+  13               	matrix_init_user:
+  14               	.LFB8:
+  15               		.file 1 "quantum/matrix_common.c"
+   1:quantum/matrix_common.c **** #include "matrix.h"
+   2:quantum/matrix_common.c **** #include "debounce.h"
+   3:quantum/matrix_common.c **** #include "wait.h"
+   4:quantum/matrix_common.c **** #include "print.h"
+   5:quantum/matrix_common.c **** #include "debug.h"
+   6:quantum/matrix_common.c **** 
+   7:quantum/matrix_common.c **** #ifndef MATRIX_IO_DELAY
+   8:quantum/matrix_common.c **** #    define MATRIX_IO_DELAY 30
+   9:quantum/matrix_common.c **** #endif
+  10:quantum/matrix_common.c **** 
+  11:quantum/matrix_common.c **** /* matrix state(1:on, 0:off) */
+  12:quantum/matrix_common.c **** matrix_row_t raw_matrix[MATRIX_ROWS];
+  13:quantum/matrix_common.c **** matrix_row_t matrix[MATRIX_ROWS];
+  14:quantum/matrix_common.c **** 
+  15:quantum/matrix_common.c **** #ifdef MATRIX_MASKED
+  16:quantum/matrix_common.c **** extern const matrix_row_t matrix_mask[];
+  17:quantum/matrix_common.c **** #endif
+  18:quantum/matrix_common.c **** 
+  19:quantum/matrix_common.c **** // user-defined overridable functions
+  20:quantum/matrix_common.c **** 
+  21:quantum/matrix_common.c **** __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+  22:quantum/matrix_common.c **** 
+  23:quantum/matrix_common.c **** __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+  24:quantum/matrix_common.c **** 
+  25:quantum/matrix_common.c **** __attribute__((weak)) void matrix_init_user(void) {}
+  16               		.loc 1 25 51 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  22               		.loc 1 25 52 view .LVU1
+  23               	/* epilogue start */
+  24               		.loc 1 25 1 is_stmt 0 view .LVU2
+  25 0000 0895      		ret
+  26               		.cfi_endproc
+  27               	.LFE8:
+  29               		.set	matrix_init_user.localalias.0,matrix_init_user
+  30               		.section	.text.matrix_init_kb,"ax",@progbits
+  31               		.weak	matrix_init_kb
+  33               	matrix_init_kb:
+  34               	.LFB6:
+  21:quantum/matrix_common.c **** 
+  35               		.loc 1 21 49 is_stmt 1 view -0
+  36               		.cfi_startproc
+  37               	/* prologue: function */
+  38               	/* frame size = 0 */
+  39               	/* stack size = 0 */
+  40               	.L__stack_usage = 0
+  21:quantum/matrix_common.c **** 
+  41               		.loc 1 21 51 view .LVU4
+  42 0000 0C94 0000 		jmp matrix_init_user
+  43               	.LVL0:
+  44               		.cfi_endproc
+  45               	.LFE6:
+  47               		.section	.text.matrix_scan_user,"ax",@progbits
+  48               		.weak	matrix_scan_user
+  50               	matrix_scan_user:
+  51               	.LFB24:
+  52               		.cfi_startproc
+  53               	/* prologue: function */
+  54               	/* frame size = 0 */
+  55               	/* stack size = 0 */
+  56               	.L__stack_usage = 0
+  57               	/* epilogue start */
+  58 0000 0895      		ret
+  59               		.cfi_endproc
+  60               	.LFE24:
+  62               		.section	.text.matrix_scan_kb,"ax",@progbits
+  63               		.weak	matrix_scan_kb
+  65               	matrix_scan_kb:
+  66               	.LFB7:
+  23:quantum/matrix_common.c **** 
+  67               		.loc 1 23 49 view -0
+  68               		.cfi_startproc
+  69               	/* prologue: function */
+  70               	/* frame size = 0 */
+  71               	/* stack size = 0 */
+  72               	.L__stack_usage = 0
+  23:quantum/matrix_common.c **** 
+  73               		.loc 1 23 51 view .LVU6
+  74 0000 0C94 0000 		jmp matrix_scan_user
+  75               	.LVL1:
+  76               		.cfi_endproc
+  77               	.LFE7:
+  79               		.section	.text.matrix_rows,"ax",@progbits
+  80               	.global	matrix_rows
+  82               	matrix_rows:
+  83               	.LFB10:
+  26:quantum/matrix_common.c **** 
+  27:quantum/matrix_common.c **** __attribute__((weak)) void matrix_scan_user(void) {}
+  28:quantum/matrix_common.c **** 
+  29:quantum/matrix_common.c **** // helper functions
+  30:quantum/matrix_common.c **** 
+  31:quantum/matrix_common.c **** inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
+  84               		.loc 1 31 34 view -0
+  85               		.cfi_startproc
+  86               	/* prologue: function */
+  87               	/* frame size = 0 */
+  88               	/* stack size = 0 */
+  89               	.L__stack_usage = 0
+  90               		.loc 1 31 36 view .LVU8
+  91               		.loc 1 31 1 is_stmt 0 view .LVU9
+  92 0000 82E0      		ldi r24,lo8(2)
+  93               	/* epilogue start */
+  94 0002 0895      		ret
+  95               		.cfi_endproc
+  96               	.LFE10:
+  98               		.section	.text.matrix_cols,"ax",@progbits
+  99               	.global	matrix_cols
+ 101               	matrix_cols:
+ 102               	.LFB11:
+  32:quantum/matrix_common.c **** 
+  33:quantum/matrix_common.c **** inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
+ 103               		.loc 1 33 34 is_stmt 1 view -0
+ 104               		.cfi_startproc
+ 105               	/* prologue: function */
+ 106               	/* frame size = 0 */
+ 107               	/* stack size = 0 */
+ 108               	.L__stack_usage = 0
+ 109               		.loc 1 33 36 view .LVU11
+ 110               		.loc 1 33 1 is_stmt 0 view .LVU12
+ 111 0000 84E0      		ldi r24,lo8(4)
+ 112               	/* epilogue start */
+ 113 0002 0895      		ret
+ 114               		.cfi_endproc
+ 115               	.LFE11:
+ 117               		.section	.text.matrix_is_on,"ax",@progbits
+ 118               	.global	matrix_is_on
+ 120               	matrix_is_on:
+ 121               	.LVL2:
+ 122               	.LFB12:
+  34:quantum/matrix_common.c **** 
+  35:quantum/matrix_common.c **** inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)
+ 123               		.loc 1 35 52 is_stmt 1 view -0
+ 124               		.cfi_startproc
+ 125               	/* prologue: function */
+ 126               	/* frame size = 0 */
+ 127               	/* stack size = 0 */
+ 128               	.L__stack_usage = 0
+ 129               		.loc 1 35 54 view .LVU14
+ 130               		.loc 1 35 68 is_stmt 0 view .LVU15
+ 131 0000 E82F      		mov r30,r24
+ 132 0002 F0E0      		ldi r31,0
+ 133 0004 E050      		subi r30,lo8(-(matrix))
+ 134 0006 F040      		sbci r31,hi8(-(matrix))
+ 135 0008 2081      		ld r18,Z
+ 136 000a 30E0      		ldi r19,0
+ 137               		.loc 1 35 93 view .LVU16
+ 138 000c 81E0      		ldi r24,lo8(1)
+ 139 000e 90E0      		ldi r25,0
+ 140               	.LVL3:
+ 141               		.loc 1 35 93 view .LVU17
+ 142 0010 00C0      		rjmp 2f
+ 143               		1:
+ 144 0012 880F      		lsl r24
+ 145 0014 991F      		rol r25
+ 146               		2:
+ 147 0016 6A95      		dec r22
+ 148 0018 02F4      		brpl 1b
+ 149               		.loc 1 35 74 view .LVU18
+ 150 001a 2823      		and r18,r24
+ 151 001c 3923      		and r19,r25
+ 152 001e 81E0      		ldi r24,lo8(1)
+ 153 0020 232B      		or r18,r19
+ 154 0022 01F4      		brne .L8
+ 155 0024 80E0      		ldi r24,0
+ 156               	.L8:
+ 157               	/* epilogue start */
+ 158               		.loc 1 35 1 view .LVU19
+ 159 0026 0895      		ret
+ 160               		.cfi_endproc
+ 161               	.LFE12:
+ 163               		.section	.text.matrix_get_row,"ax",@progbits
+ 164               	.global	matrix_get_row
+ 166               	matrix_get_row:
+ 167               	.LVL4:
+ 168               	.LFB13:
+  36:quantum/matrix_common.c **** 
+  37:quantum/matrix_common.c **** inline matrix_row_t matrix_get_row(uint8_t row) {
+ 169               		.loc 1 37 49 is_stmt 1 view -0
+ 170               		.cfi_startproc
+ 171               	/* prologue: function */
+ 172               	/* frame size = 0 */
+ 173               	/* stack size = 0 */
+ 174               	.L__stack_usage = 0
+  38:quantum/matrix_common.c ****     // Matrix mask lets you disable switches in the returned matrix data. For example, if you have 
+  39:quantum/matrix_common.c ****     // switch blocker installed and the switch is always pressed.
+  40:quantum/matrix_common.c **** #ifdef MATRIX_MASKED
+  41:quantum/matrix_common.c ****     return matrix[row] & matrix_mask[row];
+  42:quantum/matrix_common.c **** #else
+  43:quantum/matrix_common.c ****     return matrix[row];
+ 175               		.loc 1 43 5 view .LVU21
+ 176               		.loc 1 43 18 is_stmt 0 view .LVU22
+ 177 0000 E82F      		mov r30,r24
+ 178 0002 F0E0      		ldi r31,0
+ 179 0004 E050      		subi r30,lo8(-(matrix))
+ 180 0006 F040      		sbci r31,hi8(-(matrix))
+  44:quantum/matrix_common.c **** #endif
+  45:quantum/matrix_common.c **** }
+ 181               		.loc 1 45 1 view .LVU23
+ 182 0008 8081      		ld r24,Z
+ 183               	.LVL5:
+ 184               	/* epilogue start */
+ 185               		.loc 1 45 1 view .LVU24
+ 186 000a 0895      		ret
+ 187               		.cfi_endproc
+ 188               	.LFE13:
+ 190               		.section	.text.matrix_is_modified,"ax",@progbits
+ 191               	.global	matrix_is_modified
+ 193               	matrix_is_modified:
+ 194               	.LFB14:
+  46:quantum/matrix_common.c **** 
+  47:quantum/matrix_common.c **** // Deprecated.
+  48:quantum/matrix_common.c **** bool matrix_is_modified(void) {
+ 195               		.loc 1 48 31 is_stmt 1 view -0
+ 196               		.cfi_startproc
+ 197               	/* prologue: function */
+ 198               	/* frame size = 0 */
+ 199               	/* stack size = 0 */
+ 200               	.L__stack_usage = 0
+  49:quantum/matrix_common.c ****     if (debounce_active()) return false;
+ 201               		.loc 1 49 5 view .LVU26
+ 202               		.loc 1 49 9 is_stmt 0 view .LVU27
+ 203 0000 0E94 0000 		call debounce_active
+ 204               	.LVL6:
+  50:quantum/matrix_common.c ****     return true;
+  51:quantum/matrix_common.c **** }
+ 205               		.loc 1 51 1 view .LVU28
+ 206 0004 91E0      		ldi r25,lo8(1)
+ 207 0006 8927      		eor r24,r25
+ 208               	/* epilogue start */
+ 209 0008 0895      		ret
+ 210               		.cfi_endproc
+ 211               	.LFE14:
+ 213               		.section	.text.matrix_print,"ax",@progbits
+ 214               	.global	matrix_print
+ 216               	matrix_print:
+ 217               	.LFB15:
+  52:quantum/matrix_common.c **** 
+  53:quantum/matrix_common.c **** #if (MATRIX_COLS <= 8)
+  54:quantum/matrix_common.c **** #    define print_matrix_header() print("\nr/c 01234567\n")
+  55:quantum/matrix_common.c **** #    define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
+  56:quantum/matrix_common.c **** #    define matrix_bitpop(row) bitpop(matrix_get_row(row))
+  57:quantum/matrix_common.c **** #elif (MATRIX_COLS <= 16)
+  58:quantum/matrix_common.c **** #    define print_matrix_header() print("\nr/c 0123456789ABCDEF\n")
+  59:quantum/matrix_common.c **** #    define print_matrix_row(row) print_bin_reverse16(matrix_get_row(row))
+  60:quantum/matrix_common.c **** #    define matrix_bitpop(row) bitpop16(matrix_get_row(row))
+  61:quantum/matrix_common.c **** #elif (MATRIX_COLS <= 32)
+  62:quantum/matrix_common.c **** #    define print_matrix_header() print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
+  63:quantum/matrix_common.c **** #    define print_matrix_row(row) print_bin_reverse32(matrix_get_row(row))
+  64:quantum/matrix_common.c **** #    define matrix_bitpop(row) bitpop32(matrix_get_row(row))
+  65:quantum/matrix_common.c **** #endif
+  66:quantum/matrix_common.c **** 
+  67:quantum/matrix_common.c **** void matrix_print(void) {
+ 218               		.loc 1 67 25 is_stmt 1 view -0
+ 219               		.cfi_startproc
+ 220               	/* prologue: function */
+ 221               	/* frame size = 0 */
+ 222               	/* stack size = 0 */
+ 223               	.L__stack_usage = 0
+  68:quantum/matrix_common.c ****     print_matrix_header();
+ 224               		.loc 1 68 26 view .LVU30
+  69:quantum/matrix_common.c **** 
+  70:quantum/matrix_common.c ****     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+ 225               		.loc 1 70 5 view .LVU31
+ 226               		.loc 1 70 10 view .LVU32
+ 227               	.LVL7:
+ 228               		.loc 1 70 27 view .LVU33
+ 229               	/* epilogue start */
+  71:quantum/matrix_common.c ****         phex(row);
+  72:quantum/matrix_common.c ****         print(": ");
+  73:quantum/matrix_common.c ****         print_matrix_row(row);
+  74:quantum/matrix_common.c ****         print("\n");
+  75:quantum/matrix_common.c ****     }
+  76:quantum/matrix_common.c **** }
+ 230               		.loc 1 76 1 is_stmt 0 view .LVU34
+ 231 0000 0895      		ret
+ 232               		.cfi_endproc
+ 233               	.LFE15:
+ 235               		.section	.text.matrix_key_count,"ax",@progbits
+ 236               	.global	matrix_key_count
+ 238               	matrix_key_count:
+ 239               	.LFB16:
+  77:quantum/matrix_common.c **** 
+  78:quantum/matrix_common.c **** uint8_t matrix_key_count(void) {
+ 240               		.loc 1 78 32 is_stmt 1 view -0
+ 241               		.cfi_startproc
+ 242 0000 1F93      		push r17
+ 243               	.LCFI0:
+ 244               		.cfi_def_cfa_offset 3
+ 245               		.cfi_offset 17, -2
+ 246 0002 CF93      		push r28
+ 247               	.LCFI1:
+ 248               		.cfi_def_cfa_offset 4
+ 249               		.cfi_offset 28, -3
+ 250 0004 DF93      		push r29
+ 251               	.LCFI2:
+ 252               		.cfi_def_cfa_offset 5
+ 253               		.cfi_offset 29, -4
+ 254               	/* prologue: function */
+ 255               	/* frame size = 0 */
+ 256               	/* stack size = 3 */
+ 257               	.L__stack_usage = 3
+  79:quantum/matrix_common.c ****     uint8_t count = 0;
+ 258               		.loc 1 79 5 view .LVU36
+ 259               	.LVL8:
+  80:quantum/matrix_common.c ****     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+ 260               		.loc 1 80 5 view .LVU37
+ 261               	.LBB7:
+ 262               		.loc 1 80 10 view .LVU38
+ 263               		.loc 1 80 25 view .LVU39
+  81:quantum/matrix_common.c ****         count += matrix_bitpop(i);
+ 264               		.loc 1 81 9 view .LVU40
+ 265               	.LBB8:
+ 266               	.LBI8:
+  37:quantum/matrix_common.c ****     // Matrix mask lets you disable switches in the returned matrix data. For example, if you have 
+ 267               		.loc 1 37 21 view .LVU41
+ 268               	.LBB9:
+  43:quantum/matrix_common.c **** #endif
+ 269               		.loc 1 43 5 view .LVU42
+  43:quantum/matrix_common.c **** #endif
+ 270               		.loc 1 43 18 is_stmt 0 view .LVU43
+ 271 0006 C0E0      		ldi r28,lo8(matrix)
+ 272 0008 D0E0      		ldi r29,hi8(matrix)
+ 273               	.LBE9:
+ 274               	.LBE8:
+ 275               		.loc 1 81 18 view .LVU44
+ 276 000a 8881      		ld r24,Y
+ 277 000c 0E94 0000 		call bitpop
+ 278               	.LVL9:
+ 279 0010 182F      		mov r17,r24
+ 280               	.LVL10:
+  80:quantum/matrix_common.c ****         count += matrix_bitpop(i);
+ 281               		.loc 1 80 42 is_stmt 1 view .LVU45
+  80:quantum/matrix_common.c ****         count += matrix_bitpop(i);
+ 282               		.loc 1 80 25 view .LVU46
+ 283               		.loc 1 81 9 view .LVU47
+ 284               	.LBB11:
+  37:quantum/matrix_common.c ****     // Matrix mask lets you disable switches in the returned matrix data. For example, if you have 
+ 285               		.loc 1 37 21 view .LVU48
+ 286               	.LBB10:
+  43:quantum/matrix_common.c **** #endif
+ 287               		.loc 1 43 5 view .LVU49
+  43:quantum/matrix_common.c **** #endif
+ 288               		.loc 1 43 5 is_stmt 0 view .LVU50
+ 289               	.LBE10:
+ 290               	.LBE11:
+ 291               		.loc 1 81 18 view .LVU51
+ 292 0012 8981      		ldd r24,Y+1
+ 293 0014 0E94 0000 		call bitpop
+ 294               	.LVL11:
+  80:quantum/matrix_common.c ****         count += matrix_bitpop(i);
+ 295               		.loc 1 80 42 is_stmt 1 view .LVU52
+  80:quantum/matrix_common.c ****         count += matrix_bitpop(i);
+ 296               		.loc 1 80 25 view .LVU53
+ 297               	.LBE7:
+  82:quantum/matrix_common.c ****     }
+  83:quantum/matrix_common.c ****     return count;
+ 298               		.loc 1 83 5 view .LVU54
+  84:quantum/matrix_common.c **** }
+ 299               		.loc 1 84 1 is_stmt 0 view .LVU55
+ 300 0018 810F      		add r24,r17
+ 301               	.LVL12:
+ 302               	/* epilogue start */
+ 303               		.loc 1 84 1 view .LVU56
+ 304 001a DF91      		pop r29
+ 305 001c CF91      		pop r28
+ 306 001e 1F91      		pop r17
+ 307 0020 0895      		ret
+ 308               		.cfi_endproc
+ 309               	.LFE16:
+ 311               		.section	.text.matrix_io_delay,"ax",@progbits
+ 312               		.weak	matrix_io_delay
+ 314               	matrix_io_delay:
+ 315               	.LFB17:
+  85:quantum/matrix_common.c **** 
+  86:quantum/matrix_common.c **** __attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
+ 316               		.loc 1 86 50 is_stmt 1 view -0
+ 317               		.cfi_startproc
+ 318               	/* prologue: function */
+ 319               	/* frame size = 0 */
+ 320               	/* stack size = 0 */
+ 321               	.L__stack_usage = 0
+ 322               		.loc 1 86 52 view .LVU58
+ 323               	.LVL13:
+ 324               	.LBB12:
+ 325               	.LBI12:
+ 326               		.file 2 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\util\\delay.h"
+   1:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    All rights reserved.
+   5:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+   6:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+   9:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    * Redistributions of source code must retain the above copyright
+  10:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  12:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      the documentation and/or other materials provided with the
+  15:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      distribution.
+  16:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  17:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      contributors may be used to endorse or promote products derived
+  19:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****      from this software without specific prior written permission.
+  20:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  21:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  33:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /* $Id: delay.h.in 2506 2016-02-08 10:05:45Z joerg_wunsch $ */
+  34:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  35:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef _UTIL_DELAY_H_
+  36:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #define _UTIL_DELAY_H_ 1
+  37:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  38:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef __DOXYGEN__
+  39:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #  ifndef __HAS_DELAY_CYCLES
+  40:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #    define __HAS_DELAY_CYCLES 1
+  41:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #  endif
+  42:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif  /* __DOXYGEN__ */
+  43:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  44:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #include <inttypes.h>
+  45:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #include <util/delay_basic.h>
+  46:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #include <math.h>
+  47:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  48:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /** \file */
+  49:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  50:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \code
+  51:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  52:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     //#define F_CPU 14.7456E6
+  53:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     #include <util/delay.h>
+  54:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \endcode
+  55:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  56:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \note As an alternative method, it is possible to pass the
+  57:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  58:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     Obviously, in that case, no \c \#define statement should be
+  59:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     used.
+  60:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  61:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     The functions in this header file are wrappers around the basic
+  62:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  63:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     convenience functions where actual time values can be specified
+  64:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  65:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     that compile-time constant expressions will be eliminated by
+  66:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     compiler optimization so floating-point expressions can be used
+  67:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  68:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     frequency passed by the macro F_CPU.
+  69:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  70:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \note In order for these functions to work as intended, compiler
+  71:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  72:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     <em>must</em> be an expression that is a known constant at
+  73:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     compile-time.  If these requirements are not met, the resulting
+  74:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     delay will be much longer (and basically unpredictable), and
+  75:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     applications that otherwise do not use floating-point calculations
+  76:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     will experience severe code bloat by the floating-point library
+  77:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     routines linked into the application.
+  78:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  79:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     The functions available allow the specification of microsecond, and
+  80:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     millisecond delays directly, using the application-supplied macro
+  81:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  82:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  83:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** */
+  84:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  85:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #if !defined(__DOXYGEN__)
+  86:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** static __inline__ void _delay_us(double __us) __attribute__((__always_inline__));
+  87:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
+  88:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+  89:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  90:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef F_CPU
+  91:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /* prevent compiler error by supplying a default */
+  92:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  93:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /** \ingroup util_delay
+  94:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \def F_CPU
+  95:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     \brief CPU frequency in Hz
+  96:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+  97:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     The macro F_CPU specifies the CPU frequency to be considered by
+  98:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     the delay macros.  This macro is normally supplied by the
+  99:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     environment (e.g. from within a project header, or the project's
+ 100:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     Makefile).  The value 1 MHz here is only provided as a "vanilla"
+ 101:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     fallback if no such user-provided definition could be found.
+ 102:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 103:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     In terms of the delay functions, the CPU frequency can be given as
+ 104:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     a floating-point constant (e.g. 3.6864E6 for 3.6864 MHz).
+ 105:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     However, the macros in <util/setbaud.h> require it to be an
+ 106:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****     integer value.
+ 107:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****  */
+ 108:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** # define F_CPU 1000000UL
+ 109:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+ 110:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 111:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #ifndef __OPTIMIZE__
+ 112:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+ 113:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+ 114:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 115:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 116:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 117:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   __STDC_HOSTED__
+ 118:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #  include <math.h>
+ 119:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+ 120:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 121:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /**
+ 122:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \ingroup util_delay
+ 123:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 124:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 125:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 126:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The macro F_CPU is supposed to be defined to a
+ 127:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 128:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 129:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 130:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 131:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    When the user request delay which exceed the maximum possible one,
+ 132:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 133:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 134:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 135:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    user will not be informed about decreased resolution.
+ 136:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 137:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles()
+ 138:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 139:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    values greater than the maximal possible delay, overflows results in
+ 140:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    no delay i.e., 0ms.
+ 141:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 142:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Conversion of \c __ms into clock cycles may not always result in
+ 143:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    integer.  By default, the clock cycles rounded up to next
+ 144:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    integer. This ensures that the user gets at least \c __ms
+ 145:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    microseconds of delay.
+ 146:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 147:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Alternatively, by defining the macro \c __DELAY_ROUND_DOWN__, or
+ 148:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \c __DELAY_ROUND_CLOSEST__, before including this header file, the
+ 149:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    algorithm can be made to round down, or round to closest integer,
+ 150:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    respectively.
+ 151:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 152:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \note
+ 153:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 154:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The implementation of _delay_ms() based on
+ 155:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    __builtin_avr_delay_cycles() is not backward compatible with older
+ 156:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    implementations.  In order to get functionality backward compatible
+ 157:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    with previous versions, the macro \c "__DELAY_BACKWARD_COMPATIBLE__"
+ 158:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    must be defined before including this header file. Also, the
+ 159:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    backward compatible algorithm will be chosen if the code is
+ 160:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    compiled in a <em>freestanding environment</em> (GCC option
+ 161:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \c -ffreestanding), as the math functions required for rounding are
+ 162:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    not available to the compiler then.
+ 163:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 164:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****  */
+ 165:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** void
+ 166:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** _delay_ms(double __ms)
+ 167:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** {
+ 168:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	double __tmp ;
+ 169:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 170:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 171:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   __STDC_HOSTED__
+ 172:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	uint32_t __ticks_dc;
+ 173:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 174:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 175:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 176:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 177:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 178:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 179:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 180:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 181:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 182:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#else
+ 183:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		//round up by default
+ 184:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 185:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#endif
+ 186:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 187:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 188:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 189:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #else
+ 190:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	uint16_t __ticks;
+ 191:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
+ 192:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	if (__tmp < 1.0)
+ 193:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks = 1;
+ 194:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	else if (__tmp > 65535)
+ 195:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	{
+ 196:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		//	__ticks = requested delay in 1/10 ms
+ 197:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks = (uint16_t) (__ms * 10.0);
+ 198:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		while(__ticks)
+ 199:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		{
+ 200:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 			// wait 1/10 ms
+ 201:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 			_delay_loop_2(((F_CPU) / 4e3) / 10);
+ 202:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 			__ticks --;
+ 203:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		}
+ 204:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		return;
+ 205:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	}
+ 206:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	else
+ 207:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks = (uint16_t)__tmp;
+ 208:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	_delay_loop_2(__ticks);
+ 209:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #endif
+ 210:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** }
+ 211:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 212:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** /**
+ 213:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \ingroup util_delay
+ 214:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 215:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Perform a delay of \c __us microseconds, using _delay_loop_1().
+ 216:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 217:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The macro F_CPU is supposed to be defined to a
+ 218:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 219:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 220:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The maximal possible delay is 768 us / F_CPU in MHz.
+ 221:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 222:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    If the user requests a delay greater than the maximal possible one,
+ 223:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    _delay_us() will automatically call _delay_ms() instead.  The user
+ 224:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    will not be informed about this case.
+ 225:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 226:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles()
+ 227:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    support, maximal possible delay is 4294967.295 us/ F_CPU in MHz. For
+ 228:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    values greater than the maximal possible delay, overflow results in
+ 229:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    no delay i.e., 0us.
+ 230:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 231:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Conversion of \c __us into clock cycles may not always result in
+ 232:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    integer.  By default, the clock cycles rounded up to next
+ 233:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    integer. This ensures that the user gets at least \c __us
+ 234:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    microseconds of delay.
+ 235:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 236:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    Alternatively, by defining the macro \c __DELAY_ROUND_DOWN__, or
+ 237:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \c __DELAY_ROUND_CLOSEST__, before including this header file, the
+ 238:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    algorithm can be made to round down, or round to closest integer,
+ 239:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    respectively.
+ 240:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 241:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \note
+ 242:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 243:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    The implementation of _delay_ms() based on
+ 244:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    __builtin_avr_delay_cycles() is not backward compatible with older
+ 245:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    implementations.  In order to get functionality backward compatible
+ 246:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    with previous versions, the macro \c __DELAY_BACKWARD_COMPATIBLE__
+ 247:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    must be defined before including this header file. Also, the
+ 248:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    backward compatible algorithm will be chosen if the code is
+ 249:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    compiled in a <em>freestanding environment</em> (GCC option
+ 250:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    \c -ffreestanding), as the math functions required for rounding are
+ 251:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****    not available to the compiler then.
+ 252:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 253:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****  */
+ 254:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** void
+ 255:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** _delay_us(double __us)
+ 327               		.loc 2 255 1 view .LVU59
+ 328               	.LBB13:
+ 256:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** {
+ 257:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	double __tmp ;
+ 329               		.loc 2 257 2 view .LVU60
+ 258:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 259:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 260:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h ****   __STDC_HOSTED__
+ 261:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	uint32_t __ticks_dc;
+ 330               		.loc 2 261 2 view .LVU61
+ 262:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 331               		.loc 2 262 2 view .LVU62
+ 263:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 332               		.loc 2 263 2 view .LVU63
+ 264:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 265:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 266:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 267:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 268:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 269:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 270:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 271:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#else
+ 272:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		//round up by default
+ 273:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 333               		.loc 2 273 3 view .LVU64
+ 274:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	#endif
+ 275:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 
+ 276:c:\program files\qmk_msys\mingw64\avr\include\util\delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 334               		.loc 2 276 2 view .LVU65
+ 335 0000 80E5      		ldi r24,lo8(80)
+ 336 0002 8A95      	1:	dec r24
+ 337 0004 01F4      		brne 1b
+ 338               	.LVL14:
+ 339               	/* epilogue start */
+ 340               		.loc 2 276 2 is_stmt 0 view .LVU66
+ 341               	.LBE13:
+ 342               	.LBE12:
+ 343               		.loc 1 86 1 view .LVU67
+ 344 0006 0895      		ret
+ 345               		.cfi_endproc
+ 346               	.LFE17:
+ 348               		.section	.text.matrix_init_custom,"ax",@progbits
+ 349               		.weak	matrix_init_custom
+ 351               	matrix_init_custom:
+ 352               	.LFB26:
+ 353               		.cfi_startproc
+ 354               	/* prologue: function */
+ 355               	/* frame size = 0 */
+ 356               	/* stack size = 0 */
+ 357               	.L__stack_usage = 0
+ 358               	/* epilogue start */
+ 359 0000 0895      		ret
+ 360               		.cfi_endproc
+ 361               	.LFE26:
+ 363               		.section	.text.matrix_scan_custom,"ax",@progbits
+ 364               		.weak	matrix_scan_custom
+ 366               	matrix_scan_custom:
+ 367               	.LVL15:
+ 368               	.LFB19:
+  87:quantum/matrix_common.c **** 
+  88:quantum/matrix_common.c **** // CUSTOM MATRIX 'LITE'
+  89:quantum/matrix_common.c **** __attribute__((weak)) void matrix_init_custom(void) {}
+  90:quantum/matrix_common.c **** 
+  91:quantum/matrix_common.c **** __attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) { return true; }
+ 369               		.loc 1 91 78 is_stmt 1 view -0
+ 370               		.cfi_startproc
+ 371               	/* prologue: function */
+ 372               	/* frame size = 0 */
+ 373               	/* stack size = 0 */
+ 374               	.L__stack_usage = 0
+ 375               		.loc 1 91 80 view .LVU69
+ 376               		.loc 1 91 1 is_stmt 0 view .LVU70
+ 377 0000 81E0      		ldi r24,lo8(1)
+ 378               	.LVL16:
+ 379               	/* epilogue start */
+ 380               		.loc 1 91 1 view .LVU71
+ 381 0002 0895      		ret
+ 382               		.cfi_endproc
+ 383               	.LFE19:
+ 385               		.section	.text.matrix_init,"ax",@progbits
+ 386               		.weak	matrix_init
+ 388               	matrix_init:
+ 389               	.LFB20:
+  92:quantum/matrix_common.c **** 
+  93:quantum/matrix_common.c **** __attribute__((weak)) void matrix_init(void) {
+ 390               		.loc 1 93 46 is_stmt 1 view -0
+ 391               		.cfi_startproc
+ 392               	/* prologue: function */
+ 393               	/* frame size = 0 */
+ 394               	/* stack size = 0 */
+ 395               	.L__stack_usage = 0
+  94:quantum/matrix_common.c ****     matrix_init_custom();
+ 396               		.loc 1 94 5 view .LVU73
+ 397 0000 0E94 0000 		call matrix_init_custom
+ 398               	.LVL17:
+  95:quantum/matrix_common.c **** 
+  96:quantum/matrix_common.c ****     // initialize matrix state: all keys off
+  97:quantum/matrix_common.c ****     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+ 399               		.loc 1 97 5 view .LVU74
+ 400               	.LBB14:
+ 401               		.loc 1 97 10 view .LVU75
+ 402               		.loc 1 97 25 view .LVU76
+  98:quantum/matrix_common.c ****         raw_matrix[i] = 0;
+ 403               		.loc 1 98 9 view .LVU77
+ 404               		.loc 1 98 23 is_stmt 0 view .LVU78
+ 405 0004 A0E0      		ldi r26,lo8(raw_matrix)
+ 406 0006 B0E0      		ldi r27,hi8(raw_matrix)
+ 407 0008 1C92      		st X,__zero_reg__
+  99:quantum/matrix_common.c ****         matrix[i]     = 0;
+ 408               		.loc 1 99 9 is_stmt 1 view .LVU79
+ 409               		.loc 1 99 23 is_stmt 0 view .LVU80
+ 410 000a E0E0      		ldi r30,lo8(matrix)
+ 411 000c F0E0      		ldi r31,hi8(matrix)
+ 412 000e 1082      		st Z,__zero_reg__
+  97:quantum/matrix_common.c ****         raw_matrix[i] = 0;
+ 413               		.loc 1 97 42 is_stmt 1 view .LVU81
+ 414               	.LVL18:
+  97:quantum/matrix_common.c ****         raw_matrix[i] = 0;
+ 415               		.loc 1 97 25 view .LVU82
+  98:quantum/matrix_common.c ****         raw_matrix[i] = 0;
+ 416               		.loc 1 98 9 view .LVU83
+  98:quantum/matrix_common.c ****         raw_matrix[i] = 0;
+ 417               		.loc 1 98 23 is_stmt 0 view .LVU84
+ 418 0010 1196      		adiw r26,1
+ 419 0012 1C92      		st X,__zero_reg__
+ 420               		.loc 1 99 9 is_stmt 1 view .LVU85
+ 421               		.loc 1 99 23 is_stmt 0 view .LVU86
+ 422 0014 1182      		std Z+1,__zero_reg__
+  97:quantum/matrix_common.c ****         raw_matrix[i] = 0;
+ 423               		.loc 1 97 42 is_stmt 1 view .LVU87
+ 424               	.LVL19:
+  97:quantum/matrix_common.c ****         raw_matrix[i] = 0;
+ 425               		.loc 1 97 25 view .LVU88
+ 426               	.LBE14:
+ 100:quantum/matrix_common.c ****     }
+ 101:quantum/matrix_common.c **** 
+ 102:quantum/matrix_common.c ****     debounce_init(MATRIX_ROWS);
+ 427               		.loc 1 102 5 view .LVU89
+ 428 0016 82E0      		ldi r24,lo8(2)
+ 429 0018 0E94 0000 		call debounce_init
+ 430               	.LVL20:
+ 103:quantum/matrix_common.c **** 
+ 104:quantum/matrix_common.c ****     matrix_init_quantum();
+ 431               		.loc 1 104 5 view .LVU90
+ 432 001c 0C94 0000 		jmp matrix_init_quantum
+ 433               	.LVL21:
+ 434               		.cfi_endproc
+ 435               	.LFE20:
+ 437               		.section	.text.matrix_scan,"ax",@progbits
+ 438               		.weak	matrix_scan
+ 440               	matrix_scan:
+ 441               	.LFB21:
+ 105:quantum/matrix_common.c **** }
+ 106:quantum/matrix_common.c **** 
+ 107:quantum/matrix_common.c **** __attribute__((weak)) uint8_t matrix_scan(void) {
+ 442               		.loc 1 107 49 view -0
+ 443               		.cfi_startproc
+ 444 0000 CF93      		push r28
+ 445               	.LCFI3:
+ 446               		.cfi_def_cfa_offset 3
+ 447               		.cfi_offset 28, -2
+ 448               	/* prologue: function */
+ 449               	/* frame size = 0 */
+ 450               	/* stack size = 1 */
+ 451               	.L__stack_usage = 1
+ 108:quantum/matrix_common.c ****     bool changed = matrix_scan_custom(raw_matrix);
+ 452               		.loc 1 108 5 view .LVU92
+ 453               		.loc 1 108 20 is_stmt 0 view .LVU93
+ 454 0002 80E0      		ldi r24,lo8(raw_matrix)
+ 455 0004 90E0      		ldi r25,hi8(raw_matrix)
+ 456 0006 0E94 0000 		call matrix_scan_custom
+ 457               	.LVL22:
+ 458 000a C82F      		mov r28,r24
+ 459               	.LVL23:
+ 109:quantum/matrix_common.c **** 
+ 110:quantum/matrix_common.c ****     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+ 460               		.loc 1 110 5 is_stmt 1 view .LVU94
+ 461 000c 282F      		mov r18,r24
+ 462 000e 42E0      		ldi r20,lo8(2)
+ 463 0010 60E0      		ldi r22,lo8(matrix)
+ 464 0012 70E0      		ldi r23,hi8(matrix)
+ 465 0014 80E0      		ldi r24,lo8(raw_matrix)
+ 466 0016 90E0      		ldi r25,hi8(raw_matrix)
+ 467               	.LVL24:
+ 468               		.loc 1 110 5 is_stmt 0 view .LVU95
+ 469 0018 0E94 0000 		call debounce
+ 470               	.LVL25:
+ 111:quantum/matrix_common.c **** 
+ 112:quantum/matrix_common.c ****     matrix_scan_quantum();
+ 471               		.loc 1 112 5 is_stmt 1 view .LVU96
+ 472 001c 0E94 0000 		call matrix_scan_quantum
+ 473               	.LVL26:
+ 113:quantum/matrix_common.c ****     return changed;
+ 474               		.loc 1 113 5 view .LVU97
+ 114:quantum/matrix_common.c **** }
+ 475               		.loc 1 114 1 is_stmt 0 view .LVU98
+ 476 0020 8C2F      		mov r24,r28
+ 477               	/* epilogue start */
+ 478 0022 CF91      		pop r28
+ 479               	.LVL27:
+ 480               		.loc 1 114 1 view .LVU99
+ 481 0024 0895      		ret
+ 482               		.cfi_endproc
+ 483               	.LFE21:
+ 485               		.section	.text.peek_matrix,"ax",@progbits
+ 486               		.weak	peek_matrix
+ 488               	peek_matrix:
+ 489               	.LVL28:
+ 490               	.LFB22:
+ 115:quantum/matrix_common.c **** 
+ 116:quantum/matrix_common.c **** __attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) { return 0 !
+ 491               		.loc 1 116 88 is_stmt 1 view -0
+ 492               		.cfi_startproc
+ 493               	/* prologue: function */
+ 494               	/* frame size = 0 */
+ 495               	/* stack size = 0 */
+ 496               	.L__stack_usage = 0
+ 497               		.loc 1 116 90 view .LVU101
+ 498 0000 90E0      		ldi r25,0
+ 499               		.loc 1 116 132 is_stmt 0 view .LVU102
+ 500 0002 4423      		tst r20
+ 501 0004 01F0      		breq .L19
+ 502               		.loc 1 116 120 discriminator 1 view .LVU103
+ 503 0006 8050      		subi r24,lo8(-(raw_matrix))
+ 504 0008 9040      		sbci r25,hi8(-(raw_matrix))
+ 505               	.LVL29:
+ 506               	.L21:
+ 507               		.loc 1 116 132 discriminator 2 view .LVU104
+ 508 000a FC01      		movw r30,r24
+ 509 000c 8081      		ld r24,Z
+ 510 000e 90E0      		ldi r25,0
+ 511               		.loc 1 116 99 discriminator 2 view .LVU105
+ 512 0010 00C0      		rjmp 2f
+ 513               		1:
+ 514 0012 9595      		asr r25
+ 515 0014 8795      		ror r24
+ 516               		2:
+ 517 0016 6A95      		dec r22
+ 518 0018 02F4      		brpl 1b
+ 519               		.loc 1 116 1 discriminator 2 view .LVU106
+ 520 001a 8170      		andi r24,lo8(1)
+ 521               	/* epilogue start */
+ 522 001c 0895      		ret
+ 523               	.LVL30:
+ 524               	.L19:
+ 525               		.loc 1 116 140 discriminator 2 view .LVU107
+ 526 001e 8050      		subi r24,lo8(-(matrix))
+ 527 0020 9040      		sbci r25,hi8(-(matrix))
+ 528               	.LVL31:
+ 529               		.loc 1 116 140 discriminator 2 view .LVU108
+ 530 0022 00C0      		rjmp .L21
+ 531               		.cfi_endproc
+ 532               	.LFE22:
+ 534               		.comm	matrix,2,1
+ 535               		.comm	raw_matrix,2,1
+ 536               		.text
+ 537               	.Letext0:
+ 538               		.file 3 "c:\\program files\\qmk_msys\\mingw64\\avr\\include\\stdint.h"
+ 539               		.file 4 "tmk_core/common/matrix.h"
+ 540               		.file 5 "tmk_core/common/debug.h"
+ 541               		.file 6 "quantum/debounce.h"
+ 542               		.file 7 "tmk_core/common/util.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 matrix_common.c
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:2      *ABS*:000000000000003e __SP_H__
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:3      *ABS*:000000000000003d __SP_L__
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:4      *ABS*:000000000000003f __SREG__
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:5      *ABS*:0000000000000000 __tmp_reg__
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:6      *ABS*:0000000000000001 __zero_reg__
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:13     .text.matrix_init_user:0000000000000000 matrix_init_user
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:13     .text.matrix_init_user:0000000000000000 matrix_init_user.localalias.0
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:33     .text.matrix_init_kb:0000000000000000 matrix_init_kb
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:50     .text.matrix_scan_user:0000000000000000 matrix_scan_user
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:65     .text.matrix_scan_kb:0000000000000000 matrix_scan_kb
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:82     .text.matrix_rows:0000000000000000 matrix_rows
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:101    .text.matrix_cols:0000000000000000 matrix_cols
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:120    .text.matrix_is_on:0000000000000000 matrix_is_on
+                            *COM*:0000000000000002 matrix
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:166    .text.matrix_get_row:0000000000000000 matrix_get_row
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:193    .text.matrix_is_modified:0000000000000000 matrix_is_modified
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:216    .text.matrix_print:0000000000000000 matrix_print
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:238    .text.matrix_key_count:0000000000000000 matrix_key_count
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:314    .text.matrix_io_delay:0000000000000000 matrix_io_delay
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:351    .text.matrix_init_custom:0000000000000000 matrix_init_custom
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:366    .text.matrix_scan_custom:0000000000000000 matrix_scan_custom
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:388    .text.matrix_init:0000000000000000 matrix_init
+                            *COM*:0000000000000002 raw_matrix
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:440    .text.matrix_scan:0000000000000000 matrix_scan
+C:\Users\gazed\AppData\Local\Temp\cctCuwwc.s:488    .text.peek_matrix:0000000000000000 peek_matrix
+
+UNDEFINED SYMBOLS
+debounce_active
+bitpop
+debounce_init
+matrix_init_quantum
+debounce
+matrix_scan_quantum
+__do_clear_bss
