@@ -30,6 +30,8 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 
 #elif defined POINTING_DEVICE_DRIVER_pimoroni_trackball
+#include "i2c_master.h"
+
 void init(void) {
     i2c_init();
     trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
