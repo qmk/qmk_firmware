@@ -22,10 +22,5 @@
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
-
-     },
-     "terminal.integrated.shellArgs.windows": [
-         "--login"
-     ],
-     "terminal.integrated.cursorStyle": "line"
+    }
 }
