@@ -59,3 +59,4 @@
 #define AdafruitBleResetPin D4
 #define AdafruitBleCSPin    B4
 #define AdafruitBleIRQPin   E6
+#define BATTERY_LEVEL_PIN   B6
