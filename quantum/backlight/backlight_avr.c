@@ -458,13 +458,3 @@ void backlight_init_ports(void) {
     }
 #endif
 }
-
-#    endif  // hardware backlight
-
-#else  // no backlight
-
-__attribute__((weak)) void backlight_init_ports(void) {}
-
-__attribute__((weak)) void backlight_set(uint8_t level) {}
-
-#endif  // backlight
