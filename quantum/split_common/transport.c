@@ -22,6 +22,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#    include "rgb_matrix.h"
+#endif
+
 #if defined(USE_I2C)
 
 #    include "i2c_master.h"
@@ -54,6 +58,9 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_config_t rgb_matrix;
+#    endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -68,6 +75,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
+#    define I2C_RGB_MATRIX_START offsetof(I2C_slave_buffer_t, rgb_matrix)
 
 #    define TIMEOUT 100
 
@@ -141,6 +149,10 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #        endif
 #    endif
 
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_MATRIX_START, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix), TIMEOUT);
+#    endif
+
 #    ifndef DISABLE_SYNC_TIMER
     i2c_buffer->sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_SYNC_TIME_START, (void *)&i2c_buffer->sync_timer, sizeof(i2c_buffer->sync_timer), TIMEOUT);
@@ -186,6 +198,10 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     set_oneshot_mods(i2c_buffer->oneshot_mods);
 #        endif
 #    endif
+
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    memcpy((void*)i2c_buffer->rgb_matrix, (void *)rgb_matrix_config, sizeof(i2c_buffer->rgb_matrix));
+#    endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -225,6 +241,9 @@ typedef struct _Serial_m2s_buffer_t {
 #    endif
 #    ifdef WPM_ENABLE
     uint8_t      current_wpm;
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_config_t rgb_matrix;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -343,6 +362,11 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
 #        endif
 #    endif
+
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    serial_m2s_buffer.rgb_matrix = rgb_matrix_config;
+#    endif
+
 #    ifndef DISABLE_SYNC_TIMER
     serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
@@ -380,6 +404,10 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #        ifndef NO_ACTION_ONESHOT
     set_oneshot_mods(serial_m2s_buffer.oneshot_mods);
 #        endif
+#    endif
+
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    rgb_matrix_config = serial_m2s_buffer.rgb_matrix;
 #    endif
 }
 

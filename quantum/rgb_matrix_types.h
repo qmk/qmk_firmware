@@ -89,6 +89,7 @@ typedef union {
         uint8_t mode : 6;
         HSV     hsv;
         uint8_t speed;  // EECONFIG needs to be increased to support this
+        led_flags_t flags;
     };
 } rgb_config_t;
 

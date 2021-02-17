@@ -28,6 +28,10 @@
 #    include "rgblight.h"
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
+
 /** \brief Suspend idle
  *
  * FIXME: needs doc
