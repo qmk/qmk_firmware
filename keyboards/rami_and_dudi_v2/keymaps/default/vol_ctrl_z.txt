@@ -1,0 +1,25 @@
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_VOLD);
+        } else {
+            tap_code(KC_VOLU);
+        }
+    }
+	else if (index == 1) { /* Second encoder */
+	
+	        if (clockwise) {
+            tap_code16(C(KC_Z));
+        } else {
+            tap_code16(C(KC_Y));
+        }
+		
+        switch (get_highest_layer(layer_state)) {
+
+            case _BASE:
+                update_dial(clockwise);
+                break;
+            /* code for other layers... */
+        }
+							}
+														}
