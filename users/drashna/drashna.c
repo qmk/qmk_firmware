@@ -168,7 +168,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE
-#ifdef AUDIO_ENABLE
+#if defined(AUDIO_ENABLE) && !defined(__arm__)
     static bool is_gamepad_on = false;
     if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
         is_gamepad_on = layer_state_cmp(state, _GAMEPAD);
