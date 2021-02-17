@@ -39,3 +39,8 @@ typedef struct {
     void (*init)(void);
     short_mouse_t (*get_report)(void);
 } pointing_device_driver_t;
+
+void process_mouse_kb(report_mouse_t *report, int8_t x, int8_t y);
+void process_wheel_kb(report_mouse_t *report, int8_t h, int8_t v);
+void process_mouse_user(report_mouse_t *report, int8_t x, int8_t y);
+void process_wheel_user(report_mouse_t *report, int8_t h, int8_t v);
