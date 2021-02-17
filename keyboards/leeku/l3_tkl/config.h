@@ -50,10 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 
 /* The RGB on this PCB is strange so I've limited it to 16 on the bottom */
-#define RGBLED_NUM 20
-#define RGBLIGHT_CLIP_START 2
-#define RGBLIGHT_CLIP_LEDS 16
-
+#define RGBLED_NUM 16
+#define RGBLED_CLIPSTART 2
+#define RGBLED_CLIPEND 2
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO

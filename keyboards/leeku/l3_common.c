@@ -33,6 +33,14 @@
 #define LEDMODE_ARRAY_SIZE (LEDMODE_INDEX_MAX * LED_BLOCK_MAX)
 #define I2C_RETRY_DELAY_MS 5
 
+#ifndef RGBLED_CLIPSTART
+#define RGBLED_CLIPSTART 0
+#endif
+
+#ifndef RGBLED_CLIPEND
+#define RGBLED_CLIPEND 0
+#endif
+
 uint8_t localBuffer[0x4B];  // I2C_WRSIZE
 
 void keyboard_pre_init_kb(void) {
@@ -97,7 +105,7 @@ void l3_led_init(void) {
     tinycmd_config_req_type *p_cfg_req = (tinycmd_config_req_type *)localBuffer;
     p_cfg_req->cmd_code                = TINY_CMD_CONFIG_F;
     p_cfg_req->pkt_len                 = sizeof(tinycmd_config_req_type);
-    p_cfg_req->rgb_num                 = RGBLED_NUM + 1;
+    p_cfg_req->rgb_num                 = RGBLED_CLIPSTART + RGBLED_CLIPEND + RGBLED_NUM;
 #ifdef RGBLIGHT_ENABLE
     p_cfg_req->rgb_limit               = RGBLIGHT_LIMIT_VAL;
 #else
@@ -134,13 +142,6 @@ void l3_led_init(void) {
     p_rgb_set_preset_req->effect_param                    = p_param;
     i2c_transmit(WS2812_ADDRESS, (uint8_t *)p_rgb_set_preset_req, p_rgb_set_preset_req->pkt_len, WS2812_TIMEOUT);
     wait_ms(I2C_RETRY_DELAY_MS);
-#ifdef RGBLIGHT_CLIP_START
-    #ifdef RGBLIGHT_CLIP_LEDS
-        rgblight_set_clipping_range(RGBLIGHT_CLIP_START, RGBLIGHT_CLIP_LEDS);
-    #else
-        rgblight_set_clipping_range(RGBLIGHT_CLIP_START, RGBLED_NUM - RGBLIGHT_CLIP_START);
-    #endif
-#endif
 }
 
 void l3_set_backlight(uint8_t level) {
@@ -161,7 +162,7 @@ void l3_set_rgb(LED_TYPE *ledarray, uint16_t leds) {
     p_rgb_buffer_req->cmd_code                    = TINY_CMD_RGB_BUFFER_F;
     p_rgb_buffer_req->pkt_len                     = sizeof(tinycmd_rgb_buffer_req_type);
     p_rgb_buffer_req->num                         = leds;
-    p_rgb_buffer_req->offset                      = rgblight_ranges.clipping_start_pos;  // Do I need to do some math to figure out the offset or will the driver to it?
+    p_rgb_buffer_req->offset                      = RGBLED_CLIPSTART;  // Do I need to do some math to figure out the offset or will the driver to it?
     memcpy(p_rgb_buffer_req->data, ledarray, sizeof(LED_TYPE) * leds);
 
     i2c_transmit(WS2812_ADDRESS, (uint8_t *)p_rgb_buffer_req, p_rgb_buffer_req->pkt_len, WS2812_TIMEOUT);
