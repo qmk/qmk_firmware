@@ -657,19 +657,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_ENTER);
             break;
         case SCREEN_READREG_2:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("readreg 2");
+            tap_code(KC_ENTER);
             break;
         case SCREEN_READREG_3:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("readreg 3");
+            tap_code(KC_ENTER);
             break;
+
         case SCREEN_PASTEREG_1:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
             SEND_STRING("paste 1");
             tap_code(KC_ENTER);
             break;        
-            break;
         case SCREEN_PASTEREG_2:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("paste 2");
+            tap_code(KC_ENTER);
             break;
         case SCREEN_PASTEREG_3:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("paste 3");
+            tap_code(KC_ENTER);
             break;
     }
   }
