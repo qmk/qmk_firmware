@@ -40,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
 
+#undef RGBLIGHT_HUE_STEP
+#define RGBLIGHT_HUE_STEP 4
 
 #ifdef MOUSEKEY_ENABLE
    #undef MOUSEKEY_INTERVAL

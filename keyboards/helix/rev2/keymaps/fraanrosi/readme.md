@@ -1,5 +1,6 @@
+ <!---Copyright 2021 Franco Rosi <fraanrosi@gmail.com> -->
 ## Fraanrosi
-A Latin American Spanish keymap for Helix/rev2/under, 5 rows.   
+A **Latin American Spanish** keymap for Helix/rev2/under, 5 rows.   
 Designed to be as simple and more touch typing oriented as possible.    
 It was inspired by a DELL Latitude E5470.
 
@@ -17,8 +18,9 @@ The keymap has multiple layers, moving extra keys to different layers.
 Keymap : http://www.keyboard-layout-editor.com/#/gists/4cd7b4ccda1de5cf9edc56d29b64da30
 ### First layer (qwerty).
 
-It contains the "ñ" letter.         
-The "Caps Lock" key toggle to an RGB mode to alert. 
+It contains the "**Ñ**" letter.         
+"Caps Lock" key toggle an RGB mode, to alert.           
+@ is typed with AltGr+q 
 ![first-layer](https://i.imgur.com/BaVDVdB.png)
 ### Second layer (Lower).
 
