@@ -1,6 +1,6 @@
 # Manibus keyboard
 
-![Imgur](https://i.imgur.com/0l17Xyy.jpg)
+![Imgur](https://i.imgur.com/0l17Xyyl.jpg)
 
 A 5x7 split ergonomic keyboard designed and sold by [Blank Tehnologii](https://blank.computer/).
 
