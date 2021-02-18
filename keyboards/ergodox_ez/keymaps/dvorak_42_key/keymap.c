@@ -77,6 +77,13 @@ enum custom_keycodes {
   SCREEN_UP_JUMP,
   SCREEN_DOWN_JUMP,
 
+  SCREEN_READREG_1,
+  SCREEN_READREG_2,
+  SCREEN_READREG_3, 
+  SCREEN_PASTEREG_1,
+  SCREEN_PASTEREG_2, 
+  SCREEN_PASTEREG_3,
+
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
@@ -96,19 +103,6 @@ enum custom_keycodes {
 #define VSCODE           9 // visual studio code specific layer
 
 
-// macros
-// #define SCREEN_TAB_LEFT 4
-// #define SCREEN_TAB_RIGHT 5
-
-
-// #define SCREEN_UP_JUMP 23
-// #define SCREEN_DOWN_JUMP 24
-#define SCREEN_READREG_1 25
-#define SCREEN_READREG_2 26
-#define SCREEN_READREG_3 27
-#define SCREEN_PASTEREG_1 28
-#define SCREEN_PASTEREG_2 29
-#define SCREEN_PASTEREG_3 30
 
 // Android Studio shortcuts
 #define AS_TABLEFT LALT(KC_LEFT)
@@ -331,8 +325,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
        // left hand
        KC_NO,  KC_TRNS,    KC_TRNS,              KC_TRNS,     		  KC_TRNS,               KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    M(SCREEN_READREG_3),  M(SCREEN_READREG_2),  M(SCREEN_READREG_1),   KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    M(SCREEN_PASTEREG_3), M(SCREEN_PASTEREG_2), M(SCREEN_PASTEREG_1),  KC_TRNS,
+       KC_TRNS,KC_TRNS,    SCREEN_READREG_3,     SCREEN_READREG_2,    SCREEN_READREG_1,      KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    SCREEN_PASTEREG_3,    SCREEN_PASTEREG_2,   SCREEN_PASTEREG_1,     KC_TRNS,
        KC_TRNS,KC_TRNS,    KC_TRNS,     		 KC_TRNS,     	      KC_TRNS,               KC_TRNS,   KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -458,36 +452,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// leaving this in place for compatibilty with old keymaps cloned and re-compiled.
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-
-
-		MACRO_SCREEN_REG(SCREEN_READREG_1,1);
-		MACRO_SCREEN_REG(SCREEN_READREG_2,2);
-		MACRO_SCREEN_REG(SCREEN_READREG_3,3);
-
-		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_1,1);
-		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_2,2);
-		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_3,3);
-
-
-/* 		case SCREEN_UP_JUMP:
-            if (record->event.pressed) {
-                return MACRO( T(5), T(UP), END);
-            }
-		break;
-
-		case SCREEN_DOWN_JUMP:
-            if (record->event.pressed) {
-                return MACRO( T(5), T(DOWN), END);
-            }
-		break; */
-
-      }
-    return MACRO_NONE;
-};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -684,6 +648,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case SCREEN_DOWN_JUMP:
             tap_code(KC_5);
             tap_code(KC_DOWN);
+            break;
+
+        case SCREEN_READREG_1:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("readreg 1");
+            tap_code(KC_ENTER);
+            break;
+        case SCREEN_READREG_2:
+            break;
+        case SCREEN_READREG_3:
+            break;
+        case SCREEN_PASTEREG_1:
+            tap_code16(C(KC_A));
+            tap_code16(S(KC_SCOLON));
+            SEND_STRING("paste 1");
+            tap_code(KC_ENTER);
+            break;        
+            break;
+        case SCREEN_PASTEREG_2:
+            break;
+        case SCREEN_PASTEREG_3:
             break;
     }
   }
