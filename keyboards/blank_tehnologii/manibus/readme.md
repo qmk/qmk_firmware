@@ -17,4 +17,4 @@ Example of flashing this keyboard:
     make blank_tehnologii/manibus:default:dfu-split-left # Left half
     make blank_tehnologii/manibus:default:dfu-split-right # Right half
 
-See [build environment setup](https://docs.qmk.fm/#/newbs_getting_started?id=_5-configure-your-build-environment-optional) and [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
