@@ -190,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case KC_QUIT:
       if(record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_F4)SS_UP(X_LALT));
+        tap_code16(A(KC_F4));
       }
       return false;
     case KC_CTLW:
