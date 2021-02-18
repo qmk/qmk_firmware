@@ -214,7 +214,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_SPC);
           }
           else {
-             SEND_STRING(SS_TAP(X_ENT));
+             tap_code(KC_ENT);
           }
         }
         return false;
