@@ -9,5 +9,16 @@ Features:
 - The secondary display shows a logo and the wpm counter.
 - Left encoder controls arrow left/right. Right encoder arrow up/down.
 - Left encoder click switch to game mode. Right encoder click switches to Qwerty mode.
+- **Features Luna, your keyboard pet!**
 
+##Luna, the keyboard pet
+
+Features:
+- Luna reacts to your wpm counter
+    - under 10 wpm she sits
+    - between 10 and 40 wpm she walks
+    - over 40 wpm she runs
+- She will move sneakily if you hold down Ctrl
+- Will bark at people on the internet if you activate Caps Lock!
+- Luna jumps every time you hit Space
 
