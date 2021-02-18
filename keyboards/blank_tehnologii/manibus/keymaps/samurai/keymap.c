@@ -16,11 +16,13 @@
 #include QMK_KEYBOARD_H
 
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _UPPER 2
-#define _MOUSE 3
-#define _MEDIA 4
+enum custom_layers {
+    _QWERTY,
+    _LOWER,
+    _UPPER,
+    _MOUSE,
+    _MEDIA,  
+);
 #define MD_SPC MT(MOD_LSFT, KC_SPC)
 #define MD_ENT MT(MOD_RALT, KC_ENT)
 #define LT_SPC LT(_LOWER, KC_SPC)
