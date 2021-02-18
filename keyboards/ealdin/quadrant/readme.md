@@ -4,8 +4,8 @@
 
 A 5x14 ortholinear keyboard with "barebone" design using Elite-C.
 
-* Keyboard Maintainer: [Ealdin](https://github.com/Ealdin)  
-* Hardware Supported: Quadrant E-C   
+* Keyboard Maintainer: [Ealdin](https://github.com/Ealdin)
+* Hardware Supported: Quadrant E-C
 * Hardware Availability: Group Buy via /r/mk
 
 Make example for this keyboard (after setting up your build environment):
