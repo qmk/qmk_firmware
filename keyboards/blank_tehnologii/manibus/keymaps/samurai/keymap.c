@@ -211,7 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case  KC_ENT:
         if(record->event.pressed) {
           if(get_mods() & MOD_BIT(KC_LSFT)){
-            SEND_STRING(SS_TAP(X_SPC));
+            tap_code(KC_SPC);
           }
           else {
              SEND_STRING(SS_TAP(X_ENT));
