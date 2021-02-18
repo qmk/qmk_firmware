@@ -70,7 +70,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     // oled_write_P(command_id, false);
     // const char *command_id_2 = (uint8_t)  &(command_id[length]);
     oled_write(command_id, false);
-    raw_hid_send((uint8_t *) command_id, length);
+    // raw_hid_send((uint8_t *) command_id, length);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
