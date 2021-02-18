@@ -121,14 +121,14 @@ static void power_down(uint8_t wdto) {
  * FIXME: needs doc
  */
 void suspend_power_down(void) {
-    suspend_power_down_kb();
-
 #ifdef PROTOCOL_LUFA
     if (USB_DeviceState == DEVICE_STATE_Configured) return;
 #endif
 #ifdef PROTOCOL_VUSB
     if (!vusb_suspended) return;
 #endif
+
+    suspend_power_down_kb();
 
 #ifndef NO_SUSPEND_POWER_DOWN
     // Turn off backlight
@@ -157,7 +157,7 @@ void suspend_power_down(void) {
     rgblight_suspend();
 #    endif
 
-    // Enter sleep state if possible
+    // Enter sleep state if possible (ie, the MCU has a watchdog timeout interrupt)
 #    if defined(WDT_vect)
     power_down(WDTO_15MS);
 #    endif
