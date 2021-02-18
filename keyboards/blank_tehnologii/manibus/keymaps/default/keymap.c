@@ -16,13 +16,12 @@
 #include QMK_KEYBOARD_H
 
 
-#define _QWERTY 0
-#define _LOWER 1
-
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER
+  _QWERTY,
+  _LOWER
 };
+
+#define LOWER MO(_LOWER)
 /*
     L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05,
     L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15,
