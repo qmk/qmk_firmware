@@ -22,7 +22,7 @@ enum custom_layers {
     _UPPER,
     _MOUSE,
     _MEDIA,  
-);
+};
 #define MD_SPC MT(MOD_LSFT, KC_SPC)
 #define MD_ENT MT(MOD_RALT, KC_ENT)
 #define LT_SPC LT(_LOWER, KC_SPC)
