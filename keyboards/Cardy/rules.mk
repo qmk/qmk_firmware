@@ -28,3 +28,4 @@ DIP_SWITCH_ENABLE = yes # DIP switch in this case used for the encoder switch
 OLED_DRIVER_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = no
+RAW_ENABLE = yes
