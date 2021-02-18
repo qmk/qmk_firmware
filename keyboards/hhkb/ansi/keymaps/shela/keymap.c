@@ -315,7 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(r_inner);
                     r_long_pressed = true;
                 }
-                // set_single_persistent_default_layer(_PSEUDO);
+                default_layer_set(1UL << _PSEUDO);
             }
             return false;
         case TENKEY:
