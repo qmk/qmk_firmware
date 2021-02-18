@@ -24,8 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Stream Cheap
 #define PRODUCT         Console Keyboard
-#define DESCRIPTION     Stream Cheap Console Keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 12
@@ -66,5 +64,4 @@
 //     #define RGBLIGHT_EFFECT_RGB_TEST
 //     #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
-
 
