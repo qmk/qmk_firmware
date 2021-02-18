@@ -1,17 +1,19 @@
-# KBD75 round 1 & 2
+# KBD75 round 2
 
-QMK Firmware is not the official firmware for the KBD75 round 1 & 2. 
+QMK Firmware is not the official firmware for the KBD75 round 2. 
 
 * Keyboard Maintainer: Anh Nguyen
-* Hardware Supported: KBD75 round 1 & 2 PCB
+* Hardware Supported: KBD75 round 2 PCB
+* Hardware Availability: Not available on KBDFans anymore. PCB should look exactly like any white v1 PCB but without the RST button and uses an ATMega32A instead of an ATMega32U4. If your KBD75 PCB is white and can be remapped with Bootmapper Client, you should probably use this keymap.
+Pictures can be found on KBDFans website at the bottom: https://kbdfans.com/products/kbd75-keyboard-set
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kbdfans/kbd75round1:default
+    make kbdfans/kbd75_round2:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make kbdfans/kbd75round1:default:flash
+    make kbdfans/kbd75_round2:default:flash
 
 **Reset Key**: Hold down the bottom left most key located at `K00`, commonly programmed as Left Control while plugging in the keyboard.
 

@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "kbd75round1.h"
+#include "kbd75_round2.h"
 
 void keyboard_pre_init_kb(void) {
     led_init_ports();
