@@ -1,8 +1,5 @@
 # MCU name
 MCU = atmega32u4
-
-
-
 # Bootloader selection
 BOOTLOADER = caterina
 
@@ -23,4 +20,3 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes			# Link time optimize
-
