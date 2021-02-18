@@ -190,11 +190,11 @@ uint8_t matrix_scan(void) {
 
 uint8_t hw_row_to_matrix_row[18] = { 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5 };
 /**
- * @brief   MR1 interrupt handler.
+ * @brief   CT16B1 interrupt handler.
  *
  * @isr
  */
-OSAL_IRQ_HANDLER(Vector80) {
+OSAL_IRQ_HANDLER(SN32_CT16B1_HANDLER) {
 
     chSysDisable();
 
