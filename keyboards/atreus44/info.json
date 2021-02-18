@@ -1,7 +1,7 @@
 {
   "keyboard_name": "Atreus44",
-  "url": "",
-  "maintainer": "qmk",
+  "url": "https://shop.keyboard.io/products/keyboardio-atreus",
+  "maintainer": "keyboardio",
   "width": 15,
   "height": 5.7,
   "layouts": {
