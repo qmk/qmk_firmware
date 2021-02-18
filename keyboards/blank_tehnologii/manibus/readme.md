@@ -12,7 +12,7 @@ Hardware Availability: [Blank Tehnologii](https://blank.computer/)
 
 Make example for this keyboard (after setting up your build environment):
 
-```make blank_tehnologii/manibus:default```
+    make blank_tehnologii/manibus:default
 
 Example of flashing this keyboard:
 
@@ -23,4 +23,3 @@ Right half:
 ```make blank_tehnologii/manibus:default:dfu-split-right```
 
 See [build environment setup](https://docs.qmk.fm/#/newbs_getting_started?id=_5-configure-your-build-environment-optional) and [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) for more information.
-
