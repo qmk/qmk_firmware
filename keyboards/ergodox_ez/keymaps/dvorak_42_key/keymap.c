@@ -6,6 +6,8 @@
 
 // to build this keymap
 // make ergodox_ez:dvorak_42_key:teensy
+// or:
+// qmk compile -kb ergodox_ez -km dvorak_42_key
 // flashing from rpi:
 // sudo teensy_loader_cli -v -w .build/ergodox_ez_dvorak_42_key.hex --mcu atmega32u4
 
@@ -123,6 +125,7 @@ enum custom_keycodes {
 
 // visual studio code shortcuts
 #define VS_FILE LCTL(KC_P)
+#define VS_OPEN_FILE LCTL(KC_O)
 #define VS_LINE LCTL(KC_G)
 #define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
 #define VS_DEFINITION KC_F12
@@ -394,7 +397,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
        VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
-                                       VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
+                                       VS_COMMANDS,   VS_OPEN_FILE,     VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
