@@ -1,6 +1,6 @@
 # Quadrant
 
-![Quadrant](https://i.imgur.com/S5f1Tn7.jpg)
+![Quadrant](https://i.imgur.com/S5f1Tn7l.jpg)
 
 A 5x14 ortholinear keyboard with "barebone" design using Elite-C.
 
