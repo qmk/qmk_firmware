@@ -569,76 +569,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
         // linux screen shortcuts
         case SCREEN_TAB_LEFT:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("p");
+            SEND_STRING(SS_LCTL("a") "p");
             break;
         case SCREEN_TAB_RIGHT:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("n");
+            SEND_STRING(SS_LCTL("a") "n");
             break;
         case SCREEN_NEW_TAB:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("c");
+            SEND_STRING(SS_LCTL("a") "c");
             break;
         case SCREEN_DETACH:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("d");
+            SEND_STRING(SS_LCTL("a") "d");
             break;
         case SCREEN_RENAME:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING(SS_LSFT("a"));
+            SEND_STRING(SS_LCTL("a") SS_LSFT("a"));
             break;
         case SCREEN_NUMBER:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING(":number ");
+            SEND_STRING(SS_LCTL("a") ":number ");
             break;
         case SCREEN_0:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("0");
+            SEND_STRING(SS_LCTL("a") "0");
             break;
         case SCREEN_1:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("1");
+            SEND_STRING(SS_LCTL("a") "1");
             break;
         case SCREEN_2:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("2");
+            SEND_STRING(SS_LCTL("a") "2");
             break;
         case SCREEN_3:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("3");
+            SEND_STRING(SS_LCTL("a") "3");
             break;
         case SCREEN_4:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("4");
+            SEND_STRING(SS_LCTL("a") "4");
             break;
         case SCREEN_5:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("5");
+            SEND_STRING(SS_LCTL("a") "5");
             break;
         case SCREEN_6:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("6");
+            SEND_STRING(SS_LCTL("a") "6");
             break;
         case SCREEN_7:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("7");
+            SEND_STRING(SS_LCTL("a") "7");
             break;
         case SCREEN_8:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("8");
+            SEND_STRING(SS_LCTL("a") "8");
             break;
         case SCREEN_9:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("9");
+            SEND_STRING(SS_LCTL("a") "9");
             break;
         case SCREEN_COPY_MODE:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("[");
+            SEND_STRING(SS_LCTL("a") "[");
             break;
         case SCREEN_PASTE:
-            SEND_STRING(SS_LCTL("a"));
-            SEND_STRING("]");
+            SEND_STRING(SS_LCTL("a") "]");
             break;
 
         case SCREEN_UP_JUMP:
@@ -653,39 +635,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SCREEN_READREG_1:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
-            SEND_STRING("readreg 1");
-            tap_code(KC_ENTER);
+            SEND_STRING("readreg 1\n");
             break;
         case SCREEN_READREG_2:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
-            SEND_STRING("readreg 2");
-            tap_code(KC_ENTER);
+            SEND_STRING("readreg 2\n");
             break;
         case SCREEN_READREG_3:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
-            SEND_STRING("readreg 3");
-            tap_code(KC_ENTER);
+            SEND_STRING("readreg 3\n");
             break;
 
         case SCREEN_PASTEREG_1:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
-            SEND_STRING("paste 1");
-            tap_code(KC_ENTER);
+            SEND_STRING("paste 1\n");
             break;        
         case SCREEN_PASTEREG_2:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
-            SEND_STRING("paste 2");
-            tap_code(KC_ENTER);
+            SEND_STRING("paste 2\n");
             break;
         case SCREEN_PASTEREG_3:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
-            SEND_STRING("paste 3");
-            tap_code(KC_ENTER);
+            SEND_STRING("paste 3\n");
             break;
     }
   }
