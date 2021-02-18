@@ -1,12 +1,12 @@
+# MCU name
 MCU = atmega32u4
-F_CPU = 16000000
-F_USB = $(F_CPU)
-ARCH = AVR8
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-OPT_DEFS += -DBOOTLOADER_SIZE=512
 
+# Bootloader selection
 BOOTLOADER = halfkay
 
+# Build Options
+#   change yes to no to disable
+#
 BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
