@@ -74,6 +74,9 @@ enum custom_keycodes {
   SCREEN_COPY_MODE,
   SCREEN_PASTE,
 
+  SCREEN_UP_JUMP,
+  SCREEN_DOWN_JUMP,
+
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
@@ -98,15 +101,14 @@ enum custom_keycodes {
 // #define SCREEN_TAB_RIGHT 5
 
 
-#define SCREEN_UP_JUMP 23
-#define SCREEN_DOWN_JUMP 24
+// #define SCREEN_UP_JUMP 23
+// #define SCREEN_DOWN_JUMP 24
 #define SCREEN_READREG_1 25
 #define SCREEN_READREG_2 26
 #define SCREEN_READREG_3 27
 #define SCREEN_PASTEREG_1 28
 #define SCREEN_PASTEREG_2 29
 #define SCREEN_PASTEREG_3 30
-#define DEL_TO_HOME 36
 
 // Android Studio shortcuts
 #define AS_TABLEFT LALT(KC_LEFT)
@@ -238,7 +240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
     KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
             LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
-    KC_TRNS,M(DEL_TO_HOME),RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
+    KC_TRNS,KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
                            KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
 
     // right thumb cluster
@@ -339,10 +341,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,    		  KC_TRNS,
-       KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          M(SCREEN_UP_JUMP),   KC_TRNS,
-                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,       		  SCREEN_COPY_MODE,
-       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         SCREEN_PASTE,    M(SCREEN_DOWN_JUMP), MEH(KC_V),
+       KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,          KC_TRNS,
+       KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          SCREEN_UP_JUMP,   KC_TRNS,
+                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,             SCREEN_COPY_MODE,
+       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         SCREEN_PASTE,    SCREEN_DOWN_JUMP, MEH(KC_V),
                    // bottom row (match functionality of base layer)
                    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,    KC_TRNS,
        // thumb cluster
@@ -471,7 +473,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_3,3);
 
 
-		case SCREEN_UP_JUMP:
+/* 		case SCREEN_UP_JUMP:
             if (record->event.pressed) {
                 return MACRO( T(5), T(UP), END);
             }
@@ -481,19 +483,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 return MACRO( T(5), T(DOWN), END);
             }
-		break;
-
-
-	case DEL_TO_HOME:
-            if (record->event.pressed) {
-                return MACRO(
-				// delete to the beginning of the line
- 				D(LSFT), T(HOME), U(LSFT),
-				T(DELETE),
-				END);
-            }
-  	    break;
-
+		break; */
 
       }
     return MACRO_NONE;
@@ -687,6 +677,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("]");
             break;
 
+        case SCREEN_UP_JUMP:
+            tap_code(KC_5);
+            tap_code(KC_UP);
+            break;
+		case SCREEN_DOWN_JUMP:
+            tap_code(KC_5);
+            tap_code(KC_DOWN);
+            break;
     }
   }
 
