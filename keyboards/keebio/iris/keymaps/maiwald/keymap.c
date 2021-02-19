@@ -27,7 +27,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define MY_GUI  TD(TD_GUI_ALT)
 
 #define EXT_SPC  LT(_EXTEND, KC_SPC)
-#define SFT_ZERO MT(MOD_LSFT, KC_P0)
+#define SFT_ZERO MT(MOD_LSFT, KC_0)
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -49,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_EXTEND] = LAYOUT(
       XXXXXXX, KC_BRID, KC_BRIU, RGB_TOG, RGB_VAD, RGB_VAI,                    KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX,
-      _______, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   XXXXXXX,                    KC_HOME, KC_PGUP, VIM_ALT, XXXXXXX, KC_DEL,  XXXXXXX,
-      _______, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   XXXXXXX,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
-      XXXXXXX, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   XXXXXXX,  _______, RESET,   KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX,                    KC_HOME, KC_PGUP, VIM_ALT, XXXXXXX, KC_DEL,  XXXXXXX,
+      _______, XXXXXXX, KC_4,    KC_5,    KC_6,    XXXXXXX,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX,  _______, RESET,   KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                           _______, SFT_ZERO, KC_LALT, _______, _______, _______
       ),
 
