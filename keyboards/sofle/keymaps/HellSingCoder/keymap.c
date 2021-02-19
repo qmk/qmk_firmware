@@ -172,27 +172,35 @@ static const char PROGMEM mac_logo[] = {
     0x0f, 0x0f, 0x1f, 0x1f, 0x0f, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
+// KEYBOARD PET START
+
+// settings
 #define MIN_WALK_SPEED 10
 #define MIN_RUN_SPEED 40
 
+// advanced settings
 #define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
-#define ANIM_SIZE 96 // number of bytes in array, minimize for adequate firmware size, max is 1024
+#define ANIM_SIZE 96 // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
+// timers
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 
+// current frame
 uint8_t current_frame = 0;
 
+// status variables
 int current_wpm = 0;
-
 led_t led_usb_state;
 
 bool isSneaking = false;
 bool isJumping = false;
 bool showedJump = true;
 
+// logic
 static void render_luna(int LUNA_X, int LUNA_Y) {
 
+    // Sit
     static const char PROGMEM sit[2][ANIM_SIZE] = {
         // 'sit1', 32x22px
         {
@@ -215,6 +223,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
+    // Walk
     static const char PROGMEM walk[2][ANIM_SIZE] = {
         // 'walk1', 32x22px
         {
@@ -237,6 +246,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
+    // Run
     static const char PROGMEM run[2][ANIM_SIZE] = {
         // 'run1', 32x22px
         {
@@ -259,6 +269,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
+    // Bark
     static const char PROGMEM bark[2][ANIM_SIZE] = {
         // 'bark1', 32x22px
         {
@@ -281,6 +292,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
+    // Sneak
     static const char PROGMEM sneak[2][ANIM_SIZE] = {
         // 'sneak1', 32x22px
         {
@@ -303,9 +315,10 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         }
     };
 
-    // animation state
+    // animation
     void animation_phase(void) {
 
+        // jump
         if (isJumping || !showedJump) {
 
             // clear
@@ -324,8 +337,10 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
             oled_set_cursor(LUNA_X,LUNA_Y);
         }
 
+        // switch frame
         current_frame = (current_frame + 1) % 2;
 
+        // current status
         if(led_usb_state.caps_lock) {
             oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
 
@@ -349,7 +364,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         animation_phase();
     }
 
-    // screen on and off
+    // this fixes the screen on and off bug
     if (current_wpm > 0) {
         oled_on();
         anim_sleep = timer_read32();
@@ -358,6 +373,8 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
     }
 
 }
+
+// KEYBOARD PET END
 
 static void print_logo_narrow(void) {
     render_logo();
@@ -425,7 +442,11 @@ static void print_status_narrow(void) {
     oled_set_cursor(0,8);
     oled_write("CPSLK", led_usb_state.caps_lock);
 
+    // KEYBOARD PET RENDER START
+
     render_luna(0,13);
+
+    // KEYBOARD PET RENDER END
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -433,8 +454,13 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_task_user(void) {
+
+    // KEYBOARD PET VARIABLES START
+
     current_wpm = get_current_wpm();
     led_usb_state = host_keyboard_led_state();
+
+    // KEYBOARD PET VARIABLES END
 
     if (is_keyboard_master()) {
         print_status_narrow();
@@ -602,6 +628,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
+
+        // KEYBOARD PET STATUS START
+
         case KC_LCTL:
         case KC_RCTL:
             if (record->event.pressed) {
@@ -618,6 +647,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 isJumping = false;
             }
             break;
+
+        // KEYBOARD PET STATUS END
     }
     return true;
 }
