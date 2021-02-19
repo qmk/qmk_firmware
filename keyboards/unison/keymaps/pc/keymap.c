@@ -159,10 +159,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
-#define INDICATOR_INDEX 0        // where to start indicator
+#define INDICATOR_INDEX 1        // where to start indicator
 #define INDICATOR_COUNT 2         // how many leds for indicator
 #define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
-#define DIMMER_LEVEL 230          // brightness dimmer
+#define DIMMER_LEVEL 100          // brightness dimmer
 
 // for Default layer (= Base layer)
 const rgblight_segment_t PROGMEM my_mac_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -213,8 +213,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Enabling and disabling lighting layers for default layer
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(_MAC, layer_state_cmp(state, _MAC));
-    rgblight_set_layer_state(_WIN, layer_state_cmp(state, _WIN));
+    // rgblight_set_layer_state(_MAC, layer_state_cmp(state, _MAC));
+    // rgblight_set_layer_state(_WIN, layer_state_cmp(state, _WIN));
 
     return state;
 }
