@@ -1,0 +1,21 @@
+# MCU name
+MCU = at90usb1286
+
+# Bootloader for a teensy 2.0++
+BOOTLOADER = halfkay
+
+# Build Options
+#   comment out to disable the options.
+#
+BOOTMAGIC_ENABLE ?= yes # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE ?= yes  # Mouse keys(+4700)
+EXTRAKEY_ENABLE ?= yes  # Audio control and System control(+450)
+CONSOLE_ENABLE ?= no    # Console for debug(+400)
+COMMAND_ENABLE ?= no    # Commands for debug and configuration
+SLEEP_LED_ENABLE ?= no  # Breathing sleep LED during USB suspend
+NKRO_ENABLE ?= yes      # USB Nkey Rollover
+BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
+AUDIO_ENABLE ?= no      # Enable audio
+RGBLIGHT_ENABLE ?= no   # Enable RGB
+ENCODER_ENABLE ?= yes   # Enable rotary encoders
+OLED_DRIVER_ENABLE ?= yes # OLED screen
