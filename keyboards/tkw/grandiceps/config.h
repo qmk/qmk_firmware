@@ -17,8 +17,6 @@
 
 #include "config_common.h"
 
-#undef USE_I2C
-#undef SSD1306OLED
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
@@ -37,10 +35,9 @@
 #define MATRIX_ROW_PINS { B12, A6, B13, B9, B8 }
 #define MATRIX_COL_PINS_RIGHT { B0, A7, A3, A5, A4, A2 }
 #define MATRIX_ROW_PINS_RIGHT  { B12, A6, B13, B9, B8 }
-/* COL2ROW, ROW2COL*/
+
 #define DIODE_DIRECTION COL2ROW
-#define MASTER_RIGHT
-// #define SPLIT_HAND_PIN B3
+
 #define SOFT_SERIAL_PIN A15
 #define SELECT_SOFT_SERIAL_SPEED 1
 
@@ -52,7 +49,6 @@
 
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 16
-//#define RGBLED_SPLIT
 #define RGBLED_SPLIT { 8,8 }
 #define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_ANIMATIONS
@@ -70,7 +66,3 @@
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

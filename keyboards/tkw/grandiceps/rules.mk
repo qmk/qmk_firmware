@@ -1,3 +1,5 @@
+# MCU name
+MCU = STM32F411
 # Build Options
 #   change yes to no to disable
 #
@@ -17,17 +19,11 @@ ENCODER_ENABLE = yes        # Enable rotary encoder support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
-WS2812_DRIVER = pwm
-OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
-
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
-
-DEFAULT_FOLDER = tkw/grandiceps
 OLED_DRIVER_ENABLE = yes
-
-# MCU name
-MCU = STM32F411
+WS2812_DRIVER = pwm
+OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
 
 # Address of the bootloader in system memory
 STM32_BOOTLOADER_ADDRESS = 0x1FFF0000
