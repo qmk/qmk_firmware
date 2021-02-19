@@ -84,24 +84,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+
 const rgblight_segment_t PROGMEM _BL[] = RGBLIGHT_LAYER_SEGMENTS(
     {0,57, HSV_WHITE}
 );
+
+
 const rgblight_segment_t PROGMEM _FL[] = RGBLIGHT_LAYER_SEGMENTS(
     {0,57, HSV_GREEN}
 );
+
+
 const rgblight_segment_t PROGMEM _CL[] = RGBLIGHT_LAYER_SEGMENTS(
     {0,57, HSV_RED}
 );
+
+
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     _BL,
     _FL,
     _CL
 );
 
+
 void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers
 }
+
+
 
 
 #ifdef OLED_DRIVER_ENABLE
@@ -137,12 +147,10 @@ void oled_task_user(void) {
 
 
 
-
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
+
 
 #ifdef ENCODER_ENABLE
 
