@@ -1,4 +1,4 @@
-[![Luna - The QMK Keyboard Pet](https://github.com/HellSingCoder/qmk_firmware/blob/master/keyboards/sofle/keymaps/HellSingCoder/luna.jpg)](https://www.youtube.com/watch?v=sFF4h4zMPyc)
+[![Luna - The QMK Keyboard Pet](https://github.com/HellSingCoder/qmk_firmware/blob/master/keyboards/sofle/keymaps/HellSingCoder/luna.jpg)](https://www.youtube.com/watch?v=HgIQRazCAjo)
 
 # Personal keymap for Sofle Keyboard rev1
 
@@ -13,7 +13,7 @@ Features:
 - Left encoder click switch to game mode. Right encoder click switches to Qwerty mode.
 - **Features Luna, your keyboard pet!**
 
-##Luna, the keyboard pet
+#Luna, the keyboard pet
 
 Features:
 - Luna reacts to your wpm counter
@@ -24,3 +24,6 @@ Features:
 - Will bark at people on the internet if you activate Caps Lock!
 - Luna jumps every time you hit Space
 
+
+Learn how to adopt a keyboard pet here
+https://www.youtube.com/watch?v=HgIQRazCAjo
