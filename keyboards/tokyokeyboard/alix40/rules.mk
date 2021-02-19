@@ -24,14 +24,9 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH = AdafruitBLE    # Enable Bluetooth with the MDBT40 HID (AdafruitBLE)
-BLUETOOTH_ENABLE = OUT_AUTO #
 AUDIO_ENABLE = no           # Audio output on port C6
-CONSOLE_ENABLE = no        # Console for debug
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no        # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable RGB light
-
-LAYOUTS = 40_alix
-
-EXTRAFLAGS += -flto
