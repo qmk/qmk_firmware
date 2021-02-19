@@ -8,4 +8,4 @@ MIDI_ENABLE = no
 SEQUENCER_ENABLE = no
 # SRC += muse.c
 
-ENCODER_ENABLE = no
+ENCODER_ENABLE = yes

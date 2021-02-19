@@ -16,3 +16,22 @@ See how it works.
 - Lower
 - Raise
 - Adjust
+
+## LED lighting
+
+Front side 7 LEDs.
+
+- Indicator: 2
+- Rotary Encoder side: 5
+
+## MIDI
+
+Advanced mode.
+## Sequencer
+
+- 8 tracks
+- 32 steps
+
+## Encoders
+
+5 rotary encoders.
