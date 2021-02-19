@@ -18,7 +18,7 @@
 
 #define VENDOR_ID       0x4D65
 #define PRODUCT_ID      0x5543
-#define DEVICE_VER 	  	0x0001
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    Merge
 #define PRODUCT         UC-1
 
