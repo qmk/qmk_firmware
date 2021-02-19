@@ -51,8 +51,17 @@ def _is_console_hid(x):
     return x['usage_page'] == 0xFF31 and x['usage'] == 0x0074
 
 
+def _is_filtered_device(x):
+    name = "%04x:%04x" % (x['vendor_id'], x['product_id'])
+    return name.lower().startswith(cli.args.device.lower())
+
+
 def _search():
-    return list(filter(_is_console_hid, hid.enumerate()))
+    devices = filter(_is_console_hid, hid.enumerate())
+    if cli.args.device:
+        devices = filter(_is_filtered_device, devices)
+
+    return list(devices)
 
 
 def list_devices():
@@ -66,7 +75,7 @@ def state_search(sm):
     print('.', end='', flush=True)
 
     found = _search()
-    selected = found[0] if found[0:] else None
+    selected = found[cli.args.index] if found[cli.args.index:] else None
 
     if selected:
         sm.transition_later(0.5, state_connect, selected)
@@ -82,7 +91,7 @@ def state_connect(sm, selected):
 
 
 def state_read(sm, device):
-    print(device.read(32).decode('ascii'), end='')
+    print(device.read(32, 1).decode('ascii'), end='')
     sm.transition(state_read, device)
 
 
@@ -93,6 +102,8 @@ def state_exception(sm, context):
     sm.transition(state_search)
 
 
+@cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>.')
+@cli.argument('-i', '--index', default=0, help='device index to select.')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available hid_listen devices.')
 @cli.subcommand('Acquire debugging information from usb hid devices.', hidden=False if cli.config.user.developer else True)
 def console(cli):
