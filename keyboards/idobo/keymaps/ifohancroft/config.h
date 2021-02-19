@@ -1,7 +1,6 @@
 #pragma once
 
 // place overrides here
-#undef USB_POLLING_INTERVAL_MS
 #define USB_POLLING_INTERVAL_MS 1
 #undef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 1
