@@ -3,9 +3,7 @@
 #define EE_HANDS
 
 
-
-#undef RGBLED_NUM
-#define RGBLIGHT_MODE_STATIC_LIGHT
+#define RGBLIGHT_LAYERS
 
 
 

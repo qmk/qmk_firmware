@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
 */
 
-[_CM] = LAYOUT( \
+[_CL] = LAYOUT( \
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                       XXXXXXX,  XXXXXXX,  KC_PSLS,  KC_PAST,  KC_BSPC,  XXXXXXX, \
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                       XXXXXXX,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  XXXXXXX, \
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX,  KC_P4,    KC_P5,    KC_P6,    KC_PLUS,  XXXXXXX, \
@@ -85,30 +85,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-const rgblight_segment_t PROGMEM _BL[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM _BL_Light[] = RGBLIGHT_LAYER_SEGMENTS(
     {0,57, HSV_WHITE}
 );
 
 
-const rgblight_segment_t PROGMEM _FL[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM _FL_Light[] = RGBLIGHT_LAYER_SEGMENTS(
     {0,57, HSV_GREEN}
 );
 
 
-const rgblight_segment_t PROGMEM _CL[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM _CL_Light[] = RGBLIGHT_LAYER_SEGMENTS(
     {0,57, HSV_RED}
 );
 
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    _BL,
-    _FL,
-    _CL
+    _BL_Light,
+    _FL_Light,
+    _CL_Light
 );
 
 
 void keyboard_post_init_user(void) {
-    rgblight_layers = my_rgb_layers
+    rgblight_layers = my_rgb_layers;
 }
 
 
@@ -136,7 +136,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_task_user(void) {
     render_logo();
-    oled_ser_cursor(0,6);
+    oled_set_cursor(0,6);
     sprintf(wpm_str, "WPM: %03d", get_current_wpm());
     oled_write(wpm_str, false);
 }
