@@ -19,10 +19,12 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_GUI_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_LALT),
 };
 
+#define MY_A RCTL_T(KC_A)
+#define MY_O LCTL_T(KC_O)
+
 #define VIM_ALT S(C(KC_CIRC))
 #define KC_EUR  S(A(KC_2))
 #define MY_GUI  TD(TD_GUI_ALT)
-#define MY_ESC  MT(MOD_LCTL, KC_ESC)
 
 #define EXT_SPC  LT(_EXTEND, KC_SPC)
 #define SFT_ZERO MT(MOD_LSFT, KC_P0)
@@ -40,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
       KC_GRV,  KC_1, KC_2, KC_3, KC_4,   KC_5,                                        KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_EQL,
       KC_TAB,  KC_Q, KC_W, KC_F, KC_P,   KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_MINS,
-      MY_ESC,  KC_A, KC_R, KC_S, KC_T,   KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   KC_O,    KC_RCTL,
+      KC_ESC,  MY_A, KC_R, KC_S, KC_T,   KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   MY_O,    KC_RCTL,
       KC_LSFT, KC_Z, KC_X, KC_C, KC_D,   KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, KC_ENT,
                                  MY_GUI, OSM(MOD_LSFT), OSL(_SYMBOLS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
       ),
