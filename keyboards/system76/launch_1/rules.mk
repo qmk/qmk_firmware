@@ -34,6 +34,7 @@ RGBLIGHT_ENABLE = no        # Support for RGB backlight (conflicts with RGB_MATR
 RGB_MATRIX_ENABLE = WS2812  # Support for RGB matrix
 RGB_MATRIX_CUSTOM_KB = yes  # Allow custom keyboard effect
 USB_6KRO_ENABLE = no        # 6key Rollover
+LTO_ENABLE = yes            # Link-time optimization for smaller binary
 
 # Add System76 EC command interface
 SRC+=../system76_ec.c
