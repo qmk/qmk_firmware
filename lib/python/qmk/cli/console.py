@@ -68,7 +68,7 @@ def list_devices():
     cli.log.info('Available devices:')
     devices = _search()
     for dev in devices:
-        cli.log.info("  %02x:%02x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
+        cli.log.info("  %04x:%04x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
 
 
 def state_search(sm):
