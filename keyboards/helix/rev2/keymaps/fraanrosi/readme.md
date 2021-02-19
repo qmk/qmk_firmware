@@ -31,11 +31,10 @@ It completes the rest of the needed qwerty and F keys.
 ### Third layer (Raise).
 
 While "Raise" key is pressed, the RBG mode remains RED.             
-This is the underglow RGB's layer , where can be controlled the modes and hue.          
-![third-layer](https://i.imgur.com/IlZuDL7.png)
+This is the underglow RGB's layer , where can be controlled the modes and hue.                  
+With reset button for the micros.
+![third-layer](https://i.imgur.com/MF8jjbu.png)
 ### All the layers.
- ![all-the-layers](https://i.imgur.com/8h9UB6a.png)
+ ![all-the-layers](https://i.imgur.com/jn1VI4V.png)
  
  <!---![Keyboard](https://i.imgur.com/Onwmsss.png) -->
- 
-
