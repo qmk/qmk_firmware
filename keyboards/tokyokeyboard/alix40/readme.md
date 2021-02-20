@@ -4,9 +4,9 @@
 ​
 Minimal hacker style mechanical keyboard designed in Tokyo. Cherry MX compatible. More Info at [Tokyo Keyboard](http://tokyokeyboard.com).  
 ​
-Keyboard Maintainer: [quadcube](https://github.com/quadcube)  
-Hardware Supported: alix40 rev1  
-Hardware Availability: [Tokyo Keyboard](http://tokyokeyboard.com)
+* Keyboard Maintainer: [quadcube](https://github.com/quadcube)  
+* Hardware Supported: alix40 rev1  
+* Hardware Availability: [Tokyo Keyboard](http://tokyokeyboard.com)
 ​
 Make example for this keyboard (after setting up your build environment):
 ​

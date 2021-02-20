@@ -23,8 +23,4 @@ void matrix_init_kb(void) {
 
 void led_init_ports(void) {
   /* LEDs on */
-  rgblight_enable();
-  rgblight_sethsv(0,0,255);
-  backlight_enable();
-  breathing_enable();
 }
