@@ -231,52 +231,10 @@ bool led_update_user(led_t led_state) {
 ------------------------------------------------------------------------------ */
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* 1st encoder, Left side */
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) { /* 2nd encoder, Right side */
-        switch(biton32(default_layer_state)) {
-            default:
-                if (clockwise) {
-                    rgblight_increase_val();
-                } else {
-                    rgblight_decrease_val();
-                }
-                break;
-        }
-    } else if (index == 2) { /* 3rd encoder, Right side */
-        switch(biton32(default_layer_state)) {
-            default:
-                if (clockwise) {
-                    rgblight_increase_hue();
-                } else {
-                    rgblight_decrease_hue();
-                }
-                break;
-        }
-    } else if (index == 3) { /* 4th encoder, Right side */
-            default:
-                if (clockwise) {
-                    rgblight_increase_sat();
-                } else {
-                    rgblight_decrease_sat();
-                }
-                break;
-        }
-    } else if (index == 4) { /* 5th encoder, Right side */
-            default:
-                if (clockwise) {
-                    rgblight_step();
-                    // tap_code(KC_MS_WH_UP);
-                } else {
-                    rgblight_step_reverse();
-                    // tap_code(KC_MS_WH_DOWN);
-                }
-                break;
-        }
+    if (clockwise) {
+        tap_code(KC_VOLU);
+    } else {
+        tap_code(KC_VOLD);
     }
 }
 #endif
