@@ -6,6 +6,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Loop
-void matrix_scan_user(void) {
-  // Empty
-};
