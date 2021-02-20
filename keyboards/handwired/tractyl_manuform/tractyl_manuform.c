@@ -15,6 +15,8 @@
  */
 
 #include "tractyl_manuform.h"
+#include "transactions.h"
+#include <string.h>
 
 #ifndef TRACKBALL_DPI_OPTIONS
 #    define TRACKBALL_DPI_OPTIONS \
@@ -26,6 +28,9 @@
 #ifndef TRACKBALL_DPI_DEFAULT
 #    define TRACKBALL_DPI_DEFAULT 0
 #endif
+
+extern kb_runtime_config_t kb_state;
+extern kb_slave_data_t     kb_slave;
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
@@ -190,5 +195,23 @@ void pointing_device_send(void) {
     mouseReport.h = 0;
     old_report    = mouseReport;
     pointing_device_set_report(mouseReport);
+}
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+void master_mouse_send(int8_t x, int8_t y) {
+#ifdef SPLIT_TRANSACTION_IDS_KB
+    kb_slave.mouse_x += x;
+    kb_slave.mouse_y += y;
+#endif
+}
+void trackball_set_cpi(uint16_t cpi) {
+    if (!is_keyboard_left()) {
+        pmw_set_cpi(cpi);
+    } else {
+#ifdef SPLIT_TRANSACTION_IDS_KB
+        kb_state.device_cpi = cpi;
+#endif
+    }
 }
 #endif

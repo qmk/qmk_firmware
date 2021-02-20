@@ -69,3 +69,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2
 #define EE_HANDS
+
+
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5
+
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
+#define SERIAL_USE_MULTI_TRANSACTION
+#define SPLIT_TRANSACTION_IDS_KB RPC_ID_STATE_SYNC, RPC_ID_SLAVE_STATE

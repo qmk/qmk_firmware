@@ -86,6 +86,9 @@ void keyboard_post_init_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb_matrix();
 #endif
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    keyboard_post_init_transport_sync();
+#endif
     keyboard_post_init_keymap();
 }
 
