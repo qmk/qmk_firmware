@@ -1,7 +1,7 @@
 {
   "keyboard_name": "minimacro5",
   "url": "https://github.com/LeafCutterLabs/miniMACRO5/",
-  "maintainer": "qmk",
+  "maintainer": "leafcutterlabs,joncojonathan",
   "width": 5,
   "height": 1,
   "layouts": {
