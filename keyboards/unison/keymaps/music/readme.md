@@ -1,6 +1,7 @@
 # Demonstration keymap for Unison Music style
 
-Sequencer and MIDI enebled.  
+For DAW, Digital Audio Workstation operation and music play.  
+
 See how it works.
 [QMK Sequencer & MIDI keyboard](https://youtu.be/_A8NaXlWKeE)
 
