@@ -339,7 +339,7 @@ void render_status_main(void) {
 void oled_task_user(void) {
     update_log();
 
-    if (!is_keyboard_master()) {
+    if (is_keyboard_master()) {
         if (timer_elapsed32(oled_timer) > 30000) {
             oled_off();
             return;
