@@ -141,16 +141,16 @@ void split_post_init(void) {
 
 // for syncing host LEDs between halves
 #ifdef SPLIT_HOST_SYNC_ENABLE
-static uint8_t split_host_leds;
+static uint8_t split_host_indicators;
 
-void set_split_host_leds(uint8_t host_leds) {
-    if (split_host_leds != host_leds) {
-        split_host_leds = host_leds;
+void set_split_host_indicators(uint8_t host_leds) {
+    if (split_host_indicators != host_leds) {
+        split_host_indicators = host_leds;
         led_set(host_leds);
     }
 }
 
-uint8_t get_split_host_leds(void) {
-    return split_host_leds;
+uint8_t get_split_host_indicators(void) {
+    return split_host_indicators;
 }
 #endif

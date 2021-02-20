@@ -30,7 +30,7 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #endif
 
 #ifdef SPLIT_HOST_SYNC_ENABLE
-void set_split_host_leds(uint8_t host_leds);
+void set_split_host_indicators(uint8_t host_leds);
 #endif
 
 #if defined(USE_I2C)
@@ -74,7 +74,7 @@ typedef struct _I2C_slave_buffer_t {
     bool         rgb_suspend_state;
 #    endif
 #    ifdef SPLIT_HOST_SYNC_ENABLE
-    uint8_t host_leds;
+    uint8_t host_indicators;
 #    endif
 } I2C_slave_buffer_t;
 
@@ -94,7 +94,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_LED_SUSPEND_START offsetof(I2C_slave_buffer_t, led_suspend_state)
 #    define I2C_RGB_MATRIX_START offsetof(I2C_slave_buffer_t, rgb_matrix)
 #    define I2C_RGB_SUSPEND_START offsetof(I2C_slave_buffer_t, rgb_suspend_state)
-#    define I2C_HOST_LED_START offsetof(I2C_slave_buffer_t, host_leds)
+#    define I2C_HOST_INDICATORS_START offsetof(I2C_slave_buffer_t, host_indicators)
 
 #    define TIMEOUT 100
 
@@ -144,10 +144,10 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    endif
 
 #    ifdef SPLIT_HOST_SYNC_ENABLE
-    uint8_t host_leds = host_keyboard_leds();
-    set_split_host_leds(host_leds);
-    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_HOST_LED_START, (void *)&host_leds, sizeof(host_leds), TIMEOUT) >= 0) {
-        i2c_buffer->host_leds = host_leds;
+    uint8_t host_indicators = host_keyboard_leds();
+    set_split_host_indicators(host_indicators);
+    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_HOST_LED_START, (void *)&host_indicators, sizeof(host_indicators), TIMEOUT) >= 0) {
+        i2c_buffer->host_indicators = host_indicators;
     }
 #    endif
 
@@ -227,7 +227,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #    endif
 
 #    ifdef SPLIT_HOST_SYNC_ENABLE
-    set_split_host_leds(i2c_buffer->host_leds);
+    set_split_host_indicators(i2c_buffer->host_indicators);
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE
@@ -295,7 +295,7 @@ typedef struct _Serial_m2s_buffer_t {
     bool           rgb_suspend_state;
 #    endif
 #    ifdef SPLIT_HOST_SYNC_ENABLE
-    uint8_t host_leds;
+    uint8_t      host_indicators;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -429,8 +429,8 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    endif
 
 #    ifdef SPLIT_HOST_SYNC_ENABLE
-    serial_m2s_buffer.host_leds = host_keyboard_leds_raw();
-    set_split_host_leds(serial_m2s_buffer.host_leds);
+    serial_m2s_buffer.host_indicators = host_keyboard_leds_raw();
+    set_split_host_indicators(serial_m2s_buffer.host_indicators);
 #    endif
 
     return true;
@@ -462,7 +462,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #    endif
 
 #    ifdef SPLIT_HOST_SYNC_ENABLE
-    set_split_host_leds(serial_m2s_buffer.host_leds);
+    set_split_host_indicators(serial_m2s_buffer.host_indicators);
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE

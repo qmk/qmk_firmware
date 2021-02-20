@@ -45,7 +45,7 @@ uint8_t host_keyboard_leds_raw(void) {
 
 uint8_t host_keyboard_leds(void) {
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_HOST_SYNC_ENABLE)
-    return get_split_host_leds();
+    return get_split_host_indicators();
 #else
     return host_keyboard_leds_raw();
 #endif
@@ -53,7 +53,7 @@ uint8_t host_keyboard_leds(void) {
 
 led_t host_keyboard_led_state(void) {
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_HOST_SYNC_ENABLE)
-    return (led_t)get_split_host_leds();
+    return (led_t)get_split_host_indicators();
 #else
     return (led_t)host_keyboard_leds_raw();
 #endif
