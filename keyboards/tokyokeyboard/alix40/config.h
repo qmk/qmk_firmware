@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    quadcube
 #define PRODUCT         alix40
-#define DESCRIPTION     q.m.k. keyboard firmware for alix
 
 /* key matrix size */
 #define MATRIX_ROWS 4
