@@ -47,7 +47,7 @@ extern uint32_t oled_timer;
 #    define OLED_RENDER_LOCK_CAPS "CAPS"
 #    define OLED_RENDER_LOCK_SCLK "SCLK"
 
-#    define OLED_RENDER_MODS_NAME "Mods: "
+#    define OLED_RENDER_MODS_NAME "Mods:"
 #    define OLED_RENDER_MODS_SFT  "Sft"
 #    define OLED_RENDER_MODS_CTL  "Ctl"
 #    define OLED_RENDER_MODS_ALT  "Alt"
