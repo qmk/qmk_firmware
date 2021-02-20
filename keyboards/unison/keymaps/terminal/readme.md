@@ -1,6 +1,6 @@
 # Demonstration keymap for Unison Terminal style
 
-Five rows layout for PC input use.
+Five rows layout for PC operation.
 
 ## Layers
 
@@ -24,8 +24,3 @@ Front side 9 LEDs.
 ## Audio
 
 Simultaneous audio.
-
-## Encoders
-
-5 rotary encoders.
-(But not implemented to PCB.)
