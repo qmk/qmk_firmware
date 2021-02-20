@@ -1,10 +1,10 @@
 # MCU name
 MCU = STM32F411
+
 # Build Options
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
-KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -18,6 +18,7 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder support
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
