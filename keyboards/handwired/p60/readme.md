@@ -1,6 +1,6 @@
 # P60
 
-![](https://user-images.githubusercontent.com/26496/108102379-c3562d00-7088-11eb-9083-9921497429ca.JPG)
+[![](https://user-images.githubusercontent.com/26496/108596854-ee41c900-7387-11eb-8225-e4faf72aa793.png)](https://user-images.githubusercontent.com/26496/108102379-c3562d00-7088-11eb-9083-9921497429ca.JPG)
 
 Handwired keyboard using a Teensy 2.0 and MX Red switches, no flashy text or light.
 
