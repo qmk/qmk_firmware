@@ -50,7 +50,7 @@ This part is super simple.  However, there is some configuration that we need to
 
 First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properties.json` file in the QMK Firmware folder. You can do this all manually, but I've done most of the work already by creating one for you.
 
-Go ahead and [download it here](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it to the `.vscode/` folder your qmk_firmware fork.  You may need to edit this file if you didn't install MSYS2 to the default location, or are using WSL/LxSS. Once you have saved this file, you will need to reload VS Code, if it was already running. 
+Go ahead and [grab it here](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it to the `.vscode/` folder your qmk_firmware fork.  You may need to edit this file if you didn't install MSYS2 to the default location, or are using WSL/LxSS. Once you have saved this file, you will need to reload VS Code, if it was already running. 
 
 Note: You should see an `extensions.json` and `settings.json` file in the `.vscode` folder as well.
 
