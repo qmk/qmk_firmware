@@ -121,7 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 		case C_NO2: // ø
 			// the "/" symbol can't be shifted, so we have to deal with that
 			if(record->event.pressed){
-				if(get_mods() & MOD_MASK_SHIFT){
+				if(shifted){
 					unregister_code(KC_LSFT); // reset the shift state, I always use LSFT personally
 					tap_code(KC_RCTL);
 					tap_code(KC_SLSH);
@@ -137,7 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 		case C_NO3: // å
 			// the "o" symbol can't be shifted, so we have to deal with that
 			if(record->event.pressed){
-				if(get_mods() & MOD_MASK_SHIFT){
+				if(shifted){
 					unregister_code(KC_LSFT); // reset the shift state, I always use LSFT personally
 					tap_code(KC_RCTL);
 					tap_code(KC_O);
