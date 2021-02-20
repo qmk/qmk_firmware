@@ -11,6 +11,9 @@
   #include "ssd1306.h"
 #endif
 
+//TODO: add macros
+#include "oled.h"
+
 #include "rgb.h"
 
 /* Layout blocks */

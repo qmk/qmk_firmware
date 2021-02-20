@@ -120,6 +120,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         #ifdef SSD1306OLED
         set_keylog(keycode, record);
         #endif
+        //TODO: add macros
+        add_keylog(keycode);
     }
 
     switch (keycode)
