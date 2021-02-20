@@ -25,11 +25,11 @@
 
 #ifdef RGB_DI_PIN
     /* Example settings for Underglow */
-    // #undef RGBLED_NUM
-    // #define RGBLED_NUM 15 // Layer Indicator(2) + Rotary Encoder(5) + Under(8)
+    #undef RGBLED_NUM
+    #define RGBLED_NUM 15 // Layer Indicator(2) + Rotary Encoder(5) + Under(8)
 
-    // #undef RGBLIGHT_LED_MAP
-    // #define RGBLIGHT_LED_MAP {1, 2, 3, 0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14} // Left to Right to Under Right to Under Left
+    #undef RGBLIGHT_LED_MAP
+    #define RGBLIGHT_LED_MAP {1, 2, 0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14} // Left to Right to Under Right to Under Left
 #endif
 
 #define RGBLIGHT_MAX_LAYERS 10
