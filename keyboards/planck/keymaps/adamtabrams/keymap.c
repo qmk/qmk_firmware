@@ -163,3 +163,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
+
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_T(KC_TAB):
+            return true;
+        case GUI_T(KC_GESC):
+            return true;
+        case SFT_T(KC_MINS):
+            return true;
+        default:
+            return false;
+    }
+}
