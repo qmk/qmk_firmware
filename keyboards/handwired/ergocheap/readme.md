@@ -1,7 +1,9 @@
 # Ergocheap handwired keyboard
 
 Ergocheap is an ergonomic keyboard with layout forked from adelheid with some minor adjustment in 13-15th row and standard keycaps size
-![Ergocheap](https://i.imgur.com/II3aBYg.jpg)
+
+![Ergocheap](https://i.imgur.com/II3aBYgl.jpg)
+
 * Keyboard Maintainer: [xSteins](https://github.com/xSteins)
 * Hardware Supported: bluepill
 * Hardware Availability: [case files](https://github.com/xSteins/Mechanical-Keyboard/tree/master/ErgoCheap/CASE)
