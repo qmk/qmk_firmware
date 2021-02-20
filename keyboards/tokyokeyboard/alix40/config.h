@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 31
-#define BACKLIGHT_ON_STATE 1
 #define BACKLIGHT_BREATHING
 #endif
 
