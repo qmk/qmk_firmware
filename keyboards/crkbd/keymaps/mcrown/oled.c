@@ -9,7 +9,6 @@
 char keylog_str[KEYLOG_LEN] = {};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
-static uint32_t oled_timer = 0;
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -19,6 +18,8 @@ const char code_to_name[60] = {
     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
 extern uint8_t is_master;
+
+static uint32_t oled_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation)
 {
@@ -165,7 +166,22 @@ void update_log(void)
 
 void render_keylogger_status(void)
 {
-    oled_write_P(PSTR("\n>: "), FALSE);
+    static bool prompt=TRUE;
+
+    if(timer_elapsed32(oled_timer) > 300)
+    {
+        oled_timer = timer_read32();
+        prompt=(prompt^TRUE)&TRUE;
+    }
+
+    if(TRUE==prompt)
+    {
+        oled_write_P(PSTR("\n>: "), FALSE);
+    }
+    else
+    {
+        oled_write_P(PSTR("\n : "), FALSE);
+    }
     oled_write(keylog_str, FALSE);
 }
 
