@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,KC_F11, KC_F12,_______,_______,_______,_______,_______,KC_ESC,  _______,_______,_______
     ),
     [_ADJUST] = LAYOUT_music(
-                        _______,        _______,_______,_______,_______,        _______,        _______,        _______,        _______,
+                        KC_MUTE,        _______,_______,_______,_______,        KC_MUTE,        KC_MUTE,        KC_MUTE,        KC_MUTE,
         _______,_______,_______,_______,SEQ,        MAC,    WIN,    MIDI,   RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,   _______,
         _______,_______,_______,_______,_______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,    _______,
         _______,_______,_______,_______,KC_CAPS,_______,CK_RST, CK_DOWN,CK_UP,  _______,_______,_______,_______,_______,_______,_______,_______,
@@ -429,132 +429,140 @@ bool led_update_user(led_t led_state) {
 ------------------------------------------------------------------------------ */
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* 1st encoder, Left side */
+    if (IS_LAYER_ON(_ADJUST)) {
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
-    } else if (index == 1) { /* 2nd encoder, Right side */
-        switch(biton32(default_layer_state)) {
-            case _MIDI:
-                if (clockwise) {
-                    if (midi_config.velocity < 127) {
-                        if (midi_config.velocity < 115) {
-                            midi_config.velocity += 13;
-                        } else {
-                            midi_config.velocity = 127;
+    } else {
+        if (index == 0) { /* 1st encoder, Left side */
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+        } else if (index == 1) { /* 2nd encoder, Right side */
+            switch(biton32(default_layer_state)) {
+                case _MIDI:
+                    if (clockwise) {
+                        if (midi_config.velocity < 127) {
+                            if (midi_config.velocity < 115) {
+                                midi_config.velocity += 13;
+                            } else {
+                                midi_config.velocity = 127;
+                            }
+                        }
+                    } else {
+                        if (midi_config.velocity > 0) {
+                            if (midi_config.velocity == 127) {
+                                midi_config.velocity -= 10;
+                            } else if (midi_config.velocity > 12) {
+                                midi_config.velocity -= 13;
+                            } else {
+                                midi_config.velocity = 0;
+                            }
                         }
                     }
-                } else {
-                    if (midi_config.velocity > 0) {
-                        if (midi_config.velocity == 127) {
-                            midi_config.velocity -= 10;
-                        } else if (midi_config.velocity > 12) {
-                            midi_config.velocity -= 13;
-                        } else {
-                            midi_config.velocity = 0;
+                    break;
+                case _SEQUENCER:
+                    if (clockwise) {
+                        sequencer_increase_tempo();
+                    } else {
+                        sequencer_decrease_tempo();
+                    }
+                    break;
+                default:
+                    if (clockwise) {
+                        rgblight_increase_val();
+                    } else {
+                        rgblight_decrease_val();
+                    }
+                    break;
+            }
+        } else if (index == 2) { /* 3rd encoder, Right side */
+            switch(biton32(default_layer_state)) {
+                case _MIDI:
+                    if (clockwise) {
+                        if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
+                            midi_config.octave++;
+                        }
+                    } else {
+                        if (midi_config.octave > 0) {
+                            midi_config.octave--;
                         }
                     }
-                }
-                break;
-            case _SEQUENCER:
-                if (clockwise) {
-                    sequencer_increase_tempo();
-                } else {
-                    sequencer_decrease_tempo();
-                }
-                break;
-            default:
-                if (clockwise) {
-                    rgblight_increase_val();
-                } else {
-                    rgblight_decrease_val();
-                }
-                break;
-        }
-    } else if (index == 2) { /* 3rd encoder, Right side */
-        switch(biton32(default_layer_state)) {
-            case _MIDI:
-                if (clockwise) {
-                    if(midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN - 2)) {
-                        midi_config.octave++;
+                    break;
+                case _SEQUENCER:
+                    if (clockwise) {
+                        sequencer_increase_resolution();
+                    } else {
+                        sequencer_decrease_resolution();
                     }
-                } else {
-                    if (midi_config.octave > 0) {
-                        midi_config.octave--;
+                    break;
+                default:
+                    if (clockwise) {
+                        rgblight_increase_hue();
+                    } else {
+                        rgblight_decrease_hue();
                     }
-                }
-                break;
-            case _SEQUENCER:
-                if (clockwise) {
-                    sequencer_increase_resolution();
-                } else {
-                    sequencer_decrease_resolution();
-                }
-                break;
-            default:
-                if (clockwise) {
-                    rgblight_increase_hue();
-                } else {
-                    rgblight_decrease_hue();
-                }
-                break;
-        }
-    } else if (index == 3) { /* 4th encoder, Right side */
-        switch(biton32(default_layer_state)) {
-            case _MIDI:
-                if (clockwise) {
-                    if (midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
-                        const bool positive = midi_config.transpose > 0;
-                        midi_config.transpose++;
-                        if (positive && midi_config.transpose < 0) {
+                    break;
+            }
+        } else if (index == 3) { /* 4th encoder, Right side */
+            switch(biton32(default_layer_state)) {
+                case _MIDI:
+                    if (clockwise) {
+                        if (midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
+                            const bool positive = midi_config.transpose > 0;
+                            midi_config.transpose++;
+                            if (positive && midi_config.transpose < 0) {
+                                midi_config.transpose--;
+                            }
+                        }
+                    } else {
+                        if (midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
                             midi_config.transpose--;
                         }
                     }
-                } else {
-                    if (midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
-                        midi_config.transpose--;
+                    break;
+                case _SEQUENCER:
+                    break;
+                default:
+                    if (clockwise) {
+                        rgblight_increase_sat();
+                    } else {
+                        rgblight_decrease_sat();
                     }
-                }
-                break;
-            case _SEQUENCER:
-                break;
-            default:
-                if (clockwise) {
-                    rgblight_increase_sat();
-                } else {
-                    rgblight_decrease_sat();
-                }
-                break;
-        }
-    } else if (index == 4) { /* 5th encoder, Right side */
-        switch(biton32(default_layer_state)) {
-            case _MIDI:
-                if (clockwise) {
-                    midi_config.channel++;
-                } else {
-                    midi_config.channel--;
-                }
-                break;
-            case _SEQUENCER:
-                if (clockwise) {
-                    if (step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
-                        step_frame_index++;
+                    break;
+            }
+        } else if (index == 4) { /* 5th encoder, Right side */
+            switch(biton32(default_layer_state)) {
+                case _MIDI:
+                    if (clockwise) {
+                        midi_config.channel++;
+                    } else {
+                        midi_config.channel--;
                     }
-                } else {
-                    if (step_frame_index > 0) {
-                        step_frame_index--;
+                    break;
+                case _SEQUENCER:
+                    if (clockwise) {
+                        if (step_frame_index < (SEQUENCER_STEPS / 4 - 1) ) {
+                            step_frame_index++;
+                        }
+                    } else {
+                        if (step_frame_index > 0) {
+                            step_frame_index--;
+                        }
                     }
-                }
-                break;
-            default:
-                if (clockwise) {
-                    rgblight_step();
-                } else {
-                    rgblight_step_reverse();
-                }
-                break;
+                    break;
+                default:
+                    if (clockwise) {
+                        rgblight_step();
+                    } else {
+                        rgblight_step_reverse();
+                    }
+                    break;
+            }
         }
     }
 }
