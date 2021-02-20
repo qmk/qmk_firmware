@@ -671,9 +671,7 @@ static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
 
 #ifdef BLUETOOTH_ENABLE
-    uint8_t where = where_to_send();
-
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
 #    ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
 #    elif MODULE_RN42
@@ -686,9 +684,6 @@ static void send_keyboard(report_keyboard_t *report) {
             serial_send(report->keys[i]);
         }
 #    endif
-    }
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
 #endif
@@ -729,9 +724,7 @@ static void send_mouse(report_mouse_t *report) {
     uint8_t timeout = 255;
 
 #    ifdef BLUETOOTH_ENABLE
-    uint8_t where = where_to_send();
-
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
 #        ifdef MODULE_ADAFRUIT_BLE
         // FIXME: mouse buttons
         adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
@@ -746,9 +739,6 @@ static void send_mouse(report_mouse_t *report) {
         serial_send(report->h);  // should try sending the wheel h here
         serial_send(0x00);
 #        endif
-    }
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
 #    endif
@@ -807,9 +797,7 @@ static void send_system(uint16_t data) {
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
 #    ifdef BLUETOOTH_ENABLE
-    uint8_t where = where_to_send();
-
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    if (where_to_send() == OUTPUT_BLUETOOTH) {
 #        ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_consumer_key(data);
 #        elif MODULE_RN42
@@ -823,9 +811,6 @@ static void send_consumer(uint16_t data) {
         serial_send(bitmap & 0xFF);
         serial_send((bitmap >> 8) & 0xFF);
 #        endif
-    }
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
 #    endif
