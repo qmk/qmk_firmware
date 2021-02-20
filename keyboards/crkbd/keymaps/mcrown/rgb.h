@@ -1,7 +1,7 @@
 #ifndef MCROWN_RGB_H_LIB
 #define MCROWN_RGB_H_LIB
 
-#include "keymap.h"
+#include "mcrown.h"
 extern int RGB_current_mode;
 
 /* Setting ADJUST layer RGB back to default */
