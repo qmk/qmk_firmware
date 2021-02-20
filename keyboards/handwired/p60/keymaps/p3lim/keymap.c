@@ -89,33 +89,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 };
 
+static bool grave_esc_shifted = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
+	const uint8_t mods = get_mods();
+	uint8_t shifted = mods & MOD_MASK_SHIFT;
+
 	switch(keycode){
 		case C_ESC0: // layer 0
 			if(record->event.pressed){
-				if(get_mods() & MOD_MASK_SHIFT)
-					register_code(KC_GRAVE);
-				else
-					register_code(KC_ESCAPE);
-			} else {
-				if(get_mods() & MOD_MASK_SHIFT)
-					unregister_code(KC_GRAVE);
-				else
-					unregister_code(KC_ESCAPE);
-			}
+				grave_esc_shifted = shifted;
+				register_code(shifted ? KC_GRAVE : KC_ESCAPE);
+			} else
+				unregister_code(grave_esc_shifted ? KC_GRAVE : KC_ESCAPE);
 			return false;
 		case C_ESC1: // layer 1
 			if(record->event.pressed){
-				if(get_mods() & MOD_MASK_SHIFT)
-					register_code(KC_ESCAPE);
-				else
-					register_code(KC_GRAVE);
-			} else {
-				if(get_mods() & MOD_MASK_SHIFT)
-					unregister_code(KC_ESCAPE);
-				else
-					unregister_code(KC_GRAVE);
-			}
+				grave_esc_shifted = shifted;
+				register_code(shifted ? KC_ESCAPE : KC_GRAVE);
+			} else
+				unregister_code(grave_esc_shifted ? KC_ESCAPE : KC_GRAVE);
 			return false;
 		case C_NO1: // æ
 			if(record->event.pressed){
