@@ -1,6 +1,6 @@
 # Console Keyboard
 
-[Console Keyboard](https://i.imgur.com/5aLT7CL.jpeg)
+[Console Keyboard](https://i.imgur.com/5aLT7CLl.jpeg)
 
 A 3d printed macro pad based on the Stream Cheap
 
