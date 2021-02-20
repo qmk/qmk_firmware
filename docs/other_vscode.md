@@ -50,11 +50,9 @@ This part is super simple.  However, there is some configuration that we need to
 
 First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properties.json` file in the QMK Firmware folder. You can do this all manually, but I've done most of the work already by creating one for you.
 
-Grab ahead and [download it here](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it to the `.vscode/` folder under your qmk_firmware fork.  You may need to edit this file if you didn't install MSYS2 to the default location, or are using WSL/LxSS.  
+Go ahead and [download it here](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it to the `.vscode/` folder your qmk_firmware fork.  You may need to edit this file if you didn't install MSYS2 to the default location, or are using WSL/LxSS. Once you have saved this file, you will need to reload VS Code, if it was already running. 
 
-Once you have saved this file, you will need to reload VS Code, if it was already running. 
-
-You should see an `extensions.json` and `settings.json` file in the `.vscode` folder, as well.
+Note: You should see an `extensions.json` and `settings.json` file in the `.vscode` folder as well.
 
 Now, we will set up the MSYS2 window to show up in VSCode as the integrated terminal.  This has a number of advantages. Mostly, you can control+click on errors and jump to those files.  This makes debugging much easier.  It's also nice, in that you don't have to jump to another window. 
 
