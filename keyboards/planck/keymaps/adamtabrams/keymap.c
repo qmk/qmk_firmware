@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+
 enum planck_layers {
   _NORMAL,
   _NUMBER,
@@ -25,6 +26,10 @@ enum planck_layers {
   _SYSTEM,
   _KBOARD,
   _FMWARE
+};
+
+enum planck_keycodes {
+  GUIGESC = SAFE_RANGE
 };
 
 #define NUMBER TT(_NUMBER)
@@ -49,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_NORMAL] = LAYOUT_planck_grid(
     CTL_T(KC_TAB),  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC,
-    GUI_T(KC_GESC), KC_A,    KC_S,    KC_D,   KC_F,   KC_G,    KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    GUIGESC,        KC_A,    KC_S,    KC_D,   KC_F,   KC_G,    KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     SFT_T(KC_MINS), KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
     KC_LCTRL,       KC_LGUI, KC_LALT, SYSTEM, NUMBER, KC_RCTL, KC_SPC, ARROWS, CURSOR,  KC_RALT, KC_RGUI, KC_RCTRL
 ),
@@ -78,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ESC  |      |      |P_Down|      |      | Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|      |      |      |      |A(<-) |      |      |      |      |      | ENT  |
+ * | Shift|      |      |      |      |A(<-) |      |      |      |      |      |SFTENT|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      | CTRL |Space |  \/  |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -86,26 +91,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ARROWS] = LAYOUT_planck_grid(
     KC_TAB,  XXXXXXX, A(KC_RGHT), A(KC_RGHT), XXXXXXX, XXXXXXX,    XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
     KC_ESC,  XXXXXXX, XXXXXXX,    KC_PGDN,    XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX, XXXXXXX,
-    KC_LSFT, XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, A(KC_LEFT), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
+    KC_LSFT, XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, A(KC_LEFT), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SFTENT,
     XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, KC_RCTL,    KC_SPC,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* Cursor
  * ,-----------------------------------------------------------------------------------.
- * | CTRL |      |      |Wh_Up |M_Btn2|      |      |Wh_Up |      |      |      | Bksp |
+ * | CTRL |      |      |Wh_Dn |M_Btn2|      |      |Wh_Dn |      |      |      | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | GUI  |M_Acc2|M_Acc0|Wh_Dn |M_Btn1|      | M_L  |M_Down| M_Up | M_R  |      |      |
+ * | GUI  |M_Acc2|M_Acc1|Wh_Up |M_Btn1|      | M_L  |M_Down| M_Up | M_R  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|      |      |      |M_Btn3|      |      |      |      |      |      | ENT  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |M_Acc1|Space |      |  \/  |      |      |      |
+ * |      |      |      |      |      | CTRL |Space |      |  \/  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_CURSOR] = LAYOUT_planck_grid(
-    KC_LCTL, XXXXXXX, XXXXXXX, KC_WH_U, KC_BTN2, XXXXXXX, XXXXXXX, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
-    KC_LGUI, KC_ACL2, KC_ACL0, KC_WH_D, KC_BTN1, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, XXXXXXX,
+    KC_LCTL, XXXXXXX, XXXXXXX, KC_WH_D, KC_BTN2, XXXXXXX, XXXXXXX, KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
+    KC_LGUI, KC_ACL2, KC_ACL1, KC_WH_U, KC_BTN1, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, XXXXXXX,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN3, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ACL1, KC_SPC,  XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL, KC_SPC,  XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* System
@@ -163,6 +168,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static uint16_t use_gui_timer;
+
+    switch (keycode) {
+        case GUIGESC:
+            if(record->event.pressed){
+                use_gui_timer = timer_read();
+                register_code(KC_LGUI);
+            } else {
+                unregister_code(KC_LGUI);
+                if (timer_elapsed(use_gui_timer) < TAPPING_TERM) {
+                    keyrecord_t temp = *record;
+                    temp.event.pressed = true;
+                    process_grave_esc(KC_GESC, &temp);
+                    process_grave_esc(KC_GESC, record);
+                }
+            }
+            return false;
+            break;
+    }
+    return true;
+}
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

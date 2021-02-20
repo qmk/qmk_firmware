@@ -6,7 +6,8 @@
 #define TAPPING_TOGGLE 2
 
 // Mouse Configs
-#define MK_COMBINED
+#define MK_3_SPEED
+#define MK_MOMENTARY_ACCEL
 
 // Tap-Hold Configs
 #define TAPPING_TERM 200
