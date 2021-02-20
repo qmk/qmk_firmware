@@ -17,6 +17,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 #RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
 RGB_MATRIX_ENABLE = yes
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
+OLED_DRIVER_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
@@ -28,6 +29,7 @@ SRC +=  ./lib/glcdfont.c \
         ./lib/logo_reader.c \
         ./lib/keylogger.c \
         ./rgb.c\
+        ./oled.c\
         # ./lib/mode_icon_reader.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/timelogger.c \

@@ -1,5 +1,5 @@
-#ifndef QMK_KEYBOARD_H_LIB
-#define QMK_KEYBOARD_H_LIB
+#ifndef MCROWN_KEYMAP_H_LIB
+#define MCROWN_KEYMAP_H_LIB
 
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
@@ -65,9 +65,12 @@
 
 /* Each layer gets a name for readability */
 #define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
+#define _DVORAK 1
+#define _COLEMAK 2
+#define _LOWER 3
+#define _RAISE 4
+#define _ADJUST 5
+#define _NUMPAD 6
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
@@ -112,4 +115,4 @@ extern uint8_t is_master;
 extern rgblight_config_t rgblight_config;
 #endif
 
-#endif /* End of QMK_KEYBOARD_H_LIB */
+#endif /* End of MCROWN_KEYMAP_H_LIB */
