@@ -41,7 +41,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
       KC_GRV,  KC_1, KC_2, KC_3, KC_4,   KC_5,                                        KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_EQL,
-      KC_TAB,  KC_Q, KC_W, KC_F, KC_P,   KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_MINS,
+      KC_TAB,  KC_Q, KC_W, KC_F, KC_P,   KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_QUOT, KC_MINS,
       KC_ESC,  MY_A, KC_R, KC_S, KC_T,   KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   MY_O,    KC_RCTL,
       KC_LSFT, KC_Z, KC_X, KC_C, KC_D,   KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, KC_ENT,
                                  MY_GUI, OSM(MOD_LSFT), OSL(_SYMBOLS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
