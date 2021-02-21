@@ -1,12 +1,13 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+#include <string.h>
 #include "mcrown.h"
 #include "oled.h"
 
 //#if defined(OLED_DRIVER_ENABLE)
 #if 1
 
-char keylog_str[KEYLOG_LEN] = {};
+char keylog_str[KEYLOG_LEN] = {' '};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
 const char code_to_name[60] = {
@@ -134,25 +135,27 @@ void oled_task_user(void)
 
 void add_keylog(uint16_t keycode)
 {
-    uint8_t i;
+    static uint8_t current_c_pos=0;
 
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX))
     {
         keycode = keycode & 0xFF;
     }
 
-    for (i = KEYLOG_LEN - 1; i > 0; i--)
+    if(current_c_pos>KEYLOG_LEN)
     {
-        keylog_str[i] = keylog_str[i - 1];
+        current_c_pos=0;
+        memset(keylog_str, ' ', sizeof(char)*KEYLOG_LEN);
     }
 
     if(keycode < 60)
     {
-        keylog_str[0] = code_to_name[keycode];
+        keylog_str[current_c_pos] = code_to_name[keycode];
     }
 
     keylog_str[KEYLOG_LEN - 1] = 0;
 
+    current_c_pos++;
     log_timer = timer_read();
 
     standby_oled_timer = timer_read32();
