@@ -107,4 +107,5 @@ void oled_task_user(void) {
         oled_scroll_left();
     }
 }
+
 #endif
