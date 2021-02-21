@@ -159,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_LAYERS
 
 // Indicator LED settings
-#define INDICATOR_INDEX 1        // where to start indicator
+#define INDICATOR_INDEX 1         // where to start indicator
 #define INDICATOR_COUNT 2         // how many leds for indicator
 #define INDICATOR_CHANGE_COUNT 1  // how meny leds to change color for temporally layer
 #define DIMMER_LEVEL 150          // brightness dimmer
