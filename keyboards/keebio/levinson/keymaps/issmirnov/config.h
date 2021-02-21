@@ -1,5 +1,9 @@
 #pragma once
 
+// Flip board to flash right side
+// #define EE_HANDS
+// #define MASTER_RIGHT
+
 // Use serial comms for split keyboard
 // DO NOT enable USE_IDC - board will not respond.
 #define USE_SERIAL
@@ -9,10 +13,22 @@
    // Enable animations. +5500 bytes
    #define RGBLIGHT_ANIMATIONS
 
+   // remove unused animations
+   #undef RGBLIGHT_MODE_RGB_TEST
+   #undef RGBLIGHT_MODE_ALTERNATING
+   #undef RGBLIGHT_MODE_KNIGHT
+   #undef RGBLIGHT_MODE_RAINBOW_MOOD
+
+
+   // Enable legacy RGB mode
+   // TODO: Follow https://docs.keeb.io/docs/adding-rgb-underglow/ to rewire
+   // the RGB underglow and then migrate to the new method.
+   #undef RGBLED_SPLIT
    // Map my custom number of LED's
    #undef RGBLED_NUM
    #define RGBLED_NUM 16
-   #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 7, 15, 14, 13, 12, 11, 10, 9, 8 } // When changed, BE SURE to flash EEPROM on both halves and clear it.
+   // When changing RGBLIGHT_LED_MAP, BE SURE to flash EEPROM on both halves and clear it.
+   #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 7, 15, 14, 13, 12, 11, 10, 9, 8 }
 
    // DO NOT USE RGBLED_SPLIT - the slave board will stop responding.
 

@@ -4,6 +4,7 @@ SRC += issmirnov.c
 
 # https://www.reddit.com/r/olkb/comments/bmpgjm/programming_help/
 # Should shave 2000 bytes
+# Formerly known as LINK_TIME_OPTIMIZATION_ENABLE
 LTO_ENABLE = yes
 
 # Enable debugging only when needed.
@@ -14,6 +15,7 @@ CONSOLE_ENABLE = yes # +400 bytes (hid_listen support)
 COMBO_ENABLE = yes
 
 # This allows the keyboard to tell the host OS that up to 248 keys are held down at once
+# NKRO_ENABLE = yes # note: also needs FORCE_NKRO in config.h
 NKRO_ENABLE = no # note: also needs FORCE_NKRO in config.h
 
 # Disable unused features to save on space

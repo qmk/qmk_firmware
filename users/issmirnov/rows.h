@@ -15,7 +15,7 @@
 
 #define _________________QWERTY_R1_________________        KC_Y , KC_U , KC_I   , KC_O     , KC_P
 #define _________________QWERTY_R2_________________        KC_H , KC_J , KC_K   , KC_L     , TAP_TOG_LAYER
-#define _________________QWERTY_R3_________________        KC_N , KC_M , KC_DOT , KC_COMMA , TG(_NUMP)
+#define _________________QWERTY_R3_________________        KC_N , KC_M , KC_DOT , KC_COMM , TG(_NUMP)
 
 #define ___________________BLANK___________________        _______ , _______ , _______ , _______ , _______
 #define ___________________XXXXX___________________        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
@@ -29,9 +29,9 @@
 #define _________________SYMB_R3___________________        KC_AMPR , KC_QUES , KC_SLASH    , KC_BSLASH   , TG(_NUMP)
 
 
-#define _________________NUMP_L1___________________        KC_NO   , KC_NO         , LGUI(KC_UP)   , XXXXXXX             , XXXXXXX
-#define _________________NUMP_L2___________________        XXXXXXX , LGUI(KC_LEFT) , LGUI(KC_DOWN) , LGUI(KC_RIGHT)      , XXXXXXX
-#define _________________NUMP_L3___________________        XXXXXXX , XXXXXXX       , XXXXXXX       , KC_AUDIO_VOL_DOWN   , KC_AUDIO_VOL_UP
+#define _________________NUMP_L1___________________        XXXXXXX , XXXXXXX  , LSFT(KC_TAB) , XXXXXXX           , XXXXXXX
+#define _________________NUMP_L2___________________        KC_COLN  , KC_SLASH , KC_COMM     , KC_DOT         , KC_COLN
+#define _________________NUMP_L3___________________        XXXXXXX , XXXXXXX  , KC_ENTER     , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP
 
 #define _________________NUMP_R1___________________        KC_COMM , KC_7          , KC_8          , KC_9                , XXXXXXX
 #define _________________NUMP_R2___________________        KC_0    , KC_4          , KC_5          , KC_6                , TO(_SYMB)
@@ -40,16 +40,16 @@
 // Note: These are 6x1 blocks, since modifiers are also adjusted.
 #define ______________OVERWATCH_L1_________________       KC_TAB    , KC_Q  , KC_W       , KC_E , KC_R , KC_T
 #define ______________OVERWATCH_L2_________________       KC_LCTL   , KC_A  , KC_S       , KC_D , KC_F , KC_P
-#define ______________OVERWATCH_L3_________________       KC_LSHIFT , KC_Z  , KC_X       , KC_C , KC_V , KC_GRAVE
+#define ______________OVERWATCH_L3_________________       KC_LSHIFT , KC_Z  , KC_X       , KC_C , KC_V , KC_GRV
 // Ergodox only has 5 keys on bottom row:
-#define ______________OVERWATCH_L4_________________       KC_LCTL   , KC_F9 , KC_PSCREEN , KC_H , KC_R
+#define ______________OVERWATCH_L4_________________       KC_LCTL   , KC_F9 , KC_H , KC_LCTL , KC_R
 
 
 
-#define _________________NAVI_L1___________________        XXXXXXX , XXXXXXX , KC_UP   , XXXXXXX , XXXXXXX
+#define _________________NAVI_L1___________________        XXXXXXX , LGUI(LSFT(KC_Z)),KC_UP   , LGUI(LSFT(KC_X)) , XXXXXXX
 #define _________________NAVI_L2___________________        XXXXXXX , KC_LEFT , KC_DOWN , KC_RGHT , XXXXXXX
 #define _________________NAVI_L3___________________        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
 
-#define _________________NAVI_R1___________________        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
-#define _________________NAVI_R2___________________        XXXXXXX , KC_LCTL , XXXXXXX , XXXXXXX , XXXXXXX
-#define _________________NAVI_R3___________________        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
+#define _________________NAVI_R1___________________        XXXXXXX , XXXXXXX , LSFT(LCTL(KC_A)) , LSFT(LCTL(KC_O)) , XXXXXXX
+#define _________________NAVI_R2___________________        XXXXXXX , KC_LCTL , LSFT(KC_F10) , XXXXXXX , XXXXXXX
+#define _________________NAVI_R3___________________        KC_LALT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX

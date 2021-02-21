@@ -13,7 +13,8 @@ enum {
   _SYMB,
   _NUMP,
   _OVERWATCH,
-  _NAVI
+  _NAVI,
+  _FORTNITE
 };
 
 enum custom_keycodes {

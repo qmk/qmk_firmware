@@ -7,7 +7,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_ergodox_wrapper(
 KC_ESCAPE,      KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_EXLM,
-LCTL(KC_SPACE), _________________QWERTY_L1_________________,   KC_ASTR,
+LCTL(KC_S), _________________QWERTY_L1_________________,   KC_ASTR,
 KC_TAB,         _________________QWERTY_L2_________________,
 OSM(MOD_LSFT),  _________________QWERTY_L3_________________,   KC_SLASH,
 KC_LCTL, LSFT(KC_LGUI), LSFT(KC_LALT),  KC_LALT,   KC_LGUI,
@@ -19,7 +19,7 @@ KC_EQL    , KC_6    , KC_7    , KC_8    , KC_9          , KC_0    , KC_ESCAPE   
 KC_PLUS   , _________________QWERTY_R1_________________  , LGUI(KC_SPACE) ,
             _________________QWERTY_R2_________________  , MO(_NAVI) ,
 KC_MINS   , _________________QWERTY_R3_________________  , KC_QUOTE       ,
-KC_ESCAPE , KC_COLN , KC_PERC , XXXXXXX , LGUI(KC_L)    ,
+KC_ESCAPE , LCTL(KC_S) , LCTL(LSFT(KC_R)) , KC_PSCR , LGUI(KC_L)    ,
 
 KC_LEFT,  KC_RGHT,
 KC_UP,
@@ -32,15 +32,15 @@ KC_ESCAPE , KC_F1         , KC_F2         , KC_F3       , KC_F4            , KC_
 XXXXXXX   , _________________SYMB_L1___________________ ,KC_ASTR  ,
 KC_TAB    ,  _________________SYMB_L2___________________,
 KC_LSHIFT ,  _________________SYMB_L3___________________, KC_SLASH ,
-KC_LCTL   , LSFT(KC_LGUI) , LSFT(KC_LALT) , KC_LALT     , WKSP_LEFT  ,
+KC_LCTL   , LSFT(KC_LGUI) , LSFT(KC_LALT) , KC_LALT     , KC_LGUI  ,
 
                                               XXXXXXX,        XXXXXXX,
                                                             XXXXXXX,
-                                    WKSP_RIGHT, KC_BSPACE,    KC_DEL,
+                                    KC_SPACE, KC_BSPACE,    KC_DEL,
 
-KC_F7     , KC_F8    , KC_F9   , KC_F10    , KC_F11    , KC_F12  , XXXXXXX  ,
-KC_PLUS   , _________________SYMB_R1___________________ , MO(_NAVI)  ,
-           _________________SYMB_R2___________________  , KC_DQUO ,
+KC_F7     , KC_F8    , KC_F9   , KC_F10    , KC_F11    , KC_F12  , LCTL(LSFT(LGUI(KC_D)))  ,
+KC_PLUS   , _________________SYMB_R1___________________ , XXXXXXX  ,
+           _________________SYMB_R2___________________  , MO(_NAVI) ,
 KC_MINS  , _________________SYMB_R3___________________ , KC_QUOTE ,
 KC_ESCAPE , KC_COLN  , KC_PERC , XXXXXXX   , XXXXXXX   ,
 
@@ -51,7 +51,7 @@ KC_DOWN,  KC_TAB, KC_ENTER
 
   // layer 2
 [_NUMP] = LAYOUT_ergodox_wrapper(
-XXXXXXX ,  ___________________XXXXX___________________, XXXXXXX  ,
+WEBUSB_PAIR,  ___________________XXXXX___________________, XXXXXXX  ,
 XXXXXXX , _________________NUMP_L1___________________ , KC_ASTR  ,
 KC_TAB  , _________________NUMP_L2___________________ ,
 XXXXXXX , _________________NUMP_L3___________________ , KC_SLASH ,
@@ -65,7 +65,7 @@ KC_EQL  , ___________________XXXXX___________________ , RESET   ,
 KC_PLUS , _________________NUMP_R1___________________ , XXXXXXX ,
           _________________NUMP_R2___________________ , XXXXXXX                                     ,
 KC_MINS , _________________NUMP_R3___________________ , XXXXXXX ,
-                KC_0    , XXXXXXX , XXXXXXX , TO(3)   , XXXXXXX ,
+                KC_0    , XXXXXXX , TO(_FORTNITE), TO(_OVERWATCH)   , XXXXXXX ,
 
 KC_LEFT,  KC_RGHT,
 KC_UP,
@@ -120,6 +120,32 @@ _______,
 _______, _______, KC_LGUI
 
 ),
+
+// layer 5
+// Note: Grab the latest from https://configure.ergodox-ez.com/ergodox-ez/layouts/7QxWj/latest/0 and paste in the sources here.
+[_FORTNITE] = LAYOUT_ergodox_wrapper(
+KC_ESCAPE,      KC_2,           KC_1,           KC_3,           KC_4,           KC_5,           XXXXXXX,
+KC_EQUAL,       KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_F4,
+KC_TAB,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
+KC_LSHIFT,      KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_GRAVE,
+KC_LCTRL,       KC_U,           KC_F4,          KC_M,           KC_R,
+
+XXXXXXX  , XXXXXXX ,
+XXXXXXX,
+KC_SPACE,       KC_ENTER,       KC_U,
+
+WEBUSB_PAIR,    TO(0),      XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_LGUI,
+XXXXXXX,        XXXXXXX,    KC_Z,       KC_X,       KC_C,           KC_V,           XXXXXXX,
+XXXXXXX,        KC_Y,       KC_MS_BTN1, KC_H,       KC_R,           KC_MS_BTN2,
+XXXXXXX,        XXXXXXX,    KC_1,       KC_2,       KC_3,           KC_P,           XXXXXXX,
+KC_F1,          KC_F2,      KC_F5,    KC_J,       KC_F3,
+
+XXXXXXX  , XXXXXXX ,
+XXXXXXX  ,
+XXXXXXX  , XXXXXXX ,XXXXXXX
+
+), // must be on newline for qmk vizualiser to render it.
+
 };
 
 
@@ -226,11 +252,11 @@ uint32_t layer_state_set_user(uint32_t state) {
       combo_disable(); // We don't want combos in overwatch
       ergodox_right_led_3_on();
       break;
-    case 4:
+    case _NAVI:
       ergodox_right_led_1_on();
       ergodox_right_led_2_on();
       break;
-    case 5:
+    case _FORTNITE:
       ergodox_right_led_1_on();
       ergodox_right_led_3_on();
       break;
