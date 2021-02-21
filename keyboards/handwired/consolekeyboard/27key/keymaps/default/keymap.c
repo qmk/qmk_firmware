@@ -13,16 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
 
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
-#define LAYOUT( \
-    K000, K001, K002,      K004, K005, K006, K007,      K009, K010, K011,   \
-    K100, K101, K102,      K104, K105, K106, K107,      K109, K110, K111,   \
-    K200, K201, K202,      K204, K205, K206, K207,      K209, K210, K211    \
-    ) { \
-    { K000,   K001,   K002,   KC_NO, K004,   K005,   K006,   K007,   KC_NO, K009,   K010,   K011   }, \
-    { K100,   K101,   K102,   KC_NO, K104,   K105,   K106,   K107,   KC_NO, K109,   K110,   K111   }, \
-    { K200,   K201,   K202,   KC_NO, K204,   K205,   K206,   K207,   KC_NO, K209,   K210,   K211   }, \
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT(
+        KC_1,    KC_2,    KC_3,             KC_4,    KC_5,    KC_6,             KC_8,    KC_9,    KC_0,
+        KC_Q,    KC_W,    KC_E,             KC_R,    KC_T,    KC_Y,             KC_I,    KC_O,    KC_P,
+        KC_A,    KC_S,    KC_D,             KC_F,    KC_G,    KC_H,             KC_K,    KC_L,    KC_Z
+    ),
+
+};
