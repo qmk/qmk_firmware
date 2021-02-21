@@ -126,7 +126,6 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
@@ -141,7 +140,6 @@ void oled_task_user(void) {
     oled_write(wpm_str, false);
 }
 
-
 #endif
 
 
@@ -150,7 +148,6 @@ void oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-
 
 #ifdef ENCODER_ENABLE
 
