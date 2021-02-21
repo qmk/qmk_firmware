@@ -19,7 +19,8 @@ const char code_to_name[60] = {
 
 extern uint8_t is_master;
 
-static uint32_t oled_timer = 0;
+static uint32_t propmt_oled_timer = 0;
+static uint32_t standby_oled_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation)
 {
@@ -28,15 +29,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation)
         return OLED_ROTATION_0;
     }
     return OLED_ROTATION_180;
-}
-
-bool process_record_oled(uint16_t keycode, keyrecord_t *record)
-{
-    if (record->event.pressed)
-    {
-        oled_timer = timer_read32();
-    }
-    return TRUE;
 }
 
 void render_layout_state(void)
@@ -120,15 +112,23 @@ static void render_logo(void)
 
 void oled_task_user(void)
 {
-    if(is_master)
+    if (timer_elapsed32(standby_oled_timer) > 15000)
     {
-        render_status();
+        oled_off();
     }
     else
     {
-        render_logo();
-        oled_write_P(PSTR("\n"), FALSE);
-        oled_scroll_left();
+        oled_on();
+        if(TRUE==is_master)
+        {
+            render_status();
+        }
+        else
+        {
+            render_logo();
+            oled_write_P(PSTR("\n"), FALSE);
+            oled_scroll_left();
+        }
     }
 }
 
@@ -154,6 +154,8 @@ void add_keylog(uint16_t keycode)
     keylog_str[KEYLOG_LEN - 1] = 0;
 
     log_timer = timer_read();
+
+    standby_oled_timer = timer_read32();
 }
 
 void update_log(void)
@@ -168,9 +170,9 @@ void render_keylogger_status(void)
 {
     static bool prompt=TRUE;
 
-    if(timer_elapsed32(oled_timer) > 300)
+    if(timer_elapsed32(propmt_oled_timer) > 300)
     {
-        oled_timer = timer_read32();
+        propmt_oled_timer = timer_read32();
         prompt=(prompt^TRUE)&TRUE;
     }
 
