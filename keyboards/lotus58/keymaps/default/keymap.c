@@ -24,7 +24,7 @@ enum custom_layers {
   _BL,
   _FL, // lower
   _CL  // raise
-}
+};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
