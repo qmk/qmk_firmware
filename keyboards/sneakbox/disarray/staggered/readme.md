@@ -1,6 +1,6 @@
 # Sneakbox Disarray (Staggered layout)
 
-  ![Sneakbox Disarray](https://i.imgur.com/a/Kbj6tV7)
+![Sneakbox Disarray](https://i.imgur.com/mgp3leh.jpeg)
 
 Handled keyboard, with viewable SMD components. Features EC-11 pushbutton rotary encoder on top left. Disarray comes in two variants: staggered key layout and ortholinear key layout.
 
