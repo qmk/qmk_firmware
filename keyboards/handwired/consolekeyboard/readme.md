@@ -9,6 +9,7 @@ A 3d printed macro pad based on the Stream Cheap with 20 or 30 keys
 * Hardware Availability:https://www.thingiverse.com/thing:3167050
 
 Make example for this keyboard (after setting up your build environment):
+
     make handwired/consolekeyboard/20key:default
     make handwired/consolekeyboard/30key:default
     
