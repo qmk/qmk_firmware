@@ -139,7 +139,7 @@ void add_keylog(uint16_t keycode)
 
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX))
     {
-        keycode = keycode & 0xFF;
+        keycode&=0xFF;
     }
 
     if(current_c_pos>=(KEYLOG_LEN-1))
@@ -151,11 +151,11 @@ void add_keylog(uint16_t keycode)
     if(keycode < 60)
     {
         keylog_str[current_c_pos] = code_to_name[keycode];
+        current_c_pos++;
     }
 
     keylog_str[KEYLOG_LEN - 1] = '\0';
 
-    current_c_pos++;
     log_timer = timer_read();
 
     standby_oled_timer = timer_read32();
