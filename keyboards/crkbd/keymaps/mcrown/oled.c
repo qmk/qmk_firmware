@@ -25,15 +25,42 @@ static uint32_t standby_oled_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation)
 {
-    if (is_master)
+    oled_rotation_t oled_rot=OLED_ROTATION_180;
+
+    if(TRUE==is_master)
     {
-        return OLED_ROTATION_0;
+#ifdef OLED_VERTICAL
+        oled_rot=OLED_ROTATION_270;
+#else
+        oled_rot=OLED_ROTATION_0;
+#endif
     }
-    return OLED_ROTATION_180;
+    return oled_rot;
 }
 
 void render_layout_state(void)
 {
+#ifdef OLED_VERTICAL
+    oled_write_P(PSTR("Lyt:\n"), FALSE);
+    switch (biton32(default_layer_state))
+    {
+        case _COLEMAK:
+            oled_write_P(PSTR("Clmak"), FALSE);
+            break;
+
+        case _DVORAK:
+            oled_write_P(PSTR("Dvak"), FALSE);
+            break;
+
+        case _QWERTY:
+            oled_write_P(PSTR("Qwty"), FALSE);
+            break;
+
+        default:
+            oled_write_ln_P(PSTR("Undef"), FALSE);
+            break;
+    }
+#else
     oled_write_P(PSTR("Layout: "), FALSE);
     switch (biton32(default_layer_state))
     {
@@ -53,6 +80,7 @@ void render_layout_state(void)
             oled_write_ln_P(PSTR("Undefined"), FALSE);
             break;
     }
+#endif
 }
 
 void oled_white_space(void)
@@ -62,12 +90,40 @@ void oled_white_space(void)
 
 void render_layer_state(void)
 {
-    oled_write_P(PSTR("\nLayer:"), FALSE);
-    bool lower = layer_state_is(_LOWER) & !layer_state_is(_ADJUST);
-    bool raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
-    bool adjust = layer_state_is(_ADJUST);
-    bool numpad = layer_state_is(_NUMPAD);
+    bool lower;
+    bool raise;
+    bool adjust;
+    bool numpad;
 
+    lower = layer_state_is(_LOWER) & !layer_state_is(_ADJUST);
+    raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
+    adjust = layer_state_is(_ADJUST);
+    numpad = layer_state_is(_NUMPAD);
+
+#ifdef OLED_VERTICAL
+    oled_write_P(PSTR("\nLyr:\n"), FALSE);
+    if(lower)
+    {
+        oled_write_P(PSTR("Lwr\n"), TRUE);
+    }
+    else if(raise)
+    {
+        oled_write_P(PSTR("Ris\n"), TRUE);
+    }
+    else if(adjust)
+    {
+        oled_write_P(PSTR("Adj\n"), TRUE);
+    }
+    else if(numpad)
+    {
+        oled_write_P(PSTR("Num\n"), TRUE);
+    }
+    else
+    {
+        oled_write_P(PSTR("Def\n"), FALSE);
+    }
+#else
+    oled_write_P(PSTR("\nLayer:"), FALSE);
     if(lower)
     {
         oled_write_P(PSTR(" Lower "), TRUE);
@@ -88,6 +144,7 @@ void render_layer_state(void)
     {
         oled_write_P(PSTR(" Default"), FALSE);
     }
+#endif
 }
 
 void render_status(void)
