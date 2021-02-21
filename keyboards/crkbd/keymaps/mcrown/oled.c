@@ -142,7 +142,7 @@ void add_keylog(uint16_t keycode)
         keycode = keycode & 0xFF;
     }
 
-    if(current_c_pos>KEYLOG_LEN)
+    if(current_c_pos>=(KEYLOG_LEN-1))
     {
         current_c_pos=0;
         memset(keylog_str, ' ', sizeof(char)*KEYLOG_LEN);
@@ -153,7 +153,7 @@ void add_keylog(uint16_t keycode)
         keylog_str[current_c_pos] = code_to_name[keycode];
     }
 
-    keylog_str[KEYLOG_LEN - 1] = 0;
+    keylog_str[KEYLOG_LEN - 1] = '\0';
 
     current_c_pos++;
     log_timer = timer_read();
