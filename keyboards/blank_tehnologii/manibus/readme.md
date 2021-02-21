@@ -6,7 +6,7 @@ A 5x7 split ergonomic keyboard designed and sold by [Blank Tehnologii](https://b
 
 * Keyboard Maintainer: [Alex Paulescu/SamuraiKek](https://github.com/SamuraiKek)
 * Hardware Supported: [ATmega32u4](https://www.digikey.com/en/products/detail/microchip-technology/ATMEGA32U4-AU/1914602)
-*  Hardware Availability: [Blank Tehnologii](https://blank.computer/)
+* Hardware Availability: [Blank Tehnologii](https://blank.computer/)
 
 Make example for this keyboard (after setting up your build environment):
 
