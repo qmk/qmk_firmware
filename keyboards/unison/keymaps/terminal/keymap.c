@@ -239,6 +239,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
+
+/* ------------------------------------------------------------------------------
+   Post Initialize
+------------------------------------------------------------------------------ */
 void keyboard_post_init_user(void) {
     // Debugging
     // debug_enable=true;

@@ -570,7 +570,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 
 /* ------------------------------------------------------------------------------
-   Post Init
+   Post Initialize
 ------------------------------------------------------------------------------ */
 void keyboard_post_init_user(void) {
     #ifdef RGBLIGHT_LAYERS
