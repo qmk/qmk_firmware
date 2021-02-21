@@ -20,7 +20,7 @@
 #include <rgb_matrix.h>
 #include "drivers/issi/is31fl3731.h"
 #include "ws2812.h"
-#include "dawn60_refactor.h"
+#include "rev1_qmk.h"
 
 #ifdef RGB_MATRIX_ENABLE
 LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
@@ -212,18 +212,5 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = set_color,
     .set_color_all = set_color_all
 };
-
-// void eeconfig_init_kb(void) {  // EEPROM is getting reset!
-//     rgb_matrix_enable();
-//     rgb_matrix_sethsv(0, 255, 128);  // Set default HSV - red hue, full saturation, medium brightness
-//     rgb_matrix_mode(RGB_MATRIX_CUSTOM_rgb_test); // set to RGB_RAINBOW_SWIRL by default
-
-//     eeconfig_update_kb(0);
-//     eeconfig_init_user();
-// }
-
-void keyboard_post_init_kb(void){
-    rgb_matrix_mode(RGB_MATRIX_CUSTOM_rgb_test);
-}
 
 #endif
