@@ -11,11 +11,11 @@ Make example for this keyboard (after setting up your build environment):
 
     make rart/rartlite:default
     
-Flashing example for this keyboard :
+Flashing example for this keyboard:
 
-    make rart/rartlite:default:avrdude
+    make rart/rartlite:default:flash
     
-## Bootloader :
+## Bootloader
 
 To Enter the bootloader you can double click reset button on board when you flash the firmware
 
