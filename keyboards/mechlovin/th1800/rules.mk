@@ -31,8 +31,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
-
-OPT_DEFS = -DDEBUG_LEVEL=0
-
-# programming options
-PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
