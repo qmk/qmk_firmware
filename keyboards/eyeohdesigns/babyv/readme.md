@@ -22,7 +22,7 @@ and a back. ![back](https://imgur.com/rO5r1PT.jpg)
 
 5. If you plan to add LEDs, add those next. Ensure the positive side of the LED ( normally the longer leg) goes through the positive side for the LED and solder away.
 ![LED](https://imgur.com/5lwgMsH.jpg)
-![polarity](https://imgur.com/WsaDuD6)
+![polarity](https://imgur.com/WsaDuD6.jpg)
 
 6. Now let's mount the case. I prefer to do this upside down. Start with the 2 top pieces and place screws in the outside 4 corners like so:
 ![top](https://imgur.com/yG30xCY.jpg)
