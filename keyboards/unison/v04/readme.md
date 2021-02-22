@@ -1,9 +1,13 @@
 # Unison
 
-![Unison](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/DSC_7287.jpg)
+![Unison, Music style](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/readme/IMG_2669.jpeg)
+
+![Unison, Terminal style](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/readme/IMG_2626.jpeg)
+
+![Unison, PCB](https://raw.githubusercontent.com/jpskenn/Unison/main/assets/BuildGuide_v04/IMG_2472.jpeg)
 
 A narrow pitch keyboard with irregular Row-staggered, compatible with GH60 case.  
-It has two layout, for music instrument and for computers.
+It has two layout style, for music and for computers.
 
 * Keyboard Maintainer: [jpskenn](https://github.com/jpskenn)
 * Hardware Supported: PCB
