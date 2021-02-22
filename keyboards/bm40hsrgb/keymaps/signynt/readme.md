@@ -30,11 +30,11 @@ Sigma Squared modifies on **Miryoku** in the following ways:
 
 - to directly flash to board:
 
-  `qmk flash -kb bm40hsrgb -km sigma-squared`
+  `qmk flash -kb bm40hsrgb -km signynt`
 
 - to only compile:
 
-  `qmk compile -kb bm40hsrgb -km sigma-squared`
+  `qmk compile -kb bm40hsrgb -km signynt`
 
 
 
@@ -48,7 +48,9 @@ The Shortcut keys can be modified to suit your needs, or change them in your OS 
 
 If you are using MacOS I recommend swapping your *Ctrl* and *Cmd* keys in system preferences
 
-![img](https://i.imgur.com/xA1xkex.png)
+The Music Control key can be pressed once to pause and be pressed twice in rapid succession to skip to the next song. 
+
+![img](https://i.imgur.com/vhb1L2f.png)
 
 ## NAVIGATION
 
@@ -58,7 +60,7 @@ Provides access to all essential navigation keys, comfortably under your home ro
 
 Bottom right keys are used to swap between Virtual Desktops. You might need to modify these to fit your OS.
 
-![img](https://i.imgur.com/bxUJIHY.png)
+![img](https://i.imgur.com/daKxxFz.png)
 
 
 
