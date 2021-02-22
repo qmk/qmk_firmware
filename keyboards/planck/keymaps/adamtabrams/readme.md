@@ -5,7 +5,7 @@
 |C(Tab)|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
 |G(E/~)|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
 | S(-) |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SFTENT|
-| CTRL | GUI  | ALT  |System|Number| CTRL |Space |Arrows|Cursor| ALT  | GUI  | CTRL |
+| CTRL | GUI  | ALT  |System|Number| CTRL |Space |Arrows|Cursor| GUI  |      |      |
 
 ## Number
 
@@ -14,7 +14,7 @@
 | CTRL |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
 | GESC |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  \`  |
 | Shift|   _  |   -  |   +  |   =  |   |  |   [  |   ]  |   {  |   }  |   \  |SFTENT|
-|      |      |      |      | \\/  | CTRL |Space |      |      |      |      |      |
+|      |      |      |      | \\/  | CTRL |Space |      |      |      |      |Normal|
 
 ## Arrows
 
@@ -23,7 +23,7 @@
 | Tab  |      |A(->) |A(->) |      |      |      | P_Up |      |      |      | Bksp |
 | ESC  |      |      |P_Down|      |      | Left | Down |  Up  |Right |      |      |
 | Shift|      |      |      |      |A(<-) |      |      |      |      |      |SFTENT|
-|      |      |      |      |      | CTRL |Space | \\/  |      |      |      |      |
+|      |      |      |      |      | CTRL |Space | \\/  |      |      |      |Normal|
 
 ## Cursor
 
@@ -32,7 +32,7 @@
 | CTRL |      |      |Wh_Dn |M_Btn2|      |      |Wh_Dn |      |      |      | Bksp |
 | GUI  |M_Acc2|M_Acc1|Wh_Up |M_Btn1|      | M_L  |M_Down| M_Up | M_R  |      |      |
 | Shift|      |      |      |M_Btn3|      |      |      |      |      |      | ENT  |
-|      |      |      |      |      | CTRL |Space |      | \\/  |      |      |      |
+|      |      |      |      |      | CTRL |Space |      | \\/  |      |      |Normal|
 
 ## System
 
@@ -41,7 +41,7 @@
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
 | Caps |      |Pr_Scn|      | Fwd  |      |Brght-| Vol- | Vol+ |Brght+|      |      |
 |      |      |      |      |      | Rwd  |      | Mute |P_Trac|N_Trac|      | Play |
-|      |      |      | \\/  |      |      |      |      |KBoard|      |      |      |
+|      |      |      | \\/  |      |      |      |      |KBoard|      |      |Normal|
 
 ## KBoard
 
@@ -50,7 +50,7 @@
 |      |      |      |      |      |RGB_Tg|      |Brght+|      |      |Mode- |      |
 |      |      |      |Brght-|      |      | Hue- | Sat- | Sat+ | Hue+ |      |      |
 |      |      |      |      |      |      |Mode+ |      |      |      |      |      |
-|      |      |      | \\/  |      |      |      |      | \\/  |      |      |Flash |
+|      |      |      | \\/  |      |      |      |      | \\/  |      |FMWare|Normal|
 
 ## FMWare
 
@@ -59,4 +59,4 @@
 |      |      |      |EEPROM|Reset |      |      |      |      |      |      |      |
 |      |      |      |Debug |      |      |      |      |      |      |      |      |
 |------|      |      |      |      |      |      |      |      |      |      |      |
-|      |      |      | \\/  |      |      |      |      | \\/  |      |      | \\/  |
+|      |      |      | \\/  |      |      |      |      | \\/  |      | \\/  |Normal|
