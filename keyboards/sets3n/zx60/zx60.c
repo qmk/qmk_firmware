@@ -15,23 +15,3 @@
  */
 
 #include "zx60.h"
-void matrix_init_kb(void) {
-    matrix_init_user();
-    led_init_ports();
-};
-
-void led_init_ports(void) {
-    setPinOutput(B0);
-    writePinHigh(B0);
-}
-
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        writePinLow(B0);
-    } else {
-        writePinHigh(B0);
-    }
-
-    led_set_user(usb_led);
-}
-
