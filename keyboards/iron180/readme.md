@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This is the QMK firmware repository for the Iron180 PCB, a keyboard designed by [Smith and Rune](https://smithrune.com/) and PCB designed by [Gondolindrim](http://github.com/Gondolindrim).
+This is the QMK Firmware repository for the Iron180 PCB, a keyboard designed by [Smith and Rune](https://smithrune.com/) and PCB designed by [Gondolindrim](http://github.com/Gondolindrim).
 
-The Iron180 PCb is a F13 TKL PCB with ALPS switches support. It also supports in-switch single-color LEDs and a multi-layout design for default or 7U bottom row, ISO layout, split backspace and right shift.
+The Iron180 PCB is a F13 TKL PCB with ALPS switches support. It also supports in-switch single-color LEDs and a multi-layout design for default or 7U bottom row, ISO layout, split backspace and right shift.
 
-As of november 2020, the only way to obtain an Iron180 was through the [Group Buy](https://geekhack.org/index.php?topic=109513) which is already over and all spots were filled.
+As of November 2020, the only way to obtain an Iron180 was through the [Group Buy](https://geekhack.org/index.php?topic=109513) which is already over and all spots were filled.
 
 ## How to compile
 
