@@ -18,11 +18,11 @@ Then, while using your keyboard, you need to also turn it on with the VLK_TOG ke
 
 The following light effects will all be controlled by Velocikey when it is enabled:
 
--   RGB Breathing
--   RGB Rainbow Mood
--   RGB Rainbow Swirl
--   RGB Snake
--   RGB Knight
+ - RGB Breathing
+ - RGB Rainbow Mood
+ - RGB Rainbow Swirl
+ - RGB Snake
+ - RGB Knight
 
 Support for LED breathing effects is planned but not available yet.
 
