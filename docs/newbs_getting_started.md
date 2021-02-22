@@ -11,7 +11,7 @@ There are a few pieces of software you'll need to get started.
 * [Toolbox (optional)](https://github.com/qmk/qmk_toolbox)
   * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard
 
-⚠️ If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
+?> 📋 If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
 
 ## 2. Prepare Your Build Environment
 
@@ -32,7 +32,7 @@ Alternatively, if you'd like to manually install MSYS2, the following section wi
 <details>
   <summary>Manual Install</summary>
 
-⚠️ Ignore the following steps if you use `QMK MSYS`.
+?> 📋 Ignore the following steps if you use `QMK MSYS`.
 
 #### Prerequisites
 
@@ -40,7 +40,7 @@ You will need to install MSYS2, Git and Python. Follow the installation instruct
 
 Once MSYS2 is installed, close any open MSYS terminals and open a new MinGW 64-bit terminal.
 
-🛑 **NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
+!> ⚠️ **NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
 
 Then run the following command:
 
@@ -146,7 +146,7 @@ After installing QMK you can set it up with this command:
 
 In most situations you will want to answer `y` to all of the prompts.
 
-⚠️**Note on Debian, Ubuntu and their derivatives**:
+?> 📋 **Note on Debian, Ubuntu and their derivatives**:
 It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
@@ -160,7 +160,7 @@ After installing QMK you can set it up with this command:
 
 In most situations you will want to answer `y` to all of the prompts.
 
-⚠️**Note on FreeBSD**:
+?> 📋 **Note on FreeBSD**:
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
 base system using `pkg`. However the installation will probably fail when run as an unprivileged user.
 To manually install the base dependencies, run `./util/qmk_install.sh` either as `root`, or with `sudo`.
