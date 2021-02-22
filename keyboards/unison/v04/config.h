@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB Lighting */
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 7 // Layer Indicator(2) + Rotary Encoder(5), NOT used: optional Indicator(2), optional Underglow(8)
+  #define RGBLED_NUM 7 // Layer Indicator(2) + Rotary Encoder(5)
   #define RGBLIGHT_LED_MAP {1, 2, 0, 3, 4, 5, 6} // align LEDs from Left to Right
   #define RGBLIGHT_HUE_STEP 4
   #define RGBLIGHT_SAT_STEP 8
@@ -96,9 +96,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * BOOTMAGIC Lite
  * Hold Left-Bottom key to enter bootloader.
  *
- * CAUTION:
+ * NOTE:
  * With Round-Robin matrix, diagonal position is always High.
- * The default (0,0) is always judged as hold.
+ * So, the default (0,0) is always judged as hold and keyboard enters bootloader.
+ * To prevent this, set specific position for it.
  */
 #define BOOTMAGIC_LITE_ROW 9
 #define BOOTMAGIC_LITE_COLUMN 0
