@@ -8,7 +8,7 @@ Prelim: Your kit should include 7 layers of acrylic, a PCB, and mounting hardwar
 
 1. Start by loading your switch plate with switches. If you have a copper or brass switch plate, there is a front ![front](https://imgur.com/Xw7RRG9.jpg)
 ![front](https://imgur.com/fmvCMpN.jpg)
-and a ![back](https://imgur.com/rO5r1PT.jpg)
+and a back. ![back](https://imgur.com/rO5r1PT.jpg)
 ![back](https://imgur.com/pNwvtZ9.jpg)
 
 2. If you have a foam piece, install that next
@@ -18,7 +18,7 @@ and a ![back](https://imgur.com/rO5r1PT.jpg)
 ![stabs](https://i.imgur.com/k5sBkhG.jpg)
 
 4. Next mount the PCB to the plate and solder your switches.
-![PCB] (https://imgur.com/Y6cZu9N.jpg)
+![PCB](https://imgur.com/Y6cZu9N.jpg)
 
 5. If you plan to add LEDs, add those next. Ensure the positive side of the LED ( normally the longer leg) goes through the positive side for the LED and solder away.
 ![LED](https://imgur.com/5lwgMsH.jpg)
@@ -30,11 +30,11 @@ and a ![back](https://imgur.com/rO5r1PT.jpg)
 7a. If you have an acrylic switch plate, add that next. 
 ![acrylic](https://imgur.com/gzaugVM.jpg)
 
-7b. If you have an metal switch plate, the steps are a little different. First we need to confirm you have the acrylic piece facing the right way. The tabs on the metal are not exactly the same size. To check this, lay the acryli piece down, then set the metal/PCB component inside like this:
+7b. If you have an metal switch plate, the steps are a little different. First we need to confirm you have the acrylic piece facing the right way. The tabs on the metal are not exactly the same size. To check this, lay the acrylic piece down, then set the metal/PCB component inside like this:
 
 ![testfit](https://imgur.com/YXshQl6.jpg)
 
-Leaving the PCB resting on your work area, bring the acrylic piece up to it. It should fit perfectly with little, if any, force. If it doesn't fit, move the PCB out of the way, flip the acrylic over, and try again. Once you get that situated, place the acrylic pice on top of the top pieces.
+Leaving the PCB resting on your work area, bring the acrylic piece up to it. It should fit perfectly with little, if any, force. If it doesn't fit, move the PCB out of the way, flip the acrylic over, and try again. Once you get that situated, place the acrylic pice on top of the top pieces and place the PCB/plate inside.
 
 ![acrylic](https://imgur.com/KOWSrOL.jpg)
 
