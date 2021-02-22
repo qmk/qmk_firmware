@@ -1,4 +1,4 @@
-# Sigma Squared
+# Signynt's Keymap: 'Sigma-Squared'
 
 Sigma Squared is an adaptation & modification of the Layout [Miryoku](https://github.com/manna-harbour/qmk_firmware/blob/miryoku/users/manna-harbour_miryoku/miryoku.org#miryoku-) by *manna-harbour*
 
