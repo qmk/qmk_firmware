@@ -7,15 +7,15 @@
 Prelim: Your kit should include 7 layers of acrylic, a PCB, and mounting hardware. If you ordered a metal switch plate, your kit will include that and a bag of gaskets as well. The case is made of 3mm acrylic. It can be fragile! Be careful when removing the protective coating. I strongly recommend keeping the case together with the screws until you are ready to build the kit.
 
 1. Start by loading your switch plate with switches. If you have a copper or brass switch plate, there is a front ![front](https://imgur.com/Xw7RRG9.jpg)
-(https://imgur.com/fmvCMpN.jpg)
+![front](https://imgur.com/fmvCMpN.jpg)
 and a ![back](https://imgur.com/rO5r1PT.jpg)
-(https://imgur.com/pNwvtZ9.jpg)
+![back](https://imgur.com/pNwvtZ9.jpg)
 
 2. If you have a foam piece, install that next
 ![foam](https://imgur.com/NCm9kff.jpg)
 
 3. If you plan to use 2u sized keys, install stabilizers next.
-![stabs](https://imgur.com/a/qlwrl5B.jpg)
+![stabs](https://i.imgur.com/k5sBkhG.jpg)
 
 4. Next mount the PCB to the plate and solder your switches.
 ![PCB] (https://imgur.com/Y6cZu9N.jpg)
