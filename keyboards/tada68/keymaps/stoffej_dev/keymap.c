@@ -127,8 +127,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   KC_F11,  KC_F12,    RESET,   KC_PSCR, \
     _______, LAY_COL, LAY_QWE ,  M_NAME, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, _______ ,  BL_INC, XP(SE_AA_L, SE_AA_H) , _______,              KC_INS,  \
     _______, OS_WIN , OS_LIN , VM2WIN , WIN2VM, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,   XP(SE_OE_L, SE_OE_H) ,  XP(SE_AE_L, SE_AE_H) , _______,  _______,   KC_HOME, \
-    _______, BL_TOGG, BL_DEC , _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_VOLD, KC_MUTE,  KC_VOLU, _______, M_CD_DOT,    KC_END,  \
-    _______, _______, _______,                   _______,                             _______, _______,   KC_APP, _______,  _______,    _______
+    _______, BL_TOGG, BL_DEC , KC_BTN1, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_VOLD, KC_MUTE,  KC_VOLU, _______, M_CD_DOT,    KC_END,  \
+    _______, _______, _______,                   KC_ENT,                             _______, _______,   KC_APP, _______,  _______,    _______
   ),
 };
 // clang-format on
@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case WIN2VM:
         if (record->event.pressed) {
-            SEND_STRING( SS_DOWN(X_LCTL) SS_DOWN(X_LGUI) SS_TAP(X_RIGHT) SS_UP(X_LCTL) SS_UP(X_LGUI) SS_TAP(X_MS_L));
+            SEND_STRING(SS_DOWN(X_LCTL) SS_DOWN(X_LGUI) SS_TAP(X_RIGHT) SS_UP(X_LCTL) SS_UP(X_LGUI) SS_DELAY(300) SS_TAP(X_BTN1));
             set_unicode_input_mode(UC_LNX);
         }
         return false;
