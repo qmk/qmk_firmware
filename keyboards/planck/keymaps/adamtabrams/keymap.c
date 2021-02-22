@@ -46,46 +46,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  * |C(Tab)|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |G(E/~)|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
- * | S(-) |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SFTENT|
+ * | S(-) |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |S(ENT)|
  * | CTRL | GUI  | ALT  |System|Number| CTRL |Space |Arrows|Cursor| GUI  |      |      |
  */
 
 [_NORMAL] = LAYOUT_planck_grid(
     CTL_T(KC_TAB),  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC,
     GUIGESC,        KC_A,    KC_S,    KC_D,   KC_F,   KC_G,    KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    SFT_T(KC_MINS), KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+    SFT_T(KC_MINS), KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT),
     KC_LCTRL,       KC_LGUI, KC_LALT, SYSTEM, NUMBER, KC_RCTL, KC_SPC, ARROWS, CURSOR,  KC_RGUI, XXXXXXX, XXXXXXX
 ),
 
 /* ## Number
  *
- * | CTRL |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+ * |C(TAB)|   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * | GESC |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  `   |
- * | Shift|   _  |   -  |   +  |   =  |   |  |   [  |   ]  |   {  |   }  |   \  |SFTENT|
+ * | Shift|   _  |   -  |   +  |   =  |   |  |   [  |   ]  |   {  |   }  |   \  |S(ENT)|
  * |      |      |      |      |  \/  | CTRL |Space |      |      |      |      |Normal|
  */
 
 [_NUMBER] = LAYOUT_planck_grid(
-    KC_LCTL, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-    KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-    KC_LSFT, KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,  KC_PIPE, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_BSLS, KC_SFTENT,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_RCTL, KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NORMAL
+    CTL_T(KC_TAB), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+    KC_GESC,       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
+    KC_LSFT,       KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,  KC_PIPE, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_BSLS, SFT_T(KC_ENT),
+    XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_RCTL, KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NORMAL
 ),
 
 
 /* ## Arrows
  *
- * | Tab  |      |A(->) |A(->) |      |      |      | P_Up |      |      |      | Bksp |
- * | ESC  |      |      |P_Down|      |      | Left | Down |  Up  |Right |      |      |
- * | Shift|      |      |      |      |A(<-) |      |      |      |      |      |SFTENT|
- * |      |      |      |      |      | CTRL |Space |  \/  |      |      |      |Normal|
+ * |C(Tab)|      |A(->) |A(->) |      |      |      | P_Up |      |      |      | Bksp |
+ * |G(ESC)|      |      |P_Down|      |      | Left | Down |  Up  |Right |      |      |
+ * | Shift|      |      |      |      |A(<-) |      |      |      |      |      |S(ENT)|
+ * |      |      |      |      |      | ALT  |Space |  \/  |      |      |      |Normal|
  */
 
 [_ARROWS] = LAYOUT_planck_grid(
-    KC_TAB,  XXXXXXX, A(KC_RGHT), A(KC_RGHT), XXXXXXX, XXXXXXX,    XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
-    KC_ESC,  XXXXXXX, XXXXXXX,    KC_PGDN,    XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX, XXXXXXX,
-    KC_LSFT, XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, A(KC_LEFT), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SFTENT,
-    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, KC_RCTL,    KC_SPC,  _______, XXXXXXX, XXXXXXX, XXXXXXX, NORMAL
+    CTL_T(KC_TAB), XXXXXXX, A(KC_RGHT), A(KC_RGHT), XXXXXXX, XXXXXXX,    XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
+    GUI_T(KC_ESC), XXXXXXX, XXXXXXX,    KC_PGDN,    XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX, XXXXXXX,
+    KC_LSFT,       XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, A(KC_LEFT), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SFT_T(KC_ENT),
+    XXXXXXX,       XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, KC_RALT,    KC_SPC,  _______, XXXXXXX, XXXXXXX, XXXXXXX, NORMAL
 ),
 
 /* ## Cursor
@@ -151,24 +151,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static bool r_shift_is_pressed = false;
     static uint16_t use_gui_timer;
 
     switch (keycode) {
+        case SFT_T(KC_ENT):
+            if(record->event.pressed){
+                r_shift_is_pressed = true;
+            } else {
+                r_shift_is_pressed = false;
+            }
+            return true;
         case GUIGESC:
             if(record->event.pressed){
-                use_gui_timer = timer_read();
-                register_code(KC_LGUI);
+                if(r_shift_is_pressed){
+                    tap_code(KC_GRV);
+                } else {
+                    use_gui_timer = timer_read();
+                    register_code(KC_LGUI);
+                }
             } else {
                 unregister_code(KC_LGUI);
                 if (timer_elapsed(use_gui_timer) < TAPPING_TERM) {
-                    keyrecord_t temp = *record;
-                    temp.event.pressed = true;
-                    process_grave_esc(KC_GESC, &temp);
-                    process_grave_esc(KC_GESC, record);
+                    tap_code(KC_ESC);
                 }
             }
             return false;
-            break;
     }
     return true;
 }
@@ -177,9 +185,11 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CTL_T(KC_TAB):
             return true;
-        case GUI_T(KC_GESC):
-            return true;
         case SFT_T(KC_MINS):
+            return true;
+        case GUI_T(KC_ESC):
+            return true;
+        case SFT_T(KC_ENT):
             return true;
         default:
             return false;
