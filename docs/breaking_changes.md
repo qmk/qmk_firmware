@@ -6,6 +6,7 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
+* [2021 Feb 27](ChangeLog/20210227.md)
 * [2020 Nov 28](ChangeLog/20201128.md)
 * [2020 Aug 29](ChangeLog/20200829.md)
 * [2020 May 30](ChangeLog/20200530.md)
