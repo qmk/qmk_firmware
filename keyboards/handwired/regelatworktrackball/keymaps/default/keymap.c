@@ -16,14 +16,20 @@
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-    _QWERTY
+    _MOUSE,
+    _CNFIG,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT(
-      KC_1,   KC_2,   KC_3,
-      KC_4,   KC_5,   KC_6,
-      KC_7,   KC_8,   KC_9
+  [_MOUSE] = LAYOUT(
+      KC_WH_U,    XXXXXXX,      MO(_CNFIG),
+      KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2,
+      KC_WH_D,    KC_MS_BTN4,   KC_MS_BTN5
+  ),
+  [_CNFIG] = LAYOUT(
+      _______, _______, _______,
+      RGB_HUI, RGB_MOD, RGB_VAI,
+      _______, _______, _______
   )
 };
 
