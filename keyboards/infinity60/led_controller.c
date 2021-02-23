@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * datasheet: http://www.issi.com/WW/pdf/31FL3731C.pdf
  */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 #include "print.h"
 #include "led.h"
 #include "host.h"

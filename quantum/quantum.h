@@ -21,7 +21,7 @@
 #    include <avr/interrupt.h>
 #endif
 #if defined(PROTOCOL_CHIBIOS)
-#    include "hal.h"
+#    include <hal.h>
 #    include "chibios_config.h"
 #endif
 
@@ -31,7 +31,7 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
-#        include "ledmatrix.h"
+#        include "led_matrix.h"
 #    else
 #        include "backlight.h"
 #    endif
@@ -54,8 +54,11 @@
 #include "bootloader.h"
 #include "timer.h"
 #include "config_common.h"
+#include "gpio.h"
+#include "atomic_util.h"
 #include "led.h"
 #include "action_util.h"
+#include "action_tapping.h"
 #include "print.h"
 #include "send_string_keycodes.h"
 #include "suspend.h"
@@ -66,6 +69,11 @@ extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
 extern layer_state_t layer_state;
+#endif
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#    include "process_sequencer.h"
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -184,40 +192,6 @@ extern layer_state_t layer_state;
 
 #ifdef WPM_ENABLE
 #    include "wpm.h"
-#endif
-
-// Function substitutions to ease GPIO manipulation
-#if defined(__AVR__)
-typedef uint8_t pin_t;
-
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
-
-#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
-
-#elif defined(PROTOCOL_CHIBIOS)
-typedef ioline_t pin_t;
-
-#    define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
-#    define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
-#    define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
-#    define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
-
-#    define writePinHigh(pin) palSetLine(pin)
-#    define writePinLow(pin) palClearLine(pin)
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) palReadLine(pin)
-
-#    define togglePin(pin) palToggleLine(pin)
 #endif
 
 #define SEND_STRING(string) send_string_P(PSTR(string))

@@ -58,12 +58,14 @@ ULIBS += -lm
 endif
 
 ifeq ($(strip $(LCD_ENABLE)), yes)
-SRC += $(VISUALIZER_DIR)/lcd_backlight.c
-SRC += $(VISUALIZER_DIR)/lcd_keyframes.c
-SRC += $(VISUALIZER_DIR)/lcd_backlight_keyframes.c
+    SRC += $(VISUALIZER_DIR)/lcd_keyframes.c
+    ifeq ($(strip $(LCD_BACKLIGHT_ENABLE)), yes)
+        OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
+        SRC += $(VISUALIZER_DIR)/lcd_backlight.c
+        SRC += $(VISUALIZER_DIR)/lcd_backlight_keyframes.c
+    endif
 # Note, that the linker will strip out any resources that are not actually in use
 SRC += $(VISUALIZER_DIR)/resources/lcd_logo.c
-OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 $(eval $(call ADD_DRIVER,LCD))
 endif
 

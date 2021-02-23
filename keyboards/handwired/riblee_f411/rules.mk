@@ -24,3 +24,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_5x12
+
+OLED_DRIVER_ENABLE = yes
+RAW_ENABLE = yes

@@ -56,8 +56,6 @@
 	{ R40,   R41,   R42,   R43,   R44,   R45, KC_NO }  \
 }
 
-uint8_t current_layer;
-
 extern void led_toggle(int id, bool on);
 void set_all_leds(bool leds[6]);
 extern void set_layer_indicators(uint8_t layer);
