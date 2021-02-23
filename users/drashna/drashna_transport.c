@@ -37,8 +37,7 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
-static uint16_t device_cpi    = 0;
-static int8_t   split_mouse_x = 0, split_mouse_y = 0;
+static int8_t split_mouse_x = 0, split_mouse_y = 0;
 #endif
 
 #ifdef OLED_DRIVER_ENABLE
@@ -73,7 +72,6 @@ typedef struct _I2C_slave_buffer_t {
 #    endif
     int8_t        mouse_x;
     int8_t        mouse_y;
-    uint16_t      device_cpi;
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
@@ -84,8 +82,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 
 #    define I2C_BACKLIGHT_START offsetof(I2C_slave_buffer_t, backlight_level)
 #    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
-#    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, mmatrix)
-#    define I2C_SYNC_TIME_START offsetof(I2C_slave_buffer_t, sync_timer)
+#    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_REAL_MODS_START offsetof(I2C_slave_buffer_t, real_mods)
 #    define I2C_WEAK_MODS_START offsetof(I2C_slave_buffer_t, weak_mods)
 #    define I2C_ONESHOT_MODS_START offsetof(I2C_slave_buffer_t, oneshot_mods)
@@ -93,7 +90,6 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
 #    define I2C_MOUSE_X_START offsetof(I2C_slave_buffer_t, mouse_x)
 #    define I2C_MOUSE_Y_START offsetof(I2C_slave_buffer_t, mouse_y)
-#    define I2C_MOUSE_DPI_START offsetof(I2C_slave_buffer_t, device_cpi)
 #    define I2C_OLED_ON_START offsetof(I2C_slave_buffer_t, oled_on)
 #    define I2C_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_layer_state)
 #    define I2C_DEFAULT_LAYER_STATE_START offsetof(I2C_slave_buffer_t, t_default_layer_state)
@@ -151,12 +147,6 @@ bool transport_master(matrix_row_t matrix[]) {
         i2c_readReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_Y_START, (void *)&i2c_buffer->mouse_y, sizeof(i2c_buffer->mouse_y), TIMEOUT);
         temp_report.y = i2c_buffer->mouse_y;
         pointing_device_set_report(temp_report);
-
-        if (device_cpi != i2c_buffer->device_cpi) {
-            if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_DPI_START, (void *)&device_cpi, sizeof(device_cpi), TIMEOUT) >= 0) {
-                i2c_buffer->device_cpi = device_cpi
-            }
-        }
     }
 #    endif
 
@@ -198,10 +188,10 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 
 #    ifdef OLED_DRIVER_ENABLE
-    bool is_oled_on = is_oled_on();
-    if (is_oled_on != i2c_buffer->oled_on) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&is_oled_on, sizeof(is_oled_on), TIMEOUT) >= 0) {
-            i2c_buffer->oled_on = is_oled_on;
+    bool is_oled = is_oled_on();
+    if (is_oled != i2c_buffer->oled_on) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_LAYER_STATE_START, (void *)&is_oled, sizeof(is_oled), TIMEOUT) >= 0) {
+            i2c_buffer->oled_on = is_oled;
         }
     }
 #    endif
@@ -245,11 +235,6 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef POINTING_DEVICE_ENABLE
     if (!is_keyboard_left()) {
-        static uint16_t cpi;
-        if (cpi != i2c_buffer->device_cpi) {
-            cpi = i2c_buffer->device_cpi;
-            pmw_set_cpi(cpi);
-        }
         i2c_buffer->mouse_x = split_mouse_x;
         i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_MOUSE_X_START, (void *)&i2c_buffer->mouse_x, sizeof(i2c_buffer->mouse_x), TIMEOUT);
         i2c_buffer->mouse_y = split_mouse_y;
@@ -298,30 +283,26 @@ typedef struct _Serial_s2m_buffer_t {
     // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
     matrix_row_t smatrix[ROWS_PER_HAND];
 #    ifdef ENCODER_ENABLE
-    uint8_t      encoder_state[NUMBER_OF_ENCODERS];
+    uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
-    int8_t       mouse_x;
-    int8_t       mouse_y;
+    int8_t mouse_x;
+    int8_t mouse_y;
 } __attribute__((packed)) Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
 #    ifdef SPLIT_MODS_ENABLE
-    uint8_t       real_mods;
-    uint8_t       weak_mods;
+    uint8_t real_mods;
+    uint8_t weak_mods;
 #        ifndef NO_ACTION_ONESHOT
-    uint8_t       oneshot_mods;
+    uint8_t oneshot_mods;
 #        endif
 #    endif
-#    ifndef DISABLE_SYNC_TIMER
-    uint32_t      sync_timer;
-#    endif
 #    ifdef BACKLIGHT_ENABLE
-    uint8_t       backlight_level;
+    uint8_t backlight_level;
 #    endif
 #    ifdef WPM_ENABLE
-    uint8_t       current_wpm;
+    uint8_t current_wpm;
 #    endif
-    uint16_t      device_cpi;
     bool          oled_on;
     layer_state_t t_layer_state;
     layer_state_t t_default_layer_state;
@@ -430,12 +411,12 @@ bool transport_master(matrix_row_t matrix[]) {
 
 #    ifdef WPM_ENABLE
     // Write wpm to slave
-    serial_m2s_buffer.current_wpm  = get_current_wpm();
+    serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
 
 #    ifdef SPLIT_MODS_ENABLE
-    serial_m2s_buffer.real_mods    = get_mods();
-    serial_m2s_buffer.weak_mods    = get_weak_mods();
+    serial_m2s_buffer.real_mods = get_mods();
+    serial_m2s_buffer.weak_mods = get_weak_mods();
 #        ifndef NO_ACTION_ONESHOT
     serial_m2s_buffer.oneshot_mods = get_oneshot_mods();
 #        endif
@@ -447,14 +428,13 @@ bool transport_master(matrix_row_t matrix[]) {
         temp_report.x              = serial_s2m_buffer.mouse_x;
         temp_report.y              = serial_s2m_buffer.mouse_y;
         pointing_device_set_report(temp_report);
-        serial_m2s_buffer.device_cpi = device_cpi;
     }
 #    endif
 
-    serial_m2s_buffer.t_layer_state           = layer_state;
-    serial_m2s_buffer.t_default_layer_state   = default_layer_state;
+    serial_m2s_buffer.t_layer_state         = layer_state;
+    serial_m2s_buffer.t_default_layer_state = default_layer_state;
 #    ifdef OLED_DRIVER_ENABLE
-    serial_m2s_buffer.oled_on                 = is_oled_on();
+    serial_m2s_buffer.oled_on = is_oled_on();
 #    endif
 
 #    ifdef RGB_MATRIX_ENABLE
@@ -494,11 +474,6 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef POINTING_DEVICE_ENABLE
     if (!is_keyboard_left()) {
-        static uint16_t cpi;
-        if (cpi != serial_m2s_buffer.device_cpi) {
-            cpi = serial_m2s_buffer.device_cpi;
-            pmw_set_cpi(cpi);
-        }
         serial_s2m_buffer.mouse_x = split_mouse_x;
         serial_s2m_buffer.mouse_y = split_mouse_y;
     }
@@ -529,12 +504,5 @@ void transport_slave(matrix_row_t matrix[]) {
 void master_mouse_send(int8_t x, int8_t y) {
     split_mouse_x = x;
     split_mouse_y = y;
-}
-void trackball_set_cpi(uint16_t cpi) {
-    if (!is_keyboard_left()) {
-        pmw_set_cpi(cpi);
-    } else {
-        device_cpi = cpi * 1.5;
-    }
 }
 #endif
