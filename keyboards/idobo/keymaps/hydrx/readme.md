@@ -1,8 +1,8 @@
 # IDOBO Colemak, numpad in center
 
 
-# tapdance for CTL+ (Z, X, V), CTL+S = CTL+C
-* RSHIFT double tap to CAPS, tap again to revert
+# tapdance (triple) for CTL+ (Z, X, V), (double) for CTL+S = CTL+C
+* RSHIFT (SFL) double tap to CAPS, tap again to revert
 
 <pre>
 /* COLEMAK

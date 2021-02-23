@@ -100,6 +100,45 @@ int cur_dance (qk_tap_dance_state_t *state) {
 
 #define DEBOUNCE_CAPS_DELAY 100
 
+//add triple tap dance
+void triple_tap_dance_pair_on_each_tap(qk_tap_dance_state_t *state, void *user_data) {
+    qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+
+    if (state->count == 3) {
+        // immediately finish on third press
+        register_code16(pair->kc2);
+        state->finished = true;
+    }
+}
+
+void triple_tap_dance_pair_finished(qk_tap_dance_state_t *state, void *user_data) {
+    qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+
+    if (state->count == 1) {
+        register_code16(pair->kc1);
+    } else if (state->count == 2) {
+        // tap plus hold
+        tap_code16(pair->kc1);
+        register_code16(pair->kc1);
+    } else if (state->count == 3) {
+        register_code16(pair->kc2);
+    }
+}
+
+void triple_tap_dance_pair_reset(qk_tap_dance_state_t *state, void *user_data) {
+    qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+
+    if (state->count == 1 || state->count == 2) {
+        // 1-tap and 2-tap both result in `kc1` pressed so release it
+        unregister_code16(pair->kc1);
+    } else if (state->count == 3) {
+        unregister_code16(pair->kc2);
+    }
+}
+
+#define TRIPLE_TAP_DANCE_DOUBLE(kc1, kc2) \
+        { .fn = {triple_tap_dance_pair_on_each_tap, triple_tap_dance_pair_finished, triple_tap_dance_pair_reset}, .user_data = (void *)&((qk_tap_dance_pair_t){kc1, kc2}), }
+
 // handle the possible states for each tapdance keycode you define:
 
 void sft_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -139,9 +178,9 @@ void sft_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 // tap dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [C_Z]  = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
-  [C_X]  = ACTION_TAP_DANCE_DOUBLE(KC_X, LCTL(KC_X)),
-  [C_V]  = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
+  [C_Z]  = TRIPLE_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
+  [C_X]  = TRIPLE_TAP_DANCE_DOUBLE(KC_X, LCTL(KC_X)),
+  [C_V]  = TRIPLE_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
   [C_S]  = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_S), LCTL(KC_C)),
   [S_C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sft_finished, sft_reset)
 };
