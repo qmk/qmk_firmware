@@ -26,7 +26,7 @@
 #define PRODUCT         Console Keyboard 30
 /* key matrix size */
 #define MATRIX_ROWS 3
-#define MATRIX_COLS 12
+#define MATRIX_COLS 11
 
 /*
  * Keyboard Matrix Assignments
@@ -39,7 +39,7 @@
  *
  */
 #define MATRIX_ROW_PINS { D1, D0, F7}
-#define MATRIX_COL_PINS { D4, C6, D7, C4, B1, B3, B2, B6, C5, E6, B4, B5 }
+#define MATRIX_COL_PINS { D4, C6, D7, C4, B1, B3, B2, B6, C5, E6, B4 }
 
 #define DIODE_DIRECTION COL2ROW
 
