@@ -461,7 +461,7 @@
 |`RGB_MODE_KNIGHT`  |`RGB_M_K` |「ナイトライダー」アニメーションモード                               |
 |`RGB_MODE_XMAS`    |`RGB_M_X` |クリスマスアニメーションモード                                       |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |固定階調アニメーションモード                                         |
-|`RGB_MODE_RGBTEST` |`RGB_M_T` |赤、青、緑のテストアニメーションモード                               |
+|`RGB_MODE_RGBTEST` |`RGB_M_T` |赤、緑、青のテストアニメーションモード                               |
 
 ## RGB マトリックスライト :id=rgb-matrix-lighting
 
