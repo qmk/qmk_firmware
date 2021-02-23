@@ -152,8 +152,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool r_shift_is_pressed = false;
-    static bool space_is_pressed = false;
-    static uint16_t use_gui_timer;
+    static bool gg_is_pressed = false;
+    static bool gg_was_used = false;
+    static uint16_t gg_timer;
+
+    if(keycode != GUIGESC && record->event.pressed && gg_is_pressed) {
+        gg_was_used = true;
+        register_code(KC_LGUI);
+    }
 
     switch (keycode) {
         case SFT_T(KC_ENT):
@@ -163,24 +169,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 r_shift_is_pressed = false;
             }
             return true;
-        case KC_SPC:
-            if(record->event.pressed){
-                space_is_pressed = true;
-            } else {
-                space_is_pressed = false;
-            }
-            return true;
         case GUIGESC:
             if(record->event.pressed){
                 if(r_shift_is_pressed){
                     tap_code(KC_GRV);
                 } else {
-                    use_gui_timer = timer_read();
-                    register_code(KC_LGUI);
+                    gg_is_pressed = true;
+                    gg_timer = timer_read();
                 }
             } else {
-                unregister_code(KC_LGUI);
-                if (timer_elapsed(use_gui_timer) < TAPPING_TERM && !space_is_pressed) {
+                gg_is_pressed = false;
+                if(gg_was_used) {
+                    gg_was_used = false;
+                    unregister_code(KC_LGUI);
+                } else if (timer_elapsed(gg_timer) < TAPPING_TERM) {
                     tap_code(KC_ESC);
                 }
             }
