@@ -20,6 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
-ENCODER_ENABLE = yes        # Rotary Encoder
+ENCODER_ENABLE = no         # Rotary Encoder
 
 LTO_ENABLE = yes
