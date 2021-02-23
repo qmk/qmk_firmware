@@ -94,14 +94,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * BOOTMAGIC Lite
- * Hold Left-Bottom key to enter bootloader.
+ * Hold Left-Top key to enter bootloader.
  *
  * NOTE:
  * With Round-Robin matrix, diagonal position is always High.
  * So, the default (0,0) is always judged as hold and keyboard enters bootloader.
  * To prevent this, set specific position for it.
  */
-#define BOOTMAGIC_LITE_ROW 9
+#define BOOTMAGIC_LITE_ROW 5
 #define BOOTMAGIC_LITE_COLUMN 0
 
 /*
