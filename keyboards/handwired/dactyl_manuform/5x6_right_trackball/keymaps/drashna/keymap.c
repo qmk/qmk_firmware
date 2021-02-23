@@ -17,7 +17,6 @@
 #include "drashna.h"
 
 #define TG_DBLO TG(_DIABLO)
-#define _MOUSE _MEDIA
 
 
 // clang-format off
@@ -172,7 +171,7 @@ void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
 }
 
 void matrix_scan_keymap(void) {
-    if (timer_elapsed(mouse_timer) > 750 && layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
+    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
         layer_off(_MOUSE);
     }
 }

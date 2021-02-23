@@ -51,6 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN C6
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 24    // Number of LEDs
+#define RGBLIGHT_LIMIT_VAL 200
+#endif
+
+/* RGB matrix support */
+#ifdef RGB_MATRIX_ENABLE
+#define DRIVER_LED_TOTAL 24 // Number of LEDs
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #endif
 
 /*
