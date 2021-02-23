@@ -50,6 +50,8 @@ If you are using MacOS I recommend swapping your *Ctrl* and *Cmd* keys in system
 
 The Music Control key can be pressed once to pause and be pressed twice in rapid succession to skip to the next song. 
 
+The Screenshot Key takes a screenshot to the clipboard if pressed once, if double tapped it will take a screenshot to be saved to the desktop.
+
 ![img](https://i.imgur.com/vhb1L2f.png)
 
 ## NAVIGATION
