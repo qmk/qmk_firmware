@@ -152,6 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool r_shift_is_pressed = false;
+    static bool space_is_pressed = false;
     static uint16_t use_gui_timer;
 
     switch (keycode) {
@@ -160,6 +161,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 r_shift_is_pressed = true;
             } else {
                 r_shift_is_pressed = false;
+            }
+            return true;
+        case KC_SPC:
+            if(record->event.pressed){
+                space_is_pressed = true;
+            } else {
+                space_is_pressed = false;
             }
             return true;
         case GUIGESC:
@@ -172,7 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {
                 unregister_code(KC_LGUI);
-                if (timer_elapsed(use_gui_timer) < TAPPING_TERM) {
+                if (timer_elapsed(use_gui_timer) < TAPPING_TERM && !space_is_pressed) {
                     tap_code(KC_ESC);
                 }
             }
