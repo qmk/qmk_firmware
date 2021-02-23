@@ -22,6 +22,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
+#ifdef SYNC_STATUS_LEDS
+#    include "led.h"
+#endif
+
 #if defined(USE_I2C)
 
 #    include "i2c_master.h"
@@ -54,6 +58,9 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
+#ifdef SYNC_STATUS_LEDS
+    led_t indicator_leds_state;
+#endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -68,6 +75,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
+#    define I2C_INDICATORS_START offsetof(I2C_slave_buffer_t, indicator_leds_state)
 
 #    define TIMEOUT 100
 
@@ -145,6 +153,16 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     i2c_buffer->sync_timer = sync_timer_read32() + SYNC_TIMER_OFFSET;
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_SYNC_TIME_START, (void *)&i2c_buffer->sync_timer, sizeof(i2c_buffer->sync_timer), TIMEOUT);
 #    endif
+
+#ifdef SYNC_STATUS_LEDS
+    led_t indicators_state = host_keyboard_led_state();
+    if (indicators_state != i2c_buffer->indicator_leds_state)
+    {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_INDICATORS_START, (void *)&indicators_state, sizeof(indicators_state), TIMEOUT) >= 0) {
+          i2c_buffer->indicator_leds_state = indicators_state;
+        }
+    }
+#endif
     return true;
 }
 
@@ -186,6 +204,10 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     set_oneshot_mods(i2c_buffer->oneshot_mods);
 #        endif
 #    endif
+
+#ifdef SYNC_STATUS_LEDS
+    led_update_kb(i2c_buffer->indicator_leds_state);
+#endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -226,6 +248,9 @@ typedef struct _Serial_m2s_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t      current_wpm;
 #    endif
+#ifdef SYNC_STATUS_LEDS
+    led_t        indicator_leds_state;
+#endif
 } Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -346,6 +371,9 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    ifndef DISABLE_SYNC_TIMER
     serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
+#ifdef SYNC_STATUS_LEDS
+    serial_m2s_buffer.indicator_leds_state = host_keyboard_led_state();
+#endif
     return true;
 }
 
@@ -381,6 +409,9 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     set_oneshot_mods(serial_m2s_buffer.oneshot_mods);
 #        endif
 #    endif
+#ifdef SYNC_STATUS_LEDS
+    led_update_kb(serial_m2s_buffer.indicator_leds_state);
+#endif
 }
 
 #endif

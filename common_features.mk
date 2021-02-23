@@ -503,6 +503,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
 
+    ifeq ($(strip $(SYNC_STATUS_LEDS)), yes)
+        OPT_DEFS += -DSYNC_STATUS_LEDS
+    endif
+
     # Include files used by all split keyboards
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
