@@ -5,7 +5,7 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT": {
             "layout": [
                 {"label": "Enc", "x": 0, "y": 0, "w": 1},
 
