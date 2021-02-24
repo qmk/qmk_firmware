@@ -67,8 +67,10 @@ def find_layouts(file):
             layout = layout.strip()
             parsed_layout = [_default_key(key) for key in layout.split(',')]
 
-            for key in parsed_layout:
-                if key['label'] in matrix_locations:
+            for i, key in enumerate(parsed_layout):
+                if 'label' not in key:
+                    cli.log.error('Invalid LAYOUT macro in %s: Empty parameter name in macro %s at pos %s.', file, macro_name, i)
+                elif key['label'] in matrix_locations:
                     key['matrix'] = matrix_locations[key['label']]
 
             parsed_layouts[macro_name] = {
