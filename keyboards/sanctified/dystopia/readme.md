@@ -1,5 +1,7 @@
 # Dystopia
 
+![Dystopia](https://imgur.com/cwZ8bVV.jpg)
+
 Ergonomic 65% layout keyboard 
 Features an 8 degree alpha rotation (similar to Prime-E and Meridian)
 
