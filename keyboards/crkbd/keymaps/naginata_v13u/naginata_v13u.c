@@ -273,12 +273,12 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_Q|B_K                  , .kana = "xi"      }, // ぃ
   {.key = B_Q|B_SHFT|B_K           , .kana = "xi"      }, // ぃ
   {.key = B_Q|B_L                  , .kana = "xu"      }, // ぅ
-  {.key = B_Q|B_SHFT|B_L           , .kana = "xu"      }, // ぅ
+  // {.key = B_Q|B_SHFT|B_L           , .kana = "xu"      }, // ぅ
   {.key = B_Q|B_O                  , .kana = "xe"      }, // ぇ
   {.key = B_Q|B_SHFT|B_O           , .kana = "xe"      }, // ぇ
   {.key = B_Q|B_N                  , .kana = "xo"      }, // ぉ
   {.key = B_Q|B_SHFT|B_N           , .kana = "xo"      }, // ぉ
-  {.key = B_Q|B_L                  , .kana = "xwa"     }, // ゎ
+  // {.key = B_Q|B_L                  , .kana = "xwa"     }, // ゎ
   {.key = B_Q|B_SHFT|B_L           , .kana = "xwa"     }, // ゎ
   {.key = B_G                      , .kana = "xtu"     }, // っ
 
@@ -857,6 +857,12 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
 
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
+  // まれに薙刀モードオンのまま、レイヤーがオフになることがあるので、対策
+  // if (is_naginata && !layer_state_is(naginata_layer))
+  //   layer_on(naginata_layer);
+  // if (!is_naginata && layer_state_is(naginata_layer))
+  //   layer_off(naginata_layer);
+
   // OS切り替え(UNICODE出力)
   if (record->event.pressed) {
     switch (keycode) {
