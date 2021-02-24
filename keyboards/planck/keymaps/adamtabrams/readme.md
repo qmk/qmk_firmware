@@ -4,7 +4,7 @@
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 |C(Tab)|  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(-_) |
 |Bsp/Es|  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
-|G(=/~)|  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |Enter |
+|G(=/~)|  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
 | CTRL | GUI  | ALT  |System|Number| SHFT |Space |Arrows|Cursor| GUI  |      |Normal|
 
 ## Number
