@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    tszaboo
 #define PRODUCT         ortho4exent
-#define DESCRIPTION     Ortholinear keyboard for the exent case
 
 /* key matrix size */
 #define MATRIX_ROWS 5
