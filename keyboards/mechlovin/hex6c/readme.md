@@ -1,19 +1,19 @@
 # hex6c
 
-![hex6c](imgur.com image replace me!)
+![hex6c](https://i.imgur.com/uYxCTiT.jpeg)
 
-*A short description of the keyboard/project*
+A Southpaw Fullsize Keyboard with knoob.
 
-* Keyboard Maintainer: [Mechlovin' Studio](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Mechlovin' Studio](https://github.com/mechlovin)
+* Hardware Supported: Hex6C Keyboard, STM32F303
+* Hardware Availability: [Hex Keyboard](https://hexkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hex6c:default
+    make mechlovin/hex6c:default
 
 Flashing example for this keyboard:
 
-    make hex6c:default:flash
+    make mechlovin/hex6c:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
