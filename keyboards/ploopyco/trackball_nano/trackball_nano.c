@@ -36,9 +36,9 @@
 #endif
 
 #ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS { 375, 750, 1375 }
+#    define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
 #    ifndef PLOOPY_DPI_DEFAULT
-#        define PLOOPY_DPI_DEFAULT 1
+#        define PLOOPY_DPI_DEFAULT 2
 #    endif
 #endif
 
@@ -69,39 +69,13 @@ uint8_t OptLowPin = OPT_ENC1;
 bool debug_encoder = false;
 
 __attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
-    mouse_report->h = h;
-    mouse_report->v = v;
+    // There's no scroller on this device.
+    return;
 }
 
 __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
-    // If the mouse wheel was just released, do not scroll.
-    if (timer_elapsed(lastMidClick) < SCROLL_BUTT_DEBOUNCE)
-        return;
-
-    // Limit the number of scrolls per unit time.
-    if (timer_elapsed(lastScroll) < OPT_DEBOUNCE)
-        return;
-
-    // Don't scroll if the middle button is depressed.
-    if (is_scroll_clicked) {
-#ifndef IGNORE_SCROLL_CLICK
-        return;
-#endif
-    }
-
-    lastScroll  = timer_read();
-    uint16_t p1 = adc_read(OPT_ENC1_MUX);
-    uint16_t p2 = adc_read(OPT_ENC2_MUX);
-
-    if (debug_encoder)
-        dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
-
-    uint8_t dir = opt_encoder_handler(p1, p2);
-
-    if (dir == 0)
-        return;
-
-    process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + (dir * OPT_SCALE)));
+    // There's no scroller on this device.
+    return;
 }
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
