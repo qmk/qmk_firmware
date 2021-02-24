@@ -1,8 +1,8 @@
 # キーコードの概要
 
 <!---
-  original document: 0.9.57:docs/keycodes.md
-  git diff 0.9.57 HEAD -- docs/keycodes.md | cat
+  original document: 0.11.64:docs/keycodes.md
+  git diff 0.11.64 HEAD -- docs/keycodes.md | cat
 -->
 
 [キーマップ](ja/keymap.md) を定義するときは、それぞれのキーに有効な定義が必要です。このページは、QMK で使えるキーコードに相当するシンボルについて記述しています。
