@@ -149,7 +149,9 @@
 #undef PERMISSIVE_HOLD
 //#define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
-#define TAPPING_TERM_PER_KEY
+#ifndef KEYBOARD_kyria_rev1
+#    define TAPPING_TERM_PER_KEY
+#endif
 
 #define FORCE_NKRO
 
