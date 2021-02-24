@@ -273,12 +273,12 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_Q|B_K                  , .kana = "xi"      }, // ぃ
   {.key = B_Q|B_SHFT|B_K           , .kana = "xi"      }, // ぃ
   {.key = B_Q|B_L                  , .kana = "xu"      }, // ぅ
-  {.key = B_Q|B_SHFT|B_L           , .kana = "xu"      }, // ぅ
+  // {.key = B_Q|B_SHFT|B_L           , .kana = "xu"      }, // ぅ
   {.key = B_Q|B_O                  , .kana = "xe"      }, // ぇ
   {.key = B_Q|B_SHFT|B_O           , .kana = "xe"      }, // ぇ
   {.key = B_Q|B_N                  , .kana = "xo"      }, // ぉ
   {.key = B_Q|B_SHFT|B_N           , .kana = "xo"      }, // ぉ
-  {.key = B_Q|B_L                  , .kana = "xwa"     }, // ゎ
+  // {.key = B_Q|B_L                  , .kana = "xwa"     }, // ゎ
   {.key = B_Q|B_SHFT|B_L           , .kana = "xwa"     }, // ゎ
   {.key = B_G                      , .kana = "xtu"     }, // っ
 
