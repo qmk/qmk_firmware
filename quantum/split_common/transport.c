@@ -22,7 +22,7 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
-#ifdef SYNC_STATUS_LEDS
+#ifdef SPLIT_SYNC_STATUS
 #    include "led.h"
 #endif
 
@@ -58,7 +58,7 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
-#ifdef SYNC_STATUS_LEDS
+#ifdef SPLIT_SYNC_STATUS
     led_t indicator_leds_state;
 #endif
 } I2C_slave_buffer_t;
@@ -154,7 +154,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_SYNC_TIME_START, (void *)&i2c_buffer->sync_timer, sizeof(i2c_buffer->sync_timer), TIMEOUT);
 #    endif
 
-#ifdef SYNC_STATUS_LEDS
+#ifdef SPLIT_SYNC_STATUS
     led_t indicators_state = host_keyboard_led_state();
     if (indicators_state != i2c_buffer->indicator_leds_state)
     {
@@ -205,7 +205,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #        endif
 #    endif
 
-#ifdef SYNC_STATUS_LEDS
+#ifdef SPLIT_SYNC_STATUS
     led_update_kb(i2c_buffer->indicator_leds_state);
 #endif
 }
@@ -248,7 +248,7 @@ typedef struct _Serial_m2s_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t      current_wpm;
 #    endif
-#ifdef SYNC_STATUS_LEDS
+#ifdef SPLIT_SYNC_STATUS
     led_t        indicator_leds_state;
 #endif
 } Serial_m2s_buffer_t;
@@ -371,7 +371,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    ifndef DISABLE_SYNC_TIMER
     serial_m2s_buffer.sync_timer   = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
-#ifdef SYNC_STATUS_LEDS
+#ifdef SPLIT_SYNC_STATUS
     serial_m2s_buffer.indicator_leds_state = host_keyboard_led_state();
 #endif
     return true;
@@ -409,7 +409,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     set_oneshot_mods(serial_m2s_buffer.oneshot_mods);
 #        endif
 #    endif
-#ifdef SYNC_STATUS_LEDS
+#ifdef SPLIT_SYNC_STATUS
     led_update_kb(serial_m2s_buffer.indicator_leds_state);
 #endif
 }
