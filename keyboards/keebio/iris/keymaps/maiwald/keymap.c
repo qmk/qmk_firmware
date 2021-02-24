@@ -40,11 +40,11 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
-      KC_GRV,  KC_1, KC_2, KC_3, KC_4,   KC_5,                                        KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_EQL,
-      KC_TAB,  KC_Q, KC_W, KC_F, KC_P,   KC_B,                                        KC_J,    KC_L,   KC_U,    KC_Y,   KC_QUOT, KC_MINS,
-      KC_ESC,  MY_A, KC_R, KC_S, KC_T,   KC_G,                                        KC_M,    KC_N,   KC_E,    KC_I,   MY_O,    KC_ENT,
-      KC_LSFT, KC_Z, KC_X, KC_C, KC_D,   KC_V,          KC_BSPC,       KC_ENT,        KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, KC_RSFT,
-                                 MY_GUI, OSM(MOD_LSFT), OSL(_SYMBOLS), OSL(_SYMBOLS), EXT_SPC, KC_RALT
+      KC_GRV,  KC_1, KC_2, KC_3, KC_4,   KC_5,                                      KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_EQL,
+      KC_TAB,  KC_Q, KC_W, KC_F, KC_P,   KC_B,                                      KC_J,    KC_L,   KC_U,    KC_Y,   KC_QUOT, KC_MINS,
+      KC_ESC,  MY_A, KC_R, KC_S, KC_T,   KC_G,                                      KC_M,    KC_N,   KC_E,    KC_I,   MY_O,    KC_ENT,
+      KC_LSFT, KC_Z, KC_X, KC_C, KC_D,   KC_V,          KC_BSPC,      KC_ENT,       KC_K,    KC_H,   MY_COMM, MY_DOT, KC_SLSH, KC_RSFT,
+                                 MY_GUI, OSM(MOD_LSFT), MO(_SYMBOLS), MO(_SYMBOLS), EXT_SPC, KC_RALT
       ),
 
   [_EXTEND] = LAYOUT(
@@ -63,28 +63,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           _______, KC_SPC,  _______, _______, _______, _______
       ),
 };
-
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom();
-  rgblight_sethsv_noeeprom(0, 0, 0);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  switch (get_highest_layer(state)) {
-    case _EXTEND:
-      rgblight_sethsv_noeeprom(HSV_YELLOW);
-      break;
-    case _SYMBOLS:
-      rgblight_sethsv_noeeprom(HSV_RED);
-      break;
-    default:
-      rgblight_sethsv_noeeprom(0, 0, 0);
-      break;
-  }
-
-  return state;
-}
-
 
 void handle_umlaut(uint16_t base_key, keyrecord_t *record, uint16_t mod_state, uint16_t one_shot_mod_state) {
   if (record->event.pressed) {
