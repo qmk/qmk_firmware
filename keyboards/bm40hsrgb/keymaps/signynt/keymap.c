@@ -170,6 +170,24 @@ if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
 
 }
 
+const rgblight_segment_t PROGMEM my_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 2, HSV_CYAN}
+);
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_nav_layer,
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, NAVR));
+    return state;
+}
+
 //tap dance declarations
 enum {
     TD_MEDIA, TD_SCREEN,
