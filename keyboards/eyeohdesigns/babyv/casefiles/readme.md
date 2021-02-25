@@ -1,4 +1,4 @@
-The filse in this folder are for a stacked acrylic babyV case.
+The files in this folder are for a stacked acrylic babyV case.
 
 If building an all acrylic case, order the following in 3mm acrylic:
 
