@@ -277,9 +277,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+#ifdef RGBLIGHT_ENABLE
+
+// Light up fn layer keys
+const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
+                                                                         {0,   4, HSV_ORANGE},      //  MIDI layouts
+                                                                         {11,  1, HSV_RED},         //  RGB_TOG
+                                                                         {12,  1, HSV_WHITE},       //  DF_QWER
+
+                                                                                                    //  right keyboard
+                                                                         {60,  4, HSV_ORANGE},      //  MIDI layouts
+                                                                         {71 , 1, HSV_RED},         //  RGB_TOG
+                                                                         {72,  1, HSV_WHITE}        //  DF_QWER
+);
+
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_fn_layer);
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Both layers will light up if both kb layers are active
+    rgblight_set_layer_state(0, layer_state_cmp(state, _FN));
+    return state;
+};
+
+#endif  //  RGBLIGHT_ENABLE
 void keyboard_post_init_user(void) {
     //  Set otave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+
+#ifdef RGBLIGHT_ENABLE
+    rgblight_layers = my_rgb_layers;
+#endif
 };
 
 #ifdef RGBLIGHT_ENABLE
