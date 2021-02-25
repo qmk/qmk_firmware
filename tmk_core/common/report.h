@@ -110,6 +110,9 @@ enum desktop_usages {
 #        define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
 #        undef NKRO_SHARED_EP
 #        undef MOUSE_SHARED_EP
+#    elif defined(PROTOCOL_VUSB)
+#        define KEYBOARD_REPORT_BITS 15
+#        undef NKRO_SHARED_EP
 #    else
 #        error "NKRO not supported with this protocol"
 #    endif

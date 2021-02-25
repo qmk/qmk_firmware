@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "wait.h"
 #include "usb_descriptor_common.h"
+#include "keycode_config.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -60,6 +61,12 @@ enum usb_interfaces {
     RAW_INTERFACE = NEXT_INTERFACE,
 #endif
 
+// Not part of SHARED to save on the report ID byte and fit into
+// just two 8-bit interrupt transfers
+#ifdef NKRO_ENABLE
+    NKRO_INTERFACE = NEXT_INTERFACE,
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     SHARED_INTERFACE = NEXT_INTERFACE,
 #endif
@@ -74,15 +81,22 @@ enum usb_interfaces {
 #define MAX_INTERFACES 3
 
 #if (NEXT_INTERFACE - 1) > MAX_INTERFACES
-#    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console
+#    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, NKRO, Raw HID, Console
 #endif
 
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
 #endif
 
+#if defined(NKRO_ENABLE) && defined(RAW_ENABLE)
+#    error NKRO shares an endpoint with Raw. Please disable one of the two.
+#endif
+
 static uint8_t keyboard_led_state = 0;
 static uint8_t vusb_idle_rate     = 0;
+
+/* 0: Boot Protocol, 1: Report Protocol(default) */
+uint8_t keyboard_protocol = 1;
 
 /* Keyboard report send buffer */
 #define KBUF_SIZE 16
@@ -96,14 +110,38 @@ static report_keyboard_t keyboard_report_sent;
 
 /* transfer keyboard report from buffer */
 void vusb_transfer_keyboard(void) {
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
+            if (usbInterruptIsReady4()) {
+                if (kbuf_head != kbuf_tail) {
+                    _Static_assert(sizeof(struct nkro_report) == 16, "NKRO report size must be 16");
+                    // Hack similar to below, we do two interrupt transfers
+                    // to send a 16-byte report through an 8-byte endpoint (VUSB's hardcoded size)
+                    usbSetInterrupt4((void *)&kbuf[kbuf_tail], 8);
+                    while (!usbInterruptIsReady4()) {
+                        usbPoll();
+                    }
+                    usbSetInterrupt4((void *)&(kbuf[kbuf_tail].nkro.bits[7]), 8);
+                    kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
+                }
+                break;
+            }
+            usbPoll();
+            wait_ms(1);
+        }
+        return;
+    }
+#endif
+
     for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
         if (usbInterruptIsReady()) {
             if (kbuf_head != kbuf_tail) {
 #ifndef KEYBOARD_SHARED_EP
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
+                usbSetInterrupt((void *)&kbuf[kbuf_tail], KEYBOARD_REPORT_SIZE);
 #else
                 // Ugly hack! :(
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t) - 1);
+                usbSetInterrupt((void *)&kbuf[kbuf_tail], KEYBOARD_REPORT_SIZE - 1);
                 while (!usbInterruptIsReady()) {
                     usbPoll();
                 }
@@ -245,6 +283,9 @@ static void send_keyboard(report_keyboard_t *report) {
     // NOTE: send key strokes of Macro
     usbPoll();
     vusb_transfer_keyboard();
+#ifdef NKRO_ENABLE
+    if (!keyboard_protocol || !keymap_config.nkro)
+#endif
     keyboard_report_sent = *report;
 }
 
@@ -307,7 +348,7 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
             dprint("GET_REPORT:");
             if (rq->wIndex.word == KEYBOARD_INTERFACE) {
                 usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
-                return sizeof(keyboard_report_sent);
+                return KEYBOARD_REPORT_SIZE;
             }
         } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
             dprint("GET_IDLE:");
@@ -325,6 +366,13 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 last_req.len  = rq->wLength.word;
             }
             return USB_NO_MSG;  // to get data in usbFunctionWrite
+        } else if (rq->bRequest == USBRQ_HID_GET_PROTOCOL) {
+            dprint("GET_PROTOCOL:");
+            usbMsgPtr = (usbMsgPtr_t)&keyboard_protocol;
+            return 1;
+        } else if (rq->bRequest == USBRQ_HID_SET_PROTOCOL) {
+            keyboard_protocol = rq->wValue.bytes[0];
+            dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
         } else {
             dprint("UNKNOWN:");
         }
@@ -542,6 +590,35 @@ const PROGMEM uchar raw_hid_report[] = {
 };
 #endif
 
+#ifdef NKRO_ENABLE
+const PROGMEM uchar nkro_hid_report[] = {
+    // NKRO report descriptor
+    0x05, 0x01,  // Usage Page (Generic Desktop)
+    0x09, 0x06,  // Usage (Keyboard)
+    0xA1, 0x01,  // Collection (Application)
+    // Modifiers (8 bits)
+    0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
+    0x19, 0xE0,  //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7,  //   Usage Maximum (Keyboard Right GUI)
+    0x15, 0x00,  //   Logical Minimum (0)
+    0x25, 0x01,  //   Logical Maximum (1)
+    0x95, 0x08,  //   Report Count (8)
+    0x75, 0x01,  //   Report Size (1)
+    0x81, 0x02,  //   Input (Data, Variable, Absolute)
+    // Keycodes
+    0x05, 0x07,        //   Usage Page (Keyboard/Keypad)
+    0x19, 0x00,        //   Usage Minimum (0)
+    0x29, 15 * 8 - 1, //   Usage Maximum
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x26, 0x01, 0x00,  //   Logical Maximum (1)
+    0x95, 15 * 8, //   Report Count
+    0x75, 0x01,        //   Report Size (1)
+    0x81, 0x02,        //   Input (Data, Variable, Absolute)
+    0xC0,        // End Collection
+};
+#endif
+
+
 #if defined(CONSOLE_ENABLE)
 const PROGMEM uchar console_hid_report[] = {
     0x06, 0x31, 0xFF,  // Usage Page (Vendor Defined - PJRC Teensy compatible)
@@ -742,6 +819,46 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
     },
 #    endif
 
+#    if defined(NKRO_ENABLE)
+    /*
+     * N-key rollover
+     */
+    .nkroInterface = {
+        .header = {
+            .bLength         = sizeof(usbInterfaceDescriptor_t),
+            .bDescriptorType = USBDESCR_INTERFACE
+        },
+        .bInterfaceNumber    = NKRO_INTERFACE,
+        .bAlternateSetting   = 0x00,
+        .bNumEndpoints       = 1,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x01,
+        .bInterfaceProtocol  = 0x01,
+        .iInterface          = 0x00
+    },
+    .nkroHID = {
+        .header = {
+            .bLength         = sizeof(usbHIDDescriptor_t),
+            .bDescriptorType = USBDESCR_HID
+        },
+        .bcdHID              = 0x0101,
+        .bCountryCode        = 0x00,
+        .bNumDescriptors     = 1,
+        .bDescriptorType     = USBDESCR_HID_REPORT,
+        .wDescriptorLength   = sizeof(nkro_hid_report)
+    },
+    .nkroINEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = 8,
+        .bInterval           = USB_POLLING_INTERVAL_MS
+    },
+#    endif
+
 #    ifdef SHARED_EP_ENABLE
     /*
      * Shared
@@ -894,6 +1011,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     break;
 #endif
 
+#if defined(NKRO_ENABLE)
+                case NKRO_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.nkroHID;
+                    len       = sizeof(usbHIDDescriptor_t);
+                    break;
+#endif
+
 #ifdef SHARED_EP_ENABLE
                 case SHARED_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.sharedHID;
@@ -923,6 +1047,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                 case RAW_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)raw_hid_report;
                     len       = sizeof(raw_hid_report);
+                    break;
+#endif
+
+#if defined(NKRO_ENABLE)
+                case NKRO_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)nkro_hid_report;
+                    len       = sizeof(nkro_hid_report);
                     break;
 #endif
 

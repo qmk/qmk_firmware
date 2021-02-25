@@ -104,6 +104,12 @@ typedef struct usbConfigurationDescriptor {
     usbEndpointDescriptor_t  rawOUTEndpoint;
 #endif
 
+#if defined(NKRO_ENABLE)
+    usbInterfaceDescriptor_t nkroInterface;
+    usbHIDDescriptor_t       nkroHID;
+    usbEndpointDescriptor_t  nkroINEndpoint;
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     usbInterfaceDescriptor_t sharedInterface;
     usbHIDDescriptor_t       sharedHID;
