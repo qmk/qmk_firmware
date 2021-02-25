@@ -29,8 +29,7 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  BACKESC = SAFE_RANGE,
-  GUIEQTI
+  BACKTLD = SAFE_RANGE
 };
 
 #define NORMAL TO(_NORMAL)
@@ -45,17 +44,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ## Normal
 
-|C(Tab)|  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(-_) |
-|Bsp/Es|  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
-|G(=/~)|  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
-| CTRL | GUI  | ALT  |System|Number| SHFT |Space |Arrows|Cursor| GUI  |      |Normal|
+| C(Tab) |  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(=+) |
+|Backsp/~|  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
+| G(-_)  |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
+|  CTRL  | GUI  | ALT  |System|Number|S(Esc)|Space |Arrows|Cursor| GUI  |      |Normal|
  */
 
 [_NORMAL] = LAYOUT_planck_grid(
-    CTL_T(KC_TAB), KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,    KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    CTL_T(KC_MINS),
-    BACKESC,       KC_A,    KC_S,    KC_D,   KC_F,   KC_G,    KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, ALT_T(KC_QUOT),
-    GUIEQTI,       KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,    KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, GUI_T(KC_ENT),
-    KC_LCTRL,      KC_LGUI, KC_LALT, SYSTEM, NUMBER, KC_LSFT, KC_SPC, ARROWS, CURSOR,  KC_RGUI, XXXXXXX, NORMAL
+    CTL_T(KC_TAB),  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    CTL_T(KC_EQL),
+    BACKTLD,        KC_A,    KC_S,    KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, ALT_T(KC_QUOT),
+    GUI_T(KC_MINS), KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,          KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, GUI_T(KC_ENT),
+    KC_LCTRL,       KC_LGUI, KC_LALT, SYSTEM, NUMBER, SFT_T(KC_ESC), KC_SPC, ARROWS, CURSOR,  KC_RGUI, XXXXXXX, NORMAL
 ),
 
 /* ## Number
@@ -153,60 +152,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool shift_is_pressed = false;
-    static bool shift_was_pressed = false;
-    static bool gui_is_pressed = false;
-    static bool gui_was_used = false;
-    static uint16_t gui_timer;
-
-    if(keycode != GUIEQTI && record->event.pressed && gui_is_pressed) {
-        gui_was_used = true;
-        register_code(KC_LGUI);
-    }
 
     switch (keycode) {
-        case KC_LSFT:
+        case SFT_T(KC_ESC):
             if(record->event.pressed){
                 shift_is_pressed = true;
             } else {
                 shift_is_pressed = false;
             }
             return true;
-        case BACKESC:
+        case BACKTLD:
             if(record->event.pressed){
                 if(shift_is_pressed) {
-                    unregister_code(KC_LSFT);
-                    register_code(KC_ESC);
-                    register_code(KC_LSFT);
+                    register_code(KC_GRV);
                 } else {
                     register_code(KC_BSPC);
                 }
             } else {
-                unregister_code(KC_ESC);
+                unregister_code(KC_GRV);
                 unregister_code(KC_BSPC);
-            }
-            return false;
-        case GUIEQTI:
-            if(record->event.pressed){
-                gui_is_pressed = true;
-                gui_timer = timer_read();
-                if(shift_is_pressed) {
-                    shift_was_pressed = true;
-                }
-            } else {
-                gui_is_pressed = false;
-                if(gui_was_used) {
-                    gui_was_used = false;
-                    unregister_code(KC_LGUI);
-                } else if (timer_elapsed(gui_timer) < TAPPING_TERM) {
-                    if(shift_was_pressed){
-                        register_code(KC_LSFT);
-                        tap_code(KC_GRV);
-                        unregister_code(KC_LSFT);
-                    } else {
-                        tap_code(KC_EQL);
-                    }
-                }
-                shift_was_pressed = false;
             }
             return false;
     }
@@ -217,11 +181,15 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CTL_T(KC_TAB):
             return true;
-        case CTL_T(KC_MINS):
+        case CTL_T(KC_EQL):
             return true;
         case ALT_T(KC_QUOT):
             return true;
+        case GUI_T(KC_MINS):
+            return true;
         case GUI_T(KC_ENT):
+            return true;
+        case SFT_T(KC_ESC):
             return true;
         default:
             return false;
