@@ -3,9 +3,13 @@ The filse in this folder are for a stacked acrylic babyV case.
 If building an all acrylic case, order the following in 3mm acrylic:
 
 Top.svg - qty 2
+
 switchplate.svg - qty 1
+
 usb.svg - qty 3
+
 bottom.svg - qty 1
+
 
 If building a gasket mounted switch plate case, order the following in 3mm acrylic:
 
