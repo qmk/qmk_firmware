@@ -77,6 +77,8 @@
 #        define PRODUCT Drashna Hacked Planck EZ
 #    endif
 #endif
+#undef NO_USB_STARTUP_CHECK
+
 
 #define EEPROM_I2C_RM24C512C
 

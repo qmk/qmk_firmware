@@ -107,9 +107,9 @@ def doctor(cli):
             submodules.update()
             sub_ok = check_submodules()
 
-        if CheckStatus.ERROR in sub_ok:
+        if sub_ok == CheckStatus.ERROR:
             status = CheckStatus.ERROR
-        elif CheckStatus.WARNING in sub_ok and status == CheckStatus.OK:
+        elif sub_ok == CheckStatus.WARNING and status == CheckStatus.OK:
             status = CheckStatus.WARNING
 
     # Report a summary of our findings to the user

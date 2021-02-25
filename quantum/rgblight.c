@@ -234,6 +234,17 @@ void rgblight_init(void) {
     is_rgblight_initialized = true;
 }
 
+void rgblight_reload_from_eeprom(void) {
+    /* Reset back to what we have in eeprom */
+    rgblight_config.raw = eeconfig_read_rgblight();
+    RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
+    rgblight_check_config();
+    eeconfig_debug_rgblight();  // display current eeprom values
+    if (rgblight_config.enable) {
+        rgblight_mode_noeeprom(rgblight_config.mode);
+    }
+}
+
 uint32_t rgblight_read_dword(void) { return rgblight_config.raw; }
 
 void rgblight_update_dword(uint32_t dword) {
