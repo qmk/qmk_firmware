@@ -56,6 +56,8 @@
 #    else
 #        define RGBLIGHT_ANIMATIONS
 #    endif
+#    define RGBLIGHT_EFFECT_TWINKLE_LIFE  250
+#    define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1/24
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
