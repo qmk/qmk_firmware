@@ -3,10 +3,10 @@
 Ortholinear PCB that is a drop-in replacement for Exent keyboard.
 Layout is inspired by excellent Boardwalk PCB, but extended with an extra column to accommodate the 65% Exent form factor.
 
-Keyboard Maintainer: [tszaboo](https://github.com/tszaboo/)
-Keyboard Product owner: [Riba]
-Hardware Supported: Ortho4exent
-Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=110120.0)
+* Keyboard Maintainer: [tszaboo](https://github.com/tszaboo/)
+* Keyboard Product owner: [Riba]
+* Hardware Supported: Ortho4exent
+* Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=110120.0)
 
 Make example for this keyboard (after setting up your build environment):
 
