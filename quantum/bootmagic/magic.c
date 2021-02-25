@@ -45,7 +45,10 @@ void magic(void) {
 
     bootmagic();
 
-    /* read here just incase boot_wrapper changed its value */
+    /* read here just incase bootmagic process changed its value */
     layer_state_t default_layer = (layer_state_t)eeconfig_read_default_layer();
     default_layer_set(default_layer);
+
+    /* Also initialize layer state to trigger callback functions for layer_state */
+    layer_state_set_kb((layer_state_t)layer_state);
 }

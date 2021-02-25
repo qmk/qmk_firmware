@@ -122,38 +122,34 @@ void bootmagic(void) {
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_0)) {
         default_layer |= (1 << 0);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_1)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_1)) {
         default_layer |= (1 << 1);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_2)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_2)) {
         default_layer |= (1 << 2);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_3)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_3)) {
         default_layer |= (1 << 3);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_4)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_4)) {
         default_layer |= (1 << 4);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_5)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_5)) {
         default_layer |= (1 << 5);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_6)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_6)) {
         default_layer |= (1 << 6);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) {
         default_layer |= (1 << 7);
     }
-    if (default_layer) {
-        eeconfig_update_default_layer(default_layer);
-    }
-    /* Also initialize layer state to trigger callback functions for layer_state */
-    layer_state_set_kb((layer_state_t)layer_state);
+    eeconfig_update_default_layer(default_layer);
 
     /* EE_HANDS handedness */
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_LEFT)) {
         eeconfig_update_handedness(true);
     }
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_RIGHT)) {
+    else if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_RIGHT)) {
         eeconfig_update_handedness(false);
     }
 }
