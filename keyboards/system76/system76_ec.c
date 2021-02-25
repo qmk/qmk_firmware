@@ -31,27 +31,28 @@ enum Command {
 #define CMD_LED_INDEX_ALL 0xFF
 
 static bool keymap_get(uint8_t layer, uint8_t output, uint8_t input, uint16_t *value) {
-	if (layer < dynamic_keymap_get_layer_count()) {
-		if (output < MATRIX_ROWS) {
-			if (input < MATRIX_COLS) {
-				*value = dynamic_keymap_get_keycode(layer, output, input);
-				return true;
-			}
-		}
-	}
-	return false;
+    if (layer < dynamic_keymap_get_layer_count()) {
+        if (output < MATRIX_ROWS) {
+            if (input < MATRIX_COLS) {
+                *value = dynamic_keymap_get_keycode(layer, output, input);
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t value) {
-	if (layer < dynamic_keymap_get_layer_count()) {
-		if (output < MATRIX_ROWS) {
-			if (input < MATRIX_COLS) {
-				dynamic_keymap_set_keycode(layer, output, input, value);
-				return true;
-			}
-		}
-	}
-	return false;
+    if (layer < dynamic_keymap_get_layer_count()) {
+        if (output < MATRIX_ROWS) {
+            if (input < MATRIX_COLS) {
+                dynamic_keymap_set_keycode(layer, output, input, value);
+                return true;
+            }
+        }
+    }
+    return false;
+}
 }
 
 #if defined(RGB_MATRIX_CUSTOM_KB)
@@ -59,10 +60,10 @@ RGB raw_rgb_data[DRIVER_LED_TOTAL];
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-	// Error response by default, set to success by commands
-	data[1] = 1;
+    // Error response by default, set to success by commands
+    data[1] = 1;
 
-	switch (data[0]) {
+    switch (data[0]) {
         case CMD_PROBE:
             // Signature
             data[2] = 0x76;
@@ -162,7 +163,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
-	}
+    }
 
-	raw_hid_send(data, length);
+    raw_hid_send(data, length);
 }
