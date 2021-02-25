@@ -53,10 +53,10 @@ static void initForUsbConnectivity(void) {
     usbDeviceConnect();
 }
 
-static void usb_remote_wakeup(void) {
+static void vusb_send_remote_wakeup(void) {
     cli();
 
-    int8_t ddr_orig = USBDDR;
+    uint8_t ddr_orig = USBDDR;
     USBOUT |= (1 << USBMINUS);
     USBDDR = ddr_orig | USBMASK;
     USBOUT ^= USBMASK;
@@ -68,6 +68,27 @@ static void usb_remote_wakeup(void) {
     USBOUT &= ~(1 << USBMINUS);
 
     sei();
+}
+
+bool vusb_suspended = false;
+
+static void vusb_suspend(void) {
+    vusb_suspended = true;
+
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_enable();
+#endif
+
+    suspend_power_down();
+}
+
+static void vusb_wakeup(void) {
+    vusb_suspended = false;
+    suspend_wakeup_init();
+
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_disable();
+#endif
 }
 
 /** \brief Setup USB
@@ -82,9 +103,8 @@ static void setup_usb(void) { initForUsbConnectivity(); }
  */
 int main(void) __attribute__((weak));
 int main(void) {
-    bool suspended = false;
 #if USB_COUNT_SOF
-    uint16_t last_timer = timer_read();
+    uint16_t sof_timer = timer_read();
 #endif
 
 #ifdef CLKPR
@@ -107,23 +127,24 @@ int main(void) {
     while (1) {
 #if USB_COUNT_SOF
         if (usbSofCount != 0) {
-            suspended   = false;
             usbSofCount = 0;
-            last_timer  = timer_read();
-#    ifdef SLEEP_LED_ENABLE
-            sleep_led_disable();
-#    endif
+            sof_timer   = timer_read();
+            if (vusb_suspended) {
+                vusb_wakeup();
+            }
         } else {
             // Suspend when no SOF in 3ms-10ms(7.1.7.4 Suspending of USB1.1)
-            if (timer_elapsed(last_timer) > 5) {
-                suspended = true;
-#    ifdef SLEEP_LED_ENABLE
-                sleep_led_enable();
-#    endif
+            if (!vusb_suspended && timer_elapsed(sof_timer) > 5) {
+                vusb_suspend();
             }
         }
 #endif
-        if (!suspended) {
+        if (vusb_suspended) {
+            vusb_suspend();
+            if (suspend_wakeup_condition()) {
+                vusb_send_remote_wakeup();
+            }
+        } else {
             usbPoll();
 
             // TODO: configuration process is inconsistent. it sometime fails.
@@ -140,6 +161,7 @@ int main(void) {
                 raw_hid_task();
             }
 #endif
+
 #ifdef CONSOLE_ENABLE
             usbPoll();
 
@@ -151,8 +173,6 @@ int main(void) {
             // Run housekeeping
             housekeeping_task_kb();
             housekeeping_task_user();
-        } else if (suspend_wakeup_condition()) {
-            usb_remote_wakeup();
         }
     }
 }

@@ -400,9 +400,6 @@ ifneq (,$(filter $(MCU),atmega32a))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 12000000
-
-  # unsupported features for now
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
 ifneq (,$(filter $(MCU),atmega328p))
@@ -417,9 +414,6 @@ ifneq (,$(filter $(MCU),atmega328p))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 16000000
-
-  # unsupported features for now
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
 ifneq (,$(filter $(MCU),atmega328))
@@ -434,10 +428,6 @@ ifneq (,$(filter $(MCU),atmega328))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 16000000
-
-  # unsupported features for now
-  NO_UART ?= yes
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif
 
 ifneq (,$(filter $(MCU),attiny85))
@@ -449,7 +439,4 @@ ifneq (,$(filter $(MCU),attiny85))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 16500000
-
-  # unsupported features for now
-  NO_SUSPEND_POWER_DOWN ?= yes
 endif

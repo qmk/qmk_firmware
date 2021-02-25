@@ -61,7 +61,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_ROW_RIGHT 6
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 5
 
+
 #define AUDIO_PIN C6
+=======
+#define C6_AUDIO
+#define B7_AUDIO
+
 
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
 #define DYNAMIC_KEYMAP_LAYER_COUNT 16
