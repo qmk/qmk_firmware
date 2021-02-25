@@ -53,6 +53,13 @@ static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t va
     }
     return false;
 }
+
+static bool bootloader_reset = false;
+static bool bootloader_unlocked = false;
+
+void system76_ec_unlock(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_unlocked);
+    bootloader_unlocked = true;
 }
 
 #if defined(RGB_MATRIX_CUSTOM_KB)
@@ -81,7 +88,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             data[1] = 0;
             break;
         case CMD_RESET:
-            bootloader_jump();
+            if (bootloader_unlocked) {
+                data[1] = 0;
+                bootloader_reset = true;
+            }
             break;
         case CMD_KEYMAP_GET:
             {
@@ -105,7 +115,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
 #if defined(RGB_MATRIX_CUSTOM_KB)
         case CMD_LED_GET_VALUE:
-            {
+            if (!bootloader_unlocked) {
                 if (data[2] == CMD_LED_INDEX_ALL) {
                     data[3] = rgb_matrix_config.hsv.v;
                     data[4] = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
@@ -114,7 +124,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_SET_VALUE:
-            {
+            if (!bootloader_unlocked) {
                 if (data[2] == CMD_LED_INDEX_ALL) {
                     rgb_matrix_sethsv_noeeprom(
                         rgb_matrix_config.hsv.h,
@@ -126,7 +136,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_GET_COLOR:
-            {
+            if (!bootloader_unlocked) {
                 uint8_t index = data[2];
                 if (index < DRIVER_LED_TOTAL) {
                     data[3] = raw_rgb_data[index].r;
@@ -142,7 +152,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_SET_COLOR:
-            {
+            if (!bootloader_unlocked) {
                 uint8_t index = data[2];
                 RGB rgb = {
                     .r = data[3],
@@ -166,4 +176,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     }
 
     raw_hid_send(data, length);
+
+    if (bootloader_reset) {
+        // Give host time to read response
+        wait_ms(100);
+        // Jump to the bootloader
+        bootloader_jump();
+    }
 }

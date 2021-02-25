@@ -104,6 +104,20 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
+void system76_ec_unlock(void);
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case RESET:
+            if (record->event.pressed) {
+                system76_ec_unlock();
+            }
+            return false;
+    }
+
+    return process_record_user(keycode, record);
+}
+
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
     suspend_power_down_user();
