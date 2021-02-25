@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "arm_atsam_protocol.h"
-#include "tmk_core/common/led.h"
+#include "led.h"
 #include "rgb_matrix.h"
 #include <string.h>
 #include <math.h>
