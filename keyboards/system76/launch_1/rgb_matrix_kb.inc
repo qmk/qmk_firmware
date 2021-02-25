@@ -77,7 +77,7 @@ static bool unlocked(effect_params_t* params) {
         HSV hsv = {
             .h = i + unlocked_ticks,
             .s = 0xFF,
-            .v = RGB_MATRIX_MAXIMUM_BRIGHTNESS,
+            .v = 0x70,
         };
         for (uint8_t j = 0; j < unlocked_leds_count; j++) {
             if (i == unlocked_leds[j]) {
