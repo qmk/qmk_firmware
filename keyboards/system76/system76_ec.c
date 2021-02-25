@@ -55,30 +55,7 @@ static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t va
 }
 
 #if defined(RGB_MATRIX_CUSTOM_KB)
-extern uint8_t raw_rgb_r;
-extern uint8_t raw_rgb_g;
-extern uint8_t raw_rgb_b;
-
-static uint8_t led_v = 255;
-static uint8_t led_r = 0;
-static uint8_t led_g = 0;
-static uint8_t led_b = 0;
-
-static uint8_t led_normalize(uint8_t component, uint8_t brightness) {
-    uint32_t x = (uint32_t)component;
-    x *= brightness; // Multiply by software brightness
-    x *= RGB_MATRIX_MAXIMUM_BRIGHTNESS; // Multiply by hardware brightness
-    x /= 255; // Divide by maximum software brightness
-    x /= 255; // Divide by maximum hardware brightness
-    return (uint8_t)x;
-}
-
-static void led_update(void) {
-    raw_rgb_r = led_normalize(led_r, led_v);
-    raw_rgb_g = led_normalize(led_g, led_v);
-    raw_rgb_b = led_normalize(led_b, led_v);
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_raw_rgb);
-}
+RGB raw_rgb_data[DRIVER_LED_TOTAL];
 #endif // defined(RGB_MATRIX_CUSTOM_KB)
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -128,43 +105,58 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(RGB_MATRIX_CUSTOM_KB)
         case CMD_LED_GET_VALUE:
             {
-                //TODO: Getting single LEDs?
                 if (data[2] == CMD_LED_INDEX_ALL) {
-                    data[3] = led_v;
-                    data[4] = 255;
+                    data[3] = rgb_matrix_config.hsv.v;
+                    data[4] = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
                     data[1] = 0;
                 }
             }
             break;
         case CMD_LED_SET_VALUE:
             {
-                //TODO: Setting single LEDs?
                 if (data[2] == CMD_LED_INDEX_ALL) {
-                    led_v = data[3];
-                    led_update();
+                    rgb_matrix_sethsv_noeeprom(
+                        rgb_matrix_config.hsv.h,
+                        rgb_matrix_config.hsv.s,
+                        data[3]
+                    );
                     data[1] = 0;
                 }
             }
             break;
         case CMD_LED_GET_COLOR:
             {
-                //TODO: Getting single LEDs?
-                if (data[2] == CMD_LED_INDEX_ALL) {
-                    data[3] = led_r;
-                    data[4] = led_g;
-                    data[5] = led_b;
+                uint8_t index = data[2];
+                if (index < DRIVER_LED_TOTAL) {
+                    data[3] = raw_rgb_data[index].r;
+                    data[4] = raw_rgb_data[index].g;
+                    data[5] = raw_rgb_data[index].b;
+                    data[1] = 0;
+                } else if (index == CMD_LED_INDEX_ALL) {
+                    data[3] = raw_rgb_data[0].r;
+                    data[4] = raw_rgb_data[0].g;
+                    data[5] = raw_rgb_data[0].b;
                     data[1] = 0;
                 }
             }
             break;
         case CMD_LED_SET_COLOR:
             {
-                //TODO: Setting single LEDs?
-                if (data[2] == CMD_LED_INDEX_ALL) {
-                    led_r = data[3];
-                    led_g = data[4];
-                    led_b = data[5];
-                    led_update();
+                uint8_t index = data[2];
+                RGB rgb = {
+                    .r = data[3],
+                    .g = data[4],
+                    .b = data[5],
+                };
+                if (index < DRIVER_LED_TOTAL) {
+                    raw_rgb_data[index] = rgb;
+                    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_raw_rgb);
+                    data[1] = 0;
+                } else if (index == CMD_LED_INDEX_ALL) {
+                    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+                        raw_rgb_data[i] = rgb;
+                    }
+                    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_raw_rgb);
                     data[1] = 0;
                 }
             }
