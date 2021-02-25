@@ -70,6 +70,10 @@ void system76_ec_unlock(void) {
     bootloader_unlocked = true;
 }
 
+bool system76_ec_is_unlocked(void) {
+    return bootloader_unlocked;
+}
+
 #if defined(RGB_MATRIX_CUSTOM_KB)
 enum Mode {
     MODE_SOLID_COLOR = 0,

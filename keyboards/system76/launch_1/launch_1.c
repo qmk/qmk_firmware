@@ -3,6 +3,7 @@
 
 #include "launch_1.h"
 #include "usb_mux.h"
+#include "rgb_matrix.h"
 
 #if RGB_MATRIX_ENABLE
 // LEDs by index
@@ -90,6 +91,8 @@ void bootmagic_lite(void) {
 void system76_ec_rgb_eeprom(bool write);
 void system76_ec_rgb_layer(layer_state_t layer_state);
 void system76_ec_unlock(void);
+bool system76_ec_is_unlocked(void);
+rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 
 void matrix_init_kb(void) {
     usb_mux_init();
@@ -113,11 +116,53 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
+static const uint8_t LEVELS[] = {
+    48,
+    72,
+    96,
+    144,
+    192,
+    255
+};
+static int LEVEL_I = 1;
+
+void set_value_all_layers(uint8_t value) {
+    if (!system76_ec_is_unlocked()) {
+        for (int8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+            layer_rgb[layer].hsv.v = value;
+        }
+        system76_ec_rgb_layer(layer_state);
+    }
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case RESET:
             if (record->event.pressed) {
                 system76_ec_unlock();
+            }
+            return false;
+        case RGB_VAD:
+            if (record->event.pressed) {
+                if (LEVEL_I > 0)
+                    LEVEL_I -= 1;
+                set_value_all_layers(LEVELS[LEVEL_I]);
+            }
+            return false;
+        case RGB_VAI:
+            if (record->event.pressed) {
+                if (LEVEL_I < sizeof(LEVELS) - 1)
+                    LEVEL_I += 1;
+                set_value_all_layers(LEVELS[LEVEL_I]);
+            }
+            return false;
+        case RGB_TOG:
+            if (record->event.pressed) {
+                if (rgb_matrix_config.hsv.v == 0) {
+                    set_value_all_layers(LEVELS[LEVEL_I]);
+                } else {
+                    set_value_all_layers(0);
+                }
             }
             return false;
     }
