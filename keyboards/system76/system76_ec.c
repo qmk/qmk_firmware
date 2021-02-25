@@ -26,7 +26,46 @@ enum Command {
     CMD_LED_GET_COLOR = 13,
     // Set LED color by index
     CMD_LED_SET_COLOR = 14,
+    // Get LED matrix mode and speed
+    CMD_LED_GET_MODE = 15,
+    // Set LED matrix mode and speed
+    CMD_LED_SET_MODE = 16,
 };
+
+enum Mode {
+    MODE_SOLID_COLOR = 0,
+    MODE_PER_KEY,
+    MODE_CYCLE_ALL,
+    MODE_CYCLE_LEFT_RIGHT,
+    MODE_CYCLE_UP_DOWN,
+    MODE_CYCLE_OUT_IN,
+    MODE_CYCLE_OUT_IN_DUAL,
+    MODE_RAINBOW_MOVING_CHEVRON,
+    MODE_CYCLE_PINWHEEL,
+    MODE_CYCLE_SPIRAL,
+    MODE_RAINDROPS,
+    MODE_SPLASH,
+    MODE_MULTISPLASH,
+    MODE_LAST,
+};
+
+static enum rgb_matrix_effects mode_map[] = {
+    RGB_MATRIX_SOLID_COLOR,
+    RGB_MATRIX_CUSTOM_raw_rgb,
+    RGB_MATRIX_CYCLE_ALL,
+    RGB_MATRIX_CYCLE_LEFT_RIGHT,
+    RGB_MATRIX_CYCLE_UP_DOWN,
+    RGB_MATRIX_CYCLE_OUT_IN,
+    RGB_MATRIX_CYCLE_OUT_IN_DUAL,
+    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
+    RGB_MATRIX_CYCLE_PINWHEEL,
+    RGB_MATRIX_CYCLE_SPIRAL,
+    RGB_MATRIX_RAINDROPS,
+    RGB_MATRIX_SPLASH,
+    RGB_MATRIX_MULTISPLASH,
+};
+
+_Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
 #define CMD_LED_INDEX_ALL 0xFF
 
@@ -144,9 +183,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     data[5] = raw_rgb_data[index].b;
                     data[1] = 0;
                 } else if (index == CMD_LED_INDEX_ALL) {
-                    data[3] = raw_rgb_data[0].r;
-                    data[4] = raw_rgb_data[0].g;
-                    data[5] = raw_rgb_data[0].b;
+                    data[3] = rgb_matrix_config.hsv.h;
+                    data[4] = rgb_matrix_config.hsv.s;
+                    data[5] = 255;
                     data[1] = 0;
                 }
             }
@@ -161,13 +200,31 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 };
                 if (index < DRIVER_LED_TOTAL) {
                     raw_rgb_data[index] = rgb;
-                    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_raw_rgb);
                     data[1] = 0;
                 } else if (index == CMD_LED_INDEX_ALL) {
-                    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-                        raw_rgb_data[i] = rgb;
+                    rgb_matrix_sethsv_noeeprom(rgb.r, rgb.g, rgb_matrix_config.hsv.v);
+                    data[1] = 0;
+                }
+            }
+            break;
+        case CMD_LED_GET_MODE:
+            if (!bootloader_unlocked) {
+                enum rgb_matrix_effects mode = rgb_matrix_get_mode();
+                for (uint8_t i = 0; i < MODE_LAST; i++) {
+                    if (mode_map[i] == mode) {
+                        data[2] = mode;
+                        data[3] = rgb_matrix_config.speed;
+                        data[1] = 0;
+                        break;
                     }
-                    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_raw_rgb);
+                }
+            }
+            break;
+        case CMD_LED_SET_MODE:
+            if (!bootloader_unlocked) {
+                if (data[2] < MODE_LAST) {
+                    rgb_matrix_mode_noeeprom(mode_map[data[2]]);
+                    rgb_matrix_config.speed = data[3];
                     data[1] = 0;
                 }
             }
