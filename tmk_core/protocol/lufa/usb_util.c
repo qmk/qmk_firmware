@@ -17,12 +17,12 @@
 #include "usb_util.h"
 #include "wait.h"
 
-bool usb_active_connection(void) { return USB_Device_IsAddressSet(); }
-
 void usb_disable(void) {
     USB_Disable();
     USB_DeviceState = DEVICE_STATE_Unattached;
 }
+
+bool usb_connected_state(void) { return USB_Device_IsAddressSet(); }
 
 #if defined(OTGPADE)
 bool usb_vbus_state(void) {
