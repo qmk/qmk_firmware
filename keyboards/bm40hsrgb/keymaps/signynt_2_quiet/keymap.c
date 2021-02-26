@@ -1,4 +1,4 @@
-// qmk flash -kb bm40hsrgb -km signynt
+// qmk flash -kb bm40hsrgb -km signynt_2_quiet
 
 /* Copyright 2021 Vincenzo Mitchell Barroso
  *
@@ -69,103 +69,40 @@ void matrix_scan_user(void) {
 
 void rgb_matrix_indicators_user(void) {
 
-//game indicators
+  for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+        rgb_matrix_set_color(i, 0, 0, 0);
+    }
+    if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_KEYLIGHT)) {
+        rgb_matrix_set_color(i, 0, 0, 0);
+    }
+  }
 
-if(IS_LAYER_ON(GAME)) {
-  rgb_matrix_set_color(11, 0, 40, 50);
-}
+  //capslock
+  if (host_keyboard_led_state().caps_lock) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+      if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+            rgb_matrix_set_color(i, 255, 255, 255);
+      }
+    }
+  }
 
-if(IS_LAYER_ON(SECGAME)) {
-  rgb_matrix_set_color(11, 50, 0, 0);
-}
+  //game layer
+  if (IS_LAYER_ON(GAME)) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+      if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+            rgb_matrix_set_color(i, 0, 204, 255);
+      }
+    }
+  }
 
-//layer indicators
-
-if(IS_LAYER_ON(NAVR)) {
-  rgb_matrix_set_color(40, 0, 40, 50);
-
-  rgb_matrix_set_color(19, 0, 40, 50);
-  rgb_matrix_set_color(20, 0, 40, 50);
-  rgb_matrix_set_color(21, 0, 40, 50);
-  rgb_matrix_set_color(22, 0, 40, 50);
-}
-
-if(IS_LAYER_ON(MEDR)) {
-  rgb_matrix_set_color(39, 50, 10, 20);
-
-  rgb_matrix_set_color(19, 50, 10, 20);
-
-  rgb_matrix_set_color(22, 50, 10, 20);
-
-  rgb_matrix_set_color(42, 50, 10, 20);
-}
-
-if(IS_LAYER_ON(FUNL)) {
-  rgb_matrix_set_color(43, 50, 0, 0);
-
-  rgb_matrix_set_color(1, 50, 0, 0);
-  rgb_matrix_set_color(2, 50, 0, 0);
-  rgb_matrix_set_color(3, 50, 0, 0);
-  rgb_matrix_set_color(4, 50, 0, 0);
-
-  rgb_matrix_set_color(13, 50, 0, 0);
-  rgb_matrix_set_color(14, 50, 0, 0);
-  rgb_matrix_set_color(15, 50, 0, 0);
-  rgb_matrix_set_color(16, 50, 0, 0);
-
-  rgb_matrix_set_color(25, 50, 0, 0);
-  rgb_matrix_set_color(26, 50, 0, 0);
-  rgb_matrix_set_color(27, 50, 0, 0);
-  rgb_matrix_set_color(28, 50, 0, 0);
-}
-
-if(IS_LAYER_ON(NSL)) {
-  rgb_matrix_set_color(42, 10, 0, 50);
-
-  rgb_matrix_set_color(2, 10, 0, 50);
-  rgb_matrix_set_color(3, 10, 0, 50);
-  rgb_matrix_set_color(4, 10, 0, 50);
-
-  rgb_matrix_set_color(14, 10, 0, 50);
-  rgb_matrix_set_color(15, 10, 0, 50);
-  rgb_matrix_set_color(16, 10, 0, 50);
-
-  rgb_matrix_set_color(26, 10, 0, 50);
-  rgb_matrix_set_color(27, 10, 0, 50);
-  rgb_matrix_set_color(28, 10, 0, 50);
-
-  rgb_matrix_set_color(38, 10, 0, 50);
-  rgb_matrix_set_color(39, 10, 0, 50);
-  rgb_matrix_set_color(40, 10, 0, 50);
-}
-
-if(IS_LAYER_ON(NSSL)) {
-  rgb_matrix_set_color(41, 0, 50, 1.9);
-
-  rgb_matrix_set_color(1, 0, 50, 1.9);
-  rgb_matrix_set_color(2, 0, 50, 1.9);
-  rgb_matrix_set_color(3, 0, 50, 1.9);
-  rgb_matrix_set_color(4, 0, 50, 1.9);
-  rgb_matrix_set_color(5, 0, 50, 1.9);
-
-  rgb_matrix_set_color(13, 0, 50, 1.9);
-  rgb_matrix_set_color(14, 0, 50, 1.9);
-  rgb_matrix_set_color(15, 0, 50, 1.9);
-  rgb_matrix_set_color(16, 0, 50, 1.9);
-  rgb_matrix_set_color(17, 0, 50, 1.9);
-
-  rgb_matrix_set_color(25, 0, 50, 1.9);
-  rgb_matrix_set_color(26, 0, 50, 1.9);
-  rgb_matrix_set_color(27, 0, 50, 1.9);
-  rgb_matrix_set_color(28, 0, 50, 1.9);
-  rgb_matrix_set_color(29, 0, 50, 1.9);
-
-}
-
-//capslock leds
-
-if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-    rgb_matrix_set_color_all(50, 15.6, 0);
+  //secgame layer
+  if (IS_LAYER_ON(SECGAME)) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+      if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+            rgb_matrix_set_color(i, 255, 0, 0);
+      }
+    }
   }
 
 }
