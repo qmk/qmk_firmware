@@ -1,14 +1,16 @@
 ﻿{
     "keyboard_name": "GMMK Pro",
+    "keyboard_folder": "gmmk/pro",
     "url": "https://www.pcgamingrace.com/products/glorious-gmmk-pro-75-barebone-black-reservation",
     "maintainer": "GloriousThrall",
     "width": 13.07,
     "height": 5.7,
     "layouts": {
         "LAYOUT_gmmk_pro": {
+            "key_count": 88,
             "layout": [
-                {"label":"K00 (B0,B7)", "x":0, "y":0},
-                {"label":"K01 (B0,C0)", "x":1.25, "y":0},
+                {"label":"K00 (B0,B7)","x":0, "y":0},
+                {"label":"K01 (B0,C0)","x":1.25, "y":0},
                 {"label":"K02 (B0,C1)", "x":2.25, "y":0},
                 {"label":"K03 (B0,C2)", "x":3.25, "y":0},
                 {"label":"K04 (B0,C3)", "x":4.25, "y":0},
@@ -88,7 +90,13 @@
                 {"label":"K6C (B6,D3)", "x":12, "y":5.5},
                 {"label":"K6D (B6,D4)", "x":13.25, "y":5.75},
                 {"label":"K6E (B6,D5)", "x":14.25, "y":5.75},
-                {"label":"K6F (B6,D6)", "x":15.25, "y":5.75}
+                {"label":"K6F (B6,D6)", "x":15.25, "y":5.75},
+                {"label":"UNUSED", "x":15.25, "y":5.75},
+                {"label":"UNUSED", "x":15.25, "y":5.75},
+                {"label":"UNUSED", "x":15.25, "y":5.75},
+                {"label":"UNUSED", "x":15.25, "y":5.75},
+                {"label":"UNUSED", "x":15.25, "y":5.75},
+                {"label":"UNUSED", "x":15.25, "y":5.75}
             ]
         }
     }
