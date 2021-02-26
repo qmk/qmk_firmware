@@ -307,9 +307,6 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
-#endif
 #ifdef ENCODER_ENABLE
     encoder_init();
 #endif

@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifdef RGB_MATRIX_ENABLE
 #include "arm_atsam_protocol.h"
 #include "led.h"
 #include "rgb_matrix.h"
@@ -196,7 +197,7 @@ void md_rgb_matrix_prepare(void) {
     }
 }
 
-void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
+static void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
     if (i < ISSI3733_LED_COUNT) {
 #ifdef USE_MASSDROP_CONFIGURATOR
         md_rgb_matrix_config_override(i);
@@ -208,13 +209,13 @@ void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
     }
 }
 
-void led_set_all(uint8_t r, uint8_t g, uint8_t b) {
+static void led_set_all(uint8_t r, uint8_t g, uint8_t b) {
     for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
         led_set_one(i, r, g, b);
     }
 }
 
-void init(void) {
+static void init(void) {
     DBGC(DC_LED_MATRIX_INIT_BEGIN);
 
     issi3733_prepare_arrays();
@@ -227,7 +228,7 @@ void init(void) {
     DBGC(DC_LED_MATRIX_INIT_COMPLETE);
 }
 
-void flush(void) {
+static void flush(void) {
 #ifdef USE_MASSDROP_CONFIGURATOR
     if (!led_enabled) {
         return;
@@ -470,3 +471,4 @@ static void md_rgb_matrix_config_override(int i) {
 }
 
 #endif  // USE_MASSDROP_CONFIGURATOR
+#endif  // RGB_MATRIX_ENABLE
