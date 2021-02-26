@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifdef RGB_MATRIX_ENABLE
 #include "arm_atsam_protocol.h"
 #include "led.h"
 #include "rgb_matrix.h"
@@ -470,3 +471,4 @@ static void md_rgb_matrix_config_override(int i) {
 }
 
 #endif  // USE_MASSDROP_CONFIGURATOR
+#endif  // RGB_MATRIX_ENABLE
