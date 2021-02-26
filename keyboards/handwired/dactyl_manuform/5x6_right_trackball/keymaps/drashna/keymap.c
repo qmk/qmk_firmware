@@ -30,8 +30,8 @@
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                        OS_LALT, OS_LGUI,                                                TG_GAME, TG_DBLO, \
                                 OS_LGUI, KC_GRV,                                        OS_RGUI,  \
-                                         KC_SPC,  TT(_MOUSE),                     KC_ENT,  \
-                                         BK_LWER, MO(_MOUSE),      MO(_MOUSE), DL_RAIS  \
+                                         KC_SPC,  OS_LGUI,                     KC_ENT,  \
+                                         BK_LWER, TT(_MOUSE),      TT(_MOUSE), DL_RAIS  \
   )
 #define LAYOUT_5x6_right_trackball_base_wrapper(...)       LAYOUT_5x6_right_trackball_base(__VA_ARGS__)
 
