@@ -21,18 +21,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEA6E
+#define PRODUCT_ID      0xE9B9
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    One Key Company
 #define PRODUCT         Dango40
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 13
 
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS { B0, B3, F5, F4, F1 }
-#define MATRIX_COL_PINS { F0, B7, C7, C6, B6, B5, B4, D7, D6, D5, D3, D2, D1, D0 }
+#define MATRIX_ROW_PINS { B3, B2, B1, B0 }
+#define MATRIX_COL_PINS { C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D0, D1 }
+
+#define ENCODERS_PAD_A { F7 }
+#define ENCODERS_PAD_B { F6 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
