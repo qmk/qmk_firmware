@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
+#include "keymap_steno.h"
 
 
 enum planck_layers {
@@ -144,10 +145,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_PLOVER] = LAYOUT_planck_grid(
-    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   ,
-    XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
-    XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX
+    STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM,
+    XXXXXXX, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST1, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+    XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST2, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+    EXT_PLV, XXXXXXX, XXXXXXX, STN_A,   STN_O,   XXXXXXX, XXXXXXX, STN_E,   STN_U,   XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* Adjust (Lower + Raise)
@@ -348,4 +349,8 @@ bool music_mask_user(uint16_t keycode) {
     default:
       return true;
   }
+}
+
+void matrix_init_user() {
+  steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
