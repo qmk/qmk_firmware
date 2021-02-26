@@ -621,6 +621,9 @@ void matrix_init_quantum() {
 #ifdef AUDIO_ENABLE
     audio_init();
 #endif
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init();
+#endif
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
 #endif
