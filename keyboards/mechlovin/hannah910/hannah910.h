@@ -21,4 +21,6 @@
     #include "rev1.h"
 #elif KEYBOARD_mechlovin_hannah910_rev2
     #include "rev2.h"
+#elif KEYBOARD_mechlovin_hannah910_rev3
+    #include "rev3.h"
 #endif

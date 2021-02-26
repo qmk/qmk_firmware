@@ -1,7 +1,7 @@
 #include "62key.h"
 #include "rgblight.h"
-#include <keymap_colemak.h>
-#include <sendstring_colemak.h>
+#include "keymap_colemak.h"
+#include "sendstring_colemak.h"
 
 
 // Automatic Layer ID:

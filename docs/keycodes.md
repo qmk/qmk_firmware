@@ -124,17 +124,17 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_F22`               |                              |F22                                            |✔            |             |✔                |
 |`KC_F23`               |                              |F23                                            |✔            |             |✔                |
 |`KC_F24`               |                              |F24                                            |✔            |             |✔                |
-|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                        |            |             |✔                |
-|`KC_HELP`              |                              |Help                                           |            |             |✔                |
-|`KC_MENU`              |                              |Menu                                           |            |             |✔                |
-|`KC_SELECT`            |`KC_SLCT`                     |Select                                         |            |             |✔                |
-|`KC_STOP`              |                              |Stop                                           |            |             |✔                |
-|`KC_AGAIN`             |`KC_AGIN`                     |Again                                          |            |             |✔                |
-|`KC_UNDO`              |                              |Undo                                           |            |             |✔                |
-|`KC_CUT`               |                              |Cut                                            |            |             |✔                |
-|`KC_COPY`              |                              |Copy                                           |            |             |✔                |
-|`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |            |             |✔                |
-|`KC_FIND`              |                              |Find                                           |            |             |✔                |
+|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                        |             |             |✔                |
+|`KC_HELP`              |                              |Help                                           |             |             |✔                |
+|`KC_MENU`              |                              |Menu                                           |             |             |✔                |
+|`KC_SELECT`            |`KC_SLCT`                     |Select                                         |             |             |✔                |
+|`KC_STOP`              |                              |Stop                                           |             |             |✔                |
+|`KC_AGAIN`             |`KC_AGIN`                     |Again                                          |             |             |✔                |
+|`KC_UNDO`              |                              |Undo                                           |             |             |✔                |
+|`KC_CUT`               |                              |Cut                                            |             |             |✔                |
+|`KC_COPY`              |                              |Copy                                           |             |             |✔                |
+|`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |             |             |✔                |
+|`KC_FIND`              |                              |Find                                           |             |             |✔                |
 |`KC__MUTE`             |                              |Mute                                           |             |✔            |✔                |
 |`KC__VOLUP`            |                              |Volume Up                                      |             |✔            |✔                |
 |`KC__VOLDOWN`          |                              |Volume Down                                    |             |✔            |✔                |
@@ -381,46 +381,52 @@ See also: [Mouse Keys](feature_mouse_keys.md)
 
 See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 
-|Key       |Aliases                        |Description                                         |
-|----------|-------------------------------|----------------------------------------------------|
-|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                    |
-|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                      |
-|`LALT(kc)`|`A(kc)`, `LOPT(kc)`            |Hold Left Alt and press `kc`                        |
-|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
-|`RCTL(kc)`|                               |Hold Right Control and press `kc`                   |
-|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt and press `kc`                       |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                       |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`              |
-|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`            |
-|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`       |
-|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`     |
-|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`|
-|`KC_MEH`  |                               |Left Control, Shift and Alt                         |
-|`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                    |
+|Key       |Aliases                        |Description                                           |
+|----------|-------------------------------|------------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                      |
+|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                        |
+|`LALT(kc)`|`A(kc)`, `LOPT(kc)`            |Hold Left Alt and press `kc`                          |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                          |
+|`RCTL(kc)`|                               |Hold Right Control and press `kc`                     |
+|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                       |
+|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt (AltGr) and press `kc`                 |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                         |
+|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`                |
+|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`              |
+|`LSA(kc)` |                               |Hold Left Shift and Left Alt and press `kc`           |
+|`RSA(kc)` |`SAGR(kc)`                     |Hold Right Shift and Right Alt (AltGr) and press `kc` |
+|`RCS(kc)` |                               |Hold Right Control and Right Shift and press `kc`     |
+|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`         |
+|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`       |
+|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`  |
+|`KC_MEH`  |                               |Left Control, Shift and Alt                           |
+|`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                      |
 
 ## Mod-Tap Keys :id=mod-tap-keys
 
 See also: [Mod-Tap](mod_tap.md)
 
-|Key          |Aliases                                                          |Description                                            |
-|-------------|-----------------------------------------------------------------|-------------------------------------------------------|
-|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                      |
-|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
-|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
-|`LALT_T(kc)` |`LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                   |
-|`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
-|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped              |
-|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                |
-|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                  |
-|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
-|`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
-|`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped       |
-|`LCAG_T(kc)` |                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
-|`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
-|`C_S_T(kc)`  |                                                                 |Left Control and Shift when held, `kc` when tapped     |
-|`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
-|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|Key          |Aliases                                                          |Description                                                   |
+|-------------|-----------------------------------------------------------------|--------------------------------------------------------------|
+|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                             |
+|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                      |
+|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                        |
+|`LALT_T(kc)` |`LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                          |
+|`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                          |
+|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped                     |
+|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                       |
+|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt (AltGr) when held, `kc` when tapped                 |
+|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
+|`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped                |
+|`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped              |
+|`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped           |
+|`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
+|`RCS_T(kc)`  |                                                                 |Right Control and Right Shift when held, `kc` when tapped     |
+|`LCAG_T(kc)` |                                                                 |Left Control, Alt and GUI when held, `kc` when tapped         |
+|`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
+|`C_S_T(kc)`  |                                                                 |Left Control and Shift when held, `kc` when tapped            |
+|`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
+|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
 ## RGB Lighting :id=rgb-lighting
 

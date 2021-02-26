@@ -31,13 +31,13 @@ Within our `info.json` file the `layouts` portion of the dictionary contains sev
 * `height`
   * Optional: The height of the layout in Key Units
 * `key_count`
-  * **Required**: The number of keys in this layout
+  * Optional: The number of keys in this layout
 * `layout`
   * A list of Key Dictionaries describing the physical layout. See the next section for more details.
 
 ### Key Dictionary Format
 
-Each Key Dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Code for <http://keyboard-layout-editor.com> you will find many of the concepts the same. We re-use the same key names and layout choices wherever possible, but unlike keyboard-layout-editor each key is stateless, inheriting no properties from the keys that came before it.
+Each Key Dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Code for <https://keyboard-layout-editor.com> you will find many of the concepts the same. We re-use the same key names and layout choices wherever possible, but unlike keyboard-layout-editor each key is stateless, inheriting no properties from the keys that came before it.
 
 All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.
 

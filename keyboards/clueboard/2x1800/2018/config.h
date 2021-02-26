@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 #define PRODUCT         2x1800 2018
-#define DESCRIPTION     What does it mean?
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -59,6 +58,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define B7_AUDIO
 #define C4_AUDIO
 #define AUDIO_CLICKY
+
+#define LED_NUM_LOCK_PIN B4
+#define LED_CAPS_LOCK_PIN B5
+#define LED_SCROLL_LOCK_PIN B6
 
 /* number of backlight levels */
 // #define BACKLIGHT_PIN B7
@@ -172,9 +175,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

@@ -53,19 +53,19 @@ void OVERRIDE keyboard_pre_init_kb(void) {
 #if HAL_USE_SPI == TRUE
     spi_init();
 #endif
-}
-
-void OVERRIDE keyboard_post_init_kb(void) {
     // Start LED UART
     sdStart(&SD0, &ledUartConfig);
     sdWrite(&SD0, ledMcuWakeup, 11);
-
     // wait to receive response from wakeup
     wait_ms(15);
 
     // loop to clear out receive buffer from shine wakeup
     while(!sdGetWouldBlock(&SD0))
         sdGet(&SD0);
+}
+
+void OVERRIDE keyboard_post_init_kb(void) {
+
 
     // Start BLE UART
     sdStart(&SD1, &bleUartConfig);
