@@ -5,7 +5,10 @@
 |C(Tab)|  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   |C(-_) |
 |Bsp/~ |  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;:  |A('") |
 | G(!) |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /?  |G(Ent)|
-| CTRL | GUI  | ALT  |System|Number|S(Esc)|Space |Arrows|Cursor| GUI  |      |Normal|
+| CTRL | GUI  | ALT  |System|Cursor|S(Esc)|Space |Arrows| Left | Down |  Up  |Right |
+
+- Hold `Shift` + `Space` to activate the Number layer
+- Hold down a layer key to temporarily activate or tap twice to toggle on or off
 
 ## Number
 
@@ -14,7 +17,7 @@
 |      |  @   |  +   |  =   |  &   |  |   |  #   |  *   |  ^   |  $   |  %   |      |
 |      |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |  \`  |
 |      |  ~   |  [   |  {   |  (   |      |      |  )   |  }   |  ]   |  \   |      |
-|      |      |      |      | \\/  |      |      |      |      |      |      |      |
+|      |      |      |      | \\/  |      |      |      |      |      |      |Normal|
 
 ## Arrows
 
@@ -23,16 +26,16 @@
 |      |      |A(->) |A(->) |      |      |      | P_Up |C(<-) |C(->) |      |      |
 |      |C(->) |      |P_Down|      |      | Left | Down |  Up  |Right |C(<-) |      |
 |      |      |      |      |      |A(<-) |      |      |      |      |      |      |
-|      |      |      |      |      |      |      | \\/  |      |      |      |      |
+|      |      |      |      |      |      |      | \\/  |      |      |      |Normal|
 
 ## Cursor
 
 |------|------|------|------|------|------|------|------|------|------|------|------|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 |      |      |      |Wh_Dn |M_Btn2|      |      |Wh_Dn |      |      |      |      |
-|      |M_Acc2|M_Acc1|Wh_Up |M_Btn1|      | M_L  |M_Down| M_Up | M_R  |      |      |
+|      |M_Acc2|M_Acc1|Wh_Up |M_Btn1|      | M_L  |M_Down| M_Up | M_R  |      |SHIFT |
 |      |      |      |      |M_Btn3|      |      |      |      |      |      |      |
-|      |      |      |      |      |      |      |      | \\/  |      |      |      |
+|      |      |      |      |      |      |      |      | \\/  |      |      |Normal|
 
 ## System
 
@@ -41,7 +44,7 @@
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
 | Caps |      |Pr_Scn|      | Fwd  |      |Brght-| Vol- | Vol+ |Brght+|      |      |
 |      |      |      |      |      | Rwd  |      | Mute |P_Trac|N_Trac|      | Play |
-|      |      |      | \\/  |      |      |      |      |KBoard|      |      |      |
+|      |      |      | \\/  |      |      |      |      |KBoard|      |      |Normal|
 
 ## KBoard
 
@@ -50,7 +53,7 @@
 |      |      |      |      |      |RGB_Tg|      |Brght+|      |      |Mode- |      |
 |      |      |      |Brght-|      |      | Hue- | Sat- | Sat+ | Hue+ |      |      |
 |      |      |      |      |      |      |Mode+ |      |      |      |      |      |
-|      |      |      | \\/  |      |      |      |      | \\/  |      |FMWare|      |
+|      |      |      | \\/  |      |      |      |      | \\/  |      |FMWare|Normal|
 
 ## FMWare
 
@@ -59,4 +62,4 @@
 |      |      |      |EEPROM|Reset |      |      |      |      |      |      |      |
 |      |      |      |Debug |      |      |      |      |      |      |      |      |
 |------|      |      |      |      |      |      |      |      |      |      |      |
-|      |      |      | \\/  |      |      |      |      | \\/  |      | \\/  |      |
+|      |      |      | \\/  |      |      |      |      | \\/  |      | \\/  |Normal|
