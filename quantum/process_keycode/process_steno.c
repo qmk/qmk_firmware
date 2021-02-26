@@ -81,9 +81,6 @@ static void send_steno_state(uint8_t size, bool send_empty) {
 }
 
 void steno_init() {
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
     mode = eeprom_read_byte(EECONFIG_STENOMODE);
 }
 

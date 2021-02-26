@@ -32,10 +32,6 @@ static uint8_t breathing_period = BREATHING_PERIOD;
  * FIXME: needs doc
  */
 void backlight_init(void) {
-    /* check signature */
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
     backlight_config.raw = eeconfig_read_backlight();
     if (backlight_config.level > BACKLIGHT_LEVELS) {
         backlight_config.level = BACKLIGHT_LEVELS;

@@ -119,9 +119,6 @@ void audio_init() {
 
     // Check EEPROM
 #ifdef EEPROM_ENABLE
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
     audio_config.raw = eeconfig_read_audio();
 #else  // EEPROM settings
     audio_config.enable        = true;

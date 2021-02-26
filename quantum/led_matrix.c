@@ -221,12 +221,6 @@ void led_matrix_init(void) {
         g_key_hit[led] = 255;
     }
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("led_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_led_matrix_default();
-    }
-
     led_matrix_eeconfig.raw = eeconfig_read_led_matrix();
 
     if (!led_matrix_eeconfig.mode) {
