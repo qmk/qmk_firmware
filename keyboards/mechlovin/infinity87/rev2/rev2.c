@@ -17,70 +17,51 @@
 #include "infinity87.h"
 
 void matrix_init_kb(void) {
-    matrix_init_user();
-    led_init_ports();
-}
-
+  matrix_init_user();
+  led_init_ports();
+};
 void led_init_ports(void) {
-    setPinOutput(A3);
-    writePinLow(A3);
-    setPinOutput(A4);
-    writePinLow(A4);
-    setPinOutput(A8);
-    writePinHigh(A8);
-    setPinOutput(A0);
-    writePinHigh(A0);
-    setPinOutput(A1);
-    writePinHigh(A1);
-    setPinOutput(A2);
-    writePinHigh(A2);
+  setPinOutput(A5);
+  setPinOutput(A6);
+  setPinOutput(A7);
+  setPinOutput(C7);
+  setPinOutput(C6);
+
 }
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(A4, led_state.caps_lock);
-        writePin(A3, led_state.num_lock);
-        writePin(A8, led_state.scroll_lock);
-    }
-
-    return true;
-}
-
 
 uint32_t layer_state_set_user(uint32_t state)
 {
-  // if on layer 1, turn on D2 LED, otherwise off.
+  // if on layer 0, turn on C6 LED, otherwise off.
     if (biton32(state) == 0) {
-        writePinLow(A0);
-        writePinHigh(A1);
-        writePinLow(A2);
+        writePinLow(C6);
+    } else {
+        writePinHigh(C6);
     }
-  // if on layer 2, turn on D1 LED, otherwise off.
+  // if on layer 1, turn on C7 LED, otherwise off.
     if (biton32(state) == 1) {
-        writePinLow(A0);
-        writePinLow(A1);
-        writePinLow(A2);
+        writePinLow(C7);
+    } else {
+        writePinHigh(C7);
+    }
+  // if on layer 2, turn on A7 LED, otherwise off.
+    if (biton32(state) == 2) {
+        writePinLow(A7);
+    } else {
+        writePinHigh(A7);
     }
 
-  // if on layer 3, turn on D0 LED, otherwise off.
-    if (biton32(state) == 2) {
-        writePinHigh(A0);
-        writePinLow(A1);
-        writePinLow(A2);
+  // if on layer 3, turn on A6 LED, otherwise off.
+    if (biton32(state) == 3) {
+        writePinLow(A6);
+    } else {
+        writePinHigh(A6);
     }
 
-  // if on layer 4, turn on D0 LED, otherwise off.
-    if (biton32(state) == 2) {
-        writePinHigh(A0);
-        writePinHigh(A1);
-        writePinLow(A2);
-    }
-
-  // if on layer 5, turn on D0 LED, otherwise off.
-    if (biton32(state) == 2) {
-        writePinLow(A0);
-        writePinLow(A1);
-        writePinHigh(A2);
+  // if on layer 4, turn on A5 LED, otherwise off.
+    if (biton32(state) == 4) {
+        writePinLow(A5);
+    } else {
+        writePinHigh(A5);
     }
 
     return state;

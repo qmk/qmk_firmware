@@ -1,7 +1,4 @@
 
-MCU = STM32F303
-BOARD = QMK_PROTON_C
-
 # Build Options
 #   change yes to no to disable
 #
@@ -21,4 +18,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
-DEFAULT_FOLDER = mechlovin/infinity87/rev1
+DEFAULT_FOLDER = mechlovin/infinity87/rev1/standard

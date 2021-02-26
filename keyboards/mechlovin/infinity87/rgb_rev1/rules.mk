@@ -1,3 +1,3 @@
-RGB_MATRIX_ENABLE = IS31FL3741 # Use RGB matrix# MCU name
+MCU = STM32F303
 
-DEFAULT_FOLDER = mechlovin/infinity87/rev1
+RGB_MATRIX_ENABLE = IS31FL3741 # Use RGB matrix# MCU name
