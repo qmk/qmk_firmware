@@ -212,7 +212,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 enum rgb_matrix_effects mode = rgb_matrix_get_mode();
                 for (uint8_t i = 0; i < MODE_LAST; i++) {
                     if (mode_map[i] == mode) {
-                        data[2] = mode;
+                        data[2] = i;
                         data[3] = rgb_matrix_config.speed;
                         data[1] = 0;
                         break;
