@@ -20,4 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define STM32_HSECLK                12000000U
 #include_next <board.h>
 #undef STM32_HSE_BYPASS
-

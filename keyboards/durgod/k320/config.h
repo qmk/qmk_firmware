@@ -54,4 +54,3 @@
 #define LED_WIN_LOCK_PIN    A9
 #define LED_MR_LOCK_PIN     A10
 #define LED_PIN_ON_STATE    0
-
