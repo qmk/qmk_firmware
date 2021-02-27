@@ -95,7 +95,7 @@
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-#define R_LSFT(kc) ((0x30)|((0x00FF)&((uint8_t)kc)))
+#define R_LSFT(kc) ((0x20)+(kc-0x200))
 
 #define FALSE false
 #define TRUE true
