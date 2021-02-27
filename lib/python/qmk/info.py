@@ -454,8 +454,9 @@ def _find_all_layouts(info_data, keyboard):
                 if these_layouts:
                     layouts.update(these_layouts)
 
-                if these_aliases:
-                    aliases.update(these_aliases)
+                for alias, alias_text in these_aliases.items():
+                    if alias_text in layouts:
+                        aliases[alias] = alias_text
 
     return layouts, aliases
 

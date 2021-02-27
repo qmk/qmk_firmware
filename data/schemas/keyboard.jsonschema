@@ -88,7 +88,7 @@
                 "oneOf": [
                     {
                         "type": "string",
-                        "enum": ["LAYOUT"]
+                        "enum": ["LAYOUT", "LAYOUT_planck_1x2uC"]
                     },
                     {
                         "type": "string",
