@@ -95,12 +95,7 @@ static void vusb_wakeup(void) {
  *
  * FIXME: Needs doc
  */
-static void setup_usb(void) {
-    initForUsbConnectivity();
-
-    // for Console_Task
-    print_set_sendchar(sendchar);
-}
+static void setup_usb(void) { initForUsbConnectivity(); }
 
 /** \brief Main
  *

@@ -2,7 +2,6 @@
     "keyboard_name": "The Railroad",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/railroad",
     "maintainer": "NoPunIn10Did",
-    "manufacturer": "NoPunIn10Did",
     "width": 23.5,
     "height": 5.25,
     "layouts": {

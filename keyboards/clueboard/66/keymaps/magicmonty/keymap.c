@@ -134,23 +134,23 @@ enum layer_id {
 void clueboard_set_led(uint8_t id, uint8_t val) {
   switch (id) {
     case LAYER_BASE:
-      rgblight_sethsv_noeeprom(190, 255, val);
+      rgblight_sethsv_noeeprom(135, 255, val);
       break;
     case LAYER_FUNCTION:
-      rgblight_sethsv_noeeprom(46, 255, val);
+      rgblight_sethsv_noeeprom(32, 255, val);
       break;
     case LAYER_MEDIA:
-      rgblight_sethsv_noeeprom(86, 255, val);
+      rgblight_sethsv_noeeprom(60, 255, val);
       break;
     case LAYER_CONTROL:
-      rgblight_sethsv_noeeprom(346, 255, val);
+      rgblight_sethsv_noeeprom(245, 255, val);
       break;
     case LAYER_MOUSE:
-      rgblight_sethsv_noeeprom(206, 255, val);
+      rgblight_sethsv_noeeprom(146, 255, val);
       break;
 #if defined(MIDI_ENABLE)
     case LAYER_MIDI:
-      rgblight_sethsv_noeeprom(316, 255, val);
+      rgblight_sethsv_noeeprom(224, 255, val);
       break;
 #endif
   }
@@ -158,15 +158,15 @@ void clueboard_set_led(uint8_t id, uint8_t val) {
 
 const uint16_t oct_hues[10] = {
   0,
-  30,
+  20,
+  40,
   60,
-  90,
+  80,
+  100,
   120,
-  150,
-  180,
-  210,
-  240,
-  300
+  140,
+  160,
+  180
 };
 
 #define MAX_OCT  9
