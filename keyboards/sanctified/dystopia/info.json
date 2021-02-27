@@ -5,7 +5,7 @@
     "width": 17.62,
     "height": 5.716792398988211,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_bs": {
             "layout": [
                 {"label":"K11 (B3,F1)", "x":2.97, "y":0.93},
                 {"label":"K02 (B2,F4)", "x":3.97, "y":0.93},
@@ -81,4 +81,3 @@
     }
     ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
-
