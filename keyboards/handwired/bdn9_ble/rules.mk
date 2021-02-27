@@ -28,7 +28,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
-MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH = AdafruitBLE       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output on port C6

@@ -20,8 +20,6 @@ SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
 
 CUSTOM_MATRIX = yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
-
-MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
 
 ST7565_ENABLE = yes

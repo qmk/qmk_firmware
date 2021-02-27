@@ -18,7 +18,6 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 LAYOUTS = ortho_4x12
-MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 NO_SUSPEND_POWER_DOWN = yes

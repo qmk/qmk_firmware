@@ -25,7 +25,6 @@ CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 #BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
-#MIDI_ENABLE = no           # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 KEY_LOCK_ENABLE = no
 TAP_DANCE_ENABLE = no

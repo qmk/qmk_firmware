@@ -27,7 +27,6 @@ USB_6KRO_ENABLE         = no  # USB 6key Rollover
 BACKLIGHT_ENABLE        = yes # Enable keyboard backlight functionality
 SWAP_HANDS_ENABLE       = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
-MIDI_ENABLE             = no
 
 # project specific files
 SRC =  matrix.c     \
