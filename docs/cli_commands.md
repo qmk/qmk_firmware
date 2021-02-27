@@ -308,24 +308,32 @@ qmk generate-rgb-breathe-table [-q] [-o OUTPUT] [-m MAX] [-c CENTER]
 
 ## `qmk kle2json`
 
-This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
+This command allows you to convert [Keyboard-Layout-Editor.com](http://keyboard-layout-editor.com) layouts into `info.json` layouts. It will also create a `keymap.json` file for your layout. This saves a lot of time when setting up a new keyboard.
+
+To use this command your KLE will need to follow a specific format. See [KLE To info.json](kle2json_guide.md) for more details.
 
 **Usage**:
 
 ```
-qmk kle2json [-f] <filename>
+qmk kle2json -kb <keyboard> [-km KEYMAP] [-l LAYOUT] <filename-or-kle-id>
 ```
 
 **Examples**:
 
-```
-$ qmk kle2json kle.txt 
-☒ File info.json already exists, use -f or --force to overwrite.
-```
+With only a KLE id:
 
 ```
-$ qmk kle2json -f kle.txt -f
-Ψ Wrote out to info.json
+$ qmk kle2json -kb clueboard/new60 70aaa4bed76d0b2f67fd165641239552
+Ψ Wrote file keyboards/clueboard/new60/info.json
+Ψ Wrote file keyboards/clueboard/new60/keymaps/default/keymap.json
+```
+
+With a full URL:
+
+```
+$ qmk kle2json -kb clueboard/new60 'http://www.keyboard-layout-editor.com/#/gists/70aaa4bed76d0b2f67fd165641239552'
+Ψ Wrote file keyboards/clueboard/new60/info.json
+Ψ Wrote file keyboards/clueboard/new60/keymaps/default/keymap.json
 ```
 
 ## `qmk pyformat`

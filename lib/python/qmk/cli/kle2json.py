@@ -4,34 +4,121 @@ import json
 import os
 from pathlib import Path
 
+import requests
 from milc import cli
 from kle2xy import KLE2xy
 
+import qmk.path
 from qmk.converter import kle2qmk
+from qmk.info import info_json
 from qmk.info_json_encoder import InfoJSONEncoder
 
 
-@cli.argument('filename', help='The KLE raw txt to convert')
-@cli.argument('-f', '--force', action='store_true', help='Flag to overwrite current info.json')
-@cli.subcommand('Convert a KLE layout to a Configurator JSON', hidden=False if cli.config.user.developer else True)
+def fetch_json(url):
+    """Gets the JSON from a url.
+    """
+    response = fetch_url(url)
+
+    if response.status_code == 200:
+        return response.json()
+
+    print(f'ERROR: {url} returned {response.status_code}: {response.text}')
+    return {}
+
+
+def fetch_url(url):
+    """Fetch a URL.
+    """
+    response = requests.get(url, timeout=30)
+    response.encoding = 'utf-8-sig'
+
+    return response
+
+
+def fetch_gist(id):
+    """Retrieve a gist from gist.github.com
+    """
+    url = f'https://api.github.com/gists/{id}'
+    gist = fetch_json(url)
+
+    for data in gist['files'].values():
+        if data['filename'].endswith('kbd.json'):
+            if data.get('truncated'):
+                return fetch_url(data['raw_url']).text
+            else:
+                return data['content']
+
+    return None
+
+
+def fetch_kle(id):
+    """Fetch the kle data from a gist ID.
+    """
+    gist = fetch_gist(id)
+
+    return gist[1:-1]
+
+
+@cli.argument('kle', arg_only=True, help='A file or KLE id to convert')
+@cli.argument('-l', '--layout', arg_only=True, default='LAYOUT', help='The LAYOUT name this KLE represents')
+@cli.argument('-kb', '--keyboard', arg_only=True, required=True, help='The folder name for the keyboard')
+@cli.argument('-km', '--keymap', arg_only=True, default='default', help='The name of the keymap to write (Default: default)')
+@cli.subcommand('Use a KLE layout to build info.json and a keymap', hidden=False if cli.config.user.developer else True)
 def kle2json(cli):
     """Convert a KLE layout to QMK's layout format.
-    """  # If filename is a path
-    if cli.args.filename.startswith("/") or cli.args.filename.startswith("./"):
-        file_path = Path(cli.args.filename)
-    # Otherwise assume it is a file name
+    """
+    file_path = Path(os.environ['ORIG_CWD'], cli.args.kle)
+
+    # Find our KLE text
+    if cli.args.kle.startswith('http') and '#' in cli.args.kle:
+        kle_path = cli.args.kle.split('#', 1)[1]
+        if 'gists' not in kle_path:
+            cli.log.error('Invalid KLE url: {fg_cyan}%s', cli.args.kle)
+            return False
+        else:
+            raw_code = fetch_kle(kle_path.split('/')[-1])
+
+    elif file_path.exists():
+        raw_code = file_path.open().read()
+
     else:
-        file_path = Path(os.environ['ORIG_CWD'], cli.args.filename)
-    # Check for valid file_path for more graceful failure
-    if not file_path.exists():
-        cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
+        raw_code = fetch_kle(cli.args.kle)
+        if not raw_code:
+            cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
+            return False
+
+    # Make sure the user supplied a keyboard
+    if not cli.args.keyboard:
+        cli.log.error('You must pass --keyboard or be in a keyboard directory!')
+        cli.print_usage()
         return False
-    out_path = file_path.parent
-    raw_code = file_path.open().read()
-    # Check if info.json exists, allow overwrite with force
-    if Path(out_path, "info.json").exists() and not cli.args.force:
-        cli.log.error('File {fg_cyan}%s/info.json{style_reset_all} already exists, use -f or --force to overwrite.', out_path)
-        return False
+
+    # Check for an existing info.json
+    if qmk.path.is_keyboard(cli.args.keyboard):
+        kb_info_json = info_json(cli.args.keyboard)
+    else:
+        kb_info_json = {
+            "keyboard_name": cli.args.keyboard,
+            "maintainer": "",
+            "features": {
+                "console": True,
+                "extrakey": True,
+                "mousekey": True,
+                "nkro": True
+            },
+            "matrix_pins": {
+                "cols": [],
+                "rows": [],
+            },
+            "usb": {
+              "device_ver": "0x0001",
+              "pid": '0x0000',
+              "vid": '0x03A8',
+            },
+            "layouts": {},
+        }
+
+    # Build and merge in the new layout
     try:
         # Convert KLE raw to x/y coordinates (using kle2xy package from skullydazed)
         kle = KLE2xy(raw_code)
@@ -39,22 +126,44 @@ def kle2json(cli):
         cli.log.error('Could not parse KLE raw data: %s', raw_code)
         cli.log.exception(e)
         return False
-    keyboard = {
-        'keyboard_name': kle.name,
-        'url': '',
-        'maintainer': 'qmk',
-        'width': kle.columns,
-        'height': kle.rows,
-        'layouts': {
-            'LAYOUT': {
-                'layout': kle2qmk(kle)
-            }
-        },
-    }
+
+    if 'layouts' not in kb_info_json:
+        kb_info_json['layouts'] = {}
+
+    if cli.args.layout not in kb_info_json['layouts']:
+        kb_info_json['layouts'][cli.args.layout] = {}
+
+    kb_info_json['layouts'][cli.args.layout]['layout'] = kle2qmk(kle)
 
     # Write our info.json
-    keyboard = json.dumps(keyboard, indent=4, separators=(', ', ': '), sort_keys=False, cls=InfoJSONEncoder)
-    info_json_file = out_path / 'info.json'
+    keyboard_dir = qmk.path.keyboard(cli.args.keyboard)
+    keyboard_dir.mkdir(exist_ok=True, parents=True)
+    info_json_file = keyboard_dir / 'info.json'
 
-    info_json_file.write_text(keyboard)
-    cli.log.info('Wrote out {fg_cyan}%s/info.json', out_path)
+    json.dump(kb_info_json, info_json_file.open('w', newline='\n'), indent=4, separators=(', ', ': '), sort_keys=False, cls=InfoJSONEncoder)
+    cli.log.info('Wrote file {fg_cyan}%s', info_json_file)
+
+    # Generate and write a keymap
+    keymap_path = keyboard_dir / 'keymaps' / cli.args.keymap
+    keymap_file = keymap_path / 'keymap.json'
+
+    if keymap_path.exists():
+        cli.log.warning('{fg_cyan}%s{fg_reset} already exists, not generating a keymap.', keymap_path)
+    else:
+        keymap = [key.get('label', 'KC_NO') for key in kb_info_json['layouts'][cli.args.layout]['layout']]
+        keymap_json = {
+                'version': 1,
+                'documentation': "This file is a QMK Keymap. You can compile it with `qmk compile` or import it at <https://config.qmk.fm>. It can also be used directly with QMK's source code.",
+                'author': '',
+                'keyboard': kb_info_json['keyboard_name'],
+                'keymap': cli.args.keymap,
+                'layout': cli.args.layout,
+                'layers': [
+                    keymap,
+                    ['KC_TRNS' for key in keymap],
+                ],
+        }
+        keymap_path.mkdir(exist_ok=True, parents=True)
+
+        json.dump(keymap_json, keymap_file.open('w', newline='\n'), indent=4, separators=(', ', ': '), sort_keys=False)
+        cli.log.info('Wrote file %s', keymap_file)
