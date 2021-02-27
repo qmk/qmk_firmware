@@ -41,3 +41,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#ifdef ENCODER_ENABLE
+void encoder_update_user(uint8_t index, bool clockwise) {
+    switch (index) {
+        case 0:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+        break;
+    }
+    
+}
+#endif
+
+#ifdef OLED_DRIVER_ENABLE
+    oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+        return OLED_ROTATION_180;       // flips the display 180 degrees if offhand
+    }
+    
+
+static void render_logo(void) {     // Render MechWild "MW" Logo
+    static const char PROGMEM logo_1[] = {0x97, 0x98, 0x99, 0x9A,0x00};
+    static const char PROGMEM logo_2[] = {0xB7, 0xB8, 0xB9, 0xBA, 0xBB, 0xBC, 0xBD, 0x00};
+    static const char PROGMEM logo_3[] = {0xD7, 0xD8, 0xD9, 0xDA, 0xDB, 0xDC, 0xDD, 0xB6, 0x00};
+    static const char PROGMEM logo_4[] = {0xB6, 0xB6, 0xB6, 0x9B, 0x9C, 0x9D, 0x9E, 0x00};
+    oled_set_cursor(0,0);
+    oled_write_P(logo_1, false);
+    oled_set_cursor(0,1);
+    oled_write_P(logo_2, false);
+    oled_set_cursor(0,2);
+    oled_write_P(logo_3, false);
+    oled_set_cursor(0,3);
+    oled_write_P(logo_4, false);
+}
+void oled_task_user(void) {
+    render_logo(); 
+}
+#endif
