@@ -92,7 +92,8 @@ def print_friendly_output(kb_info_json):
     cli.echo('{fg_blue}Processor{fg_reset}: %s', kb_info_json.get('processor', 'Unknown'))
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
     if 'layout_aliases' in kb_info_json:
-        cli.echo('{fg_blue}Layout aliases:{fg_reset} %s' % (', '.join(kb_info_json['layout_aliases']),))
+        aliases = [f'{key}={value}' for key, value in kb_info_json['layout_aliases'].items()]
+        cli.echo('{fg_blue}Layout aliases:{fg_reset} %s' % (', '.join(aliases),))
 
     if cli.config.info.layouts:
         show_layouts(kb_info_json, True)
