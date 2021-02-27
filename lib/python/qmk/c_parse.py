@@ -79,7 +79,7 @@ def find_layouts(file):
                 'filename': str(file),
             }
 
-        elif '#define' in line:
+        elif '#define' in line and not '(' in line and ('LAYOUT' in line or 'KEYMAP' in line):
             # Attempt to extract a new layout alias
             try:
                 _, pp_macro_name, pp_macro_text = line.strip().split(' ', 2)
