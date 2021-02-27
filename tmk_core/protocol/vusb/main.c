@@ -82,6 +82,7 @@ static void vusb_suspend(void) {
     suspend_power_down();
 }
 
+#if USB_COUNT_SOF
 static void vusb_wakeup(void) {
     vusb_suspended = false;
     suspend_wakeup_init();
@@ -90,6 +91,7 @@ static void vusb_wakeup(void) {
     sleep_led_disable();
 #endif
 }
+#endif
 
 /** \brief Setup USB
  *
