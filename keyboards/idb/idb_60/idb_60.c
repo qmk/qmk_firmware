@@ -45,19 +45,3 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 }
-
-inline void _idb_60_caps_led_on(void) {
-    writePinLow(C5);
-}
-
-inline void _idb_60_fn_led_on(void) {
-    writePinLow(C4);
-}
-
-inline void _idb_60_caps_led_off(void) {
-    writePinHigh(C5);
-}
-
-inline void _idb_60_fn_led_off(void) {
-    writePinHigh(C4);
-}
