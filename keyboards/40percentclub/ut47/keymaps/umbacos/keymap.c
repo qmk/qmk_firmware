@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUMBER] = LAYOUT(
-   IT_DEGR,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+   KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
    _______, KC_PPLS, KC_PMNS, KC_PSLS, KC_PAST, XXXXXXX, IT_PLUS, IT_MINS, IT_EQL,  IT_LBRC, IT_RBRC, IT_LESS,
    LT(_SYMBOL, KC_DEL), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_DOT, KC_VOLU, LT(_SYMBOL, KC_DEL),
    _______, _______, _______, _______, KC_CAPS,     _______,      _______, _______, KC_MUTE, KC_VOLD, KC_MUTE
