@@ -2,7 +2,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = LAYOUT(KC_KP_7, KC_KP_8, KC_KP_9,
+  [0] = LAYOUT(KC_KP_7, LT(2, KC_KP_8), KC_KP_9,
                KC_KP_4, LT(1, KC_KP_5), KC_KP_6,
                KC_KP_1, KC_KP_2, KC_KP_3),
 
@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                RGB_HUI, RESET, RGB_SAI,
                RGB_HUD, RGB_VAD, RGB_SAD),
 
-  [2] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS,
+  [2] = LAYOUT(KC_TRNS, KC_TRNS, RESET,
                KC_TRNS, KC_TRNS, KC_TRNS,
                KC_TRNS, KC_TRNS, KC_TRNS),
 
