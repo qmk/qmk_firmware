@@ -92,7 +92,7 @@
                     },
                     {
                         "type": "string",
-                        "pattern": "^LAYOUT_[0-9a-z_]*$"
+                        "pattern": "^LAYOUT_[0-9A-Za-z_]*$"
                     }
                 ]
             }
