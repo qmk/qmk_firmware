@@ -95,7 +95,7 @@ def check_udev_rules():
 
         # Collect all rules from the config files
         for rule_file in udev_rules:
-            for line in rule_file.read_text().split('\n'):
+            for line in rule_file.read_text(encoding='utf-8').split('\n'):
                 line = line.strip()
                 if not line.startswith("#") and len(line):
                     current_rules.add(line)

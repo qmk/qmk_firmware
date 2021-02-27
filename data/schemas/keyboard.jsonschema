@@ -85,8 +85,16 @@
         "layout_aliases": {
             "type": "object",
             "additionalProperties": {
-                "type": "string",
-                "pattern": "^LAYOUT_[0-9a-z_]*$"
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "enum": ["LAYOUT"]
+                    },
+                    {
+                        "type": "string",
+                        "pattern": "^LAYOUT_[0-9a-z_]*$"
+                    }
+                ]
             }
         },
         "layouts": {

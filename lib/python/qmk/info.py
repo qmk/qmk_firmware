@@ -45,7 +45,12 @@ def info_json(keyboard):
         info_data['keymaps'][keymap.name] = {'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json'}
 
     # Populate layout data
-    for layout_name, layout_json in _find_all_layouts(info_data, keyboard).items():
+    layouts, aliases = _find_all_layouts(info_data, keyboard)
+
+    if aliases:
+        info_data['layout_aliases'] = aliases
+
+    for layout_name, layout_json in layouts.items():
         if not layout_name.startswith('LAYOUT_kc'):
             layout_json['c_macro'] = True
             info_data['layouts'][layout_name] = layout_json
@@ -92,7 +97,7 @@ def _json_load(json_file):
     Note: file must be a Path object.
     """
     try:
-        return hjson.load(json_file.open())
+        return hjson.load(json_file.open(encoding='utf-8'))
 
     except json.decoder.JSONDecodeError as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
@@ -415,21 +420,28 @@ def _merge_layouts(info_data, new_info_data):
 
 def _search_keyboard_h(path):
     current_path = Path('keyboards/')
+    aliases = {}
     layouts = {}
+
     for directory in path.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
         if keyboard_h_path.exists():
-            layouts.update(find_layouts(keyboard_h_path))
+            new_layouts, new_aliases = find_layouts(keyboard_h_path)
+            layouts.update(new_layouts)
 
-    return layouts
+            for alias, alias_text in new_aliases.items():
+                if alias_text in layouts:
+                    aliases[alias] = alias_text
+
+    return layouts, aliases
 
 
 def _find_all_layouts(info_data, keyboard):
     """Looks for layout macros associated with this keyboard.
     """
-    layouts = _search_keyboard_h(Path(keyboard))
+    layouts, aliases = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
         # If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
@@ -437,11 +449,15 @@ def _find_all_layouts(info_data, keyboard):
 
         for file in glob('keyboards/%s/*.h' % keyboard):
             if file.endswith('.h'):
-                these_layouts = find_layouts(file)
+                these_layouts, these_aliases = find_layouts(file)
+
                 if these_layouts:
                     layouts.update(these_layouts)
 
-    return layouts
+                if these_aliases:
+                    aliases.update(these_aliases)
+
+    return layouts, aliases
 
 
 def _log_error(info_data, message):
@@ -540,11 +556,19 @@ def merge_info_jsons(keyboard, info_data):
             cli.log.error('\t%s: %s', json_path, e.message)
             continue
 
-        # Mark the layouts as coming from json
-        for layout in new_info_data.get('layouts', {}).values():
-            layout['c_macro'] = False
+        # Merge layout data in
+        for layout_name, layout in new_info_data.get('layouts', {}).items():
+            if layout_name in info_data['layouts']:
+                for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
+                    existing_key.update(new_key)
+            else:
+                layout['c_macro'] = False
+                info_data['layouts'][layout_name] = layout
 
         # Update info_data with the new data
+        if 'layouts' in new_info_data:
+            del (new_info_data['layouts'])
+
         deep_update(info_data, new_info_data)
 
     return info_data

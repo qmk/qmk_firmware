@@ -29,7 +29,7 @@ def show_keymap(kb_info_json, title_caps=True):
         else:
             cli.echo('{fg_blue}keymap_%s{fg_reset}:', cli.config.info.keymap)
 
-        keymap_data = json.load(keymap_path.open())
+        keymap_data = json.load(keymap_path.open(encoding='utf-8'))
         layout_name = keymap_data['layout']
 
         for layer_num, layer in enumerate(keymap_data['layers']):
@@ -57,7 +57,7 @@ def show_matrix(kb_info_json, title_caps=True):
         # Build our label list
         labels = []
         for key in layout['layout']:
-            if key['matrix']:
+            if 'matrix' in key:
                 row = ROW_LETTERS[key['matrix'][0]]
                 col = COL_LETTERS[key['matrix'][1]]
 
@@ -91,6 +91,9 @@ def print_friendly_output(kb_info_json):
         cli.echo('{fg_blue}Size{fg_reset}: %s x %s' % (kb_info_json['width'], kb_info_json['height']))
     cli.echo('{fg_blue}Processor{fg_reset}: %s', kb_info_json.get('processor', 'Unknown'))
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
+    if 'layout_aliases' in kb_info_json:
+        aliases = [f'{key}={value}' for key, value in kb_info_json['layout_aliases'].items()]
+        cli.echo('{fg_blue}Layout aliases:{fg_reset} %s' % (', '.join(aliases),))
 
     if cli.config.info.layouts:
         show_layouts(kb_info_json, True)
