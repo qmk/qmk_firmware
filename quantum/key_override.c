@@ -486,6 +486,8 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
         }
     }
 
+    key_override_printf("key down: %u keycode: %u is mod: %u effective mods: %u\n", key_down, keycode, is_mod, effective_mods);
+
     bool send_key_action = true;
     bool activated = false;
 
