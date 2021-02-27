@@ -1,4 +1,4 @@
-# Breaking Changes History
+# Past Breaking Changes
 
 This page links to all previous changelogs from the QMK Breaking Changes process.
 
