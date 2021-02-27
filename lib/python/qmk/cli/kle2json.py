@@ -27,7 +27,7 @@ def kle2json(cli):
         cli.log.error('File {fg_cyan}%s{style_reset_all} was not found.', file_path)
         return False
     out_path = file_path.parent
-    raw_code = file_path.open().read()
+    raw_code = file_path.read_text(encoding='utf-8')
     # Check if info.json exists, allow overwrite with force
     if Path(out_path, "info.json").exists() and not cli.args.force:
         cli.log.error('File {fg_cyan}%s/info.json{style_reset_all} already exists, use -f or --force to overwrite.', out_path)

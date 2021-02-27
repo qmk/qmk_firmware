@@ -29,7 +29,7 @@ def show_keymap(kb_info_json, title_caps=True):
         else:
             cli.echo('{fg_blue}keymap_%s{fg_reset}:', cli.config.info.keymap)
 
-        keymap_data = json.load(keymap_path.open())
+        keymap_data = json.load(keymap_path.open(encoding='utf-8'))
         layout_name = keymap_data['layout']
 
         for layer_num, layer in enumerate(keymap_data['layers']):

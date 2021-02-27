@@ -40,7 +40,7 @@ file_header = """\
 
 
 def collect_defines(filepath):
-    with open(filepath, 'r') as f:
+    with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
         define_search = re.compile(r'(?m)^#\s*define\s+(?:.*\\\r?\n)*.*$', re.MULTILINE)
         value_search = re.compile(r'^#\s*define\s+(?P<name>[a-zA-Z0-9_]+(\([^\)]*\))?)\s*(?P<value>.*)', re.DOTALL)
@@ -146,17 +146,17 @@ def chibios_confmigrate(cli):
         if cli.args.input.name == "chconf.h" and ("CHCONF_H" in input_defs["dict"] or "_CHCONF_H_" in input_defs["dict"] or cli.args.force):
             migrate_chconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
-                with open(cli.args.input, "w") as out_file:
+                with open(cli.args.input, "w", encoding='utf-8') as out_file:
                     migrate_chconf_h(to_override, outfile=out_file)
 
         elif cli.args.input.name == "halconf.h" and ("HALCONF_H" in input_defs["dict"] or "_HALCONF_H_" in input_defs["dict"] or cli.args.force):
             migrate_halconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
-                with open(cli.args.input, "w") as out_file:
+                with open(cli.args.input, "w", encoding='utf-8') as out_file:
                     migrate_halconf_h(to_override, outfile=out_file)
 
         elif cli.args.input.name == "mcuconf.h" and ("MCUCONF_H" in input_defs["dict"] or "_MCUCONF_H_" in input_defs["dict"] or cli.args.force):
             migrate_mcuconf_h(to_override, outfile=sys.stdout)
             if cli.args.overwrite:
-                with open(cli.args.input, "w") as out_file:
+                with open(cli.args.input, "w", encoding='utf-8') as out_file:
                     migrate_mcuconf_h(to_override, outfile=out_file)
