@@ -90,3 +90,5 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         endif
     endif
 endif
+
+# DEBUG_MATRIX_SCAN_RATE_ENABLE = api

@@ -158,6 +158,14 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_advance_page(true);
 #endif
 }
+void render_matrix_scan_rate(void) {
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    char matrix_rate[5];
+    snprintf(matrix_rate, sizeof(matrix_rate), "%5lu", get_matrix_scan_rate());
+    oled_write_P(PSTR("MS:"), false);
+    oled_write(matrix_rate, false);
+#endif
+}
 
 void render_mod_status(uint8_t modifiers) {
     static const char PROGMEM mod_status[5][3] = {{0xE8, 0xE9, 0}, {0xE4, 0xE5, 0}, {0xE6, 0xE7, 0}, {0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
@@ -169,6 +177,8 @@ void render_mod_status(uint8_t modifiers) {
 #endif
     oled_write_P(mod_status[2], (modifiers & MOD_MASK_ALT));
     oled_write_P(mod_status[1], (modifiers & MOD_MASK_CTRL));
+
+    render_matrix_scan_rate();
 #if defined(OLED_DISPLAY_128X64)
     oled_advance_page(true);
 #endif
@@ -320,7 +330,11 @@ void render_status_secondary(void) {
 void render_status_main(void) {
 #if defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
+#    ifdef DEBUG_MATRIX_SCAN_RATE
+    render_matrix_scan_rate();
+#    else
     render_wpm();
+#    endif
 #    ifdef KEYBOARD_handwired_dactyl_manuform_5x6_right_trackball
     render_pointing_dpi_status();
 #    endif
