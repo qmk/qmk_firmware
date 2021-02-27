@@ -82,6 +82,10 @@ def generate_layouts(cli):
         layouts_h_lines.append(rows)
         layouts_h_lines.append('}')
 
+    for alias, target in kb_info_json.get('layout_aliases', {}).items():
+        layouts_h_lines.append('')
+        layouts_h_lines.append('#define %s %s' % (alias, target))
+
     # Show the results
     layouts_h = '\n'.join(layouts_h_lines) + '\n'
 
