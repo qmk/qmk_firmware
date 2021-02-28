@@ -9,7 +9,7 @@
 //#if defined(OLED_DRIVER_ENABLE)
 #if 1
 
-static char last_c[]={' ', '\0'};
+static char last_c=' ';
 char keylog_str[KEYLOG_LEN] = {' '};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
@@ -58,8 +58,8 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
 
 extern uint8_t is_master;
 
-static uint8_t current_p_pos=1;
-static uint32_t prompt_oled_timer = 0;
+static uint8_t current_cursor_pos=0;
+static uint32_t cursor_oled_timer = 0;
 static uint32_t standby_oled_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation)
@@ -234,20 +234,26 @@ void add_keylog(uint16_t keycode)
         keycode&=0x00FF;
     }
 
-    if(current_p_pos>=(KEYLOG_LEN-1))
+    if(current_cursor_pos>(KEYLOG_LEN-2))
     {
-        current_p_pos=0;
-        memset(keylog_str, ' ', sizeof(char)*KEYLOG_LEN);
+        current_cursor_pos=0;
+        memset(keylog_str, '*', sizeof(char)*KEYLOG_LEN);
+        keylog_str[KEYLOG_LEN-1] = '\0';
+        oled_write(keylog_str, FALSE);
+        last_c=ascii_t[GET_ASCII_IDX(keycode)];
+        current_cursor_pos++;
+        keylog_str[1] = '\0';
     }
-
-    if(keycode <= KC_TILD)
+    else
     {
-        keylog_str[current_p_pos]=last_c[0];
-        last_c[0]= ascii_t[GET_ASCII_IDX(keycode)];
-        current_p_pos++;
+        if(keycode <= KC_TILD)
+        {
+            keylog_str[current_cursor_pos]=last_c;
+            last_c=ascii_t[GET_ASCII_IDX(keycode)];
+            current_cursor_pos++;
+        }
+        keylog_str[current_cursor_pos] = '\0';
     }
-
-    keylog_str[current_p_pos] = '\0';
 
     log_timer = timer_read();
 
@@ -264,17 +270,17 @@ void update_log(void)
 
 void render_keylogger_status(void)
 {
-    static bool prompt_f=TRUE;
+    static bool cursor_f=TRUE;
 
-    if(timer_elapsed32(prompt_oled_timer) > 300)
+    if(timer_elapsed32(cursor_oled_timer) > 300)
     {
-        prompt_oled_timer = timer_read32();
-        prompt_f=TOGGLE_BOOL_VAR(prompt_f);
+        cursor_oled_timer = timer_read32();
+        cursor_f=TOGGLE_BOOL_VAR(cursor_f);
     }
 
     oled_write_P(PSTR("\n>:"), FALSE);
     oled_write(keylog_str, FALSE);
-    oled_write(last_c, prompt_f);
+    oled_write_char(last_c, cursor_f);
 
 }
 
