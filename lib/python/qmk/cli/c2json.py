@@ -47,7 +47,7 @@ def c2json(cli):
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.name + '.bak')
+            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
         cli.args.output.write_text(json.dumps(keymap_json, cls=InfoJSONEncoder))
 
         if not cli.args.quiet:
