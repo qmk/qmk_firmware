@@ -5,12 +5,13 @@
 #include "oled.h"
 
 #define ASCII_TABLE_LENGTH       (0x80)
+#define KEYLOG_STRING_STARTUP    (KEYLOG_EOL_LEN+1)
 
 //#if defined(OLED_DRIVER_ENABLE)
 #if 1
 
 static char last_c=' ';
-char keylog_str[KEYLOG_LEN] = {' '};
+char keylog_str[KEYLOG_EOL_LEN] = {' '};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
 
@@ -234,7 +235,7 @@ void add_keylog(uint16_t keycode)
         keycode&=0x00FF;
     }
 
-    if(current_cursor_pos>(KEYLOG_LEN-2))
+    if(current_cursor_pos>(KEYLOG_LEN-1)||(current_cursor_pos>KEYLOG_STRING_STARTUP))
     {
         current_cursor_pos=0;
         last_c=ascii_t[GET_ASCII_IDX(keycode)];
@@ -274,12 +275,14 @@ void render_keylogger_status(void)
         cursor_f=TOGGLE_BOOL_VAR(cursor_f);
     }
     oled_write_P(PSTR("\n>:"), FALSE);
-    if(current_cursor_pos>(KEYLOG_LEN-2))
+    if(current_cursor_pos>(KEYLOG_LEN-1))
     {
         current_cursor_pos=0;
-        memset(keylog_str, ' ', sizeof(char)*KEYLOG_LEN);
-        keylog_str[KEYLOG_LEN-1] = '\0';
+        memset(keylog_str, ' ', sizeof(char)*KEYLOG_EOL_LEN);
+        /* Here the EOL is to clear with white spaces all the keylog area */
+        keylog_str[KEYLOG_EOL_LEN-1] = '\0';
         oled_write(keylog_str, FALSE);
+        /* Reset EOL to the begining of the keylog string */
         keylog_str[0] = '\0';
     }
     oled_write(keylog_str, FALSE);
