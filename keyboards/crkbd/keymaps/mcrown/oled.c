@@ -5,14 +5,16 @@
 #include "oled.h"
 
 #define ASCII_TABLE_LENGTH       (0x80)
+
 //#if defined(OLED_DRIVER_ENABLE)
 #if 1
 
+static char last_c=' ';
 char keylog_str[KEYLOG_LEN] = {' '};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
 
-const char ascii_t[ASCII_TABLE_LENGTH] = {
+static const char ascii_t[ASCII_TABLE_LENGTH] = {
         /*     0          1         2         3        4         5         6         7         8         9         A         B         C         D         E         F                */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             ' ',         ' ',      ' ',      ' ',     ' ',      ' ',      ' ',      ' ',     0x11,      0x1C,    0x1B,      ' ',      ' ',      ' ',      ' ',      ' ',         /* 0 */
@@ -32,7 +34,7 @@ const char ascii_t[ASCII_TABLE_LENGTH] = {
             'p',         'q',      'r',      's',     't',      'u',      'v',      'w',      'x',       'y',     'z',      '{',      '|',      '}',      '~',     0x11,         /* 7 */
 };
 
-const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
+static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
         /*     0          1         2         3        4         5         6         7         8         9         A         B         C         D         E         F                */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
            0x00,        0x00,     0x00,     0x00,      'a',      'b',     'c',      'd',      'e',       'f',     'g',      'h',      'i',      'j',      'k',      'l',         /* 0 */
@@ -52,8 +54,11 @@ const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
            0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 7 */
 };
 
+#define GET_ASCII_IDX(kc) (kc<KC_CAPSLOCK?code_to_ascii[(kc)]:code_to_ascii[R_LSFT((kc))])
+
 extern uint8_t is_master;
 
+static uint8_t current_p_pos=1;
 static uint32_t propmt_oled_timer = 0;
 static uint32_t standby_oled_timer = 0;
 
@@ -224,25 +229,23 @@ void oled_task_user(void)
 
 void add_keylog(uint16_t keycode)
 {
-    unsigned char ascii_idx;
-    static uint8_t current_c_pos=0;
-
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX))
     {
         keycode&=0x00FF;
     }
 
-    if(current_c_pos>=(KEYLOG_LEN-1))
+    if(current_p_pos>=(KEYLOG_LEN-1))
     {
-        current_c_pos=0;
+        current_p_pos=0;
         memset(keylog_str, ' ', sizeof(char)*KEYLOG_LEN);
     }
 
-    if(keycode < KC_TILD+1)
+    if(keycode <= KC_TILD)
     {
-        ascii_idx=keycode<KC_CAPSLOCK?code_to_ascii[keycode]:code_to_ascii[R_LSFT(keycode)];
-        keylog_str[current_c_pos] = ascii_t[ascii_idx];
-        current_c_pos++;
+        keylog_str[current_p_pos] = ascii_t[GET_ASCII_IDX(keycode)];
+        keylog_str[current_p_pos-1]=last_c;
+        last_c=keylog_str[current_p_pos];
+        current_p_pos++;
     }
 
     keylog_str[KEYLOG_LEN - 1] = '\0';
@@ -262,21 +265,22 @@ void update_log(void)
 
 void render_keylogger_status(void)
 {
-    static bool prompt=TRUE;
+    static bool prompt_f=TRUE;
 
     if(timer_elapsed32(propmt_oled_timer) > 300)
     {
         propmt_oled_timer = timer_read32();
-        prompt=(prompt^TRUE)&TRUE;
+        prompt_f=TOGGLE_BOOL_VAR(prompt_f);
     }
 
-    if(TRUE==prompt)
+    oled_write_P(PSTR("\n>:"), FALSE);
+    if(TRUE==prompt_f)
     {
-        oled_write_P(PSTR("\n>: "), FALSE);
+        keylog_str[current_p_pos-1]=last_c;
     }
     else
     {
-        oled_write_P(PSTR("\n : "), FALSE);
+        keylog_str[current_p_pos-1] = 0x08;
     }
     oled_write(keylog_str, FALSE);
 }

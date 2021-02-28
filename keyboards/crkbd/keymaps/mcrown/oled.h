@@ -3,9 +3,9 @@
 #include "mcrown.h"
 
 #ifdef OLED_VERTICAL
-#define KEYLOG_LEN 48
+#define KEYLOG_LEN (49)
 #else
-#define KEYLOG_LEN 19
+#define KEYLOG_LEN (20)
 #endif
 
 extern void add_keylog(uint16_t keycode);
