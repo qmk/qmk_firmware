@@ -150,7 +150,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_LIFE
-#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 75
+#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 200
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_TWINKLE_PROBABILITY
@@ -347,6 +347,9 @@ uint8_t rgblight_get_speed(void);
 void    rgblight_set_speed(uint8_t speed);
 void    rgblight_set_speed_noeeprom(uint8_t speed);
 
+/*   reset */
+void rgblight_reload_from_eeprom(void);
+
 /*       query */
 uint8_t rgblight_get_mode(void);
 uint8_t rgblight_get_hue(void);
@@ -357,6 +360,8 @@ HSV     rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);
+void     rgblight_suspend(void);
+void     rgblight_wakeup(void);
 uint32_t rgblight_read_dword(void);
 void     rgblight_update_dword(uint32_t dword);
 uint32_t eeconfig_read_rgblight(void);

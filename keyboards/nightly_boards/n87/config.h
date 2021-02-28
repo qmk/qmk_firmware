@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Neil Brian Ramirez
 #define PRODUCT [n]87
-#define DESCRIPTION A TKL pcb that supports standard, tsangan and symmetrical standard bottom row
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -85,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
 
-#define B7_AUDIO
+#define AUDIO_PIN B7
 
 #define AUDIO_CLICKY
 
@@ -204,9 +203,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

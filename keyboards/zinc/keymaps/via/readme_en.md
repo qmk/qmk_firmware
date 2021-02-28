@@ -1,4 +1,4 @@
-﻿# The VIA Zinc Layout
+# The VIA Zinc Layout
 ## layout
 
 ### Qwerty

@@ -180,6 +180,43 @@
  * @return                          The bit index
  */
 #    define WS2812_BLUE_BIT(led, bit) WS2812_BIT((led), 2, (bit))
+
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given red bit
+ *
+ * @note    The red byte is the middle byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit number [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_RED_BIT(led, bit) WS2812_BIT((led), 2, (bit))
+
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given green bit
+ *
+ * @note    The red byte is the first byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit number [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_GREEN_BIT(led, bit) WS2812_BIT((led), 1, (bit))
+
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given blue bit
+ *
+ * @note    The red byte is the last byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref RGBLED_NUM)
+ * @param[in] bit:                  The bit index [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_BLUE_BIT(led, bit) WS2812_BIT((led), 0, (bit))
 #endif
 
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */

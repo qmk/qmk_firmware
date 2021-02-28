@@ -61,7 +61,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_ROW_RIGHT 6
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 5
 
-#define C6_AUDIO
+#define AUDIO_PIN C6
+#define AUDIO_PIN_ALT B7
 
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
 #define DYNAMIC_KEYMAP_LAYER_COUNT 16
+
+/* serial.c configuration for split keyboard */
+#undef SOFT_SERIAL_PIN
+#define SOFT_SERIAL_PIN D2

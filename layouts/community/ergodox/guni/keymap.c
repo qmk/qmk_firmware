@@ -127,28 +127,6 @@ const uint16_t PROGMEM fn_actions[] = {
 	[26]  =  ACTION_LAYER_SET(1, ON_PRESS),
 };
 
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
-
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 {
    

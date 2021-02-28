@@ -3,7 +3,7 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE           = no  # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE           = lite # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE            = no  # Mouse keys(+4700)
 EXTRAKEY_ENABLE            = yes # Audio control and System control(+450)
 CONSOLE_ENABLE             = no  # Console for debug(+400)
@@ -20,9 +20,15 @@ SWAP_HANDS_ENABLE          = no  # Enable one-hand typing
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
+ifeq ($(strip $(KEYBOARD)), crkbd/rev1/common)
     OLED_DRIVER_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
     HAPTIC_ENABLE = SOLENOID
     BOOTLOADER = qmk-dfu
+endif
+
+ifeq ($(strip $(CTPC)), yes)
+    HAPTIC_ENABLE = no
+    WS2812_DRIVER = pwm # won't work without a patch to the ctpc mk file
+    SERIAL_DRIVER = usart
 endif
