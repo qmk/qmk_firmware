@@ -21,7 +21,14 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/bitwise.c \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c
+    $(QUANTUM_DIR)/keycode_config.c \
+    $(QUANTUM_DIR)/logging/debug.c \
+    $(QUANTUM_DIR)/logging/sendchar.c \
+
+VPATH += $(QUANTUM_DIR)/logging
+ifeq ("$(wildcard $(TMK_PATH)/common/$(PLATFORM_KEY)/printf.mk)","")
+    include $(QUANTUM_PATH)/logging/print.mk
+endif
 
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
