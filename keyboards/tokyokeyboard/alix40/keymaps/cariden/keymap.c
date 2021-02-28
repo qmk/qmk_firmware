@@ -320,60 +320,6 @@ void matrix_scan_user(void) {
 		leading = false;
 		leader_end();
 
-        SEQ_ONE_KEY(KC_T){
-		      SEND_STRING("sudo /etc/init.d/tomcat7 restart");
-	      }
-        SEQ_TWO_KEYS(KC_T,KC_T){
-		      SEND_STRING("sudo /etc/init.d/tomcat7 stop");
-	      }
-        SEQ_THREE_KEYS(KC_T,KC_T,KC_T){
-		      SEND_STRING("sudo /etc/init.d/tomcat7 start");
-	      }
-        SEQ_ONE_KEY(KC_COMM){
-          SEND_STRING("sudo service delegosrv-"SS_TAP(X_TAB)"restart");
-        }
-        SEQ_TWO_KEYS(KC_COMM,KC_COMM){
-          SEND_STRING("sudo service delegosrv-"SS_TAP(X_TAB)"stop");
-        }
-        SEQ_THREE_KEYS(KC_COMM,KC_COMM,KC_COMM){
-          SEND_STRING("sudo service delegosrv- start");
-          SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-        }
-        SEQ_ONE_KEY(KC_M){
-          SEND_STRING("sudo service delegomt-"SS_TAP(X_TAB)"restart");
-        }
-        SEQ_TWO_KEYS(KC_M,KC_M){
-          SEND_STRING("sudo service delegomt-"SS_TAP(X_TAB)"stop");
-        }
-        SEQ_THREE_KEYS(KC_M,KC_M,KC_M){
-          SEND_STRING("sudo service delegomt- start");
-          SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-        }
-        SEQ_ONE_KEY(KC_N){
-          SEND_STRING("sudo service delegosecure-"SS_TAP(X_TAB)"restart");
-        }
-        SEQ_TWO_KEYS(KC_N,KC_N){
-          SEND_STRING("sudo service delegosecure-"SS_TAP(X_TAB)"stop");
-        }
-        SEQ_THREE_KEYS(KC_N,KC_N,KC_N){
-          SEND_STRING("sudo service delegosecure- start");
-          SEND_STRING(SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-        }
-	      SEQ_ONE_KEY(KC_V){
-		      SEND_STRING("sudo puppet agent --test");
-	    }
-        SEQ_TWO_KEYS(KC_V,KC_V){
-		      SEND_STRING("sudo puppet agent --disable ");
-          SEND_STRING(SS_LSFT("'"));
-          SEND_STRING(SS_LSFT("'"));
-          SEND_STRING(SS_TAP(X_LEFT));
-	      }
-        SEQ_THREE_KEYS(KC_V,KC_V,KC_V){
-		      SEND_STRING("sudo puppet agent --enable");
-	      }
-        SEQ_TWO_KEYS(KC_D,KC_H){
-          SEND_STRING("delego-home.sh");
-        }
         SEQ_ONE_KEY(KC_P){
           SEND_STRING(SS_LCTRL(SS_LSFT("p")));
         }
@@ -389,35 +335,8 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_F,KC_F){
             SEND_STRING(SS_LCTRL("kj"));
         }
-        SEQ_TWO_KEYS(KC_T,KC_S){
-          SEND_STRING("export PYTHONWARNINGS=ignore;uname -r && test_ws_secure.py && test_ws_mt.py `test_ws_secure.py` && testCE.sh && grep ");
-          SEND_STRING(SS_LSFT("'"));
-          SEND_STRING("Connected with SAP");
-          SEND_STRING(SS_LSFT("'"));
-          SEND_STRING(" /var/log/delego/*/*/Delego*.log");
-        }
-        SEQ_THREE_KEYS(KC_T,KC_S,KC_S){
-          SEND_STRING("export PYTHONWARNINGS=ignore;uname -r && test_ws_secure.py && test_ws_mt.py `test_ws_secure.py`");
-        }
-        SEQ_FOUR_KEYS(KC_T,KC_S,KC_S,KC_S){
-          SEND_STRING("uname -r && testCE.sh");
-        }
-	      SEQ_ONE_KEY(KC_1){
-		      SEND_STRING(SS_TAP(X_LGUI));
-		      wait_ms(175);
-		      SEND_STRING("cmd");
-		      wait_ms(175);
-		      SEND_STRING(SS_TAP(X_ENTER));
-		      wait_ms(500);
-		      SEND_STRING(SS_LSFT("'")"AWSMulti.bat"SS_LSFT("'")SS_TAP(X_ENTER));
-	      }
         SEQ_ONE_KEY(KC_4){
             SEND_STRING(SS_LCTRL(SS_TAP(X_F4)));
-        }
-        SEQ_FOUR_KEYS(KC_F,KC_I,KC_L,KC_L){
-            SEND_STRING("Christian"SS_TAP(X_TAB));
-            SEND_STRING("Eguaras"SS_TAP(X_TAB));
-            SEND_STRING("email@email.com"SS_TAP(X_TAB)SS_TAP(X_TAB)SS_TAP(X_TAB)SS_TAP(X_TAB));
         }
 	}
 }

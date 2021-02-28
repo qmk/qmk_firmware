@@ -1,0 +1,8 @@
+SRC += muse.c
+
+#BOOTMAGIC_ENABLE = full
+LEADER_ENABLE = yes
+
+COMBO_ENABLE = yes
+
+NKRO_ENABLE = yes
