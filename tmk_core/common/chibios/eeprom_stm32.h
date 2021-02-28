@@ -37,6 +37,10 @@
 #    define MCU_STM32F072CB
 #elif defined(EEPROM_EMU_STM32F042x6)
 #    define MCU_STM32F042K6
+#elif defined(EEPROM_EMU_STM32L433xC)
+#    define MCU_STM32L433CC
+#elif defined(EEPROM_EMU_STM32L433xB)
+#    define MCU_STM32L433CB
 #else
 #    error "not implemented."
 #endif
@@ -45,7 +49,7 @@
 #    if defined(MCU_STM32F103RB) || defined(MCU_STM32F042K6)
 #        define FEE_PAGE_SIZE (uint16_t)0x400  // Page size = 1KByte
 #        define FEE_DENSITY_PAGES 2            // How many pages are used
-#    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB)
+#    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB) || defined(MCU_STM32L433CC)
 #        define FEE_PAGE_SIZE (uint16_t)0x800  // Page size = 2KByte
 #        define FEE_DENSITY_PAGES 4            // How many pages are used
 #    else
@@ -54,7 +58,7 @@
 #endif
 
 #ifndef EEPROM_START_ADDRESS
-#    if defined(MCU_STM32F103RB) || defined(MCU_STM32F072CB)
+#    if defined(MCU_STM32F103RB) || defined(MCU_STM32F072CB) || defined(MCU_STM32L433CB)
 #        define FEE_MCU_FLASH_SIZE 128  // Size in Kb
 #    elif defined(MCU_STM32F042K6)
 #        define FEE_MCU_FLASH_SIZE 32  // Size in Kb
@@ -62,7 +66,7 @@
 #        define FEE_MCU_FLASH_SIZE 512  // Size in Kb
 #    elif defined(MCU_STM32F103RD)
 #        define FEE_MCU_FLASH_SIZE 384  // Size in Kb
-#    elif defined(MCU_STM32F303CC)
+#    elif defined(MCU_STM32F303CC) || defined(MCU_STM32L433CC)
 #        define FEE_MCU_FLASH_SIZE 256  // Size in Kb
 #    else
 #        error "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
