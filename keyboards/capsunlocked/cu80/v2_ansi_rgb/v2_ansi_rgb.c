@@ -24,23 +24,12 @@ void matrix_init_kb(void) {
   matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
-}
-
-void led_set_kb(uint8_t usb_led) {
-}
-
 /* Set LED 62 (Caps Lock) and LED 14 (Scroll Lock) when key active */
 void rgb_matrix_indicators_kb(void) {
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(62, 255, 255, 255);
         }
-    if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) {
+    if (host_keyboard_led_state().scroll_lock) {
         rgb_matrix_set_color(14, 255, 255, 255);
     }
 }
