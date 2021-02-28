@@ -77,7 +77,7 @@ uint32_t reset_key __attribute__((section(".noinit,\"aw\",@nobits;")));
  *
  * FIXME: needs doc
  */
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
 #if !defined(BOOTLOADER_SIZE)
     uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
 
