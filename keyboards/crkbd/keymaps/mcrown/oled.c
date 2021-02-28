@@ -9,7 +9,7 @@
 //#if defined(OLED_DRIVER_ENABLE)
 #if 1
 
-static char last_c=' ';
+static char last_c[]={' ', '\0'};
 char keylog_str[KEYLOG_LEN] = {' '};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
@@ -59,7 +59,7 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
 extern uint8_t is_master;
 
 static uint8_t current_p_pos=1;
-static uint32_t propmt_oled_timer = 0;
+static uint32_t prompt_oled_timer = 0;
 static uint32_t standby_oled_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation)
@@ -242,13 +242,12 @@ void add_keylog(uint16_t keycode)
 
     if(keycode <= KC_TILD)
     {
-        keylog_str[current_p_pos] = ascii_t[GET_ASCII_IDX(keycode)];
-        keylog_str[current_p_pos-1]=last_c;
-        last_c=keylog_str[current_p_pos];
+        keylog_str[current_p_pos]=last_c[0];
+        last_c[0]= ascii_t[GET_ASCII_IDX(keycode)];
         current_p_pos++;
     }
 
-    keylog_str[KEYLOG_LEN - 1] = '\0';
+    keylog_str[current_p_pos] = '\0';
 
     log_timer = timer_read();
 
@@ -267,22 +266,16 @@ void render_keylogger_status(void)
 {
     static bool prompt_f=TRUE;
 
-    if(timer_elapsed32(propmt_oled_timer) > 300)
+    if(timer_elapsed32(prompt_oled_timer) > 300)
     {
-        propmt_oled_timer = timer_read32();
+        prompt_oled_timer = timer_read32();
         prompt_f=TOGGLE_BOOL_VAR(prompt_f);
     }
 
     oled_write_P(PSTR("\n>:"), FALSE);
-    if(TRUE==prompt_f)
-    {
-        keylog_str[current_p_pos-1]=last_c;
-    }
-    else
-    {
-        keylog_str[current_p_pos-1] = 0x08;
-    }
     oled_write(keylog_str, FALSE);
+    oled_write(last_c, prompt_f);
+
 }
 
 #endif
