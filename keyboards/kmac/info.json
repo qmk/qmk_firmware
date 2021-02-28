@@ -1,8 +1,6 @@
 {
   "keyboard_name": "kmac",
-  "url": "",
   "maintainer": "qmk",
-  "bootloader": "",
   "width": 18.25,
   "height": 6.5,
   "layouts": {

@@ -30,16 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                            KC_PLAY,                            _______, KC_REC,  KC_DONE, _______, _______, _______, _______, _______, _______),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	return MACRO_NONE;
-}
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_dynamic_macro(keycode, record)) {
         return false;

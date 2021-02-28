@@ -101,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * Heisenberg-specific definitions
  */
-#define B5_AUDIO
+#define AUDIO_PIN B5
 /**
  * Heisenberg-specific definitions END
  */

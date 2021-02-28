@@ -46,6 +46,7 @@ enum bs_layers {
     _ADJUST = 15 // 15: Change keyboard settings
 };
 
+#define _MACRO _M1
 #define _LOWER _FN1
 #define _RAISE _FN2
 

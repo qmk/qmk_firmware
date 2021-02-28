@@ -25,10 +25,6 @@
 #    include "backlight.h"
 #endif
 
-#ifdef FAUXCLICKY_ENABLE
-#    include "fauxclicky.h"
-#endif
-
 #ifdef API_ENABLE
 #    include "api.h"
 #endif
@@ -225,9 +221,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
 #endif  // HAPTIC_ENABLE
-#if defined(RGB_MATRIX_ENABLE)
-            process_rgb_matrix(keycode, record) &&
-#endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
@@ -310,17 +303,6 @@ bool process_record_quantum(keyrecord_t *record) {
             case EEPROM_RESET:
                 eeconfig_init();
                 return false;
-#ifdef FAUXCLICKY_ENABLE
-            case FC_TOG:
-                FAUXCLICKY_TOGGLE;
-                return false;
-            case FC_ON:
-                FAUXCLICKY_ON;
-                return false;
-            case FC_OFF:
-                FAUXCLICKY_OFF;
-                return false;
-#endif
 #ifdef VELOCIKEY_ENABLE
             case VLK_TOG:
                 velocikey_toggle();
@@ -372,6 +354,29 @@ __attribute__((weak)) const uint8_t ascii_to_shift_lut[16] PROGMEM = {
  * [AltGr] needs to be sent with the keycode.
  */
 __attribute__((weak)) const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+};
+
+/* Bit-Packed look-up table to convert an ASCII character to whether
+ * [Space] needs to be sent after the keycode
+ */
+__attribute__((weak)) const uint8_t ascii_to_dead_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -531,6 +536,7 @@ void send_char(char ascii_code) {
     uint8_t keycode    = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
     bool    is_shifted = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
     bool    is_altgred = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
+    bool    is_dead    = PGM_LOADBIT(ascii_to_dead_lut, (uint8_t)ascii_code);
 
     if (is_shifted) {
         register_code(KC_LSFT);
@@ -544,6 +550,9 @@ void send_char(char ascii_code) {
     }
     if (is_shifted) {
         unregister_code(KC_LSFT);
+    }
+    if (is_dead) {
+        tap_code(KC_SPACE);
     }
 }
 
@@ -629,6 +638,26 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
+#if defined(AUDIO_ENABLE)
+    // There are some tasks that need to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    //
+    // At the moment the only feature that needs this is the
+    // startup song.
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
+#endif
+
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
 #endif
@@ -647,10 +676,6 @@ void matrix_scan_quantum() {
 
 #ifdef LED_MATRIX_ENABLE
     led_matrix_task();
-#endif
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_task();
 #endif
 
 #ifdef WPM_ENABLE
