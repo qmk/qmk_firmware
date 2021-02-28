@@ -93,6 +93,8 @@
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
 
+#define TOGGLE_BOOL_VAR(bv) (((bv)^TRUE)&TRUE)
+
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 #define R_LSFT(kc) ((0x20)+(kc-0x200))
