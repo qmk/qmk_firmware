@@ -17,7 +17,7 @@ uint16_t log_timer = 0;
 static const char ascii_t[ASCII_TABLE_LENGTH] = {
         /*     0          1         2         3        4         5         6         7         8         9         A         B         C         D         E         F                */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
-            ' ',         ' ',      ' ',      ' ',     ' ',      ' ',      ' ',      ' ',     0x11,      0x1C,    0x1B,      ' ',      ' ',      ' ',      ' ',      ' ',         /* 0 */
+            ' ',         ' ',      ' ',      ' ',     ' ',      ' ',      ' ',      ' ',     0x11,      0x1C,    0x19,      ' ',      ' ',      ' ',      ' ',      ' ',         /* 0 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             ' ',         ' ',      ' ',      ' ',     ' ',      ' ',      ' ',      ' ',      ' ',       ' ',     ' ',     0x1D,      ' ',      ' ',      ' ',      ' ',         /* 1 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
@@ -31,7 +31,7 @@ static const char ascii_t[ASCII_TABLE_LENGTH] = {
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             '`',         'a',      'b',      'c',     'd',      'e',      'f',      'g',      'h',       'i',     'j',      'k',      'l',      'm',      'n',      'o',         /* 6 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
-            'p',         'q',      'r',      's',     't',      'u',      'v',      'w',      'x',       'y',     'z',      '{',      '|',      '}',      '~',     0x11,         /* 7 */
+            'p',         'q',      'r',      's',     't',      'u',      'v',      'w',      'x',       'y',     'z',      '{',      '|',      '}',      '~',     0x1B,         /* 7 */
 };
 
 static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
@@ -45,7 +45,7 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             ']',        '\\',     0x00,      ';',     '\'',      '`',     ',',      '.',      '/',      0x00,    0x00,     0x00,     0x00,     0x00,      '!',      '@',         /* 3 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
-            '#',         '$',      '%',      '^',      '&',      '*',     '(',      ')',     0x00,      0x00,    0x00,     0x00,     0x00,      '_',      '+',      '{',         /* 4 */
+            '#',         '$',      '%',      '^',      '&',      '*',     '(',      ')',     0x00,      0x00,    0x00,     0x00,     0x7F,      '_',      '+',      '{',         /* 4 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
             '}',         '|',     0x00,     0x00,     0x00,      '~',    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 5 */
         /*          |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         |           */
@@ -54,7 +54,7 @@ static const unsigned char code_to_ascii[ASCII_TABLE_LENGTH] = {
            0x00,        0x00,     0x00,     0x00,     0x00,     0x00,    0x00,     0x00,     0x00,      0x00,    0x00,     0x00,     0x00,     0x00,     0x00,     0x00,         /* 7 */
 };
 
-#define GET_ASCII_IDX(kc) (kc<KC_CAPSLOCK?code_to_ascii[(kc)]:code_to_ascii[R_LSFT((kc))])
+#define GET_ASCII_IDX(kc) (kc<QK_LSFT?code_to_ascii[(kc)]:code_to_ascii[R_LSFT((kc))])
 
 extern uint8_t is_master;
 
