@@ -76,6 +76,11 @@ void action_exec(keyevent_t event) {
 #endif
     }
 
+    if (event.pressed) {
+        // clear the potential weak mods left by previously pressed keys
+        clear_weak_mods();
+    }
+
 #ifdef SWAP_HANDS_ENABLE
     if (!IS_NOEVENT(event)) {
         process_hand_swap(&event);
@@ -236,11 +241,6 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
 #endif
-
-    if (event.pressed) {
-        // clear the potential weak mods left by previously pressed keys
-        clear_weak_mods();
-    }
 
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
