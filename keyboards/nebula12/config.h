@@ -19,13 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* LSE clock */
+#define STM32_LSECLK 32768
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8968
 #define PRODUCT_ID      0x5337
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NEBULA12
-#define DESCRIPTION     "A 12-key, tool-free RGB keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -40,6 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
+
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 /* Setting up 400KHz I2C Clock for a 48MHz system clock */
 #define I2C1_SCL_PAL_MODE 1
@@ -95,12 +103,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 4
+  #define RGBLED_NUM 10 /* If number is smaller, buffer updates too fast causing glitches */
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
   #define RGBLIGHT_ANIMATIONS
 #endif
 

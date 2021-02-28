@@ -21,7 +21,7 @@
 #    include <avr/interrupt.h>
 #endif
 #if defined(PROTOCOL_CHIBIOS)
-#    include "hal.h"
+#    include <hal.h>
 #    include "chibios_config.h"
 #endif
 
@@ -31,7 +31,7 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
-#        include "ledmatrix.h"
+#        include "led_matrix.h"
 #    else
 #        include "backlight.h"
 #    endif
@@ -53,9 +53,13 @@
 #include "eeconfig.h"
 #include "bootloader.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "config_common.h"
+#include "gpio.h"
+#include "atomic_util.h"
 #include "led.h"
 #include "action_util.h"
+#include "action_tapping.h"
 #include "print.h"
 #include "send_string_keycodes.h"
 #include "suspend.h"
@@ -66,6 +70,11 @@ extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
 extern layer_state_t layer_state;
+#endif
+
+#if defined(SEQUENCER_ENABLE)
+#    include "sequencer.h"
+#    include "process_sequencer.h"
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -142,6 +151,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
 #ifdef GRAVE_ESC_ENABLE
 #    include "process_grave_esc.h"
 #endif
@@ -182,40 +195,42 @@ extern layer_state_t layer_state;
 #    include "wpm.h"
 #endif
 
-// Function substitutions to ease GPIO manipulation
-#if defined(__AVR__)
-typedef uint8_t pin_t;
-
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
-
-#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
-
-#elif defined(PROTOCOL_CHIBIOS)
-typedef ioline_t pin_t;
-
-#    define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
-#    define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
-#    define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
-#    define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
-
-#    define writePinHigh(pin) palSetLine(pin)
-#    define writePinLow(pin) palClearLine(pin)
-#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
-
-#    define readPin(pin) palReadLine(pin)
-
-#    define togglePin(pin) palToggleLine(pin)
+#ifdef USBPD_ENABLE
+#    include "usbpd.h"
 #endif
 
+// Function substitutions to ease GPIO manipulation
+#if defined(__AVR__)
+
+/*   The AVR series GPIOs have a one clock read delay for changes in the digital input signal.
+ *   But here's more margin to make it two clocks. */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        define GPIO_INPUT_PIN_DELAY 2
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
+
+#elif defined(__ARMEL__) || defined(__ARMEB__)
+
+/* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
+ * to which the GPIO is connected.
+ * The connected buses differ depending on the various series of MCUs.
+ * And since the instruction execution clock of the CPU and the bus clock of GPIO are different,
+ * there is a delay of several clocks to read the change of the input signal.
+ *
+ * Define this delay with the GPIO_INPUT_PIN_DELAY macro.
+ * If the GPIO_INPUT_PIN_DELAY macro is not defined, the following default values will be used.
+ * (A fairly large value of 0.25 microseconds is set.)
+ */
+#    if !defined(GPIO_INPUT_PIN_DELAY)
+#        if defined(STM32_SYSCLK)
+#            define GPIO_INPUT_PIN_DELAY (STM32_SYSCLK / 1000000L / 4)
+#        elif defined(KINETIS_SYSCLK_FREQUENCY)
+#            define GPIO_INPUT_PIN_DELAY (KINETIS_SYSCLK_FREQUENCY / 1000000L / 4)
+#        endif
+#    endif
+#    define waitInputPinDelay() wait_cpuclock(GPIO_INPUT_PIN_DELAY)
+
+#endif
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
@@ -223,6 +238,7 @@ typedef ioline_t pin_t;
 extern const uint8_t ascii_to_keycode_lut[128];
 extern const uint8_t ascii_to_shift_lut[16];
 extern const uint8_t ascii_to_altgr_lut[16];
+extern const uint8_t ascii_to_dead_lut[16];
 // clang-format off
 #define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
     ( ((a) ? 1 : 0) << 0 \

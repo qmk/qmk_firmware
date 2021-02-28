@@ -20,49 +20,110 @@
 
 #ifdef SOFT_SERIAL_PIN
 
-#    ifdef __AVR_ATmega32U4__
-// if using ATmega32U4 I2C, can not use PD0 and PD1 in soft serial.
-#        ifdef USE_AVR_I2C
-#            if SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1
-#                error Using ATmega32U4 I2C, so can not use PD0, PD1
-#            endif
+#    if !(defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+#        error serial.c is not supported for the currently selected MCU
+#    endif
+// if using ATmega32U4/2, AT90USBxxx I2C, can not use PD0 and PD1 in soft serial.
+#    if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#        if defined(USE_AVR_I2C) && (SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1)
+#            error Using I2C, so can not use PD0, PD1
 #        endif
+#    endif
+// PD0..PD3, common config
+#    if SOFT_SERIAL_PIN == D0
+#        define EIMSK_BIT _BV(INT0)
+#        define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
+#        define SERIAL_PIN_INTERRUPT INT0_vect
+#        define EICRx EICRA
+#    elif SOFT_SERIAL_PIN == D1
+#        define EIMSK_BIT _BV(INT1)
+#        define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
+#        define SERIAL_PIN_INTERRUPT INT1_vect
+#        define EICRx EICRA
+#    elif SOFT_SERIAL_PIN == D2
+#        define EIMSK_BIT _BV(INT2)
+#        define EICRx_BIT (~(_BV(ISC20) | _BV(ISC21)))
+#        define SERIAL_PIN_INTERRUPT INT2_vect
+#        define EICRx EICRA
+#    elif SOFT_SERIAL_PIN == D3
+#        define EIMSK_BIT _BV(INT3)
+#        define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
+#        define SERIAL_PIN_INTERRUPT INT3_vect
+#        define EICRx EICRA
+#    endif
 
-#        define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#        define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-#        define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#        define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#        define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+// ATmegaxxU2/AT90USB162 specific config
+#    if defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_AT90USB162__)
+// PD4(INT5), PD6(INT6), PD7(INT7), PC7(INT4)
+#        if SOFT_SERIAL_PIN == D4
+#            define EIMSK_BIT _BV(INT5)
+#            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
+#            define SERIAL_PIN_INTERRUPT INT5_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == D6
+#            define EIMSK_BIT _BV(INT6)
+#            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
+#            define SERIAL_PIN_INTERRUPT INT6_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == D7
+#            define EIMSK_BIT _BV(INT7)
+#            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
+#            define SERIAL_PIN_INTERRUPT INT7_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == C7
+#            define EIMSK_BIT _BV(INT4)
+#            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
+#            define SERIAL_PIN_INTERRUPT INT4_vect
+#            define EICRx EICRB
+#        endif
+#    endif
 
-#        if SOFT_SERIAL_PIN >= D0 && SOFT_SERIAL_PIN <= D3
-#            if SOFT_SERIAL_PIN == D0
-#                define EIMSK_BIT _BV(INT0)
-#                define EICRx_BIT (~(_BV(ISC00) | _BV(ISC01)))
-#                define SERIAL_PIN_INTERRUPT INT0_vect
-#            elif SOFT_SERIAL_PIN == D1
-#                define EIMSK_BIT _BV(INT1)
-#                define EICRx_BIT (~(_BV(ISC10) | _BV(ISC11)))
-#                define SERIAL_PIN_INTERRUPT INT1_vect
-#            elif SOFT_SERIAL_PIN == D2
-#                define EIMSK_BIT _BV(INT2)
-#                define EICRx_BIT (~(_BV(ISC20) | _BV(ISC21)))
-#                define SERIAL_PIN_INTERRUPT INT2_vect
-#            elif SOFT_SERIAL_PIN == D3
-#                define EIMSK_BIT _BV(INT3)
-#                define EICRx_BIT (~(_BV(ISC30) | _BV(ISC31)))
-#                define SERIAL_PIN_INTERRUPT INT3_vect
-#            endif
+// ATmegaxxU4 specific config
+#    if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
+// PE6(INT6)
+#        if SOFT_SERIAL_PIN == E6
+#            define EIMSK_BIT _BV(INT6)
+#            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
+#            define SERIAL_PIN_INTERRUPT INT6_vect
+#            define EICRx EICRB
+#        endif
+#    endif
+
+// AT90USBxxx specific config
+#    if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+// PE4..PE7(INT4..INT7)
+#        if SOFT_SERIAL_PIN == E4
+#            define EIMSK_BIT _BV(INT4)
+#            define EICRx_BIT (~(_BV(ISC40) | _BV(ISC41)))
+#            define SERIAL_PIN_INTERRUPT INT4_vect
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == E5
+#            define EIMSK_BIT _BV(INT5)
+#            define EICRx_BIT (~(_BV(ISC50) | _BV(ISC51)))
+#            define SERIAL_PIN_INTERRUPT INT5_vect
+#            define EICRx EICRB
 #        elif SOFT_SERIAL_PIN == E6
 #            define EIMSK_BIT _BV(INT6)
 #            define EICRx_BIT (~(_BV(ISC60) | _BV(ISC61)))
 #            define SERIAL_PIN_INTERRUPT INT6_vect
-#        else
-#            error invalid SOFT_SERIAL_PIN value
+#            define EICRx EICRB
+#        elif SOFT_SERIAL_PIN == E7
+#            define EIMSK_BIT _BV(INT7)
+#            define EICRx_BIT (~(_BV(ISC70) | _BV(ISC71)))
+#            define SERIAL_PIN_INTERRUPT INT7_vect
+#            define EICRx EICRB
 #        endif
-
-#    else
-#        error serial.c now support ATmega32U4 only
 #    endif
+
+#    ifndef SERIAL_PIN_INTERRUPT
+#        error invalid SOFT_SERIAL_PIN value
+#    endif
+
+#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
+#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
+#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
 #    define ALWAYS_INLINE __attribute__((always_inline))
 #    define NO_INLINE __attribute__((noinline))
@@ -210,15 +271,9 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size) {
     Transaction_table_size = (uint8_t)sstd_table_size;
     serial_input_with_pullup();
 
-    // Enable INT0-INT3,INT6
+    // Enable INT0-INT7
     EIMSK |= EIMSK_BIT;
-#    if SOFT_SERIAL_PIN == E6
-    // Trigger on falling edge of INT6
-    EICRB &= EICRx_BIT;
-#    else
-    // Trigger on falling edge of INT0-INT3
-    EICRA &= EICRx_BIT;
-#    endif
+    EICRx &= EICRx_BIT;
 }
 
 // Used by the sender to synchronize timing with the reciver.

@@ -1,19 +1,19 @@
 Quefrency
 =========
 
-A split 60% staggered keyboard made and sold by Keebio. [More info at Keebio](https://keeb.io).
+A split 60/65% staggered keyboard made and sold by Keebio. [More info at Keebio](https://keeb.io).
 
 Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)  
-Hardware Supported: Pro Micro  
+Hardware Supported: Pro Micro (Rev. 1), ATmega32u4 (Rev. 2 & 3)  
 Hardware Availability: [Keebio](https://keeb.io/)  
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keebio/quefrency/rev1:default
+    make keebio/quefrency/rev3:default
 
 Example of flashing this keyboard:
 
-    make keebio/quefrency/rev1:default:avrdude
+    make keebio/quefrency/rev3:default:avrdude
 
 Handedness detection is already hardwired onto the PCB, so no need to deal with `EE_HANDS` or flashing .eep files.
 

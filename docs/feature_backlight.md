@@ -62,14 +62,15 @@ Valid driver values are `pwm`, `software`, `custom` or `no`. See below for help 
 
 To configure the backlighting, `#define` these in your `config.h`:
 
-|Define               |Default      |Description                                                                          |
-|---------------------|-------------|-------------------------------------------------------------------------------------|
-|`BACKLIGHT_PIN`      |*Not defined*|The pin that controls the LED(s)                                                     |
-|`BACKLIGHT_LEVELS`   |`3`          |The number of brightness levels (maximum 31 excluding off)                           |
-|`BACKLIGHT_CAPS_LOCK`|*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)     |
-|`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if supported                                             |
-|`BREATHING_PERIOD`   |`6`          |The length of one backlight "breath" in seconds                                      |
-|`BACKLIGHT_ON_STATE` |`1`          |The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low|
+| Define                 | Default       | Description                                                                                                       |
+|------------------------|---------------|-------------------------------------------------------------------------------------------------------------------|
+| `BACKLIGHT_PIN`        | *Not defined* | The pin that controls the LED(s)                                                                                  |
+| `BACKLIGHT_LEVELS`     | `3`           | The number of brightness levels (maximum 31 excluding off)                                                        |
+| `BACKLIGHT_CAPS_LOCK`  | *Not defined* | Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                                  |
+| `BACKLIGHT_BREATHING`  | *Not defined* | Enable backlight breathing, if supported                                                                          |
+| `BREATHING_PERIOD`     | `6`           | The length of one backlight "breath" in seconds                                                                   |
+| `BACKLIGHT_ON_STATE`   | `1`           | The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low                             |
+| `BACKLIGHT_LIMIT_VAL ` | `255`         | The maximum duty cycle of the backlight -- `255` allows for full brightness, any lower will decrease the maximum. |
 
 Unless you are designing your own keyboard, you generally should not need to change the `BACKLIGHT_PIN` or `BACKLIGHT_ON_STATE`.
 
@@ -92,18 +93,18 @@ BACKLIGHT_DRIVER = pwm
 
 On AVR boards, QMK automatically decides which driver to use according to the following table:
 
-|Backlight Pin|AT90USB64/128|ATmega16/32U4|ATmega16/32U2|ATmega32A|ATmega328/P|
-|-------------|-------------|-------------|-------------|---------|-----------|
-|`B1`         |             |             |             |         |Timer 1    |
-|`B2`         |             |             |             |         |Timer 1    |
-|`B5`         |Timer 1      |Timer 1      |             |         |           |
-|`B6`         |Timer 1      |Timer 1      |             |         |           |
-|`B7`         |Timer 1      |Timer 1      |Timer 1      |         |           |
-|`C4`         |Timer 3      |             |             |         |           |
-|`C5`         |Timer 3      |             |Timer 1      |         |           |
-|`C6`         |Timer 3      |Timer 3      |Timer 1      |         |           |
-|`D4`         |             |             |             |Timer 1  |           |
-|`D5`         |             |             |             |Timer 1  |           |
+|Backlight Pin|AT90USB64/128|AT90USB162|ATmega16/32U4|ATmega16/32U2|ATmega32A|ATmega328/P|
+|-------------|-------------|----------|-------------|-------------|---------|-----------|
+|`B1`         |             |          |             |             |         |Timer 1    |
+|`B2`         |             |          |             |             |         |Timer 1    |
+|`B5`         |Timer 1      |          |Timer 1      |             |         |           |
+|`B6`         |Timer 1      |          |Timer 1      |             |         |           |
+|`B7`         |Timer 1      |Timer 1   |Timer 1      |Timer 1      |         |           |
+|`C4`         |Timer 3      |          |             |             |         |           |
+|`C5`         |Timer 3      |Timer 1   |             |Timer 1      |         |           |
+|`C6`         |Timer 3      |Timer 1   |Timer 3      |Timer 1      |         |           |
+|`D4`         |             |          |             |             |Timer 1  |           |
+|`D5`         |             |          |             |             |Timer 1  |           |
 
 All other pins will use timer-assisted software PWM:
 
@@ -159,8 +160,6 @@ See the ST datasheet for your particular MCU to determine these values. Unless y
 #### Caveats :id=arm-caveats
 
 Currently only hardware PWM is supported, not timer assisted, and does not provide automatic configuration.
-
-?> Backlight support for STM32F072 has had limited testing, so YMMV. If unsure, set `BACKLIGHT_ENABLE = no` in your `rules.mk`.
 
 ### Software PWM Driver :id=software-pwm-driver
 

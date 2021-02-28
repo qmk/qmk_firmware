@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0xABBA
 #define PRODUCT_ID      0x9696
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    Kumao Kobo
 #define PRODUCT         The Kudox Game Keyboard
-#define DESCRIPTION     Custom keyboard for playing game
 
 /* key matrix size */
 #define MATRIX_ROWS 5

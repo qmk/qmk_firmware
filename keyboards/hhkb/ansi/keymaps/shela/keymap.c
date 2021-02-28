@@ -315,7 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(r_inner);
                     r_long_pressed = true;
                 }
-                set_single_persistent_default_layer(_PSEUDO);
+                // set_single_persistent_default_layer(_PSEUDO);
             }
             return false;
         case TENKEY:
@@ -406,6 +406,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case PSE_FN:
+            if (record->event.pressed) {
+                if (l_pressed && !l_long_pressed) {
+                    register_code(l_inner);
+                    l_long_pressed = true;
+                }
+                if (r_pressed && !r_long_pressed) {
+                    register_code(r_inner);
+                    r_long_pressed = true;
+                }
+            }
             action_pseudo_process(record, base_layer, keymap_jis2us);
             return false;
         default:
@@ -423,7 +433,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT_SPFN:
             return SPFN_TAPPING_TERM;

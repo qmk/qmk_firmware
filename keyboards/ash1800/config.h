@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Hasyim Ashari
 #define PRODUCT ASH-1800
-#define DESCRIPTION An attempt to make a cherry g80/g81 clone
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -200,9 +199,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

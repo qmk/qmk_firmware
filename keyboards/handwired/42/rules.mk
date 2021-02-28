@@ -30,8 +30,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 AUDIO_ENABLE = no           # Audio output on port C6
-FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
 UNICODE_ENABLE = no         # Unicode
 UNICODEMAP_ENABLE = no      # ^^

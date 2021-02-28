@@ -133,11 +133,6 @@ void matrix_init_user(void) {
 }
 #endif
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  return MACRO_NONE;
-};
-
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);

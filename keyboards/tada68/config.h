@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    TADA
 #define PRODUCT         TADA68
-#define DESCRIPTION     QMK keyboard firmware for TADA68 with WS2812 support
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -50,6 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
 
 /* Backlight configuration */
 #define BACKLIGHT_PIN B6

@@ -88,7 +88,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // P     Q        R        S        T        U        V        W
     BE_P,    BE_Q,    BE_R,    BE_S,    BE_T,    BE_U,    BE_V,    BE_W,
     // X     Y        Z        [        \        ]        ^        _
-    BE_X,    BE_Y,    BE_Z,    BE_CIRC, BE_LABK, BE_DLR,  BE_SECT, BE_MINS,
+    BE_X,    BE_Y,    BE_Z,    BE_DCIR, BE_LABK, BE_DLR,  BE_SECT, BE_MINS,
     // `     a        b        c        d        e        f        g
     BE_MICR, BE_A,    BE_B,    BE_C,    BE_D,    BE_E,    BE_F,    BE_G,
     // h     i        j        k        l        m        n        o

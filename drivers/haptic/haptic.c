@@ -33,11 +33,18 @@ void haptic_init(void) {
         eeconfig_init();
     }
     haptic_config.raw = eeconfig_read_haptic();
-    if (haptic_config.mode < 1) {
-        haptic_config.mode = 1;
-    }
-    if (!haptic_config.mode) {
-        dprintf("No haptic config found in eeprom, setting default configs\n");
+#ifdef SOLENOID_ENABLE
+    solenoid_set_dwell(haptic_config.dwell);
+#endif
+    if ((haptic_config.raw == 0)
+#ifdef SOLENOID_ENABLE
+        || (haptic_config.dwell == 0)
+#endif
+    ) {
+        // this will be called, if the eeprom is not corrupt,
+        // but the previous firmware didn't have haptic enabled,
+        // or the previous firmware didn't have solenoid enabled,
+        // and the current one has solenoid enabled.
         haptic_reset();
     }
 #ifdef SOLENOID_ENABLE
@@ -118,25 +125,37 @@ void haptic_mode_decrease(void) {
 }
 
 void haptic_dwell_increase(void) {
-    uint8_t dwell = haptic_config.dwell + 1;
 #ifdef SOLENOID_ENABLE
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) + SOLENOID_DWELL_STEP_SIZE;
     if (haptic_config.dwell >= SOLENOID_MAX_DWELL) {
-        dwell = 1;
+        // if it's already at max, we wrap back to min
+        next_dwell = SOLENOID_MIN_DWELL;
+    } else if (next_dwell > SOLENOID_MAX_DWELL) {
+        // if we overshoot the max, then cap at max
+        next_dwell = SOLENOID_MAX_DWELL;
     }
-    solenoid_set_dwell(dwell);
+    solenoid_set_dwell(next_dwell);
+#else
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) + 1;
 #endif
-    haptic_set_dwell(dwell);
+    haptic_set_dwell(next_dwell);
 }
 
 void haptic_dwell_decrease(void) {
-    uint8_t dwell = haptic_config.dwell - 1;
 #ifdef SOLENOID_ENABLE
-    if (haptic_config.dwell < SOLENOID_MIN_DWELL) {
-        dwell = SOLENOID_MAX_DWELL;
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) - SOLENOID_DWELL_STEP_SIZE;
+    if (haptic_config.dwell <= SOLENOID_MIN_DWELL) {
+        // if it's already at min, we wrap to max
+        next_dwell = SOLENOID_MAX_DWELL;
+    } else if (next_dwell < SOLENOID_MIN_DWELL) {
+        // if we go below min, then we cap to min
+        next_dwell = SOLENOID_MIN_DWELL;
     }
-    solenoid_set_dwell(dwell);
+    solenoid_set_dwell(next_dwell);
+#else
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) - 1;
 #endif
-    haptic_set_dwell(dwell);
+    haptic_set_dwell(next_dwell);
 }
 
 void haptic_reset(void) {
@@ -150,6 +169,12 @@ void haptic_reset(void) {
 #ifdef SOLENOID_ENABLE
     uint8_t dwell       = SOLENOID_DEFAULT_DWELL;
     haptic_config.dwell = dwell;
+    haptic_config.buzz  = SOLENOID_DEFAULT_BUZZ;
+    solenoid_set_dwell(dwell);
+#else
+    // This is to trigger haptic_reset again, if solenoid is enabled in the future.
+    haptic_config.dwell = 0;
+    haptic_config.buzz  = 0;
 #endif
     eeconfig_update_haptic(haptic_config.raw);
     xprintf("haptic_config.feedback = %u\n", haptic_config.feedback);
