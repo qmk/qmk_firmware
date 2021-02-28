@@ -74,22 +74,29 @@ static void render_goblin_logo(void) {
 __attribute__((weak)) void oled_task_user(void) {
 	
 	render_goblin_logo();
+    
+    oled_set_cursor(0,11);
 	
 	switch (get_highest_layer(layer_state)) {
 		case 0:
-			oled_set_cursor(0,11);
-			oled_advance_char();
-			oled_write_P(PSTR("ONE\n"), false);
+			oled_write_P(PSTR(" ONE\n"), false);
 			break;
 		case 1:
-			oled_set_cursor(0,11);
-			oled_advance_char();
-			oled_write_P(PSTR("TWO\n"), false);
+			oled_write_P(PSTR(" TWO\n"), false);
 			break;
 		case 2:
-			oled_set_cursor(0,11);
 			oled_write_P(PSTR("THREE\n"), false);
 			break;
+		case 3:
+			oled_write_P(PSTR(" FOUR\n"), false);
+			break;
+		case 4:
+			oled_write_P(PSTR(" FIVE\n"), false);
+			break;
+		case 5:
+			oled_write_P(PSTR(" SIX\n"), false);
+			break;
+
 	}
 }
 #endif
