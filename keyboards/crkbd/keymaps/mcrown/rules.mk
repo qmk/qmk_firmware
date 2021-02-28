@@ -14,8 +14,7 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-#RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
-RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_ENABLE = yes     # Enable RGB Matrix. 
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 OLED_DRIVER_ENABLE = yes
 
@@ -28,6 +27,3 @@ SRC +=  ./lib/rgb_state_reader.c \
         ./lib/logo_reader.c \
         ./rgb.c\
         ./oled.c\
-        # ./lib/mode_icon_reader.c \
-        # ./lib/host_led_state_reader.c \
-        # ./lib/timelogger.c \
