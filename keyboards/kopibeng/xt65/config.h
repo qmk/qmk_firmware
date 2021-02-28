@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    kopibeng
 #define PRODUCT         XT65
-#define DESCRIPTION     kopibeng XT65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
