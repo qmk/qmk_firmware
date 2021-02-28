@@ -20,13 +20,13 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6761
-#define PRODUCT_ID      0x3432
+#define PRODUCT_ID      0x3332
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Stream Cheap
-#define PRODUCT         Console Keyboard
+#define PRODUCT         Console Keyboard 18
 /* key matrix size */
 #define MATRIX_ROWS 2
-#define MATRIX_COLS 12
+#define MATRIX_COLS 11
 
 /*
  * Keyboard Matrix Assignments
@@ -39,7 +39,7 @@
  *
  */
 #define MATRIX_ROW_PINS { D1, D0 }
-#define MATRIX_COL_PINS { D4, C6, D7, C4, B1, B3, B2, B6, C5, E6, B4, B5 }
+#define MATRIX_COL_PINS { D4, C6, D7, C4, B1, B3, B2, B6, C5, E6, B4 }
 
 #define DIODE_DIRECTION COL2ROW
 

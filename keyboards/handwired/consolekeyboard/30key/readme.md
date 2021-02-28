@@ -2,7 +2,7 @@
 
 [Console Keyboard](https://i.imgur.com/5aLT7CLl.jpeg)
 
-A 3d printed macro pad based on the Stream Cheap with  18,20,27,or 30 keys
+A 3d printed macro pad based on the Stream Cheap with  30 keys
 
 * Keyboard Maintainer: [Gareth Edwards](https://github.com/gazeddy)
 * Hardware Supported: Arduino Pro Micro
@@ -10,9 +10,6 @@ A 3d printed macro pad based on the Stream Cheap with  18,20,27,or 30 keys
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/consolekeyboard/18key:default
-    make handwired/consolekeyboard/20key:default
-    make handwired/consolekeyboard/27key:default
     make handwired/consolekeyboard/30key:default
     
 
