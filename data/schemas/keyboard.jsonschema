@@ -300,7 +300,7 @@
                 }
             }
         },
-        "qmk_dfu": {
+        "qmk_lufa_bootloader": {
             "type": "object",
             "additionalProperties": false,
             "properties": {

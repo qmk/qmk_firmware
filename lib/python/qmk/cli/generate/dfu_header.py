@@ -34,14 +34,14 @@ def generate_dfu_header(cli):
     keyboard_h_lines.append(f'#define PRODUCT {cli.config.generate_dfu_header.keyboard} Bootloader')
 
     # Optional
-    if 'qmk_dfu.esc_output' in kb_info_json:
-        keyboard_h_lines.append(f'#define QMK_ESC_OUTPUT {kb_info_json["qmk_dfu.esc_output"]}')
-    if 'qmk_dfu.esc_input' in kb_info_json:
-        keyboard_h_lines.append(f'#define QMK_ESC_INPUT {kb_info_json["qmk_dfu.esc_input"]}')
-    if 'qmk_dfu.led' in kb_info_json:
-        keyboard_h_lines.append(f'#define QMK_LED {kb_info_json["qmk_dfu.led"]}')
-    if 'qmk_dfu.speaker' in kb_info_json:
-        keyboard_h_lines.append(f'#define QMK_SPEAKER {kb_info_json["qmk_dfu.speaker"]}')
+    if 'qmk_lufa_bootloader.esc_output' in kb_info_json:
+        keyboard_h_lines.append(f'#define QMK_ESC_OUTPUT {kb_info_json["qmk_lufa_bootloader.esc_output"]}')
+    if 'qmk_lufa_bootloader.esc_input' in kb_info_json:
+        keyboard_h_lines.append(f'#define QMK_ESC_INPUT {kb_info_json["qmk_lufa_bootloader.esc_input"]}')
+    if 'qmk_lufa_bootloader.led' in kb_info_json:
+        keyboard_h_lines.append(f'#define QMK_LED {kb_info_json["qmk_lufa_bootloader.led"]}')
+    if 'qmk_lufa_bootloader.speaker' in kb_info_json:
+        keyboard_h_lines.append(f'#define QMK_SPEAKER {kb_info_json["qmk_lufa_bootloader.speaker"]}')
 
     # Show the results
     keyboard_h = '\n'.join(keyboard_h_lines)
