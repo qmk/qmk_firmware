@@ -223,11 +223,10 @@ VALID_LED_MATRIX_TYPES := IS31FL3731 custom
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
-        $(error LED_MATRIX_DRIVER="$(LED_MATRIX_DRIVER)" is not a valid matrix type)
+        $(error "$(LED_MATRIX_DRIVER)" is not a valid matrix type)
     else
-        BACKLIGHT_ENABLE = yes
-        BACKLIGHT_DRIVER = custom
         OPT_DEFS += -DLED_MATRIX_ENABLE
+        SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
         SRC += $(QUANTUM_DIR)/led_matrix.c
         SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
     endif

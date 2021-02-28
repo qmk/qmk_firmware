@@ -30,11 +30,11 @@
 #include "keymap.h"
 
 #ifdef BACKLIGHT_ENABLE
-#    ifdef LED_MATRIX_ENABLE
-#        include "led_matrix.h"
-#    else
-#        include "backlight.h"
-#    endif
+#    include "backlight.h"
+#endif
+
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
@@ -98,7 +98,7 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
-#ifdef BACKLIGHT_ENABLE
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
 #    include "process_backlight.h"
 #endif
 

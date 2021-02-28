@@ -21,10 +21,6 @@
 
 #include "led_matrix_types.h"
 
-#ifndef BACKLIGHT_ENABLE
-#    error You must define BACKLIGHT_ENABLE with LED_MATRIX_ENABLE
-#endif
-
 enum led_matrix_effects {
     LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
     // All new effects go above this line
