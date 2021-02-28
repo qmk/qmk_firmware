@@ -131,7 +131,7 @@ void led_matrix_set_suspend_state(bool state) { g_suspend_state = state; }
 void led_matrix_all_off(void) { led_matrix_set_index_value_all(0); }
 
 // Uniform brightness
-void led_matrix_uniform_brightness(void) { led_matrix_set_index_value_all(LED_MATRIX_MAXIMUM_BRIGHTNESS * led_matrix_eeconfig.val); }
+void led_matrix_uniform_brightness(void) { led_matrix_set_index_value_all(led_matrix_eeconfig.val); }
 
 void led_matrix_custom(void) {}
 
