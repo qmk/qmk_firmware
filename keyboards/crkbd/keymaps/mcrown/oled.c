@@ -237,12 +237,8 @@ void add_keylog(uint16_t keycode)
     if(current_cursor_pos>(KEYLOG_LEN-2))
     {
         current_cursor_pos=0;
-        memset(keylog_str, '*', sizeof(char)*KEYLOG_LEN);
-        keylog_str[KEYLOG_LEN-1] = '\0';
-        oled_write(keylog_str, FALSE);
         last_c=ascii_t[GET_ASCII_IDX(keycode)];
         current_cursor_pos++;
-        keylog_str[1] = '\0';
     }
     else
     {
@@ -277,8 +273,15 @@ void render_keylogger_status(void)
         cursor_oled_timer = timer_read32();
         cursor_f=TOGGLE_BOOL_VAR(cursor_f);
     }
-
     oled_write_P(PSTR("\n>:"), FALSE);
+    if(current_cursor_pos>(KEYLOG_LEN-2))
+    {
+        current_cursor_pos=0;
+        memset(keylog_str, ' ', sizeof(char)*KEYLOG_LEN);
+        keylog_str[KEYLOG_LEN-1] = '\0';
+        oled_write(keylog_str, FALSE);
+        keylog_str[0] = '\0';
+    }
     oled_write(keylog_str, FALSE);
     oled_write_char(last_c, cursor_f);
 
