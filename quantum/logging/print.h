@@ -35,9 +35,9 @@ void print_set_sendchar(sendchar_func_t func);
 #    if __has_include_next("_print.h")
 #        include_next "_print.h" /* Include the platforms print.h */
 #    else
-#        include "lib_printf.h" /* Fall back to lib/printf */
+#        include "lib_printf.h" /* Fall back to the lib/printf integration */
 #    endif
-#else      /* NO_PRINT */
+#else /* NO_PRINT */
 #    undef xprintf
 // Remove print defines
 #    define print(s)
@@ -46,7 +46,6 @@ void print_set_sendchar(sendchar_func_t func);
 #    define uprintf(fmt, ...)
 #    define uprint(s)
 #    define uprintln(s)
-
 #endif /* NO_PRINT */
 
 #ifdef USER_PRINT

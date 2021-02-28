@@ -18,6 +18,8 @@ SERIAL_PATH := $(QUANTUM_PATH)/serial_link
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/bitwise.c \
+    $(QUANTUM_DIR)/logging/debug.c \
+    $(QUANTUM_DIR)/logging/sendchar.c \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
@@ -27,6 +29,17 @@ ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     CONSOLE_ENABLE = yes
 else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
+endif
+
+COMMON_VPATH += $(QUANTUM_DIR)/logging
+PRINT_BACKEND ?= no
+ifeq ($(strip $(CONSOLE_ENABLE)), yes)
+    PRINT_BACKEND = console
+endif
+
+ifeq ($(strip $(PRINT_BACKEND)), no)
+    OPT_DEFS += -DNO_PRINT
+    OPT_DEFS += -DNO_DEBUG
 endif
 
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
