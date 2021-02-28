@@ -28,7 +28,7 @@
 #elif defined(EEPROM_EMU_STM32F042x6)
 #    define STM32F042x6
 #    include "stm32f0xx.h"
-#elif defined(EEPROM_EMU_STM32L433xC)
+#elif defined(EEPROM_EMU_STM32L433xC) || defined(EEPROM_EMU_STM32L433xB)
 #    define STM32L433xx
 #    include "stm32l4xx.h"
 #else
@@ -39,7 +39,7 @@
 
 #if defined(EEPROM_EMU_STM32F103xB)
 #    define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
-#elif defined(EEPROM_EMU_STM32L433xC)
+#elif defined(EEPROM_EMU_STM32L433xC) || defined(EEPROM_EMU_STM32L433xB)
 #    define FLASH_SR_PGERR FLASH_SR_PROGERR
 #    define FLASH_OBR_OPTERR FLASH_SR_OPTVERR
 #    define FLASH_KEY1 0x45670123U
@@ -119,7 +119,7 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address) {
     if (status == FLASH_COMPLETE) {
         /* if the previous operation is completed, proceed to erase the page */
         FLASH->CR |= FLASH_CR_PER;
-#       if !defined(EEPROM_EMU_STM32L433xC)
+#       if !defined(EEPROM_EMU_STM32L433xC) || !defined(EEPROM_EMU_STM32L433xB)
         FLASH->AR = Page_Address;
 #       else
         FLASH->CR &= ~(((1 << 8) - 1) << 3);

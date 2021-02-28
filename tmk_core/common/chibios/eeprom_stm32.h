@@ -49,7 +49,7 @@
 #    if defined(MCU_STM32F103RB) || defined(MCU_STM32F042K6)
 #        define FEE_PAGE_SIZE (uint16_t)0x400  // Page size = 1KByte
 #        define FEE_DENSITY_PAGES 2            // How many pages are used
-#    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB) || defined(MCU_STM32L433CC)
+#    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB) || defined(MCU_STM32L433CC) || defined(MCU_STM32L433CB)
 #        define FEE_PAGE_SIZE (uint16_t)0x800  // Page size = 2KByte
 #        define FEE_DENSITY_PAGES 4            // How many pages are used
 #    else
