@@ -280,7 +280,7 @@ void render_keylogger_status(void)
         memset(keylog_str, ' ', sizeof(char)*KEYLOG_LEN);
         keylog_str[KEYLOG_LEN-1] = '\0';
         oled_write(keylog_str, FALSE);
-        keylog_str[0] = '\0';
+        keylog_str[1] = '\0';
     }
     oled_write(keylog_str, FALSE);
     oled_write_char(last_c, cursor_f);
