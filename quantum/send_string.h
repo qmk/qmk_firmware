@@ -17,6 +17,7 @@
 #include <stdint.h>
 
 #include "progmem.h"
+#include "send_string_keycodes.h"
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)

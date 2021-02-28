@@ -19,7 +19,6 @@
 #include "quantum.h"
 
 #include "send_string.h"
-#include "send_string_keycodes.h"
 
 // clang-format off
 
