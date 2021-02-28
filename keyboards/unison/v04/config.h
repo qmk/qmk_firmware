@@ -48,8 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B6_AUDIO
-  #define C6_AUDIO
   #define AUDIO_PIN C6
   #define AUDIO_PIN_ALT B6
   #define AUDIO_CLICKY
