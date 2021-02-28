@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    doodboard
 #define PRODUCT         duckboard
-#define DESCRIPTION     21 key numpad with rotary encoder and OLED support
 
 /* key matrix size */
 #define MATRIX_ROWS 5
