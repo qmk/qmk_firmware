@@ -39,7 +39,7 @@ You can still reach them as normal through your other Base layer.
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Numpad single](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_numpad_single_2000_vh.jpg)
+![Minivan illustration Overview layers by key, Numpad single](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_numpad_single_2000_vi.jpg)
 
 
 Layers (text)
@@ -112,7 +112,7 @@ You can still reach them as normal through your other Base layer.
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Numpad double](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_numpad_double_2000_vh.jpg)
+![Minivan illustration Overview layers by key, Numpad double](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_numpad_double_2000_vi.jpg)
 
 
 Layers (text)
