@@ -1,6 +1,6 @@
 # XT65
 
-![XT65](https://imgur.com/a/nBCVAhd)
+![XT65](https://i.imgur.com/extkBr1.png)
 
 A 65% PCB with support for VIA, LED backlight and RGB underglow.
 
