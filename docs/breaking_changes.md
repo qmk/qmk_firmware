@@ -41,34 +41,36 @@ Criteria for acceptance:
 
 This section documents various processes we use when running the Breaking Changes process.
 
-## Creating the `develop` branch
+## Merging the `develop` branch
 
-This happens immediately after the previous `develop` branch is merged.
-
-* `qmk_firmware` git commands
-    * [ ] `git checkout master`
-    * [ ] `git pull --ff-only`
-    * [ ] `git checkout -b develop`
-    * [ ] Edit `readme.md`
-        * [ ] Add a big notice at the top that this is a testing branch.
-        * [ ] Include a link to this document
-    * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
-    * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
-    * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
-    * [ ] `git push origin develop`
-    * [ ] `git push --tags`
+This describes the timeline for the merge sequence of `develop` into `master`. A staging branch is used in order to prevent invalidation of open PRs against `develop` that aren't intended to be merged during this merge cycle.
 
 ## 4 Weeks Before Merge
 
 * `develop` is now closed to new PR's, only fixes for current PR's may be merged
+* `qmk_firmware` git commands to create `develop-staging` branch
+    * [ ] `git checkout develop`
+    * [ ] `git pull --ff-only`
+    * [ ] `git checkout -b develop-staging`
+    * [ ] `git push origin develop-staging`
 * Post call for testers
     * [ ] Discord
     * [ ] GitHub PR
     * [ ] https://reddit.com/r/olkb
 
+## Periodic
+
+* Re-sync `develop-staging` with `develop`
+    * [ ] `git checkout develop`
+    * [ ] `git pull --ff-only`
+    * [ ] `git checkout develop-staging`
+    * [ ] `git rebase develop` # Allows for changelog etc. to be maintainede after resync
+    * [ ] `git push origin develop-staging`
+
 ## 1 Week Before Merge
 
 * Announce that master will be closed from <2 Days Before> to <Day of Merge>
+    * [ ] Resync `develop-staging` with `develop`
     * [ ] Discord
     * [ ] GitHub PR
     * [ ] https://reddit.com/r/olkb
@@ -76,6 +78,7 @@ This happens immediately after the previous `develop` branch is merged.
 ## 2 Days Before Merge
 
 * Announce that master is closed for 2 days
+    * [ ] Resync `develop-staging` with `develop`
     * [ ] Discord
     * [ ] GitHub PR
     * [ ] https://reddit.com/r/olkb
@@ -83,15 +86,19 @@ This happens immediately after the previous `develop` branch is merged.
 ## Day Of Merge
 
 * `qmk_firmware` git commands
-    * [ ] `git checkout develop`
-    * [ ] `git pull --ff-only`
-    * [ ] `git rebase origin/master`
+    * [ ] Resync `develop-staging` with `develop`
+    * [ ] Tag new version of `develop`
+        * [ ] `git checkout develop`
+        * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
+        * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
+    * [ ] `git checkout develop-staging`
     * [ ] Edit `readme.md`
         * [ ] Remove the notes about `develop`
     * [ ] Roll up the ChangeLog into one file.
     * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
-    * [ ] `git push origin develop`
+    * [ ] `git push origin develop-staging`
+    * [ ] `git push --tags`
 * GitHub Actions
-    * [ ] Create a PR for `develop`
+    * [ ] Create a PR with `develop-staging` as base
     * [ ] Make sure travis comes back clean
-    * [ ] Merge `develop` PR
+    * [ ] Merge `develop-staging` PR
