@@ -435,7 +435,7 @@ ifneq ($(findstring STM32G474, $(MCU)),)
   UF2_FAMILY ?= STM32G4
 endif
 
-ifneq ($(findstring STM32L433xB, $(MCU)),)
+ifneq ($(findstring STM32L433, $(MCU)),)
   # Cortex version
   MCU = cortex-m4
 
@@ -451,7 +451,7 @@ ifneq ($(findstring STM32L433xB, $(MCU)),)
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
-  MCU_LDSCRIPT ?= STM32L432xB
+  MCU_LDSCRIPT ?= STM32L432xC
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
@@ -459,7 +459,7 @@ ifneq ($(findstring STM32L433xB, $(MCU)),)
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= GENERIC_STM32_L433xB
+  BOARD ?= GENERIC_STM32_L433XC
 
   PLATFORM_NAME ?= platform_l432
 
