@@ -23,7 +23,8 @@
  */
 #pragma once
 
-#include "avr/xprintf.h"
+#include "xprintf.h"
+#include "progmem.h"
 
 // Create user & normal print defines
 #define print(s) xputs(PSTR(s))

@@ -14,10 +14,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "uart.h"
-#include "sendchar.h"
+#pragma once
 
-int8_t sendchar(uint8_t c) {
-    uart_putchar(c);
-    return 0;
-}
+#include "printf.h"  // lib/printf/printf.h
+
+// Create user & normal print defines
+#define print(s) printf(s)
+#define println(s) printf(s "\r\n")
+#define xprintf printf
+#define uprint(s) printf(s)
+#define uprintln(s) printf(s "\r\n")
+#define uprintf printf
