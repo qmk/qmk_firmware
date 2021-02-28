@@ -18,7 +18,7 @@ def generate_dfu_header(cli):
     """
     # Determine our keyboard(s)
     if not cli.config.generate_dfu_header.keyboard:
-        cli.log.error('Missing paramater: --keyboard')
+        cli.log.error('Missing parameter: --keyboard')
         cli.subcommands['info'].print_help()
         return False
 
